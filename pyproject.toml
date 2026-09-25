@@ -1,0 +1,107 @@
+[project]
+name = "preprint-radar"
+version = "0.1.0"
+description = "Collect and organize arXiv papers to support literature reviews."
+readme = "README.md"
+authors = [
+    { name = "Titouan Le Gourrierec", email = "titouanlegourrierec@kaist.ac.kr" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "beautifulsoup4>=4.15.0",
+    "defusedxml>=0.7.1",
+    "httpx>=0.28.1",
+]
+
+[project.scripts]
+preprint-radar = "preprint_radar.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.12.19,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "actionlint-py>=1.7.12.25",
+    "pre-commit>=4.6.2",
+    "pytest>=9.1.1",
+    "pytest-cov>=7.1.0",
+    "ruff>=0.16.9",
+    "ty>=0.0.84",
+    "types-defusedxml>=0.7.0.20260504",
+]
+
+# --------------------------------------------------------------------------- #
+# Ruff                                                                         #
+# --------------------------------------------------------------------------- #
+[tool.ruff]
+line-length = 110
+target-version = "py313"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "COM812",  # trailing commas are handled by the formatter
+    "CPY001",  # no copyright header in every file
+    "D105",    # magic methods are self-explanatory
+    "EM101",   # allow string literals in exceptions...
+    "EM102",   # ...and f-strings
+    "TRY003",  # long exception messages are fine
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = [
+    "D",        # no docstrings required in tests
+    "INP001",   # tests are not a package
+    "PLR2004",  # magic values are expected in assertions
+    "S101",     # assert is how pytest works
+]
+
+[tool.ruff.lint.pylint]
+max-args = 8  # keyword-only options with defaults are fine
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.isort]
+known-first-party = ["preprint_radar"]
+
+[tool.ruff.format]
+docstring-code-format = true
+
+# --------------------------------------------------------------------------- #
+# ty                                                                           #
+# --------------------------------------------------------------------------- #
+[tool.ty.src]
+include = ["src", "tests"]
+
+[tool.ty.terminal]
+error-on-warning = true
+
+# --------------------------------------------------------------------------- #
+# pytest & coverage                                                            #
+# --------------------------------------------------------------------------- #
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = [
+    "--import-mode=importlib",
+    "--strict-config",
+    "--strict-markers",
+    "-ra",
+    "-m", "not network",
+]
+markers = [
+    "network: tests hitting the real arxiv.org (run with `pytest -m network`)",
+]
+
+[tool.coverage.run]
+source = ["preprint_radar"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+exclude_also = [
+    "if __name__ == .__main__.:",
+]
