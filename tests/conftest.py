@@ -1,0 +1,36 @@
+from collections.abc import Callable
+from pathlib import Path
+
+import pytest
+
+from preprint_radar.listing import parse_listing
+from preprint_radar.models import Listing
+
+FIXTURES_DIR = Path(__file__).parent / "fixtures"
+
+
+@pytest.fixture(scope="session")
+def listing_html() -> str:
+    """Trimmed copy of https://arxiv.org/list/cs.CV/recent (7 entries over 2 days)."""
+    return (FIXTURES_DIR / "listing_cs_cv.html").read_text(encoding="utf-8")
+
+
+@pytest.fixture(scope="session")
+def listing(listing_html: str) -> Listing:
+    return parse_listing(listing_html)
+
+
+@pytest.fixture(scope="session")
+def api_feed() -> str:
+    """arXiv API response with a plain entry, an entry with affiliations and an error entry."""
+    return (FIXTURES_DIR / "api_feed.xml").read_text(encoding="utf-8")
+
+
+@pytest.fixture(scope="session")
+def paper_html() -> Callable[[str], str]:
+    """Front matter of real arXiv HTML renderings (e-mails replaced by placeholders)."""
+
+    def load(arxiv_id: str) -> str:
+        return (FIXTURES_DIR / "html" / f"{arxiv_id}.html").read_text(encoding="utf-8")
+
+    return load

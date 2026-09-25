@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<rss xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
+  <channel>
+    <title>cs.CV updates on arXiv.org</title>
+    <link>http://rss.arxiv.org/rss/cs.CV</link>
+    <description>cs.CV updates on the arXiv.org e-print archive.</description>
+    <atom:link href="http://rss.arxiv.org/rss/cs.CV" rel="self" type="application/rss+xml"/>
+    <docs>http://www.rssboard.org/rss-specification</docs>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 25 Sep 2026 04:00:01 +0000</lastBuildDate>
+    <managingEditor>rss-help@arxiv.org</managingEditor>
+    <pubDate>Fri, 25 Sep 2026 00:00:00 -0400</pubDate>
+    <skipDays>
+      <day>Saturday</day>
+      <day>Sunday</day>
+    </skipDays>
+    <item>
+      <title>$\unicode{x1F493}$Heartian: Physiology-Aware Relightable Gaussian Head Avatar</title>
+      <link>https://arxiv.org/abs/2609.28539</link>
+      <description>arXiv:2609.28539v1 Announce Type: new 
+Abstract: Gaussian head avatars typically model intrinsic facial appearance as temporally static, omitting subtle cardiac-induced skin-color variation. We propose $\unicode{x1F493}$Heartian, a physiology-aware modulation framework that learns cardiac-cycle-dependent per-frame albedo modulation of facial skin-region Gaussians within a relightable head avatar to encode remote photoplethysmography (rPPG) signals. Using synchronized contact PPG supervision, $\unicode{x1F493}$Heartian models the prescribed cardiac waveform as the sum of two Gaussian functions and learns per-frame spatial residuals via a lightweight MLP. Across 152 stationary recordings from UBFC-rPPG, PURE, and MMPD, attribute-space recovery of the supplied signal achieves a pooled recording-level heart-rate MAE of 0.29 bpm and MAPE of 0.38%. The signals remain detectable after rendering by benchmark rPPG methods, with the best tested configuration - a motion-augmented TS-CAN decoder pretrained on UBFC-rPPG - recovering heart rate from the rendered MMPD avatars at 0.97 bpm MAE and 1.21% MAPE. Meanwhile, $\unicode{x1F493}$Heartian maintains reconstruction quality comparable to the baseline, with negligible average PSNR degradation of 0.005 dB. Overall, our work embeds recoverable rPPG signals as controllable material attributes to subject-specific Gaussian head avatars while retaining the reconstruction quality.</description>
+      <guid isPermaLink="false">oai:arXiv.org:2609.28539v1</guid>
+      <category>cs.CV</category>
+      <category>cs.GR</category>
+      <pubDate>Fri, 25 Sep 2026 00:00:00 -0400</pubDate>
+      <arxiv:announce_type>new</arxiv:announce_type>
+      <dc:rights>http://creativecommons.org/licenses/by/4.0/</dc:rights>
+      <arxiv:DOI>10.1145/3829339.3847838</arxiv:DOI>
+      <dc:creator>Xiaoyue Fan, Jose Echevarria, Akshay Paruchuri, Kaan Ak\c{s}it</dc:creator>
+    </item>
+    <item>
+      <title>A Vision-Language Framework for Measuring Social Life on Sidewalks</title>
+      <link>https://arxiv.org/abs/2609.28476</link>
+      <description>arXiv:2609.28476v1 Announce Type: cross 
+Abstract: While a number of methods exist for counting pedestrians in street-view imagery, these mostly ignore the social dimensions of pedestrian activity. A street traversed by a high volume of pedestrians has the same headcount as a street where people linger, sit, and socialize. This paper presents a vision-language framework for extracting social indicators from street-level imagery. Panoramic street-level imagery is reprojected to sidewalk-facing sideviews with preserved timestamps. A vision-language model (VLM)-based activity detection system codes each person across ten independent observable dimensions, resolving a systematic failure mode in which models prompted with high-level social categories conflate observable states with contextual inferences. The resulting social indicator system produces a Social Dwelling Index (SDI) that jointly considers pedestrian grouping and dwelling, provides activity labels documenting behavioral diversity, and issues binary flags for the presence of accessibility-sensitive populations. We apply the framework to 102,514 sideviews in New York City, revealing that pedestrian volume and SDI are only weakly associated (r = 0.168): streets with the highest foot traffic are not where social activity is most intense. The framework provides a scalable method for measuring not only how many people are on city sidewalks, but also their grouping, posture, and activity type, summarizing the non-transient activities that occur on city sidewalks.</description>
+      <guid isPermaLink="false">oai:arXiv.org:2609.28476v1</guid>
+      <category>cs.CY</category>
+      <category>cs.CV</category>
+      <pubDate>Fri, 25 Sep 2026 00:00:00 -0400</pubDate>
+      <arxiv:announce_type>cross</arxiv:announce_type>
+      <dc:rights>http://creativecommons.org/licenses/by-nc-nd/4.0/</dc:rights>
+      <dc:creator>Liu Liu, Andres Sevtsuk</dc:creator>
+    </item>
+    <item>
+      <title>CatSIM: A Categorical Image Similarity Metric</title>
+      <link>https://arxiv.org/abs/2004.09073</link>
+      <description>arXiv:2004.09073v2 Announce Type: replace 
+Abstract: We introduce CatSIM, a new similarity metric for binary and multinary two- and three-dimensional images and volumes. CatSIM uses a structural similarity image quality paradigm and is robust to small perturbations in location so that structures in similar, but not entirely overlapping, image or volumetric regions are rated higher than by simple matching. The metric can also compare arbitrary regions inside images and volumes. CatSIM is evaluated on artificial data sets, validated by comparing with human perception in two separate image quality assessment surveys, and illustrated on two datasets. The publicly available R package \texttt{catsim} implements the methodology.</description>
+      <guid isPermaLink="false">oai:arXiv.org:2004.09073v2</guid>
+      <category>cs.CV</category>
+      <category>cs.LG</category>
+      <category>eess.IV</category>
+      <category>stat.ML</category>
+      <pubDate>Fri, 25 Sep 2026 00:00:00 -0400</pubDate>
+      <arxiv:announce_type>replace</arxiv:announce_type>
+      <dc:rights>http://arxiv.org/licenses/nonexclusive-distrib/1.0/</dc:rights>
+      <dc:creator>Geoffrey Z. Thompson, Ranjan Maitra</dc:creator>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,126 @@
+import httpx
+import pytest
+
+from preprint_radar.exceptions import FetchError, NotFoundError
+from preprint_radar.http import DEFAULT_USER_AGENT, HttpClient, RateLimiter, build_user_agent
+
+
+class FakeClock:
+    def __init__(self) -> None:
+        self.now = 100.0
+        self.sleeps: list[float] = []
+
+    def time(self) -> float:
+        return self.now
+
+    def sleep(self, seconds: float) -> None:
+        self.sleeps.append(seconds)
+        self.now += seconds
+
+
+def test_get_text_sends_params_and_user_agent() -> None:
+    requests: list[httpx.Request] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        requests.append(request)
+        return httpx.Response(200, text="hello")
+
+    with HttpClient(transport=httpx.MockTransport(handler)) as client:
+        assert client.get_text("https://arxiv.org/list/cs.CV/recent", params={"show": 10}) == "hello"
+
+    [request] = requests
+    assert request.url.params["show"] == "10"
+    assert request.headers["User-Agent"] == DEFAULT_USER_AGENT
+    # export.arxiv.org rejects httpx's default header order (User-Agent last).
+    names = [name.lower() for name, _ in request.headers.raw]
+    assert names.index(b"user-agent") < names.index(b"accept")
+
+
+def test_404_raises_not_found() -> None:
+    transport = httpx.MockTransport(lambda _: httpx.Response(404))
+    with HttpClient(transport=transport) as client, pytest.raises(NotFoundError):
+        client.get_text("https://arxiv.org/html/0000.00000")
+
+
+def test_client_errors_are_not_retried() -> None:
+    calls: list[httpx.Request] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        calls.append(request)
+        return httpx.Response(400)
+
+    with HttpClient(transport=httpx.MockTransport(handler)) as client, pytest.raises(FetchError, match="400"):
+        client.get_text("https://arxiv.org/")
+    assert len(calls) == 1
+
+
+def test_transient_errors_are_retried_with_backoff() -> None:
+    responses = iter([httpx.Response(429), httpx.Response(503), httpx.Response(200, text="finally")])
+    sleeps: list[float] = []
+    transport = httpx.MockTransport(lambda _: next(responses))
+
+    with HttpClient(transport=transport, backoff=10.0, sleep=sleeps.append) as client:
+        assert client.get_text("https://export.arxiv.org/api/query") == "finally"
+    assert sleeps == [10.0, 20.0]
+
+
+def test_retry_after_header_is_honored() -> None:
+    responses = iter([httpx.Response(429, headers={"Retry-After": "42"}), httpx.Response(200)])
+    sleeps: list[float] = []
+    transport = httpx.MockTransport(lambda _: next(responses))
+
+    with HttpClient(transport=transport, sleep=sleeps.append) as client:
+        client.get_text("https://arxiv.org/")
+    assert sleeps == [42.0]
+
+
+def test_gives_up_after_max_attempts() -> None:
+    sleeps: list[float] = []
+    transport = httpx.MockTransport(lambda _: httpx.Response(503))
+
+    with (
+        HttpClient(transport=transport, max_attempts=3, sleep=sleeps.append) as client,
+        pytest.raises(FetchError, match="503"),
+    ):
+        client.get_text("https://arxiv.org/")
+    assert len(sleeps) == 2
+
+
+def test_network_errors_raise_fetch_error() -> None:
+    def handler(request: httpx.Request) -> httpx.Response:
+        raise httpx.ConnectError("boom", request=request)
+
+    with (
+        HttpClient(transport=httpx.MockTransport(handler)) as client,
+        pytest.raises(FetchError, match="boom"),
+    ):
+        client.get_text("https://arxiv.org/")
+
+
+def test_rate_limiter_spaces_calls() -> None:
+    clock = FakeClock()
+    limiter = RateLimiter(15.0, clock=clock.time, sleep=clock.sleep)
+
+    limiter.wait()  # first call is immediate
+    clock.now += 5.0
+    limiter.wait()  # 10 s left to wait
+    limiter.wait()  # full interval
+
+    assert clock.sleeps == [10.0, 15.0]
+
+
+def test_client_uses_rate_limiter() -> None:
+    clock = FakeClock()
+    limiter = RateLimiter(3.0, clock=clock.time, sleep=clock.sleep)
+    transport = httpx.MockTransport(lambda _: httpx.Response(200))
+
+    with HttpClient(transport=transport, rate_limiter=limiter) as client:
+        client.get_text("https://arxiv.org/")
+        client.get_text("https://arxiv.org/")
+
+    assert clock.sleeps == [3.0]
+
+
+def test_build_user_agent() -> None:
+    assert build_user_agent() == DEFAULT_USER_AGENT
+    assert build_user_agent("me@example.org") == f"{DEFAULT_USER_AGENT} (me@example.org)"

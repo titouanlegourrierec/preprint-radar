@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><title>arXiv:2609.23431</title></head>
+<body>
+<article class="ltx_document">
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Junwen Chen
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Keiji Yanai
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Department of Informatics, The University of Electro-Communications, Tokyo, Japan
+</span>
+<span class="ltx_contact ltx_role_email"><span class="ltx_contact_name">Email: </span><a href="mailto:"><span id="id1" class="ltx_text ltx_font_typewriter">{chen-j,yanai}@mm.inf.uec.ac.jp</span></a>
+</span></span></span></span></div>
+<div id="abstract1" class="ltx_abstract"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+    
+<p id="abstract1.1" class="ltx_p">Human-object interaction (HOI) detection requires grounding an interacting human-object pair and recognizing the verb that links them, often under severe long-tail supervision. Recent methods improve accuracy with stronger detectors and vision-language priors, but many still stack heavy transformer encoders, intricate denoising schedules, or post-hoc semantic calibration on top of the detector. We present <span id="abstract1.1.1" class="ltx_text ltx_font_bold">HOIBlender</span>, an efficient HOI detector named after its core design principle: blending detector-grounded visual tokens, spatial subject-object reasoning, and BLIP-2 semantic priors inside one lightweight decoding pipeline. HOIBlender builds on an RF-DETR/LW-DETR-style foundation with a DINOv2 backbone and selects top-<math id="abstract1.m1" class="ltx_Math" alttext="K" display="inline" intent=":literal"><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math> image-conditioned tokens directly from the multi-scale projector as subject and object candidates, removing the dedicated encoder stage retained by prior HOI methods. A dual-stage decoder first stabilizes human-object geometry and then performs verb and HOI classification through progressive BLIP-2 prior fusion, with classifier weights initialized from BLIP-2 text embeddings for long-tail categories. Grouped-query training further enriches optimization without increasing inference cost. Across three model scales (Nano, Small, 2XL), HOIBlender consistently outperforms SOV-STG-VLA and Hybrid-SOV-VLA on HICO-DET, reaching <math id="abstract1.m2" class="ltx_Math" alttext="44.49" display="inline" intent=":literal"><semantics><mn>44.49</mn><annotation encoding="application/x-tex">44.49</annotation></semantics></math> Default Full mAP in only <math id="abstract1.m3" class="ltx_Math" alttext="9" display="inline" intent=":literal"><semantics><mn>9</mn><annotation encoding="application/x-tex">9</annotation></semantics></math> training epochs while maintaining competitive latency and parameter budgets. These results show that lightweight detection, structured spatial-semantic decoding, and deeply integrated vision-language priors can be blended into a single efficient HOI pipeline.</p>
+  
+</div>
+</article>
+</body>
+</html>

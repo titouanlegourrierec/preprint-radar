@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><title>arXiv:2609.24787</title></head>
+<body>
+<article class="ltx_document">
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Yuanwen Yue<sup id="id1" class="ltx_sup"><span id="id1.1" class="ltx_text ltx_font_italic">1,2</span></sup>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Stefano Puliti<sup id="id2" class="ltx_sup"><span id="id2.1" class="ltx_text ltx_font_italic">3</span></sup><span id="footnotex2" class="ltx_note ltx_role_footnote"><sup class="ltx_note_mark">2</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">2</sup>
+          <span class="ltx_tag ltx_tag_note">2</span>
+          
+          
+          
+          
+          
+          
+          
+        These authors contributed equally to this work.</span></span></span>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Damien Robert<sup id="id3" class="ltx_sup"><span id="id3.1" class="ltx_text ltx_font_italic">4</span></sup><span id="footnotex3" class="ltx_note ltx_role_footnotemark"><sup class="ltx_note_mark">2</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">2</sup><span class="ltx_note_type">footnotemark: </span>
+          <span class="ltx_tag ltx_tag_note">2</span>
+          
+          
+          
+          
+          
+          
+          
+        </span></span></span>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Atakan Topaloğlu<sup id="id4" class="ltx_sup"><span id="id4.1" class="ltx_text ltx_font_italic">1</span></sup>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Binbin Xiang<sup id="id5" class="ltx_sup"><span id="id5.1" class="ltx_text ltx_font_italic">3</span></sup>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Maciej Wielgosz<sup id="id6" class="ltx_sup"><span id="id6.1" class="ltx_text ltx_font_italic">3</span></sup>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Jan Dirk Wegner<sup id="id7" class="ltx_sup"><span id="id7.1" class="ltx_text ltx_font_italic">4</span></sup>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Rasmus Astrup<sup id="id8" class="ltx_sup"><span id="id8.1" class="ltx_text ltx_font_italic">3</span></sup>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Christian Rupprecht<sup id="id9" class="ltx_sup"><span id="id9.1" class="ltx_text ltx_font_italic">2</span></sup>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Konrad Schindler<sup id="id10" class="ltx_sup"><span id="id10.1" class="ltx_text ltx_font_italic">1</span></sup>
+
+<br class="ltx_break"> <sup id="id11" class="ltx_sup"><span id="id11.1" class="ltx_text ltx_font_italic" style="font-size:90%;">1</span></sup><span id="id12" class="ltx_text" style="font-size:90%;">ETH Zurich
+<br class="ltx_break"><sup id="id12.1" class="ltx_sup"><span id="id12.1.1" class="ltx_text ltx_font_italic">2</span></sup>University of Oxford
+<br class="ltx_break"><sup id="id12.2" class="ltx_sup"><span id="id12.2.1" class="ltx_text ltx_font_italic">3</span></sup>Norwegian Institute of Bioeconomy Research (NIBIO)
+<br class="ltx_break"><sup id="id12.3" class="ltx_sup"><span id="id12.3.1" class="ltx_text ltx_font_italic">4</span></sup>University of Zurich</span>
+</span></span></div>
+<div id="abstract1" class="ltx_abstract"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+    
+<p id="abstract1.1" class="ltx_p">Forest inventories increasingly rely on artificial intelligence (AI) models to derive forest attributes from large-scale 3D point clouds.
+Current models are typically specialized to a single task, sensor, and forest type, making adaptation expensive in terms of annotations, computation, and expertise.
+We ask whether a single pretrained model can instead learn transferable representations across diverse forest inventory settings.
+Inspired by recent developments in language modelling and computer vision, we take a step toward a <span id="abstract1.1.1" class="ltx_text ltx_font_italic">foundation model</span> (FM) for 3D forestry.
+Using LitePT as backbone, we first establish a strong supervised baseline that sets a new state of the art on forest semantic and instance segmentation, tree species classification, and age regression benchmarks.
+We then curate a large-scale unlabelled corpus spanning airborne, UAV, and mobile laser scanning across diverse forest ecosystems, and pretrain the same backbone using self-supervised learning.
+We systematically evaluate representation learning strategies by comparing training from scratch, supervised pretraining, and self-supervised pretraining across four representative forestry tasks, under varying annotation budgets.
+Compared with training from scratch, self-supervised pretraining accelerates model convergence and consistently improves performance when annotations are scarce.
+Compared with task-specific supervised pretraining, self-supervised pretraining yields more transferable representations across downstream forestry tasks.
+These findings identify the practical regime in which pretrained representations are most valuable and suggest that instance discrimination, rather than forest semantics, is the main remaining obstacle to a general-purpose 3D forest foundation model.
+Code and models are available at: <a href="https://github.com/prs-eth/ForPT" title="" class="ltx_ref ltx_href">https://github.com/prs-eth/ForPT</a>.</p>
+  
+</div>
+</article>
+</body>
+</html>

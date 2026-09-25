@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/m2H1U2fwuq9Wea2EVjNG/ywJU98</id>
+  <title>arXiv Query: search_query=&amp;id_list=2609.30245,2609.30234,2609.30223,2609.30222,2609.30221,2609.30210,2609.30187,2609.30130,2609.30107,2609.30096,2609.30080,2609.30043,2609.30037,2609.30026,2609.29999,2609.29985,2609.29963,2609.29959,2609.29940,2609.29934,2609.29930,2609.29864,2609.29863,2609.29836,2609.29835,2609.29825,2609.29816,2609.29813,2609.29788,2609.29785,2609.29779,2609.29726,2609.29721,2609.29717,2609.29678,2609.29663,2609.29650,2609.29648,2609.29638,2609.29621,2609.29607,2609.29604,2609.29592,2609.29591,2609.29581,2609.29555,2609.29553,2609.29550,2609.29541,2609.29527,2609.29517,2609.29460,2609.29457,2609.29456,2609.29447,2609.29443,2609.29433,2609.29387,2609.29384,2609.29376,2609.29373,2609.29358,2609.29350,2609.29347,2609.29334,2609.29329,2609.29292,2609.29256,2609.29252,2609.29240,2609.29235,2609.29225,2609.29224,2609.29193,2609.29186,2609.29156,2609.29151,2609.29125,2609.29121,2609.29118,2609.29116,2609.29106,2609.29073,2609.29064,2609.29048,2609.29029,2609.29028,2609.29006,2609.28997,2609.28991,2609.28967,2609.28956,2609.28949,2609.28931,2609.28930,2609.28923,2609.28865,2609.28860,2609.28857,2609.28851&amp;start=0&amp;max_results=100</title>
+  <updated>2026-09-25T08:37:51Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=&amp;start=0&amp;max_results=100&amp;id_list=2609.30245,2609.30234,2609.30223,2609.30222,2609.30221,2609.30210,2609.30187,2609.30130,2609.30107,2609.30096,2609.30080,2609.30043,2609.30037,2609.30026,2609.29999,2609.29985,2609.29963,2609.29959,2609.29940,2609.29934,2609.29930,2609.29864,2609.29863,2609.29836,2609.29835,2609.29825,2609.29816,2609.29813,2609.29788,2609.29785,2609.29779,2609.29726,2609.29721,2609.29717,2609.29678,2609.29663,2609.29650,2609.29648,2609.29638,2609.29621,2609.29607,2609.29604,2609.29592,2609.29591,2609.29581,2609.29555,2609.29553,2609.29550,2609.29541,2609.29527,2609.29517,2609.29460,2609.29457,2609.29456,2609.29447,2609.29443,2609.29433,2609.29387,2609.29384,2609.29376,2609.29373,2609.29358,2609.29350,2609.29347,2609.29334,2609.29329,2609.29292,2609.29256,2609.29252,2609.29240,2609.29235,2609.29225,2609.29224,2609.29193,2609.29186,2609.29156,2609.29151,2609.29125,2609.29121,2609.29118,2609.29116,2609.29106,2609.29073,2609.29064,2609.29048,2609.29029,2609.29028,2609.29006,2609.28997,2609.28991,2609.28967,2609.28956,2609.28949,2609.28931,2609.28930,2609.28923,2609.28865,2609.28860,2609.28857,2609.28851" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>100</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2609.29048v1</id>
+    <title>Where Hallucinations Live: A Cross-Architecture Circuit in VQ-Tokenized Vision-Language Models</title>
+    <updated>2026-09-24T05:28:12Z</updated>
+    <link href="https://arxiv.org/abs/2609.29048v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2609.29048v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Unified vision-language models (VLMs) that tokenize images through a vector-quantized (VQ) codebook routinely hallucinate objects on grounded yes/no benchmarks, yet existing decoding-time fixes treat this as generic miscalibration without an architectural account. Using activation patching across twenty-five models spanning eight LLM families, we identify an early-layer ($L_0$) attention routing circuit shared across VQ-tokenized VLMs and propose a three-gate diagnostic that distinguishes the models carrying it from those that do not. The diagnostic isolates ten positive models (five natural unified-VQ VLMs across three LLM families and five induced variants) and rejects the remaining fifteen. A single-variable architectural swap (LLaVA-1.6 CLIP+MLP $\rightarrow$ VQ+Linear) installs the circuit, while a matched-compute MLP control on identical data does not, isolating vector quantization as the source of the pathological signal; the routing pathway that carries it is one that the backbone already provides. Against tuned VCD and DoLA baselines, tuned DoLA wins on binary calibration, but \textbf{only $L_0$ ablation reduces object hallucination in open-ended generation} (CHAIR$_i$ reduces by $31\,\%$ relatively, whereas tuned DoLA and VCD leave it unchanged or worsen it). These results recast object hallucination in unified VQ VLMs as a property of architecture and pretraining, and yield a targeted intervention that mechanism-agnostic decoding cannot replicate.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-09-24T05:28:12Z</published>
+    <arxiv:comment>EMNLP 2026 | Project Page: https://shamanthak-hegde.github.io/where-hallucinations-live</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Shamanthak Hegde</name>
+    </author>
+    <author>
+      <name>Xiangrui Liu</name>
+    </author>
+    <author>
+      <name>Maitreya Patel</name>
+    </author>
+    <author>
+      <name>Yezhou Yang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2609.29373v1</id>
+    <title>Shadow Reduction in Ultrasound Imaging Using Differentiable Simulation and Radiance Field Decomposition</title>
+    <updated>2026-09-24T10:55:49Z</updated>
+    <link href="https://arxiv.org/abs/2609.29373v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2609.29373v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Acoustic shadows from bone and other highly attenuating tissues obscure clinically important structures in ultrasound. In fetal brain imaging, skull-induced artefacts disproportionately degrade the hemisphere closer to the transducer (proximal), limiting symmetric assessment of the two hemispheres. Existing correction methods require raw scanner data, impose restrictive assumptions on tissue properties, or rely on generative models that may hallucinate anatomy. We present RFlash, a physics-informed post-processing method that decomposes beamformed ultrasound images into explicit attenuation and scatter-intensity maps using a differentiable radiance-field formulation of image formation. Attenuation-adaptive re-rendering then removes the dependence of the signal at each depth on the intervening tissue, equivalent to virtually advancing the transducer into the tissue. Across 1,261 3D fetal brain volumes, 143 real 2D curvilinear abdominal scans, and 1,200 simulated 2D linear-probe liver scans, RFlash reduces shadow-related intensity differences more effectively than classical Hughes-Duck attenuation correction. For a gestational-age model trained on the distal hemisphere (further from the transducer) and applied to the proximal hemisphere, prediction error decreases by 5.1 days (40%) relative to the original images. The estimated attenuation maps also yield shadow-confidence maps that improve random-forest bone-shadow segmentation over the image alone and receive greater SHAP importance than an existing neural confidence-map baseline, suggesting greater physical consistency. RFlash requires neither hardware modification nor access to raw scanner data and supports 2D and 3D acquisitions with linear and curvilinear probes, making it widely applicable allowing clinicians to use our method on their already acquired scanners and images.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-09-24T10:55:49Z</published>
+    <arxiv:comment>39 pages, 19 figures, submitted to Medical Image Analysis</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Valentin Bacher</name>
+      <arxiv:affiliation>Oxford Machine Learning in NeuroImaging Lab, University of Oxford, United Kingdom</arxiv:affiliation>
+    </author>
+    <author>
+      <name>Pak Hei Yeung</name>
+      <arxiv:affiliation>Oxford Machine Learning in NeuroImaging Lab, University of Oxford, United Kingdom</arxiv:affiliation>
+      <arxiv:affiliation>Quantitative Healthcare Analysis</arxiv:affiliation>
+    </author>
+    <author>
+      <name>Bernhard Kainz</name>
+      <arxiv:affiliation>Friedrich-Alexander-Universität Erlangen-Nürnberg, Germany</arxiv:affiliation>
+      <arxiv:affiliation>Imperial College London, United Kingdom</arxiv:affiliation>
+    </author>
+    <author>
+      <name>Madeleine K. Wyburd</name>
+      <arxiv:affiliation>Oxford Machine Learning in NeuroImaging Lab, University of Oxford, United Kingdom</arxiv:affiliation>
+      <arxiv:affiliation>Department of Computer Science, University of Copenhagen, Denmark</arxiv:affiliation>
+    </author>
+    <author>
+      <name>Nicola K. Dinsdale</name>
+      <arxiv:affiliation>Oxford Machine Learning in NeuroImaging Lab, University of Oxford, United Kingdom</arxiv:affiliation>
+    </author>
+    <author>
+      <name>Michael Gray</name>
+      <arxiv:affiliation>Institute of Biomedical Engineering, University of Oxford, United Kingdom</arxiv:affiliation>
+    </author>
+    <author>
+      <name>Ana I. L. Namburete</name>
+      <arxiv:affiliation>Oxford Machine Learning in NeuroImaging Lab, University of Oxford, United Kingdom</arxiv:affiliation>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/api/errors#incorrect_id_format_for_1234.bogus</id>
+    <title>Error</title>
+    <summary>incorrect id format for 1234.bogus</summary>
+    <updated>2026-09-25T00:00:00-04:00</updated>
+    <link href="http://arxiv.org/api/errors#incorrect_id_format_for_1234.bogus" rel="alternate" type="text/html"/>
+    <author>
+      <name>arXiv api core</name>
+    </author>
+  </entry>
+</feed>

@@ -1,0 +1,203 @@
+"""Daily update pipeline: listing -> store, enriching new papers along the way."""
+
+import logging
+from collections.abc import Callable, Sequence
+from dataclasses import dataclass, replace
+
+from preprint_radar.arxiv_api import fetch_metadata
+from preprint_radar.exceptions import FetchError, ParseError
+from preprint_radar.http import HttpClient
+from preprint_radar.listing import fetch_listing
+from preprint_radar.models import Paper
+from preprint_radar.paper_page import fetch_front_matter
+from preprint_radar.rss import fetch_rss_abstracts
+from preprint_radar.store import PaperStore
+
+logger = logging.getLogger(__name__)
+
+DEFAULT_SAVE_EVERY = 20
+
+
+@dataclass(frozen=True, slots=True)
+class UpdateReport:
+    """Summary of an update run for one category.
+
+    Attributes:
+        category: Updated category.
+        listed: Papers found in the listing.
+        new: Papers that were not in the store before.
+        abstracts_fetched: Abstracts retrieved during this run.
+        affiliations_fetched: Papers whose affiliations were retrieved during this run.
+        pending: Papers still missing an abstract or affiliations after the run.
+    """
+
+    category: str
+    listed: int
+    new: int
+    abstracts_fetched: int
+    affiliations_fetched: int
+    pending: int
+
+
+def update_category(
+    category: str,
+    *,
+    store: PaperStore,
+    site_client: HttpClient,
+    api_client: HttpClient,
+    max_html_fetches: int | None = None,
+    save_every: int = DEFAULT_SAVE_EVERY,
+) -> UpdateReport:
+    """Fetch the recent listing of ``category``, enrich new papers and store them.
+
+    Enrichment already performed in a previous run (in any category) is reused, so
+    each paper is enriched once. Progress is saved regularly so that an interrupted
+    run does not lose the pages already fetched.
+
+    Args:
+        category: arXiv category, e.g. ``"cs.CV"``.
+        store: Destination store.
+        site_client: Client for arxiv.org (listing and HTML pages).
+        api_client: Client for the arXiv API.
+        max_html_fetches: Maximum number of HTML pages to download (``None``: no limit,
+            ``0``: skip affiliation extraction from HTML).
+        save_every: Save progress after this many HTML downloads.
+
+    Returns:
+        A summary of the run.
+    """
+    listing = fetch_listing(site_client, category)
+    known = {paper.arxiv_id: paper for paper in store.iter_papers()}
+    papers = [_carry_over(paper, known.get(paper.arxiv_id)) for paper in listing.papers]
+    new = sum(paper.arxiv_id not in known for paper in papers)
+    logger.info("%s: %d papers listed, %d new", category, len(papers), new)
+
+    papers, abstracts_fetched = _add_abstracts(
+        papers, category, site_client=site_client, api_client=api_client
+    )
+    store.save(category, papers)
+
+    papers, affiliations_fetched, html_abstracts = _add_html_front_matter(
+        papers,
+        site_client,
+        limit=max_html_fetches,
+        checkpoint=lambda current: store.save(category, current),
+        save_every=save_every,
+    )
+    store.save(category, papers)
+    abstracts_fetched += html_abstracts
+
+    return UpdateReport(
+        category=category,
+        listed=len(papers),
+        new=new,
+        abstracts_fetched=abstracts_fetched,
+        affiliations_fetched=affiliations_fetched,
+        pending=sum(not paper.is_enriched for paper in papers),
+    )
+
+
+def _carry_over(listed: Paper, stored: Paper | None) -> Paper:
+    """Keep fresh listing metadata while reusing enrichment from the store."""
+    if stored is None:
+        return listed
+    return replace(
+        listed,
+        abstract=listed.abstract if listed.abstract is not None else stored.abstract,
+        affiliations=listed.affiliations if listed.affiliations is not None else stored.affiliations,
+    )
+
+
+def _add_abstracts(
+    papers: Sequence[Paper], category: str, *, site_client: HttpClient, api_client: HttpClient
+) -> tuple[list[Paper], int]:
+    """Fill missing abstracts, from the RSS feed first and the API for the rest.
+
+    The RSS feed covers the latest announcement in one request; the API, which throttles
+    aggressively, only has to catch up on older days (e.g. after a missed run).
+    """
+    current = list(papers)
+    missing = {paper.arxiv_id for paper in current if paper.abstract is None}
+    if not missing:
+        return current, 0
+
+    try:
+        from_rss = fetch_rss_abstracts(site_client, category)
+    except (FetchError, ParseError) as exc:
+        logger.warning("Could not read the RSS feed of %s: %s", category, exc)
+        from_rss = {}
+    current = [
+        replace(paper, abstract=from_rss[paper.arxiv_id])
+        if paper.abstract is None and paper.arxiv_id in from_rss
+        else paper
+        for paper in current
+    ]
+
+    still_missing = [paper.arxiv_id for paper in current if paper.abstract is None]
+    metadata = fetch_metadata(api_client, still_missing) if still_missing else {}
+    if len(metadata) < len(still_missing):
+        logger.warning(
+            "%d abstracts could not be fetched; will retry next run.", len(still_missing) - len(metadata)
+        )
+
+    enriched: list[Paper] = []
+    for paper in current:
+        meta = metadata.get(paper.arxiv_id)
+        if meta is None:
+            enriched.append(paper)
+            continue
+        # Submitter-declared affiliations are cleaner than those scraped from HTML.
+        affiliations = meta.affiliations or paper.affiliations
+        enriched.append(replace(paper, abstract=meta.abstract, affiliations=affiliations))
+    return enriched, len(missing) - sum(paper.abstract is None for paper in enriched)
+
+
+def _add_html_front_matter(
+    papers: Sequence[Paper],
+    client: HttpClient,
+    *,
+    limit: int | None,
+    checkpoint: Callable[[list[Paper]], object],
+    save_every: int,
+) -> tuple[list[Paper], int, int]:
+    """Fill affiliations (and abstracts still missing) from the papers' HTML renderings.
+
+    Returns:
+        The updated papers, the number of pages processed and the number of abstracts added.
+    """
+    todo = [
+        (index, url)
+        for index, paper in enumerate(papers)
+        if paper.affiliations is None and (url := paper.html_url)
+    ]
+    if limit is not None:
+        todo = todo[:limit]
+    if todo:
+        logger.info("Reading %d HTML renderings (this is slow on purpose)", len(todo))
+
+    current = list(papers)
+    pages = abstracts = 0
+    for done, (index, url) in enumerate(todo, start=1):
+        paper = current[index]
+        try:
+            front = fetch_front_matter(client, url, authors=paper.authors)
+        except FetchError as exc:
+            logger.warning("Skipping HTML of %s, will retry next run: %s", paper.arxiv_id, exc)
+            continue
+        abstract = paper.abstract if paper.abstract is not None else front.abstract
+        abstracts += paper.abstract is None and abstract is not None
+        current[index] = replace(paper, affiliations=front.affiliations, abstract=abstract)
+        pages += 1
+        logger.debug("[%d/%d] %s: %s", done, len(todo), paper.arxiv_id, front.affiliations)
+        if done % save_every == 0:
+            checkpoint(current)
+    return current, pages, abstracts
+
+
+def format_report(report: UpdateReport) -> str:
+    """Render an :class:`UpdateReport` as a one-line human-readable summary."""
+    return (
+        f"{report.category}: {report.listed} listed, {report.new} new, "
+        f"{report.abstracts_fetched} abstracts and {report.affiliations_fetched} affiliations fetched, "
+        f"{report.pending} still pending"
+    )
