@@ -1,0 +1,139 @@
+# Preprint Radar
+
+A friendlier way to browse and search recent arXiv papers for literature reviews.
+
+A Python pipeline collects the papers announced every day in one or more arXiv
+categories — with abstracts and author affiliations — and a static web app hosted on
+GitHub Pages lets anyone search them by keyword, author or affiliation, and keep a
+reading list exported as BibTeX.
+
+```
+            GitHub Actions (weekdays)                        GitHub Pages
+┌────────────────────────────────────────────────┐   ┌────────────────────────────┐
+│ preprint-radar update                          │   │ web/ (Preact + MiniSearch) │
+│   listing       arxiv.org/list/<cat>/recent    │   │  - full-text search        │
+│   abstracts     rss.arxiv.org, API, HTML       │──▶│  - author / affiliation    │
+│   affiliations  arxiv.org/html/<id>            │   │    filters and facets      │
+│ → data/<cat>/<date>.json + data/index.json     │   │  - reading list, BibTeX    │
+└────────────────────────────────────────────────┘   └────────────────────────────┘
+```
+
+## Where the data comes from
+
+| Field                         | Source                                                                 |
+| ----------------------------- | ---------------------------------------------------------------------- |
+| Title, authors, subjects, comments, links | `https://arxiv.org/list/<category>/recent` (last 5 announcement days) |
+| Abstract                      | The category RSS feed (latest day, one request); otherwise the arXiv API, then the paper's HTML rendering |
+| Affiliations                  | Submitter-declared affiliations from the API when present; otherwise the front matter of the paper's HTML rendering |
+
+Affiliations are **best effort**: arXiv metadata rarely includes them, and the HTML
+front matter depends on each paper's LaTeX class. They are extracted per paper (not per
+author), with contact details removed; they are found for roughly 60% of papers, and a
+multi-line affiliation is sometimes split in two (e.g. an institution and its city).
+Papers without an HTML rendering (~6%) have none.
+
+The pipeline is deliberately polite: one request every 15 s to arxiv.org (its
+`robots.txt` crawl delay), a few seconds between API calls, and each paper is enriched
+only once. `PREPRINT_RADAR_CONTACT` (an e-mail address or URL) is sent to arXiv in the
+User-Agent so they can reach whoever runs the crawler: put it in a local `.env` file (see
+`.env.example`, read by the Makefile) and in a repository variable on GitHub.
+
+## Requirements
+
+- [uv](https://docs.astral.sh/uv/) for the Python pipeline
+- Node.js 24+ for the web app
+
+## Usage
+
+```bash
+uv sync
+uv run preprint-radar update                       # cs.CV into data/ (slow: reads HTML pages)
+uv run preprint-radar update -c cs.CV -c cs.LG --max-html 50
+uv run preprint-radar fetch --latest-only -f csv   # quick one-off export of the listing
+
+cd web
+npm install
+npm run dev                                      # http://localhost:5173, serves ../data
+```
+
+In the web app, the search box supports prefix and typo-tolerant matching,
+`"exact phrases"` and `-exclusions`, over titles, abstracts, authors, affiliations and
+comments. Click an author or affiliation to filter by it. Searches are encoded in the URL,
+so they can be shared.
+
+## Deployment on GitHub Pages
+
+1. Push the repository to GitHub.
+2. In *Settings → Pages*, set *Source* to **GitHub Actions**.
+3. In *Settings → Secrets and variables → Actions → Variables*, optionally set:
+   - `PREPRINT_RADAR_CATEGORIES`: space-separated categories (default: `cs.CV`);
+   - `PREPRINT_RADAR_CONTACT`: your e-mail address, sent to arXiv in the User-Agent
+     (default: the repository URL).
+4. Run the *Update data* workflow once by hand (*Actions → Update data → Run workflow*).
+   A first run over the five days of the listing reads ~750 HTML pages and takes about
+   3 hours; daily runs then take ~40 minutes.
+
+The *Update data* workflow then runs every weekday, commits the new data and redeploys
+the site. The *Deploy site* workflow also runs on every push touching `web/` or `data/`.
+
+## Project layout
+
+```
+src/preprint_radar/
+├── cli.py          # `preprint-radar` command (fetch, update)
+├── pipeline.py     # daily update: listing → enrichment → store
+├── listing.py      # /list/<category>/recent pages
+├── rss.py          # abstracts from the RSS feed
+├── arxiv_api.py    # abstracts and declared affiliations from the Atom API
+├── paper_page.py   # affiliations and abstract from HTML renderings
+├── store.py        # data/ layout read by the web app
+├── http.py         # rate-limited HTTP client with retries
+├── models.py       # Paper, Listing
+├── filters.py      # helpers to narrow down papers
+├── export.py       # JSON / CSV export
+└── exceptions.py
+web/
+├── src/            # Preact app: search.ts (MiniSearch), components/, …
+└── tests/          # Vitest unit tests
+data/               # generated by the pipeline, committed and published
+tests/              # pytest: unit (offline, fixtures) and integration (network)
+```
+
+## Development
+
+The `Makefile` wraps the usual commands (`make` lists them):
+
+```bash
+make install     # Python + web dependencies, git hooks
+cp .env.example .env   # then set PREPRINT_RADAR_CONTACT
+make format      # auto-format and fix Python and web code
+make quality     # every quality check: formatting, lint, types (Python, web, workflows)
+make check       # quality checks and all tests, as CI does
+make dev         # web app with hot reload on http://localhost:5173
+make preview     # production build of the site, served locally
+make update      # refresh data/ (CATEGORIES="cs.CV cs.LG" MAX_HTML=50)
+```
+
+The underlying commands:
+
+```bash
+# Python
+uv run ruff format . && uv run ruff check --fix .
+uv run ty check
+uv run pytest --cov
+uv run pytest -m network      # smoke test against the live arXiv (slow, polite)
+
+# Web
+cd web
+npm run lint && npm run typecheck && npm test
+npm run build                 # type-check + production build into web/dist (with data)
+
+# Everything, as on commit
+uv run pre-commit run --all-files
+```
+
+If arXiv changes its page layout, the network test fails first: refresh the fixtures in
+`tests/fixtures/` from live pages and update the parsers.
+
+Thank you to arXiv for use of its open access interoperability. This project is not
+affiliated with arXiv.
