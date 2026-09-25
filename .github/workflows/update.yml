@@ -1,0 +1,65 @@
+name: Update data
+
+# arXiv announces new papers Sunday to Thursday around 20:00 US Eastern time,
+# so the data is refreshed a few hours later, Monday to Friday.
+on:
+  schedule:
+    - cron: "30 3 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      max-html:
+        description: Maximum number of HTML pages to read per category
+        default: "600"
+
+concurrency:
+  group: update-data
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    # Reading HTML pages is throttled to one every 15 s (arxiv.org robots.txt).
+    timeout-minutes: 240
+    permissions:
+      contents: write
+    env:
+      # Repository variables (Settings > Secrets and variables > Actions > Variables).
+      CATEGORIES: ${{ vars.PREPRINT_RADAR_CATEGORIES || 'cs.CV' }}
+      # Defaults to the repository URL, so that forks never send someone else's address.
+      PREPRINT_RADAR_CONTACT: ${{ vars.PREPRINT_RADAR_CONTACT || format('{0}/{1}', github.server_url, github.repository) }}
+      MAX_HTML: ${{ inputs.max-html || '600' }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+        with:
+          enable-cache: true
+      - run: uv sync --locked --no-dev
+
+      - name: Fetch papers
+        # Stop early enough to commit what was fetched; progress is saved as it goes.
+        timeout-minutes: 210
+        run: |
+          args=()
+          for category in $CATEGORIES; do args+=(--category "$category"); done
+          uv run --no-dev preprint-radar -v update "${args[@]}" --max-html "$MAX_HTML"
+
+      - name: Commit data
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data
+          if git diff --cached --quiet; then
+            echo "No new data."
+          else
+            git commit -m "chore(data): update $(date -u +%Y-%m-%d)"
+            git push
+          fi
+
+  deploy:
+    needs: update
+    uses: ./.github/workflows/deploy.yml
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
