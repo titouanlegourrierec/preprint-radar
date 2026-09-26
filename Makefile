@@ -76,7 +76,8 @@ test: $(WEB)/node_modules ## Run the offline test suites (Python and web)
 
 .PHONY: coverage
 coverage: ## Run the Python tests with a coverage report
-	uv run pytest --cov
+	uv run pytest --cov --cov-report html
+	open ./htmlcov/index.html
 
 .PHONY: test-network
 test-network: ## Run smoke tests against the live arXiv (slow)
