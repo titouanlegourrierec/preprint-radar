@@ -1,14 +1,23 @@
 import { ANY_VENUE, type FacetCount } from "../search";
-import { sortVenues } from "../venues";
+import { isMajorVenue, sortVenues } from "../venues";
 
 interface Props {
-  /** Venues of the loaded papers, most frequent first. */
+  /** Venues of the loaded papers. */
   venues: FacetCount[];
   value: string | null;
   onChange: (venue: string | null) => void;
 }
 
-/** Venue filter: every paper, papers accepted anywhere, or one venue. */
+function Option({ venue, starred }: { venue: FacetCount; starred: boolean }) {
+  return (
+    <option value={venue.value}>
+      {starred ? "★ " : ""}
+      {venue.value} ({venue.count})
+    </option>
+  );
+}
+
+/** Venue filter: every paper, papers accepted anywhere, or one venue (major ones starred). */
 export function VenueSelect({ venues, value, onChange }: Props) {
   const accepted = venues.reduce((sum, venue) => sum + venue.count, 0);
   // Keep a venue from a shared link selectable even when no loaded paper has it.
@@ -16,7 +25,9 @@ export function VenueSelect({ venues, value, onChange }: Props) {
     value && value !== ANY_VENUE && !venues.some((venue) => venue.value === value)
       ? [...venues, { value, count: 0 }]
       : venues;
-  const options = sortVenues(known);
+  const sorted = sortVenues(known);
+  const major = sorted.filter((venue) => isMajorVenue(venue.value));
+  const other = sorted.filter((venue) => !isMajorVenue(venue.value));
   return (
     <select
       value={value ?? ""}
@@ -25,11 +36,24 @@ export function VenueSelect({ venues, value, onChange }: Props) {
     >
       <option value="">All papers</option>
       <option value={ANY_VENUE}>Accepted at a venue ({accepted})</option>
-      {options.map(({ value: venue, count }) => (
-        <option key={venue} value={venue}>
-          {venue} ({count})
-        </option>
-      ))}
+      {major.length > 0 ? (
+        <>
+          <optgroup label="Major venues">
+            {major.map((venue) => (
+              <Option key={venue.value} venue={venue} starred />
+            ))}
+          </optgroup>
+          {other.length > 0 && (
+            <optgroup label="Other venues">
+              {other.map((venue) => (
+                <Option key={venue.value} venue={venue} starred={false} />
+              ))}
+            </optgroup>
+          )}
+        </>
+      ) : (
+        other.map((venue) => <Option key={venue.value} venue={venue} starred={false} />)
+      )}
     </select>
   );
 }

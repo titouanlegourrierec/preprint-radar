@@ -9,6 +9,11 @@ function majorRank(venue: string): number {
   return rank === -1 ? MAJOR_VENUES.length : rank;
 }
 
+/** Whether the venue is a major one ("NeurIPS 2026 Workshop" counts as NeurIPS). */
+export function isMajorVenue(venue: string): boolean {
+  return majorRank(venue) < MAJOR_VENUES.length;
+}
+
 /** Order venues for the filter: major venues first, then the rest alphabetically. */
 export function sortVenues(venues: readonly FacetCount[]): FacetCount[] {
   return [...venues].sort(

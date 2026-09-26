@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { MAJOR_VENUES, sortVenues } from "../src/venues";
+import { isMajorVenue, MAJOR_VENUES, sortVenues } from "../src/venues";
 
 const venue = (value: string, count = 1) => ({ value, count });
 
@@ -36,6 +36,13 @@ describe("sortVenues", () => {
     const sorted = sortVenues([venue("ICMLA 2026"), venue("ICML 2026")]).map(({ value }) => value);
 
     expect(sorted).toEqual(["ICML 2026", "ICMLA 2026"]);
+  });
+
+  it("recognizes major venues by name, year or workshop", () => {
+    expect(isMajorVenue("NeurIPS 2026 Workshop")).toBe(true);
+    expect(isMajorVenue("MICCAI")).toBe(true);
+    expect(isMajorVenue("ICMLA 2026")).toBe(false);
+    expect(isMajorVenue("BMVC 2026")).toBe(false);
   });
 
   it("lists every major venue", () => {
