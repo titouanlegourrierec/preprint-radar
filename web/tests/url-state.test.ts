@@ -21,7 +21,18 @@ describe("url state", () => {
         subject: null,
         venue: "ECCV 2026",
       },
+      paper: "2609.30234",
     };
+    expect(readState(writeState(state))).toEqual(state);
+  });
+
+  it("round-trips a paper permalink", () => {
+    const state = {
+      ...DEFAULT_STATE,
+      period: { kind: "dates" as const, from: "2026-09-25", to: "2026-09-25" },
+      paper: "2609.30234",
+    };
+    expect(writeState(state)).toBe("?from=2026-09-25&paper=2609.30234");
     expect(readState(writeState(state))).toEqual(state);
   });
 

@@ -1,5 +1,29 @@
 const SHOW_ABSTRACTS_KEY = "preprint-radar:show-abstracts";
 const GRAPH_SETTINGS_KEY = "preprint-radar:graph-settings";
+// Also read by the inline script in index.html, which restores the theme before first paint.
+const THEME_KEY = "preprint-radar:theme";
+
+/** "auto" follows the system scheme; "light" and "dark" force one. */
+export type ThemePreference = "auto" | "light" | "dark";
+
+/** The theme chosen with the toggle, remembered in this browser. */
+export function loadTheme(): ThemePreference {
+  try {
+    const stored = localStorage.getItem(THEME_KEY);
+    return stored === "light" || stored === "dark" ? stored : "auto";
+  } catch {
+    return "auto";
+  }
+}
+
+export function saveTheme(theme: ThemePreference): void {
+  try {
+    if (theme === "auto") localStorage.removeItem(THEME_KEY);
+    else localStorage.setItem(THEME_KEY, theme);
+  } catch {
+    // Storage may be disabled (private browsing); the choice then lasts for the session.
+  }
+}
 
 /** Whether abstracts are shown in the list, remembered in this browser. */
 export function loadShowAbstracts(): boolean {

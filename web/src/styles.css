@@ -21,8 +21,11 @@
   color-scheme: light;
 }
 
+/* The dark palette applies with the system scheme unless the toggle forces light, and
+   whenever the toggle forces dark. Keep both blocks identical (plain values only: the
+   graph canvas reads these variables with getComputedStyle). */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #121212;
     --surface: #1b1b1b;
     --surface-muted: #242424;
@@ -40,6 +43,25 @@
 
     color-scheme: dark;
   }
+}
+
+:root[data-theme="dark"] {
+  --bg: #121212;
+  --surface: #1b1b1b;
+  --surface-muted: #242424;
+  --border: #2e2e2e;
+  --text: #ececea;
+  --text-muted: #9c9c96;
+  --accent: #91a7ff;
+  --accent-soft: #23294a;
+  --mark: #5c4d00;
+  --danger: #ff8787;
+  --graph-institution: #ff922b;
+  --graph-author: #748ffc;
+  --graph-edge: #5c5f66;
+  --shadow: none;
+
+  color-scheme: dark;
 }
 
 *,
@@ -117,6 +139,12 @@ mark {
 
 .topbar__brand span {
   font-size: 0.85rem;
+}
+
+.topbar__tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .tabs {
@@ -563,6 +591,29 @@ mark {
   flex-direction: column;
 }
 
+/* Day headings, shown when the results cover several days in announcement order. */
+.day-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin: 26px 0 2px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.day-heading:first-child {
+  margin-top: 12px;
+}
+
+.day-heading__count {
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
 .badge {
   padding: 1px 8px;
   border-radius: 999px;
@@ -599,6 +650,13 @@ mark {
   gap: 12px;
   padding: 14px 4px;
   border-bottom: 1px solid var(--border);
+}
+
+/* The paper a shared `?paper=` link points at. */
+.paper--target {
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
+  border-radius: var(--radius);
+  scroll-margin-top: 120px;
 }
 
 .paper__main {

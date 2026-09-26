@@ -19,7 +19,9 @@ export function useUrlState() {
     window.history.replaceState(null, "", url);
   }, [state, query]);
 
-  const update = (patch: Partial<ViewState>) => setState((current) => ({ ...current, ...patch }));
+  // Any change drops the shared-paper anchor, like navigating away, unless the patch sets it.
+  const update = (patch: Partial<ViewState>) =>
+    setState((current) => ({ ...current, paper: null, ...patch }));
   const setFilters = (filters: SearchFilters) => update({ filters });
   return { state, query, update, setFilters };
 }

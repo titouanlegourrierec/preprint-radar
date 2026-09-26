@@ -12,6 +12,8 @@ export interface ViewState {
   sort: SortOrder;
   view: View;
   filters: SearchFilters;
+  /** arXiv id from a shared `?paper=` link: its card is opened and scrolled into view. */
+  paper: string | null;
 }
 
 export const DEFAULT_STATE: ViewState = {
@@ -21,6 +23,7 @@ export const DEFAULT_STATE: ViewState = {
   sort: "relevance",
   view: "papers",
   filters: NO_FILTERS,
+  paper: null,
 };
 
 /** `?from=…&to=…` (a single `from` is one day), else `?range=…`, else the default. */
@@ -41,6 +44,7 @@ export function readState(search: string): ViewState {
     period: readPeriod(params),
     sort: params.get("sort") === "newest" ? "newest" : "relevance",
     view: VIEWS.find((view) => view === params.get("view")) ?? DEFAULT_STATE.view,
+    paper: params.get("paper"),
     filters: {
       excludeCrossLists: params.get("xl") === "0",
       author: params.get("author"),
@@ -68,6 +72,7 @@ export function writeState(state: ViewState): string {
   }
   set("sort", state.sort, DEFAULT_STATE.sort);
   set("view", state.view, DEFAULT_STATE.view);
+  set("paper", state.paper);
   set("xl", state.filters.excludeCrossLists ? "0" : null);
   set("author", state.filters.author);
   set("aff", state.filters.affiliation);

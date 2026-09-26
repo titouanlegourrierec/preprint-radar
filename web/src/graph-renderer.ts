@@ -344,6 +344,12 @@ export class GraphRenderer {
   }
 
   /** Declare the overlays, so that fitting and revealing nodes avoid them. */
+  /** Re-read the palette from the CSS variables and redraw, after a theme change. */
+  refreshTheme(): void {
+    this.colors = readColors();
+    this.requestDraw();
+  }
+
   setOverlays(overlays: Overlays): void {
     this.overlays = overlays;
     if (this.autoFit) {

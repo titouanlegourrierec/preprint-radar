@@ -39,6 +39,8 @@ interface Props {
   venue: string | null;
   onVenue: (venue: string | null) => void;
   onShowPapers: (kind: NodeKind, label: string) => void;
+  /** Scheme shown right now; the canvas re-reads its colors when it changes. */
+  theme: "light" | "dark";
 }
 
 function isTyping(target: EventTarget | null): boolean {
@@ -51,7 +53,7 @@ function isTyping(target: EventTarget | null): boolean {
 
 /** Full-screen co-occurrence graph of the institutions and authors of the loaded papers. */
 export function GraphView(props: Props) {
-  const { papers, onShowPapers } = props;
+  const { papers, onShowPapers, theme } = props;
   const [settings, setSettings] = useState<GraphSettings>(loadGraphSettings);
   const [panelOpen, setPanelOpen] = useState(() => window.matchMedia(WIDE_SCREEN).matches);
   const [highlight, setHighlight] = useState("");
@@ -183,6 +185,7 @@ export function GraphView(props: Props) {
       labelThreshold,
     });
   }, [centerForce, repelForce, linkForce, linkDistance, nodeSize, labelThreshold]);
+  useEffect(() => rendererRef.current?.refreshTheme(), [theme]);
   useEffect(() => rendererRef.current?.setGraph(graph), [graph]);
   useEffect(() => rendererRef.current?.setHighlight(highlighted), [highlighted]);
   useEffect(() => rendererRef.current?.setSelected(selected?.id ?? null), [selected]);

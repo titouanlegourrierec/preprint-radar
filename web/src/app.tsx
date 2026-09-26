@@ -7,8 +7,10 @@ import { download } from "./download";
 import { formatDay } from "./format";
 import { usePapers } from "./hooks/use-papers";
 import { useReadingList } from "./hooks/use-reading-list";
+import { useTheme } from "./hooks/use-theme";
 import { useUrlState } from "./hooks/use-url-state";
-import { loadShowAbstracts, saveShowAbstracts } from "./preferences";
+import { between } from "./period";
+import { loadShowAbstracts, saveShowAbstracts, type ThemePreference } from "./preferences";
 import {
   alphabetical,
   facetCounts,
@@ -17,9 +19,12 @@ import {
   type SearchResult,
   valueCounts,
 } from "./search";
+import type { Paper } from "./types";
+import { DEFAULT_STATE, writeState } from "./url-state";
 
 const FACET_SIZE = 12;
 const SUGGESTION_SIZE = 300;
+const THEME_ICONS: Record<ThemePreference, string> = { auto: "◐", light: "☀", dark: "☾" };
 const RELEVANCE_HELP =
   "Relevance ranks papers by how well they match your search words. Rarer words weigh more, " +
   "and a match counts most in the title, then in authors, affiliations, the abstract and " +
@@ -32,6 +37,7 @@ export function App() {
     state.period,
   );
   const readingList = useReadingList();
+  const { theme, resolved, next, cycle } = useTheme();
   const [showAbstracts, setShowAbstracts] = useState(loadShowAbstracts);
   const [showRelevanceHelp, setShowRelevanceHelp] = useState(false);
 
@@ -79,6 +85,16 @@ export function App() {
     [activeIndex],
   );
   const hasSearchWords = parseQuery(query).text !== "";
+  // Day headings need results in announcement order (see search): no words, or newest.
+  const groupByDay = !hasSearchWords || state.sort === "newest";
+  // A share link opens the paper on its own day, free of the sharer's search context.
+  const linkTo = (paper: Paper) =>
+    writeState({
+      ...DEFAULT_STATE,
+      category: category ?? null,
+      period: between(paper.announced, paper.announced),
+      paper: paper.arxiv_id,
+    });
   const subjects = useMemo(
     () =>
       facetCounts(
@@ -101,29 +117,40 @@ export function App() {
         <h1>Preprint Radar</h1>
         {lastUpdate && <span class="muted">Updated {lastUpdate}</span>}
       </div>
-      <nav class="tabs" aria-label="Views">
+      <div class="topbar__tools">
+        <nav class="tabs" aria-label="Views">
+          <button
+            type="button"
+            class={`tab${state.view === "papers" ? " tab--active" : ""}`}
+            onClick={() => update({ view: "papers" })}
+          >
+            Papers
+          </button>
+          <button
+            type="button"
+            class={`tab${state.view === "graph" ? " tab--active" : ""}`}
+            onClick={() => update({ view: "graph" })}
+          >
+            Graph
+          </button>
+          <button
+            type="button"
+            class={`tab${state.view === "reading-list" ? " tab--active" : ""}`}
+            onClick={() => update({ view: "reading-list" })}
+          >
+            Reading list ({readingList.papers.length})
+          </button>
+        </nav>
         <button
           type="button"
-          class={`tab${state.view === "papers" ? " tab--active" : ""}`}
-          onClick={() => update({ view: "papers" })}
+          class="icon-button"
+          title={`Theme: ${theme} — click for ${next}`}
+          aria-label={`Theme: ${theme}. Switch to ${next}.`}
+          onClick={cycle}
         >
-          Papers
+          {THEME_ICONS[theme]}
         </button>
-        <button
-          type="button"
-          class={`tab${state.view === "graph" ? " tab--active" : ""}`}
-          onClick={() => update({ view: "graph" })}
-        >
-          Graph
-        </button>
-        <button
-          type="button"
-          class={`tab${state.view === "reading-list" ? " tab--active" : ""}`}
-          onClick={() => update({ view: "reading-list" })}
-        >
-          Reading list ({readingList.papers.length})
-        </button>
-      </nav>
+      </div>
     </header>
   );
 
@@ -151,6 +178,7 @@ export function App() {
           venues={venueCounts}
           venue={state.filters.venue}
           onVenue={(venue) => setFilters({ ...state.filters, venue })}
+          theme={resolved}
           onShowPapers={(kind, label) =>
             update({
               view: "papers",
@@ -298,6 +326,10 @@ export function App() {
           ) : (
             <PaperList
               results={results}
+              groupByDay={groupByDay}
+              openId={state.paper}
+              linkTo={linkTo}
+              onOpenPaper={(arxivId) => update({ paper: arxivId })}
               showAbstracts={showAbstracts || state.view === "reading-list"}
               savedIds={readingList.savedIds}
               onToggleSaved={readingList.toggle}

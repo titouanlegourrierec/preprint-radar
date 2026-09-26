@@ -7,6 +7,15 @@
     <meta name="color-scheme" content="light dark" />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>" />
     <title>Preprint Radar</title>
+    <script>
+      // Restore the theme chosen with the toggle (see preferences.ts) before first paint.
+      try {
+        const theme = localStorage.getItem("preprint-radar:theme");
+        if (theme === "light" || theme === "dark") document.documentElement.dataset.theme = theme;
+      } catch {
+        // Storage may be disabled; the system scheme then applies.
+      }
+    </script>
   </head>
   <body>
     <div id="app"></div>

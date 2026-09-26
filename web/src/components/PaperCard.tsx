@@ -1,4 +1,4 @@
-import { useState } from "preact/hooks";
+import { useEffect, useRef, useState } from "preact/hooks";
 import { toBibtex } from "../bibtex";
 import { formatDay, subjectCode } from "../format";
 import { highlight } from "../highlight";
@@ -18,6 +18,11 @@ interface Props {
   highlights: readonly string[];
   showAbstract: boolean;
   saved: boolean;
+  /** Whether a shared `?paper=` link points at this paper. */
+  isTarget: boolean;
+  /** Query string linking to this paper alone, for the Share control. */
+  permalink: string;
+  onOpen: (arxivId: string) => void;
   onToggleSaved: (paper: Paper) => void;
   onAuthor: (author: string) => void;
   onAffiliation: (affiliation: string) => void;
@@ -28,12 +33,23 @@ export function PaperCard({
   highlights,
   showAbstract,
   saved,
+  isTarget,
+  permalink,
+  onOpen,
   onToggleSaved,
   onAuthor,
   onAffiliation,
 }: Props) {
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(isTarget);
   const [copied, setCopied] = useState(false);
+  const [linkCopied, setLinkCopied] = useState(false);
+  const root = useRef<HTMLElement>(null);
+
+  // A shared link's target is scrolled into view once, when the list first shows it.
+  const targetOnMount = useRef(isTarget);
+  useEffect(() => {
+    if (targetOnMount.current) root.current?.scrollIntoView({ block: "center" });
+  }, []);
 
   const authors =
     expanded || paper.authors.length <= MAX_AUTHORS_COLLAPSED
@@ -62,8 +78,29 @@ export function PaperCard({
     }
   }
 
+  // Plain click: copy the link and anchor the URL, without reloading. Modified
+  // clicks keep their meaning (open in a new tab...), the href being a real link.
+  async function copyLink(event: MouseEvent) {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+      return;
+    }
+    event.preventDefault();
+    onOpen(paper.arxiv_id);
+    setExpanded(true);
+    try {
+      await navigator.clipboard.writeText(new URL(permalink, window.location.href).toString());
+      setLinkCopied(true);
+      setTimeout(() => setLinkCopied(false), 1500);
+    } catch {
+      // Clipboard access can be denied; the address bar still holds the link.
+    }
+  }
+
   return (
-    <article class={`paper${expanded ? " paper--expanded" : ""}`}>
+    <article
+      ref={root}
+      class={`paper${expanded ? " paper--expanded" : ""}${isTarget ? " paper--target" : ""}`}
+    >
       <div class="paper__main">
         <h2 class="paper__title">
           <a href={paper.abs_url} target="_blank" rel="noopener noreferrer">
@@ -145,6 +182,9 @@ export function PaperCard({
           <button type="button" class="link-button" onClick={copyBibtex}>
             {copied ? "Copied!" : "BibTeX"}
           </button>
+          <a href={permalink} title="Copy a link to this paper" onClick={copyLink}>
+            {linkCopied ? "Copied!" : "Share"}
+          </a>
           {hasDetails && (
             <button
               type="button"
