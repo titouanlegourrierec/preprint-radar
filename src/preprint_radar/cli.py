@@ -19,6 +19,7 @@ from preprint_radar.http import (
 )
 from preprint_radar.listing import MAX_LISTING_ENTRIES, fetch_listing, validate_category
 from preprint_radar.pipeline import backfill_category, format_report, update_category
+from preprint_radar.stats import collect_coverage, format_coverage
 from preprint_radar.store import PaperStore
 
 logger = logging.getLogger(__name__)
@@ -52,6 +53,7 @@ def build_parser() -> argparse.ArgumentParser:
     _add_fetch_parser(subparsers)
     _add_update_parser(subparsers)
     _add_backfill_parser(subparsers)
+    _add_stats_parser(subparsers)
     return parser
 
 
@@ -123,6 +125,32 @@ def _add_backfill_parser(subparsers: "argparse._SubParsersAction[argparse.Argume
     _add_store_arguments(backfill)
 
 
+def _add_stats_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
+    stats = subparsers.add_parser(
+        "stats",
+        help="show how much of the data store is enriched",
+        description=(
+            "Show, for each stored announcement day, how many papers have an abstract, "
+            "affiliations and a detected venue. Affiliation columns: at least one found "
+            "(affiliated), searched without success (none), not retrieved yet (pending)."
+        ),
+    )
+    stats.add_argument(
+        "-c",
+        "--category",
+        dest="categories",
+        action="append",
+        type=_category,
+        help="arXiv category, repeatable (default: every category in the store)",
+    )
+    stats.add_argument(
+        "--data-dir",
+        type=Path,
+        default=DEFAULT_DATA_DIR,
+        help=f"data store directory (default: {DEFAULT_DATA_DIR})",
+    )
+
+
 def _add_store_arguments(parser: argparse.ArgumentParser) -> None:
     """Options shared by the commands that write to the data store."""
     parser.add_argument(
@@ -175,6 +203,8 @@ def main(argv: Sequence[str] | None = None) -> int:
                 return _run_update(args)
             case "backfill":
                 return _run_backfill(args)
+            case "stats":
+                return _run_stats(args)
             case _:  # pragma: no cover - argparse rejects unknown commands
                 msg = f"Unknown command: {args.command}"
                 raise AssertionError(msg)
@@ -251,6 +281,23 @@ def _run_backfill(args: argparse.Namespace) -> int:
 
     print(f"Index written to {store.write_index()}")  # noqa: T201
     return 0
+
+
+def _run_stats(args: argparse.Namespace) -> int:
+    store = PaperStore(args.data_dir)
+    categories: list[str] = args.categories or store.categories()
+    if not categories:
+        logger.warning("The store %s is empty; run `preprint-radar update` first.", args.data_dir)
+        return 1
+
+    reports = []
+    for category in categories:
+        if days := collect_coverage(store, category):
+            reports.append(format_coverage(category, days))
+        else:
+            logger.warning("No stored papers for %s in %s.", category, args.data_dir)
+    print("\n\n".join(reports))  # noqa: T201 - user-facing CLI output
+    return 0 if reports else 1
 
 
 def _category(value: str) -> str:

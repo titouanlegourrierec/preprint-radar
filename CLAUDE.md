@@ -14,6 +14,7 @@ Use the Makefile (`make help` lists everything):
 - `make dev` / `make preview`: the site locally (dev server, or production build).
 - `make update-quick`: refresh `data/` without reading HTML pages. `make update` reads them too, at one page every 15 s, so it takes hours. Never start it without asking.
 - `make backfill SINCE=YYYY-MM-DD [UNTIL=...]`: add past days from the catchup pages, then read their HTML pages (a month of cs.CV takes about 11 hours). Same rule: ask first. Interrupting either command loses nothing; re-running resumes.
+- `make stats`: how much of `data/` is enriched (abstracts, affiliations, venues per day). Check it after touching the extraction heuristics.
 
 Single checks: `uv run pytest tests/unit/test_store.py -k merge`, `cd web && npx vitest run tests/search.test.ts`.
 

@@ -115,6 +115,7 @@ src/preprint_radar/
 ├── paper_page.py   # affiliations and abstract from HTML renderings
 ├── venue.py        # accepted venue detected from comments
 ├── store.py        # data/ layout read by the web app
+├── stats.py        # enrichment coverage report over the store
 ├── http.py         # rate-limited HTTP client with retries
 ├── models.py       # Paper, Listing
 ├── filters.py      # helpers to narrow down papers
@@ -141,6 +142,7 @@ make dev         # web app with hot reload on http://localhost:5173
 make preview     # production build of the site, served locally
 make update      # refresh data/ (CATEGORIES="cs.CV cs.LG" MAX_HTML=50)
 make backfill SINCE=2026-09-01   # add past days to data/ (UNTIL defaults to today)
+make stats       # how much of data/ is enriched, per day
 ```
 
 The underlying commands:

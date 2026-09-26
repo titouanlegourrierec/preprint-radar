@@ -102,6 +102,26 @@ def test_backfill_rejects_malformed_dates(capsys: pytest.CaptureFixture[str]) ->
     assert "expected YYYY-MM-DD" in capsys.readouterr().err
 
 
+@pytest.mark.usefixtures("offline")
+def test_stats_reports_coverage(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    data_dir = tmp_path / "data"
+    assert main(["update", "--data-dir", str(data_dir), "--crawl-delay", "0", "--max-html", "0"]) == 0
+    capsys.readouterr()
+
+    assert main(["stats", "--data-dir", str(data_dir)]) == 0
+
+    lines = capsys.readouterr().out.splitlines()
+    assert lines[0] == "cs.CV: 7 papers over 2 days"
+    assert lines[2].split() == ["2026-09-25", "5", "0", "0", "0", "5", "2"]
+    assert lines[-2].startswith("total")
+    assert lines[-1].startswith("abstracts ")
+
+
+def test_stats_on_an_empty_store(tmp_path: Path, caplog: pytest.LogCaptureFixture) -> None:
+    assert main(["stats", "--data-dir", str(tmp_path / "nowhere")]) == 1
+    assert "is empty" in caplog.text
+
+
 def test_errors_are_reported(monkeypatch: pytest.MonkeyPatch, caplog: pytest.LogCaptureFixture) -> None:
     def fail(*_: object, **__: object) -> str:
         raise FetchError("arxiv.org is down")
