@@ -1,26 +1,16 @@
-import { useEffect, useMemo, useState } from "preact/hooks";
+import { useMemo, useState } from "preact/hooks";
 import { toBibtexFile } from "./bibtex";
 import { GraphView } from "./components/GraphView";
 import { PaperList } from "./components/PaperList";
 import { Sidebar } from "./components/Sidebar";
-import { loadDays, loadIndex } from "./data";
+import { download } from "./download";
 import { formatDay } from "./format";
-import { selectDays } from "./period";
+import { usePapers } from "./hooks/use-papers";
+import { useReadingList } from "./hooks/use-reading-list";
+import { useUrlState } from "./hooks/use-url-state";
 import { loadShowAbstracts, saveShowAbstracts } from "./preferences";
-import { loadReadingList, saveReadingList } from "./reading-list";
-import {
-  facetCounts,
-  NO_FILTERS,
-  PaperIndex,
-  parseQuery,
-  type SearchFilters,
-  type SearchResult,
-  valueCounts,
-} from "./search";
-import type { Paper, StoreIndex } from "./types";
-import { readState, type ViewState, writeState } from "./url-state";
+import { facetCounts, NO_FILTERS, parseQuery, type SearchResult, valueCounts } from "./search";
 
-const SEARCH_DEBOUNCE_MS = 150;
 const FACET_SIZE = 12;
 const SUGGESTION_SIZE = 300;
 const RELEVANCE_HELP =
@@ -28,74 +18,18 @@ const RELEVANCE_HELP =
   "and a match counts most in the title, then in authors, affiliations, the abstract and " +
   "comments. Exact words count more than partial or approximate ones.";
 
-type LoadState =
-  | { status: "loading" }
-  | { status: "error"; message: string }
-  | { status: "ready"; index: PaperIndex };
-
-function useDebounced<T>(value: T, delay: number): T {
-  const [debounced, setDebounced] = useState(value);
-  useEffect(() => {
-    const timer = setTimeout(() => setDebounced(value), delay);
-    return () => clearTimeout(timer);
-  }, [value, delay]);
-  return debounced;
-}
-
-function download(filename: string, content: string, type: string): void {
-  const url = URL.createObjectURL(new Blob([content], { type }));
-  const link = Object.assign(document.createElement("a"), { href: url, download: filename });
-  link.click();
-  URL.revokeObjectURL(url);
-}
-
 export function App() {
-  const [state, setState] = useState<ViewState>(() => readState(window.location.search));
-  const [storeIndex, setStoreIndex] = useState<StoreIndex | null>(null);
-  const [load, setLoad] = useState<LoadState>({ status: "loading" });
-  const [readingList, setReadingList] = useState<Paper[]>(loadReadingList);
+  const { state, query, update, setFilters } = useUrlState();
+  const { categories, category, storeDays, load, generatedAt } = usePapers(
+    state.category,
+    state.period,
+  );
+  const readingList = useReadingList();
   const [showAbstracts, setShowAbstracts] = useState(loadShowAbstracts);
   const [showRelevanceHelp, setShowRelevanceHelp] = useState(false);
-  const query = useDebounced(state.query, SEARCH_DEBOUNCE_MS);
 
-  const update = (patch: Partial<ViewState>) => setState((current) => ({ ...current, ...patch }));
-  const setFilters = (filters: SearchFilters) => update({ filters });
-
-  // Keep the URL in sync so that any search can be shared or bookmarked.
-  useEffect(() => {
-    const url = `${window.location.pathname}${writeState({ ...state, query })}`;
-    window.history.replaceState(null, "", url);
-  }, [state, query]);
-
-  useEffect(() => {
-    loadIndex()
-      .then(setStoreIndex)
-      .catch((error: unknown) => setLoad({ status: "error", message: String(error) }));
-  }, []);
-
-  const categories = storeIndex ? Object.keys(storeIndex.categories).sort() : [];
-  const category =
-    state.category && categories.includes(state.category) ? state.category : categories[0];
-  const storeDays = (category && storeIndex?.categories[category]) || [];
-
-  useEffect(() => {
-    if (!storeIndex || !category) return;
-    const days = selectDays(storeIndex.categories[category] ?? [], state.period);
-    let cancelled = false;
-    setLoad({ status: "loading" });
-    loadDays(category, days)
-      .then((papers) => !cancelled && setLoad({ status: "ready", index: new PaperIndex(papers) }))
-      .catch(
-        (error: unknown) => !cancelled && setLoad({ status: "error", message: String(error) }),
-      );
-    return () => {
-      cancelled = true;
-    };
-  }, [storeIndex, category, state.period]);
-
-  const readingListIndex = useMemo(() => new PaperIndex(readingList), [readingList]);
   const activeIndex =
-    state.view === "reading-list" ? readingListIndex : load.status === "ready" ? load.index : null;
+    state.view === "reading-list" ? readingList.index : load.status === "ready" ? load.index : null;
 
   const results: SearchResult[] = useMemo(
     () =>
@@ -142,21 +76,7 @@ export function App() {
     [results],
   );
 
-  const savedIds = useMemo(
-    () => new Set(readingList.map((paper) => paper.arxiv_id)),
-    [readingList],
-  );
-  const toggleSaved = (paper: Paper) => {
-    setReadingList((current) => {
-      const next = current.some((saved) => saved.arxiv_id === paper.arxiv_id)
-        ? current.filter((saved) => saved.arxiv_id !== paper.arxiv_id)
-        : [paper, ...current];
-      saveReadingList(next);
-      return next;
-    });
-  };
-
-  const lastUpdate = storeIndex ? formatDay(storeIndex.generated_at) : null;
+  const lastUpdate = generatedAt ? formatDay(generatedAt) : null;
   const toggleAbstracts = () => {
     setShowAbstracts(!showAbstracts);
     saveShowAbstracts(!showAbstracts);
@@ -188,7 +108,7 @@ export function App() {
           class={`tab${state.view === "reading-list" ? " tab--active" : ""}`}
           onClick={() => update({ view: "reading-list" })}
         >
-          Reading list ({readingList.length})
+          Reading list ({readingList.papers.length})
         </button>
       </nav>
     </header>
@@ -276,7 +196,7 @@ export function App() {
           <div class="results__header">
             <p class="muted" aria-live="polite">
               {state.view === "reading-list"
-                ? `${results.length} of ${readingList.length} saved papers`
+                ? `${results.length} of ${readingList.papers.length} saved papers`
                 : load.status === "ready"
                   ? `${results.length} of ${load.index.size} papers`
                   : load.status === "loading"
@@ -321,13 +241,17 @@ export function App() {
                 Show abstracts
               </label>
             )}
-            {state.view === "reading-list" && readingList.length > 0 && (
+            {state.view === "reading-list" && readingList.papers.length > 0 && (
               <div class="results__actions">
                 <button
                   type="button"
                   class="button"
                   onClick={() =>
-                    download("reading-list.bib", toBibtexFile(readingList), "application/x-bibtex")
+                    download(
+                      "reading-list.bib",
+                      toBibtexFile(readingList.papers),
+                      "application/x-bibtex",
+                    )
                   }
                 >
                   Export BibTeX
@@ -338,7 +262,7 @@ export function App() {
                   onClick={() =>
                     download(
                       "reading-list.json",
-                      JSON.stringify(readingList, null, 2),
+                      JSON.stringify(readingList.papers, null, 2),
                       "application/json",
                     )
                   }
@@ -353,7 +277,7 @@ export function App() {
 
           {load.status === "error" && state.view === "papers" ? (
             <p class="notice notice--error">Could not load papers: {load.message}</p>
-          ) : state.view === "reading-list" && readingList.length === 0 ? (
+          ) : state.view === "reading-list" && readingList.papers.length === 0 ? (
             <p class="notice">
               Your reading list is empty. Use ☆ on a paper to save it; the list is kept in this
               browser.
@@ -362,8 +286,8 @@ export function App() {
             <PaperList
               results={results}
               showAbstracts={showAbstracts || state.view === "reading-list"}
-              savedIds={savedIds}
-              onToggleSaved={toggleSaved}
+              savedIds={readingList.savedIds}
+              onToggleSaved={readingList.toggle}
               onAuthor={(author) => setFilters({ ...state.filters, author })}
               onAffiliation={(affiliation) => setFilters({ ...state.filters, affiliation })}
             />
