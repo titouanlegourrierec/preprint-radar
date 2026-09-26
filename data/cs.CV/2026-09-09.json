@@ -7858,12 +7858,7 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.08938v2",
    "abstract": "UAV video question answering requires separating camera motion from changes in the scene, but RGB-only multimodal models receive no explicit, stable reference for that separation. We present EgoSIS, a pose-free adapter that converts RGB-derived bidirectional flow into motion-canonical visual evidence in three stages. Factorized Visual Ego-Transitions (FVET) fits a robust image-plane transition and exposes motion, residual-support, and reliability factors. Reliability-Gated Ego-Transition Memory (ReTEM) uses reliability-weighted updates for a bounded history and re-anchors it at cuts or sustained uncertainty. Ego-Aligned Spatial Evidence (EASE) warps supported visual features into each segment's local anchor and injects four spatial evidence tokens per visual slice through zero-initialized residuals, without changing Qwen's visual-token count. On SIS-Bench, EgoSIS-8B obtains 89.9\\% perception, 82.5\\% perception-plus-memory, and 76.2\\% overall accuracy, with the largest gains concentrated in self-awareness perception and memory. The adapter thus provides an interpretable interface between optical flow and spatial reasoning.",
-   "affiliations": [
-    "Beihang University, Beijing, China",
-    "Zhongguancun Academy, Beijing, China",
-    "Northeastern University, Shenyang, China",
-    "Technology and Engineering Center for Space Utilization, Chinese Academy of Sciences, Beijing 100094, China"
-   ],
+   "affiliations": null,
    "author_affiliations": null,
    "abs_url": "https://arxiv.org/abs/2609.08938",
    "pdf_url": "https://arxiv.org/pdf/2609.08938"

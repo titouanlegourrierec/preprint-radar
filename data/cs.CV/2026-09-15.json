@@ -119,12 +119,7 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.13232v1",
    "abstract": "A robot pruning trees needs two facts per pixel: whether it belongs to a tree, and its distance. Both are usually obtained via task heads attached to a vision backbone chosen by reputation rather than measurement. Holding dataset, decoders, losses, schedule, and evaluation fixed, we ask: how much does the encoder choice change joint semantic segmentation and stereo depth on thin vegetation? We build a hard parameter-sharing network with one encoder feeding both branches, swapping only the encoder without downstream retuning. We evaluate [N] encoders across [M] architecture families (CNNs, transformers, hybrids, MLP-mixers, state-space models) near a ~25M budget, trained from scratch. Depth is evaluated on tree pixels only; segmentation uses boundary F1 and background IoU to prevent \"label-everything-tree\" shortcuts. Three findings stand out. First, the strongest encoders are convolutional and hybrid, not transformers: [BestEncoder] leads with [MIoU] segmentation mIoU and [Delta] depth $\\delta_1$, while [X] of [Y] plain vision transformers collapse when trained from scratch. Second, parameter count does not predict quality --- [SmallEncoder] at only [P]M parameters outranks models two orders of magnitude larger. Third, segmentation and depth rankings agree strongly (Spearman $\\rho$ = [RhoValue]), showing no task conflict. Finally, [K] of [N] encoders collapse to degenerate all-tree segmentation --- exposed by boundary F1 but hidden by region IoU.",
-   "affiliations": [
-    "Centre for Data Science and Artificial Intelligence",
-    "Victoria University of Wellington, Wellington, New Zealand",
-    "Department of Computer Science and Software Engineering",
-    "University of Canterbury, Canterbury, New Zealand"
-   ],
+   "affiliations": null,
    "author_affiliations": null,
    "abs_url": "https://arxiv.org/abs/2609.13232",
    "pdf_url": "https://arxiv.org/pdf/2609.13232"
