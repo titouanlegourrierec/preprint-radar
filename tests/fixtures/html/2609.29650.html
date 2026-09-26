@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><title>arXiv:2609.29650</title></head>
+<body>
+<article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">VG-TIE: An interpretable tabular-to-image encoding method based on visibility graphs</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">David Chushig-Muzo
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Luis M. López-Ramos
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Ángeles Rodríguez de Cara
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Eva Milara
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Luis Zhinin-Vera
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Diego H. Peluffo-Ordóñez
+</span><span class="ltx_note ltx_note_frontmatter ltx_thanks_note ltx_role_thanks" id="id1"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup><span class="ltx_note_type">thanks: </span>David Chushig-Muzo, Luis Miguel López-Ramos, Ángeles Rodríguez de Cara, E. Milara are with the Department of Signal Theory and Communications, Telematics and Computing Systems, Rey Juan Carlos University (URJC), Madrid, Spain. E-mail: author@example.org
+Luis Zhinin-Vera is with the LoUISE Research Group, University of Castilla-La Mancha, Albacete, Spain. E-mail: author@example.org
+Diego H Peluffo-Ordoñez is with the School of Mathematical and Computational Sciences, Yachay Tech University, Ecuador. E-mail: author@example.org
+</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Tabular-to-image encoding methods enable the application of models based on both convolutional neural networks and vision transformers to tabular data, transforming feature vectors into images. Existing methods employ linear and nonlinear dimensionality reduction techniques (<span class="ltx_text ltx_font_italic" id="abstract1.1.1">e.g.,</span> Principal Component Analysis (PCA), t-SNE, and UMAP) to determine pixel positions, resulting in images whose spatial layout do not inherently reflect feature relationships. This paper introduces Visibility Graphs for Tabular-to-Image Encoding (VG-TIE), a novel method that encodes the structure of feature values using Natural Visibility Graph (NVG) and Horizontal Visibility Graph (HVG) into a two-dimensional space obtained through PCA. The resulting images are model-agnostic and intrinsically interpretable. Each pixel corresponds to an input feature, its intensity reflects the magnitude and direction of deviation from the population mean, and edges represent formally defined visibility relationships between features. VG-TIE provides two interpretability methods: <span class="ltx_text ltx_font_italic" id="abstract1.1.2">(i)</span> feature ranking from node degree distributions; and <span class="ltx_text ltx_font_italic" id="abstract1.1.3">(ii)</span> local and global feature importance from pixel intensity combined with Grad-CAM. Experiments on six public tabular datasets show that VG-TIE is competitive with other tabular-to-image methods while providing interpretability on feature importance and ranking similar to intrinsic interpretable methods. The results highlight the potential of the proposed image-based transformation to provide an effective framework that expands the use of deep learning across tabular data domains.</p>
+</div>
+</article>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><title>arXiv:2609.29825</title></head>
+<body>
+<article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">Anatomy-Aligned Surface Field Learning for Myocardial Reconstruction from Sparse Short-Axis Cine MRI</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Xiaohan Yuan
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_address"><span class="ltx_contact_name">Address: </span>Department of Biomedical Engineering, National University of Singapore, Singapore
+</span>
+<span class="ltx_contact ltx_role_address"><span class="ltx_contact_name">Address: </span>School of Automation, Southeast University, Nanjing, China
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Xuan Yang
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_address"><span class="ltx_contact_name">Address: </span>Department of Biomedical Engineering, National University of Singapore, Singapore
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Qingya Li
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_address"><span class="ltx_contact_name">Address: </span>Department of Biomedical Engineering, National University of Singapore, Singapore
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Yangang Wang
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_address"><span class="ltx_contact_name">Address: </span>School of Automation, Southeast University, Nanjing, China
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Lei Li*
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_url"><span class="ltx_contact_name">URL: </span><a href="mailto:author@example.org">author@example.org</a>
+</span>
+<span class="ltx_contact ltx_role_address"><span class="ltx_contact_name">Address: </span>Department of Biomedical Engineering, National University of Singapore, Singapore
+</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Patient-specific 4D myocardial reconstruction from cine MRI supports quantitative functional assessment, regional motion analysis, and simulation-based modeling. However, routinely acquired short-axis (SAX) cine MRI is sparsely sampled along the through-plane direction, making dense and anatomically consistent surface reconstruction challenging. In this study, we propose an anatomy-aligned surface learning framework that parameterizes the epicardial and endocardial surfaces on a shared circumferential-longitudinal <span class="ltx_text ltx_font_italic" id="abstract1.1.1">UV domain</span>. This formulation converts irregular 3D reconstruction into structured coordinate-field completion with explicit correspondence across subjects and cardiac phases. Sparse SAX contours are encoded as UV observation fields, coverage-aware sampling improves robustness to incomplete slice coverage, and topology- and distortion-aware learning preserves circumferential continuity and local surface quality. Experiments on three public cine MRI datasets showed that the proposed method consistently outperformed representative mesh-based and implicit reconstruction approaches, achieving overall Chamfer distances of <math alttext="2.887" class="ltx_Math" display="inline" id="abstract1.m1" intent=":literal"><semantics><mn>2.887</mn><annotation encoding="application/x-tex">2.887</annotation></semantics></math> mm on ACDC, <math alttext="2.641" class="ltx_Math" display="inline" id="abstract1.m2" intent=":literal"><semantics><mn>2.641</mn><annotation encoding="application/x-tex">2.641</annotation></semantics></math> mm on M&amp;Ms, and <math alttext="2.810" class="ltx_Math" display="inline" id="abstract1.m3" intent=":literal"><semantics><mn>2.810</mn><annotation encoding="application/x-tex">2.810</annotation></semantics></math> mm on M&amp;Ms-2. The reconstructed sequences also preserved ventricular function, with end-diastolic volume and ejection fraction errors of <math alttext="3.3" class="ltx_Math" display="inline" id="abstract1.m4" intent=":literal"><semantics><mn>3.3</mn><annotation encoding="application/x-tex">3.3</annotation></semantics></math> mL and <math alttext="1.1\%" class="ltx_Math" display="inline" id="abstract1.m5" intent=":literal"><semantics><mrow><mn>1.1</mn><mo>%</mo></mrow><annotation encoding="application/x-tex">1.1\%</annotation></semantics></math>, respectively. These results demonstrate that anatomy-aligned UV learning provides an accurate, efficient, and correspondence-aware representation for sparse cine MRI reconstruction and myocardial modeling. The source code will be available at <a class="ltx_ref ltx_url ltx_font_typewriter" href="https://github.com/yuan-xiaohan/SAX2MyoSurf" title="">https://github.com/yuan-xiaohan/SAX2MyoSurf</a>.</p>
+</div>
+</article>
+</body>
+</html>

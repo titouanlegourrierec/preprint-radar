@@ -69,3 +69,14 @@ def test_fetch_metadata_stops_at_first_failure(api_feed: str) -> None:
 
     assert len(calls) == 2
     assert set(metadata) == {"2609.29048", "2609.29373"}
+
+
+def test_parse_feed_filters_notes_typed_as_affiliations() -> None:
+    feed = (
+        '<feed xmlns="http://www.w3.org/2005/Atom" xmlns:arxiv="http://arxiv.org/schemas/atom">'
+        "<entry><id>http://arxiv.org/abs/2609.00001v1</id><summary>Text.</summary>"
+        "<author><name>A</name><arxiv:affiliation>ECCV 2026. Corresponding author is B</arxiv:affiliation>"
+        "<arxiv:affiliation>Wuhan University</arxiv:affiliation></author></entry></feed>"
+    )
+    [meta] = parse_feed(feed)
+    assert meta.affiliations == ("Wuhan University",)

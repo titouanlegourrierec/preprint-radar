@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><title>arXiv:2609.30056</title></head>
+<body>
+<article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">M3GD: Multi-Modal Multi-View Geometric Diffusion for Camera–LiDAR Novel View Synthesis</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Yang Zhou
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>The authors are with New York University, New York, USA. <span class="ltx_text ltx_font_typewriter" id="id1" style="font-size:80%;">email: author@example.org</span>.
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Jiuhong Xiao
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>The authors are with New York University, New York, USA. <span class="ltx_text ltx_font_typewriter" id="id2" style="font-size:80%;">email: author@example.org</span>.
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>The authors are with Department of Electrical Engineering and Computer Sciences, University of California, Berkeley, CA 94720, USA. <span class="ltx_text ltx_font_typewriter" id="id3" style="font-size:80%;">email: author@example.org</span>.
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Shizhao Ye
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>The authors are with Department of Electrical Engineering and Computer Sciences, University of California, Berkeley, CA 94720, USA. <span class="ltx_text ltx_font_typewriter" id="id4" style="font-size:80%;">email: author@example.org</span>.
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Long Quang
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>The authors are with New York University, New York, USA. <span class="ltx_text ltx_font_typewriter" id="id5" style="font-size:80%;">email: author@example.org</span>.
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>The authors are with the U.S. Army Combat Capabilities Development Command, Army Research Laboratory, Adelphi, MD 20783, USA. <span class="ltx_text ltx_font_typewriter" id="id6" style="font-size:80%;">email: author@example.org</span>.
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Carlos Nieto-Granda
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>The authors are with the U.S. Army Combat Capabilities Development Command, Army Research Laboratory, Adelphi, MD 20783, USA. <span class="ltx_text ltx_font_typewriter" id="id7" style="font-size:80%;">email: author@example.org</span>.
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Giuseppe Loianno
+</span><span class="ltx_note ltx_note_frontmatter ltx_thanks_contribution ltx_role_thanks" id="id8"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup><span class="ltx_note_type">thanks: </span><sup class="ltx_sup" id="id8.1">*</sup>These authors contributed equally to this work.</span></span></span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>The authors are with Department of Electrical Engineering and Computer Sciences, University of California, Berkeley, CA 94720, USA. <span class="ltx_text ltx_font_typewriter" id="id9" style="font-size:80%;">email: author@example.org</span>.
+</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Robotic novel view synthesis (NVS) must recover both visual appearance and metric 3D structure, yet most generative NVS methods rely only on images, overlooking LiDAR, a complementary sensor common on robotic platforms. We present M3GD, a Camera–LiDAR multimodal representation for generative NVS that composes independently pretrained 2D image and 3D point-cloud foundation models without separately pretraining a cross-modal translator.
+We show that, after camera projection, frozen LiDAR and image features exhibit substantial shared spatial structure, providing a natural cross-modal representation.
+M3GD conditions generation on LiDAR through this structure: it combines explicit geometry statistics with learned point-cloud descriptors into view-aligned packets on the image-latent grid, injected through a lightweight residual adapter into a multi-view flow-matching generator whose latent space, decoders, and training objective remain intact.
+On the GrandTour dataset, M3GD improves target-view RGB and depth synthesis over an image-only version of the same backbone.
+Ablations show that the gains come from pixel-aligned LiDAR content and that target-view LiDAR acts as a geometric query linking the requested view to source observations.
+Deployment on a ground robot demonstrates practical real-world operation, with a configurable quality–cost trade-off controlled by the number of Euler integration steps.</p>
+</div>
+</article>
+</body>
+</html>

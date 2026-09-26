@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><title>arXiv:2609.29350</title></head>
+<body>
+<article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">Learning a Flow to Self-Supervised Representations</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">
+<span class="ltx_tabular ltx_align_middle" id="id1">
+<span class="ltx_tbody">
+<span class="ltx_tr" id="id1.1">
+<span class="ltx_td ltx_align_center" id="id1.1.1"><span class="ltx_text ltx_font_bold" id="id1.1.1.1">Yuling Jiao<sup class="ltx_sup" id="id1.1.1.1.1">1</sup>   Wensen Ma<sup class="ltx_sup" id="id1.1.1.1.2">2</sup>   Houduo Qi<sup class="ltx_sup" id="id1.1.1.1.3">3,2</sup>   Defeng Sun<sup class="ltx_sup" id="id1.1.1.1.4">2</sup></span></span></span>
+</span>
+</span>
+</span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Explicit geometric references offer a direct way to structure self-supervised
+representations. Existing adversarial distribution-matching formulations,
+however, require costly encoder–critic optimization
+<cite class="ltx_cite ltx_citemacro_citep">(<a class="ltx_ref" href="#bib.bib26" title="">Jiao et al., 2026</a>)</cite>. We introduce Flow-Based Distribution Matching
+(FBDM), a non-adversarial framework that learns this reference-directed
+geometry through spherical conditional velocity regression.
+An ETF-inspired reference allows its number of components <math alttext="K^{\prime}" class="ltx_Math" display="inline" id="abstract1.m1" intent=":literal"><semantics><msup><mi>K</mi><mo>′</mo></msup><annotation encoding="application/x-tex">K^{\prime}</annotation></semantics></math> to exceed the
+auxiliary flow dimension <math alttext="d^{\star}" class="ltx_Math" display="inline" id="abstract1.m2" intent=":literal"><semantics><msup><mi>d</mi><mo>⋆</mo></msup><annotation encoding="application/x-tex">d^{\star}</annotation></semantics></math> while retaining structured geometric
+separation. We assign both augmented views of each image to the same target,
+while limiting how many images each reference center can receive.
+An explicit alignment loss further pulls the two views’ representations
+closer together.
+Experiments across benchmarks ranging from CIFAR to ImageNet show that FBDM
+achieves performance nearly on par with DM and remains competitive with
+existing SSL methods.
+Matched training-cost comparisons show a 1.48–1.83<math alttext="\times" class="ltx_Math" display="inline" id="abstract1.m3" intent=":literal"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math> speedup over DM
+with a negligible increase in GPU memory usage.
+We also provide a theoretical explanation for the usefulness of the learned
+representations: under stated conditions, we bound the downstream
+misclassification rate in terms of the FBDM pretraining loss.</p>
+</div>
+<span class="ltx_note ltx_role_footnotetext" id="footnotex1"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup><span class="ltx_note_type">footnotetext: </span><sup class="ltx_sup" id="footnotex1.1">1</sup>School of Artificial Intelligence, National Center for Applied Mathematics in Hubei, Hubei Key Laboratory of Computational Science, Wuhan University, Wuhan, China.
+<br class="ltx_break"/><sup class="ltx_sup" id="footnotex1.2">2</sup>Department of Applied Mathematics, The Hong Kong Polytechnic University, Hung Hom, Kowloon, Hong Kong SAR, China.
+<br class="ltx_break"/><sup class="ltx_sup" id="footnotex1.3">3</sup>Department of Data Science and Artificial Intelligence, The Hong Kong Polytechnic University, Hung Hom, Kowloon, Hong Kong SAR, China.</span></span></span>
+</article>
+</body>
+</html>
