@@ -591,7 +591,8 @@ mark {
   flex-direction: column;
 }
 
-/* Day headings, shown when the results cover several days in announcement order. */
+/* Day sections, shown when the results cover several days in announcement order.
+   Each day folds under its heading (a native <details>, open by default). */
 .day-heading {
   display: flex;
   align-items: baseline;
@@ -602,9 +603,30 @@ mark {
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--text-muted);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
-.day-heading:first-child {
+/* display: flex drops the native marker; draw the fold state ourselves. */
+.day-heading::-webkit-details-marker {
+  display: none;
+}
+
+.day-heading::before {
+  content: "▾";
+  font-size: 0.9em;
+}
+
+.day-group:not([open]) > .day-heading::before {
+  content: "▸";
+}
+
+.day-heading:hover {
+  color: var(--text);
+}
+
+.day-group:first-child > .day-heading {
   margin-top: 12px;
 }
 

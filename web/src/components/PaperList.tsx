@@ -1,6 +1,6 @@
-import type { ComponentChild } from "preact";
+import type { ComponentChildren } from "preact";
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
-import { papersPerDay } from "../day-groups";
+import { dayGroups } from "../day-groups";
 import { formatShortDay } from "../format";
 import type { SearchResult } from "../search";
 import type { Paper } from "../types";
@@ -60,44 +60,67 @@ export function PaperList({
     return () => observer.disconnect();
   }, []);
 
-  const days = useMemo(() => papersPerDay(results), [results]);
-  const withDays = groupByDay && days.size > 1;
+  const groups = useMemo(() => dayGroups(results), [results]);
+  const withDays = groupByDay && groups.length > 1;
+  const [folded, setFolded] = useState<ReadonlySet<string>>(new Set());
+  const toggleDay = (day: string) => (event: Event) => {
+    event.preventDefault();
+    setFolded((current) => {
+      const next = new Set(current);
+      if (!next.delete(day)) next.add(day);
+      return next;
+    });
+  };
 
-  const rows: ComponentChild[] = [];
-  let lastDay: string | null = null;
-  for (const { paper, highlights } of results.slice(0, visible)) {
-    if (withDays && paper.announced !== lastDay) {
-      lastDay = paper.announced;
-      const count = days.get(paper.announced) ?? 0;
-      rows.push(
-        <div key={`day:${paper.announced}`} class="day-heading">
-          {formatShortDay(paper.announced)}
-          <span class="day-heading__count">
-            · {count} paper{count === 1 ? "" : "s"}
-          </span>
-        </div>,
+  const card = ({ paper, highlights }: SearchResult) => (
+    <PaperCard
+      key={paper.arxiv_id}
+      paper={paper}
+      highlights={highlights}
+      showAbstract={showAbstracts}
+      saved={savedIds.has(paper.arxiv_id)}
+      isTarget={paper.arxiv_id === openId}
+      permalink={linkTo(paper)}
+      onOpen={onOpenPaper}
+      onToggleSaved={onToggleSaved}
+      onAuthor={onAuthor}
+      onAffiliation={onAffiliation}
+    />
+  );
+
+  let content: ComponentChildren;
+  if (withDays) {
+    // Each day folds under its heading, open by default. Only the papers of open days
+    // count against the paging budget: folding a day pulls the following days up.
+    const rendered = [];
+    let budget = visible;
+    for (const { day, entries } of groups) {
+      if (budget <= 0) break;
+      const isFolded = folded.has(day);
+      rendered.push(
+        <details key={day} class="day-group" open={!isFolded}>
+          {/* biome-ignore lint/a11y/noStaticElementInteractions: <summary> is natively
+              interactive; the rule does not know it. The click is intercepted so that
+              folding lives in state, which the paging budget reads. */}
+          <summary class="day-heading" onClick={toggleDay(day)}>
+            {formatShortDay(day)}
+            <span class="day-heading__count">
+              · {entries.length} paper{entries.length === 1 ? "" : "s"}
+            </span>
+          </summary>
+          {isFolded ? null : entries.slice(0, budget).map(card)}
+        </details>,
       );
+      if (!isFolded) budget -= entries.length;
     }
-    rows.push(
-      <PaperCard
-        key={paper.arxiv_id}
-        paper={paper}
-        highlights={highlights}
-        showAbstract={showAbstracts}
-        saved={savedIds.has(paper.arxiv_id)}
-        isTarget={paper.arxiv_id === openId}
-        permalink={linkTo(paper)}
-        onOpen={onOpenPaper}
-        onToggleSaved={onToggleSaved}
-        onAuthor={onAuthor}
-        onAffiliation={onAffiliation}
-      />,
-    );
+    content = rendered;
+  } else {
+    content = results.slice(0, visible).map(card);
   }
 
   return (
     <>
-      <div class="paper-list">{rows}</div>
+      <div class="paper-list">{content}</div>
       <div ref={sentinel} aria-hidden="true" />
     </>
   );

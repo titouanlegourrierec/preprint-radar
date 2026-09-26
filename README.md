@@ -71,8 +71,9 @@ case- and accent-insensitive, with suggestions); clicking a name on a paper fill
 The *Venue* filter keeps the papers accepted at one venue, or at any (major venues first, then alphabetically). With search
 words, results are sorted by relevance: MiniSearch's BM25 score, where rarer words weigh
 more and matches count most in the title (×3), then authors (×2), affiliations (×1.5),
-abstract (×1) and comments (×0.5). Without search words (or sorted by newest), a heading
-separates each announcement day. Searches are encoded in the URL, so they can be shared;
+abstract (×1) and comments (×0.5). Without search words (or sorted by newest), the papers
+of each announcement day fold under a heading. Searches are encoded in the URL, so they
+can be shared;
 *Share* on a paper copies a link that opens that paper alone, expanded, on its announcement
 day. The ◐ button next to the tabs switches between the automatic, light and dark themes.
 

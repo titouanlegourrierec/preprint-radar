@@ -1,15 +1,22 @@
 import type { SearchResult } from "./search";
 
+export interface DayGroup {
+  day: string;
+  entries: SearchResult[];
+}
+
 /**
- * Number of results per announcement day, in result order.
+ * Consecutive results grouped by announcement day, in result order.
  *
- * Used for the day headings of the paper list, which only make sense when the results
- * are in announcement order (no search words, or sorted by newest).
+ * Used for the foldable day sections of the paper list, which only make sense when
+ * the results are in announcement order (no search words, or sorted by newest).
  */
-export function papersPerDay(results: readonly SearchResult[]): Map<string, number> {
-  const counts = new Map<string, number>();
-  for (const { paper } of results) {
-    counts.set(paper.announced, (counts.get(paper.announced) ?? 0) + 1);
+export function dayGroups(results: readonly SearchResult[]): DayGroup[] {
+  const groups: DayGroup[] = [];
+  for (const entry of results) {
+    const group = groups.at(-1);
+    if (group && group.day === entry.paper.announced) group.entries.push(entry);
+    else groups.push({ day: entry.paper.announced, entries: [entry] });
   }
-  return counts;
+  return groups;
 }
