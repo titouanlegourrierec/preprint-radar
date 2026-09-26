@@ -10,6 +10,7 @@ from bs4 import BeautifulSoup, Tag
 from preprint_radar.exceptions import ParseError
 from preprint_radar.http import HttpClient
 from preprint_radar.models import ARXIV_BASE_URL, Listing, Paper
+from preprint_radar.venue import extract_venue
 
 logger = logging.getLogger(__name__)
 
@@ -145,6 +146,8 @@ def _parse_entry(term: Tag, detail: Tag, announced: date) -> Paper:
 
     primary = detail.select_one("div.list-subjects span.primary-subject")
     subjects = _field_text(detail, "div.list-subjects") or ""
+    comments = _field_text(detail, "div.list-comments")
+    journal_ref = _field_text(detail, "div.list-journal-ref")
 
     return Paper(
         arxiv_id=arxiv_id,
@@ -153,8 +156,9 @@ def _parse_entry(term: Tag, detail: Tag, announced: date) -> Paper:
         authors=tuple(_normalize(a.get_text()) for a in detail.select("div.list-authors a")),
         primary_subject=_normalize(primary.get_text()) if primary else None,
         subjects=tuple(s.strip() for s in subjects.split(";") if s.strip()),
-        comments=_field_text(detail, "div.list-comments"),
-        journal_ref=_field_text(detail, "div.list-journal-ref"),
+        comments=comments,
+        journal_ref=journal_ref,
+        venue=extract_venue(comments, journal_ref),
         cross_list_from=cross_list.group(1) if cross_list else None,
         html_url=str(html_link["href"]) if html_link else None,
     )

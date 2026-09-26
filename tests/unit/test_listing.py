@@ -50,6 +50,12 @@ def test_replaces_placeholder_links_in_comments(listing: Listing) -> None:
     )
 
 
+def test_detects_venue(listing: Listing) -> None:
+    assert _paper(listing, "2609.30234").venue == "SIGGRAPH Asia 2026"
+    assert _paper(listing, "2609.29375").venue == "RA-L 2024"
+    assert _paper(listing, "2609.30245").venue is None
+
+
 def test_parses_journal_reference(listing: Listing) -> None:
     journal_ref = _paper(listing, "2609.29375").journal_ref
     assert journal_ref is not None

@@ -29,6 +29,7 @@ class Paper:
         subjects: All subjects, primary one included.
         comments: Free-form author comments (venue, page count, project URL...).
         journal_ref: Journal reference, when the paper has been published.
+        venue: Venue the paper was accepted at, detected from comments, e.g. ``"ECCV 2026"``.
         cross_list_from: Category the paper is cross-listed from, if any.
         html_url: URL of the HTML rendering, when arXiv could produce one.
         abstract: Abstract, or ``None`` if not retrieved yet.
@@ -43,6 +44,7 @@ class Paper:
     subjects: tuple[str, ...] = ()
     comments: str | None = None
     journal_ref: str | None = None
+    venue: str | None = None
     cross_list_from: str | None = None
     html_url: str | None = None
     abstract: str | None = None
@@ -79,6 +81,7 @@ class Paper:
             "subjects": list(self.subjects),
             "comments": self.comments,
             "journal_ref": self.journal_ref,
+            "venue": self.venue,
             "cross_list_from": self.cross_list_from,
             "html_url": self.html_url,
             "abstract": self.abstract,
@@ -111,6 +114,7 @@ class Paper:
                 subjects=tuple(_str_list(record, "subjects")),
                 comments=_optional_str(record, "comments"),
                 journal_ref=_optional_str(record, "journal_ref"),
+                venue=_optional_str(record, "venue"),
                 cross_list_from=_optional_str(record, "cross_list_from"),
                 html_url=_optional_str(record, "html_url"),
                 abstract=_optional_str(record, "abstract"),
