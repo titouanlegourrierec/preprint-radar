@@ -10,6 +10,9 @@ on:
       max-html:
         description: Maximum number of HTML pages to read per category
         default: "600"
+      since:
+        description: Collect every day from this date on (YYYY-MM-DD), e.g. after missed runs
+        default: ""
 
 concurrency:
   group: update-data
@@ -28,6 +31,7 @@ jobs:
       # Defaults to the repository URL, so that forks never send someone else's address.
       PREPRINT_RADAR_CONTACT: ${{ vars.PREPRINT_RADAR_CONTACT || format('{0}/{1}', github.server_url, github.repository) }}
       MAX_HTML: ${{ inputs.max-html || '600' }}
+      SINCE: ${{ inputs.since }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
@@ -41,7 +45,13 @@ jobs:
         run: |
           args=()
           for category in $CATEGORIES; do args+=(--category "$category"); done
-          uv run --no-dev preprint-radar -v update "${args[@]}" --max-html "$MAX_HTML"
+          if [ -n "$SINCE" ]; then
+            # Catchup pages of every day since SINCE, with abstracts, then affiliations.
+            uv run --no-dev preprint-radar -v backfill "${args[@]}" --since "$SINCE" --max-html "$MAX_HTML"
+          else
+            # Recent listing; abstracts from RSS and catchup pages, then affiliations.
+            uv run --no-dev preprint-radar -v update "${args[@]}" --max-html "$MAX_HTML"
+          fi
 
       - name: Commit data
         if: always()
@@ -53,6 +63,8 @@ jobs:
             echo "No new data."
           else
             git commit -m "chore(data): update $(date -u +%Y-%m-%d)"
+            # main may have moved during the run, which lasts hours: replay the commit on top.
+            git pull --rebase
             git push
           fi
 
