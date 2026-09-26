@@ -13,8 +13,11 @@ export PREPRINT_RADAR_CONTACT
 WEB := web
 CATEGORIES ?= cs.CV
 MAX_HTML ?=
+SINCE ?=
+UNTIL ?=
 CATEGORY_ARGS := $(foreach category,$(CATEGORIES),--category $(category))
 MAX_HTML_ARG := $(if $(MAX_HTML),--max-html $(MAX_HTML))
+UNTIL_ARG := $(if $(UNTIL),--until $(UNTIL))
 
 ##@ General
 
@@ -29,7 +32,9 @@ help: ## Show this help
 	printf "\n%sVariables%s\n" "$$bold" "$$reset"; \
 	printf "  %s%-14s%s %s\n" "$$cyan" "CATEGORIES" "$$reset" "arXiv categories for update targets (default: $(CATEGORIES))"; \
 	printf "  %s%-14s%s %s\n" "$$cyan" "MAX_HTML" "$$reset" "maximum HTML pages read per category (default: no limit)"; \
-	printf "\nExample: make update CATEGORIES=\"cs.CV cs.LG\" MAX_HTML=50\n"
+	printf "  %s%-14s%s %s\n" "$$cyan" "SINCE, UNTIL" "$$reset" "first and last day for backfill, YYYY-MM-DD (UNTIL defaults to today)"; \
+	printf "\nExamples: make update CATEGORIES=\"cs.CV cs.LG\" MAX_HTML=50\n"; \
+	printf "          make backfill SINCE=2026-09-01\n"
 
 .PHONY: install
 install: $(WEB)/node_modules ## Install Python and web dependencies, and the git hooks
@@ -93,6 +98,11 @@ update: ## Add recent papers to data/, with abstracts and affiliations (slow)
 .PHONY: update-quick
 update-quick: ## Add recent papers to data/ without reading HTML pages (fast)
 	uv run preprint-radar -v update $(CATEGORY_ARGS) --max-html 0
+
+.PHONY: backfill
+backfill: ## Add past days (SINCE to UNTIL) to data/, with abstracts and affiliations (slow)
+	@if [ -z "$(SINCE)" ]; then echo "Usage: make backfill SINCE=YYYY-MM-DD [UNTIL=YYYY-MM-DD]" >&2; exit 2; fi
+	uv run preprint-radar -v backfill $(CATEGORY_ARGS) --since $(SINCE) $(UNTIL_ARG) $(MAX_HTML_ARG)
 
 ##@ Web app
 

@@ -10,13 +10,21 @@ from preprint_radar.http import HttpClient
 
 
 @pytest.fixture
-def offline(monkeypatch: pytest.MonkeyPatch, listing_html: str, api_feed: str) -> None:
+def offline(
+    monkeypatch: pytest.MonkeyPatch,
+    listing_html: str,
+    catchup_html: str,
+    catchup_empty_html: str,
+    api_feed: str,
+) -> None:
     """Serve fixtures instead of hitting arxiv.org."""
 
     def get_text(_: HttpClient, url: str, *, params: Mapping[str, str | int] | None = None) -> str:
         del params
         if "/list/" in url:
             return listing_html
+        if "/catchup/" in url:
+            return catchup_html if url.endswith("/2026-09-01") else catchup_empty_html
         if "export.arxiv.org" in url:
             return api_feed
         raise NotFoundError(url)
@@ -65,6 +73,33 @@ def test_update_populates_store(tmp_path: Path, capsys: pytest.CaptureFixture[st
     index = json.loads((data_dir / "index.json").read_text(encoding="utf-8"))
     assert [day["count"] for day in index["categories"]["cs.CV"]] == [5, 2]
     assert "cs.CV: 7 listed, 7 new" in capsys.readouterr().out
+
+
+@pytest.mark.usefixtures("offline")
+def test_backfill_populates_store(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    data_dir = tmp_path / "data"
+
+    args = ["--since", "2026-08-31", "--until", "2026-09-02", "--max-html", "0", "--crawl-delay", "0"]
+    assert main(["backfill", "--data-dir", str(data_dir), *args]) == 0
+
+    index = json.loads((data_dir / "index.json").read_text(encoding="utf-8"))
+    assert index["categories"]["cs.CV"] == [{"date": "2026-09-01", "count": 4}]
+    assert "cs.CV: 4 listed, 4 new, 4 abstracts" in capsys.readouterr().out
+
+
+def test_backfill_rejects_reversed_dates(capsys: pytest.CaptureFixture[str]) -> None:
+    with pytest.raises(SystemExit) as exc_info:
+        main(["backfill", "--since", "2026-09-02", "--until", "2026-09-01"])
+
+    assert exc_info.value.code == 2
+    assert "--since must not be after --until" in capsys.readouterr().err
+
+
+def test_backfill_rejects_malformed_dates(capsys: pytest.CaptureFixture[str]) -> None:
+    with pytest.raises(SystemExit):
+        main(["backfill", "--since", "01/09/2026"])
+
+    assert "expected YYYY-MM-DD" in capsys.readouterr().err
 
 
 def test_errors_are_reported(monkeypatch: pytest.MonkeyPatch, caplog: pytest.LogCaptureFixture) -> None:

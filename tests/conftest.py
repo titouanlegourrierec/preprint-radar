@@ -21,6 +21,21 @@ def listing(listing_html: str) -> Listing:
 
 
 @pytest.fixture(scope="session")
+def catchup_html() -> str:
+    """Trimmed copy of https://arxiv.org/catchup/cs.CV/2026-09-01?abs=True.
+
+    Three new submissions, one cross-list and one replacement, with abstracts.
+    """
+    return (FIXTURES_DIR / "catchup_cs_cv.html").read_text(encoding="utf-8")
+
+
+@pytest.fixture(scope="session")
+def catchup_empty_html() -> str:
+    """Copy of the catchup page of a day without announcement (a Saturday)."""
+    return (FIXTURES_DIR / "catchup_cs_cv_empty.html").read_text(encoding="utf-8")
+
+
+@pytest.fixture(scope="session")
 def api_feed() -> str:
     """arXiv API response with a plain entry, an entry with affiliations and an error entry."""
     return (FIXTURES_DIR / "api_feed.xml").read_text(encoding="utf-8")

@@ -1,13 +1,16 @@
 from collections import Counter
 from collections.abc import Callable
+from dataclasses import replace
+from datetime import date
 from pathlib import Path
 
 import httpx
 import pytest
 
 from preprint_radar.http import HttpClient
-from preprint_radar.models import Listing
-from preprint_radar.pipeline import format_report, update_category
+from preprint_radar.listing import parse_catchup
+from preprint_radar.models import Listing, Paper
+from preprint_radar.pipeline import backfill_category, format_report, update_category
 from preprint_radar.store import PaperStore
 
 ATOM_ENTRY = """
@@ -56,12 +59,17 @@ class FakeArxiv:
         self.paper_html = paper_html
         self.hits: Counter[str] = Counter()
         self.api_ids: list[str] = []
+        # Catchup pages by path; other days have no announcement.
+        self.catchup_pages: dict[str, str] = {}
+        self.catchup_empty_html = ""
 
     def handle(self, request: httpx.Request) -> httpx.Response:
         url = request.url
         self.hits[url.path] += 1
         if url.path.startswith("/list/"):
             return httpx.Response(200, text=self.listing_html)
+        if url.path.startswith("/catchup/"):
+            return httpx.Response(200, text=self.catchup_pages.get(url.path, self.catchup_empty_html))
         if url.host == "rss.arxiv.org":
             return httpx.Response(200, text=_rss_feed(RSS_DAY_IDS))
         if url.host == "export.arxiv.org":
@@ -75,6 +83,7 @@ class FakeArxiv:
         pages = {
             f"/html/{API_MISSING_ID}v1": "2609.24787",
             "/html/2609.30249v1": "2609.30249",
+            "/html/2608.28663v1": "2609.30249",  # any real front matter will do
         }
         if path == "/html/2609.30234v1":
             return httpx.Response(503)  # transient failure: retried on the next run
@@ -87,8 +96,25 @@ class FakeArxiv:
 
 
 @pytest.fixture
-def fake(listing_html: str, paper_html: Callable[[str], str]) -> FakeArxiv:
-    return FakeArxiv(listing_html, paper_html)
+def fake(listing_html: str, paper_html: Callable[[str], str], catchup_empty_html: str) -> FakeArxiv:
+    fake = FakeArxiv(listing_html, paper_html)
+    fake.catchup_empty_html = catchup_empty_html
+    return fake
+
+
+def _catchup_page(ids: list[str]) -> str:
+    """Catchup page of Thu, 24 Sep 2026 announcing ``ids``, with abstracts."""
+    entries = "".join(
+        f'<dt><a href="/abs/{arxiv_id}" title="Abstract" id="{arxiv_id}">arXiv:{arxiv_id}</a></dt>'
+        f"<dd><div class='meta'><div class='list-title mathjax'>Paper {arxiv_id}</div>"
+        f"<p class='mathjax'>From catchup {arxiv_id}.</p></div></dd>"
+        for arxiv_id in ids
+    )
+    return (
+        "<div id='dlpage'><h1>Catchup results for Computer Vision on Thu, 24 Sep 2026</h1>"
+        f"<dl id='articles'><h3>New submissions (showing {len(ids)} of {len(ids)} entries)</h3>"
+        f"{entries}</dl></div>"
+    )
 
 
 @pytest.fixture
@@ -123,6 +149,18 @@ def test_update_enriches_and_stores_papers(fake: FakeArxiv, store: PaperStore) -
     assert stored["2609.30234"].affiliations is None
 
 
+def test_update_takes_older_abstracts_from_catchup_pages(fake: FakeArxiv, store: PaperStore) -> None:
+    fake.catchup_pages = {"/catchup/cs.CV/2026-09-24": _catchup_page(["2609.28466", "2609.28473"])}
+
+    stored = {paper.arxiv_id: paper for paper in _run(fake, store, max_html_fetches=0).papers}
+
+    # The latest day comes from RSS, the day before from its catchup page: no API call.
+    assert stored["2609.30245"].abstract == "From RSS 2609.30245."
+    assert stored["2609.28466"].abstract == "From catchup 2609.28466."
+    assert fake.hits["/catchup/cs.CV/2026-09-24"] == 1
+    assert fake.api_ids == []
+
+
 def test_second_run_only_fetches_what_is_missing(fake: FakeArxiv, store: PaperStore) -> None:
     _run(fake, store)
     fake.hits.clear()
@@ -150,3 +188,80 @@ def test_format_report(fake: FakeArxiv, store: PaperStore) -> None:
         report = update_category("cs.CV", store=store, site_client=site, api_client=api)
 
     assert format_report(report).startswith("cs.CV: 7 listed, 7 new, 7 abstracts")
+
+
+BACKFILL_DAYS = [date(2026, 8, 31), date(2026, 9, 1), date(2026, 9, 2)]
+
+
+@pytest.fixture
+def fake_catchup(fake: FakeArxiv, catchup_html: str, catchup_empty_html: str) -> FakeArxiv:
+    fake.catchup_pages = {"/catchup/cs.CV/2026-09-01": catchup_html}
+    fake.catchup_empty_html = catchup_empty_html
+    return fake
+
+
+def _backfill(fake: FakeArxiv, store: PaperStore, **kwargs: int | None) -> dict[str, Paper]:
+    with fake.client() as site:
+        backfill_category("cs.CV", BACKFILL_DAYS, store=store, site_client=site, save_every=1, **kwargs)
+    return {paper.arxiv_id: paper for paper in store.iter_papers("cs.CV")}
+
+
+def test_backfill_stores_each_day_with_abstracts(fake_catchup: FakeArxiv, store: PaperStore) -> None:
+    stored = _backfill(fake_catchup, store)
+
+    assert set(stored) == {"2608.28663", "2608.28674", "2608.28913", "2608.28693"}
+    assert store.days("cs.CV") == [date(2026, 9, 1)]
+    assert all(paper.abstract for paper in stored.values())
+    assert [path for path in fake_catchup.hits if path.startswith("/catchup/")] == [
+        "/catchup/cs.CV/2026-09-02",
+        "/catchup/cs.CV/2026-09-01",
+        "/catchup/cs.CV/2026-08-31",
+    ]
+    # Abstracts come with the catchup pages: neither RSS nor the API is needed.
+    assert fake_catchup.hits["/rss/cs.CV"] == fake_catchup.hits["/api/query"] == 0
+    assert (store.root / "index.json").is_file()
+
+
+def test_backfill_reads_affiliations_from_html(fake_catchup: FakeArxiv, store: PaperStore) -> None:
+    stored = _backfill(fake_catchup, store)
+
+    affiliations = stored["2608.28663"].affiliations
+    assert affiliations is not None
+    assert "NVIDIA" in affiliations
+    assert stored["2608.28913"].affiliations == ()  # no HTML front matter (404)
+    assert stored["2608.28674"].affiliations is None  # no HTML rendering at all
+
+
+def test_backfill_reuses_stored_enrichment(
+    fake_catchup: FakeArxiv, store: PaperStore, catchup_html: str
+) -> None:
+    known = next(paper for paper in parse_catchup(catchup_html).papers if paper.arxiv_id == "2608.28913")
+    store.save("cs.CV", [replace(known, abstract=None, affiliations=("Stored Lab",))])
+
+    with fake_catchup.client() as site:
+        report = backfill_category("cs.CV", BACKFILL_DAYS, store=store, site_client=site)
+
+    stored = {paper.arxiv_id: paper for paper in store.iter_papers("cs.CV")}
+    assert stored["2608.28913"].affiliations == ("Stored Lab",)
+    assert stored["2608.28913"].abstract is not None
+    assert fake_catchup.hits["/html/2608.28913v1"] == 0
+    assert (report.listed, report.new, report.abstracts_fetched) == (4, 3, 4)
+
+
+def test_backfill_max_html_fetches_limits_downloads(fake_catchup: FakeArxiv, store: PaperStore) -> None:
+    _backfill(fake_catchup, store, max_html_fetches=0)
+
+    assert not any(path.startswith("/html/") for path in fake_catchup.hits)
+
+
+def test_backfill_reuses_days_already_stored(fake_catchup: FakeArxiv, store: PaperStore) -> None:
+    _backfill(fake_catchup, store, max_html_fetches=0)
+    fake_catchup.hits.clear()
+
+    _backfill(fake_catchup, store, max_html_fetches=0)
+
+    # Only the days without papers (no announcement) are asked for again.
+    assert [path for path in fake_catchup.hits if path.startswith("/catchup/")] == [
+        "/catchup/cs.CV/2026-09-02",
+        "/catchup/cs.CV/2026-08-31",
+    ]

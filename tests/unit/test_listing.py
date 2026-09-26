@@ -5,7 +5,13 @@ import pytest
 
 from preprint_radar.exceptions import ParseError
 from preprint_radar.http import HttpClient
-from preprint_radar.listing import fetch_listing, parse_listing, validate_category
+from preprint_radar.listing import (
+    fetch_catchup,
+    fetch_listing,
+    parse_catchup,
+    parse_listing,
+    validate_category,
+)
 from preprint_radar.models import Listing, Paper
 
 
@@ -118,6 +124,82 @@ def test_fetch_listing_requests_recent_page(listing_html: str) -> None:
     [request] = requests
     assert request.url.path == "/list/cs.CV/recent"
     assert request.url.params["show"] == "100"
+
+
+def test_listing_pages_have_no_abstracts(listing: Listing) -> None:
+    assert all(paper.abstract is None for paper in listing.papers)
+
+
+def test_catchup_keeps_new_submissions_and_cross_lists(catchup_html: str) -> None:
+    catchup = parse_catchup(catchup_html)
+
+    # The replacement (2406.00434, an older paper) is skipped, as in the recent listing.
+    assert [paper.arxiv_id for paper in catchup.papers] == [
+        "2608.28663",
+        "2608.28674",
+        "2608.28913",
+        "2608.28693",
+    ]
+    assert catchup.total == 4
+    assert catchup.is_complete
+
+
+def test_catchup_takes_the_day_from_the_title(catchup_html: str) -> None:
+    assert {paper.announced for paper in parse_catchup(catchup_html).papers} == {date(2026, 9, 1)}
+
+
+def test_catchup_parses_abstracts_and_metadata(catchup_html: str) -> None:
+    catchup = parse_catchup(catchup_html)
+
+    first = _paper(catchup, "2608.28663")
+    assert first.abstract is not None
+    assert first.abstract.startswith(
+        "Reliable individual cattle identification supports disease surveillance"
+    )
+    assert "  " not in first.abstract
+    accepted = _paper(catchup, "2608.28913")
+    assert accepted.venue == "ECCV 2026"
+    assert accepted.comments is not None
+    assert accepted.comments.endswith("Project page: https://mmwave-inverse-rendering.github.io/")
+    cross_list = _paper(catchup, "2608.28693")
+    assert cross_list.cross_list_from == "cs.RO"
+    assert cross_list.html_url == "https://arxiv.org/html/2608.28693v1"
+    assert _paper(catchup, "2608.28674").html_url is None
+
+
+def test_catchup_of_a_day_without_announcement_is_empty(catchup_empty_html: str) -> None:
+    catchup = parse_catchup(catchup_empty_html)
+
+    assert catchup.papers == ()
+    assert catchup.is_complete
+
+
+def test_catchup_rejects_page_without_dated_title(catchup_html: str) -> None:
+    html = catchup_html.replace("on Tue, 01 Sep 2026</h1>", "</h1>")
+    with pytest.raises(ParseError, match="catchup"):
+        parse_catchup(html)
+
+
+def test_catchup_rejects_unknown_sections(catchup_html: str) -> None:
+    html = catchup_html.replace("Cross submissions", "Withdrawn submissions")
+    with pytest.raises(ParseError, match="Withdrawn submissions"):
+        parse_catchup(html)
+
+
+def test_fetch_catchup_requests_one_day_with_abstracts(catchup_html: str) -> None:
+    requests: list[httpx.Request] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        requests.append(request)
+        return httpx.Response(200, text=catchup_html)
+
+    with HttpClient(transport=httpx.MockTransport(handler)) as client:
+        catchup = fetch_catchup(client, "cs.CV", date(2026, 9, 1))
+
+    assert len(catchup.papers) == 4
+    [request] = requests
+    assert request.url.path == "/catchup/cs.CV/2026-09-01"
+    assert request.url.params["abs"] == "True"
 
 
 def test_fetch_listing_rejects_out_of_range_max_entries() -> None:

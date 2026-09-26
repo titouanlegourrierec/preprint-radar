@@ -1,13 +1,18 @@
-"""Daily update pipeline: listing -> store, enriching new papers along the way."""
+"""Update pipelines: listing -> store, enriching new papers along the way.
+
+- :func:`update_category` follows the recent listing (the last few announcement days);
+- :func:`backfill_category` collects past days from the catchup pages.
+"""
 
 import logging
-from collections.abc import Callable, Sequence
+from collections.abc import Callable, Iterable, Mapping, Sequence
 from dataclasses import dataclass, replace
+from datetime import date
 
 from preprint_radar.arxiv_api import fetch_metadata
 from preprint_radar.exceptions import FetchError, ParseError
 from preprint_radar.http import HttpClient
-from preprint_radar.listing import fetch_listing
+from preprint_radar.listing import fetch_catchup, fetch_listing
 from preprint_radar.models import Paper
 from preprint_radar.paper_page import fetch_front_matter
 from preprint_radar.rss import fetch_rss_abstracts
@@ -97,6 +102,80 @@ def update_category(
     )
 
 
+def backfill_category(
+    category: str,
+    days: Iterable[date],
+    *,
+    store: PaperStore,
+    site_client: HttpClient,
+    max_html_fetches: int | None = None,
+    save_every: int = DEFAULT_SAVE_EVERY,
+) -> UpdateReport:
+    """Collect past announcement days of ``category`` from the catchup pages.
+
+    Catchup pages include abstracts, so each day is saved (and the index rewritten) as
+    soon as it is fetched, before the slow part: reading affiliations from the HTML
+    renderings, most recent day first. Days already stored with their abstracts are not
+    fetched again. As in :func:`update_category`, enrichment already in the store is
+    reused and progress is saved regularly.
+
+    Args:
+        category: arXiv category, e.g. ``"cs.CV"``.
+        days: Days to collect. Days without announcement (weekends, holidays) are empty.
+        store: Destination store.
+        site_client: Client for arxiv.org (catchup and HTML pages).
+        max_html_fetches: Maximum number of HTML pages to download (``None``: no limit,
+            ``0``: skip affiliation extraction from HTML).
+        save_every: Save progress after this many HTML downloads.
+
+    Returns:
+        A summary of the run.
+    """
+    known = {paper.arxiv_id: paper for paper in store.iter_papers()}
+    papers: list[Paper] = []
+    for day in sorted(set(days), reverse=True):
+        stored = store.load_day(category, day)
+        if stored and all(paper.abstract is not None for paper in stored):
+            # Past announcements never change: a day saved with its abstracts is reused, so
+            # that resuming an interrupted backfill goes straight back to the HTML pages.
+            listed = stored
+        else:
+            listed = [
+                _carry_over(paper, known.get(paper.arxiv_id))
+                for paper in fetch_catchup(site_client, category, day).papers
+            ]
+            store.save(category, listed)
+        logger.info("%s %s: %d papers", category, day.isoformat(), len(listed))
+        papers.extend(listed)
+    # Let the web app show the new days while affiliations are being read.
+    store.write_index()
+
+    new = sum(paper.arxiv_id not in known for paper in papers)
+    abstracts_fetched = sum(
+        paper.abstract is not None and (paper.arxiv_id not in known or known[paper.arxiv_id].abstract is None)
+        for paper in papers
+    )
+    logger.info("%s: %d papers listed, %d new", category, len(papers), new)
+
+    papers, affiliations_fetched, html_abstracts = _add_html_front_matter(
+        papers,
+        site_client,
+        limit=max_html_fetches,
+        checkpoint=lambda current: store.save(category, current),
+        save_every=save_every,
+    )
+    store.save(category, papers)
+
+    return UpdateReport(
+        category=category,
+        listed=len(papers),
+        new=new,
+        abstracts_fetched=abstracts_fetched + html_abstracts,
+        affiliations_fetched=affiliations_fetched,
+        pending=sum(not paper.is_enriched for paper in papers),
+    )
+
+
 def _carry_over(listed: Paper, stored: Paper | None) -> Paper:
     """Keep fresh listing metadata while reusing enrichment from the store."""
     if stored is None:
@@ -111,10 +190,11 @@ def _carry_over(listed: Paper, stored: Paper | None) -> Paper:
 def _add_abstracts(
     papers: Sequence[Paper], category: str, *, site_client: HttpClient, api_client: HttpClient
 ) -> tuple[list[Paper], int]:
-    """Fill missing abstracts, from the RSS feed first and the API for the rest.
+    """Fill missing abstracts: RSS feed, then catchup pages, then the API for the rest.
 
-    The RSS feed covers the latest announcement in one request; the API, which throttles
-    aggressively, only has to catch up on older days (e.g. after a missed run).
+    The RSS feed covers the latest announcement in one request, and a catchup page any
+    other day in one request (e.g. after a missed run). The API, which throttles
+    aggressively, is only a last resort.
     """
     current = list(papers)
     missing = {paper.arxiv_id for paper in current if paper.abstract is None}
@@ -122,16 +202,19 @@ def _add_abstracts(
         return current, 0
 
     try:
-        from_rss = fetch_rss_abstracts(site_client, category)
+        current = _with_abstracts(current, fetch_rss_abstracts(site_client, category))
     except (FetchError, ParseError) as exc:
         logger.warning("Could not read the RSS feed of %s: %s", category, exc)
-        from_rss = {}
-    current = [
-        replace(paper, abstract=from_rss[paper.arxiv_id])
-        if paper.abstract is None and paper.arxiv_id in from_rss
-        else paper
-        for paper in current
-    ]
+
+    for day in sorted({paper.announced for paper in current if paper.abstract is None}, reverse=True):
+        try:
+            catchup = fetch_catchup(site_client, category, day)
+        except (FetchError, ParseError) as exc:
+            logger.warning("Could not read the %s catchup page of %s: %s", category, day.isoformat(), exc)
+            continue
+        current = _with_abstracts(
+            current, {paper.arxiv_id: paper.abstract for paper in catchup.papers if paper.abstract}
+        )
 
     still_missing = [paper.arxiv_id for paper in current if paper.abstract is None]
     metadata = fetch_metadata(api_client, still_missing) if still_missing else {}
@@ -150,6 +233,16 @@ def _add_abstracts(
         affiliations = meta.affiliations or paper.affiliations
         enriched.append(replace(paper, abstract=meta.abstract, affiliations=affiliations))
     return enriched, len(missing) - sum(paper.abstract is None for paper in enriched)
+
+
+def _with_abstracts(papers: list[Paper], abstracts: Mapping[str, str]) -> list[Paper]:
+    """Fill the missing abstracts found in ``abstracts`` (keyed by arXiv identifier)."""
+    return [
+        replace(paper, abstract=abstracts[paper.arxiv_id])
+        if paper.abstract is None and paper.arxiv_id in abstracts
+        else paper
+        for paper in papers
+    ]
 
 
 def _add_html_front_matter(
@@ -191,6 +284,7 @@ def _add_html_front_matter(
         logger.debug("[%d/%d] %s: %s", done, len(todo), paper.arxiv_id, front.affiliations)
         if done % save_every == 0:
             checkpoint(current)
+            logger.info("%d/%d HTML renderings read, progress saved", done, len(todo))
     return current, pages, abstracts
 
 
