@@ -31,10 +31,12 @@ Affiliations are **best effort**: arXiv metadata rarely includes them, and the H
 front matter depends on each paper's LaTeX class. They are read from the affiliation and
 address fields of the author block, the address and institute notes of Elsevier-, IEEE- or
 Springer-like classes, numbered footnotes next to the author list, numbered lines after the
-names, and IEEE-style notes ("A and B are with the University of X"). They are extracted
-per paper (not per author), with contact details removed. Some papers still have none: the
-LaTeX class may put affiliations where LaTeXML drops them, and papers without an HTML
-rendering (~6%) cannot be read.
+names, and IEEE-style notes ("A and B are with the University of X"). They are extracted with
+contact details removed, and, when the page says who is where (one block per author,
+superscript markers, "A is with B" notes), each author is also mapped to their own
+affiliations — the graph then links an author only to their institutions. Some papers
+still have none: the LaTeX class may put affiliations where LaTeXML drops them, and papers
+without an HTML rendering (~6%) cannot be read.
 
 The pipeline is deliberately polite: one request every 15 s to arxiv.org (its
 `robots.txt` crawl delay), a few seconds between API calls, and each paper is enriched

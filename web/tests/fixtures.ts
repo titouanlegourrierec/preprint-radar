@@ -15,6 +15,7 @@ export function makePaper(overrides: Partial<Paper> & Pick<Paper, "arxiv_id">): 
     html_url: null,
     abstract: null,
     affiliations: null,
+    author_affiliations: null,
     abs_url: `https://arxiv.org/abs/${id}`,
     pdf_url: `https://arxiv.org/pdf/${id}`,
     ...overrides,

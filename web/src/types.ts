@@ -22,6 +22,12 @@ export interface Paper {
   abstract: string | null;
   /** `null` when not retrieved yet, `[]` when none could be found. */
   affiliations: string[] | null;
+  /**
+   * Per author, the indices of their own affiliations in `affiliations`; `null` for an
+   * author the paper does not place, `null` altogether when the paper never says who is
+   * where. Absent from older records.
+   */
+  author_affiliations?: (number[] | null)[] | null;
   abs_url: string;
   pdf_url: string;
 }

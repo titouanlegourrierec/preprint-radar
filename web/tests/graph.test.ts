@@ -103,6 +103,45 @@ describe("buildGraph", () => {
   });
 });
 
+describe("buildGraph with author affiliations", () => {
+  const mapped = makePaper({
+    arxiv_id: "9",
+    authors: ["Ada", "Bob"],
+    affiliations: ["MIT", "ETH Zurich"],
+    author_affiliations: [[0], null],
+  });
+
+  it("links a placed author only to their own institutions", () => {
+    const graph = buildGraph([mapped], { ...INSTITUTIONS, authors: true });
+    const links = graph.links.map(({ source, target }) => `${source}->${target}`).sort();
+
+    expect(links).toEqual([
+      "author:ada->author:bob",
+      "author:ada->institution:mit",
+      "author:bob->institution:eth zurich",
+      "author:bob->institution:mit",
+      "institution:eth zurich->institution:mit",
+    ]);
+  });
+
+  it("drops the author-institution edge when their institution is filtered out", () => {
+    const twice = makePaper({ arxiv_id: "10", authors: ["Cyd"], affiliations: ["MIT"] });
+    const graph = buildGraph([mapped, twice], {
+      ...INSTITUTIONS,
+      authors: true,
+      minPapers: { institution: 2, author: 1 },
+    });
+
+    // Only MIT survives; Ada, mapped to it, keeps no edge to ETH Zurich; Bob falls back.
+    expect(graph.links.map(({ source, target }) => `${source}->${target}`).sort()).toEqual([
+      "author:ada->author:bob",
+      "author:ada->institution:mit",
+      "author:bob->institution:mit",
+      "author:cyd->institution:mit",
+    ]);
+  });
+});
+
 describe("nodeMatches", () => {
   const [google] = buildGraph(papers, INSTITUTIONS).nodes;
 

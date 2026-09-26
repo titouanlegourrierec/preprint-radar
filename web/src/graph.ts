@@ -94,16 +94,31 @@ export function nodeMatches(node: GraphNode, key: string): boolean {
   return key !== "" && node.id.includes(key, node.kind.length + 1);
 }
 
-/** Build a co-occurrence graph: two nodes are linked when they appear on the same paper. */
+/**
+ * Build a co-occurrence graph. Institutions are linked when they share a paper, authors
+ * when they co-sign one. An author is linked to their own institutions when the paper
+ * says who is where (`author_affiliations`), and to all of the paper's institutions
+ * otherwise.
+ */
 export function buildGraph(papers: Paper[], options: GraphOptions): Graph {
   const nodes = new Map<string, GraphNode>();
   const labelCounts = new Map<string, Map<string, number>>();
-  const paperNodes: string[][] = [];
+  interface PaperAuthor {
+    key: string;
+    /** Indices into the paper's affiliations, `null` when the paper does not place them. */
+    mapped: number[] | null;
+  }
+  const perPaper: {
+    institutions: string[];
+    keyOfAffiliation: (string | null)[];
+    authors: PaperAuthor[];
+  }[] = [];
 
-  const add = (kind: NodeKind, label: string, paperId: string, keys: Set<string>) => {
+  const register = (kind: NodeKind, label: string, paperId: string, seen: Set<string>) => {
     const id = nodeKey(kind, label);
-    if (keys.has(id) || id.endsWith(":")) return;
-    keys.add(id);
+    if (id.endsWith(":")) return null;
+    if (seen.has(id)) return { id, first: false };
+    seen.add(id);
     const node = nodes.get(id) ?? { id, kind, label, paperIds: [] };
     node.paperIds.push(paperId);
     nodes.set(id, node);
@@ -111,19 +126,30 @@ export function buildGraph(papers: Paper[], options: GraphOptions): Graph {
     const counts = labelCounts.get(id) ?? new Map<string, number>();
     counts.set(label, (counts.get(label) ?? 0) + 1);
     labelCounts.set(id, counts);
+    return { id, first: true };
   };
 
   for (const paper of papers) {
-    const keys = new Set<string>();
+    const seen = new Set<string>();
+    const institutions: string[] = [];
+    const keyOfAffiliation: (string | null)[] = [];
     if (options.institutions) {
       for (const affiliation of paper.affiliations ?? []) {
-        add("institution", institutionName(affiliation), paper.arxiv_id, keys);
+        const entry = register("institution", institutionName(affiliation), paper.arxiv_id, seen);
+        keyOfAffiliation.push(entry?.id ?? null);
+        if (entry?.first) institutions.push(entry.id);
       }
     }
+    const authors: PaperAuthor[] = [];
     if (options.authors) {
-      for (const author of paper.authors) add("author", author, paper.arxiv_id, keys);
+      for (const [position, author] of paper.authors.entries()) {
+        const entry = register("author", author, paper.arxiv_id, seen);
+        if (entry?.first) {
+          authors.push({ key: entry.id, mapped: paper.author_affiliations?.[position] ?? null });
+        }
+      }
     }
-    paperNodes.push([...keys]);
+    perPaper.push({ institutions, keyOfAffiliation, authors });
   }
 
   for (const [id, counts] of labelCounts) {
@@ -138,18 +164,37 @@ export function buildGraph(papers: Paper[], options: GraphOptions): Graph {
   const keptIds = new Set(kept.map((node) => node.id));
 
   const weights = new Map<string, number>();
-  for (const keys of paperNodes) {
-    const present = keys.filter((key) => keptIds.has(key)).sort();
-    for (let i = 0; i < present.length; i++) {
-      for (let j = i + 1; j < present.length; j++) {
-        const pair = `${present[i]}\u0000${present[j]}`;
-        weights.set(pair, (weights.get(pair) ?? 0) + 1);
-      }
+  const pair = (a: string, b: string) => {
+    const key = a < b ? `${a}\u0000${b}` : `${b}\u0000${a}`;
+    weights.set(key, (weights.get(key) ?? 0) + 1);
+  };
+  for (const { institutions, keyOfAffiliation, authors } of perPaper) {
+    const inst = institutions.filter((id) => keptIds.has(id));
+    for (let i = 0; i < inst.length; i++) {
+      for (let j = i + 1; j < inst.length; j++) pair(inst[i] ?? "", inst[j] ?? "");
+    }
+    const auth = authors.filter((author) => keptIds.has(author.key));
+    for (let i = 0; i < auth.length; i++) {
+      for (let j = i + 1; j < auth.length; j++) pair(auth[i]?.key ?? "", auth[j]?.key ?? "");
+    }
+    for (const { key, mapped } of auth) {
+      const own =
+        mapped === null
+          ? inst
+          : [
+              ...new Set(
+                mapped
+                  .map((index) => keyOfAffiliation[index])
+                  .filter((id): id is string => typeof id === "string" && keptIds.has(id)),
+              ),
+            ];
+      for (const target of own) pair(key, target);
     }
   }
+
   const linked = new Set<string>();
-  const links = [...weights].map(([pair, weight]) => {
-    const [source = "", target = ""] = pair.split("\u0000");
+  const links = [...weights].map(([key, weight]) => {
+    const [source = "", target = ""] = key.split("\u0000");
     linked.add(source).add(target);
     return { source, target, weight };
   });
