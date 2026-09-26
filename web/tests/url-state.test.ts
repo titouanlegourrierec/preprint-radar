@@ -11,15 +11,54 @@ describe("url state", () => {
       ...DEFAULT_STATE,
       query: 'gaussian "novel view"',
       category: "cs.CV",
-      range: "20" as const,
+      period: { kind: "recent" as const, range: "20" as const },
       sort: "newest" as const,
       view: "reading-list" as const,
-      filters: { excludeCrossLists: true, author: "Ada", affiliation: "MIT", subject: null },
+      filters: {
+        excludeCrossLists: true,
+        author: "Ada",
+        affiliation: "MIT",
+        subject: null,
+        venue: "ECCV 2026",
+      },
     };
     expect(readState(writeState(state))).toEqual(state);
   });
 
+  it("round-trips a range of dates", () => {
+    const state = {
+      ...DEFAULT_STATE,
+      period: { kind: "dates" as const, from: "2026-09-09", to: "2026-09-18" },
+    };
+    expect(writeState(state)).toBe("?from=2026-09-09&to=2026-09-18");
+    expect(readState(writeState(state))).toEqual(state);
+  });
+
+  it("reads a single day and dates given in any order", () => {
+    expect(readState("?from=2026-09-09").period).toEqual({
+      kind: "dates",
+      from: "2026-09-09",
+      to: "2026-09-09",
+    });
+    expect(readState("?from=2026-09-18&to=2026-09-09").period).toEqual({
+      kind: "dates",
+      from: "2026-09-09",
+      to: "2026-09-18",
+    });
+    expect(
+      writeState({
+        ...DEFAULT_STATE,
+        period: { kind: "dates", from: "2026-09-09", to: "2026-09-09" },
+      }),
+    ).toBe("?from=2026-09-09");
+  });
+
+  it("reads the graph view", () => {
+    expect(readState("?view=graph").view).toBe("graph");
+  });
+
   it("falls back to defaults on invalid values", () => {
     expect(readState("?range=42&sort=weird")).toEqual(DEFAULT_STATE);
+    expect(readState("?from=yesterday&to=2026-13-45")).toEqual(DEFAULT_STATE);
   });
 });

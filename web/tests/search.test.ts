@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { facetCounts, NO_FILTERS, PaperIndex, parseQuery } from "../src/search";
+import { ANY_VENUE, facetCounts, NO_FILTERS, PaperIndex, parseQuery } from "../src/search";
 import { makePaper } from "./fixtures";
 
 const papers = [
@@ -17,6 +17,7 @@ const papers = [
     abstract: "A survey of video diffusion models.",
     affiliations: ["MIT"],
     cross_list_from: "cs.LG",
+    venue: "NeurIPS 2026",
     primary_subject: "Machine Learning (cs.LG)",
   }),
   makePaper({
@@ -63,11 +64,48 @@ describe("PaperIndex", () => {
     expect(ids('"novel view synthesis" -grasping')).toEqual(["2609.00001"]);
   });
 
+  it("searches venues", () => {
+    expect(ids("neurips")).toEqual(["2609.00002"]);
+  });
+
   it("applies structured filters", () => {
     expect(ids("", { ...NO_FILTERS, excludeCrossLists: true })).not.toContain("2609.00002");
     expect(ids("", { ...NO_FILTERS, affiliation: "NVIDIA" })).toEqual(["2609.00001"]);
     expect(ids("", { ...NO_FILTERS, author: "Jane Doe" })).toEqual(["2609.00001"]);
     expect(ids("", { ...NO_FILTERS, subject: "Machine Learning (cs.LG)" })).toEqual(["2609.00002"]);
+  });
+
+  it("filters by venue, or keeps every paper accepted somewhere", () => {
+    expect(ids("", { ...NO_FILTERS, venue: "NeurIPS 2026" })).toEqual(["2609.00002"]);
+    expect(ids("", { ...NO_FILTERS, venue: ANY_VENUE })).toEqual(["2609.00002"]);
+    expect(ids("", { ...NO_FILTERS, venue: "NeurIPS" })).toEqual([]);
+  });
+
+  it("matches author and affiliation filters by substring, ignoring case and accents", () => {
+    expect(ids("", { ...NO_FILTERS, affiliation: "nvid" })).toEqual(["2609.00001"]);
+    expect(ids("", { ...NO_FILTERS, affiliation: "mit" }).sort()).toEqual([
+      "2609.00001",
+      "2609.00002",
+    ]);
+    expect(ids("", { ...NO_FILTERS, author: "perez" })).toEqual(["2609.00001"]);
+    expect(ids("", { ...NO_FILTERS, author: "  " })).toHaveLength(3);
+  });
+
+  it("does not highlight stop words of filters", () => {
+    const tokyo = new PaperIndex([
+      makePaper({ arxiv_id: "1", affiliations: ["University of Tokyo"] }),
+    ]);
+    const [result] = tokyo.search(
+      "",
+      { ...NO_FILTERS, affiliation: "University of Tokyo" },
+      "newest",
+    );
+    expect(result?.highlights).toEqual(["university", "tokyo"]);
+  });
+
+  it("highlights the text of author and affiliation filters", () => {
+    const [result] = index.search("", { ...NO_FILTERS, affiliation: "nvidia" }, "newest");
+    expect(result?.highlights).toContain("nvidia");
   });
 
   it("reports matched terms for highlighting", () => {

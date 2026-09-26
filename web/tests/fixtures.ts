@@ -10,6 +10,7 @@ export function makePaper(overrides: Partial<Paper> & Pick<Paper, "arxiv_id">): 
     subjects: ["Computer Vision and Pattern Recognition (cs.CV)"],
     comments: null,
     journal_ref: null,
+    venue: null,
     cross_list_from: null,
     html_url: null,
     abstract: null,

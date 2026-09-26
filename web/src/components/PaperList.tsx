@@ -7,6 +7,7 @@ const PAGE_SIZE = 40;
 
 interface Props {
   results: SearchResult[];
+  showAbstracts: boolean;
   savedIds: ReadonlySet<string>;
   onToggleSaved: (paper: Paper) => void;
   onAuthor: (author: string) => void;
@@ -14,7 +15,14 @@ interface Props {
 }
 
 /** Render results incrementally: the next page is added when the end of the list is visible. */
-export function PaperList({ results, savedIds, onToggleSaved, onAuthor, onAffiliation }: Props) {
+export function PaperList({
+  results,
+  showAbstracts,
+  savedIds,
+  onToggleSaved,
+  onAuthor,
+  onAffiliation,
+}: Props) {
   const [visible, setVisible] = useState(PAGE_SIZE);
   const sentinel = useRef<HTMLDivElement>(null);
 
@@ -44,6 +52,7 @@ export function PaperList({ results, savedIds, onToggleSaved, onAuthor, onAffili
             key={paper.arxiv_id}
             paper={paper}
             highlights={highlights}
+            showAbstract={showAbstracts}
             saved={savedIds.has(paper.arxiv_id)}
             onToggleSaved={onToggleSaved}
             onAuthor={onAuthor}

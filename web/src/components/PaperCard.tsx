@@ -1,47 +1,56 @@
 import { useState } from "preact/hooks";
 import { toBibtex } from "../bibtex";
+import { formatDay, subjectCode } from "../format";
+import { highlight } from "../highlight";
 import type { Paper } from "../types";
 import { Highlighted } from "./Highlighted";
+import { RichText } from "./RichText";
 
-const MAX_AUTHORS_COLLAPSED = 8;
+const MAX_AUTHORS_COLLAPSED = 6;
+const MAX_AFFILIATIONS_COLLAPSED = 3;
+
+function matches(text: string, terms: readonly string[]): boolean {
+  return highlight(text, terms).some((segment) => segment.match);
+}
 
 interface Props {
   paper: Paper;
   highlights: readonly string[];
+  showAbstract: boolean;
   saved: boolean;
   onToggleSaved: (paper: Paper) => void;
   onAuthor: (author: string) => void;
   onAffiliation: (affiliation: string) => void;
 }
 
-function formatDate(iso: string): string {
-  return new Date(`${iso}T00:00:00`).toLocaleDateString(undefined, {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
-}
-
-function subjectCode(subject: string): string {
-  return /\(([^()]+)\)\s*$/.exec(subject)?.[1] ?? subject;
-}
-
 export function PaperCard({
   paper,
   highlights,
+  showAbstract,
   saved,
   onToggleSaved,
   onAuthor,
   onAffiliation,
 }: Props) {
-  const [showAllAuthors, setShowAllAuthors] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [copied, setCopied] = useState(false);
 
   const authors =
-    showAllAuthors || paper.authors.length <= MAX_AUTHORS_COLLAPSED
+    expanded || paper.authors.length <= MAX_AUTHORS_COLLAPSED
       ? paper.authors
       : paper.authors.slice(0, MAX_AUTHORS_COLLAPSED);
+  // Matching affiliations first, so that a filtered one is never hidden behind "+N".
+  const allAffiliations = [...(paper.affiliations ?? [])].sort(
+    (a, b) => Number(matches(b, highlights)) - Number(matches(a, highlights)),
+  );
+  const affiliations = expanded
+    ? allAffiliations
+    : allAffiliations.slice(0, MAX_AFFILIATIONS_COLLAPSED);
+  const hasDetails = Boolean(paper.abstract || paper.comments);
+  const subject = [paper.primary_subject && subjectCode(paper.primary_subject)]
+    .concat(paper.cross_list_from ? ["cross-list"] : [])
+    .filter(Boolean)
+    .join(" · ");
 
   async function copyBibtex() {
     try {
@@ -54,87 +63,77 @@ export function PaperCard({
   }
 
   return (
-    <article class="paper">
-      <header class="paper__header">
+    <article class={`paper${expanded ? " paper--expanded" : ""}`}>
+      <div class="paper__main">
         <h2 class="paper__title">
           <a href={paper.abs_url} target="_blank" rel="noopener noreferrer">
             <Highlighted text={paper.title} terms={highlights} />
           </a>
         </h2>
-        <button
-          type="button"
-          class={`icon-button${saved ? " icon-button--active" : ""}`}
-          aria-pressed={saved}
-          title={saved ? "Remove from reading list" : "Add to reading list"}
-          onClick={() => onToggleSaved(paper)}
-        >
-          {saved ? "★" : "☆"}
-        </button>
-      </header>
 
-      <p class="paper__authors">
-        {authors.map((author, index) => (
-          <span key={author}>
-            {index > 0 && ", "}
-            <button
-              type="button"
-              class="link-button"
-              title="Show papers by this author"
-              onClick={() => onAuthor(author)}
-            >
-              <Highlighted text={author} terms={highlights} />
-            </button>
-          </span>
-        ))}
-        {authors.length < paper.authors.length && (
-          <button type="button" class="link-button muted" onClick={() => setShowAllAuthors(true)}>
-            {" "}
-            +{paper.authors.length - authors.length} more
-          </button>
-        )}
-      </p>
-
-      {paper.affiliations && paper.affiliations.length > 0 && (
-        <ul class="chips" aria-label="Affiliations">
-          {paper.affiliations.map((affiliation) => (
-            <li key={affiliation}>
+        <p class="paper__authors">
+          {authors.map((author, index) => (
+            <span key={author}>
+              {index > 0 && ", "}
               <button
                 type="button"
-                class="chip"
-                title="Show papers from this affiliation"
-                onClick={() => onAffiliation(affiliation)}
+                class="link-button"
+                title="Show papers by this author"
+                onClick={() => onAuthor(author)}
               >
-                <Highlighted text={affiliation} terms={highlights} />
+                <Highlighted text={author} terms={highlights} />
               </button>
-            </li>
+            </span>
           ))}
-        </ul>
-      )}
-
-      {paper.abstract && (
-        <p class={`paper__abstract${expanded ? "" : " paper__abstract--clamped"}`}>
-          <Highlighted text={paper.abstract} terms={highlights} />
+          {authors.length < paper.authors.length && (
+            <span class="muted"> +{paper.authors.length - authors.length}</span>
+          )}
         </p>
-      )}
-      {paper.abstract && (
-        <button type="button" class="link-button muted" onClick={() => setExpanded(!expanded)}>
-          {expanded ? "Show less" : "Show more"}
-        </button>
-      )}
 
-      {paper.comments && (
-        <p class="paper__comments">
-          <Highlighted text={paper.comments} terms={highlights} />
-        </p>
-      )}
+        {affiliations.length > 0 && (
+          <p class="paper__affiliations">
+            {affiliations.map((affiliation, index) => (
+              <span key={affiliation}>
+                {index > 0 && "\u00a0· "}
+                <button
+                  type="button"
+                  class="link-button"
+                  title="Show papers from this affiliation"
+                  onClick={() => onAffiliation(affiliation)}
+                >
+                  <Highlighted text={affiliation} terms={highlights} />
+                </button>
+              </span>
+            ))}
+            {affiliations.length < allAffiliations.length && (
+              <span> +{allAffiliations.length - affiliations.length}</span>
+            )}
+          </p>
+        )}
 
-      <footer class="paper__footer">
-        <span class="muted">{formatDate(paper.announced)}</span>
-        <span class="badge" title={paper.primary_subject ?? undefined}>
-          {subjectCode(paper.primary_subject ?? "")}
-        </span>
-        {paper.cross_list_from && <span class="badge badge--muted">cross-list</span>}
-        <span class="paper__links">
+        {paper.abstract && (showAbstract || expanded) && (
+          <p class={`paper__abstract${expanded ? "" : " paper__abstract--clamped"}`}>
+            <RichText text={paper.abstract} terms={highlights} />
+          </p>
+        )}
+
+        {expanded && paper.comments && (
+          <p class="paper__comments">
+            <RichText text={paper.comments} terms={highlights} />
+          </p>
+        )}
+
+        <footer class="paper__meta">
+          {paper.venue && (
+            <span
+              class={`badge${paper.venue.endsWith("Workshop") ? " badge--muted" : ""}`}
+              title={paper.comments ?? paper.journal_ref ?? undefined}
+            >
+              <Highlighted text={paper.venue} terms={highlights} />
+            </span>
+          )}
+          <span>{formatDay(paper.announced)}</span>
+          {subject && <span title={paper.primary_subject ?? undefined}>{subject}</span>}
           <a href={paper.pdf_url} target="_blank" rel="noopener noreferrer">
             PDF
           </a>
@@ -143,14 +142,31 @@ export function PaperCard({
               HTML
             </a>
           )}
-          <a href={paper.abs_url} target="_blank" rel="noopener noreferrer">
-            arXiv:{paper.arxiv_id}
-          </a>
           <button type="button" class="link-button" onClick={copyBibtex}>
             {copied ? "Copied!" : "BibTeX"}
           </button>
-        </span>
-      </footer>
+          {hasDetails && (
+            <button
+              type="button"
+              class="link-button"
+              aria-expanded={expanded}
+              onClick={() => setExpanded(!expanded)}
+            >
+              {expanded ? "Less" : "More"}
+            </button>
+          )}
+        </footer>
+      </div>
+
+      <button
+        type="button"
+        class={`icon-button${saved ? " icon-button--active" : ""}`}
+        aria-pressed={saved}
+        title={saved ? "Remove from reading list" : "Add to reading list"}
+        onClick={() => onToggleSaved(paper)}
+      >
+        {saved ? "★" : "☆"}
+      </button>
     </article>
   );
 }

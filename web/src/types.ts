@@ -14,6 +14,8 @@ export interface Paper {
   subjects: string[];
   comments: string | null;
   journal_ref: string | null;
+  /** Venue detected from the comments, e.g. "ECCV 2026". Absent from older records. */
+  venue?: string | null;
   cross_list_from: string | null;
   html_url: string | null;
   /** `null` when not retrieved yet. */

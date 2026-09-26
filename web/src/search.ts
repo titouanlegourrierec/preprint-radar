@@ -8,13 +8,19 @@ export interface SearchFilters {
   author: string | null;
   affiliation: string | null;
   subject: string | null;
+  /** A venue as detected in the comments (e.g. "ECCV 2026"), or {@link ANY_VENUE}. */
+  venue: string | null;
 }
+
+/** Venue filter value for papers accepted anywhere. */
+export const ANY_VENUE = "*";
 
 export const NO_FILTERS: SearchFilters = {
   excludeCrossLists: false,
   author: null,
   affiliation: null,
   subject: null,
+  venue: null,
 };
 
 export interface ParsedQuery {
@@ -42,7 +48,14 @@ const STOP_WORDS = new Set(
   "a an and are as at be by for from in into is of on or the to via with without".split(" "),
 );
 
-const FIELD_BOOSTS = { title: 3, authors: 2, affiliations: 1.5, abstract: 1, comments: 0.5 };
+const FIELD_BOOSTS = {
+  title: 3,
+  authors: 2,
+  affiliations: 1.5,
+  venue: 1.5,
+  abstract: 1,
+  comments: 0.5,
+};
 const SEARCHED_FIELDS = Object.keys(FIELD_BOOSTS);
 
 /** Lowercase and strip diacritics, so that "perez" matches "Pérez". */
@@ -87,6 +100,8 @@ function fieldValue(paper: Paper, field: string): string {
       return paper.abstract ?? "";
     case "comments":
       return paper.comments ?? "";
+    case "venue":
+      return paper.venue ?? "";
     default:
       return "";
   }
@@ -131,6 +146,11 @@ export class PaperIndex {
     return this.papers.size;
   }
 
+  /** Every indexed paper, in no particular order. */
+  all(): Paper[] {
+    return [...this.papers.values()];
+  }
+
   search(rawQuery: string, filters: SearchFilters, sort: SortOrder): SearchResult[] {
     const query = parseQuery(rawQuery);
     const results = query.text
@@ -140,8 +160,9 @@ export class PaperIndex {
     const filtered = results.filter(
       ({ paper }) => matchesFilters(paper, filters) && matchesQueryConstraints(paper, query),
     );
+    const extraHighlights = [...query.phrases, ...filterHighlights(filters)];
     for (const result of filtered) {
-      result.highlights.push(...query.phrases);
+      result.highlights.push(...extraHighlights);
     }
     return filtered.sort(
       sort === "relevance" && query.text
@@ -156,12 +177,34 @@ export class PaperIndex {
   }
 }
 
+function containsFolded(values: readonly string[], needle: string | null): boolean {
+  if (!needle?.trim()) return true;
+  const folded = fold(needle.trim());
+  return values.some((value) => fold(value).includes(folded));
+}
+
+/**
+ * Author and affiliation filters match any value containing the text, ignoring case and
+ * accents, so that "kaist" matches "KAIST, Daejeon" and "perez" matches "Lozano-Pérez".
+ */
 export function matchesFilters(paper: Paper, filters: SearchFilters): boolean {
   return (
     !(filters.excludeCrossLists && paper.cross_list_from !== null) &&
-    (filters.author === null || paper.authors.includes(filters.author)) &&
-    (filters.affiliation === null || (paper.affiliations ?? []).includes(filters.affiliation)) &&
-    (filters.subject === null || paper.primary_subject === filters.subject)
+    containsFolded(paper.authors, filters.author) &&
+    containsFolded(paper.affiliations ?? [], filters.affiliation) &&
+    (filters.subject === null || paper.primary_subject === filters.subject) &&
+    (filters.venue === null ||
+      (filters.venue === ANY_VENUE ? Boolean(paper.venue) : paper.venue === filters.venue))
+  );
+}
+
+function filterHighlights(filters: SearchFilters): string[] {
+  return [filters.author, filters.affiliation].flatMap((value) =>
+    value
+      ? fold(value)
+          .split(/\s+/)
+          .filter((word) => word && !STOP_WORDS.has(word))
+      : [],
   );
 }
 
@@ -175,14 +218,14 @@ function matchesQueryConstraints(paper: Paper, query: ParsedQuery): boolean {
   );
 }
 
-/** Most frequent values of a multi-valued field among results. */
-export function facetCounts(
-  results: SearchResult[],
+/** Most frequent values of a multi-valued field among papers. */
+export function valueCounts(
+  papers: Iterable<Paper>,
   values: (paper: Paper) => Iterable<string>,
   limit: number,
 ): FacetCount[] {
   const counts = new Map<string, number>();
-  for (const { paper } of results) {
+  for (const paper of papers) {
     for (const value of new Set(values(paper))) {
       counts.set(value, (counts.get(value) ?? 0) + 1);
     }
@@ -191,4 +234,17 @@ export function facetCounts(
     .map(([value, count]) => ({ value, count }))
     .sort((a, b) => b.count - a.count || a.value.localeCompare(b.value))
     .slice(0, limit);
+}
+
+/** Most frequent values of a multi-valued field among search results. */
+export function facetCounts(
+  results: SearchResult[],
+  values: (paper: Paper) => Iterable<string>,
+  limit: number,
+): FacetCount[] {
+  return valueCounts(
+    results.map(({ paper }) => paper),
+    values,
+    limit,
+  );
 }
