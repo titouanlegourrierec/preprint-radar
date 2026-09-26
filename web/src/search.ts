@@ -236,6 +236,11 @@ export function valueCounts(
     .slice(0, limit);
 }
 
+/** The same values sorted alphabetically, ignoring case and accents. */
+export function alphabetical(values: readonly FacetCount[]): FacetCount[] {
+  return [...values].sort((a, b) => fold(a.value).localeCompare(fold(b.value)));
+}
+
 /** Most frequent values of a multi-valued field among search results. */
 export function facetCounts(
   results: SearchResult[],

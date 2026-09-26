@@ -1,5 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { ANY_VENUE, facetCounts, NO_FILTERS, PaperIndex, parseQuery } from "../src/search";
+import {
+  ANY_VENUE,
+  alphabetical,
+  facetCounts,
+  NO_FILTERS,
+  PaperIndex,
+  parseQuery,
+} from "../src/search";
 import { makePaper } from "./fixtures";
 
 const papers = [
@@ -115,6 +122,19 @@ describe("PaperIndex", () => {
 
   it("deduplicates papers present in several days", () => {
     expect(new PaperIndex([...papers, ...papers]).size).toBe(3);
+  });
+});
+
+describe("alphabetical", () => {
+  it("sorts values ignoring case and accents", () => {
+    const sorted = alphabetical([
+      { value: "Zhejiang University", count: 9 },
+      { value: "École Polytechnique", count: 1 },
+      { value: "adobe", count: 2 },
+      { value: "ETH Zurich", count: 5 },
+    ]).map(({ value }) => value);
+
+    expect(sorted).toEqual(["adobe", "École Polytechnique", "ETH Zurich", "Zhejiang University"]);
   });
 });
 

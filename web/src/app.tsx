@@ -9,7 +9,14 @@ import { usePapers } from "./hooks/use-papers";
 import { useReadingList } from "./hooks/use-reading-list";
 import { useUrlState } from "./hooks/use-url-state";
 import { loadShowAbstracts, saveShowAbstracts } from "./preferences";
-import { facetCounts, NO_FILTERS, parseQuery, type SearchResult, valueCounts } from "./search";
+import {
+  alphabetical,
+  facetCounts,
+  NO_FILTERS,
+  parseQuery,
+  type SearchResult,
+  valueCounts,
+} from "./search";
 
 const FACET_SIZE = 12;
 const SUGGESTION_SIZE = 300;
@@ -46,9 +53,13 @@ export function App() {
         : [],
     [state.view, load, query, state.filters.venue],
   );
-  // Suggestions come from every loaded paper, so they do not vanish as filters narrow results.
+  // Suggestions come from every loaded paper, so they do not vanish as filters narrow
+  // results; the most frequent values are kept, then listed alphabetically.
   const authorSuggestions = useMemo(
-    () => valueCounts(activeIndex?.all() ?? [], (paper) => paper.authors, SUGGESTION_SIZE),
+    () =>
+      alphabetical(
+        valueCounts(activeIndex?.all() ?? [], (paper) => paper.authors, SUGGESTION_SIZE),
+      ),
     [activeIndex],
   );
   const venueCounts = useMemo(
@@ -62,7 +73,9 @@ export function App() {
   );
   const affiliationSuggestions = useMemo(
     () =>
-      valueCounts(activeIndex?.all() ?? [], (paper) => paper.affiliations ?? [], SUGGESTION_SIZE),
+      alphabetical(
+        valueCounts(activeIndex?.all() ?? [], (paper) => paper.affiliations ?? [], SUGGESTION_SIZE),
+      ),
     [activeIndex],
   );
   const hasSearchWords = parseQuery(query).text !== "";

@@ -66,7 +66,7 @@ In the web app, the search box supports prefix and typo-tolerant matching,
 comments. The *Period* calendar picks the latest days, one day or a range of days (it shows
 how many papers each day has). The *Author* and *Affiliation* fields filter by name (partial,
 case- and accent-insensitive, with suggestions); clicking a name on a paper fills them.
-The *Venue* filter keeps the papers accepted at one venue, or at any. With search
+The *Venue* filter keeps the papers accepted at one venue, or at any (major venues first, then alphabetically). With search
 words, results are sorted by relevance: MiniSearch's BM25 score, where rarer words weigh
 more and matches count most in the title (×3), then authors (×2), affiliations (×1.5),
 abstract (×1) and comments (×0.5). Searches are encoded in the URL, so they can be shared.

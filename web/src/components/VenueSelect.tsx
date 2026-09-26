@@ -1,4 +1,5 @@
 import { ANY_VENUE, type FacetCount } from "../search";
+import { sortVenues } from "../venues";
 
 interface Props {
   /** Venues of the loaded papers, most frequent first. */
@@ -11,10 +12,11 @@ interface Props {
 export function VenueSelect({ venues, value, onChange }: Props) {
   const accepted = venues.reduce((sum, venue) => sum + venue.count, 0);
   // Keep a venue from a shared link selectable even when no loaded paper has it.
-  const options =
+  const known =
     value && value !== ANY_VENUE && !venues.some((venue) => venue.value === value)
       ? [...venues, { value, count: 0 }]
       : venues;
+  const options = sortVenues(known);
   return (
     <select
       value={value ?? ""}
