@@ -180,10 +180,13 @@ def _carry_over(listed: Paper, stored: Paper | None) -> Paper:
     """Keep fresh listing metadata while reusing enrichment from the store."""
     if stored is None:
         return listed
+    if listed.affiliations is not None:
+        return replace(listed, abstract=listed.abstract if listed.abstract is not None else stored.abstract)
     return replace(
         listed,
         abstract=listed.abstract if listed.abstract is not None else stored.abstract,
-        affiliations=listed.affiliations if listed.affiliations is not None else stored.affiliations,
+        affiliations=stored.affiliations,
+        author_affiliations=stored.author_affiliations,
     )
 
 
@@ -279,7 +282,12 @@ def _add_html_front_matter(
             continue
         abstract = paper.abstract if paper.abstract is not None else front.abstract
         abstracts += paper.abstract is None and abstract is not None
-        current[index] = replace(paper, affiliations=front.affiliations, abstract=abstract)
+        current[index] = replace(
+            paper,
+            affiliations=front.affiliations,
+            author_affiliations=front.author_affiliations,
+            abstract=abstract,
+        )
         pages += 1
         logger.debug("[%d/%d] %s: %s", done, len(todo), paper.arxiv_id, front.affiliations)
         if done % save_every == 0:

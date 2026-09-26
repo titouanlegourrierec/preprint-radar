@@ -9,7 +9,7 @@ from preprint_radar.exceptions import StoreError
 
 ARXIV_BASE_URL = "https://arxiv.org"
 
-type PaperRecord = dict[str, str | list[str] | None]
+type PaperRecord = dict[str, str | list[str] | list[list[int] | None] | None]
 """JSON-serializable representation of a :class:`Paper`."""
 
 
@@ -34,6 +34,9 @@ class Paper:
         html_url: URL of the HTML rendering, when arXiv could produce one.
         abstract: Abstract, or ``None`` if not retrieved yet.
         affiliations: Distinct affiliations of all authors, or ``None`` if not retrieved yet.
+        author_affiliations: For each author, the indices of their own affiliations in
+            ``affiliations``; ``None`` for an author the paper does not place, and ``None``
+            altogether when the front matter never says who is where.
     """
 
     arxiv_id: str
@@ -49,6 +52,7 @@ class Paper:
     html_url: str | None = None
     abstract: str | None = None
     affiliations: tuple[str, ...] | None = None
+    author_affiliations: tuple[tuple[int, ...] | None, ...] | None = None
 
     @property
     def abs_url(self) -> str:
@@ -86,6 +90,9 @@ class Paper:
             "html_url": self.html_url,
             "abstract": self.abstract,
             "affiliations": None if self.affiliations is None else list(self.affiliations),
+            "author_affiliations": None
+            if self.author_affiliations is None
+            else [None if entry is None else list(entry) for entry in self.author_affiliations],
             "abs_url": self.abs_url,
             "pdf_url": self.pdf_url,
         }
@@ -105,6 +112,7 @@ class Paper:
         """
         try:
             affiliations = _optional_str_list(record, "affiliations")
+            author_affiliations = _optional_index_lists(record, "author_affiliations")
             return cls(
                 arxiv_id=_str(record, "arxiv_id"),
                 announced=date.fromisoformat(_str(record, "announced")),
@@ -119,6 +127,7 @@ class Paper:
                 html_url=_optional_str(record, "html_url"),
                 abstract=_optional_str(record, "abstract"),
                 affiliations=None if affiliations is None else tuple(affiliations),
+                author_affiliations=author_affiliations,
             )
         except (KeyError, TypeError, ValueError) as exc:
             msg = f"Invalid paper record {record.get('arxiv_id')!r}: {exc}"
@@ -165,3 +174,25 @@ def _str_list(record: Mapping[str, object], key: str) -> list[str]:
 
 def _optional_str_list(record: Mapping[str, object], key: str) -> list[str] | None:
     return None if record.get(key) is None else _str_list(record, key)
+
+
+def _optional_index_lists(
+    record: Mapping[str, object], key: str
+) -> tuple[tuple[int, ...] | None, ...] | None:
+    """Parse a list of index lists where both the whole and each entry may be ``None``."""
+    value = record.get(key)
+    if value is None:
+        return None
+    if not isinstance(value, list):
+        msg = f"{key!r} must be a list, got {type(value).__name__}"
+        raise TypeError(msg)
+    entries: list[tuple[int, ...] | None] = []
+    for entry in value:
+        if entry is None:
+            entries.append(None)
+        elif isinstance(entry, list) and all(isinstance(index, int) for index in entry):
+            entries.append(tuple(entry))
+        else:
+            msg = f"{key!r} entries must be lists of integers or null"
+            raise TypeError(msg)
+    return tuple(entries)

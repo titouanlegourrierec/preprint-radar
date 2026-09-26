@@ -16,6 +16,15 @@ def test_json_export_round_trips(listing: Listing, tmp_path: Path) -> None:
     assert records == [paper.to_record() for paper in listing.papers]
 
 
+def test_csv_export_leaves_out_the_author_affiliation_indices(listing: Listing, tmp_path: Path) -> None:
+    path = tmp_path / "papers.csv"
+
+    export_papers(listing.papers, path, ExportFormat.CSV)
+
+    with path.open(encoding="utf-8", newline="") as file:
+        assert "author_affiliations" not in (csv.DictReader(file).fieldnames or ())
+
+
 def test_csv_export_joins_list_fields(listing: Listing, tmp_path: Path) -> None:
     path = tmp_path / "papers.csv"
     export_papers(listing.papers, path, ExportFormat.CSV)

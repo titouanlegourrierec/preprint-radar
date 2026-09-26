@@ -144,6 +144,10 @@ def test_update_enriches_and_stores_papers(fake: FakeArxiv, store: PaperStore) -
     assert stored["2609.28466"].affiliations == ("Declared Institute",)
     assert stored["2609.30249"].affiliations is not None
     assert "NVIDIA" in stored["2609.30249"].affiliations
+    # The HTML also says who is where: the mapping is stored alongside.
+    author_affiliations = stored["2609.30249"].author_affiliations
+    assert author_affiliations is not None
+    assert author_affiliations[0] == (0, 1)  # Yuyao Liu: MIT and NUS
     # 404: nothing to extract; 503: left pending for the next run.
     assert stored["2609.28836"].affiliations == ()
     assert stored["2609.30234"].affiliations is None
@@ -175,6 +179,8 @@ def test_second_run_only_fetches_what_is_missing(fake: FakeArxiv, store: PaperSt
     assert fake.hits["/html/2609.30249v1"] == 0
     assert fake.hits["/html/2609.30234v1"] == 1  # the one that failed is retried
     assert report.pending == 1
+    stored = {paper.arxiv_id: paper for paper in store.iter_papers("cs.CV")}
+    assert stored["2609.30249"].author_affiliations is not None  # carried over, not refetched
 
 
 def test_max_html_fetches_limits_downloads(fake: FakeArxiv, store: PaperStore) -> None:

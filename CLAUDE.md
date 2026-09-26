@@ -47,6 +47,7 @@ Single checks: `uv run pytest tests/unit/test_store.py -k merge`, `cd web && npx
 - `abstract` and `affiliations` use `null` for "not retrieved yet": the pipeline retries those.
 - An empty list means "tried, nothing found"; the pipeline does not retry those.
 - `affiliations` are per paper, deduplicated, and never contain e-mails or URLs.
+- `author_affiliations` (optional, like `venue`) maps each author to indices into `affiliations`; `null` per author or altogether means "the page does not say". The graph links a placed author only to their own institutions.
 - `venue` is optional on the web side (`venue?:`) because reading lists saved in browsers predate it. Adding an optional field needs no schema bump; backfill `data/` with a one-off script.
 
 ## arXiv constraints (hard-won, do not "simplify" away)
@@ -62,6 +63,8 @@ Single checks: `uv run pytest tests/unit/test_store.py -k merge`, `cd web && npx
 - **Affiliations:** submitter-declared ones from the API if present, otherwise heuristics on LaTeXML front matter. Add a fixture under `tests/fixtures/html/` for every new heuristic.
   - Sources, in order: `ltx_role_affiliation`/`ltx_role_address` contacts in `div.ltx_authors`; `ltx_note` of roles `address` and `institutetext` anywhere, and `footnotetext` notes that are direct children of the article and start with a marker; numbered lines after the names; "A is with B" sentences in `thanks` notes.
   - Superscript markers split affiliations; a line ending with "," or "and" continues on the next one, and a line that only names a place joins the previous line when that one has no country.
+  - The author mapping reuses the same nodes, in tiers: per-creator contacts, superscript markers matched with marker-led (or marker-trailed) lines, "A is with B" sentences, plus the trivial single-affiliation/single-author cases. A wrong pair is worse than none: ambiguous name alignments drop the whole tier, unresolved authors stay `null`.
+  - Raw LaTeX sources are **not** an alternative: `robots.txt` disallows `/e-print` and `/src` (export.arxiv.org disallows everything), and LaTeXML's HTML is already parsed LaTeX.
 - **Fixtures:**
   - Real e-mails in them are replaced by `author@example.org`.
   - `tests/fixtures/` and `data/` are excluded from pre-commit, so hooks never rewrite them.

@@ -11,7 +11,12 @@ from typing import Self
 from preprint_radar.models import Paper
 
 CSV_LIST_SEPARATOR = "; "
-CSV_COLUMNS = (*(field.name for field in fields(Paper)), "abs_url", "pdf_url")
+# The author-affiliation mapping is indices into another column: meaningless in a flat CSV.
+CSV_COLUMNS = (
+    *(field.name for field in fields(Paper) if field.name != "author_affiliations"),
+    "abs_url",
+    "pdf_url",
+)
 
 
 class ExportFormat(StrEnum):
@@ -57,12 +62,14 @@ def write_csv(papers: Sequence[Paper], path: Path) -> None:
     """Write papers as CSV, joining list fields with :data:`CSV_LIST_SEPARATOR`."""
     records = [paper.to_record() for paper in papers]
     with path.open("w", encoding="utf-8", newline="") as file:
-        writer = csv.DictWriter(file, fieldnames=CSV_COLUMNS)
+        writer = csv.DictWriter(file, fieldnames=CSV_COLUMNS, extrasaction="ignore")
         writer.writeheader()
         for record in records:
             writer.writerow(
                 {
-                    key: CSV_LIST_SEPARATOR.join(value) if isinstance(value, list) else value
+                    key: CSV_LIST_SEPARATOR.join(str(item) for item in value)
+                    if isinstance(value, list)
+                    else value
                     for key, value in record.items()
                 }
             )

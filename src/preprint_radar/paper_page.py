@@ -1,13 +1,15 @@
 """Extract front matter (affiliations, abstract) from arXiv HTML renderings (LaTeXML output).
 
-The HTML front matter depends on the LaTeX class used by the authors, so the mapping
-from authors to affiliations cannot be recovered reliably. We therefore extract the
-paper-level set of affiliations, which is what search and filtering need.
+The HTML front matter depends on the LaTeX class used by the authors. The paper-level set
+of affiliations is extracted first (what search and filtering need); when the page also
+says who is where — one affiliation block per author, superscript markers, or "A is with
+B" notes — each author is additionally mapped to their own affiliations.
 """
 
 import logging
 import re
-from collections.abc import Collection
+import unicodedata
+from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass
 
 from bs4 import BeautifulSoup, Tag
@@ -71,6 +73,21 @@ _SPACE_BEFORE_PUNCTUATION_RE = re.compile(r"\s+([,;])")
 _EDGE_PUNCTUATION = " ,;:."
 _MIN_LENGTH = 3
 
+# Superscripts that mark contribution notes rather than affiliations.
+_SYMBOL_MARKERS = frozenset("*†‡§¶⋆♯♭#°ª")
+# ``⟨marker⟩`` tokens injected in place of superscripts by :func:`_marked_text`.
+_MARKED_RE = re.compile(r"⟨([^⟨⟩]*)⟩")
+_MARKER_RUN_RE = r"((?:\s*⟨[^⟨⟩]*⟩)+)"
+_MARKER_SPLIT_RE = re.compile(r"[,;\s]+")
+_ANCHOR_RE = re.compile(r"⟨([^⟨⟩]+)⟩\s*([^⟨]+)")
+_TRAILING_ANCHOR_RE = re.compile(r"([^⟨⟩]+?)\s*⟨([^⟨⟩]+)⟩")
+_NUMBERED_ANCHOR_RE = re.compile(r"^\s*(?P<marker>\d{1,2})\s*(?P<name>[A-Z].{2,})$", re.MULTILINE)
+# Sentence ends, except after an initial ("E. Milara") or an acronym ("USA.").
+_SENTENCE_SPLIT_RE = re.compile(r"(?<=[^\sA-Z][.;])\s+")
+
+type AuthorAffiliations = tuple[tuple[int, ...] | None, ...]
+"""Per author, the indices of their affiliations; ``None`` when unknown for that author."""
+
 
 @dataclass(frozen=True, slots=True)
 class FrontMatter:
@@ -79,13 +96,17 @@ class FrontMatter:
     Attributes:
         affiliations: Distinct affiliations, in order of first appearance (possibly empty).
         abstract: Abstract with math as ``$LaTeX$``, or ``None`` if not found.
+        author_affiliations: For each author given to the parser, the indices of their own
+            affiliations in ``affiliations``; ``None`` for an author the page does not
+            place, and ``None`` altogether when the page never says who is where.
     """
 
     affiliations: tuple[str, ...] = ()
     abstract: str | None = None
+    author_affiliations: AuthorAffiliations | None = None
 
 
-def fetch_front_matter(client: HttpClient, html_url: str, *, authors: Collection[str] = ()) -> FrontMatter:
+def fetch_front_matter(client: HttpClient, html_url: str, *, authors: Sequence[str] = ()) -> FrontMatter:
     """Download an HTML rendering and extract its front matter.
 
     Args:
@@ -107,16 +128,16 @@ def fetch_front_matter(client: HttpClient, html_url: str, *, authors: Collection
     return parse_front_matter(html, authors=authors)
 
 
-def parse_front_matter(html: str, *, authors: Collection[str] = ()) -> FrontMatter:
-    """Extract affiliations and abstract from a paper's HTML rendering.
+def parse_front_matter(html: str, *, authors: Sequence[str] = ()) -> FrontMatter:
+    """Extract affiliations, abstract and the author-affiliation mapping from a rendering.
 
     Contact details (e-mails, URLs) are discarded from affiliations so they are never
     republished.
 
     Args:
         html: Raw HTML of the paper.
-        authors: Author names; free-form author blocks can make a name look like an
-            affiliation, so these are filtered out.
+        authors: Author names, in the paper's order. They anchor the author-affiliation
+            mapping, and a name is never reported as an affiliation.
 
     Returns:
         The front matter.
@@ -124,7 +145,11 @@ def parse_front_matter(html: str, *, authors: Collection[str] = ()) -> FrontMatt
     soup = BeautifulSoup(html, "html.parser")
     names = {author.casefold() for author in authors}
     affiliations = tuple(a for a in _affiliations(soup) if a.casefold() not in names)
-    return FrontMatter(affiliations=affiliations, abstract=_abstract(soup))
+    return FrontMatter(
+        affiliations=affiliations,
+        abstract=_abstract(soup),
+        author_affiliations=_author_affiliations(html, tuple(authors), affiliations),
+    )
 
 
 def _abstract(soup: BeautifulSoup) -> str | None:
@@ -291,3 +316,300 @@ def clean_affiliation(text: str) -> str | None:
     if len(text) < _MIN_LENGTH or not any(char.isalpha() for char in text):
         return None
     return text
+
+
+def _author_affiliations(
+    html: str, authors: tuple[str, ...], affiliations: tuple[str, ...]
+) -> AuthorAffiliations | None:
+    """Map each author to their affiliations, as indices into ``affiliations``.
+
+    Tried in order: a single affiliation or author (trivial), one affiliation block per
+    author, superscript markers matched with marked lines and notes, and "A and B are
+    with X" thanks notes. ``None`` when the page never says who is where; a ``None``
+    entry when it says it only for the other authors.
+    """
+    if not authors or not affiliations:
+        return None
+    if len(affiliations) == 1 or len(authors) == 1:
+        return (tuple(range(len(affiliations))),) * len(authors)
+    # The soup of the paper-level pass was pruned in place: parse a fresh one.
+    soup = BeautifulSoup(html, "html.parser")
+    if soup.select_one("div.ltx_authors") is None:
+        return None
+    index_of = {affiliation.casefold(): index for index, affiliation in enumerate(affiliations)}
+    for tier in (_per_creator_map, _marker_map, _thanks_map):
+        if (mapping := tier(soup, authors, index_of)) is not None:
+            return mapping
+    return None
+
+
+def _per_creator_map(
+    soup: BeautifulSoup, authors: tuple[str, ...], index_of: Mapping[str, int]
+) -> AuthorAffiliations | None:
+    """One affiliation block per author (ACM- and IEEE-like classes)."""
+    creators: list[tuple[str, tuple[int, ...]]] = []
+    for creator in soup.select("div.ltx_authors span.ltx_creator.ltx_role_author"):
+        name = creator.select_one(".ltx_personname")
+        if name is None:
+            continue
+        contacts = [
+            segment
+            for contact in creator.select(".ltx_role_affiliation, .ltx_role_address")
+            for segment in _segments(_pruned(contact))
+        ]
+        creators.append((_plain_text(name), _indices(contacts, index_of)))
+    if not any(indices for _, indices in creators):
+        return None
+    aligned = _align([name for name, _ in creators], authors)
+    if aligned is None:
+        return None
+    mapping: list[tuple[int, ...] | None] = [None] * len(authors)
+    for creator_index, author_index in aligned.items():
+        mapping[author_index] = creators[creator_index][1] or None
+    return tuple(mapping) if any(mapping) else None
+
+
+def _marker_map(
+    soup: BeautifulSoup, authors: tuple[str, ...], index_of: Mapping[str, int]
+) -> AuthorAffiliations | None:
+    """Superscript markers on names, matched with marker-led affiliation lines and notes."""
+    block = soup.select_one("div.ltx_authors")
+    if block is None:
+        return None
+    names = _fold(" , ".join(_marked_text(name) for name in block.select(".ltx_personname")))
+    anchors = _anchors(soup, block, index_of)
+    if not anchors:
+        return None
+
+    mapping: list[tuple[int, ...] | None] = [None] * len(authors)
+    resolved = 0
+    for position, author in enumerate(authors):
+        match = re.search(re.escape(_fold(author)) + r"[,\s]*" + _MARKER_RUN_RE, names)
+        if match is None:
+            continue
+        markers = [
+            marker
+            for token in _MARKED_RE.findall(match.group(1))
+            for marker in _MARKER_SPLIT_RE.split(token)
+            if marker
+        ]
+        indices: list[int] = []
+        for marker in _expand(markers, anchors):
+            if marker in anchors:
+                if anchors[marker] not in indices:
+                    indices.append(anchors[marker])
+            elif not set(marker) <= _SYMBOL_MARKERS:
+                # An affiliation-like marker without an anchor: the anchor set is wrong.
+                return None
+        if indices:
+            mapping[position] = tuple(indices)
+            resolved += 1
+    return tuple(mapping) if resolved else None
+
+
+def _expand(markers: Iterable[str], anchors: Mapping[str, int]) -> list[str]:
+    """Split marker runs written without separators ("⋆†", "12") into known markers."""
+    expanded: list[str] = []
+    for marker in markers:
+        if marker not in anchors and len(marker) > 1 and all(char in anchors for char in marker):
+            expanded.extend(marker)
+        else:
+            expanded.append(marker)
+    return expanded
+
+
+def _anchors(soup: BeautifulSoup, block: Tag, index_of: Mapping[str, int]) -> dict[str, int]:
+    """Affiliations introduced by a marker, as ``marker -> affiliation index``."""
+    article = soup.select_one("article.ltx_document") or soup
+    nodes: list[Tag] = list(block.select(".ltx_role_affiliation, .ltx_role_address"))
+    nodes += soup.select(".ltx_note.ltx_role_address, .ltx_note.ltx_role_institutetext")
+    nodes += article.find_all("span", class_="ltx_role_footnotetext", recursive=False)
+
+    anchors: dict[str, int] = {}
+
+    def add(marker: str, candidate: str) -> None:
+        cleaned = clean_affiliation(candidate)
+        index = index_of.get(cleaned.casefold()) if cleaned else None
+        if index is not None:
+            anchors.setdefault(marker.strip(), index)
+
+    for node in nodes:
+        label = node.select_one(".ltx_note_mark")
+        marked = _marked_text(_pruned(node))
+        # Markers may lead ("¹ETH Zurich") or trail ("Tampere University¹") their
+        # affiliation: keep the orientation that explains more of the node.
+        leading = [
+            (marker, candidate)
+            for marker, candidate in _ANCHOR_RE.findall(marked)
+            if _known(candidate, index_of)
+        ]
+        trailing = [
+            (marker, candidate)
+            for candidate, marker in _TRAILING_ANCHOR_RE.findall(marked)
+            if _known(candidate, index_of)
+        ]
+        pairs = max(leading, trailing, key=len)
+        if pairs:
+            for marker, candidate in pairs:
+                add(marker, candidate)
+        elif label is not None:
+            # A note whose only marker is its own mark: "1institutetext: ...".
+            add(_plain_text(label), _MARKED_RE.sub(" ", marked))
+    # Free-form blocks write the marker as plain text: "1ETH Zurich".
+    for match in _NUMBERED_ANCHOR_RE.finditer(_pruned(block).get_text().replace("\xa0", " ")):
+        add(match.group("marker"), match.group("name"))
+    return anchors
+
+
+def _known(candidate: str, index_of: Mapping[str, int]) -> bool:
+    """Whether the candidate cleans to one of the paper's affiliations."""
+    cleaned = clean_affiliation(candidate)
+    return cleaned is not None and cleaned.casefold() in index_of
+
+
+def _thanks_map(
+    soup: BeautifulSoup, authors: tuple[str, ...], index_of: Mapping[str, int]
+) -> AuthorAffiliations | None:
+    """Thanks notes naming who is where: "A. Author and B. Author are with the X"."""
+    mapping: list[tuple[int, ...] | None] = [None] * len(authors)
+    resolved = 0
+    sentences = [
+        sentence
+        for note in soup.select(".ltx_note.ltx_role_thanks")
+        for line in _note_text(_pruned(note)).splitlines()
+        for sentence in _SENTENCE_SPLIT_RE.split(line)
+    ]
+    for sentence in sentences:
+        match = _IS_WITH_RE.search(sentence)
+        if match is None:
+            continue
+        value = _NEXT_SENTENCE_RE.split(_CONTACT_TAIL_RE.sub("", sentence[match.end() :]), maxsplit=1)[0]
+        cleaned = clean_affiliation(value)
+        index = index_of.get(cleaned.casefold()) if cleaned else None
+        if index is None:
+            continue
+        subject = _fold(sentence[: match.start()])
+        placed = (
+            range(len(authors))
+            if "the authors" in subject
+            else [position for position, author in enumerate(authors) if _named_in(subject, author, authors)]
+        )
+        for position in placed:
+            entry = mapping[position] or ()
+            if index not in entry:
+                mapping[position] = (*entry, index)
+                resolved += 1
+    return tuple(mapping) if resolved else None
+
+
+def _named_in(subject: str, author: str, authors: tuple[str, ...]) -> bool:
+    """Whether the folded ``subject`` names the author, possibly with initials.
+
+    "E. Milara" names Eva Milara when no other author shares that initial and surname.
+    """
+    folded = _fold(author)
+    if folded in subject:
+        return True
+    first, _, surname = folded.partition(" ")
+    if not surname:
+        return False
+    initial = first[:1]
+    surname = surname.rsplit(maxsplit=1)[-1]
+    twins = sum(
+        1
+        for other in authors
+        if (other_parts := _fold(other).split())
+        and other_parts[0][:1] == initial
+        and other_parts[-1] == surname
+    )
+    if twins != 1:
+        return False
+    pattern = rf"\b{re.escape(initial)}[\w'-]*\.?(?:\s+[\w'.-]+)*?\s+{re.escape(surname)}\b"
+    return re.search(pattern, subject) is not None
+
+
+def _align(names: Sequence[str], authors: tuple[str, ...]) -> dict[int, int] | None:
+    """Match creator names to the listing's authors.
+
+    Folded full names first, then surname plus first initial, then position when both
+    lists have the same length. An ambiguous name fails the whole alignment: a wrong
+    author-affiliation pair is worse than none.
+    """
+    folded = [_fold(author) for author in authors]
+    result: dict[int, int] = {}
+    used: set[int] = set()
+    unmatched: list[int] = []
+    for position, name in enumerate(names):
+        target = _fold(name)
+        hits = [j for j, author in enumerate(folded) if author == target and j not in used]
+        if not hits and (parts := target.split()):
+            hits = [
+                j
+                for j, author in enumerate(folded)
+                if j not in used and author.rsplit(maxsplit=1)[-1] == parts[-1] and author[:1] == parts[0][:1]
+            ]
+        if len(hits) > 1:
+            return None
+        if hits:
+            result[position] = hits[0]
+            used.add(hits[0])
+        else:
+            unmatched.append(position)
+    if len(names) == len(authors):
+        for position in unmatched:
+            if position not in used:
+                result[position] = position
+                used.add(position)
+    return result or None
+
+
+def _indices(candidates: Iterable[str], index_of: Mapping[str, int]) -> tuple[int, ...]:
+    """Indices of the candidates that clean to a known affiliation, deduplicated."""
+    found: list[int] = []
+    for candidate in candidates:
+        cleaned = clean_affiliation(candidate)
+        index = index_of.get(cleaned.casefold()) if cleaned else None
+        if index is not None and index not in found:
+            found.append(index)
+    return tuple(found)
+
+
+def _pruned(node: Tag) -> Tag:
+    """A copy of the node without contact labels, e-mails, links and note decorations.
+
+    The copied node itself is kept even when it is a note: only what it contains is noise.
+    """
+    copy = BeautifulSoup(str(node), "html.parser")
+    root = next(iter(copy.find_all(name=True, limit=1)), None)
+    for noise in copy.select(
+        ".ltx_contact_name, .ltx_role_email, .ltx_note, .ltx_note_mark, .ltx_note_type, a"
+    ):
+        if noise is not root:
+            noise.decompose()
+    return copy
+
+
+def _marked_text(node: Tag) -> str:
+    """Node text with each superscript rendered as a ``⟨marker⟩`` token."""
+    copy = BeautifulSoup(str(node), "html.parser")
+    for sup in copy.select("sup"):
+        sup.replace_with(f"⟨{' '.join(sup.get_text().split())}⟩")
+    return " ".join(copy.get_text().split())
+
+
+def _plain_text(node: Tag) -> str:
+    """Node text without superscripts, whitespace collapsed."""
+    copy = BeautifulSoup(str(node), "html.parser")
+    for sup in copy.select("sup"):
+        sup.decompose()
+    return " ".join(copy.get_text().split())
+
+
+# Curly quotes and long dashes fold to their ASCII forms: "Shin\u2019ichi" == "Shin'ichi".
+_PUNCTUATION_VARIANTS = str.maketrans("\u2018\u2019\u02bc\u2013\u2014\u2212", "'" * 3 + "-" * 3)
+
+
+def _fold(text: str) -> str:
+    """Lowercase, strip accents and normalize punctuation, for name comparison."""
+    decomposed = unicodedata.normalize("NFKD", text.translate(_PUNCTUATION_VARIANTS))
+    return "".join(char for char in decomposed if not unicodedata.combining(char)).casefold()

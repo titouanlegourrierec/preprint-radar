@@ -197,6 +197,139 @@ def test_strips_authors_are_with_prefix(raw: str, expected: str) -> None:
     assert parse_front_matter(html).affiliations == (expected,)
 
 
+AUTHORS = {
+    "2609.30234": (
+        "Ding-Jiun Huang",
+        "Yuanhao Wang",
+        "Cheng Zhang",
+        "Hugo Bertiche",
+        "Alexandru-Eugen Ichim",
+        "Thabo Beeler",
+        "Fernando De la Torre",
+    ),
+    "2609.21811": (
+        "Muhammet Sami Yavuz",
+        "Sabri Mustafa Kahya",
+        "Richard R. Chen",
+        "Jana Lipkova",
+        "Benedikt Wiestler",
+    ),
+    "2609.30056": (
+        "Yang Zhou",
+        "Jiuhong Xiao",
+        "Shizhao Ye",
+        "Long Quang",
+        "Carlos Nieto-Granda",
+        "Giuseppe Loianno",
+    ),
+    "2609.11271": (
+        "Hyunsu Go",
+        "Youngung Han",
+        "Kyeonghun Kim",
+        "Jinyong Jun",
+        "Junbeom Lee",
+        "Dohyun Kweon",
+        "Yului Jeong",
+        "Suah Park",
+        "Sungha Park",
+        "Anna Jung",
+        "Woo Kyoung Jeong",
+        "Ken Ying-Kai Liao",
+        "Hyuk-Jae Lee",
+        "Nam-Joon Kim",
+    ),
+    "2609.29350": ("Yuling Jiao", "Wensen Ma", "Houduo Qi", "Defeng Sun"),
+    "2609.25108": (
+        "Khoa Pham-Dinh",
+        "Sanaz Nami",
+        "Hamed Rezazadegan Tavakoli",
+        "Moncef Gabbouj",
+        "Farhad Pakdaman",
+    ),
+    "2609.29721": ("Toya Oyama", "Rainer Lienhart", "Shin'ichi Satoh"),
+    "2609.29650": (
+        "David Chushig-Muzo",
+        "Luis M. López-Ramos",
+        "Ángeles Rodríguez de Cara",
+        "Eva Milara",
+        "Luis Zhinin-Vera",
+        "Diego H. Peluffo-Ordóñez",
+    ),
+    "2609.29384": ("Changqing Gong", "Huafeng Qin", "Mounîm A. El-Yacoubi"),
+    "2609.23431": ("Junwen Chen", "Keiji Yanai"),
+    "2609.26161": ("Ignacio Bugueno-Cordova", "Javier Ruiz-del-Solar", "Rodrigo Verschae"),
+    "2609.28473": (
+        "Chao Feng",
+        "Zhiyang Xu",
+        "Bowei Chen",
+        "Yuanjun Xiong",
+        "Xiyao Wang",
+        "Jui-Hsien Wang",
+        "Richard Zhang",
+        "Zhe Lin",
+        "Andrew Owens",
+        "Yijun Li",
+    ),
+}
+
+
+@pytest.mark.parametrize(
+    ("arxiv_id", "expected"),
+    [
+        pytest.param(
+            "2609.30234",
+            ((0,), (1,), (2,), (3,), (4,), (4,), (0,)),
+            id="one-affiliation-block-per-author",
+        ),
+        pytest.param("2609.21811", ((0, 1), (2,), (3,), (4,), (0, 1)), id="per-author-multi-line"),
+        pytest.param(
+            "2609.30056",
+            ((0,), (0, 1), (1,), (0, 2), (2,), (1,)),
+            id="per-author-authors-are-with",
+        ),
+        pytest.param(
+            "2609.11271",
+            ((0,), (0, 1), (1,), (0,), (2,), (1, 3), (0,), (0,), (0,), (0,), (4,), (5,), (0,), (0,)),
+            id="markers-on-names",
+        ),
+        pytest.param("2609.29350", ((0,), (1,), (2, 1), (1,)), id="markers-in-footnote"),
+        pytest.param(
+            "2609.25108",
+            ((0,), (0,), (1,), (0,), (1,)),
+            id="markers-after-the-affiliation",
+        ),
+        pytest.param("2609.29721", ((0, 1), (2,), (1, 0)), id="symbol-marker-runs"),
+        pytest.param(
+            "2609.29650",
+            ((0,), (0,), (0,), (0,), (1,), (2,)),
+            id="thanks-sentences-with-initials",
+        ),
+        pytest.param("2609.29384", ((0,), (1,), (0,)), id="thanks-sentences"),
+        pytest.param("2609.23431", ((0,), (0,)), id="single-affiliation-is-everyones"),
+        pytest.param("2609.26161", None, id="no-markers-on-names"),
+        pytest.param("2609.28473", None, id="shared-block-without-markers"),
+    ],
+)
+def test_maps_authors_to_their_affiliations(
+    paper_html: PaperHtml, arxiv_id: str, expected: tuple[tuple[int, ...] | None, ...] | None
+) -> None:
+    front = parse_front_matter(paper_html(arxiv_id), authors=AUTHORS[arxiv_id])
+    assert front.author_affiliations == expected
+
+
+def test_maps_every_affiliation_to_a_single_author() -> None:
+    html = """<div class="ltx_authors"><span class="ltx_creator ltx_role_author">
+      <span class="ltx_personname">Ada Lovelace</span>
+      <span class="ltx_contact ltx_role_affiliation">MIT</span>
+      <span class="ltx_contact ltx_role_affiliation">NVIDIA</span></span></div>"""
+    front = parse_front_matter(html, authors=("Ada Lovelace",))
+    assert front.author_affiliations == ((0, 1),)
+
+
+def test_mapping_needs_the_author_list(paper_html: PaperHtml) -> None:
+    assert parse_front_matter(paper_html("2609.30234")).author_affiliations is None
+
+
 def test_ignores_authorship_footnotes(paper_html: PaperHtml) -> None:
     affiliations = parse_front_matter(paper_html("2609.21811")).affiliations
     assert not any("authorship" in affiliation for affiliation in affiliations)
