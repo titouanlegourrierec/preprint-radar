@@ -1,4 +1,4 @@
-import { useMemo, useState } from "preact/hooks";
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from "preact/hooks";
 import {
   between,
   dayDate,
@@ -51,6 +51,9 @@ export function PeriodPicker({ days, period, onChange }: Props) {
   const [month, setMonth] = useState<string | null>(null);
   const [anchor, setAnchor] = useState<string | null>(null);
   const [hovered, setHovered] = useState<string | null>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const panelId = useId();
   const counts = useMemo(() => new Map(days.map((day) => [day.date, day.count])), [days]);
   const maxCount = useMemo(() => Math.max(1, ...days.map((day) => day.count)), [days]);
 
@@ -72,25 +75,49 @@ export function PeriodPicker({ days, period, onChange }: Props) {
         : null;
   const shown = month ?? monthOf(range?.to ?? latest);
 
-  const close = () => {
+  const close = useCallback((returnFocus = false) => {
     setOpen(false);
     setAnchor(null);
-  };
+    if (returnFocus) triggerRef.current?.focus();
+  }, []);
   const pick = (day: string) => {
     onChange(between(anchor ?? day, day));
     setAnchor(anchor ? null : day);
   };
   const choose = (key: RangeKey) => {
     onChange({ kind: "recent", range: key });
-    close();
+    close(true);
   };
 
+  // The calendar is a disclosure: a click elsewhere closes it, Escape also returns the
+  // focus to its button. Tab is free to leave it, so there is no focus trap.
+  useEffect(() => {
+    if (!open) return;
+    const onPointerDown = (event: PointerEvent) => {
+      if (event.target instanceof Node && !rootRef.current?.contains(event.target)) close();
+    };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.stopPropagation();
+        close(true);
+      }
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open, close]);
+
   return (
-    <div class="period-picker">
+    <div class="period-picker" ref={rootRef}>
       <button
         type="button"
         class="period-picker__trigger"
+        ref={triggerRef}
         aria-expanded={open}
+        aria-controls={panelId}
         onClick={() => {
           setMonth(null);
           if (open) close();
@@ -111,12 +138,7 @@ export function PeriodPicker({ days, period, onChange }: Props) {
       </button>
 
       {open && (
-        <div
-          class="period-picker__panel"
-          role="dialog"
-          aria-label="Choose the period"
-          onKeyDown={(event) => event.key === "Escape" && close()}
-        >
+        <div class="period-picker__panel" id={panelId}>
           <div class="period-picker__presets">
             {Object.entries(RANGES).map(([key, { label }]) => (
               <button
