@@ -510,7 +510,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.28327v1",
+   "html_url": "https://arxiv.org/html/2609.28327v2",
    "abstract": "We present LightMIS, a scalable family of ultra-lightweight convolutional networks for 2D binary medical image segmentation without a learned stage-wise decoder. LightMIS aligns the outputs of a five-level encoder to a common resolution using Scale-Aligned Projection blocks, aggregates them once, and refines the fused representation with an Adaptive Fusion Cascade. The cascade combines Adaptive Kernel Fusion with the proposed Progressive Receptive Fusion module, which uses temporary channel expansion, complementary depthwise receptive fields, and progressive cross-branch information transfer. We evaluate LightMIS-T, LightMIS-S, and LightMIS using five-fold cross-validation under a common nnU-Net v2.3.1 protocol on DRIVE, Kvasir-SEG, DSB18, BUSI, ISIC-2017, and ISIC-2018. Full LightMIS contains 0.131 M parameters and requires 0.575 GFLOPs for a $3\\times256\\times256$ input, achieving modality-macro Dice and IoU scores of 86.71% and 78.99%, respectively. Mobile U-ViT obtains 86.75% Dice and 79.07% IoU, so the observed differences are 0.04 and 0.08 percentage points. Relative to Mobile U-ViT, nnWNet, and nnU-Net, LightMIS reduces parameter count by 90.58$-$99.61% and GFLOPs by 82.54$-$96.14%. On an Arm Mali-G52 MC2 GPU, all LightMIS variants achieve full GPU delegation, with median delegated latency ranging from 53.31 ms for LightMIS-T to 138.31 ms for LightMIS. These results demonstrate a favorable accuracy$-$complexity trade-off and on-device execution feasibility for the evaluated tasks. The code is publicly available at https://github.com/AndreiiArhire/LightMIS.",
    "affiliations": [
     "Faculty of Computer Science",
@@ -2575,7 +2575,7 @@
   {
    "arxiv_id": "2609.27675",
    "announced": "2026-09-24",
-   "title": "Track2Art: Motion-Centric Articulated Object Model Recovery from 2D Point Trackers",
+   "title": "Track2Art: Articulated Object Model Recovery with Visual-Geometric Track Representations",
    "authors": [
     "Xiaotong Li",
     "Yixiong Jing",
@@ -2593,7 +2593,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.27675v1",
+   "html_url": "https://arxiv.org/html/2609.27675v2",
    "abstract": "Understanding articulated objects is fundamental for robotic interaction, requiring accurate rigid-part discovery and the recovery of their kinematic relations. Existing approaches often treat articulation as a by-product of reconstructed geometry or recover it through per-instance optimization. We instead build on the hypothesis that articulation is directly observable from persistent motion: points on the same rigid part move coherently, while relative motion between parts reveals their kinematic constraints. We present Track2Art, a motion-centric framework for recovering structured articulated objects from RGB-D interaction videos. Track2Art lifts tracked image points into persistent 3D trajectories and combines pretrained tracking features, visual descriptors, and explicit trajectory geometry. These representations are grouped into a variable number of rigid-part hypotheses and subsequently used to recover directed kinematic relations, joint types, and joint geometry through rotation-equivariant learned--analytic reasoning. On the aligned 20-object PartNet-Mobility suite, Track2Art achieves 0.695 Point IoU and 0.410 end-to-end J@20, while requiring neither ground-truth part counts nor test-time optimization.",
    "affiliations": [
     "University of Cambridge",
@@ -2832,6 +2832,8 @@
     "Ibrahim Ethem Hamamci",
     "Sezgin Er",
     "Bjoern Menze",
+    "Zongwei Zhou",
+    "Wenxuan Li",
     "Marc Edgar",
     "Yufan He",
     "Pengfei Guo",
@@ -2846,7 +2848,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.27511v1",
+   "html_url": "https://arxiv.org/html/2609.27511v2",
    "abstract": "We present NV-Reason-CT, a generative vision--language model for chest and abdominal CT combining native 3D visual encoding with radiologist-guided reasoning. The model couples a native 3D vision transformer with a language model, passing all visual tokens and their explicit 3D coordinates into language decoding without further spatial token merging. This retains volumetric spatial information within the vision encoder and through the language model's positional encoding during joint processing with text. We train on a curated corpus of approximately 550,000 multimodal instruction examples from 70,111 unique CT image inputs, combining standardized reports, abnormality-focused and anatomy-specific questions, multi-turn interactions, and radiologist-authored reasoning from recorded and transcribed expert CT interpretations. Expert annotations provide direct supervision and guide additional report-grounded synthetic reasoning. End-to-end supervised fine-tuning (SFT) is followed by Group Relative Policy Optimization (GRPO), with verifiable rewards over chest and abdominal abnormality sets. The model supports abnormality classification, report generation, and interactive reasoning with reviewable observations, differential diagnoses, and uncertainty. Evaluation spans public CT benchmarks and a held-out NIH cohort. On CT-RATE, NV-Reason-CT achieves a macro-F1 of 0.614 and macro-AUROC of 0.871 without a task-specific classification head; generated reports achieve a report-derived macro-F1 of 0.592. In a preliminary study with expert radiologists, AI-assisted review received favorable confidence ratings and was associated with a 50% reduction in average reported interpretation and reporting time. We release the model and training code to support reproducible research on explainable AI for volumetric medical imaging.",
    "affiliations": [
     "NVIDIA, Santa Clara, CA",

@@ -1064,7 +1064,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.29816v1",
+   "html_url": "https://arxiv.org/html/2609.29816v2",
    "abstract": "Recent years have witnessed major progress in joint audio-video generation. Existing models still suffer from limited per-modality fidelity, insufficient text-modality alignment and weak cross-modal synchronization. While reinforcement-learning post-training offers a promising remedy, directly adapting it to joint audio-video generation is challenging. Heterogeneous multimodal rewards entangle learning signals and complicate credit assignment. Joint optimization of two modality towers is computationally expensive given their divergent dynamics. Moreover, synchronization evaluation difficulty depends on paired samples, preventing fair reward comparisons. We propose AV-GRPO, a modality-anchored online diffusion RL framework, and 5DAV, a decoupled, difficulty-controllable training dataset. AV-GRPO includes three key modules: (1) modality-anchored rollouts to disentangle learning signals and stabilize difficulty; (2) trajectory-locked frozen-tower optimization to reduce cost and reassign credit; (3) adaptive objectives and perturbation strengths tailored to modality-specific dynamics. This converts coupled multimodal preference learning into unimodal subproblems for precise reward attribution and better synchronization. Our 5DAV dataset decouples samples across five dimensions for systematic training. Experiments on JavisBench and VABench demonstrate AV-GRPO outperforms LTX-2.3 in generation quality, semantic alignment and cross-modal synchronization under LoRA and full fine-tuning. Ablations confirm our designs. Code and data: https://github.com/zhiyuxu03/AV-GRPO",
    "affiliations": [],
    "author_affiliations": null,
@@ -4436,11 +4436,11 @@
     "Graphics (cs.GR)",
     "Machine Learning (cs.LG)"
    ],
-   "comments": null,
+   "comments": "Accepted at NeurIPS 2026 (poster). Project page: https://dsilvavinicius.github.io/m-plicits/ - code, models and data: https://github.com/dsilvavinicius/m-plicits",
    "journal_ref": null,
-   "venue": null,
+   "venue": "NeurIPS 2026",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.28684v1",
+   "html_url": null,
    "abstract": "Encoding input coordinates with sinusoidal functions into multi-layer perceptrons (MLPs) has proven effective for implicit neural representations (INRs) of surfaces defined as zero-level sets. However, existing methods often struggle to balance training efficiency, rendering speed, and noise robustness: single-MLP approaches are expensive at inference, grid-based representations are fast but can limit surface smoothness and overfit input noise, and previous multiscale approaches frequently capture noise and produce artifacts due to hard spectral truncation. To address these limitations, we propose M-plicits, a multiscale framework that models surfaces as a residual sum of MLPs trained via a sequence of nested neighborhoods. Unlike existing residual approaches that rely on standard domain-wide sampling and require costly mesh extraction for visualization, our method strictly localizes supervision to narrow bands around the previous zero-level sets. This nested design naturally provides robustness against noisy input data: the coarse network acts as a low-pass filter that establishes a clean geometric prior, while subsequent residuals progressively refine the geometry without fitting to high-frequency artifacts. We further introduce a multiscale sphere-tracing algorithm and a GEMM-based analytical normal computation that bypasses auto-differentiation entirely, yielding high-fidelity real-time rendering. On Stanford and Thingi32, M-plicits achieves the best mean Chamfer distance in the coarse configuration and the best median Chamfer distance and IoU in the fine configuration, with substantially better noise robustness than iNGP, BACON, and IDF, while using an order of magnitude fewer parameters than grid-based baselines. Code, models, and data will be released at https://github.com/dsilvavinicius/m-plicits.",
    "affiliations": [
     "PUC-Rio",
@@ -5350,7 +5350,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.GR",
-   "html_url": "https://arxiv.org/html/2609.29529v1",
+   "html_url": "https://arxiv.org/html/2609.29529v2",
    "abstract": "Reconstructing dynamic meshes with consistent topology from multi-view temporal images remains a challenge. Existing approaches typically face a dilemma between fine-scale shape recovery and topological stability. Frame-by-frame extraction methods capture fine details but break vertex correspondence, leading to flickering meshes. Conversely, template-based deformation ensures consistency but struggles to adapt its surface resolution during optimization, missing local surface details. To address these limitations, we propose ToCo-Mesh, a dynamic reconstruction framework that maintains topology consistency over time while achieving high-fidelity geometry. Specifically, we introduce a dual-mesh representation, where a canonical template mesh is tightly bound to time-varying coarse guide meshes via barycentric parameterization. While keeping guide meshes fixed to condition the deformation, we perform error-driven split-and-merge on the template mesh to progressively increase reconstruction fidelity. Furthermore, to suppress surface irregularities and achieve photorealistic rendering, we incorporate a Surface-Aligned 2DGS module. By anchoring flattened Gaussians to mesh faces, we utilize their rendered normals to guide inverse geometric fine-tuning. To our knowledge, ToCo-Mesh is the first framework to enable adaptive mesh refinement while maintaining strict topological consistency. Extensive experiments demonstrate that our method achieves SOTA geometric accuracy while maintaining competitive rendering quality.",
    "affiliations": [
     "University of Science and Technology of China, Hefei, China"
@@ -5431,11 +5431,11 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Systems and Control (eess.SY)"
    ],
-   "comments": "IEEE Robotics and Automation Letters (RA-L), 2024",
+   "comments": "IEEE Robotics and Automation Letters (RA-L), 2024. Project Page: https://github.com/IMRL/Free-Init",
    "journal_ref": "M. Zhao et al., \"Free-Init: Scan-Free, Motion-Free, and Correspondence-Free Initialization for Doppler LiDAR-Inertial Systems,\" in IEEE Robotics and Automation Letters, vol. 9, no. 12, pp. 11329-11336, Dec. 2024",
    "venue": "RA-L 2024",
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2609.29375v1",
+   "html_url": "https://arxiv.org/html/2609.29375v2",
    "abstract": "Robust initialization is crucial for online systems. In the letter, a high-frequency and resilient initialization framework is designed for LiDAR-inertial systems, leveraging both inertial sensors and Doppler LiDAR. The innovative FMCW Doppler LiDAR opens up a novel avenue for robotic sensing by capturing not only point range but also Doppler velocity via the intrinsic Doppler effect. By fusing point-wise Doppler velocity with inertial measurements under non-inertial kinematics, the proposed framework, Free-Init, eliminates reliance on motion undistortion of LiDAR scans, excitation motions, and map correspondences during the initialization phase. Free-Init is also plug-and-play compatible with typical LiDAR-inertial systems and is versatile to handle a wide range of initial motions when the system starts, including stationary, dynamic, and even violent motions. The embedded Doppler-inertial velocimeter ensures fast convergence and high-frequency performance, delivering outputs exceeding 10 kHz. Comprehensive experiments on diverse platforms and across myriad motion scenes validate the framework's effectiveness. The results demonstrate the superior performance of Free-Init, highlighting the necessity of fast, resilient, and dynamic initialization for online systems.",
    "affiliations": [
     "University of Macau"
@@ -5477,11 +5477,11 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Systems and Control (eess.SY)"
    ],
-   "comments": "IEEE Robotics and Automation Letters (RA-L), 2024",
-   "journal_ref": "IEEE Robotics and Automation Letters, vol. 9, no. 6, pp. 5727-5734, June 2024",
+   "comments": "IEEE Robotics and Automation Letters (RA-L), 2024. Project Page: https://github.com/IMRL/FMCW-LIO",
+   "journal_ref": "M. Zhao et al., \"FMCW-LIO: A Doppler LiDAR-Inertial Odometry,\" in IEEE Robotics and Automation Letters, vol. 9, no. 6, pp. 5727-5734, June 2024",
    "venue": "RA-L 2024",
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2609.29374v1",
+   "html_url": "https://arxiv.org/html/2609.29374v2",
    "abstract": "Conventional LiDAR-inertial odometry (LIO) or simultaneous localization and mapping (SLAM) methods heavily rely on geometric features of environments, as LiDARs primarily provide range measurements instead of motion measurements. From now on, however, the situation changes thanks to the novel Frequency Modulated Continuous Wave (FMCW) Doppler LiDARs. FMCW Doppler LiDARs not only offer the point range with high resolution but also capture the instant point Doppler velocity through the Doppler effect. In the letter, we propose FMCW-LIO, a novel and robust LIO, leveraging intrinsic Doppler measurements from FMCW Doppler LiDARs. To correctly exploit Doppler velocities, a motion compensation method is designed, and a Doppler-aided observation model is applied for on-manifold state estimation. Then, dynamic points can be effectively removed by the Doppler criteria, deriving more consistent geometric observations. FMCW-LIO eventually achieves accurate state estimation and static mapping, even in structure-degenerated environments. Extensive experiments in diverse scenes are performed and FMCW-LIO outperforms other algorithms on both accuracy and robustness.",
    "affiliations": [
     "University of Macau"
@@ -5524,7 +5524,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2609.29310v1",
+   "html_url": "https://arxiv.org/html/2609.29310v2",
    "abstract": "Robot manipulation policies trained through imitation learning inherit not only the demonstrated behavior but also the conservative execution tempo of robot demonstrations. Existing acceleration approaches can execute faster than the original demonstrations, but determine the appropriate acceleration primarily from robot-side information or a predefined set of tempo factors, leaving open how to obtain a task-appropriate reference for how fast each manipulation phase should progress. We introduce EgoSpeedUp, a framework that uses human manipulation as temporal supervision for robot imitation learning. Our key insight is that human demonstrations naturally reveal task-appropriate, phase-wise manipulation tempo. Given slow robot demonstrations and human demonstrations of the same task, EgoSpeedUp aligns corresponding manipulation phases, estimates their relative execution tempos from multiple human demonstrations, and transfers the resulting phase-wise tempo by retiming the robot demonstrations. The retimed demonstrations are then used for standard behavior cloning, allowing the robot to retain its executable manipulation behavior while learning to perform it at a human-informed tempo. Across two real-world manipulation tasks, EgoSpeedUp improves the task success rate by an average of 25 percentage points (pp) while reducing successful execution time by 36.5%. These results demonstrate that human manipulation tempo provides an effective temporal reference for learning faster and more reliable robot policies.",
    "affiliations": [],
    "author_affiliations": null,
