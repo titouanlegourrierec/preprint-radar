@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><title>arXiv:2609.26512</title></head>
+<body>
+<article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">Do Vision Model See Like the Brain? A Comparison Across EEG Encoding Model</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Shashank Baghel
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact">author@example.org
+</span>
+<span class="ltx_contact ltx_role_affiliation">organization=Centre for Human-Computer
+Interaction, Indian Institute of Technology,
+addressline=Mandi,
+city=Mandi,
+postcode=175075,
+state=Himachal Pradesh,
+country=India
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Kshitij Dwivedi
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact">author@example.org
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Dinesh Singh
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact">author@example.org
+</span>
+<span class="ltx_contact ltx_role_affiliation">organization=Freie Universität,
+city=Berlin,
+country=Germany
+</span>
+<span class="ltx_contact ltx_role_affiliation">organization=Goethe University,
+city=Frankfurt,
+country=Germany
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Sanjeev Nara
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact">author@example.org
+</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Convolutional neural networks (CNNs) and vision transformers are both used to model the human visual system, but whether the two architectures diverge at a specific point in network depth is unclear. We compared six CNNs and two vision transformers by computing the Pearson correlation (<math alttext="r" class="ltx_Math" display="inline" id="abstract1.m1" intent=":literal"><semantics><mi>r</mi><annotation encoding="application/x-tex">r</annotation></semantics></math>) between each model’s predicted and measured EEG response at every layer or block, in ten participants viewing 200 natural images. For the transformer models, we also tested four token representations, from the classification (CLS) token alone to CLS combined with all patch tokens. CNNs showed strongest correspondence at the earliest layers, weakening at deeper layers, particularly later in the post-stimulus response. Transformers instead sustained strong correspondence at their deepest blocks, though not at their earliest ones. This advantage depended on token representation: pooled representations gave weaker peak correlations (<math alttext="r{\approx}0.48" class="ltx_Math" display="inline" id="abstract1.m2" intent=":literal"><semantics><mrow><mi>r</mi><mo>≈</mo><mn>0.48</mn></mrow><annotation encoding="application/x-tex">r{\approx}0.48</annotation></semantics></math>–<math alttext="0.51" class="ltx_Math" display="inline" id="abstract1.m3" intent=":literal"><semantics><mn>0.51</mn><annotation encoding="application/x-tex">0.51</annotation></semantics></math>) than representations retaining all patch tokens (<math alttext="r{=}0.640" class="ltx_Math" display="inline" id="abstract1.m4" intent=":literal"><semantics><mrow><mi>r</mi><mo>=</mo><mn>0.640</mn></mrow><annotation encoding="application/x-tex">r{=}0.640</annotation></semantics></math> for CLIP-ViT-B/32, <math alttext="r{=}0.656" class="ltx_Math" display="inline" id="abstract1.m5" intent=":literal"><semantics><mrow><mi>r</mi><mo>=</mo><mn>0.656</mn></mrow><annotation encoding="application/x-tex">r{=}0.656</annotation></semantics></math> for DINOv2-ViT-B/14). Controlled comparisons showed architecture, not training objective, drove this effect: MoCo-v1 and ResNet-50 (matched architecture) performed nearly identically (<math alttext="r{=}0.673" class="ltx_Math" display="inline" id="abstract1.m6" intent=":literal"><semantics><mrow><mi>r</mi><mo>=</mo><mn>0.673</mn></mrow><annotation encoding="application/x-tex">r{=}0.673</annotation></semantics></math>, <math alttext="0.670" class="ltx_Math" display="inline" id="abstract1.m7" intent=":literal"><semantics><mn>0.670</mn><annotation encoding="application/x-tex">0.670</annotation></semantics></math>), whereas CLIP-RN50 and CLIP-ViT-B/32 (matched objective) diverged until patch tokens were preserved. We propose that CNN training’s classification bottleneck compresses brain-relevant information at depth, unlike transformers’ self-attention and non-classification objectives. A spatial topography analysis showed a common occipital-dominant pattern across all models, indicating these differences reflect signal strength and persistence rather than distinct brain regions. Patch-preserving transformer representations sustain brain-predictive correspondence where CNNs collapse.</p>
+</div>
+</article>
+</body>
+</html>

@@ -69,7 +69,13 @@ _COUNTRY_END_RE = re.compile(
     re.IGNORECASE,
 )
 _MAX_PLACE_LENGTH = 60
+# elsarticle's \affiliation{organization=..., city=..., country=...}, which LaTeXML prints
+# verbatim. Any key counts once one of these is present (authors misspell them).
+_KEYVAL_RE = re.compile(r"\b(?:organization|addressline|city|postcode|state|country)\s*=", re.IGNORECASE)
+_KEY_RE = re.compile(r"\b([a-z]+)\s*=", re.IGNORECASE)
 _SPACE_BEFORE_PUNCTUATION_RE = re.compile(r"\s+([,;])")
+# Empty fields of some LaTeX classes leave commas in a row: "FPT University, , Cantho".
+_REPEATED_COMMA_RE = re.compile(r",(?:\s*,)+")
 _EDGE_PUNCTUATION = " ,;:."
 _MIN_LENGTH = 3
 
@@ -261,10 +267,15 @@ def _segments(node: Tag) -> list[str]:
 
     A line ending with a comma or "and" continues on the next one, and a line that only
     names a place ("Munich, Germany") belongs to the previous one when it has no country.
+    elsarticle's ``key=value`` affiliations ignore line breaks instead: see
+    :func:`_keyval_chunks`.
     """
     for marker in node.select("sup"):
         marker.replace_with("\n")
-    lines = [line.strip() for line in _SEPARATOR_RE.split(node.get_text().replace("\xa0", " "))]
+    text = node.get_text().replace("\xa0", " ")
+    if _KEYVAL_RE.search(text):
+        return _keyval_chunks(text)
+    lines = [line.strip() for line in _SEPARATOR_RE.split(text)]
     joined: list[str] = []
     for line in filter(None, lines):
         previous = joined[-1] if joined else ""
@@ -285,6 +296,47 @@ def _is_place(line: str) -> bool:
         and not _INSTITUTION_WORD_RE.search(place)
         and _COUNTRY_END_RE.search(place) is not None
     )
+
+
+def _keyval_chunks(text: str) -> list[str]:
+    """Split elsarticle ``key=value`` text into one raw chunk per affiliation.
+
+    Values wrap across lines ("organization=Centre for Human-Computer", then
+    "Interaction, ..."), so line breaks are ignored; a key seen again starts the next
+    affiliation. The keys are removed later, by :func:`clean_affiliation`.
+    """
+    flat = " ".join(text.split())
+    chunks: list[str] = []
+    seen: set[str] = set()
+    start = 0
+    for match in _KEY_RE.finditer(flat):
+        key = match.group(1).casefold()
+        if key in seen:
+            chunks.append(flat[start : match.start()])
+            seen.clear()
+            start = match.start()
+        seen.add(key)
+    chunks.append(flat[start:])
+    return [chunk.strip(_EDGE_PUNCTUATION) for chunk in chunks if chunk.strip(_EDGE_PUNCTUATION)]
+
+
+def _keyval_text(text: str) -> str:
+    """One elsarticle affiliation as plain text: its values, the organization first.
+
+    The organization leads so that the institution comes first whatever the order of the
+    source. Empty values and separators (``citysep=,``) are dropped, and a value that
+    repeats the previous one is kept once (``addressline=Mandi, city=Mandi``).
+    """
+    parts = _KEY_RE.split(text)
+    pairs = [(key.casefold(), value) for key, value in zip(parts[1::2], parts[2::2], strict=True)]
+    fields = [parts[0]]
+    fields += [value for key, value in pairs if key == "organization"]
+    fields += [value for key, value in pairs if key != "organization"]
+    kept: list[str] = []
+    for field in (field.strip(_EDGE_PUNCTUATION) for field in fields):
+        if any(char.isalnum() for char in field) and (not kept or kept[-1].casefold() != field.casefold()):
+            kept.append(field)
+    return ", ".join(kept)
 
 
 def _numbered_affiliations(authors: Tag) -> list[str]:
@@ -310,7 +362,11 @@ def clean_affiliation(text: str) -> str | None:
     if _NOISE_RE.search(text):
         return None
     text = _SPACE_BEFORE_PUNCTUATION_RE.sub(r"\1", " ".join(text.split()))
+    text = _REPEATED_COMMA_RE.sub(",", text)
     text = _LEADING_MARKER_RE.sub("", text)
+    # After the marker strip, which would eat a leading postcode value.
+    if _KEYVAL_RE.search(text):
+        text = _keyval_text(text)
     text = _AUTHORS_ARE_WITH_RE.sub("", text).strip(_EDGE_PUNCTUATION)
     text = _CONNECTOR_RE.sub("", text)
     if len(text) < _MIN_LENGTH or not any(char.isalpha() for char in text):

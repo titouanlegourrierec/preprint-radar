@@ -4,7 +4,7 @@ import httpx
 import pytest
 
 from preprint_radar.http import HttpClient
-from preprint_radar.paper_page import FrontMatter, fetch_front_matter, parse_front_matter
+from preprint_radar.paper_page import FrontMatter, clean_affiliation, fetch_front_matter, parse_front_matter
 
 PaperHtml = Callable[[str], str]
 
@@ -163,6 +163,30 @@ PaperHtml = Callable[[str], str]
             id="ieee-thanks-notes-with-parenthesized-e-mail",
         ),
         pytest.param("2609.25615", (), id="no-author-block"),
+        pytest.param(
+            "2609.26512",
+            (
+                (
+                    "Centre for Human-Computer Interaction, Indian Institute of Technology, Mandi, 175075, "
+                    "Himachal Pradesh, India"
+                ),
+                "Freie Universität, Berlin, Germany",
+                "Goethe University, Frankfurt, Germany",
+            ),
+            id="elsarticle-key-values-wrapped-across-lines",
+        ),
+        pytest.param(
+            "2608.29027",
+            (
+                (
+                    "Research and Development Application Department, FPT University, Cantho city, "
+                    "90000, Vietnam"
+                ),
+                "School of Electrical Engineering, Korea University, Seoul city, 02841, South Korea",
+                "Department of Information Technology, FPT University, Cantho city, 90000, Vietnam",
+            ),
+            id="empty-fields-leave-no-double-commas",
+        ),
     ],
 )
 def test_parse_affiliations(paper_html: PaperHtml, arxiv_id: str, expected: tuple[str, ...]) -> None:
@@ -195,6 +219,57 @@ def test_ignores_footnotes(paper_html: PaperHtml) -> None:
 def test_strips_authors_are_with_prefix(raw: str, expected: str) -> None:
     html = f'<div class="ltx_authors"><span class="ltx_contact ltx_role_affiliation">{raw}</span></div>'
     assert parse_front_matter(html).affiliations == (expected,)
+
+
+@pytest.mark.parametrize(
+    ("raw", "expected"),
+    [
+        pytest.param(
+            "addressline=Department of Data Science, city=Erlangen, "
+            "organization=Friedrich-Alexander University, postcode=91054, country=Germany",
+            "Friedrich-Alexander University, Department of Data Science, Erlangen, 91054, Germany",
+            id="organization-first",
+        ),
+        pytest.param(
+            "postcode=91054, organization=Friedrich-Alexander University, city=Erlangen",
+            "Friedrich-Alexander University, 91054, Erlangen",
+            id="leading-postcode-kept",
+        ),
+        pytest.param(
+            "organization=Indian Institute of Technology Ropar, city=Rupnagar, citysep=, postcode=140001, "
+            "state=Punjab, country=India",
+            "Indian Institute of Technology Ropar, Rupnagar, 140001, Punjab, India",
+            id="empty-values-dropped",
+        ),
+        pytest.param(
+            "organization=IIT, addressline=Mandi, city=Mandi, country=India",
+            "IIT, Mandi, India",
+            id="repeated-value-once",
+        ),
+        pytest.param(
+            "orgnization=the Hupan Lab, city=Hangzhou, country=China",
+            "the Hupan Lab, Hangzhou, China",
+            id="misspelled-key",
+        ),
+        pytest.param(
+            "FPT University, , Cantho city, 90000, , Vietnam", "FPT University, Cantho city, 90000, Vietnam"
+        ),
+    ],
+)
+def test_cleans_elsarticle_keys_and_empty_fields(raw: str, expected: str) -> None:
+    assert clean_affiliation(raw) == expected
+
+
+def test_splits_elsarticle_affiliations_at_a_repeated_key() -> None:
+    raw = (
+        "organization=Centre for Human-Computer\nInteraction, IIT,\ncity=Mandi, country=India\n"
+        "organization=Goethe University, city=Frankfurt, country=Germany"
+    )
+    html = f'<div class="ltx_authors"><span class="ltx_contact ltx_role_affiliation">{raw}</span></div>'
+    assert parse_front_matter(html).affiliations == (
+        "Centre for Human-Computer Interaction, IIT, Mandi, India",
+        "Goethe University, Frankfurt, Germany",
+    )
 
 
 AUTHORS = {
@@ -270,6 +345,8 @@ AUTHORS = {
         "Andrew Owens",
         "Yijun Li",
     ),
+    "2609.26512": ("Shashank Baghel", "Kshitij Dwivedi", "Dinesh Singh", "Sanjeev Nara"),
+    "2608.29027": ("Anh Nguyen Quynh", "Khang Nguyen Quoc", "Luyl-Da Quach"),
 }
 
 
@@ -306,6 +383,8 @@ AUTHORS = {
         ),
         pytest.param("2609.29384", ((0,), (1,), (0,)), id="thanks-sentences"),
         pytest.param("2609.23431", ((0,), (0,)), id="single-affiliation-is-everyones"),
+        pytest.param("2609.26512", ((0,), None, (1, 2), None), id="per-author-elsarticle-keys"),
+        pytest.param("2608.29027", ((0,), (1,), (2,)), id="per-author-empty-fields"),
         pytest.param("2609.26161", None, id="no-markers-on-names"),
         pytest.param("2609.28473", None, id="shared-block-without-markers"),
     ],
