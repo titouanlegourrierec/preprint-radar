@@ -222,8 +222,8 @@
    "html_url": "https://arxiv.org/html/2609.26729v1",
    "abstract": "In this paper, we proposed GAD-MambaUNet, a lightweight medical image segmentation network that combines efficient local modeling, direction--group state-space interaction, and training-time foundation-model supervision. To improve contextual modeling in compact segmentation networks, we introduced Direction-Group Graph Selective Scan (DG-GSS), which treated scan-direction and channel-group responses as graph nodes and enabled structured information exchange before multi-directional fusion. We further incorporated DINOv3-GAD supervision, where a frozen DINOv3 teacher provided semantic guidance during training, and Gradient-Adaptive Distillation dynamically regulated the distillation strength. GAD-MambaUNet achieves a favorable accuracy--efficiency balance compared with representative lightweight and general segmentation methods. Ablation studies further verify the effectiveness of DG-GSS and training-time DINOv3-GAD supervision. In future work, we will explore more flexible teacher--student alignment strategies and extend the proposed framework to more diverse medical segmentation scenarios, such as multi-class and multi-modal segmentation tasks.",
    "affiliations": [
-    "organization=College of Artificial Intelligence, addressline=Beijing Institute of Petrochemical Technology, city=Beijing, postcode=102617, country=People’s Republic of China",
-    "organization=School of Computer Science and Engineering, addressline=Beihang University, city=Beijing, postcode=100191, 100083, country=People’s Republic of China"
+    "College of Artificial Intelligence, Beijing Institute of Petrochemical Technology, Beijing, 102617, People’s Republic of China",
+    "School of Computer Science and Engineering, Beihang University, Beijing, 100191, 100083, People’s Republic of China"
    ],
    "author_affiliations": [
     null,
@@ -733,20 +733,18 @@
    "html_url": "https://arxiv.org/html/2609.26512v1",
    "abstract": "Convolutional neural networks (CNNs) and vision transformers are both used to model the human visual system, but whether the two architectures diverge at a specific point in network depth is unclear. We compared six CNNs and two vision transformers by computing the Pearson correlation (r) between each model's predicted and measured EEG response at every layer or block, in ten participants viewing 200 natural images. For the transformer models, we also tested four token representations, from the classification (CLS) token alone to CLS combined with all patch tokens. CNNs showed strongest correspondence at the earliest layers, weakening at deeper layers, particularly later in the post-stimulus response. Transformers instead sustained strong correspondence at their deepest blocks, though not at their earliest ones. This advantage depended on token representation: pooled representations gave weaker peak correlations (r approx 0.48-0.51) than representations retaining all patch tokens (r=0.640 for CLIP-ViT-B/32, r=0.656 for DINOv2-ViT-B/14). Controlled comparisons showed architecture, not training objective, drove this effect: MoCo-v1 and ResNet-50 (matched architecture) performed nearly identically (r=0.673, 0.670), whereas CLIP-RN50 and CLIP-ViT-B/32 (matched objective) diverged until patch tokens were preserved. We propose that CNN training's classification bottleneck compresses brain-relevant information at depth, unlike transformers' self-attention and non-classification objectives. A spatial topography analysis showed a common occipital-dominant pattern across all models, indicating these differences reflect signal strength and persistence rather than distinct brain regions. Patch-preserving transformer representations sustain brain-predictive correspondence where CNNs collapse.",
    "affiliations": [
-    "organization=Centre for Human-Computer",
-    "Interaction, Indian Institute of Technology, addressline=Mandi, city=Mandi, postcode=175075, state=Himachal Pradesh, country=India",
-    "organization=Freie Universität, city=Berlin, country=Germany",
-    "organization=Goethe University, city=Frankfurt, country=Germany"
+    "Centre for Human-Computer Interaction, Indian Institute of Technology, Mandi, 175075, Himachal Pradesh, India",
+    "Freie Universität, Berlin, Germany",
+    "Goethe University, Frankfurt, Germany"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     null,
     [
-     2,
-     3
+     1,
+     2
     ],
     null
    ],
@@ -1376,8 +1374,8 @@
    "affiliations": [
     "National University of Singapore",
     "Singapore",
-    "University of New South Wales,, Australia",
-    "Fuzhou University,, China"
+    "University of New South Wales, Australia",
+    "Fuzhou University, China"
    ],
    "author_affiliations": [
     [

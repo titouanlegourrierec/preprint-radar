@@ -2382,11 +2382,11 @@
    "html_url": "https://arxiv.org/html/2609.24367v1",
    "abstract": "Fully supervised repetitive action counting (RAC) has achieved strong performance, but requires dense temporal annotations that are costly and difficult to scale. We propose TReViS, a self-supervised video synthesis framework that enables training RAC models without any repetition labels. TReViS estimates the underlying temporal repetition structure of an unlabeled video via a Temporal Self-Similarity Matrix, infers its cycle statistics, and synthesizes new training sequences that preserve realistic repetition patterns while introducing controlled temporal variability. These synthesized videos are paired with pseudo-labels and used to train existing RAC architectures from scratch. Across multiple datasets and backbones, TReViS consistently outperforms prior self-supervised methods and achieves performance competitive with several supervised baselines, while remaining fully label-free, demonstrating the effectiveness of structure-aware video synthesis for label-free RAC. The source code is available at https://github.com/yfqi/TReViS.",
    "affiliations": [
-    "organization=AIGO Unit, Istituto Italiano di Tecnologia, city=Genoa, postcode=16152, country=Italy",
-    "organization=Department of Computer Science, University of Verona, city=Verona, postcode=37134, country=Italy",
-    "organization=University of Genoa, city=Genoa, postcode=16152, country=Italy",
-    "organization=Independent Researcher, country=Italy",
-    "organization=Independent Researcher, country=China"
+    "AIGO Unit, Istituto Italiano di Tecnologia, Genoa, 16152, Italy",
+    "Department of Computer Science, University of Verona, Verona, 37134, Italy",
+    "University of Genoa, Genoa, 16152, Italy",
+    "Independent Researcher, Italy",
+    "Independent Researcher, China"
    ],
    "author_affiliations": [
     null,
@@ -7012,7 +7012,7 @@
    "html_url": "https://arxiv.org/html/2609.23026v1",
    "abstract": "Brain lesion segmentation is a fundamental task in medical image analysis, playing a critical role in diagnosis, treatment planning, and longitudinal disease monitoring. Yet existing models still struggle to meet the demands of real clinical use, where deployments contain data distribution shifts, arising from differences in scanner hardware, imaging protocol (varying MRI modality sets), and new pathologies. We present BrainIAC (Brain lesion Interactive Adaptive Continuously learning segmentation), a unified framework that integrates (i) a multi-modal backbone network trained to segment multiple types of brain lesions and handle heterogeneous sets of modalities via zero-filling and random modality dropping; (ii) 3D interactive segmentation with bounding-box and click prompts that preserves fully automatic prediction when no prompt is given; and (iii) an online adaptation mechanism combining Mid-Interaction adaptation and Post-Interaction adaptation, supervised by the network's own predictions as pseudo labels and guided by an extra Click-Centered Gaussian loss. To our knowledge, this is one of the first 3D online adaptation methods for interactive segmentation, and the first to combine handling of heterogeneous modality sets with online adaptation. Experiments across seven brain MRI datasets demonstrate that the proposed components provide complementary and synergistic benefits. The method consistently outperforms existing approaches and generalizes well across heterogeneous imaging modalities, including those unseen during training, as well as previously unseen brain pathology types. The code and a 3D Slicer plug-in will be released at https://github.com/WenTXuL/BrainIAC upon publication.",
    "affiliations": [
-    "organization=Department of Engineering Science, University of Oxford, country=UK"
+    "Department of Engineering Science, University of Oxford, UK"
    ],
    "author_affiliations": [
     [

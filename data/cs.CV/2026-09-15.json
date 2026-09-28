@@ -4920,7 +4920,7 @@
    "html_url": "https://arxiv.org/html/2609.14615v1",
    "abstract": "Unified motion generation and understanding is crucial for embodied AI systems that can both synthesize and interpret human actions in open-world environments. Existing motion-language models often treat motion as an auxiliary modality of a language model, leading to text-dominated representations and limited cross-modal interaction. Moreover, the next-token prediction paradigm is not naturally suited to long motion sequences, where autoregressive generation may accumulate prediction errors. To address these challenges, we propose Open-UniMo, a unified Large Motion-Language Model (LMLM) trained on million-scale open-world motion-language data. Open-UniMo promotes modality parity by extending Qwen's vocabulary of about 150K text tokens with 64K motion tokens, enabling motion and language to share a unified token space. We further introduce motion-consistent Chain-of-Thought reasoning as an intermediate representation to bridge language semantics and motion dynamics. Open-UniMo is trained with a two-stage pipeline, where supervised fine-tuning establishes CoT-guided bidirectional motion-language mapping and Group Relative Policy Optimization (GRPO) improves semantic alignment while mitigating cumulative errors in autoregressive motion-token generation. To support comprehensive evaluation, we propose Open-MoBench, a VLM-guided benchmark for assessing text-to-motion (T2M) generation, motion-to-text (M2T) understanding, and bidirectional consistency. Extensive experiments show that Open-UniMo achieves state-of-the-art performance on both conventional metrics and Open-MoBench. Furthermore, ablation studies reveal that M2T understanding is not primarily limited by motion-token vocabulary size; instead, coupling M2T with the learnable T2M generation path yields stronger cross-modal representations, demonstrating that generation can facilitate understanding in AR-based motion-language modeling.",
    "affiliations": [
-    "Xiaoguang Han,, and Haoqian Wang"
+    "Xiaoguang Han, and Haoqian Wang"
    ],
    "author_affiliations": [
     [
@@ -5348,7 +5348,7 @@
    "html_url": "https://arxiv.org/html/2609.14722v1",
    "abstract": "Low-cost and low-resolution sensors used in edge deployments can produce test point clouds that are substantially sparser than the normal training data. This train-test sampling-resolution gap changes the local geometry available to a 3D anomaly detector. We propose PC$^2$-AD, a point cloud upsampling framework that compensates sparse test inputs before downstream detection. Target Domain Candidate Generation (TCG) adapts a pretrained upsampler to normal training geometry and generates a dense candidate pool. Geometry-Aware Candidate Filtering (GACF) selects candidates according to geometric spacing and spatial coverage. Normality-Preserving Point Compensation (NPPC) refines the selection by comparing candidate normality scores with those of their input anchors. The selected points are combined with the unchanged input points and processed by the existing detector. Experiments with six detectors on two Anomaly-ShapeNet settings and Real3D-AD show improvements in the mean of object-level and point-level AUROC for all six detectors in each Anomaly-ShapeNet setting and four on Real3D-AD. These results support point cloud compensation as an input-level approach to improving 3D anomaly detection under low-resolution sensing conditions. Code is publicly available at https://github.com/gyutong406-commits/PC2-AD.",
    "affiliations": [
-    "Linlin Shen,, Jinbao Wang"
+    "Linlin Shen, Jinbao Wang"
    ],
    "author_affiliations": [
     [
@@ -6982,34 +6982,32 @@
    "html_url": "https://arxiv.org/html/2609.15354v1",
    "abstract": "Accurate cell detection and classification are crucial for pathological analysis, directly affecting diagnostic accuracy and treatment planning. To capture complex cellular interactions beyond visual appearance within the tumor microenvironment, several approaches have employed graph neural networks to model spatial and relational patterns among cell nuclei, yielding promising results. However, these methods typically adopt a two-stage paradigm of visual extraction followed by relational modeling, which necessitates separate tuning for each stage, thereby increasing pipeline complexity and hindering end-to-end joint optimization. In this paper, we propose an end-to-end framework for cell detection and classification that jointly models patch-level visual representations and instance-level interactions, which incorporates a dynamic graph construction module and an instance-aware graph network. Specifically, the graph construction module dynamically builds the graph structure using learnable queries derived from patch-level features as cell instance representations, with adjacency defined by integrating feature similarity and spatial distances. The instance-aware graph network performs adaptive instance filtering and feature reorganization, aggregating them over the cell graph into a topological latent state for a selective state-space transition driven by visual cues, fusing appearance and relational evidence. When evaluated on multiple datasets with different staining protocols for cell and nucleus detection, our method significantly outperforms existing approaches in both detection and classification performance. The code will be released at https://github.com/RuochenLiu23/IGM.",
    "affiliations": [
-    "organization=Faculty of Science and Engineering, University of Liverpool, city=Liverpool, postcode=L69 3GJ, country=U.K",
-    "organization=Department of Eye and Vision Sciences, University",
-    "of Liverpool, city=Liverpool, postcode=L7 8TX, country=U.K",
-    "organization=School of AI and Advanced Computing, Xi’an Jiaotong-Liverpool University, city=Suzhou, postcode=215400, country=China",
-    "organization=College of Mathematical Medicine, Zhejiang Normal University, city=Jinhua, postcode=321004, country=China",
-    "organization=School of Mathematical Sciences, Zhejiang University, city=Hangzhou, postcode=310027, country=China",
-    "organization=School of Systems Science and Engineering, Sun Yat-sen University, city=Guangzhou, postcode=510275, country=China"
+    "Faculty of Science and Engineering, University of Liverpool, Liverpool, L69 3GJ, U.K",
+    "Department of Eye and Vision Sciences, University of Liverpool, Liverpool, L7 8TX, U.K",
+    "School of AI and Advanced Computing, Xi’an Jiaotong-Liverpool University, Suzhou, 215400, China",
+    "College of Mathematical Medicine, Zhejiang Normal University, Jinhua, 321004, China",
+    "School of Mathematical Sciences, Zhejiang University, Hangzhou, 310027, China",
+    "School of Systems Science and Engineering, Sun Yat-sen University, Guangzhou, 510275, China"
    ],
    "author_affiliations": [
     [
      0
     ],
     [
-     1,
+     1
+    ],
+    [
      2
     ],
     [
      3
     ],
+    null,
     [
      4
     ],
-    null,
     [
      5
-    ],
-    [
-     6
     ],
     null
    ],
@@ -8564,9 +8562,9 @@
    "affiliations": [
     "Wuhan University of Technology",
     "Wuhan",
-    "Hubei,, China",
+    "Hubei, China",
     "Tongji University",
-    "Shanghai,, China"
+    "Shanghai, China"
    ],
    "author_affiliations": [
     [

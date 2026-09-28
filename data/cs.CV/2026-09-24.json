@@ -2067,9 +2067,9 @@
    "abstract": "2D-3D registration remains brittle in challenging scenarios such as low overlap, occlusion, repetitive structures, and severe cross-modal ambiguity. A key reason is that existing methods improve representation learning, correspondence estimation, or pose computation in isolation, while the dominant failure mode is inherently cross-level, where errors propagate between features, correspondences, and pose. To address this limitation, we propose DMM-Align: Diffusion-based Matching Matrix Alignment, a closed-loop framework that couples correspondence refinement, pose estimation, and representation learning through a shared differentiable geometric state. Our method leverages diffusion in two coordinated roles: a geometry-aware diffusion process refines the soft matching matrix for robust correspondence estimation, while a geometry-conditioned diffusion teacher injects pose-induced supervision back into feature learning. These processes are connected via a differentiable geometric hinge that converts correspondences into a global pose and exposes geometric inconsistency to upstream modules. Extensive experiments on 7-Scenes and RGB-D Scenes V2 demonstrate that DMM-Align consistently outperforms strong baselines, especially under low-overlap and heavy-occlusion conditions, highlighting the effectiveness of closed-loop geometric feedback for robust 2D-3D registration.",
    "affiliations": [
     "Shandong Women’s University",
-    "Jinan,, China",
+    "Jinan, China",
     "Shandong University of Science and Technology",
-    "Qingdao,, China"
+    "Qingdao, China"
    ],
    "author_affiliations": [
     [
@@ -2329,7 +2329,7 @@
     "Department of Applied Mathematics and Computer Science, Technical University of Denmark, Denmark",
     "Department of machine learning, Mohamed bin Zayed University of Artificial Intelligence, UAE",
     "Max Planck Institute for Biology of Ageing, Cologne, Germany",
-    "Department of Computer Science and Information Engineering, National Taiwan University,, Taiwan",
+    "Department of Computer Science and Information Engineering, National Taiwan University, Taiwan",
     "Faculty of Basic Medicine and Pharmacy, VNU University of Medicine and Pharmacy, Vietnam",
     "Department of Histology, Embryology, Pathology and Forensic Medicine, University of Medicine and Pharmacy, Hue University, Vietnam",
     "German Research Center for Artificial Intelligence (DFKI), Germany",
@@ -3543,7 +3543,7 @@
    "html_url": "https://arxiv.org/html/2609.27317v1",
    "abstract": "Infrared (IR) imaging is crucial for autonomous driving, remote sensing, and other perception tasks. However, adverse weather may introduce fake structural responses that are entangled with real thermal structures. Existing IR restoration methods are typically designed for a single degradation type or directly reconstruct from degradation-entangled representations. Consequently, they struggle to distinguish intrinsic thermal structures from weather-induced fake responses and to accommodate spatially varying degradation severity, leading to artifacts or the over-suppression of weak but meaningful thermal responses. To address these issues, we propose TSGPD-IR, a type-severity guided progressive disentanglement network for all-in-one infrared restoration that factorizes restoration guidance into task-level weather semantics and region-level degradation severity. Specifically, a Weather and Semantic Co-Guided Multi-Level Prompt Generation Module combines global weather semantics with stage-wise local features to generate adaptive prompts that progressively suppress degradation-induced responses while preserving intrinsic thermal structures. To complement global weather semantics with spatial restoration control, a Proxy-Supervised Regional Degradation Estimator derives severity supervision without manual annotations and predicts spatially varying degradation priors. Guided by these cues, a Multi-Source Collaborative Expert Selection Strategy uses a shared branch to preserve weather-invariant thermal structures and hierarchical routing to select weather-specific expert pools and severity-compatible regional experts. This design progressively separates degradation interference from genuine thermal content and enables region-adaptive restoration, reducing both residual artifacts and over-suppression.",
    "affiliations": [
-    "organization=Shaanxi Key Laboratory of Deep Space Exploration Intelligent Information Technology, School of Information and Communications Engineering, Xi’an Jiaotong University, city=Xi’an, postcode=710049, state=Shaanxi, country=China"
+    "Shaanxi Key Laboratory of Deep Space Exploration Intelligent Information Technology, School of Information and Communications Engineering, Xi’an Jiaotong University, Xi’an, 710049, Shaanxi, China"
    ],
    "author_affiliations": [
     [

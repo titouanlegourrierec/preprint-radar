@@ -1960,9 +1960,9 @@
    "html_url": "https://arxiv.org/html/2608.29027v1",
    "abstract": "Shrimp disease classification has become an urgent issue due to its significant impact on the import-export output of producing countries, particularly Vietnam. Most existing studies focus on image-based classification, which typically operates at the late stage of disease manifestation. Therefore, text-based classification has the potential to enable early and timely disease detection. To address this limitation, we introduce the SALT (Shrimp disease text Analysis with multi-Loss disTillation) framework, which incorporates explainability analysis using Local Interpretable Model-agnostic Explanations (LIME) and SHapley Additive exPlanations (SHAP) to evaluate model predictions and interpret the learned linguistic features. Experimental results demonstrate that SALT achieves competitive performance across multiple distillation objectives, outperforming supervised baselines while providing a favorable trade-off between predictive performance and computational efficiency. Moreover, it exhibits strong explainability, accurately identifying key linguistic features and semantic patterns relevant to disease descriptions. These findings highlight the potential of knowledge distillation-based text classification for future applications in early shrimp disease diagnosis and related research directions.",
    "affiliations": [
-    "Research and Development Application Department, FPT University,, Cantho city, 90000,, Vietnam",
-    "School of Electrical Engineering, Korea University,, Seoul city, 02841,, South Korea",
-    "Department of Information Technology, FPT University,, Cantho city, 90000,, Vietnam"
+    "Research and Development Application Department, FPT University, Cantho city, 90000, Vietnam",
+    "School of Electrical Engineering, Korea University, Seoul city, 02841, South Korea",
+    "Department of Information Technology, FPT University, Cantho city, 90000, Vietnam"
    ],
    "author_affiliations": [
     [
@@ -3653,7 +3653,7 @@
    "html_url": "https://arxiv.org/html/2608.29289v1",
    "abstract": "Eye-movement tracking has emerged as a promising non-invasive approach to Autism Spectrum Disorder (ASD) screening, with systematic differences in attentional allocation and revisit behaviors observed during socially interactive tasks. Existing computational methods typically characterize eye-movements using discrete gaze trajectories and fixation events, yielding representations dominated by short-range temporal dynamics and limiting models that primarily emphasize long-range dependencies. Meanwhile, gaze behavior is naturally organized across semantically meaningful Areas of Interest (AOIs), whose attention allocation and transitions provide important structural cues, yet their relationships are rarely modeled explicitly. To address these limitations, we propose a structural face AOI-guided Eye-Gaze Track Network (AOI-Net) that jointly models short-term temporal dynamics and AOI-level structural organization. A network gating mechanism adaptively integrates the complementary temporal and structural representations according to their contributions to gaze-behavior characterization. To mitigate the pronounced class imbalance commonly encountered between individuals with ASD and Typically Developing (TD) participants in clinical datasets, class-distribution-aware learning is further employed to facilitate discriminative embedding learning under skewed class distributions. Experiments on a unique and large-scale clinical eye-tracking database comprising eight stimulus subsets and more than 1,300 participants show that AOI-Net consistently outperforms state-of-the-art methods. The proposed framework also enables interpretable gaze-behavior modeling and provides a practical basis for scalable AI-driven ASD screening in real-world healthcare. The code is available at https://github.com/Zhanpei-ai/CIM-AOI-Net/tree/main/Code",
    "affiliations": [
-    "Yiqun Zhang,, and Yiu-Ming Cheung"
+    "Yiqun Zhang, and Yiu-Ming Cheung"
    ],
    "author_affiliations": [
     [

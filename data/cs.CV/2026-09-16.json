@@ -2505,8 +2505,8 @@
    "html_url": "https://arxiv.org/html/2609.16926v1",
    "abstract": "Phenotyping an agricultural crop is crucial for studying its entire life cycle, as it provides vital insights to improve yield and, ultimately, food production. Doing the same for crops grown on remote sites is a challenge for the specialists who cannot be available on-site. 3D reconstruction techniques offer a promising solution to this problem by enabling crop digitization, allowing specialists to access the resulting 3D crop models from anywhere at any time. In this work, we evaluate recent 3D reconstruction pipelines for crop phenotyping. We focus on 7 mesh reconstruction pipelines and measure the fidelity and consistency of their outputs qualitatively and quantitatively. Our results suggest that the meshes produced by the GGGS, PGSR, and 2DGS are preferable to the other pipelines, owing to their quantitative metrics and visually pleasing outputs. The GGGS pipeline is better than the second-best pipeline (2DGS) by about 27\\% on the radar chart with 5 dimensions, namely, User ratings, Chamfer distance, LPIPS, PSNR, and SSIM.",
    "affiliations": [
-    "organization=Indian Institute of Technology Ropar, city=Rupnagar, citysep=, postcode=140001, state=Punjab, country=India",
-    "organization=Trinity College Dublin, The University of Dublin, city=College Green, citysep=, postcode=D02 PN40, state=Dublin 2, country=Ireland"
+    "Indian Institute of Technology Ropar, Rupnagar, 140001, Punjab, India",
+    "Trinity College Dublin, The University of Dublin, College Green, D02 PN40, Dublin 2, Ireland"
    ],
    "author_affiliations": [
     null,
@@ -2777,7 +2777,7 @@
    "html_url": "https://arxiv.org/html/2609.17094v1",
    "abstract": "Multimodal representation learning seeks shared representations for cross-modal retrieval and knowledge transfer. Hub-based binding reduces pairwise supervision costs, but separate hub connections cannot guarantee reliable alignment between modalities without direct joint training. We introduce Hub-Spectral Activation (HSA), a closed-form method for recovering and activating the hub-readable component of latent multimodal knowledge in frozen representations. We formalize this knowledge as source-induced cross-modal dependence and characterize the component determined by the second-order statistics of two trained hub edges. Under a second-order source model, we establish conditions for exact recovery of the complete source-induced relation and bound the dimension of its hub-readable component by the hub covariance rank. HSA composes and standardizes hub-edge statistics, extracts paired spectral directions, and combines reliability-weighted matching evidence with source-gated candidate resolution for bidirectional retrieval and prototype classification. HSA requires no target-pair supervision, gradient optimization, or backbone updates. Across 19 retrieval and 11 prototype-classification relations on ImageBind and LanguageBind, HSA raises mean bidirectional Recall@10 from 18.27% to 31.15% and mean macro Top-1 accuracy from 29.01% to 52.43%, respectively. Controlled analyses further identify valid hub-edge correspondence and leading spectral directions as key sources of retrieval gains, demonstrating the utility of latent multimodal knowledge beyond native similarity scores. Code and models are publicly available at https://github.com/Luo1Yan/HSA.",
    "affiliations": [
-    "Dan Zhang, Fei Shen,, Li Shen,, and Tat-Seng Chua"
+    "Dan Zhang, Fei Shen, Li Shen, and Tat-Seng Chua"
    ],
    "author_affiliations": [
     [
@@ -4013,7 +4013,7 @@
    "abstract": "Embodied conversational agents require synchronized full-body motion (body gestures and facial expressions) that aligns with speech and emotional state. Omni-modal large language models excel at multimodal understanding but produce only linguistic outputs, leaving a critical gap in embodied response generation. We identify and address a failure of emotion conditioning: like other conditional generators that under-use weak conditioning signals, a flow-matching model given both a rich audio embedding and a discrete emotion label suppresses the emotion, generating near-identical motion regardless of the specified emotion. We present EMODY Flow, a lightweight (around 35M parameters) flow-matching framework that attaches to a frozen Qwen-3 Omni model and reuses its internal Mimi audio-codecs to condition two parallel DiT generators - one for SMPL-X body pose, one for FLAME facial expressions. A training-time auxiliary emotion classifier restores emotion sensitivity by forcing generated motion to be emotion-identifiable. EMODY Flow sets a new state of the art on BEAT2 gesture quality, with FGD 0.302, Beat Correlation 0.853, and Diversity 24.62 - improving over the best prior results by 26%, 5%, and 62% respectively - and transfers to zero-shot facial animation on TFHP without domain-specific fine-tuning. Beyond these quantitative gains, the classifier yields clearly emotion-separated motion, which we demonstrate qualitatively through a multidimensional-scaling analysis of the generated gestures.",
    "affiliations": [
     "INRIA, Univ. Grenoble Alpes",
-    "Grenoble,, France",
+    "Grenoble, France",
     "Univ. Grenoble Alpes, CNRS, Grenoble INP, GIPSA-lab"
    ],
    "author_affiliations": [
@@ -4338,17 +4338,17 @@
    "html_url": "https://arxiv.org/html/2609.16036v2",
    "abstract": "We developed DAMM-Net++, a 2.5D architecture for thoracic OAR and target volume segmentation that addresses three persistent challenges in radiotherapy auto-contouring: inter-slice surface incoherence, systematic failure on small low-contrast targets, and the absence of per-case reliability signals. The central component is an anatomy-change-aware bidirectional selective state-space memory that models through-plane anatomical change and selectively propagates context along the axial slice sequence. A boundary-aware decoder sharpens near-surface predictions, and an uncertainty head provides calibrated per-voxel confidence for clinical triage. We evaluated 2,146 patients across four centers, an independent external cohort of 112 patients, and a multicenter reader study involving 17 radiation oncologists on 305 cases. The model achieves a mean Dice of 0.955 and HD95 of 3.78 mm, with the largest gains on low-contrast organs-at-risk (OARs) and target volumes where through-plane context is most critical. The uncertainty head is well-calibrated and supports case-level triage. In the reader study, AI assistance reduced contouring time by 75-80% across experience levels and raised junior-reader IoU from 0.861 to 0.925, matching the unedited model. External validation showed a modest internal-to-external drop (< 5%) with calibrated uncertainty transferring without recalibration. The complete deployment pipeline from DICOM ingestion to TPS-compatible RTSTRUCT export has been integrated into the clinical workflow at a partner hospital, where it is used to assist with contouring. These results suggest that anatomically motivated inter-slice memory, paired with uncertainty-guided review, offers a clinically viable path for thoracic auto-contouring.",
    "affiliations": [
-    "addressline=Department of Electrical and Computer Engineering, organization=North South University, city=Dhaka, postcode=1229, country=Bangladesh",
-    "addressline=Department of Mathematics and Physics, organization=North South University, city=Dhaka, postcode=1229, country=Bangladesh",
-    "addressline=Big-Matrix Lab, Department of Mathematics and Physics, organization=North South University, city=Dhaka, postcode=1229, country=Bangladesh",
-    "addressline=Department of Data Science, city=Erlangen, organization=Friedrich-Alexander University, postcode=91054, country=Germany",
-    "addressline=Square Cancer Centre, organization=Square Hospitals Limited, city=, postcode=Dhaka 1205, country=Bangladesh",
-    "addressline=Department of Radiation Oncology, organization=Labaid Cancer Hospital & Super Speciality Center, city=, postcode=Dhaka 1205, country=Bangladesh",
-    "addressline=Department of Oncology & Radiotherapy, organization=Bangladesh Specialized Hospital Limited, city=, postcode=Dhaka 1207, country=Bangladesh",
-    "addressline=Department of Clinical Oncology, city=, organization=Bangladesh Medical University, postcode=Dhaka 1000, country=Bangladesh",
-    "addressline=Department of Radiation Oncology, city=Dhaka, organization=National Institute of Cancer Research & Hospital, postcode=1212, country=Bangladesh",
-    "addressline=Department of Computer Science & Engineering, city=Dhaka, organization=University of Scholars, postcode=1213, country=Bangladesh",
-    "addressline=Department of Computer Science & Engineering, city=, organization=Louisiana Tech University, postcode=201 Mayfield Ave, Ruston, LA 71272, country=USA"
+    "North South University, Department of Electrical and Computer Engineering, Dhaka, 1229, Bangladesh",
+    "North South University, Department of Mathematics and Physics, Dhaka, 1229, Bangladesh",
+    "North South University, Big-Matrix Lab, Department of Mathematics and Physics, Dhaka, 1229, Bangladesh",
+    "Friedrich-Alexander University, Department of Data Science, Erlangen, 91054, Germany",
+    "Square Hospitals Limited, Square Cancer Centre, Dhaka 1205, Bangladesh",
+    "Labaid Cancer Hospital & Super Speciality Center, Department of Radiation Oncology, Dhaka 1205, Bangladesh",
+    "Bangladesh Specialized Hospital Limited, Department of Oncology & Radiotherapy, Dhaka 1207, Bangladesh",
+    "Bangladesh Medical University, Department of Clinical Oncology, Dhaka 1000, Bangladesh",
+    "National Institute of Cancer Research & Hospital, Department of Radiation Oncology, Dhaka, 1212, Bangladesh",
+    "University of Scholars, Department of Computer Science & Engineering, Dhaka, 1213, Bangladesh",
+    "Louisiana Tech University, Department of Computer Science & Engineering, 201 Mayfield Ave, Ruston, LA 71272, USA"
    ],
    "author_affiliations": [
     null,
@@ -4505,9 +4505,9 @@
    "html_url": "https://arxiv.org/html/2609.16168v1",
    "abstract": "Working agricultural landscapes are often treated as background to wildfire disasters, even though they are managed fuel mosaics, productive assets, and parts of regional infrastructure systems. We examine vineyard wildfire resilience during the electrically initiated 2019 Kincade Fire in Sonoma County, California, using an open, event-anchored geospatial framework spanning 4,581 vineyard fields (8,813.2 ha), wildland vegetation, surveyed structures, roads, overhead smoke, and post-fire greenness. Sentinel-2, OpenET, gridMET, soils, terrain, NOAA smoke polygons, an ignition-date OpenStreetMap network, and three-dimensional data inventories were analyzed at native decision scales. Vineyard pixels showed substantially lower descriptive dNBR than wildland pixels inside the perimeter (means 0.130 and 0.337). This contrast did not identify a universal vineyard firebreak effect: a segment-clustered boundary model gave a small negative contrast at 100 m (tau = -0.0166) but changed across bandwidths, failed slope continuity, disappeared in a 100 m donut, and produced a wrong-signed placebo. A 250 m spatial GAM reversed the unconditional pattern: after conditioning on location, terrain, and water use, vineyard fraction was positively associated with dNBR, while residual Moran's I remained 0.519. Beyond spectral impact, all mapped vineyards intersected overhead smoke on at least one day (mean 7.78 potential smoke-days per field), 34.2% of road-network nodes were dead ends, and inside-perimeter vineyards showed a larger greenness deficit through 2021 (recovery ratios 0.815 inside and 0.854 outside). Lower immediate spectral impact therefore did not imply complete resilience. The study provides a reproducible urban-rural informatics template separating descriptive contrasts, conditional associations, exposure indicators, and recovery evidence for decisions in working landscapes.",
    "affiliations": [
-    "organization=Department of Biological and Agricultural Engineering, University of California, Davis,city=Davis,state=CA,postcode=95616,country=USA",
-    "organization=Department of Civil and Environmental Engineering, University of California, Davis,city=Davis,state=CA,postcode=95616,country=USA",
-    "organization=Department of Electrical and Computer Engineering, University of California, Davis,city=Davis,state=CA,postcode=95616,country=USA"
+    "Department of Biological and Agricultural Engineering, University of California, Davis, Davis, CA, 95616, USA",
+    "Department of Civil and Environmental Engineering, University of California, Davis, Davis, CA, 95616, USA",
+    "Department of Electrical and Computer Engineering, University of California, Davis, Davis, CA, 95616, USA"
    ],
    "author_affiliations": [
     null,
@@ -4584,17 +4584,15 @@
    "html_url": "https://arxiv.org/html/2609.16199v1",
    "abstract": "This article describes an open image dataset for developing and evaluating active-fire segmentation methods in satellite imagery. The dataset contains 2,148 image-mask pairs from 25 California wildfires, with acquisitions spanning July 2020 to August 2026. Each image is a 512x512-pixel, three-channel composite derived from Sentinel-2 Level-2A bands B12, B11 and B8A at 20 m spatial sampling. A fixed linear rendering is applied throughout the dataset. Corresponding masks distinguish background, SWIR-rule active fire and invalid observations. The masks were generated from shortwave-infrared brightness and near-infrared contrast, followed by constrained neighborhood growth. The release includes chip-level metadata and an incident-disjoint partition containing 18 training, three validation and four test fires. Among the image pairs, 841 contain active-fire labels; these labels occupy 0.0766% of all grid cells. A mask-blind analyst review covers 233 test chips and provides a separate assessment of the rule-generated labels at chip and connected-component levels. Reference training and evaluation code accompanies the data, including a ResNet-34 U-Net implementation with validation-based checkpoint and threshold selection. The archived images, masks, metadata and review annotations support research on rare-class segmentation, learning from algorithmic labels and transfer across fire incidents. The versioned dataset is deposited on Zenodo, with preparation and reuse software maintained in a public GitHub repository.",
    "affiliations": [
-    "organization=California High School, city=San Ramon,state=CA,postcode=94583,country=USA",
-    "organization=Department of Biological and Agricultural",
-    "Engineering, University of California, Davis, city=Davis,state=CA,postcode=95616,country=USA"
+    "California High School, San Ramon, CA, 94583, USA",
+    "Department of Biological and Agricultural Engineering, University of California, Davis, Davis, CA, 95616, USA"
    ],
    "author_affiliations": [
     null,
     null,
     [
      0,
-     1,
-     2
+     1
     ]
    ],
    "abs_url": "https://arxiv.org/abs/2609.16199",
@@ -4989,7 +4987,7 @@
    "affiliations": [
     "School of Biomedical Engineering, University of Science and Technology of China",
     "School of Computer Science, USTC",
-    "Data Darkness Lab, MIRACLE Center, Suzhou Institute for Advanced Research,, China"
+    "Data Darkness Lab, MIRACLE Center, Suzhou Institute for Advanced Research, China"
    ],
    "author_affiliations": null,
    "abs_url": "https://arxiv.org/abs/2609.16722",

@@ -1883,8 +1883,8 @@
    "html_url": "https://arxiv.org/html/2609.11360v1",
    "abstract": "Automated inspection of segmental tunnel linings requires adaptive segmentation from 3D point clouds, yet expert-tuned pipelines often degrade when tunnel conditions vary. This paper presents R4Tun, a large language model (LLM)-driven adaptation framework that extends an expert-designed pipeline (SAM4Tun) with bounded parameter tuning informed by structured context: memory ($m$), state ($s$), and knowledge ($k$). Evaluated on 30 selected Seg2Tunnel subsets (13 regular, 17 complex) across three LLMs, the full $m+s+k$ design raised mean Intersection-over-Union (mIoU) from 0.18 to 0.43--0.48 and overall accuracy (OA) from 0.42 to 0.59--0.65 relative to the static SAM4Tun baseline, with the near-reference regular (staggered) subsets reaching mIoU 0.784--0.796 across LLMs. Across 270 (30 tunnels $\\times$ 3 different LLMs $\\times$ 3 context settings) runs, the LLMs showed similar parameter-adjustment trends (with overlapping 95\\% CIs on mean gains) and consistently adjusted a shared set of critical parameters. These results support R4Tun as a controlled, label-free, cross-LLM adaptation mechanism in the tested SAM4Tun--Seg2Tunnel setting, demonstrating consistent accuracy gains; we position R4Tun as a mechanism contribution rather than a deployable final-inspection system, in which each bounded parameter change is auditable via logged rationales.",
    "affiliations": [
-    "organization=Construction Engineering, University of Cambridge, addressline=Trumpington Street, city=Cambridge, postcode=CB2 1PZ, country=United Kingdom",
-    "organization=Department of Engineering, Durham University, addressline=Stockton Road, city=Durham, postcode=DH1 3LE, country=United Kingdom"
+    "Construction Engineering, University of Cambridge, Trumpington Street, Cambridge, CB2 1PZ, United Kingdom",
+    "Department of Engineering, Durham University, Stockton Road, Durham, DH1 3LE, United Kingdom"
    ],
    "author_affiliations": [
     null,
@@ -3218,8 +3218,8 @@
    "html_url": "https://arxiv.org/html/2609.11886v1",
    "abstract": "High-resolution digital surface models (DSMs) play an important role in urban analysis, 3D building reconstruction, and infrastructure monitoring, yet their availability remains limited due to the high cost and complexity of data acquisition. In contrast, coarse DSMs from commercial satellite missions are widely accessible, and high-resolution optical imagery is increasingly available from aerial and satellite platforms. We address the resulting mismatch in spatial resolution and propose a DSM superresolution approach that enhances 5 m DSMs to 0.5 m resolution, using guidance from high-resolution spectral images. Our method employs denoising diffusion to transfer information that is visible only in the image, like crisp outlines and detailed roof structures, into the elevation maps. In this way, surface details are reconstructed more accurately than with conventional interpolation or filtering techniques. Experiments on several cities in Central Europe demonstrate that the proposed approach produces high-quality DSMs with improved structural detail and accurate surface geometry. Our results highlight the potential of guided super-resolution with foundational image priors as a means of reconstructing high-resolution surface models.",
    "affiliations": [
-    "organization=Photogrammetry and Remote Sensing, ETH Zürich, city=Zürich, country=Switzerland",
-    "organization=Remote Sensing Technology Institute, German Aerospace Center (DLR), city=Wessling, country=Germany"
+    "Photogrammetry and Remote Sensing, ETH Zürich, Zürich, Switzerland",
+    "Remote Sensing Technology Institute, German Aerospace Center (DLR), Wessling, Germany"
    ],
    "author_affiliations": [
     null,

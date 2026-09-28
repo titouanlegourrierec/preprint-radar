@@ -193,11 +193,11 @@
    "html_url": "https://arxiv.org/html/2609.17753v1",
    "abstract": "Reference labels used to train medical image classification models are not always as certain as they may appear, and this uncertainty has implications on performance metrics. In this study, we propose a framework to analyze model performance for periventricular Fazekas score prediction that goes beyond conventional metrics. The Fazekas score is an ordinal visual rating scale used to assess the severity of white matter hyperintensities and is known to be affected by inter-rater variability. While the best Fazekas score prediction model achieved a Matthews correlation coefficient (MCC) of 0.70, performance varied across data splits and loss functions, making interpretation of model capabilities difficult. Rather than interpreting epistemic uncertainty of a model's prediction as an isolated scalar value, our approach of uncertainty mapping relates uncertainty to its position within the learned feature representation. This highlights regions of class-boundary transitions where cases appear more ambiguous and misclassifications are more likely. It also identifies potential label disagreement, including low-uncertainty misclassified cases that expert review found to be inconsistent with the original reference Fazekas score. Therefore, uncertainty mapping allows model behaviour to be examined in relation to class separation and potential model-label disagreement. Loss function choice also influenced the uncertainty profile, with some models showing clearer class separation and more localized uncertainty in ambiguous regions than others. These findings suggest that uncertainty mapping for Fazekas score predictions can support model interpretation and targeted dataset review when reference labels are affected by ambiguity/ inter-rater variability.",
    "affiliations": [
-    "organization=Schulich School of Engineering, Department of Electrical and Software Engineering, addressline=University of Calgary, city=Calgary, postcode=T2N 1N4, state=AB, country=Canada",
-    "organization=Hotchkiss Brain Institute, addressline=University of Calgary, city=Calgary, postcode=T2N 1N4, state=AB, country=Canada",
-    "organization=Department of Radiology and Clinical Neurosciences, addressline=University of Calgary, city=Calgary, postcode=T2N 1N4, state=AB, country=Canada",
-    "organization=Calgary Image Processing and Analysis Centre, addressline=Foothills Medical Centre, city=Calgary, postcode=T2N 2T9, state=AB, country=Canada",
-    "organization=Seaman Family MR Research Centre, addressline=Foothills Medical Centre, city=Calgary, postcode=T2N 2T9, state=AB, country=Canada"
+    "Schulich School of Engineering, Department of Electrical and Software Engineering, University of Calgary, Calgary, T2N 1N4, AB, Canada",
+    "Hotchkiss Brain Institute, University of Calgary, Calgary, T2N 1N4, AB, Canada",
+    "Department of Radiology and Clinical Neurosciences, University of Calgary, Calgary, T2N 1N4, AB, Canada",
+    "Calgary Image Processing and Analysis Centre, Foothills Medical Centre, Calgary, T2N 2T9, AB, Canada",
+    "Seaman Family MR Research Centre, Foothills Medical Centre, Calgary, T2N 2T9, AB, Canada"
    ],
    "author_affiliations": [
     null,
@@ -1849,12 +1849,12 @@
    "html_url": "https://arxiv.org/html/2609.18336v1",
    "abstract": "Muscle activity is fundamental to human movement, and understanding its patterns is critical for injury prevention and rehabilitation. Conventional muscle activity monitoring relies on specialized sensors such as surface electromyography, which limits its practicality for long-term real-world use. Existing studies suggest that muscle-related information can be inferred from human pose. However, the substantial gap between externally observable pose and internal muscle activation, limits the accuracy and generalization of current approaches. In this study, we propose Pose2Muscle, a pose-driven framework for discrete muscle activity estimation without requiring sEMG signals at inference time. Instead of directly regressing continuous sEMG signals, Pose2Muscle reformulates muscle estimation as a structured prediction problem over discrete muscle activity states, yielding a more stable and interpretable target space. The framework combines multi-scale spatio-temporal attention to capture motion patterns at complementary spatial and temporal scales with a directed acyclic graph-based decoder that maintains multiple candidate muscle-state hypotheses and performs structured trajectory inference over time. To support this task, we construct PoseEMG-43, a synchronized pose-sEMG dataset containing 2,992 movement instances from 43 daily-life actions performed by 14 participants. Experiments show that Pose2Muscle consistently outperforms representative retrieval- and pose-based baselines. It achieves an Adjacent-level Accuracy of 86.36% and a Pearson correlation coefficient of 0.8821 under the Random Split, and 63.97% and 0.6795, respectively, under the Subject-Level Split. These results demonstrate the feasibility of inferring structured muscle-state patterns from human pose and suggest the potential of Pose2Muscle for muscle-aware movement analysis when direct physiological sensing is impractical",
    "affiliations": [
-    "organization=School of Computer Science (National Pilot Software Engineering School), Beijing University of Posts and Telecommunications, city=Beijing, country=China",
-    "organization=Key Laboratory of Trustworthy Distributed Computing and Service (BUPT), Ministry of Education, city=Beijing, country=China",
-    "organization=Department of Rehabilitation Medicine, Peking Union Medical College Hospital, city=Beijing, country=China",
-    "organization=Department of Electronic Engineering, Tsinghua University, city=Beijing, country=China",
-    "organization=Institute for Precision Medicine, Tsinghua University, city=Beijing, country=China",
-    "organization=College of AI, Tsinghua University, city=Beijing, country=China"
+    "School of Computer Science (National Pilot Software Engineering School), Beijing University of Posts and Telecommunications, Beijing, China",
+    "Key Laboratory of Trustworthy Distributed Computing and Service (BUPT), Ministry of Education, Beijing, China",
+    "Department of Rehabilitation Medicine, Peking Union Medical College Hospital, Beijing, China",
+    "Department of Electronic Engineering, Tsinghua University, Beijing, China",
+    "Institute for Precision Medicine, Tsinghua University, Beijing, China",
+    "College of AI, Tsinghua University, Beijing, China"
    ],
    "author_affiliations": [
     [

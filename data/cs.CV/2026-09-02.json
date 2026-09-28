@@ -1135,7 +1135,7 @@
    "html_url": "https://arxiv.org/html/2609.00634v2",
    "abstract": "Much of the literature on structured image recognition has disproportionately focused on the comparison of classification algorithms. Rather than investigating which classifier performs best, this paper instead asks: what should a classifier know before it ever makes a prediction? In structured vision problems such as gesture recognition, facial expression categorization, and medical image analysis, discriminative information lies less in individual pixels and more in spatial relationships between semantic parts. Raw pixel spaces are high-dimensional, sensitive to nuisance variation, and often obfuscate the geometric structures that make visual tasks interpretable. Landmark extraction provides one form of dimension reduction, but it does not by itself determine the information preserved. This paper studies the post-landmark feature map as the central object of analysis and proposes a systematic framework for constructing and interpreting landmark-derived representations as an, informed, feature-based \"dimension reduction\" step. Using static hand gesture recognition as a case study, we evaluate coordinate, distance, angle, and hybrid representations through perturbation and ablation experiments. The results show that visually variable data exposes substantial gaps between raw coordinate features and their geometrically invariant counterparts, while hybrid representations achieve the strongest overall performance by combining complementary geometric components. These findings frame feature construction as a fundamental modeling decision and ultimately suggests that the question of what representation should a classifier learn from is one worth asking. The code used for feature construction and evaluation is available at https://github.com/ShivMaureeCWRU/Feature_based_dimension_reduction",
    "affiliations": [
-    "organization=Case Western Reserve University, addressline=Department of Mathematics, Applied Mathematics, and Statistics, city=Cleveland, state=OH, country=USA"
+    "Case Western Reserve University, Department of Mathematics, Applied Mathematics, and Statistics, Cleveland, OH, USA"
    ],
    "author_affiliations": [
     [
@@ -2143,10 +2143,10 @@
    "html_url": "https://arxiv.org/html/2609.00846v1",
    "abstract": "The rising prevalence of psychological disorders necessitates effective emotion monitoring, yet current methods relying on facial or physiological signals often suffer from intrusiveness and privacy issues. This paper proposes an intelligent decision support system and pervasive edge-computing framework that leverages smart glasses and a companion smartphone to infer emotional states from microscopic visual fixation patterns. Moving beyond traditional macroscopic gaze metrics, the proposed system extracts and decomposes three distinct neurophysiological micro-movements: microsaccades, ocular drifts, and ocular microtremors. We introduce an interpretable hybrid artificial intelligence pipeline combining a multi-head attention mechanism, extreme gradient boosting, and a support vector machine to extract deep temporal features, quantify their physiological importance, and perform efficient on-device classification. Through an extensive evaluation involving 60 volunteers, we rigorously validate the framework under a strict leave-one-subject-out cross-validation protocol across both controlled and naturalistic mobile scenarios. Ablation studies unequivocally demonstrate that these fixational micro-movements are substantially more discriminative for emotion inference than traditional macroscopic features. Furthermore, aligned with contemporary affective science, the system incorporates a few-shot personalization mechanism to bridge universal physiological baselines with individual emotional heterogeneity, achieving a highly robust personalized F1-score of 83.6%. This work establishes a physiologically interpretable, unobtrusive, and deployable paradigm for continuous real-time emotion monitoring.",
    "affiliations": [
-    "organization=College of Advanced Interdisciplinary Studies, Central South University of Forestry and Technology, city=Changsha, postcode=410004, state=Hunan, country=China",
-    "organization=Chow Yei Ching School of Graduate Studies, City University of Hong Kong, city=Hong Kong, postcode=999077, country=Hong Kong",
-    "organization=College of Computer and Mathematics, Central South University of Forestry and Technology, city=Changsha, postcode=410004, state=Hunan, country=China",
-    "organization=College of Computer Science and Electronic Engineering, Hunan University, city=Changsha, postcode=410082, state=Hunan, country=China"
+    "College of Advanced Interdisciplinary Studies, Central South University of Forestry and Technology, Changsha, 410004, Hunan, China",
+    "Chow Yei Ching School of Graduate Studies, City University of Hong Kong, Hong Kong, 999077, Hong Kong",
+    "College of Computer and Mathematics, Central South University of Forestry and Technology, Changsha, 410004, Hunan, China",
+    "College of Computer Science and Electronic Engineering, Hunan University, Changsha, 410082, Hunan, China"
    ],
    "author_affiliations": [
     null,
@@ -2321,31 +2321,31 @@
    "html_url": "https://arxiv.org/html/2609.00866v1",
    "abstract": "The rapid advancement of vision-language models (VLMs) has accelerated progress in computational pathology; however, whole-slide image (WSI)-based pathology report generation remains limited by the scarcity of large-scale WSI--report datasets and the complexity of mapping spatially distributed visual patterns to structured clinical text. To address this, we introduce a clinically curated Pan-Asia WSI--report dataset of approximately 10,500 pairs from five institutions and establish the REG 2025 benchmark through a MICCAI challenge for systematic evaluation of multimodal models. We analyze submitted methods spanning pretrained VLMs, multiple-instance learning frameworks, hierarchical expert models, retrieval-augmented generation, and cross-modal Transformers. Rather than indicating that VLM use alone was sufficient for superior performance, the results suggest that top-performing methods benefited from structured report representations, hierarchical diagnostic decomposition, and effective multimodal grounding. We identify key limitations, including instability in quantitative attribute estimation (e.g., numeric hallucination) and a tendency toward diagnostic overspecification, with some errors resembling known diagnostic pitfalls in routine pathology. These findings establish REG 2025 as a benchmark for evaluating WSI-based structured report generation and vision-language understanding in computational pathology, providing insights for the design of clinically grounded multimodal pathology models.",
    "affiliations": [
-    "organization=Department of Artificial Intelligence, Ewha Womans University, addressline=52 Ewhayeodae-gil, Seodaemun-gu, city=Seoul, postcode=03760, country=Republic of Korea",
-    "organization=Department of Pathology, Korea University Anam Hospital, addressline=73 Goryeodae-ro, Seongbuk-gu, city=Seoul, postcode=02841, country=Republic of Korea",
-    "organization=Department of Biomedical Informatics, Korea University College of Medicine, addressline=73, Goryeodae-ro, Seongbuk-gu, city=Seoul, postcode=02841, country=Republic of Korea",
-    "organization=Department of Pathology, Memorial Health Group, addressline=Burhaniye, Nagehan Sokağı No:4/A D:1, city=Üsküdar, postcode=34676, state=İstanbul, country=Türkiye",
-    "organization=Department of Pathology, Kameda Medical Center, addressline=929 Higashicho, city=Kamogawa, postcode=296-0041, state=Chiba, country=Japan",
-    "organization=Department of Pathology Informatics, Nagasaki University Graduate School of Biomedical Sciences, addressline=1-7-1 Sakamoto, city=Nagasaki, postcode=852-8523, country=Japan",
-    "organization=Department of Pathology, Tata Memorial Hospital, addressline=Homi Bhabha National Institute (HBNI), city=Mumbai, postcode=400012, country=India",
-    "organization=Department of Pathology, All India Institute Of Medical Sciences Delhi, addressline=Sri Aurobindo Marg, Ansari Nagar East, city=New Delhi, postcode=110029, state=Delhi, country=India",
-    "organization=Institute of Pathology, University Hospital Cologne, Medical Faculty, University of Cologne, addressline=Kerpener Str. 62, city=Köln, postcode=50937, country=Germany",
-    "organization=Institute for Cancer Genetics and Informatics, addressline=Ullernchausseen 70, city=Oslo, postcode=0372, country=Norway",
-    "organization=Seoul National University, addressline=1 Gwanak-ro, Gwanak-gu, city=Seoul, postcode=08826, country=Republic of Korea",
-    "organization=Stony Brook University, addressline=100 Nicolls Rd, city=Stony Brook, postcode=NY 11794, state=New York, country=United States",
-    "organization=Department of Pathology, Yonsei University College of Medicine, city=Seoul, country=Republic of Korea",
-    "organization=Tokyo Polytechnic University, addressline=2 Chome-9-5 Honcho, city=Nakano City, postcode=Tokyo 164-8678, country=Japan",
-    "organization=Nanyang Technological University, addressline=50 Nanyang Ave, postcode=639798, country=Singapore",
-    "organization=Graduate School of Software and Artificial Intelligence Convergence, Korea University, addressline=145 Anam-ro, Seongbuk-gu, city=Seoul, postcode=02841, country=Republic of Korea",
-    "organization=Division of Computational Pathology, Department of Pathology and Laboratory Medicine, Indiana University School of Medicine, addressline=410 W 10th St, city=Indianapolis, postcode=IN, 46202, state=Indiana, country=United States",
-    "organization=Emory University, addressline=201 Dowman Dr, city=Atlanta, postcode=GA 30322, state=Georgia, country=United States",
-    "organization=Shri Guru Gobind Singhji Institute of Engineering and Technology, addressline=Guru Tegh Bahadurji Marg, Vishnupuri, city=Nanded, postcode=431606, state=Maharashtra, country=India",
-    "organization=Viseur AI, addressline=Söğütözü, 9 Eylül Cad No: 4 İç Kapı No:1, city=Çankaya, postcode=06510, state=Ankara, country=Türkiye",
-    "organization=EKFZ TU Dresden (KatherLab), addressline=Fetscherstraße 74, city=Dresden, postcode=Postfach 151, 01307, country=Germany",
-    "organization=MTS Company R&D Team, addressline=434 Samsung-ro, Gangnam-gu, city=Seoul, postcode=06178, country=Republic of Korea",
-    "organization=NW-TIA, addressline=University of Warwick, city=Coventry, postcode=CV4 7AL, country=United Kingdom",
-    "organization=The Hong Kong University of Science and Technology, addressline=Clear Water Bay, Kowloon, country=Hong Kong",
-    "organization=Harbin Institute of Technology, addressline=HIT Campus of University Town of Shenzhen, city=Shenzhen, postcode=518055, country=China"
+    "Department of Artificial Intelligence, Ewha Womans University, 52 Ewhayeodae-gil, Seodaemun-gu, Seoul, 03760, Republic of Korea",
+    "Department of Pathology, Korea University Anam Hospital, 73 Goryeodae-ro, Seongbuk-gu, Seoul, 02841, Republic of Korea",
+    "Department of Biomedical Informatics, Korea University College of Medicine, 73, Goryeodae-ro, Seongbuk-gu, Seoul, 02841, Republic of Korea",
+    "Department of Pathology, Memorial Health Group, Burhaniye, Nagehan Sokağı No:4/A D:1, Üsküdar, 34676, İstanbul, Türkiye",
+    "Department of Pathology, Kameda Medical Center, 929 Higashicho, Kamogawa, 296-0041, Chiba, Japan",
+    "Department of Pathology Informatics, Nagasaki University Graduate School of Biomedical Sciences, 1-7-1 Sakamoto, Nagasaki, 852-8523, Japan",
+    "Department of Pathology, Tata Memorial Hospital, Homi Bhabha National Institute (HBNI), Mumbai, 400012, India",
+    "Department of Pathology, All India Institute Of Medical Sciences Delhi, Sri Aurobindo Marg, Ansari Nagar East, New Delhi, 110029, Delhi, India",
+    "Institute of Pathology, University Hospital Cologne, Medical Faculty, University of Cologne, Kerpener Str. 62, Köln, 50937, Germany",
+    "Institute for Cancer Genetics and Informatics, Ullernchausseen 70, Oslo, 0372, Norway",
+    "Seoul National University, 1 Gwanak-ro, Gwanak-gu, Seoul, 08826, Republic of Korea",
+    "Stony Brook University, 100 Nicolls Rd, Stony Brook, NY 11794, New York, United States",
+    "Department of Pathology, Yonsei University College of Medicine, Seoul, Republic of Korea",
+    "Tokyo Polytechnic University, 2 Chome-9-5 Honcho, Nakano City, Tokyo 164-8678, Japan",
+    "Nanyang Technological University, 50 Nanyang Ave, 639798, Singapore",
+    "Graduate School of Software and Artificial Intelligence Convergence, Korea University, 145 Anam-ro, Seongbuk-gu, Seoul, 02841, Republic of Korea",
+    "Division of Computational Pathology, Department of Pathology and Laboratory Medicine, Indiana University School of Medicine, 410 W 10th St, Indianapolis, IN, 46202, Indiana, United States",
+    "Emory University, 201 Dowman Dr, Atlanta, GA 30322, Georgia, United States",
+    "Shri Guru Gobind Singhji Institute of Engineering and Technology, Guru Tegh Bahadurji Marg, Vishnupuri, Nanded, 431606, Maharashtra, India",
+    "Viseur AI, Söğütözü, 9 Eylül Cad No: 4 İç Kapı No:1, Çankaya, 06510, Ankara, Türkiye",
+    "EKFZ TU Dresden (KatherLab), Fetscherstraße 74, Dresden, Postfach 151, 01307, Germany",
+    "MTS Company R&D Team, 434 Samsung-ro, Gangnam-gu, Seoul, 06178, Republic of Korea",
+    "NW-TIA, University of Warwick, Coventry, CV4 7AL, United Kingdom",
+    "The Hong Kong University of Science and Technology, Clear Water Bay, Kowloon, Hong Kong",
+    "Harbin Institute of Technology, HIT Campus of University Town of Shenzhen, Shenzhen, 518055, China"
    ],
    "author_affiliations": [
     null,
@@ -3903,11 +3903,11 @@
    "html_url": "https://arxiv.org/html/2609.01282v1",
    "abstract": "Vision Transformer (ViT) design has become increasingly diverse, with backbones combining convolutional stems, windowed, linear, or multi-axis attention, patch merging, and spatial reduction in various configurations. This diversity poses challenges for existing attribution methods, whose assumptions often do not hold across ViT variants: Grad-CAM requires a terminal spatial feature map, attention rollout assumes global softmax attention, and layer-wise relevance propagation (LRP) requires module-specific rules. To the best of our knowledge, no existing method provides a unified attribution framework across this architectural space. We show that this architectural diversity can be captured by a simpler underlying structure. The attention and resolution-reduction operators in current ViTs can be decomposed into four operation types: linear maps, bilinear mixing, normalization or gating, and reindexing. Each operation admits a relevance rule that satisfies conservation. Based on these rules, HiLRP supports new backbones by construction rather than by architecture-specific derivation, and its attribution maps decompose the prediction rather than relying on heuristic assumptions. We prove conservation and conditional equivariance and verify both to machine precision. Across 14 attribution methods and 10 architectures, we find that no prior method remains reliable across ViT families, while Faithfulness Correlation becomes uninformative for backbones robust to spatial masking. HiLRP alone preserves conservation across windowed, spatial-reduction, multi-axis, and linear-attention models, where naive extensions can produce zero or inflated relevance. It also localizes attribution failures in class activation mapping, achieving 0.97 Pointing compared with 0.55 for competing methods on EfficientViT.",
    "affiliations": [
-    "organization=Faculty of Engineering, University of Peradeniya, country=Sri Lanka",
-    "organization=School of Computing Technologies, RMIT University, city=Melbourne, country=Australia",
-    "organization=School of Engineering & Digital Technologies, University of Southern Queensland, city=Brisbane, country=Australia",
-    "organization=School of Engineering & Technologies, UNSW, city=Canberra, country=Australia",
-    "organization=Faculty of Science and Technology, Charles Darwin University, city=Darwin, country=Australia"
+    "Faculty of Engineering, University of Peradeniya, Sri Lanka",
+    "School of Computing Technologies, RMIT University, Melbourne, Australia",
+    "School of Engineering & Digital Technologies, University of Southern Queensland, Brisbane, Australia",
+    "School of Engineering & Technologies, UNSW, Canberra, Australia",
+    "Faculty of Science and Technology, Charles Darwin University, Darwin, Australia"
    ],
    "author_affiliations": [
     null,
