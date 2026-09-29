@@ -1101,7 +1101,7 @@
   {
    "arxiv_id": "2609.26425",
    "announced": "2026-09-23",
-   "title": "QuantWM: Temporally Consistent 2-Bit KV Cache Quantization for World Models and Video Generation",
+   "title": "QuantWM: Temporally Consistent 2-Bit KV Cache Quantization for Video World Models",
    "authors": [
     "Jiaqi Zhao",
     "Xiaobin Hu",
@@ -1119,7 +1119,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.26425v2",
+   "html_url": "https://arxiv.org/html/2609.26425v3",
    "abstract": "KV cache memory has become a major deployment bottleneck for video generation and world models, which motivates low-bit quantization study for efficiency. Existing 2-bit KV cache quantization methods can achieve nearly lossless performance on video benchmarks such as VBench, however, we find that they still cause severe temporal flickering and visual degradation. Meanwhile, deeper investigates show that Key quantization produces smaller reconstruction errors than Value, but surprisingly leads to much larger output degradation. We trace this discrepancy to attention: small Key perturbations can change the attention logits, i.e., QK^\\top, and shift the temporal-spatial tokens selected by Queries. These observations motivate us to explicitly preserve attention logits and temporal-spatial token selection during KV cache quantization to alleviate the visual degradation problem. To address this issue, we present QuantWM, a training-free and strictly causal 2-bit KV cache quantization framework. QuantWM introduces two complementary techniques to mitigate the attention shifts. Firstly, quantization-sensitivity-aware clustering (QSAC) jointly considers historical Query sensitivity and residual ranges to select INT2-friendly Key centroids, which reduces quantization errors in channels that are more critical to attention. In addition, principal-subspace attention compensation (PSAC) restores the remaining Key errors along the dominant Query subspace using low-rank projections, which provides a direct and efficient correction to stabilize attention logits. Extensive experiments on Causal-Forcing, LingBot-World-v2, HY-World 1.5, Matrix-Game-2 and Longcat-Video demonstrate that QuantWM significantly improves visual quality and temporal consistency, while outperforming existing methods across image and video quality metrics with up to 6.20x KV cache memory compression and limited additional overhead.",
    "affiliations": [
     "Harbin Institute of Technology (Shenzhen), Shenzhen, China",
@@ -3559,7 +3559,7 @@
   {
    "arxiv_id": "2609.25503",
    "announced": "2026-09-23",
-   "title": "SBMVTrack: Spike-Budgeted Multi-View Learning for Energy-Efficient UAV Tracking",
+   "title": "SBMVTrack: Spike-Budgeted Multi-View Learning for Power-Efficient UAV Tracking",
    "authors": [
     "Pengzhi Zhong",
     "Jiwei Mo",
@@ -3577,7 +3577,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.25503v1",
+   "html_url": "https://arxiv.org/html/2609.25503v2",
    "abstract": "With sparse and event-driven computation, spiking neural networks show great potential for achieving accurate and energy-efficient UAV visual tracking. However, existing SNN-based trackers typically use spike firing rates only for energy evaluation and lack explicit optimization of actual spike activity. To address this, we propose SBMVTrack, a fully spiking framework for energy-efficient UAV tracking. SBMVTrack introduces Energy-Weighted Spike Budgeting (EWSB). EWSB weights actual spike activity according to the computational cost of each spiking layer. It constrains the energy-weighted firing rate and saturation activity, thereby reducing redundant spike computations. To improve tracking performance under the spike budget constraint, we propose Masked Multi-View Target Modeling (MVTM). This method treats the initial template, online template, and search region from the same sequence as correlated temporal views. It enhances the robustness of target representations through cross-view feature completion and identity-consistency learning. Extensive experiments on multiple benchmarks demonstrate that SBMVTrack effectively reduces the average spike firing rate and theoretical energy consumption. Meanwhile, it maintains competitive tracking performance, achieving a better accuracy-energy trade-off. The source code will be released upon acceptance.",
    "affiliations": [],
    "author_affiliations": null,
@@ -4074,7 +4074,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.25247v1",
+   "html_url": "https://arxiv.org/html/2609.25247v2",
    "abstract": "Interaction understanding in 3D scenes requires a joint description of movable parts, their motion, and the regions through which they can be operated. We present Segment-Snap, which connects these outputs through the physical relationship between parts and handles. Learned predictors identify broad part surfaces and small handles. A geometric decoder uses planar and upright priors to constrain motion, then selects hinge lines using predicted handle locations, without training a motion regressor. Conversely, a joint part-and-handle predictor supplies additional handle candidates, whose motion classes are refined using containing parts. Each information transfer is applied once, without iterative feedback. On Articulate3D validation, handle guidance raises motion-gated AP from 13.74% to 40.98% at fixed masks and axes. Additional handle candidates raise handle AP from 24.63% to 29.65%; part-based class correction adds 0.98 points, and full context reaches 30.99%. Repeated training, learned-decoder controls and paired visualizations establish the benefits and limitations of combining geometric and semantic evidence for interaction understanding.",
    "affiliations": [],
    "author_affiliations": null,
