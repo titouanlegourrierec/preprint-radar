@@ -1,6 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { formatDay } from "../format";
-import { buildGraph, type GraphNode, type NodeKind, nodeMatches, searchKey } from "../graph";
+import {
+  buildGraph,
+  type EntityKind,
+  type GraphNode,
+  isEntity,
+  nodeMatches,
+  searchKey,
+} from "../graph";
 import { GraphRenderer } from "../graph-renderer";
 import type { Period } from "../period";
 import {
@@ -15,6 +22,8 @@ import { GraphSettingsPanel } from "./GraphSettingsPanel";
 
 const DETAILS_PAPERS = 8;
 const DETAILS_CONNECTIONS = 8;
+const DETAILS_AUTHORS = 8;
+const KIND_NAMES = { paper: "Paper", institution: "Institution", author: "Author" } as const;
 /** Space taken by the overlays (width + margins), kept free when fitting or selecting. */
 const DETAILS_WIDTH_PX = 344;
 const SETTINGS_WIDTH_PX = 274;
@@ -38,7 +47,9 @@ interface Props {
   venues: FacetCount[];
   venue: string | null;
   onVenue: (venue: string | null) => void;
-  onShowPapers: (kind: NodeKind, label: string) => void;
+  onShowPapers: (kind: EntityKind, label: string) => void;
+  /** Show one paper in the list, expanded (its permalink). */
+  onOpenPaper: (paper: Paper) => void;
   /** Scheme shown right now; the canvas re-reads its colors when it changes. */
   theme: "light" | "dark";
 }
@@ -53,7 +64,7 @@ function isTyping(target: EventTarget | null): boolean {
 
 /** Full-screen co-occurrence graph of the institutions and authors of the loaded papers. */
 export function GraphView(props: Props) {
-  const { papers, onShowPapers, theme } = props;
+  const { papers, onShowPapers, onOpenPaper, theme } = props;
   const [settings, setSettings] = useState<GraphSettings>(loadGraphSettings);
   const [panelOpen, setPanelOpen] = useState(() => window.matchMedia(WIDE_SCREEN).matches);
   const [highlight, setHighlight] = useState("");
@@ -97,6 +108,7 @@ export function GraphView(props: Props) {
   const graph = useMemo(
     () =>
       buildGraph(shownPapers, {
+        papers: settings.papers,
         institutions: settings.institutions,
         authors: settings.authors,
         isolated: settings.isolated,
@@ -105,6 +117,7 @@ export function GraphView(props: Props) {
       }),
     [
       shownPapers,
+      settings.papers,
       settings.institutions,
       settings.authors,
       settings.isolated,
@@ -122,10 +135,11 @@ export function GraphView(props: Props) {
     () => shownPapers.filter((paper) => (paper.affiliations ?? []).length > 0).length,
     [shownPapers],
   );
-  const institutionCount = useMemo(
-    () => graph.nodes.filter((node) => node.kind === "institution").length,
-    [graph],
-  );
+  const counts = useMemo(() => {
+    const byKind = { paper: 0, institution: 0, author: 0 };
+    for (const node of graph.nodes) byKind[node.kind]++;
+    return byKind;
+  }, [graph]);
 
   const highlightKey = searchKey(highlight);
   const highlighted = useMemo(
@@ -136,8 +150,29 @@ export function GraphView(props: Props) {
     [graph, highlightKey],
   );
   const selected = (selectedId && nodesById.get(selectedId)) || null;
+  // Nodes of each paper, to find who shares papers when papers are nodes themselves.
+  const entitiesByPaper = useMemo(() => {
+    const byPaper = new Map<string, GraphNode[]>();
+    for (const node of graph.nodes) {
+      if (node.kind === "paper") continue;
+      for (const id of node.paperIds) byPaper.set(id, [...(byPaper.get(id) ?? []), node]);
+    }
+    return byPaper;
+  }, [graph]);
   const connections = useMemo(() => {
-    if (!selected) return [];
+    if (!selected || selected.kind === "paper") return [];
+    if (settings.papers) {
+      const shared = new Map<GraphNode, number>();
+      for (const id of selected.paperIds) {
+        for (const node of entitiesByPaper.get(id) ?? []) {
+          if (node !== selected) shared.set(node, (shared.get(node) ?? 0) + 1);
+        }
+      }
+      return [...shared]
+        .map(([node, weight]) => ({ node, weight }))
+        .sort((a, b) => b.weight - a.weight || b.node.paperIds.length - a.node.paperIds.length)
+        .slice(0, DETAILS_CONNECTIONS);
+    }
     return graph.links
       .filter((link) => link.source === selected.id || link.target === selected.id)
       .map((link) => ({
@@ -147,7 +182,9 @@ export function GraphView(props: Props) {
       .filter((entry): entry is { node: GraphNode; weight: number } => entry.node !== undefined)
       .sort((a, b) => b.weight - a.weight || b.node.paperIds.length - a.node.paperIds.length)
       .slice(0, DETAILS_CONNECTIONS);
-  }, [graph, nodesById, selected]);
+  }, [graph, nodesById, selected, settings.papers, entitiesByPaper]);
+  const selectedPaper =
+    selected?.kind === "paper" ? papersById.get(selected.paperIds[0] ?? "") : undefined;
 
   // The renderer is imperative: create it once, then push every change to it.
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -156,7 +193,12 @@ export function GraphView(props: Props) {
   const openRef = useRef<(id: string) => void>(() => {});
   openRef.current = (id) => {
     const node = nodesById.get(id);
-    if (node) onShowPapers(node.kind, node.label);
+    if (node?.kind === "paper") {
+      const paper = papersById.get(node.paperIds[0] ?? "");
+      if (paper) onOpenPaper(paper);
+    } else if (node) {
+      onShowPapers(node.kind, node.label);
+    }
   };
 
   useEffect(() => {
@@ -226,6 +268,7 @@ export function GraphView(props: Props) {
   const kinds = [settings.institutions && "institutions", settings.authors && "authors"].filter(
     Boolean,
   );
+  const selectedEntity = selected && isEntity(selected) ? selected : null;
   const emptyMessage =
     props.notice ??
     (papers.length === 0
@@ -243,7 +286,7 @@ export function GraphView(props: Props) {
         ref={canvasRef}
         class="graph__canvas"
         role="img"
-        aria-label="Graph of the institutions and authors of the loaded papers, linked when they share a paper"
+        aria-label="Graph of the loaded papers with their institutions and authors"
       />
 
       {emptyMessage && <p class="graph__empty">{emptyMessage}</p>}
@@ -258,48 +301,61 @@ export function GraphView(props: Props) {
           >
             ×
           </button>
-          <p class="graph__kind">{selected.kind === "institution" ? "Institution" : "Author"}</p>
-          <h2>{selected.label}</h2>
-          <p class="muted">
-            {selected.paperIds.length} paper{selected.paperIds.length > 1 ? "s" : ""}
-          </p>
-          <ul class="graph__papers">
-            {selected.paperIds.slice(0, DETAILS_PAPERS).map((id) => {
-              const paper = papersById.get(id);
-              return paper ? (
-                <li key={id}>
-                  <a href={paper.abs_url} target="_blank" rel="noopener noreferrer">
-                    {paper.title}
-                  </a>{" "}
-                  <span class="muted">· {formatDay(paper.announced)}</span>
-                </li>
-              ) : null;
-            })}
-          </ul>
-          {connections.length > 0 && (
-            <>
-              <p class="graph__kind">Most connected</p>
-              <ul class="graph__connections">
-                {connections.map(({ node, weight }) => (
-                  <li key={node.id}>
-                    <button type="button" class="link-button" onClick={() => selectNode(node.id)}>
-                      {node.label}
-                    </button>{" "}
-                    <span class="muted">
-                      {weight} shared paper{weight > 1 ? "s" : ""}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </>
+          <p class="graph__kind">{KIND_NAMES[selected.kind]}</p>
+          {selectedPaper ? (
+            <PaperDetails paper={selectedPaper} onOpen={() => onOpenPaper(selectedPaper)} />
+          ) : (
+            selectedEntity && (
+              <>
+                <h2>{selectedEntity.label}</h2>
+                <p class="muted">
+                  {selectedEntity.paperIds.length} paper
+                  {selectedEntity.paperIds.length > 1 ? "s" : ""}
+                </p>
+                <ul class="graph__papers">
+                  {selectedEntity.paperIds.slice(0, DETAILS_PAPERS).map((id) => {
+                    const paper = papersById.get(id);
+                    return paper ? (
+                      <li key={id}>
+                        <a href={paper.abs_url} target="_blank" rel="noopener noreferrer">
+                          {paper.title}
+                        </a>{" "}
+                        <span class="muted">· {formatDay(paper.announced)}</span>
+                      </li>
+                    ) : null;
+                  })}
+                </ul>
+                {connections.length > 0 && (
+                  <>
+                    <p class="graph__kind">Most connected</p>
+                    <ul class="graph__connections">
+                      {connections.map(({ node, weight }) => (
+                        <li key={node.id}>
+                          <button
+                            type="button"
+                            class="link-button"
+                            onClick={() => selectNode(node.id)}
+                          >
+                            {node.label}
+                          </button>{" "}
+                          <span class="muted">
+                            {weight} shared paper{weight > 1 ? "s" : ""}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                )}
+                <button
+                  type="button"
+                  class="button"
+                  onClick={() => onShowPapers(selectedEntity.kind, selectedEntity.label)}
+                >
+                  Show all {selectedEntity.paperIds.length} papers
+                </button>
+              </>
+            )
           )}
-          <button
-            type="button"
-            class="button"
-            onClick={() => onShowPapers(selected.kind, selected.label)}
-          >
-            Show all {selected.paperIds.length} papers
-          </button>
         </aside>
       )}
 
@@ -342,24 +398,59 @@ export function GraphView(props: Props) {
       />
 
       <div class="graph__legend">
-        {settings.institutions && (
-          <span>
-            <i class="graph__dot graph__dot--institution" />
-            Institutions ({institutionCount.toLocaleString()})
-          </span>
-        )}
-        {settings.authors && (
-          <span>
-            <i class="graph__dot graph__dot--author" />
-            Authors ({(graph.nodes.length - institutionCount).toLocaleString()})
-          </span>
+        {(
+          [
+            ["paper", "Papers"],
+            ["institution", "Institutions"],
+            ["author", "Authors"],
+          ] as const
+        ).map(
+          ([kind, name]) =>
+            counts[kind] > 0 && (
+              <span key={kind}>
+                <i class={`graph__dot graph__dot--${kind}`} />
+                {name} ({counts[kind].toLocaleString()})
+              </span>
+            ),
         )}
         <span>{graph.links.length.toLocaleString()} links</span>
       </div>
       <p class="graph__hint">
-        drag · scroll to zoom · click = details · double-click = papers · linked when they share a
-        paper
+        drag · scroll to zoom · click = details · double-click = open in the list
       </p>
     </div>
+  );
+}
+
+/** Details of a selected paper: what it is, who wrote it, where, and a way to read it. */
+function PaperDetails({ paper, onOpen }: { paper: Paper; onOpen: () => void }) {
+  const authors = paper.authors.slice(0, DETAILS_AUTHORS).join(", ");
+  const hidden = paper.authors.length - DETAILS_AUTHORS;
+  return (
+    <>
+      <h2>
+        <a href={paper.abs_url} target="_blank" rel="noopener noreferrer">
+          {paper.title}
+        </a>
+      </h2>
+      <p class="muted">
+        {formatDay(paper.announced)}
+        {paper.venue && ` · ${paper.venue}`}
+      </p>
+      <p>
+        {authors}
+        {hidden > 0 && <span class="muted"> +{hidden}</span>}
+      </p>
+      {(paper.affiliations ?? []).length > 0 && (
+        <ul class="graph__connections">
+          {(paper.affiliations ?? []).map((affiliation) => (
+            <li key={affiliation}>{affiliation}</li>
+          ))}
+        </ul>
+      )}
+      <button type="button" class="button" onClick={onOpen}>
+        Open in the list
+      </button>
+    </>
   );
 }

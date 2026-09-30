@@ -189,6 +189,15 @@ export function App() {
               },
             })
           }
+          onOpenPaper={(paper) =>
+            update({
+              view: "papers",
+              query: "",
+              filters: NO_FILTERS,
+              period: between(paper.announced, paper.announced),
+              paper: paper.arxiv_id,
+            })
+          }
         />
       </div>
     );

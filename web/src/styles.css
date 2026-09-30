@@ -9,6 +9,7 @@
   --accent-soft: #e7ecff;
   --mark: #fff1a8;
   --danger: #c92a2a;
+  --graph-paper: #0ca678;
   --graph-institution: #e8590c;
   --graph-author: #4c6ef5;
   --graph-edge: #adb5bd;
@@ -36,6 +37,7 @@
     --accent-soft: #23294a;
     --mark: #5c4d00;
     --danger: #ff8787;
+    --graph-paper: #38d9a9;
     --graph-institution: #ff922b;
     --graph-author: #748ffc;
     --graph-edge: #5c5f66;
@@ -56,6 +58,7 @@
   --accent-soft: #23294a;
   --mark: #5c4d00;
   --danger: #ff8787;
+  --graph-paper: #38d9a9;
   --graph-institution: #ff922b;
   --graph-author: #748ffc;
   --graph-edge: #5c5f66;
@@ -1038,6 +1041,11 @@ mark {
   margin-right: 6px;
   border-radius: 50%;
   vertical-align: -0.5px;
+}
+
+.graph__dot--paper {
+  border-radius: 1px;
+  background: var(--graph-paper);
 }
 
 .graph__dot--institution {

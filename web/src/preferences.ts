@@ -1,5 +1,6 @@
 const SHOW_ABSTRACTS_KEY = "preprint-radar:show-abstracts";
-const GRAPH_SETTINGS_KEY = "preprint-radar:graph-settings";
+// v2: papers joined the graph, and the defaults changed with them.
+const GRAPH_SETTINGS_KEY = "preprint-radar:graph-settings:v2";
 // Also read by the inline script in index.html, which restores the theme before first paint.
 const THEME_KEY = "preprint-radar:theme";
 
@@ -44,9 +45,10 @@ export function saveShowAbstracts(show: boolean): void {
 
 /** Settings of the graph view, remembered in this browser. */
 export interface GraphSettings {
+  papers: boolean;
   institutions: boolean;
   authors: boolean;
-  /** Show nodes that share no paper with another shown node. */
+  /** Show nodes without any link to another shown node. */
   isolated: boolean;
   minInstitutionPapers: number;
   minAuthorPapers: number;
@@ -61,9 +63,11 @@ export interface GraphSettings {
 }
 
 export const DEFAULT_GRAPH_SETTINGS: Readonly<GraphSettings> = {
+  papers: true,
   institutions: true,
   authors: false,
-  isolated: true,
+  // A quarter of the papers have no affiliations: shown, they would be lone squares.
+  isolated: false,
   minInstitutionPapers: 1,
   minAuthorPapers: 1,
   maxNodes: 0,

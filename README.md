@@ -77,15 +77,19 @@ can be shared;
 *Share* on a paper copies a link that opens that paper alone, expanded, on its announcement
 day. The ◐ button next to the tabs switches between the automatic, light and dark themes.
 
-The *Graph* tab is a full-screen map of the institutions (and optionally the authors) of
-the loaded papers, linked when they appear on the same paper. Variants of an institution's
-name are merged approximately ("Google, Switzerland" and "Google"). Drag, scroll to zoom,
-click a node to see its papers and connections, double-click it to list its papers. The
+The *Graph* tab is a full-screen map of the loaded papers, their institutions and
+(optionally) their authors. By default it shows papers (squares) linked to their
+institutions; with authors on, a paper links to its authors, and an institution to the
+authors the paper places there. Without papers, it becomes a collaboration map: institutions
+and authors linked when they appear on the same paper. Variants of an institution's name are
+merged approximately ("Google, Switzerland" and "Google"). Drag, scroll to zoom, click a
+node to see its details, double-click it to list its papers (or open the paper). The
 *Graph settings* panel chooses the period (same calendar), restricts the graph to papers
-matching some words, highlights nodes by name (`/`), shows or hides authors and isolated
-nodes, sets a minimum number of papers per node or a maximum number of nodes (all by
-default), tunes the forces and labels, and replays how the graph grew day by day. A node's
-area grows with its number of papers. Settings are remembered in the browser.
+matching some words, highlights nodes by name or title (`/`), shows or hides papers,
+institutions, authors and isolated nodes, sets a minimum number of papers per institution
+or author or a maximum number of them (all by default), tunes the forces and labels, and
+replays how the graph grew day by day. An institution's or author's area grows with its
+number of papers. Settings are remembered in the browser.
 
 `backfill` collects past days (weekends are skipped quickly) and saves each day with its
 abstracts before reading the HTML pages for affiliations, most recent day first; stopping

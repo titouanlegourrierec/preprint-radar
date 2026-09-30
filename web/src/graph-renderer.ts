@@ -148,6 +148,7 @@ function readColors() {
   const style = getComputedStyle(document.documentElement);
   const value = (name: string) => style.getPropertyValue(name).trim();
   return {
+    paper: value("--graph-paper"),
     institution: value("--graph-institution"),
     author: value("--graph-author"),
     edge: value("--graph-edge"),
@@ -247,7 +248,7 @@ export class GraphRenderer {
   setGraph(graph: Graph): void {
     this.savePositions();
     const degree = new Map<string, number>();
-    const ranks = { institution: 0, author: 0 };
+    const ranks = { paper: 0, institution: 0, author: 0 };
     for (const link of graph.links) {
       degree.set(link.source, (degree.get(link.source) ?? 0) + 1);
       degree.set(link.target, (degree.get(link.target) ?? 0) + 1);
@@ -566,6 +567,7 @@ export class GraphRenderer {
 
     // Nodes, batched by color and emphasis.
     const shapes = {
+      paper: { lit: new Path2D(), dim: new Path2D() },
       institution: { lit: new Path2D(), dim: new Path2D() },
       author: { lit: new Path2D(), dim: new Path2D() },
     };
@@ -578,14 +580,19 @@ export class GraphRenderer {
       const r = Math.max(node.radius, minRadius);
       if (x + r < left || x - r > right || y + r < top || y - r > bottom) continue;
       const path = shapes[node.node.kind][isLit(node.id) ? "lit" : "dim"];
-      path.moveTo(x + r, y);
-      path.arc(x, y, r, 0, 2 * Math.PI);
+      if (node.node.kind === "paper") {
+        // Papers are squares, so that they read apart from the people and places.
+        path.rect(x - r, y - r, 2 * r, 2 * r);
+      } else {
+        path.moveTo(x + r, y);
+        path.arc(x, y, r, 0, 2 * Math.PI);
+      }
       if (node.id === this.selected || (focus === null && highlighted?.has(node.id) === true)) {
         rings.moveTo(x + r + ringGap, y);
         rings.arc(x, y, r + ringGap, 0, 2 * Math.PI);
       }
     }
-    for (const kind of ["institution", "author"] as const) {
+    for (const kind of ["paper", "institution", "author"] as const) {
       context.fillStyle = colors[kind];
       context.globalAlpha = 0.15;
       context.fill(shapes[kind].dim);
@@ -635,7 +642,9 @@ export class GraphRenderer {
       const wanted =
         focus !== null || this.highlighted !== null
           ? isLit(node.id)
-          : node.rank < ALWAYS_LABELLED || node.radius * view.k >= threshold;
+          : // Paper titles would bury the names: they show on hover and focus only.
+            node.node.kind !== "paper" &&
+            (node.rank < ALWAYS_LABELLED || node.radius * view.k >= threshold);
       if (!wanted) continue;
 
       const label = node.node.label;

@@ -174,6 +174,11 @@ export function GraphSettingsPanel(props: Props) {
           <fieldset>
             <legend>Show</legend>
             <Checkbox
+              label="Papers"
+              checked={settings.papers}
+              onChange={(papers) => onSettings({ papers })}
+            />
+            <Checkbox
               label="Institutions"
               checked={settings.institutions}
               onChange={(institutions) => onSettings({ institutions })}
@@ -188,6 +193,11 @@ export function GraphSettingsPanel(props: Props) {
               checked={settings.isolated}
               onChange={(isolated) => onSettings({ isolated })}
             />
+            <p class="graph-settings__note">
+              {settings.papers
+                ? "Papers link to their authors, and institutions to their authors (or to the paper)."
+                : "Without papers, nodes are linked when they share a paper."}
+            </p>
             <Slider
               label="Institution ≥ papers"
               value={settings.minInstitutionPapers}

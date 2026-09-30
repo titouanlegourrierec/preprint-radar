@@ -38,6 +38,7 @@ const papers = [
 ];
 
 const INSTITUTIONS: GraphOptions = {
+  papers: false,
   institutions: true,
   authors: false,
   minPapers: { institution: 1, author: 1 },
@@ -139,6 +140,85 @@ describe("buildGraph with author affiliations", () => {
       "author:bob->institution:mit",
       "author:cyd->institution:mit",
     ]);
+  });
+});
+
+describe("buildGraph with papers", () => {
+  const mapped = makePaper({
+    arxiv_id: "9",
+    title: "Gaussian Splatting for Everyone",
+    authors: ["Ada", "Bob"],
+    affiliations: ["MIT", "ETH Zurich"],
+    author_affiliations: [[0], null],
+  });
+  const PAPERS: GraphOptions = { ...INSTITUTIONS, papers: true };
+  const edges = (graph: ReturnType<typeof buildGraph>) =>
+    graph.links.map(({ source, target }) => `${source}->${target}`).sort();
+
+  it("links each paper to its institutions when authors are hidden", () => {
+    const graph = buildGraph(papers, PAPERS);
+
+    expect(graph.nodes.map((node) => node.id)).toEqual([
+      "institution:google",
+      "institution:mit",
+      "institution:kaist",
+      "paper:1",
+      "paper:2",
+      "paper:3",
+    ]);
+    expect(edges(graph)).toEqual([
+      "institution:google->paper:1",
+      "institution:google->paper:2",
+      "institution:kaist->paper:3",
+      "institution:mit->paper:1",
+      "institution:mit->paper:2",
+    ]);
+  });
+
+  it("hangs institutions from the authors placed there, else from the paper", () => {
+    const graph = buildGraph([mapped], { ...PAPERS, authors: true });
+
+    // Ada is placed at MIT; nobody shown is placed at ETH, and Bob is not placed at all.
+    expect(edges(graph)).toEqual([
+      "author:ada->institution:mit",
+      "author:ada->paper:9",
+      "author:bob->paper:9",
+      "institution:eth zurich->paper:9",
+    ]);
+  });
+
+  it("falls back to the paper when the placed author is filtered out", () => {
+    const graph = buildGraph([mapped], {
+      ...PAPERS,
+      authors: true,
+      minPapers: { institution: 1, author: 2 },
+    });
+
+    expect(edges(graph)).toEqual(["institution:eth zurich->paper:9", "institution:mit->paper:9"]);
+  });
+
+  it("links papers to authors only when institutions are hidden", () => {
+    const graph = buildGraph(papers, { ...PAPERS, institutions: false, authors: true });
+
+    expect(edges(graph)).toEqual([
+      "author:ada->paper:1",
+      "author:ada->paper:2",
+      "author:bob->paper:1",
+      "author:cyd->paper:3",
+    ]);
+  });
+
+  it("drops papers left without any link unless isolated nodes are kept", () => {
+    const bare = makePaper({ arxiv_id: "11", affiliations: null });
+
+    expect(buildGraph([bare], { ...PAPERS, isolated: false }).nodes).toEqual([]);
+    expect(buildGraph([bare], PAPERS).nodes.map((node) => node.id)).toEqual(["paper:11"]);
+  });
+
+  it("finds papers by their title", () => {
+    const [node] = buildGraph([mapped], { ...PAPERS, institutions: false }).nodes;
+
+    expect(node && nodeMatches(node, searchKey("splatting"))).toBe(true);
   });
 });
 
