@@ -28,6 +28,12 @@ export interface Paper {
    * where. Absent from older records.
    */
   author_affiliations?: (number[] | null)[] | null;
+  /**
+   * Per affiliation, its institution according to the Research Organization Registry;
+   * `null` without a confident match, `null` altogether if not looked up yet. Absent from
+   * older records.
+   */
+  institutions?: (string | null)[] | null;
   abs_url: string;
   pdf_url: string;
 }

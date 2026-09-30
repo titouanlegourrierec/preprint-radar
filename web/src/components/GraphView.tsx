@@ -1,13 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { formatDay } from "../format";
-import {
-  buildGraph,
-  type EntityKind,
-  type GraphNode,
-  isEntity,
-  nodeMatches,
-  searchKey,
-} from "../graph";
+import { buildGraph, type EntityKind, type GraphNode, isEntity, nodeMatches } from "../graph";
 import { GraphRenderer } from "../graph-renderer";
 import type { Period } from "../period";
 import {
@@ -17,6 +10,7 @@ import {
   saveGraphSettings,
 } from "../preferences";
 import type { FacetCount } from "../search";
+import { searchKey } from "../text";
 import type { DaySummary, Paper } from "../types";
 import { GraphSettingsPanel } from "./GraphSettingsPanel";
 

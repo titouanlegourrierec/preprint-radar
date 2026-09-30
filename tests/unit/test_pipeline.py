@@ -6,11 +6,12 @@ from pathlib import Path
 
 import httpx
 import pytest
+from tests.conftest import FIXTURES_DIR
 
 from preprint_radar.http import HttpClient
 from preprint_radar.listing import parse_catchup
 from preprint_radar.models import Listing, Paper
-from preprint_radar.pipeline import backfill_category, format_report, update_category
+from preprint_radar.pipeline import add_institutions, backfill_category, format_report, update_category
 from preprint_radar.store import PaperStore
 
 ATOM_ENTRY = """
@@ -59,6 +60,7 @@ class FakeArxiv:
         self.paper_html = paper_html
         self.hits: Counter[str] = Counter()
         self.api_ids: list[str] = []
+        self.ror_requests: list[str] = []
         # Catchup pages by path; other days have no announcement.
         self.catchup_pages: dict[str, str] = {}
         self.catchup_empty_html = ""
@@ -72,6 +74,12 @@ class FakeArxiv:
             return httpx.Response(200, text=self.catchup_pages.get(url.path, self.catchup_empty_html))
         if url.host == "rss.arxiv.org":
             return httpx.Response(200, text=_rss_feed(RSS_DAY_IDS))
+        if url.host == "api.ror.org":
+            self.ror_requests.append(url.params["affiliation"])
+            name = "peking" if "Peking" in url.params["affiliation"] else "meta"
+            return httpx.Response(
+                200, text=(FIXTURES_DIR / "ror" / f"{name}.json").read_text(encoding="utf-8")
+            )
         if url.host == "export.arxiv.org":
             ids = url.params["id_list"].split(",")
             self.api_ids.extend(ids)
@@ -122,9 +130,16 @@ def store(tmp_path: Path) -> PaperStore:
     return PaperStore(tmp_path / "data")
 
 
-def _run(fake: FakeArxiv, store: PaperStore, **kwargs: int | None) -> Listing:
+def _run(fake: FakeArxiv, store: PaperStore, max_html_fetches: int | None = None) -> Listing:
     with fake.client() as site, fake.client() as api:
-        update_category("cs.CV", store=store, site_client=site, api_client=api, save_every=1, **kwargs)
+        update_category(
+            "cs.CV",
+            store=store,
+            site_client=site,
+            api_client=api,
+            max_html_fetches=max_html_fetches,
+            save_every=1,
+        )
     return Listing(papers=tuple(store.iter_papers("cs.CV")))
 
 
@@ -206,9 +221,16 @@ def fake_catchup(fake: FakeArxiv, catchup_html: str, catchup_empty_html: str) ->
     return fake
 
 
-def _backfill(fake: FakeArxiv, store: PaperStore, **kwargs: int | None) -> dict[str, Paper]:
+def _backfill(fake: FakeArxiv, store: PaperStore, max_html_fetches: int | None = None) -> dict[str, Paper]:
     with fake.client() as site:
-        backfill_category("cs.CV", BACKFILL_DAYS, store=store, site_client=site, save_every=1, **kwargs)
+        backfill_category(
+            "cs.CV",
+            BACKFILL_DAYS,
+            store=store,
+            site_client=site,
+            max_html_fetches=max_html_fetches,
+            save_every=1,
+        )
     return {paper.arxiv_id: paper for paper in store.iter_papers("cs.CV")}
 
 
@@ -271,3 +293,54 @@ def test_backfill_reuses_days_already_stored(fake_catchup: FakeArxiv, store: Pap
         "/catchup/cs.CV/2026-09-02",
         "/catchup/cs.CV/2026-08-31",
     ]
+
+
+def _paper(arxiv_id: str, affiliations: tuple[str, ...] | None) -> Paper:
+    return Paper(
+        arxiv_id=arxiv_id, announced=date(2026, 9, 25), title="T", authors=("A",), affiliations=affiliations
+    )
+
+
+def test_add_institutions_names_each_distinct_affiliation_once(fake: FakeArxiv) -> None:
+    papers = [
+        _paper("1", ("School of CS, Peking University", "Meta AI")),
+        _paper("2", ("School of CS, Peking University",)),
+        _paper("3", ()),
+        _paper("4", None),
+    ]
+
+    with fake.client() as ror:
+        named = add_institutions(papers, ror, limit=None)
+
+    assert fake.ror_requests == ["School of CS, Peking University", "Meta AI"]
+    assert [paper.institutions for paper in named] == [
+        ("Peking University", None),
+        ("Peking University",),
+        None,
+        None,
+    ]
+
+
+def test_add_institutions_leaves_the_rest_for_next_run(fake: FakeArxiv) -> None:
+    papers = [_paper("1", ("Meta AI",)), _paper("2", ("Meta AI", "School of CS, Peking University"))]
+
+    with fake.client() as ror:
+        named = add_institutions(papers, ror, limit=1)
+
+    # The second paper needs a string beyond the limit: none of its institutions is set.
+    assert [paper.institutions for paper in named] == [(None,), None]
+
+
+def test_update_names_institutions_and_keeps_them(fake: FakeArxiv, store: PaperStore) -> None:
+    with fake.client() as site, fake.client() as api, fake.client() as ror:
+        update_category("cs.CV", store=store, site_client=site, api_client=api, ror_client=ror)
+    fake.ror_requests.clear()
+    with fake.client() as site, fake.client() as api, fake.client() as ror:
+        update_category("cs.CV", store=store, site_client=site, api_client=api, ror_client=ror)
+
+    stored = {paper.arxiv_id: paper for paper in store.iter_papers("cs.CV")}
+    paper = stored["2609.30249"]
+    assert paper.institutions is not None
+    assert len(paper.institutions) == len(paper.affiliations or ())
+    # Carried over: only the retried page (2609.30234, 503 then 404) could need a lookup.
+    assert all(request not in (paper.affiliations or ()) for request in fake.ror_requests)

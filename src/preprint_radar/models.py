@@ -9,7 +9,7 @@ from preprint_radar.exceptions import StoreError
 
 ARXIV_BASE_URL = "https://arxiv.org"
 
-type PaperRecord = dict[str, str | list[str] | list[list[int] | None] | None]
+type PaperRecord = dict[str, str | list[str] | list[str | None] | list[list[int] | None] | None]
 """JSON-serializable representation of a :class:`Paper`."""
 
 
@@ -37,6 +37,9 @@ class Paper:
         author_affiliations: For each author, the indices of their own affiliations in
             ``affiliations``; ``None`` for an author the paper does not place, and ``None``
             altogether when the front matter never says who is where.
+        institutions: For each affiliation, the institution it belongs to according to the
+            Research Organization Registry, or ``None`` when there is no confident match;
+            ``None`` altogether if not looked up yet. Always as long as ``affiliations``.
     """
 
     arxiv_id: str
@@ -53,6 +56,7 @@ class Paper:
     abstract: str | None = None
     affiliations: tuple[str, ...] | None = None
     author_affiliations: tuple[tuple[int, ...] | None, ...] | None = None
+    institutions: tuple[str | None, ...] | None = None
 
     @property
     def abs_url(self) -> str:
@@ -93,6 +97,7 @@ class Paper:
             "author_affiliations": None
             if self.author_affiliations is None
             else [None if entry is None else list(entry) for entry in self.author_affiliations],
+            "institutions": None if self.institutions is None else list(self.institutions),
             "abs_url": self.abs_url,
             "pdf_url": self.pdf_url,
         }
@@ -113,6 +118,7 @@ class Paper:
         try:
             affiliations = _optional_str_list(record, "affiliations")
             author_affiliations = _optional_index_lists(record, "author_affiliations")
+            institutions = _institutions(record, affiliations)
             return cls(
                 arxiv_id=_str(record, "arxiv_id"),
                 announced=date.fromisoformat(_str(record, "announced")),
@@ -128,6 +134,7 @@ class Paper:
                 abstract=_optional_str(record, "abstract"),
                 affiliations=None if affiliations is None else tuple(affiliations),
                 author_affiliations=author_affiliations,
+                institutions=institutions,
             )
         except (KeyError, TypeError, ValueError) as exc:
             msg = f"Invalid paper record {record.get('arxiv_id')!r}: {exc}"
@@ -174,6 +181,28 @@ def _str_list(record: Mapping[str, object], key: str) -> list[str]:
 
 def _optional_str_list(record: Mapping[str, object], key: str) -> list[str] | None:
     return None if record.get(key) is None else _str_list(record, key)
+
+
+def _optional_nullable_str_list(record: Mapping[str, object], key: str) -> tuple[str | None, ...] | None:
+    """Parse a list of strings where both the whole and each entry may be ``None``."""
+    value = record.get(key)
+    if value is None:
+        return None
+    if not isinstance(value, list) or not all(item is None or isinstance(item, str) for item in value):
+        msg = f"{key!r} must be a list of strings or null"
+        raise TypeError(msg)
+    return tuple(value)
+
+
+def _institutions(
+    record: Mapping[str, object], affiliations: list[str] | None
+) -> tuple[str | None, ...] | None:
+    """Parse the institutions, which must match the affiliations one to one."""
+    institutions = _optional_nullable_str_list(record, "institutions")
+    if institutions is not None and (affiliations is None or len(institutions) != len(affiliations)):
+        msg = "'institutions' must have one entry per affiliation"
+        raise ValueError(msg)
+    return institutions
 
 
 def _optional_index_lists(

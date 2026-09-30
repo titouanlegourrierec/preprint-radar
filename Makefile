@@ -105,6 +105,10 @@ backfill: ## Add past days (SINCE to UNTIL) to data/, with abstracts and affilia
 	@if [ -z "$(SINCE)" ]; then echo "Usage: make backfill SINCE=YYYY-MM-DD [UNTIL=YYYY-MM-DD]" >&2; exit 2; fi
 	uv run preprint-radar -v backfill $(CATEGORY_ARGS) --since $(SINCE) $(UNTIL_ARG) $(MAX_HTML_ARG)
 
+.PHONY: institutions
+institutions: ## Name the institutions of stored affiliations through ROR (minutes)
+	uv run preprint-radar -v institutions $(CATEGORY_ARGS)
+
 .PHONY: stats
 stats: ## Show how much of data/ is enriched: abstracts, affiliations, venues per day
 	@uv run preprint-radar stats $(CATEGORY_ARGS)

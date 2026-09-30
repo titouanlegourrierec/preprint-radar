@@ -12,6 +12,7 @@ from datetime import date
 from preprint_radar.arxiv_api import fetch_metadata
 from preprint_radar.exceptions import FetchError, ParseError
 from preprint_radar.http import HttpClient
+from preprint_radar.institutions import match_institutions
 from preprint_radar.listing import fetch_catchup, fetch_listing
 from preprint_radar.models import Paper
 from preprint_radar.paper_page import fetch_front_matter
@@ -21,6 +22,8 @@ from preprint_radar.store import PaperStore
 logger = logging.getLogger(__name__)
 
 DEFAULT_SAVE_EVERY = 20
+# A day of cs.CV brings about 400 distinct affiliation strings.
+DEFAULT_MAX_ROR_LOOKUPS = 1000
 
 
 @dataclass(frozen=True, slots=True)
@@ -50,7 +53,9 @@ def update_category(
     store: PaperStore,
     site_client: HttpClient,
     api_client: HttpClient,
+    ror_client: HttpClient | None = None,
     max_html_fetches: int | None = None,
+    max_ror_lookups: int | None = DEFAULT_MAX_ROR_LOOKUPS,
     save_every: int = DEFAULT_SAVE_EVERY,
 ) -> UpdateReport:
     """Fetch the recent listing of ``category``, enrich new papers and store them.
@@ -64,8 +69,11 @@ def update_category(
         store: Destination store.
         site_client: Client for arxiv.org (listing and HTML pages).
         api_client: Client for the arXiv API.
+        ror_client: Client for the Research Organization Registry, to name the
+            institutions of the affiliations (``None``: skip).
         max_html_fetches: Maximum number of HTML pages to download (``None``: no limit,
             ``0``: skip affiliation extraction from HTML).
+        max_ror_lookups: Maximum number of affiliation strings to look up in ROR.
         save_every: Save progress after this many HTML downloads.
 
     Returns:
@@ -89,8 +97,10 @@ def update_category(
         checkpoint=lambda current: store.save(category, current),
         save_every=save_every,
     )
-    store.save(category, papers)
     abstracts_fetched += html_abstracts
+    if ror_client is not None:
+        papers = add_institutions(papers, ror_client, limit=max_ror_lookups)
+    store.save(category, papers)
 
     return UpdateReport(
         category=category,
@@ -108,7 +118,9 @@ def backfill_category(
     *,
     store: PaperStore,
     site_client: HttpClient,
+    ror_client: HttpClient | None = None,
     max_html_fetches: int | None = None,
+    max_ror_lookups: int | None = DEFAULT_MAX_ROR_LOOKUPS,
     save_every: int = DEFAULT_SAVE_EVERY,
 ) -> UpdateReport:
     """Collect past announcement days of ``category`` from the catchup pages.
@@ -124,8 +136,11 @@ def backfill_category(
         days: Days to collect. Days without announcement (weekends, holidays) are empty.
         store: Destination store.
         site_client: Client for arxiv.org (catchup and HTML pages).
+        ror_client: Client for the Research Organization Registry, to name the
+            institutions of the affiliations (``None``: skip).
         max_html_fetches: Maximum number of HTML pages to download (``None``: no limit,
             ``0``: skip affiliation extraction from HTML).
+        max_ror_lookups: Maximum number of affiliation strings to look up in ROR.
         save_every: Save progress after this many HTML downloads.
 
     Returns:
@@ -164,6 +179,8 @@ def backfill_category(
         checkpoint=lambda current: store.save(category, current),
         save_every=save_every,
     )
+    if ror_client is not None:
+        papers = add_institutions(papers, ror_client, limit=max_ror_lookups)
     store.save(category, papers)
 
     return UpdateReport(
@@ -187,6 +204,7 @@ def _carry_over(listed: Paper, stored: Paper | None) -> Paper:
         abstract=listed.abstract if listed.abstract is not None else stored.abstract,
         affiliations=stored.affiliations,
         author_affiliations=stored.author_affiliations,
+        institutions=stored.institutions,
     )
 
 
@@ -234,7 +252,10 @@ def _add_abstracts(
             continue
         # Submitter-declared affiliations are cleaner than those scraped from HTML.
         affiliations = meta.affiliations or paper.affiliations
-        enriched.append(replace(paper, abstract=meta.abstract, affiliations=affiliations))
+        institutions = paper.institutions if affiliations == paper.affiliations else None
+        enriched.append(
+            replace(paper, abstract=meta.abstract, affiliations=affiliations, institutions=institutions)
+        )
     return enriched, len(missing) - sum(paper.abstract is None for paper in enriched)
 
 
@@ -286,6 +307,7 @@ def _add_html_front_matter(
             paper,
             affiliations=front.affiliations,
             author_affiliations=front.author_affiliations,
+            institutions=None,
             abstract=abstract,
         )
         pages += 1
@@ -294,6 +316,33 @@ def _add_html_front_matter(
             checkpoint(current)
             logger.info("%d/%d HTML renderings read, progress saved", done, len(todo))
     return current, pages, abstracts
+
+
+def add_institutions(papers: Sequence[Paper], client: HttpClient, *, limit: int | None) -> list[Paper]:
+    """Name the institution of each affiliation through the Research Organization Registry.
+
+    Only papers with affiliations and no institutions yet are looked up, each distinct
+    string once. A paper gets its institutions when all its strings were looked up; the
+    others wait for the next run (lookup limit reached, or ROR unreachable), which never
+    fails the run.
+
+    Returns:
+        The papers, with institutions where they could be named.
+    """
+    pending = [paper for paper in papers if paper.affiliations and paper.institutions is None]
+    if not pending:
+        return list(papers)
+    strings = [affiliation for paper in pending for affiliation in paper.affiliations or ()]
+    logger.info("Looking up %d distinct affiliations in ROR", len(set(strings)))
+    matches = match_institutions(client, strings, limit=limit)
+    named = sum(name is not None for name in matches.values())
+    logger.info("ROR named %d of %d affiliations", named, len(matches))
+    return [
+        replace(paper, institutions=tuple(matches[affiliation] for affiliation in paper.affiliations))
+        if paper.affiliations and paper.institutions is None and all(a in matches for a in paper.affiliations)
+        else paper
+        for paper in papers
+    ]
 
 
 def format_report(report: UpdateReport) -> str:

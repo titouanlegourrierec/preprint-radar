@@ -27,9 +27,12 @@ def offline(
             return catchup_html if url.endswith("/2026-09-01") else catchup_empty_html
         if "export.arxiv.org" in url:
             return api_feed
+        if "api.ror.org" in url:
+            return '{"items": []}'
         raise NotFoundError(url)
 
     monkeypatch.setattr(HttpClient, "get_text", get_text)
+    monkeypatch.setattr("preprint_radar.cli.ROR_DELAY_SECONDS", 0)
 
 
 @pytest.mark.usefixtures("offline")
@@ -138,3 +141,20 @@ def test_rejects_invalid_category(capsys: pytest.CaptureFixture[str]) -> None:
 
     assert exc_info.value.code == 2
     assert "Invalid arXiv category" in capsys.readouterr().err
+
+
+@pytest.mark.usefixtures("offline")
+def test_institutions_catches_up_on_the_store(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    data_dir = tmp_path / "data"
+    assert main(["update", "--data-dir", str(data_dir), "--crawl-delay", "0", "--max-ror", "0"]) == 0
+    capsys.readouterr()
+
+    assert main(["institutions", "--data-dir", str(data_dir)]) == 0
+
+    assert "still pending" in capsys.readouterr().out
+    records = [
+        record
+        for day in (data_dir / "cs.CV").glob("*.json")
+        for record in json.loads(day.read_text(encoding="utf-8"))["papers"]
+    ]
+    assert all((record["institutions"] is None) == (not record["affiliations"]) for record in records)

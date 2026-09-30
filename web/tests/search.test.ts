@@ -98,6 +98,26 @@ describe("PaperIndex", () => {
     expect(ids("", { ...NO_FILTERS, author: "  " })).toHaveLength(3);
   });
 
+  it("finds affiliations by the name of their institution", () => {
+    const named = new PaperIndex([
+      makePaper({
+        arxiv_id: "2609.00010",
+        affiliations: ["University of Padova, Italy"],
+        institutions: ["University of Padua"],
+      }),
+    ]);
+    const find = (query: string, affiliation: string | null = null) =>
+      named.search(query, { ...NO_FILTERS, affiliation }, "relevance").length;
+
+    // "MIT" is named Massachusetts Institute of Technology, as in the graph.
+    expect(ids("", { ...NO_FILTERS, affiliation: "Massachusetts Institute" }).sort()).toEqual([
+      "2609.00001",
+      "2609.00002",
+    ]);
+    expect(find("", "University of Padua")).toBe(1);
+    expect(find("padua")).toBe(1);
+  });
+
   it("does not highlight stop words of filters", () => {
     const tokyo = new PaperIndex([
       makePaper({ arxiv_id: "1", affiliations: ["University of Tokyo"] }),

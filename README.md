@@ -25,6 +25,7 @@ reading list exported as BibTeX.
 | Title, authors, subjects, comments, links | `https://arxiv.org/list/<category>/recent` (last 5 announcement days); `https://arxiv.org/catchup/<category>/<date>` for older days |
 | Abstract                      | The category RSS feed (latest day, one request), then the catchup page of each older day (one request per day); the arXiv API and the paper's HTML rendering as last resorts |
 | Affiliations                  | Submitter-declared affiliations from the API when present; otherwise the front matter of the paper's HTML rendering |
+| Institution of each affiliation | The [Research Organization Registry](https://ror.org) (ROR) affiliation matching, when confident; otherwise the web app's own rules (acronyms, companies, departments) |
 | Venue                         | Detected in the comments and journal reference ("Accepted to ECCV 2026", "BMVC2026", …); submissions and papers under review are ignored |
 
 Affiliations are **best effort**: arXiv metadata rarely includes them, and the HTML
@@ -155,6 +156,7 @@ make preview     # production build of the site, served locally
 make update      # refresh data/ (CATEGORIES="cs.CV cs.LG" MAX_HTML=50)
 make backfill SINCE=2026-09-01   # add past days to data/ (UNTIL defaults to today)
 make stats       # how much of data/ is enriched, per day
+make institutions # name the institutions of stored affiliations through ROR
 ```
 
 The underlying commands:

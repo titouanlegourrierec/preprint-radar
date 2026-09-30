@@ -14,6 +14,7 @@ Use the Makefile (`make help` lists everything):
 - `make dev` / `make preview`: the site locally (dev server, or production build).
 - `make update-quick`: refresh `data/` without reading HTML pages. `make update` reads them too, at one page every 15 s, so it takes hours. Never start it without asking.
 - `make backfill SINCE=YYYY-MM-DD [UNTIL=...]`: add past days from the catchup pages, then read their HTML pages (a month of cs.CV takes about 11 hours). Same rule: ask first. Interrupting either command loses nothing; re-running resumes.
+- `make institutions`: name the institutions of stored affiliations through the Research Organization Registry (ROR), for papers that `update`/`backfill` did not reach (a few minutes; one request per distinct string, every 0.5 s).
 - `make stats`: how much of `data/` is enriched (abstracts, affiliations, venues per day). Check it after touching the extraction heuristics.
 
 Single checks: `uv run pytest tests/unit/test_store.py -k merge`, `cd web && npx vitest run tests/search.test.ts`.
@@ -22,7 +23,7 @@ Single checks: `uv run pytest tests/unit/test_store.py -k merge`, `cd web && npx
 
 - `src/preprint_radar/`: `pipeline.py` orchestrates listing → abstracts → HTML front matter → store.
   - `update_category` follows the recent listing, `backfill_category` walks past days through catchup pages.
-  - Sources: `listing.py` (recent listing and catchup pages, which share the entry markup), `rss.py`, `arxiv_api.py`, `paper_page.py`; `venue.py` detects accepted venues from comments at parse time.
+  - Sources: `listing.py` (recent listing and catchup pages, which share the entry markup), `rss.py`, `arxiv_api.py`, `paper_page.py`; `venue.py` detects accepted venues from comments at parse time; `institutions.py` names the institution of each affiliation through ROR, after the HTML step.
   - HTTP goes through `http.HttpClient` only (rate limiting, retries, error mapping).
 - `data/<category>/<YYYY-MM-DD>.json` + `data/index.json`: written by `store.py`, read by `web/src/data.ts`. Generated, but committed and deployed.
 - `web/src/`: `search.ts` (MiniSearch index and query syntax), `app.tsx` (layout and wiring), `hooks/` (URL-synced view state, paper loading, reading list, theme), `url-state.ts` (shareable URLs, including `?paper=` paper permalinks), `period.ts` (preset or custom date range, `?range=` or `?from=&to=`, shown by `components/PeriodPicker.tsx`), `preferences.ts` (per-browser settings in `localStorage`).
@@ -48,6 +49,7 @@ Single checks: `uv run pytest tests/unit/test_store.py -k merge`, `cd web && npx
 - An empty list means "tried, nothing found"; the pipeline does not retry those.
 - `affiliations` are per paper, deduplicated, and never contain e-mails or URLs.
 - `author_affiliations` (optional, like `venue`) maps each author to indices into `affiliations`; `null` per author or altogether means "the page does not say". The graph links a placed author only to their own institutions.
+- `institutions` (optional) is parallel to `affiliations`: the ROR name of each affiliation's institution, `null` without a confident match, `null` altogether when not looked up yet (the pipeline retries). Anything that changes `affiliations` resets it to `null`. The web app names the rest itself (`web/src/institutions.ts`), and the affiliation filter matches both.
 - `venue` is optional on the web side (`venue?:`) because reading lists saved in browsers predate it. Adding an optional field needs no schema bump; backfill `data/` with a one-off script.
 
 ## arXiv constraints (hard-won, do not "simplify" away)
@@ -60,6 +62,7 @@ Single checks: `uv run pytest tests/unit/test_store.py -k merge`, `cd web && npx
 - **Catchup pages** (`/catchup/<category>/<YYYY-MM-DD>?abs=True`, allowed by `robots.txt`): one request per day, with abstracts.
   - Their new submissions and cross-lists are exactly the recent listing's entries for that day; replacements are skipped.
   - Days without announcement return 200 with "Total of 0 entries" and no section.
+- **Institutions (ROR, `api.ror.org/v2/organizations?affiliation=`):** only `chosen` matches are kept, and only when one of the organization's names (not an acronym) of at least two words appears word for word in the affiliation: `chosen` alone matched "ARC Lab, Tencent" to an association called ARC and "180 Queen's Gate" to "The Gate". It covers about 65% of affiliation strings (universities in full); acronyms and companies are named by the web app's own rules, which map acronyms to ROR's names so both merge. A failing ROR never fails a run: lookups stop and resume next run.
 - **Affiliations:** submitter-declared ones from the API if present, otherwise heuristics on LaTeXML front matter. Add a fixture under `tests/fixtures/html/` for every new heuristic.
   - Sources, in order: `ltx_role_affiliation`/`ltx_role_address` contacts in `div.ltx_authors`; `ltx_note` of roles `address` and `institutetext` anywhere, and `footnotetext` notes that are direct children of the article and start with a marker; numbered lines after the names; "A is with B" sentences in `thanks` notes.
   - Superscript markers split affiliations; a line ending with "," or "and" continues on the next one, and a line that only names a place joins the previous line when that one has no country.

@@ -1,11 +1,7 @@
 import { describe, expect, it } from "vitest";
-import {
-  buildGraph,
-  type GraphOptions,
-  institutionName,
-  nodeMatches,
-  searchKey,
-} from "../src/graph";
+import { buildGraph, type GraphOptions, nodeMatches } from "../src/graph";
+import { canonicalInstitution, institutionName, paperInstitutions } from "../src/institutions";
+import { searchKey } from "../src/text";
 import { makePaper } from "./fixtures";
 
 describe("institutionName", () => {
@@ -42,6 +38,38 @@ describe("institutionName", () => {
     ["Luca Gandolfi and Chiara Plizzari are with Bocconi University", "Bocconi University"],
   ])("%s -> %s", (affiliation, expected) => {
     expect(institutionName(affiliation)).toBe(expected);
+  });
+});
+
+describe("paperInstitutions", () => {
+  it("prefers the registry's institution, and names the others locally", () => {
+    const paper = makePaper({
+      arxiv_id: "20",
+      affiliations: ["University of Padova, Italy", "CMU", "Microsoft Research Asia, Beijing"],
+      institutions: ["University of Padua", null, "Microsoft Research Asia"],
+    });
+
+    expect(paperInstitutions(paper)).toEqual([
+      "University of Padua",
+      "Carnegie Mellon University",
+      "Microsoft",
+    ]);
+  });
+
+  it("ignores institutions that do not match the affiliations one to one", () => {
+    const paper = makePaper({
+      arxiv_id: "21",
+      affiliations: ["MIT", "Inria"],
+      institutions: ["X"],
+    });
+
+    expect(paperInstitutions(paper)).toEqual(["Massachusetts Institute of Technology", "Inria"]);
+  });
+
+  it("maps a company, as the registry spells it, to its common name", () => {
+    expect(canonicalInstitution("Google DeepMind")).toBe("Google DeepMind");
+    expect(canonicalInstitution("Tencent (China)")).toBe("Tencent");
+    expect(canonicalInstitution("Peking University")).toBe("Peking University");
   });
 });
 

@@ -1,4 +1,4 @@
-import { fold } from "./search";
+import { fold } from "./text";
 import type { Paper } from "./types";
 
 const TITLE_STOP_WORDS = new Set(["a", "an", "the", "on", "of", "towards", "toward"]);

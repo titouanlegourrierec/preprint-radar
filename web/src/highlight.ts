@@ -1,4 +1,4 @@
-import { fold } from "./search";
+import { fold } from "./text";
 
 export interface Segment {
   text: string;

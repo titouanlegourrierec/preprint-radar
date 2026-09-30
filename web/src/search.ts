@@ -1,4 +1,6 @@
 import MiniSearch, { type SearchResult as MiniSearchResult } from "minisearch";
+import { paperInstitutions } from "./institutions";
+import { fold } from "./text";
 import type { Paper } from "./types";
 
 export type SortOrder = "relevance" | "newest";
@@ -58,14 +60,6 @@ const FIELD_BOOSTS = {
 };
 const SEARCHED_FIELDS = Object.keys(FIELD_BOOSTS);
 
-/** Lowercase and strip diacritics, so that "perez" matches "Pérez". */
-export function fold(text: string): string {
-  return text
-    .normalize("NFD")
-    .replace(/\p{Diacritic}/gu, "")
-    .toLowerCase();
-}
-
 export function parseQuery(raw: string): ParsedQuery {
   const phrases: string[] = [];
   const excluded: string[] = [];
@@ -93,7 +87,8 @@ function fieldValue(paper: Paper, field: string): string {
     case "authors":
       return paper.authors.join(" ");
     case "affiliations":
-      return (paper.affiliations ?? []).join(" ");
+      // The institutions' names too, so that "Carnegie Mellon" finds "CMU".
+      return [...new Set([...(paper.affiliations ?? []), ...paperInstitutions(paper)])].join(" ");
     case "title":
       return paper.title;
     case "abstract":
@@ -186,12 +181,19 @@ function containsFolded(values: readonly string[], needle: string | null): boole
 /**
  * Author and affiliation filters match any value containing the text, ignoring case and
  * accents, so that "kaist" matches "KAIST, Daejeon" and "perez" matches "Lozano-Pérez".
+ * Affiliations also match by institution, so that a graph node's name ("Carnegie Mellon
+ * University") finds the papers written "CMU".
  */
 export function matchesFilters(paper: Paper, filters: SearchFilters): boolean {
   return (
     !(filters.excludeCrossLists && paper.cross_list_from !== null) &&
     containsFolded(paper.authors, filters.author) &&
-    containsFolded(paper.affiliations ?? [], filters.affiliation) &&
+    // Institutions are only named when an affiliation filter needs them.
+    (!filters.affiliation?.trim() ||
+      containsFolded(
+        [...(paper.affiliations ?? []), ...paperInstitutions(paper)],
+        filters.affiliation,
+      )) &&
     (filters.subject === null || paper.primary_subject === filters.subject) &&
     (filters.venue === null ||
       (filters.venue === ANY_VENUE ? Boolean(paper.venue) : paper.venue === filters.venue))

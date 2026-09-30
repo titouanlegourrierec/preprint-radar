@@ -17,8 +17,15 @@ from preprint_radar.http import (
     HttpClient,
     build_user_agent,
 )
+from preprint_radar.institutions import ROR_DELAY_SECONDS
 from preprint_radar.listing import MAX_LISTING_ENTRIES, fetch_listing, validate_category
-from preprint_radar.pipeline import backfill_category, format_report, update_category
+from preprint_radar.pipeline import (
+    DEFAULT_MAX_ROR_LOOKUPS,
+    add_institutions,
+    backfill_category,
+    format_report,
+    update_category,
+)
 from preprint_radar.stats import collect_coverage, format_coverage
 from preprint_radar.store import PaperStore
 
@@ -54,6 +61,7 @@ def build_parser() -> argparse.ArgumentParser:
     _add_update_parser(subparsers)
     _add_backfill_parser(subparsers)
     _add_stats_parser(subparsers)
+    _add_institutions_parser(subparsers)
     return parser
 
 
@@ -151,6 +159,38 @@ def _add_stats_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentP
     )
 
 
+def _add_institutions_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
+    institutions = subparsers.add_parser(
+        "institutions",
+        help="name the institutions of stored affiliations",
+        description=(
+            "Look up, in the Research Organization Registry, the stored affiliations whose "
+            "institution is not named yet. Update and backfill do it for the papers they "
+            "handle; this command catches up on the rest of the store."
+        ),
+    )
+    institutions.add_argument(
+        "-c",
+        "--category",
+        dest="categories",
+        action="append",
+        type=_category,
+        help="arXiv category, repeatable (default: every category in the store)",
+    )
+    institutions.add_argument(
+        "--data-dir",
+        type=Path,
+        default=DEFAULT_DATA_DIR,
+        help=f"data store directory (default: {DEFAULT_DATA_DIR})",
+    )
+    institutions.add_argument(
+        "--max-ror",
+        type=int,
+        default=None,
+        help="maximum number of affiliations to look up (default: no limit)",
+    )
+
+
 def _add_store_arguments(parser: argparse.ArgumentParser) -> None:
     """Options shared by the commands that write to the data store."""
     parser.add_argument(
@@ -172,6 +212,15 @@ def _add_store_arguments(parser: argparse.ArgumentParser) -> None:
         type=int,
         default=None,
         help="maximum number of HTML pages to download per category (default: no limit; 0 disables)",
+    )
+    parser.add_argument(
+        "--max-ror",
+        type=int,
+        default=DEFAULT_MAX_ROR_LOOKUPS,
+        help=(
+            "maximum number of affiliations to look up in the Research Organization Registry "
+            f"(default: {DEFAULT_MAX_ROR_LOOKUPS}; 0 disables)"
+        ),
     )
     parser.add_argument(
         "--crawl-delay",
@@ -205,6 +254,8 @@ def main(argv: Sequence[str] | None = None) -> int:
                 return _run_backfill(args)
             case "stats":
                 return _run_stats(args)
+            case "institutions":
+                return _run_institutions(args)
             case _:  # pragma: no cover - argparse rejects unknown commands
                 msg = f"Unknown command: {args.command}"
                 raise AssertionError(msg)
@@ -249,6 +300,7 @@ def _run_update(args: argparse.Namespace) -> int:
     with (
         HttpClient(user_agent=user_agent, min_interval=args.crawl_delay) as site_client,
         HttpClient(user_agent=user_agent, min_interval=ARXIV_API_DELAY_SECONDS) as api_client,
+        HttpClient(user_agent=user_agent, min_interval=ROR_DELAY_SECONDS) as ror_client,
     ):
         for category in categories:
             report = update_category(
@@ -256,7 +308,9 @@ def _run_update(args: argparse.Namespace) -> int:
                 store=store,
                 site_client=site_client,
                 api_client=api_client,
+                ror_client=ror_client if args.max_ror else None,
                 max_html_fetches=args.max_html,
+                max_ror_lookups=args.max_ror,
             )
             print(format_report(report))  # noqa: T201 - user-facing CLI output
 
@@ -272,10 +326,20 @@ def _run_backfill(args: argparse.Namespace) -> int:
     if not args.contact:
         logger.warning("No contact given; consider setting %s so arXiv can reach you.", CONTACT_ENV_VAR)
 
-    with HttpClient(user_agent=build_user_agent(args.contact), min_interval=args.crawl_delay) as site_client:
+    user_agent = build_user_agent(args.contact)
+    with (
+        HttpClient(user_agent=user_agent, min_interval=args.crawl_delay) as site_client,
+        HttpClient(user_agent=user_agent, min_interval=ROR_DELAY_SECONDS) as ror_client,
+    ):
         for category in categories:
             report = backfill_category(
-                category, days, store=store, site_client=site_client, max_html_fetches=args.max_html
+                category,
+                days,
+                store=store,
+                site_client=site_client,
+                ror_client=ror_client if args.max_ror else None,
+                max_html_fetches=args.max_html,
+                max_ror_lookups=args.max_ror,
             )
             print(format_report(report))  # noqa: T201 - user-facing CLI output
 
@@ -298,6 +362,20 @@ def _run_stats(args: argparse.Namespace) -> int:
             logger.warning("No stored papers for %s in %s.", category, args.data_dir)
     print("\n\n".join(reports))  # noqa: T201 - user-facing CLI output
     return 0 if reports else 1
+
+
+def _run_institutions(args: argparse.Namespace) -> int:
+    store = PaperStore(args.data_dir)
+    categories: list[str] = args.categories or store.categories()
+    with HttpClient(user_agent=build_user_agent(args.contact), min_interval=ROR_DELAY_SECONDS) as client:
+        for category in categories:
+            papers = list(store.iter_papers(category))
+            named = add_institutions(papers, client, limit=args.max_ror)
+            changed = [new for old, new in zip(papers, named, strict=True) if new is not old]
+            store.save(category, changed)
+            pending = sum(bool(paper.affiliations) and paper.institutions is None for paper in named)
+            print(f"{category}: institutions named for {len(changed)} papers, {pending} still pending")  # noqa: T201
+    return 0
 
 
 def _category(value: str) -> str:

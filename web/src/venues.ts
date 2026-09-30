@@ -1,4 +1,5 @@
-import { type FacetCount, fold } from "./search";
+import type { FacetCount } from "./search";
+import { fold } from "./text";
 
 /** Venues pinned at the top of the venue filter, in this order. */
 export const MAJOR_VENUES = ["NeurIPS", "ICML", "ICLR", "CVPR", "ICCV", "ECCV", "MICCAI"] as const;

@@ -17,12 +17,14 @@ def test_record_round_trip_keeps_enrichment(listing: Listing) -> None:
         abstract="An abstract.",
         affiliations=("MIT", "NVIDIA"),
         author_affiliations=((0, 1), None, (1,)),
+        institutions=("Massachusetts Institute of Technology", None),
     )
     restored = Paper.from_record(paper.to_record())
 
     assert restored.abstract == "An abstract."
     assert restored.affiliations == ("MIT", "NVIDIA")
     assert restored.author_affiliations == ((0, 1), None, (1,))
+    assert restored.institutions == ("Massachusetts Institute of Technology", None)
     assert restored.is_enriched
 
 
@@ -41,6 +43,9 @@ def test_urls(listing: Listing) -> None:
         ("abstract", 42),
         ("author_affiliations", "not a list"),
         ("author_affiliations", [["one"]]),
+        ("institutions", [1]),
+        # One institution per affiliation, and none without affiliations.
+        ("institutions", ["MIT", None]),
     ],
 )
 def test_from_record_rejects_invalid_fields(listing: Listing, field: str, value: object) -> None:
