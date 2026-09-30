@@ -11,7 +11,7 @@ import {
 } from "../preferences";
 import type { FacetCount } from "../search";
 import { searchKey } from "../text";
-import type { DaySummary, Paper } from "../types";
+import type { ArchiveSummary, DaySummary, Paper } from "../types";
 import { GraphSettingsPanel } from "./GraphSettingsPanel";
 
 const DETAILS_PAPERS = 8;
@@ -36,6 +36,11 @@ interface Props {
   storeDays: DaySummary[];
   period: Period;
   onPeriod: (period: Period) => void;
+  /** Years of the archive of highly cited papers. */
+  archiveYears: ArchiveSummary[];
+  /** The archive year shown, `null` for the recent days. */
+  archiveYear: number | null;
+  onArchiveYear: (year: number | null) => void;
   query: string;
   onQuery: (query: string) => void;
   venues: FacetCount[];
@@ -309,8 +314,8 @@ export function GraphView(props: Props) {
         ? null
         : kinds.length === 0
           ? "Turn on institutions or authors in the graph settings."
-          : `No ${kinds.join(" or ")} to show. Affiliations come from the papers' HTML pages; ` +
-            `${affiliatedCount} of these ${shownPapers.length} papers have some so far.`);
+          : `No ${kinds.join(" or ")} to show: ${affiliatedCount} of these ` +
+            `${shownPapers.length} papers have known affiliations so far.`);
 
   return (
     <div class="graph">
@@ -423,6 +428,9 @@ export function GraphView(props: Props) {
         storeDays={props.storeDays}
         period={props.period}
         onPeriod={props.onPeriod}
+        archiveYears={props.archiveYears}
+        archiveYear={props.archiveYear}
+        onArchiveYear={props.onArchiveYear}
         query={props.query}
         onQuery={props.onQuery}
         venues={props.venues}

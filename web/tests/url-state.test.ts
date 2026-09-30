@@ -88,6 +88,13 @@ describe("highly cited view", () => {
     expect(readState(writeState(state))).toEqual(state);
   });
 
+  it("round-trips the graph of an archive year", () => {
+    const state = { ...DEFAULT_STATE, view: "graph" as const, year: 2017 };
+
+    expect(writeState(state)).toBe("?view=graph&year=2017");
+    expect(readState(writeState(state))).toEqual(state);
+  });
+
   it("ignores a malformed year", () => {
     expect(readState("?view=cited&year=soon").year).toBeNull();
   });

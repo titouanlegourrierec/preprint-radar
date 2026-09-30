@@ -35,8 +35,10 @@ const RELEVANCE_HELP =
 export function App() {
   const { state, query, update, setFilters } = useUrlState();
   const cited = state.view === "cited";
+  // The highly cited view always shows the archive; the graph shows it when given a year.
+  const archived = cited || (state.view === "graph" && state.year !== null);
   const { categories, category, storeDays, archiveYears, archiveYear, load, generatedAt } =
-    usePapers(state.category, state.period, cited ? { year: state.year } : null);
+    usePapers(state.category, state.period, archived ? { year: state.year } : null);
   const citations = useCitations(category);
   const citationsNote =
     citations.source && citations.asOf
@@ -116,15 +118,29 @@ export function App() {
   );
 
   const lastUpdate = generatedAt ? formatDay(generatedAt) : null;
-  // The graph shows the loaded period; a saved paper from another day brings its own.
-  const showInGraph = (paper: Paper) =>
-    update({
-      view: "graph",
-      paper: paper.arxiv_id,
-      ...(load.status === "ready" && load.index.has(paper.arxiv_id)
-        ? {}
-        : { period: between(paper.announced, paper.announced) }),
-    });
+  // The graph shows the loaded papers; a saved paper from elsewhere brings its day, or
+  // its archive year when it is older than the days kept.
+  const showInGraph = (paper: Paper) => {
+    const loaded = load.status === "ready" && load.index.has(paper.arxiv_id);
+    const year = Number(paper.announced.slice(0, 4));
+    const oldest = storeDays.at(-1)?.date;
+    if (loaded) {
+      update({ view: "graph", paper: paper.arxiv_id, year: archived ? archiveYear : null });
+    } else if (
+      oldest &&
+      paper.announced < oldest &&
+      archiveYears.some((entry) => entry.year === year)
+    ) {
+      update({ view: "graph", paper: paper.arxiv_id, year });
+    } else {
+      update({
+        view: "graph",
+        paper: paper.arxiv_id,
+        year: null,
+        period: between(paper.announced, paper.announced),
+      });
+    }
+  };
   const clearPaper = useCallback(() => update({ paper: null }), [update]);
   const toggleAbstracts = () => {
     setShowAbstracts(!showAbstracts);
@@ -142,7 +158,7 @@ export function App() {
           <button
             type="button"
             class={`tab${state.view === "papers" ? " tab--active" : ""}`}
-            onClick={() => update({ view: "papers" })}
+            onClick={() => update({ view: "papers", year: null })}
           >
             Papers
           </button>
@@ -157,7 +173,8 @@ export function App() {
           <button
             type="button"
             class={`tab${state.view === "graph" ? " tab--active" : ""}`}
-            onClick={() => update({ view: "graph" })}
+            // From the highly cited papers, the graph shows them.
+            onClick={() => update({ view: "graph", ...(cited ? { year: archiveYear } : {}) })}
           >
             Graph
           </button>
@@ -202,6 +219,9 @@ export function App() {
           storeDays={storeDays}
           period={state.period}
           onPeriod={(period) => update({ period })}
+          archiveYears={archiveYears}
+          archiveYear={archived ? archiveYear : null}
+          onArchiveYear={(year) => update({ year })}
           query={state.query}
           onQuery={(value) => update({ query: value })}
           venues={venueCounts}
@@ -406,8 +426,7 @@ export function App() {
                 openId={state.paper}
                 linkTo={linkTo}
                 onOpenPaper={(arxivId) => update({ paper: arxivId })}
-                // The graph is built from the days kept in full, not from the archive.
-                onShowInGraph={cited ? undefined : showInGraph}
+                onShowInGraph={showInGraph}
                 citations={citations.counts}
                 citationsNote={citationsNote}
                 showAbstracts={showAbstracts || state.view === "reading-list"}

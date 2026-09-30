@@ -3,7 +3,7 @@ import { formatShortDay } from "../format";
 import type { Period } from "../period";
 import type { GraphSettings } from "../preferences";
 import type { FacetCount } from "../search";
-import type { DaySummary } from "../types";
+import type { ArchiveSummary, DaySummary } from "../types";
 import { PeriodPicker } from "./PeriodPicker";
 import { VenueSelect } from "./VenueSelect";
 
@@ -42,6 +42,10 @@ interface Props {
   storeDays: DaySummary[];
   period: Period;
   onPeriod: (period: Period) => void;
+  archiveYears: ArchiveSummary[];
+  /** The archive year shown, `null` for the recent days. */
+  archiveYear: number | null;
+  onArchiveYear: (year: number | null) => void;
   query: string;
   onQuery: (query: string) => void;
   venues: FacetCount[];
@@ -155,7 +159,34 @@ export function GraphSettingsPanel(props: Props) {
                 </select>
               </label>
             )}
-            <PeriodPicker days={props.storeDays} period={props.period} onChange={props.onPeriod} />
+            {props.archiveYears.length > 0 && (
+              <label class="ctl-select">
+                <span>From</span>
+                <select
+                  value={props.archiveYear ?? "recent"}
+                  onChange={(event) => {
+                    const { value } = event.currentTarget;
+                    props.onArchiveYear(value === "recent" ? null : Number(value));
+                  }}
+                >
+                  <option value="recent">Recent days</option>
+                  <optgroup label="Highly cited, first published in">
+                    {props.archiveYears.map(({ year, count }) => (
+                      <option key={year} value={year}>
+                        {year} ({count.toLocaleString()} papers)
+                      </option>
+                    ))}
+                  </optgroup>
+                </select>
+              </label>
+            )}
+            {props.archiveYear === null && (
+              <PeriodPicker
+                days={props.storeDays}
+                period={props.period}
+                onChange={props.onPeriod}
+              />
+            )}
             <div class="ctl-select">
               <span aria-hidden="true">Venue</span>
               <VenueSelect venues={props.venues} value={props.venue} onChange={props.onVenue} />
@@ -250,7 +281,7 @@ export function GraphSettingsPanel(props: Props) {
             {settings.sizeBy === "citations" && !props.cited && (
               <p class="graph-settings__note">
                 No citations yet for these papers: recent papers are rarely cited, and new ones get
-                their counts within days.
+                their counts within days. The highly cited papers (From) show them best.
               </p>
             )}
             {FORCE_SLIDERS.map(({ key, label, min, max, step }) => (
