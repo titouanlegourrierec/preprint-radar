@@ -1,10 +1,12 @@
 name: Update data
 
-# arXiv announces new papers Sunday to Thursday around 20:00 US Eastern time,
-# so the data is refreshed a few hours later, Monday to Friday.
+# arXiv announces new papers Sunday to Thursday at 20:00 US Eastern time (00:00 or
+# 01:00 UTC) and rebuilds its RSS feeds at midnight Eastern time (04:00 or 05:00 UTC),
+# so the data is refreshed after both, Monday to Friday. The odd minute avoids the
+# top-of-the-hour load on GitHub's scheduler, which may still delay runs by hours.
 on:
   schedule:
-    - cron: "30 3 * * 1-5"
+    - cron: "17 6 * * 1-5"
   workflow_dispatch:
     inputs:
       max-html:
@@ -34,6 +36,10 @@ jobs:
       SINCE: ${{ inputs.since }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # The latest main, not the commit the run was triggered on: a run queued behind
+          # another one must start from the data that run pushed.
+          ref: main
       - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
         with:
           enable-cache: true

@@ -80,6 +80,7 @@ Single checks: `uv run pytest tests/unit/test_store.py -k merge`, `cd web && npx
 - GitHub Actions: pushes made with `GITHUB_TOKEN` do not trigger other workflows. That is why `update.yml` calls `deploy.yml` through `workflow_call`.
   - Actions are pinned by commit SHA with the version in a comment; bump them together (`git ls-remote --tags` gives the SHAs).
   - `update.yml` rebases its data commit before pushing (a run lasts hours), and its manual *since* input runs `backfill` instead of `update`.
+  - `update.yml` checks out `main`, not the triggering commit: a run queued behind another one (concurrency group) otherwise starts from stale data and its rebase conflicts. Its cron (06:17 UTC) comes after arXiv's announcement and RSS rebuild; GitHub has been starting it hours late (around 10:00 UTC).
 
 ## Working agreements
 
