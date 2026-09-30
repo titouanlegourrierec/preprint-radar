@@ -1,14 +1,17 @@
 import json
+import runpy
 from collections.abc import Mapping
 from datetime import date
 from pathlib import Path
 
 import pytest
 
+from preprint_radar.archive import ArchiveClients, ArchiveReport
+from preprint_radar.catalog import Catalog
 from preprint_radar.cli import main
 from preprint_radar.exceptions import FetchError, NotFoundError
 from preprint_radar.http import HttpClient
-from preprint_radar.models import Paper
+from preprint_radar.models import Listing, Paper
 from preprint_radar.store import PaperStore
 
 
@@ -71,7 +74,9 @@ def test_fetch_applies_filters(tmp_path: Path) -> None:
 
 
 @pytest.mark.usefixtures("offline")
-def test_update_populates_store(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+def test_update_populates_store(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str], caplog: pytest.LogCaptureFixture
+) -> None:
     data_dir = tmp_path / "data"
 
     assert main(["update", "--data-dir", str(data_dir), "--crawl-delay", "0"]) == 0
@@ -79,10 +84,13 @@ def test_update_populates_store(tmp_path: Path, capsys: pytest.CaptureFixture[st
     index = json.loads((data_dir / "index.json").read_text(encoding="utf-8"))
     assert [day["count"] for day in index["categories"]["cs.CV"]] == [5, 2]
     assert "cs.CV: 7 listed, 7 new" in capsys.readouterr().out
+    assert "No contact given" in caplog.text
 
 
 @pytest.mark.usefixtures("offline")
-def test_backfill_populates_store(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+def test_backfill_populates_store(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str], caplog: pytest.LogCaptureFixture
+) -> None:
     data_dir = tmp_path / "data"
 
     args = ["--since", "2026-08-31", "--until", "2026-09-02", "--max-html", "0", "--crawl-delay", "0"]
@@ -91,6 +99,33 @@ def test_backfill_populates_store(tmp_path: Path, capsys: pytest.CaptureFixture[
     index = json.loads((data_dir / "index.json").read_text(encoding="utf-8"))
     assert index["categories"]["cs.CV"] == [{"date": "2026-09-01", "count": 4}]
     assert "cs.CV: 4 listed, 4 new, 4 abstracts" in capsys.readouterr().out
+    assert "No contact given" in caplog.text
+
+
+@pytest.mark.usefixtures("offline")
+@pytest.mark.parametrize(
+    "command", [["update"], ["backfill", "--since", "2026-09-01", "--until", "2026-09-01"]]
+)
+def test_a_contact_silences_the_warning(
+    tmp_path: Path, caplog: pytest.LogCaptureFixture, command: list[str]
+) -> None:
+    args = [*command, "--data-dir", str(tmp_path / "data"), "--crawl-delay", "0", "--max-html", "0"]
+
+    assert main(["--contact", "https://example.org/radar", *args]) == 0
+
+    assert "No contact given" not in caplog.text
+
+
+def test_fetch_without_papers_writes_nothing(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, caplog: pytest.LogCaptureFixture
+) -> None:
+    monkeypatch.setattr("preprint_radar.cli.fetch_listing", lambda *_, **__: Listing(papers=()))
+    output = tmp_path / "papers.json"
+
+    assert main(["fetch", "--output", str(output)]) == 0
+
+    assert not output.exists()
+    assert "No papers left to export" in caplog.text
 
 
 def test_backfill_rejects_reversed_dates(capsys: pytest.CaptureFixture[str]) -> None:
@@ -143,6 +178,18 @@ def test_stats_reports_the_archive_and_citation_counts(
     assert reports[1].startswith("cs.CV citation counts: 1 from Semantic Scholar, ")
 
 
+def test_stats_skips_categories_without_papers(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str], caplog: pytest.LogCaptureFixture
+) -> None:
+    store = PaperStore(tmp_path / "data")
+    store.save("cs.CV", [Paper(arxiv_id="2609.00001", announced=date(2026, 9, 25), title="T", authors=())])
+
+    assert main(["stats", "--data-dir", str(store.root), "-c", "cs.CV", "-c", "cs.LG"]) == 0
+
+    assert capsys.readouterr().out.startswith("cs.CV: 1 paper over 1 day")
+    assert "No stored papers for cs.LG" in caplog.text
+
+
 def test_stats_on_an_empty_store(tmp_path: Path, caplog: pytest.LogCaptureFixture) -> None:
     assert main(["stats", "--data-dir", str(tmp_path / "nowhere")]) == 1
     assert "is empty" in caplog.text
@@ -181,3 +228,77 @@ def test_institutions_catches_up_on_the_store(tmp_path: Path, capsys: pytest.Cap
         for record in json.loads(day.read_text(encoding="utf-8"))["papers"]
     ]
     assert all((record["institutions"] is None) == (not record["affiliations"]) for record in records)
+
+
+@pytest.fixture
+def archive_calls(monkeypatch: pytest.MonkeyPatch) -> list[tuple[str, dict[str, object]]]:
+    """Record the calls to ``update_archive`` instead of reaching OAI-PMH and Semantic Scholar."""
+    calls: list[tuple[str, dict[str, object]]] = []
+
+    def update_archive(category: str, **options: object) -> ArchiveReport:
+        calls.append((category, options))
+        return ArchiveReport(
+            category=category,
+            candidates=100,
+            coverage=0.99,
+            threshold=19.5,
+            archived=10,
+            entered=2,
+            left=1,
+            pruned_days=0,
+            written=False,
+        )
+
+    monkeypatch.setattr("preprint_radar.cli.update_archive", update_archive)
+    return calls
+
+
+def test_archive_passes_its_options_and_reports(
+    tmp_path: Path,
+    archive_calls: list[tuple[str, dict[str, object]]],
+    capsys: pytest.CaptureFixture[str],
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    args = ["archive", "--data-dir", str(tmp_path / "data"), "--catalog-dir", str(tmp_path / "catalog")]
+
+    assert main([*args, "--budget", "10", "--prune", "--dry-run"]) == 0
+
+    [(category, options)] = archive_calls
+    assert category == "cs.CV"
+    assert (options["budget"], options["prune"], options["dry_run"]) == (10, True, True)
+    assert isinstance(options["catalog"], Catalog)
+    assert options["catalog"].path == tmp_path / "catalog" / "cs.CV.jsonl.gz"
+    assert isinstance(options["clients"], ArchiveClients)
+    assert options["clients"].citations_key is None
+    assert "No Semantic Scholar API key" in caplog.text
+    assert capsys.readouterr().out == (
+        "cs.CV: 10 archived papers (2 in, 1 out), threshold 19.5 citations a year, citation counts "
+        "for 99.0% of 100 papers, 0 day files pruned (dry run: nothing written)\n"
+    )
+
+
+def test_archive_uses_the_semantic_scholar_key(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    archive_calls: list[tuple[str, dict[str, object]]],
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    monkeypatch.setenv("SEMANTIC_SCHOLAR_API_KEY", "test-key")
+
+    assert main(["archive", "--data-dir", str(tmp_path / "data"), "-c", "cs.CV", "-c", "cs.LG"]) == 0
+
+    assert [category for category, _ in archive_calls] == ["cs.CV", "cs.LG"]
+    clients = archive_calls[0][1]["clients"]
+    assert isinstance(clients, ArchiveClients)
+    assert clients.citations_key == "test-key"
+    assert "No Semantic Scholar API key" not in caplog.text
+
+
+def test_runs_as_a_module(monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]) -> None:
+    monkeypatch.setattr("sys.argv", ["preprint-radar", "--version"])
+
+    with pytest.raises(SystemExit) as exc_info:
+        runpy.run_module("preprint_radar", run_name="__main__")
+
+    assert exc_info.value.code == 0
+    assert capsys.readouterr().out.startswith("preprint-radar ")

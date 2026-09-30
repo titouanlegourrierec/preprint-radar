@@ -1,10 +1,12 @@
+import json
+
 import httpx
 import pytest
 from tests.conftest import FIXTURES_DIR
 
 from preprint_radar.exceptions import ParseError
 from preprint_radar.http import HttpClient
-from preprint_radar.institutions import match_institutions, parse_ror_response
+from preprint_radar.institutions import match_institution, match_institutions, parse_ror_response
 
 ROR_DIR = FIXTURES_DIR / "ror"
 
@@ -41,6 +43,28 @@ def _response(name: str) -> str:
 )
 def test_parse_ror_response(fixture: str, affiliation: str, expected: str | None) -> None:
     assert parse_ror_response(_response(fixture), affiliation) == expected
+
+
+@pytest.mark.parametrize(
+    "organization",
+    [
+        pytest.param({"names": "Massachusetts Institute of Technology"}, id="names-not-a-list"),
+        pytest.param(
+            {"names": [42, {"value": "Massachusetts Institute of Technology", "types": ["label"]}]},
+            id="no-display-name",
+        ),
+        pytest.param([], id="organization-not-an-object"),
+    ],
+)
+def test_parse_ror_response_without_usable_names(organization: object) -> None:
+    text = json.dumps({"items": [{"chosen": True, "organization": organization}]})
+
+    assert parse_ror_response(text, "Massachusetts Institute of Technology, Cambridge, MA") is None
+
+
+def test_match_institution_of_an_unknown_string() -> None:
+    with HttpClient(transport=httpx.MockTransport(lambda _: httpx.Response(404)), max_attempts=1) as client:
+        assert match_institution(client, "Nowhere") is None
 
 
 @pytest.mark.parametrize("text", ["not json", "{}", '{"items": [42]}'])

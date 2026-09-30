@@ -180,6 +180,23 @@ def test_update_takes_older_abstracts_from_catchup_pages(fake: FakeArxiv, store:
     assert fake.api_ids == []
 
 
+def test_update_falls_back_to_the_api_when_a_catchup_page_fails(
+    fake: FakeArxiv, store: PaperStore, monkeypatch: pytest.MonkeyPatch, caplog: pytest.LogCaptureFixture
+) -> None:
+    handle = fake.handle
+
+    def failing_catchup(request: httpx.Request) -> httpx.Response:
+        return httpx.Response(503) if request.url.path.startswith("/catchup/") else handle(request)
+
+    monkeypatch.setattr(fake, "handle", failing_catchup)
+
+    stored = {paper.arxiv_id: paper for paper in _run(fake, store, max_html_fetches=0).papers}
+
+    assert "Could not read the cs.CV catchup page of 2026-09-24" in caplog.text
+    assert stored["2609.28466"].abstract == "Abstract of 2609.28466."
+    assert sorted(fake.api_ids) == ["2609.28466", "2609.28473"]
+
+
 def test_second_run_only_fetches_what_is_missing(fake: FakeArxiv, store: PaperStore) -> None:
     _run(fake, store)
     fake.hits.clear()

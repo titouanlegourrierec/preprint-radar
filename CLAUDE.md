@@ -10,6 +10,7 @@ Use the Makefile (`make help` lists everything):
 
 - `make quality`: every static check (ruff format/lint, ty, Biome, tsc, actionlint). Run it before saying a change is done.
 - `make test`: pytest and Vitest, both offline. `make check` runs quality and tests, like CI.
+- `make coverage`: the Python tests with a line and branch coverage report. Keep it at 100%: test new code, or exclude a line that cannot run with a `# pragma: no cover` / `no branch` that says why.
 - `make format`: auto-fix formatting and lint.
 - `make dev` / `make preview`: the site locally (dev server, or production build).
 - `make update-quick`: refresh `data/` without reading HTML pages. `make update` reads them too, at one page every 15 s, so it takes hours. Never start it without asking.
@@ -42,6 +43,7 @@ Single checks: `uv run pytest tests/unit/test_store.py -k merge`, `cd web && npx
   - Ruff runs with `select = ["ALL"]`: fix the code rather than adding `noqa`. Keep any `noqa` or `ty: ignore` rare, and justify it inline.
 - Errors are subclasses of `exceptions.PreprintRadarError`. The CLI turns them into a log line and exit code 1, never a traceback.
 - Tests are offline. Mock HTTP with `httpx.MockTransport` injected into `HttpClient`, or monkeypatch `HttpClient.get_text` for CLI tests. Tests that hit the real arXiv live in `tests/integration/` with the `network` marker, which is deselected by default.
+- `tests/conftest.py` hides `PREPRINT_RADAR_CONTACT` and `SEMANTIC_SCHOLAR_API_KEY` from every test (the Makefile exports `.env`): set them with `monkeypatch.setenv` where a test needs them.
 - Web: TypeScript strict (TS 7), Biome for lint and format (no ESLint/Prettier), Preact hooks, no CSS framework. Theme colors come from the CSS variables in `styles.css`: automatic light/dark plus a manual `data-theme` override. The dark palette is declared twice — keep both blocks identical (and give every new color, like the graph's `--graph-paper`, a value in all three blocks), with plain values only (the graph canvas reads the variables through `getComputedStyle`).
 
 ## Data contract (keep both sides in sync)
@@ -69,6 +71,7 @@ Single checks: `uv run pytest tests/unit/test_store.py -k merge`, `cd web && npx
 - **Institutions (ROR, `api.ror.org/v2/organizations?affiliation=`):** only `chosen` matches are kept, and only when one of the organization's names (not an acronym) of at least two words appears word for word in the affiliation: `chosen` alone matched "ARC Lab, Tencent" to an association called ARC and "180 Queen's Gate" to "The Gate". It covers about 65% of affiliation strings (universities in full); acronyms and companies are named by the web app's own rules, which map acronyms to ROR's names so both merge. A failing ROR never fails a run: lookups stop and resume next run.
 - **Affiliations:** submitter-declared ones from the API if present, otherwise heuristics on LaTeXML front matter. Add a fixture under `tests/fixtures/html/` for every new heuristic.
   - Sources, in order: `ltx_role_affiliation`/`ltx_role_address` contacts in `div.ltx_authors`; `ltx_note` of roles `address` and `institutetext` anywhere, and `footnotetext` notes that are direct children of the article and start with a marker; numbered lines after the names; "A is with B" sentences in `thanks` notes.
+  - Several "is with" sentences on one line: each affiliation ends at the last full stop before the next sentence, skipping initials ("..., Spain. L. Zhinin is with"), so that abbreviations inside it survive ("Dept. of CS, MIT, USA").
   - Superscript markers split affiliations; a line ending with "," or "and" continues on the next one, and a line that only names a place joins the previous line when that one has no country.
   - elsarticle's `organization=…, city=…, country=…` text (printed verbatim by LaTeXML) ignores line breaks: a repeated key starts the next affiliation, and `clean_affiliation` turns the rest into plain values, organization first. Keep that conversion in `clean_affiliation` only, since the author mapping looks affiliations up through it.
   - Place-only affiliations written as separate contact nodes ("Carnegie Mellon University", then "Pittsburgh, PA 15213") are not joined: joining across nodes would also have to change every mapping tier.

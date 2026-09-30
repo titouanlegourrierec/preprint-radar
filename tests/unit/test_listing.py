@@ -94,9 +94,34 @@ def test_keeps_latex_in_titles(listing: Listing) -> None:
     assert _paper(listing, "2609.28836").title.startswith("M$^2$PFN:")
 
 
-def test_total_is_optional(listing_html: str) -> None:
-    html = listing_html.replace("Total of 7 entries", "")
+@pytest.mark.parametrize(("old", "new"), [("Total of 7 entries", ""), ("class='paging'", "class='other'")])
+def test_total_is_optional(listing_html: str, old: str, new: str) -> None:
+    html = listing_html.replace(old, new)
     assert parse_listing(html).total is None
+
+
+def test_keeps_the_text_of_other_links(listing_html: str) -> None:
+    html = listing_html.replace("this https URL</a>", "the OmniFabric page</a>", 1)
+
+    comments = _paper(parse_listing(html), "2609.30234").comments
+
+    assert comments is not None
+    assert comments.endswith("Project Page: the OmniFabric page")
+
+
+@pytest.mark.parametrize(
+    ("old", "new", "error"),
+    [
+        pytest.param("<dt>", "<dt></dt><dt>", "Mismatched <dt>/<dd> counts", id="term-without-details"),
+        pytest.param(
+            "class='list-title mathjax'", "class='list-other'", "Missing title for 2609.30245", id="no-title"
+        ),
+        pytest.param('href ="/abs/2609.30245"', 'href ="/elsewhere"', "a\\[href", id="no-identifier"),
+    ],
+)
+def test_rejects_malformed_entries(listing_html: str, old: str, new: str, error: str) -> None:
+    with pytest.raises(ParseError, match=error):
+        parse_listing(listing_html.replace(old, new, 1))
 
 
 def test_rejects_page_without_articles() -> None:
@@ -124,6 +149,17 @@ def test_fetch_listing_requests_recent_page(listing_html: str) -> None:
     [request] = requests
     assert request.url.path == "/list/cs.CV/recent"
     assert request.url.params["show"] == "100"
+
+
+def test_fetch_listing_warns_about_missing_entries(
+    listing_html: str, caplog: pytest.LogCaptureFixture
+) -> None:
+    html = listing_html.replace("Total of 7 entries", "Total of 9 entries")
+    with HttpClient(transport=httpx.MockTransport(lambda _: httpx.Response(200, text=html))) as client:
+        listing = fetch_listing(client, "cs.CV", max_entries=100)
+
+    assert len(listing.papers) == 7
+    assert "Parsed 7 papers but the cs.CV listing announces 9" in caplog.text
 
 
 def test_listing_pages_have_no_abstracts(listing: Listing) -> None:
@@ -200,6 +236,17 @@ def test_fetch_catchup_requests_one_day_with_abstracts(catchup_html: str) -> Non
     [request] = requests
     assert request.url.path == "/catchup/cs.CV/2026-09-01"
     assert request.url.params["abs"] == "True"
+
+
+def test_fetch_catchup_warns_about_missing_entries(
+    catchup_html: str, caplog: pytest.LogCaptureFixture
+) -> None:
+    html = catchup_html.replace("showing 3 of 3 entries", "showing 5 of 5 entries")
+    with HttpClient(transport=httpx.MockTransport(lambda _: httpx.Response(200, text=html))) as client:
+        catchup = fetch_catchup(client, "cs.CV", date(2026, 9, 1))
+
+    assert len(catchup.papers) == 4
+    assert "Parsed 4 papers but the cs.CV catchup page of 2026-09-01 announces 6" in caplog.text
 
 
 def test_fetch_listing_rejects_out_of_range_max_entries() -> None:

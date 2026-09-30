@@ -77,9 +77,12 @@ def parse_ror_response(text: str, affiliation: str) -> str | None:
     except (json.JSONDecodeError, AttributeError, KeyError, TypeError) as exc:
         msg = f"Unexpected ROR response for {affiliation!r}: {exc}"
         raise ParseError(msg) from exc
-    if chosen is None or not _is_supported(affiliation, chosen):
+    if not isinstance(chosen, dict):
         return None
-    return _display_name(chosen)
+    names = chosen.get("names")
+    if not isinstance(names, list) or not _is_supported(affiliation, names):
+        return None
+    return _display_name(chosen, names)
 
 
 def match_institutions(
@@ -117,12 +120,9 @@ def match_institutions(
     return matches
 
 
-def _is_supported(affiliation: str, organization: Mapping[str, object]) -> bool:
+def _is_supported(affiliation: str, names: list[object]) -> bool:
     """Whether one of the organization's names (not an acronym) is written in the affiliation."""
     words = _words(affiliation)
-    names = organization.get("names")
-    if not isinstance(names, list):
-        return False
     for name in names:
         if not isinstance(name, dict) or set(name.get("types", [])) <= {"acronym"}:
             continue
@@ -142,11 +142,8 @@ def organization_name(name: str, *, company: bool) -> str:
     return _TRAILING_PARENTHESIS_RE.sub("", name) if company else name
 
 
-def _display_name(organization: Mapping[str, object]) -> str | None:
+def _display_name(organization: Mapping[str, object], names: list[object]) -> str | None:
     """The organization's display name, tidied by :func:`organization_name`."""
-    names = organization.get("names")
-    if not isinstance(names, list):
-        return None
     display = next(
         (
             str(name["value"])

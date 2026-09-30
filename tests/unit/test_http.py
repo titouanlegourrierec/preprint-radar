@@ -99,6 +99,24 @@ def test_network_errors_raise_fetch_error_once_retries_are_exhausted() -> None:
     assert len(sleeps) == 2
 
 
+def test_other_request_errors_are_not_retried() -> None:
+    def handler(request: httpx.Request) -> httpx.Response:
+        raise httpx.TooManyRedirects("loop", request=request)
+
+    sleeps: list[float] = []
+    with (
+        HttpClient(transport=httpx.MockTransport(handler), max_attempts=3, sleep=sleeps.append) as client,
+        pytest.raises(FetchError, match="loop"),
+    ):
+        client.get_text("https://arxiv.org/")
+    assert sleeps == []
+
+
+def test_at_least_one_attempt() -> None:
+    with pytest.raises(ValueError, match="max_attempts"):
+        HttpClient(max_attempts=0)
+
+
 def test_timeouts_are_retried() -> None:
     calls = iter([httpx.ReadTimeout("slow"), httpx.Response(200, text="late")])
 

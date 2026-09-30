@@ -108,7 +108,13 @@ class HttpClient:
             transport: Custom transport, mainly useful for testing.
             rate_limiter: Custom rate limiter; overrides ``min_interval``.
             sleep: Sleep function used between retries, injectable for testing.
+
+        Raises:
+            ValueError: If ``max_attempts`` is less than 1.
         """
+        if max_attempts < 1:
+            msg = f"max_attempts must be at least 1, got {max_attempts}"
+            raise ValueError(msg)
         self._rate_limiter = rate_limiter or RateLimiter(min_interval)
         self._max_attempts = max_attempts
         self._backoff = backoff
@@ -196,7 +202,8 @@ class HttpClient:
         headers: Mapping[str, str] | None = None,
     ) -> str:
         delay = self._backoff
-        for attempt in range(1, self._max_attempts + 1):
+        # The last attempt always breaks or raises: the loop never runs out (max_attempts >= 1).
+        for attempt in range(1, self._max_attempts + 1):  # pragma: no branch
             self._rate_limiter.wait()
             logger.debug("%s %s %s (attempt %d)", method, url, dict(params or {}), attempt)
             try:

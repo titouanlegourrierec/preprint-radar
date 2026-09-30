@@ -267,8 +267,7 @@ class Catalog:
         Each page is appended as a new gzip member: after a truncated member, the pages of
         the resumed harvest could not be read back. The cut page is harvested again anyway.
         """
-        if self._partial.is_file():
-            _write(self._partial, [entry for _, entry in _read(self._partial, tolerant=True)])
+        _write(self._partial, [entry for _, entry in _read(self._partial, tolerant=True)])
 
     def _read_state(self) -> dict[str, str | None]:
         if not self._state.is_file():

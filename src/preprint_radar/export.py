@@ -46,7 +46,7 @@ def export_papers(papers: Sequence[Paper], path: Path, fmt: ExportFormat) -> Non
     match fmt:
         case ExportFormat.JSON:
             write_json(papers, path)
-        case ExportFormat.CSV:
+        case ExportFormat.CSV:  # pragma: no branch - the match covers every format
             write_csv(papers, path)
 
 

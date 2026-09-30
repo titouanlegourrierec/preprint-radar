@@ -3,7 +3,7 @@ from datetime import date
 import httpx
 import pytest
 
-from preprint_radar.citations import fetch_citation_counts, parse_batch_response
+from preprint_radar.citations import api_key, fetch_citation_counts, parse_batch_response
 from preprint_radar.exceptions import ParseError
 from preprint_radar.http import HttpClient
 from preprint_radar.selection import Candidate, citation_rate, is_recent, select_archive
@@ -114,3 +114,17 @@ def test_fetch_citation_counts_gives_up_on_a_batch_that_keeps_failing() -> None:
         counts = fetch_citation_counts(client, ["2609.1"], sleep=lambda _: None)
 
     assert counts == {}
+
+
+def test_fetch_citation_counts_without_progress_callback() -> None:
+    answer = httpx.Response(200, text='[{"citationCount": 3}]')
+    with HttpClient(transport=httpx.MockTransport(lambda _: answer), max_attempts=1) as client:
+        assert fetch_citation_counts(client, ["2609.1"]) == {"2609.1": 3}
+
+
+def test_api_key_comes_from_the_environment(monkeypatch: pytest.MonkeyPatch) -> None:
+    assert api_key() is None
+    monkeypatch.setenv("SEMANTIC_SCHOLAR_API_KEY", "")
+    assert api_key() is None
+    monkeypatch.setenv("SEMANTIC_SCHOLAR_API_KEY", "test-key")
+    assert api_key() == "test-key"

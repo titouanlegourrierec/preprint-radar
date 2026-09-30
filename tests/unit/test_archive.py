@@ -8,8 +8,15 @@ import httpx
 import pytest
 from tests.conftest import FIXTURES_DIR
 
-from preprint_radar.archive import ArchiveClients, ArchiveReport, paper_from_catalog, update_archive
+from preprint_radar.archive import (
+    ArchiveClients,
+    ArchiveReport,
+    format_archive_report,
+    paper_from_catalog,
+    update_archive,
+)
 from preprint_radar.catalog import Catalog, CatalogEntry
+from preprint_radar.exceptions import ParseError
 from preprint_radar.http import HttpClient
 from preprint_radar.models import Paper
 from preprint_radar.openalex import affiliations_from_authorships, fetch_affiliations, parse_works
@@ -62,6 +69,34 @@ def test_fetch_affiliations_asks_one_by_one_for_what_a_batch_misses() -> None:
     assert found["2010.11929"].affiliations[0] == "Google"  # missed by the batch, found alone
     assert found["2609.99999"].affiliations == ()  # unknown to OpenAlex
     assert "2609.88888" not in found  # the lookup failed: tried again next time
+
+
+def test_parse_works_skips_unnamed_and_repeated_institutions() -> None:
+    institutions = [{"display_name": "Google"}, {"display_name": None}, "Google", {"display_name": "Google"}]
+    work = {
+        "doi": "https://doi.org/10.48550/arXiv.2609.00001",
+        "authorships": [{"institutions": institutions}],
+    }
+
+    assert parse_works(json.dumps({"results": [work]})) == {"2609.00001": [["Google"]]}
+
+
+@pytest.mark.parametrize("text", ["not json", "{}", '{"results": [42]}'])
+def test_parse_works_rejects_unexpected_json(text: str) -> None:
+    with pytest.raises(ParseError, match="Unexpected OpenAlex response"):
+        parse_works(text)
+
+
+def test_fetch_affiliations_leaves_a_failed_batch_for_later() -> None:
+    requests: list[httpx.Request] = []
+
+    def handle(request: httpx.Request) -> httpx.Response:
+        requests.append(request)
+        return httpx.Response(503)
+
+    with HttpClient(transport=httpx.MockTransport(handle), max_attempts=1) as client:
+        assert fetch_affiliations(client, {"1512.03385": 4, "2010.11929": 4}) == {}
+    assert len(requests) == 1  # no one-by-one lookups after a failed batch
 
 
 class FakeServices:
@@ -134,7 +169,14 @@ def store(tmp_path: Path) -> PaperStore:
         subjects=("Machine Learning (cs.LG)",),
         affiliations=("Read from its HTML page",),
     )
-    recent = Paper(arxiv_id="2609.00001", announced=RECENT_DAY, title="Recent paper", authors=("A One",))
+    recent = Paper(
+        arxiv_id="2609.00001",
+        announced=RECENT_DAY,
+        title="Recent paper",
+        authors=("A One",),
+        # Subject names are learned from the stored days; a subject without code names nothing.
+        subjects=("Computer Vision and Pattern Recognition (cs.CV)", "Uncoded subject"),
+    )
     store.save("cs.CV", [stale, recent])
     return store
 
@@ -177,6 +219,10 @@ def test_update_archive_keeps_the_most_cited_and_prunes_old_days(store: PaperSto
     assert resnet.venue == "CVPR 2016"
     # A cross-list keeps its primary category.
     assert archived["2010.11929"].cross_list_from == "cs.LG"
+    assert archived["2010.11929"].subjects == (
+        "Machine Learning (cs.LG)",
+        "Computer Vision and Pattern Recognition (cs.CV)",
+    )
     # Graduating from the rolling year: its own enrichment is kept.
     assert archived["2508.00001"].affiliations == ("Read from its HTML page",)
     assert store.days("cs.CV") == [RECENT_DAY]
@@ -242,6 +288,37 @@ def test_the_archive_stays_as_it_is_without_citation_counts(
 
     assert {paper.arxiv_id for paper in store.iter_archive("cs.CV")} == before
     assert report.left == 0
+
+
+def test_citation_counts_cached_on_another_day_are_fetched_again(store: PaperStore, catalog: Catalog) -> None:
+    _update(store, catalog, FakeServices(CITATIONS))
+    cache = catalog.directory / "cs.CV.citations.jsonl"
+    _, *batches = cache.read_text(encoding="utf-8").splitlines()
+    yesterday = json.dumps({"date": (TODAY - timedelta(days=1)).isoformat()})
+    cache.write_text("\n".join([yesterday, *batches]) + "\n", encoding="utf-8")
+
+    _update(store, catalog, FakeServices({**CITATIONS, "2609.00001": 42}))
+
+    assert store.load_citations("cs.CV")["2609.00001"] == 42
+
+
+def test_format_archive_report() -> None:
+    report = ArchiveReport(
+        category="cs.CV",
+        candidates=1000,
+        coverage=0.987,
+        threshold=19.54,
+        archived=500,
+        entered=3,
+        left=1,
+        pruned_days=2,
+        written=True,
+    )
+
+    assert format_archive_report(report) == (
+        "cs.CV: 500 archived papers (3 in, 1 out), threshold 19.5 citations a year, "
+        "citation counts for 98.7% of 1000 papers, 2 day files pruned"
+    )
 
 
 def test_paper_from_catalog_names_subjects() -> None:

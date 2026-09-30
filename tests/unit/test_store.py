@@ -82,6 +82,18 @@ def test_citations_file_is_not_a_day(store: PaperStore, listing: Listing) -> Non
     assert store.load_citation_counts("cs.LG") is None
 
 
+@pytest.mark.parametrize(
+    "payload", ["{not json", '{"counts": {}}', '{"counts": {}, "source": "S2", "generated_at": "soon"}']
+)
+def test_invalid_citations_file_raises(store: PaperStore, payload: str) -> None:
+    path = store.root / "cs.CV" / "citations.json"
+    path.parent.mkdir(parents=True)
+    path.write_text(payload, encoding="utf-8")
+
+    with pytest.raises(StoreError, match="Invalid citations file"):
+        store.load_citations("cs.CV")
+
+
 def test_archive_is_written_by_year_and_replaced_as_a_whole(store: PaperStore, listing: Listing) -> None:
     store.write_archive(
         "cs.CV", [_archived(listing, 2015), _archived(listing, 2015, 1), _archived(listing, 2017)]

@@ -194,11 +194,12 @@ def backfill_category(
 
 
 def _carry_over(listed: Paper, stored: Paper | None) -> Paper:
-    """Keep fresh listing metadata while reusing enrichment from the store."""
+    """Keep fresh listing metadata while reusing enrichment from the store.
+
+    Listings and catchup pages never give affiliations: those always come from the store.
+    """
     if stored is None:
         return listed
-    if listed.affiliations is not None:
-        return replace(listed, abstract=listed.abstract if listed.abstract is not None else stored.abstract)
     return replace(
         listed,
         abstract=listed.abstract if listed.abstract is not None else stored.abstract,

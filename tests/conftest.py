@@ -9,6 +9,13 @@ from preprint_radar.models import Listing
 FIXTURES_DIR = Path(__file__).parent / "fixtures"
 
 
+@pytest.fixture(autouse=True)
+def _environment(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Hide the maintainer's settings, which the Makefile exports from ``.env``."""
+    monkeypatch.delenv("PREPRINT_RADAR_CONTACT", raising=False)
+    monkeypatch.delenv("SEMANTIC_SCHOLAR_API_KEY", raising=False)
+
+
 @pytest.fixture(scope="session")
 def listing_html() -> str:
     """Trimmed copy of https://arxiv.org/list/cs.CV/recent (7 entries over 2 days)."""
