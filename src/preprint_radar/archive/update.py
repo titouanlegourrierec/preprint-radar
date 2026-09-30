@@ -22,7 +22,8 @@ from datetime import date
 from pathlib import Path
 
 from preprint_radar.archive.catalog import Catalog
-from preprint_radar.archive.selection import RECENT_DAYS, Candidate, Selection, select_archive
+from preprint_radar.archive.selection import Candidate, Selection, select_archive
+from preprint_radar.config import ARCHIVE_SINCE, CITATIONS_CACHE_DAYS, MIN_COVERAGE, RECENT_DAYS
 from preprint_radar.http import HttpClient
 from preprint_radar.models import Paper
 from preprint_radar.sources.arxiv_oai import CatalogEntry
@@ -33,15 +34,7 @@ from preprint_radar.venue import extract_venue
 
 logger = logging.getLogger(__name__)
 
-ARCHIVE_SINCE = date(2010, 1, 1)
-# The archive only changes, and day files are only deleted, when nearly every candidate
-# has a citation count: with counts missing (Semantic Scholar down), papers that deserve
-# the archive would score nothing and be lost.
-MIN_COVERAGE = 0.95
 CITATION_SOURCE = "Semantic Scholar"
-CITATIONS_CACHE_DAYS = 7
-"""Counts fetched by a run started fewer days ago are reused: a run that failed or was
-cancelled resumes where it stopped, and a weekly run starts afresh."""
 _SUBJECT_CODE_RE = re.compile(r"\(([^()]+)\)\s*$")
 
 

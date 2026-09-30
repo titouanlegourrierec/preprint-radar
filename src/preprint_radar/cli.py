@@ -11,14 +11,21 @@ from typing import TYPE_CHECKING
 
 from preprint_radar import __version__
 from preprint_radar.archive.catalog import Catalog
-from preprint_radar.archive.selection import DEFAULT_BUDGET
 from preprint_radar.archive.update import ArchiveClients, format_archive_report, update_archive
 from preprint_radar.collect import (
-    DEFAULT_MAX_ROR_LOOKUPS,
     add_institutions,
     backfill_category,
     format_report,
     update_category,
+)
+from preprint_radar.config import (
+    CONTACT_ENV_VAR,
+    DEFAULT_BUDGET,
+    DEFAULT_CATALOG_DIR,
+    DEFAULT_CATEGORY,
+    DEFAULT_DATA_DIR,
+    DEFAULT_EXPORT_DIR,
+    DEFAULT_MAX_ROR_LOOKUPS,
 )
 from preprint_radar.console import configure_logging, console
 from preprint_radar.exceptions import PreprintRadarError
@@ -51,12 +58,6 @@ if TYPE_CHECKING:
     from rich.table import Table
 
 logger = logging.getLogger(__name__)
-
-DEFAULT_CATEGORY = "cs.CV"
-DEFAULT_EXPORT_DIR = Path("exports")
-DEFAULT_DATA_DIR = Path("data")
-DEFAULT_CATALOG_DIR = Path(".cache/catalog")
-CONTACT_ENV_VAR = "PREPRINT_RADAR_CONTACT"
 
 
 def build_parser() -> argparse.ArgumentParser:

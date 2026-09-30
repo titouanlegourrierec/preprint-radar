@@ -9,6 +9,7 @@ from collections.abc import Callable, Iterable, Mapping, Sequence
 from dataclasses import dataclass, replace
 from datetime import date
 
+from preprint_radar.config import DEFAULT_MAX_ROR_LOOKUPS, DEFAULT_SAVE_EVERY
 from preprint_radar.exceptions import FetchError, ParseError
 from preprint_radar.http import HttpClient
 from preprint_radar.models import Paper
@@ -20,10 +21,6 @@ from preprint_radar.sources.ror import match_institutions
 from preprint_radar.store.paper_store import PaperStore
 
 logger = logging.getLogger(__name__)
-
-DEFAULT_SAVE_EVERY = 20
-# A day of cs.CV brings about 400 distinct affiliation strings.
-DEFAULT_MAX_ROR_LOOKUPS = 1000
 
 
 @dataclass(frozen=True, slots=True)

@@ -138,6 +138,7 @@ the site. The *Deploy site* workflow also runs on every push touching `web/` or 
 src/preprint_radar/
 ├── cli.py              # `preprint-radar` command (fetch, update, backfill, stats, institutions, archive)
 ├── collect.py          # update (recent listing) and backfill (catchup pages) → enrichment → store
+├── config.py           # tunable defaults: category, directories, archive budget and policy
 ├── venue.py            # accepted venue detected from comments
 ├── models.py           # Paper, Listing
 ├── http.py             # rate-limited HTTP client with retries

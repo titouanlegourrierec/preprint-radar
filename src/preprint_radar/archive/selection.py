@@ -13,9 +13,8 @@ from collections.abc import Set as AbstractSet
 from dataclasses import dataclass
 from datetime import date
 
-DEFAULT_BUDGET = 22_000
-DEFAULT_MARGIN = 1.15
-RECENT_DAYS = 365
+from preprint_radar.config import DEFAULT_MARGIN, RECENT_DAYS
+
 DAYS_PER_YEAR = 365.25
 
 
