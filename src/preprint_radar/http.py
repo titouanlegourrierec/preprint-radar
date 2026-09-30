@@ -159,7 +159,14 @@ class HttpClient:
         """
         return self._request("GET", url, params=params)
 
-    def post_text(self, url: str, *, json: object, params: Mapping[str, str | int] | None = None) -> str:
+    def post_text(
+        self,
+        url: str,
+        *,
+        json: object,
+        params: Mapping[str, str | int] | None = None,
+        headers: Mapping[str, str] | None = None,
+    ) -> str:
         """Send a ``POST`` request with a JSON body and return the response body.
 
         Rate limiting, retries and errors are the same as for :meth:`get_text`.
@@ -168,6 +175,7 @@ class HttpClient:
             url: Absolute URL.
             json: Body, serialized as JSON.
             params: Query-string parameters.
+            headers: Extra headers for this request (e.g. an API key).
 
         Returns:
             The decoded response body.
@@ -176,7 +184,7 @@ class HttpClient:
             NotFoundError: If the server answers ``404 Not Found``.
             FetchError: For any other network or HTTP error, once retries are exhausted.
         """
-        return self._request("POST", url, params=params, json=json)
+        return self._request("POST", url, params=params, json=json, headers=headers)
 
     def _request(
         self,
@@ -185,13 +193,14 @@ class HttpClient:
         *,
         params: Mapping[str, str | int] | None = None,
         json: object = None,
+        headers: Mapping[str, str] | None = None,
     ) -> str:
         delay = self._backoff
         for attempt in range(1, self._max_attempts + 1):
             self._rate_limiter.wait()
             logger.debug("%s %s %s (attempt %d)", method, url, dict(params or {}), attempt)
             try:
-                response = self._http.request(method, url, params=params, json=json)
+                response = self._http.request(method, url, params=params, json=json, headers=headers)
             except httpx.TransportError as exc:
                 # Timeouts and dropped connections are as transient as a 503.
                 if attempt == self._max_attempts:
