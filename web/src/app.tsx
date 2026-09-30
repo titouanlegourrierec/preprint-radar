@@ -334,7 +334,7 @@ export function App() {
                       ? "Loading papers…"
                       : null}
             </p>
-            {state.view === "papers" && (
+            {(state.view === "papers" || state.view === "reading-list") && (
               <fieldset class="segmented">
                 <legend class="visually-hidden">Sort results</legend>
                 {hasSearchWords && (
