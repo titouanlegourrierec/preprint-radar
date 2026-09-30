@@ -82,9 +82,16 @@ the tabs switches between the automatic, light and dark themes.
 
 The *Highly cited* tab shows the archive one year at a time (by year of first version),
 ranked by citation count; search words and filters narrow it down. Papers show their
-citation count wherever it is known.
+citation count wherever it is known (0 for most new papers), and the papers list can be
+sorted by it (*Most cited*).
 
-The *Graph* tab is a full-screen map of the loaded papers, their institutions and
+The *Rankings* tab lists the institutions or the authors of the papers shown — the recent
+days or an archive year, narrowed by the search and filters — by number of papers or by
+citations, with each one's most cited paper; a name opens its papers. "Who works on
+gaussian splatting this month?" or "which labs wrote the most cited papers of 2017?".
+
+The *Graph* tab is a full-screen map of the loaded papers (the recent days, or the highly
+cited papers of one year, chosen under *From*), their institutions and
 (optionally) their authors. By default it shows papers (squares) linked to their
 institutions; with authors on, a paper links to its authors, and an institution to the
 authors the paper places there. Without papers, it becomes a collaboration map: institutions

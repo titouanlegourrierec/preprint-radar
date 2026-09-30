@@ -95,6 +95,13 @@ describe("highly cited view", () => {
     expect(readState(writeState(state))).toEqual(state);
   });
 
+  it("round-trips the rankings of an archive year", () => {
+    const state = { ...DEFAULT_STATE, view: "rankings" as const, year: 2017 };
+
+    expect(writeState(state)).toBe("?view=rankings&year=2017");
+    expect(readState(writeState(state))).toEqual(state);
+  });
+
   it("ignores a malformed year", () => {
     expect(readState("?view=cited&year=soon").year).toBeNull();
   });

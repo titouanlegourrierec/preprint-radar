@@ -2,6 +2,7 @@ import { useCallback, useMemo, useState } from "preact/hooks";
 import { toBibtexFile } from "./bibtex";
 import { GraphView } from "./components/GraphView";
 import { PaperList } from "./components/PaperList";
+import { Rankings } from "./components/Rankings";
 import { Sidebar } from "./components/Sidebar";
 import { download } from "./download";
 import { formatDay } from "./format";
@@ -35,8 +36,9 @@ const RELEVANCE_HELP =
 export function App() {
   const { state, query, update, setFilters } = useUrlState();
   const cited = state.view === "cited";
-  // The highly cited view always shows the archive; the graph shows it when given a year.
-  const archived = cited || (state.view === "graph" && state.year !== null);
+  const rankings = state.view === "rankings";
+  // The highly cited view always shows the archive; the graph and rankings, given a year.
+  const archived = cited || ((state.view === "graph" || rankings) && state.year !== null);
   const { categories, category, storeDays, archiveYears, archiveYear, load, generatedAt } =
     usePapers(state.category, state.period, archived ? { year: state.year } : null);
   const citations = useCitations(category);
@@ -92,6 +94,10 @@ export function App() {
         valueCounts(activeIndex?.all() ?? [], (paper) => paper.affiliations ?? [], SUGGESTION_SIZE),
       ),
     [activeIndex],
+  );
+  const rankedPapers = useMemo(
+    () => (rankings ? results.map(({ paper }) => paper) : []),
+    [rankings, results],
   );
   const hasSearchWords = parseQuery(query).text !== "";
   // Day headings need results in announcement order (see search): no words, or newest.
@@ -177,6 +183,14 @@ export function App() {
             onClick={() => update({ view: "graph", ...(cited ? { year: archiveYear } : {}) })}
           >
             Graph
+          </button>
+          <button
+            type="button"
+            class={`tab${rankings ? " tab--active" : ""}`}
+            title="Institutions and authors of the papers shown, by papers or citations"
+            onClick={() => update({ view: "rankings", ...(cited ? { year: archiveYear } : {}) })}
+          >
+            Rankings
           </button>
           <button
             type="button"
@@ -295,6 +309,15 @@ export function App() {
                 ? { years: archiveYears, year: archiveYear, onYear: (year) => update({ year }) }
                 : undefined
             }
+            source={
+              rankings
+                ? {
+                    years: archiveYears,
+                    year: archived ? archiveYear : null,
+                    onYear: (year) => update({ year }),
+                  }
+                : undefined
+            }
           />
         )}
 
@@ -303,7 +326,7 @@ export function App() {
             <p class="muted" aria-live="polite">
               {state.view === "reading-list"
                 ? `${results.length} of ${readingList.papers.length} saved papers`
-                : cited && load.status === "ready" && archiveYear !== null
+                : archived && load.status === "ready" && archiveYear !== null
                   ? `${results.length} of ${load.index.size} highly cited papers first published in ${archiveYear}`
                   : load.status === "ready"
                     ? `${results.length} of ${load.index.size} papers`
@@ -396,8 +419,24 @@ export function App() {
 
           {hasSearchWords && showRelevanceHelp && <p class="help-note">{RELEVANCE_HELP}</p>}
 
-          {load.status === "error" && (state.view === "papers" || cited) ? (
+          {load.status === "error" && state.view !== "reading-list" ? (
             <p class="notice notice--error">Could not load papers: {load.message}</p>
+          ) : rankings ? (
+            <Rankings
+              papers={rankedPapers}
+              citations={citations.counts}
+              citationsNote={citationsNote}
+              archived={archived}
+              onEntity={(kind, name) =>
+                update({
+                  view: archived ? "cited" : "papers",
+                  filters: {
+                    ...state.filters,
+                    [kind === "institution" ? "affiliation" : "author"]: name,
+                  },
+                })
+              }
+            />
           ) : cited && archiveYears.length === 0 ? (
             <p class="notice">
               The archive of highly cited papers is built weekly, from citation counts: it is not

@@ -26,6 +26,14 @@ interface Props {
         onYear: (year: number) => void;
       }
     | undefined;
+  /** Views of either kind of papers: the recent days (`null`) or an archive year. */
+  source?:
+    | {
+        years: ArchiveSummary[];
+        year: number | null;
+        onYear: (year: number | null) => void;
+      }
+    | undefined;
 }
 
 function FilterInput({
@@ -97,7 +105,29 @@ export function Sidebar(props: Props) {
         </label>
       )}
 
-      {props.archive ? (
+      {props.source && props.source.years.length > 0 && (
+        <label class="field">
+          <span>From</span>
+          <select
+            value={props.source.year ?? "recent"}
+            onChange={(event) => {
+              const { value } = event.currentTarget;
+              props.source?.onYear(value === "recent" ? null : Number(value));
+            }}
+          >
+            <option value="recent">Recent days</option>
+            <optgroup label="Highly cited, first published in">
+              {props.source.years.map(({ year, count }) => (
+                <option key={year} value={year}>
+                  {year} ({count.toLocaleString()} papers)
+                </option>
+              ))}
+            </optgroup>
+          </select>
+        </label>
+      )}
+
+      {props.source && props.source.year !== null ? null : props.archive ? (
         <label class="field">
           <span>Year</span>
           <select
