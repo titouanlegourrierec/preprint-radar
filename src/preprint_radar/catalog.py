@@ -41,6 +41,10 @@ _OAI = "{http://www.openarchives.org/OAI/2.0/}"
 _ARXIV = "{http://arxiv.org/OAI/arXiv/}"
 
 
+class ExpiredTokenError(ParseError):
+    """The resumption token of an interrupted harvest is no longer valid."""
+
+
 @dataclass(frozen=True, slots=True, kw_only=True)
 class CatalogEntry:
     """A paper as listed by OAI-PMH.
@@ -133,10 +137,12 @@ def parse_list_records(xml: str) -> OaiPage:
         raise ParseError(msg) from exc
     error = root.find(f"{_OAI}error")
     if error is not None:
-        if error.get("code") == "noRecordsMatch":
+        code = error.get("code")
+        if code == "noRecordsMatch":
             return OaiPage((), None)
-        msg = f"OAI-PMH error {error.get('code')}: {(error.text or '').strip()}"
-        raise ParseError(msg)
+        msg = f"OAI-PMH error {code}: {(error.text or '').strip()}"
+        # arXiv's tokens expire at midnight UTC.
+        raise ExpiredTokenError(msg) if code == "badResumptionToken" else ParseError(msg)
     records = root.find(f"{_OAI}ListRecords")
     if records is None:
         msg = "OAI-PMH response without ListRecords"
@@ -219,7 +225,15 @@ class Catalog:
         harvested = state.get("harvested")
         # Datestamps are days: start a day early so that nothing falls between harvests.
         since = date.fromisoformat(harvested) - timedelta(days=1) if harvested else None
-        token = state.get("token")
+        try:
+            return self._harvest(client, today, harvested=harvested, since=since, token=state.get("token"))
+        except ExpiredTokenError:
+            logger.warning("The interrupted harvest expired; harvesting again from the start")
+            return self._harvest(client, today, harvested=harvested, since=since, token=None)
+
+    def _harvest(
+        self, client: HttpClient, today: date, *, harvested: str | None, since: date | None, token: str | None
+    ) -> int:
         logger.info(
             "Harvesting %s %s",
             self.set_spec,

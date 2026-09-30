@@ -74,6 +74,7 @@ class FakeOai:
     def __init__(self, *, fail_second_page: bool = False) -> None:
         self.params: list[dict[str, str]] = []
         self.fail_second_page = fail_second_page
+        self.expired = False
 
     def handle(self, request: httpx.Request) -> httpx.Response:
         params = dict(request.url.params)
@@ -124,3 +125,27 @@ def test_catalog_resumes_an_interrupted_harvest(tmp_path: Path) -> None:
     assert sorted(catalog.entries()) == ["0904.2037", "1001.1020", "1001.9999"]
     # The second run asked for the second page only.
     assert fake.params[-1] == {"verb": "ListRecords", "resumptionToken": NEXT_PAGE}
+
+
+def test_catalog_restarts_a_harvest_whose_token_expired(tmp_path: Path) -> None:
+    fake = FakeOai(fail_second_page=True)
+    catalog = Catalog(tmp_path, "cs.CV")
+    with fake.client() as client, pytest.raises(FetchError):
+        catalog.refresh(client, date(2026, 9, 30))
+
+    expired = (
+        '<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/"><error code="badResumptionToken"/></OAI-PMH>'
+    )
+    handle = fake.handle
+
+    def with_expired_token(request: httpx.Request) -> httpx.Response:
+        if request.url.params.get("resumptionToken") == NEXT_PAGE and fake.expired:
+            fake.expired = False
+            return httpx.Response(200, text=expired)
+        return handle(request)
+
+    fake.expired = True
+    with HttpClient(transport=httpx.MockTransport(with_expired_token), max_attempts=1) as client:
+        catalog.refresh(client, date(2026, 10, 7))
+
+    assert sorted(catalog.entries()) == ["0904.2037", "1001.1020", "1001.9999"]
