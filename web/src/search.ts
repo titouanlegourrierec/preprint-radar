@@ -3,7 +3,11 @@ import { paperInstitutions } from "./institutions";
 import { fold } from "./text";
 import type { Paper } from "./types";
 
-export type SortOrder = "relevance" | "newest";
+/**
+ * Order of results. The index has no citation counts: `citations` orders them like
+ * `newest`, and the caller ranks them with {@link byCitations}.
+ */
+export type SortOrder = "relevance" | "newest" | "citations";
 
 export interface SearchFilters {
   excludeCrossLists: boolean;

@@ -64,6 +64,12 @@ describe("url state", () => {
     ).toBe("?from=2026-09-09");
   });
 
+  it("round-trips the citation sort", () => {
+    const state = { ...DEFAULT_STATE, sort: "citations" as const };
+    expect(writeState(state)).toBe("?sort=citations");
+    expect(readState(writeState(state))).toEqual(state);
+  });
+
   it("reads the graph view", () => {
     expect(readState("?view=graph").view).toBe("graph");
   });

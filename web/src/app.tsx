@@ -54,7 +54,7 @@ export function App() {
     if (state.view === "graph") return [];
     const found = activeIndex?.search(query, state.filters, cited ? "newest" : state.sort) ?? [];
     // The highly cited view ranks by citations; search words only narrow it down.
-    return cited ? byCitations(found, citations.counts) : found;
+    return cited || state.sort === "citations" ? byCitations(found, citations.counts) : found;
   }, [state.view, cited, activeIndex, query, state.filters, state.sort, citations]);
   // The graph has its own settings panel: it ignores the list filters, not the search words.
   const graphPapers = useMemo(
@@ -93,7 +93,10 @@ export function App() {
   );
   const hasSearchWords = parseQuery(query).text !== "";
   // Day headings need results in announcement order (see search): no words, or newest.
-  const groupByDay = !cited && (!hasSearchWords || state.sort === "newest");
+  const groupByDay =
+    !cited && state.sort !== "citations" && (!hasSearchWords || state.sort === "newest");
+  // Without search words, relevance is the announcement order.
+  const newest = state.sort === "newest" || (state.sort === "relevance" && !hasSearchWords);
   // A share link opens the paper on its own day, free of the sharer's search context.
   const linkTo = (paper: Paper) =>
     writeState({
@@ -288,36 +291,49 @@ export function App() {
                       ? "Loading papers…"
                       : null}
             </p>
-            {hasSearchWords && !cited && (
+            {state.view === "papers" && (
               <fieldset class="segmented">
                 <legend class="visually-hidden">Sort results</legend>
+                {hasSearchWords && (
+                  <button
+                    type="button"
+                    class={`segmented__option${state.sort === "relevance" ? " segmented__option--active" : ""}`}
+                    aria-pressed={state.sort === "relevance"}
+                    title={RELEVANCE_HELP}
+                    onClick={() => update({ sort: "relevance" })}
+                  >
+                    Relevance
+                  </button>
+                )}
                 <button
                   type="button"
-                  class={`segmented__option${state.sort === "relevance" ? " segmented__option--active" : ""}`}
-                  aria-pressed={state.sort === "relevance"}
-                  title={RELEVANCE_HELP}
-                  onClick={() => update({ sort: "relevance" })}
-                >
-                  Relevance
-                </button>
-                <button
-                  type="button"
-                  class={`segmented__option${state.sort === "newest" ? " segmented__option--active" : ""}`}
-                  aria-pressed={state.sort === "newest"}
+                  class={`segmented__option${newest ? " segmented__option--active" : ""}`}
+                  aria-pressed={newest}
                   onClick={() => update({ sort: "newest" })}
                 >
                   Newest
                 </button>
                 <button
                   type="button"
-                  class="help"
-                  aria-expanded={showRelevanceHelp}
-                  aria-label="How is relevance computed?"
-                  title={RELEVANCE_HELP}
-                  onClick={() => setShowRelevanceHelp(!showRelevanceHelp)}
+                  class={`segmented__option${state.sort === "citations" ? " segmented__option--active" : ""}`}
+                  aria-pressed={state.sort === "citations"}
+                  title={citationsNote}
+                  onClick={() => update({ sort: "citations" })}
                 >
-                  ?
+                  Most cited
                 </button>
+                {hasSearchWords && (
+                  <button
+                    type="button"
+                    class="help"
+                    aria-expanded={showRelevanceHelp}
+                    aria-label="How is relevance computed?"
+                    title={RELEVANCE_HELP}
+                    onClick={() => setShowRelevanceHelp(!showRelevanceHelp)}
+                  >
+                    ?
+                  </button>
+                )}
               </fieldset>
             )}
             {state.view === "papers" && (

@@ -119,7 +119,8 @@ export function PaperCard({
 
         <p class="paper__authors">
           {authors.map((author, index) => (
-            <span key={author}>
+            // Two authors may share a name.
+            <span key={`${index}:${author}`}>
               {index > 0 && ", "}
               <button
                 type="button"
@@ -179,8 +180,11 @@ export function PaperCard({
             </span>
           )}
           <span>{formatDay(paper.announced)}</span>
-          {citations !== undefined && citations > 0 && (
-            <span class="citations" title={citationsNote}>
+          {citations !== undefined && (
+            <span
+              class={`citations${citations > 0 ? " citations--some" : ""}`}
+              title={citationsNote}
+            >
               {citations.toLocaleString()} citation{citations === 1 ? "" : "s"}
             </span>
           )}

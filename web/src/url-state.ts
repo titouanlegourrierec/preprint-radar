@@ -4,6 +4,7 @@ import { NO_FILTERS, type SearchFilters, type SortOrder } from "./search";
 export type View = "papers" | "cited" | "graph" | "reading-list";
 
 const VIEWS: readonly View[] = ["papers", "cited", "graph", "reading-list"];
+const SORTS: readonly SortOrder[] = ["relevance", "newest", "citations"];
 
 export interface ViewState {
   query: string;
@@ -45,7 +46,7 @@ export function readState(search: string): ViewState {
     query: params.get("q") ?? "",
     category: params.get("cat"),
     period: readPeriod(params),
-    sort: params.get("sort") === "newest" ? "newest" : "relevance",
+    sort: SORTS.find((sort) => sort === params.get("sort")) ?? DEFAULT_STATE.sort,
     view: VIEWS.find((view) => view === params.get("view")) ?? DEFAULT_STATE.view,
     paper: params.get("paper"),
     year: /^\d{4}$/.test(params.get("year") ?? "") ? Number(params.get("year")) : null,
