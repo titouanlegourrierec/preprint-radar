@@ -22,8 +22,8 @@ concurrency:
 jobs:
   archive:
     runs-on: ubuntu-latest
-    # The first run harvests the whole catalog (about 45 minutes) and, without an API key,
-    # fetches citation counts anonymously (about 1.5 hours); later runs take minutes.
+    # The first run harvests the whole catalog (about 45 minutes); every run then fetches
+    # about 207,000 citation counts in 415 requests, far slower without an API key.
     timeout-minutes: 300
     permissions:
       contents: write

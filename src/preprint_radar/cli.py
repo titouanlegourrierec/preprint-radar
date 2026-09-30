@@ -440,7 +440,9 @@ def _run_archive(args: argparse.Namespace) -> int:
     categories: list[str] = args.categories or [DEFAULT_CATEGORY]
     store = PaperStore(args.data_dir)
     key = api_key()
-    if not key:
+    if key:
+        logger.info("Semantic Scholar: requests with an API key")
+    else:
         logger.warning("No Semantic Scholar API key: citation counts will be slow to fetch.")
     today = datetime.now(tz=UTC).date()
     # Only arXiv gets the contact; the other services get the bare User-Agent.
@@ -451,7 +453,7 @@ def _run_archive(args: argparse.Namespace) -> int:
         HttpClient(
             user_agent=DEFAULT_USER_AGENT,
             min_interval=S2_DELAY_SECONDS if key else S2_ANONYMOUS_DELAY_SECONDS,
-            max_attempts=2,
+            max_attempts=1,  # fetch_citation_counts tries refused batches again
         ) as citations,
         HttpClient(user_agent=DEFAULT_USER_AGENT, min_interval=OPENALEX_DELAY_SECONDS) as openalex,
     ):

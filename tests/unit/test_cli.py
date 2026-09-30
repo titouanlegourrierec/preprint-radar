@@ -1,4 +1,5 @@
 import json
+import logging
 import runpy
 from collections.abc import Mapping
 from datetime import date
@@ -284,6 +285,7 @@ def test_archive_uses_the_semantic_scholar_key(
     caplog: pytest.LogCaptureFixture,
 ) -> None:
     monkeypatch.setenv("SEMANTIC_SCHOLAR_API_KEY", "test-key")
+    caplog.set_level(logging.INFO)
 
     assert main(["archive", "--data-dir", str(tmp_path / "data"), "-c", "cs.CV", "-c", "cs.LG"]) == 0
 
@@ -291,6 +293,8 @@ def test_archive_uses_the_semantic_scholar_key(
     clients = archive_calls[0][1]["clients"]
     assert isinstance(clients, ArchiveClients)
     assert clients.citations_key == "test-key"
+    assert "Semantic Scholar: requests with an API key" in caplog.text
+    assert "test-key" not in caplog.text
     assert "No Semantic Scholar API key" not in caplog.text
 
 

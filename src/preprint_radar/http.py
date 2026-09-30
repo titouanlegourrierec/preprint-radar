@@ -19,6 +19,7 @@ DEFAULT_MAX_ATTEMPTS = 4
 DEFAULT_BACKOFF_SECONDS = 10.0
 CONNECT_RETRIES = 3
 MAX_RETRY_AFTER_SECONDS = 300.0
+MAX_ERROR_DETAIL_CHARS = 200
 
 # 406 is included because export.arxiv.org's firewall also returns it intermittently.
 RETRYABLE_STATUS_CODES = frozenset({406, 429, 500, 502, 503, 504})
@@ -230,8 +231,16 @@ class HttpClient:
             delay *= 2
 
         if response.is_error:
-            raise FetchError(f"HTTP {response.status_code} for {response.url}")
+            raise FetchError(f"HTTP {response.status_code} for {response.url}{_json_detail(response)}")
         return response.text
+
+
+def _json_detail(response: httpx.Response) -> str:
+    """The start of a JSON error body, which APIs use to say why ("apply for a key...")."""
+    if "json" not in response.headers.get("Content-Type", ""):
+        return ""
+    detail = " ".join(response.text.split())[:MAX_ERROR_DETAIL_CHARS]
+    return f": {detail}" if detail else ""
 
 
 def _retry_after(response: httpx.Response) -> float | None:

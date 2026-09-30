@@ -278,10 +278,10 @@ def test_dry_run_writes_nothing(store: PaperStore, catalog: Catalog) -> None:
 def test_the_archive_stays_as_it_is_without_citation_counts(
     store: PaperStore, catalog: Catalog, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    monkeypatch.setattr("preprint_radar.citations.S2_RETRY_WAIT_SECONDS", 0)
+    monkeypatch.setattr("preprint_radar.citations.S2_ANONYMOUS_RETRY_WAIT_SECONDS", 0)
     _update(store, catalog, FakeServices(CITATIONS))
     before = {paper.arxiv_id for paper in store.iter_archive("cs.CV")}
-    # A later day: the counts cached today are not reused.
+    # Without the counts cached by the first run.
     (catalog.directory / "cs.CV.citations.jsonl").unlink()
 
     report = _update(store, catalog, FakeServices(CITATIONS, citations_down=True), budget=1)
@@ -290,16 +290,33 @@ def test_the_archive_stays_as_it_is_without_citation_counts(
     assert report.left == 0
 
 
-def test_citation_counts_cached_on_another_day_are_fetched_again(store: PaperStore, catalog: Catalog) -> None:
+@pytest.mark.parametrize(("age", "expected"), [(3, 3), (7, 42)], ids=["reused", "fetched-again"])
+def test_citation_counts_cached_by_a_recent_run_are_reused(
+    store: PaperStore, catalog: Catalog, age: int, expected: int
+) -> None:
     _update(store, catalog, FakeServices(CITATIONS))
     cache = catalog.directory / "cs.CV.citations.jsonl"
     _, *batches = cache.read_text(encoding="utf-8").splitlines()
-    yesterday = json.dumps({"date": (TODAY - timedelta(days=1)).isoformat()})
-    cache.write_text("\n".join([yesterday, *batches]) + "\n", encoding="utf-8")
+    started = json.dumps({"date": (TODAY - timedelta(days=age)).isoformat()})
+    cache.write_text("\n".join([started, *batches]) + "\n", encoding="utf-8")
 
     _update(store, catalog, FakeServices({**CITATIONS, "2609.00001": 42}))
 
-    assert store.load_citations("cs.CV")["2609.00001"] == 42
+    assert store.load_citations("cs.CV")["2609.00001"] == expected
+
+
+def test_a_cut_line_of_the_citations_cache_is_ignored(store: PaperStore, catalog: Catalog) -> None:
+    cache = catalog.directory / "cs.CV.citations.jsonl"
+    header = json.dumps({"date": TODAY.isoformat()})
+    # A run killed while saving its second batch.
+    cache.write_text(f'{header}\n{{"1512.03385": 7}}\n{{"2010.119', encoding="utf-8")
+
+    _update(store, catalog, FakeServices(CITATIONS))
+
+    assert store.load_citations("cs.CV")["1512.03385"] == 7  # reused
+    assert store.load_citations("cs.CV")["2010.11929"] == 70_000  # fetched again
+    lines = cache.read_text(encoding="utf-8").splitlines()
+    assert all(json.loads(line) for line in lines)  # the cut line is gone
 
 
 def test_format_archive_report() -> None:

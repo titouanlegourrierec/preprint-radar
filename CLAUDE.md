@@ -15,7 +15,7 @@ Use the Makefile (`make help` lists everything):
 - `make dev` / `make preview`: the site locally (dev server, or production build).
 - `make update-quick`: refresh `data/` without reading HTML pages. `make update` reads them too, at one page every 15 s, so it takes hours. Never start it without asking.
 - `make backfill SINCE=YYYY-MM-DD [UNTIL=...]`: add past days from the catchup pages, then read their HTML pages (a month of cs.CV takes about 11 hours). Same rule: ask first. Interrupting either command loses nothing; re-running resumes.
-- `make archive`: the weekly citation archive (refresh the OAI catalog, fetch citation counts, keep the most cited older papers). The first run takes about 2 hours without a Semantic Scholar key: ask first, like `make update`.
+- `make archive`: the weekly citation archive (refresh the OAI catalog, fetch citation counts, keep the most cited older papers). The first run harvests the whole catalog (about 45 minutes), and every run asks Semantic Scholar for about 207,000 counts (415 requests): hours without a key. Ask first, like `make update`.
 - `make institutions`: name the institutions of stored affiliations through the Research Organization Registry (ROR), for papers that `update`/`backfill` did not reach (a few minutes; one request per distinct string, every 0.5 s).
 - `make stats`: how much of `data/` is enriched, per day then per archive year (abstracts, affiliations, author mappings, named institutions, venues, citation counts), and the date of the citation counts. Check it after touching the extraction heuristics.
 
@@ -79,7 +79,9 @@ Single checks: `uv run pytest tests/unit/test_store.py -k merge`, `cd web && npx
   - Raw LaTeX sources are **not** an alternative: `robots.txt` disallows `/e-print` and `/src` (export.arxiv.org disallows everything), and LaTeXML's HTML is already parsed LaTeX.
 - **Citation archive sources:**
   - OAI-PMH (`oaipmh.arxiv.org`, set `cs:cs:CV`): arXiv's sanctioned bulk metadata; no crawl delay in its robots.txt, 5 s between pages, about 45 minutes for the whole set. `created` is not always the first version's date.
-  - Semantic Scholar (`paper/batch`, 500 arXiv ids a request): counts all versions of a paper. Anonymous requests are often refused (429) and retried patiently; `SEMANTIC_SCHOLAR_API_KEY` (repository secret) makes it minutes. OpenAlex undercounts published papers (×1.7 in median), so it is not used for counts.
+  - Semantic Scholar (`paper/batch`, 500 arXiv ids a request): counts all versions of a paper. OpenAlex undercounts published papers (×1.7 in median), so it is not used for counts.
+    - Even with `SEMANTIC_SCHOLAR_API_KEY` (repository secret, one request per second), about half of the batches were refused (429) in CI. A refused batch is tried again after 2 s, doubled up to 60 s (20 s at first without a key, whose shared pool is busier), 30 times. The retries live in `fetch_citation_counts`: its `HttpClient` makes a single attempt. Errors quote the start of a JSON body, which says whether a request went without a key.
+    - Counts are cached in `.cache/catalog/<category>.citations.jsonl` (restored with the catalog in CI) and reused for 7 days, so a failed or cancelled run resumes where it stopped: `citations.json`'s `generated_at` can postdate some counts by up to 6 days.
   - OpenAlex (`works?filter=doi:10.48550/arxiv.<id>|...`, 50 a request): institutions per author; its raw affiliation strings are too rough to use.
 - **Fixtures:**
   - Real e-mails in them are replaced by `author@example.org`.

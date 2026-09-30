@@ -19,6 +19,7 @@ import re
 from collections.abc import Iterable, Mapping
 from dataclasses import dataclass, replace
 from datetime import date
+from pathlib import Path
 
 from preprint_radar.catalog import Catalog, CatalogEntry
 from preprint_radar.citations import fetch_citation_counts
@@ -37,6 +38,9 @@ ARCHIVE_SINCE = date(2010, 1, 1)
 # the archive would score nothing and be lost.
 MIN_COVERAGE = 0.95
 CITATION_SOURCE = "Semantic Scholar"
+CITATIONS_CACHE_DAYS = 7
+"""Counts fetched by a run started fewer days ago are reused: a run that failed or was
+cancelled resumes where it stopped, and a weekly run starts afresh."""
 _SUBJECT_CODE_RE = re.compile(r"\(([^()]+)\)\s*$")
 
 
@@ -222,17 +226,13 @@ def format_archive_report(report: ArchiveReport) -> str:
 def _citation_counts(
     catalog: Catalog, clients: ArchiveClients, arxiv_ids: Iterable[str], today: date
 ) -> dict[str, int | None]:
-    """Citation counts, resuming a run interrupted the same day from a cache file."""
+    """Citation counts, resuming from those a recent run saved in a cache file."""
     cache = catalog.directory / f"{catalog.category}.citations.jsonl"
-    counts: dict[str, int | None] = {}
-    if cache.is_file():
-        lines = cache.read_text(encoding="utf-8").splitlines()
-        if lines and json.loads(lines[0]).get("date") == today.isoformat():
-            for line in lines[1:]:
-                counts.update(json.loads(line))
-    if not counts:
-        cache.parent.mkdir(parents=True, exist_ok=True)
-        cache.write_text(json.dumps({"date": today.isoformat()}) + "\n", encoding="utf-8")
+    started, counts = _read_citations_cache(cache, today)
+    # Rewritten in one piece: a run killed while appending a batch leaves a cut last line.
+    cache.parent.mkdir(parents=True, exist_ok=True)
+    lines = [json.dumps({"date": started.isoformat()}), *([json.dumps(counts)] if counts else [])]
+    cache.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
     def save(batch: Mapping[str, int | None]) -> None:
         with cache.open("a", encoding="utf-8") as out:
@@ -244,6 +244,25 @@ def _citation_counts(
             fetch_citation_counts(clients.citations, missing, key=clients.citations_key, on_batch=save)
         )
     return counts
+
+
+def _read_citations_cache(cache: Path, today: date) -> tuple[date, dict[str, int | None]]:
+    """The day a recent run started its cache, and the counts it saved; else today and none."""
+    lines = cache.read_text(encoding="utf-8").splitlines() if cache.is_file() else []
+    try:
+        started = date.fromisoformat(json.loads(lines[0])["date"])
+    except (IndexError, json.JSONDecodeError, KeyError, TypeError, ValueError):
+        return today, {}
+    if not 0 <= (today - started).days < CITATIONS_CACHE_DAYS:
+        return today, {}
+    counts: dict[str, int | None] = {}
+    for line in lines[1:]:
+        try:
+            counts.update(json.loads(line))
+        except json.JSONDecodeError:
+            logger.warning("Ignoring a cut line of %s", cache)
+    logger.info("Reusing %d citation counts saved on %s", len(counts), started.isoformat())
+    return started, counts
 
 
 def _with_affiliations(papers: list[Paper], client: HttpClient) -> list[Paper]:

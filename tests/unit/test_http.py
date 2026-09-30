@@ -112,6 +112,18 @@ def test_other_request_errors_are_not_retried() -> None:
     assert sleeps == []
 
 
+def test_errors_quote_the_start_of_a_json_body() -> None:
+    message = {"message": "Too Many Requests. Please wait and try again or apply for a key."}
+    responses = {"/json": httpx.Response(429, json=message), "/html": httpx.Response(429, text="<p>busy</p>")}
+    transport = httpx.MockTransport(lambda request: responses[request.url.path])
+
+    with HttpClient(transport=transport, max_attempts=1) as client:
+        with pytest.raises(FetchError, match=r"HTTP 429 for .*/json: .*apply for a key"):
+            client.get_text("https://api.semanticscholar.org/json")
+        with pytest.raises(FetchError, match=r"HTTP 429 for https://api\.semanticscholar\.org/html$"):
+            client.get_text("https://api.semanticscholar.org/html")
+
+
 def test_at_least_one_attempt() -> None:
     with pytest.raises(ValueError, match="max_attempts"):
         HttpClient(max_attempts=0)

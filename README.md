@@ -113,7 +113,7 @@ paper leaves only once it ranks beyond 1.15 times the budget, and a paper that t
 later comes back. Deleting the day files older than 12 months is off until you turn it on
 (`--prune`, or the `PREPRINT_RADAR_ARCHIVE_PRUNE` repository variable). Citation counts are
 much faster with a free Semantic Scholar API key, set as the `SEMANTIC_SCHOLAR_API_KEY`
-repository secret.
+repository secret; a run that fails or is cancelled resumes from the counts it fetched.
 
 ## Deployment on GitHub Pages
 
