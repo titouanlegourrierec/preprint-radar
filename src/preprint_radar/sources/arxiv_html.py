@@ -97,6 +97,8 @@ _MARKER_SPLIT_RE = re.compile(r"[,;\s]+")
 _ANCHOR_RE = re.compile(r"⟨([^⟨⟩]+)⟩\s*([^⟨]+)")
 _TRAILING_ANCHOR_RE = re.compile(r"([^⟨⟩]+?)\s*⟨([^⟨⟩]+)⟩")
 _NUMBERED_ANCHOR_RE = re.compile(r"^\s*(?P<marker>\d{1,2})\s*(?P<name>[A-Z].{2,})$", re.MULTILINE)
+# Separators of several names in one creator: "A, B and C", "A & B".
+_SEVERAL_PEOPLE_RE = re.compile(r",|&|\band\b", re.IGNORECASE)
 # Sentence ends, except after an initial ("E. Milara") or an acronym ("USA.").
 _SENTENCE_SPLIT_RE = re.compile(r"(?<=[^\sA-Z][.;])\s+")
 
@@ -430,12 +432,19 @@ def _per_creator_map(
         creators.append((_plain_text(name), _indices(contacts, index_of)))
     if not any(indices for _, indices in creators):
         return None
-    aligned = _align([name for name, _ in creators], authors)
+    if len(creators) > 1 and not any(indices for _, indices in creators[:-1]):
+        # Only the last author carries affiliations: LaTeXML attaches a block shared by
+        # every author to the last one, which says nothing about who is where.
+        return None
+    # A creator naming several people ("A, B and C", "A & B") says nothing about which of
+    # them is where (markers may): only creators of one person are aligned with the authors.
+    people = [(name, indices) for name, indices in creators if not _SEVERAL_PEOPLE_RE.search(name)]
+    aligned = _align([name for name, _ in people], authors)
     if aligned is None:
         return None
     mapping: list[tuple[int, ...] | None] = [None] * len(authors)
     for creator_index, author_index in aligned.items():
-        mapping[author_index] = creators[creator_index][1] or None
+        mapping[author_index] = people[creator_index][1] or None
     return tuple(mapping) if any(mapping) else None
 
 
