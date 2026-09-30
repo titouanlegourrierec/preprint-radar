@@ -1,8 +1,8 @@
 import { useEffect, useState } from "preact/hooks";
-import { loadDays, loadIndex } from "../data";
+import { loadArchive, loadDays, loadIndex } from "../data";
 import { type Period, selectDays } from "../period";
 import { PaperIndex } from "../search";
-import type { DaySummary, StoreIndex } from "../types";
+import type { ArchiveSummary, DaySummary, Paper, StoreIndex } from "../types";
 
 export type LoadState =
   | { status: "loading" }
@@ -14,8 +14,15 @@ export type LoadState =
  *
  * The requested category falls back to the first one in the store when it is unknown
  * (e.g. an old link after a category was dropped).
+ *
+ * With `archive` set, the papers are those of one year of the archive of highly cited
+ * older papers instead: the requested year, else the latest one.
  */
-export function usePapers(requestedCategory: string | null, period: Period) {
+export function usePapers(
+  requestedCategory: string | null,
+  period: Period,
+  archive: { year: number | null } | null = null,
+) {
   const [storeIndex, setStoreIndex] = useState<StoreIndex | null>(null);
   const [load, setLoad] = useState<LoadState>({ status: "loading" });
 
@@ -29,6 +36,11 @@ export function usePapers(requestedCategory: string | null, period: Period) {
   const category =
     requestedCategory && categories.includes(requestedCategory) ? requestedCategory : categories[0];
   const storeDays: DaySummary[] = (category && storeIndex?.categories[category]) || [];
+  const archiveYears: ArchiveSummary[] = (category && storeIndex?.archives?.[category]) || [];
+  const archiveYear = archive
+    ? ((archiveYears.find(({ year }) => year === archive.year) ?? archiveYears[0])?.year ?? null)
+    : null;
+  const archived = archive !== null;
 
   useEffect(() => {
     if (!storeIndex) return;
@@ -36,10 +48,17 @@ export function usePapers(requestedCategory: string | null, period: Period) {
       setLoad({ status: "error", message: "The data store is empty." });
       return;
     }
-    const days = selectDays(storeIndex.categories[category] ?? [], period);
     let cancelled = false;
     setLoad({ status: "loading" });
-    loadDays(category, days)
+    let papers: Promise<Paper[]>;
+    if (!archived) {
+      papers = loadDays(category, selectDays(storeIndex.categories[category] ?? [], period));
+    } else if (archiveYear === null) {
+      papers = Promise.resolve([]); // no archive yet
+    } else {
+      papers = loadArchive(category, archiveYear);
+    }
+    papers
       .then((papers) => !cancelled && setLoad({ status: "ready", index: new PaperIndex(papers) }))
       .catch(
         (error: unknown) => !cancelled && setLoad({ status: "error", message: String(error) }),
@@ -47,7 +66,15 @@ export function usePapers(requestedCategory: string | null, period: Period) {
     return () => {
       cancelled = true;
     };
-  }, [storeIndex, category, period]);
+  }, [storeIndex, category, period, archived, archiveYear]);
 
-  return { categories, category, storeDays, load, generatedAt: storeIndex?.generated_at ?? null };
+  return {
+    categories,
+    category,
+    storeDays,
+    archiveYears,
+    archiveYear,
+    load,
+    generatedAt: storeIndex?.generated_at ?? null,
+  };
 }

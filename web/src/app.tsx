@@ -5,6 +5,7 @@ import { PaperList } from "./components/PaperList";
 import { Sidebar } from "./components/Sidebar";
 import { download } from "./download";
 import { formatDay } from "./format";
+import { useCitations } from "./hooks/use-citations";
 import { usePapers } from "./hooks/use-papers";
 import { useReadingList } from "./hooks/use-reading-list";
 import { useTheme } from "./hooks/use-theme";
@@ -13,6 +14,7 @@ import { between } from "./period";
 import { loadShowAbstracts, saveShowAbstracts, type ThemePreference } from "./preferences";
 import {
   alphabetical,
+  byCitations,
   facetCounts,
   NO_FILTERS,
   parseQuery,
@@ -32,10 +34,14 @@ const RELEVANCE_HELP =
 
 export function App() {
   const { state, query, update, setFilters } = useUrlState();
-  const { categories, category, storeDays, load, generatedAt } = usePapers(
-    state.category,
-    state.period,
-  );
+  const cited = state.view === "cited";
+  const { categories, category, storeDays, archiveYears, archiveYear, load, generatedAt } =
+    usePapers(state.category, state.period, cited ? { year: state.year } : null);
+  const citations = useCitations(category);
+  const citationsNote =
+    citations.source && citations.asOf
+      ? `Citations on ${citations.source}, as of ${formatDay(citations.asOf)}`
+      : undefined;
   const readingList = useReadingList();
   const { theme, resolved, next, cycle } = useTheme();
   const [showAbstracts, setShowAbstracts] = useState(loadShowAbstracts);
@@ -44,11 +50,12 @@ export function App() {
   const activeIndex =
     state.view === "reading-list" ? readingList.index : load.status === "ready" ? load.index : null;
 
-  const results: SearchResult[] = useMemo(
-    () =>
-      state.view === "graph" ? [] : (activeIndex?.search(query, state.filters, state.sort) ?? []),
-    [state.view, activeIndex, query, state.filters, state.sort],
-  );
+  const results: SearchResult[] = useMemo(() => {
+    if (state.view === "graph") return [];
+    const found = activeIndex?.search(query, state.filters, cited ? "newest" : state.sort) ?? [];
+    // The highly cited view ranks by citations; search words only narrow it down.
+    return cited ? byCitations(found, citations.counts) : found;
+  }, [state.view, cited, activeIndex, query, state.filters, state.sort, citations]);
   // The graph has its own settings panel: it ignores the list filters, not the search words.
   const graphPapers = useMemo(
     () =>
@@ -86,7 +93,7 @@ export function App() {
   );
   const hasSearchWords = parseQuery(query).text !== "";
   // Day headings need results in announcement order (see search): no words, or newest.
-  const groupByDay = !hasSearchWords || state.sort === "newest";
+  const groupByDay = !cited && (!hasSearchWords || state.sort === "newest");
   // A share link opens the paper on its own day, free of the sharer's search context.
   const linkTo = (paper: Paper) =>
     writeState({
@@ -135,6 +142,14 @@ export function App() {
             onClick={() => update({ view: "papers" })}
           >
             Papers
+          </button>
+          <button
+            type="button"
+            class={`tab${cited ? " tab--active" : ""}`}
+            title="The most cited papers older than a year, by year of first version"
+            onClick={() => update({ view: "cited" })}
+          >
+            Highly cited
           </button>
           <button
             type="button"
@@ -251,6 +266,11 @@ export function App() {
             onCategory={(value) => update({ category: value })}
             onPeriod={(period) => update({ period })}
             onFilters={setFilters}
+            archive={
+              cited
+                ? { years: archiveYears, year: archiveYear, onYear: (year) => update({ year }) }
+                : undefined
+            }
           />
         )}
 
@@ -259,13 +279,15 @@ export function App() {
             <p class="muted" aria-live="polite">
               {state.view === "reading-list"
                 ? `${results.length} of ${readingList.papers.length} saved papers`
-                : load.status === "ready"
-                  ? `${results.length} of ${load.index.size} papers`
-                  : load.status === "loading"
-                    ? "Loading papers…"
-                    : null}
+                : cited && load.status === "ready" && archiveYear !== null
+                  ? `${results.length} of ${load.index.size} highly cited papers first published in ${archiveYear}`
+                  : load.status === "ready"
+                    ? `${results.length} of ${load.index.size} papers`
+                    : load.status === "loading"
+                      ? "Loading papers…"
+                      : null}
             </p>
-            {hasSearchWords && (
+            {hasSearchWords && !cited && (
               <fieldset class="segmented">
                 <legend class="visually-hidden">Sort results</legend>
                 <button
@@ -337,27 +359,47 @@ export function App() {
 
           {hasSearchWords && showRelevanceHelp && <p class="help-note">{RELEVANCE_HELP}</p>}
 
-          {load.status === "error" && state.view === "papers" ? (
+          {load.status === "error" && (state.view === "papers" || cited) ? (
             <p class="notice notice--error">Could not load papers: {load.message}</p>
+          ) : cited && archiveYears.length === 0 ? (
+            <p class="notice">
+              The archive of highly cited papers is built weekly, from citation counts: it is not
+              there yet.
+            </p>
           ) : state.view === "reading-list" && readingList.papers.length === 0 ? (
             <p class="notice">
               Your reading list is empty. Use ☆ on a paper to save it; the list is kept in this
               browser.
             </p>
           ) : (
-            <PaperList
-              results={results}
-              groupByDay={groupByDay}
-              openId={state.paper}
-              linkTo={linkTo}
-              onOpenPaper={(arxivId) => update({ paper: arxivId })}
-              onShowInGraph={showInGraph}
-              showAbstracts={showAbstracts || state.view === "reading-list"}
-              savedIds={readingList.savedIds}
-              onToggleSaved={readingList.toggle}
-              onAuthor={(author) => setFilters({ ...state.filters, author })}
-              onAffiliation={(affiliation) => setFilters({ ...state.filters, affiliation })}
-            />
+            <>
+              {state.view === "papers" &&
+                state.paper &&
+                load.status === "ready" &&
+                !load.index.has(state.paper) && (
+                  <p class="notice">
+                    This paper is not among the stored papers of this period (it may be older than
+                    the papers kept).{" "}
+                    <a href={`https://arxiv.org/abs/${state.paper}`}>See it on arXiv</a>.
+                  </p>
+                )}
+              <PaperList
+                results={results}
+                groupByDay={groupByDay}
+                openId={state.paper}
+                linkTo={linkTo}
+                onOpenPaper={(arxivId) => update({ paper: arxivId })}
+                // The graph is built from the days kept in full, not from the archive.
+                onShowInGraph={cited ? undefined : showInGraph}
+                citations={citations.counts}
+                citationsNote={citationsNote}
+                showAbstracts={showAbstracts || state.view === "reading-list"}
+                savedIds={readingList.savedIds}
+                onToggleSaved={readingList.toggle}
+                onAuthor={(author) => setFilters({ ...state.filters, author })}
+                onAffiliation={(affiliation) => setFilters({ ...state.filters, affiliation })}
+              />
+            </>
           )}
         </main>
       </div>
@@ -365,6 +407,9 @@ export function App() {
       <footer class="site-footer muted">
         Data from <a href="https://arxiv.org">arXiv</a>, refreshed every weekday. Thank you to arXiv
         for use of its open access interoperability. This project is not affiliated with arXiv.
+        Citation counts from <a href="https://www.semanticscholar.org">Semantic Scholar</a>,
+        institutions from the <a href="https://ror.org">Research Organization Registry</a> and{" "}
+        <a href="https://openalex.org">OpenAlex</a>.
       </footer>
     </div>
   );

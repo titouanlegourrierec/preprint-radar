@@ -1,7 +1,7 @@
 import { useState } from "preact/hooks";
 import type { Period } from "../period";
 import type { FacetCount, SearchFilters } from "../search";
-import type { DaySummary } from "../types";
+import type { ArchiveSummary, DaySummary } from "../types";
 import { PeriodPicker } from "./PeriodPicker";
 import { VenueSelect } from "./VenueSelect";
 
@@ -18,6 +18,14 @@ interface Props {
   onCategory: (category: string) => void;
   onPeriod: (period: Period) => void;
   onFilters: (filters: SearchFilters) => void;
+  /** Highly cited view: years of the archive, shown instead of the period. */
+  archive?:
+    | {
+        years: ArchiveSummary[];
+        year: number | null;
+        onYear: (year: number) => void;
+      }
+    | undefined;
 }
 
 function FilterInput({
@@ -89,10 +97,26 @@ export function Sidebar(props: Props) {
         </label>
       )}
 
-      <div class="field">
-        <span>Period</span>
-        <PeriodPicker days={props.days} period={props.period} onChange={props.onPeriod} />
-      </div>
+      {props.archive ? (
+        <label class="field">
+          <span>Year</span>
+          <select
+            value={props.archive.year ?? ""}
+            onChange={(event) => props.archive?.onYear(Number(event.currentTarget.value))}
+          >
+            {props.archive.years.map(({ year, count }) => (
+              <option key={year} value={year}>
+                {year} ({count.toLocaleString()} papers)
+              </option>
+            ))}
+          </select>
+        </label>
+      ) : (
+        <div class="field">
+          <span>Period</span>
+          <PeriodPicker days={props.days} period={props.period} onChange={props.onPeriod} />
+        </div>
+      )}
 
       <details class="filters" open={filtersOpen}>
         <summary>Filters</summary>

@@ -1,4 +1,6 @@
 import {
+  type ArchiveFile,
+  type CitationsFile,
   type DayFile,
   type DaySummary,
   type Paper,
@@ -47,4 +49,23 @@ export async function loadDays(category: string, days: DaySummary[]): Promise<Pa
 
   await Promise.all(Array.from({ length: Math.min(MAX_PARALLEL_REQUESTS, days.length) }, worker));
   return results.flat();
+}
+
+/** Load the archived papers of one year (highly cited older papers). */
+export async function loadArchive(category: string, year: number): Promise<Paper[]> {
+  const file = await fetchJson<ArchiveFile>(`${category}/archive/${year}.json`);
+  checkSchema(file.schema_version, "archive file");
+  return file.papers;
+}
+
+/** Load the citation counts of a category, or `null` if none were published yet. */
+export async function loadCitations(category: string): Promise<CitationsFile | null> {
+  const response = await fetch(`${DATA_URL}${category}/citations.json`);
+  if (response.status === 404) return null;
+  if (!response.ok) {
+    throw new Error(`Could not load citation counts (HTTP ${response.status})`);
+  }
+  const file = (await response.json()) as CitationsFile;
+  checkSchema(file.schema_version, "citations file");
+  return file;
 }

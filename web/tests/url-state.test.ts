@@ -73,3 +73,16 @@ describe("url state", () => {
     expect(readState("?from=yesterday&to=2026-13-45")).toEqual(DEFAULT_STATE);
   });
 });
+
+describe("highly cited view", () => {
+  it("round-trips the view and the archive year", () => {
+    const state = { ...DEFAULT_STATE, view: "cited" as const, year: 2017 };
+
+    expect(writeState(state)).toBe("?view=cited&year=2017");
+    expect(readState(writeState(state))).toEqual(state);
+  });
+
+  it("ignores a malformed year", () => {
+    expect(readState("?view=cited&year=soon").year).toBeNull();
+  });
+});

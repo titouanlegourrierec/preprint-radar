@@ -16,7 +16,9 @@ interface Props {
   openId: string | null;
   linkTo: (paper: Paper) => string;
   onOpenPaper: (arxivId: string) => void;
-  onShowInGraph: (paper: Paper) => void;
+  onShowInGraph?: ((paper: Paper) => void) | undefined;
+  citations: ReadonlyMap<string, number>;
+  citationsNote?: string | undefined;
   showAbstracts: boolean;
   savedIds: ReadonlySet<string>;
   onToggleSaved: (paper: Paper) => void;
@@ -32,6 +34,8 @@ export function PaperList({
   linkTo,
   onOpenPaper,
   onShowInGraph,
+  citations,
+  citationsNote,
   showAbstracts,
   savedIds,
   onToggleSaved,
@@ -85,6 +89,8 @@ export function PaperList({
       permalink={linkTo(paper)}
       onOpen={onOpenPaper}
       onShowInGraph={onShowInGraph}
+      citations={citations.get(paper.arxiv_id)}
+      citationsNote={citationsNote}
       onToggleSaved={onToggleSaved}
       onAuthor={onAuthor}
       onAffiliation={onAffiliation}

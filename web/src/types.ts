@@ -50,8 +50,31 @@ export interface DaySummary {
   count: number;
 }
 
+export interface ArchiveSummary {
+  year: number;
+  count: number;
+}
+
 export interface StoreIndex {
   schema_version: number;
   generated_at: string;
   categories: Record<string, DaySummary[]>;
+  /** Years of the archive of highly cited older papers; absent before the first archive. */
+  archives?: Record<string, ArchiveSummary[]>;
+}
+
+export interface ArchiveFile {
+  schema_version: number;
+  category: string;
+  year: number;
+  papers: Paper[];
+}
+
+export interface CitationsFile {
+  schema_version: number;
+  category: string;
+  generated_at: string;
+  /** Where the counts come from, e.g. "Semantic Scholar". */
+  source: string;
+  counts: Record<string, number>;
 }

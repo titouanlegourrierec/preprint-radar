@@ -1,9 +1,9 @@
 import { between, DEFAULT_PERIOD, isIsoDay, isRange, type Period } from "./period";
 import { NO_FILTERS, type SearchFilters, type SortOrder } from "./search";
 
-export type View = "papers" | "graph" | "reading-list";
+export type View = "papers" | "cited" | "graph" | "reading-list";
 
-const VIEWS: readonly View[] = ["papers", "graph", "reading-list"];
+const VIEWS: readonly View[] = ["papers", "cited", "graph", "reading-list"];
 
 export interface ViewState {
   query: string;
@@ -14,6 +14,8 @@ export interface ViewState {
   filters: SearchFilters;
   /** arXiv id from a shared `?paper=` link: its card is opened and scrolled into view. */
   paper: string | null;
+  /** Year of the archive shown by the highly cited view (`null`: the latest). */
+  year: number | null;
 }
 
 export const DEFAULT_STATE: ViewState = {
@@ -24,6 +26,7 @@ export const DEFAULT_STATE: ViewState = {
   view: "papers",
   filters: NO_FILTERS,
   paper: null,
+  year: null,
 };
 
 /** `?from=…&to=…` (a single `from` is one day), else `?range=…`, else the default. */
@@ -45,6 +48,7 @@ export function readState(search: string): ViewState {
     sort: params.get("sort") === "newest" ? "newest" : "relevance",
     view: VIEWS.find((view) => view === params.get("view")) ?? DEFAULT_STATE.view,
     paper: params.get("paper"),
+    year: /^\d{4}$/.test(params.get("year") ?? "") ? Number(params.get("year")) : null,
     filters: {
       excludeCrossLists: params.get("xl") === "0",
       author: params.get("author"),
@@ -73,6 +77,7 @@ export function writeState(state: ViewState): string {
   set("sort", state.sort, DEFAULT_STATE.sort);
   set("view", state.view, DEFAULT_STATE.view);
   set("paper", state.paper);
+  set("year", state.year === null ? null : String(state.year));
   set("xl", state.filters.excludeCrossLists ? "0" : null);
   set("author", state.filters.author);
   set("aff", state.filters.affiliation);

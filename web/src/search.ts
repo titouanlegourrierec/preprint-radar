@@ -260,3 +260,12 @@ export function facetCounts(
     limit,
   );
 }
+
+/** Results ranked by citation count, most cited first; stable for equal counts. */
+export function byCitations(
+  results: readonly SearchResult[],
+  counts: ReadonlyMap<string, number>,
+): SearchResult[] {
+  const count = (result: SearchResult) => counts.get(result.paper.arxiv_id) ?? 0;
+  return [...results].sort((a, b) => count(b) - count(a));
+}

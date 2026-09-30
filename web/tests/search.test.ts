@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   ANY_VENUE,
   alphabetical,
+  byCitations,
   facetCounts,
   NO_FILTERS,
   PaperIndex,
@@ -164,6 +165,28 @@ describe("facetCounts", () => {
     expect(facetCounts(results, (paper) => paper.affiliations ?? [], 5)).toEqual([
       { value: "MIT", count: 2 },
       { value: "NVIDIA", count: 1 },
+    ]);
+  });
+});
+
+describe("byCitations", () => {
+  it("ranks results by citation count, unknown counts last, keeping ties in order", () => {
+    const results = ["a", "b", "c", "d"].map((id) => ({
+      paper: makePaper({ arxiv_id: id }),
+      score: 0,
+      highlights: [],
+    }));
+    const counts = new Map([
+      ["b", 10],
+      ["c", 250],
+      ["d", 10],
+    ]);
+
+    expect(byCitations(results, counts).map(({ paper }) => paper.arxiv_id)).toEqual([
+      "c",
+      "b",
+      "d",
+      "a",
     ]);
   });
 });

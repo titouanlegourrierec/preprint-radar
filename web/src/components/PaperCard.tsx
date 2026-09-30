@@ -23,7 +23,12 @@ interface Props {
   /** Query string linking to this paper alone, for the Share control. */
   permalink: string;
   onOpen: (arxivId: string) => void;
-  onShowInGraph: (paper: Paper) => void;
+  /** Absent for papers the graph cannot show (the archive). */
+  onShowInGraph?: ((paper: Paper) => void) | undefined;
+  /** Citation count, when known. */
+  citations?: number | undefined;
+  /** Where and when the count comes from, for its tooltip. */
+  citationsNote?: string | undefined;
   onToggleSaved: (paper: Paper) => void;
   onAuthor: (author: string) => void;
   onAffiliation: (affiliation: string) => void;
@@ -38,6 +43,8 @@ export function PaperCard({
   permalink,
   onOpen,
   onShowInGraph,
+  citations,
+  citationsNote,
   onToggleSaved,
   onAuthor,
   onAffiliation,
@@ -172,6 +179,11 @@ export function PaperCard({
             </span>
           )}
           <span>{formatDay(paper.announced)}</span>
+          {citations !== undefined && citations > 0 && (
+            <span class="citations" title={citationsNote}>
+              {citations.toLocaleString()} citation{citations === 1 ? "" : "s"}
+            </span>
+          )}
           {subject && <span title={paper.primary_subject ?? undefined}>{subject}</span>}
           <a href={paper.pdf_url} target="_blank" rel="noopener noreferrer">
             PDF
@@ -187,14 +199,16 @@ export function PaperCard({
           <a href={permalink} title="Copy a link to this paper" onClick={copyLink}>
             {linkCopied ? "Copied!" : "Share"}
           </a>
-          <button
-            type="button"
-            class="link-button"
-            title="Show this paper in the graph, with its institutions"
-            onClick={() => onShowInGraph(paper)}
-          >
-            Graph
-          </button>
+          {onShowInGraph && (
+            <button
+              type="button"
+              class="link-button"
+              title="Show this paper in the graph, with its institutions"
+              onClick={() => onShowInGraph(paper)}
+            >
+              Graph
+            </button>
+          )}
           {hasDetails && (
             <button
               type="button"
