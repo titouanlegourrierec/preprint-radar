@@ -1,0 +1,1532 @@
+{
+ "schema_version": 1,
+ "category": "cs.CV",
+ "year": 2013,
+ "papers": [
+  {
+   "arxiv_id": "1312.5402",
+   "announced": "2013-12-19",
+   "title": "Some Improvements on Deep Convolutional Neural Network Based Image Classification",
+   "authors": [
+    "Andrew G. Howard"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We investigate multiple techniques to improve upon the current state of the art deep convolutional neural network based image classification pipeline. The techiques include adding more image transformations to training data, adding more transformations to generate additional predictions at test time and using complementary models applied to higher resolution images. This paper summarizes our entry in the Imagenet Large Scale Visual Recognition Challenge 2013. Our system achieved a top 5 classification error rate of 13.55% using no external data which is over a 20% relative improvement on the previous year's winner.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1312.5402",
+   "pdf_url": "https://arxiv.org/pdf/1312.5402"
+  },
+  {
+   "arxiv_id": "1312.2249",
+   "announced": "2013-12-08",
+   "title": "Scalable Object Detection using Deep Neural Networks",
+   "authors": [
+    "Dumitru Erhan",
+    "Christian Szegedy",
+    "Alexander Toshev",
+    "Dragomir Anguelov"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (stat.ML)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Deep convolutional neural networks have recently achieved state-of-the-art performance on a number of image recognition benchmarks, including the ImageNet Large-Scale Visual Recognition Challenge (ILSVRC-2012). The winning model on the localization sub-task was a network that predicts a single bounding box and a confidence score for each object category in the image. Such a model captures the whole-image context around the objects but cannot handle multiple instances of the same object in the image without naively replicating the number of outputs for each instance. In this work, we propose a saliency-inspired neural network model for detection, which predicts a set of class-agnostic bounding boxes along with a single score for each box, corresponding to its likelihood of containing any object of interest. The model naturally handles a variable number of instances for each class and allows for cross-class generalization at the highest levels of the network. We are able to obtain competitive recognition performance on VOC2007 and ILSVRC2012, while using only the top few predicted locations in each image and a small number of neural network evaluations.",
+   "affiliations": [
+    "Google"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Google"
+   ],
+   "abs_url": "https://arxiv.org/abs/1312.2249",
+   "pdf_url": "https://arxiv.org/pdf/1312.2249"
+  },
+  {
+   "arxiv_id": "1312.6229",
+   "announced": "2013-12-01",
+   "title": "OverFeat: Integrated Recognition, Localization and Detection using Convolutional Networks",
+   "authors": [
+    "Pierre Sermanet",
+    "David Eigen",
+    "Xiang Zhang",
+    "Michael Mathieu",
+    "Rob Fergus",
+    "Yann LeCun"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We present an integrated framework for using Convolutional Networks for classification, localization and detection. We show how a multiscale and sliding window approach can be efficiently implemented within a ConvNet. We also introduce a novel deep learning approach to localization by learning to predict object boundaries. Bounding boxes are then accumulated rather than suppressed in order to increase detection confidence. We show that different tasks can be learned simultaneously using a single shared network. This integrated framework is the winner of the localization task of the ImageNet Large Scale Visual Recognition Challenge 2013 (ILSVRC2013) and obtained very competitive results for the detection and classifications tasks. In post-competition work, we establish a new state of the art for the detection task. Finally, we release a feature extractor from our best model called OverFeat.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1312.6229",
+   "pdf_url": "https://arxiv.org/pdf/1312.6229"
+  },
+  {
+   "arxiv_id": "1312.6203",
+   "announced": "2013-12-01",
+   "title": "Spectral Networks and Locally Connected Networks on Graphs",
+   "authors": [
+    "Joan Bruna",
+    "Wojciech Zaremba",
+    "Arthur Szlam",
+    "Yann LeCun"
+   ],
+   "primary_subject": "Machine Learning (cs.LG)",
+   "subjects": [
+    "Machine Learning (cs.LG)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Neural and Evolutionary Computing (cs.NE)"
+   ],
+   "comments": "14 pages",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.LG",
+   "html_url": null,
+   "abstract": "Convolutional Neural Networks are extremely efficient architectures in image and audio recognition tasks, thanks to their ability to exploit the local translational invariance of signal classes over their domain. In this paper we consider possible generalizations of CNNs to signals defined on more general domains without the action of a translation group. In particular, we propose two constructions, one based upon a hierarchical clustering of the domain, and another based on the spectrum of the graph Laplacian. We show through experiments that for low-dimensional graphs it is possible to learn convolutional layers with a number of parameters independent of the input size, resulting in efficient deep architectures.",
+   "affiliations": [
+    "New York University",
+    "City College of New York"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "New York University",
+    "City College of New York"
+   ],
+   "abs_url": "https://arxiv.org/abs/1312.6203",
+   "pdf_url": "https://arxiv.org/pdf/1312.6203"
+  },
+  {
+   "arxiv_id": "1312.6199",
+   "announced": "2013-12-01",
+   "title": "Intriguing properties of neural networks",
+   "authors": [
+    "Christian Szegedy",
+    "Wojciech Zaremba",
+    "Ilya Sutskever",
+    "Joan Bruna",
+    "Dumitru Erhan",
+    "Ian Goodfellow",
+    "Rob Fergus"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)",
+    "Neural and Evolutionary Computing (cs.NE)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Deep neural networks are highly expressive models that have recently achieved state of the art performance on speech and visual recognition tasks. While their expressiveness is the reason they succeed, it also causes them to learn uninterpretable solutions that could have counter-intuitive properties. In this paper we report two such properties. First, we find that there is no distinction between individual high level units and random linear combinations of high level units, according to various methods of unit analysis. It suggests that it is the space, rather than the individual units, that contains of the semantic information in the high layers of neural networks. Second, we find that deep neural networks learn input-output mappings that are fairly discontinuous to a significant extend. We can cause the network to misclassify an image by applying a certain imperceptible perturbation, which is found by maximizing the network's prediction error. In addition, the specific nature of these perturbations is not a random artifact of learning: the same perturbation can cause a different network, that was trained on a different subset of the dataset, to misclassify the same input.",
+   "affiliations": [
+    "Google",
+    "New York University",
+    "Université de Montréal",
+    "Meta"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     3,
+     1
+    ]
+   ],
+   "institutions": [
+    "Google",
+    "New York University",
+    "Université de Montréal",
+    "Meta"
+   ],
+   "abs_url": "https://arxiv.org/abs/1312.6199",
+   "pdf_url": "https://arxiv.org/pdf/1312.6199"
+  },
+  {
+   "arxiv_id": "1312.6120",
+   "announced": "2013-12-01",
+   "title": "Exact solutions to the nonlinear dynamics of learning in deep linear neural networks",
+   "authors": [
+    "Andrew M. Saxe",
+    "James L. McClelland",
+    "Surya Ganguli"
+   ],
+   "primary_subject": "Neural and Evolutionary Computing (cs.NE)",
+   "subjects": [
+    "Neural and Evolutionary Computing (cs.NE)",
+    "cond-mat.dis-nn",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)",
+    "Neurons and Cognition (q-bio.NC)",
+    "Machine Learning (stat.ML)"
+   ],
+   "comments": "Submission to ICLR2014. Revised based on reviewer feedback",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.NE",
+   "html_url": null,
+   "abstract": "Despite the widespread practical success of deep learning methods, our theoretical understanding of the dynamics of learning in deep neural networks remains quite sparse. We attempt to bridge the gap between the theory and practice of deep learning by systematically analyzing learning dynamics for the restricted case of deep linear neural networks. Despite the linearity of their input-output map, such networks have nonlinear gradient descent dynamics on weights that change with the addition of each new hidden layer. We show that deep linear networks exhibit nonlinear learning phenomena similar to those seen in simulations of nonlinear networks, including long plateaus followed by rapid transitions to lower error solutions, and faster convergence from greedy unsupervised pretraining initial conditions than from random initial conditions. We provide an analytical description of these phenomena by finding new exact solutions to the nonlinear dynamics of deep learning. Our theoretical analysis also reveals the surprising finding that as the depth of a network approaches infinity, learning speed can nevertheless remain finite: for a special class of initial conditions on the weights, very deep networks incur only a finite, depth independent, delay in learning speed relative to shallow networks. We show that, under certain conditions on the training data, unsupervised pretraining can find this special class of initial conditions, while scaled random Gaussian initializations cannot. We further exhibit a new class of random orthogonal initial conditions on weights that, like unsupervised pre-training, enjoys depth independent learning times. We further show that these initial conditions also lead to faithful propagation of gradients even in deep nonlinear networks, as long as they operate in a special regime known as the edge of chaos.",
+   "affiliations": [
+    "Stanford University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Stanford University"
+   ],
+   "abs_url": "https://arxiv.org/abs/1312.6120",
+   "pdf_url": "https://arxiv.org/pdf/1312.6120"
+  },
+  {
+   "arxiv_id": "1312.6082",
+   "announced": "2013-12-01",
+   "title": "Multi-digit Number Recognition from Street View Imagery using Deep Convolutional Neural Networks",
+   "authors": [
+    "Ian J. Goodfellow",
+    "Yaroslav Bulatov",
+    "Julian Ibarz",
+    "Sacha Arnoud",
+    "Vinay Shet"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Recognizing arbitrary multi-character text in unconstrained natural photographs is a hard problem. In this paper, we address an equally hard sub-problem in this domain viz. recognizing arbitrary multi-digit numbers from Street View imagery. Traditional approaches to solve this problem typically separate out the localization, segmentation, and recognition steps. In this paper we propose a unified approach that integrates these three steps via the use of a deep convolutional neural network that operates directly on the image pixels. We employ the DistBelief implementation of deep neural networks in order to train large, distributed neural networks on high quality images. We find that the performance of this approach increases with the depth of the convolutional network, with the best performance occurring in the deepest architecture we trained, with eleven hidden layers. We evaluate this approach on the publicly available SVHN dataset and achieve over $96\\%$ accuracy in recognizing complete street numbers. We show that on a per-digit recognition task, we improve upon the state-of-the-art, achieving $97.84\\%$ accuracy. We also evaluate this approach on an even more challenging dataset generated from Street View imagery containing several tens of millions of street number annotations and achieve over $90\\%$ accuracy. To further explore the applicability of the proposed system to broader text recognition tasks, we apply it to synthetic distorted text from reCAPTCHA. reCAPTCHA is one of the most secure reverse turing tests that uses distorted text to distinguish humans from bots. We report a $99.8\\%$ accuracy on the hardest category of reCAPTCHA. Our evaluations on both tasks indicate that at specific operating thresholds, the performance of the proposed system is comparable to, and in some cases exceeds, that of human operators.",
+   "affiliations": [
+    "Google"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Google"
+   ],
+   "abs_url": "https://arxiv.org/abs/1312.6082",
+   "pdf_url": "https://arxiv.org/pdf/1312.6082"
+  },
+  {
+   "arxiv_id": "1312.6034",
+   "announced": "2013-12-01",
+   "title": "Deep Inside Convolutional Networks: Visualising Image Classification Models and Saliency Maps",
+   "authors": [
+    "Karen Simonyan",
+    "Andrea Vedaldi",
+    "Andrew Zisserman"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "This paper addresses the visualisation of image classification models, learnt using deep Convolutional Networks (ConvNets). We consider two visualisation techniques, based on computing the gradient of the class score with respect to the input image. The first one generates an image, which maximises the class score [Erhan et al., 2009], thus visualising the notion of the class, captured by a ConvNet. The second technique computes a class saliency map, specific to a given image and class. We show that such maps can be employed for weakly supervised object segmentation using classification ConvNets. Finally, we establish the connection between the gradient-based ConvNet visualisation methods and deconvolutional networks [Zeiler et al., 2013].",
+   "affiliations": [
+    "University of Oxford"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Oxford"
+   ],
+   "abs_url": "https://arxiv.org/abs/1312.6034",
+   "pdf_url": "https://arxiv.org/pdf/1312.6034"
+  },
+  {
+   "arxiv_id": "1312.5851",
+   "announced": "2013-12-01",
+   "title": "Fast Training of Convolutional Networks through FFTs",
+   "authors": [
+    "Michael Mathieu",
+    "Mikael Henaff",
+    "Yann LeCun"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)",
+    "Neural and Evolutionary Computing (cs.NE)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Convolutional networks are one of the most widely employed architectures in computer vision and machine learning. In order to leverage their ability to learn complex functions, large amounts of data are required for training. Training a large convolutional network to produce state-of-the-art results can take weeks, even when using modern GPUs. Producing labels using a trained network can also be costly when dealing with web-scale datasets. In this work, we present a simple algorithm which accelerates training and inference by a significant factor, and can yield improvements of over an order of magnitude compared to existing state-of-the-art implementations. This is done by computing convolutions as pointwise products in the Fourier domain while reusing the same transformed feature map many times. The algorithm is implemented on a GPU architecture and addresses a number of related challenges.",
+   "affiliations": [
+    "Courant Institute of Mathematical Sciences",
+    "New York University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Courant Institute of Mathematical Sciences",
+    "New York University"
+   ],
+   "abs_url": "https://arxiv.org/abs/1312.5851",
+   "pdf_url": "https://arxiv.org/pdf/1312.5851"
+  },
+  {
+   "arxiv_id": "1312.4894",
+   "announced": "2013-12-01",
+   "title": "Deep Convolutional Ranking for Multilabel Image Annotation",
+   "authors": [
+    "Yunchao Gong",
+    "Yangqing Jia",
+    "Thomas Leung",
+    "Alexander Toshev",
+    "Sergey Ioffe"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Multilabel image annotation is one of the most important challenges in computer vision with many real-world applications. While existing work usually use conventional visual features for multilabel annotation, features based on Deep Neural Networks have shown potential to significantly boost performance. In this work, we propose to leverage the advantage of such features and analyze key components that lead to better performances. Specifically, we show that a significant performance gain could be obtained by combining convolutional architectures with approximate top-$k$ ranking objectives, as thye naturally fit the multilabel tagging problem. Our experiments on the NUS-WIDE dataset outperforms the conventional visual features by about 10%, obtaining the best reported performance in the literature.",
+   "affiliations": [
+    "University of North Carolina at Chapel Hill",
+    "Google"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "University of North Carolina at Chapel Hill",
+    "Google"
+   ],
+   "abs_url": "https://arxiv.org/abs/1312.4894",
+   "pdf_url": "https://arxiv.org/pdf/1312.4894"
+  },
+  {
+   "arxiv_id": "1312.4659",
+   "announced": "2013-12-01",
+   "title": "DeepPose: Human Pose Estimation via Deep Neural Networks",
+   "authors": [
+    "Alexander Toshev",
+    "Christian Szegedy"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "IEEE Conference on Computer Vision and Pattern Recognition, 2014",
+   "journal_ref": null,
+   "venue": "CVPR 2014",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We propose a method for human pose estimation based on Deep Neural Networks (DNNs). The pose estimation is formulated as a DNN-based regression problem towards body joints. We present a cascade of such DNN regressors which results in high precision pose estimates. The approach has the advantage of reasoning about pose in a holistic fashion and has a simple but yet powerful formulation which capitalizes on recent advances in Deep Learning. We present a detailed empirical analysis with state-of-art or better performance on four academic benchmarks of diverse real-world images.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1312.4659",
+   "pdf_url": "https://arxiv.org/pdf/1312.4659"
+  },
+  {
+   "arxiv_id": "1312.4569",
+   "announced": "2013-12-01",
+   "title": "Dropout improves Recurrent Neural Networks for Handwriting Recognition",
+   "authors": [
+    "Vu Pham",
+    "Théodore Bluche",
+    "Christopher Kermorvant",
+    "Jérôme Louradour"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)",
+    "Neural and Evolutionary Computing (cs.NE)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Recurrent neural networks (RNNs) with Long Short-Term memory cells currently hold the best known results in unconstrained handwriting recognition. We show that their performance can be greatly improved using dropout - a recently proposed regularization method for deep architectures. While previous works showed that dropout gave superior performance in the context of convolutional networks, it had never been applied to RNNs. In our approach, dropout is carefully used in the network so that it does not affect the recurrent connections, hence the power of RNNs in modeling sequence is preserved. Extensive experiments on a broad range of handwritten databases confirm the effectiveness of dropout on deep architectures even when the network mainly consists of recurrent and shared connections.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1312.4569",
+   "pdf_url": "https://arxiv.org/pdf/1312.4569"
+  },
+  {
+   "arxiv_id": "1312.4400",
+   "announced": "2013-12-01",
+   "title": "Network In Network",
+   "authors": [
+    "Min Lin",
+    "Qiang Chen",
+    "Shuicheng Yan"
+   ],
+   "primary_subject": "Neural and Evolutionary Computing (cs.NE)",
+   "subjects": [
+    "Neural and Evolutionary Computing (cs.NE)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "10 pages, 4 figures, for iclr2014",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.NE",
+   "html_url": null,
+   "abstract": "We propose a novel deep network structure called \"Network In Network\" (NIN) to enhance model discriminability for local patches within the receptive field. The conventional convolutional layer uses linear filters followed by a nonlinear activation function to scan the input. Instead, we build micro neural networks with more complex structures to abstract the data within the receptive field. We instantiate the micro neural network with a multilayer perceptron, which is a potent function approximator. The feature maps are obtained by sliding the micro networks over the input in a similar manner as CNN; they are then fed into the next layer. Deep NIN can be implemented by stacking mutiple of the above described structure. With enhanced local modeling via the micro network, we are able to utilize global average pooling over feature maps in the classification layer, which is easier to interpret and less prone to overfitting than traditional fully connected layers. We demonstrated the state-of-the-art classification performances with NIN on CIFAR-10 and CIFAR-100, and reasonable performances on SVHN and MNIST datasets.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1312.4400",
+   "pdf_url": "https://arxiv.org/pdf/1312.4400"
+  },
+  {
+   "arxiv_id": "1311.2901",
+   "announced": "2013-11-28",
+   "title": "Visualizing and Understanding Convolutional Networks",
+   "authors": [
+    "Matthew D Zeiler",
+    "Rob Fergus"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Large Convolutional Network models have recently demonstrated impressive classification performance on the ImageNet benchmark. However there is no clear understanding of why they perform so well, or how they might be improved. In this paper we address both issues. We introduce a novel visualization technique that gives insight into the function of intermediate feature layers and the operation of the classifier. We also perform an ablation study to discover the performance contribution from different model layers. This enables us to find model architectures that outperform Krizhevsky \\etal on the ImageNet classification benchmark. We show our ImageNet model generalizes well to other datasets: when the softmax classifier is retrained, it convincingly beats the current state-of-the-art results on Caltech-101 and Caltech-256 datasets.",
+   "affiliations": [
+    "New York University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "New York University"
+   ],
+   "abs_url": "https://arxiv.org/abs/1311.2901",
+   "pdf_url": "https://arxiv.org/pdf/1311.2901"
+  },
+  {
+   "arxiv_id": "1311.3618",
+   "announced": "2013-11-15",
+   "title": "Describing Textures in the Wild",
+   "authors": [
+    "Mircea Cimpoi",
+    "Subhransu Maji",
+    "Iasonas Kokkinos",
+    "Sammy Mohamed",
+    "Andrea Vedaldi"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "13 pages; 12 figures Fixed misplaced affiliation",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Patterns and textures are defining characteristics of many natural objects: a shirt can be striped, the wings of a butterfly can be veined, and the skin of an animal can be scaly. Aiming at supporting this analytical dimension in image understanding, we address the challenging problem of describing textures with semantic attributes. We identify a rich vocabulary of forty-seven texture terms and use them to describe a large dataset of patterns collected in the wild.The resulting Describable Textures Dataset (DTD) is the basis to seek for the best texture representation for recognizing describable texture attributes in images. We port from object recognition to texture recognition the Improved Fisher Vector (IFV) and show that, surprisingly, it outperforms specialized texture descriptors not only on our problem, but also in established material recognition datasets. We also show that the describable attributes are excellent texture descriptors, transferring between datasets and tasks; in particular, combined with IFV, they significantly outperform the state-of-the-art by more than 8 percent on both FMD and KTHTIPS-2b benchmarks. We also demonstrate that they produce intuitive descriptions of materials and Internet images.",
+   "affiliations": [
+    "University of Oxford",
+    "Toyota Technological Institute",
+    "Institut national de recherche en sciences et technologies du numérique",
+    "École Centrale Paris",
+    "Stony Brook University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     4
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Oxford",
+    "Toyota Technological Institute",
+    "Institut national de recherche en sciences et technologies du numérique",
+    "École Centrale Paris",
+    "Stony Brook University"
+   ],
+   "abs_url": "https://arxiv.org/abs/1311.3618",
+   "pdf_url": "https://arxiv.org/pdf/1311.3618"
+  },
+  {
+   "arxiv_id": "1311.5591",
+   "announced": "2013-11-01",
+   "title": "PANDA: Pose Aligned Networks for Deep Attribute Modeling",
+   "authors": [
+    "Ning Zhang",
+    "Manohar Paluri",
+    "Marc'Aurelio Ranzato",
+    "Trevor Darrell",
+    "Lubomir Bourdev"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "8 pages",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We propose a method for inferring human attributes (such as gender, hair style, clothes style, expression, action) from images of people under large variation of viewpoint, pose, appearance, articulation and occlusion. Convolutional Neural Nets (CNN) have been shown to perform very well on large scale object recognition problems. In the context of attribute classification, however, the signal is often subtle and it may cover only a small part of the image, while the image is dominated by the effects of pose and viewpoint. Discounting for pose variation would require training on very large labeled datasets which are not presently available. Part-based models, such as poselets and DPM have been shown to perform well for this problem but they are limited by shallow low-level features. We propose a new method which combines part-based models and deep learning by training pose-normalized CNNs. We show substantial improvement vs. state-of-the-art methods on challenging attribute classification tasks in unconstrained settings. Experiments confirm that our method outperforms both the best part-based methods on this problem and conventional CNNs trained on the full bounding box of the person.",
+   "affiliations": [
+    "University of California, Berkeley",
+    "Meta"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "University of California, Berkeley",
+    "Meta"
+   ],
+   "abs_url": "https://arxiv.org/abs/1311.5591",
+   "pdf_url": "https://arxiv.org/pdf/1311.5591"
+  },
+  {
+   "arxiv_id": "1311.3715",
+   "announced": "2013-11-01",
+   "title": "Recognizing Image Style",
+   "authors": [
+    "Sergey Karayev",
+    "Matthew Trentacoste",
+    "Helen Han",
+    "Aseem Agarwala",
+    "Trevor Darrell",
+    "Aaron Hertzmann",
+    "Holger Winnemoeller"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": "Proc. British Machine Vision Conference (BMVC) 2014",
+   "venue": "BMVC 2014",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "The style of an image plays a significant role in how it is viewed, but style has received little attention in computer vision research. We describe an approach to predicting style of images, and perform a thorough evaluation of different image features for these tasks. We find that features learned in a multi-layer network generally perform best -- even when trained with object class (not style) labels. Our large-scale learning methods results in the best published performance on an existing dataset of aesthetic ratings and photographic style annotations. We present two novel datasets: 80K Flickr photographs annotated with 20 curated style labels, and 85K paintings annotated with 25 style/genre labels. Our approach shows excellent classification performance on both datasets. We use the learned classifiers to extend traditional tag-based image search to consider stylistic constraints, and demonstrate cross-dataset understanding of style.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1311.3715",
+   "pdf_url": "https://arxiv.org/pdf/1311.3715"
+  },
+  {
+   "arxiv_id": "1311.2524",
+   "announced": "2013-11-01",
+   "title": "Rich feature hierarchies for accurate object detection and semantic segmentation",
+   "authors": [
+    "Ross Girshick",
+    "Jeff Donahue",
+    "Trevor Darrell",
+    "Jitendra Malik"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Extended version of our CVPR 2014 paper; latest update (v5) includes results using deeper networks (see Appendix G. Changelog)",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Object detection performance, as measured on the canonical PASCAL VOC dataset, has plateaued in the last few years. The best-performing methods are complex ensemble systems that typically combine multiple low-level image features with high-level context. In this paper, we propose a simple and scalable detection algorithm that improves mean average precision (mAP) by more than 30% relative to the previous best result on VOC 2012---achieving a mAP of 53.3%. Our approach combines two key insights: (1) one can apply high-capacity convolutional neural networks (CNNs) to bottom-up region proposals in order to localize and segment objects and (2) when labeled training data is scarce, supervised pre-training for an auxiliary task, followed by domain-specific fine-tuning, yields a significant performance boost. Since we combine region proposals with CNNs, we call our method R-CNN: Regions with CNN features. We also compare R-CNN to OverFeat, a recently proposed sliding-window detector based on a similar CNN architecture. We find that R-CNN outperforms OverFeat by a large margin on the 200-class ILSVRC2013 detection dataset. Source code for the complete system is available at http://www.cs.berkeley.edu/~rbg/rcnn.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1311.2524",
+   "pdf_url": "https://arxiv.org/pdf/1311.2524"
+  },
+  {
+   "arxiv_id": "1310.5107",
+   "announced": "2013-10-18",
+   "title": "Advances in Hyperspectral Image Classification: Earth monitoring with statistical learning methods",
+   "authors": [
+    "Gustavo Camps-Valls",
+    "Devis Tuia",
+    "Lorenzo Bruzzone",
+    "Jón Atli Benediktsson"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "IEEE Signal Processing Magazine, 2013",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Hyperspectral images show similar statistical properties to natural grayscale or color photographic images. However, the classification of hyperspectral images is more challenging because of the very high dimensionality of the pixels and the small number of labeled examples typically available for learning. These peculiarities lead to particular signal processing problems, mainly characterized by indetermination and complex manifolds. The framework of statistical learning has gained popularity in the last decade. New methods have been presented to account for the spatial homogeneity of images, to include user's interaction via active learning, to take advantage of the manifold structure with semisupervised learning, to extract and encode invariances, or to adapt classifiers and image representations to unseen yet similar scenes. This tutuorial reviews the main advances for hyperspectral remote sensing image classification through illustrative examples.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1310.5107",
+   "pdf_url": "https://arxiv.org/pdf/1310.5107"
+  },
+  {
+   "arxiv_id": "1310.1531",
+   "announced": "2013-10-06",
+   "title": "DeCAF: A Deep Convolutional Activation Feature for Generic Visual Recognition",
+   "authors": [
+    "Jeff Donahue",
+    "Yangqing Jia",
+    "Oriol Vinyals",
+    "Judy Hoffman",
+    "Ning Zhang",
+    "Eric Tzeng",
+    "Trevor Darrell"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We evaluate whether features extracted from the activation of a deep convolutional network trained in a fully supervised fashion on a large, fixed set of object recognition tasks can be re-purposed to novel generic tasks. Our generic tasks may differ significantly from the originally trained tasks and there may be insufficient labeled or unlabeled data to conventionally train or adapt a deep architecture to the new tasks. We investigate and visualize the semantic clustering of deep convolutional features with respect to a variety of such tasks, including scene recognition, domain adaptation, and fine-grained recognition challenges. We compare the efficacy of relying on various network levels to define a fixed feature, and report novel results that significantly outperform the state-of-the-art on several important vision challenges. We are releasing DeCAF, an open-source implementation of these deep convolutional activation features, along with all associated network parameters to enable vision researchers to be able to conduct experimentation with deep representations across a range of visual concept learning paradigms.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1310.1531",
+   "pdf_url": "https://arxiv.org/pdf/1310.1531"
+  },
+  {
+   "arxiv_id": "1310.5715",
+   "announced": "2013-10-01",
+   "title": "Stochastic Gradient Descent, Weighted Sampling, and the Randomized Kaczmarz algorithm",
+   "authors": [
+    "Deanna Needell",
+    "Nathan Srebro",
+    "Rachel Ward"
+   ],
+   "primary_subject": "Numerical Analysis (math.NA)",
+   "subjects": [
+    "Numerical Analysis (math.NA)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)",
+    "cs.NA",
+    "Optimization and Control (math.OC)",
+    "Machine Learning (stat.ML)"
+   ],
+   "comments": "22 pages, 6 figures",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "math.NA",
+   "html_url": null,
+   "abstract": "We obtain an improved finite-sample guarantee on the linear convergence of stochastic gradient descent for smooth and strongly convex objectives, improving from a quadratic dependence on the conditioning $(L/μ)^2$ (where $L$ is a bound on the smoothness and $μ$ on the strong convexity) to a linear dependence on $L/μ$. Furthermore, we show how reweighting the sampling distribution (i.e. importance sampling) is necessary in order to further improve convergence, and obtain a linear dependence in the average smoothness, dominating previous results. We also discuss importance sampling for SGD more broadly and show how it can improve convergence also in other scenarios. Our results are based on a connection we make between SGD and the randomized Kaczmarz algorithm, which allows us to transfer ideas between the separate bodies of literature studying each of the two methods. In particular, we recast the randomized Kaczmarz algorithm as an instance of SGD, and apply our results to prove its exponential convergence, but to the solution of a weighted least squares problem rather than the original least squares problem. We then present a modified Kaczmarz algorithm with partially biased sampling which does converge to the original least squares solution with the same exponential convergence rate.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1310.5715",
+   "pdf_url": "https://arxiv.org/pdf/1310.5715"
+  },
+  {
+   "arxiv_id": "1310.4249",
+   "announced": "2013-10-01",
+   "title": "Mapping the stereotyped behaviour of freely-moving fruit flies",
+   "authors": [
+    "Gordon J. Berman",
+    "Daniel M. Choi",
+    "William Bialek",
+    "Joshua W. Shaevitz"
+   ],
+   "primary_subject": "Quantitative Methods (q-bio.QM)",
+   "subjects": [
+    "Quantitative Methods (q-bio.QM)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "physics.bio-ph",
+    "Machine Learning (stat.ML)"
+   ],
+   "comments": "21 pages, 17 figures. Email GJB (gberman@princeton.edu) to see supplementary movies, Journal of the Royal Society Interface, 2014",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "q-bio.QM",
+   "html_url": null,
+   "abstract": "Most animals possess the ability to actuate a vast diversity of movements, ostensibly constrained only by morphology and physics. In practice, however, a frequent assumption in behavioral science is that most of an animal's activities can be described in terms of a small set of stereotyped motifs. Here we introduce a method for mapping the behavioral space of organisms, relying only upon the underlying structure of postural movement data to organize and classify behaviors. We find that six different drosophilid species each perform a mix of non-stereotyped actions and over one hundred hierarchically-organized, stereotyped behaviors. Moreover, we use this approach to compare these species' behavioral spaces, systematically identifying subtle behavioral differences between closely-related species.",
+   "affiliations": [
+    "Princeton University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Princeton University"
+   ],
+   "abs_url": "https://arxiv.org/abs/1310.4249",
+   "pdf_url": "https://arxiv.org/pdf/1310.4249"
+  },
+  {
+   "arxiv_id": "1309.3848",
+   "announced": "2013-09-16",
+   "title": "SEEDS: Superpixels Extracted via Energy-Driven Sampling",
+   "authors": [
+    "Michael Van den Bergh",
+    "Xavier Boix",
+    "Gemma Roig",
+    "Luc Van Gool"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Superpixel algorithms aim to over-segment the image by grouping pixels that belong to the same object. Many state-of-the-art superpixel algorithms rely on minimizing objective functions to enforce color ho- mogeneity. The optimization is accomplished by sophis- ticated methods that progressively build the superpix- els, typically by adding cuts or growing superpixels. As a result, they are computationally too expensive for real-time applications. We introduce a new approach based on a simple hill-climbing optimization. Starting from an initial superpixel partitioning, it continuously refines the superpixels by modifying the boundaries. We define a robust and fast to evaluate energy function, based on enforcing color similarity between the bound- aries and the superpixel color histogram. In a series of experiments, we show that we achieve an excellent com- promise between accuracy and efficiency. We are able to achieve a performance comparable to the state-of- the-art, but in real-time on a single Intel i7 CPU at 2.8GHz.",
+   "affiliations": [
+    "ETH Zurich"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "ETH Zurich"
+   ],
+   "abs_url": "https://arxiv.org/abs/1309.3848",
+   "pdf_url": "https://arxiv.org/pdf/1309.3848"
+  },
+  {
+   "arxiv_id": "1308.3052",
+   "announced": "2013-08-01",
+   "title": "Gradient Magnitude Similarity Deviation: A Highly Efficient Perceptual Image Quality Index",
+   "authors": [
+    "Wufeng Xue",
+    "Lei Zhang",
+    "Xuanqin Mou",
+    "Alan C. Bovik"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "It is an important task to faithfully evaluate the perceptual quality of output images in many applications such as image compression, image restoration and multimedia streaming. A good image quality assessment (IQA) model should not only deliver high quality prediction accuracy but also be computationally efficient. The efficiency of IQA metrics is becoming particularly important due to the increasing proliferation of high-volume visual data in high-speed networks. We present a new effective and efficient IQA model, called gradient magnitude similarity deviation (GMSD). The image gradients are sensitive to image distortions, while different local structures in a distorted image suffer different degrees of degradations. This motivates us to explore the use of global variation of gradient based local quality map for overall image quality prediction. We find that the pixel-wise gradient magnitude similarity (GMS) between the reference and distorted images combined with a novel pooling strategy the standard deviation of the GMS map can predict accurately perceptual image quality. The resulting GMSD algorithm is much faster than most state-of-the-art IQA methods, and delivers highly competitive prediction accuracy.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1308.3052",
+   "pdf_url": "https://arxiv.org/pdf/1308.3052"
+  },
+  {
+   "arxiv_id": "1307.5348",
+   "announced": "2013-07-19",
+   "title": "Tensor-based formulation and nuclear norm regularization for multi-energy computed tomography",
+   "authors": [
+    "Oguz Semerci",
+    "Ning Hao",
+    "Misha E. Kilmer",
+    "Eric L. Miller"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Medical Physics (physics.med-ph)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "The development of energy selective, photon counting X-ray detectors allows for a wide range of new possibilities in the area of computed tomographic image formation. Under the assumption of perfect energy resolution, here we propose a tensor-based iterative algorithm that simultaneously reconstructs the X-ray attenuation distribution for each energy. We use a multi-linear image model rather than a more standard \"stacked vector\" representation in order to develop novel tensor-based regularizers. Specifically, we model the multi-spectral unknown as a 3-way tensor where the first two dimensions are space and the third dimension is energy. This approach allows for the design of tensor nuclear norm regularizers, which like its two dimensional counterpart, is a convex function of the multi-spectral unknown. The solution to the resulting convex optimization problem is obtained using an alternating direction method of multipliers (ADMM) approach. Simulation results shows that the generalized tensor nuclear norm can be used as a stand alone regularization technique for the energy selective (spectral) computed tomography (CT) problem and when combined with total variation regularization it enhances the regularization capabilities especially at low energy images where the effects of noise are most prominent.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1307.5348",
+   "pdf_url": "https://arxiv.org/pdf/1307.5348"
+  },
+  {
+   "arxiv_id": "1306.5151",
+   "announced": "2013-06-21",
+   "title": "Fine-Grained Visual Classification of Aircraft",
+   "authors": [
+    "Subhransu Maji",
+    "Esa Rahtu",
+    "Juho Kannala",
+    "Matthew Blaschko",
+    "Andrea Vedaldi"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "This paper introduces FGVC-Aircraft, a new dataset containing 10,000 images of aircraft spanning 100 aircraft models, organised in a three-level hierarchy. At the finer level, differences between models are often subtle but always visually measurable, making visual recognition challenging but possible. A benchmark is obtained by defining corresponding classification tasks and evaluation protocols, and baseline results are presented. The construction of this dataset was made possible by the work of aircraft enthusiasts, a strategy that can extend to the study of number of other object classes. Compared to the domains usually considered in fine-grained visual classification (FGVC), for example animals, aircraft are rigid and hence less deformable. They, however, present other interesting modes of variation, including purpose, size, designation, structure, historical style, and branding.",
+   "affiliations": [
+    "Toyota Technological Institute",
+    "Centre de Vision Numérique"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    null,
+    [
+     1
+    ],
+    null
+   ],
+   "institutions": [
+    "Toyota Technological Institute",
+    "Centre de Vision Numérique"
+   ],
+   "abs_url": "https://arxiv.org/abs/1306.5151",
+   "pdf_url": "https://arxiv.org/pdf/1306.5151"
+  },
+  {
+   "arxiv_id": "1306.1392",
+   "announced": "2013-06-06",
+   "title": "PyHST2: an hybrid distributed code for high speed tomographic reconstruction with iterative reconstruction and a priori knowledge capabilities",
+   "authors": [
+    "Alessandro Mirone",
+    "Emmanuelle Gouillart",
+    "Emmanuel Brun",
+    "Paul Tafforeau",
+    "Jerome Kieffer"
+   ],
+   "primary_subject": "Numerical Analysis (math.NA)",
+   "subjects": [
+    "Numerical Analysis (math.NA)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "cs.NA"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "math.NA",
+   "html_url": null,
+   "abstract": "We present the PyHST2 code which is in service at ESRF for phase-contrast and absorption tomography. This code has been engineered to sustain the high data flow typical of the third generation synchrotron facilities (10 terabytes per experiment) by adopting a distributed and pipelined architecture. The code implements, beside a default filtered backprojection reconstruction, iterative reconstruction techniques with a-priori knowledge. These latter are used to improve the reconstruction quality or in order to reduce the required data volume and reach a given quality goal. The implemented a-priori knowledge techniques are based on the total variation penalisation and a new recently found convex functional which is based on overlapping patches. We give details of the different methods and their implementations while the code is distributed under free license. We provide methods for estimating, in the absence of ground-truth data, the optimal parameters values for a-priori techniques.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1306.1392",
+   "pdf_url": "https://arxiv.org/pdf/1306.1392"
+  },
+  {
+   "arxiv_id": "1306.1023",
+   "announced": "2013-06-05",
+   "title": "Quaternion Fourier Transform on Quaternion Fields and Generalizations",
+   "authors": [
+    "Eckhard Hitzer"
+   ],
+   "primary_subject": "math.RA",
+   "subjects": [
+    "math.RA",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "math-ph",
+    "math.MP"
+   ],
+   "comments": "21 pages",
+   "journal_ref": "Advances in Applied Clifford Algebras, olume 17, Issue 3 , pp. 497-517 (2007)",
+   "venue": null,
+   "cross_list_from": "math.RA",
+   "html_url": null,
+   "abstract": "We treat the quaternionic Fourier transform (QFT) applied to quaternion fields and investigate QFT properties useful for applications. Different forms of the QFT lead us to different Plancherel theorems. We relate the QFT computation for quaternion fields to the QFT of real signals. We research the general linear ($GL$) transformation behavior of the QFT with matrices, Clifford geometric algebra and with examples. We finally arrive at wide-ranging non-commutative multivector FT generalizations of the QFT. Examples given are new volume-time and spacetime algebra Fourier transformations.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1306.1023",
+   "pdf_url": "https://arxiv.org/pdf/1306.1023"
+  },
+  {
+   "arxiv_id": "1305.1912",
+   "announced": "2013-05-01",
+   "title": "Automated polyp detection in colon capsule endoscopy",
+   "authors": [
+    "Alexander V. Mamonov",
+    "Isabel N. Figueiredo",
+    "Pedro N. Figueiredo",
+    "Yen-Hsi Richard Tsai"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "16 pages, 9 figures, 4 tables",
+   "journal_ref": "IEEE Transactions on Medical Imaging 33(7):1488-1502, 2014",
+   "venue": "TMI 2014",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Colorectal polyps are important precursors to colon cancer, a major health problem. Colon capsule endoscopy (CCE) is a safe and minimally invasive examination procedure, in which the images of the intestine are obtained via digital cameras on board of a small capsule ingested by a patient. The video sequence is then analyzed for the presence of polyps. We propose an algorithm that relieves the labor of a human operator analyzing the frames in the video sequence. The algorithm acts as a binary classifier, which labels the frame as either containing polyps or not, based on the geometrical analysis and the texture content of the frame. The geometrical analysis is based on a segmentation of an image with the help of a mid-pass filter. The features extracted by the segmentation procedure are classified according to an assumption that the polyps are characterized as protrusions that are mostly round in shape. Thus, we use a best fit ball radius as a decision parameter of a binary classifier. We present a statistical study of the performance of our approach on a data set containing over 18,900 frames from the endoscopic video sequences of five adult patients. The algorithm demonstrates a solid performance, achieving 47% sensitivity per frame and over 81% sensitivity per polyp at a specificity level of 90%. On average, with a video sequence length of 3747 frames, only 367 false positive frames need to be inspected by a human operator.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1305.1912",
+   "pdf_url": "https://arxiv.org/pdf/1305.1912"
+  },
+  {
+   "arxiv_id": "1304.3192",
+   "announced": "2013-04-11",
+   "title": "Rotational Projection Statistics for 3D Local Surface Description and Object Recognition",
+   "authors": [
+    "Yulan Guo",
+    "Ferdous Sohel",
+    "Mohammed Bennamoun",
+    "Min Lu",
+    "Jianwei Wan"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "The final publication is available at link.springer.com International Journal of Computer Vision 2013",
+   "journal_ref": null,
+   "venue": "IJCV 2013",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Recognizing 3D objects in the presence of noise, varying mesh resolution, occlusion and clutter is a very challenging task. This paper presents a novel method named Rotational Projection Statistics (RoPS). It has three major modules: Local Reference Frame (LRF) definition, RoPS feature description and 3D object recognition. We propose a novel technique to define the LRF by calculating the scatter matrix of all points lying on the local surface. RoPS feature descriptors are obtained by rotationally projecting the neighboring points of a feature point onto 2D planes and calculating a set of statistics (including low-order central moments and entropy) of the distribution of these projected points. Using the proposed LRF and RoPS descriptor, we present a hierarchical 3D object recognition algorithm. The performance of the proposed LRF, RoPS descriptor and object recognition algorithm was rigorously tested on a number of popular and publicly available datasets. Our proposed techniques exhibited superior performance compared to existing techniques. We also showed that our method is robust with respect to noise and varying mesh resolution. Our RoPS based algorithm achieved recognition rates of 100%, 98.9%, 95.4% and 96.0% respectively when tested on the Bologna, UWA, Queen's and Ca' Foscari Venezia Datasets.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1304.3192",
+   "pdf_url": "https://arxiv.org/pdf/1304.3192"
+  },
+  {
+   "arxiv_id": "1304.1233",
+   "announced": "2013-04-04",
+   "title": "Shadow Detection: A Survey and Comparative Evaluation of Recent Methods",
+   "authors": [
+    "Andres Sanin",
+    "Conrad Sanderson",
+    "Brian C. Lovell"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Robotics (cs.RO)"
+   ],
+   "comments": null,
+   "journal_ref": "Pattern Recognition, Vol. 45, No. 4, pp. 1684-1695, 2012",
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "This paper presents a survey and a comparative evaluation of recent techniques for moving cast shadow detection. We identify shadow removal as a critical step for improving object detection and tracking. The survey covers methods published during the last decade, and places them in a feature-based taxonomy comprised of four categories: chromacity, physical, geometry and textures. A selection of prominent methods across the categories is compared in terms of quantitative performance measures (shadow detection and discrimination rates, colour desaturation) as well as qualitative observations. Furthermore, we propose the use of tracking performance as an unbiased approach for determining the practical usefulness of shadow detection methods. The evaluation indicates that all shadow detection approaches make different contributions and all have individual strength and weaknesses. Out of the selected methods, the geometry-based technique has strict assumptions and is not generalisable to various environments, but it is a straightforward choice when the objects of interest are easy to model and their shadows have different orientation. The chromacity based method is the fastest to implement and run, but it is sensitive to noise and less effective in low saturated scenes. The physical method improves upon the accuracy of the chromacity method by adapting to local shadow models, but fails when the spectral properties of the objects are similar to that of the background. The small-region texture based method is especially robust for pixels whose neighbourhood is textured, but may take longer to implement and is the most computationally expensive. The large-region texture based method produces the most accurate results, but has a significant computational load due to its multiple processing steps.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1304.1233",
+   "pdf_url": "https://arxiv.org/pdf/1304.1233"
+  },
+  {
+   "arxiv_id": "1304.1209",
+   "announced": "2013-04-03",
+   "title": "Highly comparative time-series analysis: The empirical structure of time series and their methods",
+   "authors": [
+    "Ben D. Fulcher",
+    "Max A. Little",
+    "Nick S. Jones"
+   ],
+   "primary_subject": "physics.data-an",
+   "subjects": [
+    "physics.data-an",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "physics.bio-ph",
+    "Quantitative Methods (q-bio.QM)",
+    "Machine Learning (stat.ML)"
+   ],
+   "comments": null,
+   "journal_ref": "J. R. Soc. Interface vol. 10 no. 83 20130048 (2013)",
+   "venue": null,
+   "cross_list_from": "physics.data-an",
+   "html_url": null,
+   "abstract": "The process of collecting and organizing sets of observations represents a common theme throughout the history of science. However, despite the ubiquity of scientists measuring, recording, and analyzing the dynamics of different processes, an extensive organization of scientific time-series data and analysis methods has never been performed. Addressing this, annotated collections of over 35 000 real-world and model-generated time series and over 9000 time-series analysis algorithms are analyzed in this work. We introduce reduced representations of both time series, in terms of their properties measured by diverse scientific methods, and of time-series analysis methods, in terms of their behaviour on empirical time series, and use them to organize these interdisciplinary resources. This new approach to comparing across diverse scientific data and methods allows us to organize time-series datasets automatically according to their properties, retrieve alternatives to particular analysis methods developed in other scientific disciplines, and automate the selection of useful methods for time-series classification and regression tasks. The broad scientific utility of these tools is demonstrated on datasets of electroencephalograms, self-affine time series, heart beat intervals, speech signals, and others, in each case contributing novel analysis techniques to the existing literature. Highly comparative techniques that compare across an interdisciplinary literature can thus be used to guide more focused research in time-series analysis for applications across the scientific disciplines.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1304.1209",
+   "pdf_url": "https://arxiv.org/pdf/1304.1209"
+  },
+  {
+   "arxiv_id": "1304.0869",
+   "announced": "2013-04-01",
+   "title": "Patch-based Probabilistic Image Quality Assessment for Face Selection and Improved Video-based Face Recognition",
+   "authors": [
+    "Yongkang Wong",
+    "Shaokang Chen",
+    "Sandra Mau",
+    "Conrad Sanderson",
+    "Brian C. Lovell"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Applications (stat.AP)"
+   ],
+   "comments": null,
+   "journal_ref": "IEEE Conference on Computer Vision and Pattern Recognition Workshops (CVPRW), pp. 74-81, 2011",
+   "venue": "CVPR Workshop",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "In video based face recognition, face images are typically captured over multiple frames in uncontrolled conditions, where head pose, illumination, shadowing, motion blur and focus change over the sequence. Additionally, inaccuracies in face localisation can also introduce scale and alignment variations. Using all face images, including images of poor quality, can actually degrade face recognition performance. While one solution it to use only the \"best\" subset of images, current face selection techniques are incapable of simultaneously handling all of the abovementioned issues. We propose an efficient patch-based face image quality assessment algorithm which quantifies the similarity of a face image to a probabilistic face model, representing an \"ideal\" face. Image characteristics that affect recognition are taken into account, including variations in geometric alignment (shift, rotation and scale), sharpness, head pose and cast shadows. Experiments on FERET and PIE datasets show that the proposed algorithm is able to identify images which are simultaneously the most frontal, aligned, sharp and well illuminated. Further experiments on a new video surveillance dataset (termed ChokePoint) show that the proposed method provides better face subsets than existing face selection techniques, leading to significant improvements in recognition accuracy.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1304.0869",
+   "pdf_url": "https://arxiv.org/pdf/1304.0869"
+  },
+  {
+   "arxiv_id": "1303.4803",
+   "announced": "2013-03-20",
+   "title": "A Survey of Appearance Models in Visual Object Tracking",
+   "authors": [
+    "Xi Li",
+    "Weiming Hu",
+    "Chunhua Shen",
+    "Zhongfei Zhang",
+    "Anthony Dick",
+    "Anton van den Hengel"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Appearing in ACM Transactions on Intelligent Systems and Technology, 2013",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Visual object tracking is a significant computer vision task which can be applied to many domains such as visual surveillance, human computer interaction, and video compression. In the literature, researchers have proposed a variety of 2D appearance models. To help readers swiftly learn the recent advances in 2D appearance models for visual object tracking, we contribute this survey, which provides a detailed review of the existing 2D appearance models. In particular, this survey takes a module-based architecture that enables readers to easily grasp the key points of visual object tracking. In this survey, we first decompose the problem of appearance modeling into two different processing stages: visual representation and statistical modeling. Then, different 2D appearance models are categorized and discussed with respect to their composition modules. Finally, we address several issues of interest as well as the remaining challenges for future research on this topic. The contributions of this survey are four-fold. First, we review the literature of visual representations according to their feature-construction mechanisms (i.e., local and global). Second, the existing statistical modeling schemes for tracking-by-detection are reviewed according to their model-construction mechanisms: generative, discriminative, and hybrid generative-discriminative. Third, each type of visual representations or statistical modeling techniques is analyzed and discussed from a theoretical or practical viewpoint. Fourth, the existing benchmark resources (e.g., source code and video datasets) are examined in this survey.",
+   "affiliations": [
+    "Chinese Academy of Sciences",
+    "Institute of Automation",
+    "University of Adelaide",
+    "Binghamton University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "Chinese Academy of Sciences",
+    "Institute of Automation",
+    "University of Adelaide",
+    "Binghamton University"
+   ],
+   "abs_url": "https://arxiv.org/abs/1303.4803",
+   "pdf_url": "https://arxiv.org/pdf/1303.4803"
+  },
+  {
+   "arxiv_id": "1302.1700",
+   "announced": "2013-02-07",
+   "title": "Fast Image Scanning with Deep Max-Pooling Convolutional Neural Networks",
+   "authors": [
+    "Alessandro Giusti",
+    "Dan C. Cireşan",
+    "Jonathan Masci",
+    "Luca M. Gambardella",
+    "Jürgen Schmidhuber"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": "11 pages, 2 figures, 3 tables, 21 references, submitted to ICIP 2013",
+   "journal_ref": "International Conference on Image Processing (ICIP) 2013, Melbourne",
+   "venue": "ICIP 2013",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Deep Neural Networks now excel at image classification, detection and segmentation. When used to scan images by means of a sliding window, however, their high computational complexity can bring even the most powerful hardware to its knees. We show how dynamic programming can speedup the process by orders of magnitude, even when max-pooling layers are present.",
+   "affiliations": [
+    "University of Applied Sciences and Arts of Southern Switzerland",
+    "Dalle Molle Institute for Artificial Intelligence Research",
+    "Università della Svizzera italiana"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ]
+   ],
+   "institutions": [
+    "University of Applied Sciences and Arts of Southern Switzerland",
+    "Dalle Molle Institute for Artificial Intelligence Research",
+    "Università della Svizzera italiana"
+   ],
+   "abs_url": "https://arxiv.org/abs/1302.1700",
+   "pdf_url": "https://arxiv.org/pdf/1302.1700"
+  },
+  {
+   "arxiv_id": "1302.1539",
+   "announced": "2013-02-06",
+   "title": "Image Segmentation in Video Sequences: A Probabilistic Approach",
+   "authors": [
+    "Nir Friedman",
+    "Stuart Russell"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": "Appears in Proceedings of the Thirteenth Conference on Uncertainty in Artificial Intelligence (UAI1997)",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "\"Background subtraction\" is an old technique for finding moving objects in a video sequence for example, cars driving on a freeway. The idea is that subtracting the current image from a timeaveraged background image will leave only nonstationary objects. It is, however, a crude approximation to the task of classifying each pixel of the current image; it fails with slow-moving objects and does not distinguish shadows from moving objects. The basic idea of this paper is that we can classify each pixel using a model of how that pixel looks when it is part of different classes. We learn a mixture-of-Gaussians classification model for each pixel using an unsupervised technique- an efficient, incremental version of EM. Unlike the standard image-averaging approach, this automatically updates the mixture component for each class according to likelihood of membership; hence slow-moving objects are handled perfectly. Our approach also identifies and eliminates shadows much more effectively than other techniques such as thresholding. Application of this method as part of the Roadwatch traffic surveillance project is expected to result in significant improvements in vehicle identification and tracking.",
+   "affiliations": [
+    "University of California, Berkeley"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of California, Berkeley"
+   ],
+   "abs_url": "https://arxiv.org/abs/1302.1539",
+   "pdf_url": "https://arxiv.org/pdf/1302.1539"
+  },
+  {
+   "arxiv_id": "1302.2575",
+   "announced": "2013-02-04",
+   "title": "Coded aperture compressive temporal imaging",
+   "authors": [
+    "Patrick Llull",
+    "Xuejun Liao",
+    "Xin Yuan",
+    "Jianbo Yang",
+    "David Kittle",
+    "Lawrence Carin",
+    "Guillermo Sapiro",
+    "David J. Brady"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Information Theory (cs.IT)",
+    "math.IT"
+   ],
+   "comments": "19 pages (when compiled with Optics Express' TEX template), 15 figures",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We use mechanical translation of a coded aperture for code division multiple access compression of video. We present experimental results for reconstruction at 148 frames per coded snapshot.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1302.2575",
+   "pdf_url": "https://arxiv.org/pdf/1302.2575"
+  },
+  {
+   "arxiv_id": "1301.4862",
+   "announced": "2013-01-21",
+   "title": "Active Learning of Inverse Models with Intrinsically Motivated Goal Exploration in Robots",
+   "authors": [
+    "Adrien Baranes",
+    "Pierre-Yves Oudeyer"
+   ],
+   "primary_subject": "Machine Learning (cs.LG)",
+   "subjects": [
+    "Machine Learning (cs.LG)",
+    "Artificial Intelligence (cs.AI)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Neural and Evolutionary Computing (cs.NE)",
+    "Robotics (cs.RO)"
+   ],
+   "comments": null,
+   "journal_ref": "Baranes, A., Oudeyer, P-Y. (2013) Active Learning of Inverse Models with Intrinsically Motivated Goal Exploration in Robots, Robotics and Autonomous Systems, 61(1), pp. 49-73",
+   "venue": null,
+   "cross_list_from": "cs.LG",
+   "html_url": null,
+   "abstract": "We introduce the Self-Adaptive Goal Generation - Robust Intelligent Adaptive Curiosity (SAGG-RIAC) architecture as an intrinsi- cally motivated goal exploration mechanism which allows active learning of inverse models in high-dimensional redundant robots. This allows a robot to efficiently and actively learn distributions of parameterized motor skills/policies that solve a corresponding distribution of parameterized tasks/goals. The architecture makes the robot sample actively novel parameterized tasks in the task space, based on a measure of competence progress, each of which triggers low-level goal-directed learning of the motor policy pa- rameters that allow to solve it. For both learning and generalization, the system leverages regression techniques which allow to infer the motor policy parameters corresponding to a given novel parameterized task, and based on the previously learnt correspondences between policy and task parameters. We present experiments with high-dimensional continuous sensorimotor spaces in three different robotic setups: 1) learning the inverse kinematics in a highly-redundant robotic arm, 2) learning omnidirectional locomotion with motor primitives in a quadruped robot, 3) an arm learning to control a fishing rod with a flexible wire. We show that 1) exploration in the task space can be a lot faster than exploration in the actuator space for learning inverse models in redundant robots; 2) selecting goals maximizing competence progress creates developmental trajectories driving the robot to progressively focus on tasks of increasing complexity and is statistically significantly more efficient than selecting tasks randomly, as well as more efficient than different standard active motor babbling methods; 3) this architecture allows the robot to actively discover which parts of its task space it can learn to reach and which part it cannot.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1301.4862",
+   "pdf_url": "https://arxiv.org/pdf/1301.4862"
+  },
+  {
+   "arxiv_id": "1301.3666",
+   "announced": "2013-01-01",
+   "title": "Zero-Shot Learning Through Cross-Modal Transfer",
+   "authors": [
+    "Richard Socher",
+    "Milind Ganjoo",
+    "Hamsa Sridhar",
+    "Osbert Bastani",
+    "Christopher D. Manning",
+    "Andrew Y. Ng"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "This work introduces a model that can recognize objects in images even if no training data is available for the objects. The only necessary knowledge about the unseen categories comes from unsupervised large text corpora. In our zero-shot framework distributional information in language can be seen as spanning a semantic basis for understanding what objects look like. Most previous zero-shot learning models can only differentiate between unseen classes. In contrast, our model can both obtain state of the art performance on classes that have thousands of training images and obtain reasonable performance on unseen classes. This is achieved by first using outlier detection in the semantic space and then two separate recognition models. Furthermore, our model does not require any manually defined semantic features for either words or images.",
+   "affiliations": [
+    "Stanford University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    null
+   ],
+   "institutions": [
+    "Stanford University"
+   ],
+   "abs_url": "https://arxiv.org/abs/1301.3666",
+   "pdf_url": "https://arxiv.org/pdf/1301.3666"
+  },
+  {
+   "arxiv_id": "1301.3592",
+   "announced": "2013-01-01",
+   "title": "Deep Learning for Detecting Robotic Grasps",
+   "authors": [
+    "Ian Lenz",
+    "Honglak Lee",
+    "Ashutosh Saxena"
+   ],
+   "primary_subject": "Machine Learning (cs.LG)",
+   "subjects": [
+    "Machine Learning (cs.LG)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Robotics (cs.RO)"
+   ],
+   "comments": "Current version was accepted to IJRR Special Issue on Robot Vision 2014 Workshop version accepted to ICLR 2013. Conference version accepted to RSS 2013",
+   "journal_ref": null,
+   "venue": "ICLR 2013 Workshop",
+   "cross_list_from": "cs.LG",
+   "html_url": null,
+   "abstract": "We consider the problem of detecting robotic grasps in an RGB-D view of a scene containing objects. In this work, we apply a deep learning approach to solve this problem, which avoids time-consuming hand-design of features. This presents two main challenges. First, we need to evaluate a huge number of candidate grasps. In order to make detection fast, as well as robust, we present a two-step cascaded structure with two deep networks, where the top detections from the first are re-evaluated by the second. The first network has fewer features, is faster to run, and can effectively prune out unlikely candidate grasps. The second, with more features, is slower but has to run only on the top few detections. Second, we need to handle multimodal inputs well, for which we present a method to apply structured regularization on the weights based on multimodal group regularization. We demonstrate that our method outperforms the previous state-of-the-art methods in robotic grasp detection, and can be used to successfully execute grasps on two different robotic platforms.",
+   "affiliations": [
+    "Cornell University",
+    "University of Michigan"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Cornell University",
+    "University of Michigan"
+   ],
+   "abs_url": "https://arxiv.org/abs/1301.3592",
+   "pdf_url": "https://arxiv.org/pdf/1301.3592"
+  },
+  {
+   "arxiv_id": "1301.3572",
+   "announced": "2013-01-01",
+   "title": "Indoor Semantic Segmentation using depth information",
+   "authors": [
+    "Camille Couprie",
+    "Clément Farabet",
+    "Laurent Najman",
+    "Yann LeCun"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "8 pages, 3 figures",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "This work addresses multi-class segmentation of indoor scenes with RGB-D inputs. While this area of research has gained much attention recently, most works still rely on hand-crafted features. In contrast, we apply a multiscale convolutional network to learn features directly from the images and the depth information. We obtain state-of-the-art on the NYU-v2 depth dataset with an accuracy of 64.5%. We illustrate the labeling of indoor scenes in videos sequences that could be processed in real-time using appropriate hardware such as an FPGA.",
+   "affiliations": [
+    "IFP Énergies nouvelles",
+    "Courant Institute of Mathematical Sciences",
+    "Laboratoire d'Informatique Gaspard-Monge",
+    "Université Gustave Eiffel"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1,
+     2,
+     3
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "IFP Énergies nouvelles",
+    "Courant Institute of Mathematical Sciences",
+    "Laboratoire d'Informatique Gaspard-Monge",
+    "Université Gustave Eiffel"
+   ],
+   "abs_url": "https://arxiv.org/abs/1301.3572",
+   "pdf_url": "https://arxiv.org/pdf/1301.3572"
+  }
+ ]
+}

@@ -1,0 +1,246 @@
+{
+ "schema_version": 1,
+ "category": "cs.CV",
+ "year": 2011,
+ "papers": [
+  {
+   "arxiv_id": "1111.6285",
+   "announced": "2011-11-01",
+   "title": "Ward's Hierarchical Clustering Method: Clustering Criterion and Agglomerative Algorithm",
+   "authors": [
+    "Fionn Murtagh",
+    "Pierre Legendre"
+   ],
+   "primary_subject": "Machine Learning (stat.ML)",
+   "subjects": [
+    "Machine Learning (stat.ML)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Applications (stat.AP)"
+   ],
+   "comments": "20 pages, 21 citations, 4 figures",
+   "journal_ref": "Journal of Classification, 31 (3), 274-295, 2014",
+   "venue": null,
+   "cross_list_from": "stat.ML",
+   "html_url": null,
+   "abstract": "The Ward error sum of squares hierarchical clustering method has been very widely used since its first description by Ward in a 1963 publication. It has also been generalized in various ways. However there are different interpretations in the literature and there are different implementations of the Ward agglomerative algorithm in commonly used software systems, including differing expressions of the agglomerative criterion. Our survey work and case studies will be useful for all those involved in developing software for data analysis using Ward's hierarchical clustering method.",
+   "affiliations": [
+    "Association for Computing Machinery"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null
+   ],
+   "institutions": [
+    "Association for Computing Machinery"
+   ],
+   "abs_url": "https://arxiv.org/abs/1111.6285",
+   "pdf_url": "https://arxiv.org/pdf/1111.6285"
+  },
+  {
+   "arxiv_id": "1109.0882",
+   "announced": "2011-09-01",
+   "title": "Moving Object Detection by Detecting Contiguous Outliers in the Low-Rank Representation",
+   "authors": [
+    "Xiaowei Zhou",
+    "Can Yang",
+    "Weichuan Yu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "30 pages",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Object detection is a fundamental step for automated video analysis in many vision applications. Object detection in a video is usually performed by object detectors or background subtraction techniques. Often, an object detector requires manually labeled examples to train a binary classifier, while background subtraction needs a training sequence that contains no objects to build a background model. To automate the analysis, object detection without a separate training phase becomes a critical task. People have tried to tackle this task by using motion information. But existing motion-based methods are usually limited when coping with complex scenarios such as nonrigid motion and dynamic background. In this paper, we show that above challenges can be addressed in a unified framework named DEtecting Contiguous Outliers in the LOw-rank Representation (DECOLOR). This formulation integrates object detection and background learning into a single process of optimization, which can be solved by an alternating algorithm efficiently. We explain the relations between DECOLOR and other sparsity-based methods. Experiments on both simulated data and real sequences demonstrate that DECOLOR outperforms the state-of-the-art approaches and it can work effectively on a wide range of complex scenarios.",
+   "affiliations": [
+    "Hong Kong University of Science and Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Hong Kong University of Science and Technology"
+   ],
+   "abs_url": "https://arxiv.org/abs/1109.0882",
+   "pdf_url": "https://arxiv.org/pdf/1109.0882"
+  },
+  {
+   "arxiv_id": "1107.1119",
+   "announced": "2011-07-06",
+   "title": "Integrating Generic Sensor Fusion Algorithms with Sound State Representations through Encapsulation of Manifolds",
+   "authors": [
+    "Christoph Hertzberg",
+    "René Wagner",
+    "Udo Frese",
+    "Lutz Schröder"
+   ],
+   "primary_subject": "Robotics (cs.RO)",
+   "subjects": [
+    "Robotics (cs.RO)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "cs.MS"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.RO",
+   "html_url": null,
+   "abstract": "Common estimation algorithms, such as least squares estimation or the Kalman filter, operate on a state in a state space S that is represented as a real-valued vector. However, for many quantities, most notably orientations in 3D, S is not a vector space, but a so-called manifold, i.e. it behaves like a vector space locally but has a more complex global topological structure. For integrating these quantities, several ad-hoc approaches have been proposed. Here, we present a principled solution to this problem where the structure of the manifold S is encapsulated by two operators, state displacement [+]:S x R^n --> S and its inverse [-]: S x S --> R^n. These operators provide a local vector-space view δ; --> x [+] δ; around a given state x. Generic estimation algorithms can then work on the manifold S mainly by replacing +/- with [+]/[-] where appropriate. We analyze these operators axiomatically, and demonstrate their use in least-squares estimation and the Unscented Kalman Filter. Moreover, we exploit the idea of encapsulation from a software engineering perspective in the Manifold Toolkit, where the [+]/[-] operators mediate between a \"flat-vector\" view for the generic algorithm and a \"named-members\" view for the problem specific functions.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1107.1119",
+   "pdf_url": "https://arxiv.org/pdf/1107.1119"
+  },
+  {
+   "arxiv_id": "1107.0550",
+   "announced": "2011-07-01",
+   "title": "3D Terrestrial lidar data classification of complex natural scenes using a multi-scale dimensionality criterion: applications in geomorphology",
+   "authors": [
+    "Nicolas Brodu",
+    "Dimitri Lague"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Geophysics (physics.geo-ph)"
+   ],
+   "comments": "Free/Libre software implementation is available at http://nicolas.brodu.numerimoire.net, as well as data sets",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "3D point clouds of natural environments relevant to problems in geomorphology often require classification of the data into elementary relevant classes. A typical example is the separation of riparian vegetation from ground in fluvial environments, the distinction between fresh surfaces and rockfall in cliff environments, or more generally the classification of surfaces according to their morphology. Natural surfaces are heterogeneous and their distinctive properties are seldom defined at a unique scale, prompting the use of multi-scale criteria to achieve a high degree of classification success. We have thus defined a multi-scale measure of the point cloud dimensionality around each point, which characterizes the local 3D organization. We can thus monitor how the local cloud geometry behaves across scales. We present the technique and illustrate its efficiency in separating riparian vegetation from ground and classifying a mountain stream as vegetation, rock, gravel or water surface. In these two cases, separating the vegetation from ground or other classes achieve accuracy larger than 98 %. Comparison with a single scale approach shows the superiority of the multi-scale analysis in enhancing class separability and spatial resolution. The technique is robust to missing data, shadow zones and changes in point density within the scene. The classification is fast and accurate and can account for some degree of intra-class morphological variability such as different vegetation types. A probabilistic confidence in the classification result is given at each point, allowing the user to remove the points for which the classification is uncertain. The process can be both fully automated, but also fully customized by the user including a graphical definition of the classifiers. Although developed for fully 3D data, the method can be readily applied to 2.5D airborne lidar data.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1107.0550",
+   "pdf_url": "https://arxiv.org/pdf/1107.0550"
+  },
+  {
+   "arxiv_id": "1107.0169",
+   "announced": "2011-07-01",
+   "title": "Unstructured Human Activity Detection from RGBD Images",
+   "authors": [
+    "Jaeyong Sung",
+    "Colin Ponce",
+    "Bart Selman",
+    "Ashutosh Saxena"
+   ],
+   "primary_subject": "Robotics (cs.RO)",
+   "subjects": [
+    "Robotics (cs.RO)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "2012 IEEE International Conference on Robotics and Automation (A preliminary version of this work was presented at AAAI workshop on Pattern, Activity and Intent Recognition, 2011)",
+   "journal_ref": null,
+   "venue": "AAAI 2012 Workshop",
+   "cross_list_from": "cs.RO",
+   "html_url": null,
+   "abstract": "Being able to detect and recognize human activities is essential for several applications, including personal assistive robotics. In this paper, we perform detection and recognition of unstructured human activity in unstructured environments. We use a RGBD sensor (Microsoft Kinect) as the input sensor, and compute a set of features based on human pose and motion, as well as based on image and pointcloud information. Our algorithm is based on a hierarchical maximum entropy Markov model (MEMM), which considers a person's activity as composed of a set of sub-activities. We infer the two-layered graph structure using a dynamic programming approach. We test our algorithm on detecting and recognizing twelve different activities performed by four people in different environments, such as a kitchen, a living room, an office, etc., and achieve good performance even when the person was not seen before in the training set.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1107.0169",
+   "pdf_url": "https://arxiv.org/pdf/1107.0169"
+  },
+  {
+   "arxiv_id": "1102.3828",
+   "announced": "2011-02-18",
+   "title": "Searching in one billion vectors: re-rank with source coding",
+   "authors": [
+    "Hervé Jégou",
+    "Romain Tavenard",
+    "Matthijs Douze",
+    "Laurent Amsaleg"
+   ],
+   "primary_subject": "Information Retrieval (cs.IR)",
+   "subjects": [
+    "Information Retrieval (cs.IR)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "International Conference on Acoustics, Speech and Signal Processing, Prague : Czech Republic (2011)",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.IR",
+   "html_url": null,
+   "abstract": "Recent indexing techniques inspired by source coding have been shown successful to index billions of high-dimensional vectors in memory. In this paper, we propose an approach that re-ranks the neighbor hypotheses obtained by these compressed-domain indexing methods. In contrast to the usual post-verification scheme, which performs exact distance calculation on the short-list of hypotheses, the estimated distances are refined based on short quantization codes, to avoid reading the full vectors from disk. We have released a new public dataset of one billion 128-dimensional vectors and proposed an experimental setup to evaluate high dimensional indexing algorithms on a realistic scale. Experiments show that our method accurately and efficiently re-ranks the neighbor hypotheses using little memory compared to the full vectors representation.",
+   "affiliations": [
+    "Institut national de recherche en sciences et technologies du numérique",
+    "Institut de Recherche en Informatique et Systèmes Aléatoires",
+    "Laboratoire Jean Kuntzmann"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Institut national de recherche en sciences et technologies du numérique",
+    "Institut de Recherche en Informatique et Systèmes Aléatoires",
+    "Laboratoire Jean Kuntzmann"
+   ],
+   "abs_url": "https://arxiv.org/abs/1102.3828",
+   "pdf_url": "https://arxiv.org/pdf/1102.3828"
+  },
+  {
+   "arxiv_id": "1101.2286",
+   "announced": "2011-01-01",
+   "title": "Group Invariant Scattering",
+   "authors": [
+    "Stéphane Mallat"
+   ],
+   "primary_subject": "math.FA",
+   "subjects": [
+    "math.FA",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "78 pages, 5 figures",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "math.FA",
+   "html_url": null,
+   "abstract": "This paper constructs translation invariant operators on L2(R^d), which are Lipschitz continuous to the action of diffeomorphisms. A scattering propagator is a path ordered product of non-linear and non-commuting operators, each of which computes the modulus of a wavelet transform. A local integration defines a windowed scattering transform, which is proved to be Lipschitz continuous to the action of diffeomorphisms. As the window size increases, it converges to a wavelet scattering transform which is translation invariant. Scattering coefficients also provide representations of stationary processes. Expected values depend upon high order moments and can discriminate processes having the same power spectrum. Scattering operators are extended on L2 (G), where G is a compact Lie group, and are invariant under the action of G. Combining a scattering on L2(R^d) and on Ld (SO(d)) defines a translation and rotation invariant scattering on L2(R^d).",
+   "affiliations": [
+    "École Polytechnique",
+    "Centre de Mathématiques Appliquées de l'École polytechnique"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "École Polytechnique",
+    "Centre de Mathématiques Appliquées de l'École polytechnique"
+   ],
+   "abs_url": "https://arxiv.org/abs/1101.2286",
+   "pdf_url": "https://arxiv.org/pdf/1101.2286"
+  }
+ ]
+}

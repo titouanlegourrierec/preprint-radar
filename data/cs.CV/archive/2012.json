@@ -1,0 +1,711 @@
+{
+ "schema_version": 1,
+ "category": "cs.CV",
+ "year": 2012,
+ "papers": [
+  {
+   "arxiv_id": "1212.0402",
+   "announced": "2012-12-03",
+   "title": "UCF101: A Dataset of 101 Human Actions Classes From Videos in The Wild",
+   "authors": [
+    "Khurram Soomro",
+    "Amir Roshan Zamir",
+    "Mubarak Shah"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We introduce UCF101 which is currently the largest dataset of human actions. It consists of 101 action classes, over 13k clips and 27 hours of video data. The database consists of realistic user uploaded videos containing camera motion and cluttered background. Additionally, we provide baseline action recognition results on this new dataset using standard bag of words approach with overall performance of 44.5%. To the best of our knowledge, UCF101 is currently the most challenging dataset of actions due to its large number of classes, large number of clips and also unconstrained nature of such clips.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1212.0402",
+   "pdf_url": "https://arxiv.org/pdf/1212.0402"
+  },
+  {
+   "arxiv_id": "1212.4522",
+   "announced": "2012-12-01",
+   "title": "A Multi-View Embedding Space for Modeling Internet Images, Tags, and their Semantics",
+   "authors": [
+    "Yunchao Gong",
+    "Qifa Ke",
+    "Michael Isard",
+    "Svetlana Lazebnik"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Information Retrieval (cs.IR)",
+    "Machine Learning (cs.LG)",
+    "Multimedia (cs.MM)"
+   ],
+   "comments": "To Appear: International Journal of Computer Vision",
+   "journal_ref": null,
+   "venue": "IJCV",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "This paper investigates the problem of modeling Internet images and associated text or tags for tasks such as image-to-image search, tag-to-image search, and image-to-tag search (image annotation). We start with canonical correlation analysis (CCA), a popular and successful approach for mapping visual and textual features to the same latent space, and incorporate a third view capturing high-level image semantics, represented either by a single category or multiple non-mutually-exclusive concepts. We present two ways to train the three-view embedding: supervised, with the third view coming from ground-truth labels or search keywords; and unsupervised, with semantic themes automatically obtained by clustering the tags. To ensure high accuracy for retrieval tasks while keeping the learning process scalable, we combine multiple strong visual features and use explicit nonlinear kernel mappings to efficiently approximate kernel CCA. To perform retrieval, we use a specially designed similarity function in the embedded space, which substantially outperforms the Euclidean distance. The resulting system produces compelling qualitative results and outperforms a number of two-view baselines on retrieval tasks on three large-scale Internet image datasets.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1212.4522",
+   "pdf_url": "https://arxiv.org/pdf/1212.4522"
+  },
+  {
+   "arxiv_id": "1212.0142",
+   "announced": "2012-12-01",
+   "title": "Pedestrian Detection with Unsupervised Multi-Stage Feature Learning",
+   "authors": [
+    "Pierre Sermanet",
+    "Koray Kavukcuoglu",
+    "Soumith Chintala",
+    "Yann LeCun"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "12 pages",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Pedestrian detection is a problem of considerable practical interest. Adding to the list of successful applications of deep learning methods to vision, we report state-of-the-art and competitive results on all major pedestrian datasets with a convolutional network model. The model uses a few new twists, such as multi-stage features, connections that skip layers to integrate global shape information with local distinctive motif information, and an unsupervised method based on convolutional sparse coding to pre-train the filters at each stage.",
+   "affiliations": [
+    "Courant Institute of Mathematical Sciences",
+    "New York University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Courant Institute of Mathematical Sciences",
+    "New York University"
+   ],
+   "abs_url": "https://arxiv.org/abs/1212.0142",
+   "pdf_url": "https://arxiv.org/pdf/1212.0142"
+  },
+  {
+   "arxiv_id": "1211.1690",
+   "announced": "2012-11-07",
+   "title": "Learning Monocular Reactive UAV Control in Cluttered Natural Environments",
+   "authors": [
+    "Stephane Ross",
+    "Narek Melik-Barkhudarov",
+    "Kumar Shaurya Shankar",
+    "Andreas Wendel",
+    "Debadeepta Dey",
+    "J. Andrew Bagnell",
+    "Martial Hebert"
+   ],
+   "primary_subject": "Robotics (cs.RO)",
+   "subjects": [
+    "Robotics (cs.RO)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)",
+    "cs.SY",
+    "Systems and Control (eess.SY)"
+   ],
+   "comments": "8 pages, 10 figures",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.RO",
+   "html_url": null,
+   "abstract": "Autonomous navigation for large Unmanned Aerial Vehicles (UAVs) is fairly straight-forward, as expensive sensors and monitoring devices can be employed. In contrast, obstacle avoidance remains a challenging task for Micro Aerial Vehicles (MAVs) which operate at low altitude in cluttered environments. Unlike large vehicles, MAVs can only carry very light sensors, such as cameras, making autonomous navigation through obstacles much more challenging. In this paper, we describe a system that navigates a small quadrotor helicopter autonomously at low altitude through natural forest environments. Using only a single cheap camera to perceive the environment, we are able to maintain a constant velocity of up to 1.5m/s. Given a small set of human pilot demonstrations, we use recent state-of-the-art imitation learning techniques to train a controller that can avoid trees by adapting the MAVs heading. We demonstrate the performance of our system in a more controlled environment indoors, and in real natural forest environments outdoors.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1211.1690",
+   "pdf_url": "https://arxiv.org/pdf/1211.1690"
+  },
+  {
+   "arxiv_id": "1210.5644",
+   "announced": "2012-10-20",
+   "title": "Efficient Inference in Fully Connected CRFs with Gaussian Edge Potentials",
+   "authors": [
+    "Philipp Krähenbühl",
+    "Vladlen Koltun"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "NIPS 2011",
+   "journal_ref": "Advances in Neural Information Processing Systems 24 (2011) 109-117",
+   "venue": "NeurIPS 2011",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Most state-of-the-art techniques for multi-class image segmentation and labeling use conditional random fields defined over pixels or image regions. While region-level models often feature dense pairwise connectivity, pixel-level models are considerably larger and have only permitted sparse graph structures. In this paper, we consider fully connected CRF models defined on the complete set of pixels in an image. The resulting graphs have billions of edges, making traditional inference algorithms impractical. Our main contribution is a highly efficient approximate inference algorithm for fully connected CRF models in which the pairwise edge potentials are defined by a linear combination of Gaussian kernels. Our experiments demonstrate that dense connectivity at the pixel level substantially improves segmentation and labeling accuracy.",
+   "affiliations": [
+    "Stanford University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Stanford University"
+   ],
+   "abs_url": "https://arxiv.org/abs/1210.5644",
+   "pdf_url": "https://arxiv.org/pdf/1210.5644"
+  },
+  {
+   "arxiv_id": "1210.5502",
+   "announced": "2012-10-01",
+   "title": "OpenCFU, a New Free and Open-Source Software to Count Cell Colonies and Other Circular Objects",
+   "authors": [
+    "Quentin Geissmann"
+   ],
+   "primary_subject": "Quantitative Methods (q-bio.QM)",
+   "subjects": [
+    "Quantitative Methods (q-bio.QM)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "q-bio.QM",
+   "html_url": null,
+   "abstract": "Counting circular objects such as cell colonies is an important source of information for biologists. Although this task is often time-consuming and subjective, it is still predominantly performed manually. The aim of the present work is to provide a new tool to enumerate circular objects from digital pictures and video streams. Here, I demonstrate that the created program, OpenCFU, is very robust, accurate and fast. In addition, it provides control over the processing parameters and is implemented in an in- tuitive and modern interface. OpenCFU is a cross-platform and open-source software freely available at http://opencfu.sourceforge.net.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1210.5502",
+   "pdf_url": "https://arxiv.org/pdf/1210.5502"
+  },
+  {
+   "arxiv_id": "1210.1207",
+   "announced": "2012-10-01",
+   "title": "Learning Human Activities and Object Affordances from RGB-D Videos",
+   "authors": [
+    "Hema Swetha Koppula",
+    "Rudhir Gupta",
+    "Ashutosh Saxena"
+   ],
+   "primary_subject": "Robotics (cs.RO)",
+   "subjects": [
+    "Robotics (cs.RO)",
+    "Artificial Intelligence (cs.AI)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "arXiv admin note: substantial text overlap with arXiv:1208.0967",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.RO",
+   "html_url": null,
+   "abstract": "Understanding human activities and object affordances are two very important skills, especially for personal robots which operate in human environments. In this work, we consider the problem of extracting a descriptive labeling of the sequence of sub-activities being performed by a human, and more importantly, of their interactions with the objects in the form of associated affordances. Given a RGB-D video, we jointly model the human activities and object affordances as a Markov random field where the nodes represent objects and sub-activities, and the edges represent the relationships between object affordances, their relations with sub-activities, and their evolution over time. We formulate the learning problem using a structural support vector machine (SSVM) approach, where labelings over various alternate temporal segmentations are considered as latent variables. We tested our method on a challenging dataset comprising 120 activity videos collected from 4 subjects, and obtained an accuracy of 79.4% for affordance, 63.4% for sub-activity and 75.0% for high-level activity labeling. We then demonstrate the use of such descriptive labeling in performing assistive tasks by a PR2 robot.",
+   "affiliations": [
+    "Cornell University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Cornell University"
+   ],
+   "abs_url": "https://arxiv.org/abs/1210.1207",
+   "pdf_url": "https://arxiv.org/pdf/1210.1207"
+  },
+  {
+   "arxiv_id": "1209.1960",
+   "announced": "2012-09-10",
+   "title": "A Comparative Study of Efficient Initialization Methods for the K-Means Clustering Algorithm",
+   "authors": [
+    "M. Emre Celebi",
+    "Hassan A. Kingravi",
+    "Patricio A. Vela"
+   ],
+   "primary_subject": "Machine Learning (cs.LG)",
+   "subjects": [
+    "Machine Learning (cs.LG)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "17 pages, 1 figure, 7 tables",
+   "journal_ref": "Expert Systems with Applications 40 (2013) 200-210",
+   "venue": null,
+   "cross_list_from": "cs.LG",
+   "html_url": null,
+   "abstract": "K-means is undoubtedly the most widely used partitional clustering algorithm. Unfortunately, due to its gradient descent nature, this algorithm is highly sensitive to the initial placement of the cluster centers. Numerous initialization methods have been proposed to address this problem. In this paper, we first present an overview of these methods with an emphasis on their computational efficiency. We then compare eight commonly used linear time complexity initialization methods on a large and diverse collection of data sets using various performance criteria. Finally, we analyze the experimental results using non-parametric statistical tests and provide recommendations for practitioners. We demonstrate that popular initialization methods often perform poorly and that there are in fact strong alternatives to these methods.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1209.1960",
+   "pdf_url": "https://arxiv.org/pdf/1209.1960"
+  },
+  {
+   "arxiv_id": "1207.0580",
+   "announced": "2012-07-03",
+   "title": "Improving neural networks by preventing co-adaptation of feature detectors",
+   "authors": [
+    "Geoffrey E. Hinton",
+    "Nitish Srivastava",
+    "Alex Krizhevsky",
+    "Ilya Sutskever",
+    "Ruslan R. Salakhutdinov"
+   ],
+   "primary_subject": "Neural and Evolutionary Computing (cs.NE)",
+   "subjects": [
+    "Neural and Evolutionary Computing (cs.NE)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.NE",
+   "html_url": null,
+   "abstract": "When a large feedforward neural network is trained on a small training set, it typically performs poorly on held-out test data. This \"overfitting\" is greatly reduced by randomly omitting half of the feature detectors on each training case. This prevents complex co-adaptations in which a feature detector is only helpful in the context of several other specific feature detectors. Instead, each neuron learns to detect a feature that is generally helpful for producing the correct answer given the combinatorially large variety of internal contexts in which it must operate. Random \"dropout\" gives big improvements on many benchmark tasks and sets new records for speech and object recognition.",
+   "affiliations": [
+    "University of Toronto"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    null,
+    null,
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Toronto"
+   ],
+   "abs_url": "https://arxiv.org/abs/1207.0580",
+   "pdf_url": "https://arxiv.org/pdf/1207.0580"
+  },
+  {
+   "arxiv_id": "1206.0338",
+   "announced": "2012-06-01",
+   "title": "Poisson noise reduction with non-local PCA",
+   "authors": [
+    "Joseph Salmon",
+    "Zachary Harmany",
+    "Charles-Alban Deledalle",
+    "Rebecca Willett"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)",
+    "Computation (stat.CO)"
+   ],
+   "comments": "erratum: Image man is wrongly name pepper in the journal version",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Photon-limited imaging arises when the number of photons collected by a sensor array is small relative to the number of detector elements. Photon limitations are an important concern for many applications such as spectral imaging, night vision, nuclear medicine, and astronomy. Typically a Poisson distribution is used to model these observations, and the inherent heteroscedasticity of the data combined with standard noise removal methods yields significant artifacts. This paper introduces a novel denoising algorithm for photon-limited images which combines elements of dictionary learning and sparse patch-based representations of images. The method employs both an adaptation of Principal Component Analysis (PCA) for Poisson noise and recently developed sparsity-regularized convex optimization algorithms for photon-limited images. A comprehensive empirical evaluation of the proposed method helps characterize the performance of this approach relative to other state-of-the-art denoising methods. The results reveal that, despite its conceptual simplicity, Poisson PCA-based denoising appears to be highly competitive in very low light regimes.",
+   "affiliations": [
+    "Télécom Paris",
+    "Centre National de la Recherche Scientifique",
+    "ParisTech",
+    "Institut Mines-Télécom",
+    "Laboratoire Traitement et Communication de l’Information",
+    "University of Wisconsin–Madison",
+    "Université de Bordeaux",
+    "Institut de Mathématiques de Bordeaux",
+    "Université Bordeaux-I",
+    "Duke University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2,
+     3,
+     4
+    ],
+    [
+     5
+    ],
+    [
+     1,
+     6,
+     7,
+     8
+    ],
+    [
+     9
+    ]
+   ],
+   "institutions": [
+    "Télécom Paris",
+    "Centre National de la Recherche Scientifique",
+    "ParisTech",
+    "Institut Mines-Télécom",
+    "Laboratoire Traitement et Communication de l’Information",
+    "University of Wisconsin–Madison",
+    "Université de Bordeaux",
+    "Institut de Mathématiques de Bordeaux",
+    "Université Bordeaux-I",
+    "Duke University"
+   ],
+   "abs_url": "https://arxiv.org/abs/1206.0338",
+   "pdf_url": "https://arxiv.org/pdf/1206.0338"
+  },
+  {
+   "arxiv_id": "1205.2631",
+   "announced": "2012-05-09",
+   "title": "Multi-Task Feature Learning Via Efficient l2,1-Norm Minimization",
+   "authors": [
+    "Jun Liu",
+    "Shuiwang Ji",
+    "Jieping Ye"
+   ],
+   "primary_subject": "Machine Learning (cs.LG)",
+   "subjects": [
+    "Machine Learning (cs.LG)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (stat.ML)"
+   ],
+   "comments": "Appears in Proceedings of the Twenty-Fifth Conference on Uncertainty in Artificial Intelligence (UAI2009)",
+   "journal_ref": null,
+   "venue": "UAI 2009",
+   "cross_list_from": "cs.LG",
+   "html_url": null,
+   "abstract": "The problem of joint feature selection across a group of related tasks has applications in many areas including biomedical informatics and computer vision. We consider the l2,1-norm regularized regression model for joint feature selection from multiple tasks, which can be derived in the probabilistic framework by assuming a suitable prior from the exponential family. One appealing feature of the l2,1-norm regularization is that it encourages multiple predictors to share similar sparsity patterns. However, the resulting optimization problem is challenging to solve due to the non-smoothness of the l2,1-norm regularization. In this paper, we propose to accelerate the computation by reformulating it as two equivalent smooth convex optimization problems which are then solved via the Nesterov's method-an optimal first-order black-box method for smooth convex optimization. A key building block in solving the reformulations is the Euclidean projection. We show that the Euclidean projection for the first reformulation can be analytically computed, while the Euclidean projection for the second one can be computed in linear time. Empirical evaluations on several data sets verify the efficiency of the proposed algorithms.",
+   "affiliations": [
+    "Arizona State University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Arizona State University"
+   ],
+   "abs_url": "https://arxiv.org/abs/1205.2631",
+   "pdf_url": "https://arxiv.org/pdf/1205.2631"
+  },
+  {
+   "arxiv_id": "1205.3137",
+   "announced": "2012-05-01",
+   "title": "Unsupervised Discovery of Mid-Level Discriminative Patches",
+   "authors": [
+    "Saurabh Singh",
+    "Abhinav Gupta",
+    "Alexei A. Efros"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": null,
+   "journal_ref": "European Conference on Computer Vision, 2012",
+   "venue": "ECCV 2012",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "The goal of this paper is to discover a set of discriminative patches which can serve as a fully unsupervised mid-level visual representation. The desired patches need to satisfy two requirements: 1) to be representative, they need to occur frequently enough in the visual world; 2) to be discriminative, they need to be different enough from the rest of the visual world. The patches could correspond to parts, objects, \"visual phrases\", etc. but are not restricted to be any one of them. We pose this as an unsupervised discriminative clustering problem on a huge dataset of image patches. We use an iterative procedure which alternates between clustering and training discriminative classifiers, while applying careful cross-validation at each step to prevent overfitting. The paper experimentally demonstrates the effectiveness of discriminative patches as an unsupervised mid-level visual representation, suggesting that it could be used in place of visual words for many tasks. Furthermore, discriminative patches can also be used in a supervised regime, such as scene classification, where they demonstrate state-of-the-art performance on the MIT Indoor-67 dataset.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1205.3137",
+   "pdf_url": "https://arxiv.org/pdf/1205.3137"
+  },
+  {
+   "arxiv_id": "1204.3968",
+   "announced": "2012-04-18",
+   "title": "Convolutional Neural Networks Applied to House Numbers Digit Classification",
+   "authors": [
+    "Pierre Sermanet",
+    "Soumith Chintala",
+    "Yann LeCun"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)",
+    "Neural and Evolutionary Computing (cs.NE)"
+   ],
+   "comments": "4 pages, 6 figures, 2 tables",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We classify digits of real-world house numbers using convolutional neural networks (ConvNets). ConvNets are hierarchical feature learning neural networks whose structure is biologically inspired. Unlike many popular vision approaches that are hand-designed, ConvNets can automatically learn a unique set of features optimized for a given task. We augmented the traditional ConvNet architecture by learning multi-stage features and by using Lp pooling and establish a new state-of-the-art of 94.85% accuracy on the SVHN dataset (45.2% error improvement). Furthermore, we analyze the benefits of different pooling methods and multi-stage features in ConvNets. The source code and a tutorial are available at eblearn.sf.net.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1204.3968",
+   "pdf_url": "https://arxiv.org/pdf/1204.3968"
+  },
+  {
+   "arxiv_id": "1203.6722",
+   "announced": "2012-03-30",
+   "title": "Face Expression Recognition and Analysis: The State of the Art",
+   "authors": [
+    "Vinay Bettadapura"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "The automatic recognition of facial expressions has been an active research topic since the early nineties. There have been several advances in the past few years in terms of face detection and tracking, feature extraction mechanisms and the techniques used for expression classification. This paper surveys some of the published work since 2001 till date. The paper presents a time-line view of the advances made in this field, the applications of automatic face expression recognizers, the characteristics of an ideal system, the databases that have been used and the advances made in terms of their standardization and a detailed summary of the state of the art. The paper also discusses facial parameterization using FACS Action Units (AUs) and MPEG-4 Facial Animation Parameters (FAPs) and the recent advances in face detection, tracking and feature extraction methods. Notes have also been presented on emotions, expressions and facial features, discussion on the six prototypic expressions and the recent studies on expression classifiers. The paper ends with a note on the challenges and the future work. This paper has been written in a tutorial style with the intention of helping students and researchers who are new to this field.",
+   "affiliations": [
+    "Georgia Institute of Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Georgia Institute of Technology"
+   ],
+   "abs_url": "https://arxiv.org/abs/1203.6722",
+   "pdf_url": "https://arxiv.org/pdf/1203.6722"
+  },
+  {
+   "arxiv_id": "1203.1513",
+   "announced": "2012-03-08",
+   "title": "Invariant Scattering Convolution Networks",
+   "authors": [
+    "Joan Bruna",
+    "Stéphane Mallat"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "15 pages double column, 9 figures",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "A wavelet scattering network computes a translation invariant image representation, which is stable to deformations and preserves high frequency information for classification. It cascades wavelet transform convolutions with non-linear modulus and averaging operators. The first network layer outputs SIFT-type descriptors whereas the next layers provide complementary invariant information which improves classification. The mathematical analysis of wavelet scattering networks explains important properties of deep convolution networks for classification. A scattering representation of stationary processes incorporates higher order moments and can thus discriminate textures having the same Fourier power spectrum. State of the art classification results are obtained for handwritten digits and texture discrimination, using a Gaussian kernel SVM and a generative PCA classifier.",
+   "affiliations": [
+    "New York University",
+    "École Normale Supérieure - PSL"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "New York University",
+    "École Normale Supérieure - PSL"
+   ],
+   "abs_url": "https://arxiv.org/abs/1203.1513",
+   "pdf_url": "https://arxiv.org/pdf/1203.1513"
+  },
+  {
+   "arxiv_id": "1203.2995",
+   "announced": "2012-03-01",
+   "title": "Marginal multi-Bernoulli filters: RFS derivation of MHT, JIPDA and association-based MeMBer",
+   "authors": [
+    "Jason L. Williams"
+   ],
+   "primary_subject": "Systems and Control (eess.SY)",
+   "subjects": [
+    "Systems and Control (eess.SY)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "cs.SY"
+   ],
+   "comments": "Journal version at http://ieeexplore.ieee.org/document/7272821. Matlab code of simple implementation included with ancillary files",
+   "journal_ref": "IEEE Transactions on Aerospace and Electronic Systems, vol 51, no 3, pp 1664-1687, July 2015",
+   "venue": null,
+   "cross_list_from": "eess.SY",
+   "html_url": null,
+   "abstract": "Recent developments in random finite sets (RFSs) have yielded a variety of tracking methods that avoid data association. This paper derives a form of the full Bayes RFS filter and observes that data association is implicitly present, in a data structure similar to MHT. Subsequently, algorithms are obtained by approximating the distribution of associations. Two algorithms result: one nearly identical to JIPDA, and another related to the MeMBer filter. Both improve performance in challenging environments.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1203.2995",
+   "pdf_url": "https://arxiv.org/pdf/1203.2995"
+  },
+  {
+   "arxiv_id": "1203.1005",
+   "announced": "2012-03-01",
+   "title": "Sparse Subspace Clustering: Algorithm, Theory, and Applications",
+   "authors": [
+    "Ehsan Elhamifar",
+    "Rene Vidal"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Information Retrieval (cs.IR)",
+    "Information Theory (cs.IT)",
+    "Machine Learning (cs.LG)",
+    "math.IT",
+    "Optimization and Control (math.OC)",
+    "Machine Learning (stat.ML)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "In many real-world problems, we are dealing with collections of high-dimensional data, such as images, videos, text and web documents, DNA microarray data, and more. Often, high-dimensional data lie close to low-dimensional structures corresponding to several classes or categories the data belongs to. In this paper, we propose and study an algorithm, called Sparse Subspace Clustering (SSC), to cluster data points that lie in a union of low-dimensional subspaces. The key idea is that, among infinitely many possible representations of a data point in terms of other points, a sparse representation corresponds to selecting a few points from the same subspace. This motivates solving a sparse optimization program whose solution is used in a spectral clustering framework to infer the clustering of data into subspaces. Since solving the sparse optimization program is in general NP-hard, we consider a convex relaxation and show that, under appropriate conditions on the arrangement of subspaces and the distribution of data, the proposed minimization program succeeds in recovering the desired sparse representations. The proposed algorithm can be solved efficiently and can handle data points near the intersections of subspaces. Another key advantage of the proposed algorithm with respect to the state of the art is that it can deal with data nuisances, such as noise, sparse outlying entries, and missing entries, directly by incorporating the model of the data into the sparse optimization program. We demonstrate the effectiveness of the proposed algorithm through experiments on synthetic data as well as the two real-world problems of motion segmentation and face clustering.",
+   "affiliations": [
+    "University of California, Berkeley",
+    "Johns Hopkins University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "University of California, Berkeley",
+    "Johns Hopkins University"
+   ],
+   "abs_url": "https://arxiv.org/abs/1203.1005",
+   "pdf_url": "https://arxiv.org/pdf/1203.1005"
+  },
+  {
+   "arxiv_id": "1202.4002",
+   "announced": "2012-02-17",
+   "title": "Generalized Principal Component Analysis (GPCA)",
+   "authors": [
+    "Rene Vidal",
+    "Yi Ma",
+    "Shankar Sastry"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": null,
+   "journal_ref": "IEEE Transactions on Pattern Analysis and Machine Intelligence, vol 27, no 12, 2005",
+   "venue": "TPAMI 2005",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "This paper presents an algebro-geometric solution to the problem of segmenting an unknown number of subspaces of unknown and varying dimensions from sample data points. We represent the subspaces with a set of homogeneous polynomials whose degree is the number of subspaces and whose derivatives at a data point give normal vectors to the subspace passing through the point. When the number of subspaces is known, we show that these polynomials can be estimated linearly from data; hence, subspace segmentation is reduced to classifying one point per subspace. We select these points optimally from the data set by minimizing certain distance function, thus dealing automatically with moderate noise in the data. A basis for the complement of each subspace is then recovered by applying standard PCA to the collection of derivatives (normal vectors). Extensions of GPCA that deal with data in a high- dimensional space and with an unknown number of subspaces are also presented. Our experiments on low-dimensional data show that GPCA outperforms existing algebraic algorithms based on polynomial factorization and provides a good initialization to iterative techniques such as K-subspaces and Expectation Maximization. We also present applications of GPCA to computer vision problems such as face clustering, temporal video segmentation, and 3D motion segmentation from point correspondences in multiple affine views.",
+   "affiliations": [
+    "Johns Hopkins University",
+    "Institute of Electrical and Electronics Engineers"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Johns Hopkins University",
+    "Institute of Electrical and Electronics Engineers"
+   ],
+   "abs_url": "https://arxiv.org/abs/1202.4002",
+   "pdf_url": "https://arxiv.org/pdf/1202.4002"
+  },
+  {
+   "arxiv_id": "1202.2745",
+   "announced": "2012-02-13",
+   "title": "Multi-column Deep Neural Networks for Image Classification",
+   "authors": [
+    "Dan Cireşan",
+    "Ueli Meier",
+    "Juergen Schmidhuber"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": "20 pages, 14 figures, 8 tables",
+   "journal_ref": "CVPR 2012, p. 3642-3649",
+   "venue": "CVPR 2012",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Traditional methods of computer vision and machine learning cannot match human performance on tasks such as the recognition of handwritten digits or traffic signs. Our biologically plausible deep artificial neural network architectures can. Small (often minimal) receptive fields of convolutional winner-take-all neurons yield large network depth, resulting in roughly as many sparsely connected neural layers as found in mammals between retina and visual cortex. Only winner neurons are trained. Several deep neural columns become experts on inputs preprocessed in different ways; their predictions are averaged. Graphics cards allow for fast training. On the very competitive MNIST handwriting benchmark, our method is the first to achieve near-human performance. On a traffic sign recognition benchmark it outperforms humans by a factor of two. We also improve the state-of-the-art on a plethora of common image classification benchmarks.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1202.2745",
+   "pdf_url": "https://arxiv.org/pdf/1202.2745"
+  },
+  {
+   "arxiv_id": "1201.5227",
+   "announced": "2012-01-25",
+   "title": "A New Local Adaptive Thresholding Technique in Binarization",
+   "authors": [
+    "T. Romen Singh",
+    "Sudipta Roy",
+    "O. Imocha Singh",
+    "Tejmani Sinam",
+    "Kh. Manglem Singh"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "ISSN (Online): 1694-0814 http://www.IJCSI.org 271",
+   "journal_ref": "IJCSI International Journal of Computer Science Issues, Vol. 8, Issue 6, No 2, (2011) 271-277",
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Image binarization is the process of separation of pixel values into two groups, white as background and black as foreground. Thresholding plays a major in binarization of images. Thresholding can be categorized into global thresholding and local thresholding. In images with uniform contrast distribution of background and foreground like document images, global thresholding is more appropriate. In degraded document images, where considerable background noise or variation in contrast and illumination exists, there exists many pixels that cannot be easily classified as foreground or background. In such cases, binarization with local thresholding is more appropriate. This paper describes a locally adaptive thresholding technique that removes background by using local mean and mean deviation. Normally the local mean computational time depends on the window size. Our technique uses integral sum image as a prior processing to calculate local mean. It does not involve calculations of standard deviations as in other local adaptive techniques. This along with the fact that calculations of mean is independent of window size speed up the process as compared to other local thresholding techniques.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1201.5227",
+   "pdf_url": "https://arxiv.org/pdf/1201.5227"
+  }
+ ]
+}

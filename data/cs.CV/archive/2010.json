@@ -1,0 +1,265 @@
+{
+ "schema_version": 1,
+ "category": "cs.CV",
+ "year": 2010,
+ "papers": [
+  {
+   "arxiv_id": "1012.3216",
+   "announced": "2010-12-15",
+   "title": "TILT: Transform Invariant Low-rank Textures",
+   "authors": [
+    "Zhengdong Zhang",
+    "Arvind Ganesh",
+    "Xiao Liang",
+    "Yi Ma"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Submitted to IJCV. Conference version presented at ACCV 2010",
+   "journal_ref": null,
+   "venue": "ACCV 2010",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "In this paper, we show how to efficiently and effectively extract a class of \"low-rank textures\" in a 3D scene from 2D images despite significant corruptions and warping. The low-rank textures capture geometrically meaningful structures in an image, which encompass conventional local features such as edges and corners as well as all kinds of regular, symmetric patterns ubiquitous in urban environments and man-made objects. Our approach to finding these low-rank textures leverages the recent breakthroughs in convex optimization that enable robust recovery of a high-dimensional low-rank matrix despite gross sparse errors. In the case of planar regions with significant affine or projective deformation, our method can accurately recover both the intrinsic low-rank texture and the precise domain transformation, and hence the 3D geometry and appearance of the planar regions. Extensive experimental results demonstrate that this new technique works effectively for many regular and near-regular patterns or objects that are approximately low-rank, such as symmetrical patterns, building facades, printed texts, and human faces.",
+   "affiliations": [
+    "Tsinghua University",
+    "University of Illinois Urbana-Champaign",
+    "Microsoft Research Asia"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ]
+   ],
+   "institutions": [
+    "Tsinghua University",
+    "University of Illinois Urbana-Champaign",
+    "Microsoft Research Asia"
+   ],
+   "abs_url": "https://arxiv.org/abs/1012.3216",
+   "pdf_url": "https://arxiv.org/pdf/1012.3216"
+  },
+  {
+   "arxiv_id": "1012.1184",
+   "announced": "2010-12-06",
+   "title": "Image Deblurring and Super-resolution by Adaptive Sparse Domain Selection and Adaptive Regularization",
+   "authors": [
+    "Weisheng Dong",
+    "Lei Zhang",
+    "Guangming Shi",
+    "Xiaolin Wu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Multimedia (cs.MM)"
+   ],
+   "comments": "35 pages. This paper is under review in IEEE TIP",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "As a powerful statistical image modeling technique, sparse representation has been successfully used in various image restoration applications. The success of sparse representation owes to the development of l1-norm optimization techniques, and the fact that natural images are intrinsically sparse in some domain. The image restoration quality largely depends on whether the employed sparse domain can represent well the underlying image. Considering that the contents can vary significantly across different images or different patches in a single image, we propose to learn various sets of bases from a pre-collected dataset of example image patches, and then for a given patch to be processed, one set of bases are adaptively selected to characterize the local sparse domain. We further introduce two adaptive regularization terms into the sparse representation framework. First, a set of autoregressive (AR) models are learned from the dataset of example image patches. The best fitted AR models to a given patch are adaptively selected to regularize the image local structures. Second, the image non-local self-similarity is introduced as another regularization term. In addition, the sparsity regularization parameter is adaptively estimated for better image restoration performance. Extensive experiments on image deblurring and super-resolution validate that by using adaptive sparse domain selection and adaptive regularization, the proposed method achieves much better results than many state-of-the-art algorithms in terms of both PSNR and visual perception.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1012.1184",
+   "pdf_url": "https://arxiv.org/pdf/1012.1184"
+  },
+  {
+   "arxiv_id": "1011.0640",
+   "announced": "2010-11-01",
+   "title": "Lesion Border Detection in Dermoscopy Images",
+   "authors": [
+    "M. Emre Celebi",
+    "Hitoshi Iyatomi",
+    "Gerald Schaefer",
+    "William V. Stoecker"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "10 pages, 1 figure, 3 tables",
+   "journal_ref": "Computerized Medical Imaging and Graphics 33 (2009) 148--153",
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Background: Dermoscopy is one of the major imaging modalities used in the diagnosis of melanoma and other pigmented skin lesions. Due to the difficulty and subjectivity of human interpretation, computerized analysis of dermoscopy images has become an important research area. One of the most important steps in dermoscopy image analysis is the automated detection of lesion borders. Methods: In this article, we present a systematic overview of the recent border detection methods in the literature paying particular attention to computational issues and evaluation aspects. Conclusion: Common problems with the existing approaches include the acquisition, size, and diagnostic distribution of the test image set, the evaluation of the results, and the inadequate description of the employed methods. Border determination by dermatologists appears to depend upon higher-level knowledge, therefore it is likely that the incorporation of domain knowledge in automated methods will enable them to perform better, especially in sets of images with a variety of diagnoses.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1011.0640",
+   "pdf_url": "https://arxiv.org/pdf/1011.0640"
+  },
+  {
+   "arxiv_id": "1010.2955",
+   "announced": "2010-10-01",
+   "title": "Robust Recovery of Subspace Structures by Low-Rank Representation",
+   "authors": [
+    "Guangcan Liu",
+    "Zhouchen Lin",
+    "Shuicheng Yan",
+    "Ju Sun",
+    "Yong Yu",
+    "Yi Ma"
+   ],
+   "primary_subject": "Information Theory (cs.IT)",
+   "subjects": [
+    "Information Theory (cs.IT)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)",
+    "math.IT"
+   ],
+   "comments": "IEEE Trans. Pattern Analysis and Machine Intelligence",
+   "journal_ref": "IEEE Trans. Pattern Analysis and Machine Intelligence, 35(2013) 171-184",
+   "venue": "TPAMI",
+   "cross_list_from": "cs.IT",
+   "html_url": null,
+   "abstract": "In this work we address the subspace recovery problem. Given a set of data samples (vectors) approximately drawn from a union of multiple subspaces, our goal is to segment the samples into their respective subspaces and correct the possible errors as well. To this end, we propose a novel method termed Low-Rank Representation (LRR), which seeks the lowest-rank representation among all the candidates that can represent the data samples as linear combinations of the bases in a given dictionary. It is shown that LRR well solves the subspace recovery problem: when the data is clean, we prove that LRR exactly captures the true subspace structures; for the data contaminated by outliers, we prove that under certain conditions LRR can exactly recover the row space of the original data and detect the outlier as well; for the data corrupted by arbitrary errors, LRR can also approximately recover the row space with theoretical guarantees. Since the subspace membership is provably determined by the row space, these further imply that LRR can perform robust subspace segmentation and error correction, in an efficient way.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1010.2955",
+   "pdf_url": "https://arxiv.org/pdf/1010.2955"
+  },
+  {
+   "arxiv_id": "1007.0085",
+   "announced": "2010-07-01",
+   "title": "Survey of Nearest Neighbor Techniques",
+   "authors": [
+    "Nitin Bhatia",
+    "Vandana"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "4 pages, 1 table",
+   "journal_ref": "IJCSIS vol. 8, No. 2, 2010 pp. 302-305",
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "The nearest neighbor (NN) technique is very simple, highly efficient and effective in the field of pattern recognition, text categorization, object recognition etc. Its simplicity is its main advantage, but the disadvantages can't be ignored even. The memory requirement and computation complexity also matter. Many techniques are developed to overcome these limitations. NN techniques are broadly classified into structure less and structure based techniques. In this paper, we present the survey of such techniques. Weighted kNN, Model based kNN, Condensed NN, Reduced NN, Generalized NN are structure less techniques whereas k-d tree, ball tree, Principal Axis Tree, Nearest Feature Line, Tunable NN, Orthogonal Search Tree are structure based algorithms developed on the basis of kNN. The structure less method overcome memory limitation and structure based techniques reduce the computational complexity.",
+   "affiliations": [
+    "DAV University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null
+   ],
+   "institutions": [
+    "DAV University"
+   ],
+   "abs_url": "https://arxiv.org/abs/1007.0085",
+   "pdf_url": "https://arxiv.org/pdf/1007.0085"
+  },
+  {
+   "arxiv_id": "1006.3056",
+   "announced": "2010-06-15",
+   "title": "Solving Inverse Problems with Piecewise Linear Estimators: From Gaussian Mixture Models to Structured Sparsity",
+   "authors": [
+    "Guoshen Yu",
+    "Guillermo Sapiro",
+    "Stéphane Mallat"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "30 pages",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "A general framework for solving image inverse problems is introduced in this paper. The approach is based on Gaussian mixture models, estimated via a computationally efficient MAP-EM algorithm. A dual mathematical interpretation of the proposed framework with structured sparse estimation is described, which shows that the resulting piecewise linear estimate stabilizes the estimation when compared to traditional sparse inverse problem techniques. This interpretation also suggests an effective dictionary motivated initialization for the MAP-EM algorithm. We demonstrate that in a number of image inverse problems, including inpainting, zooming, and deblurring, the same algorithm produces either equal, often significantly better, or very small margin worse results than the best published ones, at a lower computational cost.",
+   "affiliations": [
+    "University of Minnesota",
+    "École Polytechnique",
+    "Centre de Mathématiques Appliquées de l'École polytechnique"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ]
+   ],
+   "institutions": [
+    "University of Minnesota",
+    "École Polytechnique",
+    "Centre de Mathématiques Appliquées de l'École polytechnique"
+   ],
+   "abs_url": "https://arxiv.org/abs/1006.3056",
+   "pdf_url": "https://arxiv.org/pdf/1006.3056"
+  },
+  {
+   "arxiv_id": "1005.4020",
+   "announced": "2010-05-21",
+   "title": "Image Segmentation by Using Threshold Techniques",
+   "authors": [
+    "Salem Saleh Al-amri",
+    "N. V. Kalyankar",
+    "Khamitkar S. D."
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "http://www.journalofcomputing.org",
+   "journal_ref": "Journal of Computing, Volume 2, Issue 5, May 2010",
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "This paper attempts to undertake the study of segmentation image techniques by using five threshold methods as Mean method, P-tile method, Histogram Dependent Technique (HDT), Edge Maximization Technique (EMT) and visual Technique and they are compared with one another so as to choose the best technique for threshold segmentation techniques image. These techniques applied on three satellite images to choose base guesses for threshold segmentation image.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1005.4020",
+   "pdf_url": "https://arxiv.org/pdf/1005.4020"
+  },
+  {
+   "arxiv_id": "1003.4053",
+   "announced": "2010-03-22",
+   "title": "A Comprehensive Review of Image Enhancement Techniques",
+   "authors": [
+    "Raman Maini",
+    "Himanshu Aggarwal"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": "Journal of Computing, Volume 2, Issue 3, March 2010, https://sites.google.com/site/journalofcomputing/",
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Principle objective of Image enhancement is to process an image so that result is more suitable than original image for specific application. Digital image enhancement techniques provide a multitude of choices for improving the visual quality of images. Appropriate choice of such techniques is greatly influenced by the imaging modality, task at hand and viewing conditions. This paper will provide an overview of underlying concepts, along with algorithms commonly used for image enhancement. The paper focuses on spatial domain techniques for image enhancement, with particular reference to point processing methods and histogram processing.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1003.4053",
+   "pdf_url": "https://arxiv.org/pdf/1003.4053"
+  }
+ ]
+}
