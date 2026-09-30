@@ -4,11 +4,14 @@ import argparse
 import logging
 import os
 from collections import Counter
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 
 from preprint_radar import __version__, filters
+from preprint_radar.archive import ArchiveClients, format_archive_report, update_archive
+from preprint_radar.catalog import OAI_DELAY_SECONDS, Catalog
+from preprint_radar.citations import S2_ANONYMOUS_DELAY_SECONDS, S2_DELAY_SECONDS, api_key
 from preprint_radar.exceptions import PreprintRadarError
 from preprint_radar.export import ExportFormat, export_papers
 from preprint_radar.http import (
@@ -20,6 +23,7 @@ from preprint_radar.http import (
 )
 from preprint_radar.institutions import ROR_DELAY_SECONDS
 from preprint_radar.listing import MAX_LISTING_ENTRIES, fetch_listing, validate_category
+from preprint_radar.openalex import OPENALEX_DELAY_SECONDS
 from preprint_radar.pipeline import (
     DEFAULT_MAX_ROR_LOOKUPS,
     add_institutions,
@@ -27,6 +31,7 @@ from preprint_radar.pipeline import (
     format_report,
     update_category,
 )
+from preprint_radar.selection import DEFAULT_BUDGET
 from preprint_radar.stats import collect_coverage, format_coverage
 from preprint_radar.store import PaperStore
 
@@ -35,6 +40,8 @@ logger = logging.getLogger(__name__)
 DEFAULT_CATEGORY = "cs.CV"
 DEFAULT_EXPORT_DIR = Path("exports")
 DEFAULT_DATA_DIR = Path("data")
+DEFAULT_CATALOG_DIR = Path(".cache/catalog")
+OAI_TIMEOUT_SECONDS = 180.0
 CONTACT_ENV_VAR = "PREPRINT_RADAR_CONTACT"
 
 
@@ -63,6 +70,7 @@ def build_parser() -> argparse.ArgumentParser:
     _add_backfill_parser(subparsers)
     _add_stats_parser(subparsers)
     _add_institutions_parser(subparsers)
+    _add_archive_parser(subparsers)
     return parser
 
 
@@ -192,6 +200,51 @@ def _add_institutions_parser(subparsers: "argparse._SubParsersAction[argparse.Ar
     )
 
 
+def _add_archive_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
+    archive = subparsers.add_parser(
+        "archive",
+        help="keep the most cited older papers in the archive (weekly)",
+        description=(
+            "Refresh the category's catalog from OAI-PMH, fetch citation counts from "
+            "Semantic Scholar (API key from SEMANTIC_SCHOLAR_API_KEY, else anonymously and "
+            "slowly), keep the papers older than 12 months with the most citations per year "
+            "within the budget, and write the archive and the citation counts."
+        ),
+    )
+    archive.add_argument(
+        "-c",
+        "--category",
+        dest="categories",
+        action="append",
+        type=_category,
+        help=f"arXiv category, repeatable (default: {DEFAULT_CATEGORY})",
+    )
+    archive.add_argument(
+        "--data-dir",
+        type=Path,
+        default=DEFAULT_DATA_DIR,
+        help=f"data store directory (default: {DEFAULT_DATA_DIR})",
+    )
+    archive.add_argument(
+        "--catalog-dir",
+        type=Path,
+        default=DEFAULT_CATALOG_DIR,
+        help=f"where the harvested catalog is kept (default: {DEFAULT_CATALOG_DIR})",
+    )
+    archive.add_argument(
+        "--budget",
+        type=int,
+        default=DEFAULT_BUDGET,
+        help=f"number of older papers the archive holds (default: {DEFAULT_BUDGET})",
+    )
+    archive.add_argument(
+        "--prune",
+        action="store_true",
+        help="delete the day files older than 12 months (their archived papers are kept)",
+    )
+    archive.add_argument("--dry-run", action="store_true", help="report what would change, write nothing")
+
+
 def _add_store_arguments(parser: argparse.ArgumentParser) -> None:
     """Options shared by the commands that write to the data store."""
     parser.add_argument(
@@ -246,20 +299,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         parser.error("--since must not be after --until")
     _configure_logging(args.verbose)
     try:
-        match args.command:
-            case "fetch":
-                return _run_fetch(args)
-            case "update":
-                return _run_update(args)
-            case "backfill":
-                return _run_backfill(args)
-            case "stats":
-                return _run_stats(args)
-            case "institutions":
-                return _run_institutions(args)
-            case _:  # pragma: no cover - argparse rejects unknown commands
-                msg = f"Unknown command: {args.command}"
-                raise AssertionError(msg)
+        return _COMMANDS[args.command](args)
     except PreprintRadarError as exc:
         logger.error("%s", exc)  # noqa: TRY400 - the message is enough, no traceback for users
         return 1
@@ -381,6 +421,41 @@ def _run_institutions(args: argparse.Namespace) -> int:
     return 0
 
 
+def _run_archive(args: argparse.Namespace) -> int:
+    categories: list[str] = args.categories or [DEFAULT_CATEGORY]
+    store = PaperStore(args.data_dir)
+    key = api_key()
+    if not key:
+        logger.warning("No Semantic Scholar API key: citation counts will be slow to fetch.")
+    today = datetime.now(tz=UTC).date()
+    # Only arXiv gets the contact; the other services get the bare User-Agent.
+    with (
+        HttpClient(
+            user_agent=DEFAULT_USER_AGENT, min_interval=OAI_DELAY_SECONDS, timeout=OAI_TIMEOUT_SECONDS
+        ) as oai,
+        HttpClient(
+            user_agent=DEFAULT_USER_AGENT,
+            min_interval=S2_DELAY_SECONDS if key else S2_ANONYMOUS_DELAY_SECONDS,
+            max_attempts=2,
+        ) as citations,
+        HttpClient(user_agent=DEFAULT_USER_AGENT, min_interval=OPENALEX_DELAY_SECONDS) as openalex,
+    ):
+        clients = ArchiveClients(oai=oai, citations=citations, openalex=openalex, citations_key=key)
+        for category in categories:
+            report = update_archive(
+                category,
+                store=store,
+                catalog=Catalog(args.catalog_dir, category),
+                clients=clients,
+                budget=args.budget,
+                today=today,
+                prune=args.prune,
+                dry_run=args.dry_run,
+            )
+            print(format_archive_report(report))  # noqa: T201 - user-facing CLI output
+    return 0
+
+
 def _category(value: str) -> str:
     try:
         return validate_category(value)
@@ -401,3 +476,13 @@ def _configure_logging(verbosity: int) -> None:
     logging.basicConfig(level=level, format="%(levelname)s %(name)s: %(message)s")
     # httpx logs every request at INFO level; only show it in debug mode.
     logging.getLogger("httpx").setLevel(logging.DEBUG if verbosity > 1 else logging.WARNING)
+
+
+_COMMANDS: dict[str, Callable[[argparse.Namespace], int]] = {
+    "fetch": _run_fetch,
+    "update": _run_update,
+    "backfill": _run_backfill,
+    "stats": _run_stats,
+    "institutions": _run_institutions,
+    "archive": _run_archive,
+}

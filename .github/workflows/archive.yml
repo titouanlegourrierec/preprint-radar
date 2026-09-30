@@ -1,0 +1,90 @@
+name: Archive
+
+# Weekly: keep the most cited papers older than 12 months, within a size budget (see
+# src/preprint_radar/archive.py). Sunday morning UTC: the daily update does not run then.
+on:
+  schedule:
+    - cron: "41 5 * * 0"
+  workflow_dispatch:
+    inputs:
+      budget:
+        description: Number of older papers the archive holds (empty for the repository variable, else 22000)
+        default: ""
+      prune:
+        description: Delete the day files older than 12 months (true/false)
+        default: ""
+
+# Shared with update.yml, so that two data commits never race.
+concurrency:
+  group: update-data
+  cancel-in-progress: false
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    # The first run harvests the whole catalog (about 45 minutes) and, without an API key,
+    # fetches citation counts anonymously (about 1.5 hours); later runs take minutes.
+    timeout-minutes: 300
+    permissions:
+      contents: write
+    env:
+      CATEGORIES: ${{ vars.PREPRINT_RADAR_CATEGORIES || 'cs.CV' }}
+      ARCHIVE_BUDGET: ${{ inputs.budget || vars.PREPRINT_RADAR_ARCHIVE_BUDGET || '22000' }}
+      # Off until the maintainer turns it on (repository variable or manual run).
+      ARCHIVE_PRUNE: ${{ inputs.prune || vars.PREPRINT_RADAR_ARCHIVE_PRUNE || 'false' }}
+      # Optional: without it, Semantic Scholar is queried anonymously, slowly.
+      SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # The latest main, not the commit the run was triggered on (see update.yml).
+          ref: main
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+        with:
+          enable-cache: true
+      - run: uv sync --locked --no-dev
+
+      # The catalog (about 100 MB) lives in the Actions cache, not in git. Each run saves a
+      # new entry, even after a failure, so that an interrupted harvest resumes next time.
+      - name: Restore the catalog
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .cache/catalog
+          key: catalog-${{ github.run_id }}
+          restore-keys: catalog-
+
+      - name: Update the archive
+        timeout-minutes: 280
+        run: |
+          args=(--budget "$ARCHIVE_BUDGET")
+          for category in $CATEGORIES; do args+=(--category "$category"); done
+          if [ "$ARCHIVE_PRUNE" = "true" ]; then args+=(--prune); fi
+          uv run --no-dev preprint-radar -v archive "${args[@]}"
+
+      - name: Save the catalog
+        if: always()
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .cache/catalog
+          key: catalog-${{ github.run_id }}
+
+      - name: Commit data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data
+          if git diff --cached --quiet; then
+            echo "No change."
+          else
+            git commit -m "chore(data): archive $(date -u +%Y-%m-%d)"
+            git pull --rebase
+            git push
+          fi
+
+  deploy:
+    needs: archive
+    uses: ./.github/workflows/deploy.yml
+    permissions:
+      contents: read
+      pages: write
+      id-token: write

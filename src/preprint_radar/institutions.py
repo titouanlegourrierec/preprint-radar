@@ -132,8 +132,18 @@ def _is_supported(affiliation: str, organization: Mapping[str, object]) -> bool:
     return False
 
 
+def organization_name(name: str, *, company: bool) -> str:
+    """An organization's name as registries write it, tidied for display.
+
+    Drops a leading "The", and a company's country ("Google DeepMind (United Kingdom)",
+    "Microsoft (United States)"); a university's campus ("... (Guangzhou)") is kept.
+    """
+    name = _LEADING_THE_RE.sub("", name.strip())
+    return _TRAILING_PARENTHESIS_RE.sub("", name) if company else name
+
+
 def _display_name(organization: Mapping[str, object]) -> str | None:
-    """The organization's display name, without "The" nor a company's country suffix."""
+    """The organization's display name, tidied by :func:`organization_name`."""
     names = organization.get("names")
     if not isinstance(names, list):
         return None
@@ -147,13 +157,8 @@ def _display_name(organization: Mapping[str, object]) -> str | None:
     )
     if display is None:
         return None
-    display = _LEADING_THE_RE.sub("", display)
     types = organization.get("types")
-    # "Google DeepMind (United Kingdom)": companies carry their country, universities their
-    # campus ("... (Guangzhou)"), which is kept.
-    if isinstance(types, list) and "company" in types:
-        display = _TRAILING_PARENTHESIS_RE.sub("", display)
-    return display
+    return organization_name(display, company=isinstance(types, list) and "company" in types)
 
 
 def _words(text: str) -> set[str]:

@@ -14,6 +14,7 @@ Use the Makefile (`make help` lists everything):
 - `make dev` / `make preview`: the site locally (dev server, or production build).
 - `make update-quick`: refresh `data/` without reading HTML pages. `make update` reads them too, at one page every 15 s, so it takes hours. Never start it without asking.
 - `make backfill SINCE=YYYY-MM-DD [UNTIL=...]`: add past days from the catchup pages, then read their HTML pages (a month of cs.CV takes about 11 hours). Same rule: ask first. Interrupting either command loses nothing; re-running resumes.
+- `make archive`: the weekly citation archive (refresh the OAI catalog, fetch citation counts, keep the most cited older papers). The first run takes about 2 hours without a Semantic Scholar key: ask first, like `make update`.
 - `make institutions`: name the institutions of stored affiliations through the Research Organization Registry (ROR), for papers that `update`/`backfill` did not reach (a few minutes; one request per distinct string, every 0.5 s).
 - `make stats`: how much of `data/` is enriched (abstracts, affiliations, venues per day). Check it after touching the extraction heuristics.
 
@@ -24,8 +25,10 @@ Single checks: `uv run pytest tests/unit/test_store.py -k merge`, `cd web && npx
 - `src/preprint_radar/`: `pipeline.py` orchestrates listing → abstracts → HTML front matter → store.
   - `update_category` follows the recent listing, `backfill_category` walks past days through catchup pages.
   - Sources: `listing.py` (recent listing and catchup pages, which share the entry markup), `rss.py`, `arxiv_api.py`, `paper_page.py`; `venue.py` detects accepted venues from comments at parse time; `institutions.py` names the institution of each affiliation through ROR, after the HTML step.
-  - HTTP goes through `http.HttpClient` only (rate limiting, retries, error mapping).
+  - HTTP goes through `http.HttpClient` only (rate limiting, retries on throttling, server errors and timeouts, error mapping).
+  - Citation archive (weekly, `archive.py`): `catalog.py` harvests the category's OAI-PMH set into `.cache/catalog/` (git-ignored; restored from the Actions cache in CI), `citations.py` gets counts from Semantic Scholar, `selection.py` ranks papers older than 12 months by citations per year of age and keeps a budget of them (22,000 by default, about 20 citations a year; an archived paper leaves only beyond 1.15 times the budget), `openalex.py` gives the affiliations of papers that enter from the catalog. With less than 95% of citation counts, the archive stays as it is. Deleting day files older than 12 months (`--prune`) is off unless asked.
 - `data/<category>/<YYYY-MM-DD>.json` + `data/index.json`: written by `store.py`, read by `web/src/data.ts`. Generated, but committed and deployed.
+- `data/<category>/archive/<YYYY>.json` (papers kept for their citations, by year of first version, rewritten as a whole each week) and `data/<category>/citations.json` (counts of the stored papers). The index lists archive years under an optional `archives` key.
 - `web/src/`: `search.ts` (MiniSearch index and query syntax), `app.tsx` (layout and wiring), `hooks/` (URL-synced view state, paper loading, reading list, theme), `url-state.ts` (shareable URLs, including `?paper=`: a paper permalink in the list, the focused paper in the graph), `period.ts` (preset or custom date range, `?range=` or `?from=&to=`, shown by `components/PeriodPicker.tsx`), `preferences.ts` (per-browser settings in `localStorage`).
   - Graph view: `graph.ts` builds the graph (pure, tested) from three layers: papers, institutions, authors. With papers on, a paper links to its authors, and each institution to the authors the paper places there, else to the paper itself (never to an unplaced author). With papers off, it is the co-occurrence projection (nodes linked when they share a paper). Default: papers + institutions, without isolated nodes; `graph-layout.ts` gives starting positions (each connected component in one piece, on a spiral); `graph-renderer.ts` draws on a canvas with d3-force (imperative class); `components/GraphView.tsx` and `GraphSettingsPanel.tsx` are the UI. It is full screen, without the search bar and sidebar, and shows every node unless the user sets a limit.
   - A month of papers (3,500) with all three layers is about 23,000 nodes and 34,000 links; the projection with authors has about 19,000 nodes and 100,000 links (every co-author pair). Papers + institutions (the default) is about 5,700 nodes and 6,700 links. The renderer batches drawing into a few `Path2D` per frame; graphs over 2,000 nodes use `theta` 1.2, no collisions and a faster cooling.
@@ -50,6 +53,7 @@ Single checks: `uv run pytest tests/unit/test_store.py -k merge`, `cd web && npx
 - `affiliations` are per paper, deduplicated, and never contain e-mails or URLs.
 - `author_affiliations` (optional, like `venue`) maps each author to indices into `affiliations`; `null` per author or altogether means "the page does not say". The graph links a placed author only to their own institutions.
 - `institutions` (optional) is parallel to `affiliations`: the ROR name of each affiliation's institution, `null` without a confident match, `null` altogether when not looked up yet (the pipeline retries). Anything that changes `affiliations` resets it to `null`. The web app names the rest itself (`web/src/institutions.ts`), and the affiliation filter matches both.
+- Archived papers have the same record: `announced` is their first appearance (from the identifier's month when OAI's `created` disagrees), `html_url` is `null`, affiliations and `institutions` come from OpenAlex's institutions.
 - `venue` is optional on the web side (`venue?:`) because reading lists saved in browsers predate it. Adding an optional field needs no schema bump; backfill `data/` with a one-off script.
 
 ## arXiv constraints (hard-won, do not "simplify" away)
@@ -70,6 +74,10 @@ Single checks: `uv run pytest tests/unit/test_store.py -k merge`, `cd web && npx
   - Place-only affiliations written as separate contact nodes ("Carnegie Mellon University", then "Pittsburgh, PA 15213") are not joined: joining across nodes would also have to change every mapping tier.
   - The author mapping reuses the same nodes, in tiers: per-creator contacts, superscript markers matched with marker-led (or marker-trailed) lines, "A is with B" sentences, plus the trivial single-affiliation/single-author cases. A wrong pair is worse than none: ambiguous name alignments drop the whole tier, unresolved authors stay `null`.
   - Raw LaTeX sources are **not** an alternative: `robots.txt` disallows `/e-print` and `/src` (export.arxiv.org disallows everything), and LaTeXML's HTML is already parsed LaTeX.
+- **Citation archive sources:**
+  - OAI-PMH (`oaipmh.arxiv.org`, set `cs:cs:CV`): arXiv's sanctioned bulk metadata; no crawl delay in its robots.txt, 5 s between pages, about 45 minutes for the whole set. `created` is not always the first version's date.
+  - Semantic Scholar (`paper/batch`, 500 arXiv ids a request): counts all versions of a paper. Anonymous requests are often refused (429) and retried patiently; `SEMANTIC_SCHOLAR_API_KEY` (repository secret) makes it minutes. OpenAlex undercounts published papers (×1.7 in median), so it is not used for counts.
+  - OpenAlex (`works?filter=doi:10.48550/arxiv.<id>|...`, 50 a request): institutions per author; its raw affiliation strings are too rough to use.
 - **Fixtures:**
   - Real e-mails in them are replaced by `author@example.org`.
   - `tests/fixtures/` and `data/` are excluded from pre-commit, so hooks never rewrite them.
@@ -87,5 +95,5 @@ Single checks: `uv run pytest tests/unit/test_store.py -k merge`, `cd web && npx
 
 ## Working agreements
 
-- Do not commit, push, create the GitHub repo, or run the long `make update` unless asked.
+- Do not commit, push, create the GitHub repo, or run the long `make update`, `make backfill` or `make archive` unless asked.
 - The maintainer writes in French. Answer in French, but keep everything in the repo in English.

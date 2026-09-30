@@ -26,6 +26,7 @@ reading list exported as BibTeX.
 | Abstract                      | The category RSS feed (latest day, one request), then the catchup page of each older day (one request per day); the arXiv API and the paper's HTML rendering as last resorts |
 | Affiliations                  | Submitter-declared affiliations from the API when present; otherwise the front matter of the paper's HTML rendering |
 | Institution of each affiliation | The [Research Organization Registry](https://ror.org) (ROR) affiliation matching, when confident; otherwise the web app's own rules (acronyms, companies, departments) |
+| Citations (archive)           | [Semantic Scholar](https://www.semanticscholar.org) citation counts, weekly; papers older than 12 months from arXiv's OAI-PMH, with affiliations from [OpenAlex](https://openalex.org) |
 | Venue                         | Detected in the comments and journal reference ("Accepted to ECCV 2026", "BMVC2026", …); submissions and papers under review are ignored |
 
 Affiliations are **best effort**: arXiv metadata rarely includes them, and the HTML
@@ -100,6 +101,16 @@ abstracts before reading the HTML pages for affiliations, most recent day first;
 it loses nothing, and running it again resumes where it stopped. A month of cs.CV is about
 2,900 papers: a few minutes for the days, then about 11 hours of HTML pages.
 
+`archive` (weekly in CI) keeps the papers that matter beyond the last 12 months. It ranks
+every cs.CV paper since 2010 by citations per year of age — fair to old and recent papers
+alike — and keeps a budget of them (22,000 by default, about 20 citations a year today) in
+`data/<category>/archive/<year>.json`. The threshold rises by itself as the field grows; a
+paper leaves only once it ranks beyond 1.15 times the budget, and a paper that takes off
+later comes back. Deleting the day files older than 12 months is off until you turn it on
+(`--prune`, or the `PREPRINT_RADAR_ARCHIVE_PRUNE` repository variable). Citation counts are
+much faster with a free Semantic Scholar API key, set as the `SEMANTIC_SCHOLAR_API_KEY`
+repository secret.
+
 ## Deployment on GitHub Pages
 
 1. Push the repository to GitHub.
@@ -158,6 +169,7 @@ make update      # refresh data/ (CATEGORIES="cs.CV cs.LG" MAX_HTML=50)
 make backfill SINCE=2026-09-01   # add past days to data/ (UNTIL defaults to today)
 make stats       # how much of data/ is enriched, per day
 make institutions # name the institutions of stored affiliations through ROR
+make archive     # keep the most cited older papers (weekly in CI; first run about 2 h)
 ```
 
 The underlying commands:
