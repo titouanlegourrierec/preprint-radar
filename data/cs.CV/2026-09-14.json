@@ -38,6 +38,10 @@
      1
     ]
    ],
+   "institutions": [
+    "University of Illinois Urbana-Champaign",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12078",
    "pdf_url": "https://arxiv.org/pdf/2609.12078"
   },
@@ -78,6 +82,9 @@
      0
     ]
    ],
+   "institutions": [
+    "University of Illinois Urbana-Champaign"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12090",
    "pdf_url": "https://arxiv.org/pdf/2609.12090"
   },
@@ -113,6 +120,10 @@
      1
     ]
    ],
+   "institutions": [
+    null,
+    "University of Ghana"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12099",
    "pdf_url": "https://arxiv.org/pdf/2609.12099"
   },
@@ -140,6 +151,7 @@
    "abstract": "The HSI-Road dataset provides paired RGB and 25-channel NIR (600--960~nm) images with binary masks but no surface-level labels.~This paper introduces a manually labeled six-class taxonomy: Background, Asphalt, Concrete, Dirt, Water, and Grass, and an RGB-to-NIR registration pipeline with corresponding annotations. Six semantic-segmentation models (SSMs) are evaluated under four input configurations: original-resolution RGB (RGB$_{\\text{ori}}$), registered low-resolution RGB (RGB$_{\\text{reg}}$), NIR, and channel-stacked RGB$_{\\text{reg}}$--NIR (RGBN$_{\\text{stk}}$). The comparison quantifies the effect of spatial-resolution reduction on RGB, along with evaluation of NIR and RGBN$_{\\text{stk}}$, with results reported using per-class and mean IoU and F1 scores. RGB$_{\\text{ori}}$ achieves the highest overall performance but contains 12$\\times$ more pixels than the matched-resolution inputs. At the matched 192$\\times$384 resolution, RGBN$_{\\text{stk}}$ outperforms NIR for all six SSMs and RGB$_{\\text{reg}}$ for five of six, with the most consistent gains for the Water class. These results highlight the importance of spatial resolution while showing that NIR provides complementary information to RGB.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.12151",
    "pdf_url": "https://arxiv.org/pdf/2609.12151"
   },
@@ -196,6 +208,9 @@
      0
     ]
    ],
+   "institutions": [
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12155",
    "pdf_url": "https://arxiv.org/pdf/2609.12155"
   },
@@ -228,6 +243,10 @@
      0,
      1
     ]
+   ],
+   "institutions": [
+    null,
+    "Southern Illinois University Carbondale"
    ],
    "abs_url": "https://arxiv.org/abs/2609.12168",
    "pdf_url": "https://arxiv.org/pdf/2609.12168"
@@ -278,6 +297,10 @@
      0
     ]
    ],
+   "institutions": [
+    "Ohio State University",
+    "Agricultural Research Service"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12169",
    "pdf_url": "https://arxiv.org/pdf/2609.12169"
   },
@@ -303,6 +326,7 @@
    "abstract": "Vision-language and language models increasingly interpret materials data, yet benchmarks report that they hallucinate invalid properties and violate physical law. Evaluation matches final answers to scarce human labels, while discovery agents verify final proposals or density functional theory (DFT) execution. Neither measures the physical consistency of a model's reasoning chain. Materials data carries its own physics, making a large class of materials reasoning verifiable without annotation. We introduce MatPCR, a label-free benchmark whose programmatic oracles check diffraction geometry through Bragg's law, scale bars, spectral peaks, and Materials Project-grounded checks of near-hull stability, computed band-gap class, and net magnetization. We define the Physical-Consistency Rate over image and structure inputs; introduce Constraint-Grounded Self-Verification, an agentic loop whose gain survives self-refinement and equal-compute re-prompting controls; release an open verifier useful in distribution but near chance on all six held-out constraint types; and derive an exact identity for how oracle error displaces the reported rate.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.12181",
    "pdf_url": "https://arxiv.org/pdf/2609.12181"
   },
@@ -357,6 +381,9 @@
      0
     ]
    ],
+   "institutions": [
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12202",
    "pdf_url": "https://arxiv.org/pdf/2609.12202"
   },
@@ -384,6 +411,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "University of Belgrade"
    ],
    "abs_url": "https://arxiv.org/abs/2609.12261",
    "pdf_url": "https://arxiv.org/pdf/2609.12261"
@@ -443,6 +473,14 @@
      0
     ]
    ],
+   "institutions": [
+    "Australian National University",
+    "Adelaide University",
+    "Westlake University",
+    "University of Sydney",
+    "Hong Kong University of Science and Technology (Guangzhou)",
+    "Mohamed bin Zayed University of Artificial Intelligence"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12342",
    "pdf_url": "https://arxiv.org/pdf/2609.12342"
   },
@@ -490,6 +528,12 @@
      3
     ]
    ],
+   "institutions": [
+    "Sungkyunkwan University",
+    null,
+    null,
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12343",
    "pdf_url": "https://arxiv.org/pdf/2609.12343"
   },
@@ -518,6 +562,7 @@
    "abstract": "Close-range first-person field images are important for mobile maize phenotyping because many plant-level traits depend on in-canopy structures that are difficult to ob serve from overhead views. However, post-seedling maize fields create a difficult in stance segmentation setting: stems, leaves, tassels, and neighboring plants are elon gated, repetitive, and strongly occluded. We introduce EgoMaize, a compact benchmark for first-person maize instance segmentation, where the task is to predict ownership consistent plant masks and plant-owned stem/tassel cues from close-range field images with severe same-class overlap. Existing visible-only labels can fragment one physi cal plant into disconnected supervision, while full-amodal labels may require unverifi able completion behind neighboring plants or field objects. EgoMaize therefore uses an evidence-closed annotation workflow for occluded maize regions and assigns unreli able maize regions to ignore rather than background. Baseline results show that pre trained query-based grouping, boundary refinement, and high-resolution crop refine ment help different aspects of the task, but no architecture solves the coupled chal lenges of fine structure recovery, same-class instance ownership, and occlusion reason ing; occlusion-level analysis further shows that performance decreases as plant visi bility becomes more limited. The dataset and code are publicly available at https: //github.com/JaaaaaaaD/EgoMaize.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.12350",
    "pdf_url": "https://arxiv.org/pdf/2609.12350"
   },
@@ -556,6 +601,12 @@
      3
     ]
    ],
+   "institutions": [
+    null,
+    null,
+    "National Research Council Canada",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12374",
    "pdf_url": "https://arxiv.org/pdf/2609.12374"
   },
@@ -585,6 +636,7 @@
    "abstract": "Multi-modal image generation, particularly subject-driven customization, has garnered growing attention in recent years. Despite the rapid advancement of generative models, their evaluation remains largely lagging. Existing methods, whether embedding-based or Multi-modal Large Language Model (MLLM)-based, evaluate alignment with each modal condition in isolation, which contradicts the simultaneous condition alignment objective of multi-modal image generation, leading to poor consistency with human judgments. To address this challenge, we propose UFO, the first unified framework for omni-condition alignment simultaneous evaluation. Specifically, UFO introduces a novel Atomized Chain-of-Evaluation paradigm, i.e., it first decomposes omni-condition alignment into a sequential chain of fine-grained, disentangled Atomic Evaluation Units (AEUs), categorizes them into distinct modality-relevance classes, and then employs general or dedicated functional calls for accurate verification of different AEU types. Experimental results demonstrate that UFO achieves the highest correlation with human evaluation preferences, delivering an average improvement of 15.25%. Furthermore, we present UFO-Bench, a dedicated benchmark designed to holistically evaluate the performance of existing customization models under the diverse mutual interactions of textual and visual conditions.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.12397",
    "pdf_url": "https://arxiv.org/pdf/2609.12397"
   },
@@ -631,6 +683,10 @@
     [
      1
     ]
+   ],
+   "institutions": [
+    "Nanchang Hangkong University",
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.12408",
    "pdf_url": "https://arxiv.org/pdf/2609.12408"
@@ -714,6 +770,15 @@
      6
     ]
    ],
+   "institutions": [
+    null,
+    null,
+    "Hong Kong Polytechnic University",
+    "Sun Yat-sen University",
+    "Beijing Normal-Hong Kong Baptist University",
+    null,
+    "Southern University of Science and Technology"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12409",
    "pdf_url": "https://arxiv.org/pdf/2609.12409"
   },
@@ -760,6 +825,13 @@
      4
     ]
    ],
+   "institutions": [
+    "Osnabrück University",
+    "Rhodes University",
+    null,
+    null,
+    "Université Clermont Auvergne"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12410",
    "pdf_url": "https://arxiv.org/pdf/2609.12410"
   },
@@ -787,6 +859,7 @@
    "abstract": "Prohibited-item detection in X-ray imagery remains challenging due to object superposition, weak texture, and material clutter which obscure both semantic appearance and object boundaries. We propose \\textbf{DERA}, a \\textbf{D}etached \\textbf{E}dge-\\textbf{R}esidual \\textbf{A}daptation framework for prohibited item detection under X-ray imagery. DERA combines hierarchical visual features with a parallel pixel-difference edge pyramid and learns an object-specific boundary prior from training-time contours of the instance masks. The detached prior gates edge-sensitive features, which are injected into the early visual stages through residual heads. This staged design preserves the foundation detector at the start of adaptation, isolates boundary supervision from semantic feature learning, and restricts the final adaptation stage to only \\(14.7\\)K trainable parameters. Evaluated on PIDray, CLCXray, and STCray, DERA improves the baseline by \\textbf{3.1}, \\textbf{1.6}, and \\textbf{2.4} AP points, respectively.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.12411",
    "pdf_url": "https://arxiv.org/pdf/2609.12411"
   },
@@ -848,6 +921,11 @@
      0
     ]
    ],
+   "institutions": [
+    "Wuhan University",
+    "Institute of Urban Environment",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12417",
    "pdf_url": "https://arxiv.org/pdf/2609.12417"
   },
@@ -893,6 +971,11 @@
     [
      2
     ]
+   ],
+   "institutions": [
+    null,
+    "Shanghai Jiao Tong University",
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.12431",
    "pdf_url": "https://arxiv.org/pdf/2609.12431"
@@ -940,6 +1023,12 @@
      0,
      3
     ]
+   ],
+   "institutions": [
+    "Chinese University of Hong Kong",
+    "University of Hong Kong",
+    "University of Hong Kong",
+    "Chinese University of Hong Kong"
    ],
    "abs_url": "https://arxiv.org/abs/2609.12454",
    "pdf_url": "https://arxiv.org/pdf/2609.12454"
@@ -993,6 +1082,9 @@
      0
     ]
    ],
+   "institutions": [
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12473",
    "pdf_url": "https://arxiv.org/pdf/2609.12473"
   },
@@ -1034,6 +1126,11 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "University of Sydney",
+    "James Cook University",
+    "Nepean Hospital"
    ],
    "abs_url": "https://arxiv.org/abs/2609.12491",
    "pdf_url": "https://arxiv.org/pdf/2609.12491"
@@ -1096,6 +1193,14 @@
      5
     ]
    ],
+   "institutions": [
+    "Zhongnan University of Economics and Law",
+    null,
+    "University of Illinois Chicago",
+    "Hubei University",
+    null,
+    "China University of Geosciences"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12497",
    "pdf_url": "https://arxiv.org/pdf/2609.12497"
   },
@@ -1125,6 +1230,7 @@
    "abstract": "Vision-based reinforcement learning holds strong potential for decision-making in controlled environment agriculture (CEA). However, its development is hindered by the scarcity of labelled crop images. To address this gap, LettuceVisSim, a lettuce growth simulator that generates labelled time series of crop images, was developed and validated. The simulator contains a process-based model (PBM) for shoot dry weight dynamics, a canopy layout algorithm for deriving canopy layout representations from shoot dry weight, and a Unity rendering engine for image generation. Five findings support the simulator. First, the PBM reproduced shoot dry weight under dynamic plant-density management with $\\mathrm{R}^{2}=0.84$. Second, a piecewise cubic regression mapped shoot dry weight to potential projected area with $\\mathrm{R}^{2}=0.94$. Third, the canopy layout representation was validated using 12 experimental datasets each having different dynamic environmental and spacing conditions. It reproduced the ground coverage ratio dynamics observed in measured images, achieving $\\mathrm{R}^{2}=0.84$ when driven by measured shoot dry weight and $\\mathrm{R}^{2}=0.40$ (0.76 excluding one outlier) when driven by PBM-simulated values. Fourth, the Unity rendering engine converted canopy layout representations into RGB and segmentation images at less than 10~ms. Fifth, a demonstration showed that a lighting-control policy can be learned and applied by observing only crop images that were generated with LettuceVisSim, providing a proof of concept of vision-based reinforcement learning in CEA using LettuceVisSim.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.12505",
    "pdf_url": "https://arxiv.org/pdf/2609.12505"
   },
@@ -1150,6 +1256,7 @@
    "abstract": "Evaluation of vision-language models (VLMs) for multimodal mathematical reasoning remains limited for low-resource languages and for geometry problems that require reading a diagram and a question together. We introduce ChitraMiti-12.8k, a synthetic benchmark of 12,874 Bengali planar geometry problems paired with structured 15-attribute descriptions, and NCTB-500, a complementary set of 500 diagrams manually extracted from Bengali school textbooks. Using a three-phase protocol that separates diagram-only, diagram-plus-description, and description-only inputs, we show across five open-weight and closed-source VLMs that description-only performance is statistically indistinguishable from diagram-plus-description performance, establishing structured descriptions as a sufficient textual proxy for controlled evaluation. Despite this, models remain poor at cross-modal verification, frequently misled by a swapped spatial relation even when they answer the unmodified item correctly. We further evaluate supervised adaptation on ChitraMiti-12.8k, finding that fine-tuning improves performance on both ChitraMiti-1k and NCTB-500, although a substantial gap to the strongest zero-shot model remains. Together, ChitraMiti-12.8k, NCTB-500, and our evaluation protocol offer a standardized way to study Bengali multimodal geometry reasoning and, more broadly, whether VLMs actually check their text against what they see. Our dataset and code are publicly available on Hugging Face at https://huggingface.co/datasets/RaiyanKhaan/ChitraMiti.",
    "affiliations": null,
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.12509",
    "pdf_url": "https://arxiv.org/pdf/2609.12509"
   },
@@ -1177,6 +1284,7 @@
    "abstract": "Long-Video Question Answering (LVQA) requires locating decisive evidence in hour-scale videos under a limited frame budget. Most training-free methods apply the same frame-selection strategy to all questions, despite substantial variation in the evidence required by different question types. Our analysis shows that the relative effectiveness of frame-selection strategies varies across semantic categories and benchmarks, motivating adaptive evidence acquisition. In this paper, we introduce AutoSkill, a source-supervised framework for automatically discovering and routing executable frame-selection skills. Starting from a small labelled source pool, LLM agents iteratively propose, implement, evaluate, and refine candidate skills. For a target benchmark, AutoSkill uses only unlabelled question and option text to induce a shared semantic taxonomy, rewrite labelled source examples into the target style, and estimate a category-to-skill mapping. Neither target videos nor target answers are used in this process. At inference time, each question is assigned one skill, which selects the frames used in a single inference of the frozen video MLLM. Across five long-video benchmark splits, AutoSkill improves Qwen2.5-VL-7B and Qwen3.5-4B by 2.4% and 1.2%, respectively, demonstrating the effectiveness of our AutoSkill.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.12517",
    "pdf_url": "https://arxiv.org/pdf/2609.12517"
   },
@@ -1214,6 +1322,10 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    null,
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.12521",
    "pdf_url": "https://arxiv.org/pdf/2609.12521"
@@ -1269,6 +1381,12 @@
     ],
     null
    ],
+   "institutions": [
+    "Shanghai Jiao Tong University",
+    "Shanghai Artificial Intelligence Laboratory",
+    "Tianjin University",
+    "Harbin Institute of Technology"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12533",
    "pdf_url": "https://arxiv.org/pdf/2609.12533"
   },
@@ -1291,6 +1409,7 @@
    "abstract": "Open-vocabulary detection accepts any class list at inference, and promptable segmentation returns regions without class names: the taxonomy has left the model and become an input. Relation prediction has not. Scene-graph models are still trained and evaluated on the 50 or 56 predicates of one annotation style, their relation head conditioned on object labels and so tied to one detector. Three obstacles explain this, none primarily modelling: no relation corpus is both free-text and verified, a label-conditioned architecture cannot accept a vocabulary it was not trained on, and the standard metric rewards agreement with the training corpus, so a larger vocabulary scores as a regression. We present RelateAnything, a 53M-parameter model taking an image and regions from any source and returning scored relations over a predicate vocabulary supplied at inference as strings. Object labels are never an input, so the region source can change without retraining, and the vocabulary is a bank of text embeddings, not a learned classifier. It runs at 20 ms/frame. Training over 19,103 predicates requires positive-unlabeled supervision and a text encoder that separates antonyms, which contrastive encoders embed at cosine 0.95. To supply the supervision we build RA-4M, 474k images and 4.3M relations over 10,102 free-text predicates, generated against numbered box markers and geometrically verified. To measure it we build OV-SGG-Bench, six axes scored across datasets that the priors standard recall rewards cannot satisfy. On three cross-dataset benchmarks and a fourth zero-shot, RelateAnything has 2.3-3.5x the mean recall of the strongest open-vocabulary method of comparable scale, margins that survive a real detector, and leads a 3B-VLM scene-graph model on both metrics at under 2% of its parameters. In-domain measurement overstates transfer gains ~5x. Model, corpus and benchmark are public.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.12552",
    "pdf_url": "https://arxiv.org/pdf/2609.12552"
   },
@@ -1323,6 +1442,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "University of Oxford"
    ],
    "abs_url": "https://arxiv.org/abs/2609.12557",
    "pdf_url": "https://arxiv.org/pdf/2609.12557"
@@ -1375,6 +1497,11 @@
     [
      1
     ]
+   ],
+   "institutions": [
+    "Tianjin University",
+    "Chongqing Normal University",
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.12559",
    "pdf_url": "https://arxiv.org/pdf/2609.12559"
@@ -1444,6 +1571,13 @@
      4
     ]
    ],
+   "institutions": [
+    null,
+    null,
+    "Tsinghua University",
+    null,
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12574",
    "pdf_url": "https://arxiv.org/pdf/2609.12574"
   },
@@ -1492,6 +1626,11 @@
      2
     ],
     null,
+    null
+   ],
+   "institutions": [
+    "Peking University",
+    "University of Chinese Academy of Sciences",
     null
    ],
    "abs_url": "https://arxiv.org/abs/2609.12577",
@@ -1548,6 +1687,10 @@
      1
     ]
    ],
+   "institutions": [
+    "State Key Laboratory of Robotics and Systems",
+    "University of Sydney"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12622",
    "pdf_url": "https://arxiv.org/pdf/2609.12622"
   },
@@ -1584,6 +1727,10 @@
     [
      1
     ]
+   ],
+   "institutions": [
+    "Shanghai Jiao Tong University",
+    "Université Paris Cité"
    ],
    "abs_url": "https://arxiv.org/abs/2609.12668",
    "pdf_url": "https://arxiv.org/pdf/2609.12668"
@@ -1637,6 +1784,13 @@
      4
     ]
    ],
+   "institutions": [
+    null,
+    null,
+    "Southern University of Science and Technology",
+    "Beijing Normal University",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12678",
    "pdf_url": "https://arxiv.org/pdf/2609.12678"
   },
@@ -1677,6 +1831,9 @@
      0
     ]
    ],
+   "institutions": [
+    "Indian Institute of Technology Madras"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12682",
    "pdf_url": "https://arxiv.org/pdf/2609.12682"
   },
@@ -1716,6 +1873,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "Indian Institute of Technology Jodhpur"
    ],
    "abs_url": "https://arxiv.org/abs/2609.12691",
    "pdf_url": "https://arxiv.org/pdf/2609.12691"
@@ -1765,6 +1925,12 @@
      3
     ]
    ],
+   "institutions": [
+    null,
+    "Vietnam National University Ho Chi Minh City",
+    null,
+    "RIKEN Center for Advanced Intelligence Project"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12705",
    "pdf_url": "https://arxiv.org/pdf/2609.12705"
   },
@@ -1801,6 +1967,10 @@
     [
      1
     ]
+   ],
+   "institutions": [
+    "Universidad de Zaragoza",
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.12723",
    "pdf_url": "https://arxiv.org/pdf/2609.12723"
@@ -1853,6 +2023,12 @@
      0
     ]
    ],
+   "institutions": [
+    null,
+    null,
+    null,
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12731",
    "pdf_url": "https://arxiv.org/pdf/2609.12731"
   },
@@ -1883,6 +2059,7 @@
    "abstract": "Timely monitoring of coastal water quality is critical for environmental protection, yet conventional satellite workflows rely on downlink and ground processing, introducing latency that can limit responsiveness to rapidly evolving turbidity events. To address this limitation, we propose AquaCubeAI, a lightweight machine-learning approach for onboard estimation of coastal water turbidity from {\\Phi}sat-2 multispectral imagery. By shifting inference from the ground segment to the satellite, AquaCubeAI aims to enable lower-latency, more responsive, and more operationally useful turbidity monitoring under the strict compute and bandwidth constraints of spaceborne platforms. The model is trained on simulated {\\Phi}sat-2 acquisitions spatially aligned with Copernicus Marine Service (CMEMS) High-Resolution Ocean Color (HR-OC) turbidity products over selected localized coastal sites spanning four European marine macro-regions. To provide a realistic evaluation of generalization in the presence of spatial correlation, we adopt a spatial block splitting protocol that mitigates data leakage between training and evaluation subsets. The main contributions of this work are: (i) a scalable dataset generation pipeline pairing simulated {\\Phi}sat-2 multispectral patches with CMEMS HR-OC turbidity labels across selected localized European coastal sites; (ii) a compact Multi-Layer Perceptron (MLP)-based turbidity regressor trained under a leakage-aware geospatial split and tailored to embedded constraints; and (iii) a reformulation for dense spatial prediction via parameter sharing, enabling turbidity mapping and simple threshold-based anomaly masks for onboard decision logic. Embedded deployment on an Intel Myriad Vision Processing Unit (VPU) further confirms the feasibility of low-power hardware and supports low-latency inference from multispectral inputs.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.12744",
    "pdf_url": "https://arxiv.org/pdf/2609.12744"
   },
@@ -1934,6 +2111,11 @@
      1
     ]
    ],
+   "institutions": [
+    "Institute of Computational Biology",
+    "Technical University of Munich",
+    "Broad Institute"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12761",
    "pdf_url": "https://arxiv.org/pdf/2609.12761"
   },
@@ -1976,6 +2158,11 @@
      2
     ]
    ],
+   "institutions": [
+    "Foshan University",
+    "Foshan University",
+    "North University of China"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12787",
    "pdf_url": "https://arxiv.org/pdf/2609.12787"
   },
@@ -2014,6 +2201,10 @@
      1
     ]
    ],
+   "institutions": [
+    "Foshan University",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12798",
    "pdf_url": "https://arxiv.org/pdf/2609.12798"
   },
@@ -2046,6 +2237,7 @@
    "abstract": "Long video understanding often behaves like a visual needle-in-a-haystack problem: query-relevant evidence is sparsely distributed across long temporal spans, while packing dense frames into a single VLM context incurs \\textit{context rot} and high cost. Existing video agents often rely on query-agnostic offline preprocessing or ad hoc tool sets, which can miss query-specific details and waste computation. In this work, we present VideoXAgent, a purely online video-agent harness for long video understanding that starts from the given video file and user query, plans and decomposes the task, invokes specialized expert tools on demand, and aggregates multimodal evidence to produce a final answer while resolving conflicts among observations. To support this on-demand invocation, we design a suite of heterogeneous expert tools guided by a data-driven taxonomy of atomic capabilities, spanning scripts, VLMs, and domain models (e.g., detection, OCR, ASR, face recognition). The harness further enforces objective evidence prompting and budget-aware control to curb hallucination and non-termination. Across Video-MME-Long, LongVideoBench-Long, LVBench, and MINERVA, VideoXAgent is competitive with frontier LMMs and video agents under a smaller context footprint---about 50k tokens of agent context per sample, even on hour-long videos. In particular, on complex video-reasoning benchmarks such as MINERVA, it matches this level while using only about 15\\% of the context of a 1,024-frame dense-packing baseline. Notably, the harness remains effective with a visually weak or even text-only orchestrator, suggesting that strong long-video understanding can emerge from progressive agentic evidence seeking rather than from packing the full video into a single context. Project page: https://go-agent-x.github.io/video_agent_harness/",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.12818",
    "pdf_url": "https://arxiv.org/pdf/2609.12818"
   },
@@ -2082,6 +2274,10 @@
     [
      1
     ]
+   ],
+   "institutions": [
+    "Ankara Medipol Üniversitesi",
+    "Ollscoil na Gaillimhe – University of Galway"
    ],
    "abs_url": "https://arxiv.org/abs/2609.12825",
    "pdf_url": "https://arxiv.org/pdf/2609.12825"
@@ -2196,6 +2392,18 @@
      1
     ]
    ],
+   "institutions": [
+    null,
+    null,
+    "University of Djibouti",
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12826",
    "pdf_url": "https://arxiv.org/pdf/2609.12826"
   },
@@ -2243,6 +2451,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.12827",
    "pdf_url": "https://arxiv.org/pdf/2609.12827"
@@ -2296,6 +2507,13 @@
      4
     ]
    ],
+   "institutions": [
+    "Lanzhou University",
+    "China University of Mining and Technology",
+    "Shenzhen University",
+    "Beijing Institute of Technology",
+    "National University of Singapore"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12830",
    "pdf_url": "https://arxiv.org/pdf/2609.12830"
   },
@@ -2321,6 +2539,7 @@
    "abstract": "Modelling how a disease progresses over time requires longitudinal imaging cohorts, which are scarce and small, whereas cross-sectional data -- one image per participant -- is abundant. Self-supervised pre-training on such data offers a way to bridge this gap, but it is unclear which strategy best supports progression modelling, or how that answer depends on the amount of labelled longitudinal data. We study this for age-related macular degeneration (AMD), pre-training encoders on the large cross-sectional NAKO cohort and predicting time to late AMD on the longitudinal AREDS dataset. We compare in-house self-supervised encoders against a general-purpose (DINOv2) and a domain-specific (RETFound) foundation model, across contrastive, masked-autoencoding, and self-distillation objectives, under frozen and fine-tuned protocols, and across labelled training sets from 100 to 32,250 examples. Which model performs best depends on how the encoder is used. When the encoder is frozen and labels are few -- the regime typical of longitudinal cohorts -- pre-trained representations reach clinically reasonable discrimination from a few hundred labelled samples, while models trained from scratch do not; this advantage fades under fine-tuning. Transfer is governed by the self-supervision objective rather than corpus scale or domain match, so that an encoder pre-trained on a modest cross-sectional cohort matches or exceeds a far larger in-domain foundation model. Together, these results offer a practical recipe for building progression models where longitudinal data is scarce: a frozen self-supervised encoder with a lightweight survival head.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.12834",
    "pdf_url": "https://arxiv.org/pdf/2609.12834"
   },
@@ -2371,6 +2590,15 @@
      6
     ]
    ],
+   "institutions": [
+    "University of Regensburg",
+    "Technical University of Munich",
+    "Munich Center for Machine Learning",
+    "Technical University of Munich",
+    "RWTH Aachen University",
+    null,
+    "Fraunhofer Institute for Digital Medicine"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12835",
    "pdf_url": "https://arxiv.org/pdf/2609.12835"
   },
@@ -2397,6 +2625,7 @@
    "abstract": "Recently, tensor decompositions are prevalent for multi-dimensional image representation, which learn the instance-specific structure of each image from scratch. However, tensor decompositions neglect the common structure across different images, leading to limited semantic modeling capability, high computational cost, and a large number of learnable parameters. To address this challenge, we suggest the first pre-trained low-rank tensor decomposition (PLTD) framework, which organically integrates the pre-trained large vision model into the classical tensor decomposition framework. Beyond the shallow and untrained deep tensor decomposition, the suggested PLTD achieves an unprecedented balance among higher recovery fidelity, fewer learnable parameters, and smaller carbon footprint. Specifically, PLTD factorizes the target tensor into a latent tensor and a learnable transform that maps the latent tensor back to the original data domain. The latent tensor consists of two indispensable and complementary terms, i.e., a fixed pre-trained latent tensor and a learnable low-rank latent tensor. The fixed pre-trained latent tensor is distilled from a pre-trained large vision model (i.e., DINOv3) to capture the common structure of the target tensor, while the learnable low-rank latent tensor characterizes the instance-specific structure of the target tensor. To examine the potential of PLTD, we develop the corresponding multi-dimensional image recovery model and theoretically justify the advantages of this framework. Additionally, we discuss the connections between PLTD and classical tensor decomposition frameworks. Extensive experiments on multi-dimensional image recovery demonstrate that PLTD consistently achieves superior performance compared with state-of-the-art methods.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.12843",
    "pdf_url": "https://arxiv.org/pdf/2609.12843"
   },
@@ -2452,6 +2681,12 @@
      0
     ]
    ],
+   "institutions": [
+    "Beijing Normal-Hong Kong Baptist University",
+    "Xiamen University",
+    "University of Texas at Dallas",
+    "Jimei University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12850",
    "pdf_url": "https://arxiv.org/pdf/2609.12850"
   },
@@ -2484,6 +2719,13 @@
     "University of Calabria, Italy"
    ],
    "author_affiliations": null,
+   "institutions": [
+    "Umeå University",
+    "Università Campus Bio-Medico",
+    null,
+    null,
+    "University of Calabria"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12860",
    "pdf_url": "https://arxiv.org/pdf/2609.12860"
   },
@@ -2512,6 +2754,7 @@
    "abstract": "Video tokenizers have emerged as a cornerstone of modern video modeling, underpinning progress in compression, reconstruction and generation by mapping high-dimensional visual signals into compact latent spaces. However, despite this progress, current tokenization paradigms largely remain within the 2D visual domain, treating videos as image sequences rather than observations of an underlying dynamic 3D world. Consequently, the learned tokens inherit this observation-centric bias, limiting their capacity to compactly represent real-world 4D scenes. To mitigate this issue, we propose VideoTok4D, a novel 4D-aware video tokenizer for compact world representation. Specifically, our approach comprises three key designs: 1) a spatiotemporal disentanglement strategy that factorizes videos into static and dynamic tokens for holistic world modeling; 2) a track-aware dynamic attention mechanism that aggregates trajectory-aligned cues to promote cross-view motion consistency; and 3) Co4DGen, a diffusion prior learned over the resulting VideoTok4D token space for efficient 4D scene generation. Extensive experiments have demonstrated that our proposed method achieves state-of-the-art performance while requiring up to 4 orders of magnitude less storage than dense 4D representations. Moreover, the compact token space substantially shortens diffusion sequences, enabling efficient generation.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.12874",
    "pdf_url": "https://arxiv.org/pdf/2609.12874"
   },
@@ -2546,6 +2789,11 @@
      1
     ]
    ],
+   "institutions": [
+    "University of Tsukuba",
+    null,
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12885",
    "pdf_url": "https://arxiv.org/pdf/2609.12885"
   },
@@ -2574,6 +2822,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.12892",
    "pdf_url": "https://arxiv.org/pdf/2609.12892"
@@ -2607,6 +2858,7 @@
    "abstract": "Fine-grained robotic manipulation depends on understanding parts, not only whole objects. Existing 3D foundation models tend to be either generalized but object-aware, or part-aware but limited to closed-set taxonomies, which weakens zero-shot transfer. We study text-conditioned 3D part segmentation, where a free-form phrase selects a functional part on point cloud. We introduce UniPart, a feed-forward cross-modal 3D Transformer that conditions CLIP text embedding. To scale supervision, we build LangPart-1M with 160K+ Objaverse assets and 8M text to part pairs using multi-view consistent part generation. We further manually label a high-quality subset, LangPart-4K, for fine-tuning and evaluation. UniPart achieves strong zero-shot results on open-vocabulary part benchmarks and transfers to language-conditioned part grasping in real world.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.12898",
    "pdf_url": "https://arxiv.org/pdf/2609.12898"
   },
@@ -2686,6 +2938,16 @@
      1
     ]
    ],
+   "institutions": [
+    "University of Cologne",
+    "University of Cologne",
+    "University Hospital Cologne",
+    "University Hospital Heidelberg",
+    null,
+    null,
+    null,
+    "University Hospital Frankfurt"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12902",
    "pdf_url": "https://arxiv.org/pdf/2609.12902"
   },
@@ -2715,6 +2977,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "East China Normal University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.12917",
    "pdf_url": "https://arxiv.org/pdf/2609.12917"
@@ -2759,6 +3024,12 @@
      3
     ]
    ],
+   "institutions": [
+    null,
+    "University of Tsukuba",
+    null,
+    "University of Florence"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12920",
    "pdf_url": "https://arxiv.org/pdf/2609.12920"
   },
@@ -2788,6 +3059,7 @@
    "abstract": "Dementia affects an estimated 57 million people worldwide, and for most families the hardest part of care is not memory loss but the behavioral and psychological symptoms of dementia (BPSD): agitation, wandering, resistance to care, sundowning. Understanding these symptoms requires more than recognizing the behavior itself; it also requires knowing what happened beforehand. The same behavior may call for a different response depending on its trigger. Video-language models (VLMs) could potentially support caregivers, yet no existing benchmark evaluates this capability. To fill this gap, we present DementiaCare-Bench: 56 professionally produced caregiver training videos segmented into 94 clips across nine BPSD categories, with 2023 questions generated by a multi-agent pipeline that grounds every clinical claim in a verbatim transcript span. Each question is then probed under four visual conditions and labelled by the least it requires, so its visual demand is measured rather than assumed. Measurement contradicts intent: we wrote 77.7% of the questions to require ordered frames, and 34.8% do. Across 12 current VLMs the pattern is uniform. The best reach 85% overall, but that average is carried by questions a language model can answer from clinical knowledge alone; accuracy falls by 17 points on average on questions that require the ordered clip, and a leading open model scores at chance on judging whether a caregiver's response was appropriate. A lightweight LoRA fine-tune, DemCare-VLM, moves video dependence from -3.3 to +4.5 points, so what the benchmark exposes can be repaired and not only measured.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.12929",
    "pdf_url": "https://arxiv.org/pdf/2609.12929"
   },
@@ -2828,6 +3100,10 @@
     [
      1
     ]
+   ],
+   "institutions": [
+    null,
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.12953",
    "pdf_url": "https://arxiv.org/pdf/2609.12953"
@@ -2885,6 +3161,12 @@
      3
     ]
    ],
+   "institutions": [
+    null,
+    "Wuhan University",
+    "Zhipu AI",
+    "Harbin Institute of Technology"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12965",
    "pdf_url": "https://arxiv.org/pdf/2609.12965"
   },
@@ -2910,6 +3192,7 @@
    "abstract": "We investigate the effect of pretrained T5 model scale and explicit motion features on pose-to-text Indian Sign Language Translation (SLT) for the WSLP 2026 Shared Task. Pose sequences are projected into the embedding space of T5 through a lightweight pose encoder, with the complete model fine-tuned to generate English text. The shared task data used for this work consists of a test set with 5,334 examples and a validation set with 5,257 examples. We compare T5-small, T5-base, and T5-large, and additionally introduce a motion-augmented variant, T5-small + Motion, that adds explicit frame-to-frame pose differences to the input representation. T5-small achieves the best BLEU and ROUGE scores among the spatial-only models, while T5-large obtains the highest chrF score. Augmenting T5-small with motion features yields the largest single improvement observed in our study, substantially improving BLEU over the spatial-only baseline and making it the strongest model overall on this metric. Our submitted system ranked 5th on the official WSLP 2026 SLT testing leaderboard. The source code and trained models are publicly available on GitHub and HuggingFace.",
    "affiliations": null,
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.12993",
    "pdf_url": "https://arxiv.org/pdf/2609.12993"
   },
@@ -2940,6 +3223,7 @@
    "abstract": "Single Ventricle Physiology (SVP) is a rare subtype of congenital heart disease characterized by the presence of a single functional cardiac ventricle with atypical anatomic configurations that challenge conventional image segmentation approaches. The scarcity of clinical data and the morphological diversity across SVP subtypes make the development of robust segmentation methods particularly difficult. To address these limitations, we propose a cardiac MRI segmentation framework focused on ventricular chambers and myocardium segmentation tailored for SVP. First, we introduce a data augmentation pipeline that generates synthetic 3D cardiac meshes using SDF4CHD and corresponding synthetic cardiac MRI through generative modeling. Second, we introduce SV-Cine, a diagnosis-conditioned adaptation of the foundation model CineMA that incorporates patient-level diagnostic information through Feature-wise Linear Modulation layers, enabling diagnosis-aware feature adaptation during segmentation. We evaluated the framework on an internal cohort with varying SVP subtypes. SV-Cine achieved median Dice scores of 0.89 (IQR: 0.80--0.91) for the left ventricle and 0.72 (IQR: 0.54--0.84) for the right ventricle, outperforming the strongest baseline, nnU-Net, by 0.39 Dice points on right ventricle segmentation. It also yields a median ejection fraction error of 5.55 percentage points (IQR: 3.41--7.69) for the dominant ventricle. Compared with the internal cohort, LV and myocardium segmentation performance was lower for the external cohort; whereas RV Dice scores were comparable for both cohorts. Our findings suggest that a pretrained foundation model can be adapted for highly specialized downstream tasks through usage of diagnosis priors while leveraging anatomic knowledge learned from large-scale MRI datasets during pretraining.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.12997",
    "pdf_url": "https://arxiv.org/pdf/2609.12997"
   },
@@ -2986,6 +3270,13 @@
      4
     ]
    ],
+   "institutions": [
+    null,
+    "Vietnam National University Ho Chi Minh City",
+    "Monash University",
+    "University of Dayton",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.13006",
    "pdf_url": "https://arxiv.org/pdf/2609.13006"
   },
@@ -3011,6 +3302,7 @@
    "abstract": "Vision-language models retain a substantial amount of pixel-decodable visual content in their visual key-value cache. We show, in our setting, that this retention is task-inert: across our preregistered tests, how much a unit retains never positively tracks whether the computation that answers the question causally relies on it. We measure retention with a learned pixel-inversion decoder and causal use with single-super-patch KV ablation, the teacher-forced drop in gold-answer log-probability, and relate the two within images under a preregistered, sign-calibrated, held-out design. Retention is decoupled from attention and, in a well-powered null, from causal utilization. Utilization is not inert to every proxy: attention weakly but significantly tracks it, the only signal we find that does and the design's positive control. We characterize pixel-decodable retention as an informational axis of the visual KV cache, orthogonal to the functional one. How much task-inert content a cache holds differs by architecture in our model pair: the encoder-free model retains 2.7 times more than the encoder-based one. The engineering consequence is a controlled negative result. At super-patch granularity, deconfounded pixel-decodable retention ranks KV eviction no better than random; at token granularity it acquires only a weak inverse-importance signal at larger budgets, dominated at every budget by attention magnitude. In our setting, pixel-decodable reconstructability is not a competitive KV-compression signal at any granularity we test.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.13012",
    "pdf_url": "https://arxiv.org/pdf/2609.13012"
   },
@@ -3043,6 +3335,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "Carleton University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.13013",
    "pdf_url": "https://arxiv.org/pdf/2609.13013"
@@ -3085,6 +3380,9 @@
      0
     ]
    ],
+   "institutions": [
+    "Xi'an Jiaotong University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.13024",
    "pdf_url": "https://arxiv.org/pdf/2609.13024"
   },
@@ -3117,6 +3415,7 @@
    "abstract": "Robust medical image segmentation across imaging modalities is challenging because of large differences in appearance and intensity distributions. Models trained on a single modality often show substantial performance drops when applied to unseen domains. In this work, we develop a unified 3D pancreas segmentation framework that applies domain-adversarial learning to 4,604 heterogeneous CT and MRI scans to learn anatomical representations. A shared nnU-Net encoder-decoder is trained for whole-pancreas segmentation, with a latent domain discriminator encouraging CT-MRI feature alignment. The learned encoder is subsequently transferred to pancreatic head-body-tail segmentation using limited MRI-only subregion annotations. An average Dice score of 87.31% on the in-distribution test set and Dice scores ranging from 84.20% to 88.09% across external OOD datasets were achieved in whole pancreas segmentation. Dice scores of 80.53% on MRI and 83.05% on CT were achieved for downstream subregion segmentation, without using CT subregion annotations. These results demonstrate that a unified anatomical representation can support both cross-modality pancreas segmentation and label-efficient downstream transfer.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.13043",
    "pdf_url": "https://arxiv.org/pdf/2609.13043"
   },
@@ -3144,6 +3443,7 @@
    "abstract": "Traditional TinyML systems for edge devices achieve high accuracy by relying on fixed-depth models that require a constant number of multiply-accumulate (MAC) operations regardless of the input complexity. This approach wastes critical resources in battery-powered Internet-of-Things (IoT) devices and limits the real-time performance of edge cyber-physical systems. Multi-exit execution schemes mitigate these issues and are widely used on high-end devices such as GPUs, but are rarely exploited on edge IoT devices because they require substantial rethinking given their strict memory and computational constraints. We address these aspects by designing and deploying, on an ultra-low-power GWT GAP9 System-on-Chip (SoC), a novel multi-exit computational scheme, demonstrating it on a MobileNetV2 convolutional neural network (CNN) for the ImageNet-100 classification task. Our approach introduces multiple exits at different CNN depths, each with a confidence-based gating mechanism that dynamically and autonomously decides whether to continue or stop inference. Comparing our multi-exit strategy to the standard MobileNetV2 on a GAP9 SoC, we show a 41% reduction in the average computational cost (from 313 MMAC to 185 MMAC), a 29% lower inference time (from 49 to 35 ms), and an energy saving of 24% (from 2.1 to 1.6 mJ per frame). All these improvements come with a ~1% loss in accuracy compared to the full-depth MobileNetV2, which achieves 80.5%. Finally, comparing our adaptable multi-exit scheme with a third-party state-of-the-art adaptive CNN, also deployed on the GAP9, we achieve more than 2x its computational efficiency, increasing it from 8.1 to 17.2 MAC/cycle.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.11939",
    "pdf_url": "https://arxiv.org/pdf/2609.11939"
   },
@@ -3173,6 +3473,7 @@
    "abstract": "Increasing safety is the primary objective of automated vehicles. Achieving this goal requires reliable safety metrics that incorporate safety-relevant factors such as object type, velocity, and criticality. A key capability of such metrics is the distinction between critical and non-critical objects, which is addressed through criticality or relevance estimation. Existing criticality metrics are typically designed for specific scenarios and primarily focus on vehicle-to-vehicle interactions. In this paper, we therefore propose a novel criticality metric tailored to vulnerable road users (VRUs), which require special consideration due to their less predictable motion behavior. Furthermore, to avoid the complexity introduced by scenario-specific metrics, we introduce a scenario-independent criticality prediction framework applicable to all traffic participant classes. The effectiveness of both the proposed VRU-centric criticality metric and the criticality prediction framework is evaluated using the DeepAccident dataset, which contains a diverse set of safety-critical traffic scenarios. The proposed VRU-centric criticality metric improves pedestrian criticality classification performance by up to 50 %. In addition, the proposed criticality prediction framework outperforms state-of-the-art metrics by 275 %, achieving an F1-score of 0.96 and enabling scenario-independent criticality assessment across all object classes. These results demonstrate the strong potential of the proposed approaches to enhance criticality assessment for safety evaluation in automated driving systems.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.11947",
    "pdf_url": "https://arxiv.org/pdf/2609.11947"
   },
@@ -3207,6 +3508,10 @@
     [
      1
     ]
+   ],
+   "institutions": [
+    "Ludwig-Maximilians-Universität München",
+    "University of the Free State"
    ],
    "abs_url": "https://arxiv.org/abs/2609.11986",
    "pdf_url": "https://arxiv.org/pdf/2609.11986"
@@ -3281,6 +3586,12 @@
      1
     ]
    ],
+   "institutions": [
+    null,
+    null,
+    null,
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12081",
    "pdf_url": "https://arxiv.org/pdf/2609.12081"
   },
@@ -3331,6 +3642,14 @@
      3
     ]
    ],
+   "institutions": [
+    "University of Wisconsin–Madison",
+    null,
+    null,
+    null,
+    "Indian Institute of Technology Roorkee",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12225",
    "pdf_url": "https://arxiv.org/pdf/2609.12225"
   },
@@ -3358,6 +3677,7 @@
    "abstract": "Vision-Language Navigation (VLN) in unseen indoor environments is useful in real-world robotics, where an agent must follow natural-language instructions, locate objects, and answer spatial questions without a pre-built map or fixed object vocabulary. Multimodal vision-language models (VLMs) provide strong open-vocabulary grounding and zero-shot reasoning, but struggle to emit reliable metric quantities such as range, bearing, and comparative spatial relations directly from images. Existing approaches address this by folding geometry into hand-engineered pipelines or asking models to output waypoints, requiring changes to the control stack for different robots, tasks, or vocabularies. We introduce AnchorVLN, an open-vocabulary VLN system built on a simple rule: the VLM proposes semantics; geometry decides metrics. It is realised as EMBODIED-NAV-MCP, a Model Context Protocol (MCP) server driven by a VLM agent through a compact set of callable tools. Since no tool accepts distance in metres or bearing in radians, the schema enforces the semantic-geometry boundary without modifying the downstream autonomy stack. We benchmark both tasks of the CMU Vision-Language Navigation Challenge 2026: 30 instruction-following questions over 15 scenes and a frozen 45-question object-reference set. The full system achieves 64.4 percent on instruction following, dropping by 13.3 percentage points without controller modeling (t = 2.77). On object reference, geometric anchoring clears the challenge overlap threshold on 10 of 45 questions, versus 0 of 45 for direct coordinate estimation, reducing median center error from 3.37 m to 2.48 m.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.12285",
    "pdf_url": "https://arxiv.org/pdf/2609.12285"
   },
@@ -3400,6 +3720,10 @@
      0
     ]
    ],
+   "institutions": [
+    "UNSW Sydney",
+    "Korea Advanced Institute of Science and Technology"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12418",
    "pdf_url": "https://arxiv.org/pdf/2609.12418"
   },
@@ -3434,6 +3758,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.12441",
    "pdf_url": "https://arxiv.org/pdf/2609.12441"
@@ -3471,6 +3798,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "Texas Tech University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.12503",
    "pdf_url": "https://arxiv.org/pdf/2609.12503"
@@ -3522,6 +3852,10 @@
      0
     ]
    ],
+   "institutions": [
+    null,
+    "Institut Polytechnique de Paris"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12627",
    "pdf_url": "https://arxiv.org/pdf/2609.12627"
   },
@@ -3550,6 +3884,7 @@
    "abstract": "Audio-based Multimodal Large Language Models (MLLMs) can generate detailed natural-language descriptions of complex acoustic scenes, yet it remains unclear which parts of the input audio support each generated token. This is particularly challenging because acoustic evidence is distributed across time and frequency, and concurrent sound events may overlap temporally while occupying different spectral regions. We introduce STAG, to our knowledge the first post-hoc framework for token-level spectro-temporal grounding of captions generated by audio-based MLLMs. STAG estimates the temporal support for each generated token using target-token-specific vocabulary projections of the encoded audio representations, measures frequency-band relevance through controlled spectral occlusion, and combines the two signals into a spectro-temporal relevance map. We evaluate STAG against ten post-hoc explanation methods across four grounding benchmarks, where it achieves the best event-localization performance on every dataset, and apply it to eight audio-language backbones without parameter updates. Counterfactual deletion further shows that removing the identified evidence selectively reduces confidence in the corresponding event and frequently removes it from the regenerated caption. These results provide behavioral support for the faithfulness and selectivity of the explanations.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.12663",
    "pdf_url": "https://arxiv.org/pdf/2609.12663"
   },
@@ -3587,6 +3922,10 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    null,
+    "Yonsei University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.12735",
    "pdf_url": "https://arxiv.org/pdf/2609.12735"
@@ -3639,6 +3978,11 @@
      0
     ]
    ],
+   "institutions": [
+    "Yonsei University",
+    "Toyota Motor Corporation",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.12771",
    "pdf_url": "https://arxiv.org/pdf/2609.12771"
   },
@@ -3677,6 +4021,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "Universität der Bundeswehr München"
    ],
    "abs_url": "https://arxiv.org/abs/2609.12871",
    "pdf_url": "https://arxiv.org/pdf/2609.12871"
@@ -3719,6 +4066,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "Simon Fraser University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.13135",
    "pdf_url": "https://arxiv.org/pdf/2609.13135"
@@ -3764,6 +4114,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "Carnegie Mellon University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.13146",
    "pdf_url": "https://arxiv.org/pdf/2609.13146"

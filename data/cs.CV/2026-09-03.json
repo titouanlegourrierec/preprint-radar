@@ -36,6 +36,7 @@
    "abstract": "Chain-of-thought (CoT) reasoning powers generative models by eliciting intermediate steps before producing an answer. In autonomous driving, the answer is a continuous action. Thus its reasoning must share the same spatiotemporal structure as the physical world. This survey studies the resulting shift from textual CoT to action-grounded reasoning. Surveying 171 papers, including 130 method papers and 41 benchmarks, datasets, surveys, and analysis papers, we propose a representation-centered taxonomy that treats the form of the intermediate state as the organizing axis. We systematize the 130 methods into four categories: language-based, visual-spatial, latent-dynamic, and externalized reasoning, further divided into 13 subtypes tied to distinct regions of interests. Our synthesis shows that the open frontier of reasoning in driving agents lies in intermediate representations that can be grounded in the real world, coupled to real-time action, and verified under safety-critical systems. Project page: https://github.com/tangzhengxu/awesome-av-cot.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.01659",
    "pdf_url": "https://arxiv.org/pdf/2609.01659"
   },
@@ -79,6 +80,10 @@
      0
     ]
    ],
+   "institutions": [
+    null,
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.01683",
    "pdf_url": "https://arxiv.org/pdf/2609.01683"
   },
@@ -115,6 +120,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.01691",
    "pdf_url": "https://arxiv.org/pdf/2609.01691"
@@ -163,6 +171,11 @@
      0
     ]
    ],
+   "institutions": [
+    "Technische Universität Darmstadt",
+    "Google",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.01725",
    "pdf_url": "https://arxiv.org/pdf/2609.01725"
   },
@@ -187,6 +200,7 @@
    "abstract": "Unexploded ordnance (UXO) continues to restrict civilian access, agricultural activity, infrastructure recovery, and environmental remediation in contaminated areas around the world. This study created a multi campaign UAV thermal image data set of inert ordnance, developed a labeled image set from collected imagery, tested object detection models, and identified practical considerations for humanitarian mine action and demining applications. Data were collected during four field campaigns in Tennessee under summer and winter conditions using inert mines, munitions, and other ordnance placed in short grass, tall vegetation, gravel, mulch, rock, compost, and compacted surfaces. Thermal imagery was collected under flight altitutes of 33 m and 15 m. The final source inventory contained 5,855 thermal image label pairs, including 918 positive images and 4,937 background images. After retaining all positive images and downsampling background images, the 33 m dataset contained 420 training and 106 validation images, while the 15 m dataset contained 629 training and 157 validation images. YOLOV11l and RT-DETR-R50 algorithms were trained and evaluated to develop an automated candidate detection model. Practical recommendations include collecting thermal and RGB imagery together, incorporating varied surfaces and background only imagery, considering periods following changes in solar exposure, balancing survey coverage against target pixel representation, calibrating models with representative local data, and retaining qualified human review. The intended use is screening and prioritization for follow on technical survey or EOD assessment, and not a standalone clearance.",
    "affiliations": null,
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.01738",
    "pdf_url": "https://arxiv.org/pdf/2609.01738"
   },
@@ -218,6 +232,7 @@
    "abstract": "Compact token sequences are essential for efficient 3D generation. However, existing 3D tokenizers typically organize latent representations either over spatial regions or as fixed-size sets of global tokens, both suffering sharp reconstruction degradation when compressed to extremely low token budgets. In this paper, we present ZipTok3D, a 3D tokenizer designed for high-fidelity reconstruction from extremely short token sequences. Its key idea is to organize object geometry into progressively informative global-token prefixes and unfold these compact representations through iterative decoding. Specifically, nested dropout randomly truncates the latent sequence after encoding during training and requires each retained prefix to reconstruct the complete object, thereby prioritizing essential geometric information in the leading tokens. The decoder then repeatedly applies a parameter-shared Transformer block to recover fine-grained geometry from each prefix without a separate generative sampling stage. With the same token dimension, ZipTok3D achieves reconstruction quality comparable to the 32-token COD-VAE baseline using only one token on ShapeNet and four on TRELLIS, yielding $32\\times$ and $8\\times$ shorter token sequences, respectively.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.01740",
    "pdf_url": "https://arxiv.org/pdf/2609.01740"
   },
@@ -253,6 +268,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "University of Amsterdam"
    ],
    "abs_url": "https://arxiv.org/abs/2609.01742",
    "pdf_url": "https://arxiv.org/pdf/2609.01742"
@@ -304,6 +322,10 @@
      1
     ]
    ],
+   "institutions": [
+    null,
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.01743",
    "pdf_url": "https://arxiv.org/pdf/2609.01743"
   },
@@ -330,6 +352,7 @@
    "abstract": "Modern generative models, such as GANs, diffusion architectures, and autoregressive systems, now produce facial images that are nearly indistinguishable from authentic photographs. This capability makes detecting forged images increasingly difficult, raising serious concerns about identity theft, fraud, and misinformation campaigns. Our research focuses specifically on GAN-generated synthetic faces, which underpin many face-centric deepfakes, and investigates efficient detection approaches using image analysis alone. Existing detection systems rely heavily on either convolutional neural networks (CNNs) or global vision transformers. While CNNs excel at identifying texture-based local features, they struggle with broader contextual understanding. Traditional Vision Transformer (ViT) models can capture long-range structures effectively, but demand substantial computational resources. Our work explores Swin-Transformer-based architectures across three implementations: a compact Swin Transformer trained from the ground up, ImageNet-1K pre-trained Swin-Tiny and Swin-Small models adapted for binary classification, and a novel hybrid combining EfficientNet-B0's convolutional processing with a Swin Transformer backend. We evaluated all models using the 140K Real and Fake Faces dataset, which includes StyleGAN-generated fake faces alongside authentic images from Flickr and DFDC, with balanced splits for training, validation, and testing. The EfficientNetB0+Swin hybrid achieved 99% accuracy and a 99.44% recall on 5,000 test images, outperforming both pure Swin variants and a previous CNN-only baseline on this dataset. Our results suggest that combining hierarchical CNN features with shifted-window self-attention provides an efficient and computationally lightweight method for detecting GAN-generated synthetic faces.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.01749",
    "pdf_url": "https://arxiv.org/pdf/2609.01749"
   },
@@ -393,6 +416,17 @@
      5
     ]
    ],
+   "institutions": [
+    "University Health Network",
+    "Ted Rogers Centre for Heart Research",
+    null,
+    null,
+    null,
+    null,
+    "Toronto General Hospital Research Institute",
+    "University of Toronto",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.01757",
    "pdf_url": "https://arxiv.org/pdf/2609.01757"
   },
@@ -445,6 +479,11 @@
      0
     ]
    ],
+   "institutions": [
+    "Renmin University of China",
+    null,
+    "Peking University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.01778",
    "pdf_url": "https://arxiv.org/pdf/2609.01778"
   },
@@ -482,6 +521,10 @@
      1
     ]
    ],
+   "institutions": [
+    "North Carolina State University",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.01786",
    "pdf_url": "https://arxiv.org/pdf/2609.01786"
   },
@@ -516,6 +559,10 @@
      1
     ]
    ],
+   "institutions": [
+    null,
+    "Nanjing University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.01787",
    "pdf_url": "https://arxiv.org/pdf/2609.01787"
   },
@@ -541,6 +588,7 @@
    "abstract": "Vision-language object detectors (VLODs) achieve strong zero-shot performance but remain vulnerable to distribution shifts during deployment. Mean-teacher methods for test-time adaptation (TTA) can improve robustness by updating a student model using teacher-generated pseudo-labels. However, mean-teacher TTA is highly sensitive to the choice of a fixed exponential moving average (EMA) coefficient for teacher updates, and repeated optimization with noisy pseudo-labels can cause cumulative student drift. We propose Dynamic EMA and Source Anchoring for TTA (DESA-TTA), a low-overhead method that jointly regulates teacher updates and student drift through dynamic temporal averaging and source anchoring. Dynamic temporal averaging estimates teacher uncertainty from pseudo-label confidence and box density and uses it to select a sample-wise EMA coefficient within bounds determined by teacher parameter drift. Source anchoring partially restores the updated student parameters toward their pretrained values, with the anchoring strength increasing according to student drift. Experiments across diverse distribution shifts and two VLOD architectures show consistent improvements over existing TTA methods. On VOC-C, DESA-TTA improves AP$_{50}$ by 14.5 points over zero-shot inference while achieving 55\\% higher inference throughput than the previous state-of-the-art TTA method for YOLO-World. Our code: https://github.com/imatif17/DESA-TTA",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.01795",
    "pdf_url": "https://arxiv.org/pdf/2609.01795"
   },
@@ -565,6 +613,7 @@
    "abstract": "Automatic Target Recognition (ATR) in Synthetic Aperture Sonar (SAS) is a task largely dominated by deep neural networks (DNNs). Most SAS-ATR models use convolutional neural network (CNN) architectures whereas transformer-based architectures have had much less representation in the literature despite being state of the art in general computer vision (CV) research. Additionally, researchers have had mixed results in attempting to overcome challenges presented by a scarcity of labeled training data by using methods such as data augmentation and the use of pretrained weights from a variety of imaging modalities. In this work, we compare the performance of modern CNN and transformer-based DNNs to determine which architecture and training configurations elicit the highest performance in SAS-ATR. We investigate how network size, architecture, pretraining method, data augmentation and other forms of regularization affect SAS-ATR performance with a focus on producing the highest-performing model and providing a roadmap for training state-of-the-art SAS-ATR models.",
    "affiliations": null,
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.01800",
    "pdf_url": "https://arxiv.org/pdf/2609.01800"
   },
@@ -603,6 +652,10 @@
      1
     ]
    ],
+   "institutions": [
+    null,
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.01806",
    "pdf_url": "https://arxiv.org/pdf/2609.01806"
   },
@@ -626,6 +679,7 @@
    "abstract": "Reliable characterization of structural defects requires methods capable of resolving both directly observable surface damage and damage that is not visible from the inspected surface. This study presents two complementary non-contact, vision-based approaches for the detection and quantitative characterization of defects in structural components. The first approach employs high-resolution laser scanning to generate three-dimensional (3D) point clouds of damaged steel specimens. Comparative processing of measured and reference point clouds is used to localize damaged regions, quantify geometric loss, and transfer the measured defect geometry to a finite element representation. The second approach combines full-field surface deformation measurements obtained using three-dimensional digital image correlation (3D-DIC) with finite element model updating and topology optimization. In this inverse framework, measured surface response is used to infer subsurface abnormalities through their influence on the spatial distribution of structural response. Experimental steel-beam specimens containing controlled smooth defects and randomly distributed defects are used to evaluate the approaches. Comparisons with milling-based ground-truth measurements demonstrate that both methods can identify and quantify defect geometry, while providing complementary information for visible and subsurface damage assessment. The combined framework establishes a pathway toward high-fidelity, non-contact structural condition assessment and model updating for components with complex and irregular damage.",
    "affiliations": null,
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.01808",
    "pdf_url": "https://arxiv.org/pdf/2609.01808"
   },
@@ -688,6 +742,12 @@
      1
     ]
    ],
+   "institutions": [
+    "University of Massachusetts Amherst",
+    null,
+    null,
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.01816",
    "pdf_url": "https://arxiv.org/pdf/2609.01816"
   },
@@ -735,6 +795,12 @@
      3
     ]
    ],
+   "institutions": [
+    "University of Illinois Urbana-Champaign",
+    "University of Pennsylvania",
+    "Stanford University",
+    "University of Cambridge"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.01823",
    "pdf_url": "https://arxiv.org/pdf/2609.01823"
   },
@@ -765,6 +831,7 @@
    "abstract": "Structural magnetic resonance imaging (MRI) images are sometimes corrupted over a contiguous set of slices, where acquisition, motion, hardware, or reconstruction effects leave a single slice or short interval inconsistent with its neighbors while the rest of the image remains usable. Such localized corruption can bias downstream morphometric analysis, yet discarding or reacquiring an otherwise usable image is costly. We formulate this as an image restoration problem: given the location of the affected interval, reconstruct those slices from the surrounding anatomical and imaging context. We propose SliceBridge, a framework for restoring corrupted slice intervals in T1-weighted MRI using rectified flow matching conditioned on the surrounding intact slices and their relative slice positions. Through-plane consistency is encouraged by coupling the slices within the interval through interval-correlated initial noise, a shared flow time, and synchronized sampling. The restored interval is then inserted back, leaving all other slices unchanged. We trained and validated the model on 9,877 T1-weighted brain MRI volumes from four datasets and evaluated it on 581 external subjects using clean interval withholding and controlled corruptions. Compared with a matched model that reconstructed target slices independently, SliceBridge reduced error in slice-to-slice changes within repaired intervals by 32.9%-41.3% across interval lengths and achieved higher SSIM at every interval length. In controlled-corruption cases, SliceBridge reduced the median error in regional brain volume estimates produced by a downstream segmentation model from 1.95% in corrupted volumes to 1.05%.",
    "affiliations": null,
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.01827",
    "pdf_url": "https://arxiv.org/pdf/2609.01827"
   },
@@ -789,6 +856,7 @@
    "abstract": "Spontaneous movement is one of the earliest windows onto an infant's neuromotor health, and structured clinical instruments that score it are validated early predictors of cerebral-palsy risk. However, they require specially trained raters, are time-consuming, and carry inter-rater variability. This motivates automated, video-based markerless assessment, especially as marker-based motion capture is impractical in infants. Yet the foundation models that make markerless capture possible are trained almost entirely on adults: our recent multi-view infant study found that no single model is jointly best, with strong 2D keypoint accuracy and direct 3D body recovery split across different models. While that study identifies this trade-off, it does not resolve it. Here, we perform cross-model distillation from the Sapiens 2 pose model into the SAM 3D Body model, using unannotated infant video alone. A frozen teacher supplies dense pseudo-labels, and a differentiable renderer aligns the predicted mesh to them in the training loop. On eleven held-out infants (18 sessions, 173 recordings) under our prior study's multi-view protocol, fine-tuning improves same-view 2D keypoint agreement with the Sapiens reference (median body percentage of correct keypoints @ 10px 0.22 -> 0.42, face 0.22 -> 0.42) and Procrustes-aligned mean per joint 3D position error (25.5 -> 22.2 mm). This demonstrates how cross-model distillation improves SAM 3D Body model performance on infants.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.01840",
    "pdf_url": "https://arxiv.org/pdf/2609.01840"
   },
@@ -814,6 +882,7 @@
    "abstract": "Digital volume correlation (DVC) provides three-dimensional full-field displacement measurements from volumetric images, but how the internal resolution of a machine-learning-based DVC model affects accuracy and operating range remains poorly understood. Here, we present RAFT-DVC, a resolution-aware family of recurrent all-pairs field transforms (RAFT)-based DVC solvers with encoder downsampling factors s = 2, 4, and 8. Using a matched design, we find that the three solvers localize displacement to approximately 0.017 feature-grid voxel, giving an empirical raw-volume error scaling of approximately 0.017s voxel. The solvers exhibit complementary operating regimes governed jointly by displacement reach and volumetric-texture compatibility. Synthetic benchmarks show that RAFT-DVC achieves errors of the same order as tuned classical DVC under fine-texture, small-to-moderate-displacement conditions and becomes competitive or advantageous under coarse-texture, large-displacement conditions. Frequency-swept tests quantify deformation spatial resolution, while tiled inference enables dense estimation on large volumes. Evaluation on confocal volumetric images acquired during indentation illustrates the importance of matching solver operating regime to deformation magnitude and image texture. Tests on micro-CT images of elastomeric foam, despite training only on particle-labeled synthetic data, provide evidence of cross-texture transfer. We also identify coordinate-order inconsistencies in three-dimensional RAFT correlation sampling and introduce a non-cubic impulse test to verify sampler geometry independently of network training. Correcting the sampler improves native-input accuracy and generalization to unseen volume dimensions. Together, these results establish RAFT-DVC as a fast, resolution-aware framework for dense DVC with characterized accuracy and operating regimes.",
    "affiliations": null,
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.01876",
    "pdf_url": "https://arxiv.org/pdf/2609.01876"
   },
@@ -840,6 +909,7 @@
    "abstract": "The objective of this paper is to match dictionary sign videos to corresponding signs in continuous signing videos, where a match is defined by the visual similarity alone - the handshape and motion relative to the body. To achieve this, we learn a prototype-structured sign embedding space from continuous video annotated with signs, where each learnable prototype corresponds to a sign class. Isolated dictionary videos are then mapped into this sign space, enabling the matching between dictionary exemplars and continuous sign instances. This design supports direct dictionary-guided sign matching through embedding similarity and naturally extends to unseen signs using only dictionary exemplars. Experiments on ASL-Citizen dictionary retrieval, ChaLearn OSLWL dictionary-to-continuous sign matching, and using BOBSL's CSLR2 evaluation for automatic sign annotation demonstrate strong generalisation across datasets, tasks and sign languages. Without benchmark-specific supervision, the learned representation transfers effectively across American, British, and Spanish Sign Languages, outperforming prior methods on all three benchmarks. Project page: https://www.robots.ox.ac.uk/~vgg/research/signmatch/",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.01886",
    "pdf_url": "https://arxiv.org/pdf/2609.01886"
   },
@@ -875,6 +945,10 @@
      0,
      1
     ]
+   ],
+   "institutions": [
+    "George Mason University",
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.01888",
    "pdf_url": "https://arxiv.org/pdf/2609.01888"
@@ -951,6 +1025,12 @@
      1
     ]
    ],
+   "institutions": [
+    "Google DeepMind",
+    "University College London",
+    "University of Oxford",
+    "ETH Zurich"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.01899",
    "pdf_url": "https://arxiv.org/pdf/2609.01899"
   },
@@ -1016,6 +1096,14 @@
      5
     ]
    ],
+   "institutions": [
+    "Iowa State University",
+    "Iowa State University",
+    "Fayetteville State University",
+    "Purdue University West Lafayette",
+    "Iowa State University",
+    "Iowa State University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.01921",
    "pdf_url": "https://arxiv.org/pdf/2609.01921"
   },
@@ -1040,6 +1128,7 @@
    "abstract": "Higher-order interaction components are important for signal, image, and video modeling, but explicit high-order operators often suffer from rapidly increasing parameter and computational costs. This paper presents kVNN, a learnable kernelized Volterra Neural operator for compact higher-order filtering. The motivation is to use kernelization to improve the efficiency of Volterra-type neural operators while providing a structured interpretation of their higher-order components. The proposed formulation combines the order-wise structure of Volterra filtering with learnable polynomial-kernel atoms, allowing different interaction orders to be represented by separate learnable centers and coefficients. This order-decoupled representation avoids explicit high-order tensor parameterization and can be implemented as a CNN-compatible layer. Experiments on representative vision tasks show that kVNN achieves a favorable accuracy--efficiency trade-off.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.01928",
    "pdf_url": "https://arxiv.org/pdf/2609.01928"
   },
@@ -1065,6 +1154,7 @@
    "abstract": "Content-based image retrieval (CBIR) has advanced significantly with deep learning, yet effectively ranking similar images remains challenging, particularly in high-dimensional feature spaces, where pairwise distances often fail to capture contextual relationships and the semantic gap between visual features and high-level concepts persists. Manifold learning and rank-based refinement methods have emerged as complementary strategies, respectively improving feature representations and exploiting contextual information embedded in ranked lists, such as neighborhood relationships among images. However, combining these projection-based and rank-based strategies to exploit their complementary properties remains a challenging research problem. To address this, we propose a framework that combines neighbor embedding projections with rank-based manifold learning through rank aggregation. Uniform Manifold Approximation and Projection (UMAP) generates alternative low-dimensional feature representations, and ranked lists obtained from UMAP projections and rank-based re-ranking methods are combined using the Borda Count aggregation strategy. Experiments were conducted on several public datasets using deep learning features extracted from ResNet152, Swin Transformer, and DINOv2 models. Results show that the proposed approach improves retrieval effectiveness in several scenarios, particularly when the baseline representation struggles to achieve high precision. The aggregation strategy also often improves the quality of top-ranked positions, leading to competitive Mean Average Precision (MAP) and Precision values across different datasets and feature extractors. These findings suggest that combining projection-based and rank-based manifold learning strategies through rank aggregation can provide complementary contextual information for image retrieval tasks.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.01963",
    "pdf_url": "https://arxiv.org/pdf/2609.01963"
   },
@@ -1144,6 +1234,15 @@
      2
     ]
    ],
+   "institutions": [
+    "Mayo Clinic",
+    "Mayo Clinic",
+    "Mayo Clinic",
+    "Mayo Clinic",
+    "Mayo Clinic",
+    "Mayo Clinic",
+    "Mayo Clinic"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.01987",
    "pdf_url": "https://arxiv.org/pdf/2609.01987"
   },
@@ -1183,6 +1282,10 @@
      0,
      1
     ]
+   ],
+   "institutions": [
+    "University of Tokyo",
+    "RIKEN Center for Advanced Intelligence Project"
    ],
    "abs_url": "https://arxiv.org/abs/2609.01997",
    "pdf_url": "https://arxiv.org/pdf/2609.01997"
@@ -1238,6 +1341,10 @@
      0
     ]
    ],
+   "institutions": [
+    "Beijing Normal University",
+    "Kuaishou"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02000",
    "pdf_url": "https://arxiv.org/pdf/2609.02000"
   },
@@ -1263,6 +1370,7 @@
    "abstract": "Guideline-consistent semantic segmentation requires more than category recognition, as real-world labeling policies demand fine-grained, task-specific decisions. Recent multi-agent refinement systems improve compliance with such textual guidelines by detecting and correcting errors. However, they are stateless: feedback from the critiquing agent is discarded, causing the same guideline-specific mistakes to be repeatedly rediscovered and corrected across the dataset at the cost of additional refinement. We introduce InsightSeg, an episodic memory mechanism that converts successful correction episodes into reusable, visually grounded insights. A meta-analyzer distills each qualifying episode into directive natural-language insights and anchors them to the local image regions that caused the error using patch-level visual concept vectors. On subsequent images, these concepts are matched against dense patch embeddings to retrieve relevant insights, which condition the segmenting agent before making its first prediction. This shifts the system from correcting recurring errors to preventing them, improving segmentation quality before any refinement occurs. Across Waymo and Cityscapes, InsightSeg improves both first-pass and final guideline-consistent segmentation performance while requiring fewer refinement steps, demonstrating that multi-agent refinement can become more accurate and efficient by drawing on past correction experience.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02002",
    "pdf_url": "https://arxiv.org/pdf/2609.02002"
   },
@@ -1299,6 +1407,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "Southwest University of Science and Technology"
    ],
    "abs_url": "https://arxiv.org/abs/2609.02004",
    "pdf_url": "https://arxiv.org/pdf/2609.02004"
@@ -1353,6 +1464,9 @@
      0
     ]
    ],
+   "institutions": [
+    "Alibaba Group"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02012",
    "pdf_url": "https://arxiv.org/pdf/2609.02012"
   },
@@ -1381,6 +1495,7 @@
    "abstract": "Despite recent advances in large vision-language models (LVLMs), object hallucination remains a major barrier to their reliable deployment. Existing detection methods often characterize visual grounding using attention from individual layers, leaving its evolution across layers underexplored. We propose CADMP, a lightweight object hallucination detection framework that combines adjacent-layer cross-modal attention drift with prediction sensitivity to targeted visual masking. During decoding, CADMP quantifies distributional changes between consecutive cross-modal attention maps to capture abrupt transitions in visual grounding. It then selects the transition with the largest drift, locates the corresponding visually relevant regions, and measures the change in prediction probability after masking these regions. These two signals provide complementary evidence: attention drift characterizes the stability of internal visual grounding, while probability variation verifies whether a prediction truly depends on the identified visual evidence. A lightweight detector integrates both signals to identify hallucinated predictions. Experiments on multiple benchmarks and representative open-source LVLMs demonstrate that CADMP achieves consistently competitive detection performance. Ablation studies further confirm the complementary contributions of adjacent-layer drift modeling and mask-based grounding verification.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02028",
    "pdf_url": "https://arxiv.org/pdf/2609.02028"
   },
@@ -1409,6 +1524,7 @@
    "abstract": "Few-step diffusion models substantially compress temporal computation, making the spatial cost of each model evaluation an increasingly dominant source of inference latency. Progressive-resolution inference reduces this cost by performing early denoising at low resolution and reserving high-resolution computation for refinement. However, existing methods typically lift intermediate latents directly and rely on subsequent steps to absorb the induced distribution mismatch. In the few-step regime, the limited recovery budget leaves these errors as visible artifacts, constraining how late the transition can occur and, consequently, how efficiently it can be performed. We introduce SelfLift, a self-recovering progressive-resolution framework that derives both transition-repair signals and trajectory-aligned supervision from the generative model itself. SelfLift-zero proposes a training-free Artifact-Aware Consistency Lift, using disagreement between direct latent lifting and pixel-VAE re-encoding as both a localized artifact-risk signal and a model-native correction direction. It enables reliable late transitions without external super-resolution, extra denoiser evaluations, or sampling-schedule modifications. Building on this robust transition, SelfLift-rich performs On-Policy Self Recovery on student-visited states, transferring dense high-resolution guidance from an internal self-teacher while remaining aligned with the altered progressive-resolution dynamics. Across FLUX.2-Klein and Z-Image-Turbo, SelfLift reduces end-to-end latency by 41.5% and 44.1%, respectively. Combined with timestep distillation, it delivers overall speedups of 29.61x and 19.21x over the corresponding 50-step models while preserving competitive generation quality, establishing a stronger speed-quality frontier for few-step diffusion.",
    "affiliations": null,
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02036",
    "pdf_url": "https://arxiv.org/pdf/2609.02036"
   },
@@ -1432,6 +1548,7 @@
    "abstract": "Vision-language models (VLMs) have achieved remarkable performance by leveraging complementary information from large-scale image-text pairs. However, missing-modality inputs are commonly encountered during real-world deployment, often leading to significant performance degradation. Existing methods primarily enhance model robustness by learning modality compensation strategies from source training data. However, their reliance on source training data makes them difficult to apply when original data are unavailable due to privacy, storage, or accessibility constraints, such as clinical applications and personalized AI services. This raises an important yet underexplored question: can VLMs be efficiently adapted at test time for visual recognition with missing modalities without accessing source training data? To this end, we propose Test-Time Logit Prompting (TLP), a lightweight source-free test-time adaptation framework for visual recognition with missing modalities. To address missing-induced prediction shifts, TLP optimizes logit prompts with uncertainty-aware adjustment and modality-complete consistency regularization, adaptively adjusting prediction confidence while preserving semantic consistency. Extensive experiments across diverse vision-language benchmarks demonstrate that TLP consistently enhances recognition performance under missing-modality scenarios, achieving up to 8\\% improvements while requiring only hundreds of tunable parameters and a few test-time optimization steps.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02039",
    "pdf_url": "https://arxiv.org/pdf/2609.02039"
   },
@@ -1469,6 +1586,11 @@
     [
      2
     ]
+   ],
+   "institutions": [
+    null,
+    null,
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.02063",
    "pdf_url": "https://arxiv.org/pdf/2609.02063"
@@ -1522,6 +1644,10 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "Harbin Institute of Technology",
+    "Sun Yat-sen University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.02075",
    "pdf_url": "https://arxiv.org/pdf/2609.02075"
@@ -1582,6 +1708,12 @@
      3
     ]
    ],
+   "institutions": [
+    "Wuhan University of Science and Technology",
+    "Chinese Academy of Sciences",
+    "University of Chinese Academy of Sciences",
+    "Wuhan University of Science and Technology"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02077",
    "pdf_url": "https://arxiv.org/pdf/2609.02077"
   },
@@ -1609,6 +1741,7 @@
    "abstract": "Multimodal large language models have achieved remarkable progress in front-end web development, generating interactive webpages from multimodal references such as screenshots and interaction videos. However, existing work largely emphasizes visual metrics such as aesthetics and layout similarity, while overlooking the more critical validation of interactive functionality. We present RILA, an execution-driven agent that puts browser rendering in the loop, iteratively editing generated code from runtime interaction feedback. RILA introduces an Action Interaction Verification (AIV) module that replays the reference interaction trajectory on the generated webpage to collect grounded execution-aware observations, and an Execution-aware Rendering Score (ERS) that jointly measures interaction correctness and visual fidelity to guide iterative optimization. We further build an execution-verified data synthesis pipeline that produces diverse, high-quality training data, offering gains complementary to inference-time optimization. On IWR-Bench, RILA consistently improves both interaction and visual fidelity across foundation models. Notably, with our training pipeline, RILA lifts the compact Qwen3.5-9B backbone from 40.40% to 57.52%, surpassing far larger one-shot generators, including the 1T-parameter Kimi-K2.6 (55.61%) and the proprietary GPT-5.5 (55.74%).",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02088",
    "pdf_url": "https://arxiv.org/pdf/2609.02088"
   },
@@ -1658,6 +1791,10 @@
      0
     ]
    ],
+   "institutions": [
+    "Shenzhen University",
+    "Shenzhen University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02097",
    "pdf_url": "https://arxiv.org/pdf/2609.02097"
   },
@@ -1704,6 +1841,9 @@
      0
     ]
    ],
+   "institutions": [
+    "Auburn University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02111",
    "pdf_url": "https://arxiv.org/pdf/2609.02111"
   },
@@ -1733,6 +1873,7 @@
    "abstract": "In computational pathology (CPath), developing omni-modal self-supervised learning (SSL) models that integrate histology, genomics, and clinical reports enables transferable representation learning for whole slide images (WSIs). Existing approaches implicitly force heterogeneous modalities into a uniform latent space by contrastive alignment, causing modality collapse where unique, synergistic diagnostic signals (termed as $\\mathrm{\\Phi}$) are discarded in favor of trivial redundancy. We hypothesize that the strongest task-agnostic SSL training signal stems from distilling the synergistic interactions over merely aligning shared redundancy. To this end, we introduce \\textsc{$\\mathrm{\\Phi}$-Omni}, a synergistic information disentanglement framework grounded in Partial Information Decomposition (PID) theory for slide representation learning. Unlike standard contrastive approaches, \\textsc{$\\mathrm{\\Phi}$-Omni} employs a Synergistic Information Bottleneck (SIB) regulated by the proposed $\\mathrm{\\Phi}\\text{ID}$ objective, which explicitly suppresses marginal redundancy while maximizing irreducible synergy, thereby distilling high-order cross-modal interactions. Following pretraining on breast ($n$=1031) and lung ($n$=919) cohorts, \\textsc{$\\mathrm{\\Phi}$-Omni} demonstrates superior few-shot performance across five independent external datasets spanning eight tasks compared to supervised and SSL baselines. Source code is available here.",
    "affiliations": null,
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02118",
    "pdf_url": "https://arxiv.org/pdf/2609.02118"
   },
@@ -1787,6 +1928,12 @@
      2
     ]
    ],
+   "institutions": [
+    null,
+    "Institute of Science Tokyo",
+    null,
+    "National Institute of Informatics"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02159",
    "pdf_url": "https://arxiv.org/pdf/2609.02159"
   },
@@ -1814,6 +1961,7 @@
    "abstract": "Point-supervised change detection (PS-CD) aims to identify pixel-level changes between bi-temporal images using only sparsely annotated points. Although point annotations substantially reduce labeling costs, their limited spatial coverage often results in incomplete and noisy pseudo-labels. To address this issue, we propose a two-stage framework that introduces SAM2 priors into PS-CD and progressively adapts them to the target task. In Stage I, SAM2 generates object-aware candidate masks from point annotations on the bi-temporal images, and a bi-temporal mask selection strategy is designed to convert generic segmentation responses into more reliable change pseudo-labels. Subsequently, a lightweight CNN refinement module with an uncertainty-aware loss is employed to improve boundary quality and local structural consistency. In Stage II, we construct a teacher-student self-training framework in which the teacher is updated by exponential moving average and periodically refreshes the pseudo-labels. This design establishes a closed-loop optimization process that alternates between pseudo-label refinement and model re-optimization. Experiments on three benchmark datasets, including WHU-CD, LEVIR-CD, and SYSU-CD, demonstrate that the proposed method outperforms previous weakly supervised approaches on most benchmarks and remains competitive with several fully supervised methods.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02171",
    "pdf_url": "https://arxiv.org/pdf/2609.02171"
   },
@@ -1847,6 +1995,10 @@
      1
     ]
    ],
+   "institutions": [
+    "Hanyang University",
+    "Hanyang University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02184",
    "pdf_url": "https://arxiv.org/pdf/2609.02184"
   },
@@ -1876,6 +2028,7 @@
    "abstract": "General-purpose vision-language models (VLMs) now support strong visual recognition, instruction following, and generation. However, most pretrained visual encoders are built around three-channel natural images and do not directly accommodate observations such as native multispectral measurements or synthetic aperture radar (SAR). Adapting VLMs to these sensors typically requires dedicated encoders and domain pretraining, slowing the reuse of stronger general-purpose checkpoints. We show that the multi-image interface of general-purpose VLMs offers a lightweight alternative. Our protocol renders each observation as five optical views and one SAR view, names them in the prompt, and adapts the language network and selected visual transformer blocks with LoRA. This exposes band composites, spectral indices, and radar backscatter through an existing visual interface. For land-cover recognition, structured supervision couples predicted classes with sensor evidence. We further construct preference pairs in which a true label is omitted while its supporting evidence is retained, encouraging complete predictions that remain consistent with the observations. On a balanced six-class land-cover benchmark derived from BigEarthNet-v2, the adapted Qwen3-VL reaches 0.8275 micro F1. The same input and adaptation protocol improves all four tested VLM architectures and transfers to Sen1Floods11 flood verification and http://BigEarthNet.txt captioning. Image removal and mismatch controls show that the adapted models use the supplied sensor observations. Together, these results demonstrate that VLMs can be repurposed for multispectral and SAR tasks through rendered inputs and compact LoRA adaptation, without training a new foundation model.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02187",
    "pdf_url": "https://arxiv.org/pdf/2609.02187"
   },
@@ -1916,6 +2069,9 @@
      0
     ]
    ],
+   "institutions": [
+    "Sejong University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02204",
    "pdf_url": "https://arxiv.org/pdf/2609.02204"
   },
@@ -1954,6 +2110,10 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "Technical University of Applied Sciences Würzburg-Schweinfurt",
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.02207",
    "pdf_url": "https://arxiv.org/pdf/2609.02207"
@@ -2016,6 +2176,15 @@
      6
     ]
    ],
+   "institutions": [
+    "Health Center",
+    null,
+    "Hanoi University of Science and Technology",
+    null,
+    "Carnegie Mellon University",
+    null,
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02210",
    "pdf_url": "https://arxiv.org/pdf/2609.02210"
   },
@@ -2056,6 +2225,9 @@
      0
     ]
    ],
+   "institutions": [
+    "Hebei University of Technology"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02212",
    "pdf_url": "https://arxiv.org/pdf/2609.02212"
   },
@@ -2094,6 +2266,12 @@
      3
     ]
    ],
+   "institutions": [
+    null,
+    null,
+    "Ontario Tech University",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02224",
    "pdf_url": "https://arxiv.org/pdf/2609.02224"
   },
@@ -2124,6 +2302,7 @@
    "abstract": "Infrared vision-language models (IR-VLMs) have emerged as a promising paradigm for multimodal perception under low-visibility conditions, yet their robustness to targeted adversarial attacks remains poorly understood. Existing adversarial patch methods mainly study RGB-based models or a single downstream task and do not characterize whether localized perturbations can induce an intended semantic target in IR-VLMs. We propose InfraPatch, a white-box, per-instance framework for targeted digital grayscale patch attacks against IR-VLMs. InfraPatch optimizes a compact single-channel patch within an approximately 5% local-area budget, combines proxy-guided placement with task-adaptive semantic objectives, and induces target behaviors in image classification, image captioning, and binary visual question answering. We evaluate ten infrared-adapted model variants on 300 synthetic infrared-style images generated by applying DiffV2IR to a fixed 30-category COCO subset, using clean-conditioned targeted success criteria. InfraPatch achieves targeted attack success rates from 86.00% to 100% across the ten variants. On CLIP and BLIP-2, proxy location search improves success by 6.67 and 10.33 percentage points over optimized random placement, respectively; LLaVA-1.5 remains saturated near 100% under both settings. Patch-area and objective ablations further expose substantial differences in vulnerability across architectures and task formats. These results show that small grayscale patches can inject chosen target semantics across IR-VLM families under a controlled digital threat model, motivating stronger robustness evaluation for infrared multimodal systems.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02233",
    "pdf_url": "https://arxiv.org/pdf/2609.02233"
   },
@@ -2173,6 +2352,9 @@
      0
     ]
    ],
+   "institutions": [
+    "Nanchang Hangkong University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02247",
    "pdf_url": "https://arxiv.org/pdf/2609.02247"
   },
@@ -2217,6 +2399,11 @@
      1,
      2
     ]
+   ],
+   "institutions": [
+    "Chinese Academy of Sciences",
+    "ShanghaiTech University",
+    "University of Chinese Academy of Sciences"
    ],
    "abs_url": "https://arxiv.org/abs/2609.02251",
    "pdf_url": "https://arxiv.org/pdf/2609.02251"
@@ -2264,6 +2451,11 @@
      2
     ]
    ],
+   "institutions": [
+    "Communication University of China",
+    "Huazhong University of Science and Technology",
+    "Peking University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02255",
    "pdf_url": "https://arxiv.org/pdf/2609.02255"
   },
@@ -2292,6 +2484,7 @@
    "abstract": "Fine-grained defect severity grading is essential for industrial inspection, yet remains challenging due to the ordinal nature of severity labels, the strong dependence on morphology-related cues, and the train-test discrepancy between clean annotated instances and noisy predicted instances in two-stage pipelines. We propose MAOL, a Morphology-Aware Ordinal Learning framework for fine-grained industrial defect severity grading. MAOL formulates severity grading as an instance-level ordinal learning task, incorporates explicit morphological features to enhance representation learning, introduces class-conditional adaptive ordinal thresholds to model defect-specific grading boundaries, and employs prediction-aware training via localization perturbation to improve robustness to imperfect predicted instances. Extensive experiments under both clean-ROI and predicted-instance settings demonstrate that MAOL consistently outperforms rule-based methods, nominal classification models, and existing ordinal baselines, especially in the predicted-instance setting. The proposed approach ranked third in the IDA 2026 Challenge on Fine-Grained Severity Grading for High-Precision Manufacturing.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02266",
    "pdf_url": "https://arxiv.org/pdf/2609.02266"
   },
@@ -2359,6 +2552,11 @@
      2
     ]
    ],
+   "institutions": [
+    "Xidian University",
+    "Tsinghua University",
+    "Guangdong Laboratory of Artificial Intelligence and Digital Economy (Shenzhen)"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02282",
    "pdf_url": "https://arxiv.org/pdf/2609.02282"
   },
@@ -2407,6 +2605,9 @@
      0
     ]
    ],
+   "institutions": [
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02288",
    "pdf_url": "https://arxiv.org/pdf/2609.02288"
   },
@@ -2432,6 +2633,7 @@
    "abstract": "Detectors trained on closed-set annotations can miss rare moving objects outside the training taxonomy. Automotive radar provides category-independent Doppler motion cues and is less affected by adverse illumination and weather, but sparse, noisy returns hinder class-aware 3D box detection. Surface location and velocity remain useful for motion reasoning and collision avoidance when full box geometry is difficult to recover. We present the Physics-Aware Radar Transformer (PART), a fully sparse radar-only detector that predicts existence confidence, a representative surface point, and 2D ground-plane velocity for each moving-object hypothesis. Doppler-Aware Query Initialization (DAQI) replaces scene-independent learned queries with input-dependent proposals by clustering radar returns in position and velocity, easing query-object assignment in sparse scenes. Physics-Guided Cross-Attention (PGCA) incorporates radial-Doppler consistency and radar cross section (RCS) into query-point association. Uncertainty-aware supervision randomly masks ground-truth objects and assigns soft existence targets to ambiguous radar-supported queries, reducing reliance on exhaustive annotations. With only 1.1 million parameters, PART achieves a class-agnostic average precision (CA-AP) of 0.8827, a mean average surface translation error (mASTE) of 0.3188 m, and a mean average velocity error (mAVE) of 0.8084 m/s on nuScenes. It attains 0.9203 recall on rare and safety-relevant categories excluded from the standard evaluation and remains effective at night, in rain, and under severe occlusion. Inspection of apparent false positives shows that some predictions correspond to moving objects absent from the nuScenes annotations. Code and pretrained model weights will be publicly available at https://github.com/sunyinghao-uestc/PART.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02289",
    "pdf_url": "https://arxiv.org/pdf/2609.02289"
   },
@@ -2491,6 +2693,14 @@
      1
     ]
    ],
+   "institutions": [
+    null,
+    "Tsinghua University",
+    "Harbin Institute of Technology",
+    null,
+    null,
+    "Peking University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02291",
    "pdf_url": "https://arxiv.org/pdf/2609.02291"
   },
@@ -2519,6 +2729,7 @@
    "abstract": "Object detectors often degrade under domain shifts such as changes in lighting, weather, or occlusion. These shifts alter object appearance and expose a reliance on visual shortcuts learned from the training distribution that do not generalize across domains. Acquiring sufficient real-world samples to capture such domain variation is particularly difficult in specialized, low-data settings. Recent advances in diffusion-based generative image editing have shown promise for improving the in-domain performance of object detectors through synthetic data augmentation. However, their potential to improve out-of-domain robustness remains largely unexplored. We hypothesize that generative image editing can simulate a controlled domain shift in training data, effectively bridging the gap between source and target domains. To test this, we studied camouflaged military vehicle detection as a challenging domain shift scenario. Detectors trained on uncamouflaged data demonstrate substantial degradation on real test imagery containing foliage, netting, and multi-spectral camouflage across 15 vehicle classes in close-up, ground-level imagery. We used two diffusion-based editing models, Qwen Image Edit 2509 and Flux.2 Dev, to synthetically add camouflage to the training data, alongside a LoRA fine-tuned version of Qwen. A non-generative black-bar occlusion baseline served as a lower bound on augmentation quality. Using a GroundingDINO detector trained on real and synthetic data, generative camouflage augmentation yielded substantial mAP improvements for foliage (+20.1) and netting (+14.4) camouflage. Generating multi-spectral camouflage proved more challenging, but LoRA fine-tuning improved performance by 4.4 mAP over the uncamouflaged baseline.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02299",
    "pdf_url": "https://arxiv.org/pdf/2609.02299"
   },
@@ -2573,6 +2784,10 @@
      1
     ]
    ],
+   "institutions": [
+    "University of Electronic Science and Technology of China",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02318",
    "pdf_url": "https://arxiv.org/pdf/2609.02318"
   },
@@ -2603,6 +2818,10 @@
      0,
      1
     ]
+   ],
+   "institutions": [
+    null,
+    "Shahid Beheshti University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.02333",
    "pdf_url": "https://arxiv.org/pdf/2609.02333"
@@ -2645,6 +2864,10 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "École Nationale Supérieure des Mines de Paris",
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.02341",
    "pdf_url": "https://arxiv.org/pdf/2609.02341"
@@ -2697,6 +2920,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "Alibaba Group"
    ],
    "abs_url": "https://arxiv.org/abs/2609.02348",
    "pdf_url": "https://arxiv.org/pdf/2609.02348"
@@ -2751,6 +2977,10 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "Fudan University",
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.02349",
    "pdf_url": "https://arxiv.org/pdf/2609.02349"
@@ -2826,6 +3056,11 @@
      1
     ]
    ],
+   "institutions": [
+    "Nanjing University",
+    "Nanjing University",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02350",
    "pdf_url": "https://arxiv.org/pdf/2609.02350"
   },
@@ -2852,6 +3087,7 @@
    "abstract": "Visual grounding maps language referents to spatial targets and is central to open-vocabulary perception with vision-language models. Existing methods have made substantial progress on single-frame and video-based visual grounding, yet under streaming inputs they still suffer from identity drift, cross-frame inconsistency, and fragile localization under partial occlusion. To address these issues, we present TempoGround, a VLM-native framework that detects cross-frame object correspondence and explicitly models object presence states, thereby enabling accurate and consistent visual grounding under streaming inputs. The key is a curriculum prediction mechanism guided by state-aware cross-frame correspondence: TempoGround resolves 2D instance association, predicts whether each object newly enters, continues in, or leaves the view, decodes the 2D box, and then lifts it to a camera-frame 3D box. As token-level supervision alone cannot capture the geometric objectives of streaming grounding, we further introduce Streaming Grounding Reinforcement (SGR), which optimizes TempoGround with verifiable Grounding, Identity, and Consistency rewards, jointly reinforcing persistent localization and temporally consistent predictions. We carefully design a three-stage training strategy and train TempoGround on large-scale data. We evaluate visual grounding under causally streaming inputs on multiple challenging benchmarks: TempoGround improves F1_2D@0.5 and F1_2D@0.95 by 4.4 and 0.5 on average, and F1_3D@0.25 and AP_3D by 6.2 and 7.5, respectively. These results demonstrate that TempoGround provides a practical foundation for visual grounding under streaming inputs.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02359",
    "pdf_url": "https://arxiv.org/pdf/2609.02359"
   },
@@ -2915,6 +3151,14 @@
      1
     ]
    ],
+   "institutions": [
+    "Technical University of Munich",
+    "Renmin University of China",
+    "Nanyang Technological University",
+    "Baidu",
+    "Beijing Academy of Artificial Intelligence",
+    "University of Manchester"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02369",
    "pdf_url": "https://arxiv.org/pdf/2609.02369"
   },
@@ -2946,6 +3190,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "Korea Advanced Institute of Science and Technology"
    ],
    "abs_url": "https://arxiv.org/abs/2609.02377",
    "pdf_url": "https://arxiv.org/pdf/2609.02377"
@@ -3000,6 +3247,12 @@
     null,
     null,
     null
+   ],
+   "institutions": [
+    "Tianjin University",
+    "Shanghai Jiao Tong University",
+    null,
+    "University of Science and Technology of China"
    ],
    "abs_url": "https://arxiv.org/abs/2609.02401",
    "pdf_url": "https://arxiv.org/pdf/2609.02401"
@@ -3056,6 +3309,12 @@
      3
     ]
    ],
+   "institutions": [
+    "National University of Sciences and Technology",
+    null,
+    "Bahria University",
+    "Ontario Tech University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02411",
    "pdf_url": "https://arxiv.org/pdf/2609.02411"
   },
@@ -3082,6 +3341,7 @@
    "abstract": "Restoring images degraded by adverse weather remains challenging due to spatially heterogeneous degradations. Many existing weather-specific restoration models rely on weather-agnostic global aggregation, naive cross-scale fusion, and deterministic objectives, which struggle to handle heterogeneous degradations in all-in-one adverse-weather settings. To address these limitations, we propose an Uncertainty-guided Adverse-weather Restoration Network (UAR-Net), a weather-specific AiO framework that integrates a gated transformer with balanced multi-scale skip connections. Specifically, we employ Gated Dual-scale Transformer Blocks (GDTB) to jointly model selective global interactions and multi-scale local structures, a progressive Balanced Multi-scale Skip Connection (BMSC) for balanced multi-scale feature integration, and an Uncertainty-Aware Refinement Head (URH) that performs artifact removal, detail enhancement, and predictive uncertainty estimation. The model is supervised by a Brightness-Aware Energy Loss (BAE-Loss) to encourage accurate reconstruction with well-calibrated uncertainty. Extensive experiments demonstrate that our method achieves state-of-the-art performance across multiple adverse-weather benchmarks. The codes will open source upon acceptance.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02434",
    "pdf_url": "https://arxiv.org/pdf/2609.02434"
   },
@@ -3129,6 +3389,12 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "Université de Technologie de Troyes",
+    "Darmstadt University of Applied Sciences",
+    "European Space Agency",
+    "Technical University of Applied Sciences Würzburg-Schweinfurt"
    ],
    "abs_url": "https://arxiv.org/abs/2609.02448",
    "pdf_url": "https://arxiv.org/pdf/2609.02448"
@@ -3178,6 +3444,11 @@
      1
     ]
    ],
+   "institutions": [
+    "Technische Universität Darmstadt",
+    null,
+    "Delft University of Technology"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02452",
    "pdf_url": "https://arxiv.org/pdf/2609.02452"
   },
@@ -3226,6 +3497,9 @@
      0
     ]
    ],
+   "institutions": [
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02462",
    "pdf_url": "https://arxiv.org/pdf/2609.02462"
   },
@@ -3252,6 +3526,7 @@
    "abstract": "Target templates define what a visual tracker searches for, yet the templates available at inference trade off localization certainty with appearance freshness: the initial ground-truth template is exact but becomes stale, whereas recent templates better reflect the current appearance but are cropped from uncertain predictions. We quantify this bottleneck with a non-deployable oracle that supplies an exact current-frame target crop, improving AUC on LaSOT by 15.2 percentage points. This gap reveals a training-only opportunity: frame-level ground truths provide exact current- and future-frame target crops, although such crops are unavailable at deployment. We introduce Privileged Appearance Transfer for Tracking (PATT), a teacher-student training framework that transfers these privileged appearances to a deployable tracker through multi-level representation prediction. The privileged teacher observes exact target crops from past, current, and future frames, whereas the student receives only past-frame templates and learns to predict the teacher's search representations. To avoid transferring unreliable teacher signals, PATT weights this transfer by the teacher's relative localization advantage over the student and its absolute localization accuracy. After training, the teacher, latent predictor, reliability weights, and privileged crops are removed, leaving standard student-only inference. Across seven benchmarks at two model scales, PATT achieves consistent gains under both long- and short-term tracking protocols.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02471",
    "pdf_url": "https://arxiv.org/pdf/2609.02471"
   },
@@ -3301,6 +3576,10 @@
      1
     ]
    ],
+   "institutions": [
+    "Sardar Vallabhbhai National Institute of Technology Surat",
+    "Norwegian University of Science and Technology"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02476",
    "pdf_url": "https://arxiv.org/pdf/2609.02476"
   },
@@ -3348,6 +3627,10 @@
      1
     ]
    ],
+   "institutions": [
+    "Tongji University",
+    "Shanghai Innovation Institute"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02502",
    "pdf_url": "https://arxiv.org/pdf/2609.02502"
   },
@@ -3390,6 +3673,10 @@
      0
     ]
    ],
+   "institutions": [
+    "Tsinghua University",
+    "Renmin University of China"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02504",
    "pdf_url": "https://arxiv.org/pdf/2609.02504"
   },
@@ -3424,6 +3711,9 @@
      0
     ]
    ],
+   "institutions": [
+    "University of Tokyo"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02510",
    "pdf_url": "https://arxiv.org/pdf/2609.02510"
   },
@@ -3451,6 +3741,7 @@
    "abstract": "Beauty assessments from Multimodal Large Language Models (MLLMs) are increasingly popular amongst users, companies, and aestheticians. This raises the question of whether these AI models can accurately reflect human judgments of attractiveness. In a pre- registered exploratory study, we compared the attractiveness ratings of 2,513 human participants to four widely used commercial AI models: Claude, Gemini, GPT, and Grok. Results showed that MLLMs systematically rate faces more favourably and within a narrower range than humans and, at the time of study, do not reproduce human ratings in absolute terms. However, MLLMs exhibit strong correlations with human attractiveness judgments, accurately tracking the rank-ordering of faces. MLLMs may judge faces by different cues than humans; only face age was a predictor of facial attractiveness in both humans and MLLMs, with inconsistent patterns across models for ethnicity and gender. AI models strongly agree with one another, except for Grok, which also showed the lowest agreement with humans. Our findings suggest that while they may be able to approximate rank-orderings of human attractiveness, current off-the-shelf commercial MLLMs systematically overrate the beauty of human faces.",
    "affiliations": null,
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02512",
    "pdf_url": "https://arxiv.org/pdf/2609.02512"
   },
@@ -3507,6 +3798,13 @@
     null,
     null
    ],
+   "institutions": [
+    "Technische Universität Darmstadt",
+    null,
+    null,
+    null,
+    "Hessian Center for Artificial Intelligence"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02528",
    "pdf_url": "https://arxiv.org/pdf/2609.02528"
   },
@@ -3536,6 +3834,7 @@
    "abstract": "Image enhancement and restoration have become standard back-end operations on short-video and social media platforms to boost UGC visual experience. Yet these processes inevitably introduce visual anomalies--especially in faces, texts, and textures--that directly undermine perceptual fidelity and viewer trust. While existing IQA methods perform well on classic distortions, they target holistic quality assessment and fail to capture the specific, localized anomalies caused by enhancement algorithms in real-world UGC. To bridge this gap, we formally define a new task-quality Anomaly Perception for UGC image Enhancement (UEAP), and contribute the first UEAP benchmark dataset, named UEAP-4k, curated from the real business scenarios. It provides fine-grained annotations for anomaly categories, localization and severity levels. Furthermore, we propose a Difference-Fusion Anomaly Perception Method (DFAP-UGC) for wild UGC-enhanced images, which leverages explicit problem-reference difference fusion with dense spatial querying, regional verification, and quality-aware ranking, enabling robust anomaly identification in challenging scenarios. To handle the inherent coupling of subtasks in this new task, we propose a Locality-Aware Dynamic Task Prioritization (LADTP) training strategy that enables effective end-to-end learning and eliminates multi-stage overhead. Extensive experiments show that our method outperforms baselines adapted from classical approaches for this task, validating the value of this dataset and the superior of DFAP-UGC for robust UGC-enhanced image anomaly perception. Code and data will be public.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02529",
    "pdf_url": "https://arxiv.org/pdf/2609.02529"
   },
@@ -3561,6 +3860,7 @@
    "abstract": "World Action Models (WAMs) leverage the capabilities of large-scale pretrained video diffusion models to jointly predict future observations and actions, inheriting rich visual and physical priors from internet-scale video. This has made them a promising paradigm for robot policy learning, yet the prevailing models operate exclusively on RGB observations and do not leverage 3D information. To bridge this gap, we introduce a Spatially Aware World Action Model (SA-WAM), which repurposes a pretrained video model for joint action, RGB, and depth prediction, enabling 3D-aware world modeling and action prediction within a single diffusion backbone. We use a nonlinear encoding that maps the unbounded depth signal into the bounded input domain expected by the frozen VAE tokenizer. This allows us to reuse the tokenizer without 3D-specific fine-tuning, incorporating geometric information without sacrificing the pretrained priors. SA-WAM achieves state-of-the-art results on the RoboCasa and LIBERO-Plus benchmarks, while simultaneously improving future-state predictions. Furthermore, SA-WAM outperforms strong baselines in real-world evaluation using a UR5 robotic arm, with strong gains in randomized environments. We analyze the correlation between world model prediction quality and rollout success, providing insights into WAM performance and avenues for its improvement.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02531",
    "pdf_url": "https://arxiv.org/pdf/2609.02531"
   },
@@ -3589,6 +3889,7 @@
    "abstract": "Synthetic training data is crucial for developing vision AI when real-world data is scarce, as in thermal infrared (IR) aerial vehicle detection. While abundant UAV RGB imagery motivates RGB-to-IR translation for data augmentation, unobservable thermal traits (e.g., engine heat) make learning transferable mappings challenging. This work investigates whether modern generative translators can overcome this cross-modal gap to improve infrared vehicle detection on unseen UAV target domains. Translators are trained on paired RGB-IR source datasets and applied to RGB training images from held-out target datasets to generate synthetic IR data. Evaluated methods include supervised GANs, ControlNet-based diffusion models, and foundation-model editing via LoRA. The resulting synthetic IR imagery is used to train RF-DETR vehicle detectors, which are evaluated on unseen IR target test splits across five aerial datasets, with Kust4K and VTUAV serving as target domains. Synthetic IR consistently outperforms RGB and grayscale baselines. Stable Diffusion 3.5 with ControlNet yields the best results, improving mAP from 50.8 to 60.1 on Kust4K and from 25.6 to 38.4 on VTUAV compared to models trained only on source-domain IR data. Increasing output diversity via multiple seeds (+1.1 mAP) and prompt variations (+3.3 mAP) provides additional gains on VTUAV. Although a performance gap to real target IR data remains, generative RGB-to-IR translation effectively mitigates IR data scarcity and improves cross-domain aerial vehicle detection.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02556",
    "pdf_url": "https://arxiv.org/pdf/2609.02556"
   },
@@ -3630,6 +3931,10 @@
      1
     ]
    ],
+   "institutions": [
+    "Korea Advanced Institute of Science and Technology",
+    "Korea Advanced Institute of Science and Technology"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02560",
    "pdf_url": "https://arxiv.org/pdf/2609.02560"
   },
@@ -3670,6 +3975,9 @@
      0
     ]
    ],
+   "institutions": [
+    "Sejong University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02565",
    "pdf_url": "https://arxiv.org/pdf/2609.02565"
   },
@@ -3699,6 +4007,7 @@
    "abstract": "Current evaluations and training of multimodal models predominantly focus on multi-image tasks, largely overlooking interleaved text-image scenarios. In such multi-image tasks, text typically serves merely as task instructions, lacking deep semantic interaction with the visual content. In contrast, realworld applications like text-image co-creation, character tracking, and spatial reconstruction require constant interaction between text and images. Consequently, models must possess a deep understanding of these interleaved contexts. To bridge this gap, we introduce a novel benchmark, TIC-Bench (deeply interleaved Text-Image Contexts), designed to evaluate the capability of models to integrate text-image clues and recover the ground truth facts within deeply interleaved contexts. This benchmark encompasses three core domains: Logical, Temporal, and Spatial Association, which are further categorized into eight specific types, comprising a total of 2,280 questions. We evaluated 10 state-of-the-art MLLMs and observed a substantial performance gap compared to human experts, together with persistent difficulties in integrating evidence distributed across interleaved visual and textual inputs. Ultimately, this benchmark provides a valuable analytical tool for assessing and advancing the ability of multimodal models to effectively integrate text and image information in deeply interleaved contexts. TIC-Bench is publicly available at https://huggingface.co/datasets/pino10010/TIC-Bench",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02573",
    "pdf_url": "https://arxiv.org/pdf/2609.02573"
   },
@@ -3740,6 +4049,10 @@
      0
     ]
    ],
+   "institutions": [
+    "Pontifícia Universidade Católica do Paraná",
+    "University of Luxembourg"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02600",
    "pdf_url": "https://arxiv.org/pdf/2609.02600"
   },
@@ -3764,6 +4077,7 @@
    "abstract": "Emotion-driven image editing aims to evoke a specified target emotion by modifying emotion-relevant visual cues in a source image, while preserving the overall composition and semantic-structural coherence of the original scene. Existing scene-level editors typically specify the target with a single emotion category and often learn visual transformations from operation-level text instructions. A category collapses a mixed affective endpoint into one dominant label, while language cannot precisely quantify how coexisting emotions should increase, decrease, or remain stable. We introduce AffectDelta, a source-aware editor that treats editing as a transition between eight-dimensional emotion distributions. A frozen Emotion Distribution Predictor estimates the source state, and the signed source-to-target difference encodes the direction and magnitude of the requested transition. Within AffectDelta, an internal transition encoder and a source-aware diffusion backbone jointly translate this signal into context-dependent semantic and appearance changes. To train this formulation, we construct AffectPair-249K, comprising 248,841 source-target pairs with predicted eight-dimensional distributions and spanning both cross-category and within-category transitions. Experiments against six baselines, combining quantitative evaluation with qualitative comparisons, demonstrate improved affective alignment and content preservation, while ablations validate our design choices. Code and dataset will be made publicly available upon acceptance.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02616",
    "pdf_url": "https://arxiv.org/pdf/2609.02616"
   },
@@ -3808,6 +4122,9 @@
      0
     ]
    ],
+   "institutions": [
+    "University of Padua"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02640",
    "pdf_url": "https://arxiv.org/pdf/2609.02640"
   },
@@ -3844,6 +4161,10 @@
     [
      1
     ]
+   ],
+   "institutions": [
+    "University of Sciences and Technology Houari Boumediene",
+    "Johannes Gutenberg University Mainz"
    ],
    "abs_url": "https://arxiv.org/abs/2609.02644",
    "pdf_url": "https://arxiv.org/pdf/2609.02644"
@@ -3891,6 +4212,11 @@
      1
     ]
    ],
+   "institutions": [
+    null,
+    null,
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02654",
    "pdf_url": "https://arxiv.org/pdf/2609.02654"
   },
@@ -3928,6 +4254,9 @@
      0
     ]
    ],
+   "institutions": [
+    "Southwest University of Science and Technology"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02663",
    "pdf_url": "https://arxiv.org/pdf/2609.02663"
   },
@@ -3961,6 +4290,10 @@
      1
     ],
     null
+   ],
+   "institutions": [
+    null,
+    "Vietnam National University Ho Chi Minh City"
    ],
    "abs_url": "https://arxiv.org/abs/2609.02664",
    "pdf_url": "https://arxiv.org/pdf/2609.02664"
@@ -4014,6 +4347,9 @@
      0
     ]
    ],
+   "institutions": [
+    "Washington University in St. Louis"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02683",
    "pdf_url": "https://arxiv.org/pdf/2609.02683"
   },
@@ -4046,6 +4382,9 @@
      0
     ]
    ],
+   "institutions": [
+    "Fondazione Bruno Kessler"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02689",
    "pdf_url": "https://arxiv.org/pdf/2609.02689"
   },
@@ -4072,6 +4411,7 @@
    "abstract": "Deep learning models have achieved impressive performance in medical image diagnosis, yet their deployment in clinical settings remains constrained by limited explainability. Counterfactual images provide one means of auditing model behavior by showing how an image would need to change for a classifier to produce a different prediction. Existing approaches typically generate such explanations using auxiliary models, including generative adversarial networks and diffusion models. While often capable of producing visually realistic images, these methods explain one black-box model using another, making it difficult to separate the classifier's decision-making process from the inductive biases of the generator. We propose a novel counterfactual-generation framework that requires no generative model. Instead, counterfactuals are constructed directly from causal evidence extracted from the classifier. The resulting approach is deterministic, requires no additional model training, and enables controllable edits within user-specified regions of interest. Experiments on real-world medical imaging datasets demonstrate that the proposed method successfully changes classifier predictions while remaining closer to the original image than generative baselines, providing a more direct and transparent view of the classifier's decision boundary.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02697",
    "pdf_url": "https://arxiv.org/pdf/2609.02697"
   },
@@ -4097,6 +4437,7 @@
    "abstract": "Accurate world-coordinate localization of athletes from single-frame broadcast footage is inherently challenging due to extreme scale disparities in ultra-high-resolution imagery. In this paper, we propose a top-down framework for metric-scale athlete localization from a single calibrated frame. Our approach centers on three key contributions. First, we propose Boundary-Aware Adaptive Tiling, a semantics-guided extension of standard sliced inference. By iteratively expanding tile boundaries based on coarse bounding-box predictions, it systematically ensures full object containment, effectively mitigating boundary-splitting artifacts through a lightweight pipeline adaptation without architectural modifications. By substantially mitigating recall degradation under extreme scale variance, Boundary-Aware Adaptive Tiling enables us to isolate perspective distortion as the primary source of residual localization error. Second, we adapt the RTMPose-X architecture into a specialized two-keypoint estimator (pelvis and ground projection), employing a reformulated Gated Attention Unit optimized for this geometrically coupled point pair, and then deterministically lift the 2D ground projections into world coordinates via camera-calibrated ray casting. On the public test set, our method achieves a LocSim score of 97.44 and an mAP of 0.9128, outperforming the baseline by over 21 \\% and establishing a robust solution for high-resolution scale variance.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02705",
    "pdf_url": "https://arxiv.org/pdf/2609.02705"
   },
@@ -4172,6 +4513,12 @@
      0
     ]
    ],
+   "institutions": [
+    "Max Planck Institute for Intelligent Systems",
+    "ETH Zurich",
+    null,
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02717",
    "pdf_url": "https://arxiv.org/pdf/2609.02717"
   },
@@ -4215,6 +4562,11 @@
      2
     ]
    ],
+   "institutions": [
+    "Guangdong University of Technology",
+    "City University of Hong Kong",
+    "Guangdong Provincial Hospital of Chinese Medicine"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02731",
    "pdf_url": "https://arxiv.org/pdf/2609.02731"
   },
@@ -4255,6 +4607,9 @@
      0
     ]
    ],
+   "institutions": [
+    "Tsinghua University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02747",
    "pdf_url": "https://arxiv.org/pdf/2609.02747"
   },
@@ -4282,6 +4637,7 @@
    "abstract": "Natural images follow a $1/f^2$ spectral distribution: most signal energy lies in the low spatial frequencies, while the perceptually important structures such as textures and edges occupy sparse high-frequency bands. Pixel-space reconstruction objectives, however, treat all spatial errors uniformly, causing low frequencies to dominate the optimization signal and delaying the learning of fine-scale details. In this work, we identify this objective-level spectral imbalance as a key inefficiency in training pixel-space flow models. To address it, we propose a Focal Log-Frequency Loss (f-loss), a spectrally balanced objective that equalizes the learning signal across frequencies, emphasizing high-frequency components that are otherwise underrepresented in pixel-space objectives. Building on this, we introduce a simple training strategy that combines frequency and pixel supervision: we first emphasize frequency-domain learning early to capture all frequencies, and then transition to standard pixel-space v-loss for spatial refinement. This balancing mitigates the low-frequency bias of pixel losses and aligns the training signal with the evolving needs of the model. Our approach is conceptually simple, requires no architectural changes, and acts as a drop-in replacement for flow matching losses. Across multiple model scales, it accelerates convergence by up to 40% while consistently improving FID and perceptual fidelity. We will release code and models.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02748",
    "pdf_url": "https://arxiv.org/pdf/2609.02748"
   },
@@ -4337,6 +4693,10 @@
      1
     ]
    ],
+   "institutions": [
+    "Chinese Academy of Sciences",
+    "University of Chinese Academy of Sciences"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02751",
    "pdf_url": "https://arxiv.org/pdf/2609.02751"
   },
@@ -4388,6 +4748,12 @@
      0
     ]
    ],
+   "institutions": [
+    "Columbia University",
+    "Princeton University",
+    "Stanford University",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02776",
    "pdf_url": "https://arxiv.org/pdf/2609.02776"
   },
@@ -4414,6 +4780,7 @@
    "abstract": "Streaming video understanding is a critical capability for real-world applications, including embodied intelligence, autonomous driving, industrial monitoring, surveillance and early warning, and wearable assistants. However, processing continuous video streams with multimodal large language models (MLLMs) is computationally expensive. Existing efforts have explored reducing streaming overhead through visual token pruning, token merging, quantization, on-demand frame retrieval, and context offloading. However, most existing methods overlook the dimension of model depth. Repeatedly executing full-depth MLLM prefill over incoming frames is prohibitively expensive, incurring substantial computational overhead and causing the KV cache to grow at a rate directly proportional to the prefill depth. To address these challenges, we propose ShallowStream, a novel framework that leverages the shallow layers of an MLLM to simultaneously perform frame encoding and retrieval index building. During stream processing, ShallowStream maintains an always-on lightweight index using the KV cache of shallow layers. During query-time answering, we leverage the attention scores generated by the shallow layers to score context frames and employ a diversity-aware selection strategy to retrieve precise and comprehensive evidence. ShallowStream achieves performance on par with the strongest existing streaming methods, while reducing per-frame prefill latency and 10-second end-to-end latency by up to 52.1x and 11.9x, respectively. Our code is available at https://github.com/CURRENTF/ShallowStream.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02780",
    "pdf_url": "https://arxiv.org/pdf/2609.02780"
   },
@@ -4473,6 +4840,11 @@
      1
     ]
    ],
+   "institutions": [
+    "Universidad de Zaragoza",
+    null,
+    "University of Oxford"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02798",
    "pdf_url": "https://arxiv.org/pdf/2609.02798"
   },
@@ -4498,6 +4870,7 @@
    "abstract": "Text-to-image models excel at natural image synthesis but struggle with graphic design, where success depends on satisfying precise constraints on typography, layout, color, and visual communication. While prompt optimization offers an attractive alternative to expensive diffusion model fine-tuning, learning prompts for frozen image generators requires informative reward functions despite the entirely non-differentiable generation process. Reinforcement learning does not require differentiable objectives; it requires only scalar rewards capable of ranking candidate outputs. This raises a simple question: can design evaluation metrics themselves become reinforcement learning rewards? Our central contribution is GDB-Reward, a framework that systematically transforms heterogeneous graphic design evaluation metrics into a unified reinforcement learning reward. Experiments demonstrate that GDB-Reward provides an effective optimization objective, substantially improving adherence to the design specification in perceptual quality, rendering fidelity, and spatial accuracy while keeping the image generator entirely frozen. More broadly, our results demonstrate that heterogeneous, non-differentiable evaluation metrics can move beyond passive benchmarking to become effective optimization objectives for reinforcement learning in domains where differentiable supervision is unavailable.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02813",
    "pdf_url": "https://arxiv.org/pdf/2609.02813"
   },
@@ -4522,6 +4895,7 @@
    "abstract": "Modern cameras transform RAW sensor measurements into sRGB images through an image signal processor (ISP). We benchmark two placements for blind restoration around a fixed ISP: (A) pre-ISP restoration in the RAW domain and (B) post-ISP restoration in the sRGB domain. The benchmark covers four smartphone device groups, two learned ISPs, three degradation regimes--noise, blur, and joint noise and blur--, and several representative RAW and RGB restoration models. Our results show that placement alone does not determine performance. The RAW restoration strategy outperforms the best generic RGB restoration models. However, RGB restoration models trained considering the ISP transformations, achieve the best overall performance. Our novel benchmark demonstrates that the image reconstruction performance strongly depends on the alignment between the restoration model and the target imaging pipeline. We consequently recommend reporting restoration placement and ISP-aware supervision as key experimental factors. Our code is available at https://github.com/mv-lab/AISP",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02831",
    "pdf_url": "https://arxiv.org/pdf/2609.02831"
   },
@@ -4567,6 +4941,10 @@
      0
     ]
    ],
+   "institutions": [
+    null,
+    "Technical University of Munich"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02839",
    "pdf_url": "https://arxiv.org/pdf/2609.02839"
   },
@@ -4607,6 +4985,10 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    null,
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.02847",
    "pdf_url": "https://arxiv.org/pdf/2609.02847"
@@ -4660,6 +5042,11 @@
     ],
     null
    ],
+   "institutions": [
+    "ETH Zurich",
+    "University of Graz",
+    "University of Bologna"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02854",
    "pdf_url": "https://arxiv.org/pdf/2609.02854"
   },
@@ -4704,6 +5091,9 @@
      0
     ]
    ],
+   "institutions": [
+    "McGill University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02860",
    "pdf_url": "https://arxiv.org/pdf/2609.02860"
   },
@@ -4745,6 +5135,10 @@
      0
     ]
    ],
+   "institutions": [
+    "University of Illinois Urbana-Champaign",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02864",
    "pdf_url": "https://arxiv.org/pdf/2609.02864"
   },
@@ -4784,6 +5178,7 @@
    "abstract": "We introduce SolarWM, a fully open foundation for building interactive video world models from data preparation through long-horizon inference. Training across heterogeneous data sources and video backbones is challenging: datasets differ in temporal scale, camera geometry, visual quality, motion, and captioning styles, while video generators use distinct representations and architectures. Naive data mixing and model-specific implementations therefore produce inconsistent supervision and make results difficult to reproduce and compare. SolarWM addresses this coupling with a reconfigurable multi-source data engine and a backbone-native adaptation framework. The engine converts 1.43 million canonical clips from 10 datasets into a unified, frame-aligned contract covering visual observations, metric camera geometry, captions, quality metadata, selection decisions, and provenance, while decoupling source processing from mixture construction. Under shared camera-conditioning, training, and inference interfaces, we instantiate four 5B--33B models based on Wan2.2, LTX-2.5, and MiniMax-H3 while preserving their native representations and objectives. A unified three-stage recipe combines bidirectional adaptation, teacher-forced autoregressive initialization, and distribution matching distillation. The resulting causal models enable real-time interaction over rollouts ranging from minutes to hours after being trained on only 5s sequences. By releasing the resulting data, pipeline, recipes, weights, and framework, SolarWM provides a reproducible and extensible foundation for interactive world-model research.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02886",
    "pdf_url": "https://arxiv.org/pdf/2609.02886"
   },
@@ -4826,6 +5221,11 @@
      2
     ]
    ],
+   "institutions": [
+    null,
+    null,
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.01623",
    "pdf_url": "https://arxiv.org/pdf/2609.01623"
   },
@@ -4851,6 +5251,7 @@
    "abstract": "Multimodal models often build on architectures designed for generative vision-language modeling, typically combining separately pretrained vision encoders with causal language models. Visual document retrievers such as ColPali repurpose these models as encoders, carrying over the parameter and compute overhead of a VLM for a non-generative task. We introduce NeoMME, a family of 260M and 800M-parameter Multimodal and Multilingual bidirectional Encoders that process multilingual text and raw image patches in a single bidirectional Transformer encoder. Both models are pretrained from scratch with a masked discrete-diffusion text objective, conditioned on visible image patches for multimodal examples. Both support a 16,384-token context, enough to encode up to two standard 4K UHD images. To demonstrate its downstream capabilities, we fine-tune NeoMME with jointly trained dense and late-interaction heads. On the ViDoRe v3 benchmark, the resulting NeoMME-Retriever 260M outperforms all evaluated models strictly below 800M parameters with 0.523 nDCG@10, while NeoMME-Retriever 800M reaches 0.556. At a matched 2048x2048 image input size on an NVIDIA L40S, NeoMME-260M encodes pages with about 2x the throughput of ColModernVBERT. Hierarchical token pooling and asymmetric quantization compress late-interaction multimodal document embeddings by 255x while preserving over 95% of baseline nDCG@10. We contribute NeoMME to Hugging Face Transformers and release the pretrained backbone and retrieval-compatible checkpoints under Apache 2.0 at https://hf.co/collections/Hcompany/neomme.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.01657",
    "pdf_url": "https://arxiv.org/pdf/2609.01657"
   },
@@ -4884,6 +5285,10 @@
     "University of British Columbia 5York University 6Queen’s University"
    ],
    "author_affiliations": null,
+   "institutions": [
+    "Islamic University of Technology",
+    "University of British Columbia"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.01772",
    "pdf_url": "https://arxiv.org/pdf/2609.01772"
   },
@@ -4943,6 +5348,10 @@
      0
     ]
    ],
+   "institutions": [
+    null,
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.01792",
    "pdf_url": "https://arxiv.org/pdf/2609.01792"
   },
@@ -4970,6 +5379,7 @@
    "abstract": "Many current end-to-end driving policies emit a pool of candidate trajectories and select one, which makes selection a separable component: a scorer can be retrained while the planner, its backbone, and its trajectory generator all stay frozen. However, many strong planners concentrate their proposals around safe mode, providing limited supervision near decision boundaries. In this work, we design a training dataset that provides more informative supervision for the scorer. In particular, we construct two generators that perturb the logged human trajectory along the two axes a vehicle can be displaced: laterally toward the drivable boundary and longitudinally toward a leading vehicle. The designed dataset produces more informative positive and negative samples than the base planner's proposal pool. We attach a transformer-based scorer to two frozen generative planners, DiffusionDrive and MeanFuser, and train it on the NAVSIM navtrain dataset. The results of the experiments show that we achieve 90.1 EPDMS on DiffusionDrive and 90.4 EPDMS on MeanFuser when using ResNet-34, with 0.4 and 0.3 EPDMS respectively, from the designed training dataset.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.01799",
    "pdf_url": "https://arxiv.org/pdf/2609.01799"
   },
@@ -5027,6 +5437,9 @@
      0
     ]
    ],
+   "institutions": [
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.01959",
    "pdf_url": "https://arxiv.org/pdf/2609.01959"
   },
@@ -5057,6 +5470,7 @@
    "abstract": "Image super-resolution, which aims to reconstruct high-resolution images from their low-resolution observations, is fundamental to medical imaging, remote sensing, surveillance, microscopy, and scientific visualization. Traditional model-based methods formulate super-resolution as an inverse problem with hand-crafted regularization priors. While interpretable and theoretically grounded, they rely on fixed assumptions and require computationally intensive iterative solvers. Deep learning methods offer data-driven flexibility by learning nonlinear mappings from low- to high-resolution images, among which diffusion models have achieved particularly impressive perceptual quality. However, the standard diffusion training objective is a pixel-domain noise-prediction loss that does not explicitly enforce perceptual fidelity, which can lead to oversmoothing and loss of fine image structure. To address these limitations, we propose a perceptually regularized diffusion framework that incorporates prior knowledge through perceptual-loss-based regularization, improving training convergence and encouraging the recovery of meaningful image features. Experiments on benchmark datasets demonstrate improved perceptual quality and competitive distortion metrics, highlighting the effectiveness of regularization for diffusion-based super resolution.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02016",
    "pdf_url": "https://arxiv.org/pdf/2609.02016"
   },
@@ -5105,6 +5519,13 @@
      1,
      2
     ]
+   ],
+   "institutions": [
+    null,
+    null,
+    null,
+    null,
+    "Université Paris-Saclay"
    ],
    "abs_url": "https://arxiv.org/abs/2609.02018",
    "pdf_url": "https://arxiv.org/pdf/2609.02018"
@@ -5168,6 +5589,13 @@
      0
     ]
    ],
+   "institutions": [
+    "University of Wisconsin–Madison",
+    "Massachusetts Institute of Technology",
+    "Stanford University",
+    "Kookmin University",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02059",
    "pdf_url": "https://arxiv.org/pdf/2609.02059"
   },
@@ -5224,6 +5652,14 @@
      5
     ]
    ],
+   "institutions": [
+    "Carnegie Mellon University",
+    null,
+    "Seoul National University",
+    null,
+    "Durham University",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02085",
    "pdf_url": "https://arxiv.org/pdf/2609.02085"
   },
@@ -5270,6 +5706,9 @@
      0
     ]
    ],
+   "institutions": [
+    "University of South Dakota"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02101",
    "pdf_url": "https://arxiv.org/pdf/2609.02101"
   },
@@ -5297,6 +5736,7 @@
    "abstract": "Discrete visual tokenization, predominantly driven by vector, scalar, and product quantization, lacks a unified conceptual framework for understanding quantization tradeoffs. In this paper, we propose a unified rate--distortion perspective on modern discrete visual tokenization. By viewing quantization as lossy compression, we characterize the nominal fixed-length coding rate through token count and codebook size, and quantization error as the distortion. Within this framework, we resolve three central questions. First, we theoretically and empirically show that minimizing distortion, rather than maximizing codebook utilization, is the primary intrinsic objective for reconstruction fidelity, with a direct connection to the STE-induced gradient discrepancy. Second, we establish two critical fairness conditions for intrinsic quantization comparison: controlling latent feature statistics and enforcing identical coding rates. Third, under these conditions, we recover the VQ--PQ--SQ distortion hierarchy in modern visual tokenization and show empirically that modern VQ methods achieve the lowest distortion. This work provides a foundational rate--distortion reframing of modern discrete visual tokenization, resolves ambiguities in quantizer evaluation, and provides a controlled framework for isolating intrinsic quantization effectiveness under fixed-rate constraints.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02107",
    "pdf_url": "https://arxiv.org/pdf/2609.02107"
   },
@@ -5343,6 +5783,10 @@
      1
     ]
    ],
+   "institutions": [
+    null,
+    "University of Bremen"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02219",
    "pdf_url": "https://arxiv.org/pdf/2609.02219"
   },
@@ -5372,6 +5816,7 @@
    "abstract": "With the rapid proliferation of generative models on Machine Learning as a Service (MLaaS) platforms, reliably tracing the provenance of synthetic media without modifying generator architectures or parameters remains a major challenge. In this work, we propose a self-referential retrosynthesis framework for explainable AI provenance forensics under a fixed-generator setting. The framework leverages a jointly optimized encoder-decoder pair to implement a self-embedding mechanism that enables round-trip consistency verification. During inference, client inputs are first encoded and then processed by the generator to produce outputs with high visual fidelity. For forensic verification, the consistency between the resynthesized image and the query image is analyzed to determine whether the image originates from the target generative model. Our approach eliminates the need for watermark embedding or modifications to the generation process. Experimental results show that images generated from encoded inputs maintain visual quality comparable to original generator outputs, while decoded images reliably trace back to their corresponding source inputs. Furthermore, the framework provides interpretable evidence for generative content provenance, establishing a practical tool for explainable generative AI forensics.",
    "affiliations": null,
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02268",
    "pdf_url": "https://arxiv.org/pdf/2609.02268"
   },
@@ -5441,6 +5886,9 @@
      0
     ]
    ],
+   "institutions": [
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02367",
    "pdf_url": "https://arxiv.org/pdf/2609.02367"
   },
@@ -5470,6 +5918,7 @@
    "abstract": "Sampling error yields exclusively reactive, non-lesional brain parenchyma in a significant proportion of intracranial biopsies, leaving the underlying disease undiagnosed. We benchmark four pathology foundation models (UNI2-h, Virchow2, Prov-GigaPath, H-optimus-0) as frozen patch encoders within a shared attention-based multiple-instance learning framework using 245 whole-slide images from 186 patients with confirmed downstream diagnoses. We first show that coarse disease-category prediction can be reproduced largely from slide size alone. After restricting classification to three finer diagnostic distinctions within common tissue categories, this confound no longer explains performance, yet disease labels remain predictable above chance under permutation testing (p $\\le 10^{-4}$ throughout). Surprisingly, performance is statistically indistinguishable across all foundation-model encoders, suggesting that recovering these weak morphological signatures is not limited by current patch representations. Signed instance-contribution maps and expert review further test whether predictive evidence localizes to reactive parenchyma rather than sampling-induced bias like blood introduced during tissue sampling. These results position acquisition-shortcut auditing via a provenance-only baseline as a necessary control in computational-pathology benchmarks, and show, once that confound is removed, that weakly supervised models still recover disease signal from tissue conventionally regarded as non-diagnostic.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02390",
    "pdf_url": "https://arxiv.org/pdf/2609.02390"
   },
@@ -5515,6 +5964,11 @@
      0
     ]
    ],
+   "institutions": [
+    "Laboratoire d'Informatique en Images et Systèmes d'Information",
+    null,
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.02486",
    "pdf_url": "https://arxiv.org/pdf/2609.02486"
   },
@@ -5551,6 +6005,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "Vanderbilt University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.02676",
    "pdf_url": "https://arxiv.org/pdf/2609.02676"

@@ -45,6 +45,11 @@
      2
     ]
    ],
+   "institutions": [
+    null,
+    "Kathmandu University",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.10572",
    "pdf_url": "https://arxiv.org/pdf/2609.10572"
   },
@@ -85,6 +90,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "Georgia Institute of Technology"
    ],
    "abs_url": "https://arxiv.org/abs/2609.10723",
    "pdf_url": "https://arxiv.org/pdf/2609.10723"
@@ -147,6 +155,12 @@
      3
     ]
    ],
+   "institutions": [
+    "Nankai University",
+    "Beihang University",
+    "East China Normal University",
+    "National University of Singapore"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.10743",
    "pdf_url": "https://arxiv.org/pdf/2609.10743"
   },
@@ -199,6 +213,11 @@
      0
     ]
    ],
+   "institutions": [
+    "Norwegian University of Life Sciences",
+    "Norwegian University of Life Sciences",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.10749",
    "pdf_url": "https://arxiv.org/pdf/2609.10749"
   },
@@ -235,6 +254,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "Rice University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.10756",
    "pdf_url": "https://arxiv.org/pdf/2609.10756"
@@ -282,6 +304,11 @@
      0
     ]
    ],
+   "institutions": [
+    "Université Laval",
+    null,
+    "Universitat Autònoma de Barcelona"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.10787",
    "pdf_url": "https://arxiv.org/pdf/2609.10787"
   },
@@ -314,6 +341,9 @@
      0
     ]
    ],
+   "institutions": [
+    "University of Alberta"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.10789",
    "pdf_url": "https://arxiv.org/pdf/2609.10789"
   },
@@ -337,6 +367,7 @@
    "abstract": "Velocity-aware pitch control is standard, but under a broadcast viewport half the players are off screen and on-screen velocities come from a drifting calibration. We ask at which layer of broadcast off-ball analysis velocity changes the answer. Inheriting our off-screen imputation protocol (three Metrica matches, 44 m viewport, block-bootstrap CIs), we score four velocity regimes -- none, viewport-legal observed, true-for-visible, true-for-all -- against a velocity-aware ground truth at three layers: imputation, the control surface, and team verdicts. Velocity is nearly useless for imputation (-0.2 pp against a 12--14 pp velocity-free surface MAE), first-order for the surface (-1.5 to -1.8 pp, 11--15% of that MAE), and ten times smaller for verdicts (-0.12 to -0.19 pp). The velocity that matters is the visible channel: perfect occluded-player velocity adds 2--6% of the visible gain, and no last-seen decay policy we tested exceeds that. Omitting velocity blurs the surface (per-frame |e| 2.2--2.6 pp) with small time-averaged bias (per cell <=0.4 pp), whereas imputation error is a structured bias against the defending team's deep zone (5--9 pp). At a fixed velocity window, a noise ladder of eleven jitter settings, including sigma_v-matched pairs, is ordered to first order by one velocity-noise axis sigma_v with break-even ~1 m/s; eleven SoccerNet-GSR clips from one match through our pipeline measure sigma_v=1.65 m/s yet recover 24--36% of the benefit: 43% of the variance is frame-common, which the surface tolerates, and the residual is heavy-tailed and clustered, which Gaussian controls matched on component RMS do not reproduce (+0.03 vs. +0.36). The share of velocity-free error that velocity removes grows with viewport width (7% at 36 m, 21% at 60 m): fix imputation on tight shots, velocity on wide ones. Code and logs are released.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.10801",
    "pdf_url": "https://arxiv.org/pdf/2609.10801"
   },
@@ -368,6 +399,10 @@
      0,
      1
     ]
+   ],
+   "institutions": [
+    null,
+    "Université de Moncton"
    ],
    "abs_url": "https://arxiv.org/abs/2609.10806",
    "pdf_url": "https://arxiv.org/pdf/2609.10806"
@@ -413,6 +448,10 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "William & Mary",
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.10811",
    "pdf_url": "https://arxiv.org/pdf/2609.10811"
@@ -476,6 +515,10 @@
      0
     ]
    ],
+   "institutions": [
+    "Worcester Polytechnic Institute",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.10815",
    "pdf_url": "https://arxiv.org/pdf/2609.10815"
   },
@@ -513,6 +556,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "University of Alicante"
    ],
    "abs_url": "https://arxiv.org/abs/2609.10851",
    "pdf_url": "https://arxiv.org/pdf/2609.10851"
@@ -558,6 +604,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "Brigham Young University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.10855",
    "pdf_url": "https://arxiv.org/pdf/2609.10855"
@@ -611,6 +660,11 @@
      0
     ]
    ],
+   "institutions": [
+    "University of California, Santa Barbara",
+    "University of California, Santa Barbara",
+    "University of California, Santa Barbara"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.10898",
    "pdf_url": "https://arxiv.org/pdf/2609.10898"
   },
@@ -634,6 +688,7 @@
    "abstract": "Texture recognition remains challenging for modern vision models because discriminative evidence is often carried by higher-order spatial statistics rather than by object shape alone. While Vision Transformers provide strong long-range modeling capacity, their standard object-centric representations do not explicitly expose such statistical structure, which limits texture sensitivity in fine-grained recognition settings. We present HiPerViT, a compact vision-only architecture that injects an explicit second-order statistical prior into a transformer-based recognition pipeline. The method combines global and local image views with a compact bilinear descriptor encoded as a statistical token, and integrates this token with first-order spatial representations through Perceiver-style latent distillation. This design enables direct interaction between spatial tokens and second-order feature co-occurrence statistics, providing the model with explicit access to texture-relevant information without requiring multimodal pretraining or ensemble construction. Across six texture recognition benchmarks, HiPerViT achieves consistent improvements over strong vision-only baselines under the reported evaluation protocols, including gains of +3.05 percentage points on DTD, +10.48 on GTOS-Mobile, and +10.10 on 1200Tex. Beyond benchmark performance, our analyses show that these gains are largely invariant to the backbone depth used to extract second-order statistics and to the ordering of interaction and distillation stages. This pattern suggests that the primary source of improvement is not a specific fusion topology, but the explicit availability of second-order statistical information as a first-class representational signal. These results support explicit statistical tokenization as an effective and robust design principle for texture-centric visual recognition.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.10917",
    "pdf_url": "https://arxiv.org/pdf/2609.10917"
   },
@@ -674,6 +729,10 @@
     [
      1
     ]
+   ],
+   "institutions": [
+    "Worcester Polytechnic Institute",
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.10943",
    "pdf_url": "https://arxiv.org/pdf/2609.10943"
@@ -723,6 +782,11 @@
      0
     ],
     null,
+    null,
+    null
+   ],
+   "institutions": [
+    "University of Maryland, Baltimore County",
     null,
     null
    ],
@@ -777,6 +841,11 @@
      2
     ]
    ],
+   "institutions": [
+    "University of Chinese Academy of Sciences",
+    "Aerospace Information Research Institute",
+    "University of Iceland"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11040",
    "pdf_url": "https://arxiv.org/pdf/2609.11040"
   },
@@ -824,6 +893,11 @@
      2
     ]
    ],
+   "institutions": [
+    "McMaster University",
+    "Isfahan University of Technology",
+    "Seattle University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11041",
    "pdf_url": "https://arxiv.org/pdf/2609.11041"
   },
@@ -857,6 +931,9 @@
      0
     ]
    ],
+   "institutions": [
+    "Shandong University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11081",
    "pdf_url": "https://arxiv.org/pdf/2609.11081"
   },
@@ -886,6 +963,7 @@
    "abstract": "Verification and validation (V&V) of classification models is crucial to enable a wide range of sensor processing applications. Currently, the V&V process relies on time-consuming manual inspection of erroneous samples to find meaningful patterns. This work explores the use of Vision Language Models (VLMs) to speed up this laborious process. VLMs are trained to embed images into a semantically meaningful vector representation, from which human-interpretable systematic errors can be distilled. Deploying such VLM-based methods in a defence context introduces two major challenges: (1) the defence domain is underrepresented in the training data of VLMs, and (2) surroundings and context are less diverse than for other domains. This study provides an initial assessment of the suitability of VLM-based methods for V&V of defence applications. We propose a VLM-based error slice detection (ESD) method that independently groups and labels systematic errors made by a classification model. We demonstrate that this method is able to identify operationally-relevant artificially added perturbations in a non-military dataset. In a military context, our method clusters and describes images based on their surroundings, but also exhibits overlap between cluster descriptions. We further investigate the difference in embedding variation between our military and non-military dataset, which remains a topic of interest. Although the results do not yet warrant fully automated V&V through VLM-based ESD, they show that VLMs could be used to accelerate V&V processes in the future.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.11126",
    "pdf_url": "https://arxiv.org/pdf/2609.11126"
   },
@@ -954,6 +1032,12 @@
      0
     ]
    ],
+   "institutions": [
+    null,
+    null,
+    null,
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11129",
    "pdf_url": "https://arxiv.org/pdf/2609.11129"
   },
@@ -986,6 +1070,10 @@
     [
      1
     ]
+   ],
+   "institutions": [
+    null,
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.11134",
    "pdf_url": "https://arxiv.org/pdf/2609.11134"
@@ -1036,6 +1124,11 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "Beihang University",
+    "Tsinghua University",
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.11156",
    "pdf_url": "https://arxiv.org/pdf/2609.11156"
@@ -1089,6 +1182,12 @@
      0
     ]
    ],
+   "institutions": [
+    "Shanghai Artificial Intelligence Laboratory",
+    "Fudan University",
+    null,
+    "Shanghai Jiao Tong University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11172",
    "pdf_url": "https://arxiv.org/pdf/2609.11172"
   },
@@ -1118,6 +1217,10 @@
      0,
      1
     ]
+   ],
+   "institutions": [
+    null,
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.11188",
    "pdf_url": "https://arxiv.org/pdf/2609.11188"
@@ -1160,6 +1263,10 @@
      1
     ]
    ],
+   "institutions": [
+    null,
+    "Norwegian University of Science and Technology"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11201",
    "pdf_url": "https://arxiv.org/pdf/2609.11201"
   },
@@ -1187,6 +1294,7 @@
    "abstract": "Recovering clean 3D scenes from hazy multi-view images is challenging because haze attenuates scene radiance and introduces atmospheric scattering. Recent scattering-aware Gaussian Splatting methods introduce physical haze models into reconstruction, but they often apply degradation in image space or bind medium-related variables to Gaussian primitives, which can entangle clean scene radiance with atmospheric effects. Moreover, low-transmittance regions provide weakened supervision for Gaussian optimization, causing distant or dense-haze areas to be under-reconstructed. We argue that clean reconstruction under haze requires both scene--medium disentanglement and transmittance-aware optimization rebalancing. To this end, we propose Tri-DehazeGS, a scene--medium decoupled Gaussian Splatting framework. It represents the clean scene with Gaussian primitives, models the participating medium using an independent view-shared tri-plane field, and composes hazy observations through a physical scattering model. We further introduce Medium-Decoupled Transmittance Gradient Compensation (MD-TGC), which compensates haze-suppressed gradients after medium freezing without altering forward rendering. Experiments on real and synthetic haze benchmarks show that Tri-DehazeGS improves clean novel-view reconstruction. Code is available at https://github.com/aptx46/Tri-DehazeGS.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.11223",
    "pdf_url": "https://arxiv.org/pdf/2609.11223"
   },
@@ -1221,6 +1329,11 @@
      2
     ]
    ],
+   "institutions": [
+    "Institute for Digital Molecular Analytics and Science",
+    null,
+    "Nanyang Technological University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11235",
    "pdf_url": "https://arxiv.org/pdf/2609.11235"
   },
@@ -1254,6 +1367,10 @@
     [
      1
     ]
+   ],
+   "institutions": [
+    "Independent University, Bangladesh",
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.11236",
    "pdf_url": "https://arxiv.org/pdf/2609.11236"
@@ -1342,6 +1459,13 @@
      0
     ]
    ],
+   "institutions": [
+    "Seoul National University",
+    null,
+    "Kyung Hee University",
+    "Seoul National University",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11237",
    "pdf_url": "https://arxiv.org/pdf/2609.11237"
   },
@@ -1391,6 +1515,10 @@
      0,
      1
     ]
+   ],
+   "institutions": [
+    "University of Regensburg",
+    "Fraunhofer Institute for Digital Medicine"
    ],
    "abs_url": "https://arxiv.org/abs/2609.11240",
    "pdf_url": "https://arxiv.org/pdf/2609.11240"
@@ -1451,6 +1579,12 @@
     [
      3
     ]
+   ],
+   "institutions": [
+    "National University of Singapore",
+    "Nanjing University",
+    "Kuaishou",
+    "University of Oxford"
    ],
    "abs_url": "https://arxiv.org/abs/2609.11242",
    "pdf_url": "https://arxiv.org/pdf/2609.11242"
@@ -1515,6 +1649,12 @@
      1
     ]
    ],
+   "institutions": [
+    "China Telecom",
+    "China Telecom",
+    "Fudan University",
+    "Nanjing University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11265",
    "pdf_url": "https://arxiv.org/pdf/2609.11265"
   },
@@ -1571,6 +1711,13 @@
      1,
      2
     ]
+   ],
+   "institutions": [
+    "Maastricht University",
+    "University of Arizona",
+    "University of Arizona",
+    "University of Arizona",
+    "Polytechnic University of Bari"
    ],
    "abs_url": "https://arxiv.org/abs/2609.11269",
    "pdf_url": "https://arxiv.org/pdf/2609.11269"
@@ -1659,6 +1806,14 @@
      0
     ]
    ],
+   "institutions": [
+    "Seoul National University",
+    null,
+    "Chung-Ang University",
+    "Kyung Hee University",
+    "Samsung Medical Center",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11271",
    "pdf_url": "https://arxiv.org/pdf/2609.11271"
   },
@@ -1703,6 +1858,9 @@
      0
     ]
    ],
+   "institutions": [
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11279",
    "pdf_url": "https://arxiv.org/pdf/2609.11279"
   },
@@ -1736,6 +1894,7 @@
    "abstract": "We address few-shot object detection with vision-language models (VLMs) in out-of-domain settings such as aerial, industrial, and medical imagery, using only ten annotated images for supervision. Existing adaptation methods are discrete prompt optimization and LoRA fine-tuning. We revisit a third option: soft prompting, where a small number of continuous prompt tokens are optimized while the pretrained backbone remains frozen. We identify two key design choices. First, placing prompt tokens at the cross-modal boundary between visual and text tokens outperforms other placements (10.0 vs. 8.4 mAP). Second, initializing prompts from the empty space token outperforms semantic and random initialization. With these choices, one to three learned tokens (7,168 parameters on average) match the best LoRA configuration on Roboflow20-VL (14.2 mAP, 10-shot) while training over 20,000x fewer parameters. Soft prompting remains harder to optimize, exhibiting higher variance across random seeds. Unlike LoRA, however, it causes no forgetting: the LoRA rank matching our accuracy reduces NaturalBench VQA accuracy by 35% relative, rising to 56% at the largest rank, whereas soft prompting leaves pretrained performance unchanged. The learned tokens behave like prompts rather than weights. They transfer to a newer model without retraining (+0.8 mAP on Qwen3.5-9B) and can be verbalized into readable prompts competitive with prompt-search methods (matching DetPO and outperforming GEPA). The approach also extends beyond detection. On RoboCasa manipulation tasks, the frozen $\\pi_{0.5}$ vision-language-action policy benefits from soft prompting, matching the LoRA baseline on two of three tasks when tokens are placed at the gradient bottleneck. These results suggest modern VLMs already encode much of what is needed for specialized domains; the challenge is learning how to ask.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.11310",
    "pdf_url": "https://arxiv.org/pdf/2609.11310"
   },
@@ -1768,6 +1927,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "Tianjin University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.11312",
    "pdf_url": "https://arxiv.org/pdf/2609.11312"
@@ -1815,6 +1977,14 @@
      5
     ]
    ],
+   "institutions": [
+    null,
+    null,
+    "Chinese Academy of Sciences",
+    "University of Chinese Academy of Sciences",
+    "Shanghai Jiao Tong University",
+    "Tianjin University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11317",
    "pdf_url": "https://arxiv.org/pdf/2609.11317"
   },
@@ -1858,6 +2028,10 @@
      0
     ]
    ],
+   "institutions": [
+    "Hamburg University of Technology",
+    "University Medical Center Hamburg-Eppendorf"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11330",
    "pdf_url": "https://arxiv.org/pdf/2609.11330"
   },
@@ -1895,6 +2069,10 @@
      0,
      1
     ]
+   ],
+   "institutions": [
+    "University of Cambridge",
+    "Durham University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.11360",
    "pdf_url": "https://arxiv.org/pdf/2609.11360"
@@ -1951,6 +2129,12 @@
      3
     ]
    ],
+   "institutions": [
+    "Shenzhen Polytechnic University",
+    "City University of Hong Kong",
+    null,
+    "Shenzhen University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11375",
    "pdf_url": "https://arxiv.org/pdf/2609.11375"
   },
@@ -1979,6 +2163,7 @@
    "abstract": "Brain age estimation has become a popular research proxy for assessing brain health and disease, yet longitudinal trajectories of brain ageing are still poorly defined, and clinical use is limited. Building on existing Siamese longitudinal frameworks, we develop Brain-Predicted Age Acceleration (Brain-PACE) to directly estimate the pace of structural brain ageing from paired T1-weighted MRI. Brain-PACE identified accelerated ageing in $42.6$% of participants with mild cognitive impairment. Faster Brain-PACE was associated with greater functional and cognitive impairment (FAQ; $r=0.35$, ADAS13; $r=0.30$, CDR-SB; $r=0.32$) and greater regional tau burden in the posterior cingulate ($r=0.59$), precuneus ($r=0.47$), and entorhinal cortex ($r=0.37$). These associations were stronger than those observed when pace was calculated indirectly from repeated cross-sectional brain age estimates, suggesting that direct longitudinal modelling captures complementary information relevant to ongoing pathological change. Methodologically, Brain-PACE extends the LILAC framework by combining spatial attention with soft label distribution learning and a Cramér distance objective, improving probabilistic performance and reducing prediction bias while providing measures of predictive uncertainty. Together, these findings support Brain-PACE as a complementary longitudinal imaging phenotype with sensitivity to relevant clinical and biological changes in early neurodegeneration.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.11378",
    "pdf_url": "https://arxiv.org/pdf/2609.11378"
   },
@@ -2020,6 +2205,10 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "University of Nottingham",
+    "University of Nottingham"
    ],
    "abs_url": "https://arxiv.org/abs/2609.11380",
    "pdf_url": "https://arxiv.org/pdf/2609.11380"
@@ -2067,6 +2256,11 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "South China University of Technology",
+    "Future Academy",
+    "Peking University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.11439",
    "pdf_url": "https://arxiv.org/pdf/2609.11439"
@@ -2118,6 +2312,10 @@
      1
     ]
    ],
+   "institutions": [
+    "Cardiff University",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11463",
    "pdf_url": "https://arxiv.org/pdf/2609.11463"
   },
@@ -2149,6 +2347,10 @@
     "Nanjing University of Science and Technology 5Southeast University"
    ],
    "author_affiliations": null,
+   "institutions": [
+    null,
+    "Nanjing University of Science and Technology"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11472",
    "pdf_url": "https://arxiv.org/pdf/2609.11472"
   },
@@ -2184,6 +2386,11 @@
      1,
      2
     ]
+   ],
+   "institutions": [
+    "Jilin University",
+    null,
+    "Jilin University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.11477",
    "pdf_url": "https://arxiv.org/pdf/2609.11477"
@@ -2230,6 +2437,11 @@
      2
     ]
    ],
+   "institutions": [
+    null,
+    "Lomonosov Moscow State University",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11486",
    "pdf_url": "https://arxiv.org/pdf/2609.11486"
   },
@@ -2265,6 +2477,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "Georgia Institute of Technology"
    ],
    "abs_url": "https://arxiv.org/abs/2609.11499",
    "pdf_url": "https://arxiv.org/pdf/2609.11499"
@@ -2315,6 +2530,10 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "University of Alberta",
+    "ShanghaiTech University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.11506",
    "pdf_url": "https://arxiv.org/pdf/2609.11506"
@@ -2373,6 +2592,10 @@
      0
     ]
    ],
+   "institutions": [
+    "Alibaba Group",
+    "Peking University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11507",
    "pdf_url": "https://arxiv.org/pdf/2609.11507"
   },
@@ -2406,6 +2629,10 @@
      1
     ]
    ],
+   "institutions": [
+    "Nanjing Normal University",
+    "Zhejiang University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11514",
    "pdf_url": "https://arxiv.org/pdf/2609.11514"
   },
@@ -2428,6 +2655,7 @@
    "abstract": "Hierarchical visual tokenizers typically allocate different processing blocks to different spatial scales. We ask how much of this computation can use the same parameters. LoopVAE reuses a scale- and loop-conditioned core within and across scales, while keeping resolution-changing transitions independent. A four-block core executes 28 block applications per encoder or decoder. On ImageNet-256, the 29M-parameter convolutional model reaches 0.28 rFID and 32.54 dB PSNR under an approximately 30-epoch two-stage training budget, using approximately 65% fewer parameters than the 84M reference VAEs. A non-adversarial Transformer ablation with the same execution graph finds competitive PSNR and SSIM under global sharing, although unshared blocks improve LPIPS. Targeted loop interventions show that completing the trained recurrence improves reconstruction and that even small feature updates can have substantial downstream effects. Truncation also exposes output-range errors, distinguishing useful recurrent computation from reliable early exit. Runtime profiling reveals the execution tradeoff: fewer stored weights require more arithmetic and longer runtime in the tested configurations. With convolutional and Transformer operators and single- or multi-resolution latent interfaces, LoopVAE establishes recurrent depth across scales as a parameter-sharing design axis for visual tokenization.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.11516",
    "pdf_url": "https://arxiv.org/pdf/2609.11516"
   },
@@ -2466,6 +2694,9 @@
      0
     ]
    ],
+   "institutions": [
+    "ShanghaiTech University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11519",
    "pdf_url": "https://arxiv.org/pdf/2609.11519"
   },
@@ -2490,6 +2721,7 @@
    "abstract": "Autoregressive video world models enable interactive, long-horizon exploration, but flexible control remains challenging. Exploring a source video from new viewpoints requires the generated rollout to remain synchronised with the recorded event, place observed content in the requested view, plausibly complete newly exposed regions, and recover previously generated appearance on revisits. Existing methods typically address these requirements through task-specific modules or additional training. We present World in World, a training-free inference-time interface that converts heterogeneous control evidence into camera- and time-labelled clean visual states, which are read through the native self attention of a frozen causal video model. The evidence comprises source-video observations, target-view scene projections, geometry renderings that guide completion of newly exposed subject regions, and retrieved generated states beyond the rolling cache. Each evidence source carries token-level support and its own availability schedule. A correspondence router combines persistent point identities with geometry to establish token correspondences, guiding supported queries towards matching source-video tokens. Evidence-wise attention CFG (EWA) then independently regulates each auxiliary channel's additional contribution using attention responses from the same denoising forward pass. The shared interface supports camera-controlled rerendering, long-horizon revisiting, and human-motion transfer with the same frozen backbone. We evaluate World in World on camera-controlled video rerendering under diverse viewpoint changes, assessing perceptual quality, temporal consistency, and camera-following accuracy.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.11548",
    "pdf_url": "https://arxiv.org/pdf/2609.11548"
   },
@@ -2538,6 +2770,10 @@
      1
     ]
    ],
+   "institutions": [
+    "Universidade Tecnológica Federal do Paraná",
+    "Universidade Federal do Vale do São Francisco"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11550",
    "pdf_url": "https://arxiv.org/pdf/2609.11550"
   },
@@ -2580,6 +2816,10 @@
     null,
     null
    ],
+   "institutions": [
+    null,
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11573",
    "pdf_url": "https://arxiv.org/pdf/2609.11573"
   },
@@ -2609,6 +2849,10 @@
     "POSTECH"
    ],
    "author_affiliations": null,
+   "institutions": [
+    null,
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11582",
    "pdf_url": "https://arxiv.org/pdf/2609.11582"
   },
@@ -2654,6 +2898,12 @@
     ],
     null
    ],
+   "institutions": [
+    "Beijing Normal University",
+    "Hong Kong University of Science and Technology",
+    null,
+    "Beijing Normal University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11601",
    "pdf_url": "https://arxiv.org/pdf/2609.11601"
   },
@@ -2697,6 +2947,10 @@
      1
     ],
     null,
+    null,
+    null
+   ],
+   "institutions": [
     null,
     null
    ],
@@ -2865,6 +3119,9 @@
      0
     ]
    ],
+   "institutions": [
+    "Tsinghua University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11638",
    "pdf_url": "https://arxiv.org/pdf/2609.11638"
   },
@@ -2916,6 +3173,11 @@
      2
     ]
    ],
+   "institutions": [
+    "Imperial College London",
+    "Friedrich-Alexander-Universität Erlangen-Nürnberg",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11650",
    "pdf_url": "https://arxiv.org/pdf/2609.11650"
   },
@@ -2954,6 +3216,10 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "University of Glasgow",
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.11673",
    "pdf_url": "https://arxiv.org/pdf/2609.11673"
@@ -2997,6 +3263,11 @@
      2
     ]
    ],
+   "institutions": [
+    "Southwest University",
+    null,
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11680",
    "pdf_url": "https://arxiv.org/pdf/2609.11680"
   },
@@ -3027,6 +3298,7 @@
    "abstract": "Accurate segmentation of colorectal liver metastases (CRLM) in contrast-enhanced computed tomography (CT) is important for response assessment, surgical planning, and follow-up. We propose two parameter-efficient spectral adapters for the Segment Anything Model (SAM): the Directional Spectral Adapter (DiSECT) and Spectral Instance-Guided Adapter (SiGA). DiSECT uses singular value decomposition of frozen weights to constrain residual updates to leading spectral directions, while SiGA adds global and input-conditioned gating through a multilayer perceptron. We evaluate these methods on 446 contrast-enhanced CT volumes (355 training, 91 testing) and compare them with LoRA, QLoRA, convolutional adapters (CAD), and a 3D nnU-Net baseline. Experiments consider single-point, three-point, bounding-box, and no-prompt regimes. SiGA achieves the best single-point performance with a Dice score of 0.77, IoU of 0.69, and HD95 of 35.39 mm. Under no-prompt inference, SiGA reaches 0.76 Dice, 0.68 IoU, and 46.76 mm HD95, comparable to the nnU-Net baseline (0.758 Dice). DiSECT uses only 0.14 million trainable parameters. These results show that spectral adapters can efficiently adapt SAM for CRLM segmentation while retaining strong accuracy with limited trainable parameters.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.11703",
    "pdf_url": "https://arxiv.org/pdf/2609.11703"
   },
@@ -3072,6 +3344,9 @@
      0
     ]
    ],
+   "institutions": [
+    "Fudan University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11708",
    "pdf_url": "https://arxiv.org/pdf/2609.11708"
   },
@@ -3106,6 +3381,10 @@
      0,
      1
     ]
+   ],
+   "institutions": [
+    "Moscow Institute of Physics and Technology",
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.11717",
    "pdf_url": "https://arxiv.org/pdf/2609.11717"
@@ -3150,6 +3429,11 @@
      1
     ]
    ],
+   "institutions": [
+    "Tübingen AI Center",
+    "Max Planck Institute for Informatics",
+    "University of Tübingen"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11722",
    "pdf_url": "https://arxiv.org/pdf/2609.11722"
   },
@@ -3192,6 +3476,9 @@
      0
     ]
    ],
+   "institutions": [
+    "Munich Center for Machine Learning"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11804",
    "pdf_url": "https://arxiv.org/pdf/2609.11804"
   },
@@ -3231,6 +3518,10 @@
      0,
      1
     ]
+   ],
+   "institutions": [
+    "ETH Zurich",
+    "Deutsches Zentrum für Luft- und Raumfahrt e. V. (DLR)"
    ],
    "abs_url": "https://arxiv.org/abs/2609.11886",
    "pdf_url": "https://arxiv.org/pdf/2609.11886"
@@ -3274,6 +3565,10 @@
      0,
      1
     ]
+   ],
+   "institutions": [
+    "Cornell Tech",
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.11894",
    "pdf_url": "https://arxiv.org/pdf/2609.11894"
@@ -3339,6 +3634,13 @@
     [
      4
     ]
+   ],
+   "institutions": [
+    "Queen Mary University of London",
+    null,
+    "Durham University",
+    "Imperial College London",
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.11899",
    "pdf_url": "https://arxiv.org/pdf/2609.11899"
@@ -3426,6 +3728,7 @@
    "abstract": "We launch SenseNova-U1.5, an 8B-MoT native unified multimodal model that understands, reasons about, and generates visual content within an encoder-free and VAE-free architecture. We strengthen its visual interface through spatially coherent patch reconstruction and scale its training with carefully curated generation and editing data, improved task formulation, structural prompt enhancement, and native resolutions of up to 4K. For post-training, we optimize specialized experts for visual aesthetics, bilingual text rendering, infographic generation, and image editing, and consolidate their capabilities through multi-expert on-policy distillation. Across extensive evaluations, SenseNova-U1.5 largely advances image fidelity, text rendering, complex composition, multi-reference editing, and interleaved generation, while improving instruction following and preserving subject identity, geometry, and unmodified regions. Despite limited exposure to structured formats in its generation data, SenseNova-U1.5 generalizes effectively to long, complex, and structured visual instructions, further proving that multimodal understanding can transfer to visual planning and creation. Together, these findings position native unified modelling as a promising path towards systems that perceive, reason and create within a fully end-to-end framework. We will open-source training code, including supervised fine-tuning, reinforcement learning, and on-policy distillation.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.11929",
    "pdf_url": "https://arxiv.org/pdf/2609.11929"
   },
@@ -3450,6 +3753,7 @@
    "abstract": "To address the challenges of behavioral multimodality, limited semantic utilization, and long-term error accumulation in vessel trajectory prediction, this paper proposes M3-Former, a multimodal trajectory prediction framework enhanced by large language models (LLMs). The proposed framework incorporates vessel static attributes and navigational intent as semantic priors for long-term trajectory modeling. Specifically, a unified multimodal representation space is constructed, in which static semantic information is encoded by a pre-trained LLM and aligned with dynamic trajectory features through self-attention. To jointly capture global route planning and local motion variations, a dual-granularity Mixture-of-Experts (MoE) architecture is introduced, where sequence-level experts model global navigation trends and token-level experts refine fine-grained maneuvering behaviors. In addition, a Steering-Weighted Cross-Entropy loss is designed to alleviate the long-tail distribution of sparse turning samples and improve prediction accuracy in critical maneuvering scenarios. Experiments on a real-world Danish AIS dataset demonstrate that M\\textsuperscript{3}-Former consistently outperforms state-of-the-art baselines across prediction horizons from 1 to 4 hours. In the 4-hour prediction task, the proposed method reduces Average Displacement Error (ADE) and Final Displacement Error (FDE) by 4.4\\% and 5.1\\%, respectively, compared with the strongest baseline. Qualitative and ablation analyses further verify that semantic fusion effectively reduces long-term trajectory drift, while the dual-granularity MoE improves robustness in complex waterways and route-branching scenarios. The proposed framework establishes a semantic-guided hierarchical prediction paradigm, in which high-level navigational intent and local motion dynamics are jointly modeled for robust long-term vessel trajectory forecasting.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.10559",
    "pdf_url": "https://arxiv.org/pdf/2609.10559"
   },
@@ -3506,6 +3810,10 @@
      1,
      0
     ]
+   ],
+   "institutions": [
+    null,
+    "Yonsei University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.10706",
    "pdf_url": "https://arxiv.org/pdf/2609.10706"
@@ -3583,6 +3891,18 @@
      9
     ]
    ],
+   "institutions": [
+    "Beijing Institute of Technology",
+    null,
+    "University of Hong Kong",
+    "University of Surrey",
+    "Shanghai Jiao Tong University",
+    "Beijing University of Posts and Telecommunications",
+    null,
+    "University of Southampton",
+    "Ocean University of China",
+    "Singapore University of Technology and Design"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.10714",
    "pdf_url": "https://arxiv.org/pdf/2609.10714"
   },
@@ -3626,6 +3946,11 @@
      2
     ]
    ],
+   "institutions": [
+    null,
+    "Oklahoma State University",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.10798",
    "pdf_url": "https://arxiv.org/pdf/2609.10798"
   },
@@ -3656,6 +3981,11 @@
     "Boston Children’s Hospital, Harvard Medical School"
    ],
    "author_affiliations": null,
+   "institutions": [
+    "Massachusetts Institute of Technology",
+    "Harvard University",
+    "Boston Children's Hospital"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.10825",
    "pdf_url": "https://arxiv.org/pdf/2609.10825"
   },
@@ -3707,6 +4037,10 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "University of Illinois Urbana-Champaign",
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.10914",
    "pdf_url": "https://arxiv.org/pdf/2609.10914"
@@ -3766,6 +4100,12 @@
      3
     ]
    ],
+   "institutions": [
+    "Simon Fraser University",
+    "University of Pennsylvania",
+    "Alberta Machine Intelligence Institute",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.10915",
    "pdf_url": "https://arxiv.org/pdf/2609.10915"
   },
@@ -3792,6 +4132,7 @@
    "abstract": "The heightened prevalence of respiratory disorders, particularly exacerbated by a significant upswing in fatalities due to the novel coronavirus, underscores the critical need for early detection and timely intervention. This imperative is paramount, possessing the potential to profoundly impact and safeguard numerous lives. Medically, chest radiography stands out as an essential and economically viable medical imaging approach for diagnosing and assessing the severity of diverse Respiratory Disorders. However, their detection in Chest X-Rays is a cumbersome task even for well-trained radiologists owing to low contrast issues, overlapping of the tissue structures, subjective variability, and the presence of noise. To address these issues, a novel analytical model termed Exponential Pixelating Integral is introduced for the automatic detection of infections in Chest X-Rays in this work. Initially, the presented Exponential Pixelating Integral enhances the pixel intensities to overcome the low-contrast issues that are then polar-transformed followed by their representation using the locally invariant Mandelbrot and Julia fractal geometries for effective distinction of structural features. The collated features labeled Exponential Pixelating Integral with dually characterized fractal features are then classified by the non-parametric multivariate adaptive regression splines to establish an ensemble model between each pair of classes for effective diagnosis of diverse diseases. Rigorous analysis of the proposed classification framework on large medical benchmarked datasets showcases its superiority over its peers by registering a higher classification accuracy and F1 scores ranging from 98.46 to 99.45% and 96.53-98.10% respectively, making it a precise and interpretable automated system for diagnosing respiratory disorders.",
    "affiliations": null,
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.10988",
    "pdf_url": "https://arxiv.org/pdf/2609.10988"
   },
@@ -3845,6 +4186,13 @@
      4
     ]
    ],
+   "institutions": [
+    "University of Manchester",
+    null,
+    "Huazhong University of Science and Technology",
+    "Shanghai Academy of Educational Sciences",
+    "National University of Singapore"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11244",
    "pdf_url": "https://arxiv.org/pdf/2609.11244"
   },
@@ -3875,6 +4223,7 @@
    "abstract": "Achieving high combustion efficiency in flare stacks is crucial for adhering to regulatory standards and controlling the release of hydrocarbons into the environment. Traditional instruments like gas analyzers and hyperspectral cameras are expensive, fragile, and require frequent calibration, which makes them impractical for remote or budget constrained industrial sites. We propose an innovative solution that combines a lightweight vision-language encoder with a compact multi-layer perceptron to predict combustion efficiency directly from low-cost thermal video footage. The fully trained model is integrated into an easy-to-deploy graphical user interface. This interface overlays predicted combustion efficiency values on each video frame, displays real-time trends in combustion efficiency, shows the distribution of combustion efficiency across all frames in the video, and allows users to export CSV reports. Over a six-month period, the system achieved 99% uptime and required less than 15 minutes of maintenance per week.",
    "affiliations": null,
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.11262",
    "pdf_url": "https://arxiv.org/pdf/2609.11262"
   },
@@ -3919,6 +4268,12 @@
      1
     ]
    ],
+   "institutions": [
+    null,
+    "Imperial College London",
+    null,
+    "California Polytechnic State University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11322",
    "pdf_url": "https://arxiv.org/pdf/2609.11322"
   },
@@ -3961,6 +4316,10 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "Swansea University",
+    "University College London"
    ],
    "abs_url": "https://arxiv.org/abs/2609.11434",
    "pdf_url": "https://arxiv.org/pdf/2609.11434"
@@ -4013,6 +4372,10 @@
      0
     ]
    ],
+   "institutions": [
+    "University of Neuchâtel",
+    "University College Dublin"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.11518",
    "pdf_url": "https://arxiv.org/pdf/2609.11518"
   },
@@ -4054,6 +4417,10 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "UNSW Sydney",
+    "Korea Advanced Institute of Science and Technology"
    ],
    "abs_url": "https://arxiv.org/abs/2609.11884",
    "pdf_url": "https://arxiv.org/pdf/2609.11884"
@@ -4113,6 +4480,10 @@
      0,
      1
     ],
+    null
+   ],
+   "institutions": [
+    null,
     null
    ],
    "abs_url": "https://arxiv.org/abs/2609.11900",

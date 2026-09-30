@@ -80,6 +80,9 @@
      0
     ]
    ],
+   "institutions": [
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.22083",
    "pdf_url": "https://arxiv.org/pdf/2609.22083"
   },
@@ -167,6 +170,10 @@
      1
     ]
    ],
+   "institutions": [
+    null,
+    "Hong Kong University of Science and Technology (Guangzhou)"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.22069",
    "pdf_url": "https://arxiv.org/pdf/2609.22069"
   },
@@ -198,6 +205,11 @@
      1,
      2
     ]
+   ],
+   "institutions": [
+    "K. N. Toosi University of Technology",
+    null,
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.22060",
    "pdf_url": "https://arxiv.org/pdf/2609.22060"
@@ -247,6 +259,10 @@
      0
     ]
    ],
+   "institutions": [
+    null,
+    "RWTH Aachen University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.22040",
    "pdf_url": "https://arxiv.org/pdf/2609.22040"
   },
@@ -287,6 +303,9 @@
      0
     ]
    ],
+   "institutions": [
+    "Korea Advanced Institute of Science and Technology"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21938",
    "pdf_url": "https://arxiv.org/pdf/2609.21938"
   },
@@ -311,6 +330,7 @@
    "abstract": "Leaf-wood segmentation of individual trees from LiDAR point clouds is essential for quantitative structure models (QSMs) used in non-destructive biomass estimation. Existing segmentation methods typically exclude radiometric features (e.g., intensity, return number) to maximize cross-sensor compatibility. We challenge this design choice by evaluating cross-site and cross-platform generalization: training on the public Heidelberg dataset (terrestrial TLS, 1550nm) and testing on a novel dataset from Ontario, Canada (RPA-LS, 905nm). Results show that geometry-only methods - including state-of-the-art deep learning models trained on high-density LiDAR datasets - fail to generalize to the sparse, top-down geometry of aerial scans, achieving F1 scores <= 0.56. Incorporating radiometric features (intensity, return number, number of returns) improves F1 to 0.61, but more critically, increases wood recall by 119% from 0.16 to 0.35. Furthermore, geometry-only approaches often result in fragmented stem and branch components. We find that leveraging radiometric features preserves greater structural connectivity, resulting in more coherent architectures that are better suited for QSM reconstruction. We demonstrate that while geometric patterns are view-dependent and prone to overfitting scan patterns, radiometric features encode physical material properties that generalize across disparate sensors and environments.",
    "affiliations": null,
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.21903",
    "pdf_url": "https://arxiv.org/pdf/2609.21903"
   },
@@ -347,6 +367,14 @@
     "Donostia International Physics Center (DIPC), San Sebastian, Spain"
    ],
    "author_affiliations": null,
+   "institutions": [
+    "University of Cambridge",
+    "MRC Laboratory of Molecular Biology",
+    "Hospital Universitario Virgen del Rocío",
+    "Universidad de Sevilla",
+    null,
+    "Donostia International Physics Center"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21887",
    "pdf_url": "https://arxiv.org/pdf/2609.21887"
   },
@@ -382,6 +410,10 @@
      1
     ]
    ],
+   "institutions": [
+    "Idiap Research Institute",
+    "University of Lausanne"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21879",
    "pdf_url": "https://arxiv.org/pdf/2609.21879"
   },
@@ -410,6 +442,7 @@
    "abstract": "We introduce Chronosphere, a spatio-temporal neural field that learns representations of climate. A central challenge in geographic representation learning is modeling environmental processes whose spatial and temporal complexity varies widely. Yet existing location encoders typically fix a single level of detail everywhere. Global bases such as spherical harmonics spread capacity uniformly across space and time. Localized bases resolve only predefined regions. Learned tessellations adapt, but are inefficient at representing higher frequencies. Chronosphere unifies these approaches, pairing an adaptive tessellation of learnable sites on the spacetime torus $S^2\\times S^1$ with a shared bank of local basis functions. Both where capacity is placed and how much detail each region carries adapt to the data, across space and time. Trained to reconstruct climatology, Chronosphere matches or leads state-of-the-art location encoders across spatial and temporal tasks, with the largest gains under spatial and temporal transfer.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.21872",
    "pdf_url": "https://arxiv.org/pdf/2609.21872"
   },
@@ -441,6 +474,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.21866",
    "pdf_url": "https://arxiv.org/pdf/2609.21866"
@@ -503,6 +539,13 @@
     [
      4
     ]
+   ],
+   "institutions": [
+    "Institute of Computer Science",
+    "Osnabrück University",
+    null,
+    "University of Wuppertal",
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.21822",
    "pdf_url": "https://arxiv.org/pdf/2609.21822"
@@ -569,6 +612,10 @@
      1
     ]
    ],
+   "institutions": [
+    "Technical University of Munich",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21804",
    "pdf_url": "https://arxiv.org/pdf/2609.21804"
   },
@@ -617,6 +664,11 @@
      2
     ]
    ],
+   "institutions": [
+    "Imperial College London",
+    "Friedrich-Alexander-Universität Erlangen-Nürnberg",
+    "Nanyang Technological University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21800",
    "pdf_url": "https://arxiv.org/pdf/2609.21800"
   },
@@ -652,6 +704,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "Shanghai Jiao Tong University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.21780",
    "pdf_url": "https://arxiv.org/pdf/2609.21780"
@@ -689,6 +744,11 @@
      1
     ]
    ],
+   "institutions": [
+    null,
+    "Institut Universitaire de France",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21770",
    "pdf_url": "https://arxiv.org/pdf/2609.21770"
   },
@@ -725,6 +785,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "Indian Institute of Technology Indore"
    ],
    "abs_url": "https://arxiv.org/abs/2609.21763",
    "pdf_url": "https://arxiv.org/pdf/2609.21763"
@@ -764,6 +827,10 @@
      1
     ]
    ],
+   "institutions": [
+    "Hong Kong University of Science and Technology (Guangzhou)",
+    "Hong Kong University of Science and Technology (Guangzhou)"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21754",
    "pdf_url": "https://arxiv.org/pdf/2609.21754"
   },
@@ -792,6 +859,7 @@
    "abstract": "Entropy minimization is a standard objective for test-time adaptation (TTA), but it can fail in imbalanced binary segmentation. Unlike image classification, dense segmentation aggregates thousands of pixel predictions, allowing the larger predicted class to dominate the update, pull minority predictions toward itself, and produce a degenerate mask as predictions saturate and their entropy gradients vanish. We theoretically establish this collapse in a shared-shift model. This analysis motivates Balanced-Anchor Prompt Adaptation (BAPA), which combines two complementary modules. The Class-Balanced Anchors (CBA) module selects high-confidence anchors separately from each predicted class and gives foreground and background equal total loss weight, preventing the larger region from dominating the update. Dynamic Prompt Adaptation (DPA) refreshes these anchors after each prediction update and optimizes only text-side prompt residuals while keeping the vision-language encoders frozen. This prompt-only update refines the foreground-background decision boundary without altering the pretrained dense visual representation. Across experiments from four domains, BAPA achieves the highest mean Dice among the evaluated methods. Factorized ablations further validate the complementary roles of CBA and DPA, supporting balanced prompt adaptation as an effective alternative to entropy minimization for test-time binary segmentation.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.21743",
    "pdf_url": "https://arxiv.org/pdf/2609.21743"
   },
@@ -836,6 +904,7 @@
    "abstract": "Generative world models offer controllable and repeatable closed-loop simulation for end-to-end and vision-language-action driving policies, but production deployment exposes three unresolved requirements: faithfully reproducing a mixed fisheye-pinhole rig at native resolutions; reconciling causal, per-timestep interaction with long-horizon stability and low latency; and preserving scene identity when a location is revisited. We present ZYT-World, a single architecture that natively generates four fisheye views with field of view > 180° and three pinhole views. Projection-specific Plucker adapters encode camera geometry, ego-motion adaptive layer normalization provides global motion control, and a lightweight pixel-aligned layout conditions traffic participants and signals through instance-level boxes, headings and colors. Heterogeneous training combines full-rig geometric coverage with high-resolution detail. Teacher forcing, causal consistency distillation, self-rollout distribution matching distillation, and RigCritic transform a 40-step bidirectional teacher into a one-step, per-latent streaming generator, with RigCritic evaluating the seven-view rig jointly. A 19M-parameter variational autoencoder decoder (TinyVAE), W8A8 quantization, and our inference engine reduce decoding, backbone, and incremental-execution costs, respectively. Finally, cross-trajectory pairs derived from real captures train a plug-in implicit-memory module that preserves place-specific evidence. On the internal multi-view test set, the one-step model retains more than 90% of the teacher's PSNR and SSIM, while FID, FVD, and LPIPS stay within 11% of the teacher. Under the generator-only timing in Figure 2, it is 107.7 times faster than the 40-step bidirectional teacher. TinyVAE decodes 59.8 times faster than Wan. 30s rollouts and cross-trajectory revisits show the intended long-horizon and memory behavior.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.21712",
    "pdf_url": "https://arxiv.org/pdf/2609.21712"
   },
@@ -909,6 +978,14 @@
      5
     ]
    ],
+   "institutions": [
+    "Tsinghua University",
+    "Tsinghua University",
+    "Nanyang Technological University",
+    null,
+    "Peng Cheng Laboratory",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21709",
    "pdf_url": "https://arxiv.org/pdf/2609.21709"
   },
@@ -961,6 +1038,15 @@
      6
     ]
    ],
+   "institutions": [
+    "University of Tartu",
+    "University of Bern",
+    "University of Bern",
+    "McGill University",
+    "Mila - Quebec Artificial Intelligence Institute",
+    null,
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21698",
    "pdf_url": "https://arxiv.org/pdf/2609.21698"
   },
@@ -999,6 +1085,10 @@
      1
     ]
    ],
+   "institutions": [
+    null,
+    "University of California, Irvine"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21675",
    "pdf_url": "https://arxiv.org/pdf/2609.21675"
   },
@@ -1027,6 +1117,7 @@
    "abstract": "FarmerChat is Digital Green's farm advisory service for smallholder farmers. When something looks wrong with a crop, the farmer takes a photograph and sends it, and that photograph is the whole question: no symptom described, no crop named, often no text at all. The service has to determine whether the picture can be used, what crop it shows, and what is wrong with it, from images taken on cheap phones in a field, in poor light and with a moving camera. The system doing this today cannot be adjusted. It has no adjustable thresholds for photograph rejection, crops and problems cannot be added, and there is no confidence cut-off to set. We study about 1.16 million photographs sent to FarmerChat from Ethiopia, India, Kenya and Nigeria. The production quality gate rejected 46.8% of the images it judged, over a quarter of those reaching diagnosis returned no crop name, and 35.8% of the labelled problems filed under \"disease\" are pests, identifiable without the crop. We therefore split the work into three stages: a quality gate (M0), a crop detector (M1), and a disease or pest detector (M2). Route A fills all three with one fine-tuned vision-language model (Qwen3-VL-4B) answering in a single call. Route B fills each with a small specialist model (DaViT, YOLO26). We replace our production GPT-4o quality gate with a small MobileNetV3 gate at 86.9% F1 in 12 ms. On one test set scored the same way for every system, a hierarchical DaViT-Base achieves 95.41% crop accuracy against 91.46% for the production baseline. It also leads on diagnosis and never declines to answer, while every language model in the comparison leaves a large share of rows with no diagnosis. The fine-tuned model retains two capabilities the specialists do not have: one call for all three stages, and a request for a better photograph when the image cannot support an answer.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.21651",
    "pdf_url": "https://arxiv.org/pdf/2609.21651"
   },
@@ -1066,6 +1157,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "University of Surrey"
    ],
    "abs_url": "https://arxiv.org/abs/2609.21629",
    "pdf_url": "https://arxiv.org/pdf/2609.21629"
@@ -1112,6 +1206,9 @@
      0
     ]
    ],
+   "institutions": [
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21628",
    "pdf_url": "https://arxiv.org/pdf/2609.21628"
   },
@@ -1149,6 +1246,9 @@
      0
     ]
    ],
+   "institutions": [
+    "OST - Ostschweizer Fachhochschule"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21624",
    "pdf_url": "https://arxiv.org/pdf/2609.21624"
   },
@@ -1185,6 +1285,9 @@
      0
     ]
    ],
+   "institutions": [
+    "University of Lisbon"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21597",
    "pdf_url": "https://arxiv.org/pdf/2609.21597"
   },
@@ -1216,6 +1319,7 @@
    "abstract": "Four-dimensional scanning transmission electron microscopy (4D-STEM) records a two-dimensional diffraction pattern at each electron-probe position, yielding spatially resolved reciprocal-space information but large, heterogeneous data volumes. Here we describe 4D-ImageNet, a collection of 174,000 diffraction patterns comprising 145,000 experimental patterns selected from 29 acquisitions and 29,000 multislice simulations. The experimental data cover acquisition-level labels for Ag, Au, mixed Au-Ag, CoO, Pd and ZnO specimens across multiple fields of view, scan dimensions, camera lengths and exposure times. Each acquisition contributes 5,000 quality-ranked patterns with source scan coordinates and acquisition metadata. A set-prediction detector provides model-derived pseudo-labels for the direct-beam position and Bragg-disk centres, with a confidence score for each disk. The simulation data cover 13 crystal structures and include Euler rotations, reciprocal-space sampling and approximate low-index beam directions. A grouped mixed-domain masked-reconstruction benchmark is provided to assess leakage-resistant loading and evaluation across experimental and simulated data. The dataset is intended for representation learning, disk detection, diffraction-pattern retrieval, orientation analysis and simulation-to-experiment studies.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.21593",
    "pdf_url": "https://arxiv.org/pdf/2609.21593"
   },
@@ -1245,6 +1349,7 @@
    "abstract": "Generating natural co-speech gestures from streaming speech is essential for embodied conversational agents, where motion must be produced while a user is still speaking. Recent streaming gesture systems make online generation possible by autoregressing over discrete motion tokens, but this design compresses high-dimensional continuous motion into finite codebooks and can limit the realism and diversity of generated gestures. To preserve both causality and continuous expressiveness, we propose \\textbf{GestureFAR}, a flow-autoregressive framework for streaming co-speech gesture generation. First, GestureFAR autoregresses over causal continuous motion latents, using a transformer to model streaming audio-motion context and a per-token flow-matching head to sample the next latent from a continuous distribution. Second, we introduce a head-only flow distillation strategy that freezes the causal backbone and distills the multi-step per-token flow head into a single network evaluation using consistency and distribution-matching objectives. This keeps the model token-causal while removing the main latency bottleneck for live interaction. Experiments on BEAT2 show that GestureFAR significantly improves the quality--latency trade-off among streaming-capable methods, preserving strong gesture quality while enabling real-time token-causal generation. Project Page: https://andypinxinliu.github.io/GestureFAR",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.21576",
    "pdf_url": "https://arxiv.org/pdf/2609.21576"
   },
@@ -1273,6 +1378,10 @@
     "Suzhou, China"
    ],
    "author_affiliations": null,
+   "institutions": [
+    null,
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21543",
    "pdf_url": "https://arxiv.org/pdf/2609.21543"
   },
@@ -1311,6 +1420,10 @@
      0
     ]
    ],
+   "institutions": [
+    "National Yang Ming Chiao Tung University",
+    "National Tsing Hua University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21541",
    "pdf_url": "https://arxiv.org/pdf/2609.21541"
   },
@@ -1336,6 +1449,7 @@
    "abstract": "Recent pre-trained foundation models provide rich multi-modal priors for downstream 3D vision tasks. However, the effectiveness of these representations in few-shot scenarios is limited by two fundamental challenges: High-dimensional features often contain substantial channel redundancy and task-irrelevant noise, while the reliability of different modalities varies across samples. Consequently, direct aggregation of heterogeneous representations overlooks sample-dependent modality reliability and may obscure the discriminative cues essential. To address these limitations, we propose Refine Then Fusion(RTF), a training-free framework for few-shot 3D recognition. RTF first identifies discriminative feature channels by jointly modeling inter-class similarity and intra-class stability, thereby decoupling domain-specific knowledge refinement from the cached representations of pre-trained models. It then introduces a reliability-aware fusion mechanism that estimates sample-wise modality reliability from the distribution shifts induced by feature refinement, enabling adaptive aggregation of multi-modal representations. Furthermore, RTF constructs a memory cache that integrates instance-level support features with class-level prototypes to infer query labels. Extensive experiments on five benchmarks demonstrate that RTF consistently outperforms single-modal baselines, partial-fusion variants, and existing lightweight adaptation methods, achieving state-of-the-art few-shot 3D recognition performance without gradient optimization, additional training data, auxiliary training, or parameter updates.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.21522",
    "pdf_url": "https://arxiv.org/pdf/2609.21522"
   },
@@ -1384,6 +1498,12 @@
     null,
     null
    ],
+   "institutions": [
+    null,
+    "Sungkyunkwan University",
+    "University of Tokyo",
+    "Omron Sinic X Corporation"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21521",
    "pdf_url": "https://arxiv.org/pdf/2609.21521"
   },
@@ -1417,6 +1537,9 @@
      0
     ]
    ],
+   "institutions": [
+    "University of Hong Kong"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21516",
    "pdf_url": "https://arxiv.org/pdf/2609.21516"
   },
@@ -1449,6 +1572,7 @@
    "abstract": "Recent 3D foundation models enable generalizable geometric reasoning from RGB images but remain limited in persistent memory, scalability, and renderable scene modeling. We present a memory-centric 3D foundation model for scalable robotic localization, reconstruction, and Gaussian rendering. Its core is an adaptive world memory mechanism that combines transformer-based gated updates with test-time temporal-spatial regulation. Learned gates control recurrent memory propagation, while temporal state evolution and spatial observation-state consistency regulate token-wise updates and forgetting over long image sequences. To support large-scale mapping, we organize memory into local submaps and integrate progressive mapping and tracking, loop closure, and SL(4)-based global refinement to maintain local accuracy and global consistency. A Gaussian reconstruction head decodes memory-enhanced features into renderable primitives, unifying camera pose estimation, dense point-cloud reconstruction, and photorealistic rendering within a single model. Experiments on public benchmarks and self-collected datasets from diverse robotic platforms demonstrate improved trajectory accuracy, reconstruction completeness, and rendering quality over existing 3D foundation reconstruction and SLAM baselines. These results support adaptive memory as a foundation for persistent robotic world modeling. The dataset and code will be made publicly available at \\href{https://github.com/dtc111111/AWM-3DFM}{https://github.com/dtc111111/AWM-3DFM}.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.21502",
    "pdf_url": "https://arxiv.org/pdf/2609.21502"
   },
@@ -1490,6 +1614,11 @@
      0,
      1
     ]
+   ],
+   "institutions": [
+    "East China University of Science and Technology",
+    null,
+    "Shanghai Open University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.21498",
    "pdf_url": "https://arxiv.org/pdf/2609.21498"
@@ -1537,6 +1666,12 @@
     [
      3
     ]
+   ],
+   "institutions": [
+    null,
+    null,
+    "Lomonosov Moscow State University",
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.21480",
    "pdf_url": "https://arxiv.org/pdf/2609.21480"
@@ -1588,6 +1723,10 @@
      0
     ]
    ],
+   "institutions": [
+    "Chinese Academy of Sciences",
+    "University of Chinese Academy of Sciences"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21474",
    "pdf_url": "https://arxiv.org/pdf/2609.21474"
   },
@@ -1616,6 +1755,7 @@
    "abstract": "This paper studies agentic image restoration, in which multimodal agents coordinate specialized restoration tools to recover images affected by complex degradations. Existing restoration agents often derive complete tool-use plans from the original degraded image or retrieve previously successful trajectories, providing limited support for adapting individual actions to evolving intermediate restoration states. We find that accepted tool executions can change the residual degradation state and, consequently, the applicability of subsequent tools. To address this issue, we propose SkillIR, a skill-guided framework that represents restoration experience as degradation-centered action evidence rather than complete tool-use trajectories. SkillIR consolidates context-dependent action outcomes into scene-aware restoration skills that characterize applicable conditions, expected effects, and attributable failure cases. Instead of prescribing a complete restoration plan, the retrieved skills guide one bounded action at a time within a verified residual-state loop: each tool output is treated as a candidate, committed only after transition verification, and followed by reassessment of the active residual degradations. After each rollout, the resulting evidence is used to create, refine, or patch dynamic skills, enabling accumulated restoration experience to improve decision-making for subsequent inputs. Experiments on synthetic and real-world multi-degradation datasets demonstrate that SkillIR improves restoration quality and enables more reliable and effective tool use.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.21468",
    "pdf_url": "https://arxiv.org/pdf/2609.21468"
   },
@@ -1655,6 +1795,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "Xi'an Jiaotong University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.21462",
    "pdf_url": "https://arxiv.org/pdf/2609.21462"
@@ -1705,6 +1848,10 @@
      0
     ]
    ],
+   "institutions": [
+    "Harbin Institute of Technology",
+    "Alibaba Group"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21455",
    "pdf_url": "https://arxiv.org/pdf/2609.21455"
   },
@@ -1737,6 +1884,7 @@
    "abstract": "World Action Models bring the predictive capabilities of video models into robot action generation, providing a rich foundation for modeling future visual states. Tactile sensing complements this foundation with direct measurements of physical interaction. Some existing methods use tactile features as conditioning inputs without jointly predicting future tactile states, visual observations, and actions. Our key insight is that tactile signals, like video, provide observations of the evolving world state and should be modeled as future observations alongside video. We present ME-Dex-1.0 (MachEmbodied-Dex-1.0), a unified World Action Tactile Model for joint visual, tactile, and action learning. ME-Dex-1.0 adopts a Mixture-of-Transformers architecture comprising a Video Expert, a Tactile Expert, and an Action Expert, all trained with flow matching. We use shared attention connects the experts in intermediate layers, allowing action generation to draw on learned representations of visual and tactile dynamics during joint denoising. To support multi-source heterogeneous tactile inputs, a Canonical Hand Model and a Unified Tactile Autoencoder map tactile observations from different embodiments and sensing layouts into shared spatial and latent spaces. To address the limited availability of paired visual, tactile, and action data, we develop the Agentic Tactile Data Engine, an agent-based data production platform. It supplements RoboTwin and DexJoCo with tactile data recorded directly from force sensors during trajectory replay in simulation. Experiments on the RoboTwin, DexJoCo, and ManiFeel simulation platforms, together with real robot evaluations, demonstrate improved manipulation performance using both grippers and dexterous hands equipped with tactile sensing.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.21449",
    "pdf_url": "https://arxiv.org/pdf/2609.21449"
   },
@@ -1768,6 +1916,7 @@
    "abstract": "We propose LoG-VGGT, a memory-efficient framework for long-sequence 3D reconstruction that balances local temporal modeling with global camera consistency. Instead of relying on full global attention, our method introduces cross-window attention at a small subset of transformer blocks, enabling effective information propagation across adjacent temporal windows while keeping memory usage bounded. To mitigate long-term pose drift, we further design a global camera consistency refinement module, where camera tokens interact with compact register tokens via cross-attention to enforce scene-level constraints across the entire sequence. This design enables joint optimization of camera representations and significantly improves long-horizon pose stability without incurring the high cost of sequence-wide attention. Extensive experiments demonstrate that LoG-VGGT achieves improved depth accuracy and robust camera pose estimation across multiple long-sequence benchmarks, while delivering competitive streaming reconstruction performance.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.21437",
    "pdf_url": "https://arxiv.org/pdf/2609.21437"
   },
@@ -1818,6 +1967,11 @@
      0
     ]
    ],
+   "institutions": [
+    "Shandong University",
+    null,
+    "Lingnan University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21424",
    "pdf_url": "https://arxiv.org/pdf/2609.21424"
   },
@@ -1845,6 +1999,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "Hong Kong Baptist University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.21412",
    "pdf_url": "https://arxiv.org/pdf/2609.21412"
@@ -1886,6 +2043,9 @@
      0
     ]
    ],
+   "institutions": [
+    "Tsinghua University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21407",
    "pdf_url": "https://arxiv.org/pdf/2609.21407"
   },
@@ -1922,6 +2082,10 @@
     [
      1
     ]
+   ],
+   "institutions": [
+    null,
+    "Huazhong University of Science and Technology"
    ],
    "abs_url": "https://arxiv.org/abs/2609.21402",
    "pdf_url": "https://arxiv.org/pdf/2609.21402"
@@ -1984,6 +2148,9 @@
      0
     ]
    ],
+   "institutions": [
+    "University of California, Berkeley"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21400",
    "pdf_url": "https://arxiv.org/pdf/2609.21400"
   },
@@ -2033,6 +2200,9 @@
      0
     ]
    ],
+   "institutions": [
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21386",
    "pdf_url": "https://arxiv.org/pdf/2609.21386"
   },
@@ -2072,6 +2242,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "Ho Chi Minh City University of Technology and Engineering"
    ],
    "abs_url": "https://arxiv.org/abs/2609.21379",
    "pdf_url": "https://arxiv.org/pdf/2609.21379"
@@ -2166,6 +2339,13 @@
      0
     ]
    ],
+   "institutions": [
+    "Tongji University",
+    "Tsinghua University",
+    "Chinese University of Hong Kong",
+    "Shenzhen MSU-BIT University",
+    "University of Science and Technology of China"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21371",
    "pdf_url": "https://arxiv.org/pdf/2609.21371"
   },
@@ -2220,6 +2400,11 @@
     [
      2
     ]
+   ],
+   "institutions": [
+    "Fudan University",
+    "East China University of Science and Technology",
+    "Shanghai University of Electric Power"
    ],
    "abs_url": "https://arxiv.org/abs/2609.21363",
    "pdf_url": "https://arxiv.org/pdf/2609.21363"
@@ -2290,6 +2475,19 @@
      2
     ]
    ],
+   "institutions": [
+    null,
+    "UNSW Sydney",
+    null,
+    null,
+    "Wageningen University & Research",
+    null,
+    null,
+    null,
+    null,
+    "University of Queensland",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21354",
    "pdf_url": "https://arxiv.org/pdf/2609.21354"
   },
@@ -2329,6 +2527,10 @@
      0,
      1
     ]
+   ],
+   "institutions": [
+    null,
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.21351",
    "pdf_url": "https://arxiv.org/pdf/2609.21351"
@@ -2382,6 +2584,9 @@
      0
     ]
    ],
+   "institutions": [
+    "Zhejiang University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21347",
    "pdf_url": "https://arxiv.org/pdf/2609.21347"
   },
@@ -2416,6 +2621,13 @@
     "KAIST"
    ],
    "author_affiliations": null,
+   "institutions": [
+    "Tsinghua University",
+    null,
+    null,
+    null,
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21323",
    "pdf_url": "https://arxiv.org/pdf/2609.21323"
   },
@@ -2443,6 +2655,7 @@
    "abstract": "Heavy rainfall severely degrades outdoor videos by corrupting high-frequency details and introducing motion blur, critically undermining the reliability of visual tasks. Recently, State Space Models (SSMs), particularly Mamba, have emerged as efficient alternatives for vision tasks with their linear complexity and ability to model long-range dependencies. However, when confronted with the poor visual representations in rainy videos, Mamba still faces difficulties in preserving the integrity of 2D spatial semantics and modeling 3D spatio-temporal correlations. To break these limitations, we introduce S3VD, a Semantic-Guidance Spatio-Temporal Scanning framework for video deraining, featuring two key innovations: Multi-Scale Semantic Fusion (MSSF) Module and Spatio-Temporal Scanning Fusion (STSF) Module. The former integrates temporal semantic priors from DINOv2 to guide precise feature representation and counteract the loss of local semantic context inherent to Mamba's 1D flatten operation, enhancing robustness against extreme degradation. The latter introduces a spatio-temporal scanning mechanism and devises a Decoupled-Gating Mamba (DG-Mamba) layer, which employs two independent gates to adaptively control preceding and subsequent contextual information within the input clip, optimizing intra-frame and inter-frame correlation modeling. Experiments on video deraining benchmarks demonstrate the superiority of S3VD, achieving state-of-the-art performance with an average 0.84 dB PSNR improvement over Mamba-based baselines.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.21322",
    "pdf_url": "https://arxiv.org/pdf/2609.21322"
   },
@@ -2488,6 +2701,11 @@
     [
      2
     ]
+   ],
+   "institutions": [
+    "Rowan University",
+    "Rowan University",
+    "Rowan University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.21304",
    "pdf_url": "https://arxiv.org/pdf/2609.21304"
@@ -2543,6 +2761,11 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "Hefei University of Technology",
+    "Hefei University of Technology",
+    "University of Malaya"
    ],
    "abs_url": "https://arxiv.org/abs/2609.21276",
    "pdf_url": "https://arxiv.org/pdf/2609.21276"
@@ -2605,6 +2828,14 @@
      2
     ]
    ],
+   "institutions": [
+    null,
+    "South China University of Technology",
+    "Tsinghua University",
+    "Shandong University",
+    "Nankai University",
+    "Hunan University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21268",
    "pdf_url": "https://arxiv.org/pdf/2609.21268"
   },
@@ -2649,6 +2880,11 @@
      2
     ]
    ],
+   "institutions": [
+    null,
+    "Shanghai Jiao Tong University",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21251",
    "pdf_url": "https://arxiv.org/pdf/2609.21251"
   },
@@ -2681,6 +2917,11 @@
     "Xi’an University of Architecture and Technology, Shaanxi, China"
    ],
    "author_affiliations": null,
+   "institutions": [
+    null,
+    "University of Science and Technology of China",
+    "Xi'an University of Architecture and Technology"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21242",
    "pdf_url": "https://arxiv.org/pdf/2609.21242"
   },
@@ -2745,6 +2986,16 @@
      7
     ]
    ],
+   "institutions": [
+    "Ohio State University",
+    "Ohio State University",
+    "Ohio State University",
+    "Boston University",
+    "Utah State University",
+    "Universidad de Antioquia",
+    "Ohio State University",
+    "Ohio State University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21241",
    "pdf_url": "https://arxiv.org/pdf/2609.21241"
   },
@@ -2772,6 +3023,7 @@
    "abstract": "Parametric CAD reconstruction requires recovering both precise geometry and editable modeling operations from visual observations, making it challenging under limited and ambiguous views. Existing methods mainly rely on 2D appearance cues and lack strong multi-view geometric priors. In this work, we present VGGT-CAD, a geometry-aware framework for parametric CAD reconstruction from single- and multi-view observations. We transfer pretrained 3D geometric priors into CAD reconstruction by encoding camera parameters as condition tokens and jointly modeling them with image tokens. To handle varying numbers of viewpoints, we introduce a variable-view cross-view context aggregation module that adaptively fuses multi-view features. We further develop a training-free geometry-aware view selection strategy to select complementary and reliable frames during inference. The resulting representation is decoded into CAD command sequences using a non-autoregressive decoder. We also develop VideoCAD, a large-scale multi-view video benchmark derived from existing CAD data through multi-view re-rendering. Extensive experiments demonstrate the effectiveness of VGGT-CAD for visual CAD reconstruction under different observation configurations.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.21225",
    "pdf_url": "https://arxiv.org/pdf/2609.21225"
   },
@@ -2797,6 +3049,7 @@
    "abstract": "Robot localization is an ongoing challenge that demands mapping and positioning systems that are tolerant to viewpoint change. Event cameras are attracting increasing interest and adoption in robotics; however, dealing with viewpoint variance is an under-investigated problem in existing event-based localizers. In addition, event-based datasets that emphasize viewpoint variance for challenging localization situations are scarce. Here, we introduce an event-based visual place recognition (VPR) system that performs robustly under viewpoint changes. We converted five large-scale geo-tagged datasets, conventionally used to train frame-based localization systems, into synthetic event streams using Image-to-Event (I2E) conversion, and used them to fine-tune a pre-trained event-based vision transformer backbone with a multi-loss function, yielding a system we call MegaEvent that learns viewpoint-robust features for place recognition. We achieved an average Recall@1 of 82% across three existing event-based localization datasets, leading the next best event-based method by 20 recall points, and frame-based VPR models applied directly to event frames by 8 to 26 recall points. We introduce a new, challenging dataset - Springfield-Event-VPR - which features a 3.7km walking route recorded in three camera orientations for a total of 11.1km, which MegaEvent outperforms the strongest baseline by 9 recall points. The code for MegaEvent is available at https://github.com/AdamDHines/megaevent.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.21219",
    "pdf_url": "https://arxiv.org/pdf/2609.21219"
   },
@@ -2831,6 +3084,10 @@
     "Hunan University, Changsha 410012, China"
    ],
    "author_affiliations": null,
+   "institutions": [
+    "Karlsruhe Institute of Technology",
+    "Hunan University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21207",
    "pdf_url": "https://arxiv.org/pdf/2609.21207"
   },
@@ -2871,6 +3128,10 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "University of Tokyo",
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.21199",
    "pdf_url": "https://arxiv.org/pdf/2609.21199"
@@ -2940,6 +3201,13 @@
      1
     ]
    ],
+   "institutions": [
+    null,
+    "Singapore Institute of Technology",
+    null,
+    null,
+    "Hong Kong University of Science and Technology"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21176",
    "pdf_url": "https://arxiv.org/pdf/2609.21176"
   },
@@ -2971,6 +3239,11 @@
      1,
      2
     ]
+   ],
+   "institutions": [
+    null,
+    null,
+    "University of Illinois Urbana-Champaign"
    ],
    "abs_url": "https://arxiv.org/abs/2609.21095",
    "pdf_url": "https://arxiv.org/pdf/2609.21095"
@@ -3013,6 +3286,10 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "Hong Kong Polytechnic University",
+    "Southern University of Science and Technology"
    ],
    "abs_url": "https://arxiv.org/abs/2609.21018",
    "pdf_url": "https://arxiv.org/pdf/2609.21018"
@@ -3057,6 +3334,11 @@
      2
     ]
    ],
+   "institutions": [
+    "Ca' Foscari University of Venice",
+    "Dundalk Institute of Technology",
+    "University of Milan"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21012",
    "pdf_url": "https://arxiv.org/pdf/2609.21012"
   },
@@ -3084,6 +3366,7 @@
    "abstract": "Affordable dust monitoring remains a pressing need for the cattle feedlot industry, yet camera-based PM estimation, despite its growing body of research in urban air quality settings, has not been evaluated under the extended concentration ranges characteristic of intensive livestock operations. This study developed an image-based approach using contrast panel features and machine learning to estimate PM10 concentrations in a commercial cattle feedlot, where hourly average PM10 ranged from 250 to 1,000 ug/m^-3 and instantaneous concentrations reached 5,000 to 20,000 ug/m^-3. Grayscale images were captured during the evening dust peak period, and features including panel contrast, black and white panel pixel values, and overall image brightness were extracted. The model also incorporated recent past values from preceding images and solar zenith angle as predictors. Among the candidate models evaluated, XGBoost achieved the highest predictive performance, with an R^2 of 0.792 and a median absolute error of 103 ug/m^-3. Feature importance analysis revealed that (a) panels positioned farthest from the camera contributed most strongly to predictions and (b) that black panel pixel values were more sensitive than white panel values to changes in PM10 concentration. Prediction accuracy during the sunset transition, which coincides with the onset of the feedlot evening dust peak, remains an area for further refinement. These findings demonstrate the feasibility of image-based PM10 estimation across PM concentration ranges substantially exceeding those reported in prior urban studies and provide practical guidelines for future deployment in feedlot environments.",
    "affiliations": null,
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.20975",
    "pdf_url": "https://arxiv.org/pdf/2609.20975"
   },
@@ -3117,6 +3400,9 @@
      0
     ]
    ],
+   "institutions": [
+    "Indian Institute of Technology Guwahati"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.20962",
    "pdf_url": "https://arxiv.org/pdf/2609.20962"
   },
@@ -3141,6 +3427,7 @@
    "abstract": "We present TAPe+ML v3, a compact computer vision system based on TAPe (Theory of Active Perception), a structured representation that encodes relations among perceptual elements before recognition. Instead of operating directly on pixel tensors, the system uses a shared TAPe representation and a modular recognition architecture for image classification, object detection, and instance segmentation. TAPe+ML v3 combines background and contour processing, local object localization, prototype-based classification, and a coordinator for specialized submodels. Across the reported experiments, it uses fewer than 100,000 parameters. On COCO object detection, it obtains 84.7 mAP50 and 65.3 mAP50-95. On COCO instance segmentation, it obtains 80.7 mask mAP50 and 58.4 mask mAP50-95. In classification experiments, it reaches 92 percent validation accuracy on Imagenette under an identical-training comparison with a raw-pixel baseline, and 89.9 percent Top-1 accuracy on ImageNet-Real. We also evaluate compactness in video scene detection and adaptation under distribution shift in an industrial pilot. The results suggest that shifting part of the modeling burden from network parameters to a structured input representation can support compact multi-task vision systems with reduced data, memory, and compute requirements.",
    "affiliations": null,
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.20869",
    "pdf_url": "https://arxiv.org/pdf/2609.20869"
   },
@@ -3181,6 +3468,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.22086",
    "pdf_url": "https://arxiv.org/pdf/2609.22086"
@@ -3225,6 +3515,10 @@
      0
     ]
    ],
+   "institutions": [
+    "Tsinghua University",
+    "Shanghai Qi Zhi Institute"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21948",
    "pdf_url": "https://arxiv.org/pdf/2609.21948"
   },
@@ -3260,6 +3554,10 @@
      1
     ]
    ],
+   "institutions": [
+    null,
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21849",
    "pdf_url": "https://arxiv.org/pdf/2609.21849"
   },
@@ -3293,6 +3591,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.21813",
    "pdf_url": "https://arxiv.org/pdf/2609.21813"
@@ -3330,6 +3631,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.21812",
    "pdf_url": "https://arxiv.org/pdf/2609.21812"
@@ -3382,6 +3686,13 @@
      1
     ]
    ],
+   "institutions": [
+    "Technical University of Munich",
+    "Munich Center for Machine Learning",
+    "Technical University of Munich",
+    "University of California, Irvine",
+    "University of California, Irvine"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21811",
    "pdf_url": "https://arxiv.org/pdf/2609.21811"
   },
@@ -3413,6 +3724,9 @@
      0
     ]
    ],
+   "institutions": [
+    "Sogang University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21683",
    "pdf_url": "https://arxiv.org/pdf/2609.21683"
   },
@@ -3437,6 +3751,7 @@
    "abstract": "In-context learning using Large Language Models (LLMs) offers a compelling path to training-free post-OCR correction, yet its effectiveness for Devanagari script remains entirely unexplored. We present the first systematic evaluation of LLMs (3B-32B) for post-OCR correction in Hindi and Marathi, comparing three in-context example retrieval strategies: domain-random selection, dense semantic retrieval, and our proposed CharBM25, which retrieves examples by character n-gram BM25 similarity over OCR inputs to target shared error patterns with the test sentence. Across a 20,000-sentence benchmark spanning five news domains, retrieval strategy is the decisive factor in correction quality: CharBM25 outperforms domain-random selection by 2.8-4.0pp absolute WER on Hindi and 2.9-3.8pp on Marathi, using character trigrams, which consistently outperform bigrams and unigrams. Scale dominates performance: Gemma-3-27B achieves WER reductions of 55.0% for Hindi and 33.3% for Marathi under CharBM25-5. Few-shot gains are capacity-gated: models below 8B do not reliably improve over the OCR baseline, and on Marathi the smallest models (3B) degrade more sentences than they improve. Marathi is persistently harder to correct than Hindi across all scales, reflecting its greater morphological complexity. These findings establish CharBM25 as an effective, GPU-free retrieval strategy that matches or exceeds dense retrieval at negligible computational cost, and show that combining it with a general-purpose LLM of 12B+ parameters delivers reliable, training-free Devanagari post-OCR correction without task-specific fine-tuning. Dataset: https://huggingface.co/datasets/AbhishekBhandari/Devanagari-OCR-ICL-Benchmark",
    "affiliations": null,
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.21595",
    "pdf_url": "https://arxiv.org/pdf/2609.21595"
   },
@@ -3490,6 +3805,11 @@
      0
     ]
    ],
+   "institutions": [
+    null,
+    "University of Aberdeen",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21511",
    "pdf_url": "https://arxiv.org/pdf/2609.21511"
   },
@@ -3536,6 +3856,11 @@
     "Hong Kong Polytechnic University 7Nankai University 8Johns Hopkins University"
    ],
    "author_affiliations": null,
+   "institutions": [
+    "Shanghai Jiao Tong University",
+    "Chinese University of Hong Kong",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21392",
    "pdf_url": "https://arxiv.org/pdf/2609.21392"
   },
@@ -3597,6 +3922,12 @@
      3
     ]
    ],
+   "institutions": [
+    "Xinjiang University",
+    "Xinjiang University",
+    "Xinjiang University",
+    "Xinjiang University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21391",
    "pdf_url": "https://arxiv.org/pdf/2609.21391"
   },
@@ -3651,6 +3982,10 @@
      0
     ]
    ],
+   "institutions": [
+    null,
+    "Adelaide University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21369",
    "pdf_url": "https://arxiv.org/pdf/2609.21369"
   },
@@ -3691,6 +4026,10 @@
      0
     ]
    ],
+   "institutions": [
+    "Texas Tech University",
+    "Purdue University West Lafayette"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21246",
    "pdf_url": "https://arxiv.org/pdf/2609.21246"
   },
@@ -3721,6 +4060,7 @@
    "abstract": "Vision-language-action (VLA) models built on pretrained vision-language models have demonstrated strong performance across diverse robotic manipulation tasks. However, VLA models that directly map current 2D observations to actions often lack sufficient spatial and temporal understanding, limiting their performance in precise and long-horizon manipulation. Recent methods enhance VLA models through geometric supervision and future-state prediction across the entire scene. However, these methods can suffer from redundant scene information, distracting the model from learning the geometry and dynamics relevant to the current interaction. To address this issue, we propose FOCAL-VLA, a framework that combines subtask-guided geometry distillation with implicit world modeling to learn representations of current spatial structure and future interaction dynamics. To focus geometric learning on the current subtask, we transfer geometric knowledge from VGGT to the VLA model by aligning geometry latents with features from subtask-relevant image regions. To capture the future 3D evolution of the current interaction, we incorporate implicit world modeling using Track4World features from current and future demonstration frames. The two complementary representations jointly guide action generation without running VGGT or Track4World at inference time. Experiments show that FOCAL-VLA outperforms baselines on both simulation benchmarks and real-world manipulation tasks. Project website: https://zhiyuan-gao.github.io/FOCAL-VLA/.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.21228",
    "pdf_url": "https://arxiv.org/pdf/2609.21228"
   },
@@ -3748,6 +4088,7 @@
    "abstract": "Accurate initialization is essential for reliable visual-inertial odometry (VIO), but it is often ill-conditioned under degenerate motions. Existing methods typically require restrictive excitation motions to ensure sufficient observability or rely on computationally expensive 3D structure reconstruction, limiting efficient and practical deployment. To address these limitations, we propose SLIM-init, a structureless monocular VIO initializer that directly exploits geometric constraints from tracked 2D line features without explicit 3D landmark reconstruction. Specifically, SLIM-init leverages line-derived vanishing points (VPs) as translation-invariant orientation cues to provide robust rotation-only constraints under degenerate scenarios such as low-parallax or translation-dominant motions. It further incorporates a line epipolar residual to constrain translation and a line-normal projection residual to improve the conditioning of linear alignment, enhancing the accuracy and robustness of initial state estimation. Extensive experiments on a public benchmark and challenging custom degenerate-motion sequences demonstrate improved accuracy and robustness over state-of-the-art initialization methods. The source code is available at: https://github.com/cjunwan/SLIM-init.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.21186",
    "pdf_url": "https://arxiv.org/pdf/2609.21186"
   },
@@ -3784,6 +4125,10 @@
      0
     ]
    ],
+   "institutions": [
+    "Samsung Electronics",
+    null
+   ],
    "abs_url": "https://arxiv.org/abs/2609.21169",
    "pdf_url": "https://arxiv.org/pdf/2609.21169"
   },
@@ -3810,6 +4155,7 @@
    "abstract": "Spinning frequency-modulated continuous-wave (FMCW) radars have been gaining popularity in autonomous vehicle perception on account of their robustness to adverse weather conditions and 360° field of view. Recently, scanning radars have also been shown capable of generating per-azimuth Doppler velocity. In this paper, we investigate whether these Doppler velocity measurements improve spinning radar vehicle detection and tracking performance. For detection, we estimate the ego motion and use it to undo the Doppler range distortion of the radar image before passing it to a network. For tracking, we propose a new way to estimate a per-vehicle velocity and use it as a prior for the tracker's motion model. Since Doppler-enabled spinning radar data is not available in any dataset with ground-truth dynamic object labels, our first contribution is an automatic labelling pipeline that uses an ensemble of fine-tuned off-the-shelf lidar detectors to label all 643 km of the Boreas Road Trip dataset. We then transfer detections to radar, and use over 250 km of vehicle-dense sequences as ground-truth training data. By training and evaluating two state-of-the-art detectors, we show that Doppler undistortion can improve detection accuracy by up to $2.37$ points on mean average precision. Furthermore, we show that the Doppler velocity prior can improve tracking accuracy by $13.68$ points on multi-object tracking accuracy (MOTA) versus the zero-velocity initialization baseline, while achieving $99.7\\%$ of the MOTA obtained using ground-truth velocities as the prior.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.21000",
    "pdf_url": "https://arxiv.org/pdf/2609.21000"
   },
@@ -3846,6 +4192,9 @@
     [
      0
     ]
+   ],
+   "institutions": [
+    "University of Manchester"
    ],
    "abs_url": "https://arxiv.org/abs/2609.20905",
    "pdf_url": "https://arxiv.org/pdf/2609.20905"
@@ -3888,6 +4237,10 @@
     [
      1
     ]
+   ],
+   "institutions": [
+    "Shanghai Innovation Institute",
+    "Shanghai Jiao Tong University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.20892",
    "pdf_url": "https://arxiv.org/pdf/2609.20892"
@@ -3946,6 +4299,9 @@
      0
     ]
    ],
+   "institutions": [
+    "Nanjing University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.20850",
    "pdf_url": "https://arxiv.org/pdf/2609.20850"
   },
@@ -3984,6 +4340,9 @@
      0
     ]
    ],
+   "institutions": [
+    "Kyushu Institute of Technology"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.20839",
    "pdf_url": "https://arxiv.org/pdf/2609.20839"
   },
@@ -4011,6 +4370,7 @@
    "abstract": "Current radiology report generation (RRG) models usually produce descriptive reports based on a single examination or only the most recent prior examination, limiting their ability to perform accurate and meaningful longitudinal comparisons and detect subtle interval changes. Although recent approaches have begun to incorporate multiple prior examinations, they usually aggregate a fixed-length history without explicitly modeling the role-dependent relevance of each prior examination before fusion. To address this, we propose TALON, a Temporally Aware LONgitudinal RRG framework that adaptively integrates variable-length patient histories. The underlying Dual-Channel Temporal Fusion Module (DCTFM) compares the current examination with each prior examination through complementary similarity and change channels to capture persistent findings and interval changes, respectively. The specially designed channel-specific attention estimates the relevance of each prior examination, while a learned prior-specific gate adaptively integrates informative longitudinal evidence and suppresses redundancy. Experiments on MIMIC-CXR show that TALON outperforms the current state-of-the-art method on various clinical efficacy and graph-based metrics. When more prior examinations become available, TALON's performance on these metrics improves even further, emphasizing the strength of TALON's DCTFM in modeling longitudinal RRG across longer and more complex patient histories than existing approaches.",
    "affiliations": [],
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.20826",
    "pdf_url": "https://arxiv.org/pdf/2609.20826"
   },
@@ -4042,6 +4402,7 @@
    "abstract": "Hybrid optical systems combining refractive and diffractive optical responses have the potential to support new types of optical behavior, but they are difficult to model and optimize due to the disparate spatial scales and physics exhibited by ray and wave phenomena. In this work, we present a differentiable ray-wave framework for modeling hybrid refractive-diffractive optical systems that operates as a plug-and-play module within standard ray tracing pipelines. Our model uniquely applies to both planar and curvilinear diffractive surfaces and accommodates arbitrary scalar holographic profiles with high spatial frequency responses, with each simulation evaluated at a single wavelength. We analyze ray-wave modeling regimes that optimally account for the spatial frequency properties and spatial curvature of the diffractive surfaces, and we demonstrate the gradient-based end-to-end optimization of hybrid refractive-diffractive systems featuring planar and conformal diffractive surfaces. We anticipate that these modeling capabilities will enable new classes of hybrid optical systems relevant to computational imaging and display applications.",
    "affiliations": null,
    "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2605.15418",
    "pdf_url": "https://arxiv.org/pdf/2605.15418"
   },
@@ -4080,6 +4441,10 @@
      1
     ],
     null
+   ],
+   "institutions": [
+    "Institut Universitaire de France",
+    "IMT Atlantique"
    ],
    "abs_url": "https://arxiv.org/abs/2310.03860",
    "pdf_url": "https://arxiv.org/pdf/2310.03860"
