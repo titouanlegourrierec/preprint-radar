@@ -6,7 +6,7 @@ from pathlib import Path
 import pytest
 
 from preprint_radar.exceptions import StoreError
-from preprint_radar.models import Listing
+from preprint_radar.models import Listing, Paper
 from preprint_radar.store import PaperStore
 
 
@@ -61,3 +61,49 @@ def test_invalid_day_file_raises(store: PaperStore) -> None:
 
     with pytest.raises(StoreError, match="2026-09-25"):
         store.load_day("cs.CV", date(2026, 9, 25))
+
+
+def _archived(listing: Listing, year: int, index: int = 0) -> Paper:
+    paper = listing.papers[index]
+    return replace(paper, arxiv_id=f"{year % 100:02d}01.{index:05d}", announced=date(year, 1, 1))
+
+
+def test_citations_file_is_not_a_day(store: PaperStore, listing: Listing) -> None:
+    store.save("cs.CV", listing.papers)
+    store.write_citations("cs.CV", {"2609.30245": 3}, source="Semantic Scholar")
+
+    assert store.days("cs.CV") == [date(2026, 9, 25), date(2026, 9, 24)]
+    assert store.load_citations("cs.CV") == {"2609.30245": 3}
+    assert store.load_citations("cs.LG") == {}
+
+
+def test_archive_is_written_by_year_and_replaced_as_a_whole(store: PaperStore, listing: Listing) -> None:
+    store.write_archive(
+        "cs.CV", [_archived(listing, 2015), _archived(listing, 2015, 1), _archived(listing, 2017)]
+    )
+
+    assert store.archive_years("cs.CV") == [2017, 2015]
+    assert [paper.arxiv_id for paper in store.load_archive("cs.CV", 2015)] == ["1501.00001", "1501.00000"]
+    assert store.days("cs.CV") == []  # archived papers never land in day files
+
+    store.write_archive("cs.CV", [_archived(listing, 2017)])
+
+    assert store.archive_years("cs.CV") == [2017]
+    assert [paper.arxiv_id for paper in store.iter_archive("cs.CV")] == ["1701.00000"]
+
+
+def test_index_lists_archive_years(store: PaperStore, listing: Listing) -> None:
+    store.save("cs.CV", listing.papers)
+    store.write_archive("cs.CV", [_archived(listing, 2015), _archived(listing, 2015, 1)])
+
+    index = json.loads(store.write_index().read_text(encoding="utf-8"))
+
+    assert index["archives"] == {"cs.CV": [{"year": 2015, "count": 2}]}
+
+
+def test_remove_days(store: PaperStore, listing: Listing) -> None:
+    store.save("cs.CV", listing.papers)
+
+    store.remove_days("cs.CV", [date(2026, 9, 24)])
+
+    assert store.days("cs.CV") == [date(2026, 9, 25)]

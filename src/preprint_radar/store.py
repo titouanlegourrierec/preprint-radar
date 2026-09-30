@@ -3,16 +3,21 @@
 Layout::
 
     <root>/
-    ├── index.json                 # categories, days and paper counts
+    ├── index.json                 # categories, days, archive years and paper counts
     └── <category>/
-        └── <YYYY-MM-DD>.json      # papers announced that day in that category
+        ├── <YYYY-MM-DD>.json      # papers announced that day in that category
+        ├── citations.json         # citation counts of the stored papers
+        └── archive/
+            └── <YYYY>.json        # highly cited older papers, by year of first version
 
 One file per day keeps each update small, and lets the web app load only the days
-it needs.
+it needs. The archive holds the papers kept for their citations once they are older than
+the days kept in full; it is rewritten as a whole by :meth:`PaperStore.write_archive`.
 """
 
 import json
 import logging
+import re
 from collections import defaultdict
 from collections.abc import Iterable, Iterator
 from dataclasses import dataclass
@@ -27,6 +32,10 @@ logger = logging.getLogger(__name__)
 
 SCHEMA_VERSION = 1
 INDEX_FILENAME = "index.json"
+CITATIONS_FILENAME = "citations.json"
+ARCHIVE_DIRNAME = "archive"
+_DAY_STEM_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+_YEAR_STEM_RE = re.compile(r"^\d{4}$")
 
 
 @dataclass(frozen=True, slots=True)
@@ -55,7 +64,14 @@ class PaperStore:
         directory = self.root / category
         if not directory.is_dir():
             return []
-        return sorted((date.fromisoformat(path.stem) for path in directory.glob("*.json")), reverse=True)
+        return sorted(
+            (
+                date.fromisoformat(path.stem)
+                for path in directory.glob("*.json")
+                if _DAY_STEM_RE.match(path.stem)
+            ),
+            reverse=True,
+        )
 
     def load_day(self, category: str, day: date) -> list[Paper]:
         """Load the papers of one day, or an empty list if the day is not stored.
@@ -63,14 +79,16 @@ class PaperStore:
         Raises:
             StoreError: If the file is not a valid day file.
         """
-        path = self._day_path(category, day)
+        return self._load_papers(self._day_path(category, day))
+
+    def _load_papers(self, path: Path) -> list[Paper]:
         if not path.is_file():
             return []
         try:
             payload: Any = json.loads(path.read_text(encoding="utf-8"))
             records = payload["papers"]
         except (json.JSONDecodeError, KeyError, TypeError) as exc:
-            msg = f"Invalid day file {path}: {exc}"
+            msg = f"Invalid papers file {path}: {exc}"
             raise StoreError(msg) from exc
         return [Paper.from_record(record) for record in records]
 
@@ -104,6 +122,74 @@ class PaperStore:
             self._write_day(category, day, list(merged.values()))
         return sorted(by_day, reverse=True)
 
+    def remove_days(self, category: str, days: Iterable[date]) -> None:
+        """Delete the files of the given days (the archive keeps what must be kept)."""
+        for day in days:
+            self._day_path(category, day).unlink(missing_ok=True)
+
+    def archive_years(self, category: str) -> list[int]:
+        """Return the years of the archive of ``category``, most recent first."""
+        directory = self.root / category / ARCHIVE_DIRNAME
+        if not directory.is_dir():
+            return []
+        return sorted(
+            (int(path.stem) for path in directory.glob("*.json") if _YEAR_STEM_RE.match(path.stem)),
+            reverse=True,
+        )
+
+    def load_archive(self, category: str, year: int) -> list[Paper]:
+        """Load the archived papers of one year, or an empty list.
+
+        Raises:
+            StoreError: If the file is not a valid archive file.
+        """
+        return self._load_papers(self._archive_path(category, year))
+
+    def iter_archive(self, category: str) -> Iterator[Paper]:
+        """Iterate over the archived papers of ``category``."""
+        for year in self.archive_years(category):
+            yield from self.load_archive(category, year)
+
+    def write_archive(self, category: str, papers: Iterable[Paper]) -> None:
+        """Replace the whole archive of ``category``: one file per year of ``announced``."""
+        by_year: defaultdict[int, list[Paper]] = defaultdict(list)
+        for paper in papers:
+            by_year[paper.announced.year].append(paper)
+        for year in set(self.archive_years(category)) - set(by_year):
+            self._archive_path(category, year).unlink()
+        for year, year_papers in by_year.items():
+            year_papers.sort(key=lambda paper: (paper.announced, paper.arxiv_id), reverse=True)
+            payload = {
+                "schema_version": SCHEMA_VERSION,
+                "category": category,
+                "year": year,
+                "papers": [paper.to_record() for paper in year_papers],
+            }
+            _write_json(self._archive_path(category, year), payload)
+
+    def load_citations(self, category: str) -> dict[str, int]:
+        """Citation counts of the stored papers of ``category`` (empty if never written)."""
+        path = self.root / category / CITATIONS_FILENAME
+        if not path.is_file():
+            return {}
+        try:
+            counts = json.loads(path.read_text(encoding="utf-8"))["counts"]
+        except (json.JSONDecodeError, KeyError, TypeError) as exc:
+            msg = f"Invalid citations file {path}: {exc}"
+            raise StoreError(msg) from exc
+        return {str(arxiv_id): int(count) for arxiv_id, count in counts.items()}
+
+    def write_citations(self, category: str, counts: dict[str, int], *, source: str) -> None:
+        """Write the citation counts of the stored papers of ``category``."""
+        payload = {
+            "schema_version": SCHEMA_VERSION,
+            "category": category,
+            "generated_at": datetime.now(tz=UTC).isoformat(timespec="seconds"),
+            "source": source,
+            "counts": dict(sorted(counts.items())),
+        }
+        _write_json(self.root / category / CITATIONS_FILENAME, payload)
+
     def summaries(self, category: str) -> list[DaySummary]:
         """Return the number of papers per day for ``category``, most recent first."""
         return [DaySummary(day, len(self.load_day(category, day))) for day in self.days(category)]
@@ -120,10 +206,18 @@ class PaperStore:
                 ]
                 for category in self.categories()
             },
+            "archives": {
+                category: [{"year": year, "count": len(self.load_archive(category, year))} for year in years]
+                for category in self.categories()
+                if (years := self.archive_years(category))
+            },
         }
         path = self.root / INDEX_FILENAME
         _write_json(path, index)
         return path
+
+    def _archive_path(self, category: str, year: int) -> Path:
+        return self.root / category / ARCHIVE_DIRNAME / f"{year}.json"
 
     def _day_path(self, category: str, day: date) -> Path:
         return self.root / category / f"{day.isoformat()}.json"
