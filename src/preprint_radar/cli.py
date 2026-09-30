@@ -14,6 +14,7 @@ from preprint_radar.export import ExportFormat, export_papers
 from preprint_radar.http import (
     ARXIV_API_DELAY_SECONDS,
     ARXIV_CRAWL_DELAY_SECONDS,
+    DEFAULT_USER_AGENT,
     HttpClient,
     build_user_agent,
 )
@@ -300,7 +301,8 @@ def _run_update(args: argparse.Namespace) -> int:
     with (
         HttpClient(user_agent=user_agent, min_interval=args.crawl_delay) as site_client,
         HttpClient(user_agent=user_agent, min_interval=ARXIV_API_DELAY_SECONDS) as api_client,
-        HttpClient(user_agent=user_agent, min_interval=ROR_DELAY_SECONDS) as ror_client,
+        # The contact is for arXiv only: other services get the bare User-Agent.
+        HttpClient(user_agent=DEFAULT_USER_AGENT, min_interval=ROR_DELAY_SECONDS) as ror_client,
     ):
         for category in categories:
             report = update_category(
@@ -329,7 +331,8 @@ def _run_backfill(args: argparse.Namespace) -> int:
     user_agent = build_user_agent(args.contact)
     with (
         HttpClient(user_agent=user_agent, min_interval=args.crawl_delay) as site_client,
-        HttpClient(user_agent=user_agent, min_interval=ROR_DELAY_SECONDS) as ror_client,
+        # The contact is for arXiv only: other services get the bare User-Agent.
+        HttpClient(user_agent=DEFAULT_USER_AGENT, min_interval=ROR_DELAY_SECONDS) as ror_client,
     ):
         for category in categories:
             report = backfill_category(
@@ -367,7 +370,7 @@ def _run_stats(args: argparse.Namespace) -> int:
 def _run_institutions(args: argparse.Namespace) -> int:
     store = PaperStore(args.data_dir)
     categories: list[str] = args.categories or store.categories()
-    with HttpClient(user_agent=build_user_agent(args.contact), min_interval=ROR_DELAY_SECONDS) as client:
+    with HttpClient(user_agent=DEFAULT_USER_AGENT, min_interval=ROR_DELAY_SECONDS) as client:
         for category in categories:
             papers = list(store.iter_papers(category))
             named = add_institutions(papers, client, limit=args.max_ror)

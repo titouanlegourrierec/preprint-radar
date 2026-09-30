@@ -73,7 +73,7 @@ Single checks: `uv run pytest tests/unit/test_store.py -k merge`, `cd web && npx
 - **Fixtures:**
   - Real e-mails in them are replaced by `author@example.org`.
   - `tests/fixtures/` and `data/` are excluded from pre-commit, so hooks never rewrite them.
-- **Contact:** `PREPRINT_RADAR_CONTACT` goes into the User-Agent. It comes from `.env` locally (git-ignored, loaded by the Makefile) and from a repository variable in CI.
+- **Contact:** `PREPRINT_RADAR_CONTACT` goes into the User-Agent of arXiv requests only; other services (ROR...) get the bare `DEFAULT_USER_AGENT`, never the maintainer's e-mail. It comes from `.env` locally (git-ignored, loaded by the Makefile) and from a repository variable in CI.
 
 ## Gotchas
 
