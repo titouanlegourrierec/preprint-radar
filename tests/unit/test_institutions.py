@@ -53,7 +53,7 @@ def _client(requested: list[str]) -> HttpClient:
     def handle(request: httpx.Request) -> httpx.Response:
         affiliation = request.url.params["affiliation"]
         requested.append(affiliation)
-        if affiliation == "Unreachable":
+        if affiliation.startswith("Unreachable"):
             return httpx.Response(503)
         return httpx.Response(200, text=_response("peking" if "Peking" in affiliation else "meta"))
 
@@ -71,12 +71,21 @@ def test_match_institutions_looks_each_string_up_once() -> None:
     assert matches == {"Peking University, China": "Peking University", "Meta AI": None}
 
 
-def test_match_institutions_stops_at_the_limit_or_when_ror_is_down() -> None:
+def test_match_institutions_stops_at_the_limit() -> None:
     requested: list[str] = []
     with _client(requested) as client:
-        limited = match_institutions(client, ["Meta AI", "Peking University"], limit=1)
-        down = match_institutions(client, ["Unreachable", "Meta AI"])
+        matches = match_institutions(client, ["Meta AI", "Peking University"], limit=1)
 
-    assert limited == {"Meta AI": None}
-    assert down == {}
-    assert requested == ["Meta AI", "Unreachable"]
+    assert matches == {"Meta AI": None}
+    assert requested == ["Meta AI"]
+
+
+def test_match_institutions_skips_a_failure_and_stops_when_ror_is_down() -> None:
+    requested: list[str] = []
+    strings = ["Unreachable 1", "Meta AI", "Unreachable 2", "Unreachable 3", "Unreachable 4", "Later"]
+    with _client(requested) as client:
+        matches = match_institutions(client, strings)
+
+    # One failure is skipped (left for the next run); three in a row stop the lookups.
+    assert matches == {"Meta AI": None}
+    assert requested == strings[:5]

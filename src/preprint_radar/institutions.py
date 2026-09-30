@@ -23,6 +23,8 @@ logger = logging.getLogger(__name__)
 ROR_API_URL = "https://api.ror.org/v2/organizations"
 # ROR allows about 2,000 requests per 5 minutes; stay well below.
 ROR_DELAY_SECONDS = 0.5
+# Lookups in a row that may fail before ROR is considered down.
+MAX_CONSECUTIVE_FAILURES = 3
 
 _STOP_WORDS = frozenset(
     {"the", "of", "and", "for", "at", "in", "de", "du", "des", "la", "le", "di", "del", "der"}
@@ -83,7 +85,10 @@ def parse_ror_response(text: str, affiliation: str) -> str | None:
 def match_institutions(
     client: HttpClient, affiliations: Iterable[str], *, limit: int | None = None
 ) -> dict[str, str | None]:
-    """Match distinct affiliation strings, stopping at the first unreachable request.
+    """Match distinct affiliation strings, giving up when ROR keeps failing.
+
+    A failed lookup (timeout, server error) leaves its string for later; a few failures
+    in a row mean that ROR is down, and stop the lookups.
 
     Args:
         client: HTTP client for the ROR API.
@@ -92,17 +97,23 @@ def match_institutions(
 
     Returns:
         The strings that could be looked up, with their institution (``None``: no match).
-        Strings left out (limit reached, API unreachable) are to be tried again later.
+        Strings left out (limit reached, lookup failed) are to be tried again later.
     """
     matches: dict[str, str | None] = {}
-    for affiliation in dict.fromkeys(affiliations):
-        if limit is not None and len(matches) >= limit:
+    failures = 0
+    for requests, affiliation in enumerate(dict.fromkeys(affiliations), start=1):
+        if limit is not None and requests > limit:
             break
         try:
             matches[affiliation] = match_institution(client, affiliation)
         except (FetchError, ParseError) as exc:
-            logger.warning("ROR lookup stopped after %d strings: %s", len(matches), exc)
-            break
+            failures += 1
+            logger.warning("ROR lookup of %r failed: %s", affiliation, exc)
+            if failures >= MAX_CONSECUTIVE_FAILURES:
+                logger.warning("ROR keeps failing; stopping after %d lookups", requests)
+                break
+        else:
+            failures = 0
     return matches
 
 
