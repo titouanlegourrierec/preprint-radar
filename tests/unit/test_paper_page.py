@@ -486,3 +486,141 @@ def test_fetch_front_matter_parses_page(paper_html: PaperHtml) -> None:
         front = fetch_front_matter(client, "https://arxiv.org/html/2609.30249v1")
     assert "NVIDIA" in front.affiliations
     assert front.abstract
+
+
+def _author_block(*creators: tuple[str, tuple[str, ...]], contacts: tuple[str, ...] = ()) -> str:
+    """An author block: each creator's name and own contacts, then contacts shared by all."""
+    spans = "".join(
+        f'<span class="ltx_creator ltx_role_author"><span class="ltx_personname">{name}</span>'
+        + "".join(_contact(text) for text in own)
+        + "</span>"
+        for name, own in creators
+    )
+    return f'<div class="ltx_authors">{spans}{"".join(_contact(text) for text in contacts)}</div>'
+
+
+def _contact(text: str) -> str:
+    return f'<span class="ltx_contact ltx_role_affiliation">{text}</span>'
+
+
+def _thanks(text: str) -> str:
+    return f'<span class="ltx_note ltx_role_thanks"><span class="ltx_note_content">{text}</span></span>'
+
+
+def test_thanks_sentences_on_one_line_end_before_the_next_initials() -> None:
+    authors = ("Eva Milara", "Luis Zhinin", "Plato")
+    html = _author_block(*((name, ()) for name in authors)) + _thanks(
+        "E. Milara is with the University of Madrid, Spain. "
+        "L. Zhinin is with the University of Quito, Ecuador."
+    )
+
+    front = parse_front_matter(html, authors=authors)
+
+    assert front.affiliations == ("University of Madrid, Spain", "University of Quito, Ecuador")
+    assert front.author_affiliations == ((0,), (1,), None)
+
+
+def test_thanks_sentences_keep_abbreviations_in_affiliations() -> None:
+    html = _thanks("A. Doe is with the Dept. of CS, MIT, USA. B. Roe is with Stanford University.")
+
+    assert parse_front_matter(html).affiliations == ("Dept. of CS, MIT, USA", "Stanford University")
+
+
+def test_thanks_sentences_with_two_affiliations() -> None:
+    html = _thanks("A. Doe is with the University of Madrid, and is also with the University of Quito.")
+
+    assert parse_front_matter(html).affiliations == ("University of Madrid", "University of Quito")
+
+
+def test_thanks_initials_shared_by_two_authors_name_neither() -> None:
+    authors = ("Eva Milara", "Emilio Milara")
+    html = _author_block(*((name, ()) for name in authors)) + _thanks(
+        "E. Milara is with the University of Madrid, Spain. The authors are with the University of Quito."
+    )
+
+    assert parse_front_matter(html, authors=authors).author_affiliations == ((1,), (1,))
+
+
+def test_thanks_sentences_place_each_author_once() -> None:
+    authors = ("Ada Lovelace", "Bob Smith")
+    html = _author_block(
+        *((name, ()) for name in authors), contacts=("University of Madrid", "University of Quito")
+    ) + _thanks(
+        "The authors are with the University of Madrid. Ada Lovelace is with the University of Madrid. "
+        "Bob Smith is with the Moon. Bob Smith is also with the University of Quito."
+    )
+
+    assert parse_front_matter(html, authors=authors).author_affiliations == ((0,), (0, 1))
+
+
+def test_no_mapping_without_an_author_block() -> None:
+    html = _thanks("Ada Lovelace is with MIT. Bob Smith is with NVIDIA.")
+
+    front = parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith"))
+
+    assert front.affiliations == ("MIT", "NVIDIA")
+    assert front.author_affiliations is None
+
+
+def test_markers_skip_symbols_and_repeated_affiliations() -> None:
+    authors = ("Ada Lovelace", "Bob Smith", "Carl Jones")
+    html = _author_block(
+        ("Ada Lovelace<sup>1,2</sup>", ()),
+        ("Bob Smith<sup>*</sup>", ()),
+        ("Carl Jones<sup>3</sup>", ()),
+        contacts=("<sup>1</sup>MIT <sup>2</sup>MIT <sup>3</sup>NVIDIA",),
+    )
+
+    # Ada's two markers name the same affiliation; Bob's only marker is a contribution note.
+    assert parse_front_matter(html, authors=authors).author_affiliations == ((0,), None, (1,))
+
+
+def test_a_marker_without_affiliation_drops_the_markers() -> None:
+    html = _author_block(
+        ("Ada Lovelace<sup>1</sup>", ()),
+        ("Bob Smith<sup>4</sup>", ()),
+        contacts=("<sup>1</sup>MIT <sup>3</sup>NVIDIA",),
+    )
+
+    assert parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith")).author_affiliations is None
+
+
+def test_an_ambiguous_creator_name_drops_the_per_author_blocks() -> None:
+    html = _author_block(("A. Lovelace", ("MIT",)), ("Bob Smith", ("NVIDIA",)))
+
+    front = parse_front_matter(html, authors=("Ada Lovelace", "Anna Lovelace", "Bob Smith"))
+
+    assert front.author_affiliations is None
+
+
+@pytest.mark.parametrize(
+    ("creators", "authors", "expected"),
+    [
+        pytest.param(("Jane Roe", "Bob Smith"), ("Jane Doe", "Bob Smith"), ((0,), (1,)), id="same-position"),
+        pytest.param(
+            ("Xavier Unknown", "Bob Smith"), ("Bob Smith", "Carl Jones"), ((1,), None), id="position-taken"
+        ),
+    ],
+)
+def test_unmatched_creators_fall_back_on_their_position(
+    creators: tuple[str, str], authors: tuple[str, str], expected: tuple[tuple[int, ...] | None, ...]
+) -> None:
+    html = _author_block((creators[0], ("MIT",)), (creators[1], ("NVIDIA",)))
+
+    assert parse_front_matter(html, authors=authors).author_affiliations == expected
+
+
+def test_notes_without_content_give_nothing() -> None:
+    html = (
+        '<article class="ltx_document">'
+        '<span class="ltx_note ltx_role_address">Massachusetts Institute of Technology</span>'
+        '<span class="ltx_note ltx_role_footnotetext"><sup>1</sup>Stanford University</span>'
+        "</article>"
+    )
+
+    assert parse_front_matter(html).affiliations == ()
+
+
+@pytest.mark.parametrize("raw", ["1, 2", "AB", "* †"])
+def test_clean_affiliation_drops_what_names_nothing(raw: str) -> None:
+    assert clean_affiliation(raw) is None

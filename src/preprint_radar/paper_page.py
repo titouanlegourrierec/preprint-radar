@@ -40,6 +40,10 @@ _IS_WITH_RE = re.compile(
     r"\b(?:is|are)\s+(?:also\s+|now\s+|currently\s+)?(?:with|at|affiliated\s+with)\s+(?:the\s+)?",
     re.IGNORECASE,
 )
+# A full stop that ends a sentence, not an initial's: "Spain. L. Zhinin is with" ends at "Spain.".
+_FULL_STOP_RE = re.compile(r"(?<!\b[A-Z])\.\s+")
+# The same people's next affiliation in one sentence: "is with X and is also with Y".
+_TRAILING_CONNECTOR_RE = re.compile(r"[\s,]+(?:and|&)\s*$", re.IGNORECASE)
 # Sentences that follow an affiliation in acknowledgment notes.
 _NEXT_SENTENCE_RE = re.compile(
     r"\.\s+(?=(?:This|These|The\s+work|Corresponding|Manuscript|He|She|They|We|Our|Work|Part|Funding|Supported)\b)"
@@ -254,8 +258,12 @@ def _thanks_affiliations(notes: list[str]) -> list[str]:
         matches = list(_IS_WITH_RE.finditer(line))
         for index, match in enumerate(matches):
             if index + 1 < len(matches):
-                # Stop at the sentence that introduces the next people: "..., Spain. C is with".
-                text = line[match.end() : matches[index + 1].start()].rsplit(". ", maxsplit=1)[0]
+                # Stop at the sentence that introduces the next people: "..., Spain. C. Li is with".
+                text = line[match.end() : matches[index + 1].start()]
+                if stops := list(_FULL_STOP_RE.finditer(text)):
+                    text = text[: stops[-1].start()]
+                else:
+                    text = _TRAILING_CONNECTOR_RE.sub("", text)
             else:
                 text = line[match.end() :]
             affiliations.append(_NEXT_SENTENCE_RE.split(_CONTACT_TAIL_RE.sub("", text), maxsplit=1)[0])
@@ -430,7 +438,7 @@ def _marker_map(
 ) -> AuthorAffiliations | None:
     """Superscript markers on names, matched with marker-led affiliation lines and notes."""
     block = soup.select_one("div.ltx_authors")
-    if block is None:
+    if block is None:  # pragma: no cover - _author_affiliations only maps pages with an author block
         return None
     names = _fold(" , ".join(_marked_text(name) for name in block.select(".ltx_personname")))
     anchors = _anchors(soup, block, index_of)
