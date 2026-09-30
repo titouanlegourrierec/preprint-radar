@@ -1,5 +1,6 @@
 import gzip
 import json
+from dataclasses import replace
 from datetime import date, timedelta
 from pathlib import Path
 
@@ -50,7 +51,7 @@ def test_fetch_affiliations_leaves_failed_requests_out() -> None:
         found = fetch_affiliations(client, {"1512.03385": 4, "2609.99999": 2})
 
     assert found["1512.03385"].affiliations == ("Microsoft",)
-    assert found["2609.99999"].affiliations == ()  # same request, unknown to OpenAlex
+    assert "2609.99999" not in found  # not returned: tried again next time
 
 
 class FakeServices:
@@ -190,6 +191,24 @@ def test_update_archive_without_pruning_keeps_old_days_out_of_the_archive(
         "2209.00001",
     }
     assert store.days("cs.CV") == [RECENT_DAY, STALE_DAY]
+
+
+def test_archived_papers_without_affiliations_are_looked_up_again(
+    store: PaperStore, catalog: Catalog
+) -> None:
+    _update(store, catalog, FakeServices(CITATIONS))
+    papers = [
+        replace(paper, affiliations=None, author_affiliations=None, institutions=None)
+        if paper.arxiv_id == "1512.03385"
+        else paper
+        for paper in store.iter_archive("cs.CV")
+    ]
+    store.write_archive("cs.CV", papers)
+
+    _update(store, catalog, FakeServices(CITATIONS))
+
+    resnet = next(paper for paper in store.iter_archive("cs.CV") if paper.arxiv_id == "1512.03385")
+    assert resnet.affiliations == ("Microsoft",)
 
 
 def test_dry_run_writes_nothing(store: PaperStore, catalog: Catalog) -> None:

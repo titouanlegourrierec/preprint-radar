@@ -170,9 +170,9 @@ def update_archive(
     if dry_run:
         return report
 
-    new_papers = _with_affiliations(new_papers, clients.openalex)
     kept = [paper for arxiv_id, paper in archived.items() if arxiv_id in selection.keep]
-    store.write_archive(category, [*kept, *new_papers])
+    # Entering papers, and archived ones OpenAlex did not return last time.
+    store.write_archive(category, _with_affiliations([*kept, *new_papers], clients.openalex))
     store.remove_days(category, stale_days)
     stored_ids = recent_ids | selection.keep
     store.write_citations(

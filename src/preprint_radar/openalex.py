@@ -49,9 +49,9 @@ def fetch_affiliations(client: HttpClient, papers: Mapping[str, int]) -> dict[st
         papers: Number of arXiv authors of each paper, by arXiv identifier.
 
     Returns:
-        The affiliations of the papers looked up (empty for a paper OpenAlex does not
-        know or places nowhere). Papers of a request that failed are left out, to be
-        tried again later.
+        The affiliations of the papers OpenAlex returned (empty when it places their
+        authors nowhere). Papers it did not return are left out, to be tried again later:
+        its batch answers vary, the same 50 papers giving 49 works once and 42 the next.
     """
     found: dict[str, PaperAffiliations] = {}
     for batch in batched(papers, OPENALEX_BATCH_SIZE, strict=False):
@@ -69,7 +69,8 @@ def fetch_affiliations(client: HttpClient, papers: Mapping[str, int]) -> dict[st
             logger.warning("OpenAlex lookup of %d papers failed: %s", len(batch), exc)
             continue
         for arxiv_id in batch:
-            found[arxiv_id] = affiliations_from_authorships(works.get(arxiv_id, []), papers[arxiv_id])
+            if arxiv_id in works:
+                found[arxiv_id] = affiliations_from_authorships(works[arxiv_id], papers[arxiv_id])
         logger.info("%d papers looked up in OpenAlex", len(found))
     return found
 
