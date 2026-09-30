@@ -1,12 +1,12 @@
-# Hooks run the versions pinned in uv.lock, so local runs, pre-commit and CI agree.
-# Install with: uv run pre-commit install
+# Git hooks, run by prek (a faster pre-commit, pinned in uv.lock like the tools below, so
+# local runs, hooks and CI agree). Install with: uv run prek install
 
 # Fixtures are verbatim copies of arXiv pages and data/ is generated: keep them untouched.
 exclude: ^(tests/fixtures|data)/
 
 repos:
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v6.0.0
+  # prek's own Rust versions of the pre-commit-hooks checks: offline, nothing to update.
+  - repo: builtin
     hooks:
       - id: check-added-large-files
       - id: check-merge-conflict

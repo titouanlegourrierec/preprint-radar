@@ -191,7 +191,7 @@ npm run lint && npm run typecheck && npm test
 npm run build                 # type-check + production build into web/dist (with data)
 
 # Everything, as on commit
-uv run pre-commit run --all-files
+uv run prek run --all-files   # git hooks, with prek (a faster pre-commit)
 ```
 
 If arXiv changes its page layout, the network test fails first: refresh the fixtures in

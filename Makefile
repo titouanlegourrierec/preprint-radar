@@ -40,7 +40,7 @@ help: ## Show this help
 .PHONY: install
 install: $(WEB)/node_modules ## Install Python and web dependencies, and the git hooks
 	uv sync
-	uv run pre-commit install
+	uv run prek install
 
 $(WEB)/node_modules: $(WEB)/package-lock.json
 	cd $(WEB) && npm ci
@@ -88,8 +88,8 @@ test-network: ## Run smoke tests against the live arXiv (slow)
 check: quality test ## Run quality checks and tests, as CI does
 
 .PHONY: pre-commit
-pre-commit: ## Run all git hooks on all files
-	uv run pre-commit run --all-files
+pre-commit: ## Run all git hooks on all files (with prek)
+	uv run prek run --all-files
 
 ##@ Data
 

@@ -83,7 +83,7 @@ Single checks: `uv run pytest tests/unit/test_store.py -k merge`, `cd web && npx
   - OpenAlex (`works?filter=doi:10.48550/arxiv.<id>|...`, 50 a request): institutions per author; its raw affiliation strings are too rough to use.
 - **Fixtures:**
   - Real e-mails in them are replaced by `author@example.org`.
-  - `tests/fixtures/` and `data/` are excluded from pre-commit, so hooks never rewrite them.
+  - `tests/fixtures/` and `data/` are excluded from the git hooks, so they never rewrite them.
 - **Contact:** `PREPRINT_RADAR_CONTACT` goes into the User-Agent of arXiv requests only; other services (ROR...) get the bare `DEFAULT_USER_AGENT`, never the maintainer's e-mail. It comes from `.env` locally (git-ignored, loaded by the Makefile) and from a repository variable in CI.
 
 ## Gotchas
