@@ -4,8 +4,8 @@ from pathlib import Path
 
 import pytest
 
-from preprint_radar.export import CSV_LIST_SEPARATOR, ExportFormat, export_papers
 from preprint_radar.models import Listing
+from preprint_radar.store.export import CSV_LIST_SEPARATOR, ExportFormat, export_papers
 
 
 def test_json_export_round_trips(listing: Listing, tmp_path: Path) -> None:

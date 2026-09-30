@@ -8,13 +8,13 @@ from pathlib import Path
 import pytest
 from rich.console import Console
 
-from preprint_radar.archive import ArchiveClients, ArchiveReport
-from preprint_radar.catalog import Catalog
+from preprint_radar.archive.catalog import Catalog
+from preprint_radar.archive.update import ArchiveClients, ArchiveReport
 from preprint_radar.cli import main
 from preprint_radar.exceptions import FetchError, NotFoundError
 from preprint_radar.http import HttpClient
 from preprint_radar.models import Listing, Paper
-from preprint_radar.store import PaperStore
+from preprint_radar.store.paper_store import PaperStore
 
 
 @pytest.fixture

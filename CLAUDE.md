@@ -19,17 +19,19 @@ Use the Makefile (`make help` lists everything):
 - `make institutions`: name the institutions of stored affiliations through the Research Organization Registry (ROR), for papers that `update`/`backfill` did not reach (a few minutes; one request per distinct string, every 0.5 s).
 - `make stats`: how much of `data/` is enriched, per day then per archive year (abstracts, affiliations, author mappings, named institutions, venues, citation counts), and the date of the citation counts. Check it after touching the extraction heuristics.
 
-Single checks: `uv run pytest tests/unit/test_store.py -k merge`, `cd web && npx vitest run tests/search.test.ts`.
+Single checks: `uv run pytest tests/unit/test_paper_store.py -k merge`, `cd web && npx vitest run tests/search.test.ts`.
 
 ## Layout
 
-- `src/preprint_radar/`: `pipeline.py` orchestrates listing → abstracts → HTML front matter → store.
-  - `update_category` follows the recent listing, `backfill_category` walks past days through catchup pages.
-  - Sources: `listing.py` (recent listing and catchup pages, which share the entry markup), `rss.py`, `arxiv_api.py`, `paper_page.py`; `venue.py` detects accepted venues from comments at parse time; `institutions.py` names the institution of each affiliation through ROR, after the HTML step.
+- `src/preprint_radar/`, by role:
+  - `sources/`: one module per external service, each fetching and parsing: `arxiv_listing.py` (recent listing and catchup pages, which share the entry markup), `arxiv_rss.py`, `arxiv_api.py`, `arxiv_html.py` (front matter of the HTML renderings: affiliations, author mapping, abstract), `arxiv_oai.py` (OAI-PMH harvest), `semantic_scholar.py` (citation counts), `openalex.py` (institutions of archived papers), `ror.py` (institution of an affiliation string).
+  - `collect.py` orchestrates listing → abstracts → HTML front matter → institutions → store: `update_category` follows the recent listing, `backfill_category` walks past days through catchup pages. `venue.py` detects accepted venues from comments at parse time.
+  - `archive/`: the weekly citation archive (`update.py`, `catalog.py`, `selection.py`, below).
+  - `store/`: `paper_store.py` (the `data/` layout), `stats.py` (coverage report), `export.py`, `filters.py`.
   - HTTP goes through `http.HttpClient` only (rate limiting, retries on throttling, server errors and timeouts, error mapping).
   - Terminal output goes through `console.py`: `console.print` (never `print`) and `configure_logging`. rich styles it only in a terminal; CI, pipes and tests keep plain, unwrapped lines (`INFO name: message`), so logs stay greppable and tests assert on text. `stats` draws rich tables in a terminal and the plain `format_*` text elsewhere.
-  - Citation archive (weekly, `archive.py`): `catalog.py` harvests the category's OAI-PMH set into `.cache/catalog/` (git-ignored; restored from the Actions cache in CI), `citations.py` gets counts from Semantic Scholar, `selection.py` ranks papers older than 12 months by citations per year of age and keeps a budget of them (22,000 by default, about 20 citations a year; an archived paper leaves only beyond 1.15 times the budget), `openalex.py` gives the affiliations of papers that enter from the catalog. With less than 95% of citation counts, the archive stays as it is. Deleting day files older than 12 months (`--prune`) is off unless asked.
-- `data/<category>/<YYYY-MM-DD>.json` + `data/index.json`: written by `store.py`, read by `web/src/data.ts`. Generated, but committed and deployed.
+  - Citation archive (weekly, `archive/update.py`): `archive/catalog.py` keeps the category's OAI-PMH set, harvested by `sources/arxiv_oai.py`, in `.cache/catalog/` (git-ignored; restored from the Actions cache in CI), `sources/semantic_scholar.py` gets counts, `archive/selection.py` ranks papers older than 12 months by citations per year of age and keeps a budget of them (22,000 by default, about 20 citations a year; an archived paper leaves only beyond 1.15 times the budget), `sources/openalex.py` gives the affiliations of papers that enter from the catalog. With less than 95% of citation counts, the archive stays as it is. Deleting day files older than 12 months (`--prune`) is off unless asked.
+- `data/<category>/<YYYY-MM-DD>.json` + `data/index.json`: written by `store/paper_store.py`, read by `web/src/data.ts`. Generated, but committed and deployed.
 - `data/<category>/archive/<YYYY>.json` (papers kept for their citations, by year of first version, rewritten as a whole each week) and `data/<category>/citations.json` (counts of the stored papers). The index lists archive years under an optional `archives` key.
 - `web/src/`: `search.ts` (MiniSearch index and query syntax), `app.tsx` (layout and wiring), `hooks/` (URL-synced view state, paper loading, reading list, theme), `url-state.ts` (shareable URLs, including `?paper=`: a paper permalink in the list, the focused paper in the graph), `hooks/use-citations.ts` and the *Highly cited* view (`?view=cited&year=`: one archive year, ranked by citations; `usePapers` loads it instead of days), `period.ts` (preset or custom date range, `?range=` or `?from=&to=`, shown by `components/PeriodPicker.tsx`), `preferences.ts` (per-browser settings in `localStorage`).
   - Graph view: `graph.ts` builds the graph (pure, tested) from three layers: papers, institutions, authors. With papers on, a paper links to its authors, and each institution to the authors the paper places there, else to the paper itself (never to an unplaced author). With papers off, it is the co-occurrence projection (nodes linked when they share a paper). Default: papers + institutions, without isolated nodes; `graph-layout.ts` gives starting positions (each connected component in one piece, on a spiral); `graph-renderer.ts` draws on a canvas with d3-force (imperative class); `components/GraphView.tsx` and `GraphSettingsPanel.tsx` are the UI. It is full screen, without the search bar and sidebar, and shows every node unless the user sets a limit.
@@ -50,7 +52,7 @@ Single checks: `uv run pytest tests/unit/test_store.py -k merge`, `cd web && npx
 ## Data contract (keep both sides in sync)
 
 - The paper record is defined by `Paper.to_record()` / `Paper.from_record()` in `models.py`, and mirrored in `web/src/types.ts`.
-- A breaking change to the format means bumping `SCHEMA_VERSION` in both `store.py` and `types.ts`.
+- A breaking change to the format means bumping `SCHEMA_VERSION` in both `store/paper_store.py` and `types.ts`.
 - `abstract` and `affiliations` use `null` for "not retrieved yet": the pipeline retries those.
 - An empty list means "tried, nothing found"; the pipeline does not retry those.
 - `affiliations` are per paper, deduplicated, and never contain e-mails or URLs.
@@ -63,7 +65,7 @@ Single checks: `uv run pytest tests/unit/test_store.py -k merge`, `cd web && npx
 
 - **arxiv.org:** `robots.txt` asks for a 15 s crawl delay. It is used for the listing, RSS and HTML pages (`ARXIV_CRAWL_DELAY_SECONDS`).
 - **export.arxiv.org (the API):**
-  - Its firewall returns an empty `406` to httpx's default header order and to `%2C`-encoded commas. `HttpClient` therefore sends a curl-like header set, and `arxiv_api.py` builds the query with literal commas. Keep both.
+  - Its firewall returns an empty `406` to httpx's default header order and to `%2C`-encoded commas. `HttpClient` therefore sends a curl-like header set, and `sources/arxiv_api.py` builds the query with literal commas. Keep both.
   - It also throttles after about 2 batches. The pipeline stops at the first failed batch, so the API is only a fallback.
 - **Abstracts:** RSS first (one request for the latest day), then catchup pages (one request per older day), then the API, then the paper's HTML page.
 - **Catchup pages** (`/catchup/<category>/<YYYY-MM-DD>?abs=True`, allowed by `robots.txt`): one request per day, with abstracts.

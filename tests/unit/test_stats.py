@@ -6,7 +6,8 @@ import pytest
 from rich.console import Console
 
 from preprint_radar.models import Paper
-from preprint_radar.stats import (
+from preprint_radar.store.paper_store import PaperStore
+from preprint_radar.store.stats import (
     Coverage,
     RowCoverage,
     archive_coverage_table,
@@ -17,7 +18,6 @@ from preprint_radar.stats import (
     format_citations,
     format_coverage,
 )
-from preprint_radar.store import PaperStore
 
 BASE = Paper(
     arxiv_id="2609.00000",

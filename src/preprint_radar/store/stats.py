@@ -1,7 +1,7 @@
 """Coverage report over the paper store: what is enriched, what is still pending.
 
 Used to keep an eye on the extraction heuristics: a drop in the share of papers with
-affiliations after a change to ``paper_page.py`` shows up here first. The archive gets
+affiliations after a change to ``sources/arxiv_html.py`` shows up here first. The archive gets
 the same table, one row per year, and the citation counts a closing line.
 """
 
@@ -13,7 +13,7 @@ from rich import box
 from rich.table import Table
 
 from preprint_radar.models import Paper
-from preprint_radar.store import CitationCounts, PaperStore
+from preprint_radar.store.paper_store import CitationCounts, PaperStore
 
 _COLUMNS = ("papers", "abstracts", "affiliated", "none", "pending", "mapped", "named", "venues", "cited")
 

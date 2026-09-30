@@ -1,7 +1,7 @@
 from datetime import date
 
-from preprint_radar import filters
 from preprint_radar.models import Listing
+from preprint_radar.store import filters
 
 
 def test_latest_day(listing: Listing) -> None:

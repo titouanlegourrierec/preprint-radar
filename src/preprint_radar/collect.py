@@ -9,15 +9,15 @@ from collections.abc import Callable, Iterable, Mapping, Sequence
 from dataclasses import dataclass, replace
 from datetime import date
 
-from preprint_radar.arxiv_api import fetch_metadata
 from preprint_radar.exceptions import FetchError, ParseError
 from preprint_radar.http import HttpClient
-from preprint_radar.institutions import match_institutions
-from preprint_radar.listing import fetch_catchup, fetch_listing
 from preprint_radar.models import Paper
-from preprint_radar.paper_page import fetch_front_matter
-from preprint_radar.rss import fetch_rss_abstracts
-from preprint_radar.store import PaperStore
+from preprint_radar.sources.arxiv_api import fetch_metadata
+from preprint_radar.sources.arxiv_html import fetch_front_matter
+from preprint_radar.sources.arxiv_listing import fetch_catchup, fetch_listing
+from preprint_radar.sources.arxiv_rss import fetch_rss_abstracts
+from preprint_radar.sources.ror import match_institutions
+from preprint_radar.store.paper_store import PaperStore
 
 logger = logging.getLogger(__name__)
 

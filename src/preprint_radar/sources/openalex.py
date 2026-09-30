@@ -16,7 +16,7 @@ from itertools import batched
 
 from preprint_radar.exceptions import FetchError, NotFoundError, ParseError
 from preprint_radar.http import HttpClient
-from preprint_radar.institutions import organization_name
+from preprint_radar.sources.ror import organization_name
 
 logger = logging.getLogger(__name__)
 

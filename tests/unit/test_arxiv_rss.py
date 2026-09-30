@@ -5,7 +5,7 @@ import pytest
 
 from preprint_radar.exceptions import ParseError
 from preprint_radar.http import HttpClient
-from preprint_radar.rss import fetch_rss_abstracts, parse_rss_abstracts
+from preprint_radar.sources.arxiv_rss import fetch_rss_abstracts, parse_rss_abstracts
 
 RSS_FEED = (Path(__file__).parents[1] / "fixtures" / "rss_cs_cv.xml").read_text(encoding="utf-8")
 

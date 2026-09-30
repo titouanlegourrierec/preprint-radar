@@ -136,21 +136,24 @@ the site. The *Deploy site* workflow also runs on every push touching `web/` or 
 
 ```
 src/preprint_radar/
-├── cli.py          # `preprint-radar` command (fetch, update, backfill)
-├── pipeline.py     # update (recent listing) and backfill (catchup pages) → enrichment → store
-├── listing.py      # /list/<category>/recent and /catchup/<category>/<date> pages
-├── rss.py          # abstracts from the RSS feed
-├── arxiv_api.py    # abstracts and declared affiliations from the Atom API
-├── paper_page.py   # affiliations and abstract from HTML renderings
-├── venue.py        # accepted venue detected from comments
-├── store.py        # data/ layout read by the web app
-├── stats.py        # enrichment coverage report over the store
-├── console.py      # terminal output: rich in a terminal, plain text in CI and pipes
-├── http.py         # rate-limited HTTP client with retries
-├── models.py       # Paper, Listing
-├── filters.py      # helpers to narrow down papers
-├── export.py       # JSON / CSV export
-└── exceptions.py
+├── cli.py              # `preprint-radar` command (fetch, update, backfill, stats, institutions, archive)
+├── collect.py          # update (recent listing) and backfill (catchup pages) → enrichment → store
+├── venue.py            # accepted venue detected from comments
+├── models.py           # Paper, Listing
+├── http.py             # rate-limited HTTP client with retries
+├── console.py          # terminal output: rich in a terminal, plain text in CI and pipes
+├── exceptions.py
+├── sources/            # one module per external service
+│   ├── arxiv_listing.py    # /list/<category>/recent and /catchup/<category>/<date> pages
+│   ├── arxiv_rss.py        # abstracts from the RSS feed
+│   ├── arxiv_api.py        # abstracts and declared affiliations from the Atom API
+│   ├── arxiv_html.py       # affiliations and abstract from HTML renderings
+│   ├── arxiv_oai.py        # bulk metadata harvest (OAI-PMH)
+│   ├── semantic_scholar.py # citation counts
+│   ├── openalex.py         # institutions of archived papers
+│   └── ror.py              # institution named by an affiliation string
+├── archive/            # weekly citation archive: catalog, selection, update
+└── store/              # data/ layout, coverage stats, JSON / CSV export, filters
 web/
 ├── src/            # Preact app: search.ts (MiniSearch), graph.ts + graph-renderer.ts, hooks/, components/, …
 └── tests/          # Vitest unit tests

@@ -4,7 +4,12 @@ import httpx
 import pytest
 
 from preprint_radar.http import HttpClient
-from preprint_radar.paper_page import FrontMatter, clean_affiliation, fetch_front_matter, parse_front_matter
+from preprint_radar.sources.arxiv_html import (
+    FrontMatter,
+    clean_affiliation,
+    fetch_front_matter,
+    parse_front_matter,
+)
 
 PaperHtml = Callable[[str], str]
 

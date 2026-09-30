@@ -9,13 +9,19 @@ from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-from preprint_radar import __version__, filters
-from preprint_radar.archive import ArchiveClients, format_archive_report, update_archive
-from preprint_radar.catalog import OAI_DELAY_SECONDS, Catalog
-from preprint_radar.citations import S2_ANONYMOUS_DELAY_SECONDS, S2_DELAY_SECONDS, api_key
+from preprint_radar import __version__
+from preprint_radar.archive.catalog import Catalog
+from preprint_radar.archive.selection import DEFAULT_BUDGET
+from preprint_radar.archive.update import ArchiveClients, format_archive_report, update_archive
+from preprint_radar.collect import (
+    DEFAULT_MAX_ROR_LOOKUPS,
+    add_institutions,
+    backfill_category,
+    format_report,
+    update_category,
+)
 from preprint_radar.console import configure_logging, console
 from preprint_radar.exceptions import PreprintRadarError
-from preprint_radar.export import ExportFormat, export_papers
 from preprint_radar.http import (
     ARXIV_API_DELAY_SECONDS,
     ARXIV_CRAWL_DELAY_SECONDS,
@@ -23,18 +29,15 @@ from preprint_radar.http import (
     HttpClient,
     build_user_agent,
 )
-from preprint_radar.institutions import ROR_DELAY_SECONDS
-from preprint_radar.listing import MAX_LISTING_ENTRIES, fetch_listing, validate_category
-from preprint_radar.openalex import OPENALEX_DELAY_SECONDS
-from preprint_radar.pipeline import (
-    DEFAULT_MAX_ROR_LOOKUPS,
-    add_institutions,
-    backfill_category,
-    format_report,
-    update_category,
-)
-from preprint_radar.selection import DEFAULT_BUDGET
-from preprint_radar.stats import (
+from preprint_radar.sources.arxiv_listing import MAX_LISTING_ENTRIES, fetch_listing, validate_category
+from preprint_radar.sources.arxiv_oai import OAI_DELAY_SECONDS, OAI_TIMEOUT_SECONDS
+from preprint_radar.sources.openalex import OPENALEX_DELAY_SECONDS
+from preprint_radar.sources.ror import ROR_DELAY_SECONDS
+from preprint_radar.sources.semantic_scholar import S2_ANONYMOUS_DELAY_SECONDS, S2_DELAY_SECONDS, api_key
+from preprint_radar.store import filters
+from preprint_radar.store.export import ExportFormat, export_papers
+from preprint_radar.store.paper_store import PaperStore
+from preprint_radar.store.stats import (
     archive_coverage_table,
     collect_archive_coverage,
     collect_coverage,
@@ -43,7 +46,6 @@ from preprint_radar.stats import (
     format_citations,
     format_coverage,
 )
-from preprint_radar.store import PaperStore
 
 if TYPE_CHECKING:
     from rich.table import Table
@@ -54,7 +56,6 @@ DEFAULT_CATEGORY = "cs.CV"
 DEFAULT_EXPORT_DIR = Path("exports")
 DEFAULT_DATA_DIR = Path("data")
 DEFAULT_CATALOG_DIR = Path(".cache/catalog")
-OAI_TIMEOUT_SECONDS = 180.0
 CONTACT_ENV_VAR = "PREPRINT_RADAR_CONTACT"
 
 

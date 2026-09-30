@@ -12,7 +12,7 @@ from defusedxml import ElementTree
 
 from preprint_radar.exceptions import FetchError, ParseError
 from preprint_radar.http import HttpClient
-from preprint_radar.paper_page import clean_affiliation
+from preprint_radar.sources.arxiv_html import clean_affiliation
 
 logger = logging.getLogger(__name__)
 

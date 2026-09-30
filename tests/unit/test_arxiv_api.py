@@ -1,9 +1,9 @@
 import httpx
 import pytest
 
-from preprint_radar.arxiv_api import API_URL, fetch_metadata, parse_feed
 from preprint_radar.exceptions import ParseError
 from preprint_radar.http import HttpClient
+from preprint_radar.sources.arxiv_api import API_URL, fetch_metadata, parse_feed
 
 
 def test_parse_feed_extracts_abstracts(api_feed: str) -> None:

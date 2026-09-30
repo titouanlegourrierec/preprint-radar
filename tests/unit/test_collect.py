@@ -8,11 +8,11 @@ import httpx
 import pytest
 from tests.conftest import FIXTURES_DIR
 
+from preprint_radar.collect import add_institutions, backfill_category, format_report, update_category
 from preprint_radar.http import HttpClient
-from preprint_radar.listing import parse_catchup
 from preprint_radar.models import Listing, Paper
-from preprint_radar.pipeline import add_institutions, backfill_category, format_report, update_category
-from preprint_radar.store import PaperStore
+from preprint_radar.sources.arxiv_listing import parse_catchup
+from preprint_radar.store.paper_store import PaperStore
 
 ATOM_ENTRY = """
   <entry>

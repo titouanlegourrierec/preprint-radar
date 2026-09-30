@@ -5,14 +5,14 @@ import pytest
 
 from preprint_radar.exceptions import ParseError
 from preprint_radar.http import HttpClient
-from preprint_radar.listing import (
+from preprint_radar.models import Listing, Paper
+from preprint_radar.sources.arxiv_listing import (
     fetch_catchup,
     fetch_listing,
     parse_catchup,
     parse_listing,
     validate_category,
 )
-from preprint_radar.models import Listing, Paper
 
 
 def _paper(listing: Listing, arxiv_id: str) -> Paper:

@@ -6,7 +6,7 @@ from tests.conftest import FIXTURES_DIR
 
 from preprint_radar.exceptions import ParseError
 from preprint_radar.http import HttpClient
-from preprint_radar.institutions import match_institution, match_institutions, parse_ror_response
+from preprint_radar.sources.ror import match_institution, match_institutions, parse_ror_response
 
 ROR_DIR = FIXTURES_DIR / "ror"
 

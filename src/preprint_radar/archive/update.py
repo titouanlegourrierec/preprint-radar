@@ -1,14 +1,14 @@
 """Weekly archive update: keep the most cited older papers, within a size budget.
 
 The store keeps every paper of the last 12 months in its day files, and an archive of
-older papers chosen by citations per year of age (:mod:`preprint_radar.selection`). Each
+older papers chosen by citations per year of age (:mod:`preprint_radar.archive.selection`). Each
 week, :func:`update_archive`:
 
-1. refreshes the category's catalog from OAI-PMH (:mod:`preprint_radar.catalog`);
-2. fetches the citation counts of every paper since 2010 (:mod:`preprint_radar.citations`);
+1. refreshes the category's catalog from OAI-PMH (:mod:`preprint_radar.archive.catalog`);
+2. fetches the citation counts of every paper since 2010 (:mod:`preprint_radar.sources.semantic_scholar`);
 3. selects the archive, and builds the papers that enter it: from the day files when they
    graduate from the rolling year (enrichment kept), else from the catalog, with
-   affiliations from OpenAlex (:mod:`preprint_radar.openalex`);
+   affiliations from OpenAlex (:mod:`preprint_radar.sources.openalex`);
 4. writes the archive, the citation counts of the stored papers and the index, and, when
    asked to, deletes the day files older than 12 months.
 """
@@ -21,13 +21,14 @@ from dataclasses import dataclass, replace
 from datetime import date
 from pathlib import Path
 
-from preprint_radar.catalog import Catalog, CatalogEntry
-from preprint_radar.citations import fetch_citation_counts
+from preprint_radar.archive.catalog import Catalog
+from preprint_radar.archive.selection import RECENT_DAYS, Candidate, Selection, select_archive
 from preprint_radar.http import HttpClient
 from preprint_radar.models import Paper
-from preprint_radar.openalex import fetch_affiliations
-from preprint_radar.selection import RECENT_DAYS, Candidate, Selection, select_archive
-from preprint_radar.store import PaperStore
+from preprint_radar.sources.arxiv_oai import CatalogEntry
+from preprint_radar.sources.openalex import fetch_affiliations
+from preprint_radar.sources.semantic_scholar import fetch_citation_counts
+from preprint_radar.store.paper_store import PaperStore
 from preprint_radar.venue import extract_venue
 
 logger = logging.getLogger(__name__)

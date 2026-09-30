@@ -1,7 +1,7 @@
 name: Archive
 
 # Weekly: keep the most cited papers older than 12 months, within a size budget (see
-# src/preprint_radar/archive.py). Sunday morning UTC: the daily update does not run then.
+# src/preprint_radar/archive/update.py). Sunday morning UTC: the daily update does not run then.
 on:
   schedule:
     - cron: "41 5 * * 0"

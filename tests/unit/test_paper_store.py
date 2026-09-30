@@ -7,7 +7,7 @@ import pytest
 
 from preprint_radar.exceptions import StoreError
 from preprint_radar.models import Listing, Paper
-from preprint_radar.store import PaperStore
+from preprint_radar.store.paper_store import PaperStore
 
 
 @pytest.fixture

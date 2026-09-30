@@ -3,8 +3,8 @@ from pathlib import Path
 
 import pytest
 
-from preprint_radar.listing import parse_listing
 from preprint_radar.models import Listing
+from preprint_radar.sources.arxiv_listing import parse_listing
 
 FIXTURES_DIR = Path(__file__).parent / "fixtures"
 

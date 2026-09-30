@@ -5,10 +5,10 @@ Deselected by default; run them with ``uv run pytest -m network``.
 
 import pytest
 
-from preprint_radar.arxiv_api import fetch_metadata
 from preprint_radar.http import ARXIV_API_DELAY_SECONDS, ARXIV_CRAWL_DELAY_SECONDS, HttpClient
-from preprint_radar.listing import fetch_listing
-from preprint_radar.paper_page import fetch_front_matter
+from preprint_radar.sources.arxiv_api import fetch_metadata
+from preprint_radar.sources.arxiv_html import fetch_front_matter
+from preprint_radar.sources.arxiv_listing import fetch_listing
 
 pytestmark = pytest.mark.network
 
