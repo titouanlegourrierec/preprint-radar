@@ -39,19 +39,29 @@ def test_affiliations_from_authorships() -> None:
     assert affiliations_from_authorships([], 2).affiliations == ()
 
 
-def test_fetch_affiliations_leaves_failed_requests_out() -> None:
+def test_fetch_affiliations_asks_one_by_one_for_what_a_batch_misses() -> None:
+    vit, resnet = json.loads(WORKS)["results"]
+    batch_answer = json.dumps({"results": [resnet]})  # the batch misses ViT
+
     def handle(request: httpx.Request) -> httpx.Response:
-        return (
-            httpx.Response(200, text=WORKS)
-            if "1512.03385" in request.url.params["filter"]
-            else httpx.Response(503)
-        )
+        path = request.url.path
+        if path.endswith("/works"):
+            return httpx.Response(200, text=batch_answer)
+        if path.endswith("2010.11929"):
+            return httpx.Response(200, text=json.dumps(vit))
+        if path.endswith("2609.99999"):
+            return httpx.Response(404)
+        return httpx.Response(503)
 
     with HttpClient(transport=httpx.MockTransport(handle), max_attempts=1) as client:
-        found = fetch_affiliations(client, {"1512.03385": 4, "2609.99999": 2})
+        found = fetch_affiliations(
+            client, {"1512.03385": 4, "2010.11929": 4, "2609.99999": 2, "2609.88888": 2}
+        )
 
-    assert found["1512.03385"].affiliations == ("Microsoft",)
-    assert "2609.99999" not in found  # not returned: tried again next time
+    assert found["1512.03385"].affiliations == ("Microsoft",)  # in the batch answer
+    assert found["2010.11929"].affiliations[0] == "Google"  # missed by the batch, found alone
+    assert found["2609.99999"].affiliations == ()  # unknown to OpenAlex
+    assert "2609.88888" not in found  # the lookup failed: tried again next time
 
 
 class FakeServices:

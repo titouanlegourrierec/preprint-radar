@@ -14,7 +14,7 @@ from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
 from itertools import batched
 
-from preprint_radar.exceptions import FetchError, ParseError
+from preprint_radar.exceptions import FetchError, NotFoundError, ParseError
 from preprint_radar.http import HttpClient
 from preprint_radar.institutions import organization_name
 
@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 OPENALEX_WORKS_URL = "https://api.openalex.org/works"
 OPENALEX_BATCH_SIZE = 50
 # OpenAlex allows 10 requests per second; stay well below.
-OPENALEX_DELAY_SECONDS = 0.5
+OPENALEX_DELAY_SECONDS = 0.25
 _ARXIV_DOI_PREFIX = "10.48550/arxiv."
 
 
@@ -49,9 +49,9 @@ def fetch_affiliations(client: HttpClient, papers: Mapping[str, int]) -> dict[st
         papers: Number of arXiv authors of each paper, by arXiv identifier.
 
     Returns:
-        The affiliations of the papers OpenAlex returned (empty when it places their
-        authors nowhere). Papers it did not return are left out, to be tried again later:
-        its batch answers vary, the same 50 papers giving 49 works once and 42 the next.
+        The affiliations of the papers looked up (empty when OpenAlex does not know the
+        paper or places its authors nowhere). Papers whose lookup failed are left out, to
+        be tried again later.
     """
     found: dict[str, PaperAffiliations] = {}
     for batch in batched(papers, OPENALEX_BATCH_SIZE, strict=False):
@@ -69,10 +69,27 @@ def fetch_affiliations(client: HttpClient, papers: Mapping[str, int]) -> dict[st
             logger.warning("OpenAlex lookup of %d papers failed: %s", len(batch), exc)
             continue
         for arxiv_id in batch:
-            if arxiv_id in works:
-                found[arxiv_id] = affiliations_from_authorships(works[arxiv_id], papers[arxiv_id])
+            # The DOI filter misses some works that the DOI lookup finds (a batch of 25 such
+            # papers gave none): ask for the missing ones one by one.
+            authorships = works[arxiv_id] if arxiv_id in works else _lookup(client, arxiv_id)
+            if authorships is not None:
+                found[arxiv_id] = affiliations_from_authorships(authorships, papers[arxiv_id])
         logger.info("%d papers looked up in OpenAlex", len(found))
     return found
+
+
+def _lookup(client: HttpClient, arxiv_id: str) -> list[list[str]] | None:
+    """Institutions of each author of one paper; ``[]`` if unknown, ``None`` on failure."""
+    try:
+        text = client.get_text(
+            f"{OPENALEX_WORKS_URL}/doi:{_ARXIV_DOI_PREFIX}{arxiv_id}", params={"select": "doi,authorships"}
+        )
+        return parse_works(f'{{"results": [{text}]}}').get(arxiv_id, [])
+    except NotFoundError:
+        return []
+    except (FetchError, ParseError) as exc:
+        logger.warning("OpenAlex lookup of %s failed: %s", arxiv_id, exc)
+        return None
 
 
 def parse_works(text: str) -> dict[str, list[list[str]]]:
