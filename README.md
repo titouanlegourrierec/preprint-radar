@@ -80,6 +80,10 @@ can be shared;
 day, and *Graph* opens the graph centered on it, with its details. The ◐ button next to
 the tabs switches between the automatic, light and dark themes.
 
+The *Highly cited* tab shows the archive one year at a time (by year of first version),
+ranked by citation count; search words and filters narrow it down. Papers show their
+citation count wherever it is known.
+
 The *Graph* tab is a full-screen map of the loaded papers, their institutions and
 (optionally) their authors. By default it shows papers (squares) linked to their
 institutions; with authors on, a paper links to its authors, and an institution to the
