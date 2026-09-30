@@ -16,6 +16,8 @@ export interface GraphNode {
   key: string;
   /** Identifiers of the papers the node appears in (the paper itself for papers). */
   paperIds: string[];
+  /** Citations of those papers, summed; papers without a known count add nothing. */
+  citations: number;
 }
 
 export interface GraphLink {
@@ -35,6 +37,8 @@ export interface GraphOptions {
   isolated: boolean;
   /** Cap on the number of institutions and authors, keeping the most frequent ones. */
   maxNodes: number;
+  /** Citation count of each paper, by arXiv id, when known. */
+  citations?: ReadonlyMap<string, number>;
 }
 
 export interface Graph {
@@ -92,14 +96,16 @@ export function buildGraph(papers: Paper[], options: GraphOptions): Graph {
   const nodes = new Map<string, EntityNode>();
   const labelCounts = new Map<string, Map<string, number>>();
   const perPaper: PaperEntities[] = [];
+  const citationsOf = (paperId: string) => options.citations?.get(paperId) ?? 0;
 
   const register = (kind: EntityKind, label: string, paperId: string, seen: Set<string>) => {
     const id = nodeKey(kind, label);
     if (id.endsWith(":")) return null;
     if (seen.has(id)) return { id, first: false };
     seen.add(id);
-    const node = nodes.get(id) ?? { id, kind, label, key: "", paperIds: [] };
+    const node = nodes.get(id) ?? { id, kind, label, key: "", paperIds: [], citations: 0 };
     node.paperIds.push(paperId);
+    node.citations += citationsOf(paperId);
     nodes.set(id, node);
     // Remember spellings to display the most frequent one.
     const counts = labelCounts.get(id) ?? new Map<string, number>();
@@ -152,7 +158,9 @@ export function buildGraph(papers: Paper[], options: GraphOptions): Graph {
     const key = a < b ? `${a}\u0000${b}` : `${b}\u0000${a}`;
     weights.set(key, (weights.get(key) ?? 0) + 1);
   };
-  const paperNodes = options.papers ? linkThroughPapers(perPaper, keptIds, addLink) : [];
+  const paperNodes = options.papers
+    ? linkThroughPapers(perPaper, keptIds, addLink, citationsOf)
+    : [];
   if (!options.papers) linkByCoOccurrence(perPaper, keptIds, addLink);
 
   const linked = new Set<string>();
@@ -175,6 +183,7 @@ function linkThroughPapers(
   perPaper: PaperEntities[],
   keptIds: ReadonlySet<string>,
   addLink: AddLink,
+  citationsOf: (paperId: string) => number,
 ): GraphNode[] {
   return perPaper.map(({ paper, keyOfAffiliation, authors }) => {
     const id = `paper:${paper.arxiv_id}`;
@@ -200,6 +209,7 @@ function linkThroughPapers(
       label: paper.title,
       key: searchKey(paper.title),
       paperIds: [paper.arxiv_id],
+      citations: citationsOf(paper.arxiv_id),
     };
   });
 }

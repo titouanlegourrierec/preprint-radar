@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { fitTransform, nodeRadius } from "../src/graph-renderer";
+import { citationRadius, fitTransform, nodeRadius } from "../src/graph-renderer";
 
 describe("fitTransform", () => {
   const bounds = { minX: -100, minY: -50, maxX: 100, maxY: 50 };
@@ -35,5 +35,18 @@ describe("nodeRadius", () => {
 
   it("is capped for very prolific nodes", () => {
     expect(nodeRadius(1000)).toBe(28);
+  });
+});
+
+describe("citationRadius", () => {
+  it("tells apart the small counts of recent papers", () => {
+    expect(citationRadius(0)).toBe(2.5);
+    expect(citationRadius(1)).toBe(5.5);
+    expect(citationRadius(3)).toBe(8.5);
+    expect(citationRadius(31)).toBe(17.5);
+  });
+
+  it("is capped for highly cited nodes", () => {
+    expect(citationRadius(250_000)).toBe(28);
   });
 });

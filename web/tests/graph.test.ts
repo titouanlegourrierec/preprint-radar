@@ -291,3 +291,40 @@ describe("nodeMatches", () => {
     expect(google && nodeMatches(google, "")).toBe(false);
   });
 });
+
+describe("buildGraph with citations", () => {
+  const cited = [
+    makePaper({ arxiv_id: "1", authors: ["Ada"], affiliations: ["Inria"] }),
+    makePaper({ arxiv_id: "2", authors: ["Ada", "Bob"], affiliations: ["Inria", "Google"] }),
+    makePaper({ arxiv_id: "3", authors: ["Bob"], affiliations: ["Google"] }),
+  ];
+  const options: GraphOptions = {
+    ...INSTITUTIONS,
+    papers: true,
+    authors: true,
+    // Paper 3 has no known count: it adds nothing.
+    citations: new Map([
+      ["1", 10],
+      ["2", 5],
+    ]),
+  };
+  const citationsOf = (graph: ReturnType<typeof buildGraph>) =>
+    Object.fromEntries(graph.nodes.map((node) => [node.id, node.citations]));
+
+  it("sums the citations of each node's papers", () => {
+    expect(citationsOf(buildGraph(cited, options))).toEqual({
+      "institution:inria": 15,
+      "institution:google": 5,
+      "author:ada": 15,
+      "author:bob": 5,
+      "paper:1": 10,
+      "paper:2": 5,
+      "paper:3": 0,
+    });
+  });
+
+  it("counts nothing without citation counts", () => {
+    const { citations: _, ...uncounted } = options;
+    expect(buildGraph(cited, uncounted).nodes.every((node) => node.citations === 0)).toBe(true);
+  });
+});

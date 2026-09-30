@@ -1,3 +1,5 @@
+import type { NodeSizing } from "./graph-renderer";
+
 const SHOW_ABSTRACTS_KEY = "preprint-radar:show-abstracts";
 // v2: papers joined the graph, and the defaults changed with them.
 const GRAPH_SETTINGS_KEY = "preprint-radar:graph-settings:v2";
@@ -59,8 +61,12 @@ export interface GraphSettings {
   linkForce: number;
   linkDistance: number;
   nodeSize: number;
+  /** What node areas show: papers (institutions and authors) or citations (every node). */
+  sizeBy: NodeSizing;
   labelThreshold: number;
 }
+
+const NODE_SIZINGS: readonly NodeSizing[] = ["papers", "citations"];
 
 export const DEFAULT_GRAPH_SETTINGS: Readonly<GraphSettings> = {
   papers: true,
@@ -76,6 +82,7 @@ export const DEFAULT_GRAPH_SETTINGS: Readonly<GraphSettings> = {
   linkForce: 1,
   linkDistance: 40,
   nodeSize: 1,
+  sizeBy: "papers",
   labelThreshold: 1,
 };
 
@@ -94,6 +101,8 @@ export function loadGraphSettings(): GraphSettings {
   } catch {
     // Unreadable storage or invalid JSON: fall back to the defaults.
   }
+  // A string, but maybe not one of the choices (an older or edited value).
+  if (!NODE_SIZINGS.includes(settings.sizeBy)) settings.sizeBy = DEFAULT_GRAPH_SETTINGS.sizeBy;
   return settings;
 }
 

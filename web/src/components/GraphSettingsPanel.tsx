@@ -60,6 +60,8 @@ interface Props {
   onReheat: () => void;
   onFit: () => void;
   onReset: () => void;
+  /** Whether any shown node has citations (sizing by citations then shows something). */
+  cited: boolean;
 }
 
 function Slider(props: {
@@ -231,6 +233,26 @@ export function GraphSettingsPanel(props: Props) {
 
           <fieldset>
             <legend>Forces &amp; display</legend>
+            <label class="ctl-select">
+              <span>Size by</span>
+              <select
+                value={settings.sizeBy}
+                onChange={(event) =>
+                  onSettings({
+                    sizeBy: event.currentTarget.value === "citations" ? "citations" : "papers",
+                  })
+                }
+              >
+                <option value="papers">Papers</option>
+                <option value="citations">Citations</option>
+              </select>
+            </label>
+            {settings.sizeBy === "citations" && !props.cited && (
+              <p class="graph-settings__note">
+                No citations yet for these papers: recent papers are rarely cited, and new ones get
+                their counts within days.
+              </p>
+            )}
             {FORCE_SLIDERS.map(({ key, label, min, max, step }) => (
               <Slider
                 key={key}

@@ -185,6 +185,7 @@ export function App() {
         {topbar}
         <GraphView
           papers={graphPapers}
+          citations={citations.counts}
           notice={
             load.status === "loading"
               ? "Loading papers…"

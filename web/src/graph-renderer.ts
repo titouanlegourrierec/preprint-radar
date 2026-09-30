@@ -23,9 +23,13 @@ export interface RendererSettings {
   linkDistance: number;
   /** Node radius, as a multiple of the default. */
   nodeSize: number;
+  /** What node areas show: the number of papers (papers all alike), or citations. */
+  sizeBy: NodeSizing;
   /** On-screen size from which nodes get a label, as a multiple of the default. */
   labelThreshold: number;
 }
+
+export type NodeSizing = "papers" | "citations";
 
 export interface RendererCallbacks {
   /** A node was clicked, or the background (`null`). */
@@ -117,6 +121,20 @@ const MAX_LABEL_LENGTH = 40;
  */
 export function nodeRadius(papers: number): number {
   return Math.min(MAX_RADIUS, 2.5 + 3.5 * Math.sqrt(Math.max(0, papers - 1)));
+}
+
+/**
+ * Radius of a node with `citations` citations. Counts span five orders of magnitude, and
+ * on recent papers the telling differences are 1, 5 or 30: the radius grows with their
+ * logarithm, on the same scale whatever the graph, up to the same cap (reached at about 360).
+ */
+export function citationRadius(citations: number): number {
+  return Math.min(MAX_RADIUS, 2.5 + 3 * Math.log2(1 + Math.max(0, citations)));
+}
+
+/** Radius of a node under a sizing, before the node size setting. */
+function sizedRadius(node: GraphNode, sizeBy: NodeSizing): number {
+  return sizeBy === "citations" ? citationRadius(node.citations) : nodeRadius(node.paperIds.length);
 }
 
 /** View transform that fits `bounds` in the part of the canvas not covered by overlays. */
@@ -252,24 +270,21 @@ export class GraphRenderer {
   setGraph(graph: Graph): void {
     this.savePositions();
     const degree = new Map<string, number>();
-    const ranks = { paper: 0, institution: 0, author: 0 };
     for (const link of graph.links) {
       degree.set(link.source, (degree.get(link.source) ?? 0) + 1);
       degree.set(link.target, (degree.get(link.target) ?? 0) + 1);
     }
 
-    this.nodes = graph.nodes.map((node) => {
-      const baseRadius = nodeRadius(node.paperIds.length);
-      return {
-        id: node.id,
-        node,
-        rank: ranks[node.kind]++,
-        baseRadius,
-        radius: baseRadius * this.settings.nodeSize,
-        degree: degree.get(node.id) ?? 0,
-        main: false,
-      };
-    });
+    this.nodes = graph.nodes.map((node) => ({
+      id: node.id,
+      node,
+      rank: 0,
+      baseRadius: 0,
+      radius: 0,
+      degree: degree.get(node.id) ?? 0,
+      main: false,
+    }));
+    this.applySizing();
     this.byId = new Map(this.nodes.map((node) => [node.id, node]));
     this.neighbors = new Map(this.nodes.map((node) => [node.id, new Set<string>()]));
     this.links = [];
@@ -321,20 +336,37 @@ export class GraphRenderer {
   setSettings(settings: RendererSettings): void {
     const previous = this.settings;
     this.settings = settings;
-    if (settings.nodeSize !== previous.nodeSize) {
-      for (const node of this.nodes) node.radius = node.baseRadius * settings.nodeSize;
-    }
+    const resized = settings.nodeSize !== previous.nodeSize || settings.sizeBy !== previous.sizeBy;
+    if (resized) this.applySizing();
     const forcesChanged =
       settings.centerForce !== previous.centerForce ||
       settings.repelForce !== previous.repelForce ||
       settings.linkForce !== previous.linkForce ||
       settings.linkDistance !== previous.linkDistance ||
-      settings.nodeSize !== previous.nodeSize;
+      resized;
     if (forcesChanged) {
       this.applyForces();
       if (this.nodes.length > 0) this.reheat(0.3);
     }
     this.requestDraw();
+  }
+
+  /**
+   * Size the nodes for the current settings, and rank them by that size within their kind:
+   * the biggest ones always get a label.
+   */
+  private applySizing(): void {
+    const { sizeBy, nodeSize } = this.settings;
+    for (const node of this.nodes) {
+      node.baseRadius = sizedRadius(node.node, sizeBy);
+      node.radius = node.baseRadius * nodeSize;
+    }
+    const measure = (node: SimNode) =>
+      sizeBy === "citations" ? node.node.citations : node.node.paperIds.length;
+    // Stable: equal nodes keep the graph's order (most frequent first).
+    const ranked = [...this.nodes].sort((a, b) => measure(b) - measure(a));
+    const ranks = { paper: 0, institution: 0, author: 0 };
+    for (const node of ranked) node.rank = ranks[node.node.kind]++;
   }
 
   /** Emphasize some nodes (e.g. search matches), dimming the others; `null` clears. */

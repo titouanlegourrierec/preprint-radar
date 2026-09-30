@@ -50,6 +50,8 @@ interface Props {
   onFocusPaperLeft: () => void;
   /** Scheme shown right now; the canvas re-reads its colors when it changes. */
   theme: "light" | "dark";
+  /** Citation count of each paper, by arXiv id, when known. */
+  citations: ReadonlyMap<string, number>;
 }
 
 function isTyping(target: EventTarget | null): boolean {
@@ -62,7 +64,7 @@ function isTyping(target: EventTarget | null): boolean {
 
 /** Full-screen co-occurrence graph of the institutions and authors of the loaded papers. */
 export function GraphView(props: Props) {
-  const { papers, onShowPapers, onOpenPaper, theme } = props;
+  const { papers, onShowPapers, onOpenPaper, theme, citations } = props;
   const [settings, setSettings] = useState<GraphSettings>(loadGraphSettings);
   const [panelOpen, setPanelOpen] = useState(() => window.matchMedia(WIDE_SCREEN).matches);
   const [highlight, setHighlight] = useState("");
@@ -112,9 +114,11 @@ export function GraphView(props: Props) {
         isolated: settings.isolated,
         minPapers: { institution: settings.minInstitutionPapers, author: settings.minAuthorPapers },
         maxNodes: settings.maxNodes > 0 ? settings.maxNodes : Number.POSITIVE_INFINITY,
+        citations,
       }),
     [
       shownPapers,
+      citations,
       settings.papers,
       settings.institutions,
       settings.authors,
@@ -216,7 +220,8 @@ export function GraphView(props: Props) {
     };
   }, []);
 
-  const { centerForce, repelForce, linkForce, linkDistance, nodeSize, labelThreshold } = settings;
+  const { centerForce, repelForce, linkForce, linkDistance, nodeSize, sizeBy, labelThreshold } =
+    settings;
   useEffect(() => {
     rendererRef.current?.setSettings({
       centerForce,
@@ -224,9 +229,10 @@ export function GraphView(props: Props) {
       linkForce,
       linkDistance,
       nodeSize,
+      sizeBy,
       labelThreshold,
     });
-  }, [centerForce, repelForce, linkForce, linkDistance, nodeSize, labelThreshold]);
+  }, [centerForce, repelForce, linkForce, linkDistance, nodeSize, sizeBy, labelThreshold]);
   useEffect(() => rendererRef.current?.refreshTheme(), [theme]);
   useEffect(() => rendererRef.current?.setGraph(graph), [graph]);
   // Select the focused paper once its papers are loaded, after the renderer has its node;
@@ -419,6 +425,7 @@ export function GraphView(props: Props) {
         affiliatedCount={affiliatedCount}
         settings={settings}
         onSettings={changeSettings}
+        cited={graph.nodes.some((node) => node.citations > 0)}
         days={days}
         cutoff={cutoff}
         onCutoff={(value) => {
