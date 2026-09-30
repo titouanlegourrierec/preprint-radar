@@ -24,8 +24,8 @@ logger = logging.getLogger(__name__)
 S2_BATCH_URL = "https://api.semanticscholar.org/graph/v1/paper/batch"
 S2_BATCH_SIZE = 500
 S2_API_KEY_ENV = "SEMANTIC_SCHOLAR_API_KEY"
-S2_DELAY_SECONDS = 1.0
-"""With a key: the documented one request per second."""
+S2_DELAY_SECONDS = 1.1
+"""With a key: just under the one request per second a key allows (across all endpoints)."""
 S2_ANONYMOUS_DELAY_SECONDS = 2.0
 # Anonymous requests are refused whenever the shared pool is busy: wait and try again.
 S2_BATCH_TRIES = 30

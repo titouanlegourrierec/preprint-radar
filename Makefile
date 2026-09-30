@@ -9,6 +9,7 @@ SHELL := /bin/bash
 # Local settings (e.g. PREPRINT_RADAR_CONTACT), see .env.example.
 -include .env
 export PREPRINT_RADAR_CONTACT
+export SEMANTIC_SCHOLAR_API_KEY
 
 WEB := web
 CATEGORIES ?= cs.CV
