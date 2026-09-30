@@ -39,6 +39,15 @@ _YEAR_STEM_RE = re.compile(r"^\d{4}$")
 
 
 @dataclass(frozen=True, slots=True)
+class CitationCounts:
+    """Citation counts of the stored papers of a category, as the archive last wrote them."""
+
+    counts: dict[str, int]
+    source: str
+    generated_at: datetime
+
+
+@dataclass(frozen=True, slots=True)
 class DaySummary:
     """Number of papers stored for one announcement day."""
 
@@ -169,15 +178,28 @@ class PaperStore:
 
     def load_citations(self, category: str) -> dict[str, int]:
         """Citation counts of the stored papers of ``category`` (empty if never written)."""
+        citations = self.load_citation_counts(category)
+        return citations.counts if citations else {}
+
+    def load_citation_counts(self, category: str) -> CitationCounts | None:
+        """Citation counts of ``category`` with their source and date, if ever written.
+
+        Raises:
+            StoreError: If the file is not a valid citations file.
+        """
         path = self.root / category / CITATIONS_FILENAME
         if not path.is_file():
-            return {}
+            return None
         try:
-            counts = json.loads(path.read_text(encoding="utf-8"))["counts"]
-        except (json.JSONDecodeError, KeyError, TypeError) as exc:
+            payload: Any = json.loads(path.read_text(encoding="utf-8"))
+            return CitationCounts(
+                counts={str(arxiv_id): int(count) for arxiv_id, count in payload["counts"].items()},
+                source=str(payload["source"]),
+                generated_at=datetime.fromisoformat(payload["generated_at"]),
+            )
+        except (json.JSONDecodeError, KeyError, TypeError, ValueError) as exc:
             msg = f"Invalid citations file {path}: {exc}"
             raise StoreError(msg) from exc
-        return {str(arxiv_id): int(count) for arxiv_id, count in counts.items()}
 
     def write_citations(self, category: str, counts: dict[str, int], *, source: str) -> None:
         """Write the citation counts of the stored papers of ``category``."""

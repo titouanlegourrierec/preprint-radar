@@ -75,6 +75,11 @@ def test_citations_file_is_not_a_day(store: PaperStore, listing: Listing) -> Non
     assert store.days("cs.CV") == [date(2026, 9, 25), date(2026, 9, 24)]
     assert store.load_citations("cs.CV") == {"2609.30245": 3}
     assert store.load_citations("cs.LG") == {}
+    citations = store.load_citation_counts("cs.CV")
+    assert citations is not None
+    assert citations.source == "Semantic Scholar"
+    assert citations.generated_at.tzinfo is not None
+    assert store.load_citation_counts("cs.LG") is None
 
 
 def test_archive_is_written_by_year_and_replaced_as_a_whole(store: PaperStore, listing: Listing) -> None:

@@ -32,7 +32,13 @@ from preprint_radar.pipeline import (
     update_category,
 )
 from preprint_radar.selection import DEFAULT_BUDGET
-from preprint_radar.stats import collect_coverage, format_coverage
+from preprint_radar.stats import (
+    collect_archive_coverage,
+    collect_coverage,
+    format_archive_coverage,
+    format_citations,
+    format_coverage,
+)
 from preprint_radar.store import PaperStore
 
 logger = logging.getLogger(__name__)
@@ -147,9 +153,11 @@ def _add_stats_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentP
         "stats",
         help="show how much of the data store is enriched",
         description=(
-            "Show, for each stored announcement day, how many papers have an abstract, "
-            "affiliations and a detected venue. Affiliation columns: at least one found "
-            "(affiliated), searched without success (none), not retrieved yet (pending)."
+            "Show, for each stored announcement day, then each archive year, how many papers "
+            "have an abstract, affiliations, a detected venue and a citation count. "
+            "Affiliation columns: at least one found (affiliated), searched without success "
+            "(none), not retrieved yet (pending); of the affiliated papers, mapped to their "
+            "authors (mapped) and with at least one institution named (named)."
         ),
     )
     stats.add_argument(
@@ -399,10 +407,17 @@ def _run_stats(args: argparse.Namespace) -> int:
 
     reports = []
     for category in categories:
-        if days := collect_coverage(store, category):
-            reports.append(format_coverage(category, days))
-        else:
+        days = collect_coverage(store, category)
+        years = collect_archive_coverage(store, category)
+        if not days and not years:
             logger.warning("No stored papers for %s in %s.", category, args.data_dir)
+            continue
+        if days:
+            reports.append(format_coverage(category, days))
+        if years:
+            reports.append(format_archive_coverage(category, years))
+        if citations := store.load_citation_counts(category):
+            reports.append(format_citations(category, citations))
     print("\n\n".join(reports))  # noqa: T201 - user-facing CLI output
     return 0 if reports else 1
 

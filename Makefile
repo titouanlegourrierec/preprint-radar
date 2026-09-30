@@ -115,7 +115,7 @@ institutions: ## Name the institutions of stored affiliations through ROR (minut
 	uv run preprint-radar -v institutions $(CATEGORY_ARGS)
 
 .PHONY: stats
-stats: ## Show how much of data/ is enriched: abstracts, affiliations, venues per day
+stats: ## Show how much of data/ is enriched, per day and per archive year
 	@uv run preprint-radar stats $(CATEGORY_ARGS)
 
 ##@ Web app

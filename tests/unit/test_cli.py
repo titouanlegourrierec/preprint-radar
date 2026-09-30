@@ -1,5 +1,6 @@
 import json
 from collections.abc import Mapping
+from datetime import date
 from pathlib import Path
 
 import pytest
@@ -7,6 +8,8 @@ import pytest
 from preprint_radar.cli import main
 from preprint_radar.exceptions import FetchError, NotFoundError
 from preprint_radar.http import HttpClient
+from preprint_radar.models import Paper
+from preprint_radar.store import PaperStore
 
 
 @pytest.fixture
@@ -113,11 +116,31 @@ def test_stats_reports_coverage(tmp_path: Path, capsys: pytest.CaptureFixture[st
 
     assert main(["stats", "--data-dir", str(data_dir)]) == 0
 
-    lines = capsys.readouterr().out.splitlines()
+    out = capsys.readouterr().out
+    lines = out.splitlines()
     assert lines[0] == "cs.CV: 7 papers over 2 days"
-    assert lines[2].split() == ["2026-09-25", "5", "0", "0", "0", "5", "2"]
-    assert lines[-2].startswith("total")
-    assert lines[-1].startswith("abstracts ")
+    assert lines[2].split() == ["2026-09-25", "5", "0", "0", "0", "5", "0", "0", "2", "0"]
+    assert lines[-3].startswith("total")
+    assert lines[-2].startswith("abstracts ")
+    assert "archive" not in out  # no archive, no citation counts
+    assert "citation counts:" not in out
+
+
+def test_stats_reports_the_archive_and_citation_counts(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    store = PaperStore(tmp_path / "data")
+    resnet = Paper(
+        arxiv_id="1512.03385", announced=date(2015, 12, 10), title="ResNet", authors=("Kaiming He",)
+    )
+    store.write_archive("cs.CV", [resnet])
+    store.write_citations("cs.CV", {"1512.03385": 240_000}, source="Semantic Scholar")
+
+    assert main(["stats", "--data-dir", str(store.root)]) == 0
+
+    reports = capsys.readouterr().out.split("\n\n")
+    assert reports[0].startswith("cs.CV archive: 1 paper over 1 year\nyear")
+    assert reports[1].startswith("cs.CV citation counts: 1 from Semantic Scholar, ")
 
 
 def test_stats_on_an_empty_store(tmp_path: Path, caplog: pytest.LogCaptureFixture) -> None:

@@ -171,7 +171,7 @@ make dev         # web app with hot reload on http://localhost:5173
 make preview     # production build of the site, served locally
 make update      # refresh data/ (CATEGORIES="cs.CV cs.LG" MAX_HTML=50)
 make backfill SINCE=2026-09-01   # add past days to data/ (UNTIL defaults to today)
-make stats       # how much of data/ is enriched, per day
+make stats       # how much of data/ is enriched, per day and per archive year
 make institutions # name the institutions of stored affiliations through ROR
 make archive     # keep the most cited older papers (weekly in CI; first run about 2 h)
 ```

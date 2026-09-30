@@ -16,7 +16,7 @@ Use the Makefile (`make help` lists everything):
 - `make backfill SINCE=YYYY-MM-DD [UNTIL=...]`: add past days from the catchup pages, then read their HTML pages (a month of cs.CV takes about 11 hours). Same rule: ask first. Interrupting either command loses nothing; re-running resumes.
 - `make archive`: the weekly citation archive (refresh the OAI catalog, fetch citation counts, keep the most cited older papers). The first run takes about 2 hours without a Semantic Scholar key: ask first, like `make update`.
 - `make institutions`: name the institutions of stored affiliations through the Research Organization Registry (ROR), for papers that `update`/`backfill` did not reach (a few minutes; one request per distinct string, every 0.5 s).
-- `make stats`: how much of `data/` is enriched (abstracts, affiliations, venues per day). Check it after touching the extraction heuristics.
+- `make stats`: how much of `data/` is enriched, per day then per archive year (abstracts, affiliations, author mappings, named institutions, venues, citation counts), and the date of the citation counts. Check it after touching the extraction heuristics.
 
 Single checks: `uv run pytest tests/unit/test_store.py -k merge`, `cd web && npx vitest run tests/search.test.ts`.
 
