@@ -1210,7 +1210,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.31170v1",
+   "html_url": "https://arxiv.org/html/2609.31170v2",
    "abstract": "Task-driven image restoration aims to improve both image quality and downstream task performance. However, existing methods predominantly focus on single degradation type and struggle to handle the diverse degradations encountered in real-world scenarios. Different degradations impose distinct restoration demands, and insufficient restoration may leave residual degradations and artifacts that impair object boundaries and semantic cues, thereby compromising downstream task performance. To address these challenges, we propose TaskIR, a two-stage task-driven unified image restoration framework that integrates degradation-adaptive restoration with task feedback refinement. In Stage I, a Degradation Representation Module (DRM) extracts degradation representations, enabling a Degradation-Guided Transformer Block (DGTB) to dynamically modulate feature transformations for adaptive restoration. In Stage II, a Task-to-Restoration Feedback Generation module (TRFG) transforms heterogeneous task features into restoration feedback by modeling task-representation discrepancies associated with the current restoration. Subsequently, a Selective Task Feedback Refinement module (STFR) assesses feedback relevance and selectively refines intermediate restoration features to mitigate interference with well-restored content. Extensive experiments demonstrate that TaskIR achieves competitive restoration quality and downstream task performance across diverse degradations and tasks.",
    "affiliations": [],
    "author_affiliations": null,

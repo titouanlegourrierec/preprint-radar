@@ -332,7 +332,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.35734v1",
+   "html_url": "https://arxiv.org/html/2609.35734v2",
    "abstract": "Novel view synthesis from sparse images must reconcile faithful reconstruction of observed regions with plausible completion of unseen content, while maintaining world consistency across viewpoints. Existing geometry-based methods preserve observed scene structure but often struggle to complete unseen regions, whereas video generative models offer rich appearance priors but accumulate inconsistencies during sequential view generation. We propose GeoVerse, a framework that synthesizes world-consistent novel views by performing generation within the geometric latent space of a pretrained 3D foundation model and injecting appearance priors from a video generative model. Specifically, GeoVerse extracts multilevel features from Wan2.2 VACE and injects them into the geometric latent diffusion model via a ControlNet-style adapter, incorporating video-learned appearance priors to enhance structural completion. To enforce cross-view coherence, a global spatial memory continuously aggregates observed and synthesized content, reprojecting target-aligned guidance to anchor subsequent predictions to a shared scene representation. Extensive experiments across diverse datasets demonstrate improved visual quality and geometric consistency, with a 2.23 dB higher PSNR on DL3DV and 32.4% lower ATE on Mip-NeRF360 compared to GLD.",
    "affiliations": [
     "Shanghai Jiao Tong University",
@@ -594,9 +594,9 @@
    "announced": "2026-09-29",
    "title": "DynaTokens: Teaching Dynamics to Camera-Controlled Video Models at Test Time",
    "authors": [
-    "Ma Ziqi",
-    "Chen Hongqiao",
-    "Gkioxari Georgia"
+    "Ziqi Ma",
+    "Hongqiao Chen",
+    "Georgia Gkioxari"
    ],
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
    "subjects": [
@@ -1437,7 +1437,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.35491v1",
+   "html_url": "https://arxiv.org/html/2609.35491v2",
    "abstract": "Few-step autoregressive video generation commonly relies on Distribution Matching Distillation (DMD), requiring a bidirectional diffusion teacher and an online fake-score model. We instead learn the rollout distribution directly from reference videos, eliminating both score models during post-training. Our framework minimizes maximum mean discrepancy (MMD) in frozen self-supervised video representation spaces, using a hybrid Nystr\\\"om--Monte Carlo estimator to balance approximation bias and sampling variance. Memory-efficient replay and gradient subsampling make this objective practical. Using the same architecture and initialization as Self-Forcing, our 1.3B model improves the VBench Total score from 83.80 to 84.64 while retaining 17 FPS. Removing auxiliary score models also enables 14B post-training on eight H200 GPUs. Beyond distillation, learning from reference videos enables the acquisition of new visual styles, semantic concepts, and spatial priors without a target-specific diffusion teacher.",
    "affiliations": [],
    "author_affiliations": null,
@@ -2434,7 +2434,7 @@
    "journal_ref": null,
    "venue": "NeurIPS 2026",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.35232v1",
+   "html_url": "https://arxiv.org/html/2609.35232v2",
    "abstract": "Visual-token compression is effective for improving the efficiency of vision-language models, but under extreme compression budgets, token pruning can break visual grounding while learned resamplers increase parameter count, attention cost, and training complexity. We revisit compression through a token parameterization lens, separating (i) basis transformation and structured truncation (retained subspace/compressibility) from (ii) coordinate organization (optimization and cross-modal alignment). This view yields two coupled objectives, compressibility and learnability, which we formalize as unified functionals. Guided by these objectives, we design Braco, a lightweight four-step coder that combines transform-basis truncation, input-independent basis-coordinate embeddings, budget-dependent orthogonal re-parameterization, and learned spatial residual tokens from lightweight pooling. Experiments show that Braco forms the favorable empirical accuracy-efficiency frontier under $23\\times$--$64\\times$ compression and remains competitive at $144\\times$, reaching 95.2% accuracy while reducing prefill FLOPs by 84.2%--86.7% relative to the uncompressed upper bound. Against prior methods, Braco matches or improves accuracy while achieving up to approximately 36% end-to-end speedup and using $16.6\\times$/$78.8\\times$ lower compressor latency/FLOPs.",
    "affiliations": [],
    "author_affiliations": null,
@@ -3266,7 +3266,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.34981v1",
+   "html_url": "https://arxiv.org/html/2609.34981v2",
    "abstract": "World action models (WAMs) predict the future alongside actions during \\emph{training}. Due to the heavy computation cost of video denoising, whether the future must still be generated during \\emph{inference} is disputed: Explicit WAMs denoise it into clean frames along with every action chunk, whereas Latent WAMs discard it entirely for acceleration. We find that latent WAMs, despite matching explicit ones on in-distribution tasks, fail to retain the generalization benefits that originally motivated WAMs. To demonstrate this, we evaluate generalization along three axes: \\emph{environmental perturbation}, \\emph{data efficiency}, and \\emph{task generalization}. Controlled comparisons with a matched backbone, training data, and budget reveal consistent degradation across all three axes when the action expert no longer conditions on future representations. Further analysis shows that the gap arises almost entirely from the first denoising step: the benefit comes from \\emph{preparing} the future, not \\emph{generating} it. We therefore propose \\textbf{Simple-WAM}, which simplifies future modeling into a single forward pass of fully noised video tokens and adapts the training-time noise schedule to this inference behavior. Across simulation and real-world tasks, Simple-WAM achieves the best of both worlds, leading explicit WAMs in generalization performance with efficiency comparable to Latent WAMs. Project Page: \\href{https://zrporz.github.io/Simple-WAM-Web/}{\\textcolor{panton}{\\texttt{https://zrporz.github.io/Simple-WAM-Web}}}",
    "affiliations": [],
    "author_affiliations": null,
@@ -3687,7 +3687,7 @@
    "title": "LVMT: Video Mask Transformer for Long-term Video Segmentation",
    "authors": [
     "Narges Norouzi",
-    "Niccol`o Cavagnero",
+    "Niccolò Cavagnero",
     "Idil Esen Zulfikar",
     "Bastian Leibe",
     "Gijs Dubbelman",
@@ -3701,7 +3701,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.34895v1",
+   "html_url": "https://arxiv.org/html/2609.34895v2",
    "abstract": "Existing online video segmentation methods struggle to track objects in long, complex videos with long-term occlusions. We hypothesize that this limitation is caused by (i) the inability of their temporal propagation mechanism to adaptively select the object information that is propagated across time, and (ii) their inability to be trained on long videos due to memory requirements and vanishing gradients. To address the first limitation, we propose to use a lightweight GRU-based temporal propagation module that can learn to select which information it keeps in memory and propagates across time. Second, to allow training on long videos, we introduce Truncated Query Propagation (TQP), a training strategy in which the model processes a video in chunks of frames, where information about tracked objects is propagated between chunks but backpropagation is only conducted in individual chunks, enabling longer temporal supervision without out-of-memory issues, inference overhead, or vanishing gradients. The resulting model is called the Long-term Video Mask Transformer (LVMT). Extensive experiments on six benchmarks show that LVMT sets a new state of the art across a range of video segmentation tasks, while retaining the speed of the highly efficient model it is based on, making it 10X faster than the prior state of the art. Code: https://www.tue-mps.org/lvmt",
    "affiliations": [
     "Eindhoven University of Technology",
@@ -5027,7 +5027,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.34716v1",
+   "html_url": "https://arxiv.org/html/2609.34716v2",
    "abstract": "Clinical CT and UHRCT cannot resolve individual trabeculae, whereas synchrotron radiation microCT (SR{\\mu}CT) provides 3.2{\\mu}m high-resolution references but is not applicable for in vivo imaging. The two domains differ by 31.25x in resolution, are only coarsely paired, and have drastically different data volumes. Moreover, clinical UHRCT suffers from severe partial volume effects, strong noise, and beam hardening/scatter artifacts, while SR{\\mu}CT is nearly free. Existing super-resolution networks and pretrained-prior methods underperform because they target pixel generation--diverse details and SSIM/PSNR--and do not explicitly model these physical differences. This indicates that 32x super-resolution via pixel generation is intrinsically ill-posed. We propose a paradigm shift from pixel generation to topological inference: deterministically predicting invariant microstructures from macro-scale low-resolution inputs, evaluated by morphological parameters. We realize this paradigm via structural dual super-resolution, coupling forward physical degradation (micro-to-macro) with inverse structural inference (macro-to-micro) through structural duality constraints. The method is an end-to-end, few-shot, compact structural dual network (SDN), comprising a bidirectional modeling network for forward degradation and inverse reconstruction, a pyramid structural consistency discriminator, and four structural duality constraints. On the testset, SDN achieves morphological parameters largely consistent with SR{\\mu}CT across 7 metrics, enabling clinical UHRCT with micro-imaging-level morphological quantification, with SSIM reaching 0.8. Trained on 3.2{\\mu}m SSRF data, the model generalizes well to 3.25{\\mu}m BSRF data from an independent source, validating cross-source generalization and confirming that the designed network achieves trustworthy structural inference rather than pixel generation.",
    "affiliations": [
     "Institute of High Energy Physics, Chinese Academy of Sciences",
@@ -5275,9 +5275,10 @@
    "title": "CapField-OPD: Learning Continuous Capability Fields via Joint-Anchored Multi-Teacher On-Policy Distillation for Flow Models",
    "authors": [
     "Pengyang Ling",
-    "Yujie Zhou",
     "Jiazi Bu",
+    "Yujie Zhou",
     "Yibin Wang",
+    "Zeqiang Lai",
     "Xiaoxiao Ma",
     "Yi Jin",
     "Huaian Chen",
@@ -5291,7 +5292,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.34658v1",
+   "html_url": "https://arxiv.org/html/2609.34658v2",
    "abstract": "Reward-specialized post-training produces strong experts for flow-based generative models, while multi-teacher on-policy distillation (OPD) consolidates their capabilities into a single student. Existing methods, however, route each prompt to a single teacher according to its semantic category, implicitly binding the desired capability to prompt content. This coupling makes capability invocation vulnerable to prompt perturbations and prevents users from explicitly adjusting the strength of the desired capability at inference time. In this work, we introduce CapField-OPD, an OPD framework that integrates multiple teachers into a continuous capability field through explicit capability coordinates. We use teacher models as anchors to construct this field, with the coordinates determining how their outputs are combined. Each capability configuration thus receives a unique supervision target, and capability control no longer depends on prompt semantics. Since the training anchors may not be optimal at inference time, we further profile the learned field on a small calibration set. The coordinate with the highest mean reward serves as the recommended default, while coordinates that are frequently optimal offer a promising candidate set for test-time scaling. Extensive experiments on compositional generation, text rendering, and visual aesthetics demonstrate that CapField-OPD consolidates multiple specialized teachers into a single student while preserving or surpassing their performance, reliably invokes the desired capabilities under semantics-preserving prompt variations, and supports continuous capability control and coordinate-based test-time scaling.",
    "affiliations": [
     "University of Science and Technology of China",
@@ -5379,7 +5380,7 @@
    "journal_ref": null,
    "venue": "NeurIPS 2026",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.34651v1",
+   "html_url": "https://arxiv.org/html/2609.34651v2",
    "abstract": "Generating high-quality UV textures for 3D meshes remains challenging. Multi-view projection pipelines suffer from occlusion and view inconsistency, and recent methods that generate textures directly in UV space still rely on auxiliary modules to supply 3D information, leaving the attention mechanism tied to UV-grid positions rather than to the underlying surface geometry. This mismatch limits coherence across seams and disconnected UV islands. We propose DirectUV, an image-conditioned UV texture diffusion framework that operates in the latent UV space of a pretrained image VAE, in which a Diffusion Transformer denoises the UV latent given a single input image and a coarse UV map. At its core, Surface-Aware Positional Encoding (SAPE) replaces the standard 2D-grid positional encoding with encodings derived from per-token 3D surface coordinates obtained via UV-to-surface correspondence. As positional encodings define the distance metric used by attention, SAPE enables tokens to interact according to 3D positional proximity derived from surface correspondence rather than UV-grid distance, restoring coherence across seams and disconnected islands. A multi-level extension further assigns different attention heads to progressively finer subdivisions of the same latent UV patch, allowing the model to reason about surface structure at multiple granularities. Experiments show that DirectUV produces sharper and more globally consistent textures than other baselines, with the largest improvements in occluded and view-unseen regions where projection-based methods leave gaps or stretched textures.",
    "affiliations": [
     "The Hong Kong University of Science and Technology (Guangzhou)",
@@ -5747,7 +5748,7 @@
     "Qiong Wu",
     "Jiacong Wang",
     "Fan Shi",
-    "Peng Jun",
+    "Jun Peng",
     "Yiyi Zhou"
    ],
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
@@ -5758,7 +5759,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.34581v1",
+   "html_url": "https://arxiv.org/html/2609.34581v2",
    "abstract": "Temporal video grounding is a key capability of advanced \\emph{Multimodal Large Language Models} (MLLMs) for the thorough understanding of video events, which is however often limited by repeated actions and visually similar contexts in long videos. In this paper, we study this issue from the perspective of \\emph{On-policy distillation} (OPD) and propose a new training regime for MLLMs termed \\emph{Counterfactual Attention Policy Distillation} (CAPD). In particular, OPD is a viable solution for MLLMs via providing dense teacher supervision on student-generated trajectories. But its next-token based teacher-student distillation is hard to identify the specific video segments supporting each predicted timestamp, which is critical for temporal grounding. In this case, CAPD measures how masking each temporal group changes the teacher's output distribution. The resulting counterfactual influence calibrates the teacher's attention and weights token-level distillation, allowing the student to learn the temporal evidence that affects boundary prediction. To validate CAPD, we trained it on Qwen3-VL-8B-Instruct using only 2,500 samples for one epoch, and evaluated it on the TimeLens and multiple general video benchmarks. Experimental results show that CAPD improves average recall by 12.0\\% relative to GRPO on TimeLens while preserving general video understanding, achieving comparable accuracy to the base model.",
    "affiliations": [],
    "author_affiliations": null,
@@ -5780,11 +5781,11 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Artificial Intelligence (cs.AI)"
    ],
-   "comments": null,
+   "comments": "author errors",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.34579v1",
+   "html_url": null,
    "abstract": "Single-image novel view synthesis remains challenging because the underlying 3D geometry is highly ambiguous. Recent diffusion-based approaches produce plausible results, but they often struggle to preserve the geometric structure and spatial coherence of foreground objects. We present GenNVS, a framework for geometry-enhanced novel view synthesis via a disentangled 3D prior. Specifically, GenNVS models foreground objects and the background with 3D Gaussian Splatting and aligns them through a coarse-to-fine geometric optimization process to form a unified 3D scene. This scene conditions a video diffusion model through the proposed Dual-Stream Masking mechanism, which guides synthesis by jointly exploiting rendered validity masks and geometry-aware warping. Experimental results show that GenNVS performs favorably against recent methods in both visual quality and geometric accuracy, while naturally supporting flexible scene editing.",
    "affiliations": [
     "Peking University"
@@ -6885,7 +6886,7 @@
     "Yuxuan Liang",
     "Xu Li",
     "Haotian Chen",
-    "Shi Fan",
+    "Fan Shi",
     "Mengyang Zhao",
     "Wenjuan Meng",
     "Zisheng Chen",
@@ -6905,7 +6906,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.34387v1",
+   "html_url": "https://arxiv.org/html/2609.34387v2",
    "abstract": "Existing adaptive reasoning methods for driving Vision-Language-Action (VLA) models primarily focus on whether to reason, overlooking how reasoning should differ across driving situations. Our key insight is that while scene complexity informs reasoning depth, dynamic risk is equally critical for deciding how to reason in time-critical situations. We therefore propose CAR-VLA, a unified driving VLA model that jointly considers scene complexity and dynamic risk to guide reasoning depth, urgency, and focus. CAR-VLA maps four complexity--risk categories to three reasoning modes: \\textit{Fast Intuition} for direct trajectory generation in simple low-risk scenes, \\textit{Slow Thinking} for deliberate reasoning in complex low-risk scenes, and \\textit{Reflex Response} for compact, hazard-focused reasoning in high-risk scenes regardless of complexity. Rather than merely shortening deliberation, Reflex Response centers reasoning on the most critical hazard and the immediate safe response. We train CAR-VLA through progressive supervised learning that links scene assessment, reasoning-mode selection, and trajectory generation, followed by reasoning-augmented reinforcement learning to improve driving quality and reasoning behavior. Experiments on NAVSIM v1(91.1 PDMS), NAVSIM v2(90.3 EPDMS), and Navhard(35.0 EPDMS) demonstrate competitive driving performance. Qualitative comparisons on navtest and in-house high-risk scenarios further illustrate risk-aware reasoning and hazard-responsive trajectory generation. The code for this paper will be released publicly at: https://github.com/chenxl124578/CAR-VLA.git",
    "affiliations": [
     "Fudan University",
@@ -8302,7 +8303,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.34167v1",
+   "html_url": "https://arxiv.org/html/2609.34167v2",
    "abstract": "Foundation models pre-trained on large-scale fMRI datasets have shown strong downstream performance, but at substantial data and computation cost. To investigate how much fMRI-specific pre-training is actually needed for such performance, we introduce FReD, which derives fMRI representations from a frozen Deep Compression AutoEncoder (DCAE) pre-trained exclusively on natural images and pairs them with a task specific readout. For trait prediction, FReD summarizes frame-wise representations by their temporal mean and log-standard deviation and applies linear probing, with late fusion across two normalization schemes. For state prediction, it represents each frame as a single token and models temporal dependencies with a shallow Transformer. Across four resting-state datasets spanning six trait-prediction targets, linear probes on frozen DCAE features generally outperform those on fMRI foundation model representations and remain competitive with fully fine-tuned fMRI foundation models. On three task-fMRI state-prediction tasks, a temporal readout on DCAE features performs comparably to the strongest foundation models evaluated. A Gaussian injection analysis further shows that localized signal changes are recovered more accurately from the frozen DCAE features than from the evaluated foundation-model representations. Together, these results show that strong performance on current fMRI benchmarks is possible without fMRI-specific representation pre-training, making frozen natural-image features as a useful baseline for assessing its added value.",
    "affiliations": [
     "IPAI, Seoul National University",
@@ -10476,9 +10477,9 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2609.33558v2",
    "abstract": "3D Visual Query Localization (3DVQL) retrieves the latest contiguous occurrence of a queried object in an RGB--point-cloud sequence and predicts a 9-DoF cuboid for every response frame. The query is captured independently of the search sequence, so its annotated pose may differ from how the object appears in the search frames. The benchmark baseline predicts cuboids after feature modeling, leaving their geometry unused for subsequent feature refinement. We investigate whether complete intermediate cuboids can improve query and proposal representations before final decoding. We introduce Progressive Geometric Learning for 3DVQL (PGL-3D), a predict--select--refine--re-predict framework that uses intermediate cuboids to guide the aggregation of search evidence and update query and proposal representations. A shared head first predicts a complete cuboid for every proposal. Query--Tube--Memory (QTM) then selects reference observations by combining proposal association, cuboid quality, frame response, and target absence, since association confidence alone establishes neither target presence nor geometric accuracy. The center, size, and orientation of each selected cuboid define soft pooling weights over query-conditioned proposal features. The pooled memory updates the query and proposal representations, and the head re-predicts from the updated features. A training-only objective, ST-D9O, supervises cuboid geometry at every stage by adding boundary, signed-distance, and soft-overlap terms to parameter regression. PGL-3D achieves a mean stAP of $0.270 \\pm 0.004$ on 3DVQL, compared with $0.044$ reported for LaF. Ablations support the benefits of geometry-guided feature updates, while stage-wise analyses show improved cuboid accuracy. Replacing the geometry objective in our PROT3D reproduction with ST-D9O improves mAO on GSOT3D from $21.63\\%$ to $25.78\\%$. Our code and models will be released.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
    "abs_url": "https://arxiv.org/abs/2609.33558",
    "pdf_url": "https://arxiv.org/pdf/2609.33558"
@@ -10673,11 +10674,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "Project Page: https://empactlab.github.io/SphMind-NeurIPS-2026/",
+   "comments": "Project Page at https://empactlab.github.io/SphMind-NeurIPS-2026/",
    "journal_ref": null,
    "venue": "NeurIPS 2026",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.33462v1",
+   "html_url": "https://arxiv.org/html/2609.33462v2",
    "abstract": "Omnidirectional or 360 cameras provide embodied AI agents with a holistic, wide field-of-view (FoV) view of their surroundings, motivating the use of Multi-modal Large Language Models (MLLMs) for omnidirectional spatial reasoning. However, most MLLMs are trained on conventional 2D perspective images and struggle with the severe distortions and wrap-around discontinuities induced by spherical geometry. Enabling them to generalize to non-Euclidean 3D spaces without retraining therefore remains challenging. We propose SphMind, a training-free, plug-and-play framework that decouples semantic perception from geometric reasoning. Rather than requiring MLLMs to learn spherical geometry internally, SphMind preserves their semantic capabilities while handling geometry externally. We introduce a Spherical Harmonics-based Spatial Graph (SHSG) that models spatial relationships through equivariant transformations on the sphere, together with Inference-Time Geometric Grounding (IGG), a model-agnostic closed-loop optimization process that aligns MLLM representations with spherical geometric constraints during inference. Experiments on three benchmarks show that SphMind achieves over 21.4% average improvement in directional reasoning on MP3D and Stanford2D-3D, outperforms prompt-engineering baselines by 8.7% on the real-world ODI-Bench, and improves rotational invariance by 5.9% under panorama rotations, without additional training or dataset-specific tuning. In-the-wild evaluations further show that SphMind resolves directional reasoning queries that baseline vision-language models fail to answer correctly.",
    "affiliations": [
     "IHPC, A*STAR, Singapore"
@@ -10878,11 +10879,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "accepted by NeurIPS 2026 main track",
+   "comments": "Accepted by NeurIPS 2026 main track, Project page: https://kohakublueleaf.github.io/TTVidT/",
    "journal_ref": null,
    "venue": "NeurIPS 2026",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.33419v1",
+   "html_url": "https://arxiv.org/html/2609.33419v2",
    "abstract": "Comparisons in video self-supervised learning often evaluate complete training recipes rather than isolating the method itself: architecture, objective, data exposure, schedule, scale, and decoder capacity can all vary at once. This makes it hard to identify which choices yield motion-prioritized representations, whose gains concentrate on frame-to-frame change while retaining useful appearance. We address this with a matched $4 \\times 6 = 24$ architecture-objective study at roughly 170M ~ 190M encoder scale on $\\sim$1.7M OpenVid and Moments-in-Time v2 clips for 8 epochs, and propose TT-VidT. TT-VidT combines a DINOv3-initialized ViT-B/16 per-frame spatial path with a compact Temporal Transfer Layer, trained by Diff Compression to reconstruct target frames from a first-frame appearance anchor and frame-specific motion tokens. The sweep shows that TT3D with Diff Compression, not either component alone, enters the strongest motion-sensitive regime, and decoder ablations favor a compact video-pretrained decoder. In final comparison, TT-VidT leads Jester, Something-Something V2, ARID, and Diving48 fine-tuning simultaneously, improving over the strongest non-TT row by 54% ~ 121%, while using 48% fewer encoder FLOPs than DisMo and 55% fewer than VideoMAE or V-JEPA2. HMDB51, IARD, and EPIC-Kitchens bound the claim.",
    "affiliations": [
     "National Tsing Hua University",
@@ -11122,7 +11123,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.33399v1",
+   "html_url": "https://arxiv.org/html/2609.33399v2",
    "abstract": "In realistic education, a solution is often expressed not only in words but in a drawing--a circuit, a geometric construction, a function plot--and a teacher must grade the drawing as carefully as the text. Recent advances in unified multimodal models have enabled scientific image generation, yet verifying the correctness of these specialized visual outputs remains a critical bottleneck: errors often arise from intricate domain knowledge, structural reasoning, and multi-step instruction rather than surface-level artifacts. Existing verifiers mainly target natural images and compress judgement into scalar scores, leaving scientific coverage and explainable feedback for error correction underexplored. To bridge this gap, we make three main contributions. (1) We construct SciGen-Verify, a benchmark dedicated to explainable verification of scientific image generation, spanning instruction following, multidisciplinary reasoning, and world knowledge domains. It contains a three-tier hierarchical protocol over the binary judgement, supporting explanation, and corrective editing instruction. (2) We develop SciGen-Verifier, a reasoning-driven multimodal verifier trained via cold-start supervised fine-tuning followed by a curriculum-based two-stage reinforcement learning pipeline. The rubric-guided process rewards first strengthen scientific reasoning exploration and outcome rewards subsequently align output with ground-truth annotation. (3) On SciGen-Verify, SciGen-Verifier achieves competitive performance against much larger proprietary models. It further serves as a practical online critic for iterative image rectification.",
    "affiliations": [
     "South China University of Technology",
@@ -11182,7 +11183,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.33384v1",
+   "html_url": "https://arxiv.org/html/2609.33384v2",
    "abstract": "Quantization errors in video diffusion transformers can be amplified or attenuated by subsequent denoising updates, making local reconstruction error an incomplete predictor of final impact. We introduce PulseQuant, a 4-bit post-training quantization method that combines trajectory sensitivity with activation geometry to guide offline calibration. Isolated block--step interventions estimate propagation risk, which prioritizes sensitive trajectory states during row-radius selection. With these radii fixed, response-subspace correction uses neighboring-code edits to reduce residual components along dominant activation directions. Both stages preserve the original 4-bit weight representation. Controlled interventions show that short-horizon propagated error predicts final latent error more reliably than immediate block-output error, supporting calibration beyond local reconstruction objectives. Evaluations on Wan models, Self Forcing, and MiniMax-H3 demonstrate improvements in key consistency and dense-reference metrics while remaining competitive on other attributes across model scales and generation paradigms.",
    "affiliations": [
     "The University of Sydney",
@@ -11736,11 +11737,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "Preprint. 25 pages, 4 figures",
+   "comments": "Minor formatting correction",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.33236v1",
+   "html_url": "https://arxiv.org/html/2609.33236v2",
    "abstract": "Training-free online video anomaly detection (VAD) with frozen multimodal language models faces two coupled challenges: extracting reliable current-window semantics under causal and computational constraints, and maintaining temporal continuity without repeatedly transmitting high-dimensional history. Encoding history through text can compress visual evidence and introduce semantic bias, whereas retaining visual history expands multimodal context. We introduce PARSEE-VAD, a two-module framework that separates semantic evidence acquisition from score-state evolution. Proposition-Aware Reasoning (PAR) extracts structured propositional evidence from the current causal window and conditionally activates more specific queries when coarse evidence warrants further refinement. By sharing a reusable causal visual prefix across queries, PAR reduces redundant computation through selective execution. Streaming Evidence Escalation (SEE) maps the acquired proposition evidence into a compact score-domain event state through current evidence escalation, then propagates only the resulting bounded state across decisions to support temporal continuity. Experiments on four benchmarks demonstrate strong training-free online performance while selective routing reduces specialist computation and score-state propagation remains sparse. These results support a current-first principle for streaming multimodal inference: resolve present semantics first, then use compact historical state only to repair residual continuity gaps.",
    "affiliations": [
     "Global Institute of Future Technology",
@@ -13064,11 +13065,11 @@
     "Computation and Language (cs.CL)",
     "Machine Learning (cs.LG)"
    ],
-   "comments": null,
+   "comments": "To appear in NeurIPS 2026 (https://neurips.cc/virtual/2026/poster/152201)",
    "journal_ref": null,
-   "venue": null,
+   "venue": "NeurIPS 2026",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.32876v1",
+   "html_url": "https://arxiv.org/html/2609.32876v2",
    "abstract": "State-of-the-art pathology foundation models, trained on millions of histology tiles, can fail to preserve tissue similarity when comparisons cross slide or institution boundaries. We show that general-purpose multimodal LLMs, without being trained as pathology foundation models, consistently outperform these specialized models in cross-domain histological similarity judgments. Using a relative similarity framework that we release as the MOSAIC (Model Similarity Assessment across Institutions and Cohorts) benchmark, we evaluate 17 models across 6 datasets and find that pathology encoders often rank same-institution, different-disease tiles as more similar than same-disease, different-institution tiles, a clinically dangerous failure mode invisible to standard within-domain evaluations. LLMs appear less susceptible to this failure, likely because they perform semantic visual comparison of morphology and tissue architecture rather than relying on shortcut features tied to acquisition context. Scaling training data does not resolve the problem for pathology encoders, implicating the learning objective rather than data coverage. Our results expose a fundamental robustness gap in current pathology foundation models and establish multimodal LLMs as a viable alternative for cross-institutional retrieval, dataset harmonization, and multi-site quality control. Code and data will be released upon acceptance.",
    "affiliations": [
     "University of North Carolina at Chapel Hill"
@@ -14741,7 +14742,7 @@
   {
    "arxiv_id": "2609.32551",
    "announced": "2026-09-29",
-   "title": "Harnessing Coupled Stream Completion For Human-Object Ineraction Modeling",
+   "title": "Harnessing Coupled Stream Completion For Human-Object Interaction Modeling",
    "authors": [
     "Dawei Guan",
     "Di Yang",
@@ -14756,7 +14757,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.32551v1",
+   "html_url": "https://arxiv.org/html/2609.32551v2",
    "abstract": "Text-conditioned human-object interaction (HOI) generation requires body motion, object trajectories & rotations, and hand articulation to remain coordinated. These components differ in scale and dynamics, but must agree on contact, relative pose, and timing. A shared representation may limit the distinct structure of each stream, while independent generation prevents each stream from responding to changes in the others. Latent supervision alone also does not directly constrain contact after decoding. We propose TRACE, a continuous latent framework that keeps stream states separate and couples their updates. TRACE encodes body, object, and hand motion into separate latents and predicts each stream velocity from the complete current interaction state. Geometric losses on decoded motion further constrain contact and object-relative motion over time. The same model supports completion of any single absent stream from the other two. Frozen flow features also serve as input to a language model for HOI understanding. Experiments on InterAct, OMOMO, and BEHAVE show that joint completion training improves generation and that frozen flow features improve understanding over raw-motion encoding. On InterAct, TRACE achieves the highest contact precision, recall, and F1 among the compared methods.",
    "affiliations": [
     "School of Artificial Intelligence and Data Science, University of Science and Technology of China"
@@ -15744,11 +15745,11 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Artificial Intelligence (cs.AI)"
    ],
-   "comments": "Accepted to MICCAI 2027 CREATE Workshop. 19 pages, 2 figures, 2 tables. Project page: [https://github.com/PKUTHM/EyeVQA](https://github.com/PKUTHM/EyeVQA)",
+   "comments": "Accepted to MICCAI 2027 CREATE Workshop. 19 pages, 2 figures, 2 tables. Project page: https://github.com/PKUTHM/EyeVQA",
    "journal_ref": null,
    "venue": "MICCAI 2027 Workshop",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.32352v1",
+   "html_url": "https://arxiv.org/html/2609.32352v2",
    "abstract": "Vision-language models (VLMs) have shown increasing potential for medical image understanding, yet their capabilities in ophthalmic imaging remain insufficiently characterized. Existing ophthalmic datasets are typically designed for individual diseases or specialized tasks, making it difficult to systematically evaluate whether VLMs can move beyond disease recognition toward comparative reasoning and fine-grained spatial grounding. We introduce EyeVQA, a unified visual question answering benchmark for comprehensive evaluation of ophthalmic VLMs. EyeVQA is constructed from 21 available ophthalmic datasets and contains 20,000 question-answer pairs spanning six disease groups and seven question types: Single-Choice, Multi-Select, Variable-Select, True-False, Ranking, Point Location, and Bounding Box. Gold answers are deterministically derived from source-provided diagnoses, severity grades, clinical findings, segmentation masks, bounding boxes, and anatomical landmarks, enabling reproducible evaluation without relying on model-generated annotations. Notably, 44.5% of the questions require reasoning across multiple images, extending evaluation beyond conventional single-image medical VQA. We benchmark fourteen representative general-purpose, scientific, and medically specialized VLMs under a unified zero-shot protocol. The best-performing model only achieves an overall score of 62.8, while substantial gaps remain in spatial grounding and cross-task generalization. These results highlight the limitations of current VLMs in comprehensive ophthalmic visual understanding and establish EyeVQA as a diagnostic benchmark for developing more reliable and spatially grounded ophthalmic multimodal models. The project page is available at https://github.com/PKUTHM/EyeVQA.",
    "affiliations": [],
    "author_affiliations": null,
@@ -17133,7 +17134,7 @@
    "journal_ref": null,
    "venue": "ECCV 2026",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.32013v1",
+   "html_url": "https://arxiv.org/html/2609.32013v2",
    "abstract": "We present TriO, a multi-modal unsupervised world model that predicts 4D occupancy, obstacle segmentation, flow and LiDAR. In contrast to prior work, TriO utilizes three distinct sensor modalities (camera, LiDAR, and RADAR) as both inputs and sources of self-supervision, eliminating the need for additional human annotations. Thanks to its novel supervision, the model is able to segment any occupancy from the drivable surface, overcoming the limitations of existing open-set methods in handling long-tail objects. TriO achieves state-of-the-art results in multiple 3D and 4D tasks, including occupancy, flow, and LiDAR prediction, as well as zero-shot road obstacle segmentation across multiple datasets such as Argoverse 2, and Spotting the Unexpected.",
    "affiliations": [
     "Waabi",
@@ -20203,7 +20204,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.LG",
-   "html_url": "https://arxiv.org/html/2609.35288v1",
+   "html_url": "https://arxiv.org/html/2609.35288v2",
    "abstract": "Joint-embedding self-supervised learning typically combines an invariance objective across augmented views with additional mechanisms to prevent representational collapse. These objectives are often applied after a projection head, while downstream tasks use the backbone representation before the projector. We find that this mismatch does not necessarily prevent dimensional collapse in the backbone, which can retain low effective rank and potentially limit downstream transfer. To address this, we introduce SACReg, a spectral anti-collapse regularizer motivated by an analysis of $\\lambda$-balance, which captures the relative scale of weight matrices across layers. In a two-layer linear network, we show that (i) $\\lambda$-balance prevents collapse, and (ii) our regularizer applied to the backbone induces $\\lambda$-balance. In the nonlinear case, this regularizer leads to anti-collapse as well and, in realistic architectures on ImageNet100, it empirically increases the representations' ranks. We apply SACReg to JEPA and propose $\\lambda$-JEPA, which improves over LeJEPA and VISReg on ImageNet-1k classification and in average linear-probe transfer performance across eight downstream image datasets. On video self-supervised learning, $\\lambda$-JEPA improves over LeVJEPA and V-JEPA 2 on the Something-Something-v2 and Kinetics-400 benchmarks. Code is available at https://github.com/berkerdemirel/lambda-jepa.",
    "affiliations": [],
    "author_affiliations": null,
@@ -20597,7 +20598,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2609.34911v1",
+   "html_url": "https://arxiv.org/html/2609.34911v2",
    "abstract": "Modern robot policies predict a chunk of future actions from a single observation, execute only a prefix, and discard the rest before replanning. Choosing the length of this prefix, the execution horizon, poses a trade-off between reactivity and efficiency. A short horizon keeps the policy reactive to the environment, but requires frequent policy calls. Recent test-time methods adaptively select the horizon for each chunk, but they either read model internals, where the signal must be chosen for each architecture, or draw extra samples, which adds cost. We propose *Action Upcycling*, a training-free algorithm that reuses actions the policy would otherwise discard, without accessing model internals or drawing extra samples. We find that discarded actions stay close to their replanned versions as long as the action velocity remains smooth. Action Upcycling therefore extends the execution horizon up to the point where the velocity begins to fluctuate. Extensive experiments on simulated and real-world manipulation tasks show that Action Upcycling reduces policy calls by 1.2--1.7$\\times$ with no loss in success rate, across multiple Vision-Language-Action Models (VLAs) and even a World Action Model (WAM). It applies to any chunked policy at negligible cost and is orthogonal to other policy acceleration methods such as few-step sampling and streaming action decoding, opening a new axis for policy acceleration.",
    "affiliations": [
     "KAIST",
@@ -20835,11 +20836,11 @@
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": null,
+   "comments": "Further refinement is ongoing",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.AI",
-   "html_url": "https://arxiv.org/html/2609.34768v1",
+   "html_url": null,
    "abstract": "Millimeter-wave (mmWave) radar enables privacy-preserving human perception, but the extreme sparsity of point clouds from commercial single-chip sensors (mean ~6.5 points/frame; ~28% empty frames) has confined prior art to body-part keypoints or discrete action classification. We present a cross-modal teacher-student framework that lifts commercial radar to full-body, per-frame, metric 3D mesh reconstruction with per-joint uncertainty. Three innovations: (1) a mesh-foundation-model teacher - SAM 3D Body produces whole-body MHR ground truth (70 joints, 18,439 mesh vertices) from a single RGB frame with zero training, slashing annotation cost by orders of magnitude; (2) StudentPoseFormer - set encoding with masked attention pooling, a temporal Transformer, and a CVAE multi-hypothesis head that outputs both the pose mean and per-joint variance, honestly reporting where the radar cannot see; and (3) a multi-stage ground-truth quality pipeline (confidence gating, depth validation, temporal smoothing, bone-length consistency, bad-frame rejection) plus systematic information-lever ablations. On the public MM-Fi benchmark (same TI IWR6843 sensor, cross-subject), our full configuration reaches 7.45 cm 12-joint MPJPE, with ablations proving the causal value of point accumulation (k = 3, -0.34 cm), Doppler (-0.85 cm; -2 cm at the wrist on fast actions), and velocity loss (-0.27 cm). On our own synchronized radar + RGB-D corpus with block-level held-out splits, the pipeline achieves 21.47 cm end-to-end (per-joint hierarchy from 4.8 cm at the hip to 34.7 cm at the wrist - matching physical information limits), could be improved to 15 cm with ~30k diverse samples, and a scaling law shows sample diversity, not volume, is the binding constraint. Deployment inference is radar-only - no camera, no image.",
    "affiliations": [
     "AI Value Center, Incaier (Haier), Qingdao, China"
@@ -23816,7 +23817,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.SD",
-   "html_url": "https://arxiv.org/html/2609.31810v1",
+   "html_url": "https://arxiv.org/html/2609.31810v2",
    "abstract": "Video-to-music models have advanced considerably in the last few years, particularly in film and music video applications. In this paper, we investigate this problem in the video game domain, which introduces new challenges for these models: video frames are rendered graphics, music is mostly synthetic audio, and soundtracks loop across entire levels rather than following on-screen events. We introduce a new dataset of 217.6 hours of Super Nintendo (SNES) gameplay video paired with 485 hours of clean soundtracks, free of sound effects and voice-overs, matched to gameplay audio via audio fingerprinting. With this dataset, we train a simple encoder-decoder transformer that passes video features directly to a MusicGen decoder, comparing different encoding strategies: textual descriptions (T5), independent frames (ViT), or spatiotemporal patches (ViViT). Each encoder is tested both frozen and fine-tuned, while the decoder is always fine-tuned. Frozen encoders match or outperform their fine-tuned counterparts on every metric, and the frozen ViViT achieves the best overall results. We compare this model with state-of-the-art baselines using both objective metrics and a listening study (N = 96). Despite having up to 18\\% fewer parameters, our model outperforms all baselines on objective metrics, surpasses GVMGen in the listening study, and performs comparably to OSSL.",
    "affiliations": [
     "UFMG MOSAIC Group"
