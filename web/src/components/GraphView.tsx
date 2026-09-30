@@ -346,28 +346,35 @@ export function GraphView(props: Props) {
                       ? "No affiliations are known for this paper yet: turn on Authors to see it with its authors."
                       : "Not in the graph with these settings: its institutions and authors are filtered out."
               }
+              citations={citations.get(selectedPaper.arxiv_id)}
               onOpen={() => onOpenPaper(selectedPaper)}
             />
           ) : (
             selectedEntity && (
               <>
                 <h2>{selectedEntity.label}</h2>
-                <p class="muted">
-                  {selectedEntity.paperIds.length} paper
-                  {selectedEntity.paperIds.length > 1 ? "s" : ""}
+                <p class="muted" title="Over the papers shown: the period or year, and the search">
+                  {plural(selectedEntity.paperIds.length, "paper")} ·{" "}
+                  {plural(selectedEntity.citations, "citation")}
                 </p>
                 <ul class="graph__papers">
-                  {selectedEntity.paperIds.slice(0, DETAILS_PAPERS).map((id) => {
-                    const paper = papersById.get(id);
-                    return paper ? (
-                      <li key={id}>
-                        <a href={paper.abs_url} target="_blank" rel="noopener noreferrer">
-                          {paper.title}
-                        </a>{" "}
-                        <span class="muted">· {formatDay(paper.announced)}</span>
-                      </li>
-                    ) : null;
-                  })}
+                  {byCitationCount(selectedEntity.paperIds, citations)
+                    .slice(0, DETAILS_PAPERS)
+                    .map((id) => {
+                      const paper = papersById.get(id);
+                      const count = citations.get(id);
+                      return paper ? (
+                        <li key={id}>
+                          <a href={paper.abs_url} target="_blank" rel="noopener noreferrer">
+                            {paper.title}
+                          </a>{" "}
+                          <span class="muted">
+                            · {formatDay(paper.announced)}
+                            {count !== undefined && ` · ${plural(count, "citation")}`}
+                          </span>
+                        </li>
+                      ) : null;
+                    })}
                 </ul>
                 {connections.length > 0 && (
                   <>
@@ -467,15 +474,28 @@ export function GraphView(props: Props) {
   );
 }
 
+/** "1 paper", "12 papers". */
+function plural(count: number, noun: string): string {
+  return `${count.toLocaleString()} ${noun}${count === 1 ? "" : "s"}`;
+}
+
+/** Paper ids, most cited first; unknown counts last, and ties keep their order. */
+function byCitationCount(ids: readonly string[], citations: ReadonlyMap<string, number>): string[] {
+  return [...ids].sort((a, b) => (citations.get(b) ?? -1) - (citations.get(a) ?? -1));
+}
+
 /** Details of a selected paper: what it is, who wrote it, where, and a way to read it. */
 function PaperDetails({
   paper,
   absent,
+  citations,
   onOpen,
 }: {
   paper: Paper;
   /** Why the paper has no node, if it has none. */
   absent: string | null;
+  /** Its citation count, when known. */
+  citations: number | undefined;
   onOpen: () => void;
 }) {
   const authors = paper.authors.slice(0, DETAILS_AUTHORS).join(", ");
@@ -490,6 +510,7 @@ function PaperDetails({
       <p class="muted">
         {formatDay(paper.announced)}
         {paper.venue && ` · ${paper.venue}`}
+        {citations !== undefined && ` · ${plural(citations, "citation")}`}
       </p>
       <p>
         {authors}
