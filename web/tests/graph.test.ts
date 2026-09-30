@@ -19,9 +19,27 @@ describe("institutionName", () => {
       "Xi’an Jiaotong University",
     ],
     ["The University of Texas at Austin", "University of Texas at Austin"],
-    ["KAIST", "KAIST"],
+    ["KAIST", "Korea Advanced Institute of Science and Technology"],
     ["Meta", "Meta"],
     ["and", ""],
+    // Units and addresses alone name no institution.
+    ["Department of Computer Science", ""],
+    ["College of Computer Science and Electronic Engineering", ""],
+    ["Nagoya 461-8680", ""],
+    ["Independent Researcher", ""],
+    ["Independent Researcher, University of Regensburg", "University of Regensburg"],
+    // Companies, however written; a hospital is not its sponsor.
+    ["NVIDIA AI Technology Centre, Singapore", "NVIDIA"],
+    ["ARC Lab, Tencent IEG", "Tencent"],
+    ["Microsoft Research Asia, Shanghai, China", "Microsoft"],
+    ["Samsung Medical Center", "Samsung Medical Center"],
+    ["Zhiyang Innovation Co., Ltd", "Zhiyang Innovation Co. Ltd"],
+    // Acronyms and campuses.
+    ["MIT, Boston, USA", "Massachusetts Institute of Technology"],
+    ["CASIA", "Chinese Academy of Sciences"],
+    ["University of California, Berkeley", "University of California, Berkeley"],
+    ["EECS, University of California, Los Angeles, CA", "University of California, Los Angeles"],
+    ["Luca Gandolfi and Chiara Plizzari are with Bocconi University", "Bocconi University"],
   ])("%s -> %s", (affiliation, expected) => {
     expect(institutionName(affiliation)).toBe(expected);
   });
@@ -31,10 +49,10 @@ const papers = [
   makePaper({
     arxiv_id: "1",
     authors: ["Ada", "Bob"],
-    affiliations: ["MIT, USA", "Google, Switzerland"],
+    affiliations: ["Inria, France", "Google, Switzerland"],
   }),
-  makePaper({ arxiv_id: "2", authors: ["Ada"], affiliations: ["MIT", "Google"] }),
-  makePaper({ arxiv_id: "3", authors: ["Cyd"], affiliations: ["KAIST"] }),
+  makePaper({ arxiv_id: "2", authors: ["Ada"], affiliations: ["Inria", "Google"] }),
+  makePaper({ arxiv_id: "3", authors: ["Cyd"], affiliations: ["Tsinghua University"] }),
 ];
 
 const INSTITUTIONS: GraphOptions = {
@@ -52,11 +70,11 @@ describe("buildGraph", () => {
 
     expect(graph.nodes.map((node) => [node.label, node.paperIds.length])).toEqual([
       ["Google", 2],
-      ["MIT", 2],
-      ["KAIST", 1],
+      ["Inria", 2],
+      ["Tsinghua University", 1],
     ]);
     expect(graph.links).toEqual([
-      { source: "institution:google", target: "institution:mit", weight: 2 },
+      { source: "institution:google", target: "institution:inria", weight: 2 },
     ]);
     expect(graph.truncated).toBe(false);
   });
@@ -85,7 +103,7 @@ describe("buildGraph", () => {
       "author:bob",
       "author:cyd",
       "institution:google",
-      "institution:mit",
+      "institution:inria",
     ]);
     expect(graph.links).toHaveLength(6);
   });
@@ -97,10 +115,20 @@ describe("buildGraph", () => {
     expect(graph.links).toEqual([{ source: "author:ada", target: "author:bob", weight: 1 }]);
   });
 
+  it("never makes an institution of one of the paper's authors", () => {
+    const listed = makePaper({
+      arxiv_id: "12",
+      authors: ["Dong Liang", "Ada"],
+      affiliations: ["Dong Liang", "Inria"],
+    });
+
+    expect(buildGraph([listed], INSTITUTIONS).nodes.map((node) => node.label)).toEqual(["Inria"]);
+  });
+
   it("can hide nodes that share no paper with another node", () => {
     const graph = buildGraph(papers, { ...INSTITUTIONS, isolated: false });
 
-    expect(graph.nodes.map((node) => node.label)).toEqual(["Google", "MIT"]);
+    expect(graph.nodes.map((node) => node.label)).toEqual(["Google", "Inria"]);
   });
 });
 
@@ -108,7 +136,7 @@ describe("buildGraph with author affiliations", () => {
   const mapped = makePaper({
     arxiv_id: "9",
     authors: ["Ada", "Bob"],
-    affiliations: ["MIT", "ETH Zurich"],
+    affiliations: ["Inria", "ETH Zurich"],
     author_affiliations: [[0], null],
   });
 
@@ -118,27 +146,27 @@ describe("buildGraph with author affiliations", () => {
 
     expect(links).toEqual([
       "author:ada->author:bob",
-      "author:ada->institution:mit",
+      "author:ada->institution:inria",
       "author:bob->institution:eth zurich",
-      "author:bob->institution:mit",
-      "institution:eth zurich->institution:mit",
+      "author:bob->institution:inria",
+      "institution:eth zurich->institution:inria",
     ]);
   });
 
   it("drops the author-institution edge when their institution is filtered out", () => {
-    const twice = makePaper({ arxiv_id: "10", authors: ["Cyd"], affiliations: ["MIT"] });
+    const twice = makePaper({ arxiv_id: "10", authors: ["Cyd"], affiliations: ["Inria"] });
     const graph = buildGraph([mapped, twice], {
       ...INSTITUTIONS,
       authors: true,
       minPapers: { institution: 2, author: 1 },
     });
 
-    // Only MIT survives; Ada, mapped to it, keeps no edge to ETH Zurich; Bob falls back.
+    // Only Inria survives; Ada, mapped to it, keeps no edge to ETH Zurich; Bob falls back.
     expect(graph.links.map(({ source, target }) => `${source}->${target}`).sort()).toEqual([
       "author:ada->author:bob",
-      "author:ada->institution:mit",
-      "author:bob->institution:mit",
-      "author:cyd->institution:mit",
+      "author:ada->institution:inria",
+      "author:bob->institution:inria",
+      "author:cyd->institution:inria",
     ]);
   });
 });
@@ -148,7 +176,7 @@ describe("buildGraph with papers", () => {
     arxiv_id: "9",
     title: "Gaussian Splatting for Everyone",
     authors: ["Ada", "Bob"],
-    affiliations: ["MIT", "ETH Zurich"],
+    affiliations: ["Inria", "ETH Zurich"],
     author_affiliations: [[0], null],
   });
   const PAPERS: GraphOptions = { ...INSTITUTIONS, papers: true };
@@ -160,8 +188,8 @@ describe("buildGraph with papers", () => {
 
     expect(graph.nodes.map((node) => node.id)).toEqual([
       "institution:google",
-      "institution:mit",
-      "institution:kaist",
+      "institution:inria",
+      "institution:tsinghua university",
       "paper:1",
       "paper:2",
       "paper:3",
@@ -169,18 +197,18 @@ describe("buildGraph with papers", () => {
     expect(edges(graph)).toEqual([
       "institution:google->paper:1",
       "institution:google->paper:2",
-      "institution:kaist->paper:3",
-      "institution:mit->paper:1",
-      "institution:mit->paper:2",
+      "institution:inria->paper:1",
+      "institution:inria->paper:2",
+      "institution:tsinghua university->paper:3",
     ]);
   });
 
   it("hangs institutions from the authors placed there, else from the paper", () => {
     const graph = buildGraph([mapped], { ...PAPERS, authors: true });
 
-    // Ada is placed at MIT; nobody shown is placed at ETH, and Bob is not placed at all.
+    // Ada is placed at Inria; nobody shown is placed at ETH, and Bob is not placed at all.
     expect(edges(graph)).toEqual([
-      "author:ada->institution:mit",
+      "author:ada->institution:inria",
       "author:ada->paper:9",
       "author:bob->paper:9",
       "institution:eth zurich->paper:9",
@@ -194,7 +222,7 @@ describe("buildGraph with papers", () => {
       minPapers: { institution: 1, author: 2 },
     });
 
-    expect(edges(graph)).toEqual(["institution:eth zurich->paper:9", "institution:mit->paper:9"]);
+    expect(edges(graph)).toEqual(["institution:eth zurich->paper:9", "institution:inria->paper:9"]);
   });
 
   it("links papers to authors only when institutions are hidden", () => {

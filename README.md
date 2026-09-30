@@ -82,7 +82,9 @@ The *Graph* tab is a full-screen map of the loaded papers, their institutions an
 institutions; with authors on, a paper links to its authors, and an institution to the
 authors the paper places there. Without papers, it becomes a collaboration map: institutions
 and authors linked when they appear on the same paper. Variants of an institution's name are
-merged approximately ("Google, Switzerland" and "Google"). Drag, scroll to zoom, click a
+merged approximately ("Google, Switzerland" and "Google", "CMU" and "Carnegie Mellon
+University", "Microsoft Research Asia" and "Microsoft"); a department or an address on its
+own makes no node. Drag, scroll to zoom, click a
 node to see its details, double-click it to list its papers (or open the paper). The
 *Graph settings* panel chooses the period (same calendar), restricts the graph to papers
 matching some words, highlights nodes by name or title (`/`), shows or hides papers,
