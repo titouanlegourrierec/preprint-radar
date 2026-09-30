@@ -34,6 +34,8 @@ jobs:
       PREPRINT_RADAR_CONTACT: ${{ vars.PREPRINT_RADAR_CONTACT || format('{0}/{1}', github.server_url, github.repository) }}
       MAX_HTML: ${{ inputs.max-html || '600' }}
       SINCE: ${{ inputs.since }}
+      # Optional: without it, Semantic Scholar is queried anonymously, slowly.
+      SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -58,6 +60,15 @@ jobs:
             # Recent listing; abstracts from RSS and catchup pages, then affiliations.
             uv run --no-dev preprint-radar -v update "${args[@]}" --max-html "$MAX_HTML"
           fi
+
+      - name: Fetch citation counts of new papers
+        # A paper or two hundred: one or two requests. Semantic Scholar learns new papers
+        # within days, so some are left for the next run; the weekly archive refreshes all.
+        if: ${{ !cancelled() }}
+        run: |
+          args=()
+          for category in $CATEGORIES; do args+=(--category "$category"); done
+          uv run --no-dev preprint-radar -v citations "${args[@]}"
 
       - name: Commit data
         if: always()

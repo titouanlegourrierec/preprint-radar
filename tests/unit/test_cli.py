@@ -11,6 +11,7 @@ from rich.console import Console
 from preprint_radar.archive.catalog import Catalog
 from preprint_radar.archive.update import ArchiveClients, ArchiveReport
 from preprint_radar.cli import main
+from preprint_radar.collect import CitationsReport
 from preprint_radar.exceptions import FetchError, NotFoundError
 from preprint_radar.http import HttpClient
 from preprint_radar.models import Listing, Paper
@@ -326,3 +327,26 @@ def test_runs_as_a_module(monkeypatch: pytest.MonkeyPatch, capsys: pytest.Captur
 
     assert exc_info.value.code == 0
     assert capsys.readouterr().out.startswith("preprint-radar ")
+
+
+def test_citations_fetches_the_missing_counts_of_each_category(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    calls: list[tuple[str, bool, str | None]] = []
+
+    def update_citation_counts(
+        _: PaperStore, category: str, __: HttpClient, *, key: str | None, refresh: bool
+    ) -> CitationsReport:
+        calls.append((category, refresh, key))
+        return CitationsReport(category=category, asked=3, found=3)
+
+    monkeypatch.setattr("preprint_radar.cli.update_citation_counts", update_citation_counts)
+    monkeypatch.setenv("SEMANTIC_SCHOLAR_API_KEY", "test-key")
+    store = PaperStore(tmp_path / "data")
+    store.save("cs.CV", [Paper(arxiv_id="2609.00001", announced=date(2026, 9, 25), title="T", authors=())])
+
+    assert main(["citations", "--data-dir", str(store.root)]) == 0
+    assert main(["citations", "--data-dir", str(store.root), "-c", "cs.LG", "--all"]) == 0
+
+    assert calls == [("cs.CV", False, "test-key"), ("cs.LG", True, "test-key")]
+    assert capsys.readouterr().out.count("citation counts for 3 of 3 papers") == 2

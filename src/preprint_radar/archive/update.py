@@ -28,13 +28,12 @@ from preprint_radar.http import HttpClient
 from preprint_radar.models import Paper
 from preprint_radar.sources.arxiv_oai import CatalogEntry
 from preprint_radar.sources.openalex import fetch_affiliations
-from preprint_radar.sources.semantic_scholar import fetch_citation_counts
+from preprint_radar.sources.semantic_scholar import S2_SOURCE, fetch_citation_counts
 from preprint_radar.store.paper_store import PaperStore
 from preprint_radar.venue import extract_venue
 
 logger = logging.getLogger(__name__)
 
-CITATION_SOURCE = "Semantic Scholar"
 _SUBJECT_CODE_RE = re.compile(r"\(([^()]+)\)\s*$")
 
 
@@ -176,7 +175,7 @@ def update_archive(
     store.write_citations(
         category,
         {arxiv_id: count for arxiv_id in stored_ids if (count := counts.get(arxiv_id)) is not None},
-        source=CITATION_SOURCE,
+        source=S2_SOURCE,
     )
     store.write_index()
     return report

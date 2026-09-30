@@ -1,3 +1,4 @@
+import json
 from collections import Counter
 from collections.abc import Callable
 from dataclasses import replace
@@ -8,7 +9,15 @@ import httpx
 import pytest
 from tests.conftest import FIXTURES_DIR
 
-from preprint_radar.collect import add_institutions, backfill_category, format_report, update_category
+from preprint_radar.collect import (
+    CitationsReport,
+    add_institutions,
+    backfill_category,
+    format_citations_report,
+    format_report,
+    update_category,
+    update_citation_counts,
+)
 from preprint_radar.http import HttpClient
 from preprint_radar.models import Listing, Paper
 from preprint_radar.sources.arxiv_listing import parse_catchup
@@ -361,3 +370,84 @@ def test_update_names_institutions_and_keeps_them(fake: FakeArxiv, store: PaperS
     assert len(paper.institutions) == len(paper.affiliations or ())
     # Carried over: only the retried page (2609.30234, 503 then 404) could need a lookup.
     assert all(request not in (paper.affiliations or ()) for request in fake.ror_requests)
+
+
+class FakeSemanticScholar:
+    """Answer batch requests from fixed counts; ``None`` for unknown papers, or refuse all."""
+
+    def __init__(self, counts: dict[str, int | None], *, down: bool = False) -> None:
+        self.counts = counts
+        self.down = down
+        self.asked: list[str] = []
+
+    def handle(self, request: httpx.Request) -> httpx.Response:
+        if self.down:
+            return httpx.Response(503)
+        ids = [paper_id.removeprefix("ARXIV:") for paper_id in json.loads(request.content)["ids"]]
+        self.asked += ids
+        return httpx.Response(200, json=[{"citationCount": self.counts.get(i)} for i in ids])
+
+    def client(self) -> HttpClient:
+        return HttpClient(transport=httpx.MockTransport(self.handle), max_attempts=1)
+
+
+@pytest.fixture
+def cited_store(store: PaperStore) -> PaperStore:
+    papers = [_paper(arxiv_id, None) for arxiv_id in ("2609.00001", "2609.00002", "2609.00003")]
+    store.save("cs.CV", papers)
+    store.write_archive("cs.CV", [replace(_paper("1512.03385", None), announced=date(2015, 12, 10))])
+    store.write_citations("cs.CV", {"2609.00001": 5, "1512.03385": 200_000}, source="Semantic Scholar")
+    return store
+
+
+def test_update_citation_counts_asks_only_for_papers_without_one(cited_store: PaperStore) -> None:
+    before = cited_store.load_citation_counts("cs.CV")
+    fake = FakeSemanticScholar({"2609.00002": 0, "2609.00003": None})  # not known yet
+
+    with fake.client() as client:
+        report = update_citation_counts(cited_store, "cs.CV", client, key=None)
+
+    assert fake.asked == ["2609.00002", "2609.00003"]
+    assert report == CitationsReport(category="cs.CV", asked=2, found=1)
+    after = cited_store.load_citation_counts("cs.CV")
+    assert after is not None
+    assert before is not None
+    assert after.counts == {"2609.00001": 5, "2609.00002": 0, "1512.03385": 200_000}
+    assert after.generated_at == before.generated_at
+    assert (
+        format_citations_report(report) == "cs.CV: citation counts for 1 of 2 papers, 1 left for the next run"
+    )
+
+
+def test_update_citation_counts_refreshes_every_stored_paper(cited_store: PaperStore) -> None:
+    counts = {"2609.00001": 7, "2609.00002": 1, "2609.00003": 0, "1512.03385": 250_000}
+    fake = FakeSemanticScholar(dict(counts))
+
+    with fake.client() as client:
+        report = update_citation_counts(cited_store, "cs.CV", client, key=None, refresh=True)
+
+    assert sorted(fake.asked) == sorted(counts)
+    assert cited_store.load_citations("cs.CV") == counts
+    assert format_citations_report(report) == "cs.CV: citation counts for 4 of 4 papers"
+
+
+def test_a_failing_refresh_keeps_the_counts(cited_store: PaperStore, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr("preprint_radar.sources.semantic_scholar.S2_ANONYMOUS_RETRY_WAIT_SECONDS", 0)
+    before = cited_store.load_citation_counts("cs.CV")
+
+    with FakeSemanticScholar({}, down=True).client() as client:
+        report = update_citation_counts(cited_store, "cs.CV", client, key=None, refresh=True)
+
+    assert report.found == 0
+    assert cited_store.load_citation_counts("cs.CV") == before
+
+
+def test_nothing_to_ask_for(cited_store: PaperStore) -> None:
+    cited_store.merge_citations("cs.CV", {"2609.00002": 0, "2609.00003": 1}, source="Semantic Scholar")
+    fake = FakeSemanticScholar({})
+
+    with fake.client() as client:
+        report = update_citation_counts(cited_store, "cs.CV", client, key=None)
+
+    assert fake.asked == []
+    assert report.asked == 0

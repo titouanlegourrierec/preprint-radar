@@ -23,6 +23,8 @@ from preprint_radar.http import HttpClient
 logger = logging.getLogger(__name__)
 
 S2_BATCH_URL = "https://api.semanticscholar.org/graph/v1/paper/batch"
+S2_SOURCE = "Semantic Scholar"
+"""Name of the source, as written in ``citations.json``."""
 S2_BATCH_SIZE = 500
 S2_DELAY_SECONDS = 1.1
 """With a key: just under the one request per second a key allows (across all endpoints)."""

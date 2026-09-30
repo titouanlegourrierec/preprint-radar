@@ -19,7 +19,7 @@ import json
 import logging
 import re
 from collections import defaultdict
-from collections.abc import Iterable, Iterator
+from collections.abc import Iterable, Iterator, Mapping
 from dataclasses import dataclass
 from datetime import UTC, date, datetime
 from pathlib import Path
@@ -201,12 +201,30 @@ class PaperStore:
             msg = f"Invalid citations file {path}: {exc}"
             raise StoreError(msg) from exc
 
-    def write_citations(self, category: str, counts: dict[str, int], *, source: str) -> None:
-        """Write the citation counts of the stored papers of ``category``."""
+    def write_citations(self, category: str, counts: Mapping[str, int], *, source: str) -> None:
+        """Write the citation counts of the stored papers of ``category``, dated now."""
+        self._write_citations(category, counts, source=source, generated_at=datetime.now(tz=UTC))
+
+    def merge_citations(self, category: str, counts: Mapping[str, int], *, source: str) -> None:
+        """Add counts to those of ``category``, updating the ones already there.
+
+        The file keeps the date and source of its last full refresh
+        (:meth:`write_citations`): the counts added in between are newer, never older.
+        """
+        current = self.load_citation_counts(category)
+        if current is None:
+            self.write_citations(category, counts, source=source)
+            return
+        merged = {**current.counts, **counts}
+        self._write_citations(category, merged, source=current.source, generated_at=current.generated_at)
+
+    def _write_citations(
+        self, category: str, counts: Mapping[str, int], *, source: str, generated_at: datetime
+    ) -> None:
         payload = {
             "schema_version": SCHEMA_VERSION,
             "category": category,
-            "generated_at": datetime.now(tz=UTC).isoformat(timespec="seconds"),
+            "generated_at": generated_at.isoformat(timespec="seconds"),
             "source": source,
             "counts": dict(sorted(counts.items())),
         }

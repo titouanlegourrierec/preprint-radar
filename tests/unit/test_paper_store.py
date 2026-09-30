@@ -82,6 +82,23 @@ def test_citations_file_is_not_a_day(store: PaperStore, listing: Listing) -> Non
     assert store.load_citation_counts("cs.LG") is None
 
 
+def test_merged_citations_keep_the_date_of_the_last_refresh(store: PaperStore) -> None:
+    store.merge_citations("cs.CV", {"2609.00001": 1}, source="Semantic Scholar")  # no file yet
+    first = store.load_citation_counts("cs.CV")
+    assert first is not None
+    path = store.root / "cs.CV" / "citations.json"
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    path.write_text(json.dumps({**payload, "generated_at": "2026-09-27T05:41:00+00:00"}), encoding="utf-8")
+
+    store.merge_citations("cs.CV", {"2609.00001": 4, "2609.00002": 0}, source="Other")
+
+    merged = store.load_citation_counts("cs.CV")
+    assert merged is not None
+    assert merged.counts == {"2609.00001": 4, "2609.00002": 0}
+    assert merged.generated_at.isoformat() == "2026-09-27T05:41:00+00:00"
+    assert merged.source == "Semantic Scholar"
+
+
 @pytest.mark.parametrize(
     "payload", ["{not json", '{"counts": {}}', '{"counts": {}, "source": "S2", "generated_at": "soon"}']
 )

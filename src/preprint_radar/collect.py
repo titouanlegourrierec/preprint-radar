@@ -1,7 +1,8 @@
 """Update pipelines: listing -> store, enriching new papers along the way.
 
 - :func:`update_category` follows the recent listing (the last few announcement days);
-- :func:`backfill_category` collects past days from the catchup pages.
+- :func:`backfill_category` collects past days from the catchup pages;
+- :func:`update_citation_counts` gives the stored papers their citation counts.
 """
 
 import logging
@@ -18,6 +19,7 @@ from preprint_radar.sources.arxiv_html import fetch_front_matter
 from preprint_radar.sources.arxiv_listing import fetch_catchup, fetch_listing
 from preprint_radar.sources.arxiv_rss import fetch_rss_abstracts
 from preprint_radar.sources.ror import match_institutions
+from preprint_radar.sources.semantic_scholar import S2_SOURCE, fetch_citation_counts
 from preprint_radar.store.paper_store import PaperStore
 
 logger = logging.getLogger(__name__)
@@ -341,6 +343,62 @@ def add_institutions(papers: Sequence[Paper], client: HttpClient, *, limit: int 
         else paper
         for paper in papers
     ]
+
+
+@dataclass(frozen=True, slots=True)
+class CitationsReport:
+    """Outcome of :func:`update_citation_counts`.
+
+    Attributes:
+        category: Category of the papers.
+        asked: Papers whose count was asked for.
+        found: Papers that got one.
+    """
+
+    category: str
+    asked: int
+    found: int
+
+
+def update_citation_counts(
+    store: PaperStore, category: str, client: HttpClient, *, key: str | None, refresh: bool = False
+) -> CitationsReport:
+    """Fetch the citation counts of the stored papers of ``category`` into ``citations.json``.
+
+    By default only the papers without a count, announced since the last full refresh:
+    one or two requests a day. With ``refresh``, every stored paper (day files and archive),
+    as the weekly archive does. Semantic Scholar learns new arXiv papers within days: the
+    ones it does not know yet stay without a count and are asked for again next time.
+
+    Args:
+        store: Data store.
+        category: arXiv category.
+        client: HTTP client for Semantic Scholar (see :func:`fetch_citation_counts`).
+        key: Semantic Scholar API key, ``None`` for anonymous requests.
+        refresh: Ask for every stored paper, and date the counts of today.
+
+    Returns:
+        How many papers were asked for, and how many got a count. A failing Semantic
+        Scholar leaves the rest for the next run: it never fails the update.
+    """
+    stored = [paper.arxiv_id for paper in (*store.iter_papers(category), *store.iter_archive(category))]
+    known = {} if refresh else store.load_citations(category)
+    wanted = [arxiv_id for arxiv_id in dict.fromkeys(stored) if arxiv_id not in known]
+    fetched = fetch_citation_counts(client, wanted, key=key) if wanted else {}
+    counts = {arxiv_id: count for arxiv_id, count in fetched.items() if count is not None}
+    if refresh and len(fetched) == len(wanted):
+        store.write_citations(category, counts, source=S2_SOURCE)
+    elif counts:
+        store.merge_citations(category, counts, source=S2_SOURCE)
+    return CitationsReport(category=category, asked=len(wanted), found=len(counts))
+
+
+def format_citations_report(report: CitationsReport) -> str:
+    """Render a :class:`CitationsReport` as one line."""
+    missing = report.asked - report.found
+    return f"{report.category}: citation counts for {report.found} of {report.asked} papers" + (
+        f", {missing} left for the next run" if missing else ""
+    )
 
 
 def format_report(report: UpdateReport) -> str:

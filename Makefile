@@ -114,6 +114,10 @@ archive: ## Keep the most cited older papers in data/ (first run: about 2 hours)
 institutions: ## Name the institutions of stored affiliations through ROR (minutes)
 	uv run preprint-radar -v institutions $(CATEGORY_ARGS)
 
+.PHONY: citations
+citations: ## Fetch the citation counts of stored papers without one (ALL=1: every paper)
+	uv run preprint-radar -v citations $(CATEGORY_ARGS) $(if $(ALL),--all)
+
 .PHONY: stats
 stats: ## Show how much of data/ is enriched, per day and per archive year
 	@uv run preprint-radar stats $(CATEGORY_ARGS)

@@ -15,8 +15,10 @@ from preprint_radar.archive.update import ArchiveClients, format_archive_report,
 from preprint_radar.collect import (
     add_institutions,
     backfill_category,
+    format_citations_report,
     format_report,
     update_category,
+    update_citation_counts,
 )
 from preprint_radar.config import (
     CONTACT_ENV_VAR,
@@ -86,6 +88,7 @@ def build_parser() -> argparse.ArgumentParser:
     _add_stats_parser(subparsers)
     _add_institutions_parser(subparsers)
     _add_archive_parser(subparsers)
+    _add_citations_parser(subparsers)
     return parser
 
 
@@ -260,6 +263,35 @@ def _add_archive_parser(subparsers: "argparse._SubParsersAction[argparse.Argumen
         help="delete the day files older than 12 months (their archived papers are kept)",
     )
     archive.add_argument("--dry-run", action="store_true", help="report what would change, write nothing")
+
+
+def _add_citations_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
+    citations = subparsers.add_parser(
+        "citations",
+        help="fetch the citation counts of stored papers",
+        description=(
+            "Fetch from Semantic Scholar the citation counts of the stored papers that have "
+            "none yet (the papers announced since the last full refresh), or of every stored "
+            "paper with --all, as the weekly archive does. API key from "
+            "SEMANTIC_SCHOLAR_API_KEY. A failing Semantic Scholar never fails the command: "
+            "the papers left are asked for again next time."
+        ),
+    )
+    citations.add_argument(
+        "-c",
+        "--category",
+        dest="categories",
+        action="append",
+        type=_category,
+        help="arXiv category, repeatable (default: every category in the store)",
+    )
+    citations.add_argument(
+        "--data-dir",
+        type=Path,
+        default=DEFAULT_DATA_DIR,
+        help=f"data store directory (default: {DEFAULT_DATA_DIR})",
+    )
+    citations.add_argument("--all", action="store_true", help="fetch the counts of every stored paper again")
 
 
 def _add_store_arguments(parser: argparse.ArgumentParser) -> None:
@@ -456,25 +488,43 @@ def _run_institutions(args: argparse.Namespace) -> int:
     return 0
 
 
-def _run_archive(args: argparse.Namespace) -> int:
-    categories: list[str] = args.categories or [DEFAULT_CATEGORY]
-    store = PaperStore(args.data_dir)
+def _semantic_scholar() -> tuple[HttpClient, str | None]:
+    """A client for Semantic Scholar, and the API key it is used with (if any)."""
     key = api_key()
     if key:
         logger.info("Semantic Scholar: requests with an API key")
     else:
         logger.warning("No Semantic Scholar API key: citation counts will be slow to fetch.")
-    today = datetime.now(tz=UTC).date()
     # Only arXiv gets the contact; the other services get the bare User-Agent.
+    client = HttpClient(
+        user_agent=DEFAULT_USER_AGENT,
+        min_interval=S2_DELAY_SECONDS if key else S2_ANONYMOUS_DELAY_SECONDS,
+        max_attempts=1,  # fetch_citation_counts tries refused batches again
+    )
+    return client, key
+
+
+def _run_citations(args: argparse.Namespace) -> int:
+    store = PaperStore(args.data_dir)
+    categories: list[str] = args.categories or store.categories()
+    client, key = _semantic_scholar()
+    with client:
+        for category in categories:
+            report = update_citation_counts(store, category, client, key=key, refresh=args.all)
+            console.print(format_citations_report(report))
+    return 0
+
+
+def _run_archive(args: argparse.Namespace) -> int:
+    categories: list[str] = args.categories or [DEFAULT_CATEGORY]
+    store = PaperStore(args.data_dir)
+    citations, key = _semantic_scholar()
+    today = datetime.now(tz=UTC).date()
     with (
         HttpClient(
             user_agent=DEFAULT_USER_AGENT, min_interval=OAI_DELAY_SECONDS, timeout=OAI_TIMEOUT_SECONDS
         ) as oai,
-        HttpClient(
-            user_agent=DEFAULT_USER_AGENT,
-            min_interval=S2_DELAY_SECONDS if key else S2_ANONYMOUS_DELAY_SECONDS,
-            max_attempts=1,  # fetch_citation_counts tries refused batches again
-        ) as citations,
+        citations,
         HttpClient(user_agent=DEFAULT_USER_AGENT, min_interval=OPENALEX_DELAY_SECONDS) as openalex,
     ):
         clients = ArchiveClients(oai=oai, citations=citations, openalex=openalex, citations_key=key)
@@ -521,4 +571,5 @@ _COMMANDS: dict[str, Callable[[argparse.Namespace], int]] = {
     "stats": _run_stats,
     "institutions": _run_institutions,
     "archive": _run_archive,
+    "citations": _run_citations,
 }
