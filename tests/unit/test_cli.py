@@ -6,6 +6,7 @@ from datetime import date
 from pathlib import Path
 
 import pytest
+from rich.console import Console
 
 from preprint_radar.archive import ArchiveClients, ArchiveReport
 from preprint_radar.catalog import Catalog
@@ -177,6 +178,25 @@ def test_stats_reports_the_archive_and_citation_counts(
     reports = capsys.readouterr().out.split("\n\n")
     assert reports[0].startswith("cs.CV archive: 1 paper over 1 year\nyear")
     assert reports[1].startswith("cs.CV citation counts: 1 from Semantic Scholar, ")
+
+
+def test_stats_draws_tables_in_a_terminal(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    monkeypatch.setattr("preprint_radar.cli.console", Console(force_terminal=True, width=120))
+    store = PaperStore(tmp_path / "data")
+    store.save("cs.CV", [Paper(arxiv_id="2609.00001", announced=date(2026, 9, 25), title="T", authors=())])
+    resnet = Paper(
+        arxiv_id="1512.03385", announced=date(2015, 12, 10), title="ResNet", authors=("Kaiming He",)
+    )
+    store.write_archive("cs.CV", [resnet])
+
+    assert main(["stats", "--data-dir", str(store.root)]) == 0
+
+    out = capsys.readouterr().out
+    assert "\x1b[" in out  # styled
+    assert "cs.CV: 1 paper over 1 day" in out
+    assert "cs.CV archive: 1 paper over 1 year" in out
 
 
 def test_stats_skips_categories_without_papers(

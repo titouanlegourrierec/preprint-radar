@@ -3,13 +3,16 @@ from datetime import date
 from pathlib import Path
 
 import pytest
+from rich.console import Console
 
 from preprint_radar.models import Paper
 from preprint_radar.stats import (
     Coverage,
     RowCoverage,
+    archive_coverage_table,
     collect_archive_coverage,
     collect_coverage,
+    coverage_table,
     format_archive_coverage,
     format_citations,
     format_coverage,
@@ -190,3 +193,17 @@ def test_format_coverage_of_an_empty_category() -> None:
 
     assert report.startswith("cs.CV: 0 papers over 0 days")
     assert "affiliations 0% of 0 tried" in report
+
+
+def test_rich_tables_hold_the_same_rows(archived: PaperStore) -> None:
+    console = Console(record=True, width=120)
+    console.print(coverage_table("cs.CV", collect_coverage(archived, "cs.CV")))
+    console.print(archive_coverage_table("cs.CV", collect_archive_coverage(archived, "cs.CV")))
+
+    text = console.export_text()
+    assert "cs.CV: 4 papers over 2 days" in text
+    assert "cs.CV archive: 2 papers over 2 years" in text
+    assert any(
+        line.split() == ["total", "4", "2", "1", "1", "2", "1", "1", "1", "1"] for line in text.splitlines()
+    )
+    assert "abstracts 50%, affiliations 50% of 2 tried" in text

@@ -9,6 +9,9 @@ from collections.abc import Container, Iterable, Sequence
 from dataclasses import dataclass
 from typing import Self
 
+from rich import box
+from rich.table import Table
+
 from preprint_radar.models import Paper
 from preprint_radar.store import CitationCounts, PaperStore
 
@@ -119,14 +122,32 @@ def format_coverage(category: str, days: Sequence[RowCoverage]) -> str:
     affiliations mapped to their authors (mapped), with at least one institution named
     (named), with a detected venue, and with a citation count (cited).
     """
-    title = f"{category}: {_count(sum(entry.coverage.papers for entry in days), 'paper')}"
-    return _table(f"{title} over {_count(len(days), 'day')}", "day", days)
+    return _table(_days_title(category, days), "day", days)
 
 
 def format_archive_coverage(category: str, years: Sequence[RowCoverage]) -> str:
     """Render the coverage of the archive of one category, one row per year and a total."""
-    title = f"{category} archive: {_count(sum(entry.coverage.papers for entry in years), 'paper')}"
-    return _table(f"{title} over {_count(len(years), 'year')}", "year", years)
+    return _table(_years_title(category, years), "year", years)
+
+
+def coverage_table(category: str, days: Sequence[RowCoverage]) -> Table:
+    """:func:`format_coverage` as a rich table, for a terminal."""
+    return _rich_table(_days_title(category, days), "day", days)
+
+
+def archive_coverage_table(category: str, years: Sequence[RowCoverage]) -> Table:
+    """:func:`format_archive_coverage` as a rich table, for a terminal."""
+    return _rich_table(_years_title(category, years), "year", years)
+
+
+def _days_title(category: str, days: Sequence[RowCoverage]) -> str:
+    papers = sum(entry.coverage.papers for entry in days)
+    return f"{category}: {_count(papers, 'paper')} over {_count(len(days), 'day')}"
+
+
+def _years_title(category: str, years: Sequence[RowCoverage]) -> str:
+    papers = sum(entry.coverage.papers for entry in years)
+    return f"{category} archive: {_count(papers, 'paper')} over {_count(len(years), 'year')}"
 
 
 def format_citations(category: str, citations: CitationCounts) -> str:
@@ -151,6 +172,27 @@ def _table(title: str, label: str, entries: Sequence[RowCoverage]) -> str:
             *_summary(total),
         )
     )
+
+
+def _rich_table(title: str, label: str, entries: Sequence[RowCoverage]) -> Table:
+    total = sum((entry.coverage for entry in entries), Coverage())
+    table = Table(
+        title=title,
+        title_justify="left",
+        title_style="bold",
+        caption="\n".join(_summary(total)),
+        caption_justify="left",
+        header_style="bold cyan",
+        box=box.SIMPLE_HEAD,
+    )
+    table.add_column(label, style="dim")
+    for column in _COLUMNS:
+        table.add_column(column, justify="right")
+    for entry in entries:
+        table.add_row(entry.label, *_cells(entry.coverage))
+    table.add_section()
+    table.add_row("total", *_cells(total), style="bold")
+    return table
 
 
 def _cells(coverage: Coverage) -> tuple[str, ...]:

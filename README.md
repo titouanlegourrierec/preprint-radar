@@ -145,6 +145,7 @@ src/preprint_radar/
 ├── venue.py        # accepted venue detected from comments
 ├── store.py        # data/ layout read by the web app
 ├── stats.py        # enrichment coverage report over the store
+├── console.py      # terminal output: rich in a terminal, plain text in CI and pipes
 ├── http.py         # rate-limited HTTP client with retries
 ├── models.py       # Paper, Listing
 ├── filters.py      # helpers to narrow down papers

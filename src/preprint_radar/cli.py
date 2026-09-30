@@ -7,11 +7,13 @@ from collections import Counter
 from collections.abc import Callable, Sequence
 from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 from preprint_radar import __version__, filters
 from preprint_radar.archive import ArchiveClients, format_archive_report, update_archive
 from preprint_radar.catalog import OAI_DELAY_SECONDS, Catalog
 from preprint_radar.citations import S2_ANONYMOUS_DELAY_SECONDS, S2_DELAY_SECONDS, api_key
+from preprint_radar.console import configure_logging, console
 from preprint_radar.exceptions import PreprintRadarError
 from preprint_radar.export import ExportFormat, export_papers
 from preprint_radar.http import (
@@ -33,13 +35,18 @@ from preprint_radar.pipeline import (
 )
 from preprint_radar.selection import DEFAULT_BUDGET
 from preprint_radar.stats import (
+    archive_coverage_table,
     collect_archive_coverage,
     collect_coverage,
+    coverage_table,
     format_archive_coverage,
     format_citations,
     format_coverage,
 )
 from preprint_radar.store import PaperStore
+
+if TYPE_CHECKING:
+    from rich.table import Table
 
 logger = logging.getLogger(__name__)
 
@@ -334,8 +341,8 @@ def _run_fetch(args: argparse.Namespace) -> int:
     export_papers(papers, output, fmt)
 
     for day, count in sorted(Counter(paper.announced for paper in papers).items(), reverse=True):
-        print(f"{day.isoformat()}: {count} papers")  # noqa: T201 - user-facing CLI output
-    print(f"Total: {len(papers)} papers written to {output}")  # noqa: T201
+        console.print(f"{day.isoformat()}: {count} papers")
+    console.print(f"Total: {len(papers)} papers written to {output}")
     return 0
 
 
@@ -362,9 +369,9 @@ def _run_update(args: argparse.Namespace) -> int:
                 max_html_fetches=args.max_html,
                 max_ror_lookups=args.max_ror,
             )
-            print(format_report(report))  # noqa: T201 - user-facing CLI output
+            console.print(format_report(report))
 
-    print(f"Index written to {store.write_index()}")  # noqa: T201
+    console.print(f"Index written to {store.write_index()}")
     return 0
 
 
@@ -392,9 +399,9 @@ def _run_backfill(args: argparse.Namespace) -> int:
                 max_html_fetches=args.max_html,
                 max_ror_lookups=args.max_ror,
             )
-            print(format_report(report))  # noqa: T201 - user-facing CLI output
+            console.print(format_report(report))
 
-    print(f"Index written to {store.write_index()}")  # noqa: T201
+    console.print(f"Index written to {store.write_index()}")
     return 0
 
 
@@ -405,7 +412,9 @@ def _run_stats(args: argparse.Namespace) -> int:
         logger.warning("The store %s is empty; run `preprint-radar update` first.", args.data_dir)
         return 1
 
-    reports = []
+    # A terminal gets rich tables; CI and pipes the plain text, one line per row.
+    styled = console.is_terminal
+    reports: list[str | Table] = []
     for category in categories:
         days = collect_coverage(store, category)
         years = collect_archive_coverage(store, category)
@@ -413,12 +422,19 @@ def _run_stats(args: argparse.Namespace) -> int:
             logger.warning("No stored papers for %s in %s.", category, args.data_dir)
             continue
         if days:
-            reports.append(format_coverage(category, days))
+            reports.append(coverage_table(category, days) if styled else format_coverage(category, days))
         if years:
-            reports.append(format_archive_coverage(category, years))
+            reports.append(
+                archive_coverage_table(category, years)
+                if styled
+                else format_archive_coverage(category, years)
+            )
         if citations := store.load_citation_counts(category):
             reports.append(format_citations(category, citations))
-    print("\n\n".join(reports))  # noqa: T201 - user-facing CLI output
+    for index, report in enumerate(reports):
+        if index:
+            console.print()
+        console.print(report)
     return 0 if reports else 1
 
 
@@ -432,7 +448,9 @@ def _run_institutions(args: argparse.Namespace) -> int:
             changed = [new for old, new in zip(papers, named, strict=True) if new is not old]
             store.save(category, changed)
             pending = sum(bool(paper.affiliations) and paper.institutions is None for paper in named)
-            print(f"{category}: institutions named for {len(changed)} papers, {pending} still pending")  # noqa: T201
+            console.print(
+                f"{category}: institutions named for {len(changed)} papers, {pending} still pending"
+            )
     return 0
 
 
@@ -469,7 +487,7 @@ def _run_archive(args: argparse.Namespace) -> int:
                 prune=args.prune,
                 dry_run=args.dry_run,
             )
-            print(format_archive_report(report))  # noqa: T201 - user-facing CLI output
+            console.print(format_archive_report(report))
     return 0
 
 
@@ -489,8 +507,7 @@ def _day(value: str) -> date:
 
 
 def _configure_logging(verbosity: int) -> None:
-    level = {0: logging.WARNING, 1: logging.INFO}.get(verbosity, logging.DEBUG)
-    logging.basicConfig(level=level, format="%(levelname)s %(name)s: %(message)s")
+    configure_logging({0: logging.WARNING, 1: logging.INFO}.get(verbosity, logging.DEBUG))
     # httpx logs every request at INFO level; only show it in debug mode.
     logging.getLogger("httpx").setLevel(logging.DEBUG if verbosity > 1 else logging.WARNING)
 
