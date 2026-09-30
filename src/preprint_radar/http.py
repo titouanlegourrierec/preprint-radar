@@ -1,4 +1,4 @@
-"""Polite, rate-limited HTTP access to arXiv."""
+"""Polite, rate-limited HTTP access to arXiv and the other services the pipeline uses."""
 
 import logging
 import time
@@ -143,7 +143,8 @@ class HttpClient:
     def get_text(self, url: str, *, params: Mapping[str, str | int] | None = None) -> str:
         """Send a ``GET`` request and return the response body.
 
-        Transient failures (throttling, server errors) are retried with exponential backoff.
+        Transient failures (throttling, server errors, timeouts, dropped connections) are
+        retried with exponential backoff.
 
         Args:
             url: Absolute URL.
@@ -156,12 +157,49 @@ class HttpClient:
             NotFoundError: If the server answers ``404 Not Found``.
             FetchError: For any other network or HTTP error, once retries are exhausted.
         """
+        return self._request("GET", url, params=params)
+
+    def post_text(self, url: str, *, json: object, params: Mapping[str, str | int] | None = None) -> str:
+        """Send a ``POST`` request with a JSON body and return the response body.
+
+        Rate limiting, retries and errors are the same as for :meth:`get_text`.
+
+        Args:
+            url: Absolute URL.
+            json: Body, serialized as JSON.
+            params: Query-string parameters.
+
+        Returns:
+            The decoded response body.
+
+        Raises:
+            NotFoundError: If the server answers ``404 Not Found``.
+            FetchError: For any other network or HTTP error, once retries are exhausted.
+        """
+        return self._request("POST", url, params=params, json=json)
+
+    def _request(
+        self,
+        method: str,
+        url: str,
+        *,
+        params: Mapping[str, str | int] | None = None,
+        json: object = None,
+    ) -> str:
         delay = self._backoff
         for attempt in range(1, self._max_attempts + 1):
             self._rate_limiter.wait()
-            logger.debug("GET %s %s (attempt %d)", url, dict(params or {}), attempt)
+            logger.debug("%s %s %s (attempt %d)", method, url, dict(params or {}), attempt)
             try:
-                response = self._http.get(url, params=params)
+                response = self._http.request(method, url, params=params, json=json)
+            except httpx.TransportError as exc:
+                # Timeouts and dropped connections are as transient as a 503.
+                if attempt == self._max_attempts:
+                    raise FetchError(f"Request to {url} failed: {exc}") from exc
+                logger.warning("%s for %s; retrying in %.0fs", type(exc).__name__, url, delay)
+                self._sleep(delay)
+                delay *= 2
+                continue
             except httpx.HTTPError as exc:
                 raise FetchError(f"Request to {url} failed: {exc}") from exc
 

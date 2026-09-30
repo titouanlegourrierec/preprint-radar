@@ -86,15 +86,50 @@ def test_gives_up_after_max_attempts() -> None:
     assert len(sleeps) == 2
 
 
-def test_network_errors_raise_fetch_error() -> None:
+def test_network_errors_raise_fetch_error_once_retries_are_exhausted() -> None:
     def handler(request: httpx.Request) -> httpx.Response:
         raise httpx.ConnectError("boom", request=request)
 
+    sleeps: list[float] = []
     with (
-        HttpClient(transport=httpx.MockTransport(handler)) as client,
+        HttpClient(transport=httpx.MockTransport(handler), max_attempts=3, sleep=sleeps.append) as client,
         pytest.raises(FetchError, match="boom"),
     ):
         client.get_text("https://arxiv.org/")
+    assert len(sleeps) == 2
+
+
+def test_timeouts_are_retried() -> None:
+    calls = iter([httpx.ReadTimeout("slow"), httpx.Response(200, text="late")])
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        outcome = next(calls)
+        if isinstance(outcome, Exception):
+            raise httpx.ReadTimeout(str(outcome), request=request)
+        return outcome
+
+    sleeps: list[float] = []
+    with HttpClient(transport=httpx.MockTransport(handler), backoff=5.0, sleep=sleeps.append) as client:
+        assert client.get_text("https://oaipmh.arxiv.org/oai") == "late"
+    assert sleeps == [5.0]
+
+
+def test_post_text_sends_json_and_retries() -> None:
+    bodies: list[bytes] = []
+    responses = iter([httpx.Response(429), httpx.Response(200, text="[]")])
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        assert request.method == "POST"
+        bodies.append(request.content)
+        return next(responses)
+
+    sleeps: list[float] = []
+    with HttpClient(transport=httpx.MockTransport(handler), sleep=sleeps.append) as client:
+        text = client.post_text("https://api.example.org/batch", json={"ids": ["a"]}, params={"f": "x"})
+
+    assert text == "[]"
+    assert bodies == [b'{"ids":["a"]}', b'{"ids":["a"]}']
+    assert len(sleeps) == 1
 
 
 def test_rate_limiter_spaces_calls() -> None:
