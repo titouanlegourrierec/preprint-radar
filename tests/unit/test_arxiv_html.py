@@ -337,6 +337,19 @@ AUTHORS = {
     ),
     "2609.29384": ("Changqing Gong", "Huafeng Qin", "Mounîm A. El-Yacoubi"),
     "2609.23431": ("Junwen Chen", "Keiji Yanai"),
+    "2609.36458": ("Abdullah All Tanvir", "Xin Zhong"),
+    "2609.38153": ("Trong-Tung Nguyen", "Anand Bhattad"),
+    "2609.37030": (
+        "Jiahao Zhan",
+        "Yongrui Ma",
+        "Qunliang Xing",
+        "Xuanyu Zhang",
+        "Jingqi Tong",
+        "Junlin Li",
+        "Li zhang",
+        "Shijie Zhao",
+        "Tianfan Xue",
+    ),
     "2609.26161": ("Ignacio Bugueno-Cordova", "Javier Ruiz-del-Solar", "Rodrigo Verschae"),
     "2609.28473": (
         "Chao Feng",
@@ -388,6 +401,13 @@ AUTHORS = {
         ),
         pytest.param("2609.29384", ((0,), (1,), (0,)), id="thanks-sentences"),
         pytest.param("2609.23431", ((0,), (0,)), id="single-affiliation-is-everyones"),
+        pytest.param("2609.38153", ((0,), (0,)), id="single-affiliation-once-noise-is-gone"),
+        pytest.param(
+            "2609.37030",
+            ((0, 1), (0, 1), (1,), (2,), (3,), (1,), (1,), (1,), (0, 4)),
+            id="per-author-without-correspondence-line",
+        ),
+        pytest.param("2609.36458", (None, (0, 1)), id="shared-block-on-the-last-author"),
         pytest.param("2609.26512", ((0,), None, (1, 2), None), id="per-author-elsarticle-keys"),
         pytest.param("2608.29027", ((0,), (1,), (2,)), id="per-author-empty-fields"),
         pytest.param("2609.26161", None, id="no-markers-on-names"),
@@ -629,3 +649,49 @@ def test_notes_without_content_give_nothing() -> None:
 @pytest.mark.parametrize("raw", ["1, 2", "AB", "* †"])
 def test_clean_affiliation_drops_what_names_nothing(raw: str) -> None:
     assert clean_affiliation(raw) is None
+
+
+@pytest.mark.parametrize(
+    ("arxiv_id", "expected"),
+    [
+        pytest.param(
+            "2609.36458",
+            ("Department of Computer Science", "University of Nebraska Omaha, Omaha, NE, USA"),
+            id="line-break-spacing",
+        ),
+        pytest.param("2609.38153", ("Johns Hopkins University",), id="spacing-and-project-website"),
+        pytest.param(
+            "2609.37030",
+            ("MMLab, CUHK", "ByteDance Inc", "Peking University", "Fudan University", "CPII under InnoHK"),
+            id="correspondence-line",
+        ),
+    ],
+)
+def test_drops_layout_and_link_leftovers(
+    paper_html: PaperHtml, arxiv_id: str, expected: tuple[str, ...]
+) -> None:
+    assert parse_front_matter(paper_html(arxiv_id), authors=AUTHORS[arxiv_id]).affiliations == expected
+
+
+@pytest.mark.parametrize(
+    ("raw", "expected"),
+    [
+        pytest.param("[5pt]", None, id="line-break-spacing-alone"),
+        pytest.param(
+            "[0.2em] Department of Physics", "Department of Physics", id="line-break-spacing-inline"
+        ),
+        pytest.param("MITProject page", "MIT", id="glued-link-label"),
+        pytest.param(
+            "Sony Depthsensing Solutions, Brussels, BelgiumProject page",
+            "Sony Depthsensing Solutions, Brussels, Belgium",
+            id="glued-link-label-after-a-country",
+        ),
+        pytest.param("Project Website:", None, id="link-label-alone"),
+        pytest.param("Correspondence to: Shujun Wang", None, id="correspondence"),
+        pytest.param(
+            "Author to whom any correspondence should be addressed", None, id="correspondence-sentence"
+        ),
+    ],
+)
+def test_clean_affiliation_drops_layout_and_link_leftovers(raw: str, expected: str | None) -> None:
+    assert clean_affiliation(raw) == expected

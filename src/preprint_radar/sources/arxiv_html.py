@@ -24,10 +24,15 @@ logger = logging.getLogger(__name__)
 _SEPARATOR_RE = re.compile(r"\n|\u2003|\s{2,}")
 # Contact details and footnotes that are not affiliations.
 _NOISE_RE = re.compile(
-    r"@|https?://|www\.|equal(ly)? contribut|contributed equally|corresponding author|work done|project lead"
+    r"@|https?://|www\.|equal(ly)? contribut|contributed equally|correspond|work done|project lead"
     r"|senior author|first author|co-first|joint first|equal advising|internship",
     re.IGNORECASE,
 )
+# The vertical space of a LaTeX line break (\\[5pt]), which LaTeXML prints as text.
+_LATEX_SPACE_RE = re.compile(r"\[\s*-?\d*\.?\d+\s*(?:pt|em|ex|mm|cm|in|bp|pc|mu)\s*\]")
+# The label of a link whose address is removed as a contact detail, sometimes glued to the
+# affiliation before it: "MITProject page".
+_LINK_LABEL_RE = re.compile(r"project\s+(?:page|website|homepage|repository|site)\b\s*:?", re.IGNORECASE)
 # Contact details after an affiliation: "..., USA. email: {a, b}@nyu.edu" or "(e-mail: ...)".
 _CONTACT_TAIL_RE = re.compile(r"\(?\s*\be-?mails?\b.*$", re.IGNORECASE | re.DOTALL)
 # IEEE-style footnotes put in the affiliation macro: "The authors are with Delft University".
@@ -280,7 +285,7 @@ def _segments(node: Tag) -> list[str]:
     """
     for marker in node.select("sup"):
         marker.replace_with("\n")
-    text = node.get_text().replace("\xa0", " ")
+    text = _LATEX_SPACE_RE.sub("\n", node.get_text().replace("\xa0", " "))
     if _KEYVAL_RE.search(text):
         return _keyval_chunks(text)
     lines = [line.strip() for line in _SEPARATOR_RE.split(text)]
@@ -367,6 +372,7 @@ def _dedupe(candidates: list[str]) -> tuple[str, ...]:
 def clean_affiliation(text: str) -> str | None:
     """Normalize one affiliation string, or return ``None`` if it is not an affiliation."""
     text = _CONTACT_TAIL_RE.sub("", text.replace("\xa0", " "))
+    text = _LINK_LABEL_RE.sub(" ", _LATEX_SPACE_RE.sub(" ", text))
     if _NOISE_RE.search(text):
         return None
     text = _SPACE_BEFORE_PUNCTUATION_RE.sub(r"\1", " ".join(text.split()))
