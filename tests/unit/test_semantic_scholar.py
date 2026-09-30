@@ -1,3 +1,4 @@
+import json
 import logging
 
 import httpx
@@ -6,6 +7,7 @@ import pytest
 from preprint_radar.exceptions import ParseError
 from preprint_radar.http import HttpClient
 from preprint_radar.sources.semantic_scholar import (
+    S2_BATCH_SIZE,
     S2_BATCH_TRIES,
     S2_RETRY_WAIT_SECONDS,
     api_key,
@@ -68,12 +70,35 @@ def test_fetch_citation_counts_waits_longer_and_longer_then_gives_up(
     assert sleeps[: len(first_waits)] == first_waits
     assert len(sleeps) == S2_BATCH_TRIES - 1
     assert "0 batches fetched from Semantic Scholar, 30 refused tries" in caplog.text
+    # Only streaks are reported, without the routine refusals.
+    streak = f"refused a batch 5 times in a row; next try in {min(first_waits[0] * 16, 60):.0f} s"
+    assert streak in caplog.text
+    assert "4 times in a row" not in caplog.text
+    assert "refused a batch 30 times, the last: HTTP 503" in caplog.text
 
 
-def test_fetch_citation_counts_without_progress_callback() -> None:
+def test_fetch_citation_counts_without_progress_callback(caplog: pytest.LogCaptureFixture) -> None:
+    caplog.set_level(logging.INFO)
     answer = httpx.Response(200, text='[{"citationCount": 3}]')
     with HttpClient(transport=httpx.MockTransport(lambda _: answer), max_attempts=1) as client:
         assert fetch_citation_counts(client, ["2609.1"]) == {"2609.1": 3}
+
+    assert "1 of 1 citation counts fetched (100%)" in caplog.text
+
+
+def test_fetch_citation_counts_reports_progress_every_ten_batches(caplog: pytest.LogCaptureFixture) -> None:
+    caplog.set_level(logging.INFO)
+
+    def handle(request: httpx.Request) -> httpx.Response:
+        return httpx.Response(200, json=[{"citationCount": 1}] * len(json.loads(request.content)["ids"]))
+
+    ids = [f"2609.{number:05d}" for number in range(11 * S2_BATCH_SIZE)]
+    with HttpClient(transport=httpx.MockTransport(handle), max_attempts=1) as client:
+        assert len(fetch_citation_counts(client, ids)) == len(ids)
+
+    progress = [line for line in caplog.text.splitlines() if "citation counts fetched" in line]
+    assert len(progress) == 2
+    assert progress[0].endswith("5,000 of 5,500 citation counts fetched (91%)")
 
 
 def test_api_key_comes_from_the_environment(monkeypatch: pytest.MonkeyPatch) -> None:

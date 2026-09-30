@@ -33,8 +33,10 @@ S2_BATCH_TRIES = 30
 S2_RETRY_WAIT_SECONDS = 2.0
 S2_ANONYMOUS_RETRY_WAIT_SECONDS = 20.0
 S2_MAX_RETRY_WAIT_SECONDS = 60.0
-# Refusals in a row from which each one is logged: a streak rather than the usual noise.
-_REPORTED_TRY = 3
+# A few refusals in a row are routine, even with a key: only longer streaks are reported.
+_REPORTED_STREAK = 5
+# Progress is reported every that many batches (5,000 papers).
+_PROGRESS_EVERY = 10
 
 
 def api_key() -> str | None:
@@ -67,9 +69,10 @@ def fetch_citation_counts(
     """
     headers = {"x-api-key": key} if key else None
     first_wait = S2_RETRY_WAIT_SECONDS if key else S2_ANONYMOUS_RETRY_WAIT_SECONDS
+    wanted = list(dict.fromkeys(arxiv_ids))
     counts: dict[str, int | None] = {}
     batches = refusals = 0
-    for batch in batched(dict.fromkeys(arxiv_ids), S2_BATCH_SIZE, strict=False):
+    for batch in batched(wanted, S2_BATCH_SIZE, strict=False):
         batch_counts, refused = _fetch_batch(
             client, batch, headers=headers, sleep=sleep, first_wait=first_wait
         )
@@ -81,7 +84,13 @@ def fetch_citation_counts(
         counts.update(batch_counts)
         if on_batch is not None:
             on_batch(batch_counts)
-        logger.info("%d citation counts fetched", len(counts))
+        if batches % _PROGRESS_EVERY == 0 or len(counts) == len(wanted):
+            logger.info(
+                "%s of %s citation counts fetched (%.0f%%)",
+                f"{len(counts):,}",
+                f"{len(wanted):,}",
+                100 * len(counts) / len(wanted),
+            )
     logger.info("%d batches fetched from Semantic Scholar, %d refused tries", batches, refusals)
     return counts
 
@@ -116,6 +125,7 @@ def _fetch_batch(
     first_wait: float,
 ) -> tuple[dict[str, int | None] | None, int]:
     """Counts of one batch (``None`` if every try was refused), and the number of refusals."""
+    error: FetchError | ParseError | None = None
     for attempt in range(1, S2_BATCH_TRIES + 1):
         try:
             text = client.post_text(
@@ -126,8 +136,16 @@ def _fetch_batch(
             )
             return parse_batch_response(text, batch), attempt - 1
         except (FetchError, ParseError) as exc:
-            level = logging.INFO if attempt >= _REPORTED_TRY else logging.DEBUG
-            logger.log(level, "Semantic Scholar batch refused (try %d): %s", attempt, exc)
+            error = exc
+            logger.debug("Semantic Scholar batch refused (try %d): %s", attempt, exc)
             if attempt < S2_BATCH_TRIES:
-                sleep(min(first_wait * 2 ** (attempt - 1), S2_MAX_RETRY_WAIT_SECONDS))
+                wait = min(first_wait * 2 ** (attempt - 1), S2_MAX_RETRY_WAIT_SECONDS)
+                if attempt % _REPORTED_STREAK == 0:
+                    logger.info(
+                        "Semantic Scholar refused a batch %d times in a row; next try in %.0f s",
+                        attempt,
+                        wait,
+                    )
+                sleep(wait)
+    logger.warning("Semantic Scholar refused a batch %d times, the last: %s", S2_BATCH_TRIES, error)
     return None, S2_BATCH_TRIES
