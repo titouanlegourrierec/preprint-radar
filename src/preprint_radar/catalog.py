@@ -15,7 +15,8 @@ import gzip
 import json
 import logging
 import re
-from collections.abc import Iterator
+import zlib
+from collections.abc import Iterable, Iterator
 from dataclasses import dataclass
 from datetime import date, timedelta
 from pathlib import Path
@@ -240,7 +241,9 @@ class Catalog:
             "(resuming)" if token else f"since {since}" if since else "(everything)",
         )
         self.directory.mkdir(parents=True, exist_ok=True)
-        if not token:
+        if token:
+            self._repair_partial()
+        else:
             self._partial.unlink(missing_ok=True)
         count = 0
         for page in harvest(client, self.set_spec, since=since, token=token):
@@ -253,14 +256,19 @@ class Catalog:
 
         merged = self.entries()
         merged.update(_read(self._partial, tolerant=True))
-        tmp = self.path.with_suffix(".tmp")
-        with gzip.open(tmp, "wt", encoding="utf-8") as out:
-            for entry in merged.values():
-                out.write(json.dumps(entry.to_record(), ensure_ascii=False) + "\n")
-        tmp.replace(self.path)
+        _write(self.path, merged.values())
         self._partial.unlink(missing_ok=True)
         self._write_state({"harvested": today.isoformat(), "token": None})
         return count
+
+    def _repair_partial(self) -> None:
+        """Drop the page an interruption cut short from the pages of the harvest to resume.
+
+        Each page is appended as a new gzip member: after a truncated member, the pages of
+        the resumed harvest could not be read back. The cut page is harvested again anyway.
+        """
+        if self._partial.is_file():
+            _write(self._partial, [entry for _, entry in _read(self._partial, tolerant=True)])
 
     def _read_state(self) -> dict[str, str | None]:
         if not self._state.is_file():
@@ -329,7 +337,7 @@ def _read(path: Path, *, tolerant: bool = False) -> Iterator[tuple[str, CatalogE
             for line in lines:
                 entry = CatalogEntry.from_record(json.loads(line))
                 yield entry.arxiv_id, entry
-    except (EOFError, gzip.BadGzipFile, json.JSONDecodeError) as exc:
+    except (EOFError, gzip.BadGzipFile, zlib.error, json.JSONDecodeError) as exc:
         if tolerant:
             logger.warning("Ignoring the truncated end of %s: %s", path, exc)
             return
@@ -338,6 +346,15 @@ def _read(path: Path, *, tolerant: bool = False) -> Iterator[tuple[str, CatalogE
     except (OSError, KeyError, TypeError, ValueError) as exc:
         msg = f"Invalid catalog {path}: {exc}"
         raise StoreError(msg) from exc
+
+
+def _write(path: Path, entries: Iterable[CatalogEntry]) -> None:
+    """Write catalog entries to ``path`` in one go, replacing it."""
+    tmp = path.with_suffix(".tmp")
+    with gzip.open(tmp, "wt", encoding="utf-8") as out:
+        for entry in entries:
+            out.write(json.dumps(entry.to_record(), ensure_ascii=False) + "\n")
+    tmp.replace(path)
 
 
 def _list(value: object) -> list[object]:

@@ -1,3 +1,4 @@
+import gzip
 from datetime import date
 from pathlib import Path
 
@@ -6,7 +7,7 @@ import pytest
 from tests.conftest import FIXTURES_DIR
 
 from preprint_radar.catalog import Catalog, CatalogEntry, parse_list_records
-from preprint_radar.exceptions import FetchError, ParseError
+from preprint_radar.exceptions import FetchError, ParseError, StoreError
 from preprint_radar.http import HttpClient
 
 PAGE = (FIXTURES_DIR / "oai" / "list_records.xml").read_text(encoding="utf-8")
@@ -147,5 +148,79 @@ def test_catalog_restarts_a_harvest_whose_token_expired(tmp_path: Path) -> None:
     fake.expired = True
     with HttpClient(transport=httpx.MockTransport(with_expired_token), max_attempts=1) as client:
         catalog.refresh(client, date(2026, 10, 7))
+
+    assert sorted(catalog.entries()) == ["0904.2037", "1001.1020", "1001.9999"]
+
+
+def test_first_seen_of_an_old_style_identifier_is_created() -> None:
+    entry = CatalogEntry(
+        arxiv_id="cs/0601001", created=date(2006, 1, 2), categories=("cs.CV",), title="T", authors=()
+    )
+
+    assert entry.first_seen == date(2006, 1, 2)
+
+
+def test_records_without_metadata_id_or_title_are_skipped() -> None:
+    record = PAGE.split("<record>")[1].split("</record>")[0]
+    without_metadata = record.split("<metadata>")[0] + "</record>"
+    without_title = record.replace(
+        "<title>Boosting through Optimization of Margin Distributions</title>", "<title> </title>"
+    )
+    nameless_author = record.replace("<keyname>Shen</keyname>", "").replace(
+        "<forenames>Chunhua</forenames>", ""
+    )
+    xml = PAGE.replace(record, f"{without_metadata}<record>{without_title}</record><record>{nameless_author}")
+
+    entries = parse_list_records(xml).entries
+
+    assert [entry.arxiv_id for entry in entries] == ["0904.2037", "1001.1020"]
+    assert entries[0].authors == ("Hanxi Li",)
+
+
+def test_invalid_records_raise() -> None:
+    with pytest.raises(TypeError, match="Expected a list"):
+        CatalogEntry.from_record(
+            {"id": "1", "created": "2020-01-01", "categories": "cs.CV", "title": "T", "authors": []}
+        )
+
+
+def test_an_invalid_state_raises(tmp_path: Path) -> None:
+    catalog = Catalog(tmp_path, "cs.CV")
+    (tmp_path / "cs.CV.state.json").write_text("{not json", encoding="utf-8")
+
+    with FakeOai().client() as client, pytest.raises(StoreError, match="Invalid catalog state"):
+        catalog.refresh(client, date(2026, 9, 30))
+
+
+@pytest.mark.parametrize(
+    "content",
+    [
+        b"not gzip at all",
+        gzip.compress(b"not json\n"),
+        gzip.compress(b'{"id": "1"}\n'),
+        gzip.compress(b'{"id": "1", "created": "2020-01-01"}\n')[:-12],
+    ],
+)
+def test_an_invalid_catalog_raises(tmp_path: Path, content: bytes) -> None:
+    catalog = Catalog(tmp_path, "cs.CV")
+    catalog.path.write_bytes(content)
+
+    with pytest.raises(StoreError, match="Invalid catalog"):
+        catalog.entries()
+
+
+def test_a_harvest_killed_while_writing_a_page_resumes(tmp_path: Path) -> None:
+    fake = FakeOai(fail_second_page=True)
+    catalog = Catalog(tmp_path, "cs.CV")
+    with fake.client() as client, pytest.raises(FetchError):
+        catalog.refresh(client, date(2026, 9, 30))
+    # The run was killed while appending the next page: half a gzip member.
+    record = '{"id": "1001.5555", "created": "2010-01-05", "categories": [], "title": "Cut", "authors": []}\n'
+    member = gzip.compress(record.encode())
+    partial = tmp_path / "cs.CV.partial.jsonl.gz"
+    partial.write_bytes(partial.read_bytes() + member[: len(member) // 2])
+
+    with fake.client() as client:
+        catalog.refresh(client, date(2026, 9, 30))
 
     assert sorted(catalog.entries()) == ["0904.2037", "1001.1020", "1001.9999"]
