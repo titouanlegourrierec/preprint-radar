@@ -1,4 +1,4 @@
-import { useMemo, useState } from "preact/hooks";
+import { useCallback, useMemo, useState } from "preact/hooks";
 import { toBibtexFile } from "./bibtex";
 import { GraphView } from "./components/GraphView";
 import { PaperList } from "./components/PaperList";
@@ -106,6 +106,16 @@ export function App() {
   );
 
   const lastUpdate = generatedAt ? formatDay(generatedAt) : null;
+  // The graph shows the loaded period; a saved paper from another day brings its own.
+  const showInGraph = (paper: Paper) =>
+    update({
+      view: "graph",
+      paper: paper.arxiv_id,
+      ...(load.status === "ready" && load.index.has(paper.arxiv_id)
+        ? {}
+        : { period: between(paper.announced, paper.announced) }),
+    });
+  const clearPaper = useCallback(() => update({ paper: null }), [update]);
   const toggleAbstracts = () => {
     setShowAbstracts(!showAbstracts);
     saveShowAbstracts(!showAbstracts);
@@ -189,6 +199,8 @@ export function App() {
               },
             })
           }
+          focusPaper={state.paper}
+          onFocusPaperLeft={clearPaper}
           onOpenPaper={(paper) =>
             update({
               view: "papers",
@@ -339,6 +351,7 @@ export function App() {
               openId={state.paper}
               linkTo={linkTo}
               onOpenPaper={(arxivId) => update({ paper: arxivId })}
+              onShowInGraph={showInGraph}
               showAbstracts={showAbstracts || state.view === "reading-list"}
               savedIds={readingList.savedIds}
               onToggleSaved={readingList.toggle}

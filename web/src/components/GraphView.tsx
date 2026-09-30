@@ -44,6 +44,10 @@ interface Props {
   onShowPapers: (kind: EntityKind, label: string) => void;
   /** Show one paper in the list, expanded (its permalink). */
   onOpenPaper: (paper: Paper) => void;
+  /** Paper to select and center on (from the list or a shared link), by arXiv id. */
+  focusPaper: string | null;
+  /** The focused paper is no longer selected. */
+  onFocusPaperLeft: () => void;
   /** Scheme shown right now; the canvas re-reads its colors when it changes. */
   theme: "light" | "dark";
 }
@@ -177,8 +181,10 @@ export function GraphView(props: Props) {
       .sort((a, b) => b.weight - a.weight || b.node.paperIds.length - a.node.paperIds.length)
       .slice(0, DETAILS_CONNECTIONS);
   }, [graph, nodesById, selected, settings.papers, entitiesByPaper]);
-  const selectedPaper =
-    selected?.kind === "paper" ? papersById.get(selected.paperIds[0] ?? "") : undefined;
+  // A paper can be selected without being a node (no institution or author to link it to).
+  const selectedPaper = selectedId?.startsWith("paper:")
+    ? papersById.get(selectedId.slice("paper:".length))
+    : undefined;
 
   // The renderer is imperative: create it once, then push every change to it.
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -223,6 +229,32 @@ export function GraphView(props: Props) {
   }, [centerForce, repelForce, linkForce, linkDistance, nodeSize, labelThreshold]);
   useEffect(() => rendererRef.current?.refreshTheme(), [theme]);
   useEffect(() => rendererRef.current?.setGraph(graph), [graph]);
+  // Select the focused paper once its papers are loaded, after the renderer has its node;
+  // selecting something else afterwards lets the focus go.
+  const { focusPaper, onFocusPaperLeft } = props;
+  const focused = useRef<string | null>(null);
+  const focusShown = useRef(false);
+  useEffect(() => {
+    if (!focusPaper) {
+      focused.current = null;
+      return;
+    }
+    if (focused.current === focusPaper || !papersById.has(focusPaper)) return;
+    focused.current = focusPaper;
+    const id = `paper:${focusPaper}`;
+    setSelectedId(id);
+    if (nodesById.has(id)) rendererRef.current?.focus(id);
+  }, [focusPaper, papersById, nodesById]);
+  useEffect(() => {
+    if (!focusPaper) {
+      focusShown.current = false;
+    } else if (selectedId === `paper:${focusPaper}`) {
+      focusShown.current = true;
+    } else if (focusShown.current) {
+      focusShown.current = false;
+      onFocusPaperLeft();
+    }
+  }, [focusPaper, selectedId, onFocusPaperLeft]);
   useEffect(() => rendererRef.current?.setHighlight(highlighted), [highlighted]);
   useEffect(() => rendererRef.current?.setSelected(selected?.id ?? null), [selected]);
   useEffect(() => {
@@ -285,7 +317,7 @@ export function GraphView(props: Props) {
 
       {emptyMessage && <p class="graph__empty">{emptyMessage}</p>}
 
-      {selected && (
+      {(selected || selectedPaper) && (
         <aside class="graph__details" aria-label="Details">
           <button
             type="button"
@@ -295,9 +327,21 @@ export function GraphView(props: Props) {
           >
             ×
           </button>
-          <p class="graph__kind">{KIND_NAMES[selected.kind]}</p>
+          <p class="graph__kind">{KIND_NAMES[selected?.kind ?? "paper"]}</p>
           {selectedPaper ? (
-            <PaperDetails paper={selectedPaper} onOpen={() => onOpenPaper(selectedPaper)} />
+            <PaperDetails
+              paper={selectedPaper}
+              absent={
+                selected
+                  ? null
+                  : !settings.papers
+                    ? "Papers are hidden: turn them on in the graph settings to see this one."
+                    : !selectedPaper.affiliations?.length && !settings.authors
+                      ? "No affiliations are known for this paper yet: turn on Authors to see it with its authors."
+                      : "Not in the graph with these settings: its institutions and authors are filtered out."
+              }
+              onOpen={() => onOpenPaper(selectedPaper)}
+            />
           ) : (
             selectedEntity && (
               <>
@@ -417,7 +461,16 @@ export function GraphView(props: Props) {
 }
 
 /** Details of a selected paper: what it is, who wrote it, where, and a way to read it. */
-function PaperDetails({ paper, onOpen }: { paper: Paper; onOpen: () => void }) {
+function PaperDetails({
+  paper,
+  absent,
+  onOpen,
+}: {
+  paper: Paper;
+  /** Why the paper has no node, if it has none. */
+  absent: string | null;
+  onOpen: () => void;
+}) {
   const authors = paper.authors.slice(0, DETAILS_AUTHORS).join(", ");
   const hidden = paper.authors.length - DETAILS_AUTHORS;
   return (
@@ -442,6 +495,7 @@ function PaperDetails({ paper, onOpen }: { paper: Paper; onOpen: () => void }) {
           ))}
         </ul>
       )}
+      {absent && <p class="muted">{absent}</p>}
       <button type="button" class="button" onClick={onOpen}>
         Open in the list
       </button>

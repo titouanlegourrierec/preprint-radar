@@ -1,4 +1,4 @@
-import { useEffect, useState } from "preact/hooks";
+import { useCallback, useEffect, useState } from "preact/hooks";
 import type { SearchFilters } from "../search";
 import { readState, type ViewState, writeState } from "../url-state";
 import { useDebounced } from "./use-debounced";
@@ -20,8 +20,10 @@ export function useUrlState() {
   }, [state, query]);
 
   // Any change drops the shared-paper anchor, like navigating away, unless the patch sets it.
-  const update = (patch: Partial<ViewState>) =>
-    setState((current) => ({ ...current, paper: null, ...patch }));
-  const setFilters = (filters: SearchFilters) => update({ filters });
+  const update = useCallback(
+    (patch: Partial<ViewState>) => setState((current) => ({ ...current, paper: null, ...patch })),
+    [],
+  );
+  const setFilters = useCallback((filters: SearchFilters) => update({ filters }), [update]);
   return { state, query, update, setFilters };
 }

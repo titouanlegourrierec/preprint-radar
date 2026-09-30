@@ -141,6 +141,11 @@ export class PaperIndex {
     return this.papers.size;
   }
 
+  /** Whether the paper is indexed. */
+  has(arxivId: string): boolean {
+    return this.papers.has(arxivId);
+  }
+
   /** Every indexed paper, in no particular order. */
   all(): Paper[] {
     return [...this.papers.values()];

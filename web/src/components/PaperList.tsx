@@ -16,6 +16,7 @@ interface Props {
   openId: string | null;
   linkTo: (paper: Paper) => string;
   onOpenPaper: (arxivId: string) => void;
+  onShowInGraph: (paper: Paper) => void;
   showAbstracts: boolean;
   savedIds: ReadonlySet<string>;
   onToggleSaved: (paper: Paper) => void;
@@ -30,6 +31,7 @@ export function PaperList({
   openId,
   linkTo,
   onOpenPaper,
+  onShowInGraph,
   showAbstracts,
   savedIds,
   onToggleSaved,
@@ -82,6 +84,7 @@ export function PaperList({
       isTarget={paper.arxiv_id === openId}
       permalink={linkTo(paper)}
       onOpen={onOpenPaper}
+      onShowInGraph={onShowInGraph}
       onToggleSaved={onToggleSaved}
       onAuthor={onAuthor}
       onAffiliation={onAffiliation}

@@ -76,7 +76,8 @@ abstract (×1) and comments (×0.5). Without search words (or sorted by newest),
 of each announcement day fold under a heading. Searches are encoded in the URL, so they
 can be shared;
 *Share* on a paper copies a link that opens that paper alone, expanded, on its announcement
-day. The ◐ button next to the tabs switches between the automatic, light and dark themes.
+day, and *Graph* opens the graph centered on it, with its details. The ◐ button next to
+the tabs switches between the automatic, light and dark themes.
 
 The *Graph* tab is a full-screen map of the loaded papers, their institutions and
 (optionally) their authors. By default it shows papers (squares) linked to their

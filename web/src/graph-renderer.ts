@@ -190,6 +190,8 @@ export class GraphRenderer {
   private view: View = { x: 0, y: 0, k: 1 };
   /** Keep the whole graph in view until the user pans or zooms. */
   private autoFit = true;
+  /** Node kept at the center while the layout settles, until the user moves the view. */
+  private followed: string | null = null;
   private overlays: Overlays = { left: 0, right: 0 };
   private hovered: string | null = null;
   private selected: string | null = null;
@@ -215,7 +217,9 @@ export class GraphRenderer {
       .force("x", this.xForce)
       .force("y", this.yForce)
       .on("tick", () => {
-        if (this.autoFit) this.fitNow();
+        const followed = this.followed === null ? undefined : this.byId.get(this.followed);
+        if (followed) this.centerOn(followed, this.view.k);
+        else if (this.autoFit) this.fitNow();
         this.requestDraw();
       })
       .on("end", () => this.savePositions())
@@ -363,21 +367,16 @@ export class GraphRenderer {
   focus(id: string): void {
     const node = this.byId.get(id);
     if (!node) return;
-    const width = this.canvas.clientWidth;
-    const k = Math.max(this.view.k, FOCUS_ZOOM);
-    const center = (this.overlays.left + width - this.overlays.right) / 2;
-    this.view = {
-      k,
-      x: center - (node.x ?? 0) * k,
-      y: this.canvas.clientHeight / 2 - (node.y ?? 0) * k,
-    };
+    this.centerOn(node, Math.max(this.view.k, FOCUS_ZOOM));
     this.autoFit = false;
+    this.followed = id;
     this.requestDraw();
   }
 
   /** Zoom to show the whole graph, and keep it in view while the layout settles. */
   fit(): void {
     this.autoFit = true;
+    this.followed = null;
     this.fitNow();
     this.requestDraw();
   }
@@ -464,6 +463,15 @@ export class GraphRenderer {
       bounds.maxY = Math.max(bounds.maxY, y + node.radius);
     }
     return bounds;
+  }
+
+  private centerOn(node: SimNode, k: number): void {
+    const center = (this.overlays.left + this.canvas.clientWidth - this.overlays.right) / 2;
+    this.view = {
+      k,
+      x: center - (node.x ?? 0) * k,
+      y: this.canvas.clientHeight / 2 - (node.y ?? 0) * k,
+    };
   }
 
   private fitNow(): void {
@@ -725,6 +733,7 @@ export class GraphRenderer {
       Math.hypot(point.x - gesture.startX, point.y - gesture.startY) > CLICK_TOLERANCE_PX;
     if (!gesture.moved) return;
     this.autoFit = false;
+    this.followed = null;
     if (gesture.kind === "drag") {
       gesture.node.fx = point.gx;
       gesture.node.fy = point.gy;
@@ -773,6 +782,7 @@ export class GraphRenderer {
   private onWheel(event: WheelEvent): void {
     event.preventDefault();
     this.autoFit = false;
+    this.followed = null;
     const point = this.toGraph(event);
     const k = Math.min(
       MAX_ZOOM,
@@ -786,6 +796,7 @@ export class GraphRenderer {
   private select(node: SimNode): void {
     this.callbacks.onSelect(node.id);
     this.autoFit = false;
+    this.followed = null;
     const screenX = (node.x ?? 0) * this.view.k + this.view.x;
     const min = this.overlays.left + 24;
     const max = this.canvas.clientWidth - this.overlays.right - 24;

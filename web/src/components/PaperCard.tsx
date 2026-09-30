@@ -23,6 +23,7 @@ interface Props {
   /** Query string linking to this paper alone, for the Share control. */
   permalink: string;
   onOpen: (arxivId: string) => void;
+  onShowInGraph: (paper: Paper) => void;
   onToggleSaved: (paper: Paper) => void;
   onAuthor: (author: string) => void;
   onAffiliation: (affiliation: string) => void;
@@ -36,6 +37,7 @@ export function PaperCard({
   isTarget,
   permalink,
   onOpen,
+  onShowInGraph,
   onToggleSaved,
   onAuthor,
   onAffiliation,
@@ -185,6 +187,14 @@ export function PaperCard({
           <a href={permalink} title="Copy a link to this paper" onClick={copyLink}>
             {linkCopied ? "Copied!" : "Share"}
           </a>
+          <button
+            type="button"
+            class="link-button"
+            title="Show this paper in the graph, with its institutions"
+            onClick={() => onShowInGraph(paper)}
+          >
+            Graph
+          </button>
           {hasDetails && (
             <button
               type="button"
