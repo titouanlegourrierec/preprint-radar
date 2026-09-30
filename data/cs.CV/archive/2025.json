@@ -1753,6 +1753,38 @@
    "pdf_url": "https://arxiv.org/pdf/2509.17765"
   },
   {
+   "arxiv_id": "2509.17664",
+   "announced": "2025-09-22",
+   "title": "SD-VLM: Spatial Measuring and Understanding with Depth-Encoded Vision-Language Models",
+   "authors": [
+    "Pingyi Chen",
+    "Yujing Lou",
+    "Shen Cao",
+    "Jinhui Guo",
+    "Lubin Fan",
+    "Yue Wu",
+    "Lin Yang",
+    "Lizhuang Ma",
+    "Jieping Ye"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": "Accepted by NeurIPS 2025",
+   "journal_ref": null,
+   "venue": "NeurIPS 2025",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "While vision language models (VLMs) excel in 2D semantic visual understanding, their ability to quantitatively reason about 3D spatial relationships remains under-explored, due to the deficiency of 2D images' spatial representation ability. In this paper, we analyze the problem hindering VLMs' spatial understanding abilities and propose SD-VLM, a novel framework that significantly enhances fundamental spatial perception abilities of VLMs through two key contributions: (1) propose Massive Spatial Measuring and Understanding (MSMU) dataset with precise spatial annotations, and (2) introduce a simple depth positional encoding method strengthening VLMs' spatial awareness. MSMU dataset covers massive quantitative spatial tasks with 700K QA pairs, 2.5M physical numerical annotations, and 10K chain-of-thought augmented samples. We have trained SD-VLM, a strong generalist VLM which shows superior quantitative spatial measuring and understanding capability. SD-VLM not only achieves state-of-the-art performance on our proposed MSMU-Bench, but also shows spatial generalization abilities on other spatial understanding benchmarks including Q-Spatial and SpatialRGPT-Bench. Extensive experiments demonstrate that SD-VLM outperforms GPT-4o and Intern-VL3-78B by 26.91% and 25.56% respectively on MSMU-Bench. Code and models are released at https://github.com/cpystan/SD-VLM.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2509.17664",
+   "pdf_url": "https://arxiv.org/pdf/2509.17664"
+  },
+  {
    "arxiv_id": "2509.17632",
    "announced": "2025-09-22",
    "title": "Overview of PlantCLEF 2022: Image-based plant identification at global scale",
@@ -3450,6 +3482,61 @@
    "institutions": [],
    "abs_url": "https://arxiv.org/abs/2509.26645",
    "pdf_url": "https://arxiv.org/pdf/2509.26645"
+  },
+  {
+   "arxiv_id": "2509.26618",
+   "announced": "2025-09-01",
+   "title": "DA$^{2}$: Depth Anything in Any Direction",
+   "authors": [
+    "Haodong Li",
+    "Wangguangdong Zheng",
+    "Jing He",
+    "Yuhao Liu",
+    "Xin Lin",
+    "Xin Yang",
+    "Ying-Cong Chen",
+    "Chunchao Guo"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Work primarily done during an internship at Tencent Hunyuan. Project page: https://depth-any-in-any-dir.github.io/",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Panorama has a full FoV (360$^\\circ\\times$180$^\\circ$), offering a more complete visual description than perspective images. Thanks to this characteristic, panoramic depth estimation is gaining increasing traction in 3D vision. However, due to the scarcity of panoramic data, previous methods are often restricted to in-domain settings, leading to poor zero-shot generalization. Furthermore, due to the spherical distortions inherent in panoramas, many approaches rely on perspective splitting (e.g., cubemaps), which leads to suboptimal efficiency. To address these challenges, we propose $\\textbf{DA}$$^{\\textbf{2}}$: $\\textbf{D}$epth $\\textbf{A}$nything in $\\textbf{A}$ny $\\textbf{D}$irection, an accurate, zero-shot generalizable, and fully end-to-end panoramic depth estimator. Specifically, for scaling up panoramic data, we introduce a data curation engine for generating high-quality panoramic depth data from perspective, and create $\\sim$543K panoramic RGB-depth pairs, bringing the total to $\\sim$607K. To further mitigate the spherical distortions, we present SphereViT, which explicitly leverages spherical coordinates to enforce the spherical geometric consistency in panoramic image features, yielding improved performance. A comprehensive benchmark on multiple datasets clearly demonstrates DA$^{2}$'s SoTA performance, with an average 38% improvement on AbsRel over the strongest zero-shot baseline. Surprisingly, DA$^{2}$ even outperforms prior in-domain methods, highlighting its superior zero-shot generalization. Moreover, as an end-to-end solution, DA$^{2}$ exhibits much higher efficiency over fusion-based approaches. Both the code and the curated panoramic data has be released. Project page: https://depth-any-in-any-dir.github.io/.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2509.26618",
+   "pdf_url": "https://arxiv.org/pdf/2509.26618"
+  },
+  {
+   "arxiv_id": "2509.26386",
+   "announced": "2025-09-01",
+   "title": "PANDA: Towards Generalist Video Anomaly Detection via Agentic AI Engineer",
+   "authors": [
+    "Zhiwei Yang",
+    "Chen Gao",
+    "Mike Zheng Shou"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted by NeurIPS 2025",
+   "journal_ref": null,
+   "venue": "NeurIPS 2025",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Video anomaly detection (VAD) is a critical yet challenging task due to the complex and diverse nature of real-world scenarios. Previous methods typically rely on domain-specific training data and manual adjustments when applying to new scenarios and unseen anomaly types, suffering from high labor costs and limited generalization. Therefore, we aim to achieve generalist VAD, \\ie, automatically handle any scene and any anomaly types without training data or human involvement. In this work, we propose PANDA, an agentic AI engineer based on MLLMs. Specifically, we achieve PANDA by comprehensively devising four key capabilities: (1) self-adaptive scene-aware strategy planning, (2) goal-driven heuristic reasoning, (3) tool-augmented self-reflection, and (4) self-improving chain-of-memory. Concretely, we develop a self-adaptive scene-aware RAG mechanism, enabling PANDA to retrieve anomaly-specific knowledge for anomaly detection strategy planning. Next, we introduce a latent anomaly-guided heuristic prompt strategy to enhance reasoning precision. Furthermore, PANDA employs a progressive reflection mechanism alongside a suite of context-aware tools to iteratively refine decision-making in complex scenarios. Finally, a chain-of-memory mechanism enables PANDA to leverage historical experiences for continual performance improvement. Extensive experiments demonstrate that PANDA achieves state-of-the-art performance in multi-scenario, open-set, and complex scenario settings without training and manual involvement, validating its generalizable and robust anomaly detection capability. Code is released at https://github.com/showlab/PANDA.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2509.26386",
+   "pdf_url": "https://arxiv.org/pdf/2509.26386"
   },
   {
    "arxiv_id": "2509.26346",
@@ -6261,6 +6348,39 @@
    "pdf_url": "https://arxiv.org/pdf/2508.16408"
   },
   {
+   "arxiv_id": "2508.16211",
+   "announced": "2025-08-22",
+   "title": "Forecast then Calibrate: Feature Caching as ODE for Efficient Diffusion Transformers",
+   "authors": [
+    "Shikang Zheng",
+    "Liang Feng",
+    "Xinyu Wang",
+    "Qinming Zhou",
+    "Peiliang Cai",
+    "Chang Zou",
+    "Jiacheng Liu",
+    "Yuqi Lin",
+    "Junjie Chen",
+    "Yue Ma",
+    "Linfeng Zhang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Diffusion Transformers (DiTs) have demonstrated exceptional performance in high-fidelity image and video generation. To reduce their substantial computational costs, feature caching techniques have been proposed to accelerate inference by reusing hidden representations from previous timesteps. However, current methods often struggle to maintain generation quality at high acceleration ratios, where prediction errors increase sharply due to the inherent instability of long-step forecasting. In this work, we adopt an ordinary differential equation (ODE) perspective on the hidden-feature sequence, modeling layer representations along the trajectory as a feature-ODE. We attribute the degradation of existing caching strategies to their inability to robustly integrate historical features under large skipping intervals. To address this, we propose FoCa (Forecast-then-Calibrate), which treats feature caching as a feature-ODE solving problem. Extensive experiments on image synthesis, video generation, and super-resolution tasks demonstrate the effectiveness of FoCa, especially under aggressive acceleration. Without additional training, FoCa achieves near-lossless speedups of 5.50 times on FLUX, 6.45 times on HunyuanVideo, 3.17 times on Inf-DiT, and maintains high quality with a 4.53 times speedup on DiT.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2508.16211",
+   "pdf_url": "https://arxiv.org/pdf/2508.16211"
+  },
+  {
    "arxiv_id": "2508.03789",
    "announced": "2025-08-22",
    "title": "HPSv3: Towards Wide-Spectrum Human Preference Score",
@@ -6995,6 +7115,33 @@
    "pdf_url": "https://arxiv.org/pdf/2508.10893"
   },
   {
+   "arxiv_id": "2508.10858",
+   "announced": "2025-08-14",
+   "title": "Hierarchical Fine-grained Preference Optimization for Physically Plausible Video Generation",
+   "authors": [
+    "Harold Haodong Chen",
+    "Haojian Huang",
+    "Qifeng Chen",
+    "Harry Yang",
+    "Ser-Nam Lim"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Project Page: https://haroldchen19.github.io/PhysHPO-Page/",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Recent advancements in video generation have enabled the creation of high-quality, visually compelling videos. However, generating videos that adhere to the laws of physics remains a critical challenge for applications requiring realism and accuracy. In this work, we propose PhysHPO, a novel framework for Hierarchical Cross-Modal Direct Preference Optimization, to tackle this challenge by enabling fine-grained preference alignment for physically plausible video generation. PhysHPO optimizes video alignment across four hierarchical granularities: a) Instance Level, aligning the overall video content with the input prompt; b) State Level, ensuring temporal consistency using boundary frames as anchors; c) Motion Level, modeling motion trajectories for realistic dynamics; and d) Semantic Level, maintaining logical consistency between narrative and visuals. Recognizing that real-world videos are the best reflections of physical phenomena, we further introduce an automated data selection pipeline to efficiently identify and utilize \"good data\" from existing large-scale text-video datasets, thereby eliminating the need for costly and time-intensive dataset construction. Extensive experiments on both physics-focused and general capability benchmarks demonstrate that PhysHPO significantly improves physical plausibility and overall video generation quality of advanced models. To the best of our knowledge, this is the first work to explore fine-grained preference alignment and data selection for video generation, paving the way for more realistic and human-preferred video generation paradigms.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2508.10858",
+   "pdf_url": "https://arxiv.org/pdf/2508.10858"
+  },
+  {
    "arxiv_id": "2508.10433",
    "announced": "2025-08-14",
    "title": "We-Math 2.0: A Versatile MathBook System for Incentivizing Visual Mathematical Reasoning",
@@ -7096,6 +7243,35 @@
    "institutions": [],
    "abs_url": "https://arxiv.org/abs/2508.10333",
    "pdf_url": "https://arxiv.org/pdf/2508.10333"
+  },
+  {
+   "arxiv_id": "2508.09178",
+   "announced": "2025-08-14",
+   "title": "IAD-R1: Reinforcing Consistent Reasoning in Industrial Anomaly Detection",
+   "authors": [
+    "Yanhui Li",
+    "Yunkang Cao",
+    "Chengliang Liu",
+    "Yuan Xiong",
+    "Xinghui Dong",
+    "Chao Huang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Industrial anomaly detection is a critical component of modern manufacturing, yet the scarcity of defective samples restricts traditional detection methods to scenario-specific applications. Although Vision-Language Models (VLMs) demonstrate significant advantages in generalization capabilities, their performance in industrial anomaly detection remains limited. To address this challenge, we propose IAD-R1, a universal post-training framework applicable to VLMs of different architectures and parameter scales, which substantially enhances their anomaly detection capabilities. IAD-R1 employs a two-stage training strategy: the Perception Activation Supervised Fine-Tuning (PA-SFT) stage utilizes a meticulously constructed high-quality Chain-of-Thought dataset (Expert-AD) for training, enhancing anomaly perception capabilities and establishing reasoning-to-answer correlations; the Structured Control Group Relative Policy Optimization (SC-GRPO) stage employs carefully designed reward functions to achieve a capability leap from \"Anomaly Perception\" to \"Anomaly Interpretation\". Experimental results demonstrate that IAD-R1 achieves significant improvements across 7 VLMs, the largest improvement was on the DAGM dataset, with average accuracy 43.3% higher than the 0.5B baseline. Notably, the 0.5B parameter model trained with IAD-R1 surpasses commercial models including GPT-4.1 and Claude-Sonnet-4 in zero-shot settings, demonstrating the effectiveness and superiority of IAD-R1. The dataset, code, and all model weights will be publicly available at https://github.com/Yanhui-Lee/IAD-R1.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2508.09178",
+   "pdf_url": "https://arxiv.org/pdf/2508.09178"
   },
   {
    "arxiv_id": "2508.10104",
@@ -7977,6 +8153,39 @@
    "institutions": [],
    "abs_url": "https://arxiv.org/abs/2508.21058",
    "pdf_url": "https://arxiv.org/pdf/2508.21058"
+  },
+  {
+   "arxiv_id": "2508.21048",
+   "announced": "2025-08-01",
+   "title": "Veritas: Generalizable Deepfake Detection via Pattern-Aware Reasoning",
+   "authors": [
+    "Hao Tan",
+    "Jun Lan",
+    "Zichang Tan",
+    "Ajian Liu",
+    "Chuanbiao Song",
+    "Senyuan Shi",
+    "Huijia Zhu",
+    "Weiqiang Wang",
+    "Jun Wan",
+    "Zhen Lei"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": "ICLR 2026 Oral. Project: https://github.com/EricTan7/Veritas",
+   "journal_ref": null,
+   "venue": "ICLR 2026",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Deepfake detection remains a formidable challenge due to the complex and evolving nature of fake content in real-world scenarios. However, existing academic benchmarks suffer from severe discrepancies from industrial practice, typically featuring homogeneous training sources and low-quality testing images, which hinder the practical deployments of current detectors. To mitigate this gap, we introduce HydraFake, a dataset that simulates real-world challenges with hierarchical generalization testing. Specifically, HydraFake involves diversified deepfake techniques and in-the-wild forgeries, along with rigorous training and evaluation protocol, covering unseen model architectures, emerging forgery techniques and novel data domains. Building on this resource, we propose Veritas, a multi-modal large language model (MLLM) based deepfake detector. Different from vanilla chain-of-thought (CoT), we introduce pattern-aware reasoning that involves critical reasoning patterns such as \"planning\" and \"self-reflection\" to emulate human forensic process. We further propose a two-stage training pipeline to seamlessly internalize such deepfake reasoning capacities into current MLLMs. Experiments on HydraFake dataset reveal that although previous detectors show great generalization on cross-model scenarios, they fall short on unseen forgeries and data domains. Our Veritas achieves significant gains across different OOD scenarios, and is capable of delivering transparent and faithful detection outputs.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2508.21048",
+   "pdf_url": "https://arxiv.org/pdf/2508.21048"
   },
   {
    "arxiv_id": "2508.21046",
@@ -8869,6 +9078,36 @@
    "institutions": [],
    "abs_url": "https://arxiv.org/abs/2508.09736",
    "pdf_url": "https://arxiv.org/pdf/2508.09736"
+  },
+  {
+   "arxiv_id": "2508.09479",
+   "announced": "2025-08-01",
+   "title": "SkySplat: Generalizable 3D Gaussian Splatting from Multi-Temporal Sparse Satellite Images",
+   "authors": [
+    "Xuejun Huang",
+    "Xinyi Liu",
+    "Yi Wan",
+    "Zhi Zheng",
+    "Bin Zhang",
+    "Mingtao Xiong",
+    "Yingying Pei",
+    "Yongjun Zhang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "AAAI 2026. Code is available at https://github.com/NanCheng2001/SkySplat-main",
+   "journal_ref": null,
+   "venue": "AAAI 2026",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Three-dimensional scene reconstruction from sparse-view satellite images is a long-standing and challenging task. While 3D Gaussian Splatting (3DGS) and its variants have recently attracted attention for its high efficiency, existing methods remain unsuitable for satellite images due to incompatibility with rational polynomial coefficient (RPC) models and limited generalization capability. Recent advances in generalizable 3DGS approaches show potential, but they perform poorly on multi-temporal sparse satellite images due to limited geometric constraints, transient objects, and radiometric inconsistencies. To address these limitations, we propose SkySplat, a novel self-supervised framework that integrates the RPC model into the generalizable 3DGS pipeline, enabling more effective use of sparse geometric cues for improved reconstruction. SkySplat relies only on RGB images and radiometric-robust relative height supervision, thereby eliminating the need for ground-truth height maps. Key components include a Cross-Self Consistency Module (CSCM), which mitigates transient object interference via consistency-based masking, and a multi-view consistency aggregation strategy that refines reconstruction results. Compared to per-scene optimization methods, SkySplat achieves an 86 times speedup over EOGS with higher accuracy. It also outperforms generalizable 3DGS baselines, reducing MAE from 13.18 m to 1.80 m on the DFC19 dataset significantly, and demonstrates strong cross-dataset generalization on the MVS3D benchmark. The is available at https://github.com/NanCheng2001/SkySplat-main",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2508.09479",
+   "pdf_url": "https://arxiv.org/pdf/2508.09479"
   },
   {
    "arxiv_id": "2508.09123",
@@ -9801,6 +10040,41 @@
    "pdf_url": "https://arxiv.org/pdf/2507.23785"
   },
   {
+   "arxiv_id": "2507.23779",
+   "announced": "2025-07-31",
+   "title": "Phi-Ground Tech Report: Advancing Perception in GUI Grounding",
+   "authors": [
+    "Miaosen Zhang",
+    "Ziqiang Xu",
+    "Jialiang Zhu",
+    "Qi Dai",
+    "Kai Qiu",
+    "Yifan Yang",
+    "Chong Luo",
+    "Tianyi Chen",
+    "Justin Wagle",
+    "Tim Franklin",
+    "Baining Guo"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)",
+    "Multimedia (cs.MM)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "With the development of multimodal reasoning models, Computer Use Agents (CUAs), akin to Jarvis from \\textit{\"Iron Man\"}, are becoming a reality. GUI grounding is a core component for CUAs to execute actual actions, similar to mechanical control in robotics, and it directly leads to the success or failure of the system. It determines actions such as clicking and typing, as well as related parameters like the coordinates for clicks. Current end-to-end grounding models still achieve less than 65\\% accuracy on challenging benchmarks like ScreenSpot-pro and UI-Vision, indicating they are far from being ready for deployment. % , as a single misclick can result in unacceptable consequences. In this work, we conduct an empirical study on the training of grounding models, examining details from data collection to model training. Ultimately, we developed the \\textbf{Phi-Ground} model family, which achieves state-of-the-art performance across all five grounding benchmarks for models under $10B$ parameters in agent settings. In the end-to-end model setting, our model still achieves SOTA results with scores of \\textit{\\textbf{43.2}} on ScreenSpot-pro and \\textit{\\textbf{27.2}} on UI-Vision. We believe that the various details discussed in this paper, along with our successes and failures, not only clarify the construction of grounding models but also benefit other perception tasks. Project homepage: \\href{https://zhangmiaosen2000.github.io/Phi-Ground/}{https://zhangmiaosen2000.github.io/Phi-Ground/}",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2507.23779",
+   "pdf_url": "https://arxiv.org/pdf/2507.23779"
+  },
+  {
    "arxiv_id": "2507.23478",
    "announced": "2025-07-31",
    "title": "3D-R1: Enhancing Reasoning in 3D VLMs for Unified Scene Understanding",
@@ -10568,6 +10842,32 @@
    "institutions": [],
    "abs_url": "https://arxiv.org/abs/2507.19468",
    "pdf_url": "https://arxiv.org/pdf/2507.19468"
+  },
+  {
+   "arxiv_id": "2507.19359",
+   "announced": "2025-07-25",
+   "title": "SemGes: Semantics-aware Co-Speech Gesture Generation using Semantic Coherence and Relevance Learning",
+   "authors": [
+    "Lanmiao Liu",
+    "Esam Ghaleb",
+    "Aslı Özyürek",
+    "Zerrin Yumak"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted to IEEE/CVF International Conference on Computer Vision (ICCV) 2025",
+   "journal_ref": null,
+   "venue": "ICCV 2025",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Creating a virtual avatar with semantically coherent gestures that are aligned with speech is a challenging task. Existing gesture generation research mainly focused on generating rhythmic beat gestures, neglecting the semantic context of the gestures. In this paper, we propose a novel approach for semantic grounding in co-speech gesture generation that integrates semantic information at both fine-grained and global levels. Our approach starts with learning the motion prior through a vector-quantized variational autoencoder. Built on this model, a second-stage module is applied to automatically generate gestures from speech, text-based semantics and speaker identity that ensures consistency between the semantic relevance of generated gestures and co-occurring speech semantics through semantic coherence and relevance modules. Experimental results demonstrate that our approach enhances the realism and coherence of semantic gestures. Extensive experiments and user studies show that our method outperforms state-of-the-art approaches across two benchmarks in co-speech gesture generation in both objective and subjective metrics. The qualitative results of our model, code, dataset and pre-trained models can be viewed at https://semgesture.github.io/.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2507.19359",
+   "pdf_url": "https://arxiv.org/pdf/2507.19359"
   },
   {
    "arxiv_id": "2507.19125",
@@ -12954,6 +13254,31 @@
    "pdf_url": "https://arxiv.org/pdf/2507.19280"
   },
   {
+   "arxiv_id": "2507.19264",
+   "announced": "2025-07-01",
+   "title": "SimMLM: A Simple Framework for Multi-modal Learning with Missing Modality",
+   "authors": [
+    "Sijie Li",
+    "Chen Chen",
+    "Jungong Han"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": "ICCV 2025",
+   "venue": "ICCV 2025",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "In this paper, we propose SimMLM, a simple yet powerful framework for multimodal learning with missing modalities. Unlike existing approaches that rely on sophisticated network architectures or complex data imputation techniques, SimMLM provides a generic and effective solution that can adapt to various missing modality scenarios with improved accuracy and robustness. Specifically, SimMLM consists of a generic Dynamic Mixture of Modality Experts (DMoME) architecture, featuring a dynamic, learnable gating mechanism that automatically adjusts each modality's contribution in both full and partial modality settings. A key innovation of SimMLM is the proposed More vs. Fewer (MoFe) ranking loss, which ensures that task accuracy improves or remains stable as more modalities are made available. This aligns the model with an intuitive principle: removing one or more modalities should not increase accuracy. We validate SimMLM on multimodal medical image segmentation (BraTS 2018) and multimodal classification (UPMC Food-101, avMNIST) tasks, where it consistently surpasses competitive methods, demonstrating superior accuracy, interpretability, robustness, and reliability across both complete and missing modality scenarios at test time.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2507.19264",
+   "pdf_url": "https://arxiv.org/pdf/2507.19264"
+  },
+  {
    "arxiv_id": "2507.19024",
    "announced": "2025-07-01",
    "title": "A Survey of Multimodal Hallucination Evaluation and Detection",
@@ -13511,6 +13836,40 @@
    "institutions": [],
    "abs_url": "https://arxiv.org/abs/2507.14119",
    "pdf_url": "https://arxiv.org/pdf/2507.14119"
+  },
+  {
+   "arxiv_id": "2507.13428",
+   "announced": "2025-07-01",
+   "title": "\"PhyWorldBench\": A Comprehensive Evaluation of Physical Realism in Text-to-Video Models",
+   "authors": [
+    "Jing Gu",
+    "Xian Liu",
+    "Yu Zeng",
+    "Ashwin Nagarajan",
+    "Fangrui Zhu",
+    "Daniel Hong",
+    "Yue Fan",
+    "Qianqi Yan",
+    "Kaiwen Zhou",
+    "Ming-Yu Liu",
+    "Xin Eric Wang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": "35 pages, 21 figures",
+   "journal_ref": "ICLR 2026 oral",
+   "venue": "ICLR 2026",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Video generation models have achieved remarkable progress in creating high-quality, photorealistic content. However, their ability to accurately simulate physical phenomena remains a critical and unresolved challenge. This paper presents PhyWorldBench, a comprehensive benchmark designed to evaluate video generation models based on their adherence to the laws of physics. The benchmark covers multiple levels of physical phenomena, ranging from fundamental principles such as object motion and energy conservation to more complex scenarios involving rigid body interactions and human or animal motion. Additionally, we introduce a novel Anti-Physics category, where prompts intentionally violate real-world physics, enabling the assessment of whether models can follow such instructions while maintaining logical consistency. Besides large-scale human evaluation, we also design a simple yet effective method that utilizes current multimodal large language models to evaluate physics realism in a zero-shot fashion. We evaluate 12 state-of-the-art text-to-video generation models, including five open-source and five proprietary models, with detailed comparison and analysis. Through systematic testing across 1050 curated prompts spanning fundamental, composite, and anti-physics scenarios, we identify pivotal challenges these models face in adhering to real-world physics. We further examine their performance under diverse physical phenomena and prompt types, and derive targeted recommendations for crafting prompts that enhance fidelity to physical principles.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2507.13428",
+   "pdf_url": "https://arxiv.org/pdf/2507.13428"
   },
   {
    "arxiv_id": "2507.13353",
@@ -21952,6 +22311,34 @@
    "pdf_url": "https://arxiv.org/pdf/2506.06097"
   },
   {
+   "arxiv_id": "2506.05361",
+   "announced": "2025-06-01",
+   "title": "Scalable Generation of Spatial Transcriptomics from Histology Images via Whole-Slide Flow Matching",
+   "authors": [
+    "Tinglin Huang",
+    "Tianyu Liu",
+    "Mehrtash Babadi",
+    "Wengong Jin",
+    "Rex Ying"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Genomics (q-bio.GN)"
+   ],
+   "comments": "Accepted at ICML 2025",
+   "journal_ref": null,
+   "venue": "ICML 2025",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Spatial transcriptomics (ST) has emerged as a powerful technology for bridging histology imaging with gene expression profiling. However, its application has been limited by low throughput and the need for specialized experimental facilities. Prior works sought to predict ST from whole-slide histology images to accelerate this process, but they suffer from two major limitations. First, they do not explicitly model cell-cell interaction as they factorize the joint distribution of whole-slide ST data and predict the gene expression of each spot independently. Second, their encoders struggle with memory constraints due to the large number of spots (often exceeding 10,000) in typical ST datasets. Herein, we propose STFlow, a flow matching generative model that considers cell-cell interaction by modeling the joint distribution of gene expression of an entire slide. It also employs an efficient slide-level encoder with local spatial attention, enabling whole-slide processing without excessive memory overhead. On the recently curated HEST-1k and STImage-1K4M benchmarks, STFlow substantially outperforms state-of-the-art baselines and achieves over 18% relative improvements over the pathology foundation models.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2506.05361",
+   "pdf_url": "https://arxiv.org/pdf/2506.05361"
+  },
+  {
    "arxiv_id": "2506.05341",
    "announced": "2025-06-01",
    "title": "Direct Numerical Layout Generation for 3D Indoor Scene Synthesis via Spatial Reasoning",
@@ -23307,6 +23694,51 @@
    "pdf_url": "https://arxiv.org/pdf/2505.23558"
   },
   {
+   "arxiv_id": "2505.19377",
+   "announced": "2025-05-30",
+   "title": "Absolute Coordinates Make Motion Generation Easy",
+   "authors": [
+    "Zichong Meng",
+    "Zeyu Han",
+    "Xiaogang Peng",
+    "Yiming Xie",
+    "Huaizu Jiang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Preprint",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "State-of-the-art text-to-motion generation models rely on the kinematic-aware, local-relative motion representation popularized by HumanML3D, which encodes motion relative to the pelvis and to the previous frame with built-in redundancy. While this design simplifies training for earlier generation models, it introduces critical limitations for diffusion models and hinders applicability to downstream tasks. In this work, we revisit the motion representation and propose a radically simplified and long-abandoned alternative for text-to-motion generation: absolute joint coordinates in global space. Through systematic analysis of design choices, we show that this formulation achieves significantly higher motion fidelity, improved text alignment, and strong scalability, even with a simple Transformer backbone and no auxiliary kinematic-aware losses. Moreover, our formulation naturally supports downstream tasks such as text-driven motion control and temporal/spatial editing without additional task-specific reengineering and costly classifier guidance generation from control signals. Finally, we demonstrate promising generalization to directly generate SMPL-H mesh vertices in motion from text, laying a strong foundation for future research and motion-related applications.",
+   "affiliations": [
+    "Northeastern University"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Northeastern University"
+   ],
+   "abs_url": "https://arxiv.org/abs/2505.19377",
+   "pdf_url": "https://arxiv.org/pdf/2505.19377"
+  },
+  {
    "arxiv_id": "2505.16192",
    "announced": "2025-05-30",
    "title": "VLM-R$^3$: Region Recognition, Reasoning, and Refinement for Enhanced Multimodal Chain-of-Thought",
@@ -23710,6 +24142,36 @@
    "institutions": [],
    "abs_url": "https://arxiv.org/abs/2505.23493",
    "pdf_url": "https://arxiv.org/pdf/2505.23493"
+  },
+  {
+   "arxiv_id": "2505.23253",
+   "announced": "2025-05-29",
+   "title": "UniTEX: Universal High Fidelity Generative Texturing for 3D Shapes",
+   "authors": [
+    "Yixun Liang",
+    "Kunming Luo",
+    "Xiao Chen",
+    "Rui Chen",
+    "Hongyu Yan",
+    "Weiyu Li",
+    "Jiarui Liu",
+    "Ping Tan"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "10 pages, 9 figures",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We present UniTEX, a novel two-stage 3D texture generation framework to create high-quality, consistent textures for 3D assets. Existing approaches predominantly rely on UV-based inpainting to refine textures after reprojecting the generated multi-view images onto the 3D shapes, which introduces challenges related to topological ambiguity. To address this, we propose to bypass the limitations of UV mapping by operating directly in a unified 3D functional space. Specifically, we first propose that lifts texture generation into 3D space via Texture Functions (TFs)--a continuous, volumetric representation that maps any 3D point to a texture value based solely on surface proximity, independent of mesh topology. Then, we propose to predict these TFs directly from images and geometry inputs using a transformer-based Large Texturing Model (LTM). To further enhance texture quality and leverage powerful 2D priors, we develop an advanced LoRA-based strategy for efficiently adapting large-scale Diffusion Transformers (DiTs) for high-quality multi-view texture synthesis as our first stage. Extensive experiments demonstrate that UniTEX achieves superior visual quality and texture integrity compared to existing approaches, offering a generalizable and scalable solution for automated 3D texture generation. Code will available in: https://github.com/YixunLiang/UniTEX.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2505.23253",
+   "pdf_url": "https://arxiv.org/pdf/2505.23253"
   },
   {
    "arxiv_id": "2505.23214",
@@ -25756,6 +26218,34 @@
    ],
    "abs_url": "https://arxiv.org/abs/2505.14646",
    "pdf_url": "https://arxiv.org/pdf/2505.14646"
+  },
+  {
+   "arxiv_id": "2505.14541",
+   "announced": "2025-05-20",
+   "title": "Neural Video Compression with Context Modulation",
+   "authors": [
+    "Chuanbo Tang",
+    "Zhuoyuan Li",
+    "Yifan Bian",
+    "Li Li",
+    "Dong Liu"
+   ],
+   "primary_subject": "Image and Video Processing (eess.IV)",
+   "subjects": [
+    "Image and Video Processing (eess.IV)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "11 pages, 8 figures, accepted by CVPR 2025",
+   "journal_ref": null,
+   "venue": "CVPR 2025",
+   "cross_list_from": "eess.IV",
+   "html_url": null,
+   "abstract": "Efficient video coding is highly dependent on exploiting the temporal redundancy, which is usually achieved by extracting and leveraging the temporal context in the emerging conditional coding-based neural video codec (NVC). Although the latest NVC has achieved remarkable progress in improving the compression performance, the inherent temporal context propagation mechanism lacks the ability to sufficiently leverage the reference information, limiting further improvement. In this paper, we address the limitation by modulating the temporal context with the reference frame in two steps. Specifically, we first propose the flow orientation to mine the inter-correlation between the reference frame and prediction frame for generating the additional oriented temporal context. Moreover, we introduce the context compensation to leverage the oriented context to modulate the propagated temporal context generated from the propagated reference feature. Through the synergy mechanism and decoupling loss supervision, the irrelevant propagated information can be effectively eliminated to ensure better context modeling. Experimental results demonstrate that our codec achieves on average 22.7% bitrate reduction over the advanced traditional video codec H.266/VVC, and offers an average 10.1% bitrate saving over the previous state-of-the-art NVC DCVC-FM. The code is available at https://github.com/Austin4USTC/DCMVC.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2505.14541",
+   "pdf_url": "https://arxiv.org/pdf/2505.14541"
   },
   {
    "arxiv_id": "2505.14361",
@@ -30104,6 +30594,38 @@
    "institutions": [],
    "abs_url": "https://arxiv.org/abs/2505.19897",
    "pdf_url": "https://arxiv.org/pdf/2505.19897"
+  },
+  {
+   "arxiv_id": "2505.19536",
+   "announced": "2025-05-01",
+   "title": "FlowCut: Rethinking Redundancy via Information Flow for Efficient Vision-Language Models",
+   "authors": [
+    "Jintao Tong",
+    "Wenwei Jin",
+    "Pengda Qin",
+    "Anqi Li",
+    "Yixiong Zou",
+    "Yuhong Li",
+    "Yuhua Li",
+    "Ruixuan Li"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)",
+    "Computation and Language (cs.CL)"
+   ],
+   "comments": "Accepted by NeurIPS 2025",
+   "journal_ref": null,
+   "venue": "NeurIPS 2025",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Large vision-language models (LVLMs) excel at multimodal understanding but suffer from high computational costs due to redundant vision tokens. Existing pruning methods typically rely on single-layer attention scores to rank and prune redundant visual tokens to solve this inefficiency. However, as the interaction between tokens and layers is complicated, this raises a basic question: Is such a simple single-layer criterion sufficient to identify redundancy? To answer this question, we rethink the emergence of redundant visual tokens from a fundamental perspective: information flow, which models the interaction between tokens and layers by capturing how information moves between tokens across layers. We find (1) the CLS token acts as an information relay, which can simplify the complicated flow analysis; (2) the redundancy emerges progressively and dynamically via layer-wise attention concentration; and (3) relying solely on attention scores from single layers can lead to contradictory redundancy identification. Based on this, we propose FlowCut, an information-flow-aware pruning framework, mitigating the insufficiency of the current criterion for identifying redundant tokens and better aligning with the model's inherent behaviors. Extensive experiments show that FlowCut achieves superior results, outperforming SoTA by 1.6% on LLaVA-1.5-7B with 88.9% token reduction, and by 4.3% on LLaVA-NeXT-7B with 94.4% reduction, delivering 3.2x speed-up in the prefilling stage. Our code is available at https://github.com/TungChintao/FlowCut",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2505.19536",
+   "pdf_url": "https://arxiv.org/pdf/2505.19536"
   },
   {
    "arxiv_id": "2505.19386",
@@ -42903,6 +43425,33 @@
    "pdf_url": "https://arxiv.org/pdf/2503.19776"
   },
   {
+   "arxiv_id": "2503.18985",
+   "announced": "2025-03-31",
+   "title": "LoRA Subtraction for Drift-Resistant Space in Exemplar-Free Continual Learning",
+   "authors": [
+    "Xuan Liu",
+    "Xiaobin Chang"
+   ],
+   "primary_subject": "Machine Learning (cs.LG)",
+   "subjects": [
+    "Machine Learning (cs.LG)",
+    "Artificial Intelligence (cs.AI)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (stat.ML)"
+   ],
+   "comments": "Accepted to CVPR 2025",
+   "journal_ref": null,
+   "venue": "CVPR 2025",
+   "cross_list_from": "cs.LG",
+   "html_url": null,
+   "abstract": "In continual learning (CL), catastrophic forgetting often arises due to feature drift. This challenge is particularly prominent in the exemplar-free continual learning (EFCL) setting, where samples from previous tasks cannot be retained, making it difficult to preserve prior knowledge. To address this issue, some EFCL methods aim to identify feature spaces that minimize the impact on previous tasks while accommodating new ones. However, they rely on static features or outdated statistics stored from old tasks, which prevents them from capturing the dynamic evolution of the feature space in CL, leading to performance degradation over time. In this paper, we introduce the Drift-Resistant Space (DRS), which effectively handles feature drifts without requiring explicit feature modeling or the storage of previous tasks. A novel parameter-efficient fine-tuning approach called Low-Rank Adaptation Subtraction (LoRA-) is proposed to develop the DRS. This method subtracts the LoRA weights of old tasks from the initial pre-trained weight before processing new task data to establish the DRS for model training. Therefore, LoRA- enhances stability, improves efficiency, and simplifies implementation. Furthermore, stabilizing feature drifts allows for better plasticity by learning with a triplet loss. Our method consistently achieves state-of-the-art results, especially for long task sequences, across multiple datasets.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2503.18985",
+   "pdf_url": "https://arxiv.org/pdf/2503.18985"
+  },
+  {
    "arxiv_id": "2503.23307",
    "announced": "2025-03-30",
    "title": "MoCha: Towards Movie-Grade Talking Character Synthesis",
@@ -42936,6 +43485,35 @@
    "institutions": [],
    "abs_url": "https://arxiv.org/abs/2503.23307",
    "pdf_url": "https://arxiv.org/pdf/2503.23307"
+  },
+  {
+   "arxiv_id": "2503.23297",
+   "announced": "2025-03-30",
+   "title": "ReasonGrounder: LVLM-Guided Hierarchical Feature Splatting for Open-Vocabulary 3D Visual Grounding and Reasoning",
+   "authors": [
+    "Zhenyang Liu",
+    "Yikai Wang",
+    "Sixiao Zheng",
+    "Tongying Pan",
+    "Longfei Liang",
+    "Yanwei Fu",
+    "Xiangyang Xue"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Open-vocabulary 3D visual grounding and reasoning aim to localize objects in a scene based on implicit language descriptions, even when they are occluded. This ability is crucial for tasks such as vision-language navigation and autonomous robotics. However, current methods struggle because they rely heavily on fine-tuning with 3D annotations and mask proposals, which limits their ability to handle diverse semantics and common knowledge required for effective reasoning. In this work, we propose ReasonGrounder, an LVLM-guided framework that uses hierarchical 3D feature Gaussian fields for adaptive grouping based on physical scale, enabling open-vocabulary 3D grounding and reasoning. ReasonGrounder interprets implicit instructions using large vision-language models (LVLM) and localizes occluded objects through 3D Gaussian splatting. By incorporating 2D segmentation masks from the SAM and multi-view CLIP embeddings, ReasonGrounder selects Gaussian groups based on object scale, enabling accurate localization through both explicit and implicit language understanding, even in novel, occluded views. We also contribute ReasoningGD, a new dataset containing over 10K scenes and 2 million annotations for evaluating open-vocabulary 3D grounding and amodal perception under occlusion. Experiments show that ReasonGrounder significantly improves 3D grounding accuracy in real-world scenarios.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2503.23297",
+   "pdf_url": "https://arxiv.org/pdf/2503.23297"
   },
   {
    "arxiv_id": "2503.23283",
@@ -48527,6 +49105,36 @@
    "pdf_url": "https://arxiv.org/pdf/2503.06157"
   },
   {
+   "arxiv_id": "2503.06063",
+   "announced": "2025-03-08",
+   "title": "Multi-Layer Visual Feature Fusion in Multimodal LLMs: Methods, Analysis, and Best Practices",
+   "authors": [
+    "Junyan Lin",
+    "Haoran Chen",
+    "Yue Fan",
+    "Yingqi Fan",
+    "Xin Jin",
+    "Hui Su",
+    "Jinlan Fu",
+    "Xiaoyu Shen"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted by CVPR2025",
+   "journal_ref": null,
+   "venue": "CVPR 2025",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Multimodal Large Language Models (MLLMs) have made significant advancements in recent years, with visual features playing an increasingly critical role in enhancing model performance. However, the integration of multi-layer visual features in MLLMs remains underexplored, particularly with regard to optimal layer selection and fusion strategies. Existing methods often rely on arbitrary design choices, leading to suboptimal outcomes. In this paper, we systematically investigate two core aspects of multi-layer visual feature fusion: (1) selecting the most effective visual layers and (2) identifying the best fusion approach with the language model. Our experiments reveal that while combining visual features from multiple stages improves generalization, incorporating additional features from the same stage typically leads to diminished performance. Furthermore, we find that direct fusion of multi-layer visual features at the input stage consistently yields superior and more stable performance across various configurations. We make all our code publicly available: https://github.com/EIT-NLP/Layer_Select_Fuse_for_MLLM.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2503.06063",
+   "pdf_url": "https://arxiv.org/pdf/2503.06063"
+  },
+  {
    "arxiv_id": "2503.05657",
    "announced": "2025-03-07",
    "title": "NoT: Federated Unlearning via Weight Negation",
@@ -49287,6 +49895,35 @@
    "institutions": [],
    "abs_url": "https://arxiv.org/abs/2503.00936",
    "pdf_url": "https://arxiv.org/pdf/2503.00936"
+  },
+  {
+   "arxiv_id": "2503.00908",
+   "announced": "2025-03-02",
+   "title": "Patient-Level Anatomy Meets Scanning-Level Physics: Personalized Federated Low-Dose CT Denoising Empowered by Large Language Model",
+   "authors": [
+    "Ziyuan Yang",
+    "Yingyu Chen",
+    "Zhiwen Wang",
+    "Hongming Shan",
+    "Yang Chen",
+    "Yi Zhang"
+   ],
+   "primary_subject": "Image and Video Processing (eess.IV)",
+   "subjects": [
+    "Image and Video Processing (eess.IV)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted by CVPR 2025",
+   "journal_ref": null,
+   "venue": "CVPR 2025",
+   "cross_list_from": "eess.IV",
+   "html_url": null,
+   "abstract": "Reducing radiation doses benefits patients, however, the resultant low-dose computed tomography (LDCT) images often suffer from clinically unacceptable noise and artifacts. While deep learning (DL) shows promise in LDCT reconstruction, it requires large-scale data collection from multiple clients, raising privacy concerns. Federated learning (FL) has been introduced to address these privacy concerns; however, current methods are typically tailored to specific scanning protocols, which limits their generalizability and makes them less effective for unseen protocols. To address these issues, we propose SCAN-PhysFed, a novel SCanning- and ANatomy-level personalized Physics-Driven Federated learning paradigm for LDCT reconstruction. Since the noise distribution in LDCT data is closely tied to scanning protocols and anatomical structures being scanned, we design a dual-level physics-informed way to address these challenges. Specifically, we incorporate physical and anatomical prompts into our physics-informed hypernetworks to capture scanning- and anatomy-specific information, enabling dual-level physics-driven personalization of imaging features. These prompts are derived from the scanning protocol and the radiology report generated by a medical large language model (MLLM), respectively. Subsequently, client-specific decoders project these dual-level personalized imaging features back into the image domain. Besides, to tackle the challenge of unseen data, we introduce a novel protocol vector-quantization strategy (PVQS), which ensures consistent performance across new clients by quantifying the unseen scanning code as one of the codes in the scanning codebook. Extensive experimental results demonstrate the superior performance of SCAN-PhysFed on public datasets.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2503.00908",
+   "pdf_url": "https://arxiv.org/pdf/2503.00908"
   },
   {
    "arxiv_id": "2503.00823",
@@ -57326,6 +57963,62 @@
    "pdf_url": "https://arxiv.org/pdf/2502.04377"
   },
   {
+   "arxiv_id": "2502.03266",
+   "announced": "2025-02-05",
+   "title": "ZISVFM: Zero-Shot Object Instance Segmentation in Indoor Robotic Environments with Vision Foundation Models",
+   "authors": [
+    "Ying Zhang",
+    "Maoliang Yin",
+    "Wenfu Bi",
+    "Haibao Yan",
+    "Shaohan Bian",
+    "Cui-Hua Zhang",
+    "Changchun Hua"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Robotics (cs.RO)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Service robots operating in unstructured environments must effectively recognize and segment unknown objects to enhance their functionality. Traditional supervised learningbased segmentation techniques require extensive annotated datasets, which are impractical for the diversity of objects encountered in real-world scenarios. Unseen Object Instance Segmentation (UOIS) methods aim to address this by training models on synthetic data to generalize to novel objects, but they often suffer from the simulation-to-reality gap. This paper proposes a novel approach (ZISVFM) for solving UOIS by leveraging the powerful zero-shot capability of the segment anything model (SAM) and explicit visual representations from a selfsupervised vision transformer (ViT). The proposed framework operates in three stages: (1) generating object-agnostic mask proposals from colorized depth images using SAM, (2) refining these proposals using attention-based features from the selfsupervised ViT to filter non-object masks, and (3) applying K-Medoids clustering to generate point prompts that guide SAM towards precise object segmentation. Experimental validation on two benchmark datasets and a self-collected dataset demonstrates the superior performance of ZISVFM in complex environments, including hierarchical settings such as cabinets, drawers, and handheld objects. Our source code is available at https://github.com/Yinmlmaoliang/zisvfm.",
+   "affiliations": [
+    "Yanshan University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Yanshan University"
+   ],
+   "abs_url": "https://arxiv.org/abs/2502.03266",
+   "pdf_url": "https://arxiv.org/pdf/2502.03266"
+  },
+  {
    "arxiv_id": "2502.02850",
    "announced": "2025-02-05",
    "title": "RS-YOLOX: A High Precision Detector for Object Detection in Satellite Remote Sensing Images",
@@ -58650,6 +59343,38 @@
    "institutions": [],
    "abs_url": "https://arxiv.org/abs/2502.13693",
    "pdf_url": "https://arxiv.org/pdf/2502.13693"
+  },
+  {
+   "arxiv_id": "2502.13146",
+   "announced": "2025-02-01",
+   "title": "Re-Align: Aligning Vision Language Models via Retrieval-Augmented Direct Preference Optimization",
+   "authors": [
+    "Shuo Xing",
+    "Peiran Li",
+    "Yuping Wang",
+    "Ruizheng Bai",
+    "Yueqi Wang",
+    "Chan-Wei Hu",
+    "Chengxuan Qian",
+    "Huaxiu Yao",
+    "Zhengzhong Tu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "Published at EMNLP 2025",
+   "journal_ref": null,
+   "venue": "EMNLP 2025",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "The emergence of large Vision Language Models (VLMs) has broadened the scope and capabilities of single-modal Large Language Models (LLMs) by integrating visual modalities, thereby unlocking transformative cross-modal applications in a variety of real-world scenarios. Despite their impressive performance, VLMs are prone to significant hallucinations, particularly in the form of cross-modal inconsistencies. Building on the success of Reinforcement Learning from Human Feedback (RLHF) in aligning LLMs, recent advancements have focused on applying direct preference optimization (DPO) on carefully curated datasets to mitigate these issues. Yet, such approaches typically introduce preference signals in a brute-force manner, neglecting the crucial role of visual information in the alignment process. In this paper, we introduce Re-Align, a novel alignment framework that leverages image retrieval to construct a dual-preference dataset, effectively incorporating both textual and visual preference signals. We further introduce rDPO, an extension of the standard direct preference optimization that incorporates an additional visual preference objective during fine-tuning. Our experimental results demonstrate that Re-Align not only mitigates hallucinations more effectively than previous methods but also yields significant performance gains in general visual question-answering (VQA) tasks. Moreover, we show that Re-Align maintains robustness and scalability across a wide range of VLM sizes and architectures. This work represents a significant step forward in aligning multimodal LLMs, paving the way for more reliable and effective cross-modal applications. We release all the code in https://github.com/taco-group/Re-Align.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2502.13146",
+   "pdf_url": "https://arxiv.org/pdf/2502.13146"
   },
   {
    "arxiv_id": "2502.13144",
@@ -68609,6 +69334,33 @@
    ],
    "abs_url": "https://arxiv.org/abs/2501.09781",
    "pdf_url": "https://arxiv.org/pdf/2501.09781"
+  },
+  {
+   "arxiv_id": "2501.09754",
+   "announced": "2025-01-01",
+   "title": "Lost in Translation, Found in Context: Sign Language Translation with Contextual Cues",
+   "authors": [
+    "Youngjoon Jang",
+    "Haran Raajesh",
+    "Liliane Momeni",
+    "Gül Varol",
+    "Andrew Zisserman"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "CVPR 2025 Camera Ready, Project page: https://www.robots.ox.ac.uk/~vgg/research/litfic/",
+   "journal_ref": null,
+   "venue": "CVPR 2025",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Our objective is to translate continuous sign language into spoken language text. Inspired by the way human interpreters rely on context for accurate translation, we incorporate additional contextual cues together with the signing video, into a new translation framework. Specifically, besides visual sign recognition features that encode the input video, we integrate complementary textual information from (i) captions describing the background show, (ii) translation of previous sentences, as well as (iii) pseudo-glosses transcribing the signing. These are automatically extracted and inputted along with the visual features to a pre-trained large language model (LLM), which we fine-tune to generate spoken language translations in text form. Through extensive ablation studies, we show the positive contribution of each input cue to the translation performance. We train and evaluate our approach on BOBSL -- the largest British Sign Language dataset currently available. We show that our contextual approach significantly enhances the quality of the translations compared to previously reported results on BOBSL, and also to state-of-the-art methods that we implement as baselines. Furthermore, we demonstrate the generality of our approach by applying it also to How2Sign, an American Sign Language dataset, and achieve competitive results.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2501.09754",
+   "pdf_url": "https://arxiv.org/pdf/2501.09754"
   },
   {
    "arxiv_id": "2501.09695",

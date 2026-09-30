@@ -2254,6 +2254,33 @@
    "pdf_url": "https://arxiv.org/pdf/2412.12617"
   },
   {
+   "arxiv_id": "2412.12095",
+   "announced": "2024-12-17",
+   "title": "Causal Diffusion Transformers for Generative Modeling",
+   "authors": [
+    "Chaorui Deng",
+    "Deyao Zhu",
+    "Kunchang Li",
+    "Shi Guang",
+    "Haoqi Fan"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "22 figures, 21 pages",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We introduce Causal Diffusion as the autoregressive (AR) counterpart of Diffusion models. It is a next-token(s) forecasting framework that is friendly to both discrete and continuous modalities and compatible with existing next-token prediction models like LLaMA and GPT. While recent works attempt to combine diffusion with AR models, we show that introducing sequential factorization to a diffusion model can substantially improve its performance and enables a smooth transition between AR and diffusion generation modes. Hence, we propose CausalFusion - a decoder-only transformer that dual-factorizes data across sequential tokens and diffusion noise levels, leading to state-of-the-art results on the ImageNet generation benchmark while also enjoying the AR advantage of generating an arbitrary number of tokens for in-context reasoning. We further demonstrate CausalFusion's multimodal capabilities through a joint image generation and captioning model, and showcase CausalFusion's ability for zero-shot in-context image manipulations. We hope that this work could provide the community with a fresh perspective on training multimodal models over discrete and continuous data.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2412.12095",
+   "pdf_url": "https://arxiv.org/pdf/2412.12095"
+  },
+  {
    "arxiv_id": "2412.11974",
    "announced": "2024-12-17",
    "title": "Emma-X: An Embodied Multimodal Action Model with Grounded Chain of Thought and Look-ahead Spatial Reasoning",
@@ -7049,6 +7076,37 @@
    "pdf_url": "https://arxiv.org/pdf/2412.17671"
   },
   {
+   "arxiv_id": "2412.17451",
+   "announced": "2024-12-01",
+   "title": "Diving into Self-Evolving Training for Multimodal Reasoning",
+   "authors": [
+    "Wei Liu",
+    "Junlong Li",
+    "Xiwen Zhang",
+    "Fan Zhou",
+    "Yu Cheng",
+    "Junxian He"
+   ],
+   "primary_subject": "Computation and Language (cs.CL)",
+   "subjects": [
+    "Computation and Language (cs.CL)",
+    "Artificial Intelligence (cs.AI)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "ICML 2025, Project Page: https://mstar-lmm.github.io",
+   "journal_ref": null,
+   "venue": "ICML 2025",
+   "cross_list_from": "cs.CL",
+   "html_url": null,
+   "abstract": "Self-evolving trainin--where models iteratively learn from their own outputs--has emerged as a key approach for complex reasoning tasks, addressing the scarcity of high-quality chain-of-thought data. However, its effectiveness in multimodal reasoning, a domain more intricate than text-only reasoning, remains underexplored, and the understanding of critical factors in this training paradigm remains limited. Furthermore, a central challenge for this training method is performance saturation, which impedes further improvements and scalability. Inspired by reinforcement learning (RL), in this paper, we reframe self-evolving training for multimodal reasoning through the lens of RL, identifying three pivotal factors: Training Method, Reward Model, and Prompt Variation. Through systematic analysis, we establish relatively optimal design principles that significantly enhance multimodal reasoning capabilities. Moreover, delving deeper into training dynamics, we uncover the roots of saturation and propose a new automatic balancing mechanism to mitigate this limitation. Building on these insights, we propose M-STAR (Multimodal Self-evolving Training for Reasoning), a framework that achieves consistent performance gains across models of varying sizes and diverse benchmarks. All resources are made publicly available at https://mstar-lmm.github.io.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2412.17451",
+   "pdf_url": "https://arxiv.org/pdf/2412.17451"
+  },
+  {
    "arxiv_id": "2412.17007",
    "announced": "2024-12-01",
    "title": "Where am I? Cross-View Geo-localization with Natural Language Descriptions",
@@ -7892,6 +7950,41 @@
    "institutions": [],
    "abs_url": "https://arxiv.org/abs/2412.14719",
    "pdf_url": "https://arxiv.org/pdf/2412.14719"
+  },
+  {
+   "arxiv_id": "2412.14706",
+   "announced": "2024-12-01",
+   "title": "EnergyMoGen: Compositional Human Motion Generation with Energy-Based Diffusion Model in Latent Space",
+   "authors": [
+    "Jianrong Zhang",
+    "Hehe Fan",
+    "Yi Yang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted to CVPR 2025. Project page: https://jiro-zhang.github.io/EnergyMoGen/",
+   "journal_ref": null,
+   "venue": "CVPR 2025",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Diffusion models, particularly latent diffusion models, have demonstrated remarkable success in text-driven human motion generation. However, it remains challenging for latent diffusion models to effectively compose multiple semantic concepts into a single, coherent motion sequence. To address this issue, we propose EnergyMoGen, which includes two spectrums of Energy-Based Models: (1) We interpret the diffusion model as a latent-aware energy-based model that generates motions by composing a set of diffusion models in latent space; (2) We introduce a semantic-aware energy model based on cross-attention, which enables semantic composition and adaptive gradient descent for text embeddings. To overcome the challenges of semantic inconsistency and motion distortion across these two spectrums, we introduce Synergistic Energy Fusion. This design allows the motion latent diffusion model to synthesize high-quality, complex motions by combining multiple energy terms corresponding to textual descriptions. Experiments show that our approach outperforms existing state-of-the-art models on various motion generation tasks, including text-to-motion generation, compositional motion generation, and multi-concept motion generation. Additionally, we demonstrate that our method can be used to extend motion datasets and improve the text-to-motion task.",
+   "affiliations": [
+    "University of Technology Sydney"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    null
+   ],
+   "institutions": [
+    "University of Technology Sydney"
+   ],
+   "abs_url": "https://arxiv.org/abs/2412.14706",
+   "pdf_url": "https://arxiv.org/pdf/2412.14706"
   },
   {
    "arxiv_id": "2412.14480",
@@ -13821,6 +13914,63 @@
    "pdf_url": "https://arxiv.org/pdf/2412.00833"
   },
   {
+   "arxiv_id": "2412.00832",
+   "announced": "2024-12-01",
+   "title": "EventGPT: Event Stream Understanding with Multimodal Large Language Models",
+   "authors": [
+    "Shaoyu Liu",
+    "Jianing Li",
+    "Guanghui Zhao",
+    "Yunjian Zhang",
+    "Xin Meng",
+    "Fei Richard Yu",
+    "Xiangyang Ji",
+    "Ming Li"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Event cameras record visual information as asynchronous pixel change streams, excelling at scene perception under unsatisfactory lighting or high-dynamic conditions. Existing multimodal large language models (MLLMs) concentrate on natural RGB images, failing in scenarios where event data fits better. In this paper, we introduce EventGPT, the first MLLM for event stream understanding, to the best of our knowledge, marking a pioneering attempt to integrate large language models (LLMs) with event stream comprehension. To mitigate the huge domain gaps, we develop a three-stage optimization paradigm to gradually equip a pre-trained LLM with the capability of understanding event-based scenes. Our EventGPT comprises an event encoder, followed by a spatio-temporal aggregator, a linear projector, an event-language adapter, and an LLM. Firstly, RGB image-text pairs generated by GPT are leveraged to warm up the linear projector, referring to LLaVA, as the gap between natural image and language modalities is relatively smaller. Secondly, we construct a synthetic yet large dataset, N-ImageNet-Chat, consisting of event frames and corresponding texts to enable the use of the spatio-temporal aggregator and to train the event-language adapter, thereby aligning event features more closely with the language space. Finally, we gather an instruction dataset, Event-Chat, which contains extensive real-world data to fine-tune the entire model, further enhancing its generalization ability. We construct a comprehensive benchmark, and experiments show that EventGPT surpasses previous state-of-the-art MLLMs in generation quality, descriptive accuracy, and reasoning capability.",
+   "affiliations": [
+    "Xidian University",
+    "Tsinghua University",
+    "University of Chinese Academy of Sciences"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    null,
+    null,
+    [
+     1
+    ],
+    null
+   ],
+   "institutions": [
+    "Xidian University",
+    "Tsinghua University",
+    "University of Chinese Academy of Sciences"
+   ],
+   "abs_url": "https://arxiv.org/abs/2412.00832",
+   "pdf_url": "https://arxiv.org/pdf/2412.00832"
+  },
+  {
    "arxiv_id": "2412.00733",
    "announced": "2024-12-01",
    "title": "Hallo3: Highly Dynamic and Realistic Portrait Image Animation with Video Diffusion Transformer",
@@ -16762,6 +16912,62 @@
    "pdf_url": "https://arxiv.org/pdf/2411.08292"
   },
   {
+   "arxiv_id": "2411.08227",
+   "announced": "2024-11-12",
+   "title": "DPU: Dynamic Prototype Updating for Multimodal Out-of-Distribution Detection",
+   "authors": [
+    "Shawn Li",
+    "Huixian Gong",
+    "Hao Dong",
+    "Tiankai Yang",
+    "Zhengzhong Tu",
+    "Yue Zhao"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Out-of-distribution (OOD) detection is essential for ensuring the robustness of machine learning models by identifying samples that deviate from the training distribution. While traditional OOD detection has primarily focused on single-modality inputs, such as images, recent advances in multimodal models have demonstrated the potential of leveraging multiple modalities (e.g., video, optical flow, audio) to enhance detection performance. However, existing methods often overlook intra-class variability within in-distribution (ID) data, assuming that samples of the same class are perfectly cohesive and consistent. This assumption can lead to performance degradation, especially when prediction discrepancies are uniformly amplified across all samples. To address this issue, we propose Dynamic Prototype Updating (DPU), a novel plug-and-play framework for multimodal OOD detection that accounts for intra-class variations. Our method dynamically updates class center representations for each class by measuring the variance of similar samples within each batch, enabling adaptive adjustments. This approach allows us to amplify prediction discrepancies based on the updated class centers, thereby improving the model's robustness and generalization across different modalities. Extensive experiments on two tasks, five datasets, and nine base OOD algorithms demonstrate that DPU significantly improves OOD detection performance, setting a new state-of-the-art in multimodal OOD detection, with improvements of up to 80 percent in Far-OOD detection. To facilitate accessibility and reproducibility, our code is publicly available on GitHub.",
+   "affiliations": [
+    "University of Southern California",
+    "ETH Zurich",
+    "Texas A&M University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Southern California",
+    "ETH Zurich",
+    "Texas A&M University"
+   ],
+   "abs_url": "https://arxiv.org/abs/2411.08227",
+   "pdf_url": "https://arxiv.org/pdf/2411.08227"
+  },
+  {
    "arxiv_id": "2411.08128",
    "announced": "2024-11-12",
    "title": "CameraHMR: Aligning People with Perspective",
@@ -18265,6 +18471,39 @@
    "institutions": [],
    "abs_url": "https://arxiv.org/abs/2411.02393",
    "pdf_url": "https://arxiv.org/pdf/2411.02393"
+  },
+  {
+   "arxiv_id": "2411.02336",
+   "announced": "2024-11-04",
+   "title": "MVPaint: Synchronized Multi-View Diffusion for Painting Anything 3D",
+   "authors": [
+    "Wei Cheng",
+    "Juncheng Mu",
+    "Xianfang Zeng",
+    "Xin Chen",
+    "Anqi Pang",
+    "Chi Zhang",
+    "Zhibin Wang",
+    "Bin Fu",
+    "Gang Yu",
+    "Ziwei Liu",
+    "Liang Pan"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Project Page: https://mvpaint.github.io",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Texturing is a crucial step in the 3D asset production workflow, which enhances the visual appeal and diversity of 3D assets. Despite recent advancements in Text-to-Texture (T2T) generation, existing methods often yield subpar results, primarily due to local discontinuities, inconsistencies across multiple views, and their heavy dependence on UV unwrapping outcomes. To tackle these challenges, we propose a novel generation-refinement 3D texturing framework called MVPaint, which can generate high-resolution, seamless textures while emphasizing multi-view consistency. MVPaint mainly consists of three key modules. 1) Synchronized Multi-view Generation (SMG). Given a 3D mesh model, MVPaint first simultaneously generates multi-view images by employing an SMG model, which leads to coarse texturing results with unpainted parts due to missing observations. 2) Spatial-aware 3D Inpainting (S3I). To ensure complete 3D texturing, we introduce the S3I method, specifically designed to effectively texture previously unobserved areas. 3) UV Refinement (UVR). Furthermore, MVPaint employs a UVR module to improve the texture quality in the UV space, which first performs a UV-space Super-Resolution, followed by a Spatial-aware Seam-Smoothing algorithm for revising spatial texturing discontinuities caused by UV unwrapping. Moreover, we establish two T2T evaluation benchmarks: the Objaverse T2T benchmark and the GSO T2T benchmark, based on selected high-quality 3D meshes from the Objaverse dataset and the entire GSO dataset, respectively. Extensive experimental results demonstrate that MVPaint surpasses existing state-of-the-art methods. Notably, MVPaint could generate high-fidelity textures with minimal Janus issues and highly enhanced cross-view consistency.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2411.02336",
+   "pdf_url": "https://arxiv.org/pdf/2411.02336"
   },
   {
    "arxiv_id": "2411.01788",
@@ -20651,6 +20890,34 @@
    "pdf_url": "https://arxiv.org/pdf/2411.16508"
   },
   {
+   "arxiv_id": "2411.16443",
+   "announced": "2024-11-01",
+   "title": "SplatFlow: Multi-View Rectified Flow Model for 3D Gaussian Splatting Synthesis",
+   "authors": [
+    "Hyojun Go",
+    "Byeongjun Park",
+    "Jiho Jang",
+    "Jin-Young Kim",
+    "Soonwoo Kwon",
+    "Changick Kim"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Project Page: https://gohyojun15.github.io/SplatFlow/",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Text-based generation and editing of 3D scenes hold significant potential for streamlining content creation through intuitive user interactions. While recent advances leverage 3D Gaussian Splatting (3DGS) for high-fidelity and real-time rendering, existing methods are often specialized and task-focused, lacking a unified framework for both generation and editing. In this paper, we introduce SplatFlow, a comprehensive framework that addresses this gap by enabling direct 3DGS generation and editing. SplatFlow comprises two main components: a multi-view rectified flow (RF) model and a Gaussian Splatting Decoder (GSDecoder). The multi-view RF model operates in latent space, generating multi-view images, depths, and camera poses simultaneously, conditioned on text prompts, thus addressing challenges like diverse scene scales and complex camera trajectories in real-world settings. Then, the GSDecoder efficiently translates these latent outputs into 3DGS representations through a feed-forward 3DGS method. Leveraging training-free inversion and inpainting techniques, SplatFlow enables seamless 3DGS editing and supports a broad range of 3D tasks-including object editing, novel view synthesis, and camera pose estimation-within a unified framework without requiring additional complex pipelines. We validate SplatFlow's capabilities on the MVImgNet and DL3DV-7K datasets, demonstrating its versatility and effectiveness in various 3D generation, editing, and inpainting-based tasks.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2411.16443",
+   "pdf_url": "https://arxiv.org/pdf/2411.16443"
+  },
+  {
    "arxiv_id": "2411.16375",
    "announced": "2024-11-01",
    "title": "Ca2-VDM: Efficient Autoregressive Video Diffusion Model with Causal Generation and Cache Sharing",
@@ -21027,6 +21294,39 @@
    "institutions": [],
    "abs_url": "https://arxiv.org/abs/2411.15851",
    "pdf_url": "https://arxiv.org/pdf/2411.15851"
+  },
+  {
+   "arxiv_id": "2411.15843",
+   "announced": "2024-11-01",
+   "title": "Unveil Inversion and Invariance in Flow Transformer for Versatile Image Editing",
+   "authors": [
+    "Pengcheng Xu",
+    "Boyuan Jiang",
+    "Xiaobin Hu",
+    "Donghao Luo",
+    "Qingdong He",
+    "Jiangning Zhang",
+    "Chengjie Wang",
+    "Yunsheng Wu",
+    "Charles Ling",
+    "Boyu Wang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "CVPR 2025 Page: https://pengchengpcx.github.io/EditFT/",
+   "journal_ref": null,
+   "venue": "CVPR 2025",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Leveraging the large generative prior of the flow transformer for tuning-free image editing requires authentic inversion to project the image into the model's domain and a flexible invariance control mechanism to preserve non-target contents. However, the prevailing diffusion inversion performs deficiently in flow-based models, and the invariance control cannot reconcile diverse rigid and non-rigid editing tasks. To address these, we systematically analyze the \\textbf{inversion and invariance} control based on the flow transformer. Specifically, we unveil that the Euler inversion shares a similar structure to DDIM yet is more susceptible to the approximation error. Thus, we propose a two-stage inversion to first refine the velocity estimation and then compensate for the leftover error, which pivots closely to the model prior and benefits editing. Meanwhile, we propose the invariance control that manipulates the text features within the adaptive layer normalization, connecting the changes in the text prompt to image semantics. This mechanism can simultaneously preserve the non-target contents while allowing rigid and non-rigid manipulation, enabling a wide range of editing types such as visual text, quantity, facial expression, etc. Experiments on versatile scenarios validate that our framework achieves flexible and accurate editing, unlocking the potential of the flow transformer for versatile image editing.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2411.15843",
+   "pdf_url": "https://arxiv.org/pdf/2411.15843"
   },
   {
    "arxiv_id": "2411.15738",
@@ -24251,6 +24551,76 @@
    "pdf_url": "https://arxiv.org/pdf/2411.00836"
   },
   {
+   "arxiv_id": "2411.00827",
+   "announced": "2024-11-01",
+   "title": "IDEATOR: Jailbreaking and Benchmarking Large Vision-Language Models Using Themselves",
+   "authors": [
+    "Ruofan Wang",
+    "Juncheng Li",
+    "Yixu Wang",
+    "Bo Wang",
+    "Xiaosen Wang",
+    "Yan Teng",
+    "Yingchun Wang",
+    "Xingjun Ma",
+    "Yu-Gang Jiang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "As large Vision-Language Models (VLMs) gain prominence, ensuring their safe deployment has become critical. Recent studies have explored VLM robustness against jailbreak attacks-techniques that exploit model vulnerabilities to elicit harmful outputs. However, the limited availability of diverse multimodal data has constrained current approaches to rely heavily on adversarial or manually crafted images derived from harmful text datasets, which often lack effectiveness and diversity across different contexts. In this paper, we propose IDEATOR, a novel jailbreak method that autonomously generates malicious image-text pairs for black-box jailbreak attacks. IDEATOR is grounded in the insight that VLMs themselves could serve as powerful red team models for generating multimodal jailbreak prompts. Specifically, IDEATOR leverages a VLM to create targeted jailbreak texts and pairs them with jailbreak images generated by a state-of-the-art diffusion model. Extensive experiments demonstrate IDEATOR's high effectiveness and transferability, achieving a 94% attack success rate (ASR) in jailbreaking MiniGPT-4 with an average of only 5.34 queries, and high ASRs of 82%, 88%, and 75% when transferred to LLaVA, InstructBLIP, and Chameleon, respectively. Building on IDEATOR's strong transferability and automated process, we introduce the VLJailbreakBench, a safety benchmark comprising 3,654 multimodal jailbreak samples. Our benchmark results on 11 recently released VLMs reveal significant gaps in safety alignment. For instance, our challenge set achieves ASRs of 46.31% on GPT-4o and 19.65% on Claude-3.5-Sonnet, underscoring the urgent need for stronger defenses. VLJailbreakBench is publicly available at https://roywang021.github.io/VLJailbreakBench.",
+   "affiliations": [
+    "Fudan University",
+    "Shanghai Artificial Intelligence Laboratory",
+    "Huawei Technologies"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Fudan University",
+    "Shanghai Artificial Intelligence Laboratory",
+    "Huawei Technologies"
+   ],
+   "abs_url": "https://arxiv.org/abs/2411.00827",
+   "pdf_url": "https://arxiv.org/pdf/2411.00827"
+  },
+  {
    "arxiv_id": "2411.00776",
    "announced": "2024-11-01",
    "title": "Randomized Autoregressive Visual Generation",
@@ -24822,6 +25192,53 @@
    "institutions": [],
    "abs_url": "https://arxiv.org/abs/2410.23905",
    "pdf_url": "https://arxiv.org/pdf/2410.23905"
+  },
+  {
+   "arxiv_id": "2410.23718",
+   "announced": "2024-10-31",
+   "title": "GaussianMarker: Uncertainty-Aware Copyright Protection of 3D Gaussian Splatting",
+   "authors": [
+    "Xiufeng Huang",
+    "Ruiqi Li",
+    "Yiu-ming Cheung",
+    "Ka Chun Cheung",
+    "Simon See",
+    "Renjie Wan"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "3D Gaussian Splatting (3DGS) has become a crucial method for acquiring 3D assets. To protect the copyright of these assets, digital watermarking techniques can be applied to embed ownership information discreetly within 3DGS models. However, existing watermarking methods for meshes, point clouds, and implicit radiance fields cannot be directly applied to 3DGS models, as 3DGS models use explicit 3D Gaussians with distinct structures and do not rely on neural networks. Naively embedding the watermark on a pre-trained 3DGS can cause obvious distortion in rendered images. In our work, we propose an uncertainty-based method that constrains the perturbation of model parameters to achieve invisible watermarking for 3DGS. At the message decoding stage, the copyright messages can be reliably extracted from both 3D Gaussians and 2D rendered images even under various forms of 3D and 2D distortions. We conduct extensive experiments on the Blender, LLFF and MipNeRF-360 datasets to validate the effectiveness of our proposed method, demonstrating state-of-the-art performance on both message decoding accuracy and view synthesis quality.",
+   "affiliations": [
+    "Hong Kong Baptist University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    null,
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Hong Kong Baptist University"
+   ],
+   "abs_url": "https://arxiv.org/abs/2410.23718",
+   "pdf_url": "https://arxiv.org/pdf/2410.23718"
   },
   {
    "arxiv_id": "2410.23556",
@@ -28222,6 +28639,37 @@
    ],
    "abs_url": "https://arxiv.org/abs/2410.10792",
    "pdf_url": "https://arxiv.org/pdf/2410.10792"
+  },
+  {
+   "arxiv_id": "2410.10738",
+   "announced": "2024-10-14",
+   "title": "DrivingDojo Dataset: Advancing Interactive and Knowledge-Enriched Driving World Model",
+   "authors": [
+    "Yuqi Wang",
+    "Ke Cheng",
+    "Jiawei He",
+    "Qitai Wang",
+    "Hengchen Dai",
+    "Yuntao Chen",
+    "Fei Xia",
+    "Zhaoxiang Zhang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": "Accepted to NeurIPS 2024. Project page: https://drivingdojo.github.io/",
+   "journal_ref": null,
+   "venue": "NeurIPS 2024",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Driving world models have gained increasing attention due to their ability to model complex physical dynamics. However, their superb modeling capability is yet to be fully unleashed due to the limited video diversity in current driving datasets. We introduce DrivingDojo, the first dataset tailor-made for training interactive world models with complex driving dynamics. Our dataset features video clips with a complete set of driving maneuvers, diverse multi-agent interplay, and rich open-world driving knowledge, laying a stepping stone for future world model development. We further define an action instruction following (AIF) benchmark for world models and demonstrate the superiority of the proposed dataset for generating action-controlled future predictions.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2410.10738",
+   "pdf_url": "https://arxiv.org/pdf/2410.10738"
   },
   {
    "arxiv_id": "2410.10429",
@@ -32699,6 +33147,33 @@
    "pdf_url": "https://arxiv.org/pdf/2410.14669"
   },
   {
+   "arxiv_id": "2410.14462",
+   "announced": "2024-10-01",
+   "title": "LUDVIG: Learning-Free Uplifting of 2D Visual Features to Gaussian Splatting Scenes",
+   "authors": [
+    "Juliette Marrie",
+    "Romain Menegaux",
+    "Michael Arbel",
+    "Diane Larlus",
+    "Julien Mairal"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Published at ICCV 2025. Project page: https://juliettemarrie.github.io/ludvig",
+   "journal_ref": null,
+   "venue": "ICCV 2025",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We address the problem of extending the capabilities of vision foundation models such as DINO, SAM, and CLIP, to 3D tasks. Specifically, we introduce a novel method to uplift 2D image features into Gaussian Splatting representations of 3D scenes. Unlike traditional approaches that rely on minimizing a reconstruction loss, our method employs a simpler and more efficient feature aggregation technique, augmented by a graph diffusion mechanism. Graph diffusion refines 3D features, such as coarse segmentation masks, by leveraging 3D geometry and pairwise similarities induced by DINOv2. Our approach achieves performance comparable to the state of the art on multiple downstream tasks while delivering significant speed-ups. Notably, we obtain competitive segmentation results using only generic DINOv2 features, despite DINOv2 not being trained on millions of annotated segmentation masks like SAM. When applied to CLIP features, our method demonstrates strong performance in open-vocabulary object segmentation tasks, highlighting the versatility of our approach.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2410.14462",
+   "pdf_url": "https://arxiv.org/pdf/2410.14462"
+  },
+  {
    "arxiv_id": "2410.13882",
    "announced": "2024-10-01",
    "title": "Articulate-Anything: Automatic Modeling of Articulated Objects via a Vision-Language Foundation Model",
@@ -34169,6 +34644,58 @@
    "pdf_url": "https://arxiv.org/pdf/2410.10733"
   },
   {
+   "arxiv_id": "2410.10676",
+   "announced": "2024-10-01",
+   "title": "Both Ears Wide Open: Towards Language-Driven Spatial Audio Generation",
+   "authors": [
+    "Peiwen Sun",
+    "Sitong Cheng",
+    "Xiangtai Li",
+    "Zhen Ye",
+    "Huadai Liu",
+    "Honggang Zhang",
+    "Wei Xue",
+    "Yike Guo"
+   ],
+   "primary_subject": "Sound (cs.SD)",
+   "subjects": [
+    "Sound (cs.SD)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Audio and Speech Processing (eess.AS)"
+   ],
+   "comments": "Accepted by ICLR 2025",
+   "journal_ref": null,
+   "venue": "ICLR 2025",
+   "cross_list_from": "cs.SD",
+   "html_url": null,
+   "abstract": "Recently, diffusion models have achieved great success in mono-channel audio generation. However, when it comes to stereo audio generation, the soundscapes often have a complex scene of multiple objects and directions. Controlling stereo audio with spatial contexts remains challenging due to high data costs and unstable generative models. To the best of our knowledge, this work represents the first attempt to address these issues. We first construct a large-scale, simulation-based, and GPT-assisted dataset, BEWO-1M, with abundant soundscapes and descriptions even including moving and multiple sources. Beyond text modality, we have also acquired a set of images and rationally paired stereo audios through retrieval to advance multimodal generation. Existing audio generation models tend to generate rather random and indistinct spatial audio. To provide accurate guidance for Latent Diffusion Models, we introduce the SpatialSonic model utilizing spatial-aware encoders and azimuth state matrices to reveal reasonable spatial guidance. By leveraging spatial guidance, our model not only achieves the objective of generating immersive and controllable spatial audio from text but also extends to other modalities as the pioneer attempt. Finally, under fair settings, we conduct subjective and objective evaluations on simulated and real-world data to compare our approach with prevailing methods. The results demonstrate the effectiveness of our method, highlighting its capability to generate spatial audio that adheres to physical rules.",
+   "affiliations": [
+    "Beijing University of Posts and Telecommunications",
+    "Nanyang Technological University"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0,
+     1
+    ],
+    null,
+    null,
+    null,
+    null,
+    null,
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Beijing University of Posts and Telecommunications",
+    "Nanyang Technological University"
+   ],
+   "abs_url": "https://arxiv.org/abs/2410.10676",
+   "pdf_url": "https://arxiv.org/pdf/2410.10676"
+  },
+  {
    "arxiv_id": "2410.10594",
    "announced": "2024-10-01",
    "title": "VisRAG: Vision-based Retrieval-augmented Generation on Multi-modality Documents",
@@ -35216,6 +35743,36 @@
    "institutions": [],
    "abs_url": "https://arxiv.org/abs/2410.08151",
    "pdf_url": "https://arxiv.org/pdf/2410.08151"
+  },
+  {
+   "arxiv_id": "2410.08145",
+   "announced": "2024-10-01",
+   "title": "Insight Over Sight: Exploring the Vision-Knowledge Conflicts in Multimodal LLMs",
+   "authors": [
+    "Xiaoyuan Liu",
+    "Wenxuan Wang",
+    "Youliang Yuan",
+    "Jen-tse Huang",
+    "Qiuzhi Liu",
+    "Pinjia He",
+    "Zhaopeng Tu"
+   ],
+   "primary_subject": "Computation and Language (cs.CL)",
+   "subjects": [
+    "Computation and Language (cs.CL)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted by ACL 2025 main",
+   "journal_ref": null,
+   "venue": "ACL 2025",
+   "cross_list_from": "cs.CL",
+   "html_url": null,
+   "abstract": "This paper explores the problem of commonsense level vision-knowledge conflict in Multimodal Large Language Models (MLLMs), where visual information contradicts model's internal commonsense knowledge. To study this issue, we introduce an automated framework, augmented with human-in-the-loop quality control, to generate inputs designed to simulate and evaluate these conflicts in MLLMs. Using this framework, we have crafted a diagnostic benchmark consisting of 374 original images and 1,122 high-quality question-answer (QA) pairs. The benchmark covers two aspects of conflict and three question types, providing a thorough assessment tool. We apply this benchmark to assess the conflict-resolution capabilities of nine representative MLLMs from various model families. Our results indicate an evident over-reliance on parametric knowledge for approximately 20% of all queries, especially among Yes-No and action-related problems. Based on these findings, we evaluate the effectiveness of existing approaches to mitigating the conflicts and compare them to our \"Focus-on-Vision\" prompting strategy. Despite some improvement, the vision-knowledge conflict remains unresolved and can be further scaled through our data construction framework. Our proposed framework, benchmark, and analysis contribute to the understanding and mitigation of vision-knowledge conflicts in MLLMs.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2410.08145",
+   "pdf_url": "https://arxiv.org/pdf/2410.08145"
   },
   {
    "arxiv_id": "2410.08129",
@@ -39935,6 +40492,45 @@
    ],
    "abs_url": "https://arxiv.org/abs/2409.11211",
    "pdf_url": "https://arxiv.org/pdf/2409.11211"
+  },
+  {
+   "arxiv_id": "2409.10917",
+   "announced": "2024-09-17",
+   "title": "AMEGO: Active Memory from long EGOcentric videos",
+   "authors": [
+    "Gabriele Goletto",
+    "Tushar Nagarajan",
+    "Giuseppe Averta",
+    "Dima Damen"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted to ECCV 2024. Project webpage: https://gabrielegoletto.github.io/AMEGO/",
+   "journal_ref": null,
+   "venue": "ECCV 2024",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Egocentric videos provide a unique perspective into individuals' daily experiences, yet their unstructured nature presents challenges for perception. In this paper, we introduce AMEGO, a novel approach aimed at enhancing the comprehension of very-long egocentric videos. Inspired by the human's ability to maintain information from a single watching, AMEGO focuses on constructing a self-contained representations from one egocentric video, capturing key locations and object interactions. This representation is semantic-free and facilitates multiple queries without the need to reprocess the entire visual content. Additionally, to evaluate our understanding of very-long egocentric videos, we introduce the new Active Memories Benchmark (AMB), composed of more than 20K of highly challenging visual queries from EPIC-KITCHENS. These queries cover different levels of video reasoning (sequencing, concurrency and temporal grounding) to assess detailed video understanding capabilities. We showcase improved performance of AMEGO on AMB, surpassing other video QA baselines by a substantial margin.",
+   "affiliations": [
+    "Politecnico di Torino"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ],
+    null
+   ],
+   "institutions": [
+    "Politecnico di Torino"
+   ],
+   "abs_url": "https://arxiv.org/abs/2409.10917",
+   "pdf_url": "https://arxiv.org/pdf/2409.10917"
   },
   {
    "arxiv_id": "2409.08947",
@@ -75403,6 +75999,65 @@
    "pdf_url": "https://arxiv.org/pdf/2406.08772"
   },
   {
+   "arxiv_id": "2406.08702",
+   "announced": "2024-06-01",
+   "title": "VLind-Bench: Measuring Language Priors in Large Vision-Language Models",
+   "authors": [
+    "Kang-il Lee",
+    "Minbeom Kim",
+    "Seunghyun Yoon",
+    "Minsung Kim",
+    "Dongryeol Lee",
+    "Hyukhun Koh",
+    "Kyomin Jung"
+   ],
+   "primary_subject": "Artificial Intelligence (cs.AI)",
+   "subjects": [
+    "Artificial Intelligence (cs.AI)",
+    "Computation and Language (cs.CL)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "NAACL 2025 Findings",
+   "journal_ref": null,
+   "venue": "NAACL 2025",
+   "cross_list_from": "cs.AI",
+   "html_url": null,
+   "abstract": "Large Vision-Language Models (LVLMs) have demonstrated outstanding performance across various multimodal tasks. However, they suffer from a problem known as language prior, where responses are generated based solely on textual patterns while disregarding image information. Addressing the issue of language prior is crucial, as it can lead to undesirable biases or hallucinations when dealing with images that are out of training distribution. Despite its importance, current methods for accurately measuring language priors in LVLMs are poorly studied. Although existing benchmarks based on counterfactual or out-of-distribution images can partially be used to measure language priors, they fail to disentangle language priors from other confounding factors. To this end, we propose a new benchmark called VLind-Bench, which is the first benchmark specifically designed to measure the language priors, or blindness, of LVLMs. It not only includes tests on counterfactual images to assess language priors but also involves a series of tests to evaluate more basic capabilities such as commonsense knowledge, visual perception, and commonsense biases. For each instance in our benchmark, we ensure that all these basic tests are passed before evaluating the language priors, thereby minimizing the influence of other factors on the assessment. The evaluation and analysis of recent LVLMs in our benchmark reveal that almost all models exhibit a significant reliance on language priors, presenting a strong challenge in the field.",
+   "affiliations": [
+    "Seoul National University",
+    "Adobe Systems"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Seoul National University",
+    "Adobe Systems"
+   ],
+   "abs_url": "https://arxiv.org/abs/2406.08702",
+   "pdf_url": "https://arxiv.org/pdf/2406.08702"
+  },
+  {
    "arxiv_id": "2406.08552",
    "announced": "2024-06-01",
    "title": "DiTFastAttn: Attention Compression for Diffusion Transformer Models",
@@ -84609,6 +85264,53 @@
    ],
    "abs_url": "https://arxiv.org/abs/2405.04534",
    "pdf_url": "https://arxiv.org/pdf/2405.04534"
+  },
+  {
+   "arxiv_id": "2405.04408",
+   "announced": "2024-05-07",
+   "title": "DocRes: A Generalist Model Toward Unifying Document Image Restoration Tasks",
+   "authors": [
+    "Jiaxin Zhang",
+    "Dezhi Peng",
+    "Chongyu Liu",
+    "Peirong Zhang",
+    "Lianwen Jin"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted by CVPR 2024",
+   "journal_ref": null,
+   "venue": "CVPR 2024",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Document image restoration is a crucial aspect of Document AI systems, as the quality of document images significantly influences the overall performance. Prevailing methods address distinct restoration tasks independently, leading to intricate systems and the incapability to harness the potential synergies of multi-task learning. To overcome this challenge, we propose DocRes, a generalist model that unifies five document image restoration tasks including dewarping, deshadowing, appearance enhancement, deblurring, and binarization. To instruct DocRes to perform various restoration tasks, we propose a novel visual prompt approach called Dynamic Task-Specific Prompt (DTSPrompt). The DTSPrompt for different tasks comprises distinct prior features, which are additional characteristics extracted from the input image. Beyond its role as a cue for task-specific execution, DTSPrompt can also serve as supplementary information to enhance the model's performance. Moreover, DTSPrompt is more flexible than prior visual prompt approaches as it can be seamlessly applied and adapted to inputs with high and variable resolutions. Experimental results demonstrate that DocRes achieves competitive or superior performance compared to existing state-of-the-art task-specific models. This underscores the potential of DocRes across a broader spectrum of document image restoration tasks. The source code is publicly available at https://github.com/ZZZHANG-jx/DocRes",
+   "affiliations": [
+    "South China University of Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "South China University of Technology"
+   ],
+   "abs_url": "https://arxiv.org/abs/2405.04408",
+   "pdf_url": "https://arxiv.org/pdf/2405.04408"
   },
   {
    "arxiv_id": "2405.04404",
@@ -100453,6 +101155,40 @@
    "pdf_url": "https://arxiv.org/pdf/2404.19398"
   },
   {
+   "arxiv_id": "2404.19326",
+   "announced": "2024-04-01",
+   "title": "LVOS: A Benchmark for Large-scale Long-term Video Object Segmentation",
+   "authors": [
+    "Lingyi Hong",
+    "Zhongying Liu",
+    "Wenchao Chen",
+    "Chenzhi Tan",
+    "Yuang Feng",
+    "Xinyu Zhou",
+    "Pinxue Guo",
+    "Jinglun Li",
+    "Zhaoyu Chen",
+    "Shuyong Gao",
+    "Wei Zhang",
+    "Wenqiang Zhang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "LVOS V2",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Video object segmentation (VOS) aims to distinguish and track target objects in a video. Despite the excellent performance achieved by off-the-shell VOS models, existing VOS benchmarks mainly focus on short-term videos lasting about 5 seconds, where objects remain visible most of the time. However, these benchmarks poorly represent practical applications, and the absence of long-term datasets restricts further investigation of VOS in realistic scenarios. Thus, we propose a novel benchmark named LVOS, comprising 720 videos with 296,401 frames and 407,945 high-quality annotations. Videos in LVOS last 1.14 minutes on average, approximately 5 times longer than videos in existing datasets. Each video includes various attributes, especially challenges deriving from the wild, such as long-term reappearing and cross-temporal similar objects. Compared to previous benchmarks, our LVOS better reflects VOS models' performance in real scenarios. Based on LVOS, we evaluate 20 existing VOS models under 4 different settings and conduct a comprehensive analysis. On LVOS, these models suffer a large performance drop, highlighting the challenge of achieving precise tracking and segmentation in real-world scenarios. Attribute-based analysis indicates that key factor to accuracy decline is the increased video length, emphasizing LVOS's crucial role. We hope our LVOS can advance development of VOS in real scenes. Data and code are available at https://lingyihongfd.github.io/lvos.github.io/.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2404.19326",
+   "pdf_url": "https://arxiv.org/pdf/2404.19326"
+  },
+  {
    "arxiv_id": "2404.19026",
    "announced": "2024-04-01",
    "title": "MeGA: Hybrid Mesh-Gaussian Head Avatar for High-Fidelity Rendering and Head Editing",
@@ -111783,6 +112519,33 @@
    "pdf_url": "https://arxiv.org/pdf/2403.15008"
   },
   {
+   "arxiv_id": "2403.14974",
+   "announced": "2024-03-22",
+   "title": "AVT2-DWF: Improving Deepfake Detection with Audio-Visual Fusion and Dynamic Weighting Strategies",
+   "authors": [
+    "Rui Wang",
+    "Dengpan Ye",
+    "Long Tang",
+    "Yunming Zhang",
+    "Jiacheng Deng"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "With the continuous improvements of deepfake methods, forgery messages have transitioned from single-modality to multi-modal fusion, posing new challenges for existing forgery detection algorithms. In this paper, we propose AVT2-DWF, the Audio-Visual dual Transformers grounded in Dynamic Weight Fusion, which aims to amplify both intra- and cross-modal forgery cues, thereby enhancing detection capabilities. AVT2-DWF adopts a dual-stage approach to capture both spatial characteristics and temporal dynamics of facial expressions. This is achieved through a face transformer with an n-frame-wise tokenization strategy encoder and an audio transformer encoder. Subsequently, it uses multi-modal conversion with dynamic weight fusion to address the challenge of heterogeneous information fusion between audio and visual modalities. Experiments on DeepfakeTIMIT, FakeAVCeleb, and DFDC datasets indicate that AVT2-DWF achieves state-of-the-art performance intra- and cross-dataset Deepfake detection. Code is available at https://github.com/raining-dev/AVT2-DWF.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2403.14974",
+   "pdf_url": "https://arxiv.org/pdf/2403.14974"
+  },
+  {
    "arxiv_id": "2403.14939",
    "announced": "2024-03-22",
    "title": "STAG4D: Spatial-Temporal Anchored Generative 4D Gaussians",
@@ -121644,6 +122407,34 @@
    "pdf_url": "https://arxiv.org/pdf/2403.15356"
   },
   {
+   "arxiv_id": "2403.15203",
+   "announced": "2024-03-01",
+   "title": "DITTO: Demonstration Imitation by Trajectory Transformation",
+   "authors": [
+    "Nick Heppert",
+    "Max Argus",
+    "Tim Welschehold",
+    "Thomas Brox",
+    "Abhinav Valada"
+   ],
+   "primary_subject": "Robotics (cs.RO)",
+   "subjects": [
+    "Robotics (cs.RO)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "8 pages, 4 figures, 3 tables, accepted at IROS 2024",
+   "journal_ref": null,
+   "venue": "IROS 2024",
+   "cross_list_from": "cs.RO",
+   "html_url": null,
+   "abstract": "Teaching robots new skills quickly and conveniently is crucial for the broader adoption of robotic systems. In this work, we address the problem of one-shot imitation from a single human demonstration, given by an RGB-D video recording. We propose a two-stage process. In the first stage we extract the demonstration trajectory offline. This entails segmenting manipulated objects and determining their relative motion in relation to secondary objects such as containers. In the online trajectory generation stage, we first re-detect all objects, then warp the demonstration trajectory to the current scene and execute it on the robot. To complete these steps, our method leverages several ancillary models, including those for segmentation, relative object pose estimation, and grasp prediction. We systematically evaluate different combinations of correspondence and re-detection methods to validate our design decision across a diverse range of tasks. Specifically, we collect and quantitatively test on demonstrations of ten different tasks including pick-and-place tasks as well as articulated object manipulation. Finally, we perform extensive evaluations on a real robot system to demonstrate the effectiveness and utility of our approach in real-world scenarios. We make the code publicly available at http://ditto.cs.uni-freiburg.de.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2403.15203",
+   "pdf_url": "https://arxiv.org/pdf/2403.15203"
+  },
+  {
    "arxiv_id": "2403.15098",
    "announced": "2024-03-01",
    "title": "UniTraj: A Unified Framework for Scalable Vehicle Trajectory Prediction",
@@ -122486,6 +123277,56 @@
    "institutions": [],
    "abs_url": "https://arxiv.org/abs/2403.13430",
    "pdf_url": "https://arxiv.org/pdf/2403.13430"
+  },
+  {
+   "arxiv_id": "2403.13349",
+   "announced": "2024-03-01",
+   "title": "Hierarchical Gaussian Mixture Normalizing Flow Modeling for Unified Anomaly Detection",
+   "authors": [
+    "Xincheng Yao",
+    "Ruoqi Li",
+    "Zefeng Qian",
+    "Lu Wang",
+    "Chongyang Zhang"
+   ],
+   "primary_subject": "Machine Learning (cs.LG)",
+   "subjects": [
+    "Machine Learning (cs.LG)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "This paper is accepted by ECCV2024",
+   "journal_ref": null,
+   "venue": "ECCV 2024",
+   "cross_list_from": "cs.LG",
+   "html_url": null,
+   "abstract": "Unified anomaly detection (AD) is one of the most challenges for anomaly detection, where one unified model is trained with normal samples from multiple classes with the objective to detect anomalies in these classes. For such a challenging task, popular normalizing flow (NF) based AD methods may fall into a \"homogeneous mapping\" issue,where the NF-based AD models are biased to generate similar latent representations for both normal and abnormal features, and thereby lead to a high missing rate of anomalies. In this paper, we propose a novel Hierarchical Gaussian mixture normalizing flow modeling method for accomplishing unified Anomaly Detection, which we call HGAD. Our HGAD consists of two key components: inter-class Gaussian mixture modeling and intra-class mixed class centers learning. Compared to the previous NF-based AD methods, the hierarchical Gaussian mixture modeling approach can bring stronger representation capability to the latent space of normalizing flows, so that even complex multi-class distribution can be well represented and learned in the latent space. In this way, we can avoid mapping different class distributions into the same single Gaussian prior, thus effectively avoiding or mitigating the \"homogeneous mapping\" issue. We further indicate that the more distinguishable different class centers, the more conducive to avoiding the bias issue. Thus, we further propose a mutual information maximization loss for better structuring the latent feature space. We evaluate our method on four real-world AD benchmarks, where we can significantly improve the previous NF-based AD methods and also outperform the SOTA unified AD methods.",
+   "affiliations": [
+    "Shanghai Jiao Tong University",
+    "Wuxi Vocational Institute of Commerce"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Shanghai Jiao Tong University",
+    "Wuxi Vocational Institute of Commerce"
+   ],
+   "abs_url": "https://arxiv.org/abs/2403.13349",
+   "pdf_url": "https://arxiv.org/pdf/2403.13349"
   },
   {
    "arxiv_id": "2403.13315",
@@ -126178,6 +127019,35 @@
    ],
    "abs_url": "https://arxiv.org/abs/2403.05061",
    "pdf_url": "https://arxiv.org/pdf/2403.05061"
+  },
+  {
+   "arxiv_id": "2403.05049",
+   "announced": "2024-03-01",
+   "title": "XPSR: Cross-modal Priors for Diffusion-based Image Super-Resolution",
+   "authors": [
+    "Yunpeng Qu",
+    "Kun Yuan",
+    "Kai Zhao",
+    "Qizhi Xie",
+    "Jinhua Hao",
+    "Ming Sun",
+    "Chao Zhou"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "19 pages, 7 figures; including supplementary material",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Diffusion-based methods, endowed with a formidable generative prior, have received increasing attention in Image Super-Resolution (ISR) recently. However, as low-resolution (LR) images often undergo severe degradation, it is challenging for ISR models to perceive the semantic and degradation information, resulting in restoration images with incorrect content or unrealistic artifacts. To address these issues, we propose a \\textit{Cross-modal Priors for Super-Resolution (XPSR)} framework. Within XPSR, to acquire precise and comprehensive semantic conditions for the diffusion model, cutting-edge Multimodal Large Language Models (MLLMs) are utilized. To facilitate better fusion of cross-modal priors, a \\textit{Semantic-Fusion Attention} is raised. To distill semantic-preserved information instead of undesired degradations, a \\textit{Degradation-Free Constraint} is attached between LR and its high-resolution (HR) counterpart. Quantitative and qualitative results show that XPSR is capable of generating high-fidelity and high-realism images across synthetic and real-world datasets. Codes are released at \\url{https://github.com/qyp2000/XPSR}.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2403.05049",
+   "pdf_url": "https://arxiv.org/pdf/2403.05049"
   },
   {
    "arxiv_id": "2403.04306",
@@ -147485,6 +148355,32 @@
    "pdf_url": "https://arxiv.org/pdf/2401.06056"
   },
   {
+   "arxiv_id": "2401.05779",
+   "announced": "2024-01-01",
+   "title": "Erasing Undesirable Influence in Diffusion Models",
+   "authors": [
+    "Jing Wu",
+    "Trung Le",
+    "Munawar Hayat",
+    "Mehrtash Harandi"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Diffusion Model, Machine Unlearning",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Diffusion models are highly effective at generating high-quality images but pose risks, such as the unintentional generation of NSFW (not safe for work) content. Although various techniques have been proposed to mitigate unwanted influences in diffusion models while preserving overall performance, achieving a balance between these goals remains challenging. In this work, we introduce EraseDiff, an algorithm designed to preserve the utility of the diffusion model on retained data while removing the unwanted information associated with the data to be forgotten. Our approach formulates this task as a constrained optimization problem using the value function, resulting in a natural first-order algorithm for solving the optimization problem. By altering the generative process to deviate away from the ground-truth denoising trajectory, we update parameters for preservation while controlling constraint reduction to ensure effective erasure, striking an optimal trade-off. Extensive experiments and thorough comparisons with state-of-the-art algorithms demonstrate that EraseDiff effectively preserves the model's utility, efficacy, and efficiency.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2401.05779",
+   "pdf_url": "https://arxiv.org/pdf/2401.05779"
+  },
+  {
    "arxiv_id": "2401.05698",
    "announced": "2024-01-01",
    "title": "HiCMAE: Hierarchical Contrastive Masked Autoencoder for Self-Supervised Audio-Visual Emotion Recognition",
@@ -147976,6 +148872,32 @@
    "institutions": [],
    "abs_url": "https://arxiv.org/abs/2401.03890",
    "pdf_url": "https://arxiv.org/pdf/2401.03890"
+  },
+  {
+   "arxiv_id": "2401.03788",
+   "announced": "2024-01-01",
+   "title": "Low-light Image Enhancement via CLIP-Fourier Guided Wavelet Diffusion",
+   "authors": [
+    "Minglong Xue",
+    "Jinhong He",
+    "Wenhai Wang",
+    "Mingliang Zhou"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Low-light image enhancement techniques have significantly progressed, but unstable image quality recovery and unsatisfactory visual perception are still significant challenges. To solve these problems, we propose a novel and robust low-light image enhancement method via CLIP-Fourier Guided Wavelet Diffusion, abbreviated as CFWD. Specifically, CFWD leverages multimodal visual-language information in the frequency domain space created by multiple wavelet transforms to guide the enhancement process. Multi-scale supervision across different modalities facilitates the alignment of image features with semantic features during the wavelet diffusion process, effectively bridging the gap between degraded and normal domains. Moreover, to further promote the effective recovery of the image details, we combine the Fourier transform based on the wavelet transform and construct a Hybrid High Frequency Perception Module (HFPM) with a significant perception of the detailed features. This module avoids the diversity confusion of the wavelet diffusion process by guiding the fine-grained structure recovery of the enhancement results to achieve favourable metric and perceptually oriented enhancement. Extensive quantitative and qualitative experiments on publicly available real-world benchmarks show that our approach outperforms existing state-of-the-art methods, achieving significant progress in image quality and noise suppression. The project code is available at https://github.com/hejh8/CFWD.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2401.03788",
+   "pdf_url": "https://arxiv.org/pdf/2401.03788"
   },
   {
    "arxiv_id": "2401.03407",

@@ -1863,6 +1863,34 @@
    "pdf_url": "https://arxiv.org/pdf/2312.12490"
   },
   {
+   "arxiv_id": "2312.12425",
+   "announced": "2023-12-19",
+   "title": "SegRefiner: Towards Model-Agnostic Segmentation Refinement with Discrete Diffusion Process",
+   "authors": [
+    "Mengyu Wang",
+    "Henghui Ding",
+    "Jun Hao Liew",
+    "Jiajun Liu",
+    "Yao Zhao",
+    "Yunchao Wei"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "NeurIPS 2023, Code: https://github.com/MengyuWang826/SegRefiner",
+   "journal_ref": null,
+   "venue": "NeurIPS 2023",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "In this paper, we explore a principal way to enhance the quality of object masks produced by different segmentation models. We propose a model-agnostic solution called SegRefiner, which offers a novel perspective on this problem by interpreting segmentation refinement as a data generation process. As a result, the refinement process can be smoothly implemented through a series of denoising diffusion steps. Specifically, SegRefiner takes coarse masks as inputs and refines them using a discrete diffusion process. By predicting the label and corresponding states-transition probabilities for each pixel, SegRefiner progressively refines the noisy masks in a conditional denoising manner. To assess the effectiveness of SegRefiner, we conduct comprehensive experiments on various segmentation tasks, including semantic segmentation, instance segmentation, and dichotomous image segmentation. The results demonstrate the superiority of our SegRefiner from multiple aspects. Firstly, it consistently improves both the segmentation metrics and boundary metrics across different types of coarse masks. Secondly, it outperforms previous model-agnostic refinement methods by a significant margin. Lastly, it exhibits a strong capability to capture extremely fine details when refining high-resolution images. The source code and trained models are available at https://github.com/MengyuWang826/SegRefiner.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2312.12425",
+   "pdf_url": "https://arxiv.org/pdf/2312.12425"
+  },
+  {
    "arxiv_id": "2312.12241",
    "announced": "2023-12-19",
    "title": "GeomVerse: A Systematic Evaluation of Large Models for Geometric Reasoning",
@@ -9971,6 +9999,118 @@
    "pdf_url": "https://arxiv.org/pdf/2312.10240"
   },
   {
+   "arxiv_id": "2312.10165",
+   "announced": "2023-12-01",
+   "title": "Test-Time Domain Adaptation by Learning Domain-Aware Batch Normalization",
+   "authors": [
+    "Yanan Wu",
+    "Zhixiang Chi",
+    "Yang Wang",
+    "Konstantinos N. Plataniotis",
+    "Songhe Feng"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "AAAI2024(Oral), see this https URL: https://github.com/ynanwu/MABN",
+   "journal_ref": null,
+   "venue": "AAAI 2024",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Test-time domain adaptation aims to adapt the model trained on source domains to unseen target domains using a few unlabeled images. Emerging research has shown that the label and domain information is separately embedded in the weight matrix and batch normalization (BN) layer. Previous works normally update the whole network naively without explicitly decoupling the knowledge between label and domain. As a result, it leads to knowledge interference and defective distribution adaptation. In this work, we propose to reduce such learning interference and elevate the domain knowledge learning by only manipulating the BN layer. However, the normalization step in BN is intrinsically unstable when the statistics are re-estimated from a few samples. We find that ambiguities can be greatly reduced when only updating the two affine parameters in BN while keeping the source domain statistics. To further enhance the domain knowledge extraction from unlabeled data, we construct an auxiliary branch with label-independent self-supervised learning (SSL) to provide supervision. Moreover, we propose a bi-level optimization based on meta-learning to enforce the alignment of two learning objectives of auxiliary and main branches. The goal is to use the auxiliary branch to adapt the domain and benefit main task for subsequent inference. Our method keeps the same computational cost at inference as the auxiliary branch can be thoroughly discarded after adaptation. Extensive experiments show that our method outperforms the prior works on five WILDS real-world domain shift datasets. Our method can also be integrated with methods with label-dependent optimization to further push the performance boundary. Our code is available at https://github.com/ynanwu/MABN.",
+   "affiliations": [
+    "Beijing Jiaotong University",
+    "Concordia University",
+    "University of Toronto",
+    "Rogers"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    [
+     1
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Beijing Jiaotong University",
+    "Concordia University",
+    "University of Toronto",
+    "Rogers"
+   ],
+   "abs_url": "https://arxiv.org/abs/2312.10165",
+   "pdf_url": "https://arxiv.org/pdf/2312.10165"
+  },
+  {
+   "arxiv_id": "2312.10136",
+   "announced": "2023-12-01",
+   "title": "Gradient-based Parameter Selection for Efficient Fine-Tuning",
+   "authors": [
+    "Zhi Zhang",
+    "Qizhe Zhang",
+    "Zijun Gao",
+    "Renrui Zhang",
+    "Ekaterina Shutova",
+    "Shiji Zhou",
+    "Shanghang Zhang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": "CVPR2024",
+   "venue": "CVPR 2024",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "With the growing size of pre-trained models, full fine-tuning and storing all the parameters for various downstream tasks is costly and infeasible. In this paper, we propose a new parameter-efficient fine-tuning method, Gradient-based Parameter Selection (GPS), demonstrating that only tuning a few selected parameters from the pre-trained model while keeping the remainder of the model frozen can generate similar or better performance compared with the full model fine-tuning method. Different from the existing popular and state-of-the-art parameter-efficient fine-tuning approaches, our method does not introduce any additional parameters and computational costs during both the training and inference stages. Another advantage is the model-agnostic and non-destructive property, which eliminates the need for any other design specific to a particular model. Compared with the full fine-tuning, GPS achieves 3.33% (91.78% vs. 88.45%, FGVC) and 9.61% (73.1% vs. 65.57%, VTAB) improvement of the accuracy with tuning only 0.36% parameters of the pre-trained model on average over 24 image classification tasks; it also demonstrates a significant improvement of 17% and 16.8% in mDice and mIoU, respectively, on medical image segmentation task. Moreover, GPS achieves state-of-the-art performance compared with existing PEFT methods.",
+   "affiliations": [
+    "Amsterdam University College",
+    "University of Amsterdam",
+    "Chinese University of Hong Kong",
+    "Shanghai Artificial Intelligence Laboratory",
+    "Tsinghua University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    null,
+    null,
+    [
+     2,
+     3
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     4
+    ],
+    null
+   ],
+   "institutions": [
+    "Amsterdam University College",
+    "University of Amsterdam",
+    "Chinese University of Hong Kong",
+    "Shanghai Artificial Intelligence Laboratory",
+    "Tsinghua University"
+   ],
+   "abs_url": "https://arxiv.org/abs/2312.10136",
+   "pdf_url": "https://arxiv.org/pdf/2312.10136"
+  },
+  {
    "arxiv_id": "2312.10115",
    "announced": "2023-12-01",
    "title": "SkySense: A Multi-Modal Remote Sensing Foundation Model Towards Universal Interpretation for Earth Observation Imagery",
@@ -11453,6 +11593,57 @@
    "institutions": [],
    "abs_url": "https://arxiv.org/abs/2312.07920",
    "pdf_url": "https://arxiv.org/pdf/2312.07920"
+  },
+  {
+   "arxiv_id": "2312.07865",
+   "announced": "2023-12-01",
+   "title": "SimAC: A Simple Anti-Customization Method for Protecting Face Privacy against Text-to-Image Synthesis of Diffusion Models",
+   "authors": [
+    "Feifei Wang",
+    "Zhentao Tan",
+    "Tianyi Wei",
+    "Yue Wu",
+    "Qidong Huang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted by CVPR2024. Code: https://github.com/somuchtome/SimAC",
+   "journal_ref": null,
+   "venue": "CVPR 2024",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Despite the success of diffusion-based customization methods on visual content creation, increasing concerns have been raised about such techniques from both privacy and political perspectives. To tackle this issue, several anti-customization methods have been proposed in very recent months, predominantly grounded in adversarial attacks. Unfortunately, most of these methods adopt straightforward designs, such as end-to-end optimization with a focus on adversarially maximizing the original training loss, thereby neglecting nuanced internal properties intrinsic to the diffusion model, and even leading to ineffective optimization in some diffusion time steps. In this paper, we strive to bridge this gap by undertaking a comprehensive exploration of these inherent properties to boost the performance of current anti-customization approaches. Two aspects of properties are investigated: 1) We examine the relationship between time step selection and the model's perception in the frequency domain of images and find that lower time steps can give much more contributions to adversarial noises. This inspires us to propose an adaptive greedy search for optimal time steps that seamlessly integrates with existing anti-customization methods. 2) We scrutinize the roles of features at different layers during denoising and devise a sophisticated feature-based optimization framework for anti-customization. Experiments on facial benchmarks demonstrate that our approach significantly increases identity disruption, thereby protecting user privacy and copyright.",
+   "affiliations": [
+    "University of Science and Technology of China",
+    "Alibaba Group"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Science and Technology of China",
+    "Alibaba Group"
+   ],
+   "abs_url": "https://arxiv.org/abs/2312.07865",
+   "pdf_url": "https://arxiv.org/pdf/2312.07865"
   },
   {
    "arxiv_id": "2312.07729",
@@ -18238,6 +18429,53 @@
    ],
    "abs_url": "https://arxiv.org/abs/2311.07574",
    "pdf_url": "https://arxiv.org/pdf/2311.07574"
+  },
+  {
+   "arxiv_id": "2311.17261",
+   "announced": "2023-11-28",
+   "title": "SceneTex: High-Quality Texture Synthesis for Indoor Scenes via Diffusion Priors",
+   "authors": [
+    "Dave Zhenyu Chen",
+    "Haoxuan Li",
+    "Hsin-Ying Lee",
+    "Sergey Tulyakov",
+    "Matthias Nießner"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Project website: https://daveredrum.github.io/SceneTex/",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We propose SceneTex, a novel method for effectively generating high-quality and style-consistent textures for indoor scenes using depth-to-image diffusion priors. Unlike previous methods that either iteratively warp 2D views onto a mesh surface or distillate diffusion latent features without accurate geometric and style cues, SceneTex formulates the texture synthesis task as an optimization problem in the RGB space where style and geometry consistency are properly reflected. At its core, SceneTex proposes a multiresolution texture field to implicitly encode the mesh appearance. We optimize the target texture via a score-distillation-based objective function in respective RGB renderings. To further secure the style consistency across views, we introduce a cross-attention decoder to predict the RGB values by cross-attending to the pre-sampled reference locations in each instance. SceneTex enables various and accurate texture synthesis for 3D-FRONT scenes, demonstrating significant improvements in visual quality and prompt fidelity over the prior texture generation methods.",
+   "affiliations": [
+    "Technical University of Munich",
+    "Snap"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    null
+   ],
+   "institutions": [
+    "Technical University of Munich",
+    "Snap"
+   ],
+   "abs_url": "https://arxiv.org/abs/2311.17261",
+   "pdf_url": "https://arxiv.org/pdf/2311.17261"
   },
   {
    "arxiv_id": "2311.17136",
@@ -38736,6 +38974,30 @@
    "pdf_url": "https://arxiv.org/pdf/2310.13165"
   },
   {
+   "arxiv_id": "2310.13026",
+   "announced": "2023-10-01",
+   "title": "Weakly-Supervised Semantic Segmentation with Image-Level Labels: from Traditional Models to Foundation Models",
+   "authors": [
+    "Zhaozheng Chen",
+    "Qianru Sun"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted to ACM Computing Surveys",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "The rapid development of deep learning has driven significant progress in image semantic segmentation - a fundamental task in computer vision. Semantic segmentation algorithms often depend on the availability of pixel-level labels (i.e., masks of objects), which are expensive, time-consuming, and labor-intensive. Weakly-supervised semantic segmentation (WSSS) is an effective solution to avoid such labeling. It utilizes only partial or incomplete annotations and provides a cost-effective alternative to fully-supervised semantic segmentation. In this journal, our focus is on the WSSS with image-level labels, which is the most challenging form of WSSS. Our work has two parts. First, we conduct a comprehensive survey on traditional methods, primarily focusing on those presented at premier research conferences. We categorize them into four groups based on where their methods operate: pixel-wise, image-wise, cross-image, and external data. Second, we investigate the applicability of visual foundation models, such as the Segment Anything Model (SAM), in the context of WSSS. We scrutinize SAM in two intriguing scenarios: text prompting and zero-shot learning. We provide insights into the potential and challenges of deploying visual foundational models for WSSS, facilitating future developments in this exciting research area.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2310.13026",
+   "pdf_url": "https://arxiv.org/pdf/2310.13026"
+  },
+  {
    "arxiv_id": "2310.12982",
    "announced": "2023-10-01",
    "title": "Putting the Object Back into Video Object Segmentation",
@@ -44126,6 +44388,61 @@
    ],
    "abs_url": "https://arxiv.org/abs/2309.15103",
    "pdf_url": "https://arxiv.org/pdf/2309.15103"
+  },
+  {
+   "arxiv_id": "2309.14900",
+   "announced": "2023-09-27",
+   "title": "Pre-training-free Image Manipulation Localization through Non-Mutually Exclusive Contrastive Learning",
+   "authors": [
+    "Jizhe Zhou",
+    "Xiaochen Ma",
+    "Xia Du",
+    "Ahmed Y. Alhammadi",
+    "Wentao Feng"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Tech report. ICCV2023 paper",
+   "journal_ref": null,
+   "venue": "ICCV 2023",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Deep Image Manipulation Localization (IML) models suffer from training data insufficiency and thus heavily rely on pre-training. We argue that contrastive learning is more suitable to tackle the data insufficiency problem for IML. Crafting mutually exclusive positives and negatives is the prerequisite for contrastive learning. However, when adopting contrastive learning in IML, we encounter three categories of image patches: tampered, authentic, and contour patches. Tampered and authentic patches are naturally mutually exclusive, but contour patches containing both tampered and authentic pixels are non-mutually exclusive to them. Simply abnegating these contour patches results in a drastic performance loss since contour patches are decisive to the learning outcomes. Hence, we propose the Non-mutually exclusive Contrastive Learning (NCL) framework to rescue conventional contrastive learning from the above dilemma. In NCL, to cope with the non-mutually exclusivity, we first establish a pivot structure with dual branches to constantly switch the role of contour patches between positives and negatives while training. Then, we devise a pivot-consistent loss to avoid spatial corruption caused by the role-switching process. In this manner, NCL both inherits the self-supervised merits to address the data insufficiency and retains a high manipulation localization accuracy. Extensive experiments verify that our NCL achieves state-of-the-art performance on all five benchmarks without any pre-training and is more robust on unseen real-life samples. The code is available at: https://github.com/Knightzjz/NCL-IML.",
+   "affiliations": [
+    "Sichuan University",
+    "Ministry of Industry and Information Technology",
+    "Xiamen University of Technology"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Sichuan University",
+    "Ministry of Industry and Information Technology",
+    "Xiamen University of Technology"
+   ],
+   "abs_url": "https://arxiv.org/abs/2309.14900",
+   "pdf_url": "https://arxiv.org/pdf/2309.14900"
   },
   {
    "arxiv_id": "2309.15273",
@@ -75365,6 +75682,34 @@
    "pdf_url": "https://arxiv.org/pdf/2307.01946"
   },
   {
+   "arxiv_id": "2307.01849",
+   "announced": "2023-07-01",
+   "title": "Crossway Diffusion: Improving Diffusion-based Visuomotor Policy via Self-supervised Learning",
+   "authors": [
+    "Xiang Li",
+    "Varun Belagali",
+    "Jinghuan Shang",
+    "Michael S. Ryoo"
+   ],
+   "primary_subject": "Robotics (cs.RO)",
+   "subjects": [
+    "Robotics (cs.RO)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "15 pages, 13 figures. Code, pretrained checkpoints, and datasets are available at https://github.com/LostXine/crossway_diffusion Video demo is at https://youtu.be/9deKHueZBuk",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.RO",
+   "html_url": null,
+   "abstract": "Sequence modeling approaches have shown promising results in robot imitation learning. Recently, diffusion models have been adopted for behavioral cloning in a sequence modeling fashion, benefiting from their exceptional capabilities in modeling complex data distributions. The standard diffusion-based policy iteratively generates action sequences from random noise conditioned on the input states. Nonetheless, the model for diffusion policy can be further improved in terms of visual representations. In this work, we propose Crossway Diffusion, a simple yet effective method to enhance diffusion-based visuomotor policy learning via a carefully designed state decoder and an auxiliary self-supervised learning (SSL) objective. The state decoder reconstructs raw image pixels and other state information from the intermediate representations of the reverse diffusion process. The whole model is jointly optimized by the SSL objective and the original diffusion loss. Our experiments demonstrate the effectiveness of Crossway Diffusion in various simulated and real-world robot tasks, confirming its consistent advantages over the standard diffusion-based policy and substantial improvements over the baselines.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2307.01849",
+   "pdf_url": "https://arxiv.org/pdf/2307.01849"
+  },
+  {
    "arxiv_id": "2307.01838",
    "announced": "2023-07-01",
    "title": "EdgeFace: Efficient Face Recognition Model for Edge Devices",
@@ -88741,6 +89086,64 @@
    "pdf_url": "https://arxiv.org/pdf/2305.17398"
   },
   {
+   "arxiv_id": "2305.12876",
+   "announced": "2023-05-27",
+   "title": "Gloss-Free End-to-End Sign Language Translation",
+   "authors": [
+    "Kezhou Lin",
+    "Xiaohan Wang",
+    "Linchao Zhu",
+    "Ke Sun",
+    "Bang Zhang",
+    "Yi Yang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Computation and Language (cs.CL)"
+   ],
+   "comments": "ACL 2023 Main Conference (Oral)",
+   "journal_ref": null,
+   "venue": "ACL 2023",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "In this paper, we tackle the problem of sign language translation (SLT) without gloss annotations. Although intermediate representation like gloss has been proven effective, gloss annotations are hard to acquire, especially in large quantities. This limits the domain coverage of translation datasets, thus handicapping real-world applications. To mitigate this problem, we design the Gloss-Free End-to-end sign language translation framework (GloFE). Our method improves the performance of SLT in the gloss-free setting by exploiting the shared underlying semantics of signs and the corresponding spoken translation. Common concepts are extracted from the text and used as a weak form of intermediate representation. The global embedding of these concepts is used as a query for cross-attention to find the corresponding information within the learned visual features. In a contrastive manner, we encourage the similarity of query results between samples containing such concepts and decrease those that do not. We obtained state-of-the-art results on large-scale datasets, including OpenASL and How2Sign. The code and model will be available at https://github.com/HenryLittle/GloFE.",
+   "affiliations": [
+    "Zhejiang University",
+    "Alibaba Group",
+    "Alibaba DAMO Academy"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Zhejiang University",
+    "Alibaba Group",
+    "Alibaba DAMO Academy"
+   ],
+   "abs_url": "https://arxiv.org/abs/2305.12876",
+   "pdf_url": "https://arxiv.org/pdf/2305.12876"
+  },
+  {
    "arxiv_id": "2305.17011",
    "announced": "2023-05-26",
    "title": "SOC: Semantic-Assisted Object Cluster for Referring Video Object Segmentation",
@@ -91780,6 +92183,30 @@
    ],
    "abs_url": "https://arxiv.org/abs/2305.08808",
    "pdf_url": "https://arxiv.org/pdf/2305.08808"
+  },
+  {
+   "arxiv_id": "2305.08694",
+   "announced": "2023-05-15",
+   "title": "A Reproducible Extraction of Training Images from Diffusion Models",
+   "authors": [
+    "Ryan Webster"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Recently, Carlini et al. demonstrated the widely used model Stable Diffusion can regurgitate real training samples, which is troublesome from a copyright perspective. In this work, we provide an efficient extraction attack on par with the recent attack, with several order of magnitudes less network evaluations. In the process, we expose a new phenomena, which we dub template verbatims, wherein a diffusion model will regurgitate a training sample largely in tact. Template verbatims are harder to detect as they require retrieval and masking to correctly label. Furthermore, they are still generated by newer systems, even those which de-duplicate their training set, and we give insight into why they still appear during generation. We extract training images from several state of the art systems, including Stable Diffusion 2.0, Deep Image Floyd, and finally Midjourney v4. We release code to verify our extraction attack, perform the attack, as well as all extracted prompts at \\url{https://github.com/ryanwebster90/onestep-extraction}.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2305.08694",
+   "pdf_url": "https://arxiv.org/pdf/2305.08694"
   },
   {
    "arxiv_id": "2305.08661",
@@ -108967,6 +109394,60 @@
    ],
    "abs_url": "https://arxiv.org/abs/2304.03110",
    "pdf_url": "https://arxiv.org/pdf/2304.03110"
+  },
+  {
+   "arxiv_id": "2304.02950",
+   "announced": "2023-04-06",
+   "title": "Multi-view Adversarial Discriminator: Mine the Non-causal Factors for Object Detection in Unseen Domains",
+   "authors": [
+    "Mingjun Xu",
+    "Lingyun Qin",
+    "Weijie Chen",
+    "Shiliang Pu",
+    "Lei Zhang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "CVPR 2023 (Highlight, top 2.5%). Pytorch vs. MindSpore Code at \"https://github.com/K2OKOH/MAD\"",
+   "journal_ref": null,
+   "venue": "CVPR 2023",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Domain shift degrades the performance of object detection models in practical applications. To alleviate the influence of domain shift, plenty of previous work try to decouple and learn the domain-invariant (common) features from source domains via domain adversarial learning (DAL). However, inspired by causal mechanisms, we find that previous methods ignore the implicit insignificant non-causal factors hidden in the common features. This is mainly due to the single-view nature of DAL. In this work, we present an idea to remove non-causal factors from common features by multi-view adversarial training on source domains, because we observe that such insignificant non-causal factors may still be significant in other latent spaces (views) due to the multi-mode structure of data. To summarize, we propose a Multi-view Adversarial Discriminator (MAD) based domain generalization model, consisting of a Spurious Correlations Generator (SCG) that increases the diversity of source domain by random augmentation and a Multi-View Domain Classifier (MVDC) that maps features to multiple latent spaces, such that the non-causal factors are removed and the domain-invariant features are purified. Extensive experiments on six benchmarks show our MAD obtains state-of-the-art performance.",
+   "affiliations": [
+    "Chongqing University",
+    "United Microelectronics",
+    "Hikvision"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "Chongqing University",
+    "United Microelectronics",
+    "Hikvision"
+   ],
+   "abs_url": "https://arxiv.org/abs/2304.02950",
+   "pdf_url": "https://arxiv.org/pdf/2304.02950"
   },
   {
    "arxiv_id": "2304.02828",
@@ -145577,6 +146058,46 @@
    "institutions": [],
    "abs_url": "https://arxiv.org/abs/2302.02318",
    "pdf_url": "https://arxiv.org/pdf/2302.02318"
+  },
+  {
+   "arxiv_id": "2302.02210",
+   "announced": "2023-02-01",
+   "title": "Oscillation-free Quantization for Low-bit Vision Transformers",
+   "authors": [
+    "Shih-Yang Liu",
+    "Zechun Liu",
+    "Kwang-Ting Cheng"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)",
+    "Hardware Architecture (cs.AR)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "Proceedings of the 40 th International Conference on Machine Learning, Honolulu, Hawaii, USA. PMLR 202, 2023",
+   "journal_ref": "ICML 2023",
+   "venue": "ICML",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Weight oscillation is an undesirable side effect of quantization-aware training, in which quantized weights frequently jump between two quantized levels, resulting in training instability and a sub-optimal final model. We discover that the learnable scaling factor, a widely-used $\\textit{de facto}$ setting in quantization aggravates weight oscillation. In this study, we investigate the connection between the learnable scaling factor and quantized weight oscillation and use ViT as a case driver to illustrate the findings and remedies. In addition, we also found that the interdependence between quantized weights in $\\textit{query}$ and $\\textit{key}$ of a self-attention layer makes ViT vulnerable to oscillation. We, therefore, propose three techniques accordingly: statistical weight quantization ($\\rm StatsQ$) to improve quantization robustness compared to the prevalent learnable-scale-based method; confidence-guided annealing ($\\rm CGA$) that freezes the weights with $\\textit{high confidence}$ and calms the oscillating weights; and $\\textit{query}$-$\\textit{key}$ reparameterization ($\\rm QKR$) to resolve the query-key intertwined oscillation and mitigate the resulting gradient misestimation. Extensive experiments demonstrate that these proposed techniques successfully abate weight oscillation and consistently achieve substantial accuracy improvement on ImageNet. Specifically, our 2-bit DeiT-T/DeiT-S algorithms outperform the previous state-of-the-art by 9.8% and 7.7%, respectively. Code and models are available at: https://github.com/nbasyl/OFQ.",
+   "affiliations": [
+    "Hong Kong University of Science and Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Hong Kong University of Science and Technology"
+   ],
+   "abs_url": "https://arxiv.org/abs/2302.02210",
+   "pdf_url": "https://arxiv.org/pdf/2302.02210"
   },
   {
    "arxiv_id": "2302.02088",

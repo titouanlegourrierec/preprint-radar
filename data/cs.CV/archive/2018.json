@@ -38877,49 +38877,6 @@
    "pdf_url": "https://arxiv.org/pdf/1805.04096"
   },
   {
-   "arxiv_id": "1805.03779",
-   "announced": "2018-05-01",
-   "title": "k-Space Deep Learning for Accelerated MRI",
-   "authors": [
-    "Yoseob Han",
-    "Leonard Sunwoo",
-    "Jong Chul Ye"
-   ],
-   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
-   "subjects": [
-    "Computer Vision and Pattern Recognition (cs.CV)",
-    "Machine Learning (cs.LG)",
-    "Machine Learning (stat.ML)"
-   ],
-   "comments": "Accepted to IEEE Transactions on Medical Imaging",
-   "journal_ref": null,
-   "venue": "TMI",
-   "cross_list_from": null,
-   "html_url": null,
-   "abstract": "The annihilating filter-based low-rank Hankel matrix approach (ALOHA) is one of the state-of-the-art compressed sensing approaches that directly interpolates the missing k-space data using low-rank Hankel matrix completion. The success of ALOHA is due to the concise signal representation in the k-space domain thanks to the duality between structured low-rankness in the k-space domain and the image domain sparsity. Inspired by the recent mathematical discovery that links convolutional neural networks to Hankel matrix decomposition using data-driven framelet basis, here we propose a fully data-driven deep learning algorithm for k-space interpolation. Our network can be also easily applied to non-Cartesian k-space trajectories by simply adding an additional regridding layer. Extensive numerical experiments show that the proposed deep learning method consistently outperforms the existing image-domain deep learning approaches.",
-   "affiliations": [
-    "Korea Advanced Institute of Science and Technology",
-    "Seoul National University"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     1
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "Korea Advanced Institute of Science and Technology",
-    "Seoul National University"
-   ],
-   "abs_url": "https://arxiv.org/abs/1805.03779",
-   "pdf_url": "https://arxiv.org/pdf/1805.03779"
-  },
-  {
    "arxiv_id": "1805.03371",
    "announced": "2018-05-01",
    "title": "PSGAN: A Generative Adversarial Network for Remote Sensing Image Pan-Sharpening",
@@ -50450,6 +50407,31 @@
    ],
    "abs_url": "https://arxiv.org/abs/1803.10464",
    "pdf_url": "https://arxiv.org/pdf/1803.10464"
+  },
+  {
+   "arxiv_id": "1803.10417",
+   "announced": "2018-03-01",
+   "title": "The HAM10000 dataset, a large collection of multi-source dermatoscopic images of common pigmented skin lesions",
+   "authors": [
+    "Philipp Tschandl",
+    "Cliff Rosendahl",
+    "Harald Kittler"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": "Sci. Data 5, 180161 (2018)",
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Training of neural networks for automated diagnosis of pigmented skin lesions is hampered by the small size and lack of diversity of available datasets of dermatoscopic images. We tackle this problem by releasing the HAM10000 (\"Human Against Machine with 10000 training images\") dataset. We collected dermatoscopic images from different populations acquired and stored by different modalities. Given this diversity we had to apply different acquisition and cleaning methods and developed semi-automatic workflows utilizing specifically trained neural networks. The final dataset consists of 10015 dermatoscopic images which are released as a training set for academic machine learning purposes and are publicly available through the ISIC archive. This benchmark dataset can be used for machine learning and for comparisons with human experts. Cases include a representative collection of all important diagnostic categories in the realm of pigmented lesions. More than 50% of lesions have been confirmed by pathology, while the ground truth for the rest of the cases was either follow-up, expert consensus, or confirmation by in-vivo confocal microscopy.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/1803.10417",
+   "pdf_url": "https://arxiv.org/pdf/1803.10417"
   },
   {
    "arxiv_id": "1803.10404",

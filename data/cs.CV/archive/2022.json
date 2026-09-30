@@ -19574,6 +19574,63 @@
    "pdf_url": "https://arxiv.org/pdf/2211.09117"
   },
   {
+   "arxiv_id": "2211.08834",
+   "announced": "2022-11-01",
+   "title": "A Generalized Framework for Video Instance Segmentation",
+   "authors": [
+    "Miran Heo",
+    "Sukjun Hwang",
+    "Jeongseok Hyun",
+    "Hanjung Kim",
+    "Seoung Wug Oh",
+    "Joon-Young Lee",
+    "Seon Joo Kim"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "CVPR 2023",
+   "journal_ref": null,
+   "venue": "CVPR 2023",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "The handling of long videos with complex and occluded sequences has recently emerged as a new challenge in the video instance segmentation (VIS) community. However, existing methods have limitations in addressing this challenge. We argue that the biggest bottleneck in current approaches is the discrepancy between training and inference. To effectively bridge this gap, we propose a Generalized framework for VIS, namely GenVIS, that achieves state-of-the-art performance on challenging benchmarks without designing complicated architectures or requiring extra post-processing. The key contribution of GenVIS is the learning strategy, which includes a query-based training pipeline for sequential learning with a novel target label assignment. Additionally, we introduce a memory that effectively acquires information from previous states. Thanks to the new perspective, which focuses on building relationships between separate frames or clips, GenVIS can be flexibly executed in both online and semi-online manner. We evaluate our approach on popular VIS benchmarks, achieving state-of-the-art results on YouTube-VIS 2019/2021/2022 and Occluded VIS (OVIS). Notably, we greatly outperform the state-of-the-art on the long VIS benchmark (OVIS), improving 5.6 AP with ResNet-50 backbone. Code is available at https://github.com/miranheo/GenVIS.",
+   "affiliations": [
+    "Yonsei University",
+    "Adobe Systems"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Yonsei University",
+    "Adobe Systems"
+   ],
+   "abs_url": "https://arxiv.org/abs/2211.08834",
+   "pdf_url": "https://arxiv.org/pdf/2211.08834"
+  },
+  {
    "arxiv_id": "2211.08824",
    "announced": "2022-11-01",
    "title": "SMILEtrack: SiMIlarity LEarning for Occlusion-Aware Multiple Object Tracking",
@@ -27653,6 +27710,33 @@
    ],
    "abs_url": "https://arxiv.org/abs/2210.08773",
    "pdf_url": "https://arxiv.org/pdf/2210.08773"
+  },
+  {
+   "arxiv_id": "2210.08451",
+   "announced": "2022-10-01",
+   "title": "Bridging the Domain Gap for Multi-Agent Perception",
+   "authors": [
+    "Runsheng Xu",
+    "Jinlong Li",
+    "Xiaoyu Dong",
+    "Hongkai Yu",
+    "Jiaqi Ma"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted by ICRA2023.Code: https://github.com/DerrickXuNu/MPDA",
+   "journal_ref": null,
+   "venue": "ICRA 2023",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Existing multi-agent perception algorithms usually select to share deep neural features extracted from raw sensing data between agents, achieving a trade-off between accuracy and communication bandwidth limit. However, these methods assume all agents have identical neural networks, which might not be practical in the real world. The transmitted features can have a large domain gap when the models differ, leading to a dramatic performance drop in multi-agent perception. In this paper, we propose the first lightweight framework to bridge such domain gaps for multi-agent perception, which can be a plug-in module for most existing systems while maintaining confidentiality. Our framework consists of a learnable feature resizer to align features in multiple dimensions and a sparse cross-domain transformer for domain adaption. Extensive experiments on the public multi-agent perception dataset V2XSet have demonstrated that our method can effectively bridge the gap for features from different domains and outperform other baseline methods significantly by at least 8% for point-cloud-based 3D object detection.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2210.08451",
+   "pdf_url": "https://arxiv.org/pdf/2210.08451"
   },
   {
    "arxiv_id": "2210.08344",
@@ -47446,6 +47530,50 @@
    "pdf_url": "https://arxiv.org/pdf/2207.06654"
   },
   {
+   "arxiv_id": "2207.06101",
+   "announced": "2022-07-13",
+   "title": "Global-local Motion Transformer for Unsupervised Skeleton-based Action Learning",
+   "authors": [
+    "Boeun Kim",
+    "Hyung Jin Chang",
+    "Jungho Kim",
+    "Jin Young Choi"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": "Accepted by ECCV 2022",
+   "journal_ref": null,
+   "venue": "ECCV 2022",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We propose a new transformer model for the task of unsupervised learning of skeleton motion sequences. The existing transformer model utilized for unsupervised skeleton-based action learning is learned the instantaneous velocity of each joint from adjacent frames without global motion information. Thus, the model has difficulties in learning the attention globally over whole-body motions and temporally distant joints. In addition, person-to-person interactions have not been considered in the model. To tackle the learning of whole-body motion, long-range temporal dynamics, and person-to-person interactions, we design a global and local attention mechanism, where, global body motions and local joint motions pay attention to each other. In addition, we propose a novel pretraining strategy, multi-interval pose displacement prediction, to learn both global and local attention in diverse time ranges. The proposed model successfully learns local dynamics of the joints and captures global context from the motion sequences. Our model outperforms state-of-the-art models by notable margins in the representative benchmarks. Codes are available at https://github.com/Boeun-Kim/GL-Transformer.",
+   "affiliations": [
+    "Korea Electronics Technology Institute",
+    "University of Birmingham"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    null
+   ],
+   "institutions": [
+    "Korea Electronics Technology Institute",
+    "University of Birmingham"
+   ],
+   "abs_url": "https://arxiv.org/abs/2207.06101",
+   "pdf_url": "https://arxiv.org/pdf/2207.06101"
+  },
+  {
    "arxiv_id": "2207.05894",
    "announced": "2022-07-13",
    "title": "Hybrid Spatial-Temporal Entropy Modelling for Neural Video Compression",
@@ -53152,6 +53280,32 @@
    ],
    "abs_url": "https://arxiv.org/abs/2206.09907",
    "pdf_url": "https://arxiv.org/pdf/2206.09907"
+  },
+  {
+   "arxiv_id": "2206.12694",
+   "announced": "2022-06-25",
+   "title": "RandStainNA: Learning Stain-Agnostic Features from Histology Slides by Bridging Stain Augmentation and Normalization",
+   "authors": [
+    "Yiqing Shen",
+    "Yulin Luo",
+    "Dinggang Shen",
+    "Jing Ke"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "12 pages",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Stain variations often decrease the generalization ability of deep learning based approaches in digital histopathology analysis. Two separate proposals, namely stain normalization (SN) and stain augmentation (SA), have been spotlighted to reduce the generalization error, where the former alleviates the stain shift across different medical centers using template image and the latter enriches the accessible stain styles by the simulation of more stain variations. However, their applications are bounded by the selection of template images and the construction of unrealistic styles. To address the problems, we unify SN and SA with a novel RandStainNA scheme, which constrains variable stain styles in a practicable range to train a stain agnostic deep learning model. The RandStainNA is applicable to stain normalization in a collection of color spaces i.e. HED, HSV, LAB. Additionally, we propose a random color space selection scheme to gain extra performance improvement. We evaluate our method by two diagnostic tasks i.e. tissue subtype classification and nuclei segmentation, with various network backbones. The performance superiority over both SA and SN yields that the proposed RandStainNA can consistently improve the generalization ability, that our models can cope with more incoming clinical datasets with unpredicted stain styles. The codes is available at https://github.com/yiqings/RandStainNA.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "abs_url": "https://arxiv.org/abs/2206.12694",
+   "pdf_url": "https://arxiv.org/pdf/2206.12694"
   },
   {
    "arxiv_id": "2206.12055",

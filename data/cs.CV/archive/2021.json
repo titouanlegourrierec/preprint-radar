@@ -3605,6 +3605,59 @@
    "pdf_url": "https://arxiv.org/pdf/2112.13592"
   },
   {
+   "arxiv_id": "2112.13548",
+   "announced": "2021-12-01",
+   "title": "Responsive Listening Head Generation: A Benchmark Dataset and Baseline",
+   "authors": [
+    "Mohan Zhou",
+    "Yalong Bai",
+    "Wei Zhang",
+    "Ting Yao",
+    "Tiejun Zhao",
+    "Tao Mei"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted by ECCV 2022",
+   "journal_ref": null,
+   "venue": "ECCV 2022",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We present a new listening head generation benchmark, for synthesizing responsive feedbacks of a listener (e.g., nod, smile) during a face-to-face conversation. As the indispensable complement to talking heads generation, listening head generation has seldomly been studied in literature. Automatically synthesizing listening behavior that actively responds to a talking head, is critical to applications such as digital human, virtual agents and social robots. In this work, we propose a novel dataset \"ViCo\", highlighting the listening head generation during a face-to-face conversation. A total number of 92 identities (67 speakers and 76 listeners) are involved in ViCo, featuring 483 clips in a paired \"speaking-listening\" pattern, where listeners show three listening styles based on their attitudes: positive, neutral, negative. Different from traditional speech-to-gesture or talking-head generation, listening head generation takes as input both the audio and visual signals from the speaker, and gives non-verbal feedbacks (e.g., head motions, facial expressions) in a real-time manner. Our dataset supports a wide range of applications such as human-to-human interaction, video-to-video translation, cross-modal understanding and generation. To encourage further research, we also release a listening head generation baseline, conditioning on different listening attitudes. Code & ViCo dataset: https://project.mhzhou.com/vico.",
+   "affiliations": [
+    "Harbin Institute of Technology",
+    "Jingdong"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Harbin Institute of Technology",
+    "Jingdong"
+   ],
+   "abs_url": "https://arxiv.org/abs/2112.13548",
+   "pdf_url": "https://arxiv.org/pdf/2112.13548"
+  },
+  {
    "arxiv_id": "2112.12970",
    "announced": "2021-12-01",
    "title": "SGTR: End-to-end Scene Graph Generation with Transformer",
@@ -50354,6 +50407,74 @@
    "institutions": [],
    "abs_url": "https://arxiv.org/abs/2107.01886",
    "pdf_url": "https://arxiv.org/pdf/2107.01886"
+  },
+  {
+   "arxiv_id": "2107.01378",
+   "announced": "2021-07-01",
+   "title": "Learning Efficient Vision Transformers via Fine-Grained Manifold Distillation",
+   "authors": [
+    "Zhiwei Hao",
+    "Jianyuan Guo",
+    "Ding Jia",
+    "Kai Han",
+    "Yehui Tang",
+    "Chao Zhang",
+    "Han Hu",
+    "Yunhe Wang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "In the past few years, transformers have achieved promising performances on various computer vision tasks. Unfortunately, the immense inference overhead of most existing vision transformers withholds their from being deployed on edge devices such as cell phones and smart watches. Knowledge distillation is a widely used paradigm for compressing cumbersome architectures via transferring information to a compact student. However, most of them are designed for convolutional neural networks (CNNs), which do not fully investigate the character of vision transformer (ViT). In this paper, we utilize the patch-level information and propose a fine-grained manifold distillation method. Specifically, we train a tiny student model to match a pre-trained teacher model in the patch-level manifold space. Then, we decouple the manifold matching loss into three terms with careful design to further reduce the computational costs for the patch relationship. Equipped with the proposed method, a DeiT-Tiny model containing 5M parameters achieves 76.5% top-1 accuracy on ImageNet-1k, which is +2.0% higher than previous distillation approaches. Transfer learning results on other classification benchmarks and downstream vision tasks also demonstrate the superiority of our method over the state-of-the-art algorithms.",
+   "affiliations": [
+    "Beijing Institute of Technology",
+    "Beijing Electronic Science and Technology Institute",
+    "Huawei Technologies",
+    "Institute of Electronics"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2,
+     3
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    null,
+    [
+     0,
+     1,
+     3
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "Beijing Institute of Technology",
+    "Beijing Electronic Science and Technology Institute",
+    "Huawei Technologies",
+    "Institute of Electronics"
+   ],
+   "abs_url": "https://arxiv.org/abs/2107.01378",
+   "pdf_url": "https://arxiv.org/pdf/2107.01378"
   },
   {
    "arxiv_id": "2107.01153",
