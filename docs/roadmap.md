@@ -72,8 +72,8 @@ for the answer.
 | TEST-1 | `fail_under` (set to 95 by the maintainer; the aim stays 100%) | P2 | done |
 | DATA-6 | Write the index right after the first save | P2 | done |
 | DATA-7 | Ignore `.tmp` files | P3 | done |
-| SEC-9 | About section with a correction contact | P1 | todo |
-| SEC-10 | Privacy note | P2 | todo |
+| SEC-9 | About section with a correction contact | P1 | done |
+| SEC-10 | Privacy note | P2 | done |
 | CI-1 | Robust data commit (raised to P1, see the corrections above) | P1 | done |
 
 *Exit criteria:* `validate` passes with zero structural violations, and the affiliation

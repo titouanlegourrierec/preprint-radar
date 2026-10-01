@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from "preact/hooks";
 import { toBibtexFile } from "./bibtex";
+import { About } from "./components/About";
 import { GraphView } from "./components/GraphView";
 import { PaperList } from "./components/PaperList";
 import { Rankings } from "./components/Rankings";
@@ -199,6 +200,14 @@ export function App() {
           >
             Reading list ({readingList.papers.length})
           </button>
+          <button
+            type="button"
+            class={`tab${state.view === "about" ? " tab--active" : ""}`}
+            title="Where the data comes from, corrections and privacy"
+            onClick={() => update({ view: "about" })}
+          >
+            About
+          </button>
         </nav>
         <button
           type="button"
@@ -212,6 +221,36 @@ export function App() {
       </div>
     </header>
   );
+
+  const footer = (
+    <footer class="site-footer muted">
+      Data from <a href="https://arxiv.org">arXiv</a>, refreshed every weekday. Thank you to arXiv
+      for use of its open access interoperability. This project is not affiliated with arXiv.
+      Citation counts from <a href="https://www.semanticscholar.org">Semantic Scholar</a>,
+      institutions from the <a href="https://ror.org">Research Organization Registry</a> and{" "}
+      <a href="https://openalex.org">OpenAlex</a>.{" "}
+      <a
+        href="?view=about"
+        onClick={(event) => {
+          event.preventDefault();
+          update({ view: "about" });
+        }}
+      >
+        About the data, corrections and privacy
+      </a>
+      .
+    </footer>
+  );
+
+  if (state.view === "about") {
+    return (
+      <div class="layout">
+        {topbar}
+        <About />
+        {footer}
+      </div>
+    );
+  }
 
   if (state.view === "graph") {
     return (
@@ -479,13 +518,7 @@ export function App() {
         </main>
       </div>
 
-      <footer class="site-footer muted">
-        Data from <a href="https://arxiv.org">arXiv</a>, refreshed every weekday. Thank you to arXiv
-        for use of its open access interoperability. This project is not affiliated with arXiv.
-        Citation counts from <a href="https://www.semanticscholar.org">Semantic Scholar</a>,
-        institutions from the <a href="https://ror.org">Research Organization Registry</a> and{" "}
-        <a href="https://openalex.org">OpenAlex</a>.
-      </footer>
+      {footer}
     </div>
   );
 }

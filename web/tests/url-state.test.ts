@@ -70,6 +70,11 @@ describe("url state", () => {
     expect(readState(writeState(state))).toEqual(state);
   });
 
+  it("reads the about view", () => {
+    expect(readState("?view=about").view).toBe("about");
+    expect(writeState({ ...DEFAULT_STATE, view: "about" })).toBe("?view=about");
+  });
+
   it("reads the graph view", () => {
     expect(readState("?view=graph").view).toBe("graph");
   });

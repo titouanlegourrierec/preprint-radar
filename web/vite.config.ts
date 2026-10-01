@@ -3,6 +3,7 @@ import { basename, resolve, sep } from "node:path";
 import preact from "@preact/preset-vite";
 import type { Plugin } from "vite";
 import { defineConfig } from "vitest/config";
+import { thirdPartyLoads } from "./tooling/third-party";
 
 const DATA_DIR = resolve(import.meta.dirname, "..", "data");
 
@@ -39,10 +40,29 @@ function paperData(dataDir: string): Plugin {
   };
 }
 
+/** Fail the build if the site would load anything from another origin (see About, privacy). */
+function noThirdPartyLoads(): Plugin {
+  return {
+    name: "preprint-radar:no-third-party-loads",
+    apply: "build",
+    // After Vite has emitted index.html.
+    enforce: "post",
+    generateBundle(_, bundle) {
+      for (const [fileName, output] of Object.entries(bundle)) {
+        const code = output.type === "chunk" ? output.code : String(output.source);
+        const found = thirdPartyLoads(fileName, code);
+        if (found.length > 0) {
+          this.error(`${fileName} loads from another origin: ${found.join(", ")}`);
+        }
+      }
+    },
+  };
+}
+
 export default defineConfig({
   // Relative base: the site works under any GitHub Pages path (user.github.io/<repo>/).
   base: "./",
-  plugins: [preact(), paperData(DATA_DIR)],
+  plugins: [preact(), paperData(DATA_DIR), noThirdPartyLoads()],
   test: {
     environment: "node",
     include: ["tests/**/*.test.ts"],

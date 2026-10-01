@@ -1,9 +1,9 @@
 import { between, DEFAULT_PERIOD, isIsoDay, isRange, type Period } from "./period";
 import { NO_FILTERS, type SearchFilters, type SortOrder } from "./search";
 
-export type View = "papers" | "cited" | "graph" | "rankings" | "reading-list";
+export type View = "papers" | "cited" | "graph" | "rankings" | "reading-list" | "about";
 
-const VIEWS: readonly View[] = ["papers", "cited", "graph", "rankings", "reading-list"];
+const VIEWS: readonly View[] = ["papers", "cited", "graph", "rankings", "reading-list", "about"];
 const SORTS: readonly SortOrder[] = ["relevance", "newest", "citations"];
 
 export interface ViewState {
