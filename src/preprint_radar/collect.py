@@ -6,16 +6,18 @@
 """
 
 import logging
+import time
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from dataclasses import dataclass, replace
 from datetime import date
+from enum import StrEnum
 
 from preprint_radar.config import DEFAULT_MAX_ROR_LOOKUPS, DEFAULT_SAVE_EVERY
 from preprint_radar.exceptions import FetchError, ParseError
 from preprint_radar.http import HttpClient
 from preprint_radar.models import Paper
 from preprint_radar.sources.arxiv_api import fetch_metadata
-from preprint_radar.sources.arxiv_html import fetch_front_matter, name_key
+from preprint_radar.sources.arxiv_html import FrontMatter, fetch_front_matter, name_key
 from preprint_radar.sources.arxiv_listing import fetch_catchup, fetch_listing
 from preprint_radar.sources.arxiv_rss import fetch_rss_abstracts
 from preprint_radar.sources.ror import match_institutions
@@ -23,6 +25,25 @@ from preprint_radar.sources.semantic_scholar import S2_SOURCE, fetch_citation_co
 from preprint_radar.store.paper_store import PaperStore
 
 logger = logging.getLogger(__name__)
+
+# Reading HTML pages stops after this many failures in a row: arxiv.org is down for now, and
+# each failing page costs minutes of retries.
+MAX_CONSECUTIVE_HTML_FAILURES = 5
+# Past this many pages read, a share of pages without affiliations this high is a layout
+# change (or HTML URLs that moved), not a bad day: 12 to 31% of the pages of a day give none.
+DRIFT_MIN_PAGES = 40
+DRIFT_EMPTY_SHARE = 0.9
+
+
+class Stop(StrEnum):
+    """Why the reading of HTML pages stopped before the end."""
+
+    DEADLINE = "deadline"
+    """Out of time: the pages left wait for the next run."""
+    FAILURES = "failures"
+    """arxiv.org failed page after page."""
+    LAYOUT = "layout"
+    """Nearly every page gave no affiliation: their papers wait for the next run."""
 
 
 @dataclass(frozen=True, slots=True)
@@ -36,6 +57,8 @@ class UpdateReport:
         abstracts_fetched: Abstracts retrieved during this run.
         affiliations_fetched: Papers whose affiliations were retrieved during this run.
         pending: Papers still missing an abstract or affiliations after the run.
+        empty: Of the HTML pages read, those that gave no affiliation.
+        stopped: Why the reading of HTML pages stopped early, if it did.
     """
 
     category: str
@@ -44,6 +67,13 @@ class UpdateReport:
     abstracts_fetched: int
     affiliations_fetched: int
     pending: int
+    empty: int = 0
+    stopped: Stop | None = None
+
+    @property
+    def failed(self) -> bool:
+        """Whether the run stopped on a failure that should make it red."""
+        return self.stopped in {Stop.FAILURES, Stop.LAYOUT}
 
 
 def update_category(
@@ -56,6 +86,7 @@ def update_category(
     max_html_fetches: int | None = None,
     max_ror_lookups: int | None = DEFAULT_MAX_ROR_LOOKUPS,
     save_every: int = DEFAULT_SAVE_EVERY,
+    deadline: float | None = None,
 ) -> UpdateReport:
     """Fetch the recent listing of ``category``, enrich new papers and store them.
 
@@ -74,6 +105,8 @@ def update_category(
             ``0``: skip affiliation extraction from HTML).
         max_ror_lookups: Maximum number of affiliation strings to look up in ROR.
         save_every: Save progress after this many HTML downloads.
+        deadline: ``time.monotonic()`` value after which no HTML page is started, so that
+            the run ends cleanly before it is killed (``None``: no deadline).
 
     Returns:
         A summary of the run.
@@ -92,14 +125,16 @@ def update_category(
     # is stopped before its end.
     store.write_index()
 
-    papers, affiliations_fetched, html_abstracts = _add_html_front_matter(
+    read = _add_html_front_matter(
         papers,
         site_client,
         limit=max_html_fetches,
         checkpoint=lambda current: store.save(category, current),
         save_every=save_every,
+        deadline=deadline,
     )
-    abstracts_fetched += html_abstracts
+    papers = read.papers
+    abstracts_fetched += read.abstracts
     if ror_client is not None:
         papers = add_institutions(papers, ror_client, limit=max_ror_lookups)
     store.save(category, papers)
@@ -109,8 +144,10 @@ def update_category(
         listed=len(papers),
         new=new,
         abstracts_fetched=abstracts_fetched,
-        affiliations_fetched=affiliations_fetched,
+        affiliations_fetched=read.pages,
         pending=sum(not paper.is_enriched for paper in papers),
+        empty=read.empty,
+        stopped=read.stopped,
     )
 
 
@@ -124,6 +161,7 @@ def backfill_category(
     max_html_fetches: int | None = None,
     max_ror_lookups: int | None = DEFAULT_MAX_ROR_LOOKUPS,
     save_every: int = DEFAULT_SAVE_EVERY,
+    deadline: float | None = None,
 ) -> UpdateReport:
     """Collect past announcement days of ``category`` from the catchup pages.
 
@@ -144,6 +182,8 @@ def backfill_category(
             ``0``: skip affiliation extraction from HTML).
         max_ror_lookups: Maximum number of affiliation strings to look up in ROR.
         save_every: Save progress after this many HTML downloads.
+        deadline: ``time.monotonic()`` value after which no HTML page is started, so that
+            the run ends cleanly before it is killed (``None``: no deadline).
 
     Returns:
         A summary of the run.
@@ -174,13 +214,15 @@ def backfill_category(
     )
     logger.info("%s: %d papers listed, %d new", category, len(papers), new)
 
-    papers, affiliations_fetched, html_abstracts = _add_html_front_matter(
+    read = _add_html_front_matter(
         papers,
         site_client,
         limit=max_html_fetches,
         checkpoint=lambda current: store.save(category, current),
         save_every=save_every,
+        deadline=deadline,
     )
+    papers = read.papers
     if ror_client is not None:
         papers = add_institutions(papers, ror_client, limit=max_ror_lookups)
     store.save(category, papers)
@@ -189,9 +231,11 @@ def backfill_category(
         category=category,
         listed=len(papers),
         new=new,
-        abstracts_fetched=abstracts_fetched + html_abstracts,
-        affiliations_fetched=affiliations_fetched,
+        abstracts_fetched=abstracts_fetched + read.abstracts,
+        affiliations_fetched=read.pages,
         pending=sum(not paper.is_enriched for paper in papers),
+        empty=read.empty,
+        stopped=read.stopped,
     )
 
 
@@ -300,19 +344,8 @@ def _with_abstracts(papers: list[Paper], abstracts: Mapping[str, str]) -> list[P
     ]
 
 
-def _add_html_front_matter(
-    papers: Sequence[Paper],
-    client: HttpClient,
-    *,
-    limit: int | None,
-    checkpoint: Callable[[list[Paper]], object],
-    save_every: int,
-) -> tuple[list[Paper], int, int]:
-    """Fill affiliations (and abstracts still missing) from the papers' HTML renderings.
-
-    Returns:
-        The updated papers, the number of pages processed and the number of abstracts added.
-    """
+def _html_todo(papers: Sequence[Paper], limit: int | None) -> list[tuple[int, str]]:
+    """The papers whose HTML page is to be read, as ``(position, url)``, at most ``limit``."""
     todo = [
         (index, url)
         for index, paper in enumerate(papers)
@@ -322,31 +355,115 @@ def _add_html_front_matter(
         todo = todo[:limit]
     if todo:
         logger.info("Reading %d HTML renderings (this is slow on purpose)", len(todo))
+    return todo
 
+
+def _front_matter(client: HttpClient, paper: Paper, url: str) -> FrontMatter | None:
+    """The front matter of the paper's HTML page, or ``None`` if it could not be fetched."""
+    try:
+        return fetch_front_matter(client, url, authors=paper.authors)
+    except FetchError as exc:
+        logger.warning("Skipping HTML of %s, will retry next run: %s", paper.arxiv_id, exc)
+        return None
+
+
+def _with_front_matter(paper: Paper, front: FrontMatter) -> Paper:
+    """The paper with what its HTML page gave: affiliations, and its abstract if it had none."""
+    return replace(
+        paper,
+        affiliations=front.affiliations,
+        author_affiliations=front.author_affiliations,
+        institutions=None,
+        abstract=paper.abstract if paper.abstract is not None else front.abstract,
+    )
+
+
+def _past(deadline: float | None) -> bool:
+    return deadline is not None and time.monotonic() >= deadline
+
+
+def _layout_changed(pages: int, empty: int) -> bool:
+    """Whether so many of the pages read gave no affiliation that the layout must have changed."""
+    return pages >= DRIFT_MIN_PAGES and empty >= DRIFT_EMPTY_SHARE * pages
+
+
+@dataclass(frozen=True, slots=True)
+class _HtmlRead:
+    """What :func:`_add_html_front_matter` read."""
+
+    papers: list[Paper]
+    pages: int
+    abstracts: int
+    empty: int
+    stopped: Stop | None
+
+
+def _add_html_front_matter(
+    papers: Sequence[Paper],
+    client: HttpClient,
+    *,
+    limit: int | None,
+    checkpoint: Callable[[list[Paper]], object],
+    save_every: int,
+    deadline: float | None = None,
+) -> _HtmlRead:
+    """Fill affiliations (and abstracts still missing) from the papers' HTML renderings.
+
+    Reading stops early at the deadline, after ``MAX_CONSECUTIVE_HTML_FAILURES`` failed
+    pages in a row, or when nearly every page gives no affiliation: the papers of this run
+    then stay pending rather than be stored as having none, which is final. An interrupted
+    run (Ctrl-C, or a CI job cancelled or timed out) saves what it read.
+
+    Returns:
+        The updated papers, the pages read, the abstracts added, the pages without
+        affiliations, and why reading stopped early, if it did.
+    """
+    todo = _html_todo(papers, limit)
     current = list(papers)
-    pages = abstracts = 0
-    for done, (index, url) in enumerate(todo, start=1):
-        paper = current[index]
-        try:
-            front = fetch_front_matter(client, url, authors=paper.authors)
-        except FetchError as exc:
-            logger.warning("Skipping HTML of %s, will retry next run: %s", paper.arxiv_id, exc)
-            continue
-        abstract = paper.abstract if paper.abstract is not None else front.abstract
-        abstracts += paper.abstract is None and abstract is not None
-        current[index] = replace(
-            paper,
-            affiliations=front.affiliations,
-            author_affiliations=front.author_affiliations,
-            institutions=None,
-            abstract=abstract,
-        )
-        pages += 1
-        logger.debug("[%d/%d] %s: %s", done, len(todo), paper.arxiv_id, front.affiliations)
-        if done % save_every == 0:
-            checkpoint(current)
-            logger.info("%d/%d HTML renderings read, progress saved", done, len(todo))
-    return current, pages, abstracts
+    pages = abstracts = failures = 0
+    empty: list[int] = []
+    stopped: Stop | None = None
+    try:
+        for done, (index, url) in enumerate(todo, start=1):
+            if _past(deadline):
+                logger.warning("Out of time: %d HTML renderings left for the next run", len(todo) - done + 1)
+                stopped = Stop.DEADLINE
+                break
+            paper = current[index]
+            front = _front_matter(client, paper, url)
+            if front is None:
+                failures += 1
+                if failures < MAX_CONSECUTIVE_HTML_FAILURES:
+                    continue
+                logger.error("arxiv.org failed %d HTML renderings in a row: stopping", failures)
+                stopped = Stop.FAILURES
+                break
+            failures = 0
+            current[index] = _with_front_matter(paper, front)
+            abstracts += paper.abstract is None and current[index].abstract is not None
+            pages += 1
+            logger.debug("[%d/%d] %s: %s", done, len(todo), paper.arxiv_id, front.affiliations)
+            if not front.affiliations:
+                empty.append(index)
+                if _layout_changed(pages, len(empty)):
+                    logger.error(
+                        "%d of %d HTML renderings gave no affiliation: has arXiv's layout changed? "
+                        "Their papers wait for the next run",
+                        len(empty),
+                        pages,
+                    )
+                    for position in empty:
+                        current[position] = papers[position]
+                    stopped = Stop.LAYOUT
+                    break
+            if done % save_every == 0:
+                checkpoint(current)
+                logger.info("%d/%d HTML renderings read, progress saved", done, len(todo))
+    except KeyboardInterrupt:
+        logger.warning("Interrupted: saving the %d HTML renderings read", pages)
+        checkpoint(current)
+        raise
+    return _HtmlRead(current, pages, abstracts, len(empty), stopped)
 
 
 def add_institutions(papers: Sequence[Paper], client: HttpClient, *, limit: int | None) -> list[Paper]:
@@ -442,10 +559,19 @@ def format_citations_report(report: CitationsReport) -> str:
     )
 
 
+_STOPS = {
+    Stop.DEADLINE: "out of time",
+    Stop.FAILURES: "arxiv.org kept failing",
+    Stop.LAYOUT: "nearly every page gave no affiliation",
+}
+
+
 def format_report(report: UpdateReport) -> str:
     """Render an :class:`UpdateReport` as a one-line human-readable summary."""
     return (
         f"{report.category}: {report.listed} listed, {report.new} new, "
-        f"{report.abstracts_fetched} abstracts and {report.affiliations_fetched} affiliations fetched, "
-        f"{report.pending} still pending"
+        f"{report.abstracts_fetched} abstracts and {report.affiliations_fetched} affiliations fetched"
+        + (f" ({report.empty} pages without any)" if report.empty else "")
+        + f", {report.pending} still pending"
+        + (f"; HTML reading stopped: {_STOPS[report.stopped]}" if report.stopped else "")
     )

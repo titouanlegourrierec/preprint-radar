@@ -50,10 +50,11 @@ jobs:
       - run: uv sync --locked --no-dev
 
       - name: Fetch papers
-        # Stop early enough to commit what was fetched; progress is saved as it goes.
+        # Stop early enough to commit what was fetched; progress is saved as it goes. The
+        # deadline leaves 20 minutes for ROR and the last save before the step is killed.
         timeout-minutes: 210
         run: |
-          args=()
+          args=(--deadline-minutes 190)
           for category in $CATEGORIES; do args+=(--category "$category"); done
           if [ -n "$SINCE" ]; then
             # Catchup pages of every day since SINCE, with abstracts, then affiliations.

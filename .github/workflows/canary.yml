@@ -1,0 +1,26 @@
+name: arXiv canary
+
+# The pipeline's parsers against the live arXiv, weekly: a layout change shows up here as
+# a red run before it reaches the data (the fixtures in tests/fixtures/ stay as they were).
+on:
+  schedule:
+    - cron: "23 8 * * 3"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  canary:
+    runs-on: ubuntu-latest
+    # About ten pages at arxiv.org's 15 s crawl delay.
+    timeout-minutes: 20
+    env:
+      PREPRINT_RADAR_CONTACT: ${{ vars.PREPRINT_RADAR_CONTACT || format('{0}/{1}', github.server_url, github.repository) }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+        with:
+          enable-cache: true
+      - run: uv sync --locked
+      - run: uv run pytest -m network

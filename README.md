@@ -207,8 +207,10 @@ npm run build                 # type-check + production build into web/dist (wit
 uv run prek run --all-files   # git hooks, with prek (a faster pre-commit)
 ```
 
-If arXiv changes its page layout, the network test fails first: refresh the fixtures in
-`tests/fixtures/` from live pages and update the parsers.
+If arXiv changes its page layout, the network test fails first (the weekly *arXiv canary*
+workflow runs it): refresh the fixtures in `tests/fixtures/` from live pages and update the
+parsers. A daily run that finds nearly every page without affiliations stops and goes red,
+leaving those papers pending.
 
 ## Licenses
 

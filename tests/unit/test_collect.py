@@ -10,7 +10,12 @@ import pytest
 from tests.conftest import FIXTURES_DIR
 
 from preprint_radar.collect import (
+    DRIFT_MIN_PAGES,
+    MAX_CONSECUTIVE_HTML_FAILURES,
     CitationsReport,
+    Stop,
+    UpdateReport,
+    _add_html_front_matter,
     add_institutions,
     backfill_category,
     format_citations_report,
@@ -550,3 +555,133 @@ def test_update_writes_the_index_before_reading_html_pages(
 
     with pytest.raises(KeyboardInterrupt):
         _run(fake, store)
+
+
+def _pending(count: int) -> list[Paper]:
+    return [
+        Paper(
+            arxiv_id=f"2609.{index:05d}",
+            announced=date(2026, 9, 25),
+            title="T",
+            authors=("Ada Lovelace",),
+            html_url=f"https://arxiv.org/html/2609.{index:05d}v1",
+        )
+        for index in range(count)
+    ]
+
+
+def _read_html(
+    papers: list[Paper],
+    respond: Callable[[int], httpx.Response],
+    *,
+    deadline: float | None = None,
+    saved: list[list[Paper]] | None = None,
+) -> tuple[list[Paper], list[list[Paper]], list[int], Stop | None, int]:
+    """Read the pages of ``papers`` through ``respond(page number)``: what came back and was saved."""
+    requested: list[int] = []
+    saved = [] if saved is None else saved
+
+    def handle(_: httpx.Request) -> httpx.Response:
+        requested.append(len(requested))
+        return respond(len(requested))
+
+    def checkpoint(current: list[Paper]) -> None:
+        saved.append(list(current))
+
+    with HttpClient(transport=httpx.MockTransport(handle), max_attempts=1) as client:
+        read = _add_html_front_matter(
+            papers, client, limit=None, checkpoint=checkpoint, save_every=10, deadline=deadline
+        )
+    return read.papers, saved, requested, read.stopped, read.empty
+
+
+def test_html_reading_stops_when_arxiv_keeps_failing() -> None:
+    papers, _, requested, stopped, _ = _read_html(_pending(20), lambda _: httpx.Response(503))
+
+    assert stopped is Stop.FAILURES
+    assert len(requested) == MAX_CONSECUTIVE_HTML_FAILURES
+    assert all(paper.affiliations is None for paper in papers)
+
+
+def test_a_page_read_resets_the_failure_streak(paper_html: Callable[[str], str]) -> None:
+    page = paper_html("2609.30249")
+
+    def respond(number: int) -> httpx.Response:
+        return (
+            httpx.Response(200, text=page)
+            if number % MAX_CONSECUTIVE_HTML_FAILURES == 0
+            else httpx.Response(503)
+        )
+
+    _, _, requested, stopped, _ = _read_html(_pending(12), respond)
+
+    assert stopped is None
+    assert len(requested) == 12
+
+
+def test_html_reading_stops_when_nearly_every_page_is_empty() -> None:
+    papers, saved, requested, stopped, empty = _read_html(
+        _pending(DRIFT_MIN_PAGES + 10), lambda _: httpx.Response(200, text="<html></html>")
+    )
+
+    assert stopped is Stop.LAYOUT
+    assert len(requested) == empty == DRIFT_MIN_PAGES
+    # Saved as "nothing found" at the checkpoints, then set back to pending.
+    assert saved[-1][0].affiliations == ()
+    assert all(paper.affiliations is None for paper in papers)
+
+
+def test_a_day_of_empty_pages_is_not_a_layout_change(paper_html: Callable[[str], str]) -> None:
+    page = paper_html("2609.30249")
+
+    def respond(number: int) -> httpx.Response:
+        return httpx.Response(200, text=page if number % 5 == 0 else "<html></html>")
+
+    _, _, requested, stopped, empty = _read_html(_pending(DRIFT_MIN_PAGES + 10), respond)
+
+    assert stopped is None
+    assert len(requested) == DRIFT_MIN_PAGES + 10
+    assert empty == 40
+
+
+def test_html_reading_stops_at_the_deadline() -> None:
+    papers, _, requested, stopped, _ = _read_html(_pending(3), lambda _: httpx.Response(404), deadline=0)
+
+    assert stopped is Stop.DEADLINE
+    assert requested == []
+    assert papers == _pending(3)
+
+
+def test_an_interrupted_reading_saves_what_it_read(paper_html: Callable[[str], str]) -> None:
+    page = paper_html("2609.30249")
+
+    def respond(number: int) -> httpx.Response:
+        if number == 3:
+            raise KeyboardInterrupt
+        return httpx.Response(200, text=page)
+
+    saved: list[list[Paper]] = []
+    with pytest.raises(KeyboardInterrupt):
+        _read_html(_pending(5), respond, saved=saved)
+
+    assert [paper.affiliations is not None for paper in saved[-1]] == [True, True, False, False, False]
+
+
+def test_format_report_says_why_html_reading_stopped() -> None:
+    report = UpdateReport(
+        category="cs.CV",
+        listed=10,
+        new=2,
+        abstracts_fetched=2,
+        affiliations_fetched=45,
+        pending=8,
+        empty=40,
+        stopped=Stop.LAYOUT,
+    )
+
+    assert format_report(report) == (
+        "cs.CV: 10 listed, 2 new, 2 abstracts and 45 affiliations fetched (40 pages without any), "
+        "8 still pending; HTML reading stopped: nearly every page gave no affiliation"
+    )
+    assert report.failed
+    assert not replace(report, stopped=Stop.DEADLINE).failed

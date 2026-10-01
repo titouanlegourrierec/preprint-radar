@@ -1,6 +1,9 @@
 import json
 import logging
+import os
 import runpy
+import signal
+import time
 from collections.abc import Mapping
 from datetime import date
 from pathlib import Path
@@ -11,7 +14,7 @@ from rich.console import Console
 from preprint_radar.archive.catalog import Catalog
 from preprint_radar.archive.update import ArchiveClients, ArchiveReport
 from preprint_radar.cli import main
-from preprint_radar.collect import CitationsReport
+from preprint_radar.collect import CitationsReport, Stop, UpdateReport
 from preprint_radar.exceptions import FetchError, NotFoundError
 from preprint_radar.http import HttpClient
 from preprint_radar.models import Listing, Paper
@@ -454,3 +457,46 @@ def test_validate_fails_on_a_structural_error(
     assert capsys.readouterr().out == (
         "ERROR data/index.json: missing\n7 papers in 3 files: 1 errors, 0 warnings\n"
     )
+
+
+def test_update_fails_when_reading_html_pages_failed(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, caplog: pytest.LogCaptureFixture
+) -> None:
+    deadlines: list[object] = []
+
+    def update_category(category: str, **options: object) -> UpdateReport:
+        deadlines.append(options["deadline"])
+        return UpdateReport(
+            category=category,
+            listed=1,
+            new=0,
+            abstracts_fetched=0,
+            affiliations_fetched=0,
+            pending=1,
+            stopped=Stop.FAILURES,
+        )
+
+    monkeypatch.setattr("preprint_radar.cli.update_category", update_category)
+
+    assert main(["update", "--data-dir", str(tmp_path / "data"), "--deadline-minutes", "5"]) == 1
+
+    [deadline] = deadlines
+    assert isinstance(deadline, float)
+    assert deadline > time.monotonic() + 4 * 60
+    assert "Reading HTML pages failed for cs.CV" in caplog.text
+
+
+def test_backfill_saves_its_progress_when_terminated(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    def backfill_category(*_: object, **__: object) -> UpdateReport:
+        os.kill(os.getpid(), signal.SIGTERM)
+        raise AssertionError  # pragma: no cover - the signal interrupts before
+
+    monkeypatch.setattr("preprint_radar.cli.backfill_category", backfill_category)
+    data_dir = tmp_path / "data"
+    previous = signal.getsignal(signal.SIGTERM)
+
+    with pytest.raises(KeyboardInterrupt):
+        main(["backfill", "--data-dir", str(data_dir), "--since", "2026-09-01", "--until", "2026-09-01"])
+
+    assert (data_dir / "index.json").is_file()
+    assert signal.getsignal(signal.SIGTERM) is previous

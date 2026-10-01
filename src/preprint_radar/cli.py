@@ -3,8 +3,11 @@
 import argparse
 import logging
 import os
+import signal
+import time
 from collections import Counter
-from collections.abc import Callable, Sequence
+from collections.abc import Callable, Iterator, Sequence
+from contextlib import contextmanager
 from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 from typing import TYPE_CHECKING
@@ -13,6 +16,7 @@ from preprint_radar import __version__
 from preprint_radar.archive.catalog import Catalog
 from preprint_radar.archive.update import ArchiveClients, format_archive_report, update_archive
 from preprint_radar.collect import (
+    UpdateReport,
     add_institutions,
     backfill_category,
     format_citations_report,
@@ -405,6 +409,15 @@ def _add_store_arguments(parser: argparse.ArgumentParser) -> None:
         ),
     )
     parser.add_argument(
+        "--deadline-minutes",
+        type=float,
+        default=None,
+        help=(
+            "start no HTML page after this many minutes, so that the run ends cleanly before "
+            "a time limit; the pages left wait for the next run (default: no deadline)"
+        ),
+    )
+    parser.add_argument(
         "--crawl-delay",
         type=float,
         default=ARXIV_CRAWL_DELAY_SECONDS,
@@ -466,9 +479,12 @@ def _run_update(args: argparse.Namespace) -> int:
     if not args.contact:
         logger.warning("No contact given; consider setting %s so arXiv can reach you.", CONTACT_ENV_VAR)
 
+    deadline = _deadline(args.deadline_minutes)
+    reports: list[UpdateReport] = []
     # The index is written even after a failure, so that the days saved meanwhile show.
     try:
         with (
+            _terminate_as_interrupt(),
             HttpClient(user_agent=user_agent, min_interval=args.crawl_delay) as site_client,
             HttpClient(user_agent=user_agent, min_interval=ARXIV_API_DELAY_SECONDS) as api_client,
             # The contact is for arXiv only: other services get the bare User-Agent.
@@ -483,11 +499,13 @@ def _run_update(args: argparse.Namespace) -> int:
                     ror_client=ror_client if args.max_ror else None,
                     max_html_fetches=args.max_html,
                     max_ror_lookups=args.max_ror,
+                    deadline=deadline,
                 )
                 console.print(format_report(report))
+                reports.append(report)
     finally:
         console.print(f"Index written to {store.write_index()}")
-    return 0
+    return _exit_code(reports)
 
 
 def _run_backfill(args: argparse.Namespace) -> int:
@@ -499,9 +517,12 @@ def _run_backfill(args: argparse.Namespace) -> int:
         logger.warning("No contact given; consider setting %s so arXiv can reach you.", CONTACT_ENV_VAR)
 
     user_agent = build_user_agent(args.contact)
+    deadline = _deadline(args.deadline_minutes)
+    reports: list[UpdateReport] = []
     # The index is written even after a failure, so that the days saved meanwhile show.
     try:
         with (
+            _terminate_as_interrupt(),
             HttpClient(user_agent=user_agent, min_interval=args.crawl_delay) as site_client,
             # The contact is for arXiv only: other services get the bare User-Agent.
             HttpClient(user_agent=DEFAULT_USER_AGENT, min_interval=ROR_DELAY_SECONDS) as ror_client,
@@ -515,11 +536,41 @@ def _run_backfill(args: argparse.Namespace) -> int:
                     ror_client=ror_client if args.max_ror else None,
                     max_html_fetches=args.max_html,
                     max_ror_lookups=args.max_ror,
+                    deadline=deadline,
                 )
                 console.print(format_report(report))
+                reports.append(report)
     finally:
         console.print(f"Index written to {store.write_index()}")
+    return _exit_code(reports)
+
+
+def _deadline(minutes: float | None) -> float | None:
+    """The ``time.monotonic()`` value ``minutes`` from now (``None``: no deadline)."""
+    return None if minutes is None else time.monotonic() + 60 * minutes
+
+
+def _exit_code(reports: Sequence[UpdateReport]) -> int:
+    """1 when the reading of HTML pages stopped on a failure (arXiv down, layout changed)."""
+    failed = [report.category for report in reports if report.failed]
+    if failed:
+        logger.error("Reading HTML pages failed for %s: see above", ", ".join(failed))
+        return 1
     return 0
+
+
+@contextmanager
+def _terminate_as_interrupt() -> Iterator[None]:
+    """Turn SIGTERM into KeyboardInterrupt, so that a cancelled or timed-out job saves its progress."""
+
+    def interrupt(*_: object) -> None:
+        raise KeyboardInterrupt
+
+    previous = signal.signal(signal.SIGTERM, interrupt)
+    try:
+        yield
+    finally:
+        signal.signal(signal.SIGTERM, previous)
 
 
 def _run_stats(args: argparse.Namespace) -> int:
