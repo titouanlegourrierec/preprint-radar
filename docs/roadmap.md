@@ -64,10 +64,11 @@ for the answer.
 | DATA-1 | Layer 1: `reclean`, run once over the day files | P1 | done |
 | DATA-3 | `validate`, before *Commit data* and in CI | P1 | done |
 | DATA-5 | A paper stored once, on its first day (its 2 duplicates failed `validate`) | P2 | done |
-| CIT-1 | Merge counts under the gate instead of replacing them | P1 | todo |
-| CIT-2 | Carry last week's count for archived papers | P1 | todo |
-| CIT-3 | `min(announced, first_seen)` for graduating papers | P2 | todo |
-| CIT-11 | Decouple archive selection from pruning | P1 | todo |
+| CIT-1 | Merge counts under the gate instead of replacing them | P1 | done |
+| CIT-2 | Carry last week's count for archived papers | P1 | done |
+| CIT-3 | `min(announced, first_seen)` for graduating papers | P2 | done |
+| CIT-11 | Decouple archive selection from pruning | P1 | done |
+| CIT-12, CIT-13 | Old papers cross-listed lately: they compete, and enter under their own year (fixed with CIT-11) | P2 | done |
 | TEST-1 | `fail_under = 100` | P2 | todo |
 | DATA-6 | Write the index right after the first save | P2 | todo |
 | DATA-7 | Ignore `.tmp` files | P3 | todo |

@@ -34,7 +34,8 @@ DEFAULT_MAX_ROR_LOOKUPS = 1000
 
 # Citation archive.
 RECENT_DAYS = 365
-"""The rolling window kept in full, in day files; older papers must earn the archive."""
+"""The rolling window kept in full, in day files. Papers first seen earlier must earn the
+archive; their day files are deleted only with ``--prune``."""
 ARCHIVE_SINCE = date(2010, 1, 1)
 """Papers first seen before this day are never archived."""
 DEFAULT_BUDGET = 22_000

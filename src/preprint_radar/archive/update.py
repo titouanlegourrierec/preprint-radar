@@ -6,11 +6,16 @@ week, :func:`update_archive`:
 
 1. refreshes the category's catalog from OAI-PMH (:mod:`preprint_radar.archive.catalog`);
 2. fetches the citation counts of every paper since 2010 (:mod:`preprint_radar.sources.semantic_scholar`);
-3. selects the archive, and builds the papers that enter it: from the day files when they
-   graduate from the rolling year (enrichment kept), else from the catalog, with
-   affiliations from OpenAlex (:mod:`preprint_radar.sources.openalex`);
+3. selects the archive among the papers first seen over 12 months ago, those of the day
+   files included, and builds the papers that enter it: from their day file when they have
+   one (enrichment kept), else from the catalog, with affiliations from OpenAlex
+   (:mod:`preprint_radar.sources.openalex`);
 4. writes the archive, the citation counts of the stored papers and the index, and, when
-   asked to, deletes the day files older than 12 months.
+   asked to, deletes the day files older than 12 months. Pruning only decides what is
+   deleted: day-file papers compete for the archive whether or not it is on.
+
+When Semantic Scholar misses too many counts (below ``MIN_COVERAGE``), the archive and the
+day files stay as they are, and the counts fetched are added to the stored ones.
 """
 
 import json
@@ -56,6 +61,7 @@ class ArchiveReport:
         category: Updated category.
         candidates: Papers since 2010 in the catalog.
         coverage: Share of them with a citation count.
+        carried: Archived papers ranked on last week's count, missing this week.
         threshold: Citations per year of the last paper within the budget.
         archived: Papers in the archive after the update.
         entered: Papers that entered it.
@@ -73,6 +79,7 @@ class ArchiveReport:
     left: int
     pruned_days: int
     written: bool
+    carried: int = 0
 
 
 def update_archive(
@@ -110,39 +117,52 @@ def update_archive(
         arxiv_id: entry for arxiv_id, entry in catalog.entries().items() if entry.first_seen >= ARCHIVE_SINCE
     }
     stored_days = {day: store.load_day(category, day) for day in store.days(category)}
-    stale_days = [day for day in stored_days if (today - day).days >= RECENT_DAYS] if prune else []
-    recent_ids = {
-        paper.arxiv_id for day, papers in stored_days.items() if day not in stale_days for paper in papers
-    }
+    in_days = {paper.arxiv_id: paper for papers in stored_days.values() for paper in papers}
     archived = {paper.arxiv_id: paper for paper in store.iter_archive(category)}
+    # A stored paper was first seen on the earlier of its day file and the catalog's date,
+    # which can be weeks later (2609.00036: announced 2026-09-02, catalog 2026-09-14).
+    first_seen = {
+        arxiv_id: min(entry.first_seen, paper.announced)
+        if (paper := in_days.get(arxiv_id))
+        else entry.first_seen
+        for arxiv_id, entry in entries.items()
+    }
 
-    wanted = [*entries, *recent_ids, *archived]
+    wanted = [*entries, *in_days, *archived]
     counts = _citation_counts(catalog, clients, wanted, today)
     coverage = sum(arxiv_id in counts for arxiv_id in entries) / max(1, len(entries))
     logger.info("%s: citation counts for %.1f%% of %d candidates", category, 100 * coverage, len(entries))
-    if coverage < MIN_COVERAGE:
+    gated = coverage < MIN_COVERAGE
+    carried: dict[str, int] = {}
+    if gated:
         logger.warning(
             "Only %.1f%% of citation counts: the archive and day files stay as they are", 100 * coverage
         )
         stale_days = []
         selection = Selection(keep=frozenset(archived), entered=frozenset(), left=frozenset(), threshold=0.0)
     else:
+        stale_days = [day for day in stored_days if (today - day).days >= RECENT_DAYS] if prune else []
+        # An archived paper Semantic Scholar misses this week (a refused last batch, a
+        # flapping null) is ranked on last week's count rather than leave.
+        previous = store.load_citations(category)
+        carried = {
+            arxiv_id: previous[arxiv_id]
+            for arxiv_id in archived
+            if counts.get(arxiv_id) is None and arxiv_id in previous
+        }
+        counts = {**counts, **carried}
         selection = select_archive(
-            (
-                Candidate(arxiv_id, entry.first_seen, counts.get(arxiv_id))
-                for arxiv_id, entry in entries.items()
-                if arxiv_id not in recent_ids
-            ),
+            (Candidate(arxiv_id, first_seen[arxiv_id], counts.get(arxiv_id)) for arxiv_id in entries),
             set(archived),
             budget=budget,
             today=today,
         )
-    graduating = {paper.arxiv_id: paper for day in stale_days for paper in stored_days[day]}
-    subjects = _subject_names(paper for papers in stored_days.values() for paper in papers)
+    subjects = _subject_names(in_days.values())
     new_papers = [
-        graduating.get(arxiv_id) or paper_from_catalog(entries[arxiv_id], category, subjects)
+        _from_day_file(in_days[arxiv_id], first_seen[arxiv_id])
+        if arxiv_id in in_days
+        else paper_from_catalog(entries[arxiv_id], category, subjects)
         for arxiv_id in sorted(selection.entered)
-        if arxiv_id in graduating or arxiv_id in entries
     ]
     logger.info(
         "%s: %d archived, %d entering, %d leaving (threshold %.1f citations a year)",
@@ -163,6 +183,7 @@ def update_archive(
         left=len(selection.left),
         pruned_days=len(stale_days),
         written=not dry_run,
+        carried=len(carried),
     )
     if dry_run:
         return report
@@ -171,14 +192,30 @@ def update_archive(
     # Entering papers, and archived ones OpenAlex did not return last time.
     store.write_archive(category, _with_affiliations([*kept, *new_papers], clients.openalex))
     store.remove_days(category, stale_days)
-    stored_ids = recent_ids | selection.keep
-    store.write_citations(
-        category,
-        {arxiv_id: count for arxiv_id in stored_ids if (count := counts.get(arxiv_id)) is not None},
-        source=S2_SOURCE,
-    )
+    on_disk = {
+        paper.arxiv_id for day, papers in stored_days.items() if day not in stale_days for paper in papers
+    }
+    stored_counts = {
+        arxiv_id: count
+        for arxiv_id in on_disk | selection.keep
+        if (count := counts.get(arxiv_id)) is not None
+    }
+    if gated:
+        # What was fetched is added; the other counts and the date of the last refresh stay.
+        store.merge_citations(category, stored_counts, source=S2_SOURCE)
+    else:
+        store.write_citations(category, stored_counts, source=S2_SOURCE)
     store.write_index()
     return report
+
+
+def _from_day_file(paper: Paper, first_seen: date) -> Paper:
+    """A paper entering the archive from its day file, filed under its first appearance.
+
+    An old paper cross-listed into the category lately is filed under its own year, not
+    under the day of the cross-list.
+    """
+    return paper if paper.announced == first_seen else replace(paper, announced=first_seen)
 
 
 def paper_from_catalog(entry: CatalogEntry, category: str, subjects: Mapping[str, str]) -> Paper:
@@ -211,7 +248,9 @@ def format_archive_report(report: ArchiveReport) -> str:
     return (
         f"{report.category}: {report.archived} archived papers ({report.entered} in, {report.left} out), "
         f"threshold {report.threshold:.1f} citations a year, citation counts for "
-        f"{100 * report.coverage:.1f}% of {report.candidates} papers, {report.pruned_days} day files pruned"
+        f"{100 * report.coverage:.1f}% of {report.candidates} papers"
+        + (f" ({report.carried} archived papers on last week's count)" if report.carried else "")
+        + f", {report.pruned_days} day files pruned"
         + ("" if report.written else " (dry run: nothing written)")
     )
 

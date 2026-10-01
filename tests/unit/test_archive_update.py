@@ -121,6 +121,7 @@ def _update(
     budget: int = 3,
     prune: bool = True,
     dry_run: bool = False,
+    today: date = TODAY,
 ) -> ArchiveReport:
     return update_archive(
         "cs.CV",
@@ -128,7 +129,7 @@ def _update(
         catalog=catalog,
         clients=services.clients(),
         budget=budget,
-        today=TODAY,
+        today=today,
         prune=prune,
         dry_run=dry_run,
     )
@@ -165,17 +166,72 @@ def test_update_archive_keeps_the_most_cited_and_prunes_old_days(store: PaperSto
     assert [entry["year"] for entry in index["archives"]["cs.CV"]] == [2025, 2020, 2015]
 
 
-def test_update_archive_without_pruning_keeps_old_days_out_of_the_archive(
+def test_without_pruning_old_day_file_papers_compete_and_their_days_stay(
     store: PaperStore, catalog: Catalog
 ) -> None:
     _update(store, catalog, FakeServices(CITATIONS), prune=False)
 
+    archived = {paper.arxiv_id: paper for paper in store.iter_archive("cs.CV")}
+    # The 500-citation day-file paper, not the 1-citation catalog one.
+    assert set(archived) == {"1512.03385", "2010.11929", "2508.00001"}
+    assert archived["2508.00001"].affiliations == ("Read from its HTML page",)
+    assert store.days("cs.CV") == [RECENT_DAY, STALE_DAY]
+    assert set(store.load_citations("cs.CV")) == {"1512.03385", "2010.11929", "2508.00001", "2609.00001"}
+
+
+def test_an_old_paper_cross_listed_lately_enters_under_its_own_year(
+    store: PaperStore, catalog: Catalog
+) -> None:
+    cross_list = Paper(
+        arxiv_id="2209.00001",
+        announced=RECENT_DAY,
+        title="An old paper, cross-listed into cs.CV",
+        authors=("A One",),
+        affiliations=("Read from its HTML page",),
+    )
+    store.save("cs.CV", [cross_list])
+
+    _update(store, catalog, FakeServices({**CITATIONS, "2209.00001": 90_000}), prune=False)
+
+    archived = {paper.arxiv_id: paper for paper in store.iter_archive("cs.CV")}
+    assert archived["2209.00001"].announced == date(2022, 9, 1)
+    assert archived["2209.00001"].affiliations == ("Read from its HTML page",)
+    assert store.archive_years("cs.CV") == [2022, 2020, 2015]
+
+
+def test_a_paper_the_catalog_dates_later_than_its_day_file_is_not_pruned_away(
+    store: PaperStore, catalog: Catalog
+) -> None:
+    # Announced on 2025-10-08, but first dated 2025-10-20 by the catalog: 367 and 355 days
+    # before the update.
+    today = date(2026, 10, 10)
+    with gzip.open(catalog.path, "at", encoding="utf-8") as out:
+        out.write(json.dumps(_entry("2510.00036", date(2025, 10, 20)).to_record()) + "\n")
+    late = Paper(arxiv_id="2510.00036", announced=date(2025, 10, 8), title="Late", authors=("A One",))
+    store.save("cs.CV", [late])
+
+    _update(store, catalog, FakeServices({**CITATIONS, "2510.00036": 900}), budget=4, today=today)
+
+    archived = {paper.arxiv_id: paper for paper in store.iter_archive("cs.CV")}
+    assert archived["2510.00036"].announced == date(2025, 10, 8)
+    assert date(2025, 10, 8) not in store.days("cs.CV")
+
+
+def test_an_archived_paper_missing_a_count_keeps_last_weeks(store: PaperStore, catalog: Catalog) -> None:
+    _update(store, catalog, FakeServices(CITATIONS))
+    (catalog.directory / "cs.CV.citations.jsonl").unlink()
+    missing = {arxiv_id: count for arxiv_id, count in CITATIONS.items() if arxiv_id != "2010.11929"}
+
+    report = _update(store, catalog, FakeServices(missing))
+
     assert {paper.arxiv_id for paper in store.iter_archive("cs.CV")} == {
         "1512.03385",
         "2010.11929",
-        "2209.00001",
+        "2508.00001",
     }
-    assert store.days("cs.CV") == [RECENT_DAY, STALE_DAY]
+    assert report.carried == 1
+    assert report.left == 0
+    assert store.load_citations("cs.CV")["2010.11929"] == 70_000
 
 
 def test_archived_papers_without_affiliations_are_looked_up_again(
@@ -213,10 +269,14 @@ def test_the_archive_stays_as_it_is_without_citation_counts(
     # Without the counts cached by the first run.
     (catalog.directory / "cs.CV.citations.jsonl").unlink()
 
+    counts_before = store.load_citation_counts("cs.CV")
+
     report = _update(store, catalog, FakeServices(CITATIONS, citations_down=True), budget=1)
 
     assert {paper.arxiv_id for paper in store.iter_archive("cs.CV")} == before
     assert report.left == 0
+    # The published counts stay, with the date of their last refresh.
+    assert store.load_citation_counts("cs.CV") == counts_before
 
 
 @pytest.mark.parametrize(("age", "expected"), [(3, 3), (7, 42)], ids=["reused", "fetched-again"])
@@ -264,6 +324,11 @@ def test_format_archive_report() -> None:
     assert format_archive_report(report) == (
         "cs.CV: 500 archived papers (3 in, 1 out), threshold 19.5 citations a year, "
         "citation counts for 98.7% of 1000 papers, 2 day files pruned"
+    )
+    assert format_archive_report(replace(report, carried=4, written=False)) == (
+        "cs.CV: 500 archived papers (3 in, 1 out), threshold 19.5 citations a year, "
+        "citation counts for 98.7% of 1000 papers (4 archived papers on last week's count), "
+        "2 day files pruned (dry run: nothing written)"
     )
 
 
