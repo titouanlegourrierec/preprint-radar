@@ -27,6 +27,8 @@ jobs:
     timeout-minutes: 300
     permissions:
       contents: write
+    outputs:
+      pushed: ${{ steps.commit.outputs.pushed }}
     env:
       CATEGORIES: ${{ vars.PREPRINT_RADAR_CATEGORIES || 'cs.CV' }}
       ARCHIVE_BUDGET: ${{ inputs.budget || vars.PREPRINT_RADAR_ARCHIVE_BUDGET || '22000' }}
@@ -68,19 +70,23 @@ jobs:
           path: .cache/catalog
           key: catalog-${{ github.run_id }}
 
+      # Even after a failed update: below the coverage gate, the archive step fails once it
+      # has merged the counts it got, which are committed.
       - name: Validate data
         id: validate
+        if: always()
         # Structural errors stop the push (see update.yml).
         run: bash .github/scripts/validate-data.sh
 
       - name: Commit data
         id: commit
+        if: ${{ always() && steps.validate.outcome == 'success' }}
         # Replays the commit on main if it moved (see the script and update.yml).
         run: |
           bash .github/scripts/commit-data.sh "chore(data): archive $(date -u +%Y-%m-%d)"
 
       - name: Keep the data that failed validation
-        if: ${{ failure() && steps.validate.outcome == 'failure' }}
+        if: ${{ always() && steps.validate.outcome == 'failure' }}
         run: |
           bash .github/scripts/commit-data.sh --keep "chore(data): archive $(date -u +%Y-%m-%d), not validated"
 
@@ -94,6 +100,8 @@ jobs:
 
   deploy:
     needs: archive
+    # Whenever data was pushed, even by a run that failed (see update.yml).
+    if: ${{ !cancelled() && needs.archive.outputs.pushed == 'true' }}
     uses: ./.github/workflows/deploy.yml
     permissions:
       contents: read

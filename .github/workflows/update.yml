@@ -27,6 +27,8 @@ jobs:
     timeout-minutes: 240
     permissions:
       contents: write
+    outputs:
+      pushed: ${{ steps.commit.outputs.pushed }}
     env:
       # Repository variables (Settings > Secrets and variables > Actions > Variables).
       CATEGORIES: ${{ vars.PREPRINT_RADAR_CATEGORIES || 'cs.CV' }}
@@ -64,11 +66,14 @@ jobs:
       - name: Fetch citation counts of new papers
         # A paper or two hundred: one or two requests. Semantic Scholar learns new papers
         # within days, so some are left for the next run; the weekly archive refreshes all.
+        # A refusing Semantic Scholar is given up after 10 minutes, and the papers are asked
+        # for again tomorrow; a rejected key fails the step.
         if: ${{ !cancelled() }}
+        timeout-minutes: 15
         run: |
           args=()
           for category in $CATEGORIES; do args+=(--category "$category"); done
-          uv run --no-dev preprint-radar -v citations "${args[@]}"
+          uv run --no-dev preprint-radar -v citations "${args[@]}" --max-minutes 10
 
       # Even after a failed or cancelled fetch: progress is saved as it goes.
       - name: Validate data
@@ -101,6 +106,9 @@ jobs:
 
   deploy:
     needs: update
+    # Whenever data was pushed, even by a run that failed later (partial data is still
+    # data), and never when nothing changed.
+    if: ${{ !cancelled() && needs.update.outputs.pushed == 'true' }}
     uses: ./.github/workflows/deploy.yml
     permissions:
       contents: read
