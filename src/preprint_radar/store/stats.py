@@ -7,7 +7,7 @@ the same table, one row per year, and the citation counts a closing line.
 
 from collections.abc import Container, Iterable, Sequence
 from dataclasses import dataclass
-from datetime import date
+from datetime import date, timedelta
 from typing import Self
 
 from rich import box
@@ -17,6 +17,7 @@ from preprint_radar.config import STALE_CITATIONS_DAYS
 from preprint_radar.models import Paper
 from preprint_radar.store.paper_store import CitationCounts, PaperStore
 
+_SATURDAY = 5  # date.weekday(): Monday is 0
 _COLUMNS = ("papers", "abstracts", "affiliated", "none", "pending", "mapped", "named", "venues", "cited")
 
 
@@ -150,6 +151,13 @@ def _days_title(category: str, days: Sequence[RowCoverage]) -> str:
 def _years_title(category: str, years: Sequence[RowCoverage]) -> str:
     papers = sum(entry.coverage.papers for entry in years)
     return f"{category} archive: {_count(papers, 'paper')} over {_count(len(years), 'year')}"
+
+
+def weekdays_since(day: date, today: date) -> int:
+    """Weekdays after ``day``, up to ``today``: the announcement days a store may be missing."""
+    return sum(
+        (day + timedelta(days=offset)).weekday() < _SATURDAY for offset in range(1, (today - day).days + 1)
+    )
 
 
 def format_citations(category: str, citations: CitationCounts, *, today: date) -> str:

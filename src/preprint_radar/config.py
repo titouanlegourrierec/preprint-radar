@@ -49,5 +49,8 @@ and be lost."""
 CITATIONS_CACHE_DAYS = 7
 """Counts fetched by a run started fewer days ago are reused: a run that failed or was
 cancelled resumes where it stopped, and a weekly run starts afresh."""
+STALE_DATA_WEEKDAYS = 3
+"""A store whose newest announcement day is more weekdays old than this is reported as stale:
+arXiv announces every weekday, and runs missed (one may be a holiday)."""
 STALE_CITATIONS_DAYS = 14
 """Counts refreshed longer ago than this are reported as stale: two weekly runs missed."""

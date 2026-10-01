@@ -98,6 +98,12 @@ jobs:
           path: data-commit.bundle
           retention-days: 7
 
+      # The newest day and its age, the coverage tables and stale warnings, on the run's
+      # page; the steps above add their own report lines.
+      - name: Summary
+        if: always()
+        run: uv run --no-dev preprint-radar summary
+
   deploy:
     needs: archive
     # Whenever data was pushed, even by a run that failed (see update.yml).

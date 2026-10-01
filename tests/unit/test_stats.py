@@ -17,6 +17,7 @@ from preprint_radar.store.stats import (
     format_archive_coverage,
     format_citations,
     format_coverage,
+    weekdays_since,
 )
 
 BASE = Paper(
@@ -211,3 +212,16 @@ def test_rich_tables_hold_the_same_rows(archived: PaperStore) -> None:
         line.split() == ["total", "4", "2", "1", "1", "2", "1", "1", "1", "1"] for line in text.splitlines()
     )
     assert "abstracts 50%, affiliations 50% of 2 tried" in text
+
+
+@pytest.mark.parametrize(
+    ("day", "today", "expected"),
+    [
+        (date(2026, 10, 1), date(2026, 10, 1), 0),
+        # Friday to Monday: one announcement day missed, not three.
+        (date(2026, 10, 2), date(2026, 10, 5), 1),
+        (date(2026, 9, 28), date(2026, 10, 5), 5),
+    ],
+)
+def test_weekdays_since(day: date, today: date, expected: int) -> None:
+    assert weekdays_since(day, today) == expected

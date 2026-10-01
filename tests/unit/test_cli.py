@@ -5,7 +5,7 @@ import runpy
 import signal
 import time
 from collections.abc import Mapping
-from datetime import date
+from datetime import UTC, date, datetime
 from pathlib import Path
 
 import pytest
@@ -323,7 +323,10 @@ def test_archive_passes_its_options_and_reports(
 
 
 def test_archive_fails_below_the_coverage_gate(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, caplog: pytest.LogCaptureFixture
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    caplog: pytest.LogCaptureFixture,
+    capsys: pytest.CaptureFixture[str],
 ) -> None:
     def gated(category: str, **_: object) -> ArchiveReport:
         return ArchiveReport(
@@ -339,10 +342,12 @@ def test_archive_fails_below_the_coverage_gate(
         )
 
     monkeypatch.setattr("preprint_radar.cli.update_archive", gated)
+    monkeypatch.setenv("GITHUB_ACTIONS", "true")
     args = ["archive", "--data-dir", str(tmp_path / "data"), "--catalog-dir", str(tmp_path / "catalog")]
 
     assert main(args) == 1
     assert "Too few citation counts: the archive of cs.CV was not updated" in caplog.text
+    assert "::error title=Archive not updated::Too few citation counts. cs.CV: " in capsys.readouterr().out
 
 
 def test_archive_uses_the_semantic_scholar_key(
@@ -394,6 +399,8 @@ def test_citations_fetches_the_missing_counts_of_each_category(
 
     monkeypatch.setattr("preprint_radar.cli.update_citation_counts", update_citation_counts)
     monkeypatch.setenv("SEMANTIC_SCHOLAR_API_KEY", "test-key")
+    summary = tmp_path / "summary.md"
+    monkeypatch.setenv("GITHUB_STEP_SUMMARY", str(summary))
     store = PaperStore(tmp_path / "data")
     store.save("cs.CV", [Paper(arxiv_id="2609.00001", announced=date(2026, 9, 25), title="T", authors=())])
 
@@ -402,6 +409,7 @@ def test_citations_fetches_the_missing_counts_of_each_category(
 
     assert calls == [("cs.CV", False, "test-key", 600), ("cs.LG", True, "test-key", None)]
     assert capsys.readouterr().out.count("citation counts for 3 of 3 papers") == 2
+    assert summary.read_text(encoding="utf-8").count("**Citation counts.** cs.CV: citation counts") == 1
 
 
 def test_index_is_written_again_from_the_stored_files(
@@ -459,8 +467,21 @@ def test_validate_fails_on_a_structural_error(
     )
 
 
-def test_update_fails_when_reading_html_pages_failed(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, caplog: pytest.LogCaptureFixture
+@pytest.mark.parametrize(
+    ("stopped", "code", "annotation"),
+    [
+        (Stop.FAILURES, 1, "::error title=Reading HTML pages failed::"),
+        (Stop.DEADLINE, 0, "::warning title=Out of time::"),
+    ],
+)
+def test_update_reports_why_reading_html_pages_stopped(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    caplog: pytest.LogCaptureFixture,
+    capsys: pytest.CaptureFixture[str],
+    stopped: Stop,
+    code: int,
+    annotation: str,
 ) -> None:
     deadlines: list[object] = []
 
@@ -473,17 +494,22 @@ def test_update_fails_when_reading_html_pages_failed(
             abstracts_fetched=0,
             affiliations_fetched=0,
             pending=1,
-            stopped=Stop.FAILURES,
+            stopped=stopped,
         )
 
     monkeypatch.setattr("preprint_radar.cli.update_category", update_category)
+    monkeypatch.setenv("GITHUB_ACTIONS", "true")
+    summary = tmp_path / "summary.md"
+    monkeypatch.setenv("GITHUB_STEP_SUMMARY", str(summary))
 
-    assert main(["update", "--data-dir", str(tmp_path / "data"), "--deadline-minutes", "5"]) == 1
+    assert main(["update", "--data-dir", str(tmp_path / "data"), "--deadline-minutes", "5"]) == code
 
     [deadline] = deadlines
     assert isinstance(deadline, float)
     assert deadline > time.monotonic() + 4 * 60
-    assert "Reading HTML pages failed for cs.CV" in caplog.text
+    assert annotation in capsys.readouterr().out
+    assert summary.read_text(encoding="utf-8").startswith("**Papers.** cs.CV: 1 listed, 0 new")
+    assert ("Reading HTML pages failed for cs.CV" in caplog.text) == bool(code)
 
 
 def test_backfill_saves_its_progress_when_terminated(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -500,3 +526,50 @@ def test_backfill_saves_its_progress_when_terminated(tmp_path: Path, monkeypatch
 
     assert (data_dir / "index.json").is_file()
     assert signal.getsignal(signal.SIGTERM) is previous
+
+
+def test_summary_reports_freshness_and_warns_when_stale(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    store = PaperStore(tmp_path / "data")
+    old = date(2026, 9, 1)
+    store.save("cs.CV", [Paper(arxiv_id="2609.00001", announced=old, title="T", authors=())])
+    store.write_archive(
+        "cs.CV", [Paper(arxiv_id="1512.03385", announced=date(2015, 12, 10), title="T", authors=())]
+    )
+    store.write_citations("cs.CV", {"2609.00001": 3}, source="S2")
+    path = store.root / "cs.CV" / "citations.json"
+    path.write_text(
+        path.read_text(encoding="utf-8").replace('"generated_at": "2026', '"generated_at": "2025')
+    )
+    monkeypatch.setenv("GITHUB_ACTIONS", "true")
+    summary = tmp_path / "summary.md"
+    monkeypatch.setenv("GITHUB_STEP_SUMMARY", str(summary))
+
+    assert main(["summary", "--data-dir", str(store.root)]) == 0
+
+    out = capsys.readouterr().out
+    assert "cs.CV: newest announcement day 2026-09-01, " in out
+    assert "::warning title=Stale data::cs.CV: no new day for " in out
+    assert "::warning title=Stale citation counts::cs.CV citation counts: 1 from S2, 2025-" in out
+    assert "cs.CV archive: 1 paper over 1 year" in out
+    written = summary.read_text(encoding="utf-8")
+    assert written.startswith("### Data\n\n- cs.CV: newest announcement day 2026-09-01")
+    assert "<details><summary>Coverage by day and by archive year</summary>" in written
+
+
+def test_summary_of_fresh_data_warns_of_nothing(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    store = PaperStore(tmp_path / "data")
+    today = datetime.now(tz=UTC).date()
+    store.save("cs.CV", [Paper(arxiv_id="2609.00001", announced=today, title="T", authors=())])
+    store.write_citations("cs.CV", {"2609.00001": 3}, source="S2")
+    (store.root / "cs.LG").mkdir()  # a category without anything yet
+    monkeypatch.setenv("GITHUB_ACTIONS", "true")
+
+    assert main(["summary", "--data-dir", str(store.root)]) == 0
+
+    out = capsys.readouterr().out
+    assert f"cs.CV: newest announcement day {today.isoformat()}, 0 weekdays ago" in out
+    assert "::warning" not in out

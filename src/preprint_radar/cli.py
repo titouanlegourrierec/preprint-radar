@@ -16,6 +16,7 @@ from preprint_radar import __version__
 from preprint_radar.archive.catalog import Catalog
 from preprint_radar.archive.update import ArchiveClients, format_archive_report, update_archive
 from preprint_radar.collect import (
+    Stop,
     UpdateReport,
     add_institutions,
     backfill_category,
@@ -33,8 +34,10 @@ from preprint_radar.config import (
     DEFAULT_EXPORT_DIR,
     DEFAULT_MAX_ROR_LOOKUPS,
     MIN_COVERAGE,
+    STALE_CITATIONS_DAYS,
+    STALE_DATA_WEEKDAYS,
 )
-from preprint_radar.console import configure_logging, console
+from preprint_radar.console import configure_logging, console, github_annotation, github_summary
 from preprint_radar.exceptions import PreprintRadarError
 from preprint_radar.http import (
     ARXIV_API_DELAY_SECONDS,
@@ -60,6 +63,7 @@ from preprint_radar.store.stats import (
     format_archive_coverage,
     format_citations,
     format_coverage,
+    weekdays_since,
 )
 from preprint_radar.store.validate import validate_store
 
@@ -99,6 +103,7 @@ def build_parser() -> argparse.ArgumentParser:
     _add_index_parser(subparsers)
     _add_reclean_parser(subparsers)
     _add_validate_parser(subparsers)
+    _add_summary_parser(subparsers)
     return parser
 
 
@@ -356,6 +361,25 @@ def _add_reclean_parser(subparsers: "argparse._SubParsersAction[argparse.Argumen
     )
 
 
+def _add_summary_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
+    summary = subparsers.add_parser(
+        "summary",
+        help="report how fresh and how complete the data store is",
+        description=(
+            "Print the newest announcement day of each category and its age, the date of the "
+            "citation counts, and the coverage tables of `stats`, in plain text. In GitHub "
+            "Actions, also write them to the job summary, and warn when the data or the "
+            "counts are stale. Nothing is fetched or written."
+        ),
+    )
+    summary.add_argument(
+        "--data-dir",
+        type=Path,
+        default=DEFAULT_DATA_DIR,
+        help=f"data store directory (default: {DEFAULT_DATA_DIR})",
+    )
+
+
 def _add_validate_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
     validate = subparsers.add_parser(
         "validate",
@@ -501,7 +525,7 @@ def _run_update(args: argparse.Namespace) -> int:
                     max_ror_lookups=args.max_ror,
                     deadline=deadline,
                 )
-                console.print(format_report(report))
+                _publish_update(report)
                 reports.append(report)
     finally:
         console.print(f"Index written to {store.write_index()}")
@@ -538,11 +562,22 @@ def _run_backfill(args: argparse.Namespace) -> int:
                     max_ror_lookups=args.max_ror,
                     deadline=deadline,
                 )
-                console.print(format_report(report))
+                _publish_update(report)
                 reports.append(report)
     finally:
         console.print(f"Index written to {store.write_index()}")
     return _exit_code(reports)
+
+
+def _publish_update(report: UpdateReport) -> None:
+    """Print an update report, and put it on the run's page in GitHub Actions."""
+    line = format_report(report)
+    console.print(line)
+    github_summary(f"**Papers.** {line}")
+    if report.stopped is Stop.DEADLINE:
+        github_annotation("warning", "Out of time", line)
+    elif report.failed:
+        github_annotation("error", "Reading HTML pages failed", line)
 
 
 def _deadline(minutes: float | None) -> float | None:
@@ -652,7 +687,41 @@ def _run_citations(args: argparse.Namespace) -> int:
                 refresh=args.all,
                 max_seconds=None if args.max_minutes is None else 60 * args.max_minutes,
             )
-            console.print(format_citations_report(report))
+            line = format_citations_report(report)
+            console.print(line)
+            github_summary(f"**Citation counts.** {line}")
+    return 0
+
+
+def _run_summary(args: argparse.Namespace) -> int:
+    store = PaperStore(args.data_dir)
+    today = datetime.now(tz=UTC).date()
+    lines: list[str] = []
+    tables: list[str] = []
+    for category in store.categories():
+        if days := collect_coverage(store, category):
+            newest = store.days(category)[0]
+            late = weekdays_since(newest, today)
+            lines.append(f"{category}: newest announcement day {newest.isoformat()}, {late} weekdays ago")
+            if late > STALE_DATA_WEEKDAYS:
+                github_annotation("warning", "Stale data", f"{category}: no new day for {late} weekdays")
+            tables.append(format_coverage(category, days))
+        if years := collect_archive_coverage(store, category):
+            tables.append(format_archive_coverage(category, years))
+        if citations := store.load_citation_counts(category):
+            lines.append(format_citations(category, citations, today=today))
+            if (today - citations.generated_at.date()).days > STALE_CITATIONS_DAYS:
+                github_annotation("warning", "Stale citation counts", lines[-1])
+    console.print("\n".join(lines))
+    console.print()
+    console.print("\n\n".join(tables))
+    github_summary(
+        "### Data\n\n"
+        + "".join(f"- {line}\n" for line in lines)
+        + "\n<details><summary>Coverage by day and by archive year</summary>\n\n```\n"
+        + "\n\n".join(tables)
+        + "\n```\n\n</details>"
+    )
     return 0
 
 
@@ -705,9 +774,12 @@ def _run_archive(args: argparse.Namespace) -> int:
                 prune=args.prune,
                 dry_run=args.dry_run,
             )
-            console.print(format_archive_report(report))
+            line = format_archive_report(report)
+            console.print(line)
+            github_summary(f"**Archive.** {line}")
             if report.coverage < MIN_COVERAGE:
                 gated.append(category)
+                github_annotation("error", "Archive not updated", f"Too few citation counts. {line}")
     if gated:
         # The archive was left as it is, and the counts merged: a red run, after the commit.
         logger.error("Too few citation counts: the archive of %s was not updated", ", ".join(gated))
@@ -747,4 +819,5 @@ _COMMANDS: dict[str, Callable[[argparse.Namespace], int]] = {
     "index": _run_index,
     "reclean": _run_reclean,
     "validate": _run_validate,
+    "summary": _run_summary,
 }

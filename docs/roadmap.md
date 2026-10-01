@@ -92,7 +92,7 @@ audit). The archive is unchanged: 22,071 papers, 11,621 affiliated.
 |---|---|---|---|
 | REL-1 | Layout-drift breaker and a weekly network canary | P1 | done |
 | REL-2 | HTML deadline, then a consecutive-failure breaker (and REL-6: progress saved on SIGTERM) | P1 | done |
-| CI-2 | Run summary and a failure issue | P1 | todo |
+| CI-2 | Run summary and annotations; red runs for data-affecting failures, no failure issue (decision 16) | P1 | done |
 | CI-3 | Deploy gating on what was pushed | P2 | done |
 | CIT-4 | Stop on a 403, flag stale counts | P1 | done |
 | DATA-1 | Layers 2 and 3: `EXTRACTOR_VERSION`, `reextract`, front-matter cache | P1 | todo |

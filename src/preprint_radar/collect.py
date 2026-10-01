@@ -58,6 +58,7 @@ class UpdateReport:
         affiliations_fetched: Papers whose affiliations were retrieved during this run.
         pending: Papers still missing an abstract or affiliations after the run.
         empty: Of the HTML pages read, those that gave no affiliation.
+        unreadable: HTML pages that could not be fetched (tried again next run).
         stopped: Why the reading of HTML pages stopped early, if it did.
     """
 
@@ -68,6 +69,7 @@ class UpdateReport:
     affiliations_fetched: int
     pending: int
     empty: int = 0
+    unreadable: int = 0
     stopped: Stop | None = None
 
     @property
@@ -147,6 +149,7 @@ def update_category(
         affiliations_fetched=read.pages,
         pending=sum(not paper.is_enriched for paper in papers),
         empty=read.empty,
+        unreadable=read.unreadable,
         stopped=read.stopped,
     )
 
@@ -235,6 +238,7 @@ def backfill_category(
         affiliations_fetched=read.pages,
         pending=sum(not paper.is_enriched for paper in papers),
         empty=read.empty,
+        unreadable=read.unreadable,
         stopped=read.stopped,
     )
 
@@ -395,6 +399,7 @@ class _HtmlRead:
     pages: int
     abstracts: int
     empty: int
+    unreadable: int
     stopped: Stop | None
 
 
@@ -420,7 +425,7 @@ def _add_html_front_matter(
     """
     todo = _html_todo(papers, limit)
     current = list(papers)
-    pages = abstracts = failures = 0
+    pages = abstracts = failures = unreadable = 0
     empty: list[int] = []
     stopped: Stop | None = None
     try:
@@ -433,6 +438,7 @@ def _add_html_front_matter(
             front = _front_matter(client, paper, url)
             if front is None:
                 failures += 1
+                unreadable += 1
                 if failures < MAX_CONSECUTIVE_HTML_FAILURES:
                     continue
                 logger.error("arxiv.org failed %d HTML renderings in a row: stopping", failures)
@@ -463,7 +469,7 @@ def _add_html_front_matter(
         logger.warning("Interrupted: saving the %d HTML renderings read", pages)
         checkpoint(current)
         raise
-    return _HtmlRead(current, pages, abstracts, len(empty), stopped)
+    return _HtmlRead(current, pages, abstracts, len(empty), unreadable, stopped)
 
 
 def add_institutions(papers: Sequence[Paper], client: HttpClient, *, limit: int | None) -> list[Paper]:
@@ -572,6 +578,7 @@ def format_report(report: UpdateReport) -> str:
         f"{report.category}: {report.listed} listed, {report.new} new, "
         f"{report.abstracts_fetched} abstracts and {report.affiliations_fetched} affiliations fetched"
         + (f" ({report.empty} pages without any)" if report.empty else "")
+        + (f", {report.unreadable} pages unreadable" if report.unreadable else "")
         + f", {report.pending} still pending"
         + (f"; HTML reading stopped: {_STOPS[report.stopped]}" if report.stopped else "")
     )
