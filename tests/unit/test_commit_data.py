@@ -60,9 +60,9 @@ def _commit_and_push(repos: Repos, repo: Path, changes: dict[str, object]) -> No
     _git(repos, repo, "push", "--quiet", "origin", "HEAD:main")
 
 
-def _commit_data(repos: Repos) -> tuple[int, dict[str, str]]:
+def _commit_data(repos: Repos, *options: str) -> tuple[int, dict[str, str]]:
     assert BASH is not None
-    result = _run([BASH, str(SCRIPT), "chore(data): update"], repos.bot, repos.env)
+    result = _run([BASH, str(SCRIPT), *options, "chore(data): update"], repos.bot, repos.env)
     lines = repos.output.read_text(encoding="utf-8").splitlines() if repos.output.exists() else []
     return result.returncode, dict(line.split("=", 1) for line in lines)
 
@@ -144,3 +144,48 @@ def test_stops_on_a_conflict_in_a_day_file_and_keeps_the_commit(repos: Repos) ->
         _git(repos, repos.maintainer, "log", "-1", "--format=%s", "recovered").strip()
         == "chore(data): update"
     )
+
+
+def test_keep_saves_the_commit_without_pushing(repos: Repos) -> None:
+    main_before = _git(repos, repos.origin, "rev-parse", "main")
+    _write(repos.bot, DAY, {"papers": ["not validated"]})
+
+    assert _commit_data(repos, "--keep") == (0, {"pushed": "false"})
+    assert _git(repos, repos.origin, "rev-parse", "main") == main_before
+    _git(repos, repos.maintainer, "fetch", "--quiet", str(repos.bot / "data-commit.bundle"), "HEAD:recovered")
+    assert (
+        _git(repos, repos.maintainer, "show", f"recovered:{DAY}").strip() == '{"papers": ["not validated"]}'
+    )
+
+
+VALIDATE_SCRIPT = SCRIPT.with_name("validate-data.sh")
+
+
+@pytest.mark.parametrize(("lines", "status"), [(3, 0), (150, 1)])
+def test_validate_copies_its_report_into_the_job_summary(tmp_path: Path, lines: int, status: int) -> None:
+    assert BASH is not None
+    bin_dir = tmp_path / "bin"
+    bin_dir.mkdir()
+    # Stands in for `uv run --no-dev preprint-radar validate`: findings, then the counts.
+    (bin_dir / "uv").write_text(
+        f'#!/bin/sh\nfor i in $(seq {lines - 1}); do echo "WARNING finding $i"; done\n'
+        f"echo counts\nexit {status}\n",
+        encoding="utf-8",
+    )
+    (bin_dir / "uv").chmod(0o755)
+    summary = tmp_path / "summary.md"
+    env = {
+        **os.environ,
+        "PATH": f"{bin_dir}{os.pathsep}{os.environ['PATH']}",
+        "GITHUB_STEP_SUMMARY": str(summary),
+    }
+
+    result = _run([BASH, str(VALIDATE_SCRIPT)], tmp_path, env)
+
+    assert result.returncode == status
+    assert len(result.stdout.splitlines()) == lines
+    written = summary.read_text(encoding="utf-8").splitlines()
+    assert written[:3] == ["### Data validation", "", "```"]
+    assert written[-2:] == ["counts", "```"]
+    # Past 100 lines: the first 99 findings, a line saying how many more, then the counts.
+    assert len(written) == 4 + (lines if lines <= 100 else 101)

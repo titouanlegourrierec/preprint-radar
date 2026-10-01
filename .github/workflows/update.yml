@@ -70,16 +70,29 @@ jobs:
           for category in $CATEGORIES; do args+=(--category "$category"); done
           uv run --no-dev preprint-radar -v citations "${args[@]}"
 
+      # Even after a failed or cancelled fetch: progress is saved as it goes.
+      - name: Validate data
+        id: validate
+        if: always()
+        # Structural errors stop the push (the data is kept below); warnings only go to
+        # the job summary.
+        run: bash .github/scripts/validate-data.sh
+
       - name: Commit data
         id: commit
-        if: always()
+        if: ${{ always() && steps.validate.outcome == 'success' }}
         # main may have moved during the run, which lasts hours: the script replays the
         # commit on top, settling conflicts on index.json and citations.json.
         run: |
           bash .github/scripts/commit-data.sh "chore(data): update $(date -u +%Y-%m-%d)"
 
+      - name: Keep the data that failed validation
+        if: ${{ always() && steps.validate.outcome == 'failure' }}
+        run: |
+          bash .github/scripts/commit-data.sh --keep "chore(data): update $(date -u +%Y-%m-%d), not validated"
+
       - name: Keep the data commit that could not be pushed
-        if: ${{ failure() && steps.commit.outcome == 'failure' }}
+        if: ${{ failure() && (steps.commit.outcome == 'failure' || steps.validate.outcome == 'failure') }}
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: data-commit

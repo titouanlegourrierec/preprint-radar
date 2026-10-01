@@ -1,6 +1,6 @@
 import json
 from dataclasses import replace
-from datetime import date
+from datetime import date, timedelta
 from pathlib import Path
 
 import pytest
@@ -41,6 +41,59 @@ def test_save_merges_with_existing_papers(store: PaperStore, listing: Listing) -
     assert len(day) == 5
     assert day[0].abstract == "Now with an abstract."
     assert sum(1 for _ in store.iter_papers()) == 7
+
+
+def test_a_paper_announced_again_stays_on_its_first_day(store: PaperStore, listing: Listing) -> None:
+    first = listing.papers[0]
+    store.save("cs.CV", [first])
+    again = replace(first, announced=first.announced + timedelta(days=4), abstract="Updated.")
+
+    written = store.save("cs.CV", [again])
+
+    assert written == [first.announced]
+    assert store.days("cs.CV") == [first.announced]
+    (stored,) = store.load_day("cs.CV", first.announced)
+    assert stored.abstract == "Updated."
+
+
+def test_a_paper_found_on_an_earlier_day_moves_there(store: PaperStore, listing: Listing) -> None:
+    later = listing.papers[0]
+    other = replace(listing.papers[1], announced=later.announced)
+    store.save("cs.CV", [later, other])
+    earlier = replace(later, announced=later.announced - timedelta(days=3))
+
+    written = store.save("cs.CV", [earlier, replace(earlier, title="Twice in one batch")])
+
+    assert written == [later.announced, earlier.announced]
+    assert [paper.arxiv_id for paper in store.load_day("cs.CV", later.announced)] == [other.arxiv_id]
+    (moved,) = store.load_day("cs.CV", earlier.announced)
+    assert moved.title == "Twice in one batch"
+
+
+def test_saving_a_paper_stored_twice_keeps_its_first_day(store: PaperStore, listing: Listing) -> None:
+    paper = listing.papers[0]
+    store.save("cs.CV", [paper])
+    later = paper.announced + timedelta(days=1)
+    path = store.root / "cs.CV" / f"{later.isoformat()}.json"
+    copy = replace(paper, announced=later).to_record()
+    path.write_text(
+        json.dumps({"schema_version": 1, "category": "cs.CV", "date": later.isoformat(), "papers": [copy]}),
+        encoding="utf-8",
+    )
+
+    store.save("cs.CV", [replace(paper, announced=later)])
+
+    assert store.load_day("cs.CV", later) == []
+    assert [stored.arxiv_id for stored in store.load_day("cs.CV", paper.announced)] == [paper.arxiv_id]
+
+
+def test_save_refuses_an_invalid_day_file(store: PaperStore, listing: Listing) -> None:
+    path = store.root / "cs.CV" / "2026-09-01.json"
+    path.parent.mkdir(parents=True)
+    path.write_text("[]", encoding="utf-8")
+
+    with pytest.raises(StoreError, match="Invalid papers file"):
+        store.save("cs.CV", listing.papers)
 
 
 def test_write_index(store: PaperStore, listing: Listing) -> None:

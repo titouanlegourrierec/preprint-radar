@@ -122,6 +122,10 @@ reclean: ## Clean the stored affiliations again after a change to the heuristics
 citations: ## Fetch the citation counts of stored papers without one (ALL=1: every paper)
 	uv run preprint-radar -v citations $(CATEGORY_ARGS) $(if $(ALL),--all)
 
+.PHONY: validate
+validate: ## Check data/ against its contract (errors fail, heuristic warnings do not)
+	@uv run preprint-radar validate
+
 .PHONY: stats
 stats: ## Show how much of data/ is enriched, per day and per archive year
 	@uv run preprint-radar stats $(CATEGORY_ARGS)

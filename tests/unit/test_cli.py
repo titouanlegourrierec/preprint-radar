@@ -386,3 +386,22 @@ def test_reclean_cleans_the_stored_affiliations(tmp_path: Path, capsys: pytest.C
     (stored,) = PaperStore(data_dir).iter_papers("cs.CV")
     assert stored.affiliations == ("MIT",)
     assert capsys.readouterr().out == "cs.CV: 1 of 1 affiliated papers changed, in 1 day files\n"
+
+
+def test_validate_fails_on_a_structural_error(
+    tmp_path: Path, listing: Listing, capsys: pytest.CaptureFixture[str]
+) -> None:
+    data_dir = tmp_path / "data"
+    store = PaperStore(data_dir)
+    store.save("cs.CV", listing.papers)
+    store.write_index()
+
+    assert main(["validate", "--data-dir", str(data_dir)]) == 0
+    assert capsys.readouterr().out == "7 papers in 3 files: 0 errors, 0 warnings\n"
+
+    (data_dir / "index.json").unlink()
+
+    assert main(["validate", "--data-dir", str(data_dir)]) == 1
+    assert capsys.readouterr().out == (
+        "ERROR data/index.json: missing\n7 papers in 3 files: 1 errors, 0 warnings\n"
+    )

@@ -56,6 +56,7 @@ from preprint_radar.store.stats import (
     format_citations,
     format_coverage,
 )
+from preprint_radar.store.validate import validate_store
 
 if TYPE_CHECKING:
     from rich.table import Table
@@ -92,6 +93,7 @@ def build_parser() -> argparse.ArgumentParser:
     _add_citations_parser(subparsers)
     _add_index_parser(subparsers)
     _add_reclean_parser(subparsers)
+    _add_validate_parser(subparsers)
     return parser
 
 
@@ -343,6 +345,27 @@ def _add_reclean_parser(subparsers: "argparse._SubParsersAction[argparse.Argumen
     )
 
 
+def _add_validate_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
+    validate = subparsers.add_parser(
+        "validate",
+        help="check the data store against its contract",
+        description=(
+            "Check every file of the data store before it is committed: day files, archive "
+            "years, citation counts and the index. Structural rules (a record that does not "
+            "load, a paper stored twice, an index that disagrees with the files, a contact "
+            "detail in an affiliation) are errors and make the command fail; heuristic rules "
+            "(an affiliation that only names authors, a paper `reclean` would still change) "
+            "are warnings. Nothing is fetched or written."
+        ),
+    )
+    validate.add_argument(
+        "--data-dir",
+        type=Path,
+        default=DEFAULT_DATA_DIR,
+        help=f"data store directory (default: {DEFAULT_DATA_DIR})",
+    )
+
+
 def _add_store_arguments(parser: argparse.ArgumentParser) -> None:
     """Options shared by the commands that write to the data store."""
     parser.add_argument(
@@ -580,6 +603,14 @@ def _run_reclean(args: argparse.Namespace) -> int:
     return 0
 
 
+def _run_validate(args: argparse.Namespace) -> int:
+    report = validate_store(PaperStore(args.data_dir))
+    for finding in report.findings:
+        console.print(str(finding))
+    console.print(report.summary())
+    return 1 if report.errors else 0
+
+
 def _run_archive(args: argparse.Namespace) -> int:
     categories: list[str] = args.categories or [DEFAULT_CATEGORY]
     store = PaperStore(args.data_dir)
@@ -639,4 +670,5 @@ _COMMANDS: dict[str, Callable[[argparse.Namespace], int]] = {
     "citations": _run_citations,
     "index": _run_index,
     "reclean": _run_reclean,
+    "validate": _run_validate,
 }

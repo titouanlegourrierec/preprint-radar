@@ -9,10 +9,18 @@
 # commit is then saved as data-commit.bundle, which the workflow uploads. To recover it:
 #   git fetch data-commit.bundle HEAD:recovered-data
 #
+# With --keep, the commit is only saved as data-commit.bundle, never pushed: for data that
+# failed validation.
+#
 # Writes pushed=true or pushed=false to $GITHUB_OUTPUT.
-# Usage: commit-data.sh MESSAGE
+# Usage: commit-data.sh [--keep] MESSAGE
 set -euo pipefail
 
+keep=false
+if [ "$1" = "--keep" ]; then
+  keep=true
+  shift
+fi
 message=$1
 output=${GITHUB_OUTPUT:-/dev/null}
 
@@ -25,6 +33,16 @@ if git diff --cached --quiet; then
   exit 0
 fi
 git commit --quiet --message "$message"
+
+keep_commit() {
+  git bundle create data-commit.bundle origin/main..HEAD
+  echo "pushed=false" >>"$output"
+}
+
+if [ "$keep" = true ]; then
+  keep_commit
+  exit 0
+fi
 
 # Called while the rebase stops on this run's commit. Errexit does not apply inside a
 # function called from a condition, hence the explicit returns.
@@ -44,11 +62,6 @@ settle_conflicts() {
   uv run --no-dev preprint-radar index || return 1
   git add data || return 1
   GIT_EDITOR=true git rebase --continue
-}
-
-keep_commit() {
-  git bundle create data-commit.bundle origin/main..HEAD
-  echo "pushed=false" >>"$output"
 }
 
 for attempt in 1 2 3; do

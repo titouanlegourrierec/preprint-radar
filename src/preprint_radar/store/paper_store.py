@@ -20,7 +20,7 @@ import logging
 import re
 from collections import defaultdict
 from collections.abc import Iterable, Iterator, Mapping
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from datetime import UTC, date, datetime
 from pathlib import Path
 from typing import Any
@@ -112,7 +112,9 @@ class PaperStore:
         """Write papers to their day files, replacing existing entries with the same id.
 
         Papers already stored for the same day but absent from ``papers`` are kept, so
-        saving is idempotent and never loses data.
+        saving is idempotent and never loses data. A paper is stored once, on the first day
+        it was announced: a cross-list can be announced again days later (2609.10714), and
+        then stays on its earlier day, or moves there from a later one.
 
         Args:
             category: Category the papers were listed in.
@@ -121,15 +123,47 @@ class PaperStore:
         Returns:
             The days whose file was written.
         """
-        by_day: defaultdict[date, list[Paper]] = defaultdict(list)
+        stored = self._stored_days(category)
+        targets: dict[str, Paper] = {}
         for paper in papers:
-            by_day[paper.announced].append(paper)
+            earlier = targets.get(paper.arxiv_id)
+            first = min(
+                [paper.announced, *stored.get(paper.arxiv_id, ()), *([earlier.announced] if earlier else [])]
+            )
+            targets[paper.arxiv_id] = paper if first == paper.announced else replace(paper, announced=first)
 
-        for day, new_papers in by_day.items():
-            merged = {paper.arxiv_id: paper for paper in self.load_day(category, day)}
-            merged.update((paper.arxiv_id, paper) for paper in new_papers)
+        by_day: defaultdict[date, list[Paper]] = defaultdict(list)
+        leaving: defaultdict[date, set[str]] = defaultdict(set)
+        for paper in targets.values():
+            by_day[paper.announced].append(paper)
+            for day in stored.get(paper.arxiv_id, ()):
+                if day != paper.announced:
+                    leaving[day].add(paper.arxiv_id)
+
+        for day in by_day.keys() | leaving.keys():
+            merged = {
+                paper.arxiv_id: paper
+                for paper in self.load_day(category, day)
+                if paper.arxiv_id not in leaving[day]
+            }
+            merged.update((paper.arxiv_id, paper) for paper in by_day[day])
             self._write_day(category, day, list(merged.values()))
-        return sorted(by_day, reverse=True)
+        return sorted(by_day.keys() | leaving.keys(), reverse=True)
+
+    def _stored_days(self, category: str) -> dict[str, list[date]]:
+        """The days each stored paper of ``category`` is on (one, unless stored twice)."""
+        days: defaultdict[str, list[date]] = defaultdict(list)
+        for day in self.days(category):
+            path = self._day_path(category, day)
+            try:
+                records = json.loads(path.read_text(encoding="utf-8"))["papers"]
+                ids = [str(record["arxiv_id"]) for record in records]
+            except (json.JSONDecodeError, KeyError, TypeError) as exc:
+                msg = f"Invalid papers file {path}: {exc}"
+                raise StoreError(msg) from exc
+            for arxiv_id in ids:
+                days[arxiv_id].append(day)
+        return days
 
     def remove_days(self, category: str, days: Iterable[date]) -> None:
         """Delete the files of the given days (the archive keeps what must be kept)."""
