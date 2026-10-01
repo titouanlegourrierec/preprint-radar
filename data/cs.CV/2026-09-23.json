@@ -243,16 +243,7 @@
     "College of Artificial Intelligence, Beijing Institute of Petrochemical Technology, Beijing, 102617, People’s Republic of China",
     "School of Computer Science and Engineering, Beihang University, Beijing, 100191, 100083, People’s Republic of China"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    [
-     0,
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "Beijing Institute of Petrochemical Technology",
     "Beihang University"
@@ -1000,28 +991,34 @@
    "html_url": "https://arxiv.org/html/2609.26474v1",
    "abstract": "Scattered light is common in biomedical images, yet its removal remains challenging. The difficulty arises from three aspects: first, aligned scattered-light-free biomedical ground truth is often unavailable; second, scattering is coupled with weak illumination and sensor-induced noise; and third, many learning-based restoration models are computationally expensive for embedded devices in Internet of Medical Things (IoMT) scenarios. To address these issues, this paper proposes PP-Net, a hybrid physical-prior neural network for biomedical scattered light removal. The proposed method consists of three components: DFN-Net suppresses sensor-induced noise, ASAP estimates the scattering map and recovers a physics-based prior map, and GF-Net refines the prior map by fusing it with the denoised observation. To reduce the dependence on paired biomedical ground truth, a progressive synthetic training and cross-domain transfer strategy is developed. Experiments show that the physical-prior branch improves the peak signal-to-noise ratio (PSNR) by up to 1.26 dB on paired synthetic benchmarks. Under joint noise-and-scattering degradation, PP-Net improves PSNR by more than 10.8 dB and the structural similarity index measure (SSIM) by more than 0.62 compared with representative baseline methods. On real W2S biomedical images, the proposed method reduces the average Natural Image Quality Evaluator (NIQE) score by 43.3\\%. Edge deployment with RKNN conversion and INT8 quantization achieves an average inference latency of approximately 200 ms per $512\\times512$ image over 360 test images. These results demonstrate that PP-Net provides an effective and deployable solution for microscopic imaging, endoscopic inspection, and edge-assisted biomedical analysis in IoMT scenarios.",
    "affiliations": [
-    "Changchun Institute of Optics, Fine Mechanics and Physics, Chinese Academy of Sciences, Changchun˜130033, China, and also with the University of Chinese Academy of Sciences, Beijing, China",
+    "Changchun Institute of Optics, Fine Mechanics and Physics, Chinese Academy of Sciences, Changchun˜130033, China",
+    "University of Chinese Academy of Sciences, Beijing, China",
     "School of Mathematics and Statistics, University of Melbourne, Melbourne, Australia",
-    "Changchun Institute of Optics, Fine Mechanics and Physics, Chinese Academy of Sciences, Changchun˜130033, China, and also with the Chinese Academy of Sciences, Beijing, China"
+    "Chinese Academy of Sciences, Beijing, China"
    ],
    "author_affiliations": [
     [
-     0
-    ],
-    [
+     0,
      1
     ],
     [
      2
     ],
     [
-     2
+     0,
+     3
     ],
     [
-     2
+     0,
+     3
+    ],
+    [
+     0,
+     3
     ]
    ],
    "institutions": [
+    "Chinese Academy of Sciences",
     "University of Chinese Academy of Sciences",
     "University of Melbourne",
     "Chinese Academy of Sciences"
@@ -1495,31 +1492,28 @@
    "abstract": "Text-to-video (T2V) services inherit their safety stack from image generation, pairing a keyword prompt filter with a per-frame checker that blocks a clip whenever one sampled frame looks unsafe. This stack has a blind spot unique to video. We prove that any moderator ignoring frame order accepts a harmful clip whenever it accepts that clip's benign shuffle, so harm carried by the ordering alone escapes. Empirically, the unmodified benchmark prompt already lands a clip in this moderation gap on 32.7% of Sequential-Action targets over four held-out seeds, and paraphrasing, scene splitting, and a feedback-driven prompt search show no significant improvement (paired McNemar $p\\ge0.12$), so prompt engineering is not needed to expose the vulnerability. Dense-scoring all 97 rendered frames shows that about a third of the delivered clips merely hide an unsafe frame, while the rest stay harmful as ordered videos even though every frame passes, an order-blind residual the unmodified prompt reaches on a quarter of Sequential-Action targets. We also document a measurement pitfall, since scoring a searched prompt on its own render seed inflates a 7.5% per-generation rate into an apparent 46.7%. A user study confirms that people read these clips as harmful and their shuffles as safe. The fix is to read frame order, and an order-aware detector separates these clips from their own shuffles at AUC 0.74 where per-frame checking sits at chance, which is the signal deployed moderation throws away.",
    "affiliations": [
     "National University of Singapore",
-    "Singapore",
     "University of New South Wales, Australia",
     "Fuzhou University, China"
    ],
    "author_affiliations": [
     [
-     0,
+     0
+    ],
+    [
      1
     ],
     [
      2
     ],
     [
-     3
+     1
     ],
     [
-     2
-    ],
-    [
-     2
+     1
     ]
    ],
    "institutions": [
     "National University of Singapore",
-    null,
     "UNSW Sydney",
     "Fuzhou University"
    ],
@@ -2797,18 +2791,12 @@
    "html_url": "https://arxiv.org/html/2609.25803v2",
    "abstract": "High-rate dense perception in dynamic environments is limited by the low update rate of RGB cameras, as rapid scene changes can occur between frames. Event cameras offer temporally dense but spatially sparse measurements, complementary to spatially dense RGB observations. Direct fusion cannot fully exploit this complementarity, while event-guided propagation fails on newly appearing or disoccluded regions without valid RGB support. We present LiFR v2, a unified propagation-completion-memory framework for causal anytime and streaming dense prediction from an RGB keyframe and events. LiFR v2 introduces an Event-Guided Completion Module (EGCM) to recover task-relevant representations where propagation is unsupported, and a History Retrieval Module (HRM) to reuse completed representations across successive queries. The framework supports semantic segmentation, monocular depth estimation, and multi-task dense prediction, and we further introduce SHF-Emerge to evaluate rapid object emergence and disocclusion. LiFR v2 achieves 74.37% mIoU on DSEC and 56.13% on SHF-Emerge, improving LiFR-Seg by 1.85 percentage points on the latter, while reducing SHF-Emerge depth RMSE from 1.564 m to 1.118 m over the propagation baseline. It also exceeds 100 FPS for both segmentation and depth, demonstrating accurate and efficient high-rate perception beyond RGB frame rates.",
    "affiliations": [
-    "School of",
     "Department of Electrical and Computer"
    ],
    "author_affiliations": [
     [
      0
     ],
-    null,
-    null,
-    null,
-    null,
-    null,
     [
      0
     ],
@@ -2816,11 +2804,25 @@
      0
     ],
     [
-     1
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
     ]
    ],
    "institutions": [
-    null,
     null
    ],
    "abs_url": "https://arxiv.org/abs/2609.25803",
@@ -3466,7 +3468,6 @@
    "html_url": "https://arxiv.org/html/2609.25650v1",
    "abstract": "Accurately isolating disease-related features from confounding covariates (e.g., age, gender, site) and individual variations remains a fundamental challenge in medical image classification. Traditional regression-based approaches may ignore non-linear relations between image features and true covariates. To overcome this issue, we present a generalized Medical Imaging Disentanglement Learning (MedIDL) framework. MedIDL maps image features into three mutually orthogonal latent spaces through specialized disentanglement heads: a disease classification head guided by a supervised loss, a covariate-alignment head constrained by cross-subject similarity matching, and a Gaussian head absorbing individual variations. We evaluated our framework across 7 datasets encompassing diverse imaging modalities. MedIDL outperforms state-of-the-art supervised and self-supervised classification methods in accuracy across all datasets. Association analyses demonstrate that MedIDL successfully isolates target-specific latent representations. Gradient-based interpretability mappings localize pathognomonic patterns aligning with established clinical literature.",
    "affiliations": [
-    "Qi Zhang, Xiang Chen, Haibo Yang, Fei Gao, Longbiao Cui, Yuan Zhou, Xiao-Yong Zhang",
     "Alzheimer’s Disease Neuroimaging Initiative"
    ],
    "author_affiliations": [
@@ -3475,8 +3476,7 @@
     null,
     null,
     [
-     0,
-     1
+     0
     ],
     null,
     null,
@@ -3488,7 +3488,6 @@
     null
    ],
    "institutions": [
-    null,
     "Alzheimer’s Disease Neuroimaging Initiative"
    ],
    "abs_url": "https://arxiv.org/abs/2609.25650",
@@ -5806,26 +5805,9 @@
    "cross_list_from": "cs.LG",
    "html_url": "https://arxiv.org/html/2609.25334v1",
    "abstract": "Intrinsically disordered proteins (IDPs) differ from folded proteins in that they are dynamic, lack a stable three-dimensional conformation, and have low sequence similarity between similar proteins. The conformational heterogeneity of IDPs - while beneficial for their diverse functions - limits the use of traditional experimental tools to determine their conformation. The experimental difficulty, along with low sequence similarity, results in data scarcity, and makes it difficult to classify/detect IDPs that are similar or dissimilar, a task relevant to understand biology and evolution. We address this challenge using Multi-task ProtBERT (MT-ProtBERT), a multi-task extension of ProtBERT tailored for low-data regimes. MT-ProtBERT integrates Dynamic Window Masking, a Multi-Scale 1D Convolutional classifier (MS-Conv1D), and auxiliary objectives that jointly optimize masked language modeling and biochemistry-informed tasks. We evaluate this framework on two tasks under limited data: (i) phosphorylation site prediction (S/T/Y) in short sequences and small datasets, and (ii) protein compaction prediction on two small datasets (684 and 530 sequences), including sequences comparable in length to typical disordered regions. MT-ProtBERT consistently outperforms PARROT, an RNN-based IDP-specific model, across all tasks. These results demonstrate that combining self-supervised and biochemistry-informed tasks, and multi-scale learning enables robust modeling of unstructured proteins under data scarcity.",
-   "affiliations": [
-    "Lilianna Houston, Mohammad H. Mahoor"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.25334",
    "pdf_url": "https://arxiv.org/pdf/2609.25334"
   },

@@ -393,13 +393,7 @@
     "Perception, Robotics and Intelligent Machines Research Group (PRIME)",
     "Department of Computer Science, Université de Moncton, Canada"
    ],
-   "author_affiliations": [
-    null,
-    [
-     0,
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     null,
     "Université de Moncton"
@@ -819,7 +813,8 @@
    "affiliations": [
     "Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100190, China, the Key Laboratory of Target Cognition and Application Technology, Beijing 100190, and the School of Electronic, Electrical and Communication Engineering, University of Chinese Academy of Sciences, Beijing 100190, China",
     "State Key Laboratory of Remote Sensing and Digital Earth, Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100094, China",
-    "Helmholtz-Zentrum Dresden-Rossendorf, 09599 Freiberg, Germany, and also with the Faculty of Electrical and Computer Engineering, University of Iceland, 101 Reykjavik, Iceland"
+    "Helmholtz-Zentrum Dresden-Rossendorf, 09599 Freiberg, Germany",
+    "Faculty of Electrical and Computer Engineering, University of Iceland, 101 Reykjavik, Iceland"
    ],
    "author_affiliations": [
     [
@@ -838,12 +833,14 @@
      0
     ],
     [
-     2
+     2,
+     3
     ]
    ],
    "institutions": [
     "University of Chinese Academy of Sciences",
     "Aerospace Information Research Institute",
+    "Helmholtz-Zentrum Dresden-Rossendorf",
     "University of Iceland"
    ],
    "abs_url": "https://arxiv.org/abs/2609.11040",
@@ -1321,14 +1318,7 @@
     "School of Electrical and Electronic Engineering",
     "Nanyang Technological University, Singapore"
    ],
-   "author_affiliations": [
-    null,
-    [
-     0,
-     1,
-     2
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "Institute for Digital Molecular Analytics and Science",
     null,
@@ -2060,16 +2050,7 @@
     "Construction Engineering, University of Cambridge, Trumpington Street, Cambridge, CB2 1PZ, United Kingdom",
     "Department of Engineering, Durham University, Stockton Road, Durham, DH1 3LE, United Kingdom"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    [
-     0,
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "University of Cambridge",
     "Durham University"
@@ -2287,34 +2268,27 @@
    "html_url": "https://arxiv.org/html/2609.11463v1",
    "abstract": "Segmenting bruises is a challenging task in medical imaging due to limited data and annotations, diffuse boundaries, and highly variable appearance. In this work, we propose BruNet, a segmentation framework that combines a ViT-based visual encoder (a self-supervised DINOv3 or a pretrained LingBot-Vision backbone) with a SAM-based mask decoder. BruNet is trained on the HAM10000 skin lesion dataset and evaluated on a separate bruise dataset without additional fine-tuning. Although a small number of prior studies have explored machine learning and computer vision for bruise analysis, existing work has primarily focused on detection, classification, or colour analysis rather than pixel-level localisation. To the best of our knowledge, this is the first study to address automatic bruise segmentation. Our results show that BruNet outperforms CNN-based models, state-of-the-art segmentation models, ChatGPT-4o/5-assisted SAM2 zero-shot baselines, and the medical-oriented MedSAM model, demonstrating strong cross-domain generalisation to bruise segmentation.",
    "affiliations": [
-    "Cardiff University",
-    "United Kingdom"
+    "Cardiff University"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ]
    ],
    "institutions": [
-    "Cardiff University",
-    null
+    "Cardiff University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.11463",
    "pdf_url": "https://arxiv.org/pdf/2609.11463"
@@ -2802,7 +2776,6 @@
    "html_url": "https://arxiv.org/html/2609.11573v1",
    "abstract": "Boundary representation (B-rep) is the standard format used by modern CAD systems for parametric 3D models. It turns out, the exact same solid can be represented by different B-reps: for example, two engineers using different operations, a geometry kernel rebuilding the file, and an export setting repartitioning faces will lead to different B-reps even though the underlying solid remains the same. We show that existing B-rep encoders are not robust to variation in the B-rep with the same solid on perturbations applied to standard benchmarks, naturally occurring variations inherent to CAD software, and differences in how designers model the same part via a human dataset we created in FreeCAD. The performance of popular B-rep encoders often collapses catastrophically. We propose the canonical region graph, an input representation whose nodes, features and coordinate frame are derived from the solid itself and show theoretical invariance guarantees on repartitioning and rigid motions. It matches the strongest baseline on standard benchmarks, and is stable under every perturbation we test.",
    "affiliations": [
-    "Henning Jiang, Jennifer Jang",
     "StoryGold AI"
    ],
    "author_affiliations": [
@@ -2810,14 +2783,12 @@
     null,
     null,
     [
-     0,
-     1
+     0
     ],
     null,
     null
    ],
    "institutions": [
-    null,
     null
    ],
    "abs_url": "https://arxiv.org/abs/2609.11573",
@@ -2881,7 +2852,7 @@
     "School of Artificial Intelligence, Beijing Normal University, Beijing, China",
     "Hong Kong University of Science and Technology, Hong Kong, China",
     "JD.com, Beijing, China",
-    "School of Artificial Intelligence, Beijing Normal University, Beijing, China, and also with Watrix Technology Limited Co. Ltd, Beijing, China"
+    "Watrix Technology Limited Co. Ltd, Beijing, China"
    ],
    "author_affiliations": [
     [
@@ -2902,7 +2873,7 @@
     "Beijing Normal University",
     "Hong Kong University of Science and Technology",
     null,
-    "Beijing Normal University"
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.11601",
    "pdf_url": "https://arxiv.org/pdf/2609.11601"
@@ -3508,17 +3479,7 @@
     "Photogrammetry and Remote Sensing, ETH Zürich, Zürich, Switzerland",
     "Remote Sensing Technology Institute, German Aerospace Center (DLR), Wessling, Germany"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    [
-     0,
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "ETH Zurich",
     "Deutsches Zentrum für Luft- und Raumfahrt e. V. (DLR)"
@@ -3864,33 +3825,7 @@
     "Faculty of Information Science and Technology, Ocean University of China, Qingdao 266100, China",
     "Information Systems Technology and Design Pillar, Singapore University of Technology and Design, Singapore 487372, Singapore"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    [
-     0,
-     1,
-     2,
-     3,
-     4,
-     5,
-     6,
-     7,
-     8,
-     9
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "Beijing Institute of Technology",
     null,

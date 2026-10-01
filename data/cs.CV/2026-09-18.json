@@ -258,17 +258,7 @@
     "Department of Electrical and Computer Engineering",
     "Carnegie Mellon University, Pittsburgh, PA, USA"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    [
-     0,
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     null,
     "Carnegie Mellon University"
@@ -302,17 +292,7 @@
     "Adelaide University",
     "Li Auto Inc"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    [
-     0,
-     1,
-     2
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "University of Technology Sydney",
     "Adelaide University",
@@ -543,13 +523,7 @@
     "Department of Computer Science and Engineering",
     "Indian Institute of Technology Bombay"
    ],
-   "author_affiliations": [
-    null,
-    [
-     0,
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     null,
     "Indian Institute of Technology Bombay"
@@ -1143,35 +1117,9 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.19716v1",
    "abstract": "Pre-trained 3D vision models have substantially advanced point cloud analysis, yet adapting them to downstream tasks via full fine-tuning is computationally expensive and storage-intensive. Parameter-Efficient Fine-Tuning (PEFT) offers a promising alternative by reducing both adaptation cost and storage burden. However, existing prompting-based approaches ignore the intrinsic geometric structures of point clouds, thereby limiting their adaptation capability. This limitation stems from their inability to encode both fine-grained geometric cues and coarse-grained structural semantics, as well as failing to propagate such information effectively through the model hierarchy. To address these challenges, we propose GAPrompt++, a multi-granular geometry-aware prompting method that provides richer geometric guidance for efficient 3D task adaptation. Specifically, we introduce a Point Shift Prompter that extracts multi-granular geometric features across different scales, enabling instance-specific geometric adjustments during adaptation. Next, a Keypoint Prompter adaptively generates point-level prompts to highlight local geometric saliency and fine-grained structural details. Furthermore, a Prompt Propagation mechanism injects these multi-granular geometric cues throughout the feature extraction hierarchy, strengthening the ability to capture essential geometric characteristics. Extensive experiments show that GAPrompt++ achieves state-of-the-art performance among prompting-based PEFT methods and even surpasses full fine-tuning across diverse benchmarks, while requiring less than 2\\% trainable parameters. In addition, to address the saturation of existing evaluation datasets, we construct two more challenging benchmarks derived from 3D Gaussian Splatting and Multi-View Stereo reconstruction, offering diverse and realistic point cloud scenarios to promote future research.",
-   "affiliations": [
-    "Jiwen Lu, Fellow, IEEE, Jiahuan Zhou"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.19716",
    "pdf_url": "https://arxiv.org/pdf/2609.19716"
   },
@@ -1401,47 +1349,9 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.19793v1",
    "abstract": "Recent advances in artificial intelligence (AI) are reshaping smart glasses from egocentric capture and display devices into platforms for wearable intelligence. Smart glasses increasingly serve as wearable AI systems that connect first-person observation with real-time assistance under strict form-factor constraints. We frame this transition through the lens of \\emph{AI smart glasses} and define them as a system-level concept in which egocentric sensing, resource-aware computing, intelligent reasoning, multimodal interaction, and real-world application constraints are co-designed for personalized assistance in the physical world. To systematically study this perspective, we organize the survey around four connected dimensions. First, we examine the hardware foundation that bounds sensing, computation, feedback delivery, and sustained deployment. Second, we study wearable intelligence, where egocentric signals are transformed into perceptual, contextual, and agentic capabilities. Third, we discuss interaction design, through which users request, receive, correct, and regulate assistance during ongoing activity. Fourth, we analyze application scenarios across healthcare, accessibility, situated learning, daily life assistance, cultural tourism, and industrial support, showing how domain requirements reshape system design and evaluation. We further identify five cross-cutting research challenges for future AI smart glasses: next-generation hardware, trustworthy egocentric intelligence, lifelong personalized memory, proactive intelligence, and embodied foundation models. By centering smart glasses as wearable-intelligence platforms, this survey provides a unified framework for organizing technologies, applications, and open challenges in this emerging area.",
-   "affiliations": [
-    "Core Contributors"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.19793",
    "pdf_url": "https://arxiv.org/pdf/2609.19793"
   },
@@ -1879,14 +1789,7 @@
     "Beijing Institute for Brain Research, Chinese Academy of Medical Sciences & Peking Union Medical College, Beijing, China",
     "Chinese Institute for Brain Research, Beijing (CIBR), Beijing, China"
    ],
-   "author_affiliations": [
-    null,
-    [
-     0,
-     1,
-     2
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "China Agricultural University",
     "Chinese Academy of Medical Sciences & Peking Union Medical College",
@@ -2631,35 +2534,9 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.20147v1",
    "abstract": "Cortical hypometabolism measured by Fluorodeoxyglucose Positron Emission Tomography (FDG-PET) is a highly sensitive biomarker for dementia diagnosis. However, high costs, radiation exposure, and limited accessibility constrain its clinical utility. While cross-modal synthesis from Magnetic Resonance Imaging (MRI) offers a promising alternative, existing volumetric generation methods do not explicitly account for the highly folded cortical geometry, where disease-related patterns predominantly reside. To address this, we introduce a novel surface-based diffusion bridge framework DB-SUiT for MRI-to-PET translation that operates natively on the cortical manifold. A conditional Spherical U-shaped vision Transformer (SUiT) is specifically designed to model the intricate cross-modal relationships while preserving surface topology. It combines spherical convolutional encoders for multi-scale surface feature extraction with bottleneck Transformers to capture long-range spatial dependencies, while incorporating demographic and subcortical conditions to refine the synthesis. Evaluated on two datasets, including subjects with different dementia types, DB-SUiT demonstrates high-fidelity synthesis that substantially outperforms other baselines. In automated dementia classification, synthesized PET surfaces improve performance over MRI by 14.2% and PET volumes by 11.3%, approaching the performance of real PET surfaces. In a blinded reader study, synthetic PET achieved 85.5% diagnostic accuracy, compared with 75.8% for MRI and 95.2% for real PET. This further demonstrates cross-cohort and cross-pathology generalization, as the model was evaluated without retraining on an external cohort that included a dementia subtype not represented during training. Our code is available at https://github.com/ai-med/DB-SUiT.",
-   "affiliations": [
-    "Dennis M. Hedderich, Igor Yakushev, and Christian Wachinger"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.20147",
    "pdf_url": "https://arxiv.org/pdf/2609.20147"
   },
@@ -3262,44 +3139,9 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.20340v1",
    "abstract": "Ultrasound image analysis plays a crucial role in cancer screening and prenatal diagnosis, yet comprehensive assessment requires jointly addressing tasks such as lesion segmentation and benign-malignant classification. While recent vision foundation models have shown remarkable universal representations, unlocking their potential for ultrasound is bottlenecked by the considerable domain gap from natural images. Existing methods typically fine-tune heavy vision encoders for isolated tasks, incurring substantial computational overhead while overlooking the underlying commonalities across heterogeneous tasks. In this work, we propose FreqDINO++, a frequency-guided multi-task routing vision foundation model for universal ultrasound analysis. We first introduce a Multi-task Routing Adapter (MR-Adapter) to support parameter-efficient integration of task-common and task-specific knowledge, a Frequency-aware Feature Enhancer (F$^2$-Enhancer) is then designed to capture the rich multi-scale frequency characteristics of ultrasound images, and a Task-aligned Collaborative Decoder (TC-Decoder) is devised to promote collaboration between dense and global prediction tasks through global-local token interaction. Extensive experiments on large-scale multi-task and external single-task ultrasound benchmarks demonstrate that FreqDINO++ consistently outperforms strong baselines and recent foundation models across 27 diverse clinical task scenarios, while also showing promising generalization to unseen data. The code is at https://github.com/MingLang-FD/FreqDINO-Plus.",
-   "affiliations": [
-    "Rong Qu, Wenting Duan, Jieyun Bai, Zhen Chen"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.20340",
    "pdf_url": "https://arxiv.org/pdf/2609.20340"
   },
@@ -4124,38 +3966,9 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.20700v1",
    "abstract": "Episodic test-time adaptation resets a frozen segmenter to source weights $M_0$ on each case and adapts for a fixed step count. A fixed horizon conflates a cohort-level question, how far to adapt, with an irreducibly per-case one, whether this case should be adapted at all. Cohort means hide that decision: on cross-vendor cardiac MRI the mean $\\Delta$Dice from adaptation is statistically indistinguishable from zero while 58.7% of cases are individually made worse. We quantify this harm as harmful accepted area (HA), the harmful fraction of the edited area a controller deploys. Held-out tuning gives a stronger baseline than a fixed horizon, but the budget it selects transfers on neither of the two main medical benchmarks, and no global budget can condition on the case. We show that prediction fragmentation---the disagreement geometry between $M_0$ and the adapted mask $M_k$---predicts HA with no labels or extra backward passes at decision time, comparably on three benchmarks (Spearman $\\rho$ 0.50--0.60), at a quarter of gradient-norm's latency. A case-level router built on it cuts HA from 0.228 to 0.139 on a benchmark that took no part in its design, with the design frozen and only cut-points recalibrated there. On the cardiac benchmark the design was selected on, the router cuts HA from 0.129 to 0.013 at matched Dice and 1.10 deployed updates, against the retrospective-best budget found post hoc on evaluation labels, and reduces that 58.7% to 20.0%, an upper bound we quantify. Where the retained cases are not net-helped (as on prostate), the router still cuts HA but concedes accuracy, a boundary we report. Thresholds are fit once on a labeled split disjoint from evaluation; decisions use no labels or gradients. The template ports across architecture and domain (nnU-Net$\\to$SegFormer, Cityscapes$\\to$ACDC) with coordinate, thresholds and per-bucket actions instantiated per domain.",
-   "affiliations": [
-    "Srihari Nelakuditi, Yan Tong"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.20700",
    "pdf_url": "https://arxiv.org/pdf/2609.20700"
   },
@@ -4588,18 +4401,7 @@
     "Cornell University, New York, NY, USA",
     "Cornell Tech, New York, NY, USA"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    [
-     0,
-     1,
-     2
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "Weill Cornell Medicine",
     "Cornell University",
@@ -5233,7 +5035,7 @@
    "affiliations": [
     "School of Artificial Intelligence and Robotics, Hunan University, China",
     "China Mobile Group Hunan Company Ltd., China",
-    "The authors are also with the National Engineering Research Center of Robot Visual Perception and Control Technology, Hunan University, China"
+    "National Engineering Research Center of Robot Visual Perception and Control Technology, Hunan University, China"
    ],
    "author_affiliations": [
     [
@@ -5272,7 +5074,7 @@
    "institutions": [
     "Hunan University",
     null,
-    null
+    "Hunan University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.20566",
    "pdf_url": "https://arxiv.org/pdf/2609.20566"

@@ -28,16 +28,7 @@
     "University of Illinois Urbana-Champaign",
     "Urbana, IL 61801"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    [
-     0,
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "University of Illinois Urbana-Champaign",
     null
@@ -237,13 +228,7 @@
     "Transformative Innovation for Trustworthy AI and Network Security (TITANS) Lab",
     "Computer Science, Southern Illinois University Carbondale, USA"
    ],
-   "author_affiliations": [
-    null,
-    [
-     0,
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     null,
     "Southern Illinois University Carbondale"
@@ -355,35 +340,9 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.12202v1",
    "abstract": "Characterizing two-dimensional (2D) quantum materials by optical microscopy requires localizing exfoliated flakes and determining their layer thickness from subtle optical contrast and interference color to select suitable flakes for device fabrication. However, models face synthetic-to-real domain shifts and variation across materials, substrates, laboratories, and imaging conditions. We present QuPAINT, a physics-aware multimodal framework for transferable quantum flake characterization. The Synthetic Materials Framework (Synthia) generates diverse synthetic microscopy images while preserving layer-dependent optical behavior. Using these images, we construct QMat-Instruct, a multimodal instruction dataset with image-specific reasoning traces generated from verified annotations and constrained to observable optical cues. QuPAINT integrates these signals through Physics-Informed Attention (PIA), which injects substrate-relative optical priors into the visual representation to support grounded multimodal reasoning. For evaluation, we introduce QF-Bench, to our knowledge, the largest real-world benchmark for this problem, spanning diverse microscopy and substrate conditions. Using its verified annotations, we study counting, visual grounding, reasoning quality, confidence calibration, and transfer to an unseen material. QuPAINT-8B substantially outperforms prior methods and establishes state-of-the-art performance for both general and monolayer flake detection. Additional experiments show that image-grounded supervision improves strict spatial grounding and confidence calibration while preserving robust general flake detection on the unseen material.",
-   "affiliations": [
-    "Nicholas Borys, Hugh Churchill, and Khoa Luu"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.12202",
    "pdf_url": "https://arxiv.org/pdf/2609.12202"
   },
@@ -663,14 +622,16 @@
    "html_url": "https://arxiv.org/html/2609.12408v1",
    "abstract": "Hazardous-freight operations at petrochemical logistics nodes are safety-critical for intelligent transportation systems, yet existing vision benchmarks rarely address procedural compliance under realistic deployment constraints. In large infrastructure networks, cameras often operate under sparse round-robin polling, so transfer status must be inferred from incomplete observations and localized evidence. We present GSO-Net, a large-scale benchmark for visual understanding of standard operating procedures (SOPs) in petrochemical unloading scenarios. To our knowledge, GSO-Net is the first public benchmark dataset dedicated to visual SOP understanding in petrochemical hazardous-freight transfer scenarios. It contains over 50,000 independently sampled frames from 64 real expressway petrochemical logistics nodes and adopts an SOP-derived hierarchy linking 9 macroscopic procedural steps with 15 microscopic operational states. Two tasks are defined: joint detection of microscopic states and macroscopic steps as the core benchmark, and frame-level step classification as a diagnostic reference. Experiments with lightweight, transformer-based, open-vocabulary, and holistic models reveal a clear gap between object perception and transfer-stage understanding. Current models remain weak on contact-level state grounding, transient step recognition, and stage consistency, especially under sparse polling, tiny critical targets, and long-tailed operational evidence. GSO-Net provides a practical benchmark for fine-grained state perception and vision-based safety monitoring in hazardous freight transportation. The dataset is publicly available at https://github.com/yuxieHarrison/GSO-Net",
    "affiliations": [
-    "Yu Xie, Bangshu Xiong, and Zhibo Rao are with the School of Information Engineering, Nanchang Hangkong University, Nanchang 330063, China",
-    "Rui Gan, Chongxuan Liu, and Zechu Ouyang are with Jiangxi Expressway Petrochemical Co., Ltd., Nanchang 330063, China"
+    "School of Information Engineering, Nanchang Hangkong University, Nanchang 330063, China",
+    "Jiangxi Expressway Petrochemical Co., Ltd., Nanchang 330063, China"
    ],
    "author_affiliations": [
     [
      0
     ],
-    null,
+    [
+     0
+    ],
     [
      0
     ],
@@ -721,7 +682,6 @@
    "html_url": "https://arxiv.org/html/2609.12409v1",
    "abstract": "High-frequency surgical maneuvers in ophthalmology necessitate high-fidelity temporal modeling, yet characterizing long-range procedural dependencies remains computationally prohibitive for attention-based architectures. Existing models often require aggressive temporal downsampling, which compromises the detection of fine-grained action boundaries and instrument-tissue interactions. To address these scalability constraints, we present OphBiWSSD, a framework that reformulates surgical temporal action localization leveraging Bidirectional State Space Duality. By employing a weight-tied selective scan mechanism that incorporates both preceding and succeeding surgical contexts, our approach facilitates the global synthesis of non-causal temporal cues with linear complexity. This streamlined architecture is well-suited to capture the bidirectional dependencies present in ophthalmic workflows, effectively bridging the gap between local boundary precision and long-range procedural context without incurring the quadratic memory overhead of traditional Transformers. Extensive experiments on the OphNet benchmark demonstrate that OphBiWSSD achieves state-of-the-art temporal localization performance, with mean Average Precisions of 44.42% on phases and 43.08% on operations, surpassing the baselines by 6.80% and 6.66%, respectively. Empirical validation indicates that our approach ensures precise temporal localization and offers a computationally viable pathway for deploying surgical intelligence systems in clinical environments. The code is publicly available at https://github.com/yo3nglau/OphBiWSSD.",
    "affiliations": [
-    "the",
     "Department of Ophthalmology, The Fifth Affiliated Hospital of Wenzhou Medical University, Wenzhou Medical University, Lishui 323000, China",
     "School of Optometry, The Hong Kong Polytechnic University",
     "State Key Laboratory of Ophthalmology, Zhongshan Ophthalmic Center, Sun Yat-sen University, Guangdong Provincial Key Laboratory of Ophthalmology Visual Science, Guangdong Provincial Clinical Research Center for Ocular Diseases, Guangzhou 510060, China",
@@ -730,20 +690,15 @@
     "Southern University of Science and Technology Hospital, Shenzhen 518055, China"
    ],
    "author_affiliations": [
+    null,
     [
      0
     ],
+    null,
+    null,
+    null,
     [
      1
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
     ],
     [
      2
@@ -751,27 +706,19 @@
     [
      3
     ],
+    null,
+    [
+     0
+    ],
+    null,
     [
      4
     ],
     [
-     0
-    ],
-    [
-     1
-    ],
-    [
-     0
-    ],
-    [
      5
-    ],
-    [
-     6
     ]
    ],
    "institutions": [
-    null,
     null,
     "Hong Kong Polytechnic University",
     "Sun Yat-sen University",
@@ -1998,15 +1945,13 @@
    "html_url": "https://arxiv.org/html/2609.12731v1",
    "abstract": "Text-to-image (T2I) diffusion models inevitably internalize sensitive or non-compliant concepts from large-scale pretraining data, necessitating post-hoc concept erasure. However, existing erasure methods often lack explicit constraints on parameter updates, leading to over-intervention and unintended semantic drift. In addition, many methods rely on manually crafted counterfactual supervision, such as surrogate prompts, which incurs substantial data construction costs that limit scalability to new concepts. To address these limitations, we propose GRACE, a structured concept erasure framework designed to enable localized and selective intervention. Specifically, we introduce a semantically weighted sensitive subspace estimation to precisely lock intervention directions, and employ lightweight subspace-constrained adapters to prevent global semantic disturbance. To eliminate the dependency on manual prompt engineering, we design an automatically decoupled safe-anchor mechanism. To mitigate semantic drift induced by excessive intervention, we introduce an energy-driven dynamic gating mechanism that adaptively controls the timing and strength of intervention at inference. Extensive experiments demonstrate that our method achieves a superior balance between erasure effectiveness and generation fidelity. Compared with the average performance of five state-of-the-art (SOTA) concept erasure methods, our method improves the fine-grained NSFW reduction rate by $17.86\\%$, while reducing the macro-averaged target CLIP Score and preservation-oriented Fréchet Inception Distance (FID) by $4.75\\%$ and $50.58\\%$, respectively, indicating stronger concept suppression with substantially improved preservation of the original model's generative utility.",
    "affiliations": [
-    "the",
     "School of Electronic Information and Electrical Engineering",
     "Key Laboratory of Intelligent Control and Optimization",
     "Faculty of Electrical Engineering"
    ],
    "author_affiliations": [
-    [
-     0
-    ],
+    null,
+    null,
     [
      0
     ],
@@ -2016,15 +1961,9 @@
     [
      2
     ],
-    [
-     3
-    ],
-    [
-     0
-    ]
+    null
    ],
    "institutions": [
-    null,
     null,
     null,
     null
@@ -2146,18 +2085,7 @@
     "School of Electronic and Information Engineering, Foshan University, Foshan 528225, China",
     "State Key Laboratory of Dynamic Measurement Technology, North University of China, Taiyuan 030051, China"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    [
-     0,
-     1,
-     2
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "Foshan University",
     "Foshan University",
@@ -2191,16 +2119,7 @@
     "Guangdong-HongKong-Macao Joint Laboratory for Intelligent Micro-Nano Optoelectronic Technology, School of Physics and Optoelectronic Engineering, Foshan University, Foshan 528225, China",
     "School of Mechanical and Electrical Engineering, China University of Mining and Technology-Beijing, Beijing 100083, China"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    [
-     0,
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "Foshan University",
     null
@@ -2429,32 +2348,9 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.12827v1",
    "abstract": "Cervical cancer is a major global health challenge, with disease burden falling disproportionately on low- and middle-income countries (LMICs) due to a shortage of trained specialists and the subjective nature of colposcopy-based screening. To address this challenge, we propose a novel deep learning framework for the automated grading of Cervical Intraepithelial Neoplasia (CIN) and the prediction of clinical Swede scores. We also introduce the BUET Multi-Center Colposcopy Dataset, a novel, multi-center cohort designed and annotated for Swede score prediction and CIN grading. Our proposed dual-stream cross-attention architecture mimics the visual reasoning of an expert colposcopist by explicitly fusing paired multimodal cervigrams to evaluate comparative tissue responses. Furthermore, we introduce a custom composite loss function to address severe class imbalances and scoring inconsistencies across the five Swede score components. The proposed framework achieved 71.85% accuracy and an 86.23% AUC-ROC for three-class CIN grading, outperforming existing methods. For Swede score component prediction, the architecture achieved AUC-ROC values ranging from 75.7% to 88.4%, with the composite loss function yielding consistent F1-score improvements. Finally, the total predicted Swede Score, which ranges between 0 and 10, shows a Mean Absolute Error (MAE) of 1.489. The results show that the proposed method can pave the way towards developing AI-assisted colposcopy screening tools to support risk-based triage in resource-limited healthcare settings. The dataset and source code are publicly available(url: https://github.com/mHealthBuet/BUET-colposcopy)",
-   "affiliations": [
-    "S M Shahida, Taufiq Hasan"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.12827",
    "pdf_url": "https://arxiv.org/pdf/2609.12827"
   },
@@ -2778,8 +2674,7 @@
    "abstract": "In sign language recognition, the isolated (ISLR) classification loss treats a single label as ground truth, as does the frame-level auxiliary classifier over pseudo-labels we add to continuous (CSLR) methods, which lack one. Stylistic variation blurs ISLR annotation and the lack of temporal boundaries in CSLR forces pseudo-labels; both are noisy. We therefore apply symmetric and generalized cross entropy (SCE, GCE), robust alternatives to cross entropy (CE) from image classification, not to connectionist temporal classification but to the preceding single-label classifier. On ASL Citizen with injected symmetric noise on three backbones (three seeds for ST-GCN), robust losses cost at most 2.5 pt when labels are clean and beat CE by 2.9-10.0 pt in all six conditions at noise rate 0.2, one of which only after q was re-selected on dev. GCE gains more, but its optimal q does not transfer across backbones, whereas one SCE setting works in all nine conditions; both vary 2-11 times more than CE across runs, so a favorable point estimate does not establish stability. For CSLR (PHOENIX-2014) we report no gain; our frame-level targets carry a systematic assignment bias, making that study a diagnosis of a single configuration. At lambda_aux = 25 the pseudo-label CE auxiliary raises word error rate above the no-auxiliary baseline on VAC, CorrNet and SlowFastSign, and GCE/SCE improve on CE by 1.7-3.2 pt (three of six conditions return below that baseline). However, the three losses differ by more than an order of magnitude in effective gradient at a common lambda_aux: matching the initial gradient shrinks the gap to 0.4-0.9 pt, and lowering the CE weight alone already beats that baseline, so neither the degradation nor the improvement can be separated from the effect of the weight. We use only symmetric noise; multi-seed evaluation covers only ST-GCN and VAC isolated.",
    "affiliations": [
     "Faculty of Library, Information and Media Science, University of Tsukuba",
-    "Pixie Dust Technologies, Inc",
-    "theta-akihisa (at) digitalnature.slis.tsukuba.ac.jp"
+    "Pixie Dust Technologies, Inc"
    ],
    "author_affiliations": [
     [
@@ -2791,7 +2686,6 @@
    ],
    "institutions": [
     "University of Tsukuba",
-    null,
     null
    ],
    "abs_url": "https://arxiv.org/abs/2609.12885",
@@ -3955,8 +3849,7 @@
    "abstract": "Cross-vehicle federated learning enables vehicles to collaboratively improve perception models while keeping locally collected driving data private. However, vehicle participation is transient, and a vehicle may depart before training converges while permanently taking its local data. When this departing vehicle holds most samples of a target class, the class becomes rare in the remaining FL network, and its recognition can silently degrade as the shared backbone continues to evolve. Recovering the class is difficult since the few remaining samples provide a noisy prototype estimate, while FL privacy constraints prevent centralized access to raw data or per-sample features. This paper presents MPT, a cross-vehicle FL framework that maintains rare-class recognition by reconstructing its prototype at every round from privacy-preserving class-level statistics. MPT combines a barycentric decomposition that tracks drift shared with remaining-class prototypes, a covariance-based residual prediction that estimates out-of-span drift, and an adaptive calibration that weighs the remaining rare-class samples according to their reliability. We evaluate MPT on three vehicle classification tasks and four backbones against representative calibration and drift-compensation baselines. MPT outperforms all baselines in rare class F1, reaching 0.516 on the nuImages dataset with only 1\\% of rare-class samples remaining, without raw data, per-sample features, or retraining.",
    "affiliations": [
     "School of Integrated Technology, Yonsei University, Republic of Korea",
-    "Toyota Motor Corporation, Japan",
-    "{unasemana, sd061123, kichang.lee, i.am.sungmin.lee. jeonggil.ko"
+    "Toyota Motor Corporation, Japan"
    ],
    "author_affiliations": [
     [
@@ -3980,8 +3873,7 @@
    ],
    "institutions": [
     "Yonsei University",
-    "Toyota Motor Corporation",
-    null
+    "Toyota Motor Corporation"
    ],
    "abs_url": "https://arxiv.org/abs/2609.12771",
    "pdf_url": "https://arxiv.org/pdf/2609.12771"

@@ -195,7 +195,7 @@
    "abstract": "Despite the strong capabilities of multimodal large language models (MLLMs), their parametric knowledge remains incomplete and difficult to update, motivating multimodal retrieval-augmented generation (RAG) to ground responses in external text and images. However, existing benchmarks face two major limitations: (i) they typically emphasize single-hop retrieval or reasoning over a small set of provided contexts rather than open-domain evidence discovery; and (ii) they provide fragmented coverage of cross-modal reasoning paths, leaving complex multi-hop and multi-image reasoning underexplored. In this paper, we introduce CrossModalQA, an open-domain benchmark for evaluating multimodal retrieval and reasoning over heterogeneous corpora. CrossModalQA contains 1,863 question-answer pairs constructed from 4,987 Wikipedia articles and 4,431 Wikimedia Commons images. It covers five complementary reasoning paths: vision-to-text, text-to-vision, vision-to-text-to-vision, multi-image intersection, and image-set reasoning. Every question requires retrieving and composing distributed textual and visual evidence, with an average reasoning depth of 3.50 hops. We construct the benchmark through multimodal knowledge graph-guided subgraph sampling and apply rule-based consistency checking and LLM verification to ensure multimodal dependence and traceable evidence. Extensive experiments demonstrate that existing multimodal RAG systems struggle to recover complete evidence chains and can underperform closed-book models when incomplete retrieval introduces distracting context. Further analysis reveals that complete cross-modal retrieval contributes more to answer accuracy than generator scaling, while multi-image retrieval and reasoning remain the primary bottlenecks limiting end-to-end performance.",
    "affiliations": [
     "The Hong Kong Polytechnic University",
-    "Jilin University{jiacheng.cai, zijin.hong, yzheng.yuan, huachi.zhou}"
+    "Jilin University"
    ],
    "author_affiliations": [
     [
@@ -775,24 +775,15 @@
    "html_url": "https://arxiv.org/html/2609.05540v1",
    "abstract": "Many medical conditions require diagnosis through detailed, multi-context clinical assessment rather than from visual appearance alone. Despite this, vision-language models (VLMs) are increasingly queried to interpret images in ways that touch on medical or diagnostic judgments, raising safety concerns when such inferences are unsupported. ASD diagnosis requires behavioral and developmental evidence, not static facial photographs. We audit whether VLMs abstain from this unanswerable paired-image query, and whether expressions sway non-abstaining choices. We introduce PARITY (Paired Assessment with Reused Identity), a synthetic, demographically balanced set of identity-controlled neutral/expression portrait pairs with neutral-neutral controls. All identities are synthetic and have no ASD status; because the query is unanswerable from images, any non-abstaining selection is treated as a harmful attribution. Across contemporary VLMs, we find a clear split between refusal-first models and speculative models; in the latter, certain expressions disproportionately trigger harmful selections. Clinical guardrails and single-image framing substantially increase abstention, suggesting actionable mitigations in both prompting and interface design",
    "affiliations": [
-    "Jyotika Singh, Ranjeet Gupta, Graham Horwood, Tao Sheng",
-    "Avi Sil, Sujith Ravi, Dan Roth",
-    "Oracle AI",
-    "Correspondence"
+    "Oracle AI"
    ],
    "author_affiliations": [
+    null,
+    null,
     [
      0
     ],
-    [
-     1
-    ],
-    [
-     2
-    ],
-    [
-     3
-    ],
+    null,
     null,
     null,
     null,
@@ -802,9 +793,6 @@
     null
    ],
    "institutions": [
-    null,
-    null,
-    null,
     null
    ],
    "abs_url": "https://arxiv.org/abs/2609.05540",
@@ -1012,24 +1000,7 @@
     "Department of Electronic Engineering, The Chinese University of Hong Kong, Hong Kong SAR, China",
     "Department of Orthopaedic Surgery, Qilu Hospital of Shandong University, Jinan, Shandong 250012, China"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    [
-     0,
-     1,
-     2,
-     3,
-     4,
-     5
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "University of Hong Kong",
     "University of Hong Kong",
@@ -1068,18 +1039,7 @@
     "IMPA",
     "Bowdoin College"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    [
-     0,
-     1,
-     2
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     null,
     null,
@@ -1632,15 +1592,7 @@
     "School of Artificial Intelligence and Robotics, Xi’an University of Architecture and Technology, Xi’an, 710055, Shaanxi, China",
     "School of Building Equipment Science and Engineering, Xi’an University of Architecture and Technology, Xi’an, 710055, Shaanxi, China"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    [
-     0,
-     1,
-     2
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "Xi'an University of Architecture and Technology",
     "Xi'an University of Architecture and Technology",
@@ -3314,14 +3266,7 @@
     "Department of Computer Science",
     "University of California, Los Angeles"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    [
-     0,
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     null,
     "University of California, Los Angeles"
@@ -3723,18 +3668,7 @@
     "School of Remote Sensing and Information Engineering, Wuhan University, Wuhan, China",
     "State Key Laboratory of Information Engineering in Surveying, Mapping and Remote Sensing,Wuhan University, Wuhan, China"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    [
-     0,
-     1,
-     2
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "Southwest Jiaotong University",
     "Wuhan University",
@@ -3869,35 +3803,9 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.06359v1",
    "abstract": "Hyperspectral image (HSI) classification plays a vital role in remote sensing applications, including agriculture, environmental monitoring, and urban analysis. However, its performance remains challenged by high spectral redundancy, noise sensitivity, and the difficulty of jointly modeling local material composition and long-range spectral dependencies. To address this, we propose AGSA-Net, an abundance-guided self-attention network that explicitly integrates spectral unmixing priors into the classification process. AGSA Net first estimates physically meaningful subpixel abundance maps subject to non-negativity and sum-to-one constraints, regularized by hybrid linear-nonlinear reconstruction decoder. The learned abundances are then used to construct an abundance affinity prior that guides a spectral transformer to emphasize class-discriminative interactions, and the resulting transformer features are fused with compact abundance descriptors for final prediction; in contrast to existing approaches that use abundance as auxiliary or concatenated features. Experiments on Indian Pines, Augsburg, and Berlin demonstrate the benefit of incorporating abundance- guided contextual modeling, particularly in heterogeneous urban scenes. The source code and trained models are available at: https://github.com/nnuvi/AGSA-Net",
-   "affiliations": [
-    "Sifat Momen, Nabeel Mohammed, and Shafin Rahman"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.06359",
    "pdf_url": "https://arxiv.org/pdf/2609.06359"
   },
@@ -4010,7 +3918,6 @@
    "affiliations": [
     "UC Santa Cruz",
     "Google",
-    "Project Page",
     "University of Florida",
     "Vanderbilt University"
    ],
@@ -4022,8 +3929,7 @@
     null,
     [
      0,
-     1,
-     2
+     1
     ],
     null,
     null,
@@ -4033,7 +3939,6 @@
    ],
    "institutions": [
     "University of California, Santa Cruz",
-    null,
     null,
     "University of Florida",
     "Vanderbilt University"
@@ -5397,16 +5302,21 @@
    "html_url": "https://arxiv.org/html/2609.06721v1",
    "abstract": "AI companions are envisioned as always-on assistants that support users in daily life. With this regard, we introduce BuddyVQA, a benchmark for companion-style question answering (QA) on egocentric streaming video. BuddyVQA contains 21.6K questions linked to 6K highlight moments across 1,012 long, egocentric videos. It features two key characteristics that are common in daily first-person QA assistance but are largely overlooked in existing VideoQA benchmarks: ego-deictic expressions and interactively chained questions (e.g., \"Where is it?\", \"How to get there?\"). These require models to infer a user's in-situation intent by resolving visual pronouns in the context of egocentric visual and QA contents, with both grounded in a long-form streaming setting. To tackle the challenges, we propose MyBuddy, a companion-style QA assistant that highlights a multimodal chain-of-thought reasoning mechanism to infer the final answer based on the historical QA and visual content. An additional question filter and multi-level memory are designed to facilitate efficient QA and visual information retrieval under streaming QA settings. Experiments show that MyBuddy significantly enhances the performance of foundation models on BuddyVQA. Moreover, these gains generalize to other streaming and common video QA benchmarks, demonstrating the applicability and effectiveness of our approach. Our code and dataset are available at https://github.com/QHUni/BuddyVQA",
    "affiliations": [
-    "Hangyu Qin and Angela Yao are with National University of Singapore",
-    "Junbin Xiao and Shenglang Zhang are with University of Science and Technology of China"
+    "National University of Singapore",
+    "University of Science and Technology of China"
    ],
    "author_affiliations": [
-    null,
-    null,
-    null,
     [
-     0,
+     0
+    ],
+    [
      1
+    ],
+    [
+     1
+    ],
+    [
+     0
     ]
    ],
    "institutions": [
@@ -6859,22 +6769,18 @@
    "abstract": "Large Vision-Language Models (LVLMs) have achieved strong performance on diverse visual tasks, yet their ability to reconstruct and reason about the 3D structure of the scene depicted in 2D images -- referred to as spatial intelligence -- remains limited. Existing approaches attempt to address this gap by using real-scene spatial question answering datasets that require dense geometric annotations. However, constructing such labels is costly, time-consuming, and often noisy due to reliance on external perception modules. In this work, we propose a novel paradigm inspired by human cognitive development: learning foundational spatial skills through structured block-manipulation tasks. We introduce SpatialBlock-15k, a synthetic dataset of 15,000 block-stacking problems covering 3D-to-2D projection, viewpoint transformation, and structural combination. The dataset further incorporates controlled color modulation as visual cues to encourage anchor-based reasoning in visually complex conditions. Experiments demonstrate that LVLMs trained on our dataset through either direct answering or reasoning-based prediction significantly outperform baselines and generalize to real-world spatial tasks, despite the dataset's synthetic and compact nature. Code and data are available at https://github.com/rsoohyun/SpatialBlock.",
    "affiliations": [
     "KAIST",
-    "South Korea",
     "KAIST & AITRICS"
    ],
    "author_affiliations": [
     null,
     [
-     0,
-     1
+     0
     ],
     [
-     2,
      1
     ]
    ],
    "institutions": [
-    null,
     null,
     null
    ],
@@ -6979,20 +6885,21 @@
    "html_url": "https://arxiv.org/html/2609.07078v1",
    "abstract": "For learning generalizable motion representations from large-scale unlabeled data, Self-supervised learning (SSL) has become a widely adopted methodology. However, existing approaches are primarily limited by the inherent heterogeneity of skeleton data---characterized by varying joint counts, indexing protocols, and topological structures across different sensors---which typically necessitates training separate, sensor-specific, or even entirely dataset-specific models. To overcome this, we introduce SOfA (Skeleton One for All), the first generalist foundation model designed to achieve sensor-unified skeleton representation learning across diverse sensors. To accommodate the dimensional gap caused by varying joint counts, we introduce a fixed-size set of learnable Canonical Joint Slots, acting as a universal vessel that seamlessly accommodates arbitrary skeletal topologies. SOfA fills these slots via an attention mechanism that dynamically aggregates skeletal information from sensor-specific inputs. Furthermore, we resolve joint index misalignment between various sensors by introducing a Semantic Joint Embedding derived from a pre-trained text encoder, rather than relying on absolute positional embeddings. To validate our approach, we standardized ten 3D skeleton datasets for unified training. Extensive experiments demonstrate that SOfA can serve as a truly universal encoder, achieving state-of-the-art (SOTA) performance across a wide range of downstream tasks and sensor types, often outperforming dataset-specific specialist models with a single foundation model.",
    "affiliations": [
-    "Korea Advanced Institute of Science and Technology (KAIST)",
-    "Project Page"
+    "Korea Advanced Institute of Science and Technology (KAIST)"
    ],
    "author_affiliations": [
-    null,
-    null,
     [
-     0,
-     1
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
     ]
    ],
    "institutions": [
-    "Korea Advanced Institute of Science and Technology",
-    null
+    "Korea Advanced Institute of Science and Technology"
    ],
    "abs_url": "https://arxiv.org/abs/2609.07078",
    "pdf_url": "https://arxiv.org/pdf/2609.07078"
@@ -10331,22 +10238,29 @@
    "html_url": "https://arxiv.org/html/2609.08121v1",
    "abstract": "Low-rank tensor modeling has become an effective tool for hyperspectral anomaly detection. However, existing methods still suffer from high computational cost and limited flexibility in characterizing spatially structured anomalies. To address these issues, this paper proposes a hyperspectral anomaly detection method based on group sparse low-rank tensor factorization with automatic anomaly grouping (GSAA). Specifically, the low tubal rank background is characterized by imposing group sparsity on tensor factors, which provides an efficient alternative to direct tensor rank regularization. For anomaly modeling, a latent grouping map is introduced to build an automatic anomaly grouping penalty, allowing anomaly groups to be adaptively inferred from the data rather than predefined at the pixel level. To further exploit complementary spectral and spatial information, GSAA is applied in both domains, and the resulting detection maps are fused to form a spectral--spatial version of GSAA, termed GSAA-SS. An efficient linearized alternating direction method of multipliers algorithm with convergence guarantee is developed to solve the resulting model. Experimental results on five real hyperspectral datasets demonstrate that the proposed method achieves superior detection performance and competitive computational efficiency compared with several state-of-the-art methods.",
    "affiliations": [
-    "School of Mathematics and Statistics, Central China Normal University, Wuhan 430079, China, and also with the Key Laboratory of Nonlinear Analysis and Applications (Ministry of Education), Central China Normal University",
-    "State Key Laboratory of Mathematical Sciences, Academy of Mathematics and Systems Science, Chinese Academy of Sciences, Beijing 100190, China, and also with the School of Mathematical Sciences, University of Chinese Academy of Sciences, Beijing 100049, China"
+    "School of Mathematics and Statistics, Central China Normal University, Wuhan 430079, China",
+    "Key Laboratory of Nonlinear Analysis and Applications (Ministry of Education), Central China Normal University",
+    "State Key Laboratory of Mathematical Sciences, Academy of Mathematics and Systems Science, Chinese Academy of Sciences, Beijing 100190, China",
+    "School of Mathematical Sciences, University of Chinese Academy of Sciences, Beijing 100049, China"
    ],
    "author_affiliations": [
     [
-     0
-    ],
-    [
+     0,
      1
     ],
     [
-     0
+     2,
+     3
+    ],
+    [
+     0,
+     1
     ]
    ],
    "institutions": [
     "Central China Normal University",
+    "Central China Normal University",
+    "Academy of Mathematics and Systems Science",
     "University of Chinese Academy of Sciences"
    ],
    "abs_url": "https://arxiv.org/abs/2609.08121",
@@ -10581,38 +10495,9 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.08215v1",
    "abstract": "Video generation models have recently attracted substantial attention for their ability to generate visually compelling videos, yet ensuring physically consistent and plausible dynamics still remains a fundamental challenge, driving a growing line of research on physical realism in video generation. To address this challenge, motivated by the fact that physical regularities are primarily encoded in motion patterns, we propose PhysFlow, a novel two-stage framework for improving the physical plausibility of generated videos by decomposing video generation into motion-aware optical flow generation followed by motion-conditioned appearance synthesis. Specifically, PhysFlow consists of a physics-aware optical-flow video generator called PA-Flow and a flow-guided video generator called FlowRender. During the first stage, PA-Flow employs a physics-aware attention module to model how motion attributes and material properties influence global motion and local deformation, respectively, and generates an optical flow video as an explicit representation of motion. In the second stage, FlowRender leverages the decoupled motion representation as guidance to synthesize realistic textures and appearances, ultimately producing the final physically plausible video. To further support model training with explicit physical supervision, we construct PhysVideo, a physics-based video dataset generated with a physics engine and 3D-GS rendering, containing 10K foreground objects and 50K realistic video sequences with annotations of motion and material properties. Extensive experiments demonstrate that our proposed PhysFlow generates videos with superior physical plausibility while maintaining high visual fidelity compared with existing methods.",
-   "affiliations": [
-    "Long Chen, and Zhibo Chen"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.08215",
    "pdf_url": "https://arxiv.org/pdf/2609.08215"
   },
@@ -11692,35 +11577,9 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.08402v1",
    "abstract": "Air-Ground Object Search (AGOS) in urban environments is a challenging embodied task, which requires an Unmanned Aerial Vehicle (UAV) and an Unmanned Ground Vehicle (UGV) to jointly search for and verify a specified target vehicle from multi-view visual references. To study this underexplored problem, we introduce AGOS-Bench, the first dedicated benchmark for evaluating whether general-purpose Vision-Language Models (VLMs) can integrate aerial discoveries and ground-level verification through UAV-UGV cooperation. We further provide AGOS-Dataset as the companion resource of exemplary trajectories constructed by an automatic pipeline. It consists of 7.7k episodes for searching objects of diverse categories and attributes, spanning three difficulty levels. To address the AGOS task, we propose AGOS-Agent, a training-free and tool-augmented approach. The agentic method relieves VLMs from complex and dynamic coordination via a deliberate search-handoff-verify cooperation protocol, only demanding VLMs for scene understanding and decision-making. Extensive experiments on nine VLMs show that AGOS-Agent improves overall success rate for eight of the nine evaluated backbones while reducing decision steps for all nine. On the hard split, the SR and SPL of Gemini-3.6-Flash increase from 8.6% to 55.7% and from 7.6% to 44.0%, respectively.",
-   "affiliations": [
-    "Zhengqiu Zhu, Yong Zhao, Rusheng Ju"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.08402",
    "pdf_url": "https://arxiv.org/pdf/2609.08402"
   },
@@ -12044,20 +11903,9 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.08543v1",
    "abstract": "Despite recent advances in surgical vision-language models (VLMs), temporal reasoning remains limited because existing supervision is largely frame-centric. Frame-level scene graphs (SGs) have proven effective in providing structured representations of surgical environments but do not explicitly model the dynamics of surgical workflows. To explicitly model how surgical states evolve across time, we introduce a multi-level structured temporal supervision methodology that augments frame-level surgical SGs with object-level continuity, event-level interaction continuity, and procedure-level connectivity. We then execute temporal queries over the resulting spatio-temporal scene graphs (STSGs) to generate evidence-grounded question-answer pairs, which together form the STSG-VQA benchmark. Each question is linked to the temporal interval and STSG evidence used to derive its reference answer, enabling traceable verification. The benchmark contains 18,458 question-answer pairs across seven temporal categories. Fine-tuning Qwen3-VL-4B and Hulu-Med-4B with STSG-derived supervision improves question-level micro accuracy by 24.39 and 19.56 percentage points over their zero-shot baselines and by 16.50 and 14.25 points over static scene-graph supervision, respectively. These gains span all temporal categories, indicating that STSG-derived supervision helps surgical VLMs reason over temporally grounded interactions rather than isolated frames. The code and dataset will be made publicly available upon acceptance.",
-   "affiliations": [
-    "the"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.08543",
    "pdf_url": "https://arxiv.org/pdf/2609.08543"
   },
@@ -12202,32 +12050,9 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.08636v1",
    "abstract": "Egocentric 4D interaction forecasting aims to anticipate both where future interactions will occur in 3D and how the human body will move to realize them, providing an important capability for assistive robotics and human-computer interaction. Existing methods struggle to translate semantic understanding into precise continuous 3D localization and to balance motion diversity with structural consistency in pose forecasting. More fundamentally, these tasks are often modeled separately, leaving the continuous geometric and temporal correspondence between interaction locations and body motion insufficiently captured. To address these challenges, we introduce Coherent4D, a large-scale egocentric dataset for continuous 4D interaction forecasting, comprising approximately 233K samples across three domains. Each sample pairs a sequence of future 3D interaction locations with corresponding full-body poses, aligned in time and expressed in a shared coordinate system. We also provide evaluation metrics in continuous space. Building on this formulation, we propose HIGFlow, a Hand Interaction Guided Residual Flow framework that models forecasting as a cascaded where-to-how process. HIGFlow first forecasts continuous future interaction locations by combining semantic grounding with short-horizon visual dynamics, and then uses the predicted location sequence to condition a deterministic motion anchor and residual Flow Matching for diverse yet structurally consistent full-body motion forecasting. Extensive experiments across all three domains demonstrate consistent improvements over representative baselines on both location and pose forecasting, while ablations validate the contributions of the proposed components. The project page is available at https://corrineqiu.github.io/from-where-to-how/.",
-   "affiliations": [
-    "Dongmei Jiang, and Liqiang Nie"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.08636",
    "pdf_url": "https://arxiv.org/pdf/2609.08636"
   },
@@ -12381,18 +12206,7 @@
     "Beijing Key Laboratory of Artificial Intelligence for Education",
     "Engineering Research Center of Intelligent Technology and Educational Application, Ministry of Education"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    [
-     0,
-     1,
-     2
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "Beijing Normal University",
     null,
@@ -12816,32 +12630,9 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.08818v1",
    "abstract": "Person identification from millimeter-wave (mmWave) point clouds has mainly relied on gait. Indoor walking, however, is often brief and interrupted, while other activities of daily living (ADLs) may provide complementary identity information. We investigate identification across seven ADLs using mm-ADL, a new point-cloud dataset collected from 11 subjects under a controlled protocol. This extension introduces heterogeneous states and transitions whose spatial and temporal characteristics vary with activity. We therefore study whether activity can provide useful context for learning identity representations. We propose an activity-conditioned framework in which a human activity recognition router dispatches each clip to an activity-specific identity expert. The framework is implemented as a supervised mixture of experts, using a dual-stream static-dynamic PointNet (DS-SDPNet) to combine time-aggregated spatial structure with frame-to-frame information. We evaluate closed-set identification (ID) and subject-disjoint re-identification (ReID). With learned hard routing, ID accuracy increases from 62.1% to 68.0%. In a two-occupant ReID setting, hard routing increases mAP from 57.2% to 75.4% and Rank-1 accuracy from 59.1% to 82.1%. Under a matched gallery partition, activity-specific experts also outperform a shared embedding, showing that the gain extends beyond restricting the gallery. These results support the feasibility of using ADLs beyond gait for identification and the value of activity conditioning under controlled indoor conditions.",
-   "affiliations": [
-    "Chenzhe Zhao, Yunze Lu, and Miodrag Bolic"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.08818",
    "pdf_url": "https://arxiv.org/pdf/2609.08818"
   },
@@ -12972,32 +12763,9 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.08867v1",
    "abstract": "Reasoning segmentation converts an implicit linguistic conclusion into a precise mask, requiring both semantic identification and spatial grounding. Existing MLLM-segmenter interfaces either use a special trigger or compress both signals into one context, although they receive different supervision and fail differently. This coupling obscures whether a failure arises from target interpretation or from localization. We present SeGDeP, an explicit what-where interface. A semantic prompt branch and an independent geometric projection path transform resolved MLLM states into semantic features and a DETR-predicted box, which jointly condition a SAM 3 mask decoder. Training first aligns this executable interface, then uses group reward-decoupled policy optimization (GDPO) to balance format, box-IoU, and mask-IoU feedback. SeGDeP-4B reaches 82.7 average cIoU over eight RefCOCO-family splits and 66.0/59.6 gIoU on ReasonSeg val/test while adapting only 0.38% of Qwen3-VL parameters through LoRA. Controlled stage-wise ablations, gradient diagnostics, and prompt interventions further show that the two paths develop complementary semantic and geometric specialization rather than duplicating the same evidence.",
-   "affiliations": [
-    "Licheng Jiao, Fang Liu, Wenping Ma"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.08867",
    "pdf_url": "https://arxiv.org/pdf/2609.08867"
   },
@@ -13749,21 +13517,24 @@
    "html_url": "https://arxiv.org/html/2609.09145v1",
    "abstract": "We introduce Point4D, a feed-forward model for 4D reconstruction of long-range video sequences. Point4D is able to reliably infer dense per-point 3D trajectories across multi-hundred-frame videos, unlike existing 4D methods that are limited to short input windows of at most a few dozen frames. A key innovation that enables this is our flexible 3D query-based motion decoder that decouples trajectory prediction from image-plane visibility. The predicted 3D endpoints are then directly re-queried in the next chunk without re-projection or matching. Furthermore, we show that extracting and reusing a visual descriptor from an arbitrary frame where the point is visible leads to better performance than relying solely on the source patch. Overall, Point4D achieves state-of-the-art performance across diverse long-video tracking benchmarks spanning over 200 frames and largely outperforms previous feed-forward 4D method. Project page: https://point-4d.github.io",
    "affiliations": [
-    "Carnegie Mellon University",
-    "Project Page"
+    "Carnegie Mellon University"
    ],
    "author_affiliations": [
-    null,
-    null,
-    null,
     [
-     0,
-     1
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
     ]
    ],
    "institutions": [
-    "Carnegie Mellon University",
-    null
+    "Carnegie Mellon University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.09145",
    "pdf_url": "https://arxiv.org/pdf/2609.09145"
@@ -14176,44 +13947,9 @@
    "cross_list_from": "physics.optics",
    "html_url": "https://arxiv.org/html/2609.05507v1",
    "abstract": "Indirect time-of-flight (iToF) cameras provide compact and cost-effective dense depth measurements, but their ranging accuracy is often degraded by sensor-intrinsic uncertainty under practical imaging conditions. Spatially uniform or range-only Gaussian perturbations cannot accurately reproduce the range-dependent and signal-dependent noise characteristics of real iToF measurements, leading to a synthetic-to-real gap for learning-based restoration. To address this problem, we propose a joint depth-uncertainty modeling and restoration framework for reliable iToF sensing. A sensor-intrinsic depth-uncertainty model is first developed from calibrated tap responses, returned-signal levels, and sensor noise statistics through a depth-oriented weighted least-squares formulation. The resulting pixel-wise uncertainty is used for heteroscedastic depth synthesis and uncertainty-aware restoration supervision. Based on this heteroscedastic data synthesis, we further develop a U-shaped restoration network with Depth Visual State Space (DVSS) blocks, which combine long-range state-space modeling with convolutional spatial-channel refinement for structure-preserving depth recovery. Experiments on synthetic data and measurements captured by an in-house iToF prototype validate the proposed uncertainty model under varying range and returned-signal conditions. Controlled comparisons with fixed and range-aware Gaussian noise, together with evaluations on U-Net, Restormer, and DVSS, further demonstrate that the proposed synthesis consistently benefits different restoration backbones. The complete framework achieves 40.85~dB PSNR and 2.54 mm MAE on the synthetic test set, and 35.42 dB PSNR and 4.87 mm MAE on real iToF measurements.",
-   "affiliations": [
-    "Zhaoxiang Jiang, and Xun Guan"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.05507",
    "pdf_url": "https://arxiv.org/pdf/2609.05507"
   },
@@ -14640,16 +14376,7 @@
     "College of Systems Engineering, National University of Defense Technology",
     "Changsha 410073, China"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    [
-     0,
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "National University of Defense Technology",
     null
@@ -15653,36 +15380,45 @@
    "html_url": "https://arxiv.org/html/2609.07274v1",
    "abstract": "SLAM systems based on 3D Gaussian Splatting (3DGS) have recently demonstrated promising reconstruction accuracy for dense 3D scene representations. However, current 3DGS systems struggle to meet the strict demands of real-world deployments due to severe limitations in operational performance and map adaptability. To this end, we propose LightSplat, a hybrid-representation RGB-D SLAM framework. It synergizes local sparse features for robust and fast tracking with a dual-thread backend that progressively constructs dense Gaussian submaps. Crucially, we enable online loop closure through feature-accelerated 3DGS registration, refining overall map consistency through pose graph optimization. Ultimately, LightSplat achieves the online reconstruction of high-fidelity Gaussian map. Extensive experiments on multiple datasets and real-world robotic platform demonstrate that our method achieves near state-of-the-art reconstruction quality and the capability to accommodate practical camera motions, maintaining an average framerate of 8 FPS. Overall, LightSplat provides an efficient and robust foundation for deploying high-fidelity 3DGS in real-world environments.",
    "affiliations": [
-    "School of Automation Science and Electrical Engineering, Beihang University, Beijing 100191, P. R. China, and also with Zhejiang Key Laboratory of Industrial Big Data and Robot Intelligent Systems, Hangzhou Innovation Institute, Beihang University, Hangzhou 310051, P. R. China",
+    "School of Automation Science and Electrical Engineering, Beihang University, Beijing 100191, P. R. China",
+    "Zhejiang Key Laboratory of Industrial Big Data and Robot Intelligent Systems, Hangzhou Innovation Institute, Beihang University, Hangzhou 310051, P. R. China",
     "School of Mechanical Engineering, Zhejiang Sci-Tech University, Hangzhou 310018, P. R. China"
    ],
    "author_affiliations": [
     [
-     0
-    ],
-    [
-     0
-    ],
-    [
+     0,
      1
     ],
     [
-     0
+     0,
+     1
     ],
     [
-     0
+     2
     ],
     [
-     0
+     0,
+     1
     ],
     [
-     0
+     0,
+     1
     ],
     [
-     0
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
     ]
    ],
    "institutions": [
+    "Beihang University",
     "Beihang University",
     "Zhejiang Sci-Tech University"
    ],
@@ -15793,15 +15529,7 @@
     "Dept. of Informatics and Telecommunications, National and Kapodistrian University of Athens, Greece",
     "Huawei Heisenberg Research Center (Munich), Germany"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    [
-     0,
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "National and Kapodistrian University of Athens",
     null
@@ -15833,27 +15561,19 @@
    "html_url": "https://arxiv.org/html/2609.07362v1",
    "abstract": "Converting in-service reinforced-concrete (RC) building blueprints into simulation-ready models---structured frame representations that support deterministic FEM export and qualified-engineer review---underpins safety assessment and seismic retrofit, but the process remains manual. Direct prompting of a multimodal large language model (MLLM) over a scanned sheet is unreliable: outputs often violate engineering constraints on beam--column support, span count, or 3D continuity. We present BlueprintAgent (BPA), a constraint-triggered multimodal agent for simulation-ready frame extraction from scanned blueprints. BPA treats the MLLM as the primary reader and decision maker, with OCR and computer vision supplying localized evidence. Its central mechanism realizes engineering constraints as callable validators whose entity-level conflict reports trigger targeted MLLM revisits over the local region---an inference-time control distinct from fixed pipelines and free-form self-reflection. We evaluate BPA on 300 real scanned blueprint sheets from 20 anonymized RC frame projects, against five baselines and six ablations. BPA reaches a macro-averaged Beam F1 of 0.994, against 0.301 for single-MLLM zero-shot and 0.820 for a fixed pipeline; removing MLLM-led axis adjudication collapses Beam and Column F1 on complex multi-sheet projects. For dense technical drawings, engineering constraints are best deployed as triggers for entity-level targeted revisits rather than as post-hoc output filters.",
    "affiliations": [
-    "Jiansheng Fan, Chen Wang",
-    "Tsinghua University, Beijing 100084, China",
-    "Correspondence"
+    "Tsinghua University, Beijing 100084, China"
    ],
    "author_affiliations": [
+    null,
     [
      0
     ],
-    [
-     1
-    ],
-    [
-     2
-    ],
+    null,
     null,
     null
    ],
    "institutions": [
-    null,
-    "Tsinghua University",
-    null
+    "Tsinghua University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.07362",
    "pdf_url": "https://arxiv.org/pdf/2609.07362"
@@ -16331,8 +16051,7 @@
    "affiliations": [
     "University of Washington",
     "Seattle, WA, USA",
-    "Amazon",
-    "USA"
+    "Amazon"
    ],
    "author_affiliations": [
     [
@@ -16340,25 +16059,20 @@
      1
     ],
     [
-     2,
-     3
+     2
     ],
     [
-     2,
-     3
+     2
     ],
     [
-     2,
-     3
+     2
     ],
     [
-     2,
-     3
+     2
     ]
    ],
    "institutions": [
     "University of Washington",
-    null,
     null,
     null
    ],
@@ -16388,8 +16102,7 @@
    "abstract": "Vision Language Models have achieved strong performance on multimodal benchmarks, yet their ability to reason about culturally grounded and metaphor-rich content remains insufficiently studied. Internet memes present a challenging setting where meaning emerges from implicit interactions between image, overlaid text, sarcasm, and shared socio-cultural knowledge rather than literal visual recognition. This challenge is amplified in low-resource languages such as Bangla, where code-mixing, stylized scripts, and culturally specific symbolism introduce substantial distribution shift. In this work, we introduce BanglaMemeX, a culturally grounded multimodal benchmark comprising 3,000 Bangla memes annotated with multi-dimensional labels (humor, sarcasm, offensiveness, motivational intent, and overall sentiment) and human-written explanations that explicitly describe textual and visual metaphors. We systematically evaluate modern VLMs on both classification and explanation generation, revealing that current models struggle to interpret implicit cultural cues despite reasonable surface-level accuracy. Our results highlight the need for culturally-aware multimodal systems capable of grounded reasoning under linguistic and cultural distribution shift.",
    "affiliations": [
     "University of Dhaka",
-    "University of Texas at Dallas",
-    "Correspondence"
+    "University of Texas at Dallas"
    ],
    "author_affiliations": [
     [
@@ -16401,13 +16114,11 @@
     null,
     [
      0,
-     1,
-     2
+     1
     ]
    ],
    "institutions": [
     "University of Dhaka",
-    null,
     null
    ],
    "abs_url": "https://arxiv.org/abs/2609.08029",

@@ -211,17 +211,7 @@
     "Faculty of Computer Science and Artificial Intelligence",
     "Shenzhen University of Advanced Technology, Shenzhen, China"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    [
-     0,
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     null,
     "Shenzhen University of Advanced Technology"
@@ -603,16 +593,7 @@
     "UC Santa Barbara",
     "Santa Barbara, CA 93106, USA"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    [
-     0,
-     1,
-     2
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     null,
     "University of California, Santa Barbara",
@@ -1229,8 +1210,8 @@
    "html_url": "https://arxiv.org/html/2609.09736v1",
    "abstract": "Video Temporal Grounding (VTG) localizes the video segment that matches a natural-language query. Many queries describe an action performed by a particular entity. Existing methods often encode the query as a whole or use general video-text interactions, without explicitly checking whether the action and entity occur together. They may therefore select a segment that contains both concepts but not the event described by the query. We propose Interaction Aligned Action-Entity Video Temporal Grounding (IAE-VTG), which models this rela?tionship at both the representation and training assignment levels. First, the Fine-grained Disentangled Interaction Module (FDIM) separates action and entity related query information and aligns it with complementary motion and appearance features. It then combines token-level interactions to build representations that capture the relationship between the action and entity. Second, Interaction-Sensitive Assignment (ISA) adds this interaction evidence to bipartite matching, so training targets are selected using both temporal overlap and semantic compatibility. This reduces supervision from temporally plausible but semantically incorrect proposals. Experiments on QVHighlights, Charades?STA, and TACoS show that IAE-VTG consistently improves strong baselines and achieves competitive or state-of-the-art performance on standard grounding metrics. Additional analyses show that the method is especially effective when similar actions or entities appear at multiple times and produces more reliable assignments for complex events.",
    "affiliations": [
-    "Shiwen Zhao is with School of Computer Science, The University of Sydney, Sydney, NSW 2006, Australia",
-    "Qi Zhang, Sezer Karaoglu, Theo Gevers and Martin R. Oswald are with the Informatics Institute at University of Amsterdam, 1098 XH Amsterdam, the Netherlands"
+    "School of Computer Science, The University of Sydney, Sydney, NSW 2006, Australia",
+    "Informatics Institute at University of Amsterdam, 1098 XH Amsterdam, the Netherlands"
    ],
    "author_affiliations": [
     [
@@ -1280,35 +1261,9 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.09737v1",
    "abstract": "Test-Time Adaptation (TTA) enhances the robustness of models against distribution shifts but faces two critical challenges: error accumulation from noisy pseudo-labels and catastrophic forgetting of source knowledge. Uncertainty-based approaches designed to mitigate error accumulation often yield overconfident or computationally expensive estimates, while strategies intended to prevent forgetting via prototype replay rely on static representations that easily become misaligned as the model adapts. To address these issues, this paper proposes a novel framework, Distilling Image Prototype for Guided Test-Time Adaptation (DIPTTA). The core of the proposed approach is the introduction of a Distill Image Prototype (DIP), a compact set of synthetic images that serves as a dynamic and regenerative anchor of source knowledge. This prototype enables a dynamic feature replay mechanism that continuously generates feature prototypes aligned with the current state of the model, thus effectively preventing catastrophic forgetting. Furthermore, the DIP anchors a source-calibrated uncertainty estimation method, which provides a less biased measure of sample reliability by leveraging stable source knowledge, thereby robustly suppressing error accumulation. Extensive experiments on multiple benchmarks demonstrate that DIPTTA significantly outperforms state-of-the-art methods, particularly under severe domain shifts. The source code is available at https://github.com/LiwenWang919/DIPTTA.",
-   "affiliations": [
-    "Massimo Tistarelli, Lin Yuanbo Wu, Zhe Jin"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.09737",
    "pdf_url": "https://arxiv.org/pdf/2609.09737"
   },
@@ -1620,14 +1575,16 @@
    "abstract": "Semantic segmentation for autonomous driving requires reliable detection of vulnerable road users (VRUs) despite heavy class imbalance. We introduce CLFTv2, a hierarchical camera-LiDAR fusion framework replacing global ViT attention with a Swin-based multi-scale encoder and a lightweight FPN-style residual decoder. Operating in the 2D perspective domain, CLFTv2 integrates multi-scale geometric cues through shifted-window attention and per-scale residual fusion, avoiding the computational overhead of query-matching decoders. Across three driving datasets, CLFTv2 consistently improves VRU recall. On ZOD, CLFTv2-Large achieves 53.5\\% mIoU, improving pedestrian IoU from 35.5\\% to 44.9\\% over the prior CLFT model. On Waymo, CLFTv2 reaches 61.7\\% mIoU. Additionally, a modality-isolation study suggests ViT's global receptive field yields stronger fusion gains only under dense LiDAR returns. Compared to a Swin-based Mask2Former adaptation, CLFTv2 requires 1.4$\\times$ fewer GFLOPs and delivers 2.2$\\times$ higher throughput, while achieving comparable overall accuracy. These results demonstrate that hierarchical local-attention fusion offers an efficient, scalable alternative to global-attention and query-based decoders for real-time on-vehicle perception in intelligent transportation systems. Source code is publicly available.",
    "affiliations": [
     "Department of Mechanical and Industrial Engineering, Tallinn University of Technology, Tallinn, Estonia",
-    "FinEst Centre for Smart Cities, Tallinn University of Technology, Tallinn, Estonia, and also with Universitas Mercatorum, Rome, Italy"
+    "FinEst Centre for Smart Cities, Tallinn University of Technology, Tallinn, Estonia",
+    "Universitas Mercatorum, Rome, Italy"
    ],
    "author_affiliations": [
     [
      0
     ],
     [
-     1
+     1,
+     2
     ],
     [
      0
@@ -1635,7 +1592,8 @@
    ],
    "institutions": [
     "Tallinn University of Technology",
-    "Tallinn University of Technology"
+    "Tallinn University of Technology",
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.09881",
    "pdf_url": "https://arxiv.org/pdf/2609.09881"
@@ -2725,13 +2683,7 @@
     "University of Arkansas",
     "Fayetteville, Arkansas, USA"
    ],
-   "author_affiliations": [
-    null,
-    [
-     0,
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     null,
     null
@@ -2857,25 +2809,24 @@
    "html_url": "https://arxiv.org/html/2609.10355v1",
    "abstract": "Video understanding has rapidly evolved toward video large language models (VideoLLMs): systems that couple video representations with pretrained large language models and condition generation on a textual prompt. Their strong performance on captioning, question answering, retrieval and temporal grounding comes at a computation and memory cost that grows with frame count and context length, limiting deployment in real-time, mobile and resource-constrained settings. This survey covers inference-efficiency mechanisms for visual and audiovisual VideoLLMs that report concrete reductions in parameter count, FLOPs per input, latency, memory, or visual and audio token count. We analyze bottlenecks across frame sampling, modality encoding, connector-level token reduction, and LLM prefilling and decoding. We organize methods by the pipeline stage at which they act, covering VideoLLMs developed since late 2022 together with earlier frame-sampling and vision-encoder mechanisms that remain components of current pipelines. We assemble literature-reported accuracy--cost comparisons under shared host models and input protocols wherever available, distinguish them from heterogeneous cross-paper evidence, and identify gaps in audiovisual efficiency and standardized evaluation. We maintain a repository at https://github.com/momentslab/awesome-efficient-videollm.",
    "affiliations": [
-    "SAMOVAR Laboratory, Télécom SudParis, Institut Polytechnique de Paris, Palaiseau, France, and also with Moments Lab, Paris, France",
-    "Moments Lab, Paris, France",
-    "SAMOVAR Laboratory, Télécom SudParis, Institut Polytechnique de Paris, Palaiseau, France"
+    "SAMOVAR Laboratory, Télécom SudParis, Institut Polytechnique de Paris, Palaiseau, France",
+    "Moments Lab, Paris, France"
    ],
    "author_affiliations": [
     [
-     0
+     0,
+     1
     ],
     [
      1
     ],
     [
-     2
+     0
     ]
    ],
    "institutions": [
     "Institut Polytechnique de Paris",
-    null,
-    "Institut Polytechnique de Paris"
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.10355",
    "pdf_url": "https://arxiv.org/pdf/2609.10355"
@@ -2906,7 +2857,7 @@
    "affiliations": [
     "University of Trento",
     "valeo.ai",
-    "Sorbonne Université[1mm]",
+    "Sorbonne Université",
     "Fondazione Bruno Kessler"
    ],
    "author_affiliations": [
@@ -3595,7 +3546,6 @@
    "affiliations": [
     "Key Laboratory of Technology in Geo-spatial",
     "InformationProcessing and Application System, Aerospace Information Research Institute, Chinese Academy of Sciences, 100190 Beijing, China",
-    "Department of",
     "Earth System Science, Tsinghua University, 100084 Beijing, China"
    ],
    "author_affiliations": [
@@ -3604,8 +3554,7 @@
      1
     ],
     [
-     2,
-     3
+     2
     ],
     [
      0,
@@ -3615,7 +3564,6 @@
    "institutions": [
     null,
     "Chinese Academy of Sciences",
-    null,
     "Tsinghua University"
    ],
    "abs_url": "https://arxiv.org/abs/2507.21816",
@@ -3674,27 +3622,32 @@
    "html_url": "https://arxiv.org/html/2511.18031v1",
    "abstract": "Few-shot object detection (FSOD) aims to detect novel instances with only a limited number of labeled training samples, presenting a challenge that is particularly prominent in numerous remote sensing applications such as endangered species monitoring and disaster assessment. Existing FSOD methods for remote sensing images (RSIs) have achieved promising progress but remain constrained by the limited diversity of instances. To address this issue, we propose a novel framework that can leverage a diffusion model pretrained on large-scale natural images to synthesize diverse remote sensing instances, thereby improving the performance of few-shot object detectors. Instead of directly synthesizing complete remote sensing images, we first generate instance-level slices via a specialized slice-to-slice module, and then embed these slices into full-scale imagery for enhanced data augmentation. To further adapt diffusion models for remote sensing scenarios, we develop a class-agnostic image inversion module that can invert remote sensing instance slices into semantic space. Additionally, we introduce contrastive loss to semantically align the synthesized images with their corresponding classes. Experimental results show that our method hasachieved an average performance improvement of 4.4% across multiple datasets and various approaches. Ablation experiments indicate that the elaborately designed inversion module can effectively enhance the performance of FSOD methods, and the semantic contrastive loss can further boost the performance.",
    "affiliations": [
-    "National Key Laboratory of Microwave Imaging Technology, Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100094, China, and also with the School of Electronic",
+    "National Key Laboratory of Microwave Imaging Technology, Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100094, China",
+    "School of Electronic",
     "department of Earth System Science, Tsinghua University, Beijing 100084, China"
    ],
    "author_affiliations": [
     [
-     0
+     0,
+     1
     ],
     [
+     2
+    ],
+    null,
+    [
+     0,
      1
     ],
     null,
     [
-     0
-    ],
-    null,
-    [
-     0
+     0,
+     1
     ]
    ],
    "institutions": [
     "Aerospace Information Research Institute",
+    null,
     "Tsinghua University"
    ],
    "abs_url": "https://arxiv.org/abs/2511.18031",
@@ -4026,20 +3979,7 @@
     "Department of Linguistics, University of Potsdam, Germany",
     "Department of Linguistics, University of Southern California, Los Angeles, CA, USA"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    [
-     0,
-     1,
-     2,
-     3
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "University of Southern California",
     "City University of New York",
@@ -4320,20 +4260,23 @@
    "html_url": "https://arxiv.org/html/2609.09985v1",
    "abstract": "Real-world video understanding requires integrating visual, audio, textual, and temporal evidence distributed across a video. Yet many pipelines use a fixed video context and single-pass inference, limiting adaptive evidence acquisition when observations are incomplete, ambiguous, or conflicting. We present VLX-VR, an agentic-aware video reasoning model trained within a video reasoning framework defined by a Think--Memory--Observation loop. At each step, VLX-VR determines the needed evidence, invokes read_memory or write_memory, incorporates the returned Observation, and decides whether to continue or produce the task output. We train VLX-VR with multimodal data, including videos and agent trajectories, using reinforcement learning to learn evidence acquisition, memory use, and termination. On MINERVA, VLX-VR achieves state-of-the-art performance among the models included in our comparison, with 78.79% accuracy. Under the original three duration groups, its accuracies are 76.70%, 78.73%, and 80.92%, with a cross-duration accuracy variance of 2.97~$\\mathrm{pp}^2$. On correctly answered samples, 96.20% of VLX-VR's reasoning traces are consistent with the MINERVA reference reasoning traces and the evidence described by them, while approximately 75.80% of all evaluated samples satisfy both answer correctness and this evidence-grounded trace criterion. These results show strong performance and broadly stable behavior across durations, while counting, state changes, causal reasoning, and spatial perception remain challenging.",
    "affiliations": [
-    "Om AI Research",
-    "Correspondence: Tiancheng Zhao"
+    "Om AI Research"
    ],
    "author_affiliations": [
-    null,
-    null,
-    null,
     [
-     0,
-     1
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
     ]
    ],
    "institutions": [
-    null,
     null
    ],
    "abs_url": "https://arxiv.org/abs/2609.09985",
@@ -4451,30 +4394,25 @@
    "affiliations": [
     "University of Technology Graz",
     "Know-Center Research GmbH",
-    "Austria",
     "Institute of Visual Computing"
    ],
    "author_affiliations": [
     [
      0,
-     1,
-     2
+     1
     ],
     [
      0,
-     1,
-     2
+     1
     ],
     [
-     3,
-     0,
-     2
+     2,
+     0
     ]
    ],
    "institutions": [
     null,
     "Know Center Research GmbH",
-    null,
     null
    ],
    "abs_url": "https://arxiv.org/abs/2609.10311",
@@ -4652,8 +4590,7 @@
    "affiliations": [
     "Yale University",
     "Jump Trading",
-    "Brown University",
-    "Correspondence"
+    "Brown University"
    ],
    "author_affiliations": [
     [
@@ -4669,15 +4606,13 @@
      2
     ],
     [
-     0,
-     3
+     0
     ]
    ],
    "institutions": [
     "Yale University",
     null,
-    "Brown University",
-    null
+    "Brown University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.10464",
    "pdf_url": "https://arxiv.org/pdf/2609.10464"

@@ -26,23 +26,10 @@
    "html_url": "https://arxiv.org/html/2609.38180v1",
    "abstract": "Existing 3D part decomposition methods do not necessarily partition the original shape into non-overlapping parts that collectively cover the entire shape, allowing overlaps or gaps that hinder downstream part-level applications. We instead formulate part decomposition as a joint partitioning of the entire shape, where the predicted parts are non-overlapping and jointly recover the entire shape. Our key insight is that part decomposition should consider all desired parts jointly, rather than modeling each part independently. To this end, we develop a promptable model for 3D part decomposition from images or meshes. Users can specify desired parts through 3D point prompts for controllable decomposition. Given one point prompt per desired part, our model produces the corresponding parts as a complete partition of the entire shape. We build on a pretrained 3D generation model and first obtain a shape latent from either an input image or mesh. We then introduce a prompt encoder that maps each 3D point prompt to a part token while attending to the shape latent. To decode the desired parts, we propose a novel part decoder jointly scoring the entire shape against all part tokens in a coarse-to-fine manner, assigning every position within the shape volume to exactly one part. We perform part decomposition in this shared shape latent space, enabling a unified model for image-to-part generation, mesh-to-part generation, and part segmentation. Our method outperforms existing works on all part-quality metrics across all three tasks, and improves compatibility among parts by an order of magnitude over previous SOTA methods. Code and models will be released.",
    "affiliations": [
-    "Nicolás Ugrinovic",
     "Carnegie Mellon University"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    [
-     0
-    ],
-    null,
-    null,
-    [
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
-    null,
     "Carnegie Mellon University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.38180",
@@ -437,25 +424,18 @@
    "html_url": "https://arxiv.org/html/2609.38153v1",
    "abstract": "We introduce PowerSim, a method to bring physically grounded, differentiable dynamics to PowerFoam's power diagram based 3D representation. PowerSim directly couples a pre-trained PowerFoam scene to the Material Point Method (MPM) by exploiting a natural alignment between the two: the geometric and appearance properties of each primitive correspond closely to the quantities MPM already tracks as an object deforms. Consequently, simulated motion can drive the scene's geometry and appearance directly, without an auxiliary representation in between. Built on this framework, we enable a range of applications on real and synthetic scenes: (1) simulating a static scene under user interaction, (2) recovering spatially varying material fields, (3) compositing primitives from independently captured scenes into a single simulation-ready scene and (4) ray-tracing reflections that update consistently as the object deforms. Our results suggest that PowerSim excels over previous frameworks for physically grounded dynamics, while unlocking unique advantages-such as secondary ray lighting effects on dynamic scenes. Results are best viewed on our project website: https://power-sim.github.io/.",
    "affiliations": [
-    "[5pt]",
-    "Johns Hopkins University",
-    "[10pt]",
-    "Project Website"
+    "Johns Hopkins University"
    ],
    "author_affiliations": [
-    null,
     [
-     0,
-     1,
-     2,
-     3
+     0
+    ],
+    [
+     0
     ]
    ],
    "institutions": [
-    null,
-    "Johns Hopkins University",
-    null,
-    null
+    "Johns Hopkins University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.38153",
    "pdf_url": "https://arxiv.org/pdf/2609.38153"
@@ -480,26 +460,21 @@
    "html_url": "https://arxiv.org/html/2609.38152v1",
    "abstract": "We introduce FracGen, a fracture-aware video generation model that produces plausible, controllable fracture dynamics from a single image of an intact object, conditioned on physics signals. To train FracGen, we build FracSim, a fracture-aware simulation framework that augments material point method (MPM) simulation with a continuum damage model, producing paired fracture videos and dense, pixel-aligned physical fields at no additional cost beyond standard rendering. FracGen leverages these maps in two ways: it is trained to jointly predict them alongside RGB video, encouraging the model to capture physical state rather than surface appearance; and it is supervised with physics-informed losses that encourage consistency among the predicted maps. As a result, FracGen captures distinct material-specific fracture behavior without expensive test-time simulation or per-scene tuning, while offering fine-grained control over where an object tears, how fast the crack propagates, and how much deformation precedes failure. We further introduce a benchmark for evaluating the physical plausibility of generated fracture video, and show through extensive experiments that FracGen outperforms existing video generation baselines in both physical and visual fidelity. Results are best viewed in our project website: https://fracgen.github.io/.",
    "affiliations": [
-    "[5pt]",
-    "Johns Hopkins University",
-    "[10pt]",
-    "Project Website"
+    "Johns Hopkins University"
    ],
    "author_affiliations": [
-    null,
-    null,
     [
-     0,
-     1,
-     2,
-     3
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
     ]
    ],
    "institutions": [
-    null,
-    "Johns Hopkins University",
-    null,
-    null
+    "Johns Hopkins University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.38152",
    "pdf_url": "https://arxiv.org/pdf/2609.38152"
@@ -2968,19 +2943,18 @@
    "html_url": "https://arxiv.org/html/2609.37496v1",
    "abstract": "Paired synthetic aperture radar (SAR) and electro-optical (EO) imagery is increasingly available across sensors, resolutions, and geographic regions. Yet existing SAR-to-EO image translation (SET) methods are typically trained on a single, limited-scale dataset, producing models specialized to particular sensing conditions. We introduce GeoSET, the first generalist model for SET, built around a single pretrained parent that is adapted to downstream datasets under a common protocol. We curate over 3 million high-quality SAR--EO pairs from a collection of more than 10 million SAR observations, spanning diverse sensors, spatial resolutions, and ground sampling distances. To bridge the modality gap between SAR observations and a pretrained image generator, we develop a speckle-robust SAR encoder and pretrain the conditional generator on this heterogeneous corpus. The resulting parent supports efficient adaptation across downstream datasets through low-rank adaptation (LoRA), updating only 0.60% of the generator parameters and requiring approximately one hour per dataset. Across six downstream benchmarks, GeoSET achieves state-of-the-art results in FID and DISTS with full fine-tuning or LoRA, demonstrating effective transfer across heterogeneous SAR-EO domains.",
    "affiliations": [
-    "Korea Advanced Institute of Science and Technology (KAIST)",
-    "Project Page"
+    "Korea Advanced Institute of Science and Technology (KAIST)"
    ],
    "author_affiliations": [
-    null,
     [
-     0,
-     1
+     0
+    ],
+    [
+     0
     ]
    ],
    "institutions": [
-    "Korea Advanced Institute of Science and Technology",
-    null
+    "Korea Advanced Institute of Science and Technology"
    ],
    "abs_url": "https://arxiv.org/abs/2609.37496",
    "pdf_url": "https://arxiv.org/pdf/2609.37496"
@@ -3005,20 +2979,21 @@
    "html_url": "https://arxiv.org/html/2609.37495v1",
    "abstract": "Human motion generation plays an important role in applications such as character animation, virtual environments, and embodied interaction. While existing approaches have achieved remarkable progress, many of them are developed for individual tasks, including text-to-motion, pose-conditioned generation, and trajectory control. Although these tasks involve different types of conditions, a unified framework capable of handling them within a common representation would greatly simplify motion generation systems. We observe that diverse motion conditions can be naturally formulated as different observation patterns over motion sequences, where each task corresponds to a specific masking strategy. Based on this insight, we introduce MotionMaestro, a unified motion generation framework that learns a shared representation for complete motions and heterogeneous partial observations through masked motion tokenization. MotionMaestro employs a three-stage training strategy that first learns a masked motion tokenizer, then refines its reconstruction ability on clean motions, and finally trains a conditional flow-matching generator in the learned latent space. Furthermore, we introduce an observation map and an observation loss to explicitly preserve provided motion conditions during generation. With this unified representation and conditioning mechanism, MotionMaestro supports text-guided and unconditional synthesis, pose conditioning and partial completion, temporal interpolation, trajectory control, and motion continuation. Experiments on the large-scale RoMo and MotionMillion datasets show state-of-the-art performance across diverse motion generation tasks.",
    "affiliations": [
-    "Korea Advanced Institute of Science and Technology (KAIST)",
-    "Project Page"
+    "Korea Advanced Institute of Science and Technology (KAIST)"
    ],
    "author_affiliations": [
-    null,
-    null,
     [
-     0,
-     1
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
     ]
    ],
    "institutions": [
-    "Korea Advanced Institute of Science and Technology",
-    null
+    "Korea Advanced Institute of Science and Technology"
    ],
    "abs_url": "https://arxiv.org/abs/2609.37495",
    "pdf_url": "https://arxiv.org/pdf/2609.37495"
@@ -3360,44 +3335,9 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.37407v1",
    "abstract": "While recent video foundation models excel at generating high-quality short videos, long-form video generation remains a critical challenge, where a major bottleneck lies in conditioning independently generated shots to preserve consistent characters, scenes, and objects throughout a story. Existing training-free approaches typically condition target shots using retrieved historical visuals. However, these references often suffer from severe informational mismatch, either introducing irrelevant contextual redundancy or failing to provide the full combination of required elements for the target shot. To resolve this, we present Complementary Retrieval-Augmented Prompting, an agentic framework that strategically aggregates a compact set of mutually supportive historical references to achieve complete and targeted conditioning for long-form video generation without retraining or modifying the underlying generator. Specifically, our framework explicitly models the visual elements required by each target shot by parsing the narrative script into a text-grounded visual element registry that tracks characters, objects, scenes, and their shot-level states. A VLM-annotated keyframe library further maps these elements to past visual observations. Guided by the required elements, our agent retrieves complementary references that maximize target-element coverage while minimizing historical noise. Finally, the retrieved references, structured element states, and grounding instructions are assembled into a unified prompt for the frozen video generator. This element-aware process provides comprehensive conditioning while remaining fully interpretable. Quantitative and qualitative evaluations on multi-shot story generation demonstrate that our method consistently outperforms recent-frame, memory-based, and entity-level retrieval baselines in cross-shot consistency and text-controllability.",
-   "affiliations": [
-    "Huayi Zhang, Yan Zhang, Wei Xu, Zishun Liao, Jianwen Lou"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.37407",
    "pdf_url": "https://arxiv.org/pdf/2609.37407"
   },
@@ -3988,7 +3928,8 @@
     "School of Mathematics and Statistics, Xi’an Jiaotong University, Xi’an 710049, China",
     "Faculty of Electronic and Information Engineering, Xi’an Jiaotong University, Xi’an 710049, China",
     "State Key Laboratory of Remote Sensing and Digital Earth, Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100094, China",
-    "Helmholtz-Zentrum Dresden-Rossendorf, 09599 Freiberg, Germany, and also with Faculty of Electrical and Computer Engineering, University of Iceland, 101 Reykjavik, Iceland",
+    "Helmholtz-Zentrum Dresden-Rossendorf, 09599 Freiberg, Germany",
+    "Faculty of Electrical and Computer Engineering, University of Iceland, 101 Reykjavik, Iceland",
     "School of Information and Communication Technology, Griffith University, Nathan, QLD 4111, Australia",
     "School of Computer Science and Technology, Xi’an Jiaotong University, Xi’an 710049, China"
    ],
@@ -4003,10 +3944,11 @@
      2
     ],
     [
-     3
+     3,
+     4
     ],
     [
-     4
+     5
     ],
     [
      2
@@ -4015,13 +3957,14 @@
      0
     ],
     [
-     5
+     6
     ]
    ],
    "institutions": [
     "Xi'an Jiaotong University",
     "Xi'an Jiaotong University",
     "Aerospace Information Research Institute",
+    "Helmholtz-Zentrum Dresden-Rossendorf",
     "University of Iceland",
     "Griffith University",
     "Xi'an Jiaotong University"
@@ -5453,29 +5396,9 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.37090v1",
    "abstract": "Large multimodal models (LMMs) support diverse visual understanding and reasoning tasks but are often impractical to run entirely on resource-constrained devices. Device-edge co-inference reduces device computation, yet transmitting visual data over bandwidth-limited uplinks can introduce substantial delay. Task-oriented feature compression (TOFC) reduces the payload through feature aggregation and entropy coding. However, continuous-feature coding remains costly, and query-agnostic aggregation may discard task-relevant local evidence. We propose query-guided task-oriented feature compression (Q-TOFC) for device-edge multimodal inference. Q-TOFC employs residual vector quantization (RVQ) to encode each merged feature as a compact sequence of codebook indices, reducing its representation cost and allowing more features to be transmitted. It further incorporates query relevance into feature aggregation and uses a quantization error compensation adapter to mitigate the distortion introduced by discrete quantization. Experiments on seven multimodal benchmarks show that Q-TOFC reduces the visual payload by 53.6% relative to TOFC while maintaining comparable average normalized task performance. End-to-end latency evaluations further demonstrate lower latency under bandwidth-constrained uplinks.",
-   "affiliations": [
-    "the"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.37090",
    "pdf_url": "https://arxiv.org/pdf/2609.37090"
   },
@@ -5810,7 +5733,7 @@
    "html_url": "https://arxiv.org/html/2609.37046v1",
    "abstract": "Vision-Language Models are increasingly used in autonomous-driving systems, yet their ability to recover dynamic physical state from visual input remains insufficiently characterized. We study velocity understanding as a controlled diagnostic across three tasks: surrounding-agent speed, current ego speed, and short-horizon future ego-speed proposal. On nuScenes, we evaluate open-weight general-purpose and PhysicalAI VLMs, together with the driving-oriented Alpamayo-1.5 Vision-Language-Action model, using multiple input and output formulations. We combine verbal evaluation with temporal perturbations, counterfactual ego-speed hints and linear probes of hidden representations. The tasks exhibit distinct failure modes. Surrounding-agent speed is weakly encoded in an agent-specific form, whereas current ego speed is often internally accessible but poorly verbalized: continuous probes achieve 4.7-5.8 km/h MAE compared with 10.2-16.8 km/h MAE for verbal outputs. Multiple frames provide inconsistent verbal gains to single frame inputs, and frame order is rarely exploited. Under non-optimized QLoRA, task-specific adaptation improves both task-relevant latent speed representations and verbal readout, but continuous surrounding-agent speed estimation remains weak, while most future-speed gains survive frame shuffling, indicating limited temporal grounding. Driving specialized Alpamayo-1.5 shows stronger latent representations for surrounding-agent and future ego speed, while current ego-speed decodability is comparable and substantial probe-verbal gaps remain. Thus, driving specialization can strengthen motion representations but does not guarantee stronger encoding across both scene and ego states or reliable readout. The results show that plausible planning outputs do not necessarily imply reliable recovery or temporal grounding of the underlying dynamic state.",
    "affiliations": [
-    "Munich University of Applied Sciences, Intelligent Vehicles Lab (IVL), 80335 Munich, Germany intelligent-vehicles [at] hm.edu"
+    "Munich University of Applied Sciences, Intelligent Vehicles Lab (IVL), 80335 Munich, Germany"
    ],
    "author_affiliations": [
     [
@@ -5921,7 +5844,6 @@
     "ByteDance Inc",
     "Peking University",
     "Fudan University",
-    "🖂 Correspondence",
     "CPII under InnoHK"
    ],
    "author_affiliations": [
@@ -5949,12 +5871,11 @@
      1
     ],
     [
-     1,
-     4
+     1
     ],
     [
      0,
-     5
+     4
     ]
    ],
    "institutions": [
@@ -5962,7 +5883,6 @@
     null,
     "Peking University",
     "Fudan University",
-    null,
     null
    ],
    "abs_url": "https://arxiv.org/abs/2609.37030",
@@ -6075,15 +5995,7 @@
     "IRT Saint Exupéry, France",
     "CNES, France"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    [
-     0,
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "IRT Saint Exupéry",
     null
@@ -8884,14 +8796,12 @@
    "abstract": "Equirectangular projection (ERP) is the standard representation for 360$^\\circ$ imagery, and robust dense feature matching on ERP underpins panoramic stereo, view synthesis, and omnidirectional SLAM. Dense matchers trained on flat images degrade systematically on ERP because the chart introduces three coupled distortions -- topological, metric, and area -- that standard coarse matching and visibility estimation do not explicitly model. We show that correcting the three distortions at the coarse-stage interfaces where they arise -- pairwise distortions in attention, per-pixel distortion in covisibility gating -- improves PCK@$1^\\circ$ from 0.229 to 0.275 on Matterport3D under a fixed coarse scaffold, with the refiner architecture unchanged -- our central result. Concretely, SCCM (Spherically Consistent Coarse Matching) augments a chart-naive cross-attention/dual-softmax coarse matcher with two sphere-derived priors: Spherical Positional Attention (SPA) pairs a yaw-periodic RoPE (topology) with a tangent-plane bias (metric), and Area-Aware Covisibility (AAC) applies a pre-sigmoid log-area correction (area). The chart-naive scaffold serves as a controlled reference, separating the scaffold-replacement effect from the spherical-prior effect. Instantiated in the RoMa V1 framework with the same frozen encoder, refiner architecture, and loss, SCCM also outperforms the ERP-native EDM (0.163) and an ERP-retrained RoMa V1 (0.198) under a unified ERP dense matching protocol, while perspective-trained matchers largely fail on ERP. It further transfers zero-shot to Stanford2D3D and, when trained on outdoor Holo360D, leads there as well.",
    "affiliations": [
     "Kakao Mobility Corp., Seongnam, Republic of Korea",
-    "Korea University, Seoul, Republic of Korea",
-    "Project page"
+    "Korea University, Seoul, Republic of Korea"
    ],
    "author_affiliations": [
     [
      0,
-     1,
-     2
+     1
     ],
     [
      0
@@ -8904,7 +8814,6 @@
     ]
    ],
    "institutions": [
-    null,
     null,
     null
    ],
@@ -9446,16 +9355,7 @@
     "Montreal, Canada",
     "Mila – Quebec AI Institute"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    [
-     0,
-     1,
-     2,
-     3
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     null,
     null,
@@ -11734,25 +11634,7 @@
     "School of Transportation, Inner Mongolia University, Hohhot, 010021, China",
     "College of Transportation, Tongji University, Shanghai, 201804, China"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    [
-     0,
-     1,
-     2,
-     3,
-     4,
-     5,
-     6
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "Research Institute of Highway",
     "Research Institute of Highway",
@@ -11956,7 +11838,7 @@
    "html_url": "https://arxiv.org/html/2609.36924v1",
    "abstract": "Learning humanoid skills from videos typically requires a successful human demonstration, which often demands custom data collection. Although failures have traditionally been treated only as negative examples in robot learning, they can still reveal a usable trajectory prefix before the task fails, as well as the intended outcome. To leverage this information from a failed-attempt video, we propose TRACC, a pipeline that imitates the useful portion of the motion trajectory and then completes the task based on the inferred task outcome. The usable motion prefix serves as prior knowledge until the failure occurs, after which the task-completion reward guides the policy to learn the intended task goal without requiring a successful task trajectory. We evaluate our method on six in-the-wild failed human tasks from the Oops! dataset. Our experimental results demonstrate the effectiveness of the proposed approach for learning from failed attempts when no successful demonstration is available. Thus, these findings establish failed human videos as a viable source of supervision for humanoid skill learning.",
    "affiliations": [
-    "Sarmad Idrees and Jongeun Choi are with the School of Mechanical Engineering, Yonsei University, Seoul 03722, Korea"
+    "School of Mechanical Engineering, Yonsei University, Seoul 03722, Korea"
    ],
    "author_affiliations": [
     [
@@ -12059,17 +11941,7 @@
     "Nanjing University of Science and Technology, Nanjing, China",
     "University of Chinese Academy of Sciences, Beijing, China"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    [
-     0,
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "Nanjing University of Science and Technology",
     "University of Chinese Academy of Sciences"
@@ -12103,9 +11975,9 @@
    "html_url": "https://arxiv.org/html/2609.36779v1",
    "abstract": "Accurate hand-eye calibration is crucial for precision manipulation. Traditional methods rely on markers, with their precision dependent on marker accuracy and observability. In contrast, markerless methods, such as learning-based approaches, use deep neural networks to directly extract keypoints or features from images, enabling the computation of hand-eye transformation with a single image and without the need for physical markers. Recently, differentiable rendering-based methods for hand-eye calibration have leveraged physical models to render binary masks and compare them with observations, enabling hand-eye calibration without fiducial markers in the calibration stage and providing interpretable optimization. While the state-of-the-art differentiable rendering methods achieve remarkable accuracy, the use of binary masks can result in the loss of internal profile details, reducing precision. Additionally, these methods can also suffer from unstable optimization and local minima. In this study, we propose a novel RGB-based differentiable rendering framework that provides richer geometric and appearance cues by incorporating color and mask geometric features, thereby improving calibration accuracy and optimization stability. Additionally, we propose a mask-guided image-to-image translation method to ensure explicit preservation of color and geometric consistency throughout the translation. Our approach is validated through both simulation and real-world experiments, with results demonstrating strong accuracy and robustness and clear improvements over existing differentiable rendering methods. Our method achieves a grasping success rate of 88.9% and insertion success rate of 57.4% on the UR5e real-world experiment, outperforming the state-of-the-art differentiable rendering hand-eye calibration method EasyHeC by 46.3 and 48.1 percentage points, respectively.",
    "affiliations": [
-    "Xiaotian Zhang is with Department of Precision Engineering, School of Engineering, The University of Tokyo, Tokyo, Japan",
-    "Yusheng Wang and Jun Ota are with Research into Artifacts, Center for Engineering (RACE), School of Engineering, The University of Tokyo, Tokyo, Japan",
-    "Naoya Kagawa, Noritaka Takamura, Keiji Okuhara, Hiroyasu Baba are with FA Products Business Unit, DENSO WAVE INCORPORATED, Aichi, Japan"
+    "Department of Precision Engineering, School of Engineering, The University of Tokyo, Tokyo, Japan",
+    "Research into Artifacts, Center for Engineering (RACE), School of Engineering, The University of Tokyo, Tokyo, Japan",
+    "FA Products Business Unit, DENSO WAVE INCORPORATED, Aichi, Japan"
    ],
    "author_affiliations": [
     [
@@ -12274,8 +12146,7 @@
     "Harbin Institute of Technology (Shenzhen)",
     "Zhejiang University",
     "Peking University",
-    "Harbin Institute of Technology",
-    "Code"
+    "Harbin Institute of Technology"
    ],
    "author_affiliations": [
     [
@@ -12291,8 +12162,7 @@
      2
     ],
     [
-     3,
-     4
+     3
     ],
     [
      0
@@ -12302,8 +12172,7 @@
     "Harbin Institute of Technology",
     "Zhejiang University",
     "Peking University",
-    "Harbin Institute of Technology",
-    null
+    "Harbin Institute of Technology"
    ],
    "abs_url": "https://arxiv.org/abs/2609.36638",
    "pdf_url": "https://arxiv.org/pdf/2609.36638"
@@ -12480,20 +12349,11 @@
    "html_url": "https://arxiv.org/html/2609.36458v1",
    "abstract": "Semantic-preserving transformations can induce substantial motion in learned representations, while small changes may strongly affect model predictions, raising a basic question: what local metric best captures semantically consequential variation? We propose Fisher-induced invariant representation geometry (Fisher-IRG), which measures local representation directions through their predictive sensitivity. Around each representation, we construct semantic-preserving and semantic-changing neighborhoods, aggregate their local Fisher information, and recover invariant directions through a contrastive generalized eigenvalue problem. Controlled displacement analyses first show that comparable Euclidean motion can have substantially different predictive consequences, supporting the need for a predictive geometry. Across language and vision models, Fisher-IRG yields stronger semantic-versus-nuisance predictive selectivity and generally more reproducible subspaces than covariance-based geometry, while recovering systematically distinct local directions. Representation interventions further localize semantic effects to the Fisher-derived subspace, and held-out separation and retrieval show that the recovered geometry generalizes beyond the discovery neighborhoods. These results support Fisher-IRG as a principled framework for characterizing local invariant representation geometry.",
    "affiliations": [
-    "[0.2em]",
     "Department of Computer Science",
     "University of Nebraska Omaha, Omaha, NE, USA"
    ],
-   "author_affiliations": [
-    null,
-    [
-     0,
-     1,
-     2
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
-    null,
     null,
     null
    ],

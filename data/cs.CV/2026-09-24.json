@@ -90,10 +90,6 @@
    "html_url": "https://arxiv.org/html/2609.28466v1",
    "abstract": "Advances in generative models have improved video fidelity, enabling long-horizon generation, interactive world modeling, and evolving visual environments. Autoregressive (AR) video generation extends visual sequences through causal rollouts. However, a fundamental bottleneck emerges: as the generated sequence expands, practical models must operate under strictly bounded context windows, storage, and computational limits. Consequently, critical historical information, e.g., entity identities, dynamic states, and intervention-induced causal changes, often leaves the active context long before its relevance diminishes. Overcoming this limitation and maintaining temporal persistence constitutes a fundamental memory problem. We present a systematic and comprehensive review of memory mechanisms in AR video generation. We formulate memory operationally as persistent historical information maintained across outer AR steps, capable of influencing future generation even after the originating evidence is no longer locally accessible. Building upon this unified framework, we organize the literature through five complementary perspectives: (I) Forms, the representational carriers of history; (II) Functions, the specific semantic and physical information requiring preservation; (III) Operations, the lifecycle of writing, reading, updating, managing, and integrating memory; (IV) Learning, the optimization of memory behaviors under closed-loop rollouts; and (V) Evaluation, the paradigms for diagnosing genuine memory capabilities. We conclude by synthesizing open challenges, including composable and resource-aware memory architectures, trustworthy state updating, self-rollout learning, and standardized evaluation. By bridging representations, mechanisms, and learning paradigms, this paper establishes a structured foundation for developing reliable, memory-conditioned video generation systems.",
    "affiliations": [
-    "Hanzhe Hu, Shengtao Yao, Zixin Zhang, Guibin Zhang, Zhefan Rao, Jinxiu Liu, Yexin Liu",
-    "Rui Peng, Yuhao Liu, Bin Ren, Shuai Yang, Yukang Chen, Salman Khan, Ying-Cong Chen",
-    "Nicu Sebe, Yu Cheng",
-    "Ming-Hsuan Yang, Qifeng Chen",
     "HKUST, CityUHK, FDU, ZODA, CMU, NYU, HKUST(GZ), NUS, Georgia Tech",
     "PKU, MBZUAI, NVIDIA, UCF, UNITN, NTU, UC Merced",
     "Core Contributors (Alphabetically)",
@@ -108,11 +104,7 @@
      0,
      1,
      2,
-     3,
-     4,
-     5,
-     6,
-     7
+     3
     ],
     null,
     null,
@@ -136,10 +128,6 @@
     null
    ],
    "institutions": [
-    null,
-    null,
-    null,
-    null,
     null,
     "University of California, Merced",
     null,
@@ -1244,22 +1232,18 @@
    "html_url": "https://arxiv.org/html/2609.28159v1",
    "abstract": "Standard contrastive learning frameworks are mainly designed from a semantic perspective, yet learning 2D visual representations that preserve 3D spatial structure is also important for scene understanding. In this work, we propose Depth-Guided Contrastive Learning (DGCL), a simple auxiliary objective that injects 3D spatial awareness into 2D contrastive representation learning. Our key idea is to use depth to convert local 3D proximity into contrastive similarity: pixels that are closer in 3D space are encouraged to have more similar representations than pixels that are farther apart. Instead of relying on absolute depth values, DGCL formulates supervision through relative 3D distance comparisons among randomly sampled pixels, making the objective invariant to depth scale, efficient to compute, and easy to integrate into existing contrastive frameworks. Experiments across different datasets and models show that DGCL consistently improves 2D representation learning and benefits semantic downstream tasks by stronger spatial and geometric understanding. The code is available on https://github.com/LeungTsang/DGCL.",
    "affiliations": [
-    "KU Leuven",
-    "Belgium"
+    "KU Leuven"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ]
    ],
    "institutions": [
-    "KU Leuven",
-    null
+    "KU Leuven"
    ],
    "abs_url": "https://arxiv.org/abs/2609.28159",
    "pdf_url": "https://arxiv.org/pdf/2609.28159"
@@ -2309,32 +2293,9 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.27793v1",
    "abstract": "Existing deep learning approaches for automatic sleep staging suffer from limited robustness under heterogeneous recording conditions, where non-stationary noise, inter-subject differences and cross-dataset distribution shifts cause unstable features and poor generalization. This work proposes DualStabSleepNet (DSSNet), a dual-domain diffusion stabilization network for robust sleep staging, which improves robustness in both data and feature domains. After preprocessing multi-channel polysomnography (PSG), a continuous-scale diffusion-based stabilization module suppresses noise while preserving physiological signal structures. Stabilized signals are converted to time-frequency representations and fed into a Vision Transformer backbone. A teacher-student guided diffusion feature stabilization module further mitigates feature drift and enforces multi-level feature consistency. Evaluated on four public PSG datasets SleepEDF-20, SleepEDF-78, SHHS and ISRUC-S3, DSSNet achieves state-of-the-art accuracy of 89.2%, 88.0%, 89.7%, 86.7% with improved macro-F1 and Cohen's kappa. It obtains notable improvements on hard transitional stages (e.g., 12.5% gain for N1 on SHHS) and boosts N2/REM recognition. Under cross-dataset settings, DSSNet is robust to distribution shift and performs on par with or superior to target-dataset trained baselines, demonstrating its practical potential for real-world sleep staging across heterogeneous cohorts.",
-   "affiliations": [
-    "Shiyuan Han, and Tong Zhang"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.27793",
    "pdf_url": "https://arxiv.org/pdf/2609.27793"
   },
@@ -2481,32 +2442,9 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.27728v1",
    "abstract": "We introduce NeuralSRNF, a novel framework for the statistical shape analysis and generation of genus-zero 3D and 4D objects that undergo nonrigid deformations. Traditional methods rely on complex and computationally expensive nonlinear elastic metrics that measure bending and stretching. Recent advances in elastic shape analysis achieve computational efficiency by mapping input 3D shapes to the space of Square Root Normal Fields (SRNFs) where the L2 metric approximates the partial elastic metric, significantly facilitating the process of computing geodesics and summary statistics. SRNFs, however, are not invertible, and the numerical algorithms used to map SRNFs back to the original space of surfaces remain computationally very expensive and often lead to approximate results. This paper addresses this fundamental SRNF inversion problem using a novel neural representation, termed NeuralSRNF. Unlike the commonly used numerical SRNF, NeuralSRNF is (1) continuous, and thus resolution-agnostic, enabling full functional shape analysis, (2) more accurate, and (3) computationally more efficient as it can compute inverse SRNF maps along a geodesic path in less than 3 s compared to over 10 min for the numerical SRNF. We demonstrate, using various datasets, the utility and efficiency of the proposed NeuralSRNF in multiple elastic 3D and 4D shape analysis tasks such as geodesic computation, deformation transfer, statistical summaries computation, and 3D shape generation. We show that it outperforms competing methods on most evaluated datasets and metrics by a wide margin in both accuracy and computational efficiency. The source code and additional results are available at https://awaisnizamani16.github.io/awais/NeuralSRNF/.",
-   "affiliations": [
-    "Mohammed Bennamoun, Senior Member, IEEE and Anuj Srivastava, Member, IEEE"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.27728",
    "pdf_url": "https://arxiv.org/pdf/2609.27728"
   },
@@ -3227,15 +3165,7 @@
     "School of Computing, University of Georgia",
     "Athens, GA 30602, USA"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    [
-     0,
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     null,
     null
@@ -3935,42 +3865,52 @@
    "html_url": "https://arxiv.org/html/2609.27274v1",
    "abstract": "Due to the limited dynamic range of conventional image sensors, captured low dynamic range (LDR) video often suffers from highlight clipping and shadow detail loss, making high-quality high dynamic range (HDR) reconstruction from single-exposure sequences highly challenging without alternating exposures or extra hardware. Alternating-exposure HDR methods sacrifice frame rate and struggle with motion alignment, making them impractical for real-world capture. To address this, we propose RawHDRV, an end-to-end framework for single-exposure Raw video HDR reconstruction, that fundamentally exploits the linear response and channel-specific characteristics of Bayer data. Specifically, it features a channel-decomposition temporal alignment and fusion strategy that processes Bayer channels separately to exploit their distinct exposure characteristics, together with exposure-aware weighted fusion. It further incorporates an exposure complementarity mask-guided restoration module that leverages inter-frame exposure redundancy to adaptively fuse reliable information and suppress saturation artifacts, and introduces a mask-guided color loss that combines normalized error constraints with gradient smoothing to enhance highlight recovery. Furthermore, we construct a large-scale mobile Raw-HDR video dataset with per-frame HDR annotations. Experiments show that our method achieves the state-of-the-art results in all metrics, demonstrating superior spatial quality and temporal stability under extreme exposure conditions. The code is available at https://github.com/supeixian/RawHDRV.",
    "affiliations": [
-    "School of Communication Engineering, Hangzhou Dianzi University, Hangzhou, China, and also with Zhejiang Provincial Key Laboratory of Low Altitude Ubiquitous Networking Technology, Hangzhou Dianzi University, Hangzhou, China",
-    "Institute of Microelectronics, Chinese Academy of Sciences, Beijing, China, and also with the University of Chinese Academy of Sciences, Beijing, China",
+    "School of Communication Engineering, Hangzhou Dianzi University, Hangzhou, China",
+    "Zhejiang Provincial Key Laboratory of Low Altitude Ubiquitous Networking Technology, Hangzhou Dianzi University, Hangzhou, China",
+    "Institute of Microelectronics, Chinese Academy of Sciences, Beijing, China",
+    "University of Chinese Academy of Sciences, Beijing, China",
     "School of Computer Science and Technology, Beijing Institute of Technology, Beijing, China",
     "School of Automation, Hangzhou Dianzi University, Hangzhou, China"
    ],
    "author_affiliations": [
     [
-     0
-    ],
-    [
-     0
-    ],
-    [
+     0,
      1
     ],
     [
-     2
+     0,
+     1
     ],
     [
-     0
-    ],
-    [
-     0
-    ],
-    [
+     2,
      3
     ],
     [
-     2
+     4
     ],
     [
-     0
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     5
+    ],
+    [
+     4
+    ],
+    [
+     0,
+     1
     ]
    ],
    "institutions": [
     "Hangzhou Dianzi University",
+    "Hangzhou Dianzi University",
+    "Chinese Academy of Sciences",
     "University of Chinese Academy of Sciences",
     "Beijing Institute of Technology",
     "Hangzhou Dianzi University"
@@ -5357,7 +5297,7 @@
    "html_url": "https://arxiv.org/html/2609.28312v1",
    "abstract": "We present VGM-VS, a visual servoing method built on a pretrained feed-forward visual geometry model. Given the current view and a reference image captured at the target configuration, we estimate the relative camera pose with a visual geometry model and apply it iteratively as the pose increment of a closed-loop pose-based visual servoing (PBVS) scheme. The geometry-aware representation acquired from large-scale pretraining keeps this estimate reliable when the target is occluded, weakly textured, or covers only a small part of the image. However, the scale ambiguity inherent to these models leaves the predicted translation defined up to an unknown scale, while the pose increment must be metric for robot control. We close this gap with a scene-specific metric adaptation: the robot autonomously records image--pose pairs along a predefined motion starting from the target pose, and we fine-tune the camera head on these data, jointly learning the hand--eye transform and thus removing the need for a dedicated calibration process. We evaluate our method on three real-world assembly tasks with demanding tolerances: USB-C cable picking, cable insertion, and RAM insertion. Running in real time at 30Hz, VGM-VS converges to submillimeter terminal accuracy on the cable tasks, and reaches success rates of 90--100\\% when the target is moved during servoing. It converges in all trials under initial displacements of up to 30cm from the reference pose and with 50\\% of the target object occluded, outperforming the compared visual servoing baselines.",
    "affiliations": [
-    "All authors are with Agile Robots SE, Munich, Germany",
+    "Agile Robots SE, Munich, Germany",
     "Technical University of Munich"
    ],
    "author_affiliations": [
@@ -5453,9 +5393,7 @@
    "affiliations": [
     "Nanyang Technological University",
     "Griffin Labs",
-    "École Centrale de Lyon",
-    "Code",
-    "Project Website"
+    "École Centrale de Lyon"
    ],
    "author_affiliations": [
     [
@@ -5474,9 +5412,7 @@
      0
     ],
     [
-     2,
-     3,
-     4
+     2
     ],
     [
      0
@@ -5485,9 +5421,7 @@
    "institutions": [
     "Nanyang Technological University",
     null,
-    "École Centrale de Lyon",
-    null,
-    null
+    "École Centrale de Lyon"
    ],
    "abs_url": "https://arxiv.org/abs/2609.28256",
    "pdf_url": "https://arxiv.org/pdf/2609.28256"
@@ -5782,32 +5716,9 @@
    "cross_list_from": "eess.IV",
    "html_url": "https://arxiv.org/html/2609.27854v1",
    "abstract": "Multi-source remote sensing image classification has attracted increasing attention due to the complementary spectral, structural, and geometric information. However, existing methods still suffer from two limitations: insufficient semantic contextual modeling and unreliable feature fusion caused by slight spatial misalignment. To address these issues, we propose a Semantic-Guided Fusion Network (SGFNet) for multi-source remote sensing image classification. Specifically, the Semantic Mixing Convolution Block (SMCB) is designed to dynamically generate semantic-aware convolution kernels according to contextual relationships among feature representations. In addition, the Frequency Modulated Fusion Block (FMFB) is introduced to perform cross-modal interaction in the frequency domain, which effectively alleviates the influence of slight spatial misalignment and improves complementary information fusion. Extensive experiments conducted on the Augsburg and Houston 2018 datasets demonstrate that the proposed SGFNet consistently outperforms several state-of-the-art methods. The codes are publicly available at https://github.com/oucailab/SGFNet .",
-   "affiliations": [
-    "Qian Du, Fellow, IEEE"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.27854",
    "pdf_url": "https://arxiv.org/pdf/2609.27854"
   },

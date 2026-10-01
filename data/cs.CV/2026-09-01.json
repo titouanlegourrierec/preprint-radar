@@ -198,7 +198,6 @@
    "html_url": "https://arxiv.org/html/2608.28671v1",
    "abstract": "AI-generated art has sparked debates around potential plagiarism, as these images may closely resemble existing artworks. This research quantifies the similarity between original pieces and AI-generated counterparts, particularly those produced by the Stable Diffusion XL Refiner 1.0. We use Siamese Networks with frozen CLIP encoders and cosine similarity optimized through triplet loss. A dataset of paired original and generated images was built using image-to-image generation and custom prompts, enriched with semantic descriptors and BLIP-2 captions. Prior studies report up to 81\\% style replication and 90\\% visual similarity. Our results show high discriminative performance: training accuracy reached 99.9\\%, and the best model configuration achieved 99.4\\% test accuracy with strong inter-class separation ($\\delta \\mu$ = 0.677), demonstrating the effectiveness of our semantic-visual embeddings.",
    "affiliations": [
-    "Cecilia Reyes-Peña, Ricardo Ramos-Aguilar",
     "UPIIT, Instituto Politécnico Nacional",
     "Guillermo Valle 11, Centro, C.P. 90000 Tlaxcala de Xicohténcatl, Tlaxcala, Mexico"
    ],
@@ -207,14 +206,12 @@
     null,
     [
      0,
-     1,
-     2
+     1
     ],
     null,
     null
    ],
    "institutions": [
-    null,
     "Instituto Politécnico Nacional",
     null
    ],
@@ -1683,7 +1680,6 @@
    "html_url": "https://arxiv.org/html/2608.28874v1",
    "abstract": "The automated sorting of shredded black plastics from end-of-life (EOF) industrial waste presents a significant challenge in recycling facilities, primarily due to the limitations of current sensing and analytical approaches. Existing studies predominantly rely on single-point contact-based mid-infrared spectroscopy or laboratory hyperspectral imaging (HSI) setups, which fail to provide the spatially resolved analysis necessary for fast, bulk processing. Moreover, available datasets are laboratory-controlled and focus on intact rather than shredded plastics, hindering further recycling refinement. Black industrial plastics, in particular, are underrepresented, while most classification pipelines depend on manual region selection and rule-based spectral matching, neglecting spatial information and modern deep learning (DL) methods. To address these gaps, we introduce the first publicly available HSI dataset of shredded black plastics from EOF vehicle, comprising four industrial polymers across 13 co-registered RGB, VNIR, SWIR, and MWIR scenes and their segmentation pipeline. We developed a multi-modal spectral-spatial framework that integrates foreground isolation, pixel-wise classification, and object-level majority voting. By adapting advanced hyperspectral transformers from earth observation and incorporating chemometric band selection, we achieve accurate classification of complex black plastics. The study establishes the first comprehensive benchmark using nine processing methods, including chemometric, machine learning, and DL architectures. To ensure reproducibility, the complete dataset and methodologies are publicly released, establishing a benchmark for a hyperspectral object-analysis pipeline in industrial inspection.",
    "affiliations": [
-    "Pedram Ghamisi,Paul Scheunders",
     "Helmholtz-Zentrum Dresden-Rossendorf (HZDR) -Helmholtz Institute Freiberg for Resource Technology (HIF), Freiberg, Germany",
     "University of Antwerp, Antwerp, Belgium",
     "Remote Sensing and Geoinformatics, Freie Universität Berlin, Berlin, Germany",
@@ -1692,7 +1688,6 @@
    ],
    "author_affiliations": null,
    "institutions": [
-    null,
     "Helmholtz Institute Freiberg for Resource Technology",
     "University of Antwerp",
     "Freie Universität Berlin",
@@ -1924,8 +1919,7 @@
    "abstract": "Stereo reconstruction is one of the last remaining Computer Vision tasks where all state-of-the-art methods employ a heavy architectural inductive bias. Even though it has been demonstrated that the task can be solved using general-purpose methods, it is widely believed that inductive biases in stereo are strictly necessary for both high-quality results and computational efficiency. We challenge this paradigm. In this paper, we demonstrate that both state-of-the-art accuracy and superior runtime efficiency are achievable with a model completely devoid of architectural inductive biases, relying instead on a simple, end-to-end Vision Transformer. By training on massive synthetic datasets, we show that pure data-driven learning can surpass explicitly engineered geometry. This work proves that explicit inductive biases are no longer a prerequisite for stereo matching, ultimately unlocking true scaling laws for continuous improvement in 3D reconstruction.",
    "affiliations": [
     "Intrinsic (Google)",
-    "Texas A&M University",
-    "second authors"
+    "Texas A&M University"
    ],
    "author_affiliations": [
     [
@@ -1933,8 +1927,7 @@
     ],
     [
      0,
-     1,
-     2
+     1
     ],
     [
      0
@@ -1949,12 +1942,10 @@
      0
     ],
     [
-     1,
-     2
+     1
     ],
     [
-     1,
-     2
+     1
     ],
     [
      0
@@ -1962,8 +1953,7 @@
    ],
    "institutions": [
     null,
-    "Texas A&M University",
-    null
+    "Texas A&M University"
    ],
    "abs_url": "https://arxiv.org/abs/2608.28933",
    "pdf_url": "https://arxiv.org/pdf/2608.28933"
@@ -2186,7 +2176,6 @@
    "html_url": "https://arxiv.org/html/2608.29037v1",
    "abstract": "Real-world degradations such as blur, shadow, distortion, and moire patterns severely impair the document question-answering capabilities of Multimodal Large Language Models (MLLMs). Applying restoration tools before Visual Question Answering (VQA) is an intuitive solution. However, existing restoration approaches remain limited, as manually designing and executing restoration strategies is labor-intensive and requires domain expertise. Agentic restoration offers new possibilities for automation, yet existing frameworks primarily target natural images and pursue perceptual quality, overlooking that restoration should serve downstream tasks rather than optimize generic image quality metrics. To this end, we explore the value of agentic restoration for real-world degraded document VQA and propose DocIntent, a training-free Answerability-Guided Agentic Restoration framework. DocIntent first assesses question answerability, then identifies task-relevant degradations and selectively invokes restoration tools. A Comparison-Based Rollback mechanism validates each restoration step and reverts it when question-relevant evidence becomes less decipherable. The entire process requires no additional pretrained degradation classifier or image quality assessment model. Extensive experiments on the WildDoc benchmark show that DocIntent consistently improves the average score and consistency of different open- and closed-source MLLMs. The code and experimental data will be publicly available.",
    "affiliations": [
-    "Yongxin Shi, Xuhan Zheng, Lianwen Jin",
     "South China University of Technology"
    ],
    "author_affiliations": [
@@ -2194,15 +2183,13 @@
     null,
     null,
     [
-     0,
-     1
+     0
     ],
     null,
     null,
     null
    ],
    "institutions": [
-    null,
     "South China University of Technology"
    ],
    "abs_url": "https://arxiv.org/abs/2608.29037",
@@ -3667,28 +3654,33 @@
    "html_url": "https://arxiv.org/html/2608.29243v1",
    "abstract": "Existing diffusion-based enhancement methods provide strong generative capability for low-light image enhancement (LLIE), yet they either rely on paired supervision or lack reliable scene constraints in zero-shot settings, often leading to structural inconsistency and color drift. Motivated by conventional Retinex models, which offer physically interpretable priors that can serve as reliable scene constraints yet struggle with mixed degradations in real-world scenarios, we propose DARD, a zero-shot Degradation-Aware Retinex-guided Diffusion framework for LLIE. DARD first extracts image-specific physical priors from the degraded input through a test-time degradation-aware Retinex decomposition, thereby providing reliable structural guidance for zero-shot restoration. It then injects these priors into reverse diffusion through a timestep-adaptive frequency fusion strategy to balance structural anchoring and detail generation. Finally, a guided reverse refinement process with physical consistency and Contrastive Language-Image Pre-training (CLIP)-based semantic guidance is introduced to suppress structural artifacts and semantic drift during sampling. Extensive experiments show that DARD achieves strong distortion and perceptual performance and consistently outperforms existing zero-shot baselines across multiple real-world low-light benchmarks. To further validate the practical utility of our method for downstream applications, we evaluated its impact on semantic segmentation. Experiments demonstrate that images enhanced by DARD achieve a 28.10% relative improvement in mIoU over AGLLDiff.",
    "affiliations": [
-    "Guangdong Laboratory of Artificial Intelligence and Digital Economy (SZ), Shenzhen 518083, China, and also with the Anhui Provincial International Joint Research Center for Advanced Technology in Medical Imaging, School of Artificial Intelligence, Anhui University, Hefei 230601, China",
+    "Guangdong Laboratory of Artificial Intelligence and Digital Economy (SZ), Shenzhen 518083, China",
+    "Anhui Provincial International Joint Research Center for Advanced Technology in Medical Imaging, School of Artificial Intelligence, Anhui University, Hefei 230601, China",
     "State Key Laboratory of Opto-Electronic Information Acquisition and Protection Technology, the Anhui Provincial Key Laboratory of Secure Artificial Intelligence, Anhui Provincial International Joint Research Center for Advanced Technology in Medical Imaging, and the School of Artificial Intelligence, Anhui University, Hefei, China",
     "School of Artificial Intelligence, Anhui University, Hefei 230601, China"
    ],
    "author_affiliations": [
     [
-     0
+     0,
+     1
     ],
     [
-     0
+     0,
+     1
+    ],
+    [
+     3
+    ],
+    [
+     0,
+     1
     ],
     [
      2
-    ],
-    [
-     0
-    ],
-    [
-     1
     ]
    ],
    "institutions": [
+    "Guangdong Laboratory of Artificial Intelligence and Digital Economy (Shenzhen)",
     "Anhui University",
     "Anhui University",
     "Anhui University"
@@ -3990,38 +3982,9 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2608.29289v1",
    "abstract": "Eye-movement tracking has emerged as a promising non-invasive approach to Autism Spectrum Disorder (ASD) screening, with systematic differences in attentional allocation and revisit behaviors observed during socially interactive tasks. Existing computational methods typically characterize eye-movements using discrete gaze trajectories and fixation events, yielding representations dominated by short-range temporal dynamics and limiting models that primarily emphasize long-range dependencies. Meanwhile, gaze behavior is naturally organized across semantically meaningful Areas of Interest (AOIs), whose attention allocation and transitions provide important structural cues, yet their relationships are rarely modeled explicitly. To address these limitations, we propose a structural face AOI-guided Eye-Gaze Track Network (AOI-Net) that jointly models short-term temporal dynamics and AOI-level structural organization. A network gating mechanism adaptively integrates the complementary temporal and structural representations according to their contributions to gaze-behavior characterization. To mitigate the pronounced class imbalance commonly encountered between individuals with ASD and Typically Developing (TD) participants in clinical datasets, class-distribution-aware learning is further employed to facilitate discriminative embedding learning under skewed class distributions. Experiments on a unique and large-scale clinical eye-tracking database comprising eight stimulus subsets and more than 1,300 participants show that AOI-Net consistently outperforms state-of-the-art methods. The proposed framework also enables interpretable gaze-behavior modeling and provides a practical basis for scalable AI-driven ASD screening in real-world healthcare. The code is available at https://github.com/Zhanpei-ai/CIM-AOI-Net/tree/main/Code",
-   "affiliations": [
-    "Yiqun Zhang, and Yiu-Ming Cheung"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2608.29289",
    "pdf_url": "https://arxiv.org/pdf/2608.29289"
   },
@@ -4620,8 +4583,7 @@
     "Manipal Institute of Technology, Manipal Academy of Higher Education, Manipal, 576104, Karnataka, India",
     "Department of Biomedical Engineering, The Johns Hopkins University, Baltimore, 21218, MD, USA",
     "The Russell H. Morgan Department of Radiology and Radiological Sciences, The Johns Hopkins Hospital, Baltimore, 21287, MD, USA",
-    "Department of Radiology, Columbia University Irving Medical Center, New York, 10032, NY, USA",
-    "Author to whom any correspondence should be addressed"
+    "Department of Radiology, Columbia University Irving Medical Center, New York, 10032, NY, USA"
    ],
    "author_affiliations": [
     [
@@ -4629,8 +4591,7 @@
      1,
      2,
      3,
-     4,
-     5
+     4
     ],
     null,
     null,
@@ -4642,8 +4603,7 @@
     "Manipal Academy of Higher Education",
     "Johns Hopkins University",
     "Johns Hopkins Hospital",
-    "Columbia University Irving Medical Center",
-    null
+    "Columbia University Irving Medical Center"
    ],
    "abs_url": "https://arxiv.org/abs/2608.29456",
    "pdf_url": "https://arxiv.org/pdf/2608.29456"
@@ -5380,7 +5340,8 @@
    "abstract": "Feed-forward 3D foundation models reconstruct perspective scenes in one pass. Satellite photogrammetry needs a different product, one that domain adaptation alone does not deliver: dense surface height in an absolute geodetic frame under non-central rational polynomial cameras (RPCs). Perspective-pretrained features are not reliably observable along RPC height rays, absolute elevation carries a low-order height--datum gauge exchangeable with sensor bias to first order, and monocular and multi-view cues fail in different regions. \\method{} treats all three. Lightweight ray-consistent adapters make a frozen backbone matchable along native RPC rays. An explicit datum mechanism separates relief from absolute level and is equivariant to the vertical origin by construction, so one trained model serves zero-, one-, and sparse-control inference. Calibrated inverse-variance fusion combines the two relief streams. \\bench{}, our absolute-frame benchmark of eighteen systems across in-domain, cross-dataset, and cross-city tiers, scores absolute placement without registration or test-reference leakage. On 26 held-out US3D tiles, \\method{} attains $2.99$\\,m absolute MAE at $91.9\\%$ coverage, improves completeness-aware accuracy by $46.4$ points over the strongest compliant feed-forward baseline, remains the most accurate such system under both transfer shifts, and runs in $24$\\,s model-forward time per tile. Code and models will be released at https://github.com/HIT-SIRS/GeoRay",
    "affiliations": [
     "School of Electronics and Information Engineering, Harbin Institute of Technology, Harbin 150001, China",
-    "th Research Institute, China Electronics Technology Group Corporation, Shijiazhuang 050081, China, and also with the State Key Laboratory of Comprehensive PNT Network and Equipment Technology, Shijiazhuang 050081, China",
+    "th Research Institute, China Electronics Technology Group Corporation, Shijiazhuang 050081, China",
+    "State Key Laboratory of Comprehensive PNT Network and Equipment Technology, Shijiazhuang 050081, China",
     "School of Electrical and Electronic Engineering, University of Manchester, Manchester M13˜9PL, U.K"
    ],
    "author_affiliations": [
@@ -5388,19 +5349,20 @@
      0
     ],
     [
-     1
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
+     1,
      2
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     3
     ],
     [
      0
@@ -5412,6 +5374,7 @@
    "institutions": [
     "Harbin Institute of Technology",
     "China Electronics Technology Group Corporation",
+    null,
     "University of Manchester"
    ],
    "abs_url": "https://arxiv.org/abs/2608.29680",
@@ -5953,7 +5916,6 @@
     "Technical University of Munich",
     "Munich Center for Machine Learning (MCML)",
     "Munich Data Science Institute (MDSI)",
-    "Correspondence",
     "University of Trento",
     "Orreco"
    ],
@@ -5961,35 +5923,32 @@
     [
      0,
      1,
-     2,
-     3
+     2
     ],
     [
      0
     ],
     [
-     4
-    ],
-    [
-     5
+     3
     ],
     [
      4
     ],
     [
-     4
+     3
+    ],
+    [
+     3
     ],
     [
      0,
      1,
-     2,
-     3
+     2
     ]
    ],
    "institutions": [
     "Technical University of Munich",
     "Munich Center for Machine Learning",
-    null,
     null,
     "University of Trento",
     null
@@ -6253,12 +6212,10 @@
    "abstract": "Interactive world models extend video generation from offline clip synthesis toward persistent simulation of interactive virtual worlds, enabling applications in games, robotics, embodied agents, and XR. Achieving stable long-horizon interactive generation, however, remains challenging, as the model must simultaneously preserve scene geometry, dynamic consistency, and camera control while supporting real-time autoregressive generation. Building upon Matrix-Game 3.0, we present Matrix-Game 3.5, as shown in Figure 1, which advances real-time interactive world generation toward geometry-aware and long-horizon consistent simulation through three key improvements. First, we propose a unified geometry-aware memory framework, whose patch-memory and tiled-PRoPE components introduce no additional learnable parameters, combining explicit 3D patch retrieval with projective camera conditioning to enable geometry-consistent camera control and faithful long-horizon scene recall. Second, we introduce a static-dynamic disentangled world representation that separately models static scene geometry and dynamic subjects, preserving both geometric consistency and subject identity throughout long-horizon generation. Third, we develop a two-stage progressive real-time distillation framework that converts a bidirectional diffusion model into a few-step causal generator through Perceptual Flow Matching and curriculum based Self-Rollout DMD, enabling minute-long real-time interactive generation. Extensive experiments demonstrate that, with a unified training corpus spanning Unreal simulation environments, open-world games, and internet videos, MatrixGame 3.5 achieves strong performance in long-horizon scene recall, precise camera control, subject consistency, prompt-driven world generation, and stable real-time open-world interaction.",
    "affiliations": [
     "Riemann Dynamics",
-    "Project page",
     "Checkpoints: ||"
    ],
    "author_affiliations": null,
    "institutions": [
-    null,
     null,
     null
    ],
@@ -6552,7 +6509,6 @@
    "affiliations": [
     "Department of Informatics, Federal University of Paraná, Curitiba, Brazil",
     "Department of Technological Development and Quality, Paraná Military Police, Curitiba, Brazil",
-    "Graduate",
     "Program in Informatics, Pontifical Catholic University of Paraná, Curitiba, Brazil"
    ],
    "author_affiliations": [
@@ -6564,7 +6520,6 @@
     ],
     null,
     [
-     2,
      0
     ],
     [
@@ -6572,7 +6527,6 @@
     ]
    ],
    "institutions": [
-    null,
     null,
     null,
     "Pontifícia Universidade Católica do Paraná"
@@ -7236,15 +7190,13 @@
    "affiliations": [
     "MoE Key Lab of Artificial Intelligence, Institute of AI, Shanghai Jiao Tong",
     "University, Shanghai, China",
-    "Zhiyuan College, Shanghai Jiao Tong University, Shanghai, China",
-    "Code"
+    "Zhiyuan College, Shanghai Jiao Tong University, Shanghai, China"
    ],
    "author_affiliations": [
     [
      0,
      1,
-     2,
-     3
+     2
     ],
     [
      0,
@@ -7266,8 +7218,7 @@
    "institutions": [
     null,
     null,
-    "Shanghai Jiao Tong University",
-    null
+    "Shanghai Jiao Tong University"
    ],
    "abs_url": "https://arxiv.org/abs/2608.30129",
    "pdf_url": "https://arxiv.org/pdf/2608.30129"
@@ -7783,8 +7734,7 @@
    "abstract": "Recent unified open-vocabulary detection (OVD) supports heterogeneous prompts, including text queries, visual exemplars, and their combinations, but often rely on increasingly complex designs such as heavy cross-modal fusion, staged training, and iterative annotation pipelines. We revisit whether such complexity is necessary in the era of stronger foundation models. Our finding is that unified OVD can be made substantially simpler with semantic-rich visual representations and scalable grounding supervision. We present OPUS (\\textbf{O}pen-vocabulary, \\textbf{P}rompt-\\textbf{U}nified, \\textbf{S}imple), a unified detector supporting text, interactive visual, generic visual, and mixed prompting within one framework. OPUS adopts a simple three-part design. Its model architecture combines a semantic-rich visual encoder, built on a DINOv3-ConvNeXt-B backbone with efficient hybrid encoding, with a prompt-aware decoder that avoids prompt-specific branches for unified prompt reasoning. OPUS is trained with a one-stage text-visual training strategy with Instance-level Contrastive Alignment (ICA), and is supported by a SAM3-based single-pass data engine for heterogeneous grounding supervision. Experiments on COCO, LVIS-minival, and ODinW35 show that OPUS achieves state-of-the-art Visual-I performance, reaching 68.1/69.2/54.7 AP, while maintaining balanced Text and Visual-G accuracy. OPUS also turns mixed prompting from interference into complementarity, improving over text or visual prompt alone. These results show that simplicity and strong unified prompting capability can be achieved together.",
    "affiliations": [
     "Megvii Technology Inc",
-    "X-Humanoid",
-    "Correspondence"
+    "X-Humanoid"
    ],
    "author_affiliations": [
     [
@@ -7800,12 +7750,10 @@
      0
     ],
     [
-     1,
-     2
+     1
     ],
     [
-     1,
-     2
+     1
     ],
     [
      0
@@ -7813,7 +7761,6 @@
    ],
    "institutions": [
     "Megvii",
-    null,
     null
    ],
    "abs_url": "https://arxiv.org/abs/2608.30247",
@@ -7967,9 +7914,7 @@
     "University of Alabama at Birmingham",
     "Tulane University",
     "University of Virginia",
-    "Adobe Research",
-    "Please direct correspondence to",
-    "Project page"
+    "Adobe Research"
    ],
    "author_affiliations": [
     [
@@ -7997,9 +7942,7 @@
      0
     ],
     [
-     4,
-     5,
-     6
+     4
     ],
     [
      0
@@ -8010,8 +7953,6 @@
     "University of Alabama at Birmingham",
     "Tulane University",
     "University of Virginia",
-    null,
-    null,
     null
    ],
    "abs_url": "https://arxiv.org/abs/2608.30294",
@@ -8556,29 +8497,9 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2608.30420v1",
    "abstract": "Automating the analysis of whole-slide images has high clinical value, since characterizing cancers requires examining them in detail. Such analysis increasingly relies on vision-language models that provide patch-level zero-shot predictions. However, these predictions remain noisy and must be refined with a few annotations. A promising paradigm for this refinement is few-shot transduction. Rather than treating each patch independently, these methods leverage the relations between patches, together with a few annotations, to refine all predictions jointly. However, current transductive methods are evaluated under conditions that overlook key properties of whole-slide images: (i) datasets consist of independent patches extracted from multiple slides, ignoring the complex tissue organization; (ii) datasets are mostly balanced, whereas a single whole-slide image exhibits severe class imbalance, with several classes absent; and (iii) annotations are sampled at random, without reflecting how a pathologist annotates a limited number of regions. To align the transduction paradigm to realistic whole-slide settings, we introduce the following contributions. First, we propose SlideCRF, which adapts conditional random fields for whole-slide images by combining spatial and biological cues while accounting for classes that may be absent from a given slide. Second, we provide a set of realistic annotation protocols, based on spatially localized clicks and scribbles, modeling different pathologist interactions, such as the iterative correction of model errors. Across four datasets, we show that SlideCRF outperforms current transductive methods in macro F1, improving over the zero-shot predictions by +24.2% and +37.5% with one and 16 clicks per present class, respectively.",
-   "affiliations": [
-    "Benoît Macq Fellow, IEEE, and Christophe De Vleeschouwer Member, IEEE"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2608.30420",
    "pdf_url": "https://arxiv.org/pdf/2608.30420"
   },
@@ -8884,16 +8805,7 @@
     "The University of Melbourne",
     "Melbourne, Australia"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    [
-     0,
-     1,
-     2
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     null,
     "University of Melbourne",
@@ -9542,7 +9454,6 @@
    "affiliations": [
     "School of Mechanical and",
     "College of Information Science",
-    "School of",
     "School of Mechanical Engineering",
     "School of Artificial",
     "University of Hong Kong",
@@ -9555,30 +9466,25 @@
     [
      1
     ],
-    [
-     2
-    ],
+    null,
+    null,
     [
      2
     ],
     [
      3
     ],
+    null,
+    null,
     [
      4
     ],
-    null,
-    null,
     [
      5
-    ],
-    [
-     6
     ],
     null
    ],
    "institutions": [
-    null,
     null,
     null,
     null,
@@ -10541,7 +10447,6 @@
     "Wallace H. Coulter Department of Biomedical Engineering, Georgia Institute of Technology and Emory University, Atlanta, GA, USA, and the Department of Systems and Biomedical Engineering, Cairo University, Giza, Egypt",
     "Department of Biomedical Informatics, Emory University, Atlanta, GA, USA",
     "Department of Neurology, Emory University, Atlanta, GA, USA",
-    "the",
     "Wallace H. Coulter Department of Biomedical Engineering"
    ],
    "author_affiliations": [
@@ -10554,11 +10459,9 @@
     [
      2
     ],
+    null,
     [
      3
-    ],
-    [
-     4
     ],
     null
    ],
@@ -10566,7 +10469,6 @@
     "Wallace H. Coulter Department of Biomedical Engineering",
     "Emory University",
     "Emory University",
-    null,
     null
    ],
    "abs_url": "https://arxiv.org/abs/2608.30857",
@@ -11453,14 +11355,7 @@
     "School of Computing and Data Science",
     "The University of Hong Kong"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    [
-     0,
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     null,
     null
@@ -11522,29 +11417,9 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2608.31107v2",
    "abstract": "The advent of foundation models have enabled a new era in zero-shot classification. Yet, key challenges persist. Despite their impressive generalization power that leverages the immense pre-training knowledge, both foundation models for image and text as well as vision-text hybrids lack the representational power needed for fine-grained, minutiae-based class separation that some real-world tasks require. To address the current gaps in the literature, we propose VeriCam, a pipeline designed to learn highly specialized features that enable classification of unknown classes in unseen data. VeriCam works by leveraging the representation power of image models trained for the verification task, where the model develops an intricate feature space that incorporates fine-grained details. By training a model to discriminate between pairs of images from the same and different classes, a relational graph is constructed, representing the class relationships between data points. We then present two approaches for graph clustering: a naive algorithm and a specific setup for the Leiden graph clustering algorithm. The pipeline is validated on the LPLCv2 dataset, which comprises real-world traffic surveillance images. We show that the dataset carries an inherent capture device bias that is posed as a generalization challenge for downstream License Plate recognition tasks such as OCR. As such, we dynamically identify capture devices with a label-agnostic approach, enabling the construction of a fair and unbiased benchmark. In the cross-device scenario, our pipeline reaches an F1-Score of 93.45 in the verification baseline and a V-Measure score of 80.13 in the clustering step. All code is publicly available at https://github.com/lmlwojcik/VeriCam",
-   "affiliations": [
-    "Eduil Nascimento Jr"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2608.31107",
    "pdf_url": "https://arxiv.org/pdf/2608.31107"
   },
@@ -12640,16 +12515,7 @@
     "Stanford University",
     "University of California, Los Angeles"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    [
-     0,
-     1,
-     2
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "Johns Hopkins University",
     "Stanford University",
@@ -13531,7 +13397,6 @@
    "html_url": "https://arxiv.org/html/2608.30163v1",
    "abstract": "Real-world knowledge resides in multimodal documents, necessitating retrieval-augmented generation (RAG) for accurate question answering. However, existing multimodal RAG models are primarily designed for single-image or closed-document settings and exhibit limited accuracy in realistic multi-image scenarios. Moreover, processing numerous retrieved images incurs substantial computational overhead from irrelevant visual tokens. To address these challenges, we introduce DocLongRAG, a large-scale dataset of 343K question--answer pairs, each associated with an average of 37.4 retrieved images to reflect authentic RAG workflows. Building on this dataset, we propose Doc-REFRAG, a question-guided framework that compresses visual tokens into coarse chunks and selectively expands question-relevant ones via a lightweight RL-based selector. Experiments on six benchmarks show that Doc-REFRAG outperforms eleven strong baselines, achieving state-of-the-art accuracy with significantly lower inference latency. Our resources are available at https://github.com/Collab-Gen/Doc-REFRAG.",
    "affiliations": [
-    "Sashuai Zhou, Ke Lei, Tao Jin, Zhou Zhao",
     "Zhejiang University"
    ],
    "author_affiliations": [
@@ -13539,8 +13404,7 @@
     null,
     null,
     [
-     0,
-     1
+     0
     ],
     null,
     null,
@@ -13548,7 +13412,6 @@
     null
    ],
    "institutions": [
-    null,
     "Zhejiang University"
    ],
    "abs_url": "https://arxiv.org/abs/2608.30163",

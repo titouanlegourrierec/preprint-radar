@@ -877,19 +877,7 @@
     "AI & Digital Health Technology, Artificial Intelligence and Cyber Futures Institute, Charles Sturt University, Bathurst, NSW, 2795, Australia",
     "School of Health and Rehabilitation Sciences, The University of Queensland, St Lucia, Brisbane, QLD, 4072, Australia"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    [
-     0,
-     1,
-     2,
-     3,
-     4,
-     5
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "International Islamic University Chittagong",
     "Rajshahi University of Engineering and Technology",
@@ -1451,18 +1439,7 @@
     "AI & Digital Health Technology, Artificial Intelligence and Cyber Futures Institute, Charles Sturt University, Bathurst, NSW, 2795, Australia",
     "AI & Digital Health Technology, Rural Health Research Institute, Charles Sturt University, Orange, NSW, 2800, Australia"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    [
-     0,
-     1,
-     2,
-     3,
-     4
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "International Islamic University Chittagong",
     "American International University-Bangladesh",
@@ -2230,14 +2207,7 @@
     "National Taiwan University of Science and Technology",
     "Taipei, Taiwan"
    ],
-   "author_affiliations": [
-    null,
-    [
-     0,
-     1,
-     2
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     null,
     "National Taiwan University of Science and Technology",
@@ -2298,8 +2268,8 @@
    "html_url": "https://arxiv.org/html/2609.30947v1",
    "abstract": "Visual odometry is essential for autonomous navigation in GPS-denied environments, yet RGB-based methods remain vulnerable to motion blur, challenging illumination, and dropped frames. Event cameras complement conventional cameras with high temporal resolution and dynamic range, but their asynchronous measurements complicate reliable correspondence estimation. We present DAPEVO, a learned visual odometry system that estimates image and event correspondences independently at shared patch locations and fuses their correlation evidence before motion refinement. Each tracked patch maintains image and event descriptors, and a learned scalar gate combines modality-specific correlation embeddings for each patch--frame edge before a shared recurrent refinement and bundle-adjustment update. DAPEVO also supports event-only observations, enabling continued tracking when RGB frames are sparse or unavailable, while modality-aware keyframe culling preserves scarce frame constraints. On UZH-FPV, when retaining only one in six RGB frames, DAPEVO's mean absolute trajectory error (ATE) increases by only 36%, from 1.00 to 1.36m, whereas the ATE of DPVO and RAMP-VO rises by factors of $3.7\\times$ and $3.1\\times$, respectively. On TartanEvent, DAPEVO similarly remains below 1m ATE at 3Hz RGB input, while DPVO and RAMP-VO exceed 9m. Under degraded RGB input on TartanEvent, DAPEVO achieves an ATE of 0.60m, compared with more than 4m for both DPVO and RAMP-VO, while also outperforming event-only DEVO at 0.87m.",
    "affiliations": [
-    "Luca Gandolfi, Simone Nascivera, Roberto Pellerito, Rong Zou, and Davide Scaramuzza are with the Robotics and Perception Group, University of Zurich, Switzerland ()",
-    "Luca Gandolfi and Chiara Plizzari are with Bocconi University, Italy"
+    "Robotics and Perception Group, University of Zurich, Switzerland",
+    "Bocconi University, Italy"
    ],
    "author_affiliations": [
     [
@@ -2353,14 +2323,7 @@
     "Wuhan University",
     "Wuhan, China"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    [
-     0,
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "Wuhan University",
     null
@@ -3188,17 +3151,7 @@
     "Electrical and Software Engineering, University of Calgary, Calgary, AB, Canada",
     "Geomatics Engineering, University of Calgary, Calgary, AB, Canada"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    [
-     0,
-     1,
-     2,
-     3
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "University of Calgary",
     "University of Calgary",
@@ -3767,13 +3720,7 @@
     "CVPR Lab, MFSDSAI",
     "Indian Institute of Technology Guwahati"
    ],
-   "author_affiliations": [
-    null,
-    [
-     0,
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     null,
     "Indian Institute of Technology Guwahati"
@@ -4195,158 +4142,9 @@
    "cross_list_from": "cs.RO",
    "html_url": "https://arxiv.org/html/2609.31394v1",
    "abstract": "World Action Models (WAMs) jointly model visual dynamics and action generation for generalist robot manipulation. A central challenge is to integrate priors from large-scale pretrained models---including visual dynamics, scene semantics, geometry, and motion---into a unified framework for robot action generation. We introduce InternW0-$\\Delta$, a unified WAM pretrained on a heterogeneous corpus that outperforms prior methods across simulation benchmarks and real-robot platforms. InternW0-$\\Delta$ combines pretrained visual dynamics, scene-level semantics, 4D geometric and motion priors, and action generation within a Mixture-of-Transformers (MoT) framework. A pretrained video expert and an action expert interact under semantic guidance from a frozen VLM, while a pretrained 4D foundation model injects geometric and motion priors through training-only distillation. We further introduce Causal Imprint, which learns future-relevant scene changes from training-only future supervision and provides predictive representations directly to the action expert without future-video rollout at inference. For large-scale joint training, we construct a heterogeneous corpus of robot demonstrations, UMI data, egocentric human demonstrations, and Ego2Robot data, curated and aligned under a common state-action representation. The resulting corpus contains over 20K hours of processed training data, to our knowledge the largest open-source corpus of its kind. We pretrain InternW0-$\\Delta$ on this corpus and demonstrate strong performance across simulation benchmarks and real-robot platforms. We will open source the training code, model weights, infrastructure, data-processing pipeline, and processed data where licenses permit. Project page: https://internrobotics.github.io/InternW0-Delta/",
-   "affiliations": [
-    "Project page"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.31394",
    "pdf_url": "https://arxiv.org/pdf/2609.31394"
   },
@@ -4434,47 +4232,9 @@
    "cross_list_from": "eess.IV",
    "html_url": "https://arxiv.org/html/2609.31376v1",
    "abstract": "Congenital heart disease (CHD) is the most common birth defect, yet a large fraction of cases remain undetected on prenatal ultrasound, in part because current artificial-intelligence methods assume that the key diagnostic frames have already been isolated from a study, by a clinician or by a view classifier. We remove that assumption and address CHD screening directly at the level of the whole ultrasound study. We propose a two-stage framework that first learns transferable frame representations by self-supervised masked-autoencoder pre-training on unlabeled fetal ultrasound, then identifies cardiac frames with a disease-robust module and aggregates them with a transformer-based multiple instance learning (MIL) model that produces a case-level diagnosis from study-level labels alone. The model further returns its highest-scoring frames for clinician review, and a hierarchical head separates critical from non-critical CHD. On the internal test set of our multi-source development cohort (FUSE), the proposed cardiac-gated MIL model reaches an area under the curve (AUC) of 0.985 with a specificity of 0.990, outperforming the reproduced NATMED ensemble (AUC 0.861, specificity 0.600) and the FetalCLIP foundation model (AUC 0.867, specificity 0.710). On an independent external cohort, all models initially perform near chance, but label-free CORAL adaptation raises the proposed model from an AUC of 0.513 to 0.944, whereas whole-study and view-dependent baselines do not recover. These results indicate that whole-study MIL with disease-robust cardiac-frame identification is an accurate and deployable route to prenatal CHD screening.",
-   "affiliations": [
-    "Abraham Zabih, Jason Christensen, Neil Hamill, Ling Li, and Jieqiong Wang"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.31376",
    "pdf_url": "https://arxiv.org/pdf/2609.31376"
   },
@@ -4501,8 +4261,8 @@
    "html_url": "https://arxiv.org/html/2609.31374v1",
    "abstract": "Closed-loop driving simulation requires rendered observations to remain reliable as the ego vehicle and surrounding actors move beyond their recorded trajectories, exposing views absent from the source log. Existing data-driven simulators reconstruct dynamic actors from sparse observations, which can result in rendering artifacts under these viewpoint changes. We introduce RECAST (REconstructing Controllable Actors for Simulation and Testing), a 3D Gaussian Splatting framework that generates a view-complete actor from a single segmented vehicle observation in a driving log and registers the generated actor in the reconstructed scene. RECAST supports planner-in-the-loop rendering under controlled ego-actor interactions. To adapt an image-to-3D prior to real vehicles, we further introduce RECAR, a dataset of approximately 20K real vehicles with 600K background-free RGBA images spanning diverse vehicle colors and types. We use two-stage adaptation to improve vehicle generation from real driving-log observations. At the actor level, RECAST reduces $\\mathrm{FD}_{\\mathrm{incep}}$ from 9.788 to 7.992 relative to unadapted TRELLIS. At the scene level, under actor motion beyond logged trajectories, RECAST reduces $\\mathrm{FD}_{\\mathrm{incep}}$ from 129.35 to 112.10 and increases $\\mathrm{CLIP}_{\\mathrm{margin}}$ ($\\times1000$) from 0.14 to 3.47 relative to Street Gaussians. We demonstrate planner-in-the-loop simulation with the image-conditioned planner GTRS-Dense. Compared with native Street Gaussians actors, RECAST increases the no-collision (NC) rate from 22.2% (12/54) to 63.0% (34/54) and the mean minimum predicted time-to-collision (TTC) from 0.798 s to 2.150 s. These experiments show that RECAST supports closed-loop planner evaluation under controlled ego-actor interactions beyond log replay. Visit our project page at https://zijunkr.github.io/RECAST/",
    "affiliations": [
-    "Zijun Zhao, Liewen Liao, Kang Shen, and Songan Zhang are with the Global Institute of Future Technology, Shanghai Jiao Tong University, Shanghai 200240, China",
-    "Ming Yang is with the School of Automation and Intelligent Sensing, Shanghai Jiao Tong University, and the Key Laboratory of System Control and Information Processing, Ministry of Education of China, Shanghai 200240, China"
+    "Global Institute of Future Technology, Shanghai Jiao Tong University, Shanghai 200240, China",
+    "School of Automation and Intelligent Sensing, Shanghai Jiao Tong University, and the Key Laboratory of System Control and Information Processing, Ministry of Education of China, Shanghai 200240, China"
    ],
    "author_affiliations": [
     [
@@ -4811,29 +4571,36 @@
    "html_url": "https://arxiv.org/html/2609.31032v1",
    "abstract": "Existing text-to-video (T2V) jailbreak methods mainly seek more effective or stealthier attack candidates. In guarded T2V systems, however, video generation and security evaluation are costly, so an attacker often cannot test a large candidate pool. We therefore formulate T2V jailbreak as a query-constrained candidate allocation and ranking problem and propose TempQ-Jail. The method combines heterogeneous attack mechanisms to expand candidate coverage, estimates each candidate's end-to-end attack value from security-gate passage, dangerous visual generation, preservation of the original intent, and temporal validity, and ranks candidates so that high-value attacks appear early in a limited query trajectory. We evaluate TempQ-Jail on CogVideoX-5B using 70 common viable intents derived from T2VSafetyBench and compare it with six representative T2V jailbreak methods under a unified protocol. TempQ-Jail achieves TP-ASR@5 and TP-ASR@10 of 48.9% and 65.4%, improving over the strongest baselines by 4.6 and 4.0 percentage points, respectively. It also obtains the highest AUC-TP (0.469) and the lowest AvgQ (6.3). Analyses of query trajectories, candidate allocation, failure attribution, and ablations show that TempQ-Jail more effectively identifies and prioritises candidates with complete attack potential under limited query budgets.",
    "affiliations": [
-    "Tianmeng Fang is with the School of Computing and Information Systems, Master of IT in Business (MITB), Singapore Management University, Singapore 178903, Singapore",
-    "Jiancheng Wang is with the School of Computer Science and Technology, Anhui University, Hefei 230601, China",
-    "Chen Wang is with the Department of Electrical and Computer Engineering, University of Miami, Coral Gables, FL 33146, United States",
-    "Liming Wang is with CSG Digital Operations Software Technology (Guangdong)",
+    "School of Computing and Information Systems, Master of IT in Business (MITB), Singapore Management University, Singapore 178903, Singapore",
+    "School of Computer Science and Technology, Anhui University, Hefei 230601, China",
+    "Department of Electrical and Computer Engineering, University of Miami, Coral Gables, FL 33146, United States",
+    "CSG Digital Operations Software Technology (Guangdong)",
     "Co., Ltd., Shenzhen 518000, China",
-    "Wei Wang and Xiaochun Cao are with the School of Cyber Science and Technology, Sun Yat-sen University, Shenzhen Campus, Shenzhen 518107, China",
-    "Jiayang Liu is with the College of Computing and Data Science, Nanyang Technological University, Singapore 639798, Singapore"
+    "School of Cyber Science and Technology, Sun Yat-sen University, Shenzhen Campus, Shenzhen 518107, China",
+    "College of Computing and Data Science, Nanyang Technological University, Singapore 639798, Singapore"
    ],
    "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
     [
-     0,
-     1,
-     2,
-     3,
-     4,
-     5,
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     5
+    ],
+    [
      6
+    ],
+    [
+     4,
+     5
     ]
    ],
    "institutions": [
@@ -5172,29 +4939,9 @@
    "cross_list_from": "cs.LG",
    "html_url": "https://arxiv.org/html/2609.30592v1",
    "abstract": "In standard attention, three separately learned projections decide how strongly a token attends to each neighbor ($W_Q$, $W_K$) and how the attended features are transformed before aggregation ($W_V$). We study Quat-Sphere-Vision (QSV), a sparse spherical vision model that replaces this projection triple with a single learned unit quaternion per token: the relative quaternion $r_{ij} = q_i^{*} \\otimes q_j$ supplies both the attention logit $\\operatorname{Re}(r_{ij})$ and a sandwich-product feature transport $x \\mapsto r_{ij} \\otimes x \\otimes r_{ij}^{*}$, with messages passed over sparse kNN graphs on concentric Fibonacci spheres. Ablations that change only the targeted component show the two roles to be asymmetric. Removing the transport reduces test accuracy by about four percentage points on CIFAR-10 and CIFAR-100 (single runs per CIFAR-100 variant), while replacing the learned attention weights with uniform averaging leaves it essentially unchanged. Parameter-matched controls then remove the geometry itself: standard attention on the same graph exceeds QSV (mean $87.3\\%$ vs. $85.9\\%$), and the same model on a flat 2D lattice reaches $91.1\\%$, within $2.1$ points of a ResNet-20 trained under the same pipeline (single run). In the coupled kernel, nearly all of the learned pairwise computation resides in the transport channel.",
-   "affiliations": [
-    "Diego Enriquez, Amanda Fernandez"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.30592",
    "pdf_url": "https://arxiv.org/pdf/2609.30592"
   },
@@ -5219,17 +4966,20 @@
    "html_url": "https://arxiv.org/html/2609.30459v1",
    "abstract": "Perception in robotics and XR fundamentally relies on good state estimation. Visual-inertial odometry (VIO) and Simultaneous Localization and Mapping (VI-SLAM) are proven ways of achieving this goal in a cost-effective and accurate manner. Efficiency in these systems allows for smaller, cooler, and lighter devices. GPU acceleration is a natural approach for reducing latency, thanks to their wide availability in platforms like embedded computers, mobile phones, and XR headsets. However, previous works in the literature have limited themselves to the use of CUDA for this task, significantly reducing deployment options to a single vendor. We instead leverage the vendor-agnostic Vulkan API, originally designed for the strict performance requirements of 3D graphics applications. In this work, we present VkVIO, the first, to the best of our knowledge, cross-platform GPU-accelerated VIO method. We provide state-of-the-art accuracy with causal estimates required for real-time operation. We deploy VkVIO on a diverse range of devices spanning a workstation, a laptop, and an extremely inexpensive single-board computer, while outperforming CUDA-based systems on the same hardware. VkVIO enables possibilities for low-latency, low-power, and low-cost VIO in robotics and XR.",
    "affiliations": [
-    "Mateo de Mayo and Daniel Cremers are also with the Munich Center for Machine Learning, Munich, Germany",
-    "Ole Hoffmann, Mateo de Mayo, and Daniel Cremers are with the Technical University of Munich, Munich, Germany"
+    "Munich Center for Machine Learning, Munich, Germany",
+    "Technical University of Munich, Munich, Germany"
    ],
    "author_affiliations": [
-    null,
     [
-     0
+     1
     ],
     [
-     1,
-     0
+     0,
+     1
+    ],
+    [
+     0,
+     1
     ]
    ],
    "institutions": [

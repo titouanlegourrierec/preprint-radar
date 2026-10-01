@@ -61,7 +61,7 @@ for the answer.
 | AFF-2 | Obfuscated e-mails and brace lists | P2 | done |
 | AFF-5 | Junk labels | P2 | done |
 | AFF-6 | "Is with" sentences, "also with" | P2 | done |
-| DATA-1 | Layer 1: `reclean`, run once over the day files | P1 | todo |
+| DATA-1 | Layer 1: `reclean`, run once over the day files | P1 | done |
 | DATA-3 | `validate`, before *Commit data* and in CI | P1 | todo |
 | CIT-1 | Merge counts under the gate instead of replacing them | P1 | todo |
 | CIT-2 | Carry last week's count for archived papers | P1 | todo |

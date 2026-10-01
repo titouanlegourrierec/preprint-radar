@@ -528,20 +528,23 @@
    "html_url": "https://arxiv.org/html/2609.24850v1",
    "abstract": "Computing accurate geometry from multi-view images is a fundamental problem in computer vision. Recent feed-forward (FF) models jointly estimate 3D geometry and camera parameters, but they typically suffer from geometry distortion caused by reconstruction ambiguity, even when ground-truth camera parameters are supplied. In this paper, we study the multi-view stereo (MVS) problem with known camera parameters and propose a novel approach that bridges conventional MVS and FF methods. Rather than casting MVS as a sequence-to-one mapping that predicts depth only for a single reference view, we reformulate it as a sequence-to-sequence task, akin to FF models, that jointly predicts geometry for all input views. We introduce a global transformer-based architecture with two components that explicitly exploit camera-induced priors: ray-map embeddings that inject camera parameters into image patch tokens, making the transformer camera-aware, and a unified global cost volume that replaces conventional per-view cost volumes to jointly capture 3D structure across all views. Extensive experiments on multiple public benchmarks show our approach achieves state-of-the-art performance, surpassing both MVS and FF reconstruction baselines.",
    "affiliations": [
-    "CVLab, EPFL",
-    "Switzerland"
+    "CVLab, EPFL"
    ],
    "author_affiliations": [
-    null,
-    null,
-    null,
     [
-     0,
-     1
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
     ]
    ],
    "institutions": [
-    null,
     null
    ],
    "abs_url": "https://arxiv.org/abs/2609.24850",
@@ -821,15 +824,7 @@
     "Centre of Excellence IT4Innovations, Institute for Research and Applications of Fuzzy Modeling",
     "University of Ostrava, 30. dubna 22, Ostrava, Czech Republic"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    [
-     0,
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     null,
     "University of Ostrava"
@@ -1990,27 +1985,9 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.24510v2",
    "abstract": "Recent advances in vision foundation models (VFMs) have shown remarkable capabilities across diverse unimodal visual tasks. However, adapting VFMs to referring image segmentation (RIS) typically necessitates precise vision-language alignment via full fine-tuning, incurring substantial computational overhead and risking catastrophic forgetting. While existing parameter-efficient fine-tuning (PEFT) methods enable safe knowledge transfer with minimal training costs, they predominantly operate independently within individual modalities or focus exclusively on unidirectional guidance from language to vision, overlooking progressive cross-modal interaction and visual feedback for textual refinement. To address these limitations, we propose $\\textbf{B}$idirectional $\\textbf{R}$eciprocal $\\textbf{L}$earning ($\\textbf{BRL}$), a novel adapter-based PEFT framework that facilitates hierarchical, bidirectional information flow within both token-mixing and channel-mixing layers of frozen foundation models. Specifically, BRL introduces two complementary lightweight modules. The Reciprocal Attention Adapter (RAA) performs cross-modal query-key exchanges at the token level, enabling visual and linguistic tokens to mutually attend to each other for fine-grained spatial grounding. The Reciprocal Gate Adapter (RGA) generates cross-modal gating signals at the channel level, allowing global semantic context from one modality to adaptively recalibrate channel activations of the other. Extensive experiments on RefCOCO, RefCOCO+, and RefCOCOg benchmarks demonstrate the superiority of BRL over prior RIS methods, achieving state-of-the-art performance while requiring less than 0.5% backbone parameter updates. Code and models will be released at https://github.com/xiaoqiang-lu/BRL.",
-   "affiliations": [
-    "Yuting Yang, Long Sun, Wenping Ma",
-    "Xu Liu, and Fang Liu"
-   ],
-   "author_affiliations": [
-    null,
-    null,
-    [
-     0,
-     1
-    ],
-    null,
-    null,
-    null,
-    null,
-    null
-   ],
-   "institutions": [
-    null,
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.24510",
    "pdf_url": "https://arxiv.org/pdf/2609.24510"
   },
@@ -2439,20 +2416,7 @@
     "School of Artificial Intelligence, Xidian University",
     "Xi’an, Shaanxi 710071, China"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    [
-     0,
-     1,
-     2
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     null,
     "Xidian University",
@@ -2598,21 +2562,7 @@
     "Independent Researcher, Italy",
     "Independent Researcher, China"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    [
-     0,
-     1,
-     2,
-     3,
-     4
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "Italian Institute of Technology",
     "University of Verona",
@@ -3227,14 +3177,7 @@
     "College of Information Science and Engineering",
     "Hunan Normal University, Changsha, China"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    [
-     0,
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     null,
     "Hunan Normal University"
@@ -3356,17 +3299,7 @@
     "Laboratory for Autonomous Systems and Mobile Robotics",
     "Zagreb, Croatia"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    [
-     0,
-     1,
-     2
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "University of Zagreb",
     null,
@@ -3584,30 +3517,37 @@
    "html_url": "https://arxiv.org/html/2609.24158v1",
    "abstract": "Reconstructing expressive and relightable 3D head avatars from monocular videos remains challenging in computer vision, as it requires accurate modeling of both non-rigid facial motion and illumination-dependent appearance. Existing Gaussian avatar methods commonly rely on globally coupled representations, in which Gaussian primitives share a unified motion or illumination response model. Such uniform modeling neglects the distinct motion patterns and material/reflectance properties of different facial semantic regions, thereby limiting fine-grained animation accuracy and reducing relighting plausibility. To address this limitation, we propose SAMIRA, a 3D Gaussian avatar framework for semantic-adaptive motion-illumination response modeling. For motion response modeling, the Semantic-Adaptive Motion Response module rasterizes current-to-reference mesh displacements into a topology-consistent UV space and leverages facial semantics to route displacement features through semantic-specific modulators, predicting localized Gaussian geometric residuals beyond coarse mesh binding. For illumination response modeling, the Semantic-Adaptive Illumination Response module learns compact diffuse and specular response factors for each facial region, allowing Gaussians in different regions to adapt their illumination responses to novel environment lighting. These response factors are incorporated into deferred physically based shading, providing a lightweight approximation of semantic-dependent illumination effects. Extensive experiments on self-reenactment, cross-reenactment, and relighting demonstrate that SAMIRA improves both fine-grained expression reconstruction and relighting realism over existing methods.",
    "affiliations": [
-    "State Key Laboratory of Multimodal Artificial Intelligence Systems, Institute of Automation, Chinese Academy of Sciences, Beijing 100190, China, and also with the School of Artificial Intelligence, University of Chinese Academy of Sciences, Beijing 100049, China",
+    "State Key Laboratory of Multimodal Artificial Intelligence Systems, Institute of Automation, Chinese Academy of Sciences, Beijing 100190, China",
+    "School of Artificial Intelligence, University of Chinese Academy of Sciences, Beijing 100049, China",
     "ZKTeco Co., Ltd"
    ],
    "author_affiliations": [
     [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
+     0,
      1
     ],
     [
-     0
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0,
+     1
     ]
    ],
    "institutions": [
+    "Chinese Academy of Sciences",
     "University of Chinese Academy of Sciences",
     null
    ],
@@ -4758,20 +4698,7 @@
     "Department of Computer Science and Engineering",
     "The Hong Kong University of Science and Technology, Hong Kong SAR, China"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    [
-     0,
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     null,
     "Hong Kong University of Science and Technology"
@@ -5100,20 +5027,20 @@
    "html_url": "https://arxiv.org/html/2609.23655v1",
    "abstract": "Imbalanced gradient magnitudes between the visual and language pathways of a vision-language model are often treated as a defect to be corrected. We test that premise for one family of correction, deliberately excluding adaptive, signal-driven schemes (e.g. BalGrad, OGM, PMR, CGGM), which are a mechanistically distinct class outside this study's scope. Measuring the language-to-visual gradient-norm ratio, reported in parameter-normalised form, across nine fine-tuning conditions, three seeds, and three captioning datasets spanning distinct physical domain shifts -- underwater, aerial, radiological -- we find imbalance magnitude varies markedly across domains with no predictable ordering. A plain learning-rate reduction cuts imbalance substantially and lands within a few BLEU points of the best method on every dataset. Staged freezing reduces the ratio on every domain yet never ranks first; a schedule-only control isolates freezing as the cause on one dataset but not the other two. Forcing the two gradient groups to equal magnitude drives per-parameter imbalance close to zero on every domain, yet is both the best result in the study and the worst placement among full fine-tuning methods, on different datasets, with identical settings. Reductions in gradient-norm ratio do not consistently predict captioning performance across domains, and how a given level of balance is reached matters as much as the level itself. As a secondary finding, a commonly reused LoRA configuration applied to BLIP silently adapts zero visual parameters; correcting it improves BLEU-4 on all three datasets.",
    "affiliations": [
-    "Department of",
     "Department of Computer Science"
    ],
    "author_affiliations": [
-    null,
     [
      0
     ],
     [
-     1
+     0
+    ],
+    [
+     0
     ]
    ],
    "institutions": [
-    null,
     null
    ],
    "abs_url": "https://arxiv.org/abs/2609.23655",
@@ -5308,28 +5235,33 @@
    "html_url": "https://arxiv.org/html/2609.23600v1",
    "abstract": "Prompt learning efficiently adapts vision-language models (VLMs) to downstream tasks, but gains on seen classes often come at the expense of generalization to unseen classes. To address this limitation, we propose prompt ensembling with training-free routing (PETR), whose key innovation is a carefully designed dual-prompt architecture: two complementary prompts are learned from different data and objectives to emphasize seen class discrimination and unseen-class generalization, respectively. During training, both prompts are fine-tuned using a shared frozen CLIP backbone, and statistical information is collected from the training set logits. At inference time, we determine the similarity of each test sample to seen data, and route the sample to the most appropriate prompt branch. To the best of our knowledge, this is the first prompt tuning framework that performs training-free adaptive routing based on statistical similarity. This design provides an interpretable routing signal and avoids common MoE-style routing pathologies, such as router training instability and load imbalance. Extensive experiments on 11 benchmark datasets demonstrate that our framework consistently outperforms previous methods on both seen and unseen classes, achieving new state-of-the-art results.",
    "affiliations": [
-    "State Key Laboratory of Multimodal Artificial Intelligence Systems, Institute of Automation, Chinese Academy of Sciences, and also with the School of Artificial Intelligence, University of Chinese Academy of Sciences, Beijing, China",
+    "State Key Laboratory of Multimodal Artificial Intelligence Systems, Institute of Automation, Chinese Academy of Sciences",
+    "School of Artificial Intelligence, University of Chinese Academy of Sciences, Beijing, China",
     "Purple Mountain Laboratories, Nanjing, China",
     "Beijing University of Posts and Telecommunications, Beijing, China"
    ],
    "author_affiliations": [
     [
-     0
+     0,
+     1
     ],
     [
-     0
-    ],
-    [
+     0,
      1
     ],
     [
      2
     ],
     [
-     0
+     3
+    ],
+    [
+     0,
+     1
     ]
    ],
    "institutions": [
+    "Chinese Academy of Sciences",
     "University of Chinese Academy of Sciences",
     "Purple Mountain Laboratories",
     "Beijing University of Posts and Telecommunications"
@@ -5424,16 +5356,15 @@
    "html_url": "https://arxiv.org/html/2609.23586v1",
    "abstract": "The rapid development of video generative models (VGMs) has enabled the generation of highly realistic synthetic videos, raising concerns about the intellectual property rights (IPR) of these models. In particular, two closely related forensic tasks remain largely unaddressed: synthetic video verification (determining whether a video was generated by a protected VGM) and model ownership verification (determining whether a suspect VGM is an unauthorized copy of a protected VGM). In this paper, we propose a new in-generation watermarking scheme that can address the two verification tasks. First, a novel video watermarking network named VidMark is presented, which incorporates a two-scale discrete wavelet transform (DWT) decomposition and a global temporal attention block (GTAB) to enhance watermark robustness and imperceptibility. Second, we present a decoder-guided fine-tuning procedure. By leveraging the frozen VidMark decoder, this process enables VGMs to synthesize videos carrying an imperceptible, robust, and model-specific watermark. Finally, two verification frameworks are established to perform synthetic video verification and model ownership verification. Extensive experiments on representative VGMs demonstrate that the proposed scheme achieves over 99% watermark extraction accuracy and 100% verification accuracy on both tasks, with negligible impact on video generation quality. Furthermore, the watermarks exhibit strong robustness against a comprehensive range of video-level and model-level attacks.",
    "affiliations": [
-    "School of Cyber Science and Technology, Shenzhen Campus of Sun Yat-sen University, Shenzhen 518107, China, and also with Guangdong Provincial Key Laboratory of Information Security Technology, Guangzhou 510006, China",
+    "School of Cyber Science and Technology, Shenzhen Campus of Sun Yat-sen University, Shenzhen 518107, China",
+    "Guangdong Provincial Key Laboratory of Information Security Technology, Guangzhou 510006, China",
     "Department of Information Engineering, University of Florence, Florence 50139, Italy",
     "Department of Information Engineering and Mathematics, University of Siena, Siena 53100, Italy",
     "Key Laboratory of Computing Power Network and Information Security, Ministry of Education, Qilu University of Technology (Shandong Academy of Sciences), Jinan 250353, China"
    ],
    "author_affiliations": [
     [
-     0
-    ],
-    [
+     0,
      1
     ],
     [
@@ -5443,10 +5374,15 @@
      3
     ],
     [
-     0
+     4
+    ],
+    [
+     0,
+     1
     ]
    ],
    "institutions": [
+    "Sun Yat-sen University",
     "Guangdong Province Key Laboratory of Information Security Technology",
     "University of Florence",
     "University of Siena",
@@ -6153,8 +6089,8 @@
    "html_url": "https://arxiv.org/html/2609.23478v1",
    "abstract": "Latent action models infer a code for the transition between two frames of action-free video. Recent methods regularise this code to compose additively and reverse antisymmetrically, and report order-of-magnitude reductions in the resulting errors as a label-free certificate that the code has captured temporal structure. We show that this conclusion does not follow. Reconstruction drives the decoded transition toward a difference of state features, for which both identities hold for any pairing, a solution the metric cannot distinguish from one encoding nuisance state or a coordinate convention. Across five source domains, a trained but unconstrained counterpart already achieves 83-97% of the reduction relative to an untrained anchor. The residual fold is governed as much by the decoder family as by what is learned. A constrained model retrained after its temporal pairing is destroyed still reaches, in each domain, a lower error than the unconstrained model on real data. Downstream, preserving the temporal pairing yields no consistent advantage on LIBERO-GOAL or LIBERO-SPATIAL, and across the tested arms the code's mean linear action decodability falls as the algebraic error improves. We also test the most direct repair, a violation-contrastive objective that requires the algebra to fail on destroyed pairings: in the tested configurations it yields only a marginal separation within the reconstruction budget, on training and test triples alike. We recommend a validation protocol that these methods currently lack: a baseline-corrected metric, retraining on destroyed pairings, and a seed-budget analysis.",
    "affiliations": [
-    "Di Wen, Ruodi Zhang and Kunyu Peng are with the Karlsruhe Institute of Technology, Karlsruhe 76131, Germany",
-    "Kailun Yang is with Hunan University, Changsha 410012, China"
+    "Karlsruhe Institute of Technology, Karlsruhe 76131, Germany",
+    "Hunan University, Changsha 410012, China"
    ],
    "author_affiliations": [
     [
@@ -6745,29 +6681,9 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.23372v1",
    "abstract": "Accurate multi-user localization is challenging in complex urban environments, where wireless measurements can become ambiguous under noise, blockage, and multipath, while visual observations provide complementary spatial context. This paper presents a vision-wireless fusion framework for multi-user localization using pilot-indexed channel state information (CSI). Orthogonal pilot indices preserve the identities of the communicating UEs in the CSI token sequence and localization outputs. The model encodes each pilot-indexed CSI observation as a query token and uses cross-attention to retrieve user-specific information from spatial visual memory. Self-attention among CSI tokens further captures inter-user interactions, while the resulting multimodal representations are used for user-wise localization. Experiments on different datasets show consistent improvements over model-based, CSI-only, and multimodal-fusion baselines. Further experiments evaluate the model under different wireless and visual conditions.",
-   "affiliations": [
-    "Henk Wymeersch, Mérouane Debbah"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.23372",
    "pdf_url": "https://arxiv.org/pdf/2609.23372"
   },
@@ -7598,7 +7514,7 @@
    "html_url": "https://arxiv.org/html/2609.23049v1",
    "abstract": "Large-scale scene reconstruction is a critical foundational technology in robotic autonomous systems such as 3D mapping and autonomous driving. In recent years, 3D Gaussian Splatting (3DGS) has demonstrated remarkable advantages in both visual quality and computational efficiency, making it a promising representation for large-scale scene reconstruction. However, it still faces challenges in large-scale scenes, including excessive memory consumption and uneven viewpoint coverage caused by UAV acquisition, limiting its real-world applications. To address this, we propose VDGS, a novel 3DGS framework that incorporates camera distribution into scene modeling. VDGS introduces visibility-driven statistics for scene anchors to quantify supervision strength. These statistics are further leveraged for scene partitioning and for gradient compensation in under-optimized regions, thereby promoting balanced optimization across different regions. Extensive experiments on multiple large-scale aerial scene datasets demonstrate that, under imbalanced viewpoint distributions, VDGS consistently outperforms existing methods, while maintaining competitive performance in scenarios with more uniform view distributions.",
    "affiliations": [
-    "Zhilin Lai is with Guangzhou Saite Intelligent Technology Co., Ltd"
+    "Guangzhou Saite Intelligent Technology Co., Ltd"
    ],
    "author_affiliations": [
     [
@@ -8264,19 +8180,16 @@
    "html_url": "https://arxiv.org/html/2609.22913v1",
    "abstract": "Talking-head and dyadic models now achieve real-time inference, yet fast motion generation alone does not produce an interactive conversation. A live system must synchronize the model's output with speech from an external voice agent, schedule video frames for playback, and handle interruptions. We introduce AVTR-1, an open stack for real-time interactive avatar conversations, built around a compact 153M-parameter autoregressive flow-matching motion generator conditioned on both participants' audio. We adapt its audio encoder for streaming through self-distillation. The stack turns the model's chunk-based generation into a continuous, synchronized audio-video stream driven by an external voice agent, and we analytically derive its contribution to the user-facing latencies and validate the resulting bounds with two commercial voice agents. Further experiments demonstrate that AVTR-1 leads the compared dyadic systems on all reported visual-quality metrics and most conventional listening-motion metrics while remaining competitive in lip synchronization. Its inference runtime operates in real time on data-center and consumer GPUs. However, conventional listening metrics do not establish whether the paired speaker's speech contributes to generated motion. We therefore introduce the Reference-Based Directed Granger Gain (R-DGG), which measures the additional predictive information carried by speaker speech after accounting for listener history and speaker motion. R-DGG finds statistically supported predictive dependence for recorded listeners and all evaluated dyadic systems, but not for talking-head generators without paired audio or mismatched speaker-listener pairs. We release the model weights, renderer, and serving backend under component-specific licenses.",
    "affiliations": [
-    "Gleb Balitskiy, Anastasia Tikhonova, Egor Burkov, Vadim Lebedev",
     "Avaturn Live",
     "Core contributors: co-wrote the paper"
    ],
    "author_affiliations": [
+    null,
     [
      0
     ],
     [
      1
-    ],
-    [
-     2
     ],
     null,
     null,
@@ -8284,7 +8197,6 @@
     null
    ],
    "institutions": [
-    null,
     null,
     null
    ],
@@ -9339,29 +9251,39 @@
    "html_url": "https://arxiv.org/html/2609.22392v1",
    "abstract": "Image steganography hides secret message within normal images, with most existing works relying on cover-preserving transmission. However, such a paradigm becomes vulnerable once the original cover is exposed or can be reliably approximated. In this paper, we propose StyleStegaNet, a stylized image hiding framework that replaces cover matching with style-concealment transmission. Instead of transmitting a cover-like stego image, StyleStegaNet generates stylized stego images conditioned on publicly available style references, redefining steganography invisibility from cover-preserving concealment to behavior-level camouflage based on style transformation. Such a setting poses a substantial challenge to reliable secret recovery, since neural stylization can significantly alter the feature statistics exploited by deep hiding methods. To address this challenge, StyleStegaNet decouples the overall task into four coordinated stages: stego generation, stylized transmission, structure-preserving reconstruction, and secret recovery. Moreover, StyleStegaNet is optimized with a progressive three-stage training strategy, in which wavelet-domain constraints and perceptual supervision guide the recoverable information toward structural representations. We further provide an analysis showing that secret recoverability is largely restricted to the normalized structural subspace, offering a mechanistic explanation for why directly stylized baselines fail and why a reconstruction-guided recovery path is necessary. Extensive experiments on DIV2K and MS-COCO datasets demonstrate the effectiveness of StyleStegaNet. And few-shot image steganalysis with two deep detectors further shows detection accuracy near random guessing, approximately 51\\%.",
    "affiliations": [
-    "Qi Li, Jidong Yang, Huaike Yu, Chunpeng Wang and Bin Ma are with the Key Laboratory of Computing Power Network and Information Security, Ministry of Education, Shandong Computer Science Center, and Shandong Provincial Key Laboratory of Industrial Network and Information System Security, Shandong Fundamental Research Center for Computer Science, Qilu University of Technology (Shandong Academy of Sciences), Jinan 250353, China",
-    "Suo Gao is with the School of Information Science and Engineering, Dalian Polytechnic University, Dalian 116034, China",
-    "Herbert Ho-Ching Iu is with the School of Electrical, Electronic and Computer Engineering, The University of Western Australia, Perth, WA 6009, Australia",
-    "Yuantian Miao and Xiao Chen are with the School of Computer and Information Sciences, The University of Newcastle, College of Engineering, Science and Environment, Callaghan, NSW 2308, Australia"
+    "Key Laboratory of Computing Power Network and Information Security, Ministry of Education, Shandong Computer Science Center, and Shandong Provincial Key Laboratory of Industrial Network and Information System Security, Shandong Fundamental Research Center for Computer Science, Qilu University of Technology (Shandong Academy of Sciences), Jinan 250353, China",
+    "School of Information Science and Engineering, Dalian Polytechnic University, Dalian 116034, China",
+    "School of Electrical, Electronic and Computer Engineering, The University of Western Australia, Perth, WA 6009, Australia",
+    "School of Computer and Information Sciences, The University of Newcastle, College of Engineering, Science and Environment, Callaghan, NSW 2308, Australia"
    ],
    "author_affiliations": [
-    null,
     [
      0
     ],
     [
      0
     ],
-    null,
-    null,
-    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
     [
      3
     ],
     [
      0
     ],
-    null
+    [
+     3
+    ]
    ],
    "institutions": [
     null,
@@ -9912,38 +9834,9 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.22272v1",
    "abstract": "We formulate \\emph{Artistic Intelligence} as exploration driven world realization, leaving space for creative possibility while preserving the semantic, artistic, and compositional structure that must remain true. Moonworks Lunara, a text-to-image model, implements this framework with a novel Diffusion Mixture Transformer architecture. A new training algorithm iteratively evolves the data distribution through informative sample acquisition and targeted injection of human-created art. We benchmark Lunara against seven image-generation models, including FLUX.2-Klein-4B, Qwen-Image (20B), and GPT-Image-1-Mini. With GPT-5.6 Sol as evaluator, Lunara ranks first in \\emph{Aesthetic Quality (8.473 vs. 8.457 GPT-Image-1-mini)}, second in \\emph{Emotional Resonance}, and remains competitive in \\emph{Content Integrity}. A blind human evaluation over the same evaluation set corroborates the automated metrics, ranking Lunara first. It also stays among the strongest models under conventional measures including CLIPScore and LAION Aesthetic Predictor. On GenEval, Lunara achieves competitive performance against a broader set of 16 models, including GPT Image 2 and Seedream 4.0. These results place Lunara at the frontier with Artistic Intelligence while maintaining a sub-10B active-parameter footprint and sub-10-second inference latency. Lunara advances the general visual intelligence frontier by shifting the question from whether models can get images right to how deeply they can interpret meaning and realize it as imaginative, expressive worlds.",
-   "affiliations": [
-    "Partho Hassan, Reza Jarral, Sayeef Abdullah, Sabit Hassan"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.22272",
    "pdf_url": "https://arxiv.org/pdf/2609.22272"
   },
@@ -11346,7 +11239,7 @@
    "html_url": "https://arxiv.org/html/2609.22854v1",
    "abstract": "Vision-language-action models often predict actions from only the current observation, which can leave tasks involving object occlusion or visually identical objects ambiguous without episode history. The usual countermeasure, widening the observation window, turns the horizon into a hyperparameter and lets per-step cost grow with it. We instead capture the episode in a recurrent state. SmoLSTM couples a frozen 256M-parameter SmolVLM backbone to a matrix-memory LSTM control layer in which observation tokens and action queries are unified in a single causal stream that is never reset throughout the entire episode. Recurrent-state storage is therefore O(1) in episode length. A flow-matching action head predicts chunks of 10 end-effector pose deltas and gripper commands at each control step. Our single policy, trained jointly on 7,461 demonstrations across 140 tasks and evaluated on held-out initial states, performs best, reaching 85.1% subgoal coverage and 77.5% full-task success on LIBERO-Mem with 0.04B trainable parameters, surpassing both the benchmark's own object-centric baseline and recent memory-based approaches. Resetting the recurrent state at every control step reduces full-task success to 7.0%, showing that the trained policy relies on context carried between decisions. The same model achieves 79.6% average success on standard LIBERO.",
    "affiliations": [
-    "J.-G. Habekost, P. M. Kashani, C. Gäde, M. Kerzel, P. Allgeuer, C. Weber, S. Wermter, and J. H. Lee are with the Knowledge Technology Group, Department of Informatics, University of Hamburg, Hamburg, Germany"
+    "Knowledge Technology Group, Department of Informatics, University of Hamburg, Hamburg, Germany"
    ],
    "author_affiliations": [
     [
@@ -11404,35 +11297,9 @@
    "cross_list_from": "eess.IV",
    "html_url": "https://arxiv.org/html/2609.22635v1",
    "abstract": "Three-dimensional fetal brain ultrasound offers non-ionizing, cost-effective imaging with rich spatial information for comprehensive anatomical assessment, yet its development remains limited by scarce data and annotations. In contrast, fetal brain magnetic resonance imaging has advanced further, supported by larger datasets and mature analysis methods. To leverage these resources, anatomical label maps provide a promising modality-invariant bridge for transferring knowledge from fetal brain magnetic resonance imaging to ultrasound. However, generating ultrasound images from label maps remains challenging because anatomy is tightly entangled with ultrasound appearance. To address this challenge, we separate anatomical correspondence learning from ultrasound appearance adaptation at both the data and model levels. Specifically, we propose the anatomy wavelet residual network, a two-stage framework combining wavelet diffusion and residual refinement. The first stage learns to generate volumes from label maps using atlas pairs in the wavelet domain, while the second stage learns bounded residual corrections from real clinical ultrasound in the image domain. This separation enables realistic synthesis with consistent preservation of normal and abnormal anatomy. Experiments on real fetal brain ultrasound show that our method outperforms representative synthesis methods, with normalized cross correlation of 0.518 versus 0.482 and Fréchet Inception Distance of 8.905 versus 13.319 for the strongest baseline. Beyond synthesis quality, volumes generated from fetal brain magnetic resonance imaging label maps also improve downstream segmentation, particularly for severe abnormal cases. Overall, these results highlight the potential of the proposed framework to leverage rich fetal brain magnetic resonance imaging resources for advancing three-dimensional ultrasound analysis.",
-   "affiliations": [
-    "Camilo Jaimes, P. Ellen Grant, and Davood Karimi"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.22635",
    "pdf_url": "https://arxiv.org/pdf/2609.22635"
   },
@@ -12050,7 +11917,8 @@
    "abstract": "Large language model-driven remote sensing (RS) agents offer a promising approach to automating geospatial analysis. However, lightweight RS agents based on compact language models struggle with multi-step interactive tasks due to loss of long-horizon states, inefficient environmental feedback utilization, and sparse optimization signals. We propose RS-Claw-Evolution, an environment-feedback-driven framework that progressively improves lightweight agents through three stages. Interaction evolution uses executable code to control observations, maintain intermediate states, and reduce context redundancy. Experience evolution combines failure-aware trajectory generation with error-turn masking to learn from informative failure-recovery experiences without imitating faulty actions. Decision evolution uses reinforcement learning with multi-dimensional environment rewards and turn-level advantage protection to optimize tool-use behaviors and improve credit assignment in long sequences. On Earth-Bench, the optimized Qwen3-4B-based agent achieves 65.9% accuracy in Autonomous Planning mode, outperforming the untrained Qwen3-32B baseline (43.8%) and DeepSeek-V3.1 (60.8%), while approaching GPT-5 (71.6%). These results demonstrate that learning from environmental feedback can improve lightweight agents and narrow their performance gap with larger models in long-horizon RS tasks.",
    "affiliations": [
     "School of Geosciences and Info-Physics, Central South University, Changsha 410083, China",
-    "School of Earth Sciences and Spatial Information Engineering, Hunan University of Science and Technology, Xiangtan 411201, China, and also with Sanya Institute, Hunan University of Science and Technology, Sanya 572024, China",
+    "School of Earth Sciences and Spatial Information Engineering, Hunan University of Science and Technology, Xiangtan 411201, China",
+    "Sanya Institute, Hunan University of Science and Technology, Sanya 572024, China",
     "School of Resources and Environment, University of Electronic Science and Technology of China, Chengdu 611700, China",
     "School of Artificial Intelligence, Central South University, Changsha 410083, China"
    ],
@@ -12083,17 +11951,19 @@
      0
     ],
     [
-     1
-    ],
-    [
+     1,
      2
     ],
     [
      3
+    ],
+    [
+     4
     ]
    ],
    "institutions": [
     "Central South University",
+    "Hunan University of Science and Technology",
     "Hunan University of Science and Technology",
     "University of Electronic Science and Technology of China",
     "Central South University"

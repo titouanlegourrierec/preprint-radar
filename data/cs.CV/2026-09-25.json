@@ -1874,7 +1874,6 @@
    "html_url": "https://arxiv.org/html/2609.29607v1",
    "abstract": "While multimodal large language models (MLLMs) have advanced video understanding, they remain highly prone to hallucinations in dynamic scenes. We argue this stems from a failure in spatio-temporal monitoring, the ability to persistently track object identities, states, and relations over time. Existing benchmarks obscure this deficit by relying on single final-answer evaluations for queries that can often be resolved via local visual cues or statistical priors. To rigorously diagnose this, we introduce STRAND, a benchmark of human-verified object-centric facts that evaluates intermediate reasoning by decomposing queries into sub-questions, distinguishing genuine temporal understanding from coincidental correctness. Crucially, we score models with Faithful Accuracy, an unconditional joint metric that credits a prediction only when the target answer and every prerequisite sub-question are correct, so that a model cannot inflate its score by being selectively consistent on the small subset of targets it happens to answer correctly. To address failure modes exposed by STRAND, we further propose an object-centric framework that explicitly constructs and reasons over structured object trajectories via chunk-wise state extraction and temporal aggregation. Extensive experiments, including backbone-, frame-, call-, and token-matched comparisons against both end-to-end MLLMs and modular video harnesses, demonstrate that our object-centric framework significantly reduces hallucinated answers and improves spatio-temporal reasoning consistency over state-of-the-art MLLMs. The code, model, and data have been made available at http://nguyentthong.github.io/strand.",
    "affiliations": [
-    "Quynh Vo, See-Kiong Ng, Bryan Hooi Kuen-Yew",
     "National University of Singapore (NUS), Singapore",
     "Centre for AI Research, VinUniversity"
    ],
@@ -1884,15 +1883,13 @@
     null,
     [
      0,
-     1,
-     2
+     1
     ],
     null,
     null,
     null
    ],
    "institutions": [
-    null,
     "National University of Singapore",
     null
    ],
@@ -2043,32 +2040,9 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.29581v1",
    "abstract": "Although diffusion-based methods have substantially improved the controllability of multimodal face synthesis, their semantic alignment remains suboptimal because most existing approaches rely on implicit latent-space objectives to model the relationship between denoising variables and multimodal conditions. Such implicit modeling is often insufficient to enforce precise correspondence between synthesized faces and conditional inputs, especially under long-tailed semantic mask distributions where rare attributes receive weak optimization signals. To address these limitations, we propose EC\\textsuperscript{2}Face, a multimodal face synthesis framework that improves semantic alignment through explicit semantic supervision and distribution-aware optimization. First, we introduce Explicit Conditional Consistency Guidance (ECCG), which imposes direct consistency supervision in pixel space by decoding an approximate reverse estimate of the clean latent and explicitly aligning the synthesized image with textual descriptions and semantic masks. A temporal dynamic modulation function is further designed to adapt the supervision strength according to the timestep-dependent reliability of reverse estimation. Second, we propose Long-Tail Adaptive Flow Matching (LAFM), which reweights spatial optimization signals based on semantic attribute frequency, with normalized weights to maintain numerical stability during training. Importantly, all additional modules are used only during training and introduce no extra inference overhead. Extensive experiments show that EC\\textsuperscript{2}Face consistently outperforms competitive baselines in both generation quality and semantic alignment, achieving a 29.38\\% improvement in mask accuracy on rare attributes.",
-   "affiliations": [
-    "Chun Yu, Junliang Xing"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.29581",
    "pdf_url": "https://arxiv.org/pdf/2609.29581"
   },
@@ -3909,41 +3883,9 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.29028v1",
    "abstract": "In this paper, we propose RGBD20K, a novel dataset for facilitating the development of more robust and general RGB-D semantic segmentation by encompassing abundant categories and high-quality annotations. RGBD20K possesses several attractive properties: (1) Expanded Semantic Space. In particular, it covers 160 fine-grained categories, largely surpassing the category diversity of existing popular RGB-D benchmarks (e.g., NYUv2 with 40 classes and SUN RGB-D with 37 classes). With such enriched semantic coverage, we expect to promote the learning of more generalizable segmentation models. (2) Larger Scale. Compared with current benchmarks, RGBD20K offers 20,000 RGB-D image pairs, providing a substantially larger training resource that benefits the development of more powerful deep models. (3) High-Fidelity Annotation. We perform rigorous re-evaluation and correction of existing labels to resolve long-standing annotation noise, resulting in a clean and reliable ground-truth foundation. Furthermore, we propose a novel score-purified fusion (SPF) method, which achieves state-of-the-art performance across all evaluated benchmarks, demonstrating the effectiveness of our approach in leveraging high-quality multimodal information for RGB-D semantic segmentation. The dataset is here: https://github.com/ShaohuaDong2021/RGBD20K/.",
-   "affiliations": [
-    "Cuicui Zhang, Dylan Joseph, Kewei Sha, Yunhe Feng and Heng Fan"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.29028",
    "pdf_url": "https://arxiv.org/pdf/2609.29028"
   },
@@ -5119,34 +5061,14 @@
     "University of Southern California",
     "Brown University",
     "Fudan University",
-    "Toyota Research Institute",
-    "Project page"
+    "Toyota Research Institute"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    [
-     0,
-     1,
-     2,
-     3,
-     4
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "University of Southern California",
     "Brown University",
     "Fudan University",
-    "Toyota Research Institute",
-    null
+    "Toyota Research Institute"
    ],
    "abs_url": "https://arxiv.org/abs/2609.30247",
    "pdf_url": "https://arxiv.org/pdf/2609.30247"
@@ -5264,14 +5186,12 @@
    "abstract": "Audio Description (AD) makes movies accessible to blind and visually impaired audiences by narrating visual information in gaps between dialogue. Existing automatic AD systems largely treat generation as a local video-to-text problem, assuming that the content to describe and its temporal location are already provided. Realistic AD instead requires coupled decisions about what visual information is narratively important, when it can be spoken without interfering with dialogue, and how it should be formulated to fit within the available time. We formalize AD generation as a constrained optimization problem over these three decisions. Our hybrid system uses large language models to propose and ground visual elements, estimate their salience to the narrative, and generate compressed realizations. A mixed-integer linear program then jointly selects and schedules descriptions across a scene subject to temporal constraints. When evaluated on REFRAMED, a benchmark for realistic AD of movies, our approach makes better decisions than prompted LLMs about what to describe and when to describe it, establishing a new SOTA on narrative QA and temporally grounded metrics. Ablations show that explicit temporal constraints drive gains in placement, while salience estimation controls how much narratively useful content is retained. Improvements are concentrated on temporal and narrative measures rather than n-gram overlap, although a significant gap to professional describers remains.",
    "affiliations": [
     "School of Informatics",
-    "University of Edinburgh",
-    "United Kingdom"
+    "University of Edinburgh"
    ],
    "author_affiliations": null,
    "institutions": [
     null,
-    "University of Edinburgh",
-    null
+    "University of Edinburgh"
    ],
    "abs_url": "https://arxiv.org/abs/2609.30121",
    "pdf_url": "https://arxiv.org/pdf/2609.30121"
@@ -5460,41 +5380,9 @@
    "cross_list_from": "cs.CG",
    "html_url": "https://arxiv.org/html/2609.29932v1",
    "abstract": "Resting-state functional connectivity (FC) is widely used to classify brain phenotypes and disorders. Most pipelines use the full connectome and seek gains through model design. We instead examine how FC geometry constrains classification and cross-site transfer. Across-subject FC variation concentrates in a small effective subspace, suggesting substantial redundancy in nominal dimensions. Across cohorts, these subspaces may differ in orientation even when their effective ranks are comparable, potentially limiting transfer. Across 2,330 subjects from HCP, ABIDE, and ADHD-200, effective-rank analysis reveals strong spectral concentration. Projection onto leading components at the effective-rank scale recovers most of the full-FC classification performance. In ABIDE, site-specific effective subspaces are weakly aligned, and their principal-angle overlap predicts pairwise transfer after covariate adjustment despite comparable per-site effective ranks. Controlled rotations that alter subspace orientation while preserving the mean and covariance spectrum drive transfer toward chance, whereas displacement-matched label-orthogonal rotations do not. These results identify subspace orientation as a key factor in transfer degradation under controlled perturbations. This study offers a geometric diagnostic of FC generalization and suggests evaluating cross-site harmonization by its ability to align effective subspaces alongside classification accuracy.",
-   "affiliations": [
-    "Wenchao Zhang, Weibin Ji, Yi Zhang"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.29932",
    "pdf_url": "https://arxiv.org/pdf/2609.29932"
   },

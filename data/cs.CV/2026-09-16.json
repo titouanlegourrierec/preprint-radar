@@ -325,21 +325,18 @@
    "html_url": "https://arxiv.org/html/2609.16409v1",
    "abstract": "Chain-of-thought reasoning has revolutionized natural language processing by enabling large language models (LLMs) to decompose problems into intermediate steps before answering. Yet confining reasoning to the textual domain presents limitations for tasks requiring direct manipulation of visual representations. Recent efforts augment multimodal LLMs with external visual expert tools such as depth estimation or object detection modules, but these remain fundamentally limited by their reliance on narrow, rigid operations that cannot flexibly generate or transform visual content. We propose ReImaGin, which leverages image generation models as a flexible visual reasoning mechanism for multimodal LLMs: unlike fixed-function tools, they accept natural language commands and can perform open-ended visual operations, like removing an occlusion or generating a floorplan from multiple disjoint views of a room. Across six diverse visual reasoning tasks including multi-view spatial reasoning and collision prediction, ReImaGin consistently outperforms both text-only reasoning and specialist vision-tool baselines, with gains of up to 25\\%, demonstrating the advantage of flexible, generative visual reasoning.",
    "affiliations": [
-    "Marcus Rohrbach, Anna Rohrbach",
     "Technical University of Darmstadt & hessian.AI"
    ],
    "author_affiliations": [
     null,
     null,
     [
-     0,
-     1
+     0
     ],
     null,
     null
    ],
    "institutions": [
-    null,
     "Technische Universität Darmstadt"
    ],
    "abs_url": "https://arxiv.org/abs/2609.16409",
@@ -1229,18 +1226,7 @@
     "University of Pennsylvania, Philadelphia, PA, USA",
     "Harbin Institute of Technology (Shenzhen), Shenzhen, China"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    [
-     0,
-     1,
-     2,
-     3
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     null,
     null,
@@ -2738,15 +2724,7 @@
     "Indian Institute of Technology Ropar, Rupnagar, 140001, Punjab, India",
     "Trinity College Dublin, The University of Dublin, College Green, D02 PN40, Dublin 2, Ireland"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    [
-     0,
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "Indian Institute of Technology Ropar",
     "Trinity College Dublin"
@@ -3031,44 +3009,9 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.17094v1",
    "abstract": "Multimodal representation learning seeks shared representations for cross-modal retrieval and knowledge transfer. Hub-based binding reduces pairwise supervision costs, but separate hub connections cannot guarantee reliable alignment between modalities without direct joint training. We introduce Hub-Spectral Activation (HSA), a closed-form method for recovering and activating the hub-readable component of latent multimodal knowledge in frozen representations. We formalize this knowledge as source-induced cross-modal dependence and characterize the component determined by the second-order statistics of two trained hub edges. Under a second-order source model, we establish conditions for exact recovery of the complete source-induced relation and bound the dimension of its hub-readable component by the hub covariance rank. HSA composes and standardizes hub-edge statistics, extracts paired spectral directions, and combines reliability-weighted matching evidence with source-gated candidate resolution for bidirectional retrieval and prototype classification. HSA requires no target-pair supervision, gradient optimization, or backbone updates. Across 19 retrieval and 11 prototype-classification relations on ImageBind and LanguageBind, HSA raises mean bidirectional Recall@10 from 18.27% to 31.15% and mean macro Top-1 accuracy from 29.01% to 52.43%, respectively. Controlled analyses further identify valid hub-edge correspondence and leading spectral directions as key sources of retrieval gains, demonstrating the utility of latent multimodal knowledge beyond native similarity scores. Code and models are publicly available at https://github.com/Luo1Yan/HSA.",
-   "affiliations": [
-    "Dan Zhang, Fei Shen, Li Shen, and Tat-Seng Chua"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.17094",
    "pdf_url": "https://arxiv.org/pdf/2609.17094"
   },
@@ -4516,22 +4459,23 @@
    "html_url": "https://arxiv.org/html/2609.16031v1",
    "abstract": "Ultra-low-dose computed tomography (ULDCT) reduces radiation exposure but suffers from severe noise that degrades diagnostic image quality. Existing deep learning-based denoising methods are typically trained in an organ-specific fashion, resulting in limited generalization across heterogeneous multi?organ imaging scenarios. Foundation models present a promising all-in-one paradigm for unified multi-organ denoising. However, their architectures suffer from poor interpretability and rely on heuristic training strategies. To address these limitations, we propose an architecture?interpretable foundation model based on the deep dictionary network (DDN) for unified multi-organ ULDCT denoising. Inspired by multilayer sparse representation theory, DDN cascades convolutional sparse coding layers with iterative soft-thresholding, providing inherent architectural interpretability. Furthermore, a dynamic dictionary module and a threshold generation module are embedded within each layer to enhance representation ability. We conduct DDN pre-training on more than one million multi-organ normal-dose CT images by recovering clean images from Gaussian-noised inputs. Sparse regularization is additionally imposed on latent feature representations, guiding the network to learn compact and noise-robust priors. The complete architecture is jointly fine-tuned on multi-organ ULDCT datasets, enabling a single unified model to perform denoising across diverse anatomical regions. Extensive experiments validate that our proposed method achieves state-of-the?art performance and consistently surpasses competing ULDCT methods across all mul",
    "affiliations": [
-    "School of Information Science and Engineering, Yanshan University, Qinhuangdao 066004, Hebei, China, and also with the Hebei Key Laboratory of Information Transmission and Signal Processing, Yanshan University, Qinhuangdao 066004, Hebei, China",
+    "School of Information Science and Engineering, Yanshan University, Qinhuangdao 066004, Hebei, China",
+    "Hebei Key Laboratory of Information Transmission and Signal Processing, Yanshan University, Qinhuangdao 066004, Hebei, China",
     "Department of Orthopedics, Beijing Friendship Hospital, Capital Medical University, Beijing, China",
     "Lauterbur Research Center for Biomedical Imaging, Shenzhen Institute of Advanced Technology, Chinese Academy of Sciences, Shenzhen 518055, China",
     "Institute of Advanced Intelligence and Computing (IAIC), Agency for Science, Technology and Research (A*STAR), Singapore 138632"
    ],
    "author_affiliations": [
     [
-     0
+     0,
+     1
     ],
     [
-     0
+     0,
+     1
     ],
     [
-     0
-    ],
-    [
+     0,
      1
     ],
     [
@@ -4539,9 +4483,13 @@
     ],
     [
      3
+    ],
+    [
+     4
     ]
    ],
    "institutions": [
+    "Yanshan University",
     "Yanshan University",
     "Capital Medical University",
     "Chinese Academy of Sciences",
@@ -4749,38 +4697,7 @@
     "University of Scholars, Department of Computer Science & Engineering, Dhaka, 1213, Bangladesh",
     "Louisiana Tech University, Department of Computer Science & Engineering, 201 Mayfield Ave, Ruston, LA 71272, USA"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    [
-     0,
-     1,
-     2,
-     3,
-     4,
-     5,
-     6,
-     7,
-     8,
-     9,
-     10
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "North South University",
     "North South University",
@@ -4930,16 +4847,7 @@
     "Department of Civil and Environmental Engineering, University of California, Davis, Davis, CA, 95616, USA",
     "Department of Electrical and Computer Engineering, University of California, Davis, Davis, CA, 95616, USA"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    [
-     0,
-     1,
-     2
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "University of California, Davis",
     "University of California, Davis",
@@ -5014,14 +4922,7 @@
     "California High School, San Ramon, CA, 94583, USA",
     "Department of Biological and Agricultural Engineering, University of California, Davis, Davis, CA, 95616, USA"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    [
-     0,
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     null,
     "University of California, Davis"

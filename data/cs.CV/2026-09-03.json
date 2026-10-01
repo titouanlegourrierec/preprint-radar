@@ -380,8 +380,6 @@
     "Ted Rogers Centre for Heart Research, Toronto, Canada",
     "Department of Medical Biophysics, U of T, Toronto, Canada",
     "Vector Institute, Toronto, Canada",
-    "Project Page",
-    "Code",
     "Toronto General Hospital Research Institute, UHN, Toronto, Canada",
     "Department of Computer Science, University of Toronto (U of T), Toronto, Canada",
     "Department of Medical Imaging, U of T, Toronto, Canada"
@@ -391,36 +389,28 @@
      0,
      1,
      2,
-     3,
-     4,
-     5
+     3
     ],
     [
      0,
-     6,
+     4,
      1,
      2,
-     3,
-     4,
-     5
+     3
     ],
     [
      0,
-     6,
-     1,
-     7,
-     2,
-     8,
-     3,
      4,
-     5
+     1,
+     5,
+     2,
+     6,
+     3
     ]
    ],
    "institutions": [
     "University Health Network",
     "Ted Rogers Centre for Heart Research",
-    null,
-    null,
     null,
     null,
     "Toronto General Hospital Research Institute",
@@ -512,15 +502,7 @@
     "North Carolina State University, Wilson College of Textiles",
     "Raleigh, NC, USA"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    [
-     0,
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "North Carolina State University",
     null
@@ -551,14 +533,7 @@
     "State Key Laboratory for Novel Software Technology",
     "Nanjing University, China"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    [
-     0,
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     null,
     "Nanjing University"
@@ -937,15 +912,7 @@
     "Department of Computer Science, George Mason University",
     "Fairfax, VA 22030, USA"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    [
-     0,
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "George Mason University",
     null
@@ -2582,32 +2549,9 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.02288v1",
    "abstract": "Diffusion MRI requires repeated k-space acquisitions over multiple diffusion-encoding directions, making acquisition time dependent on both spatial and angular sampling. Existing joint k-q methods either associate directional parameters with fixed voxels or separate spatial reconstruction from angular completion. However, diffusion-weighted images acquired under different directions share the same anatomical organization, while their local signal intensities vary with diffusion encoding. Existing formulations do not fully exploit the complementarity between shared anatomy and direction-dependent signal variation. Consequently, residual spatial errors may be misinterpreted as genuine angular variation and propagated to unobserved directions. We propose a subject-specific spatial-angular Gaussian field for self-supervised joint k-q dMRI reconstruction. Shared 3D Gaussian primitives provide local spatial support, with each primitive carrying a continuous q-conditioned tensor-residual response. The signal at each location is synthesized from multiple overlapping primitive responses, coupling neighboring spatial regions and diffusion directions. The field is progressively optimized from undersampled k-space measurements of observed directions, without fully sampled targets or held-out-direction supervision. Experiments on three HCP diffusion shells under multiple acceleration settings demonstrated consistent improvements in missing-direction DWI reconstruction, tensor-derived metrics, and principal diffusion orientation estimation.",
-   "affiliations": [
-    "Dong Liang, and Qiegen Liu"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.02288",
    "pdf_url": "https://arxiv.org/pdf/2609.02288"
   },
@@ -4192,28 +4136,20 @@
    "abstract": "Low-dose computed tomography (LDCT) measurements contain mixed Poisson-Gaussian noise. However, most self-supervised methods rely on generic image statistics and do not explicitly model this noise, which may limit their ability to effectively suppress realistic LDCT noise. To address this issue, we propose a physics-driven framework with cross-domain iteration for self-supervised LDCT denoising. The proposed framework proceeds in three main steps. First, a learned sinogram prior and the LDCT noise model guide posterior inference of photon counts, enabling separation of the Poisson and Gaussian components. Second, the separated Poisson and Gaussian components are respectively processed by binomial thinning and Gaussian data thinning to construct two branches, and residual scaling matches each branch's noise level to that of the observation, yielding a training pair with approximately independent noise realizations from one low-dose measurement. Finally, the pair is used to train an image-domain network whose forward-projected outputs update the prior. Through cross-domain iteration, the prior and the training pair are progressively refined while maintaining consistency with CT acquisition physics. Experiments on simulated data from AAPM, LIDC-IDRI, and LoDoPaB-CT and on real LDCT data show consistent gains over the evaluated self-supervised baselines across dose levels, with performance comparable to the evaluated supervised baseline.",
    "affiliations": [
     "School of Mathematics and Computer",
-    "the",
     "School of Biomedical Engineering"
    ],
    "author_affiliations": [
     [
      0
     ],
+    null,
+    null,
     [
      1
     ],
-    [
-     1
-    ],
-    [
-     2
-    ],
-    [
-     1
-    ]
+    null
    ],
    "institutions": [
-    null,
     null,
     null
    ],
@@ -5408,38 +5344,9 @@
    "cross_list_from": "eess.IV",
    "html_url": "https://arxiv.org/html/2609.01959v1",
    "abstract": "Multi-contrast MR scans contain redundant structural information that can be leveraged during reconstruction and potentially accelerate acquisition times. This idea has inspired end-to-end guided reconstruction models, leveraging one or more contrasts to guide the reconstruction of a different contrast. However, these models require large paired multi-contrast raw datasets for training, limiting their application in low-data regimes. In this work, we propose a modular framework, namely CoSMo-RecNet, for learning guided reconstruction models in the low-data regime. At its core is a reusable multi-contrast representation based on a content/style model, which can be learned from large-scale, publicly accessible, unpaired multi-contrast image datasets, without available k-space data. Using this frozen model as a multi-contrast prior and using a set of reference contrasts, the reconstruction problem reduces to a much simpler refinement problem that can be solved by a lightweight unrolled network and thus learned from small, task-specific reconstruction datasets. We demonstrate the efficacy of CoSMo-RecNet by evaluating it on the low-field 0.3 T M4Raw dataset, showing stable reconstruction quality on decreasing the raw training data budget. CoSMo-RecNet achieved higher reconstruction quality with 5 training subjects or lower compared to a parameter-count-matched MoDL trained on 100 subjects. On a data-limited and severely out-of-distribution ultra-low-field 47 mT Halbach scanner dataset, CoSMo-RecNet was superior to other viable strategies, including classical reconstruction, transfer learning, and zero-shot reconstruction.",
-   "affiliations": [
-    "Laurens Beljaards, Navid Jabarimani, Nicola Pezzotti, Marius Staring"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.01959",
    "pdf_url": "https://arxiv.org/pdf/2609.01959"
   },
@@ -5764,8 +5671,8 @@
    "html_url": "https://arxiv.org/html/2609.02219v1",
    "abstract": "Autonomous lunar missions require real-time per- ception under three coupled constraints: extreme low-light conditions, limited onboard compute, and radiation-induced hardware faults that can silently corrupt inference. We present a deployment-oriented instance segmentation framework for resource-constrained lunar robotics that jointly addresses quan- tization calibration and system-level fault exposure under strict compute constraints. First, we introduce Activation Variance Informative Sampling (AVIS), a label-free calibration strategy that deterministically selects calibration samples based on activation variance statistics. Second, we deploy a YOLO-based segmentation model on a Deep Learning Processor Unit (DPU) with architectural modifications that reduce CPU fallback paths and enable statically compiled execution with bounded latency in low-lighting conditions. We further introduce a software-level criticality analysis to estimate fault exposure and guide mitigation under radiation-constrained operation. On a lunar micro-rover platform, AVIS with bias correction recovers 69.8% of quantization-induced accuracy loss while achieving 309 ms inference latency and 5.7 W power consumption. Targeted mitigation reduces global criticality by 31.7%. The results demonstrate an integrated approach and a blueprint for a reliable and safe AI perception framework under space deployment constraints.",
    "affiliations": [
-    "All authors are with the Robotics Innovation Center of the German Research Center for Artificial Intelligence GmbH (DFKI), Bremen, Germany",
-    "Frank Kirchner and Udo Frese are additionally affiliated with the University of Bremen, Germany"
+    "Robotics Innovation Center of the German Research Center for Artificial Intelligence GmbH (DFKI), Bremen, Germany",
+    "University of Bremen, Germany"
    ],
    "author_affiliations": [
     [

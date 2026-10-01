@@ -210,18 +210,7 @@
     "Calgary Image Processing and Analysis Centre, Foothills Medical Centre, Calgary, T2N 2T9, AB, Canada",
     "Seaman Family MR Research Centre, Foothills Medical Centre, Calgary, T2N 2T9, AB, Canada"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    [
-     0,
-     1,
-     2,
-     3,
-     4
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "University of Calgary",
     "University of Calgary",
@@ -426,15 +415,7 @@
     "Georgia Institute of Technology",
     "Atlanta, GA, U.S.A"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    [
-     0,
-     1,
-     2
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     null,
     "Georgia Institute of Technology",
@@ -1093,23 +1074,27 @@
    "html_url": "https://arxiv.org/html/2609.18056v1",
    "abstract": "Parameter-efficient fine-tuning (PEFT) has recently emerged as a pivotal research direction for adapting pre-trained point cloud transformers to diverse downstream tasks. Although existing methods achieve excellent fine-tuning performance with high parameter efficiency, they ignore inference efficiency. To tackle this problem, a novel PEFT method termed position anchor tuning (PAT) is proposed in this paper. As multi-head attention (MHA) and feed-forward network (FFN) are computation-heavy blocks in pre-trained transformers, PAT decreases their computational cost through token aggregation-expansion pairs. Each pair comprises a token aggregation module (TAM) and a token expansion module (TEM). For MHA and FFN blocks, TAMs extract representative tokens from their input tokens based on position anchors in 3D space. These extracted tokens, rather than the original input tokens, are processed by the blocks, thereby reducing the number of tokens involved in computation. Then, TEMs propagate the learned representations back to the original input tokens. Since TAMs are solely responsible for capturing task-specific representations, base-sharing low-rank adaptation (BSLoRA) is further introduced to enable them to learn such representations effectively with only a small number of trainable parameters. Extensive experiments on widely used benchmarks demonstrate that PAT performs comparably to state-of-the-art methods while incurring significantly lower computational overhead and fewer trainable parameters.",
    "affiliations": [
-    "School of Automation and Electrical Engineering, University of Science and Technology Beijing, Beijing 100083, China, and also with the Beijing Engineering Research Center of Industrial Spectrum Imaging, Beijing 100083, China",
+    "School of Automation and Electrical Engineering, University of Science and Technology Beijing, Beijing 100083, China",
+    "Beijing Engineering Research Center of Industrial Spectrum Imaging, Beijing 100083, China",
     "Department of Automation, BNRist, Tsinghua University, Beijing 100084, China"
    ],
    "author_affiliations": [
     [
-     0
+     0,
+     1
     ],
     [
-     0
+     0,
+     1
     ],
     null,
     [
-     1
+     2
     ]
    ],
    "institutions": [
     "University of Science and Technology Beijing",
+    null,
     "Tsinghua University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.18056",
@@ -2790,9 +2775,9 @@
    "html_url": "https://arxiv.org/html/2609.18511v1",
    "abstract": "In autonomous driving, perception models often struggle to generalize to new environments due to domain shifts. While unsupervised model adaptation offers a feasible solution without labor-intensive manual labeling, existing methods that rely solely on the ego-vehicle's data often lead to inferior pseudo-labeling performance. To address this critical issue, we propose LDE, Learning from Distributed ``Eyes\", a novel framework that transforms collaborative perception (CP) into a source of high-quality supervision for model adaptation. This pseudo-labeling approach is hyperparameter-insensitive and relatively reliable, assuming CP often outperforms single-agent's perception. However, naively implementing this approach encounters (1) the communication bottleneck of sharing rich features under time and bandwidth constraints, (2) the view discrepancy between the CP view and the learner's Field of View (FoV), and (3) the unreliability even in CP-generated labels. To address these issues, we design an adaptation-oriented feature sharing mechanism that selectively transmits the most critical information for adaptation, an FoV filtering method that meticulously eliminates mismatched labels, and a curriculum learning strategy to progressively exploit pseudo labels. Extensive experiments on 3D object detection tasks demonstrate that LDE consistently outperforms both the pre-trained models and state-of-the-art unsupervised adaptation methods.",
    "affiliations": [
-    "Yanan Ma, Yihang Tao, Zhengru Fang, Zihan Fang, and Yuguang Fang are with the Hong Kong JC Lab of Smart City and the Department of Computer Science, City University of Hong Kong, Hong Kong, China",
-    "Yiqin Deng is with the School of Data Science, Lingnan University, Tuen Mun, Hong Kong, China",
-    "Xianhao Chen is with the Department of Electrical and Electronic Engineering, University of Hong Kong, Hong Kong, China"
+    "Hong Kong JC Lab of Smart City and the Department of Computer Science, City University of Hong Kong, Hong Kong, China",
+    "School of Data Science, Lingnan University, Tuen Mun, Hong Kong, China",
+    "Department of Electrical and Electronic Engineering, University of Hong Kong, Hong Kong, China"
    ],
    "author_affiliations": [
     [
@@ -3008,7 +2993,7 @@
    "html_url": "https://arxiv.org/html/2609.18548v1",
    "abstract": "Egocentric motion forecasting has primarily focused on hands and manipulated objects, leaving future human head motion comparatively underexplored. During manipulation, the head both redirects perception toward the target to acquire task-relevant evidence and coordinates with body and hand motion. We therefore formulate future six Degree of Freedom (6-DoF) head-motion prediction conditioned on observed hand motion and inferred target context, and propose HAP, a Hand-Driven Active Perception framework. HAP infers confidence for each target object from observed hand motion and object geometry. Then constructs a dynamic Predictive Target-Centric Amodal Occlusion Graph (P-TAOG) representing current and potential occlusion among candidate objects. Directed graph and causal temporal reasoning encode the evolving target conditioned perceptual state, which is fused with hand and head motion history. A horizon-wise gate then blends the learned trajectory with a constant velocity prior. We further introduce Bottle, an egocentric RGB-D dataset of object manipulation toward specified targets, with coordinated head and hand motion under changing target visibility. Experiments on the public dataset and Bottle show that HAP achieves lower head motion prediction errors than representative baselines, supporting the value of hand driven intention and dynamic occlusion reasoning for anticipating human head motion. Code will be released at https://HAP-ego.github.io/HAP.",
    "affiliations": [
-    "Yunji Feng is also with Zhongguancun Academy, Beijing 100094, China"
+    "Zhongguancun Academy, Beijing 100094, China"
    ],
    "author_affiliations": [
     [
@@ -4842,22 +4827,18 @@
    "html_url": "https://arxiv.org/html/2609.18772v1",
    "abstract": "Sign language processing advances rapidly for high-resource languages such as American Sign Language (ASL), yet most of the world's sign languages lack the phonological annotations new methods require. We present the first zero-shot cross-lingual framework for handshape recognition, transferring from ASL to Catalan Sign Language (LSC). Our approach leverages the decomposition of handshapes into five phonological features -- selected fingers, flexion, spread, thumb position, and thumb contact -- shared across both languages, to decode LSC handshapes from predicted features via a composite phonological distance metric. We evaluate three architectures (MLP, SL-GCN, SHuBERT) trained on two ASL corpora (PopSign, Sem-Lex) against a 37-handshape, single-signer LSC benchmark. Zero-shot transfer proves viable once recording-format disparities are harmonized, reaching 80.0% phonological feature accuracy and 54.5% expected handshape accuracy. Phonological decomposition thus offers a bridge for extending sign language technologies to low-resource languages without any target-language video training labels.",
    "affiliations": [
-    "Gloria Haro, Coloma Ballester, Ricardo Marques",
     "Universitat Pompeu Fabra"
    ],
    "author_affiliations": [
+    null,
     [
      0
-    ],
-    [
-     1
     ],
     null,
     null,
     null
    ],
    "institutions": [
-    null,
     "Universitat Pompeu Fabra"
    ],
    "abs_url": "https://arxiv.org/abs/2609.18772",

@@ -601,7 +601,6 @@
     "The University of Tokyo",
     "RIKEN",
     "Program on Brain, Mind, and Consciousness, Canadian Institute for Advanced Research",
-    "Correspondence",
     "Tohoku University"
    ],
    "author_affiliations": [
@@ -619,13 +618,12 @@
     ],
     [
      0,
-     4,
-     5
+     4
     ],
     [
      2,
      3,
-     6
+     5
     ]
    ],
    "institutions": [
@@ -634,7 +632,6 @@
     "University of Tokyo",
     null,
     "Canadian Institute for Advanced Research",
-    null,
     "Tohoku University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.13254",
@@ -1775,18 +1772,7 @@
     "University of Illinois Urbana-Champaign",
     "Champaign, IL, USA"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    [
-     0,
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "University of Illinois Urbana-Champaign",
     null
@@ -2417,34 +2403,48 @@
    "html_url": "https://arxiv.org/html/2609.13691v1",
    "abstract": "Most existing visual odometry (VO) systems treat feature correspondences as deterministic measurements or assign uniform uncertainty, ignoring the inherent localization ambiguity of different observations. However, correspondence uncertainty is often anisotropic due to image structures such as edges, repetitive patterns, and motion blur, which can significantly affect geometric optimization. In this work, we propose MomentBA, a geometry-aware bundle adjustment framework that derives anisotropic correspondence uncertainty from second-order spatial moments of local similarity responses. Instead of introducing additional covariance prediction networks, the proposed method directly converts matching response distributions into interpretable covariance estimates and incorporates them into bundle adjustment as correspondence-specific information matrices for uncertainty-aware residual weighting. Furthermore, the proposed formulation is integrated into a differentiable optimization framework, establishing a direct connection between correspondence uncertainty and geometric estimation. Experiments on the EuRoC MAV and TartanAir v1 Hard datasets demonstrate that MomentBA improves monocular visual odometry accuracy compared with existing feature-based and learning-based approaches. The proposed anisotropic covariance model achieves lower rotational errors and more robust trajectory estimation than fixed and isotropic uncertainty models, validating the effectiveness of geometry-induced uncertainty modeling for challenging visual environments.",
    "affiliations": [
-    "GNSS Research Center, Wuhan University, Wuhan 430079, China, and also with the Electronic Information School, Wuhan University, Wuhan 430079, China",
-    "GNSS Research Center, Wuhan University, Wuhan 430079, China, also with the Electronic Information School, Wuhan University, Wuhan 430079, China, also with Hubei Technology Innovation Center for Spatiotemporal Information and Positioning Navigation, Wuhan 430079, China, and also with Hubei Luojia Laboratory, Wuhan 430079, China",
-    "GNSS Research Center, Wuhan University, Wuhan 430079, China, also with the Hubei Technology Innovation Center for Spatiotemporal Information and Positioning Navigation"
+    "GNSS Research Center, Wuhan University, Wuhan 430079, China",
+    "Electronic Information School, Wuhan University, Wuhan 430079, China",
+    "Hubei Technology Innovation Center for Spatiotemporal Information and Positioning Navigation, Wuhan 430079, China",
+    "Hubei Luojia Laboratory, Wuhan 430079, China",
+    "Hubei Technology Innovation Center for Spatiotemporal Information and Positioning Navigation"
    ],
    "author_affiliations": [
     [
-     0
-    ],
-    [
+     0,
      1
     ],
     [
-     2
+     0,
+     1,
+     2,
+     3
     ],
     [
-     2
+     0,
+     4
     ],
     [
-     2
+     0,
+     4
     ],
     [
-     1
+     0,
+     4
+    ],
+    [
+     0,
+     1,
+     2,
+     3
     ]
    ],
    "institutions": [
     "Wuhan University",
     "Wuhan University",
-    "Wuhan University"
+    null,
+    null,
+    null
    ],
    "abs_url": "https://arxiv.org/abs/2609.13691",
    "pdf_url": "https://arxiv.org/pdf/2609.13691"
@@ -2470,29 +2470,22 @@
    "abstract": "Co-salient object detection (Co-SOD) requires a model to find foreground regions that are salient in individual images and supported by the image group. We present \\emph{Rank-Consistent Set Reasoning} (RCSR), a supervised dense-prediction framework that models a group as an unordered set rather than as a sequence of images or a semantic label. The core idea is to rank how strongly each spatial region agrees with a small collection of learned group slots at every image scale, and to aggregate these ranks with a robust trimmed statistic. This suppresses accidental pairwise matches and prevents one atypical group member from dominating the shared representation. A set encoder builds group slots directly from multi-scale visual features, while a rank-consistency gate measures whether the ordering of candidate regions is stable across group members. The gated slots are decoded jointly with per-image features to produce co-saliency maps. The model contains no natural-language branch, no open-vocabulary detector, and no external segmentation model. We further introduce a group permutation objective and hard-distractor augmentation so that the model learns the properties of a set-level target rather than memorizing image order or isolated visual saliency. We formulate an evaluation protocol for CoCA, CoSal2015, and CoSOD3k, together with tests of group-size robustness, distractor rejection, order invariance, and cross-dataset transfer.",
    "affiliations": [
     "University of California, Los Angeles (UCLA)",
-    "USA",
-    "Polytechnic University of Turin",
-    "Italy"
+    "Polytechnic University of Turin"
    ],
    "author_affiliations": [
     [
-     0,
+     0
+    ],
+    [
      1
     ],
     [
-     2,
-     3
-    ],
-    [
-     2,
-     3
+     1
     ]
    ],
    "institutions": [
     "University of California, Los Angeles",
-    null,
-    "Politecnico di Torino",
-    null
+    "Politecnico di Torino"
    ],
    "abs_url": "https://arxiv.org/abs/2609.13706",
    "pdf_url": "https://arxiv.org/pdf/2609.13706"
@@ -4570,19 +4563,18 @@
    "html_url": "https://arxiv.org/html/2609.14383v1",
    "abstract": "Real-time pedestrian detection in driving scenes is constrained by three coupled failure modes: tiny targets lose discriminative evidence, occlusion weakens geometric support, and weather or illumination changes distort appearance statistics. We formulate the detector through a unified \\emph{contour-guided spectral routing} view rather than treating frequency processing, attention, and boundary reasoning as independent add-ons. The detector routes information in a prescribed order: spatial evidence is first augmented with global spectral context, deep representations then exchange spatial and spectral cues, and cross-scale fusion is finally conditioned on boundary--semantic disagreement. This ordering yields a compact representation pipeline in which low-frequency context stabilizes global structure while high-frequency evidence protects small-object contours. We further retain a wavelet-subband training transformation that perturbs low- and high-frequency coefficients independently, targeting appearance shifts caused by fog, rain, snow, and low illumination. The formulation exposes a single routing variable at each stage and distinguishes reusable signal transforms from the task-specific policy that decides where each signal is injected. On CityPersons, the proposed detector obtains 70.4 AP$_{50}$ and 44.2 AP$_{50:95}$, compared with 68.1 and 42.2 for RT-DETR, while the full wavelet-augmented configuration reaches 71.1 and 44.6.",
    "affiliations": [
-    "University of California, Los Angeles (UCLA)",
-    "USA"
+    "University of California, Los Angeles (UCLA)"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
-    null
+    [
+     0
+    ]
    ],
    "institutions": [
-    "University of California, Los Angeles",
-    null
+    "University of California, Los Angeles"
    ],
    "abs_url": "https://arxiv.org/abs/2609.14383",
    "pdf_url": "https://arxiv.org/pdf/2609.14383"
@@ -5372,44 +5364,9 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.14615v1",
    "abstract": "Unified motion generation and understanding is crucial for embodied AI systems that can both synthesize and interpret human actions in open-world environments. Existing motion-language models often treat motion as an auxiliary modality of a language model, leading to text-dominated representations and limited cross-modal interaction. Moreover, the next-token prediction paradigm is not naturally suited to long motion sequences, where autoregressive generation may accumulate prediction errors. To address these challenges, we propose Open-UniMo, a unified Large Motion-Language Model (LMLM) trained on million-scale open-world motion-language data. Open-UniMo promotes modality parity by extending Qwen's vocabulary of about 150K text tokens with 64K motion tokens, enabling motion and language to share a unified token space. We further introduce motion-consistent Chain-of-Thought reasoning as an intermediate representation to bridge language semantics and motion dynamics. Open-UniMo is trained with a two-stage pipeline, where supervised fine-tuning establishes CoT-guided bidirectional motion-language mapping and Group Relative Policy Optimization (GRPO) improves semantic alignment while mitigating cumulative errors in autoregressive motion-token generation. To support comprehensive evaluation, we propose Open-MoBench, a VLM-guided benchmark for assessing text-to-motion (T2M) generation, motion-to-text (M2T) understanding, and bidirectional consistency. Extensive experiments show that Open-UniMo achieves state-of-the-art performance on both conventional metrics and Open-MoBench. Furthermore, ablation studies reveal that M2T understanding is not primarily limited by motion-token vocabulary size; instead, coupling M2T with the learnable T2M generation path yields stronger cross-modal representations, demonstrating that generation can facilitate understanding in AR-based motion-language modeling.",
-   "affiliations": [
-    "Xiaoguang Han, and Haoqian Wang"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.14615",
    "pdf_url": "https://arxiv.org/pdf/2609.14615"
   },
@@ -5838,35 +5795,9 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.14722v1",
    "abstract": "Low-cost and low-resolution sensors used in edge deployments can produce test point clouds that are substantially sparser than the normal training data. This train-test sampling-resolution gap changes the local geometry available to a 3D anomaly detector. We propose PC$^2$-AD, a point cloud upsampling framework that compensates sparse test inputs before downstream detection. Target Domain Candidate Generation (TCG) adapts a pretrained upsampler to normal training geometry and generates a dense candidate pool. Geometry-Aware Candidate Filtering (GACF) selects candidates according to geometric spacing and spatial coverage. Normality-Preserving Point Compensation (NPPC) refines the selection by comparing candidate normality scores with those of their input anchors. The selected points are combined with the unchanged input points and processed by the existing detector. Experiments with six detectors on two Anomaly-ShapeNet settings and Real3D-AD show improvements in the mean of object-level and point-level AUROC for all six detectors in each Anomaly-ShapeNet setting and four on Real3D-AD. These results support point cloud compensation as an input-level approach to improving 3D anomaly detection under low-resolution sensing conditions. Code is publicly available at https://github.com/gyutong406-commits/PC2-AD.",
-   "affiliations": [
-    "Linlin Shen, Jinbao Wang"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.14722",
    "pdf_url": "https://arxiv.org/pdf/2609.14722"
   },
@@ -7993,29 +7924,9 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.15484v1",
    "abstract": "We report on the continued development of CatchMonitor, resulting in a prototype computer vision system designed to automatically quantify discarded fish from video footage collected from Remote Electronic Monitoring (REM) systems on fishing trawlers. The analysis of trawler surveillance footage is a challenging problem due to the real-world conditions on board fishing vessels. Building on our prior work we improve the accuracy of species identification through the application of semi-supervised learning. We utilise a simple and robust object tracking approach, upon which we build our prototype discard quantification system. Finally we analyse the variability of manual discard quantification performed by multiple expert human analysts, using it as a benchmark against which we compare the performance of our system.",
-   "affiliations": [
-    "Helen Holah, Rebecca Lamb"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.15484",
    "pdf_url": "https://arxiv.org/pdf/2609.15484"
   },
@@ -8350,30 +8261,7 @@
     "Collingwood School",
     "Beth Israel Deaconess Medical Center"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    [
-     0,
-     1,
-     2,
-     3,
-     4,
-     5,
-     6,
-     7,
-     8
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "Massachusetts Institute of Technology",
     "King's College London",
@@ -8743,13 +8631,7 @@
     "Transformative Innovation for Trustworthy AI and Network Security (TITANS) Lab",
     "Computer Science, Southern Illinois University Carbondale, USA"
    ],
-   "author_affiliations": [
-    null,
-    [
-     0,
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     null,
     "Southern Illinois University Carbondale"
@@ -9168,33 +9050,7 @@
     "Faculty of Information Science and Technology, Ocean University of China, Qingdao 266100, China",
     "Information Systems Technology and Design Pillar, Singapore University of Technology and Design, Singapore 487372, Singapore"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    [
-     0,
-     1,
-     2,
-     3,
-     4,
-     5,
-     6,
-     7,
-     8,
-     9
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "Beijing Institute of Technology",
     null,
@@ -9267,14 +9123,7 @@
     "Department of Mechanical Engineering, York University, Toronto, ON, Canada",
     "Director, Space, Robotics and AI, Dr. Robot Inc., Toronto, ON, Canada"
    ],
-   "author_affiliations": [
-    null,
-    [
-     0,
-     1,
-     2
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "Toronto Metropolitan University",
     null,
@@ -10006,8 +9855,8 @@
    "html_url": "https://arxiv.org/html/2609.14219v1",
    "abstract": "High-mix low-volume (HMLV) manufacturing requires inspection systems to adapt to changing parts, specifications, and work orders without repeated task-specific programming. Existing inspection automation typically assumes predefined sensing sequences, while general purpose robot agents optimize task completion rather than the completeness and validity of metrological evidence. We formulate task-specified active metrological inspection and propose From Requirements to Admissible Metrological Evidence (FRAME), a hierarchical dual-arm framework that converts an inspection instruction and structured specification into traceable conformance evidence. FRAME coordinates learned manipulation with calibrated laser profilometry: a task manager grounds and schedules requirements, active surface correspondence verifies physical-to-specification localization, and evidence memory tracks measurement provenance, admissibility, and coverage. Learned components may propose inspection targets and physical access actions, but deterministic datum-grounded measurement, admissibility checks, coverage auditing, and conformance evaluation prevent incomplete or unverified evidence from authorizing PASS. A series of physical experiments shows that FRAME achieves higher end-to-end inspection reliability, fewer false accepts, and shorter task completion time.",
    "affiliations": [
-    "Zhiling Chen, Jingzhan Ge, Ruimin Chen, and Farhad Imani are with the University of Connecticut, Storrs, CT, USA",
-    "David Gorsich and Matthew P. Castanier are with the U.S. Army DEVCOM Ground Vehicle Systems Center (GVSC), Warren, MI, USA",
+    "University of Connecticut, Storrs, CT, USA",
+    "U.S. Army DEVCOM Ground Vehicle Systems Center (GVSC), Warren, MI, USA",
     "DISTRIBUTION STATEMENT A. Approved for public release; distribution is unlimited. OPSEC11090"
    ],
    "author_affiliations": [
@@ -10021,12 +9870,12 @@
      0
     ],
     [
-     1,
-     2
+     2,
+     1
     ],
     [
-     1,
-     2
+     2,
+     1
     ],
     [
      0
@@ -10137,7 +9986,7 @@
    "html_url": "https://arxiv.org/html/2609.14783v1",
    "abstract": "Robots need touch to manipulate objects safely and reliably, as many properties, such as softness, texture, and contact stability, are hard to infer from vision alone. However, vision-based tactile sensors yield different observations of the same material due to variations in optics, elastomer properties, and illumination, leading to poor generalization when trained on a single or multiple sensors. We propose a language-guided distillation framework for learning sensor-robust tactile representations. Language encodes high-level semantic properties of touch (e.g., rough, soft, slippery) that remain invariant across sensing hardware, providing a natural sensor-agnostic supervisory signal. We construct a 39K-sample touch-language dataset with human-annotated material labels and train a tactile encoder to align sensor-specific tactile images with language embeddings in a shared semantic space. We evaluate our approach for few-shot learning and cross-sensor transfer and benchmark it on six existing tactile datasets. Our method achieves 95% accuracy in the 100-shot setting, improves cross-sensor transfer by an average of 13.3% accuracy, and yields up to 19% accuracy gains across six existing tactile datasets. These results demonstrate that language-guided distillation enables scalable and hardware-agnostic tactile representation learning. Code and dataset are available at https://mashood3624.github.io/Language_Tactile/",
    "affiliations": [
-    "All authors are with Khalifa University Center for Autonomous Robotic Systems (KUCARS), Khalifa University, UAE"
+    "Khalifa University Center for Autonomous Robotic Systems (KUCARS), Khalifa University, UAE"
    ],
    "author_affiliations": [
     [
@@ -10512,13 +10361,7 @@
     "Department of Computer Science and Information Systems",
     "Youngstown State University"
    ],
-   "author_affiliations": [
-    null,
-    [
-     0,
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     null,
     "Youngstown State University"
