@@ -350,3 +350,20 @@ def test_citations_fetches_the_missing_counts_of_each_category(
 
     assert calls == [("cs.CV", False, "test-key"), ("cs.LG", True, "test-key")]
     assert capsys.readouterr().out.count("citation counts for 3 of 3 papers") == 2
+
+
+def test_index_is_written_again_from_the_stored_files(
+    tmp_path: Path, listing: Listing, capsys: pytest.CaptureFixture[str]
+) -> None:
+    data_dir = tmp_path / "data"
+    PaperStore(data_dir).save("cs.CV", listing.papers)
+    (data_dir / "index.json").write_text("<<<<<<< a conflict left by a rebase\n", encoding="utf-8")
+
+    assert main(["index", "--data-dir", str(data_dir)]) == 0
+
+    index = json.loads((data_dir / "index.json").read_text(encoding="utf-8"))
+    assert index["categories"]["cs.CV"] == [
+        {"date": "2026-09-25", "count": 5},
+        {"date": "2026-09-24", "count": 2},
+    ]
+    assert capsys.readouterr().out.startswith("Index written to")

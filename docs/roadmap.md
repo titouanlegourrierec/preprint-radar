@@ -72,7 +72,7 @@ for the answer.
 | DATA-7 | Ignore `.tmp` files | P3 | todo |
 | SEC-9 | About section with a correction contact | P1 | todo |
 | SEC-10 | Privacy note | P2 | todo |
-| CI-1 | Robust data commit (raised to P1, see the corrections above) | P1 | todo |
+| CI-1 | Robust data commit (raised to P1, see the corrections above) | P1 | done |
 
 *Exit criteria:* `validate` passes with zero structural violations, and the affiliation
 quality counts are recorded as a baseline.

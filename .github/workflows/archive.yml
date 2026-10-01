@@ -69,17 +69,18 @@ jobs:
           key: catalog-${{ github.run_id }}
 
       - name: Commit data
+        id: commit
+        # Replays the commit on main if it moved (see the script and update.yml).
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data
-          if git diff --cached --quiet; then
-            echo "No change."
-          else
-            git commit -m "chore(data): archive $(date -u +%Y-%m-%d)"
-            git pull --rebase
-            git push
-          fi
+          bash .github/scripts/commit-data.sh "chore(data): archive $(date -u +%Y-%m-%d)"
+
+      - name: Keep the data commit that could not be pushed
+        if: ${{ failure() && steps.commit.outcome == 'failure' }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: data-commit
+          path: data-commit.bundle
+          retention-days: 7
 
   deploy:
     needs: archive

@@ -107,12 +107,14 @@ Single checks: `uv run pytest tests/unit/test_paper_store.py -k merge`, `cd web 
 - `web/tsconfig.node.json` type-checks `vite.config.ts` with Node types. The app itself only gets DOM types.
 - GitHub Actions: pushes made with `GITHUB_TOKEN` do not trigger other workflows. That is why `update.yml` calls `deploy.yml` through `workflow_call`.
   - Actions are pinned by commit SHA with the version in a comment; bump them together (`git ls-remote --tags` gives the SHAs).
-  - `update.yml` rebases its data commit before pushing (a run lasts hours), and its manual *since* input runs `backfill` instead of `update`.
+  - `update.yml` and `archive.yml` commit through `.github/scripts/commit-data.sh`, since main may move during a run that lasts hours. It rebases the data commit onto main. On a conflict it writes `index.json` again (`preprint-radar index`) and keeps the run's `citations.json`; on any other conflict, or after three refused pushes, it pushes nothing and the workflow uploads the commit as `data-commit.bundle` (`git fetch data-commit.bundle HEAD:recovered-data`). `tests/unit/test_commit_data.py` runs it against local repositories.
+  - The manual *since* input of `update.yml` runs `backfill` instead of `update`.
   - `update.yml` checks out `main`, not the triggering commit: a run queued behind another one (concurrency group) otherwise starts from stale data and its rebase conflicts. Its cron (06:17 UTC) comes after arXiv's announcement and RSS rebuild; GitHub has been starting it hours late (around 10:00 UTC).
 
 ## Working agreements
 
 - Do not commit, push, create the GitHub repo, or run the long `make update`, `make backfill` or `make archive` unless asked.
+- Do not push changes under `data/` while *Update data* or *Archive* runs (`gh run list`): a conflict on a day file stops the bot's commit.
 - The maintainer writes in French. Answer in French, but keep everything in the repo in English.
 - `docs/roadmap.md` tracks the items of the audit (`docs/audit/2026-09-30.md`, a frozen snapshot: never edit it). Update an item's status in the commit that changes it, and name its ID in the commit message (`fix(collect): … (DATA-2)`).
 - Versions stay 0.x: a minor release at the end of each roadmap phase (a `v0.N.0` tag, `version` bumped in `pyproject.toml` and `web/package.json` together, a `CHANGELOG.md` entry), a patch for a fix in between. 1.0.0 comes once the public data format is documented and stable.

@@ -89,6 +89,7 @@ def build_parser() -> argparse.ArgumentParser:
     _add_institutions_parser(subparsers)
     _add_archive_parser(subparsers)
     _add_citations_parser(subparsers)
+    _add_index_parser(subparsers)
     return parser
 
 
@@ -292,6 +293,24 @@ def _add_citations_parser(subparsers: "argparse._SubParsersAction[argparse.Argum
         help=f"data store directory (default: {DEFAULT_DATA_DIR})",
     )
     citations.add_argument("--all", action="store_true", help="fetch the counts of every stored paper again")
+
+
+def _add_index_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
+    index = subparsers.add_parser(
+        "index",
+        help="write data/index.json again from the stored files",
+        description=(
+            "Write the index the web app reads (the stored days and archive years, with "
+            "their paper counts) from the files in the data store, e.g. after a merge of "
+            "data commits. Nothing is fetched."
+        ),
+    )
+    index.add_argument(
+        "--data-dir",
+        type=Path,
+        default=DEFAULT_DATA_DIR,
+        help=f"data store directory (default: {DEFAULT_DATA_DIR})",
+    )
 
 
 def _add_store_arguments(parser: argparse.ArgumentParser) -> None:
@@ -515,6 +534,11 @@ def _run_citations(args: argparse.Namespace) -> int:
     return 0
 
 
+def _run_index(args: argparse.Namespace) -> int:
+    console.print(f"Index written to {PaperStore(args.data_dir).write_index()}")
+    return 0
+
+
 def _run_archive(args: argparse.Namespace) -> int:
     categories: list[str] = args.categories or [DEFAULT_CATEGORY]
     store = PaperStore(args.data_dir)
@@ -572,4 +596,5 @@ _COMMANDS: dict[str, Callable[[argparse.Namespace], int]] = {
     "institutions": _run_institutions,
     "archive": _run_archive,
     "citations": _run_citations,
+    "index": _run_index,
 }
