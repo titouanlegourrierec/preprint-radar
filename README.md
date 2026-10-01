@@ -210,5 +210,18 @@ uv run prek run --all-files   # git hooks, with prek (a faster pre-commit)
 If arXiv changes its page layout, the network test fails first: refresh the fixtures in
 `tests/fixtures/` from live pages and update the parsers.
 
+## Licenses
+
+The code is under the [MIT license](LICENSE). The data in `data/` is not: it is collected
+from services that set their own terms.
+
+- Paper metadata (titles, authors, abstracts, comments) comes from arXiv, whose metadata is
+  under [CC0](https://info.arxiv.org/help/api/tou.html). Each paper itself keeps the license
+  its authors chose on arXiv.
+- Institution names come from [ROR](https://ror.org) and [OpenAlex](https://openalex.org),
+  both under CC0.
+- Citation counts come from the [Semantic Scholar API](https://www.semanticscholar.org/product/api),
+  under its license agreement.
+
 Thank you to arXiv for use of its open access interoperability. This project is not
 affiliated with arXiv.
