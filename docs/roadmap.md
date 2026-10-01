@@ -79,6 +79,13 @@ for the answer.
 *Exit criteria:* `validate` passes with zero structural violations, and the affiliation
 quality counts are recorded as a baseline.
 
+*Result (2026-10-01, `v0.2.0`).* `validate`: 26,111 papers in 40 files, 0 errors, 1 warning
+(2609.37107: the last author alone holds every affiliation). `make stats` on the day files
+(2026-09-01 to 2026-10-01, 4,040 papers): affiliations for 78% of the 3,851 tried, 189 pending;
+of the affiliated papers, 89% mapped to their authors and 87% with a named institution. No
+affiliation holds a contact detail or only author names (it was 4 and about 70 at the
+audit). The archive is unchanged: 22,071 papers, 11,621 affiliated.
+
 ## Phase 1: make the pipeline self-healing and observable (about a week)
 
 | ID | Item | Priority | Status |
