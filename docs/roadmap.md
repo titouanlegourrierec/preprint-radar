@@ -1,0 +1,144 @@
+# Roadmap
+
+Progress on the improvements found by the audit of 2026-09-30
+([`audit/2026-09-30.md`](audit/2026-09-30.md)). The audit is a frozen snapshot: its item IDs
+(`DATA-2`, `SRCH-1`…) name its cards and tables, and its line numbers describe commit `e565fbe`.
+This file is the living part.
+
+- Update an item's status in the commit that changes it, and name the ID in the commit
+  message, e.g. `fix(collect): reset the author mapping when the author list changes (DATA-2)`.
+- Status: `todo`, `done` (with the commit), `dropped` (with the reason).
+- Priorities are the audit's, after verification. Items outside the phases below stay in the
+  audit's §18 backlog: pick them up when touching the same code.
+- After each phase, run `make stats` (and `validate` once it exists) and note the result under
+  the phase.
+
+## Decisions
+
+The audit's §21 decisions, with its recommendation. *Blocks* names the first item waiting
+for the answer.
+
+| # | Decision | Recommendation | Blocks | Answer |
+|---|---|---|---|---|
+| 1 | Retention and the 11-month gap | Fill the gap from the OAI catalog, after PERF-1 and CIT-11 | PROD-1 | pending |
+| 2 | Prune at 12 months | Land CIT-11 first (selection no longer depends on prune), then prune once 12 months exist, after CIT-3 | CIT-11 | pending |
+| 3 | Revised papers (author list changed) | Re-read the HTML, comparing folded names so renames keep their mapping | DATA-2 | pending |
+| 4 | Where the front-matter cache lives | The Actions cache first, touched daily | DATA-1 (layer 3) | pending |
+| 5 | Archive `[]` affiliations | Spike, then retry OpenAlex while young, and say so in the UI | AFF-3 | pending |
+| 6 | Filter semantics | Exact for clicked names, word prefix for typed text | SRCH-1 | pending |
+| 7 | Validation strictness | Fail on structural rules, warn on heuristic ones | DATA-3 | pending |
+| 8 | License and data terms | MIT for the code; read the Semantic Scholar terms before going public | REL-3 | pending |
+| 9 | Visibility, contact and Actions bill | Confirm the private repository with a public site; choose the correction contact | SEC-9 | pending |
+| 10 | Primary persona | The daily cs.CV follower | Phase 2 order | pending |
+| 11 | Multi-category | Stay single-category until Phase 3 is done | ARCH-4 | pending |
+| 12 | Institution canonicalization | Move the web rules into the pipeline, with ROR ids | AFF-13 | pending |
+| 13 | Author identity | A homonym hint now, Semantic Scholar ids after the META-1 spike | AFF-H | pending |
+| 14 | Graph accessibility target | Rankings as the text equivalent now, the full path later | UX-2 | pending |
+| 15 | Consortium papers in the author projection | Skip the clique above 50 authors; keep AFF-4's current rule | PERF-3 | pending |
+| 16 | Failure signalling | Red runs for data-affecting failures, an issue for scheduled runs | CI-2 | pending |
+| 17 | Math in abstracts | Strip text macros now, lazy KaTeX only if asked | SRCH-19 | pending |
+| 18 | Withdrawn papers | Exclude from Highly cited, badge in the day views | META-2 | pending |
+| 19 | Abstracts by default | On for "Latest day" | Phase 2 | pending |
+| 20 | Shipping the audit | Commit it as a frozen baseline | — | Done: `docs/audit/2026-09-30.md` |
+| 21 | Versioning | Stay on 0.x; tag a minor release at the end of each phase, with a changelog; 1.0.0 once the public data format is documented and stable | — | pending |
+
+## Phase 0: stop publishing wrong data (1–2 days)
+
+| ID | Item | Priority | Status |
+|---|---|---|---|
+| DATA-2 | Reset the author mapping on author-list changes, enforce the invariants, repair the 2 records | P2 | todo |
+| AFF-15 | Length guard on `author_affiliations` in the graph | P2 | todo |
+| AFF-1 | Folded name filter, name lists, IEEE grades (with the consortium exception) | P2 | todo |
+| AFF-2 | Obfuscated e-mails and brace lists | P2 | todo |
+| AFF-5 | Junk labels | P2 | todo |
+| AFF-6 | "Is with" sentences, "also with" | P2 | todo |
+| DATA-1 | Layer 1: `reclean`, run once over the day files | P1 | todo |
+| DATA-3 | `validate`, before *Commit data* and in CI | P1 | todo |
+| CIT-1 | Merge counts under the gate instead of replacing them | P1 | todo |
+| CIT-2 | Carry last week's count for archived papers | P1 | todo |
+| CIT-3 | `min(announced, first_seen)` for graduating papers | P2 | todo |
+| CIT-11 | Decouple archive selection from pruning | P1 | todo |
+| TEST-1 | `fail_under = 100` | P2 | todo |
+| DATA-6 | Write the index right after the first save | P2 | todo |
+| DATA-7 | Ignore `.tmp` files | P3 | todo |
+| SEC-9 | About section with a correction contact | P1 | todo |
+| SEC-10 | Privacy note | P2 | todo |
+
+*Exit criteria:* `validate` passes with zero structural violations, and the affiliation
+quality counts are recorded as a baseline.
+
+## Phase 1: make the pipeline self-healing and observable (about a week)
+
+| ID | Item | Priority | Status |
+|---|---|---|---|
+| REL-1 | Layout-drift breaker and a weekly network canary | P1 | todo |
+| REL-2 | HTML deadline, then a consecutive-failure breaker | P1 | todo |
+| CI-1 | Robust data commit | P2 | todo |
+| CI-2 | Run summary and a failure issue | P1 | todo |
+| CI-3 | Deploy gating on what was pushed | P2 | todo |
+| CIT-4 | Stop on a 403, flag stale counts | P1 | todo |
+| DATA-1 | Layers 2 and 3: `EXTRACTOR_VERSION`, `reextract`, front-matter cache | P1 | todo |
+| AFF-Q | Affiliation quality section in `stats` | P2 | todo |
+| TEST-4 | Negative tests for the heuristics | P2 | todo |
+| TEST-5 | Golden fixture expectations | P2 | todo |
+| DOC-1 | Symptom-first operations runbook | P2 | todo |
+| REL-3 | License and data terms | P2 | todo |
+
+*Exit criteria:* a simulated arXiv outage, layout change, Semantic Scholar 403 and rebase
+conflict each end in a clear red run or a summary warning, and nothing is lost.
+
+## Phase 2: search precision and the daily workflow (1–2 weeks)
+
+| ID | Item | Priority | Status |
+|---|---|---|---|
+| SRCH-1 | Exact clicked filters, word-prefix typed filters | P1 | todo |
+| SRCH-2 | Phrase and exclusion scope and tokenization | P2 | todo |
+| SRCH-3 | Prefix and fuzzy tuning | P1 | todo |
+| SRCH-4 | Browser history | P1 | todo |
+| SRCH-5 | Archive permalinks | P1 | todo |
+| SRCH-17 | Acronym affiliation filters | P2 | todo |
+| TEST-16 | Relevance tests on real cases | P2 | todo |
+| PROD-2 | Keyboard triage, seen, since last visit | P1 | todo |
+| PROD-3 | Saved searches and a watchlist | P2 | todo |
+| PROD-4 | Reading-list import and safety | P2 | todo |
+| PROD-5 | BibTeX escaping and keys | P2 | todo |
+| UX-4 | Focus hidden by the sticky search block | P1 | todo |
+| UX-1 | Contrast | P2 | todo |
+| UX-3, UX-5 to UX-12 | Accessibility batch (CSS and ARIA) | P2 | todo |
+| PROD-6 to PROD-10 | Name the category, about the data, citation transparency, result export, recent-count noise | P2 | todo |
+| TEST-7 | Web coverage | P2 | todo |
+| TEST-8 | Smoke test of the built site | P2 | todo |
+
+*Exit criteria:* the clicked-filter probes ("Hao Li", "Intel") return exact sets, `"zero shot"`
+finds the zero-shot papers, Back works, and the smoke test is green in CI.
+
+## Phase 3: scale and richer metadata (2–4 weeks, gated by decisions)
+
+| ID | Item | Priority | Status |
+|---|---|---|---|
+| PERF-1 | Bounded periods, async index build, per-month search shards | P1 | todo |
+| META-1 | Spike, then DOI, published venue and author ids from the weekly Semantic Scholar batch | P1 | todo |
+| AFF-14 | Keep ROR ids | P2 | todo |
+| AFF-3 | OpenAlex retry policy, after its spike | P1 | todo |
+| PROD-1 | Fill the 11-month gap, once CIT-11 has landed | P1 | todo |
+| ARCH-1 | Retention, size guard and hosting trigger | P2 | todo |
+| PERF-2 | Graph defaults with the author layer | P2 | todo |
+| PERF-3 | Clique cap for consortium papers | P2 | todo |
+| UX-2 | Graph touch zoom and keyboard path | P2 | todo |
+| META-2 to META-4 | Weekly refresh from the catalog, provenance, the venue table | P2 | todo |
+| PERF-11 | Lazy index build | P2 | todo |
+| PERF-12 | Split citation counts | P2 | todo |
+
+*Exit criteria:* a year of day files loads without freezing a phone, and venue coverage of the
+archive rises above 52%.
+
+## Phase 4: differentiating features and long-term architecture (ongoing)
+
+| ID | Item | Priority | Status |
+|---|---|---|---|
+| §17.1 | Card link-outs, institution and venue feeds, rising papers, graph ego networks and export | — | todo |
+| AFF-13, ARCH-3 | Institution canonicalization in the pipeline | P2 | todo |
+| AFF-H | Author identity | P2 | todo |
+| ARCH-2 | Enrichment step interface | P2 | todo |
+| DEBT-2, DEBT-3 | View model for `app.tsx`, `GraphView` split | P2, P3 | todo |
+| ARCH-4 | Multi-category, if wanted | P2 | todo |
