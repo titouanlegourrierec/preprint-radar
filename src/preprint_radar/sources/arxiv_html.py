@@ -474,6 +474,18 @@ def clean_affiliation(text: str) -> str | None:
     return text
 
 
+def states_people(text: str) -> bool:
+    """Whether the text is a sentence about people: "A and B are with X", "The authors are with X".
+
+    Args:
+        text: An affiliation candidate or a stored affiliation string.
+
+    Returns:
+        ``True`` when its affiliation follows the people it names.
+    """
+    return _people(text) is not None
+
+
 def _people(text: str) -> re.Match[str] | None:
     """The people an "A and B are with X" sentence starts with, verb included.
 
@@ -671,14 +683,40 @@ def _thanks_map(
 
     They are written in thanks notes, and by some classes in the affiliation macro.
     """
-    mapping: list[tuple[int, ...] | None] = [None] * len(authors)
-    resolved = 0
     notes = soup.select(".ltx_note.ltx_role_thanks")
     notes += soup.select("div.ltx_authors .ltx_role_affiliation, div.ltx_authors .ltx_role_address")
+    return _sentence_map([_note_text(_pruned(note)) for note in notes], authors, index_of)
+
+
+def map_stated_affiliations(
+    texts: Iterable[str], authors: Sequence[str], affiliations: Sequence[str], *, everyone: bool = True
+) -> AuthorAffiliations | None:
+    """Place the authors that "A and B are with X" sentences name, as the page parser does.
+
+    Args:
+        texts: Text holding the sentences, such as stored affiliation strings.
+        authors: The paper's author names, in order.
+        affiliations: The paper's affiliations, which the sentences' affiliations must clean to.
+        everyone: Whether "The authors are with X" places every author. A footnote shared by
+            some of them says it too.
+
+    Returns:
+        For each author, the indices of their affiliations (``None`` for an author no
+        sentence names), or ``None`` when no sentence places anybody.
+    """
+    index_of = {affiliation.casefold(): index for index, affiliation in enumerate(affiliations)}
+    return _sentence_map(texts, tuple(authors), index_of, everyone=everyone)
+
+
+def _sentence_map(
+    texts: Iterable[str], authors: tuple[str, ...], index_of: Mapping[str, int], *, everyone: bool = True
+) -> AuthorAffiliations | None:
+    mapping: list[tuple[int, ...] | None] = [None] * len(authors)
+    resolved = 0
     sentences = [
         sentence
-        for note in notes
-        for line in _note_text(_pruned(note)).splitlines()
+        for text in texts
+        for line in text.splitlines()
         for sentence in _SENTENCE_SPLIT_RE.split(line)
     ]
     for sentence in sentences:
@@ -690,11 +728,12 @@ def _thanks_map(
         if not indices:
             continue
         subject = _fold(sentence[: match.start()])
-        placed = (
-            range(len(authors))
-            if _ALL_AUTHORS_RE.search(subject)
-            else [position for position, author in enumerate(authors) if _named_in(subject, author, authors)]
-        )
+        if _ALL_AUTHORS_RE.search(subject):
+            placed: Iterable[int] = range(len(authors)) if everyone else ()
+        else:
+            placed = [
+                position for position, author in enumerate(authors) if _named_in(subject, author, authors)
+            ]
         for position in placed:
             entry = mapping[position] or ()
             if new := tuple(index for index in indices if index not in entry):

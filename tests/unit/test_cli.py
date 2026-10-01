@@ -367,3 +367,22 @@ def test_index_is_written_again_from_the_stored_files(
         {"date": "2026-09-24", "count": 2},
     ]
     assert capsys.readouterr().out.startswith("Index written to")
+
+
+def test_reclean_cleans_the_stored_affiliations(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    data_dir = tmp_path / "data"
+    paper = Paper(
+        arxiv_id="2609.00001",
+        announced=date(2026, 9, 25),
+        title="T",
+        authors=("Ada Lovelace", "Bob Smith"),
+        affiliations=("MIT", "Code"),
+        author_affiliations=((0,), (1,)),
+    )
+    PaperStore(data_dir).save("cs.CV", [paper])
+
+    assert main(["reclean", "--data-dir", str(data_dir)]) == 0
+
+    (stored,) = PaperStore(data_dir).iter_papers("cs.CV")
+    assert stored.affiliations == ("MIT",)
+    assert capsys.readouterr().out == "cs.CV: 1 of 1 affiliated papers changed, in 1 day files\n"

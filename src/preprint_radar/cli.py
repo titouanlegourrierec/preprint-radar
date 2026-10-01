@@ -46,6 +46,7 @@ from preprint_radar.sources.semantic_scholar import S2_ANONYMOUS_DELAY_SECONDS, 
 from preprint_radar.store import filters
 from preprint_radar.store.export import ExportFormat, export_papers
 from preprint_radar.store.paper_store import PaperStore
+from preprint_radar.store.reclean import reclean_store
 from preprint_radar.store.stats import (
     archive_coverage_table,
     collect_archive_coverage,
@@ -90,6 +91,7 @@ def build_parser() -> argparse.ArgumentParser:
     _add_archive_parser(subparsers)
     _add_citations_parser(subparsers)
     _add_index_parser(subparsers)
+    _add_reclean_parser(subparsers)
     return parser
 
 
@@ -306,6 +308,34 @@ def _add_index_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentP
         ),
     )
     index.add_argument(
+        "--data-dir",
+        type=Path,
+        default=DEFAULT_DATA_DIR,
+        help=f"data store directory (default: {DEFAULT_DATA_DIR})",
+    )
+
+
+def _add_reclean_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
+    reclean = subparsers.add_parser(
+        "reclean",
+        help="clean the stored affiliations again with the current rules",
+        description=(
+            "Apply the current affiliation cleaning to the stored day files, after a change "
+            "to the heuristics: contact details, junk and author names are dropped, strings "
+            "holding several affiliations are split, and the author mapping follows them. "
+            "Changed affiliations lose their institutions, which `institutions` names again. "
+            "Nothing is fetched, and the citation archive is left as it is."
+        ),
+    )
+    reclean.add_argument(
+        "-c",
+        "--category",
+        dest="categories",
+        action="append",
+        type=_category,
+        help="arXiv category, repeatable (default: every category in the store)",
+    )
+    reclean.add_argument(
         "--data-dir",
         type=Path,
         default=DEFAULT_DATA_DIR,
@@ -539,6 +569,17 @@ def _run_index(args: argparse.Namespace) -> int:
     return 0
 
 
+def _run_reclean(args: argparse.Namespace) -> int:
+    store = PaperStore(args.data_dir)
+    for category in args.categories or store.categories():
+        report = reclean_store(store, category)
+        console.print(
+            f"{category}: {report.changed} of {report.papers} affiliated papers changed, "
+            f"in {report.days} day files"
+        )
+    return 0
+
+
 def _run_archive(args: argparse.Namespace) -> int:
     categories: list[str] = args.categories or [DEFAULT_CATEGORY]
     store = PaperStore(args.data_dir)
@@ -597,4 +638,5 @@ _COMMANDS: dict[str, Callable[[argparse.Namespace], int]] = {
     "archive": _run_archive,
     "citations": _run_citations,
     "index": _run_index,
+    "reclean": _run_reclean,
 }
