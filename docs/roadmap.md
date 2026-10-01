@@ -47,7 +47,7 @@ for the answer.
 | ID | Item | Priority | Status |
 |---|---|---|---|
 | DATA-2 | Reset the author mapping on author-list changes, enforce the invariants, repair the 2 records | P2 | done |
-| AFF-15 | Length guard on `author_affiliations` in the graph | P2 | todo |
+| AFF-15 | Length guard on `author_affiliations` in the graph | P2 | done |
 | AFF-1 | Folded name filter, name lists, IEEE grades (with the consortium exception) | P2 | todo |
 | AFF-2 | Obfuscated e-mails and brace lists | P2 | todo |
 | AFF-5 | Junk labels | P2 | todo |

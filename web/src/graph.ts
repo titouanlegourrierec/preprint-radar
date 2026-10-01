@@ -131,11 +131,14 @@ export function buildGraph(papers: Paper[], options: GraphOptions): Graph {
     }
     const authors: PaperAuthor[] = [];
     if (options.authors) {
+      // The mapping is positional: one out of step with the authors places nobody.
+      const mapping =
+        paper.author_affiliations?.length === paper.authors.length
+          ? paper.author_affiliations
+          : null;
       for (const [position, author] of paper.authors.entries()) {
         const entry = register("author", author, paper.arxiv_id, seen);
-        if (entry?.first) {
-          authors.push({ key: entry.id, mapped: paper.author_affiliations?.[position] ?? null });
-        }
+        if (entry?.first) authors.push({ key: entry.id, mapped: mapping?.[position] ?? null });
       }
     }
     perPaper.push({ paper, institutions, keyOfAffiliation, authors });

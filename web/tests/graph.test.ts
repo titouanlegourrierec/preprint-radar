@@ -181,6 +181,16 @@ describe("buildGraph with author affiliations", () => {
     ]);
   });
 
+  it("places nobody when the mapping is out of step with the authors", () => {
+    const stale = makePaper({ ...mapped, authors: ["Ada", "Bob", "Cyd"] });
+    const graph = buildGraph([stale], { ...INSTITUTIONS, authors: true });
+    const links = graph.links.map(({ source, target }) => `${source}->${target}`);
+
+    // Every author falls back to every institution of the paper.
+    expect(links).toContain("author:ada->institution:eth zurich");
+    expect(links).toContain("author:cyd->institution:inria");
+  });
+
   it("drops the author-institution edge when their institution is filtered out", () => {
     const twice = makePaper({ arxiv_id: "10", authors: ["Cyd"], affiliations: ["Inria"] });
     const graph = buildGraph([mapped, twice], {
