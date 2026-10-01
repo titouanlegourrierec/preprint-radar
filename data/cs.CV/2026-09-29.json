@@ -1525,7 +1525,7 @@
    "authors": [
     "Chi Zhang",
     "Yueyi Liu",
-    "Haoyang Shi",
+    "Shi Haoyang",
     "Ruichuan An",
     "Haoyu Li",
     "Yuhang Wu",
@@ -1541,7 +1541,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.35491v2",
+   "html_url": "https://arxiv.org/html/2609.35491v3",
    "abstract": "Few-step autoregressive video generation commonly relies on Distribution Matching Distillation (DMD), requiring a bidirectional diffusion teacher and an online fake-score model. We instead learn the rollout distribution directly from reference videos, eliminating both score models during post-training. Our framework minimizes maximum mean discrepancy (MMD) in frozen self-supervised video representation spaces, using a hybrid Nystr\\\"om--Monte Carlo estimator to balance approximation bias and sampling variance. Memory-efficient replay and gradient subsampling make this objective practical. Using the same architecture and initialization as Self-Forcing, our 1.3B model improves the VBench Total score from 83.80 to 84.64 while retaining 17 FPS. Removing auxiliary score models also enables 14B post-training on eight H200 GPUs. Beyond distillation, learning from reference videos enables the acquisition of new visual styles, semantic concepts, and spatial priors without a target-specific diffusion teacher.",
    "affiliations": [],
    "author_affiliations": null,
@@ -1569,7 +1569,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.35490v1",
+   "html_url": "https://arxiv.org/html/2609.35490v2",
    "abstract": "Generalist multitasking vision models aim to unify multiple vision tasks within a single framework, enabling more efficient and versatile learning. However, handling diverse vision tasks -- spanning dense and sparse predictions -- remains challenging due to their inherently varying output structures. In this paper, we propose AHMAD, a simple yet effective framework for generalist multitask learning that integrates different key vision tasks: semantic segmentation, instance segmentation, depth estimation, keypoint detection, and object detection. Our approach incorporates these five tasks into a unified structure: a shared encoder-decoder with several lightweight task-specific projectors. Under the multitask learning paradigm, we observed a complementary performance gain, achieving a state-of-the-art PQ of 53.1 and an mIoU of 66.5 for COCO-val panoptic and semantic segmentation, respectively. Additionally, for top-down keypoint detection, which typically incurs high computational overhead due to multiple forward passes, we introduce a knowledge distillation-based method that enables a single forward pass over the entire image, greatly improving efficiency. Ultimately, our model delivers a lightweight yet effective generalist multitask learning framework, demonstrating strong performance across five vision tasks.",
    "affiliations": [],
    "author_affiliations": null,
@@ -4210,8 +4210,8 @@
     "Wanyang Zhang",
     "Rui Zu",
     "Xiaolong Jiang",
-    "Yao Hu",
-    "Jiayin Cai"
+    "Jiayin Cai",
+    "Yao Hu"
    ],
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
    "subjects": [
@@ -4221,7 +4221,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.34863v1",
+   "html_url": "https://arxiv.org/html/2609.34863v2",
    "abstract": "Multimodal large language models (MLLMs) have approached image segmentation by reasoning about visual content and predicting target locations. Their generated responses contain reasoning traces and localization proposals that can serve as working memory when revisiting the same image and query. Our exploration reveals that MLLMs benefit from using this self-generated working memory as context, leading to enhanced reasoning segmentation. Motivated by this finding, we seek to strengthen the backbone model's reasoning segmentation capabilities by distilling the guidance gained from revisiting prior attempts, enabling it to benefit with or without working memory at inference time. To this end, we propose Reasoning Segmenter with Working Memory (SWiM), a working-memory distillation framework for reasoning segmentation. Specifically, SWiM selects rollouts based on segmentation quality to construct working memory and uses the memory-conditioned model as a teacher. The teacher provides token-level distributional supervision along student-generated trajectories, while the student receives only the original image and query. Joint optimization of on-policy self-distillation and outcome-based reinforcement learning combines working-memory guidance with direct feedback on segmentation quality. Extensive experiments on reasoning segmentation benchmarks demonstrate that SWiM achieves state-of-the-art performance, validating the effectiveness of working-memory distillation.",
    "affiliations": [],
    "author_affiliations": null,
@@ -4790,7 +4790,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.34792v1",
+   "html_url": "https://arxiv.org/html/2609.34792v2",
    "abstract": "Long-horizon manipulation requires robots to remember cues that are no longer in view while responding to moving objects. Yet vision-language-action (VLA) policies often rely on the latest observation, and refreshing their visual context typically requires another costly vision-language model (VLM) pass. We present D$^2$-VLA, which combines dual memory and dual-frequency control at the KV-cache interface of a pretrained VLA. D$^2$-VLA uses block-wise causal KV caching to encode observations incrementally and, guided by distinct temporal attention patterns, constructs separate historical KV read views for the VLM and action expert. Between periodic VLM updates, a gated adapter incorporates fresh visual features into the latest history-conditioned KV block, while a short fast-memory queue supports action replanning. We introduce DOMINO-Long, a ten-task benchmark requiring robots to use earlier visual cues when manipulating moving objects. D$^2$-VLA achieves complete-task success rates of 29.3\\% on DOMINO, compared with 9.6\\% for $\\pi_{0.5}$ and 17.2\\% for PUMA, and 60.0\\% on DOMINO-Long, compared with 35.4\\% and 20.6\\%, respectively. It improves success rates on eight real-robot tasks and reaches 97.5\\% on LIBERO-Long and 74.3\\% on RoboTwin 2.0.",
    "affiliations": [
     "The University of Hong Kong",
@@ -7646,7 +7646,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.34367v1",
+   "html_url": "https://arxiv.org/html/2609.34367v2",
    "abstract": "Learned image codecs (LICs) achieve high reconstruction quality, but their decoding speed is often insufficient for immersive virtual reality (VR). Gaussian splatting (GS) codecs render much faster, yet still lag in reconstruction quality and typically decide primitive allocation without considering the coding cost of each primitive. We introduce OIC-GS, an omnidirectional GS codec with a new hierarchical HEALPix primitive grid representation. Gaussian primitives are anchored at predefined spherical locations, eliminating explicit coordinate coding. Finer levels refine their coarser ancestors, naturally supporting coarse-to-fine reconstruction and layered transmission. The predefined grid also enables efficient viewport decoding by selecting only view-relevant primitives. We further introduce a lightweight entropy model for quantized primitives and optimize the codec under a spherical rate-distortion objective. Primitives with insufficient rate-distortion benefit are automatically removed when their quantized opacity becomes zero, allowing OIC-GS to adapt both primitive density and level of detail without a fixed primitive budget. A single bitstream supports full-sphere, viewport-dependent, and progressive decoding. The first viewport reaches final quality after decoding only 52% of the bitstream, and is then rendered at 1,270 FPS. On a 100-image omnidirectional benchmark, OIC-GS outperforms all evaluated GS codecs, reducing WS-PSNR BD-rate by 49.6% over GaussianImage++ and 68.6% over SGI, which uses a learned entropy model.",
    "affiliations": [
     "Harbin Institute of Technology, Shenzhen, China",
@@ -7848,7 +7848,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.34330v1",
+   "html_url": "https://arxiv.org/html/2609.34330v2",
    "abstract": "Multimodal large language models (MLLMs) have demonstrated impressive performance in multimodal understanding, but processing large numbers of visual tokens results in high computational costs. While many methods have been proposed to reduce the number of visual tokens, most of them rely on heuristics and are prone to discarding substantial visual information during pruning, leading to degradation in model performance. In this work, by using a semantic erasure model, we derive a general mutual information coverage objective from task log-loss and propose MiCo, a training-free two-stage pruning method. MiCo first uses visual signals to select a representative candidate pool before visual tokens enter the language model, then performs task-aware subset selection within it. At each stage, suitable observable proxies instantiate the derived objective as a monotone submodular coverage function, which MiCo greedily optimizes under the token budget. MiCo is evaluated on diverse MLLMs ranging from 7B to 13B parameters across a broad range of image and video benchmarks spanning general visual reasoning, fine-grained OCR and grounding, hallucination detection, and long-video understanding. MiCo consistently achieves the best performance across nearly all evaluated models under all pruning ratios. On LLaVA-NEXT-13B, MiCo uses only 5.6% visual tokens, retains 97.5% of baseline performance, and achieves a 3.8-fold inference speedup. Our experiments demonstrate the effectiveness of MiCo and our mutual information coverage objective for visual token pruning.",
    "affiliations": [
     "State Key Laboratory of Multimedia Information Processing, School of Computer Science, Peking University",
@@ -8074,7 +8074,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.34302v1",
+   "html_url": "https://arxiv.org/html/2609.34302v2",
    "abstract": "Multi-camera pedestrian localization is useful for wide-area monitoring in public and commercial spaces. However, deploying these systems often requires considerable setup for each new environment. Existing methods typically require camera calibration, position annotations, or target-scene training. CAT-Free removes all three requirements. It uses synchronized RGB video as its only scene-specific input. Camera configuration is estimated directly from the video. Pedestrian locations are then estimated by combining observations from multiple cameras. Automatic camera estimation is not always accurate. This can produce unreliable pedestrian locations. CAT-Free therefore introduces two adaptive geometric filters. They remove unreliable position estimates. Their thresholds are estimated from each input sequence. CAT-Free achieves 82.5, 84.5, and 65.7 MODA on WildTrack, MultiviewX, and GMVD. It uses no supplied calibration, position annotations, or target-scene training. Published methods using such scene-specific information report 88.2--95.0 MODA on WildTrack and 83.9--96.5 on MultiviewX under their respective protocols. CAT-Free also transfers without retuning. It reaches 74.9 MODA on four additional sequences and 78.6 on an unseen 8-camera installation. Finally, localization uncertainty predicts MODA with $r=-0.98$. This provides a label-free estimate of localization reliability.",
    "affiliations": [
     "Meijo University",
@@ -14841,7 +14841,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.32740v1",
+   "html_url": null,
    "abstract": "Intraoperative anesthesia requires systems to interpret evolving multimodal evidence, recommend timely management, and revise decisions as patient states change, yet existing benchmarks usually isolate perception or single-point reasoning. We introduce AnesTRACE, an evaluation suite comprising AnesTRACE-Bench and AnesTRACE-Eval. Built from public perioperative datasets with anesthesiologist annotation, AnesTRACE-Bench evaluates Intraoperative Perception, Single-point Anesthesia Decision-Making, and Multi-step Anesthesia Decision-Making. AnesTRACE-Eval assesses open-ended responses through anesthesiologist-defined criteria for Clinical Correctness, Evidence Grounding, Task Completeness, and Safety, with Temporal Consistency for multi-step decisions; its domain-specific evaluator is trained by supervised fine-tuning and preference alignment on expert-reviewed judgments. Across more than 30 models, fine-grained visual grounding and intervention selection remain difficult: the leading model reaches only 32.2 mIoU for TEE visual grounding and retains a 17.5\\% Major/Critical Safety Error Rate in multi-step management. Evaluator alignment with anesthesiologists improves across both training stages, while the best decision quality is accompanied by a 74.3-second P95 Latency. These results show that aggregate performance alone does not establish safe, timely longitudinal decision-making. We release our code at https://github.com/zjuDBxAI/AnesTRACE.",
    "affiliations": [
     "School of Software Technology, Zhejiang University",
@@ -15937,7 +15937,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.32540v1",
+   "html_url": "https://arxiv.org/html/2609.32540v2",
    "abstract": "Few-step autoregressive video diffusion generates a long video by splitting the video into temporal chunks and generating chunk-by-chunk, each through a short sequence of denoising stages. To memorize chunks that are already generated, previous methods reconstruct a clean or less-noisy key--value (KV) cache by additional forwards to build the cache without advancing an output latent. However, every denoising forward itself already computes the in-flight KV of the current chunk. We introduce FlashForward, which directly reuses this cache to avoid the heavy cache-update-only model forwards. After the current chunk completes one denoising stage, its stage-specific cache is already available for the next chunk. Assigning one GPU to each stage therefore lets different chunks occupy different stages concurrently. This early availability has a quality cost: the resulting stage-matched history is noisy, causing appearance and motion drift among chunks. To complement it, FlashForward produces sparse auxiliary clean anchor latents before the corresponding region is generated so the generation trajectories can be stabilized by this two-sided conditioning. The two memories operate at different temporal scales: sparse clean anchor KV supplies coarse, long-range two-sided structural guidance, while dense stage-matched history preserves fine, recent evolution. With up to four GPUs, FlashForward runs $1.16$--$1.69\\times$ faster than HiAR and $1.42$--$2.92\\times$ faster than Self-Forcing for 16 FPS videos of 20 seconds or longer across 1.3B and 14B backbone scales at 480p and 720p. On VBench, for the 1.3B model at 480p, it achieves higher scores and remains stable at longer durations, demonstrating that FlashForward generates high-quality and temporally consistent videos across durations of 20s, 35s and 65s at a much faster generation speed.",
    "affiliations": [
     "Meta",
@@ -21108,7 +21108,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.31665v1",
+   "html_url": "https://arxiv.org/html/2609.31665v2",
    "abstract": "Action anticipation predicts future human actions from partial video under incomplete context and temporal uncertainty. Recent systems introduce large language models (LLMs), vision-language models (VLMs), or language-derived semantics at different stages, but reported gains are difficult to interpret when task formulation, visual pretraining, supervision, decoder design, and evaluation code change simultaneously. The central contribution of this review is an evidence-aware design map that crosses task regime with the point at which language-derived information intervenes. We characterise task regimes along six axes. These axes organise the literature into five broad task families: single-action, sequence, object-interaction, cross-view, and planning-oriented settings. C1-C3 locate interventions in context construction, goal/intention modelling, and future decoding, while C4 is treated as an adjacent, emerging grounding/executability extension. Unlike a generic processing pipeline, the map links each intervention to an appropriate counterfactual, failure diagnosis, and permissible evidence claim. Supporting contributions include a protocol-level audit of Ego4D-LTA and EPIC-KITCHENS-100, a multidimensional evidence profile, and the Backbone-Aware Comparison and Ablation Protocol (BCAP). The unresolved EK-100 record is treated as a reporting-comparability case study and is not used as a leaderboard. Evidence for LLM benefits, goal ambiguity, and horizon effects is therefore formulated as testable hypotheses requiring matched validation, not as causal conclusions. The accompanying package contains the coded evidence, source locators, protocol metadata, and versioned catalogue used in the review.",
    "affiliations": [
     "Department of Computer Science, University of Exeter, Harrison Building, Streatham Campus, North Park Road, Exeter, EX4 4QF, Devon, United Kingdom"
@@ -22444,7 +22444,7 @@
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "Further refinement is ongoing",
+   "comments": "Withdrawn by the authors: the author team is still finalizing the scope and release timing of this work, and will resubmit after internal review",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.AI",
@@ -22763,7 +22763,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2609.34220v1",
+   "html_url": "https://arxiv.org/html/2609.34220v2",
    "abstract": "Assistive robots increasingly operate in many human-centered environments and perform various human-robot interaction (HRI) tasks, such as object delivery. However, most existing HRI systems rely on RGB cameras that continuously observe humans to respond to non-verbal commands, such as hand gestures. This raises privacy concerns in privacy- critical environments, such as hospital wards or restaurants, where direct camera observation of humans is restricted. To develop privacy-preserving HRI, we leverage millimeter-wave (mmWave) radar, which can sense human motion through privacy barriers without identifiable imagery. We propose mmHRI, the first multi-modal robot manipulation framework that achieves mmWave radar-guided privacy-preserving HRI. mmHRI introduces two key designs to mitigate the sparsity and temporal inconsistency of radar data in cluttered robot manipulation environments. First, we propose a dual-stream architecture that jointly learns from unfiltered raw radar tensors and radar point clouds to estimate both human actions and 3D poses. To mitigate signal inconsistency, mmHRI further incorporates a memory-based state-space model (MSSM) that retains historical radar features to reduce abrupt changes in pose/action. These estimated human states are then converted into structured textual robot instructions, which control a vision-language-action (VLA) policy for closed-loop robot manipulation and human-aware reactions. Our evaluation covers human action recognition and closed-loop delivery and retrieval. In the privacy-preserving curtain setting, mmHRI achieves 85.09% action-recognition accuracy, outperforming existing radar-based alternatives. Robot trials further demonstrate successful delivery and retrieval under visual occlusion, with stable task performance across unseen subjects, clutter configurations, and environments.",
    "affiliations": [
     "School of Electrical and Electronic Engineering, Nanyang Technological University",

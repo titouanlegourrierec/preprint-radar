@@ -677,8 +677,8 @@
    "announced": "2026-09-30",
    "title": "VideoLoop: Looped Working Memory Against Semantic Thrashing in Long-Form Video Agents",
    "authors": [
-    "Jinfa Huang",
     "Jianming Xu",
+    "Jinfa Huang",
     "Jingyang Lin",
     "Zhengyuan Yang",
     "Jiebo Luo"
@@ -691,7 +691,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.38119v1",
+   "html_url": "https://arxiv.org/html/2609.38119v2",
    "abstract": "Long-form video understanding requires multimodal agents to iteratively gather evidence over many reasoning steps. However, most existing agentic methods suffer from semantic thrashing: as append-only working memory grows, attention to key evidence collapses, and the agent loses access to what it has already found. First, we provide a structural argument showing that append-only memory can incorporate newly observed target evidence, but cannot remove accumulated noise or prevent ordered context growth without a rewrite operator. Second, motivated by this analysis, we propose VideoLoop, a multimodal agent with two coupled loops. The outer loop reasons over the video and the inner loop, after each step, retrieves artifacts from an unbounded filesystem of past observations and intermediate analysis, and rewrites a bounded working memory. Extensive experiments demonstrate the effectiveness of VideoLoop, which improves four popular LVLM backbones in a plug-and-play manner, with an average gain of 4.2% points over baseline on VideoMME (long). Further analysis of working memory suggests that VideoLoop mitigates semantic thrashing: on the hardest quarter of VideoMME (long) questions, a blind judge that reads only the agent's context answers 81.1% correctly, versus 60.9% for the append-only agent. With Gemini 3.1 Pro, VideoLoop reaches 88.3% on VideoMME (long), 88.8% on VideoMMMU, and 80.9% on LongVideoBench (long).",
    "affiliations": [],
    "author_affiliations": null,
@@ -944,7 +944,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.38072v1",
+   "html_url": "https://arxiv.org/html/2609.38072v2",
    "abstract": "Ultra-high-resolution (UHR) remote sensing visual question answering (VQA) requires models to resolve small visual evidence within extremely large images. Existing approaches typically rely on token pruning, visual search, or tool-augmented reasoning at inference time. We instead investigate whether the benefit of zoom-in visual privilege can be internalized into the model. We introduce RS-OPSD, a reliable privileged on-policy self-distillation (OPSD) framework for UHR remote sensing VQA. To provide high-quality privileged information with explicit question-relevant evidence, we construct GeoEvidence-6K, containing 6,750 VQA samples across seven task categories with evidence-region annotations, and develop Human Feedback-Guided Skill Refinement (HF-SR) for scalable annotation. To address context loss from tight crops and conflicting signals from imperfect teachers, RS-OPSD introduces Context-Preserving Visual Privilege (CPVP) and Correctness-Aligned Distillation (CAD). Without any additional visual search or tool calls at inference time, RS-OPSD achieves state-of-the-art (SOTA) performance on XLRS-Bench, MME-RealWorld-RS, and LRS-VQA, outperforming pervious SOTA models of comparable scale by an average of 4.0 percentage points. Moreover, our 2B variant, RS-OPD-Lite, surpasses most 8B-scale models while achieving the fastest measured inference speed. Our Code, GeoEvidence-6K, and the model weights for RS-OPSD and RS-OPD-Lite are publicly available.",
    "affiliations": [
     "Tsinghua University",
@@ -1307,7 +1307,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.37937v1",
+   "html_url": "https://arxiv.org/html/2609.37937v2",
    "abstract": "How much of an image does a detector need to see? Small RGB regions can retain useful evidence of image synthesis even when they reveal little of the full scene. Motivated by single-patch detection, we study patch-wise supervision: a shared backbone classifies explicit crops, each crop receives its own loss, and patch probabilities are averaged only at inference. The procedure requires neither handcrafted residual filtering nor a learned image-level fusion module. Experiments span single-patch selection, multiple generator collections, and four CNN and Transformer backbones. On GenImage, the reported patch-wise variants improve average accuracy over their whole-image counterparts across all four backbones. Comparisons of supervision granularity, source resolution, crop size, and inference coverage further characterize the approach, while post-processing tests and difficult-image evaluation reveal its limitations. The historical experiments include evaluation-based model selection, so their scores are not presented as a uniformly selected leaderboard comparison. Overall, the study identifies explicit local input and patch-level supervision as a simple, useful combination for investigating generalizable AI-generated image detection.",
    "affiliations": [
     "MAIS & NLPR, Institute of Automation, Chinese Academy of Sciences (CASIA), Beijing, China",
@@ -1537,7 +1537,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.37888v1",
+   "html_url": "https://arxiv.org/html/2609.37888v2",
    "abstract": "Class-Incremental Learning (CIL) requires models to recognize new classes over time without forgetting previously learned ones. With the rise of vision-language pre-training, CLIP has become a strong foundation for CIL. A common design in CLIP-based CIL is to construct textual classifier weights by encoding class-name templates with the CLIP text encoder, and then classify visual features by image-text cosine similarity. This design is appealing: since CLIP aligns images and text in a shared embedding space, textual weights appear to provide an off-the-shelf classifier for incremental classes. However, we show that this seemingly natural design is not always beneficial, as a modality gap can still separate the two modalities and make textual classifier weights deviate from visual class distributions. Empirically, under identical task-wise CIL training, initializing the cosine classifier with visual class centers yields lower loss and better incremental accuracy than using CLIP textual features.Motivated by these observations, we propose VIS, a visual-only method for CLIP-based CIL that removes the deployed textual branch and constructs the incremental classifier entirely in the visual space. To obtain stronger task-adaptive visual representations, VISuses only base-session data to enhance CLIP's final visual representation with informative visual-layer features. Built on the enhanced visual representation, VISemploys a simple kernelized incremental least-squares SVM, whose classifier weights are solved in closed form from additive sufficient statistics. When new classes arrive, VISaccumulates their sufficient statistics and recomputes the classifier weights for all seen classes, enabling efficient incremental updates while preserving historical class knowledge. Extensive experiments show that VISachieves state-of-the-art performance without a textual branch.",
    "affiliations": [
     "School of Artificial Intelligence, Nanjing University",
@@ -2351,7 +2351,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.37685v1",
+   "html_url": "https://arxiv.org/html/2609.37685v2",
    "abstract": "Language-aligned and self-supervised visual encoders offer complementary strengths in semantic abstraction and spatial detail. Harnessing this complementarity requires enriching local features while retaining distinctions between semantically related patches. We introduce PAIQ, a patch-aligned semantic injection framework that combines content-based cross-encoder matching with orthogonally constrained residual updates. Using DINOv3 patch features as the spatial base, PAIQ aggregates complementary SigLIP features through joint source allocation and injects the aggregate--base differences through a shared orthogonal transformation Q. This rotation adapts update directions while preserving residual norms and pairwise angles. For fixed projected features, we derive conditions for patch separability under similar semantic aggregates and show that rotation adds a nonnegative separation term over direct interpolation when the aggregate is shared. Only the projection and fusion parameters are trained; both visual encoders and the language model remain frozen, and fusion retains 196 visual tokens. Across diverse language backbones, PAIQ yields broad gains in judge-assessed correctness and reductions in hallucination severity over single-encoder interfaces on image description and visual question answering. On the 2B and 9B Qwen backbones, this compact interface outperforms the strongest evaluated fusion or token-compression baselines by about 2.9 correctness points on average.",
    "affiliations": [],
    "author_affiliations": null,
@@ -2632,7 +2632,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.37638v1",
+   "html_url": "https://arxiv.org/html/2609.37638v2",
    "abstract": "Current explanation methods for contrastive vision--language models such as CLIP mainly identify important regions without showing how to change the input in order to get a target prediction. We introduce \\textbf{M}ask-guided \\textbf{A}daptive \\textbf{C}ounterfactual \\textbf{E}xplanations (\\mace), a targeted visual counterfactual method designed specifically for CLIP zero-shot classification. \\mace constructs an editable region from either source attribution or source--target attribution differences and expands the mask only when needed to reach a specified target class. A latent diffusion inpainting model then modifies the selected region, while a frozen CLIP model provides modification guidance and anchors the remaining image content to the original input. We evaluate \\mace on ImageNet, Food-101, Oxford Pets, and CUB-200. The source-mask variant achieves the highest target top-1 success rate across all four datasets, while the difference-mask variant produces the smallest pixel-level and perceptual changes and the best realism scores. Both variants improve proximity and realism over a Stable Diffusion-only baseline using the same generative backbone. These results show that adaptive mask-guided editing produces effective CLIP counterfactuals. They further reveal a tradeoff between counterfactual validity and source-image preservation.",
    "affiliations": [
     "Marburg University, Germany"
@@ -5294,7 +5294,8 @@
     "Mithun Hunsur",
     "Sami BuGhanem",
     "Scottie Fox",
-    "Aaron Sanders Carson Poole",
+    "Aaron Sanders",
+    "Carson Poole",
     "Irene Park",
     "Dave Rossi",
     "Spencer Frazier",
@@ -5309,10 +5310,9 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.37107v1",
+   "html_url": "https://arxiv.org/html/2609.37107v2",
    "abstract": "We present Waypoint 1.5, a real-time diffusion world model for interactive video generation on consumer-grade hardware. Unlike general video diffusion models, interactive world models (iWMs) must respond to dense user controls under strict latency and throughput constraints. Waypoint 1.5 is pre-trained on 100,000 hours of diverse, control-aligned video game data across hundreds of games, and generates playable video conditioned on full keyboard and mouse input. The model includes two resolution variants that run across a wide spectrum of consumer hardware. To characterize this unique setting, we distinguish rendered FPS, latent FPS, and control rate. We describe the data pipeline, architecture, training methodology, and runtime system behind Waypoint 1.5. We evaluate interactivity through latency and throughput. Finally, we discuss the safety and ethics considerations unique to iWMs.",
    "affiliations": [
-    "Carson Poole",
     "Overworld"
    ],
    "author_affiliations": [
@@ -5329,12 +5329,12 @@
     null,
     null,
     null,
+    null,
     [
-     1
+     0
     ]
    ],
    "institutions": [
-    null,
     null
    ],
    "abs_url": "https://arxiv.org/abs/2609.37107",
@@ -5661,7 +5661,7 @@
   {
    "arxiv_id": "2609.37048",
    "announced": "2026-09-30",
-   "title": "NHO: A Neural Hamiltonian Operator for Anchor-based Region Localization and Dense Correspondance",
+   "title": "NHO: A Neural Hamiltonian Operator for Anchor-based Region Localization and Dense Correspondence",
    "authors": [
     "Jing Li",
     "Yawei Luo",
@@ -5678,7 +5678,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.37048v1",
+   "html_url": "https://arxiv.org/html/2609.37048v2",
    "abstract": "Non-rigid partial-to-full shape correspondence from sparse anchors requires identifying the corresponding region on the full surface and recovering dense correspondences between the partial shape and that region. We present NHO, which combines sparse anchors with the intrinsic geometry of the partial shape to learn a neural Hamiltonian operator whose localized eigenspace encodes both the region support and intrinsic coordinates for dense correspondence. NHO parameterizes the Hamiltonian potential as an intrinsic neural field and optimizes it using anchor evidence together with spectral and geometric constraints. To resolve the spatial ambiguity left by sparse anchors, we introduce reciprocal refinement between operator estimation and correspondence recovery. At each round, the current eigenspace provides spectral coordinates and restricts matching to its induced support, while geometrically reliable correspondences provide additional evidence for updating the potential. After refinement, aggregated eigenfunction energy yields the final localization, and the recovered map initializes dense correspondence refinement. Experiments demonstrate competitive accuracy on both tasks and robustness to uniform scaling and rotation.",
    "affiliations": [
     "Jilin University",
@@ -5948,7 +5948,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.37015v1",
+   "html_url": "https://arxiv.org/html/2609.37015v2",
    "abstract": "We propose RBF-GNN, a new pseudo-coordinate based graph neural network architecture that takes into account Euclidean, spherical or angular coordinates and uses them to induce a powerful spatial inductive bias. Similar in architecture to SplineCNN, we improve upon the latter by replacing the less efficient sparse-activation based B-splines whose number grows exponentially with dimension by rational Pad\\'e basis functions. For effective training we propose a spline-subspace initialization and a variance-preserving weight rescaling. Experimentally, we evaluate on a number of popular neural network architectures that use SplineCNNs. We replace only the SplineCNNs with RBF-GNN. We achieve improved results, including on semantic keypoint matching, shape matching, event based camera computer vision tasks. We will make our implementation publicly available upon acceptance of the paper.",
    "affiliations": [
     "Heinrich Heine University Düsseldorf"
@@ -6008,7 +6008,7 @@
    "announced": "2026-09-30",
    "title": "World2Motion: Turning Video World Models into 3D Human Motion Generators",
    "authors": [
-    "Tu Fangyuan",
+    "Fangyuan Tu",
     "Xiangyue Zhang",
     "Yiyi Cai",
     "Yichen Peng",
@@ -6028,7 +6028,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.37004v1",
+   "html_url": "https://arxiv.org/html/2609.37004v2",
    "abstract": "We present World2Motion, a framework that generates scene-aware 3D human motion and corresponding video from a single image and a text prompt. While existing 3D motion generators learn from motion datasets, their generalization is constrained by limited coverage of environments. In contrast, video world models such as Cosmos 3 offer broader environmental priors but are not designed for full-body motion generation; recovering motion from their generated videos requires costly two-stage inference. To address these, we turn Cosmos 3 into a single-stage 3D motion generator. This adaptation has two challenges: the scarcity of paired video--motion data and temporal instability in the generated motion. First, we construct a training dataset combining synthetic video--motion pairs with real videos paired with estimated 3D motion. Second, we propose a shift-decoupled noise schedule that assigns different noise levels to video and motion through shared denoising progress. This design accommodates the different denoising requirements of the two modalities, reducing motion jitter. Experiments on a multi-source interaction benchmark show that World2Motion has better motion--text alignment and scene interaction compared with the evaluated 3D motion generators. It also matches the interaction success rate of the two-stage baseline while achieving approximately 3.3$\\times$ faster inference.",
    "affiliations": [
     "Japan Advanced Institute of Science and Technology",
@@ -6137,7 +6137,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.37002v1",
+   "html_url": "https://arxiv.org/html/2609.37002v2",
    "abstract": "High-resolution visual question answering often fails because a multimodal model does not acquire the small, spatially localized evidence needed to answer a question. Sequential zooming can recover detail, but it asks the main model to choose a region before obtaining a reliable overview. We introduce VPS, a visual parallel-search framework in which a main agent first invokes grid_search to inspect image tiles in parallel with question-conditioned sub-agents, and then adaptively invokes zoom_in PSisual Parallel Search improves mean accuracy over dedicated zoom-only search in 14 of 15 same-model comparisons, with gains up to 8.0 points and especially strong improvements for smaller main models. ZoomBench retains an approximately 3.2-point gain at every tested size. We further develop a supervision pipeline with hint-free verification and a paired role-specific GRPO surrogate for learning the controller and tile-reader roles. SFT improves observed accuracy on all five benchmark splits, including a 4.17-point gain on HR-Bench 4K. Role-specific RL further reshapes search behavior: main-only RL reduces mean tool use from 2.65 to 2.11 with similar pass@1 in an internal four-response evaluation, while external accuracy changes are mixed. Joint training reveals an asymmetry between local evidence reading and global search control. Together, these results support VPS as an effective inference-time scaffold and a trainable decomposition for visual evidence acquisition.",
    "affiliations": [
     "The University of Hong Kong",
@@ -6642,7 +6642,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.36916v1",
+   "html_url": "https://arxiv.org/html/2609.36916v2",
    "abstract": "Multimodal large language models (MLLMs) incur high inference latency from long visual token sequences. Existing pruning methods commonly use attention maps or output features to estimate token importance or redundancy. Several recent approaches also exploit representation changes, but when and how these changes reflect foreground saliency and semantic consistency remain insufficiently understood. We analyze visual token representation dynamics across encoder depth and uncover two findings. First, the relationship between token update magnitudes and foreground saliency is layer-dependent: large token updates concentrate on foreground regions in two depth intervals, separated by several sink-dominated layers at intermediate depths. Second, similarities between token update directions better distinguish same-class from different-class tokens than those between encoder output features. Building on these findings, we propose MSDG-Prune, a training-free method that uses update magnitudes and directions to preserve salient and diverse visual information. Specifically, we group tokens by update-direction similarity and use query-weighted saliency derived from update magnitudes across a chosen depth window for group-wise token pruning. Extensive experiments across four MLLMs demonstrate the effectiveness and generalizability of MSDG-Prune. On LLaVA-NeXT, it retains 91.9% of uncompressed performance on average with only 5.6% of visual tokens, while achieving a 7.8x prefilling speedup. Code is available at https://github.com/liweixuan-hitsz/MSDG-Prune.",
    "affiliations": [
     "Harbin Institute of Technology",
@@ -6978,11 +6978,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "Project page: https://hongbin98.github.io/RoXDrive/; Github: https://github.com/Hongbin98/RoXDrive",
+   "comments": "Project page: https://hongbin98.github.io/RoXDrive/ Github: https://github.com/Hongbin98/RoXDrive",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.36851v1",
+   "html_url": "https://arxiv.org/html/2609.36851v2",
    "abstract": "End-to-end autonomous driving policies are commonly trained via imitation learning on logged demonstrations without observing the consequences of their own actions, leading to causal confusion in closed-loop real-world deployment. To address this issue, reinforcement learning (RL) post-training offers a promising alternative by leveraging world models as interactive training environments to enable future scene generation for policy improvement. Nevertheless, existing approaches either rely on reconstruction-based simulators, offering limited counterfactual interaction, or adopt synthetic simulators to enable long-horizon closed-loop interaction at the cost of a substantial sim-to-real gap. Recently, video world models have exhibited the ability to generate realistic multi-step future rollouts but may not faithfully reflect action conditions, resulting in action-vision mismatch. In this paper, we introduce RoXDrive, a plug-and-play closed-loop RL framework that enables reliable policy optimization by identifying action-faithful world-model rollouts, consisting of two stages: 1) Model pre-training: In addition to imitation-based policy pre-training, we devise an Action-Vision Faithfulness Evaluator for inverse dynamics estimation with our geometry-aware auxiliary trajectory supervision, enabling long-horizon assessment of whether visual dynamics faithfully reflect the conditioning ego actions. 2) Action-faithful RL post-training: Agents iteratively interact with world models to form long-horizon scene rollouts, retaining only action-faithful ones for dense safety-aware scoring and scene-level closed-loop RL post-training. Extensive experiments on nuScenes and an in-house dataset with over 130K training scenarios demonstrate consistent gains across planners, reducing safety violations by 27.6% with DiffusionDrive on nuScenes and 33.7% with Qwen3-VL on the internal data.",
    "affiliations": [
     "The Chinese University of Hong Kong, Shenzhen",
@@ -7495,7 +7495,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.36803v1",
+   "html_url": "https://arxiv.org/html/2609.36803v2",
    "abstract": "Real-time video understanding requires incrementally maintaining a memory of streaming content, and optimizing this requires dense process signals. On-Policy Self-Distillation (OPSD), which lets one model serve as both teacher and student with the teacher receiving additional privileged information such as the question and ground-truth (GT) answer, can supply such token-level signals. However, applying it directly to streaming video raises two problems. (1) The student cannot be optimized end-to-end, where memory is written before the question arrives, yet the teacher scores it with the question-and-GT privilege, misaligning their preferences. (2) Effective-entity memory collapses, where the question-and-GT privilege makes the teacher favor only question-relevant entities, and token-mean averaging over a memory renders its signal invariant to how many entities that memory covers, both driving memory against the streaming need for diversity. To address these issues, we propose Event-Grounded Self-Distillation (EGSD), which characterizes streaming memory as an incremental update over verifiable Events (key visual entities, actions, and details) and targets the two problems on this basis. For problem (1), we adapt the OPSD signal into a multiplicative weight combined with the outcome reward; for problem (2), we re-weight the teacher with Events as privileged information to counter its question-relevance bias, and add an entity-coverage reward to supply the coverage preference the token-mean teacher lacks. Extensive experiments on mainstream online and offline benchmarks show EGSD achieves strong performance, reaching 79.8% on StreamingBench and 73.4% on the OVO-Bench Real-Time track, while memory analysis shows effective-entity recall rises 17.4% at only 6.8% more memory length.",
    "affiliations": [
     "Baidu",
@@ -7863,7 +7863,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.36756v1",
+   "html_url": "https://arxiv.org/html/2609.36756v2",
    "abstract": "One-dimensional (1D) variable-length visual tokenizers enable adaptive compression by varying the number of tokens, allowing downstream autoregressive (AR) models to flexibly trade off generation quality against computational cost using a single tokenizer. However, existing approaches based on nested dropout often fail to fully exploit the representational capacity of the tokenizer, resulting in suboptimal performance in both image reconstruction and generation. In this work, we introduce NesTok, a nested self-alignment framework tailored to dynamic visual tokenizers. NesTok introduces cross-length training, which jointly optimizes reconstruction across token lengths while using the full-length sequence to guide shorter counterparts, enabling shorter token sequences to approach the reconstruction quality of full-length sequences. On ImageNet, NesTok improves substantially over standard training and achieves an rFID score of 0.98. On downstream image generation, it achieves the state-of-the-art gFID score of 1.46 on ImageNet 256$\\times$256 among existing variable-length autoregressive image generation methods. Code will be available at https://github.com/jaiwei804/NesTok.",
    "affiliations": [
     "North China Electric Power University",
@@ -8546,15 +8546,45 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "ICLR 2027 under review",
+   "comments": null,
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2609.36598v2",
    "abstract": "A video can exhibit convincing motion and photorealism yet fail immediately when visual text collapses. Unlike generic scene content, visual text is unforgiving in video generation: minor stroke corruption, temporal instability, or editing errors instantly break legibility and realism. Existing benchmarks overlook this challenge by treating text as incidental or using static OCR metrics that ignore temporal dynamics. We introduce VidScribe, a unified diagnostic benchmark spanning four generation regimes: writing from language (T2V), transferring text identity from a reference (R2V), sustaining text under dynamics (I2V), and localized text editing (V2V). VidScribe contains 803 human-verified samples across a 12-axis conditionally orthogonal factor space covering Intrinsic Text Properties, Physical Imaging Conditions, and Temporal Behavior. For reliable evaluation, we build a track-grounded, gated suite with 11 shared metrics and 2 task-specific probes under strict measurability conditions. Benchmarking 11 commercial and open-source systems shows that video text capability is non-monolithic, with content recognition decoupled from stroke-level glyph correctness. Performance is highly task-asymmetric: I2V sustains text most reliably, whereas V2V editing is the primary bottleneck. Counter-intuitively, degradation concentrates on a small subset of text-centric structural and temporal factors rather than adverse imaging conditions. Further probes show that visual references improve glyph and typographic fidelity rather than content accuracy, while localized editing fails to isolate target text without corrupting undeclared source text. Beyond evaluation, VidScribe also provides an actionable training signal, where benchmark-aligned preference optimization measurably improves visual text generation. https://huggingface.co/datasets/Vicky0720/VidScribe.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Alibaba Group",
+    "Shanghai Jiao Tong University",
+    "Fudan University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Alibaba Group",
+    "Shanghai Jiao Tong University",
+    "Fudan University"
+   ],
    "abs_url": "https://arxiv.org/abs/2609.36598",
    "pdf_url": "https://arxiv.org/pdf/2609.36598"
   },
@@ -9796,7 +9826,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.36217v1",
+   "html_url": "https://arxiv.org/html/2609.36217v2",
    "abstract": "A deeper understanding of brain function requires a precise, structured characterization of behavior.Yet, extracting behavioral representations from video in a form suitable for scientific analysis remains a fundamental challenge. Many prior studies represent behavior via pose estimation or nonlinear video embeddings. However, pose tracking discards rich information beyond predefined keypoints, while nonlinear video embeddings lack interpretability. We address this limitation with SABLE (Sparse-view Animal Behavior Latent Embeddings), a self-supervised framework that leverages a geometric inductive bias to learn behavior representations.By augmenting a multi-view transformer with priors from monocular depth and pose estimation, SABLE reconstructs 3D animal behavior from extremely sparse views while learning explicit 3D latent structure. Without ground-truth 3D labels, it reliably recovers 3D behavior from two-view videos, whereas state-of-the-art (SOTA) methods fail or yield degenerate solutions. Across the International Brain Lab and Cheese3D datasets, we demonstrate that SABLE learns 3D representations that match or exceed prior SOTA performance in neural encoding and decoding. Once pretrained across animals, SABLE serves as an off-the-shelf model that generalizes zero-shot to unseen animals without animal-specific calibration or retraining. Our method establishes 3D-aware video embeddings that capture complex behavior, opening new avenues for studying brain-behavior relationships.",
    "affiliations": [
     "Harvard University",
@@ -10271,7 +10301,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.36024v1",
+   "html_url": "https://arxiv.org/html/2609.36024v2",
    "abstract": "Reconstructing simulation-ready 3D scenes from real-world observations enables robotics, gaming, and immersive applications, yet existing methods largely assume rigid objects. This leaves an important gap for deformables, whose simulation-ready geometry depends on dimensionality (curves, surfaces, or volumes) and whose behavior may require models beyond elasticity. We present CoDimRecon, an agentic framework that reconstructs editable scenes containing rigid, articulated, and deformable objects from multi-view RGB observations. Scene-level geometric priors ground scale and layout, while object-level generated meshes guide the agent toward detailed, compact geometry; articulated rigid objects are decomposed into movable parts with explicit joints. For deformables, category-wise agent sessions reconstruct curves as centerlines with radii, surfaces as manifold shells with thickness, and volumes as watertight solids for volumetric meshing. Reusable simulator skills initialize compatible physical models and parameters, while agent-guided behavioral tests expose mismatches and trigger targeted revisions of motion, geometry, numerics, or material modeling. On evaluated Replica and ScanNet++ scenes, CoDimRecon achieves competitive compositional reconstruction accuracy while additionally producing deformable assets for rod, shell, and solid simulation. We further demonstrate robot interactions across all three representations, including a controlled paper-folding case in which behavioral testing motivates plastic bending.",
    "affiliations": [
     "SIGS, Tsinghua University",
@@ -10978,7 +11008,7 @@
    "journal_ref": null,
    "venue": "ECCV 2026 Workshop",
    "cross_list_from": "cs.AI",
-   "html_url": "https://arxiv.org/html/2609.37907v1",
+   "html_url": "https://arxiv.org/html/2609.37907v2",
    "abstract": "Video games offer scalable environments for studying perception and control in embodied agents.Abundant online gameplay videos could supply demonstrations, but they rarely include player inputs for training. Inverse Dynamics Models (IDMs) have thus been proposed to infer inputs from frames. Large (up to 1B parameters) IDMs trained on $\\sim$1K-2K gameplay hours demonstrate feasibility and cross-environment generalization at this scale, but researchers do not clarify what the key components are to recover individual actions and often report only aggregate accuracy that can mask rare-action failures. We study the problem in a data-constrained scenario to evaluate how spatial motion features, model architectures, and training objectives affect an IDM's outcome and we analyse our models on per-key and balanced metrics such as $F_1^{macro}$. Our experiments on Trackmania highlight the importance of factors like the model architecture and motion flow extraction in preprocessing, while also showing the limits of evaluation through unbalanced metrics. The application of the same architecture and training recipe to Cyberpunk 2077 reveals uneven performance across game mechanics. Our per-action evaluation and failure analysis highlight ambiguities from camera motion, delayed effects and imbalanced key-press frequencies that call for explicit modeling of 3D scene structure, long-term state and the adoption of proper losses in future implementations.",
    "affiliations": [
     "NVIDIA"
@@ -11623,7 +11653,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2609.37098v1",
+   "html_url": "https://arxiv.org/html/2609.37098v2",
    "abstract": "Vehicle-infrastructure cooperation can complement onboard sensing with broader and more informative observations of the traffic environment, providing valuable support for end-to-end autonomous driving. However, existing cooperative driving methods mainly exploit roadside information to enhance the representation of the current scene, while the future consequences of prospective driving actions are rarely modeled explicitly. This limits the ability of the planner to anticipate how its decisions may interact with the evolving traffic environment. To address this issue, we propose V2X-WAM, a cooperative world action model that tightly couples cooperative scene understanding, action generation, and future-world reasoning. V2X-WAM constructs a reliability-aware spatiotemporal representation from vehicle- and infrastructure-side observations, while compressing infrastructure information into a compact quantized message for efficient communication. Based on the resulting cooperative representation, a multimodal planner generates prospective trajectories, which explicitly condition future occupancy and dynamic-flow prediction. The predicted world consequences are then fed back to refine the planned trajectory, forming a closed interaction between action and future-world evolution. Experiments on a large-scale real-world cooperative driving dataset demonstrate that V2X-WAM consistently improves planning accuracy and safety over representative end-to-end cooperative driving methods, while achieving stronger future-world prediction and substantially lower communication overhead. Ablation studies further validate the effectiveness of the proposed design.",
    "affiliations": [
     "ITS Center, Research Institute of Highway Ministry of Transport, Beijing, 100088, China",
@@ -11666,7 +11696,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.NE",
-   "html_url": "https://arxiv.org/html/2609.37047v1",
+   "html_url": "https://arxiv.org/html/2609.37047v2",
    "abstract": "We propose a new spiking neural network (SNN) design to process static images and event streams using time-to-first-spike (TTFS) latencies. Our key research question is which architectural choices best accommodate local and online learning in multi-layer convolutional SNNs. This question is addressed via an original framework combining residual-like connections with multi-depth feature aggregation and consensus. The full SNN pipeline features an early-vision front end, to convert raw visual data into sparse spike latencies, a four-layer convolutional backbone trained layerwise with unsupervised spike-timing-dependent plasticity (STDP), a deterministic Multi-Depth Temporal Fusion (MDTF) and a final classifier trained with reward-modulated spike-timing-dependent plasticity (R-STDP). Rather than replacing early features in deeper layers, the proposed MDTF preserves early temporal evidence, adding sparse residual events from intermediate layers, and incorporating deeper features only when they agree in time with earlier representations. The resulting architecture is experimentally validated across MNIST, Fashion-MNIST, CIFAR-10, and N-MNIST, delivering strong classification performance under a fully local learning regime. Selective multi-depth fusion significantly outperforms traditional STDP/R-STDP baselines on higher-variability visual tasks (achieving +18.2 pp on Fashion-MNIST and +29.2 pp on CIFAR-10). Furthermore, activity-budget analyses show that the network retains high accuracy even when removing a large fraction of late or weak spike events, confirming its high data efficiency and reduced event-processing requirements. The codebase is publicly available at github.com/aidinattar/multi-depth- temporal-fusion-snn.",
    "affiliations": [
     "Department of Information",

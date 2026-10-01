@@ -585,6 +585,7 @@
    "authors": [
     "Edward Gaibor",
     "Kyriaki-Margarita Bintsi",
+    "Chiara Mauri",
     "Carmen Luz Leiva Ureta",
     "Zayneb Bellatif",
     "Chiara Maffei",
@@ -601,7 +602,7 @@
    "journal_ref": null,
    "venue": "MICCAI 2026",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.31431v1",
+   "html_url": "https://arxiv.org/html/2609.31431v2",
    "abstract": "Accurate segmentation of axons in 3D microscopy data is important for analyzing white-matter organization, but dense ground truth labels are expensive to obtain. Existing supervised axon segmentation methods rely on target-domain annotations and can be brittle when tissue type, species, modality, or acquisition conditions change. We present AxonSynth, a domain-randomized synthetic-data framework for training 3D axon segmentation models without manually annotated real training volumes. AxonSynth generates dense synthetic axon labels with orientation priors that reflect realistic fiber configurations and renders them with randomized density, contrast, bias fields, blur, and noise. A three-class 3D U-Net is trained to predict background, axon sheath and intra-axonal space. We evaluate zero-shot transfer on 10 held-out light-sheet microscopy (LSM) patches from macaque and human brain samples labeled with one of three axonal markers, comparing against calibrated thresholding and Frangi filtering using overlap, corrected detection, false-positive, and topology metrics. On macaque samples, AxonSynth achieved the best corrected Dice and corrected precision (0.826 and 0.851), compared with 0.765 and 0.754 for thresholding and 0.685 and 0.762 for Frangi. On human samples, corrected Dice was comparable to thresholding (0.857 vs. 0.868), while component-count error decreased from 22,504 to 3,377. Across all held-out patches, AxonSynth reduced component-count error in 10/10 patches and Euler-characteristic error in 8/10. These results show that synthetic-label domain randomization can reduce dependence on manual axon annotation while supporting synthetic-to-real 3D segmentation.",
    "affiliations": [
     "Department of Computer Science, University of Massachusetts Boston, Boston, MA, USA",
@@ -615,6 +616,9 @@
    "author_affiliations": [
     [
      0
+    ],
+    [
+     1
     ],
     [
      1
