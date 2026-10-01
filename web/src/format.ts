@@ -17,3 +17,15 @@ export function formatShortDay(iso: string): string {
     month: "short",
   });
 }
+
+/** Counts refreshed longer ago are stale: weekly runs failed (`STALE_CITATIONS_DAYS` in config.py). */
+export const STALE_CITATIONS_DAYS = 14;
+
+const DAY_MS = 86_400_000;
+
+/** The note on citation counts: their source and date, and a warning once they are stale. */
+export function citationsNote(source: string, asOf: string, today: Date = new Date()): string {
+  const note = `Citations on ${source}, as of ${formatDay(asOf)}`;
+  const age = Math.floor((today.getTime() - new Date(asOf).getTime()) / DAY_MS);
+  return age > STALE_CITATIONS_DAYS ? `${note} (${age} days ago: they may be out of date)` : note;
+}

@@ -38,8 +38,9 @@ def test_get_text_sends_params_and_user_agent() -> None:
 
 def test_404_raises_not_found() -> None:
     transport = httpx.MockTransport(lambda _: httpx.Response(404))
-    with HttpClient(transport=transport) as client, pytest.raises(NotFoundError):
+    with HttpClient(transport=transport) as client, pytest.raises(NotFoundError) as raised:
         client.get_text("https://arxiv.org/html/0000.00000")
+    assert raised.value.status == 404
 
 
 def test_client_errors_are_not_retried() -> None:
@@ -49,9 +50,13 @@ def test_client_errors_are_not_retried() -> None:
         calls.append(request)
         return httpx.Response(400)
 
-    with HttpClient(transport=httpx.MockTransport(handler)) as client, pytest.raises(FetchError, match="400"):
+    with (
+        HttpClient(transport=httpx.MockTransport(handler)) as client,
+        pytest.raises(FetchError, match="400") as raised,
+    ):
         client.get_text("https://arxiv.org/")
     assert len(calls) == 1
+    assert raised.value.status == 400
 
 
 def test_transient_errors_are_retried_with_backoff() -> None:

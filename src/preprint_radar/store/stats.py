@@ -7,11 +7,13 @@ the same table, one row per year, and the citation counts a closing line.
 
 from collections.abc import Container, Iterable, Sequence
 from dataclasses import dataclass
+from datetime import date
 from typing import Self
 
 from rich import box
 from rich.table import Table
 
+from preprint_radar.config import STALE_CITATIONS_DAYS
 from preprint_radar.models import Paper
 from preprint_radar.store.paper_store import CitationCounts, PaperStore
 
@@ -150,11 +152,16 @@ def _years_title(category: str, years: Sequence[RowCoverage]) -> str:
     return f"{category} archive: {_count(papers, 'paper')} over {_count(len(years), 'year')}"
 
 
-def format_citations(category: str, citations: CitationCounts) -> str:
-    """One line on the citation counts of a category: how many, from where, and when."""
+def format_citations(category: str, citations: CitationCounts, *, today: date) -> str:
+    """One line on the citation counts of a category: how many, from where, and when.
+
+    Counts older than ``STALE_CITATIONS_DAYS`` are said to be stale: weekly runs failed.
+    """
+    refreshed = citations.generated_at.date()
+    age = (today - refreshed).days
     return (
         f"{category} citation counts: {len(citations.counts):,} from {citations.source}, "
-        f"{citations.generated_at.date().isoformat()}"
+        f"{refreshed.isoformat()}" + (f" (stale: {age} days old)" if age > STALE_CITATIONS_DAYS else "")
     )
 
 

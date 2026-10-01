@@ -222,7 +222,7 @@ class HttpClient:
 
             status = response.status_code
             if status == httpx.codes.NOT_FOUND:
-                raise NotFoundError(f"Not found: {response.url}")
+                raise NotFoundError(f"Not found: {response.url}", status=status)
             if status not in RETRYABLE_STATUS_CODES or attempt == self._max_attempts:
                 break
             wait = _retry_after(response) or delay
@@ -231,7 +231,8 @@ class HttpClient:
             delay *= 2
 
         if response.is_error:
-            raise FetchError(f"HTTP {response.status_code} for {response.url}{_json_detail(response)}")
+            msg = f"HTTP {response.status_code} for {response.url}{_json_detail(response)}"
+            raise FetchError(msg, status=response.status_code)
         return response.text
 
 

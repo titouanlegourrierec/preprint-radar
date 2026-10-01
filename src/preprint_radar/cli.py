@@ -28,6 +28,7 @@ from preprint_radar.config import (
     DEFAULT_DATA_DIR,
     DEFAULT_EXPORT_DIR,
     DEFAULT_MAX_ROR_LOOKUPS,
+    MIN_COVERAGE,
 )
 from preprint_radar.console import configure_logging, console
 from preprint_radar.exceptions import PreprintRadarError
@@ -278,8 +279,8 @@ def _add_citations_parser(subparsers: "argparse._SubParsersAction[argparse.Argum
             "Fetch from Semantic Scholar the citation counts of the stored papers that have "
             "none yet (the papers announced since the last full refresh), or of every stored "
             "paper with --all, as the weekly archive does. API key from "
-            "SEMANTIC_SCHOLAR_API_KEY. A failing Semantic Scholar never fails the command: "
-            "the papers left are asked for again next time."
+            "SEMANTIC_SCHOLAR_API_KEY. A refusing Semantic Scholar never fails the command: "
+            "the papers left are asked for again next time. A rejected key does."
         ),
     )
     citations.add_argument(
@@ -297,6 +298,12 @@ def _add_citations_parser(subparsers: "argparse._SubParsersAction[argparse.Argum
         help=f"data store directory (default: {DEFAULT_DATA_DIR})",
     )
     citations.add_argument("--all", action="store_true", help="fetch the counts of every stored paper again")
+    citations.add_argument(
+        "--max-minutes",
+        type=float,
+        default=None,
+        help="stop asking a refusing Semantic Scholar after this long (default: no limit)",
+    )
 
 
 def _add_index_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
@@ -540,7 +547,7 @@ def _run_stats(args: argparse.Namespace) -> int:
                 else format_archive_coverage(category, years)
             )
         if citations := store.load_citation_counts(category):
-            reports.append(format_citations(category, citations))
+            reports.append(format_citations(category, citations, today=datetime.now(tz=UTC).date()))
     for index, report in enumerate(reports):
         if index:
             console.print()
@@ -586,7 +593,14 @@ def _run_citations(args: argparse.Namespace) -> int:
     client, key = _semantic_scholar()
     with client:
         for category in categories:
-            report = update_citation_counts(store, category, client, key=key, refresh=args.all)
+            report = update_citation_counts(
+                store,
+                category,
+                client,
+                key=key,
+                refresh=args.all,
+                max_seconds=None if args.max_minutes is None else 60 * args.max_minutes,
+            )
             console.print(format_citations_report(report))
     return 0
 
@@ -628,6 +642,7 @@ def _run_archive(args: argparse.Namespace) -> int:
         HttpClient(user_agent=DEFAULT_USER_AGENT, min_interval=OPENALEX_DELAY_SECONDS) as openalex,
     ):
         clients = ArchiveClients(oai=oai, citations=citations, openalex=openalex, citations_key=key)
+        gated: list[str] = []
         for category in categories:
             report = update_archive(
                 category,
@@ -640,6 +655,12 @@ def _run_archive(args: argparse.Namespace) -> int:
                 dry_run=args.dry_run,
             )
             console.print(format_archive_report(report))
+            if report.coverage < MIN_COVERAGE:
+                gated.append(category)
+    if gated:
+        # The archive was left as it is, and the counts merged: a red run, after the commit.
+        logger.error("Too few citation counts: the archive of %s was not updated", ", ".join(gated))
+        return 1
     return 0
 
 

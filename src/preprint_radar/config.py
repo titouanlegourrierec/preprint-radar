@@ -49,3 +49,5 @@ and be lost."""
 CITATIONS_CACHE_DAYS = 7
 """Counts fetched by a run started fewer days ago are reused: a run that failed or was
 cancelled resumes where it stopped, and a weekly run starts afresh."""
+STALE_CITATIONS_DAYS = 14
+"""Counts refreshed longer ago than this are reported as stale: two weekly runs missed."""

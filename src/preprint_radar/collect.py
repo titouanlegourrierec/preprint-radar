@@ -392,7 +392,13 @@ class CitationsReport:
 
 
 def update_citation_counts(
-    store: PaperStore, category: str, client: HttpClient, *, key: str | None, refresh: bool = False
+    store: PaperStore,
+    category: str,
+    client: HttpClient,
+    *,
+    key: str | None,
+    refresh: bool = False,
+    max_seconds: float | None = None,
 ) -> CitationsReport:
     """Fetch the citation counts of the stored papers of ``category`` into ``citations.json``.
 
@@ -407,15 +413,19 @@ def update_citation_counts(
         client: HTTP client for Semantic Scholar (see :func:`fetch_citation_counts`).
         key: Semantic Scholar API key, ``None`` for anonymous requests.
         refresh: Ask for every stored paper, and date the counts of today.
+        max_seconds: Time budget for the requests (see :func:`fetch_citation_counts`).
 
     Returns:
-        How many papers were asked for, and how many got a count. A failing Semantic
+        How many papers were asked for, and how many got a count. A refusing Semantic
         Scholar leaves the rest for the next run: it never fails the update.
+
+    Raises:
+        FetchError: If Semantic Scholar rejects the API key.
     """
     stored = [paper.arxiv_id for paper in (*store.iter_papers(category), *store.iter_archive(category))]
     known = {} if refresh else store.load_citations(category)
     wanted = [arxiv_id for arxiv_id in dict.fromkeys(stored) if arxiv_id not in known]
-    fetched = fetch_citation_counts(client, wanted, key=key) if wanted else {}
+    fetched = fetch_citation_counts(client, wanted, key=key, max_seconds=max_seconds) if wanted else {}
     counts = {arxiv_id: count for arxiv_id, count in fetched.items() if count is not None}
     if refresh and len(fetched) == len(wanted):
         store.write_citations(category, counts, source=S2_SOURCE)

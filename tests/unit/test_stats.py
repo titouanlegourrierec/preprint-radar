@@ -1,5 +1,5 @@
 from dataclasses import replace
-from datetime import date
+from datetime import date, timedelta
 from pathlib import Path
 
 import pytest
@@ -182,10 +182,14 @@ def test_format_citations_gives_source_and_date(archived: PaperStore) -> None:
     citations = archived.load_citation_counts("cs.CV")
     assert citations is not None
 
-    line = format_citations("cs.CV", citations)
+    refreshed = citations.generated_at.date()
+    line = format_citations("cs.CV", citations, today=refreshed + timedelta(days=14))
 
     assert line.startswith("cs.CV citation counts: 3 from S2, ")
-    assert line.endswith(citations.generated_at.date().isoformat())
+    assert line.endswith(refreshed.isoformat())
+    assert format_citations("cs.CV", citations, today=refreshed + timedelta(days=15)).endswith(
+        f"{refreshed.isoformat()} (stale: 15 days old)"
+    )
 
 
 def test_format_coverage_of_an_empty_category() -> None:

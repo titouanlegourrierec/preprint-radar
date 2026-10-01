@@ -6,7 +6,7 @@ import { PaperList } from "./components/PaperList";
 import { Rankings } from "./components/Rankings";
 import { Sidebar } from "./components/Sidebar";
 import { download } from "./download";
-import { formatDay } from "./format";
+import { citationsNote as formatCitationsNote, formatDay } from "./format";
 import { useCitations } from "./hooks/use-citations";
 import { usePapers } from "./hooks/use-papers";
 import { useReadingList } from "./hooks/use-reading-list";
@@ -45,7 +45,7 @@ export function App() {
   const citations = useCitations(category);
   const citationsNote =
     citations.source && citations.asOf
-      ? `Citations on ${citations.source}, as of ${formatDay(citations.asOf)}`
+      ? formatCitationsNote(citations.source, citations.asOf)
       : undefined;
   const readingList = useReadingList();
   const { theme, resolved, next, cycle } = useTheme();

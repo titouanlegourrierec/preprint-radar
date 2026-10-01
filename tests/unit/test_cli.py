@@ -319,6 +319,29 @@ def test_archive_passes_its_options_and_reports(
     )
 
 
+def test_archive_fails_below_the_coverage_gate(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, caplog: pytest.LogCaptureFixture
+) -> None:
+    def gated(category: str, **_: object) -> ArchiveReport:
+        return ArchiveReport(
+            category=category,
+            candidates=100,
+            coverage=0.5,
+            threshold=0.0,
+            archived=10,
+            entered=0,
+            left=0,
+            pruned_days=0,
+            written=True,
+        )
+
+    monkeypatch.setattr("preprint_radar.cli.update_archive", gated)
+    args = ["archive", "--data-dir", str(tmp_path / "data"), "--catalog-dir", str(tmp_path / "catalog")]
+
+    assert main(args) == 1
+    assert "Too few citation counts: the archive of cs.CV was not updated" in caplog.text
+
+
 def test_archive_uses_the_semantic_scholar_key(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
@@ -352,12 +375,18 @@ def test_runs_as_a_module(monkeypatch: pytest.MonkeyPatch, capsys: pytest.Captur
 def test_citations_fetches_the_missing_counts_of_each_category(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
 ) -> None:
-    calls: list[tuple[str, bool, str | None]] = []
+    calls: list[tuple[str, bool, str | None, float | None]] = []
 
     def update_citation_counts(
-        _: PaperStore, category: str, __: HttpClient, *, key: str | None, refresh: bool
+        _: PaperStore,
+        category: str,
+        __: HttpClient,
+        *,
+        key: str | None,
+        refresh: bool,
+        max_seconds: float | None,
     ) -> CitationsReport:
-        calls.append((category, refresh, key))
+        calls.append((category, refresh, key, max_seconds))
         return CitationsReport(category=category, asked=3, found=3)
 
     monkeypatch.setattr("preprint_radar.cli.update_citation_counts", update_citation_counts)
@@ -365,10 +394,10 @@ def test_citations_fetches_the_missing_counts_of_each_category(
     store = PaperStore(tmp_path / "data")
     store.save("cs.CV", [Paper(arxiv_id="2609.00001", announced=date(2026, 9, 25), title="T", authors=())])
 
-    assert main(["citations", "--data-dir", str(store.root)]) == 0
+    assert main(["citations", "--data-dir", str(store.root), "--max-minutes", "10"]) == 0
     assert main(["citations", "--data-dir", str(store.root), "-c", "cs.LG", "--all"]) == 0
 
-    assert calls == [("cs.CV", False, "test-key"), ("cs.LG", True, "test-key")]
+    assert calls == [("cs.CV", False, "test-key", 600), ("cs.LG", True, "test-key", None)]
     assert capsys.readouterr().out.count("citation counts for 3 of 3 papers") == 2
 
 

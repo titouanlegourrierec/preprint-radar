@@ -4,7 +4,7 @@ import logging
 import httpx
 import pytest
 
-from preprint_radar.exceptions import ParseError
+from preprint_radar.exceptions import FetchError, ParseError
 from preprint_radar.http import HttpClient
 from preprint_radar.sources.semantic_scholar import (
     S2_BATCH_SIZE,
@@ -107,3 +107,55 @@ def test_api_key_comes_from_the_environment(monkeypatch: pytest.MonkeyPatch) -> 
     assert api_key() is None
     monkeypatch.setenv("SEMANTIC_SCHOLAR_API_KEY", "test-key")
     assert api_key() == "test-key"
+
+
+@pytest.mark.parametrize(
+    ("key", "status", "rejected"),
+    [("secret", 403, "the API key"), (None, 401, "the request")],
+    ids=["invalid-key", "anonymous"],
+)
+def test_a_rejected_key_stops_at_once(key: str | None, status: int, rejected: str) -> None:
+    requests: list[httpx.Request] = []
+
+    def handle(request: httpx.Request) -> httpx.Response:
+        requests.append(request)
+        return httpx.Response(status)
+
+    sleeps: list[float] = []
+    with (
+        HttpClient(transport=httpx.MockTransport(handle), max_attempts=1) as client,
+        pytest.raises(
+            FetchError, match=f"Semantic Scholar rejected {rejected} \\(HTTP {status}\\)"
+        ) as raised,
+    ):
+        fetch_citation_counts(client, ["2609.1"], key=key, sleep=sleeps.append)
+
+    assert raised.value.status == status
+    assert len(requests) == 1
+    assert sleeps == []
+
+
+def test_refusals_are_given_up_at_the_end_of_the_time_budget(caplog: pytest.LogCaptureFixture) -> None:
+    responses = iter(
+        [httpx.Response(200, text=json.dumps([{"citationCount": 1}] * S2_BATCH_SIZE))]
+        + [httpx.Response(429)] * S2_BATCH_TRIES
+    )
+    now = [0.0]
+
+    def sleep(seconds: float) -> None:
+        now[0] += seconds
+
+    with HttpClient(transport=httpx.MockTransport(lambda _: next(responses)), max_attempts=1) as client:
+        counts = fetch_citation_counts(
+            client,
+            [f"2609.{i}" for i in range(2 * S2_BATCH_SIZE)],
+            key="secret",
+            max_seconds=10,
+            sleep=sleep,
+            clock=lambda: now[0],
+        )
+
+    # The first batch, then tries after 2, 4 s: the next wait (8 s) would end past 10 s.
+    assert len(counts) == S2_BATCH_SIZE
+    assert now[0] == 6
+    assert "refused a batch 3 times; out of time, stopping" in caplog.text

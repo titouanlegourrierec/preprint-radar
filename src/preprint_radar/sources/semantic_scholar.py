@@ -35,6 +35,8 @@ S2_BATCH_TRIES = 30
 S2_RETRY_WAIT_SECONDS = 2.0
 S2_ANONYMOUS_RETRY_WAIT_SECONDS = 20.0
 S2_MAX_RETRY_WAIT_SECONDS = 60.0
+# An invalid or revoked key gets these on every request: trying again only wastes the run.
+S2_KEY_REJECTED = frozenset({401, 403})
 # A few refusals in a row are routine, even with a key: only longer streaks are reported.
 _REPORTED_STREAK = 5
 # Progress is reported every that many batches (5,000 papers).
@@ -52,7 +54,9 @@ def fetch_citation_counts(
     *,
     key: str | None = None,
     on_batch: Callable[[Mapping[str, int | None]], None] | None = None,
+    max_seconds: float | None = None,
     sleep: Callable[[float], None] = time.sleep,
+    clock: Callable[[], float] = time.monotonic,
 ) -> dict[str, int | None]:
     """Citation counts of arXiv papers.
 
@@ -63,20 +67,33 @@ def fetch_citation_counts(
         key: API key, sent as ``x-api-key``; ``None`` for anonymous requests.
         on_batch: Called with the counts of each batch as soon as it is fetched, so that
             the caller can save progress.
+        max_seconds: Time budget: past it, refused batches are not tried again, and the
+            papers from the first of them on are left out. ``None``: no budget.
         sleep: Sleep function between tries of a refused batch, injectable for testing.
+        clock: Monotonic clock for the time budget, injectable for testing.
 
     Returns:
         The counts of the papers fetched (``None``: unknown to Semantic Scholar). If a
         batch keeps failing, the papers from it on are left out: callers check coverage.
+
+    Raises:
+        FetchError: If Semantic Scholar rejects the API key (or, without one, the
+            requests): no try would get through.
     """
     headers = {"x-api-key": key} if key else None
     first_wait = S2_RETRY_WAIT_SECONDS if key else S2_ANONYMOUS_RETRY_WAIT_SECONDS
+    deadline = None if max_seconds is None else clock() + max_seconds
     wanted = list(dict.fromkeys(arxiv_ids))
     counts: dict[str, int | None] = {}
     batches = refusals = 0
     for batch in batched(wanted, S2_BATCH_SIZE, strict=False):
         batch_counts, refused = _fetch_batch(
-            client, batch, headers=headers, sleep=sleep, first_wait=first_wait
+            client,
+            batch,
+            headers=headers,
+            sleep=sleep,
+            first_wait=first_wait,
+            stop_waiting=(lambda wait: clock() + wait > deadline) if deadline is not None else None,
         )
         refusals += refused
         if batch_counts is None:
@@ -125,8 +142,15 @@ def _fetch_batch(
     headers: Mapping[str, str] | None,
     sleep: Callable[[float], None],
     first_wait: float,
+    stop_waiting: Callable[[float], bool] | None = None,
 ) -> tuple[dict[str, int | None] | None, int]:
-    """Counts of one batch (``None`` if every try was refused), and the number of refusals."""
+    """Counts of one batch (``None`` if every try was refused), and the number of refusals.
+
+    ``stop_waiting`` tells, given the wait before the next try, whether to give up instead.
+
+    Raises:
+        FetchError: If the key (or, without one, the request) is rejected.
+    """
     error: FetchError | ParseError | None = None
     for attempt in range(1, S2_BATCH_TRIES + 1):
         try:
@@ -138,10 +162,19 @@ def _fetch_batch(
             )
             return parse_batch_response(text, batch), attempt - 1
         except (FetchError, ParseError) as exc:
+            if isinstance(exc, FetchError) and exc.status in S2_KEY_REJECTED:
+                rejected = "the API key" if headers else "the request"
+                msg = f"Semantic Scholar rejected {rejected} (HTTP {exc.status}): {exc}"
+                raise FetchError(msg, status=exc.status) from exc
             error = exc
             logger.debug("Semantic Scholar batch refused (try %d): %s", attempt, exc)
             if attempt < S2_BATCH_TRIES:
                 wait = min(first_wait * 2 ** (attempt - 1), S2_MAX_RETRY_WAIT_SECONDS)
+                if stop_waiting is not None and stop_waiting(wait):
+                    logger.warning(
+                        "Semantic Scholar refused a batch %d times; out of time, stopping", attempt
+                    )
+                    return None, attempt
                 if attempt % _REPORTED_STREAK == 0:
                     logger.info(
                         "Semantic Scholar refused a batch %d times in a row; next try in %.0f s",

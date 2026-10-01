@@ -93,14 +93,14 @@ audit). The archive is unchanged: 22,071 papers, 11,621 affiliated.
 | REL-1 | Layout-drift breaker and a weekly network canary | P1 | todo |
 | REL-2 | HTML deadline, then a consecutive-failure breaker | P1 | todo |
 | CI-2 | Run summary and a failure issue | P1 | todo |
-| CI-3 | Deploy gating on what was pushed | P2 | todo |
-| CIT-4 | Stop on a 403, flag stale counts | P1 | todo |
+| CI-3 | Deploy gating on what was pushed | P2 | done |
+| CIT-4 | Stop on a 403, flag stale counts | P1 | done |
 | DATA-1 | Layers 2 and 3: `EXTRACTOR_VERSION`, `reextract`, front-matter cache | P1 | todo |
 | AFF-Q | Affiliation quality section in `stats` | P2 | todo |
 | TEST-4 | Negative tests for the heuristics | P2 | todo |
 | TEST-5 | Golden fixture expectations | P2 | todo |
 | DOC-1 | Symptom-first operations runbook | P2 | todo |
-| REL-3 | License and data terms | P2 | todo |
+| REL-3 | License and data terms (MIT for the code; the Semantic Scholar terms are read before going public) | P2 | done |
 
 *Exit criteria:* a simulated arXiv outage, layout change, Semantic Scholar 403 and rebase
 conflict each end in a clear red run or a summary warning, and nothing is lost.
