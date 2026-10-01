@@ -224,6 +224,90 @@ def test_second_run_only_fetches_what_is_missing(fake: FakeArxiv, store: PaperSt
     assert stored["2609.30249"].author_affiliations is not None  # carried over, not refetched
 
 
+def _store_with_authors(store: PaperStore, authors: dict[str, tuple[str, ...]]) -> None:
+    """Rewrite stored papers as if an earlier version had listed other authors."""
+    stored = {paper.arxiv_id: paper for paper in store.iter_papers("cs.CV")}
+    store.save("cs.CV", [replace(stored[arxiv_id], authors=names) for arxiv_id, names in authors.items()])
+
+
+def test_a_changed_author_list_reads_the_html_again(
+    fake: FakeArxiv, store: PaperStore, caplog: pytest.LogCaptureFixture
+) -> None:
+    listed = {paper.arxiv_id: paper for paper in _run(fake, store).papers}
+    # The stored mapping is positional: under another author order it would credit the
+    # wrong people. 2609.30234 had no affiliations yet (its page failed).
+    _store_with_authors(
+        store,
+        {
+            "2609.30249": tuple(reversed(listed["2609.30249"].authors)),
+            "2609.30234": tuple(reversed(listed["2609.30234"].authors)),
+        },
+    )
+    fake.hits.clear()
+    caplog.set_level("INFO")
+
+    stored = {paper.arxiv_id: paper for paper in _run(fake, store).papers}
+
+    assert fake.hits["/html/2609.30249v1"] == 1
+    assert stored["2609.30249"].authors == listed["2609.30249"].authors
+    assert stored["2609.30249"].author_affiliations == listed["2609.30249"].author_affiliations
+    assert "2609.30249 changed its author list" in caplog.text
+    assert "2609.30234 changed its author list" not in caplog.text
+
+
+def test_a_respelled_author_list_keeps_its_mapping(fake: FakeArxiv, store: PaperStore) -> None:
+    listed = {paper.arxiv_id: paper for paper in _run(fake, store).papers}
+    authors = listed["2609.30249"].authors
+    _store_with_authors(store, {"2609.30249": ("Liu Yuyao", *authors[1:])})
+    fake.hits.clear()
+
+    stored = {paper.arxiv_id: paper for paper in _run(fake, store).papers}
+
+    assert fake.hits["/html/2609.30249v1"] == 0
+    assert stored["2609.30249"].authors == authors
+    assert stored["2609.30249"].author_affiliations == listed["2609.30249"].author_affiliations
+
+
+def test_a_changed_author_list_without_html_keeps_the_affiliations(
+    fake: FakeArxiv, store: PaperStore
+) -> None:
+    listed = {paper.arxiv_id: paper for paper in _run(fake, store).papers}
+    _store_with_authors(store, {"2609.30249": tuple(reversed(listed["2609.30249"].authors))})
+    link = '<a href="https://arxiv.org/html/2609.30249v1" title="View HTML"'
+    fake.listing_html = fake.listing_html.replace(link, '<a href="#" title="No HTML"')
+    fake.hits.clear()
+
+    stored = {paper.arxiv_id: paper for paper in _run(fake, store).papers}
+
+    assert stored["2609.30249"].html_url is None
+    assert fake.hits["/html/2609.30249v1"] == 0
+    assert stored["2609.30249"].affiliations == listed["2609.30249"].affiliations
+    assert stored["2609.30249"].author_affiliations is None
+
+
+def test_declared_affiliations_reset_the_author_mapping(
+    fake: FakeArxiv, store: PaperStore, listing: Listing
+) -> None:
+    paper = next(paper for paper in listing.papers if paper.arxiv_id == "2609.28466")
+    store.save(
+        "cs.CV",
+        [
+            replace(
+                paper,
+                affiliations=("Scraped Institute",),
+                author_affiliations=((0,),) * len(paper.authors),
+                institutions=("Scraped Institute",),
+            )
+        ],
+    )
+
+    stored = {paper.arxiv_id: paper for paper in _run(fake, store, max_html_fetches=0).papers}
+
+    assert stored["2609.28466"].affiliations == ("Declared Institute",)
+    assert stored["2609.28466"].author_affiliations is None
+    assert stored["2609.28466"].institutions is None
+
+
 def test_max_html_fetches_limits_downloads(fake: FakeArxiv, store: PaperStore) -> None:
     _run(fake, store, max_html_fetches=0)
 

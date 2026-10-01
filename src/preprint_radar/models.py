@@ -58,6 +58,27 @@ class Paper:
     author_affiliations: tuple[tuple[int, ...] | None, ...] | None = None
     institutions: tuple[str | None, ...] | None = None
 
+    def __post_init__(self) -> None:
+        """Check that the lists indexing ``affiliations`` line up with it and with ``authors``.
+
+        Raises:
+            ValueError: If ``institutions`` does not have one entry per affiliation, or
+                ``author_affiliations`` one entry per author, with indices into ``affiliations``.
+        """
+        count = None if self.affiliations is None else len(self.affiliations)
+        if self.institutions is not None and len(self.institutions) != count:
+            msg = "'institutions' must have one entry per affiliation"
+            raise ValueError(msg)
+        if self.author_affiliations is None:
+            return
+        if len(self.author_affiliations) != len(self.authors):
+            msg = "'author_affiliations' must have one entry per author"
+            raise ValueError(msg)
+        indices = [index for entry in self.author_affiliations if entry is not None for index in entry]
+        if indices and (count is None or not all(0 <= index < count for index in indices)):
+            msg = "'author_affiliations' must only hold indices into 'affiliations'"
+            raise ValueError(msg)
+
     @property
     def abs_url(self) -> str:
         """URL of the abstract page."""
@@ -117,8 +138,6 @@ class Paper:
         """
         try:
             affiliations = _optional_str_list(record, "affiliations")
-            author_affiliations = _optional_index_lists(record, "author_affiliations")
-            institutions = _institutions(record, affiliations)
             return cls(
                 arxiv_id=_str(record, "arxiv_id"),
                 announced=date.fromisoformat(_str(record, "announced")),
@@ -133,8 +152,8 @@ class Paper:
                 html_url=_optional_str(record, "html_url"),
                 abstract=_optional_str(record, "abstract"),
                 affiliations=None if affiliations is None else tuple(affiliations),
-                author_affiliations=author_affiliations,
-                institutions=institutions,
+                author_affiliations=_optional_index_lists(record, "author_affiliations"),
+                institutions=_optional_nullable_str_list(record, "institutions"),
             )
         except (KeyError, TypeError, ValueError) as exc:
             msg = f"Invalid paper record {record.get('arxiv_id')!r}: {exc}"
@@ -194,17 +213,6 @@ def _optional_nullable_str_list(record: Mapping[str, object], key: str) -> tuple
     return tuple(value)
 
 
-def _institutions(
-    record: Mapping[str, object], affiliations: list[str] | None
-) -> tuple[str | None, ...] | None:
-    """Parse the institutions, which must match the affiliations one to one."""
-    institutions = _optional_nullable_str_list(record, "institutions")
-    if institutions is not None and (affiliations is None or len(institutions) != len(affiliations)):
-        msg = "'institutions' must have one entry per affiliation"
-        raise ValueError(msg)
-    return institutions
-
-
 def _optional_index_lists(
     record: Mapping[str, object], key: str
 ) -> tuple[tuple[int, ...] | None, ...] | None:
@@ -219,7 +227,10 @@ def _optional_index_lists(
     for entry in value:
         if entry is None:
             entries.append(None)
-        elif isinstance(entry, list) and all(isinstance(index, int) for index in entry):
+        # JSON booleans load as bool, a subclass of int: they are not indices.
+        elif isinstance(entry, list) and all(
+            isinstance(index, int) and not isinstance(index, bool) for index in entry
+        ):
             entries.append(tuple(entry))
         else:
             msg = f"{key!r} entries must be lists of integers or null"

@@ -14,6 +14,7 @@ def test_record_round_trip(listing: Listing) -> None:
 def test_record_round_trip_keeps_enrichment(listing: Listing) -> None:
     paper = replace(
         listing.papers[0],
+        authors=("Ada Lovelace", "Alan Turing", "Grace Hopper"),
         abstract="An abstract.",
         affiliations=("MIT", "NVIDIA"),
         author_affiliations=((0, 1), None, (1,)),
@@ -52,4 +53,26 @@ def test_from_record_rejects_invalid_fields(listing: Listing, field: str, value:
     record: dict[str, object] = dict(listing.papers[0].to_record())
     record[field] = value
     with pytest.raises(StoreError, match=r"2609\.30245"):
+        Paper.from_record(record)
+
+
+@pytest.mark.parametrize(
+    ("affiliations", "author_affiliations"),
+    [
+        (["MIT", "NVIDIA"], [[0]]),  # one entry for three authors
+        (["MIT", "NVIDIA"], [[0], None, [2]]),  # there is no third affiliation
+        (["MIT", "NVIDIA"], [[0], None, [-1]]),
+        (["MIT", "NVIDIA"], [[True], None, None]),  # a JSON boolean is not an index
+        (None, [[0], None, None]),  # indices into affiliations not retrieved yet
+    ],
+)
+def test_from_record_rejects_a_mapping_out_of_step(
+    listing: Listing, affiliations: list[str] | None, author_affiliations: list[list[object] | None]
+) -> None:
+    record: dict[str, object] = dict(
+        replace(listing.papers[0], authors=("Ada Lovelace", "Alan Turing", "Grace Hopper")).to_record()
+    )
+    record["affiliations"] = affiliations
+    record["author_affiliations"] = author_affiliations
+    with pytest.raises(StoreError, match="author_affiliations"):
         Paper.from_record(record)

@@ -15,7 +15,7 @@ from preprint_radar.exceptions import FetchError, ParseError
 from preprint_radar.http import HttpClient
 from preprint_radar.models import Paper
 from preprint_radar.sources.arxiv_api import fetch_metadata
-from preprint_radar.sources.arxiv_html import fetch_front_matter
+from preprint_radar.sources.arxiv_html import fetch_front_matter, name_key
 from preprint_radar.sources.arxiv_listing import fetch_catchup, fetch_listing
 from preprint_radar.sources.arxiv_rss import fetch_rss_abstracts
 from preprint_radar.sources.ror import match_institutions
@@ -195,16 +195,36 @@ def backfill_category(
 def _carry_over(listed: Paper, stored: Paper | None) -> Paper:
     """Keep fresh listing metadata while reusing enrichment from the store.
 
-    Listings and catchup pages never give affiliations: those always come from the store.
+    Listings and catchup pages never give affiliations: those always come from the store,
+    unless a new version changed the author list. ``author_affiliations`` is positional,
+    so the stored one would then credit authors with someone else's affiliations: the
+    HTML rendering of the new version is read again, or, without one, the paper keeps its
+    affiliations but no longer says who is where.
     """
     if stored is None:
         return listed
-    return replace(
-        listed,
-        abstract=listed.abstract if listed.abstract is not None else stored.abstract,
-        affiliations=stored.affiliations,
-        author_affiliations=stored.author_affiliations,
-        institutions=stored.institutions,
+    abstract = listed.abstract if listed.abstract is not None else stored.abstract
+    if _same_authors(listed.authors, stored.authors):
+        return replace(
+            listed,
+            abstract=abstract,
+            affiliations=stored.affiliations,
+            author_affiliations=stored.author_affiliations,
+            institutions=stored.institutions,
+        )
+    if listed.html_url is None:
+        return replace(
+            listed, abstract=abstract, affiliations=stored.affiliations, institutions=stored.institutions
+        )
+    if stored.affiliations is not None:
+        logger.info("%s changed its author list: reading its HTML again", listed.arxiv_id)
+    return replace(listed, abstract=abstract)
+
+
+def _same_authors(listed: Sequence[str], stored: Sequence[str]) -> bool:
+    """Whether two author lists name the same people in the same order, however spelled."""
+    return len(listed) == len(stored) and all(
+        name_key(new) == name_key(old) for new, old in zip(listed, stored, strict=True)
     )
 
 
@@ -250,11 +270,19 @@ def _add_abstracts(
         if meta is None:
             enriched.append(paper)
             continue
-        # Submitter-declared affiliations are cleaner than those scraped from HTML.
-        affiliations = meta.affiliations or paper.affiliations
-        institutions = paper.institutions if affiliations == paper.affiliations else None
+        # Submitter-declared affiliations are cleaner than those scraped from HTML. The
+        # institutions and the author mapping index the old list: they go with it.
+        declared = bool(meta.affiliations) and meta.affiliations != paper.affiliations
         enriched.append(
-            replace(paper, abstract=meta.abstract, affiliations=affiliations, institutions=institutions)
+            replace(
+                paper,
+                abstract=meta.abstract,
+                affiliations=meta.affiliations,
+                author_affiliations=None,
+                institutions=None,
+            )
+            if declared
+            else replace(paper, abstract=meta.abstract)
         )
     return enriched, len(missing) - sum(paper.abstract is None for paper in enriched)
 

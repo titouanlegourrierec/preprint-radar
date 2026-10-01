@@ -8,6 +8,7 @@ from preprint_radar.sources.arxiv_html import (
     FrontMatter,
     clean_affiliation,
     fetch_front_matter,
+    name_key,
     parse_front_matter,
 )
 
@@ -704,3 +705,22 @@ def test_drops_layout_and_link_leftovers(
 )
 def test_clean_affiliation_drops_layout_and_link_leftovers(raw: str, expected: str | None) -> None:
     assert clean_affiliation(raw) == expected
+
+
+@pytest.mark.parametrize(
+    ("listed", "respelled"),
+    [
+        # Respellings seen when a new version of a paper was listed.
+        ("Ma Ziqi", "Ziqi Ma"),
+        ("Shi Fan", "Fan Shi"),
+        ("Niccol`o Cavagnero", "Niccolò Cavagnero"),
+        ("Eduil Nascimento Jr.", "Eduil Nascimento Jr"),
+        ("Yu-Ming Cheung", "Yu Ming Cheung"),
+    ],
+)
+def test_name_key_ignores_spelling(listed: str, respelled: str) -> None:
+    assert name_key(listed) == name_key(respelled)
+
+
+def test_name_key_tells_people_apart() -> None:
+    assert name_key("Noa Garcia") != name_key("Yuta Nakashima")

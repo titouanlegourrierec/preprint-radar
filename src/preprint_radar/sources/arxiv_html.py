@@ -692,3 +692,22 @@ def _fold(text: str) -> str:
     """Lowercase, strip accents and normalize punctuation, for name comparison."""
     decomposed = unicodedata.normalize("NFKD", text.translate(_PUNCTUATION_VARIANTS))
     return "".join(char for char in decomposed if not unicodedata.combining(char)).casefold()
+
+
+# Apostrophes and LaTeX accent leftovers join the letters around them ("Niccol`o" is "Niccolò").
+_NAME_JOINERS_RE = re.compile(r"['`^~\"]")
+
+
+def name_key(name: str) -> tuple[str, ...]:
+    """Key under which two spellings of one person's name compare equal.
+
+    Case, accents, punctuation and word order are ignored, so a new version of a paper
+    that respells an author ("Ma Ziqi" as "Ziqi Ma", "Niccol`o" as "Niccolò") keeps them.
+
+    Args:
+        name: An author name as listed.
+
+    Returns:
+        The name's words, folded and sorted.
+    """
+    return tuple(sorted(re.findall(r"[^\W_]+", _NAME_JOINERS_RE.sub("", _fold(name)))))
