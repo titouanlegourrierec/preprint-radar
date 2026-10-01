@@ -535,3 +535,18 @@ def test_nothing_to_ask_for(cited_store: PaperStore) -> None:
 
     assert fake.asked == []
     assert report.asked == 0
+
+
+def test_update_writes_the_index_before_reading_html_pages(
+    fake: FakeArxiv, store: PaperStore, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    def stopped(*_: object, **__: object) -> None:
+        # A run killed while reading pages: the days saved so far are in the index.
+        index = json.loads((store.root / "index.json").read_text(encoding="utf-8"))
+        assert [day["count"] for day in index["categories"]["cs.CV"]] == [5, 2]
+        raise KeyboardInterrupt
+
+    monkeypatch.setattr("preprint_radar.collect._add_html_front_matter", stopped)
+
+    with pytest.raises(KeyboardInterrupt):
+        _run(fake, store)

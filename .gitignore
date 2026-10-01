@@ -28,6 +28,9 @@ experiments/
 # OS
 .DS_Store
 
+# Left by a write that was interrupted (the store writes atomically, through a .tmp file)
+*.tmp
+
 # Local configuration (see .env.example)
 .env
 

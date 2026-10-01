@@ -69,9 +69,9 @@ for the answer.
 | CIT-3 | `min(announced, first_seen)` for graduating papers | P2 | done |
 | CIT-11 | Decouple archive selection from pruning | P1 | done |
 | CIT-12, CIT-13 | Old papers cross-listed lately: they compete, and enter under their own year (fixed with CIT-11) | P2 | done |
-| TEST-1 | `fail_under = 100` | P2 | todo |
-| DATA-6 | Write the index right after the first save | P2 | todo |
-| DATA-7 | Ignore `.tmp` files | P3 | todo |
+| TEST-1 | `fail_under` (set to 95 by the maintainer; the aim stays 100%) | P2 | done |
+| DATA-6 | Write the index right after the first save | P2 | done |
+| DATA-7 | Ignore `.tmp` files | P3 | done |
 | SEC-9 | About section with a correction contact | P1 | todo |
 | SEC-10 | Privacy note | P2 | todo |
 | CI-1 | Robust data commit (raised to P1, see the corrections above) | P1 | done |

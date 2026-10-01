@@ -459,25 +459,27 @@ def _run_update(args: argparse.Namespace) -> int:
     if not args.contact:
         logger.warning("No contact given; consider setting %s so arXiv can reach you.", CONTACT_ENV_VAR)
 
-    with (
-        HttpClient(user_agent=user_agent, min_interval=args.crawl_delay) as site_client,
-        HttpClient(user_agent=user_agent, min_interval=ARXIV_API_DELAY_SECONDS) as api_client,
-        # The contact is for arXiv only: other services get the bare User-Agent.
-        HttpClient(user_agent=DEFAULT_USER_AGENT, min_interval=ROR_DELAY_SECONDS) as ror_client,
-    ):
-        for category in categories:
-            report = update_category(
-                category,
-                store=store,
-                site_client=site_client,
-                api_client=api_client,
-                ror_client=ror_client if args.max_ror else None,
-                max_html_fetches=args.max_html,
-                max_ror_lookups=args.max_ror,
-            )
-            console.print(format_report(report))
-
-    console.print(f"Index written to {store.write_index()}")
+    # The index is written even after a failure, so that the days saved meanwhile show.
+    try:
+        with (
+            HttpClient(user_agent=user_agent, min_interval=args.crawl_delay) as site_client,
+            HttpClient(user_agent=user_agent, min_interval=ARXIV_API_DELAY_SECONDS) as api_client,
+            # The contact is for arXiv only: other services get the bare User-Agent.
+            HttpClient(user_agent=DEFAULT_USER_AGENT, min_interval=ROR_DELAY_SECONDS) as ror_client,
+        ):
+            for category in categories:
+                report = update_category(
+                    category,
+                    store=store,
+                    site_client=site_client,
+                    api_client=api_client,
+                    ror_client=ror_client if args.max_ror else None,
+                    max_html_fetches=args.max_html,
+                    max_ror_lookups=args.max_ror,
+                )
+                console.print(format_report(report))
+    finally:
+        console.print(f"Index written to {store.write_index()}")
     return 0
 
 
@@ -490,24 +492,26 @@ def _run_backfill(args: argparse.Namespace) -> int:
         logger.warning("No contact given; consider setting %s so arXiv can reach you.", CONTACT_ENV_VAR)
 
     user_agent = build_user_agent(args.contact)
-    with (
-        HttpClient(user_agent=user_agent, min_interval=args.crawl_delay) as site_client,
-        # The contact is for arXiv only: other services get the bare User-Agent.
-        HttpClient(user_agent=DEFAULT_USER_AGENT, min_interval=ROR_DELAY_SECONDS) as ror_client,
-    ):
-        for category in categories:
-            report = backfill_category(
-                category,
-                days,
-                store=store,
-                site_client=site_client,
-                ror_client=ror_client if args.max_ror else None,
-                max_html_fetches=args.max_html,
-                max_ror_lookups=args.max_ror,
-            )
-            console.print(format_report(report))
-
-    console.print(f"Index written to {store.write_index()}")
+    # The index is written even after a failure, so that the days saved meanwhile show.
+    try:
+        with (
+            HttpClient(user_agent=user_agent, min_interval=args.crawl_delay) as site_client,
+            # The contact is for arXiv only: other services get the bare User-Agent.
+            HttpClient(user_agent=DEFAULT_USER_AGENT, min_interval=ROR_DELAY_SECONDS) as ror_client,
+        ):
+            for category in categories:
+                report = backfill_category(
+                    category,
+                    days,
+                    store=store,
+                    site_client=site_client,
+                    ror_client=ror_client if args.max_ror else None,
+                    max_html_fetches=args.max_html,
+                    max_ror_lookups=args.max_ror,
+                )
+                console.print(format_report(report))
+    finally:
+        console.print(f"Index written to {store.write_index()}")
     return 0
 
 

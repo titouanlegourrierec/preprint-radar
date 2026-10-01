@@ -90,6 +90,26 @@ def test_update_populates_store(
     assert "No contact given" in caplog.text
 
 
+def test_backfill_writes_the_index_even_when_it_fails(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, catchup_html: str
+) -> None:
+    def get_text(_: HttpClient, url: str, *, params: Mapping[str, str | int] | None = None) -> str:
+        del params
+        # Days are fetched from the latest: 2026-09-01 is saved, then arXiv fails.
+        if url.endswith("/catchup/cs.CV/2026-09-01"):
+            return catchup_html
+        raise FetchError("arxiv.org is down")
+
+    monkeypatch.setattr(HttpClient, "get_text", get_text)
+    data_dir = tmp_path / "data"
+
+    args = ["--since", "2026-08-31", "--until", "2026-09-01", "--max-html", "0", "--crawl-delay", "0"]
+    assert main(["backfill", "--data-dir", str(data_dir), *args]) == 1
+
+    index = json.loads((data_dir / "index.json").read_text(encoding="utf-8"))
+    assert index["categories"]["cs.CV"] == [{"date": "2026-09-01", "count": 4}]
+
+
 @pytest.mark.usefixtures("offline")
 def test_backfill_populates_store(
     tmp_path: Path, capsys: pytest.CaptureFixture[str], caplog: pytest.LogCaptureFixture

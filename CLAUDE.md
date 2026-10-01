@@ -10,7 +10,7 @@ Use the Makefile (`make help` lists everything):
 
 - `make quality`: every static check (ruff format/lint, ty, Biome, tsc, actionlint). Run it before saying a change is done.
 - `make test`: pytest and Vitest, both offline. `make check` runs quality and tests, like CI.
-- `make coverage`: the Python tests with a line and branch coverage report. Keep it at 100%: test new code, or exclude a line that cannot run with a `# pragma: no cover` / `no branch` that says why.
+- `make coverage`: the Python tests with a line and branch coverage report. Below 95% it fails, and so does CI (`fail_under`); keep it at 100%: test new code, or exclude a line that cannot run with a `# pragma: no cover` / `no branch` that says why.
 - `make format`: auto-fix formatting and lint.
 - `make dev` / `make preview`: the site locally (dev server, or production build).
 - `make update-quick`: refresh `data/` without reading HTML pages. `make update` reads them too, at one page every 15 s, so it takes hours. Never start it without asking.
@@ -109,7 +109,7 @@ Single checks: `uv run pytest tests/unit/test_paper_store.py -k merge`, `cd web 
 ## Gotchas
 
 - The Makefile must run on macOS's GNU Make 3.81: no `--eval`, `.ONESHELL`, or `$(file ...)`.
-- `web/vite.config.ts` serves `../data` at `/data` in dev and copies it into `dist/` on build. `base: "./"` keeps the site working under `user.github.io/<repo>/`.
+- `web/vite.config.ts` serves `../data` at `/data` in dev and copies it into `dist/` on build, without dotfiles and the `.tmp` files an interrupted write leaves (git ignores them too). `base: "./"` keeps the site working under `user.github.io/<repo>/`.
 - `web/tsconfig.node.json` type-checks `vite.config.ts` with Node types. The app itself only gets DOM types.
 - GitHub Actions: pushes made with `GITHUB_TOKEN` do not trigger other workflows. That is why `update.yml` calls `deploy.yml` through `workflow_call`.
   - Actions are pinned by commit SHA with the version in a comment; bump them together (`git ls-remote --tags` gives the SHAs).

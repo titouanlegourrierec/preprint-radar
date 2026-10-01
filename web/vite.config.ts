@@ -1,5 +1,5 @@
 import { cpSync, createReadStream, existsSync, statSync } from "node:fs";
-import { resolve, sep } from "node:path";
+import { basename, resolve, sep } from "node:path";
 import preact from "@preact/preset-vite";
 import type { Plugin } from "vite";
 import { defineConfig } from "vitest/config";
@@ -29,7 +29,11 @@ function paperData(dataDir: string): Plugin {
     },
     writeBundle(options) {
       if (options.dir && existsSync(dataDir)) {
-        cpSync(dataDir, resolve(options.dir, "data"), { recursive: true });
+        // Not the leftovers of an interrupted write, nor dotfiles (.DS_Store).
+        cpSync(dataDir, resolve(options.dir, "data"), {
+          recursive: true,
+          filter: (source) => !basename(source).startsWith(".") && !source.endsWith(".tmp"),
+        });
       }
     },
   };

@@ -101,6 +101,8 @@ source = ["preprint_radar"]
 branch = true
 
 [tool.coverage.report]
+# A floor for CI and `make coverage`; the aim stays 100% (see CLAUDE.md).
+fail_under = 95
 show_missing = true
 skip_covered = true
 exclude_also = [

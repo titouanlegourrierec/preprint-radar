@@ -88,6 +88,9 @@ def update_category(
         papers, category, site_client=site_client, api_client=api_client
     )
     store.save(category, papers)
+    # Let the web app show the new days while affiliations are being read, even if the run
+    # is stopped before its end.
+    store.write_index()
 
     papers, affiliations_fetched, html_abstracts = _add_html_front_matter(
         papers,
