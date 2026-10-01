@@ -24,6 +24,16 @@ describe("institutionName", () => {
     ["Nagoya 461-8680", ""],
     ["Independent Researcher", ""],
     ["Independent Researcher, University of Regensburg", "University of Regensburg"],
+    ["Independent Author", ""],
+    ["Independent researchers", ""],
+    // Leftovers that older data still holds: they must not become institution nodes.
+    ["Correspondence", ""],
+    ["the", ""],
+    ["Code", ""],
+    ["Core Contributors", ""],
+    ["USA", ""],
+    ["United Kingdom", ""],
+    ["Tencent, China", "Tencent"],
     // Companies, however written; a hospital is not its sponsor.
     ["NVIDIA AI Technology Centre, Singapore", "NVIDIA"],
     ["ARC Lab, Tencent IEG", "Tencent"],

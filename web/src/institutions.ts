@@ -16,7 +16,13 @@ const LEGAL_SUFFIX_RE = /,\s*(ltd|inc|llc|gmbh|co|corp|ag|plc|s\.a|s\.r\.l)\b/gi
 const ARE_WITH_RE = /^.*?\b(?:is|are)\s+(?:also\s+)?(?:with|at)\s+/i;
 // Not an institution at all: people who work on their own.
 const INDEPENDENT_RE =
-  /^(?:an?\s+)?(?:independent|individual)(?:\s+(?:researcher|scholar|scientist))?$/i;
+  /^(?:an?\s+)?(?:independent|individual)(?:\s+(?:researcher|scholar|scientist|author)s?)?$/i;
+// Not an affiliation either, in data extracted before the pipeline rejected them (as
+// `_JUNK_RE` in arxiv_html.py does): link labels, contribution notes, lone words, a country.
+const JUNK_RE =
+  /^(?:the|an?|dot|code|github|data(?:set)?|demo|video|website|homepage|graduate|correspondence|project\s+(?:page|website)|(?:core\s+|main\s+)?contributors?|(?:co-?)?(?:first|second|last|senior)\s+authors?)$/i;
+const COUNTRY_RE =
+  /^(?:USA|U\.S\.A?\.?|United States(?: of America)?|UK|U\.K\.|United Kingdom|England|Scotland|(?:P\.?\s?R\.?\s?)?China|Hong Kong(?: SAR)?|Macau|Macao|Taiwan|Japan|(?:South |Republic of )?Korea|Singapore|India|Germany|France|Italy|Spain|Portugal|(?:The )?Netherlands|Belgium|Switzerland|Austria|Sweden|Norway|Denmark|Finland|Ireland|Poland|Czech Republic|Czechia|Hungary|Romania|Greece|Cyprus|Turkey|Türkiye|Israel|Iran|Saudi Arabia|United Arab Emirates|UAE|Qatar|Egypt|Morocco|Nigeria|South Africa|Canada|Mexico|Brazil|Chile|Argentina|Colombia|Peru|Ecuador|Australia|New Zealand|Russia|Ukraine|Vietnam|Viet Nam|Thailand|Malaysia|Indonesia|Philippines|Pakistan|Bangladesh|Luxembourg)\.?$/i;
 // Companies are written many ways ("NVIDIA AI Technology Centre", "Microsoft Research
 // Asia", "ARC Lab, Tencent IEG"): any mention names the company. Hospitals named after
 // a company ("Samsung Medical Center") are not the company.
@@ -116,7 +122,10 @@ export function institutionName(affiliation: string): string {
     .map((segment) => segment.trim().replace(/^the\s+/i, ""))
     // A lone "and" can be left over by the HTML extraction of older data.
     .filter((segment) => /\p{L}{2}/u.test(segment) && !/^and$/i.test(segment))
-    .filter((segment) => !INDEPENDENT_RE.test(segment));
+    .filter(
+      (segment) =>
+        !INDEPENDENT_RE.test(segment) && !JUNK_RE.test(segment) && !COUNTRY_RE.test(segment),
+    );
   let best = "";
   let bestIndex = -1;
   let bestScore = -1;

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><title>arXiv:2609.12885</title></head>
+<body>
+<article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">Learning Sign Language Recognition under Label Noise: A Study of Noise-Robust Losses for Isolated and Continuous Settings</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Akihisa Shitara<sup class="ltx_sup" id="id1">1</sup>
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span><sup class="ltx_sup" id="id2">2</sup>Faculty of Library, Information and Media Science, University of Tsukuba
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Yoichi Ochiai<sup class="ltx_sup" id="id3">1,2,3</sup>
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span><sup class="ltx_sup" id="id4">3</sup> Pixie Dust Technologies, Inc.
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"><sup class="ltx_sup" id="id5">1</sup>R&amp;D Center for Digital Nature, University of Tsukuba
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span><span class="ltx_text ltx_font_typewriter" id="id6" style="font-size:90%;">author (at) example.org</span>
+</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">In sign language recognition, the isolated-recognition (ISLR) classification loss treats a single label as ground truth, as does a frame-level auxiliary classifier over pseudo-labels—a component we add to continuous-recognition (CSLR) methods, which lack one.
+Stylistic variation blurs ISLR annotation, and the absence of temporal boundaries in CSLR forces pseudo-labels; both are noisy, and multi-tier recognition—glosses and non-manual markers as separate tiers—would likewise require frame-level boundaries.
+We therefore apply symmetric and generalized cross entropy (SCE, GCE)—robust alternatives to cross entropy (CE) established in image classification—not to connectionist temporal classification (CTC) but to the preceding single-label classifier.
+On ASL Citizen with injected symmetric noise across three backbones (three seeds for ST-GCN), robust losses cost at most <math alttext="2.5" class="ltx_Math" display="inline" id="abstract1.m1" intent=":literal"><semantics><mn>2.5</mn><annotation encoding="application/x-tex">2.5</annotation></semantics></math> pt when labels are clean and beat CE by 2.9–10.0 pt in all six conditions at noise rate 0.2, one of which only after <math alttext="q" class="ltx_Math" display="inline" id="abstract1.m2" intent=":literal"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math> was re-selected on the dev set. GCE yields larger gains, but its optimal <math alttext="q" class="ltx_Math" display="inline" id="abstract1.m3" intent=":literal"><semantics><mi>q</mi><annotation encoding="application/x-tex">q</annotation></semantics></math> does not generalize across backbones, whereas a single SCE setting transfers to all nine conditions; both vary 2–11 times more than CE across runs, so a favorable point estimate does not establish stability.
+For CSLR (PHOENIX-2014), we report no gain and instead probe how the type and effective weight of the auxiliary loss affect word error rate (WER).
+Our frame-level targets exhibit a systematic assignment bias beyond natural boundary ambiguity, so the CSLR study constitutes a diagnosis of a single configuration.
+Adding a pseudo-label CE auxiliary at <math alttext="\lambda_{\mathrm{aux}}=25" class="ltx_Math" display="inline" id="abstract1.m4" intent=":literal"><semantics><mrow><msub><mi>λ</mi><mi>aux</mi></msub><mo>=</mo><mn>25</mn></mrow><annotation encoding="application/x-tex">\lambda_{\mathrm{aux}}=25</annotation></semantics></math> to VAC, CorrNet, and SlowFastSign raises WER above the no-auxiliary baseline, and GCE/SCE improve on CE by 1.7–3.2 pt (three of six conditions return below that baseline).
+However, at a common <math alttext="\lambda_{\mathrm{aux}}" class="ltx_Math" display="inline" id="abstract1.m5" intent=":literal"><semantics><msub><mi>λ</mi><mi>aux</mi></msub><annotation encoding="application/x-tex">\lambda_{\mathrm{aux}}</annotation></semantics></math>, the three losses differ by more than an order of magnitude in effective gradient, and under a control matching the initial gradient, the gap shrinks to 0.4–0.9 pt, while lowering the CE weight alone already beats that baseline. Neither the degradation nor the improvement can therefore be separated from the effect of the weight.
+We use only symmetric noise, and multi-seed evaluation covers only ST-GCN and the VAC isolated configuration.</p>
+</div>
+</article>
+</body>
+</html>

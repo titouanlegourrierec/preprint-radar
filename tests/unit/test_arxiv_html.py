@@ -7,8 +7,10 @@ from preprint_radar.http import HttpClient
 from preprint_radar.sources.arxiv_html import (
     FrontMatter,
     clean_affiliation,
+    clean_affiliations,
     fetch_front_matter,
     name_key,
+    names_only_authors,
     parse_front_matter,
 )
 
@@ -193,17 +195,64 @@ PaperHtml = Callable[[str], str]
             ),
             id="empty-fields-leave-no-double-commas",
         ),
+        pytest.param(
+            "2609.05518",
+            ("The Hong Kong Polytechnic University", "Jilin University"),
+            id="mailbox-names-after-an-affiliation",
+        ),
+        pytest.param(
+            "2609.12885",
+            (
+                "Faculty of Library, Information and Media Science, University of Tsukuba",
+                "Pixie Dust Technologies, Inc",
+            ),
+            id="obfuscated-address-alone",
+        ),
+        pytest.param(
+            "2609.37046",
+            ("Munich University of Applied Sciences, Intelligent Vehicles Lab (IVL), 80335 Munich, Germany",),
+            id="obfuscated-address-after-an-affiliation",
+        ),
+        pytest.param(
+            "2609.06721",
+            ("National University of Singapore", "University of Science and Technology of China"),
+            id="are-with-sentences-in-the-affiliation",
+        ),
     ],
 )
 def test_parse_affiliations(paper_html: PaperHtml, arxiv_id: str, expected: tuple[str, ...]) -> None:
     assert parse_front_matter(paper_html(arxiv_id)).affiliations == expected
 
 
+def test_splits_also_with_into_affiliations(paper_html: PaperHtml) -> None:
+    affiliations = parse_front_matter(paper_html("2609.00814")).affiliations
+
+    assert [affiliation.split(",")[0] for affiliation in affiliations] == [
+        "Aerospace Information Research Institute",
+        "School of Electronic",
+        "University of Chinese Academy of Sciences",
+        "National Key Laboratory of Target Cognition and Application Technology (TCAT)",
+    ]
+
+
 def test_never_returns_contact_details(paper_html: PaperHtml) -> None:
-    for arxiv_id in ("2609.30234", "2609.28473", "2609.30249", "2609.30056", "2609.26161", "2609.29650"):
+    for arxiv_id in (
+        "2609.30234",
+        "2609.28473",
+        "2609.30249",
+        "2609.30056",
+        "2609.26161",
+        "2609.29650",
+        "2609.05518",
+        "2609.12885",
+        "2609.37046",
+    ):
         for affiliation in parse_front_matter(paper_html(arxiv_id)).affiliations:
             assert "@" not in affiliation
             assert "http" not in affiliation
+            assert "(at)" not in affiliation
+            assert "[at]" not in affiliation
+            assert "{" not in affiliation
 
 
 def test_ignores_footnotes(paper_html: PaperHtml) -> None:
@@ -374,6 +423,47 @@ AUTHORS = {
     ),
     "2609.26512": ("Shashank Baghel", "Kshitij Dwivedi", "Dinesh Singh", "Sanjeev Nara"),
     "2608.29027": ("Anh Nguyen Quynh", "Khang Nguyen Quoc", "Luyl-Da Quach"),
+    "2608.30420": (
+        "Tiffanie Godelaine",
+        "Maxime Zanella",
+        "Karim El Khoury",
+        "Benoit Macq",
+        "Christophe De Vleeschouwer",
+    ),
+    "2609.38180": (
+        "Hao-Tang Tsui",
+        "Yu-Rou Tuan",
+        "Xiaoxuan Ma",
+        "Nicolas Ugrinovic",
+        "Takaaki Shiratori",
+        "Kris Kitani",
+    ),
+    "2609.04190": (
+        "Adheesh Sunil Juvekar",
+        "Onkar Kishor Susladkar",
+        "Kiet A. Nguyen",
+        "Muntasir Wahed",
+        "Nabeel Bashir",
+        "Xiaona Zhou",
+        "Tianjiao Yu",
+        "Vedant Shah",
+        "Ismini Lourentzou",
+    ),
+    "2609.06721": ("Hangyu Qin", "Junbin Xiao", "Shenglang Zhang", "Angela Yao"),
+    "2609.00814": (
+        "Kaiyue Kang",
+        "Qixuan He",
+        "Peijin Wang",
+        "Yingchao Feng",
+        "Chao Ren",
+        "Kangxin Wang",
+        "Wenhui Diao",
+        "Yixiao Wang",
+        "Liangjin Zhao",
+        "Kaiwen Wei",
+        "Nayu Liu",
+        "Xian Sun",
+    ),
 }
 
 
@@ -410,7 +500,9 @@ AUTHORS = {
         ),
         pytest.param("2609.29384", ((0,), (1,), (0,)), id="thanks-sentences"),
         pytest.param("2609.23431", ((0,), (0,)), id="single-affiliation-is-everyones"),
-        pytest.param("2609.38153", ((0,), (0,)), id="single-affiliation-once-noise-is-gone"),
+        # The first author's name is printed as an affiliation: once it is dropped, the one
+        # affiliation left is not given to everyone.
+        pytest.param("2609.38153", (None, (0,)), id="single-affiliation-next-to-a-dropped-name"),
         pytest.param(
             "2609.37030",
             ((0, 1), (0, 1), (1,), (2,), (3,), (1,), (1,), (1,), (0, 4)),
@@ -422,6 +514,18 @@ AUTHORS = {
         pytest.param("2608.29027", ((0,), (1,), (2,)), id="per-author-empty-fields"),
         pytest.param("2609.26161", None, id="no-markers-on-names"),
         pytest.param("2609.28473", None, id="shared-block-without-markers"),
+        pytest.param("2609.06721", ((0,), (1,), (1,), (0,)), id="are-with-sentences-in-the-affiliation"),
+        pytest.param(
+            "2609.00814",
+            ((0, 1, 2, 3),) * 3 + ((0, 3),) * 2 + ((0, 1, 2, 3),) * 2 + ((0, 3),) * 4 + ((0, 1, 2, 3),),
+            id="also-with-gives-every-affiliation",
+        ),
+        # Another author's name was printed as the affiliation of Xiaoxuan Ma: the one
+        # affiliation left is not everyone's (Takaaki Shiratori is not at CMU).
+        pytest.param("2609.38180", None, id="names-dropped-next-to-a-single-affiliation"),
+        pytest.param(
+            "2609.04190", ((0,), (0,), (0,), *(None,) * 6), id="name-lists-among-per-author-contacts"
+        ),
     ],
 )
 def test_maps_authors_to_their_affiliations(
@@ -486,6 +590,72 @@ def test_author_names_are_not_affiliations(paper_html: PaperHtml) -> None:
     front = parse_front_matter(paper_html("2609.30249"), authors=("Nvidia", "Jiayuan Mao"))
     assert "NVIDIA" not in front.affiliations
     assert "University of Pennsylvania" in front.affiliations
+
+
+@pytest.mark.parametrize(
+    ("arxiv_id", "expected"),
+    [
+        pytest.param("2609.38180", ("Carnegie Mellon University",), id="accented-name"),
+        pytest.param("2609.04190", ("University of Illinois Urbana-Champaign",), id="lists-of-names"),
+        pytest.param("2608.30420", (), id="ieee-grades"),
+    ],
+)
+def test_drops_author_names_printed_as_affiliations(
+    paper_html: PaperHtml, arxiv_id: str, expected: tuple[str, ...]
+) -> None:
+    assert parse_front_matter(paper_html(arxiv_id), authors=AUTHORS[arxiv_id]).affiliations == expected
+
+
+def test_a_source_of_names_only_leaves_its_turn_to_the_next() -> None:
+    authors = ("Ada Lovelace", "Bob Smith")
+    html = _author_block(
+        *((name, ()) for name in authors), contacts=("Ada Lovelace and Bob Smith",)
+    ) + _thanks("Ada Lovelace and Bob Smith are with MIT.")
+
+    front = parse_front_matter(html, authors=authors)
+
+    assert front.affiliations == ("MIT",)
+    assert front.author_affiliations == ((0,), (0,))
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        "Nicolás Ugrinovic",
+        "Eduil Nascimento Jr",
+        "Yiqun Zhang, and Yiu-Ming Cheung",
+        "Shuai Tao & Wulong Liu",
+        "Benoît Macq Fellow, IEEE, and Christophe De Vleeschouwer Member, IEEE",
+        "Senior Member, IEEE Ada Lovelace",
+    ],
+)
+def test_names_only_authors(text: str) -> None:
+    authors = (
+        "Nicolas Ugrinovic",
+        "Eduil Nascimento Jr.",
+        "Yiqun Zhang",
+        "Yiu-Ming Cheung",
+        "Shuai Tao",
+        "Wulong Liu",
+        "Benoit Macq",
+        "Christophe De Vleeschouwer",
+        "Ada Lovelace",
+    )
+    assert names_only_authors(text, authors)
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        pytest.param("Yiqun Zhang, and Grace Hopper", id="someone-else"),
+        pytest.param("Alzheimer\u2019s Disease Neuroimaging Initiative", id="collective"),
+        pytest.param("Yiqun Zhang Lab", id="institution-word"),
+        pytest.param(", IEEE", id="no-name"),
+    ],
+)
+def test_names_of_others_or_institutions_stay(text: str) -> None:
+    authors = ("Yiqun Zhang", "Alzheimer's Disease Neuroimaging Initiative")
+    assert not names_only_authors(text, authors)
 
 
 def test_parse_abstract(paper_html: PaperHtml) -> None:
@@ -656,9 +826,95 @@ def test_notes_without_content_give_nothing() -> None:
     assert parse_front_matter(html).affiliations == ()
 
 
-@pytest.mark.parametrize("raw", ["1, 2", "AB", "* †"])
+@pytest.mark.parametrize(
+    "raw",
+    [
+        "1, 2",
+        "AB",
+        "* †",
+        "the",
+        "dot",
+        "Code",
+        "GitHub",
+        "Core Contributors",
+        "second authors",
+        "School of",
+        "Department of",
+        "Graduate",
+        "USA",
+        "United Kingdom",
+        "South Korea",
+        "Singapore.",
+    ],
+)
 def test_clean_affiliation_drops_what_names_nothing(raw: str) -> None:
     assert clean_affiliation(raw) is None
+
+
+@pytest.mark.parametrize(
+    ("raw", "expected"),
+    [
+        pytest.param("jane.doe (at) example.org", None, id="obfuscated-address"),
+        pytest.param("MIT, USA lab [at] example [dot] org", "MIT, USA", id="obfuscated-address-after"),
+        pytest.param("Jilin University{jane.doe, john.roe, j.smith}", "Jilin University", id="mailbox-names"),
+        pytest.param("{jane.doe, john.roe. j.smith", None, id="unclosed-mailbox-names"),
+        pytest.param("{Department of Physics}, MIT", "{Department of Physics}, MIT", id="braces-of-latex"),
+        pytest.param(
+            "University of Zurich, Switzerland ()", "University of Zurich, Switzerland", id="empty-brackets"
+        ),
+        pytest.param(
+            "K. Prentice and J. Martin are with Guide Dogs NSW, Sydney, Australia",
+            "Guide Dogs NSW, Sydney, Australia",
+            id="are-with",
+        ),
+        pytest.param(
+            "All authors are with Agile Robots SE, Munich", "Agile Robots SE, Munich", id="all-authors"
+        ),
+        pytest.param(
+            "Frank Kirchner is additionally affiliated with the University of Bremen",
+            "University of Bremen",
+            id="additionally-affiliated",
+        ),
+        pytest.param(
+            "The lab is at the University of Bremen",
+            "The lab is at the University of Bremen",
+            id="institution-before-the-verb",
+        ),
+    ],
+)
+def test_clean_affiliation_strips_contact_details_and_people(raw: str, expected: str | None) -> None:
+    assert clean_affiliation(raw) == expected
+
+
+@pytest.mark.parametrize(
+    ("raw", "expected"),
+    [
+        pytest.param(
+            "School of AI, Wuhan University, Wuhan, China, and also with ByteDance, Beijing, China",
+            ("School of AI, Wuhan University, Wuhan, China", "ByteDance, Beijing, China"),
+            id="and-also-with",
+        ),
+        pytest.param(
+            "CAS, Beijing, China, also with UCAS, Beijing, China, also with the TCAT Lab",
+            ("CAS, Beijing, China", "UCAS, Beijing, China", "TCAT Lab"),
+            id="several-also-with",
+        ),
+        pytest.param(
+            "The authors are also with the Robot Visual Perception Center, Hunan University",
+            ("Robot Visual Perception Center, Hunan University",),
+            id="people-also-with",
+        ),
+        pytest.param(
+            "A. Doe, B. Roe, and C. Poe are at Imperial College London. A. Doe is with the Robot Learning "
+            "Lab. B. Roe is with the SWIRL Lab",
+            ("Imperial College London", "Robot Learning Lab", "SWIRL Lab"),
+            id="several-sentences",
+        ),
+        pytest.param("Code", (), id="nothing"),
+    ],
+)
+def test_clean_affiliations_splits_what_holds_several(raw: str, expected: tuple[str, ...]) -> None:
+    assert clean_affiliations(raw) == expected
 
 
 @pytest.mark.parametrize(

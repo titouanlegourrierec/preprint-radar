@@ -57,10 +57,10 @@ for the answer.
 |---|---|---|---|
 | DATA-2 | Reset the author mapping on author-list changes, enforce the invariants, repair the 2 records | P2 | done |
 | AFF-15 | Length guard on `author_affiliations` in the graph | P2 | done |
-| AFF-1 | Folded name filter, name lists, IEEE grades (with the consortium exception) | P2 | todo |
-| AFF-2 | Obfuscated e-mails and brace lists | P2 | todo |
-| AFF-5 | Junk labels | P2 | todo |
-| AFF-6 | "Is with" sentences, "also with" | P2 | todo |
+| AFF-1 | Folded name filter, name lists, IEEE grades (with the consortium exception) | P2 | done |
+| AFF-2 | Obfuscated e-mails and brace lists | P2 | done |
+| AFF-5 | Junk labels | P2 | done |
+| AFF-6 | "Is with" sentences, "also with" | P2 | done |
 | DATA-1 | Layer 1: `reclean`, run once over the day files | P1 | todo |
 | DATA-3 | `validate`, before *Commit data* and in CI | P1 | todo |
 | CIT-1 | Merge counts under the gate instead of replacing them | P1 | todo |

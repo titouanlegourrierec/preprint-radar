@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><title>arXiv:2608.30420</title></head>
+<body>
+<article class="ltx_document">
+<h1 class="ltx_title ltx_font_bold ltx_title_document">Whole-Slide Image Analysis under Realistic Few-Shot Annotation Protocols</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Tiffanie Godelaine <a class="ltx_ref ltx_orcid" href="https://orcid.org/0009-0006-2873-2686" title="ORCID 0009-0006-2873-2686"></a>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Maxime Zanella <a class="ltx_ref ltx_orcid" href="https://orcid.org/0009-0009-4030-3704" title="ORCID 0009-0009-4030-3704"></a>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Karim El Khoury <a class="ltx_ref ltx_orcid" href="https://orcid.org/0000-0002-1594-6531" title="ORCID 0000-0002-1594-6531"></a> <span class="ltx_text ltx_font_italic" id="id1">Member, IEEE</span>
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Benoît Macq <a class="ltx_ref ltx_orcid" href="https://orcid.org/0000-0002-7243-4778" title="ORCID 0000-0002-7243-4778"></a><span class="ltx_text ltx_font_italic" id="id2">Fellow, IEEE</span>, and Christophe De Vleeschouwer <a class="ltx_ref ltx_orcid" href="https://orcid.org/0000-0001-5049-2929" title="ORCID 0000-0001-5049-2929"></a><span class="ltx_text ltx_font_italic" id="id3">Member, IEEE</span>
+</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Automating the analysis of whole-slide images has high clinical value, since characterizing cancers requires examining them in detail.
+Such analysis increasingly relies on vision-language models that provide patch-level zero-shot predictions.
+However, these predictions remain noisy and must be refined with a few annotations.
+A promising paradigm for this refinement is few-shot transduction. Rather than treating each patch independently, these methods leverage the relations between patches, together with a few annotations, to refine all predictions jointly. However, current transductive methods are evaluated under conditions that overlook key properties of whole-slide images: (i) datasets consist of independent patches extracted from multiple slides, ignoring the complex tissue organization; (ii) datasets are mostly balanced, whereas a single whole-slide image exhibits severe class imbalance, with several classes absent; and (iii) annotations are sampled at random, without reflecting how a pathologist annotates a limited number of regions.
+To align the transduction paradigm to realistic whole-slide settings, we introduce the following contributions. First, we propose SlideCRF, which adapts conditional random fields for whole-slide images by combining spatial and biological cues while accounting for classes that may be absent from a given slide.
+Second, we provide a set of realistic annotation protocols, based on spatially localized <em class="ltx_emph ltx_font_italic" id="abstract1.1.1">clicks</em> and <em class="ltx_emph ltx_font_italic" id="abstract1.1.2">scribbles</em>, modeling different pathologist interactions, such as the iterative correction of model errors.
+Across four datasets, we show that SlideCRF outperforms current transductive methods in macro F1, improving over the zero-shot predictions by <math alttext="+24.2\%" class="ltx_Math" display="inline" id="abstract1.m1" intent=":literal"><semantics><mrow><mo>+</mo><mrow><mn>24.2</mn><mo>%</mo></mrow></mrow><annotation encoding="application/x-tex">+24.2\%</annotation></semantics></math> and <math alttext="+37.5\%" class="ltx_Math" display="inline" id="abstract1.m2" intent=":literal"><semantics><mrow><mo>+</mo><mrow><mn>37.5</mn><mo>%</mo></mrow></mrow><annotation encoding="application/x-tex">+37.5\%</annotation></semantics></math> with one and 16 clicks per present class, respectively.</p>
+</div>
+</article>
+</body>
+</html>

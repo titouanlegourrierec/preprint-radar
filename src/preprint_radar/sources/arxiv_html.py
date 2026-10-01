@@ -35,14 +35,31 @@ _LATEX_SPACE_RE = re.compile(r"\[\s*-?\d*\.?\d+\s*(?:pt|em|ex|mm|cm|in|bp|pc|mu)
 _LINK_LABEL_RE = re.compile(r"project\s+(?:page|website|homepage|repository|site)\b\s*:?", re.IGNORECASE)
 # Contact details after an affiliation: "..., USA. email: {a, b}@nyu.edu" or "(e-mail: ...)".
 _CONTACT_TAIL_RE = re.compile(r"\(?\s*\be-?mails?\b.*$", re.IGNORECASE | re.DOTALL)
-# IEEE-style footnotes put in the affiliation macro: "The authors are with Delft University".
-_AUTHORS_ARE_WITH_RE = re.compile(
-    r"^(?:the\s+)?authors?\s+(?:are|is)\s+(?:with|at|affiliated\s+with)\s+(?:the\s+)?",
+# E-mail addresses written to escape harvesters: "jane (at) example.org", "lab [at] example.org".
+_OBFUSCATED_EMAIL_RE = re.compile(
+    r"[\w.+-]*\s*[\[(]\s*at\s*[\])]\s*[\w-]+(?:\s*(?:\.|[\[(]\s*dot\s*[\])])\s*[\w-]+)+", re.IGNORECASE
+)
+# What is left of a contact detail in brackets: "University of Zurich, Switzerland ()".
+_EMPTY_BRACKETS_RE = re.compile(r"\(\s*\)|\[\s*\]")
+# Mailbox names whose "@domain" is printed elsewhere: "{jane.doe, john.roe}", sometimes unclosed.
+_MAILBOX_LIST_RE = re.compile(
+    r"\{\s*[a-z0-9._+-]+(?:\s*[,;|]\s*[a-z0-9._+-]+|\s+[a-z0-9._+-]+)+\s*[,;]?\s*(?:\}|$)"
+)
+# The people an IEEE-style affiliation starts with: "The authors are with Delft University",
+# "A. Doe and B. Roe are with the University of X". Only what follows is the affiliation.
+_SUBJECT_RE = re.compile(
+    r"^(?P<subject>\D*?)\b(?:is|are)\s+(?:also\s+|now\s+|currently\s+|additionally\s+)?"
+    r"(?:with|at|affiliated\s+with)\s+(?:the\s+)?",
+    re.IGNORECASE,
+)
+# IEEE's "X, China, and also with Y": one string, several affiliations.
+_ALSO_WITH_RE = re.compile(
+    r"[\s,;]*\b(?:and\s+)?(?:(?:is|are)\s+)?also\s+(?:with|at|affiliated\s+with)\s+(?:the\s+)?",
     re.IGNORECASE,
 )
 # IEEE-style acknowledgment notes: "A. Author and B. Author are with the Department of X".
 _IS_WITH_RE = re.compile(
-    r"\b(?:is|are)\s+(?:also\s+|now\s+|currently\s+)?(?:with|at|affiliated\s+with)\s+(?:the\s+)?",
+    r"\b(?:is|are)\s+(?:also\s+|now\s+|currently\s+|additionally\s+)?(?:with|at|affiliated\s+with)\s+(?:the\s+)?",
     re.IGNORECASE,
 )
 # A full stop that ends a sentence, not an initial's: "Spain. L. Zhinin is with" ends at "Spain.".
@@ -66,15 +83,26 @@ _INSTITUTION_WORD_RE = re.compile(
     r"|research|department|faculty|foundation|technolog|polytechn",
     re.IGNORECASE,
 )
-# A line that ends with a country, as in "Munich, Germany" or "CA 94720, USA".
-_COUNTRY_END_RE = re.compile(
-    r"(?:^|,\s*|\s)(?:USA|U\.S\.A?\.?|United States(?: of America)?|UK|U\.K\.|United Kingdom|England|Scotland"
+_COUNTRIES = (
+    r"USA|U\.S\.A?\.?|United States(?: of America)?|UK|U\.K\.|United Kingdom|England|Scotland"
     r"|(?:P\.?\s?R\.?\s?)?China|Hong Kong(?: SAR)?|Macau|Macao|Taiwan|Japan|(?:South |Republic of )?Korea"
     r"|Singapore|India|Germany|France|Italy|Spain|Portugal|(?:The )?Netherlands|Belgium|Switzerland|Austria"
     r"|Sweden|Norway|Denmark|Finland|Ireland|Poland|Czech Republic|Czechia|Hungary|Romania|Greece|Cyprus"
     r"|Turkey|Türkiye|Israel|Iran|Saudi Arabia|United Arab Emirates|UAE|Qatar|Egypt|Morocco|Nigeria"
     r"|South Africa|Canada|Mexico|Brazil|Chile|Argentina|Colombia|Peru|Ecuador|Australia|New Zealand|Russia"
-    r"|Ukraine|Vietnam|Viet Nam|Thailand|Malaysia|Indonesia|Philippines|Pakistan|Bangladesh|Luxembourg)\.?$",
+    r"|Ukraine|Vietnam|Viet Nam|Thailand|Malaysia|Indonesia|Philippines|Pakistan|Bangladesh|Luxembourg"
+)
+# A line that ends with a country, as in "Munich, Germany" or "CA 94720, USA".
+_COUNTRY_END_RE = re.compile(rf"(?:^|,\s*|\s)(?:{_COUNTRIES})\.?$", re.IGNORECASE)
+# What passes every other rule without being an affiliation: the leftover of a link label
+# or a contribution note ("Code", "Core Contributors"), a unit cut off by a line break
+# ("School of"), a lone word ("the", "dot"), or a country alone.
+_JUNK_RE = re.compile(
+    r"the|an?|and|of|dot|code|github|data(?:set)?|demo|video|website|homepage"
+    r"|(?:core\s+|main\s+)?contributors?|(?:co-?)?(?:first|second|last|senior)\s+authors?"
+    r"|(?:graduate\s+school|graduate|school|department|faculty|institute|college|laboratory|lab|cent(?:er|re))"
+    r"(?:\s+(?:of|for))?"
+    rf"|(?:{_COUNTRIES})\.?",
     re.IGNORECASE,
 )
 _MAX_PLACE_LENGTH = 60
@@ -99,6 +127,16 @@ _TRAILING_ANCHOR_RE = re.compile(r"([^⟨⟩]+?)\s*⟨([^⟨⟩]+)⟩")
 _NUMBERED_ANCHOR_RE = re.compile(r"^\s*(?P<marker>\d{1,2})\s*(?P<name>[A-Z].{2,})$", re.MULTILINE)
 # Separators of several names in one creator: "A, B and C", "A & B".
 _SEVERAL_PEOPLE_RE = re.compile(r",|&|\band\b", re.IGNORECASE)
+# IEEE grades and suffixes printed after a name: "Benoît Macq Fellow, IEEE", "Eduil Nascimento Jr.".
+_NAME_SUFFIX_RE = re.compile(
+    r"\b(?:(?:senior|life|student)\s+)?(?:fellow|member)\s*,?\s*IEEE\b|\bIEEE\s+(?:senior\s+)?(?:fellow|member)\b"
+    r"|\b(?:jr|sr)\b\.?",
+    re.IGNORECASE,
+)
+# A collective that signs a paper is its own affiliation: "Alzheimer's Disease Neuroimaging Initiative".
+_COLLECTIVE_RE = re.compile(r"\b(?:initiative|consortium|collaboration|team|group)\b", re.IGNORECASE)
+# "The authors are with X", "All authors are with X": everyone is there.
+_ALL_AUTHORS_RE = re.compile(r"\b(?:the|all(?:\s+the)?)\s+authors\b")
 # Sentence ends, except after an initial ("E. Milara") or an acronym ("USA.").
 _SENTENCE_SPLIT_RE = re.compile(r"(?<=[^\sA-Z][.;])\s+")
 
@@ -154,18 +192,20 @@ def parse_front_matter(html: str, *, authors: Sequence[str] = ()) -> FrontMatter
     Args:
         html: Raw HTML of the paper.
         authors: Author names, in the paper's order. They anchor the author-affiliation
-            mapping, and a name is never reported as an affiliation.
+            mapping, and names are never reported as affiliations (see
+            :func:`names_only_authors`).
 
     Returns:
         The front matter.
     """
     soup = BeautifulSoup(html, "html.parser")
-    names = {author.casefold() for author in authors}
-    affiliations = tuple(a for a in _affiliations(soup) if a.casefold() not in names)
+    affiliations, names_dropped = _affiliations(soup, authors)
     return FrontMatter(
         affiliations=affiliations,
         abstract=_abstract(soup),
-        author_affiliations=_author_affiliations(html, tuple(authors), affiliations),
+        author_affiliations=_author_affiliations(
+            html, tuple(authors), affiliations, names_dropped=names_dropped
+        ),
     )
 
 
@@ -181,13 +221,15 @@ def _abstract(soup: BeautifulSoup) -> str | None:
     return " ".join(node.get_text().split()) or None
 
 
-def _affiliations(soup: BeautifulSoup) -> tuple[str, ...]:
-    """Distinct affiliations of the front matter, deduplicated case-insensitively.
+def _affiliations(soup: BeautifulSoup, authors: Sequence[str]) -> tuple[tuple[str, ...], bool]:
+    """Distinct affiliations of the front matter, and whether author names were dropped from them.
 
     Sources, from the most to the least reliable: affiliations and addresses marked up in
     the author block, front-matter notes (from the LaTeX address, institute and numbered
     footnotetext macros), numbered lines after the author names, and "A is with B"
-    sentences in thanks notes.
+    sentences in thanks notes. The first source that gives an affiliation is used; one that
+    only names authors gives none: IEEE classes put the names in the affiliation macro and
+    the affiliations in thanks notes. Affiliations are deduplicated case-insensitively.
     """
     article = soup.select_one("article.ltx_document") or soup
     # Notes are read first: the author block is then cleaned of them.
@@ -205,13 +247,22 @@ def _affiliations(soup: BeautifulSoup) -> tuple[str, ...]:
 
     tagged: list[str] = []
     numbered: list[str] = []
-    authors = soup.select_one("div.ltx_authors")
-    if authors is not None:
-        for noise in authors.select(".ltx_role_email, .ltx_contact_name, .ltx_note, a"):
+    block = soup.select_one("div.ltx_authors")
+    if block is not None:
+        for noise in block.select(".ltx_role_email, .ltx_contact_name, .ltx_note, a"):
             noise.decompose()
-        tagged = _tagged_affiliations(authors)
-        numbered = [] if tagged else _numbered_affiliations(authors)
-    return _dedupe((tagged + from_notes) or numbered or _thanks_affiliations(thanks))
+        tagged = _tagged_affiliations(block)
+        numbered = [] if tagged else _numbered_affiliations(block)
+    names_dropped = False
+    for source in (tagged + from_notes, numbered, _stated_affiliations(thanks)):
+        found = _dedupe(source)
+        affiliations = tuple(
+            affiliation for affiliation in found if not names_only_authors(affiliation, authors)
+        )
+        names_dropped = names_dropped or len(affiliations) < len(found)
+        if affiliations:
+            return affiliations, names_dropped
+    return (), names_dropped
 
 
 def _tagged_affiliations(authors: Tag) -> list[str]:
@@ -258,8 +309,12 @@ def _note_text(note: Tag) -> str:
     return content.get_text()
 
 
-def _thanks_affiliations(notes: list[str]) -> list[str]:
-    """Affiliations stated in thanks notes: "A and B are with the X, Y (e-mail: ...)"."""
+def _stated_affiliations(notes: list[str]) -> list[str]:
+    """Affiliations stated in sentences: "A and B are with the X, Y (e-mail: ...)".
+
+    Thanks notes are written that way, and so are some affiliation macros, several
+    sentences in a row: "A, B and C are at X. A is with Y. B is with Z".
+    """
     affiliations: list[str] = []
     for line in (line for note in notes for line in note.splitlines()):
         matches = list(_IS_WITH_RE.finditer(line))
@@ -366,15 +421,42 @@ def _numbered_affiliations(authors: Tag) -> list[str]:
 def _dedupe(candidates: list[str]) -> tuple[str, ...]:
     seen: dict[str, str] = {}
     for candidate in candidates:
-        if affiliation := clean_affiliation(candidate):
+        for affiliation in clean_affiliations(candidate):
             seen.setdefault(affiliation.casefold(), affiliation)
     return tuple(seen.values())
 
 
+def clean_affiliations(text: str) -> tuple[str, ...]:
+    """The affiliations in one candidate string, each normalized by :func:`clean_affiliation`.
+
+    Usually one; none when the string is not an affiliation; several for IEEE's "X, China,
+    and also with Y", which gives its people both.
+
+    Args:
+        text: A candidate string, from a page or from stored data.
+
+    Returns:
+        The affiliations, in order (possibly empty).
+    """
+    statements = _stated_affiliations([text]) if _people(text) else [text]
+    return tuple(
+        affiliation
+        for statement in statements
+        for part in _ALSO_WITH_RE.split(statement)
+        if (affiliation := clean_affiliation(part))
+    )
+
+
 def clean_affiliation(text: str) -> str | None:
-    """Normalize one affiliation string, or return ``None`` if it is not an affiliation."""
+    """Normalize one affiliation string, or return ``None`` if it is not an affiliation.
+
+    Contact details are removed, including obfuscated addresses and lists of mailbox names,
+    and so are the people an IEEE sentence starts with: "A and B are with X" gives X. A
+    string holding several affiliations is split first, by :func:`clean_affiliations`.
+    """
     text = _CONTACT_TAIL_RE.sub("", text.replace("\xa0", " "))
-    text = _LINK_LABEL_RE.sub(" ", _LATEX_SPACE_RE.sub(" ", text))
+    text = _MAILBOX_LIST_RE.sub(" ", _OBFUSCATED_EMAIL_RE.sub(" ", text))
+    text = _EMPTY_BRACKETS_RE.sub(" ", _LINK_LABEL_RE.sub(" ", _LATEX_SPACE_RE.sub(" ", text)))
     if _NOISE_RE.search(text):
         return None
     text = _SPACE_BEFORE_PUNCTUATION_RE.sub(r"\1", " ".join(text.split()))
@@ -383,26 +465,66 @@ def clean_affiliation(text: str) -> str | None:
     # After the marker strip, which would eat a leading postcode value.
     if _KEYVAL_RE.search(text):
         text = _keyval_text(text)
-    text = _AUTHORS_ARE_WITH_RE.sub("", text).strip(_EDGE_PUNCTUATION)
+    if people := _people(text):
+        text = text[people.end() :]
+    text = text.strip(_EDGE_PUNCTUATION)
     text = _CONNECTOR_RE.sub("", text)
-    if len(text) < _MIN_LENGTH or not any(char.isalpha() for char in text):
+    if len(text) < _MIN_LENGTH or not any(char.isalpha() for char in text) or _JUNK_RE.fullmatch(text):
         return None
     return text
 
 
+def _people(text: str) -> re.Match[str] | None:
+    """The people an "A and B are with X" sentence starts with, verb included.
+
+    ``None`` when the text does not start that way, or when what precedes the verb names an
+    institution, as it is then not a list of people.
+    """
+    match = _SUBJECT_RE.match(text)
+    if match is None or _INSTITUTION_WORD_RE.search(match.group("subject")):
+        return None
+    return match
+
+
+def names_only_authors(text: str, authors: Sequence[str]) -> bool:
+    """Whether an affiliation candidate only names some of the paper's own authors.
+
+    LaTeX classes put names where affiliations go: "Nicolás Ugrinovic", "Yiqun Zhang, and
+    Yiu-Ming Cheung", "Benoît Macq Fellow, IEEE, and Christophe De Vleeschouwer Member,
+    IEEE". Each name of the list is compared by :func:`name_key`, IEEE grades and "Jr."
+    left out. A string with an institution word stays, and so does a collective that signs
+    as an author ("Alzheimer's Disease Neuroimaging Initiative").
+
+    Args:
+        text: A cleaned affiliation.
+        authors: The paper's author names.
+
+    Returns:
+        ``True`` when every name of ``text`` is one of ``authors``.
+    """
+    if _INSTITUTION_WORD_RE.search(text) or _COLLECTIVE_RE.search(text):
+        return False
+    known = {name_key(_NAME_SUFFIX_RE.sub(" ", author)) for author in authors}
+    names = [
+        key for name in _SEVERAL_PEOPLE_RE.split(_NAME_SUFFIX_RE.sub(" ", text)) if (key := name_key(name))
+    ]
+    return bool(names) and all(key in known for key in names)
+
+
 def _author_affiliations(
-    html: str, authors: tuple[str, ...], affiliations: tuple[str, ...]
+    html: str, authors: tuple[str, ...], affiliations: tuple[str, ...], *, names_dropped: bool
 ) -> AuthorAffiliations | None:
     """Map each author to their affiliations, as indices into ``affiliations``.
 
     Tried in order: a single affiliation or author (trivial), one affiliation block per
     author, superscript markers matched with marked lines and notes, and "A and B are
-    with X" thanks notes. ``None`` when the page never says who is where; a ``None``
-    entry when it says it only for the other authors.
+    with X" sentences. ``None`` when the page never says who is where; a ``None`` entry
+    when it says it only for the other authors. A single affiliation is not everyone's
+    when author names were dropped next to it: the page had placed people elsewhere.
     """
     if not authors or not affiliations:
         return None
-    if len(affiliations) == 1 or len(authors) == 1:
+    if len(authors) == 1 or (len(affiliations) == 1 and not names_dropped):
         return (tuple(range(len(affiliations))),) * len(authors)
     # The soup of the paper-level pass was pruned in place: parse a fresh one.
     soup = BeautifulSoup(html, "html.parser")
@@ -475,8 +597,7 @@ def _marker_map(
         indices: list[int] = []
         for marker in _expand(markers, anchors):
             if marker in anchors:
-                if anchors[marker] not in indices:
-                    indices.append(anchors[marker])
+                indices.extend(index for index in anchors[marker] if index not in indices)
             elif not set(marker) <= _SYMBOL_MARKERS:
                 # An affiliation-like marker without an anchor: the anchor set is wrong.
                 return None
@@ -486,7 +607,7 @@ def _marker_map(
     return tuple(mapping) if resolved else None
 
 
-def _expand(markers: Iterable[str], anchors: Mapping[str, int]) -> list[str]:
+def _expand(markers: Iterable[str], anchors: Mapping[str, tuple[int, ...]]) -> list[str]:
     """Split marker runs written without separators ("⋆†", "12") into known markers."""
     expanded: list[str] = []
     for marker in markers:
@@ -497,20 +618,18 @@ def _expand(markers: Iterable[str], anchors: Mapping[str, int]) -> list[str]:
     return expanded
 
 
-def _anchors(soup: BeautifulSoup, block: Tag, index_of: Mapping[str, int]) -> dict[str, int]:
-    """Affiliations introduced by a marker, as ``marker -> affiliation index``."""
+def _anchors(soup: BeautifulSoup, block: Tag, index_of: Mapping[str, int]) -> dict[str, tuple[int, ...]]:
+    """Affiliations introduced by a marker, as ``marker -> affiliation indices``."""
     article = soup.select_one("article.ltx_document") or soup
     nodes: list[Tag] = list(block.select(".ltx_role_affiliation, .ltx_role_address"))
     nodes += soup.select(".ltx_note.ltx_role_address, .ltx_note.ltx_role_institutetext")
     nodes += article.find_all("span", class_="ltx_role_footnotetext", recursive=False)
 
-    anchors: dict[str, int] = {}
+    anchors: dict[str, tuple[int, ...]] = {}
 
     def add(marker: str, candidate: str) -> None:
-        cleaned = clean_affiliation(candidate)
-        index = index_of.get(cleaned.casefold()) if cleaned else None
-        if index is not None:
-            anchors.setdefault(marker.strip(), index)
+        if indices := _indices([candidate], index_of):
+            anchors.setdefault(marker.strip(), indices)
 
     for node in nodes:
         label = node.select_one(".ltx_note_mark")
@@ -542,19 +661,23 @@ def _anchors(soup: BeautifulSoup, block: Tag, index_of: Mapping[str, int]) -> di
 
 def _known(candidate: str, index_of: Mapping[str, int]) -> bool:
     """Whether the candidate cleans to one of the paper's affiliations."""
-    cleaned = clean_affiliation(candidate)
-    return cleaned is not None and cleaned.casefold() in index_of
+    return bool(_indices([candidate], index_of))
 
 
 def _thanks_map(
     soup: BeautifulSoup, authors: tuple[str, ...], index_of: Mapping[str, int]
 ) -> AuthorAffiliations | None:
-    """Thanks notes naming who is where: "A. Author and B. Author are with the X"."""
+    """Sentences naming who is where: "A. Author and B. Author are with the X".
+
+    They are written in thanks notes, and by some classes in the affiliation macro.
+    """
     mapping: list[tuple[int, ...] | None] = [None] * len(authors)
     resolved = 0
+    notes = soup.select(".ltx_note.ltx_role_thanks")
+    notes += soup.select("div.ltx_authors .ltx_role_affiliation, div.ltx_authors .ltx_role_address")
     sentences = [
         sentence
-        for note in soup.select(".ltx_note.ltx_role_thanks")
+        for note in notes
         for line in _note_text(_pruned(note)).splitlines()
         for sentence in _SENTENCE_SPLIT_RE.split(line)
     ]
@@ -563,20 +686,19 @@ def _thanks_map(
         if match is None:
             continue
         value = _NEXT_SENTENCE_RE.split(_CONTACT_TAIL_RE.sub("", sentence[match.end() :]), maxsplit=1)[0]
-        cleaned = clean_affiliation(value)
-        index = index_of.get(cleaned.casefold()) if cleaned else None
-        if index is None:
+        indices = _indices([value], index_of)
+        if not indices:
             continue
         subject = _fold(sentence[: match.start()])
         placed = (
             range(len(authors))
-            if "the authors" in subject
+            if _ALL_AUTHORS_RE.search(subject)
             else [position for position, author in enumerate(authors) if _named_in(subject, author, authors)]
         )
         for position in placed:
             entry = mapping[position] or ()
-            if index not in entry:
-                mapping[position] = (*entry, index)
+            if new := tuple(index for index in indices if index not in entry):
+                mapping[position] = (*entry, *new)
                 resolved += 1
     return tuple(mapping) if resolved else None
 
@@ -646,10 +768,10 @@ def _indices(candidates: Iterable[str], index_of: Mapping[str, int]) -> tuple[in
     """Indices of the candidates that clean to a known affiliation, deduplicated."""
     found: list[int] = []
     for candidate in candidates:
-        cleaned = clean_affiliation(candidate)
-        index = index_of.get(cleaned.casefold()) if cleaned else None
-        if index is not None and index not in found:
-            found.append(index)
+        for affiliation in clean_affiliations(candidate):
+            index = index_of.get(affiliation.casefold())
+            if index is not None and index not in found:
+                found.append(index)
     return tuple(found)
 
 

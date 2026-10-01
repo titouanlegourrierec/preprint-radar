@@ -12,7 +12,7 @@ from defusedxml import ElementTree
 
 from preprint_radar.exceptions import FetchError, ParseError
 from preprint_radar.http import HttpClient
-from preprint_radar.sources.arxiv_html import clean_affiliation
+from preprint_radar.sources.arxiv_html import clean_affiliations
 
 logger = logging.getLogger(__name__)
 
@@ -100,7 +100,7 @@ def _parse_entry(entry: Element, arxiv_id: str) -> ApiMetadata:
     affiliations: dict[str, None] = {}  # ordered set
     for node in entry.iterfind("atom:author/arxiv:affiliation", _NAMESPACES):
         # Submitters sometimes type notes here ("Corresponding author is ..."): filter them.
-        if name := clean_affiliation(node.text or ""):
+        for name in clean_affiliations(node.text or ""):
             affiliations.setdefault(name)
 
     return ApiMetadata(

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><title>arXiv:2609.05518</title></head>
+<body>
+<article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">CrossModalQA: A Cross-modal and Multi-hop Benchmark for Multimodal Retrieval-augmented Generation</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Jiacheng Cai
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>The Hong Kong Polytechnic University
+</span>
+<span class="ltx_contact ltx_role_email"><span class="ltx_contact_name">Email: </span><a href="mailto:author@example.org">@example.org</a>
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Zijin Hong
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>The Hong Kong Polytechnic University
+</span>
+<span class="ltx_contact ltx_role_email"><span class="ltx_contact_name">Email: </span><a href="mailto:author@example.org">author@example.org</a>
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Zheng Yuan
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>The Hong Kong Polytechnic University
+</span>
+<span class="ltx_contact ltx_role_email"><span class="ltx_contact_name">Email: </span><a href="mailto:author@example.org"><span class="ltx_text ltx_font_typewriter" id="id1">author@example.org</span></a>
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Huachi Zhou
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>The Hong Kong Polytechnic University
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Qinggang Zhang
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Jilin University<span class="ltx_text ltx_font_typewriter" id="id2">{author.one, author.two, author.three, author.four}</span>
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Xiao Huang
+</span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Despite the strong capabilities of multimodal large language models (MLLMs), their parametric knowledge remains incomplete and difficult to update, motivating multimodal retrieval-augmented generation (RAG) to ground responses in external text and images.
+However, existing benchmarks face two major limitations: (i) they typically emphasize single-hop retrieval or reasoning over a small set of provided contexts rather than open-domain evidence discovery; and (ii) they provide fragmented coverage of cross-modal reasoning paths, leaving complex multi-hop and multi-image reasoning underexplored.
+In this paper, we introduce <span class="ltx_text ltx_font_bold" id="abstract1.1.1">CrossModalQA</span>, an open-domain benchmark for evaluating multimodal retrieval and reasoning over heterogeneous corpora.
+CrossModalQA contains 1,863 question-answer pairs constructed from 4,987 Wikipedia articles and 4,431 Wikimedia Commons images.
+It covers five complementary reasoning paths: vision-to-text, text-to-vision, vision-to-text-to-vision, multi-image intersection, and image-set reasoning. Every question requires retrieving and composing distributed textual and visual evidence, with an average reasoning depth of 3.50 hops. We construct the benchmark through multimodal knowledge graph-guided subgraph sampling and apply rule-based consistency checking and LLM verification to ensure multimodal dependence and traceable evidence. Extensive experiments demonstrate that existing multimodal RAG systems struggle to recover complete evidence chains and can underperform closed-book models when incomplete retrieval introduces distracting context. Further analysis reveals that complete cross-modal retrieval contributes more to answer accuracy than generator scaling, while multi-image retrieval and reasoning remain the primary bottlenecks limiting end-to-end performance.</p>
+</div>
+<span class="ltx_note ltx_role_footnotetext" id="footnotex1"><sup class="ltx_note_mark">$\dagger$</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">$\dagger$</sup><span class="ltx_note_type">footnotetext: </span>Corresponding author.</span></span></span>
+</article>
+</body>
+</html>
