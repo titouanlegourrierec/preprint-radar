@@ -11,9 +11,18 @@ FIXTURES_DIR = Path(__file__).parent / "fixtures"
 
 @pytest.fixture(autouse=True)
 def _environment(monkeypatch: pytest.MonkeyPatch) -> None:
-    """Hide the maintainer's settings, which the Makefile exports from ``.env``."""
-    monkeypatch.delenv("PREPRINT_RADAR_CONTACT", raising=False)
-    monkeypatch.delenv("SEMANTIC_SCHOLAR_API_KEY", raising=False)
+    """Hide the maintainer's settings, which the Makefile exports from ``.env``, and CI's.
+
+    In GitHub Actions, commands write to the job summary and print annotations: the tests
+    that check it set these variables themselves.
+    """
+    for name in (
+        "PREPRINT_RADAR_CONTACT",
+        "SEMANTIC_SCHOLAR_API_KEY",
+        "GITHUB_ACTIONS",
+        "GITHUB_STEP_SUMMARY",
+    ):
+        monkeypatch.delenv(name, raising=False)
 
 
 @pytest.fixture(scope="session")

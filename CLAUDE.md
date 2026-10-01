@@ -52,7 +52,7 @@ Single checks: `uv run pytest tests/unit/test_paper_store.py -k merge`, `cd web 
   - Ruff runs with `select = ["ALL"]`: fix the code rather than adding `noqa`. Keep any `noqa` or `ty: ignore` rare, and justify it inline.
 - Errors are subclasses of `exceptions.PreprintRadarError`. The CLI turns them into a log line and exit code 1, never a traceback.
 - Tests are offline. Mock HTTP with `httpx.MockTransport` injected into `HttpClient`, or monkeypatch `HttpClient.get_text` for CLI tests. Tests that hit the real arXiv live in `tests/integration/` with the `network` marker, which is deselected by default.
-- `tests/conftest.py` hides `PREPRINT_RADAR_CONTACT` and `SEMANTIC_SCHOLAR_API_KEY` from every test (the Makefile exports `.env`): set them with `monkeypatch.setenv` where a test needs them.
+- `tests/conftest.py` hides `PREPRINT_RADAR_CONTACT`, `SEMANTIC_SCHOLAR_API_KEY` (the Makefile exports `.env`), `GITHUB_ACTIONS` and `GITHUB_STEP_SUMMARY` (set in CI) from every test: set them with `monkeypatch.setenv` where a test needs them.
 - Web: TypeScript strict (TS 7), Biome for lint and format (no ESLint/Prettier), Preact hooks, no CSS framework. Theme colors come from the CSS variables in `styles.css`: automatic light/dark plus a manual `data-theme` override. The dark palette is declared twice — keep both blocks identical (and give every new color, like the graph's `--graph-paper`, a value in all three blocks), with plain values only (the graph canvas reads the variables through `getComputedStyle`).
 
 ## Data contract (keep both sides in sync)
