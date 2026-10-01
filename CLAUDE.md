@@ -113,3 +113,5 @@ Single checks: `uv run pytest tests/unit/test_paper_store.py -k merge`, `cd web 
 
 - Do not commit, push, create the GitHub repo, or run the long `make update`, `make backfill` or `make archive` unless asked.
 - The maintainer writes in French. Answer in French, but keep everything in the repo in English.
+- `docs/roadmap.md` tracks the items of the audit (`docs/audit/2026-09-30.md`, a frozen snapshot: never edit it). Update an item's status in the commit that changes it, and name its ID in the commit message (`fix(collect): … (DATA-2)`).
+- Versions stay 0.x: a minor release at the end of each roadmap phase (a `v0.N.0` tag, `version` bumped in `pyproject.toml` and `web/package.json` together, a `CHANGELOG.md` entry), a patch for a fix in between. 1.0.0 comes once the public data format is documented and stable.

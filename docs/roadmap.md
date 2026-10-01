@@ -40,7 +40,7 @@ for the answer.
 | 18 | Withdrawn papers | Exclude from Highly cited, badge in the day views | META-2 | pending |
 | 19 | Abstracts by default | On for "Latest day" | Phase 2 | pending |
 | 20 | Shipping the audit | Commit it as a frozen baseline | — | Done: `docs/audit/2026-09-30.md` |
-| 21 | Versioning | Stay on 0.x; tag a minor release at the end of each phase, with a changelog; 1.0.0 once the public data format is documented and stable | — | pending |
+| 21 | Versioning | Stay on 0.x; tag a minor release at the end of each phase, with a changelog; 1.0.0 once the public data format is documented and stable | — | Adopted: `v0.1.0` tags the audit commit as the baseline |
 
 ## Phase 0: stop publishing wrong data (1–2 days)
 
