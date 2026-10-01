@@ -21,14 +21,14 @@ for the answer.
 | # | Decision | Recommendation | Blocks | Answer |
 |---|---|---|---|---|
 | 1 | Retention and the 11-month gap | Fill the gap from the OAI catalog, after PERF-1 and CIT-11 | PROD-1 | pending |
-| 2 | Prune at 12 months | Land CIT-11 first (selection no longer depends on prune), then prune once 12 months exist, after CIT-3 | CIT-11 | pending |
-| 3 | Revised papers (author list changed) | Re-read the HTML, comparing folded names so renames keep their mapping | DATA-2 | pending |
+| 2 | Prune at 12 months | Land CIT-11 first (selection no longer depends on prune), then prune once 12 months exist, after CIT-3 | CIT-11 | CIT-11 accepted (2026-10-01); turning prune on is decided later |
+| 3 | Revised papers (author list changed) | Re-read the HTML, comparing folded names so renames keep their mapping | DATA-2 | Re-read the HTML (2026-10-01) |
 | 4 | Where the front-matter cache lives | The Actions cache first, touched daily | DATA-1 (layer 3) | pending |
 | 5 | Archive `[]` affiliations | Spike, then retry OpenAlex while young, and say so in the UI | AFF-3 | pending |
 | 6 | Filter semantics | Exact for clicked names, word prefix for typed text | SRCH-1 | pending |
-| 7 | Validation strictness | Fail on structural rules, warn on heuristic ones | DATA-3 | pending |
+| 7 | Validation strictness | Fail on structural rules, warn on heuristic ones | DATA-3 | Fail on structural rules, warn on heuristic ones (2026-10-01) |
 | 8 | License and data terms | MIT for the code; read the Semantic Scholar terms before going public | REL-3 | pending |
-| 9 | Visibility, contact and Actions bill | Confirm the private repository with a public site; choose the correction contact | SEC-9 | pending |
+| 9 | Visibility, contact and Actions bill | Confirm the private repository with a public site; choose the correction contact | SEC-9 | Correction contact: titouanlegourrierec@kaist.ac.kr (2026-10-01) |
 | 10 | Primary persona | The daily cs.CV follower | Phase 2 order | pending |
 | 11 | Multi-category | Stay single-category until Phase 3 is done | ARCH-4 | pending |
 | 12 | Institution canonicalization | Move the web rules into the pipeline, with ROR ids | AFF-13 | pending |
