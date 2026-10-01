@@ -13,6 +13,15 @@ This file is the living part.
 - After each phase, run `make stats` (and `validate` once it exists) and note the result under
   the phase.
 
+## Corrections to the audit
+
+The audit stays frozen: facts found wrong later are recorded here, and the phases below follow them.
+
+- **CI-1 (2026-10-01).** The audit says no run had been lost to a rebase conflict, and lowers CI-1
+  to P2 on that ground. The scheduled run of 2026-09-28 (Actions run 36407146351) was lost exactly
+  that way: `git pull --rebase` stopped on a conflict in `data/index.json`. CI-1 is P1 again, and
+  moves to Phase 0.
+
 ## Decisions
 
 The audit's §21 decisions, with its recommendation. *Blocks* names the first item waiting
@@ -63,6 +72,7 @@ for the answer.
 | DATA-7 | Ignore `.tmp` files | P3 | todo |
 | SEC-9 | About section with a correction contact | P1 | todo |
 | SEC-10 | Privacy note | P2 | todo |
+| CI-1 | Robust data commit (raised to P1, see the corrections above) | P1 | todo |
 
 *Exit criteria:* `validate` passes with zero structural violations, and the affiliation
 quality counts are recorded as a baseline.
@@ -73,7 +83,6 @@ quality counts are recorded as a baseline.
 |---|---|---|---|
 | REL-1 | Layout-drift breaker and a weekly network canary | P1 | todo |
 | REL-2 | HTML deadline, then a consecutive-failure breaker | P1 | todo |
-| CI-1 | Robust data commit | P2 | todo |
 | CI-2 | Run summary and a failure issue | P1 | todo |
 | CI-3 | Deploy gating on what was pushed | P2 | todo |
 | CIT-4 | Stop on a 403, flag stale counts | P1 | todo |
