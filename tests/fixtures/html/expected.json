@@ -1322,6 +1322,30 @@
     ],
     "abstract": "Vision-Language Models (VLMs) are increasingly used in autonomous-driving systems, yet their ability to recover dynamic physical state from visual input remains insufficiently characterized. We study velocity understanding as a controlled diagnostic across three tasks: surrounding-agent speed, current ego speed, and short-horizon future ego-speed proposal. On nuScenes, we evaluate open-weight general-purpose and Physical-AI VLMs, together with the driving-oriented Alpamayo-1.5 Vision-Language-Action model (VLA), using multiple input and output formulations. We combine verbal evaluation with temporal perturbations, counterfactual ego-speed hints and linear probes of hidden representations. The tasks exhibit distinct failure modes. Surrounding-agent speed is weakly encoded in an agent-specific form, whereas current ego speed is often internally accessible but poorly verbalized: continuous probes achieve 4.7–5.8 km/h Mean Absolute Error (MAE) compared with 10.2–16.8 km/h MAE for verbal outputs. Multiple frames provide inconsistent verbal gains to single frame inputs, and frame order is rarely exploited. Under non-optimized Quantized Low-Rank Adaptation (QLoRA), task-specific adaptation improves both task-relevant latent speed representations and verbal readout, but continuous surrounding-agent speed estimation remains weak, while most future-speed gains survive frame shuffling, indicating limited temporal grounding. Driving specialized Alpamayo-1.5 shows stronger latent representations for surrounding-agent and future ego speed, while current ego-speed decodability is comparable and substantial probe–verbal gaps remain. Thus, driving specialization can strengthen motion representations but does not guarantee stronger encoding across both scene and ego states or reliable readout. The results show that plausible planning outputs do not necessarily imply reliable recovery or temporal grounding of the underlying dynamic state."
   },
+  "2609.37107": {
+    "authors": [
+      "Rajit Rajpal",
+      "Shahbuland Matiana",
+      "Liew Wei Pyn",
+      "Anmol Agarwal",
+      "Ryan Craig",
+      "Andrew Lapp",
+      "Mithun Hunsur",
+      "Sami BuGhanem",
+      "Scottie Fox",
+      "Aaron Sanders",
+      "Carson Poole",
+      "Irene Park",
+      "Dave Rossi",
+      "Spencer Frazier",
+      "Louis Castricato"
+    ],
+    "affiliations": [
+      "Overworld"
+    ],
+    "placed": null,
+    "abstract": "We present Waypoint-1.5, a real-time diffusion world model for interactive video generation on consumer-grade hardware. Unlike general video diffusion models, interactive world models (iWMs) must respond to dense user controls under strict latency and throughput constraints. Waypoint-1.5 is pre-trained on 100,000 hours of diverse, control-aligned video game data across hundreds of games, and generates playable video conditioned on full keyboard and mouse input. The model includes two resolution variants that run across a wide spectrum of consumer hardware. To characterize this unique setting, we distinguish rendered FPS, latent FPS, and control rate. We describe the data pipeline, architecture, training methodology, and runtime system behind Waypoint-1.5. We evaluate interactivity through latency and throughput. We conclude with a discussion of the safety and ethical considerations unique to iWMs."
+  },
   "2609.38153": {
     "authors": [
       "Trong-Tung Nguyen",

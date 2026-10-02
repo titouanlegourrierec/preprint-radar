@@ -14,18 +14,23 @@ from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass
 from pathlib import Path
 
-from bs4 import BeautifulSoup, Tag
+from bs4 import BeautifulSoup, NavigableString, Tag
 
 from preprint_radar.exceptions import NotFoundError
 from preprint_radar.http import HttpClient
 
 logger = logging.getLogger(__name__)
 
-EXTRACTOR_VERSION = 1
+EXTRACTOR_VERSION = 2
 """Version of the extraction heuristics of this module, stored with the affiliations they give.
 
 Bump it with any change that alters what a page gives (affiliations, author mapping), so
 that ``reextract`` reads those papers again, from the page cache when it holds them.
+
+- 1: the first version kept (October 2026).
+- 2: leading numbers of names kept ("54th", "3M"), superscripts inside a word and line
+  breaks without a newline read as written, links in the author list are not authors, and
+  a marker that starts an affiliation line is not the previous name's.
 """
 
 # LaTeXML renders line breaks and \quad between affiliations as newlines, em spaces
@@ -79,14 +84,20 @@ _TRAILING_CONNECTOR_RE = re.compile(r"[\s,]+(?:and|&)\s*$", re.IGNORECASE)
 _NEXT_SENTENCE_RE = re.compile(
     r"\.\s+(?=(?:This|These|The\s+work|Corresponding|Manuscript|He|She|They|We|Our|Work|Part|Funding|Supported)\b)"
 )
-# Leading footnote markers: "1 Cornell University", "* MIT", "†‡ NVIDIA".
-_LEADING_MARKER_RE = re.compile(r"^[\d\s*†‡§¶⋆,]+")
+# Leading footnote markers: "1 Cornell University", "* MIT", "†‡ NVIDIA". Digits that start
+# a name are not markers: "54th Research Institute", "3M Company", "3D Vision Lab".
+_LEADING_MARKER_RE = re.compile(r"^(?:[\s*†‡§¶⋆,]|\d+(?!\d|(?:st|nd|rd|th|[DKM])\b))+")
+# A name that starts with a number: "3M Company", "3D Vision Lab" (numbered "2 3D Vision Lab").
+_NUMBER_NAME = r"(?![DKM]\b)\s*(?P<name>(?:\d[DKM]\b\s*)?[A-Z].{2,})$"
+# A line break, which LaTeXML does not always follow with a newline: "Dept. of Computer
+# Science<br>University of Alabama" would read as one affiliation.
+_LINE_BREAK_RE = re.compile(r"<br\b[^>]*>", re.IGNORECASE)
 # Conjunctions left over when a line break splits "A University and B Institute".
 _CONNECTOR_RE = re.compile(r"^(?:and|&)(?:\s+|$)", re.IGNORECASE)
 # A line that ends like this continues on the next one ("School of Medicine, and").
 _CONTINUED_RE = re.compile(r"(?:,|\band|&)\s*$", re.IGNORECASE)
 # Numbered affiliation lines in free-form author blocks (CVPR-like classes): "1ETH Zurich".
-_NUMBERED_LINE_RE = re.compile(r"^\s*\d{1,2}\s*(?P<name>[A-Z].{2,})$", re.MULTILINE)
+_NUMBERED_LINE_RE = re.compile(r"^\s*\d{1,2}" + _NUMBER_NAME, re.MULTILINE)
 _INSTITUTION_WORD_RE = re.compile(
     r"univ|institut|college|school|lab|cent(?:er|re)|hospital|academy|\binc\b|\bltd\b|gmbh|corp|company"
     r"|research|department|faculty|foundation|technolog|polytechn",
@@ -129,11 +140,13 @@ _MIN_LENGTH = 3
 _SYMBOL_MARKERS = frozenset("*†‡§¶⋆♯♭#°ª")
 # ``⟨marker⟩`` tokens injected in place of superscripts by :func:`_marked_text`.
 _MARKED_RE = re.compile(r"⟨([^⟨⟩]*)⟩")
-_MARKER_RUN_RE = r"((?:\s*⟨[^⟨⟩]*⟩)+)"
+# The markers after a name. One glued to the next word introduces an affiliation line, not
+# the name: "Bob Smith⟨2⟩ ⟨1⟩Stanford University" places Bob at 2 only.
+_MARKER_RUN_RE = r"((?:\s*⟨[^⟨⟩]*⟩(?![^\W\d_]))+)"
 _MARKER_SPLIT_RE = re.compile(r"[,;\s]+")
 _ANCHOR_RE = re.compile(r"⟨([^⟨⟩]+)⟩\s*([^⟨]+)")
 _TRAILING_ANCHOR_RE = re.compile(r"([^⟨⟩]+?)\s*⟨([^⟨⟩]+)⟩")
-_NUMBERED_ANCHOR_RE = re.compile(r"^\s*(?P<marker>\d{1,2})\s*(?P<name>[A-Z].{2,})$", re.MULTILINE)
+_NUMBERED_ANCHOR_RE = re.compile(r"^\s*(?P<marker>\d{1,2})" + _NUMBER_NAME, re.MULTILINE)
 # Separators of several names in one creator: "A, B and C", "A & B".
 _SEVERAL_PEOPLE_RE = re.compile(r",|&|\band\b", re.IGNORECASE)
 # IEEE grades and suffixes printed after a name: "Benoît Macq Fellow, IEEE", "Eduil Nascimento Jr.".
@@ -287,6 +300,7 @@ def parse_front_matter(html: str, *, authors: Sequence[str] = ()) -> FrontMatter
     Returns:
         The front matter.
     """
+    html = _LINE_BREAK_RE.sub("\n", html)
     soup = BeautifulSoup(html, "html.parser")
     affiliations, names_dropped = _affiliations(soup, authors)
     return FrontMatter(
@@ -430,7 +444,7 @@ def _segments(node: Tag) -> list[str]:
     :func:`_keyval_chunks`.
     """
     for marker in node.select("sup"):
-        marker.replace_with("\n")
+        marker.replace_with(marker.get_text() if _inside_word(marker) else "\n")
     text = _LATEX_SPACE_RE.sub("\n", node.get_text().replace("\xa0", " "))
     if _KEYVAL_RE.search(text):
         return _keyval_chunks(text)
@@ -652,7 +666,8 @@ def _per_creator_map(
     creators: list[tuple[str, tuple[int, ...]]] = []
     for creator in soup.select("div.ltx_authors span.ltx_creator.ltx_role_author"):
         name = creator.select_one(".ltx_personname")
-        if name is None:
+        # Links set as authors ("Project Page", a repository) name nobody: 2609.37107.
+        if name is None or not _plain_text(_pruned(name)):
             continue
         contacts = [
             segment
@@ -929,8 +944,23 @@ def _marked_text(node: Tag) -> str:
     """Node text with each superscript rendered as a ``⟨marker⟩`` token."""
     copy = BeautifulSoup(str(node), "html.parser")
     for sup in copy.select("sup"):
-        sup.replace_with(f"⟨{' '.join(sup.get_text().split())}⟩")
+        sup.replace_with(sup.get_text() if _inside_word(sup) else f"⟨{' '.join(sup.get_text().split())}⟩")
     return " ".join(copy.get_text().split())
+
+
+def _inside_word(sup: Tag) -> bool:
+    """Whether a superscript is part of a word ("Hyper<sup>2</sup>labs") rather than a marker.
+
+    Between two lowercase letters only: a marker between words ("University<sup>1</sup>Nokia")
+    still separates them.
+    """
+    before, after = sup.previous_sibling, sup.next_sibling
+    return (
+        isinstance(before, NavigableString)
+        and before[-1:].islower()
+        and isinstance(after, NavigableString)
+        and after[:1].islower()
+    )
 
 
 def _plain_text(node: Tag) -> str:

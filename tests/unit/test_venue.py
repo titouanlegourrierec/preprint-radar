@@ -64,6 +64,34 @@ def test_ignores_non_acceptances(comments: str | None) -> None:
     assert extract_venue(comments) is None
 
 
+# Known false positives (TEST-4), fixed with the venue table of META-4: strict, so that the
+# fix shows up as a test to turn back into a plain one.
+@pytest.mark.xfail(strict=True, reason="META-4: a venue named without an acceptance cue")
+@pytest.mark.parametrize(
+    "comments",
+    [
+        pytest.param("Comparison with CVPR 2025 methods", id="comparison"),
+        pytest.param("Rejected from CVPR 2026", id="rejection"),
+        pytest.param("Our method ranks first on the ECCV 2024 benchmark", id="ranking"),
+        pytest.param("An extension of our ECCV 2024 paper", id="extension"),
+        pytest.param("Published in IEEE TPAMI, pp.2028-2040", id="page-numbers-as-a-year"),
+    ],
+)
+def test_never_reads_a_mention_as_an_acceptance(comments: str) -> None:
+    assert extract_venue(comments) is None
+
+
+@pytest.mark.parametrize(
+    "comments",
+    [
+        pytest.param("Accepted at VISAPP 2026", id="VISAPP"),
+        pytest.param("Accepted at CVIP 2025", id="CVIP"),
+    ],
+)
+def test_never_reads_iccv_inside_another_name(comments: str) -> None:
+    assert "ICCV" not in (extract_venue(comments) or "")
+
+
 def test_uses_journal_reference() -> None:
     journal_ref = (
         "Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision (WACV), "

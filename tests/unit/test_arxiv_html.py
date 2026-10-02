@@ -433,6 +433,23 @@ AUTHORS = {
         "Benoit Macq",
         "Christophe De Vleeschouwer",
     ),
+    "2609.37107": (
+        "Rajit Rajpal",
+        "Shahbuland Matiana",
+        "Liew Wei Pyn",
+        "Anmol Agarwal",
+        "Ryan Craig",
+        "Andrew Lapp",
+        "Mithun Hunsur",
+        "Sami BuGhanem",
+        "Scottie Fox",
+        "Aaron Sanders",
+        "Carson Poole",
+        "Irene Park",
+        "Dave Rossi",
+        "Spencer Frazier",
+        "Louis Castricato",
+    ),
     "2609.38180": (
         "Hao-Tang Tsui",
         "Yu-Rou Tuan",
@@ -526,6 +543,9 @@ AUTHORS = {
         # Another author's name was printed as the affiliation of Xiaoxuan Ma: the one
         # affiliation left is not everyone's (Takaaki Shiratori is not at CMU).
         pytest.param("2609.38180", None, id="names-dropped-next-to-a-single-affiliation"),
+        # Co-authors' names in the affiliation macros, and links set as authors after the
+        # last one: the block of Louis Castricato, the last author, is everyone's.
+        pytest.param("2609.37107", None, id="links-set-as-authors"),
         pytest.param(
             "2609.04190", ((0,), (0,), (0,), *(None,) * 6), id="name-lists-among-per-author-contacts"
         ),
@@ -1061,3 +1081,118 @@ def test_fetch_front_matter_reads_the_cache_first(tmp_path: Path, paper_html: Pa
     assert "NVIDIA" in first.affiliations
     assert missing == FrontMatter()
     assert "https://arxiv.org/html/2609.30249v9" not in cache
+
+
+# What the heuristics must not produce (TEST-4): each case names the wrong string a past
+# version gave, or would give, and the affiliations the page gives instead.
+
+
+@pytest.mark.parametrize(
+    ("raw", "expected"),
+    [
+        pytest.param(
+            "54th Research Institute of CETC, China", "54th Research Institute of CETC, China", id="54th"
+        ),
+        pytest.param("1 2nd Department of Radiology", "2nd Department of Radiology", id="2nd-after-a-marker"),
+        pytest.param("3M Company, St. Paul, MN, USA", "3M Company, St. Paul, MN, USA", id="3M"),
+        pytest.param("2 3D Vision Lab, Zhejiang University", "3D Vision Lab, Zhejiang University", id="3D"),
+        pytest.param("4K Imaging Lab", "4K Imaging Lab", id="4K"),
+        pytest.param("1Cornell University", "Cornell University", id="marker-glued"),
+        pytest.param("12, 3 ETH Zurich", "ETH Zurich", id="markers"),
+    ],
+)
+def test_numbers_that_start_a_name_are_not_markers(raw: str, expected: str) -> None:
+    assert clean_affiliation(raw) == expected
+
+
+_NUMBERED_BLOCK = """<div class="ltx_authors"><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Ada Lovelace<sup>1</sup>, Bob Smith<sup>2</sup>
+<sup>1</sup>Stanford University
+<sup>2</sup>3M Company, USA</span></span></div>"""
+
+
+@pytest.mark.parametrize(
+    ("html", "authors", "wrong", "expected"),
+    [
+        pytest.param(
+            _author_block(("Ada Lovelace", ("Hyper<sup>2</sup>labs, Berlin, Germany",))),
+            ("Ada Lovelace",),
+            "labs, Berlin, Germany",
+            ("Hyper2labs, Berlin, Germany",),
+            id="superscript-inside-a-word",
+        ),
+        pytest.param(
+            _author_block(("Ada Lovelace", ("Tampere University<sup>1</sup>Nokia Technologies",))),
+            ("Ada Lovelace",),
+            "Tampere University1Nokia Technologies",
+            ("Tampere University", "Nokia Technologies"),
+            id="superscript-between-words",
+        ),
+        pytest.param(
+            _author_block(
+                (
+                    "Ada Lovelace",
+                    ('Dept. of Computer Science<br class="ltx_break"/>University of Alabama, USA',),
+                )
+            ),
+            ("Ada Lovelace",),
+            "Dept. of Computer ScienceUniversity of Alabama, USA",
+            ("Dept. of Computer Science", "University of Alabama, USA"),
+            id="line-break-without-newline",
+        ),
+        pytest.param(
+            _author_block(("Ada Lovelace", ("54th Research Institute of CETC, Shijiazhuang, China",))),
+            ("Ada Lovelace",),
+            "th Research Institute of CETC, Shijiazhuang, China",
+            ("54th Research Institute of CETC, Shijiazhuang, China",),
+            id="ordinal",
+        ),
+        pytest.param(
+            _NUMBERED_BLOCK,
+            ("Ada Lovelace", "Bob Smith"),
+            "M Company, USA",
+            ("Stanford University", "3M Company, USA"),
+            id="numbered-3M",
+        ),
+        pytest.param(
+            _author_block(("Nicolas Ugrinovic", ("Nicolás Ugrinovic",)), contacts=("MIT",)),
+            ("Nicolas Ugrinovic",),
+            "Nicolás Ugrinovic",
+            ("MIT",),
+            id="accented-author-name",
+        ),
+        pytest.param(
+            _author_block(
+                ("Yiqun Zhang", ()), ("Yiu-Ming Cheung", ()), contacts=("Yiqun Zhang, and Yiu-Ming Cheung",)
+            )
+            + _thanks("Yiqun Zhang and Yiu-Ming Cheung are with Hong Kong Baptist University."),
+            ("Yiqun Zhang", "Yiu-Ming Cheung"),
+            "Yiqun Zhang, and Yiu-Ming Cheung",
+            ("Hong Kong Baptist University",),
+            id="list-of-author-names",
+        ),
+        pytest.param(
+            _author_block(("Ada Lovelace", ("TUM, Munich, Germany ivl [at] example.org",))),
+            ("Ada Lovelace",),
+            "TUM, Munich, Germany ivl [at] example.org",
+            ("TUM, Munich, Germany",),
+            id="obfuscated-address",
+        ),
+        pytest.param(
+            _author_block(("Ada Lovelace", ("MIT{ada.lovelace, bob.smith}",))),
+            ("Ada Lovelace",),
+            "MIT{ada.lovelace, bob.smith}",
+            ("MIT",),
+            id="mailbox-list",
+        ),
+    ],
+)
+def test_pages_never_give(html: str, authors: tuple[str, ...], wrong: str, expected: tuple[str, ...]) -> None:
+    affiliations = parse_front_matter(html, authors=authors).affiliations
+    assert wrong not in affiliations
+    assert affiliations == expected
+
+
+def test_numbered_lines_place_names_that_start_with_a_number() -> None:
+    front = parse_front_matter(_NUMBERED_BLOCK, authors=("Ada Lovelace", "Bob Smith"))
+    assert front.author_affiliations == ((0,), (1,))
