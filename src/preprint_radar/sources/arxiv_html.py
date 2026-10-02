@@ -126,6 +126,16 @@ _JUNK_RE = re.compile(
     re.IGNORECASE,
 )
 _MAX_PLACE_LENGTH = 60
+# Two parts of an affiliation glued where LaTeXML lost a line break (IEEE classes print
+# "Dept. of Computer ScienceUniversity of Alabama"): a lowercase letter then a capitalized
+# word, or a closing bracket then a word. Only after a unit, so that names stay
+# ("AnimSchool", "ByteDance", "McGill"), and never inside brackets ("(ShenZhen)").
+_GLUE_RE = re.compile(r"(?<=[a-z]{2})(?=[A-Z][a-z])|(?<=\))(?=[^\W\d_])")
+_UNIT_WORD_RE = re.compile(
+    r"\b(?:department|dept|school|faculty|division|laborator(?:y|ies)|lab|cent(?:er|re)|institute|college"
+    r"|academy|program(?:me)?|thrust|unit)\b",
+    re.IGNORECASE,
+)
 # elsarticle's \affiliation{organization=..., city=..., country=...}, which LaTeXML prints
 # verbatim. Any key counts once one of these is present (authors misspell them).
 _KEYVAL_RE = re.compile(r"\b(?:organization|addressline|city|postcode|state|country)\s*=", re.IGNORECASE)
@@ -569,7 +579,7 @@ def clean_affiliation(text: str) -> str | None:
     text = _EMPTY_BRACKETS_RE.sub(" ", _LINK_LABEL_RE.sub(" ", _LATEX_SPACE_RE.sub(" ", text)))
     if _NOISE_RE.search(text):
         return None
-    text = _SPACE_BEFORE_PUNCTUATION_RE.sub(r"\1", " ".join(text.split()))
+    text = _SPACE_BEFORE_PUNCTUATION_RE.sub(r"\1", " ".join(_unglued(text).split()))
     text = _REPEATED_COMMA_RE.sub(",", text)
     text = _LEADING_MARKER_RE.sub("", text)
     # After the marker strip, which would eat a leading postcode value.
@@ -582,6 +592,25 @@ def clean_affiliation(text: str) -> str | None:
     if len(text) < _MIN_LENGTH or not any(char.isalpha() for char in text) or _JUNK_RE.fullmatch(text):
         return None
     return text
+
+
+def _unglued(text: str) -> str:
+    """The text with a comma where LaTeXML glued two parts of an affiliation (see ``_GLUE_RE``).
+
+    "Department of Computer Science and EngineeringMichigan State University" becomes
+    "Department of Computer Science and Engineering, Michigan State University".
+    """
+    pieces: list[str] = []
+    start = 0
+    for match in _GLUE_RE.finditer(text):
+        at = match.start()
+        part = text[text.rfind(",", 0, at) + 1 : at]
+        word = part.rsplit(maxsplit=1)[-1] if part.split() else ""
+        inside_brackets = part.count("(") > part.count(")")
+        if text[at - 1] == ")" or (_UNIT_WORD_RE.search(part) and "-" not in word and not inside_brackets):
+            pieces.append(text[start:at] + ", ")
+            start = at
+    return "".join(pieces) + text[start:]
 
 
 def states_people(text: str) -> bool:

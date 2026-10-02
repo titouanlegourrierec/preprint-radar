@@ -1141,6 +1141,13 @@ _NUMBERED_BLOCK = """<div class="ltx_authors"><span class="ltx_creator ltx_role_
             id="line-break-without-newline",
         ),
         pytest.param(
+            _author_block(("Ada Lovelace", ("Dept. of Computer ScienceUniversity of Alabama, USA",))),
+            ("Ada Lovelace",),
+            "Dept. of Computer ScienceUniversity of Alabama, USA",
+            ("Dept. of Computer Science, University of Alabama, USA",),
+            id="line-break-lost-by-latexml",
+        ),
+        pytest.param(
             _author_block(("Ada Lovelace", ("54th Research Institute of CETC, Shijiazhuang, China",))),
             ("Ada Lovelace",),
             "th Research Institute of CETC, Shijiazhuang, China",
@@ -1196,3 +1203,35 @@ def test_pages_never_give(html: str, authors: tuple[str, ...], wrong: str, expec
 def test_numbered_lines_place_names_that_start_with_a_number() -> None:
     front = parse_front_matter(_NUMBERED_BLOCK, authors=("Ada Lovelace", "Bob Smith"))
     assert front.author_affiliations == ((0,), (1,))
+
+
+@pytest.mark.parametrize(
+    ("raw", "expected"),
+    [
+        pytest.param(
+            "Department of Mathematics and StatisticsAuburn University, AL, 36849, USA",
+            "Department of Mathematics and Statistics, Auburn University, AL, 36849, USA",
+            id="unit-then-university",
+        ),
+        pytest.param(
+            "Tsinghua Laboratory of Brain and Intelligence (THBI)IDG/McGovern Institute",
+            "Tsinghua Laboratory of Brain and Intelligence (THBI), IDG/McGovern Institute",
+            id="closing-bracket",
+        ),
+        pytest.param("AnimSchool, Utah, USA", "AnimSchool, Utah, USA", id="name-without-unit"),
+        pytest.param("Google DeepMind, London", "Google DeepMind, London", id="brand"),
+        pytest.param("School of AI, McGill University", "School of AI, McGill University", id="mc"),
+        pytest.param(
+            "Harbin Institute of Technology (ShenZhen)",
+            "Harbin Institute of Technology (ShenZhen)",
+            id="brackets",
+        ),
+        pytest.param(
+            "Research Center of Knowledge-DrivenHuman-Machine Intelligence",
+            "Research Center of Knowledge-DrivenHuman-Machine Intelligence",
+            id="hyphenated-word",
+        ),
+    ],
+)
+def test_parts_glued_by_latexml_are_separated(raw: str, expected: str) -> None:
+    assert clean_affiliation(raw) == expected

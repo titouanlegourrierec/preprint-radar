@@ -36,7 +36,11 @@ PAPER = Paper(
         pytest.param("MIT, jane (at) mit.edu", {Sign.CLEANING}, id="cleaned-again"),
         pytest.param("Code", {Sign.CLEANING}, id="rejected"),
         pytest.param("A. Lovelace is with MIT", {Sign.CLEANING, Sign.STATEMENT}, id="statement"),
-        pytest.param("Dept. of Computer ScienceUniversity of Alabama", {Sign.GLUED}, id="glued-line-break"),
+        pytest.param(
+            "Dept. of Computer ScienceUniversity of Alabama",
+            {Sign.GLUED, Sign.CLEANING},
+            id="glued-line-break",
+        ),
         pytest.param("Monash University; 2Southeast University", {Sign.GLUED}, id="glued-marker"),
         # A name, and a postcode before a marker-like number.
         pytest.param("VinUniversity, Hanoi, Vietnam", set(), id="name-with-university"),
