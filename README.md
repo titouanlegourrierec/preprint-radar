@@ -139,6 +139,10 @@ repository secret; a run that fails or is cancelled resumes from the counts it f
 The *Update data* workflow then runs every weekday, commits the new data and redeploys
 the site. The *Deploy site* workflow also runs on every push touching `web/` or `data/`.
 
+When a run is red, late or missing, or the archive did not change, see
+[`docs/operations.md`](docs/operations.md): one section per symptom, starting from what
+the run's page says, and how long each task takes.
+
 ## Project layout
 
 ```
@@ -210,7 +214,7 @@ uv run prek run --all-files   # git hooks, with prek (a faster pre-commit)
 If arXiv changes its page layout, the network test fails first (the weekly *arXiv canary*
 workflow runs it): refresh the fixtures in `tests/fixtures/` from live pages and update the
 parsers. A daily run that finds nearly every page without affiliations stops and goes red,
-leaving those papers pending.
+leaving those papers pending ([`docs/operations.md`](docs/operations.md) has the steps).
 
 ## Licenses
 

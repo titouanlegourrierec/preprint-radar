@@ -100,7 +100,7 @@ audit). The archive is unchanged: 22,071 papers, 11,621 affiliated.
 | TEST-4 | Negative tests for the heuristics (the venue cases wait for META-4, as strict `xfail`) | P2 | done |
 | TEST-5 | Golden fixture expectations | P2 | done |
 | AFF-7, AFF-8 | Superscripts inside words and glued line breaks; leading numbers of names (from the backlog, with TEST-4) | P2 | done |
-| DOC-1 | Symptom-first operations runbook | P2 | todo |
+| DOC-1 | Symptom-first operations runbook (`docs/operations.md`, its signals checked by a test) | P2 | done |
 | REL-3 | License and data terms (MIT for the code; the Semantic Scholar terms are read before going public) | P2 | done |
 
 *Exit criteria:* a simulated arXiv outage, layout change, Semantic Scholar 403 and rebase
