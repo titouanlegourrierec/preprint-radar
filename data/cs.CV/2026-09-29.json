@@ -450,7 +450,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.35726v1",
+   "html_url": "https://arxiv.org/html/2609.35726v2",
    "abstract": "Automated quality assessment of rehabilitation exercises relies heavily on accurate human pose estimation from video data. Although numerous RGB-based pose estimation methods have been proposed, the impact of camera placement on detecting clinically relevant movement errors remains insufficiently explored. To address this gap, we introduce REHAB26-ViewAngles, a dataset comprising correct and incorrect rehabilitation exercise executions captured from a wide range of camera angles. Furthermore, we propose a novel separability metric to quantify an algorithm's ability to distinguish between valid and faulty exercise repetitions. Using these tools, we analyze how various RGB-based pose-estimation strategies are suitable for exercise quality assessment under varying camera placements. In particular, we analyze single-camera 2D and 3D pose estimation and four multi-camera strategies: a combination of two orthogonal 2D views, 3D triangulation, weighted 3D fusion, and an AI-based pose-estimation transformer model specifically trained from two synchronized cameras. Our findings reveal that an optimally placed 2D camera can improve the separability by 16.9\\,\\% over the commonly used $0^\\circ$ frontal view and frequently outperforms single-camera 3D estimation, while combining two views can further improve accuracy by up to 13.1\\,\\%. These results offer practical guidance for deploying rehabilitation monitoring in both home and clinical settings.",
    "affiliations": [
     "Faculty of Informatics, Masaryk University, Brno, Czech Republic",
@@ -5476,7 +5476,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.34697v1",
+   "html_url": "https://arxiv.org/html/2609.34697v2",
    "abstract": "We introduce Triangular Resampling (TR), a post-training method for mitigating long-horizon error accumulation in motion diffusion models. Built on FloodDiffusion's triangular denoising schedule, TR addresses the mismatch between ground-truth-derived training windows and model-generated inference states. Replacing only completed motion history leaves this mismatch unresolved in partially denoised states within the active window. TR therefore extends rollout-based training to these states, using ground-truth clamping to limit excessive drift. For each replayed sample, TR draws one denoising threshold, shared across latent positions and replay updates, and replays multi-step triangular denoising without gradient tracking. After each update, states below the threshold are replaced with noise-matched ground truth, while those at or above it retain model predictions. The resulting latent window enters the standard training update. This rollout construction supports both supervised training (TR) and distribution matching (TR-DMD). On 120-second motion generation from HumanML3D test prompts, TR and TR-DMD achieve state-of-the-art FID AUC within their respective non-DMD and DMD comparison groups. Supervised TR reduces FID AUC by 40.9% and FID degradation slope by 55.3% relative to matched post-training without replay.",
    "affiliations": [
     "The University of Tokyo",
@@ -9916,7 +9916,7 @@
   {
    "arxiv_id": "2609.33935",
    "announced": "2026-09-29",
-   "title": "Video, Ergo Genero: Unifying Video Tasks via Spatiotemporal Analogy",
+   "title": "Unifying Video Tasks via Spatiotemporal Analogy",
    "authors": [
     "Chia-Hsiang Kao",
     "Belinda Zeng",
@@ -9932,7 +9932,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.33935v1",
+   "html_url": "https://arxiv.org/html/2609.33935v2",
    "abstract": "Adapting video models to new tasks typically requires dedicated data curation and fine-tuning. While visual analogy provides a training-free alternative by specifying tasks in-context, it remains restricted to the image domain. To explore whether analogy-based methods can unify diverse video tasks and generalize to out-of-distribution scenarios, we introduce ViGeo, a framework that extends visual in-context learning to the video domain via spatiotemporal canvas completion. Evaluated on a diverse task taxonomy with a strict train-test split, ViGeo generalizes to unseen video manipulations and zero-shot modalities (e.g., event cameras). Finally, we identify task internalization, where a query format associated with a pretrained task overrides the demonstration, and show that this shortcut can be removed with a small amount of task-unrelated data, highlighting the need to decorrelate prompt format from task identity.",
    "affiliations": [
     "Cornell University",
@@ -13097,11 +13097,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "27 pages. Code: https://github.com/caiyy17/FloodDiffusion2",
+   "comments": "27 pages. Updated author affiliations and corresponding-author information. Code: https://github.com/AlayaLab/FloodDiffusion2",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.33167v1",
+   "html_url": "https://arxiv.org/html/2609.33167v2",
    "abstract": "We present FloodDiffusion 2 (FD2), an efficient and controllable framework that builds upon FloodDiffusion (FD1), a state-of-the-art streaming motion generation model. While FD1 produces plausible motion, it suffers from low efficiency and limited controllability, as its attention design requires repeated computation over the entire history, and it lacks precise trajectory control for real-world applications. To address these limitations and improve generation quality, FD2 introduces three advances. First, Partial Attention makes finalized history representations independent of the active window, enabling KV-cached inference and shared-history packing for efficient training. Second, we establish a necessary-and-sufficient Bregman criterion for regression losses to preserve diffusion's conditional-mean velocity field. This criterion guides an FK-induced quadratic loss that incorporates motion geometry without online FK evaluation. Third, FD2 introduces precise path conditioning to control the character's root trajectory while preserving natural body motion. Experiments show that FD2 reduces training computation by 4.6$\\times$ and accelerates denoising by 11.29$\\times$, reaching 2.303 ms per update on long sequences. Alongside these efficiency gains, FD2 improves motion quality over FD1 and achieves state-of-the-art FID scores among streaming methods, with 0.048 on SEED and 0.053 on HumanML3D.",
    "affiliations": [
     "The University of Tokyo",
@@ -16927,7 +16927,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.32353v1",
+   "html_url": "https://arxiv.org/html/2609.32353v2",
    "abstract": "Visual token reduction is an effective way to accelerate multimodal large language models (MLLMs), but performance deteriorates rapidly under extremely low token budgets. Existing work has explored both visual-token selection and training-based adaptation to reduced visual inputs. We take a step further by asking how a heavily compressed MLLM should learn from the states induced by its own generations. This setting naturally calls for on-policy self-distillation: a heavily compressed model is supervised on the states induced by its own generations, while its full-token counterpart serves as an information-rich teacher. Based on this insight, we propose LT-OPD, a training framework for extreme visual-token reduction. The student rolls out responses with only a small fraction of visual tokens, and a frozen full-token copy of the same MLLM provides distributional supervision along these student-generated trajectories. To stabilize on-policy learning when visual evidence is severely limited, we further introduce a budget-level curriculum that progressively decreases the token budget during training. Across nine benchmarks on Qwen3.5-4B, LT-OPD raises average retained performance under 5% visual-token retention from 68.6% to 82.3%, outperforming training-free, training-based, and reinforcement-learning baselines at the same budget. The gains transfer consistently to Qwen3.5-9B, GLM-4.6V-9B, and LLaVA-OV-1.5-4B. LT-OPD also reduces KV-cache usage by 85.2% and prefill FLOPs by 85.4% without additional inference overhead, demonstrating that on-policy learning can substantially recover capabilities lost to extreme visual-token reduction.",
    "affiliations": [
     "Shanghai Jiao Tong University",
@@ -17578,7 +17578,7 @@
     "Hongyi Cai",
     "Yi Herng Ong",
     "Tingshiuan C. Wu",
-    "Lim Chiew Hui",
+    "Chiew Hui Lim",
     "Hanxia Li",
     "Kehong Guo",
     "Sze Yuan Cheong"
@@ -17591,7 +17591,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.32193v1",
+   "html_url": "https://arxiv.org/html/2609.32193v2",
    "abstract": "Vision Language Action (VLA) models condition actions directly on current visual and language context, without an explicit account of how the scene evolves under candidate actions. World Action Models (WAM) attempt to address this limitation by predicting future states, but existing designs keep prediction and policy learning architecturally separate, connecting them only through the predicted output, whether through pixel space video generation or a latent forecasting module trained independently of the policy. We present Devol-ONE, a Mixture of Transformers architecture that unifies vision language understanding, latent world dynamics prediction, and action generation within a single autoregressive framework. Instead of encoding vision language tokens once and feeding them to the action expert, Devol-ONE runs autoregressive prediction jointly across a vision language stream and a V-JEPA pretrained dynamics stream, attending to the vision language key-value cache at every layer to forecast future latent states under language guidance. The action expert is in turn shaped continuously by semantic reasoning and predicted physical dynamics rather than by a fixed representation computed in advance. Extensive experiments are conducted on LIBERO, LIBERO-PLUS, RoboTwin2.0 along with real-world evaluation on Flexiv single-arm and dual-arm setups. Ablation studies show the effectiveness of dynamic stream prediction and layer-wise unified attention to validate our model architectural coherency.",
    "affiliations": [
     "Devol Robots, San Francisco, CA, United States"

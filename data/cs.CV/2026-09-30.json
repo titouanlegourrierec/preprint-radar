@@ -1938,7 +1938,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.37801v1",
+   "html_url": "https://arxiv.org/html/2609.37801v2",
    "abstract": "The ByteTrack algorithm is a widely used and computationally efficient multi-object tracking architecture. Its core innovation lies in the combination of lenient bounding box associations with tracklet similarity matching to robustly deal with object occlusions. However, this strategy is nevertheless vulnerable to erroneous track reclassification and identity switching, as detection confidence scores dictate association priority. To address this, I present a simple enhancement of the ByteTrack architecture, named ByteTraX, that optimises track continuity via a single unified matching threshold, while penalising identity switches through stringent track initiation criteria. This approach achieves consistently improved performance across a range of diverse benchmarks including GMOT-40, LC-MOT, SportsMOT, TeamTrack, DAMUNT, and DeepSea-MOT, while simultaneously increasing processing speed by >10%. Specifically, results demonstrate a >40% reduction in identity switches, accompanied by mean increases in HOTA of 3.6, IDF1 of 5.6, and FPS of 6.3. As such, adoption of the ByteTraX algorithm has the potential to substantially enhance tracking performance over the ByteTrack baseline, while retaining the efficiency needed for real-time deployment. To facilitate usage, I provide the source code, integration functionality for the YOLO family of object detection models, and deployment instructions via an open source repository.",
    "affiliations": [
     "University of Exeter"
@@ -2313,11 +2313,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "Project Page: https://jackswl.github.io/honeycomb/ Code: https://github.com/kaichen-z/honeycomb",
+   "comments": "Project Page: https://jackswl.github.io/honeycomb Code: https://github.com/kaichen-z/honeycomb",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.37690v1",
+   "html_url": "https://arxiv.org/html/2609.37690v2",
    "abstract": "Video world models require persistent scene memory to maintain consistency during long-horizon video generation. Existing spatial memory systems accumulate RGB observations or latent features, causing storage requirements to grow as generation proceeds. We introduce **Honeycomb**, a video world model built on **HexMemory**, a compact low-rank representation that stores scene features in a fixed-size memory comprising six spatial and spatiotemporal planes. A feed-forward writer maps each newly generated video chunk to plane features. As the spatial coverage or temporal range expands, HexMemory warps the existing planes while preserving their dimensions, then integrates new features through confidence-weighted pooling and a learned residual correction. A reader retrieves latent features from HexMemory to condition subsequent video generation. Because the writer processes only observations from the latest chunk, Honeycomb avoids per-scene optimization and repeated processing of the full generation history. Experiments on WorldScore and RealEstate10K demonstrate strong video generation quality and robust consistency when revisiting previously observed regions, while maintaining constant feature-storage requirements throughout generation. Code and additional visualizations are available on our https://jackswl.github.io/honeycomb/.",
    "affiliations": [
     "Harvard University 2National University of Singapore",
@@ -2560,11 +2560,11 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Graphics (cs.GR)"
    ],
-   "comments": null,
+   "comments": "Project page: https://nvlabs.github.io/texdiffusion/",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.37654v1",
+   "html_url": "https://arxiv.org/html/2609.37654v2",
    "abstract": "We present a method for generating high quality materials for 3D objects entirely in texture space. We finetune a video diffusion transformer for text-guided material generation, multi-view material generation, and material upscaling. Our key insight is to use the known projection from image space to texture space, enabling the diffusion process to generalize across arbitrary geometries and texture parameterizations. This approach also avoids the view consistency issues inherent in video and multi-view diffusion models. Because texture space is two dimensional, we can reuse the strong priors of pretrained video diffusion models. We apply our method to high quality material reconstruction from posed photos captured under unknown lighting, as well as to text- and image guided material generation. Our method can scale to high resolutions (8K), 100+ input views, and neural material representations. In quantitative and qualitative evaluations we show state-of-the-art results for material generation and reconstruction.",
    "affiliations": [
     "NVIDIA"
@@ -4581,11 +4581,11 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Artificial Intelligence (cs.AI)"
    ],
-   "comments": null,
+   "comments": "40th Conference on Neural Information Processing Systems (NeurIPS 2026)",
    "journal_ref": null,
-   "venue": null,
+   "venue": "NeurIPS 2026",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.37243v1",
+   "html_url": "https://arxiv.org/html/2609.37243v2",
    "abstract": "Cross-modal knowledge distillation transfers knowledge from a teacher modality to a student modality. Existing feature-level alignment methods typically assume that teacher and student features reside in structurally alignable representation spaces. However, this assumption does not hold when cross-modal features are structurally heterogeneous and lack clear unit-level correspondence, such as 2D spatial visual grids and 1D temporal audio sequences, thereby limiting the applicability of feature-level alignment. To address this challenge, we propose a cross-modal distillation framework that enables effective knowledge transfer across structurally heterogeneous feature spaces via a vector-quantized codebook. Specifically, teacher features are abstracted into a set of vector-form codes regardless of their original feature structure, and the selected codes serve as concept-level anchors for student learning. Code selection is guided by both task relevance and student compatibility, allowing the student to receive transferable teacher knowledge without requiring direct unit-level feature alignment. Experimental results across diverse cross-modal distillation scenarios demonstrate the effectiveness of the proposed framework on classification and semantic segmentation tasks.",
    "affiliations": [
     "Kyungpook National University",
@@ -6688,7 +6688,7 @@
     "Sean Hardesty Lewis",
     "Zuyi Guo",
     "Benwang Chen",
-    "Zirui Liu",
+    "Zirui Li",
     "Hongyi Lin",
     "Heye Huang"
    ],
@@ -6700,7 +6700,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.36906v1",
+   "html_url": "https://arxiv.org/html/2609.36906v2",
    "abstract": "Reliable embodied decisions under partial observability require informative observations and sufficient supporting evidence. However, semantic scores alone do not reveal which viewpoints justify a claim or where additional evidence should be acquired. We introduce SafeVantage, a vantage-aware semantic memory and active acquisition framework that retains each claim's supporting views, camera poses, and estimated target location, keeping positive support distinct from search coverage. A learned candidate-observability model uses claim-grounded geometry to predict target visibility at reachable viewpoints. These predictions guide view selection through expected reduction in terminal decision loss, accounting for travel cost and geometrically distinct corroboration. A calibrated head then combines support, spatial consistency, and coverage to produce Yes, No, or Abstain decisions. We evaluate SafeVantage on a category-presence benchmark spanning 232 unseen ProcTHOR houses and 7,424 paired episodes per method and action budget. Compared with validation-selected equal-budget baselines, SafeVantage achieves macro-F1 gains of 24.7% and 12.0% at eight and twelve actions, respectively, with lower risk and higher answer rates at both budgets and 31.7% less travel at eight actions. Equal-input HM3D experiments show lower selective risk under fixed observations, while controlled ScanNet interventions show that restoring supporting views improves downstream VLM answers. Ablations further support the contribution of candidate observability to decision quality and acquisition efficiency. Results demonstrate the value of claim-level viewpoint evidence for connecting semantic memory, active acquisition, and reliable decision-making. Code is available at https://safevantage.github.io",
    "affiliations": [
     "Massachusetts Institute of Technology",
@@ -6734,6 +6734,7 @@
     "Nanyang Technological University",
     "Tsinghua University"
    ],
+   "extractor": 1,
    "abs_url": "https://arxiv.org/abs/2609.36906",
    "pdf_url": "https://arxiv.org/pdf/2609.36906"
   },
@@ -6840,7 +6841,7 @@
    "journal_ref": null,
    "venue": "NeurIPS 2026",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.36882v1",
+   "html_url": "https://arxiv.org/html/2609.36882v2",
    "abstract": "Localizing AI-edited regions is essential for interpretable forensic analysis, but remains challenging due to subtle and spatially distributed artifacts that are misaligned with semantic or object boundaries. Existing approaches rely on pixel-level supervision from controlled editing pipelines, which is difficult to scale and can introduce misleading signals: artifacts frequently extend beyond annotated regions, while out-of-mask pixels are treated as authentic. This limits models' ability to capture transferable evidence and generalize across generators and datasets. To address these issues, we propose ReGFLoW, a Reconstruction-Guided Fake Localization framework under Weak supervision, which is the first weakly supervised approach for diffusion-edited fake region localization. ReGFLoW requires only real/fake labels at the image-level and uses diffusion reconstruction errors as dense spatial guidance to inject them into both feature and score spaces. Furthermore, by artifact-centric multiple instance learning, ReGFLoW utilizes localized diffusion evidence without relying on semantic-affinity or boundary-based pseudo-mask priors. Extensive experiments demonstrate that ReGFLoW achieves stronger out-of-domain generalization than fully supervised learning baselines.",
    "affiliations": [
     "Kyung Hee University",
@@ -7863,7 +7864,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.36756v2",
+   "html_url": "https://arxiv.org/html/2609.36756v3",
    "abstract": "One-dimensional (1D) variable-length visual tokenizers enable adaptive compression by varying the number of tokens, allowing downstream autoregressive (AR) models to flexibly trade off generation quality against computational cost using a single tokenizer. However, existing approaches based on nested dropout often fail to fully exploit the representational capacity of the tokenizer, resulting in suboptimal performance in both image reconstruction and generation. In this work, we introduce NesTok, a nested self-alignment framework tailored to dynamic visual tokenizers. NesTok introduces cross-length training, which jointly optimizes reconstruction across token lengths while using the full-length sequence to guide shorter counterparts, enabling shorter token sequences to approach the reconstruction quality of full-length sequences. On ImageNet, NesTok improves substantially over standard training and achieves an rFID score of 0.98. On downstream image generation, it achieves the state-of-the-art gFID score of 1.46 on ImageNet 256$\\times$256 among existing variable-length autoregressive image generation methods. Code will be available at https://github.com/jaiwei804/NesTok.",
    "affiliations": [
     "North China Electric Power University",
@@ -9373,11 +9374,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "ICLR 2027 Submission",
+   "comments": "Under review as a conference paper at ICLR 2027",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.36407v1",
+   "html_url": "https://arxiv.org/html/2609.36407v2",
    "abstract": "Cross-resolution knowledge distillation aims to improve low-magnification whole- slide analysis by transferring high-magnification representations, yet the conditions for useful transfer remain unclear. We develop a decomposition-based analysis of teacher access, representation loss, and model excess, motivating three questions: whether (a) teacher targets help the task, (b) low-magnification students can predict them, and (c) slide models benefit from those predictions. We investigate them through controlled experiments across ten pathology cohorts spanning classifi- cation, grading, and survival prediction. In the main comparison, providing teacher regional means alongside native low-magnification features improves downstream performance in all ten cohorts. Direct prediction achieves lower reconstruction error than residual prediction, yet the predicted features underrepresent variation in the teacher targets. Moreover, better reconstruction does not consistently improve downstream scores, and retaining native features changes performance even when the predicted teacher features are held fixed. Together, these findings expose a gap between reconstructing teacher representations and realizing their downstream value. They challenge the sufficiency of reconstruction error as a measure of cross-resolution transfer and provide a diagnostic framework for examining where that transfer breaks down. Future distillation designs must account for both what students can predict and how slide models use those predictions.",
    "affiliations": [
     "Department of Computer Science and Software Engineering (CSSE)",
@@ -11482,7 +11483,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2609.37476v1",
+   "html_url": "https://arxiv.org/html/2609.37476v2",
    "abstract": "Training robust social-navigation policies requires simulators with diverse scene layouts, terrain, and human motion, but constructing such environments and specifying pedestrian behavior is costly. We propose an efficient pipeline that converts ordinary monocular walking videos directly into closed-loop social-navigation training environments in the policy's state space. Our key observation is that local social navigation primarily depends on two types of information: where the robot can traverse and how nearby pedestrians move. We therefore represent the static scene as a metric traversability map, which can be rigidly transformed under counterfactual robot motion, while directly replaying the pedestrian trajectories recovered from the video over time. This abstraction allows us to define the forward dynamics directly in the policy's state space and efficiently simulate counterfactual robot states without reconstructing or rendering photorealistic observations. The resulting policy achieves 81.2% success in the independent Arena benchmark, compared with 75.0% for the strongest baseline, and succeeds in 19/20 real-robot trials without policy fine-tuning.",
    "affiliations": [
     "National University of Singapore, Singapore",
@@ -12442,7 +12443,7 @@
   {
    "arxiv_id": "2609.36416",
    "announced": "2026-09-30",
-   "title": "FineART: Fine-grained Annotated Robotic Trajectory Dataset and Vision-Language-Action Model for Bimanual Manipulation",
+   "title": "FineART: Fine-Grained Annotated Robotic Trajectory Dataset and Vision-Language-Action Model for Bimanual Manipulation",
    "authors": [
     "Jade Choghari",
     "Pepijn Kooijmans",
@@ -12452,8 +12453,8 @@
     "Catherine Weaver",
     "Mouli Sivapurapu",
     "Kai Yang",
-    "Jackson Lee",
     "Thomas Wolf",
+    "Jackson Lee",
     "Pragna Mannam"
    ],
    "primary_subject": "Robotics (cs.RO)",
@@ -12467,7 +12468,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2609.36416v1",
+   "html_url": "https://arxiv.org/html/2609.36416v2",
    "abstract": "Robots operating in real-world environments must execute complex, multi-step bimanual tasks over long horizons rather than single, isolated actions. Current manipulation datasets struggle to support this capability: although single-arm datasets reach hundreds of thousands of trajectories, they typically provide only one high-level instruction per episode while the rare bimanual effort that does label subtasks annotates only a fraction of its hours. We present FineART, a densely annotated bimanual manipulation dataset of 40,543 episodes, 1,718 hours, and 533,913 subtasks across 151 tasks. We also introduce FineART-VLA, a vision-language-action policy that predicts its own next subtask, and show that mid-training it this way yields substantial gains. Specifically, success on a spatial disambiguation task increases from 32.0% to 100.0%, and step-by-step human subtask guidance lifts success on an unseen long-horizon task from 16.0% to 76.0%. Furthermore, after minimal fine-tuning on a new robot, the policy requires one-tenth the data of baselines without mid-training and generalizes zero-shot to completely unseen tasks on the new hardware. We open-source the full dataset, model weights, and training code.",
    "affiliations": [
     "Scale AI",
@@ -12501,10 +12502,10 @@
      0
     ],
     [
-     0
+     1
     ],
     [
-     1
+     0
     ],
     [
      0
@@ -12516,6 +12517,7 @@
     "University of Southern California",
     "Stanford University"
    ],
+   "extractor": 1,
    "abs_url": "https://arxiv.org/abs/2609.36416",
    "pdf_url": "https://arxiv.org/pdf/2609.36416"
   },
