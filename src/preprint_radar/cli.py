@@ -7,11 +7,12 @@ import re
 import signal
 import time
 from collections import Counter
-from collections.abc import Callable, Iterator, Sequence
+from collections.abc import Callable, Iterable, Iterator, Sequence
 from contextlib import contextmanager
 from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
-from typing import TYPE_CHECKING
+
+from rich.table import Table
 
 from preprint_radar import __version__
 from preprint_radar.archive.catalog import Catalog
@@ -60,6 +61,7 @@ from preprint_radar.sources.semantic_scholar import S2_ANONYMOUS_DELAY_SECONDS, 
 from preprint_radar.store import filters
 from preprint_radar.store.export import ExportFormat, export_papers
 from preprint_radar.store.paper_store import PaperStore
+from preprint_radar.store.quality import affiliation_quality, extracted_again, format_quality, quality_table
 from preprint_radar.store.reclean import reclean_store
 from preprint_radar.store.stats import (
     archive_coverage_table,
@@ -72,9 +74,6 @@ from preprint_radar.store.stats import (
     weekdays_since,
 )
 from preprint_radar.store.validate import validate_store
-
-if TYPE_CHECKING:
-    from rich.table import Table
 
 logger = logging.getLogger(__name__)
 
@@ -191,7 +190,25 @@ def _add_stats_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentP
             "have an abstract, affiliations, a detected venue and a citation count. "
             "Affiliation columns: at least one found (affiliated), searched without success "
             "(none), not retrieved yet (pending); of the affiliated papers, mapped to their "
-            "authors (mapped) and with at least one institution named (named)."
+            "authors (mapped) and with at least one institution named (named). With "
+            "--affiliations, count signs of wrong affiliations instead, with examples."
+        ),
+    )
+    stats.add_argument(
+        "--affiliations",
+        action="store_true",
+        help=(
+            "count the signs of wrong affiliations in day files (names of authors, glued or cut "
+            "off strings, units without their institution...), with examples"
+        ),
+    )
+    stats.add_argument(
+        "--page-cache-dir",
+        type=Path,
+        default=None,
+        help=(
+            "with --affiliations, also count them in what today's extraction gives for the pages "
+            "cached in this directory, next to what is stored for those papers (nothing is written)"
         ),
     )
     stats.add_argument(
@@ -401,7 +418,8 @@ def _add_summary_parser(subparsers: "argparse._SubParsersAction[argparse.Argumen
         help="report how fresh and how complete the data store is",
         description=(
             "Print the newest announcement day of each category and its age, the date of the "
-            "citation counts, and the coverage tables of `stats`, in plain text. In GitHub "
+            "citation counts, the coverage tables of `stats` and the counts of `stats "
+            "--affiliations`, in plain text. In GitHub "
             "Actions, also write them to the job summary, and warn when the data or the "
             "counts are stale. Nothing is fetched or written."
         ),
@@ -703,12 +721,26 @@ def _run_stats(args: argparse.Namespace) -> int:
 
     # A terminal gets rich tables; CI and pipes the plain text, one line per row.
     styled = console.is_terminal
+    reports = (
+        _affiliation_quality(store, categories, args.page_cache_dir, styled=styled)
+        if args.affiliations
+        else _coverage(store, categories, styled=styled)
+    )
+    for index, report in enumerate(reports):
+        if index:
+            console.print()
+        console.print(report)
+    return 0 if reports else 1
+
+
+def _coverage(store: PaperStore, categories: Iterable[str], *, styled: bool) -> list[str | Table]:
+    """The coverage reports of ``stats``: days, archive years, then citation counts."""
     reports: list[str | Table] = []
     for category in categories:
         days = collect_coverage(store, category)
         years = collect_archive_coverage(store, category)
         if not days and not years:
-            logger.warning("No stored papers for %s in %s.", category, args.data_dir)
+            logger.warning("No stored papers for %s in %s.", category, store.root)
             continue
         if days:
             reports.append(coverage_table(category, days) if styled else format_coverage(category, days))
@@ -720,11 +752,37 @@ def _run_stats(args: argparse.Namespace) -> int:
             )
         if citations := store.load_citation_counts(category):
             reports.append(format_citations(category, citations, today=datetime.now(tz=UTC).date()))
-    for index, report in enumerate(reports):
-        if index:
-            console.print()
-        console.print(report)
-    return 0 if reports else 1
+    return reports
+
+
+def _affiliation_quality(
+    store: PaperStore, categories: Iterable[str], page_cache_dir: Path | None, *, styled: bool
+) -> list[str | Table]:
+    """The quality reports of ``stats --affiliations``: stored, then extracted again from the cache."""
+    reports: list[str | Table] = []
+
+    def add(title: str, papers: Iterable[Paper]) -> None:
+        quality = affiliation_quality(papers)
+        reports.append(quality_table(title, quality) if styled else format_quality(title, quality))
+
+    for category in categories:
+        papers = list(store.iter_papers(category))
+        if not papers:
+            logger.warning("No stored papers for %s in %s.", category, store.root)
+            continue
+        add(f"{category}: affiliations of the day files", papers)
+        if page_cache_dir is None:
+            continue
+        pairs = extracted_again(papers, PageCache(page_cache_dir))
+        if not pairs:
+            logger.warning("The page cache %s holds no page of %s.", page_cache_dir, category)
+            continue
+        add(f"{category}: the papers with a cached page, as stored", (old for old, _ in pairs))
+        add(
+            f"{category}: the same papers, as extracted today (version {EXTRACTOR_VERSION})",
+            (new for _, new in pairs),
+        )
+    return reports
 
 
 def _run_institutions(args: argparse.Namespace) -> int:
@@ -784,6 +842,7 @@ def _run_summary(args: argparse.Namespace) -> int:
     today = datetime.now(tz=UTC).date()
     lines: list[str] = []
     tables: list[str] = []
+    quality: list[str] = []
     for category in store.categories():
         if days := collect_coverage(store, category):
             newest = store.days(category)[0]
@@ -792,6 +851,13 @@ def _run_summary(args: argparse.Namespace) -> int:
             if late > STALE_DATA_WEEKDAYS:
                 github_annotation("warning", "Stale data", f"{category}: no new day for {late} weekdays")
             tables.append(format_coverage(category, days))
+            quality.append(
+                format_quality(
+                    f"{category}: signs of wrong affiliations",
+                    affiliation_quality(store.iter_papers(category)),
+                    examples=False,
+                )
+            )
         if years := collect_archive_coverage(store, category):
             tables.append(format_archive_coverage(category, years))
         if citations := store.load_citation_counts(category):
@@ -800,15 +866,21 @@ def _run_summary(args: argparse.Namespace) -> int:
                 github_annotation("warning", "Stale citation counts", lines[-1])
     console.print("\n".join(lines))
     console.print()
-    console.print("\n\n".join(tables))
+    console.print("\n\n".join([*tables, *quality]))
     github_summary(
         "### Data\n\n"
         + "".join(f"- {line}\n" for line in lines)
-        + "\n<details><summary>Coverage by day and by archive year</summary>\n\n```\n"
-        + "\n\n".join(tables)
-        + "\n```\n\n</details>"
+        + _details("Coverage by day and by archive year", tables)
+        + _details("Signs of wrong affiliations (`stats --affiliations` lists examples)", quality)
     )
     return 0
+
+
+def _details(title: str, blocks: Sequence[str]) -> str:
+    """Plain-text blocks folded under ``title`` in the job summary, or nothing without blocks."""
+    if not blocks:
+        return ""
+    return f"\n<details><summary>{title}</summary>\n\n```\n" + "\n\n".join(blocks) + "\n```\n\n</details>\n"
 
 
 def _run_index(args: argparse.Namespace) -> int:

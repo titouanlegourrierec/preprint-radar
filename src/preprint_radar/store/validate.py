@@ -17,7 +17,6 @@ from typing import TYPE_CHECKING, Any
 
 from preprint_radar.exceptions import StoreError
 from preprint_radar.models import Paper
-from preprint_radar.sources.arxiv_html import names_only_authors
 from preprint_radar.store.paper_store import (
     ARCHIVE_DIRNAME,
     CITATIONS_FILENAME,
@@ -25,6 +24,7 @@ from preprint_radar.store.paper_store import (
     SCHEMA_VERSION,
     PaperStore,
 )
+from preprint_radar.store.quality import last_holds_all, names_only
 from preprint_radar.store.reclean import reclean_paper
 
 if TYPE_CHECKING:
@@ -199,26 +199,18 @@ def _check_contacts(paper: Paper, where: str, report: ValidationReport) -> None:
 
 
 def _heuristics(paper: Paper) -> Iterator[str]:
-    """What the extraction heuristics should have avoided in a day-file paper."""
-    affiliations = paper.affiliations or ()
-    institutions = paper.institutions or (None,) * len(affiliations)
-    names = [
-        affiliation
-        for affiliation, institution in zip(affiliations, institutions, strict=True)
-        if institution is None and names_only_authors(affiliation, paper.authors)
-    ]
+    """What the extraction heuristics should have avoided in a day-file paper.
+
+    The strongest signs of :mod:`~preprint_radar.store.quality`, which ``stats
+    --affiliations`` counts in full.
+    """
+    names = names_only(paper)
     for affiliation in names:
         yield f"{paper.arxiv_id}: affiliation {affiliation!r} only names authors"
-    mapping = paper.author_affiliations
-    last_holds_all = (
-        mapping is not None
-        and len(mapping) > 1
-        and all(entry is None for entry in mapping[:-1])
-        and set(mapping[-1] or ()) == set(range(len(affiliations)))
-    )
-    if last_holds_all:
+    shared = last_holds_all(paper)
+    if shared:
         yield f"{paper.arxiv_id}: only the last author is placed, at every affiliation"
-    if not names and not last_holds_all and reclean_paper(paper) != paper:
+    if not names and not shared and reclean_paper(paper) != paper:
         yield f"{paper.arxiv_id}: `reclean` would change its affiliations"
 
 

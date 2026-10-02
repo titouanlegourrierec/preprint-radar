@@ -440,15 +440,22 @@ def _segments(node: Tag) -> list[str]:
         previous = joined[-1] if joined else ""
         if previous and _CONTINUED_RE.search(previous):
             joined[-1] = f"{previous} {line}"
-        elif previous and _is_place(line) and not _COUNTRY_END_RE.search(previous.rstrip(_EDGE_PUNCTUATION)):
+        elif previous and is_place(line) and not _COUNTRY_END_RE.search(previous.rstrip(_EDGE_PUNCTUATION)):
             joined[-1] = f"{previous.rstrip(_EDGE_PUNCTUATION)}, {line}"
         else:
             joined.append(line)
     return joined
 
 
-def _is_place(line: str) -> bool:
-    """Whether a line only names a place, like "Munich, Germany" or "CA 94720, USA"."""
+def is_place(line: str) -> bool:
+    """Whether a line only names a place, like "Munich, Germany" or "CA 94720, USA".
+
+    Args:
+        line: A line of an author block, or a stored affiliation.
+
+    Returns:
+        ``True`` for a short line that ends with a country and has no institution word.
+    """
     place = line.strip(_EDGE_PUNCTUATION)
     return (
         len(place) <= _MAX_PLACE_LENGTH

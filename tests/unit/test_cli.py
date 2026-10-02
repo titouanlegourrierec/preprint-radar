@@ -18,6 +18,7 @@ from preprint_radar.collect import CitationsReport, HtmlReading, Stop, UpdateRep
 from preprint_radar.exceptions import FetchError, NotFoundError
 from preprint_radar.http import HttpClient
 from preprint_radar.models import Listing, Paper
+from preprint_radar.sources.arxiv_html import EXTRACTOR_VERSION, PageCache
 from preprint_radar.store.paper_store import PaperStore
 
 
@@ -233,6 +234,102 @@ def test_stats_skips_categories_without_papers(
 
     assert capsys.readouterr().out.startswith("cs.CV: 1 paper over 1 day")
     assert "No stored papers for cs.LG" in caplog.text
+
+
+def test_stats_counts_signs_of_wrong_affiliations(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str], caplog: pytest.LogCaptureFixture
+) -> None:
+    store = PaperStore(tmp_path / "data")
+    store.save(
+        "cs.CV",
+        [
+            Paper(
+                arxiv_id="2609.00001",
+                announced=date(2026, 9, 25),
+                title="T",
+                authors=("Ada Lovelace",),
+                affiliations=("Code", "Nanjing University of Posts and"),
+            )
+        ],
+    )
+
+    assert main(["stats", "--affiliations", "--data-dir", str(store.root), "-c", "cs.CV", "-c", "cs.LG"]) == 0
+
+    lines = [line.strip() for line in capsys.readouterr().out.splitlines()]
+    assert lines[:2] == ["cs.CV: affiliations of the day files", "2 affiliation strings in 1 paper"]
+    assert "2609.00001: Code" in lines
+    assert "2609.00001: Nanjing University of Posts and" in lines
+    assert "No stored papers for cs.LG" in caplog.text
+
+
+def test_stats_counts_them_in_what_the_page_cache_gives_today(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str], caplog: pytest.LogCaptureFixture
+) -> None:
+    store = PaperStore(tmp_path / "data")
+    url = "https://arxiv.org/html/2609.00001v1"
+    store.save(
+        "cs.CV",
+        [
+            Paper(
+                arxiv_id="2609.00001",
+                announced=date(2026, 9, 25),
+                title="T",
+                authors=("Ada Lovelace",),
+                affiliations=("Code",),
+                html_url=url,
+            )
+        ],
+    )
+    cache = tmp_path / "cache"
+    options = ["stats", "--affiliations", "--data-dir", str(store.root), "--page-cache-dir", str(cache)]
+
+    assert main(options) == 0
+    assert "The page cache " in caplog.text
+    assert "holds no page of cs.CV" in caplog.text
+    capsys.readouterr()
+
+    page = (
+        '<article class="ltx_document"><div class="ltx_authors">'
+        '<span class="ltx_creator ltx_role_author"><span class="ltx_personname">Ada Lovelace</span>'
+        '<span class="ltx_contact ltx_role_affiliation">Stanford University</span></span></div></article>'
+    )
+    PageCache(cache).put(url, page)
+    assert main(options) == 0
+
+    reports = capsys.readouterr().out.split("\n\n")
+    assert [report.splitlines()[0] for report in reports] == [
+        "cs.CV: affiliations of the day files",
+        "cs.CV: the papers with a cached page, as stored",
+        f"cs.CV: the same papers, as extracted today (version {EXTRACTOR_VERSION})",
+    ]
+    assert "2609.00001: Code" in reports[1]
+    assert "2609.00001: Code" not in reports[2]
+    assert store.load_day("cs.CV", date(2026, 9, 25))[0].affiliations == ("Code",)  # nothing written
+
+
+def test_stats_draws_signs_in_a_terminal(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    monkeypatch.setattr("preprint_radar.cli.console", Console(force_terminal=True, width=160))
+    store = PaperStore(tmp_path / "data")
+    store.save(
+        "cs.CV",
+        [
+            Paper(
+                arxiv_id="2609.00001",
+                announced=date(2026, 9, 25),
+                title="T",
+                authors=(),
+                affiliations=("Code",),
+            )
+        ],
+    )
+
+    assert main(["stats", "--affiliations", "--data-dir", str(store.root)]) == 0
+
+    out = capsys.readouterr().out
+    assert "\x1b[" in out
+    assert "2609.00001: Code" in out
 
 
 def test_stats_on_an_empty_store(tmp_path: Path, caplog: pytest.LogCaptureFixture) -> None:
@@ -558,6 +655,8 @@ def test_summary_reports_freshness_and_warns_when_stale(
     written = summary.read_text(encoding="utf-8")
     assert written.startswith("### Data\n\n- cs.CV: newest announcement day 2026-09-01")
     assert "<details><summary>Coverage by day and by archive year</summary>" in written
+    assert "<details><summary>Signs of wrong affiliations (" in written
+    assert "cs.CV: signs of wrong affiliations\n0 affiliation strings in 0 papers" in written
 
 
 def test_summary_of_fresh_data_warns_of_nothing(
@@ -575,6 +674,21 @@ def test_summary_of_fresh_data_warns_of_nothing(
     out = capsys.readouterr().out
     assert f"cs.CV: newest announcement day {today.isoformat()}, 0 weekdays ago" in out
     assert "::warning" not in out
+
+
+def test_summary_of_an_archive_alone_has_no_signs(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    store = PaperStore(tmp_path / "data")
+    store.write_archive(
+        "cs.CV", [Paper(arxiv_id="1512.03385", announced=date(2015, 12, 10), title="T", authors=())]
+    )
+    summary = tmp_path / "summary.md"
+    monkeypatch.setenv("GITHUB_STEP_SUMMARY", str(summary))
+
+    assert main(["summary", "--data-dir", str(store.root)]) == 0
+
+    written = summary.read_text(encoding="utf-8")
+    assert "cs.CV archive: 1 paper over 1 year" in written
+    assert "Signs of wrong affiliations" not in written
 
 
 @pytest.mark.parametrize(

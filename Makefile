@@ -134,6 +134,10 @@ validate: ## Check data/ against its contract (errors fail, heuristic warnings d
 stats: ## Show how much of data/ is enriched, per day and per archive year
 	@uv run preprint-radar stats $(CATEGORY_ARGS)
 
+.PHONY: quality-affiliations
+quality-affiliations: ## Count signs of wrong affiliations, with examples, stored and from the page cache
+	@uv run preprint-radar stats --affiliations --page-cache-dir .cache/front-matter $(CATEGORY_ARGS)
+
 ##@ Web app
 
 .PHONY: dev
