@@ -1,0 +1,1362 @@
+{
+  "2608.29027": {
+    "authors": [
+      "Anh Nguyen Quynh",
+      "Khang Nguyen Quoc",
+      "Luyl-Da Quach"
+    ],
+    "affiliations": [
+      "Research and Development Application Department, FPT University, Cantho city, 90000, Vietnam",
+      "School of Electrical Engineering, Korea University, Seoul city, 02841, South Korea",
+      "Department of Information Technology, FPT University, Cantho city, 90000, Vietnam"
+    ],
+    "placed": [
+      [
+        "Anh Nguyen Quynh",
+        [
+          "Research and Development Application Department, FPT University, Cantho city, 90000, Vietnam"
+        ]
+      ],
+      [
+        "Khang Nguyen Quoc",
+        [
+          "School of Electrical Engineering, Korea University, Seoul city, 02841, South Korea"
+        ]
+      ],
+      [
+        "Luyl-Da Quach",
+        [
+          "Department of Information Technology, FPT University, Cantho city, 90000, Vietnam"
+        ]
+      ]
+    ],
+    "abstract": "Shrimp disease classification has become an urgent issue due to its significant impact on the import–export output of producing countries, particularly Vietnam. Most existing studies focus on image-based classification, which typically operates at the late stage of disease manifestation. Therefore, text-based classification has the potential to enable early and timely disease detection. To address this limitation, we introduce the SALT (Shrimp disease text Analysis with multi-Loss disTillation) framework, which incorporates explainability analysis using Local Interpretable Model-agnostic Explanations (LIME) and SHapley Additive exPlanations (SHAP) to evaluate model predictions and interpret the learned linguistic features. Experimental results demonstrate that SALT achieves competitive performance across multiple distillation objectives, outperforming supervised baselines while providing a favorable trade-off between predictive performance and computational efficiency. Moreover, it exhibits strong explainability, accurately identifying key linguistic features and semantic patterns relevant to disease descriptions. These findings highlight the potential of knowledge distillation–based text classification for future applications in early shrimp disease diagnosis and related research directions."
+  },
+  "2608.30420": {
+    "authors": [
+      "Tiffanie Godelaine",
+      "Maxime Zanella",
+      "Karim El Khoury",
+      "Benoit Macq",
+      "Christophe De Vleeschouwer"
+    ],
+    "affiliations": [],
+    "placed": null,
+    "abstract": "Automating the analysis of whole-slide images has high clinical value, since characterizing cancers requires examining them in detail. Such analysis increasingly relies on vision-language models that provide patch-level zero-shot predictions. However, these predictions remain noisy and must be refined with a few annotations. A promising paradigm for this refinement is few-shot transduction. Rather than treating each patch independently, these methods leverage the relations between patches, together with a few annotations, to refine all predictions jointly. However, current transductive methods are evaluated under conditions that overlook key properties of whole-slide images: (i) datasets consist of independent patches extracted from multiple slides, ignoring the complex tissue organization; (ii) datasets are mostly balanced, whereas a single whole-slide image exhibits severe class imbalance, with several classes absent; and (iii) annotations are sampled at random, without reflecting how a pathologist annotates a limited number of regions. To align the transduction paradigm to realistic whole-slide settings, we introduce the following contributions. First, we propose SlideCRF, which adapts conditional random fields for whole-slide images by combining spatial and biological cues while accounting for classes that may be absent from a given slide. Second, we provide a set of realistic annotation protocols, based on spatially localized clicks and scribbles, modeling different pathologist interactions, such as the iterative correction of model errors. Across four datasets, we show that SlideCRF outperforms current transductive methods in macro F1, improving over the zero-shot predictions by $+24.2\\%$ and $+37.5\\%$ with one and 16 clicks per present class, respectively."
+  },
+  "2609.00814": {
+    "authors": [
+      "Kaiyue Kang",
+      "Qixuan He",
+      "Peijin Wang",
+      "Yingchao Feng",
+      "Chao Ren",
+      "Kangxin Wang",
+      "Wenhui Diao",
+      "Yixiao Wang",
+      "Liangjin Zhao",
+      "Kaiwen Wei",
+      "Nayu Liu",
+      "Xian Sun"
+    ],
+    "affiliations": [
+      "Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100190, China",
+      "School of Electronic, Electrical and Communication Engineering, University of Chinese Academy of Sciences, Beijing 100190, China",
+      "University of Chinese Academy of Sciences, Beijing 100190, China",
+      "National Key Laboratory of Target Cognition and Application Technology (TCAT), Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100190, China"
+    ],
+    "placed": [
+      [
+        "Kaiyue Kang",
+        [
+          "Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100190, China",
+          "School of Electronic, Electrical and Communication Engineering, University of Chinese Academy of Sciences, Beijing 100190, China",
+          "University of Chinese Academy of Sciences, Beijing 100190, China",
+          "National Key Laboratory of Target Cognition and Application Technology (TCAT), Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100190, China"
+        ]
+      ],
+      [
+        "Qixuan He",
+        [
+          "Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100190, China",
+          "School of Electronic, Electrical and Communication Engineering, University of Chinese Academy of Sciences, Beijing 100190, China",
+          "University of Chinese Academy of Sciences, Beijing 100190, China",
+          "National Key Laboratory of Target Cognition and Application Technology (TCAT), Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100190, China"
+        ]
+      ],
+      [
+        "Peijin Wang",
+        [
+          "Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100190, China",
+          "School of Electronic, Electrical and Communication Engineering, University of Chinese Academy of Sciences, Beijing 100190, China",
+          "University of Chinese Academy of Sciences, Beijing 100190, China",
+          "National Key Laboratory of Target Cognition and Application Technology (TCAT), Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100190, China"
+        ]
+      ],
+      [
+        "Yingchao Feng",
+        [
+          "Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100190, China",
+          "National Key Laboratory of Target Cognition and Application Technology (TCAT), Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100190, China"
+        ]
+      ],
+      [
+        "Chao Ren",
+        [
+          "Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100190, China",
+          "National Key Laboratory of Target Cognition and Application Technology (TCAT), Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100190, China"
+        ]
+      ],
+      [
+        "Kangxin Wang",
+        [
+          "Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100190, China",
+          "School of Electronic, Electrical and Communication Engineering, University of Chinese Academy of Sciences, Beijing 100190, China",
+          "University of Chinese Academy of Sciences, Beijing 100190, China",
+          "National Key Laboratory of Target Cognition and Application Technology (TCAT), Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100190, China"
+        ]
+      ],
+      [
+        "Wenhui Diao",
+        [
+          "Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100190, China",
+          "School of Electronic, Electrical and Communication Engineering, University of Chinese Academy of Sciences, Beijing 100190, China",
+          "University of Chinese Academy of Sciences, Beijing 100190, China",
+          "National Key Laboratory of Target Cognition and Application Technology (TCAT), Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100190, China"
+        ]
+      ],
+      [
+        "Yixiao Wang",
+        [
+          "Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100190, China",
+          "National Key Laboratory of Target Cognition and Application Technology (TCAT), Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100190, China"
+        ]
+      ],
+      [
+        "Liangjin Zhao",
+        [
+          "Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100190, China",
+          "National Key Laboratory of Target Cognition and Application Technology (TCAT), Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100190, China"
+        ]
+      ],
+      [
+        "Kaiwen Wei",
+        [
+          "Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100190, China",
+          "National Key Laboratory of Target Cognition and Application Technology (TCAT), Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100190, China"
+        ]
+      ],
+      [
+        "Nayu Liu",
+        [
+          "Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100190, China",
+          "National Key Laboratory of Target Cognition and Application Technology (TCAT), Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100190, China"
+        ]
+      ],
+      [
+        "Xian Sun",
+        [
+          "Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100190, China",
+          "School of Electronic, Electrical and Communication Engineering, University of Chinese Academy of Sciences, Beijing 100190, China",
+          "University of Chinese Academy of Sciences, Beijing 100190, China",
+          "National Key Laboratory of Target Cognition and Application Technology (TCAT), Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100190, China"
+        ]
+      ]
+    ],
+    "abstract": "Remote sensing visual models have continuously advanced various interpretation tasks. However, the research process behind model improvement still heavily relies on manual expertise, requiring extensive trial-and-error iterations in model design, data processing, and performance diagnosis. Existing agent-based approaches mainly focus on task execution and workflow orchestration, while lacking the capability of autonomous research iteration for continuous performance optimization. To address this issue, we propose RingMoClaw, an experience-inspired self-evolving multi-agent framework for remote sensing visual interpretation. RingMoClaw integrates a research branch, a quality-control branch, and a dual-stream dynamic experience bus to establish a closed-loop optimization process covering strategy generation, experiment execution, independent review, and experience accumulation. The heterogeneous Critic mechanism provides stage-wise diagnosis and feedback, while the dual-stream experience bus incorporates external knowledge and internal experimental experience to guide strategy evolution and eliminate ineffective searches. Extensive experiments on four remote sensing downstream tasks, including object detection, scene classification, semantic segmentation, and change detection, demonstrate the effectiveness and generalization of RingMoClaw. Compared with the corresponding baseline models, RingMoClaw improves performance by 1.84% mAP50 on object detection and achieves consistent gains across the other three tasks, while reducing the required evolution steps by over 40% compared with existing research automation frameworks. These results suggest that RingMoClaw offers a feasible route from task execution toward continuous research driven model evolution in remote sensing."
+  },
+  "2609.04190": {
+    "authors": [
+      "Adheesh Sunil Juvekar",
+      "Onkar Kishor Susladkar",
+      "Kiet A. Nguyen",
+      "Muntasir Wahed",
+      "Nabeel Bashir",
+      "Xiaona Zhou",
+      "Tianjiao Yu",
+      "Vedant Shah",
+      "Ismini Lourentzou"
+    ],
+    "affiliations": [
+      "University of Illinois Urbana-Champaign"
+    ],
+    "placed": [
+      [
+        "Adheesh Sunil Juvekar",
+        [
+          "University of Illinois Urbana-Champaign"
+        ]
+      ],
+      [
+        "Onkar Kishor Susladkar",
+        [
+          "University of Illinois Urbana-Champaign"
+        ]
+      ],
+      [
+        "Kiet A. Nguyen",
+        [
+          "University of Illinois Urbana-Champaign"
+        ]
+      ],
+      [
+        "Muntasir Wahed",
+        null
+      ],
+      [
+        "Nabeel Bashir",
+        null
+      ],
+      [
+        "Xiaona Zhou",
+        null
+      ],
+      [
+        "Tianjiao Yu",
+        null
+      ],
+      [
+        "Vedant Shah",
+        null
+      ],
+      [
+        "Ismini Lourentzou",
+        null
+      ]
+    ],
+    "abstract": "Video editing spans diverse editing paradigms, yet achieving high-quality instruction-guided and subject-guided editing within a single unified framework remains challenging. We introduce EditVid, a training-free framework combining sparse causal memory for local coherence, correspondence-based post-attention token injection for long-range identity preservation, and soft latent blending for edit locality. The same framework supports instruction-guided and reference-guided edits, including style transfer, attribute modification, object insertion, part-level editing, and subject replacement. On FiVE, EditVid achieves 78.16 FiVE-Acc, compared with 58.95 for the strongest evaluated training-free baseline, while obtaining competitive results on IVEBench. A user study further shows a 51.8% overall preference for EditVid over 7 competing methods. https://plan-lab.github.io/editvid"
+  },
+  "2609.05518": {
+    "authors": [
+      "Jiacheng Cai",
+      "Zijin Hong",
+      "Zheng Yuan",
+      "Huachi Zhou",
+      "Qinggang Zhang",
+      "Xiao Huang"
+    ],
+    "affiliations": [
+      "The Hong Kong Polytechnic University",
+      "Jilin University"
+    ],
+    "placed": [
+      [
+        "Jiacheng Cai",
+        [
+          "The Hong Kong Polytechnic University"
+        ]
+      ],
+      [
+        "Zijin Hong",
+        [
+          "The Hong Kong Polytechnic University"
+        ]
+      ],
+      [
+        "Zheng Yuan",
+        [
+          "The Hong Kong Polytechnic University"
+        ]
+      ],
+      [
+        "Huachi Zhou",
+        [
+          "The Hong Kong Polytechnic University"
+        ]
+      ],
+      [
+        "Qinggang Zhang",
+        [
+          "Jilin University"
+        ]
+      ],
+      [
+        "Xiao Huang",
+        null
+      ]
+    ],
+    "abstract": "Despite the strong capabilities of multimodal large language models (MLLMs), their parametric knowledge remains incomplete and difficult to update, motivating multimodal retrieval-augmented generation (RAG) to ground responses in external text and images. However, existing benchmarks face two major limitations: (i) they typically emphasize single-hop retrieval or reasoning over a small set of provided contexts rather than open-domain evidence discovery; and (ii) they provide fragmented coverage of cross-modal reasoning paths, leaving complex multi-hop and multi-image reasoning underexplored. In this paper, we introduce CrossModalQA, an open-domain benchmark for evaluating multimodal retrieval and reasoning over heterogeneous corpora. CrossModalQA contains 1,863 question-answer pairs constructed from 4,987 Wikipedia articles and 4,431 Wikimedia Commons images. It covers five complementary reasoning paths: vision-to-text, text-to-vision, vision-to-text-to-vision, multi-image intersection, and image-set reasoning. Every question requires retrieving and composing distributed textual and visual evidence, with an average reasoning depth of 3.50 hops. We construct the benchmark through multimodal knowledge graph-guided subgraph sampling and apply rule-based consistency checking and LLM verification to ensure multimodal dependence and traceable evidence. Extensive experiments demonstrate that existing multimodal RAG systems struggle to recover complete evidence chains and can underperform closed-book models when incomplete retrieval introduces distracting context. Further analysis reveals that complete cross-modal retrieval contributes more to answer accuracy than generator scaling, while multi-image retrieval and reasoning remain the primary bottlenecks limiting end-to-end performance."
+  },
+  "2609.05583": {
+    "authors": [
+      "Márcus Lobo",
+      "Vitor Matias",
+      "Afonso Paiva",
+      "Jeová Farias",
+      "Tiago Novello",
+      "Moacir Ponti"
+    ],
+    "affiliations": [
+      "ICMC-USP",
+      "IMPA",
+      "Bowdoin College"
+    ],
+    "placed": [
+      [
+        "Márcus Lobo",
+        [
+          "ICMC-USP"
+        ]
+      ],
+      [
+        "Vitor Matias",
+        [
+          "ICMC-USP"
+        ]
+      ],
+      [
+        "Afonso Paiva",
+        [
+          "ICMC-USP"
+        ]
+      ],
+      [
+        "Jeová Farias",
+        [
+          "Bowdoin College"
+        ]
+      ],
+      [
+        "Tiago Novello",
+        [
+          "IMPA"
+        ]
+      ],
+      [
+        "Moacir Ponti",
+        [
+          "ICMC-USP"
+        ]
+      ]
+    ],
+    "abstract": "Vision-Language Models (VLMs) are reshaping computer vision by aligning visual and textual embeddings, allowing models to recognize visual concepts and reason about them using natural language. Traditional 3D deep-learning models, however, are typically trained for specific tasks, such as classification, segmentation, or detection, and do not naturally support cross-modal retrieval from their embedding spaces using text or images as queries. To address this issue, Contrastive Language-Image Pretraining (CLIP)-based methods align 3D embeddings with pretrained image and text representations, giving rise to 3D Vision-Language Models (3D VLMs) that support zero-shot classification and cross-modal retrieval, and open-vocabulary recognition of 3D shapes. This tutorial provides an overview of 3D VLMs, ranging from basic definitions of 3D representations and their encoding into embeddings to cross-modal contrastive alignment, modern multimodal frameworks, and 3D Vision-Large Language Models (3D VLLMs). We present the main definitions of contrastive learning for multimodal embedding alignment and highlight recent advances in language-guided 3D Gaussian splatting, 3D shape generation, and embodied AI for robotics. Tutorial page: https://usmarcv.github.io/Tutorial-3DVLMs/."
+  },
+  "2609.06721": {
+    "authors": [
+      "Hangyu Qin",
+      "Junbin Xiao",
+      "Shenglang Zhang",
+      "Angela Yao"
+    ],
+    "affiliations": [
+      "National University of Singapore",
+      "University of Science and Technology of China"
+    ],
+    "placed": [
+      [
+        "Hangyu Qin",
+        [
+          "National University of Singapore"
+        ]
+      ],
+      [
+        "Junbin Xiao",
+        [
+          "University of Science and Technology of China"
+        ]
+      ],
+      [
+        "Shenglang Zhang",
+        [
+          "University of Science and Technology of China"
+        ]
+      ],
+      [
+        "Angela Yao",
+        [
+          "National University of Singapore"
+        ]
+      ]
+    ],
+    "abstract": "AI companions are envisioned as always-on assistants that support users in daily life. With this regard, we introduce BuddyVQA, a benchmark for companion-style question answering (QA) on egocentric streaming video. BuddyVQA contains 21.6K questions linked to 6K highlight moments across 1,012 long, egocentric videos. It features two key characteristics that are common in daily first-person QA assistance but are largely overlooked in existing VideoQA benchmarks: ego-deictic expressions and interactively chained questions (e.g., “Where is it?”, “How to get there?”). These require models to infer a user’s in-situation intent by resolving visual pronouns in the context of egocentric visual and QA contents, with both grounded in a long-form streaming setting. To tackle the challenges, we propose MyBuddy, a companion-style QA assistant that highlights a multimodal chain-of-thought reasoning mechanism to infer the final answer based on the historical QA and visual content. An additional question filter and multi-level memory are designed to facilitate efficient QA and visual information retrieval under streaming QA settings. Experiments show that MyBuddy significantly enhances the performance of foundation models on BuddyVQA. Moreover, these gains generalize to other streaming and common video QA benchmarks, demonstrating the applicability and effectiveness of our approach. Our code and dataset are available at https://github.com/QHUni/BuddyVQA."
+  },
+  "2609.11271": {
+    "authors": [
+      "Hyunsu Go",
+      "Youngung Han",
+      "Kyeonghun Kim",
+      "Jinyong Jun",
+      "Junbeom Lee",
+      "Dohyun Kweon",
+      "Yului Jeong",
+      "Suah Park",
+      "Sungha Park",
+      "Anna Jung",
+      "Woo Kyoung Jeong",
+      "Ken Ying-Kai Liao",
+      "Hyuk-Jae Lee",
+      "Nam-Joon Kim"
+    ],
+    "affiliations": [
+      "Seoul National University, Seoul, Republic of Korea",
+      "OUTTA, Seoul, Republic of Korea",
+      "Chung-Ang University, Seoul, Republic of Korea",
+      "Kyung Hee University, Seoul, Republic of Korea",
+      "Samsung Medical Center, Seoul, Republic of Korea",
+      "NVIDIA AI Technology Center, Taipei, Taiwan"
+    ],
+    "placed": [
+      [
+        "Hyunsu Go",
+        [
+          "Seoul National University, Seoul, Republic of Korea"
+        ]
+      ],
+      [
+        "Youngung Han",
+        [
+          "Seoul National University, Seoul, Republic of Korea",
+          "OUTTA, Seoul, Republic of Korea"
+        ]
+      ],
+      [
+        "Kyeonghun Kim",
+        [
+          "OUTTA, Seoul, Republic of Korea"
+        ]
+      ],
+      [
+        "Jinyong Jun",
+        [
+          "Seoul National University, Seoul, Republic of Korea"
+        ]
+      ],
+      [
+        "Junbeom Lee",
+        [
+          "Chung-Ang University, Seoul, Republic of Korea"
+        ]
+      ],
+      [
+        "Dohyun Kweon",
+        [
+          "OUTTA, Seoul, Republic of Korea",
+          "Kyung Hee University, Seoul, Republic of Korea"
+        ]
+      ],
+      [
+        "Yului Jeong",
+        [
+          "Seoul National University, Seoul, Republic of Korea"
+        ]
+      ],
+      [
+        "Suah Park",
+        [
+          "Seoul National University, Seoul, Republic of Korea"
+        ]
+      ],
+      [
+        "Sungha Park",
+        [
+          "Seoul National University, Seoul, Republic of Korea"
+        ]
+      ],
+      [
+        "Anna Jung",
+        [
+          "Seoul National University, Seoul, Republic of Korea"
+        ]
+      ],
+      [
+        "Woo Kyoung Jeong",
+        [
+          "Samsung Medical Center, Seoul, Republic of Korea"
+        ]
+      ],
+      [
+        "Ken Ying-Kai Liao",
+        [
+          "NVIDIA AI Technology Center, Taipei, Taiwan"
+        ]
+      ],
+      [
+        "Hyuk-Jae Lee",
+        [
+          "Seoul National University, Seoul, Republic of Korea"
+        ]
+      ],
+      [
+        "Nam-Joon Kim",
+        [
+          "Seoul National University, Seoul, Republic of Korea"
+        ]
+      ]
+    ],
+    "abstract": "Perineural invasion (PNI) is an adverse histopathologic marker in intrahepatic cholangiocarcinoma (ICC), but it is usually confirmed only after resection. Preoperative T2-weighted MRI may provide noninvasive imaging cues predictive of PNI, although labels are available only at the patient level without slice- or voxel-level annotations. We propose Order-Aware Slab Multiple Instance Learning (OAS-MIL), a weakly supervised framework for patient-level PNI prediction. Each tumor-centered MRI crop is represented as an ordered sequence of overlapping 2.5D slabs formed from contiguous axial slices. A shared encoder extracts slab-level features, which are aggregated by a permutation-invariant set-attention branch and a bidirectional sequence-attention branch. Using five-fold label-stratified cross-validation at the patient level, OAS-MIL achieved a mean AUROC of $0.770\\pm 0.077$, outperforming the evaluated volumetric and MIL baselines. These results suggest that axial order provides a useful inductive bias for weakly supervised PNI prediction from MRI."
+  },
+  "2609.12885": {
+    "authors": [
+      "Akihisa Shitara",
+      "Yoichi Ochiai"
+    ],
+    "affiliations": [
+      "Faculty of Library, Information and Media Science, University of Tsukuba",
+      "Pixie Dust Technologies, Inc"
+    ],
+    "placed": [
+      [
+        "Akihisa Shitara",
+        [
+          "Faculty of Library, Information and Media Science, University of Tsukuba"
+        ]
+      ],
+      [
+        "Yoichi Ochiai",
+        [
+          "Pixie Dust Technologies, Inc"
+        ]
+      ]
+    ],
+    "abstract": "In sign language recognition, the isolated-recognition (ISLR) classification loss treats a single label as ground truth, as does a frame-level auxiliary classifier over pseudo-labels—a component we add to continuous-recognition (CSLR) methods, which lack one. Stylistic variation blurs ISLR annotation, and the absence of temporal boundaries in CSLR forces pseudo-labels; both are noisy, and multi-tier recognition—glosses and non-manual markers as separate tiers—would likewise require frame-level boundaries. We therefore apply symmetric and generalized cross entropy (SCE, GCE)—robust alternatives to cross entropy (CE) established in image classification—not to connectionist temporal classification (CTC) but to the preceding single-label classifier. On ASL Citizen with injected symmetric noise across three backbones (three seeds for ST-GCN), robust losses cost at most $2.5$ pt when labels are clean and beat CE by 2.9–10.0 pt in all six conditions at noise rate 0.2, one of which only after $q$ was re-selected on the dev set. GCE yields larger gains, but its optimal $q$ does not generalize across backbones, whereas a single SCE setting transfers to all nine conditions; both vary 2–11 times more than CE across runs, so a favorable point estimate does not establish stability. For CSLR (PHOENIX-2014), we report no gain and instead probe how the type and effective weight of the auxiliary loss affect word error rate (WER). Our frame-level targets exhibit a systematic assignment bias beyond natural boundary ambiguity, so the CSLR study constitutes a diagnosis of a single configuration. Adding a pseudo-label CE auxiliary at $\\lambda_{\\mathrm{aux}}=25$ to VAC, CorrNet, and SlowFastSign raises WER above the no-auxiliary baseline, and GCE/SCE improve on CE by 1.7–3.2 pt (three of six conditions return below that baseline). However, at a common $\\lambda_{\\mathrm{aux}}$, the three losses differ by more than an order of magnitude in effective gradient, and under a control matching the initial gradient, the gap shrinks to 0.4–0.9 pt, while lowering the CE weight alone already beats that baseline. Neither the degradation nor the improvement can therefore be separated from the effect of the weight. We use only symmetric noise, and multi-seed evaluation covers only ST-GCN and the VAC isolated configuration."
+  },
+  "2609.21811": {
+    "authors": [
+      "Muhammet Sami Yavuz",
+      "Sabri Mustafa Kahya",
+      "Richard R. Chen",
+      "Jana Lipkova",
+      "Benedikt Wiestler"
+    ],
+    "affiliations": [
+      "AI for Image-Guided Diagnosis and Therapy, School of Medicine and Health, Technical University of Munich (TUM), Munich, Germany",
+      "Munich Center for Machine Learning (MCML), Munich, Germany",
+      "Technical University of Munich (TUM), Munich, Germany",
+      "University of California, Irvine, Irvine, CA, USA",
+      "Department of Pathology, School of Medicine, and Department of Biomedical Engineering, School of Engineering, University of California, Irvine, Irvine, CA, USA"
+    ],
+    "placed": [
+      [
+        "Muhammet Sami Yavuz",
+        [
+          "AI for Image-Guided Diagnosis and Therapy, School of Medicine and Health, Technical University of Munich (TUM), Munich, Germany",
+          "Munich Center for Machine Learning (MCML), Munich, Germany"
+        ]
+      ],
+      [
+        "Sabri Mustafa Kahya",
+        [
+          "Technical University of Munich (TUM), Munich, Germany"
+        ]
+      ],
+      [
+        "Richard R. Chen",
+        [
+          "University of California, Irvine, Irvine, CA, USA"
+        ]
+      ],
+      [
+        "Jana Lipkova",
+        [
+          "Department of Pathology, School of Medicine, and Department of Biomedical Engineering, School of Engineering, University of California, Irvine, Irvine, CA, USA"
+        ]
+      ],
+      [
+        "Benedikt Wiestler",
+        [
+          "AI for Image-Guided Diagnosis and Therapy, School of Medicine and Health, Technical University of Munich (TUM), Munich, Germany",
+          "Munich Center for Machine Learning (MCML), Munich, Germany"
+        ]
+      ]
+    ],
+    "abstract": "Multimodal survival models can combine complementary prognostic information from whole-slide images and genomic profiles, but effective fusion remains challenging amid external cohort shift and computational complexity. To address these challenges, we propose MIST, multimodal survival prediction with genomic-guided histology attention. MIST represents genomic features as tokens and allows them to query compact foundation-model-derived histology context tokens before survival prediction. This design enriches molecular information with histology context rather than merging separately encoded modalities only at the final stage. Training combines discrete-time survival prediction with genomic feature masking, WSI dropout, and paired WSI–genomics contrastive alignment. Across four external evaluations in colon, renal, lung, and glioblastoma cohorts, MIST improves external C-index over standard fusion baselines in the primary comparisons. These results support genomic-guided histology attention as a compact and effective strategy for multimodal oncology outcome prediction. Our code is available at https://github.com/samiyavuuz/MIST."
+  },
+  "2609.23431": {
+    "authors": [
+      "Junwen Chen",
+      "Keiji Yanai"
+    ],
+    "affiliations": [
+      "Department of Informatics, The University of Electro-Communications, Tokyo, Japan"
+    ],
+    "placed": [
+      [
+        "Junwen Chen",
+        [
+          "Department of Informatics, The University of Electro-Communications, Tokyo, Japan"
+        ]
+      ],
+      [
+        "Keiji Yanai",
+        [
+          "Department of Informatics, The University of Electro-Communications, Tokyo, Japan"
+        ]
+      ]
+    ],
+    "abstract": "Human-object interaction (HOI) detection requires grounding an interacting human-object pair and recognizing the verb that links them, often under severe long-tail supervision. Recent methods improve accuracy with stronger detectors and vision-language priors, but many still stack heavy transformer encoders, intricate denoising schedules, or post-hoc semantic calibration on top of the detector. We present HOIBlender, an efficient HOI detector named after its core design principle: blending detector-grounded visual tokens, spatial subject-object reasoning, and BLIP-2 semantic priors inside one lightweight decoding pipeline. HOIBlender builds on an RF-DETR/LW-DETR-style foundation with a DINOv2 backbone and selects top-$K$ image-conditioned tokens directly from the multi-scale projector as subject and object candidates, removing the dedicated encoder stage retained by prior HOI methods. A dual-stage decoder first stabilizes human-object geometry and then performs verb and HOI classification through progressive BLIP-2 prior fusion, with classifier weights initialized from BLIP-2 text embeddings for long-tail categories. Grouped-query training further enriches optimization without increasing inference cost. Across three model scales (Nano, Small, 2XL), HOIBlender consistently outperforms SOV-STG-VLA and Hybrid-SOV-VLA on HICO-DET, reaching $44.49$ Default Full mAP in only $9$ training epochs while maintaining competitive latency and parameter budgets. These results show that lightweight detection, structured spatial-semantic decoding, and deeply integrated vision-language priors can be blended into a single efficient HOI pipeline."
+  },
+  "2609.24787": {
+    "authors": [
+      "Yuanwen Yue",
+      "Stefano Puliti",
+      "Damien Robert",
+      "Atakan Topaloğlu",
+      "Binbin Xiang",
+      "Maciej Wielgosz",
+      "Jan Dirk Wegner",
+      "Rasmus Astrup",
+      "Christian Rupprecht",
+      "Konrad Schindler"
+    ],
+    "affiliations": [
+      "ETH Zurich",
+      "University of Oxford",
+      "Norwegian Institute of Bioeconomy Research (NIBIO)",
+      "University of Zurich"
+    ],
+    "placed": [
+      [
+        "Yuanwen Yue",
+        [
+          "ETH Zurich",
+          "University of Oxford"
+        ]
+      ],
+      [
+        "Stefano Puliti",
+        [
+          "Norwegian Institute of Bioeconomy Research (NIBIO)",
+          "University of Oxford"
+        ]
+      ],
+      [
+        "Damien Robert",
+        [
+          "University of Zurich",
+          "University of Oxford"
+        ]
+      ],
+      [
+        "Atakan Topaloğlu",
+        [
+          "ETH Zurich"
+        ]
+      ],
+      [
+        "Binbin Xiang",
+        [
+          "Norwegian Institute of Bioeconomy Research (NIBIO)"
+        ]
+      ],
+      [
+        "Maciej Wielgosz",
+        [
+          "Norwegian Institute of Bioeconomy Research (NIBIO)"
+        ]
+      ],
+      [
+        "Jan Dirk Wegner",
+        [
+          "University of Zurich"
+        ]
+      ],
+      [
+        "Rasmus Astrup",
+        [
+          "Norwegian Institute of Bioeconomy Research (NIBIO)"
+        ]
+      ],
+      [
+        "Christian Rupprecht",
+        [
+          "University of Oxford"
+        ]
+      ],
+      [
+        "Konrad Schindler",
+        [
+          "ETH Zurich"
+        ]
+      ]
+    ],
+    "abstract": "Forest inventories increasingly rely on artificial intelligence (AI) models to derive forest attributes from large-scale 3D point clouds. Current models are typically specialized to a single task, sensor, and forest type, making adaptation expensive in terms of annotations, computation, and expertise. We ask whether a single pretrained model can instead learn transferable representations across diverse forest inventory settings. Inspired by recent developments in language modelling and computer vision, we take a step toward a foundation model (FM) for 3D forestry. Using LitePT as backbone, we first establish a strong supervised baseline that sets a new state of the art on forest semantic and instance segmentation, tree species classification, and age regression benchmarks. We then curate a large-scale unlabelled corpus spanning airborne, UAV, and mobile laser scanning across diverse forest ecosystems, and pretrain the same backbone using self-supervised learning. We systematically evaluate representation learning strategies by comparing training from scratch, supervised pretraining, and self-supervised pretraining across four representative forestry tasks, under varying annotation budgets. Compared with training from scratch, self-supervised pretraining accelerates model convergence and consistently improves performance when annotations are scarce. Compared with task-specific supervised pretraining, self-supervised pretraining yields more transferable representations across downstream forestry tasks. These findings identify the practical regime in which pretrained representations are most valuable and suggest that instance discrimination, rather than forest semantics, is the main remaining obstacle to a general-purpose 3D forest foundation model. Code and models are available at: https://github.com/prs-eth/ForPT."
+  },
+  "2609.25108": {
+    "authors": [
+      "Khoa Pham-Dinh",
+      "Sanaz Nami",
+      "Hamed Rezazadegan Tavakoli",
+      "Moncef Gabbouj",
+      "Farhad Pakdaman"
+    ],
+    "affiliations": [
+      "Tampere University",
+      "Nokia Technologies"
+    ],
+    "placed": [
+      [
+        "Khoa Pham-Dinh",
+        [
+          "Tampere University"
+        ]
+      ],
+      [
+        "Sanaz Nami",
+        [
+          "Tampere University"
+        ]
+      ],
+      [
+        "Hamed Rezazadegan Tavakoli",
+        [
+          "Nokia Technologies"
+        ]
+      ],
+      [
+        "Moncef Gabbouj",
+        [
+          "Tampere University"
+        ]
+      ],
+      [
+        "Farhad Pakdaman",
+        [
+          "Nokia Technologies"
+        ]
+      ]
+    ],
+    "abstract": "Visual data is increasingly consumed by machine-vision systems rather than by human observers. Image Coding for Machines (ICM) compresses images assuming the main observer is a computer vision application and that the human observer needs to inspect or validate the decisions. Inspired by just-noticeable distortion, which sets the quality to the just-acceptable level for human observers, we aim to cap the human-observed quality at a desired level, with the goal of using the remaining coding capacity to improve the machine performance. We recast joint compression-segmentation training as a constrained optimization problem in which the codec must meet a predefined acceptable target visual quality while a task term consumes the remaining coding capacity. We solve this by designing a penalty function to guide the quality to the desired target. We propose two penalty functions, an absolute function and a bilinear function, the latter applying a steeper slope once the target visual quality is exceeded. Experimental results show that, under the quality constraint, the proposed method achieves a BD-rate of $-22.82\\%$ over an unconstrained joint rate–distortion–task optimization and $-29.81\\%$ over a simple rate–distortion baseline, showcasing bitrate reduction with the same task performance. This is achieved while the codec also meets the target visual quality with a reasonable error and without adding any complexity overhead."
+  },
+  "2609.25615": {
+    "authors": [
+      "Hongxuan Chen",
+      "Wenda Wang",
+      "Jiachen Lu",
+      "Qirui Shen",
+      "Zilong Huang",
+      "Lei He",
+      "Xinyue Dong",
+      "Weixin Huang"
+    ],
+    "affiliations": [],
+    "placed": null,
+    "abstract": null
+  },
+  "2609.26161": {
+    "authors": [
+      "Ignacio Bugueno-Cordova",
+      "Javier Ruiz-del-Solar",
+      "Rodrigo Verschae"
+    ],
+    "affiliations": [
+      "Department of Electrical Engineering, University of Chile, Santiago, Chile",
+      "Advanced Mining Technology Center (AMTC), University of Chile, Santiago, Chile",
+      "The Iniciativa de Datos e Inteligencia Artificial, University of Chile, Santiago, Chile"
+    ],
+    "placed": null,
+    "abstract": "Estimating the 6D pose of moving objects remains challenging due to motion blur and the limited temporal resolution of conventional frame-based cameras. Existing event-based datasets further provide limited sensing modalities, annotations, and motion scenarios. We introduce Moving6DPoSe, a multimodal database comprising two complementary subsets: Moving6DPoSe-R with real-world recordings and Moving6DPoSe-S with synthetic sequences generated from the same objects. The dataset contains 16 scanned objects and 1,702 real and synthetic rosbags spanning multiple motion scenarios, with annotations for semantic segmentation, object detection, and monocular 6D pose estimation. We further provide baseline results for all three tasks across frame and event-based modalities. Experimental results show that event-based representations achieve more robust moving-object segmentation than conventional RGB images, while monocular orientation estimation remains challenging, highlighting the potential of Moving6DPoSe for moving-object perception research."
+  },
+  "2609.26512": {
+    "authors": [
+      "Shashank Baghel",
+      "Kshitij Dwivedi",
+      "Dinesh Singh",
+      "Sanjeev Nara"
+    ],
+    "affiliations": [
+      "Centre for Human-Computer Interaction, Indian Institute of Technology, Mandi, 175075, Himachal Pradesh, India",
+      "Freie Universität, Berlin, Germany",
+      "Goethe University, Frankfurt, Germany"
+    ],
+    "placed": [
+      [
+        "Shashank Baghel",
+        [
+          "Centre for Human-Computer Interaction, Indian Institute of Technology, Mandi, 175075, Himachal Pradesh, India"
+        ]
+      ],
+      [
+        "Kshitij Dwivedi",
+        null
+      ],
+      [
+        "Dinesh Singh",
+        [
+          "Freie Universität, Berlin, Germany",
+          "Goethe University, Frankfurt, Germany"
+        ]
+      ],
+      [
+        "Sanjeev Nara",
+        null
+      ]
+    ],
+    "abstract": "Convolutional neural networks (CNNs) and vision transformers are both used to model the human visual system, but whether the two architectures diverge at a specific point in network depth is unclear. We compared six CNNs and two vision transformers by computing the Pearson correlation ($r$) between each model’s predicted and measured EEG response at every layer or block, in ten participants viewing 200 natural images. For the transformer models, we also tested four token representations, from the classification (CLS) token alone to CLS combined with all patch tokens. CNNs showed strongest correspondence at the earliest layers, weakening at deeper layers, particularly later in the post-stimulus response. Transformers instead sustained strong correspondence at their deepest blocks, though not at their earliest ones. This advantage depended on token representation: pooled representations gave weaker peak correlations ($r{\\approx}0.48$–$0.51$) than representations retaining all patch tokens ($r{=}0.640$ for CLIP-ViT-B/32, $r{=}0.656$ for DINOv2-ViT-B/14). Controlled comparisons showed architecture, not training objective, drove this effect: MoCo-v1 and ResNet-50 (matched architecture) performed nearly identically ($r{=}0.673$, $0.670$), whereas CLIP-RN50 and CLIP-ViT-B/32 (matched objective) diverged until patch tokens were preserved. We propose that CNN training’s classification bottleneck compresses brain-relevant information at depth, unlike transformers’ self-attention and non-classification objectives. A spatial topography analysis showed a common occipital-dominant pattern across all models, indicating these differences reflect signal strength and persistence rather than distinct brain regions. Patch-preserving transformer representations sustain brain-predictive correspondence where CNNs collapse."
+  },
+  "2609.28473": {
+    "authors": [
+      "Chao Feng",
+      "Zhiyang Xu",
+      "Bowei Chen",
+      "Yuanjun Xiong",
+      "Xiyao Wang",
+      "Jui-Hsien Wang",
+      "Richard Zhang",
+      "Zhe Lin",
+      "Andrew Owens",
+      "Yijun Li"
+    ],
+    "affiliations": [
+      "Cornell University",
+      "Adobe",
+      "Virginia Tech",
+      "University of Washington",
+      "University of Maryland"
+    ],
+    "placed": null,
+    "abstract": null
+  },
+  "2609.29347": {
+    "authors": [
+      "Yunfan Lu",
+      "Mingchao Xu",
+      "Hanyu Zhou",
+      "Shaoyu Liu",
+      "Haoyue Liu",
+      "Peiqi Duan",
+      "Shihan Peng",
+      "Yinqiang Zheng",
+      "Boxin Shi",
+      "Gim Hee Lee",
+      "Hui Xiong",
+      "Davide Scaramuzza"
+    ],
+    "affiliations": [],
+    "placed": null,
+    "abstract": null
+  },
+  "2609.29350": {
+    "authors": [
+      "Yuling Jiao",
+      "Wensen Ma",
+      "Houduo Qi",
+      "Defeng Sun"
+    ],
+    "affiliations": [
+      "School of Artificial Intelligence, National Center for Applied Mathematics in Hubei, Hubei Key Laboratory of Computational Science, Wuhan University, Wuhan, China",
+      "Department of Applied Mathematics, The Hong Kong Polytechnic University, Hung Hom, Kowloon, Hong Kong SAR, China",
+      "Department of Data Science and Artificial Intelligence, The Hong Kong Polytechnic University, Hung Hom, Kowloon, Hong Kong SAR, China"
+    ],
+    "placed": [
+      [
+        "Yuling Jiao",
+        [
+          "School of Artificial Intelligence, National Center for Applied Mathematics in Hubei, Hubei Key Laboratory of Computational Science, Wuhan University, Wuhan, China"
+        ]
+      ],
+      [
+        "Wensen Ma",
+        [
+          "Department of Applied Mathematics, The Hong Kong Polytechnic University, Hung Hom, Kowloon, Hong Kong SAR, China"
+        ]
+      ],
+      [
+        "Houduo Qi",
+        [
+          "Department of Data Science and Artificial Intelligence, The Hong Kong Polytechnic University, Hung Hom, Kowloon, Hong Kong SAR, China",
+          "Department of Applied Mathematics, The Hong Kong Polytechnic University, Hung Hom, Kowloon, Hong Kong SAR, China"
+        ]
+      ],
+      [
+        "Defeng Sun",
+        [
+          "Department of Applied Mathematics, The Hong Kong Polytechnic University, Hung Hom, Kowloon, Hong Kong SAR, China"
+        ]
+      ]
+    ],
+    "abstract": "Explicit geometric references offer a direct way to structure self-supervised representations. Existing adversarial distribution-matching formulations, however, require costly encoder–critic optimization (Jiao et al., 2026). We introduce Flow-Based Distribution Matching (FBDM), a non-adversarial framework that learns this reference-directed geometry through spherical conditional velocity regression. An ETF-inspired reference allows its number of components $K^{\\prime}$ to exceed the auxiliary flow dimension $d^{\\star}$ while retaining structured geometric separation. We assign both augmented views of each image to the same target, while limiting how many images each reference center can receive. An explicit alignment loss further pulls the two views’ representations closer together. Experiments across benchmarks ranging from CIFAR to ImageNet show that FBDM achieves performance nearly on par with DM and remains competitive with existing SSL methods. Matched training-cost comparisons show a 1.48–1.83$\\times$ speedup over DM with a negligible increase in GPU memory usage. We also provide a theoretical explanation for the usefulness of the learned representations: under stated conditions, we bound the downstream misclassification rate in terms of the FBDM pretraining loss."
+  },
+  "2609.29384": {
+    "authors": [
+      "Changqing Gong",
+      "Huafeng Qin",
+      "Mounîm A. El-Yacoubi"
+    ],
+    "affiliations": [
+      "Telecom SudParis, Institut Polytechnique de Paris, 91120 Palaiseau, France",
+      "School of Computer Science and Information Engineering, Chongqing Technology and Business University, Chongqing 400067, China"
+    ],
+    "placed": [
+      [
+        "Changqing Gong",
+        [
+          "Telecom SudParis, Institut Polytechnique de Paris, 91120 Palaiseau, France"
+        ]
+      ],
+      [
+        "Huafeng Qin",
+        [
+          "School of Computer Science and Information Engineering, Chongqing Technology and Business University, Chongqing 400067, China"
+        ]
+      ],
+      [
+        "Mounîm A. El-Yacoubi",
+        [
+          "Telecom SudParis, Institut Polytechnique de Paris, 91120 Palaiseau, France"
+        ]
+      ]
+    ],
+    "abstract": "Online handwriting provides a non-invasive and low-cost behavioral biomarker for Alzheimer’s disease (AD) detection, as it reflects both cognitive planning and fine motor control. Existing handwriting-based AD detection methods usually rely on global trajectory features or whole-sample representations, which can be strongly affected by individual writing style, task-specific variation, and acquisition noise. In this paper, we propose NormPaST-Risk, a healthy-normative Paper-Air selective trajectory state-space risk network for interpretable AD detection from online handwriting. Instead of treating the entire trajectory as a single holistic representation, our method reformulates AD handwriting detection as local disease-relevant segment discovery. Specifically, a multi-scale temporal encoder captures stroke dynamics at different temporal resolutions, while a selective Paper-Air state-space encoder models long-range handwriting progression and distinguishes on-paper motor execution from in-air planning and transition behaviors. To explicitly characterize abnormal deviations, a healthy normative branch learns normal handwriting dynamics from healthy controls, and a task-aware multi-expert segment-risk module estimates segment-level AD risk calibrated by hidden-state changes and normative deviations. A weakly supervised segment-level objective further enables high-risk segment discovery without manual segment annotations. Experiments on the DARWIN benchmark demonstrate that the proposed framework achieves superior AD/HC classification performance compared with existing methods. Moreover, the discovered high-risk segments can be projected back to the original handwriting trajectory, providing interpretable evidence associated with AD-related handwriting variations."
+  },
+  "2609.29650": {
+    "authors": [
+      "David Chushig-Muzo",
+      "Luis M. López-Ramos",
+      "Ángeles Rodríguez de Cara",
+      "Eva Milara",
+      "Luis Zhinin-Vera",
+      "Diego H. Peluffo-Ordóñez"
+    ],
+    "affiliations": [
+      "Department of Signal Theory and Communications, Telematics and Computing Systems, Rey Juan Carlos University (URJC), Madrid, Spain",
+      "LoUISE Research Group, University of Castilla-La Mancha, Albacete, Spain",
+      "School of Mathematical and Computational Sciences, Yachay Tech University, Ecuador"
+    ],
+    "placed": [
+      [
+        "David Chushig-Muzo",
+        [
+          "Department of Signal Theory and Communications, Telematics and Computing Systems, Rey Juan Carlos University (URJC), Madrid, Spain"
+        ]
+      ],
+      [
+        "Luis M. López-Ramos",
+        [
+          "Department of Signal Theory and Communications, Telematics and Computing Systems, Rey Juan Carlos University (URJC), Madrid, Spain"
+        ]
+      ],
+      [
+        "Ángeles Rodríguez de Cara",
+        [
+          "Department of Signal Theory and Communications, Telematics and Computing Systems, Rey Juan Carlos University (URJC), Madrid, Spain"
+        ]
+      ],
+      [
+        "Eva Milara",
+        [
+          "Department of Signal Theory and Communications, Telematics and Computing Systems, Rey Juan Carlos University (URJC), Madrid, Spain"
+        ]
+      ],
+      [
+        "Luis Zhinin-Vera",
+        [
+          "LoUISE Research Group, University of Castilla-La Mancha, Albacete, Spain"
+        ]
+      ],
+      [
+        "Diego H. Peluffo-Ordóñez",
+        [
+          "School of Mathematical and Computational Sciences, Yachay Tech University, Ecuador"
+        ]
+      ]
+    ],
+    "abstract": "Tabular-to-image encoding methods enable the application of models based on both convolutional neural networks and vision transformers to tabular data, transforming feature vectors into images. Existing methods employ linear and nonlinear dimensionality reduction techniques (e.g., Principal Component Analysis (PCA), t-SNE, and UMAP) to determine pixel positions, resulting in images whose spatial layout do not inherently reflect feature relationships. This paper introduces Visibility Graphs for Tabular-to-Image Encoding (VG-TIE), a novel method that encodes the structure of feature values using Natural Visibility Graph (NVG) and Horizontal Visibility Graph (HVG) into a two-dimensional space obtained through PCA. The resulting images are model-agnostic and intrinsically interpretable. Each pixel corresponds to an input feature, its intensity reflects the magnitude and direction of deviation from the population mean, and edges represent formally defined visibility relationships between features. VG-TIE provides two interpretability methods: (i) feature ranking from node degree distributions; and (ii) local and global feature importance from pixel intensity combined with Grad-CAM. Experiments on six public tabular datasets show that VG-TIE is competitive with other tabular-to-image methods while providing interpretability on feature importance and ranking similar to intrinsic interpretable methods. The results highlight the potential of the proposed image-based transformation to provide an effective framework that expands the use of deep learning across tabular data domains."
+  },
+  "2609.29721": {
+    "authors": [
+      "Toya Oyama",
+      "Rainer Lienhart",
+      "Shin'ichi Satoh"
+    ],
+    "affiliations": [
+      "The University of Tokyo",
+      "National Institute of Informatics",
+      "University of Augsburg"
+    ],
+    "placed": [
+      [
+        "Toya Oyama",
+        [
+          "The University of Tokyo",
+          "National Institute of Informatics"
+        ]
+      ],
+      [
+        "Rainer Lienhart",
+        [
+          "University of Augsburg"
+        ]
+      ],
+      [
+        "Shin'ichi Satoh",
+        [
+          "National Institute of Informatics",
+          "The University of Tokyo"
+        ]
+      ]
+    ],
+    "abstract": "Text-to-video retrieval usually represents a video clip by a single embedding. This embedding often loses important relations between people. E.g., an interaction “Anna confronts Mark” is regularly filmed as alternating shot and reverse shot of both (Fig. 1a). No single shot or averaged embedding over clip shots captures this relation. Thus, we propose SALI (Shot-Aware Late Interaction). It extracts the subject and object from a single-sentence query, and matches the query, its subject and object text embeddings against each visual shot embedding of a video clip. The matching operator is greedy max or optimal transport. A film-grammar penalty in fine-tuning adds a small, consistent shift. Built on CLIP4Clip-meanP, SALI keeps overall recall on par on Condensed Movies and ActivityNet while raising R@1 on multi-shot relation queries by 3 and 12 points, the most among all compared methods, and improves such queries on MSR-VTT at a cost of 1.4 R@1 overall."
+  },
+  "2609.29825": {
+    "authors": [
+      "Xiaohan Yuan",
+      "Xuan Yang",
+      "Qingya Li",
+      "Yangang Wang",
+      "Lei Li"
+    ],
+    "affiliations": [
+      "Department of Biomedical Engineering, National University of Singapore, Singapore",
+      "School of Automation, Southeast University, Nanjing, China"
+    ],
+    "placed": [
+      [
+        "Xiaohan Yuan",
+        [
+          "Department of Biomedical Engineering, National University of Singapore, Singapore",
+          "School of Automation, Southeast University, Nanjing, China"
+        ]
+      ],
+      [
+        "Xuan Yang",
+        [
+          "Department of Biomedical Engineering, National University of Singapore, Singapore"
+        ]
+      ],
+      [
+        "Qingya Li",
+        [
+          "Department of Biomedical Engineering, National University of Singapore, Singapore"
+        ]
+      ],
+      [
+        "Yangang Wang",
+        [
+          "School of Automation, Southeast University, Nanjing, China"
+        ]
+      ],
+      [
+        "Lei Li",
+        [
+          "Department of Biomedical Engineering, National University of Singapore, Singapore"
+        ]
+      ]
+    ],
+    "abstract": "Patient-specific 4D myocardial reconstruction from cine MRI supports quantitative functional assessment, regional motion analysis, and simulation-based modeling. However, routinely acquired short-axis (SAX) cine MRI is sparsely sampled along the through-plane direction, making dense and anatomically consistent surface reconstruction challenging. In this study, we propose an anatomy-aligned surface learning framework that parameterizes the epicardial and endocardial surfaces on a shared circumferential-longitudinal UV domain. This formulation converts irregular 3D reconstruction into structured coordinate-field completion with explicit correspondence across subjects and cardiac phases. Sparse SAX contours are encoded as UV observation fields, coverage-aware sampling improves robustness to incomplete slice coverage, and topology- and distortion-aware learning preserves circumferential continuity and local surface quality. Experiments on three public cine MRI datasets showed that the proposed method consistently outperformed representative mesh-based and implicit reconstruction approaches, achieving overall Chamfer distances of $2.887$ mm on ACDC, $2.641$ mm on M&Ms, and $2.810$ mm on M&Ms-2. The reconstructed sequences also preserved ventricular function, with end-diastolic volume and ejection fraction errors of $3.3$ mL and $1.1\\%$, respectively. These results demonstrate that anatomy-aligned UV learning provides an accurate, efficient, and correspondence-aware representation for sparse cine MRI reconstruction and myocardial modeling. The source code will be available at https://github.com/yuan-xiaohan/SAX2MyoSurf."
+  },
+  "2609.30056": {
+    "authors": [
+      "Yang Zhou",
+      "Jiuhong Xiao",
+      "Shizhao Ye",
+      "Long Quang",
+      "Carlos Nieto-Granda",
+      "Giuseppe Loianno"
+    ],
+    "affiliations": [
+      "New York University, New York, USA",
+      "Department of Electrical Engineering and Computer Sciences, University of California, Berkeley, CA 94720, USA",
+      "U.S. Army Combat Capabilities Development Command, Army Research Laboratory, Adelphi, MD 20783, USA"
+    ],
+    "placed": [
+      [
+        "Yang Zhou",
+        [
+          "New York University, New York, USA"
+        ]
+      ],
+      [
+        "Jiuhong Xiao",
+        [
+          "New York University, New York, USA",
+          "Department of Electrical Engineering and Computer Sciences, University of California, Berkeley, CA 94720, USA"
+        ]
+      ],
+      [
+        "Shizhao Ye",
+        [
+          "Department of Electrical Engineering and Computer Sciences, University of California, Berkeley, CA 94720, USA"
+        ]
+      ],
+      [
+        "Long Quang",
+        [
+          "New York University, New York, USA",
+          "U.S. Army Combat Capabilities Development Command, Army Research Laboratory, Adelphi, MD 20783, USA"
+        ]
+      ],
+      [
+        "Carlos Nieto-Granda",
+        [
+          "U.S. Army Combat Capabilities Development Command, Army Research Laboratory, Adelphi, MD 20783, USA"
+        ]
+      ],
+      [
+        "Giuseppe Loianno",
+        [
+          "Department of Electrical Engineering and Computer Sciences, University of California, Berkeley, CA 94720, USA"
+        ]
+      ]
+    ],
+    "abstract": "Robotic novel view synthesis (NVS) must recover both visual appearance and metric 3D structure, yet most generative NVS methods rely only on images, overlooking LiDAR, a complementary sensor common on robotic platforms. We present M3GD, a Camera–LiDAR multimodal representation for generative NVS that composes independently pretrained 2D image and 3D point-cloud foundation models without separately pretraining a cross-modal translator. We show that, after camera projection, frozen LiDAR and image features exhibit substantial shared spatial structure, providing a natural cross-modal representation. M3GD conditions generation on LiDAR through this structure: it combines explicit geometry statistics with learned point-cloud descriptors into view-aligned packets on the image-latent grid, injected through a lightweight residual adapter into a multi-view flow-matching generator whose latent space, decoders, and training objective remain intact. On the GrandTour dataset, M3GD improves target-view RGB and depth synthesis over an image-only version of the same backbone. Ablations show that the gains come from pixel-aligned LiDAR content and that target-view LiDAR acts as a geometric query linking the requested view to source observations. Deployment on a ground robot demonstrates practical real-world operation, with a configurable quality–cost trade-off controlled by the number of Euler integration steps."
+  },
+  "2609.30234": {
+    "authors": [
+      "Ding-Jiun Huang",
+      "Yuanhao Wang",
+      "Cheng Zhang",
+      "Hugo Bertiche",
+      "Alexandru-Eugen Ichim",
+      "Thabo Beeler",
+      "Fernando De la Torre"
+    ],
+    "affiliations": [
+      "Carnegie Mellon University, United States of America",
+      "University of Washington, United States of America",
+      "Texas A&M University, United States of America",
+      "Google, United States of America",
+      "Google, Switzerland"
+    ],
+    "placed": [
+      [
+        "Ding-Jiun Huang",
+        [
+          "Carnegie Mellon University, United States of America"
+        ]
+      ],
+      [
+        "Yuanhao Wang",
+        [
+          "University of Washington, United States of America"
+        ]
+      ],
+      [
+        "Cheng Zhang",
+        [
+          "Texas A&M University, United States of America"
+        ]
+      ],
+      [
+        "Hugo Bertiche",
+        [
+          "Google, United States of America"
+        ]
+      ],
+      [
+        "Alexandru-Eugen Ichim",
+        [
+          "Google, Switzerland"
+        ]
+      ],
+      [
+        "Thabo Beeler",
+        [
+          "Google, Switzerland"
+        ]
+      ],
+      [
+        "Fernando De la Torre",
+        [
+          "Carnegie Mellon University, United States of America"
+        ]
+      ]
+    ],
+    "abstract": null
+  },
+  "2609.30249": {
+    "authors": [
+      "Yuyao Liu",
+      "Jiayuan Mao",
+      "David Hsu",
+      "Leslie Pack Kaelbling",
+      "Tomás Lozano-Pérez"
+    ],
+    "affiliations": [
+      "Massachusetts Institute of Technology",
+      "National University of Singapore",
+      "University of Pennsylvania",
+      "NVIDIA"
+    ],
+    "placed": [
+      [
+        "Yuyao Liu",
+        [
+          "Massachusetts Institute of Technology",
+          "National University of Singapore"
+        ]
+      ],
+      [
+        "Jiayuan Mao",
+        null
+      ],
+      [
+        "David Hsu",
+        [
+          "Massachusetts Institute of Technology",
+          "National University of Singapore",
+          "University of Pennsylvania",
+          "NVIDIA"
+        ]
+      ],
+      [
+        "Leslie Pack Kaelbling",
+        null
+      ],
+      [
+        "Tomás Lozano-Pérez",
+        null
+      ]
+    ],
+    "abstract": "Coding agents have demonstrated enormous success in solving complex programming problems. To leverage their potential for robot systems, this work introduces Robot Agentic Programming from Demonstrations (RAPID), which automatically generates, verifies, and refines robot programs, given a single visual human demonstration. The iterative agentic loop of code refinement requires several key ingredients: (i) a testable task specification, (ii) action primitives for robot execution, and (iii) an interactive environment for program execution and verification. RAPID infers all three from the demonstration automatically. To make the resulting program reusable beyond the demonstration setting, RAPID uses an object-centric relational program representation that focuses on the underlying structure of the demonstrated strategy rather than the specific motion per se: it expresses the action primitives as trajectory-optimization programs that realize object-level motion effects, while composing them through relational constraints that capture scene-specific geometry at run time. We evaluated RAPID in simulation on eight challenging contact-rich nonprehensile manipulation tasks as well as general prehensile manipulation tasks in the LIBERO-Pro benchmark. We also successfully deployed it on a real Franka arm and evaluated on all eight nonprehensile tasks. In all experiments, RAPID demonstrated strong performance, with generalization over object pose, shape, material, and environment. Website: https://yuyaoliu.me/projects/rapid."
+  },
+  "2609.36458": {
+    "authors": [
+      "Abdullah All Tanvir",
+      "Xin Zhong"
+    ],
+    "affiliations": [
+      "Department of Computer Science",
+      "University of Nebraska Omaha, Omaha, NE, USA"
+    ],
+    "placed": null,
+    "abstract": "Semantic-preserving transformations can induce substantial motion in learned representations, while small changes may strongly affect model predictions, raising a basic question: what local metric best captures semantically consequential variation? We propose Fisher-induced invariant representation geometry (Fisher-IRG), which measures local representation directions through their predictive sensitivity. Around each representation, we construct semantic-preserving and semantic-changing neighborhoods, aggregate their local Fisher information, and recover invariant directions through a contrastive generalized eigenvalue problem. Controlled displacement analyses first show that comparable Euclidean motion can have substantially different predictive consequences, supporting the need for a predictive geometry. Across language and vision models, Fisher-IRG yields stronger semantic-versus-nuisance predictive selectivity and generally more reproducible subspaces than covariance-based geometry, while recovering systematically distinct local directions. Representation interventions further localize semantic effects to the Fisher-derived subspace, and held-out separation and retrieval show that the recovered geometry generalizes beyond the discovery neighborhoods. These results support Fisher-IRG as a principled framework for characterizing local invariant representation geometry."
+  },
+  "2609.37030": {
+    "authors": [
+      "Jiahao Zhan",
+      "Yongrui Ma",
+      "Qunliang Xing",
+      "Xuanyu Zhang",
+      "Jingqi Tong",
+      "Junlin Li",
+      "Li zhang",
+      "Shijie Zhao",
+      "Tianfan Xue"
+    ],
+    "affiliations": [
+      "MMLab, CUHK",
+      "ByteDance Inc",
+      "Peking University",
+      "Fudan University",
+      "CPII under InnoHK"
+    ],
+    "placed": [
+      [
+        "Jiahao Zhan",
+        [
+          "MMLab, CUHK",
+          "ByteDance Inc"
+        ]
+      ],
+      [
+        "Yongrui Ma",
+        [
+          "MMLab, CUHK",
+          "ByteDance Inc"
+        ]
+      ],
+      [
+        "Qunliang Xing",
+        [
+          "ByteDance Inc"
+        ]
+      ],
+      [
+        "Xuanyu Zhang",
+        [
+          "Peking University"
+        ]
+      ],
+      [
+        "Jingqi Tong",
+        [
+          "Fudan University"
+        ]
+      ],
+      [
+        "Junlin Li",
+        [
+          "ByteDance Inc"
+        ]
+      ],
+      [
+        "Li zhang",
+        [
+          "ByteDance Inc"
+        ]
+      ],
+      [
+        "Shijie Zhao",
+        [
+          "ByteDance Inc"
+        ]
+      ],
+      [
+        "Tianfan Xue",
+        [
+          "MMLab, CUHK",
+          "CPII under InnoHK"
+        ]
+      ]
+    ],
+    "abstract": "Despite rapid progress in video generation models, they still exhibit obvious motion deficiencies, often manifested as incorrect object motion. However, most existing video quality evaluations focus on aesthetic quality or text-video alignment. To address this gap, we study object-centric motion fidelity assessment, evaluating target objects along object consistency, motion continuity, and physical plausibility. To achieve this, we first introduce VidMotion, a diagnostic dataset of 6,879 videos with designated moving objects and fine-grained annotations including dimension-wise scores and failure causes. We further propose MotionInsight, a diagnostic evaluator that shifts assessment from implicit RGB-frame observation to explicit motion-space diagnosis. By constructing motion-aware representations, MotionInsight makes subtle motion deficiencies more observable. We also introduce motion-specific rewards during GRPO to transform observed motion into a diagnostic assessment. Experiments demonstrate that MotionInsight provides an effective basis for diagnosing object motion deficiencies, producing human-aligned scores along three dimensions and grounded explanations. The code is publicly available at https://github.com/JohnZhan2023/MotionInsight."
+  },
+  "2609.37046": {
+    "authors": [
+      "Katharina Winter",
+      "Stefan Englmeier",
+      "Fabian B. Flohr"
+    ],
+    "affiliations": [
+      "Munich University of Applied Sciences, Intelligent Vehicles Lab (IVL), 80335 Munich, Germany"
+    ],
+    "placed": [
+      [
+        "Katharina Winter",
+        [
+          "Munich University of Applied Sciences, Intelligent Vehicles Lab (IVL), 80335 Munich, Germany"
+        ]
+      ],
+      [
+        "Stefan Englmeier",
+        [
+          "Munich University of Applied Sciences, Intelligent Vehicles Lab (IVL), 80335 Munich, Germany"
+        ]
+      ],
+      [
+        "Fabian B. Flohr",
+        [
+          "Munich University of Applied Sciences, Intelligent Vehicles Lab (IVL), 80335 Munich, Germany"
+        ]
+      ]
+    ],
+    "abstract": "Vision-Language Models (VLMs) are increasingly used in autonomous-driving systems, yet their ability to recover dynamic physical state from visual input remains insufficiently characterized. We study velocity understanding as a controlled diagnostic across three tasks: surrounding-agent speed, current ego speed, and short-horizon future ego-speed proposal. On nuScenes, we evaluate open-weight general-purpose and Physical-AI VLMs, together with the driving-oriented Alpamayo-1.5 Vision-Language-Action model (VLA), using multiple input and output formulations. We combine verbal evaluation with temporal perturbations, counterfactual ego-speed hints and linear probes of hidden representations. The tasks exhibit distinct failure modes. Surrounding-agent speed is weakly encoded in an agent-specific form, whereas current ego speed is often internally accessible but poorly verbalized: continuous probes achieve 4.7–5.8 km/h Mean Absolute Error (MAE) compared with 10.2–16.8 km/h MAE for verbal outputs. Multiple frames provide inconsistent verbal gains to single frame inputs, and frame order is rarely exploited. Under non-optimized Quantized Low-Rank Adaptation (QLoRA), task-specific adaptation improves both task-relevant latent speed representations and verbal readout, but continuous surrounding-agent speed estimation remains weak, while most future-speed gains survive frame shuffling, indicating limited temporal grounding. Driving specialized Alpamayo-1.5 shows stronger latent representations for surrounding-agent and future ego speed, while current ego-speed decodability is comparable and substantial probe–verbal gaps remain. Thus, driving specialization can strengthen motion representations but does not guarantee stronger encoding across both scene and ego states or reliable readout. The results show that plausible planning outputs do not necessarily imply reliable recovery or temporal grounding of the underlying dynamic state."
+  },
+  "2609.38153": {
+    "authors": [
+      "Trong-Tung Nguyen",
+      "Anand Bhattad"
+    ],
+    "affiliations": [
+      "Johns Hopkins University"
+    ],
+    "placed": [
+      [
+        "Trong-Tung Nguyen",
+        null
+      ],
+      [
+        "Anand Bhattad",
+        [
+          "Johns Hopkins University"
+        ]
+      ]
+    ],
+    "abstract": "We introduce PowerSim, a method to bring physically grounded, differentiable dynamics to PowerFoam’s power diagram based 3D representation. PowerSim directly couples a pre-trained PowerFoam scene to the Material Point Method (MPM) by exploiting a natural alignment between the two: the geometric and appearance properties of each primitive correspond closely to the quantities MPM already tracks as an object deforms. Consequently, simulated motion can drive the scene’s geometry and appearance directly, without an auxiliary representation in between. Built on this framework, we enable a range of applications on real and synthetic scenes: (1) simulating a static scene under user interaction, (2) recovering spatially varying material fields, (3) compositing primitives from independently captured scenes into a single simulation-ready scene and (4) ray-tracing reflections that update consistently as the object deforms. Our results suggest that PowerSim excels over previous frameworks for physically grounded dynamics, while unlocking unique advantages—such as secondary ray lighting effects on dynamic scenes. Results are best viewed on our project website: https://power-sim.github.io/"
+  },
+  "2609.38180": {
+    "authors": [
+      "Hao-Tang Tsui",
+      "Yu-Rou Tuan",
+      "Xiaoxuan Ma",
+      "Nicolas Ugrinovic",
+      "Takaaki Shiratori",
+      "Kris Kitani"
+    ],
+    "affiliations": [
+      "Carnegie Mellon University"
+    ],
+    "placed": null,
+    "abstract": "Existing 3D part decomposition methods do not necessarily partition the original shape into non-overlapping parts that collectively cover the entire shape, allowing overlaps or gaps that hinder downstream part-level applications. We instead formulate part decomposition as a joint partitioning of the entire shape, in which the predicted parts are non-overlapping and collectively reconstruct the entire shape. Our key insight is that part decomposition should consider all desired parts jointly, rather than modeling each part independently. To this end, we develop a promptable model for 3D part decomposition from images or meshes. Users can specify desired parts through 3D point prompts for controllable decomposition. Given one point prompt per desired part, our model produces the corresponding parts as a complete partition of the entire shape. We build on a pretrained 3D generation model and first obtain a shape latent from either an input image or mesh. We then introduce a prompt encoder that maps each 3D point prompt to a part token while attending to the shape latent. To decode the desired parts, we propose a novel part decoder that jointly scores the entire shape against all part tokens in a coarse-to-fine manner, assigning every position within the shape volume to exactly one part. We perform part decomposition in this shared shape latent space, enabling a unified model for image-to-part generation, mesh-to-part generation, and part segmentation. Our method outperforms existing works on all part-quality metrics across all three tasks, and improves compatibility among parts by an order of magnitude over previous SOTA methods. Code is available at https://henrytsui000.github.io/Point2Part."
+  }
+}

@@ -98,7 +98,7 @@ audit). The archive is unchanged: 22,071 papers, 11,621 affiliated.
 | DATA-1 | Layers 2 and 3: `EXTRACTOR_VERSION`, `reextract`, front-matter cache (in the Actions cache, decision 4) | P1 | done |
 | AFF-Q | Affiliation quality section in `stats` | P2 | done |
 | TEST-4 | Negative tests for the heuristics | P2 | todo |
-| TEST-5 | Golden fixture expectations | P2 | todo |
+| TEST-5 | Golden fixture expectations | P2 | done |
 | DOC-1 | Symptom-first operations runbook | P2 | todo |
 | REL-3 | License and data terms (MIT for the code; the Semantic Scholar terms are read before going public) | P2 | done |
 
