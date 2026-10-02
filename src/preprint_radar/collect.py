@@ -17,7 +17,13 @@ from preprint_radar.exceptions import FetchError, ParseError
 from preprint_radar.http import HttpClient
 from preprint_radar.models import Paper
 from preprint_radar.sources.arxiv_api import fetch_metadata
-from preprint_radar.sources.arxiv_html import FrontMatter, fetch_front_matter, name_key
+from preprint_radar.sources.arxiv_html import (
+    EXTRACTOR_VERSION,
+    FrontMatter,
+    PageCache,
+    fetch_front_matter,
+    name_key,
+)
 from preprint_radar.sources.arxiv_listing import fetch_catchup, fetch_listing
 from preprint_radar.sources.arxiv_rss import fetch_rss_abstracts
 from preprint_radar.sources.ror import match_institutions
@@ -44,6 +50,25 @@ class Stop(StrEnum):
     """arxiv.org failed page after page."""
     LAYOUT = "layout"
     """Nearly every page gave no affiliation: their papers wait for the next run."""
+
+
+@dataclass(frozen=True, slots=True)
+class HtmlReading:
+    """How the HTML pages of a run are read.
+
+    Attributes:
+        limit: Pages to download at most (``None``: no limit, ``0``: none). Pages the
+            cache holds are read from it, and do not count.
+        save_every: Save progress after this many pages.
+        deadline: ``time.monotonic()`` value after which no page is started, so that the
+            run ends cleanly before it is killed (``None``: no deadline).
+        cache: Pages read before (their front matter); pages downloaded are added to it.
+    """
+
+    limit: int | None = None
+    save_every: int = DEFAULT_SAVE_EVERY
+    deadline: float | None = None
+    cache: PageCache | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -85,10 +110,8 @@ def update_category(
     site_client: HttpClient,
     api_client: HttpClient,
     ror_client: HttpClient | None = None,
-    max_html_fetches: int | None = None,
     max_ror_lookups: int | None = DEFAULT_MAX_ROR_LOOKUPS,
-    save_every: int = DEFAULT_SAVE_EVERY,
-    deadline: float | None = None,
+    html: HtmlReading | None = None,
 ) -> UpdateReport:
     """Fetch the recent listing of ``category``, enrich new papers and store them.
 
@@ -103,12 +126,8 @@ def update_category(
         api_client: Client for the arXiv API.
         ror_client: Client for the Research Organization Registry, to name the
             institutions of the affiliations (``None``: skip).
-        max_html_fetches: Maximum number of HTML pages to download (``None``: no limit,
-            ``0``: skip affiliation extraction from HTML).
         max_ror_lookups: Maximum number of affiliation strings to look up in ROR.
-        save_every: Save progress after this many HTML downloads.
-        deadline: ``time.monotonic()`` value after which no HTML page is started, so that
-            the run ends cleanly before it is killed (``None``: no deadline).
+        html: How HTML pages are read (limit, saves, deadline, cache).
 
     Returns:
         A summary of the run.
@@ -130,10 +149,8 @@ def update_category(
     read = _add_html_front_matter(
         papers,
         site_client,
-        limit=max_html_fetches,
+        reading=html or HtmlReading(),
         checkpoint=lambda current: store.save(category, current),
-        save_every=save_every,
-        deadline=deadline,
     )
     papers = read.papers
     abstracts_fetched += read.abstracts
@@ -161,10 +178,8 @@ def backfill_category(
     store: PaperStore,
     site_client: HttpClient,
     ror_client: HttpClient | None = None,
-    max_html_fetches: int | None = None,
     max_ror_lookups: int | None = DEFAULT_MAX_ROR_LOOKUPS,
-    save_every: int = DEFAULT_SAVE_EVERY,
-    deadline: float | None = None,
+    html: HtmlReading | None = None,
 ) -> UpdateReport:
     """Collect past announcement days of ``category`` from the catchup pages.
 
@@ -181,12 +196,8 @@ def backfill_category(
         site_client: Client for arxiv.org (catchup and HTML pages).
         ror_client: Client for the Research Organization Registry, to name the
             institutions of the affiliations (``None``: skip).
-        max_html_fetches: Maximum number of HTML pages to download (``None``: no limit,
-            ``0``: skip affiliation extraction from HTML).
         max_ror_lookups: Maximum number of affiliation strings to look up in ROR.
-        save_every: Save progress after this many HTML downloads.
-        deadline: ``time.monotonic()`` value after which no HTML page is started, so that
-            the run ends cleanly before it is killed (``None``: no deadline).
+        html: How HTML pages are read (limit, saves, deadline, cache).
 
     Returns:
         A summary of the run.
@@ -220,10 +231,8 @@ def backfill_category(
     read = _add_html_front_matter(
         papers,
         site_client,
-        limit=max_html_fetches,
+        reading=html or HtmlReading(),
         checkpoint=lambda current: store.save(category, current),
-        save_every=save_every,
-        deadline=deadline,
     )
     papers = read.papers
     if ror_client is not None:
@@ -241,6 +250,81 @@ def backfill_category(
         unreadable=read.unreadable,
         stopped=read.stopped,
     )
+
+
+def reextract_category(
+    category: str,
+    select: Callable[[Paper], bool],
+    *,
+    store: PaperStore,
+    site_client: HttpClient,
+    ror_client: HttpClient | None = None,
+    max_ror_lookups: int | None = DEFAULT_MAX_ROR_LOOKUPS,
+    html: HtmlReading | None = None,
+) -> UpdateReport:
+    """Read again the HTML pages of the stored papers that ``select`` picks.
+
+    For extraction fixes to reach stored papers: pages the cache holds are read from it,
+    the others downloaded within ``html.limit``, the most recent papers first. A paper whose
+    page cannot be read again (a failure, the end of the budget, a layout breaker) keeps
+    what it had; one whose affiliations come back the same keeps its institutions.
+
+    Args:
+        category: arXiv category, e.g. ``"cs.CV"``.
+        select: Which stored papers (with an HTML rendering) to read again.
+        store: The data store.
+        site_client: Client for arxiv.org (HTML pages).
+        ror_client: Client for the Research Organization Registry, to name the
+            institutions of changed affiliations (``None``: skip).
+        max_ror_lookups: Maximum number of affiliation strings to look up in ROR.
+        html: How HTML pages are read (limit, saves, deadline, cache).
+
+    Returns:
+        A summary of the run: ``listed`` is the number of papers selected.
+    """
+    stored = [paper for paper in store.iter_papers(category) if paper.html_url and select(paper)]
+    logger.info("%s: %d papers to extract again", category, len(stored))
+    unread = [
+        replace(paper, affiliations=None, author_affiliations=None, institutions=None, extractor=None)
+        for paper in stored
+    ]
+    read = _add_html_front_matter(
+        unread,
+        site_client,
+        reading=html or HtmlReading(),
+        checkpoint=lambda current: store.save(category, _kept(current, stored)),
+    )
+    papers = _kept(read.papers, stored)
+    if ror_client is not None:
+        papers = add_institutions(papers, ror_client, limit=max_ror_lookups)
+    store.save(category, papers)
+    return UpdateReport(
+        category=category,
+        listed=len(stored),
+        new=0,
+        abstracts_fetched=read.abstracts,
+        affiliations_fetched=read.pages,
+        pending=sum(not paper.is_enriched for paper in papers),
+        empty=read.empty,
+        unreadable=read.unreadable,
+        stopped=read.stopped,
+    )
+
+
+def _kept(read: Sequence[Paper], stored: Sequence[Paper]) -> list[Paper]:
+    """Re-extracted papers, or their stored version where nothing was read.
+
+    Affiliations that come back the same keep their institutions: no lookup is needed.
+    """
+    kept: list[Paper] = []
+    for new, old in zip(read, stored, strict=True):
+        if new.affiliations is None:
+            kept.append(old)
+        elif new.affiliations == old.affiliations:
+            kept.append(replace(new, institutions=old.institutions))
+        else:
+            kept.append(new)
+    return kept
 
 
 def _carry_over(listed: Paper, stored: Paper | None) -> Paper:
@@ -262,10 +346,15 @@ def _carry_over(listed: Paper, stored: Paper | None) -> Paper:
             affiliations=stored.affiliations,
             author_affiliations=stored.author_affiliations,
             institutions=stored.institutions,
+            extractor=stored.extractor,
         )
     if listed.html_url is None:
         return replace(
-            listed, abstract=abstract, affiliations=stored.affiliations, institutions=stored.institutions
+            listed,
+            abstract=abstract,
+            affiliations=stored.affiliations,
+            institutions=stored.institutions,
+            extractor=stored.extractor,
         )
     if stored.affiliations is not None:
         logger.info("%s changed its author list: reading its HTML again", listed.arxiv_id)
@@ -331,6 +420,7 @@ def _add_abstracts(
                 affiliations=meta.affiliations,
                 author_affiliations=None,
                 institutions=None,
+                extractor=None,
             )
             if declared
             else replace(paper, abstract=meta.abstract)
@@ -348,24 +438,33 @@ def _with_abstracts(papers: list[Paper], abstracts: Mapping[str, str]) -> list[P
     ]
 
 
-def _html_todo(papers: Sequence[Paper], limit: int | None) -> list[tuple[int, str]]:
-    """The papers whose HTML page is to be read, as ``(position, url)``, at most ``limit``."""
+def _html_todo(papers: Sequence[Paper], reading: HtmlReading) -> list[tuple[int, str]]:
+    """The papers whose HTML page is to be read, as ``(position, url)``.
+
+    The pages the cache holds come first, all of them; then at most ``reading.limit`` pages
+    to download.
+    """
     todo = [
         (index, url)
         for index, paper in enumerate(papers)
         if paper.affiliations is None and (url := paper.html_url)
     ]
-    if limit is not None:
-        todo = todo[:limit]
-    if todo:
-        logger.info("Reading %d HTML renderings (this is slow on purpose)", len(todo))
-    return todo
+    cache = reading.cache
+    cached = [(index, url) for index, url in todo if cache is not None and url in cache]
+    to_download = [entry for entry in todo if entry not in cached]
+    if reading.limit is not None:
+        to_download = to_download[: reading.limit]
+    if cached:
+        logger.info("Reading %d HTML renderings from the page cache", len(cached))
+    if to_download:
+        logger.info("Reading %d HTML renderings (this is slow on purpose)", len(to_download))
+    return cached + to_download
 
 
-def _front_matter(client: HttpClient, paper: Paper, url: str) -> FrontMatter | None:
+def _front_matter(client: HttpClient, paper: Paper, url: str, cache: PageCache | None) -> FrontMatter | None:
     """The front matter of the paper's HTML page, or ``None`` if it could not be fetched."""
     try:
-        return fetch_front_matter(client, url, authors=paper.authors)
+        return fetch_front_matter(client, url, authors=paper.authors, cache=cache)
     except FetchError as exc:
         logger.warning("Skipping HTML of %s, will retry next run: %s", paper.arxiv_id, exc)
         return None
@@ -379,6 +478,7 @@ def _with_front_matter(paper: Paper, front: FrontMatter) -> Paper:
         author_affiliations=front.author_affiliations,
         institutions=None,
         abstract=paper.abstract if paper.abstract is not None else front.abstract,
+        extractor=EXTRACTOR_VERSION,
     )
 
 
@@ -407,10 +507,8 @@ def _add_html_front_matter(
     papers: Sequence[Paper],
     client: HttpClient,
     *,
-    limit: int | None,
+    reading: HtmlReading,
     checkpoint: Callable[[list[Paper]], object],
-    save_every: int,
-    deadline: float | None = None,
 ) -> _HtmlRead:
     """Fill affiliations (and abstracts still missing) from the papers' HTML renderings.
 
@@ -423,19 +521,19 @@ def _add_html_front_matter(
         The updated papers, the pages read, the abstracts added, the pages without
         affiliations, and why reading stopped early, if it did.
     """
-    todo = _html_todo(papers, limit)
+    todo = _html_todo(papers, reading)
     current = list(papers)
     pages = abstracts = failures = unreadable = 0
     empty: list[int] = []
     stopped: Stop | None = None
     try:
         for done, (index, url) in enumerate(todo, start=1):
-            if _past(deadline):
+            if _past(reading.deadline):
                 logger.warning("Out of time: %d HTML renderings left for the next run", len(todo) - done + 1)
                 stopped = Stop.DEADLINE
                 break
             paper = current[index]
-            front = _front_matter(client, paper, url)
+            front = _front_matter(client, paper, url, reading.cache)
             if front is None:
                 failures += 1
                 unreadable += 1
@@ -462,7 +560,7 @@ def _add_html_front_matter(
                         current[position] = papers[position]
                     stopped = Stop.LAYOUT
                     break
-            if done % save_every == 0:
+            if done % reading.save_every == 0:
                 checkpoint(current)
                 logger.info("%d/%d HTML renderings read, progress saved", done, len(todo))
     except KeyboardInterrupt:

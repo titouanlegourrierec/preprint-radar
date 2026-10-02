@@ -9,7 +9,7 @@ from preprint_radar.exceptions import StoreError
 
 ARXIV_BASE_URL = "https://arxiv.org"
 
-type PaperRecord = dict[str, str | list[str] | list[str | None] | list[list[int] | None] | None]
+type PaperRecord = dict[str, str | int | list[str] | list[str | None] | list[list[int] | None] | None]
 """JSON-serializable representation of a :class:`Paper`."""
 
 
@@ -40,6 +40,9 @@ class Paper:
         institutions: For each affiliation, the institution it belongs to according to the
             Research Organization Registry, or ``None`` when there is no confident match;
             ``None`` altogether if not looked up yet. Always as long as ``affiliations``.
+        extractor: Version of the HTML extraction that gave the affiliations
+            (``sources.arxiv_html.EXTRACTOR_VERSION``); ``None`` when they came from
+            elsewhere (the API, OpenAlex) or were read before versions were kept.
     """
 
     arxiv_id: str
@@ -57,6 +60,7 @@ class Paper:
     affiliations: tuple[str, ...] | None = None
     author_affiliations: tuple[tuple[int, ...] | None, ...] | None = None
     institutions: tuple[str | None, ...] | None = None
+    extractor: int | None = None
 
     def __post_init__(self) -> None:
         """Check that the lists indexing ``affiliations`` line up with it and with ``authors``.
@@ -119,6 +123,8 @@ class Paper:
             if self.author_affiliations is None
             else [None if entry is None else list(entry) for entry in self.author_affiliations],
             "institutions": None if self.institutions is None else list(self.institutions),
+            # Written only when known, so that records read before it stay as they were.
+            **({} if self.extractor is None else {"extractor": self.extractor}),
             "abs_url": self.abs_url,
             "pdf_url": self.pdf_url,
         }
@@ -154,6 +160,7 @@ class Paper:
                 affiliations=None if affiliations is None else tuple(affiliations),
                 author_affiliations=_optional_index_lists(record, "author_affiliations"),
                 institutions=_optional_nullable_str_list(record, "institutions"),
+                extractor=_optional_int(record, "extractor"),
             )
         except (KeyError, TypeError, ValueError) as exc:
             msg = f"Invalid paper record {record.get('arxiv_id')!r}: {exc}"
@@ -188,6 +195,17 @@ def _str(record: Mapping[str, object], key: str) -> str:
 
 def _optional_str(record: Mapping[str, object], key: str) -> str | None:
     return None if record.get(key) is None else _str(record, key)
+
+
+def _optional_int(record: Mapping[str, object], key: str) -> int | None:
+    value = record.get(key)
+    if value is None:
+        return None
+    # bool is an int to Python, not to the contract.
+    if not isinstance(value, int) or isinstance(value, bool):
+        msg = f"{key!r} must be an integer"
+        raise TypeError(msg)
+    return value
 
 
 def _str_list(record: Mapping[str, object], key: str) -> list[str]:

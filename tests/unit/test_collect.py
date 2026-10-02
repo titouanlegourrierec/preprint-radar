@@ -13,6 +13,7 @@ from preprint_radar.collect import (
     DRIFT_MIN_PAGES,
     MAX_CONSECUTIVE_HTML_FAILURES,
     CitationsReport,
+    HtmlReading,
     Stop,
     UpdateReport,
     _add_html_front_matter,
@@ -20,11 +21,13 @@ from preprint_radar.collect import (
     backfill_category,
     format_citations_report,
     format_report,
+    reextract_category,
     update_category,
     update_citation_counts,
 )
 from preprint_radar.http import HttpClient
 from preprint_radar.models import Listing, Paper
+from preprint_radar.sources.arxiv_html import EXTRACTOR_VERSION, PageCache, parse_front_matter
 from preprint_radar.sources.arxiv_listing import parse_catchup
 from preprint_radar.store.paper_store import PaperStore
 
@@ -151,8 +154,7 @@ def _run(fake: FakeArxiv, store: PaperStore, max_html_fetches: int | None = None
             store=store,
             site_client=site,
             api_client=api,
-            max_html_fetches=max_html_fetches,
-            save_every=1,
+            html=HtmlReading(limit=max_html_fetches, save_every=1),
         )
     return Listing(papers=tuple(store.iter_papers("cs.CV")))
 
@@ -180,6 +182,17 @@ def test_update_enriches_and_stores_papers(fake: FakeArxiv, store: PaperStore) -
     # 404: nothing to extract; 503: left pending for the next run.
     assert stored["2609.28836"].affiliations == ()
     assert stored["2609.30234"].affiliations is None
+    # The version of the extraction is kept with what it gave, not with declared ones.
+    assert stored["2609.30249"].extractor == stored["2609.28836"].extractor == EXTRACTOR_VERSION
+    assert stored["2609.28466"].extractor is None
+    assert stored["2609.30234"].extractor is None
+
+
+def test_a_later_listing_keeps_the_extractor_version(fake: FakeArxiv, store: PaperStore) -> None:
+    _run(fake, store)
+    stored = {paper.arxiv_id: paper for paper in _run(fake, store).papers}
+
+    assert stored["2609.30249"].extractor == EXTRACTOR_VERSION
 
 
 def test_update_takes_older_abstracts_from_catchup_pages(fake: FakeArxiv, store: PaperStore) -> None:
@@ -343,8 +356,7 @@ def _backfill(fake: FakeArxiv, store: PaperStore, max_html_fetches: int | None =
             BACKFILL_DAYS,
             store=store,
             site_client=site,
-            max_html_fetches=max_html_fetches,
-            save_every=1,
+            html=HtmlReading(limit=max_html_fetches, save_every=1),
         )
     return {paper.arxiv_id: paper for paper in store.iter_papers("cs.CV")}
 
@@ -590,7 +602,7 @@ def _read_html(
 
     with HttpClient(transport=httpx.MockTransport(handle), max_attempts=1) as client:
         read = _add_html_front_matter(
-            papers, client, limit=None, checkpoint=checkpoint, save_every=10, deadline=deadline
+            papers, client, reading=HtmlReading(save_every=10, deadline=deadline), checkpoint=checkpoint
         )
     return read.papers, saved, requested, read.stopped, read.empty
 
@@ -685,3 +697,123 @@ def test_format_report_says_why_html_reading_stopped() -> None:
     )
     assert report.failed
     assert not replace(report, stopped=Stop.DEADLINE).failed
+
+
+STORED = Paper(
+    arxiv_id="2609.00000",
+    announced=date(2026, 9, 25),
+    title="T",
+    authors=("Yuyao Liu",),
+    abstract="Stored.",
+    affiliations=("Old Institute",),
+    author_affiliations=((0,),),
+    institutions=("Old Institute",),
+    extractor=0,
+)
+
+
+def _stored(arxiv_id: str, version: str, **fields: object) -> Paper:
+    """A stored paper, extracted by version 0 unless told otherwise."""
+    return replace(
+        STORED, arxiv_id=arxiv_id, html_url=f"https://arxiv.org/html/{arxiv_id}v{version}", **fields
+    )
+
+
+def _outdated(paper: Paper) -> bool:
+    return paper.extractor is not None and paper.extractor < EXTRACTOR_VERSION
+
+
+def _reextract(
+    fake: FakeArxiv, store: PaperStore, html: HtmlReading | None = None, *, ror: bool = False
+) -> UpdateReport:
+    with fake.client() as site, fake.client() as ror_client:
+        return reextract_category(
+            "cs.CV",
+            _outdated,
+            store=store,
+            site_client=site,
+            ror_client=ror_client if ror else None,
+            html=html or HtmlReading(save_every=1),
+        )
+
+
+def test_reextract_reads_the_selected_papers_again_and_keeps_what_fails(
+    fake: FakeArxiv, store: PaperStore
+) -> None:
+    store.save(
+        "cs.CV",
+        [
+            _stored("2609.30249", "1"),
+            _stored("2609.30234", "1", affiliations=("Kept",), institutions=("Kept",)),  # a 503
+            _stored("2609.11111", "1", extractor=EXTRACTOR_VERSION),  # current
+            _stored("2609.22222", "1", extractor=None),  # read before versions were kept
+        ],
+    )
+
+    report = _reextract(fake, store, ror=True)
+
+    stored = {paper.arxiv_id: paper for paper in store.iter_papers("cs.CV")}
+    affiliations = stored["2609.30249"].affiliations or ()
+    assert "NVIDIA" in affiliations
+    assert stored["2609.30249"].extractor == EXTRACTOR_VERSION
+    # Changed: named again through ROR.
+    assert len(stored["2609.30249"].institutions or ()) == len(affiliations)
+    assert stored["2609.30249"].abstract == "Stored."
+    assert stored["2609.30234"] == _stored("2609.30234", "1", affiliations=("Kept",), institutions=("Kept",))
+    assert stored["2609.11111"] == _stored("2609.11111", "1", extractor=EXTRACTOR_VERSION)
+    assert stored["2609.22222"].extractor is None
+    assert (report.listed, report.affiliations_fetched, report.unreadable) == (2, 1, 1)
+    assert fake.hits["/html/2609.11111v1"] == fake.hits["/html/2609.22222v1"] == 0
+
+
+def test_reextract_keeps_the_institutions_of_unchanged_affiliations(
+    fake: FakeArxiv, store: PaperStore, paper_html: Callable[[str], str]
+) -> None:
+    front = parse_front_matter(paper_html("2609.30249"), authors=("Yuyao Liu",))
+    institutions = tuple(f"Named {index}" for index in range(len(front.affiliations)))
+    store.save(
+        "cs.CV",
+        [
+            _stored(
+                "2609.30249",
+                "1",
+                affiliations=front.affiliations,
+                author_affiliations=None,
+                institutions=institutions,
+            )
+        ],
+    )
+
+    _reextract(fake, store)
+
+    (stored,) = store.iter_papers("cs.CV")
+    assert stored.institutions == institutions
+    assert stored.extractor == EXTRACTOR_VERSION
+
+
+def test_reextract_reads_cached_pages_without_counting_them(
+    fake: FakeArxiv, store: PaperStore, paper_html: Callable[[str], str], tmp_path: Path
+) -> None:
+    cache = PageCache(tmp_path / "pages")
+    cache.put("https://arxiv.org/html/2609.30249v1", paper_html("2609.30249"))
+    store.save("cs.CV", [_stored("2609.30249", "1"), _stored("2609.30234", "1")])
+
+    report = _reextract(fake, store, HtmlReading(limit=0, cache=cache))
+
+    assert report.affiliations_fetched == 1
+    assert sum(count for path, count in fake.hits.items() if path.startswith("/html/")) == 0
+    stored = {paper.arxiv_id: paper for paper in store.iter_papers("cs.CV")}
+    assert "NVIDIA" in (stored["2609.30249"].affiliations or ())
+    assert stored["2609.30234"].affiliations == ("Old Institute",)
+
+
+def test_reextract_keeps_everything_when_the_layout_seems_changed(store: PaperStore) -> None:
+    papers = [_stored(f"2609.{index:05d}", "1") for index in range(DRIFT_MIN_PAGES + 5)]
+    store.save("cs.CV", papers)
+    transport = httpx.MockTransport(lambda _: httpx.Response(200, text="<html></html>"))
+
+    with HttpClient(transport=transport, max_attempts=1) as site:
+        report = reextract_category("cs.CV", lambda _: True, store=store, site_client=site)
+
+    assert report.stopped is Stop.LAYOUT
+    assert sorted(store.iter_papers("cs.CV"), key=lambda paper: paper.arxiv_id) == papers

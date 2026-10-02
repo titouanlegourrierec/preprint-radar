@@ -1,4 +1,5 @@
 from collections.abc import Callable
+from pathlib import Path
 
 import httpx
 import pytest
@@ -6,9 +7,11 @@ import pytest
 from preprint_radar.http import HttpClient
 from preprint_radar.sources.arxiv_html import (
     FrontMatter,
+    PageCache,
     clean_affiliation,
     clean_affiliations,
     fetch_front_matter,
+    front_matter_html,
     name_key,
     names_only_authors,
     parse_front_matter,
@@ -980,3 +983,81 @@ def test_name_key_ignores_spelling(listed: str, respelled: str) -> None:
 
 def test_name_key_tells_people_apart() -> None:
     assert name_key("Noa Garcia") != name_key("Yuta Nakashima")
+
+
+FULL_PAGE = """<html><head><title>A paper</title></head><body><article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">A paper</h1>
+<div class="ltx_authors"><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Ada Lovelace <img src="orcid.png"/></span>
+<span class="ltx_contact ltx_role_affiliation">MIT</span></span></div>
+<figure class="ltx_figure"><img src="x1.png"/><figcaption>A teaser, big.</figcaption></figure>
+<div class="ltx_abstract"><h6 class="ltx_title">Abstract</h6><p>We do things.</p></div>
+<section class="ltx_section"><h2>Introduction</h2><p>Body text, Stanford University.</p></section>
+<section class="ltx_bibliography"><p>References.</p></section>
+</article></body></html>"""
+
+
+def test_the_front_matter_of_a_page_extracts_like_the_page() -> None:
+    small = front_matter_html(FULL_PAGE)
+
+    assert parse_front_matter(small, authors=("Ada Lovelace",)) == parse_front_matter(
+        FULL_PAGE, authors=("Ada Lovelace",)
+    )
+    assert "Introduction" not in small
+    assert "References" not in small
+    assert "teaser" not in small
+    assert "orcid.png" not in small
+    assert "We do things." in small
+
+
+def test_a_page_without_a_document_is_kept_whole() -> None:
+    assert front_matter_html("<p>Maintenance</p>") == "<p>Maintenance</p>"
+
+
+def test_the_page_cache_keeps_front_matters_by_paper_version(tmp_path: Path) -> None:
+    cache = PageCache(tmp_path / "pages")
+    url = "https://arxiv.org/html/2609.30249v2"
+
+    assert cache.get(url) is None
+    assert url not in cache
+    cache.put(url, FULL_PAGE)
+
+    assert url in cache
+    assert cache.get(url) == front_matter_html(FULL_PAGE)
+    assert [path.relative_to(tmp_path) for path in (tmp_path / "pages").rglob("*")] == [
+        Path("pages/2609"),
+        Path("pages/2609/2609.30249v2.html.gz"),
+    ]
+    assert "https://arxiv.org/html/2609.30249v1" not in cache
+
+
+def test_the_page_cache_ignores_urls_that_name_no_paper_version(tmp_path: Path) -> None:
+    cache = PageCache(tmp_path / "pages")
+    cache.put("https://arxiv.org/html/../../etc/passwd", FULL_PAGE)
+
+    assert not (tmp_path / "pages").exists()
+    assert cache.get("https://arxiv.org/html/../../etc/passwd") is None
+    assert 42 not in cache
+
+
+def test_fetch_front_matter_reads_the_cache_first(tmp_path: Path, paper_html: PaperHtml) -> None:
+    requests: list[str] = []
+
+    def handle(request: httpx.Request) -> httpx.Response:
+        requests.append(request.url.path)
+        if request.url.path.endswith("v9"):
+            return httpx.Response(404)
+        return httpx.Response(200, text=paper_html("2609.30249"))
+
+    cache = PageCache(tmp_path / "pages")
+    url = "https://arxiv.org/html/2609.30249v1"
+    with HttpClient(transport=httpx.MockTransport(handle)) as client:
+        first = fetch_front_matter(client, url, cache=cache)
+        again = fetch_front_matter(client, url, cache=cache)
+        missing = fetch_front_matter(client, "https://arxiv.org/html/2609.30249v9", cache=cache)
+
+    assert requests == ["/html/2609.30249v1", "/html/2609.30249v9"]
+    assert again == first
+    assert "NVIDIA" in first.affiliations
+    assert missing == FrontMatter()
+    assert "https://arxiv.org/html/2609.30249v9" not in cache

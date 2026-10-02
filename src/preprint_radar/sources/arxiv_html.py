@@ -6,11 +6,13 @@ says who is where — one affiliation block per author, superscript markers, or 
 B" notes — each author is additionally mapped to their own affiliations.
 """
 
+import gzip
 import logging
 import re
 import unicodedata
 from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass
+from pathlib import Path
 
 from bs4 import BeautifulSoup, Tag
 
@@ -18,6 +20,13 @@ from preprint_radar.exceptions import NotFoundError
 from preprint_radar.http import HttpClient
 
 logger = logging.getLogger(__name__)
+
+EXTRACTOR_VERSION = 1
+"""Version of the extraction heuristics of this module, stored with the affiliations they give.
+
+Bump it with any change that alters what a page gives (affiliations, author mapping), so
+that ``reextract`` reads those papers again, from the page cache when it holds them.
+"""
 
 # LaTeXML renders line breaks and \quad between affiliations as newlines, em spaces
 # or runs of (non-breaking) spaces.
@@ -161,13 +170,89 @@ class FrontMatter:
     author_affiliations: AuthorAffiliations | None = None
 
 
-def fetch_front_matter(client: HttpClient, html_url: str, *, authors: Sequence[str] = ()) -> FrontMatter:
-    """Download an HTML rendering and extract its front matter.
+class PageCache:
+    """The front matter of every HTML page read, so that extracting again reads no page.
+
+    One gzipped file per paper version (``<directory>/2609/2609.30249v1.html.gz``), holding
+    :func:`front_matter_html` of the page: 1 or 2 KB instead of hundreds. A new version of
+    a paper is a new page, read again.
+    """
+
+    def __init__(self, directory: Path) -> None:
+        """Keep the pages in ``directory`` (created on first write)."""
+        self.directory = directory
+
+    def __contains__(self, html_url: object) -> bool:
+        """Whether the cache holds the page at ``html_url``."""
+        path = self._path(html_url) if isinstance(html_url, str) else None
+        return path is not None and path.is_file()
+
+    def get(self, html_url: str) -> str | None:
+        """The cached front matter of the page at ``html_url``, if any."""
+        path = self._path(html_url)
+        if path is None or not path.is_file():
+            return None
+        return gzip.decompress(path.read_bytes()).decode("utf-8")
+
+    def put(self, html_url: str, html: str) -> None:
+        """Keep the front matter of the page at ``html_url``, whose HTML is ``html``."""
+        path = self._path(html_url)
+        if path is None:
+            return
+        path.parent.mkdir(parents=True, exist_ok=True)
+        # Written aside then renamed, so that a killed run never leaves a truncated page.
+        tmp = path.with_name(path.name + ".tmp")
+        tmp.write_bytes(gzip.compress(front_matter_html(html).encode("utf-8"), mtime=0))
+        tmp.replace(path)
+
+    def _path(self, html_url: str) -> Path | None:
+        """``<directory>/<yymm>/<id>v<version>.html.gz``; ``None`` for a URL that names no paper version."""
+        match = _CACHE_KEY_RE.search(html_url)
+        return None if match is None else self.directory / match["month"] / f"{match[0]}.html.gz"
+
+
+_CACHE_KEY_RE = re.compile(r"(?P<month>\d{4})\.\d{4,5}v\d+$")
+# What follows the front matter in a LaTeXML document: the body, references and appendices.
+_BODY_CLASSES = frozenset({"ltx_section", "ltx_bibliography", "ltx_appendix"})
+# Figures and tables say nothing of affiliations, and are most of a front matter's size.
+_FIGURE_TAGS = ("figure", "img", "svg", "table")
+_FIGURE_CLASSES = frozenset({"ltx_figure", "ltx_table"})
+
+
+def front_matter_html(html: str) -> str:
+    """The part of an HTML rendering that :func:`parse_front_matter` reads, as a page.
+
+    The children of the document before its first section (title, author block and its
+    notes, footnotes, abstract), without figures or tables: what the cache keeps.
+    """
+    soup = BeautifulSoup(html, "html.parser")
+    article = soup.select_one("article.ltx_document")
+    if article is None:
+        return html
+    kept: list[str] = []
+    for child in article.children:
+        if isinstance(child, Tag):
+            classes = set(child.get_attribute_list("class"))
+            if child.name == "section" or _BODY_CLASSES & classes:
+                break
+            if child.name in _FIGURE_TAGS or _FIGURE_CLASSES & classes:
+                continue
+            for noise in child.select(", ".join([*_FIGURE_TAGS, *(f".{name}" for name in _FIGURE_CLASSES)])):
+                noise.decompose()
+        kept.append(str(child))
+    return f'<html><body><article class="ltx_document">{"".join(kept)}</article></body></html>'
+
+
+def fetch_front_matter(
+    client: HttpClient, html_url: str, *, authors: Sequence[str] = (), cache: PageCache | None = None
+) -> FrontMatter:
+    """Download an HTML rendering, or take it from the cache, and extract its front matter.
 
     Args:
         client: HTTP client, rate-limited according to arxiv.org's crawl delay.
         html_url: URL of the paper's HTML rendering.
         authors: Author names, never reported as affiliations.
+        cache: Pages read before; a page downloaded is added to it.
 
     Returns:
         The front matter; empty if the rendering does not exist.
@@ -175,11 +260,15 @@ def fetch_front_matter(client: HttpClient, html_url: str, *, authors: Sequence[s
     Raises:
         FetchError: If the page cannot be retrieved for a reason other than a 404.
     """
-    try:
-        html = client.get_text(html_url)
-    except NotFoundError:
-        logger.info("No HTML rendering at %s", html_url)
-        return FrontMatter()
+    html = cache.get(html_url) if cache is not None else None
+    if html is None:
+        try:
+            html = client.get_text(html_url)
+        except NotFoundError:
+            logger.info("No HTML rendering at %s", html_url)
+            return FrontMatter()
+        if cache is not None:
+            cache.put(html_url, html)
     return parse_front_matter(html, authors=authors)
 
 

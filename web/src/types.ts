@@ -20,6 +20,11 @@ export interface Paper {
   html_url: string | null;
   /** `null` when not retrieved yet. */
   abstract: string | null;
+  /**
+   * Version of the pipeline's HTML extraction that gave the affiliations. Absent when they
+   * came from elsewhere or were read before versions were kept.
+   */
+  extractor?: number;
   /** `null` when not retrieved yet, `[]` when none could be found. */
   affiliations: string[] | null;
   /**

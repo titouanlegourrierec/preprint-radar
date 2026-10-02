@@ -19,6 +19,7 @@ def test_record_round_trip_keeps_enrichment(listing: Listing) -> None:
         affiliations=("MIT", "NVIDIA"),
         author_affiliations=((0, 1), None, (1,)),
         institutions=("Massachusetts Institute of Technology", None),
+        extractor=1,
     )
     restored = Paper.from_record(paper.to_record())
 
@@ -26,7 +27,12 @@ def test_record_round_trip_keeps_enrichment(listing: Listing) -> None:
     assert restored.affiliations == ("MIT", "NVIDIA")
     assert restored.author_affiliations == ((0, 1), None, (1,))
     assert restored.institutions == ("Massachusetts Institute of Technology", None)
+    assert restored.extractor == 1
     assert restored.is_enriched
+
+
+def test_an_unknown_extractor_is_not_written(listing: Listing) -> None:
+    assert "extractor" not in listing.papers[0].to_record()
 
 
 def test_urls(listing: Listing) -> None:
@@ -47,6 +53,8 @@ def test_urls(listing: Listing) -> None:
         ("institutions", [1]),
         # One institution per affiliation, and none without affiliations.
         ("institutions", ["MIT", None]),
+        ("extractor", "1"),
+        ("extractor", True),
     ],
 )
 def test_from_record_rejects_invalid_fields(listing: Listing, field: str, value: object) -> None:

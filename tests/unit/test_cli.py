@@ -4,7 +4,7 @@ import os
 import runpy
 import signal
 import time
-from collections.abc import Mapping
+from collections.abc import Callable, Mapping
 from datetime import UTC, date, datetime
 from pathlib import Path
 
@@ -14,7 +14,7 @@ from rich.console import Console
 from preprint_radar.archive.catalog import Catalog
 from preprint_radar.archive.update import ArchiveClients, ArchiveReport
 from preprint_radar.cli import main
-from preprint_radar.collect import CitationsReport, Stop, UpdateReport
+from preprint_radar.collect import CitationsReport, HtmlReading, Stop, UpdateReport
 from preprint_radar.exceptions import FetchError, NotFoundError
 from preprint_radar.http import HttpClient
 from preprint_radar.models import Listing, Paper
@@ -486,7 +486,9 @@ def test_update_reports_why_reading_html_pages_stopped(
     deadlines: list[object] = []
 
     def update_category(category: str, **options: object) -> UpdateReport:
-        deadlines.append(options["deadline"])
+        html = options["html"]
+        assert isinstance(html, HtmlReading)
+        deadlines.append(html.deadline)
         return UpdateReport(
             category=category,
             listed=1,
@@ -573,3 +575,45 @@ def test_summary_of_fresh_data_warns_of_nothing(
     out = capsys.readouterr().out
     assert f"cs.CV: newest announcement day {today.isoformat()}, 0 weekdays ago" in out
     assert "::warning" not in out
+
+
+@pytest.mark.parametrize(
+    ("options", "picked"),
+    [
+        pytest.param([], ["2609.00001"], id="older-versions"),
+        pytest.param(["--below-version", "3"], ["2609.00001", "2609.00002"], id="below-a-version"),
+        pytest.param(["--ids", "2609.00003", "2609.00002"], ["2609.00002", "2609.00003"], id="ids"),
+        pytest.param(["--match", "(?i)stanford"], ["2609.00003"], id="match"),
+    ],
+)
+def test_reextract_selects_papers(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, options: list[str], picked: list[str]
+) -> None:
+    papers = [
+        Paper(arxiv_id="2609.00001", announced=date(2026, 9, 25), title="T", authors=(), extractor=0),
+        Paper(arxiv_id="2609.00002", announced=date(2026, 9, 25), title="T", authors=(), extractor=2),
+        Paper(
+            arxiv_id="2609.00003",
+            announced=date(2026, 9, 25),
+            title="T",
+            authors=(),
+            affiliations=("Stanford University",),
+        ),
+    ]
+    selected: list[list[str]] = []
+
+    def reextract_category(category: str, select: Callable[[Paper], bool], **options: object) -> UpdateReport:
+        assert isinstance(options["html"], HtmlReading)
+        selected.append(sorted(paper.arxiv_id for paper in papers if select(paper)))
+        return UpdateReport(
+            category=category, listed=1, new=0, abstracts_fetched=0, affiliations_fetched=1, pending=0
+        )
+
+    monkeypatch.setattr("preprint_radar.cli.reextract_category", reextract_category)
+    monkeypatch.setattr("preprint_radar.cli.EXTRACTOR_VERSION", 1)
+    data_dir = tmp_path / "data"
+    args = ["reextract", "--data-dir", str(data_dir), "--page-cache-dir", str(tmp_path / "pages"), *options]
+
+    assert main(args) == 0
+    assert selected == [picked]
+    assert (data_dir / "index.json").is_file()

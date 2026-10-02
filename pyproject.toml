@@ -62,7 +62,7 @@ ignore = [
 ]
 
 [tool.ruff.lint.pylint]
-max-args = 9  # keyword-only options with defaults are fine
+max-args = 8  # keyword-only options with defaults are fine
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"

@@ -23,7 +23,8 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    # Reading HTML pages is throttled to one every 15 s (arxiv.org robots.txt).
+    # Reading HTML pages is throttled to one every 15 s (arxiv.org robots.txt). Steps: 195
+    # minutes of papers, 15 of re-extraction, 15 of citation counts, then a few to commit.
     timeout-minutes: 240
     permissions:
       contents: write
@@ -49,12 +50,22 @@ jobs:
           enable-cache: true
       - run: uv sync --locked --no-dev
 
+      # The front matter of every HTML page read (a few KB each) lives in the Actions cache,
+      # not in git: `reextract` reads them again offline. Each run saves a new entry, even
+      # after a failure, so that the cache is touched daily and never evicted.
+      - name: Restore the page cache
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .cache/front-matter
+          key: front-matter-${{ github.run_id }}
+          restore-keys: front-matter-
+
       - name: Fetch papers
         # Stop early enough to commit what was fetched; progress is saved as it goes. The
         # deadline leaves 20 minutes for ROR and the last save before the step is killed.
-        timeout-minutes: 210
+        timeout-minutes: 195
         run: |
-          args=(--deadline-minutes 190)
+          args=(--deadline-minutes 175)
           for category in $CATEGORIES; do args+=(--category "$category"); done
           if [ -n "$SINCE" ]; then
             # Catchup pages of every day since SINCE, with abstracts, then affiliations.
@@ -63,6 +74,23 @@ jobs:
             # Recent listing; abstracts from RSS and catchup pages, then affiliations.
             uv run --no-dev preprint-radar -v update "${args[@]}" --max-html "$MAX_HTML"
           fi
+
+      - name: Extract stored papers again
+        # Papers read by an older version of the extraction: from the page cache, then up
+        # to 50 pages downloaded a day, so that fixes reach the stored data by themselves.
+        if: ${{ !cancelled() }}
+        timeout-minutes: 15
+        run: |
+          args=(--max-html 50 --deadline-minutes 12)
+          for category in $CATEGORIES; do args+=(--category "$category"); done
+          uv run --no-dev preprint-radar -v reextract "${args[@]}"
+
+      - name: Save the page cache
+        if: always()
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .cache/front-matter
+          key: front-matter-${{ github.run_id }}
 
       - name: Fetch citation counts of new papers
         # A paper or two hundred: one or two requests. Semantic Scholar learns new papers

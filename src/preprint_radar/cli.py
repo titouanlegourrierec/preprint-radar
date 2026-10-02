@@ -3,6 +3,7 @@
 import argparse
 import logging
 import os
+import re
 import signal
 import time
 from collections import Counter
@@ -16,12 +17,14 @@ from preprint_radar import __version__
 from preprint_radar.archive.catalog import Catalog
 from preprint_radar.archive.update import ArchiveClients, format_archive_report, update_archive
 from preprint_radar.collect import (
+    HtmlReading,
     Stop,
     UpdateReport,
     add_institutions,
     backfill_category,
     format_citations_report,
     format_report,
+    reextract_category,
     update_category,
     update_citation_counts,
 )
@@ -33,6 +36,7 @@ from preprint_radar.config import (
     DEFAULT_DATA_DIR,
     DEFAULT_EXPORT_DIR,
     DEFAULT_MAX_ROR_LOOKUPS,
+    DEFAULT_PAGE_CACHE_DIR,
     MIN_COVERAGE,
     STALE_CITATIONS_DAYS,
     STALE_DATA_WEEKDAYS,
@@ -46,6 +50,8 @@ from preprint_radar.http import (
     HttpClient,
     build_user_agent,
 )
+from preprint_radar.models import Paper
+from preprint_radar.sources.arxiv_html import EXTRACTOR_VERSION, PageCache
 from preprint_radar.sources.arxiv_listing import MAX_LISTING_ENTRIES, fetch_listing, validate_category
 from preprint_radar.sources.arxiv_oai import OAI_DELAY_SECONDS, OAI_TIMEOUT_SECONDS
 from preprint_radar.sources.openalex import OPENALEX_DELAY_SECONDS
@@ -104,6 +110,7 @@ def build_parser() -> argparse.ArgumentParser:
     _add_reclean_parser(subparsers)
     _add_validate_parser(subparsers)
     _add_summary_parser(subparsers)
+    _add_reextract_parser(subparsers)
     return parser
 
 
@@ -361,6 +368,33 @@ def _add_reclean_parser(subparsers: "argparse._SubParsersAction[argparse.Argumen
     )
 
 
+def _add_reextract_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
+    reextract = subparsers.add_parser(
+        "reextract",
+        help="read the HTML pages of stored papers again, after a change to the extraction",
+        description=(
+            "Read again the HTML pages of the stored papers extracted by an older version of "
+            f"the extraction (below {EXTRACTOR_VERSION} by default), or of the papers given by "
+            "--ids or --match. Pages the cache holds are read from it, offline; the others are "
+            "downloaded within --max-html, the most recent papers first. A paper whose page "
+            "cannot be read again keeps what it had. Papers read before versions were kept "
+            "have none: they are only read again through --ids or --match."
+        ),
+    )
+    selection = reextract.add_mutually_exclusive_group()
+    selection.add_argument(
+        "--below-version",
+        type=int,
+        default=EXTRACTOR_VERSION,
+        help=f"papers extracted by an older version than this (default: {EXTRACTOR_VERSION}, today's)",
+    )
+    selection.add_argument("--ids", nargs="+", metavar="ARXIV_ID", help="these papers")
+    selection.add_argument(
+        "--match", type=re.compile, metavar="REGEX", help="papers with an affiliation that this regex finds"
+    )
+    _add_store_arguments(reextract)
+
+
 def _add_summary_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
     summary = subparsers.add_parser(
         "summary",
@@ -433,6 +467,12 @@ def _add_store_arguments(parser: argparse.ArgumentParser) -> None:
         ),
     )
     parser.add_argument(
+        "--page-cache-dir",
+        type=Path,
+        default=DEFAULT_PAGE_CACHE_DIR,
+        help=f"front matter of the HTML pages read, for `reextract` (default: {DEFAULT_PAGE_CACHE_DIR})",
+    )
+    parser.add_argument(
         "--deadline-minutes",
         type=float,
         default=None,
@@ -503,7 +543,7 @@ def _run_update(args: argparse.Namespace) -> int:
     if not args.contact:
         logger.warning("No contact given; consider setting %s so arXiv can reach you.", CONTACT_ENV_VAR)
 
-    deadline = _deadline(args.deadline_minutes)
+    reading = _html_reading(args)
     reports: list[UpdateReport] = []
     # The index is written even after a failure, so that the days saved meanwhile show.
     try:
@@ -521,9 +561,8 @@ def _run_update(args: argparse.Namespace) -> int:
                     site_client=site_client,
                     api_client=api_client,
                     ror_client=ror_client if args.max_ror else None,
-                    max_html_fetches=args.max_html,
                     max_ror_lookups=args.max_ror,
-                    deadline=deadline,
+                    html=reading,
                 )
                 _publish_update(report)
                 reports.append(report)
@@ -541,7 +580,7 @@ def _run_backfill(args: argparse.Namespace) -> int:
         logger.warning("No contact given; consider setting %s so arXiv can reach you.", CONTACT_ENV_VAR)
 
     user_agent = build_user_agent(args.contact)
-    deadline = _deadline(args.deadline_minutes)
+    reading = _html_reading(args)
     reports: list[UpdateReport] = []
     # The index is written even after a failure, so that the days saved meanwhile show.
     try:
@@ -558,9 +597,8 @@ def _run_backfill(args: argparse.Namespace) -> int:
                     store=store,
                     site_client=site_client,
                     ror_client=ror_client if args.max_ror else None,
-                    max_html_fetches=args.max_html,
                     max_ror_lookups=args.max_ror,
-                    deadline=deadline,
+                    html=reading,
                 )
                 _publish_update(report)
                 reports.append(report)
@@ -580,9 +618,57 @@ def _publish_update(report: UpdateReport) -> None:
         github_annotation("error", "Reading HTML pages failed", line)
 
 
-def _deadline(minutes: float | None) -> float | None:
-    """The ``time.monotonic()`` value ``minutes`` from now (``None``: no deadline)."""
-    return None if minutes is None else time.monotonic() + 60 * minutes
+def _run_reextract(args: argparse.Namespace) -> int:
+    categories: list[str] = args.categories or [DEFAULT_CATEGORY]
+    store = PaperStore(args.data_dir)
+    select = _reextract_selection(args)
+    reading = _html_reading(args)
+    reports: list[UpdateReport] = []
+    user_agent = build_user_agent(args.contact)
+    try:
+        with (
+            _terminate_as_interrupt(),
+            HttpClient(user_agent=user_agent, min_interval=args.crawl_delay) as site_client,
+            # The contact is for arXiv only: other services get the bare User-Agent.
+            HttpClient(user_agent=DEFAULT_USER_AGENT, min_interval=ROR_DELAY_SECONDS) as ror_client,
+        ):
+            for category in categories:
+                report = reextract_category(
+                    category,
+                    select,
+                    store=store,
+                    site_client=site_client,
+                    ror_client=ror_client if args.max_ror else None,
+                    max_ror_lookups=args.max_ror,
+                    html=reading,
+                )
+                _publish_update(report)
+                reports.append(report)
+    finally:
+        console.print(f"Index written to {store.write_index()}")
+    return _exit_code(reports)
+
+
+def _reextract_selection(args: argparse.Namespace) -> Callable[[Paper], bool]:
+    """Which stored papers ``reextract`` reads again, from its options."""
+    if args.ids:
+        ids = set(args.ids)
+        return lambda paper: paper.arxiv_id in ids
+    if args.match:
+        pattern: re.Pattern[str] = args.match
+        return lambda paper: any(pattern.search(affiliation) for affiliation in paper.affiliations or ())
+    below: int = args.below_version
+    return lambda paper: paper.extractor is not None and paper.extractor < below
+
+
+def _html_reading(args: argparse.Namespace) -> HtmlReading:
+    """How the command reads HTML pages: ``--max-html``, ``--deadline-minutes``, the page cache."""
+    minutes: float | None = args.deadline_minutes
+    return HtmlReading(
+        limit=args.max_html,
+        deadline=None if minutes is None else time.monotonic() + 60 * minutes,
+        cache=PageCache(args.page_cache_dir),
+    )
 
 
 def _exit_code(reports: Sequence[UpdateReport]) -> int:
@@ -820,4 +906,5 @@ _COMMANDS: dict[str, Callable[[argparse.Namespace], int]] = {
     "reclean": _run_reclean,
     "validate": _run_validate,
     "summary": _run_summary,
+    "reextract": _run_reextract,
 }
