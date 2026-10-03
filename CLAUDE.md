@@ -9,7 +9,7 @@ lets people search them. It is deployed on GitHub Pages; there is no server.
 Use the Makefile (`make help` lists everything):
 
 - `make quality`: every static check (ruff format/lint, ty, Biome, tsc, actionlint). Run it before saying a change is done.
-- `make test`: pytest and Vitest, both offline. `make check` runs quality and tests, like CI.
+- `make test`: pytest and Vitest, both offline. `make check` runs quality and tests, like CI. Vitest measures the coverage of the web's pure modules (`src/**/*.ts` but hooks and what needs a DOM) and fails a file below 90% of lines or 70% of branches (`vite.config.ts`): test a new module there.
 - `make coverage`: the Python tests with a line and branch coverage report. Below 95% it fails, and so does CI (`fail_under`); keep it at 100%: test new code, or exclude a line that cannot run with a `# pragma: no cover` / `no branch` that says why.
 - `make format`: auto-fix formatting and lint.
 - `make dev` / `make preview`: the site locally (dev server, or production build).

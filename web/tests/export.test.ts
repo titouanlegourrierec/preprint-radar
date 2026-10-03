@@ -84,3 +84,23 @@ describe("citations order", () => {
     expect(mostlyTied(ids.slice(0, 5).map(result), new Map())).toBe(false);
   });
 });
+
+describe("exports of sparse records", () => {
+  const bare = makePaper({
+    arxiv_id: "2609.00001",
+    title: "Short [title]",
+    authors: ["Ada Lovelace"],
+  });
+
+  it("leave out what a record lacks", () => {
+    expect(toCsv([bare], new Map()).split("\r\n")[1]).toBe(
+      "2609.00001,Short [title],Ada Lovelace,,2026-09-25,,,https://arxiv.org/abs/2609.00001",
+    );
+    const ris = toRis([bare]);
+    expect(ris).not.toContain("AB  -");
+    expect(ris).not.toContain("N1  -");
+    expect(toMarkdown([bare])).toBe(
+      "- [Short \\[title\\]](https://arxiv.org/abs/2609.00001) — Ada Lovelace (arXiv:2609.00001)\n",
+    );
+  });
+});

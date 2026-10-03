@@ -28,4 +28,21 @@ describe("linkify", () => {
     );
     expect(linkify("(project: https://x.io/p)")[1]?.url).toBe("https://x.io/p");
   });
+
+  it("keeps brackets that belong to the URL, and drops those of the sentence", () => {
+    expect(linkify("(see https://x.io/a_(b))")).toEqual([
+      { text: "(see " },
+      { text: "https://x.io/a_(b)", url: "https://x.io/a_(b)" },
+      { text: ")" },
+    ]);
+    expect(linkify("[code: https://github.com/x/y].")).toEqual([
+      { text: "[code: " },
+      { text: "https://github.com/x/y", url: "https://github.com/x/y" },
+      { text: "]." },
+    ]);
+  });
+
+  it("skips a scheme without an address", () => {
+    expect(linkify("http://. done")).toEqual([{ text: "http://. done" }]);
+  });
 });

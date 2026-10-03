@@ -68,5 +68,20 @@ export default defineConfig({
     include: ["tests/**/*.test.ts"],
     // tests/styles.test.ts reads the stylesheet's text; other CSS stays empty in tests.
     css: { include: [/styles\.css/] },
+    // `npm test` measures the pure modules, every one above these floors. Components,
+    // hooks and what needs a DOM (canvas, downloads, keys) run in the browser only.
+    coverage: {
+      provider: "v8",
+      include: ["src/**/*.ts"],
+      exclude: [
+        "src/hooks/**",
+        "src/graph-renderer.ts",
+        "src/download.ts",
+        "src/keyboard.ts",
+        "src/main.tsx",
+      ],
+      reporter: ["text-summary"],
+      thresholds: { perFile: true, lines: 90, statements: 90, functions: 85, branches: 70 },
+    },
   },
 });

@@ -1,5 +1,17 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { DEFAULT_GRAPH_SETTINGS, loadGraphSettings, saveGraphSettings } from "../src/preferences";
+import {
+  DEFAULT_GRAPH_SETTINGS,
+  loadGraphIntroRead,
+  loadGraphSettings,
+  loadHideSeen,
+  loadShowAbstracts,
+  loadTheme,
+  saveGraphIntroRead,
+  saveGraphSettings,
+  saveHideSeen,
+  saveShowAbstracts,
+  saveTheme,
+} from "../src/preferences";
 
 describe("graph settings", () => {
   beforeEach(() => {
@@ -23,5 +35,59 @@ describe("graph settings", () => {
   it("ignores a sizing it does not know", () => {
     localStorage.setItem("preprint-radar:graph-settings:v2", JSON.stringify({ sizeBy: "degree" }));
     expect(loadGraphSettings().sizeBy).toBe("papers");
+  });
+});
+
+describe("display preferences", () => {
+  beforeEach(() => {
+    const stored = new Map<string, string>();
+    vi.stubGlobal("localStorage", {
+      getItem: (key: string) => stored.get(key) ?? null,
+      setItem: (key: string, value: string) => stored.set(key, value),
+      removeItem: (key: string) => stored.delete(key),
+    });
+  });
+  afterEach(() => vi.unstubAllGlobals());
+
+  it("are remembered", () => {
+    expect([loadTheme(), loadShowAbstracts(), loadHideSeen(), loadGraphIntroRead()]).toEqual([
+      "auto",
+      false,
+      false,
+      false,
+    ]);
+    saveTheme("dark");
+    saveShowAbstracts(true);
+    saveHideSeen(true);
+    saveGraphIntroRead();
+    expect([loadTheme(), loadShowAbstracts(), loadHideSeen(), loadGraphIntroRead()]).toEqual([
+      "dark",
+      true,
+      true,
+      true,
+    ]);
+    saveTheme("auto");
+    expect(loadTheme()).toBe("auto");
+  });
+
+  it("fall back on defaults when storage is refused", () => {
+    const refuse = () => {
+      throw new Error("denied");
+    };
+    vi.stubGlobal("localStorage", { getItem: refuse, setItem: refuse, removeItem: refuse });
+    expect([loadTheme(), loadShowAbstracts(), loadHideSeen(), loadGraphIntroRead()]).toEqual([
+      "auto",
+      false,
+      false,
+      false,
+    ]);
+    expect(() => {
+      saveTheme("light");
+      saveShowAbstracts(true);
+      saveHideSeen(true);
+      saveGraphIntroRead();
+      saveGraphSettings(DEFAULT_GRAPH_SETTINGS);
+    }).not.toThrow();
+    expect(loadGraphSettings()).toEqual(DEFAULT_GRAPH_SETTINGS);
   });
 });
