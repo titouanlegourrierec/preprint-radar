@@ -56,3 +56,6 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npx vite build
+      # The built site in a browser, over the small store of web/e2e/data.
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e

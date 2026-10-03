@@ -10,6 +10,7 @@ Use the Makefile (`make help` lists everything):
 
 - `make quality`: every static check (ruff format/lint, ty, Biome, tsc, actionlint). Run it before saying a change is done.
 - `make test`: pytest and Vitest, both offline. `make check` runs quality and tests, like CI. Vitest measures the coverage of the web's pure modules (`src/**/*.ts` but hooks and what needs a DOM) and fails a file below 90% of lines or 70% of branches (`vite.config.ts`): test a new module there.
+- `make test-e2e`: the smoke test of the built site (`web/e2e/smoke.spec.ts`, Playwright and Chromium): built over the small store of `web/e2e/data` (`PREPRINT_RADAR_DATA_DIR`), it checks that the list renders, a search reaches the URL, a paper link opens its paper (archived ones included) and the graph draws, without a page error. CI runs it after the build; keep `e2e/data` valid for the paper record when the format changes.
 - `make coverage`: the Python tests with a line and branch coverage report. Below 95% it fails, and so does CI (`fail_under`); keep it at 100%: test new code, or exclude a line that cannot run with a `# pragma: no cover` / `no branch` that says why.
 - `make format`: auto-fix formatting and lint.
 - `make dev` / `make preview`: the site locally (dev server, or production build).

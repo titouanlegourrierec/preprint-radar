@@ -143,7 +143,7 @@ with the deadline, the breakers, the summary and the page cache (2026-10-02) was
 | UX-3, UX-5 to UX-12 | Accessibility batch (CSS and ARIA) | P2 | done |
 | PROD-6 to PROD-10 | Name the category, about the data, citation transparency, result export, recent-count noise | P2 | done |
 | TEST-7 | Web coverage | P2 | done |
-| TEST-8 | Smoke test of the built site | P2 | todo |
+| TEST-8 | Smoke test of the built site | P2 | done |
 
 *Exit criteria:* the clicked-filter probes ("Hao Li", "Intel") return exact sets, `"zero shot"`
 finds the zero-shot papers, Back works, and the smoke test is green in CI.

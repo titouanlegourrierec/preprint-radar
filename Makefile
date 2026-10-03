@@ -80,6 +80,10 @@ coverage: ## Run the Python tests with a coverage report
 	uv run pytest --cov --cov-report html
 	open ./htmlcov/index.html
 
+.PHONY: test-e2e
+test-e2e: $(WEB)/node_modules ## Smoke-test the built site in Chromium, over web/e2e/data (installs Chromium once)
+	cd $(WEB) && npx playwright install chromium && npm run test:e2e
+
 .PHONY: test-network
 test-network: ## Run smoke tests against the live arXiv (slow)
 	uv run pytest -m network

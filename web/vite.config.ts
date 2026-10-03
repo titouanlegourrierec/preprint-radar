@@ -5,7 +5,11 @@ import type { Plugin } from "vite";
 import { defineConfig } from "vitest/config";
 import { thirdPartyLoads } from "./tooling/third-party";
 
-const DATA_DIR = resolve(import.meta.dirname, "..", "data");
+// The repository's store; the smoke test (e2e/) builds the site over a small one instead.
+const DATA_DIR = resolve(
+  import.meta.dirname,
+  process.env["PREPRINT_RADAR_DATA_DIR"] ?? resolve(import.meta.dirname, "..", "data"),
+);
 
 /**
  * Serve the repository's `data/` store at `/data` during development and copy it into the
