@@ -3,9 +3,9 @@ import { toBibtex } from "../bibtex";
 import { daysSince, formatDay, subjectCode } from "../format";
 import { highlight } from "../highlight";
 import { institutionsOf } from "../institutions";
+import { reportLink } from "../report";
 import { exactly, type NameFilter, typed } from "../search";
 import type { Paper } from "../types";
-import { CONTACT_EMAIL } from "./About";
 import { Highlighted } from "./Highlighted";
 import { RichText } from "./RichText";
 
@@ -99,9 +99,6 @@ export function PaperCard({
     citations !== undefined && (citations > 0 || daysSince(paper.announced) >= YOUNG_DAYS)
       ? citations
       : undefined;
-  const reportLink = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
-    `Preprint Radar: correction for arXiv:${paper.arxiv_id}`,
-  )}`;
   // The controls of every card read alike ("PDF", "Share"): each names its paper.
   const titleId = `title-${paper.arxiv_id}`;
   const subject = [paper.primary_subject && subjectCode(paper.primary_subject)]
@@ -201,7 +198,7 @@ export function PaperCard({
 
         {expanded && (
           <p class="paper__report muted">
-            Wrong author or affiliation? <a href={reportLink}>Report an error</a>.
+            Wrong author or affiliation? <a href={reportLink(paper)}>Report an error</a>.
           </p>
         )}
 

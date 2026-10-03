@@ -1,7 +1,6 @@
-/** Correction and removal requests go to the maintainer (the repository is private). */
-export const CONTACT_EMAIL = "titouanlegourrierec@kaist.ac.kr";
+import { CONTACT_EMAIL, reportLink } from "../report";
 
-const CORRECTION_LINK = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Preprint Radar: correction")}`;
+const CORRECTION_LINK = reportLink();
 
 /** What the site is, where its data comes from, how to get it corrected, and privacy. */
 export function About() {
