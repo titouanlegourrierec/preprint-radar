@@ -106,6 +106,22 @@ audit). The archive is unchanged: 22,071 papers, 11,621 affiliated.
 *Exit criteria:* a simulated arXiv outage, layout change, Semantic Scholar 403 and rebase
 conflict each end in a clear red run or a summary warning, and nothing is lost.
 
+*Result (2026-10-03, `v0.3.0`).* The four failures run end to end in the tests
+(`tests/unit/test_exit_criteria.py`, and `test_commit_data.py` for the rebase conflict):
+each ends with exit code 1 and an error annotation naming the cause, the data fetched
+validates and is committed, and what was not fetched stays pending for the next run. Three
+gaps were found and fixed on the way: a failing command did not say why on the run's page,
+a layout change would have pinned error pages in the page cache, and a CLI test wrote into
+the repository's cache. `validate`: 26,326 papers in 41 files, 0 errors, 0 warnings. `make
+stats` on the day files (2026-09-01 to 2026-10-02, 4,255 papers): affiliations for 78% of
+the 4,050 tried, 205 pending; of the affiliated papers, 88% mapped and 87% with a named
+institution. `stats --affiliations` (8,499 strings in 3,167 papers): no names of authors,
+no string today's cleaning would change, no "is with" sentence, no last author holding
+all; left for later, 88 glued strings (plain-text markers, AFF-23), 12 cut off, 196
+units without their institution (AFF-10) and 48 addresses alone. The first scheduled run
+with the deadline, the breakers, the summary and the page cache (2026-10-02) was green in
+55 minutes: 215 new papers, 201 pages read.
+
 ## Phase 2: search precision and the daily workflow (1–2 weeks)
 
 | ID | Item | Priority | Status |

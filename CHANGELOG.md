@@ -4,6 +4,50 @@ One minor release per phase of [`docs/roadmap.md`](docs/roadmap.md), a patch for
 between. Item IDs (`DATA-2`, `CIT-11`…) refer to the audit of 2026-09-30
 ([`docs/audit/2026-09-30.md`](docs/audit/2026-09-30.md)).
 
+## 0.3.0 (2026-10-03): a pipeline that heals itself and says what happened
+
+Phase 1 of the roadmap.
+
+### Runs that fail clearly, and lose nothing
+
+- Reading HTML pages stops at a deadline (the run ends green and commits what it read),
+  after 5 failed pages in a row (arXiv down: red), or when 90% of at least 40 pages give
+  no affiliation (a layout change: red, the papers stay pending and their pages leave the
+  cache). SIGTERM saves the progress first (REL-1, REL-2, REL-6).
+- A weekly canary runs the network tests against the live arXiv (REL-1).
+- Every run writes a summary on its page: each command's report, the validation, the
+  freshness of the data and of the citation counts, the coverage and the signs of wrong
+  affiliations. Warnings flag stale data and stale counts; a failure that touches data,
+  or any command that fails on an error, is a red run with an error annotation saying why
+  (CI-2, decision 16).
+- The site is deployed only when the run pushed data (CI-3).
+- A rejected Semantic Scholar key stops at the first request and fails the run; a busy
+  Semantic Scholar is given up after 10 minutes in the daily step (CIT-4).
+- The four failures of the exit criteria run end to end in the tests: an arXiv outage, a
+  layout change, a rejected key, a rebase conflict on the data commit.
+
+### Data quality
+
+- Stored papers are read again when the extraction improves: the extraction has a
+  version (`EXTRACTOR_VERSION`, stored as `extractor`), `reextract` reads older papers
+  again, from a cache of front matters kept in the Actions cache, and the daily run does
+  it by itself (DATA-1, layers 2 and 3).
+- `stats --affiliations` counts the signs of wrong affiliations, with examples, in the
+  stored data and in what today's extraction gives for the cached pages (AFF-Q).
+- Leading numbers of names are kept ("54th Research Institute", "3M Company", "3D Vision
+  Lab"); superscripts inside a word and line breaks, written or lost by LaTeXML, no longer
+  split or glue affiliations; links set as authors and markers of affiliation lines no
+  longer misplace authors (AFF-7, AFF-8). 29 stored papers were repaired.
+
+### Development
+
+- "Must not produce" tests for the heuristics, and a golden file of everything each HTML
+  fixture gives (TEST-4, TEST-5). Every test runs in its own directory.
+- `docs/operations.md`: a runbook by symptom, whose quoted signals a test checks against
+  the code (DOC-1).
+- MIT license for the code (REL-3). Pushing a `v*` tag creates the GitHub release, with
+  this file's entry as notes.
+
 ## 0.2.0 (2026-10-01): stop publishing wrong data
 
 Phase 0 of the roadmap.
