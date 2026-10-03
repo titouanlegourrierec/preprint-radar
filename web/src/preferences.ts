@@ -1,6 +1,7 @@
 import type { NodeSizing } from "./graph-renderer";
 
 const SHOW_ABSTRACTS_KEY = "preprint-radar:show-abstracts";
+const HIDE_SEEN_KEY = "preprint-radar:hide-seen";
 // v2: papers joined the graph, and the defaults changed with them.
 const GRAPH_SETTINGS_KEY = "preprint-radar:graph-settings:v2";
 // Also read by the inline script in index.html, which restores the theme before first paint.
@@ -40,6 +41,23 @@ export function loadShowAbstracts(): boolean {
 export function saveShowAbstracts(show: boolean): void {
   try {
     localStorage.setItem(SHOW_ABSTRACTS_KEY, String(show));
+  } catch {
+    // Storage may be disabled (private browsing); the choice then lasts for the session.
+  }
+}
+
+/** Whether papers marked seen are left out of the list, remembered in this browser. */
+export function loadHideSeen(): boolean {
+  try {
+    return localStorage.getItem(HIDE_SEEN_KEY) === "true";
+  } catch {
+    return false;
+  }
+}
+
+export function saveHideSeen(hide: boolean): void {
+  try {
+    localStorage.setItem(HIDE_SEEN_KEY, String(hide));
   } catch {
     // Storage may be disabled (private browsing); the choice then lasts for the session.
   }

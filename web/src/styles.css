@@ -533,9 +533,35 @@ html {
   gap: 8px;
 }
 
-.results__abstracts {
+.results__toggles {
+  display: flex;
+  gap: 14px;
   font-size: 0.85rem;
   color: var(--text-muted);
+}
+
+.results__toggles .toggle {
+  font-size: inherit;
+}
+
+.shortcuts {
+  margin: 4px 0 0;
+  font-size: 0.75rem;
+}
+
+.shortcuts kbd {
+  padding: 0 4px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 0.95em;
+}
+
+/* Keys only help with a keyboard. */
+@media (pointer: coarse) {
+  .shortcuts {
+    display: none;
+  }
 }
 
 .segmented {
@@ -617,6 +643,12 @@ html {
   border: 1px dashed var(--border);
   border-radius: var(--radius);
   color: var(--text-muted);
+}
+
+.notice--new {
+  border-style: solid;
+  border-color: var(--accent);
+  color: var(--text);
 }
 
 .notice--error {
@@ -719,6 +751,17 @@ html {
   gap: 12px;
   padding: 14px 4px;
   border-bottom: 1px solid var(--border);
+}
+
+/* The paper the j and k keys reached. */
+.paper:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius);
+}
+
+.paper--seen {
+  opacity: 0.55;
 }
 
 /* The paper a shared `?paper=` link points at. */

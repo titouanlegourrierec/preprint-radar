@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "preact/hooks";
+import { useCallback, useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { toBibtexFile } from "./bibtex";
 import { About } from "./components/About";
 import { GraphView } from "./components/GraphView";
@@ -11,8 +11,10 @@ import { useCitations } from "./hooks/use-citations";
 import { usePapers } from "./hooks/use-papers";
 import { useReadingList } from "./hooks/use-reading-list";
 import { useTheme } from "./hooks/use-theme";
+import { useTriage } from "./hooks/use-triage";
 import { useUrlState } from "./hooks/use-url-state";
-import { between } from "./period";
+import { hasModifier, isTyping } from "./keyboard";
+import { between, samePeriod } from "./period";
 import { loadShowAbstracts, saveShowAbstracts, type ThemePreference } from "./preferences";
 import {
   alphabetical,
@@ -26,7 +28,7 @@ import {
   valueCounts,
 } from "./search";
 import type { Paper } from "./types";
-import { archiveYearOf, DEFAULT_STATE, paperLink, type ViewState, writeState } from "./url-state";
+import { archiveYearOf, paperLink, type ViewState, writeState } from "./url-state";
 
 const FACET_SIZE = 12;
 const SUGGESTION_SIZE = 300;
@@ -50,6 +52,26 @@ export function App() {
       ? formatCitationsNote(citations.source, citations.asOf)
       : undefined;
   const readingList = useReadingList();
+  const triage = useTriage(category ?? null, storeDays);
+  const searchInput = useRef<HTMLInputElement>(null);
+
+  // "/" jumps to the search box, but in the graph, whose own search box takes it.
+  useEffect(() => {
+    if (state.view === "graph") return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (
+        event.key !== "/" ||
+        event.defaultPrevented ||
+        hasModifier(event) ||
+        isTyping(event.target)
+      )
+        return;
+      event.preventDefault();
+      searchInput.current?.focus();
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [state.view]);
   const { theme, resolved, next, cycle } = useTheme();
   const [showAbstracts, setShowAbstracts] = useState(loadShowAbstracts);
   const [showRelevanceHelp, setShowRelevanceHelp] = useState(false);
@@ -57,12 +79,25 @@ export function App() {
   const activeIndex =
     state.view === "reading-list" ? readingList.index : load.status === "ready" ? load.index : null;
 
+  const triaged = state.view === "papers";
+  const hiding = triaged && triage.hideSeen && triage.seen.size > 0;
   const results: SearchResult[] = useMemo(() => {
     if (state.view === "graph") return [];
     const found = activeIndex?.search(query, state.filters, cited ? "newest" : state.sort) ?? [];
+    const shown = hiding ? found.filter(({ paper }) => !triage.seen.has(paper.arxiv_id)) : found;
     // The highly cited view ranks by citations; search words only narrow it down.
-    return cited || state.sort === "citations" ? byCitations(found, citations.counts) : found;
-  }, [state.view, cited, activeIndex, query, state.filters, state.sort, citations]);
+    return cited || state.sort === "citations" ? byCitations(shown, citations.counts) : shown;
+  }, [
+    state.view,
+    cited,
+    activeIndex,
+    query,
+    state.filters,
+    state.sort,
+    citations,
+    hiding,
+    triage.seen,
+  ]);
   // The graph has its own settings panel: it ignores the list filters, not the search words.
   const graphPapers = useMemo(
     () =>
@@ -110,6 +145,10 @@ export function App() {
   const newest = state.sort === "newest" || (state.sort === "relevance" && !hasSearchWords);
   // A share link opens the paper on its own day, free of the sharer's search context.
   const pastedId = arxivIdOf(query);
+  const sinceLastVisit = triage.sinceLastVisit && {
+    ...triage.sinceLastVisit,
+    period: between(triage.sinceLastVisit.from, triage.sinceLastVisit.to),
+  };
   const oldestDay = storeDays.at(-1)?.date;
   const yearsArchived = archiveYears.map((entry) => entry.year);
   const linkTo = (paper: Paper) =>
@@ -319,6 +358,7 @@ export function App() {
         <input
           type="search"
           class="search__input"
+          ref={searchInput}
           placeholder="Search papers…"
           value={state.query}
           onInput={(event) => update({ query: event.currentTarget.value })}
@@ -425,10 +465,20 @@ export function App() {
               </fieldset>
             )}
             {state.view === "papers" && (
-              <label class="toggle results__abstracts">
-                <input type="checkbox" checked={showAbstracts} onChange={toggleAbstracts} />
-                Show abstracts
-              </label>
+              <div class="results__toggles">
+                <label class="toggle">
+                  <input
+                    type="checkbox"
+                    checked={triage.hideSeen}
+                    onChange={triage.toggleHideSeen}
+                  />
+                  Hide seen
+                </label>
+                <label class="toggle">
+                  <input type="checkbox" checked={showAbstracts} onChange={toggleAbstracts} />
+                  Show abstracts
+                </label>
+              </div>
             )}
             {state.view === "reading-list" && readingList.papers.length > 0 && (
               <div class="results__actions">
@@ -463,6 +513,26 @@ export function App() {
           </div>
 
           {hasSearchWords && showRelevanceHelp && <p class="help-note">{RELEVANCE_HELP}</p>}
+
+          {triaged && sinceLastVisit && !samePeriod(state.period, sinceLastVisit.period) && (
+            <p class="notice notice--new">
+              {sinceLastVisit.papers.toLocaleString()} new paper
+              {sinceLastVisit.papers === 1 ? "" : "s"} since your last visit.{" "}
+              <button
+                type="button"
+                class="link-button"
+                onClick={() => update({ period: sinceLastVisit.period })}
+              >
+                Show them
+              </button>
+            </p>
+          )}
+          {triaged && load.status === "ready" && (
+            <p class="shortcuts muted">
+              Keys: <kbd>j</kbd> <kbd>k</kbd> move, <kbd>o</kbd> open, <kbd>s</kbd> save,{" "}
+              <kbd>x</kbd> seen, <kbd>/</kbd> search.
+            </p>
+          )}
 
           {load.status === "error" && state.view !== "reading-list" ? (
             <p class="notice notice--error">Could not load papers: {load.message}</p>
@@ -522,6 +592,8 @@ export function App() {
                 showAbstracts={showAbstracts || state.view === "reading-list"}
                 savedIds={readingList.savedIds}
                 onToggleSaved={readingList.toggle}
+                seenIds={triaged ? triage.seen : undefined}
+                onToggleSeen={triaged ? triage.toggleSeen : undefined}
                 onAuthor={(author) => setFilters({ ...state.filters, author: exactly(author) })}
                 onAffiliation={(affiliation) => setFilters({ ...state.filters, affiliation })}
               />

@@ -2,6 +2,7 @@ import type { ComponentChildren } from "preact";
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { dayGroups } from "../day-groups";
 import { formatShortDay } from "../format";
+import { hasModifier, isTyping } from "../keyboard";
 import type { NameFilter, SearchResult } from "../search";
 import type { Paper } from "../types";
 import { PaperCard } from "./PaperCard";
@@ -22,6 +23,9 @@ interface Props {
   showAbstracts: boolean;
   savedIds: ReadonlySet<string>;
   onToggleSaved: (paper: Paper) => void;
+  /** Papers marked seen, and how to mark one; absent where papers are not triaged. */
+  seenIds?: ReadonlySet<string> | undefined;
+  onToggleSeen?: ((arxivId: string) => void) | undefined;
   onAuthor: (author: string) => void;
   onAffiliation: (filter: NameFilter) => void;
 }
@@ -39,11 +43,51 @@ export function PaperList({
   showAbstracts,
   savedIds,
   onToggleSaved,
+  seenIds,
+  onToggleSeen,
   onAuthor,
   onAffiliation,
 }: Props) {
   const [visible, setVisible] = useState(PAGE_SIZE);
   const sentinel = useRef<HTMLDivElement>(null);
+  const list = useRef<HTMLDivElement>(null);
+
+  // Triage from the keyboard: j and k move between papers, o (or Enter on a paper) opens
+  // it, s saves it, x marks it seen. Keys typed in a field are left alone.
+  const byId = useMemo(
+    () => new Map(results.map(({ paper }) => [paper.arxiv_id, paper])),
+    [results],
+  );
+  const actions = useRef({ byId, onToggleSaved, onToggleSeen });
+  actions.current = { byId, onToggleSaved, onToggleSeen };
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.defaultPrevented || hasModifier(event) || isTyping(event.target) || !list.current)
+        return;
+      const cards = [...list.current.querySelectorAll<HTMLElement>("article.paper")];
+      const current = document.activeElement?.closest<HTMLElement>("article.paper") ?? null;
+      const index = current ? cards.indexOf(current) : -1;
+      const paper = current ? actions.current.byId.get(current.dataset.arxivId ?? "") : undefined;
+      const onCard = current !== null && document.activeElement === current;
+      if (event.key === "j" || event.key === "k") {
+        const next = cards[event.key === "j" ? index + 1 : Math.max(index - 1, 0)];
+        if (!next) return;
+        next.focus();
+        next.scrollIntoView({ block: "nearest" });
+      } else if (event.key === "o" || (event.key === "Enter" && onCard)) {
+        current?.querySelector<HTMLButtonElement>(".paper__more")?.click();
+      } else if (event.key === "s" && paper) {
+        actions.current.onToggleSaved(paper);
+      } else if (event.key === "x" && paper && actions.current.onToggleSeen) {
+        actions.current.onToggleSeen(paper.arxiv_id);
+      } else {
+        return;
+      }
+      event.preventDefault();
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, []);
 
   // Reset paging whenever the results change, keeping a shared link's target in reach.
   useEffect(() => {
@@ -85,6 +129,8 @@ export function PaperList({
       highlights={highlights}
       showAbstract={showAbstracts}
       saved={savedIds.has(paper.arxiv_id)}
+      seen={seenIds?.has(paper.arxiv_id) ?? false}
+      onToggleSeen={onToggleSeen}
       isTarget={paper.arxiv_id === openId}
       permalink={linkTo(paper)}
       onOpen={onOpenPaper}
@@ -129,7 +175,9 @@ export function PaperList({
 
   return (
     <>
-      <div class="paper-list">{content}</div>
+      <div class="paper-list" ref={list}>
+        {content}
+      </div>
       <div ref={sentinel} aria-hidden="true" />
     </>
   );

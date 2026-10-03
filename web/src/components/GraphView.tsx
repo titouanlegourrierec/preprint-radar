@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { formatDay } from "../format";
 import { buildGraph, type EntityKind, type GraphNode, isEntity, nodeMatches } from "../graph";
 import { GraphRenderer } from "../graph-renderer";
+import { isTyping } from "../keyboard";
 import type { Period } from "../period";
 import {
   DEFAULT_GRAPH_SETTINGS,
@@ -57,14 +58,6 @@ interface Props {
   theme: "light" | "dark";
   /** Citation count of each paper, by arXiv id, when known. */
   citations: ReadonlyMap<string, number>;
-}
-
-function isTyping(target: EventTarget | null): boolean {
-  return (
-    target instanceof HTMLInputElement ||
-    target instanceof HTMLSelectElement ||
-    target instanceof HTMLTextAreaElement
-  );
 }
 
 /** Full-screen co-occurrence graph of the institutions and authors of the loaded papers. */

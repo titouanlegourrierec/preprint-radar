@@ -30,6 +30,8 @@ interface Props {
   highlights: readonly string[];
   showAbstract: boolean;
   saved: boolean;
+  /** Marked seen by the reader: dimmed in the list. */
+  seen: boolean;
   /** Whether a shared `?paper=` link points at this paper. */
   isTarget: boolean;
   /** Query string linking to this paper alone, for the Share control. */
@@ -42,6 +44,8 @@ interface Props {
   /** Where and when the count comes from, for its tooltip. */
   citationsNote?: string | undefined;
   onToggleSaved: (paper: Paper) => void;
+  /** Absent where papers cannot be marked seen (the reading list). */
+  onToggleSeen?: ((arxivId: string) => void) | undefined;
   onAuthor: (author: string) => void;
   /** The affiliation's institution, exactly, or the string itself when it names none. */
   onAffiliation: (filter: NameFilter) => void;
@@ -52,6 +56,7 @@ export function PaperCard({
   highlights,
   showAbstract,
   saved,
+  seen,
   isTarget,
   permalink,
   onOpen,
@@ -59,6 +64,7 @@ export function PaperCard({
   citations,
   citationsNote,
   onToggleSaved,
+  onToggleSeen,
   onAuthor,
   onAffiliation,
 }: Props) {
@@ -121,7 +127,10 @@ export function PaperCard({
   return (
     <article
       ref={root}
-      class={`paper${expanded ? " paper--expanded" : ""}${isTarget ? " paper--target" : ""}`}
+      class={`paper${expanded ? " paper--expanded" : ""}${isTarget ? " paper--target" : ""}${seen ? " paper--seen" : ""}`}
+      // Focused by the j and k keys of the list, which then act on this paper.
+      tabIndex={-1}
+      data-arxiv-id={paper.arxiv_id}
     >
       <div class="paper__main">
         <h2 class="paper__title">
@@ -226,10 +235,21 @@ export function PaperCard({
               Graph
             </button>
           )}
-          {hasDetails && (
+          {onToggleSeen && (
             <button
               type="button"
               class="link-button"
+              aria-pressed={seen}
+              title="Seen papers are dimmed, and can be hidden (key x)"
+              onClick={() => onToggleSeen(paper.arxiv_id)}
+            >
+              {seen ? "Seen ✓" : "Mark seen"}
+            </button>
+          )}
+          {hasDetails && (
+            <button
+              type="button"
+              class="link-button paper__more"
               aria-expanded={expanded}
               onClick={() => setExpanded(!expanded)}
             >
