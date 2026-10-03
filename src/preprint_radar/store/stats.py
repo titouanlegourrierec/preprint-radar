@@ -44,13 +44,22 @@ class Coverage:
     cited: int = 0
 
     @classmethod
-    def of(cls, papers: Iterable[Paper], cited: Container[str] = frozenset()) -> Self:
-        """Count the enrichment of ``papers``; ``cited`` holds the ids with a citation count."""
+    def of(
+        cls,
+        papers: Iterable[Paper],
+        cited: Container[str] = frozenset(),
+        published: Container[str] = frozenset(),
+    ) -> Self:
+        """Count the enrichment of ``papers``.
+
+        ``cited`` holds the ids with a citation count, ``published`` those with a published
+        venue in ``scholar.json``, which count as having a venue.
+        """
         counted = abstracts = found = empty = pending = mapped = named = unnamed = venues = with_count = 0
         for paper in papers:
             counted += 1
             abstracts += paper.abstract is not None
-            venues += paper.venue is not None
+            venues += paper.venue is not None or paper.arxiv_id in published
             with_count += paper.arxiv_id in cited
             if paper.affiliations is None:
                 pending += 1
@@ -101,20 +110,26 @@ class RowCoverage:
 
 def collect_coverage(store: PaperStore, category: str) -> list[RowCoverage]:
     """Coverage of each stored day of ``category``, most recent first."""
-    cited = store.load_citations(category)
+    cited, published = store.load_citations(category), _published(store, category)
     return [
-        RowCoverage(day.isoformat(), Coverage.of(store.load_day(category, day), cited))
+        RowCoverage(day.isoformat(), Coverage.of(store.load_day(category, day), cited, published))
         for day in store.days(category)
     ]
 
 
 def collect_archive_coverage(store: PaperStore, category: str) -> list[RowCoverage]:
     """Coverage of each archive year of ``category``, most recent first."""
-    cited = store.load_citations(category)
+    cited, published = store.load_citations(category), _published(store, category)
     return [
-        RowCoverage(str(year), Coverage.of(store.load_archive(category, year), cited))
+        RowCoverage(str(year), Coverage.of(store.load_archive(category, year), cited, published))
         for year in store.archive_years(category)
     ]
+
+
+def _published(store: PaperStore, category: str) -> set[str]:
+    """The papers with a published venue in ``scholar.json``."""
+    scholar = store.load_scholar(category)
+    return {arxiv_id for arxiv_id, record in scholar.papers.items() if record.venue} if scholar else set()
 
 
 def format_coverage(category: str, days: Sequence[RowCoverage]) -> str:
@@ -123,7 +138,8 @@ def format_coverage(category: str, days: Sequence[RowCoverage]) -> str:
     Columns count papers: with an abstract, with at least one affiliation (affiliated),
     searched for affiliations without success (none), not searched yet (pending), with
     affiliations mapped to their authors (mapped), with at least one institution named
-    (named), with a detected venue, and with a citation count (cited).
+    (named), with a venue (detected in the comments, or published according to
+    Semantic Scholar), and with a citation count (cited).
     """
     return _table(_days_title(category, days), "day", days)
 

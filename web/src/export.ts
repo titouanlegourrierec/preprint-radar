@@ -11,6 +11,7 @@ const CSV_COLUMNS = [
   "affiliations",
   "announced",
   "venue",
+  "doi",
   "citations",
   "url",
 ] as const;
@@ -29,6 +30,7 @@ export function toCsv(papers: readonly Paper[], citations: ReadonlyMap<string, n
       (paper.affiliations ?? []).join("; "),
       paper.announced,
       paper.venue ?? "",
+      paper.doi ?? "",
       String(citations.get(paper.arxiv_id) ?? ""),
       paper.abs_url,
     ]
@@ -38,7 +40,7 @@ export function toCsv(papers: readonly Paper[], citations: ReadonlyMap<string, n
   return `${[CSV_COLUMNS.join(","), ...rows].join("\r\n")}\r\n`;
 }
 
-/** RIS records, typed as preprints (`UNPB`), with the arXiv DOI. */
+/** RIS records, typed as preprints (`UNPB`), with the published version's DOI, else arXiv's. */
 export function toRis(papers: readonly Paper[]): string {
   return papers
     .map((paper) => {
@@ -49,7 +51,7 @@ export function toRis(papers: readonly Paper[]): string {
         `PY  - ${paper.announced.slice(0, 4)}`,
         `DA  - ${paper.announced.replaceAll("-", "/")}`,
         ...(paper.abstract ? [`AB  - ${oneLine(paper.abstract)}`] : []),
-        `DO  - 10.48550/arXiv.${paper.arxiv_id}`,
+        `DO  - ${paper.doi ?? `10.48550/arXiv.${paper.arxiv_id}`}`,
         `UR  - ${paper.abs_url}`,
         `PB  - arXiv`,
         `M1  - arXiv:${paper.arxiv_id}`,

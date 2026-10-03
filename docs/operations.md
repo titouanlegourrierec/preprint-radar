@@ -125,10 +125,12 @@ categories or accept a backlog.
 
 ### Semantic Scholar keeps refusing
 
-**Signal.** `Semantic Scholar keeps refusing; stopping after` in the citations step.
+**Signal.** `Semantic Scholar keeps refusing; stopping after` in the citations step, or in the weekly
+*Fetch the published versions* step.
 
-Semantic Scholar answered 429 for 10 minutes: the new papers get their counts on a later
-day. Harmless, and the step stays green. If counts stop arriving altogether, the
+Semantic Scholar answered 429 for 10 minutes (20 for the published versions): the new papers
+get their counts on a later day, and the papers not asked for keep last week's DOI and venue.
+Harmless, and the step stays green. If counts stop arriving altogether, the
 summary's `Stale citation counts` warning shows it after 14 days.
 
 ### A traceback that ends in KeyboardInterrupt

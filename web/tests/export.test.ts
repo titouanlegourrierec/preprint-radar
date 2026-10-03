@@ -17,9 +17,12 @@ const paper = makePaper({
 describe("exports", () => {
   it("write CSV, quoting what needs it", () => {
     const lines = toCsv([paper], new Map([["2609.30245", 3]])).split("\r\n");
-    expect(lines[0]).toBe("arxiv_id,title,authors,affiliations,announced,venue,citations,url");
+    expect(lines[0]).toBe("arxiv_id,title,authors,affiliations,announced,venue,doi,citations,url");
     expect(lines[1]).toBe(
-      '2609.30245,"A ""quoted"", comma title",Ada Lovelace; Bob Smith; Carl Gauss; Dora Maar,MIT; ETH Zurich,2026-09-25,ECCV 2026,3,https://arxiv.org/abs/2609.30245',
+      '2609.30245,"A ""quoted"", comma title",Ada Lovelace; Bob Smith; Carl Gauss; Dora Maar,MIT; ETH Zurich,2026-09-25,ECCV 2026,,3,https://arxiv.org/abs/2609.30245',
+    );
+    expect(toCsv([{ ...paper, doi: "10.1/x" }], new Map()).split("\r\n")[1]).toContain(
+      ",ECCV 2026,10.1/x,,",
     );
   });
 
@@ -30,6 +33,10 @@ describe("exports", () => {
     expect(ris).toContain("DO  - 10.48550/arXiv.2609.30245\r\n");
     expect(ris).toContain("N1  - Accepted to ECCV 2026\r\n");
     expect(ris.trimEnd().endsWith("ER  -")).toBe(true);
+    // The published version's DOI, when known.
+    expect(toRis([{ ...paper, doi: "10.1109/CVPR.2026.1" }])).toContain(
+      "DO  - 10.1109/CVPR.2026.1\r\n",
+    );
   });
 
   it("write a Markdown list", () => {
@@ -94,7 +101,7 @@ describe("exports of sparse records", () => {
 
   it("leave out what a record lacks", () => {
     expect(toCsv([bare], new Map()).split("\r\n")[1]).toBe(
-      "2609.00001,Short [title],Ada Lovelace,,2026-09-25,,,https://arxiv.org/abs/2609.00001",
+      "2609.00001,Short [title],Ada Lovelace,,2026-09-25,,,,https://arxiv.org/abs/2609.00001",
     );
     const ris = toRis([bare]);
     expect(ris).not.toContain("AB  -");

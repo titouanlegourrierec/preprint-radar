@@ -38,7 +38,14 @@ test("a paper link opens the paper", async ({ page }) => {
   await expect(card).toHaveClass(/paper--expanded/);
   // And an archived paper's link, its year of the Highly cited view (SRCH-5).
   await page.goto("./?view=cited&year=2017&paper=1706.00001");
-  await expect(page.locator("article.paper--target")).toContainText("Attention for Looms");
+  const archived = page.locator("article.paper--target");
+  await expect(archived).toContainText("Attention for Looms");
+  // With what scholar.json knows, merged by the build: its published venue and DOI (META-1).
+  await expect(archived).toContainText("NeurIPS 2017");
+  await expect(archived.getByRole("link", { name: "DOI" })).toHaveAttribute(
+    "href",
+    "https://doi.org/10.0000/looms.2017",
+  );
 });
 
 test("the graph draws on a canvas", async ({ page }) => {

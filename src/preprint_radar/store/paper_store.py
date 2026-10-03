@@ -7,6 +7,7 @@ Layout::
     └── <category>/
         ├── <YYYY-MM-DD>.json      # papers announced that day in that category
         ├── citations.json         # citation counts of the stored papers
+        ├── scholar.json           # their DOI, published venue and author ids
         └── archive/
             └── <YYYY>.json        # highly cited older papers, by year of first version
 
@@ -26,13 +27,14 @@ from pathlib import Path
 from typing import Any
 
 from preprint_radar.exceptions import StoreError
-from preprint_radar.models import Paper
+from preprint_radar.models import Paper, ScholarRecord
 
 logger = logging.getLogger(__name__)
 
 SCHEMA_VERSION = 1
 INDEX_FILENAME = "index.json"
 CITATIONS_FILENAME = "citations.json"
+SCHOLAR_FILENAME = "scholar.json"
 ARCHIVE_DIRNAME = "archive"
 _DAY_STEM_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 _YEAR_STEM_RE = re.compile(r"^\d{4}$")
@@ -43,6 +45,15 @@ class CitationCounts:
     """Citation counts of the stored papers of a category, as the archive last wrote them."""
 
     counts: dict[str, int]
+    source: str
+    generated_at: datetime
+
+
+@dataclass(frozen=True, slots=True)
+class ScholarFile:
+    """What Semantic Scholar knows of the stored papers of a category, as last written."""
+
+    papers: dict[str, ScholarRecord]
     source: str
     generated_at: datetime
 
@@ -263,6 +274,47 @@ class PaperStore:
             "counts": dict(sorted(counts.items())),
         }
         _write_json(self.root / category / CITATIONS_FILENAME, payload)
+
+    def load_scholar(self, category: str) -> ScholarFile | None:
+        """The DOIs, published venues and author ids of ``category``, if ever written.
+
+        Raises:
+            StoreError: If the file is not a valid ``scholar.json``.
+        """
+        path = self.root / category / SCHOLAR_FILENAME
+        if not path.is_file():
+            return None
+        try:
+            payload: Any = json.loads(path.read_text(encoding="utf-8"))
+            return ScholarFile(
+                papers={
+                    str(arxiv_id): ScholarRecord.from_record(record)
+                    for arxiv_id, record in payload["papers"].items()
+                },
+                source=str(payload["source"]),
+                generated_at=datetime.fromisoformat(payload["generated_at"]),
+            )
+        except (json.JSONDecodeError, AttributeError, KeyError, TypeError, ValueError) as exc:
+            msg = f"Invalid scholar file {path}: {exc}"
+            raise StoreError(msg) from exc
+
+    def write_scholar(self, category: str, papers: Mapping[str, ScholarRecord], *, source: str) -> None:
+        """Write what Semantic Scholar knows of the stored papers of ``category``, dated now.
+
+        Papers it knows nothing of are left out.
+        """
+        payload = {
+            "schema_version": SCHEMA_VERSION,
+            "category": category,
+            "generated_at": datetime.now(tz=UTC).isoformat(timespec="seconds"),
+            "source": source,
+            "papers": {
+                arxiv_id: record.to_record()
+                for arxiv_id, record in sorted(papers.items())
+                if not record.is_empty()
+            },
+        }
+        _write_json(self.root / category / SCHOLAR_FILENAME, payload)
 
     def summaries(self, category: str) -> list[DaySummary]:
         """Return the number of papers per day for ``category``, most recent first."""

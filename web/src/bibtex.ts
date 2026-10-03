@@ -82,7 +82,8 @@ export function toBibtex(paper: Paper, key = citationKey(paper)): string {
     ["eprint", paper.arxiv_id],
     ["archivePrefix", "arXiv"],
     ["primaryClass", primaryClass(paper)],
-    ["doi", `10.48550/arXiv.${paper.arxiv_id}`],
+    // The published version's, when Semantic Scholar knows one; else arXiv's.
+    ["doi", paper.doi ?? `10.48550/arXiv.${paper.arxiv_id}`],
     ["note", paper.venue ? escapeText(`Accepted to ${paper.venue}`) : null],
     ["url", paper.abs_url],
   ];

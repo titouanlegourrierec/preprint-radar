@@ -30,6 +30,12 @@ describe("bibtex", () => {
     );
   });
 
+  it("cites the published version's DOI when known", () => {
+    expect(toBibtex({ ...paper, doi: "10.1109/CVPR.2026.1" })).toContain(
+      "  doi = {10.1109/CVPR.2026.1},",
+    );
+  });
+
   // Real titles of September 2026.
   it.each([
     [

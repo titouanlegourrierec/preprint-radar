@@ -25,9 +25,11 @@ from preprint_radar.collect import (
     backfill_category,
     format_citations_report,
     format_report,
+    format_scholar_report,
     reextract_category,
     update_category,
     update_citation_counts,
+    update_scholar_records,
 )
 from preprint_radar.config import (
     CONTACT_ENV_VAR,
@@ -108,6 +110,7 @@ def build_parser() -> argparse.ArgumentParser:
     _add_citations_parser(subparsers)
     _add_index_parser(subparsers)
     _add_reclean_parser(subparsers)
+    _add_scholar_parser(subparsers)
     _add_venues_parser(subparsers)
     _add_validate_parser(subparsers)
     _add_summary_parser(subparsers)
@@ -334,6 +337,40 @@ def _add_citations_parser(subparsers: "argparse._SubParsersAction[argparse.Argum
     )
     citations.add_argument("--all", action="store_true", help="fetch the counts of every stored paper again")
     citations.add_argument(
+        "--max-minutes",
+        type=float,
+        default=None,
+        help="stop asking a refusing Semantic Scholar after this long (default: no limit)",
+    )
+
+
+def _add_scholar_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
+    scholar = subparsers.add_parser(
+        "scholar",
+        help="fetch the DOI, published venue and author ids of stored papers",
+        description=(
+            "Fetch from Semantic Scholar the DOI, published venue and author ids of every "
+            "stored paper (day files and archive) into scholar.json, as the weekly archive "
+            "workflow does. API key from SEMANTIC_SCHOLAR_API_KEY. Papers Semantic Scholar "
+            "was not asked for, because it kept refusing, keep what they had. A rejected key "
+            "fails the command."
+        ),
+    )
+    scholar.add_argument(
+        "-c",
+        "--category",
+        dest="categories",
+        action="append",
+        type=_category,
+        help="arXiv category, repeatable (default: every category in the store)",
+    )
+    scholar.add_argument(
+        "--data-dir",
+        type=Path,
+        default=DEFAULT_DATA_DIR,
+        help=f"data store directory (default: {DEFAULT_DATA_DIR})",
+    )
+    scholar.add_argument(
         "--max-minutes",
         type=float,
         default=None,
@@ -867,6 +904,25 @@ def _run_citations(args: argparse.Namespace) -> int:
     return 0
 
 
+def _run_scholar(args: argparse.Namespace) -> int:
+    store = PaperStore(args.data_dir)
+    categories: list[str] = args.categories or store.categories()
+    client, key = _semantic_scholar()
+    with client:
+        for category in categories:
+            report = update_scholar_records(
+                store,
+                category,
+                client,
+                key=key,
+                max_seconds=None if args.max_minutes is None else 60 * args.max_minutes,
+            )
+            line = format_scholar_report(report)
+            console.print(line)
+            github_summary(f"**Published versions.** {line}")
+    return 0
+
+
 def _run_summary(args: argparse.Namespace) -> int:
     store = PaperStore(args.data_dir)
     today = datetime.now(tz=UTC).date()
@@ -1019,6 +1075,7 @@ _COMMANDS: dict[str, Callable[[argparse.Namespace], int]] = {
     "index": _run_index,
     "reclean": _run_reclean,
     "venues": _run_venues,
+    "scholar": _run_scholar,
     "validate": _run_validate,
     "summary": _run_summary,
     "reextract": _run_reextract,

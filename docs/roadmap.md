@@ -164,7 +164,7 @@ page has no live coverage figures (PROD-7); of TEST-9, only the check of the dar
 | ID | Item | Priority | Status |
 |---|---|---|---|
 | PERF-1 | Bounded periods, async index build, per-month search shards (periods bounded to 10,000 papers, index built in chunks, loaded files kept and requests cancelled: done; the per-month shards wait for decision 1) | P1 | todo |
-| META-1 | Spike, then DOI, published venue and author ids from the weekly Semantic Scholar batch | P1 | todo |
+| META-1 | Spike, then DOI, published venue and author ids from the weekly Semantic Scholar batch (a separate weekly step, `scholar`, of 52 requests rather than fields added to the 415 of counts) | P1 | done |
 | AFF-14 | Keep ROR ids | P2 | todo |
 | AFF-3 | OpenAlex retry policy, after its spike | P1 | todo |
 | PROD-1 | Fill the 11-month gap, once CIT-11 has landed | P1 | todo |

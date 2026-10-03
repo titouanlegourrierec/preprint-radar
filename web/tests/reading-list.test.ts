@@ -16,6 +16,8 @@ const bob = makePaper({ arxiv_id: "2609.00002", authors: ["Bob"] });
 describe("toPaper", () => {
   it("keeps a stored record as it is", () => {
     expect(toPaper(JSON.parse(JSON.stringify(ada)))).toEqual(ada);
+    const published = { ...ada, doi: "10.1109/CVPR.2026.1" };
+    expect(toPaper(JSON.parse(JSON.stringify(published)))).toEqual(published);
   });
 
   it.each([

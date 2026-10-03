@@ -134,6 +134,10 @@ venues: ## Detect the stored venues again after a change to the detection (offli
 citations: ## Fetch the citation counts of stored papers without one (ALL=1: every paper)
 	uv run preprint-radar -v citations $(CATEGORY_ARGS) $(if $(ALL),--all)
 
+.PHONY: scholar
+scholar: ## Fetch the DOI, published venue and author ids of every stored paper (minutes)
+	uv run preprint-radar -v scholar $(CATEGORY_ARGS)
+
 .PHONY: validate
 validate: ## Check data/ against its contract (errors fail, heuristic warnings do not)
 	@uv run preprint-radar validate

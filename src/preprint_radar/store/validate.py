@@ -22,6 +22,7 @@ from preprint_radar.store.paper_store import (
     CITATIONS_FILENAME,
     INDEX_FILENAME,
     SCHEMA_VERSION,
+    SCHOLAR_FILENAME,
     PaperStore,
 )
 from preprint_radar.store.quality import last_holds_all, names_only
@@ -117,6 +118,7 @@ def _validate_category(store: PaperStore, category: str, report: ValidationRepor
     """Check one category's files; return its day and year counts, as the index lists them."""
     directory = store.root / category
     stored: set[str] = set()
+    authors: dict[str, int] = {}
     days: list[dict[str, Any]] = []
     first_day: dict[str, date] = {}
     for day in store.days(category):
@@ -136,6 +138,7 @@ def _validate_category(store: PaperStore, category: str, report: ValidationRepor
             _check_contacts(paper, where, report)
             report.findings.extend(Finding(Level.WARNING, where, message) for message in _heuristics(paper))
         stored.update(paper.arxiv_id for paper in papers)
+        authors.update((paper.arxiv_id, len(paper.authors)) for paper in papers)
 
     years: list[dict[str, Any]] = []
     archived: set[str] = set()
@@ -152,10 +155,12 @@ def _validate_category(store: PaperStore, category: str, report: ValidationRepor
             if paper.arxiv_id in archived:
                 report.findings.append(Finding(Level.ERROR, where, f"{paper.arxiv_id}: archived twice"))
             archived.add(paper.arxiv_id)
+            authors.setdefault(paper.arxiv_id, len(paper.authors))
             _check_contacts(paper, where, report)
     stored |= archived
 
     _validate_citations(store, category, stored, report)
+    _validate_scholar(store, category, authors, report)
     return {"days": days, "years": years}
 
 
@@ -230,6 +235,41 @@ def _validate_citations(store: PaperStore, category: str, stored: set[str], repo
         examples = ", ".join(unknown[:5])
         message = f"{len(unknown)} counts of papers that are not stored, e.g. {examples}"
         report.findings.append(Finding(Level.ERROR, where, message))
+
+
+def _validate_scholar(
+    store: PaperStore, category: str, authors: dict[str, int], report: ValidationReport
+) -> None:
+    """``scholar.json`` must load; stale records only warn.
+
+    A record of a paper no longer stored, or whose author ids no longer fit its author list
+    (a new version), is dropped by the next weekly run.
+    """
+    path = store.root / category / SCHOLAR_FILENAME
+    if not path.is_file():
+        return
+    report.files += 1
+    where = _where(path, store)
+    try:
+        scholar = store.load_scholar(category)
+    except StoreError as exc:
+        report.findings.append(Finding(Level.ERROR, where, str(exc)))
+        return
+    records = scholar.papers if scholar else {}
+    unknown = sorted(set(records) - set(authors))
+    if unknown:
+        message = f"{len(unknown)} records of papers that are not stored, e.g. {', '.join(unknown[:5])}"
+        report.findings.append(Finding(Level.WARNING, where, message))
+    misfits = sorted(
+        arxiv_id
+        for arxiv_id, record in records.items()
+        if record.author_ids is not None
+        and arxiv_id in authors
+        and len(record.author_ids) != authors[arxiv_id]
+    )
+    if misfits:
+        message = f"{len(misfits)} author id lists that do not fit the authors, e.g. {', '.join(misfits[:5])}"
+        report.findings.append(Finding(Level.WARNING, where, message))
 
 
 def _validate_index(store: PaperStore, counts: dict[str, dict[str, Any]], report: ValidationReport) -> None:

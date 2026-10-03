@@ -7,18 +7,29 @@ request. With an API key (``SEMANTIC_SCHOLAR_API_KEY``, free on request) it allo
 request per second, yet still refuses (429) about half of the batches at that pace: they
 are tried again after a short wait. Anonymous requests share a small, busy pool and are
 tried again after a long one.
+
+The same endpoint gives the published version of a paper (:func:`fetch_scholar_records`):
+its DOI, its venue and its authors' ids. The year of the venue is read from the names of
+the proceedings or the journal ("2022 IEEE/CVF Conference on ..."), its volume or an IEEE
+DOI, never from ``publicationDate`` or ``year``, which are often the arXiv version's (a
+paper of CVPR 2022 posted in 2021 has 2021).
 """
 
 import json
 import logging
 import os
+import re
 import time
 from collections.abc import Callable, Iterable, Mapping
+from dataclasses import dataclass
 from itertools import batched
+from typing import Any
 
 from preprint_radar.config import S2_API_KEY_ENV
 from preprint_radar.exceptions import FetchError, ParseError
 from preprint_radar.http import HttpClient
+from preprint_radar.models import ScholarRecord
+from preprint_radar.venue import published_venue
 
 logger = logging.getLogger(__name__)
 
@@ -41,6 +52,14 @@ S2_KEY_REJECTED = frozenset({401, 403})
 _REPORTED_STREAK = 5
 # Progress is reported every that many batches (5,000 papers).
 _PROGRESS_EVERY = 10
+S2_COUNT_FIELDS = "citationCount"
+# About 1 KB a paper, 500 KB a batch: answered in a few seconds, like a batch of counts.
+S2_RECORD_FIELDS = "externalIds,venue,publicationVenue,journal,authors"
+# arXiv's own DOIs (10.48550/arXiv.<id>) say nothing of a published version.
+_ARXIV_DOI_PREFIX = "10.48550/"
+_YEAR_RE = re.compile(r"\b(?:19|20)\d{2}\b")
+# IEEE DOIs hold the year of their proceedings: 10.1109/CVPR52688.2022.01234.
+_IEEE_DOI_YEAR_RE = re.compile(r"^10\.1109/[^/.]+\.((?:19|20)\d{2})\.")
 
 
 def api_key() -> str | None:
@@ -80,42 +99,119 @@ def fetch_citation_counts(
         FetchError: If Semantic Scholar rejects the API key (or, without one, the
             requests): no try would get through.
     """
+    return _fetch_all(
+        client,
+        arxiv_ids,
+        _BatchKind("citation counts", S2_COUNT_FIELDS, parse_batch_response),
+        key=key,
+        on_batch=on_batch,
+        max_seconds=max_seconds,
+        sleep=sleep,
+        clock=clock,
+    )
+
+
+def fetch_scholar_records(
+    client: HttpClient,
+    arxiv_ids: Iterable[str],
+    *,
+    key: str | None = None,
+    max_seconds: float | None = None,
+    sleep: Callable[[float], None] = time.sleep,
+    clock: Callable[[], float] = time.monotonic,
+) -> dict[str, ScholarRecord | None]:
+    """The DOI, published venue and author ids of arXiv papers, as Semantic Scholar knows them.
+
+    Args and failures as :func:`fetch_citation_counts`.
+
+    Returns:
+        A record per paper fetched (``None``: unknown to Semantic Scholar); papers from a
+        batch that keeps failing on are left out. The author ids are those of Semantic
+        Scholar's author list, which the caller compares with the paper's.
+    """
+    return _fetch_all(
+        client,
+        arxiv_ids,
+        _BatchKind("paper records", S2_RECORD_FIELDS, parse_records_response),
+        key=key,
+        on_batch=None,
+        max_seconds=max_seconds,
+        sleep=sleep,
+        clock=clock,
+    )
+
+
+@dataclass(frozen=True, slots=True)
+class _BatchKind[T]:
+    """What a batch asks for: its name in the log, the fields, and how to read the answer."""
+
+    what: str
+    fields: str
+    parse: Callable[[str, tuple[str, ...]], dict[str, T | None]]
+
+
+def _fetch_all[T](
+    client: HttpClient,
+    arxiv_ids: Iterable[str],
+    kind: _BatchKind[T],
+    *,
+    key: str | None,
+    on_batch: Callable[[Mapping[str, T | None]], None] | None,
+    max_seconds: float | None,
+    sleep: Callable[[float], None],
+    clock: Callable[[], float],
+) -> dict[str, T | None]:
     headers = {"x-api-key": key} if key else None
     first_wait = S2_RETRY_WAIT_SECONDS if key else S2_ANONYMOUS_RETRY_WAIT_SECONDS
     deadline = None if max_seconds is None else clock() + max_seconds
     wanted = list(dict.fromkeys(arxiv_ids))
-    counts: dict[str, int | None] = {}
+    found: dict[str, T | None] = {}
     batches = refusals = 0
     for batch in batched(wanted, S2_BATCH_SIZE, strict=False):
-        batch_counts, refused = _fetch_batch(
+        batch_found, refused = _fetch_batch(
             client,
             batch,
+            kind,
             headers=headers,
             sleep=sleep,
             first_wait=first_wait,
             stop_waiting=(lambda wait: clock() + wait > deadline) if deadline is not None else None,
         )
         refusals += refused
-        if batch_counts is None:
-            logger.warning("Semantic Scholar keeps refusing; stopping after %d papers", len(counts))
+        if batch_found is None:
+            logger.warning("Semantic Scholar keeps refusing; stopping after %d papers", len(found))
             break
         batches += 1
-        counts.update(batch_counts)
+        found.update(batch_found)
         if on_batch is not None:
-            on_batch(batch_counts)
-        if batches % _PROGRESS_EVERY == 0 or len(counts) == len(wanted):
+            on_batch(batch_found)
+        if batches % _PROGRESS_EVERY == 0 or len(found) == len(wanted):
             logger.info(
-                "%s of %s citation counts fetched (%.0f%%)",
-                f"{len(counts):,}",
+                "%s of %s %s fetched (%.0f%%)",
+                f"{len(found):,}",
                 f"{len(wanted):,}",
-                100 * len(counts) / len(wanted),
+                kind.what,
+                100 * len(found) / len(wanted),
             )
     logger.info("%d batches fetched from Semantic Scholar, %d refused tries", batches, refusals)
-    return counts
+    return found
 
 
 def parse_batch_response(text: str, arxiv_ids: tuple[str, ...]) -> dict[str, int | None]:
     """Match a batch response (one entry per requested id, ``null`` if unknown) to its ids.
+
+    Raises:
+        ParseError: If the response is not a list of that length.
+    """
+    counts: dict[str, int | None] = {}
+    for arxiv_id, item in zip(arxiv_ids, _batch_items(text, arxiv_ids), strict=True):
+        count = item.get("citationCount") if item is not None else None
+        counts[arxiv_id] = count if isinstance(count, int) else None
+    return counts
+
+
+def _batch_items(text: str, arxiv_ids: tuple[str, ...]) -> list[dict[str, Any] | None]:
+    """The entries of a batch response, one per requested id (``None``: unknown).
 
     Raises:
         ParseError: If the response is not a list of that length.
@@ -128,23 +224,78 @@ def parse_batch_response(text: str, arxiv_ids: tuple[str, ...]) -> dict[str, int
     if not isinstance(items, list) or len(items) != len(arxiv_ids):
         msg = "Semantic Scholar response does not match the requested papers"
         raise ParseError(msg)
-    counts: dict[str, int | None] = {}
-    for arxiv_id, item in zip(arxiv_ids, items, strict=True):
-        count = item.get("citationCount") if isinstance(item, dict) else None
-        counts[arxiv_id] = count if isinstance(count, int) else None
-    return counts
+    return [item if isinstance(item, dict) else None for item in items]
 
 
-def _fetch_batch(
+def parse_records_response(text: str, arxiv_ids: tuple[str, ...]) -> dict[str, ScholarRecord | None]:
+    """Match a batch response with record fields to its ids.
+
+    Raises:
+        ParseError: If the response is not a list of that length, or an entry not an object.
+    """
+    items = _batch_items(text, arxiv_ids)
+    try:
+        return {
+            arxiv_id: _scholar_record(item) if item is not None else None
+            for arxiv_id, item in zip(arxiv_ids, items, strict=True)
+        }
+    except (AttributeError, TypeError) as exc:
+        msg = f"Unexpected Semantic Scholar record: {exc}"
+        raise ParseError(msg) from exc
+
+
+def _scholar_record(item: Mapping[str, Any]) -> ScholarRecord:
+    external = item.get("externalIds") or {}
+    doi = external.get("DOI") if isinstance(external.get("DOI"), str) else None
+    if doi is not None and doi.lower().startswith(_ARXIV_DOI_PREFIX):
+        doi = None
+    journal = item.get("journal") or {}
+    publication = item.get("publicationVenue") or {}
+    venue_string = item.get("venue") if isinstance(item.get("venue"), str) else None
+    name = publication.get("name") if isinstance(publication.get("name"), str) else None
+    alternate = [text for text in publication.get("alternate_names") or [] if isinstance(text, str)]
+    year = _venue_year(journal, venue_string, doi)
+    authors = item.get("authors")
+    author_ids = (
+        tuple(
+            author.get("authorId") if isinstance(author.get("authorId"), str) else None for author in authors
+        )
+        if isinstance(authors, list) and authors
+        else None
+    )
+    return ScholarRecord(
+        doi=doi,
+        venue=published_venue(name, alternate, venue_string, year),
+        author_ids=author_ids,
+    )
+
+
+def _venue_year(journal: Mapping[str, Any], venue: str | None, doi: str | None) -> int | None:
+    """The year of the published version, from its names, its volume or an IEEE DOI.
+
+    In order: the journal's or proceedings' name ("2022 IEEE/CVF Conference on ..."), the
+    venue string, the volume ("2022"), then an IEEE DOI (10.1109/CVPR52688.2022.01234).
+    """
+    texts = [journal.get("name"), venue, journal.get("volume")]
+    for text in texts:
+        if isinstance(text, str) and (match := _YEAR_RE.search(text)):
+            return int(match.group())
+    if doi is not None and (match := _IEEE_DOI_YEAR_RE.match(doi)):
+        return int(match.group(1))
+    return None
+
+
+def _fetch_batch[T](
     client: HttpClient,
     batch: tuple[str, ...],
+    kind: _BatchKind[T],
     *,
     headers: Mapping[str, str] | None,
     sleep: Callable[[float], None],
     first_wait: float,
     stop_waiting: Callable[[float], bool] | None = None,
-) -> tuple[dict[str, int | None] | None, int]:
-    """Counts of one batch (``None`` if every try was refused), and the number of refusals.
+) -> tuple[dict[str, T | None] | None, int]:
+    """What one batch gives (``None`` if every try was refused), and the number of refusals.
 
     ``stop_waiting`` tells, given the wait before the next try, whether to give up instead.
 
@@ -156,11 +307,11 @@ def _fetch_batch(
         try:
             text = client.post_text(
                 S2_BATCH_URL,
-                params={"fields": "citationCount"},
+                params={"fields": kind.fields},
                 json={"ids": [f"ARXIV:{arxiv_id}" for arxiv_id in batch]},
                 headers=headers,
             )
-            return parse_batch_response(text, batch), attempt - 1
+            return kind.parse(text, batch), attempt - 1
         except (FetchError, ParseError) as exc:
             if isinstance(exc, FetchError) and exc.status in S2_KEY_REJECTED:
                 rejected = "the API key" if headers else "the request"

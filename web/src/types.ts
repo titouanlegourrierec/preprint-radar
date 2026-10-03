@@ -14,8 +14,16 @@ export interface Paper {
   subjects: string[];
   comments: string | null;
   journal_ref: string | null;
-  /** Venue detected from the comments, e.g. "ECCV 2026". Absent from older records. */
+  /**
+   * Venue detected from the comments, e.g. "ECCV 2026", else the one it was published at
+   * according to Semantic Scholar (merged in by the build). Absent from older records.
+   */
   venue?: string | null;
+  /**
+   * DOI of the published version, from Semantic Scholar: not in the store's records, the
+   * build merges it from `scholar.json` (`tooling/scholar.ts`). Absent when unknown.
+   */
+  doi?: string | null;
   cross_list_from: string | null;
   html_url: string | null;
   /** `null` when not retrieved yet. */
@@ -41,6 +49,15 @@ export interface Paper {
   institutions?: (string | null)[] | null;
   abs_url: string;
   pdf_url: string;
+}
+
+/** `<category>/scholar.json`: what Semantic Scholar knows of the stored papers. */
+export interface ScholarFile {
+  schema_version: number;
+  category: string;
+  generated_at: string;
+  source: string;
+  papers: Record<string, { doi?: string; venue?: string; author_ids?: (string | null)[] }>;
 }
 
 export interface DayFile {

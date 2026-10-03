@@ -13,6 +13,51 @@ type PaperRecord = dict[str, str | int | list[str] | list[str | None] | list[lis
 """JSON-serializable representation of a :class:`Paper`."""
 
 
+@dataclass(frozen=True, slots=True)
+class ScholarRecord:
+    """What Semantic Scholar knows of a paper beyond its count (``scholar.json``).
+
+    Attributes:
+        doi: DOI of the published version (not arXiv's ``10.48550/...``), if any.
+        venue: Where it was published, as ``venue.published_venue`` names it
+            ("CVPR 2018", "Information Fusion 2024"), if any.
+        author_ids: Semantic Scholar's id of each author, in order (``None`` for an author
+            it has none for); ``None`` altogether when its author list is not the paper's.
+    """
+
+    doi: str | None = None
+    venue: str | None = None
+    author_ids: tuple[str | None, ...] | None = None
+
+    def is_empty(self) -> bool:
+        """Whether Semantic Scholar said nothing of use."""
+        return self.doi is None and self.venue is None and self.author_ids is None
+
+    def to_record(self) -> dict[str, object]:
+        """The record, without its absent fields."""
+        record: dict[str, object] = {}
+        if self.doi is not None:
+            record["doi"] = self.doi
+        if self.venue is not None:
+            record["venue"] = self.venue
+        if self.author_ids is not None:
+            record["author_ids"] = list(self.author_ids)
+        return record
+
+    @classmethod
+    def from_record(cls, record: Mapping[str, object]) -> Self:
+        """Rebuild a record written by :meth:`to_record`.
+
+        Raises:
+            TypeError: If a field has the wrong type.
+        """
+        return cls(
+            doi=_optional_str(record, "doi"),
+            venue=_optional_str(record, "venue"),
+            author_ids=_optional_nullable_str_list(record, "author_ids"),
+        )
+
+
 @dataclass(frozen=True, slots=True, kw_only=True)
 class Paper:
     """A paper as announced in an arXiv listing, optionally enriched.

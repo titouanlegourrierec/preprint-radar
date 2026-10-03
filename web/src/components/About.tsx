@@ -27,6 +27,11 @@ export function About() {
           rules.
         </li>
         <li>
+          Venues: read in the authors' comments ("Accepted to ECCV 2026"), else where the paper was
+          published according to <a href="https://www.semanticscholar.org">Semantic Scholar</a>,
+          which also gives the DOI of the published version, refreshed every week.
+        </li>
+        <li>
           Highly cited papers: chosen every week by citations per year of age, from the counts of{" "}
           <a href="https://www.semanticscholar.org">Semantic Scholar</a>. Their affiliations come
           from <a href="https://openalex.org">OpenAlex</a>.

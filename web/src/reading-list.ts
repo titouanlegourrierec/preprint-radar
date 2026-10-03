@@ -65,6 +65,7 @@ export function toPaper(value: unknown): Paper | null {
     comments: nullable("comments"),
     journal_ref: nullable("journal_ref"),
     venue: nullable("venue"),
+    ...(isString(record.doi) ? { doi: record.doi } : {}),
     cross_list_from: nullable("cross_list_from"),
     html_url: nullable("html_url"),
     abstract: nullable("abstract"),

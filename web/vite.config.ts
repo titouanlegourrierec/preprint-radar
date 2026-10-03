@@ -12,7 +12,9 @@ import { basename, dirname, resolve, sep } from "node:path";
 import preact from "@preact/preset-vite";
 import type { Plugin } from "vite";
 import { defineConfig } from "vitest/config";
+import type { ScholarFile, StoreIndex } from "./src/types";
 import { citationShardFiles } from "./tooling/citation-shards";
+import { paperFiles, withScholar } from "./tooling/scholar";
 import { thirdPartyLoads } from "./tooling/third-party";
 
 // The repository's store; the smoke test (e2e/) builds the site over a small one instead.
@@ -20,6 +22,14 @@ const DATA_DIR = resolve(
   import.meta.dirname,
   process.env.PREPRINT_RADAR_DATA_DIR ?? resolve(import.meta.dirname, "..", "data"),
 );
+
+/** Reads a JSON file of the store by its path under `data/`; `null` when there is none. */
+function jsonReader(dataDir: string): (path: string) => unknown {
+  return (path) => {
+    const file = resolve(dataDir, path);
+    return existsSync(file) ? (JSON.parse(readFileSync(file, "utf8")) as unknown) : null;
+  };
+}
 
 /**
  * The citation shards of the store (`src/citations.ts`), derived again in development when
@@ -35,24 +45,24 @@ function shardsOf(dataDir: string): () => Map<string, string> {
         ].filter((path) => existsSync(path))
       : [];
     const stamp = sources.map((path) => `${path}@${statSync(path).mtimeMs}`).join("\n");
-    if (cached?.stamp !== stamp) {
-      const read = (path: string) => {
-        const file = resolve(dataDir, path);
-        return existsSync(file) ? (JSON.parse(readFileSync(file, "utf8")) as unknown) : null;
-      };
-      cached = { stamp, files: citationShardFiles(read) };
-    }
+    if (cached?.stamp !== stamp) cached = { stamp, files: citationShardFiles(jsonReader(dataDir)) };
     return cached.files;
   };
 }
 
+// A day or archive file, whose records the site gets with their DOI and published venue.
+const PAPER_FILE_RE = /^\/([^/]+)\/(?:\d{4}-\d{2}-\d{2}|archive\/\d{4})\.json$/;
+
 /**
  * Serve the repository's `data/` store at `/data` during development and copy it into the
- * build output, so the Python pipeline and the web app share a single source of truth. The
- * citation shards, which only the site uses, are derived from it here, not stored.
+ * build output, so the Python pipeline and the web app share a single source of truth. What
+ * only the site uses is derived from it here, not stored: the citation shards, and the
+ * records with what `scholar.json` knows (`tooling/scholar.ts`).
  */
 function paperData(dataDir: string): Plugin {
   const shards = shardsOf(dataDir);
+  const read = jsonReader(dataDir);
+  const scholarOf = (category: string) => read(`${category}/scholar.json`) as ScholarFile | null;
   return {
     name: "preprint-radar:data",
     configureServer(server) {
@@ -70,6 +80,11 @@ function paperData(dataDir: string): Plugin {
           return;
         }
         res.setHeader("Content-Type", "application/json; charset=utf-8");
+        const category = PAPER_FILE_RE.exec(path)?.[1];
+        if (category !== undefined) {
+          res.end(withScholar(readFileSync(file, "utf8"), scholarOf(category)));
+          return;
+        }
         createReadStream(file).pipe(res);
       });
     },
@@ -85,6 +100,16 @@ function paperData(dataDir: string): Plugin {
           const target = resolve(output, path);
           mkdirSync(dirname(target), { recursive: true });
           writeFileSync(target, text);
+        }
+        const index = read("index.json") as StoreIndex | null;
+        const scholars = new Map<string, ScholarFile | null>();
+        for (const { category, path } of index ? paperFiles(index) : []) {
+          if (!scholars.has(category)) scholars.set(category, scholarOf(category));
+          const scholar = scholars.get(category) ?? null;
+          const target = resolve(output, path);
+          if (scholar !== null && existsSync(target)) {
+            writeFileSync(target, withScholar(readFileSync(target, "utf8"), scholar));
+          }
         }
       }
     },

@@ -15,7 +15,7 @@ from enum import StrEnum
 from preprint_radar.config import DEFAULT_MAX_ROR_LOOKUPS, DEFAULT_SAVE_EVERY
 from preprint_radar.exceptions import FetchError, ParseError
 from preprint_radar.http import HttpClient
-from preprint_radar.models import Paper
+from preprint_radar.models import Paper, ScholarRecord
 from preprint_radar.sources.arxiv_api import fetch_metadata
 from preprint_radar.sources.arxiv_html import (
     EXTRACTOR_VERSION,
@@ -27,7 +27,7 @@ from preprint_radar.sources.arxiv_html import (
 from preprint_radar.sources.arxiv_listing import fetch_catchup, fetch_listing
 from preprint_radar.sources.arxiv_rss import fetch_rss_abstracts
 from preprint_radar.sources.ror import match_institutions
-from preprint_radar.sources.semantic_scholar import S2_SOURCE, fetch_citation_counts
+from preprint_radar.sources.semantic_scholar import S2_SOURCE, fetch_citation_counts, fetch_scholar_records
 from preprint_radar.store.paper_store import PaperStore
 
 logger = logging.getLogger(__name__)
@@ -674,6 +674,98 @@ def format_citations_report(report: CitationsReport) -> str:
     missing = report.asked - report.found
     return f"{report.category}: citation counts for {report.found} of {report.asked} papers" + (
         f", {missing} left for the next run" if missing else ""
+    )
+
+
+@dataclass(frozen=True, slots=True)
+class ScholarReport:
+    """Outcome of :func:`update_scholar_records`.
+
+    Attributes:
+        category: Category of the papers.
+        asked: Stored papers asked for.
+        found: Papers Semantic Scholar knows.
+        dois: Papers with the DOI of a published version.
+        venues: Papers with a published venue.
+        gained: Of those, papers whose comments name no venue.
+    """
+
+    category: str
+    asked: int
+    found: int
+    dois: int
+    venues: int
+    gained: int
+
+
+def update_scholar_records(
+    store: PaperStore,
+    category: str,
+    client: HttpClient,
+    *,
+    key: str | None,
+    max_seconds: float | None = None,
+) -> ScholarReport:
+    """Fetch the DOI, published venue and author ids of every stored paper into ``scholar.json``.
+
+    Every stored paper (day files and archive) is asked for: about 52 requests for 26,000
+    papers, a few minutes with a key. A paper keeps its previous record when Semantic
+    Scholar was not asked (it kept refusing), and papers no longer stored are dropped. The
+    author ids are kept only when Semantic Scholar lists as many authors as the paper,
+    since they are matched by position.
+
+    Args:
+        store: Data store.
+        category: arXiv category.
+        client: HTTP client for Semantic Scholar (see :func:`fetch_scholar_records`).
+        key: Semantic Scholar API key, ``None`` for anonymous requests.
+        max_seconds: Time budget for the requests (see :func:`fetch_citation_counts`).
+
+    Returns:
+        How many papers were asked for, and what was found.
+
+    Raises:
+        FetchError: If Semantic Scholar rejects the API key.
+    """
+    stored: dict[str, Paper] = {}
+    for paper in (*store.iter_papers(category), *store.iter_archive(category)):
+        stored.setdefault(paper.arxiv_id, paper)
+    previous = store.load_scholar(category)
+    fetched = fetch_scholar_records(client, stored, key=key, max_seconds=max_seconds)
+    records: dict[str, ScholarRecord] = {}
+    for arxiv_id, paper in stored.items():
+        if arxiv_id not in fetched:
+            if previous is not None and arxiv_id in previous.papers:
+                records[arxiv_id] = previous.papers[arxiv_id]
+            continue
+        record = fetched[arxiv_id]
+        if record is None:
+            continue
+        if record.author_ids is not None and len(record.author_ids) != len(paper.authors):
+            record = replace(record, author_ids=None)
+        records[arxiv_id] = record
+    store.write_scholar(category, records, source=S2_SOURCE)
+    found = [records[arxiv_id] for arxiv_id in fetched if arxiv_id in records]
+    return ScholarReport(
+        category=category,
+        asked=len(stored),
+        found=sum(record is not None for record in fetched.values()),
+        dois=sum(record.doi is not None for record in found),
+        venues=sum(record.venue is not None for record in found),
+        gained=sum(
+            records[arxiv_id].venue is not None and stored[arxiv_id].venue is None
+            for arxiv_id in fetched
+            if arxiv_id in records
+        ),
+    )
+
+
+def format_scholar_report(report: ScholarReport) -> str:
+    """Render a :class:`ScholarReport` as one line."""
+    return (
+        f"{report.category}: Semantic Scholar knows {report.found} of {report.asked} papers: "
+        f"{report.dois} DOIs, {report.venues} published venues ({report.gained} where the "
+        "comments name none)"
     )
 
 

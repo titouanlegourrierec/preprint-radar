@@ -249,6 +249,17 @@ export function PaperCard({
               HTML
             </a>
           )}
+          {paper.doi && (
+            <a
+              aria-describedby={titleId}
+              href={`https://doi.org/${paper.doi}`}
+              title="The published version"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              DOI
+            </a>
+          )}
           <button type="button" aria-describedby={titleId} class="link-button" onClick={copyBibtex}>
             {copied ? "Copied!" : "BibTeX"}
           </button>

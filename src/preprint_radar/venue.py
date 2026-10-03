@@ -15,6 +15,7 @@ Conference on Neural Information Processing Systems (NeurIPS 2026)", "Findings o
 """
 
 import re
+from collections.abc import Sequence
 from dataclasses import dataclass
 from typing import Literal
 
@@ -38,15 +39,22 @@ class Venue:
 
 # A full name must not be the start of a longer one: "International Conference on Computer
 # Vision" begins VISAPP's "... Theory and Applications", CVIP's "... and Image Processing" and
-# a misnamed "... and Pattern Recognition".
-_NAME_ENDS = r"(?!\s+(?:and|Theory|Applications|Systems)\b|,\s*Imaging)"
+# a misnamed "... and Pattern Recognition"; "... on Image Processing" begins IPTA's "... Theory,
+# Tools and Applications" and IPAS's "..., Applications and Systems". CVPR's name is also a
+# book series ("Advances in Computer Vision and Pattern Recognition").
+_NAME_ENDS = r"(?!,?\s+(?:and|Theory|Applications|Systems)\b|,\s*Imaging)"
 
 # Ordered so that longer names win ("SIGGRAPH Asia" before "SIGGRAPH").
 VENUES: tuple[Venue, ...] = (
     Venue("NeurIPS", "conference", r"(?i:NeurIPS)|NIPS", r"Neural Information Processing Systems"),
     Venue("ICLR", "conference", r"(?i:ICLR)", r"International Conference on Learning Representations"),
     Venue("ICML", "conference", r"(?i:ICML)", r"International Conference on Machine Learning"),
-    Venue("CVPR", "conference", r"(?i:CVPR)W?", r"Conference on Computer Vision and Pattern Recognition"),
+    Venue(
+        "CVPR",
+        "conference",
+        r"(?i:CVPR)W?",
+        r"(?<!\bin )(?:Conference on )?Computer Vision and Pattern Recognition",
+    ),
     Venue("ICCV", "conference", r"(?i:ICCV)W?", rf"International Conference on Computer Vision{_NAME_ENDS}"),
     Venue("ECCV", "conference", r"(?i:ECCV)W?", rf"European Conference on Computer Vision{_NAME_ENDS}"),
     Venue("WACV", "conference", r"(?i:WACV)", r"Winter Conference on Applications of Computer Vision"),
@@ -62,34 +70,59 @@ VENUES: tuple[Venue, ...] = (
         r"ACM\s?MM",
         r"ACM\s+Multimedia|ACM\s+International\s+Conference\s+on\s+Multimedia",
     ),
-    Venue("AAAI", "conference", r"(?i:AAAI)"),
-    Venue("IJCAI", "conference", r"IJCAI"),
-    Venue("ACL", "conference", r"ACL"),
-    Venue("EMNLP", "conference", r"EMNLP"),
-    Venue("NAACL", "conference", r"NAACL"),
+    Venue(
+        "AAAI",
+        "conference",
+        r"(?i:AAAI)",
+        r"AAAI Conference on Artificial Intelligence|National Conference on Artificial Intelligence",
+    ),
+    Venue("IJCAI", "conference", r"IJCAI", r"International Joint Conference on Artificial Intelligence"),
+    Venue("ACL", "conference", r"ACL", r"Annual Meeting of the Association for Computational Linguistics"),
+    Venue("EMNLP", "conference", r"EMNLP", r"Empirical Methods in Natural Language Processing"),
+    Venue(
+        "NAACL",
+        "conference",
+        r"NAACL",
+        r"North American Chapter of the Association for Computational Linguistics",
+    ),
     Venue("CoRL", "conference", r"CoRL", r"Conference on Robot Learning"),
-    Venue("ICRA", "conference", r"ICRA"),
-    Venue("IROS", "conference", r"IROS"),
+    Venue("ICRA", "conference", r"ICRA", r"International Conference on Robotics and Automation"),
+    Venue("IROS", "conference", r"IROS", r"International Conference on Intelligent Robots and Systems"),
     Venue("RSS", "conference", r"(?!)", r"Robotics:\s+Science\s+and\s+Systems"),
-    Venue("MICCAI", "conference", r"(?i:MICCAI)"),
-    Venue("IPMI", "conference", r"IPMI"),
-    Venue("ISBI", "conference", r"ISBI"),
-    Venue("MIDL", "conference", r"MIDL"),
-    Venue("ICASSP", "conference", r"ICASSP"),
-    Venue("ICIP", "conference", r"ICIP"),
-    Venue("ICME", "conference", r"ICME"),
-    Venue("ICPR", "conference", r"ICPR"),
-    Venue("IGARSS", "conference", r"IGARSS"),
-    Venue("KDD", "conference", r"KDD"),
+    Venue(
+        "MICCAI",
+        "conference",
+        r"(?i:MICCAI)",
+        r"Medical Image Computing and Computer[- ]Assisted Intervention",
+    ),
+    Venue("IPMI", "conference", r"IPMI", r"Information Processing in Medical Imaging"),
+    Venue("ISBI", "conference", r"ISBI", r"International Symposium on Biomedical Imaging"),
+    Venue("MIDL", "conference", r"MIDL", r"Medical Imaging with Deep Learning"),
+    Venue(
+        "ICASSP",
+        "conference",
+        r"ICASSP",
+        r"International Conference on Acoustics,? Speech,? and Signal Processing",
+    ),
+    Venue("ICIP", "conference", r"ICIP", rf"International Conference on Image Processing{_NAME_ENDS}"),
+    Venue("ICME", "conference", r"ICME", r"International Conference on Multimedia and Expo"),
+    Venue("ICPR", "conference", r"ICPR", rf"International Conference on Pattern Recognition{_NAME_ENDS}"),
+    Venue("IGARSS", "conference", r"IGARSS", r"Geoscience and Remote Sensing Symposium"),
+    Venue("KDD", "conference", r"KDD", r"Knowledge Discovery and Data Mining"),
     Venue("ECML PKDD", "conference", r"ECML[\s-]?PKDD"),
-    Venue("AISTATS", "conference", r"AISTATS"),
+    Venue(
+        "AISTATS",
+        "conference",
+        r"AISTATS",
+        r"International Conference on Artificial Intelligence and Statistics",
+    ),
     Venue("TPAMI", "journal", r"T-?PAMI", r"Pattern\s+Analysis\s+and\s+Machine\s+Intelligence"),
     Venue("IJCV", "journal", r"IJCV", r"International\s+Journal\s+of\s+Computer\s+Vision"),
     Venue("TIP", "journal", r"TIP", r"Transactions\s+on\s+Image\s+Processing"),
     Venue("TMI", "journal", r"TMI", r"Transactions\s+on\s+Medical\s+Imaging"),
     Venue("TVCG", "journal", r"TVCG", r"Transactions\s+on\s+Visualization\s+and\s+Computer\s+Graphics"),
     Venue("TMLR", "journal", r"TMLR", r"Transactions\s+on\s+Machine\s+Learning\s+Research"),
-    Venue("JMLR", "journal", r"JMLR"),
+    Venue("JMLR", "journal", r"JMLR", r"Journal\s+of\s+Machine\s+Learning\s+Research"),
     Venue("RA-L", "journal", r"RA-?L", r"Robotics\s+and\s+Automation\s+Letters"),
     Venue("MedIA", "journal", r"MedIA", r"Medical\s+Image\s+Analysis"),
 )
@@ -143,7 +176,8 @@ _YEAR_AFTER_RE = re.compile(
     rf"^(?:-?(?P<glued>\d{{2}})\b|[\s)\],:-]{{0,4}}(?:(?:Workshops?|Asia)\s*)?[\s(),-]{{0,4}}{_YEAR})"
 )
 _YEAR_BEFORE_RE = re.compile(r"\b(?P<year>20\d{2})\s+(?:(?:IEEE|ACM|IEEE/CVF)\s+)?$")
-_ANY_YEAR_RE = re.compile(rf"(?<!\w){_YEAR}")
+# Glued to an acronym too: "(ICME2020)", "(MICCAI'22)".
+_ANY_YEAR_RE = re.compile(rf"(?<![a-z\d]){_YEAR}")
 _CLAUSE_SPLIT_RE = re.compile(r"(?<=[.;!?])\s+|\n")
 
 
@@ -206,3 +240,73 @@ def _year(before: str, after: str, clause: str) -> str:
     if "year" in groups:
         return f" {groups['year']}"
     return f" 20{groups.get('short') or groups['glued']}"
+
+
+# Semantic Scholar names preprint servers as venues: they are not publications.
+_PREPRINT_SERVER_RE = re.compile(r"arxiv|biorxiv|medrxiv|\bssrn\b|research square|techrxiv", re.IGNORECASE)
+_FULL_NAME_RES = tuple(re.compile(f"(?i:{venue.full})") if venue.full else None for venue in VENUES)
+# "ECCV Workshops", "... Workshops (CVPRW)"; not WACV's "IEEE Workshop/Winter Conference".
+_PUBLISHED_WORKSHOP_RE = re.compile(r"\bWorkshops?\b(?!/)|\([A-Z]+W\)")
+_PUBLISHED_YEAR_RE = re.compile(r"\b(?:19|20)\d{2}\b")
+_PRINT_EDITION_RE = re.compile(r"\s*\((?:Print|Online)\)\s*$", re.IGNORECASE)
+
+
+def published_venue(
+    name: str | None,
+    alternate_names: Sequence[str] = (),
+    venue: str | None = None,
+    year: int | None = None,
+) -> str | None:
+    """Where Semantic Scholar says a paper was published, named as :data:`VENUES` names it.
+
+    A venue of the table is recognized by one of its full names in ``name`` or ``venue``
+    ("Computer Vision and Pattern Recognition", "2018 IEEE/CVF Conference on Computer
+    Vision and Pattern Recognition"), by its acronym in them ("ECCV Workshops"), or, for a
+    venue the table knows by acronym only, by an alternate name that is that acronym
+    ("SIGGRAPH Asia"): the alternate names of another venue can share an acronym ("ICIP"
+    is also the International Conference on Information Photonics). Other venues keep Semantic
+    Scholar's name of the venue, never its bare ``venue`` string, which can be an
+    abbreviation ("Medical Image Anal.").
+
+    Args:
+        name: The name of its ``publicationVenue``.
+        alternate_names: That venue's other names ("CVPR", "Comput Vis Pattern Recognit").
+        venue: Its ``venue`` string.
+        year: The year of publication, used when no name holds one.
+
+    Returns:
+        "CVPR 2018", "ECCV 2020 Workshop", "Information Fusion 2024", or ``None`` for a
+        preprint server or no venue.
+    """
+    names = [text.strip() for text in (name, venue) if text and text.strip()]
+    if not names or _PREPRINT_SERVER_RE.search(names[0]):
+        return None
+    known = _table_venue(names, alternate_names)
+    if known is not None:
+        label = known.name
+    elif name and name.strip():
+        label = _PRINT_EDITION_RE.sub("", name.strip())
+    else:
+        return None
+    found = next((match.group() for text in names if (match := _PUBLISHED_YEAR_RE.search(text))), None)
+    when = found or (str(year) if year else None)
+    workshop = "Workshop" if any(_PUBLISHED_WORKSHOP_RE.search(text) for text in names) else None
+    return " ".join(part for part in (label, when, workshop) if part)
+
+
+def _table_venue(names: Sequence[str], alternate_names: Sequence[str]) -> Venue | None:
+    """The venue of the table named in full in ``names``, else by an acronym.
+
+    An acronym counts in the names ("ECCV Workshops", "NeurIPS Datasets and Benchmarks"),
+    but among the venue's alternate names only for a venue the table knows by acronym only.
+    """
+    for venue, full in zip(VENUES, _FULL_NAME_RES, strict=True):
+        if full is not None and any(full.search(text) for text in names):
+            return venue
+    for venue in VENUES:
+        acronym = re.compile(rf"(?<![A-Za-z])(?:{venue.acronym})(?![A-Za-z])")
+        if any(acronym.search(text) for text in names) or (
+            venue.full is None and any(re.fullmatch(venue.acronym, text.strip()) for text in alternate_names)
+        ):
+            return venue
+    return None

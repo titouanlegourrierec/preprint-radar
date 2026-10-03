@@ -23,8 +23,9 @@ jobs:
   archive:
     runs-on: ubuntu-latest
     # The first run harvests the whole catalog (about 45 minutes); every run then fetches
-    # about 207,000 citation counts in 415 requests, far slower without an API key.
-    timeout-minutes: 300
+    # about 207,000 citation counts in 415 requests, far slower without an API key, then
+    # the published versions of the stored papers.
+    timeout-minutes: 330
     permissions:
       contents: write
     outputs:
@@ -62,6 +63,17 @@ jobs:
           for category in $CATEGORIES; do args+=(--category "$category"); done
           if [ "$ARCHIVE_PRUNE" = "true" ]; then args+=(--prune); fi
           uv run --no-dev preprint-radar -v archive "${args[@]}"
+
+      # The DOI, published venue and author ids of every stored paper, in scholar.json:
+      # about 52 requests, minutes with a key. Even after a failed archive step, whose
+      # papers are those of last week; a refusing Semantic Scholar leaves the old records.
+      - name: Fetch the published versions
+        if: ${{ !cancelled() }}
+        timeout-minutes: 25
+        run: |
+          args=()
+          for category in $CATEGORIES; do args+=(--category "$category"); done
+          uv run --no-dev preprint-radar -v scholar --max-minutes 20 "${args[@]}"
 
       - name: Save the catalog
         if: always()
