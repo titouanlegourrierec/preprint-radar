@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { exactly, typed } from "../src/search";
-import { DEFAULT_STATE, readState, writeState } from "../src/url-state";
+import { DEFAULT_STATE, isNavigation, readState, writeState } from "../src/url-state";
 
 describe("url state", () => {
   it("omits defaults", () => {
@@ -124,5 +124,29 @@ describe("highly cited view", () => {
 
   it("ignores a malformed year", () => {
     expect(readState("?view=cited&year=soon").year).toBeNull();
+  });
+});
+
+describe("isNavigation", () => {
+  const filtered = (author: ReturnType<typeof typed> | null) => ({
+    ...DEFAULT_STATE,
+    filters: { ...DEFAULT_STATE.filters, author },
+  });
+
+  it("keeps a step for another view, paper, period, year or clicked filter", () => {
+    expect(isNavigation(DEFAULT_STATE, { ...DEFAULT_STATE, view: "graph" })).toBe(true);
+    expect(isNavigation(DEFAULT_STATE, { ...DEFAULT_STATE, paper: "2609.30234" })).toBe(true);
+    expect(isNavigation(DEFAULT_STATE, { ...DEFAULT_STATE, year: 2017 })).toBe(true);
+    expect(
+      isNavigation(DEFAULT_STATE, { ...DEFAULT_STATE, period: { kind: "recent", range: "20" } }),
+    ).toBe(true);
+    expect(isNavigation(DEFAULT_STATE, filtered(exactly("Hao Li")))).toBe(true);
+    expect(isNavigation(filtered(exactly("Hao Li")), filtered(typed("Hao Li")))).toBe(true);
+  });
+
+  it("replaces the entry for typing and sorting", () => {
+    expect(isNavigation(DEFAULT_STATE, { ...DEFAULT_STATE, query: "gaussian" })).toBe(false);
+    expect(isNavigation(DEFAULT_STATE, { ...DEFAULT_STATE, sort: "citations" })).toBe(false);
+    expect(isNavigation(filtered(typed("hao")), filtered(typed("hao l")))).toBe(false);
   });
 });

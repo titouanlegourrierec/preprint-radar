@@ -129,7 +129,7 @@ with the deadline, the breakers, the summary and the page cache (2026-10-02) was
 | SRCH-1 | Exact clicked filters, word-prefix typed filters | P1 | done |
 | SRCH-2 | Phrase and exclusion scope and tokenization | P2 | done |
 | SRCH-3 | Prefix and fuzzy tuning | P1 | done |
-| SRCH-4 | Browser history | P1 | todo |
+| SRCH-4 | Browser history | P1 | done |
 | SRCH-5 | Archive permalinks | P1 | todo |
 | SRCH-17 | Acronym affiliation filters | P2 | todo |
 | TEST-16 | Relevance tests on real cases | P2 | todo |

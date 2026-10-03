@@ -106,3 +106,30 @@ export function writeState(state: ViewState): string {
   const query = params.toString();
   return query ? `?${query}` : "";
 }
+
+/**
+ * The state as far as the Back button is concerned: typing (the query, typed filters) and
+ * the sort are left out, so that they replace the current history entry instead of adding
+ * one per keystroke.
+ */
+function navigationKey(state: ViewState): string {
+  const { author, affiliation } = state.filters;
+  return writeState({
+    ...state,
+    query: "",
+    sort: DEFAULT_STATE.sort,
+    filters: {
+      ...state.filters,
+      author: author?.exact ? author : null,
+      affiliation: affiliation?.exact ? affiliation : null,
+    },
+  });
+}
+
+/**
+ * Whether going from one state to the other is a step to keep in the browser's history:
+ * another view, paper, period, year or category, or a filter set by a click.
+ */
+export function isNavigation(from: ViewState, to: ViewState): boolean {
+  return navigationKey(from) !== navigationKey(to);
+}

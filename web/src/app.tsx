@@ -25,7 +25,7 @@ import {
   valueCounts,
 } from "./search";
 import type { Paper } from "./types";
-import { DEFAULT_STATE, writeState } from "./url-state";
+import { DEFAULT_STATE, type ViewState, writeState } from "./url-state";
 
 const FACET_SIZE = 12;
 const SUGGESTION_SIZE = 300;
@@ -155,6 +155,18 @@ export function App() {
     saveShowAbstracts(!showAbstracts);
   };
 
+  // Tabs are links, so that they open in a new tab too; a plain click stays in the page.
+  const tab = (active: boolean, patch: Partial<ViewState>) => ({
+    href: `./${writeState({ ...state, query, paper: null, ...patch })}`,
+    "aria-current": active ? ("page" as const) : undefined,
+    onClick: (event: MouseEvent) => {
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
+        return;
+      event.preventDefault();
+      update(patch);
+    },
+  });
+
   const topbar = (
     <header class="topbar">
       <div class="topbar__brand">
@@ -163,52 +175,49 @@ export function App() {
       </div>
       <div class="topbar__tools">
         <nav class="tabs" aria-label="Views">
-          <button
-            type="button"
+          <a
             class={`tab${state.view === "papers" ? " tab--active" : ""}`}
-            onClick={() => update({ view: "papers", year: null })}
+            {...tab(state.view === "papers", { view: "papers", year: null })}
           >
             Papers
-          </button>
-          <button
-            type="button"
+          </a>
+          <a
             class={`tab${cited ? " tab--active" : ""}`}
             title="The most cited papers older than a year, by year of first version"
-            onClick={() => update({ view: "cited" })}
+            {...tab(cited, { view: "cited" })}
           >
             Highly cited
-          </button>
-          <button
-            type="button"
+          </a>
+          <a
             class={`tab${state.view === "graph" ? " tab--active" : ""}`}
             // From the highly cited papers, the graph shows them.
-            onClick={() => update({ view: "graph", ...(cited ? { year: archiveYear } : {}) })}
+            {...tab(state.view === "graph", {
+              view: "graph",
+              ...(cited ? { year: archiveYear } : {}),
+            })}
           >
             Graph
-          </button>
-          <button
-            type="button"
+          </a>
+          <a
             class={`tab${rankings ? " tab--active" : ""}`}
             title="Institutions and authors of the papers shown, by papers or citations"
-            onClick={() => update({ view: "rankings", ...(cited ? { year: archiveYear } : {}) })}
+            {...tab(rankings, { view: "rankings", ...(cited ? { year: archiveYear } : {}) })}
           >
             Rankings
-          </button>
-          <button
-            type="button"
+          </a>
+          <a
             class={`tab${state.view === "reading-list" ? " tab--active" : ""}`}
-            onClick={() => update({ view: "reading-list" })}
+            {...tab(state.view === "reading-list", { view: "reading-list" })}
           >
             Reading list ({readingList.papers.length})
-          </button>
-          <button
-            type="button"
+          </a>
+          <a
             class={`tab${state.view === "about" ? " tab--active" : ""}`}
             title="Where the data comes from, corrections and privacy"
-            onClick={() => update({ view: "about" })}
+            {...tab(state.view === "about", { view: "about" })}
           >
             About
-          </button>
+          </a>
         </nav>
         <button
           type="button"
