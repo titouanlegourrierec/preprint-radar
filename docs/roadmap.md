@@ -179,6 +179,20 @@ page has no live coverage figures (PROD-7); of TEST-9, only the check of the dar
 *Exit criteria:* a year of day files loads without freezing a phone, and venue coverage of the
 archive rises above 52%.
 
+*META-1 spike (2026-10-03).* One keyed batch of 500 archive papers (a uniform sample) and one
+of 500 recent day-file papers, asking `paper/batch` for `externalIds`, `venue`,
+`publicationVenue`, `publicationDate`, `journal` and `authors` beside `citationCount`. Each
+was refused once (429), then answered in 3.1 s (502 KB) and 1.4 s (278 KB): about 1 KB a
+paper, so a sidecar of the 26,000 stored papers needs the same split as the citation counts.
+All 1,000 papers are known. Archive: a venue other than arXiv for 91% (the regex finds 52%,
+both together 92%), a `publicationVenue` for 84%, a published DOI for 69%, a DBLP id for 99%,
+an `authorId` for every author of 93%, the same number of authors as ours for 97%. Recent
+papers: a venue for 5% (the regex 19%), so the regex stays first for them. S2 venues are
+full names without the year ("Computer Vision and Pattern Recognition", "2018 IEEE/CVF
+Conference on …"), and can be wrong: two "ICIP 2026" papers are "International Conference on
+Information Photonics". The venue table (META-4) comes first, and the regex wins where both
+exist.
+
 ## Phase 4: differentiating features and long-term architecture (ongoing)
 
 | ID | Item | Priority | Status |
