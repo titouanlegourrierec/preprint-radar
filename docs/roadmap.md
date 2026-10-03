@@ -168,7 +168,7 @@ page has no live coverage figures (PROD-7); of TEST-9, only the check of the dar
 | AFF-14 | Keep ROR ids (stored and linked; nodes are still keyed by name, which AFF-13 changes) | P2 | done |
 | AFF-3 | OpenAlex retry policy, after its spike | P1 | todo |
 | PROD-1 | Fill the 11-month gap, once CIT-11 has landed | P1 | todo |
-| ARCH-1 | Retention, size guard and hosting trigger | P2 | todo |
+| ARCH-1 | Retention, size guard and hosting trigger (guards in *Deploy site* and the weekly canary, the trigger in the runbook; pruning stays off until decision 2) | P2 | done |
 | PERF-2 | Graph defaults with the author layer | P2 | todo |
 | PERF-3 | Clique cap for consortium papers | P2 | todo |
 | UX-2 | Graph touch zoom and keyboard path | P2 | todo |

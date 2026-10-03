@@ -187,6 +187,25 @@ it happens often, run *Archive* by hand mid-week to keep the entry warm.
 4. The site lists the categories of `index.json` and opens the first in alphabetical
    order. The About page names cs.CV: update it.
 
+## The site or the repository grows too large
+
+**Signal.** `Site too large` (the deploy fails) or `Site growing` in *Deploy site*;
+`Repository growing` in the weekly *arXiv canary*.
+
+Both sizes are on the runs' pages every time (`Site size`, `Repository size`). GitHub Pages
+refuses a site over 1 GB: the deploy fails at 800 MB and warns at 600 MB. Day files grow
+by about 110 MB a year of cs.CV while pruning is off (the archive stays near 50 MB), so
+the warnings come with several categories, or after years of one.
+
+At a warning (the migration trigger, decided with ARCH-1):
+
+1. Turn pruning on, if it is not (decision 2: day files older than 12 months leave the site
+   and the working tree, but stay in git history; the archive keeps their cited papers):
+   set the repository variable `PREPRINT_RADAR_ARCHIVE_PRUNE` to `true`.
+2. If the repository still grows past 500 MB, publish `data/` only through the Pages
+   artifact and keep the store on an orphan `data` branch squashed every month (or in
+   releases, or a bucket); the workflows then commit there instead of `main`.
+
 ## How long things take
 
 | Task | Duration |

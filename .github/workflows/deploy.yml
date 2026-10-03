@@ -33,6 +33,19 @@ jobs:
         working-directory: web
       - run: npm run build
         working-directory: web
+      # GitHub Pages refuses a site over 1 GB. Fail well before it, and warn at the size that
+      # calls for moving data/ off main (docs/operations.md, "The site or the repository grows").
+      - name: Check the site size
+        working-directory: web
+        run: |
+          size=$(du -sm dist | cut -f1)
+          echo "**Site size.** ${size} MB (warning above 600 MB, failure above 800 MB)" >> "$GITHUB_STEP_SUMMARY"
+          if [ "$size" -gt 800 ]; then
+            echo "::error title=Site too large::web/dist is ${size} MB, above the 800 MB guard (Pages refuses 1 GB)"
+            exit 1
+          elif [ "$size" -gt 600 ]; then
+            echo "::warning title=Site growing::web/dist is ${size} MB, above the 600 MB migration trigger"
+          fi
       - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
