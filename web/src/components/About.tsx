@@ -6,7 +6,7 @@ const CORRECTION_LINK = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("P
 /** What the site is, where its data comes from, how to get it corrected, and privacy. */
 export function About() {
   return (
-    <main class="about">
+    <main class="about" id="main">
       <h2>About Preprint Radar</h2>
       <p>
         Preprint Radar follows the papers announced on arXiv in Computer Vision and Pattern

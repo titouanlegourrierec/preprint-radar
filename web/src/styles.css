@@ -128,6 +128,41 @@ mark {
   color: var(--text-muted);
 }
 
+/* A visible focus ring everywhere, drawn inside containers that scroll and would clip it. */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.tabs :focus-visible,
+.sidebar :focus-visible,
+.graph-settings :focus-visible {
+  outline-offset: -2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 8px;
+  top: -40px;
+  z-index: 20;
+  padding: 6px 12px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.skip-link:focus {
+  top: 8px;
+}
+
+/* Names on cards filter the list when clicked: say so without hovering. */
+.paper__authors .link-button,
+.paper__affiliations .link-button {
+  text-decoration: underline dotted;
+  text-decoration-color: var(--border-strong);
+  text-underline-offset: 3px;
+}
+
 /* Layout ------------------------------------------------------------------ */
 
 .layout {
@@ -204,6 +239,13 @@ mark {
   background: var(--surface);
   color: var(--text);
   box-shadow: var(--shadow);
+}
+
+/* High-contrast modes drop backgrounds and shadows: the active tab keeps an outline. */
+@media (forced-colors: active) {
+  .tab--active {
+    outline: 2px solid CanvasText;
+  }
 }
 
 /* Height of the sticky search bar: what scrolling to a focused element must clear. */

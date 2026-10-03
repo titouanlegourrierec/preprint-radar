@@ -311,7 +311,7 @@ export function GraphView(props: Props) {
             `${shownPapers.length} papers have known affiliations so far.`);
 
   return (
-    <div class="graph">
+    <main class="graph" id="main">
       <canvas
         ref={canvasRef}
         class="graph__canvas"
@@ -471,7 +471,7 @@ export function GraphView(props: Props) {
       <p class="graph__hint">
         drag · scroll to zoom · click = details · double-click = open in the list
       </p>
-    </div>
+    </main>
   );
 }
 

@@ -91,6 +91,8 @@ export function PaperCard({
     ? allAffiliations
     : allAffiliations.slice(0, MAX_AFFILIATIONS_COLLAPSED);
   const hasDetails = Boolean(paper.abstract || paper.comments);
+  // The controls of every card read alike ("PDF", "Share"): each names its paper.
+  const titleId = `title-${paper.arxiv_id}`;
   const subject = [paper.primary_subject && subjectCode(paper.primary_subject)]
     .concat(paper.cross_list_from ? ["cross-list"] : [])
     .filter(Boolean)
@@ -133,7 +135,7 @@ export function PaperCard({
       data-arxiv-id={paper.arxiv_id}
     >
       <div class="paper__main">
-        <h2 class="paper__title">
+        <h2 class="paper__title" id={titleId}>
           <a href={paper.abs_url} target="_blank" rel="noopener noreferrer">
             <Highlighted text={paper.title} terms={highlights} />
           </a>
@@ -211,23 +213,39 @@ export function PaperCard({
             </span>
           )}
           {subject && <span title={paper.primary_subject ?? undefined}>{subject}</span>}
-          <a href={paper.pdf_url} target="_blank" rel="noopener noreferrer">
+          <a
+            aria-describedby={titleId}
+            href={paper.pdf_url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             PDF
           </a>
           {paper.html_url && (
-            <a href={paper.html_url} target="_blank" rel="noopener noreferrer">
+            <a
+              aria-describedby={titleId}
+              href={paper.html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               HTML
             </a>
           )}
-          <button type="button" class="link-button" onClick={copyBibtex}>
+          <button type="button" aria-describedby={titleId} class="link-button" onClick={copyBibtex}>
             {copied ? "Copied!" : "BibTeX"}
           </button>
-          <a href={permalink} title="Copy a link to this paper" onClick={copyLink}>
+          <a
+            aria-describedby={titleId}
+            href={permalink}
+            title="Copy a link to this paper"
+            onClick={copyLink}
+          >
             {linkCopied ? "Copied!" : "Share"}
           </a>
           {onShowInGraph && (
             <button
               type="button"
+              aria-describedby={titleId}
               class="link-button"
               title="Show this paper in the graph, with its institutions"
               onClick={() => onShowInGraph(paper)}
@@ -238,6 +256,7 @@ export function PaperCard({
           {onToggleSeen && (
             <button
               type="button"
+              aria-describedby={titleId}
               class="link-button"
               aria-pressed={seen}
               title="Seen papers are dimmed, and can be hidden (key x)"
@@ -249,6 +268,7 @@ export function PaperCard({
           {hasDetails && (
             <button
               type="button"
+              aria-describedby={titleId}
               class="link-button paper__more"
               aria-expanded={expanded}
               onClick={() => setExpanded(!expanded)}
@@ -263,10 +283,12 @@ export function PaperCard({
         type="button"
         class={`icon-button${saved ? " icon-button--active" : ""}`}
         aria-pressed={saved}
+        aria-label="Save to reading list"
+        aria-describedby={titleId}
         title={saved ? "Remove from reading list" : "Add to reading list"}
         onClick={() => onToggleSaved(paper)}
       >
-        {saved ? "★" : "☆"}
+        <span aria-hidden="true">{saved ? "★" : "☆"}</span>
       </button>
     </article>
   );

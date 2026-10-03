@@ -35,6 +35,14 @@ import type { Paper } from "./types";
 import { archiveYearOf, paperLink, type ViewState, writeState } from "./url-state";
 
 const FACET_SIZE = 12;
+const VIEW_TITLES: Record<ViewState["view"], string> = {
+  papers: "",
+  cited: "Highly cited",
+  graph: "Graph",
+  rankings: "Rankings",
+  "reading-list": "Reading list",
+  about: "About",
+};
 const SUGGESTION_SIZE = 300;
 const THEME_ICONS: Record<ThemePreference, string> = { auto: "◐", light: "☀", dark: "☾" };
 const RELEVANCE_HELP =
@@ -58,6 +66,7 @@ export function App() {
   const readingList = useReadingList(load.status === "ready" ? load.index : null);
   const importInput = useRef<HTMLInputElement>(null);
   const triage = useTriage(category ?? null, storeDays);
+
   const savedSearches = useSavedSearches();
   const searchInput = useRef<HTMLInputElement>(null);
 
@@ -84,6 +93,13 @@ export function App() {
 
   const activeIndex =
     state.view === "reading-list" ? readingList.index : load.status === "ready" ? load.index : null;
+
+  // The tab's title says what is shown: a paper, a search, or the view.
+  const focusedTitle = state.paper ? activeIndex?.get(state.paper)?.title : undefined;
+  useEffect(() => {
+    const label = focusedTitle ?? (query.trim() || VIEW_TITLES[state.view]);
+    document.title = label ? `${label} · Preprint Radar` : "Preprint Radar";
+  }, [focusedTitle, query, state.view]);
 
   const triaged = state.view === "papers";
   const hiding = triaged && triage.hideSeen && triage.seen.size > 0;
@@ -206,6 +222,12 @@ export function App() {
     },
   });
 
+  const skipLink = (
+    <a class="skip-link" href="#main">
+      Skip to {state.view === "graph" ? "the graph" : "the content"}
+    </a>
+  );
+
   const topbar = (
     <header class="topbar">
       <div class="topbar__brand">
@@ -294,6 +316,7 @@ export function App() {
   if (state.view === "about") {
     return (
       <div class="layout">
+        {skipLink}
         {topbar}
         <About />
         {footer}
@@ -304,6 +327,7 @@ export function App() {
   if (state.view === "graph") {
     return (
       <div class="layout layout--graph">
+        {skipLink}
         {topbar}
         <GraphView
           papers={graphPapers}
@@ -358,6 +382,7 @@ export function App() {
 
   return (
     <div class="layout">
+      {skipLink}
       {topbar}
 
       <div class="search">
@@ -375,7 +400,7 @@ export function App() {
       </div>
       {/* Outside the sticky bar, which then stays short and hides no focused control. */}
       <p id="search-hint" class="search__hint muted">
-        Searches titles, abstracts, authors and affiliations, or an arXiv id.{" "}
+        Searches titles, abstracts, authors, affiliations, venues and comments, or an arXiv id.{" "}
         <code>"neural radiance field"</code> in quotes finds that exact phrase; <code>-survey</code>{" "}
         leaves out the papers that contain the word.
       </p>
@@ -429,7 +454,7 @@ export function App() {
           </Sidebar>
         )}
 
-        <main class="results">
+        <main class="results" id="main">
           <div class="results__header">
             <p class="muted" aria-live="polite">
               {state.view === "reading-list"
