@@ -133,3 +133,41 @@ function navigationKey(state: ViewState): string {
 export function isNavigation(from: ViewState, to: ViewState): boolean {
   return navigationKey(from) !== navigationKey(to);
 }
+
+/**
+ * The archive year that holds a paper the stored days do not: one announced before the
+ * oldest day, in a year the archive has. `null` for a paper of the days.
+ */
+export function archiveYearOf(
+  announced: string,
+  oldestDay: string | undefined,
+  archiveYears: readonly number[],
+): number | null {
+  const year = Number(announced.slice(0, 4));
+  return oldestDay !== undefined && announced < oldestDay && archiveYears.includes(year)
+    ? year
+    : null;
+}
+
+/**
+ * A link to one paper, for its Share control: its archive year in the Highly cited view
+ * when it is archived (an older paper has no day file), else its announcement day.
+ */
+export function paperLink(
+  paper: { arxiv_id: string; announced: string },
+  where: {
+    category: string | null;
+    oldestDay: string | undefined;
+    archiveYears: readonly number[];
+  },
+): string {
+  const year = archiveYearOf(paper.announced, where.oldestDay, where.archiveYears);
+  return writeState({
+    ...DEFAULT_STATE,
+    category: where.category,
+    ...(year === null
+      ? { period: between(paper.announced, paper.announced) }
+      : { view: "cited" as const, year }),
+    paper: paper.arxiv_id,
+  });
+}

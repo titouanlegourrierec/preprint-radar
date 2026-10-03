@@ -25,7 +25,7 @@ import {
   valueCounts,
 } from "./search";
 import type { Paper } from "./types";
-import { DEFAULT_STATE, type ViewState, writeState } from "./url-state";
+import { archiveYearOf, DEFAULT_STATE, paperLink, type ViewState, writeState } from "./url-state";
 
 const FACET_SIZE = 12;
 const SUGGESTION_SIZE = 300;
@@ -108,13 +108,10 @@ export function App() {
   // Without search words, relevance is the announcement order.
   const newest = state.sort === "newest" || (state.sort === "relevance" && !hasSearchWords);
   // A share link opens the paper on its own day, free of the sharer's search context.
+  const oldestDay = storeDays.at(-1)?.date;
+  const yearsArchived = archiveYears.map((entry) => entry.year);
   const linkTo = (paper: Paper) =>
-    writeState({
-      ...DEFAULT_STATE,
-      category: category ?? null,
-      period: between(paper.announced, paper.announced),
-      paper: paper.arxiv_id,
-    });
+    paperLink(paper, { category: category ?? null, oldestDay, archiveYears: yearsArchived });
   const subjects = useMemo(
     () =>
       facetCounts(
@@ -130,15 +127,10 @@ export function App() {
   // its archive year when it is older than the days kept.
   const showInGraph = (paper: Paper) => {
     const loaded = load.status === "ready" && load.index.has(paper.arxiv_id);
-    const year = Number(paper.announced.slice(0, 4));
-    const oldest = storeDays.at(-1)?.date;
+    const year = archiveYearOf(paper.announced, oldestDay, yearsArchived);
     if (loaded) {
       update({ view: "graph", paper: paper.arxiv_id, year: archived ? archiveYear : null });
-    } else if (
-      oldest &&
-      paper.announced < oldest &&
-      archiveYears.some((entry) => entry.year === year)
-    ) {
+    } else if (year !== null) {
       update({ view: "graph", paper: paper.arxiv_id, year });
     } else {
       update({

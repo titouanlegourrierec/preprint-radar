@@ -1,6 +1,13 @@
 import { describe, expect, it } from "vitest";
 import { exactly, typed } from "../src/search";
-import { DEFAULT_STATE, isNavigation, readState, writeState } from "../src/url-state";
+import {
+  archiveYearOf,
+  DEFAULT_STATE,
+  isNavigation,
+  paperLink,
+  readState,
+  writeState,
+} from "../src/url-state";
 
 describe("url state", () => {
   it("omits defaults", () => {
@@ -148,5 +155,27 @@ describe("isNavigation", () => {
     expect(isNavigation(DEFAULT_STATE, { ...DEFAULT_STATE, query: "gaussian" })).toBe(false);
     expect(isNavigation(DEFAULT_STATE, { ...DEFAULT_STATE, sort: "citations" })).toBe(false);
     expect(isNavigation(filtered(typed("hao")), filtered(typed("hao l")))).toBe(false);
+  });
+});
+
+describe("paperLink", () => {
+  const where = { category: "cs.CV", oldestDay: "2026-09-01", archiveYears: [2017, 2025] };
+
+  it("opens a paper of the days on its day", () => {
+    expect(paperLink({ arxiv_id: "2609.30234", announced: "2026-09-25" }, where)).toBe(
+      "?cat=cs.CV&from=2026-09-25&paper=2609.30234",
+    );
+  });
+
+  it("opens an archived paper in its year of the Highly cited view", () => {
+    const link = paperLink({ arxiv_id: "1706.03762", announced: "2017-06-12" }, where);
+    expect(link).toBe("?cat=cs.CV&view=cited&paper=1706.03762&year=2017");
+    expect(readState(link)).toMatchObject({ view: "cited", year: 2017, paper: "1706.03762" });
+  });
+
+  it("falls back on the day when no archive year holds the paper", () => {
+    expect(archiveYearOf("2019-03-01", "2026-09-01", [2017, 2025])).toBeNull();
+    expect(archiveYearOf("2017-06-12", undefined, [2017])).toBeNull();
+    expect(archiveYearOf("2026-09-25", "2026-09-01", [2026])).toBeNull();
   });
 });
