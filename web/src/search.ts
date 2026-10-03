@@ -1,4 +1,4 @@
-import MiniSearch, { type SearchResult as MiniSearchResult } from "minisearch";
+import MiniSearch, { type SearchResult as MiniSearchResult, type Options } from "minisearch";
 import { wholeWord } from "./highlight";
 import { acronymOf, institutionsOf, paperInstitutions } from "./institutions";
 import { fold, searchKey } from "./text";
@@ -154,34 +154,85 @@ function newestFirst(a: SearchResult, b: SearchResult): number {
   );
 }
 
-/** Full-text index over a set of papers, with structured filters. */
+const INDEX_OPTIONS: Options<Paper> = {
+  idField: "arxiv_id",
+  fields: SEARCHED_FIELDS,
+  extractField: (paper: Paper, field: string) =>
+    field === "arxiv_id" ? paper.arxiv_id : fieldValue(paper, field),
+  processTerm,
+  searchOptions: {
+    boost: FIELD_BOOSTS,
+    combineWith: "AND",
+    // Type-ahead on the word being typed only, and never on a short acronym: "gan" is
+    // not "Gandhi", "mit" not "mitigate". One typo from 7 letters: "detection" is not
+    // "selection". Exact matches weigh most.
+    prefix: isPrefix,
+    fuzzy: (term: string) => (term.length >= MIN_FUZZY_LENGTH ? 1 : false),
+    weights: { fuzzy: 0.2, prefix: 0.5 },
+  },
+};
+
+/** Papers added to the full-text index between two yields to the browser. */
+const WARM_CHUNK = 200;
+
+function yieldToBrowser(): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, 0));
+}
+
+/**
+ * Full-text index over a set of papers, with structured filters.
+ *
+ * The full-text index is built only when needed (60 ms for a day of cs.CV, about a second
+ * for 20): a list without search words never uses it, so it shows at once. {@link warm}
+ * builds it in chunks while the page stays responsive, and a search before it ends adds
+ * the papers left at once.
+ */
 export class PaperIndex {
-  private readonly index: MiniSearch<Paper>;
   private readonly papers: Map<string, Paper>;
+  /** The papers in the order they enter the full-text index, the first `indexed` in it. */
+  private readonly queue: Paper[];
+  private indexed = 0;
+  private fullText: MiniSearch<Paper> | null = null;
   /** {@link constraintText} of each paper, built when a query first needs it. */
   private readonly constraints = new Map<string, string>();
 
   constructor(papers: Paper[]) {
     // A paper cross-listed in several loaded days would otherwise be indexed twice.
     this.papers = new Map(papers.map((paper) => [paper.arxiv_id, paper]));
-    this.index = new MiniSearch<Paper>({
-      idField: "arxiv_id",
-      fields: SEARCHED_FIELDS,
-      extractField: (paper, field) =>
-        field === "arxiv_id" ? paper.arxiv_id : fieldValue(paper, field),
-      processTerm,
-      searchOptions: {
-        boost: FIELD_BOOSTS,
-        combineWith: "AND",
-        // Type-ahead on the word being typed only, and never on a short acronym: "gan" is
-        // not "Gandhi", "mit" not "mitigate". One typo from 7 letters: "detection" is not
-        // "selection". Exact matches weigh most.
-        prefix: isPrefix,
-        fuzzy: (term) => (term.length >= MIN_FUZZY_LENGTH ? 1 : false),
-        weights: { fuzzy: 0.2, prefix: 0.5 },
-      },
-    });
-    this.index.addAll([...this.papers.values()]);
+    this.queue = [...this.papers.values()];
+  }
+
+  /** Whether every paper is in the full-text index, so that a search indexes nothing. */
+  get ready(): boolean {
+    return this.indexed === this.queue.length;
+  }
+
+  /**
+   * Build the full-text index, a chunk of papers at a time, yielding to the browser in
+   * between; it stops early when `signal` aborts (the papers are no longer shown).
+   */
+  async warm(signal?: AbortSignal): Promise<void> {
+    while (!(this.ready || signal?.aborted)) {
+      const end = Math.min(this.indexed + WARM_CHUNK, this.queue.length);
+      this.index().addAll(this.queue.slice(this.indexed, end));
+      this.indexed = end;
+      await yieldToBrowser();
+    }
+  }
+
+  /** The full-text index with every paper: those {@link warm} has not reached yet are added now. */
+  private complete(): MiniSearch<Paper> {
+    const index = this.index();
+    if (!this.ready) {
+      index.addAll(this.queue.slice(this.indexed));
+      this.indexed = this.queue.length;
+    }
+    return index;
+  }
+
+  private index(): MiniSearch<Paper> {
+    this.fullText ??= new MiniSearch<Paper>(INDEX_OPTIONS);
+    return this.fullText;
   }
 
   get size(): number {
@@ -220,7 +271,9 @@ export class PaperIndex {
     }
     // Stop words alone ("the", "on" while typing "on-device") search nothing: every paper.
     const results = typedTerms.length
-      ? this.index.search(query.text).flatMap((hit) => this.toResult(hit, typedTerms))
+      ? this.complete()
+          .search(query.text)
+          .flatMap((hit) => this.toResult(hit, typedTerms))
       : [...this.papers.values()].map((paper) => ({ paper, score: 0, highlights: [] }));
 
     const filtered = results.filter(

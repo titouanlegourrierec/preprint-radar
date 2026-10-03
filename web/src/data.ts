@@ -1,3 +1,4 @@
+import { PAPER_BUDGET } from "./period";
 import {
   type ArchiveFile,
   type CitationsFile,
@@ -11,8 +12,42 @@ import {
 const DATA_URL = `${import.meta.env.BASE_URL}data/`;
 const MAX_PARALLEL_REQUESTS = 6;
 
-async function fetchJson<T>(path: string): Promise<T> {
-  const response = await fetch(`${DATA_URL}${path}`);
+/**
+ * Day and archive files loaded, kept for the next periods (back to the last 5 days after
+ * the last 20, a year of the archive after another): as many papers as a period loads,
+ * besides those shown, which are shared. The least recently used files leave first.
+ */
+const loaded = new Map<string, Paper[]>();
+const CACHED_PAPERS = PAPER_BUDGET;
+
+function recall(path: string): Paper[] | undefined {
+  const papers = loaded.get(path);
+  if (papers !== undefined) {
+    // Most recently used last.
+    loaded.delete(path);
+    loaded.set(path, papers);
+  }
+  return papers;
+}
+
+function remember(path: string, papers: Paper[]): void {
+  loaded.set(path, papers);
+  let total = 0;
+  for (const kept of loaded.values()) total += kept.length;
+  for (const [oldest, kept] of loaded) {
+    if (total <= CACHED_PAPERS || oldest === path) break;
+    loaded.delete(oldest);
+    total -= kept.length;
+  }
+}
+
+/** Forget the files loaded (tests serve other files under the same paths). */
+export function forgetLoaded(): void {
+  loaded.clear();
+}
+
+async function fetchJson<T>(path: string, signal?: AbortSignal): Promise<T> {
+  const response = await fetch(`${DATA_URL}${path}`, signal ? { signal } : {});
   if (!response.ok) {
     throw new Error(`Could not load ${path} (HTTP ${response.status})`);
   }
@@ -31,8 +66,29 @@ export async function loadIndex(): Promise<StoreIndex> {
   return index;
 }
 
-/** Load the papers of the given days, most recent first, with bounded parallelism. */
-export async function loadDays(category: string, days: DaySummary[]): Promise<Paper[]> {
+/** The papers of a day or archive file, from the files loaded before if there. */
+async function loadPapers(
+  path: string,
+  what: string,
+  signal: AbortSignal | undefined,
+): Promise<Paper[]> {
+  const known = recall(path);
+  if (known !== undefined) return known;
+  const file = await fetchJson<DayFile | ArchiveFile>(path, signal);
+  checkSchema(file.schema_version, what);
+  remember(path, file.papers);
+  return file.papers;
+}
+
+/**
+ * Load the papers of the given days, most recent first, with bounded parallelism;
+ * `signal` cancels the requests left (the period changed).
+ */
+export async function loadDays(
+  category: string,
+  days: DaySummary[],
+  signal?: AbortSignal,
+): Promise<Paper[]> {
   const results: Paper[][] = new Array(days.length);
   let next = 0;
 
@@ -41,9 +97,7 @@ export async function loadDays(category: string, days: DaySummary[]): Promise<Pa
       const position = next++;
       const day = days[position];
       if (day === undefined) return;
-      const file = await fetchJson<DayFile>(`${category}/${day.date}.json`);
-      checkSchema(file.schema_version, "day file");
-      results[position] = file.papers;
+      results[position] = await loadPapers(`${category}/${day.date}.json`, "day file", signal);
     }
   }
 
@@ -52,10 +106,12 @@ export async function loadDays(category: string, days: DaySummary[]): Promise<Pa
 }
 
 /** Load the archived papers of one year (highly cited older papers). */
-export async function loadArchive(category: string, year: number): Promise<Paper[]> {
-  const file = await fetchJson<ArchiveFile>(`${category}/archive/${year}.json`);
-  checkSchema(file.schema_version, "archive file");
-  return file.papers;
+export function loadArchive(
+  category: string,
+  year: number,
+  signal?: AbortSignal,
+): Promise<Paper[]> {
+  return loadPapers(`${category}/archive/${year}.json`, "archive file", signal);
 }
 
 /** Load the citation counts of a category, or `null` if none were published yet. */

@@ -306,6 +306,43 @@ describe("PaperIndex", () => {
   });
 });
 
+describe("PaperIndex building", () => {
+  // The first paper and the last, which a first chunk does not reach, have their own word.
+  const titles: Record<number, string> = { 3: "Zebra crossings", 449: "Quokka habitats" };
+  const many = Array.from({ length: 450 }, (_, n) =>
+    makePaper({ arxiv_id: `2609.${String(n).padStart(5, "0")}`, title: titles[n] ?? "Filler" }),
+  );
+
+  it("indexes nothing until a search has words", () => {
+    const lazy = new PaperIndex(many);
+    expect(lazy.ready).toBe(false);
+    expect(lazy.search("", NO_FILTERS, "newest")).toHaveLength(450);
+    expect(lazy.get("2609.00449")?.title).toBe("Quokka habitats");
+    expect(lazy.ready).toBe(false);
+    expect(lazy.search("quokka", NO_FILTERS, "relevance")).toHaveLength(1);
+    expect(lazy.ready).toBe(true);
+  });
+
+  it("warms in chunks, and a search adds the papers left", async () => {
+    const warmed = new PaperIndex(many);
+    await warmed.warm();
+    expect(warmed.ready).toBe(true);
+
+    const stopped = new PaperIndex(many);
+    const stop = new AbortController();
+    const warming = stopped.warm(stop.signal);
+    stop.abort();
+    await warming;
+    // The first chunk went in before the signal was read again.
+    expect(stopped.ready).toBe(false);
+    expect(stopped.search("quokka", NO_FILTERS, "relevance")).toHaveLength(1);
+    expect(stopped.search("zebra", NO_FILTERS, "relevance")).toHaveLength(1);
+    expect(stopped.ready).toBe(true);
+    await stopped.warm();
+    expect(stopped.search("quokka", NO_FILTERS, "relevance")).toHaveLength(1);
+  });
+});
+
 describe("alphabetical", () => {
   it("sorts values ignoring case and accents", () => {
     const sorted = alphabetical([

@@ -163,7 +163,7 @@ page has no live coverage figures (PROD-7); of TEST-9, only the check of the dar
 
 | ID | Item | Priority | Status |
 |---|---|---|---|
-| PERF-1 | Bounded periods, async index build, per-month search shards | P1 | todo |
+| PERF-1 | Bounded periods, async index build, per-month search shards (periods bounded to 10,000 papers, index built in chunks, loaded files kept and requests cancelled: done; the per-month shards wait for decision 1) | P1 | todo |
 | META-1 | Spike, then DOI, published venue and author ids from the weekly Semantic Scholar batch | P1 | todo |
 | AFF-14 | Keep ROR ids | P2 | todo |
 | AFF-3 | OpenAlex retry policy, after its spike | P1 | todo |
@@ -173,7 +173,7 @@ page has no live coverage figures (PROD-7); of TEST-9, only the check of the dar
 | PERF-3 | Clique cap for consortium papers | P2 | todo |
 | UX-2 | Graph touch zoom and keyboard path | P2 | todo |
 | META-2 to META-4 | Weekly refresh from the catalog, provenance, the venue table | P2 | todo |
-| PERF-11 | Lazy index build | P2 | todo |
+| PERF-11 | Lazy index build | P2 | done |
 | PERF-12 | Split citation counts | P2 | todo |
 
 *Exit criteria:* a year of day files loads without freezing a phone, and venue coverage of the

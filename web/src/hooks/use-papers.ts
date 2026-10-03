@@ -13,6 +13,12 @@ export function loadErrorMessage(error: unknown): string {
   return error instanceof Error ? error.message : String(error);
 }
 
+/** Run `task` once the browser is idle (Safari has no `requestIdleCallback`). */
+function whenIdle(task: () => void): void {
+  if ("requestIdleCallback" in window) window.requestIdleCallback(task);
+  else setTimeout(task, 50);
+}
+
 export type LoadState =
   | { status: "loading" }
   | { status: "error"; message: string }
@@ -61,25 +67,32 @@ export function usePapers(
       setLoad({ status: "error", message: "The data store is empty." });
       return;
     }
-    let cancelled = false;
+    // Another period, year or category: the requests left and the indexing stop.
+    const stop = new AbortController();
+    const { signal } = stop;
     setLoad({ status: "loading" });
     let papers: Promise<Paper[]>;
     if (!archived) {
-      papers = loadDays(category, selectDays(storeIndex.categories[category] ?? [], period));
+      const days = selectDays(storeIndex.categories[category] ?? [], period);
+      papers = loadDays(category, days, signal);
     } else if (archiveYear === null) {
       papers = Promise.resolve([]); // no archive yet
     } else {
-      papers = loadArchive(category, archiveYear);
+      papers = loadArchive(category, archiveYear, signal);
     }
     papers
-      .then((papers) => !cancelled && setLoad({ status: "ready", index: new PaperIndex(papers) }))
+      .then((papers) => {
+        if (signal.aborted) return;
+        const index = new PaperIndex(papers);
+        setLoad({ status: "ready", index });
+        // The list shows first; the search index is built after, while the page is idle.
+        whenIdle(() => void index.warm(signal));
+      })
       .catch(
         (error: unknown) =>
-          !cancelled && setLoad({ status: "error", message: loadErrorMessage(error) }),
+          !signal.aborted && setLoad({ status: "error", message: loadErrorMessage(error) }),
       );
-    return () => {
-      cancelled = true;
-    };
+    return () => stop.abort();
   }, [storeIndex, category, period, archived, archiveYear, attempt]);
 
   return {

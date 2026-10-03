@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { loadArchive, loadCitations, loadDays, loadIndex } from "../src/data";
+import { forgetLoaded, loadArchive, loadCitations, loadDays, loadIndex } from "../src/data";
+import { PAPER_BUDGET } from "../src/period";
 import { makePaper } from "./fixtures";
 
 /** Serve `files` (path under data/ -> JSON body); anything else is a 404. */
@@ -14,7 +15,17 @@ function serve(files: Record<string, unknown>, status: Record<string, number> = 
   return requested;
 }
 
-afterEach(() => vi.unstubAllGlobals());
+afterEach(() => {
+  vi.unstubAllGlobals();
+  forgetLoaded();
+});
+
+function dayFile(date: string, papers = 1) {
+  return {
+    schema_version: 1,
+    papers: Array.from({ length: papers }, (_, n) => makePaper({ arxiv_id: `${date}.${n}` })),
+  };
+}
 
 describe("data", () => {
   it("loads the index, refusing another schema", async () => {
@@ -67,6 +78,38 @@ describe("data", () => {
       },
     });
     await expect(loadArchive("cs.CV", 2017)).resolves.toHaveLength(1);
+  });
+
+  it("keeps the files loaded for the next periods, within the budget", async () => {
+    const requested = serve({
+      "cs.CV/2026-09-10.json": dayFile("2026-09-10", 3),
+      "cs.CV/2026-09-11.json": dayFile("2026-09-11", PAPER_BUDGET),
+      "cs.CV/archive/2017.json": dayFile("1706", 2),
+    });
+    const tenth = [{ date: "2026-09-10", count: 3 }];
+    await loadDays("cs.CV", tenth);
+    await loadArchive("cs.CV", 2017);
+    await loadDays("cs.CV", tenth);
+    await loadArchive("cs.CV", 2017);
+    expect(requested).toEqual(["cs.CV/2026-09-10.json", "cs.CV/archive/2017.json"]);
+
+    // A file of a whole budget leaves the others out, the least recently used first.
+    await loadDays("cs.CV", [{ date: "2026-09-11", count: PAPER_BUDGET }]);
+    await loadDays("cs.CV", [{ date: "2026-09-11", count: PAPER_BUDGET }]);
+    await loadArchive("cs.CV", 2017);
+    expect(requested.slice(2)).toEqual(["cs.CV/2026-09-11.json", "cs.CV/archive/2017.json"]);
+  });
+
+  it("passes the signal that cancels the requests of a period", async () => {
+    const signals: (AbortSignal | undefined)[] = [];
+    vi.stubGlobal("fetch", async (_url: string, init?: RequestInit) => {
+      signals.push(init?.signal ?? undefined);
+      return new Response(JSON.stringify(dayFile("2026-09-10")));
+    });
+    const controller = new AbortController();
+    await loadDays("cs.CV", [{ date: "2026-09-10", count: 1 }], controller.signal);
+    await loadArchive("cs.CV", 2017);
+    expect(signals).toEqual([controller.signal, undefined]);
   });
 
   it("loads citation counts, which may not exist yet", async () => {
