@@ -193,6 +193,11 @@ export class PaperIndex {
     return this.papers.has(arxivId);
   }
 
+  /** The indexed paper with this identifier. */
+  get(arxivId: string): Paper | undefined {
+    return this.papers.get(arxivId);
+  }
+
   /** Every indexed paper, in no particular order. */
   all(): Paper[] {
     return [...this.papers.values()];

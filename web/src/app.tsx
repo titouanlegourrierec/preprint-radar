@@ -16,6 +16,7 @@ import { useUrlState } from "./hooks/use-url-state";
 import { hasModifier, isTyping } from "./keyboard";
 import { between, samePeriod } from "./period";
 import { loadShowAbstracts, saveShowAbstracts, type ThemePreference } from "./preferences";
+import { readingListFile } from "./reading-list";
 import {
   alphabetical,
   arxivIdOf,
@@ -51,7 +52,8 @@ export function App() {
     citations.source && citations.asOf
       ? formatCitationsNote(citations.source, citations.asOf)
       : undefined;
-  const readingList = useReadingList();
+  const readingList = useReadingList(load.status === "ready" ? load.index : null);
+  const importInput = useRef<HTMLInputElement>(null);
   const triage = useTriage(category ?? null, storeDays);
   const searchInput = useRef<HTMLInputElement>(null);
 
@@ -480,6 +482,24 @@ export function App() {
                 </label>
               </div>
             )}
+            {state.view === "reading-list" && (
+              <div class="results__actions">
+                <button type="button" class="button" onClick={() => importInput.current?.click()}>
+                  Import
+                </button>
+                <input
+                  ref={importInput}
+                  type="file"
+                  accept="application/json,.json"
+                  hidden
+                  onChange={(event) => {
+                    const file = event.currentTarget.files?.[0];
+                    if (file) void readingList.importFile(file);
+                    event.currentTarget.value = "";
+                  }}
+                />
+              </div>
+            )}
             {state.view === "reading-list" && readingList.papers.length > 0 && (
               <div class="results__actions">
                 <button
@@ -501,7 +521,7 @@ export function App() {
                   onClick={() =>
                     download(
                       "reading-list.json",
-                      JSON.stringify(readingList.papers, null, 2),
+                      JSON.stringify(readingListFile(readingList.papers), null, 2),
                       "application/json",
                     )
                   }
@@ -513,6 +533,15 @@ export function App() {
           </div>
 
           {hasSearchWords && showRelevanceHelp && <p class="help-note">{RELEVANCE_HELP}</p>}
+
+          {state.view === "reading-list" && readingList.message && (
+            <p class="notice notice--new" role="status">
+              {readingList.message}{" "}
+              <button type="button" class="link-button" onClick={readingList.dismissMessage}>
+                Dismiss
+              </button>
+            </p>
+          )}
 
           {triaged && sinceLastVisit && !samePeriod(state.period, sinceLastVisit.period) && (
             <p class="notice notice--new">
