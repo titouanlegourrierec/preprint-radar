@@ -457,7 +457,13 @@ export function App() {
           onInput={(event) => update({ query: event.currentTarget.value })}
           aria-label="Search papers"
           aria-describedby="search-hint"
-          autofocus
+          // No autofocus: j and k would type into the box. "/" comes here, Escape leaves.
+          onKeyDown={(event) => {
+            if (event.key !== "Escape") return;
+            // Leave the box, keeping its words (a search box clears them on Escape).
+            event.preventDefault();
+            event.currentTarget.blur();
+          }}
         />
       </div>
       {/* Outside the sticky bar, which then stays short and hides no focused control. */}
@@ -710,7 +716,7 @@ export function App() {
           {triaged && load.status === "ready" && (
             <p class="shortcuts muted">
               Keys: <kbd>j</kbd> <kbd>k</kbd> move, <kbd>o</kbd> open, <kbd>s</kbd> save,{" "}
-              <kbd>x</kbd> seen, <kbd>/</kbd> search.
+              <kbd>x</kbd> seen, <kbd>/</kbd> search, <kbd>Esc</kbd> leave the search.
             </p>
           )}
 
@@ -821,6 +827,7 @@ export function App() {
                 openId={state.paper}
                 linkTo={linkTo}
                 onOpenPaper={(arxivId) => update({ paper: arxivId })}
+                onClosePaper={() => update({ paper: null })}
                 onShowInGraph={showInGraph}
                 citations={citations.counts}
                 citationsNote={citationsNote}

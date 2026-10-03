@@ -40,6 +40,8 @@ interface Props {
   /** Query string linking to this paper alone, for the Share control. */
   permalink: string;
   onOpen: (arxivId: string) => void;
+  /** The target of a shared link was folded: it is no longer the paper shown. */
+  onClose: () => void;
   /** Absent for papers the graph cannot show (the archive). */
   onShowInGraph?: ((paper: Paper) => void) | undefined;
   /** Citation count, when known. */
@@ -63,6 +65,7 @@ export function PaperCard({
   isTarget,
   permalink,
   onOpen,
+  onClose,
   onShowInGraph,
   citations,
   citationsNote,
@@ -116,21 +119,22 @@ export function PaperCard({
     }
   }
 
-  // Plain click: copy the link and anchor the URL, without reloading. Modified
-  // clicks keep their meaning (open in a new tab...), the href being a real link.
+  // Plain click: copy the link, and say so; nothing else changes. Only when the clipboard
+  // is refused does the address bar show the link, to copy from there. Modified clicks keep
+  // their meaning (open in a new tab...), the href being a real link.
   async function copyLink(event: MouseEvent) {
     if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
       return;
     }
     event.preventDefault();
-    onOpen(paper.arxiv_id);
-    setExpanded(true);
     try {
       await navigator.clipboard.writeText(new URL(permalink, window.location.href).toString());
       setLinkCopied(true);
       setTimeout(() => setLinkCopied(false), 1500);
     } catch {
-      // Clipboard access can be denied; the address bar still holds the link.
+      // Open, so that its Less button folds it back and clears the address bar.
+      onOpen(paper.arxiv_id);
+      setExpanded(true);
     }
   }
 
@@ -285,7 +289,10 @@ export function PaperCard({
               aria-describedby={titleId}
               class="link-button paper__more"
               aria-expanded={expanded}
-              onClick={() => setExpanded(!expanded)}
+              onClick={() => {
+                if (expanded && isTarget) onClose();
+                setExpanded(!expanded);
+              }}
             >
               {expanded ? "Less" : "More"}
             </button>

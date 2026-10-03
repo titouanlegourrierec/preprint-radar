@@ -17,6 +17,8 @@ interface Props {
   openId: string | null;
   linkTo: (paper: Paper) => string;
   onOpenPaper: (arxivId: string) => void;
+  /** The paper of the shared link was folded. */
+  onClosePaper: () => void;
   onShowInGraph?: ((paper: Paper) => void) | undefined;
   citations: ReadonlyMap<string, number>;
   citationsNote?: string | undefined;
@@ -37,6 +39,7 @@ export function PaperList({
   openId,
   linkTo,
   onOpenPaper,
+  onClosePaper,
   onShowInGraph,
   citations,
   citationsNote,
@@ -134,6 +137,7 @@ export function PaperList({
       isTarget={paper.arxiv_id === openId}
       permalink={linkTo(paper)}
       onOpen={onOpenPaper}
+      onClose={onClosePaper}
       onShowInGraph={onShowInGraph}
       citations={citations.get(paper.arxiv_id)}
       citationsNote={citationsNote}
