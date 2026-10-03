@@ -16,6 +16,7 @@ import { between } from "./period";
 import { loadShowAbstracts, saveShowAbstracts, type ThemePreference } from "./preferences";
 import {
   alphabetical,
+  arxivIdOf,
   byCitations,
   exactly,
   facetCounts,
@@ -108,6 +109,7 @@ export function App() {
   // Without search words, relevance is the announcement order.
   const newest = state.sort === "newest" || (state.sort === "relevance" && !hasSearchWords);
   // A share link opens the paper on its own day, free of the sharer's search context.
+  const pastedId = arxivIdOf(query);
   const oldestDay = storeDays.at(-1)?.date;
   const yearsArchived = archiveYears.map((entry) => entry.year);
   const linkTo = (paper: Paper) =>
@@ -324,9 +326,9 @@ export function App() {
           autofocus
         />
         <p class="search__hint muted">
-          Searches titles, abstracts, authors and affiliations. <code>"neural radiance field"</code>{" "}
-          in quotes finds that exact phrase; <code>-survey</code> leaves out the papers that contain
-          the word.
+          Searches titles, abstracts, authors and affiliations, or an arXiv id.{" "}
+          <code>"neural radiance field"</code> in quotes finds that exact phrase;{" "}
+          <code>-survey</code> leaves out the papers that contain the word.
         </p>
       </div>
 
@@ -500,6 +502,12 @@ export function App() {
                     <a href={`https://arxiv.org/abs/${state.paper}`}>See it on arXiv</a>.
                   </p>
                 )}
+              {pastedId && results.length === 0 && load.status === "ready" && (
+                <p class="notice">
+                  {pastedId} is not among the stored papers of this period.{" "}
+                  <a href={`https://arxiv.org/abs/${pastedId}`}>See it on arXiv</a>.
+                </p>
+              )}
               <PaperList
                 results={results}
                 groupByDay={groupByDay}

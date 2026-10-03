@@ -132,7 +132,8 @@ with the deadline, the breakers, the summary and the page cache (2026-10-02) was
 | SRCH-4 | Browser history | P1 | done |
 | SRCH-5 | Archive permalinks | P1 | done |
 | SRCH-17 | Acronym affiliation filters | P2 | done |
-| TEST-16 | Relevance tests on real cases | P2 | todo |
+| TEST-16 | Relevance tests on real cases | P2 | done |
+| SRCH-7, SRCH-12 | A pasted arXiv id finds its paper; stop words alone keep every paper (from the backlog, with TEST-16) | P2, P3 | done |
 | PROD-2 | Keyboard triage, seen, since last visit | P1 | todo |
 | PROD-3 | Saved searches and a watchlist | P2 | todo |
 | PROD-4 | Reading-list import and safety | P2 | todo |

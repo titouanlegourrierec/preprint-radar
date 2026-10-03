@@ -207,7 +207,14 @@ export class PaperIndex {
       .map(processTerm)
       .filter((term): term is string => Boolean(term))
       .map((term, index, terms) => (isPrefix(term, index, terms) ? term : wholeWord(term)));
-    const results = query.text
+    // A pasted arXiv identifier or link means that paper, whatever the filters.
+    const arxivId = arxivIdOf(rawQuery);
+    if (arxivId !== null) {
+      const paper = this.papers.get(arxivId);
+      return paper ? [{ paper, score: 0, highlights: [] }] : [];
+    }
+    // Stop words alone ("the", "on" while typing "on-device") search nothing: every paper.
+    const results = typedTerms.length
       ? this.index.search(query.text).flatMap((hit) => this.toResult(hit, typedTerms))
       : [...this.papers.values()].map((paper) => ({ paper, score: 0, highlights: [] }));
 
@@ -219,7 +226,7 @@ export class PaperIndex {
       result.highlights.push(...extraHighlights);
     }
     return filtered.sort(
-      sort === "relevance" && query.text
+      sort === "relevance" && typedTerms.length
         ? (a, b) => b.score - a.score || newestFirst(a, b)
         : newestFirst,
     );
@@ -243,6 +250,15 @@ export class PaperIndex {
     const paper = this.papers.get(String(hit.id));
     return paper ? [{ paper, score: hit.score, highlights: [...typedTerms] }] : [];
   }
+}
+
+// "2609.38156", "arXiv:2609.38156v2", "https://arxiv.org/abs/2609.38156", "cs/0601001".
+const ARXIV_ID_RE =
+  /^(?:arxiv:\s*|(?:https?:\/\/)?(?:www\.)?arxiv\.org\/(?:abs|pdf|html)\/)?(\d{4}\.\d{4,5}|[a-z-]+(?:\.[a-z]{2})?\/\d{7})(?:v\d+)?(?:\.pdf)?\/?$/i;
+
+/** The arXiv identifier a query consists of, without its version; `null` for any other query. */
+export function arxivIdOf(query: string): string | null {
+  return ARXIV_ID_RE.exec(query.trim())?.[1] ?? null;
 }
 
 /** Whether the filter filters anything: an empty one does not. */
