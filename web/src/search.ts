@@ -1,4 +1,5 @@
 import MiniSearch, { type SearchResult as MiniSearchResult } from "minisearch";
+import { wholeWord } from "./highlight";
 import { institutionsOf, paperInstitutions } from "./institutions";
 import { fold, searchKey } from "./text";
 import type { Paper } from "./types";
@@ -85,6 +86,14 @@ const FIELD_BOOSTS = {
   comments: 0.5,
 };
 const SEARCHED_FIELDS = Object.keys(FIELD_BOOSTS);
+const MIN_PREFIX_LENGTH = 4;
+const tokenize: (text: string) => string[] = MiniSearch.getDefault("tokenize");
+
+/** Whether a query term matches the words it starts: the last one typed, from 4 letters. */
+function isPrefix(term: string, index: number, terms: readonly string[]): boolean {
+  return index === terms.length - 1 && term.length >= MIN_PREFIX_LENGTH;
+}
+const MIN_FUZZY_LENGTH = 7;
 
 export function parseQuery(raw: string): ParsedQuery {
   const phrases: string[] = [];
@@ -164,8 +173,12 @@ export class PaperIndex {
       searchOptions: {
         boost: FIELD_BOOSTS,
         combineWith: "AND",
-        prefix: true,
-        fuzzy: (term) => (term.length >= 5 ? 0.2 : false),
+        // Type-ahead on the word being typed only, and never on a short acronym: "gan" is
+        // not "Gandhi", "mit" not "mitigate". One typo from 7 letters: "detection" is not
+        // "selection". Exact matches weigh most.
+        prefix: isPrefix,
+        fuzzy: (term) => (term.length >= MIN_FUZZY_LENGTH ? 1 : false),
+        weights: { fuzzy: 0.2, prefix: 0.5 },
       },
     });
     this.index.addAll([...this.papers.values()]);
@@ -187,8 +200,15 @@ export class PaperIndex {
 
   search(rawQuery: string, filters: SearchFilters, sort: SortOrder): SearchResult[] {
     const query = parseQuery(rawQuery);
+    // The words typed are highlighted as the search matched them, whole or, for the last
+    // one, as a prefix: not what a typo allowance matched ("depth" does not mark "death"),
+    // nor longer words for an acronym ("vit" does not mark "vitamins").
+    const typedTerms = tokenize(query.text)
+      .map(processTerm)
+      .filter((term): term is string => Boolean(term))
+      .map((term, index, terms) => (isPrefix(term, index, terms) ? term : wholeWord(term)));
     const results = query.text
-      ? this.index.search(query.text).flatMap((hit) => this.toResult(hit))
+      ? this.index.search(query.text).flatMap((hit) => this.toResult(hit, typedTerms))
       : [...this.papers.values()].map((paper) => ({ paper, score: 0, highlights: [] }));
 
     const filtered = results.filter(
@@ -219,9 +239,9 @@ export class PaperIndex {
     );
   }
 
-  private toResult(hit: MiniSearchResult): SearchResult[] {
+  private toResult(hit: MiniSearchResult, typedTerms: readonly string[]): SearchResult[] {
     const paper = this.papers.get(String(hit.id));
-    return paper ? [{ paper, score: hit.score, highlights: [...hit.terms] }] : [];
+    return paper ? [{ paper, score: hit.score, highlights: [...typedTerms] }] : [];
   }
 }
 

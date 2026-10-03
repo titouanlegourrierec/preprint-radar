@@ -10,13 +10,26 @@ function escapeRegExp(text: string): string {
 }
 
 /**
- * Split `text` into segments, flagging the words that start with one of `terms`.
+ * Split `text` into segments, flagging the words that start with one of `terms`, or that
+ * are one of them for a term made by {@link wholeWord}.
  * Matching is accent- and case-insensitive; the original text is preserved. The words of
  * a term of several words may be separated by any punctuation, as a phrase matches them:
  * "self supervised" flags "self-supervised".
  */
+/** A term to highlight as a whole word only, not as the start of longer words. */
+export function wholeWord(term: string): string {
+  return `${term}${WHOLE_WORD}`;
+}
+
+const WHOLE_WORD = "\u0000";
+
 function needlePattern(needle: string): string {
-  return needle.split(/\s+/).map(escapeRegExp).join("[^\\p{L}\\p{N}]+");
+  const exact = needle.endsWith(WHOLE_WORD);
+  const words = (exact ? needle.slice(0, -WHOLE_WORD.length) : needle)
+    .split(/\s+/)
+    .map(escapeRegExp)
+    .join("[^\\p{L}\\p{N}]+");
+  return exact ? `${words}(?![\\p{L}\\p{N}])` : `${words}[\\p{L}\\p{N}]*`;
 }
 
 export function highlight(text: string, terms: readonly string[]): Segment[] {
@@ -37,7 +50,7 @@ export function highlight(text: string, terms: readonly string[]): Segment[] {
   }
   const chars = Array.from(text);
   const pattern = new RegExp(
-    `(?<![\\p{L}\\p{N}])(?:${needles.map(needlePattern).join("|")})[\\p{L}\\p{N}]*`,
+    `(?<![\\p{L}\\p{N}])(?:${needles.map(needlePattern).join("|")})`,
     "gu",
   );
 

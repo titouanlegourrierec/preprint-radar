@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { highlight } from "../src/highlight";
+import { highlight, wholeWord } from "../src/highlight";
 
 const marked = (text: string, terms: string[]) =>
   highlight(text, terms)
@@ -16,6 +16,12 @@ describe("highlight", () => {
       "Self-Supervised",
       "self supervised",
     ]);
+  });
+
+  it("marks whole words only for a term made by wholeWord", () => {
+    expect(
+      marked("ViT and vitamins, Self-Supervised", [wholeWord("vit"), wholeWord("self supervised")]),
+    ).toEqual(["ViT", "Self-Supervised"]);
   });
 
   it("does not match inside words", () => {

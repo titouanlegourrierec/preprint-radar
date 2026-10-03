@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { wholeWord } from "../src/highlight";
 import {
   ANY_VENUE,
   alphabetical,
@@ -59,12 +60,38 @@ describe("PaperIndex", () => {
     expect(ids("")).toEqual(["2609.00003", "2609.00002", "2609.00001"]);
   });
 
-  it("requires all terms and supports prefixes", () => {
-    expect(ids("gauss compress")).toEqual(["2609.00001"]);
+  it("requires all terms, the last one as a prefix of 4 letters or more", () => {
+    expect(ids("gaussian compress")).toEqual(["2609.00001"]);
+    // Only the word being typed is a prefix.
+    expect(ids("gauss compression")).toEqual([]);
   });
 
-  it("ignores stop words and tolerates typos", () => {
+  it("ignores stop words and tolerates a typo in long words", () => {
     expect(ids("difusion for video")).toEqual(["2609.00002"]);
+    expect(ids("viedo")).toEqual([]);
+  });
+
+  it("treats short acronyms and names as whole words", () => {
+    const acronyms = new PaperIndex([
+      makePaper({ arxiv_id: "1", title: "GAN inversion", authors: ["Ada Lovelace"] }),
+      makePaper({ arxiv_id: "2", title: "Robust depth", authors: ["Yu Gan", "Mahatma Gandhi"] }),
+      makePaper({ arxiv_id: "3", title: "Mitigating death in ViT training" }),
+      makePaper({ arxiv_id: "4", title: "Vittorio's viterbi decoder" }),
+    ]);
+    const found = (query: string) =>
+      acronyms
+        .search(query, NO_FILTERS, "newest")
+        .map(({ paper }) => paper.arxiv_id)
+        .sort();
+
+    expect(found("gan")).toEqual(["1", "2"]);
+    expect(found("mit")).toEqual([]);
+    expect(found("vit")).toEqual(["3"]);
+    expect(found("depth")).toEqual(["2"]);
+    const [hit] = acronyms.search("depth", NO_FILTERS, "relevance");
+    expect(hit?.highlights).toEqual(["depth"]);
+    const [vit] = acronyms.search("vit", NO_FILTERS, "relevance");
+    expect(vit?.highlights).toEqual([wholeWord("vit")]);
   });
 
   it("matches authors without accents", () => {
