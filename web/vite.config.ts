@@ -18,7 +18,7 @@ import { thirdPartyLoads } from "./tooling/third-party";
 // The repository's store; the smoke test (e2e/) builds the site over a small one instead.
 const DATA_DIR = resolve(
   import.meta.dirname,
-  process.env["PREPRINT_RADAR_DATA_DIR"] ?? resolve(import.meta.dirname, "..", "data"),
+  process.env.PREPRINT_RADAR_DATA_DIR ?? resolve(import.meta.dirname, "..", "data"),
 );
 
 /**
