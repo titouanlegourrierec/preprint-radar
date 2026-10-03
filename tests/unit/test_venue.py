@@ -64,17 +64,18 @@ def test_ignores_non_acceptances(comments: str | None) -> None:
     assert extract_venue(comments) is None
 
 
-# Known false positives (TEST-4), fixed with the venue table of META-4: strict, so that the
-# fix shows up as a test to turn back into a plain one.
-@pytest.mark.xfail(strict=True, reason="META-4: a venue named without an acceptance cue")
 @pytest.mark.parametrize(
     "comments",
     [
         pytest.param("Comparison with CVPR 2025 methods", id="comparison"),
         pytest.param("Rejected from CVPR 2026", id="rejection"),
+        pytest.param("WACV 2024 (Rejected)", id="rejection-after"),
         pytest.param("Our method ranks first on the ECCV 2024 benchmark", id="ranking"),
+        pytest.param("ranked 1st at the CVPR 2021 Challenge on Sign Language", id="challenge-rank"),
         pytest.param("An extension of our ECCV 2024 paper", id="extension"),
-        pytest.param("Published in IEEE TPAMI, pp.2028-2040", id="page-numbers-as-a-year"),
+        pytest.param("Manuscript prepared for ICASSP 2027", id="prepared"),
+        pytest.param("23 pages, submit to ICLR", id="submit"),
+        pytest.param("Project page: https://example.github.io/method-NeurIPS-2026/", id="link"),
     ],
 )
 def test_never_reads_a_mention_as_an_acceptance(comments: str) -> None:
@@ -82,10 +83,49 @@ def test_never_reads_a_mention_as_an_acceptance(comments: str) -> None:
 
 
 @pytest.mark.parametrize(
+    ("comments", "expected"),
+    [
+        # A mention elsewhere in the clause leaves the venue's own part alone.
+        ("CVPR 2018, Rank 1 in Segmentation Track of the VisDA Challenge 2017", "CVPR 2018"),
+        ("Journal extension of CVPR 2021 paper PMP-Net, Accepted by TPAMI", "TPAMI 2021"),
+        ("Accepted to NeurIPS 2025 Datasets and Benchmarks Track", "NeurIPS 2025"),
+        # Years written short, glued or after a hyphen.
+        ("accepted by CVPR16", "CVPR 2016"),
+        ("A conference version of this paper is accepted by ECCV-18", "ECCV 2018"),
+        # Major venues whatever their case, and a typo of "accepted".
+        ("Neurips 2025 camera-ready version", "NeurIPS 2025"),
+        ("accepted to cvpr2019, code at https://github.com/x/cvpr2018-baseline", "CVPR 2019"),
+        ("Accpeted to EMNLP 2026 Main Conference", "EMNLP 2026"),
+        # Full names, the longest one that fits.
+        (
+            (
+                "Accepted to IEEE International Conference on Computer Vision and Pattern Recognition "
+                "(CVPR) 2017"
+            ),
+            "CVPR 2017",
+        ),
+        ("40th Conference on Neural Information Processing Systems (NeurIPS 2026)", "NeurIPS 2026"),
+        # Page numbers are not years.
+        ("Published in IEEE TPAMI, pp.2028-2040", "TPAMI"),
+    ],
+)
+def test_reads_acceptances_around_mentions(comments: str, expected: str) -> None:
+    assert extract_venue(comments) == expected
+
+
+@pytest.mark.parametrize(
     "comments",
     [
         pytest.param("Accepted at VISAPP 2026", id="VISAPP"),
         pytest.param("Accepted at CVIP 2025", id="CVIP"),
+        pytest.param(
+            "Proceedings of the 9th International Conference on Computer Vision Theory and Applications",
+            id="VISAPP-in-full",
+        ),
+        pytest.param(
+            "Accepted at 7th International Conference on Computer Vision and Image Processing (CVIP), 2022",
+            id="CVIP-in-full",
+        ),
     ],
 )
 def test_never_reads_iccv_inside_another_name(comments: str) -> None:

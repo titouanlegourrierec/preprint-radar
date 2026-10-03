@@ -172,7 +172,8 @@ page has no live coverage figures (PROD-7); of TEST-9, only the check of the dar
 | PERF-2 | Graph defaults with the author layer | P2 | todo |
 | PERF-3 | Clique cap for consortium papers | P2 | todo |
 | UX-2 | Graph touch zoom and keyboard path | P2 | todo |
-| META-2 to META-4 | Weekly refresh from the catalog, provenance, the venue table | P2 | todo |
+| META-2, META-3 | Weekly refresh from the catalog, provenance | P2 | todo |
+| META-4 | The venue table, and venue detection without mentions | P2 | done |
 | PERF-11 | Lazy index build | P2 | done |
 | PERF-12 | Split citation counts (at build time: the store keeps one `citations.json`) | P2 | done |
 

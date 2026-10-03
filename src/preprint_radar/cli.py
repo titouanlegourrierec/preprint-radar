@@ -74,6 +74,7 @@ from preprint_radar.store.stats import (
     weekdays_since,
 )
 from preprint_radar.store.validate import validate_store
+from preprint_radar.store.venues import detect_venues_again
 
 logger = logging.getLogger(__name__)
 
@@ -107,6 +108,7 @@ def build_parser() -> argparse.ArgumentParser:
     _add_citations_parser(subparsers)
     _add_index_parser(subparsers)
     _add_reclean_parser(subparsers)
+    _add_venues_parser(subparsers)
     _add_validate_parser(subparsers)
     _add_summary_parser(subparsers)
     _add_reextract_parser(subparsers)
@@ -378,6 +380,32 @@ def _add_reclean_parser(subparsers: "argparse._SubParsersAction[argparse.Argumen
         help="arXiv category, repeatable (default: every category in the store)",
     )
     reclean.add_argument(
+        "--data-dir",
+        type=Path,
+        default=DEFAULT_DATA_DIR,
+        help=f"data store directory (default: {DEFAULT_DATA_DIR})",
+    )
+
+
+def _add_venues_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
+    venues = subparsers.add_parser(
+        "venues",
+        help="detect the venues of the stored papers again with the current rules",
+        description=(
+            "Detect the venue of every stored paper again, from its comments and journal "
+            "reference, after a change to the detection: day files and archive alike. "
+            "Nothing is fetched."
+        ),
+    )
+    venues.add_argument(
+        "-c",
+        "--category",
+        dest="categories",
+        action="append",
+        type=_category,
+        help="arXiv category, repeatable (default: every category in the store)",
+    )
+    venues.add_argument(
         "--data-dir",
         type=Path,
         default=DEFAULT_DATA_DIR,
@@ -901,6 +929,18 @@ def _run_reclean(args: argparse.Namespace) -> int:
     return 0
 
 
+def _run_venues(args: argparse.Namespace) -> int:
+    store = PaperStore(args.data_dir)
+    for category in args.categories or store.categories():
+        report = detect_venues_again(store, category)
+        written = f"{report.days} day files" + (" and the archive" if report.archive else "")
+        console.print(
+            f"{category}: {report.changed} of {report.papers} papers changed, in {written}; "
+            f"venues {report.before} -> {report.after}"
+        )
+    return 0
+
+
 def _run_validate(args: argparse.Namespace) -> int:
     report = validate_store(PaperStore(args.data_dir))
     for finding in report.findings:
@@ -978,6 +1018,7 @@ _COMMANDS: dict[str, Callable[[argparse.Namespace], int]] = {
     "citations": _run_citations,
     "index": _run_index,
     "reclean": _run_reclean,
+    "venues": _run_venues,
     "validate": _run_validate,
     "summary": _run_summary,
     "reextract": _run_reextract,

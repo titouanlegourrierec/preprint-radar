@@ -2,63 +2,105 @@
 
 Authors write things like "Accepted to ECCV 2026", "BMVC2026", "published in the
 Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision (WACV),
-2026" or "Submitted to NeurIPS 2026" (not an acceptance). This module recognizes a list of
-well-known venues and, failing that, an acronym followed by a year in a sentence that
-announces an acceptance.
+2026" or "Submitted to NeurIPS 2026" (not an acceptance). This module recognizes the venues
+of a table (:data:`VENUES`) and, failing that, an acronym followed by a year in a sentence
+that announces an acceptance.
+
+A venue of the table counts unless its clause says the paper was not accepted there
+("Submitted to", "Under review at", "Rejected from") or only mentions it ("Comparison with
+CVPR 2025 methods", "ranks first on the ECCV 2024 benchmark", "An extension of our ECCV
+2024 paper"). Requiring an acceptance cue instead would lose a venue in twenty: "40th
+Conference on Neural Information Processing Systems (NeurIPS 2026)", "Findings of EMNLP
+2026".
 """
 
 import re
+from dataclasses import dataclass
+from typing import Literal
 
-# Canonical name -> pattern (matched case-sensitively unless marked otherwise), ordered so
-# that longer names win ("SIGGRAPH Asia" before "SIGGRAPH").
-_KNOWN_VENUES: tuple[tuple[str, str], ...] = (
-    ("NeurIPS", r"NeurIPS|NIPS|(?i:Neural Information Processing Systems)"),
-    ("ICLR", r"ICLR|(?i:International Conference on Learning Representations)"),
-    ("ICML", r"ICML|(?i:International Conference on Machine Learning)"),
-    ("CVPR", r"CVPRW?|(?i:Conference on Computer Vision and Pattern Recognition)"),
-    ("ICCV", r"ICCVW?|(?i:International Conference on Computer Vision)"),
-    ("ECCV", r"ECCVW?|(?i:European Conference on Computer Vision)"),
-    ("WACV", r"WACV|(?i:Winter Conference on Applications of Computer Vision)"),
-    ("BMVC", r"BMVC|(?i:British Machine Vision Conference)"),
-    ("ACCV", r"ACCV|(?i:Asian Conference on Computer Vision)"),
-    ("3DV", r"3DV|(?i:International Conference on 3D Vision)"),
-    ("SIGGRAPH Asia", r"(?i:SIGGRAPH\s+Asia)"),
-    ("SIGGRAPH", r"SIGGRAPH"),
-    ("CHI", r"CHI|(?i:CHI\s+Conference\s+on\s+Human\s+Factors\s+in\s+Computing\s+Systems)"),
-    ("ACM MM", r"ACM\s?MM|(?i:ACM\s+Multimedia|ACM\s+International\s+Conference\s+on\s+Multimedia)"),
-    ("AAAI", r"AAAI"),
-    ("IJCAI", r"IJCAI"),
-    ("ACL", r"ACL"),
-    ("EMNLP", r"EMNLP"),
-    ("NAACL", r"NAACL"),
-    ("CoRL", r"CoRL|(?i:Conference on Robot Learning)"),
-    ("ICRA", r"ICRA"),
-    ("IROS", r"IROS"),
-    ("RSS", r"(?i:Robotics:\s+Science\s+and\s+Systems)"),
-    ("MICCAI", r"MICCAI"),
-    ("IPMI", r"IPMI"),
-    ("ISBI", r"ISBI"),
-    ("MIDL", r"MIDL"),
-    ("ICASSP", r"ICASSP"),
-    ("ICIP", r"ICIP"),
-    ("ICME", r"ICME"),
-    ("ICPR", r"ICPR"),
-    ("IGARSS", r"IGARSS"),
-    ("KDD", r"KDD"),
-    ("ECML PKDD", r"ECML[\s-]?PKDD"),
-    ("AISTATS", r"AISTATS"),
-    ("TPAMI", r"T-?PAMI|(?i:Pattern\s+Analysis\s+and\s+Machine\s+Intelligence)"),
-    ("IJCV", r"IJCV|(?i:International\s+Journal\s+of\s+Computer\s+Vision)"),
-    ("TIP", r"TIP|(?i:Transactions\s+on\s+Image\s+Processing)"),
-    ("TMI", r"TMI|(?i:Transactions\s+on\s+Medical\s+Imaging)"),
-    ("TVCG", r"TVCG|(?i:Transactions\s+on\s+Visualization\s+and\s+Computer\s+Graphics)"),
-    ("TMLR", r"TMLR|(?i:Transactions\s+on\s+Machine\s+Learning\s+Research)"),
-    ("JMLR", r"JMLR"),
-    ("RA-L", r"RA-?L|(?i:Robotics\s+and\s+Automation\s+Letters)"),
-    ("MedIA", r"MedIA|(?i:Medical\s+Image\s+Analysis)"),
+
+@dataclass(frozen=True, slots=True)
+class Venue:
+    """A venue of the table.
+
+    Attributes:
+        name: Canonical name, as shown ("CVPR", "SIGGRAPH Asia").
+        kind: Conference or journal.
+        acronym: Pattern of its acronyms, case-sensitive unless marked ``(?i:...)``.
+        full: Pattern of its full names, matched ignoring case, or ``None``.
+    """
+
+    name: str
+    kind: Literal["conference", "journal"]
+    acronym: str
+    full: str | None = None
+
+
+# A full name must not be the start of a longer one: "International Conference on Computer
+# Vision" begins VISAPP's "... Theory and Applications", CVIP's "... and Image Processing" and
+# a misnamed "... and Pattern Recognition".
+_NAME_ENDS = r"(?!\s+(?:and|Theory|Applications|Systems)\b|,\s*Imaging)"
+
+# Ordered so that longer names win ("SIGGRAPH Asia" before "SIGGRAPH").
+VENUES: tuple[Venue, ...] = (
+    Venue("NeurIPS", "conference", r"(?i:NeurIPS)|NIPS", r"Neural Information Processing Systems"),
+    Venue("ICLR", "conference", r"(?i:ICLR)", r"International Conference on Learning Representations"),
+    Venue("ICML", "conference", r"(?i:ICML)", r"International Conference on Machine Learning"),
+    Venue("CVPR", "conference", r"(?i:CVPR)W?", r"Conference on Computer Vision and Pattern Recognition"),
+    Venue("ICCV", "conference", r"(?i:ICCV)W?", rf"International Conference on Computer Vision{_NAME_ENDS}"),
+    Venue("ECCV", "conference", r"(?i:ECCV)W?", rf"European Conference on Computer Vision{_NAME_ENDS}"),
+    Venue("WACV", "conference", r"(?i:WACV)", r"Winter Conference on Applications of Computer Vision"),
+    Venue("BMVC", "conference", r"(?i:BMVC)", r"British Machine Vision Conference"),
+    Venue("ACCV", "conference", r"ACCV", rf"Asian Conference on Computer Vision{_NAME_ENDS}"),
+    Venue("3DV", "conference", r"3DV", r"International Conference on 3D Vision"),
+    Venue("SIGGRAPH Asia", "conference", r"(?i:SIGGRAPH\s+Asia)"),
+    Venue("SIGGRAPH", "conference", r"(?i:SIGGRAPH)"),
+    Venue("CHI", "conference", r"CHI", r"CHI\s+Conference\s+on\s+Human\s+Factors\s+in\s+Computing\s+Systems"),
+    Venue(
+        "ACM MM",
+        "conference",
+        r"ACM\s?MM",
+        r"ACM\s+Multimedia|ACM\s+International\s+Conference\s+on\s+Multimedia",
+    ),
+    Venue("AAAI", "conference", r"(?i:AAAI)"),
+    Venue("IJCAI", "conference", r"IJCAI"),
+    Venue("ACL", "conference", r"ACL"),
+    Venue("EMNLP", "conference", r"EMNLP"),
+    Venue("NAACL", "conference", r"NAACL"),
+    Venue("CoRL", "conference", r"CoRL", r"Conference on Robot Learning"),
+    Venue("ICRA", "conference", r"ICRA"),
+    Venue("IROS", "conference", r"IROS"),
+    Venue("RSS", "conference", r"(?!)", r"Robotics:\s+Science\s+and\s+Systems"),
+    Venue("MICCAI", "conference", r"(?i:MICCAI)"),
+    Venue("IPMI", "conference", r"IPMI"),
+    Venue("ISBI", "conference", r"ISBI"),
+    Venue("MIDL", "conference", r"MIDL"),
+    Venue("ICASSP", "conference", r"ICASSP"),
+    Venue("ICIP", "conference", r"ICIP"),
+    Venue("ICME", "conference", r"ICME"),
+    Venue("ICPR", "conference", r"ICPR"),
+    Venue("IGARSS", "conference", r"IGARSS"),
+    Venue("KDD", "conference", r"KDD"),
+    Venue("ECML PKDD", "conference", r"ECML[\s-]?PKDD"),
+    Venue("AISTATS", "conference", r"AISTATS"),
+    Venue("TPAMI", "journal", r"T-?PAMI", r"Pattern\s+Analysis\s+and\s+Machine\s+Intelligence"),
+    Venue("IJCV", "journal", r"IJCV", r"International\s+Journal\s+of\s+Computer\s+Vision"),
+    Venue("TIP", "journal", r"TIP", r"Transactions\s+on\s+Image\s+Processing"),
+    Venue("TMI", "journal", r"TMI", r"Transactions\s+on\s+Medical\s+Imaging"),
+    Venue("TVCG", "journal", r"TVCG", r"Transactions\s+on\s+Visualization\s+and\s+Computer\s+Graphics"),
+    Venue("TMLR", "journal", r"TMLR", r"Transactions\s+on\s+Machine\s+Learning\s+Research"),
+    Venue("JMLR", "journal", r"JMLR"),
+    Venue("RA-L", "journal", r"RA-?L", r"Robotics\s+and\s+Automation\s+Letters"),
+    Venue("MedIA", "journal", r"MedIA", r"Medical\s+Image\s+Analysis"),
 )
+
+
+def _venue_pattern(venue: Venue) -> str:
+    return venue.acronym if venue.full is None else f"{venue.acronym}|(?i:{venue.full})"
+
+
 _KNOWN_RE = re.compile(
-    "|".join(f"(?P<v{index}>{pattern})" for index, (_, pattern) in enumerate(_KNOWN_VENUES))
+    "|".join(f"(?P<v{index}>{_venue_pattern(venue)})" for index, venue in enumerate(VENUES))
 )
 # A known venue must stand alone: "ACL" in "ACLU" or "ICME" in "ICMEW2" is not a venue.
 _BOUNDARY_BEFORE = re.compile(r"[A-Za-z]$")
@@ -73,16 +115,33 @@ _NOT_VENUES = frozenset(
     {"USA", "UK", "UAE", "NY", "CA", "ACM", "IEEE", "IET", "LNCS", "CEUR", "PMLR", "MDPI"}
 )
 _ACCEPTANCE_RE = re.compile(
-    r"\baccept|\bto appear\b|\bpublished\b|\bcamera[- ]ready\b|\bproceedings\b", re.IGNORECASE
+    # "accepted", and its frequent typos ("accpeted").
+    r"\bacc?(?:ep|pe)t|\bto appear\b|\bappear(?:s|ed)? (?:in|at)\b|\bpublished\b"
+    r"|\bcamera[- ]ready\b|\bproceedings\b|\bpresent(?:ed|ation)\b",
+    re.IGNORECASE,
 )
+# Clauses that say the paper is not, or not yet, at the venue they name.
 _NOT_ACCEPTED_RE = re.compile(
-    r"\bsubmitt?ed\b|\bsubmission\b|\bunder review\b|\bin review\b|\b(?:extended|shorter) version\b",
+    r"\bsubmit|\bsubmission\b|\bunder review\b|\bin review\b|\bprepared for\b"
+    r"|\b(?:extended|shorter)(?: \w+)? version\b",
+    re.IGNORECASE,
+)
+# Words that make a venue a mention, in its comma-separated part of the clause: "CVPR 2018,
+# Rank 1 in the ... Challenge" is a CVPR paper, "ranked 1st at the CVPR 2021 Challenge" not.
+_MENTION_RE = re.compile(
+    r"\brejected\b|\bextension of\b|\bcompar|\bversus\b|\bvs\b|\brank(?:s|ed|ing)?\b"
+    r"|\bbenchmark\b(?!s? track)",
     re.IGNORECASE,
 )
 _WORKSHOP_RE = re.compile(r"workshop|\b(?:CVPR|ICCV|ECCV)W\b", re.IGNORECASE)
-# Years: "2026", or "'26" as in "SIGGRAPH Asia '26".
-_YEAR = r"(?:(?P<year>20\d{2})|['\u2019](?P<short>\d{2}))\b"
-_YEAR_AFTER_RE = re.compile(rf"^[\s)\],:-]{{0,4}}(?:(?:Workshops?|Asia)\s*)?[\s(),-]{{0,4}}{_YEAR}")
+# Links name venues without announcing anything ("cvpr.thecvf.com", ".../cvpr2024-code").
+_URL_RE = re.compile(r"\b(?:https?://|www\.)\S+|\b[\w.-]+\.(?:com|org|io|net)/\S*", re.IGNORECASE)
+# Years: "2026", or "'26" as in "SIGGRAPH Asia '26"; never one of a page range
+# ("pp.2028-2040").
+_YEAR = r"(?:(?<!\d)(?<!\d[-\u2013])(?<!pp\.)(?P<year>20\d{2})(?![-\u2013]\d)|['\u2019](?P<short>\d{2}))\b"
+_YEAR_AFTER_RE = re.compile(
+    rf"^(?:-?(?P<glued>\d{{2}})\b|[\s)\],:-]{{0,4}}(?:(?:Workshops?|Asia)\s*)?[\s(),-]{{0,4}}{_YEAR})"
+)
 _YEAR_BEFORE_RE = re.compile(r"\b(?P<year>20\d{2})\s+(?:(?:IEEE|ACM|IEEE/CVF)\s+)?$")
 _ANY_YEAR_RE = re.compile(rf"(?<!\w){_YEAR}")
 _CLAUSE_SPLIT_RE = re.compile(r"(?<=[.;!?])\s+|\n")
@@ -100,7 +159,7 @@ def extract_venue(comments: str | None, journal_ref: str | None = None) -> str |
         acceptance could be recognized.
     """
     clauses = [
-        clause
+        _URL_RE.sub(" ", clause)
         for text in (comments, journal_ref)
         if text
         for clause in _CLAUSE_SPLIT_RE.split(text)
@@ -121,12 +180,15 @@ def extract_venue(comments: str | None, journal_ref: str | None = None) -> str |
 
 
 def _known_venue(clause: str) -> str | None:
-    """First well-known venue named in the clause, with its year when one is given."""
+    """First venue of the table named in the clause, with its year when one is given."""
     for match in _KNOWN_RE.finditer(clause):
         before, after = clause[: match.start()], clause[match.end() :]
         if _BOUNDARY_BEFORE.search(before) or _BOUNDARY_AFTER.search(after.removeprefix("W")):
             continue
-        name = next(_KNOWN_VENUES[int(group[1:])][0] for group, value in match.groupdict().items() if value)
+        start, end = clause.rfind(",", 0, match.start()) + 1, clause.find(",", match.end())
+        if _MENTION_RE.search(clause[start : end if end != -1 else None]):
+            continue
+        name = next(VENUES[int(group[1:])].name for group, value in match.groupdict().items() if value)
         # Next to the name ("ECCV 2026", "2026 ECCV"), else anywhere in the clause
         # ("Proceedings of the ... (WACV), 2026").
         year = _year(before, after, clause)
@@ -136,9 +198,11 @@ def _known_venue(clause: str) -> str | None:
 
 
 def _year(before: str, after: str, clause: str) -> str:
-    """Year next to the venue name ("ECCV 2026", "2026 ECCV"), else anywhere in the clause."""
+    """Year next to the venue name ("ECCV 2026", "2026 ECCV", "CVPR15", "ECCV-18"), else in the clause."""
     match = _YEAR_AFTER_RE.search(after) or _YEAR_BEFORE_RE.search(before) or _ANY_YEAR_RE.search(clause)
     if match is None:
         return ""
     groups = {key: value for key, value in match.groupdict().items() if value}
-    return f" {groups['year']}" if "year" in groups else f" 20{groups['short']}"
+    if "year" in groups:
+        return f" {groups['year']}"
+    return f" 20{groups.get('short') or groups['glued']}"

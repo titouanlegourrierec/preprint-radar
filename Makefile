@@ -126,6 +126,10 @@ reextract: ## Read again the pages of papers extracted by an older version (cach
 reclean: ## Clean the stored affiliations again after a change to the heuristics (offline)
 	uv run preprint-radar -v reclean $(CATEGORY_ARGS)
 
+.PHONY: venues
+venues: ## Detect the stored venues again after a change to the detection (offline)
+	uv run preprint-radar -v venues $(CATEGORY_ARGS)
+
 .PHONY: citations
 citations: ## Fetch the citation counts of stored papers without one (ALL=1: every paper)
 	uv run preprint-radar -v citations $(CATEGORY_ARGS) $(if $(ALL),--all)
