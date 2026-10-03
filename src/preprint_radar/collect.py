@@ -514,8 +514,9 @@ def _add_html_front_matter(
 
     Reading stops early at the deadline, after ``MAX_CONSECUTIVE_HTML_FAILURES`` failed
     pages in a row, or when nearly every page gives no affiliation: the papers of this run
-    then stay pending rather than be stored as having none, which is final. An interrupted
-    run (Ctrl-C, or a CI job cancelled or timed out) saves what it read.
+    then stay pending rather than be stored as having none, which is final, and their pages
+    leave the cache, to be downloaded again. An interrupted run (Ctrl-C, or a CI job
+    cancelled or timed out) saves what it read.
 
     Returns:
         The updated papers, the pages read, the abstracts added, the pages without
@@ -556,8 +557,7 @@ def _add_html_front_matter(
                         len(empty),
                         pages,
                     )
-                    for position in empty:
-                        current[position] = papers[position]
+                    _set_back(current, papers, empty, reading.cache)
                     stopped = Stop.LAYOUT
                     break
             if done % reading.save_every == 0:
@@ -568,6 +568,20 @@ def _add_html_front_matter(
         checkpoint(current)
         raise
     return _HtmlRead(current, pages, abstracts, len(empty), unreadable, stopped)
+
+
+def _set_back(
+    current: list[Paper], papers: Sequence[Paper], empty: Iterable[int], cache: PageCache | None
+) -> None:
+    """Set the papers of pages without affiliation back to pending, and forget their pages.
+
+    The pages may not show a new layout but an error page served with a 200: kept in the
+    cache, they would stop every run after this one too.
+    """
+    for position in empty:
+        current[position] = papers[position]
+        if cache is not None and (url := papers[position].html_url):
+            cache.discard(url)
 
 
 def add_institutions(papers: Sequence[Paper], client: HttpClient, *, limit: int | None) -> list[Paper]:

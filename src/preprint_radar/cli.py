@@ -525,6 +525,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         return _COMMANDS[args.command](args)
     except PreprintRadarError as exc:
         logger.error("%s", exc)  # noqa: TRY400 - the message is enough, no traceback for users
+        # On the run's page, which otherwise only says that the step exited with 1.
+        github_annotation("error", f"preprint-radar {args.command} failed", str(exc))
         return 1
 
 

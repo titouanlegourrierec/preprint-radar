@@ -10,6 +10,14 @@ FIXTURES_DIR = Path(__file__).parent / "fixtures"
 
 
 @pytest.fixture(autouse=True)
+def _working_directory(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """Run every test in its own directory: default paths are relative (``data/``,
+    ``.cache/front-matter/``, ``exports/``), and a test must never write into the repository.
+    """
+    monkeypatch.chdir(tmp_path)
+
+
+@pytest.fixture(autouse=True)
 def _environment(monkeypatch: pytest.MonkeyPatch) -> None:
     """Hide the maintainer's settings, which the Makefile exports from ``.env``, and CI's.
 

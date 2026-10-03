@@ -56,7 +56,9 @@ unless it repeats; then check <https://status.arxiv.org>.
 `Reading HTML pages failed`), often after a red *arXiv canary*.
 
 90% of at least 40 pages gave no affiliation. The papers of this run are set back to
-pending, since `[]` would be final. To fix:
+pending, since `[]` would be final, and their pages leave the page cache: if arXiv only
+served an error page for a while, the next run downloads them again and heals by itself.
+To fix a real change:
 
 1. `make test-network` (or the canary's log) shows what no longer parses.
 2. Save one or two live pages as fixtures in `tests/fixtures/html/` (replace e-mails with
@@ -97,8 +99,8 @@ validate and push. Prevention: never push `data/` while a data workflow runs.
 
 ### Semantic Scholar rejected the API key
 
-**Signal.** `Semantic Scholar rejected` the API key (HTTP 403 or 401), in
-*Fetch citation counts of new papers* or *Update the archive*.
+**Signal.** Error annotation *preprint-radar citations failed* (or *archive*):
+`Semantic Scholar rejected` the API key (HTTP 403 or 401).
 
 Every request of a valid key gets through or gets a 429; a 401 or 403 means the key is
 invalid or revoked. Get a new key from Semantic Scholar, then:

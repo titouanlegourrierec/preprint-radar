@@ -228,6 +228,12 @@ class PageCache:
         tmp.write_bytes(gzip.compress(front_matter_html(html).encode("utf-8"), mtime=0))
         tmp.replace(path)
 
+    def discard(self, html_url: str) -> None:
+        """Forget the page at ``html_url``, so that it is downloaded again next time."""
+        path = self._path(html_url)
+        if path is not None:
+            path.unlink(missing_ok=True)
+
     def _path(self, html_url: str) -> Path | None:
         """``<directory>/<yymm>/<id>v<version>.html.gz``; ``None`` for a URL that names no paper version."""
         match = _CACHE_KEY_RE.search(html_url)

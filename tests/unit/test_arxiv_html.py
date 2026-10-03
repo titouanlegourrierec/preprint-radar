@@ -1051,6 +1051,18 @@ def test_the_page_cache_keeps_front_matters_by_paper_version(tmp_path: Path) -> 
     assert "https://arxiv.org/html/2609.30249v1" not in cache
 
 
+def test_the_page_cache_forgets_a_page(tmp_path: Path) -> None:
+    cache = PageCache(tmp_path)
+    url = "https://arxiv.org/html/2609.30249v1"
+    cache.put(url, "<p>An error page</p>")
+
+    cache.discard(url)
+    cache.discard(url)
+    cache.discard("https://arxiv.org/html/")
+
+    assert url not in cache
+
+
 def test_the_page_cache_ignores_urls_that_name_no_paper_version(tmp_path: Path) -> None:
     cache = PageCache(tmp_path / "pages")
     cache.put("https://arxiv.org/html/../../etc/passwd", FULL_PAGE)
