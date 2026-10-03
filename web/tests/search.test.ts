@@ -146,6 +146,29 @@ describe("PaperIndex", () => {
     expect(startsWords(value, text)).toBe(expected);
   });
 
+  it("finds an institution by its acronym, however its papers write it", () => {
+    const named = [
+      makePaper({ arxiv_id: "1", affiliations: ["National University of Singapore, Singapore"] }),
+      makePaper({ arxiv_id: "2", affiliations: ["NUS"] }),
+      makePaper({ arxiv_id: "3", affiliations: ["School of Computing, Singapore"] }),
+      makePaper({ arxiv_id: "4", affiliations: ["Dept. of CS, University College London, UK"] }),
+      makePaper({ arxiv_id: "5", affiliations: ["HKUST"] }),
+      makePaper({ arxiv_id: "6", affiliations: ["HKU-TCL Joint Lab"] }),
+    ];
+    const kept = (text: string) =>
+      named
+        .filter((paper) => matchesFilters(paper, { ...NO_FILTERS, affiliation: typed(text) }))
+        .map((paper) => paper.arxiv_id);
+
+    expect(kept("nus")).toEqual(["1", "2"]);
+    expect(kept("UCL")).toEqual(["4"]);
+    // A known acronym is a whole word, not the start of another one.
+    expect(kept("hku")).toEqual(["6"]);
+    expect(kept("hkus")).toEqual(["5"]);
+    // And the full name finds the acronym, through the institution it names.
+    expect(kept("national univ")).toEqual(["1", "2"]);
+  });
+
   it("matches a clicked author exactly, not the names that contain it", () => {
     const people = [
       makePaper({ arxiv_id: "1", authors: ["Hao Li"] }),

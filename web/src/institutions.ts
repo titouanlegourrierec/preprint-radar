@@ -74,6 +74,7 @@ const ACRONYMS: Readonly<Record<string, string>> = {
   nus: "National University of Singapore",
   ucla: "University of California, Los Angeles",
   ucsd: "University of California, San Diego",
+  ucl: "University College London",
   "uc san diego": "University of California, San Diego",
   "uc berkeley": "University of California, Berkeley",
   uiuc: "University of Illinois Urbana-Champaign",
@@ -152,6 +153,14 @@ export function institutionName(affiliation: string): string {
     return `${best}, ${next}`;
   }
   return best;
+}
+
+/**
+ * The institution an acronym stands for ("NUS" is National University of Singapore), as
+ * the graph names it; `null` for anything else.
+ */
+export function acronymOf(text: string): string | null {
+  return ACRONYMS[searchKey(text)] ?? null;
 }
 
 /**

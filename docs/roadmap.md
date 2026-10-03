@@ -131,7 +131,7 @@ with the deadline, the breakers, the summary and the page cache (2026-10-02) was
 | SRCH-3 | Prefix and fuzzy tuning | P1 | done |
 | SRCH-4 | Browser history | P1 | done |
 | SRCH-5 | Archive permalinks | P1 | done |
-| SRCH-17 | Acronym affiliation filters | P2 | todo |
+| SRCH-17 | Acronym affiliation filters | P2 | done |
 | TEST-16 | Relevance tests on real cases | P2 | todo |
 | PROD-2 | Keyboard triage, seen, since last visit | P1 | todo |
 | PROD-3 | Saved searches and a watchlist | P2 | todo |

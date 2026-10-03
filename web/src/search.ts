@@ -1,6 +1,6 @@
 import MiniSearch, { type SearchResult as MiniSearchResult } from "minisearch";
 import { wholeWord } from "./highlight";
-import { institutionsOf, paperInstitutions } from "./institutions";
+import { acronymOf, institutionsOf, paperInstitutions } from "./institutions";
 import { fold, searchKey } from "./text";
 import type { Paper } from "./types";
 
@@ -256,10 +256,23 @@ export function isActive(filter: NameFilter | null): filter is NameFilter {
  * "Lozano-Pérez" and "hao li" matches "Hao Lin", but "hao li" does not match "Chuanhao Li".
  */
 export function startsWords(value: string, text: string): boolean {
+  return hasWords(value, text, (valueWord, word) => valueWord.startsWith(word));
+}
+
+/** Whether consecutive words of `value` are the words of `text`, whole. */
+function hasWholeWords(value: string, text: string): boolean {
+  return hasWords(value, text, (valueWord, word) => valueWord === word);
+}
+
+function hasWords(
+  value: string,
+  text: string,
+  same: (valueWord: string, word: string) => boolean,
+): boolean {
   const words = searchKey(text).split(" ");
   const valueWords = searchKey(value).split(" ");
   for (let start = 0; start + words.length <= valueWords.length; start++) {
-    if (words.every((word, offset) => valueWords[start + offset]?.startsWith(word))) return true;
+    if (words.every((word, offset) => same(valueWords[start + offset] ?? "", word))) return true;
   }
   return false;
 }
@@ -276,9 +289,17 @@ function matchesAffiliation(paper: Paper, filter: NameFilter): boolean {
     const key = searchKey(filter.text);
     return institutionsOf(paper).some((name) => name !== null && searchKey(name) === key);
   }
-  return [...(paper.affiliations ?? []), ...paperInstitutions(paper)].some((value) =>
-    startsWords(value, filter.text),
-  );
+  const values = [...(paper.affiliations ?? []), ...paperInstitutions(paper)];
+  // A known acronym typed whole means its institution, however it is written ("NUS" finds
+  // "National University of Singapore"), and is a whole word: "HKU" is not "HKUST".
+  const acronym = acronymOf(filter.text);
+  if (acronym !== null) {
+    return (
+      matchesAffiliation(paper, exactly(acronym)) ||
+      values.some((value) => hasWholeWords(value, filter.text))
+    );
+  }
+  return values.some((value) => startsWords(value, filter.text));
 }
 
 /**
