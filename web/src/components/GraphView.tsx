@@ -7,7 +7,9 @@ import type { Period } from "../period";
 import {
   DEFAULT_GRAPH_SETTINGS,
   type GraphSettings,
+  loadGraphIntroRead,
   loadGraphSettings,
+  saveGraphIntroRead,
   saveGraphSettings,
 } from "../preferences";
 import type { FacetCount } from "../search";
@@ -69,6 +71,7 @@ export function GraphView(props: Props) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [cutoff, setCutoff] = useState<number | null>(null);
   const [playing, setPlaying] = useState(false);
+  const [introRead, setIntroRead] = useState(loadGraphIntroRead);
 
   const changeSettings = (patch: Partial<GraphSettings>) =>
     setSettings((current) => {
@@ -312,6 +315,25 @@ export function GraphView(props: Props) {
 
   return (
     <main class="graph" id="main">
+      {!introRead && (
+        <section class="graph__intro" aria-label="About the graph">
+          <p>
+            Papers (green squares) link to their institutions (orange) and, when shown, authors
+            (blue). Drag to move, scroll to zoom, select a node for its details; double-click, or
+            "Show papers" in the details, to list its papers. The settings choose what is shown.
+          </p>
+          <button
+            type="button"
+            class="button"
+            onClick={() => {
+              setIntroRead(true);
+              saveGraphIntroRead();
+            }}
+          >
+            Got it
+          </button>
+        </section>
+      )}
       <canvas
         ref={canvasRef}
         class="graph__canvas"

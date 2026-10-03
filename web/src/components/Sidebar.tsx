@@ -1,7 +1,14 @@
 import type { ComponentChildren } from "preact";
 import { useState } from "preact/hooks";
+import { useMediaQuery } from "../hooks/use-media-query";
 import type { Period } from "../period";
-import { type FacetCount, type NameFilter, type SearchFilters, typed } from "../search";
+import {
+  activeFilterCount,
+  type FacetCount,
+  type NameFilter,
+  type SearchFilters,
+  typed,
+} from "../search";
 import type { ArchiveSummary, DaySummary } from "../types";
 import { PeriodPicker } from "./PeriodPicker";
 import { VenueSelect } from "./VenueSelect";
@@ -76,24 +83,16 @@ function FilterInput({
   );
 }
 
-const MOBILE_QUERY = "(max-width: 820px)";
-
-/** Filters are always shown on wide screens; on phones, only when one is already set. */
-function filtersOpenByDefault(filters: SearchFilters): boolean {
-  const active = Boolean(
-    filters.author ||
-      filters.affiliation ||
-      filters.venue ||
-      filters.subject ||
-      filters.excludeCrossLists,
-  );
-  return active || !window.matchMedia(MOBILE_QUERY).matches;
-}
+// Wide screens always show the filters, whose summary they hide (styles.css).
+const WIDE_QUERY = "(min-width: 821px)";
 
 export function Sidebar(props: Props) {
   const { filters, onFilters } = props;
-  // Computed once: afterwards the user decides whether the section stays open.
-  const [filtersOpen] = useState(() => filtersOpenByDefault(filters));
+  const wide = useMediaQuery(WIDE_QUERY);
+  const active = activeFilterCount(filters);
+  // On phones the section starts open when a filter is set; then the reader decides. A
+  // window widened past the breakpoint shows it, whatever was decided.
+  const [filtersOpen, setFiltersOpen] = useState(active > 0);
   return (
     <aside class="sidebar">
       {props.categories.length > 1 && (
@@ -155,8 +154,14 @@ export function Sidebar(props: Props) {
         </div>
       )}
 
-      <details class="filters" open={filtersOpen}>
-        <summary>Filters</summary>
+      <details
+        class="filters"
+        open={wide || filtersOpen}
+        onToggle={(event) => {
+          if (!wide) setFiltersOpen(event.currentTarget.open);
+        }}
+      >
+        <summary>Filters{active > 0 ? ` (${active})` : ""}</summary>
         <div class="filters__body">
           <FilterInput
             label="Author"

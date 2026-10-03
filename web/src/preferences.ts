@@ -2,6 +2,7 @@ import type { NodeSizing } from "./graph-renderer";
 
 const SHOW_ABSTRACTS_KEY = "preprint-radar:show-abstracts";
 const HIDE_SEEN_KEY = "preprint-radar:hide-seen";
+const GRAPH_INTRO_KEY = "preprint-radar:graph-intro-read";
 // v2: papers joined the graph, and the defaults changed with them.
 const GRAPH_SETTINGS_KEY = "preprint-radar:graph-settings:v2";
 // Also read by the inline script in index.html, which restores the theme before first paint.
@@ -60,6 +61,23 @@ export function saveHideSeen(hide: boolean): void {
     localStorage.setItem(HIDE_SEEN_KEY, String(hide));
   } catch {
     // Storage may be disabled (private browsing); the choice then lasts for the session.
+  }
+}
+
+/** Whether the graph's introduction was dismissed in this browser. */
+export function loadGraphIntroRead(): boolean {
+  try {
+    return localStorage.getItem(GRAPH_INTRO_KEY) === "true";
+  } catch {
+    return false;
+  }
+}
+
+export function saveGraphIntroRead(): void {
+  try {
+    localStorage.setItem(GRAPH_INTRO_KEY, "true");
+  } catch {
+    // Storage may be disabled (private browsing); the card then shows on the next visit.
   }
 }
 

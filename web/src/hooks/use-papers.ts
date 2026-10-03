@@ -4,6 +4,15 @@ import { type Period, selectDays } from "../period";
 import { PaperIndex } from "../search";
 import type { ArchiveSummary, DaySummary, Paper, StoreIndex } from "../types";
 
+/**
+ * What a failed load means for a reader: "TypeError: Failed to fetch" says the network or
+ * the site did not answer.
+ */
+export function loadErrorMessage(error: unknown): string {
+  if (error instanceof TypeError) return "the network or the site did not answer";
+  return error instanceof Error ? error.message : String(error);
+}
+
 export type LoadState =
   | { status: "loading" }
   | { status: "error"; message: string }
@@ -25,12 +34,16 @@ export function usePapers(
 ) {
   const [storeIndex, setStoreIndex] = useState<StoreIndex | null>(null);
   const [load, setLoad] = useState<LoadState>({ status: "loading" });
+  // Each Retry loads again what failed: the index, or the papers.
+  const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
+    if (attempt > 0 && storeIndex) return;
+    setLoad({ status: "loading" });
     loadIndex()
       .then(setStoreIndex)
-      .catch((error: unknown) => setLoad({ status: "error", message: String(error) }));
-  }, []);
+      .catch((error: unknown) => setLoad({ status: "error", message: loadErrorMessage(error) }));
+  }, [attempt]);
 
   const categories = storeIndex ? Object.keys(storeIndex.categories).sort() : [];
   const category =
@@ -61,12 +74,13 @@ export function usePapers(
     papers
       .then((papers) => !cancelled && setLoad({ status: "ready", index: new PaperIndex(papers) }))
       .catch(
-        (error: unknown) => !cancelled && setLoad({ status: "error", message: String(error) }),
+        (error: unknown) =>
+          !cancelled && setLoad({ status: "error", message: loadErrorMessage(error) }),
       );
     return () => {
       cancelled = true;
     };
-  }, [storeIndex, category, period, archived, archiveYear]);
+  }, [storeIndex, category, period, archived, archiveYear, attempt]);
 
   return {
     categories,
@@ -75,6 +89,7 @@ export function usePapers(
     archiveYears,
     archiveYear,
     load,
+    retry: () => setAttempt((count) => count + 1),
     generatedAt: storeIndex?.generated_at ?? null,
   };
 }

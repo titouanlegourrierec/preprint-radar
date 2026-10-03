@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { toBibtexFile } from "./bibtex";
 import { About } from "./components/About";
+import { ActiveFilters } from "./components/ActiveFilters";
 import { GraphView } from "./components/GraphView";
 import { PaperList } from "./components/PaperList";
 import { Rankings } from "./components/Rankings";
@@ -21,6 +22,7 @@ import { loadShowAbstracts, saveShowAbstracts, type ThemePreference } from "./pr
 import { readingListFile } from "./reading-list";
 import { searchOf } from "./saved-searches";
 import {
+  activeFilterCount,
   alphabetical,
   arxivIdOf,
   byCitations,
@@ -35,6 +37,12 @@ import type { Paper } from "./types";
 import { archiveYearOf, paperLink, type ViewState, writeState } from "./url-state";
 
 const FACET_SIZE = 12;
+// What each view shows, said once at its top: the tabs' tooltips are out of reach on touch.
+const VIEW_NOTES: Partial<Record<ViewState["view"], string>> = {
+  cited: "The most cited papers older than a year, by year of first version.",
+  rankings: "Institutions and authors of the papers shown, by papers or citations.",
+  "reading-list": "The papers you saved with ☆, kept in this browser.",
+};
 const VIEW_TITLES: Record<ViewState["view"], string> = {
   papers: "",
   cited: "Highly cited",
@@ -56,7 +64,7 @@ export function App() {
   const rankings = state.view === "rankings";
   // The highly cited view always shows the archive; the graph and rankings, given a year.
   const archived = cited || ((state.view === "graph" || rankings) && state.year !== null);
-  const { categories, category, storeDays, archiveYears, archiveYear, load, generatedAt } =
+  const { categories, category, storeDays, archiveYears, archiveYear, load, retry, generatedAt } =
     usePapers(state.category, state.period, archived ? { year: state.year } : null);
   const citations = useCitations(category);
   const citationsNote =
@@ -167,6 +175,7 @@ export function App() {
   const newest = state.sort === "newest" || (state.sort === "relevance" && !hasSearchWords);
   // A share link opens the paper on its own day, free of the sharer's search context.
   const pastedId = arxivIdOf(query);
+  const allDays = state.period.kind === "recent" && state.period.range === "all";
   const sinceLastVisit = triage.sinceLastVisit && {
     ...triage.sinceLastVisit,
     period: between(triage.sinceLastVisit.from, triage.sinceLastVisit.to),
@@ -620,8 +629,18 @@ export function App() {
             </p>
           )}
 
+          {VIEW_NOTES[state.view] && <p class="view-note muted">{VIEW_NOTES[state.view]}</p>}
+          {state.view !== "rankings" && (
+            <ActiveFilters filters={state.filters} onFilters={setFilters} />
+          )}
+
           {load.status === "error" && state.view !== "reading-list" ? (
-            <p class="notice notice--error">Could not load papers: {load.message}</p>
+            <p class="notice notice--error" role="alert">
+              Could not load the papers: {load.message}.{" "}
+              <button type="button" class="link-button" onClick={retry}>
+                Retry
+              </button>
+            </p>
           ) : rankings ? (
             <Rankings
               papers={rankedPapers}
@@ -666,6 +685,37 @@ export function App() {
                   <a href={`https://arxiv.org/abs/${pastedId}`}>See it on arXiv</a>.
                 </p>
               )}
+              {!pastedId &&
+                results.length === 0 &&
+                (load.status === "ready" || state.view === "reading-list") &&
+                activeIndex !== null &&
+                activeIndex.size > 0 && (
+                  <p class="notice">
+                    No paper matches
+                    {state.view === "papers" && !allDays ? " in this period" : ""}.{" "}
+                    {activeFilterCount(state.filters) > 0 && (
+                      <button
+                        type="button"
+                        class="link-button"
+                        onClick={() => setFilters(NO_FILTERS)}
+                      >
+                        Clear the filters
+                      </button>
+                    )}
+                    {state.view === "papers" && !allDays && (
+                      <>
+                        {activeFilterCount(state.filters) > 0 && " · "}
+                        <button
+                          type="button"
+                          class="link-button"
+                          onClick={() => update({ period: { kind: "recent", range: "all" } })}
+                        >
+                          Search all {storeDays.length} days
+                        </button>
+                      </>
+                    )}
+                  </p>
+                )}
               <PaperList
                 results={results}
                 groupByDay={groupByDay}

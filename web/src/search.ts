@@ -266,6 +266,17 @@ export function arxivIdOf(query: string): string | null {
   return ARXIV_ID_RE.exec(query.trim())?.[1] ?? null;
 }
 
+/** How many filters narrow the papers, for the Filters summary. */
+export function activeFilterCount(filters: SearchFilters): number {
+  return [
+    isActive(filters.author),
+    isActive(filters.affiliation),
+    filters.venue !== null,
+    filters.subject !== null,
+    filters.excludeCrossLists,
+  ].filter(Boolean).length;
+}
+
 /** Whether the filter filters anything: an empty one does not. */
 export function isActive(filter: NameFilter | null): filter is NameFilter {
   return filter !== null && searchKey(filter.text) !== "";

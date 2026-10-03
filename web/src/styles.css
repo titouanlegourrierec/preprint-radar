@@ -155,14 +155,6 @@ mark {
   top: 8px;
 }
 
-/* Names on cards filter the list when clicked: say so without hovering. */
-.paper__authors .link-button,
-.paper__affiliations .link-button {
-  text-decoration: underline dotted;
-  text-decoration-color: var(--border-strong);
-  text-underline-offset: 3px;
-}
-
 /* Layout ------------------------------------------------------------------ */
 
 .layout {
@@ -803,6 +795,13 @@ html {
   color: var(--accent);
   text-decoration: underline;
 }
+/* Names on cards filter the list when clicked: say so without hovering. */
+.paper__authors .link-button,
+.paper__affiliations .link-button {
+  text-decoration: underline dotted;
+  text-decoration-color: var(--border-strong);
+  text-underline-offset: 3px;
+}
 
 /* Paper row --------------------------------------------------------------- */
 
@@ -1375,4 +1374,43 @@ html {
   background: transparent;
   color: var(--text-muted);
   cursor: pointer;
+}
+
+.active-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.active-filters .chip {
+  border-color: var(--accent);
+  color: var(--text);
+  font-size: 0.8rem;
+}
+
+.view-note {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+}
+
+.graph__intro {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  z-index: 5;
+  max-width: 360px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  font-size: 0.85rem;
+}
+
+.graph__intro p {
+  margin: 0 0 8px;
 }
