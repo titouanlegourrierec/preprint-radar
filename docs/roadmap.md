@@ -148,6 +148,17 @@ with the deadline, the breakers, the summary and the page cache (2026-10-02) was
 *Exit criteria:* the clicked-filter probes ("Hao Li", "Intel") return exact sets, `"zero shot"`
 finds the zero-shot papers, Back works, and the smoke test is green in CI.
 
+*Result (2026-10-03, `v0.4.0`).* Over the days of 1 September to 2 October (4,255 papers),
+a clicked "Hao Li" keeps 5 papers and "Intel" 4, the same as an independent recount of the
+files (typed, as word prefixes: 43 and 413); `"zero shot"` finds 262 papers (1 at the
+audit), `"self supervised"` 146, `"Carnegie Mellon University"` 47 (0). Back returns to
+the previous view, typing adds no history entry. In CI, the web job enforces the coverage
+of the pure modules (98.7% of lines) and runs the smoke test of the built site in Chromium
+(4 checks, green). Deviations from the audit: "since last visit" is a banner, not the
+default period (a default that depends on the browser would rewrite shared URLs); the About
+page has no live coverage figures (PROD-7); of TEST-9, only the check of the dark palettes.
+`validate`: 26,326 papers in 41 files, 0 errors, 0 warnings.
+
 ## Phase 3: scale and richer metadata (2–4 weeks, gated by decisions)
 
 | ID | Item | Priority | Status |

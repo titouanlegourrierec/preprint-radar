@@ -4,6 +4,53 @@ One minor release per phase of [`docs/roadmap.md`](docs/roadmap.md), a patch for
 between. Item IDs (`DATA-2`, `CIT-11`…) refer to the audit of 2026-09-30
 ([`docs/audit/2026-09-30.md`](docs/audit/2026-09-30.md)).
 
+## 0.4.0 (2026-10-03): precise search and a daily routine
+
+Phase 2 of the roadmap.
+
+### Search
+
+- A name clicked on a card, a Rankings row or a graph node filters exactly that author or
+  institution, which the graph and Rankings count alike; text typed in the sidebar matches
+  word prefixes, and a known acronym ("NUS", "HKU") its institution (SRCH-1, SRCH-17,
+  decision 6).
+- Phrases and exclusions cover every searched field, authors and affiliations included,
+  on whole words: `"zero shot"` finds "zero-shot", `-google` leaves out Google's papers
+  (SRCH-2).
+- Only the last word typed matches as a prefix, and a typo is allowed from 7 letters:
+  "mit" no longer finds "mitigate", nor "gan" "Gandhi"; highlights follow (SRCH-3).
+- The Back button returns to the previous view, search or paper; tabs are links (SRCH-4).
+- Share links of archived papers open their year (SRCH-5); a pasted arXiv identifier or
+  link finds its paper (SRCH-7); stop words alone keep every paper (SRCH-12).
+
+### Daily use
+
+- Triage from the keyboard (j, k, o, s, x, /), papers marked seen and "Hide seen", and
+  "N new papers since your last visit" (PROD-2).
+- Saved searches, each with its papers new since the last visit (PROD-3).
+- The reading list can be imported, follows other tabs, takes fresher records and says
+  when the browser refuses to store it; its export carries the saved searches (PROD-4).
+- BibTeX that compiles: special characters escaped, case-sensitive words braced, colliding
+  keys told apart, the arXiv DOI and the venue (PROD-5).
+- "Export N" gives the results as BibTeX, CSV, RIS or Markdown (PROD-9).
+
+### Interface and accessibility
+
+- The sticky search bar no longer hides the focused control (UX-4); text, links and
+  fields pass WCAG AA contrast in both themes (UX-1).
+- Focus rings, accessible names, page titles, a skip link, empty states, a Retry on load
+  errors, active filters as removable chips, a line per view saying what it shows, an
+  introduction to the graph (UX-3, UX-5 to UX-12).
+- The header names the category; cards offer "Report an error"; the Highly cited view
+  explains its choice and dates its counts; counts of 0 are hidden on recent papers, and
+  "Most cited" says when nearly all results tie (PROD-6 to PROD-10).
+
+### Development
+
+- Relevance tests on real cases (TEST-16); the coverage of the web's pure modules is
+  enforced (TEST-7); a smoke test of the built site runs in Chromium in CI (TEST-8); a test
+  keeps the two dark palettes identical.
+
 ## 0.3.0 (2026-10-03): a pipeline that heals itself and says what happened
 
 Phase 1 of the roadmap.
