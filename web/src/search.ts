@@ -51,9 +51,12 @@ export const NO_FILTERS: SearchFilters = {
 export interface ParsedQuery {
   /** Free text, matched with prefix and fuzzy search. */
   text: string;
-  /** `"quoted phrases"` that must appear verbatim (accent- and case-insensitive). */
+  /**
+   * `"quoted phrases"` that must appear as whole words, in any searched field, ignoring
+   * case, accents and punctuation ("self supervised" matches "self-supervised").
+   */
   phrases: string[];
-  /** `-words` that must not appear. */
+  /** `-words`: no word of any searched field may start with them. */
   excluded: string[];
 }
 
@@ -88,11 +91,13 @@ export function parseQuery(raw: string): ParsedQuery {
   const excluded: string[] = [];
   const text = raw
     .replace(/"([^"]+)"/g, (_, phrase: string) => {
-      if (phrase.trim()) phrases.push(fold(phrase.trim()));
+      const key = searchKey(phrase);
+      if (key) phrases.push(key);
       return " ";
     })
     .replace(/(^|\s)-(\S+)/g, (_, space: string, word: string) => {
-      excluded.push(fold(word));
+      const key = searchKey(word);
+      if (key) excluded.push(key);
       return space;
     })
     .replace(/\s+/g, " ")
@@ -125,8 +130,12 @@ function fieldValue(paper: Paper, field: string): string {
   }
 }
 
-function searchableText(paper: Paper): string {
-  return fold(`${paper.title} ${paper.abstract ?? ""} ${paper.comments ?? ""}`);
+/**
+ * Every searched field of the paper, as one {@link searchKey} with a space at both ends,
+ * so that phrases and exclusions match whole words: `" gan "` is not in `" organ "`.
+ */
+function constraintText(paper: Paper): string {
+  return ` ${searchKey(SEARCHED_FIELDS.map((field) => fieldValue(paper, field)).join(" "))} `;
 }
 
 function newestFirst(a: SearchResult, b: SearchResult): number {
@@ -140,6 +149,8 @@ function newestFirst(a: SearchResult, b: SearchResult): number {
 export class PaperIndex {
   private readonly index: MiniSearch<Paper>;
   private readonly papers: Map<string, Paper>;
+  /** {@link constraintText} of each paper, built when a query first needs it. */
+  private readonly constraints = new Map<string, string>();
 
   constructor(papers: Paper[]) {
     // A paper cross-listed in several loaded days would otherwise be indexed twice.
@@ -181,7 +192,7 @@ export class PaperIndex {
       : [...this.papers.values()].map((paper) => ({ paper, score: 0, highlights: [] }));
 
     const filtered = results.filter(
-      ({ paper }) => matchesFilters(paper, filters) && matchesQueryConstraints(paper, query),
+      ({ paper }) => matchesFilters(paper, filters) && this.matchesConstraints(paper, query),
     );
     const extraHighlights = [...query.phrases, ...filterHighlights(filters)];
     for (const result of filtered) {
@@ -191,6 +202,20 @@ export class PaperIndex {
       sort === "relevance" && query.text
         ? (a, b) => b.score - a.score || newestFirst(a, b)
         : newestFirst,
+    );
+  }
+
+  private matchesConstraints(paper: Paper, query: ParsedQuery): boolean {
+    if (query.phrases.length === 0 && query.excluded.length === 0) return true;
+    let text = this.constraints.get(paper.arxiv_id);
+    if (text === undefined) {
+      text = constraintText(paper);
+      this.constraints.set(paper.arxiv_id, text);
+    }
+    return (
+      query.phrases.every((phrase) => text.includes(` ${phrase} `)) &&
+      // A prefix, as free text matches: "-survey" leaves out "surveys" too.
+      !query.excluded.some((word) => text.includes(` ${word}`))
     );
   }
 
@@ -262,16 +287,6 @@ function filterHighlights(filters: SearchFilters): string[] {
           .split(/\s+/)
           .filter((word) => word && !STOP_WORDS.has(word))
       : [],
-  );
-}
-
-function matchesQueryConstraints(paper: Paper, query: ParsedQuery): boolean {
-  if (query.phrases.length === 0 && query.excluded.length === 0) return true;
-  const text = searchableText(paper);
-  const words = new Set(text.split(/[^\p{L}\p{N}]+/u));
-  return (
-    query.phrases.every((phrase) => text.includes(phrase)) &&
-    !query.excluded.some((word) => words.has(word))
   );
 }
 

@@ -185,6 +185,50 @@ describe("PaperIndex", () => {
     expect(find("padua")).toBe(1);
   });
 
+  describe("phrases and exclusions", () => {
+    const corpus = new PaperIndex([
+      makePaper({
+        arxiv_id: "1",
+        title: "Self-Supervised Zero-Shot Segmentation",
+        authors: ["Yu-Rou Tuan"],
+        affiliations: ["Carnegie Mellon University, Pittsburgh"],
+      }),
+      makePaper({
+        arxiv_id: "2",
+        title: "A zero shot organ detector",
+        affiliations: ["Google Research"],
+      }),
+      makePaper({ arxiv_id: "3", title: "GAN surveys", venue: "CVPR 2026" }),
+    ]);
+    const found = (query: string) =>
+      corpus
+        .search(query, NO_FILTERS, "newest")
+        .map(({ paper }) => paper.arxiv_id)
+        .sort();
+
+    it("match phrases in every searched field", () => {
+      expect(found('"Yu-Rou Tuan"')).toEqual(["1"]);
+      expect(found('"carnegie mellon university"')).toEqual(["1"]);
+      expect(found('"cvpr 2026"')).toEqual(["3"]);
+    });
+
+    it("match phrases as whole words, hyphens or not", () => {
+      expect(found('"zero shot"')).toEqual(["1", "2"]);
+      expect(found('"self supervised"')).toEqual(["1"]);
+      expect(found('"self-supervised"')).toEqual(["1"]);
+      expect(found('"gan"')).toEqual(["3"]);
+      expect(found('"zero sh"')).toEqual([]);
+    });
+
+    it("leave out the papers with a word starting like an exclusion, in any field", () => {
+      expect(found("-google")).toEqual(["1", "3"]);
+      expect(found("-survey")).toEqual(["1", "2"]);
+      expect(found("-self-supervised")).toEqual(["2", "3"]);
+      expect(found("-tuan")).toEqual(["2", "3"]);
+      expect(found("-!!")).toEqual(["1", "2", "3"]);
+    });
+  });
+
   it("does not highlight stop words of filters", () => {
     const tokyo = new PaperIndex([
       makePaper({ arxiv_id: "1", affiliations: ["University of Tokyo"] }),

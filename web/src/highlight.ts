@@ -11,8 +11,14 @@ function escapeRegExp(text: string): string {
 
 /**
  * Split `text` into segments, flagging the words that start with one of `terms`.
- * Matching is accent- and case-insensitive; the original text is preserved.
+ * Matching is accent- and case-insensitive; the original text is preserved. The words of
+ * a term of several words may be separated by any punctuation, as a phrase matches them:
+ * "self supervised" flags "self-supervised".
  */
+function needlePattern(needle: string): string {
+  return needle.split(/\s+/).map(escapeRegExp).join("[^\\p{L}\\p{N}]+");
+}
+
 export function highlight(text: string, terms: readonly string[]): Segment[] {
   const needles = [...new Set(terms.map(fold).filter((term) => term.length > 1))];
   if (needles.length === 0 || !text) return [{ text, match: false }];
@@ -31,7 +37,7 @@ export function highlight(text: string, terms: readonly string[]): Segment[] {
   }
   const chars = Array.from(text);
   const pattern = new RegExp(
-    `(?<![\\p{L}\\p{N}])(?:${needles.map(escapeRegExp).join("|")})[\\p{L}\\p{N}]*`,
+    `(?<![\\p{L}\\p{N}])(?:${needles.map(needlePattern).join("|")})[\\p{L}\\p{N}]*`,
     "gu",
   );
 

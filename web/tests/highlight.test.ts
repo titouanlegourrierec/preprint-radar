@@ -11,6 +11,13 @@ describe("highlight", () => {
     expect(marked("Gaussian splatting and splats", ["splat"])).toEqual(["splatting", "splats"]);
   });
 
+  it("marks a phrase whatever separates its words", () => {
+    expect(marked("Self-Supervised and self supervised", ["self supervised"])).toEqual([
+      "Self-Supervised",
+      "self supervised",
+    ]);
+  });
+
   it("does not match inside words", () => {
     expect(marked("Unsplattable", ["splat"])).toEqual([]);
   });

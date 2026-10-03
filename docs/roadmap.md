@@ -38,7 +38,7 @@ for the answer.
 | 7 | Validation strictness | Fail on structural rules, warn on heuristic ones | DATA-3 | Fail on structural rules, warn on heuristic ones (2026-10-01) |
 | 8 | License and data terms | MIT for the code; read the Semantic Scholar terms before going public | REL-3 | MIT for the code (2026-10-01); the data terms wait for the Semantic Scholar terms, before going public |
 | 9 | Visibility, contact and Actions bill | Confirm the private repository with a public site; choose the correction contact | SEC-9 | Correction contact: titouanlegourrierec@kaist.ac.kr (2026-10-01) |
-| 10 | Primary persona | The daily cs.CV follower | Phase 2 order | pending |
+| 10 | Primary persona | The daily cs.CV follower | Phase 2 order | Both, the daily follower and the literature search: Phase 2 goes by priority and dependencies, search first (2026-10-03) |
 | 11 | Multi-category | Stay single-category until Phase 3 is done | ARCH-4 | pending |
 | 12 | Institution canonicalization | Move the web rules into the pipeline, with ROR ids | AFF-13 | pending |
 | 13 | Author identity | A homonym hint now, Semantic Scholar ids after the META-1 spike | AFF-H | pending |
@@ -127,7 +127,7 @@ with the deadline, the breakers, the summary and the page cache (2026-10-02) was
 | ID | Item | Priority | Status |
 |---|---|---|---|
 | SRCH-1 | Exact clicked filters, word-prefix typed filters | P1 | done |
-| SRCH-2 | Phrase and exclusion scope and tokenization | P2 | todo |
+| SRCH-2 | Phrase and exclusion scope and tokenization | P2 | done |
 | SRCH-3 | Prefix and fuzzy tuning | P1 | todo |
 | SRCH-4 | Browser history | P1 | todo |
 | SRCH-5 | Archive permalinks | P1 | todo |
