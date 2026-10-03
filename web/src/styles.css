@@ -527,10 +527,15 @@ html {
   opacity: 0.85;
 }
 
-.period-picker__summary {
+.period-picker__summary,
+.period-picker__note {
   margin: 0;
   font-size: 0.72rem;
   color: var(--text-muted);
+}
+
+.period-picker__note {
+  margin-top: 6px;
 }
 
 .filters__body {

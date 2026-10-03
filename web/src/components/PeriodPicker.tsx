@@ -2,9 +2,11 @@ import { useCallback, useEffect, useId, useMemo, useRef, useState } from "preact
 import {
   between,
   dayDate,
+  daysOverBudget,
   formatDays,
   monthGrid,
   monthOf,
+  PAPER_BUDGET,
   type Period,
   RANGES,
   type RangeKey,
@@ -64,6 +66,7 @@ export function PeriodPicker({ days, period, onChange }: Props) {
   const earliest = days.at(-1)?.date ?? "";
   const span = first && last ? formatDays(first, last) : "No papers in this period";
   const papers = selected.reduce((sum, day) => sum + day.count, 0);
+  const leftOut = daysOverBudget(days, period);
 
   // Days shown as selected: the range being picked, else the current period.
   const range = anchor
@@ -136,6 +139,13 @@ export function PeriodPicker({ days, period, onChange }: Props) {
         </span>
         <span aria-hidden="true">{open ? "▴" : "▾"}</span>
       </button>
+      {leftOut > 0 && (
+        <p class="period-picker__note">
+          A period loads {PAPER_BUDGET.toLocaleString()} papers at most: its latest{" "}
+          {selected.length} days are shown, and {leftOut} older day{leftOut === 1 ? " is" : "s are"}{" "}
+          left out.
+        </p>
+      )}
 
       {open && (
         <div class="period-picker__panel" id={panelId}>

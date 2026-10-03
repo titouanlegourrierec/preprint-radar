@@ -103,6 +103,8 @@ describe("url state", () => {
 
   it("falls back to defaults on invalid values", () => {
     expect(readState("?range=42&sort=weird")).toEqual(DEFAULT_STATE);
+    // "All days" left with the paper budget: its links open the longest preset.
+    expect(readState("?range=all").period).toEqual({ kind: "recent", range: "40" });
     expect(readState("?from=yesterday&to=2026-13-45")).toEqual(DEFAULT_STATE);
   });
 });

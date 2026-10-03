@@ -1,5 +1,14 @@
 import { describe, expect, it } from "vitest";
-import { between, formatDays, isIsoDay, monthGrid, selectDays, shiftMonth } from "../src/period";
+import {
+  between,
+  daysOverBudget,
+  formatDays,
+  isIsoDay,
+  monthGrid,
+  PAPER_BUDGET,
+  selectDays,
+  shiftMonth,
+} from "../src/period";
 
 const days = [
   { date: "2026-09-25", count: 143 },
@@ -13,7 +22,7 @@ describe("selectDays", () => {
     expect(selectDays(days, { kind: "recent", range: "1" }).map((day) => day.date)).toEqual([
       "2026-09-25",
     ]);
-    expect(selectDays(days, { kind: "recent", range: "all" })).toHaveLength(4);
+    expect(selectDays(days, { kind: "recent", range: "40" })).toHaveLength(4);
   });
 
   it("keeps the days between two dates, inclusive", () => {
@@ -23,6 +32,26 @@ describe("selectDays", () => {
       "2026-09-01",
     ]);
     expect(selectDays(days, between("2026-09-10", "2026-09-20"))).toEqual([]);
+  });
+
+  it("loads the latest days of a period within the paper budget", () => {
+    // A year of days, 300 papers each: the budget holds the latest 33.
+    const year = Array.from({ length: 250 }, (_, index) => ({
+      date: `2026-${String(12 - Math.floor(index / 25)).padStart(2, "0")}-${String(28 - (index % 25)).padStart(2, "0")}`,
+      count: 300,
+    }));
+    const period = between("2026-01-01", "2026-12-31");
+    const loaded = selectDays(year, period);
+    expect(loaded).toHaveLength(Math.floor(PAPER_BUDGET / 300));
+    expect(loaded[0]).toEqual(year[0]);
+    expect(daysOverBudget(year, period)).toBe(250 - loaded.length);
+    expect(daysOverBudget(days, { kind: "recent", range: "40" })).toBe(0);
+  });
+
+  it("always loads the latest day, however large", () => {
+    const huge = [{ date: "2026-09-25", count: PAPER_BUDGET + 1 }, ...days];
+    expect(selectDays(huge, { kind: "recent", range: "5" })).toEqual([huge[0]]);
+    expect(daysOverBudget(huge, { kind: "recent", range: "5" })).toBe(4);
   });
 });
 

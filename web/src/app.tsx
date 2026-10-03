@@ -23,7 +23,7 @@ import { useTheme } from "./hooks/use-theme";
 import { useTriage } from "./hooks/use-triage";
 import { useUrlState } from "./hooks/use-url-state";
 import { hasModifier, isTyping } from "./keyboard";
-import { between, samePeriod } from "./period";
+import { between, LONGEST_RANGE, PAPER_BUDGET, samePeriod, selectDays } from "./period";
 import { loadShowAbstracts, saveShowAbstracts, type ThemePreference } from "./preferences";
 import { readingListFile } from "./reading-list";
 import { searchOf } from "./saved-searches";
@@ -210,7 +210,10 @@ export function App() {
   const newest = state.sort === "newest" || (state.sort === "relevance" && !hasSearchWords);
   // A share link opens the paper on its own day, free of the sharer's search context.
   const pastedId = arxivIdOf(query);
-  const allDays = state.period.kind === "recent" && state.period.range === "all";
+  // "No paper matches" offers the longest preset when it holds more days than the period.
+  const longestPeriod = { kind: "recent", range: LONGEST_RANGE } as const;
+  const longestDays = selectDays(storeDays, longestPeriod).length;
+  const widerPeriod = longestDays > selectDays(storeDays, state.period).length;
   const sinceLastVisit = triage.sinceLastVisit && {
     ...triage.sinceLastVisit,
     period: between(triage.sinceLastVisit.from, triage.sinceLastVisit.to),
@@ -684,7 +687,9 @@ export function App() {
                 class="link-button"
                 onClick={() => update({ period: sinceLastVisit.period })}
               >
-                Show them
+                {sinceLastVisit.papers > PAPER_BUDGET
+                  ? `Show the latest ${PAPER_BUDGET.toLocaleString()}`
+                  : "Show them"}
               </button>
             </p>
           )}
@@ -772,7 +777,7 @@ export function App() {
                 activeIndex.size > 0 && (
                   <p class="notice">
                     No paper matches
-                    {state.view === "papers" && !allDays ? " in this period" : ""}.{" "}
+                    {state.view === "papers" ? " in this period" : ""}.{" "}
                     {activeFilterCount(state.filters) > 0 && (
                       <button
                         type="button"
@@ -782,15 +787,15 @@ export function App() {
                         Clear the filters
                       </button>
                     )}
-                    {state.view === "papers" && !allDays && (
+                    {state.view === "papers" && widerPeriod && (
                       <>
                         {activeFilterCount(state.filters) > 0 && " · "}
                         <button
                           type="button"
                           class="link-button"
-                          onClick={() => update({ period: { kind: "recent", range: "all" } })}
+                          onClick={() => update({ period: longestPeriod })}
                         >
-                          Search all {storeDays.length} days
+                          Search the last {longestDays} days
                         </button>
                       </>
                     )}
