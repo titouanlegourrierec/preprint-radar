@@ -117,6 +117,20 @@ describe("buildGraph", () => {
     expect(graph.truncated).toBe(false);
   });
 
+  it("keeps an institution's ROR id from the papers that give it", () => {
+    const named = (arxiv_id: string, ids?: (string | null)[]) =>
+      makePaper({
+        arxiv_id,
+        affiliations: ["School of CS, Peking University", "Lab"],
+        institutions: ["Peking University", null],
+        ...(ids ? { institution_ids: ids } : {}),
+      });
+    const graph = buildGraph([named("1"), named("2", ["02v51f717", null])], INSTITUTIONS);
+    const ids = Object.fromEntries(graph.nodes.map((node) => [node.label, node.rorId]));
+    expect(ids).toMatchObject({ "Peking University": "02v51f717" });
+    expect(graph.nodes.find((node) => node.label === "Lab")?.rorId).toBeUndefined();
+  });
+
   it("filters rare nodes and caps the node count", () => {
     const graph = buildGraph(papers, {
       ...INSTITUTIONS,

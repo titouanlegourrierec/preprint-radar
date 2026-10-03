@@ -376,6 +376,19 @@ export function GraphView(props: Props) {
                 <p class="muted" title="Over the papers shown: the period or year, and the search">
                   {plural(selectedEntity.paperIds.length, "paper")} ·{" "}
                   {plural(selectedEntity.citations, "citation")}
+                  {selectedEntity.rorId && (
+                    <>
+                      {" · "}
+                      <a
+                        href={`https://ror.org/${selectedEntity.rorId}`}
+                        title="This institution in the Research Organization Registry"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        ROR
+                      </a>
+                    </>
+                  )}
                 </p>
                 <ul class="graph__papers">
                   {byCitationCount(selectedEntity.paperIds, citations)

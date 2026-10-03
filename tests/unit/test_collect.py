@@ -448,6 +448,30 @@ def test_add_institutions_names_each_distinct_affiliation_once(fake: FakeArxiv) 
     ]
 
 
+def test_add_institutions_keeps_ror_ids(fake: FakeArxiv) -> None:
+    peking = "School of CS, Peking University"
+    papers = [
+        _paper("1", (peking, "Meta AI")),
+        # Named before ids were kept: asked again for the id, its names unchanged.
+        replace(_paper("2", (peking, "Lab")), institutions=("Peking University", "An older name")),
+        # Nothing was named: nothing to ask for.
+        replace(_paper("3", ("Lab",)), institutions=(None,)),
+    ]
+
+    with fake.client() as ror:
+        named = add_institutions(papers, ror, limit=None)
+
+    peking_id = named[0].institution_ids[0] if named[0].institution_ids else None
+    assert peking_id
+    assert [paper.institution_ids for paper in named] == [(peking_id, None), (peking_id, None), None]
+    assert named[1].institutions == ("Peking University", "An older name")
+    assert "Lab" in fake.ror_requests
+    fake.ror_requests.clear()
+    with fake.client() as ror:
+        assert add_institutions(named, ror, limit=None) == named
+    assert fake.ror_requests == []
+
+
 def test_add_institutions_leaves_the_rest_for_next_run(fake: FakeArxiv) -> None:
     papers = [_paper("1", ("Meta AI",)), _paper("2", ("Meta AI", "School of CS, Peking University"))]
 
@@ -759,7 +783,11 @@ def test_reextract_reads_the_selected_papers_again_and_keeps_what_fails(
     # Changed: named again through ROR.
     assert len(stored["2609.30249"].institutions or ()) == len(affiliations)
     assert stored["2609.30249"].abstract == "Stored."
-    assert stored["2609.30234"] == _stored("2609.30234", "1", affiliations=("Kept",), institutions=("Kept",))
+    # Kept as it was, but for the ROR id of its institution, named before ids were kept: ROR
+    # does not name "Kept" again, so it has none, and the name stays.
+    assert stored["2609.30234"] == _stored(
+        "2609.30234", "1", affiliations=("Kept",), institutions=("Kept",), institution_ids=(None,)
+    )
     assert stored["2609.11111"] == _stored("2609.11111", "1", extractor=EXTRACTOR_VERSION)
     assert stored["2609.22222"].extractor is None
     assert (report.listed, report.affiliations_fetched, report.unreadable) == (2, 1, 1)

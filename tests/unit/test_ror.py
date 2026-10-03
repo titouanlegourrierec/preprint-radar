@@ -6,13 +6,19 @@ from tests.conftest import FIXTURES_DIR
 
 from preprint_radar.exceptions import ParseError
 from preprint_radar.http import HttpClient
-from preprint_radar.sources.ror import match_institution, match_institutions, parse_ror_response
+from preprint_radar.models import Institution
+from preprint_radar.sources.ror import match_institution, match_institutions, parse_ror_response, ror_id
 
 ROR_DIR = FIXTURES_DIR / "ror"
 
 
 def _response(name: str) -> str:
     return (ROR_DIR / f"{name}.json").read_text(encoding="utf-8")
+
+
+def _peking_id() -> str | None:
+    chosen = next(item for item in json.loads(_response("peking"))["items"] if item.get("chosen"))
+    return ror_id(chosen["organization"]["id"])
 
 
 @pytest.mark.parametrize(
@@ -42,7 +48,18 @@ def _response(name: str) -> str:
     ],
 )
 def test_parse_ror_response(fixture: str, affiliation: str, expected: str | None) -> None:
-    assert parse_ror_response(_response(fixture), affiliation) == expected
+    match = parse_ror_response(_response(fixture), affiliation)
+    assert (match.name if match else None) == expected
+    # With the organization's ROR id.
+    assert match is None or match.ror_id == ror_id(
+        json.loads(_response(fixture))["items"][0]["organization"]["id"]
+    )
+
+
+def test_ror_ids_are_the_last_part_of_ror_urls() -> None:
+    assert ror_id("https://ror.org/03vek6s52") == "03vek6s52"
+    assert ror_id("https://example.org/03vek6s52") is None
+    assert ror_id(None) is None
 
 
 @pytest.mark.parametrize(
@@ -92,7 +109,10 @@ def test_match_institutions_looks_each_string_up_once() -> None:
         )
 
     assert requested == ["Peking University, China", "Meta AI"]
-    assert matches == {"Peking University, China": "Peking University", "Meta AI": None}
+    assert matches == {
+        "Peking University, China": Institution("Peking University", ror_id=_peking_id()),
+        "Meta AI": None,
+    }
 
 
 def test_match_institutions_stops_at_the_limit() -> None:

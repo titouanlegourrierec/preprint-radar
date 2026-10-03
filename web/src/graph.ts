@@ -18,6 +18,8 @@ export interface GraphNode {
   paperIds: string[];
   /** Citations of those papers, summed; papers without a known count add nothing. */
   citations: number;
+  /** An institution's id in the Research Organization Registry, when a paper gives it. */
+  rorId?: string;
 }
 
 export interface GraphLink {
@@ -119,10 +121,13 @@ export function buildGraph(papers: Paper[], options: GraphOptions): Graph {
     const institutions: string[] = [];
     const keyOfAffiliation: (string | null)[] = [];
     if (options.institutions) {
-      for (const name of institutionsOf(paper)) {
+      for (const [index, name] of institutionsOf(paper).entries()) {
         const entry = name === null ? null : register("institution", name, paper.arxiv_id, seen);
         keyOfAffiliation.push(entry?.id ?? null);
         if (entry?.first) institutions.push(entry.id);
+        const rorId = paper.institution_ids?.[index];
+        const node = entry ? nodes.get(entry.id) : undefined;
+        if (rorId && node) node.rorId ??= rorId;
       }
     }
     const authors: PaperAuthor[] = [];

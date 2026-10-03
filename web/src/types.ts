@@ -47,6 +47,11 @@ export interface Paper {
    * older records.
    */
   institutions?: (string | null)[] | null;
+  /**
+   * Per institution, its ROR id ("03vek6s52"), parallel to `institutions`. Absent for
+   * institutions named before ids were kept.
+   */
+  institution_ids?: (string | null)[] | null;
   abs_url: string;
   pdf_url: string;
 }

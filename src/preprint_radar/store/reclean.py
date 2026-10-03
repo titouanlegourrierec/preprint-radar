@@ -114,6 +114,7 @@ def reclean_paper(paper: Paper) -> Paper:
         affiliations=cleaned,
         author_affiliations=mapping,
         institutions=paper.institutions if cleaned == paper.affiliations else None,
+        institution_ids=paper.institution_ids if cleaned == paper.affiliations else None,
     )
 
 

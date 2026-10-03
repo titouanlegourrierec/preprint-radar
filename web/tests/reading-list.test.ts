@@ -20,6 +20,20 @@ describe("toPaper", () => {
     expect(toPaper(JSON.parse(JSON.stringify(published)))).toEqual(published);
   });
 
+  it("keeps ROR ids that follow the institutions, and drops the others", () => {
+    const named = {
+      ...ada,
+      affiliations: ["MIT", "Lab"],
+      institutions: ["Massachusetts Institute of Technology", null],
+      institution_ids: ["042nb2s44", null],
+    };
+    expect(toPaper(JSON.parse(JSON.stringify(named)))).toEqual(named);
+    expect(toPaper({ ...named, institution_ids: ["042nb2s44"] })).not.toHaveProperty(
+      "institution_ids",
+    );
+    expect(toPaper({ ...named, institutions: null })).not.toHaveProperty("institution_ids");
+  });
+
   it.each([
     ["not an object", "2609.00001"],
     ["no identifier", { ...ada, arxiv_id: 12 }],

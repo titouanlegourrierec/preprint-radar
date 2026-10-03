@@ -14,6 +14,19 @@ type PaperRecord = dict[str, str | int | list[str] | list[str | None] | list[lis
 
 
 @dataclass(frozen=True, slots=True)
+class Institution:
+    """An organization of the Research Organization Registry, as a source names it.
+
+    Attributes:
+        name: Its name, tidied for display (``sources.ror.organization_name``).
+        ror_id: Its ROR id, the last part of ``https://ror.org/<id>``, when the source gives it.
+    """
+
+    name: str
+    ror_id: str | None = None
+
+
+@dataclass(frozen=True, slots=True)
 class ScholarRecord:
     """What Semantic Scholar knows of a paper beyond its count (``scholar.json``).
 
@@ -85,6 +98,9 @@ class Paper:
         institutions: For each affiliation, the institution it belongs to according to the
             Research Organization Registry, or ``None`` when there is no confident match;
             ``None`` altogether if not looked up yet. Always as long as ``affiliations``.
+        institution_ids: The ROR id of each institution ("03vek6s52"), parallel to
+            ``institutions``; ``None`` altogether for institutions named before ids were
+            kept, and always when ``institutions`` is.
         extractor: Version of the HTML extraction that gave the affiliations
             (``sources.arxiv_html.EXTRACTOR_VERSION``); ``None`` when they came from
             elsewhere (the API, OpenAlex) or were read before versions were kept.
@@ -105,18 +121,25 @@ class Paper:
     affiliations: tuple[str, ...] | None = None
     author_affiliations: tuple[tuple[int, ...] | None, ...] | None = None
     institutions: tuple[str | None, ...] | None = None
+    institution_ids: tuple[str | None, ...] | None = None
     extractor: int | None = None
 
     def __post_init__(self) -> None:
         """Check that the lists indexing ``affiliations`` line up with it and with ``authors``.
 
         Raises:
-            ValueError: If ``institutions`` does not have one entry per affiliation, or
-                ``author_affiliations`` one entry per author, with indices into ``affiliations``.
+            ValueError: If ``institutions`` (or ``institution_ids``, which needs it) does not
+                have one entry per affiliation, or ``author_affiliations`` one entry per
+                author, with indices into ``affiliations``.
         """
         count = None if self.affiliations is None else len(self.affiliations)
         if self.institutions is not None and len(self.institutions) != count:
             msg = "'institutions' must have one entry per affiliation"
+            raise ValueError(msg)
+        if self.institution_ids is not None and (
+            self.institutions is None or len(self.institution_ids) != count
+        ):
+            msg = "'institution_ids' must have one entry per institution"
             raise ValueError(msg)
         if self.author_affiliations is None:
             return
@@ -168,7 +191,8 @@ class Paper:
             if self.author_affiliations is None
             else [None if entry is None else list(entry) for entry in self.author_affiliations],
             "institutions": None if self.institutions is None else list(self.institutions),
-            # Written only when known, so that records read before it stay as they were.
+            # Written only when known, so that records read before them stay as they were.
+            **({} if self.institution_ids is None else {"institution_ids": list(self.institution_ids)}),
             **({} if self.extractor is None else {"extractor": self.extractor}),
             "abs_url": self.abs_url,
             "pdf_url": self.pdf_url,
@@ -205,6 +229,7 @@ class Paper:
                 affiliations=None if affiliations is None else tuple(affiliations),
                 author_affiliations=_optional_index_lists(record, "author_affiliations"),
                 institutions=_optional_nullable_str_list(record, "institutions"),
+                institution_ids=_optional_nullable_str_list(record, "institution_ids"),
                 extractor=_optional_int(record, "extractor"),
             )
         except (KeyError, TypeError, ValueError) as exc:

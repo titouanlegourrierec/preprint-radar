@@ -19,6 +19,7 @@ def test_record_round_trip_keeps_enrichment(listing: Listing) -> None:
         affiliations=("MIT", "NVIDIA"),
         author_affiliations=((0, 1), None, (1,)),
         institutions=("Massachusetts Institute of Technology", None),
+        institution_ids=("042nb2s44", None),
         extractor=1,
     )
     restored = Paper.from_record(paper.to_record())
@@ -27,12 +28,31 @@ def test_record_round_trip_keeps_enrichment(listing: Listing) -> None:
     assert restored.affiliations == ("MIT", "NVIDIA")
     assert restored.author_affiliations == ((0, 1), None, (1,))
     assert restored.institutions == ("Massachusetts Institute of Technology", None)
+    assert restored.institution_ids == ("042nb2s44", None)
     assert restored.extractor == 1
     assert restored.is_enriched
 
 
-def test_an_unknown_extractor_is_not_written(listing: Listing) -> None:
+def test_an_unknown_extractor_and_unknown_ids_are_not_written(listing: Listing) -> None:
     assert "extractor" not in listing.papers[0].to_record()
+    assert "institution_ids" not in listing.papers[0].to_record()
+
+
+@pytest.mark.parametrize(
+    "institutions",
+    [None, ("Massachusetts Institute of Technology",)],
+    ids=["without-institutions", "not-one-per-affiliation"],
+)
+def test_institution_ids_follow_the_institutions(
+    listing: Listing, institutions: tuple[str, ...] | None
+) -> None:
+    with pytest.raises(ValueError, match="institution_ids"):
+        replace(
+            listing.papers[0],
+            affiliations=("MIT", "NVIDIA"),
+            institutions=institutions and (*institutions, None),
+            institution_ids=("042nb2s44",),
+        )
 
 
 def test_urls(listing: Listing) -> None:

@@ -17,6 +17,7 @@ from collections.abc import Iterable, Mapping
 
 from preprint_radar.exceptions import FetchError, NotFoundError, ParseError
 from preprint_radar.http import HttpClient
+from preprint_radar.models import Institution
 
 logger = logging.getLogger(__name__)
 
@@ -34,17 +35,18 @@ _PARENTHESIS_RE = re.compile(r"\([^()]*\)")
 _TRAILING_PARENTHESIS_RE = re.compile(r"\s*\([^()]*\)$")
 _LEADING_THE_RE = re.compile(r"^the\s+", re.IGNORECASE)
 _WORD_RE = re.compile(r"[^\W_]+")
+_ROR_URL_RE = re.compile(r"^https?://ror\.org/([0-9a-z]{9})$")
 
 
-def match_institution(client: HttpClient, affiliation: str) -> str | None:
-    """Name of the institution an affiliation string belongs to, according to ROR.
+def match_institution(client: HttpClient, affiliation: str) -> Institution | None:
+    """The institution an affiliation string belongs to, according to ROR.
 
     Args:
         client: HTTP client for the ROR API.
         affiliation: One affiliation string, e.g. ``"Dept. of EECS, MIT, Cambridge, MA"``.
 
     Returns:
-        The organization's name, or ``None`` when ROR has no confident, supported match.
+        The organization, or ``None`` when ROR has no confident, supported match.
 
     Raises:
         FetchError: If the API cannot be reached.
@@ -57,16 +59,16 @@ def match_institution(client: HttpClient, affiliation: str) -> str | None:
     return parse_ror_response(text, affiliation)
 
 
-def parse_ror_response(text: str, affiliation: str) -> str | None:
-    """Extract the institution name from a ROR affiliation-matching response.
+def parse_ror_response(text: str, affiliation: str) -> Institution | None:
+    """Extract the institution from a ROR affiliation-matching response.
 
     Args:
         text: Body of the ``/v2/organizations?affiliation=...`` response.
         affiliation: The affiliation string that was matched.
 
     Returns:
-        The chosen organization's name if one of its names appears in the affiliation,
-        else ``None``.
+        The chosen organization, with its name and id, if one of its names appears in the
+        affiliation, else ``None``.
 
     Raises:
         ParseError: If the response is not the expected JSON.
@@ -82,12 +84,13 @@ def parse_ror_response(text: str, affiliation: str) -> str | None:
     names = chosen.get("names")
     if not isinstance(names, list) or not _is_supported(affiliation, names):
         return None
-    return _display_name(chosen, names)
+    name = _display_name(chosen, names)
+    return None if name is None else Institution(name, ror_id(chosen.get("id")))
 
 
 def match_institutions(
     client: HttpClient, affiliations: Iterable[str], *, limit: int | None = None
-) -> dict[str, str | None]:
+) -> dict[str, Institution | None]:
     """Match distinct affiliation strings, giving up when ROR keeps failing.
 
     A failed lookup (timeout, server error) leaves its string for later; a few failures
@@ -102,7 +105,7 @@ def match_institutions(
         The strings that could be looked up, with their institution (``None``: no match).
         Strings left out (limit reached, lookup failed) are to be tried again later.
     """
-    matches: dict[str, str | None] = {}
+    matches: dict[str, Institution | None] = {}
     failures = 0
     for requests, affiliation in enumerate(dict.fromkeys(affiliations), start=1):
         if limit is not None and requests > limit:
@@ -130,6 +133,12 @@ def _is_supported(affiliation: str, names: list[object]) -> bool:
         if len(wanted) >= _MIN_NAME_WORDS and wanted <= words:
             return True
     return False
+
+
+def ror_id(url: object) -> str | None:
+    """The id of a ROR URL ("https://ror.org/03vek6s52" is "03vek6s52"), else ``None``."""
+    match = _ROR_URL_RE.match(url) if isinstance(url, str) else None
+    return match.group(1) if match else None
 
 
 def organization_name(name: str, *, company: bool) -> str:

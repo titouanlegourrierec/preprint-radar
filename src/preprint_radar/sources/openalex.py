@@ -16,7 +16,8 @@ from itertools import batched
 
 from preprint_radar.exceptions import FetchError, NotFoundError, ParseError
 from preprint_radar.http import HttpClient
-from preprint_radar.sources.ror import organization_name
+from preprint_radar.models import Institution
+from preprint_radar.sources.ror import organization_name, ror_id
 
 logger = logging.getLogger(__name__)
 
@@ -35,10 +36,12 @@ class PaperAffiliations:
         affiliations: Distinct institutions, in order of first appearance.
         author_affiliations: Per author, indices into ``affiliations``; ``None`` when
             OpenAlex does not list the same number of authors as arXiv.
+        institution_ids: The ROR id of each institution, when OpenAlex gives it.
     """
 
     affiliations: tuple[str, ...]
     author_affiliations: tuple[tuple[int, ...] | None, ...] | None
+    institution_ids: tuple[str | None, ...] = ()
 
 
 def fetch_affiliations(client: HttpClient, papers: Mapping[str, int]) -> dict[str, PaperAffiliations]:
@@ -78,7 +81,7 @@ def fetch_affiliations(client: HttpClient, papers: Mapping[str, int]) -> dict[st
     return found
 
 
-def _lookup(client: HttpClient, arxiv_id: str) -> list[list[str]] | None:
+def _lookup(client: HttpClient, arxiv_id: str) -> list[list[Institution]] | None:
     """Institutions of each author of one paper; ``[]`` if unknown, ``None`` on failure."""
     try:
         text = client.get_text(
@@ -92,7 +95,7 @@ def _lookup(client: HttpClient, arxiv_id: str) -> list[list[str]] | None:
         return None
 
 
-def parse_works(text: str) -> dict[str, list[list[str]]]:
+def parse_works(text: str) -> dict[str, list[list[Institution]]]:
     """Institutions of each author of the works in a ``/works`` response, by arXiv id.
 
     Raises:
@@ -100,7 +103,7 @@ def parse_works(text: str) -> dict[str, list[list[str]]]:
     """
     try:
         results = json.loads(text)["results"]
-        works: dict[str, list[list[str]]] = {}
+        works: dict[str, list[list[Institution]]] = {}
         for work in results:
             doi = str(work.get("doi") or "").lower()
             if _ARXIV_DOI_PREFIX not in doi:
@@ -113,24 +116,30 @@ def parse_works(text: str) -> dict[str, list[list[str]]]:
     return works
 
 
-def affiliations_from_authorships(authorships: list[list[str]], authors: int) -> PaperAffiliations:
+def affiliations_from_authorships(authorships: list[list[Institution]], authors: int) -> PaperAffiliations:
     """Turn per-author institutions into distinct affiliations and a mapping.
 
     Args:
         authorships: Institutions of each author, in OpenAlex's order.
         authors: Number of authors arXiv lists; the mapping is only kept when it matches.
     """
-    affiliations: list[str] = []
-    for names in authorships:
-        affiliations.extend(name for name in names if name not in affiliations)
+    distinct: dict[str, Institution] = {}
+    for institutions in authorships:
+        for institution in institutions:
+            distinct.setdefault(institution.name, institution)
+    affiliations = list(distinct)
+    ids = tuple(institution.ror_id for institution in distinct.values())
     if len(authorships) != authors or not affiliations:
-        return PaperAffiliations(tuple(affiliations), None)
-    mapping = tuple(tuple(affiliations.index(name) for name in names) or None for names in authorships)
-    return PaperAffiliations(tuple(affiliations), mapping)
+        return PaperAffiliations(tuple(affiliations), None, ids)
+    mapping = tuple(
+        tuple(affiliations.index(institution.name) for institution in institutions) or None
+        for institutions in authorships
+    )
+    return PaperAffiliations(tuple(affiliations), mapping, ids)
 
 
-def _institutions(authorship: Mapping[str, object]) -> list[str]:
-    names: list[str] = []
+def _institutions(authorship: Mapping[str, object]) -> list[Institution]:
+    found: list[Institution] = []
     institutions = authorship.get("institutions")
     for institution in institutions if isinstance(institutions, Iterable) else []:
         if not isinstance(institution, Mapping) or not institution.get("display_name"):
@@ -138,6 +147,6 @@ def _institutions(authorship: Mapping[str, object]) -> list[str]:
         name = organization_name(
             str(institution["display_name"]), company=institution.get("type") == "company"
         )
-        if name not in names:
-            names.append(name)
-    return names
+        if all(known.name != name for known in found):
+            found.append(Institution(name, ror_id(institution.get("ror"))))
+    return found

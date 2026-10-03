@@ -298,8 +298,14 @@ def _read_citations_cache(cache: Path, today: date) -> tuple[date, dict[str, int
 
 
 def _with_affiliations(papers: list[Paper], client: HttpClient) -> list[Paper]:
-    """Fill the affiliations of papers that have none yet, from OpenAlex."""
-    pending = {paper.arxiv_id: len(paper.authors) for paper in papers if paper.affiliations is None}
+    """Fill the affiliations of papers that have none yet, from OpenAlex.
+
+    Papers whose affiliations came from OpenAlex before ROR ids were kept (their
+    institutions are their affiliations, OpenAlex's registry names) are asked for again,
+    once, for the ids: their affiliations are replaced by OpenAlex's current ones, unless
+    it now gives none.
+    """
+    pending = {paper.arxiv_id: len(paper.authors) for paper in papers if _needs_openalex(paper)}
     if not pending:
         return papers
     found = fetch_affiliations(client, pending)
@@ -310,11 +316,21 @@ def _with_affiliations(papers: list[Paper], client: HttpClient) -> list[Paper]:
             author_affiliations=found[paper.arxiv_id].author_affiliations,
             # OpenAlex's institutions are registry entries: they are their own institutions.
             institutions=found[paper.arxiv_id].affiliations,
+            institution_ids=found[paper.arxiv_id].institution_ids or None,
         )
-        if paper.arxiv_id in found
+        if paper.arxiv_id in found and (paper.affiliations is None or found[paper.arxiv_id].affiliations)
         else paper
         for paper in papers
     ]
+
+
+def _needs_openalex(paper: Paper) -> bool:
+    """No affiliations yet, or OpenAlex's without their ROR ids."""
+    return paper.affiliations is None or (
+        bool(paper.affiliations)
+        and paper.institution_ids is None
+        and paper.institutions == paper.affiliations
+    )
 
 
 def _subject_names(papers: Iterable[Paper]) -> dict[str, str]:

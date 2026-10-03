@@ -6,6 +6,7 @@ from tests.conftest import FIXTURES_DIR
 
 from preprint_radar.exceptions import ParseError
 from preprint_radar.http import HttpClient
+from preprint_radar.models import Institution
 from preprint_radar.sources.openalex import affiliations_from_authorships, fetch_affiliations, parse_works
 
 WORKS = (FIXTURES_DIR / "openalex" / "works.json").read_text(encoding="utf-8")
@@ -14,17 +15,23 @@ WORKS = (FIXTURES_DIR / "openalex" / "works.json").read_text(encoding="utf-8")
 def test_parse_works_names_institutions_per_author() -> None:
     works = parse_works(WORKS)
 
-    assert works["1512.03385"] == [["Microsoft"]] * 4  # "Microsoft (United States)"
-    assert works["2010.11929"][3] == ["German Research Centre for Artificial Intelligence"]
+    assert [[i.name for i in names] for names in works["1512.03385"]] == [
+        ["Microsoft"]
+    ] * 4  # "Microsoft (United States)"
+    assert [i.name for i in works["2010.11929"][3]] == ["German Research Centre for Artificial Intelligence"]
+    # With their ROR ids.
+    assert all(institution.ror_id for names in works["1512.03385"] for institution in names)
 
 
 def test_affiliations_from_authorships() -> None:
-    both = affiliations_from_authorships([["Google"], ["Google", "ETH Zurich"], []], 3)
+    google, eth = Institution("Google", "00njsd438"), Institution("ETH Zurich", None)
+    both = affiliations_from_authorships([[google], [google, eth], []], 3)
 
     assert both.affiliations == ("Google", "ETH Zurich")
     assert both.author_affiliations == ((0,), (0, 1), None)
+    assert both.institution_ids == ("00njsd438", None)
     # A different author count: affiliations without the mapping.
-    assert affiliations_from_authorships([["Google"]], 2).author_affiliations is None
+    assert affiliations_from_authorships([[google]], 2).author_affiliations is None
     assert affiliations_from_authorships([], 2).affiliations == ()
 
 
@@ -54,13 +61,20 @@ def test_fetch_affiliations_asks_one_by_one_for_what_a_batch_misses() -> None:
 
 
 def test_parse_works_skips_unnamed_and_repeated_institutions() -> None:
-    institutions = [{"display_name": "Google"}, {"display_name": None}, "Google", {"display_name": "Google"}]
+    institutions = [
+        {"display_name": "Google", "ror": "https://ror.org/00njsd438"},
+        {"display_name": None},
+        "Google",
+        {"display_name": "Google"},
+    ]
     work = {
         "doi": "https://doi.org/10.48550/arXiv.2609.00001",
         "authorships": [{"institutions": institutions}],
     }
 
-    assert parse_works(json.dumps({"results": [work]})) == {"2609.00001": [["Google"]]}
+    assert parse_works(json.dumps({"results": [work]})) == {
+        "2609.00001": [[Institution("Google", "00njsd438")]]
+    }
 
 
 @pytest.mark.parametrize("text", ["not json", "{}", '{"results": [42]}'])

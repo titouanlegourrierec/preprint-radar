@@ -239,7 +239,7 @@ def test_archived_papers_without_affiliations_are_looked_up_again(
 ) -> None:
     _update(store, catalog, FakeServices(CITATIONS))
     papers = [
-        replace(paper, affiliations=None, author_affiliations=None, institutions=None)
+        replace(paper, affiliations=None, author_affiliations=None, institutions=None, institution_ids=None)
         if paper.arxiv_id == "1512.03385"
         else paper
         for paper in store.iter_archive("cs.CV")
@@ -250,6 +250,23 @@ def test_archived_papers_without_affiliations_are_looked_up_again(
 
     resnet = next(paper for paper in store.iter_archive("cs.CV") if paper.arxiv_id == "1512.03385")
     assert resnet.affiliations == ("Microsoft",)
+
+
+def test_archived_papers_get_the_ror_ids_of_their_institutions(store: PaperStore, catalog: Catalog) -> None:
+    _update(store, catalog, FakeServices(CITATIONS))
+    archived = {paper.arxiv_id: paper for paper in store.iter_archive("cs.CV")}
+    assert archived["1512.03385"].institution_ids  # an entrant gets them
+    # Archived before ids were kept: OpenAlex is asked again, once.
+    store.write_archive(
+        "cs.CV",
+        [replace(paper, institution_ids=None) for paper in archived.values()],
+    )
+
+    _update(store, catalog, FakeServices(CITATIONS))
+
+    again = {paper.arxiv_id: paper for paper in store.iter_archive("cs.CV")}
+    assert again["1512.03385"].institution_ids == archived["1512.03385"].institution_ids
+    assert again["1512.03385"].affiliations == ("Microsoft",)
 
 
 def test_dry_run_writes_nothing(store: PaperStore, catalog: Catalog) -> None:

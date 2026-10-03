@@ -55,6 +55,16 @@ export function toPaper(value: unknown): Paper | null {
           )),
     );
   const institutions = record.institutions;
+  const institutionsFit =
+    Array.isArray(institutions) &&
+    institutions.length === (affiliations?.length ?? -1) &&
+    institutions.every(isStringOrNull);
+  const ids = record.institution_ids;
+  const idsFit =
+    institutionsFit &&
+    Array.isArray(ids) &&
+    ids.length === institutions.length &&
+    ids.every(isStringOrNull);
   return {
     arxiv_id,
     announced,
@@ -72,12 +82,8 @@ export function toPaper(value: unknown): Paper | null {
     ...(typeof record.extractor === "number" ? { extractor: record.extractor } : {}),
     affiliations,
     author_affiliations: mappingFits ? (mapping as (number[] | null)[]) : null,
-    institutions:
-      Array.isArray(institutions) &&
-      institutions.length === (affiliations?.length ?? -1) &&
-      institutions.every(isStringOrNull)
-        ? institutions
-        : null,
+    institutions: institutionsFit ? (institutions as (string | null)[]) : null,
+    ...(idsFit ? { institution_ids: ids as (string | null)[] } : {}),
     abs_url,
     pdf_url,
   };
