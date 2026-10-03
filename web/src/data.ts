@@ -1,3 +1,4 @@
+import { citationShardPath } from "./citations";
 import { PAPER_BUDGET } from "./period";
 import {
   type ArchiveFile,
@@ -114,9 +115,15 @@ export function loadArchive(
   return loadPapers(`${category}/archive/${year}.json`, "archive file", signal);
 }
 
-/** Load the citation counts of a category, or `null` if none were published yet. */
-export async function loadCitations(category: string): Promise<CitationsFile | null> {
-  const response = await fetch(`${DATA_URL}${category}/citations.json`);
+/**
+ * Load a shard of the citation counts of a category (see `citations.ts`), or `null` if it
+ * does not exist: no counts were published yet, or none of its papers has one.
+ */
+export async function loadCitationShard(
+  category: string,
+  shard: string,
+): Promise<CitationsFile | null> {
+  const response = await fetch(`${DATA_URL}${citationShardPath(category, shard)}`);
   if (response.status === 404) return null;
   if (!response.ok) {
     throw new Error(`Could not load citation counts (HTTP ${response.status})`);

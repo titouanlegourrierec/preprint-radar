@@ -174,7 +174,7 @@ page has no live coverage figures (PROD-7); of TEST-9, only the check of the dar
 | UX-2 | Graph touch zoom and keyboard path | P2 | todo |
 | META-2 to META-4 | Weekly refresh from the catalog, provenance, the venue table | P2 | todo |
 | PERF-11 | Lazy index build | P2 | done |
-| PERF-12 | Split citation counts | P2 | todo |
+| PERF-12 | Split citation counts (at build time: the store keeps one `citations.json`) | P2 | done |
 
 *Exit criteria:* a year of day files loads without freezing a phone, and venue coverage of the
 archive rises above 52%.

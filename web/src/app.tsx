@@ -101,12 +101,16 @@ export function App() {
   const archived = cited || ((state.view === "graph" || rankings) && state.year !== null);
   const { categories, category, storeDays, archiveYears, archiveYear, load, retry, generatedAt } =
     usePapers(state.category, state.period, archived ? { year: state.year } : null);
-  const citations = useCitations(category);
+  const readingList = useReadingList(load.status === "ready" ? load.index : null);
+  const shownPapers = useMemo(
+    () => [...(load.status === "ready" ? load.index.all() : []), ...readingList.papers],
+    [load, readingList.papers],
+  );
+  const citations = useCitations(category, shownPapers, storeDays.at(-1)?.date);
   const citationsNote =
     citations.source && citations.asOf
       ? formatCitationsNote(citations.source, citations.asOf)
       : undefined;
-  const readingList = useReadingList(load.status === "ready" ? load.index : null);
   const importInput = useRef<HTMLInputElement>(null);
   const triage = useTriage(category ?? null, storeDays);
 

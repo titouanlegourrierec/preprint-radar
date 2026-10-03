@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { forgetLoaded, loadArchive, loadCitations, loadDays, loadIndex } from "../src/data";
+import { forgetLoaded, loadArchive, loadCitationShard, loadDays, loadIndex } from "../src/data";
 import { PAPER_BUDGET } from "../src/period";
 import { makePaper } from "./fixtures";
 
@@ -112,19 +112,19 @@ describe("data", () => {
     expect(signals).toEqual([controller.signal, undefined]);
   });
 
-  it("loads citation counts, which may not exist yet", async () => {
+  it("loads a shard of citation counts, which may not exist", async () => {
     const file = {
       schema_version: 1,
       source: "Semantic Scholar",
       generated_at: "x",
       counts: { a: 1 },
     };
-    serve({ "cs.CV/citations.json": file });
-    await expect(loadCitations("cs.CV")).resolves.toEqual(file);
+    serve({ "cs.CV/citations/2026-09.json": file });
+    await expect(loadCitationShard("cs.CV", "2026-09")).resolves.toEqual(file);
     serve({});
-    await expect(loadCitations("cs.CV")).resolves.toBeNull();
-    serve({}, { "cs.CV/citations.json": 503 });
-    await expect(loadCitations("cs.CV")).rejects.toThrow(
+    await expect(loadCitationShard("cs.CV", "2026-09")).resolves.toBeNull();
+    serve({}, { "cs.CV/citations/2019.json": 503 });
+    await expect(loadCitationShard("cs.CV", "2019")).rejects.toThrow(
       "Could not load citation counts (HTTP 503)",
     );
   });
