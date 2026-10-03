@@ -58,6 +58,8 @@ S2_RECORD_FIELDS = "externalIds,venue,publicationVenue,journal,authors"
 # arXiv's own DOIs (10.48550/arXiv.<id>) say nothing of a published version.
 _ARXIV_DOI_PREFIX = "10.48550/"
 _YEAR_RE = re.compile(r"\b(?:19|20)\d{2}\b")
+_BARE_YEAR_RE = re.compile(r"^\s*(?:19|20)\d{2}\s*$")
+_PREPRINT_RE = re.compile(r"arxiv", re.IGNORECASE)
 # IEEE DOIs hold the year of their proceedings: 10.1109/CVPR52688.2022.01234.
 _IEEE_DOI_YEAR_RE = re.compile(r"^10\.1109/[^/.]+\.((?:19|20)\d{2})\.")
 
@@ -274,12 +276,18 @@ def _venue_year(journal: Mapping[str, Any], venue: str | None, doi: str | None) 
     """The year of the published version, from its names, its volume or an IEEE DOI.
 
     In order: the journal's or proceedings' name ("2022 IEEE/CVF Conference on ..."), the
-    venue string, the volume ("2022"), then an IEEE DOI (10.1109/CVPR52688.2022.01234).
+    venue string, the volume when it is a year ("2022"), then an IEEE DOI
+    (10.1109/CVPR52688.2022.01234). A paper only known as a preprint has the journal
+    "ArXiv" and the volume "abs/2006.05929", whose identifier is no year.
     """
-    texts = [journal.get("name"), venue, journal.get("volume")]
-    for text in texts:
-        if isinstance(text, str) and (match := _YEAR_RE.search(text)):
+    name = journal.get("name")
+    names = [name if isinstance(name, str) and not _PREPRINT_RE.search(name) else None, venue]
+    for text in names:
+        if text is not None and (match := _YEAR_RE.search(text)):
             return int(match.group())
+    volume = journal.get("volume")
+    if isinstance(volume, str) and _BARE_YEAR_RE.match(volume):
+        return int(volume.strip())
     if doi is not None and (match := _IEEE_DOI_YEAR_RE.match(doi)):
         return int(match.group(1))
     return None

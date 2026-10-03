@@ -77,9 +77,14 @@ def test_parses_records_with_the_venue_year_and_a_published_doi() -> None:
         "externalIds": {"DOI": "10.1109/ICCV51070.2023.00042"},
         "venue": "IEEE International Conference on Computer Vision",
     }
-    text = json.dumps([CVPR_2022, arxiv_only, None, journal, ieee])
+    # Only known as a preprint: "abs/2006.05929" is an arXiv identifier, not the year 2006.
+    preprint = {
+        "publicationVenue": {"name": "Neural Information Processing Systems", "alternate_names": ["NeurIPS"]},
+        "journal": {"name": "ArXiv", "volume": "abs/2006.05929"},
+    }
+    text = json.dumps([CVPR_2022, arxiv_only, None, journal, ieee, preprint])
 
-    records = parse_records_response(text, ("1", "2", "3", "4", "5"))
+    records = parse_records_response(text, ("1", "2", "3", "4", "5", "6"))
 
     assert records == {
         "1": ScholarRecord(doi="10.1109/CVPR52688.2022.01234", venue="CVPR 2022", author_ids=("11", None)),
@@ -87,6 +92,7 @@ def test_parses_records_with_the_venue_year_and_a_published_doi() -> None:
         "3": None,
         "4": ScholarRecord(venue="TIP 2023"),
         "5": ScholarRecord(doi="10.1109/ICCV51070.2023.00042", venue="ICCV 2023"),
+        "6": ScholarRecord(venue="NeurIPS"),
     }
     with pytest.raises(ParseError):
         parse_records_response("[]", ("1",))
@@ -167,7 +173,7 @@ def test_updates_the_records_of_every_stored_paper(store: PaperStore) -> None:
     }
     assert report == ScholarReport(category="cs.CV", asked=4, found=3, dois=1, venues=3, gained=3)
     assert format_scholar_report(report) == (
-        "cs.CV: Semantic Scholar knows 3 of 4 papers: 1 DOIs, 3 published venues "
+        "cs.CV: Semantic Scholar knows 3 of 4 papers: 1 DOI, 3 published venues "
         "(3 where the comments name none)"
     )
 

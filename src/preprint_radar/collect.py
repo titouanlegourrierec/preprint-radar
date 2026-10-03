@@ -808,9 +808,13 @@ def format_scholar_report(report: ScholarReport) -> str:
     """Render a :class:`ScholarReport` as one line."""
     return (
         f"{report.category}: Semantic Scholar knows {report.found} of {report.asked} papers: "
-        f"{report.dois} DOIs, {report.venues} published venues ({report.gained} where the "
-        "comments name none)"
+        f"{_count(report.dois, 'DOI')}, {_count(report.venues, 'published venue')} "
+        f"({report.gained} where the comments name none)"
     )
+
+
+def _count(number: int, noun: str) -> str:
+    return f"{number} {noun}{'' if number == 1 else 's'}"
 
 
 _STOPS = {
