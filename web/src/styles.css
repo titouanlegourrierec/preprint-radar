@@ -188,12 +188,32 @@ mark {
   box-shadow: var(--shadow);
 }
 
+/* Height of the sticky search bar: what scrolling to a focused element must clear. */
+:root {
+  --search-bar-height: 72px;
+}
+
+html {
+  scroll-padding-top: var(--search-bar-height);
+}
+
 .search {
   position: sticky;
   top: 0;
   z-index: 10;
   padding: 10px 0;
   background: var(--bg);
+}
+
+/* A short screen (a phone held sideways, a zoomed page) keeps its room for the content. */
+@media (max-height: 500px) {
+  html {
+    scroll-padding-top: 0;
+  }
+
+  .search {
+    position: static;
+  }
 }
 
 .search__input {
@@ -208,7 +228,7 @@ mark {
 }
 
 .search__hint {
-  margin: 6px 2px 0;
+  margin: -4px 2px 0;
   font-size: 0.8rem;
 }
 

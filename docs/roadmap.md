@@ -138,7 +138,7 @@ with the deadline, the breakers, the summary and the page cache (2026-10-02) was
 | PROD-3 | Saved searches and a watchlist | P2 | todo |
 | PROD-4 | Reading-list import and safety | P2 | todo |
 | PROD-5 | BibTeX escaping and keys | P2 | todo |
-| UX-4 | Focus hidden by the sticky search block | P1 | todo |
+| UX-4 | Focus hidden by the sticky search block | P1 | done |
 | UX-1 | Contrast | P2 | todo |
 | UX-3, UX-5 to UX-12 | Accessibility batch (CSS and ARIA) | P2 | todo |
 | PROD-6 to PROD-10 | Name the category, about the data, citation transparency, result export, recent-count noise | P2 | todo |

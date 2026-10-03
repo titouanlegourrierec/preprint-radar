@@ -323,14 +323,16 @@ export function App() {
           value={state.query}
           onInput={(event) => update({ query: event.currentTarget.value })}
           aria-label="Search papers"
+          aria-describedby="search-hint"
           autofocus
         />
-        <p class="search__hint muted">
-          Searches titles, abstracts, authors and affiliations, or an arXiv id.{" "}
-          <code>"neural radiance field"</code> in quotes finds that exact phrase;{" "}
-          <code>-survey</code> leaves out the papers that contain the word.
-        </p>
       </div>
+      {/* Outside the sticky bar, which then stays short and hides no focused control. */}
+      <p id="search-hint" class="search__hint muted">
+        Searches titles, abstracts, authors and affiliations, or an arXiv id.{" "}
+        <code>"neural radiance field"</code> in quotes finds that exact phrase; <code>-survey</code>{" "}
+        leaves out the papers that contain the word.
+      </p>
 
       <div class="content">
         {category && (
