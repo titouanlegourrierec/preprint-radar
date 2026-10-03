@@ -1,146 +1,276 @@
 # CLAUDE.md
 
-Preprint Radar: a Python pipeline collects the papers announced daily on arXiv
-(listing + abstracts + affiliations) into `data/`, and a static Preact app in `web/`
-lets people search them. It is deployed on GitHub Pages; there is no server.
+Preprint Radar: a Python pipeline collects the papers announced daily on arXiv (listing,
+abstracts, affiliations) into `data/`, and a static Preact app in `web/` lets people search
+them. It is deployed on GitHub Pages; there is no server.
+
+## Read before changing
+
+- `sources/arxiv_html.py`, `venue.py`, the cleaning or the author mapping: `docs/extraction.md`.
+  Every rule there came from a real page; never "simplify" one away.
+- `archive/`, `sources/semantic_scholar.py`, `sources/openalex.py`, `sources/arxiv_oai.py`:
+  `docs/archive.md`.
+- `web/`: `docs/web.md`, for the part you touch.
+- A workflow, a failure or a log line: `docs/operations.md`, the runbook by symptom. Its
+  signals are quoted from the code, and `tests/unit/test_operations_doc.py` fails when one
+  no longer exists.
+- `docs/roadmap.md` tracks the audit's items (`docs/audit/2026-09-30.md` is a frozen
+  snapshot: never edit it).
 
 ## Commands
 
-Use the Makefile (`make help` lists everything):
+Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `pre-commit`…).
 
-- `make quality`: every static check (ruff format/lint, ty, Biome, tsc, actionlint). Run it before saying a change is done.
-- `make test`: pytest and Vitest, both offline. `make check` runs quality and tests, like CI. Vitest measures the coverage of the web's pure modules (`src/**/*.ts` but hooks and what needs a DOM) and fails a file below 90% of lines or 70% of branches (`vite.config.ts`): test a new module there.
-- `make test-e2e`: the smoke test of the built site (`web/e2e/smoke.spec.ts`, Playwright and Chromium): built over the small store of `web/e2e/data` (`PREPRINT_RADAR_DATA_DIR`), it checks that the list renders, a search reaches the URL, a paper link opens its paper (archived ones included) and the graph draws, without a page error. CI runs it after the build; keep `e2e/data` valid for the paper record when the format changes.
-- `make coverage`: the Python tests with a line and branch coverage report. Below 95% it fails, and so does CI (`fail_under`); keep it at 100%: test new code, or exclude a line that cannot run with a `# pragma: no cover` / `no branch` that says why.
-- `make format`: auto-fix formatting and lint.
-- `make dev` / `make preview`: the site locally (dev server, or production build).
-- `make update-quick`: refresh `data/` without reading HTML pages. `make update` reads them too, at one page every 15 s, so it takes hours. Never start it without asking.
-- `make backfill SINCE=YYYY-MM-DD [UNTIL=...]`: add past days from the catchup pages, then read their HTML pages (a month of cs.CV takes about 11 hours). Same rule: ask first. Interrupting either command loses nothing; re-running resumes.
-- `make archive`: the weekly citation archive (refresh the OAI catalog, fetch citation counts, keep the most cited older papers). The first run harvests the whole catalog (about 45 minutes), and every run asks Semantic Scholar for about 207,000 counts (415 requests): hours without a key. Ask first, like `make update`.
-- `make institutions`: name the institutions of stored affiliations through the Research Organization Registry (ROR), for papers that `update`/`backfill` did not reach (a few minutes; one request per distinct string, every 0.5 s).
-- `make citations`: the Semantic Scholar counts of the stored papers that have none (the papers announced since the weekly archive); `ALL=1` asks for every stored paper again (a few minutes with a key). The daily workflow runs it after the update.
-- `make scholar`: the DOI, published venue and author ids of every stored paper, from Semantic Scholar, into `scholar.json` (about 52 requests, minutes with a key). `archive.yml` runs it every week after the archive.
-- `make reextract [MAX_HTML=N]`: read again the HTML pages of the stored papers extracted by an older version of the extraction (`EXTRACTOR_VERSION`), from the page cache when it holds them (offline, free), else downloaded at 15 s a page within `MAX_HTML`; `--ids` or `--match REGEX` pick papers instead. A page that cannot be read again leaves the paper as it was. The daily workflow runs it after the update, 50 downloads at most. Papers read before versions were kept (September 2026) have no version, and are only read again when named.
-- `make reclean`: apply the current affiliation cleaning to the stored day files (offline, seconds): strings are cleaned and split again, author names dropped, the author mapping follows them, and changed papers lose their institutions. Run it, then `make institutions`, after a change to the cleaning rules of `arxiv_html.py`; changes that need the page (mapping tiers, new sources) only reach papers read again. It never touches the archive, whose affiliations are OpenAlex names.
-- `make venues`: detect the venue of every stored paper again (offline, seconds), day files and archive, after a change to `venue.py`: the venue is detected once, when a paper is stored, from its comments and journal reference.
-- `preprint-radar summary`: the newest announcement day of each category and its age, the date of the citation counts, the `stats` tables and the counts of `stats --affiliations`, in plain text. The data workflows run it last: in GitHub Actions, `console.github_summary` and `console.github_annotation` put it, and each command's report line, on the run's page, with warnings for stale data (no new day for more than 3 weekdays) or stale counts, and errors for the failures that make a run red.
-- `make validate`: check `data/` against its contract (`store/validate.py`, about 2 s). Structural rules are errors and fail the command: a record that does not load, a paper stored twice, a file named after another day or year, an index or `citations.json` that disagrees with the files, a contact detail in an affiliation. Heuristic rules only warn: an affiliation that only names authors, the last author alone holding every affiliation, a paper `reclean` would still change. Run it after touching `data/` by hand.
-- `make stats`: how much of `data/` is enriched, per day then per archive year (abstracts, affiliations, author mappings, named institutions, venues, citation counts), and the date of the citation counts. Check it after touching the extraction heuristics.
-- `make quality-affiliations` (`stats --affiliations`, `store/quality.py`): how correct the stored affiliations look, as counts of signs with 5 examples each: names of authors, strings today's cleaning would change, "is with" sentences, glued strings ("ScienceUniversity", "Monash University; 2Southeast University"), cut-off ones ("th Research Institute", "… and"), units without their institution, a city or address alone, the last author holding all. With `--page-cache-dir`, the same counts for the papers whose page is cached, as stored and as extracted today, nothing written: run it before and after a change to the heuristics. The signs are approximate (a few false positives each); `validate` warns on the strongest ones, and `summary` puts the counts on the run's page.
-
-Single checks: `uv run pytest tests/unit/test_paper_store.py -k merge`, `cd web && npx vitest run tests/search.test.ts`.
+- `make check`: what CI runs, `make quality` (ruff format and lint, ty, Biome, tsc,
+  actionlint) then `make test` (pytest and Vitest, offline). Run it before saying a change
+  is done. Single checks: `uv run pytest tests/unit/test_paper_store.py -k merge`,
+  `cd web && npx vitest run tests/search.test.ts`.
+- `make coverage`: Python line and branch coverage; CI fails below 95% (`fail_under`). Keep
+  it at 100%: test new code, or exclude a line that cannot run with a `# pragma: no cover`
+  / `no branch` that says why. Vitest fails a pure web module (`src/**/*.ts` but hooks and
+  what needs a DOM) below 90% of lines or 70% of branches (`vite.config.ts`): test a new
+  module there.
+- `make test-e2e`: the smoke test of the built site (`web/e2e/smoke.spec.ts`, Playwright,
+  Chromium), over the small store of `web/e2e/data` (`PREPRINT_RADAR_DATA_DIR`): the list,
+  a search in the URL, paper links (archived ones included, with their merged venue and
+  DOI), the graph, no page error. CI runs it after the build; keep `e2e/data` valid when
+  the format changes. `make test-network`: the parsers against the live arXiv (slow).
+- `make format`: auto-fix formatting and lint. `make dev` / `make preview`: the site locally.
+- Long runs, **never without asking**; interrupting loses nothing, re-running resumes:
+  - `make update` (reads HTML pages at one every 15 s: hours). `make update-quick` skips
+    the pages.
+  - `make backfill SINCE=YYYY-MM-DD [UNTIL=...]`: past days from the catchup pages, then
+    their pages (a month of cs.CV: about 11 hours).
+  - `make archive`: the weekly citation archive; about 207,000 counts in 415 Semantic
+    Scholar requests, hours without a key, and 45 minutes of catalog harvest the first time.
+- Network steps of the workflows, minutes each:
+  - `make institutions`: ROR names, and their ids, for stored affiliations that have none
+    (one request per distinct string every 0.5 s, within a budget; new papers first).
+  - `make citations`: Semantic Scholar counts of the stored papers without one; `ALL=1` asks
+    for every paper again. The daily workflow runs it.
+  - `make scholar`: the DOI, published venue and author ids of every stored paper into
+    `scholar.json` (52 requests). `archive.yml` runs it weekly.
+  - `make reextract [MAX_HTML=N]`: read again the pages of stored papers extracted by an
+    older `EXTRACTOR_VERSION`, from the page cache when it holds them (offline), else at
+    15 s a page within `MAX_HTML`; `--ids` or `--match REGEX` pick papers instead. A page
+    that cannot be read leaves the paper as it was. The daily workflow runs it (50
+    downloads at most). Papers read before versions were kept have none: only `--ids`
+    or `--match` reach them.
+- Offline, seconds, after a change to the rules (then commit the data):
+  - `make reclean`: today's affiliation cleaning on the stored day files (strings cleaned
+    and split, author names dropped, the mapping follows, changed papers lose their
+    institutions: run `make institutions` after). Never the archive (OpenAlex names).
+  - `make venues`: today's venue detection on every stored paper, archive included.
+- Reports:
+  - `make validate`: `data/` against its contract (`store/validate.py`, 2 s). Errors fail
+    it: a record that does not load, a paper stored twice, a file named after another day
+    or year, an index or `citations.json` that disagrees with the files, a `scholar.json`
+    that does not load, a contact detail in an affiliation. Warnings: an affiliation that
+    only names authors, the last author alone holding every affiliation, a paper `reclean`
+    would change, stale `scholar.json` records. Run it after touching `data/` by hand.
+  - `make stats`: enrichment per day and per archive year (abstracts, affiliations,
+    mappings, institutions, venues detected or published, citation counts).
+  - `make quality-affiliations` (`stats --affiliations`, `store/quality.py`): signs of wrong
+    affiliations (author names, strings today's cleaning would change, "is with" sentences,
+    glued or cut-off strings, units without their institution, a place alone, the last
+    author holding all), 5 examples each. With `--page-cache-dir`, the cached pages as
+    stored and as extracted today, nothing written: run it before and after a heuristic
+    change. Approximate (a few false positives each).
+  - `preprint-radar summary`: the newest day of each category and its age, the date of the
+    counts, the `stats` tables and quality counts. The data workflows run it last; in
+    Actions, `console.github_summary` and `console.github_annotation` put it and each
+    command's report line on the run's page, with warnings for stale data (no new day for
+    more than 3 weekdays) or stale counts (14 days), and errors for red failures.
 
 ## Layout
 
-- `src/preprint_radar/`, by role:
-  - `sources/`: one module per external service, each fetching and parsing: `arxiv_listing.py` (recent listing and catchup pages, which share the entry markup), `arxiv_rss.py`, `arxiv_api.py`, `arxiv_html.py` (front matter of the HTML renderings: affiliations, author mapping, abstract), `arxiv_oai.py` (OAI-PMH harvest), `semantic_scholar.py` (citation counts, and the published versions: `fetch_scholar_records`), `openalex.py` (institutions of archived papers), `ror.py` (institution of an affiliation string).
-  - `collect.py` orchestrates listing → abstracts → HTML front matter → institutions → store: `update_category` follows the recent listing, `backfill_category` walks past days through catchup pages, `reextract_category` reads stored papers again. `HtmlReading` bundles how pages are read (download limit, saves, deadline, page cache). `venue.py` detects accepted venues from comments at parse time: the venues of its table (`VENUES`: canonical name, kind, acronyms and full names, a full name never the start of a longer one, so that VISAPP's "International Conference on Computer Vision Theory and Applications" is not ICCV), unless the clause says the paper is not there (submitted, under review, prepared for, an extended version) or the venue's comma-separated part only mentions it (compared, ranked, rejected, an extension of, a benchmark), then any acronym and year in a sentence of acceptance. Years from page ranges are not years; short years count ("CVPR16", "ECCV-18"), and major acronyms in any case once links are removed ("cvpr2019"). Requiring an acceptance cue instead loses a venue in twenty ("40th Conference on Neural Information Processing Systems (NeurIPS 2026)").
-  - `archive/`: the weekly citation archive (`update.py`, `catalog.py`, `selection.py`, below).
-  - `store/`: `paper_store.py` (the `data/` layout), `stats.py` (coverage report), `quality.py` (signs of wrong affiliations), `reclean.py` (stored affiliations cleaned by today's rules), `validate.py` (the contract checks of `make validate`), `export.py`, `filters.py`.
-  - `config.py`: the tunable defaults (category, directories, environment variable names, archive budget and policy, ROR lookups per run). Limits imposed by a service (crawl delays, batch sizes, URLs, timeouts, retry timings) are not settings: keep them in that service's module, next to the reason for their value.
-  - HTTP goes through `http.HttpClient` only (rate limiting, retries on throttling, server errors and timeouts, error mapping).
-  - Terminal output goes through `console.py`: `console.print` (never `print`) and `configure_logging`. rich styles it only in a terminal; CI, pipes and tests keep plain, unwrapped lines (`09:52:13 INFO name: message`), so logs stay greppable and tests assert on text. `stats` draws rich tables in a terminal and the plain `format_*` text elsewhere.
-  - Citation archive (weekly, `archive/update.py`): `archive/catalog.py` keeps the category's OAI-PMH set, harvested by `sources/arxiv_oai.py`, in `.cache/catalog/` (git-ignored; restored from the Actions cache in CI), `sources/semantic_scholar.py` gets counts, `archive/selection.py` ranks papers older than 12 months by citations per year of age and keeps a budget of them (22,000 by default, about 20 citations a year; an archived paper leaves only beyond 1.15 times the budget), `sources/openalex.py` gives the affiliations of papers that enter from the catalog. Day-file papers compete too once first seen 12 months ago (the earlier of their day file and the catalog's date, which can be weeks later), and enter with their own enrichment, filed under that first appearance (an old paper cross-listed lately goes to its own year). Deleting day files older than 12 months (`--prune`) is off unless asked, and decides nothing else: without it, an archived paper can also be in a day file. With less than 95% of citation counts, the archive and day files stay as they are, the counts fetched are merged into `citations.json`, whose date stays, and the command fails once it has written them (`archive.yml` validates and commits even then). Above it, an archived paper whose count is missing this week is ranked on last week's.
-- `data/<category>/<YYYY-MM-DD>.json` + `data/index.json`: written by `store/paper_store.py`, read by `web/src/data.ts`. Generated, but committed and deployed.
-- `data/<category>/archive/<YYYY>.json` (papers kept for their citations, by year of first version, rewritten as a whole each week) and `data/<category>/citations.json` (counts of the stored papers). The index lists archive years under an optional `archives` key. `data/<category>/scholar.json` holds what Semantic Scholar knows of each stored paper's published version (`ScholarRecord`: the DOI, not arXiv's; the venue, named by `venue.published_venue` after the table, with the year of the proceedings' or journal's name, its volume when a bare year, or an IEEE DOI, never `publicationDate`, which is often the arXiv version's, nor a preprint's journal ("ArXiv", volume "abs/2006.05929"), so that a conference known only through its preprint has no year ("NeurIPS"); the authors' ids, only when Semantic Scholar lists as many authors as the paper), rewritten every week (`collect.update_scholar_records`): a paper Semantic Scholar was not asked for keeps its record. `validate` only warns on its stale records. `stats` counts its venues with the detected ones (the venues column).
-- `web/src/`: `search.ts` (MiniSearch index and query syntax: only the last word typed matches as a prefix, from 4 letters, so that acronyms stay words ("gan" is not "Gandhi", "mit" not "mitigate"), and one typo is allowed from 7 letters; highlights follow (`highlight.ts`, `wholeWord`); `"phrases"` match whole words and `-exclusions` word starts, over every searched field (authors, affiliations and their institutions, venue included) as one `searchKey` text per paper, so punctuation and hyphens do not count; author and affiliation filters are a `NameFilter`: a name clicked on a card, a Rankings row or a graph node matches exactly, an author by `searchKey` and an institution by the name `institutionsOf` gives it, the one the graph and Rankings count, so that a row shows as many papers as it says; text typed in the sidebar matches word prefixes, `startsWords`, except a known acronym (`acronymOf`, the `ACRONYMS` of `institutions.ts`), which means its institution and is a whole word ("HKU" is not "HKUST"); in the URL, `by=`/`at=` are clicked names, `author=`/`aff=` typed text, which older links keep), `app.tsx` (layout and wiring), `hooks/` (URL-synced view state, paper loading, reading list, theme; `usePapers` cancels the requests of a period left, `data.ts` keeps the files loaded for the next periods, and a `PaperIndex` builds its full-text index only for a search with words, or in chunks once the list shows (`warm`), so that the list never waits for it), `reading-list.ts` (the saved papers: stored and exported as `{version: 1, papers}`, the bare array of older lists still read; every entry goes through `toPaper`, so that a bad one is skipped instead of breaking the page; import merges by id; the list follows other tabs through `storage` events and takes the fresher record of a loaded day; a refused save is said, not swallowed), `url-state.ts` (shareable URLs, and the browser history: a step of navigation, `isNavigation` (another view, paper, period, year, category, or a filter set by a click), adds an entry that Back undoes, while typing and sorting replace the current one; the tabs are links, including `?paper=`: a paper permalink in the list, the focused paper in the graph; `paperLink` sends an archived paper to its year of the Highly cited view, since it has no day file), `hooks/use-citations.ts` (the citation shards of the papers shown: the period or archive year, and the reading list) and the *Highly cited* view (`?view=cited&year=`: one archive year, ranked by citations; `usePapers` loads it instead of days). The graph and the *Rankings* view (`rankings.ts`, `components/Rankings.tsx`: institutions or authors of the papers shown, by papers or citations, named through `buildGraph` so that they match the graph) show an archive year when the URL has a `year` (`?view=graph&year=2017`), else the recent days; the tabs carry the year from the highly cited view, and the Papers tab clears it. The papers list sorts by relevance, newest or citations (`?sort=citations`; the index orders them like newest and `byCitations` ranks them), `export.ts` (the results shown as CSV, RIS or Markdown, beside `bibtex.ts`: the Export menu of the Papers and Highly cited views), `saved-searches.ts` (searches saved in this browser, as the query string of their words and filters, so that they run on any period; the sidebar's Saved searches count each one's papers new since the last visit, and open them; exported and imported with the reading list), `triage.ts` and `hooks/use-triage.ts` (daily triage in this browser, never in the URL: papers marked seen, per category, pruned to the last 3 months of identifiers, with "Hide seen"; the newest day of the previous visit, fixed for the session, for the "new papers since your last visit" banner; the list's keys j/k/o/s/x and `/` use `keyboard.ts`'s typing guard, so the search box has no autofocus, which would take them, and Escape leaves it), `period.ts` (preset or custom date range, `?range=` or `?from=&to=`, shown by `components/PeriodPicker.tsx`; every paper of a period is downloaded and indexed in the browser, so a period loads its latest days within `PAPER_BUDGET`, 10,000 papers, and says what it leaves out; links to the former "All days", `?range=all`, open the longest preset), `preferences.ts` (per-browser settings in `localStorage`), `components/About.tsx` (`?view=about`: the data sources, the correction contact and the privacy note; its link and each card's "Report an error" open a mail with a short template to fill in, `report.ts`; keep it true when the pipeline or the app changes).
-  - Graph view: `graph.ts` builds the graph (pure, tested) from three layers: papers, institutions, authors. With papers on, a paper links to its authors, and each institution to the authors the paper places there, else to the paper itself (never to an unplaced author). With papers off, it is the co-occurrence projection (nodes linked when they share a paper). Default: papers + institutions, without isolated nodes; `graph-layout.ts` gives starting positions (each connected component in one piece, on a spiral); `graph-renderer.ts` draws on a canvas with d3-force (imperative class); `components/GraphView.tsx` and `GraphSettingsPanel.tsx` are the UI. It is full screen, without the search bar and sidebar, and shows every node unless the user sets a limit.
-  - A month of papers (3,500) with all three layers is about 23,000 nodes and 34,000 links; the projection with authors has about 19,000 nodes and 100,000 links (every co-author pair). Papers + institutions (the default) is about 5,700 nodes and 6,700 links. The renderer batches drawing into a few `Path2D` per frame; graphs over 2,000 nodes use `theta` 1.2, no collisions and a faster cooling.
-  - Node sizes ("Size by"): papers — institutions and authors by their number of papers (area ∝ papers, `nodeRadius`), papers all alike — or citations — every node by the citations of its papers, summed (`GraphNode.citations`, from `citations.json`; unknown counts add nothing), on a log scale (`citationRadius`) since counts span 0 to 10⁵ and recent papers differ by 1, 5 or 30. The always-labelled biggest nodes of each kind follow the chosen size.
-  - Never set `distanceMax` on the many-body force nor raise `theta` much: nodes then pile up in rings (seen with 1,200 and 1.8). Small components get extra gravity once the largest component is big, else its repulsion keeps them in a ring far around it.
-- `.cache/front-matter/<yymm>/<id>v<n>.html.gz` (git-ignored, the Actions cache in CI): `arxiv_html.PageCache`, the front matter of every HTML page read (`front_matter_html`: the document before its first section, without figures; 1 or 2 KB). It extracts exactly as the whole page, which the network test checks on live pages.
-- `tests/fixtures/`: trimmed copies of real arXiv pages (listing, catchup, RSS, API feed, HTML front matter). `tests/fixtures/html/expected.json` pins everything each HTML fixture gives (affiliations, who is placed where by name, abstract), from the listing's authors it holds: after a deliberate change to the heuristics, `UPDATE_GOLDEN=1 uv run pytest tests/unit/test_golden_fixtures.py` writes it again, and its diff is the review. A new fixture needs an entry with its authors first.
+- `src/preprint_radar/`:
+  - `sources/`: one module per service, each fetching and parsing: `arxiv_listing.py`
+    (recent listing and catchup pages, which share the entry markup), `arxiv_rss.py`,
+    `arxiv_api.py`, `arxiv_html.py` (front matter: affiliations, author mapping, abstract;
+    `PageCache`), `arxiv_oai.py`, `semantic_scholar.py` (counts and published versions),
+    `openalex.py` (institutions of archived papers), `ror.py` (institution of a string).
+  - `collect.py`: listing → abstracts → HTML front matter → institutions → store
+    (`update_category`, `backfill_category`, `reextract_category`; `HtmlReading` bundles
+    how pages are read), and the Semantic Scholar steps (`update_citation_counts`,
+    `update_scholar_records`). `venue.py`: venues from comments, and Semantic Scholar's
+    named the same way.
+  - `archive/`: the weekly citation archive (`update.py`, `catalog.py`, `selection.py`).
+  - `store/`: `paper_store.py` (the `data/` layout), `validate.py`, `stats.py`,
+    `quality.py`, `reclean.py`, `venues.py`, `export.py`, `filters.py`.
+  - `config.py`: tunable defaults (category, directories, environment variable names,
+    archive budget and policy, ROR lookups per run). Limits a service imposes (crawl
+    delays, batch sizes, URLs, timeouts, retries) are not settings: they stay in that
+    service's module, next to the reason for their value.
+  - HTTP goes through `http.HttpClient` only (rate limiting, retries on throttling, server
+    errors and timeouts, error mapping).
+  - Output goes through `console.py`: `console.print` (never `print`) and
+    `configure_logging`. rich styles it only in a terminal; CI, pipes and tests get plain,
+    unwrapped lines (`09:52:13 INFO name: message`), so logs stay greppable and tests
+    assert on text. `stats` draws rich tables in a terminal, the plain `format_*` text
+    elsewhere.
+- `data/` (generated, committed and deployed; written by `store/paper_store.py`):
+  - `index.json`: categories, days, archive years (optional `archives`) and counts.
+  - `<category>/<YYYY-MM-DD>.json`: the papers announced that day.
+  - `<category>/archive/<YYYY>.json`: papers kept for their citations, by year of first
+    appearance, rewritten as a whole each week.
+  - `<category>/citations.json` and `<category>/scholar.json`: Semantic Scholar's counts
+    and published versions of every stored paper, kept out of the records since they are
+    rewritten weekly.
+- `web/`: `src/` (the app; `docs/web.md`), `tooling/` (build plugins: what the site derives
+  from `data/`, the third-party guard), `tests/` (Vitest), `e2e/` (Playwright and its store).
+- `.cache/` (git-ignored; the Actions cache in CI): `front-matter/<yymm>/<id>v<n>.html.gz`,
+  the front matter of every HTML page read (1 or 2 KB, extracts exactly as the whole page,
+  which a network test checks), and `catalog/` (the OAI catalog and the counts cache).
+- `tests/fixtures/`: trimmed copies of real arXiv pages; `html/expected.json` pins what each
+  HTML fixture gives (`docs/extraction.md`). Real e-mails in them are replaced by
+  `author@example.org`. Git hooks never rewrite `tests/fixtures/` or `data/`.
 
 ## Conventions
 
 - Everything in the repo is in English: code, comments, docs, CLI help, commit messages.
-- Python 3.13+, fully typed, Google-style docstrings on public functions.
-  - Ruff runs with `select = ["ALL"]`: fix the code rather than adding `noqa`. Keep any `noqa` or `ty: ignore` rare, and justify it inline.
-- Errors are subclasses of `exceptions.PreprintRadarError`. The CLI turns them into a log line and exit code 1, never a traceback.
-- Tests are offline. Mock HTTP with `httpx.MockTransport` injected into `HttpClient`, or monkeypatch `HttpClient.get_text` for CLI tests. Tests that hit the real arXiv live in `tests/integration/` with the `network` marker, which is deselected by default.
-- `tests/conftest.py` runs every test in its own temporary directory, since default paths are relative (`data/`, `.cache/front-matter/`, `exports/`): a CLI test once wrote fake pages into the real page cache. It also hides `PREPRINT_RADAR_CONTACT`, `SEMANTIC_SCHOLAR_API_KEY` (the Makefile exports `.env`), `GITHUB_ACTIONS` and `GITHUB_STEP_SUMMARY` (set in CI) from every test: set them with `monkeypatch.setenv` where a test needs them.
-- Web: TypeScript strict (TS 7), Biome for lint and format (no ESLint/Prettier), Preact hooks, no CSS framework. Theme colors come from the CSS variables in `styles.css`: automatic light/dark plus a manual `data-theme` override. The dark palette is declared twice — keep both blocks identical (and give every new color, like the graph's `--graph-paper`, a value in all three blocks), with plain values only (the graph canvas reads the variables through `getComputedStyle`); `tests/styles.test.ts` checks both. Text and links pass WCAG AA in both themes: form fields use `--border-strong`, links inside text are underlined, `mark` keeps `--text`.
+- Python 3.13+, fully typed, Google-style docstrings on public functions. Ruff runs with
+  `select = ["ALL"]`: fix the code rather than adding `noqa`; keep any `noqa` or
+  `ty: ignore` rare, and justify it inline.
+- Errors subclass `exceptions.PreprintRadarError`; the CLI turns them into a log line, an
+  error annotation in Actions (`preprint-radar <command> failed`) and exit code 1, never a
+  traceback.
+- Tests are offline: mock HTTP with `httpx.MockTransport` injected into `HttpClient`, or
+  monkeypatch `HttpClient.get_text` for CLI tests. Live tests live in `tests/integration/`
+  with the `network` marker, deselected by default. Data made up for a test is synthetic:
+  no real author ids or e-mails (the fixtures' real pages have theirs replaced).
+- `tests/conftest.py` runs every test in its own temporary directory, since default paths
+  are relative (`data/`, `.cache/`, `exports/`): a CLI test once wrote fake pages into the
+  real page cache. It also hides `PREPRINT_RADAR_CONTACT`, `SEMANTIC_SCHOLAR_API_KEY` (the
+  Makefile exports `.env`), `GITHUB_ACTIONS` and `GITHUB_STEP_SUMMARY`: set them with
+  `monkeypatch.setenv` where a test needs them.
+- Web: TypeScript strict (TS 7), Biome (no ESLint/Prettier), Preact hooks, no CSS
+  framework. Theme colors are the CSS variables of `styles.css`: automatic light/dark plus
+  a manual `data-theme` override. The dark palette is declared twice: keep both blocks
+  identical, give every new color (like `--graph-paper`) a value in all three blocks, with
+  plain values only (the graph canvas reads them through `getComputedStyle`);
+  `tests/styles.test.ts` checks it. Text and links pass WCAG AA in both themes: form
+  fields use `--border-strong`, links inside text are underlined, `mark` keeps `--text`.
+- `web/tsconfig.node.json` type-checks `vite.config.ts`, `playwright.config.ts`,
+  `tooling/` and `e2e/` with Node types; the app only gets DOM types.
 
 ## Data contract (keep both sides in sync)
 
-- The paper record is defined by `Paper.to_record()` / `Paper.from_record()` in `models.py`, and mirrored in `web/src/types.ts`.
-- A breaking change to the format means bumping `SCHEMA_VERSION` in both `store/paper_store.py` and `types.ts`.
-- `abstract` and `affiliations` use `null` for "not retrieved yet": the pipeline retries those.
-- An empty list means "tried, nothing found"; the pipeline does not retry those.
-- A paper is stored once, on the first day it was announced: a cross-list is sometimes announced again days later (2609.10714), and `PaperStore.save` keeps it on its earlier day, or moves it there.
+- The paper record is `Paper.to_record()` / `Paper.from_record()` in `models.py`, mirrored
+  in `web/src/types.ts`. A breaking change bumps `SCHEMA_VERSION` in both
+  `store/paper_store.py` and `types.ts`. An optional field needs no bump: backfill `data/`
+  with a one-off script, and give it `?:` on the web side, since reading lists saved in
+  browsers predate it (`venue` is optional for that reason).
+- `null` means "not retrieved yet" (`abstract`, `affiliations`, `institutions`): the
+  pipeline retries. An empty list means "tried, nothing found": it does not.
+- A paper is stored once, on the first day it was announced: a cross-list is sometimes
+  announced again days later (2609.10714), and `PaperStore.save` keeps it on its earlier
+  day, or moves it there.
 - `affiliations` are per paper, deduplicated, and never contain e-mails or URLs.
-- `author_affiliations` (optional, like `venue`) maps each author to indices into `affiliations`; `null` per author or altogether means "the page does not say". The graph links a placed author only to their own institutions.
-  - It is positional: `Paper` refuses one that does not have one entry per author or that holds an index outside `affiliations`, so such a record does not load. When a new version changes the author list (beyond a respelling, `name_key`), `update` resets the paper's affiliations so that its HTML is read again; without an HTML rendering, it keeps the affiliations and drops the mapping.
-- `institutions` (optional) is parallel to `affiliations`: the ROR name of each affiliation's institution, `null` without a confident match, `null` altogether when not looked up yet (the pipeline retries). Anything that changes `affiliations` resets it to `null`. The web app names the rest itself (`web/src/institutions.ts`), and the affiliation filter matches both.
-- `institution_ids` (optional, written only when known) is parallel to `institutions`: the ROR id of each one ("03vek6s52", from ROR's match or OpenAlex's `ror`), `null` without one. `Paper` refuses ids without institutions or not one per affiliation, so wherever `institutions` is set or reset, the ids go with it (a forgotten reset fails the tests). Institutions named before ids were kept (October 2026) have none: the `institutions` step asks ROR again for them within its lookup budget, keeping each name and taking only the id of a name ROR gives again, and the weekly archive asks OpenAlex again, once, for archived papers whose institutions are their affiliations (OpenAlex's own); those it now gives nothing for keep their affiliations without ids and are asked again every week (a few requests). The graph puts the id on an institution node (`GraphNode.rorId`) and links it to ror.org; keying nodes by id is AFF-13.
-- Archived papers have the same record: `announced` is their first appearance (from the identifier's month when OAI's `created` disagrees), `html_url` is `null`, affiliations and `institutions` come from OpenAlex's institutions.
-- `extractor` (optional, written only when known) is the version of the HTML extraction that gave the affiliations; absent when they came from the API or OpenAlex, or were read before versions were kept. `reextract` selects on it, so a paper read from the API is never overwritten by its HTML.
-- The site's records are not quite the store's: the build adds `doi` and, where the comments name no venue, the published `venue` from `scholar.json` (`web/tooling/scholar.ts`; the comments win where both exist, since Semantic Scholar takes ICIP for the Information Photonics conference). The pipeline never writes `doi` into a record.
-- `venue` is optional on the web side (`venue?:`) because reading lists saved in browsers predate it. Adding an optional field needs no schema bump; backfill `data/` with a one-off script.
+- `author_affiliations` (optional) maps each author to indices into `affiliations`; `null`
+  per author or altogether means "the page does not say". It is positional: `Paper`
+  refuses one without one entry per author or with an index outside `affiliations`. When
+  a new version changes the author list (beyond a respelling, `name_key`), `update` resets
+  the affiliations so that the HTML is read again; without an HTML rendering, it keeps the
+  affiliations and drops the mapping. The graph links a placed author only to their own
+  institutions.
+- `institutions` (optional) is parallel to `affiliations`: the ROR name of each one's
+  institution, `null` without a confident match. Anything that changes `affiliations`
+  resets it to `null`. The web app names the rest itself (`web/src/institutions.ts`), and
+  the affiliation filter matches both.
+- `institution_ids` (optional, written only when known) is parallel to `institutions`: the
+  ROR id of each ("03vek6s52"), `null` without one. `Paper` refuses ids without
+  institutions or not one per affiliation, so wherever `institutions` is set or reset, the
+  ids go with it (a forgotten reset fails the tests). Institutions named before October
+  2026 have none: `institutions` asks ROR again, keeping each name and taking only the id
+  of a name ROR gives again; the archive asks OpenAlex again (`docs/archive.md`).
+- `extractor` (optional, written only when known): the version of the HTML extraction that
+  gave the affiliations; absent when they came from the API or OpenAlex, or were read
+  before versions were kept. `reextract` selects on it, so a paper read from the API is
+  never overwritten by its HTML.
+- Archived papers have the same record: `announced` is their first appearance,
+  `html_url` is `null`, and affiliations, `institutions` and `institution_ids` come from
+  OpenAlex.
+- The site's records are not quite the store's: the build adds `doi` and, where the
+  comments name no venue, the published `venue` from `scholar.json`. The pipeline never
+  writes `doi` into a record.
 
-## arXiv constraints (hard-won, do not "simplify" away)
+## arXiv and service rules (hard-won, do not "simplify" away)
 
-- **arxiv.org:** `robots.txt` asks for a 15 s crawl delay. It is used for the listing, RSS and HTML pages (`ARXIV_CRAWL_DELAY_SECONDS`).
-- **export.arxiv.org (the API):**
-  - Its firewall returns an empty `406` to httpx's default header order and to `%2C`-encoded commas. `HttpClient` therefore sends a curl-like header set, and `sources/arxiv_api.py` builds the query with literal commas. Keep both.
-  - It also throttles after about 2 batches. The pipeline stops at the first failed batch, so the API is only a fallback.
-- **Abstracts:** RSS first (one request for the latest day), then catchup pages (one request per older day), then the API, then the paper's HTML page.
-- **Catchup pages** (`/catchup/<category>/<YYYY-MM-DD>?abs=True`, allowed by `robots.txt`): one request per day, with abstracts.
-  - Their new submissions and cross-lists are exactly the recent listing's entries for that day; replacements are skipped.
-  - Days without announcement return 200 with "Total of 0 entries" and no section.
-- **Institutions (ROR, `api.ror.org/v2/organizations?affiliation=`):** only `chosen` matches are kept, and only when one of the organization's names (not an acronym) of at least two words appears word for word in the affiliation: `chosen` alone matched "ARC Lab, Tencent" to an association called ARC and "180 Queen's Gate" to "The Gate". It covers about 65% of affiliation strings (universities in full); acronyms and companies are named by the web app's own rules, which map acronyms to ROR's names so both merge. A failing ROR never fails a run: lookups stop and resume next run.
-- **Affiliations:** submitter-declared ones from the API if present, otherwise heuristics on LaTeXML front matter. Add a fixture under `tests/fixtures/html/` for every new heuristic (with its authors in `expected.json`), and bump `EXTRACTOR_VERSION` with any change to what a page gives (affiliations, mapping): nothing else tells `reextract` that stored papers are out of date. A change to the cleaning alone reaches them through `reclean`.
-  - Sources, in order: `ltx_role_affiliation`/`ltx_role_address` contacts in `div.ltx_authors`; `ltx_note` of roles `address` and `institutetext` anywhere, and `footnotetext` notes that are direct children of the article and start with a marker; numbered lines after the names; "A is with B" sentences in `thanks` notes.
-  - Several "is with" sentences on one line: each affiliation ends at the last full stop before the next sentence, skipping initials ("..., Spain. L. Zhinin is with"), so that abbreviations inside it survive ("Dept. of CS, MIT, USA").
-  - "A and B are with X" gives X wherever it is written, affiliation macros included (unless what precedes the verb names an institution), and IEEE's "X, China, and also with Y" is split: `clean_affiliations` returns every affiliation of one string, and the author gets them all (2609.00814).
-  - Author names printed as affiliations ("Nicolás Ugrinovic", "Yiqun Zhang, and Yiu-Ming Cheung", "Benoît Macq Fellow, IEEE") are dropped by `names_only_authors`, which compares each name of the list by `name_key`. A source that only names authors leaves its turn to the next one (IEEE classes put the names in the affiliation macro and the affiliations in thanks notes). Strings with an institution word stay, and so do collectives that sign as authors ("Alzheimer's Disease Neuroimaging Initiative"). Once names were dropped, a single affiliation left is not everyone's: 2609.38180 would otherwise put Takaaki Shiratori at CMU.
-  - Obfuscated addresses ("jane (at) example.org", "lab [at] example.org") and lists of mailbox names ("{jane.doe, john.roe}") are stripped, keeping the affiliation they follow. `_JUNK_RE` rejects what still passes: lone words ("the", "dot"), link and contribution leftovers ("Code", "Core Contributors"), units cut off by a line break ("School of") and lone countries. The web's `institutionName` mirrors it (`JUNK_RE`, `COUNTRY_RE`) for records extracted before.
-  - Superscript markers split affiliations, except one between two lowercase letters ("Hyper<sup>2</sup>labs" is a name); every `<br>` is a line break, also when LaTeXML writes no newline after it. IEEE classes lose some line breaks altogether ("Dept. of Computer ScienceUniversity of Alabama", 2609.00446): `clean_affiliation` puts a comma where a lowercase letter meets a capitalized word, or a closing bracket a word, after a unit word of the same part, never inside brackets ("(ShenZhen)") nor after a hyphenated word, so that names stay ("AnimSchool", "ByteDance", "McGill"); a brand written after a unit in the same part ("AI Lab of ByteDance") would be split, which no stored string does. Being cleaning, it reaches stored strings through `reclean`. A line ending with "," or "and" continues on the next one, and a line that only names a place joins the previous line when that one has no country.
-  - Leading digits are markers unless they start a name: "54th Research Institute", "2nd Department", "3M Company", "3D Vision Lab" and "4K" keep them, in cleaned strings and in numbered lines ("2 3D Vision Lab").
-  - LaTeXML prints the spacing of a line break (`\\[5pt]`) as text: `[5pt]`, `[0.2em]` are line breaks, never affiliations.
-  - Link labels ("Project page", "Project Website") are stripped, not dropped: once the URL is removed as a contact detail, the label is often glued to the affiliation before it ("MITProject page"). Anything mentioning correspondence is noise.
-  - elsarticle's `organization=…, city=…, country=…` text (printed verbatim by LaTeXML) ignores line breaks: a repeated key starts the next affiliation, and `clean_affiliation` turns the rest into plain values, organization first. Keep that conversion in `clean_affiliation` only, since the author mapping looks affiliations up through it.
-  - Place-only affiliations written as separate contact nodes ("Carnegie Mellon University", then "Pittsburgh, PA 15213") are not joined: joining across nodes would also have to change every mapping tier.
-  - The author mapping reuses the same nodes, in tiers: per-creator contacts, superscript markers matched with marker-led (or marker-trailed) lines, "A is with B" sentences (in thanks notes and affiliation contacts: 2609.06721 writes them in the last author's block), plus the trivial single-affiliation/single-author cases. A wrong pair is worse than none: ambiguous name alignments drop the whole tier, unresolved authors stay `null`.
-  - Links set as authors ("Project Page", a repository) are not creators: 2609.37107 followed its last author with two, and its shared block went unnoticed.
-  - After a name, a marker glued to the next word introduces an affiliation line, not the name's: "Bob Smith⟨2⟩ ⟨1⟩Stanford University" places Bob at 2 only.
-  - Per-creator contacts place nobody when only the last creator carries them (LaTeXML attaches a block shared by every author to the last one: 2609.37098 gave its 7 affiliations to its 9th author, 2609.00866 its 25 to its 55th), and a creator naming several people ("A, B and C", "A & B") is left out of that tier: 2609.05583's single creator for six authors is then placed by its markers.
-  - Raw LaTeX sources are **not** an alternative: `robots.txt` disallows `/e-print` and `/src` (export.arxiv.org disallows everything), and LaTeXML's HTML is already parsed LaTeX.
-- **Citation archive sources:**
-  - OAI-PMH (`oaipmh.arxiv.org`, set `cs:cs:CV`): arXiv's sanctioned bulk metadata; no crawl delay in its robots.txt, 5 s between pages, about 45 minutes for the whole set. `created` is not always the first version's date.
-  - Semantic Scholar (`paper/batch`, 500 arXiv ids a request): counts all versions of a paper. OpenAlex undercounts published papers (×1.7 in median), so it is not used for counts.
-    - Even with `SEMANTIC_SCHOLAR_API_KEY` (repository secret, one request per second), about half of the batches were refused (429) in CI. A refused batch is tried again after 2 s, doubled up to 60 s (20 s at first without a key, whose shared pool is busier), 30 times. The retries live in `fetch_citation_counts`: its `HttpClient` makes a single attempt. Refusals are logged at debug level; only streaks of 5 reach the INFO log, and progress every 5,000 papers.
-    - The 429 message suggests applying for a key even to keyed requests: it says nothing about the key. An invalid key gets `403 Forbidden` on every request, so a run that makes progress has a valid one: the first 401 or 403 stops the fetch with "Semantic Scholar rejected the API key", which fails the run (`FetchError.status`). The daily `citations` step gives a refusing Semantic Scholar 10 minutes (`--max-minutes`), then leaves the papers for the next day. Counts older than 14 days are reported as stale, in `stats` and on the site.
-    - `citations.json` holds the counts of every stored paper, day files and archive alike: kept out of the paper records so that the weekly refresh rewrites one file, not every day file. The weekly archive rewrites it (`write_citations`, dated); the daily `citations` step adds the counts of new papers (`merge_citations`, which keeps the date of the last refresh). Papers Semantic Scholar does not know yet (a few days) get no count and are asked for again the next day.
-    - Counts are cached in `.cache/catalog/<category>.citations.jsonl` (restored with the catalog in CI) and reused for 7 days, so a failed or cancelled run resumes where it stopped: `citations.json`'s `generated_at` can postdate some counts by up to 6 days.
-  - OpenAlex (`works?filter=doi:10.48550/arxiv.<id>|...`, 50 a request): institutions per author; its raw affiliation strings are too rough to use.
-- **Fixtures:**
-  - Real e-mails in them are replaced by `author@example.org`.
-  - `tests/fixtures/` and `data/` are excluded from the git hooks, so they never rewrite them.
-- **Contact:** `PREPRINT_RADAR_CONTACT` goes into the User-Agent of arXiv requests only; other services (ROR...) get the bare `DEFAULT_USER_AGENT`, never the maintainer's e-mail. It comes from `.env` locally (git-ignored, loaded by the Makefile) and from a repository variable in CI.
+- **arxiv.org:** `robots.txt` asks for a 15 s crawl delay, used for the listing, RSS and
+  HTML pages (`ARXIV_CRAWL_DELAY_SECONDS`). `robots.txt` disallows `/e-print` and `/src`:
+  raw LaTeX is not an option.
+- **export.arxiv.org (the API):** its firewall returns an empty `406` to httpx's default
+  header order and to `%2C`-encoded commas, so `HttpClient` sends a curl-like header set
+  and `sources/arxiv_api.py` builds the query with literal commas: keep both. It throttles
+  after about 2 batches; the pipeline stops at the first failed batch, so the API is only
+  a fallback.
+- **Abstracts:** RSS first (one request for the latest day), then catchup pages
+  (`/catchup/<category>/<YYYY-MM-DD>?abs=True`, allowed by `robots.txt`, one request a
+  day), then the API, then the paper's HTML page. A catchup page's new submissions and
+  cross-lists are exactly the recent listing's entries for that day (replacements are
+  skipped); a day without announcement returns 200 with "Total of 0 entries".
+- **Affiliations:** a fixture under `tests/fixtures/html/` for every new heuristic, and an
+  `EXTRACTOR_VERSION` bump for any change to what a page gives (`docs/extraction.md`).
+- **ROR:** only `chosen` matches whose name of at least two words appears in the string; a
+  failing ROR never fails a run.
+- **Semantic Scholar:** refusals (429) are routine even with a key and are retried; a 401
+  or 403 means a bad key and fails the run (`docs/archive.md`).
+- **Contact:** `PREPRINT_RADAR_CONTACT` goes into the User-Agent of arXiv requests only;
+  other services get the bare `DEFAULT_USER_AGENT`, never the maintainer's e-mail. It
+  comes from `.env` locally (git-ignored, loaded by the Makefile) and from a repository
+  variable in CI.
 
 ## Gotchas
 
 - The Makefile must run on macOS's GNU Make 3.81: no `--eval`, `.ONESHELL`, or `$(file ...)`.
-- `web/vite.config.ts` serves `../data` at `/data` in dev and copies it into `dist/` on build, without dotfiles and the `.tmp` files an interrupted write leaves (git ignores them too). It also adds what `scholar.json` knows to the day and archive files it serves and copies (see the data contract), and derives the citation shards, in both (`tooling/citation-shards.ts`, `src/citations.ts`): `citations.json` split by month for the papers of the day files and by year for the archive (`<category>/citations/2026-09.json`, `…/2019.json`), so that a page loads the counts of the papers it shows (11 KB gzipped for the recent days instead of 125 KB). They exist only in the site; the pipeline and `validate` know `citations.json` alone. `base: "./"` keeps the site working under `user.github.io/<repo>/`.
-- `web/tsconfig.node.json` type-checks `vite.config.ts` and `web/tooling/` with Node types. The app itself only gets DOM types.
-- The build fails if the site would load anything from another origin (`web/tooling/third-party.ts`, a Vite plugin): the About page promises that it loads nothing from other websites. Links are fine; fonts, scripts, images or `fetch()` from a CDN are not.
-- GitHub Actions: pushes made with `GITHUB_TOKEN` do not trigger other workflows. That is why `update.yml` calls `deploy.yml` through `workflow_call`. It does so only when the bot pushed (`needs.update.outputs.pushed`), and also after a later failure, since the partial data was pushed; `archive.yml` alike. A failure that touches data makes the run red (decision 16); a refusing Semantic Scholar in the daily step does not.
-  - Actions are pinned by commit SHA with the version in a comment; bump them together (`git ls-remote --tags` gives the SHAs).
-  - `update.yml` and `archive.yml` run `.github/scripts/validate-data.sh` before committing, and copy its report into the job summary. A structural error pushes nothing: `commit-data.sh --keep` saves the commit as `data-commit.bundle` instead. Bot pushes do not trigger `ci.yml`, whose `data` job validates the other pushes.
-  - `update.yml` and `archive.yml` commit through `.github/scripts/commit-data.sh`, since main may move during a run that lasts hours. It rebases the data commit onto main. On a conflict it writes `index.json` again (`preprint-radar index`) and keeps the run's `citations.json`; on any other conflict, or after three refused pushes, it pushes nothing and the workflow uploads the commit as `data-commit.bundle` (`git fetch data-commit.bundle HEAD:recovered-data`). `tests/unit/test_commit_data.py` runs it against local repositories.
-  - The manual *since* input of `update.yml` runs `backfill` instead of `update`.
-  - Reading HTML pages stops early in three ways (`collect.Stop`): at `--deadline-minutes` (CI passes 175 of the step's 195, so that ROR, the last save and the index still run; green, the pages left wait for the next run), after 5 failed pages in a row (arxiv.org down: red), or when 90% of at least 40 pages give no affiliation (a layout change or moved URLs: red, and this run's papers are set back to pending, since `[]` is final, and their pages leave the page cache, in case they were an error page served with a 200). A command that fails on an error (`PreprintRadarError`) also puts it in an error annotation, `preprint-radar <command> failed`. `tests/unit/test_exit_criteria.py` runs these failures end to end, as Phase 1's exit criteria. SIGTERM and Ctrl-C save the progress first.
-  - `update.yml` restores the page cache from the Actions cache (`front-matter-<run id>`, a new entry each run, saved even after a failure) and runs `reextract` after the update: 50 downloads and 12 minutes at most. The job's 240 minutes are 195 of papers, 15 of re-extraction, 15 of citation counts and a few to commit.
-  - `canary.yml` runs the network tests against the live arXiv every Wednesday, with the contact User-Agent: a red canary is a layout change to look at before it reaches the data.
-  - Sizes (ARCH-1): `deploy.yml` fails a site above 800 MB (Pages refuses 1 GB) and warns above 600 MB; `canary.yml` warns when the repository passes 500 MB. Either is the trigger to turn pruning on, then to move `data/` off `main` (`docs/operations.md`).
-  - `update.yml` checks out `main`, not the triggering commit: a run queued behind another one (concurrency group) otherwise starts from stale data and its rebase conflicts. Its cron (06:17 UTC) comes after arXiv's announcement and RSS rebuild; GitHub has been starting it hours late (around 10:00 UTC).
+- `web/vite.config.ts` derives files that only the site has (citation shards, the merged
+  DOIs and venues): they never exist in `data/` (`docs/web.md`). The build fails if the
+  site would load anything from another origin.
+- GitHub Actions:
+  - Pushes made with `GITHUB_TOKEN` trigger no other workflow, so `update.yml` and
+    `archive.yml` call `deploy.yml` (`workflow_call`) when the bot pushed, also after a
+    later failure, since the partial data was pushed. Bot pushes skip `ci.yml`, whose
+    `data` job validates the other pushes.
+  - A failure that touches data makes the run red (decision 16); a refusing Semantic
+    Scholar does not.
+  - Actions are pinned by commit SHA with the version in a comment; bump them together
+    (`git ls-remote --tags` gives the SHAs).
+  - `update.yml` and `archive.yml` share a concurrency group, check out `main` (not the
+    triggering commit, else a queued run starts from stale data), run
+    `.github/scripts/validate-data.sh` (a structural error pushes nothing), and commit
+    through `.github/scripts/commit-data.sh`, which rebases onto a `main` that moved during
+    the run: on a conflict it writes `index.json` again and keeps the run's
+    `citations.json`; on any other conflict, or after three refused pushes, it uploads the
+    commit as `data-commit.bundle` (`tests/unit/test_commit_data.py`).
+  - Reading HTML pages stops early three ways (`collect.Stop`): the deadline (CI passes 175
+    of the step's 195 minutes: green, the rest waits), 5 failed pages in a row (arxiv.org
+    down: red), or 90% of at least 40 pages without affiliation (a layout change: red, the
+    run's papers set back to pending and their pages dropped from the cache).
+    `tests/unit/test_exit_criteria.py` runs these end to end. SIGTERM and Ctrl-C save the
+    progress first.
+  - `update.yml` (cron 06:17 UTC, often started hours late): the update, then `reextract`
+    (50 downloads, 12 minutes), `citations` (10 minutes), commit; 240 minutes in all. It
+    restores the page cache from the Actions cache (`front-matter-<run id>`, saved even
+    after a failure). Its manual *since* input runs `backfill` instead.
+  - `archive.yml` (Sundays 05:41 UTC): the archive, then `scholar` (20 minutes).
+  - `canary.yml` (Wednesdays): the network tests against the live arXiv (a red canary is a
+    layout change to look at before it reaches the data), and the repository size.
+  - Sizes (ARCH-1): `deploy.yml` fails a site above 800 MB (Pages refuses 1 GB) and warns
+    above 600 MB; `canary.yml` warns above 500 MB of repository. Either triggers pruning,
+    then moving `data/` off `main` (`docs/operations.md`).
 
 ## Working agreements
 
-- Do not commit, push, create the GitHub repo, or run the long `make update`, `make backfill` or `make archive` unless asked.
-- Do not push changes under `data/` while *Update data* or *Archive* runs (`gh run list`): a conflict on a day file stops the bot's commit.
-- The maintainer writes in French. Answer in French, but keep everything in the repo in English.
-- `docs/operations.md` is the runbook, by symptom: keep it true when a workflow, a failure or a log line changes. Its signals are quoted from the code, and `tests/unit/test_operations_doc.py` fails when one no longer exists.
-- `docs/roadmap.md` tracks the items of the audit (`docs/audit/2026-09-30.md`, a frozen snapshot: never edit it). Update an item's status in the commit that changes it, and name its ID in the commit message (`fix(collect): … (DATA-2)`).
-- Versions stay 0.x: a minor release at the end of each roadmap phase (a `v0.N.0` tag, `version` bumped in `pyproject.toml` and `web/package.json` together, a `CHANGELOG.md` entry), a patch for a fix in between. Pushing the tag creates its GitHub release, with that entry as notes (`release.yml`, through `.github/scripts/release-notes.sh`, which fails without one). 1.0.0 comes once the public data format is documented and stable.
+- The maintainer writes in French: answer in French; everything in the repo stays English.
+- Commit freely, in small commits that name the roadmap item they change (`fix(collect): …
+  (DATA-2)`), with its status updated in `docs/roadmap.md` in the same commit. Never push,
+  create the GitHub repo, or start `make update`, `make backfill` or `make archive`
+  unless asked.
+- Do not push changes under `data/` while *Update data* or *Archive* runs (`gh run list`):
+  a conflict on a day file stops the bot's commit.
+- Versions stay 0.x: a minor release at the end of each roadmap phase (a `v0.N.0` tag,
+  `version` bumped in `pyproject.toml` and `web/package.json` together, a `CHANGELOG.md`
+  entry), a patch for a fix in between. Pushing the tag creates the GitHub release with
+  that entry as notes (`release.yml`, `.github/scripts/release-notes.sh`, which fails
+  without one). 1.0.0 comes once the public data format is documented and stable.
