@@ -40,6 +40,8 @@ export function usePapers(
 ) {
   const [storeIndex, setStoreIndex] = useState<StoreIndex | null>(null);
   const [load, setLoad] = useState<LoadState>({ status: "loading" });
+  // The loaded index once its full-text index is built, for searches that can wait for it.
+  const [warmed, setWarmed] = useState<PaperIndex | null>(null);
   // Each Retry loads again what failed: the index, or the papers.
   const [attempt, setAttempt] = useState(0);
 
@@ -86,7 +88,9 @@ export function usePapers(
         const index = new PaperIndex(papers);
         setLoad({ status: "ready", index });
         // The list shows first; the search index is built after, while the page is idle.
-        whenIdle(() => void index.warm(signal));
+        whenIdle(() => {
+          index.warm(signal).then(() => !signal.aborted && setWarmed(index));
+        });
       })
       .catch(
         (error: unknown) =>
@@ -102,6 +106,8 @@ export function usePapers(
     archiveYears,
     archiveYear,
     load,
+    /** The papers loaded, once a search over them costs no indexing; else `null`. */
+    searchable: load.status === "ready" && warmed === load.index ? load.index : null,
     retry: () => setAttempt((count) => count + 1),
     generatedAt: storeIndex?.generated_at ?? null,
   };

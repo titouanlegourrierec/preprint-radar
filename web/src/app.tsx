@@ -99,8 +99,17 @@ export function App() {
   const rankings = state.view === "rankings";
   // The highly cited view always shows the archive; the graph and rankings, given a year.
   const archived = cited || ((state.view === "graph" || rankings) && state.year !== null);
-  const { categories, category, storeDays, archiveYears, archiveYear, load, retry, generatedAt } =
-    usePapers(state.category, state.period, archived ? { year: state.year } : null);
+  const {
+    categories,
+    category,
+    storeDays,
+    archiveYears,
+    archiveYear,
+    load,
+    searchable,
+    retry,
+    generatedAt,
+  } = usePapers(state.category, state.period, archived ? { year: state.year } : null);
   const readingList = useReadingList(load.status === "ready" ? load.index : null);
   const shownPapers = useMemo(
     () => [...(load.status === "ready" ? load.index.all() : []), ...readingList.papers],
@@ -492,7 +501,8 @@ export function App() {
             {triaged && (
               <SavedSearches
                 searches={savedSearches.searches}
-                index={load.status === "ready" ? load.index : null}
+                // Counted once the index is built, so that the list never waits for it.
+                index={searchable}
                 since={triage.previousVisit}
                 current={{ query, filters: state.filters }}
                 onSave={() => savedSearches.save({ query, filters: state.filters })}
