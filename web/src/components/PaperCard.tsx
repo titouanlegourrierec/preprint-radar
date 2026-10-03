@@ -1,15 +1,18 @@
 import { useEffect, useRef, useState } from "preact/hooks";
 import { toBibtex } from "../bibtex";
-import { formatDay, subjectCode } from "../format";
+import { daysSince, formatDay, subjectCode } from "../format";
 import { highlight } from "../highlight";
 import { institutionsOf } from "../institutions";
 import { exactly, type NameFilter, typed } from "../search";
 import type { Paper } from "../types";
+import { CONTACT_EMAIL } from "./About";
 import { Highlighted } from "./Highlighted";
 import { RichText } from "./RichText";
 
 const MAX_AUTHORS_COLLAPSED = 6;
 const MAX_AFFILIATIONS_COLLAPSED = 3;
+/** Days under which a paper's count of 0 is not shown: counts need weeks to start. */
+const YOUNG_DAYS = 60;
 
 /**
  * What a click on one of the paper's affiliations filters on: its institution, exactly, as
@@ -91,6 +94,14 @@ export function PaperCard({
     ? allAffiliations
     : allAffiliations.slice(0, MAX_AFFILIATIONS_COLLAPSED);
   const hasDetails = Boolean(paper.abstract || paper.comments);
+  // A recent paper has no citations yet: "0 citations" on nearly every card says nothing.
+  const shownCitations =
+    citations !== undefined && (citations > 0 || daysSince(paper.announced) >= YOUNG_DAYS)
+      ? citations
+      : undefined;
+  const reportLink = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
+    `Preprint Radar: correction for arXiv:${paper.arxiv_id}`,
+  )}`;
   // The controls of every card read alike ("PDF", "Share"): each names its paper.
   const titleId = `title-${paper.arxiv_id}`;
   const subject = [paper.primary_subject && subjectCode(paper.primary_subject)]
@@ -188,6 +199,12 @@ export function PaperCard({
           </p>
         )}
 
+        {expanded && (
+          <p class="paper__report muted">
+            Wrong author or affiliation? <a href={reportLink}>Report an error</a>.
+          </p>
+        )}
+
         {expanded && paper.comments && (
           <p class="paper__comments">
             <RichText text={paper.comments} terms={highlights} />
@@ -204,12 +221,12 @@ export function PaperCard({
             </span>
           )}
           <span>{formatDay(paper.announced)}</span>
-          {citations !== undefined && (
+          {shownCitations !== undefined && (
             <span
-              class={`citations${citations > 0 ? " citations--some" : ""}`}
+              class={`citations${shownCitations > 0 ? " citations--some" : ""}`}
               title={citationsNote}
             >
-              {citations.toLocaleString()} citation{citations === 1 ? "" : "s"}
+              {shownCitations.toLocaleString()} citation{shownCitations === 1 ? "" : "s"}
             </span>
           )}
           {subject && <span title={paper.primary_subject ?? undefined}>{subject}</span>}

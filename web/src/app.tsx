@@ -8,7 +8,13 @@ import { Rankings } from "./components/Rankings";
 import { SavedSearches } from "./components/SavedSearches";
 import { Sidebar } from "./components/Sidebar";
 import { download } from "./download";
-import { citationsNote as formatCitationsNote, formatDay } from "./format";
+import { toCsv, toMarkdown, toRis } from "./export";
+import {
+  archiveYearLabel,
+  categoryName,
+  citationsNote as formatCitationsNote,
+  formatDay,
+} from "./format";
 import { useCitations } from "./hooks/use-citations";
 import { usePapers } from "./hooks/use-papers";
 import { useReadingList } from "./hooks/use-reading-list";
@@ -28,6 +34,7 @@ import {
   byCitations,
   exactly,
   facetCounts,
+  mostlyTied,
   NO_FILTERS,
   parseQuery,
   type SearchResult,
@@ -37,6 +44,34 @@ import type { Paper } from "./types";
 import { archiveYearOf, paperLink, type ViewState, writeState } from "./url-state";
 
 const FACET_SIZE = 12;
+// The exports of the results shown, as files.
+const EXPORTS: {
+  label: string;
+  file: string;
+  type: string;
+  render: (papers: Paper[], citations: ReadonlyMap<string, number>) => string;
+}[] = [
+  {
+    label: "BibTeX",
+    file: "papers.bib",
+    type: "application/x-bibtex",
+    render: (papers) => toBibtexFile(papers),
+  },
+  { label: "CSV", file: "papers.csv", type: "text/csv", render: toCsv },
+  {
+    label: "RIS",
+    file: "papers.ris",
+    type: "application/x-research-info-systems",
+    render: (papers) => toRis(papers),
+  },
+  {
+    label: "Markdown",
+    file: "papers.md",
+    type: "text/markdown",
+    render: (papers) => toMarkdown(papers),
+  },
+];
+
 // What each view shows, said once at its top: the tabs' tooltips are out of reach on touch.
 const VIEW_NOTES: Partial<Record<ViewState["view"], string>> = {
   cited: "The most cited papers older than a year, by year of first version.",
@@ -195,6 +230,7 @@ export function App() {
   );
 
   const lastUpdate = generatedAt ? formatDay(generatedAt) : null;
+  const archiveAsOf = generatedAt ? new Date(generatedAt) : undefined;
   // The graph shows the loaded papers; a saved paper from elsewhere brings its day, or
   // its archive year when it is older than the days kept.
   const showInGraph = (paper: Paper) => {
@@ -241,6 +277,7 @@ export function App() {
     <header class="topbar">
       <div class="topbar__brand">
         <h1>Preprint Radar</h1>
+        {category && <span class="topbar__category">{categoryName(category)}</span>}
         {lastUpdate && <span class="muted">Updated {lastUpdate}</span>}
       </div>
       <div class="topbar__tools">
@@ -419,6 +456,7 @@ export function App() {
           <Sidebar
             categories={categories}
             category={category}
+            asOf={archiveAsOf}
             days={storeDays}
             period={state.period}
             filters={state.filters}
@@ -469,9 +507,9 @@ export function App() {
               {state.view === "reading-list"
                 ? `${results.length} of ${readingList.papers.length} saved papers`
                 : archived && load.status === "ready" && archiveYear !== null
-                  ? `${results.length} of ${load.index.size} highly cited papers first published in ${archiveYear}`
+                  ? `${results.length} of ${load.index.size} highly cited ${category ?? ""} papers first published in ${archiveAsOf ? archiveYearLabel(archiveYear, archiveAsOf) : archiveYear}`
                   : load.status === "ready"
-                    ? `${results.length} of ${load.index.size} papers`
+                    ? `${results.length} of ${load.index.size} ${category ?? ""} papers`
                     : load.status === "loading"
                       ? "Loading papers…"
                       : null}
@@ -536,6 +574,34 @@ export function App() {
                   Show abstracts
                 </label>
               </div>
+            )}
+            {(state.view === "papers" || cited) && results.length > 0 && (
+              <details class="export-menu">
+                <summary class="button export-menu__toggle">
+                  Export {results.length.toLocaleString()}
+                </summary>
+                <div class="export-menu__items">
+                  {EXPORTS.map(({ label, file, type, render }) => (
+                    <button
+                      key={label}
+                      type="button"
+                      class="link-button"
+                      onClick={() =>
+                        download(
+                          file,
+                          render(
+                            results.map(({ paper }) => paper),
+                            citations.counts,
+                          ),
+                          type,
+                        )
+                      }
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              </details>
             )}
             {state.view === "reading-list" && (
               <div class="results__actions">
@@ -629,7 +695,21 @@ export function App() {
             </p>
           )}
 
-          {VIEW_NOTES[state.view] && <p class="view-note muted">{VIEW_NOTES[state.view]}</p>}
+          {VIEW_NOTES[state.view] && (
+            <p class="view-note muted">
+              {VIEW_NOTES[state.view]}
+              {cited &&
+                ` Chosen every week by citations per year of age, among the papers first published more than 12 months ago.${citationsNote ? ` ${citationsNote}.` : ""}`}
+            </p>
+          )}
+          {(cited || state.sort === "citations") &&
+            state.view !== "rankings" &&
+            mostlyTied(results, citations.counts) && (
+              <p class="help-note">
+                Most of these papers have the same number of citations (often none yet, or not
+                known): among them, the order is by relevance or date.
+              </p>
+            )}
           {state.view !== "rankings" && (
             <ActiveFilters filters={state.filters} onFilters={setFilters} />
           )}

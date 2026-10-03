@@ -1,5 +1,6 @@
 import type { ComponentChildren } from "preact";
 import { useState } from "preact/hooks";
+import { archiveYearLabel } from "../format";
 import { useMediaQuery } from "../hooks/use-media-query";
 import type { Period } from "../period";
 import {
@@ -34,6 +35,8 @@ interface Props {
         onYear: (year: number) => void;
       }
     | undefined;
+  /** Date of the archive, which labels its youngest year ("2025, Jan–Oct"). */
+  asOf?: Date | undefined;
   /** Shown below the filters. */
   children?: ComponentChildren;
   /** Views of either kind of papers: the recent days (`null`) or an archive year. */
@@ -125,7 +128,8 @@ export function Sidebar(props: Props) {
             <optgroup label="Highly cited, first published in">
               {props.source.years.map(({ year, count }) => (
                 <option key={year} value={year}>
-                  {year} ({count.toLocaleString()} papers)
+                  {props.asOf ? archiveYearLabel(year, props.asOf) : year} ({count.toLocaleString()}{" "}
+                  papers)
                 </option>
               ))}
             </optgroup>
@@ -142,7 +146,8 @@ export function Sidebar(props: Props) {
           >
             {props.archive.years.map(({ year, count }) => (
               <option key={year} value={year}>
-                {year} ({count.toLocaleString()} papers)
+                {props.asOf ? archiveYearLabel(year, props.asOf) : year} ({count.toLocaleString()}{" "}
+                papers)
               </option>
             ))}
           </select>

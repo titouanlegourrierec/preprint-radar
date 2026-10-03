@@ -399,11 +399,31 @@ export function facetCounts(
   );
 }
 
-/** Results ranked by citation count, most cited first; stable for equal counts. */
+/**
+ * Results ranked by citation count, most cited first, papers without a known count after
+ * those with none; stable for equal counts, which keep their relevance or newest order.
+ */
 export function byCitations(
   results: readonly SearchResult[],
   counts: ReadonlyMap<string, number>,
 ): SearchResult[] {
-  const count = (result: SearchResult) => counts.get(result.paper.arxiv_id) ?? 0;
+  const count = (result: SearchResult) => counts.get(result.paper.arxiv_id) ?? -1;
   return [...results].sort((a, b) => count(b) - count(a));
+}
+
+/**
+ * Whether most results share one citation count (90%), so that ranking by citations says
+ * little: recent days, where nearly every count is 0.
+ */
+export function mostlyTied(
+  results: readonly SearchResult[],
+  counts: ReadonlyMap<string, number>,
+): boolean {
+  if (results.length < 10) return false;
+  const tally = new Map<number, number>();
+  for (const { paper } of results) {
+    const count = counts.get(paper.arxiv_id) ?? -1;
+    tally.set(count, (tally.get(count) ?? 0) + 1);
+  }
+  return Math.max(...tally.values()) / results.length > 0.9;
 }

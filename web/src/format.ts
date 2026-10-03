@@ -29,3 +29,37 @@ export function citationsNote(source: string, asOf: string, today: Date = new Da
   const age = Math.floor((today.getTime() - new Date(asOf).getTime()) / DAY_MS);
   return age > STALE_CITATIONS_DAYS ? `${note} (${age} days ago: they may be out of date)` : note;
 }
+
+// The arXiv name of each category the store may hold; another shows as its code alone.
+const CATEGORY_NAMES: Readonly<Record<string, string>> = {
+  "cs.CV": "Computer Vision and Pattern Recognition",
+  "cs.LG": "Machine Learning",
+  "cs.CL": "Computation and Language",
+  "cs.RO": "Robotics",
+  "cs.AI": "Artificial Intelligence",
+  "cs.GR": "Graphics",
+  "eess.IV": "Image and Video Processing",
+};
+
+/** "cs.CV (Computer Vision and Pattern Recognition)", or the code of an unknown category. */
+export function categoryName(category: string): string {
+  const name = CATEGORY_NAMES[category];
+  return name ? `${category} (${name})` : category;
+}
+
+/** Whole days from an ISO day to `today`. */
+export function daysSince(iso: string, today: Date = new Date()): number {
+  return Math.floor((today.getTime() - new Date(`${iso}T00:00:00`).getTime()) / DAY_MS);
+}
+
+const MONTH_FORMAT = new Intl.DateTimeFormat(undefined, { month: "short" });
+
+/**
+ * The label of an archive year: "2025, Jan–Oct" for the youngest year, which only holds
+ * papers older than 12 months on `asOf`, else the year alone.
+ */
+export function archiveYearLabel(year: number, asOf: Date): string {
+  const cutoff = new Date(asOf.getFullYear() - 1, asOf.getMonth(), 1);
+  if (year !== cutoff.getFullYear() || cutoff.getMonth() === 11) return String(year);
+  return `${year}, ${MONTH_FORMAT.format(new Date(year, 0, 1))}–${MONTH_FORMAT.format(cutoff)}`;
+}
