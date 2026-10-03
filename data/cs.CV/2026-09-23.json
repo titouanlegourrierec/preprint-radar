@@ -4078,11 +4078,11 @@
    "html_url": "https://arxiv.org/html/2609.25453v1",
    "abstract": "Medical image analysis remains fundamentally challenging because of the intricate geometric and topological structures present in medical data. Conventional convolutional neural networks model images as regular Euclidean grids, limiting their ability to preserve geometric relationships and higher-order structural information. Recently, manifold topological deep learning (MTDL) has emerged as a promising paradigm that integrates deep learning with geometric and topological representations. Nevertheless, existing methods have not yet fully exploited discrete manifold structures within combinatorial complex neural networks. To bridge this gap, we introduce CNMTDL, a MTDL framework that integrates Hodge decomposition with a combinatorial attention mechanism. In our approach, medical images are represented as discrete manifolds and decomposed into three Hodge components. Features extracted from these components are concatenated and embedded into a combinatorial complex architecture, enabling enhanced higher-order message passing between $0$-cells and $2$-cells through attention-based blocks. We evaluate CNMTDL on six two-dimensional and three-dimensional datasets from the MedMNIST v2 benchmark, demonstrating its effectiveness for medical image analysis.",
    "affiliations": [
-    "Department of Mathematics and StatisticsAuburn University, AL, 36849, USA",
-    "Department of Computer Science and EngineeringMichigan State University, MI 48824, USA",
-    "Biomedical Imaging CenterRensselaer Polytechnic Institute, NY 12180, USA",
-    "Department of Biochemistry and Molecular BiologyUniversity of Georgia, Athens, GA 30602, USA",
-    "Department of MathematicsUniversity of Georgia, Athens, GA 30602, USA"
+    "Department of Mathematics and Statistics, Auburn University, AL, 36849, USA",
+    "Department of Computer Science and Engineering, Michigan State University, MI 48824, USA",
+    "Biomedical Imaging Center, Rensselaer Polytechnic Institute, NY 12180, USA",
+    "Department of Biochemistry and Molecular Biology, University of Georgia, Athens, GA 30602, USA",
+    "Department of Mathematics, University of Georgia, Athens, GA 30602, USA"
    ],
    "author_affiliations": [
     null,
@@ -4101,12 +4101,13 @@
     ]
    ],
    "institutions": [
-    null,
-    null,
-    null,
+    "Auburn University",
+    "Michigan State University",
+    "Rensselaer Polytechnic Institute",
     null,
     null
    ],
+   "extractor": 2,
    "abs_url": "https://arxiv.org/abs/2609.25453",
    "pdf_url": "https://arxiv.org/pdf/2609.25453"
   },

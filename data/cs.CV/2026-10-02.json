@@ -3460,21 +3460,7 @@
     "The Hong Kong Polytechnic University",
     "Munich Center for Machine Learning, LMU Munich"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    [
-     0,
-     1,
-     2,
-     3
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "Eastern Institute of Technology, Ningbo",
     "Shanghai Jiao Tong University",
@@ -5195,7 +5181,7 @@
    "html_url": "https://arxiv.org/html/2610.00973v1",
    "abstract": "Science teachers frequently search for documentary excerpts not by describing what appears on screen, but by querying the abstract concepts they intend to teach. This use case exposes a limitation of existing language-based video moment retrieval methods, which typically assume that queries describe observable events, whereas instructional search requires retrieving concrete visual phenomena that instantiate an underlying scientific principle. We study this setting as concept-to-example video retrieval, an abstract-needle-in-a-haystack problem where compact curriculum concepts must be grounded in temporally sparse documentary evidence. To bridge this abstraction gap, we propose Concept-Driven Domain Adaptation (CDDA), a three-stage framework for adapting two-tower vision-language models to concept-level retrieval. CDDA treats concepts as intermediate semantic anchors: it first structures the textual embedding space with textbook and teacher-handbook example-concept pairs, then transfers this concept-aware geometry to documentary visuals under a frozen visual encoder, and finally jointly adapts both encoders with sparse visual concept supervision. From a geometric perspective, this staged alignment reduces text-concept and vision-concept angular gaps, thereby encouraging concept-level adaptation while preserving the pretrained model's concrete image description alignment. On a curated middle-school physics retrieval benchmark, CDDA achieves stronger pedagogically oriented concept retrieval than several competitive multimodal baselines, including Qwen3-VL-Embedding-2B, while maintaining concrete image-text matching after adaptation.",
    "affiliations": [
-    "Laboratory for Artificial Intelligence and New Forms of EducationFaculty of Artificial Intelligence in Education, Central China Normal University, Wuhan, China",
+    "Laboratory for Artificial Intelligence and New Forms of Education, Faculty of Artificial Intelligence in Education, Central China Normal University, Wuhan, China",
     "Wuhan United Imaging Healthcare Co., Ltd., Wuhan, China"
    ],
    "author_affiliations": [
@@ -7941,9 +7927,9 @@
    "html_url": "https://arxiv.org/html/2610.01710v1",
    "abstract": "Visual grounding localizes an object described by language with a bounding box. Most multimodal grounding models compress target identification, spatial reasoning, and boundary estimation into one terminal prediction. Free-form rationales make reasoning linguistically explicit but do not necessarily expose measurable, editable spatial states. Intermediate localization errors are therefore difficult to diagnose and correct, allowing incorrect region choices and imprecise boundaries to persist in the final box. We introduce CoEvolve, a construct-to-edit framework that separates grounding into explicit state construction and state editing. Region-Evolution Reinforcement (RER) organizes grounding analysis into a progressive semantic--spatial trajectory, with each reasoning step committing to an explicit candidate region. Bidirectional Denoising Refiner (BDR) treats the reasoning text as fixed semantic context and refines the trajectory's coordinate fields through bidirectional same-position reconstruction. Geometry- and behavior-level objectives provide target geometry and edit-preference signals for consolidating reliable candidates, preserving accurate inputs, or correcting toward annotations. Evaluations cover natural-image and remote-sensing grounding. With a 9B backbone, CoEvolve rivals models up to 241B parameters in grounding accuracy. Under controlled corruption, a single BDR pass improves mean box overlap by over 27 percentage points, demonstrating strong recovery from substantial localization errors. State-source comparisons further support the complementarity of explicit state construction and source-matched editing. The project is at https://sundongwei.github.io/CoEvolve_Project/.",
    "affiliations": [
-    "School of Computer Science and Technology and the Ministry of Education Key Lab for IntelligentNetworks and Network Security, Xi’an Jiaotong University, Xi’an 710049, China",
-    "School of Computer Science and Technology, Faculty of Electronic and Information EngineeringXi’an Jiaotong University, Xi’an 710049, China",
-    "State Key Laboratory of Remote Sensing and Digital Earth, Aerospace Information Research InstituteChinese Academy of Sciences, Beijing 100094, China"
+    "School of Computer Science and Technology and the Ministry of Education Key Lab for Intelligent, Networks and Network Security, Xi’an Jiaotong University, Xi’an 710049, China",
+    "School of Computer Science and Technology, Faculty of Electronic and Information Engineering, Xi’an Jiaotong University, Xi’an 710049, China",
+    "State Key Laboratory of Remote Sensing and Digital Earth, Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100094, China"
    ],
    "author_affiliations": [
     [
@@ -7968,7 +7954,7 @@
    "institutions": [
     "Xi'an Jiaotong University",
     "Xi'an Jiaotong University",
-    null
+    "Aerospace Information Research Institute"
    ],
    "extractor": 1,
    "abs_url": "https://arxiv.org/abs/2610.01710",

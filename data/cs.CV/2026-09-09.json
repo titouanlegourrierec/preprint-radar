@@ -6094,8 +6094,8 @@
    "html_url": "https://arxiv.org/html/2609.06931v1",
    "abstract": "Invasive coronary angiography (CAG) is the gold standard for diagnosing coronary artery disease, but interpretation varies substantially among observers. Existing AI systems can improve consistency but lack auditable decision processes and are limited in comprehensive open-ended assessment, undermining clinician trust and clinical adoption readiness. We developed CARDEA, a unified large vision-language model that serves as the inference core of a CAG pipeline. It was trained solely on public datasets and closed-ended tasks in three stages: visual feature alignment, a self-distilled Chain-of-Box (CoB) cold start, and reinforcement learning with verifiable rewards (RLVR) with a CoB reward encouraging bounding-box use in the reasoning trace. We assessed its two study-level diagnoses, dominance classification and complexity assessment, against a dedicated classifier and two interventional cardiologists. Report generation was excluded from training and evaluated zero-shot across stages on an external cohort using vessel-severity macro-$F_1$. CARDEA trailed the classifier on in-distribution dominance but drew level under domain shift (accuracy, 0.91 [95% confidence interval (CI), 0.86 to 0.95]) and was comparable to the cardiologists on complexity assessment (accuracy, 0.90 [CI, 0.82 to 0.97]). Only RLVR improved zero-shot report generation, raising its vessel-severity macro-$F_1$ (0.686 [CI, 0.664 to 0.707]) above the untuned base model (0.513) and over twice the always-normal floor (0.312). CARDEA runs an end-to-end CAG pipeline from raw multi-view videos through keyframe selection to study-level diagnosis while exposing auditable spatial evidence behind its conclusions. RLVR on verifiable closed-ended tasks surfaced open-ended reporting ability that supervised imitation did not. Clinical use requires prospective validation against expert cardiologists.",
    "affiliations": [
-    "Artificial Intelligence and Robotics Innovation CenterChina Medical University Hospital, Taichung, Taiwan",
-    "Division of Cardiovascular Medicine, Department of Internal MedicineChina Medical University Hospital, Taichung, Taiwan",
+    "Artificial Intelligence and Robotics Innovation Center, China Medical University Hospital, Taichung, Taiwan",
+    "Division of Cardiovascular Medicine, Department of Internal Medicine, China Medical University Hospital, Taichung, Taiwan",
     "Department of Neurology, China Medical University HospitalChina Medical University, Taichung, Taiwan",
     "Neuroscience and Brain Disease Center, China Medical University, Taichung, Taiwan",
     "School of Medicine, China Medical University, Taichung, Taiwan"
@@ -6122,8 +6122,8 @@
     ]
    ],
    "institutions": [
-    null,
-    null,
+    "China Medical University Hospital",
+    "China Medical University Hospital",
     null,
     null,
     null
@@ -11658,7 +11658,7 @@
    "html_url": "https://arxiv.org/html/2609.08442v1",
    "abstract": "Aerial Vision-and-Language Navigation requires drones to follow natural-language instructions and navigate through complex urban environments. Accurate navigation relies on both local and global spatial information, which support immediate action grounding and long-horizon path planning, respectively. However, existing zero-shot methods typically operate at a single spatial scale, relying either on local representations constructed online from current observations or on global memories built offline from historical experience. To address this limitation, we propose AirAnchor, a new paradigm that bridges local and global spatial information through spatial anchors and integrates both into a shared navigation framework, enabling comprehensive spatial grounding for decision-making. AirAnchor consists of three core components: (1) Query-Driven Spatial Anchor Grounding, which identifies decision-relevant anchors from visual observations and organizes them into local spatial representations; (2) Persistent Object Spatial Memory, which incrementally maintains an object knowledge base as persistent global spatial memory and retrieves landmark-related spatial priors; and (3) a Spatially-Informed Navigation Agent, which explicitly integrates both local and global spatial information into an agentic framework for decision-making. Extensive experiments on AerialVLN demonstrate that AirAnchor substantially outperforms existing zero-shot baselines, validating the effectiveness and efficiency of the proposed paradigm.",
    "affiliations": [
-    "National Key Laboratory of Cognition and Decision Intelligence for Complex SystemsInstitute of Automation, Chinese Academy of Sciences, Beijing, China",
+    "National Key Laboratory of Cognition and Decision Intelligence for Complex Systems, Institute of Automation, Chinese Academy of Sciences, Beijing, China",
     "School of Artificial Intelligence, University of Chinese Academy of Sciences, Beijing, China",
     "School of Artificial Intelligence, Shandong University, Jinan, Shandong, China"
    ],
@@ -11696,6 +11696,7 @@
     "University of Chinese Academy of Sciences",
     "Shandong University"
    ],
+   "extractor": 2,
    "abs_url": "https://arxiv.org/abs/2609.08442",
    "pdf_url": "https://arxiv.org/pdf/2609.08442"
   },

@@ -2270,7 +2270,7 @@
     "AI Thrust, The Hong Kong University of Science and Technology (Guangzhou)",
     "International Digital Economy Academy (IDEA)",
     "The Hong Kong Polytechnic University",
-    "MedVisAI Lab, Lee Kong Chian School of MedicineNanyang Technological University, and Centre of AI in Medicine",
+    "MedVisAI Lab, Lee Kong Chian School of Medicine, Nanyang Technological University, and Centre of AI in Medicine",
     "Tsinghua University"
    ],
    "author_affiliations": [
@@ -2299,7 +2299,7 @@
     "Hong Kong University of Science and Technology (Guangzhou)",
     null,
     "Hong Kong Polytechnic University",
-    "Centre of AI in Medicine",
+    "Nanyang Technological University",
     "Tsinghua University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.35303",
@@ -5572,7 +5572,7 @@
    "html_url": "https://arxiv.org/html/2609.34682v1",
    "abstract": "Advances in multimodal understanding, reasoning, and tool use enable agents to tackle increasingly complex visual reasoning tasks. By distilling past execution experience into reusable skills, agents can transfer lessons from both successes and failures into future reasoning, reducing repeated errors and improving capabilities. However, limited experience may produce unreliable, poorly generalizable skills, while static datasets may lack the targeted and diverse practice needed for refinement. To address this gap, we introduce V-Gym, an autonomous framework that iteratively co-evolves procedural skills and multimodal practice data from execution trajectories. During skill evolution, V-Gym analyzes trajectories to distill and refine hierarchical skills, updating procedural guidance and applicability conditions while retaining an update only if it improves validation performance. During data evolution, V-Gym selects generation seeds by balancing data utility and exploration, then translates trajectory-identified bottlenecks into diverse, targeted practice data that expand the data bank after quality checks. The resulting practice outcomes feed back into subsequent skill updates, closing the loop for continual skill refinement. Experiments across diverse multimodal reasoning benchmarks show substantial improvements over baselines with multiple backbone models. Its evolved skills generalize across domains and models, while evolved data support more effective skill refinement, enabling autonomous diagnosis, targeted practice, and continual self-improvement.",
    "affiliations": [
-    "State Key Laboratory of AI Safety, Institute of Computing TechnologyChinese Academy of Sciences, Beijing, China",
+    "State Key Laboratory of AI Safety, Institute of Computing Technology, Chinese Academy of Sciences, Beijing, China",
     "University of Chinese Academy of Sciences, Beijing, China"
    ],
    "author_affiliations": [
@@ -5602,7 +5602,7 @@
     ]
    ],
    "institutions": [
-    null,
+    "Institute of Computing Technology",
     "University of Chinese Academy of Sciences"
    ],
    "abs_url": "https://arxiv.org/abs/2609.34682",
@@ -5815,7 +5815,7 @@
    "abstract": "Test-time adversarial defense improves the robustness of vision-language foundation models such as CLIP without retraining. However, adversarial activation shifts are typically treated as distortions to suppress, rather than signals to exploit. We turn these shifts into defense signals by repurposing the trigger-to-target mechanism of backdoors. The key is to implant a defender-controlled backdoor as a probe that is weakly activated by clean inputs but strongly activated by adversarial shifts. Based on this insight, we propose \\emph{Backdoor as Probe} (BaP), a test-time adversarial defense for CLIP. BaP constructs the probe through a closed-form model edit to a selected MLP layer. It projects the average adversarial activation shift and a defender-specified semantic direction onto the layer's low-energy input and output activation subspaces to obtain the trigger and target directions, respectively. At inference time, adversarial inputs produce measurable responses along the target direction for detection. BaP then selectively rectifies detected inputs by optimizing a small perturbation that steers their representations away from adversarial shifts and toward the clean subspace. Experiments across 16 benchmarks show that BaP improves average robust accuracy from 1.0\\% to 52.3\\% while retaining clean accuracy, achieving performance comparable to state-of-the-art methods with up to a \\(5.7\\times\\) inference speedup. BaP further shows the generalization to adversarial attacks on large vision-language models. Project page: https://robin-wzq.github.io/Backdoor-as-Probe/",
    "affiliations": [
     "Xuzhou University of Technology, China",
-    "Key Laboratory of AI Safety of CAS, Institute of Computing TechnologyChinese Academy of Sciences (CAS), Beijing, China",
+    "Key Laboratory of AI Safety of CAS, Institute of Computing Technology, Chinese Academy of Sciences (CAS), Beijing, China",
     "University of Chinese Academy of Sciences, Beijing, China"
    ],
    "author_affiliations": [
@@ -5830,7 +5830,7 @@
    ],
    "institutions": [
     "Xuzhou University of Technology",
-    null,
+    "Institute of Computing Technology",
     "University of Chinese Academy of Sciences"
    ],
    "abs_url": "https://arxiv.org/abs/2609.34641",
@@ -10752,7 +10752,7 @@
    "affiliations": [
     "Graduate School of Information, Production and SystemsWaseda University, Kitakyushu, Japan",
     "School of Software, Dalian University of Technology, Dalian, China",
-    "School of Artificial IntelligenceThe Chinese University of Hong Kong, Shenzhen, China"
+    "School of Artificial Intelligence, The Chinese University of Hong Kong, Shenzhen, China"
    ],
    "author_affiliations": [
     [
@@ -11117,7 +11117,7 @@
    "html_url": "https://arxiv.org/html/2609.33585v1",
    "abstract": "The rapid proliferation of highly realistic AI-Generated Content (AIGC) necessitates robust and interpretable detection mechanisms. However, existing detectors are predominantly confined to single modalities and provide binary outputs without reasoning. While Multimodal Large Language Models (MLLMs) present a promising solution, their development is constrained by the scarcity of multimodal reasoning data and the reasoning-detection optimization dilemma, where explicit reasoning supervision can compromise detection accuracy. To this end, we introduce IVT-Set, a comprehensive dataset comprising over 152K diverse image, video, and text samples equipped with multi-granularity Chain-of-Thought (CoT) reasoning trajectories. Based on it, we propose IVT-Guard, a pioneering framework for unified and interpretable AIGC detection across image, video, and text modalities. Furthermore, to overcome the aforementioned optimization dilemma, we design a novel three-stage training paradigm: Artifact-Aware Pre-training, Artifact-to-Evidence Supervised Fine-Tuning via artifact-aware injection, and Evidence-Verdict Consistency Group Relative Policy Optimization. Extensive experiments demonstrate that IVT-Guard achieves state-of-the-art detection performance across in-domain, out-of-domain, and cross-dataset settings while delivering faithful reasoning. Code and data will be released.",
    "affiliations": [
-    "Key Laboratory of Multimedia Trusted Perception and Efficient ComputingMinistry of Education of China, Xiamen University,Xiamen 361005, P.R. China",
+    "Key Laboratory of Multimedia Trusted Perception and Efficient Computing, Ministry of Education of China, Xiamen University,Xiamen 361005, P.R. China",
     "Tencent YouTu Lab"
    ],
    "author_affiliations": [
@@ -11214,8 +11214,8 @@
    "html_url": "https://arxiv.org/html/2609.33581v1",
    "abstract": "Aerial Vision-Language Navigation (AVLN) requires UAVs to maintain reliable instruction following over long trajectories in complex 3D environments. However, existing AVLN approaches are predominantly reactive or limited to single-horizon prediction, overlooking complementary future cues across different temporal horizons. To address this limitation, we propose ForeFly, a dual-horizon latent world action model that predicts both a proximal future for local continuity and an adaptive route-critical future for long-range guidance. Horizon-specific foresight queries are primed with recent and route-critical visual memories, providing history-aware context for future prediction. To exploit their distinct roles in action generation, we introduce Foresight-Guided Action Refinement (FGAR), which asymmetrically exploits proximal foresight for local action enhancement and route-critical foresight for feature-wise correction and route-level guidance. Experiments on the TravelUAV and UAV-ON benchmarks show that ForeFly consistently outperforms strong baselines across seen and unseen settings, validating the effectiveness of dual-horizon foresight and FGAR learning. The code is available at: https://github.com/kunhuiW/ForeFly",
    "affiliations": [
-    "State Key Laboratory of Multimodal Artificial Intelligence SystemsInstitute of Automation, Chinese Academy of Sciences, Beijing, China",
-    "School of Advanced Interdisciplinary SciencesUniversity of Chinese Academy of Sciences, Beijing, China",
+    "State Key Laboratory of Multimodal Artificial Intelligence Systems, Institute of Automation, Chinese Academy of Sciences, Beijing, China",
+    "School of Advanced Interdisciplinary Sciences, University of Chinese Academy of Sciences, Beijing, China",
     "Peng Cheng Laboratory, ShenZhen, China",
     "Division of Natural and Applied Sciences, Duke Kunshan University, Suzhou, China"
    ],
@@ -11235,10 +11235,11 @@
    ],
    "institutions": [
     "Chinese Academy of Sciences",
-    null,
+    "University of Chinese Academy of Sciences",
     "Peng Cheng Laboratory",
     "Duke Kunshan University"
    ],
+   "extractor": 2,
    "abs_url": "https://arxiv.org/abs/2609.33581",
    "pdf_url": "https://arxiv.org/pdf/2609.33581"
   },
@@ -14348,12 +14349,12 @@
    "abstract": "Accurate assessment of Schistosoma japonicum-associated liver fibrosis is essential for disease management and long-term follow-up in endemic regions. Ultrasound provides non-invasive imaging, but complex local echogenic patterns and anatomical structures make fine-grained grading challenging. Existing deep learning methods can predict fibrosis scores, yet directly incorporating acquisition views and regional cues into grading while retaining spatial information for inspection remains an open problem. Here we present VCRE-Fib, a view-conditioned regional evidence framework that integrates anatomical context, local information, and global image assessment for fine-grained ultrasound grading. The framework forms view-conditioned local grading evidence before spatial pooling, uses weak localization to guide its aggregation, and combines it with global predictions. Image-only inference jointly returns a fibrosis score, acquisition view, and candidate abnormal-region map. We developed and evaluated the method on a re-curated cohort of 108,709 ultrasound images from 6,373 patients across 35 centers. On a patient-disjoint test set of 4,107 images from 240 patients across four centers, VCRE-Fib reduced the prespecified composite grading risk by 7.115% relative to SFibAI trained and evaluated on the same data split. Image-level mean absolute error decreased from 0.391 to 0.378, alongside lower patient-max, patient-median, and center-balanced risks. The full model also achieved lower composite grading risk than variants that separately removed view conditioning or weak localization. These results support incorporating anatomical context and regional evidence into ultrasound grading while exposing spatial predictions for inspection alongside severity estimates.",
    "affiliations": [
     "Department of Mathematics, The Chinese University of Hong KongHong Kong, China",
-    "Jiangsu Provincial Key Laboratory on Parasite and Vector Control TechnologyNational Health Commission Key Laboratory of Parasitic Disease Control and Prevention,Jiangsu Institute of Parasitic Diseases, Wuxi, Jiangsu, China",
-    "New Laboratory of Pattern Recognition (NLPR)State Key Laboratory of Multimodal Artificial Intelligence Systems (MAIS),Institute of Automation, Chinese Academy of Sciences",
+    "Jiangsu Provincial Key Laboratory on Parasite and Vector Control Technology, National Health Commission Key Laboratory of Parasitic Disease Control and Prevention,Jiangsu Institute of Parasitic Diseases, Wuxi, Jiangsu, China",
+    "New Laboratory of Pattern Recognition (NLPR), State Key Laboratory of Multimodal Artificial Intelligence Systems (MAIS),Institute of Automation, Chinese Academy of Sciences",
     "Zhongguancun Academy",
     "School of Science, Nanjing University of Posts and TelecommunicationsNanjing, China",
     "Institute for Advanced Study, Beijing Normal-Hong Kong Baptist UniversityZhuhai, China",
-    "School of Mathematics and Statistics, Guangzhou Nanfang CollegeGuangzhou, China"
+    "School of Mathematics and Statistics, Guangzhou Nanfang College, Guangzhou, China"
    ],
    "author_affiliations": [
     [
@@ -14390,7 +14391,7 @@
     null,
     null,
     null,
-    null
+    "Nanfang College Guangzhou"
    ],
    "abs_url": "https://arxiv.org/abs/2609.32840",
    "pdf_url": "https://arxiv.org/pdf/2609.32840"
@@ -20062,6 +20063,7 @@
     null,
     "Marconi University"
    ],
+   "extractor": 2,
    "abs_url": "https://arxiv.org/abs/2609.31720",
    "pdf_url": "https://arxiv.org/pdf/2609.31720"
   },
@@ -21428,7 +21430,7 @@
    "abstract": "Vision-language navigation (VLN) models perform well but target compute-rich platforms, limiting deployment on memory- and power-constrained robotic edge devices. Compression alone does not establish whether a VLN model fits the memory, latency, and energy budgets of an edge platform while preserving navigation behavior. We introduce EdgeVLN, a runtime-aware, deployment-ready quantized VLN model that closes this gap. EdgeVLN combines a quantized StreamVLN model with Latent Trajectory Termination Extractor (LATTE), a lightweight causal transformer that improves real-time stopping by predicting a Stop Action verifier rank. Both execute through our llama.cpp VLN driver, which reconstructs streaming context and prunes memory tokens on-board. We characterize a pretrained StreamVLN backbone across weight quantization from 8 to 2 bits and multiple inference runtimes to identify a feasible operating point. LATTE reuses backbone hidden states within the budget freed by quantization, requiring neither a second vision encoder nor an additional backbone forward pass. We evaluate six backbone precisions and seven candidate stop heads on BF16 and IQ4 NL across all 1,839 R2R VLN-CE val-unseen episodes. We measure success rate (SR) in simulation and latency, energy, and resident memory on an NVIDIA Jetson Orin NX 16 GB. LATTE achieves our highest SR, 58.02 percent on the deployed 4-bit model, exceeding the BF16 baseline with only 0.013 s additional latency per navigation step. Four-bit formats achieve nearly identical SR, but step energy varies 36.8 times by execution path. Only IQ4 NL under our VLN driver fits the board, using 11.35 GB resident memory while running 20.8 times faster and using 13.3 times less energy than storage-streamed BF16. INT2 collapses. Runtime selection, memory-token pruning, and quantization are essential for efficient edge deployment.",
    "affiliations": [
     "Department of Electrical and Computer Engineering",
-    "Laboratory for Computational Sensing and RoboticsJohns Hopkins University"
+    "Laboratory for Computational Sensing and Robotics, Johns Hopkins University"
    ],
    "author_affiliations": [
     [
@@ -21447,7 +21449,7 @@
    ],
    "institutions": [
     null,
-    null
+    "Johns Hopkins University"
    ],
    "abs_url": "https://arxiv.org/abs/2609.35570",
    "pdf_url": "https://arxiv.org/pdf/2609.35570"

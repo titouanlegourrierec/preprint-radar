@@ -402,7 +402,7 @@
    "abstract": "Urban uncrewed aerial vehicle (UAV) vision-language navigation (VLN) requires agents to follow instructions across extended urban spaces, inherently demanding long-term memory and geospatial grounding. However, scaling existing benchmarks remains difficult because of their reliance on costly reconstructed 3D assets, limiting geographic diversity and episode scale. To address this, we introduce SatNav, a scalable, long-horizon UAV VLN benchmark built from high-resolution satellite imagery. SatNav targets city-level navigation missions and uses satellite crops as approximations of UAV nadir views for visual observations. Through an automated cue-to-episode pipeline, SatNav constructs 118K episodes from 59 scenes across 18 cities, with an average trajectory length of 379 m. To stress-test long-horizon memory and geospatial reasoning, SatNav defines three task families: Boundary, Landmark, and Route, targeting loop progress tracking, landmark-based spatial grounding, and route following with counting cues. Benchmarking classical VLN agents and recent agents based on large vision-language models (LVLMs) on SatNav shows that city-scale navigation remains challenging. We further introduce SwiftVLN, a modular framework with switchable memory components, and conduct systematic memory-design ablations. Finally, satellite-to-UAV transfer experiments show that satellite-trained navigation models can operate on real-flight UAV observations, showing the practical relevance of SatNav. Our project page: https://eku127.github.io/SatNav/",
    "affiliations": [
     "The Hong Kong University of Science and Technology (Guangzhou)",
-    "Low Altitude Space Economy Research CenterInternational Digital Economy Academy (IDEA)",
+    "Low Altitude Space Economy Research Center, International Digital Economy Academy (IDEA)",
     "The Hong Kong University of Science and Technology"
    ],
    "author_affiliations": [
@@ -4415,7 +4415,7 @@
    "html_url": "https://arxiv.org/html/2609.31204v1",
    "abstract": "Recent fMRI foundation models differ substantially in the spatial scale at which they represent brain activity. ROI- and connectivity-based models are efficient but coarse, whereas voxel-level models preserve fine-grained spatial structure but require specialized 3D/4D architectures and costly fMRI-specific pretraining. We ask how effectively an image-pretrained encoder can reuse the spatial organization of cortical activity. Motivated by evidence that macroscale brain activity is strongly constrained by brain geometry, we introduce FlatClip, a frozen-encoder surface-level baseline that renders cortical activity as geometry-aware flatmap sequences and reuses a frozen SigLIP2 image encoder with only a lightweight downstream probe. Across resting-state benchmarks, FlatClip serves as a competitive middle-ground representation, outperforming ROI-level baselines on HCP and ADNI tasks while remaining weaker on PPMI and below the strongest voxel-level models overall. On visual-fMRI decoding, restricting the input to visual or NSD-provided task-active cortex improves performance, highlighting the value of task-relevant cortical coverage. Spatial perturbation controls reduce the predictive performance of flatmap features under both retrained and fixed readouts, and anatomy-linked arrangements consistently outperform vertex permutations across three colormaps. Together, these results position surface-level flatmap sequences as a practical middle-ground baseline between ROI and voxel models, and support the utility of anatomy-linked spatial organization for reusing image-pretrained features. Code is available at https://github.com/OneMore1/FlatClip.",
    "affiliations": [
-    "Department of Biomedical EngineeringSouthern University of Science and Technology, China",
+    "Department of Biomedical Engineering, Southern University of Science and Technology, China",
     "Department of Computer Science, University of Warwick, The UK",
     "School of Biomedical Engineering, Shenzhen University, Shenzhen, China"
    ],
@@ -4445,7 +4445,7 @@
     ]
    ],
    "institutions": [
-    null,
+    "Southern University of Science and Technology",
     "University of Warwick",
     "Shenzhen University"
    ],

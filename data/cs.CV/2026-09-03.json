@@ -2063,7 +2063,7 @@
    "html_url": "https://arxiv.org/html/2609.02207v1",
    "abstract": "Real-world personally identifiable information (PII) redaction often operates on document images---scans, screenshots, and PDF renderings---where OCR errors, layout structure, and visual noise determine whether sensitive information is actually removed. Existing PII benchmarks are mostly text-centric and do not measure document-level redaction risk: a page remains unsafe if even one identifier is missed. We introduce LeakageBench, a challenge set of 500 document images with 11,954 GDPR-aligned PII annotations spanning direct identifiers, linkage keys, and contextual re-identification surfaces. We evaluate generic OCR pipelines, commercial and task-adapted OCR-dependent detectors, and OCR-free vision-language models using entity-level F1, group-wise leakage, and document-level leakage metrics. Code Interpreter raises GPT-5.5 localization F1 from 0.090 to 0.249, but critical page-level leakage remains 0.968. These results show that stronger detection and tool assistance improve localization without making most pages safe for release. LeakageBench provides a diagnostic benchmark for high-recall, spatially grounded PII redaction in document images.",
    "affiliations": [
-    "Center for Artificial Intelligence and Robotics (CAIRO)Technical University of Applied Sciences Würzburg-Schweinfurt (THWS),Würzburg, Germany",
+    "Center for Artificial Intelligence and Robotics (CAIRO), Technical University of Applied Sciences Würzburg-Schweinfurt (THWS),Würzburg, Germany",
     "DataX, Frankfurt am Main, Germany"
    ],
    "author_affiliations": [
