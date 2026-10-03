@@ -607,7 +607,11 @@ def add_institutions(papers: Sequence[Paper], client: HttpClient, *, limit: int 
     Returns:
         The papers, with institutions where they could be named.
     """
-    pending = [paper for paper in papers if _needs_institutions(paper)]
+    # Papers never named first: getting the ids of older ones must not delay them.
+    pending = sorted(
+        (paper for paper in papers if _needs_institutions(paper)),
+        key=lambda paper: paper.institutions is not None,
+    )
     if not pending:
         return list(papers)
     strings = [affiliation for paper in pending for affiliation in paper.affiliations or ()]

@@ -472,6 +472,16 @@ def test_add_institutions_keeps_ror_ids(fake: FakeArxiv) -> None:
     assert fake.ror_requests == []
 
 
+def test_add_institutions_names_new_papers_before_getting_older_ids(fake: FakeArxiv) -> None:
+    older = replace(_paper("1", ("School of CS, Peking University",)), institutions=("Peking University",))
+
+    with fake.client() as ror:
+        named = add_institutions([older, _paper("2", ("Meta AI",))], ror, limit=1)
+
+    assert fake.ror_requests == ["Meta AI"]
+    assert [paper.institution_ids for paper in named] == [None, (None,)]
+
+
 def test_add_institutions_leaves_the_rest_for_next_run(fake: FakeArxiv) -> None:
     papers = [_paper("1", ("Meta AI",)), _paper("2", ("Meta AI", "School of CS, Peking University"))]
 
