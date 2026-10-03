@@ -2,12 +2,24 @@ import { useEffect, useRef, useState } from "preact/hooks";
 import { toBibtex } from "../bibtex";
 import { formatDay, subjectCode } from "../format";
 import { highlight } from "../highlight";
+import { institutionsOf } from "../institutions";
+import { exactly, type NameFilter, typed } from "../search";
 import type { Paper } from "../types";
 import { Highlighted } from "./Highlighted";
 import { RichText } from "./RichText";
 
 const MAX_AUTHORS_COLLAPSED = 6;
 const MAX_AFFILIATIONS_COLLAPSED = 3;
+
+/**
+ * What a click on one of the paper's affiliations filters on: its institution, exactly, as
+ * the graph and Rankings name it, so that "Show papers" agrees with them; the string itself
+ * (matching word prefixes) when it names no institution, like a department alone.
+ */
+export function affiliationFilter(paper: Paper, affiliation: string): NameFilter {
+  const institution = institutionsOf(paper)[paper.affiliations?.indexOf(affiliation) ?? -1];
+  return institution ? exactly(institution) : typed(affiliation);
+}
 
 function matches(text: string, terms: readonly string[]): boolean {
   return highlight(text, terms).some((segment) => segment.match);
@@ -31,7 +43,8 @@ interface Props {
   citationsNote?: string | undefined;
   onToggleSaved: (paper: Paper) => void;
   onAuthor: (author: string) => void;
-  onAffiliation: (affiliation: string) => void;
+  /** The affiliation's institution, exactly, or the string itself when it names none. */
+  onAffiliation: (filter: NameFilter) => void;
 }
 
 export function PaperCard({
@@ -146,7 +159,7 @@ export function PaperCard({
                   type="button"
                   class="link-button"
                   title="Show papers from this affiliation"
-                  onClick={() => onAffiliation(affiliation)}
+                  onClick={() => onAffiliation(affiliationFilter(paper, affiliation))}
                 >
                   <Highlighted text={affiliation} terms={highlights} />
                 </button>

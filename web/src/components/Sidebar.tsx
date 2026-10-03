@@ -1,6 +1,6 @@
 import { useState } from "preact/hooks";
 import type { Period } from "../period";
-import type { FacetCount, SearchFilters } from "../search";
+import { type FacetCount, type NameFilter, type SearchFilters, typed } from "../search";
 import type { ArchiveSummary, DaySummary } from "../types";
 import { PeriodPicker } from "./PeriodPicker";
 import { VenueSelect } from "./VenueSelect";
@@ -45,9 +45,9 @@ function FilterInput({
 }: {
   label: string;
   placeholder: string;
-  value: string | null;
+  value: NameFilter | null;
   suggestions: FacetCount[];
-  onChange: (value: string | null) => void;
+  onChange: (value: NameFilter | null) => void;
 }) {
   const listId = `${label.toLowerCase()}-suggestions`;
   return (
@@ -57,8 +57,12 @@ function FilterInput({
         type="search"
         list={listId}
         placeholder={placeholder}
-        value={value ?? ""}
-        onInput={(event) => onChange(event.currentTarget.value || null)}
+        // A clicked name matches exactly; once edited, the text matches word prefixes.
+        title={value?.exact ? "This name exactly; edit it to match the start of words" : undefined}
+        value={value?.text ?? ""}
+        onInput={(event) =>
+          onChange(event.currentTarget.value ? typed(event.currentTarget.value) : null)
+        }
       />
       <datalist id={listId}>
         {suggestions.map(({ value: suggestion }) => (

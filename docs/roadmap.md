@@ -34,7 +34,7 @@ for the answer.
 | 3 | Revised papers (author list changed) | Re-read the HTML, comparing folded names so renames keep their mapping | DATA-2 | Re-read the HTML (2026-10-01) |
 | 4 | Where the front-matter cache lives | The Actions cache first, touched daily | DATA-1 (layer 3) | The Actions cache (2026-10-01) |
 | 5 | Archive `[]` affiliations | Spike, then retry OpenAlex while young, and say so in the UI | AFF-3 | pending |
-| 6 | Filter semantics | Exact for clicked names, word prefix for typed text | SRCH-1 | pending |
+| 6 | Filter semantics | Exact for clicked names, word prefix for typed text | SRCH-1 | Exact for clicked names, word prefix for typed text (2026-10-03) |
 | 7 | Validation strictness | Fail on structural rules, warn on heuristic ones | DATA-3 | Fail on structural rules, warn on heuristic ones (2026-10-01) |
 | 8 | License and data terms | MIT for the code; read the Semantic Scholar terms before going public | REL-3 | MIT for the code (2026-10-01); the data terms wait for the Semantic Scholar terms, before going public |
 | 9 | Visibility, contact and Actions bill | Confirm the private repository with a public site; choose the correction contact | SEC-9 | Correction contact: titouanlegourrierec@kaist.ac.kr (2026-10-01) |
@@ -47,7 +47,7 @@ for the answer.
 | 16 | Failure signalling | Red runs for data-affecting failures, an issue for scheduled runs | CI-2 | Red runs for data-affecting failures (2026-10-01); no issue for now |
 | 17 | Math in abstracts | Strip text macros now, lazy KaTeX only if asked | SRCH-19 | pending |
 | 18 | Withdrawn papers | Exclude from Highly cited, badge in the day views | META-2 | pending |
-| 19 | Abstracts by default | On for "Latest day" | Phase 2 | pending |
+| 19 | Abstracts by default | On for "Latest day" | Phase 2 | Always collapsed, as now (2026-10-03) |
 | 20 | Shipping the audit | Commit it as a frozen baseline | — | Done: `docs/audit/2026-09-30.md` |
 | 21 | Versioning | Stay on 0.x; tag a minor release at the end of each phase, with a changelog; 1.0.0 once the public data format is documented and stable | — | Adopted: `v0.1.0` tags the audit commit as the baseline |
 
@@ -126,7 +126,7 @@ with the deadline, the breakers, the summary and the page cache (2026-10-02) was
 
 | ID | Item | Priority | Status |
 |---|---|---|---|
-| SRCH-1 | Exact clicked filters, word-prefix typed filters | P1 | todo |
+| SRCH-1 | Exact clicked filters, word-prefix typed filters | P1 | done |
 | SRCH-2 | Phrase and exclusion scope and tokenization | P2 | todo |
 | SRCH-3 | Prefix and fuzzy tuning | P1 | todo |
 | SRCH-4 | Browser history | P1 | todo |

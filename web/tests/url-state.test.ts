@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { exactly, typed } from "../src/search";
 import { DEFAULT_STATE, readState, writeState } from "../src/url-state";
 
 describe("url state", () => {
@@ -16,14 +17,28 @@ describe("url state", () => {
       view: "reading-list" as const,
       filters: {
         excludeCrossLists: true,
-        author: "Ada",
-        affiliation: "MIT",
+        author: typed("Ada"),
+        affiliation: exactly("MIT"),
         subject: null,
         venue: "ECCV 2026",
       },
       paper: "2609.30234",
     };
     expect(readState(writeState(state))).toEqual(state);
+  });
+
+  it("keeps clicked names apart from typed text", () => {
+    const filters = (author: ReturnType<typeof typed>, affiliation: ReturnType<typeof typed>) =>
+      writeState({ ...DEFAULT_STATE, filters: { ...DEFAULT_STATE.filters, author, affiliation } });
+
+    expect(filters(exactly("Hao Li"), exactly("Intel"))).toBe("?by=Hao+Li&at=Intel");
+    expect(filters(typed("hao"), typed("intel"))).toBe("?author=hao&aff=intel");
+    // Links made before exact filters keep working, as typed text.
+    expect(readState("?author=Hao+Li&aff=MIT").filters).toMatchObject({
+      author: typed("Hao Li"),
+      affiliation: typed("MIT"),
+    });
+    expect(readState("?by=Hao+Li&author=hao").filters.author).toEqual(exactly("Hao Li"));
   });
 
   it("round-trips a paper permalink", () => {

@@ -178,3 +178,17 @@ export function paperInstitutions(paper: Paper): string[] {
     return found ? canonicalInstitution(found) : institutionName(affiliation);
   });
 }
+
+/**
+ * The institution of each of the paper's affiliations as the graph and Rankings count
+ * them: {@link paperInstitutions}, with `null` for an affiliation that names none, or that
+ * names one of the paper's own authors (a person is not an institution). The exact
+ * affiliation filter matches these, so that a clicked row shows as many papers as it says.
+ */
+export function institutionsOf(paper: Paper): (string | null)[] {
+  const people = new Set(paper.authors.map(searchKey));
+  return paperInstitutions(paper).map((name) => {
+    const key = searchKey(name);
+    return key === "" || people.has(key) ? null : name;
+  });
+}

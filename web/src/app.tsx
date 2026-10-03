@@ -17,6 +17,7 @@ import { loadShowAbstracts, saveShowAbstracts, type ThemePreference } from "./pr
 import {
   alphabetical,
   byCitations,
+  exactly,
   facetCounts,
   NO_FILTERS,
   parseQuery,
@@ -287,7 +288,7 @@ export function App() {
               filters: {
                 ...NO_FILTERS,
                 venue: state.filters.venue,
-                [kind === "institution" ? "affiliation" : "author"]: label,
+                [kind === "institution" ? "affiliation" : "author"]: exactly(label),
               },
             })
           }
@@ -471,7 +472,7 @@ export function App() {
                   view: archived ? "cited" : "papers",
                   filters: {
                     ...state.filters,
-                    [kind === "institution" ? "affiliation" : "author"]: name,
+                    [kind === "institution" ? "affiliation" : "author"]: exactly(name),
                   },
                 })
               }
@@ -510,7 +511,7 @@ export function App() {
                 showAbstracts={showAbstracts || state.view === "reading-list"}
                 savedIds={readingList.savedIds}
                 onToggleSaved={readingList.toggle}
-                onAuthor={(author) => setFilters({ ...state.filters, author })}
+                onAuthor={(author) => setFilters({ ...state.filters, author: exactly(author) })}
                 onAffiliation={(affiliation) => setFilters({ ...state.filters, affiliation })}
               />
             </>

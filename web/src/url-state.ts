@@ -1,5 +1,12 @@
 import { between, DEFAULT_PERIOD, isIsoDay, isRange, type Period } from "./period";
-import { NO_FILTERS, type SearchFilters, type SortOrder } from "./search";
+import {
+  exactly,
+  type NameFilter,
+  NO_FILTERS,
+  type SearchFilters,
+  type SortOrder,
+  typed,
+} from "./search";
 
 export type View = "papers" | "cited" | "graph" | "rankings" | "reading-list" | "about";
 
@@ -39,6 +46,17 @@ function readPeriod(params: URLSearchParams): Period {
   return isRange(range) ? { kind: "recent", range } : DEFAULT_PERIOD;
 }
 
+/**
+ * A name filter from the URL: `exactKey` holds a clicked name (`?by=Hao Li`, `?at=MIT`),
+ * `typedKey` typed text (`?author=`, `?aff=`, which links made before exact filters use).
+ */
+function readName(params: URLSearchParams, exactKey: string, typedKey: string): NameFilter | null {
+  const exact = params.get(exactKey);
+  if (exact) return exactly(exact);
+  const text = params.get(typedKey);
+  return text ? typed(text) : null;
+}
+
 /** Parse the view state from a query string, so that searches can be shared as links. */
 export function readState(search: string): ViewState {
   const params = new URLSearchParams(search);
@@ -52,8 +70,8 @@ export function readState(search: string): ViewState {
     year: /^\d{4}$/.test(params.get("year") ?? "") ? Number(params.get("year")) : null,
     filters: {
       excludeCrossLists: params.get("xl") === "0",
-      author: params.get("author"),
-      affiliation: params.get("aff"),
+      author: readName(params, "by", "author"),
+      affiliation: readName(params, "at", "aff"),
       subject: params.get("subject"),
       venue: params.get("venue"),
     },
@@ -80,8 +98,9 @@ export function writeState(state: ViewState): string {
   set("paper", state.paper);
   set("year", state.year === null ? null : String(state.year));
   set("xl", state.filters.excludeCrossLists ? "0" : null);
-  set("author", state.filters.author);
-  set("aff", state.filters.affiliation);
+  const { author, affiliation } = state.filters;
+  set(author?.exact ? "by" : "author", author?.text ?? null);
+  set(affiliation?.exact ? "at" : "aff", affiliation?.text ?? null);
   set("subject", state.filters.subject);
   set("venue", state.filters.venue);
   const query = params.toString();

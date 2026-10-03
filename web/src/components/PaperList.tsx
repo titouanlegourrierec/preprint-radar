@@ -2,7 +2,7 @@ import type { ComponentChildren } from "preact";
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { dayGroups } from "../day-groups";
 import { formatShortDay } from "../format";
-import type { SearchResult } from "../search";
+import type { NameFilter, SearchResult } from "../search";
 import type { Paper } from "../types";
 import { PaperCard } from "./PaperCard";
 
@@ -23,7 +23,7 @@ interface Props {
   savedIds: ReadonlySet<string>;
   onToggleSaved: (paper: Paper) => void;
   onAuthor: (author: string) => void;
-  onAffiliation: (affiliation: string) => void;
+  onAffiliation: (filter: NameFilter) => void;
 }
 
 /** Render results incrementally: the next page is added when the end of the list is visible. */

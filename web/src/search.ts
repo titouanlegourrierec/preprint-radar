@@ -1,6 +1,6 @@
 import MiniSearch, { type SearchResult as MiniSearchResult } from "minisearch";
-import { paperInstitutions } from "./institutions";
-import { fold } from "./text";
+import { institutionsOf, paperInstitutions } from "./institutions";
+import { fold, searchKey } from "./text";
 import type { Paper } from "./types";
 
 /**
@@ -9,10 +9,19 @@ import type { Paper } from "./types";
  */
 export type SortOrder = "relevance" | "newest" | "citations";
 
+/**
+ * An author or affiliation filter: a name clicked on a card, a Rankings row or a graph
+ * node (`exact`: that name only), or text typed in the sidebar (word prefixes).
+ */
+export interface NameFilter {
+  text: string;
+  exact: boolean;
+}
+
 export interface SearchFilters {
   excludeCrossLists: boolean;
-  author: string | null;
-  affiliation: string | null;
+  author: NameFilter | null;
+  affiliation: NameFilter | null;
   subject: string | null;
   /** A venue as detected in the comments (e.g. "ECCV 2026"), or {@link ANY_VENUE}. */
   venue: string | null;
@@ -20,6 +29,16 @@ export interface SearchFilters {
 
 /** Venue filter value for papers accepted anywhere. */
 export const ANY_VENUE = "*";
+
+/** A filter on text typed by the user. */
+export function typed(text: string): NameFilter {
+  return { text, exact: false };
+}
+
+/** A filter on one name, as clicked. */
+export function exactly(text: string): NameFilter {
+  return { text, exact: true };
+}
 
 export const NO_FILTERS: SearchFilters = {
   excludeCrossLists: false,
@@ -181,28 +200,55 @@ export class PaperIndex {
   }
 }
 
-function containsFolded(values: readonly string[], needle: string | null): boolean {
-  if (!needle?.trim()) return true;
-  const folded = fold(needle.trim());
-  return values.some((value) => fold(value).includes(folded));
+/** Whether the filter filters anything: an empty one does not. */
+export function isActive(filter: NameFilter | null): filter is NameFilter {
+  return filter !== null && searchKey(filter.text) !== "";
 }
 
 /**
- * Author and affiliation filters match any value containing the text, ignoring case and
- * accents, so that "kaist" matches "KAIST, Daejeon" and "perez" matches "Lozano-Pérez".
- * Affiliations also match by institution, so that a graph node's name ("Carnegie Mellon
- * University") finds the papers written "CMU".
+ * Whether consecutive words of `value` start with the words of `text`, in order, ignoring
+ * case, accents and punctuation: "kaist" matches "KAIST, Daejeon", "perez" matches
+ * "Lozano-Pérez" and "hao li" matches "Hao Lin", but "hao li" does not match "Chuanhao Li".
+ */
+export function startsWords(value: string, text: string): boolean {
+  const words = searchKey(text).split(" ");
+  const valueWords = searchKey(value).split(" ");
+  for (let start = 0; start + words.length <= valueWords.length; start++) {
+    if (words.every((word, offset) => valueWords[start + offset]?.startsWith(word))) return true;
+  }
+  return false;
+}
+
+function matchesAuthor(paper: Paper, filter: NameFilter): boolean {
+  if (!filter.exact) return paper.authors.some((author) => startsWords(author, filter.text));
+  const key = searchKey(filter.text);
+  return paper.authors.some((author) => searchKey(author) === key);
+}
+
+function matchesAffiliation(paper: Paper, filter: NameFilter): boolean {
+  if (filter.exact) {
+    // The institutions as the graph and Rankings count them, whatever the strings say.
+    const key = searchKey(filter.text);
+    return institutionsOf(paper).some((name) => name !== null && searchKey(name) === key);
+  }
+  return [...(paper.affiliations ?? []), ...paperInstitutions(paper)].some((value) =>
+    startsWords(value, filter.text),
+  );
+}
+
+/**
+ * A clicked author or institution matches that name only (folded and with punctuation
+ * collapsed, as {@link searchKey} does), and an institution by the name the graph gives it,
+ * whatever the affiliation string ("CMU" for "Carnegie Mellon University"). Typed text
+ * matches word prefixes of authors, or of affiliations and their institutions'
+ * names: see {@link startsWords}.
  */
 export function matchesFilters(paper: Paper, filters: SearchFilters): boolean {
   return (
     !(filters.excludeCrossLists && paper.cross_list_from !== null) &&
-    containsFolded(paper.authors, filters.author) &&
+    (!isActive(filters.author) || matchesAuthor(paper, filters.author)) &&
     // Institutions are only named when an affiliation filter needs them.
-    (!filters.affiliation?.trim() ||
-      containsFolded(
-        [...(paper.affiliations ?? []), ...paperInstitutions(paper)],
-        filters.affiliation,
-      )) &&
+    (!isActive(filters.affiliation) || matchesAffiliation(paper, filters.affiliation)) &&
     (filters.subject === null || paper.primary_subject === filters.subject) &&
     (filters.venue === null ||
       (filters.venue === ANY_VENUE ? Boolean(paper.venue) : paper.venue === filters.venue))
@@ -210,9 +256,9 @@ export function matchesFilters(paper: Paper, filters: SearchFilters): boolean {
 }
 
 function filterHighlights(filters: SearchFilters): string[] {
-  return [filters.author, filters.affiliation].flatMap((value) =>
-    value
-      ? fold(value)
+  return [filters.author, filters.affiliation].flatMap((filter) =>
+    filter
+      ? fold(filter.text)
           .split(/\s+/)
           .filter((word) => word && !STOP_WORDS.has(word))
       : [],

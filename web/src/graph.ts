@@ -1,4 +1,4 @@
-import { paperInstitutions } from "./institutions";
+import { institutionsOf } from "./institutions";
 import { searchKey } from "./text";
 import type { Paper } from "./types";
 
@@ -119,12 +119,8 @@ export function buildGraph(papers: Paper[], options: GraphOptions): Graph {
     const institutions: string[] = [];
     const keyOfAffiliation: (string | null)[] = [];
     if (options.institutions) {
-      // Author lists sometimes end up among affiliations: a person is not an institution.
-      const people = new Set(paper.authors.map(searchKey));
-      for (const name of paperInstitutions(paper)) {
-        const entry = people.has(searchKey(name))
-          ? null
-          : register("institution", name, paper.arxiv_id, seen);
+      for (const name of institutionsOf(paper)) {
+        const entry = name === null ? null : register("institution", name, paper.arxiv_id, seen);
         keyOfAffiliation.push(entry?.id ?? null);
         if (entry?.first) institutions.push(entry.id);
       }
