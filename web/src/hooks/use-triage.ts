@@ -36,5 +36,12 @@ export function useTriage(category: string | null, days: readonly DaySummary[]) 
     saveHideSeen(!hideSeen);
   };
 
-  return { seen, toggleSeen, hideSeen, toggleHideSeen, sinceLastVisit: newSince(days, previous) };
+  return {
+    seen,
+    toggleSeen,
+    hideSeen,
+    toggleHideSeen,
+    previousVisit: previous,
+    sinceLastVisit: newSince(days, previous),
+  };
 }

@@ -57,15 +57,19 @@ export function useReadingList(loaded: PaperIndex | null) {
     );
   };
 
-  /** Add the papers of an exported list (JSON); says how many were added. */
-  const importFile = async (file: File) => {
-    let read: ReturnType<typeof readPapers>;
+  /**
+   * Add the papers of an exported list (JSON), and say how many were added; `also` takes
+   * the rest of the file (the saved searches) and says what it added.
+   */
+  const importFile = async (file: File, also?: (value: unknown) => string | null) => {
+    let value: unknown;
     try {
-      read = readPapers(JSON.parse(await file.text()));
+      value = JSON.parse(await file.text());
     } catch {
       setMessage(`${file.name} is not a reading list exported as JSON.`);
       return;
     }
+    const read = readPapers(value);
     const { papers: next, added } = mergePapers(papers, read.papers);
     setPapers(store(next));
     const skipped =
@@ -74,8 +78,9 @@ export function useReadingList(loaded: PaperIndex | null) {
         : read.skipped
           ? `; ${read.skipped} entries that are not papers were skipped`
           : "";
+    const more = also?.(value);
     setMessage(
-      `${added} paper${added === 1 ? "" : "s"} added, ${read.papers.length - added} already saved${skipped}.`,
+      `${added} paper${added === 1 ? "" : "s"} added, ${read.papers.length - added} already saved${skipped}${more ? `; ${more}` : ""}.`,
     );
   };
 

@@ -1,0 +1,90 @@
+import { useMemo } from "preact/hooks";
+import { type SavedSearch, type SearchOf, savedSearch, searchOf } from "../saved-searches";
+import type { PaperIndex } from "../search";
+
+interface Props {
+  searches: SavedSearch[];
+  /** The loaded papers, which each search runs over. */
+  index: PaperIndex | null;
+  /** Newest day of the previous visit: papers after it count as new. */
+  since: string | null;
+  /** The search shown now, which can be saved. */
+  current: SearchOf;
+  onSave: () => void;
+  onRemove: (saved: SavedSearch) => void;
+  /** Show a saved search's papers; `onlyNew` when its count is of new papers. */
+  onOpen: (saved: SavedSearch, onlyNew: boolean) => void;
+}
+
+/** The saved searches and how many papers each finds: new since the last visit, or loaded. */
+export function SavedSearches({
+  searches,
+  index,
+  since,
+  current,
+  onSave,
+  onRemove,
+  onOpen,
+}: Props) {
+  const counts = useMemo(
+    () =>
+      searches.map((saved) => {
+        if (index === null) return null;
+        const { query, filters } = searchOf(saved);
+        const found = index.search(query, filters, "newest");
+        return since === null
+          ? found.length
+          : found.filter(({ paper }) => paper.announced > since).length;
+      }),
+    [searches, index, since],
+  );
+  const shown = savedSearch(current);
+  const isSaved = shown !== null && searches.some(({ search }) => search === shown.search);
+
+  if (searches.length === 0 && shown === null) return null;
+  return (
+    <section class="saved-searches" aria-labelledby="saved-searches-title">
+      <h2 id="saved-searches-title" class="saved-searches__title">
+        Saved searches
+      </h2>
+      {shown !== null && (
+        <button type="button" class="link-button" onClick={onSave} disabled={isSaved}>
+          {isSaved ? "This search is saved" : "Save this search"}
+        </button>
+      )}
+      {searches.length > 0 && (
+        <ul class="saved-searches__list">
+          {searches.map((saved, position) => {
+            const count = counts[position];
+            return (
+              <li key={saved.search}>
+                <button
+                  type="button"
+                  class="link-button"
+                  onClick={() => onOpen(saved, since !== null)}
+                >
+                  {saved.name}
+                </button>
+                {count !== null && count !== undefined && (
+                  <span class={count && since ? "saved-searches__new" : "muted"}>
+                    {" "}
+                    {count.toLocaleString()}
+                    {since !== null ? " new" : ""}
+                  </span>
+                )}
+                <button
+                  type="button"
+                  class="saved-searches__remove"
+                  aria-label={`Remove the saved search ${saved.name}`}
+                  onClick={() => onRemove(saved)}
+                >
+                  ×
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </section>
+  );
+}

@@ -45,8 +45,9 @@ export function About() {
       <ul>
         <li>No account, no cookies, no analytics: the site loads nothing from other websites.</li>
         <li>
-          Your reading list, the papers you marked seen, the day of your last visit, your theme and
-          display settings are kept in your browser (local storage), and never sent anywhere.
+          Your reading list, saved searches, the papers you marked seen, the day of your last visit,
+          your theme and display settings are kept in your browser (local storage), and never sent
+          anywhere.
         </li>
         <li>
           The site is hosted on GitHub Pages. As for any website, GitHub receives the address of

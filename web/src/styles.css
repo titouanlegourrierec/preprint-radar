@@ -1278,3 +1278,40 @@ html {
     display: none;
   }
 }
+
+.saved-searches {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 0.85rem;
+}
+
+.saved-searches__title {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.saved-searches__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.saved-searches__new {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.saved-searches__remove {
+  margin-left: 4px;
+  padding: 0 4px;
+  border: 0;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+}

@@ -1,3 +1,4 @@
+import type { ComponentChildren } from "preact";
 import { useState } from "preact/hooks";
 import type { Period } from "../period";
 import { type FacetCount, type NameFilter, type SearchFilters, typed } from "../search";
@@ -26,6 +27,8 @@ interface Props {
         onYear: (year: number) => void;
       }
     | undefined;
+  /** Shown below the filters. */
+  children?: ComponentChildren;
   /** Views of either kind of papers: the recent days (`null`) or an archive year. */
   source?:
     | {
@@ -210,6 +213,7 @@ export function Sidebar(props: Props) {
           )}
         </div>
       </details>
+      {props.children}
     </aside>
   );
 }

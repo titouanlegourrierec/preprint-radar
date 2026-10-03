@@ -4,12 +4,14 @@ import { About } from "./components/About";
 import { GraphView } from "./components/GraphView";
 import { PaperList } from "./components/PaperList";
 import { Rankings } from "./components/Rankings";
+import { SavedSearches } from "./components/SavedSearches";
 import { Sidebar } from "./components/Sidebar";
 import { download } from "./download";
 import { citationsNote as formatCitationsNote, formatDay } from "./format";
 import { useCitations } from "./hooks/use-citations";
 import { usePapers } from "./hooks/use-papers";
 import { useReadingList } from "./hooks/use-reading-list";
+import { useSavedSearches } from "./hooks/use-saved-searches";
 import { useTheme } from "./hooks/use-theme";
 import { useTriage } from "./hooks/use-triage";
 import { useUrlState } from "./hooks/use-url-state";
@@ -17,6 +19,7 @@ import { hasModifier, isTyping } from "./keyboard";
 import { between, samePeriod } from "./period";
 import { loadShowAbstracts, saveShowAbstracts, type ThemePreference } from "./preferences";
 import { readingListFile } from "./reading-list";
+import { searchOf } from "./saved-searches";
 import {
   alphabetical,
   arxivIdOf,
@@ -55,6 +58,7 @@ export function App() {
   const readingList = useReadingList(load.status === "ready" ? load.index : null);
   const importInput = useRef<HTMLInputElement>(null);
   const triage = useTriage(category ?? null, storeDays);
+  const savedSearches = useSavedSearches();
   const searchInput = useRef<HTMLInputElement>(null);
 
   // "/" jumps to the search box, but in the graph, whose own search box takes it.
@@ -405,7 +409,24 @@ export function App() {
                   }
                 : undefined
             }
-          />
+          >
+            {triaged && (
+              <SavedSearches
+                searches={savedSearches.searches}
+                index={load.status === "ready" ? load.index : null}
+                since={triage.previousVisit}
+                current={{ query, filters: state.filters }}
+                onSave={() => savedSearches.save({ query, filters: state.filters })}
+                onRemove={savedSearches.remove}
+                onOpen={(saved, onlyNew) =>
+                  update({
+                    ...searchOf(saved),
+                    ...(onlyNew && sinceLastVisit ? { period: sinceLastVisit.period } : {}),
+                  })
+                }
+              />
+            )}
+          </Sidebar>
         )}
 
         <main class="results">
@@ -494,7 +515,14 @@ export function App() {
                   hidden
                   onChange={(event) => {
                     const file = event.currentTarget.files?.[0];
-                    if (file) void readingList.importFile(file);
+                    if (file) {
+                      void readingList.importFile(file, (value) => {
+                        const added = savedSearches.importSearches(value);
+                        return added
+                          ? `${added} saved search${added === 1 ? "" : "es"} added`
+                          : null;
+                      });
+                    }
                     event.currentTarget.value = "";
                   }}
                 />
@@ -521,7 +549,11 @@ export function App() {
                   onClick={() =>
                     download(
                       "reading-list.json",
-                      JSON.stringify(readingListFile(readingList.papers), null, 2),
+                      JSON.stringify(
+                        readingListFile(readingList.papers, savedSearches.searches),
+                        null,
+                        2,
+                      ),
                       "application/json",
                     )
                   }

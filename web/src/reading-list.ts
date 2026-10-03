@@ -8,6 +8,8 @@ const FORMAT_VERSION = 1;
 export interface ReadingListFile {
   version: typeof FORMAT_VERSION;
   papers: Paper[];
+  /** The saved searches, exported with the papers (`saved-searches.ts` reads them). */
+  searches?: unknown[];
 }
 
 const isString = (value: unknown): value is string => typeof value === "string";
@@ -103,8 +105,8 @@ export function readPapers(value: unknown): { papers: Paper[]; skipped: number }
 }
 
 /** The reading list as a file to export, which {@link readPapers} reads back. */
-export function readingListFile(papers: Paper[]): ReadingListFile {
-  return { version: FORMAT_VERSION, papers };
+export function readingListFile(papers: Paper[], searches?: unknown[]): ReadingListFile {
+  return { version: FORMAT_VERSION, papers, ...(searches?.length ? { searches } : {}) };
 }
 
 /** Papers saved by the user, persisted in the browser (full records, so they survive data pruning). */
