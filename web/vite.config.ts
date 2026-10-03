@@ -66,5 +66,7 @@ export default defineConfig({
   test: {
     environment: "node",
     include: ["tests/**/*.test.ts"],
+    // tests/styles.test.ts reads the stylesheet's text; other CSS stays empty in tests.
+    css: { include: [/styles\.css/] },
   },
 });

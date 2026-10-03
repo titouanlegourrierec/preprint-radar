@@ -3,11 +3,15 @@
   --surface: #ffffff;
   --surface-muted: #f0f0ed;
   --border: #e3e3de;
+  /* Form fields: 3:1 against the surface (WCAG 1.4.11). */
+  --border-strong: #8a8a84;
   --text: #1c1c1a;
   --text-muted: #6b6b66;
   --accent: #3b5bdb;
   --accent-soft: #e7ecff;
   --mark: #fff1a8;
+  /* The saved star: 3:1 against the surface. */
+  --star: #b27b00;
   --danger: #c92a2a;
   --graph-paper: #0ca678;
   --graph-institution: #e8590c;
@@ -31,11 +35,13 @@
     --surface: #1b1b1b;
     --surface-muted: #242424;
     --border: #2e2e2e;
+    --border-strong: #6a6a66;
     --text: #ececea;
     --text-muted: #9c9c96;
     --accent: #91a7ff;
     --accent-soft: #23294a;
     --mark: #5c4d00;
+    --star: #e8a400;
     --danger: #ff8787;
     --graph-paper: #38d9a9;
     --graph-institution: #ff922b;
@@ -52,11 +58,13 @@
   --surface: #1b1b1b;
   --surface-muted: #242424;
   --border: #2e2e2e;
+  --border-strong: #6a6a66;
   --text: #ececea;
   --text-muted: #9c9c96;
   --accent: #91a7ff;
   --accent-soft: #23294a;
   --mark: #5c4d00;
+  --star: #e8a400;
   --danger: #ff8787;
   --graph-paper: #38d9a9;
   --graph-institution: #ff922b;
@@ -92,6 +100,15 @@ a:hover {
   text-decoration: underline;
 }
 
+/* Links inside text are told by more than their color (WCAG 1.4.1): comments, where code
+   and project URLs live, are muted like them. */
+.paper__abstract a,
+.paper__comments a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  overflow-wrap: anywhere;
+}
+
 button,
 input,
 select {
@@ -101,7 +118,8 @@ select {
 
 mark {
   background: var(--mark);
-  color: inherit;
+  /* Not the muted color of the text around it, which is too pale on the mark. */
+  color: var(--text);
   border-radius: 2px;
   padding: 0 1px;
 }
@@ -220,7 +238,7 @@ html {
   width: 100%;
   padding: 12px 16px;
   font-size: 1rem;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-strong);
   border-radius: var(--radius);
   background: var(--surface);
   box-shadow: var(--shadow);
@@ -290,7 +308,7 @@ html {
 .field input,
 .field select {
   padding: 7px 10px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-strong);
   border-radius: 8px;
   background: var(--surface);
   color: var(--text);
@@ -310,7 +328,7 @@ html {
   gap: 9px;
   width: 100%;
   padding: 6px 10px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-strong);
   border-radius: 8px;
   background: var(--surface);
   text-align: left;
@@ -440,8 +458,8 @@ html {
 }
 
 .period-picker__day small {
-  font-size: 0.6rem;
-  color: var(--text-muted);
+  font-size: 0.65rem;
+  color: var(--text);
 }
 
 .period-picker__day:hover:not(:disabled) {
@@ -457,7 +475,8 @@ html {
 
 .period-picker__day.is-in-range {
   background: color-mix(in srgb, var(--accent) 22%, transparent);
-  color: var(--accent);
+  color: var(--text);
+  font-weight: 600;
 }
 
 .period-picker__day.is-in-range small {
@@ -858,7 +877,7 @@ html {
 }
 
 .icon-button--active {
-  color: #e8a400;
+  color: var(--star);
 }
 
 /* Graph ------------------------------------------------------------------- */
@@ -970,7 +989,7 @@ html {
 .graph-settings select {
   width: 100%;
   padding: 5px 8px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-strong);
   border-radius: 7px;
   background: var(--surface);
   color: var(--text);
