@@ -48,6 +48,10 @@
     "Institute of Science and Technology Austria",
     "University of Salzburg"
    ],
+   "institution_ids": [
+    "03gnh5541",
+    "05gs8cd61"
+   ],
    "abs_url": "https://arxiv.org/abs/1412.6821",
    "pdf_url": "https://arxiv.org/pdf/1412.6821"
   },
@@ -92,6 +96,9 @@
    ],
    "institutions": [
     "Meta"
+   ],
+   "institution_ids": [
+    "01zbnvs85"
    ],
    "abs_url": "https://arxiv.org/abs/1412.6115",
    "pdf_url": "https://arxiv.org/pdf/1412.6115"
@@ -147,10 +154,12 @@
    ],
    "author_affiliations": [
     [
-     0
+     0,
+     1
     ],
     [
-     0
+     0,
+     1
     ],
     [
      1
@@ -165,6 +174,10 @@
    "institutions": [
     "Australian National University",
     "Data61"
+   ],
+   "institution_ids": [
+    "019wvm592",
+    "03q397159"
    ],
    "abs_url": "https://arxiv.org/abs/1412.4172",
    "pdf_url": "https://arxiv.org/pdf/1412.4172"
@@ -241,6 +254,11 @@
     "Centre Inria de Saclay",
     "Laboratoire Traitement et Communication de l’Information"
    ],
+   "institution_ids": [
+    "02kvxyf05",
+    "0315e5x55",
+    "057er4c39"
+   ],
    "abs_url": "https://arxiv.org/abs/1412.3919",
    "pdf_url": "https://arxiv.org/pdf/1412.3919"
   },
@@ -292,6 +310,11 @@
     "University of Massachusetts Lowell",
     "University of California, Davis"
    ],
+   "institution_ids": [
+    "01an7q238",
+    "03hamhx47",
+    "05rrcem69"
+   ],
    "abs_url": "https://arxiv.org/abs/1412.3474",
    "pdf_url": "https://arxiv.org/pdf/1412.3474"
   },
@@ -335,6 +358,9 @@
    "institutions": [
     "University of Oxford"
    ],
+   "institution_ids": [
+    "052gg0110"
+   ],
    "abs_url": "https://arxiv.org/abs/1412.1842",
    "pdf_url": "https://arxiv.org/pdf/1412.1842"
   },
@@ -370,6 +396,9 @@
    "institutions": [
     "Microsoft"
    ],
+   "institution_ids": [
+    "00d0nc645"
+   ],
    "abs_url": "https://arxiv.org/abs/1412.1710",
    "pdf_url": "https://arxiv.org/pdf/1412.1710"
   },
@@ -393,21 +422,34 @@
    "html_url": null,
    "abstract": "This paper designs a high-performance deep convolutional network (DeepID2+) for face recognition. It is learned with the identification-verification supervisory signal. By increasing the dimension of hidden representations and adding supervision to early convolutional layers, DeepID2+ achieves new state-of-the-art on LFW and YouTube Faces benchmarks. Through empirical studies, we have discovered three properties of its deep neural activations critical for the high performance: sparsity, selectiveness and robustness. (1) It is observed that neural activations are moderately sparse. Moderate sparsity maximizes the discriminative power of the deep net as well as the distance between images. It is surprising that DeepID2+ still can achieve high recognition accuracy even after the neural responses are binarized. (2) Its neurons in higher layers are highly selective to identities and identity-related attributes. We can identify different subsets of neurons which are either constantly excited or inhibited when different identities or attributes are present. Although DeepID2+ is not taught to distinguish attributes during training, it has implicitly learned such high-level concepts. (3) It is much more robust to occlusions, although occlusion patterns are not included in the training set.",
    "affiliations": [
-    "Chinese University of Hong Kong"
+    "Chinese University of Hong Kong",
+    "Chinese Academy of Sciences",
+    "Shenzhen Institutes of Advanced Technology"
    ],
    "author_affiliations": [
     [
      0
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ]
    ],
    "institutions": [
-    "Chinese University of Hong Kong"
+    "Chinese University of Hong Kong",
+    "Chinese Academy of Sciences",
+    "Shenzhen Institutes of Advanced Technology"
+   ],
+   "institution_ids": [
+    "00t33hh48",
+    "034t30j35",
+    "04gh4er46"
    ],
    "abs_url": "https://arxiv.org/abs/1412.1265",
    "pdf_url": "https://arxiv.org/pdf/1412.1265"
@@ -448,6 +490,9 @@
    "institutions": [
     "Toyota Technological Institute at Chicago"
    ],
+   "institution_ids": [
+    "02sn5gb64"
+   ],
    "abs_url": "https://arxiv.org/abs/1412.0774",
    "pdf_url": "https://arxiv.org/pdf/1412.0774"
   },
@@ -470,18 +515,26 @@
    "html_url": null,
    "abstract": "Dictionary learning algorithms or supervised deep convolution networks have considerably improved the efficiency of predefined feature representations such as SIFT. We introduce a deep scattering convolution network, with predefined wavelet filters over spatial and angular variables. This representation brings an important improvement to results previously obtained with predefined features over object image databases such as Caltech and CIFAR. The resulting accuracy is comparable to results obtained with unsupervised deep learning and dictionary based representations. This shows that refining image representations by using geometric priors is a promising direction to improve image classification and its understanding.",
    "affiliations": [
-    "École Normale Supérieure - PSL"
+    "École Normale Supérieure - PSL",
+    "École Normale Supérieure"
    ],
    "author_affiliations": [
     [
-     0
+     0,
+     1
     ],
     [
-     0
+     0,
+     1
     ]
    ],
    "institutions": [
-    "École Normale Supérieure - PSL"
+    "École Normale Supérieure - PSL",
+    "École Normale Supérieure"
+   ],
+   "institution_ids": [
+    "05a0dhs15",
+    "01dp7jr64"
    ],
    "abs_url": "https://arxiv.org/abs/1412.8659",
    "pdf_url": "https://arxiv.org/pdf/1412.8659"
@@ -514,7 +567,8 @@
    ],
    "author_affiliations": [
     [
-     0
+     0,
+     1
     ],
     [
      1
@@ -529,6 +583,10 @@
    "institutions": [
     "Indian Institute of Technology Kanpur",
     "University of California, Berkeley"
+   ],
+   "institution_ids": [
+    "05pjsgx75",
+    "01an7q238"
    ],
    "abs_url": "https://arxiv.org/abs/1412.7144",
    "pdf_url": "https://arxiv.org/pdf/1412.7144"
@@ -600,6 +658,12 @@
     "University of California, Los Angeles",
     "CentraleSupélec"
    ],
+   "institution_ids": [
+    "00njsd438",
+    "02kvxyf05",
+    "046rm7j60",
+    "019tcpt25"
+   ],
    "abs_url": "https://arxiv.org/abs/1412.7062",
    "pdf_url": "https://arxiv.org/pdf/1412.7062"
   },
@@ -648,6 +712,9 @@
    "institutions": [
     "MIT Computer Science and Artificial Intelligence Laboratory"
    ],
+   "institution_ids": [
+    "01e85r662"
+   ],
    "abs_url": "https://arxiv.org/abs/1412.6856",
    "pdf_url": "https://arxiv.org/pdf/1412.6856"
   },
@@ -675,28 +742,34 @@
    "html_url": null,
    "abstract": "Artificial neural networks typically have a fixed, non-linear activation function at each neuron. We have designed a novel form of piecewise linear activation function that is learned independently for each neuron using gradient descent. With this adaptive activation function, we are able to improve upon deep neural network architectures composed of static rectified linear units, achieving state-of-the-art performance on CIFAR-10 (7.51%), CIFAR-100 (30.83%), and a benchmark from high-energy physics involving Higgs boson decay modes.",
    "affiliations": [
+    "University of California, Irvine",
     "University of Michigan",
-    "Adobe Systems",
-    "University of California, Irvine"
+    "Adobe Systems"
    ],
    "author_affiliations": [
     [
-     0
-    ],
-    [
+     0,
      1
     ],
     [
      2
     ],
     [
-     2
+     0
+    ],
+    [
+     0
     ]
    ],
    "institutions": [
+    "University of California, Irvine",
     "University of Michigan",
-    "Adobe Systems",
-    "University of California, Irvine"
+    "Adobe Systems"
+   ],
+   "institution_ids": [
+    "04gyf1771",
+    "00jmfr291",
+    "059tvcg64"
    ],
    "abs_url": "https://arxiv.org/abs/1412.6830",
    "pdf_url": "https://arxiv.org/pdf/1412.6830"
@@ -742,6 +815,9 @@
    ],
    "institutions": [
     "University of Freiburg"
+   ],
+   "institution_ids": [
+    "0245cg223"
    ],
    "abs_url": "https://arxiv.org/abs/1412.6806",
    "pdf_url": "https://arxiv.org/pdf/1412.6806"
@@ -798,6 +874,10 @@
    "institutions": [
     "University of California, Los Angeles",
     "Baidu"
+   ],
+   "institution_ids": [
+    "046rm7j60",
+    "03vs3wt56"
    ],
    "abs_url": "https://arxiv.org/abs/1412.6632",
    "pdf_url": "https://arxiv.org/pdf/1412.6632"
@@ -907,6 +987,10 @@
     "Meta",
     "Courant Institute of Mathematical Sciences"
    ],
+   "institution_ids": [
+    "01zbnvs85",
+    "037tm7f56"
+   ],
    "abs_url": "https://arxiv.org/abs/1412.6604",
    "pdf_url": "https://arxiv.org/pdf/1412.6604"
   },
@@ -953,7 +1037,8 @@
      1
     ],
     [
-     2
+     2,
+     1
     ],
     [
      1
@@ -963,6 +1048,11 @@
     "University of Michigan",
     "Google",
     "Microsoft"
+   ],
+   "institution_ids": [
+    "00jmfr291",
+    "00njsd438",
+    "00d0nc645"
    ],
    "abs_url": "https://arxiv.org/abs/1412.6596",
    "pdf_url": "https://arxiv.org/pdf/1412.6596"
@@ -1049,6 +1139,9 @@
    "institutions": [
     "University of Warwick"
    ],
+   "institution_ids": [
+    "01a77tt86"
+   ],
    "abs_url": "https://arxiv.org/abs/1412.6071",
    "pdf_url": "https://arxiv.org/pdf/1412.6071"
   },
@@ -1096,6 +1189,10 @@
    "institutions": [
     "University of Oxford",
     "Google DeepMind"
+   ],
+   "institution_ids": [
+    "052gg0110",
+    "00971b260"
    ],
    "abs_url": "https://arxiv.org/abs/1412.5903",
    "pdf_url": "https://arxiv.org/pdf/1412.5903"
@@ -1169,6 +1266,9 @@
    "institutions": [
     "Chinese University of Hong Kong"
    ],
+   "institution_ids": [
+    "00t33hh48"
+   ],
    "abs_url": "https://arxiv.org/abs/1412.5661",
    "pdf_url": "https://arxiv.org/pdf/1412.5661"
   },
@@ -1207,6 +1307,10 @@
    "institutions": [
     "Max Planck Society",
     "Panasonic"
+   ],
+   "institution_ids": [
+    "01hhn8329",
+    "011tm7n37"
    ],
    "abs_url": "https://arxiv.org/abs/1412.5068",
    "pdf_url": "https://arxiv.org/pdf/1412.5068"
@@ -1275,6 +1379,9 @@
    "institutions": [
     "University of Oxford"
    ],
+   "institution_ids": [
+    "052gg0110"
+   ],
    "abs_url": "https://arxiv.org/abs/1412.4564",
    "pdf_url": "https://arxiv.org/pdf/1412.4564"
   },
@@ -1318,6 +1425,12 @@
     "Massachusetts General Hospital",
     "Athinoula A. Martinos Center for Biomedical Imaging"
    ],
+   "institution_ids": [
+    "01a28zg77",
+    "03vek6s52",
+    "002pd6e78",
+    "032q5ym94"
+   ],
    "abs_url": "https://arxiv.org/abs/1412.3421",
    "pdf_url": "https://arxiv.org/pdf/1412.3421"
   },
@@ -1356,6 +1469,10 @@
     "University of Washington",
     "Google"
    ],
+   "institution_ids": [
+    "00cvxb145",
+    "00njsd438"
+   ],
    "abs_url": "https://arxiv.org/abs/1412.3128",
    "pdf_url": "https://arxiv.org/pdf/1412.3128"
   },
@@ -1390,6 +1507,9 @@
    ],
    "institutions": [
     "Stanford University"
+   ],
+   "institution_ids": [
+    "00f54p054"
    ],
    "abs_url": "https://arxiv.org/abs/1412.2306",
    "pdf_url": "https://arxiv.org/pdf/1412.2306"
@@ -1493,7 +1613,8 @@
    "html_url": null,
    "abstract": "Contour detection has been a fundamental component in many image segmentation and object detection systems. Most previous work utilizes low-level features such as texture or saliency to detect contours and then use them as cues for a higher-level task such as object detection. However, we claim that recognizing objects and predicting contours are two mutually related tasks. Contrary to traditional approaches, we show that we can invert the commonly established pipeline: instead of detecting contours with low-level cues for a higher-level recognition task, we exploit object-related features as high-level cues for contour detection. We achieve this goal by means of a multi-scale deep network that consists of five convolutional layers and a bifurcated fully-connected sub-network. The section from the input layer to the fifth convolutional layer is fixed and directly lifted from a pre-trained network optimized over a large-scale object classification task. This section of the network is applied to four different scales of the image input. These four parallel and identical streams are then attached to a bifurcated sub-network consisting of two independently-trained branches. One branch learns to predict the contour likelihood (with a classification objective) whereas the other branch is trained to learn the fraction of human labelers agreeing about the contour presence at a given point (with a regression criterion). We show that without any feature engineering our multi-scale deep learning approach achieves state-of-the-art results in contour detection.",
    "affiliations": [
-    "University of Massachusetts Dartmouth"
+    "University of Pennsylvania",
+    "Dartmouth College"
    ],
    "author_affiliations": [
     [
@@ -1503,11 +1624,16 @@
      0
     ],
     [
-     0
+     1
     ]
    ],
    "institutions": [
-    "University of Massachusetts Dartmouth"
+    "University of Pennsylvania",
+    "Dartmouth College"
+   ],
+   "institution_ids": [
+    "00b30xv10",
+    "049s0rh22"
    ],
    "abs_url": "https://arxiv.org/abs/1412.1123",
    "pdf_url": "https://arxiv.org/pdf/1412.1123"
@@ -1559,6 +1685,10 @@
     "Dartmouth College",
     "Meta"
    ],
+   "institution_ids": [
+    "049s0rh22",
+    "01zbnvs85"
+   ],
    "abs_url": "https://arxiv.org/abs/1412.0767",
    "pdf_url": "https://arxiv.org/pdf/1412.0767"
   },
@@ -1601,6 +1731,9 @@
    ],
    "institutions": [
     "Cornell University"
+   ],
+   "institution_ids": [
+    "05bnh6r87"
    ],
    "abs_url": "https://arxiv.org/abs/1412.0623",
    "pdf_url": "https://arxiv.org/pdf/1412.0623"
@@ -1662,6 +1795,7 @@
      0
     ],
     [
+     0,
      1,
      2
     ],
@@ -1676,6 +1810,11 @@
     "Chinese University of Hong Kong",
     "Chinese Academy of Sciences",
     "Shenzhen Institutes of Advanced Technology"
+   ],
+   "institution_ids": [
+    "00t33hh48",
+    "034t30j35",
+    "04gh4er46"
    ],
    "abs_url": "https://arxiv.org/abs/1412.0069",
    "pdf_url": "https://arxiv.org/pdf/1412.0069"
@@ -1711,6 +1850,9 @@
    ],
    "institutions": [
     "University of Oxford"
+   ],
+   "institution_ids": [
+    "052gg0110"
    ],
    "abs_url": "https://arxiv.org/abs/1412.0035",
    "pdf_url": "https://arxiv.org/pdf/1412.0035"
@@ -1748,10 +1890,15 @@
     [
      0
     ],
-    null
+    [
+     0
+    ]
    ],
    "institutions": [
     "Open University of Israel"
+   ],
+   "institution_ids": [
+    "027z64205"
    ],
    "abs_url": "https://arxiv.org/abs/1411.7964",
    "pdf_url": "https://arxiv.org/pdf/1411.7964"
@@ -1831,6 +1978,8 @@
    "affiliations": [
     "Peking University",
     "Microsoft Research Asia",
+    "Tsinghua University",
+    "Microsoft",
     "New York University Shanghai"
    ],
    "author_affiliations": [
@@ -1838,25 +1987,37 @@
      0
     ],
     [
+     1,
+     2
+    ],
+    [
+     3,
      1
     ],
     [
-     1
-    ],
-    [
+     3,
      1
     ],
     [
      0
     ],
     [
-     2
+     4
     ]
    ],
    "institutions": [
     "Peking University",
     "Microsoft Research Asia",
+    "Tsinghua University",
+    "Microsoft",
     "New York University Shanghai"
+   ],
+   "institution_ids": [
+    "02v51f717",
+    "0300m5276",
+    "03cve4549",
+    "00d0nc645",
+    "02vpsdb40"
    ],
    "abs_url": "https://arxiv.org/abs/1411.6447",
    "pdf_url": "https://arxiv.org/pdf/1411.6447"
@@ -1892,6 +2053,9 @@
    ],
    "institutions": [
     "University of California, Berkeley"
+   ],
+   "institution_ids": [
+    "01an7q238"
    ],
    "abs_url": "https://arxiv.org/abs/1411.6031",
    "pdf_url": "https://arxiv.org/pdf/1411.6031"
@@ -1983,6 +2147,9 @@
    "institutions": [
     "Carnegie Mellon University"
    ],
+   "institution_ids": [
+    "05x2bcf33"
+   ],
    "abs_url": "https://arxiv.org/abs/1411.4958",
    "pdf_url": "https://arxiv.org/pdf/1411.4958"
   },
@@ -2032,6 +2199,10 @@
     "Max Planck Society",
     "Max Planck Institute for Informatics"
    ],
+   "institution_ids": [
+    "01hhn8329",
+    "01w19ak89"
+   ],
    "abs_url": "https://arxiv.org/abs/1411.4304",
    "pdf_url": "https://arxiv.org/pdf/1411.4304"
   },
@@ -2057,29 +2228,37 @@
    "html_url": null,
    "abstract": "This paper aims to accelerate the test-time computation of deep convolutional neural networks (CNNs). Unlike existing methods that are designed for approximating linear filters or linear responses, our method takes the nonlinear units into account. We minimize the reconstruction error of the nonlinear responses, subject to a low-rank constraint which helps to reduce the complexity of filters. We develop an effective solution to this constrained nonlinear optimization problem. An algorithm is also presented for reducing the accumulated error when multiple layers are approximated. A whole-model speedup ratio of 4x is demonstrated on a large network trained for ImageNet, while the top-5 error rate is only increased by 0.9%. Our accelerated model has a comparably fast speed as the \"AlexNet\", but is 4.7% more accurate.",
    "affiliations": [
+    "Microsoft Research",
     "Xi'an Jiaotong University",
     "Microsoft"
    ],
    "author_affiliations": [
     [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
+     0,
+     1
     ],
     [
      1
     ],
     [
      1
+    ],
+    [
+     2
+    ],
+    [
+     2
     ]
    ],
    "institutions": [
+    "Microsoft Research",
     "Xi'an Jiaotong University",
     "Microsoft"
+   ],
+   "institution_ids": [
+    "05k87vq12",
+    "017zhmm22",
+    "00d0nc645"
    ],
    "abs_url": "https://arxiv.org/abs/1411.4229",
    "pdf_url": "https://arxiv.org/pdf/1411.4229"
@@ -2126,6 +2305,11 @@
     "University of Technology Sydney",
     "Carnegie Mellon University",
     "University of Queensland"
+   ],
+   "institution_ids": [
+    "03f0f6041",
+    "05x2bcf33",
+    "00rqy9422"
    ],
    "abs_url": "https://arxiv.org/abs/1411.4006",
    "pdf_url": "https://arxiv.org/pdf/1411.4006"
@@ -2192,6 +2376,9 @@
    "institutions": [
     "University of Toronto"
    ],
+   "institution_ids": [
+    "03dbr7087"
+   ],
    "abs_url": "https://arxiv.org/abs/1411.2539",
    "pdf_url": "https://arxiv.org/pdf/1411.2539"
   },
@@ -2245,24 +2432,38 @@
    "html_url": null,
    "abstract": "Recently Convolutional Neural Networks (CNNs) have been shown to achieve state-of-the-art performance on various classification tasks. In this paper, we present for the first time a place recognition technique based on CNN models, by combining the powerful features learnt by CNNs with a spatial and sequential filter. Applying the system to a 70 km benchmark place recognition dataset we achieve a 75% increase in recall at 100% precision, significantly outperforming all previous state of the art techniques. We also conduct a comprehensive performance comparison of the utility of features from all 21 layers for place recognition, both for the benchmark dataset and for a second dataset with more significant viewpoint changes.",
    "affiliations": [
-    "Queensland University of Technology"
+    "Queensland University of Technology",
+    "Australian Centre for Robotic Vision",
+    "Robotic Technology"
    ],
    "author_affiliations": [
     [
-     0
+     0,
+     1
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1
     ],
     [
-     0
+     0,
+     1
     ]
    ],
    "institutions": [
-    "Queensland University of Technology"
+    "Queensland University of Technology",
+    "Australian Centre for Robotic Vision",
+    "Robotic Technology"
+   ],
+   "institution_ids": [
+    "03pnv4752",
+    "02zv9xv82",
+    "05xp03991"
    ],
    "abs_url": "https://arxiv.org/abs/1411.1509",
    "pdf_url": "https://arxiv.org/pdf/1411.1509"
@@ -2304,6 +2505,9 @@
    ],
    "institutions": [
     "University of California, Berkeley"
+   ],
+   "institution_ids": [
+    "01an7q238"
    ],
    "abs_url": "https://arxiv.org/abs/1411.1091",
    "pdf_url": "https://arxiv.org/pdf/1411.1091"
@@ -2347,6 +2551,9 @@
    ],
    "institutions": [
     "Chinese University of Hong Kong"
+   ],
+   "institution_ids": [
+    "00t33hh48"
    ],
    "abs_url": "https://arxiv.org/abs/1411.7766",
    "pdf_url": "https://arxiv.org/pdf/1411.7766"
@@ -2395,6 +2602,9 @@
    "institutions": [
     "Carnegie Mellon University"
    ],
+   "institution_ids": [
+    "05x2bcf33"
+   ],
    "abs_url": "https://arxiv.org/abs/1411.6660",
    "pdf_url": "https://arxiv.org/pdf/1411.6660"
   },
@@ -2418,21 +2628,29 @@
    "html_url": null,
    "abstract": "We consider the problem of depth estimation from a single monocular image in this work. It is a challenging task as no reliable depth cues are available, e.g., stereo correspondences, motions, etc. Previous efforts have been focusing on exploiting geometric priors or additional sources of information, with all using hand-crafted features. Recently, there is mounting evidence that features from deep convolutional neural networks (CNN) are setting new records for various vision applications. On the other hand, considering the continuous characteristic of the depth values, depth estimations can be naturally formulated into a continuous conditional random field (CRF) learning problem. Therefore, we in this paper present a deep convolutional neural field model for estimating depths from a single image, aiming to jointly explore the capacity of deep CNN and continuous CRF. Specifically, we propose a deep structured learning scheme which learns the unary and pairwise potentials of continuous CRF in a unified deep CNN framework. The proposed method can be used for depth estimations of general scenes with no geometric priors nor any extra information injected. In our case, the integral of the partition function can be analytically calculated, thus we can exactly solve the log-likelihood optimization. Moreover, solving the MAP problem for predicting depths of a new image is highly efficient as closed-form solutions exist. We experimentally demonstrate that the proposed method outperforms state-of-the-art depth estimation methods on both indoor and outdoor scene datasets.",
    "affiliations": [
-    "University of Adelaide"
+    "University of Adelaide",
+    "Australian Centre for Robotic Vision"
    ],
    "author_affiliations": [
     [
      0
     ],
     [
+     1,
      0
     ],
     [
+     1,
      0
     ]
    ],
    "institutions": [
-    "University of Adelaide"
+    "University of Adelaide",
+    "Australian Centre for Robotic Vision"
+   ],
+   "institution_ids": [
+    "00892tw58",
+    "02zv9xv82"
    ],
    "abs_url": "https://arxiv.org/abs/1411.6387",
    "pdf_url": "https://arxiv.org/pdf/1411.6387"
@@ -2477,6 +2695,9 @@
    "institutions": [
     "University of California, Berkeley"
    ],
+   "institution_ids": [
+    "01an7q238"
+   ],
    "abs_url": "https://arxiv.org/abs/1411.6069",
    "pdf_url": "https://arxiv.org/pdf/1411.6069"
   },
@@ -2511,6 +2732,9 @@
    ],
    "institutions": [
     "University of California, Berkeley"
+   ],
+   "institution_ids": [
+    "01an7q238"
    ],
    "abs_url": "https://arxiv.org/abs/1411.6067",
    "pdf_url": "https://arxiv.org/pdf/1411.6067"
@@ -2556,6 +2780,9 @@
    ],
    "institutions": [
     "University of Freiburg"
+   ],
+   "institution_ids": [
+    "0245cg223"
    ],
    "abs_url": "https://arxiv.org/abs/1411.5928",
    "pdf_url": "https://arxiv.org/pdf/1411.5928"
@@ -2659,6 +2886,11 @@
     "Universidad de Los Andes",
     "Microsoft"
    ],
+   "institution_ids": [
+    "01an7q238",
+    "02mhbdp94",
+    "00d0nc645"
+   ],
    "abs_url": "https://arxiv.org/abs/1411.5752",
    "pdf_url": "https://arxiv.org/pdf/1411.5752"
   },
@@ -2694,11 +2926,17 @@
     [
      1
     ],
-    null
+    [
+     0
+    ]
    ],
    "institutions": [
     "Virginia Tech",
     "Microsoft"
+   ],
+   "institution_ids": [
+    "02smfhw86",
+    "00d0nc645"
    ],
    "abs_url": "https://arxiv.org/abs/1411.5726",
    "pdf_url": "https://arxiv.org/pdf/1411.5726"
@@ -2775,6 +3013,9 @@
    ],
    "institutions": [
     "Microsoft"
+   ],
+   "institution_ids": [
+    "00d0nc645"
    ],
    "abs_url": "https://arxiv.org/abs/1411.4952",
    "pdf_url": "https://arxiv.org/pdf/1411.4952"
@@ -2869,6 +3110,9 @@
    "institutions": [
     "Google"
    ],
+   "institution_ids": [
+    "00njsd438"
+   ],
    "abs_url": "https://arxiv.org/abs/1411.4555",
    "pdf_url": "https://arxiv.org/pdf/1411.4555"
   },
@@ -2945,6 +3189,9 @@
    "institutions": [
     "New York University"
    ],
+   "institution_ids": [
+    "0190ak572"
+   ],
    "abs_url": "https://arxiv.org/abs/1411.4280",
    "pdf_url": "https://arxiv.org/pdf/1411.4280"
   },
@@ -2983,6 +3230,9 @@
    ],
    "institutions": [
     "University of California, Berkeley"
+   ],
+   "institution_ids": [
+    "01an7q238"
    ],
    "abs_url": "https://arxiv.org/abs/1411.4038",
    "pdf_url": "https://arxiv.org/pdf/1411.4038"
@@ -3035,7 +3285,8 @@
    "abstract": "Recent results suggest that state-of-the-art saliency models perform far from optimal in predicting fixations. This lack in performance has been attributed to an inability to model the influence of high-level image features such as objects. Recent seminal advances in applying deep neural networks to tasks like object recognition suggests that they are able to capture this kind of structure. However, the enormous amount of training data necessary to train these networks makes them difficult to apply directly to saliency prediction. We present a novel way of reusing existing neural networks that have been pretrained on the task of object recognition in models of fixation prediction. Using the well-known network of Krizhevsky et al. (2012), we come up with a new saliency model that significantly outperforms all state-of-the-art models on the MIT Saliency Benchmark. We show that the structure of this network allows new insights in the psychophysics of fixation selection and potentially their neural implementation. To train our network, we build on recent work on the modeling of saliency as point processes.",
    "affiliations": [
     "Max Planck Society",
-    "Max Planck Institute for Biological Cybernetics"
+    "Max Planck Institute for Biological Cybernetics",
+    "Bernstein Center for Computational Neuroscience Tübingen"
    ],
    "author_affiliations": [
     [
@@ -3044,16 +3295,24 @@
     ],
     [
      0,
-     1
+     1,
+     2
     ],
     [
      0,
-     1
+     1,
+     2
     ]
    ],
    "institutions": [
     "Max Planck Society",
-    "Max Planck Institute for Biological Cybernetics"
+    "Max Planck Institute for Biological Cybernetics",
+    "Bernstein Center for Computational Neuroscience Tübingen"
+   ],
+   "institution_ids": [
+    "01hhn8329",
+    "026nmvv73",
+    "03kfnwp54"
    ],
    "abs_url": "https://arxiv.org/abs/1411.1045",
    "pdf_url": "https://arxiv.org/pdf/1411.1045"
@@ -3102,6 +3361,10 @@
    "institutions": [
     "Columbia University",
     "University of California, Berkeley"
+   ],
+   "institution_ids": [
+    "00hj8s172",
+    "01an7q238"
    ],
    "abs_url": "https://arxiv.org/abs/1410.8586",
    "pdf_url": "https://arxiv.org/pdf/1410.8586"
@@ -3255,6 +3518,9 @@
    "institutions": [
     "Xidian University"
    ],
+   "institution_ids": [
+    "05s92vm98"
+   ],
    "abs_url": "https://arxiv.org/abs/1410.1037",
    "pdf_url": "https://arxiv.org/pdf/1410.1037"
   },
@@ -3350,6 +3616,9 @@
    "institutions": [
     "Max Planck Institute for Informatics"
    ],
+   "institution_ids": [
+    "01w19ak89"
+   ],
    "abs_url": "https://arxiv.org/abs/1410.0210",
    "pdf_url": "https://arxiv.org/pdf/1410.0210"
   },
@@ -3400,6 +3669,10 @@
     "University of California San Diego",
     "Microsoft"
    ],
+   "institution_ids": [
+    "0168r3w48",
+    "00d0nc645"
+   ],
    "abs_url": "https://arxiv.org/abs/1409.5185",
    "pdf_url": "https://arxiv.org/pdf/1409.5185"
   },
@@ -3431,6 +3704,9 @@
    ],
    "institutions": [
     "University of Warwick"
+   ],
+   "institution_ids": [
+    "01a77tt86"
    ],
    "abs_url": "https://arxiv.org/abs/1409.6070",
    "pdf_url": "https://arxiv.org/pdf/1409.6070"
@@ -3474,6 +3750,9 @@
    ],
    "institutions": [
     "Victoria University of Wellington"
+   ],
+   "institution_ids": [
+    "0040r6f76"
    ],
    "abs_url": "https://arxiv.org/abs/1409.6041",
    "pdf_url": "https://arxiv.org/pdf/1409.6041"
@@ -3561,6 +3840,7 @@
      0
     ],
     [
+     0,
      3
     ]
    ],
@@ -3569,6 +3849,12 @@
     "University of North Carolina at Chapel Hill",
     "University of Michigan",
     "Magic Leap"
+   ],
+   "institution_ids": [
+    "00njsd438",
+    "0130frc33",
+    "00jmfr291",
+    "058j17k65"
    ],
    "abs_url": "https://arxiv.org/abs/1409.4842",
    "pdf_url": "https://arxiv.org/pdf/1409.4842"
@@ -3654,7 +3940,8 @@
    ],
    "author_affiliations": [
     [
-     0
+     0,
+     1
     ],
     [
      1
@@ -3669,6 +3956,10 @@
    "institutions": [
     "Microsoft",
     "University of California, Berkeley"
+   ],
+   "institution_ids": [
+    "00d0nc645",
+    "01an7q238"
    ],
    "abs_url": "https://arxiv.org/abs/1409.5403",
    "pdf_url": "https://arxiv.org/pdf/1409.5403"
@@ -3705,6 +3996,9 @@
    ],
    "institutions": [
     "University of Texas at Austin"
+   ],
+   "institution_ids": [
+    "00hj54h04"
    ],
    "abs_url": "https://arxiv.org/abs/1409.4327",
    "pdf_url": "https://arxiv.org/pdf/1409.4327"
@@ -3790,6 +4084,9 @@
    "institutions": [
     "University of Oxford"
    ],
+   "institution_ids": [
+    "052gg0110"
+   ],
    "abs_url": "https://arxiv.org/abs/1409.1556",
    "pdf_url": "https://arxiv.org/pdf/1409.1556"
   },
@@ -3858,6 +4155,9 @@
    ],
    "institutions": [
     "Stanford University"
+   ],
+   "institution_ids": [
+    "00f54p054"
    ],
    "abs_url": "https://arxiv.org/abs/1409.0575",
    "pdf_url": "https://arxiv.org/pdf/1409.0575"
@@ -3975,6 +4275,10 @@
     "Google",
     "University of California, Berkeley"
    ],
+   "institution_ids": [
+    "00njsd438",
+    "01an7q238"
+   ],
    "abs_url": "https://arxiv.org/abs/1408.5093",
    "pdf_url": "https://arxiv.org/pdf/1408.5093"
   },
@@ -4080,18 +4384,31 @@
    "html_url": null,
    "abstract": "In this paper we study the problem of object detection for RGB-D images using semantically rich image and depth features. We propose a new geocentric embedding for depth images that encodes height above ground and angle with gravity for each pixel in addition to the horizontal disparity. We demonstrate that this geocentric embedding works better than using raw depth images for learning feature representations with convolutional neural networks. Our final object detection system achieves an average precision of 37.3%, which is a 56% relative improvement over existing methods. We then focus on the task of instance segmentation where we label pixels belonging to object instances found by our detector. For this task, we propose a decision forest approach that classifies pixels in the detection window as foreground or background using a family of unary and binary tests that query shape and geocentric pose features. Finally, we use the output from our object detectors in an existing superpixel classification framework for semantic scene segmentation and achieve a 24% relative improvement over current state-of-the-art for the object categories that we study. We believe advances such as those represented in this paper will facilitate the use of perception in fields like robotics.",
    "affiliations": [
+    "University of California, Berkeley",
     "Universidad de Los Andes"
    ],
    "author_affiliations": [
-    null,
-    null,
     [
      0
     ],
-    null
+    [
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     0
+    ]
    ],
    "institutions": [
+    "University of California, Berkeley",
     "Universidad de Los Andes"
+   ],
+   "institution_ids": [
+    "01an7q238",
+    "02mhbdp94"
    ],
    "abs_url": "https://arxiv.org/abs/1407.5736",
    "pdf_url": "https://arxiv.org/pdf/1407.5736"
@@ -4136,6 +4453,9 @@
    "institutions": [
     "University of California, Berkeley"
    ],
+   "institution_ids": [
+    "01an7q238"
+   ],
    "abs_url": "https://arxiv.org/abs/1407.3867",
    "pdf_url": "https://arxiv.org/pdf/1407.3867"
   },
@@ -4160,18 +4480,31 @@
    "html_url": null,
    "abstract": "We aim to detect all instances of a category in an image and, for each instance, mark the pixels that belong to it. We call this task Simultaneous Detection and Segmentation (SDS). Unlike classical bounding box detection, SDS requires a segmentation and not just a box. Unlike classical semantic segmentation, we require individual object instances. We build on recent work that uses convolutional neural networks to classify category-independent region proposals (R-CNN [16]), introducing a novel architecture tailored for SDS. We then use category-specific, top- down figure-ground predictions to refine our bottom-up proposals. We show a 7 point boost (16% relative) over our baselines on SDS, a 5 point boost (10% relative) over state-of-the-art on semantic segmentation, and state-of-the-art performance in object detection. Finally, we provide diagnostic tools that unpack performance and provide directions for future work.",
    "affiliations": [
+    "University of California, Berkeley",
     "Universidad de Los Andes"
    ],
    "author_affiliations": [
-    null,
     [
      0
     ],
-    null,
-    null
+    [
+     1,
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
    ],
    "institutions": [
+    "University of California, Berkeley",
     "Universidad de Los Andes"
+   ],
+   "institution_ids": [
+    "01an7q238",
+    "02mhbdp94"
    ],
    "abs_url": "https://arxiv.org/abs/1407.1808",
    "pdf_url": "https://arxiv.org/pdf/1407.1808"
@@ -4201,31 +4534,52 @@
    "html_url": null,
    "abstract": "We are given a set of video clips, each one annotated with an {\\em ordered} list of actions, such as \"walk\" then \"sit\" then \"answer phone\" extracted from, for example, the associated text script. We seek to temporally localize the individual actions in each clip as well as to learn a discriminative classifier for each action. We formulate the problem as a weakly supervised temporal assignment with ordering constraints. Each video clip is divided into small time intervals and each time interval of each video clip is assigned one action label, while respecting the order in which the action labels appear in the given annotations. We show that the action label assignment can be determined together with learning a classifier for each action in a discriminative manner. We evaluate the proposed model on a new and challenging dataset of 937 video clips with a total of 787720 frames containing sequences of 16 different actions from 69 Hollywood movies.",
    "affiliations": [
-    "École Normale Supérieure - PSL"
+    "Institut national de recherche en sciences et technologies du numérique",
+    "École Normale Supérieure - PSL",
+    "Centre National de la Recherche Scientifique",
+    "École Normale Supérieure"
    ],
    "author_affiliations": [
     [
-     0
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     2,
+     1,
+     3
     ],
     [
      0
     ],
     [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    null,
-    [
-     0
+     0,
+     1
     ]
    ],
    "institutions": [
-    "École Normale Supérieure - PSL"
+    "Institut national de recherche en sciences et technologies du numérique",
+    "École Normale Supérieure - PSL",
+    "Centre National de la Recherche Scientifique",
+    "École Normale Supérieure"
+   ],
+   "institution_ids": [
+    "02kvxyf05",
+    "05a0dhs15",
+    "02feahw73",
+    "01dp7jr64"
    ],
    "abs_url": "https://arxiv.org/abs/1407.1208",
    "pdf_url": "https://arxiv.org/pdf/1407.1208"
@@ -4290,6 +4644,11 @@
     "Tsinghua University",
     "University of Massachusetts Lowell"
    ],
+   "institution_ids": [
+    "01an7q238",
+    "03cve4549",
+    "03hamhx47"
+   ],
    "abs_url": "https://arxiv.org/abs/1407.5035",
    "pdf_url": "https://arxiv.org/pdf/1407.5035"
   },
@@ -4315,29 +4674,40 @@
    "abstract": "Face detection has drawn much attention in recent decades since the seminal work by Viola and Jones. While many subsequences have improved the work with more powerful learning algorithms, the feature representation used for face detection still can't meet the demand for effectively and efficiently handling faces with large appearance variance in the wild. To solve this bottleneck, we borrow the concept of channel features to the face detection domain, which extends the image channel to diverse types like gradient magnitude and oriented gradient histograms and therefore encodes rich information in a simple form. We adopt a novel variant called aggregate channel features, make a full exploration of feature design, and discover a multi-scale version of features with better performance. To deal with poses of faces in the wild, we propose a multi-view detection approach featuring score re-ranking and detection adjustment. Following the learning pipelines in Viola-Jones framework, the multi-view face detector using aggregate channel features shows competitive performance against state-of-the-art algorithms on AFW and FDDB testsets, while runs at 42 FPS on VGA images.",
    "affiliations": [
     "Chinese Academy of Sciences",
+    "Shandong Institute of Automation",
     "Institute of Automation"
    ],
    "author_affiliations": [
     [
      0,
-     1
+     1,
+     2
     ],
     [
      0,
-     1
+     1,
+     2
     ],
     [
      0,
-     1
+     1,
+     2
     ],
     [
      0,
-     1
+     1,
+     2
     ]
    ],
    "institutions": [
     "Chinese Academy of Sciences",
+    "Shandong Institute of Automation",
     "Institute of Automation"
+   ],
+   "institution_ids": [
+    "034t30j35",
+    "00qdtba35",
+    "022c3hy66"
    ],
    "abs_url": "https://arxiv.org/abs/1407.4023",
    "pdf_url": "https://arxiv.org/pdf/1407.4023"
@@ -4374,6 +4744,9 @@
    "institutions": [
     "University of California, Los Angeles"
    ],
+   "institution_ids": [
+    "046rm7j60"
+   ],
    "abs_url": "https://arxiv.org/abs/1407.3399",
    "pdf_url": "https://arxiv.org/pdf/1407.3399"
   },
@@ -4399,7 +4772,9 @@
    "html_url": null,
    "abstract": "In this paper we propose novel methods for completion (from limited samples) and de-noising of multilinear (tensor) data and as an application consider 3-D and 4- D (color) video data completion and de-noising. We exploit the recently proposed tensor-Singular Value Decomposition (t-SVD)[11]. Based on t-SVD, the notion of multilinear rank and a related tensor nuclear norm was proposed in [11] to characterize informational and structural complexity of multilinear data. We first show that videos with linear camera motion can be represented more efficiently using t-SVD compared to the approaches based on vectorizing or flattening of the tensors. Since efficiency in representation implies efficiency in recovery, we outline a tensor nuclear norm penalized algorithm for video completion from missing entries. Application of the proposed algorithm for video recovery from missing entries is shown to yield a superior performance over existing methods. We also consider the problem of tensor robust Principal Component Analysis (PCA) for de-noising 3-D video data from sparse random corruptions. We show superior performance of our method compared to the matrix robust PCA adapted to this setting as proposed in [4].",
    "affiliations": [
-    "Tufts University"
+    "Tufts University",
+    "Cambridge Systematics",
+    "Medford Radiology Group"
    ],
    "author_affiliations": [
     [
@@ -4412,14 +4787,25 @@
      0
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ]
    ],
    "institutions": [
-    "Tufts University"
+    "Tufts University",
+    "Cambridge Systematics",
+    "Medford Radiology Group"
+   ],
+   "institution_ids": [
+    "05wvpxv85",
+    "00cv80m81",
+    "04n9jx253"
    ],
    "abs_url": "https://arxiv.org/abs/1407.1785",
    "pdf_url": "https://arxiv.org/pdf/1407.1785"
@@ -4491,6 +4877,9 @@
    "institutions": [
     "Max Planck Institute for Intelligent Systems"
    ],
+   "institution_ids": [
+    "04fq9j139"
+   ],
    "abs_url": "https://arxiv.org/abs/1406.7444",
    "pdf_url": "https://arxiv.org/pdf/1406.7444"
   },
@@ -4542,6 +4931,10 @@
     "Google",
     "Google DeepMind"
    ],
+   "institution_ids": [
+    "00njsd438",
+    "00971b260"
+   ],
    "abs_url": "https://arxiv.org/abs/1406.6247",
    "pdf_url": "https://arxiv.org/pdf/1406.6247"
   },
@@ -4583,6 +4976,9 @@
    "institutions": [
     "Stanford University"
    ],
+   "institution_ids": [
+    "00f54p054"
+   ],
    "abs_url": "https://arxiv.org/abs/1406.5679",
    "pdf_url": "https://arxiv.org/pdf/1406.5679"
   },
@@ -4617,6 +5013,7 @@
      0
     ],
     [
+     0,
      1
     ],
     [
@@ -4632,6 +5029,13 @@
     "Chinese Academy of Sciences",
     "Chinese University of Hong Kong, Shenzhen",
     "Shenzhen Institutes of Advanced Technology"
+   ],
+   "institution_ids": [
+    "00t33hh48",
+    "049wsmj07",
+    "034t30j35",
+    "02d5ks197",
+    "04gh4er46"
    ],
    "abs_url": "https://arxiv.org/abs/1406.4773",
    "pdf_url": "https://arxiv.org/pdf/1406.4773"
@@ -4673,6 +5077,9 @@
    ],
    "institutions": [
     "City University of Hong Kong"
+   ],
+   "institution_ids": [
+    "03q8dnn23"
    ],
    "abs_url": "https://arxiv.org/abs/1406.3474",
    "pdf_url": "https://arxiv.org/pdf/1406.3474"
@@ -4726,6 +5133,12 @@
     "California Institute of Technology",
     "Allen Institute for Brain Science",
     "University of California, Los Angeles"
+   ],
+   "institution_ids": [
+    "01zkghx44",
+    "05dxps055",
+    "00dcv1019",
+    "046rm7j60"
    ],
    "abs_url": "https://arxiv.org/abs/1406.2807",
    "pdf_url": "https://arxiv.org/pdf/1406.2807"
@@ -4792,6 +5205,9 @@
    "institutions": [
     "New York University"
    ],
+   "institution_ids": [
+    "0190ak572"
+   ],
    "abs_url": "https://arxiv.org/abs/1406.2283",
    "pdf_url": "https://arxiv.org/pdf/1406.2283"
   },
@@ -4846,6 +5262,11 @@
     "University of California, Los Angeles",
     "Stanford University",
     "University of Toronto"
+   ],
+   "institution_ids": [
+    "046rm7j60",
+    "00f54p054",
+    "03dbr7087"
    ],
    "abs_url": "https://arxiv.org/abs/1406.2031",
    "pdf_url": "https://arxiv.org/pdf/1406.2031"
@@ -4924,6 +5345,10 @@
     "Max Planck Society",
     "Max Planck Institute for Informatics"
    ],
+   "institution_ids": [
+    "01hhn8329",
+    "01w19ak89"
+   ],
    "abs_url": "https://arxiv.org/abs/1406.6962",
    "pdf_url": "https://arxiv.org/pdf/1406.6962"
   },
@@ -4951,31 +5376,30 @@
    "html_url": null,
    "abstract": "Deep convolutional networks have proven to be very successful in learning task specific features that allow for unprecedented performance on various computer vision tasks. Training of such networks follows mostly the supervised learning paradigm, where sufficiently many input-output pairs are required for training. Acquisition of large training sets is one of the key challenges, when approaching a new task. In this paper, we aim for generic feature learning and present an approach for training a convolutional network using only unlabeled data. To this end, we train the network to discriminate between a set of surrogate classes. Each surrogate class is formed by applying a variety of transformations to a randomly sampled 'seed' image patch. In contrast to supervised network training, the resulting feature representation is not class specific. It rather provides robustness to the transformations that have been applied during training. This generic feature representation allows for classification results that outperform the state of the art for unsupervised learning on several popular datasets (STL-10, CIFAR-10, Caltech-101, Caltech-256). While such generic features cannot compete with class specific features from supervised training on a classification task, we show that they are advantageous on geometric matching problems, where they also outperform the SIFT descriptor.",
    "affiliations": [
-    "University of Freiburg",
-    "Laboratoire d'Informatique de Paris-Nord"
+    "University of Freiburg"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
-    ],
-    null,
-    [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
     ]
    ],
    "institutions": [
-    "University of Freiburg",
-    "Laboratoire d'Informatique de Paris-Nord"
+    "University of Freiburg"
+   ],
+   "institution_ids": [
+    "0245cg223"
    ],
    "abs_url": "https://arxiv.org/abs/1406.6909",
    "pdf_url": "https://arxiv.org/pdf/1406.6909"
@@ -5048,6 +5472,9 @@
    "institutions": [
     "KTH Royal Institute of Technology"
    ],
+   "institution_ids": [
+    "026vcq606"
+   ],
    "abs_url": "https://arxiv.org/abs/1406.5774",
    "pdf_url": "https://arxiv.org/pdf/1406.5774"
   },
@@ -5111,6 +5538,9 @@
    ],
    "institutions": [
     "Microsoft"
+   ],
+   "institution_ids": [
+    "00d0nc645"
    ],
    "abs_url": "https://arxiv.org/abs/1406.5549",
    "pdf_url": "https://arxiv.org/pdf/1406.5549"
@@ -5185,6 +5615,10 @@
     "Meta",
     "Tel Aviv University"
    ],
+   "institution_ids": [
+    "01zbnvs85",
+    "04mhzgx49"
+   ],
    "abs_url": "https://arxiv.org/abs/1406.5266",
    "pdf_url": "https://arxiv.org/pdf/1406.5266"
   },
@@ -5238,6 +5672,7 @@
    "abstract": "An important goal in visual recognition is to devise image representations that are invariant to particular transformations. In this paper, we address this goal with a new type of convolutional neural network (CNN) whose invariance is encoded by a reproducing kernel. Unlike traditional approaches where neural networks are learned either to represent data or for solving a classification task, our network learns to approximate the kernel feature map on training data. Such an approach enjoys several benefits over classical ones. First, by teaching CNNs to be invariant, we obtain simple network architectures that achieve a similar accuracy to more complex ones, while being easy to train and robust to overfitting. Second, we bridge a gap between the neural network literature and kernels, which are natural tools to model invariance. We evaluate our methodology on visual recognition tasks where CNNs have proven to perform well, e.g., digit recognition with the MNIST dataset, and the more challenging CIFAR-10 and STL-10 datasets, where our accuracy is competitive with the state of the art.",
    "affiliations": [
     "Centre National de la Recherche Scientifique",
+    "Institut national de recherche en sciences et technologies du numérique",
     "Centre Inria de l'Université Grenoble Alpes",
     "Laboratoire Jean Kuntzmann",
     "Université Grenoble Alpes"
@@ -5247,32 +5682,44 @@
      0,
      1,
      2,
-     3
+     3,
+     4
     ],
     [
      0,
      1,
      2,
-     3
+     3,
+     4
     ],
     [
      0,
      1,
      2,
-     3
+     3,
+     4
     ],
     [
      0,
      1,
      2,
-     3
+     3,
+     4
     ]
    ],
    "institutions": [
     "Centre National de la Recherche Scientifique",
+    "Institut national de recherche en sciences et technologies du numérique",
     "Centre Inria de l'Université Grenoble Alpes",
     "Laboratoire Jean Kuntzmann",
     "Université Grenoble Alpes"
+   ],
+   "institution_ids": [
+    "02feahw73",
+    "02kvxyf05",
+    "00n8d6z93",
+    "04ett5b41",
+    "02rx3b187"
    ],
    "abs_url": "https://arxiv.org/abs/1406.3332",
    "pdf_url": "https://arxiv.org/pdf/1406.3332"
@@ -5298,36 +5745,27 @@
    "html_url": null,
    "abstract": "This paper proposes a new hybrid architecture that consists of a deep Convolutional Network and a Markov Random Field. We show how this architecture is successfully applied to the challenging problem of articulated human pose estimation in monocular images. The architecture can exploit structural domain constraints such as geometric relationships between body joint locations. We show that joint training of these two model paradigms improves performance and allows us to significantly outperform existing state-of-the-art techniques.",
    "affiliations": [
-    "Supélec",
-    "University of Applied Sciences and Arts of Southern Switzerland",
-    "Shandong University of Political Science and Law"
+    "New York University"
    ],
    "author_affiliations": [
     [
-     0,
-     1,
-     2
+     0
     ],
     [
-     0,
-     1,
-     2
+     0
     ],
     [
-     0,
-     1,
-     2
+     0
     ],
     [
-     0,
-     1,
-     2
+     0
     ]
    ],
    "institutions": [
-    "Supélec",
-    "University of Applied Sciences and Arts of Southern Switzerland",
-    "Shandong University of Political Science and Law"
+    "New York University"
+   ],
+   "institution_ids": [
+    "0190ak572"
    ],
    "abs_url": "https://arxiv.org/abs/1406.2984",
    "pdf_url": "https://arxiv.org/pdf/1406.2984"
@@ -5390,6 +5828,9 @@
    "institutions": [
     "University of Oxford"
    ],
+   "institution_ids": [
+    "052gg0110"
+   ],
    "abs_url": "https://arxiv.org/abs/1406.2199",
    "pdf_url": "https://arxiv.org/pdf/1406.2199"
   },
@@ -5441,6 +5882,10 @@
     "New York University",
     "Meta"
    ],
+   "institution_ids": [
+    "0190ak572",
+    "01zbnvs85"
+   ],
    "abs_url": "https://arxiv.org/abs/1406.2080",
    "pdf_url": "https://arxiv.org/pdf/1406.2080"
   },
@@ -5482,6 +5927,9 @@
    "institutions": [
     "Southwest Jiaotong University"
    ],
+   "institution_ids": [
+    "00hn7w693"
+   ],
    "abs_url": "https://arxiv.org/abs/1405.4506",
    "pdf_url": "https://arxiv.org/pdf/1405.4506"
   },
@@ -5520,6 +5968,9 @@
    ],
    "institutions": [
     "University of Oxford"
+   ],
+   "institution_ids": [
+    "052gg0110"
    ],
    "abs_url": "https://arxiv.org/abs/1405.3866",
    "pdf_url": "https://arxiv.org/pdf/1405.3866"
@@ -5563,6 +6014,10 @@
     "Peking University",
     "Harbin Institute of Technology"
    ],
+   "institution_ids": [
+    "02v51f717",
+    "01yqg2h08"
+   ],
    "abs_url": "https://arxiv.org/abs/1405.3351",
    "pdf_url": "https://arxiv.org/pdf/1405.3351"
   },
@@ -5589,14 +6044,16 @@
    "abstract": "Existing methods on video-based action recognition are generally view-dependent, i.e., performing recognition from the same views seen in the training data. We present a novel multiview spatio-temporal AND-OR graph (MST-AOG) representation for cross-view action recognition, i.e., the recognition is performed on the video from an unknown and unseen view. As a compositional model, MST-AOG compactly represents the hierarchical combinatorial structures of cross-view actions by explicitly modeling the geometry, appearance and motion variations. This paper proposes effective methods to learn the structure and parameters of MST-AOG. The inference based on MST-AOG enables action recognition from novel views. The training of MST-AOG takes advantage of the 3D human skeleton data obtained from Kinect cameras to avoid annotating enormous multi-view video frames, which is error-prone and time-consuming, but the recognition does not need 3D information and is based on 2D video input. A new Multiview Action3D dataset has been created and will be released. Extensive experiments have demonstrated that this new action representation significantly improves the accuracy and robustness for cross-view action recognition on 2D videos.",
    "affiliations": [
     "Northwestern University",
-    "University of California, Los Angeles"
+    "University of California, Los Angeles",
+    "University of California System"
    ],
    "author_affiliations": [
     [
      0
     ],
     [
-     1
+     1,
+     2
     ],
     [
      0
@@ -5605,12 +6062,19 @@
      0
     ],
     [
-     1
+     1,
+     2
     ]
    ],
    "institutions": [
     "Northwestern University",
-    "University of California, Los Angeles"
+    "University of California, Los Angeles",
+    "University of California System"
+   ],
+   "institution_ids": [
+    "000e0be47",
+    "046rm7j60",
+    "00pjdza24"
    ],
    "abs_url": "https://arxiv.org/abs/1405.2941",
    "pdf_url": "https://arxiv.org/pdf/1405.2941"
@@ -5658,6 +6122,9 @@
    ],
    "institutions": [
     "Nanjing University of Science and Technology"
+   ],
+   "institution_ids": [
+    "00xp9wg62"
    ],
    "abs_url": "https://arxiv.org/abs/1405.1207",
    "pdf_url": "https://arxiv.org/pdf/1405.1207"
@@ -5728,6 +6195,9 @@
    "institutions": [
     "University of Oxford"
    ],
+   "institution_ids": [
+    "052gg0110"
+   ],
    "abs_url": "https://arxiv.org/abs/1405.3531",
    "pdf_url": "https://arxiv.org/pdf/1405.3531"
   },
@@ -5795,6 +6265,9 @@
    ],
    "institutions": [
     "Max Planck Institute for Informatics"
+   ],
+   "institution_ids": [
+    "01w19ak89"
    ],
    "abs_url": "https://arxiv.org/abs/1405.0006",
    "pdf_url": "https://arxiv.org/pdf/1405.0006"
@@ -5882,6 +6355,12 @@
     "Hefei University of Technology",
     "Tongji University"
    ],
+   "institution_ids": [
+    "04c4dkn09",
+    "01tgyzw49",
+    "02czkny70",
+    "03rc6as71"
+   ],
    "abs_url": "https://arxiv.org/abs/1404.6736",
    "pdf_url": "https://arxiv.org/pdf/1404.6736"
   },
@@ -5926,6 +6405,9 @@
    "institutions": [
     "University of Freiburg"
    ],
+   "institution_ids": [
+    "0245cg223"
+   ],
    "abs_url": "https://arxiv.org/abs/1404.4805",
    "pdf_url": "https://arxiv.org/pdf/1404.4805"
   },
@@ -5955,28 +6437,37 @@
    "abstract": "Learning fine-grained image similarity is a challenging task. It needs to capture between-class and within-class image differences. This paper proposes a deep ranking model that employs deep learning techniques to learn similarity metric directly from images.It has higher learning capability than models based on hand-crafted features. A novel multiscale network structure has been developed to describe the images effectively. An efficient triplet sampling algorithm is proposed to learn the model with distributed asynchronized stochastic gradient. Extensive experiments show that the proposed algorithm outperforms models based on hand-crafted visual features and deep classification models.",
    "affiliations": [
     "Northwestern University",
+    "Google",
     "Alphabet",
     "California Institute of Technology"
    ],
    "author_affiliations": [
     [
-     0
-    ],
-    [
+     0,
      1
     ],
     [
-     1
-    ],
-    [
-     1
-    ],
-    null,
-    [
-     1
-    ],
-    [
+     1,
      2
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     3
     ],
     [
      0
@@ -5984,8 +6475,15 @@
    ],
    "institutions": [
     "Northwestern University",
+    "Google",
     "Alphabet",
     "California Institute of Technology"
+   ],
+   "institution_ids": [
+    "000e0be47",
+    "00njsd438",
+    "02e9yx751",
+    "05dxps055"
    ],
    "abs_url": "https://arxiv.org/abs/1404.4661",
    "pdf_url": "https://arxiv.org/pdf/1404.4661"
@@ -6119,6 +6617,11 @@
     "Yandex",
     "Skolkovo Institute of Science and Technology"
    ],
+   "institution_ids": [
+    "00v0z9322",
+    "04dbch786",
+    "03f9nc143"
+   ],
    "abs_url": "https://arxiv.org/abs/1404.1777",
    "pdf_url": "https://arxiv.org/pdf/1404.1777"
   },
@@ -6195,6 +6698,9 @@
    "institutions": [
     "New York University"
    ],
+   "institution_ids": [
+    "0190ak572"
+   ],
    "abs_url": "https://arxiv.org/abs/1404.0736",
    "pdf_url": "https://arxiv.org/pdf/1404.0736"
   },
@@ -6237,6 +6743,11 @@
     "Italian Institute of Technology",
     "National University of Singapore",
     "Carnegie Mellon University"
+   ],
+   "institution_ids": [
+    "042t93s57",
+    "01tgyzw49",
+    "05x2bcf33"
    ],
    "abs_url": "https://arxiv.org/abs/1403.7876",
    "pdf_url": "https://arxiv.org/pdf/1403.7876"
@@ -6304,6 +6815,9 @@
    ],
    "institutions": [
     "KTH Royal Institute of Technology"
+   ],
+   "institution_ids": [
+    "026vcq606"
    ],
    "abs_url": "https://arxiv.org/abs/1403.6382",
    "pdf_url": "https://arxiv.org/pdf/1403.6382"
@@ -6384,27 +6898,36 @@
    "html_url": null,
    "abstract": "Deep convolutional neural networks (CNN) have shown their promise as a universal representation for recognition. However, global CNN activations lack geometric invariance, which limits their robustness for classification and matching of highly variable scenes. To improve the invariance of CNN activations without degrading their discriminative power, this paper presents a simple but effective scheme called multi-scale orderless pooling (MOP-CNN). This scheme extracts CNN activations for local patches at multiple scale levels, performs orderless VLAD pooling of these activations at each level separately, and concatenates the result. The resulting MOP-CNN representation can be used as a generic feature for either supervised or unsupervised recognition tasks, from image classification to instance-level retrieval; it consistently outperforms global CNN activations without requiring any joint training of prediction layers for a particular target dataset. In absolute terms, it achieves state-of-the-art results on the challenging SUN397 and MIT Indoor Scenes classification datasets, and competitive results on ILSVRC2012/2013 classification and INRIA Holidays retrieval datasets.",
    "affiliations": [
+    "University of North Carolina at Chapel Hill",
     "University of Illinois Urbana-Champaign",
     "University of Illinois System"
    ],
    "author_affiliations": [
-    null,
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     1,
+     2
     ],
     [
-     0,
-     1
+     1,
+     2
+    ],
+    [
+     1,
+     2
     ]
    ],
    "institutions": [
+    "University of North Carolina at Chapel Hill",
     "University of Illinois Urbana-Champaign",
     "University of Illinois System"
+   ],
+   "institution_ids": [
+    "0130frc33",
+    "047426m28",
+    "05e94g991"
    ],
    "abs_url": "https://arxiv.org/abs/1403.1840",
    "pdf_url": "https://arxiv.org/pdf/1403.1840"
@@ -6433,28 +6956,43 @@
    "html_url": null,
    "abstract": "Learning to localize objects with minimal supervision is an important problem in computer vision, since large fully annotated datasets are extremely costly to obtain. In this paper, we propose a new method that achieves this goal with only image-level labels of whether the objects are present or not. Our approach combines a discriminative submodular cover problem for automatically discovering a set of positive object windows with a smoothed latent SVM formulation. The latter allows us to leverage efficient quasi-Newton optimization techniques. Our experiments demonstrate that the proposed approach provides a 50% relative improvement in mean average precision over the current state-of-the-art on PASCAL VOC 2007 detection.",
    "affiliations": [
+    "Institut national de recherche en sciences et technologies du numérique",
     "University of California, Berkeley",
     "Lawrence Berkeley National Laboratory"
    ],
    "author_affiliations": [
     [
-     0
-    ],
-    [
-     0
-    ],
-    [
+     0,
      1
     ],
-    null,
-    null,
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
     [
      0
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     1
     ]
    ],
    "institutions": [
+    "Institut national de recherche en sciences et technologies du numérique",
     "University of California, Berkeley",
     "Lawrence Berkeley National Laboratory"
+   ],
+   "institution_ids": [
+    "02kvxyf05",
+    "01an7q238",
+    "02jbv0t02"
    ],
    "abs_url": "https://arxiv.org/abs/1403.1024",
    "pdf_url": "https://arxiv.org/pdf/1403.1024"

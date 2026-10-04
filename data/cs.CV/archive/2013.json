@@ -67,6 +67,9 @@
    "institutions": [
     "Google"
    ],
+   "institution_ids": [
+    "00njsd438"
+   ],
    "abs_url": "https://arxiv.org/abs/1312.2249",
    "pdf_url": "https://arxiv.org/pdf/1312.2249"
   },
@@ -142,6 +145,10 @@
     "New York University",
     "City College of New York"
    ],
+   "institution_ids": [
+    "0190ak572",
+    "00wmhkr98"
+   ],
    "abs_url": "https://arxiv.org/abs/1312.6203",
    "pdf_url": "https://arxiv.org/pdf/1312.6203"
   },
@@ -206,6 +213,12 @@
     "Université de Montréal",
     "Meta"
    ],
+   "institution_ids": [
+    "00njsd438",
+    "0190ak572",
+    "0161xgx34",
+    "02388em19"
+   ],
    "abs_url": "https://arxiv.org/abs/1312.6199",
    "pdf_url": "https://arxiv.org/pdf/1312.6199"
   },
@@ -249,6 +262,9 @@
    ],
    "institutions": [
     "Stanford University"
+   ],
+   "institution_ids": [
+    "00f54p054"
    ],
    "abs_url": "https://arxiv.org/abs/1312.6120",
    "pdf_url": "https://arxiv.org/pdf/1312.6120"
@@ -297,6 +313,9 @@
    "institutions": [
     "Google"
    ],
+   "institution_ids": [
+    "00njsd438"
+   ],
    "abs_url": "https://arxiv.org/abs/1312.6082",
    "pdf_url": "https://arxiv.org/pdf/1312.6082"
   },
@@ -335,6 +354,9 @@
    ],
    "institutions": [
     "University of Oxford"
+   ],
+   "institution_ids": [
+    "052gg0110"
    ],
    "abs_url": "https://arxiv.org/abs/1312.6034",
    "pdf_url": "https://arxiv.org/pdf/1312.6034"
@@ -381,6 +403,10 @@
    "institutions": [
     "Courant Institute of Mathematical Sciences",
     "New York University"
+   ],
+   "institution_ids": [
+    "037tm7f56",
+    "0190ak572"
    ],
    "abs_url": "https://arxiv.org/abs/1312.5851",
    "pdf_url": "https://arxiv.org/pdf/1312.5851"
@@ -430,6 +456,10 @@
    "institutions": [
     "University of North Carolina at Chapel Hill",
     "Google"
+   ],
+   "institution_ids": [
+    "0130frc33",
+    "00njsd438"
    ],
    "abs_url": "https://arxiv.org/abs/1312.4894",
    "pdf_url": "https://arxiv.org/pdf/1312.4894"
@@ -545,6 +575,9 @@
    "institutions": [
     "New York University"
    ],
+   "institution_ids": [
+    "0190ak572"
+   ],
    "abs_url": "https://arxiv.org/abs/1311.2901",
    "pdf_url": "https://arxiv.org/pdf/1311.2901"
   },
@@ -571,6 +604,7 @@
    "abstract": "Patterns and textures are defining characteristics of many natural objects: a shirt can be striped, the wings of a butterfly can be veined, and the skin of an animal can be scaly. Aiming at supporting this analytical dimension in image understanding, we address the challenging problem of describing textures with semantic attributes. We identify a rich vocabulary of forty-seven texture terms and use them to describe a large dataset of patterns collected in the wild.The resulting Describable Textures Dataset (DTD) is the basis to seek for the best texture representation for recognizing describable texture attributes in images. We port from object recognition to texture recognition the Improved Fisher Vector (IFV) and show that, surprisingly, it outperforms specialized texture descriptors not only on our problem, but also in established material recognition datasets. We also show that the describable attributes are excellent texture descriptors, transferring between datasets and tasks; in particular, combined with IFV, they significantly outperform the state-of-the-art by more than 8 percent on both FMD and KTHTIPS-2b benchmarks. We also demonstrate that they produce intuitive descriptions of materials and Internet images.",
    "affiliations": [
     "University of Oxford",
+    "Toyota Technological Institute at Chicago",
     "Toyota Technological Institute",
     "Institut national de recherche en sciences et technologies du numérique",
     "École Centrale Paris",
@@ -581,14 +615,15 @@
      0
     ],
     [
-     1
+     1,
+     2
     ],
     [
-     2,
-     3
-    ],
-    [
+     3,
      4
+    ],
+    [
+     5
     ],
     [
      0
@@ -596,10 +631,19 @@
    ],
    "institutions": [
     "University of Oxford",
+    "Toyota Technological Institute at Chicago",
     "Toyota Technological Institute",
     "Institut national de recherche en sciences et technologies du numérique",
     "École Centrale Paris",
     "Stony Brook University"
+   ],
+   "institution_ids": [
+    "052gg0110",
+    "02sn5gb64",
+    "001hv0k59",
+    "02kvxyf05",
+    "00v0y5771",
+    "05qghxh33"
    ],
    "abs_url": "https://arxiv.org/abs/1311.3618",
    "pdf_url": "https://arxiv.org/pdf/1311.3618"
@@ -626,29 +670,34 @@
    "html_url": null,
    "abstract": "We propose a method for inferring human attributes (such as gender, hair style, clothes style, expression, action) from images of people under large variation of viewpoint, pose, appearance, articulation and occlusion. Convolutional Neural Nets (CNN) have been shown to perform very well on large scale object recognition problems. In the context of attribute classification, however, the signal is often subtle and it may cover only a small part of the image, while the image is dominated by the effects of pose and viewpoint. Discounting for pose variation would require training on very large labeled datasets which are not presently available. Part-based models, such as poselets and DPM have been shown to perform well for this problem but they are limited by shallow low-level features. We propose a new method which combines part-based models and deep learning by training pose-normalized CNNs. We show substantial improvement vs. state-of-the-art methods on challenging attribute classification tasks in unconstrained settings. Experiments confirm that our method outperforms both the best part-based methods on this problem and conventional CNNs trained on the full bounding box of the person.",
    "affiliations": [
-    "University of California, Berkeley",
-    "Meta"
+    "Meta",
+    "University of California, Berkeley"
    ],
    "author_affiliations": [
     [
-     0
-    ],
-    [
-     1
-    ],
-    [
+     0,
      1
     ],
     [
      0
     ],
     [
+     0
+    ],
+    [
      1
+    ],
+    [
+     0
     ]
    ],
    "institutions": [
-    "University of California, Berkeley",
-    "Meta"
+    "Meta",
+    "University of California, Berkeley"
+   ],
+   "institution_ids": [
+    "01zbnvs85",
+    "01an7q238"
    ],
    "abs_url": "https://arxiv.org/abs/1311.5591",
    "pdf_url": "https://arxiv.org/pdf/1311.5591"
@@ -836,6 +885,9 @@
    "institutions": [
     "Princeton University"
    ],
+   "institution_ids": [
+    "00hx57361"
+   ],
    "abs_url": "https://arxiv.org/abs/1310.4249",
    "pdf_url": "https://arxiv.org/pdf/1310.4249"
   },
@@ -876,6 +928,9 @@
    ],
    "institutions": [
     "ETH Zurich"
+   ],
+   "institution_ids": [
+    "05a28rw58"
    ],
    "abs_url": "https://arxiv.org/abs/1309.3848",
    "pdf_url": "https://arxiv.org/pdf/1309.3848"
@@ -972,6 +1027,10 @@
    "institutions": [
     "Toyota Technological Institute",
     "Centre de Vision Numérique"
+   ],
+   "institution_ids": [
+    "001hv0k59",
+    "043k3s342"
    ],
    "abs_url": "https://arxiv.org/abs/1306.5151",
    "pdf_url": "https://arxiv.org/pdf/1306.5151"
@@ -1224,6 +1283,12 @@
     "University of Adelaide",
     "Binghamton University"
    ],
+   "institution_ids": [
+    "034t30j35",
+    "022c3hy66",
+    "00892tw58",
+    "008rmbt77"
+   ],
    "abs_url": "https://arxiv.org/abs/1303.4803",
    "pdf_url": "https://arxiv.org/pdf/1303.4803"
   },
@@ -1286,6 +1351,11 @@
     "Dalle Molle Institute for Artificial Intelligence Research",
     "Università della Svizzera italiana"
    ],
+   "institution_ids": [
+    "05ep8g269",
+    "013355g38",
+    "03c4atk17"
+   ],
    "abs_url": "https://arxiv.org/abs/1302.1700",
    "pdf_url": "https://arxiv.org/pdf/1302.1700"
   },
@@ -1321,6 +1391,9 @@
    ],
    "institutions": [
     "University of California, Berkeley"
+   ],
+   "institution_ids": [
+    "01an7q238"
    ],
    "abs_url": "https://arxiv.org/abs/1302.1539",
    "pdf_url": "https://arxiv.org/pdf/1302.1539"
@@ -1424,11 +1497,18 @@
     [
      0
     ],
-    null,
-    null
+    [
+     0
+    ],
+    [
+     0
+    ]
    ],
    "institutions": [
     "Stanford University"
+   ],
+   "institution_ids": [
+    "00f54p054"
    ],
    "abs_url": "https://arxiv.org/abs/1301.3666",
    "pdf_url": "https://arxiv.org/pdf/1301.3666"
@@ -1460,18 +1540,25 @@
    ],
    "author_affiliations": [
     [
-     0
-    ],
-    [
+     0,
      1
     ],
     [
-     0
+     0,
+     1
+    ],
+    [
+     0,
+     1
     ]
    ],
    "institutions": [
     "Cornell University",
     "University of Michigan"
+   ],
+   "institution_ids": [
+    "05bnh6r87",
+    "00jmfr291"
    ],
    "abs_url": "https://arxiv.org/abs/1301.3592",
    "pdf_url": "https://arxiv.org/pdf/1301.3592"
@@ -1524,6 +1611,12 @@
     "Courant Institute of Mathematical Sciences",
     "Laboratoire d'Informatique Gaspard-Monge",
     "Université Gustave Eiffel"
+   ],
+   "institution_ids": [
+    "03gcbhc33",
+    "037tm7f56",
+    "04t50yk91",
+    "03x42jk29"
    ],
    "abs_url": "https://arxiv.org/abs/1301.3572",
    "pdf_url": "https://arxiv.org/pdf/1301.3572"

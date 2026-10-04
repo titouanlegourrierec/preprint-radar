@@ -104,6 +104,10 @@
     "Courant Institute of Mathematical Sciences",
     "New York University"
    ],
+   "institution_ids": [
+    "037tm7f56",
+    "0190ak572"
+   ],
    "abs_url": "https://arxiv.org/abs/1212.0142",
    "pdf_url": "https://arxiv.org/pdf/1212.0142"
   },
@@ -174,6 +178,9 @@
    "institutions": [
     "Stanford University"
    ],
+   "institution_ids": [
+    "00f54p054"
+   ],
    "abs_url": "https://arxiv.org/abs/1210.5644",
    "pdf_url": "https://arxiv.org/pdf/1210.5644"
   },
@@ -238,6 +245,9 @@
    ],
    "institutions": [
     "Cornell University"
+   ],
+   "institution_ids": [
+    "05bnh6r87"
    ],
    "abs_url": "https://arxiv.org/abs/1210.1207",
    "pdf_url": "https://arxiv.org/pdf/1210.1207"
@@ -308,6 +318,9 @@
    "institutions": [
     "University of Toronto"
    ],
+   "institution_ids": [
+    "03dbr7087"
+   ],
    "abs_url": "https://arxiv.org/abs/1207.0580",
    "pdf_url": "https://arxiv.org/pdf/1207.0580"
   },
@@ -354,16 +367,27 @@
      4
     ],
     [
-     5
+     0,
+     1,
+     5,
+     2,
+     4
     ],
     [
+     0,
      1,
      6,
+     2,
+     4,
      7,
      8
     ],
     [
-     9
+     0,
+     1,
+     9,
+     2,
+     4
     ]
    ],
    "institutions": [
@@ -377,6 +401,18 @@
     "Institut de Mathématiques de Bordeaux",
     "Université Bordeaux-I",
     "Duke University"
+   ],
+   "institution_ids": [
+    "01naq7912",
+    "02feahw73",
+    "05c2qg481",
+    "025vp2923",
+    "057er4c39",
+    "01y2jtd41",
+    "057qpr032",
+    "05m3r1b84",
+    "001anga17",
+    "00py81415"
    ],
    "abs_url": "https://arxiv.org/abs/1206.0338",
    "pdf_url": "https://arxiv.org/pdf/1206.0338"
@@ -418,6 +454,9 @@
    ],
    "institutions": [
     "Arizona State University"
+   ],
+   "institution_ids": [
+    "03efmqc40"
    ],
    "abs_url": "https://arxiv.org/abs/1205.2631",
    "pdf_url": "https://arxiv.org/pdf/1205.2631"
@@ -504,6 +543,9 @@
    "institutions": [
     "Georgia Institute of Technology"
    ],
+   "institution_ids": [
+    "01zkghx44"
+   ],
    "abs_url": "https://arxiv.org/abs/1203.6722",
    "pdf_url": "https://arxiv.org/pdf/1203.6722"
   },
@@ -526,20 +568,28 @@
    "html_url": null,
    "abstract": "A wavelet scattering network computes a translation invariant image representation, which is stable to deformations and preserves high frequency information for classification. It cascades wavelet transform convolutions with non-linear modulus and averaging operators. The first network layer outputs SIFT-type descriptors whereas the next layers provide complementary invariant information which improves classification. The mathematical analysis of wavelet scattering networks explains important properties of deep convolution networks for classification. A scattering representation of stationary processes incorporates higher order moments and can thus discriminate textures having the same Fourier power spectrum. State of the art classification results are obtained for handwritten digits and texture discrimination, using a Gaussian kernel SVM and a generative PCA classifier.",
    "affiliations": [
+    "École Polytechnique",
     "New York University",
     "École Normale Supérieure - PSL"
    ],
    "author_affiliations": [
     [
-     0
+     0,
+     1
     ],
     [
-     1
+     2
     ]
    ],
    "institutions": [
+    "École Polytechnique",
     "New York University",
     "École Normale Supérieure - PSL"
+   ],
+   "institution_ids": [
+    "05hy3tk52",
+    "0190ak572",
+    "05a0dhs15"
    ],
    "abs_url": "https://arxiv.org/abs/1203.1513",
    "pdf_url": "https://arxiv.org/pdf/1203.1513"
@@ -595,19 +645,32 @@
    "abstract": "In many real-world problems, we are dealing with collections of high-dimensional data, such as images, videos, text and web documents, DNA microarray data, and more. Often, high-dimensional data lie close to low-dimensional structures corresponding to several classes or categories the data belongs to. In this paper, we propose and study an algorithm, called Sparse Subspace Clustering (SSC), to cluster data points that lie in a union of low-dimensional subspaces. The key idea is that, among infinitely many possible representations of a data point in terms of other points, a sparse representation corresponds to selecting a few points from the same subspace. This motivates solving a sparse optimization program whose solution is used in a spectral clustering framework to infer the clustering of data into subspaces. Since solving the sparse optimization program is in general NP-hard, we consider a convex relaxation and show that, under appropriate conditions on the arrangement of subspaces and the distribution of data, the proposed minimization program succeeds in recovering the desired sparse representations. The proposed algorithm can be solved efficiently and can handle data points near the intersections of subspaces. Another key advantage of the proposed algorithm with respect to the state of the art is that it can deal with data nuisances, such as noise, sparse outlying entries, and missing entries, directly by incorporating the model of the data into the sparse optimization program. We demonstrate the effectiveness of the proposed algorithm through experiments on synthetic data as well as the two real-world problems of motion segmentation and face clustering.",
    "affiliations": [
     "University of California, Berkeley",
-    "Johns Hopkins University"
+    "Johns Hopkins University",
+    "Johns Hopkins Medicine",
+    "Johns Hopkins University Applied Physics Laboratory"
    ],
    "author_affiliations": [
     [
      0
     ],
     [
-     1
+     1,
+     2,
+     3,
+     0
     ]
    ],
    "institutions": [
     "University of California, Berkeley",
-    "Johns Hopkins University"
+    "Johns Hopkins University",
+    "Johns Hopkins Medicine",
+    "Johns Hopkins University Applied Physics Laboratory"
+   ],
+   "institution_ids": [
+    "01an7q238",
+    "00za53h95",
+    "037zgn354",
+    "029pp9z10"
    ],
    "abs_url": "https://arxiv.org/abs/1203.1005",
    "pdf_url": "https://arxiv.org/pdf/1203.1005"
@@ -634,22 +697,33 @@
    "abstract": "This paper presents an algebro-geometric solution to the problem of segmenting an unknown number of subspaces of unknown and varying dimensions from sample data points. We represent the subspaces with a set of homogeneous polynomials whose degree is the number of subspaces and whose derivatives at a data point give normal vectors to the subspace passing through the point. When the number of subspaces is known, we show that these polynomials can be estimated linearly from data; hence, subspace segmentation is reduced to classifying one point per subspace. We select these points optimally from the data set by minimizing certain distance function, thus dealing automatically with moderate noise in the data. A basis for the complement of each subspace is then recovered by applying standard PCA to the collection of derivatives (normal vectors). Extensions of GPCA that deal with data in a high- dimensional space and with an unknown number of subspaces are also presented. Our experiments on low-dimensional data show that GPCA outperforms existing algebraic algorithms based on polynomial factorization and provides a good initialization to iterative techniques such as K-subspaces and Expectation Maximization. We also present applications of GPCA to computer vision problems such as face clustering, temporal video segmentation, and 3D motion segmentation from point correspondences in multiple affine views.",
    "affiliations": [
     "Johns Hopkins University",
-    "Institute of Electrical and Electronics Engineers"
+    "Institute of Electrical and Electronics Engineers",
+    "University of Baltimore"
    ],
    "author_affiliations": [
     [
      0
     ],
     [
-     1
+     0,
+     1,
+     2
     ],
     [
-     1
+     0,
+     1,
+     2
     ]
    ],
    "institutions": [
     "Johns Hopkins University",
-    "Institute of Electrical and Electronics Engineers"
+    "Institute of Electrical and Electronics Engineers",
+    "University of Baltimore"
+   ],
+   "institution_ids": [
+    "00za53h95",
+    "01n002310",
+    "024gw2733"
    ],
    "abs_url": "https://arxiv.org/abs/1202.4002",
    "pdf_url": "https://arxiv.org/pdf/1202.4002"
