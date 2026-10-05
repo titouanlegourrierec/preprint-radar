@@ -2,11 +2,13 @@ name: Update data
 
 # arXiv announces new papers Sunday to Thursday at 20:00 US Eastern time (00:00 or
 # 01:00 UTC) and rebuilds its RSS feeds at midnight Eastern time (04:00 or 05:00 UTC),
-# so the data is refreshed after both, Monday to Friday. The odd minute avoids the
-# top-of-the-hour load on GitHub's scheduler, which may still delay runs by hours.
+# so the data is refreshed after both, Monday to Friday. GitHub's scheduler starts runs
+# hours late (09:52 to 13:29 for 06:17 in a week), so an outside scheduler dispatches
+# this workflow at 06:17 UTC (docs/operations.md). The schedule is its fallback, four
+# hours later: the guard job stops it when a run of the day already succeeded.
 on:
   schedule:
-    - cron: "17 6 * * 1-5"
+    - cron: "17 10 * * 1-5"
   workflow_dispatch:
     inputs:
       max-html:
@@ -21,7 +23,30 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # A scheduled run is the fallback of the outside scheduler's dispatch: it stops when a
+  # run of the day already succeeded (.github/scripts/skip-if-done.sh).
+  guard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      actions: read
+      contents: read
+    outputs:
+      run: ${{ steps.check.outputs.run }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          sparse-checkout: .github/scripts
+          persist-credentials: false
+      - id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash .github/scripts/skip-if-done.sh update.yml
+
   update:
+    needs: guard
+    # Also when the guard failed: a second run costs minutes, a missed one a day.
+    if: ${{ !cancelled() && needs.guard.outputs.run != 'false' }}
     runs-on: ubuntu-latest
     # Reading HTML pages is throttled to one every 15 s (arxiv.org robots.txt). Steps: 195
     # minutes of papers, 15 of re-extraction, 15 of citation counts, then a few to commit.

@@ -20,19 +20,61 @@ stops the bot's commit. After any change, run `make validate`.
 - **Locally**: `make stats` (coverage), `make quality-affiliations` (signs of wrong
   affiliations), `make validate` (the contract), `preprint-radar summary` (freshness).
 
+## The outside scheduler
+
+GitHub's scheduler starts scheduled runs hours late (06:17 runs started between 09:52 and
+13:29 in the week of 2026-09-28; 2026-10-05's had not started at 12:20). So
+[cron-job.org](https://cron-job.org) dispatches the data workflows on time, and their own
+schedules are fallbacks, four hours later (set each cron-job.org job's time zone to UTC):
+
+| Workflow | Dispatched (UTC) | Fallback schedule (UTC) |
+|---|---|---|
+| *Update data* | Monday to Friday, 06:17 | 10:17 |
+| *Archive* | Sunday, 05:41 | 09:41 |
+
+Each cron-job.org job sends `POST
+https://api.github.com/repos/titouanlegourrierec/preprint-radar/actions/workflows/<file>/dispatches`
+with the body `{"ref":"main"}` and the headers `Authorization: Bearer <token>`,
+`Accept: application/vnd.github+json` and `X-GitHub-Api-Version: 2022-11-28`; GitHub
+answers `204`. The token is a fine-grained personal access token for this repository only,
+with the single permission *Actions: Read and write*: it can start, cancel and delete runs,
+logs and caches, never read or push code. It expires: renew it before, and paste the new
+one into both jobs.
+
+A dispatched run always goes on. A scheduled one first runs the `guard` job
+(`.github/scripts/skip-if-done.sh`), which stops it once a run of the same workflow has
+succeeded that day (UTC), so a normal day has one run, and a failed or missing dispatch
+is retried by the fallback.
+
+### A scheduled run stopped at once
+
+**Signal.** A notice `Already done today` on a scheduled run, whose `update` or `archive`
+job is skipped.
+
+The normal case: the dispatched run of the day succeeded. Nothing to do.
+
+### A scheduled run did the work
+
+**Signal.** No run with the event `workflow_dispatch` for the day, and a scheduled run
+after 10:17 UTC (09:41 on Sundays) that did the work.
+
+The dispatch did not happen or failed. Look at the job's history on cron-job.org: a `401`
+means the token expired or was revoked (create a new one, as above), a `403` or `404`
+that it lacks this repository or its permission, a `422` a wrong `ref` or body. A warning
+`Run history unavailable` means the guard could not ask GitHub and let the run go on.
+
 ## Update data did not run, or started hours late
 
 **Signal.** No *Update data* run for the day on the Actions page, or one started long
-after 06:17 UTC; later, the summary's `Stale data` warning (`no new day for` more than
+after 10:17 UTC; later, the summary's `Stale data` warning (`no new day for` more than
 3 weekdays).
 
-GitHub's scheduler delays and sometimes skips scheduled runs (it skipped 2026-10-01, and
-started 2026-10-02 six hours late). Nothing is lost while arXiv's listing still covers the
-days missed (it shows the last five announcement days):
+Both the dispatch and the fallback schedule failed (see above). Nothing is lost while
+arXiv's listing still covers the days missed (it shows the last five announcement days):
 
 1. Run it by hand: *Actions → Update data → Run workflow* (or
-   `gh workflow run update.yml`). Runs share a concurrency group, so a late scheduled run
-   waits for the manual one and then finds little to do.
+   `gh workflow run update.yml`). Runs share a concurrency group, so a scheduled run
+   queued meanwhile waits for the manual one, then stops at its guard if it succeeded.
 2. For days older than the listing, fill *since* (`YYYY-MM-DD`): the run then calls
    `backfill` over the catchup pages from that day on, limited to *max-html* pages. Run it
    again until `make stats` shows no pending papers for those days.

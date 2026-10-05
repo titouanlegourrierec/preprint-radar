@@ -2,9 +2,11 @@ name: Archive
 
 # Weekly: keep the most cited papers older than 12 months, within a size budget (see
 # src/preprint_radar/archive/update.py). Sunday morning UTC: the daily update does not run then.
+# An outside scheduler dispatches it at 05:41 UTC; the schedule is the fallback, four hours
+# later, and stops when a run of the day already succeeded (see update.yml).
 on:
   schedule:
-    - cron: "41 5 * * 0"
+    - cron: "41 9 * * 0"
   workflow_dispatch:
     inputs:
       budget:
@@ -20,7 +22,30 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # A scheduled run is the fallback of the outside scheduler's dispatch: it stops when a
+  # run of the day already succeeded (.github/scripts/skip-if-done.sh).
+  guard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      actions: read
+      contents: read
+    outputs:
+      run: ${{ steps.check.outputs.run }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          sparse-checkout: .github/scripts
+          persist-credentials: false
+      - id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash .github/scripts/skip-if-done.sh archive.yml
+
   archive:
+    needs: guard
+    # Also when the guard failed: a second run costs minutes, a missed one a week.
+    if: ${{ !cancelled() && needs.guard.outputs.run != 'false' }}
     runs-on: ubuntu-latest
     # The first run harvests the whole catalog (about 45 minutes); every run then fetches
     # about 207,000 citation counts in 415 requests, far slower without an API key, then

@@ -249,11 +249,15 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     run's papers set back to pending and their pages dropped from the cache).
     `tests/unit/test_exit_criteria.py` runs these end to end. SIGTERM and Ctrl-C save the
     progress first.
-  - `update.yml` (cron 06:17 UTC, often started hours late): the update, then `reextract`
+  - GitHub starts schedules hours late, so cron-job.org dispatches both data workflows on
+    time (`docs/operations.md`, with a token only the maintainer holds). Their schedules
+    are fallbacks four hours later, whose `guard` job (`.github/scripts/skip-if-done.sh`)
+    stops them once a run of the day succeeded; a dispatched or manual run always goes on.
+  - `update.yml` (dispatched 06:17 UTC on weekdays): the update, then `reextract`
     (50 downloads, 12 minutes), `citations` (10 minutes), commit; 240 minutes in all. It
     restores the page cache from the Actions cache (`front-matter-<run id>`, saved even
     after a failure). Its manual *since* input runs `backfill` instead.
-  - `archive.yml` (Sundays 05:41 UTC): the archive, then `scholar` (20 minutes).
+  - `archive.yml` (dispatched Sundays 05:41 UTC): the archive, then `scholar` (20 minutes).
   - `canary.yml` (Wednesdays): the network tests against the live arXiv (a red canary is a
     layout change to look at before it reaches the data), and the repository size.
   - Sizes (ARCH-1): `deploy.yml` fails a site above 800 MB (Pages refuses 1 GB) and warns
