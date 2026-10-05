@@ -4,6 +4,44 @@ One minor release per phase of [`docs/roadmap.md`](docs/roadmap.md), a patch for
 between. Item IDs (`DATA-2`, `CIT-11`…) refer to the audit of 2026-09-30
 ([`docs/audit/2026-09-30.md`](docs/audit/2026-09-30.md)).
 
+## Unreleased
+
+Phase 3 of the roadmap, in progress.
+
+### Longer periods
+
+- A period loads its latest days within 10,000 papers and says what it leaves out; links
+  to the former "All days" open the longest period (PERF-1).
+- The search index is built when a search needs it, or in chunks while the page is idle,
+  so that the list never waits for it; loaded files are kept for the next periods, and
+  the requests of a period left are cancelled (PERF-1, PERF-11).
+- Citation counts load for the papers shown only: 11 KB gzipped instead of 125 KB for the
+  recent days (PERF-12).
+
+### Richer metadata
+
+- Venues come from a table of venues and their full names, never from a mere mention
+  ("compared with CVPR 2025", "rejected from", "ranked first at the challenge"); years of
+  page ranges no longer count, glued and short years do ("CVPR16", "BMVC2026") (META-4).
+- The published version, from Semantic Scholar every week: its DOI, linked on cards and
+  cited by the BibTeX, RIS and CSV exports, and its venue where the comments name none.
+  The archive's papers with a venue go from 52% to 89% (META-1).
+- Institutions keep their ROR id, linked from the graph's institution nodes (AFF-14).
+
+### Fixes
+
+- j and k reach the list as soon as the page loads (the search box no longer takes the
+  focus), and Share only copies the link.
+- "Report an error" opens a mail with a short template to fill in.
+
+### Operations
+
+- The data workflows are dispatched on time by an outside scheduler; GitHub's own
+  schedules, which started runs hours late, are fallbacks that stop once the day's run
+  succeeded.
+- *Deploy site* warns above 600 MB of site and fails above 800 MB; the weekly canary warns
+  above 500 MB of repository (ARCH-1).
+
 ## 0.4.0 (2026-10-03): precise search and a daily routine
 
 Phase 2 of the roadmap.

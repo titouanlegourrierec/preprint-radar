@@ -36,7 +36,7 @@ for the answer.
 | 5 | Archive `[]` affiliations | Spike, then retry OpenAlex while young, and say so in the UI | AFF-3 | pending |
 | 6 | Filter semantics | Exact for clicked names, word prefix for typed text | SRCH-1 | Exact for clicked names, word prefix for typed text (2026-10-03) |
 | 7 | Validation strictness | Fail on structural rules, warn on heuristic ones | DATA-3 | Fail on structural rules, warn on heuristic ones (2026-10-01) |
-| 8 | License and data terms | MIT for the code; read the Semantic Scholar terms before going public | REL-3 | MIT for the code (2026-10-01); the data terms wait for the Semantic Scholar terms, before going public |
+| 8 | License and data terms | MIT for the code; read the Semantic Scholar terms before going public | REL-3 | MIT for the code (2026-10-01); Semantic Scholar's terms checked, its data can be published (2026-10-06) |
 | 9 | Visibility, contact and Actions bill | Confirm the private repository with a public site; choose the correction contact | SEC-9 | Correction contact: titouanlegourrierec@kaist.ac.kr (2026-10-01) |
 | 10 | Primary persona | The daily cs.CV follower | Phase 2 order | Both, the daily follower and the literature search: Phase 2 goes by priority and dependencies, search first (2026-10-03) |
 | 11 | Multi-category | Stay single-category until Phase 3 is done | ARCH-4 | pending |
@@ -167,7 +167,7 @@ page has no live coverage figures (PROD-7); of TEST-9, only the check of the dar
 | META-1 | Spike, then DOI, published venue and author ids from the weekly Semantic Scholar batch (a separate weekly step, `scholar`, of 52 requests rather than fields added to the 415 of counts) | P1 | done |
 | AFF-14 | Keep ROR ids (stored and linked; nodes are still keyed by name, which AFF-13 changes) | P2 | done |
 | AFF-3 | OpenAlex retry policy, after its spike | P1 | todo |
-| PROD-1 | Fill the 11-month gap, once CIT-11 has landed | P1 | todo |
+| PROD-1 | Fill the 11-month gap, once CIT-11 has landed (no line naming the gap on the site meanwhile: declined, 2026-10-06) | P1 | todo |
 | ARCH-1 | Retention, size guard and hosting trigger (guards in *Deploy site* and the weekly canary, the trigger in the runbook; pruning stays off until decision 2) | P2 | done |
 | PERF-2 | Graph defaults with the author layer | P2 | todo |
 | PERF-3 | Clique cap for consortium papers | P2 | todo |
@@ -178,7 +178,8 @@ page has no live coverage figures (PROD-7); of TEST-9, only the check of the dar
 | PERF-12 | Split citation counts (at build time: the store keeps one `citations.json`) | P2 | done |
 
 *Exit criteria:* a year of day files loads without freezing a phone, and venue coverage of the
-archive rises above 52%.
+archive rises above 52%. The second is met: 89% after the first weekly `scholar` step
+(2026-10-04).
 
 *META-1 spike (2026-10-03).* One keyed batch of 500 archive papers (a uniform sample) and one
 of 500 recent day-file papers, asking `paper/batch` for `externalIds`, `venue`,
