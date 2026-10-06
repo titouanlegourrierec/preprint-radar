@@ -29,11 +29,11 @@ for the answer.
 
 | # | Decision | Recommendation | Blocks | Answer |
 |---|---|---|---|---|
-| 1 | Retention and the 11-month gap | Fill the gap from the OAI catalog, after PERF-1 and CIT-11 | PROD-1 | pending |
-| 2 | Prune at 12 months | Land CIT-11 first (selection no longer depends on prune), then prune once 12 months exist, after CIT-3 | CIT-11 | CIT-11 accepted (2026-10-01); turning prune on is decided later |
+| 1 | Retention and the 11-month gap | Fill the gap from the OAI catalog, after PERF-1 and CIT-11 | PROD-1 | No fill: the project started in September 2026, and the day files grow from there (2026-10-06) |
+| 2 | Prune at 12 months | Land CIT-11 first (selection no longer depends on prune), then prune once 12 months exist, after CIT-3 | CIT-11 | CIT-11 accepted (2026-10-01); a rolling year once 12 months exist, from September 2027 (2026-10-06) |
 | 3 | Revised papers (author list changed) | Re-read the HTML, comparing folded names so renames keep their mapping | DATA-2 | Re-read the HTML (2026-10-01) |
 | 4 | Where the front-matter cache lives | The Actions cache first, touched daily | DATA-1 (layer 3) | The Actions cache (2026-10-01) |
-| 5 | Archive `[]` affiliations | Spike, then retry OpenAlex while young, and say so in the UI | AFF-3 | pending |
+| 5 | Archive `[]` affiliations | Spike, then retry OpenAlex while young, and say so in the UI | AFF-3 | Retry OpenAlex while young, option A (2026-10-06) |
 | 6 | Filter semantics | Exact for clicked names, word prefix for typed text | SRCH-1 | Exact for clicked names, word prefix for typed text (2026-10-03) |
 | 7 | Validation strictness | Fail on structural rules, warn on heuristic ones | DATA-3 | Fail on structural rules, warn on heuristic ones (2026-10-01) |
 | 8 | License and data terms | MIT for the code; read the Semantic Scholar terms before going public | REL-3 | MIT for the code (2026-10-01); Semantic Scholar's terms checked, its data can be published (2026-10-06) |
@@ -42,8 +42,8 @@ for the answer.
 | 11 | Multi-category | Stay single-category until Phase 3 is done | ARCH-4 | pending |
 | 12 | Institution canonicalization | Move the web rules into the pipeline, with ROR ids | AFF-13 | pending |
 | 13 | Author identity | A homonym hint now, Semantic Scholar ids after the META-1 spike | AFF-H | pending |
-| 14 | Graph accessibility target | Rankings as the text equivalent now, the full path later | UX-2 | pending |
-| 15 | Consortium papers in the author projection | Skip the clique above 50 authors; keep AFF-4's current rule | PERF-3 | pending |
+| 14 | Graph accessibility target | Rankings as the text equivalent now, the full path later | UX-2 | The full path, with touch zoom (2026-10-06) |
+| 15 | Consortium papers in the author projection | Skip the clique above 50 authors; keep AFF-4's current rule | PERF-3 | Skip the clique above 50 authors (2026-10-06) |
 | 16 | Failure signalling | Red runs for data-affecting failures, an issue for scheduled runs | CI-2 | Red runs for data-affecting failures (2026-10-01); no issue for now |
 | 17 | Math in abstracts | Strip text macros now, lazy KaTeX only if asked | SRCH-19 | pending |
 | 18 | Withdrawn papers | Exclude from Highly cited, badge in the day views | META-2 | pending |
@@ -163,11 +163,11 @@ page has no live coverage figures (PROD-7); of TEST-9, only the check of the dar
 
 | ID | Item | Priority | Status |
 |---|---|---|---|
-| PERF-1 | Bounded periods, async index build, per-month search shards (periods bounded to 10,000 papers, index built in chunks, loaded files kept and requests cancelled: done; the per-month shards wait for decision 1) | P1 | todo |
+| PERF-1 | Bounded periods, async index build (periods bounded to 10,000 papers, index built in chunks, loaded files kept and requests cancelled; the per-month search shards move to Phase 4, wanted once months of day files outgrow a period) | P1 | done |
 | META-1 | Spike, then DOI, published venue and author ids from the weekly Semantic Scholar batch (a separate weekly step, `scholar`, of 52 requests rather than fields added to the 415 of counts) | P1 | done |
 | AFF-14 | Keep ROR ids (stored and linked; nodes are still keyed by name, which AFF-13 changes) | P2 | done |
 | AFF-3 | OpenAlex retry policy, after its spike | P1 | todo |
-| PROD-1 | Fill the 11-month gap, once CIT-11 has landed (no line naming the gap on the site meanwhile: declined, 2026-10-06) | P1 | todo |
+| PROD-1 | Fill the 11-month gap | P1 | dropped: no fill, the store grows from September 2026 (decision 1), and no line names the gap |
 | ARCH-1 | Retention, size guard and hosting trigger (guards in *Deploy site* and the weekly canary, the trigger in the runbook; pruning stays off until decision 2) | P2 | done |
 | PERF-2 | Graph defaults with the author layer (authors of one paper hidden when the layer turns on, the layout in a Web Worker, settled at once under reduced motion, the time-lapse by week or month; PERF-3's clique cap waits for decision 15) | P2 | done |
 | PERF-3 | Clique cap for consortium papers | P2 | todo |
@@ -182,7 +182,9 @@ page has no live coverage figures (PROD-7); of TEST-9, only the check of the dar
 
 *Exit criteria:* a year of day files loads without freezing a phone, and venue coverage of the
 archive rises above 52%. The second is met: 89% after the first weekly `scholar` step
-(2026-10-04).
+(2026-10-04). The first holds by construction: a period loads at most 10,000 papers whatever
+is stored, and indexes them in chunks (PERF-1); a phone gets to try it on a year of day files
+in September 2027.
 
 *META-1 spike (2026-10-03).* One keyed batch of 500 archive papers (a uniform sample) and one
 of 500 recent day-file papers, asking `paper/batch` for `externalIds`, `venue`,
@@ -208,3 +210,4 @@ exist.
 | ARCH-2 | Enrichment step interface | P2 | todo |
 | DEBT-2, DEBT-3 | View model for `app.tsx`, `GraphView` split | P2, P3 | todo |
 | ARCH-4 | Multi-category, if wanted | P2 | todo |
+| PERF-1 (shards) | Per-month search shards built with the site, for searches over more months than a period loads (from Phase 3) | P2 | todo |
