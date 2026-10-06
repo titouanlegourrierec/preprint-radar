@@ -345,24 +345,28 @@
    "html_url": "https://arxiv.org/html/2608.28673v1",
    "abstract": "Deploying vision perception models in autonomous vehicles requires that we prioritize inference speeds, resulting in a model with shallower architectures and lesser model parameters (i.e., more pruned). Such small models do not generalize well, which could result in poor performance when encountered with novel scenarios. We propose a system that overcomes this by continuously retraining the vision models on the cloud with data uploaded by vehicles. We leverage the abundant compute resources, including machine learning accelerators, of the cloud to run a highly-accurate oracle model that will guide the retraining process of the on-vehicle model. This newly trained model is transmitted to the vehicle over the network and is utilized by the vehicle for perceptions, leading to improved inference accuracy over time.",
    "affiliations": [
-    "Department of Computer Science",
-    "North Carolina State University"
+    "Department of Computer Science, North Carolina State University"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    null,
-    "North Carolina State University"
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
    ],
-   "institution_ids": [
-    null,
-    "04tj63d06"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2608.28673",
@@ -3627,9 +3631,11 @@
     null,
     null
    ],
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-06"
     },
     "institutions": {
      "source": "ror"
@@ -10791,27 +10797,28 @@
    "html_url": "https://arxiv.org/html/2608.30480v1",
    "abstract": "Object hallucination remains a persistent reliability issue in large vision-language models, where generated object mentions may sound plausible but lack visual grounding. Recent training-free detectors use internal signals such as token likelihood, attention, visual confidence, or image-text similarity to identify hallucinated objects. These signals are useful, but they are often source-confounded. They measure how strongly an object is supported inside the model without distinguishing whether that support comes from object-specific visual evidence or the generated text prefix. In difficult cases, a hallucinated object can still receive high internal support because it fits the scene, is associated with nearby visual cues, or follows naturally from the generated text prefix. We propose VisER, a training-free two-sided metric for object-level hallucination detection. VisER evaluates each generated object mention from two complementary views. Visual Evidence measures whether object-context compatibility is backed by object-specific evidence from image tokens. Visual Reliance measures whether the object is supported more by the image than by the generated prefix. Combining these views gives a more source-aware grounding score, while avoiding additional object-level verification generations. Across multiple LVLMs and benchmarks, VisER improves AUROC and AUPR over a range of baselines.",
    "affiliations": [
-    "School of Computing and Information Systems",
-    "The University of Melbourne",
-    "Melbourne, Australia"
+    "School of Computing and Information Systems, The University of Melbourne, Melbourne, Australia"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    null,
-    "University of Melbourne",
-    null
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
    ],
-   "institution_ids": [
-    null,
-    "01ej9dk98",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2608.30480",
@@ -13890,20 +13897,25 @@
    "html_url": "https://arxiv.org/html/2608.31096v1",
    "abstract": "Class-incremental learning (CIL) requires a model to incrementally learn tasks that contain new classes without accessing earlier training data while preserving the ability to recognize all seen classes. Recently, pretrained-model-based approaches have become prevalent by adapting a frozen backbone with additional lightweight trainable modules. Existing methods, however, exhibit limitations: task-specific adapters learn explicit per-task representations but are parameter- and computation-inefficient, while LoRA-based merging methods combine per-task LoRA parameters into a single model whose static aggregated weights cause representation interference during inference. To address these problems, we present \\textbf{FACET}: task-conditioned \\textbf{F}e\\textbf{A}ture transformation with \\textbf{C}ondition\\textbf{E}d feature consis\\textbf{T}ency, achieving excellent parameter efficiency while producing highly discriminative features during inference. When continually trained on a task sequence, FACET learns a single shared adapter that employs a dynamic task-conditioned feature transformation, shaping the overall feature distribution of the adapter into a mixture of overlap-reduced task-specific components. On the other hand, we propose an efficient replay-free task-conditioned feature consistency loss, aiming to mitigate catastrophic forgetting of the learned mixture distribution in the adapter's feature space. Even when maintaining only a single adapter, FACET demonstrates robust scalability. On both very long task sequences (e.g., 200 tasks) and standard short task sequences (e.g., 20 tasks), our method achieves superior performance while using significantly fewer trainable parameters and GFLOPs. The code will be made open source upon acceptance.",
    "affiliations": [
-    "School of Computing and Data Science",
-    "The University of Hong Kong"
+    "School of Computing and Data Science, The University of Hong Kong"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    null,
-    null
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
    ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2608.31096",

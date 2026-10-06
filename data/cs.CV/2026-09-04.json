@@ -2560,24 +2560,37 @@
    "html_url": "https://arxiv.org/html/2609.03641v1",
    "abstract": "Vector-quantization based image compression has achieved strong rate--distortion performance, yet most of them still produce a separate compressed representation for each target bitrate. Such variable-rate behavior allows one model to operate at multiple rates, but it does not necessarily provide a progressive bitstream whose prefixes are themselves decodable and can be refined by appending additional bits. We propose \\textbf{Tree-VQ}, a progressive tree-structured vector quantization framework for learned image compression. Tree-VQ organizes discrete codewords as a hierarchical binary tree and represents each latent token by a routed root-to-leaf path. Crucially, every prefix of this path corresponds to a valid quantized representation, so shallow internal nodes serve as coarse reconstruction codes and deeper nodes provide successive refinements. This allows a compressed image to be decoded from an early prefix and progressively improved as more branch symbols are received, rather than being re-encoded for different target rates. To make this structure practical for compression, we introduce a prefix-compatible tree entropy model that codes progressive continuation decisions and routed branch refinements using only causally available decoded contexts. We further use rate-aware refinement scheduling to decide which spatial blocks should receive additional tree bits under a given prefix budget, and hierarchical prefix supervision to ensure that internal nodes are directly decodable at low rates. Experiments show that Tree-VQ achieves a superior performance--efficiency trade-off, delivering the best perceptual compression results with much fewer parameters and lower latency than competing methods.",
    "affiliations": [
-    "School of Artificial Intelligence",
-    "Xidian University"
+    "School of Artificial Intelligence, Xidian University"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    null,
-    "Xidian University"
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
    ],
-   "institution_ids": [
-    null,
-    "05s92vm98"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.03641",

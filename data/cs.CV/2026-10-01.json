@@ -8613,24 +8613,15 @@
    "html_url": "https://arxiv.org/html/2609.38747v1",
    "abstract": "Reference-guided camouflaged object detection aims to segment a target whose visual appearance closely resembles its surroundings by exploiting auxiliary reference samples. The task remains difficult because reference samples contain inconsistent target cues, while generic visual representations are not inherently aligned with the target specified by the references. To handle these problems, we present a consensus-aware multi-source fusion framework. Reference-Conditioned Dual-Backbone Fusion (RCDF) couples trainable PVTv2 query features with frozen DINOv3 representations and uses reference-conditioned correlation to select foundation-model evidence before multi-scale fusion. The framework also aggregates multiple references through cross-reference consensus aggregation and injects reference information at semantic depths matched to the query features. Extensive experiments demonstrate the effectiveness of the proposed method. The results further show that reference consensus, target-conditioned foundation features, and hierarchical decoding provide complementary improvements under the evaluation protocol. The source code will be made publicly available upon acceptance.",
    "affiliations": [
-    "School of Computer Science, Hangzhou Dianzi University",
-    "Hangzhou 310018, China"
+    "School of Computer Science, Hangzhou Dianzi University, Hangzhou 310018, China"
    ],
    "author_affiliations": null,
-   "institutions": [
-    "Hangzhou Dianzi University",
-    null
-   ],
-   "institution_ids": [
-    "0576gt767",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.38747",
@@ -9333,20 +9324,28 @@
    "html_url": "https://arxiv.org/html/2609.38636v1",
    "abstract": "We introduce Scene Text Editing with Preserved Style (STEPS), a novel diffusion model architecture for quality text replacement in images. Scene Text Editing (STE), also known as Visual Text Editing, consists of changing the textual content in an image while conserving the original style, e.g. font, colors, orientation, background, etc. STEPS advances the state of the art in STE through directed focus on improved style preservation. We introduce a style encoder for visual text that captures style independently of textual content, and a model architecture that combines the style encoder with multiple semantic conditions (target text characters encoding and rendered glyphs). STEPS achieves superior results to previous STE methods in style preservation, output readability, and subjective quality.",
    "affiliations": [
-    "Roblox",
-    "San Mateo, CA, USA"
+    "Roblox, San Mateo, CA, USA"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    null,
-    null
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
    ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.38636",
@@ -10902,9 +10901,11 @@
     "00q4vv597",
     "01f5ytq51"
    ],
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-06"
     },
     "institutions": {
      "source": "ror"
@@ -12043,24 +12044,22 @@
    "html_url": "https://arxiv.org/html/2609.39324v1",
    "abstract": "Vision-Language-Action (VLA) models have recently incorporated world models to provide richer dynamic supervision beyond sparse action labels. However, explicitly predicting future images or videos may include control-irrelevant appearance, while guidance derived from holistic future visual representations and shared global action features may fail to establish timestep-specific correspondence between actions and local visual changes. To address this issue, we propose MotionWeave, a motion-centric future-dynamics framework for action-chunk prediction with two modules: the Action-Induced Motion Grounder (AIMG) and the Horizon Residual Composer (HRC). Specifically, AIMG conditions on action and proprioceptive representations to construct horizon-specific queries that localize interaction regions associated with each future action timestep from current visual tokens. HRC extracts differences between interaction representations at adjacent horizons, encodes them as temporal motion cues, and injects them into action tokens through a gated residual. During training, robot-arm masks rendered from future frames are used to construct KL-based motion-grounding supervision, while inference uses only the current observation. On six MetaWorld tasks, MotionWeave achieves a 75.3% average success rate, an absolute gain of 8.6% over {\\pi}0 (66.7%), especially on sustained-interaction tasks. Our code is available at https://github.com/autu-mn/MotionWeave.",
    "affiliations": [
-    "School of Data Science and Engineering",
-    "East China Normal University, Shanghai, China"
+    "School of Data Science and Engineering, East China Normal University, Shanghai, China"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    null,
-    "East China Normal University"
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
    ],
-   "institution_ids": [
-    null,
-    "02n96ep67"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.39324",

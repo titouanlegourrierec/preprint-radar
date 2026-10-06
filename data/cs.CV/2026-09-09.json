@@ -3965,24 +3965,25 @@
    "html_url": "https://arxiv.org/html/2609.06245v1",
    "abstract": "Multimodal Large Language Models (MLLMs) perform strongly on general visual understanding tasks such as visual question answering, yet they often struggle with a basic comparative skill: identifying what has changed between two similar images. We introduce VDiff-Bench, a challenging multiple-choice benchmark for fine-grained Image Difference Identification. VDiff-Bench contains 1,756 four-way questions over image pairs and covers 10 change categories: position, motion, regional image color, overall image color, appearance/disappearance, noise/resolution, texture, substitution/size, OCR/text, and illumination. Each question corresponds to two image inputs with 4 choices: the true difference, two hard negative descriptions, and a \"no difference\" distractor. To make the task challenging, we specifically curate ground-truth-conditioned negatives that require models to distinguish the actual change from nearby semantic alternatives. Experiments with 11 state-of-the-art open- and closed-source MLLMs show that fine-grained visual comparison remains brittle: models exhibit uneven performance across sources and change categories, with persistent failures on subtle low-level changes like noises and textures. For instance, three 7-8B-scale open-source MLLMs score 52.5-70.6% on semantic changes but only 8.7-33.3% on low-level changes like noise and texture, falsely assuming no changes between two image inputs. Surprisingly, despite strong performance of other closed-source commercial models, Grok 4.3 demonstrate remarkable performance drop on identifying noise and texture differences between images, falling significantly behind large open-source models like Kimi K2.5 and K3. Overall, VDiff-Bench provides a targeted diagnostic for evaluating comparative visual understanding in MLLMs, exposing failures that are not captured by standard single-image vision-language tasks.",
    "affiliations": [
-    "Department of Computer Science",
-    "University of California, Los Angeles"
+    "Department of Computer Science, University of California, Los Angeles"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    null,
-    "University of California, Los Angeles"
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
    ],
-   "institution_ids": [
-    null,
-    "046rm7j60"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.06245",
@@ -12133,36 +12134,17 @@
    "html_url": "https://arxiv.org/html/2609.08069v1",
    "abstract": "The learning-rate schedule is a consequential choice in training deep networks, yet the policies in common use are heuristic, and published comparisons are hard to read, because architecture, dataset, and budget tend to vary alongside the schedule. We study BrachistoneLR, a schedule built by mapping the vertical coordinate of the brachistochrone, the curve of fastest descent under gravity, onto the range between a peak and a floor rate. Expanding the definition shows it to be cosine annealing with the half-period set to E - 1 instead of E, the configuration a standard implementation gives when its period argument is one less than the number of epochs. The rate therefore reaches its floor at the last epoch trained rather than one epoch later, and we show this difference decays as E^-2, making it a short-horizon effect. We then benchmark six schedules over 72 runs on three image classification datasets (MNIST, Fashion-MNIST, CIFAR-10) and four architecture families (fully connected, convolutional, recurrent, residual), fixing the optimizer, data pipeline, and evaluation protocol so that only the schedule varies. Schedules that fall smoothly from peak to floor beat the constant rate and calendar-based decay by margins that grow with task difficulty, reaching 2.5 points of dataset mean on CIFAR-10. Within that leading group, BrachistoneLR, cosine annealing, and warmup-cosine lie within 0.06 accuracy points and 0.17 of a mean rank, which one seed per configuration cannot separate. BrachistoneLR is best on both residual networks and has the highest CIFAR-10 mean, and it sets no milestones, decay factor, warmup length, or restart period. We conclude that the shape of a schedule matters more than its parameterization, that the choice of whether to use a smooth schedule matters more than the choice among them, and that the terminal-rate distinction is worth attention only over short horizons.",
    "affiliations": [
-    "Department of Computer Science and Engineering",
-    "Leading University",
-    "Sylhet, Bangladesh",
-    "DeepNet Research and Development Lab",
-    "Sylhet 3100, Bangladesh",
-    "Department of Electrical and Electronic Engineering"
+    "Department of Computer Science and Engineering, Leading University, Sylhet, Bangladesh",
+    "DeepNet Research and Development Lab, Sylhet 3100, Bangladesh",
+    "Department of Electrical and Electronic Engineering, Leading University, Sylhet, Bangladesh"
    ],
    "author_affiliations": null,
-   "institutions": [
-    null,
-    "Leading University",
-    null,
-    null,
-    null,
-    null
-   ],
-   "institution_ids": [
-    null,
-    "03eb1ae70",
-    null,
-    null,
-    null,
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.08069",
@@ -17451,24 +17433,31 @@
    "html_url": "https://arxiv.org/html/2609.05859v1",
    "abstract": "Learning with class-conditional label noise often relies on a transition model from latent clean classes to observed annotations. Forward correction embeds this transition in the likelihood, yet finite-sample networks may still memorize corrupted labels. The corrected likelihood also induces a reverse posterior over the clean classes that could explain each annotation. When its leading class differs from the annotation, the model and transition matrix provide evidence against that annotation, but the leading alternatives can remain nearly tied. We introduce Selective Posterior Margin Regularization (SPMR), which preserves the Forward objective and converts this disagreement into a graded update on the clean classifier. SPMR selects the leading reverse-posterior class, scales a detached pairwise margin by the separation between the two leading posterior classes, and assigns correspondingly little influence to diffuse conflicts. The gap factorizes into transition- adjusted pairwise separation and the posterior mass carried by the leading pair. The active margin follows the locally minimum-norm logit direction that enlarges the selected pairwise margin. Across five known-transition benchmarks, SPMR improves full-length Forward by 2.5-7.0 percentage points and remains 0.7-2.5 percentage points above Forward with Mixup and early stopping. Matched interventions support distinct gains from the posterior-space coefficient, transition-adjusted target, and pairwise action. The same design transfers to estimated transitions, human annotations, architectural changes, and stronger Forward recipes. The formulation uses latent-class evidence already available inside Forward correction without promoting every posterior conflict to a corrected label.",
    "affiliations": [
-    "College of Systems Engineering, National University of Defense Technology",
-    "Changsha 410073, China"
+    "College of Systems Engineering, National University of Defense Technology, Changsha 410073, China"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    "National University of Defense Technology",
-    null
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
    ],
-   "institution_ids": [
-    "05d2yfz11",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.05859",

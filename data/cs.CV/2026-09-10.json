@@ -246,24 +246,34 @@
    "html_url": "https://arxiv.org/html/2609.09206v1",
    "abstract": "Multimodal Large Language Models (MLLMs) often struggle with hallucinations, thus hindering their reliable practical applications. Existing attention-based mitigation methods mainly rely on indirect signals (e.g., attention weights) that fail to accurately reflect the actual information shift underlying hallucination generation. In this paper, we propose HEAL, Head-lEvel information disentAnglement and caLibration for identifying and mitigating hallucinations. HEAL first employs causal noise intervention on multi-head outputs to filter out causally redundant heads. Subsequently, it disentangles information distribution within the remaining heads via the counterfactual Difference-in-Differences, categorizing heads into four types. Through analysis, we observe: hallucinations happen when information distribution drifts away from a healthy equilibrium in synergy heads, not strongly correlated with the quantity or strength of modality-specific heads. Motivated by this insight, HEAL injects dynamic information calibration factors into the value vectors of synergy heads, and actively regulates visual-language dependencies, steering the output distribution towards factual evidence. Extensive experiments demonstrate that HEAL effectively reduces hallucinations across multiple MLLMs, offering a simple and interpretable pathway to enhance model trustworthiness.",
    "affiliations": [
-    "Faculty of Computer Science and Artificial Intelligence",
-    "Shenzhen University of Advanced Technology, Shenzhen, China"
+    "Faculty of Computer Science and Artificial Intelligence, Shenzhen University of Advanced Technology, Shenzhen, China"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    null,
-    "Shenzhen University of Advanced Technology"
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
    ],
-   "institution_ids": [
-    null,
-    "03hz5th67"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.09206",
@@ -707,27 +717,28 @@
    "html_url": "https://arxiv.org/html/2609.09462v1",
    "abstract": "Prompt learning adapts CLIP to downstream recognition by replacing hand-written templates with learned continuous context vectors, which in Context Optimization (CoOp) form a dense prompt matrix $\\mathbf{P}\\in\\mathbb{R}^{m\\times d}$ trained from only a few examples per class. We study whether this matrix is over-parameterized by factorizing it as $\\mathbf{P}=\\mathbf{B}\\mathbf{A}$, which cuts the trainable prompt parameters from $md$ to $r(m+d)$, and to $rd$ once the token-side factor $\\mathbf{B}$ is fixed. Across seven few-shot benchmarks and two CLIP backbones, low-rank prompts match or improve dense CoOp at far fewer parameters, with the clearest gains on low-shot base-to-new generalization. We then find that the token-side factor need not be learned at all: fixing $\\mathbf{B}$ to a Gaussian, orthogonal, SVD-derived, or even random basis and training only the embedding-side factor $\\mathbf{A}$ stays on par with the fully trainable factorization, and a source-trained $\\mathbf{B}$ offers no advantage over a random one. A prompt-factor asymmetry and a local update-space dimension gap show why fixing $\\mathbf{B}$ is far less restrictive than fixing $\\mathbf{A}$, and a smoothness-only guarantee certifies that optimizing $\\mathbf{A}$ over a fixed $\\mathbf{B}$ converges. In the CLIP prompt setting, the embedding-side coefficients carry the adaptation while the token basis can simply be fixed.",
    "affiliations": [
-    "Department of Electrical and Computer Engineering",
-    "UC Santa Barbara",
-    "Santa Barbara, CA 93106, USA"
+    "Department of Electrical and Computer Engineering, UC Santa Barbara, Santa Barbara, CA 93106, USA"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    null,
-    "University of California, Santa Barbara",
-    null
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
    ],
-   "institution_ids": [
-    null,
-    "02t274463",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.09462",

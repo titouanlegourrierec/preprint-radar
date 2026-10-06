@@ -4039,26 +4039,15 @@
    "abstract": "Visual segmentation systems encounter objects outside their training distribution during real-world deployment, hindering reliable autonomous systems that depend on scene parsing in the perception stage. Many recent methods address this by using self-supervised foundation models to train density estimators that yield low likelihood in anomalous image regions. Although promising, these methods suffer from poor feature semantics or they lack spatial consistency, both of which undermine critical downstream decisions. We address this problem with~\\method, a generative method based on class-conditional density estimation over self-supervised representations. SAFe trains lightweight normalizing flows that produce class-conditional normalized likelihood estimates over frozen DINOv3 features. We combine density estimates from transformer features with density scores over multi-scale convolutional features to capture both global semantics and local detail. We introduce a method-agnostic post-processing step based on SAM3 that connects per-location likelihoods into spatially coherent segments while suppressing false positives, and enables instance-level anomaly detection without retraining. The post processing further distinguishes novel categories among anomalous objects by a similarity-based agglomerative clustering scheme. SAFe sets a new state of the art on the PANIC, OoDIS, SMIYC ObstacleTrack with strong performance on the ISSU benchmark.",
    "affiliations": [
     "University of Zagreb Faculty of Electrical Engineering and Computing",
-    "Laboratory for Autonomous Systems and Mobile Robotics",
-    "Zagreb, Croatia"
+    "Laboratory for Autonomous Systems and Mobile Robotics, Zagreb, Croatia"
    ],
    "author_affiliations": null,
-   "institutions": [
-    "University of Zagreb",
-    null,
-    null
-   ],
-   "institution_ids": [
-    "00mv6sv71",
-    null,
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.24204",
@@ -5743,24 +5732,43 @@
    "html_url": "https://arxiv.org/html/2609.23753v1",
    "abstract": "Generative world models aim to predict future states conditioned on actions, where action controllability is fundamental for reliable dynamics modeling. While recent efforts leverage simulator-generated data to enhance this capability, existing training pipelines face two fundamental limitations. First, static offline data collection leads to a distribution misalignment between training sets and the model's evolving error patterns, failing to resolve critical long-tail scenarios where dynamics predictions remain unreliable. Second, the standard objective of minimizing observational discrepancy often encourages the model to exploit spurious correlations instead of capturing the underlying action-effect causality. To address these limitations, we propose OnlineWM, an online training framework that continuously improves world modeling through active simulator interaction and causality-aware optimization. OnlineWM introduces two key innovations: (1) Active Online Learning: Instead of using fixed datasets, OnlineWM adaptively queries the simulator for new interaction sequences that target the model's current predictive weaknesses, ensuring high-utility data acquisition. (2) Causality-Aware Fine-Tuning: We propose a counterfactual learning strategy that contrasts the outcomes of different actions from identical states, forcing the model to attribute state transitions to specific actions rather than ambient environmental evolution, thereby grounding its predictions in reliable causal mechanisms. By integrating active data acquisition with causal optimization, OnlineWM establishes a closed-loop refinement process that ensures the model is both robust to diverse scenarios and precise in its causal attribution. Extensive experiments demonstrate that OnlineWM significantly enhances action controllability and generalizes effectively to unseen domains.",
    "affiliations": [
-    "Department of Computer Science and Engineering",
-    "The Hong Kong University of Science and Technology, Hong Kong SAR, China"
+    "Department of Computer Science and Engineering, The Hong Kong University of Science and Technology, Hong Kong SAR, China"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    null,
-    "Hong Kong University of Science and Technology"
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
    ],
-   "institution_ids": [
-    null,
-    "00q4vv597"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.23753",

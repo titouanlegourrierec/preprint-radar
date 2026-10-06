@@ -659,24 +659,22 @@
    "html_url": "https://arxiv.org/html/2609.00358v1",
    "abstract": "Vision Transformers provide strong visual representations but typically rely on slowly updated parameters, limiting their ability to organize newly acquired information across different memory timescales. This work proposes \\textit{Hierarchical Hebbian Memory}, a three-level memory architecture composed of rapid Working Memory, persistent Routed Episodic Memory, and slower Semantic Memory. A learned controller regulates memory contribution, read and write routing, plasticity, retention, and consolidation. A causal read-before-write lifecycle ensures that the current outcome cannot influence the prediction it supervises. The architecture is evaluated on Omniglot 5-way 1-shot recognition and CORe50 continual object recognition. With Swin-Tiny, the hierarchical model reaches 97.39\\% accuracy on Omniglot and 95.37\\% final accuracy on CORe50 when combined with experience replay. Learned multi-bank retrieval reaches 47.50\\% delayed-association accuracy, compared with 24.17\\% for a single persistent bank and 25.00\\% without memory. After intervening distractors, Episodic Memory retains approximately 0.96 cosine similarity with stored associations, while Working Memory falls to approximately 0.05. These results show that Hebbian association and learned memory routing can jointly organize online visual experience across rapid, persistent, and consolidated memory timescales within Vision Transformers.",
    "affiliations": [
-    "Department of Computer Science",
-    "The University of Alabama, Tuscaloosa, AL, USA"
+    "Department of Computer Science, The University of Alabama, Tuscaloosa, AL, USA"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    null,
-    "University of Alabama"
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
    ],
-   "institution_ids": [
-    null,
-    "03xrrjk67"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.00358",
@@ -1342,27 +1340,22 @@
    "html_url": "https://arxiv.org/html/2609.00593v2",
    "abstract": "Neuroradiologists rarely read a brain MRI in isolation, yet automated brain-MRI report generation has been built almost entirely for single studies. Temporal analysis has been explored on chest radiography and chest CT, but to our knowledge, longitudinal reporting for brain MRI, where interval change is often subtle and spatially distributed, remains unaddressed. We present BrainDiff, the first longitudinal vision-language system for brain MRI. BrainDiff outperforms both frontier general-purpose and single-study neuroimaging models on the same patient pairs. Moreover, BrainDiff retains 91% of internal RadGraph-XL entity+relation F1 (rg_er) on an external, cross-hospital cohort. Beyond the system, we contribute three analyses. First, we identify two independent grounding levers: a counterfactual objective with prior-report dropout, which increases measured image reliance by ~47%, and a staged curriculum. Together, these interventions raise image reliance 2.5-fold from the baseline. Second, we provide a factorial over prior-report availability and image identity, isolating a visual contribution of +0.0387 rg_er, which grows when the prior report is withheld. Third, a cheap change-decodability test for candidate backbones shows that interval change is decodable far more weakly than single-study pathology (0.60 vs. 0.77 AUROC). Code is publicly available at https://github.com/jhuldr/BrainDiff.",
    "affiliations": [
-    "Department of Electrical and Computer Engineering",
-    "Data Science and AI Institute",
-    "Johns Hopkins University"
+    "Department of Electrical and Computer Engineering, Data Science and AI Institute, Johns Hopkins University"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    null,
-    null,
-    "Johns Hopkins University"
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
    ],
-   "institution_ids": [
-    null,
-    null,
-    "00za53h95"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.00593",
@@ -1439,24 +1432,25 @@
    "html_url": "https://arxiv.org/html/2609.00628v1",
    "abstract": "Global welfare often depends on the correct interpretation of aerial and satellite imagery. Acting on such imagery (mapping flooded ground, crop extent, or damaged infrastructure) demands pixel-level segmentation to ensure perfect class localization. Pretrained general foundation models, when applied directly, often miss important features and cannot always find all the classes belonging to a given scene, overlooking smaller objects that matter most. We use a single consumer-grade GPU running a vision-language model (VLM) to supply this missing guidance, improving segmentation while producing structured, auditable evidence that drives the result and can be inspected on its own. We fuse three approaches: the frozen foundation model that labels every pixel, and two queries to a VLM, one to choose the classes that matter, and one to locate the small objects the base model misses. Evaluating across four aerial datasets, we see consistent gains at each stage where the base model is competent.",
    "affiliations": [
-    "Dept. of Computer and Information Science",
-    "University of Mississippi"
+    "Dept. of Computer and Information Science, University of Mississippi"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    null,
-    "University of Mississippi"
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
    ],
-   "institution_ids": [
-    null,
-    "02teq1165"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.00628",
@@ -4180,28 +4174,15 @@
    "affiliations": [
     "Visual Recognition Group",
     "Department of Cybernetics",
-    "Faculty of Electrical Engineering",
-    "Czech Technical University in Prague"
+    "Faculty of Electrical Engineering, Czech Technical University in Prague"
    ],
    "author_affiliations": null,
-   "institutions": [
-    null,
-    null,
-    null,
-    "Czech Technical University in Prague"
-   ],
-   "institution_ids": [
-    null,
-    null,
-    null,
-    "03kqpb082"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.01027",
@@ -4458,24 +4439,28 @@
    "html_url": "https://arxiv.org/html/2609.01141v1",
    "abstract": "Past literature on face recognition for monozygotic ((\"identical\") twins points to facial marks and mirror asymmetry as possible directions for improved accuracy of twins recognition. The Celeb Twins Test Set (CTTS) contains web-scraped image pairs for 80 sets of celebrity twins. It is the only twins test set with meta-data for twins with distinguishing skin marks and possible mirror asymmetry. CTTS is organized in the manner of face verification test sets such as LFW, CALFW, CPLFW, CFP-FP, and AgeDB-30. Current deep CNN matchers can achieve over 76% accuracy in classifying CTTS same-person / different-person image pairs. We show that current matchers do not make use of skin marks, or asymmetry, and discuss reasons for this. Finally, we discuss the feasibility of using generative AI tools such as Grok, ChatGPT and Gemini to create images of imagined monozygotic twins as a means to increase representation of twins in face recognition training sets.",
    "affiliations": [
-    "Department of Computer Science & Engineering",
-    "University of Notre Dame"
+    "Department of Computer Science & Engineering, University of Notre Dame"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    null,
-    "University of Notre Dame"
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
    ],
-   "institution_ids": [
-    null,
-    "00mkhxb43"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.01141",
@@ -5179,24 +5164,22 @@
    "html_url": "https://arxiv.org/html/2609.01318v1",
    "abstract": "Diffusion-based Large Vision-Language Models (dLVLMs) have recently emerged as a compelling alternative to autoregressive (AR) LVLMs, offering advantages in parallel decoding, bidirectional context, and controllable generation. Despite rapid progress, their reliability properties remain largely uncharacterized. We present the first systematic reliability evaluation of hallucination and bias in dLVLMs, benchmarking six diffusion models against competitive AR baselines across four dimensions. Our key findings are: (1) dLVLMs reverse the yes-bias of AR models in binary visual queries; (2) they achieve competitive hallucination rates yet exhibit degraded linguistic quality; (3) they collapse to near-zero accuracy on underrepresented racial groups with opposite-polarity gender bias; and (4) they exhibit accuracy collapse in multiple-choice settings when the correct option is shorter than its distractors, associated with a length prior that emerges at the first denoising step. Tokens committed at late denoising steps with low confidence further correlate with hallucinated content, pointing to a mechanistic signal unique to diffusion generation. These patterns vary across model families, suggesting reliability is shaped by the generative paradigm together with training data.",
    "affiliations": [
-    "Department of Computer Science",
-    "Virginia Tech"
+    "Department of Computer Science, Virginia Tech"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    null,
-    "Virginia Tech"
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
    ],
-   "institution_ids": [
-    null,
-    "02smfhw86"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.01318",
@@ -5223,24 +5206,28 @@
    "html_url": "https://arxiv.org/html/2609.01344v1",
    "abstract": "Multimodal coding and editing systems must map a visible or semantic referent to the exact executable object that can be edited. A wrong reference may select a valid but incorrect DOM node, SVG element, graph endpoint, hierarchy member, or table cell, while final execution success alone does not reveal the source of the failure. ExBind isolates this visual-to-executable correspondence layer as a controlled diagnostic benchmark between semantic localization and action execution. It samples representation-independent latent binding instances and compiles them into SVG, DOM, canvas, tree, graph, and table cases with deterministic mappings to executable references. Models output only a strict reference; the evaluator maps predictions back to latent structure and scores structural constraints without requiring reasoning traces. The release contains a 250-case broad suite, a disjoint 240-case targeted suite, and 50 paired latent groups. Qwen2.5-VL-3B achieves 98.4% candidate validity but 76.4% exact accuracy, while Qwen3-VL-4B achieves 100.0% validity and 98.8% exact accuracy. In the targeted table suite, all Qwen2.5-VL-3B residual errors are valid correct-row/wrong-column selections. Candidate-order perturbations change case-level outcomes while preserving this error pattern. ExBind is designed for controlled diagnosis rather than population-scale ranking or end-to-end editing evaluation. Code and benchmark records are available at https://github.com/Daerwang2020/Exbind and https://huggingface.co/datasets/Ziqianwwww/ExBind.",
    "affiliations": [
-    "Department of Automation, Tsinghua University",
-    "Beijing 100084, China"
+    "Department of Automation, Tsinghua University, Beijing 100084, China"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    "Tsinghua University",
-    null
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
    ],
-   "institution_ids": [
-    "03cve4549",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.01344",

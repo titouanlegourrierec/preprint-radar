@@ -5555,36 +5555,34 @@
    "html_url": "https://arxiv.org/html/2609.28813v1",
    "abstract": "Cinematography, the craft of visual storytelling through framing, lighting, and camera operation, fundamentally shapes how audiences perceive and emotionally engage with video content. While Large Vision Language Models (LVLMs) have made remarkable progress in video question answering, existing benchmarks primarily focus on identifying low-level techniques rather than understanding their storytelling impact. To address this, we introduce CinematicVQA, the first-of-its-kind benchmark for cinematic video understanding that goes beyond technique recognition to evaluate film-grammar reasoning, utilizing our introduced Cinematic Scene Graph (CSG), a structured representation that links filming techniques to their perceptual effects and narrative functions. Through comprehensive evaluation of state-of-the-art LVLMs, we reveal a striking semantic gap: models consistently perform higher on describing visual presentations than on identifying the underlying techniques. Surprisingly, Chain-of-Thought prompting fails to provide consistent gains and degrades performance for most models, suggesting that current LVLMs lack sufficient cinematic domain knowledge to benefit from step-by-step reasoning. Fine-tuning on \\textsc{CinematicVQA-train} yields consistent improvements, particularly for narrative function and multi-hop reasoning. Overall, \\textsc{CinematicVQA} serves both as a rigorous benchmark for cinematic evaluation in LVLMs and as a practical dataset for training more film-aware video models.",
    "affiliations": [
-    "Department of Computer Science & Engineering",
-    "Texas A&M University",
+    "Department of Computer Science & Engineering, Texas A&M University",
     "College Station, United States",
     "Google Inc, Mountain View, United States",
     "Texas A&M University, College Station, USA",
     "Google Inc., Mountain View, USA"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    null,
-    "Texas A&M University",
-    null,
-    null,
-    "Texas A&M University",
-    null
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     0,
+     1
+    ]
    ],
-   "institution_ids": [
-    null,
-    "01f5ytq51",
-    null,
-    null,
-    "01f5ytq51",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.28813",
@@ -6401,24 +6399,28 @@
    "html_url": "https://arxiv.org/html/2609.30121v1",
    "abstract": "Audio Description (AD) makes movies accessible to blind and visually impaired audiences by narrating visual information in gaps between dialogue. Existing automatic AD systems largely treat generation as a local video-to-text problem, assuming that the content to describe and its temporal location are already provided. Realistic AD instead requires coupled decisions about what visual information is narratively important, when it can be spoken without interfering with dialogue, and how it should be formulated to fit within the available time. We formalize AD generation as a constrained optimization problem over these three decisions. Our hybrid system uses large language models to propose and ground visual elements, estimate their salience to the narrative, and generate compressed realizations. A mixed-integer linear program then jointly selects and schedules descriptions across a scene subject to temporal constraints. When evaluated on REFRAMED, a benchmark for realistic AD of movies, our approach makes better decisions than prompted LLMs about what to describe and when to describe it, establishing a new SOTA on narrative QA and temporally grounded metrics. Ablations show that explicit temporal constraints drive gains in placement, while salience estimation controls how much narratively useful content is retained. Improvements are concentrated on temporal and narrative measures rather than n-gram overlap, although a significant gap to professional describers remains.",
    "affiliations": [
-    "School of Informatics",
-    "University of Edinburgh"
+    "School of Informatics, University of Edinburgh, United Kingdom"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    null,
-    "University of Edinburgh"
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
    ],
-   "institution_ids": [
-    null,
-    "01nrxwf90"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.30121",
@@ -6882,24 +6884,25 @@
    "html_url": "https://arxiv.org/html/2609.29613v1",
    "abstract": "We present a modular and multi-level framework for the differential diagnosis of malignant melanoma. Our framework integrates contextual information and evidence at the lesion, patient, and population levels, enabling decision-making at each level. We introduce an anatomic-site aware masked transformer, which effectively models the patient context by considering all lesions in a patient, which can be variable in count, and their site of incidence. Additionally, we incorporate patient metadata via learnable demographics embeddings to capture population statistics. Through extensive experiments, we explore the influence of specific information on the decision-making process and examine the tradeoff in metrics when considering different types of information. Validation results using the SIIM-ISIC 2020 dataset indicate including the lesion context with location and metadata improves specificity by 17.15% and 7.14%, respectively, while enhancing balanced accuracy. The code is available at https://github.com/narenakash/meldd.",
    "affiliations": [
-    "Center for Visual Information Technology",
-    "International Institute of Information Technology Hyderabad, India"
+    "Center for Visual Information Technology, International Institute of Information Technology Hyderabad, India"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    null,
-    "International Institute of Information Technology, Hyderabad"
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
    ],
-   "institution_ids": [
-    null,
-    "05f11g639"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.29613",

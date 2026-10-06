@@ -212,30 +212,16 @@
    "html_url": "https://arxiv.org/html/2609.13232v1",
    "abstract": "A robot pruning trees needs two facts per pixel: whether it belongs to a tree, and its distance. Both are usually obtained via task heads attached to a vision backbone chosen by reputation rather than measurement. Holding dataset, decoders, losses, schedule, and evaluation fixed, we ask: how much does the encoder choice change joint semantic segmentation and stereo depth on thin vegetation? We build a hard parameter-sharing network with one encoder feeding both branches, swapping only the encoder without downstream retuning. We evaluate [N] encoders across [M] architecture families (CNNs, transformers, hybrids, MLP-mixers, state-space models) near a ~25M budget, trained from scratch. Depth is evaluated on tree pixels only; segmentation uses boundary F1 and background IoU to prevent \"label-everything-tree\" shortcuts. Three findings stand out. First, the strongest encoders are convolutional and hybrid, not transformers: [BestEncoder] leads with [MIoU] segmentation mIoU and [Delta] depth $\\delta_1$, while [X] of [Y] plain vision transformers collapse when trained from scratch. Second, parameter count does not predict quality --- [SmallEncoder] at only [P]M parameters outranks models two orders of magnitude larger. Third, segmentation and depth rankings agree strongly (Spearman $\\rho$ = [RhoValue]), showing no task conflict. Finally, [K] of [N] encoders collapse to degenerate all-tree segmentation --- exposed by boundary F1 but hidden by region IoU.",
    "affiliations": [
-    "Centre for Data Science and Artificial Intelligence",
-    "Victoria University of Wellington, Wellington, New Zealand",
-    "Department of Computer Science and Software Engineering",
-    "University of Canterbury, Canterbury, New Zealand"
+    "Centre for Data Science and Artificial Intelligence, Victoria University of Wellington, Wellington, New Zealand",
+    "Department of Computer Science and Software Engineering, University of Canterbury, Canterbury, New Zealand"
    ],
    "author_affiliations": null,
-   "institutions": [
-    null,
-    "Victoria University of Wellington",
-    null,
-    "University of Canterbury"
-   ],
-   "institution_ids": [
-    null,
-    "0040r6f76",
-    null,
-    "03y7q9t39"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.13232",
@@ -263,30 +249,16 @@
    "html_url": "https://arxiv.org/html/2609.13233v1",
    "abstract": "Thin structures such as tree branches are among the hardest cases for stereo matching: a branch is only a few pixels wide, the background is cluttered, and dense ground truth for real branches is nearly impossible to label by hand. We make three contributions. First, EMCStereo integrates three lightweight attention modules into a PSMNet-style cost-volume backbone: Efficient Multi-scale Attention (EMA) on deep semantic features, a Multi-Scale Fusion block (MSFblock) learning spatial pyramid weights instead of concatenating them, and Coordinate Attention (CoordAtt) on final matching features. Because MSFblock collapses four pyramid branches into one, the modules leave the network 2.0% smaller and add only 1.7% inference time overhead. Second, VirtualTree is a synthetic stereo dataset rendered in Unreal Engine 5 with a simulated ZED Mini rig, providing 5,520 pairs with exact disparity for thin branches. Third, an eight-way ablation establishes a run-to-run noise floor of 0.009 px end-point error (EPE). EMCStereo achieves 1.31 px EPE (5.96% D1-all) on the VirtualTree test split, 1.00 px on SceneFlow, and 0.80, 0.73, 0.62, and 3.19 px on KITTI 2012, KITTI 2015, ETH3D, and Middlebury, with depth accuracy delta_1 from 92.6% to 98.7%. Evaluated against the noise floor, the attention stack is accuracy-neutral at a 100-epoch budget, while MSFblock and CoordAtt cost 0.03-0.05 px unless EMA is present.",
    "affiliations": [
-    "Centre for Data Science and Artificial Intelligence",
-    "Victoria University of Wellington, Wellington, New Zealand",
-    "Department of Computer Science and Software Engineering",
-    "University of Canterbury, Canterbury, New Zealand"
+    "Centre for Data Science and Artificial Intelligence, Victoria University of Wellington, Wellington, New Zealand",
+    "Department of Computer Science and Software Engineering, University of Canterbury, Canterbury, New Zealand"
    ],
    "author_affiliations": null,
-   "institutions": [
-    null,
-    "Victoria University of Wellington",
-    null,
-    "University of Canterbury"
-   ],
-   "institution_ids": [
-    null,
-    "0040r6f76",
-    null,
-    "03y7q9t39"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.13233",
@@ -2160,24 +2132,37 @@
    "html_url": "https://arxiv.org/html/2609.13296v1",
    "abstract": "Test-time reinforcement learning can adapt vision-language models (VLMs) to unlabeled target data, but its effectiveness is fundamentally limited by the reliability of self-generated learning signals. To assess the reliability of consensus-based learning signals, we analyze VLM test-time reinforcement learning across diverse VQA datasets and model sizes, revealing two limitations. First, gains from consensus-based test-time training largely come from answer normalization rather than content correction. Second, many initial VLM responses are incorrect due to the model's limited ability to jointly use the image and the question; consensus rewards derived from these outputs may preserve the resulting grounding errors rather than correct them. Motivated by these, we propose TTIQ, a test-time reinforcement learning framework that harnesses image-question dependence for better vlm adaptation. TTIQ teacher-forces each sampled response under the original image-question pair and its image- and question-ablated variants, using the resulting token-level likelihood changes to estimate dependence on each input. It combines image and question dependence with calibrated confidence to construct a response-level reward that favors jointly grounded responses, and uses the token-level signals to assign greater positive policy credit to tokens supported by both inputs. This design favors responses that are jointly grounded in the image and the question and sufficiently confident, rather than merely popular. Experiments across eight VQA datasets and multiple VLM sizes show that TTIQ achieves the best average performance at every model scale. It further generalizes across VLM families, while models trained on one dataset improve performance on unseen datasets without further training.",
    "affiliations": [
-    "University of Illinois Urbana-Champaign",
-    "Champaign, IL, USA"
+    "University of Illinois Urbana-Champaign, Champaign, IL, USA"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    "University of Illinois Urbana-Champaign",
-    null
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
    ],
-   "institution_ids": [
-    "047426m28",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.13296",
@@ -12635,24 +12620,22 @@
    "html_url": "https://arxiv.org/html/2609.15685v1",
    "abstract": "Most knowledge of graphical perception comes from behavioral studies. Understanding from a neural perspective is much more limited due in part to neuroimaging studies' expensiveness and difficulty to conduct. In this paper, we evaluate whether Meta's Tribe V2 neural encoding model can recover neural contrasts from a visualization fMRI study. Specifically, we evaluate Tribe V2 through a conceptual replication of the visualization-viewing component of a prior comparison of Bubble charts and three-dimensional Surface charts in color and grayscale. We generate TRIBE-predicted cortical responses for the original stimuli and compare the resulting contrasts with those reported in the human study. The model reproduced the direction of 11 of 14 reported cortical effects, with agreement concentrated in visual-processing regions. This agreement characterizes the model's alignment with the prior human-generated fMRI results rather than independently confirming them. We discuss the limitations encountered when working with this model for in-silico replication and hope to encourage future work exploring this new avenue for neuroimaging studies in visualization. Supplemental materials are available at https://osf.io/8a96x/.",
    "affiliations": [
-    "Department of Computer Science and Information Systems",
-    "Youngstown State University"
+    "Department of Computer Science and Information Systems, Youngstown State University"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    null,
-    "Youngstown State University"
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
    ],
-   "institution_ids": [
-    null,
-    "038zf2n28"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.15685",

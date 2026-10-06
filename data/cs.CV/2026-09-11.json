@@ -1614,26 +1614,15 @@
    "abstract": "Test-time adaptation (TTA) offers many ways to update a deployed model without labels, but choosing the wrong update can make a strong source model worse. Recent methods therefore try to predict which adaptation will work from unlabeled test data. We ask a prior question: does the evidence given to the selector contain enough information to determine the best action at all? We show that this is not guaranteed, even with a perfect selector. If an observation channel makes two deployments look the same while their TTA rankings differ, reliable selection is impossible from that channel; richer evidence can restore the decision only when it resolves the relevant ambiguity. We make this boundary exact in a finite-batch Gaussian TTA model, where doing nothing beats mean recentering for small shifts, recentering wins beyond a unique critical shift, and the boundary shrinks as $1/\\sqrt n$. Public benchmark studies on CIFAR-100-C and DomainNet-126 show the same failure mode with modern TTA methods: changing only deployment structure can reverse the oracle action while global order-blind evidence remains unchanged. The result is a practical way to separate two failure modes that are usually mixed together: a weak selector versus an information channel that cannot support the desired decision in the first place.",
    "affiliations": [
     "Institute for Digital Molecular Analytics and Science",
-    "School of Electrical and Electronic Engineering",
-    "Nanyang Technological University, Singapore"
+    "School of Electrical and Electronic Engineering, Nanyang Technological University, Singapore"
    ],
    "author_affiliations": null,
-   "institutions": [
-    "Institute for Digital Molecular Analytics and Science",
-    null,
-    "Nanyang Technological University"
-   ],
-   "institution_ids": [
-    "009xtw325",
-    null,
-    "02e7b5302"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.11235",

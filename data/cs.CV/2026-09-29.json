@@ -26,24 +26,28 @@
    "html_url": "https://arxiv.org/html/2609.35770v1",
    "abstract": "Realistic and editable animal fur reconstruction from multi-view images is challenging due to fine-scale detail, self-occlusion and obfuscation, and, unlike human hair, the lack of animal-fur datasets. Fur usually covers most of an animal's body, with large inter-species and intra-species variability. We present FurE, an efficient strand-based animal fur reconstruction method that recovers a per-strand, editable groom by optimizing a root-conditioned latent field, decoded into strand geometry via a PCA-based decoder. We reconstruct a defurred animal body using local fur-thickness cues from a surface-constrained Gaussian Frosting representation together with part-based priors. We further show that a PCA-based decoder learned from human-hair strand data can alleviate animal-data scarcity while enabling substantially faster optimization. FurE achieves a 10x speedup in strand training over current SOTA dense per-strand optimization while retaining strand fidelity and generalizing across synthetic and real-world sequences, with quantitative and qualitative validation despite the reduction in training time.",
    "affiliations": [
-    "Johns Hopkins University",
-    "Baltimore, MD, USA"
+    "Johns Hopkins University, Baltimore, MD, USA"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    "Johns Hopkins University",
-    null
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
    ],
-   "institution_ids": [
-    "00za53h95",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.35770",
@@ -12074,24 +12078,22 @@
    "html_url": "https://arxiv.org/html/2609.33998v1",
    "abstract": "Frame selection is an important component of long-video question answering (VQA) with Multimodal Large Language Models (MLLMs). Existing frame-selection methods improve over simple top-$k$ embedding retrieval and uniform sampling, but are typically applied under a fixed global selection budget. We introduce \\textbf{MetaSampling}, a training-free, plug-and-play sampling strategy that can be applied on top of existing frame selectors. MetaSampling improves downstream VQA efficiency by dynamically reducing the number of frames passed to the MLLM while preserving, and in some cases improving, answer accuracy. We evaluate MetaSampling across 36 paired frame-selector--MLLM-backbone--VQA-benchmark configurations. MetaSampling reduces the number of selected frames in all 36 configurations and improves accuracy in 25 of them, yielding an average frame reduction of $8.9\\%$ while slightly improving accuracy overall.",
    "affiliations": [
-    "University of Southern Mississippi",
-    "Hattiesburg, MS, USA"
+    "University of Southern Mississippi, Hattiesburg, MS, USA"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    "University of Southern Mississippi",
-    null
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
    ],
-   "institution_ids": [
-    "0270vfa57",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.33998",
@@ -15557,26 +15559,15 @@
    "abstract": "Multimodal engineering benchmarks largely evaluate static understanding, such as recognizing components, interpreting diagrams, or answering technical questions. This leaves a missing middle between engineering perception and full design generation: whether a model can use an understood system state to reason about relations, constraints, and the consequences of design changes. We introduce \\textsc{EngIntervene}, a benchmark for this capability. It contains 3,229 questions across seven engineering domains and organizes evaluation into four levels: state grounding (T1), relational and mechanistic reasoning (T2), constraint-aware diagnosis (T3), and intervention reasoning (T4), which asks whether a proposed modification achieves its target while preserving required constraints. The tasks instantiate a unified engineering state representation spanning objects, relations, constraints, and design objectives, and T2--T4 are scored against structured reference answers with atomic criteria. Across open- and closed-weight multimodal models, stronger grounding does not reliably translate into better diagnosis or intervention, and the best open-weight model trails the best closed model by 14.7 percentage points on the T2--T4 average. Removing or shuffling visual evidence consistently degrades performance, while benchmark-specific supervised fine-tuning improves T1 but not T2--T4. T4 further exposes a large gap between satisfying individual revision criteria and producing a fully valid intervention. Engineering reasoning thus requires not only recovering the current state, but also reliably using it to reason about constraints and post-intervention consequences. Code and benchmark artifacts are available at https://github.com/changcv2021/EngIntervene",
    "affiliations": [
     "Intelligent Vision and Sensing (IVS) Lab",
-    "Indiana University Bloomington",
-    "Bloomington, IN, USA"
+    "Indiana University Bloomington, Bloomington, IN, USA"
    ],
    "author_affiliations": null,
-   "institutions": [
-    null,
-    "Indiana University Bloomington",
-    null
-   ],
-   "institution_ids": [
-    null,
-    "02k40bc56",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.33261",
@@ -22342,20 +22333,25 @@
    "html_url": "https://arxiv.org/html/2609.32162v1",
    "abstract": "Machine unlearning and model pruning are increasingly coupled in the real world. Models must support unlearning requests, e.g., for safety concerns, while also meeting requirements in latency and memory budget. Until recently, existing works have studied each aspect as an independent problem, e.g., running unlearning and pruning sequentially. In this work, we show that unlearning and pruning are naturally aligned and should be solved jointly to be made aware of each other. Intuitively, parameters that encode information of the unlearned samples are natural pruning targets, as unlearning and pruning both call for the \"deletion\" of such parameters. We propose PruneForget, a method that uses the unlearn set as a guide for pruning, so that unlearning and pruning mutually benefit each other. Extensive experiments on image classifiers and generative models show that PruneForget removes the influence of the unlearned samples while producing a more compact model with reduced inference cost. It achieves a negligible performance gap relative to an oracle that retrains from scratch for unlearning and then prunes.",
    "affiliations": [
-    "Department of Computer Science",
-    "Purdue University"
+    "Department of Computer Science, Purdue University"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    null,
-    null
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
    ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.32162",
@@ -28383,23 +28379,16 @@
    "abstract": "Vision-Language-Action (VLA) models integrate pretrained Vision-Language Models (VLMs) with action heads for robot control. Common action heads have distinct limitations: point regression provides only a point estimate of the action distribution, while standard flow-matching samplers require costly iterative sampling. To address these limitations, we unify regression and flow matching under a shared objective and extend it to derive a quantile objective. This quantile objective guides the design of our Quantile Head, which predicts a median and positive gaps to form ordered marginal action quantiles in one forward pass. These quantiles support multiple sampling strategies without retraining and are jointly supervised to train the default median policy. Our local analysis of this joint supervision shows that, with calibrated nearby quantiles, fixed gaps, and matched correction speed, direct median updates have lower variance than under median-only supervision. Experiments show that this jointly supervised median policy achieves the highest average success rates among the compared methods on LIBERO, LIBERO-Plus, LIBERO-Pro, and two real-robot tasks, together with the shortest mean episode time among matched LIBERO baselines; code is available at https://github.com/xwangrs/Quantile-Head-for-VLA.",
    "affiliations": [
     "Department of Automation",
+    "Department of Automation, Tsinghua University",
     "Tsinghua University"
    ],
    "author_affiliations": null,
-   "institutions": [
-    null,
-    "Tsinghua University"
-   ],
-   "institution_ids": [
-    null,
-    "03cve4549"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34061",
@@ -28430,24 +28419,28 @@
    "html_url": "https://arxiv.org/html/2609.34025v1",
    "abstract": "We present a new class of near-linear algorithms for efficiently integrating general tensor fields defined on trees with distance dependent kernels, the Structure-Adaptive Tree Field Integrators (STAD-TFIs). STAD-TFIs exploit the tree's underlying structure through decompositions built around path backbones and single vertex separators, and use two-dimensional fast Fourier transforms to compute interactions jointly. By exploiting this structural information, STAD-TFIs achieve more computationally efficient integration than their regular efficient tree field integrators (TFI) counterparts. We provide a detailed theoretical analysis of our proposed approach and complement it with an exhaustive empirical evaluation, ranging from speed tests on synthetic trees, through accelerated Sinkhorn-based relaxations of the Optimal Transport algorithms on real meshes, to Topological Attention Transformers for vision tasks. To the best of our knowledge, we provide some of the first results showing that efficient to compute and accurate relaxations of the geodesic Sinkhorn-based solutions of the Optimal Transport problem can be derived by applying fast TFI methods.",
    "affiliations": [
-    "Columbia University",
-    "New York, NY 10027, USA"
+    "Columbia University, New York, NY 10027, USA"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    "Columbia University",
-    null
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
    ],
-   "institution_ids": [
-    "00hj8s172",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34025",
@@ -31090,24 +31083,25 @@
    "html_url": "https://arxiv.org/html/2609.32517v1",
    "abstract": "The current deep learning training paradigm employs end-to-end backpropagation, regardless of the training stage, i.e. pre-training or fine-tuning. However, backpropagating through the entire model is neither biologically plausible nor memory efficient, since learning inside the brain is highly localized. Therefore, we propose LocalProp, a training procedure that locally updates the weights of a model. Our neuro-localized weight updates follow the \"pre-training then fine-tuning\" paradigm, where the pre-training is based on I-JEPA. After locally updating the weights, a pruning operation is performed, followed by a short final fine-tuning phase. Pruning helps by sending the learning signal from higher blocks to lower blocks. We perform experiments on several datasets, including large-scale benchmarks such as ImageNet, and empirically show that LocalProp reaches good performance at a fraction of GPU peak memory. By varying the number of jointly optimized blocks, we identify gradient-propagation span as a practical control over the accuracy-memory trade-off.",
    "affiliations": [
-    "Department of Computer Science",
-    "University of Bucharest, Romania"
+    "Department of Computer Science, University of Bucharest, Romania"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    null,
-    "University of Bucharest"
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
    ],
-   "institution_ids": [
-    null,
-    "02x2v6p15"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.32517",

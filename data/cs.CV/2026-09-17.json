@@ -502,26 +502,15 @@
    "abstract": "Fine-grained recognition of visually similar industrial parts is challenging when classes differ primarily in physical dimensions. Normalizing detected object crops to a fixed input size suppresses absolute scale, while CAD models and large class-specific datasets may be unavailable in evolving industrial inventories. We present CALIPER, a model-free RGB-D framework that couples support-based appearance matching with metric size evidence. Each training class is onboarded from a single turntable RGB-D video and one to two labeled real images; 3D reconstruction provides novel-view appearance support, while aligned depth yields a class-specific metric size profile. At inference, a coarse YOLOv8n-seg model localizes parts, and a frozen DINOv2 backbone with an episodically trained embedding head performs fine-grained support matching. Margin-conditioned metric fusion activates probabilistic size evidence only for appearance-ambiguous decisions. New classes are enrolled from a small RGB-D support set without updating network parameters. We evaluate CALIPER on 18 visually similar industrial parts: 16 classes are used for training, while two screws are reserved for training-free enrollment. CALIPER achieves 88.2% closed-set accuracy with 99.8% localization recall and 85.7% overall accuracy after 10-shot enrollment of the two unseen screws. Metric fusion improves unseen-class accuracy by up to 37.4 percentage points without statistically significant degradation of the original inventory. Robot-arm deployment identifies 17/18 parts without deployment-specific retraining.",
    "affiliations": [
     "George W. Woodruff School of Mechanical Engineering",
-    "Georgia Institute of Technology",
-    "Atlanta, GA, U.S.A"
+    "Georgia Institute of Technology, Atlanta, GA, U.S.A"
    ],
    "author_affiliations": null,
-   "institutions": [
-    null,
-    "Georgia Institute of Technology",
-    null
-   ],
-   "institution_ids": [
-    null,
-    "01zkghx44",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.17820",

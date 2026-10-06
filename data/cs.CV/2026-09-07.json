@@ -5871,24 +5871,22 @@
    "html_url": "https://arxiv.org/html/2609.04705v1",
    "abstract": "Passive cooling eliminates the energy overhead and mechanical failure modes of fans, making it attractive for edge deployment, yet sustained Deep Neural Network (DNN) inference on passively cooled edge Systems-on-Chip (SoCs) is bottlenecked by thermal throttling. To address this, we propose an empirically calibrated, state-aware Dynamic Voltage and Frequency Scaling (DVFS) scheduler. Unlike heuristic-driven controllers, our methodology utilizes time-domain guards and absolute temperature bounds, with derivative triggers acting as safeguards against sharp thermal spikes. Evaluated on a passively cooled Raspberry Pi 5 running YOLOv8n, our scheduler eliminates all observed thermal throttling events during sustained 30-minute workloads. It outperforms a temperature-only reactive baseline by achieving a 6.8% higher frame rate (Cohen's d = 8.73) while consuming 1.9% less energy per frame. Furthermore, our optimized passive scheduling surpasses an actively cooled reference system in energy efficiency (Joules/frame), though active cooling remains superior for raw throughput. Through isolated ablations, we show that the dwell guard is necessary for run-to-run reproducibility. Finally, exploratory boundary probes indicate that the passive operating envelope closes at ambient temperatures ($\\ge 27^\\circ$C) where nonlinear leakage defeats DVFS-based control. These results indicate that, within the mapped envelope, correct scheduling can make mechanical cooling unnecessary for sustained edge inference on this platform.",
    "affiliations": [
-    "School of Computing Sciences and Computer Engineering",
-    "University of Southern Mississippi, Hattiesburg, MS, USA"
+    "School of Computing Sciences and Computer Engineering, University of Southern Mississippi, Hattiesburg, MS, USA"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    null,
-    "University of Southern Mississippi"
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
    ],
-   "institution_ids": [
-    null,
-    "0270vfa57"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.04705",

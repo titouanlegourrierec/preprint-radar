@@ -11671,24 +11671,23 @@
    "html_url": "https://arxiv.org/html/2609.36407v2",
    "abstract": "Cross-resolution knowledge distillation aims to improve low-magnification whole- slide analysis by transferring high-magnification representations, yet the conditions for useful transfer remain unclear. We develop a decomposition-based analysis of teacher access, representation loss, and model excess, motivating three questions: whether (a) teacher targets help the task, (b) low-magnification students can predict them, and (c) slide models benefit from those predictions. We investigate them through controlled experiments across ten pathology cohorts spanning classifi- cation, grading, and survival prediction. In the main comparison, providing teacher regional means alongside native low-magnification features improves downstream performance in all ten cohorts. Direct prediction achieves lower reconstruction error than residual prediction, yet the predicted features underrepresent variation in the teacher targets. Moreover, better reconstruction does not consistently improve downstream scores, and retaining native features changes performance even when the predicted teacher features are held fixed. Together, these findings expose a gap between reconstructing teacher representations and realizing their downstream value. They challenge the sufficiency of reconstruction error as a measure of cross-resolution transfer and provide a diagnostic framework for examining where that transfer breaks down. Future distillation designs must account for both what students can predict and how slide models use those predictions.",
    "affiliations": [
-    "Department of Computer Science and Software Engineering (CSSE)",
-    "Concordia University",
-    "Montreal, Canada",
-    "Mila – Quebec AI Institute"
+    "Department of Computer Science and Software Engineering (CSSE), Concordia University, Montreal, Canada",
+    "Mila – Quebec AI Institute, Montreal, Canada"
    ],
-   "author_affiliations": null,
-   "institutions": [
+   "author_affiliations": [
     null,
     null,
-    null,
-    null
+    [
+     0,
+     1
+    ]
    ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.36407",
@@ -15314,20 +15313,22 @@
    "html_url": "https://arxiv.org/html/2609.36458v1",
    "abstract": "Semantic-preserving transformations can induce substantial motion in learned representations, while small changes may strongly affect model predictions, raising a basic question: what local metric best captures semantically consequential variation? We propose Fisher-induced invariant representation geometry (Fisher-IRG), which measures local representation directions through their predictive sensitivity. Around each representation, we construct semantic-preserving and semantic-changing neighborhoods, aggregate their local Fisher information, and recover invariant directions through a contrastive generalized eigenvalue problem. Controlled displacement analyses first show that comparable Euclidean motion can have substantially different predictive consequences, supporting the need for a predictive geometry. Across language and vision models, Fisher-IRG yields stronger semantic-versus-nuisance predictive selectivity and generally more reproducible subspaces than covariance-based geometry, while recovering systematically distinct local directions. Representation interventions further localize semantic effects to the Fisher-derived subspace, and held-out separation and retrieval show that the recovered geometry generalizes beyond the discovery neighborhoods. These results support Fisher-IRG as a principled framework for characterizing local invariant representation geometry.",
    "affiliations": [
-    "Department of Computer Science",
-    "University of Nebraska Omaha, Omaha, NE, USA"
+    "Department of Computer Science, University of Nebraska Omaha, Omaha, NE, USA"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    null,
-    null
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
    ],
+   "institutions": null,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
-    },
-    "institutions": {
-     "source": "ror"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.36458",
