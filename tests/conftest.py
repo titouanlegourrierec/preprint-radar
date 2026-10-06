@@ -1,3 +1,4 @@
+import os
 from collections.abc import Callable
 from pathlib import Path
 
@@ -7,6 +8,11 @@ from preprint_radar.models import Listing
 from preprint_radar.sources.arxiv_listing import parse_listing
 
 FIXTURES_DIR = Path(__file__).parent / "fixtures"
+
+# Tests assert on plain lines, and rich styles them whenever FORCE_COLOR is set (some
+# terminals export it). It reads the variable once, when `console` creates its consoles at
+# import, before any fixture runs: none of the imports above loads that module.
+os.environ.pop("FORCE_COLOR", None)
 
 
 @pytest.fixture(autouse=True)
