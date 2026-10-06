@@ -4,7 +4,10 @@ One minor release per phase of [`docs/roadmap.md`](docs/roadmap.md), a patch for
 between. Item IDs (`DATA-2`, `CIT-11`…) refer to the audit of 2026-09-30
 ([`docs/audit/2026-09-30.md`](docs/audit/2026-09-30.md)).
 
-## Unreleased
+## 0.5.1 (2026-10-06): affiliations read again
+
+A patch after Phase 3: what the daily re-read of the stored papers with extraction version 3
+showed.
 
 ### Fixes
 
@@ -24,6 +27,11 @@ between. Item IDs (`DATA-2`, `CIT-11`…) refer to the audit of 2026-09-30
 - The page cache keeps the tables of author blocks, where some papers lay out their
   affiliations: read again from the cache, 2609.06629 had lost its five. A page kept before
   never empties a paper's affiliations; it is downloaded again (DATA-1).
+
+### Development
+
+- The tests hide `FORCE_COLOR`, which some terminals export and which styled the plain
+  lines they assert on.
 
 ## 0.5.0 (2026-10-06): longer periods and richer metadata
 
