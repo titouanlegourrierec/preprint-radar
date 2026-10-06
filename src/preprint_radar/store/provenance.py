@@ -5,11 +5,12 @@ its own. Days are never invented: the inferred provenance has none. A record say
 for most papers:
 
 - affiliations with an extraction version came from the HTML page;
-- a paper without an HTML URL is an archived paper built from the catalog, whose
-  affiliations came from OpenAlex, and so did its institutions;
+- an archived paper without an HTML URL was built from the catalog: its affiliations came
+  from OpenAlex, and so did its institutions (a day-file paper loses its HTML URL when a
+  later version has no rendering: 2609.34579 kept the affiliations of its first);
 - affiliations with an author mapping, or an empty list, came from the HTML page: the
   submitter-declared ones of the arXiv API never come with a mapping, nor empty;
-- institutions of a paper with an HTML URL were named by ROR.
+- other institutions were named by ROR.
 
 What remains is a paper read before extraction versions were kept, whose affiliations have
 no mapping: declared through the API, or read from a page that does not say who is where.
@@ -38,9 +39,14 @@ class ProvenanceReport:
     unknown: int
 
 
-def inferred(paper: Paper) -> Paper:
-    """The paper with the provenance its record implies, where it has none yet."""
-    affiliations = paper.affiliations_provenance or _affiliations_source(paper)
+def inferred(paper: Paper, *, archived: bool = False) -> Paper:
+    """The paper with the provenance its record implies, where it has none yet.
+
+    Args:
+        paper: A stored paper.
+        archived: Whether it is a record of the archive rather than of a day file.
+    """
+    affiliations = paper.affiliations_provenance or _affiliations_source(paper, archived=archived)
     institutions = paper.institutions_provenance
     if institutions is None and paper.institutions is not None:
         from_openalex = affiliations is not None and affiliations.source == "openalex"
@@ -48,12 +54,12 @@ def inferred(paper: Paper) -> Paper:
     return replace(paper, affiliations_provenance=affiliations, institutions_provenance=institutions)
 
 
-def _affiliations_source(paper: Paper) -> Provenance | None:
+def _affiliations_source(paper: Paper, *, archived: bool) -> Provenance | None:
     if paper.affiliations is None:
         return None
     if paper.extractor is not None:
         return Provenance("html")
-    if paper.html_url is None:
+    if archived and paper.html_url is None:
         return Provenance("openalex")
     if paper.author_affiliations is not None or not paper.affiliations:
         return Provenance("html")
@@ -85,7 +91,7 @@ def infer_provenance_again(store: PaperStore, category: str) -> ProvenanceReport
         if changed := [new for old, new in zip(stored, updated, strict=True) if new != old]:
             store.save(category, changed)
     archived = list(store.iter_archive(category))
-    updated = [inferred(paper) for paper in archived]
+    updated = [inferred(paper, archived=True) for paper in archived]
     for paper in updated:
         count(paper)
     if updated != archived:

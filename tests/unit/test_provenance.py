@@ -23,10 +23,10 @@ PAPER = Paper(
     [
         pytest.param({"extractor": 3, "institutions": (None,)}, "html", "ror", id="versioned"),
         pytest.param(
-            {"html_url": None, "institutions": ("MIT",)},
-            "openalex",
-            "openalex",
-            id="archived-from-the-catalog",
+            {"html_url": None, "author_affiliations": ((0,), (0,)), "institutions": ("MIT",)},
+            "html",
+            "ror",
+            id="a-later-version-without-rendering",
         ),
         pytest.param({"author_affiliations": ((0,), None)}, "html", None, id="mapped"),
         pytest.param({"affiliations": ()}, "html", None, id="none-found"),
@@ -41,6 +41,12 @@ def test_the_record_tells_where_its_affiliations_came_from(
 
     assert paper.affiliations_provenance == (None if affiliations is None else Provenance(affiliations))
     assert paper.institutions_provenance == (None if institutions is None else Provenance(institutions))
+
+
+def test_an_archived_paper_from_the_catalog_has_openalex_affiliations() -> None:
+    paper = inferred(replace(PAPER, html_url=None, institutions=("MIT",)), archived=True)
+
+    assert paper.affiliations_provenance == paper.institutions_provenance == Provenance("openalex")
 
 
 def test_a_known_provenance_stays() -> None:
