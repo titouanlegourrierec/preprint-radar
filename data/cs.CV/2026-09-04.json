@@ -1569,25 +1569,28 @@
    "html_url": "https://arxiv.org/html/2609.03534v1",
    "abstract": "3D Gaussian Splatting has become a de facto scene representation for novel view synthesis, yet robustly learning 3D Gaussian primitives from visual input remains challenging. Standard optimization relies on gradient-based updates, but a common issue is the gradient vanishing phenomenon: a pixel far from a Gaussian primitive often has diminishing gradient magnitudes to influence primitive attributes, resulting in suboptimal scene reconstruction. In this paper, we propose a method to address gradient vanishing with a piecewise truncated gradient formulation that improves the optimization stability and robustness to initializations. We show that our method consistently improves 3D Gaussian Splatting with random and COLMAP initializations while being generalizable across static and dynamic Gaussian Splatting. As a by-product, we also examine the limitations of current benchmarks for dynamic scenes, and introduce a novel dataset for benchmarking dynamic Gaussian Splatting using synthetic 3D scenes. We demonstrate the effectiveness of our method in both static and dynamic settings for the public benchmarks and our proposed dataset.",
    "affiliations": [
-    "Trinity College Dublin 2Dolby Laboratories"
+    "Trinity College Dublin",
+    "Dolby Laboratories"
    ],
    "author_affiliations": [
     [
-     0
+     0,
+     1
     ],
     [
-     0
+     0,
+     1
     ],
     [
-     0
+     0,
+     1
     ],
     [
-     0
+     0,
+     1
     ]
    ],
-   "institutions": [
-    "Trinity College Dublin"
-   ],
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.03534",
    "pdf_url": "https://arxiv.org/pdf/2609.03534"
   },
@@ -2427,25 +2430,33 @@
    "html_url": "https://arxiv.org/html/2609.03688v1",
    "abstract": "Pairwise preference labels rank complete images, yet Diffusion-DPO applies their effect over many spatial and denoising-time coordinates. For attention-based, noise-prediction latent diffusion, ToPO (Token-Oriented Preference Optimization) constructs a per-minibatch, detached, separable spatial-temporal route from branchwise squared-residual contrast in a frozen reference denoiser. Preferred-branch cross-attention uses content tokens to modulate the spatial factor, and an auxiliary pixel-midpoint ordering term is added without local labels or a learned reward model. In matched three-seed retrainings with a shared update schedule, ToPO has higher endpoint estimates than Diffusion-DPO on all five reported SD-1.5 metrics and on HPSv2, ImageReward, and CLIP for SDXL. It also receives larger raw win shares in an aggregate blind SDXL A/B study. These findings are scoped to the reported equal-update U-Net protocols rather than an equal-compute comparison.",
    "affiliations": [
-    "Tsinghua University 2University of Electronic Science and Technology of China 3Stanford University"
+    "Tsinghua University",
+    "University of Electronic Science and Technology of China",
+    "Stanford University"
    ],
    "author_affiliations": [
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ]
    ],
-   "institutions": [
-    "University of Electronic Science and Technology of China"
-   ],
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.03688",
    "pdf_url": "https://arxiv.org/pdf/2609.03688"
   },

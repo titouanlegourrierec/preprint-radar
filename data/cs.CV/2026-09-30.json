@@ -938,18 +938,68 @@
    "html_url": "https://arxiv.org/html/2609.38079v1",
    "abstract": "Training a model to generate visual content can encourage it to learn rich perceptual capabilities related to geometry, spatial relationships, and objectness; yet, its benefits for visual understanding remain unclear. We ask: when and how does visual generation supervision improve visual understanding? We study controlled pairs of image-to-image (I2I) generation and image-to-text (I2T) understanding tasks that express the same underlying problem in different output modalities. We find that under the correct recipe, I2I training improves downstream I2T performance, with larger gains as the amount of I2I training data increases. We next ask which generation tasks benefit which understanding capabilities. To study transfer beyond paired tasks, we introduce OmniTaskonomy, a unified taxonomy spanning 19 I2I generation tasks and 25 I2T understanding capabilities. The resulting transfer map reveals selective, task-dependent benefits. Some follow intuitive correspondences, e.g., depth prediction improving metric 3D reasoning, object pointing improving counting, and jigsaw reconstruction improving 2D ordering. Interestingly, we also uncover surprising connections: 2.5D segmentation improving category recognition and Z-depth prediction improving localization. To probe these patterns, we analyze gradient alignment between generation and understanding tasks and find that stronger alignment is associated with larger downstream transfer gains. Together, our results highlight visual generation as a rich source of supervision for visual understanding and provide a roadmap for unlocking its benefits through the right training curriculum and task selection. Project page: https://omni-taskonomy.github.io/.",
    "affiliations": [
-    "University of California, Berkeley 2Duke University 3Carnegie Mellon University",
-    "University of Washington 5Elorian 6Impossible Research"
+    "University of California, Berkeley",
+    "Duke University",
+    "Carnegie Mellon University",
+    "University of Washington",
+    "Elorian",
+    "Impossible Research"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    null,
-    "University of Washington"
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1,
+     5
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     3
+    ],
+    [
+     0
+    ],
+    [
+     4
+    ],
+    [
+     4
+    ],
+    [
+     0
+    ],
+    [
+     3
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     5
+    ],
+    [
+     4
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     1
+    ]
    ],
-   "institution_ids": [
-    null,
-    "00cvxb145"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.38079",
    "pdf_url": "https://arxiv.org/pdf/2609.38079"
   },
@@ -2461,14 +2511,13 @@
    "html_url": "https://arxiv.org/html/2609.37690v2",
    "abstract": "Video world models require persistent scene memory to maintain consistency during long-horizon video generation. Existing spatial memory systems accumulate RGB observations or latent features, causing storage requirements to grow as generation proceeds. We introduce **Honeycomb**, a video world model built on **HexMemory**, a compact low-rank representation that stores scene features in a fixed-size memory comprising six spatial and spatiotemporal planes. A feed-forward writer maps each newly generated video chunk to plane features. As the spatial coverage or temporal range expands, HexMemory warps the existing planes while preserving their dimensions, then integrates new features through confidence-weighted pooling and a learned residual correction. A reader retrieves latent features from HexMemory to condition subsequent video generation. Because the writer processes only observations from the latest chunk, Honeycomb avoids per-scene optimization and repeated processing of the full generation history. Experiments on WorldScore and RealEstate10K demonstrate strong video generation quality and robust consistency when revisiting previously observed regions, while maintaining constant feature-storage requirements throughout generation. Code and additional visualizations are available on our https://jackswl.github.io/honeycomb/.",
    "affiliations": [
-    "Harvard University 2National University of Singapore",
-    "MIT 4MIT-IBM Watson AI Lab"
+    "Harvard University",
+    "National University of Singapore",
+    "MIT",
+    "MIT-IBM Watson AI Lab"
    ],
    "author_affiliations": null,
-   "institutions": [
-    null,
-    null
-   ],
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.37690",
    "pdf_url": "https://arxiv.org/pdf/2609.37690"
   },
@@ -3004,24 +3053,58 @@
    "html_url": "https://arxiv.org/html/2609.37559v1",
    "abstract": "To serve as real-world personal assistants, streaming video models need persistent memory that retains past experiences for later use. Yet existing streaming benchmarks and methods often focus on individual continuous videos or short clips, overlooking that real-world interactions are often intermittent and require memory to persist across interruptions. To fill this gap, we introduce APM-Bench, which reformulates real-world streaming interaction as multi-session life trajectories. It contains 549 sessions, 104 trajectories, and 2,719 candidates, spanning both objective and open-ended questions. Each session is a video with fine-grained annotations, and sessions within a trajectory revolve around related activities. Models then use persistent memory to answer questions about past sessions and provide proactive responses while maintaining real-time interaction. This raises challenges: persistent memory must be storable, selectively retain information, be injected at the right time, and remain efficient. Moreover, finite storage may leave required evidence unavailable, so assistants should recognize missing evidence. Therefore, we systematically evaluate general video models under different memory protocols and diverse specialized streaming memory systems, and test whether models acknowledge insufficient evidence. Our evaluation reveals a clear utility--latency--storage trade-off: existing methods still struggle to simultaneously achieve reliable long-term recall, low overhead, and effective proactive assistance across sessions. APM-Bench provides a comprehensive testbed for developing and comparing persistent memory systems under realistic streaming conditions. We hope it encourages future work that jointly considers utility, latency, and storage toward more practical persistent memory for real-world streaming assistants.",
    "affiliations": [
-    "Shanghai Jiao Tong University 2Eastern Institute of Technology, Ningbo",
+    "Shanghai Jiao Tong University",
+    "Eastern Institute of Technology, Ningbo",
     "Shenzhen Institutes of Advanced Technology, Chinese Academy of Sciences",
-    "Zhongguancun Academy, Beijing, China 5Dalian University of Technology",
-    "Beihang University 7Hong Kong Polytechnic University"
+    "Zhongguancun Academy, Beijing, China",
+    "Dalian University of Technology",
+    "Beihang University",
+    "Hong Kong Polytechnic University"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    null,
-    "Chinese Academy of Sciences",
-    null,
-    null
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     4
+    ],
+    [
+     1
+    ],
+    [
+     4
+    ],
+    [
+     5
+    ],
+    [
+     1,
+     6
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ]
    ],
-   "institution_ids": [
-    null,
-    "034t30j35",
-    null,
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.37559",
    "pdf_url": "https://arxiv.org/pdf/2609.37559"
   },
@@ -8505,14 +8588,11 @@
    "affiliations": [
     "Institute of Automation, Chinese Academy of Sciences",
     "School of Artificial Intelligence, University of Chinese Academy of Sciences",
-    "Shanghai Jiao Tong University 4Zhongguancun Academy"
+    "Shanghai Jiao Tong University",
+    "Zhongguancun Academy"
    ],
    "author_affiliations": null,
-   "institutions": [
-    "Chinese Academy of Sciences",
-    "University of Chinese Academy of Sciences",
-    "Shanghai Jiao Tong University"
-   ],
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.36651",
    "pdf_url": "https://arxiv.org/pdf/2609.36651"
   },

@@ -524,19 +524,39 @@
    "html_url": "https://arxiv.org/html/2610.02153v1",
    "abstract": "Long-horizon autoregressive video generation is limited by a finite context window. When an object or scene falls out of context, its fine-grained visual details may be lost and difficult to recover upon reappearance. To retain access to such visual details, we introduce MosaiChunk, a spatio-temporal memory mechanism that composes a mosaic of selected historical key-value (KV) entries across space and time. Our approach is motivated by the observation that a frozen video generator can directly consume such non-contiguous historical KV and recover the corresponding visual content. We therefore keep the generator fixed and learn only a lightweight router that determines which historical sections to include in the mosaic under a fixed active-memory budget. We further introduce RememBench, a benchmark of long-horizon revisits with prompt-driven text-to-video (T2V) and camera-driven image-to-video (I2V) splits. Our experiments show that MosaiChunk consistently improves revisit consistency over both sliding-window inference and whole-chunk retrieval under matched memory budgets, across both T2V and I2V settings.",
    "affiliations": [
-    "Cornell University 2University of California, Berkeley",
-    "Harvard University 4Impossible, Inc"
-   ],
-   "author_affiliations": null,
-   "institutions": [
+    "Cornell University",
     "University of California, Berkeley",
-    "Harvard University"
+    "Harvard University",
+    "Impossible, Inc"
    ],
-   "institution_ids": [
-    "01an7q238",
-    "03vek6s52"
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     1,
+     3
+    ]
    ],
-   "extractor": 2,
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2610.02153",
    "pdf_url": "https://arxiv.org/pdf/2610.02153"
   },
@@ -1164,8 +1184,7 @@
    "abstract": "Adverse conditions such as rain, snow, fog, and dust remain challenging for camera-based perception in autonomous driving. We study multi-class weather recognition from street-view images under domain shift, where most available training data come from non-street-view sources that differ markedly from real driving scenes. We propose Weather-Aware Adversarial Discriminative Domain Adaptation (WA-ADDA), which conditions the domain discriminator on predicted weather to promote features that are both domain-invariant and weather-sensitive. We also assemble a multi-dataset benchmark by unifying diverse non-street-view weather collections as sources and real street-view images as targets, and define a standardized evaluation protocol with macro accuracy as the primary metric. Across backbones (ResNet-50, EfficientNet, VGG, DenseNet), WA-ADDA consistently improves street-view performance and yields strong per-class recalls in challenging conditions while preserving clear-weather accuracy. These findings highlight the feasibility of domain-adapted weather recognition and the value of our benchmark for advancing robust, on-board perception.",
    "affiliations": [
     "Department of Electrical and Computer Engineering",
-    "Department of Computer Science",
-    "University of Central Florida, Orlando, USA"
+    "Department of Computer Science, University of Central Florida, Orlando, USA"
    ],
    "author_affiliations": [
     [
@@ -1179,17 +1198,8 @@
      0
     ]
    ],
-   "institutions": [
-    null,
-    null,
-    "University of Central Florida"
-   ],
-   "institution_ids": [
-    null,
-    null,
-    "036nfer12"
-   ],
-   "extractor": 2,
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2610.02000",
    "pdf_url": "https://arxiv.org/pdf/2610.02000"
   },
@@ -1215,14 +1225,15 @@
    "html_url": "https://arxiv.org/html/2610.01999v1",
    "abstract": "Spatial reasoning benchmarks evaluate vision-language models across diverse tasks, but task-level scores do not reveal which underlying capabilities account for success or failure. Each task requires recovering spatial evidence, representing geometry, and reasoning over it. We disentangle these capabilities by comparing predicted and ground-truth spatial context under a shared schema and coordinate contract. This comparison reveals four recurring sources of error: inaccurate perception, missing information in the spatial context, selection of the wrong measurement, and errors in reference frames or in tracking position and orientation. Guided by this diagnosis, we develop CROSS, a training-free library of typed geometric operators and spatial skills that function over available evidence to support reliable video spatial reasoning. The resulting library supplies verified context to non-coding VLMs or callable skills to a SpatialClaw agent. We evaluate \\methodname{} on five benchmarks. \\methodname{} raises the average score from 55.9\\% to 60.2\\% on ReVSI and improves the SpatialClaw result from 62.8\\% to 66.3\\% on DSI-Bench. These gains demonstrate that explicit handling of spatial conventions can repair systematic reasoning failures without additional training.",
    "affiliations": [
-    "National University of Singapore 2University of Science and Technology of China"
+    "National University of Singapore",
+    "University of Science and Technology of China"
    ],
    "author_affiliations": [
     [
      0
     ],
     [
-     0
+     1
     ],
     [
      0
@@ -1234,13 +1245,8 @@
      0
     ]
    ],
-   "institutions": [
-    "University of Science and Technology of China"
-   ],
-   "institution_ids": [
-    "04c4dkn09"
-   ],
-   "extractor": 2,
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2610.01999",
    "pdf_url": "https://arxiv.org/pdf/2610.01999"
   },
@@ -2046,23 +2052,25 @@
    "html_url": "https://arxiv.org/html/2610.01863v1",
    "abstract": "We present LiteReality-Agent, an agentic system for reconstructing real indoor environments as realistic, articulated, and simulation-ready 3D scenes from RGB-D scans. At its core, LiteReality-Agent formulates 3D reconstruction as a coding problem, in which a coding agent gathers evidence using specialised tools and iteratively edits a Python script, Room.py, which can be executed to produce a 3D digital twin of the room. With this formulation, we develop a robust observe-edit-verify harness that supports evidence gathering, measurement, verification, layout optimisation, simulation readiness, and quality control throughout the reconstruction process. LiteReality-Agent produces high-quality reconstructions suitable for simulation and downstream embodied AI tasks. Furthermore, as agent capabilities continue to improve rapidly, the system introduced by LiteReality-Agent remains a strong orchestration framework for future agents: it equips them with specialised tools, structured workflows, and robust verification mechanisms that substantially improve reconstruction quality and reliability. We demonstrate that LiteReality-Agent produces reconstructions that are more geometrically accurate, visually realistic, and simulation-compatible than those generated by recent frontier models, such as Astra and Fable. We therefore view LiteReality-Agent as a practical and important building block for robust real-to-sim systems. Both the source code and the data-capture application are publicly available. Code:https://github.com/LiteReality/LiteReality-Agent/",
    "affiliations": [
-    "University of Cambridge 2Imperial College London 3Independent Researcher"
+    "University of Cambridge",
+    "Imperial College London",
+    "Independent Researcher"
    ],
    "author_affiliations": [
     [
      0
     ],
     [
-     0
+     1
+    ],
+    [
+     2
     ],
     [
      0
     ],
     [
-     0
-    ],
-    [
-     0
+     2
     ],
     [
      0
@@ -2074,10 +2082,8 @@
      0
     ]
    ],
-   "institutions": [
-    null
-   ],
-   "extractor": 2,
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2610.01863",
    "pdf_url": "https://arxiv.org/pdf/2610.01863"
   },
@@ -3456,24 +3462,12 @@
     "Department of Data Science, City University of Hong Kong",
     "The Hong Kong University of Science and Technology (Guangzhou)",
     "The Hong Kong Institute of AI for Science, City University of Hong Kong",
-    "Westlake University 5University of Electronic Science and Technology of China",
+    "Westlake University",
+    "University of Electronic Science and Technology of China",
     "The Hong Kong University of Science and Technology"
    ],
    "author_affiliations": null,
-   "institutions": [
-    "City University of Hong Kong",
-    "Hong Kong University of Science and Technology (Guangzhou)",
-    "City University of Hong Kong",
-    "University of Electronic Science and Technology of China",
-    "Hong Kong University of Science and Technology"
-   ],
-   "institution_ids": [
-    "03q8dnn23",
-    "050h0vm43",
-    "03q8dnn23",
-    "04qr3zq92",
-    "00q4vv597"
-   ],
+   "institutions": null,
    "extractor": 2,
    "abs_url": "https://arxiv.org/abs/2610.01499",
    "pdf_url": "https://arxiv.org/pdf/2610.01499"
@@ -3685,21 +3679,7 @@
     "The Hong Kong Polytechnic University",
     "Munich Center for Machine Learning, LMU Munich"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    [
-     0,
-     1,
-     2,
-     3
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "Eastern Institute of Technology, Ningbo",
     "Shanghai Jiao Tong University",
@@ -4812,22 +4792,11 @@
    "html_url": "https://arxiv.org/html/2610.01162v1",
    "abstract": "Reliable video world models could provide scalable predictive environments for robot learning, planning, and evaluation. However, generated robot videos can violate physical principles and complete tasks through physically implausible behavior, limiting their reliability for robot learning and planning. Current video-generation benchmarks exclude physics that are inherently hidden by visuals (e.g., weight, viscosity, friction). Due to this, video models are evaluated on the fidelity of physics, not the underlying accuracy of physics. We introduce PhysicsLENS, a dataset and benchmark for evaluating plausibility of physical properties grounded in robotics. PhysicsLENS uses matched scenario pairs that hold the same conditioning frame and task, while varying underlying physics in the scene description. Scenarios are curated from public robot video sources and annotated across seven physical domains: collision, gravity, momentum, friction, deformation, fluid, and causality. We evaluate across four video generation models, producing over 400 human-annotated labels. Results show that plausible-looking videos often ignore the stated property (34 of 47), and that stating the property lowers plausibility only slightly and not significantly.",
    "affiliations": [
-    "School of Computing and Augmented Intelligence",
-    "Arizona State University",
-    "Tempe, AZ, USA"
+    "School of Computing and Augmented Intelligence, Arizona State University, Tempe, AZ, USA"
    ],
    "author_affiliations": null,
-   "institutions": [
-    null,
-    "Arizona State University",
-    null
-   ],
-   "institution_ids": [
-    null,
-    "03efmqc40",
-    null
-   ],
-   "extractor": 2,
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2610.01162",
    "pdf_url": "https://arxiv.org/pdf/2610.01162"
   },
@@ -5156,15 +5125,24 @@
    "html_url": "https://arxiv.org/html/2610.01069v1",
    "abstract": "Differentiable logic gate networks, which operate using only logic gates, have recently attracted attention as an efficient alternative to conventional neural networks. However, despite their efficiency, the scaling behavior of logic gate networks remains underexplored. By contrast, scaling model capacity is a central design principle in deep neural networks and typically leads to improved performance. This discrepancy raises a key question: Can similar scaling benefits also be achieved in logic gate networks? In this work, we focus on width as a primary scaling axis and conduct a systematic analysis of its behavior in logic gate networks. We observe that naive width scaling often introduces redundancy among logic kernels, limiting the effective use of additional kernels and leading to performance saturation. To address this limitation, we propose a dynamic logic kernel framework that reorganizes kernel utilization by promoting specialization across kernel groups. This enables the network to better utilize increased width via input-dependent kernel routing, while ensuring that both routing and computation are implemented entirely with gate-level Boolean operations at inference time. We further find that kernel redundancy is most pronounced at the first gate level, motivating an early-stage dynamic logic kernel strategy that concentrates adaptation at this level. Experimental results demonstrate that our approach improves kernel utilization and increases kernel diversity, leading to higher accuracy with improved parameter efficiency.",
    "affiliations": [
-    "Department of Electrical Engineering",
-    "Korea University"
+    "Department of Electrical Engineering, Korea University"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    null,
-    null
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
    ],
-   "extractor": 2,
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2610.01069",
    "pdf_url": "https://arxiv.org/pdf/2610.01069"
   },
@@ -5313,28 +5291,18 @@
    "html_url": "https://arxiv.org/html/2610.01022v1",
    "abstract": "Memory-attention-based Video Instance Segmentation (VIS) methods have demonstrated strong zero-shot tracking capability, yet their substantial memory requirements confine them to short video clips and their single-prompt inference design makes multi-category open-vocabulary tracking computationally prohibitive. This work introduces two contributions toward fully automated tracking annotation of arbitrary video. The Generalized Presence Token (GPT) reformulates SAM3's inference pipeline to process N text prompts simultaneously via virtual prompt batching, reducing image encoding cost from O(N) to O(1) with no modifications to any learned component. The Annotation and Segmentation Handler (ASH) extends any memory-attention VIS tracker to sequences of arbitrary length through overlapping temporal chunks with IoU-based inter-chunk identity matching, requiring no dataset-specific training. Instantiated on SAM3, the resulting pipeline -- SAM3-ASH -- achieves state-of-the-art HOTA on MOTS20 under fully zero-shot conditions and remains competitive with trained specialists across seven additional benchmarks, while peak GPU memory consumption stays below 25 GB, establishing a practical baseline for scalable, training-free automated video annotation.",
    "affiliations": [
-    "Department of Electrical and Computer",
-    "Engineering, University of Windsor, Windsor, ON, N9B 3P4, Canada"
+    "Department of Electrical and Computer, Engineering, University of Windsor, Windsor, ON, N9B 3P4, Canada"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ]
    ],
-   "institutions": [
-    null,
-    "University of Windsor"
-   ],
-   "institution_ids": [
-    null,
-    "01gw3d370"
-   ],
-   "extractor": 2,
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2610.01022",
    "pdf_url": "https://arxiv.org/pdf/2610.01022"
   },
@@ -5364,38 +5332,41 @@
    "html_url": "https://arxiv.org/html/2610.01019v1",
    "abstract": "Robotic world models predict action-conditioned future scenes, providing a foundation for understanding action outcomes. However, turning alternative predictions into useful learning signals remains challenging: similar candidates limit informative quality comparisons, while diverging trajectories require persistent maintenance of their individual histories. We introduce FutureWorlds, a framework that unifies candidate construction, history maintenance, and learning from relative quality. Built on a multimodal discrete autoregressive model, FutureWorlds uses diverse beam search during reinforcement learning to construct candidate futures that balance confidence and diversity. Candidate-specific bounded memory preserves scene states and ensures that generation and policy scoring use matching histories. We further propose MemSPO (Memory-Conditioned Search-Guided Policy Optimization), which converts video trajectory rewards into group-relative advantages to optimize the world model. On RT-1, BridgeV2, and RoboCasa, FutureWorlds reduces LPIPS for 32-frame predictions by 14.78%, 20.84%, and 9.12%, respectively, relative to the strongest baseline on each dataset. Under fixed evaluation configurations, only 200 MemSPO updates further improve generation quality and support continued prediction beyond the training horizon. Memory ablations, decoding sensitivity analysis, and optical-flow evaluation show that these gains extend beyond visual quality to more accurate motion prediction and more consistent object states. Project page and code: https://github.com/Alexander-wu/FutureWorlds.",
    "affiliations": [
-    "HKUST (GZ) 2CUHK 3Tencent 4USTC 5PKU 6Squirrel Ai Learning"
+    "HKUST (GZ)",
+    "CUHK",
+    "Tencent",
+    "USTC",
+    "PKU",
+    "Squirrel Ai Learning"
    ],
    "author_affiliations": [
     [
      0
     ],
     [
-     0
+     1
     ],
     [
-     0
+     2
     ],
     [
-     0
+     3
     ],
     [
-     0
+     1
     ],
     [
-     0
+     4
     ],
     [
-     0
+     5
     ],
     [
      0
     ]
    ],
-   "institutions": [
-    null
-   ],
-   "extractor": 2,
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2610.01019",
    "pdf_url": "https://arxiv.org/pdf/2610.01019"
   },
@@ -6222,14 +6193,22 @@
    "html_url": "https://arxiv.org/html/2610.00812v1",
    "abstract": "Video generation has rapidly progressed from short, low-quality clips to high-resolution, long-duration sequences with complex spatiotemporal dynamics. Despite strong generative priors learned through large-scale pretraining, pretrained video models often fail to reliably follow human intent, maintain temporal coherence, or satisfy physical and safety constraints. Compared with image and text generation, alignment in video generation presents unique challenges, including error accumulation over time, motion-appearance coupling, multi-objective trade-offs, and limited supervision for temporal properties. These challenges motivate systematic post-training strategies that adapt pretrained models without retraining them from scratch. In this survey, we present the first comprehensive review of post-training and alignment in video generation models. We frame post-training as a unifying framework and distinguish between implicit alignment and explicit alignment based on how alignment signals are enforced. From this perspective, we organize existing approaches into four broad categories: supervised fine-tuning methods, self-training and distillation methods, preference- and reward-based methods, and inference-time methods. This taxonomy provides a coherent view of how alignment signals shape model behavior across both training and deployment. Beyond methodological advances, we review commonly used datasets, benchmarks, and evaluation practices, and discuss open challenges such as scalable reward design, long-horizon temporal consistency, stability-expressiveness trade-offs, and safety-aware generation. This survey aims to provide a structured conceptual foundation and practical guidance for advancing controllable and reliable video generation models.",
    "affiliations": [
-    "Arizona State University 2Twitch 3Stanford University 4eBay 5NewsBreak 6Microsoft 7Columbia University 8University of Southern California 9Carnegie Mellon University"
+    "Arizona State University",
+    "Twitch",
+    "Stanford University",
+    "eBay",
+    "NewsBreak",
+    "Microsoft",
+    "Columbia University",
+    "University of Southern California",
+    "Carnegie Mellon University"
    ],
    "author_affiliations": [
     [
      0
     ],
     [
-     0
+     1
     ],
     [
      0
@@ -6238,37 +6217,35 @@
      0
     ],
     [
-     0
+     2
     ],
     [
-     0
+     3
     ],
     [
-     0
+     4
     ],
     [
-     0
+     5
     ],
     [
-     0
+     6
     ],
     [
-     0
+     7
     ],
     [
-     0
+     8
     ],
     [
-     0
+     4
     ],
     [
      0
     ]
    ],
-   "institutions": [
-    null
-   ],
-   "extractor": 2,
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2610.00812",
    "pdf_url": "https://arxiv.org/pdf/2610.00812"
   },
@@ -7124,37 +7101,53 @@
    "html_url": "https://arxiv.org/html/2610.00451v1",
    "abstract": "Human motion, environmental contacts, and interaction forces are governed by common physical laws, yet existing approaches typically separate visual pose reconstruction from contact and force estimation. This separation limits joint reasoning and can propagate errors between stages. We introduce PACT, an end-to-end model that jointly learns to estimate human pose, contacts and contact forces from monocular video. Our approach augments a human reconstruction foundation model with learnable contact-force tokens and a temporal transformer that integrates visual features with world-space motion. Joint prediction heads refine human poses and estimate contacts and forces, while physics-based supervision encourages consistency between the reconstructed motion and interaction forces. To address the scarcity of force annotations, we develop a data annotation pipeline that combines contact labeling with physics-based motion and force optimization, producing training supervision from synthetic and real-world videos. We also introduce a real-world climbing benchmark ForceWall with climbing videos and corresponding ground-truth contact forces obtained from the force sensors. Experiments demonstrate state-of-the-art contact and force estimation, outperforming staged reconstruction approaches and generalizing to interactions beyond the training distribution. These results support end-to-end joint learning as an effective approach to recovering human motion and physical interactions from video.",
    "affiliations": [
-    "MBZUAI 2ETH Zürich 3EPFL"
+    "MBZUAI",
+    "ETH Zürich",
+    "EPFL"
    ],
    "author_affiliations": [
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ]
    ],
-   "institutions": [
-    null
-   ],
+   "institutions": null,
    "extractor": 2,
    "abs_url": "https://arxiv.org/abs/2610.00451",
    "pdf_url": "https://arxiv.org/pdf/2610.00451"
@@ -7249,19 +7242,33 @@
    "html_url": "https://arxiv.org/html/2610.00350v1",
    "abstract": "Spiking Neural Networks (SNNs) offer an energy-efficient approach to processing event-camera data, yet out-of-distribution (OOD) detection remains challenging in this setting. Existing OOD detection methods often depend on model outputs or computational components that are unavailable in object detection SNNs or are poorly suited to low-compute deployment. To that effect, we show that the subthreshold membrane potential \\(V_{\\mathrm{mem}}(t)\\) provides a useful internal signal for detecting distribution shifts. Simple per-channel statistics derived from these membrane dynamics enable OOD detection. To evaluate this approach, we introduce Gen1-C, an event-camera corruption benchmark developed upon the Prophesee Gen1 automotive detection dataset, containing six sensor-motivated histogram-level stress tests at five severity levels. We further propose the Multi-Descriptor Deviation (MDD), a corruption-blind method that operates on membrane-potential statistics. At the highest corruption severity, MDD achieves an AUROC of more than 0.88 on five of the six corruptions using only a bounded 64-frame observation window. Notably, the remaining corruption is also the one that has the smallest effect on the underlying detector. These results show that the temporal membrane-potential dynamics can provide an effective and low-cost signal for OOD detection in SNN-based event perception.",
    "affiliations": [
-    "Indian Institute of Technology Kharagpur 2Indiana University Indianapolis",
-    "Bangladesh University of Engineering and Technology 4University of Toronto"
+    "Indian Institute of Technology Kharagpur",
+    "Indiana University Indianapolis",
+    "Bangladesh University of Engineering and Technology",
+    "University of Toronto"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    null,
-    "Bangladesh University of Engineering and Technology"
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     1
+    ]
    ],
-   "institution_ids": [
-    null,
-    "05a1qpv97"
-   ],
-   "extractor": 2,
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2610.00350",
    "pdf_url": "https://arxiv.org/pdf/2610.00350"
   },
@@ -9351,38 +9358,22 @@
    "abstract": "Recent theoretical work identified fundamental properties of representation geometry that shape inference ability of deep neural networks. These include signal-noise factorization (SNF), the ability to segregate signal from noise, and signal-signal factorization (SSF), the ability to segregate task-specific and task-irrelevant signals. Here, we built regularizers that reinforce these two properties during training. We compared networks trained with these regularizers to $L_2$-regularized baseline networks on the CIFAR-100 classification task to understand how our regularizers shape representation geometry and impact performance on a well-known computer vision baseline. Enhancing SNF via regularization improved model performance but enhancing SSF did not. Motivated by biomedical applications, we investigated how our regularizers affected performance on the BloodMNIST dataset treated with MedMNIST-C corruptions at five severity levels, and found even larger performance gains using the SNF regularizer. To understand the mechanism by which SNF-regularization produces improved performance, we analyzed the nuisance subspaces across regularization regimes, finding that the SNF-regularized models represent noise in distinct subspaces, separate from class-relevant signal. Because this geometry is explicit, the dominant corruption-induced directions can be estimated on held-out data and projected out of the representations. This manipulation led to a substantial gain in accuracy. These results show that regularizers that enforce signal-noise factorization can produce substantial improvements on computer vision tasks that contain out-of-distribution image distortions at inference time. They also highlight how shaping representations affects model performance: isolating nuisance variables from categorical ones is more important than maintaining factorized representations of categorical variables.",
    "affiliations": [
     "Bioinformatics IDP, Jules Stein Eye Institute",
-    "University of California, Los Angeles",
-    "Los Angeles, CA 90095, USA",
+    "University of California, Los Angeles, Los Angeles, CA 90095, USA",
     "Jules Stein Eye Institute",
-    "Los Angeles, CA, 90095, USA"
+    "University of California, Los Angeles, Los Angeles, CA, 90095, USA"
    ],
    "author_affiliations": [
     [
      0,
-     1,
-     2
+     1
     ],
     [
-     3,
-     1,
-     4
+     2,
+     3
     ]
    ],
-   "institutions": [
-    null,
-    "University of California, Los Angeles",
-    null,
-    null,
-    null
-   ],
-   "institution_ids": [
-    null,
-    "046rm7j60",
-    null,
-    null,
-    null
-   ],
-   "extractor": 2,
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2610.00751",
    "pdf_url": "https://arxiv.org/pdf/2610.00751"
   },

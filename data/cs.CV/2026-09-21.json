@@ -3832,16 +3832,17 @@
    "html_url": "https://arxiv.org/html/2609.21392v1",
    "abstract": "Natural audio-visual interaction is emerging as an important interface for AI assistants, allowing users to communicate through speech and vision rather than carefully composed text prompts. However, existing benchmarks of interactive capabilities still focus primarily on response quality, leaving a more fundamental question underexplored: can a model correctly infer the user's underlying demand from complex multimodal interaction? Real-world user demands are often underspecified in speech and must be inferred from multimodal cues and dialogue history. This inference is further complicated by ambiguous or disfluent expression and noisy acoustic environments. Conversely, request-like speech may not constitute a demand to the assistant, leading to false triggers. We establish Omni Demand Understanding (ODU) as a distinct multimodal contextual inference problem: given an interaction stream, a model must detect whether a user demand is present and infer intent from multimodal and conversational context. ODU evaluates this capability along five dimensions, covering both single-turn and multi-turn interactions. We construct ODU-Bench using a challenge-driven taxonomy, taxonomy-guided agentic video generation, and human-recorded interactions, followed by media-grounded annotation and human verification. We evaluate 14 native MLLMs. Even the strongest, Gemini 3.1 Pro, recovers only 44.7% of key information that must be inferred from visual, acoustic, or conversational context. Moreover, 11 of the 14 models exhibit false-trigger rates above 50% on non-demand scenarios. These results reveal a systematic capability gap in current MLLMs' ability to infer contextual user demands. We hope ODU can establish the evaluation of a previously underexplored yet essential capability in multimodal interaction: correctly understanding user demands before generating an appropriate response.",
    "affiliations": [
-    "Shanghai Jiao Tong University 2Shanghai Innovation Institute 3Alibaba Token Hub, Alibaba Group",
-    "The Chinese University of Hong Kong 5Tsinghua University",
-    "Hong Kong Polytechnic University 7Nankai University 8Johns Hopkins University"
+    "Shanghai Jiao Tong University",
+    "Shanghai Innovation Institute",
+    "Alibaba Token Hub, Alibaba Group",
+    "The Chinese University of Hong Kong",
+    "Tsinghua University",
+    "Hong Kong Polytechnic University",
+    "Nankai University",
+    "Johns Hopkins University"
    ],
    "author_affiliations": null,
-   "institutions": [
-    "Shanghai Jiao Tong University",
-    "Chinese University of Hong Kong",
-    null
-   ],
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.21392",
    "pdf_url": "https://arxiv.org/pdf/2609.21392"
   },
@@ -3967,6 +3968,7 @@
     null,
     "Adelaide University"
    ],
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.21369",
    "pdf_url": "https://arxiv.org/pdf/2609.21369"
   },

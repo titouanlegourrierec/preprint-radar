@@ -4418,18 +4418,15 @@
    "html_url": "https://arxiv.org/html/2609.28851v1",
    "abstract": "Vision-language models (VLMs) achieve strong visual reasoning performance, yet subtle changes from routine image capture and processing can alter their reasoning trajectories even when images appear nearly identical. In long-horizon generation, the resulting activation shifts may accumulate across decoding steps, progressively altering reasoning tokens and ultimately changing the final answer, a phenomenon referred to as answer flips. To address this instability, we propose FlipDir (Flip-Direction Steering), a training-free inference-time method that estimates a low-rank flip-inducing activation subspace from contrastive pairs of original and answer-flipping inputs and selectively steers hidden states during decoding. A margin-based gate limits subspace attenuation to uncertain decoding steps, recovering original predictions while preserving stable ones. To evaluate robustness beyond accuracy or consistency on fixed test sets, we introduce VisFlip, a benchmark framework that constructs evaluation groups for a target model and visual variation setting to separately assess recovery of original predictions and preservation of stable ones. VisFlip spans nine dataset-variation combinations across scientific reasoning, robot-scene understanding, and medical VQA, covering subtle visual variations common in each domain. Experiments across 18 settings demonstrate that FlipDir consistently outperforms existing methods on the combined recovery and preservation metric. We will make our code publicly available.",
    "affiliations": [
-    "Graduate School of AI, KAIST 2NAVER Cloud",
+    "Graduate School of AI, KAIST",
+    "NAVER Cloud",
     "Department of Computer Science and Engineering, The Ohio State University",
     "Department of Biomedical Informatics, The Ohio State University",
-    "Adobe Research 6AITRICS"
+    "Adobe Research",
+    "AITRICS"
    ],
    "author_affiliations": null,
-   "institutions": [
-    null,
-    "Ohio State University",
-    "Ohio State University",
-    null
-   ],
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.28851",
    "pdf_url": "https://arxiv.org/pdf/2609.28851"
   },

@@ -36,61 +36,161 @@
    "html_url": "https://arxiv.org/html/2609.31620v2",
    "abstract": "Representation autoencoders (RAEs) reuse features from a pretrained visual encoder as reconstruction and diffusion latents, integrating strong visual representations into image generation. However, RAEs still need to decide which encoder layers form the shared latent space for the generator and pixel decoder. This choice involves a trade-off. Shallower layers tend to preserve fine pixel details better, while deeper layers tend to yield better generation metrics. A fixed heuristic layer fusion therefore couples two stages that benefit from different information. We introduce FuseReg, which replaces heuristic feature selection with training over random subsets of encoder layers. We theoretically analyze the underlying mechanism: subset sampling explicitly penalizes sensitivity to cross-layer disagreement. On ImageNet-256 with DINOv3-L, a single FuseReg decoder reconstructs from full, sparse, and single-layer fusions without retraining, achieving higher PSNR than decoders specialized to fixed fusions. This flexibility also benefits generation: decoder replacement alone reduces unguided gFID by 27% with an unchanged RAEv2 DiT-XL generator. The same regularization principle extends to diffusion training, with joint regularization of both stages reducing unguided gFID by 29% on DiT-Base. These results show that training downstream models for layer-fusion robustness narrows the reconstruction-generation gap without modifying the pretrained encoder.",
    "affiliations": [
-    "USC PSI Lab 2Brown University 3Rice University 4University of Aberdeen 5University of Notre Dame 6University of Maryland, College Park 7University of Pennsylvania"
+    "USC PSI Lab",
+    "Brown University",
+    "Rice University",
+    "University of Aberdeen",
+    "University of Notre Dame",
+    "University of Maryland, College Park",
+    "University of Pennsylvania"
    ],
    "author_affiliations": [
     [
-     0
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
     ]
    ],
-   "institutions": [
-    "University of Pennsylvania"
-   ],
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.31620",
    "pdf_url": "https://arxiv.org/pdf/2609.31620"
   },
@@ -3534,22 +3634,24 @@
    "html_url": "https://arxiv.org/html/2609.30566v1",
    "abstract": "We present a new inference-time sampler for diffusion models that gives a pretrained model a capability it was never trained for: constructing the atlas of the population it synthesizes. The sampler converges from every random seed to the population's central anatomy, which we call the \\emph{intrinsic atlas}. The advantage is threefold. (1) It requires no retraining. A diffusion model that has already learned a coherent population, including the released ones, yields its atlas in a single inference pass without involving deformable registration. (2) It applies to multiple domains, such as brain MRI, chest X-ray, faces, and 3D shapes. (3) It extends to subpopulations. One age-conditioned model gives an atlas at any age in its training range, and the resulting family reproduces the CSF expansion of healthy aging. Evaluated as a registration target, the intrinsic atlas is best or second-best on every dataset against classical and learned templates, and the most central template on held-out brain MRI cohorts. Atlas construction can be reframed as a byproduct of generative modeling: a diffusion model is a learned representation of population structure, and the atlas is what it already contains.",
    "affiliations": [
-    "KAUST 2Miami University"
+    "KAUST",
+    "Miami University"
    ],
    "author_affiliations": [
     [
-     0
+     0,
+     1
     ],
     [
-     0
+     0,
+     1
     ],
     [
-     0
+     0,
+     1
     ]
    ],
-   "institutions": [
-    null
-   ],
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.30566",
    "pdf_url": "https://arxiv.org/pdf/2609.30566"
   },

@@ -4305,14 +4305,13 @@
    "html_url": "https://arxiv.org/html/2609.14316v1",
    "abstract": "Advances in image generation have made synthetic images increasingly difficult to distinguish from real photographs, raising concerns about the trustworthiness of visual media. Existing AI-generated image detectors often perform well on in-domain data, but their robustness and cross-generator generalization remain limited. These limitations are commonly attributed to overfitting to shortcut cues. Although many methods seek to suppress shortcut learning, most retain binary classification as the training task without reconsidering how the task itself shapes the learned representations. We introduce CuRe, a framework for learning Continuous Source Responses that revisits authenticity detection from the perspective of the training task. CuRe reformulates backbone adaptation as regression of real-generated mixing ratios, providing finer supervision that encourages the model to capture authenticity-related variation beyond binary endpoint separation. We further select a compact source-response subspace to suppress nuisance variation and limit the final classifier's access to potential shortcut cues. Across ten public benchmarks, CuRe achieves an average balanced accuracy of 89.7%, exceeding the second-best method by 5.2 percentage points. Further experiments demonstrate consistent generalization gains across visual backbones and strong robustness to common image degradations. Code is available at https://github.com/manic-cui/CuRe",
    "affiliations": [
-    "Ant Group 2Huazhong University of Science and Technology",
-    "Institute of Automation, Chinese Academy of Sciences 4Jilin University"
+    "Ant Group",
+    "Huazhong University of Science and Technology",
+    "Institute of Automation, Chinese Academy of Sciences",
+    "Jilin University"
    ],
    "author_affiliations": null,
-   "institutions": [
-    null,
-    "Chinese Academy of Sciences"
-   ],
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.14316",
    "pdf_url": "https://arxiv.org/pdf/2609.14316"
   },
@@ -8027,14 +8026,22 @@
    "abstract": "As generative models continue to advance, AI-generated content (AIGC) is becoming increasingly realistic, weakening the artifact cues commonly exploited by existing detectors. Nevertheless, faithfully reproducing the physical behavior of real-world events remains challenging for current generators. We therefore explore detecting AIGC by assessing whether the depicted event satisfies measurable constraints derived from physical laws. We introduce PIVOT, a physics-grounded AIGC detector, instantiated here for audio-video clips, that estimates physical quantities from video and audio, selects physical laws relevant to each clip, and verifies their measurable constraints. Beyond a real/fake decision, PIVOT returns supporting evidence that records the verification outcome, relevant time window, and supporting quantities for each applicable law. Although instantiated and evaluated here on audio-video data, the framework can, in principle, extend to other AIGC modalities whenever the physical quantities required for verification can be estimated reliably. We also introduce PhysForensics-Bench, comprising paired real and generated audio-video clips from nine event-centric scene families and two recent audio-video generators. On PhysForensics-Bench, PIVOT achieves 70.30% accuracy and 64.29% F1 score on Real+Seedance, and 72.16% accuracy and 65.82% F1 on Real+VEO. In comparison, direct inspection with Gemini 3.1 Pro obtains 53.96% accuracy and 60.09% F1 on Real+Seedance, and 57.22% accuracy and 63.44% F1 on Real+Veo. These results demonstrate the practical promise of physical-consistency verification as a structured and inspectable source of evidence that complements artifact-based AIGC detection.",
    "affiliations": [
     "School of Artificial Intelligence, Chinese University of Hong Kong, Shenzhen, Shenzhen 518172, China",
-    "Nanjing University of Posts and",
+    "Nanjing University of Posts and Telecommunications, Nanjing 210023, China",
     "University at Buffalo, State University of New York, New York 14260, USA"
    ],
    "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
     [
      0
     ],
@@ -8054,11 +8061,8 @@
      0
     ]
    ],
-   "institutions": [
-    "Chinese University of Hong Kong, Shenzhen",
-    "Nanjing University",
-    "University at Buffalo, State University of New York"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.15562",
    "pdf_url": "https://arxiv.org/pdf/2609.15562"
   },
@@ -9371,7 +9375,7 @@
    "html_url": "https://arxiv.org/html/2609.13409v1",
    "abstract": "Phase unwrapping is a key step in interferometric and coherent imaging, where the physical quantity of interest is carried by a phase that the instrument delivers only modulo 2*pi. The difficulty in two dimensions is to separate the jumps caused by wrapping from those produced by noise, by true discontinuities, by under-sampling or by decorrelation. Spatial-domain and frequency-domain methods have both been studied extensively, each with advantages the other lacks; hybrid schemes combining the two remain scarce. We propose a semi-global tile-based strategy in which every tile is unwrapped in the frequency domain, through the Discrete Cosine Transform (DCT) and the least squares (LS) formalism of Ghiglia et al., the tiles being merged spatially. Unwrapping and noise filtering are performed jointly, which regularizes an otherwise ill-posed inverse problem. An error stays confined to the tile in which it arose; the tiling artifacts are removed by averaging over every shift of the grid and over the symmetries of the square; and that average is weighted by the Poisson residual each pass leaves behind, so that a pass whose tile boundaries fell on a discontinuity does not impose its seam on the result. Experiments on synthetic and real data, against four reference algorithms from four distinct families and under six complementary metrics, show that the proposed method matches or improves on the state of the art. One of these metrics, a corrected cyclic re-wrap residual introduced here, needs no ground truth and therefore remains available on real acquisitions.",
    "affiliations": [
-    "vision laboratory of the"
+    "vision laboratory of the Département d’informatique et de recherche opérationnelle (DIRO), Université de Montréal, Pavillon André-Aisenstadt, 2920 chemin de la Tour, Montréal, QC H3T 1J4, Canada"
    ],
    "author_affiliations": [
     [
@@ -9381,9 +9385,8 @@
      0
     ]
    ],
-   "institutions": [
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.13409",
    "pdf_url": "https://arxiv.org/pdf/2609.13409"
   },

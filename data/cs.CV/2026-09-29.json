@@ -3249,14 +3249,75 @@
    "html_url": "https://arxiv.org/html/2609.35052v1",
    "abstract": "Video world models must preserve the visual state of the world over time, but existing evaluation protocols often rely on generated histories, video reference, or selected revisit viewpoints that can confound the assessment of a model's true memory capability. To address this, we introduce OPIS, an input-grounded benchmark that strictly anchors the assessment to a fixed set of object instances from the initial observation for evaluating multi-object memory in video world models. The OPIS dataset comprises 500 cases across real-world, embodied-robotic, and game-world domains, providing dense object-level annotations for 12,672 rigid, articulated, and deformable instances. Our object-centric evaluator combines association and explicit visibility reasoning to hierarchically measure Object (O) Presence (P), Identity (I), and Structure (S), utilizing static or dynamic evaluation tracks based on object kinematics. Across eight image-to-video or camera-conditioned world models, our proposed OPIS scores range from 48.65 to 56.01. As the reference inventory grows from less than 20 to more than 40 objects, the Presence, Identity, and Structure scores show an overall decline, with the average Identity score falling from 40.22 to 23.11. The results demonstrate that preserving the particular object instances in the input is considerably harder than generating plausible visual elements.",
    "affiliations": [
-    "USTC 2CASIA 3HKUST 4Infrec 5Tsinghua University 6UCAS 7The Chinese University of Hong Kong",
-    "Sun Yat-sen University 9University of Waterloo 10Jiangnan University 11NUS 12Fiveages 13SUTD"
+    "USTC",
+    "CASIA",
+    "HKUST",
+    "Infrec",
+    "Tsinghua University",
+    "UCAS",
+    "The Chinese University of Hong Kong",
+    "Sun Yat-sen University",
+    "University of Waterloo",
+    "Jiangnan University",
+    "NUS",
+    "Fiveages",
+    "SUTD"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    "Chinese University of Hong Kong",
-    null
+   "author_affiliations": [
+    [
+     0,
+     3
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     1
+    ],
+    [
+     4
+    ],
+    [
+     1
+    ],
+    [
+     5
+    ],
+    [
+     6
+    ],
+    [
+     7
+    ],
+    [
+     8
+    ],
+    [
+     1,
+     11
+    ],
+    [
+     9
+    ],
+    [
+     3,
+     10
+    ],
+    [
+     12
+    ],
+    [
+     0
+    ]
    ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.35052",
    "pdf_url": "https://arxiv.org/pdf/2609.35052"
   },
@@ -3418,14 +3479,15 @@
    "html_url": "https://arxiv.org/html/2609.35020v1",
    "abstract": "Vision Sparse Autoencoders (SAEs) have become a popular tool in Mechanistic Interpretability due to their presumed ability to disentangle complex features learned by a model into monosemantic concepts. Despite their growing popularity, evaluating their interpretability remains an active topic of research. The bedrock motivating the adoption of SAEs is the Linear Representation Hypothesis (LRH), which claims that polysemantic features can be projected onto a (near) orthogonal basis of sparse, human-understandable representations. Yet, most current frameworks evaluate proxies such as the sparsity of SAE features or the coherence of the inferred dictionary, implicitly assuming that these reflect alignment with human perception. In this paper, we provide empirical evidence that measuring the interpretability of SAE concepts is more difficult than these proxies suggest. To this end, we adapt the Autointerpretability Score (AIS) - previously shown to align with human judgments in Natural Language Processing - to vision tasks and validate our approach in a dedicated user study. We evaluate SAE concept quality using both standard metrics and our adapted AIS. We find that established interpretability metrics for SAEs correlate neither with one another nor with AIS, indicating that no single reference-free metric, whether grounded in the LRH or not, is sufficient for verifying the interpretability of vision SAEs. We argue these findings support recent calls for more verifiable, ground-truth-anchored design and evaluation of explanation methods.",
    "affiliations": [
-    "Fraunhofer SIT 2ATHENE National Research Center for Applied Cybersecurity 3AUMOVIO",
-    "University of Bamberg 5Berlin University of Applied Sciences 6Einstein Center Digital Future"
+    "Fraunhofer SIT",
+    "ATHENE National Research Center for Applied Cybersecurity",
+    "AUMOVIO",
+    "University of Bamberg",
+    "Berlin University of Applied Sciences",
+    "Einstein Center Digital Future"
    ],
    "author_affiliations": null,
-   "institutions": [
-    "Fraunhofer Institute for Secure Information Technology",
-    null
-   ],
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.35020",
    "pdf_url": "https://arxiv.org/pdf/2609.35020"
   },
@@ -4339,15 +4401,37 @@
    "abstract": "Open-vocabulary 3D scene understanding enables object localization and segmentation from free-form text queries without a fixed category vocabulary. Many recent methods build on 3D Gaussian Splatting and consolidate multi-view observations, such as masked crops from individual views, into language features or compact object descriptors before the query is known. However, observations of the same object vary across viewpoints and are not equally informative: some reveal cues relevant to a particular query, whereas others provide incomplete or misleading evidence. Pre-query consolidation can therefore suppress cues on which a later query depends. We introduce EviSplat, which preserves individual observation features as evidence for later text queries. EviSplat retains individual observation features within class-agnostic 3D instances that represent objects, object parts, or background regions. It also learns, for each Gaussian, a distribution describing which visual appearances its observations support. Given a text query, EviSplat scores each instance using its most relevant observations. It then computes a score for each Gaussian by combining instance-level relevance with locally supported evidence, weighted by how often and how unambiguously that Gaussian was observed. Different queries can thus draw on different visual cues from the same preserved evidence. Experiments across diverse datasets and evaluation protocols demonstrate state-of-the-art performance, supporting the benefit of preserving multi-view evidence until query time and aggregating it according to the query.",
    "affiliations": [
     "DGIST, Daegu, Republic of Korea",
-    "Chubu University, Japan 3HUAWEI, Singapore",
-    "KAIST, Daejeon, Republic of Korea 5Elith Inc., Japan"
+    "Chubu University, Japan",
+    "HUAWEI, Singapore",
+    "KAIST, Daejeon, Republic of Korea",
+    "Elith Inc., Japan"
    ],
-   "author_affiliations": null,
-   "institutions": [
-    null,
-    "Chubu University",
-    null
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1,
+     4
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     1
+    ],
+    [
+     3
+    ]
    ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.34853",
    "pdf_url": "https://arxiv.org/pdf/2609.34853"
   },
@@ -5311,18 +5395,19 @@
    "html_url": "https://arxiv.org/html/2609.34732v1",
    "abstract": "Representation alignment speeds up diffusion transformer training by pulling an intermediate block of the model (student) toward features of a frozen pretrained encoder (teacher). Which teacher layer to align, and for how long, is still set by convention, and each alternative costs a training run. We find that alignment helps where the student cannot linearly recover the teacher's features, not where it already resembles them. Since a deep teacher layer is largely predictable from the one below, we isolate what each layer adds, its increment, and measure how much of it an unaligned student recovers. The student fills the teacher's hierarchy from the bottom up and stalls near the top, which we call hierarchy filling: even after 400K steps it recovers almost none of the deepest. The recoverability gap is the unrecovered share of an increment, read from one unaligned checkpoint. In short runs that each align one teacher layer at one block, the gap nearly reproduces their ranking by FID improvement, and CKA, a measure of feature similarity, largely reverses it. Representation Alignment and Recoverability Estimation (RARE) picks the teacher layer with the largest gap before training. During training, it tracks each token's remaining distance to that layer, the online counterpart of the gap, weights tokens by it, and phases out the loss once the average distance stops falling. With SiT-B/2 on ImageNet $256\\times256$, RARE reaches an FID of 18.02 without guidance and 4.46 with it, ahead of seven alignment baselines including REPA, iREPA and HASTE. It also trains in 14% fewer GPU-hours than iREPA. Its FID stays below iREPA's across model scales, teachers, datasets and backbones.",
    "affiliations": [
-    "Central South University 2The Hong Kong University of Science and Technology",
-    "Tsinghua University 4The Chinese University of Hong Kong, Shenzhen",
-    "SenseTime Research 6Shandong University 7Imperial College London",
-    "University of Oxford 9Dell Technologies 10University of International Relations"
-   ],
-   "author_affiliations": null,
-   "institutions": [
-    "Hong Kong University of Science and Technology",
-    "Chinese University of Hong Kong, Shenzhen",
-    null,
+    "Central South University",
+    "The Hong Kong University of Science and Technology",
+    "Tsinghua University",
+    "The Chinese University of Hong Kong, Shenzhen",
+    "SenseTime Research",
+    "Shandong University",
+    "Imperial College London",
+    "University of Oxford",
+    "Dell Technologies",
     "University of International Relations"
    ],
+   "author_affiliations": null,
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.34732",
    "pdf_url": "https://arxiv.org/pdf/2609.34732"
   },
@@ -8210,16 +8295,15 @@
    "html_url": "https://arxiv.org/html/2609.34299v1",
    "abstract": "Dataset distillation (DD) condenses a large original dataset into a small distilled dataset with high training utility. Decoupled statistical matching methods substantially reduce distillation time and memory overhead while achieving strong performance. However, they typically supervise all distilled samples using running statistics estimated from the entire original dataset. These statistics mainly capture the average feature distribution while overlooking differences in sample difficulty, limiting their ability to characterize the difficulty structure of the original data. To address this issue, we propose Precise Statistical Matching (PSM) by difficulty. After pretraining, PSM uses the Global Precision Score (GPS) to estimate image difficulty, ranks the samples within each class, and partitions each class into IPC (images per class) difficulty groups. During distillation, Statistics Updated Again (SUA) updates the teacher's batch normalization (BN) running statistics through forward passes on original samples from each group, providing difficulty-specific supervision for the corresponding distilled batch. Meanwhile, Initial Sample Screening (ISS) initializes distilled samples using original images from the corresponding difficulty group, providing an effective starting point for precise matching. Experiments across multiple datasets and model architectures demonstrate that PSM broadens the difficulty range of distilled samples and improves downstream performance in most evaluated settings. Code will be released.",
    "affiliations": [
-    "Zhejiang University 2Hokkaido University 3The University of Queensland",
+    "Zhejiang University",
+    "Hokkaido University",
+    "The University of Queensland",
     "Shanghai Artificial Intelligence Laboratory",
-    "National University of Singapore 6Dalian University of Technology"
+    "National University of Singapore",
+    "Dalian University of Technology"
    ],
    "author_affiliations": null,
-   "institutions": [
-    "University of Queensland",
-    "Shanghai Artificial Intelligence Laboratory",
-    null
-   ],
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.34299",
    "pdf_url": "https://arxiv.org/pdf/2609.34299"
   },
@@ -9116,43 +9200,29 @@
    "html_url": "https://arxiv.org/html/2609.34148v1",
    "abstract": "Vision-Language Models (VLMs) are far more reliable at recognizing what appears in a video than at reasoning about its spatial and temporal properties, such as metric distances, object dimensions, and consistent object identities across frames. We present Geometric Code, a perception-to-geometry pipeline that computes explicit spatial structure from video and supplies it to VLMs as context to augment reasoning. A perception layer segments and classifies objects and recovers depth, camera pose, and intrinsics from monocular RGB video. A deterministic geometric engine then back-projects, merges, and cleans these outputs into a spatial code, including per-object positions, dimensions, counts, inter-object distances, appearance order, and room geometry. The code is serialized into VLMs' prompts, either alongside the video or replacing it entirely. Specifically, there is no component trained or fine-tuned in our approach. On VSI-Bench, augmenting 2B and 4B open models with the spatial code improves average accuracy by +4.1 points over the frames-only baseline, with the largest gains on numeric estimation tasks such as absolute distance (+24.1 points). The results suggest that explicitly computed geometry, delivered through the language channel, recovers spatial competence that small VLMs cannot extract from pixels alone.",
    "affiliations": [
-    "Dept. of Computer Science",
-    "Hunter College, New York City, United States",
-    "School of Arts and Sciences",
-    "New York University, New York City, United States",
-    "Dept. of Engineering and Computer Science",
-    "Oakland University, Rochester, United States"
+    "Dept. of Computer Science, Hunter College, New York City, United States",
+    "School of Arts and Sciences, New York University, New York City, United States",
+    "Dept. of Engineering and Computer Science, Oakland University, Rochester, United States"
    ],
    "author_affiliations": [
     [
-     0,
+     0
+    ],
+    [
      1
     ],
     [
-     2,
-     3
+     2
     ],
     [
-     4,
-     5
+     2
     ],
     [
-     4,
-     5
-    ],
-    [
-     4,
-     5
+     2
     ]
    ],
-   "institutions": [
-    null,
-    "Hunter College",
-    null,
-    "New York University",
-    null,
-    "Oakland University"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.34148",
    "pdf_url": "https://arxiv.org/pdf/2609.34148"
   },
@@ -9287,37 +9357,53 @@
    "html_url": "https://arxiv.org/html/2609.34133v1",
    "abstract": "Photographic color editing is inherently personal: the same image can appear too warm, too muted, or already satisfactory to different users. Most lookup table (LUT) and reference-guided methods target a specified appearance rather than model persistent preferences from repeated user choices. To address this gap, we introduce PrefLUT, a reusable and refinable user-preference modeling framework for deployable 3D LUTs, encoding ordered preferred/non-preferred image pairs into a lightweight Reusable User Profile that is reused across queries and refined using additional user preference pairs, without per-user optimization. A Query-Conditioned LUT Predictor combines this profile with each image to predict a LUT latent vector and edit strength. An Identity-Residual LUT Decoder and Edit-Strength Controller then produce an exportable 3D LUT. Experiments on three datasets demonstrate effective personalized editing and general-purpose enhancement. Each quantized profile requires only 260 bytes, and editing takes 1.365 ms/image on an RTX 5090 GPU. We also introduce the Preference-Conditioning Verification Protocol (PCVP), an evaluation protocol to verify whether personalized image edits depend on user preferences and the query image through controlled changes to user profiles, preference orders, pair correspondences, and query images.",
    "affiliations": [
-    "The University of Sydney 2Indiana University 3The University of Hong Kong"
+    "The University of Sydney",
+    "Indiana University",
+    "The University of Hong Kong"
    ],
    "author_affiliations": [
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ]
    ],
-   "institutions": [
-    "University of Hong Kong"
-   ],
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.34133",
    "pdf_url": "https://arxiv.org/pdf/2609.34133"
   },
@@ -10133,40 +10219,58 @@
    "html_url": "https://arxiv.org/html/2609.33895v1",
    "abstract": "In diffusion-based generation, a neural network can be trained to predict the clean data, the noise, or the velocity from a noisy input. These prediction targets are interconvertible and describe the same generative process, yet plain Diffusion Transformers operating on large pixel patches succeed with clean prediction and fail with noise or velocity prediction. We argue that this asymmetry arises because noisy targets require the residual stream to preserve noise-dependent input variation through depth for the final readout, forcing subsequent layers to compute on noisy representations. A spectrally concentrated clean target imposes a lighter demand, leaving greater freedom to organize hidden representations for subsequent computation. We call this preservation requirement *residual-stream burden* and show how it shapes representation learning in Diffusion Transformers. Controlled experiments indicate that the exploitable structure is spectral concentration in patch space and that the bandwidth of the persistent residual state is a key resource for noisy prediction. We further show that this account is consistent with recent decoupled pixel-space architectures, whose diverse designs all reduce the residual-stream burden on the main pathway. To examine this understanding from a complementary direction, we expand and reorganize the residual-stream bandwidth directly, introducing Spatially Indexed Hyper-Connections (SiHC) that reach FID 1.71 on ImageNet $256^2$. Together, these results identify residual-stream burden as a mechanism through which prediction targets and architecture jointly shape representation learning in Diffusion Transformers.",
    "affiliations": [
-    "UC San Diego 2Shanghai Jiao Tong University 3Aether AI"
+    "UC San Diego",
+    "Shanghai Jiao Tong University",
+    "Aether AI"
    ],
    "author_affiliations": [
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ]
    ],
-   "institutions": [
-    null
-   ],
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.33895",
    "pdf_url": "https://arxiv.org/pdf/2609.33895"
   },
@@ -13538,24 +13642,29 @@
    "html_url": "https://arxiv.org/html/2609.33097v1",
    "abstract": "Recent large-scale Vision-and-Language Navigation (VLN) models deliver strong accuracy but remain costly to deploy due to their large parameter counts and computational requirements. We tackle efficient VLN in two steps. First, we build a high-performing teacher that makes navigation evidence selection explicit and compressible. The teacher introduces a small set of learnable query slots to extract global and local action-sufficient navigable evidence from panoramic observations via a Navigable Query Generator, then progressively grounds these evidence tokens to the instruction with an Instruction-Query Aligner for policy prediction. Second, using this explicit query bottleneck as a distillation interface, we train a compact student by transferring both where to attend and what to do. We distill the teacher's global and local navigable queries with a navigation-aware token-adaptive objective, then further match action distributions during fine-tuning. Experiments on standard VLN benchmarks demonstrate that our student nearly matches the teacher's navigation performance while reducing the number of parameters by 93.65% compared to the teacher.",
    "affiliations": [
-    "School of Electronic and Information Engineering",
-    "School of Computer Science and Digital"
+    "School of Intelligent Engineering and Automation, Beijing University of Posts and Telecommunications, Beijing, China",
+    "School of Electronic and Information Engineering, South China University of Technology, Guangzhou, China",
+    "School of Computer Science and Digital Technologies, Aston University, Birmingham, U.K"
    ],
    "author_affiliations": [
-    null,
     [
      0
     ],
     [
      1
     ],
-    null,
-    null
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
    ],
-   "institutions": [
-    null,
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.33097",
    "pdf_url": "https://arxiv.org/pdf/2609.33097"
   },
@@ -15527,52 +15636,120 @@
    "html_url": "https://arxiv.org/html/2609.32628v1",
    "abstract": "Video generation has broad applications in content creation and entertainment. Diffusion transformers have advanced the quality of generated videos, but attention over spatiotemporal tokens becomes increasingly expensive as video resolution and duration increase. We present DraftAttention2, a training-free framework that uses the low-resolution draft attention map to jointly select attention blocks and assign their numerical precision. Specifically, spatial 2D average- and max-pooled queries and keys capture complementary regional statistics to estimate block importance, and a shared ranking assigns higher precision to important blocks, lower precision to less important retained blocks, and skips the rest under configurable budgets. Our analysis separates sparsification error from attention-weighted quantization error, establishing when recovering skipped interactions with low-bit computation tightens the output-error bound. This analysis motivates retaining more interactions at low precision while reserving higher precision for blocks with larger attention mass. To translate these fine-grained assignments into practical speedups, we further develop fused operand preparation and a single attention kernel with precision-specific phases, sharing data movement, softmax statistics, and output accumulation across precisions. Experiments demonstrate that our method achieves a superior quality-efficiency trade-off over existing efficient video generation methods. Notably, its advantage is particularly pronounced for few-step video diffusion, where jointly combining sparsity with 4- and 8-bit mixed-precision computation substantially improves generation quality while retaining significant acceleration. Code is available at https://github.com/anemoi-project/anemoi",
    "affiliations": [
-    "Nanjing University 2HKUST(GZ) 3Duke University 4NVIDIA 5Zhejiang University 6Adobe Research"
+    "Nanjing University",
+    "HKUST(GZ)",
+    "Duke University",
+    "NVIDIA",
+    "Zhejiang University",
+    "Adobe Research"
    ],
    "author_affiliations": [
     [
-     0
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
     ]
    ],
-   "institutions": [
-    "Nanjing University"
-   ],
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.32628",
    "pdf_url": "https://arxiv.org/pdf/2609.32628"
   },

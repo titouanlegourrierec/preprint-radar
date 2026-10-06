@@ -5739,28 +5739,32 @@
    "html_url": "https://arxiv.org/html/2609.06809v1",
    "abstract": "Modern stereo matching models fail when disparity crosses zero, with end-point error (EPE) rising by 4.6-37$\\times$. Yet stereoscopic content, from cinema 3D to VR, routinely contains objects behind the zero-disparity plane (ZDP), corresponding to negative disparities. The blind spot cascades through datasets, architectures, and evaluation protocols, all of which inherit the non-negative geometry. Rectified parallel cameras place ZDP at infinity, so every finite depth yields $d=fB/z \\ge 0$ by construction, and nothing within the standard pipeline can violate, or even measure, a negative disparity. To measure it, we propose \\textit{ZDPShift}, a benchmark of $21{,}495$ stereo pairs from seven cinematographer-authored open movies, each frame rendered at five zero-disparity-plane positions with dense signed ground truth. Six state-of-the-art image and video stereo matching models collapse once the plane moves. On identical scene content, FoundationStereo goes from $2.24$ px EPE to $75.33$px, with every backbone leaving roughly half of all pixels exceeding a three-pixel disparity error. What is missing, however, is not the underlying matching capability. % The capability itself, however, is already present. Training on supervision synthesized from SceneFlow, which adds no new data or parameters, keeps the error flat across the signed range. Training only the decoder, with the pretrained matching features frozen, performs comparably across all six backbones, with EPE jittering within $0.2$px. Thus, the pretrained features already extend to the negative regime they were never trained on, and only the output convention discarded it. Meanwhile, positive-regime accuracy on KITTI, Middlebury, ETH3D, and Sintel is largely preserved.",
    "affiliations": [
-    "KAUST, Thuwal, Saudi Arabia 2Independent Researcher"
+    "KAUST, Thuwal, Saudi Arabia",
+    "Independent Researcher"
    ],
    "author_affiliations": [
     [
-     0
+     0,
+     1
     ],
     [
-     0
+     0,
+     1
     ],
     [
-     0
+     0,
+     1
     ],
     [
-     0
+     0,
+     1
     ],
     [
-     0
+     0,
+     1
     ]
    ],
-   "institutions": [
-    null
-   ],
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.06809",
    "pdf_url": "https://arxiv.org/pdf/2609.06809"
   },

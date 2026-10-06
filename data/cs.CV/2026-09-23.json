@@ -2324,14 +2324,12 @@
    "html_url": "https://arxiv.org/html/2609.25891v1",
    "abstract": "Multimodal large language models (MLLMs) often struggle with fine-grained visual perception when processing complete images, as critical evidence may only appear in local regions. On-policy self-distillation (OPD) enables transferring privileged visual knowledge from informative views to full-image policies, but querying the teacher for every rollout introduces substantial supervision costs. In this work, we propose BAS-OPD, a budget-aware selective OPD framework that allocates teacher supervision under limited query budgets. Instead of querying all rollouts, BAS-OPD selects informative samples while maintaining full-batch student generation. We explore random, uncertainty-based, and learned utility-based selection strategies, where the learned selector estimates query value from detached rollout statistics and online utility signals derived from student--teacher agreement and teacher confidence without additional student forward passes. BAS-OPD only changes training-time supervision allocation and preserves single-pass full-image inference. Experiments on fine-grained multimodal perception benchmarks demonstrate that BAS-OPD achieves strong performance while substantially reducing teacher supervision costs, highlighting the effectiveness of selective OPD under constrained budgets.",
    "affiliations": [
-    "HFIPS, Chinese Academy of Sciences 2University of Science and Technology of China",
+    "HFIPS, Chinese Academy of Sciences",
+    "University of Science and Technology of China",
     "University of California, Los Angeles"
    ],
    "author_affiliations": null,
-   "institutions": [
-    null,
-    "University of California, Los Angeles"
-   ],
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.25891",
    "pdf_url": "https://arxiv.org/pdf/2609.25891"
   },
@@ -2937,34 +2935,48 @@
    "html_url": "https://arxiv.org/html/2609.25773v1",
    "abstract": "HopChain has shown on still images that multi-hop data synthesis improves vision-language reasoning, because long chain-of-thought reasoning exposes errors that compound across steps, while most data used for reinforcement learning with verifiable rewards (RLVR) rarely demands a chain of visual evidence, so these weaknesses are likely to stay unexposed. We observe the same problem in video, where this framework has not yet been explored. We therefore build Video-HopChain, a dataset of 22,550 multi-hop video questions over 13,378 videos, together with a held-out benchmark of 1,000 questions. Each question chains three to six yes/no questions about moments in one video, and each yields one of two integers depending on its answer. The final answer is the sum of these integers, so an exact match on that sum gives the verifiable reward that RLVR needs. We first train Qwen3-VL-8B with GRPO on a standard video dataset, and a second stage on Video-HopChain then raises the mean over eight video understanding and reasoning benchmarks from 55.4 to 57.9 and improves every one of them. Training on such a dataset, however, exposes a known limitation of GRPO: its learning signal comes from the reward variance within a group, so hard questions whose rollouts are all incorrect and easy questions whose rollouts are all correct both leave the group with no gradient. To recover these groups at the same compute budget, we introduce Confidence-Gated Exploration (CGE). With 8 rollouts per question, CGE samples the first 4 as usual. If these 4 are either all correct or all incorrect, it samples the last 4 with the policy's most confident token masked inside the reasoning span, and removes the masked positions from the loss while all 8 rollouts enter the advantage. With CGE, the mean rises further to 59.3. We release the dataset, the checkpoint, and the data generation and training code.",
    "affiliations": [
-    "S-Lab, Nanyang Technological University (NTU) 2Johns Hopkins University 3NTU"
+    "S-Lab, Nanyang Technological University (NTU)",
+    "Johns Hopkins University",
+    "NTU"
    ],
    "author_affiliations": [
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ]
    ],
-   "institutions": [
-    null
-   ],
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.25773",
    "pdf_url": "https://arxiv.org/pdf/2609.25773"
   },
@@ -4975,25 +4987,33 @@
    "html_url": "https://arxiv.org/html/2609.26182v1",
    "abstract": "Multimodal embedding models are deployed at scale: retrieval indices, benchmark results, and behavioral audits all depend on the base model's exact outputs. Extending such a model to a new modality with existing parameter-efficient methods silently changes those outputs; LoRA-style adaptation rewrites the text path whether or not the weights are merged, invalidating every stored embedding. We propose modality-gated deep adapters: bottleneck adapters attached to every decoder layer of a frozen multimodal embedding LLM, grouped into per-modality packs that execute only while their own modality is being encoded. The result is a modality added with zero change to existing outputs: inputs no pack claims traverse the base model's own computation graph, bit-for-bit unchanged, and co-loaded packs compose with an exact-zero isolation matrix. Both properties are stated as propositions, hold after arbitrary training rather than only at initialization, require no task labels or routing metadata at inference, and are verified by exact-equality tests on the released checkpoints. On one frozen 2B base, the audio pack (injected as connector tokens) improves audio-to-text R@10 by +3.4 to +5.4 points over an identically trained control, positive at every seed and reproduced at eleven times the data; the thermal pack, reusing the base's own frozen vision path, clears its pre-registered acceptance gate roughly sevenfold at every seed and lifts thermal-to-text R@10 from 0.224 to 0.785. An encoder swap locates the missing capacity: an external audio encoder that outranks Whisper-family encoders in CLAP-style comparisons loses by 16 R@10 points inside the frozen LLM, so the capacity belongs in the layers, exactly where the gated adapters place it. We release the audio model, the thermal pack, and the training, evaluation and invariance suites: models at http://huggingface.co/EximiusLabs, code on GitHub.",
    "affiliations": [
-    "Eximius Labs 2Wabash College 3Skop Intelligence Co"
+    "Eximius Labs",
+    "Wabash College",
+    "Skop Intelligence Co"
    ],
    "author_affiliations": [
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ],
     [
-     0
+     0,
+     1,
+     2
     ]
    ],
-   "institutions": [
-    null
-   ],
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.26182",
    "pdf_url": "https://arxiv.org/pdf/2609.26182"
   },

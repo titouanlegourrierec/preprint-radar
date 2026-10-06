@@ -2317,14 +2317,14 @@
    "html_url": "https://arxiv.org/html/2609.11472v1",
    "abstract": "Reliable non-rigid point cloud correspondences are important for deformable anatomical registration, embodied perception and manipulation, and dynamic 3D reconstruction. Coarse-to-fine methods reduce computational cost by selecting the top-\\(K\\) coarse regions. However, this pruning may remove weak but correct hypotheses and restrict fine matching to an incomplete search space. We present \\paper, a two-stage generative solver that maintains the complete soft matching matrix at both coarse and high resolutions. Stage~I uses denoising diffusion to estimate a global matching matrix in the compact coarse-resolution space. We then lift this matrix to high resolution while preserving its hierarchy. The lifted matrix is rank-bounded and block-constant. Stage~II refines it through a conditional transport bridge. We implement the bridge with two types of dynamics: a deterministic endpoint-parameterized conditional Flow Matching (CFM) ODE and a stochastic Brownian-bridge SDE inspired by Schrödinger bridges. Both variants share the lifted source, a time-conditioned transformer, and a matching-matrix endpoint predictor. Experiments on 4DMatch and 4DLoMatch show that both variants produce more accurate correspondences than the compared methods and improve downstream registration, with larger gains in low-overlap cases. They also improve cross-dataset generalization on CAPE and DeepDeform without target-domain adaptation while using the same deformation solver.",
    "affiliations": [
-    "Nantong University 2Nanyang Technological University 3Nanjing University",
-    "Nanjing University of Science and Technology 5Southeast University"
+    "Nantong University",
+    "Nanyang Technological University",
+    "Nanjing University",
+    "Nanjing University of Science and Technology",
+    "Southeast University"
    ],
    "author_affiliations": null,
-   "institutions": [
-    null,
-    "Nanjing University of Science and Technology"
-   ],
+   "institutions": null,
    "abs_url": "https://arxiv.org/abs/2609.11472",
    "pdf_url": "https://arxiv.org/pdf/2609.11472"
   },
