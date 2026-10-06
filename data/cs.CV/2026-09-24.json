@@ -546,28 +546,22 @@
    "html_url": "https://arxiv.org/html/2609.28327v2",
    "abstract": "We present LightMIS, a scalable family of ultra-lightweight convolutional networks for 2D binary medical image segmentation without a learned stage-wise decoder. LightMIS aligns the outputs of a five-level encoder to a common resolution using Scale-Aligned Projection blocks, aggregates them once, and refines the fused representation with an Adaptive Fusion Cascade. The cascade combines Adaptive Kernel Fusion with the proposed Progressive Receptive Fusion module, which uses temporary channel expansion, complementary depthwise receptive fields, and progressive cross-branch information transfer. We evaluate LightMIS-T, LightMIS-S, and LightMIS using five-fold cross-validation under a common nnU-Net v2.3.1 protocol on DRIVE, Kvasir-SEG, DSB18, BUSI, ISIC-2017, and ISIC-2018. Full LightMIS contains 0.131 M parameters and requires 0.575 GFLOPs for a $3\\times256\\times256$ input, achieving modality-macro Dice and IoU scores of 86.71% and 78.99%, respectively. Mobile U-ViT obtains 86.75% Dice and 79.07% IoU, so the observed differences are 0.04 and 0.08 percentage points. Relative to Mobile U-ViT, nnWNet, and nnU-Net, LightMIS reduces parameter count by 90.58$-$99.61% and GFLOPs by 82.54$-$96.14%. On an Arm Mali-G52 MC2 GPU, all LightMIS variants achieve full GPU delegation, with median delegated latency ranging from 53.31 ms for LightMIS-T to 138.31 ms for LightMIS. These results demonstrate a favorable accuracy$-$complexity trade-off and on-device execution feasibility for the evaluated tasks. The code is publicly available at https://github.com/AndreiiArhire/LightMIS.",
    "affiliations": [
-    "Faculty of Computer Science",
-    "Alexandru Ioan Cuza University of Iasi",
+    "Faculty of Computer Science, Alexandru Ioan Cuza University of Iasi",
     "Computer Vision Lab, CAIDAS & IFI",
     "University of Wurzburg, Germany"
    ],
    "author_affiliations": [
     null,
     [
-     0,
-     1
+     0
     ],
     [
-     2,
-     3
+     1,
+     2
     ]
    ],
-   "institutions": [
-    null,
-    "Alexandru Ioan Cuza University",
-    null,
-    "University of Würzburg"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.28327",
    "pdf_url": "https://arxiv.org/pdf/2609.28327"
   },
@@ -1388,6 +1382,7 @@
     "University of Basel",
     "University of Basel"
    ],
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.28110",
    "pdf_url": "https://arxiv.org/pdf/2609.28110"
   },
@@ -1970,27 +1965,21 @@
    "html_url": "https://arxiv.org/html/2609.27890v1",
    "abstract": "Multimodal large language models (MLLMs) fre- quently generate text that is inconsistent with the input image. While object- and attribute-level hallucinations have received considerable attention, relational hallucinations (incorrect de- scriptions of spatial or interactive relationships between objects) remain largely unaddressed by existing post-hoc correction methods. We present RelCheck, a training-free post-hoc correction pipeline that augments object-level visual grounding with dual relational evidence: learned scene-graph triples from RelTR and deterministic spatial predicates from bounding-box geometry. These combine with a Woodpecker-style object claim layer to form a three-layer visual knowledge base, which a language model corrector uses to rewrite hallucinated text. Evaluated on LLaVA v1 13B, RelCheck achieves a total MME hallucination score of 630.0 versus 585.0 for a Woodpecker-style baseline, with the largest gain on the position subtask (+31.7 points, accuracy+ improving from 0.367 to 0.600). A four-configuration ablation confirms that both relational layers contribute independently (McNemar p = 0.025). These results show that structured relational evidence meaningfully improves post-hoc hallucination correction on the spatial reasoning subtasks where current MLLMs are most deficient.",
    "affiliations": [
-    "Dept. of Computer Science",
-    "San José State University"
+    "Dept. of Computer Science, San José State University"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ]
    ],
-   "institutions": [
-    null,
-    "San Jose State University"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.27890",
    "pdf_url": "https://arxiv.org/pdf/2609.27890"
   },
@@ -6178,6 +6167,7 @@
     "Université de Toulouse",
     "CY Cergy Paris Université"
    ],
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.26919",
    "pdf_url": "https://arxiv.org/pdf/2609.26919"
   },
@@ -6200,22 +6190,17 @@
    "html_url": "https://arxiv.org/html/2609.26905v1",
    "abstract": "Stacking heterogeneous vision backbones (CNNs, ViTs, and hybrids) is the de facto recipe for accuracy, calibration, and robustness, yet two coupled pathologies limit its returns. Prediction-space multicollinearity ill-conditions the meta-learner's Gram matrix, inflating weight variance and producing brittle solutions on a thin manifold. Calibration collapse compounds constituent miscalibration through naive linear stacking, so adding more models can hurt expected calibration error (ECE). Existing remedies, ridge regularization, greedy selection, model soups, and SWAG address at most one of these issues, and none jointly target conditioning and calibration in heterogeneous prediction pools. We introduce CORE-STACK+, a preconditioning pipeline with four components: (i) a kernelized redundancy filter that removes non-linear inter-model dependencies invisible to Pearson correlation, using Centered Kernel Alignment (CKA) [23]; (ii) a $<15$K-parameter differentiable meta-feature gate that learns per-sample attention over ensemble statistics; (iii) a spectrum-adaptive Ridge penalty $lambda^{star}=lmax(Chat)/SNR(Chat)$ derived from a Marchenko-Pastur signal-noise decomposition, eliminating nested cross-validation; and (iv) a Laplace-approximate Bayesian blender replacing inverse-RMSE heuristics. We prove a PAC-Bayes excess-risk bound that, for the first time, jointly accounts for prediction-space redundancy and meta-learner capacity. Across six benchmarks, CORE-STACK+ delivers $+1.8\\%$ top-1 on ImageNet-1K, $-4.2$ mCE on ImageNet-C, $+0.9$ mIoU on ADE20K, and $+1.3$ AP on COCO, while reducing retained models by 35-57% and inference FLOPs by up to $41%$. ECE improves $2.1\\times$ over deep ensembles without post hoc temperature scaling.",
    "affiliations": [
-    "Department of Computer Science",
-    "Istanbul Technical University",
+    "Department of Computer Science, Istanbul Technical University",
     "Maslak, Istanbul 34469, TR"
    ],
    "author_affiliations": [
     [
      0,
-     1,
-     2
+     1
     ]
    ],
-   "institutions": [
-    null,
-    "Istanbul Technical University",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.26905",
    "pdf_url": "https://arxiv.org/pdf/2609.26905"
   }

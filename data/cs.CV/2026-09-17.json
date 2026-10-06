@@ -1007,49 +1007,26 @@
    "html_url": "https://arxiv.org/html/2609.18038v1",
    "abstract": "The world population is growing rapidly, and technology is improving in parallel. Meeting the huge demand for food for these 7 billion people not only depends on increasing food production but also on reducing food loss. Crop losses due to disease affect both the food supply and the financial and economic stability of a country. Tomatoes are among the top food-producing crops globally, and a significant portion of this production is lost due to disease. People have used Machine Learning techniques for feature extraction and early diagnosis of tomato diseases, and nowadays, Deep Learning-based models are widely used for disease recognition. However, most existing models are highly parameter-intensive, which increases the time required for training and inference. As a result, while lightweight models are more suitable for user-friendly applications, they often show a reduction in performance. To balance performance and model size, we propose CoAtNet-DeepMoE, a Convolution-Attention hybrid architecture for rich feature extraction, further enhanced with a DeepSeek Mixture of Experts to substantially reduce the number of parameters without sacrificing accuracy. We evaluate our model on both balanced and imbalanced datasets from Kaggle and PlantVillage, demonstrating robustness and achieving 99.80% accuracy, 99.80% precision, 99.80% recall, and 99.80% F1-score on Kaggle, and 99.83% accuracy, 99.85% precision, 99.76% recall, and 99.80% F1-score on PlantVillage, representing state-of-the-art performance with only 2.47M parameters. The source code will be available at https://github.com/nadimbrur/CoAt-MoE.",
    "affiliations": [
-    "Department of Computer Science and Engineering",
-    "Begum Rokeya University",
-    "Rangpur, Bangladesh",
-    "Department of Computer Science",
-    "Texas State University",
-    "San Marcos, Texas, USA",
-    "Department of Information and Communication Technologies",
-    "Asian Institute of Technology",
-    "Pathum Thani, Thailand"
+    "Department of Computer Science and Engineering, Begum Rokeya University, Rangpur, Bangladesh",
+    "Department of Computer Science, Texas State University, San Marcos, Texas, USA",
+    "Department of Information and Communication Technologies, Asian Institute of Technology, Pathum Thani, Thailand"
    ],
    "author_affiliations": [
     [
-     0,
-     1,
+     0
+    ],
+    [
+     1
+    ],
+    [
      2
     ],
     [
-     3,
-     4,
-     5
-    ],
-    [
-     6,
-     7,
-     8
-    ],
-    [
-     3,
-     4,
-     5
+     1
     ]
    ],
-   "institutions": [
-    null,
-    "Begum Rokeya University",
-    null,
-    null,
-    "Texas State University",
-    null,
-    null,
-    "Asian Institute of Technology",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.18038",
    "pdf_url": "https://arxiv.org/pdf/2609.18038"
   },
@@ -3789,33 +3766,22 @@
    "abstract": "When a large vision-language model misclassifies a harmful meme, the failure may reflect missing internal evidence or an inability to route represented evidence to its output. We distinguish these cases in Gemma-3 and Qwen3.5 using sparse autoencoders, role-conditioned probes, causal interventions, and recovery experiments across six harmful content benchmarks, with additional Spanish and Hindi-English code-mixed evaluations. Sparse readouts outperform native prediction on all six primary binary tasks: Qwen averages $0.740$ versus $0.432$ native macro-F1, while residual reconstruction reaches $0.486$, whereas Gemma improves from $0.532$ to $0.714$. These differences reflect supervised accessibility rather than a pre-existing, native decision rule, and the most influential token role depends on the task. Under the evaluated score scales, Qwen silent-feature ablation is $24-63$ times more probe-sensitive, whereas routed-feature patching on literal yes/no tasks is $16-140$ times more output-sensitive. Calibration-only routing recovers $93.3$% of the mean gap, and probe-distilled LoRA improves native predictions, although shared multi-task adaptation causes negative transfer. A case study of Gemma-3-12B on Facebook Hateful Memes finds a distributed rank-32 image-prompt interaction, reaching $0.756$ versus $0.685$ native macro-F1. Robustness controls show that the signal extends beyond English, is not explained solely by accompanying OCR, and depends on paired visual evidence. Thus, routing, rather than representation alone, is a recurring bottleneck in harmful meme classification.",
    "affiliations": [
     "Nature-Inspired Computing & Engineering",
-    "Department of Computer Science",
-    "University of Surrey",
-    "Guildford, United Kingdom",
+    "Department of Computer Science, University of Surrey, Guildford, United Kingdom",
     "Surrey Centre for Cyber Security"
    ],
    "author_affiliations": [
     null,
     [
      0,
-     1,
-     2,
-     3
+     1
     ],
     [
-     4,
-     1,
      2,
-     3
+     1
     ]
    ],
-   "institutions": [
-    null,
-    null,
-    "University of Surrey",
-    null,
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.18860",
    "pdf_url": "https://arxiv.org/pdf/2609.18860"
   },

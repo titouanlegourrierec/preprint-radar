@@ -494,32 +494,25 @@
    "html_url": "https://arxiv.org/html/2609.13250v1",
    "abstract": "Multimodal large language models (MLLMs) cannot process every frame of a long video because of limitations in visual-token and computational budgets. Three primary approaches have been proposed to enhance their long-video understanding capabilities: (i) Retraining an MLLM on a large video corpus and/or extending its input length; (ii) Training an adapter for a specific MLLM that takes the entire video and the query as input and selects the most relevant video frames; and (iii) Developing a training-free, plug-and-play (PaP) adapter that is MLLM-agnostic. We refer to the third approach as PaP keyframe selection. A PaP method may use only candidate video frames without considering the query, or it may use both candidate video frames and the query. The first approach is prohibitively expensive. The second approach requires substantial training time and computational resources, but it is accessible to many because an adapter contains significantly fewer trainable parameters than an entire MLLM. The third approach has the lowest computational cost and is therefore broadly accessible. To the best of our knowledge, only five PaP methods have been reported within the past year. All of these methods have been evaluated on one or more video question-answering benchmarks and have demonstrated improvements in long-video understanding. However, the methods were evaluated on different benchmarks using different MLLMs. We present a comprehensive evaluation of these five methods using three MLLMs across three long-video understanding benchmarks. Our results show that QAaF achieves the best performance in 13 of the 15 aggregate evaluation settings, while FOCUS ranks second overall. These results provide a common experimental reference for comparing training-free keyframe-selection methods for MLLMs.",
    "affiliations": [
-    "Department of Computer Science",
-    "University of Miami",
+    "Department of Computer Science, University of Miami",
     "Coral Gables"
    ],
    "author_affiliations": [
     [
      0,
-     1,
-     2
+     1
     ],
     [
      0,
-     1,
-     2
+     1
     ],
     [
      0,
-     1,
-     2
+     1
     ]
    ],
-   "institutions": [
-    null,
-    "University of Miami",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.13250",
    "pdf_url": "https://arxiv.org/pdf/2609.13250"
   },
@@ -754,19 +747,15 @@
    "html_url": "https://arxiv.org/html/2609.13258v1",
    "abstract": "We present a structured temporal video reasoning pipeline built around a discrete EventGraph, a continuous EventField, and a human-readable EventGlyph view. On a calibrated EPIC-KITCHENS subset of 10 videos and 50 temporal reasoning questions, EventField+Glyph achieves 0.98 overall accuracy, which is higher than the caption baseline by +0.40 (paired p = 1.1 \\times 10^{-5}) and direct VLM-only QA by +0.20 (p = 0.0063) on this subset. We further evaluate annotation-source variations, including manual, heuristic, and heuristic+Gemini pipelines, and find that the best structured method stays above the caption baseline across settings. We also include cross-video pair benchmarking and an appendix gallery of glyph outputs for all studied videos. Overall, the results indicate that structured temporal representations can support both performance and inspectability by preserving symbolic structure, capturing temporal continuity, and providing human-readable diagnostics for video reasoning.",
    "affiliations": [
-    "Independent Researcher",
-    "Twin Falls, ID, USA"
+    "Independent Researcher, Twin Falls, ID, USA"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ]
    ],
-   "institutions": [
-    null,
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.13258",
    "pdf_url": "https://arxiv.org/pdf/2609.13258"
   },
@@ -954,19 +943,15 @@
    "html_url": "https://arxiv.org/html/2609.13265v1",
    "abstract": "Near-infrared (NIR) imaging does not consistently outperform standard color cameras for daytime agricultural traversability once spatial data leakage is eliminated. Prior benchmarks suggesting an NIR advantage used sequence-level splits that permitted spatially autocorrelated imagery into test sets, artificially inflating NIR performance, especially on difficult paddy-boundary segmentation. When evaluated across strictly held-out recording sites using the AI Hub autonomous driving corpus, none of the four tested configurations (color, NIR, a luminance control, or their fusion) reliably surpasses standard color across any of the five traversability classes. Furthermore, apparent performance gains observed at a single held-out site completely fail to replicate when the held-out site is rotated, demonstrating that the observed benefits were site-specific artifacts rather than generalizable improvements. Correcting for spatial leakage erases the apparent lead of NIR entirely rather than uniformly degrading performance across all sensor types. Consequently, adding a forward-facing NIR camera to a daylight agricultural vehicle sensor suite remains unproven, and evaluations compromised by location leakage risk distorting sensor rankings and misleading procurement decisions.",
    "affiliations": [
-    "Department of Electrical and Computer",
-    "Engineering, Korea University, Seoul, Republic of Korea"
+    "Department of Electrical and Computer, Engineering, Korea University, Seoul, Republic of Korea"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ]
    ],
-   "institutions": [
-    null,
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.13265",
    "pdf_url": "https://arxiv.org/pdf/2609.13265"
   },
@@ -1135,6 +1120,7 @@
     "University of Alabama at Birmingham",
     null
    ],
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.13271",
    "pdf_url": "https://arxiv.org/pdf/2609.13271"
   },
@@ -3040,27 +3026,21 @@
    "html_url": "https://arxiv.org/html/2609.13854v1",
    "abstract": "Facial emotion recognition (FER) in real-world environments remains challenging due to unconstrained imaging conditions, including multiple faces, occlusions, pose variations, and complex lighting. Most existing studies focus on individual facial emotion classification and do not address the analysis of collective emotional states at the event level. This paper proposes an end-to-end pipeline for event-level emotion recognition from photographs. The approach detects faces in each image, classifies facial expressions using a deep convolutional neural network, and aggregates face-level emotion probabilities to estimate the overall emotional distribution of a public event. A comparative evaluation of several CNN architectures on the FER- 2013 and RAF-DB datasets demonstrates that transfer learning with EfficientNet-B2 trained on RAF-DB is more suitable for real-world RGB data. The proposed method is evaluated on a real-world event dataset containing 1658 images. Experimental results show stable emotion distributions across event subsets, confirming the effectiveness of event-level aggregation for emotion analysis in the wild.",
    "affiliations": [
-    "School of Information Technology and Engineering",
-    "Kazakh-British Technical University",
+    "School of Information Technology and Engineering, Kazakh-British Technical University",
     "Almaty, Kazakhstan"
    ],
    "author_affiliations": [
     [
      0,
-     1,
-     2
+     1
     ],
     [
      0,
-     1,
-     2
+     1
     ]
    ],
-   "institutions": [
-    null,
-    "Kazakh-British Technical University",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.13854",
    "pdf_url": "https://arxiv.org/pdf/2609.13854"
   },
@@ -3560,28 +3540,20 @@
    "html_url": "https://arxiv.org/html/2609.14100v1",
    "abstract": "Fashion Image Captioning (FIC) plays a vital role in enhancing user experience and product search in e-commerce platforms. Unlike natural scene image captioning, FIC requires fine-grained visual reasoning and knowledge of domain-specific terminology to capture subtle attributes such as neckline and closure types, graphic patterns, and dress silhouettes. Moreover, as fashion inventories evolve rapidly with new trends, styles, and frequently emerging vocabulary, developing training-free captioning solution becomes essential for scalability and real-world adaptability. Instruction-tuned vision-language models (VLMs) offer a promising solution to fashion image captioning dueto their strong zero-shot capabilities and natural language fluency. However, these general-purpose models often lack attribute-level coverage and precision, and tend to hallucinate or misidentify fine-grained fashion details, making them less suitable for high-fidelity applications like product cataloging or personalized recommendations. To address this, we propose RA-CoA (Retrieval-Augmented Chain-of-Attributes), a novel, training-free framework that disentangles fashion image captioning into two interpretable stages: (i) retrieval of relevant attribute sets from a product knowledge base, and (ii) attribute-level reasoning to generate the final caption. RA-CoA is a model-agnostic approach that works with frozen VLMs to improve fine-grained attribute precision in product captions without the need for fine-tuning. Extensive evaluations across diverse VLM model families under different prompting paradigms demonstrate that RA-CoA significantly improves caption quality, achieving an average gain of 26.3% METEOR score over zero-shot captioning. We make our code publicly available.",
    "affiliations": [
-    "Department of Natural Language Processing",
-    "Mohamed Bin Zayed University of Artificial Intelligence",
-    "Department of Computer Science and Engineering",
-    "Indian Institute of Technology Jodhpur"
+    "Department of Natural Language Processing, Mohamed Bin Zayed University of Artificial Intelligence",
+    "Department of Computer Science and Engineering, Indian Institute of Technology Jodhpur"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     null,
     [
-     2,
-     3
+     1
     ]
    ],
-   "institutions": [
-    null,
-    "Mohamed bin Zayed University of Artificial Intelligence",
-    null,
-    "Indian Institute of Technology Jodhpur"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.14100",
    "pdf_url": "https://arxiv.org/pdf/2609.14100"
   },
@@ -4004,27 +3976,21 @@
    "html_url": "https://arxiv.org/html/2609.14274v1",
    "abstract": "Deploying deep neural networks in real-world settings requires models that are both compact and robust to common corruptions. However, at deployment-relevant high sparsity, standard pruning pipelines often degrade corruption robustness, and existing sharpness-aware training/pruning approaches provide limited robustness gains. We address this issue by introducing Sparsity-Adaptive Sharpness-Aware Minimization (SA-SAM), which derives a sparsity-dependent SAM/ASAM perturbation radius by keeping the mean absolute perturbation (an $\\ell_1$-based proxy) approximately invariant as sparsity increases. As a simple complementary option, we evaluate Magnitude-Weighted Hessian (MWH), derived from a second-order removal-path analysis, yielding an importance proportional to $\\mathrm{Diag}(F)_i\\,|w_i|$, where $\\mathrm{Diag}(F)$ is the diagonal empirical Fisher used as a curvature proxy in our implementation. Across CIFAR-10-C, CIFAR-100-C, and ImageNet-100-C, our approach achieved stronger corruption robustness than the considered pruning baselines at 80--90\\% sparsity, while preserving clean accuracy. We additionally quantify the robustness--throughput trade-off by reporting measured inference throughput under sparse execution at deployment-relevant sparsity levels.",
    "affiliations": [
-    "Faculty of Engineering",
-    "Gifu University, Gifu, Japan"
+    "Faculty of Engineering, Gifu University, Gifu, Japan"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ]
    ],
-   "institutions": [
-    null,
-    "Gifu University"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.14274",
    "pdf_url": "https://arxiv.org/pdf/2609.14274"
   },
@@ -4310,8 +4276,44 @@
     "Institute of Automation, Chinese Academy of Sciences",
     "Jilin University"
    ],
-   "author_affiliations": null,
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     1
+    ],
+    [
+     3
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ]
+   ],
    "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.14316",
    "pdf_url": "https://arxiv.org/pdf/2609.14316"
   },
@@ -5598,24 +5600,16 @@
    "abstract": "Assigning reduced coordinates to states near an attracting limit cycle requires the correct invariant-fibre geometry. The classical first-order phase-isostable chart obtained from adjoint Floquet modes projects along the strong-stable quotient fibre, whereas a metric-orthogonal complement of the retained slow bundle generally does not. We prove locally that a chart satisfying the linearised semiconjugacy relation leaves an O(delta^2) invariance residual, while projection along a non-invariant complement generically leaves an O(delta) term. For a nonlinear aeroelastic limit cycle, the metric-normal and strong-stable directions differ by 48.5 to 71.7 degrees, and metric-normal perturbations contain first-order retained phase and slow-amplitude components. Replacing the metric normal by the strong-stable fibre changes the measured residual scaling from delta^1.01 to delta^1.87 without fitted parameters. We then test learned higher-order corrections whose linearisation is pinned to the adjoint-Floquet chart, whose symmetry is exact, and whose reduced flow is fixed. Although they reduce the registered fixed-normalisation latent residual, post-hoc amplitude recalibration and adjoint-Floquet-targeted future consistency move or reverse the ranking. Because the learned maps already share the baseline's first-order gauge and the future target is supplied by the baseline chart, these diagnostics establish neither an independent positive nor negative higher-order result. Correct first-order Floquet geometry is therefore necessary in this benchmark, while the additional predictive value of the learned correction remains unidentified by the available representation-dependent diagnostics.",
    "affiliations": [
     "William Wright Technology Centre (W-Tech)",
-    "School of Mechanical & Aerospace Engineering",
-    "Queen’s University Belfast",
-    "Malone Road, Belfast, BT9 5BS, United Kingdom"
+    "School of Mechanical & Aerospace Engineering, Queen’s University Belfast, 50 Malone Road, Belfast, BT9 5BS, United Kingdom"
    ],
    "author_affiliations": [
     [
      0,
-     1,
-     2,
-     3
+     1
     ]
    ],
-   "institutions": [
-    "Technology Centre Prague",
-    null,
-    "Queen's University Belfast",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.14674",
    "pdf_url": "https://arxiv.org/pdf/2609.14674"
   },
@@ -7156,31 +7150,24 @@
    "html_url": "https://arxiv.org/html/2609.15229v1",
    "abstract": "We propose a pre-fine-tuning probing method for Parameter-Efficient Fine-Tuning (PEFT) layer selection, aiming to obtain more stable and higher gains with fewer trainable parameters when adapting large vision--language models (VLMs). Unlike the common practice of applying LoRA and other adapters to all layers at once---where layer selection often relies on heuristic rules---we focus on the vision encoder and directly evaluate the \"adaptability'' of each Transformer layer. Specifically, we characterize each layer from two perspectives: (i) the statistical properties of its Q/K/V projection weights (e.g., norms and condition numbers); (ii) robustness under controlled parameter perturbations. We then systematically compare these indicators with the downstream performance gains brought by applying PEFT to a single layer. Across experiments covering seven benchmarks and five PEFT variants, we observe a consistent correlation: layers (or matrices) with larger weight norms and higher condition numbers are usually more robust to perturbations and are more likely to yield larger fine-tuning gains. These results show that distribution-statistics analysis and perturbation tests before fine-tuning can provide practical signals for adaptation-layer selection, thereby maintaining or improving performance while reducing trainable parameters.",
    "affiliations": [
-    "Faculty of Computing",
-    "Harbin Institute of Technology, Harbin, China"
+    "Faculty of Computing, Harbin Institute of Technology, Harbin, China"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ]
    ],
-   "institutions": [
-    null,
-    "Harbin Institute of Technology"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.15229",
    "pdf_url": "https://arxiv.org/pdf/2609.15229"
   },
@@ -7778,41 +7765,30 @@
    "html_url": "https://arxiv.org/html/2609.15427v2",
    "abstract": "Using food package images to monitor sodium and salt content against South Africa's R214 sodium limits is challenging when screening decisions require product identity, nutrition facts panel evidence, reporting basis, and category-specific thresholds. This study presents a conservative image-based workflow that combines region detection, optical character recognition (OCR), product identity and sodium evidence extraction, R214 category assignment, deterministic threshold comparison, and independent vision language model comparison. The evaluation used 442 packaged food products and 3 929 full package images from a real-world South African food packaging dataset. A YOLO26s small detector generated 4 195 region crops, and strict post-processing produced one sodium evidence row per product. The integrated workflow produced 290 OUTSIDE R214 SCOPE, 139 REVIEW, seven SCREEN-PASS, and six SCREEN-FAIL outcomes. The independent Qwen2.5-VL 7B vision language model workflow produced 387 OUTSIDE R214 SCOPE, 31 REVIEW, twenty SCREEN-PASS, and four SCREEN-FAIL outcomes. The workflows agreed on exact R214 category assignment for 415 of 442 products (93.9%) and on whether the assigned category was within R214 scope for 416 of 442 products (94.1%). Final screening outcome agreement was 307 out of 442 products, or 69.5%. Manual verification on 60 products showed lower strict outcome agreement than regulated status agreement, while all manual INSUFFICIENT DATA cases were kept out of SCREEN-PASS and SCREEN-FAIL by both automated workflows. The findings show that conservative image-based screening can organise package evidence, identify clear cases, and assign uncertain cases to REVIEW rather than forcing SCREEN-PASS or SCREEN-FAIL decisions.",
    "affiliations": [
-    "Department of Computer Science",
-    "University of the Western Cape, Cape Town, South Africa",
-    "School of Public Health",
-    "Department of Dietetics and Nutrition",
-    "Department of Computer Science and eResearch Office"
+    "Department of Computer Science, University of the Western Cape, Cape Town, South Africa",
+    "School of Public Health, University of the Western Cape, Cape Town, South Africa",
+    "Department of Dietetics and Nutrition, University of the Western Cape, Cape Town, South Africa",
+    "Department of Computer Science and eResearch Office, University of the Western Cape, Cape Town, South Africa"
    ],
    "author_affiliations": [
     [
-     0,
+     0
+    ],
+    [
      1
     ],
     [
-     2,
      1
     ],
     [
-     2,
-     1
+     2
     ],
     [
-     3,
-     1
-    ],
-    [
-     4,
-     1
+     3
     ]
    ],
-   "institutions": [
-    null,
-    "University of the Western Cape",
-    null,
-    null,
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.15427",
    "pdf_url": "https://arxiv.org/pdf/2609.15427"
   },
@@ -8920,16 +8896,25 @@
    "html_url": "https://arxiv.org/html/2609.15834v1",
    "abstract": "Detector response nonuniformity introduces systematic projection errors and ring artifacts in photon-counting detector computed tomography (PCD-CT). In measured PCD-CT data, residual stripe amplitudes vary slowly with projection angle, which fixed-bias models cannot adequately capture. We propose TRACE, a two-stage unsupervised sinogram decomposition method for estimating and correcting these response-related errors. TRACE represents stripes as a fixed bias plus low-order discrete cosine transform (DCT) components, using a small number of coefficients to describe angular variations at each detector element. A learnable analysis--synthesis architecture represents the ideal projections, while two-stage optimization separates them from fixed and then dynamic stripes. An angular-gradient soft orthogonality constraint suppresses correlated variations within the shared DCT gradient subspace, reducing the leakage of object structures into the artifact estimate. All parameters are optimized directly on the measured sinogram without paired training data. Experiments on measured QRM mouse phantom and porcine trotter data show that TRACE suppresses ring artifacts and improves image uniformity while preserving edge sharpness, soft-tissue texture, and trabecular detail.",
    "affiliations": [
-    "School of Mathematical",
-    "College of Computer Science (College of Software), Inner Mongolia University"
+    "School of Mathematical Sciences, Capital Normal University, Beijing 100048, China",
+    "College of Computer Science (College of Software), Inner Mongolia University, Hohhot 010021, China",
+    "Research Center for Spatiotemporal Intelligence, Inner Mongolia University, Hohhot 010021, China"
    ],
    "author_affiliations": [
-    null,
-    null,
     [
-     1
+     0
     ],
-    null,
+    [
+     0
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0
+    ],
     [
      0
     ],
@@ -8937,10 +8922,8 @@
      0
     ]
    ],
-   "institutions": [
-    null,
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.15834",
    "pdf_url": "https://arxiv.org/pdf/2609.15834"
   },

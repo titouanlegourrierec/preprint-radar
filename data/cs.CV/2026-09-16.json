@@ -200,37 +200,24 @@
    "html_url": "https://arxiv.org/html/2609.16284v1",
    "abstract": "Query-conditioned vision--language models enable fine-grained interpretation by revealing how visual evidence changes with textual queries. However, evidence conditioned on complete descriptions does not necessarily resolve into object-specific evidence, nor does an exposed evidence map necessarily identify the evidence that constitutes the model's prediction. Across multiple VLM architectures and independent benchmarks, we find that object-level queries often retain evidence from co-occurring objects and shared context. In this paper, we introduce \\textbf{ProtoLIP}, a lightweight prototype-mediated evidence layer that organizes reusable visual prototypes into text-derived semantic families and uses query-dependent family routing to constrain which prototypes may provide evidence. Without spatial annotations or backbone retraining, ProtoLIP improves evidence localization and separation across query granularities, with localization gains transferring to independently pretrained VLMs with well-aligned patch--text representations. Despite using only text-derived weak supervision, ProtoLIP remains competitive with a spatially supervised grounding model while maintaining strong matching and competitive image--text retrieval. Crucially, ProtoLIP constructs its matching score directly from localized prototype evidence, enabling the score to be exactly decomposed into semantic-family and prototype contributions.",
    "affiliations": [
-    "Department of Computer Science",
-    "Tulane University",
-    "New Orleans, LA, USA"
+    "Department of Computer Science, Tulane University, New Orleans, LA, USA"
    ],
    "author_affiliations": [
     [
-     0,
-     1,
-     2
+     0
     ],
     [
-     0,
-     1,
-     2
+     0
     ],
     [
-     0,
-     1,
-     2
+     0
     ],
     [
-     0,
-     1,
-     2
+     0
     ]
    ],
-   "institutions": [
-    null,
-    "Tulane University",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.16284",
    "pdf_url": "https://arxiv.org/pdf/2609.16284"
   },
@@ -668,30 +655,18 @@
    "html_url": "https://arxiv.org/html/2609.16578v1",
    "abstract": "The spatial support required for image restoration varies across degradation types, image regions, and reconstruction stages. However, most existing methods rely on predefined multi-scale hierarchies and aggregate features through fixed fusion or attention, leaving the representation scale itself largely determined by the network architecture. This limitation becomes more pronounced when a task-specific backbone is extended to heterogeneous degradations in all-in-one restoration. Inspired by level-of-detail (LOD) rendering in computer graphics, we propose GraLoD, a plug-and-play framework that treats restoration scale as a spatially varying and stage-dependent continuous variable. GraLoD reuses the native encoder hierarchy, aligns its multi-scale features into a shared LOD representation space, and predicts a stage-conditioned LOD field at each decoder stage. Each spatial location then continuously queries only two neighboring representation levels, enabling the effective restoration scale to adapt to both local image content and reconstruction progress. To prevent degenerate or arbitrary scale selection, we further introduce minimal-sufficient footprint calibration (MSFC) together with structure-aware regularization (SAR) to encourage restoration-effective and spatially coherent LOD assignments. GraLoD can be directly integrated into existing restoration backbones without redesigning their fundamental feature-processing blocks. Extensive experiments demonstrate consistent improvements in task-specific and all-in-one restoration.",
    "affiliations": [
-    "Department of Computer Science",
-    "Shanghai Jiao Tong University",
-    "Shanghai, China",
-    "Department of Architecture and Design",
-    "Harbin Institute of Technology",
-    "Heilongjiang, China"
+    "Department of Computer Science, Shanghai Jiao Tong University, Shanghai, China",
+    "Department of Architecture and Design, Harbin Institute of Technology, Heilongjiang, China"
    ],
    "author_affiliations": [
     null,
     null,
     [
-     3,
-     4,
-     5
+     1
     ]
    ],
-   "institutions": [
-    null,
-    "Shanghai Jiao Tong University",
-    null,
-    null,
-    "Harbin Institute of Technology",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.16578",
    "pdf_url": "https://arxiv.org/pdf/2609.16578"
   },
@@ -2197,29 +2172,19 @@
    "html_url": "https://arxiv.org/html/2609.16859v1",
    "abstract": "To train handwritten text recognition systems we need word images and their corresponding transcriptions, and these transcriptions are produced manually. For a script that can be read by only a small number of specialists, this manual transcription is a limitation, because the trained models are supposed to save the time of those same specialists. A relevant question therefore arises: how many transcriptions are needed before a recogniser becomes useful, and how much of that cost can pretraining remove? In this study the answer is measured directly for handwritten Devanagari. We keep the recogniser, optimiser and evaluation protocol the same and change only the number of real transcribed words used for fine-tuning across nine budgets from 10 to 4,000 and four initialisation regimes, with six seeds at every point. The resulting curves are then converted into annotation-equivalent terms. A CER of 0.50 is reached by supervised synthetic pretraining using only 81 transcribed words, whereas random initialisation requires 355, which gives a label multiplier of 4.40 [3.56, 4.99]. There is a zero-shot reference point as well: with no real transcribed words at all, this pretraining is worth about 136 of them. This advantage gets smaller as the target accuracy improves, and at the most demanding target we measure, it cannot be distinguished from no saving at all. A fourth arm in which only the encoder is transferred separates the effect of the pretraining method from that of transfer scope, and masked image modelling is observed to transfer negatively over a bounded range of budgets. We emphasise that the scarcity in this study is constructed by subsampling a large corpus.",
    "affiliations": [
-    "Alliance School of Liberal Arts and Sciences",
-    "Alliance University",
-    "Bengaluru, India",
-    "Department of Computer Science and Engineering"
+    "Alliance School of Liberal Arts and Sciences, Alliance University, Bengaluru, India",
+    "Department of Computer Science and Engineering, Alliance University, Bengaluru, India"
    ],
    "author_affiliations": [
     [
-     0,
-     1,
-     2
+     0
     ],
     [
-     3,
-     1,
-     2
+     1
     ]
    ],
-   "institutions": [
-    null,
-    "Alliance University",
-    null,
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.16859",
    "pdf_url": "https://arxiv.org/pdf/2609.16859"
   },
@@ -2329,37 +2294,24 @@
    "abstract": "Reducing the number of cameras reduces the deployment cost but removes views that correct BEV responses stretched away from true pedestrian positions by projection and short score drops that can split tracks} in Bird's-Eye View (BEV) tracking. We introduce GRACE, a camera-efficient multi-view tracker with three components. Volumetric-Guided Fusion combines homography-based BEV features with features lifted through 3D space. Ray Conditioning exposes each camera's viewing direction to the fusion network. Its tracking component, BEV Track Recovery (BTR), uses low-confidence detections only to continue existing tracks. The same detections cannot start new tracks. With two WildTrack cameras, GRACE improves MOTA from 83.54 for TrackTacular, our baseline, to 91.07.",
    "affiliations": [
     "Meijo university",
-    "Department of Science Technology",
-    "-501, Shiogamaguchi",
-    "Tempaku, Nagoya 468-8501, Japan",
+    "Department of Science Technology, 1-501, Shiogamaguchi, Tempaku, Nagoya 468-8501, Japan",
     "Chubu Electric Power Co., Inc",
-    "-1 Higashishin-cho, Higashi-ku",
-    "Nagoya 461-8680, Japan"
+    "-1 Higashishin-cho, Higashi-ku, Nagoya 461-8680, Japan"
    ],
    "author_affiliations": [
     null,
     null,
     [
-     4,
-     5,
-     6
+     2,
+     3
     ],
     [
      0,
-     1,
-     2,
-     3
+     1
     ]
    ],
-   "institutions": [
-    "Meijo University",
-    null,
-    null,
-    null,
-    null,
-    null,
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.16872",
    "pdf_url": "https://arxiv.org/pdf/2609.16872"
   },
@@ -3460,11 +3412,11 @@
    "html_url": "https://arxiv.org/html/2609.17211v1",
    "abstract": "Video anomaly detection (VAD) aims to localize anomalous events in untrimmed videos. Vision-language models (VLMs) provide rich visual understanding for training-free VAD, but existing approaches impose restrictive interfaces between visual understanding and anomaly scoring. Caption-based pipelines compress visual evidence into text, potentially discarding subtle cues, while direct numerical generation forces the model to express its judgment through a small set of predefined scores. Such interfaces can obscure subtle differences in anomaly severity, causing visually distinct clips to receive similar representations or scores and thereby limiting the resolution of anomaly ranking. We propose \\textbf{Probe-VAD}, an ordinal binary-probing framework that directly probes severity preferences from a frozen VLM. Given raw video clips, Probe-VAD queries ten ordered severity thresholds and extracts constrained \\textit{YES}/\\textit{NO} continuation likelihoods. Their normalized preferences form a cumulative severity profile, from which tail evidence is aggregated into a continuous anomaly score, with isotonic projection enforcing ordinal consistency. Experiments on public VAD benchmarks demonstrate superior performance with low computational cost. Probe-VAD provides a simple interface for translating frozen VLM visual understanding into continuous, rank-sensitive anomaly scores without task-specific training or caption-based compression. Code is available at: https://github.com/yvestine/COVAS-VAD.",
    "affiliations": [
-    "School of Intelligence Science and Technology, Nanjing University",
+    "School of Intelligence Science and Technology, Nanjing University, Suzhou 215163, China",
     "Faculty of Life Science and Medicine, School of Medicine and Health, Harbin Institute of Technology, Harbin 150001, China",
-    "School of Instrumentation Science and Engineering",
+    "School of Instrumentation Science and Engineering, Harbin Institute of Technology, Harbin 150001, China",
     "Computer Vision Center (CVC), Universitat Autònomade Barcelona (UAB), Barcelona, 08193 Spain",
-    "School of Computer Science and Engineering, Nanjing University"
+    "School of Computer Science and Engineering, Nanjing University of Science and Technology, Nanjing 210014, China"
    ],
    "author_affiliations": [
     [
@@ -3495,13 +3447,8 @@
      0
     ]
    ],
-   "institutions": [
-    "Nanjing University",
-    "Harbin Institute of Technology",
-    null,
-    null,
-    "Nanjing University"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.17211",
    "pdf_url": "https://arxiv.org/pdf/2609.17211"
   },

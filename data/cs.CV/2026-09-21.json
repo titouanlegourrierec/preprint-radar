@@ -507,8 +507,7 @@
    "affiliations": [
     "Institute of Computer Science",
     "Osnabrück University, Osnabrück, Germany",
-    "Department of Mathematics",
-    "University of Wuppertal, Wuppertal, Germany",
+    "Department of Mathematics, University of Wuppertal, Wuppertal, Germany",
     "Wayve, London, United Kingdom"
    ],
    "author_affiliations": [
@@ -529,24 +528,18 @@
      1
     ],
     [
-     2,
-     3
+     2
     ],
     [
      0,
      1
     ],
     [
-     4
+     3
     ]
    ],
-   "institutions": [
-    "Institute of Computer Science",
-    "Osnabrück University",
-    null,
-    "University of Wuppertal",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.21822",
    "pdf_url": "https://arxiv.org/pdf/2609.21822"
   },
@@ -2079,6 +2072,7 @@
     null,
     "Huazhong University of Science and Technology"
    ],
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.21402",
    "pdf_url": "https://arxiv.org/pdf/2609.21402"
   },
@@ -2424,62 +2418,38 @@
    "html_url": "https://arxiv.org/html/2609.21354v1",
    "abstract": "High-speed tracking of small, fast-moving organisms in their natural environments is important to better understand their behavior and ecology. Traditional frame-based imaging suffers from motion blur due to low temporal resolution, and data storage limitations, propelling a search for more adaptive solutions. Event cameras, which capture changes in brightness at pixel level instead of entire frames, have emerged as a promising solution by increasing temporal resolution and data efficiency. Here, we demonstrate the use of event-based imaging with standard video-based processing methods by converting the asynchronous events into conventional video formats, allowing us to leverage the event camera's enhanced temporal detail to capture intricate insect flight movements and apply established image analysis techniques. Coupling this conversion process with a stereoscopic configuration provides continuous, low-latency, three-dimensional tracking of fast-moving subjects in field conditions. As a result, we substantially mitigate motion artifacts and achieve more accurate representations of animal movements. By making event-based imaging more readily applicable in natural field settings, our method support broader applications across animal behavior and ecological research, agricultural management, and other fields requiring high-fidelity object tracking in the wild.",
    "affiliations": [
-    "School of Engineering and Technology",
-    "University of New South Wales",
-    "Canberra, Australia",
+    "School of Engineering and Technology, University of New South Wales, Canberra, Australia",
     "Experimental Zoology Group",
-    "Wageningen University & Research",
-    "Wageningen, The Netherlands",
-    "DEVCOM Army Research Lab",
-    "Aberdeen Proving Ground, MD, 21005, USA",
+    "Wageningen University & Research, Wageningen, The Netherlands",
+    "DEVCOM Army Research Lab, Aberdeen Proving Ground, MD, 21005, USA",
     "Queensland Brain Institute",
-    "University of Queensland",
-    "St Lucia, QLD, Australia"
+    "University of Queensland, St Lucia, QLD, Australia"
    ],
    "author_affiliations": [
     [
-     0,
+     0
+    ],
+    [
      1,
      2
     ],
     [
-     3,
+     3
+    ],
+    [
      4,
      5
     ],
     [
-     6,
-     7
+     4,
+     5
     ],
     [
-     8,
-     9,
-     10
-    ],
-    [
-     8,
-     9,
-     10
-    ],
-    [
-     0,
-     1,
-     2
+     0
     ]
    ],
-   "institutions": [
-    null,
-    "UNSW Sydney",
-    null,
-    null,
-    "Wageningen University & Research",
-    null,
-    null,
-    null,
-    null,
-    "University of Queensland",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.21354",
    "pdf_url": "https://arxiv.org/pdf/2609.21354"
   },
@@ -2846,32 +2816,21 @@
    "html_url": "https://arxiv.org/html/2609.21251v1",
    "abstract": "Gradient-guided diffusion samplers provide flexible priors for inverse problems and conditional generation, but strong guidance can move the sampling trajectory into regions where the learned score is poorly supported. Existing tangent-projection strategies limit first-order departure from an iso-density surface, yet discard potentially useful normal motion and overlook the second-order departure induced by tangent motion on a curved surface. We introduce curvature-adaptive tubular correction (CAT), a training-free plugin that regulates both effects within a shared, noise-dependent geometric budget. CAT decomposes the guidance gradient into normal and tangent components, charges normal displacement at first order and tangent displacement according to directional curvature, and obtains their jointly optimal magnitudes from a one-dimensional dual equation. Armijo backtracking calibrates the resulting finite step against the actual guidance objective, while matrix-free directional derivatives avoid constructing the full score Jacobian. We establish local guarantees for the tubular approximation, uniqueness of the correction, and sufficient objective decrease. Across seven inverse problems on FFHQ and ImageNet, CAT improves the evaluated pixel- and latent-space host samplers, with particularly consistent gains in perceptual metrics. It also improves black hole reconstruction on InverseBench and yields the lowest FID among the compared methods at every tested classifier-free guidance scale, while maintaining stable saturation and contrast. These results support curvature-aware tubular control as a reusable mechanism for stabilizing diffusion guidance.",
    "affiliations": [
-    "School of Mathematical Sciences",
-    "Shanghai Jiao Tong University",
-    "Shanghai, China"
+    "School of Mathematical Sciences, Shanghai Jiao Tong University, Shanghai, China"
    ],
    "author_affiliations": [
     [
-     0,
-     1,
-     2
+     0
     ],
     [
-     0,
-     1,
-     2
+     0
     ],
     [
-     0,
-     1,
-     2
+     0
     ]
    ],
-   "institutions": [
-    null,
-    "Shanghai Jiao Tong University",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.21251",
    "pdf_url": "https://arxiv.org/pdf/2609.21251"
   },
@@ -3210,22 +3169,17 @@
    "html_url": "https://arxiv.org/html/2609.21095v1",
    "abstract": "We present MarsFM, an image-conditioned latent flow-matching model for local Martian relief estimation from single-band HiRISE RED orthoimagery. The method combines a pretrained generative prior with stereo-derived geometric supervision and a differentiable Lunar--Lambert shading objective. Relief, normal, gradient, curvature, and ordinal terms constrain complementary aspects of terrain structure, while a positive-affine-invariant image comparison constrains rendered appearance. An evaluation comprising 2024 gathered patch records per integration-step count yields mean affine-aligned RMSE between 0.0935 and 0.0957 in normalized signed-log relief space for one to twenty Euler steps. These scores measure agreement with VAE-reconstructed references on positive-reference support. Their narrow range supports low-step inference under this protocol. Spatial, differential, and spectral diagnostics show broad terrain correspondence alongside smoothing, amplitude compression, and boundary mismatch. MarsFM provides a framework for combining learned terrain priors with image-based constraints; establishing improved physical terrain resolution requires matched baselines and independent high-resolution reference data. Data: https://huggingface.co/datasets/SuperComputer/mars_hirise_dtm_processed-6aa9b66ba461e07f; code: https://github.com/Marius-Juston/MarsRecon.",
    "affiliations": [
-    "Department of Industrial and Enterprise Systems Engineering",
-    "The Grainger College of Engineering",
+    "Department of Industrial and Enterprise Systems Engineering, The Grainger College of Engineering",
     "University of Illinois Urbana-Champaign, Urbana, IL 61801-3080, USA"
    ],
    "author_affiliations": [
     [
      0,
-     1,
-     2
+     1
     ]
    ],
-   "institutions": [
-    null,
-    null,
-    "University of Illinois Urbana-Champaign"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.21095",
    "pdf_url": "https://arxiv.org/pdf/2609.21095"
   },
@@ -3841,8 +3795,77 @@
     "Nankai University",
     "Johns Hopkins University"
    ],
-   "author_affiliations": null,
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     2,
+     5
+    ],
+    [
+     2,
+     5
+    ],
+    [
+     2,
+     6
+    ],
+    [
+     7
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     3
+    ],
+    [
+     2
+    ],
+    [
+     0,
+     1
+    ]
+   ],
    "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.21392",
    "pdf_url": "https://arxiv.org/pdf/2609.21392"
   },

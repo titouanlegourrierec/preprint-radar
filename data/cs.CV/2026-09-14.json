@@ -98,23 +98,18 @@
    "html_url": "https://arxiv.org/html/2609.12099v1",
    "abstract": "Classical classifier-combination work distinguishes score-level fusion from hard decision-level voting. We revisit this distinction where independently pretrained, frozen foundation models are composed at inference time for generalized few-shot 3D segmentation. We ask: how much useful semantic information is lost when heterogeneous sources are collapsed to a single class before they can interact? We answer with a same-input semantic-retention intervention. Dense RegionPLC and sparse cross-view SAM3 evidence, model weights, masks, geometry, vocabularies, and fusion rules are frozen; only the number of semantic alternatives retained before interaction is varied via a matched top-k ladder. On 156 held-out ScanNet200 scenes, top-1 reaches 28.47 harmonic-mean (HM) IoU while full distribution fusion reaches 34.87 HM (+6.40, 95% CI [+5.24,+7.64]). The pattern replicates on 50 ScanNet++ scenes: 23.02 vs. 26.50 HM (+3.48, 95% CI [+1.64,+5.93]). The conclusion is robust: full-distribution HM is stable across sparse-source weights 0.3--0.7; alternative operators (max, geometric pooling) also outperform top-1; and a GroundingDINO--SAM2.1 source-replacement diagnostic shows monotonic HM increase from 14.77 to 18.75 with full retention. Calibration diagnostics reveal opposite miscalibration of the two sources, yet correcting calibration does not eliminate the retention advantage. Across datasets and source stacks, most information is recovered by retaining a compact set of plausible alternatives. The contribution is a controlled diagnosis of premature semantic collapse as a repeatable information bottleneck in heterogeneous frozen-model composition.",
    "affiliations": [
-    "Department of Computer Science",
-    "University of Ghana, Legon"
+    "Department of Computer Science, University of Ghana, Legon"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ]
    ],
-   "institutions": [
-    null,
-    "University of Ghana"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.12099",
    "pdf_url": "https://arxiv.org/pdf/2609.12099"
   },
@@ -545,27 +540,21 @@
    "html_url": "https://arxiv.org/html/2609.12374v1",
    "abstract": "Dashboard-mounted gaze trackers often lose sight of the driver's eyes during large head rotations, including shoulder checks, mirror glances, and intersection scanning. These maneuvers occur when information about the driver's visual attention is most useful. Offline gap-filling methods may reconstruct a missing interval using observations from both sides, but an online driver-monitoring system cannot rely on measurements that have not yet occurred. We therefore formulate causal gaze recovery: forecasting unavailable gaze at time t without target-tracker gaze at t or later. We introduce the Causal Context-Gated Forecaster (CCGF), which encodes a 60-frame pre-dropout history of gaze and head pose and combines it with DINOv3 scene features. A learned reliability gate controls the contribution of the history and scene representations as the dropout progresses. We evaluate two scene conditions: Live, in which the scene representation continues to update during tracker loss, and Frozen, in which the final pre-dropout representation is used throughout the missing interval. We evaluate CCGF on 2,047 eligible, naturally occurring GazeSense head\\_lost events drawn from 10.5 h of naturalistic driving by ten drivers. Across all recordings, head\\_lost accounts for 8.5 percent of GazeSense recording time. Synchronized gaze coordinates from a head-mounted Neon tracker provide supervision and evaluation targets but are never used as model inputs. Under leave-one-driver-out evaluation, CCGF achieves a mean per-driver median error of 175.7 px (10.5 deg) with Live scene updates, a 33 percent reduction relative to history-only causal forecasting. With Frozen scene input, the error increases to 210.8 px (12.9 deg), indicating that scene observations acquired during the dropout provide useful predictive information. We will release the dataset, evaluation protocol, and causal baselines.",
    "affiliations": [
-    "Department of Computer Science",
-    "Western University, London, ON, Canada",
+    "Department of Computer Science, Western University, London, ON, Canada",
     "National Research Council Canada",
     "London, ON, Canada"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     [
-     2,
-     3
+     1,
+     2
     ]
    ],
-   "institutions": [
-    null,
-    null,
-    "National Research Council Canada",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.12374",
    "pdf_url": "https://arxiv.org/pdf/2609.12374"
   },
@@ -1485,23 +1474,43 @@
    "html_url": "https://arxiv.org/html/2609.12574v1",
    "abstract": "Ultra-widefield (UWF) swept-source optical coherence tomography angiography (SS-OCTA) enables large-area retinal vascular imaging, yet vessel segmentation at this scale lacks dedicated public benchmarks and comprehensive evaluation for quantitative vascular analysis. We introduce WOIVES, to our knowledge the first publicly available UWF SS-OCTA vessel-segmentation dataset, comprising 206 eyes from 152 participants with a 24x20mm^2 field of view. WOIVES spans emmetropia to high myopia and provides soft probability vessel annotations. We further propose PG-Mamba, a visual state space model that enhances conventional directional scans with two complementary polar-coordinate scan orders. An auxiliary Dynamic FOV Gating module performs spatial modulation at the bottleneck. PG-Mamba outperformed seven competitive approaches on broad segmentation metrics under cross-validation. It achieved the lowest median absolute errors for vessel density, fractal dimension, and vessel length density. WOIVES is publicly available on Zenodo (DOI: https://doi.org/10.5281/zenodo.21904672), and the PG-Mamba code is available at https://github.com/syb1234567/PG-Mamba.",
    "affiliations": [
-    "Tsinghua Shenzhen International",
-    "Chinese Medicine Guangdong",
+    "Tsinghua Shenzhen International Graduate School, Shenzhen 518109, China",
+    "Chinese Medicine Guangdong Laboratory/Hengqin Laboratory, Hengqin, Guangdong 519031, China",
     "Tsinghua University, Beijing, China",
-    "Medical Artificial Intelligence Lab",
-    "Southern University of Science and"
+    "Medical Artificial Intelligence Lab, The First Hospital of Hebei Medical University, Hebei Medical University, Shijiazhuang 050000, China",
+    "Southern University of Science and Technology Hospital, Shenzhen 518055, China"
    ],
    "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
     [
      2
     ],
@@ -1518,13 +1527,8 @@
      4
     ]
    ],
-   "institutions": [
-    null,
-    null,
-    "Tsinghua University",
-    null,
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.12574",
    "pdf_url": "https://arxiv.org/pdf/2609.12574"
   },
@@ -1705,19 +1709,19 @@
    "html_url": "https://arxiv.org/html/2609.12678v1",
    "abstract": "Short-video platforms have become a primary news source for the public, which has also enabled the widespread dissemination of fake news videos. We study the task of fake news video detection and explanation (FNVDE). Existing methods face two critical limitations. First, commonly used frame selection strategies may omit veracity-relevant cues or provide insufficient temporal context for understanding news videos. Second, prior methods neglect either multimodal understanding or evidence retrieval. To address these limitations, we propose NVKE-CEI, a unified system that integrates a news video keyframes extraction method (NVKE) and an FNVDE framework leveraging both content and evidence information (CEI). NVKE selects keyframes based on chronological changes in combined visual and OCR-text similarity. CEI employs two specialized LLM-based fact checkers (content-based and evidence-based) whose outputs are fused by a lightweight judge model. Extensive experiments show that NVKE-CEI outperforms state-of-the-art baselines while generating high-quality content-grounded explanations.",
    "affiliations": [
-    "Department of Interactive Media",
-    "AI and Social Good Lab, AI Media Centre",
+    "Department of Interactive Media, AI and Social Good Lab, AI Media Centre",
     "Department of Computer Science and Engineering, Southern University of Science and Technology",
     "Institute of AI and Future Networks, Beijing Normal University",
-    "AI Media Centre, Hong Kong Baptist University"
+    "Department of Interactive Media, AI Media Centre, Hong Kong Baptist University"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     [
-     0,
+     0
+    ],
+    [
      1
     ],
     [
@@ -1725,19 +1729,10 @@
     ],
     [
      3
-    ],
-    [
-     0,
-     4
     ]
    ],
-   "institutions": [
-    null,
-    null,
-    "Southern University of Science and Technology",
-    "Beijing Normal University",
-    "Hong Kong Baptist University"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.12678",
    "pdf_url": "https://arxiv.org/pdf/2609.12678"
   },
@@ -1945,13 +1940,15 @@
    "html_url": "https://arxiv.org/html/2609.12731v1",
    "abstract": "Text-to-image (T2I) diffusion models inevitably internalize sensitive or non-compliant concepts from large-scale pretraining data, necessitating post-hoc concept erasure. However, existing erasure methods often lack explicit constraints on parameter updates, leading to over-intervention and unintended semantic drift. In addition, many methods rely on manually crafted counterfactual supervision, such as surrogate prompts, which incurs substantial data construction costs that limit scalability to new concepts. To address these limitations, we propose GRACE, a structured concept erasure framework designed to enable localized and selective intervention. Specifically, we introduce a semantically weighted sensitive subspace estimation to precisely lock intervention directions, and employ lightweight subspace-constrained adapters to prevent global semantic disturbance. To eliminate the dependency on manual prompt engineering, we design an automatically decoupled safe-anchor mechanism. To mitigate semantic drift induced by excessive intervention, we introduce an energy-driven dynamic gating mechanism that adaptively controls the timing and strength of intervention at inference. Extensive experiments demonstrate that our method achieves a superior balance between erasure effectiveness and generation fidelity. Compared with the average performance of five state-of-the-art (SOTA) concept erasure methods, our method improves the fine-grained NSFW reduction rate by $17.86\\%$, while reducing the macro-averaged target CLIP Score and preservation-oriented Fréchet Inception Distance (FID) by $4.75\\%$ and $50.58\\%$, respectively, indicating stronger concept suppression with substantially improved preservation of the original model's generative utility.",
    "affiliations": [
-    "School of Electronic Information and Electrical Engineering",
-    "Key Laboratory of Intelligent Control and Optimization",
-    "Faculty of Electrical Engineering"
+    "School of Information Science and Technology, Southwest Jiaotong University, Chengdu 611756, China",
+    "School of Electronic Information and Electrical Engineering, Chengdu University, Chengdu, China",
+    "Key Laboratory of Intelligent Control and Optimization for Industrial Equipment of Ministry of Education, Dalian University of Technology, Dalian, China",
+    "Faculty of Electrical Engineering, University of Ljubljana, Ljubljana, Slovenia"
    ],
    "author_affiliations": [
-    null,
-    null,
+    [
+     0
+    ],
     [
      0
     ],
@@ -1961,13 +1958,15 @@
     [
      2
     ],
-    null
+    [
+     3
+    ],
+    [
+     0
+    ]
    ],
-   "institutions": [
-    null,
-    null,
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.12731",
    "pdf_url": "https://arxiv.org/pdf/2609.12731"
   },
@@ -2900,31 +2899,22 @@
    "html_url": "https://arxiv.org/html/2609.12920v1",
    "abstract": "We model total latency as the convolution of preprocessing, inference, and postprocessing distributions under a simplifying independence approximation, with selected stage parameters expressed as functions of source-image resolution. Under this assumption, the probability density of the total latency is the convolution of the stage-wise densities, and its cumulative distribution function (CDF) provides the distribution of end-to-end detection time. Each stage is modeled by a parametric distribution (e.g., Exponential, Erlang, Normal, Gamma), with parameters expressed as functions of the source-image resolution. Experiments with YOLOv11n on NVIDIA Jetson Orin NX using COCO2017 images across multiple resolutions assess the proposed models against fixed-parameter baselines using Kolmogorov Smirnov, Anderson Darling, and Cramér von Mises statistics. The results indicate that resolution-aware parameterization can improve distributional approximation in the measured setting, particularly for the more flexible Normal and Gamma models, while the quality of fit remains distribution dependent. Our contribution is a theoretically grounded and lightweight formulation for studying resolution-dependent latency distributions in a measured object detection pipeline.",
    "affiliations": [
-    "Department of Computer Science",
-    "University of Tsukuba, Tsukuba, Japan",
-    "Department of Information Engineering",
-    "University of Florence, Florence, Italy"
+    "Department of Computer Science, University of Tsukuba, Tsukuba, Japan",
+    "Department of Information Engineering, University of Florence, Florence, Italy"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ],
     [
-     2,
-     3
+     1
     ]
    ],
-   "institutions": [
-    null,
-    "University of Tsukuba",
-    null,
-    "University of Florence"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.12920",
    "pdf_url": "https://arxiv.org/pdf/2609.12920"
   },
@@ -3512,39 +3502,26 @@
    "html_url": "https://arxiv.org/html/2609.12225v1",
    "abstract": "Out-of-Distribution (OOD) data poses a significant threat to machine learning models, often leading to model failure during deployment. All existing OOD detection methods are post-hoc, relying on evaluation metrics such as accuracy and AUC-ROC during inference to indirectly assess the model's response to OOD data by measuring deviations. In contrast to existing approaches, the proposed work shifts the paradigm from OOD detection to OOD prediction by proposing a pre-hoc anticipatory framework called PLSP for OOD prediction. We make several key contributions: (a) a dataset-independent metric called the CREDibility Score (CREDS) is proposed for OOD prediction; (b) credibility curves are introduced to study the maximum credibility a model can attain; and (c) credibility heat maps (and volume under surface) are introduced to characterize pre-hoc model behavior across different datasets. This work provides a novel perspective on signal processing under distributional shifts. Experiments across multiple datasets demonstrate that the proposed metric serves as a valuable measure for improving the robustness of machine learning models toward OOD prediction.",
    "affiliations": [
-    "University of Wisconsin Madison",
-    "Madison, WI, USA",
-    "IMC University of Applied Sciences",
-    "Krems, Austria",
-    "Indian Institute of Technology Roorkee",
-    "Roorkee, India"
+    "University of Wisconsin Madison, Madison, WI, USA",
+    "IMC University of Applied Sciences, Krems, Austria",
+    "Indian Institute of Technology Roorkee, Roorkee, India"
    ],
    "author_affiliations": [
     [
-     0,
+     0
+    ],
+    [
      1
     ],
     [
-     2,
-     3
+     2
     ],
     [
-     4,
-     5
-    ],
-    [
-     2,
-     3
+     1
     ]
    ],
-   "institutions": [
-    "University of Wisconsin–Madison",
-    null,
-    null,
-    null,
-    "Indian Institute of Technology Roorkee",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.12225",
    "pdf_url": "https://arxiv.org/pdf/2609.12225"
   },

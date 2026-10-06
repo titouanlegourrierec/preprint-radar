@@ -339,8 +339,8 @@
    "html_url": "https://arxiv.org/html/2609.04348v1",
    "abstract": "Object-centric visual representations are important for physical-world perception, but existing visual pretraining methods often capture semantic categories without preserving the identity and coherence of individual instances. We present a biologically inspired framework that learns object-centric representations for single images from raw videos. Our approach uses motion boundaries as a source of object-level grouping: off-the-shelf optical flow and clustering produce pseudo-instance masks, which supervise a single-image encoder with pixel-level pairwise metric learning. The framework requires neither human annotations nor camera calibration. We first obtain 195 million pseudo-labeled frames from 7,163 hours of driving and web videos, then expand the supervision to 421 million frames with Motion-Verified Self-Training, which combines model proposals with motion evidence. We train encoders up to Swin-H and distill the learned representations into a family of Swin backbones. Across monocular depth estimation, 3D object detection, 3D occupancy prediction, and end-to-end planning, the resulting models achieve competitive or superior performance relative to supervised and self-supervised pretraining baselines, with particularly strong transfer on geometry- and instance-sensitive tasks. These results show that motion-derived supervision can teach static image encoders to represent visual instances, providing a complementary direction for scalable visual pretraining.",
    "affiliations": [
-    "Beijing University of Posts",
-    "Department of Computer Science"
+    "Beijing University of Posts and Telecommunications",
+    "Department of Computer Science, The University of Hong Kong, Hong Kong"
    ],
    "author_affiliations": [
     [
@@ -356,10 +356,8 @@
     ],
     null
    ],
-   "institutions": [
-    null,
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.04348",
    "pdf_url": "https://arxiv.org/pdf/2609.04348"
   },
@@ -1683,8 +1681,38 @@
     "Huawei Technologies Co., Ltd",
     "Tianjin University"
    ],
-   "author_affiliations": null,
+   "author_affiliations": [
+    null,
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     3
+    ],
+    [
+     3
+    ],
+    [
+     0
+    ],
+    [
+     4
+    ],
+    [
+     0
+    ]
+   ],
    "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.04802",
    "pdf_url": "https://arxiv.org/pdf/2609.04802"
   },
@@ -2516,6 +2544,7 @@
     "Zhejiang University",
     "Tsinghua University"
    ],
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.04958",
    "pdf_url": "https://arxiv.org/pdf/2609.04958"
   },
@@ -2682,10 +2711,8 @@
    "affiliations": [
     "Yardi School of Artificial Intelligence",
     "India Institute Of Technology, Delhi",
-    "Department of Electrical Communication Engineering",
-    "Indian Institute of Science, Bengaluru",
-    "Department of Computer Science and Engineering",
-    "Indian Institute of Technology, Delhi"
+    "Department of Electrical Communication Engineering, Indian Institute of Science, Bengaluru",
+    "Department of Computer Science and Engineering, Indian Institute of Technology, Delhi"
    ],
    "author_affiliations": [
     [
@@ -2693,22 +2720,14 @@
      1
     ],
     [
-     2,
-     3
+     2
     ],
     [
-     4,
-     5
+     3
     ]
    ],
-   "institutions": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    "Indian Institute of Technology Delhi"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.05028",
    "pdf_url": "https://arxiv.org/pdf/2609.05028"
   },
@@ -4860,7 +4879,7 @@
     "Hangzhou International Innovation Institute, Beihang University, Beijing, China",
     "School of information, Renmin University of China, Beijing, China, 100872",
     "School of Automobile, Chang ’an University, Xi’an, China",
-    "School of Artificial Intelligence and Robotics"
+    "School of Artificial Intelligence and Robotics, Hunan University, and the National Engineering Research Center for Robot Visual Perception and Control Technology, Changsha, China"
    ],
    "author_affiliations": [
     [
@@ -4882,13 +4901,8 @@
      4
     ]
    ],
-   "institutions": [
-    null,
-    "Beihang University",
-    "Renmin University of China",
-    null,
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.04807",
    "pdf_url": "https://arxiv.org/pdf/2609.04807"
   },

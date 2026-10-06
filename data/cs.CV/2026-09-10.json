@@ -21,22 +21,17 @@
    "html_url": "https://arxiv.org/html/2609.09184v1",
    "abstract": "Vision-language model (VLM) confidence may change in aggregate when visual evidence is degraded while remaining structurally inconsistent within individual examples. We study answer-level reliability along five-step, question-conditioned evidence-loss trajectories. Using a frozen Qwen2.5-VL-3B-Instruct model, we construct 176 accepted GQA-derived trajectories (880 masking conditions) by progressively masking scene-graph-localized question-critical regions. Native sequence confidence has an evidence monotonicity violation rate (EMVR) of 0.436, and 92.0% of trajectories contain at least one adjacent violation. A matched non-critical-region control shows that full critical masking reduces accuracy by 28.2 percentage points, compared with 0.6 points for equally sized non-critical masks; the paired difference is 27.6 points (95% CI [20.0, 34.7]). We train a lightweight post-hoc reliability head on frozen hidden states, sequence confidence, and entropy. Adding evidence-order supervision to binary cross-entropy (BCE) reduces masking EMVR from 0.330 to 0.303 (paired difference -0.027, 95% CI [-0.044, -0.010]). The same mask-trained objective reduces EMVR from 0.449 to 0.402 on held-out question IDs under unseen local Gaussian blur (difference -0.0468, 95% CI [-0.0739, -0.0199]). AUROC, Brier, and AURC differences between the two learned heads are statistically inconclusive, and native confidence remains stronger for selective-risk ranking. The results separate evidence-order consistency from conventional correctness discrimination rather than establishing generic confidence superiority.",
    "affiliations": [
-    "Department of Electrical Engineering",
-    "University of Moratuwa",
+    "Department of Electrical Engineering, University of Moratuwa",
     "Moratuwa, Sri Lanka"
    ],
    "author_affiliations": [
     [
      0,
-     1,
-     2
+     1
     ]
    ],
-   "institutions": [
-    null,
-    "University of Moratuwa",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.09184",
    "pdf_url": "https://arxiv.org/pdf/2609.09184"
   },
@@ -1288,29 +1283,22 @@
    "html_url": "https://arxiv.org/html/2609.09762v1",
    "abstract": "Methane plume detection from satellite imagery is constrained by incomplete observations: public satellites provide complementary spatial, spectral, and atmospheric evidence, but real plume cases rarely contain fully paired multi-sensor measurements because of revisit schedules, cloud coverage, acquisition quality, and the transient nature of emissions. Most learning-based detectors rely on single-sensor inputs, especially Sentinel-2 (S2), leaving many reported plume cases unusable. We construct MethaneUnion, a temporal multi-sensor dataset built from Carbon Mapper plume reports and matched S2, Landsat 8/9 (L8/9), EMIT, and Sentinel-5P (S5P) observations. Built on MethaneUnion, MethaneFuse learns from heterogeneous satellite observations under partial sensor availability without requiring complete four-sensor measurements. MethaneUnion expands usable coverage from 3,211 valid S2-matched plume cases to 8,981 reported plume cases with multi-sensor observations. At the representative 480 m setting, MethaneFuse achieves 84.87 F1 and 93.62 AUROC, improving over the strongest baseline by 5.65 F1 and 8.30 AUROC points while reducing false positives by 8.19 points. Sensor-availability experiments show that MethaneFuse improves detection when S2 is available and transfers plume knowledge to L8/9, EMIT, and S5P when S2 is unavailable. These results demonstrate the value of learning from incomplete heterogeneous sensor observations for practical methane plume detection.",
    "affiliations": [
-    "Department of Electrical and Computer Engineering",
-    "University of Alberta, Edmonton, Canada",
-    "Department of Civil and Environmental Engineering"
+    "Department of Electrical and Computer Engineering, University of Alberta, Edmonton, Canada",
+    "Department of Civil and Environmental Engineering, University of Alberta, Edmonton, Canada"
    ],
    "author_affiliations": [
     [
-     0,
+     0
+    ],
+    [
      1
     ],
     [
-     2,
-     1
-    ],
-    [
-     0,
-     1
+     0
     ]
    ],
-   "institutions": [
-    null,
-    "University of Alberta",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.09762",
    "pdf_url": "https://arxiv.org/pdf/2609.09762"
   },
@@ -2632,32 +2620,25 @@
    "html_url": "https://arxiv.org/html/2609.10322v1",
    "abstract": "Transferring the rich priors of large 2D foundation models to sparse 3D LiDAR remains challenging, as training native 3D foundation models at comparable scale is limited by data and annotation scarcity. We introduce a LiDAR-conditioned diffusion model trained on pseudo-labels from off-the-shelf 2D foundation models. The model supports multiple output modalities, including depth, semantic segmentation and instance prediction, selectable via a textual task prompt. Because the model is conditioned on LiDAR, both its outputs and its intermediate UNet features can be projected back onto the input point cloud, enabling analysis of a 3D representation learned entirely under 2D supervision. We study this representation directly in point-cloud space, explicitly excluding raw spatial coordinates to isolate feature content from projection geometry. Linear probes recover up to ~23% Mean Intersection over Union (MIoU) on 3D semantic classes, compared to ~3.5% for a matched Gaussian-noise control, indicating substantial non-trivial structure. Pairwise cosine similarity across modality-specific feature streams reveals a layered organization. Early encoder layers remain weakly aligned across modalities while individually decodable, intermediate layers converge toward a shared representation, and decoder layers re-specialize toward task-specific outputs. These findings indicate that LiDAR-conditioned diffusion models can induce structured 3D representations from 2D supervision alone, with a modality-dependent manifold that locally unifies near a shared bottleneck. This positions diffusion as a viable mechanism for transferring large-scale 2D priors into sparse 3D domains.",
    "affiliations": [
-    "Department of Electrical Engineering and Information Technology",
-    "Munich University of Applied Sciences",
+    "Department of Electrical Engineering and Information Technology, Munich University of Applied Sciences",
     "Munich, Bavaria 80335"
    ],
    "author_affiliations": [
     [
      0,
-     1,
-     2
+     1
     ],
     [
      0,
-     1,
-     2
+     1
     ],
     [
      0,
-     1,
-     2
+     1
     ]
    ],
-   "institutions": [
-    null,
-    "Munich University of Applied Sciences",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.10322",
    "pdf_url": "https://arxiv.org/pdf/2609.10322"
   },
@@ -3623,8 +3604,10 @@
    "abstract": "Few-shot object detection (FSOD) aims to detect novel instances with only a limited number of labeled training samples, presenting a challenge that is particularly prominent in numerous remote sensing applications such as endangered species monitoring and disaster assessment. Existing FSOD methods for remote sensing images (RSIs) have achieved promising progress but remain constrained by the limited diversity of instances. To address this issue, we propose a novel framework that can leverage a diffusion model pretrained on large-scale natural images to synthesize diverse remote sensing instances, thereby improving the performance of few-shot object detectors. Instead of directly synthesizing complete remote sensing images, we first generate instance-level slices via a specialized slice-to-slice module, and then embed these slices into full-scale imagery for enhanced data augmentation. To further adapt diffusion models for remote sensing scenarios, we develop a class-agnostic image inversion module that can invert remote sensing instance slices into semantic space. Additionally, we introduce contrastive loss to semantically align the synthesized images with their corresponding classes. Experimental results show that our method hasachieved an average performance improvement of 4.4% across multiple datasets and various approaches. Ablation experiments indicate that the elaborately designed inversion module can effectively enhance the performance of FSOD methods, and the semantic contrastive loss can further boost the performance.",
    "affiliations": [
     "National Key Laboratory of Microwave Imaging Technology, Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100094, China",
-    "School of Electronic",
-    "department of Earth System Science, Tsinghua University, Beijing 100084, China"
+    "School of Electronic, Electrical and Communication Engineering, University of Chinese Academy of Sciences, Beijing 100049, China",
+    "department of Earth System Science, Tsinghua University, Beijing 100084, China",
+    "Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing 100094, China",
+    "Key Laboratory of Technology in Geo-Spatial Information Processing and Application System, Chinese Academy of Sciences, Beijing 100190, China"
    ],
    "author_affiliations": [
     [
@@ -3634,22 +3617,25 @@
     [
      2
     ],
-    null,
+    [
+     3,
+     4
+    ],
     [
      0,
      1
     ],
-    null,
+    [
+     3,
+     4
+    ],
     [
      0,
      1
     ]
    ],
-   "institutions": [
-    "Aerospace Information Research Institute",
-    null,
-    "Tsinghua University"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2511.18031",
    "pdf_url": "https://arxiv.org/pdf/2511.18031"
   },
@@ -3829,35 +3815,25 @@
    "html_url": "https://arxiv.org/html/2609.09486v1",
    "abstract": "Fairness auditing of text-to-image diffusion models often requires generating large numbers of images across sampling configurations, making comprehensive evaluation computationally expensive. We propose a causal-abstraction-based audit instrument for efficiently evaluating fairness under interventions on the classifier-free guidance scale. Given a fixed prompt and a target feature function, we represent the diffusion process as a low-level structural causal model and construct a corresponding high-level model over abstract denoising states. We characterize the projected causal structure, establish identifiability of the fairness-relevant interventional query, and provide sufficient conditions under which the high-level model preserves this query. A probabilistic transformer implements the high-level model as an amortized predictor of target-feature distributions across guidance scales. Experiments evaluate distributional fidelity, fairness-query accuracy, and computational efficiency. We present two auditing demonstrations: one using standard Stable Diffusion 1.5 and another using StayFair, a fairness-enhanced Stable Diffusion model, to examine their behavior across guidance scales.",
    "affiliations": [
-    "University of Arkansas",
-    "Fayetteville, AR, USA",
-    "University of North Carolina at Charlotte",
-    "Charlotte, NC, USA"
+    "University of Arkansas, Fayetteville, AR, USA",
+    "University of North Carolina at Charlotte, Charlotte, NC, USA"
    ],
    "author_affiliations": [
     [
-     0,
+     0
+    ],
+    [
      1
     ],
     [
-     2,
-     3
-    ],
-    [
-     2,
-     3
-    ],
-    [
-     0,
      1
+    ],
+    [
+     0
     ]
    ],
-   "institutions": [
-    null,
-    null,
-    "University of North Carolina at Charlotte",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.09486",
    "pdf_url": "https://arxiv.org/pdf/2609.09486"
   },
@@ -4300,17 +4276,10 @@
    "cross_list_from": "cs.RO",
    "html_url": "https://arxiv.org/html/2609.10082v1",
    "abstract": "Accurate camera intrinsic calibration is fundamental to robot perception, and the accuracy depends on the quality of the collected images. However, existing target-based calibration methods often require the practitioner to manually filter out high-quality images and to specify an appropriate radial distortion order. This paper presents a fully automatic intrinsic calibration pipeline that determines both from the collected data. We adopt an iterative rejection scheme that estimates parameters on a candidate image set and removes views whose mean residual exceeds a multiple of the median. Crucially, this process runs independently under each candidate distortion order, so that the retained image set is consistent with the residual scale of that order. Further, the distortion order is selected on held-out images, with the intrinsics and distortion fixed and only the board pose re-estimated, ensuring that an added coefficient is supported by independent observations. Finally, we integrate both steps into an interactive calibration tool that supports full-pipeline data inspection and parameter estimation. Experiments on our own camera data and five public real-world datasets show that image filtering reduces the held-out reprojection error by 25\\%, the order selection further by 5\\%, achieving the lowest held-out mean among four compared configurations without manual image selection. We will release the code and data to facilitate future research.",
-   "affiliations": [
-    "Department of Electronic and Computer Engineering"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.10082",
    "pdf_url": "https://arxiv.org/pdf/2609.10082"
   },

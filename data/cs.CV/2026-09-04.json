@@ -490,6 +490,7 @@
     null,
     "Technische Universität Darmstadt"
    ],
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.03206",
    "pdf_url": "https://arxiv.org/pdf/2609.03206"
   },
@@ -1368,23 +1369,18 @@
    "html_url": "https://arxiv.org/html/2609.03475v1",
    "abstract": "Industrial inspection pipelines often restore a measured image before a detector acts on it, yet restoration can suppress detector-supported defect structure or create clean-region activations. We formulate restoration as a selective action problem over the measured display, five restored candidates, and review. SafeRestore ranks candidates with action-specific fitted scores, chooses a gate on threshold-tuning data, and evaluates the fixed gate on a disjoint certification sample with two one-sided exact binomial bounds: one for the positive-conditional evidence-loss incident rate and one for the all-accepted excess-activation incident rate. The guarantee is marginal for one policy fixed before its certification outcomes are observed, under an image-level i.i.d. working model. In a retrospective split-sample study of 4,591 public Carinthia-S images, the protocol yields auditable risk-coverage behavior. The primary all-action policy passes in one of five training repetitions (12.0% +/- 26.9% pass-gated test coverage when failures count as zero), whereas fixed bicubic and reduced-complexity variants pass more often. On reserved morphologies, evidence-loss incidence rises to 81.1-90.3%, and KolektorSDD lacks both detector competence and enough positive certification images for the stated target. The contribution is therefore an auditable, detector-relative framework for deciding when a transformed image may be returned automatically and when review remains necessary -- not a claim that adaptive routing outperforms simpler policies on the present evidence.",
    "affiliations": [
-    "Santa Clara University",
-    "Santa Clara, CA 95053, USA"
+    "Santa Clara University, Santa Clara, CA 95053, USA"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ]
    ],
-   "institutions": [
-    "Santa Clara University",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.03475",
    "pdf_url": "https://arxiv.org/pdf/2609.03475"
   },
@@ -1574,23 +1570,20 @@
    ],
    "author_affiliations": [
     [
-     0,
+     0
+    ],
+    [
+     0
+    ],
+    [
      1
     ],
     [
-     0,
-     1
-    ],
-    [
-     0,
-     1
-    ],
-    [
-     0,
-     1
+     0
     ]
    ],
    "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.03534",
    "pdf_url": "https://arxiv.org/pdf/2609.03534"
   },
@@ -2436,27 +2429,20 @@
    ],
    "author_affiliations": [
     [
-     0,
-     1,
-     2
+     0
     ],
     [
-     0,
-     1,
-     2
+     1
     ],
     [
-     0,
-     1,
-     2
+     0
     ],
     [
-     0,
-     1,
      2
     ]
    ],
    "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.03688",
    "pdf_url": "https://arxiv.org/pdf/2609.03688"
   },
@@ -2484,42 +2470,22 @@
     "National College for Excellent Engineers",
     "Beihang University",
     "Beijing, P.R.C. 100191",
-    "School of Biological Science and Medical Engineering",
+    "School of Biological Science and Medical Engineering, Beihang University",
     "College of Engineering",
     "Peking University",
     "Beijing, P.R.C. 100871"
    ],
    "author_affiliations": [
-    [
-     0,
-     1,
-     2
-    ],
+    null,
     [
      3,
-     1,
      2
     ],
-    [
-     4,
-     5,
-     6
-    ],
-    [
-     3,
-     1,
-     2
-    ]
-   ],
-   "institutions": [
     null,
-    "Beihang University",
-    null,
-    null,
-    null,
-    "Peking University",
     null
    ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.03689",
    "pdf_url": "https://arxiv.org/pdf/2609.03689"
   },

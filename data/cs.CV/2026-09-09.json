@@ -2584,19 +2584,15 @@
    "html_url": "https://arxiv.org/html/2609.06058v1",
    "abstract": "As vision-language models (VLMs) become increasingly capable and are deployed in consequential real-world settings, they must evaluate evidence independently rather than defer uncritically to human authority. We introduce GradeTrap, a controlled evaluation that places two social cues in direct conflict: a student answer, which should attract sycophantic agreement, and a conflicting answer attributed to a peer, teacher, or official answer key, which should attract authority-based deference. Models produce free-form answers while being explicitly instructed to solve independently and ignore all student answers, feedback, and grading marks. We test the models on 60 synthetic real-world trade-off scenarios. Five neutral trials establish a stable model-relative preference, followed by three repetitions of six experimental cues including controls. On the 45-item common intersection across Gemini 3.5 Flash-Lite, GPT-5.6 Luna, and Claude Haiku 4.5, a generic second-answer control yields 5.4% conflicting-answer selection. Relative to that control, pooled within-item changes show no reliable peer-review effect, a 6.9-point teacher-review effect, and a 19.5-point official-key effect. In contrast, a displayed conflicting student answer alone compared to a displayed student reference answer alone only raises selection from 2.2% to 5.2%. Official-key provenance therefore redirects judgements more than a student answer or the generic second-answer control, despite an explicit ignore instruction and an opposing student answer given along with the official key. Effects vary in magnitude across the three models.",
    "affiliations": [
-    "Department of Computer Science",
-    "The University of Texas at Austin"
+    "Department of Computer Science, The University of Texas at Austin"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ]
    ],
-   "institutions": [
-    null,
-    "University of Texas at Austin"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.06058",
    "pdf_url": "https://arxiv.org/pdf/2609.06058"
   },
@@ -3762,19 +3758,15 @@
    "html_url": "https://arxiv.org/html/2609.06356v1",
    "abstract": "U-Net remains a practical baseline for image segmentation because of its simple encoder-decoder structure and skip connections. However, the bottleneck representation is still dominated by a limited set of receptive fields, while decoder features are propagated without explicitly emphasizing the most informative channels and spatial locations. This paper presents MSCA-UNet, a U-Net-based segmentation architecture that combines multi-scale contextual aggregation at the bottleneck with channel-spatial attention refinement in the decoder. The multi-scale module uses parallel atrous convolutions to capture contextual features at different receptive fields, while Convolutional Block Attention Modules (CBAMs) progressively recalibrate decoder features. Under identical experimental settings, the baseline U-Net achieves 96.9% mIoU on a held-out test set. Adding multi-scale context improves mIoU to 97.5%, while attention alone reaches 98.4%. Combining both mechanisms yields 99.1% mIoU, a 2.2 percentage-point improvement over the baseline. Parameter analysis further shows that the attention-only variant adds approximately 0.044M parameters, whereas the multi-scale module contributes most of the additional model capacity. The results support the view that multi-scale context enrichment and attention-based feature refinement provide complementary benefits within a U-Net framework.",
    "affiliations": [
-    "Dept. of Electrical Engineering",
-    "Tamkang University"
+    "Dept. of Electrical Engineering, Tamkang University"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ]
    ],
-   "institutions": [
-    null,
-    "Tamkang University"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.06356",
    "pdf_url": "https://arxiv.org/pdf/2609.06356"
   },
@@ -4829,41 +4821,14 @@
    "abstract": "Recent advancements in deep learning allow robotic agents to interact with dynamic and unstructured environments. Of special interest is the integration of physico-geospatial world knowledge into such systems, either by using physics-aware machine learning models, knowledge graphs to model relationships or spatio-temporal and logical reasoning. In the present work, we introduce an approach to augment the output of pre-trained, unmodified VLMs used for scene interpretation by integrating semantic descriptions, OpenStreetMap building data and street information with positional, temporal and metric information obtained from our sensory systems, fusing this information using LLMs. We apply this concept to an outdoor recording within a university campus, achieving an F1-Score of 0.83 in the task of grounding buildings and 0.64 for path surface grounding on our pilot evaluation set. The results demonstrate the conceptual capability of the proposed solution to deliver physico-geospatial grounded natural language descriptions. Code and results are available at https://datahub.rz.rptu.de/hstr-csrl-public/publications/physico-geospatial-grounded-scene-interpretation",
    "affiliations": [
     "Department of Computer Science",
-    "Department of Engineering",
-    "Trier University of Applied Sciences",
+    "Department of Engineering, Trier University of Applied Sciences",
     "University of Luxembourg",
     "Trier, Germany",
     "Kirchberg, Luxembourg"
    ],
-   "author_affiliations": [
-    [
-     0,
-     1
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     1
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    null,
-    null,
-    "Trier University of Applied Sciences",
-    "University of Luxembourg",
-    null,
-    null
-   ],
+   "author_affiliations": null,
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.06629",
    "pdf_url": "https://arxiv.org/pdf/2609.06629"
   },
@@ -5414,6 +5379,7 @@
     "Queen's University",
     null
    ],
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.06726",
    "pdf_url": "https://arxiv.org/pdf/2609.06726"
   },
@@ -5744,27 +5710,23 @@
    ],
    "author_affiliations": [
     [
-     0,
+     0
+    ],
+    [
+     0
+    ],
+    [
      1
     ],
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
-    ],
-    [
-     0,
-     1
-    ],
-    [
-     0,
-     1
+     0
     ]
    ],
    "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.06809",
    "pdf_url": "https://arxiv.org/pdf/2609.06809"
   },
@@ -5928,31 +5890,22 @@
    "html_url": "https://arxiv.org/html/2609.06880v1",
    "abstract": "Reasoning over language instructions in embodied tasks such as robotics often requires understanding spatial relations from a speaker's situated perspective. Humans infer such perspectives from shared environmental knowledge, activity context, and commonsense. Recent vision-language models (VLMs) appear capable of spatial reasoning, but their ability to infer a speaker's viewpoint from contextual cues and interpret situated spatial relations from that viewpoint remains unclear. We call this capability contextual observer grounding. To study this capability, we construct the Point-of-View Benchmark (POVBench), a dataset of 3D scenes and queries that disentangles Inferred, Stated, and Given forms of observer grounding in natural embodied communication. Given multi-view observations and a natural-language sentence, models must localize unseen or underspecified targets from situated spatial and contextual cues. Across state-of-the-art VLMs, localizing targets from directional language remains challenging, even when observer grounding is made explicit. We find that explicit breakdowns of observer-relative spatial reasoning improve target localization. Our project page is available at https://mimo-owl.github.io/POVBench/.",
    "affiliations": [
-    "The University of Tokyo",
-    "Tokyo, Japan",
-    "Carnegie Mellon University",
-    "Pittsburgh, PA, USA"
+    "The University of Tokyo, Tokyo, Japan",
+    "Carnegie Mellon University, Pittsburgh, PA, USA"
    ],
    "author_affiliations": [
     [
-     0,
+     0
+    ],
+    [
      1
     ],
     [
-     2,
-     3
-    ],
-    [
-     2,
-     3
+     1
     ]
    ],
-   "institutions": [
-    "University of Tokyo",
-    null,
-    "Carnegie Mellon University",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.06880",
    "pdf_url": "https://arxiv.org/pdf/2609.06880"
   },
@@ -7354,6 +7307,7 @@
     "University of Glasgow",
     "TU Wien"
    ],
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.07155",
    "pdf_url": "https://arxiv.org/pdf/2609.07155"
   },
@@ -7463,28 +7417,22 @@
    "html_url": "https://arxiv.org/html/2609.07180v1",
    "abstract": "Basal Cell Carcinoma (BCC) is the most common type of skin cancer, accounting for nearly 80% of skin cancer di- agnoses. Its optimal clinical management is guided by the distinct histopathologic subtype, with aggressive variants requiring more drastic measures. In current clinical practice, subtyping relies on skin biopsies, a procedure both costly and invasive. In this paper, we conduct a preliminary investigation into using deep learning for BCC subtyping, solely from a single dermatoscopic image of the lesion. Given the limited data at our disposal, we employ pre-trained vision transformers (ViTs), a state-of-the-art family of models highly effective for challenging downstream tasks with limited labeled data. Through repeated stratified k-fold cross-validation, we demonstrate that ViTs can achieve superior performance (AUC 0.784 on a dataset of 1271 dermatoscopic images of various BCC subtypes) over standard CNN-based baselines as well as previously-reported human reader perfor- mance, on the task of differentiating aggressive BCCs from other subtype families. These initial findings highlight the potential of combining deep learning and dermatoscopy to provide a biopsy- free alternative for BCC subtyping, thus aiding in improving treatment planning and patient outcomes.",
    "affiliations": [
-    "School of Electrical and Computer Engineering",
-    "Aristotle University of Thessaloniki, Greece",
-    "First Department of Dermatology"
+    "School of Electrical and Computer Engineering, Aristotle University of Thessaloniki, Greece",
+    "First Department of Dermatology",
+    "Aristotle University of Thessaloniki, Greece"
    ],
    "author_affiliations": [
     null,
     null,
     null,
     [
-     2,
-     1
+     1,
+     2
     ],
-    [
-     0,
-     1
-    ]
-   ],
-   "institutions": [
-    null,
-    "Aristotle University of Thessaloniki",
     null
    ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.07180",
    "pdf_url": "https://arxiv.org/pdf/2609.07180"
   },
@@ -7755,37 +7703,28 @@
    "html_url": "https://arxiv.org/html/2609.07336v2",
    "abstract": "Morphology of the sub-basal nerve plexus (SNP) reflects peripheral nerve health, and corneal confocal microscopy (CCM) provides an important means for in vivo, real-time, non-invasive observation of the SNP. However, mainstream CCM devices offer a limited field of view per frame, whereas the SNP is spatially non-uniform; discrete image sampling is therefore sensitive to sampling location and frame selection, which limits the reproducibility and clinical adoption of CCM as a quantitative assessment tool. Wide-field stitching can reconstruct larger SNP mosaics by integrating sequentially acquired CCM images, but existing methods largely rely on offline post-processing, additional hardware, or specific acquisition protocols, and lack open-source real-time solutions for conventional CCM video streams. This paper presents CRISP (Corneal confocal microscopy Real-time Image Stitching Pipeline), an open-source real-time SNP wide-field stitching framework for conventional CCM examination video streams. CRISP excludes defocused and discontinuous segments via focus-aware gating, propagates poses through local pairwise registration, and maintains non-redundant spatial coverage with a sparse anchor map; when local temporal continuity is interrupted, the system completes relocalization and subgraph merging through global appearance retrieval followed by geometric verification. The framework prioritizes low-latency coverage feedback during examination while outputting accepted frames, poses, and anchor information to initialize offline fine stitching. To our knowledge, CRISP is the first open-source real-time SNP wide-field stitching framework released for conventional CCM video streams. By lowering the barrier to adoption and reproduction of wide-field stitching, CRISP may help move SNP wide-field imaging from a research tool into routine clinical examination workflows.",
    "affiliations": [
-    "Department of Endocrinology and Metabolism",
-    "Qilu Hospital, Shandong University, Jinan 250012, China",
-    "Shanghai Sixth People’s Hospital Affiliated to",
+    "Department of Endocrinology and Metabolism, Qilu Hospital, Shandong University, Jinan 250012, China",
+    "Department of Endocrinology and Metabolism, Shanghai Sixth People’s Hospital Affiliated to",
     "Shanghai Jiao Tong University School of Medicine, Shanghai, China"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     2,
-     3
+     1,
+     2
     ],
     [
-     0,
-     2,
-     3
+     1,
+     2
     ],
     [
-     0,
-     1
+     0
     ]
    ],
-   "institutions": [
-    null,
-    "Shandong University",
-    "Shanghai Sixth People's Hospital",
-    "Shanghai Jiao Tong University"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.07336",
    "pdf_url": "https://arxiv.org/pdf/2609.07336"
   },
@@ -10291,29 +10230,22 @@
    "html_url": "https://arxiv.org/html/2609.08130v1",
    "abstract": "Driver alerting from dashcam video requires sequential decision-making under partial observability: a system must decide not only whether a scene is risky, but also when the evidence is sufficient to warn. Most existing accident anticipation models output a binary risk score, leaving ambiguous scenes to be handled by thresholding. We propose VLAlert, a vision-language alerting framework that casts warning generation as a tri-action policy over SILENT, OBSERVE, and ALERT. The OBSERVE action acts as an internal evidence-gathering decision that delays uncertain warnings and changes the next observation window, creating a lightweight perception-action loop for adaptive alerting. VLAlert uses Qwen3-VL-4B as a safety-evidence generator and pools hidden states from structured belief spans to form compact representations for danger estimation and policy prediction. We evaluate VLAlert on VLAlert-Bench, a unified per-tick benchmark from four real-world dashcam alert datasets, and further test transfer to held-out naturalistic ADAS takeover clips. On VLAlert-Bench validation, VLAlert achieves the highest deployment-oriented utility among tested baselines, with DAUS 0.4878 compared with 0.4752 for Open-BADAS, and improves AUROC, AP_tick, F1_t, and balanced accuracy from 0.610, 0.176, 0.276, and 0.581 to 0.689, 0.195, 0.297, and 0.648, respectively. On 221 held-out ADAS-TO-Critic clips, VLAlert improves R@5s from 74.2% to 88.7% and F1 from 0.585 to 0.686. These results indicate that adaptive observation and safety-focused VLM representations provide measurable gains for driver-facing alert decisions.",
    "affiliations": [
-    "Department of Civil Engineering",
-    "University of South Florida, United States",
-    "School of Information"
+    "Department of Civil Engineering, University of South Florida, United States",
+    "School of Information, University of South Florida, United States"
    ],
    "author_affiliations": [
     [
-     0,
+     0
+    ],
+    [
      1
     ],
     [
-     2,
-     1
-    ],
-    [
-     0,
-     1
+     0
     ]
    ],
-   "institutions": [
-    null,
-    "University of South Florida",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.08130",
    "pdf_url": "https://arxiv.org/pdf/2609.08130"
   },
@@ -12915,6 +12847,7 @@
     "Kookmin University",
     null
    ],
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.08914",
    "pdf_url": "https://arxiv.org/pdf/2609.08914"
   },
@@ -15990,33 +15923,28 @@
    "html_url": "https://arxiv.org/html/2609.08025v1",
    "abstract": "Reasoning agents increasingly rely on external tools such as web search to answer complex queries. Reinforcement learning (RL) finetuning algorithms such as GRPO have improved long-form reasoning in text-only language models, particularly for coding and mathematics. Reliable tool use in multimodal agents, however, remains challenging because models must interpret text and images while integrating noisy retrieved evidence, often under sparse outcome-level supervision without explicit verification signals. We present Self-Verification via Reinforcement Learning (SVRL), an RL-only finetuning framework that trains multimodal agents to verify and filter retrieved evidence within their own reasoning traces, reducing reliance on external verifiers at inference time. SVRL also introduces a search-aware penalty that discourages unnecessary tool calls and a query-diversity reward that encourages diverse, well-formed search queries, providing fine-grained feedback on when and what to search. Finetuning Qwen-2.5-VL-7B with SVRL on only 5{,}000 visual question answering examples yields consistent gains in multi-hop VQA generalization and tool efficiency across benchmarks. Overall, SVRL narrows the gap between compact agents and much larger proprietary models while requiring substantially lower training and inference cost.",
    "affiliations": [
-    "University of Washington",
-    "Seattle, WA, USA",
-    "Amazon"
+    "University of Washington, Seattle, WA, USA",
+    "Amazon, USA"
    ],
    "author_affiliations": [
     [
-     0,
+     0
+    ],
+    [
      1
     ],
     [
-     2
+     1
     ],
     [
-     2
+     1
     ],
     [
-     2
-    ],
-    [
-     2
+     1
     ]
    ],
-   "institutions": [
-    "University of Washington",
-    null,
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.08025",
    "pdf_url": "https://arxiv.org/pdf/2609.08025"
   },
@@ -16221,32 +16149,25 @@
    "html_url": "https://arxiv.org/html/2609.08493v1",
    "abstract": "Observing objects grasped by a robot hand is challenging due to severe visual occlusions. Although in-hand manipulation can expose hidden surfaces, existing approaches often rely on predefined or open-loop reorientation strategies that do not explicitly target under-observed regions. We propose AURORA, an active 3D reconstruction framework that closes the loop between online object-centric reconstruction and in-hand reorientation. At its core, Ray-GPIS estimates direction-wise reconstruction uncertainty along candidate viewing rays and selects next-best-view targets using an uncertainty--novelty objective, which are realized through an axis-conditioned in-hand rotation policy. The resulting RGB-D observations are fused incrementally using CAD-free 6D pose tracking and lightweight geometric reconstruction. Experiments demonstrate that AURORA improves reconstruction quality and information-acquisition efficiency over non-active rotation strategies, while Ray-GPIS also outperforms active view-planning baselines in reconstruction performance, action-ranking quality, and planning efficiency. Targeted ablations further validate its robustness to hand occlusion and pose errors. The project webpage is available at https://aurorahand.github.io/",
    "affiliations": [
-    "School of Information Science",
-    "Technology",
+    "School of Information Science, and Technology",
     "ShanghaiTech University, China"
    ],
    "author_affiliations": [
     [
      0,
-     1,
-     2
+     1
     ],
     [
      0,
-     1,
-     2
+     1
     ],
     [
      0,
-     1,
-     2
+     1
     ]
    ],
-   "institutions": [
-    null,
-    null,
-    "ShanghaiTech University"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.08493",
    "pdf_url": "https://arxiv.org/pdf/2609.08493"
   },

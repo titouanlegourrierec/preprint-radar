@@ -2516,8 +2516,37 @@
     "MIT",
     "MIT-IBM Watson AI Lab"
    ],
-   "author_affiliations": null,
+   "author_affiliations": [
+    [
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     0
+    ],
+    [
+     3
+    ],
+    null,
+    [
+     0
+    ]
+   ],
    "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.37690",
    "pdf_url": "https://arxiv.org/pdf/2609.37690"
   },
@@ -6793,19 +6822,15 @@
    "html_url": "https://arxiv.org/html/2609.36957v1",
    "abstract": "Direct visual readability and task-information recoverability are different quantities. Failure to decode a target from a fixed observation need not eliminate access to that target through another recovery route. We develop an evaluation perspective that makes the observation, query, target, and available knowledge explicit and measures the overlap between routes' success sets. For information available on the original visible surface under suitable imaging conditions, direct optical recovery reads the target from the image, optionally after restoration; entity-linked recovery uses residual visual evidence to identify the depicted entity and accesses its target through an entity--attribute relation in a specified knowledge resource. Such access can draw on stored knowledge or an external source. A controlled book-cover study instantiates external access with a fixed title--author catalog, comparing optical author recovery with visual title resolution and deterministic lookup under resolution degradation. Entity-linked successes persist across the tested vision--language models, revealing information access beyond the tested direct visual frontier despite substantial differences in absolute performance. A substantial optical-only region remains. These complementary outcomes show why visual degradation should be evaluated through the task information accessible along specified routes and knowledge resources, alongside direct readability.",
    "affiliations": [
-    "School of Science and Engineering",
-    "The Chinese University of Hong Kong, Shenzhen"
+    "School of Science and Engineering, The Chinese University of Hong Kong, Shenzhen"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ]
    ],
-   "institutions": [
-    null,
-    "Chinese University of Hong Kong, Shenzhen"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.36957",
    "pdf_url": "https://arxiv.org/pdf/2609.36957"
   },
@@ -8591,8 +8616,39 @@
     "Shanghai Jiao Tong University",
     "Zhongguancun Academy"
    ],
-   "author_affiliations": null,
+   "author_affiliations": [
+    [
+     0,
+     1,
+     3
+    ],
+    [
+     0,
+     1,
+     3
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
    "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.36651",
    "pdf_url": "https://arxiv.org/pdf/2609.36651"
   },
@@ -10542,19 +10598,15 @@
    "html_url": "https://arxiv.org/html/2609.36134v1",
    "abstract": "Functional Kolmogorov-Arnold Networks (FunKAN) achieve state-of-the-art accuracy on MRI Gibbs artifact removal and anatomical segmentation, but their 11.6 M parameters and 8.7 GFLOPs are too large for edge medical devices. We present FunKANLite, a two-stage, hardware-aware compression of FunKAN for point-of-care use. FunKANLite-TR reduces the spatial prior and replaces the ResBlock offset predictor with a depthwise-separable block. It has 1.9x fewer parameters than FunKAN and no loss in accuracy. We then distill FunKANLite-TR into FunKANLite-ST, which lowers the Hermite basis rank, factorizes the spatial prior into a low-rank form, and halves the filter widths. FunKANLite-ST has 5.6x fewer parameters and 3.7x fewer GFLOPs than FunKAN. It stays within 1.4 percentage points IoU of FunKAN on BUSI, GlaS, and CVC-ClinicDB, and reaches 33.95 dB PSNR on IXI. On an NVIDIA Jetson Orin Nano and a Raspberry Pi 5, FunKANLite-ST reduces energy per inference by up to 68% and raises throughput by 2.9x.",
    "affiliations": [
-    "Department of Computer Science",
-    "University of Texas at San Antonio, San Antonio, TX, USA"
+    "Department of Computer Science, University of Texas at San Antonio, San Antonio, TX, USA"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ]
    ],
-   "institutions": [
-    null,
-    "University of Texas at San Antonio"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.36134",
    "pdf_url": "https://arxiv.org/pdf/2609.36134"
   },
@@ -11626,35 +11678,25 @@
    "html_url": "https://arxiv.org/html/2609.37670v1",
    "abstract": "MeanFlow enables efficient few-step generation by predicting interval-average velocities, but this representation creates a mismatch for reward fine-tuning: existing advantage-based objectives are typically defined on instantaneous velocities or equivalent $x_0$-space predictions, whereas inference directly uses the learned average-velocity map. We introduce MeanFlowAdvantage, a signed advantage-weighted least-squares objective for average-velocity generators. Our key construction uses a shared, detached MeanFlow derivative correction to express the reward objective in prediction space while making rollout and reference regularization exact penalties on the average-velocity network deployed at inference. The resulting formulation preserves MeanFlow's native few-step sampler and provides a direct mechanism for transferring reward improvements to the deployed flow map. On SD3.5-Medium, MeanFlowAdvantage improves all eight reported metrics over the matched four-step MeanFlowNFT baseline and, with only four NFEs, matches or exceeds the 40-step DiffusionNFT baseline on six of eight metrics. The same objective also transfers to DNA promoter design, where it supports both teacher-free on-policy RL for a generator defined on a manifold and teacher-guided reward-graded distillation, with the latter yielding the lowest one-step Sei profile MSE among the compared configurations.",
    "affiliations": [
-    "Northeastern University",
-    "Boston, MA 02115, USA",
+    "Northeastern University, Boston, MA 02115, USA",
     "Tsinghua University",
     "Beijing, 100084, PRC",
-    "Carnegie Mellon University",
-    "Pittsburgh, PA 15213, USA"
+    "Carnegie Mellon University, Pittsburgh, PA 15213, USA"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     [
-     2,
+     1,
+     2
+    ],
+    [
      3
-    ],
-    [
-     4,
-     5
     ]
    ],
-   "institutions": [
-    null,
-    null,
-    "Tsinghua University",
-    null,
-    "Carnegie Mellon University",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.37670",
    "pdf_url": "https://arxiv.org/pdf/2609.37670"
   },
@@ -12100,38 +12142,24 @@
    "html_url": "https://arxiv.org/html/2609.37047v2",
    "abstract": "We propose a new spiking neural network (SNN) design to process static images and event streams using time-to-first-spike (TTFS) latencies. Our key research question is which architectural choices best accommodate local and online learning in multi-layer convolutional SNNs. This question is addressed via an original framework combining residual-like connections with multi-depth feature aggregation and consensus. The full SNN pipeline features an early-vision front end, to convert raw visual data into sparse spike latencies, a four-layer convolutional backbone trained layerwise with unsupervised spike-timing-dependent plasticity (STDP), a deterministic Multi-Depth Temporal Fusion (MDTF) and a final classifier trained with reward-modulated spike-timing-dependent plasticity (R-STDP). Rather than replacing early features in deeper layers, the proposed MDTF preserves early temporal evidence, adding sparse residual events from intermediate layers, and incorporating deeper features only when they agree in time with earlier representations. The resulting architecture is experimentally validated across MNIST, Fashion-MNIST, CIFAR-10, and N-MNIST, delivering strong classification performance under a fully local learning regime. Selective multi-depth fusion significantly outperforms traditional STDP/R-STDP baselines on higher-variability visual tasks (achieving +18.2 pp on Fashion-MNIST and +29.2 pp on CIFAR-10). Furthermore, activity-budget analyses show that the network retains high accuracy even when removing a large fraction of late or weak spike events, confirming its high data efficiency and reduced event-processing requirements. The codebase is publicly available at github.com/aidinattar/multi-depth- temporal-fusion-snn.",
    "affiliations": [
-    "Department of Information",
-    "Engineering, University of Padua",
-    "Padua, Italy",
-    "Department of Mathematics",
-    "“Tullio Levi-Civita”, University of Padua"
+    "Department of Information, Engineering, University of Padua, Padua, Italy",
+    "Department of Information, Engineering, University of Padua",
+    "Department of Mathematics, “Tullio Levi-Civita”, University of Padua, Padua, Italy"
    ],
    "author_affiliations": [
     [
-     0,
-     1,
-     2
+     0
     ],
     [
-     0,
-     1,
-     2
+     0
     ],
     [
-     0,
      1,
-     3,
-     4,
      2
     ]
    ],
-   "institutions": [
-    null,
-    "University of Padua",
-    null,
-    null,
-    "University of Padua"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.37047",
    "pdf_url": "https://arxiv.org/pdf/2609.37047"
   },

@@ -1563,7 +1563,7 @@
    "abstract": "Joint learning across heterogeneous tasks is often treated as task coupling through feature sharing, distillation, or auxiliary supervision. However, in cross-task learning, mismatched representational and supervisory granularities make such coupling prone to interference, teacher bias, or unidirectional collapse. We argue that cross-granularity learning is fundamentally a problem of hierarchical interaction regulation rather than simple task coupling. This issue is particularly evident in UAV perception, where visual shifts and detection--segmentation objectives naturally form coarse- and fine-grained knowledge sources. To systematically study this problem, we introduce CrossUAV, a UAV benchmark for joint object detection and instance segmentation that provides a unified evaluation platform for cross-granularity task collaboration. To address these challenges, we propose Cross-Granularity Socialized Collaboration (CGSC), a progressive and adaptive framework that regulates when, where, and how tasks exchange information across network hierarchies. CGSC progressively activates cross-task interactions and adaptively adjusts the strength according to task contribution, suppressing harmful interference while exploiting complementary coarse- and fine-grained structures. Extensive experiments demonstrate consistent improvements on both tasks, validating hierarchical dynamic interaction as an effective mechanism for cross-granularity collaboration.",
    "affiliations": [
     "Faculty of Information Engineering and Automation, Kunming University of Science and Technology, Kunming 650500, China",
-    "School of Artificial Intelligence",
+    "School of Artificial Intelligence, Tianjin University, Tianjin 300350, China",
     "School of Computer Science and Engineering, University of New South Wales, NSW 2052, Australia",
     "School of Sports Training, Tianjin University of Sport, Tianjin 300381, China",
     "School of Automation, Southeast University, Nanjing 210096, China",
@@ -1599,15 +1599,8 @@
      1
     ]
    ],
-   "institutions": [
-    "Kunming University of Science and Technology",
-    null,
-    "UNSW Sydney",
-    "Tianjin University of Sport",
-    null,
-    "Tianjin University",
-    "Hebei University of Technology"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.19867",
    "pdf_url": "https://arxiv.org/pdf/2609.19867"
   },
@@ -1745,23 +1738,18 @@
    "html_url": "https://arxiv.org/html/2609.19876v1",
    "abstract": "Floor-plan-based indoor visual localization enables infrastructure-free positioning, but most methods are developed and evaluated in small residential environments unlike the large public buildings of real deployment. We introduce SlugTrails, a floor plan localization benchmark for large indoor spaces under realistic egocentric sensing: $30$ Hz Aria glasses recordings across three campus buildings and six floors ($22089$ m$^2$ of floor plan outline), CAD-derived floor plans with semantic classes and circulation space masks, and trajectories aligned into the floor plan frame using laser-surveyed anchors. One protocol covers three practical ways of gathering geometry under a limited field of view -- a single walking frame, a stationary multi-view sweep, and a walking stream with odometry -- so methods designed for different regimes are compared on the same buildings and ground truth. Evaluating five representative geometric and learned systems under their native sensing configurations, we find that stock checkpoints (official released weights) are near zero on SlugTrails (at most $0.004$ R@1m30$^{\\circ}$ on walking single frames), while fine-tuning on SlugTrails improves every trainable family on all three tasks (e.g., F$^3$Loc $0.0 \\rightarrow 0.141$ single-frame and $0.03 \\rightarrow 0.66$ sequential), with gains compounding as observations accumulate. The same fine-tuned weights also improve cross-dataset generalization on LaMAR with no LaMAR training (sequential R@1m $0.048 \\rightarrow 0.143$ for F$^3$Loc and $0.063 \\rightarrow 0.127$ for UnLoc), whereas train-from-scratch on SlugTrails alone stays far below fine-tuning from stock weights -- evidence that floor plan localization is currently limited by indoor data rather than by architecture. We release the dataset, protocols, and tools at https://github.com/Head-inthe-Cloud/SlugTrails.",
    "affiliations": [
-    "Department of Computer Science and Engineering",
-    "University of California, Santa Cruz, Santa Cruz, CA, USA"
+    "Department of Computer Science and Engineering, University of California, Santa Cruz, Santa Cruz, CA, USA"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ]
    ],
-   "institutions": [
-    null,
-    "University of California, Santa Cruz"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.19876",
    "pdf_url": "https://arxiv.org/pdf/2609.19876"
   },

@@ -1286,31 +1286,24 @@
    "html_url": "https://arxiv.org/html/2609.29785v1",
    "abstract": "Accurate brain tumor segmentation from Magnetic Resonance Imaging is essential for diagnosis, treatment planning, and surgical guidance. Although Convolutional Neural Networks, particularly UNet, have achieved significant success in medical image segmentation, they often struggle to capture the long-range spatial dependencies required to model tumors with irregular shapes and complex boundaries. This paper proposes a lightweight Vision Transformer UNet that combines the hierarchical feature extraction capability of UNet with the global context modeling of Vision Transformers. The proposed architecture incorporates a compact ViT bottleneck within a U-Net encoder-decoder framework, enabling effective learning of both local and global features while maintaining computational efficiency with only 2.6 million trainable parameters. The model was evaluated on the TCGA LGG MRI Segmentation dataset, achieving a mean Intersection over Union of 0.8100 and a Dice score of 0.8446, outperforming the baseline UNet by 3.75% and 3.15%, respectively. Extensive quantitative and qualitative analyses, including confusion matrix evaluation, precision recall curves, per-image performance distribution, and tumor size dependency analysis, demonstrate the effectiveness and robustness of the proposed method for brain tumor segmentation.",
    "affiliations": [
-    "Department of CSE",
-    "IUBAT, Dhaka, Bangladesh"
+    "Department of CSE, IUBAT, Dhaka, Bangladesh"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ]
    ],
-   "institutions": [
-    null,
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.29785",
    "pdf_url": "https://arxiv.org/pdf/2609.29785"
   },
@@ -2465,31 +2458,25 @@
    "html_url": "https://arxiv.org/html/2609.29447v1",
    "abstract": "Smart maritime infrastructures provide continuous access to heterogeneous sensing streams, enabling repeated experimentation, digital-twin development, and AI-based maritime services. However, sensing hardware alone is not sufficient for scene-specific model development: historical video streams must also be spatially indexed, contextualized, and reduced to informative subsets for annotation. This paper presents a frame-to-panorama localization and context-aware sampling pipeline for ship detection in historical PTZ maritime video lacking reliable pan, tilt, and zoom metadata. The main contribution is an end-to-end data-curation approach that recovers camera-view information from historical PTZ video and combines it with environmental context and visual diversity to construct compact, scene-specific training sets. Specifically, frames are localized on a reference panorama using SuperPoint and LightGlue, enriched with weather and solar-state metadata, and selected through diversity sampling to preserve variation across camera view and environmental conditions. A second context-aware stage targets under-represented distant-vessel cases near the horizon using tile-level visual embeddings and Gaussian Mixture Model clustering. Applied within the CMMI MDigi-I Smart Marina testbed, the proposed pipeline reduces 40,718 candidate frames to 220 images for annotation, corresponding to a 99.5% reduction. A YOLO26-m detector fine-tuned on this subset achieves a mean AP50 of 94.78% $\\pm$ 0.51% and a mean AP50-95 of 75.10% $\\pm$ 1.73% under sequence-grouped five-fold cross-validation. These results demonstrate that highly redundant infrastructure video streams can be transformed into compact, spatially and contextually diverse training sets for scene-specific detector adaptation while substantially reducing annotation effort.",
    "affiliations": [
-    "Department of Computer Science",
-    "University of Nicosia, Nicosia, Cyprus",
+    "Department of Computer Science, University of Nicosia, Nicosia, Cyprus",
     "Maritime Digitalization Centre",
     "Cyprus Marine and Maritime Institute, Larnaca, Cyprus"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     [
-     2,
-     3
+     1,
+     2
     ],
     [
-     2,
-     3
+     1,
+     2
     ]
    ],
-   "institutions": [
-    null,
-    "University of Nicosia",
-    null,
-    "CMMI – Cyprus Marine & Maritime Institute"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.29447",
    "pdf_url": "https://arxiv.org/pdf/2609.29447"
   },
@@ -4425,8 +4412,34 @@
     "Adobe Research",
     "AITRICS"
    ],
-   "author_affiliations": null,
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     4
+    ],
+    [
+     0,
+     5
+    ]
+   ],
    "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.28851",
    "pdf_url": "https://arxiv.org/pdf/2609.28851"
   },
@@ -5765,23 +5778,18 @@
    "html_url": "https://arxiv.org/html/2609.29379v1",
    "abstract": "Spiking Neural Networks (SNNs) offer an energy-efficient alternative to conventional neural networks by exploiting sparse, binary spikes, and event-driven computation. However, the training of SNNs remains challenging, as spiking activations create a sharp loss landscape that hinders training, and diagonal-curvature optimizers such as the Adam family may fail to capture this geometry. The extension of curvature-based optimization methods to SNNs is further complicated by the sparse, discrete, and temporally recurrent nature of their underlying dynamics. To address these limitations, we propose SpiKFAX, a second-order optimization method that formulates a computationally tractable, Kronecker-factored approximation of the Fisher information matrix specifically adapted to the structure of SNNs. Empirical evaluation across five architectures and seven datasets demonstrates that SpiKFAX consistently yields improvements in test accuracy and training stability relative to other popular optimizers.",
    "affiliations": [
-    "Centre for Secure Information Technologies",
-    "Queen’s University Belfast"
+    "Centre for Secure Information Technologies, Queen’s University Belfast"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ]
    ],
-   "institutions": [
-    null,
-    "Queen's University Belfast"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.29379",
    "pdf_url": "https://arxiv.org/pdf/2609.29379"
   },

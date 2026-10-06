@@ -47,19 +47,15 @@
    "html_url": "https://arxiv.org/html/2608.28665v1",
    "abstract": "Recent open-vocabulary segmentation models have advanced semantic perception for UAVs, but predictions from moving aerial platforms can remain temporally inconsistent across repeated observations of the same physical scene. We investigate temporal semantic stability by associating frame-wise predictions with persistent world-space locations through metric 3D fusion. We introduce a voxel-level evaluation framework that jointly characterises final semantic agreement, Semantic Belief Drift (SBD), Observation Persistence (OP), and semantic uncertainty. Experiments on UAVid-3D reveal substantial frame-wise semantic flicker and show that high aggregate world-space agreement can overstate temporal stability when locations have limited repeated-observation support. Persistence-stratified analysis shows that recurrent voxels expose greater semantic disagreement, while belief drift decreases as additional evidence accumulates. This behaviour is observed across two segmentation backbones and remains consistent under variations in voxel resolution, geometric association, and temporal sampling density. Conditions that reduce world-space recurrence can increase apparent aggregate stability, demonstrating that semantic consistency must be interpreted together with observation support. Our findings highlight observation persistence as an essential conditioning variable for evaluating long-horizon semantic reliability.",
    "affiliations": [
-    "Department of Computer Science and Engineering",
-    "Indian Institute of Technology Bombay"
+    "Department of Computer Science and Engineering, Indian Institute of Technology Bombay"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ]
    ],
-   "institutions": [
-    null,
-    "Indian Institute of Technology Bombay"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2608.28665",
    "pdf_url": "https://arxiv.org/pdf/2608.28665"
   },
@@ -238,23 +234,18 @@
    "html_url": "https://arxiv.org/html/2608.28672v1",
    "abstract": "Autonomous vehicles operate in dynamic, ever-changing environments where new scenarios and edge cases constantly emerge. As a result, static learning models are inadequate for ensuring safe and reliable operation. Continuous learning is essential for adapting to these evolving conditions and maintaining robust performance across diverse real-world settings. However, autonomous vehicles generate massive streams of visual data during operation, and existing continuous learning approaches typically rely on heuristic sampling methods that fail to capture temporal dynamics, often overlooking critical learning opportunities or selecting redundant frames. In this paper, we introduce FrameScope, a temporal data valuation framework for continuous learning in autonomous vehicles. FrameScope extends neural tangent kernel theory to temporal domains, enabling principled valuation of streaming visual data. Unlike cloud-centric methods that transmit all video data for processing, our approach performs principled, local frame selection on the vehicle and queries a cloud-based oracle model only for labels of those high-value frames. Extensive experiments across multiple domain shifts show that FrameScope consistently outperforms existing methods, achieving higher sample efficiency and significantly reducing catastrophic forgetting in autonomous vehicle perception. By valuing data on the vehicle and querying only labels for selected frames, FrameScope reduces bandwidth requirements, enabling scalable operation with a lightweight cloud labeling service.",
    "affiliations": [
-    "Department of Computer Science",
-    "North Carolina State University, Raleigh, NC, USA"
+    "Department of Computer Science, North Carolina State University, Raleigh, NC, USA"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ]
    ],
-   "institutions": [
-    null,
-    "North Carolina State University"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2608.28672",
    "pdf_url": "https://arxiv.org/pdf/2608.28672"
   },
@@ -2959,19 +2950,15 @@
    "html_url": "https://arxiv.org/html/2608.29167v1",
    "abstract": "Robustness of segmentation models is commonly assessed through input-domain perturbations, while dependence on frequency content within learned feature representations remains less understood. We probe this dependence using targeted post-training low-pass interventions on internal representations of three segmentation architectures, ResNet50-UNet (CNN), VM-UNet (SSM), and Swin-UNETR (Transformer), across CVC-ClinicDB and ISIC2018, with headline evaluations performed on untouched held-out test sets. At cutoff rho=0.25, feature-domain low-pass filtering causes severe degradation on CVC: Dice drops by 100%, 73.2%, and 30.9% for CNN, SSM, and Transformer, respectively, compared with 9.4%, 10.3%, and 0.6% on ISIC. The cross-dataset difference is statistically significant for every architecture. Single-stage interventions further show that sensitivity is localized at architecture-specific depths: the CNN peaks at a mid/late encoder block, whereas the SSM peaks in an early encoder stage on both datasets. Native feature-domain spectral measurements show an inverse association between high-frequency energy and fragility on CVC; the relationship is only partial on ISIC and is therefore treated as a candidate correlate rather than a proven mechanism. Finally, Fourier augmentation improves robustness to input-space low-pass filtering but leaves feature-domain degradation essentially unchanged. These results show that feature-spectral robustness is strongly dataset-dependent, architecture-specific, and distinct from input-domain spectral robustness.",
    "affiliations": [
-    "Department of Computer Science and Engineering",
-    "National Institute of Technology Rourkela, Odisha, India"
+    "Department of Computer Science and Engineering, National Institute of Technology Rourkela, Odisha, India"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ]
    ],
-   "institutions": [
-    null,
-    "National Institute of Technology Rourkela"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2608.29167",
    "pdf_url": "https://arxiv.org/pdf/2608.29167"
   },
@@ -5076,7 +5063,7 @@
    "html_url": "https://arxiv.org/html/2608.29609v1",
    "abstract": "Semantic segmentation is a crucial task for understanding Mars, the most Earth-like planet in our solar system. However, it is challenging because the Martian surface is highly unstructured and complex, making accurate pixel-level prediction and fine-grained annotation difficult. Recent advancements in deep learning have introduced numerous methods and datasets to address these challenges. Nevertheless, the field lacks a robust, publicly available, and reproducible baseline, as well as a unified benchmark to facilitate fair evaluations. In this work, we present nnMNet, a new baseline model designed for Martian terrain semantic segmentation. Building upon nnWNet, we integrate linear attention to better capture global context and employ lightweight convolutions to reduce computational overhead. To bridge the gap between local and global representations, we introduce the Spatially-Aware Fusion Block (SAFB), which augments and combines features with diverse characteristics. Furthermore, we establish a new benchmark by curating and standardizing three high-quality datasets for thorough evaluation. nnMNet achieves new state-of-the-art 86.61%, 83.25%, and 88.24% mIoU on SynMars-TW, SynMars-Air, and MarsScapes, respectively. Our code, models, and datasets are publicly available at https://github.com/dereklee0310/nnMNet.",
    "affiliations": [
-    "Department of Computer Science and Information"
+    "Department of Computer Science and Information Engineering, National Cheng Kung University, Tainan 701, Taiwan"
    ],
    "author_affiliations": [
     [
@@ -5086,9 +5073,8 @@
      0
     ]
    ],
-   "institutions": [
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2608.29609",
    "pdf_url": "https://arxiv.org/pdf/2608.29609"
   },
@@ -6828,6 +6814,7 @@
    "institutions": [
     "HafenCity University Hamburg"
    ],
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2608.29992",
    "pdf_url": "https://arxiv.org/pdf/2608.29992"
   },
@@ -7978,30 +7965,18 @@
    "html_url": "https://arxiv.org/html/2608.30305v1",
    "abstract": "Image restoration models are typically trained with a fixed set of capabilities. When new restoration requirements emerge, existing solutions usually train additional models or jointly retrain the original model with both new and historical data. Instead of designing another restoration backbone, we investigate how a trained restorer can continually acquire new capabilities without forgetting those learned previously. We propose RestoreMore, a continual capability-expansion framework that preserves the pretrained restoration model as a frozen capability anchor and learns residual expansion modules for newly arriving degradations. RestoreMore introduces a capability-oriented bi-level routing mechanism at multiple feature stages. The first routing level identifies restoration capabilities relevant to the current input, while the second selects and combines a sparse set of complementary degradation experts. This design enables newly introduced tasks to selectively reuse historical restoration knowledge and progressively enriches the expert bank available for subsequent restoration tasks. Extensive experiments on a wide range of restoration benchmarks demonstrate that RestoreMore consistently acquires new restoration abilities while preserving and improving previously learned capabilities.",
    "affiliations": [
-    "Department of Computer Science",
-    "Shanghai Jiao Tong University",
-    "Shanghai, China",
-    "Department of Architecture and Design",
-    "Harbin Institute of Technology",
-    "Heilongjiang, China"
+    "Department of Computer Science, Shanghai Jiao Tong University, Shanghai, China",
+    "Department of Architecture and Design, Harbin Institute of Technology, Heilongjiang, China"
    ],
    "author_affiliations": [
     null,
     [
-     3,
-     4,
-     5
+     1
     ],
     null
    ],
-   "institutions": [
-    null,
-    "Shanghai Jiao Tong University",
-    null,
-    null,
-    "Harbin Institute of Technology",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2608.30305",
    "pdf_url": "https://arxiv.org/pdf/2608.30305"
   },
@@ -9060,44 +9035,9 @@
     "Southeast University",
     "Shanghai University of Electric Power"
    ],
-   "author_affiliations": [
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2608.30584",
    "pdf_url": "https://arxiv.org/pdf/2608.30584"
   },
@@ -10203,6 +10143,7 @@
     null,
     null
    ],
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2608.30820",
    "pdf_url": "https://arxiv.org/pdf/2608.30820"
   },
@@ -10341,7 +10282,7 @@
    "html_url": "https://arxiv.org/html/2608.30839v1",
    "abstract": "Thermal Infrared detection is widely used in autonomous driving, medical AI, etc., but its security has only attracted attention recently. We propose infrared adversarial clothing designed to evade thermal person detectors in real-world scenarios. The design of the adversarial clothing is based on 3D modeling, which makes it easier to simulate multiangle scenes near the real world compared to 2D modeling. We optimized the black patch layout pattern of 3D clothing based on the adversarial example technique and made physical adversarial clothing using the aerogel. The idea is to paste a set of square aerogel patches, which display black squares in thermal images, in the inner side of clothing at specific locations with specific orientations. To enhance realism, we propose a method to build infrared 3D models with real infrared photos and develop texture maps for 3D models to simulate varied infrared characteristics over time and location. In physical attacks, we achieved an attack success rate of 80.11\\% indoors and 76.85\\% outdoors against YOLOv9. In contrast, randomly placed patches yielded much lower success rates (26.53\\% indoors and 23.03\\% outdoors). The adversarial clothing also showed good transferability to unknown detectors with an ensemble attack method, demonstrating the effectiveness of our approach.",
    "affiliations": [
-    "Department of Computer Science and",
+    "Department of Computer Science and Technology, Institute for Artificial Intelligence, BNRist, Tsinghua University, Beijing",
     "Chinese Institute for Brain Research (CIBR), Beijing 100010, China"
    ],
    "author_affiliations": [
@@ -10365,10 +10306,8 @@
      1
     ]
    ],
-   "institutions": [
-    null,
-    "Chinese Institute for Brain Research"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2608.30839",
    "pdf_url": "https://arxiv.org/pdf/2608.30839"
   },
@@ -11477,51 +11416,37 @@
    "author_affiliations": [
     [
      0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
      1,
      2
     ],
     [
      0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
+     1
     ]
    ],
    "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2608.31113",
    "pdf_url": "https://arxiv.org/pdf/2608.31113"
   },
@@ -11857,19 +11782,15 @@
    "html_url": "https://arxiv.org/html/2608.28707v1",
    "abstract": "Multimodal Large Language Models (MLLMs) have achieved remarkable progress in Visual Question Answering (VQA), yet they continue to struggle with questions requiring precise spatial reasoning and fine-grained visual understanding. These limitations often manifest as object, attribute, and spatial hallucinations, where models generate confident but visually unsupported responses due to insufficient region-level and fine-grained visual grounding. To address this challenge, we propose ReVA, a region-aware VQA model that employs a frozen CLIP ViT-L/14 Vision Transformer (ViT) and a Qwen2.5-7B-Instruct large language model (LLM) connected through a dual bridge that aligns both whole-image and region-level representations with the LLM's embedding space. The image bridge maps final transformer block features into image tokens. The region bridge maps cropped features from enriched intermediate features across ViT blocks so early texture and later object cues are more evident, into K region tokens for every bounding box. ReVA uses a detector stack that supplies automatic zero-shot bounding boxes that are both question-agnostic and question-dependent, using RAM++ (Recognize Anything Model), spaCy, and Grounding DINO. The image tokens and region tokens are concatenated as an LLM prompt prefix to jointly encode scene-level context and fine-grained regional evidence when answering questions. Evaluated on VQAv2, MMBench, POPE, and SEED-Bench, ReVA achieves 82.85% mean F1 on POPE, compared with 81.14% for an image-token baseline without region tokens. These results demonstrate that explicit region-aware visual representations reduce object hallucination and improve the factual grounding of MLLMs.",
    "affiliations": [
-    "School of Electronic Engineering and Computer Science",
-    "Queen Mary University of London, London, United Kingdom"
+    "School of Electronic Engineering and Computer Science, Queen Mary University of London, London, United Kingdom"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ]
    ],
-   "institutions": [
-    null,
-    "Queen Mary University of London"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2608.28707",
    "pdf_url": "https://arxiv.org/pdf/2608.28707"
   },
@@ -13562,85 +13483,9 @@
     "GensPI",
     "Tsinghua University"
    ],
-   "author_affiliations": [
-    [
-     0,
-     1
-    ],
-    [
-     0,
-     1
-    ],
-    [
-     0,
-     1
-    ],
-    [
-     0,
-     1
-    ],
-    [
-     0,
-     1
-    ],
-    [
-     0,
-     1
-    ],
-    [
-     0,
-     1
-    ],
-    [
-     0,
-     1
-    ],
-    [
-     0,
-     1
-    ],
-    [
-     0,
-     1
-    ],
-    [
-     0,
-     1
-    ],
-    [
-     0,
-     1
-    ],
-    [
-     0,
-     1
-    ],
-    [
-     0,
-     1
-    ],
-    [
-     0,
-     1
-    ],
-    [
-     0,
-     1
-    ],
-    [
-     0,
-     1
-    ],
-    [
-     0,
-     1
-    ],
-    [
-     0,
-     1
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2608.30237",
    "pdf_url": "https://arxiv.org/pdf/2608.30237"
   },

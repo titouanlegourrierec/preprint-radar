@@ -1559,6 +1559,7 @@
     null,
     null
    ],
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.02063",
    "pdf_url": "https://arxiv.org/pdf/2609.02063"
   },
@@ -1866,41 +1867,32 @@
    "html_url": "https://arxiv.org/html/2609.02159v1",
    "abstract": "World Action Models (WAMs) aim to control robots by stochastically generating visual futures and then decoding actions, but empirical observations indicate that the results can strongly depend on which future is selected. We propose World-Coherent-Decoding (WCD), a self-verifying test-time planning framework that treats WAM rollouts as falsifiable future--action hypotheses. At each decision step, WCD samples multiple candidates from a frozen WAM and ranks them using internal generative signals: flow-based video surprisal for visual plausibility and action path effort for action-generation stability. After execution, the realized observation audits the selected imagination, yielding an imagination--reality mismatch that trains a lightweight online predictor for future candidate selection. Thus, WCD converts delayed self-verification into pre-execution reliability estimation without updating the backbone model. On RoboTwin 2.0, WCD improves Hard success under limited randomized-scene supervision from $55.80\\%$ to $60.90\\%$, with a $+16.43$ gains on Horizon-3 tasks, and shows qualitative robustness on real Franka visual-shift tests. These results highlight a simple principle: test-time scaling for WAMs depends less on sampling more futures than on selecting reliable ones.",
    "affiliations": [
-    "Department of Computer Science",
-    "Institute of Science Tokyo",
+    "Department of Computer Science, Institute of Science Tokyo",
     "DENSO IT Lab, Japan",
     "National Institute of Informatics, Japan"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
+    ],
+    [
+     0
     ],
     [
      0,
      1
     ],
     [
-     0,
-     1,
-     2
-    ],
-    [
-     3,
-     2
+     2,
+     1
     ],
     [
      0,
-     1,
-     2
+     1
     ]
    ],
-   "institutions": [
-    null,
-    "Institute of Science Tokyo",
-    null,
-    "National Institute of Informatics"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.02159",
    "pdf_url": "https://arxiv.org/pdf/2609.02159"
   },
@@ -2608,9 +2600,8 @@
     "Shenzhen International Graduate School",
     "Tsinghua University",
     "Harbin Institute of Technology, Shenzhen",
-    "Department of Computer Science",
-    "School Of Computer Science",
-    "Peking University"
+    "Department of Computer Science, Harbin Institute of Technology, Shenzhen",
+    "School Of Computer Science, Peking University"
    ],
    "author_affiliations": [
     [
@@ -2621,30 +2612,21 @@
      2
     ],
     [
-     3,
-     2
+     3
     ],
     [
-     3,
-     2
+     3
     ],
     [
-     4,
-     5
+     4
     ],
     [
      0,
      1
     ]
    ],
-   "institutions": [
-    null,
-    "Tsinghua University",
-    "Harbin Institute of Technology",
-    null,
-    null,
-    "Peking University"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.02291",
    "pdf_url": "https://arxiv.org/pdf/2609.02291"
   },
@@ -2754,19 +2736,15 @@
    "html_url": "https://arxiv.org/html/2609.02333v1",
    "abstract": "Brain cancer remains one of the most significant challenges in modern medicine, where the accuracy of early stage diagnosis is a decisive factor in patient survival and treatment efficacy. Although Magnetic Resonance Imaging (MRI) is the established gold standard for visualizing neurological structures, the interpretation of these high dimensional scans is often complicated by subjective variability among practitioners and the inherent noise present in complex medical images. While contemporary approaches frequently rely on high parameter deep learning architectures, such models often involve significant computational costs and require extensive data for effective training. This study introduces a hybrid framework that utilizes the Oriented FAST and Rotated BRIEF (ORB) algorithm for precise feature extraction and a Support Vector Machine (SVM) for classification [1], [2]. The proposed approach achieves a sub- stantial data reduction of approximately 99.5%, which effectively minimizes the influence of non informative background data while preserving critical diagnostic patterns essential for tumor identification. By balancing feature sparsity with a robust kernel based classifier, this methodology addresses the limitations of over parameterized systems while maintaining high diagnostic integrity. Experimental evaluations conducted on the Br35H dataset demonstrate that the framework attains a classification accuracy of 97.5%. The findings suggest that the integration of localized feature representation and optimized classification provides a reliable and resource efficient alternative for medical image analysis, offering a structured solution that maintains per- formance without the need for extensive computational overhead.",
    "affiliations": [
-    "Department of Computer Science",
-    "Shahid Beheshti University, Tehran, Iran"
+    "Department of Computer Science, Shahid Beheshti University, Tehran, Iran"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ]
    ],
-   "institutions": [
-    null,
-    "Shahid Beheshti University"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.02333",
    "pdf_url": "https://arxiv.org/pdf/2609.02333"
   },
@@ -4135,24 +4113,29 @@
    "html_url": "https://arxiv.org/html/2609.02654v1",
    "abstract": "Low-dose computed tomography (LDCT) measurements contain mixed Poisson-Gaussian noise. However, most self-supervised methods rely on generic image statistics and do not explicitly model this noise, which may limit their ability to effectively suppress realistic LDCT noise. To address this issue, we propose a physics-driven framework with cross-domain iteration for self-supervised LDCT denoising. The proposed framework proceeds in three main steps. First, a learned sinogram prior and the LDCT noise model guide posterior inference of photon counts, enabling separation of the Poisson and Gaussian components. Second, the separated Poisson and Gaussian components are respectively processed by binomial thinning and Gaussian data thinning to construct two branches, and residual scaling matches each branch's noise level to that of the observation, yielding a training pair with approximately independent noise realizations from one low-dose measurement. Finally, the pair is used to train an image-domain network whose forward-projected outputs update the prior. Through cross-domain iteration, the prior and the training pair are progressively refined while maintaining consistency with CT acquisition physics. Experiments on simulated data from AAPM, LIDC-IDRI, and LoDoPaB-CT and on real LDCT data show consistent gains over the evaluated self-supervised baselines across dose levels, with performance comparable to the evaluated supervised baseline.",
    "affiliations": [
-    "School of Mathematics and Computer",
-    "School of Biomedical Engineering"
+    "School of Mathematics and Computer Sciences, Nanchang University, Nanchang 330031, China",
+    "School of Information Engineering, Nanchang University, Nanchang 330031, China",
+    "School of Biomedical Engineering, Sun Yat-sen University, Shenzhen 510275, Guangdong, China"
    ],
    "author_affiliations": [
     [
      0
     ],
-    null,
-    null,
     [
      1
     ],
-    null
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     1
+    ]
    ],
-   "institutions": [
-    null,
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.02654",
    "pdf_url": "https://arxiv.org/pdf/2609.02654"
   },
@@ -5224,8 +5207,35 @@
     "York University",
     "Queen’s University"
    ],
-   "author_affiliations": null,
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     4
+    ],
+    [
+     0,
+     5
+    ]
+   ],
    "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.01772",
    "pdf_url": "https://arxiv.org/pdf/2609.01772"
   },
@@ -5766,95 +5776,39 @@
    ],
    "author_affiliations": [
     [
-     0,
-     1,
-     2,
-     3,
-     4,
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     4
+    ],
+    null,
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
      5
     ],
     [
-     0,
-     1,
-     2,
-     3,
-     4,
-     5
-    ],
-    [
-     0,
-     1,
-     2,
-     3,
-     4,
-     5
-    ],
-    [
-     0,
-     1,
-     2,
-     3,
-     4,
-     5
-    ],
-    [
-     0,
-     1,
-     2,
-     3,
-     4,
-     5
-    ],
-    [
-     0,
-     1,
-     2,
-     3,
-     4,
-     5
-    ],
-    [
-     0,
-     1,
-     2,
-     3,
-     4,
-     5
-    ],
-    [
-     0,
-     1,
-     2,
-     3,
-     4,
-     5
-    ],
-    [
-     0,
-     1,
-     2,
-     3,
-     4,
-     5
-    ],
-    [
-     0,
-     1,
-     2,
-     3,
-     4,
-     5
-    ],
-    [
-     0,
-     1,
-     2,
-     3,
-     4,
-     5
+     0
     ]
    ],
    "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.02367",
    "pdf_url": "https://arxiv.org/pdf/2609.02367"
   },

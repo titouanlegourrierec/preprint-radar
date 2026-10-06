@@ -3486,8 +3486,26 @@
     "Berlin University of Applied Sciences",
     "Einstein Center Digital Future"
    ],
-   "author_affiliations": null,
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     4
+    ],
+    [
+     4,
+     5,
+     1
+    ]
+   ],
    "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.35020",
    "pdf_url": "https://arxiv.org/pdf/2609.35020"
   },
@@ -4958,15 +4976,13 @@
    "abstract": "Constructing a smooth approximation of an unsigned distance field (UDF) from a raw point cloud is challenging because the input provides neither surface connectivity nor consistently oriented normals. Methods that directly learn a scalar UDF must also handle its non-differentiability on the zero level set and weak supervision away from the samples, which can lead to unstable optimization and spatial artifacts. We introduce Projective Normal Fields (PNFs), an orientation-free representation and convex optimization framework for estimating bidirectional normals from point positions alone. Each normal axis is encoded by a rank-one projector, which is invariant to normal reversal. We relax the non-convex set of hard projectors to its convex hull: the symmetric positive-semidefinite matrices with unit trace. Each soft tensor defines a local quadratic distance model and retains the relative weights of candidate normal axes. We estimate a coherent PNF by combining local tangent-plane fitting, soft-PCA anchoring, and overlap regularization on a fixed neighborhood graph. With positive anchoring weights, the objective is strongly convex and admits a unique global minimizer. Principal eigenvectors provide bidirectional normals, while the corresponding eigengaps provide spectral confidence indicators. We use these indicators to select and weight directional sources for heat diffusion, followed by Poisson integration to construct a regularized UDF approximation. By separating local geometry estimation from scalar-field construction, PNF avoids directly fitting the non-differentiable UDF. Experiments demonstrate reduced sensitivity to neighborhood size, competitive reconstruction under noise and outliers, and improved accuracy near non-manifold junctions. The project page is available at https://anonymous17777367.github.io/PNF-page/",
    "affiliations": [
     "S-Lab",
-    "Nanyang Technological University",
+    "Nanyang Technological University, Singapore",
     "College of Mathematics",
-    "Nanjing University of Aeronautics and Astronautics",
+    "Nanjing University of Aeronautics and Astronautics, China",
     "Institute of Software",
-    "Chinese Academy of Sciences",
-    "Department of Computer Science",
-    "City University of Hong Kong",
-    "Department of Computer Science and Engineering",
-    "Texas A&M University"
+    "Chinese Academy of Sciences, China",
+    "Department of Computer Science, City University of Hong Kong",
+    "Department of Computer Science and Engineering, Texas A&M University, USA"
    ],
    "author_affiliations": [
     [
@@ -4982,30 +4998,18 @@
      5
     ],
     [
-     6,
-     7
+     6
     ],
     [
-     8,
-     9
+     7
     ],
     [
      0,
      1
     ]
    ],
-   "institutions": [
-    null,
-    "Nanyang Technological University",
-    null,
-    "Nanjing University of Aeronautics and Astronautics",
-    "Institute of Software",
-    "Chinese Academy of Sciences",
-    null,
-    "City University of Hong Kong",
-    null,
-    "Texas A&M University"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.34784",
    "pdf_url": "https://arxiv.org/pdf/2609.34784"
   },
@@ -5406,8 +5410,40 @@
     "Dell Technologies",
     "University of International Relations"
    ],
-   "author_affiliations": null,
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     4
+    ],
+    [
+     4,
+     5
+    ],
+    [
+     6,
+     7,
+     8
+    ],
+    [
+     9
+    ],
+    [
+     0
+    ]
+   ],
    "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.34732",
    "pdf_url": "https://arxiv.org/pdf/2609.34732"
   },
@@ -5563,31 +5599,20 @@
    "html_url": "https://arxiv.org/html/2609.34716v2",
    "abstract": "Clinical CT and UHRCT cannot resolve individual trabeculae, whereas synchrotron radiation microCT (SR{\\mu}CT) provides 3.2{\\mu}m high-resolution references but is not applicable for in vivo imaging. The two domains differ by 31.25x in resolution, are only coarsely paired, and have drastically different data volumes. Moreover, clinical UHRCT suffers from severe partial volume effects, strong noise, and beam hardening/scatter artifacts, while SR{\\mu}CT is nearly free. Existing super-resolution networks and pretrained-prior methods underperform because they target pixel generation--diverse details and SSIM/PSNR--and do not explicitly model these physical differences. This indicates that 32x super-resolution via pixel generation is intrinsically ill-posed. We propose a paradigm shift from pixel generation to topological inference: deterministically predicting invariant microstructures from macro-scale low-resolution inputs, evaluated by morphological parameters. We realize this paradigm via structural dual super-resolution, coupling forward physical degradation (micro-to-macro) with inverse structural inference (macro-to-micro) through structural duality constraints. The method is an end-to-end, few-shot, compact structural dual network (SDN), comprising a bidirectional modeling network for forward degradation and inverse reconstruction, a pyramid structural consistency discriminator, and four structural duality constraints. On the testset, SDN achieves morphological parameters largely consistent with SR{\\mu}CT across 7 metrics, enabling clinical UHRCT with micro-imaging-level morphological quantification, with SSIM reaching 0.8. Trained on 3.2{\\mu}m SSRF data, the model generalizes well to 3.25{\\mu}m BSRF data from an independent source, validating cross-source generalization and confirming that the designed network achieves trustworthy structural inference rather than pixel generation.",
    "affiliations": [
-    "Institute of High Energy Physics, Chinese Academy of Sciences",
-    "Beijing 100049, China",
-    "Department of Radiology",
-    "Beijing Jishuitan Hospital",
-    "Beijing, China"
+    "Institute of High Energy Physics, Chinese Academy of Sciences, Beijing 100049, China",
+    "Department of Radiology, Beijing Jishuitan Hospital, Beijing, China"
    ],
    "author_affiliations": [
     null,
     [
-     0,
-     1
+     0
     ],
     [
-     2,
-     3,
-     4
+     1
     ]
    ],
-   "institutions": [
-    "Chinese Academy of Sciences",
-    null,
-    null,
-    "Beijing Jishuitan Hospital",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.34716",
    "pdf_url": "https://arxiv.org/pdf/2609.34716"
   },
@@ -6759,7 +6784,7 @@
    "html_url": "https://arxiv.org/html/2609.34520v1",
    "abstract": "Deep learning models for Alzheimer disease (AD) classification routinely report near-perfect discrimination, yet few are shown to rest on AD-relevant neurobiology rather than on dataset artifacts, subject-level leakage, or non-brain image content. We present a fusion network combining T1 MRI and FDG PET across axial, coronal, and sagittal planes, trained on ADNI consists of 554 paired subjects. The fusion model reaches AUC 0.962, accuracy 0.909, and F1 0.891, competitive with recent 3D CNN and multimodal transformer systems at substantially lower cost. We first quantify how much modality, plane and slice geometry matter. A validation-only search over slice centres and neighbour spacings moves AUC by 0.180 for MRI and 0.078 for PET, selecting narrow spacing for MRI and wide spacing for PET, with the chosen coronal centres falling on the hippocampal body and on the posterior cingulate respectively. The contribution, however, is the evidence layer built around that number. Shortcut controls collapse the model to AUC 0.622 (silhouette), 0.608 (exterior), and 0.500 (blank), and a label-permutation null yields 0.456. Forward region-of-interest (ROI) ablation shows that masking medial temporal cortex in MRI and the posterior default-mode network (DMN) in PET produces the largest shift in the AD logit, while area-matched controls remain indistinguishable from that null. Reverse ROI ablation shows that the medial temporal lobe alone retains 89.2% of above-chance discrimination in MRI and the posterior DMN alone retains 79.0% in PET. A quantitative comparison of attribution methods shows occlusion sensitivity reaching 3.5-5.0* enrichment inside a priori AD regions against 0.10-0.43* in controls. Ablation and attribution independently establish a biologically correct double dissociation: hippocampal evidence is carried by MRI, posterior cingulate evidence by PET.",
    "affiliations": [
-    "Department of Computer Engineering"
+    "Department of Computer Engineering and Information Technology, Payame Noor University, Tehran, Iran"
    ],
    "author_affiliations": [
     [
@@ -6769,9 +6794,8 @@
      0
     ]
    ],
-   "institutions": [
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.34520",
    "pdf_url": "https://arxiv.org/pdf/2609.34520"
   },
@@ -6958,7 +6982,7 @@
    "html_url": "https://arxiv.org/html/2609.34490v1",
    "abstract": "Large collections of historical Persian manuscripts have been digitized, but searching them is still slow and mostly manual. Historians usually want to find where a specific name, date, event, or topic appears, which is a word spotting problem. Progress on this task is limited by two things. First, there is almost no public dataset of historical Persian handwriting; the only notable resource, OpenITI MAKHZAN, contains a relatively small Persian portion. Second, word spotting models usually need word-level bounding boxes, which are very expensive to annotate. In this paper we introduce a new dataset of 223 pages, 3,678 lines, 37,631 words, and 130,630 characters, collected from diverse historical Persian books of poetry and prose and annotated at the region, line, and text level. We also propose a baseline that is trained only with line-level annotations but returns word-level locations. A fine-tuned line detector finds text lines, and a fine-tuned CRNN recognizer trained with CTC produces a frame-by-character posterior matrix for each line. Instead of decoding the most probable character at each frame, the query is scored directly against this matrix, so visually similar characters in Persian such as be and pe no longer cause hard failures. The frame alignment also gives the horizontal position of the word inside the line. On the test set, the fine-tuned line detector reaches an F1 of 0.892, and posterior-based search raises the word spotting F1 from 0.487 to 0.558 compared with exact matching on the decoded text, with the decision threshold selected on a held-out validation set. A PHOC attribute-embedding baseline that additionally receives oracle word boundaries at test time reaches an F1 of 0.449, below the proposed method. We also report a distributional analysis of the dataset, a taxonomy of retrieval errors, and a per-conditionbreakdown of performance.",
    "affiliations": [
-    "Department of Computer Engineering"
+    "Department of Computer Engineering and Information Technology, Payame Noor University, Tehran, Iran"
    ],
    "author_affiliations": [
     [
@@ -6968,9 +6992,8 @@
      0
     ]
    ],
-   "institutions": [
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.34490",
    "pdf_url": "https://arxiv.org/pdf/2609.34490"
   },
@@ -8266,6 +8289,7 @@
     null,
     null
    ],
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.34302",
    "pdf_url": "https://arxiv.org/pdf/2609.34302"
   },
@@ -8304,6 +8328,7 @@
    ],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.34299",
    "pdf_url": "https://arxiv.org/pdf/2609.34299"
   },
@@ -8726,8 +8751,7 @@
    "html_url": "https://arxiv.org/html/2609.34231v1",
    "abstract": "Metamaterials are artificially engineered structures whose mechanical and physical behaviors are strongly shaped by geometry rather than composition. Voxel representation provides a unified format for metamaterial geometry generation, as it can express diverse classes such as truss, shell, and porous structures within a single cubic discretization. However, voxel-based generation faces a plausibility-novelty trade-off: staying close to known geometries helps preserve geometric regularities, while moving away from them is necessary for novelty but may produce degenerate geometries. To address this challenge, we propose REGDIFF, a generative framework that couples voxel representation with latent space regulation and guided diffusion. REGDIFF introduces a repel-and-sink (RAS) mechanism to smooth the latent distribution of plausible geometries, and short-range repulsion (SRR) guidance to discourage generation overly close to known samples while maintaining geometric plausibility. We further contribute a voxel-based benchmark covering truss- and shell-type metamaterial geometries, together with an evaluation module for geometric plausibility, novelty, and diversity. Experiments show that REGDIFF outperforms voxel-based generative baselines, achieving +8.9% in geometric plausibility, +46.4% in novelty, and +128.6% in diversity on average across two datasets. These results suggest that REGDIFF is a strong geometry candidate generator for downstream evaluation. Our code is provided at https://github.com/wzhan24/ReGDiff.",
    "affiliations": [
-    "Department of Computer Science",
-    "Virginia Tech",
+    "Department of Computer Science, Virginia Tech",
     "Blacksburg, VA 24061",
     "Meta",
     "Menlo Park, CA 94025"
@@ -8735,31 +8759,23 @@
    "author_affiliations": [
     [
      0,
-     1,
-     2
+     1
     ],
     [
      0,
-     1,
-     2
+     1
     ],
     [
-     3,
-     4
+     2,
+     3
     ],
     [
      0,
-     1,
-     2
+     1
     ]
    ],
-   "institutions": [
-    null,
-    "Virginia Tech",
-    null,
-    null,
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.34231",
    "pdf_url": "https://arxiv.org/pdf/2609.34231"
   },
@@ -8871,39 +8887,30 @@
    "html_url": "https://arxiv.org/html/2609.34206v1",
    "abstract": "Latent world models offer a promising way to improve Vision-Language-Action policies by capturing the consequences of actions. However, models trained primarily on expert demonstrations have limited exposure to failure outcomes and may struggle to distinguish visually similar successful and failed interactions. We propose \\textbf{WorldGuide}, a framework that learns these distinctions in latent space and uses them to guide policy training. WorldGuide combines predictive pretraining on successful and failed trajectories with contrastive learning on matched success--failure pairs. The learned predictor then provides a differentiable reward to guide joint optimization of the policy and visual encoder. The predictor is discarded after training, so deployment requires no additional world-model inference. Extensive experiments show that WorldGuide substantially improves VLA reliability and achieves state of the art performance on LIBERO 100 and SimplerEnv, reaching \\textbf{96.8\\%} and \\textbf{72.0\\%}, respectively. Code will be publicly available.",
    "affiliations": [
-    "School of Information and Communication Engineering",
-    "Dalian University of Technology & Beta Infinity",
-    "School of Information and Communication",
-    "Engineering Dalian University of Technology",
+    "School of Information and Communication Engineering, Dalian University of Technology & Beta Infinity",
+    "School of Information and Communication, Engineering Dalian University of Technology",
     "Beta Infinity",
     "Nanyang Technological University"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     null,
     [
-     5
+     3
     ],
     null,
     [
-     4
+     2
     ],
     null,
     null,
     null,
     null
    ],
-   "institutions": [
-    null,
-    "Dalian University of Technology",
-    null,
-    "Dalian University of Technology",
-    null,
-    "Nanyang Technological University"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.34206",
    "pdf_url": "https://arxiv.org/pdf/2609.34206"
   },
@@ -9363,47 +9370,32 @@
    ],
    "author_affiliations": [
     [
-     0,
-     1,
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
      2
     ],
     [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
+     0
     ]
    ],
    "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.34133",
    "pdf_url": "https://arxiv.org/pdf/2609.34133"
   },
@@ -9873,6 +9865,7 @@
     "University of Central Florida",
     null
    ],
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.34021",
    "pdf_url": "https://arxiv.org/pdf/2609.34021"
   },
@@ -10225,52 +10218,35 @@
    ],
    "author_affiliations": [
     [
-     0,
-     1,
+     0
+    ],
+    [
+     1
+    ],
+    [
      2
     ],
     [
-     0,
-     1,
+     0
+    ],
+    [
      2
     ],
     [
-     0,
-     1,
-     2
+     1
     ],
     [
-     0,
-     1,
-     2
+     0
     ],
     [
-     0,
-     1,
-     2
+     0
     ],
     [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
+     0
     ]
    ],
    "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.33895",
    "pdf_url": "https://arxiv.org/pdf/2609.33895"
   },
@@ -11806,6 +11782,7 @@
     null,
     null
    ],
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.33449",
    "pdf_url": "https://arxiv.org/pdf/2609.33449"
   },
@@ -12861,48 +12838,27 @@
    "abstract": "Training-free online video anomaly detection (VAD) with frozen multimodal language models faces two coupled challenges: extracting reliable current-window semantics under causal and computational constraints, and maintaining temporal continuity without repeatedly transmitting high-dimensional history. Encoding history through text can compress visual evidence and introduce semantic bias, whereas retaining visual history expands multimodal context. We introduce PARSEE-VAD, a two-module framework that separates semantic evidence acquisition from score-state evolution. Proposition-Aware Reasoning (PAR) extracts structured propositional evidence from the current causal window and conditionally activates more specific queries when coarse evidence warrants further refinement. By sharing a reusable causal visual prefix across queries, PAR reduces redundant computation through selective execution. Streaming Evidence Escalation (SEE) maps the acquired proposition evidence into a compact score-domain event state through current evidence escalation, then propagates only the resulting bounded state across decisions to support temporal continuity. Experiments on four benchmarks demonstrate strong training-free online performance while selective routing reduces specialist computation and score-state propagation remains sparse. These results support a current-first principle for streaming multimodal inference: resolve present semantics first, then use compact historical state only to repair residual continuity gaps.",
    "affiliations": [
     "Global Institute of Future Technology",
-    "Shanghai Jiao Tong University",
-    "Shanghai, 200240, China",
-    "School of Intelligence Science and Technology",
-    "Nanjing University",
-    "Suzhou, 215163, China",
-    "School of Computer Science and Engineering",
-    "Nanjing University of Science and Technology",
-    "Nanjing, 210094, China"
+    "Shanghai Jiao Tong University, Shanghai, 200240, China",
+    "School of Intelligence Science and Technology, Nanjing University, Suzhou, 215163, China",
+    "School of Computer Science and Engineering, Nanjing University of Science and Technology, Nanjing, 210094, China"
    ],
    "author_affiliations": [
     [
      0,
-     1,
+     1
+    ],
+    [
      2
     ],
     [
-     3,
-     4,
-     5
+     3
     ],
     [
-     6,
-     7,
-     8
-    ],
-    [
-     3,
-     4,
-     5
+     2
     ]
    ],
-   "institutions": [
-    null,
-    "Shanghai Jiao Tong University",
-    null,
-    null,
-    "Nanjing University",
-    null,
-    null,
-    "Nanjing University of Science and Technology",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.33236",
    "pdf_url": "https://arxiv.org/pdf/2609.33236"
   },
@@ -15645,111 +15601,47 @@
    ],
    "author_affiliations": [
     [
-     0,
-     1,
-     2,
-     3,
-     4,
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     4
+    ],
+    [
+     0
+    ],
+    [
+     4
+    ],
+    [
+     4
+    ],
+    [
      5
     ],
     [
-     0,
-     1,
-     2,
-     3,
-     4,
-     5
+     0
     ],
     [
-     0,
-     1,
-     2,
-     3,
-     4,
-     5
+     3
     ],
     [
-     0,
-     1,
-     2,
-     3,
-     4,
-     5
-    ],
-    [
-     0,
-     1,
-     2,
-     3,
-     4,
-     5
-    ],
-    [
-     0,
-     1,
-     2,
-     3,
-     4,
-     5
-    ],
-    [
-     0,
-     1,
-     2,
-     3,
-     4,
-     5
-    ],
-    [
-     0,
-     1,
-     2,
-     3,
-     4,
-     5
-    ],
-    [
-     0,
-     1,
-     2,
-     3,
-     4,
-     5
-    ],
-    [
-     0,
-     1,
-     2,
-     3,
-     4,
-     5
-    ],
-    [
-     0,
-     1,
-     2,
-     3,
-     4,
-     5
-    ],
-    [
-     0,
-     1,
-     2,
-     3,
-     4,
-     5
-    ],
-    [
-     0,
-     1,
-     2,
-     3,
-     4,
-     5
+     4
     ]
    ],
    "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.32628",
    "pdf_url": "https://arxiv.org/pdf/2609.32628"
   },
@@ -16531,27 +16423,21 @@
    "html_url": "https://arxiv.org/html/2609.32513v1",
    "abstract": "Handwritten mathematical expression recognition (HMER) refers to the task of recognizing and converting handwritten mathematics into a parsable markup language, usually LaTeX. No current state-of-the-art-competitive system adjusts to the way a specific person writes, and the domain gap between training images (usually digital or perfectly binarized) and images physically taken with a camera used in inference has received fairly little attention for this specific problem. We characterize this domain gap through fragmentation and stroke-width analyses of the images as well as introduce a writer-adaptive fine-tuning pipeline to MFH-CoMER in an attempt to address it. We further introduce sample author-specific datasets, consisting of five handwriting category subsets from two authors, and evaluate using a McNemar's test and permutation tests adapted to limited data. Results suggest an increase in expression recognition rate and a decrease in CER for digital handwriting but more varied results for physical handwriting, with the model struggling for handwriting articles that the base model can already evaluate well. Nonetheless, adapted models were found to have improved results for four out of five subsets. Statistical testing results suggest a consistency in improvement for two of the tested author-specific subsets. Our results point towards the potential feasibility of writer adaptation for the HMER task.",
    "affiliations": [
-    "Department of Computer Technology",
-    "De La Salle University, Manila, Philippines"
+    "Department of Computer Technology, De La Salle University, Manila, Philippines"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ]
    ],
-   "institutions": [
-    null,
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.32513",
    "pdf_url": "https://arxiv.org/pdf/2609.32513"
   },
@@ -17821,28 +17707,20 @@
    "html_url": "https://arxiv.org/html/2609.32231v1",
    "abstract": "Human motion prediction requires diverse future trajectories that remain consistent with observed motion and the articulated physical structure of the body. Skeletal constraints restrict individual poses, while coordinated motion depends on spatial interactions (between connected joints) and temporal interactions (between time instants). To facilitate human motion prediction in light of these constraints and interactions, we introduce Graph Structured Flow Matching (GSFM), which transports the complete future skeletal trajectory through a single conditional velocity field. The trajectory produces a spatiotemporal skeleton graph, and spatial and temporal attention couple its evolution according to skeletal relations and physical time offsets. Bone directions lie on unit spheres relative to a root joint, and tangent evolution preserves input bone lengths throughout generation. We train a learned velocity field through conditional flow matching along geodesic paths connecting random trajectories centered on the last-observed pose to recorded future trajectories. Experiments on the Archive of Motion capture As Surface Shapes (AMASS) dataset evaluate prediction accuracy, diversity calibration, and motion statistics. We demonstrate the contributions of spatial and temporal message passing in the developed architecture through an ablation study. GSFM models trained on AMASS also perform competitively on the Human3.6M skeleton without parameter updates or retraining, demonstrating applicability to an unseen skeletal structure.",
    "affiliations": [
-    "Department of Mechanical and Aerospace Engineering",
-    "University of Florida",
-    "Department of Engineering",
-    "Virginia Tech"
+    "Department of Mechanical and Aerospace Engineering, University of Florida",
+    "Department of Engineering, Virginia Tech"
    ],
    "author_affiliations": [
     null,
     [
-     0,
-     1
+     0
     ],
     [
-     2,
-     3
+     1
     ]
    ],
-   "institutions": [
-    null,
-    "University of Florida",
-    null,
-    "Virginia Tech"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.32231",
    "pdf_url": "https://arxiv.org/pdf/2609.32231"
   },
@@ -20778,19 +20656,15 @@
    "html_url": "https://arxiv.org/html/2609.31709v1",
    "abstract": "Cross-dataset transfer in rice leaf disease classification remains a significant challenge, with models trained on one image collection performing substantially worse when deployed on another. We conduct a systematic benchmark across three Bangladeshi rice leaf disease datasets (5,419 images, 6 transfer pairs, 3 CNN backbones, 3 random seeds) to characterize and diagnose this failure. Strong augmentation recovers a mean cross-dataset macro-F1 improvement of +0.070 (Wilcoxon p < 0.001, 15 of 18 transfer pairs positive). Removing non-leaf image content via segmentation shows directional benefit (mean +0.066, p = 0.062, n = 36 paired observations) that is consistent across two independent segmentation methods but does not reach conventional significance. A self-supervised ViT control (DINOv2 linear probe) exhibits equivalent cross-dataset collapse to CNNs, ruling out architecture inductive bias as the primary driver and pointing to acquisition-condition shift. Adaptive batch normalization uniformly harms transfer performance, with harm magnitude correlating with source-target label-prior divergence and model depth (Spearman rho = 0.621, p = 0.009). Grad-CAM attribution analysis on 12 sampled predictions does not distinguish correct from incorrect cross-domain predictions (p = 0.462), indicating that common attribution proxies are insufficient for diagnosing shift at practical sample sizes. We document all frozen results, prespecified analysis criteria, and reproducibility artifacts in a public repository with SHA-256 integrity verification. This work establishes a rigorous empirical baseline for understanding cross-dataset generalization in agricultural computer vision and identifies both effective (augmentation) and ineffective (AdaBN) adaptation strategies.",
    "affiliations": [
-    "Department of Computer Science and Engineering",
-    "BRAC University, Dhaka, Bangladesh"
+    "Department of Computer Science and Engineering, BRAC University, Dhaka, Bangladesh"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ]
    ],
-   "institutions": [
-    null,
-    "BRAC University"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.31709",
    "pdf_url": "https://arxiv.org/pdf/2609.31709"
   },
@@ -20886,8 +20760,7 @@
    "html_url": "https://arxiv.org/html/2609.31702v1",
    "abstract": "Reliable breast ultrasound lesion segmentation requires accurate boundaries and evaluation that prevents patients or duplicate images from crossing data splits. We propose Channel Local Contrast (CLC), a compact refinement of the YOLO26 segmentation prototype head. CLC adds a fixed local high-pass residual controlled by 64 zero-initialized, bounded channel gates. Baseline and CLC were compared in five matched folds on each of four breast ultrasound datasets. BUS-BRA used patient-disjoint outer tests with separate inner validation. BUS-UCLM and BrEaST used patient-grouped validation folds; BUSI used duplicate-component groups because patient identifiers are unavailable. Group-macro Dice increased by 1.68, 3.11, 1.12, and 2.45 percentage points on BUS-BRA, BUS-UCLM, BUSI, and BrEaST, respectively. Only the BUS-BRA paired 95% confidence interval excluded zero. CLC adds 64 parameters and 0.0049 giga floating-point operations (GFLOPs). At 640 pixels, single-T4, batch-one, 16-bit floating-point (FP16) TensorRT graph times were 2.1478 ms for CLC and 2.0512 ms for baseline, excluding preprocessing and postprocessing. CLC increased group-macro Dice across all four datasets with a measured T4 forward-pass overhead of 0.0966 ms. Code: https://github.com/mfazrinizar/CLC-YOLO",
    "affiliations": [
-    "Department of Informatics",
-    "Engineering",
+    "Department of Informatics, Engineering",
     "Universitas Sriwijaya",
     "Palembang, South Sumatera"
    ],
@@ -20895,28 +20768,21 @@
     [
      0,
      1,
-     2,
-     3
+     2
     ],
     [
      0,
      1,
-     2,
-     3
+     2
     ],
     [
      0,
      1,
-     2,
-     3
+     2
     ]
    ],
-   "institutions": [
-    null,
-    null,
-    "Sriwijaya University",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.31702",
    "pdf_url": "https://arxiv.org/pdf/2609.31702"
   },
@@ -21421,31 +21287,18 @@
    "html_url": "https://arxiv.org/html/2609.31670v1",
    "abstract": "Iterative and generative denoisers are increasingly used under the assumption that multi-step refinement outperforms a single regression pass. We show the opposite for \\emph{label-free} denoising. An \\emph{unconditional} rectified flow trained on two noisy observations of the same signal, as in Noise2Noise, has a minimiser whose one-step readout is exactly the MMSE denoiser without requiring clean targets. In contrast, multi-step integration provably departs from the MMSE solution because the flow terminates at the noisy data distribution rather than the clean-signal distribution. This departure is exact in a tractable Gaussian model and is confirmed experimentally: one-step flow matches a direct regressor, whereas multi-step Euler integration progressively reduces fidelity. Counterintuitively, the degradation increases with training quality, as a better velocity field more faithfully transports samples toward the noisy terminal law. The key ingredient is therefore the decorrelated \\emph{pairing}, not the flow machinery: a one-step regressor trained on matched noisy pairs gives our best label-free result ($+1.99$,dB). We evaluate these findings on \\textbf{CTDenoiser}, a controlled low-dose CT benchmark spanning five architectures and supervised, similarity-based, blind-spot, and per-image methods. Among label-free approaches, only correlated-noise-aware Noise2Sim improves over the noisy baseline, while Noise2Void is flat-to-negative because CT noise violates its pixel-independence assumption. Finally, although supervised denoisers gain approximately $4$,dB PSNR, a channelized Hotelling observer shows reduced low-contrast lesion detectability, revealing clinically relevant degradation missed by PSNR and SSIM.",
    "affiliations": [
-    "Department of Computer Science",
-    "Biomedical Perception & Intelligence Lab",
-    "University of South Dakota",
-    "Vermillion, South Dakota, USA"
+    "Department of Computer Science, Biomedical Perception & Intelligence Lab",
+    "University of South Dakota, Vermillion, South Dakota, USA"
    ],
    "author_affiliations": [
     [
      0,
-     1,
-     2,
-     3
+     1
     ],
-    [
-     0,
-     1,
-     2,
-     3
-    ]
-   ],
-   "institutions": [
-    null,
-    null,
-    "University of South Dakota",
     null
    ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.31670",
    "pdf_url": "https://arxiv.org/pdf/2609.31670"
   },
@@ -21815,7 +21668,8 @@
    "abstract": "Vision-language navigation (VLN) models perform well but target compute-rich platforms, limiting deployment on memory- and power-constrained robotic edge devices. Compression alone does not establish whether a VLN model fits the memory, latency, and energy budgets of an edge platform while preserving navigation behavior. We introduce EdgeVLN, a runtime-aware, deployment-ready quantized VLN model that closes this gap. EdgeVLN combines a quantized StreamVLN model with Latent Trajectory Termination Extractor (LATTE), a lightweight causal transformer that improves real-time stopping by predicting a Stop Action verifier rank. Both execute through our llama.cpp VLN driver, which reconstructs streaming context and prunes memory tokens on-board. We characterize a pretrained StreamVLN backbone across weight quantization from 8 to 2 bits and multiple inference runtimes to identify a feasible operating point. LATTE reuses backbone hidden states within the budget freed by quantization, requiring neither a second vision encoder nor an additional backbone forward pass. We evaluate six backbone precisions and seven candidate stop heads on BF16 and IQ4 NL across all 1,839 R2R VLN-CE val-unseen episodes. We measure success rate (SR) in simulation and latency, energy, and resident memory on an NVIDIA Jetson Orin NX 16 GB. LATTE achieves our highest SR, 58.02 percent on the deployed 4-bit model, exceeding the BF16 baseline with only 0.013 s additional latency per navigation step. Four-bit formats achieve nearly identical SR, but step energy varies 36.8 times by execution path. Only IQ4 NL under our VLN driver fits the board, using 11.35 GB resident memory while running 20.8 times faster and using 13.3 times less energy than storage-streamed BF16. INT2 collapses. Runtime selection, memory-token pruning, and quantization are essential for efficient edge deployment.",
    "affiliations": [
     "Department of Electrical and Computer Engineering",
-    "Laboratory for Computational Sensing and Robotics, Johns Hopkins University"
+    "Laboratory for Computational Sensing and Robotics, Johns Hopkins University",
+    "Department of Electrical and Computer Engineering, Laboratory for Computational Sensing and Robotics, Johns Hopkins University"
    ],
    "author_affiliations": [
     [
@@ -21828,14 +21682,11 @@
      1
     ],
     [
-     0,
-     1
+     2
     ]
    ],
-   "institutions": [
-    null,
-    "Johns Hopkins University"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.35570",
    "pdf_url": "https://arxiv.org/pdf/2609.35570"
   },

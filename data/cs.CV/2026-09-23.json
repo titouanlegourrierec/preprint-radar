@@ -2328,8 +2328,39 @@
     "University of Science and Technology of China",
     "University of California, Los Angeles"
    ],
-   "author_affiliations": null,
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ]
+   ],
    "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.25891",
    "pdf_url": "https://arxiv.org/pdf/2609.25891"
   },
@@ -2789,14 +2820,27 @@
    "html_url": "https://arxiv.org/html/2609.25803v2",
    "abstract": "High-rate dense perception in dynamic environments is limited by the low update rate of RGB cameras, as rapid scene changes can occur between frames. Event cameras offer temporally dense but spatially sparse measurements, complementary to spatially dense RGB observations. Direct fusion cannot fully exploit this complementarity, while event-guided propagation fails on newly appearing or disoccluded regions without valid RGB support. We present LiFR v2, a unified propagation-completion-memory framework for causal anytime and streaming dense prediction from an RGB keyframe and events. LiFR v2 introduces an Event-Guided Completion Module (EGCM) to recover task-relevant representations where propagation is unsupported, and a History Retrieval Module (HRM) to reuse completed representations across successive queries. The framework supports semantic segmentation, monocular depth estimation, and multi-task dense prediction, and we further introduce SHF-Emerge to evaluate rapid object emergence and disocclusion. LiFR v2 achieves 74.37% mIoU on DSEC and 56.13% on SHF-Emerge, improving LiFR-Seg by 1.85 percentage points on the latter, while reducing SHF-Emerge depth RMSE from 1.564 m to 1.118 m over the propagation baseline. It also exceeds 100 FPS for both segmentation and depth, demonstrating accurate and efficient high-rate perception beyond RGB frame rates.",
    "affiliations": [
-    "Department of Electrical and Computer"
+    "School of Microelectronics, Southern University of Science and Technology, Shenzhen 518055, China",
+    "Department of Electrical and Computer Engineering, The University of Hong Kong, Hong Kong, China"
    ],
    "author_affiliations": [
     [
      0
     ],
     [
-     0
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
     ],
     [
      0
@@ -2805,24 +2849,11 @@
      0
     ],
     [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
+     1
     ]
    ],
-   "institutions": [
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.25803",
    "pdf_url": "https://arxiv.org/pdf/2609.25803"
   },
@@ -2939,44 +2970,9 @@
     "Johns Hopkins University",
     "NTU"
    ],
-   "author_affiliations": [
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.25773",
    "pdf_url": "https://arxiv.org/pdf/2609.25773"
   },
@@ -4998,22 +4994,19 @@
      2
     ],
     [
-     0,
-     1,
-     2
+     1
     ],
     [
      0,
-     1,
-     2
+     1
     ],
     [
      0,
-     1,
-     2
+     1
     ]
    ],
    "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.26182",
    "pdf_url": "https://arxiv.org/pdf/2609.26182"
   },
@@ -6103,23 +6096,18 @@
    "html_url": "https://arxiv.org/html/2609.25040v1",
    "abstract": "Banana crop diseases threaten food security across the world, yet field diagnosis remains difficult because of limited expert access and visual similarity among disease classes. We present BananaVLM, a domain-adapted vision-language model for banana disease diagnosis built on LLaVA-v1.5-7B and fine-tuned with Low-Rank Adaptation (LoRA). To address the lack of multimodal agricultural instruction data, we introduce BananaInstruct, an automated pipeline that converts raw disease images into $\\approx$80,000 question--answer pairs without manual annotation, using LLaVA-1.5-13B for symptom descriptions and Mistral-7B for agricultural Q&A generation and label grounding. Evaluated against 14 open-source and 5 closed-source VLMs on a nine-class benchmark, BananaVLM achieves 92.21% in-domain and 83.28% out-of-domain (OOD) classification accuracy, outperforming the best closed-source baseline, Gemini~2.5~Pro, by 49.8 and 63.3 percentage points, respectively. Binary healthy/diseased identification reaches 98.38% OOD accuracy with 1.00 recall. A controlled LoRA--DoRA comparison shows that DoRA performance degrades across epochs, while LoRA remains more effective for fine-grained classification. Qualitative evaluation using nine LLM judges yields G-Eval win rates of 0.81--0.96, while five domain experts prefer BananaVLM in 98.48% of 990 blind pairwise comparisons. These results show that lightweight domain adaptation with automated instruction tuning is an effective and scalable approach for specialized agricultural AI. Code, datasets, and model weights are available at https://github.com/samy101/banana-vlm",
    "affiliations": [
-    "Department of Cyber-Physical Systems",
-    "Indian Institute of Science, Bangalore 560 012, India"
+    "Department of Cyber-Physical Systems, Indian Institute of Science, Bangalore 560 012, India"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ]
    ],
-   "institutions": [
-    null,
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.25040",
    "pdf_url": "https://arxiv.org/pdf/2609.25040"
   },

@@ -36,57 +36,38 @@
    ],
    "author_affiliations": [
     [
-     0,
-     1,
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
      2
     ],
     [
-     0,
-     1,
      2
     ],
     [
-     0,
-     1,
      2
     ],
     [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
      2
     ]
    ],
    "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.40362",
    "pdf_url": "https://arxiv.org/pdf/2609.40362"
   },
@@ -534,39 +515,32 @@
    ],
    "author_affiliations": [
     [
-     0,
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
      1
     ],
     [
-     0,
      1
     ],
     [
-     0,
-     1
-    ],
-    [
-     0,
-     1
-    ],
-    [
-     0,
-     1
-    ],
-    [
-     0,
-     1
-    ],
-    [
-     0,
-     1
-    ],
-    [
-     0,
-     1
+     0
     ]
    ],
    "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.40253",
    "pdf_url": "https://arxiv.org/pdf/2609.40253"
   },
@@ -2067,27 +2041,21 @@
    ],
    "author_affiliations": [
     [
-     0,
-     1,
-     2
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
     ],
     [
      0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
      2
     ]
    ],
    "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.39841",
    "pdf_url": "https://arxiv.org/pdf/2609.39841"
   },
@@ -3219,8 +3187,7 @@
    "affiliations": [
     "DTU Compute",
     "Technical University of Denmark",
-    "Faculty of Health Sciences and Medicine",
-    "University of Lucerne"
+    "Faculty of Health Sciences and Medicine, University of Lucerne"
    ],
    "author_affiliations": [
     [
@@ -3228,8 +3195,7 @@
      1
     ],
     [
-     2,
-     3
+     2
     ],
     [
      0,
@@ -3244,18 +3210,8 @@
      1
     ]
    ],
-   "institutions": [
-    null,
-    "Technical University of Denmark",
-    null,
-    "University of Lucerne"
-   ],
-   "institution_ids": [
-    null,
-    "04qtj9h94",
-    null,
-    "00kgrkn83"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.39591",
    "pdf_url": "https://arxiv.org/pdf/2609.39591"
   },
@@ -4845,6 +4801,7 @@
     "03q8dnn23",
     null
    ],
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.39265",
    "pdf_url": "https://arxiv.org/pdf/2609.39265"
   },
@@ -5078,8 +5035,31 @@
     "University of Science and Technology of China",
     "Google DeepMind"
    ],
-   "author_affiliations": null,
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     1
+    ],
+    [
+     3
+    ],
+    [
+     4
+    ],
+    [
+     0
+    ]
+   ],
    "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.39183",
    "pdf_url": "https://arxiv.org/pdf/2609.39183"
   },
@@ -5491,60 +5471,30 @@
    "html_url": "https://arxiv.org/html/2609.39132v1",
    "abstract": "We study few-step video generation, i.e., distilling a multi-step video generator, which typically requires tens of sampling steps, incurring substantial latency and compute, into a few-step student. Consistency distillation is a common recipe, in which a multi-step teacher provides the consistency targets for a few-step student. However, these teacher-guided targets are not equally trustworthy, and the content is harder to learn where it varies rapidly over time, e.g., moving foliage shadows or flowing water. We observe that supervision reliability follows the local difficulty of the content rather than semantic complexity: regions that change little yield consistent endpoint predictions, whereas regions with large temporal variation produce larger discrepancies that coincide with the largest perceptual errors. Motivated by this observation, we propose Uncertainty-Aware Consistency Distillation (UACD), which reweights consistency supervision at each spatiotemporal region using a local, parameter-free uncertainty estimate. Specifically, we construct two independently perturbed teacher-guided consistency paths, whose student endpoint predictions provide a consensus target; the discrepancy between the student's direct prediction and this target is the uncertainty proxy. We then relax the consistency penalty on high-uncertainty regions through an exponential weight, while keeping the full penalty elsewhere, since the student cannot be expected to match targets that are hard to learn. To preserve perceptual quality under aggressive step reduction, we integrate feature-space adversarial training with semantic alignment. With parameter-efficient LoRA adaptation of the 50-step Wan model, our method achieves state-of-the-art 4-step generation on VBench 2.0 (0.556 mean score) and is preferred over competing methods in a user study.",
    "affiliations": [
-    "School of Software",
-    "Xi’an Jiaotong University",
-    "Xi’an, China",
-    "School of Computer and Information Science",
-    "Hefei University of Technology",
-    "Hefei, China",
+    "School of Software, Xi’an Jiaotong University, Xi’an, China",
+    "School of Computer and Information Science, Hefei University of Technology, Hefei, China",
     "Faculty of Science and Technology, and Institute of Collaborative Innovation",
     "University of Macau",
     "Macau, China"
    ],
    "author_affiliations": [
     [
-     0,
-     1,
-     2
+     0
     ],
     [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     2,
      3,
-     4,
-     5
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     6,
-     7,
-     8
+     4
     ]
    ],
-   "institutions": [
-    null,
-    "Xi'an Jiaotong University",
-    null,
-    null,
-    "Hefei University of Technology",
-    null,
-    null,
-    "University of Macau",
-    null
-   ],
-   "institution_ids": [
-    null,
-    "017zhmm22",
-    null,
-    null,
-    "02czkny70",
-    null,
-    null,
-    "01r4q9n85",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.39132",
    "pdf_url": "https://arxiv.org/pdf/2609.39132"
   },
@@ -6501,8 +6451,54 @@
     "Independent Researcher",
     "Technical University of Munich"
    ],
-   "author_affiliations": null,
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
    "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.38985",
    "pdf_url": "https://arxiv.org/pdf/2609.38985"
   },
@@ -6604,8 +6600,7 @@
    "affiliations": [
     "College of Computer Science and Engineering",
     "Dalian Minzu University",
-    "Department of Automation",
-    "Tsinghua University"
+    "Department of Automation, Tsinghua University"
    ],
    "author_affiliations": [
     [
@@ -6621,22 +6616,11 @@
      1
     ],
     [
-     2,
-     3
+     2
     ]
    ],
-   "institutions": [
-    null,
-    "Dalian Minzu University",
-    null,
-    "Tsinghua University"
-   ],
-   "institution_ids": [
-    null,
-    "02hxfx521",
-    null,
-    "03cve4549"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.38968",
    "pdf_url": "https://arxiv.org/pdf/2609.38968"
   },
@@ -6662,27 +6646,18 @@
    "html_url": "https://arxiv.org/html/2609.38930v1",
    "abstract": "In semantic segmentation, a recent line of RankSEG methods directly optimizes Dice/IoU scores at inference time, improving alignment with evaluation metrics without modifying model training. Despite its theoretical and empirical success, RankSEG relies on the restrictive Conditional Independence Assumption (CIA), which ignores crucial label correlations and therefore degrades performance in ambiguous or low-contrast scenarios. However, accounting for full label dependence is computationally prohibitive, requiring $\\mathcal{O}(d^3)$ time. To address this, we replace the CIA with a Spatially Localized Dependence (SLD) structure that captures local label correlations while keeping the dependence model tractable. We further overcome the remaining computational bottleneck via a Reciprocal Moment Approximation coupled with a novel fixed-point optimization strategy that eliminates exhaustive search. The proposed algorithm achieves a highly practical $\\mathcal{O}(d \\log d)$ complexity and consistently outperforms conventional argmax and CIA-based RankSEG across diverse segmentation benchmarks. Improvements are significant in low-contrast or small-object scenarios, where label dependence offers valuable signals complementary to image information for accurate segmentation. The code of experiments is available at https://github.com/ZixunWang/RankSEG-DEP.",
    "affiliations": [
-    "Department of Statistics and Data Science",
-    "The Chinese University of Hong Kong"
+    "Department of Statistics and Data Science, The Chinese University of Hong Kong"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ]
    ],
-   "institutions": [
-    null,
-    "Chinese University of Hong Kong"
-   ],
-   "institution_ids": [
-    null,
-    "00t33hh48"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.38930",
    "pdf_url": "https://arxiv.org/pdf/2609.38930"
   },
@@ -7182,37 +7157,27 @@
    "html_url": "https://arxiv.org/html/2609.38811v1",
    "abstract": "Metal additive manufacturing parts are inspected by X-ray computed tomography, where labelled data is scarce, the pores and inclusions that matter span a few pixels, and inspection must happen at the machine. We present DCM-SAM, a defect-conditioned adaptive mixture of LoRA experts: one frozen Segment Anything backbone carries a separate Conv-LoRA expert bank and mask decoder per defect class, each trained in its own pass, without prompts, on synthetic slices alone, updating only 4.4% of the parameters. On benchmarks that XCT-SAM reports, DCM-SAM improves on every baseline for both classes from a ViT-B backbone against their ViT-H, and reaches 64.2% pore IoU on real NIST scans having seen no real images during training. Deployment then exposes what adaptation work rarely measures: on a Qualcomm Hexagon NPU, ViT-H and ViT-L compile yet cannot allocate at 1024x1024 image resolution, since activations rather than weights exceed the device ceiling, and quantizing weights does not help. ViT-B alone runs, but the adapted encoder then fails to allocate where the stock one succeeds, until a numerically identical rewrite of the attention lets the complete DCM-SAM run in FP16 at 1024x1024, with no operator falling back to the CPU, masks within 0.01% of pixels of the FP32 reference. Code: https://github.com/MushfiqShovon/DCM-SAM.",
    "affiliations": [
-    "Department of Industrial and Management Systems Engineering",
-    "School of Mathematical and Data Sciences, West Virginia University, Morgantown, WV",
-    "Lane Department of Computer Science & Electrical Engineering"
+    "Department of Industrial and Management Systems Engineering, School of Mathematical and Data Sciences, West Virginia University, Morgantown, WV",
+    "Lane Department of Computer Science & Electrical Engineering",
+    "Department of Industrial and Management Systems Engineering"
    ],
    "author_affiliations": [
     [
-     0,
+     0
+    ],
+    [
      1
     ],
     [
      2
     ],
     [
+     1,
      0
-    ],
-    [
-     2,
-     0,
-     1
     ]
    ],
-   "institutions": [
-    null,
-    "West Virginia University",
-    null
-   ],
-   "institution_ids": [
-    null,
-    "011vxgd24",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.38811",
    "pdf_url": "https://arxiv.org/pdf/2609.38811"
   },
@@ -7882,19 +7847,17 @@
    ],
    "author_affiliations": [
     [
-     0,
+     0
+    ],
+    [
      1
     ],
     [
-     0,
-     1
-    ],
-    [
-     0,
-     1
+     0
     ]
    ],
    "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.38683",
    "pdf_url": "https://arxiv.org/pdf/2609.38683"
   },
@@ -8330,6 +8293,7 @@
    "institutions": [
     null
    ],
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.38607",
    "pdf_url": "https://arxiv.org/pdf/2609.38607"
   },
@@ -8764,31 +8728,21 @@
    "html_url": "https://arxiv.org/html/2609.38519v1",
    "abstract": "Egocentric gaze prediction enables many downstream applications but remains challenging, as human gaze is inherently stochastic. This stochasticity is constrained by structured temporal dynamics alternating between fixations and saccades, top-down influences from tasks, and bottom-up visual saliency. Based on this observation, we introduce GazeFlow, a framework that directly models gaze as a joint distribution of temporal gaze positions conditioned upon both top-down and bottom-up information. In particular, GazeFlow uses conditional flow matching (CFM): a learned velocity field iteratively transports a Gaussian noise sample into a plausible gaze trajectory drawn from this joint distribution. The velocity field is conditioned on bottom-up visual features extracted by a video encoder and on top-down task information obtained by globally querying these features. On standard datasets, GazeFlow achieves state-of-the-art performance on per-frame metrics, and the generated trajectories align better with human gaze temporal dynamics.",
    "affiliations": [
-    "Department of Computer Science",
-    "University of Rochester"
+    "Department of Computer Science, University of Rochester"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ]
    ],
-   "institutions": [
-    null,
-    "University of Rochester"
-   ],
-   "institution_ids": [
-    null,
-    "022kthw22"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.38519",
    "pdf_url": "https://arxiv.org/pdf/2609.38519"
   },
@@ -8812,31 +8766,21 @@
    "html_url": "https://arxiv.org/html/2609.38487v1",
    "abstract": "Judging image quality is not only ecologically relevant to everyday human tasks, but also underpins many machine vision tasks such as image generation. This paper proposes a framework to understand the inherent perceptual space underlying image quality judgment in humans. We propose a multi-dimensional observer model that represents images as distributions in a latent perceptual space and that models human judgment as comparing noisy samples. Being constrained by neural representations in the primate ventral stream and fit to large-scale behavioral data, the model enables analysis of perceptual structure while matching the predictive power of existing metrics. Using this model, we find that the perceptual spaces needed to account for image quality judgment in humans are extremely low-dimensional compared to the image space even when considering its sparsity. The exact structure of the space (e.g., dimensionalities, information encoded) varies between low-level and high-level quality judgments, suggesting that, despite a shared retinal encoding in the beginning, humans selectively construct task-dependent perceptual spaces in visual decision making.",
    "affiliations": [
-    "Department of Computer Science",
-    "University of Rochester"
+    "Department of Computer Science, University of Rochester"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ]
    ],
-   "institutions": [
-    null,
-    "University of Rochester"
-   ],
-   "institution_ids": [
-    null,
-    "022kthw22"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.38487",
    "pdf_url": "https://arxiv.org/pdf/2609.38487"
   },
@@ -9280,42 +9224,30 @@
      2
     ],
     [
-     0,
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
      1,
      2
     ],
     [
-     0,
-     1,
-     2
+     0
     ],
     [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
-    ],
-    [
-     0,
-     1,
-     2
+     0
     ]
    ],
    "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.38377",
    "pdf_url": "https://arxiv.org/pdf/2609.38377"
   },
@@ -10036,27 +9968,18 @@
    "html_url": "https://arxiv.org/html/2609.40007v1",
    "abstract": "A vision-language-action (VLA) policy can finish a manipulation task while knocking over objects unrelated to it, so task success alone does not show that the policy is safe to deploy in clutter. We study how to keep a pretrained VLA policy clear of such hazards at run time without retraining it, which requires guarding more of the arm than the end effector, following the hazard as it moves, and sharing onboard compute with the policy. Our training-free shield covers the gripper, wrist, and forearm with five ellipsoids and filters every commanded motion through one barrier program against a keep-out ellipsoid fitted from RGB-D perception at reset. Sparse optical flow then carries that ellipsoid's center along with the hazard, with no repeated detection or refitting. Over six simulated hazard-motion conditions, the shield lowers collision from $65.62\\%$ to $27.27\\%$ and raises safe-success, task completion without collision, from $29.35\\%$ to $50.43\\%$. Ablations show that guarding the arm links protects beyond end-effector shielding, and that tracking recovers most of the protection lost when the hazard estimate is frozen at reset. On heterogeneous edge hardware, the five-ellipsoid barrier runs on the CPU in $2.2$~ms at the 99th percentile, and trimming the vision--language prefix and taking fewer flow-matching steps shortens each $\\pi_{0.5}$ policy call on the integrated GPU from $343$ to $177.3$~ms. On a physical SO-101 arm across four tasks, the arm touched the hazard in 3 of 16 shielded episodes versus 11 of 16 unshielded ones. Project page: https://yathag.github.io/multilink-safety-filter/",
    "affiliations": [
-    "School of Electrical and Computer Engineering",
-    "Purdue University, West Lafayette, IN, USA"
+    "School of Electrical and Computer Engineering, Purdue University, West Lafayette, IN, USA"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ]
    ],
-   "institutions": [
-    null,
-    "Purdue University West Lafayette"
-   ],
-   "institution_ids": [
-    null,
-    "02dqehb95"
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.40007",
    "pdf_url": "https://arxiv.org/pdf/2609.40007"
   },
@@ -10322,40 +10245,22 @@
    "abstract": "This work proposes a mutual feedback architecture, MEQ, that refines the two inputs, of possibly different modalities, into a pair of coupled embeddings such that each embedding reflects the information of the other. The core idea is to incorporate continuous interchange of information between the two inputs. This idea leads to a mutual feedback architecture consisting of two components whose outputs are fed back into the other. The final output of this model is defined as the fixed point of this interaction. We provide theoretical analysis that offers interpretation of this model as well as design choices to prevent failure cases. We show the benefits of MEQ through classification and visual grounding tasks spanning various datasets. Quantitatively, our model outperforms or shows competitive performance on concatenation-based multimodal classification problems. Qualitatively, the proposed interactive mechanism allows the model to progressively refine the visual grounding when paired with complementary modality, thus demonstrating the power of mutual feedback under such settings.",
    "affiliations": [
     "Data Science Center, Texas Children’s Hospital",
-    "Baylor College of Medicine",
-    "Houston, Texas 77030, USA",
-    "Department of Computer Science",
-    "SUNY Korea",
+    "Baylor College of Medicine, Houston, Texas 77030, USA",
+    "Department of Computer Science, SUNY Korea",
     "Incheon, Republic of Korea"
    ],
    "author_affiliations": [
     [
      0,
-     1,
-     2
+     1
     ],
     [
-     3,
-     4,
-     5
+     2,
+     3
     ]
    ],
-   "institutions": [
-    "Texas Children's Hospital",
-    "Baylor College of Medicine",
-    null,
-    null,
-    "SUNY Korea",
-    null
-   ],
-   "institution_ids": [
-    "05cz92x43",
-    "02pttbw34",
-    null,
-    null,
-    "02d07gm56",
-    null
-   ],
+   "institutions": null,
+   "extractor": 3,
    "abs_url": "https://arxiv.org/abs/2609.39456",
    "pdf_url": "https://arxiv.org/pdf/2609.39456"
   },
