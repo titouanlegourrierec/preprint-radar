@@ -6800,7 +6800,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.39096v1",
+   "html_url": "https://arxiv.org/html/2609.39096v2",
    "abstract": "Autoregressive video diffusion supports streaming generation and interactive control, but its KV cache grows with the generated history. Existing compression strategies discard history using fixed windows or select tokens through local attention and similarity signals, without directly measuring whether a chunk contributes information beyond the retained context. We introduce DeCoPrune, a training-free method that treats cache compression as a denoising-consistency problem. We find that tokens with larger discrepancies between intermediate clean predictions and final denoised values tend to carry visual evidence less predictable from the retained context. DeCoPrune uses this model-intrinsic signal to retain high-discrepancy tokens in the long-term cache while pruning low-discrepancy tokens. To evaluate information retention, we introduce CMBench, comprising 58 approximately one-minute generated or real-world context episodes and 116 Reappear or Revisit continuation tasks requiring recall of earlier events or objects. Experiments with LingBot World v2 show that DeCoPrune achieves a DINO score of 0.6701 on a 0-1 scale, with an 85.43% reduction in cumulative historical KV token counts and a 4.14-fold continuation-generation speedup over FullKV. Its head-specialized variant reaches 0.6783 at an 86.19% pruning ratio, approaching FullKV's 0.6803 score and exceeding the evaluated compression baselines at similar budgets. These results indicate that denoising consistency can support long-range information retention while reducing autoregressive inference cost. Our project homepage is https://decoprune.github.io. The code is available at https://github.com/DeCoPrune/CMBench, and the benchmark at https://huggingface.co/datasets/Aoraku/CMBench.",
    "affiliations": [],
    "author_affiliations": null,
@@ -7133,10 +7133,11 @@
     "05qbk4x57",
     "05qbk4x57"
    ],
-   "extractor": 2,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-06"
     },
     "institutions": {
      "source": "ror"
@@ -11086,10 +11087,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 2,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.38298",
@@ -11463,7 +11465,7 @@
   {
    "arxiv_id": "2609.40083",
    "announced": "2026-10-01",
-   "title": "Tissue Detection Determines False Positives in Diffusion-Based Histopathology Artifact Detection",
+   "title": "The Effect of Tissue Detection on False Positives of Diffusion-Based Artifact Detection in Histopathology",
    "authors": [
     "Konstantinos Moutselos",
     "Ilias Maglogiannis"
@@ -11473,7 +11475,7 @@
     "Image and Video Processing (eess.IV)",
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "29 pages, 3 figures, 4 tables, including supplementary material. Submitted to Computerized Medical Imaging and Graphics. Code, data and models: https://doi.org/10.5281/zenodo.23016733",
+   "comments": "29 pages, 3 figures, 4 tables, including supplementary material. Code, data and models: https://doi.org/10.5281/zenodo.23016733",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "eess.IV",
@@ -11697,7 +11699,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.LG",
-   "html_url": "https://arxiv.org/html/2609.39934v1",
+   "html_url": "https://arxiv.org/html/2609.39934v2",
    "abstract": "Checkpoint selection in domain generalization often relies on source-validation accuracy, yet the selected checkpoint need not provide reliable probabilities on unseen target domains. Source-target distribution shifts can alter accuracy rankings, while accuracy alone does not measure predictive probability quality. We identify an empirical selection opportunity within fixed training trajectories: reselecting among checkpoints with near-optimal source accuracy can improve mean target probability quality with small observed changes in mean target accuracy. We study accuracy-constrained reliability selection (AC), which retains checkpoints within a tolerance of the best source-validation accuracy and ranks them by source reliability. Our reference rule aggregates within-set normalized negative log-likelihood (NLL) and class-wise calibration error (CwECE) using $D_\\infty$. AC uses no target data and requires neither additional training nor weight averaging. We evaluate five domain generalization training algorithms on three benchmarks, using PACS to develop the objectives and a 0.5-percentage-point tolerance. In exploratory aggregation comparisons on 360 OfficeHome and TerraIncognita runs, the reference rule reduces mean target soft-bin squared-gap ECE and CwECE by 0.240% and 0.182%, respectively, and NLL by 0.030 relative to Source-Acc. Mean target accuracy changes by +0.213 percentage points. These results identify opportunities for reliability-aware reselection, while the additional benefit of joint over single-objective ranking remains unresolved.",
    "affiliations": [
     "Shenzhen University",
@@ -13419,10 +13421,11 @@
     "04qr3zq92",
     "04ewct822"
    ],
-   "extractor": 2,
+   "extractor": 3,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-06"
     },
     "institutions": {
      "source": "ror"
