@@ -14,13 +14,14 @@ for most papers:
 
 What remains is a paper read before extraction versions were kept, whose affiliations have
 no mapping: declared through the API, or read from a page that does not say who is where.
-It keeps no affiliations provenance.
+The arXiv API tells them apart (:func:`settled`).
 """
 
 from collections import Counter
 from dataclasses import dataclass, replace
 
 from preprint_radar.models import Paper, Provenance
+from preprint_radar.sources.arxiv_api import ApiMetadata
 from preprint_radar.store.paper_store import PaperStore
 
 
@@ -52,6 +53,22 @@ def inferred(paper: Paper, *, archived: bool = False) -> Paper:
         from_openalex = affiliations is not None and affiliations.source == "openalex"
         institutions = Provenance("openalex" if from_openalex else "ror")
     return replace(paper, affiliations_provenance=affiliations, institutions_provenance=institutions)
+
+
+def settled(paper: Paper, declared: ApiMetadata | None) -> Paper:
+    """A paper of unknown provenance, with the source the arXiv API's answer implies.
+
+    Affiliations equal to those its submitter declared came from the API, which stores them
+    as declared; any others came from the HTML page. Without an answer it stays unknown.
+
+    Args:
+        paper: A stored paper.
+        declared: What the arXiv API says of it, if it answered.
+    """
+    if declared is None or paper.affiliations_provenance is not None or not paper.affiliations:
+        return paper
+    source = "api" if declared.affiliations == paper.affiliations else "html"
+    return replace(paper, affiliations_provenance=Provenance(source))
 
 
 def _affiliations_source(paper: Paper, *, archived: bool) -> Provenance | None:

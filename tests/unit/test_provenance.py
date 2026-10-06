@@ -5,8 +5,9 @@ from pathlib import Path
 import pytest
 
 from preprint_radar.models import Paper, Provenance
+from preprint_radar.sources.arxiv_api import ApiMetadata
 from preprint_radar.store.paper_store import PaperStore
-from preprint_radar.store.provenance import infer_provenance_again, inferred
+from preprint_radar.store.provenance import infer_provenance_again, inferred, settled
 
 PAPER = Paper(
     arxiv_id="2609.00001",
@@ -86,3 +87,26 @@ def test_the_store_gets_the_provenance_of_its_records(tmp_path: Path) -> None:
     files = {path: path.stat().st_mtime_ns for path in (tmp_path / "data").rglob("*.json")}
     assert infer_provenance_again(store, "cs.CV") == report
     assert {path: path.stat().st_mtime_ns for path in (tmp_path / "data").rglob("*.json")} == files
+
+
+@pytest.mark.parametrize(
+    ("declared", "source"),
+    [
+        pytest.param(("MIT",), "api", id="as-declared"),
+        pytest.param((), "html", id="nothing-declared"),
+        pytest.param(("Stanford University",), "html", id="declared-otherwise"),
+    ],
+)
+def test_the_arxiv_api_settles_an_unknown_provenance(declared: tuple[str, ...], source: str) -> None:
+    answer = ApiMetadata(arxiv_id=PAPER.arxiv_id, abstract="An abstract.", affiliations=declared)
+
+    assert settled(PAPER, answer).affiliations_provenance == Provenance(source)
+
+
+def test_without_an_answer_or_a_doubt_nothing_is_settled() -> None:
+    answer = ApiMetadata(arxiv_id=PAPER.arxiv_id, abstract="An abstract.", affiliations=("MIT",))
+    known = replace(PAPER, affiliations_provenance=Provenance("html"))
+
+    assert settled(PAPER, None) == PAPER
+    assert settled(known, answer) == known
+    assert settled(replace(PAPER, affiliations=()), answer).affiliations_provenance is None
