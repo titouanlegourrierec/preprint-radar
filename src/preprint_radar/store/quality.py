@@ -26,6 +26,7 @@ from preprint_radar.sources.arxiv_html import (
     clean_affiliations,
     is_bare_unit,
     is_place,
+    marked_pieces,
     names_only_authors,
     parse_front_matter,
 )
@@ -34,11 +35,11 @@ EXAMPLES = 5
 """Examples kept for each sign."""
 
 # Two affiliations written as one, without a separator: "Dept. of Computer
-# ScienceUniversity of Alabama", or with plain-text markers: "Monash University; 2Southeast
-# University". "VinUniversity" is a name, hence three lowercase letters before the word.
+# ScienceUniversity of Alabama". "VinUniversity" is a name, hence three lowercase letters
+# before the word. Those run together by plain-text markers ("Monash University;
+# 2Southeast University") are found as cleaning splits them, postcodes apart.
 _GLUED_RE = re.compile(
     r"[a-z]{3}(?:Universit|Institut|School|Department|College|Laborator|Cent(?:er|re)|Faculty|Hospital)"
-    r"|[A-Za-z)][;,]?\s\d{1,2}(?=[A-Z])"
 )
 # The start or the end of a phrase lost to a line break or a marker: "th Research Institute"
 # (from "54th"), "Department of Computer Science and". Lowercase starts only: "St Lucia".
@@ -155,7 +156,7 @@ def string_signs(affiliation: str, paper: Paper) -> Iterator[Sign]:
         yield Sign.CLEANING
     if _STATEMENT_RE.search(affiliation):
         yield Sign.STATEMENT
-    if _GLUED_RE.search(affiliation):
+    if _GLUED_RE.search(affiliation) or len(marked_pieces(affiliation)) > 1:
         yield Sign.GLUED
     if _CUT_OFF_RE.search(affiliation):
         yield Sign.CUT_OFF

@@ -47,6 +47,7 @@ PAPER = Paper(
         # A name, and a postcode before a marker-like number.
         pytest.param("VinUniversity, Hanoi, Vietnam", set(), id="name-with-university"),
         pytest.param("Cardiff University, CF24 4AG Cardiff, United Kingdom", set(), id="postcode"),
+        pytest.param("University of Toronto, Toronto, ON M5S 2E4, Canada", set(), id="postcode-after-a-code"),
         pytest.param("th Research Institute, China", {Sign.CUT_OFF}, id="ordinal-cut"),
         pytest.param("Nanjing University of Posts and", {Sign.CUT_OFF}, id="end-cut"),
         pytest.param("St Lucia, QLD, Australia", {Sign.PLACE_ONLY}, id="saint-is-not-a-cut"),

@@ -711,19 +711,26 @@ def clean_affiliations(text: str) -> tuple[str, ...]:
         affiliation
         for statement in statements
         for part in _ALSO_WITH_RE.split(statement)
-        for piece in _marked_pieces(part)
+        for piece in marked_pieces(part)
         if (affiliation := clean_affiliation(piece))
     )
 
 
-def _marked_pieces(text: str) -> list[str]:
+def marked_pieces(text: str) -> list[str]:
     """The affiliations of a string that numbered markers written as text run together.
 
     "Cornell University 2University of California, Berkeley" is two (AFF-23). A marker is
     one or two digits glued to a capitalized word ("2Duke", "3HKUST", "4eBay") after a
     space; the word before holds no digit, unless it is itself marked ("2CASIA 3HKUST"), so
     that postcodes stay whole ("London WC1E 6AE", "QC H2S 3H1"), and so do "3D Vision Lab"
-    or "4K" (one letter). Each piece keeps its marker, which cleaning strips.
+    or "4K" (one letter).
+
+    Args:
+        text: A candidate string, from a page or from stored data.
+
+    Returns:
+        The pieces, each with its marker, which cleaning strips; the text alone when it
+        holds no marker.
     """
     cuts = []
     for match in _INLINE_MARKER_RE.finditer(text):
