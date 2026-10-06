@@ -14,6 +14,7 @@ from preprint_radar.archive.update import (
     ArchiveReport,
     format_archive_report,
     paper_from_catalog,
+    refreshed,
     update_archive,
 )
 from preprint_radar.http import HttpClient
@@ -325,6 +326,41 @@ def test_a_cut_line_of_the_citations_cache_is_ignored(store: PaperStore, catalog
     assert all(json.loads(line) for line in lines)  # the cut line is gone
 
 
+def test_stored_papers_take_the_comments_of_their_latest_version(store: PaperStore, catalog: Catalog) -> None:
+    report = _update(store, catalog, FakeServices(CITATIONS), prune=False)
+
+    # The catalog's entries say "Accepted to CVPR 2016"; the stored records said nothing.
+    recent = next(paper for paper in store.iter_papers("cs.CV") if paper.arxiv_id == "2609.00001")
+    assert (recent.comments, recent.venue) == ("Accepted to CVPR 2016", "CVPR 2016")
+    assert recent.title == "Recent paper"  # nothing else changes
+    assert report.refreshed == 2  # both day files' papers
+
+    again = _update(store, catalog, FakeServices(CITATIONS), prune=False)
+    assert again.refreshed == 0
+
+
+def test_refreshed_takes_what_the_catalog_adds_and_never_empties_a_field() -> None:
+    paper = Paper(
+        arxiv_id="2609.00001",
+        announced=RECENT_DAY,
+        title="Recent paper",
+        authors=("A One",),
+        comments="12 pages",
+        venue=None,
+    )
+    entry = replace(_entry("2609.00001", RECENT_DAY), comments=None, journal_ref="IEEE TPAMI 2027")
+
+    updated = refreshed(paper, entry)
+
+    assert (updated.comments, updated.journal_ref, updated.venue) == (
+        "12 pages",
+        "IEEE TPAMI 2027",
+        "TPAMI 2027",
+    )
+    assert refreshed(updated, entry) is updated
+    assert refreshed(paper, None) is paper
+
+
 def test_format_archive_report() -> None:
     report = ArchiveReport(
         category="cs.CV",
@@ -340,12 +376,12 @@ def test_format_archive_report() -> None:
 
     assert format_archive_report(report) == (
         "cs.CV: 500 archived papers (3 in, 1 out), threshold 19.5 citations a year, "
-        "citation counts for 98.7% of 1000 papers, 2 day files pruned"
+        "citation counts for 98.7% of 1000 papers, 0 papers' comments refreshed, 2 day files pruned"
     )
     assert format_archive_report(replace(report, carried=4, written=False)) == (
         "cs.CV: 500 archived papers (3 in, 1 out), threshold 19.5 citations a year, "
         "citation counts for 98.7% of 1000 papers (4 archived papers on last week's count), "
-        "2 day files pruned (dry run: nothing written)"
+        "0 papers' comments refreshed, 2 day files pruned (dry run: nothing written)"
     )
 
 

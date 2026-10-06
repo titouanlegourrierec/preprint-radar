@@ -31,6 +31,9 @@ Phase 3 of the roadmap, in progress.
   cited by the BibTeX, RIS and CSV exports, and its venue where the comments name none.
   The archive's papers with a venue go from 52% to 89% (META-1).
 - Institutions keep their ROR id, linked from the graph's institution nodes (AFF-14).
+- Every week, stored papers take the comments and journal reference of their latest
+  version, and the venue they give: a paper "under review" when announced shows where it
+  was accepted (META-2).
 - Affiliations read better (extraction version 3): IEEE thanks notes no longer lose the
   end of a sentence their source wrapped ("School of Mechanical and"); numbered
   affiliations written on one line are told apart and their authors placed ("Cornell

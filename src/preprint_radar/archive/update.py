@@ -14,8 +14,13 @@ week, :func:`update_archive`:
    asked to, deletes the day files older than 12 months. Pruning only decides what is
    deleted: day-file papers compete for the archive whether or not it is on.
 
+Every stored paper also takes the comments and journal reference of its latest version
+from the catalog, and the venue they give (META-2): records otherwise freeze once they
+leave the listing.
+
 When Semantic Scholar misses too many counts (below ``MIN_COVERAGE``), the archive and the
-day files stay as they are, and the counts fetched are added to the stored ones.
+day files stay as they are, but for the comments of their papers, and the counts fetched are
+added to the stored ones.
 """
 
 import json
@@ -68,6 +73,7 @@ class ArchiveReport:
         left: Papers that left it.
         pruned_days: Day files deleted (older than 12 months).
         written: Whether anything was written (not a dry run).
+        refreshed: Stored papers whose comments or journal reference the catalog changed.
     """
 
     category: str
@@ -80,6 +86,7 @@ class ArchiveReport:
     pruned_days: int
     written: bool
     carried: int = 0
+    refreshed: int = 0
 
 
 def update_archive(
@@ -117,8 +124,20 @@ def update_archive(
         arxiv_id: entry for arxiv_id, entry in catalog.entries().items() if entry.first_seen >= ARCHIVE_SINCE
     }
     stored_days = {day: store.load_day(category, day) for day in store.days(category)}
-    in_days = {paper.arxiv_id: paper for papers in stored_days.values() for paper in papers}
-    archived = {paper.arxiv_id: paper for paper in store.iter_archive(category)}
+    refreshed_days = {
+        day: [refreshed(paper, entries.get(paper.arxiv_id)) for paper in papers]
+        for day, papers in stored_days.items()
+    }
+    changed_in_days = [
+        new
+        for day, papers in stored_days.items()
+        for old, new in zip(papers, refreshed_days[day], strict=True)
+        if new is not old
+    ]
+    in_days = {paper.arxiv_id: paper for papers in refreshed_days.values() for paper in papers}
+    stored_archive = list(store.iter_archive(category))
+    archived = {paper.arxiv_id: refreshed(paper, entries.get(paper.arxiv_id)) for paper in stored_archive}
+    changed_in_archive = sum(archived[paper.arxiv_id] is not paper for paper in stored_archive)
     # A stored paper was first seen on the earlier of its day file and the catalog's date,
     # which can be weeks later (2609.00036: announced 2026-09-02, catalog 2026-09-14).
     first_seen = {
@@ -184,10 +203,13 @@ def update_archive(
         pruned_days=len(stale_days),
         written=not dry_run,
         carried=len(carried),
+        refreshed=len(changed_in_days) + changed_in_archive,
     )
     if dry_run:
         return report
 
+    if changed_in_days:
+        store.save(category, changed_in_days)
     kept = [paper for arxiv_id, paper in archived.items() if arxiv_id in selection.keep]
     # Entering papers, and archived ones OpenAlex did not return last time.
     store.write_archive(category, _with_affiliations([*kept, *new_papers], clients.openalex))
@@ -207,6 +229,29 @@ def update_archive(
         store.write_citations(category, stored_counts, source=S2_SOURCE)
     store.write_index()
     return report
+
+
+def refreshed(paper: Paper, entry: CatalogEntry | None) -> Paper:
+    """The paper with the comments and journal reference of its latest version, and their venue.
+
+    The catalog holds each paper's latest version; a stored record keeps what the listing
+    said when it was announced. The catalog never empties a field: a version without
+    comments may only be one the harvest has not seen whole. The same paper comes back
+    when nothing changed.
+
+    Args:
+        paper: A stored paper.
+        entry: Its catalog entry, if the catalog has it.
+    """
+    if entry is None:
+        return paper
+    comments = entry.comments or paper.comments
+    journal_ref = entry.journal_ref or paper.journal_ref
+    if (comments, journal_ref) == (paper.comments, paper.journal_ref):
+        return paper
+    return replace(
+        paper, comments=comments, journal_ref=journal_ref, venue=extract_venue(comments, journal_ref)
+    )
 
 
 def _from_day_file(paper: Paper, first_seen: date) -> Paper:
@@ -250,7 +295,7 @@ def format_archive_report(report: ArchiveReport) -> str:
         f"threshold {report.threshold:.1f} citations a year, citation counts for "
         f"{100 * report.coverage:.1f}% of {report.candidates} papers"
         + (f" ({report.carried} archived papers on last week's count)" if report.carried else "")
-        + f", {report.pruned_days} day files pruned"
+        + f", {report.refreshed} papers' comments refreshed, {report.pruned_days} day files pruned"
         + ("" if report.written else " (dry run: nothing written)")
     )
 

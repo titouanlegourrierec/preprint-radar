@@ -415,7 +415,8 @@ def test_archive_passes_its_options_and_reports(
     assert "No Semantic Scholar API key" in caplog.text
     assert capsys.readouterr().out == (
         "cs.CV: 10 archived papers (2 in, 1 out), threshold 19.5 citations a year, citation counts "
-        "for 99.0% of 100 papers, 0 day files pruned (dry run: nothing written)\n"
+        "for 99.0% of 100 papers, 0 papers' comments refreshed, 0 day files pruned "
+        "(dry run: nothing written)\n"
     )
 
 

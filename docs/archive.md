@@ -21,9 +21,18 @@ before changing `archive/`, `sources/semantic_scholar.py`, `sources/openalex.py`
   file and the catalog's date, which can be weeks later: 2609.00036 was announced on
   2026-09-02, the catalog says 2026-09-14). They enter with their own enrichment, filed
   under that first appearance: an old paper cross-listed lately goes to its own year.
+- Every stored paper, day files and archive alike, takes the comments and journal
+  reference of its latest version from the catalog, and the venue they give (META-2,
+  `refreshed`): a record otherwise keeps what the listing said when it was announced
+  ("Under review" long after its acceptance). The catalog never empties a field. This
+  needs a catalog just harvested, so it only runs within the weekly update, even when
+  the citation counts fall short. Withdrawals are not marked: the comments that say so
+  also say "withdrawn from the ECCV workshop" or "from the proceedings", which a rule
+  would have to tell apart (decision 18).
 - Deleting day files older than 12 months (`--prune`) is off unless asked (decision 2),
   and decides nothing else: without it, an archived paper can also be in a day file.
-- With less than 95% of citation counts, the archive and day files stay as they are, the
+- With less than 95% of citation counts, the archive and day files stay as they are (their
+  comments are refreshed all the same), the
   counts fetched are merged into `citations.json`, whose date stays, and the command fails
   once it has written them (`archive.yml` validates and commits even then). Above it, an
   archived paper whose count is missing this week is ranked on last week's.

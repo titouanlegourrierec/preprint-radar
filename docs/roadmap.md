@@ -172,7 +172,8 @@ page has no live coverage figures (PROD-7); of TEST-9, only the check of the dar
 | PERF-2 | Graph defaults with the author layer (authors of one paper hidden when the layer turns on, the layout in a Web Worker, settled at once under reduced motion, the time-lapse by week or month; PERF-3's clique cap waits for decision 15) | P2 | done |
 | PERF-3 | Clique cap for consortium papers | P2 | todo |
 | UX-2 | Graph touch zoom and keyboard path | P2 | todo |
-| META-2, META-3 | Weekly refresh from the catalog, provenance | P2 | todo |
+| META-2 | Weekly refresh from the catalog: comments, journal references and their venues, in the archive step (withdrawals wait for decision 18, and need guards against "withdrawn from the workshop", "from the proceedings") | P2 | done |
+| META-3 | Provenance | P2 | todo |
 | META-4 | The venue table, and venue detection without mentions | P2 | done |
 | PERF-11 | Lazy index build | P2 | done |
 | PERF-12 | Split citation counts (at build time: the store keeps one `citations.json`) | P2 | done |
