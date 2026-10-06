@@ -18,7 +18,9 @@ between. Item IDs (`DATA-2`, `CIT-11`…) refer to the audit of 2026-09-30
 - More places join their affiliation (extraction version 5): countries from Kazakhstan to
   Sri Lanka are known, "National Research Council Canada" takes "London, ON, Canada", a
   line ending with "of" goes on with the next, and phone numbers, "TODO" placeholders and
-  LaTeX commands printed as text are dropped (AFF-18).
+  LaTeX commands printed as text are dropped (AFF-18). Version 6 keeps the domain of an
+  address ("technikum-wien.at") from reading as "at", and an affiliation followed by an
+  address on its line is kept, without it.
 - The page cache keeps the tables of author blocks, where some papers lay out their
   affiliations: read again from the cache, 2609.06629 had lost its five. A page kept before
   never empties a paper's affiliations; it is downloaded again (DATA-1).

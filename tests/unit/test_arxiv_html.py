@@ -660,6 +660,10 @@ def test_ignores_authorship_footnotes(paper_html: PaperHtml) -> None:
             "Key Laboratory of Symbolic Computation of Ministry of\nEducation, Jilin University",
             ("Key Laboratory of Symbolic Computation of Ministry of Education, Jilin University",),
         ),
+        (
+            "TU Graz, Graz, Austria author@example.at\nUniversity of Alicante, Alicante, Spain",
+            ("TU Graz, Graz, Austria", "University of Alicante, Alicante, Spain"),
+        ),
     ],
     ids=[
         "place-joins-previous-line",
@@ -670,6 +674,7 @@ def test_ignores_authorship_footnotes(paper_html: PaperHtml) -> None:
         "a-state-is-not-a-country",
         "more-countries",
         "a-line-ending-with-a-preposition",
+        "an-address-ending-with-at",
     ],
 )
 def test_joins_lines_that_only_name_a_place(raw: str, expected: tuple[str, ...]) -> None:
@@ -1022,6 +1027,11 @@ def test_clean_affiliation_drops_what_names_nothing(raw: str) -> None:
         ),
         pytest.param("\\addrDepartment of Physics, MIT", "Department of Physics, MIT", id="latex-command"),
         pytest.param("Tel.: +49 (0) 662 1541 4841", None, id="phone"),
+        pytest.param(
+            "Technikum Wien, Vienna, Austria author@example.org",
+            "Technikum Wien, Vienna, Austria",
+            id="address-at-the-end",
+        ),
         pytest.param("TODO: Jane Roe's affiliation and", None, id="placeholder"),
         # An unwrapped thanks note glues the address to the sentence (2609.10082).
         pytest.param(

@@ -1792,6 +1792,63 @@
     "placed": null,
     "abstract": "Transfer functions (TFs) control color and visibility in medical volume rendering, but image-trained Gaussian proxies typically bake one transfer function into their appearance. We present FactorSplat, a per-scene N-dimensional Gaussian splatting (N-DGS) proxy that accepts region-specific intensity-to-RGBA curves at inference. A local lookup applies the authored color and opacity change, while a shared functional encoder and low-rank per-Gaussian factors learn the residual appearance response. Geometry and directional appearance remain shared across presets, with visibility control and TF-aware pruning preserving the ability to hide and reveal structures. On seven CT and MR scans, FactorSplat improves mean PSNR and changed-region error over region-aware VEG across validation, interpolation, unseen composition, and out-of-distribution (OOD) edits. Across these four splits, seven-scan mean PSNR gains over VEG range from 1.10 to 1.52 dB. One checkpoint per scan supports unseen edits without retraining. At $1600^{2}$, the cached fast renderer averages 524 FPS with 1.17 ms TF switches. The project page is: https://gaozhongpai.github.io/FactorSplat/."
   },
+  "2610.02974": {
+    "authors": [
+      "Simon Schwaiger",
+      "David Seyser",
+      "Alessandro Scherl",
+      "Zlatan Ajanović",
+      "Wilfried Wöber",
+      "Gerald Steinbauer-Wagner"
+    ],
+    "affiliations": [
+      "Graz University of Technology, Institute of Software Engineering and Artificial Intelligence, Graz, Austria",
+      "University of Applied Sciences Technikum Wien, Research Group Automation Technology and Robotic Systems, Vienna, Austria",
+      "University of Alicante, Department of Computer Technology, Alicante, Spain",
+      "University of Natural Resources and Life Sciences, Institute for Integrative Nature Conservation Research, Vienna, Austria"
+    ],
+    "placed": [
+      [
+        "Simon Schwaiger",
+        [
+          "Graz University of Technology, Institute of Software Engineering and Artificial Intelligence, Graz, Austria",
+          "University of Applied Sciences Technikum Wien, Research Group Automation Technology and Robotic Systems, Vienna, Austria"
+        ]
+      ],
+      [
+        "David Seyser",
+        [
+          "University of Applied Sciences Technikum Wien, Research Group Automation Technology and Robotic Systems, Vienna, Austria"
+        ]
+      ],
+      [
+        "Alessandro Scherl",
+        [
+          "University of Applied Sciences Technikum Wien, Research Group Automation Technology and Robotic Systems, Vienna, Austria",
+          "University of Alicante, Department of Computer Technology, Alicante, Spain"
+        ]
+      ],
+      [
+        "Zlatan Ajanović",
+        [
+          "University of Applied Sciences Technikum Wien, Research Group Automation Technology and Robotic Systems, Vienna, Austria"
+        ]
+      ],
+      [
+        "Wilfried Wöber",
+        [
+          "University of Natural Resources and Life Sciences, Institute for Integrative Nature Conservation Research, Vienna, Austria"
+        ]
+      ],
+      [
+        "Gerald Steinbauer-Wagner",
+        [
+          "Graz University of Technology, Institute of Software Engineering and Artificial Intelligence, Graz, Austria"
+        ]
+      ]
+    ],
+    "abstract": "Image-based traversability estimation is inherently dependent on the robot platform, deployment domain, and mission preferences, which limits the applicability of purpose-trained models. To facilitate domain adaptation, this work aims to reduce the number of required annotations in the target domain using sample-efficient preference learning. Our method represents traversability through von Mises-Fisher mixture prototypes in a frozen vision-language feature space. Relative natural-language rules provide a commonsense prior, while sparse relative image annotations adapt the prototype directions and utilities to a target domain through computationally and sample-efficient fine-tuning. Experiments on WayFAST demonstrate accuracy competitive with end-to-end trained estimators while enabling sample-efficient image-based adaptation. Qualitative experiments further demonstrate the language prior’s zero shot applicability and the fine-tuned estimator’s improved dense prediction on semantic maps. Evaluation is complemented via semantic interpretation of learned prototypes by dissecting semantically close natural language prompts. Code and trained estimators available at https://resireg.github.io."
+  },
   "2610.03290": {
     "authors": [
       "Christiaan M. Geldenhuys",

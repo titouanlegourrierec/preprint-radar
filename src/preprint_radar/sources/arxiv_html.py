@@ -21,7 +21,7 @@ from preprint_radar.http import HttpClient
 
 logger = logging.getLogger(__name__)
 
-EXTRACTOR_VERSION = 5
+EXTRACTOR_VERSION = 6
 """Version of the extraction heuristics of this module, stored with the affiliations they give.
 
 Bump it with any change that alters what a page gives (affiliations, author mapping), so
@@ -43,6 +43,8 @@ that ``reextract`` reads those papers again, from the page cache when it holds t
 - 5: a line ending with a preposition ("Ministry of") continues on the next one, a place
   completes a name that ends with a country ("National Research Council Canada"), and
   places end with many more countries (AFF-18).
+- 6: a preposition ends a line only after a space, not the domain of an address
+  ("technikum-wien.at"), and an address at the end of a line ends its affiliation.
 """
 
 # LaTeXML renders line breaks and \quad between affiliations as newlines, em spaces
@@ -62,9 +64,13 @@ _LATEX_SPACE_RE = re.compile(r"\[\s*-?\d*\.?\d+\s*(?:pt|em|ex|mm|cm|in|bp|pc|mu)
 # affiliation before it: "MITProject page".
 _LINK_LABEL_RE = re.compile(r"project\s+(?:page|website|homepage|repository|site)\b\s*:?", re.IGNORECASE)
 # Contact details after an affiliation: "..., USA. email: {a, b}@nyu.edu", "(e-mail: ...)",
-# or an address in brackets, which unwrapped thanks notes glue to the sentence: "..., Hong
-# Kong SAR, China (xhubd@connect.ust.hk)" (2609.10082).
-_CONTACT_TAIL_RE = re.compile(r"\(?\s*\be-?mails?\b.*$|[(\[]\s*[\w.+-]+@.*$", re.IGNORECASE | re.DOTALL)
+# an address in brackets, which unwrapped thanks notes glue to the sentence: "..., Hong
+# Kong SAR, China (xhubd@connect.ust.hk)" (2609.10082), or one that ends the line: "...,
+# Vienna, Austria schwaige@technikum-wien.at" (2610.02974).
+_CONTACT_TAIL_RE = re.compile(
+    r"\(?\s*\be-?mails?\b.*$|[(\[]\s*[\w.+-]+@.*$|\s[\w.+-]+@[\w-]+(?:\.[\w-]+)+\s*$",
+    re.IGNORECASE | re.DOTALL,
+)
 # E-mail addresses written to escape harvesters: "jane (at) example.org", "lab [at] example.org".
 _OBFUSCATED_EMAIL_RE = re.compile(
     r"[\w.+-]*\s*[\[(]\s*at\s*[\])]\s*[\w-]+(?:\s*(?:\.|[\[(]\s*dot\s*[\])])\s*[\w-]+)+", re.IGNORECASE
@@ -120,7 +126,8 @@ _CONNECTOR_RE = re.compile(r"^(?:and|&)(?:\s+|$)", re.IGNORECASE)
 _CONTINUED_RE = re.compile(r"(?:,|\band|&)\s*$", re.IGNORECASE)
 # So does one that ends with a preposition: "Key Laboratory ... of Ministry of" / "Education"
 # (2609.11477). Lowercase only: "TU Wien, AT" ends with a country code.
-_DANGLING_RE = re.compile(r"\b(?:of|for|the|at|in|on|de|du|des|der|für|und)\s*$")
+# After a space: "technikum-wien.at" ends an address (2610.02974).
+_DANGLING_RE = re.compile(r"(?<=\s)(?:of|for|the|at|in|on|de|du|des|der|für|und)\s*$")
 # The connector of a list cut after it: "The University of Hong Kong, and". Not one without
 # a comma, which ends a name cut short ("Nanjing University of Posts and").
 _LIST_END_RE = re.compile(r"\s*,\s*(?:and|&)$", re.IGNORECASE)

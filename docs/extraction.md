@@ -61,7 +61,8 @@ Artificial".
   mailbox names ("{jane.doe, john.roe}") are stripped, keeping the affiliation they follow;
   so is an address in brackets, with what follows it: thanks notes, once unwrapped, end
   their sentence with one ("..., Hong Kong SAR, China (xhubd@...)", 2609.10082), which
-  made the whole sentence a contact detail.
+  made the whole sentence a contact detail. So is an address that ends a line ("...,
+  Vienna, Austria schwaige@...", 2610.02974): its four authors lost their university.
   `_JUNK_RE` rejects what still passes: lone words ("the", "dot"), link and contribution
   leftovers ("Code", "Core Contributors"), units cut off by a line break ("School of") and
   lone countries. The web's `institutionName` mirrors it (`JUNK_RE`, `COUNTRY_RE`) for
@@ -125,7 +126,9 @@ Artificial".
   test checks.
 - A line ending with a preposition ("Key Laboratory ... of Ministry of" then "Education,
   Jilin University", 2609.11477) continues on the next one, unless a marker starts it.
-  Lowercase only: "TU Wien, AT" ends with a country code.
+  Lowercase only, after a space: "TU Wien, AT" ends with a country code, and
+  "schwaige@technikum-wien.at" with the domain of an address (2610.02974), which then
+  made both lines one contact detail.
 - A list cut after its connector loses it ("The University of Hong Kong, and"), and so does
   a trailing dash; a name cut short keeps its "and" ("Nanjing University of Posts and"),
   which the quality signs show. Phone numbers ("Tel.: +49 ...") and placeholders ("TODO:
