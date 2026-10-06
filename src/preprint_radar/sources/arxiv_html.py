@@ -272,7 +272,8 @@ class PageCache:
         page has.
         """
         html = self.get(html_url)
-        return html is not None and _FRONT_MATTER_MARK not in html
+        # A page without a document was kept whole, and lost nothing.
+        return html is not None and _FRONT_MATTER_MARK not in html and "ltx_document" in html
 
     def discard(self, html_url: str) -> None:
         """Forget the page at ``html_url``, so that it is downloaded again next time."""
@@ -931,13 +932,22 @@ def _per_creator_map(
         # Only the last author carries affiliations: LaTeXML attaches a block shared by
         # every author to the last one, which says nothing about who is where.
         return None
+    places = {index for affiliation, index in index_of.items() if is_place(affiliation)}
     people: list[tuple[str, tuple[int, ...]]] = []
     for name, indices, marked in creators:
         if not _several_people(name, authors):
             people.append((name, indices))
-        elif len(creators) > 1 and not marked and "," not in name and _PAIR_RE.search(name):
+        elif (
+            len(creators) > 1
+            and not marked
+            and "," not in name
+            and _PAIR_RE.search(name)
+            and not set(indices) <= places
+        ):
             # A pair beside other creators, their block under both names and no marker to
-            # tell them apart: "Zhiyuan Yang & Jiahao Cheng" share it (2609.36407).
+            # tell them apart: "Zhiyuan Yang & Jiahao Cheng" share it (2609.36407). Not a
+            # block that only names a place, the end of an address the creators before
+            # began ("Orlando, FL 32816, USA", 2609.34021): the pair would be placed nowhere.
             people += [(person, indices) for person in _PAIR_RE.split(name)]
         # Otherwise a creator naming several people ("A, B and C", or all of them in one
         # creator) says nothing about which of them is where: markers may.

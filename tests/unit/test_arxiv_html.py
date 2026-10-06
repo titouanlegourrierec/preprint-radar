@@ -899,6 +899,18 @@ def test_a_marker_without_affiliation_drops_the_markers() -> None:
     assert parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith")).author_affiliations is None
 
 
+def test_a_pair_is_not_placed_at_a_place_alone() -> None:
+    html = _author_block(
+        ("Ada Lovelace", ("Institute of Artificial Intelligence",)),
+        ("Bob Smith", ("University of Central Florida",)),
+        ("Carl Jones & Dan Brown", ("Orlando, FL 32816, USA",)),
+    )
+
+    front = parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith", "Carl Jones", "Dan Brown"))
+
+    assert front.author_affiliations == ((0,), (1,), None, None)
+
+
 def test_an_ambiguous_creator_name_drops_the_per_author_blocks() -> None:
     html = _author_block(("A. Lovelace", ("MIT",)), ("Bob Smith", ("NVIDIA",)))
 
@@ -1295,6 +1307,9 @@ def test_a_page_kept_before_the_tables_is_stale(tmp_path: Path) -> None:
         gzip.compress(b'<html><body><article class="ltx_document"></article></body></html>')
     )
     assert cache.stale(url)
+    # A page without a document is kept whole: it lost nothing.
+    cache.put(url, "<p>Maintenance</p>")
+    assert not cache.stale(url)
 
 
 def test_a_page_without_a_document_is_kept_whole() -> None:

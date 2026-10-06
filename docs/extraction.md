@@ -146,7 +146,8 @@ ambiguous name alignments drop the whole tier, and unresolved authors stay `null
   affiliation.
 - A pair ("Zhiyuan Yang & Jiahao Cheng", no comma, no marker on the names) beside other
   creators shares the block under it: both are placed (2609.36407). Alone, or with markers,
-  it says no more than a list.
+  it says no more than a list; nor does a block that only names a place, the end of an
+  address the creators before began ("Orlando, FL 32816, USA", 2609.34021).
 - A marker's text runs to the next marker, read as one line: it may hold the lines an
   affiliation was joined from, then another affiliation of the same marker
   ("⟨2⟩Laboratory … Response / Technologies (LiGHT) / Swiss Federal Institute of Technology
