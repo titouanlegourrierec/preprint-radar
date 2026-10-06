@@ -38,10 +38,11 @@
     "0491f5305",
     null
    ],
-   "extractor": 3,
+   "extractor": 4,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-06"
     },
     "institutions": {
      "source": "ror",
@@ -274,7 +275,7 @@
    "institution_ids": [
     "03hz5th67"
    ],
-   "extractor": 3,
+   "extractor": 4,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -748,7 +749,7 @@
    "institution_ids": [
     "02t274463"
    ],
-   "extractor": 3,
+   "extractor": 4,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -1625,10 +1626,11 @@
     "0160cpw27",
     "0160cpw27"
    ],
-   "extractor": 3,
+   "extractor": 4,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-06"
     },
     "institutions": {
      "source": "ror",
@@ -3272,10 +3274,11 @@
     "012k1v959",
     null
    ],
-   "extractor": 3,
+   "extractor": 4,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-06"
     },
     "institutions": {
      "source": "ror",
@@ -4491,10 +4494,11 @@
     "034t30j35",
     "034t30j35"
    ],
-   "extractor": 3,
+   "extractor": 4,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-06"
     },
     "institutions": {
      "source": "ror",
@@ -4732,10 +4736,11 @@
     null,
     "04dawnj30"
    ],
-   "extractor": 3,
+   "extractor": 4,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-06"
     },
     "institutions": {
      "source": "ror",
@@ -5274,13 +5279,29 @@
    "cross_list_from": "cs.RO",
    "html_url": "https://arxiv.org/html/2609.10082v1",
    "abstract": "Accurate camera intrinsic calibration is fundamental to robot perception, and the accuracy depends on the quality of the collected images. However, existing target-based calibration methods often require the practitioner to manually filter out high-quality images and to specify an appropriate radial distortion order. This paper presents a fully automatic intrinsic calibration pipeline that determines both from the collected data. We adopt an iterative rejection scheme that estimates parameters on a candidate image set and removes views whose mean residual exceeds a multiple of the median. Crucially, this process runs independently under each candidate distortion order, so that the retained image set is consistent with the residual scale of that order. Further, the distortion order is selected on held-out images, with the intrinsics and distortion fixed and only the board pose re-estimated, ensuring that an added coefficient is supported by independent observations. Finally, we integrate both steps into an interactive calibration tool that supports full-pipeline data inspection and parameter estimation. Experiments on our own camera data and five public real-world datasets show that image filtering reduces the held-out reprojection error by 25\\%, the order selection further by 5\\%, achieving the lowest held-out mean among four compared configurations without manual image selection. We will release the code and data to facilitate future research.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
-   "extractor": 3,
+   "affiliations": [
+    "Department of Electronic and Computer Engineering, The Hong Kong University of Science and Technology, Hong Kong SAR, China"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Hong Kong University of Science and Technology"
+   ],
+   "institution_ids": [
+    "00q4vv597"
+   ],
+   "extractor": 4,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-06"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.10082",

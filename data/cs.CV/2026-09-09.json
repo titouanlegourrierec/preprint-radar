@@ -3158,10 +3158,11 @@
    "institution_ids": [
     "00hj54h04"
    ],
-   "extractor": 3,
+   "extractor": 4,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-06"
     },
     "institutions": {
      "source": "ror",
@@ -3984,7 +3985,7 @@
    "institution_ids": [
     "046rm7j60"
    ],
-   "extractor": 3,
+   "extractor": 4,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -4613,10 +4614,11 @@
    "institution_ids": [
     "04tft4718"
    ],
-   "extractor": 3,
+   "extractor": 4,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-06"
     },
     "institutions": {
      "source": "ror",
@@ -5915,7 +5917,33 @@
     "Trier, Germany",
     "Kirchberg, Luxembourg"
    ],
-   "author_affiliations": null,
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2,
+     3,
+     4
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1,
+     2,
+     3,
+     4
+    ],
+    [
+     0
+    ]
+   ],
    "institutions": [
     null,
     "Trier University of Applied Sciences",
@@ -5930,10 +5958,11 @@
     null,
     null
    ],
-   "extractor": 3,
+   "extractor": 4,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-06"
     },
     "institutions": {
      "source": "ror",
@@ -6615,10 +6644,11 @@
     "02y72wh86",
     null
    ],
-   "extractor": 3,
+   "extractor": 4,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-06"
     },
     "institutions": {
      "source": "ror"
@@ -7046,10 +7076,11 @@
     null,
     null
    ],
-   "extractor": 3,
+   "extractor": 4,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-06"
     },
     "institutions": {
      "source": "ror",
@@ -7269,10 +7300,11 @@
     "057zh3y96",
     "05x2bcf33"
    ],
-   "extractor": 3,
+   "extractor": 4,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-06"
     },
     "institutions": {
      "source": "ror",
@@ -8966,10 +8998,11 @@
     "00vtgdb53",
     "04d836q62"
    ],
-   "extractor": 3,
+   "extractor": 4,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-06"
     },
     "institutions": {
      "source": "ror"
@@ -9133,10 +9166,11 @@
     null,
     "02j61yw88"
    ],
-   "extractor": 3,
+   "extractor": 4,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-06"
     },
     "institutions": {
      "source": "ror",
@@ -9494,10 +9528,11 @@
     "049zrh188",
     "0220qvk04"
    ],
-   "extractor": 3,
+   "extractor": 4,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-06"
     },
     "institutions": {
      "source": "ror",
@@ -12158,7 +12193,7 @@
     null,
     "03eb1ae70"
    ],
-   "extractor": 3,
+   "extractor": 4,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -12599,10 +12634,11 @@
     "032db5x82",
     "032db5x82"
    ],
-   "extractor": 3,
+   "extractor": 4,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-06"
     },
     "institutions": {
      "source": "ror",
@@ -14266,7 +14302,7 @@
     "05qbk4x57",
     "0207yh398"
    ],
-   "extractor": 3,
+   "extractor": 4,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -15777,10 +15813,11 @@
     "0049erg63",
     null
    ],
-   "extractor": 3,
+   "extractor": 4,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-06"
     },
     "institutions": {
      "source": "ror"
@@ -17481,7 +17518,7 @@
    "institution_ids": [
     "05d2yfz11"
    ],
-   "extractor": 3,
+   "extractor": 4,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -19548,10 +19585,11 @@
     "00cvxb145",
     null
    ],
-   "extractor": 3,
+   "extractor": 4,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-06"
     },
     "institutions": {
      "source": "ror",
@@ -19803,35 +19841,30 @@
    "html_url": "https://arxiv.org/html/2609.08493v1",
    "abstract": "Observing objects grasped by a robot hand is challenging due to severe visual occlusions. Although in-hand manipulation can expose hidden surfaces, existing approaches often rely on predefined or open-loop reorientation strategies that do not explicitly target under-observed regions. We propose AURORA, an active 3D reconstruction framework that closes the loop between online object-centric reconstruction and in-hand reorientation. At its core, Ray-GPIS estimates direction-wise reconstruction uncertainty along candidate viewing rays and selects next-best-view targets using an uncertainty--novelty objective, which are realized through an axis-conditioned in-hand rotation policy. The resulting RGB-D observations are fused incrementally using CAD-free 6D pose tracking and lightweight geometric reconstruction. Experiments demonstrate that AURORA improves reconstruction quality and information-acquisition efficiency over non-active rotation strategies, while Ray-GPIS also outperforms active view-planning baselines in reconstruction performance, action-ranking quality, and planning efficiency. Targeted ablations further validate its robustness to hand occlusion and pose errors. The project webpage is available at https://aurorahand.github.io/",
    "affiliations": [
-    "School of Information Science, and Technology",
-    "ShanghaiTech University, China"
+    "School of Information Science and Technology, ShanghaiTech University, China"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ]
    ],
    "institutions": [
-    null,
     "ShanghaiTech University"
    ],
    "institution_ids": [
-    null,
     "030bhh786"
    ],
-   "extractor": 3,
+   "extractor": 4,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-06"
     },
     "institutions": {
      "source": "ror",
