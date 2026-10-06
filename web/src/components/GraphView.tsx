@@ -5,6 +5,7 @@ import {
   type EntityKind,
   type GraphNode,
   isEntity,
+  MAX_CLIQUE_AUTHORS,
   nodeMatches,
   replaySteps,
 } from "../graph";
@@ -513,6 +514,12 @@ export function GraphView(props: Props) {
             ),
         )}
         <span>{graph.links.length.toLocaleString()} links</span>
+        {graph.consortia > 0 && (
+          <span>
+            {plural(graph.consortia, "paper")} of over {MAX_CLIQUE_AUTHORS} authors, whose authors
+            are not linked to one another
+          </span>
+        )}
       </div>
       <p class="graph__hint">
         drag · scroll to zoom · click = details · double-click = open in the list

@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   buildGraph,
   type GraphOptions,
+  MAX_CLIQUE_AUTHORS,
   MAX_REPLAY_STEPS,
   nodeMatches,
   replaySteps,
@@ -187,6 +188,44 @@ describe("buildGraph", () => {
     const graph = buildGraph(papers, { ...INSTITUTIONS, isolated: false });
 
     expect(graph.nodes.map((node) => node.label)).toEqual(["Google", "Inria"]);
+  });
+});
+
+describe("buildGraph of a consortium paper", () => {
+  const consortium = makePaper({
+    arxiv_id: "2407.21783",
+    authors: Array.from({ length: MAX_CLIQUE_AUTHORS + 1 }, (_, index) => `Author ${index}`),
+    affiliations: ["Meta"],
+  });
+  const small = makePaper({
+    arxiv_id: "1",
+    authors: ["Author 0", "Author 1"],
+    affiliations: ["Meta"],
+  });
+  const projection: GraphOptions = { ...INSTITUTIONS, authors: true, isolated: false };
+
+  it("does not link its authors to one another, but to its institutions", () => {
+    const graph = buildGraph([consortium, small], projection);
+    const pairs = graph.links.filter(
+      (link) => link.source.startsWith("author:") && link.target.startsWith("author:"),
+    );
+
+    // Only the small paper's pair: the consortium adds no author-author link.
+    expect(pairs).toEqual([{ source: "author:author 0", target: "author:author 1", weight: 1 }]);
+    expect(graph.links.filter((link) => link.target === "institution:meta")).toHaveLength(
+      MAX_CLIQUE_AUTHORS + 1,
+    );
+    expect(graph.consortia).toBe(1);
+  });
+
+  it("is linked like any paper when papers are shown", () => {
+    const graph = buildGraph([consortium], { ...projection, papers: true });
+
+    expect(graph.consortia).toBe(0);
+    const toAuthors = graph.links.filter(
+      (link) => link.target === "paper:2407.21783" && link.source.startsWith("author:"),
+    );
+    expect(toAuthors).toHaveLength(MAX_CLIQUE_AUTHORS + 1);
   });
 });
 

@@ -102,7 +102,11 @@ derives what only the site uses. The pipeline and `validate` never see these.
   authors. With papers on, a paper links to its authors, and each institution to the
   authors the paper places there, else to the paper itself (never to an unplaced author).
   With papers off, it is the co-occurrence projection (nodes linked when they share a
-  paper). Default: papers and institutions, without isolated nodes. An institution node
+  paper), except that a paper of more than 50 authors (`MAX_CLIQUE_AUTHORS`) does not link
+  its authors to one another, only to its institutions, as the legend says (PERF-3,
+  decision 15): the 2024 archive's author projection went from 397,000 links, 39% of them
+  from one paper of 561 authors, to 112,000. Default: papers and institutions, without
+  isolated nodes. An institution node
   carries its ROR id when a paper gives it (`rorId`), linked to ror.org; nodes are still
   keyed by name (AFF-13).
 - `graph-layout.ts` gives starting positions (each connected component in one piece, on a
@@ -125,7 +129,7 @@ derives what only the site uses. The pipeline and `validate` never see these.
   archive year has about 340 days.
 - Sizes: a month of papers (3,500) with all three layers is about 23,000 nodes and 34,000
   links (10,000 with authors of two papers or more); the projection with authors about
-  19,000 nodes and 100,000 links (every co-author pair); papers and institutions (the
+  19,000 nodes and 100,000 links (every co-author pair, up to 50 authors); papers and institutions (the
   default) about 5,700 nodes and 6,700 links. The renderer batches drawing into a few
   `Path2D` per frame; graphs over 2,000 nodes use `theta` 1.2, no collisions and a faster
   cooling (about 100 ms a tick for 26,000 nodes, in the worker).

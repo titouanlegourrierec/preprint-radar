@@ -49,7 +49,17 @@ export interface Graph {
   links: GraphLink[];
   /** Whether nodes were dropped because of `maxNodes`. */
   truncated: boolean;
+  /** Papers whose authors are not linked to one another: more than `MAX_CLIQUE_AUTHORS`. */
+  consortia: number;
 }
+
+/**
+ * Above this many authors, a paper does not link its authors to one another in the
+ * projection: every pair would be linked, n(n-1)/2, and those links say nothing about who
+ * works with whom. One paper of 561 authors made 39% of the 397,000 links of the 2024
+ * archive's author projection (PERF-3, decision 15). Their links to institutions stay.
+ */
+export const MAX_CLIQUE_AUTHORS = 50;
 
 function nodeKey(kind: EntityKind, label: string): string {
   return `${kind}:${searchKey(label)}`;
@@ -165,7 +175,7 @@ export function buildGraph(papers: Paper[], options: GraphOptions): Graph {
   const paperNodes = options.papers
     ? linkThroughPapers(perPaper, keptIds, addLink, citationsOf)
     : [];
-  if (!options.papers) linkByCoOccurrence(perPaper, keptIds, addLink);
+  const consortia = options.papers ? 0 : linkByCoOccurrence(perPaper, keptIds, addLink);
 
   const linked = new Set<string>();
   const links = [...weights].map(([key, weight]) => {
@@ -179,6 +189,7 @@ export function buildGraph(papers: Paper[], options: GraphOptions): Graph {
     nodes: options.isolated ? shown : shown.filter((node) => linked.has(node.id)),
     links,
     truncated: eligible.length > kept.length,
+    consortia,
   };
 }
 
@@ -218,20 +229,30 @@ function linkThroughPapers(
   });
 }
 
-/** Link institutions sharing a paper, co-authors, and authors to their institutions. */
+/**
+ * Link institutions sharing a paper, co-authors, and authors to their institutions.
+ *
+ * @returns The number of papers with authors shown whose authors were not linked to one
+ *   another, having more than {@link MAX_CLIQUE_AUTHORS}.
+ */
 function linkByCoOccurrence(
   perPaper: PaperEntities[],
   keptIds: ReadonlySet<string>,
   addLink: AddLink,
-): void {
-  for (const { institutions, keyOfAffiliation, authors } of perPaper) {
+): number {
+  let consortia = 0;
+  for (const { paper, institutions, keyOfAffiliation, authors } of perPaper) {
     const inst = institutions.filter((id) => keptIds.has(id));
     for (let i = 0; i < inst.length; i++) {
       for (let j = i + 1; j < inst.length; j++) addLink(inst[i] ?? "", inst[j] ?? "");
     }
     const auth = authors.filter((author) => keptIds.has(author.key));
-    for (let i = 0; i < auth.length; i++) {
-      for (let j = i + 1; j < auth.length; j++) addLink(auth[i]?.key ?? "", auth[j]?.key ?? "");
+    if (paper.authors.length > MAX_CLIQUE_AUTHORS) {
+      if (auth.length > 1) consortia++;
+    } else {
+      for (let i = 0; i < auth.length; i++) {
+        for (let j = i + 1; j < auth.length; j++) addLink(auth[i]?.key ?? "", auth[j]?.key ?? "");
+      }
     }
     for (const { key, mapped } of auth) {
       const own =
@@ -247,6 +268,7 @@ function linkByCoOccurrence(
       for (const target of own) addLink(key, target);
     }
   }
+  return consortia;
 }
 
 /** The time-lapse stops at most this many times: a year of days would take minutes. */
