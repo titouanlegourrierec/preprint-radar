@@ -1,5 +1,7 @@
 import type { RefObject } from "preact";
+import { useState } from "preact/hooks";
 import { formatShortDay } from "../format";
+import { type GraphNode, matchStatus } from "../graph";
 import type { Period } from "../period";
 import { authorLayer, type GraphSettings } from "../preferences";
 import type { FacetCount } from "../search";
@@ -34,7 +36,17 @@ interface Props {
   highlight: string;
   highlightInput: RefObject<HTMLInputElement>;
   onHighlight: (text: string) => void;
-  onHighlightSubmit: () => void;
+  /** The first matches of the Highlight field, listed under it. */
+  matches: GraphNode[];
+  /** How many nodes match in all. */
+  matchCount: number;
+  /** The match shown last, `null` before one is, and its name. */
+  matchIndex: number | null;
+  matchLabel: string | null;
+  /** Show the next match (1) or the previous one (-1). */
+  onCycleMatch: (step: 1 | -1) => void;
+  /** Show the match at this index of `matches`, and move the focus to its details. */
+  onChooseMatch: (index: number) => void;
   categories: string[];
   category: string;
   onCategory: (category: string) => void;
@@ -115,6 +127,10 @@ function Checkbox(props: {
 /** Floating, collapsible settings of the graph view. */
 export function GraphSettingsPanel(props: Props) {
   const { settings, onSettings, days, cutoff } = props;
+  // The listed match the arrow keys point at, and whether the list shows (field focused).
+  const [active, setActive] = useState<number | null>(null);
+  const [listing, setListing] = useState(false);
+  const listed = listing && props.highlight.trim() !== "" && props.matches.length > 0;
   const lastIndex = Math.max(0, days.length - 1);
   const cutoffDay = cutoff === null ? undefined : days[cutoff];
 
@@ -132,15 +148,79 @@ export function GraphSettingsPanel(props: Props) {
 
       {props.open && (
         <div class="graph-settings__body">
-          <input
-            ref={props.highlightInput}
-            type="search"
-            placeholder="Highlight nodes…  ( / )"
-            aria-label="Highlight nodes by name"
-            value={props.highlight}
-            onInput={(event) => props.onHighlight(event.currentTarget.value)}
-            onKeyDown={(event) => event.key === "Enter" && props.onHighlightSubmit()}
-          />
+          <div class="graph-settings__find">
+            <input
+              ref={props.highlightInput}
+              type="search"
+              role="combobox"
+              placeholder="Highlight nodes…  ( / )"
+              aria-label="Highlight nodes by name"
+              aria-autocomplete="list"
+              aria-expanded={listed}
+              aria-controls="graph-matches"
+              aria-activedescendant={
+                listed && active !== null ? `graph-match-${active}` : undefined
+              }
+              value={props.highlight}
+              onInput={(event) => {
+                setActive(null);
+                props.onHighlight(event.currentTarget.value);
+              }}
+              onFocus={() => setListing(true)}
+              onBlur={() => {
+                setListing(false);
+                setActive(null);
+              }}
+              onKeyDown={(event) => {
+                const last = props.matches.length - 1;
+                if (event.key === "ArrowDown" && listed) {
+                  event.preventDefault();
+                  setActive(active === null || active >= last ? 0 : active + 1);
+                } else if (event.key === "ArrowUp" && listed) {
+                  event.preventDefault();
+                  setActive(active === null || active <= 0 ? last : active - 1);
+                } else if (event.key === "Enter" && active !== null && listed) {
+                  event.preventDefault();
+                  props.onChooseMatch(active);
+                } else if (event.key === "Enter") {
+                  event.preventDefault();
+                  props.onCycleMatch(event.shiftKey ? -1 : 1);
+                }
+              }}
+            />
+            {listed && (
+              <div
+                id="graph-matches"
+                class="graph-settings__matches"
+                role="listbox"
+                aria-label="Matches"
+              >
+                {props.matches.map((node, index) => (
+                  <div
+                    key={node.id}
+                    id={`graph-match-${index}`}
+                    role="option"
+                    tabIndex={-1}
+                    aria-selected={index === active}
+                    class={index === active ? "is-active" : undefined}
+                    // Chosen before the field loses the focus, which would close the list.
+                    onMouseDown={(event) => {
+                      event.preventDefault();
+                      props.onChooseMatch(index);
+                    }}
+                  >
+                    <i class={`graph__dot graph__dot--${node.kind}`} aria-hidden="true" />
+                    {node.label}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          {props.highlight.trim() !== "" && (
+            <p class="graph-settings__note" role="status">
+              {matchStatus(props.matchCount, props.matchIndex, props.matchLabel)}
+            </p>
+          )}
 
           <fieldset>
             <legend>Papers</legend>

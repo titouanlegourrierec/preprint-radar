@@ -4,6 +4,7 @@ import {
   type GraphOptions,
   MAX_CLIQUE_AUTHORS,
   MAX_REPLAY_STEPS,
+  matchStatus,
   nodeMatches,
   replaySteps,
 } from "../src/graph";
@@ -432,5 +433,16 @@ describe("replaySteps", () => {
     const steps = replaySteps(daysOf("2024-01-01", 500));
     expect(steps).toHaveLength(17);
     expect(steps.slice(0, 2)).toEqual(["2024-01-31", "2024-02-29"]);
+  });
+});
+
+describe("matchStatus", () => {
+  it("says how many nodes match, and which one is shown", () => {
+    expect(matchStatus(0, null, null)).toBe("No match");
+    expect(matchStatus(1, null, null)).toBe(
+      "1 match: Enter shows them one by one, Shift+Enter backwards",
+    );
+    expect(matchStatus(12, 2, "MIT")).toBe("3 of 12 matches: MIT");
+    expect(matchStatus(12, 2, null)).toBe("3 of 12 matches");
   });
 });

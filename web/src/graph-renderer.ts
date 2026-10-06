@@ -71,7 +71,8 @@ interface SimLink {
 
 type Gesture =
   | { kind: "drag"; node: SimNode; startX: number; startY: number; moved: boolean }
-  | { kind: "pan"; startX: number; startY: number; viewX: number; viewY: number; moved: boolean };
+  | { kind: "pan"; startX: number; startY: number; viewX: number; viewY: number; moved: boolean }
+  | { kind: "pinch"; from: [Point, Point]; view: View };
 
 interface Box {
   x0: number;
@@ -146,6 +147,37 @@ export function fitTransform(
   };
 }
 
+/** The view zoomed by `factor` about the screen point (x, y), within the zoom limits. */
+export function zoomAbout(view: View, x: number, y: number, factor: number): View {
+  const k = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, view.k * factor));
+  const gx = (x - view.x) / view.k;
+  const gy = (y - view.y) / view.k;
+  return { k, x: x - gx * k, y: y - gy * k };
+}
+
+export interface Point {
+  x: number;
+  y: number;
+}
+
+/**
+ * The view of a pinch: two fingers that started at `from` (on the view `start`) and are now
+ * at `to`. It zooms by the ratio of their distances about their first midpoint, and pans
+ * with the midpoint, so that the graph stays under the fingers.
+ */
+export function pinchView(
+  start: View,
+  from: readonly [Point, Point],
+  to: readonly [Point, Point],
+): View {
+  const distance = ([a, b]: readonly [Point, Point]) =>
+    Math.max(1, Math.hypot(a.x - b.x, a.y - b.y));
+  const middle = ([a, b]: readonly [Point, Point]) => ({ x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 });
+  const [m0, m1] = [middle(from), middle(to)];
+  const zoomed = zoomAbout(start, m0.x, m0.y, distance(to) / distance(from));
+  return { ...zoomed, x: zoomed.x + m1.x - m0.x, y: zoomed.y + m1.y - m0.y };
+}
+
 function readColors() {
   const style = getComputedStyle(document.documentElement);
   const value = (name: string) => style.getPropertyValue(name).trim();
@@ -200,6 +232,8 @@ export class GraphRenderer {
   private highlighted: ReadonlySet<string> | null = null;
   private colors = readColors();
   private gesture: Gesture | null = null;
+  /** Pointers down on the canvas, by id, at their latest screen position. */
+  private readonly pointers = new Map<number, Point>();
   private frame = 0;
   private readonly reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   private readonly cleanups: (() => void)[] = [];
@@ -233,8 +267,8 @@ export class GraphRenderer {
       () => scheme.removeEventListener("change", onScheme),
       this.listen("pointerdown", (event) => this.onPointerDown(event)),
       this.listen("pointermove", (event) => this.onPointerMove(event)),
-      this.listen("pointerup", () => this.onPointerUp()),
-      this.listen("pointercancel", () => this.onPointerUp()),
+      this.listen("pointerup", (event) => this.onPointerUp(event)),
+      this.listen("pointercancel", (event) => this.onPointerUp(event)),
       this.listen("pointerleave", () => this.onPointerLeave()),
       this.listen("dblclick", (event) => this.onDoubleClick(event)),
       this.listen("wheel", (event) => this.onWheel(event), { passive: false }),
@@ -403,6 +437,20 @@ export class GraphRenderer {
     this.autoFit = true;
     this.followed = null;
     this.fitNow();
+    this.requestDraw();
+  }
+
+  /** Zoom by `factor` about the middle of the part of the canvas not covered by overlays. */
+  zoomBy(factor: number): void {
+    const free = this.canvas.clientWidth - this.overlays.left - this.overlays.right;
+    this.autoFit = false;
+    this.followed = null;
+    this.view = zoomAbout(
+      this.view,
+      this.overlays.left + free / 2,
+      this.canvas.clientHeight / 2,
+      factor,
+    );
     this.requestDraw();
   }
 
@@ -715,8 +763,17 @@ export class GraphRenderer {
 
   private onPointerDown(event: PointerEvent): void {
     const point = this.toGraph(event);
-    const node = this.nodeAt(point.gx, point.gy);
+    this.pointers.set(event.pointerId, { x: point.x, y: point.y });
     this.canvas.setPointerCapture(event.pointerId);
+    const fingers = [...this.pointers.values()];
+    if (fingers.length === 2 && fingers[0] && fingers[1]) {
+      // A second finger turns whatever the first one started into a pinch.
+      this.endDrag();
+      this.gesture = { kind: "pinch", from: [fingers[0], fingers[1]], view: { ...this.view } };
+      return;
+    }
+    if (fingers.length > 2) return;
+    const node = this.nodeAt(point.gx, point.gy);
     this.gesture = node
       ? { kind: "drag", node, startX: point.x, startY: point.y, moved: false }
       : {
@@ -731,7 +788,19 @@ export class GraphRenderer {
 
   private onPointerMove(event: PointerEvent): void {
     const point = this.toGraph(event);
+    if (this.pointers.has(event.pointerId))
+      this.pointers.set(event.pointerId, { x: point.x, y: point.y });
     const gesture = this.gesture;
+    if (gesture?.kind === "pinch") {
+      const fingers = [...this.pointers.values()];
+      if (fingers[0] && fingers[1]) {
+        this.autoFit = false;
+        this.followed = null;
+        this.view = pinchView(gesture.view, gesture.from, [fingers[0], fingers[1]]);
+        this.requestDraw();
+      }
+      return;
+    }
     if (!gesture) {
       const node = this.nodeAt(point.gx, point.gy);
       if ((node?.id ?? null) !== this.hovered) {
@@ -766,8 +835,14 @@ export class GraphRenderer {
     }
   }
 
-  private onPointerUp(): void {
+  private onPointerUp(event: PointerEvent): void {
+    this.pointers.delete(event.pointerId);
     const gesture = this.gesture;
+    if (gesture?.kind === "pinch") {
+      // The finger left on the canvas starts nothing: lift it to pan or drag again.
+      if (this.pointers.size === 0) this.gesture = null;
+      return;
+    }
     this.gesture = null;
     this.canvas.style.cursor = "";
     if (gesture?.kind === "drag") {
@@ -791,16 +866,20 @@ export class GraphRenderer {
     if (node) this.callbacks.onOpen(node.id);
   }
 
+  /** Let a dragged node go, without selecting it. */
+  private endDrag(): void {
+    if (this.gesture?.kind === "drag" && this.gesture.moved) {
+      this.send({ type: "release", index: this.nodes.indexOf(this.gesture.node) });
+    }
+    this.gesture = null;
+  }
+
   private onWheel(event: WheelEvent): void {
     event.preventDefault();
     this.autoFit = false;
     this.followed = null;
     const point = this.toGraph(event);
-    const k = Math.min(
-      MAX_ZOOM,
-      Math.max(MIN_ZOOM, this.view.k * Math.exp(-event.deltaY * 0.0015)),
-    );
-    this.view = { k, x: point.x - point.gx * k, y: point.y - point.gy * k };
+    this.view = zoomAbout(this.view, point.x, point.y, Math.exp(-event.deltaY * 0.0015));
     this.requestDraw();
   }
 

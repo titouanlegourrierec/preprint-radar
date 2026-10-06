@@ -10,6 +10,7 @@ import {
   replaySteps,
 } from "../graph";
 import { GraphRenderer } from "../graph-renderer";
+import { useMediaQuery } from "../hooks/use-media-query";
 import { isTyping } from "../keyboard";
 import type { Period } from "../period";
 import {
@@ -34,6 +35,10 @@ const DETAILS_WIDTH_PX = 344;
 const SETTINGS_WIDTH_PX = 274;
 const WIDE_SCREEN = "(min-width: 900px)";
 const REPLAY_STEP_MS = 900;
+/** Zoom of one press of the + or − button. */
+const ZOOM_STEP = 1.5;
+/** Matches listed under the Highlight field. */
+const LISTED_MATCHES = 10;
 
 interface Props {
   /** Papers the graph is built from. */
@@ -164,6 +169,13 @@ export function GraphView(props: Props) {
         : null,
     [graph, highlightKey],
   );
+  const matches = useMemo(
+    () => (highlighted ? graph.nodes.filter((node) => highlighted.has(node.id)) : []),
+    [graph, highlighted],
+  );
+  // The match shown by Enter or the list, `null` until one is; new matches start over.
+  const [matchIndex, setMatchIndex] = useState<number | null>(null);
+  useEffect(() => setMatchIndex(null), [matches]);
   const selected = (selectedId && nodesById.get(selectedId)) || null;
   // Nodes of each paper, to find who shares papers when papers are nodes themselves.
   const entitiesByPaper = useMemo(() => {
@@ -206,6 +218,15 @@ export function GraphView(props: Props) {
   // The renderer is imperative: create it once, then push every change to it.
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const highlightInput = useRef<HTMLInputElement>(null);
+  const detailsRef = useRef<HTMLElement>(null);
+  // Once the details of a match chosen from the list are shown, they take the focus.
+  const [focusDetails, setFocusDetails] = useState(false);
+  useEffect(() => {
+    if (focusDetails && detailsRef.current) {
+      detailsRef.current.focus();
+      setFocusDetails(false);
+    }
+  });
   const rendererRef = useRef<GraphRenderer | null>(null);
   const openRef = useRef<(id: string) => void>(() => {});
   openRef.current = (id) => {
@@ -298,13 +319,25 @@ export function GraphView(props: Props) {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  const focusFirstMatch = () => {
-    const match = graph.nodes.find((node) => highlighted?.has(node.id));
-    if (match) {
-      setSelectedId(match.id);
-      rendererRef.current?.focus(match.id);
-    }
+  /** Select a match and center on it; a match chosen in the list takes the focus there. */
+  const showMatch = (index: number, moveFocus: boolean) => {
+    const match = matches[index];
+    if (!match) return;
+    setMatchIndex(index);
+    setSelectedId(match.id);
+    rendererRef.current?.focus(match.id);
+    if (moveFocus) setFocusDetails(true);
   };
+  /** The next (or previous) match, from the first (or last) one, round and round. */
+  const cycleMatch = (step: 1 | -1) => {
+    if (matches.length === 0) return;
+    const start = step === 1 ? -1 : matches.length;
+    showMatch(
+      ((((matchIndex ?? start) + step) % matches.length) + matches.length) % matches.length,
+      false,
+    );
+  };
+  const coarse = useMediaQuery("(pointer: coarse)");
   const selectNode = (id: string) => {
     setSelectedId(id);
     rendererRef.current?.focus(id);
@@ -331,8 +364,9 @@ export function GraphView(props: Props) {
         <section class="graph__intro" aria-label="About the graph">
           <p>
             Papers (green squares) link to their institutions (orange) and, when shown, authors
-            (blue). Drag to move, scroll to zoom, select a node for its details; double-click, or
-            "Show papers" in the details, to list its papers. The settings choose what is shown.
+            (blue). Drag to move, scroll or pinch to zoom, select a node for its details;
+            double-click, or "Show papers" in the details, to list its papers. The settings choose
+            what is shown.
           </p>
           <button
             type="button"
@@ -350,13 +384,50 @@ export function GraphView(props: Props) {
         ref={canvasRef}
         class="graph__canvas"
         role="img"
-        aria-label="Graph of the loaded papers with their institutions and authors"
+        aria-label={`Graph of ${[
+          plural(counts.paper, "paper"),
+          plural(counts.institution, "institution"),
+          plural(counts.author, "author"),
+          plural(graph.links.length, "link"),
+        ].join(", ")}`}
+        aria-describedby="graph-equivalent"
       />
+      <p id="graph-equivalent" class="visually-hidden">
+        The Rankings tab lists the same institutions and authors in a table. The Highlight field of
+        the settings finds a node by name, and Enter goes from one match to the next.
+      </p>
+      <fieldset class="graph__zoom">
+        <legend class="visually-hidden">Zoom</legend>
+        <button
+          type="button"
+          aria-label="Zoom in"
+          title="Zoom in"
+          onClick={() => rendererRef.current?.zoomBy(ZOOM_STEP)}
+        >
+          +
+        </button>
+        <button
+          type="button"
+          aria-label="Zoom out"
+          title="Zoom out"
+          onClick={() => rendererRef.current?.zoomBy(1 / ZOOM_STEP)}
+        >
+          −
+        </button>
+        <button
+          type="button"
+          aria-label="Fit the graph to the view"
+          title="Fit"
+          onClick={() => rendererRef.current?.fit()}
+        >
+          ⤢
+        </button>
+      </fieldset>
 
       {emptyMessage && <p class="graph__empty">{emptyMessage}</p>}
 
       {(selected || selectedPaper) && (
-        <aside class="graph__details" aria-label="Details">
+        <aside class="graph__details" aria-label="Details" ref={detailsRef} tabIndex={-1}>
           <button
             type="button"
             class="graph__close"
@@ -461,7 +532,12 @@ export function GraphView(props: Props) {
         highlight={highlight}
         highlightInput={highlightInput}
         onHighlight={setHighlight}
-        onHighlightSubmit={focusFirstMatch}
+        matches={matches.slice(0, LISTED_MATCHES)}
+        matchCount={matches.length}
+        matchIndex={matchIndex}
+        matchLabel={matchIndex === null ? null : (matches[matchIndex]?.label ?? null)}
+        onCycleMatch={cycleMatch}
+        onChooseMatch={(index) => showMatch(index, true)}
         categories={props.categories}
         category={props.category}
         onCategory={props.onCategory}
@@ -522,7 +598,9 @@ export function GraphView(props: Props) {
         )}
       </div>
       <p class="graph__hint">
-        drag · scroll to zoom · click = details · double-click = open in the list
+        {coarse
+          ? "drag · pinch to zoom · tap = details · double-tap = open in the list"
+          : "drag · scroll to zoom · click = details · double-click = open in the list"}
       </p>
     </main>
   );

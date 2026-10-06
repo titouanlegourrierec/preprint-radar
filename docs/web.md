@@ -123,6 +123,13 @@ derives what only the site uses. The pipeline and `validate` never see these.
   follows the pointer at once and is pinned in the worker. Under reduced motion the worker
   runs the layout to rest at once, for a new graph, new forces or Reheat. The canvas says
   `data-layout="moving"` or `"settled"`, which the smoke test waits for.
+- Touch and keyboards (UX-2, decision 14): two fingers pinch to zoom (`pinchView`, about
+  their midpoint, a second finger turning a drag into a pinch), and +, − and Fit buttons
+  sit on the canvas. The Highlight field is a combobox: its first 10 matches are listed
+  under it (arrows and Enter choose one, whose details then take the focus), and Enter or
+  Shift+Enter go through all the matches, which a status line counts ("3 of 500 matches:
+  MIT"). The canvas's label counts its nodes and links, and its description points to
+  Rankings, the same institutions and authors as a table.
 - Turning authors on hides authors of a single paper (`authorLayer`, "Author ≥ papers" at
   2, with a note): they are most of the nodes. The time-lapse stops at every day, or at
   the last day of each week or month when there are more than 60 (`replaySteps`): an

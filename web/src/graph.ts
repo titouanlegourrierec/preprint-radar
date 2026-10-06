@@ -298,3 +298,11 @@ function weekOf(day: string): string {
   date.setUTCDate(date.getUTCDate() - ((date.getUTCDay() + 6) % 7));
   return date.toISOString().slice(0, 10);
 }
+
+/** What the graph's Highlight field found, and which match is shown (`label`, at `index`). */
+export function matchStatus(count: number, index: number | null, label: string | null): string {
+  if (count === 0) return "No match";
+  const matches = `${count.toLocaleString()} ${count === 1 ? "match" : "matches"}`;
+  if (index === null) return `${matches}: Enter shows them one by one, Shift+Enter backwards`;
+  return `${(index + 1).toLocaleString()} of ${matches}${label ? `: ${label}` : ""}`;
+}

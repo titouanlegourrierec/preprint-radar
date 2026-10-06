@@ -21,6 +21,8 @@ Phase 3 of the roadmap, in progress.
   authors on no longer freezes it for seconds, and hides authors of a single paper (most
   of the nodes), which "Author ≥ papers" brings back. The time-lapse of an archive year
   goes week by week, and with reduced motion the layout appears settled at once (PERF-2).
+- The graph zooms with two fingers and with +, − and Fit buttons; its Highlight field lists
+  the first matches, and Enter goes through all of them, "3 of 500 matches" (UX-2).
 - Without papers, the authors of a paper of more than 50 authors are no longer all linked
   to one another, which said nothing of who works with whom: the 2024 archive's author
   graph has 112,000 links instead of 397,000 (PERF-3).

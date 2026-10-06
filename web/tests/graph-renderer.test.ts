@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { citationRadius, fitTransform, nodeRadius } from "../src/graph-renderer";
+import {
+  citationRadius,
+  fitTransform,
+  nodeRadius,
+  pinchView,
+  zoomAbout,
+} from "../src/graph-renderer";
 
 describe("fitTransform", () => {
   const bounds = { minX: -100, minY: -50, maxX: 100, maxY: 50 };
@@ -48,5 +54,58 @@ describe("citationRadius", () => {
 
   it("is capped for highly cited nodes", () => {
     expect(citationRadius(250_000)).toBe(28);
+  });
+});
+
+describe("zoomAbout", () => {
+  it("keeps the point under the cursor where it is", () => {
+    const view = { x: 10, y: 20, k: 1 };
+    const zoomed = zoomAbout(view, 110, 220, 2);
+
+    expect(zoomed.k).toBe(2);
+    // The graph point under (110, 220) was (100, 200); it still is.
+    expect((110 - zoomed.x) / zoomed.k).toBe(100);
+    expect((220 - zoomed.y) / zoomed.k).toBe(200);
+  });
+
+  it("stays within the zoom limits", () => {
+    expect(zoomAbout({ x: 0, y: 0, k: 7 }, 0, 0, 10).k).toBe(8);
+    expect(zoomAbout({ x: 0, y: 0, k: 0.03 }, 0, 0, 0.1).k).toBe(0.02);
+  });
+});
+
+describe("pinchView", () => {
+  const start = { x: 0, y: 0, k: 1 };
+
+  it("zooms by the ratio of the fingers' distances", () => {
+    const view = pinchView(
+      start,
+      [
+        { x: 90, y: 100 },
+        { x: 110, y: 100 },
+      ],
+      [
+        { x: 80, y: 100 },
+        { x: 120, y: 100 },
+      ],
+    );
+
+    expect(view).toEqual({ k: 2, x: -100, y: -100 });
+  });
+
+  it("pans with the fingers' midpoint", () => {
+    const view = pinchView(
+      start,
+      [
+        { x: 0, y: 0 },
+        { x: 10, y: 0 },
+      ],
+      [
+        { x: 30, y: 40 },
+        { x: 40, y: 40 },
+      ],
+    );
+
+    expect(view).toEqual({ k: 1, x: 30, y: 40 });
   });
 });

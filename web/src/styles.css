@@ -1208,6 +1208,74 @@ html {
   background: var(--graph-author);
 }
 
+/* Zoom buttons, for touch and keyboards (UX-2), above the hint. */
+.graph__zoom {
+  position: absolute;
+  right: 12px;
+  bottom: 36px;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.graph__zoom button {
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  font-size: 18px;
+  line-height: 1;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.graph__zoom button:hover {
+  background: var(--accent-soft);
+}
+
+.graph__details:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* The Highlight field and the first matches listed under it. */
+.graph-settings__find {
+  position: relative;
+}
+
+.graph-settings__matches {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  left: 0;
+  z-index: 6;
+  max-height: 240px;
+  overflow-y: auto;
+  padding: 4px 0;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.graph-settings__matches [role="option"] {
+  overflow: hidden;
+  padding: 5px 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.graph-settings__matches [role="option"]:hover,
+.graph-settings__matches .is-active {
+  background: var(--accent-soft);
+}
+
 .graph__hint {
   position: absolute;
   right: 12px;
@@ -1219,6 +1287,11 @@ html {
 }
 
 @media (max-width: 899px) {
+  /* Above the legend, which takes two lines on a phone. */
+  .graph__zoom {
+    bottom: 84px;
+  }
+
   /* Details become a bottom sheet so that they never cover the settings. */
   .graph__details {
     top: auto;

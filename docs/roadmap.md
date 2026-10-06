@@ -171,7 +171,7 @@ page has no live coverage figures (PROD-7); of TEST-9, only the check of the dar
 | ARCH-1 | Retention, size guard and hosting trigger (guards in *Deploy site* and the weekly canary, the trigger in the runbook; pruning stays off until decision 2) | P2 | done |
 | PERF-2 | Graph defaults with the author layer (authors of one paper hidden when the layer turns on, the layout in a Web Worker, settled at once under reduced motion, the time-lapse by week or month; PERF-3's clique cap waits for decision 15) | P2 | done |
 | PERF-3 | Clique cap for consortium papers (no author-author links above 50 authors, said in the legend: 397,000 links to 112,000 for the 2024 projection) | P2 | done |
-| UX-2 | Graph touch zoom and keyboard path | P2 | todo |
+| UX-2 | Graph touch zoom and keyboard path (pinch, zoom buttons, matches listed and gone through with Enter, details focused, a label that counts and points to Rankings; decision 14) | P2 | done |
 | META-2 | Weekly refresh from the catalog: comments, journal references and their venues, in the archive step (withdrawals wait for decision 18, and need guards against "withdrawn from the workshop", "from the proceedings") | P2 | done |
 | META-3 | Provenance of affiliations (`html`, `api`, `openalex`) and institutions (`ror`, `openalex`), with the day read; inferred once for older records, the unmapped unversioned ones left unknown (no `version` or `enriched_from_version`: `extractor` is the version) | P2 | done |
 | META-4 | The venue table, and venue detection without mentions | P2 | done |
