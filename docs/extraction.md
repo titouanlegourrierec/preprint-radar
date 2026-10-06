@@ -111,9 +111,26 @@ Artificial".
   ignores line breaks: a repeated key starts the next affiliation, and `clean_affiliation`
   turns the rest into plain values, organization first. Keep that conversion in
   `clean_affiliation` only, since the author mapping looks affiliations up through it.
-- Contact nodes are joined within one author's only. A place without a country
-  ("Pittsburgh, PA 15213", "New Orleans, LA 70118") is not recognized as one and stays
-  apart: the list of countries and states is AFF-18.
+- Contact nodes are joined within one author's only: an address spread over the creators
+  of a table ("Department of Computer Science, University of Alabama at Birmingham" under
+  one author, "Birmingham, AL, USA" under the next, 2609.13271) stays apart. A place
+  without a country ("Pittsburgh, PA 15213") is not recognized as one: US states are not
+  in the list, since their codes are words ("IN", "OR", "ME").
+- The countries are those affiliations write (AFF-18), but for those that are also names
+  of people (Jordan, Chad, Georgia), which a line of names would end with, and Wales, which
+  ends "New South Wales". A name that ends with a country without a comma ("National
+  Research Council Canada") takes a place in the same country ("London, ON, Canada",
+  2609.12374), not one in another ("University of Luxembourg" then "Trier, Germany", the
+  next column of a table, 2609.06629). The web's `COUNTRY_RE` is the same list, which a
+  test checks.
+- A line ending with a preposition ("Key Laboratory ... of Ministry of" then "Education,
+  Jilin University", 2609.11477) continues on the next one, unless a marker starts it.
+  Lowercase only: "TU Wien, AT" ends with a country code.
+- A list cut after its connector loses it ("The University of Hong Kong, and"), and so does
+  a trailing dash; a name cut short keeps its "and" ("Nanjing University of Posts and"),
+  which the quality signs show. Phone numbers ("Tel.: +49 ...") and placeholders ("TODO:
+  ...") are noise, and a LaTeX command printed as text is dropped ("\\addrDepartment of
+  ...", 2610.04051).
 
 ## Who is where: the author mapping
 

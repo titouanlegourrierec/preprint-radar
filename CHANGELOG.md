@@ -15,6 +15,10 @@ between. Item IDs (`DATA-2`, `CIT-11`…) refer to the audit of 2026-09-30
   pair ("A & B") share their block, "Faculty of Medicine" / "and Health Sciences" is one
   affiliation, and a thanks note ending with an address in brackets is no longer dropped
   (AFF-25).
+- More places join their affiliation (extraction version 5): countries from Kazakhstan to
+  Sri Lanka are known, "National Research Council Canada" takes "London, ON, Canada", a
+  line ending with "of" goes on with the next, and phone numbers, "TODO" placeholders and
+  LaTeX commands printed as text are dropped (AFF-18).
 - The page cache keeps the tables of author blocks, where some papers lay out their
   affiliations: read again from the cache, 2609.06629 had lost its five. A page kept before
   never empties a paper's affiliations; it is downloaded again (DATA-1).

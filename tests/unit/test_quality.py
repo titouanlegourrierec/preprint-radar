@@ -50,6 +50,7 @@ PAPER = Paper(
         pytest.param("University of Toronto, Toronto, ON M5S 2E4, Canada", set(), id="postcode-after-a-code"),
         pytest.param("th Research Institute, China", {Sign.CUT_OFF}, id="ordinal-cut"),
         pytest.param("Nanjing University of Posts and", {Sign.CUT_OFF}, id="end-cut"),
+        pytest.param("TU Wien, AT", set(), id="country-code"),
         pytest.param("St Lucia, QLD, Australia", {Sign.PLACE_ONLY}, id="saint-is-not-a-cut"),
         pytest.param("Department of Computer Science and Engineering", {Sign.UNIT_ONLY}, id="unit-only"),
         pytest.param("Department of Computer Science, Stanford University", set(), id="unit-and-host"),

@@ -21,7 +21,7 @@ from preprint_radar.http import HttpClient
 
 logger = logging.getLogger(__name__)
 
-EXTRACTOR_VERSION = 4
+EXTRACTOR_VERSION = 5
 """Version of the extraction heuristics of this module, stored with the affiliations they give.
 
 Bump it with any change that alters what a page gives (affiliations, author mapping), so
@@ -40,6 +40,9 @@ that ``reextract`` reads those papers again, from the page cache when it holds t
   one, a creator holding several authors' names is never one person, and the people of
   an "A & B" creator share its block, and an address in brackets ends an affiliation
   rather than dropping it.
+- 5: a line ending with a preposition ("Ministry of") continues on the next one, a place
+  completes a name that ends with a country ("National Research Council Canada"), and
+  places end with many more countries (AFF-18).
 """
 
 # LaTeXML renders line breaks and \quad between affiliations as newlines, em spaces
@@ -48,7 +51,9 @@ _SEPARATOR_RE = re.compile(r"\n|\u2003|\s{2,}")
 # Contact details and footnotes that are not affiliations.
 _NOISE_RE = re.compile(
     r"@|https?://|www\.|equal(ly)? contribut|contributed equally|correspond|work done|project lead"
-    r"|senior author|first author|co-first|joint first|equal advising|internship",
+    r"|senior author|first author|co-first|joint first|equal advising|internship"
+    # Phone numbers and an author's placeholder: "Tel.: +49 ...", "TODO: X's affiliation".
+    r"|\btel\.?\s*:|\bfax\s*:|\btodo\b",
     re.IGNORECASE,
 )
 # The vertical space of a LaTeX line break (\\[5pt]), which LaTeXML prints as text.
@@ -113,6 +118,15 @@ _LINE_BREAK_RE = re.compile(r"<br\b[^>]*>", re.IGNORECASE)
 _CONNECTOR_RE = re.compile(r"^(?:and|&)(?:\s+|$)", re.IGNORECASE)
 # A line that ends like this continues on the next one ("School of Medicine, and").
 _CONTINUED_RE = re.compile(r"(?:,|\band|&)\s*$", re.IGNORECASE)
+# So does one that ends with a preposition: "Key Laboratory ... of Ministry of" / "Education"
+# (2609.11477). Lowercase only: "TU Wien, AT" ends with a country code.
+_DANGLING_RE = re.compile(r"\b(?:of|for|the|at|in|on|de|du|des|der|für|und)\s*$")
+# The connector of a list cut after it: "The University of Hong Kong, and". Not one without
+# a comma, which ends a name cut short ("Nanjing University of Posts and").
+_LIST_END_RE = re.compile(r"\s*,\s*(?:and|&)$", re.IGNORECASE)
+# A LaTeX command LaTeXML printed as text, glued to what follows: "\addrDepartment of ...".
+# Its name is lowercase there: the capital starts the affiliation.
+_MACRO_RE = re.compile(r"\\(?:[a-z]+(?=[A-Z])|[A-Za-z]+\*?(?:\s+|$))")
 # A numbered marker written as text inside a string, glued to the next word: " 2Duke".
 _INLINE_MARKER_RE = re.compile(r"(?<=\S\s)\d{1,2}(?=[^\W\d_]{2})")
 # A word that starts with such a marker: "2CASIA", "2HKUST(GZ)".
@@ -124,17 +138,33 @@ _INSTITUTION_WORD_RE = re.compile(
     r"|research|department|faculty|foundation|technolog|polytechn",
     re.IGNORECASE,
 )
+# Countries, by the names affiliations write them in (AFF-18: "Kazakhstan", "Sri Lanka" and
+# "Kenya" were missing). Not those that are also names of people, which a line of names
+# would end with (Jordan, Chad, Georgia), nor Wales, which ends "New South Wales".
 _COUNTRIES = (
     r"USA|U\.S\.A?\.?|United States(?: of America)?|UK|U\.K\.|United Kingdom|England|Scotland"
-    r"|(?:P\.?\s?R\.?\s?)?China|Hong Kong(?: SAR)?|Macau|Macao|Taiwan|Japan|(?:South |Republic of )?Korea"
-    r"|Singapore|India|Germany|France|Italy|Spain|Portugal|(?:The )?Netherlands|Belgium|Switzerland|Austria"
-    r"|Sweden|Norway|Denmark|Finland|Ireland|Poland|Czech Republic|Czechia|Hungary|Romania|Greece|Cyprus"
-    r"|Turkey|Türkiye|Israel|Iran|Saudi Arabia|United Arab Emirates|UAE|Qatar|Egypt|Morocco|Nigeria"
-    r"|South Africa|Canada|Mexico|Brazil|Chile|Argentina|Colombia|Peru|Ecuador|Australia|New Zealand|Russia"
-    r"|Ukraine|Vietnam|Viet Nam|Thailand|Malaysia|Indonesia|Philippines|Pakistan|Bangladesh|Luxembourg"
+    r"|Northern Ireland|(?:P\.?\s?R\.?\s?)?China|Hong Kong(?: SAR)?|Macau|Macao|Taiwan|Japan"
+    r"|(?:South |Republic of )?Korea|Mongolia|Singapore|India|Sri Lanka|Nepal|Bhutan|Maldives|Pakistan"
+    r"|Bangladesh|Afghanistan|Kazakhstan|Uzbekistan|Kyrgyzstan|Tajikistan|Turkmenistan|Azerbaijan|Armenia"
+    r"|Vietnam|Viet Nam|Thailand|Malaysia|Indonesia|Philippines|Cambodia|Laos|Myanmar|Brunei"
+    r"|Germany|France|Italy|Spain|Portugal|(?:The )?Netherlands|Belgium|Luxembourg|Switzerland|Austria"
+    r"|Liechtenstein|Monaco|Andorra|Sweden|Norway|Denmark|Finland|Iceland|Ireland|Poland|Czech Republic"
+    r"|Czechia|Slovakia|Slovenia|Croatia|Serbia|Bosnia and Herzegovina|Montenegro|North Macedonia|Albania"
+    r"|Kosovo|Bulgaria|Hungary|Romania|Moldova|Greece|Cyprus|Malta|Estonia|Latvia|Lithuania|Belarus"
+    r"|Ukraine|Russia(?:n Federation)?|Turkey|Türkiye|Israel|Palestine|Lebanon|Syria|Iraq|Iran|Kuwait"
+    r"|Bahrain|Oman|Yemen|Saudi Arabia|United Arab Emirates|UAE|Qatar|Egypt|Libya|Tunisia|Algeria|Morocco"
+    r"|Nigeria|Ghana|Senegal|Cameroon|Ethiopia|Kenya|Uganda|Tanzania|Rwanda|Zambia|Zimbabwe|Botswana"
+    r"|Namibia|Mozambique|Madagascar|Mauritius|Benin|Burkina Faso|C[ôo]te d'Ivoire|Ivory Coast|Sudan"
+    r"|South Africa|Canada|Mexico|Guatemala|Costa Rica|Panama|Cuba|Jamaica|Puerto Rico|Dominican Republic"
+    r"|Brazil|Chile|Argentina|Uruguay|Paraguay|Bolivia|Colombia|Venezuela|Peru|Ecuador|Australia"
+    r"|New Zealand|Fiji"
 )
 # A line that ends with a country, as in "Munich, Germany" or "CA 94720, USA".
 _COUNTRY_END_RE = re.compile(rf"(?:^|,\s*|\s)(?:{_COUNTRIES})\.?$", re.IGNORECASE)
+# An affiliation that ends with its country, after a comma: not a name that ends with one,
+# like "National Research Council Canada" (2609.12374), which a place in the same country
+# still completes.
+_ADDRESS_END_RE = re.compile(rf"(?:^|,\s*)(?:{_COUNTRIES})\.?$", re.IGNORECASE)
 # What passes every other rule without being an affiliation: the leftover of a link label
 # or a contribution note ("Code", "Core Contributors"), a unit cut off by a line break
 # ("School of"), a lone word ("the", "dot"), or a country alone.
@@ -583,7 +613,8 @@ def _lines(node: Tag) -> list[_Line]:
 def _joined(lines: Iterable[_Line], authors: Sequence[str] = ()) -> list[str]:
     """Lines joined into affiliations.
 
-    A line ending with a comma or "and" continues on the next one, so does the name of a
+    A line ending with a comma, "and" or a preposition ("Ministry of") continues on the next
+    one, unless a marker starts it, so does the name of a
     unit on a line starting with "and" ("Faculty of Medicine" then "and Health Sciences",
     2610.03290), and a line that completes the previous one (:func:`_completes`) is added
     to it after a comma. A line that only names authors is left alone: "Terrence Chen,
@@ -595,7 +626,11 @@ def _joined(lines: Iterable[_Line], authors: Sequence[str] = ()) -> list[str]:
         previous = joined[-1] if joined else ""
         if not previous or names_only_authors(previous, authors):
             joined.append(line.text)
-        elif _CONTINUED_RE.search(previous) or _continues(previous, line):
+        elif (
+            _CONTINUED_RE.search(previous)
+            or (not line.marked and _DANGLING_RE.search(previous))
+            or _continues(previous, line)
+        ):
             joined[-1] = f"{previous} {line.text}"
         elif _completes(previous, line):
             joined[-1] = f"{previous.rstrip(_EDGE_PUNCTUATION)}, {line.text}"
@@ -620,13 +655,20 @@ def _continues(previous: str, line: _Line) -> bool:
 def _completes(previous: str, line: _Line) -> bool:
     """Whether a line completes the affiliation before it.
 
-    A line that only names a place ("Munich, Germany") completes one without a country. A
+    A line that only names a place ("Munich, Germany") completes one without a country, or
+    a name that ends with the place's country: "National Research Council Canada" then
+    "London, ON, Canada" (2609.12374), but not "University of Luxembourg" then "Trier,
+    Germany", the next column of a table (2609.06629). A
     unit without its institution is completed by the next line, unless a marker starts
     that line or it is not an affiliation: "Department of Computer Science", then
     "Dartmouth College" (AFF-10, 2609.38705).
     """
     if is_place(line.text):
-        return not _COUNTRY_END_RE.search(previous.rstrip(_EDGE_PUNCTUATION))
+        previous = previous.rstrip(_EDGE_PUNCTUATION)
+        if _ADDRESS_END_RE.search(previous):
+            return False
+        named = _COUNTRY_END_RE.search(previous)
+        return named is None or _last_word(named[0]) == _last_word(line.text)
     return (
         not line.marked
         and is_bare_unit(previous)
@@ -634,6 +676,10 @@ def _completes(previous: str, line: _Line) -> bool:
         and not _NOISE_RE.search(line.text)
         and clean_affiliation(line.text) is not None
     )
+
+
+def _last_word(text: str) -> str:
+    return text.rstrip(_EDGE_PUNCTUATION).rsplit(maxsplit=1)[-1].casefold()
 
 
 def is_bare_unit(line: str) -> bool:
@@ -796,7 +842,7 @@ def clean_affiliation(text: str) -> str | None:
     and so are the people an IEEE sentence starts with: "A and B are with X" gives X. A
     string holding several affiliations is split first, by :func:`clean_affiliations`.
     """
-    text = _CONTACT_TAIL_RE.sub("", text.replace("\xa0", " "))
+    text = _CONTACT_TAIL_RE.sub("", _MACRO_RE.sub("", text.replace("\xa0", " ")))
     text = _MAILBOX_LIST_RE.sub(" ", _OBFUSCATED_EMAIL_RE.sub(" ", text))
     text = _EMPTY_BRACKETS_RE.sub(" ", _LINK_LABEL_RE.sub(" ", _LATEX_SPACE_RE.sub(" ", text)))
     if _NOISE_RE.search(text):
@@ -809,7 +855,9 @@ def clean_affiliation(text: str) -> str | None:
         text = _keyval_text(text)
     if people := _people(text):
         text = text[people.end() :]
-    text = text.strip(_EDGE_PUNCTUATION)
+    # A list cut after its connector ("The University of Hong Kong, and", 2609.04958) or a
+    # dash ("Hamburg, Germany -"): what precedes it stands alone.
+    text = _LIST_END_RE.sub("", text.strip(_EDGE_PUNCTUATION)).rstrip(_EDGE_PUNCTUATION + "-\u2013")
     text = _CONNECTOR_RE.sub("", text)
     if len(text) < _MIN_LENGTH or not any(char.isalpha() for char in text) or _JUNK_RE.fullmatch(text):
         return None

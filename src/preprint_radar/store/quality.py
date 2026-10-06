@@ -42,8 +42,9 @@ _GLUED_RE = re.compile(
     r"[a-z]{3}(?:Universit|Institut|School|Department|College|Laborator|Cent(?:er|re)|Faculty|Hospital)"
 )
 # The start or the end of a phrase lost to a line break or a marker: "th Research Institute"
-# (from "54th"), "Department of Computer Science and". Lowercase starts only: "St Lucia".
-_CUT_OFF_RE = re.compile(r"^(?:st|nd|rd|th)\s|(?i:\b(?:and|of|for|the|at|in)|[&,(-])$")
+# (from "54th"), "Department of Computer Science and". Lowercase only: "St Lucia" starts
+# a name, and "TU Wien, AT" ends with a country code.
+_CUT_OFF_RE = re.compile(r"^(?:st|nd|rd|th)\s|(?:\b(?:and|of|for|the|at|in)|[&,(-])$")
 # A place that starts the string, so that no institution precedes it: a city and its state
 # ("Raleigh, NC, USA"), a city and its postcode ("Beijing 100084, China"), a street number.
 # "Tokyo, Japan" cannot be told from "Tencent, China", and is not counted.

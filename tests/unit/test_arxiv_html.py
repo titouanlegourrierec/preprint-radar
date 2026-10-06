@@ -1,4 +1,5 @@
 import gzip
+import re
 from collections.abc import Callable
 from pathlib import Path
 
@@ -7,6 +8,7 @@ import pytest
 
 from preprint_radar.http import HttpClient
 from preprint_radar.sources.arxiv_html import (
+    _COUNTRIES,
     FrontMatter,
     PageCache,
     clean_affiliation,
@@ -594,7 +596,7 @@ AUTHORS = {
         # Institute of Technology (EPFL), ...": two affiliations, the first joined from two lines.
         pytest.param(
             "2610.03290",
-            ((0,), (0,), (1, 2), (1, 2), (3, 4), (1, 2), (0,), (5, 6, 7, 8), (0,)),
+            ((0,), (0,), (1, 2), (1, 2), (3,), (1, 2), (0,), (4, 5, 6, 7), (0,)),
             id="anchors-made-of-affiliations",
         ),
         # Two authors' names printed as the fourth one's affiliation, beside the shared one.
@@ -641,8 +643,34 @@ def test_ignores_authorship_footnotes(paper_html: PaperHtml) -> None:
             ),
         ),
         ("Stanford University\nNVIDIA", ("Stanford University", "NVIDIA")),
+        (
+            "National Research Council Canada\nLondon, ON, Canada",
+            ("National Research Council Canada, London, ON, Canada",),
+        ),
+        ("University of Luxembourg\nTrier, Germany", ("University of Luxembourg", "Trier, Germany")),
+        (
+            "University of New South Wales\nCanberra, Australia",
+            ("University of New South Wales, Canberra, Australia",),
+        ),
+        (
+            "Kazakh-British Technical University\nAlmaty, Kazakhstan",
+            ("Kazakh-British Technical University, Almaty, Kazakhstan",),
+        ),
+        (
+            "Key Laboratory of Symbolic Computation of Ministry of\nEducation, Jilin University",
+            ("Key Laboratory of Symbolic Computation of Ministry of Education, Jilin University",),
+        ),
     ],
-    ids=["place-joins-previous-line", "complete-affiliations-stay-apart", "names-stay-apart"],
+    ids=[
+        "place-joins-previous-line",
+        "complete-affiliations-stay-apart",
+        "names-stay-apart",
+        "a-name-ending-with-the-same-country",
+        "a-name-ending-with-another-country",
+        "a-state-is-not-a-country",
+        "more-countries",
+        "a-line-ending-with-a-preposition",
+    ],
 )
 def test_joins_lines_that_only_name_a_place(raw: str, expected: tuple[str, ...]) -> None:
     html = f'<div class="ltx_authors"><span class="ltx_contact ltx_role_affiliation">{raw}</span></div>'
@@ -983,6 +1011,18 @@ def test_clean_affiliation_drops_what_names_nothing(raw: str) -> None:
         pytest.param(
             "University of Zurich, Switzerland ()", "University of Zurich, Switzerland", id="empty-brackets"
         ),
+        pytest.param(
+            "The University of Hong Kong, and", "The University of Hong Kong", id="list-cut-after-and"
+        ),
+        pytest.param(
+            "Nanjing University of Posts and", "Nanjing University of Posts and", id="name-cut-after-and"
+        ),
+        pytest.param(
+            "HafenCity University, Hamburg, Germany -", "HafenCity University, Hamburg, Germany", id="dash"
+        ),
+        pytest.param("\\addrDepartment of Physics, MIT", "Department of Physics, MIT", id="latex-command"),
+        pytest.param("Tel.: +49 (0) 662 1541 4841", None, id="phone"),
+        pytest.param("TODO: Jane Roe's affiliation and", None, id="placeholder"),
         # An unwrapped thanks note glues the address to the sentence (2609.10082).
         pytest.param(
             "HKUST, Hong Kong SAR, China (author@example.org)",
@@ -1529,3 +1569,11 @@ def test_numbered_lines_place_names_that_start_with_a_number() -> None:
 )
 def test_parts_glued_by_latexml_are_separated(raw: str, expected: str) -> None:
     assert clean_affiliation(raw) == expected
+
+
+def test_the_site_knows_the_same_countries() -> None:
+    source = (Path(__file__).parents[2] / "web" / "src" / "institutions.ts").read_text(encoding="utf-8")
+    match = re.search(r"const COUNTRY_RE =\s*/\^\(\?:(.*)\)\\\.\?\$/i;", source)
+
+    assert match is not None
+    assert match.group(1) == _COUNTRIES
