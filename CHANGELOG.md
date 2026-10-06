@@ -4,6 +4,15 @@ One minor release per phase of [`docs/roadmap.md`](docs/roadmap.md), a patch for
 between. Item IDs (`DATA-2`, `CIT-11`…) refer to the audit of 2026-09-30
 ([`docs/audit/2026-09-30.md`](docs/audit/2026-09-30.md)).
 
+## Unreleased
+
+### Fixes
+
+- Affiliations read better (extraction version 7): a sentence that ends with its authors'
+  mailboxes ("{a, b}@tum.de") is no longer dropped, which gave 2610.03283 back its
+  Technical University of Munich, and "X is Robotics Lead at Y" gives Y, without the
+  person (AFF-18).
+
 ## 0.5.1 (2026-10-06): affiliations read again
 
 A patch after Phase 3: what the daily re-read of the stored papers with extraction version 3

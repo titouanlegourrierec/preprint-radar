@@ -48,7 +48,9 @@ Artificial".
   before the next sentence, skipping initials ("..., Spain. L. Zhinin is with"), so that
   abbreviations inside it survive ("Dept. of CS, MIT, USA").
 - "A and B are with X" gives X wherever it is written, affiliation macros included (unless
-  what precedes the verb names an institution). IEEE's "X, China, and also with Y" is
+  what precedes the verb names an institution). So does a role in an affiliation macro:
+  "Manoj Karnekar is Robotics Lead at FloMobility Pvt. Ltd." (2610.05505); not in thanks
+  notes, where "is available at" would read as one. IEEE's "X, China, and also with Y" is
   split: `clean_affiliations` returns every affiliation of one string, and the author gets
   them all (2609.00814).
 - Author names printed as affiliations ("Nicolás Ugrinovic", "Yiqun Zhang, and Yiu-Ming
@@ -62,7 +64,9 @@ Artificial".
   so is an address in brackets, with what follows it: thanks notes, once unwrapped, end
   their sentence with one ("..., Hong Kong SAR, China (xhubd@...)", 2609.10082), which
   made the whole sentence a contact detail. So is an address that ends a line ("...,
-  Vienna, Austria schwaige@...", 2610.02974): its four authors lost their university.
+  Vienna, Austria schwaige@...", 2610.02974): its four authors lost their university;
+  mailboxes before their domain too ("..., Germany. {pm.wolf, cremers}@tum.de",
+  2610.03283).
   `_JUNK_RE` rejects what still passes: lone words ("the", "dot"), link and contribution
   leftovers ("Code", "Core Contributors"), units cut off by a line break ("School of") and
   lone countries. The web's `institutionName` mirrors it (`JUNK_RE`, `COUNTRY_RE`) for

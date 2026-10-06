@@ -1028,6 +1028,16 @@ def test_clean_affiliation_drops_what_names_nothing(raw: str) -> None:
         pytest.param("\\addrDepartment of Physics, MIT", "Department of Physics, MIT", id="latex-command"),
         pytest.param("Tel.: +49 (0) 662 1541 4841", None, id="phone"),
         pytest.param(
+            "A. Doe and B. Roe are with TUM, Munich, Germany. {jane.doe, john.roe}@example.org",
+            "TUM, Munich, Germany",
+            id="mailboxes-at-the-end",
+        ),
+        pytest.param(
+            "Jane Doe is a Robotics Engineer at FloMobility Pvt. Ltd., Bangalore, India",
+            "FloMobility Pvt. Ltd., Bangalore, India",
+            id="a-role-at",
+        ),
+        pytest.param(
             "Technikum Wien, Vienna, Austria author@example.org",
             "Technikum Wien, Vienna, Austria",
             id="address-at-the-end",

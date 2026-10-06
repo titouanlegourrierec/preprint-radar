@@ -1849,6 +1849,37 @@
     ],
     "abstract": "Image-based traversability estimation is inherently dependent on the robot platform, deployment domain, and mission preferences, which limits the applicability of purpose-trained models. To facilitate domain adaptation, this work aims to reduce the number of required annotations in the target domain using sample-efficient preference learning. Our method represents traversability through von Mises-Fisher mixture prototypes in a frozen vision-language feature space. Relative natural-language rules provide a commonsense prior, while sparse relative image annotations adapt the prototype directions and utilities to a target domain through computationally and sample-efficient fine-tuning. Experiments on WayFAST demonstrate accuracy competitive with end-to-end trained estimators while enabling sample-efficient image-based adaptation. Qualitative experiments further demonstrate the language prior’s zero shot applicability and the fine-tuned estimator’s improved dense prediction on semantic maps. Evaluation is complemented via semantic interpretation of learned prototypes by dissecting semantically close natural language prompts. Code and trained estimators available at https://resireg.github.io."
   },
+  "2610.03283": {
+    "authors": [
+      "Patrick Wolf",
+      "Mateo de Mayo",
+      "Daniel Cremers"
+    ],
+    "affiliations": [
+      "Munich Center for Machine Learning, Munich, Germany",
+      "Technical University of Munich, Munich, Germany"
+    ],
+    "placed": [
+      [
+        "Patrick Wolf",
+        null
+      ],
+      [
+        "Mateo de Mayo",
+        [
+          "Munich Center for Machine Learning, Munich, Germany"
+        ]
+      ],
+      [
+        "Daniel Cremers",
+        [
+          "Technical University of Munich, Munich, Germany",
+          "Munich Center for Machine Learning, Munich, Germany"
+        ]
+      ]
+    ],
+    "abstract": "The ability of a device to localize itself within its surroundings is a fundamental prerequisite for spatial computing. Visual-inertial odometry (VIO) has proven to be a cost-effective and accurate solution for this task. Robots, wearables, XR devices, and drones can benefit significantly from efficient implementations of VIO since they allow for cooler, lighter, and cheaper devices with longer battery life and a better user experience. In this work, we propose to enhance the efficiency of a VIO system by leveraging the Hexagon DSP, a commodity co-processor present in many modern smartphones and XR devices. Our approach offloads the visual frontend of a stereo-inertial odometry system to the DSP while keeping the backend on the main CPU. By optimizing the implementation for the DSP architecture, we achieve significant reductions in power consumption and latency compared to CPU-only execution. Our system, HexVIO, demonstrates a 67% reduction in power consumption or an 86% increase in throughput on a commodity smartphone, with the ability to sustain long-term real-time 30 fps tracking for 0.83 W, corresponding to $\\sim$18 hours of tracking on the testing device. These results highlight the potential of commodity DSPs for enabling all-day visual-inertial tracking in robotics and mobile devices."
+  },
   "2610.03290": {
     "authors": [
       "Christiaan M. Geldenhuys",
@@ -1934,5 +1965,36 @@
       ]
     ],
     "abstract": "Lung ultrasound (LUS)is attractive for tuberculosis (TB)screening at primary-care level, but labelled cohorts are small. Echocardiography carries no such constraint, while sharing the same underlying ultrasound imaging physics, signal processing and B-mode appearance as LUS. We ask whether an encoder pretrained on that high-resource ultrasound domain carries representations that remain usable in the low-resource one. Only the encoder varies, across seventeen encoders spanning three architecture families. Among them, a latent-predictive video encoder pretrained on generic video (V-JEPA2-L) and its echocardiography counterpart (EchoJEPA-L) differ in pretraining corpus alone. The choice among these encoders does not resolve the classification, the whole family spanning $2.50$ percentage points against a measurement resolution of $2.71$. What moves the task instead is feature conditioning. Standardising the features between the encoder and the classifier improves all seventeen encoders by a mean of $+1.23$ percentage points at $p=$1.5\\text{\\times}{10}^{-5}$$. On the held-out test set every encoder selected on the development folds stands above the baseline system by up to $+2.57$ percentage points of area under the receiver operating characteristic curve (AUROC), and specificity at $90\\text{\\,}\\mathrm{\\%}$ sensitivity reaches $79.3\\text{\\,}\\mathrm{\\%}$ against $60.3\\text{\\,}\\mathrm{\\%}$. The contrast specified in advance, EchoJEPA-L against V-JEPA2-L, measures $-0.16$ percentage points at $p=$0.926$$. We therefore find no evidence that shared ultrasonic physics alone makes echocardiography a more productive pretraining corpus than generic video, and any advantage, if present, is smaller than this cohort can resolve. The video encoders receive replicated still images, however, so whether this absence of an effect reflects the pretraining domain or a video encoder applied to static frames cannot be separated. The limiting factor is the labelled cohort rather than the encoder."
+  },
+  "2610.05505": {
+    "authors": [
+      "Manoj Karnekar",
+      "Om Mandhane",
+      "Gautham Ramkumar"
+    ],
+    "affiliations": [
+      "FloMobility Pvt. Ltd., Bangalore, India"
+    ],
+    "placed": [
+      [
+        "Manoj Karnekar",
+        [
+          "FloMobility Pvt. Ltd., Bangalore, India"
+        ]
+      ],
+      [
+        "Om Mandhane",
+        [
+          "FloMobility Pvt. Ltd., Bangalore, India"
+        ]
+      ],
+      [
+        "Gautham Ramkumar",
+        [
+          "FloMobility Pvt. Ltd., Bangalore, India"
+        ]
+      ]
+    ],
+    "abstract": "Autonomous Mobile Robots (AMRs) on active construction sites face severe navigational challenges: geometry-based traversability mapping (e.g., LiDAR) misses visually hazardous but geometrically flat surfaces like wet mud and ponding concrete, while abrupt geometry on drivable speed-breakers and inclines produces phantom obstacles. We propose a real-time, failure-mode-aware multimodal traversability pipeline on an NVIDIA Jetson AGX Orin, where LiDAR is the primary geometric safety estimate and monocular semantics act as a selective, class- and confidence-gated corrective signal. The representation retains distinct traversable classes, namely flat road, terrain, and rocky terrain, while flagging construction hazards. We also release a multimodal construction-site dataset from a custom AMR: four closed-loop ROS 2 sequences from two active sites (RGB, depth, LiDAR, IMU, GPS-RTK, odometry) plus 506 annotated frames across 28 semantic classes. By projecting LiDAR onto dense semantic masks, resolving sparsity via morphological in-painting, and applying failure-mode-aware fusion with Patchwork++, the system corrects complementary geometric failure modes for a local AMR costmap. Index Terms—Traversability mapping, sensor fusion, semantics, LiDAR, construction robotics."
   }
 }

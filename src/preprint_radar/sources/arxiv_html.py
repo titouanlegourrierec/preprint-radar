@@ -21,7 +21,7 @@ from preprint_radar.http import HttpClient
 
 logger = logging.getLogger(__name__)
 
-EXTRACTOR_VERSION = 6
+EXTRACTOR_VERSION = 7
 """Version of the extraction heuristics of this module, stored with the affiliations they give.
 
 Bump it with any change that alters what a page gives (affiliations, author mapping), so
@@ -45,6 +45,8 @@ that ``reextract`` reads those papers again, from the page cache when it holds t
   places end with many more countries (AFF-18).
 - 6: a preposition ends a line only after a space, not the domain of an address
   ("technikum-wien.at"), and an address at the end of a line ends its affiliation.
+- 7: so does a list of mailboxes before its domain ("{a, b}@tum.de"), and "X is Robotics
+  Lead at Y" gives Y, as "X is with Y" does.
 """
 
 # LaTeXML renders line breaks and \quad between affiliations as newlines, em spaces
@@ -66,9 +68,10 @@ _LINK_LABEL_RE = re.compile(r"project\s+(?:page|website|homepage|repository|site
 # Contact details after an affiliation: "..., USA. email: {a, b}@nyu.edu", "(e-mail: ...)",
 # an address in brackets, which unwrapped thanks notes glue to the sentence: "..., Hong
 # Kong SAR, China (xhubd@connect.ust.hk)" (2609.10082), or one that ends the line: "...,
-# Vienna, Austria schwaige@technikum-wien.at" (2610.02974).
+# Vienna, Austria schwaige@technikum-wien.at" (2610.02974), mailboxes included: "...,
+# Germany. {pm.wolf, cremers}@tum.de" (2610.03283).
 _CONTACT_TAIL_RE = re.compile(
-    r"\(?\s*\be-?mails?\b.*$|[(\[]\s*[\w.+-]+@.*$|\s[\w.+-]+@[\w-]+(?:\.[\w-]+)+\s*$",
+    r"\(?\s*\be-?mails?\b.*$|[(\[]\s*[\w.+-]+@.*$|\s(?:\{[^{}]*\}|[\w.+-]+)@[\w-]+(?:\.[\w-]+)+\s*$",
     re.IGNORECASE | re.DOTALL,
 )
 # E-mail addresses written to escape harvesters: "jane (at) example.org", "lab [at] example.org".
@@ -82,10 +85,11 @@ _MAILBOX_LIST_RE = re.compile(
     r"\{\s*[a-z0-9._+-]+(?:\s*[,;|]\s*[a-z0-9._+-]+|\s+[a-z0-9._+-]+)+\s*[,;]?\s*(?:\}|$)"
 )
 # The people an IEEE-style affiliation starts with: "The authors are with Delft University",
-# "A. Doe and B. Roe are with the University of X". Only what follows is the affiliation.
+# "A. Doe and B. Roe are with the University of X", or their role there: "Manoj Karnekar is
+# Robotics Lead at FloMobility" (2610.05505). Only what follows is the affiliation.
 _SUBJECT_RE = re.compile(
     r"^(?P<subject>\D*?)\b(?:is|are)\s+(?:also\s+|now\s+|currently\s+|additionally\s+)?"
-    r"(?:with|at|affiliated\s+with)\s+(?:the\s+)?",
+    r"(?:with|at|affiliated\s+with|(?:an?\s+|the\s+)?(?:[\w-]+\s+){1,4}?at)\s+(?:the\s+)?",
     re.IGNORECASE,
 )
 # IEEE's "X, China, and also with Y": one string, several affiliations.
@@ -805,7 +809,8 @@ def clean_affiliations(text: str) -> tuple[str, ...]:
     Returns:
         The affiliations, in order (possibly empty).
     """
-    statements = _stated_affiliations([text]) if _people(text) else [text]
+    # A role ("X is Robotics Lead at Y") is no statement of thanks notes: the string is one.
+    statements = (_stated_affiliations([text]) or [text]) if _people(text) else [text]
     return tuple(
         affiliation
         for statement in statements

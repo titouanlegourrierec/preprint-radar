@@ -1,0 +1,24 @@
+<html><body><article class="ltx_document" data-front-matter="2">
+<h1 class="ltx_title ltx_font_bold ltx_title_document" style="font-size:173%;">Robust 2D Traversability Mapping for Construction AMRs via Failure-Mode-Aware Fusion of LiDAR Geometry and Monocular Semantics
+</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Manoj Karnekar
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Manoj Karnekar is Robotics Lead at FloMobility Pvt. Ltd., Bangalore, India <span class="ltx_text ltx_font_typewriter" id="id1" style="font-size:90%;">author@example.org</span>
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Om Mandhane
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Om Mandhane is a Robotics Engineer at FloMobility Pvt. Ltd., Bangalore, India <span class="ltx_text ltx_font_typewriter" id="id2" style="font-size:90%;">author@example.org</span>
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Gautham Ramkumar
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Gautham Ramkumar is a Robotics Engineer at FloMobility Pvt. Ltd., Bangalore, India <span class="ltx_text ltx_font_typewriter" id="id3" style="font-size:90%;">author@example.org</span>
+</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Autonomous Mobile Robots (AMRs) on active construction sites face severe navigational challenges: geometry-based traversability mapping (e.g., LiDAR) misses visually hazardous but geometrically flat surfaces like wet mud and ponding concrete, while abrupt geometry on drivable speed-breakers and inclines produces phantom obstacles. We propose a real-time, failure-mode-aware multimodal traversability pipeline on an NVIDIA Jetson AGX Orin, where LiDAR is the primary geometric safety estimate and monocular semantics act as a selective, class- and confidence-gated corrective signal. The representation retains distinct traversable classes, namely flat road, terrain, and rocky terrain, while flagging construction hazards. We also release a multimodal construction-site dataset from a custom AMR: four closed-loop ROS 2 sequences from two active sites (RGB, depth, LiDAR, IMU, GPS-RTK, odometry) plus 506 annotated frames across 28 semantic classes. By projecting LiDAR onto dense semantic masks, resolving sparsity via morphological in-painting, and applying failure-mode-aware fusion with Patchwork++, the system corrects complementary geometric failure modes for a local AMR costmap.</p>
+<p class="ltx_p" id="abstract1.2"><span class="ltx_text ltx_font_italic" id="abstract1.2.1">Index Terms</span>—Traversability mapping, sensor fusion, semantics, LiDAR, construction robotics.</p>
+</div>
+</article></body></html>
