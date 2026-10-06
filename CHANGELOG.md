@@ -4,9 +4,9 @@ One minor release per phase of [`docs/roadmap.md`](docs/roadmap.md), a patch for
 between. Item IDs (`DATA-2`, `CIT-11`…) refer to the audit of 2026-09-30
 ([`docs/audit/2026-09-30.md`](docs/audit/2026-09-30.md)).
 
-## Unreleased
+## 0.5.0 (2026-10-06): longer periods and richer metadata
 
-Phase 3 of the roadmap, in progress.
+Phase 3 of the roadmap.
 
 ### Longer periods
 
@@ -51,7 +51,9 @@ Phase 3 of the roadmap, in progress.
   affiliations written on one line are told apart and their authors placed ("Cornell
   University 2University of California, Berkeley"); a department takes the institution
   written on the next line (AFF-23, AFF-10). On 48 sample pages, 244 authors placed
-  instead of 154.
+  instead of 154; in the stored papers, read again where a sign pointed at them, strings
+  holding two affiliations went from 89 to 2, and departments without their institution
+  from 206 to 19.
 
 ### Fixes
 
@@ -66,6 +68,9 @@ Phase 3 of the roadmap, in progress.
   succeeded.
 - *Deploy site* warns above 600 MB of site and fails above 800 MB; the weekly canary warns
   above 500 MB of repository (ARCH-1).
+- The weekly archive keeps a rolling year of day files: those older than 12 months leave
+  the site, their cited papers staying in the archive; nothing goes before September 2027
+  (decision 2).
 
 ## 0.4.0 (2026-10-03): precise search and a daily routine
 

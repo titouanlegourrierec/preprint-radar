@@ -186,6 +186,23 @@ archive rises above 52%. The second is met: 89% after the first weekly `scholar`
 is stored, and indexes them in chunks (PERF-1); a phone gets to try it on a year of day files
 in September 2027.
 
+*Result (2026-10-06, `v0.5.0`).* The archive's venue coverage is 89% (52% at the audit). A
+period loads at most 10,000 papers; turning the graph's authors on blocks the page about
+60 ms instead of seconds (PERF-2), and the 2024 archive's author projection has 111,855
+links instead of 397,464 (PERF-3). `validate`: 26,552 papers in 43 files, 0 errors, 1
+warning (2609.36407 names two authors in one block, "A & B": only the last is placed, a rule
+for extraction version 4). `make stats` on the day files (2026-09-01 to 2026-10-05, 4,383
+papers): affiliations for 78% of the 4,175 tried, 208 pending; of the affiliated papers, 90%
+mapped and 88% with a named institution. `stats --affiliations` (8,691 strings in 3,268
+papers), after extraction version 3 and the pages of the flagged papers read again: 2 glued
+strings (88 at the end of Phase 1), 6 cut off (12), 19 units without their institution
+(196), 11 places alone (48). Every stored affiliation has a provenance: 4,174 day-file papers
+from their page and 1 from the arXiv API, 22,168 archived ones from OpenAlex. 12 stored papers
+are withdrawn, 5 in day files and 7 in the archive, which its next run drops. Deviations from
+the audit: no 11-month fill (PROD-1, decision 1); the per-month search shards move to Phase 4;
+META-3 keeps no page version beside `extractor`. Pruning is on (decision 2). Decisions 11,
+12, 13 and 17 are still open; the first three gate Phase 4 items.
+
 *META-1 spike (2026-10-03).* One keyed batch of 500 archive papers (a uniform sample) and one
 of 500 recent day-file papers, asking `paper/batch` for `externalIds`, `venue`,
 `publicationVenue`, `publicationDate`, `journal` and `authors` beside `citationCount`. Each
