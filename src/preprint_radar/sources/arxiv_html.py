@@ -21,7 +21,7 @@ from preprint_radar.http import HttpClient
 
 logger = logging.getLogger(__name__)
 
-EXTRACTOR_VERSION = 2
+EXTRACTOR_VERSION = 3
 """Version of the extraction heuristics of this module, stored with the affiliations they give.
 
 Bump it with any change that alters what a page gives (affiliations, author mapping), so
@@ -31,6 +31,10 @@ that ``reextract`` reads those papers again, from the page cache when it holds t
 - 2: leading numbers of names kept ("54th", "3M"), superscripts inside a word and line
   breaks without a newline read as written, links in the author list are not authors, and
   a marker that starts an affiliation line is not the previous name's.
+- 3: thanks notes read across the line wraps of their source, numbered markers glued to
+  the next affiliation start one ("Cornell University ²Duke University"), a unit without
+  its institution joined to the next line, an author's contact nodes read as one text,
+  and markers mixing a number and symbols ("2,6*‡") read as the number.
 """
 
 # LaTeXML renders line breaks and \quad between affiliations as newlines, em spaces
@@ -81,14 +85,20 @@ _FULL_STOP_RE = re.compile(r"(?<!\b[A-Z])\.\s+")
 # The same people's next affiliation in one sentence: "is with X and is also with Y".
 _TRAILING_CONNECTOR_RE = re.compile(r"[\s,]+(?:and|&)\s*$", re.IGNORECASE)
 # Sentences that follow an affiliation in acknowledgment notes.
-_NEXT_SENTENCE_RE = re.compile(
-    r"\.\s+(?=(?:This|These|The\s+work|Corresponding|Manuscript|He|She|They|We|Our|Work|Part|Funding|Supported)\b)"
+_NEXT_SENTENCE_STARTS = (
+    r"(?:This|These|The\s+work|Corresponding|Manuscript|He|She|They|We|Our|Work|Part|Funding|Supported)\b"
+)
+_NEXT_SENTENCE_RE = re.compile(rf"\.\s+(?={_NEXT_SENTENCE_STARTS})")
+# A line of a note that starts a sentence of its own, or a footnote marker: "* Equal Contribution".
+_SENTENCE_START_RE = re.compile(
+    rf"\s*(?:{_NEXT_SENTENCE_STARTS}|[*\u2217†‡§¶⋆]|\(?e-?mails?\b)", re.IGNORECASE
 )
 # Leading footnote markers: "1 Cornell University", "* MIT", "†‡ NVIDIA". Digits that start
 # a name are not markers: "54th Research Institute", "3M Company", "3D Vision Lab".
 _LEADING_MARKER_RE = re.compile(r"^(?:[\s*†‡§¶⋆,]|\d+(?!\d|(?:st|nd|rd|th|[DKM])\b))+")
-# A name that starts with a number: "3M Company", "3D Vision Lab" (numbered "2 3D Vision Lab").
-_NUMBER_NAME = r"(?![DKM]\b)\s*(?P<name>(?:\d[DKM]\b\s*)?[A-Z].{2,})$"
+# A name that starts with a number: "3M Company", "3D Vision Lab" (numbered "2 3D Vision Lab"),
+# or with a lowercase letter before a capital: "eBay" (2610.00812).
+_NUMBER_NAME = r"(?![DKM]\b)\s*(?P<name>(?:\d[DKM]\b\s*)?(?:[A-Z]|[a-z](?=[A-Z])).{2,})$"
 # A line break, which LaTeXML does not always follow with a newline: "Dept. of Computer
 # Science<br>University of Alabama" would read as one affiliation.
 _LINE_BREAK_RE = re.compile(r"<br\b[^>]*>", re.IGNORECASE)
@@ -96,6 +106,10 @@ _LINE_BREAK_RE = re.compile(r"<br\b[^>]*>", re.IGNORECASE)
 _CONNECTOR_RE = re.compile(r"^(?:and|&)(?:\s+|$)", re.IGNORECASE)
 # A line that ends like this continues on the next one ("School of Medicine, and").
 _CONTINUED_RE = re.compile(r"(?:,|\band|&)\s*$", re.IGNORECASE)
+# A numbered marker written as text inside a string, glued to the next word: " 2Duke".
+_INLINE_MARKER_RE = re.compile(r"(?<=\S\s)\d{1,2}(?=[^\W\d_]{2})")
+# A word that starts with such a marker: "2CASIA", "2HKUST(GZ)".
+_MARKED_WORD_RE = re.compile(r"\d{1,2}[^\W\d_][^\d\s]*")
 # Numbered affiliation lines in free-form author blocks (CVPR-like classes): "1ETH Zurich".
 _NUMBERED_LINE_RE = re.compile(r"^\s*\d{1,2}" + _NUMBER_NAME, re.MULTILINE)
 _INSTITUTION_WORD_RE = re.compile(
@@ -126,6 +140,18 @@ _JUNK_RE = re.compile(
     re.IGNORECASE,
 )
 _MAX_PLACE_LENGTH = 60
+# A unit whose institution is missing: "Department of Computer Science and Engineering".
+_BARE_UNIT_RE = re.compile(
+    r"(?:the\s+)?(?:department|dept\.?|school|faculty|division|laboratory|lab|cent(?:er|re)|institute)"
+    r"\s+(?:of|for)\b",
+    re.IGNORECASE,
+)
+_HOST_RE = re.compile(
+    r",|univ|institut|polytechn|academy|college|hospital|\binc\b|\bltd\b|gmbh|corp|company",
+    re.IGNORECASE,
+)
+# Where a footnote marker started a line, while a node's lines are read (never stored).
+_MARKER_BREAK = "\ue000"
 # Two parts of an affiliation glued where LaTeXML lost a line break (IEEE classes print
 # "Dept. of Computer ScienceUniversity of Alabama"): a lowercase letter then a capitalized
 # word, or a closing bracket then a word. Only after a unit, so that names stay
@@ -146,8 +172,9 @@ _REPEATED_COMMA_RE = re.compile(r",(?:\s*,)+")
 _EDGE_PUNCTUATION = " ,;:."
 _MIN_LENGTH = 3
 
-# Superscripts that mark contribution notes rather than affiliations.
-_SYMBOL_MARKERS = frozenset("*†‡§¶⋆♯♭#°ª")
+# Superscripts that mark contribution notes rather than affiliations (U+2217 is LaTeX's \ast).
+_SYMBOL_MARKERS = frozenset("*\u2217†‡§¶⋆♯♭#°ª")
+_SYMBOL_SPLIT_RE = re.compile(f"([{re.escape(''.join(sorted(_SYMBOL_MARKERS)))}])")
 # ``⟨marker⟩`` tokens injected in place of superscripts by :func:`_marked_text`.
 _MARKED_RE = re.compile(r"⟨([^⟨⟩]*)⟩")
 # The markers after a name. One glued to the next word introduces an affiliation line, not
@@ -386,11 +413,30 @@ def _affiliations(soup: BeautifulSoup, authors: Sequence[str]) -> tuple[tuple[st
 
 def _tagged_affiliations(authors: Tag) -> list[str]:
     """Affiliations marked up by LaTeXML: affiliation and address macros of ACM- or IEEE-like classes."""
-    return [
-        segment
-        for node in authors.select(".ltx_role_affiliation, .ltx_role_address")
-        for segment in _segments(node)
-    ]
+    return [segment for nodes in _contact_groups(authors) for segment in _contact_segments(nodes)]
+
+
+def _contact_groups(authors: Tag) -> list[list[Tag]]:
+    """The affiliation and address nodes of an author block, those of each author together.
+
+    IEEE conference classes write each line of an author's address as its own node:
+    "Department of Computer Science", "Dartmouth College", "Hanover, NH, USA" (2609.38705).
+    """
+    groups: list[list[Tag]] = []
+    owners: list[Tag | None] = []
+    for node in authors.select(".ltx_role_affiliation, .ltx_role_address"):
+        owner = node.find_parent("span", class_="ltx_creator")
+        if groups and owner is not None and owners[-1] is owner:
+            groups[-1].append(node)
+        else:
+            groups.append([node])
+            owners.append(owner)
+    return groups
+
+
+def _contact_segments(nodes: Iterable[Tag]) -> list[str]:
+    """The affiliations in one author's contact nodes, read as the lines of one text."""
+    return _joined(line for node in nodes for line in _lines(node))
 
 
 def _note_segments(note: Tag) -> list[str]:
@@ -425,7 +471,31 @@ def _note_text(note: Tag) -> str:
     content = note.select_one(".ltx_note_content") or note
     for noise in content.select(".ltx_note_mark, .ltx_note_type"):
         noise.decompose()
-    return content.get_text()
+    return _unwrapped(content.get_text())
+
+
+def _unwrapped(text: str) -> str:
+    """The text with the lines its source wrapped joined again.
+
+    Thanks notes keep the line breaks of the LaTeX source, which wrap sentences anywhere:
+    "are with the School of" then "Intelligent Engineering and Automation" (2609.33097).
+    A line continues the previous one unless that one ends a sentence, or the line starts
+    one: a sentence of the usual notes, a marker, or a new "B is with" statement, unless
+    the previous line holds the start of its list of people (2609.15562).
+    """
+    lines: list[str] = []
+    for line in text.splitlines():
+        if (
+            lines
+            and line.strip()
+            and not lines[-1].rstrip().endswith((".", ";", ":", "!", "?"))
+            and not (_IS_WITH_RE.search(line) and _IS_WITH_RE.search(lines[-1]))
+            and not _SENTENCE_START_RE.match(line)
+        ):
+            lines[-1] = f"{lines[-1].rstrip()} {line.strip()}"
+        else:
+            lines.append(line)
+    return "\n".join(lines)
 
 
 def _stated_affiliations(notes: list[str]) -> list[str]:
@@ -454,27 +524,83 @@ def _stated_affiliations(notes: list[str]) -> list[str]:
 def _segments(node: Tag) -> list[str]:
     """Candidate affiliations in a node: one per line, footnote marker or wide space.
 
-    A line ending with a comma or "and" continues on the next one, and a line that only
-    names a place ("Munich, Germany") belongs to the previous one when it has no country.
-    elsarticle's ``key=value`` affiliations ignore line breaks instead: see
-    :func:`_keyval_chunks`.
+    elsarticle's ``key=value`` affiliations ignore line breaks: see :func:`_keyval_chunks`.
+    Other lines are joined as :func:`_joined` says.
     """
+    return _joined(_lines(node))
+
+
+@dataclass(frozen=True, slots=True)
+class _Line:
+    """A line of a node, and whether a footnote marker starts it (a new affiliation)."""
+
+    text: str
+    marked: bool = False
+
+
+def _lines(node: Tag) -> list[_Line]:
+    """The lines of a node, split at line breaks, footnote markers and wide spaces."""
     for marker in node.select("sup"):
-        marker.replace_with(marker.get_text() if _inside_word(marker) else "\n")
+        marker.replace_with(marker.get_text() if _inside_word(marker) else f"\n{_MARKER_BREAK}")
     text = _LATEX_SPACE_RE.sub("\n", node.get_text().replace("\xa0", " "))
     if _KEYVAL_RE.search(text):
-        return _keyval_chunks(text)
+        return [_Line(chunk, marked=True) for chunk in _keyval_chunks(text.replace(_MARKER_BREAK, ""))]
     lines = [line.strip() for line in _SEPARATOR_RE.split(text)]
+    return [
+        _Line(line.lstrip(_MARKER_BREAK).strip(), marked=line.startswith(_MARKER_BREAK))
+        for line in lines
+        if line.lstrip(_MARKER_BREAK).strip()
+    ]
+
+
+def _joined(lines: Iterable[_Line]) -> list[str]:
+    """Lines joined into affiliations.
+
+    A line ending with a comma or "and" continues on the next one, and a line that completes
+    the previous one (:func:`_completes`) is added to it after a comma.
+    """
     joined: list[str] = []
-    for line in filter(None, lines):
+    for line in lines:
         previous = joined[-1] if joined else ""
         if previous and _CONTINUED_RE.search(previous):
-            joined[-1] = f"{previous} {line}"
-        elif previous and is_place(line) and not _COUNTRY_END_RE.search(previous.rstrip(_EDGE_PUNCTUATION)):
-            joined[-1] = f"{previous.rstrip(_EDGE_PUNCTUATION)}, {line}"
+            joined[-1] = f"{previous} {line.text}"
+        elif previous and _completes(previous, line):
+            joined[-1] = f"{previous.rstrip(_EDGE_PUNCTUATION)}, {line.text}"
         else:
-            joined.append(line)
+            joined.append(line.text)
     return joined
+
+
+def _completes(previous: str, line: _Line) -> bool:
+    """Whether a line completes the affiliation before it.
+
+    A line that only names a place ("Munich, Germany") completes one without a country. A
+    unit without its institution is completed by the next line, unless a marker starts
+    that line or it is not an affiliation: "Department of Computer Science", then
+    "Dartmouth College" (AFF-10, 2609.38705).
+    """
+    if is_place(line.text):
+        return not _COUNTRY_END_RE.search(previous.rstrip(_EDGE_PUNCTUATION))
+    return (
+        not line.marked
+        and is_bare_unit(previous)
+        and not is_bare_unit(line.text)
+        and not _NOISE_RE.search(line.text)
+        and clean_affiliation(line.text) is not None
+    )
+
+
+def is_bare_unit(line: str) -> bool:
+    """Whether a line names a unit without its institution, like "Department of Computer Science".
+
+    Args:
+        line: A line of an author block, or a stored affiliation.
+
+    Returns:
+        ``True`` when it starts with a unit ("School of", "Laboratory for") and has
+        neither an institution word nor a comma, after which one usually comes.
+    """
+    return _BARE_UNIT_RE.match(line) is not None and _HOST_RE.search(line) is None
 
 
 def is_place(line: str) -> bool:
@@ -540,8 +666,24 @@ def _numbered_affiliations(authors: Tag) -> list[str]:
 
     Superscript markers are kept here: they are what identifies these lines.
     """
-    text = authors.get_text().replace("\xa0", " ")
-    return [match.group("name") for match in _NUMBERED_LINE_RE.finditer(text)]
+    return [match.group("name") for match in _NUMBERED_LINE_RE.finditer(_numbered_text(authors))]
+
+
+def _numbered_text(block: Tag) -> str:
+    """The text of an author block, a line starting at each marker glued to the next word.
+
+    Free-form blocks write several numbered affiliations on one line: "University of
+    California, Berkeley ²Duke University ³Carnegie Mellon University" (2609.38079). A
+    marker glued to the word after it introduces an affiliation; one after a name is
+    followed by a space.
+    """
+    copy = BeautifulSoup(str(block), "html.parser")
+    for sup in copy.select("sup"):
+        after = sup.next_sibling
+        text = after.get_text() if isinstance(after, Tag) else str(after or "")
+        if text[:1].isalpha() and not _inside_word(sup):
+            sup.insert_before("\n")
+    return copy.get_text().replace("\xa0", " ")
 
 
 def _dedupe(candidates: list[str]) -> tuple[str, ...]:
@@ -569,8 +711,29 @@ def clean_affiliations(text: str) -> tuple[str, ...]:
         affiliation
         for statement in statements
         for part in _ALSO_WITH_RE.split(statement)
-        if (affiliation := clean_affiliation(part))
+        for piece in _marked_pieces(part)
+        if (affiliation := clean_affiliation(piece))
     )
+
+
+def _marked_pieces(text: str) -> list[str]:
+    """The affiliations of a string that numbered markers written as text run together.
+
+    "Cornell University 2University of California, Berkeley" is two (AFF-23). A marker is
+    one or two digits glued to a capitalized word ("2Duke", "3HKUST", "4eBay") after a
+    space; the word before holds no digit, unless it is itself marked ("2CASIA 3HKUST"), so
+    that postcodes stay whole ("London WC1E 6AE", "QC H2S 3H1"), and so do "3D Vision Lab"
+    or "4K" (one letter). Each piece keeps its marker, which cleaning strips.
+    """
+    cuts = []
+    for match in _INLINE_MARKER_RE.finditer(text):
+        word = text[match.end() : match.end() + 2]
+        before = text[: match.start()].split()
+        if (word[0].isupper() or word[1].isupper()) and (
+            not any(char.isdigit() for char in before[-1]) or _MARKED_WORD_RE.fullmatch(before[-1])
+        ):
+            cuts.append(match.start())
+    return [text[start:end] for start, end in zip([0, *cuts], [*cuts, len(text)], strict=True)]
 
 
 def clean_affiliation(text: str) -> str | None:
@@ -704,11 +867,9 @@ def _per_creator_map(
         # Links set as authors ("Project Page", a repository) name nobody: 2609.37107.
         if name is None or not _plain_text(_pruned(name)):
             continue
-        contacts = [
-            segment
-            for contact in creator.select(".ltx_role_affiliation, .ltx_role_address")
-            for segment in _segments(_pruned(contact))
-        ]
+        contacts = _contact_segments(
+            _pruned(contact) for contact in creator.select(".ltx_role_affiliation, .ltx_role_address")
+        )
         creators.append((_plain_text(name), _indices(contacts, index_of)))
     if not any(indices for _, indices in creators):
         return None
@@ -766,13 +927,18 @@ def _marker_map(
 
 
 def _expand(markers: Iterable[str], anchors: Mapping[str, tuple[int, ...]]) -> list[str]:
-    """Split marker runs written without separators ("⋆†", "12") into known markers."""
+    """Split marker runs written without separators ("⋆†", "12", "6*‡") into known markers.
+
+    Symbols come off a number first: "2,6*‡" places its author at 2 and 6 (2609.38079).
+    """
     expanded: list[str] = []
-    for marker in markers:
-        if marker not in anchors and len(marker) > 1 and all(char in anchors for char in marker):
-            expanded.extend(marker)
-        else:
-            expanded.append(marker)
+    for run in markers:
+        parts = [run] if run in anchors else [part for part in _SYMBOL_SPLIT_RE.split(run) if part]
+        for marker in parts:
+            if marker not in anchors and len(marker) > 1 and all(char in anchors for char in marker):
+                expanded.extend(marker)
+            else:
+                expanded.append(marker)
     return expanded
 
 
@@ -812,7 +978,7 @@ def _anchors(soup: BeautifulSoup, block: Tag, index_of: Mapping[str, int]) -> di
             # A note whose only marker is its own mark: "1institutetext: ...".
             add(_plain_text(label), _MARKED_RE.sub(" ", marked))
     # Free-form blocks write the marker as plain text: "1ETH Zurich".
-    for match in _NUMBERED_ANCHOR_RE.finditer(_pruned(block).get_text().replace("\xa0", " ")):
+    for match in _NUMBERED_ANCHOR_RE.finditer(_numbered_text(_pruned(block))):
         add(match.group("marker"), match.group("name"))
     return anchors
 
@@ -950,14 +1116,24 @@ def _align(names: Sequence[str], authors: tuple[str, ...]) -> dict[int, int] | N
 
 
 def _indices(candidates: Iterable[str], index_of: Mapping[str, int]) -> tuple[int, ...]:
-    """Indices of the candidates that clean to a known affiliation, deduplicated."""
+    """Indices of the candidates that clean to a known affiliation, deduplicated.
+
+    Commas do not count: a marked line read as one text ("Department of Computer Science
+    University of Central Florida") is the affiliation its lines were joined into
+    ("Department of Computer Science, University of Central Florida", 2610.02000).
+    """
+    loose = {_loose(affiliation): index for affiliation, index in index_of.items()}
     found: list[int] = []
     for candidate in candidates:
         for affiliation in clean_affiliations(candidate):
-            index = index_of.get(affiliation.casefold())
+            index = index_of.get(affiliation.casefold(), loose.get(_loose(affiliation)))
             if index is not None and index not in found:
                 found.append(index)
     return tuple(found)
+
+
+def _loose(affiliation: str) -> str:
+    return " ".join(affiliation.casefold().replace(",", " ").split())
 
 
 def _pruned(node: Tag) -> Tag:

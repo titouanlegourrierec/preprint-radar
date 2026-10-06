@@ -1,0 +1,38 @@
+<html><body><article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">Query, Align, and Distill: Navigation-Aware Cross-Modal Interaction for Efficient Vision-and-Language Navigation</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Zhihao Chen<sup class="ltx_sup" id="id1">*</sup>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Yiyuan Ge<sup class="ltx_sup" id="id2">*</sup>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Ziyang Wang
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Pu Cao
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Lu Yang
+</span><span class="ltx_note ltx_note_frontmatter ltx_thanks_correspondence ltx_role_thanks" id="id3"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup><span class="ltx_note_type">thanks: </span>Zhihao Chen, Pu Cao, and Lu Yang are with the School of
+Intelligent Engineering and Automation, Beijing University of Posts
+and Telecommunications, Beijing, China.
+Yiyuan Ge is with the School of Electronic and Information Engineering,
+South China University of Technology, Guangzhou, China.
+Ziyang Wang is with the School of Computer Science and Digital
+Technologies, Aston University, Birmingham, U.K.
+<br class="ltx_break"/><sup class="ltx_sup" id="id3.1">*</sup> Equal Contribution 
+<br class="ltx_break"/>Corresponding author: Lu Yang (author@example.org).</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Recent large-scale Vision-and-Language Navigation (VLN) models deliver strong accuracy but remain costly to deployment due to heavy parameters and computation.
+We tackle efficient VLN in two steps. First, we build a high-performing teacher that makes navigation evidence selection explicit and compressible.
+Concretely, the teacher introduces a small set of learnable query slots to extract global and local action-sufficient navigable evidence from panoramic observations via a Navigable Query Generator, and progressively grounds these evidence tokens to the instruction with an Instruction–Query Aligner for policy prediction.
+Second, leveraging this explicit query bottleneck as a distillation interface, we train a compact student by transferring both where to attend and what to do: we distill the teacher’s global/local navigable queries with a navigation-aware token-adaptive objective, and further match action distributions during fine-tuning.
+Experiments on standard VLN benchmarks demonstrate that our student nearly matches the teacher’s navigation performance while reducing the number of parameters by 93.65% compared to the teacher.</p>
+</div>
+<div class="ltx_keywords">
+<h6 class="ltx_title ltx_title_keywords">Index Terms: </h6>Vision-and-Language Navigation, Knowledge Distillation, Cross-Modal Interaction
+
+</div>
+</article></body></html>

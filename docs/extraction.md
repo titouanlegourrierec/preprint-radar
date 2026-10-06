@@ -33,6 +33,15 @@ not "simplify" a rule away without the page that made it.
 A source that only names authors leaves its turn to the next one: IEEE classes put the
 names in the affiliation macro and the affiliations in thanks notes.
 
+Thanks notes keep the line breaks of their LaTeX source, which wrap sentences anywhere
+("are with the School of" / "Intelligent Engineering and Automation", 2609.33097): a line
+continues the previous one unless that one ends with `.;:!?`, or the line starts a
+sentence of the usual notes ("Manuscript", "Corresponding"…), a marker ("* Equal
+Contribution") or a new "B is with" statement, though a statement whose list of people
+wrapped joins its start ("Bo Zheng, …, Weinan Guan," / "Zhiheng Li, … are with",
+2609.15562). Read line by line, 2608.30657 gave "School of Mechanical and" and "School of
+Artificial".
+
 ## Cleaning
 
 - Several "is with" sentences on one line: each affiliation ends at the last full stop
@@ -66,6 +75,21 @@ names in the affiliation macro and the affiliations in thanks notes.
   reaches stored strings through `reclean`.
 - A line ending with "," or "and" continues on the next one, and a line that only names a
   place joins the previous line when that one has no country.
+- A unit without its institution ("Department of Computer Science": a unit word, no
+  institution word, no comma; `is_bare_unit`, which the quality sign uses too) takes the
+  next line: "Department of Computer Science, Dartmouth College, Hanover, NH, USA"
+  (2609.38705, AFF-10). Not when a marker starts that line (two affiliations), when it is
+  another unit ("Department of ECE" / "Department of CS" / "University of Central
+  Florida" gives the institution to the second only, 2610.02000), nor when it is a note
+  ("Corresponding author"), which would make the whole string noise.
+- IEEE conference classes write each line of an author's address as its own contact node:
+  an author's nodes are read as the lines of one text, by the extraction and the
+  per-creator tier alike.
+- Numbered markers written as text inside a string ("Cornell University 2University of
+  California, Berkeley", AFF-23) split it: one or two digits glued to a capitalized word
+  ("2Duke", "3HKUST", "4eBay") after a space, when the word before holds no digit or is
+  itself marked ("2CASIA 3HKUST"), so that postcodes stay whole ("London WC1E 6AE", "QC
+  H2S 3H1") and so do "3D" or "4K". This is cleaning, so `reclean` splits stored strings.
 - Leading digits are markers unless they start a name: "54th Research Institute", "2nd
   Department", "3M Company", "3D Vision Lab" and "4K" keep them, in cleaned strings and in
   numbered lines ("2 3D Vision Lab").
@@ -78,9 +102,9 @@ names in the affiliation macro and the affiliations in thanks notes.
   ignores line breaks: a repeated key starts the next affiliation, and `clean_affiliation`
   turns the rest into plain values, organization first. Keep that conversion in
   `clean_affiliation` only, since the author mapping looks affiliations up through it.
-- Place-only affiliations written as separate contact nodes ("Carnegie Mellon University",
-  then "Pittsburgh, PA 15213") are not joined: joining across nodes would also have to
-  change every mapping tier.
+- Contact nodes are joined within one author's only. A place without a country
+  ("Pittsburgh, PA 15213", "New Orleans, LA 70118") is not recognized as one and stays
+  apart: the list of countries and states is AFF-18.
 
 ## Who is where: the author mapping
 
@@ -93,7 +117,16 @@ ambiguous name alignments drop the whole tier, and unresolved authors stay `null
 - Links set as authors ("Project Page", a repository) are not creators: 2609.37107
   followed its last author with two, and its shared block went unnoticed.
 - After a name, a marker glued to the next word introduces an affiliation line, not the
-  name's: "Bob Smith⟨2⟩ ⟨1⟩Stanford University" places Bob at 2 only.
+  name's: "Bob Smith⟨2⟩ ⟨1⟩Stanford University" places Bob at 2 only. In free-form blocks
+  such a marker also starts a numbered line, for the affiliations and their anchors
+  alike: "University of California, Berkeley ⟨2⟩Duke University ⟨3⟩Carnegie Mellon
+  University" was one affiliation, and nobody was placed (2609.38079).
+- Symbols come off a marker's number: "⟨2,6*‡⟩" is 2 and 6, and "∗" (LaTeX's `\ast`) is
+  a note like "*" (2609.35052). A run of known markers without separators ("12", "⋆†")
+  is read one by one.
+- Anchors match affiliations without regard to commas: a marked line read as one text
+  ("Department of Computer Science University of Central Florida") is the affiliation its
+  lines were joined into (2610.02000).
 - Per-creator contacts place nobody when only the last creator carries them: LaTeXML
   attaches a block shared by every author to the last one (2609.37098 gave its 7
   affiliations to its 9th author, 2609.00866 its 25 to its 55th).

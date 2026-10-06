@@ -24,6 +24,7 @@ from preprint_radar.sources.arxiv_html import (
     EXTRACTOR_VERSION,
     PageCache,
     clean_affiliations,
+    is_bare_unit,
     is_place,
     names_only_authors,
     parse_front_matter,
@@ -47,16 +48,6 @@ _CUT_OFF_RE = re.compile(r"^(?:st|nd|rd|th)\s|(?i:\b(?:and|of|for|the|at|in)|[&,
 # "Tokyo, Japan" cannot be told from "Tencent, China", and is not counted.
 # A state is followed by a postcode or the country; "UMR 5505" is a French research unit.
 _PLACE_START_RE = re.compile(r"[^,\d]+,\s*(?!UMR)[A-Z]{2,3}\s*(?:\d|,)|[^,\d]+\s\d[\d\s-]{2,}(?:,|$)|\d")
-# A unit whose institution is missing: "Department of Computer Science and Engineering".
-_UNIT_RE = re.compile(
-    r"^(?:the\s+)?(?:department|dept\.?|school|faculty|division|laboratory|lab|cent(?:er|re)|institute)"
-    r"\s+(?:of|for)\b",
-    re.IGNORECASE,
-)
-_HOST_RE = re.compile(
-    r",|univ|institut|polytechn|academy|college|hospital|\binc\b|\bltd\b|gmbh|corp|company",
-    re.IGNORECASE,
-)
 # What an "A is with X" sentence leaves when it is not reduced to X.
 _STATEMENT_RE = re.compile(r"\b(?:is|are)\s+(?:also\s+)?(?:with|at)\b", re.IGNORECASE)
 
@@ -168,7 +159,7 @@ def string_signs(affiliation: str, paper: Paper) -> Iterator[Sign]:
         yield Sign.GLUED
     if _CUT_OFF_RE.search(affiliation):
         yield Sign.CUT_OFF
-    if _UNIT_RE.match(affiliation) and not _HOST_RE.search(affiliation):
+    if is_bare_unit(affiliation):
         yield Sign.UNIT_ONLY
     if is_place(affiliation) and _PLACE_START_RE.match(affiliation):
         yield Sign.PLACE_ONLY

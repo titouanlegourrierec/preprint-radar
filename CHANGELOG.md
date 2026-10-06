@@ -27,6 +27,12 @@ Phase 3 of the roadmap, in progress.
   cited by the BibTeX, RIS and CSV exports, and its venue where the comments name none.
   The archive's papers with a venue go from 52% to 89% (META-1).
 - Institutions keep their ROR id, linked from the graph's institution nodes (AFF-14).
+- Affiliations read better (extraction version 3): IEEE thanks notes no longer lose the
+  end of a sentence their source wrapped ("School of Mechanical and"); numbered
+  affiliations written on one line are told apart and their authors placed ("Cornell
+  University 2University of California, Berkeley"); a department takes the institution
+  written on the next line (AFF-23, AFF-10). On 48 sample pages, 244 authors placed
+  instead of 154.
 
 ### Fixes
 

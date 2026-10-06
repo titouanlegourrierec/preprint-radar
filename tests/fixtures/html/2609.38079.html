@@ -1,0 +1,32 @@
+<html><body><article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">OmniTaskonomy: When Does Visual
+<br class="ltx_break"/>Generation Improve Visual Understanding</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">
+<span class="ltx_inline-block ltx_minipage ltx_align_middle" id="id1" style="width:375.8pt;">
+<span class="ltx_p ltx_align_left" id="id1.1">Jiaxin Ge<sup class="ltx_sup" id="id1.1.1">1*</sup> Yiming Qin<sup class="ltx_sup" id="id1.1.2">2,6*‡</sup> Ji Xie<sup class="ltx_sup" id="id1.1.3">3</sup> Haozhe Jiang<sup class="ltx_sup" id="id1.1.4">1</sup> Xiaochuang Han<sup class="ltx_sup" id="id1.1.5">4</sup></span>
+<span class="ltx_p ltx_align_left" id="id1.2">Junyi Zhang<sup class="ltx_sup" id="id1.2.1">1</sup> Andrew Dai<sup class="ltx_sup" id="id1.2.2">5</sup> Yinfei Yang<sup class="ltx_sup" id="id1.2.3">5</sup> Jitendra Malik<sup class="ltx_sup" id="id1.2.4">1</sup> Ranjay Krishna<sup class="ltx_sup" id="id1.2.5">4</sup> Sewon Min<sup class="ltx_sup" id="id1.2.6">1</sup></span>
+<span class="ltx_p ltx_align_left" id="id1.3">Haiwen Feng<sup class="ltx_sup" id="id1.3.1">1,6†</sup> Le Xue<sup class="ltx_sup" id="id1.3.2">5†</sup> Baifeng Shi<sup class="ltx_sup" id="id1.3.3">1†</sup> Trevor Darrell<sup class="ltx_sup" id="id1.3.4">1†</sup> XuDong Wang<sup class="ltx_sup" id="id1.3.5">1,2†</sup></span>
+<span class="ltx_p ltx_align_left" id="id1.4"><sup class="ltx_sup" id="id1.4.1">1</sup>University of California, Berkeley <sup class="ltx_sup" id="id1.4.2">2</sup>Duke University <sup class="ltx_sup" id="id1.4.3">3</sup>Carnegie Mellon University</span>
+<span class="ltx_p ltx_align_left" id="id1.5"><sup class="ltx_sup" id="id1.5.1">4</sup>University of Washington <sup class="ltx_sup" id="id1.5.2">5</sup>Elorian <sup class="ltx_sup" id="id1.5.3">6</sup>Impossible Research</span>
+</span>
+</span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Training a model to <span class="ltx_text ltx_font_italic" id="abstract1.1.1">generate</span> visual content
+can encourage it to learn rich perceptual capabilities related to
+geometry, spatial relationships, and objectness;
+yet, its benefits for visual <span class="ltx_text ltx_font_italic" id="abstract1.1.2">understanding</span> remain unclear.
+We ask: when and how does visual generation supervision improve visual understanding?
+We study controlled pairs of image-to-image (I2I) generation and
+image-to-text (I2T) understanding tasks that express the same underlying problem in different output modalities.
+We find that under the correct recipe, I2I training improves downstream I2T performance, with <span class="ltx_text ltx_font_italic" id="abstract1.1.3">larger gains as the amount of I2I training data increases</span>.
+We next ask which generation tasks benefit which understanding capabilities. To study transfer beyond paired tasks, we introduce OmniTaskonomy, a unified taxonomy spanning 19 I2I generation tasks and 25 I2T understanding capabilities. The resulting transfer map reveals selective, task-dependent benefits. Some follow intuitive correspondences, <span class="ltx_text ltx_font_italic" id="abstract1.1.4">e.g.,</span> depth prediction improving metric 3D reasoning, object pointing improving counting, and jigsaw reconstruction improving 2D ordering.
+Interestingly, we also uncover surprising connections: 2.5D segmentation improving category recognition and Z-depth prediction improving localization.
+To probe these patterns, we analyze gradient alignment between generation and understanding tasks and find that stronger alignment is associated with larger downstream transfer gains.
+Together, our results highlight visual generation as a rich source of supervision for visual understanding and provide a roadmap for unlocking its benefits through the right training curriculum and task selection. Project page: <a class="ltx_ref ltx_url ltx_font_typewriter" href="https://omni-taskonomy.github.io/" title="">https://omni-taskonomy.github.io/</a>.</p>
+</div>
+<div class="ltx_para" id="p1">
+
+</div><span class="ltx_note ltx_role_footnotetext" id="footnotex1"><sup class="ltx_note_mark">1</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">1</sup><span class="ltx_note_type">footnotetext: </span>Equal contribution. Correspondence: Jiaxin Ge (<a class="ltx_ref ltx_href ltx_font_typewriter" href="mailto:author@example.org" title="">author@example.org</a>) and Yiming Qin (<a class="ltx_ref ltx_href ltx_font_typewriter" href="mailto:author@example.org" title="">author@example.org</a>).</span></span></span><span class="ltx_note ltx_role_footnotetext" id="footnotex2"><sup class="ltx_note_mark">2</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">2</sup><span class="ltx_note_type">footnotetext: </span>Equal contribution.</span></span></span><span class="ltx_note ltx_role_footnotetext" id="footnotex3"><sup class="ltx_note_mark">3</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">3</sup><span class="ltx_note_type">footnotetext: </span>Work done during a summer internship at Impossible Research.</span></span></span>
+</article></body></html>

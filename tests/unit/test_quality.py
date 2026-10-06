@@ -41,7 +41,9 @@ PAPER = Paper(
             {Sign.GLUED, Sign.CLEANING},
             id="glued-line-break",
         ),
-        pytest.param("Monash University; 2Southeast University", {Sign.GLUED}, id="glued-marker"),
+        pytest.param(
+            "Monash University; 2Southeast University", {Sign.GLUED, Sign.CLEANING}, id="glued-marker"
+        ),
         # A name, and a postcode before a marker-like number.
         pytest.param("VinUniversity, Hanoi, Vietnam", set(), id="name-with-university"),
         pytest.param("Cardiff University, CF24 4AG Cardiff, United Kingdom", set(), id="postcode"),

@@ -176,6 +176,8 @@ page has no live coverage figures (PROD-7); of TEST-9, only the check of the dar
 | META-4 | The venue table, and venue detection without mentions | P2 | done |
 | PERF-11 | Lazy index build | P2 | done |
 | PERF-12 | Split citation counts (at build time: the store keeps one `citations.json`) | P2 | done |
+| AFF-23 | Numbered markers glued to the next affiliation start one, in the extraction and in the cleaning (`reclean`); markers mixing a number and symbols read as the number (from the backlog, extraction version 3) | P2 | done |
+| AFF-10 | A unit without its institution takes the next line, an author's contact nodes read as one text; with it, thanks notes read across the line wraps of their source, which cut strings ("School of Mechanical and") (from the backlog, extraction version 3) | P2 | done |
 
 *Exit criteria:* a year of day files loads without freezing a phone, and venue coverage of the
 archive rises above 52%. The second is met: 89% after the first weekly `scholar` step

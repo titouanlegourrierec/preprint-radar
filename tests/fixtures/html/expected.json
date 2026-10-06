@@ -1238,16 +1238,75 @@
     ],
     "abstract": "Coding agents have demonstrated enormous success in solving complex programming problems. To leverage their potential for robot systems, this work introduces Robot Agentic Programming from Demonstrations (RAPID), which automatically generates, verifies, and refines robot programs, given a single visual human demonstration. The iterative agentic loop of code refinement requires several key ingredients: (i) a testable task specification, (ii) action primitives for robot execution, and (iii) an interactive environment for program execution and verification. RAPID infers all three from the demonstration automatically. To make the resulting program reusable beyond the demonstration setting, RAPID uses an object-centric relational program representation that focuses on the underlying structure of the demonstrated strategy rather than the specific motion per se: it expresses the action primitives as trajectory-optimization programs that realize object-level motion effects, while composing them through relational constraints that capture scene-specific geometry at run time. We evaluated RAPID in simulation on eight challenging contact-rich nonprehensile manipulation tasks as well as general prehensile manipulation tasks in the LIBERO-Pro benchmark. We also successfully deployed it on a real Franka arm and evaluated on all eight nonprehensile tasks. In all experiments, RAPID demonstrated strong performance, with generalization over object pose, shape, material, and environment. Website: https://yuyaoliu.me/projects/rapid."
   },
+  "2609.33097": {
+    "authors": [
+      "Zhihao Chen",
+      "Yiyuan Ge",
+      "Ziyang Wang",
+      "Pu Cao",
+      "Lu Yang"
+    ],
+    "affiliations": [
+      "School of Intelligent Engineering and Automation, Beijing University of Posts and Telecommunications, Beijing, China",
+      "School of Electronic and Information Engineering, South China University of Technology, Guangzhou, China",
+      "School of Computer Science and Digital Technologies, Aston University, Birmingham, U.K"
+    ],
+    "placed": [
+      [
+        "Zhihao Chen",
+        [
+          "School of Intelligent Engineering and Automation, Beijing University of Posts and Telecommunications, Beijing, China"
+        ]
+      ],
+      [
+        "Yiyuan Ge",
+        [
+          "School of Electronic and Information Engineering, South China University of Technology, Guangzhou, China"
+        ]
+      ],
+      [
+        "Ziyang Wang",
+        [
+          "School of Computer Science and Digital Technologies, Aston University, Birmingham, U.K"
+        ]
+      ],
+      [
+        "Pu Cao",
+        [
+          "School of Intelligent Engineering and Automation, Beijing University of Posts and Telecommunications, Beijing, China"
+        ]
+      ],
+      [
+        "Lu Yang",
+        [
+          "School of Intelligent Engineering and Automation, Beijing University of Posts and Telecommunications, Beijing, China"
+        ]
+      ]
+    ],
+    "abstract": "Recent large-scale Vision-and-Language Navigation (VLN) models deliver strong accuracy but remain costly to deployment due to heavy parameters and computation. We tackle efficient VLN in two steps. First, we build a high-performing teacher that makes navigation evidence selection explicit and compressible. Concretely, the teacher introduces a small set of learnable query slots to extract global and local action-sufficient navigable evidence from panoramic observations via a Navigable Query Generator, and progressively grounds these evidence tokens to the instruction with an Instruction–Query Aligner for policy prediction. Second, leveraging this explicit query bottleneck as a distillation interface, we train a compact student by transferring both where to attend and what to do: we distill the teacher’s global/local navigable queries with a navigation-aware token-adaptive objective, and further match action distributions during fine-tuning. Experiments on standard VLN benchmarks demonstrate that our student nearly matches the teacher’s navigation performance while reducing the number of parameters by 93.65% compared to the teacher."
+  },
   "2609.36458": {
     "authors": [
       "Abdullah All Tanvir",
       "Xin Zhong"
     ],
     "affiliations": [
-      "Department of Computer Science",
-      "University of Nebraska Omaha, Omaha, NE, USA"
+      "Department of Computer Science, University of Nebraska Omaha, Omaha, NE, USA"
     ],
-    "placed": null,
+    "placed": [
+      [
+        "Abdullah All Tanvir",
+        [
+          "Department of Computer Science, University of Nebraska Omaha, Omaha, NE, USA"
+        ]
+      ],
+      [
+        "Xin Zhong",
+        [
+          "Department of Computer Science, University of Nebraska Omaha, Omaha, NE, USA"
+        ]
+      ]
+    ],
     "abstract": "Semantic-preserving transformations can induce substantial motion in learned representations, while small changes may strongly affect model predictions, raising a basic question: what local metric best captures semantically consequential variation? We propose Fisher-induced invariant representation geometry (Fisher-IRG), which measures local representation directions through their predictive sensitivity. Around each representation, we construct semantic-preserving and semantic-changing neighborhoods, aggregate their local Fisher information, and recover invariant directions through a contrastive generalized eigenvalue problem. Controlled displacement analyses first show that comparable Euclidean motion can have substantially different predictive consequences, supporting the need for a predictive geometry. Across language and vision models, Fisher-IRG yields stronger semantic-versus-nuisance predictive selectivity and generally more reproducible subspaces than covariance-based geometry, while recovering systematically distinct local directions. Representation interventions further localize semantic effects to the Fisher-derived subspace, and held-out separation and retrieval show that the recovered geometry generalizes beyond the discovery neighborhoods. These results support Fisher-IRG as a principled framework for characterizing local invariant representation geometry."
   },
   "2609.37030": {
@@ -1385,6 +1444,136 @@
     "placed": null,
     "abstract": "We present Waypoint-1.5, a real-time diffusion world model for interactive video generation on consumer-grade hardware. Unlike general video diffusion models, interactive world models (iWMs) must respond to dense user controls under strict latency and throughput constraints. Waypoint-1.5 is pre-trained on 100,000 hours of diverse, control-aligned video game data across hundreds of games, and generates playable video conditioned on full keyboard and mouse input. The model includes two resolution variants that run across a wide spectrum of consumer hardware. To characterize this unique setting, we distinguish rendered FPS, latent FPS, and control rate. We describe the data pipeline, architecture, training methodology, and runtime system behind Waypoint-1.5. We evaluate interactivity through latency and throughput. We conclude with a discussion of the safety and ethical considerations unique to iWMs."
   },
+  "2609.38079": {
+    "authors": [
+      "Jiaxin Ge",
+      "Yiming Qin",
+      "Ji Xie",
+      "Haozhe Jiang",
+      "Xiaochuang Han",
+      "Junyi Zhang",
+      "Andrew Dai",
+      "Yinfei Yang",
+      "Jitendra Malik",
+      "Ranjay Krishna",
+      "Sewon Min",
+      "Haiwen Feng",
+      "Le Xue",
+      "Baifeng Shi",
+      "Trevor Darrell",
+      "XuDong Wang"
+    ],
+    "affiliations": [
+      "University of California, Berkeley",
+      "Duke University",
+      "Carnegie Mellon University",
+      "University of Washington",
+      "Elorian",
+      "Impossible Research"
+    ],
+    "placed": [
+      [
+        "Jiaxin Ge",
+        [
+          "University of California, Berkeley"
+        ]
+      ],
+      [
+        "Yiming Qin",
+        [
+          "Duke University",
+          "Impossible Research"
+        ]
+      ],
+      [
+        "Ji Xie",
+        [
+          "Carnegie Mellon University"
+        ]
+      ],
+      [
+        "Haozhe Jiang",
+        [
+          "University of California, Berkeley"
+        ]
+      ],
+      [
+        "Xiaochuang Han",
+        [
+          "University of Washington"
+        ]
+      ],
+      [
+        "Junyi Zhang",
+        [
+          "University of California, Berkeley"
+        ]
+      ],
+      [
+        "Andrew Dai",
+        [
+          "Elorian"
+        ]
+      ],
+      [
+        "Yinfei Yang",
+        [
+          "Elorian"
+        ]
+      ],
+      [
+        "Jitendra Malik",
+        [
+          "University of California, Berkeley"
+        ]
+      ],
+      [
+        "Ranjay Krishna",
+        [
+          "University of Washington"
+        ]
+      ],
+      [
+        "Sewon Min",
+        [
+          "University of California, Berkeley"
+        ]
+      ],
+      [
+        "Haiwen Feng",
+        [
+          "University of California, Berkeley",
+          "Impossible Research"
+        ]
+      ],
+      [
+        "Le Xue",
+        [
+          "Elorian"
+        ]
+      ],
+      [
+        "Baifeng Shi",
+        [
+          "University of California, Berkeley"
+        ]
+      ],
+      [
+        "Trevor Darrell",
+        [
+          "University of California, Berkeley"
+        ]
+      ],
+      [
+        "XuDong Wang",
+        [
+          "University of California, Berkeley",
+          "Duke University"
+        ]
+      ]
+    ],
+    "abstract": "Training a model to generate visual content can encourage it to learn rich perceptual capabilities related to geometry, spatial relationships, and objectness; yet, its benefits for visual understanding remain unclear. We ask: when and how does visual generation supervision improve visual understanding? We study controlled pairs of image-to-image (I2I) generation and image-to-text (I2T) understanding tasks that express the same underlying problem in different output modalities. We find that under the correct recipe, I2I training improves downstream I2T performance, with larger gains as the amount of I2I training data increases. We next ask which generation tasks benefit which understanding capabilities. To study transfer beyond paired tasks, we introduce OmniTaskonomy, a unified taxonomy spanning 19 I2I generation tasks and 25 I2T understanding capabilities. The resulting transfer map reveals selective, task-dependent benefits. Some follow intuitive correspondences, e.g., depth prediction improving metric 3D reasoning, object pointing improving counting, and jigsaw reconstruction improving 2D ordering. Interestingly, we also uncover surprising connections: 2.5D segmentation improving category recognition and Z-depth prediction improving localization. To probe these patterns, we analyze gradient alignment between generation and understanding tasks and find that stronger alignment is associated with larger downstream transfer gains. Together, our results highlight visual generation as a rich source of supervision for visual understanding and provide a roadmap for unlocking its benefits through the right training curriculum and task selection. Project page: https://omni-taskonomy.github.io/."
+  },
   "2609.38153": {
     "authors": [
       "Trong-Tung Nguyen",
@@ -1421,5 +1610,65 @@
     ],
     "placed": null,
     "abstract": "Existing 3D part decomposition methods do not necessarily partition the original shape into non-overlapping parts that collectively cover the entire shape, allowing overlaps or gaps that hinder downstream part-level applications. We instead formulate part decomposition as a joint partitioning of the entire shape, in which the predicted parts are non-overlapping and collectively reconstruct the entire shape. Our key insight is that part decomposition should consider all desired parts jointly, rather than modeling each part independently. To this end, we develop a promptable model for 3D part decomposition from images or meshes. Users can specify desired parts through 3D point prompts for controllable decomposition. Given one point prompt per desired part, our model produces the corresponding parts as a complete partition of the entire shape. We build on a pretrained 3D generation model and first obtain a shape latent from either an input image or mesh. We then introduce a prompt encoder that maps each 3D point prompt to a part token while attending to the shape latent. To decode the desired parts, we propose a novel part decoder that jointly scores the entire shape against all part tokens in a coarse-to-fine manner, assigning every position within the shape volume to exactly one part. We perform part decomposition in this shared shape latent space, enabling a unified model for image-to-part generation, mesh-to-part generation, and part segmentation. Our method outperforms existing works on all part-quality metrics across all three tasks, and improves compatibility among parts by an order of magnitude over previous SOTA methods. Code is available at https://henrytsui000.github.io/Point2Part."
+  },
+  "2609.38705": {
+    "authors": [
+      "Wenjun Liu",
+      "Saeed Hassanpour"
+    ],
+    "affiliations": [
+      "Department of Computer Science, Dartmouth College, Hanover, NH, USA",
+      "Departments of Biomedical Data Science, Computer Science, and Epidemiology",
+      "Dartmouth College, Hanover, NH, USA"
+    ],
+    "placed": [
+      [
+        "Wenjun Liu",
+        [
+          "Department of Computer Science, Dartmouth College, Hanover, NH, USA"
+        ]
+      ],
+      [
+        "Saeed Hassanpour",
+        [
+          "Departments of Biomedical Data Science, Computer Science, and Epidemiology",
+          "Dartmouth College, Hanover, NH, USA"
+        ]
+      ]
+    ],
+    "abstract": "Foundation models for computational pathology are usually evaluated using AUC and accuracy, while calibration is often left untested. This matters because a model can be accurate on average but still assign overly confident probabilities to cases that are difficult even for pathologists. We study calibration across eight pathology foundation models. Using pathologist agreement as a measure of diagnostic difficulty, we find that calibration error is consistently higher on low-agreement cases than on high-agreement cases. This pattern is not apparent from aggregate expected calibration error (ECE) alone. We then propose synthetic agreement calibration, a method for improving calibration without collecting multi-annotator labels. Given a trained linear probe, we select high-confidence embeddings as class anchors and interpolate between anchors from opposite classes. The interpolation weights encode a continuous notion of diagnostic ambiguity, which we use as a synthetic agreement signal to retrain the probe with agreement-aware label smoothing. On MHIST, which includes annotations from seven pathologists, synthetic agreement calibration recovers most of the calibration improvement obtained by label smoothing based on real pathologist agreement, while substantially reducing low-agreement ECE relative to the uncalibrated baseline. Discrimination metrics are preserved. On PatchCamelyon and BreakHis, public histopathology datasets without multi-annotator labels, the method improves calibration across the evaluated foundation models, whereas annotator-dependent approaches cannot be used without additional expert annotation."
+  },
+  "2610.02000": {
+    "authors": [
+      "Hossein Maghsoumi",
+      "George Atia",
+      "Yaser P. Fallah"
+    ],
+    "affiliations": [
+      "Department of Electrical and Computer Engineering",
+      "Department of Computer Science, University of Central Florida, Orlando, USA"
+    ],
+    "placed": [
+      [
+        "Hossein Maghsoumi",
+        [
+          "Department of Electrical and Computer Engineering"
+        ]
+      ],
+      [
+        "George Atia",
+        [
+          "Department of Electrical and Computer Engineering",
+          "Department of Computer Science, University of Central Florida, Orlando, USA"
+        ]
+      ],
+      [
+        "Yaser P. Fallah",
+        [
+          "Department of Electrical and Computer Engineering"
+        ]
+      ]
+    ],
+    "abstract": "Adverse conditions such as rain, snow, fog, and dust remain challenging for camera-based perception in autonomous driving. We study multi-class weather recognition from street-view images under domain shift, where most available training data come from non–street-view sources that differ markedly from real driving scenes. We propose Weather-Aware Adversarial Discriminative Domain Adaptation (WA-ADDA), which conditions the domain discriminator on predicted weather to promote features that are both domain-invariant and weather-sensitive. We also assemble a multi-dataset benchmark by unifying diverse non–street-view weather collections as sources and real street-view images as targets, and define a standardized evaluation protocol with macro accuracy as the primary metric. Across backbones (ResNet-50, EfficientNet, VGG, DenseNet), WA-ADDA consistently improves street-view performance and yields strong per-class recalls in challenging conditions while preserving clear-weather accuracy. These findings highlight the feasibility of domain-adapted weather recognition and the value of our benchmark for advancing robust, on-board perception."
   }
 }

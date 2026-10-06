@@ -528,7 +528,9 @@ AUTHORS = {
             ((0, 1), (0, 1), (1,), (2,), (3,), (1,), (1,), (1,), (0, 4)),
             id="per-author-without-correspondence-line",
         ),
-        pytest.param("2609.36458", None, id="shared-block-on-the-last-author"),
+        # One address shared by both authors, written on the last one: its lines are one
+        # affiliation, so it is everyone's.
+        pytest.param("2609.36458", ((0,), (0,)), id="shared-address-on-the-last-author"),
         pytest.param("2609.05583", ((0,), (0,), (0,), (2,), (1,), (0,)), id="one-creator-for-all-names"),
         pytest.param("2609.26512", ((0,), None, (1, 2), None), id="per-author-elsarticle-keys"),
         pytest.param("2608.29027", ((0,), (1,), (2,)), id="per-author-empty-fields"),
@@ -803,6 +805,18 @@ def test_markers_skip_symbols_and_repeated_affiliations() -> None:
     assert parse_front_matter(html, authors=authors).author_affiliations == ((0,), None, (1,))
 
 
+def test_markers_written_without_separators_are_read_one_by_one() -> None:
+    html = _author_block(
+        ("Ada Lovelace<sup>12</sup>", ()),
+        ("Bob Smith<sup>\u22c6\u2020</sup>", ()),
+        contacts=("<sup>1</sup>MIT <sup>2</sup>NVIDIA <sup>\u22c6</sup>ETH Zurich <sup>\u2020</sup>EPFL",),
+    )
+
+    front = parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith"))
+
+    assert front.author_affiliations == ((0, 1), (2, 3))
+
+
 def test_a_marker_without_affiliation_drops_the_markers() -> None:
     html = _author_block(
         ("Ada Lovelace<sup>1</sup>", ()),
@@ -933,6 +947,19 @@ def test_clean_affiliation_strips_contact_details_and_people(raw: str, expected:
             ("Imperial College London", "Robot Learning Lab", "SWIRL Lab"),
             id="several-sentences",
         ),
+        pytest.param(
+            "Cornell University 2University of California, Berkeley",
+            ("Cornell University", "University of California, Berkeley"),
+            id="numbered-markers-as-text",
+        ),
+        pytest.param(
+            "USTC 2CASIA 3HKUST(GZ) 4eBay", ("USTC", "CASIA", "HKUST(GZ)", "eBay"), id="markers-in-a-row"
+        ),
+        pytest.param(
+            "Geely, 2Hunan University; 3ECNU",
+            ("Geely", "Hunan University", "ECNU"),
+            id="markers-after-commas",
+        ),
         pytest.param("Code", (), id="nothing"),
     ],
 )
@@ -941,11 +968,141 @@ def test_clean_affiliations_splits_what_holds_several(raw: str, expected: tuple[
 
 
 @pytest.mark.parametrize(
+    "raw",
+    [
+        pytest.param("UCL, Gower Street, London WC1E 6AE, United Kingdom", id="uk-postcode"),
+        pytest.param("Université Laval, Québec, QC G1V 0A6, Canada", id="canadian-postcode"),
+        pytest.param("University of Windsor, ON, N9B 3P4, Canada", id="postcode-after-a-code"),
+        pytest.param("Lab 3D Vision, 4K Media Group", id="one-letter-after-the-number"),
+        pytest.param("54th Research Institute of CETC", id="ordinal"),
+    ],
+)
+def test_numbers_inside_an_affiliation_are_not_markers(raw: str) -> None:
+    assert clean_affiliations(raw) == (raw,)
+
+
+def test_superscript_markers_glued_to_affiliations_start_numbered_lines() -> None:
+    # Free-form block: names with markers, then numbered affiliations on one line.
+    html = (
+        '<div class="ltx_authors"><span class="ltx_creator ltx_role_author"><span class="ltx_personname">'
+        "Ada Lovelace<sup>1*</sup> Bob Smith<sup>2,3*\u2021</sup> Carl Jones<sup>\u2217</sup><br/>"
+        "<sup>1</sup>MIT <sup>2</sup>Duke University <sup>3</sup>NVIDIA"
+        "</span></span></div>"
+    )
+
+    front = parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith", "Carl Jones"))
+
+    assert front.affiliations == ("MIT", "Duke University", "NVIDIA")
+    # Symbols mark notes: "2,3*‡" is 2 and 3, and the asterisk operator alone is nothing.
+    assert front.author_affiliations == ((0,), (1, 2), None)
+
+
+@pytest.mark.parametrize(
+    ("note", "expected", "placed"),
+    [
+        pytest.param(
+            "Ada Lovelace and Bob Smith are with the School of\nComputing, University of Leeds, U.K.",
+            ("School of Computing, University of Leeds, U.K",),
+            ((0,), (0,)),
+            id="sentence-wrapped",
+        ),
+        pytest.param(
+            "Ada Lovelace,\nand Bob Smith are with the University of Leeds.",
+            ("University of Leeds",),
+            ((0,), (0,)),
+            id="people-wrapped",
+        ),
+        pytest.param(
+            "Ada Lovelace is with the University of Leeds, U.K\nBob Smith is with ETH Zurich.",
+            ("University of Leeds, U.K", "ETH Zurich"),
+            ((0,), (1,)),
+            id="next-statement-without-full-stop",
+        ),
+        pytest.param(
+            "The authors are with the University of Leeds\n* Equal contribution\nManuscript received May 1",
+            ("University of Leeds",),
+            ((0,), (0,)),
+            id="notes-after-the-affiliation",
+        ),
+    ],
+)
+def test_thanks_notes_are_read_across_the_wraps_of_their_source(
+    note: str, expected: tuple[str, ...], placed: tuple[tuple[int, ...], ...]
+) -> None:
+    authors = ("Ada Lovelace", "Bob Smith")
+    html = _author_block(*((name, ()) for name in authors)) + _thanks(note)
+
+    front = parse_front_matter(html, authors=authors)
+
+    assert front.affiliations == expected
+    assert front.author_affiliations == placed
+
+
+@pytest.mark.parametrize(
+    ("contacts", "expected"),
+    [
+        pytest.param(
+            ("Department of Computer Science", "Dartmouth College", "Hanover, NH, USA"),
+            ("Department of Computer Science, Dartmouth College, Hanover, NH, USA",),
+            id="one-node-per-line",
+        ),
+        pytest.param(
+            ('School of Physics<br class="ltx_break"/>University of Oslo',),
+            ("School of Physics, University of Oslo",),
+            id="line-break",
+        ),
+        pytest.param(
+            ('<sup>1</sup>School of Physics<br class="ltx_break"/><sup>2</sup>University of Oslo',),
+            ("School of Physics", "University of Oslo"),
+            id="not-across-a-marker",
+        ),
+        pytest.param(
+            ("Department of Physics", "Department of Chemistry", "University of Oslo"),
+            ("Department of Physics", "Department of Chemistry, University of Oslo"),
+            id="not-another-unit",
+        ),
+        pytest.param(
+            ("Department of Physics", "Corresponding author"),
+            ("Department of Physics",),
+            id="not-a-note",
+        ),
+    ],
+)
+def test_a_unit_takes_the_institution_on_the_next_line(
+    contacts: tuple[str, ...], expected: tuple[str, ...]
+) -> None:
+    html = _author_block(("Ada Lovelace", contacts), ("Bob Smith", ("ETH Zurich",)))
+
+    front = parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith"))
+
+    assert front.affiliations == (*expected, "ETH Zurich")
+    assert front.author_affiliations == (tuple(range(len(expected))), (len(expected),))
+
+
+def test_markers_find_a_unit_joined_to_its_institution() -> None:
+    # The second marker's line is one affiliation once joined, written with a comma (2610.02000).
+    html = _author_block(
+        ("Ada Lovelace<sup>1</sup>, Bob Smith<sup>1,2</sup>", ()),
+        contacts=(
+            (
+                "<sup>1</sup>Department of Physics<br/>"
+                "<sup>2</sup>Department of Chemistry<br/>University of Oslo"
+            ),
+        ),
+    )
+
+    front = parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith"))
+
+    assert front.affiliations == ("Department of Physics", "Department of Chemistry, University of Oslo")
+    assert front.author_affiliations == ((0,), (0, 1))
+
+
+@pytest.mark.parametrize(
     ("arxiv_id", "expected"),
     [
         pytest.param(
             "2609.36458",
-            ("Department of Computer Science", "University of Nebraska Omaha, Omaha, NE, USA"),
+            ("Department of Computer Science, University of Nebraska Omaha, Omaha, NE, USA",),
             id="line-break-spacing",
         ),
         pytest.param("2609.38153", ("Johns Hopkins University",), id="spacing-and-project-website"),
@@ -1149,7 +1306,7 @@ _NUMBERED_BLOCK = """<div class="ltx_authors"><span class="ltx_creator ltx_role_
             ),
             ("Ada Lovelace",),
             "Dept. of Computer ScienceUniversity of Alabama, USA",
-            ("Dept. of Computer Science", "University of Alabama, USA"),
+            ("Dept. of Computer Science, University of Alabama, USA",),
             id="line-break-without-newline",
         ),
         pytest.param(
