@@ -33,8 +33,10 @@ before changing `archive/`, `sources/semantic_scholar.py`, `sources/openalex.py`
   of the catalog's 473 comments that mention a withdrawal as one; the 6 others are
   withdrawals from a workshop or the proceedings, of an earlier version or of another
   submission.
-- Deleting day files older than 12 months (`--prune`) is off unless asked (decision 2),
-  and decides nothing else: without it, an archived paper can also be in a day file.
+- Deleting day files older than 12 months (`--prune`) keeps a rolling year of day files
+  (decision 2): `archive.yml` prunes since 2026-10-06 (the `PREPRINT_RADAR_ARCHIVE_PRUNE`
+  repository variable), which deletes nothing before September 2027. It decides nothing
+  else: an archived paper can also be in a day file.
 - With less than 95% of citation counts, the archive and day files stay as they are (their
   comments are refreshed all the same), the
   counts fetched are merged into `citations.json`, whose date stays, and the command fails

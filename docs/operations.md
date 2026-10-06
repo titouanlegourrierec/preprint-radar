@@ -236,14 +236,14 @@ it happens often, run *Archive* by hand mid-week to keep the entry warm.
 
 Both sizes are on the runs' pages every time (`Site size`, `Repository size`). GitHub Pages
 refuses a site over 1 GB: the deploy fails at 800 MB and warns at 600 MB. Day files grow
-by about 110 MB a year of cs.CV while pruning is off (the archive stays near 50 MB), so
-the warnings come with several categories, or after years of one.
+by about 110 MB a year of cs.CV, and pruning keeps one year of them (the archive stays near
+50 MB), so the warnings come with several categories.
 
 At a warning (the migration trigger, decided with ARCH-1):
 
-1. Turn pruning on, if it is not (decision 2: day files older than 12 months leave the site
-   and the working tree, but stay in git history; the archive keeps their cited papers):
-   set the repository variable `PREPRINT_RADAR_ARCHIVE_PRUNE` to `true`.
+1. Check that pruning is on (decision 2: day files older than 12 months leave the site and
+   the working tree, but stay in git history; the archive keeps their cited papers): the
+   repository variable `PREPRINT_RADAR_ARCHIVE_PRUNE` is `true` since 2026-10-06.
 2. If the repository still grows past 500 MB, publish `data/` only through the Pages
    artifact and keep the store on an orphan `data` branch squashed every month (or in
    releases, or a bucket); the workflows then commit there instead of `main`.

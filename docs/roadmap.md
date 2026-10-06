@@ -30,7 +30,7 @@ for the answer.
 | # | Decision | Recommendation | Blocks | Answer |
 |---|---|---|---|---|
 | 1 | Retention and the 11-month gap | Fill the gap from the OAI catalog, after PERF-1 and CIT-11 | PROD-1 | No fill: the project started in September 2026, and the day files grow from there (2026-10-06) |
-| 2 | Prune at 12 months | Land CIT-11 first (selection no longer depends on prune), then prune once 12 months exist, after CIT-3 | CIT-11 | CIT-11 accepted (2026-10-01); a rolling year once 12 months exist, from September 2027 (2026-10-06) |
+| 2 | Prune at 12 months | Land CIT-11 first (selection no longer depends on prune), then prune once 12 months exist, after CIT-3 | CIT-11 | CIT-11 accepted (2026-10-01); a rolling year once 12 months exist, from September 2027: pruning is on (`PREPRINT_RADAR_ARCHIVE_PRUNE`, 2026-10-06) and deletes nothing before then |
 | 3 | Revised papers (author list changed) | Re-read the HTML, comparing folded names so renames keep their mapping | DATA-2 | Re-read the HTML (2026-10-01) |
 | 4 | Where the front-matter cache lives | The Actions cache first, touched daily | DATA-1 (layer 3) | The Actions cache (2026-10-01) |
 | 5 | Archive `[]` affiliations | Spike, then retry OpenAlex while young, and say so in the UI | AFF-3 | Retry OpenAlex while young, option A (2026-10-06) |
@@ -168,7 +168,7 @@ page has no live coverage figures (PROD-7); of TEST-9, only the check of the dar
 | AFF-14 | Keep ROR ids (stored and linked; nodes are still keyed by name, which AFF-13 changes) | P2 | done |
 | AFF-3 | OpenAlex retry policy (option A, decision 5: archived papers without affiliations asked again every 30 days while under two years old; no spike, since a retry costs a request) | P1 | done |
 | PROD-1 | Fill the 11-month gap | P1 | dropped: no fill, the store grows from September 2026 (decision 1), and no line names the gap |
-| ARCH-1 | Retention, size guard and hosting trigger (guards in *Deploy site* and the weekly canary, the trigger in the runbook; pruning stays off until decision 2) | P2 | done |
+| ARCH-1 | Retention, size guard and hosting trigger (guards in *Deploy site* and the weekly canary, the trigger in the runbook; pruning on since 2026-10-06, decision 2) | P2 | done |
 | PERF-2 | Graph defaults with the author layer (authors of one paper hidden when the layer turns on, the layout in a Web Worker, settled at once under reduced motion, the time-lapse by week or month; PERF-3's clique cap waits for decision 15) | P2 | done |
 | PERF-3 | Clique cap for consortium papers (no author-author links above 50 authors, said in the legend: 397,000 links to 112,000 for the 2024 projection) | P2 | done |
 | UX-2 | Graph touch zoom and keyboard path (pinch, zoom buttons, matches listed and gone through with Enter, details focused, a label that counts and points to Rankings; decision 14) | P2 | done |

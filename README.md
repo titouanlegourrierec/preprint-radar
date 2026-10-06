@@ -117,8 +117,8 @@ every cs.CV paper since 2010 by citations per year of age — fair to old and re
 alike — and keeps a budget of them (22,000 by default, about 20 citations a year today) in
 `data/<category>/archive/<year>.json`. The threshold rises by itself as the field grows; a
 paper leaves only once it ranks beyond 1.15 times the budget, and a paper that takes off
-later comes back. Deleting the day files older than 12 months is off until you turn it on
-(`--prune`, or the `PREPRINT_RADAR_ARCHIVE_PRUNE` repository variable). Citation counts are
+later comes back. Deleting the day files older than 12 months, for a rolling year of them, is off until you
+turn it on (`--prune`, or the `PREPRINT_RADAR_ARCHIVE_PRUNE` repository variable). Citation counts are
 much faster with a free Semantic Scholar API key, set as the `SEMANTIC_SCHOLAR_API_KEY`
 repository secret; a run that fails or is cancelled resumes from the counts it fetched.
 

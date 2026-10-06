@@ -13,7 +13,7 @@ on:
         description: Number of older papers the archive holds (empty for the repository variable, else 22000)
         default: ""
       prune:
-        description: Delete the day files older than 12 months (true/false)
+        description: Delete the day files older than 12 months (true/false; empty for the repository variable)
         default: ""
 
 # Shared with update.yml, so that two data commits never race.

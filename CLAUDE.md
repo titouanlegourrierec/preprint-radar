@@ -273,8 +273,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   - `canary.yml` (Wednesdays): the network tests against the live arXiv (a red canary is a
     layout change to look at before it reaches the data), and the repository size.
   - Sizes (ARCH-1): `deploy.yml` fails a site above 800 MB (Pages refuses 1 GB) and warns
-    above 600 MB; `canary.yml` warns above 500 MB of repository. Either triggers pruning,
-    then moving `data/` off `main` (`docs/operations.md`).
+    above 600 MB; `canary.yml` warns above 500 MB of repository. Either triggers moving
+    `data/` off `main` (`docs/operations.md`); pruning, a rolling year of day files
+    (decision 2), is on since 2026-10-06 (`PREPRINT_RADAR_ARCHIVE_PRUNE`).
 
 ## Working agreements
 
