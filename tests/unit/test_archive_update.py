@@ -12,6 +12,7 @@ from preprint_radar.archive.catalog import Catalog
 from preprint_radar.archive.update import (
     ArchiveClients,
     ArchiveReport,
+    _needs_openalex,
     format_archive_report,
     paper_from_catalog,
     refreshed,
@@ -260,6 +261,66 @@ def test_archived_papers_without_affiliations_are_looked_up_again(
     resnet = next(paper for paper in store.iter_archive("cs.CV") if paper.arxiv_id == "1512.03385")
     assert resnet.affiliations == ("Microsoft",)
     assert resnet.affiliations_provenance == resnet.institutions_provenance == Provenance("openalex", TODAY)
+
+
+def test_young_archived_papers_without_affiliations_are_asked_again_every_month(
+    store: PaperStore, catalog: Catalog
+) -> None:
+    _update(store, catalog, FakeServices(CITATIONS))
+    # 2508.00001 is 400 days old, 2010.11929 six years: OpenAlex said nothing of either.
+    store.write_archive(
+        "cs.CV",
+        [
+            replace(
+                paper,
+                affiliations=(),
+                author_affiliations=None,
+                institutions=(),
+                institution_ids=None,
+                affiliations_provenance=None,
+                institutions_provenance=None,
+            )
+            if paper.arxiv_id in {"2508.00001", "2010.11929"}
+            else paper
+            for paper in store.iter_archive("cs.CV")
+        ],
+    )
+
+    _update(store, catalog, FakeServices(CITATIONS))
+
+    archived = {paper.arxiv_id: paper for paper in store.iter_archive("cs.CV")}
+    # Asked again, and still unknown to OpenAlex: the day of the lookup counts from now.
+    assert archived["2508.00001"].affiliations == ()
+    assert archived["2508.00001"].affiliations_provenance == Provenance("openalex", TODAY)
+    # Too old to be asked again.
+    assert archived["2010.11929"].affiliations_provenance is None
+
+
+@pytest.mark.parametrize(
+    ("age_days", "last_lookup_days", "asked"),
+    [
+        (400, None, True),
+        (400, 30, True),
+        (400, 29, False),
+        (730, None, False),
+    ],
+    ids=["young-never-dated", "young-a-month-ago", "young-recently", "two-years-old"],
+)
+def test_an_empty_archived_paper_is_asked_again_while_young(
+    age_days: int, last_lookup_days: int | None, *, asked: bool
+) -> None:
+    paper = Paper(
+        arxiv_id="2508.00001",
+        announced=TODAY - timedelta(days=age_days),
+        title="A paper",
+        authors=("A One",),
+        affiliations=(),
+        affiliations_provenance=Provenance(
+            "openalex", None if last_lookup_days is None else TODAY - timedelta(days=last_lookup_days)
+        ),
+    )
+
+    assert _needs_openalex(paper, TODAY) is asked
 
 
 def test_archived_papers_get_the_ror_ids_of_their_institutions(store: PaperStore, catalog: Catalog) -> None:

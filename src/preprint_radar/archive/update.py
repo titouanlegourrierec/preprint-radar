@@ -33,7 +33,14 @@ from pathlib import Path
 
 from preprint_radar.archive.catalog import Catalog
 from preprint_radar.archive.selection import Candidate, Selection, select_archive
-from preprint_radar.config import ARCHIVE_SINCE, CITATIONS_CACHE_DAYS, MIN_COVERAGE, RECENT_DAYS
+from preprint_radar.config import (
+    ARCHIVE_SINCE,
+    CITATIONS_CACHE_DAYS,
+    MIN_COVERAGE,
+    OPENALEX_RETRY_AGE_DAYS,
+    OPENALEX_RETRY_EVERY_DAYS,
+    RECENT_DAYS,
+)
 from preprint_radar.http import HttpClient
 from preprint_radar.models import Paper, Provenance
 from preprint_radar.sources.arxiv_oai import CatalogEntry
@@ -211,7 +218,8 @@ def update_archive(
     if changed_in_days:
         store.save(category, changed_in_days)
     kept = [paper for arxiv_id, paper in archived.items() if arxiv_id in selection.keep]
-    # Entering papers, and archived ones OpenAlex did not return last time.
+    # Entering papers, archived ones without OpenAlex's ids, and young ones it knew no
+    # affiliations for (see _needs_openalex).
     store.write_archive(category, _with_affiliations([*kept, *new_papers], clients.openalex, today))
     store.remove_days(category, stale_days)
     on_disk = {
@@ -343,43 +351,62 @@ def _read_citations_cache(cache: Path, today: date) -> tuple[date, dict[str, int
 
 
 def _with_affiliations(papers: list[Paper], client: HttpClient, today: date) -> list[Paper]:
-    """Fill the affiliations of papers that have none yet, from OpenAlex.
+    """Fill the affiliations of papers that need them from OpenAlex (:func:`_needs_openalex`).
 
     Papers whose affiliations came from OpenAlex before ROR ids were kept (their
     institutions are their affiliations, OpenAlex's registry names) are asked for again,
     once, for the ids: their affiliations are replaced by OpenAlex's current ones, unless
-    it now gives none.
+    it now gives none. A paper it still knows nothing of keeps what it had, with the day of
+    this lookup, from which the next one is counted.
     """
-    pending = {paper.arxiv_id: len(paper.authors) for paper in papers if _needs_openalex(paper)}
+    pending = {paper.arxiv_id: len(paper.authors) for paper in papers if _needs_openalex(paper, today)}
     if not pending:
         return papers
     found = fetch_affiliations(client, pending)
-    # Said only of what OpenAlex gave: a paper it does not know yet stays unread.
     read = Provenance("openalex", today)
-    return [
-        replace(
-            paper,
-            affiliations=found[paper.arxiv_id].affiliations,
-            author_affiliations=found[paper.arxiv_id].author_affiliations,
-            # OpenAlex's institutions are registry entries: they are their own institutions.
-            institutions=found[paper.arxiv_id].affiliations,
-            institution_ids=found[paper.arxiv_id].institution_ids or None,
-            affiliations_provenance=None if found[paper.arxiv_id].affiliations is None else read,
-            institutions_provenance=None if found[paper.arxiv_id].affiliations is None else read,
-        )
-        if paper.arxiv_id in found and (paper.affiliations is None or found[paper.arxiv_id].affiliations)
-        else paper
-        for paper in papers
-    ]
-
-
-def _needs_openalex(paper: Paper) -> bool:
-    """No affiliations yet, or OpenAlex's without their ROR ids."""
-    return paper.affiliations is None or (
-        bool(paper.affiliations)
-        and paper.institution_ids is None
-        and paper.institutions == paper.affiliations
+    retried = [paper for paper in papers if paper.affiliations == () and paper.arxiv_id in found]
+    logger.info(
+        "OpenAlex asked again for %d papers without affiliations: %d have some now",
+        len(retried),
+        sum(bool(found[paper.arxiv_id].affiliations) for paper in retried),
     )
+
+    def updated(paper: Paper) -> Paper:
+        result = found.get(paper.arxiv_id)
+        if result is None:  # not asked, or the lookup failed: asked again next week
+            return paper
+        if paper.affiliations is None or result.affiliations:
+            return replace(
+                paper,
+                affiliations=result.affiliations,
+                author_affiliations=result.author_affiliations,
+                # OpenAlex's institutions are registry entries: they are their own institutions.
+                institutions=result.affiliations,
+                institution_ids=result.institution_ids or None,
+                affiliations_provenance=read,
+                institutions_provenance=read,
+            )
+        return replace(paper, affiliations_provenance=read)
+
+    return [updated(paper) for paper in papers]
+
+
+def _needs_openalex(paper: Paper, today: date) -> bool:
+    """Whether to ask OpenAlex for a paper's affiliations (AFF-3).
+
+    Those not looked up yet; OpenAlex's, without their ROR ids; and none, while the paper
+    is young (``OPENALEX_RETRY_AGE_DAYS``), once ``OPENALEX_RETRY_EVERY_DAYS`` have passed
+    since the last lookup (or when its day is unknown): OpenAlex learns the institutions of
+    recent papers over months, so an early "nothing" is not final.
+    """
+    if paper.affiliations is None:
+        return True
+    if not paper.affiliations:
+        last = paper.affiliations_provenance.at if paper.affiliations_provenance else None
+        return (today - paper.announced).days < OPENALEX_RETRY_AGE_DAYS and (
+            last is None or (today - last).days >= OPENALEX_RETRY_EVERY_DAYS
+        )
+    return paper.institution_ids is None and paper.institutions == paper.affiliations
 
 
 def _subject_names(papers: Iterable[Paper]) -> dict[str, str]:

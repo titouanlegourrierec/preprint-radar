@@ -48,6 +48,11 @@ MIN_COVERAGE = 0.95
 """Share of candidates with a citation count below which the archive stays as it is: with
 counts missing (Semantic Scholar down), papers that deserve the archive would score nothing
 and be lost."""
+OPENALEX_RETRY_AGE_DAYS = 730
+"""An archived paper OpenAlex gave no affiliations for is asked again until this old (by its
+first appearance): OpenAlex learns the institutions of recent papers over months (AFF-3)."""
+OPENALEX_RETRY_EVERY_DAYS = 30
+"""Days between two lookups of such a paper."""
 CITATIONS_CACHE_DAYS = 7
 """Counts fetched by a run started fewer days ago are reused: a run that failed or was
 cancelled resumes where it stopped, and a weekly run starts afresh."""

@@ -166,7 +166,7 @@ page has no live coverage figures (PROD-7); of TEST-9, only the check of the dar
 | PERF-1 | Bounded periods, async index build (periods bounded to 10,000 papers, index built in chunks, loaded files kept and requests cancelled; the per-month search shards move to Phase 4, wanted once months of day files outgrow a period) | P1 | done |
 | META-1 | Spike, then DOI, published venue and author ids from the weekly Semantic Scholar batch (a separate weekly step, `scholar`, of 52 requests rather than fields added to the 415 of counts) | P1 | done |
 | AFF-14 | Keep ROR ids (stored and linked; nodes are still keyed by name, which AFF-13 changes) | P2 | done |
-| AFF-3 | OpenAlex retry policy, after its spike | P1 | todo |
+| AFF-3 | OpenAlex retry policy (option A, decision 5: archived papers without affiliations asked again every 30 days while under two years old; no spike, since a retry costs a request) | P1 | done |
 | PROD-1 | Fill the 11-month gap | P1 | dropped: no fill, the store grows from September 2026 (decision 1), and no line names the gap |
 | ARCH-1 | Retention, size guard and hosting trigger (guards in *Deploy site* and the weekly canary, the trigger in the runbook; pruning stays off until decision 2) | P2 | done |
 | PERF-2 | Graph defaults with the author layer (authors of one paper hidden when the layer turns on, the layout in a Web Worker, settled at once under reduced motion, the time-lapse by week or month; PERF-3's clique cap waits for decision 15) | P2 | done |

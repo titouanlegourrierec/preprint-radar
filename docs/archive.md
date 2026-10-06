@@ -94,6 +94,12 @@ before changing `archive/`, `sources/semantic_scholar.py`, `sources/openalex.py`
 - `works?filter=doi:10.48550/arxiv.<id>|...`, 50 a request; the DOI filter misses some
   works that the DOI lookup finds, so those are asked for one by one.
 - Its institutions per author are used; its raw affiliation strings are too rough.
+- It learns the institutions of recent papers over months: of the archive's papers first
+  seen in 2025, 16% had affiliations, in 2024 48%, against about 60% for older years. An
+  archived paper it knew nothing of is asked again every 30 days
+  (`OPENALEX_RETRY_EVERY_DAYS`) while under two years old (`OPENALEX_RETRY_AGE_DAYS`),
+  counted from the day of its last lookup (`provenance`), or at once when that day is
+  unknown; the log says how many of them have affiliations now (AFF-3, decision 5).
 - Its institutions carry ROR ids. Archived papers whose affiliations came from OpenAlex
   before ids were kept (their institutions are their affiliations) are asked for again,
   once, by the weekly archive; those it now gives nothing for keep their affiliations

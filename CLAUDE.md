@@ -162,7 +162,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   with a one-off script, and give it `?:` on the web side, since reading lists saved in
   browsers predate it (`venue` is optional for that reason).
 - `null` means "not retrieved yet" (`abstract`, `affiliations`, `institutions`): the
-  pipeline retries. An empty list means "tried, nothing found": it does not.
+  pipeline retries. An empty list means "tried, nothing found": it does not, but for an
+  archived paper under two years old, which OpenAlex is asked again every 30 days after
+  the day of its last lookup (`provenance`, AFF-3): it learns recent papers over months.
 - A paper is stored once, on the first day it was announced: a cross-list is sometimes
   announced again days later (2609.10714), and `PaperStore.save` keeps it on its earlier
   day, or moves it there.
