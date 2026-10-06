@@ -65,7 +65,7 @@
    "institution_ids": [
     "02qyf5152"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -311,7 +311,7 @@
    "institution_ids": [
     "04tj63d06"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -369,7 +369,7 @@
    "institution_ids": [
     "04tj63d06"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -3169,17 +3169,17 @@
    "html_url": "https://arxiv.org/html/2608.29123v1",
    "abstract": "Training a video-generation model from scratch is hard for reasons that precede model design. The feedback loop is long: a failure that appears only after a training run can make each attempted fix another run. The data are hard to reach: the corpora and recipes behind strong models are large, heterogeneous, and often unreleased. And scoring is blunt: open-ended generation has no single correct output, and an aggregate score does not by itself establish whether a sample succeeds or which property failed. Dancing Stick Figures is a synthetic video dataset built against these three obstacles. For iteration speed, its 64x64, 64-frame reference task is sized for practical repeated training on a single workstation GPU. For accessibility, the release is a 0.79-GB training tier of 4,020 video clips--1,340 six-second source motions, each rendered from three cameras by a deterministic dataset-generation harness--with checkpoints and a Colab workflow that reruns the reference training pipeline at reduced budget on a 16 GB Tesla T4. For scoring, every frame retains its generating state (ARDY cskel27 joint positions, camera, body parameters, and source motion) and per-pixel depth, surface normals, and part labels. These annotations support dataset-specific metrics for visible topology and part-wise motion; corruptions expose their sensitivities and blind spots.",
    "affiliations": [
-    "Sprited",
-    "⋅\\cdot"
+    "Sprited"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ]
    ],
    "institutions": [
-    null,
+    null
+   ],
+   "institution_ids": [
     null
    ],
    "provenance": {
@@ -3187,7 +3187,8 @@
      "source": "html"
     },
     "institutions": {
-     "source": "ror"
+     "source": "ror",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2608.29123",
@@ -3612,22 +3613,16 @@
     "Heidelberg University",
     "Heidelberg Collaboratory for Image Processing (HCI)",
     "Im Neuenheimer Feld 205, 69 120 Heidelberg, Germany",
-    "Tel.: +49 (0) 662 1541 4841",
     "Linköping University",
     "Department of Electrical Engineering, 581 83 Linköping, Sweden",
-    "Tel.: +46 (0) 13 28 2460",
-    "Department of Science and Technology, 581 83 Linköping, Sweden",
-    "Tel.: +46 (0) 11 36 3118"
+    "Department of Science and Technology, 581 83 Linköping, Sweden"
    ],
    "author_affiliations": null,
    "institutions": [
     null,
     null,
     null,
-    null,
     "Linköping University",
-    null,
-    null,
     null,
     null
    ],
@@ -3635,21 +3630,19 @@
     null,
     null,
     null,
-    null,
     "05ynxx418",
-    null,
-    null,
     null,
     null
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
      "at": "2026-10-06"
     },
     "institutions": {
-     "source": "ror"
+     "source": "ror",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2608.29164",
@@ -3687,7 +3680,7 @@
    "institution_ids": [
     "011gmn932"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -6256,7 +6249,7 @@
    "institution_ids": [
     "01b8kcc49"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -6608,7 +6601,7 @@
     null,
     "027m9bs27"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -7238,7 +7231,7 @@
    "institution_ids": [
     "051q2m369"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -8374,7 +8367,7 @@
    "html_url": "https://arxiv.org/html/2608.29992v1",
    "abstract": "This paper presents an end-to-end, agent-driven pipeline for the LoD3 reconstruction of facade openings in 3D city models, producing directly usable CityGML-conform outputs. In contrast to existing approaches that rely on supervised semantic segmentation and therefore require large amounts of manually annotated training data, the proposed method employs a zero-shot segmentation strategy. This substantially reduces the annotation effort while still achieving strong performance in our benchmark on the eTRIMS dataset. A further key contribution is the enforcement of correct partonomic hierarchies, thereby producing CityGML-conform LoD3 building models. Beyond the reconstruction pipeline itself, this work also introduces a novel evaluation metric for facade reconstruction, termed Facade Feature Distance (FFD). Unlike conventional metrics such as mIoU or FRDS, which assess similarity primarily through pixel-wise overlap, FFD measures distance in a high-level feature space derived from a vision transformer. In doing so, it captures both semantic correctness and architectural layout, providing a more suitable assessment of facade reconstruction quality. The proposed pipeline and evaluation strategy together offer a practical and scalable contribution toward the automated generation and analysis of semantically enriched 3D city models. The developed code is published at: https://github.com/hcu-cml/citydb-SVI2LoD3-ai.",
    "affiliations": [
-    "Computational Methods Lab, HafenCity University, Hamburg, Germany -"
+    "Computational Methods Lab, HafenCity University, Hamburg, Germany"
    ],
    "author_affiliations": [
     [
@@ -8396,14 +8389,15 @@
    "institution_ids": [
     "01fzsd381"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
      "at": "2026-10-06"
     },
     "institutions": {
-     "source": "ror"
+     "source": "ror",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2608.29992",
@@ -9831,7 +9825,7 @@
     "0220qvk04",
     "01yqg2h08"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -10840,7 +10834,7 @@
    "institution_ids": [
     "01ej9dk98"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -11157,7 +11151,7 @@
     null,
     "02w4tny03"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -11670,7 +11664,7 @@
     "02zhqgq86",
     "046rm7j60"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -12307,7 +12301,7 @@
     "03cve4549",
     "05kje8j93"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -12517,7 +12511,7 @@
     null,
     null
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -12716,7 +12710,7 @@
     "03cve4549",
     "029819q61"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -13951,7 +13945,7 @@
    "institution_ids": [
     "02zhqgq86"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -14107,7 +14101,7 @@
     "0072zz521",
     null
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -14218,7 +14212,7 @@
     "050h0vm43",
     null
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -14520,7 +14514,7 @@
    "institution_ids": [
     "026zzn846"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -16590,7 +16584,7 @@
     null,
     "03cve4549"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",

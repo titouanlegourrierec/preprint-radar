@@ -24,32 +24,26 @@
    "html_url": "https://arxiv.org/html/2609.10572v1",
    "abstract": "Non-Latin handwritten character recognition (HCR) remains understudied. Dominant methods consider it as generic image classification, which uses model scale to implicitly learn stroke structure. Structural-prior efficiency---the principle that explicitly encoding script-geometric regularities as architectural inductive biases can be both more accurate and require fewer parameters. We introduce GraphemeNet, a unified multi-script architecture, governed by two orthogonal binary axes. Axis 1 operationalises stroke-level geometric regularity via Persistent Scaffold Injection (PSI): a script-specific asymmetric convolution injects a stroke scaffold as a weighted residual at every encoder stage, continuously anchoring learned features to script geometry---distinct from skip connections, auxiliary losses, or attention reweighting. Axis 2 selects between global average pooling with gated fusion and cross-scale attention with a Stroke Topology Module (STM), depending on whether glyph discrimination requires spatial relational reasoning. A Linear Capsule Routing (LCR) with $O(n)$ routing is shared universally. On fourteen benchmarks across eight writing systems, the architecture generalises with only scaffold and decoder topology varying per script, consistently challenging, outperforming published baselines, and establishing structural-prior efficiency as a broadly applicable principle for multi-script HCR.",
    "affiliations": [
-    "Department of Artificial Intelligence, Kathmandu University",
-    "Dhulikhel, Nepal"
+    "Department of Artificial Intelligence, Kathmandu University, Dhulikhel, Nepal"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ],
     [
-     0,
-     1
+     0
     ]
    ],
    "institutions": [
-    "Kathmandu University",
-    null
+    "Kathmandu University"
    ],
    "institution_ids": [
-    "036xnae80",
-    null
+    "036xnae80"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -1626,7 +1620,7 @@
     "009xtw325",
     "02e7b5302"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -2890,7 +2884,7 @@
     "00xp9wg62",
     null
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -2924,8 +2918,7 @@
    "abstract": "Brain metastases exhibit high inter-lesion variability in size, enhancement pattern, and post-treatment appearance, making volumetric segmentation of both pre- and post-treatment cases the central challenge of the BraTS 2026 Task 1 (Brain Metastases). We build a pragmatic pipeline on a 5-fold nnU-Net ResEnc-L ensemble, in which each fold is trained independently for 1,000 epochs with the standard Dice + cross-entropy loss on 1,296 four-modality training cases. This ensemble is followed by a rule-based post-processing cascade tuned for the lesion-wise Dice similarity coefficient (LW-DSC), a detection-oriented metric that behaves very differently from the traditional global Dice. The final pipeline reaches an LW-DSC of 0.733 / 0.751 / 0.713 / 0.549 on the enhancing tumour (ET), tumour core (TC), whole tumour (WT), and resection cavity (RC) sub-regions on the official validation leaderboard. Rather than trusting these leaderboard gains, we audit every post-processing stage with a five-fold out-of-fold (OOF) analysis with no model-training leakage over all 1,296 training cases, scored with the official BraTS evaluation code (BraTS_evaluation): it confirms two stages as robust, per-fold-consistent improvements while the third improves only the leaderboard and does not reproduce out-of-fold. We further provide a mechanistic analysis of the LW-DSC metric that explains why recall-recovering post-processing carries low risk whereas component deletion does not, and we report thirteen negative results spanning loss engineering, alternative backbones, and inference-time settings, several of which run counter to widely held intuitions. Source code is released under Apache-2.0 at https://github.com/hornbeamliu/brats2026-met.",
    "affiliations": [
     "College of Software, Jilin University, Changchun, China",
-    "Key Laboratory of Symbolic Computation and Knowledge Engineering of Ministry of",
-    "Education, Jilin University, Changchun, China"
+    "Key Laboratory of Symbolic Computation and Knowledge Engineering of Ministry of Education, Jilin University, Changchun, China"
    ],
    "author_affiliations": [
     [
@@ -2933,28 +2926,26 @@
     ],
     [
      0,
-     1,
-     2
+     1
     ]
    ],
    "institutions": [
     "Jilin University",
-    null,
-    "Jilin University"
+    "Key Laboratory of Symbolic Computation and Knowledge Engineering of Ministry of Education, Jilin University"
    ],
    "institution_ids": [
     "00js3aw79",
-    null,
-    "00js3aw79"
+    "02knk1347"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
      "at": "2026-10-06"
     },
     "institutions": {
-     "source": "ror"
+     "source": "ror",
+     "at": "2026-10-06"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.11477",
@@ -4364,7 +4355,7 @@
    "institution_ids": [
     "04qscbg47"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",

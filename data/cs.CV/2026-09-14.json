@@ -137,7 +137,7 @@
    "institution_ids": [
     "01r22mr83"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -672,29 +672,25 @@
    "abstract": "Dashboard-mounted gaze trackers often lose sight of the driver's eyes during large head rotations, including shoulder checks, mirror glances, and intersection scanning. These maneuvers occur when information about the driver's visual attention is most useful. Offline gap-filling methods may reconstruct a missing interval using observations from both sides, but an online driver-monitoring system cannot rely on measurements that have not yet occurred. We therefore formulate causal gaze recovery: forecasting unavailable gaze at time t without target-tracker gaze at t or later. We introduce the Causal Context-Gated Forecaster (CCGF), which encodes a 60-frame pre-dropout history of gaze and head pose and combines it with DINOv3 scene features. A learned reliability gate controls the contribution of the history and scene representations as the dropout progresses. We evaluate two scene conditions: Live, in which the scene representation continues to update during tracker loss, and Frozen, in which the final pre-dropout representation is used throughout the missing interval. We evaluate CCGF on 2,047 eligible, naturally occurring GazeSense head\\_lost events drawn from 10.5 h of naturalistic driving by ten drivers. Across all recordings, head\\_lost accounts for 8.5 percent of GazeSense recording time. Synchronized gaze coordinates from a head-mounted Neon tracker provide supervision and evaluation targets but are never used as model inputs. Under leave-one-driver-out evaluation, CCGF achieves a mean per-driver median error of 175.7 px (10.5 deg) with Live scene updates, a 33 percent reduction relative to history-only causal forecasting. With Frozen scene input, the error increases to 210.8 px (12.9 deg), indicating that scene observations acquired during the dropout provide useful predictive information. We will release the dataset, evaluation protocol, and causal baselines.",
    "affiliations": [
     "Department of Computer Science, Western University, London, ON, Canada",
-    "National Research Council Canada",
-    "London, ON, Canada"
+    "National Research Council Canada, London, ON, Canada"
    ],
    "author_affiliations": [
     [
      0
     ],
     [
-     1,
-     2
+     1
     ]
    ],
    "institutions": [
     null,
-    "National Research Council Canada",
-    null
+    "National Research Council Canada"
    ],
    "institution_ids": [
     null,
-    "04mte1k06",
-    null
+    "04mte1k06"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -1882,7 +1878,7 @@
     "04eymdx19",
     "049tv2d57"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -2144,7 +2140,7 @@
     "022k4wk35",
     "0145fw131"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -2447,7 +2443,7 @@
     "023hj5876",
     "05njb9z20"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -3528,7 +3524,7 @@
     null,
     "03f6n9m15"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -3628,7 +3624,7 @@
     "02956yf07",
     "04jr1s763"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -4363,7 +4359,7 @@
     "00eaycp31",
     "00582g326"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",

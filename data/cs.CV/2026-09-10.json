@@ -21,24 +21,20 @@
    "html_url": "https://arxiv.org/html/2609.09184v1",
    "abstract": "Vision-language model (VLM) confidence may change in aggregate when visual evidence is degraded while remaining structurally inconsistent within individual examples. We study answer-level reliability along five-step, question-conditioned evidence-loss trajectories. Using a frozen Qwen2.5-VL-3B-Instruct model, we construct 176 accepted GQA-derived trajectories (880 masking conditions) by progressively masking scene-graph-localized question-critical regions. Native sequence confidence has an evidence monotonicity violation rate (EMVR) of 0.436, and 92.0% of trajectories contain at least one adjacent violation. A matched non-critical-region control shows that full critical masking reduces accuracy by 28.2 percentage points, compared with 0.6 points for equally sized non-critical masks; the paired difference is 27.6 points (95% CI [20.0, 34.7]). We train a lightweight post-hoc reliability head on frozen hidden states, sequence confidence, and entropy. Adding evidence-order supervision to binary cross-entropy (BCE) reduces masking EMVR from 0.330 to 0.303 (paired difference -0.027, 95% CI [-0.044, -0.010]). The same mask-trained objective reduces EMVR from 0.449 to 0.402 on held-out question IDs under unseen local Gaussian blur (difference -0.0468, 95% CI [-0.0739, -0.0199]). AUROC, Brier, and AURC differences between the two learned heads are statistically inconclusive, and native confidence remains stronger for selective-risk ranking. The results separate evidence-order consistency from conventional correctness discrimination rather than establishing generic confidence superiority.",
    "affiliations": [
-    "Department of Electrical Engineering, University of Moratuwa",
-    "Moratuwa, Sri Lanka"
+    "Department of Electrical Engineering, University of Moratuwa, Moratuwa, Sri Lanka"
    ],
    "author_affiliations": [
     [
-     0,
-     1
+     0
     ]
    ],
    "institutions": [
-    "University of Moratuwa",
-    null
+    "University of Moratuwa"
    ],
    "institution_ids": [
-    "0491f5305",
-    null
+    "0491f5305"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -275,7 +271,7 @@
    "institution_ids": [
     "03hz5th67"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -749,7 +745,7 @@
    "institution_ids": [
     "02t274463"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -1626,7 +1622,7 @@
     "0160cpw27",
     "0160cpw27"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -3274,7 +3270,7 @@
     "012k1v959",
     null
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -4494,7 +4490,7 @@
     "034t30j35",
     "034t30j35"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -4736,7 +4732,7 @@
     null,
     "04dawnj30"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
@@ -5293,7 +5289,7 @@
    "institution_ids": [
     "00q4vv597"
    ],
-   "extractor": 4,
+   "extractor": 5,
    "provenance": {
     "affiliations": {
      "source": "html",
