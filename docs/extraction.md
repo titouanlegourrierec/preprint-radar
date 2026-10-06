@@ -75,6 +75,12 @@ Artificial".
   reaches stored strings through `reclean`.
 - A line ending with "," or "and" continues on the next one, and a line that only names a
   place joins the previous line when that one has no country.
+- A line starting with "and" goes on with the unit that ends the previous line: "Faculty of
+  Medicine" then "and Health Sciences" (2610.03290). Not after an institution ("Stanford
+  University" then "and Mila"), nor when "&" starts it ("& Canada-CIFAR AI Chair").
+- A line that only names authors is never joined to the next: "Terrence Chen, Ziyan Wu"
+  then "United Imaging Intelligence, Boston MA, USA" (2610.02382) are names, dropped, and
+  an affiliation, not one string with the names inside.
 - A unit without its institution ("Department of Computer Science": a unit word, no
   institution word, no comma; `is_bare_unit`, which the quality sign uses too) takes the
   next line: "Department of Computer Science, Dartmouth College, Hanover, NH, USA"
@@ -131,7 +137,18 @@ ambiguous name alignments drop the whole tier, and unresolved authors stay `null
   attaches a block shared by every author to the last one (2609.37098 gave its 7
   affiliations to its 9th author, 2609.00866 its 25 to its 55th).
 - A creator naming several people ("A, B and C", "A & B") is left out of the per-creator
-  tier: 2609.05583's single creator for six authors is then placed by its markers.
+  tier: 2609.05583's single creator for six authors is then placed by its markers. So is a
+  creator holding several authors' names without any separator: 2610.01434 writes its
+  eight authors apart by wide spaces, and the creator went to the last author, with every
+  affiliation.
+- A pair ("Zhiyuan Yang & Jiahao Cheng", no comma, no marker on the names) beside other
+  creators shares the block under it: both are placed (2609.36407). Alone, or with markers,
+  it says no more than a list.
+- A marker's text runs to the next marker, read as one line: it may hold the lines an
+  affiliation was joined from, then another affiliation of the same marker
+  ("⟨2⟩Laboratory … Response / Technologies (LiGHT) / Swiss Federal Institute of Technology
+  (EPFL), …", 2610.03290). When it cleans to no affiliation, it is cut into the paper's
+  affiliations, one after another; a text not wholly made of them anchors nothing.
 
 ## Institutions (ROR)
 

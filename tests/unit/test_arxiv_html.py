@@ -484,6 +484,36 @@ AUTHORS = {
         "Nayu Liu",
         "Xian Sun",
     ),
+    "2610.01434": (
+        "Xudong Wang",
+        "Hao Wu",
+        "Haozhe Hu",
+        "Peiran Yin",
+        "Xinghao Chen",
+        "Yunpu Ma",
+        "Wei Zhang",
+        "Xiaoyu Shen",
+    ),
+    "2610.02382": (
+        "Zhongpai Gao",
+        "Benjamin Planche",
+        "Meng Zheng",
+        "Anwesa Choudhuri",
+        "Terrence Chen",
+        "Ziyan Wu",
+    ),
+    "2610.03290": (
+        "Christiaan M. Geldenhuys",
+        "Joshua M. Jansen van Vüren",
+        "Véronique Suttels",
+        "Trevor Brokowski",
+        "Ablo P. Wachinou",
+        "Mary-Anne Hartley",
+        "Rensu P. Theart",
+        "Grant Theron",
+        "Thomas R. Niesler",
+    ),
+    "2609.36407": ("Zhiyuan Yang", "Jiahao Cheng", "Mahdi S. Hosseini"),
 }
 
 
@@ -551,6 +581,23 @@ AUTHORS = {
         pytest.param(
             "2609.04190", ((0,), (0,), (0,), *(None,) * 6), id="name-lists-among-per-author-contacts"
         ),
+        # Eight names in one creator, apart by wide spaces only: not a person, so the markers
+        # place them (the creator went to the last author, at every affiliation).
+        pytest.param(
+            "2610.01434",
+            ((0,), (0, 1), (0, 1), (0, 1), (0, 2), (3,), (0,), (0,)),
+            id="one-creator-for-all-names-without-separators",
+        ),
+        pytest.param("2609.36407", ((0,), (0,), (0, 1)), id="a-pair-shares-its-block"),
+        # Marker 2 reads "Laboratory ... Response / Technologies (LiGHT) / Swiss Federal
+        # Institute of Technology (EPFL), ...": two affiliations, the first joined from two lines.
+        pytest.param(
+            "2610.03290",
+            ((0,), (0,), (1, 2), (1, 2), (3, 4), (1, 2), (0,), (5, 6, 7, 8), (0,)),
+            id="anchors-made-of-affiliations",
+        ),
+        # Two authors' names printed as the fourth one's affiliation, beside the shared one.
+        pytest.param("2610.02382", None, id="names-beside-the-only-affiliation"),
     ],
 )
 def test_maps_authors_to_their_affiliations(
@@ -599,6 +646,30 @@ def test_ignores_authorship_footnotes(paper_html: PaperHtml) -> None:
 def test_joins_lines_that_only_name_a_place(raw: str, expected: tuple[str, ...]) -> None:
     html = f'<div class="ltx_authors"><span class="ltx_contact ltx_role_affiliation">{raw}</span></div>'
     assert parse_front_matter(html).affiliations == expected
+
+
+@pytest.mark.parametrize(
+    ("raw", "expected"),
+    [
+        (
+            "Division of Molecular Biology, Faculty of Medicine\nand Health Sciences",
+            ("Division of Molecular Biology, Faculty of Medicine and Health Sciences",),
+        ),
+        (
+            "Stanford University\nand Mila - Quebec AI Institute",
+            ("Stanford University", "Mila - Quebec AI Institute"),
+        ),
+    ],
+    ids=["a-unit-goes-on", "an-institution-does-not"],
+)
+def test_a_line_starting_with_and_continues_a_unit(raw: str, expected: tuple[str, ...]) -> None:
+    html = f'<div class="ltx_authors"><span class="ltx_contact ltx_role_affiliation">{raw}</span></div>'
+    assert parse_front_matter(html).affiliations == expected
+
+
+def test_names_are_never_joined_to_the_next_line(paper_html: PaperHtml) -> None:
+    front = parse_front_matter(paper_html("2610.02382"), authors=AUTHORS["2610.02382"])
+    assert front.affiliations == ("United Imaging Intelligence, Boston MA, USA",)
 
 
 def test_drops_conjunctions_split_from_affiliations() -> None:

@@ -4,6 +4,17 @@ One minor release per phase of [`docs/roadmap.md`](docs/roadmap.md), a patch for
 between. Item IDs (`DATA-2`, `CIT-11`…) refer to the audit of 2026-09-30
 ([`docs/audit/2026-09-30.md`](docs/audit/2026-09-30.md)).
 
+## Unreleased
+
+### Fixes
+
+- Affiliations read better (extraction version 4). Version 3 put author names inside an
+  affiliation when they were printed just before it ("Terrence Chen, Ziyan Wu, United
+  Imaging Intelligence"), and gave every affiliation to the last author of a paper whose
+  authors are all in one block: the markers place them again. Two authors written as a
+  pair ("A & B") share their block, and "Faculty of Medicine" / "and Health Sciences" is
+  one affiliation (AFF-25).
+
 ## 0.5.0 (2026-10-06): longer periods and richer metadata
 
 Phase 3 of the roadmap.

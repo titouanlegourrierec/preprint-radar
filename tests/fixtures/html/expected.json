@@ -1285,6 +1285,39 @@
     ],
     "abstract": "Recent large-scale Vision-and-Language Navigation (VLN) models deliver strong accuracy but remain costly to deployment due to heavy parameters and computation. We tackle efficient VLN in two steps. First, we build a high-performing teacher that makes navigation evidence selection explicit and compressible. Concretely, the teacher introduces a small set of learnable query slots to extract global and local action-sufficient navigable evidence from panoramic observations via a Navigable Query Generator, and progressively grounds these evidence tokens to the instruction with an Instruction–Query Aligner for policy prediction. Second, leveraging this explicit query bottleneck as a distillation interface, we train a compact student by transferring both where to attend and what to do: we distill the teacher’s global/local navigable queries with a navigation-aware token-adaptive objective, and further match action distributions during fine-tuning. Experiments on standard VLN benchmarks demonstrate that our student nearly matches the teacher’s navigation performance while reducing the number of parameters by 93.65% compared to the teacher."
   },
+  "2609.36407": {
+    "authors": [
+      "Zhiyuan Yang",
+      "Jiahao Cheng",
+      "Mahdi S. Hosseini"
+    ],
+    "affiliations": [
+      "Department of Computer Science and Software Engineering (CSSE), Concordia University, Montreal, Canada",
+      "Mila – Quebec AI Institute, Montreal, Canada"
+    ],
+    "placed": [
+      [
+        "Zhiyuan Yang",
+        [
+          "Department of Computer Science and Software Engineering (CSSE), Concordia University, Montreal, Canada"
+        ]
+      ],
+      [
+        "Jiahao Cheng",
+        [
+          "Department of Computer Science and Software Engineering (CSSE), Concordia University, Montreal, Canada"
+        ]
+      ],
+      [
+        "Mahdi S. Hosseini",
+        [
+          "Department of Computer Science and Software Engineering (CSSE), Concordia University, Montreal, Canada",
+          "Mila – Quebec AI Institute, Montreal, Canada"
+        ]
+      ]
+    ],
+    "abstract": "Cross-resolution knowledge distillation aims to improve low-magnification whole-slide analysis by transferring high-magnification representations, yet the conditions for useful transfer remain unclear. We develop a decomposition-based analysis of teacher access, representation loss, and model excess, motivating three questions: whether (a) teacher targets help the task, (b) low-magnification students can predict them, and (c) slide models benefit from those predictions. We investigate them through controlled experiments across ten pathology cohorts spanning classification, grading, and survival prediction. In the main comparison, providing teacher regional means alongside native low-magnification features improves downstream performance in all ten cohorts. Direct prediction achieves lower reconstruction error than residual prediction, yet the predicted features underrepresent variation in the teacher targets. Moreover, better reconstruction does not consistently improve downstream scores, and retaining native features changes performance even when the predicted teacher features are held fixed. Together, these findings expose a gap between reconstructing teacher representations and realizing their downstream value. They challenge the sufficiency of reconstruction error as a measure of cross-resolution transfer and provide a diagnostic framework for examining where that transfer breaks down. Future distillation designs must account for both what students can predict and how slide models use those predictions."
+  },
   "2609.36458": {
     "authors": [
       "Abdullah All Tanvir",
@@ -1638,6 +1671,79 @@
     ],
     "abstract": "Foundation models for computational pathology are usually evaluated using AUC and accuracy, while calibration is often left untested. This matters because a model can be accurate on average but still assign overly confident probabilities to cases that are difficult even for pathologists. We study calibration across eight pathology foundation models. Using pathologist agreement as a measure of diagnostic difficulty, we find that calibration error is consistently higher on low-agreement cases than on high-agreement cases. This pattern is not apparent from aggregate expected calibration error (ECE) alone. We then propose synthetic agreement calibration, a method for improving calibration without collecting multi-annotator labels. Given a trained linear probe, we select high-confidence embeddings as class anchors and interpolate between anchors from opposite classes. The interpolation weights encode a continuous notion of diagnostic ambiguity, which we use as a synthetic agreement signal to retrain the probe with agreement-aware label smoothing. On MHIST, which includes annotations from seven pathologists, synthetic agreement calibration recovers most of the calibration improvement obtained by label smoothing based on real pathologist agreement, while substantially reducing low-agreement ECE relative to the uncalibrated baseline. Discrimination metrics are preserved. On PatchCamelyon and BreakHis, public histopathology datasets without multi-annotator labels, the method improves calibration across the evaluated foundation models, whereas annotator-dependent approaches cannot be used without additional expert annotation."
   },
+  "2610.01434": {
+    "authors": [
+      "Xudong Wang",
+      "Hao Wu",
+      "Haozhe Hu",
+      "Peiran Yin",
+      "Xinghao Chen",
+      "Yunpu Ma",
+      "Wei Zhang",
+      "Xiaoyu Shen"
+    ],
+    "affiliations": [
+      "EIT-NLP Lab, Eastern Institute of Technology, Ningbo",
+      "Shanghai Jiao Tong University",
+      "The Hong Kong Polytechnic University",
+      "Munich Center for Machine Learning, LMU Munich"
+    ],
+    "placed": [
+      [
+        "Xudong Wang",
+        [
+          "EIT-NLP Lab, Eastern Institute of Technology, Ningbo"
+        ]
+      ],
+      [
+        "Hao Wu",
+        [
+          "EIT-NLP Lab, Eastern Institute of Technology, Ningbo",
+          "Shanghai Jiao Tong University"
+        ]
+      ],
+      [
+        "Haozhe Hu",
+        [
+          "EIT-NLP Lab, Eastern Institute of Technology, Ningbo",
+          "Shanghai Jiao Tong University"
+        ]
+      ],
+      [
+        "Peiran Yin",
+        [
+          "EIT-NLP Lab, Eastern Institute of Technology, Ningbo",
+          "Shanghai Jiao Tong University"
+        ]
+      ],
+      [
+        "Xinghao Chen",
+        [
+          "EIT-NLP Lab, Eastern Institute of Technology, Ningbo",
+          "The Hong Kong Polytechnic University"
+        ]
+      ],
+      [
+        "Yunpu Ma",
+        [
+          "Munich Center for Machine Learning, LMU Munich"
+        ]
+      ],
+      [
+        "Wei Zhang",
+        [
+          "EIT-NLP Lab, Eastern Institute of Technology, Ningbo"
+        ]
+      ],
+      [
+        "Xiaoyu Shen",
+        [
+          "EIT-NLP Lab, Eastern Institute of Technology, Ningbo"
+        ]
+      ]
+    ],
+    "abstract": "Multimodal large language models (MLLMs) incur substantial inference costs when processing long visual-textual sequences. While existing operation compression methods exploit modality-level redundancy, they largely treat computation within attention heads and shared feed-forward network (FFN) channels as unified units, leaving finer-grained redundancy underexplored. We find that redundancy varies both across modality-interaction paths within the same attention head and across visual and textual executions of the same FFN channel. Based on these findings, we propose Modality-aware Width-wise Operation Pruning (MWOP), which independently prunes visual-to-visual (V2V), text-to-visual (T2V), and text-to-text (T2T) attention paths within each layer, and separately selects FFN channels for visual and textual inputs. A first-order Taylor criterion guides the pruning process, with FFN importance re-evaluated after attention pruning and LoRA-based recovery training. To translate the resulting fine-grained sparsity into practical acceleration, we further develop path-sparse Triton attention kernels and compact visual-side FFN execution. MWOP preserves the token sequence while reducing attention and FFN computation, making it complementary to token compression and enabling simultaneous reduction of sequence length and per-token computation. On LLaVA-OneVision-7B, MWOP alone achieves a $1.6\\times$ prefill speedup with 99.7% average performance retention across 12 benchmarks. Combined with two representative token compression methods, it further increases their prefill speedups from $2.0\\times$ and $1.9\\times$ to $2.9\\times$ and $2.7\\times$, respectively. Results on Qwen2.5-VL-7B further demonstrate its applicability across architectures. The code is available at https://github.com/EIT-NLP/MWOP."
+  },
   "2610.02000": {
     "authors": [
       "Hossein Maghsoumi",
@@ -1670,5 +1776,108 @@
       ]
     ],
     "abstract": "Adverse conditions such as rain, snow, fog, and dust remain challenging for camera-based perception in autonomous driving. We study multi-class weather recognition from street-view images under domain shift, where most available training data come from non–street-view sources that differ markedly from real driving scenes. We propose Weather-Aware Adversarial Discriminative Domain Adaptation (WA-ADDA), which conditions the domain discriminator on predicted weather to promote features that are both domain-invariant and weather-sensitive. We also assemble a multi-dataset benchmark by unifying diverse non–street-view weather collections as sources and real street-view images as targets, and define a standardized evaluation protocol with macro accuracy as the primary metric. Across backbones (ResNet-50, EfficientNet, VGG, DenseNet), WA-ADDA consistently improves street-view performance and yields strong per-class recalls in challenging conditions while preserving clear-weather accuracy. These findings highlight the feasibility of domain-adapted weather recognition and the value of our benchmark for advancing robust, on-board perception."
+  },
+  "2610.02382": {
+    "authors": [
+      "Zhongpai Gao",
+      "Benjamin Planche",
+      "Meng Zheng",
+      "Anwesa Choudhuri",
+      "Terrence Chen",
+      "Ziyan Wu"
+    ],
+    "affiliations": [
+      "United Imaging Intelligence, Boston MA, USA"
+    ],
+    "placed": null,
+    "abstract": "Transfer functions (TFs) control color and visibility in medical volume rendering, but image-trained Gaussian proxies typically bake one transfer function into their appearance. We present FactorSplat, a per-scene N-dimensional Gaussian splatting (N-DGS) proxy that accepts region-specific intensity-to-RGBA curves at inference. A local lookup applies the authored color and opacity change, while a shared functional encoder and low-rank per-Gaussian factors learn the residual appearance response. Geometry and directional appearance remain shared across presets, with visibility control and TF-aware pruning preserving the ability to hide and reveal structures. On seven CT and MR scans, FactorSplat improves mean PSNR and changed-region error over region-aware VEG across validation, interpolation, unseen composition, and out-of-distribution (OOD) edits. Across these four splits, seven-scan mean PSNR gains over VEG range from 1.10 to 1.52 dB. One checkpoint per scan supports unseen edits without retraining. At $1600^{2}$, the cached fast renderer averages 524 FPS with 1.17 ms TF switches. The project page is: https://gaozhongpai.github.io/FactorSplat/."
+  },
+  "2610.03290": {
+    "authors": [
+      "Christiaan M. Geldenhuys",
+      "Joshua M. Jansen van Vüren",
+      "Véronique Suttels",
+      "Trevor Brokowski",
+      "Ablo P. Wachinou",
+      "Mary-Anne Hartley",
+      "Rensu P. Theart",
+      "Grant Theron",
+      "Thomas R. Niesler"
+    ],
+    "affiliations": [
+      "Department of Electrical and Electronic Engineering, University of Stellenbosch, Stellenbosch, South Africa",
+      "Laboratory for intelligent Global Health and Humanitarian Response, Technologies (LiGHT)",
+      "Swiss Federal Institute of Technology (EPFL), Lausanne, Switzerland",
+      "National Teaching Hospital for Tuberculosis and Pulmonary Diseases",
+      "(CNHU-PPC), Cotonou, Benin",
+      "South African Medical Research Council Centre for Tuberculosis",
+      "Research (CTR)",
+      "Division of Molecular Biology and Human Genetics, Faculty of Medicine and Health Sciences",
+      "Stellenbosch University, Cape Town, South Africa"
+    ],
+    "placed": [
+      [
+        "Christiaan M. Geldenhuys",
+        [
+          "Department of Electrical and Electronic Engineering, University of Stellenbosch, Stellenbosch, South Africa"
+        ]
+      ],
+      [
+        "Joshua M. Jansen van Vüren",
+        [
+          "Department of Electrical and Electronic Engineering, University of Stellenbosch, Stellenbosch, South Africa"
+        ]
+      ],
+      [
+        "Véronique Suttels",
+        [
+          "Laboratory for intelligent Global Health and Humanitarian Response, Technologies (LiGHT)",
+          "Swiss Federal Institute of Technology (EPFL), Lausanne, Switzerland"
+        ]
+      ],
+      [
+        "Trevor Brokowski",
+        [
+          "Laboratory for intelligent Global Health and Humanitarian Response, Technologies (LiGHT)",
+          "Swiss Federal Institute of Technology (EPFL), Lausanne, Switzerland"
+        ]
+      ],
+      [
+        "Ablo P. Wachinou",
+        [
+          "National Teaching Hospital for Tuberculosis and Pulmonary Diseases",
+          "(CNHU-PPC), Cotonou, Benin"
+        ]
+      ],
+      [
+        "Mary-Anne Hartley",
+        [
+          "Laboratory for intelligent Global Health and Humanitarian Response, Technologies (LiGHT)",
+          "Swiss Federal Institute of Technology (EPFL), Lausanne, Switzerland"
+        ]
+      ],
+      [
+        "Rensu P. Theart",
+        [
+          "Department of Electrical and Electronic Engineering, University of Stellenbosch, Stellenbosch, South Africa"
+        ]
+      ],
+      [
+        "Grant Theron",
+        [
+          "South African Medical Research Council Centre for Tuberculosis",
+          "Research (CTR)",
+          "Division of Molecular Biology and Human Genetics, Faculty of Medicine and Health Sciences",
+          "Stellenbosch University, Cape Town, South Africa"
+        ]
+      ],
+      [
+        "Thomas R. Niesler",
+        [
+          "Department of Electrical and Electronic Engineering, University of Stellenbosch, Stellenbosch, South Africa"
+        ]
+      ]
+    ],
+    "abstract": "Lung ultrasound (LUS)is attractive for tuberculosis (TB)screening at primary-care level, but labelled cohorts are small. Echocardiography carries no such constraint, while sharing the same underlying ultrasound imaging physics, signal processing and B-mode appearance as LUS. We ask whether an encoder pretrained on that high-resource ultrasound domain carries representations that remain usable in the low-resource one. Only the encoder varies, across seventeen encoders spanning three architecture families. Among them, a latent-predictive video encoder pretrained on generic video (V-JEPA2-L) and its echocardiography counterpart (EchoJEPA-L) differ in pretraining corpus alone. The choice among these encoders does not resolve the classification, the whole family spanning $2.50$ percentage points against a measurement resolution of $2.71$. What moves the task instead is feature conditioning. Standardising the features between the encoder and the classifier improves all seventeen encoders by a mean of $+1.23$ percentage points at $p=$1.5\\text{\\times}{10}^{-5}$$. On the held-out test set every encoder selected on the development folds stands above the baseline system by up to $+2.57$ percentage points of area under the receiver operating characteristic curve (AUROC), and specificity at $90\\text{\\,}\\mathrm{\\%}$ sensitivity reaches $79.3\\text{\\,}\\mathrm{\\%}$ against $60.3\\text{\\,}\\mathrm{\\%}$. The contrast specified in advance, EchoJEPA-L against V-JEPA2-L, measures $-0.16$ percentage points at $p=$0.926$$. We therefore find no evidence that shared ultrasonic physics alone makes echocardiography a more productive pretraining corpus than generic video, and any advantage, if present, is smaller than this cohort can resolve. The video encoders receive replicated still images, however, so whether this absence of an effect reflects the pretraining domain or a video encoder applied to static frames cannot be separated. The limiting factor is the labelled cohort rather than the encoder."
   }
 }

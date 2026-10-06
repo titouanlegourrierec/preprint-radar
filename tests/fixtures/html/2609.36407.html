@@ -1,0 +1,37 @@
+<html><body><article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">What Makes High-Magnification Knowledge Transferable?
+A Study of Cross-Resolution Distillation in Whole-Slide Imaging</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Zhiyuan Yang &amp; Jiahao Cheng
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Department of Computer Science and Software Engineering (CSSE)
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Concordia University
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Montreal, Canada
+</span>
+<span class="ltx_contact ltx_role_email"><span class="ltx_contact_name">Email: </span><a href="mailto:author@example.org"><span class="ltx_text ltx_font_typewriter" id="id1">author@example.org</span></a>
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Mahdi S. Hosseini
+</span><span class="ltx_note ltx_note_frontmatter ltx_thanks_correspondence ltx_role_thanks" id="id2"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup><span class="ltx_note_type">thanks: </span>Corresponding author.</span></span></span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Department of Computer Science and Software Engineering (CSSE)
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Concordia University
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Montreal, Canada
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Mila – Quebec AI Institute
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Montreal, Canada
+</span>
+<span class="ltx_contact ltx_role_email"><span class="ltx_contact_name">Email: </span><a href="mailto:author@example.org"><span class="ltx_text ltx_font_typewriter" id="id3">author@example.org</span></a>
+</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Cross-resolution knowledge distillation aims to improve low-magnification whole-slide analysis by transferring high-magnification representations, yet the conditions for useful transfer remain unclear. We develop a decomposition-based analysis of teacher access, representation loss, and model excess, motivating three questions: whether <span class="ltx_text ltx_font_bold" id="abstract1.1.1">(a) teacher targets help the task, (b) low-magnification students can predict them,</span> and <span class="ltx_text ltx_font_bold" id="abstract1.1.2">(c) slide models benefit from those predictions.</span> We investigate them through controlled experiments across ten pathology cohorts spanning classification, grading, and survival prediction. In the main comparison, providing teacher regional means alongside native low-magnification features improves downstream performance in all ten cohorts. Direct prediction achieves lower reconstruction error than residual prediction, yet the predicted features underrepresent variation in the teacher targets. Moreover, better reconstruction does not consistently improve downstream scores, and retaining native features changes performance even when the predicted teacher features are held fixed. Together, these findings expose a gap between reconstructing teacher representations and realizing their downstream value. They challenge the sufficiency of reconstruction error as a measure of cross-resolution transfer and provide a diagnostic framework for examining where that transfer breaks down. Future distillation designs must account for both what students can predict and how slide models use those predictions.</p>
+</div>
+<div class="ltx_para" id="p1">
+
+</div>
+</article></body></html>

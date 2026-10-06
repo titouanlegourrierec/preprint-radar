@@ -21,7 +21,7 @@ from preprint_radar.http import HttpClient
 
 logger = logging.getLogger(__name__)
 
-EXTRACTOR_VERSION = 3
+EXTRACTOR_VERSION = 4
 """Version of the extraction heuristics of this module, stored with the affiliations they give.
 
 Bump it with any change that alters what a page gives (affiliations, author mapping), so
@@ -35,6 +35,10 @@ that ``reextract`` reads those papers again, from the page cache when it holds t
   the next affiliation start one ("Cornell University ²Duke University"), a unit without
   its institution joined to the next line, an author's contact nodes read as one text,
   and markers mixing a number and symbols ("2,6*‡") read as the number.
+- 4: a line that only names authors is never joined to the next, anchors match the lines
+  their affiliation was joined from, a line starting with "and" continues the previous
+  one, a creator holding several authors' names is never one person, and the people of
+  an "A & B" creator share its block.
 """
 
 # LaTeXML renders line breaks and \quad between affiliations as newlines, em spaces
@@ -186,6 +190,8 @@ _TRAILING_ANCHOR_RE = re.compile(r"([^⟨⟩]+?)\s*⟨([^⟨⟩]+)⟩")
 _NUMBERED_ANCHOR_RE = re.compile(r"^\s*(?P<marker>\d{1,2})" + _NUMBER_NAME, re.MULTILINE)
 # Separators of several names in one creator: "A, B and C", "A & B".
 _SEVERAL_PEOPLE_RE = re.compile(r",|&|\band\b", re.IGNORECASE)
+# Between the names of a pair written without a comma: "Zhiyuan Yang & Jiahao Cheng".
+_PAIR_RE = re.compile(r"\s+(?:&|and)\s+", re.IGNORECASE)
 # IEEE grades and suffixes printed after a name: "Benoît Macq Fellow, IEEE", "Eduil Nascimento Jr.".
 _NAME_SUFFIX_RE = re.compile(
     r"\b(?:(?:senior|life|student)\s+)?(?:fellow|member)\s*,?\s*IEEE\b|\bIEEE\s+(?:senior\s+)?(?:fellow|member)\b"
@@ -397,7 +403,7 @@ def _affiliations(soup: BeautifulSoup, authors: Sequence[str]) -> tuple[tuple[st
     if block is not None:
         for noise in block.select(".ltx_role_email, .ltx_contact_name, .ltx_note, a"):
             noise.decompose()
-        tagged = _tagged_affiliations(block)
+        tagged = _tagged_affiliations(block, authors)
         numbered = [] if tagged else _numbered_affiliations(block)
     names_dropped = False
     for source in (tagged + from_notes, numbered, _stated_affiliations(thanks)):
@@ -411,9 +417,9 @@ def _affiliations(soup: BeautifulSoup, authors: Sequence[str]) -> tuple[tuple[st
     return (), names_dropped
 
 
-def _tagged_affiliations(authors: Tag) -> list[str]:
+def _tagged_affiliations(block: Tag, authors: Sequence[str]) -> list[str]:
     """Affiliations marked up by LaTeXML: affiliation and address macros of ACM- or IEEE-like classes."""
-    return [segment for nodes in _contact_groups(authors) for segment in _contact_segments(nodes)]
+    return [segment for nodes in _contact_groups(block) for segment in _contact_segments(nodes, authors)]
 
 
 def _contact_groups(authors: Tag) -> list[list[Tag]]:
@@ -434,9 +440,9 @@ def _contact_groups(authors: Tag) -> list[list[Tag]]:
     return groups
 
 
-def _contact_segments(nodes: Iterable[Tag]) -> list[str]:
+def _contact_segments(nodes: Iterable[Tag], authors: Sequence[str]) -> list[str]:
     """The affiliations in one author's contact nodes, read as the lines of one text."""
-    return _joined(line for node in nodes for line in _lines(node))
+    return _joined((line for node in nodes for line in _lines(node)), authors)
 
 
 def _note_segments(note: Tag) -> list[str]:
@@ -553,22 +559,41 @@ def _lines(node: Tag) -> list[_Line]:
     ]
 
 
-def _joined(lines: Iterable[_Line]) -> list[str]:
+def _joined(lines: Iterable[_Line], authors: Sequence[str] = ()) -> list[str]:
     """Lines joined into affiliations.
 
-    A line ending with a comma or "and" continues on the next one, and a line that completes
-    the previous one (:func:`_completes`) is added to it after a comma.
+    A line ending with a comma or "and" continues on the next one, so does the name of a
+    unit on a line starting with "and" ("Faculty of Medicine" then "and Health Sciences",
+    2610.03290), and a line that completes the previous one (:func:`_completes`) is added
+    to it after a comma. A line that only names authors is left alone: "Terrence Chen,
+    Ziyan Wu" then "United Imaging Intelligence, Boston MA, USA" are names and an
+    affiliation (2610.02382), and the names are dropped later.
     """
     joined: list[str] = []
     for line in lines:
         previous = joined[-1] if joined else ""
-        if previous and _CONTINUED_RE.search(previous):
+        if not previous or names_only_authors(previous, authors):
+            joined.append(line.text)
+        elif _CONTINUED_RE.search(previous) or _continues(previous, line):
             joined[-1] = f"{previous} {line.text}"
-        elif previous and _completes(previous, line):
+        elif _completes(previous, line):
             joined[-1] = f"{previous.rstrip(_EDGE_PUNCTUATION)}, {line.text}"
         else:
             joined.append(line.text)
     return joined
+
+
+def _continues(previous: str, line: _Line) -> bool:
+    """Whether a line starting with "and" goes on with the unit that ends the previous one.
+
+    "and Statistics" ends "School of Mathematics", but "and Mila" is not part of "Stanford
+    University", nor "& Canada-CIFAR AI Chair" of anything.
+    """
+    return (
+        not line.marked
+        and line.text.startswith("and ")
+        and is_bare_unit(previous.rsplit(",", maxsplit=1)[-1].strip())
+    )
 
 
 def _completes(previous: str, line: _Line) -> bool:
@@ -868,25 +893,34 @@ def _per_creator_map(
     soup: BeautifulSoup, authors: tuple[str, ...], index_of: Mapping[str, int]
 ) -> AuthorAffiliations | None:
     """One affiliation block per author (ACM- and IEEE-like classes)."""
-    creators: list[tuple[str, tuple[int, ...]]] = []
+    creators: list[tuple[str, tuple[int, ...], bool]] = []
     for creator in soup.select("div.ltx_authors span.ltx_creator.ltx_role_author"):
         name = creator.select_one(".ltx_personname")
         # Links set as authors ("Project Page", a repository) name nobody: 2609.37107.
         if name is None or not _plain_text(_pruned(name)):
             continue
         contacts = _contact_segments(
-            _pruned(contact) for contact in creator.select(".ltx_role_affiliation, .ltx_role_address")
+            (_pruned(contact) for contact in creator.select(".ltx_role_affiliation, .ltx_role_address")),
+            authors,
         )
-        creators.append((_plain_text(name), _indices(contacts, index_of)))
-    if not any(indices for _, indices in creators):
+        marked = _pruned(name).select_one("sup") is not None
+        creators.append((_plain_text(name), _indices(contacts, index_of), marked))
+    if not any(indices for _, indices, _ in creators):
         return None
-    if len(creators) > 1 and not any(indices for _, indices in creators[:-1]):
+    if len(creators) > 1 and not any(indices for _, indices, _ in creators[:-1]):
         # Only the last author carries affiliations: LaTeXML attaches a block shared by
         # every author to the last one, which says nothing about who is where.
         return None
-    # A creator naming several people ("A, B and C", "A & B") says nothing about which of
-    # them is where (markers may): only creators of one person are aligned with the authors.
-    people = [(name, indices) for name, indices in creators if not _SEVERAL_PEOPLE_RE.search(name)]
+    people: list[tuple[str, tuple[int, ...]]] = []
+    for name, indices, marked in creators:
+        if not _several_people(name, authors):
+            people.append((name, indices))
+        elif len(creators) > 1 and not marked and "," not in name and _PAIR_RE.search(name):
+            # A pair beside other creators, their block under both names and no marker to
+            # tell them apart: "Zhiyuan Yang & Jiahao Cheng" share it (2609.36407).
+            people += [(person, indices) for person in _PAIR_RE.split(name)]
+        # Otherwise a creator naming several people ("A, B and C", or all of them in one
+        # creator) says nothing about which of them is where: markers may.
     aligned = _align([name for name, _ in people], authors)
     if aligned is None:
         return None
@@ -894,6 +928,17 @@ def _per_creator_map(
     for creator_index, author_index in aligned.items():
         mapping[author_index] = people[creator_index][1] or None
     return tuple(mapping) if any(mapping) else None
+
+
+def _several_people(name: str, authors: Sequence[str]) -> bool:
+    """Whether a creator names several people: separators, or several authors' names.
+
+    2610.01434 writes its eight authors in one creator separated by wide spaces only.
+    """
+    folded = _fold(name)
+    return (
+        _SEVERAL_PEOPLE_RE.search(name) is not None or sum(_fold(author) in folded for author in authors) > 1
+    )
 
 
 def _marker_map(
@@ -959,7 +1004,7 @@ def _anchors(soup: BeautifulSoup, block: Tag, index_of: Mapping[str, int]) -> di
     anchors: dict[str, tuple[int, ...]] = {}
 
     def add(marker: str, candidate: str) -> None:
-        if indices := _indices([candidate], index_of):
+        if indices := _anchored(candidate, index_of):
             anchors.setdefault(marker.strip(), indices)
 
     for node in nodes:
@@ -991,8 +1036,32 @@ def _anchors(soup: BeautifulSoup, block: Tag, index_of: Mapping[str, int]) -> di
 
 
 def _known(candidate: str, index_of: Mapping[str, int]) -> bool:
-    """Whether the candidate cleans to one of the paper's affiliations."""
-    return bool(_indices([candidate], index_of))
+    """Whether the candidate cleans to one of the paper's affiliations, or is made of them."""
+    return bool(_anchored(candidate, index_of))
+
+
+def _anchored(candidate: str, index_of: Mapping[str, int]) -> tuple[int, ...]:
+    """The affiliations of the text after a marker: the one it cleans to, or those it is made of.
+
+    A marker's text runs to the next marker, read as one line: it may hold the lines an
+    affiliation was joined from, then another affiliation of the same marker:
+    "⟨2⟩Laboratory for intelligent Global Health and Humanitarian Response / Technologies
+    (LiGHT) / Swiss Federal Institute of Technology (EPFL), Lausanne, Switzerland"
+    (2610.03290). It is then cut into the paper's affiliations, one after another, without
+    regard to commas; a text that is not wholly made of them anchors nothing.
+    """
+    if indices := _indices([candidate], index_of):
+        return indices
+    loose = {_loose(affiliation): index for affiliation, index in index_of.items()}
+    rest = _loose(candidate.strip(_EDGE_PUNCTUATION))
+    found: list[int] = []
+    while rest:
+        head = max((key for key in loose if rest == key or rest.startswith(f"{key} ")), key=len, default=None)
+        if head is None:
+            return ()
+        found.append(loose[head])
+        rest = rest[len(head) :].strip()
+    return tuple(dict.fromkeys(found))
 
 
 def _thanks_map(

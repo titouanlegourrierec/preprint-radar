@@ -1,0 +1,41 @@
+<html><body><article class="ltx_document">
+<h1 class="ltx_title ltx_title_document">FactorSplat: Appearance-Controllable Gaussian Proxies for Medical Volume Rendering</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Zhongpai Gao
+</span><span class="ltx_note ltx_note_frontmatter ltx_thanks_correspondence ltx_role_thanks" id="1"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup><span class="ltx_note_type">thanks: </span>Corresponding author</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Benjamin Planche
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Meng Zheng
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Anwesa Choudhuri
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span><span class="ltx_text ltx_font_bold" id="2">Terrence Chen, Ziyan Wu</span>
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>United Imaging Intelligence, Boston MA, USA
+</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Transfer functions (TFs) control color and visibility in medical volume rendering,
+but image-trained Gaussian proxies typically bake one transfer function into
+their appearance. We present FactorSplat, a per-scene N-dimensional Gaussian
+splatting (N-DGS) proxy that accepts region-specific intensity-to-RGBA curves
+at inference. A local lookup applies the authored color and opacity change,
+while a shared functional encoder and low-rank per-Gaussian factors learn
+the residual appearance response. Geometry and directional appearance remain
+shared across presets, with visibility control and TF-aware pruning preserving
+the ability to hide and reveal structures. On seven CT and MR scans, FactorSplat improves mean PSNR and
+changed-region error over region-aware VEG across validation, interpolation,
+unseen composition, and out-of-distribution (OOD) edits. Across these four
+splits, seven-scan mean PSNR gains over VEG range from 1.10 to 1.52 dB.
+One checkpoint per scan supports unseen edits without retraining.
+At <math alttext="1600^{2}" class="ltx_Math" display="inline" id="abstract1.m1" intent=":literal"><semantics><msup><mn>1600</mn><mn>2</mn></msup><annotation encoding="application/x-tex">1600^{2}</annotation></semantics></math>, the cached fast renderer averages 524 FPS with 1.17 ms TF switches.
+The project page is: <a class="ltx_ref ltx_url ltx_font_typewriter" href="https://gaozhongpai.github.io/FactorSplat/" title="">https://gaozhongpai.github.io/FactorSplat/</a>.</p>
+</div>
+<div class="ltx_para" id="p1">
+
+</div>
+
+</article></body></html>
