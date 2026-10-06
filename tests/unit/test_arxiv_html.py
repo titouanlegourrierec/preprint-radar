@@ -971,6 +971,12 @@ def test_clean_affiliation_drops_what_names_nothing(raw: str) -> None:
         pytest.param(
             "University of Zurich, Switzerland ()", "University of Zurich, Switzerland", id="empty-brackets"
         ),
+        # An unwrapped thanks note glues the address to the sentence (2609.10082).
+        pytest.param(
+            "HKUST, Hong Kong SAR, China (author@example.org)",
+            "HKUST, Hong Kong SAR, China",
+            id="address-in-brackets",
+        ),
         pytest.param(
             "K. Prentice and J. Martin are with Guide Dogs NSW, Sydney, Australia",
             "Guide Dogs NSW, Sydney, Australia",

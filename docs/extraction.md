@@ -58,7 +58,10 @@ Artificial".
   names were dropped, a single affiliation left is not everyone's: 2609.38180 would
   otherwise put Takaaki Shiratori at CMU.
 - Obfuscated addresses ("jane (at) example.org", "lab [at] example.org") and lists of
-  mailbox names ("{jane.doe, john.roe}") are stripped, keeping the affiliation they follow.
+  mailbox names ("{jane.doe, john.roe}") are stripped, keeping the affiliation they follow;
+  so is an address in brackets, with what follows it: thanks notes, once unwrapped, end
+  their sentence with one ("..., Hong Kong SAR, China (xhubd@...)", 2609.10082), which
+  made the whole sentence a contact detail.
   `_JUNK_RE` rejects what still passes: lone words ("the", "dot"), link and contribution
   leftovers ("Code", "Core Contributors"), units cut off by a line break ("School of") and
   lone countries. The web's `institutionName` mirrors it (`JUNK_RE`, `COUNTRY_RE`) for

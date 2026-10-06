@@ -12,8 +12,9 @@ between. Item IDs (`DATA-2`, `CIT-11`…) refer to the audit of 2026-09-30
   affiliation when they were printed just before it ("Terrence Chen, Ziyan Wu, United
   Imaging Intelligence"), and gave every affiliation to the last author of a paper whose
   authors are all in one block: the markers place them again. Two authors written as a
-  pair ("A & B") share their block, and "Faculty of Medicine" / "and Health Sciences" is
-  one affiliation (AFF-25).
+  pair ("A & B") share their block, "Faculty of Medicine" / "and Health Sciences" is one
+  affiliation, and a thanks note ending with an address in brackets is no longer dropped
+  (AFF-25).
 - The page cache keeps the tables of author blocks, where some papers lay out their
   affiliations: read again from the cache, 2609.06629 had lost its five. A page kept before
   never empties a paper's affiliations; it is downloaded again (DATA-1).

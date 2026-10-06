@@ -38,7 +38,8 @@ that ``reextract`` reads those papers again, from the page cache when it holds t
 - 4: a line that only names authors is never joined to the next, anchors match the lines
   their affiliation was joined from, a line starting with "and" continues the previous
   one, a creator holding several authors' names is never one person, and the people of
-  an "A & B" creator share its block.
+  an "A & B" creator share its block, and an address in brackets ends an affiliation
+  rather than dropping it.
 """
 
 # LaTeXML renders line breaks and \quad between affiliations as newlines, em spaces
@@ -55,8 +56,10 @@ _LATEX_SPACE_RE = re.compile(r"\[\s*-?\d*\.?\d+\s*(?:pt|em|ex|mm|cm|in|bp|pc|mu)
 # The label of a link whose address is removed as a contact detail, sometimes glued to the
 # affiliation before it: "MITProject page".
 _LINK_LABEL_RE = re.compile(r"project\s+(?:page|website|homepage|repository|site)\b\s*:?", re.IGNORECASE)
-# Contact details after an affiliation: "..., USA. email: {a, b}@nyu.edu" or "(e-mail: ...)".
-_CONTACT_TAIL_RE = re.compile(r"\(?\s*\be-?mails?\b.*$", re.IGNORECASE | re.DOTALL)
+# Contact details after an affiliation: "..., USA. email: {a, b}@nyu.edu", "(e-mail: ...)",
+# or an address in brackets, which unwrapped thanks notes glue to the sentence: "..., Hong
+# Kong SAR, China (xhubd@connect.ust.hk)" (2609.10082).
+_CONTACT_TAIL_RE = re.compile(r"\(?\s*\be-?mails?\b.*$|[(\[]\s*[\w.+-]+@.*$", re.IGNORECASE | re.DOTALL)
 # E-mail addresses written to escape harvesters: "jane (at) example.org", "lab [at] example.org".
 _OBFUSCATED_EMAIL_RE = re.compile(
     r"[\w.+-]*\s*[\[(]\s*at\s*[\])]\s*[\w-]+(?:\s*(?:\.|[\[(]\s*dot\s*[\])])\s*[\w-]+)+", re.IGNORECASE
