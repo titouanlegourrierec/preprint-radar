@@ -1,3 +1,4 @@
+import gzip
 import json
 from collections import Counter
 from collections.abc import Callable
@@ -858,6 +859,34 @@ def test_reextract_reads_cached_pages_without_counting_them(
     stored = {paper.arxiv_id: paper for paper in store.iter_papers("cs.CV")}
     assert "NVIDIA" in (stored["2609.30249"].affiliations or ())
     assert stored["2609.30234"].affiliations == ("Old Institute",)
+
+
+NO_AFFILIATION_PAGE = (
+    '<html><body><article class="ltx_document"><div class="ltx_authors">'
+    '<span class="ltx_creator ltx_role_author"><span class="ltx_personname">Yuyao Liu</span></span>'
+    "</div></article></body></html>"
+)
+
+
+def test_reextract_never_empties_a_paper_from_a_page_kept_before_tables(
+    fake: FakeArxiv, store: PaperStore, tmp_path: Path, caplog: pytest.LogCaptureFixture
+) -> None:
+    cache = PageCache(tmp_path / "pages")
+    # Kept the way the cache did before it kept the tables of author blocks: unmarked.
+    stale = tmp_path / "pages" / "2609" / "2609.00001v1.html.gz"
+    stale.parent.mkdir(parents=True)
+    stale.write_bytes(gzip.compress(NO_AFFILIATION_PAGE.encode()))
+    cache.put("https://arxiv.org/html/2609.00002v1", NO_AFFILIATION_PAGE)
+    store.save("cs.CV", [_stored("2609.00001", "1"), _stored("2609.00002", "1")])
+
+    _reextract(fake, store, HtmlReading(limit=0, cache=cache))
+
+    stored = {paper.arxiv_id: paper for paper in store.iter_papers("cs.CV")}
+    assert stored["2609.00001"] == _stored("2609.00001", "1")
+    assert "https://arxiv.org/html/2609.00001v1" not in cache
+    assert "1 cached pages gave no affiliation to papers that have some" in caplog.text
+    # A page kept today that gives nothing is what the page says.
+    assert stored["2609.00002"].affiliations == ()
 
 
 def test_reextract_keeps_everything_when_the_layout_seems_changed(store: PaperStore) -> None:

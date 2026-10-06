@@ -229,3 +229,4 @@ exist.
 | ARCH-4 | Multi-category, if wanted | P2 | todo |
 | PERF-1 (shards) | Per-month search shards built with the site, for searches over more months than a period loads (from Phase 3) | P2 | todo |
 | AFF-25 | Extraction version 4, after the daily re-read of 318 papers with version 3 (2026-10-06): names are never joined to an affiliation, anchors made of joined lines, a creator holding several authors' names is not a person, an "A & B" pair shares its block, "and Health Sciences" goes on with its unit (found after the release, not in the audit) | P2 | done |
+| DATA-1 (tables) | The page cache kept no table, and lost the affiliations some author blocks lay out in one (2609.06629): it keeps those of the author block, and a page kept before never empties a paper on re-read, but leaves the cache (found after the release) | P1 | done |

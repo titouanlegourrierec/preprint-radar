@@ -215,6 +215,10 @@ it happens often, run *Archive* by hand mid-week to keep the entry warm.
   the cache).
 - Measure before and after with `make quality-affiliations`: with the page cache, it
   compares what is stored with what the extraction gives today, without writing.
+- **Signal** `cached pages gave no affiliation to papers that have some`: pages kept before
+  2026-10-06 lost the tables of their author block, where some classes write names and
+  affiliations (2609.06629). Those papers keep what they had and their pages leave the
+  cache: the next run downloads them, within its budget. Nothing to do.
 
 ## Add a category
 

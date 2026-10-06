@@ -1,3 +1,4 @@
+import gzip
 from collections.abc import Callable
 from pathlib import Path
 
@@ -1256,6 +1257,38 @@ def test_the_front_matter_of_a_page_extracts_like_the_page() -> None:
     assert "teaser" not in small
     assert "orcid.png" not in small
     assert "We do things." in small
+
+
+TABLE_PAGE = """<html><body><article class="ltx_document">
+<div class="ltx_authors"><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Ada Lovelace</span>
+<span class="ltx_contact ltx_role_affiliation"><table class="ltx_tabular"><tr>
+<td>Trier University of Applied Sciences</td></tr></table></span></span></div>
+<div class="ltx_abstract"><p>We do things.</p>
+<table class="ltx_tabular"><tr><td>A results table, big.</td></tr></table></div>
+</article></body></html>"""
+
+
+def test_the_front_matter_keeps_the_tables_of_the_author_block() -> None:
+    small = front_matter_html(TABLE_PAGE)
+
+    assert parse_front_matter(small, authors=("Ada Lovelace",)).affiliations == (
+        "Trier University of Applied Sciences",
+    )
+    assert "results table" not in small
+
+
+def test_a_page_kept_before_the_tables_is_stale(tmp_path: Path) -> None:
+    cache = PageCache(tmp_path / "pages")
+    url = "https://arxiv.org/html/2609.30249v2"
+
+    assert not cache.stale(url)
+    cache.put(url, FULL_PAGE)
+    assert not cache.stale(url)
+    (tmp_path / "pages" / "2609" / "2609.30249v2.html.gz").write_bytes(
+        gzip.compress(b'<html><body><article class="ltx_document"></article></body></html>')
+    )
+    assert cache.stale(url)
 
 
 def test_a_page_without_a_document_is_kept_whole() -> None:

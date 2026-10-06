@@ -273,7 +273,10 @@ def reextract_category(
     For extraction fixes to reach stored papers: pages the cache holds are read from it,
     the others downloaded within ``html.limit``, the most recent papers first. A paper whose
     page cannot be read again (a failure, the end of the budget, a layout breaker) keeps
-    what it had; one whose affiliations come back the same keeps its institutions.
+    what it had; one whose affiliations come back the same keeps its institutions. A page
+    kept before the cache kept the tables of author blocks that gives no affiliation to a
+    paper that has some leaves it as it was, and leaves the cache: it is downloaded next
+    time (2609.06629).
 
     Args:
         category: arXiv category, e.g. ``"cs.CV"``.
@@ -303,13 +306,27 @@ def reextract_category(
         )
         for paper in stored
     ]
+    reading = html or HtmlReading()
     read = _add_html_front_matter(
         unread,
         site_client,
-        reading=html or HtmlReading(),
-        checkpoint=lambda current: store.save(category, _kept(current, stored)),
+        reading=reading,
+        checkpoint=lambda current: store.save(category, _kept(current, stored, reading.cache)),
     )
-    papers = _kept(read.papers, stored)
+    emptied = [
+        old.html_url
+        for new, old in zip(read.papers, stored, strict=True)
+        if old.html_url and _emptied(new, old, reading.cache)
+    ]
+    papers = _kept(read.papers, stored, reading.cache)
+    if emptied and reading.cache is not None:
+        logger.warning(
+            "%d cached pages gave no affiliation to papers that have some: kept as they were, "
+            "their pages read again next time",
+            len(emptied),
+        )
+        for url in emptied:
+            reading.cache.discard(url)
     if ror_client is not None:
         papers = add_institutions(papers, ror_client, limit=max_ror_lookups)
     store.save(category, papers)
@@ -326,14 +343,14 @@ def reextract_category(
     )
 
 
-def _kept(read: Sequence[Paper], stored: Sequence[Paper]) -> list[Paper]:
-    """Re-extracted papers, or their stored version where nothing was read.
+def _kept(read: Sequence[Paper], stored: Sequence[Paper], cache: PageCache | None = None) -> list[Paper]:
+    """Re-extracted papers, or their stored version where nothing was read, or :func:`_emptied`.
 
     Affiliations that come back the same keep their institutions: no lookup is needed.
     """
     kept: list[Paper] = []
     for new, old in zip(read, stored, strict=True):
-        if new.affiliations is None:
+        if new.affiliations is None or _emptied(new, old, cache):
             kept.append(old)
         elif new.affiliations == old.affiliations:
             kept.append(
@@ -347,6 +364,17 @@ def _kept(read: Sequence[Paper], stored: Sequence[Paper]) -> list[Paper]:
         else:
             kept.append(new)
     return kept
+
+
+def _emptied(new: Paper, old: Paper, cache: PageCache | None) -> bool:
+    """Whether a stale cached page (:meth:`PageCache.stale`) gave no affiliation to a paper that has some."""
+    return (
+        new.affiliations == ()
+        and bool(old.affiliations)
+        and cache is not None
+        and old.html_url is not None
+        and cache.stale(old.html_url)
+    )
 
 
 def _carry_over(listed: Paper, stored: Paper | None) -> Paper:

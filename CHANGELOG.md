@@ -14,6 +14,9 @@ between. Item IDs (`DATA-2`, `CIT-11`…) refer to the audit of 2026-09-30
   authors are all in one block: the markers place them again. Two authors written as a
   pair ("A & B") share their block, and "Faculty of Medicine" / "and Health Sciences" is
   one affiliation (AFF-25).
+- The page cache keeps the tables of author blocks, where some papers lay out their
+  affiliations: read again from the cache, 2609.06629 had lost its five. A page kept before
+  never empties a paper's affiliations; it is downloaded again (DATA-1).
 
 ## 0.5.0 (2026-10-06): longer periods and richer metadata
 

@@ -261,6 +261,16 @@ class PageCache:
         tmp.write_bytes(gzip.compress(front_matter_html(html).encode("utf-8"), mtime=0))
         tmp.replace(path)
 
+    def stale(self, html_url: str) -> bool:
+        """Whether the page at ``html_url`` was kept before the front matter kept its tables.
+
+        Such a page lost the tables of its author block, which some classes lay names and
+        affiliations out in (2609.06629): reading it may give fewer affiliations than the
+        page has.
+        """
+        html = self.get(html_url)
+        return html is not None and _FRONT_MATTER_MARK not in html
+
     def discard(self, html_url: str) -> None:
         """Forget the page at ``html_url``, so that it is downloaded again next time."""
         path = self._path(html_url)
@@ -276,16 +286,21 @@ class PageCache:
 _CACHE_KEY_RE = re.compile(r"(?P<month>\d{4})\.\d{4,5}v\d+$")
 # What follows the front matter in a LaTeXML document: the body, references and appendices.
 _BODY_CLASSES = frozenset({"ltx_section", "ltx_bibliography", "ltx_appendix"})
-# Figures and tables say nothing of affiliations, and are most of a front matter's size.
+# Figures and tables say nothing of affiliations, and are most of a front matter's size;
+# but for the tables of the author block.
 _FIGURE_TAGS = ("figure", "img", "svg", "table")
 _FIGURE_CLASSES = frozenset({"ltx_figure", "ltx_table"})
+# What a front matter that kept the tables of its author block says of itself.
+_FRONT_MATTER_MARK = 'data-front-matter="2"'
 
 
 def front_matter_html(html: str) -> str:
     """The part of an HTML rendering that :func:`parse_front_matter` reads, as a page.
 
     The children of the document before its first section (title, author block and its
-    notes, footnotes, abstract), without figures or tables: what the cache keeps.
+    notes, footnotes, abstract), without figures or tables: what the cache keeps. The
+    tables of the author block stay: some classes lay names and affiliations out in one
+    (2609.06629, whose five affiliations a cached page had lost).
     """
     soup = BeautifulSoup(html, "html.parser")
     article = soup.select_one("article.ltx_document")
@@ -300,9 +315,11 @@ def front_matter_html(html: str) -> str:
             if child.name in _FIGURE_TAGS or _FIGURE_CLASSES & classes:
                 continue
             for noise in child.select(", ".join([*_FIGURE_TAGS, *(f".{name}" for name in _FIGURE_CLASSES)])):
-                noise.decompose()
+                if noise.name != "table" or noise.find_parent(class_="ltx_authors") is None:
+                    noise.decompose()
         kept.append(str(child))
-    return f'<html><body><article class="ltx_document">{"".join(kept)}</article></body></html>'
+    article_tag = f'<article class="ltx_document" {_FRONT_MATTER_MARK}>'
+    return f"<html><body>{article_tag}{''.join(kept)}</article></body></html>"
 
 
 def fetch_front_matter(
