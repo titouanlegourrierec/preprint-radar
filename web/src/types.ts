@@ -52,8 +52,23 @@ export interface Paper {
    * institutions named before ids were kept.
    */
   institution_ids?: (string | null)[] | null;
+  /**
+   * Where the affiliations and the institutions came from, and when (`models.Provenance`).
+   * The app does not read it, and reading lists do not keep it.
+   */
+  provenance?: {
+    affiliations?: Provenance;
+    institutions?: Provenance;
+  };
   abs_url: string;
   pdf_url: string;
+}
+
+/** Where a field came from: affiliations "html", "api" or "openalex"; institutions "ror" or "openalex". */
+export interface Provenance {
+  source: string;
+  /** The day it was read; absent for what was read before provenance was kept. */
+  at?: string;
 }
 
 /** `<category>/scholar.json`: what Semantic Scholar knows of the stored papers. */

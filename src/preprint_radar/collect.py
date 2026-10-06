@@ -9,13 +9,13 @@ import logging
 import time
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from dataclasses import dataclass, replace
-from datetime import date
+from datetime import UTC, date, datetime
 from enum import StrEnum
 
 from preprint_radar.config import DEFAULT_MAX_ROR_LOOKUPS, DEFAULT_SAVE_EVERY
 from preprint_radar.exceptions import FetchError, ParseError
 from preprint_radar.http import HttpClient
-from preprint_radar.models import Institution, Paper, ScholarRecord
+from preprint_radar.models import Institution, Paper, Provenance, ScholarRecord
 from preprint_radar.sources.arxiv_api import fetch_metadata
 from preprint_radar.sources.arxiv_html import (
     EXTRACTOR_VERSION,
@@ -31,6 +31,12 @@ from preprint_radar.sources.semantic_scholar import S2_SOURCE, fetch_citation_co
 from preprint_radar.store.paper_store import PaperStore
 
 logger = logging.getLogger(__name__)
+
+
+def today() -> date:
+    """The day of a reading, in UTC, for the provenance of what it gives."""
+    return datetime.now(tz=UTC).date()
+
 
 # Reading HTML pages stops after this many failures in a row: arxiv.org is down for now, and
 # each failing page costs minutes of retries.
@@ -292,6 +298,8 @@ def reextract_category(
             institutions=None,
             institution_ids=None,
             extractor=None,
+            affiliations_provenance=None,
+            institutions_provenance=None,
         )
         for paper in stored
     ]
@@ -328,7 +336,14 @@ def _kept(read: Sequence[Paper], stored: Sequence[Paper]) -> list[Paper]:
         if new.affiliations is None:
             kept.append(old)
         elif new.affiliations == old.affiliations:
-            kept.append(replace(new, institutions=old.institutions, institution_ids=old.institution_ids))
+            kept.append(
+                replace(
+                    new,
+                    institutions=old.institutions,
+                    institution_ids=old.institution_ids,
+                    institutions_provenance=old.institutions_provenance,
+                )
+            )
         else:
             kept.append(new)
     return kept
@@ -355,6 +370,8 @@ def _carry_over(listed: Paper, stored: Paper | None) -> Paper:
             institutions=stored.institutions,
             institution_ids=stored.institution_ids,
             extractor=stored.extractor,
+            affiliations_provenance=stored.affiliations_provenance,
+            institutions_provenance=stored.institutions_provenance,
         )
     if listed.html_url is None:
         return replace(
@@ -364,6 +381,8 @@ def _carry_over(listed: Paper, stored: Paper | None) -> Paper:
             institutions=stored.institutions,
             institution_ids=stored.institution_ids,
             extractor=stored.extractor,
+            affiliations_provenance=stored.affiliations_provenance,
+            institutions_provenance=stored.institutions_provenance,
         )
     if stored.affiliations is not None:
         logger.info("%s changed its author list: reading its HTML again", listed.arxiv_id)
@@ -431,6 +450,8 @@ def _add_abstracts(
                 institutions=None,
                 institution_ids=None,
                 extractor=None,
+                affiliations_provenance=Provenance("api", today()),
+                institutions_provenance=None,
             )
             if declared
             else replace(paper, abstract=meta.abstract)
@@ -490,6 +511,8 @@ def _with_front_matter(paper: Paper, front: FrontMatter) -> Paper:
         institution_ids=None,
         abstract=paper.abstract if paper.abstract is not None else front.abstract,
         extractor=EXTRACTOR_VERSION,
+        affiliations_provenance=Provenance("html", today()),
+        institutions_provenance=None,
     )
 
 
@@ -647,12 +670,16 @@ def _with_institutions(paper: Paper, matches: Sequence[Institution | None]) -> P
             paper,
             institutions=tuple(match.name if match else None for match in matches),
             institution_ids=tuple(match.ror_id if match else None for match in matches),
+            institutions_provenance=Provenance("ror", today()),
         )
     ids = tuple(
         match.ror_id if match is not None and match.name == name else None
         for name, match in zip(paper.institutions, matches, strict=True)
     )
-    return replace(paper, institution_ids=ids)
+    # The names stay, and so does the day they were looked up, when it is known.
+    return replace(
+        paper, institution_ids=ids, institutions_provenance=paper.institutions_provenance or Provenance("ror")
+    )
 
 
 @dataclass(frozen=True, slots=True)

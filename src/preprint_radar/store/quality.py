@@ -222,6 +222,7 @@ def extracted_again(papers: Iterable[Paper], cache: PageCache) -> list[tuple[Pap
             institutions=None,
             institution_ids=None,
             extractor=EXTRACTOR_VERSION,
+            institutions_provenance=None,
         )
         pairs.append((paper, extracted))
     return pairs

@@ -188,6 +188,12 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   gave the affiliations; absent when they came from the API or OpenAlex, or were read
   before versions were kept. `reextract` selects on it, so a paper read from the API is
   never overwritten by its HTML.
+- `provenance` (optional, written only when known): where `affiliations` came from
+  (`html`, `api`, `openalex`) and who named `institutions` (`ror`, `openalex`), each with
+  the day (`at`) it was read (`models.Provenance`, META-3). `Paper` refuses a provenance
+  without its field, so it is reset with it, like the ids. Records stored before it got
+  one inferred once, without a day (`store/provenance.py`); affiliations read before
+  versions were kept, without a mapping, have none: the API or an unmapped page.
 - Archived papers have the same record: `announced` is their first appearance,
   `html_url` is `null`, and affiliations, `institutions` and `institution_ids` come from
   OpenAlex.

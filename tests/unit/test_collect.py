@@ -22,11 +22,12 @@ from preprint_radar.collect import (
     format_citations_report,
     format_report,
     reextract_category,
+    today,
     update_category,
     update_citation_counts,
 )
 from preprint_radar.http import HttpClient
-from preprint_radar.models import Listing, Paper
+from preprint_radar.models import Listing, Paper, Provenance
 from preprint_radar.sources.arxiv_html import EXTRACTOR_VERSION, PageCache, parse_front_matter
 from preprint_radar.sources.arxiv_listing import parse_catchup
 from preprint_radar.store.paper_store import PaperStore
@@ -186,6 +187,10 @@ def test_update_enriches_and_stores_papers(fake: FakeArxiv, store: PaperStore) -
     assert stored["2609.30249"].extractor == stored["2609.28836"].extractor == EXTRACTOR_VERSION
     assert stored["2609.28466"].extractor is None
     assert stored["2609.30234"].extractor is None
+    # Where the affiliations came from, and when; nothing for those not read yet.
+    assert stored["2609.30249"].affiliations_provenance == Provenance("html", today())
+    assert stored["2609.28466"].affiliations_provenance == Provenance("api", today())
+    assert stored["2609.30234"].affiliations_provenance is None
 
 
 def test_a_later_listing_keeps_the_extractor_version(fake: FakeArxiv, store: PaperStore) -> None:
@@ -324,6 +329,7 @@ def test_declared_affiliations_reset_the_author_mapping(
     assert stored["2609.28466"].affiliations == ("Declared Institute",)
     assert stored["2609.28466"].author_affiliations is None
     assert stored["2609.28466"].institutions is None
+    assert stored["2609.28466"].affiliations_provenance == Provenance("api", today())
 
 
 def test_max_html_fetches_limits_downloads(fake: FakeArxiv, store: PaperStore) -> None:
@@ -465,6 +471,9 @@ def test_add_institutions_keeps_ror_ids(fake: FakeArxiv) -> None:
     assert peking_id
     assert [paper.institution_ids for paper in named] == [(peking_id, None), (peking_id, None), None]
     assert named[1].institutions == ("Peking University", "An older name")
+    # Named today, or on a day not kept.
+    assert named[0].institutions_provenance == Provenance("ror", today())
+    assert named[1].institutions_provenance == Provenance("ror")
     assert "Lab" in fake.ror_requests
     fake.ror_requests.clear()
     with fake.client() as ror:
@@ -796,7 +805,13 @@ def test_reextract_reads_the_selected_papers_again_and_keeps_what_fails(
     # Kept as it was, but for the ROR id of its institution, named before ids were kept: ROR
     # does not name "Kept" again, so it has none, and the name stays.
     assert stored["2609.30234"] == _stored(
-        "2609.30234", "1", affiliations=("Kept",), institutions=("Kept",), institution_ids=(None,)
+        "2609.30234",
+        "1",
+        affiliations=("Kept",),
+        institutions=("Kept",),
+        institution_ids=(None,),
+        # Named by ROR on a day not kept.
+        institutions_provenance=Provenance("ror"),
     )
     assert stored["2609.11111"] == _stored("2609.11111", "1", extractor=EXTRACTOR_VERSION)
     assert stored["2609.22222"].extractor is None

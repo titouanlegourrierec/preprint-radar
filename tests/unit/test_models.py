@@ -1,9 +1,10 @@
 from dataclasses import replace
+from datetime import date
 
 import pytest
 
 from preprint_radar.exceptions import StoreError
-from preprint_radar.models import Listing, Paper
+from preprint_radar.models import Listing, Paper, Provenance
 
 
 def test_record_round_trip(listing: Listing) -> None:
@@ -21,8 +22,11 @@ def test_record_round_trip_keeps_enrichment(listing: Listing) -> None:
         institutions=("Massachusetts Institute of Technology", None),
         institution_ids=("042nb2s44", None),
         extractor=1,
+        affiliations_provenance=Provenance("html", date(2026, 10, 6)),
+        institutions_provenance=Provenance("ror"),
     )
-    restored = Paper.from_record(paper.to_record())
+    record = paper.to_record()
+    restored = Paper.from_record(record)
 
     assert restored.abstract == "An abstract."
     assert restored.affiliations == ("MIT", "NVIDIA")
@@ -30,12 +34,46 @@ def test_record_round_trip_keeps_enrichment(listing: Listing) -> None:
     assert restored.institutions == ("Massachusetts Institute of Technology", None)
     assert restored.institution_ids == ("042nb2s44", None)
     assert restored.extractor == 1
+    assert record["provenance"] == {
+        "affiliations": {"source": "html", "at": "2026-10-06"},
+        "institutions": {"source": "ror"},
+    }
+    assert restored.affiliations_provenance == Provenance("html", date(2026, 10, 6))
+    assert restored.institutions_provenance == Provenance("ror")
     assert restored.is_enriched
 
 
 def test_an_unknown_extractor_and_unknown_ids_are_not_written(listing: Listing) -> None:
     assert "extractor" not in listing.papers[0].to_record()
     assert "institution_ids" not in listing.papers[0].to_record()
+    assert "provenance" not in listing.papers[0].to_record()
+
+
+@pytest.mark.parametrize(
+    ("changes", "message"),
+    [
+        ({"affiliations_provenance": Provenance("html")}, "'affiliations' has a provenance but no value"),
+        (
+            {"affiliations": ("MIT",), "institutions_provenance": Provenance("ror")},
+            "'institutions' has a provenance but no value",
+        ),
+        ({"affiliations": ("MIT",), "affiliations_provenance": Provenance("ror")}, "unknown source"),
+        (
+            {
+                "affiliations": ("MIT",),
+                "institutions": (None,),
+                "institutions_provenance": Provenance("html"),
+            },
+            "unknown source",
+        ),
+    ],
+    ids=["affiliations-reset", "institutions-reset", "affiliations-by-ror", "institutions-from-html"],
+)
+def test_a_provenance_needs_its_field_and_a_source_of_its_kind(
+    listing: Listing, changes: dict[str, object], message: str
+) -> None:
+    with pytest.raises(ValueError, match=message):
+        replace(listing.papers[0], **changes)
 
 
 @pytest.mark.parametrize(
@@ -75,6 +113,10 @@ def test_urls(listing: Listing) -> None:
         ("institutions", ["MIT", None]),
         ("extractor", "1"),
         ("extractor", True),
+        ("provenance", "html"),
+        ("provenance", {"abstract": {"source": "rss"}}),
+        ("provenance", {"affiliations": "html"}),
+        ("provenance", {"affiliations": {"at": "2026-10-06"}}),
     ],
 )
 def test_from_record_rejects_invalid_fields(listing: Listing, field: str, value: object) -> None:

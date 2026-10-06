@@ -35,7 +35,7 @@ from preprint_radar.archive.catalog import Catalog
 from preprint_radar.archive.selection import Candidate, Selection, select_archive
 from preprint_radar.config import ARCHIVE_SINCE, CITATIONS_CACHE_DAYS, MIN_COVERAGE, RECENT_DAYS
 from preprint_radar.http import HttpClient
-from preprint_radar.models import Paper
+from preprint_radar.models import Paper, Provenance
 from preprint_radar.sources.arxiv_oai import CatalogEntry
 from preprint_radar.sources.openalex import fetch_affiliations
 from preprint_radar.sources.semantic_scholar import S2_SOURCE, fetch_citation_counts
@@ -212,7 +212,7 @@ def update_archive(
         store.save(category, changed_in_days)
     kept = [paper for arxiv_id, paper in archived.items() if arxiv_id in selection.keep]
     # Entering papers, and archived ones OpenAlex did not return last time.
-    store.write_archive(category, _with_affiliations([*kept, *new_papers], clients.openalex))
+    store.write_archive(category, _with_affiliations([*kept, *new_papers], clients.openalex, today))
     store.remove_days(category, stale_days)
     on_disk = {
         paper.arxiv_id for day, papers in stored_days.items() if day not in stale_days for paper in papers
@@ -342,7 +342,7 @@ def _read_citations_cache(cache: Path, today: date) -> tuple[date, dict[str, int
     return started, counts
 
 
-def _with_affiliations(papers: list[Paper], client: HttpClient) -> list[Paper]:
+def _with_affiliations(papers: list[Paper], client: HttpClient, today: date) -> list[Paper]:
     """Fill the affiliations of papers that have none yet, from OpenAlex.
 
     Papers whose affiliations came from OpenAlex before ROR ids were kept (their
@@ -354,6 +354,8 @@ def _with_affiliations(papers: list[Paper], client: HttpClient) -> list[Paper]:
     if not pending:
         return papers
     found = fetch_affiliations(client, pending)
+    # Said only of what OpenAlex gave: a paper it does not know yet stays unread.
+    read = Provenance("openalex", today)
     return [
         replace(
             paper,
@@ -362,6 +364,8 @@ def _with_affiliations(papers: list[Paper], client: HttpClient) -> list[Paper]:
             # OpenAlex's institutions are registry entries: they are their own institutions.
             institutions=found[paper.arxiv_id].affiliations,
             institution_ids=found[paper.arxiv_id].institution_ids or None,
+            affiliations_provenance=None if found[paper.arxiv_id].affiliations is None else read,
+            institutions_provenance=None if found[paper.arxiv_id].affiliations is None else read,
         )
         if paper.arxiv_id in found and (paper.affiliations is None or found[paper.arxiv_id].affiliations)
         else paper

@@ -18,7 +18,7 @@ from preprint_radar.archive.update import (
     update_archive,
 )
 from preprint_radar.http import HttpClient
-from preprint_radar.models import Paper
+from preprint_radar.models import Paper, Provenance
 from preprint_radar.sources.arxiv_oai import CatalogEntry
 from preprint_radar.store.paper_store import PaperStore
 
@@ -240,7 +240,15 @@ def test_archived_papers_without_affiliations_are_looked_up_again(
 ) -> None:
     _update(store, catalog, FakeServices(CITATIONS))
     papers = [
-        replace(paper, affiliations=None, author_affiliations=None, institutions=None, institution_ids=None)
+        replace(
+            paper,
+            affiliations=None,
+            author_affiliations=None,
+            institutions=None,
+            institution_ids=None,
+            affiliations_provenance=None,
+            institutions_provenance=None,
+        )
         if paper.arxiv_id == "1512.03385"
         else paper
         for paper in store.iter_archive("cs.CV")
@@ -251,6 +259,7 @@ def test_archived_papers_without_affiliations_are_looked_up_again(
 
     resnet = next(paper for paper in store.iter_archive("cs.CV") if paper.arxiv_id == "1512.03385")
     assert resnet.affiliations == ("Microsoft",)
+    assert resnet.affiliations_provenance == resnet.institutions_provenance == Provenance("openalex", TODAY)
 
 
 def test_archived_papers_get_the_ror_ids_of_their_institutions(store: PaperStore, catalog: Catalog) -> None:

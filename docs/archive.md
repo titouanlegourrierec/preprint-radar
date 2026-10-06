@@ -16,7 +16,8 @@ before changing `archive/`, `sources/semantic_scholar.py`, `sources/openalex.py`
   year. An archived paper leaves only beyond 1.15 times the budget.
 - `sources/openalex.py` gives the affiliations of papers that enter from the catalog:
   OpenAlex's institutions, which are registry entries, so they are also the papers'
-  `institutions`, with their ROR ids.
+  `institutions`, with their ROR ids, and both have the provenance `openalex` and the day
+  of the lookup (the day a paper OpenAlex knew nothing of can be asked again, AFF-3).
 - Day-file papers compete too, once first seen 12 months ago (the earlier of their day
   file and the catalog's date, which can be weeks later: 2609.00036 was announced on
   2026-09-02, the catalog says 2026-09-14). They enter with their own enrichment, filed

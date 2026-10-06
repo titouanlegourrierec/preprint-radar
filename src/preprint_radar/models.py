@@ -9,8 +9,47 @@ from preprint_radar.exceptions import StoreError
 
 ARXIV_BASE_URL = "https://arxiv.org"
 
-type PaperRecord = dict[str, str | int | list[str] | list[str | None] | list[list[int] | None] | None]
+type PaperRecord = dict[
+    str,
+    str | int | list[str] | list[str | None] | list[list[int] | None] | dict[str, dict[str, str]] | None,
+]
 """JSON-serializable representation of a :class:`Paper`."""
+
+AFFILIATION_SOURCES = frozenset({"html", "api", "openalex"})
+"""Where affiliations come from: the paper's HTML page, the submitter's declaration in the
+arXiv API, or OpenAlex (archived papers)."""
+INSTITUTION_SOURCES = frozenset({"ror", "openalex"})
+"""Who named the institutions: the Research Organization Registry, or OpenAlex."""
+
+
+@dataclass(frozen=True, slots=True)
+class Provenance:
+    """Where a field of a paper came from, and when (META-3).
+
+    Attributes:
+        source: The source, one of ``AFFILIATION_SOURCES`` or ``INSTITUTION_SOURCES``.
+        at: The day it was read; ``None`` for what was read before provenance was kept.
+    """
+
+    source: str
+    at: date | None = None
+
+    def to_record(self) -> dict[str, str]:
+        """The record, without an unknown day."""
+        return {"source": self.source, **({} if self.at is None else {"at": self.at.isoformat()})}
+
+    @classmethod
+    def from_record(cls, record: object) -> Self:
+        """Rebuild a record written by :meth:`to_record`.
+
+        Raises:
+            TypeError: If it is not a mapping with a string source and an optional day.
+        """
+        if not isinstance(record, Mapping):
+            msg = "provenance entries must be objects"
+            raise TypeError(msg)
+        at = _optional_str(record, "at")
+        return cls(source=_str(record, "source"), at=None if at is None else date.fromisoformat(at))
 
 
 @dataclass(frozen=True, slots=True)
@@ -104,6 +143,10 @@ class Paper:
         extractor: Version of the HTML extraction that gave the affiliations
             (``sources.arxiv_html.EXTRACTOR_VERSION``); ``None`` when they came from
             elsewhere (the API, OpenAlex) or were read before versions were kept.
+        affiliations_provenance: Where the affiliations came from, and when; ``None`` when
+            not known (read before provenance was kept), and always without affiliations.
+        institutions_provenance: Who named the institutions, and when; ``None`` when not
+            known, and always without institutions.
     """
 
     arxiv_id: str
@@ -123,6 +166,8 @@ class Paper:
     institutions: tuple[str | None, ...] | None = None
     institution_ids: tuple[str | None, ...] | None = None
     extractor: int | None = None
+    affiliations_provenance: Provenance | None = None
+    institutions_provenance: Provenance | None = None
 
     def __post_init__(self) -> None:
         """Check that the lists indexing ``affiliations`` line up with it and with ``authors``.
@@ -130,8 +175,10 @@ class Paper:
         Raises:
             ValueError: If ``institutions`` (or ``institution_ids``, which needs it) does not
                 have one entry per affiliation, or ``author_affiliations`` one entry per
-                author, with indices into ``affiliations``.
+                author, with indices into ``affiliations``; or if a provenance names an
+                unknown source, or is kept for a field that was reset.
         """
+        self._check_provenance()
         count = None if self.affiliations is None else len(self.affiliations)
         if self.institutions is not None and len(self.institutions) != count:
             msg = "'institutions' must have one entry per affiliation"
@@ -150,6 +197,20 @@ class Paper:
         if indices and (count is None or not all(0 <= index < count for index in indices)):
             msg = "'author_affiliations' must only hold indices into 'affiliations'"
             raise ValueError(msg)
+
+    def _check_provenance(self) -> None:
+        for name, provenance, value, sources in (
+            ("affiliations", self.affiliations_provenance, self.affiliations, AFFILIATION_SOURCES),
+            ("institutions", self.institutions_provenance, self.institutions, INSTITUTION_SOURCES),
+        ):
+            if provenance is None:
+                continue
+            if value is None:
+                msg = f"'{name}' has a provenance but no value: reset both"
+                raise ValueError(msg)
+            if provenance.source not in sources:
+                msg = f"unknown source of {name!r}: {provenance.source!r}"
+                raise ValueError(msg)
 
     @property
     def abs_url(self) -> str:
@@ -194,8 +255,20 @@ class Paper:
             # Written only when known, so that records read before them stay as they were.
             **({} if self.institution_ids is None else {"institution_ids": list(self.institution_ids)}),
             **({} if self.extractor is None else {"extractor": self.extractor}),
+            **({} if not (provenance := self._provenance_record()) else {"provenance": provenance}),
             "abs_url": self.abs_url,
             "pdf_url": self.pdf_url,
+        }
+
+    def _provenance_record(self) -> dict[str, dict[str, str]]:
+        """The known provenances, by field; written only when there is one."""
+        return {
+            name: provenance.to_record()
+            for name, provenance in (
+                ("affiliations", self.affiliations_provenance),
+                ("institutions", self.institutions_provenance),
+            )
+            if provenance is not None
         }
 
     @classmethod
@@ -213,6 +286,7 @@ class Paper:
         """
         try:
             affiliations = _optional_str_list(record, "affiliations")
+            provenance = _provenance(record)
             return cls(
                 arxiv_id=_str(record, "arxiv_id"),
                 announced=date.fromisoformat(_str(record, "announced")),
@@ -231,6 +305,8 @@ class Paper:
                 institutions=_optional_nullable_str_list(record, "institutions"),
                 institution_ids=_optional_nullable_str_list(record, "institution_ids"),
                 extractor=_optional_int(record, "extractor"),
+                affiliations_provenance=provenance.get("affiliations"),
+                institutions_provenance=provenance.get("institutions"),
             )
         except (KeyError, TypeError, ValueError) as exc:
             msg = f"Invalid paper record {record.get('arxiv_id')!r}: {exc}"
@@ -324,3 +400,18 @@ def _optional_index_lists(
             msg = f"{key!r} entries must be lists of integers or null"
             raise TypeError(msg)
     return tuple(entries)
+
+
+def _provenance(record: Mapping[str, object]) -> dict[str, Provenance]:
+    """Parse the optional provenance of a paper record: known fields only."""
+    value = record.get("provenance")
+    if value is None:
+        return {}
+    if not isinstance(value, Mapping):
+        msg = "'provenance' must be an object"
+        raise TypeError(msg)
+    unknown = set(value) - {"affiliations", "institutions"}
+    if unknown:
+        msg = f"'provenance' of unknown fields: {', '.join(sorted(map(str, unknown)))}"
+        raise ValueError(msg)
+    return {str(name): Provenance.from_record(entry) for name, entry in value.items()}
