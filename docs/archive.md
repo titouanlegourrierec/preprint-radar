@@ -27,9 +27,12 @@ before changing `archive/`, `sources/semantic_scholar.py`, `sources/openalex.py`
   `refreshed`): a record otherwise keeps what the listing said when it was announced
   ("Under review" long after its acceptance). The catalog never empties a field. This
   needs a catalog just harvested, so it only runs within the weekly update, even when
-  the citation counts fall short. Withdrawals are not marked: the comments that say so
-  also say "withdrawn from the ECCV workshop" or "from the proceedings", which a rule
-  would have to tell apart (decision 18).
+  the citation counts fall short.
+- A withdrawn paper (`withdrawn`, from the comments of its latest version) is never a
+  candidate, and an archived one leaves (decision 18). `withdrawal.is_withdrawn` reads 467
+  of the catalog's 473 comments that mention a withdrawal as one; the 6 others are
+  withdrawals from a workshop or the proceedings, of an earlier version or of another
+  submission.
 - Deleting day files older than 12 months (`--prune`) is off unless asked (decision 2),
   and decides nothing else: without it, an archived paper can also be in a day file.
 - With less than 95% of citation counts, the archive and day files stay as they are (their

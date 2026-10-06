@@ -34,7 +34,8 @@ export function About() {
         <li>
           Highly cited papers: chosen every week by citations per year of age, from the counts of{" "}
           <a href="https://www.semanticscholar.org">Semantic Scholar</a>. Their affiliations come
-          from <a href="https://openalex.org">OpenAlex</a>.
+          from <a href="https://openalex.org">OpenAlex</a>. A paper its authors withdrew from arXiv
+          is never among them, and is marked Withdrawn elsewhere.
         </li>
       </ul>
 

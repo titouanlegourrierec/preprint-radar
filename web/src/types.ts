@@ -33,6 +33,8 @@ export interface Paper {
    * came from elsewhere or were read before versions were kept.
    */
   extractor?: number;
+  /** Its authors (or arXiv) withdrew it, as its comments say; absent otherwise. */
+  withdrawn?: boolean;
   /** `null` when not retrieved yet, `[]` when none could be found. */
   affiliations: string[] | null;
   /**

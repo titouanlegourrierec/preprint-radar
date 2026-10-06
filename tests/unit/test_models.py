@@ -47,6 +47,14 @@ def test_an_unknown_extractor_and_unknown_ids_are_not_written(listing: Listing) 
     assert "extractor" not in listing.papers[0].to_record()
     assert "institution_ids" not in listing.papers[0].to_record()
     assert "provenance" not in listing.papers[0].to_record()
+    assert "withdrawn" not in listing.papers[0].to_record()
+
+
+def test_a_withdrawn_paper_says_so(listing: Listing) -> None:
+    paper = replace(listing.papers[0], withdrawn=True)
+
+    assert paper.to_record()["withdrawn"] is True
+    assert Paper.from_record(paper.to_record()).withdrawn
 
 
 @pytest.mark.parametrize(
@@ -113,6 +121,7 @@ def test_urls(listing: Listing) -> None:
         ("institutions", ["MIT", None]),
         ("extractor", "1"),
         ("extractor", True),
+        ("withdrawn", "yes"),
         ("provenance", "html"),
         ("provenance", {"abstract": {"source": "rss"}}),
         ("provenance", {"affiliations": "html"}),

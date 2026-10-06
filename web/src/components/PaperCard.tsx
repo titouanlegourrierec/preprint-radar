@@ -213,6 +213,14 @@ export function PaperCard({
         )}
 
         <footer class="paper__meta">
+          {paper.withdrawn && (
+            <span
+              class="badge badge--withdrawn"
+              title="Its authors withdrew it from arXiv; its comments say why"
+            >
+              Withdrawn
+            </span>
+          )}
           {paper.venue && (
             <span
               class={`badge${paper.venue.endsWith("Workshop") ? " badge--muted" : ""}`}

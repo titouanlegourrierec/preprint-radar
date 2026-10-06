@@ -41,6 +41,8 @@ Phase 3 of the roadmap, in progress.
   archived papers had affiliations (AFF-3).
 - Each paper says where its affiliations came from (its HTML page, the arXiv API or
   OpenAlex) and who named its institutions, and when (META-3).
+- Papers their authors withdrew from arXiv are marked Withdrawn, and left out of Highly
+  cited, however cited (decision 18).
 - Every week, stored papers take the comments and journal reference of their latest
   version, and the venue they give: a paper "under review" when announced shows where it
   was accepted (META-2).

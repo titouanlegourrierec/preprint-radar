@@ -16,7 +16,7 @@ week, :func:`update_archive`:
 
 Every stored paper also takes the comments and journal reference of its latest version
 from the catalog, and the venue they give (META-2): records otherwise freeze once they
-leave the listing.
+leave the listing. Withdrawn papers never enter the archive, and leave it (decision 18).
 
 When Semantic Scholar misses too many counts (below ``MIN_COVERAGE``), the archive and the
 day files stay as they are, but for the comments of their papers, and the counts fetched are
@@ -48,6 +48,7 @@ from preprint_radar.sources.openalex import fetch_affiliations
 from preprint_radar.sources.semantic_scholar import S2_SOURCE, fetch_citation_counts
 from preprint_radar.store.paper_store import PaperStore
 from preprint_radar.venue import extract_venue
+from preprint_radar.withdrawal import is_withdrawn
 
 logger = logging.getLogger(__name__)
 
@@ -177,8 +178,21 @@ def update_archive(
             if counts.get(arxiv_id) is None and arxiv_id in previous
         }
         counts = {**counts, **carried}
+        # Withdrawn papers are not Highly cited, however cited (decision 18); archived ones leave.
+        withdrawn = {
+            arxiv_id
+            for arxiv_id, entry in entries.items()
+            if is_withdrawn(entry.comments)
+            or ((paper := in_days.get(arxiv_id) or archived.get(arxiv_id)) is not None and paper.withdrawn)
+        }
+        if withdrawn:
+            logger.info("%s: %d withdrawn papers are left out", category, len(withdrawn))
         selection = select_archive(
-            (Candidate(arxiv_id, first_seen[arxiv_id], counts.get(arxiv_id)) for arxiv_id in entries),
+            (
+                Candidate(arxiv_id, first_seen[arxiv_id], counts.get(arxiv_id))
+                for arxiv_id in entries
+                if arxiv_id not in withdrawn
+            ),
             set(archived),
             budget=budget,
             today=today,
@@ -258,7 +272,11 @@ def refreshed(paper: Paper, entry: CatalogEntry | None) -> Paper:
     if (comments, journal_ref) == (paper.comments, paper.journal_ref):
         return paper
     return replace(
-        paper, comments=comments, journal_ref=journal_ref, venue=extract_venue(comments, journal_ref)
+        paper,
+        comments=comments,
+        journal_ref=journal_ref,
+        venue=extract_venue(comments, journal_ref),
+        withdrawn=is_withdrawn(comments),
     )
 
 
@@ -291,6 +309,7 @@ def paper_from_catalog(entry: CatalogEntry, category: str, subjects: Mapping[str
         comments=entry.comments,
         journal_ref=entry.journal_ref,
         venue=extract_venue(entry.comments, entry.journal_ref),
+        withdrawn=is_withdrawn(entry.comments),
         cross_list_from=None if primary == category else primary,
         abstract=entry.abstract,
     )

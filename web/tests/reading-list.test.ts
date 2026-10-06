@@ -18,6 +18,9 @@ describe("toPaper", () => {
     expect(toPaper(JSON.parse(JSON.stringify(ada)))).toEqual(ada);
     const published = { ...ada, doi: "10.1109/CVPR.2026.1" };
     expect(toPaper(JSON.parse(JSON.stringify(published)))).toEqual(published);
+    const withdrawn = { ...ada, withdrawn: true };
+    expect(toPaper(JSON.parse(JSON.stringify(withdrawn)))).toEqual(withdrawn);
+    expect(toPaper({ ...ada, withdrawn: "yes" })).not.toHaveProperty("withdrawn");
   });
 
   it("keeps ROR ids that follow the institutions, and drops the others", () => {

@@ -46,7 +46,7 @@ for the answer.
 | 15 | Consortium papers in the author projection | Skip the clique above 50 authors; keep AFF-4's current rule | PERF-3 | Skip the clique above 50 authors (2026-10-06) |
 | 16 | Failure signalling | Red runs for data-affecting failures, an issue for scheduled runs | CI-2 | Red runs for data-affecting failures (2026-10-01); no issue for now |
 | 17 | Math in abstracts | Strip text macros now, lazy KaTeX only if asked | SRCH-19 | pending |
-| 18 | Withdrawn papers | Exclude from Highly cited, badge in the day views | META-2 | pending |
+| 18 | Withdrawn papers | Exclude from Highly cited, badge in the day views | META-2 | Exclude from Highly cited, badge in the day views (2026-10-06) |
 | 19 | Abstracts by default | On for "Latest day" | Phase 2 | Always collapsed, as now (2026-10-03) |
 | 20 | Shipping the audit | Commit it as a frozen baseline | — | Done: `docs/audit/2026-09-30.md` |
 | 21 | Versioning | Stay on 0.x; tag a minor release at the end of each phase, with a changelog; 1.0.0 once the public data format is documented and stable | — | Adopted: `v0.1.0` tags the audit commit as the baseline |
@@ -172,7 +172,7 @@ page has no live coverage figures (PROD-7); of TEST-9, only the check of the dar
 | PERF-2 | Graph defaults with the author layer (authors of one paper hidden when the layer turns on, the layout in a Web Worker, settled at once under reduced motion, the time-lapse by week or month; PERF-3's clique cap waits for decision 15) | P2 | done |
 | PERF-3 | Clique cap for consortium papers (no author-author links above 50 authors, said in the legend: 397,000 links to 112,000 for the 2024 projection) | P2 | done |
 | UX-2 | Graph touch zoom and keyboard path (pinch, zoom buttons, matches listed and gone through with Enter, details focused, a label that counts and points to Rankings; decision 14) | P2 | done |
-| META-2 | Weekly refresh from the catalog: comments, journal references and their venues, in the archive step (withdrawals wait for decision 18, and need guards against "withdrawn from the workshop", "from the proceedings") | P2 | done |
+| META-2 | Weekly refresh from the catalog: comments, journal references and their venues, in the archive step; withdrawn papers marked, out of Highly cited and badged (decision 18), with guards against "withdrawn from the workshop", "from the proceedings" | P2 | done |
 | META-3 | Provenance of affiliations (`html`, `api`, `openalex`) and institutions (`ror`, `openalex`), with the day read; inferred once for older records, the unmapped unversioned ones left unknown (no `version` or `enriched_from_version`: `extractor` is the version) | P2 | done |
 | META-4 | The venue table, and venue detection without mentions | P2 | done |
 | PERF-11 | Lazy index build | P2 | done |

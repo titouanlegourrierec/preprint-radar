@@ -87,6 +87,12 @@ derives what only the site uses. The pipeline and `validate` never see these.
   the search box has no autofocus, which would take them, and Escape leaves it.
 - **Preferences** (`preferences.ts`): per-browser settings in `localStorage`.
 
+## Withdrawn papers
+
+A paper whose comments say its authors (or arXiv) withdrew it carries `withdrawn`: its
+card shows a Withdrawn badge, the reason being in its comments, and the pipeline keeps it
+out of Highly cited (decision 18). Reading lists keep the flag.
+
 ## Exports and corrections
 
 - `export.ts` writes the results shown as CSV, RIS or Markdown, beside `bibtex.ts` (keys

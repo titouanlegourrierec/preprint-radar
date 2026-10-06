@@ -18,6 +18,7 @@ from preprint_radar.exceptions import ParseError
 from preprint_radar.http import HttpClient
 from preprint_radar.models import ARXIV_BASE_URL, Listing, Paper
 from preprint_radar.venue import extract_venue
+from preprint_radar.withdrawal import is_withdrawn
 
 logger = logging.getLogger(__name__)
 
@@ -250,6 +251,7 @@ def _parse_entry(term: Tag, detail: Tag, announced: date) -> Paper:
         comments=comments,
         journal_ref=journal_ref,
         venue=extract_venue(comments, journal_ref),
+        withdrawn=is_withdrawn(comments),
         cross_list_from=cross_list.group(1) if cross_list else None,
         html_url=str(html_link["href"]) if html_link else None,
         abstract=abstract,

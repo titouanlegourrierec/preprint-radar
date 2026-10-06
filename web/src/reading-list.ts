@@ -80,6 +80,7 @@ export function toPaper(value: unknown): Paper | null {
     html_url: nullable("html_url"),
     abstract: nullable("abstract"),
     ...(typeof record.extractor === "number" ? { extractor: record.extractor } : {}),
+    ...(record.withdrawn === true ? { withdrawn: true } : {}),
     affiliations,
     author_affiliations: mappingFits ? (mapping as (number[] | null)[]) : null,
     institutions: institutionsFit ? (institutions as (string | null)[]) : null,

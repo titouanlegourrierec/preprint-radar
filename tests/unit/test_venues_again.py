@@ -72,3 +72,16 @@ def test_cli_reports_each_category(tmp_path: Path, capsys: pytest.CaptureFixture
         "cs.CV: 2 of 4 papers changed, in 1 day files and the archive; venues 3 -> 2"
         in capsys.readouterr().out
     )
+
+
+def test_marks_the_papers_their_comments_say_were_withdrawn(tmp_path: Path) -> None:
+    store = PaperStore(tmp_path / "data")
+    store.save(
+        "cs.CV",
+        [_paper("2609.00004", date(2026, 9, 24), "Withdrawn by the authors to fix an error", None)],
+    )
+
+    detect_venues_again(store, "cs.CV")
+
+    [paper] = store.iter_papers("cs.CV")
+    assert paper.withdrawn

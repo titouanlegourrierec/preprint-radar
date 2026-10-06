@@ -143,6 +143,8 @@ class Paper:
         extractor: Version of the HTML extraction that gave the affiliations
             (``sources.arxiv_html.EXTRACTOR_VERSION``); ``None`` when they came from
             elsewhere (the API, OpenAlex) or were read before versions were kept.
+        withdrawn: Whether its authors (or arXiv) withdrew it, as its comments say
+            (``withdrawal.is_withdrawn``).
         affiliations_provenance: Where the affiliations came from, and when; ``None`` when
             not known (read before provenance was kept), and always without affiliations.
         institutions_provenance: Who named the institutions, and when; ``None`` when not
@@ -166,6 +168,7 @@ class Paper:
     institutions: tuple[str | None, ...] | None = None
     institution_ids: tuple[str | None, ...] | None = None
     extractor: int | None = None
+    withdrawn: bool = False
     affiliations_provenance: Provenance | None = None
     institutions_provenance: Provenance | None = None
 
@@ -255,6 +258,7 @@ class Paper:
             # Written only when known, so that records read before them stay as they were.
             **({} if self.institution_ids is None else {"institution_ids": list(self.institution_ids)}),
             **({} if self.extractor is None else {"extractor": self.extractor}),
+            **({"withdrawn": True} if self.withdrawn else {}),
             **({} if not (provenance := self._provenance_record()) else {"provenance": provenance}),
             "abs_url": self.abs_url,
             "pdf_url": self.pdf_url,
@@ -305,6 +309,7 @@ class Paper:
                 institutions=_optional_nullable_str_list(record, "institutions"),
                 institution_ids=_optional_nullable_str_list(record, "institution_ids"),
                 extractor=_optional_int(record, "extractor"),
+                withdrawn=_optional_bool(record, "withdrawn"),
                 affiliations_provenance=provenance.get("affiliations"),
                 institutions_provenance=provenance.get("institutions"),
             )
@@ -360,6 +365,15 @@ def _str_list(record: Mapping[str, object], key: str) -> list[str]:
         msg = f"{key!r} must be a list of strings"
         raise TypeError(msg)
     return [str(item) for item in value]
+
+
+def _optional_bool(record: Mapping[str, object], key: str) -> bool:
+    """A flag written only when true."""
+    value = record.get(key, False)
+    if not isinstance(value, bool):
+        msg = f"{key!r} must be a boolean"
+        raise TypeError(msg)
+    return value
 
 
 def _optional_str_list(record: Mapping[str, object], key: str) -> list[str] | None:

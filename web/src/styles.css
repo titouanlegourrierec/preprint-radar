@@ -787,6 +787,13 @@ html {
   color: var(--text-muted);
 }
 
+/* Withdrawn by its authors (decision 18): the reason is in the comments. */
+.badge--withdrawn {
+  border: 1px solid currentColor;
+  background: none;
+  color: var(--danger);
+}
+
 .link-button {
   padding: 0;
   border: 0;

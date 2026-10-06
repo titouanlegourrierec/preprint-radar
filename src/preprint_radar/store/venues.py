@@ -11,6 +11,7 @@ from dataclasses import dataclass, replace
 from preprint_radar.models import Paper
 from preprint_radar.store.paper_store import PaperStore
 from preprint_radar.venue import extract_venue
+from preprint_radar.withdrawal import is_withdrawn
 
 
 @dataclass(frozen=True, slots=True)
@@ -79,4 +80,7 @@ def detect_venues_again(store: PaperStore, category: str) -> VenuesReport:
 
 def _with_venue(paper: Paper) -> Paper:
     venue = extract_venue(paper.comments, paper.journal_ref)
-    return paper if venue == paper.venue else replace(paper, venue=venue)
+    withdrawn = is_withdrawn(paper.comments)
+    if (venue, withdrawn) == (paper.venue, paper.withdrawn):
+        return paper
+    return replace(paper, venue=venue, withdrawn=withdrawn)

@@ -409,6 +409,26 @@ def test_stored_papers_take_the_comments_of_their_latest_version(store: PaperSto
     assert again.refreshed == 0
 
 
+def test_withdrawn_papers_leave_the_archive_and_never_enter_it(store: PaperStore, catalog: Catalog) -> None:
+    _update(store, catalog, FakeServices(CITATIONS))
+    assert {paper.arxiv_id for paper in store.iter_archive("cs.CV")} >= {"1512.03385", "2010.11929"}
+    entries = [
+        replace(entry, comments="This paper has been withdrawn by the authors")
+        if entry.arxiv_id in {"1512.03385", "2209.00001"}
+        else entry
+        for entry in catalog.entries().values()
+    ]
+    with gzip.open(catalog.path, "wt", encoding="utf-8") as out:
+        for entry in entries:
+            out.write(json.dumps(entry.to_record()) + "\n")
+
+    _update(store, catalog, FakeServices(CITATIONS), budget=4)
+
+    archived = {paper.arxiv_id for paper in store.iter_archive("cs.CV")}
+    assert "1512.03385" not in archived  # left, however cited
+    assert "2209.00001" not in archived  # never entered, though within the budget
+
+
 def test_refreshed_takes_what_the_catalog_adds_and_never_empties_a_field() -> None:
     paper = Paper(
         arxiv_id="2609.00001",

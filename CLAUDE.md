@@ -190,6 +190,10 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   gave the affiliations; absent when they came from the API or OpenAlex, or were read
   before versions were kept. `reextract` selects on it, so a paper read from the API is
   never overwritten by its HTML.
+- `withdrawn` (optional, written only when true): the comments say its authors or arXiv
+  withdrew it (`withdrawal.is_withdrawn`, decision 18), set wherever `venue` is and
+  refreshed with the comments; such a paper never enters the archive, and the site marks
+  it.
 - `provenance` (optional, written only when known): where `affiliations` came from
   (`html`, `api`, `openalex`) and who named `institutions` (`ror`, `openalex`), each with
   the day (`at`) it was read (`models.Provenance`, META-3). `Paper` refuses a provenance
