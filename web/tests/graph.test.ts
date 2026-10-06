@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { buildGraph, type GraphOptions, nodeMatches } from "../src/graph";
+import {
+  buildGraph,
+  type GraphOptions,
+  MAX_REPLAY_STEPS,
+  nodeMatches,
+  replaySteps,
+} from "../src/graph";
 import { canonicalInstitution, institutionName, paperInstitutions } from "../src/institutions";
 import { searchKey } from "../src/text";
 import { makePaper } from "./fixtures";
@@ -360,5 +366,32 @@ describe("buildGraph with citations", () => {
   it("counts nothing without citation counts", () => {
     const { citations: _, ...uncounted } = options;
     expect(buildGraph(cited, uncounted).nodes.every((node) => node.citations === 0)).toBe(true);
+  });
+});
+
+describe("replaySteps", () => {
+  const daysOf = (first: string, count: number) =>
+    Array.from({ length: count }, (_, index) => {
+      const date = new Date(`${first}T00:00:00Z`);
+      date.setUTCDate(date.getUTCDate() + index);
+      return date.toISOString().slice(0, 10);
+    });
+
+  it("stops at every day of a short period", () => {
+    const days = daysOf("2026-09-01", MAX_REPLAY_STEPS);
+    expect(replaySteps(days)).toEqual(days);
+  });
+
+  it("stops at the last day of each week of a longer one", () => {
+    // 2024-01-01 is a Monday: 70 days are ten weeks.
+    const steps = replaySteps(daysOf("2024-01-01", 70));
+    expect(steps).toHaveLength(10);
+    expect(steps.slice(0, 2)).toEqual(["2024-01-07", "2024-01-14"]);
+  });
+
+  it("stops at the last day of each month of a year and more", () => {
+    const steps = replaySteps(daysOf("2024-01-01", 500));
+    expect(steps).toHaveLength(17);
+    expect(steps.slice(0, 2)).toEqual(["2024-01-31", "2024-02-29"]);
   });
 });

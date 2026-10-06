@@ -248,3 +248,31 @@ function linkByCoOccurrence(
     }
   }
 }
+
+/** The time-lapse stops at most this many times: a year of days would take minutes. */
+export const MAX_REPLAY_STEPS = 60;
+
+/**
+ * The days a time-lapse stops at, in order: every day, or else the last day of each week,
+ * or else of each month. An archive year has about 340 days, 5 minutes of a layout that
+ * never settles (PERF-2).
+ */
+export function replaySteps(days: readonly string[]): string[] {
+  if (days.length <= MAX_REPLAY_STEPS) return [...days];
+  const weekly = lastOfEach(days, weekOf);
+  return weekly.length <= MAX_REPLAY_STEPS ? weekly : lastOfEach(days, (day) => day.slice(0, 7));
+}
+
+/** The last day of each group of consecutive sorted days. */
+function lastOfEach(days: readonly string[], group: (day: string) => string): string[] {
+  const last = new Map<string, string>();
+  for (const day of days) last.set(group(day), day);
+  return [...last.values()];
+}
+
+/** The Monday of a day's week (ISO dates). */
+function weekOf(day: string): string {
+  const date = new Date(`${day}T00:00:00Z`);
+  date.setUTCDate(date.getUTCDate() - ((date.getUTCDay() + 6) % 7));
+  return date.toISOString().slice(0, 10);
+}

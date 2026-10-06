@@ -169,7 +169,7 @@ page has no live coverage figures (PROD-7); of TEST-9, only the check of the dar
 | AFF-3 | OpenAlex retry policy, after its spike | P1 | todo |
 | PROD-1 | Fill the 11-month gap, once CIT-11 has landed (no line naming the gap on the site meanwhile: declined, 2026-10-06) | P1 | todo |
 | ARCH-1 | Retention, size guard and hosting trigger (guards in *Deploy site* and the weekly canary, the trigger in the runbook; pruning stays off until decision 2) | P2 | done |
-| PERF-2 | Graph defaults with the author layer | P2 | todo |
+| PERF-2 | Graph defaults with the author layer (authors of one paper hidden when the layer turns on, the layout in a Web Worker, settled at once under reduced motion, the time-lapse by week or month; PERF-3's clique cap waits for decision 15) | P2 | done |
 | PERF-3 | Clique cap for consortium papers | P2 | todo |
 | UX-2 | Graph touch zoom and keyboard path | P2 | todo |
 | META-2, META-3 | Weekly refresh from the catalog, provenance | P2 | todo |

@@ -17,6 +17,10 @@ Phase 3 of the roadmap, in progress.
   the requests of a period left are cancelled (PERF-1, PERF-11).
 - Citation counts load for the papers shown only: 11 KB gzipped instead of 125 KB for the
   recent days (PERF-12).
+- The graph lays itself out in the background, so that the page stays responsive: turning
+  authors on no longer freezes it for seconds, and hides authors of a single paper (most
+  of the nodes), which "Author ≥ papers" brings back. The time-lapse of an archive year
+  goes week by week, and with reduced motion the layout appears settled at once (PERF-2).
 
 ### Richer metadata
 

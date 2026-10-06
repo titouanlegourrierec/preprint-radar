@@ -1,7 +1,7 @@
 import type { RefObject } from "preact";
 import { formatShortDay } from "../format";
 import type { Period } from "../period";
-import type { GraphSettings } from "../preferences";
+import { authorLayer, type GraphSettings } from "../preferences";
 import type { FacetCount } from "../search";
 import type { ArchiveSummary, DaySummary } from "../types";
 import { PeriodPicker } from "./PeriodPicker";
@@ -219,7 +219,7 @@ export function GraphSettingsPanel(props: Props) {
             <Checkbox
               label="Authors"
               checked={settings.authors}
-              onChange={(authors) => onSettings({ authors })}
+              onChange={(authors) => onSettings(authorLayer(settings, authors))}
             />
             <Checkbox
               label="Isolated nodes"
@@ -247,6 +247,12 @@ export function GraphSettingsPanel(props: Props) {
               step={1}
               onChange={(minAuthorPapers) => onSettings({ minAuthorPapers })}
             />
+            {settings.authors && settings.minAuthorPapers > 1 && (
+              <p class="graph-settings__note">
+                Authors of fewer papers are hidden: at 1, the graph is about three times larger and
+                slower to settle.
+              </p>
+            )}
             <label class="ctl-select">
               <span>Max nodes</span>
               <select

@@ -53,5 +53,7 @@ test("the graph draws on a canvas", async ({ page }) => {
   await page.goto("./?view=graph");
   await expect(page.locator("canvas.graph__canvas")).toBeVisible();
   await expect(page.getByText(/institutions?/i).first()).toBeVisible();
+  // The layout runs in a worker, which sends the positions until they settle.
+  await expect(page.locator('canvas.graph__canvas[data-layout="settled"]')).toBeVisible();
   expect(errors).toEqual([]);
 });

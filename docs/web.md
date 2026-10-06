@@ -106,14 +106,29 @@ derives what only the site uses. The pipeline and `validate` never see these.
   carries its ROR id when a paper gives it (`rorId`), linked to ror.org; nodes are still
   keyed by name (AFF-13).
 - `graph-layout.ts` gives starting positions (each connected component in one piece, on a
-  spiral); `graph-renderer.ts` draws on a canvas with d3-force (an imperative class);
-  `components/GraphView.tsx` and `GraphSettingsPanel.tsx` are the UI. It is full screen,
-  without the search bar and sidebar, and shows every node unless the user sets a limit.
+  spiral); `graph-renderer.ts` draws on a canvas and handles the pointer (an imperative
+  class); `components/GraphView.tsx` and `GraphSettingsPanel.tsx` are the UI. It is full
+  screen, without the search bar and sidebar, and shows every node unless the user sets a
+  limit.
+- The force layout runs off the main thread (PERF-2): `graph-simulation.ts` is d3-force
+  without a DOM (tested in Node), `graph-worker.ts` ticks it in a module worker and posts
+  positions as a transferred `Float32Array` at most once a frame, numbered by graph so
+  that late positions of a former graph are ignored. The page draws the latest ones and
+  stays responsive: turning authors on for five days blocks it once, about 60 ms to build
+  the graph, where the layout on the main thread froze it for seconds. A dragged node
+  follows the pointer at once and is pinned in the worker. Under reduced motion the worker
+  runs the layout to rest at once, for a new graph, new forces or Reheat. The canvas says
+  `data-layout="moving"` or `"settled"`, which the smoke test waits for.
+- Turning authors on hides authors of a single paper (`authorLayer`, "Author ≥ papers" at
+  2, with a note): they are most of the nodes. The time-lapse stops at every day, or at
+  the last day of each week or month when there are more than 60 (`replaySteps`): an
+  archive year has about 340 days.
 - Sizes: a month of papers (3,500) with all three layers is about 23,000 nodes and 34,000
-  links; the projection with authors about 19,000 nodes and 100,000 links (every co-author
-  pair); papers and institutions (the default) about 5,700 nodes and 6,700 links. The
-  renderer batches drawing into a few `Path2D` per frame; graphs over 2,000 nodes use
-  `theta` 1.2, no collisions and a faster cooling.
+  links (10,000 with authors of two papers or more); the projection with authors about
+  19,000 nodes and 100,000 links (every co-author pair); papers and institutions (the
+  default) about 5,700 nodes and 6,700 links. The renderer batches drawing into a few
+  `Path2D` per frame; graphs over 2,000 nodes use `theta` 1.2, no collisions and a faster
+  cooling (about 100 ms a tick for 26,000 nodes, in the worker).
 - Node sizes ("Size by"): papers (institutions and authors by their number of papers, area
   proportional, `nodeRadius`; papers all alike) or citations (every node by the citations
   of its papers, summed, `GraphNode.citations`, from the citation shards; unknown counts

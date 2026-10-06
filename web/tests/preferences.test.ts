@@ -1,5 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
+  AUTHOR_LAYER_MIN_PAPERS,
+  authorLayer,
   DEFAULT_GRAPH_SETTINGS,
   loadGraphIntroRead,
   loadGraphSettings,
@@ -89,5 +91,21 @@ describe("display preferences", () => {
       saveGraphSettings(DEFAULT_GRAPH_SETTINGS);
     }).not.toThrow();
     expect(loadGraphSettings()).toEqual(DEFAULT_GRAPH_SETTINGS);
+  });
+});
+
+describe("authorLayer", () => {
+  it("hides authors of a single paper when the layer turns on", () => {
+    const settings = { ...DEFAULT_GRAPH_SETTINGS, minAuthorPapers: 1 };
+    expect(authorLayer(settings, true)).toEqual({
+      authors: true,
+      minAuthorPapers: AUTHOR_LAYER_MIN_PAPERS,
+    });
+  });
+
+  it("keeps a higher threshold, and changes nothing else when the layer turns off", () => {
+    const settings = { ...DEFAULT_GRAPH_SETTINGS, minAuthorPapers: 5 };
+    expect(authorLayer(settings, true)).toEqual({ authors: true });
+    expect(authorLayer({ ...settings, minAuthorPapers: 1 }, false)).toEqual({ authors: false });
   });
 });

@@ -1,15 +1,6 @@
-import {
-  forceCollide,
-  forceLink,
-  forceManyBody,
-  forceSimulation,
-  forceX,
-  forceY,
-  type SimulationLinkDatum,
-  type SimulationNodeDatum,
-} from "d3-force";
 import type { Graph, GraphNode } from "./graph";
 import { initialPositions, inLargestComponent } from "./graph-layout";
+import type { ForceSettings, FromLayout, LayoutGraph, ToLayout } from "./graph-simulation";
 
 /** Force and display settings, as chosen in the graph settings panel. */
 export interface RendererSettings {
@@ -58,7 +49,7 @@ export interface Bounds {
   maxY: number;
 }
 
-interface SimNode extends SimulationNodeDatum {
+interface SimNode {
   id: string;
   node: GraphNode;
   /** Position among the nodes of the same kind, biggest first. */
@@ -67,11 +58,12 @@ interface SimNode extends SimulationNodeDatum {
   baseRadius: number;
   radius: number;
   degree: number;
-  /** Whether the node belongs to the largest connected component. */
-  main: boolean;
+  /** Position, as the layout worker last sent it. */
+  x: number;
+  y: number;
 }
 
-interface SimLink extends SimulationLinkDatum<SimNode> {
+interface SimLink {
   source: SimNode;
   target: SimNode;
   weight: number;
@@ -94,14 +86,6 @@ const MAX_FIT_ZOOM = 2;
 const FIT_PADDING_PX = 48;
 const FOCUS_ZOOM = 1.5;
 const CLICK_TOLERANCE_PX = 4;
-/**
- * How much harder nodes outside the largest component are pulled towards the center, once
- * that component is big: between these sizes, the extra pull grows from nothing to full.
- */
-const SATELLITE_GRAVITY = 4;
-const BIG_CORE = { from: 500, to: 2000 };
-/** Above this many nodes, the simulation trades accuracy for speed. */
-const LARGE_GRAPH = 2000;
 /** Beyond this many links, links are drawn fainter. */
 const DENSE_LINKS = 3000;
 /** The biggest nodes of each kind always have a label. */
@@ -193,12 +177,12 @@ export class GraphRenderer {
   private readonly context: CanvasRenderingContext2D;
   private readonly callbacks: RendererCallbacks;
   private settings: RendererSettings;
-  private readonly linkForce = forceLink<SimNode, SimLink>([]);
-  private readonly chargeForce = forceManyBody<SimNode>();
-  private readonly collideForce = forceCollide<SimNode>();
-  private readonly xForce = forceX<SimNode>(0);
-  private readonly yForce = forceY<SimNode>(0);
-  private readonly simulation = forceSimulation<SimNode, SimLink>([]);
+  /** Runs the force layout off the main thread (`graph-worker.ts`). */
+  private readonly layout = new Worker(new URL("./graph-worker.ts", import.meta.url), {
+    type: "module",
+  });
+  /** The graph whose positions the layout sends; older ones are ignored. */
+  private generation = 0;
   private nodes: SimNode[] = [];
   private links: SimLink[] = [];
   private byId = new Map<string, SimNode>();
@@ -228,21 +212,13 @@ export class GraphRenderer {
     this.callbacks = callbacks;
     this.settings = settings;
 
-    this.simulation
-      .force("link", this.linkForce)
-      .force("charge", this.chargeForce)
-      .force("collide", this.collideForce)
-      .force("x", this.xForce)
-      .force("y", this.yForce)
-      .on("tick", () => {
-        const followed = this.followed === null ? undefined : this.byId.get(this.followed);
-        if (followed) this.centerOn(followed, this.view.k);
-        else if (this.autoFit) this.fitNow();
-        this.requestDraw();
-      })
-      .on("end", () => this.savePositions())
-      .stop();
-    this.applyForces();
+    this.layout.addEventListener("message", (event: MessageEvent<FromLayout>) =>
+      this.onPositions(event.data),
+    );
+    // Said, not swallowed: the graph would stay at its starting positions.
+    this.layout.addEventListener("error", (event) =>
+      console.error(`The graph layout failed: ${event.message}`),
+    );
 
     const observer = new ResizeObserver(() => this.resize());
     observer.observe(canvas);
@@ -282,7 +258,8 @@ export class GraphRenderer {
       baseRadius: 0,
       radius: 0,
       degree: degree.get(node.id) ?? 0,
-      main: false,
+      x: 0,
+      y: 0,
     }));
     this.applySizing();
     this.byId = new Map(this.nodes.map((node) => [node.id, node]));
@@ -315,22 +292,33 @@ export class GraphRenderer {
       if (this.positions.has(node.id)) known++;
       node.x = start[index]?.x ?? 0;
       node.y = start[index]?.y ?? 0;
-      node.main = main[index] ?? false;
     }
 
     // A mostly new graph (other papers, authors turned on) is framed again from scratch.
     if (known < this.nodes.length / 2) this.autoFit = true;
-    this.simulation.nodes(this.nodes);
-    this.linkForce.links(this.links);
-    this.applyForces();
-    if (this.reducedMotion) {
-      this.simulation.stop().tick(this.nodes.length > LARGE_GRAPH ? 60 : 300);
-      this.savePositions();
-      if (this.autoFit) this.fitNow();
-      this.requestDraw();
-    } else {
-      this.simulation.alpha(known === 0 ? 1 : 0.4).restart();
-    }
+    if (this.autoFit) this.fitNow();
+    this.requestDraw();
+    const layout: LayoutGraph = {
+      positions: Float32Array.from(this.nodes.flatMap((node) => [node.x, node.y])),
+      radii: Float32Array.from(this.nodes, (node) => node.radius),
+      degrees: Uint32Array.from(this.nodes, (node) => node.degree),
+      main: Uint8Array.from(main, (inMain) => (inMain ? 1 : 0)),
+      links: Uint32Array.from(pairs.flat()),
+      weights: Float32Array.from(this.links, (link) => link.weight),
+    };
+    this.generation++;
+    this.canvas.dataset.layout = "moving";
+    this.send(
+      {
+        type: "graph",
+        generation: this.generation,
+        graph: layout,
+        settings: this.forces(),
+        alpha: known === 0 ? 1 : 0.4,
+        settle: this.reducedMotion,
+      },
+      Object.values(layout).map((array: ArrayBufferView) => array.buffer as ArrayBuffer),
+    );
   }
 
   setSettings(settings: RendererSettings): void {
@@ -344,9 +332,14 @@ export class GraphRenderer {
       settings.linkForce !== previous.linkForce ||
       settings.linkDistance !== previous.linkDistance ||
       resized;
-    if (forcesChanged) {
-      this.applyForces();
-      if (this.nodes.length > 0) this.reheat(0.3);
+    if (forcesChanged && this.nodes.length > 0) {
+      this.send({
+        type: "forces",
+        settings: this.forces(),
+        ...(resized ? { radii: Float32Array.from(this.nodes, (node) => node.radius) } : {}),
+        alpha: 0.3,
+        settle: this.reducedMotion,
+      });
     }
     this.requestDraw();
   }
@@ -413,16 +406,43 @@ export class GraphRenderer {
     this.requestDraw();
   }
 
-  /** Restart the layout, e.g. to escape a tangled state. */
+  /** Restart the layout, e.g. to escape a tangled state; at once under reduced motion. */
   reheat(alpha = 1): void {
-    if (this.reducedMotion) return;
-    this.simulation.alpha(Math.max(this.simulation.alpha(), alpha)).restart();
+    this.send({ type: "heat", alpha, settle: this.reducedMotion });
   }
 
   destroy(): void {
-    this.simulation.stop();
+    this.layout.terminate();
     cancelAnimationFrame(this.frame);
     for (const cleanup of this.cleanups) cleanup();
+  }
+
+  private send(message: ToLayout, transfer: Transferable[] = []): void {
+    this.layout.postMessage(message, transfer);
+  }
+
+  private forces(): ForceSettings {
+    const { centerForce, repelForce, linkForce, linkDistance } = this.settings;
+    return { centerForce, repelForce, linkForce, linkDistance };
+  }
+
+  /** New positions from the layout: follow or fit them, and draw. */
+  private onPositions({ generation, positions, moving }: FromLayout): void {
+    if (generation !== this.generation) return;
+    const dragged = this.gesture?.kind === "drag" ? this.gesture.node : null;
+    for (const [index, node] of this.nodes.entries()) {
+      if (node === dragged) continue;
+      node.x = positions[2 * index] ?? node.x;
+      node.y = positions[2 * index + 1] ?? node.y;
+    }
+    const followed = this.followed === null ? undefined : this.byId.get(this.followed);
+    if (followed) this.centerOn(followed, this.view.k);
+    else if (this.autoFit) this.fitNow();
+    if (!moving) {
+      this.savePositions();
+      this.canvas.dataset.layout = "settled";
+    }
+    this.requestDraw();
   }
 
   private listen<K extends keyof HTMLElementEventMap>(
@@ -434,48 +454,8 @@ export class GraphRenderer {
     return () => this.canvas.removeEventListener(type, handler, options);
   }
 
-  private applyForces(): void {
-    const { settings } = this;
-    // Big graphs (e.g. every author of a month of papers) get a coarser Barnes-Hut
-    // approximation, no collisions and a shorter cooling. Never cap the repulsion distance
-    // (`distanceMax`) nor make `theta` much coarser: nodes would pile up in rings at the
-    // cutoff distance around each quadrant.
-    const large = this.nodes.length > LARGE_GRAPH;
-    this.chargeForce
-      .strength((node) => -settings.repelForce * (5 + node.radius))
-      .theta(large ? 1.2 : 0.9);
-    this.simulation.force("collide", large ? null : this.collideForce);
-    this.linkForce
-      .distance((link) => settings.linkDistance + link.source.radius + link.target.radius)
-      // Links of well-connected nodes are softer, so that hubs do not collapse their
-      // neighborhood (d3's default strength follows the same idea).
-      .strength(
-        (link) =>
-          settings.linkForce *
-          Math.min(
-            1,
-            (0.5 + 0.25 * link.weight) / Math.min(link.source.degree, link.target.degree),
-          ),
-      );
-    this.collideForce.radius((node) => node.radius + 2).iterations(2);
-    // Small components are pulled harder towards the center when the largest component is
-    // big: its links keep it compact while its repulsion holds them in a ring far around it.
-    // (With a small core, the same pull would push the core aside instead.)
-    const core = this.nodes.filter((node) => node.main).length;
-    const ramp = Math.min(1, Math.max(0, (core - BIG_CORE.from) / (BIG_CORE.to - BIG_CORE.from)));
-    const boost = 1 + (SATELLITE_GRAVITY - 1) * ramp;
-    const gravity = (node: SimNode) => 0.2 * settings.centerForce * (node.main ? 1 : boost);
-    this.xForce.strength(gravity);
-    this.yForce.strength(gravity);
-    this.simulation.alphaDecay(large ? 0.08 : 0.0228).velocityDecay(large ? 0.6 : 0.4);
-  }
-
   private savePositions(): void {
-    for (const node of this.nodes) {
-      if (node.x !== undefined && node.y !== undefined) {
-        this.positions.set(node.id, { x: node.x, y: node.y });
-      }
-    }
+    for (const node of this.nodes) this.positions.set(node.id, { x: node.x, y: node.y });
   }
 
   private bounds(): Bounds | null {
@@ -487,8 +467,8 @@ export class GraphRenderer {
       maxY: Number.NEGATIVE_INFINITY,
     };
     for (const node of this.nodes) {
-      const x = node.x ?? 0;
-      const y = node.y ?? 0;
+      const x = node.x;
+      const y = node.y;
       bounds.minX = Math.min(bounds.minX, x - node.radius);
       bounds.minY = Math.min(bounds.minY, y - node.radius);
       bounds.maxX = Math.max(bounds.maxX, x + node.radius);
@@ -501,8 +481,8 @@ export class GraphRenderer {
     const center = (this.overlays.left + this.canvas.clientWidth - this.overlays.right) / 2;
     this.view = {
       k,
-      x: center - (node.x ?? 0) * k,
-      y: this.canvas.clientHeight / 2 - (node.y ?? 0) * k,
+      x: center - node.x * k,
+      y: this.canvas.clientHeight / 2 - node.y * k,
     };
   }
 
@@ -561,10 +541,10 @@ export class GraphRenderer {
     const thick = new Path2D();
     const focused = new Path2D();
     for (const { source, target, weight } of this.links) {
-      const sx = source.x ?? 0;
-      const sy = source.y ?? 0;
-      const tx = target.x ?? 0;
-      const ty = target.y ?? 0;
+      const sx = source.x;
+      const sy = source.y;
+      const tx = target.x;
+      const ty = target.y;
       if (
         (sx < left && tx < left) ||
         (sx > right && tx > right) ||
@@ -615,8 +595,8 @@ export class GraphRenderer {
     const ringGap = 2 / view.k;
     const minRadius = MIN_SCREEN_RADIUS_PX / view.k;
     for (const node of this.nodes) {
-      const x = node.x ?? 0;
-      const y = node.y ?? 0;
+      const x = node.x;
+      const y = node.y;
       const r = Math.max(node.radius, minRadius);
       if (x + r < left || x - r > right || y + r < top || y - r > bottom) continue;
       const path = shapes[node.node.kind][isLit(node.id) ? "lit" : "dim"];
@@ -676,8 +656,8 @@ export class GraphRenderer {
     context.lineWidth = 3;
     for (const node of candidates) {
       if (placed.length >= MAX_LABELS) break;
-      const x = node.x ?? 0;
-      const y = node.y ?? 0;
+      const x = node.x;
+      const y = node.y;
       if (x < scene.left || x > scene.right || y < scene.top || y > scene.bottom) continue;
       const wanted =
         focus !== null || this.highlighted !== null
@@ -721,8 +701,8 @@ export class GraphRenderer {
     let best: SimNode | undefined;
     let bestDistance = Number.POSITIVE_INFINITY;
     for (const node of this.nodes) {
-      const dx = (node.x ?? 0) - gx;
-      const dy = (node.y ?? 0) - gy;
+      const dx = node.x - gx;
+      const dy = node.y - gy;
       const distance = dx * dx + dy * dy;
       const reach = Math.max(node.radius, minRadius) + tolerance;
       if (distance <= reach * reach && distance < bestDistance) {
@@ -767,15 +747,17 @@ export class GraphRenderer {
     this.autoFit = false;
     this.followed = null;
     if (gesture.kind === "drag") {
-      gesture.node.fx = point.gx;
-      gesture.node.fy = point.gy;
-      if (this.reducedMotion) {
-        gesture.node.x = point.gx;
-        gesture.node.y = point.gy;
-        this.requestDraw();
-      } else {
-        this.simulation.alphaTarget(0.3).restart();
-      }
+      // The dragged node follows the pointer at once; the layout moves the others around it.
+      gesture.node.x = point.gx;
+      gesture.node.y = point.gy;
+      this.send({
+        type: "pin",
+        index: this.nodes.indexOf(gesture.node),
+        x: point.gx,
+        y: point.gy,
+        moving: !this.reducedMotion,
+      });
+      this.requestDraw();
     } else {
       this.view.x = gesture.viewX + point.x - gesture.startX;
       this.view.y = gesture.viewY + point.y - gesture.startY;
@@ -789,10 +771,8 @@ export class GraphRenderer {
     this.gesture = null;
     this.canvas.style.cursor = "";
     if (gesture?.kind === "drag") {
-      gesture.node.fx = null;
-      gesture.node.fy = null;
-      this.simulation.alphaTarget(0);
-      if (!gesture.moved) this.select(gesture.node);
+      if (gesture.moved) this.send({ type: "release", index: this.nodes.indexOf(gesture.node) });
+      else this.select(gesture.node);
     } else if (gesture && !gesture.moved) {
       this.callbacks.onSelect(null);
     }
@@ -829,7 +809,7 @@ export class GraphRenderer {
     this.callbacks.onSelect(node.id);
     this.autoFit = false;
     this.followed = null;
-    const screenX = (node.x ?? 0) * this.view.k + this.view.x;
+    const screenX = node.x * this.view.k + this.view.x;
     const min = this.overlays.left + 24;
     const max = this.canvas.clientWidth - this.overlays.right - 24;
     if (screenX < min || screenX > max) {

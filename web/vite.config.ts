@@ -139,6 +139,8 @@ export default defineConfig({
   // Relative base: the site works under any GitHub Pages path (user.github.io/<repo>/).
   base: "./",
   plugins: [preact(), paperData(DATA_DIR), noThirdPartyLoads()],
+  // The graph layout runs in a module worker (graph-worker.ts), split like the app.
+  worker: { format: "es" },
   test: {
     environment: "node",
     include: ["tests/**/*.test.ts"],
@@ -152,6 +154,7 @@ export default defineConfig({
       exclude: [
         "src/hooks/**",
         "src/graph-renderer.ts",
+        "src/graph-worker.ts",
         "src/download.ts",
         "src/keyboard.ts",
         "src/main.tsx",

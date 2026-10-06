@@ -104,6 +104,20 @@ export interface GraphSettings {
 
 const NODE_SIZINGS: readonly NodeSizing[] = ["papers", "citations"];
 
+/**
+ * Authors with fewer papers are hidden when the author layer is turned on: authors of a
+ * single paper are most of its nodes (9,500 nodes instead of 3,400 for five days), and the
+ * layout of a graph that size takes seconds (PERF-2).
+ */
+export const AUTHOR_LAYER_MIN_PAPERS = 2;
+
+/** The settings that turn the author layer on or off, hiding authors of a single paper. */
+export function authorLayer(settings: GraphSettings, authors: boolean): Partial<GraphSettings> {
+  return authors && settings.minAuthorPapers < AUTHOR_LAYER_MIN_PAPERS
+    ? { authors, minAuthorPapers: AUTHOR_LAYER_MIN_PAPERS }
+    : { authors };
+}
+
 export const DEFAULT_GRAPH_SETTINGS: Readonly<GraphSettings> = {
   papers: true,
   institutions: true,
@@ -111,7 +125,7 @@ export const DEFAULT_GRAPH_SETTINGS: Readonly<GraphSettings> = {
   // A quarter of the papers have no affiliations: shown, they would be lone squares.
   isolated: false,
   minInstitutionPapers: 1,
-  minAuthorPapers: 1,
+  minAuthorPapers: AUTHOR_LAYER_MIN_PAPERS,
   maxNodes: 0,
   centerForce: 0.3,
   repelForce: 12,

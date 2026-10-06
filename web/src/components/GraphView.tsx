@@ -1,6 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { formatDay } from "../format";
-import { buildGraph, type EntityKind, type GraphNode, isEntity, nodeMatches } from "../graph";
+import {
+  buildGraph,
+  type EntityKind,
+  type GraphNode,
+  isEntity,
+  nodeMatches,
+  replaySteps,
+} from "../graph";
 import { GraphRenderer } from "../graph-renderer";
 import { isTyping } from "../keyboard";
 import type { Period } from "../period";
@@ -80,8 +87,12 @@ export function GraphView(props: Props) {
       return next;
     });
 
-  // Time-lapse: the announcement days of the papers, and the last one shown.
-  const days = useMemo(() => [...new Set(papers.map((paper) => paper.announced))].sort(), [papers]);
+  // Time-lapse: the announcement days of the papers (weeks or months for many), and the
+  // last one shown.
+  const days = useMemo(
+    () => replaySteps([...new Set(papers.map((paper) => paper.announced))].sort()),
+    [papers],
+  );
   // A new set of papers starts over with every day shown.
   useEffect(() => {
     setCutoff(null);
