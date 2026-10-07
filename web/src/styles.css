@@ -306,6 +306,13 @@ html {
   box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
+/* High-contrast modes drop the shadow that stands for the search box's focus ring. */
+@media (forced-colors: active) {
+  .search__input:focus {
+    outline: 2px solid CanvasText;
+  }
+}
+
 .content {
   display: grid;
   grid-template-columns: 260px minmax(0, 1fr);
@@ -1110,10 +1117,10 @@ html {
   font-size: 12.5px;
 }
 
+/* An accent border beside the inset `:focus-visible` ring, never instead of it (UX-9). */
 .graph-settings input[type="search"]:focus,
 .graph-settings select:focus {
   border-color: var(--accent);
-  outline: none;
 }
 
 .graph-settings__note {

@@ -84,6 +84,11 @@ function checkSchema(version: number, what: string): void {
   }
 }
 
+/**
+ * The store's index, which `index.html` preloads: this request takes the preload's response
+ * while it keeps the `<link>`'s URL and `fetch`'s default mode and credentials, which its
+ * `crossorigin` asks for (PERF-14).
+ */
 export async function loadIndex(): Promise<StoreIndex> {
   const index = await fetchJson<StoreIndex>("index.json");
   checkSchema(index.schema_version, "index");

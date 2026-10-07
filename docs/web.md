@@ -121,6 +121,11 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   latest days within `PAPER_BUDGET` (10,000 papers: a year of cs.CV, 46,000, would take
   20 s to index and about 480 MB, which crashes phones) and says what it leaves out.
   Links to the former "All days" (`?range=all`) open the longest preset.
+- `index.html` preloads `data/index.json` (`<link rel="preload" as="fetch" crossorigin>`),
+  which every view needs before any day file, so it loads with the page rather than after
+  the script; `loadIndex` takes that response, since it asks for the same URL with
+  `fetch`'s default mode and credentials, which `crossorigin` gives the preload (the smoke
+  test checks the single request): keep the two in step (PERF-14).
 - `usePapers` cancels the requests of a period left; `data.ts` keeps the files loaded for
   the next periods (as many papers as a period loads), least recently used out first. It
   loads again only for another period (`periodKey`): Back from a filter or a paper to the

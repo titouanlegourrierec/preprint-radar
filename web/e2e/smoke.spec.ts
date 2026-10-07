@@ -24,6 +24,31 @@ test("the list shows the stored papers", async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
+test("the index loads once, preloaded with the page", async ({ page }) => {
+  const requests: string[] = [];
+  const warnings: string[] = [];
+  page.on("request", (request) => {
+    if (new URL(request.url()).pathname.endsWith("/data/index.json")) {
+      requests.push(request.url());
+    }
+  });
+  // Chromium says when a fetch cannot take a preload (its credentials mode, `crossorigin`),
+  // at once, and when a preload goes unused, a few seconds after the page's load.
+  page.on("console", (message) => {
+    if (/preload/i.test(message.text())) warnings.push(message.text());
+  });
+  await page.goto("./");
+  // The build kept index.html's preload as written (PERF-14).
+  await expect(page.locator('link[rel="preload"][href="./data/index.json"]')).toHaveAttribute(
+    "crossorigin",
+    "",
+  );
+  await expect(page.getByText("4 of 4 cs.CV papers")).toBeVisible();
+  // data.ts's fetch takes the preload's response: one request, not two.
+  expect(requests).toHaveLength(1);
+  expect(warnings).toEqual([]);
+});
+
 test("a search narrows the list and goes into the URL", async ({ page }) => {
   await page.goto("./");
   await page.getByRole("searchbox", { name: "Search papers" }).fill("compiler");

@@ -60,3 +60,30 @@ describe("buttons inside text", () => {
     expect(rule).toContain("text-decoration: underline");
   });
 });
+
+describe("focus rings", () => {
+  // Each innermost rule, its selector and its declarations (a media query's rules included).
+  const rules = [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)].map((match) => ({
+    selector: (match[1] ?? "").replace(/\/\*[\s\S]*?\*\//g, "").trim(),
+    body: match[2] ?? "",
+  }));
+
+  it("are never taken away from a focused control (UX-9)", () => {
+    // A rule on `:focus`, or a later one as specific as `:focus-visible`, outranks the ring:
+    // it may restyle it, not remove it. The search box alone draws its own (below).
+    const removing = rules.filter(
+      ({ selector, body }) =>
+        !selector.includes(":not(:focus-visible)") && /outline:\s*(?:none|0)\b/.test(body),
+    );
+    expect(rules.length).toBeGreaterThan(100);
+    expect(removing.map(({ selector }) => selector)).toEqual([".search__input"]);
+  });
+
+  it("show on the search box as a shadow, and an outline where shadows are dropped", () => {
+    const own = rules.filter(({ selector }) => selector === ".search__input:focus");
+    expect(own.map(({ body }) => body).join("")).toContain("box-shadow: 0 0 0 3px");
+    const forced = css.indexOf("@media (forced-colors: active) {\n  .search__input:focus {");
+    expect(forced).toBeGreaterThan(-1);
+    expect(css.slice(forced, css.indexOf("}", forced))).toContain("outline: 2px solid CanvasText");
+  });
+});
