@@ -160,7 +160,9 @@ def update_archive(
     wanted = [*entries, *in_days, *archived]
     counts = _citation_counts(catalog, clients, wanted, today)
     coverage = sum(arxiv_id in counts for arxiv_id in entries) / max(1, len(entries))
-    logger.info("%s: citation counts for %.1f%% of %d candidates", category, 100 * coverage, len(entries))
+    logger.info(
+        "%s: citation counts for %.1f%% of %s candidates", category, 100 * coverage, f"{len(entries):,}"
+    )
     gated = coverage < MIN_COVERAGE
     carried: dict[str, int] = {}
     if gated:
@@ -368,7 +370,7 @@ def _read_citations_cache(cache: Path, today: date) -> tuple[date, dict[str, int
             counts.update(json.loads(line))
         except json.JSONDecodeError:
             logger.warning("Ignoring a cut line of %s", cache)
-    logger.info("Reusing %d citation counts saved on %s", len(counts), started.isoformat())
+    logger.info("Reusing %s citation counts saved on %s", f"{len(counts):,}", started.isoformat())
     return started, counts
 
 

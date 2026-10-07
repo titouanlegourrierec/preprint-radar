@@ -77,7 +77,7 @@ def fetch_affiliations(client: HttpClient, papers: Mapping[str, int]) -> dict[st
             authorships = works[arxiv_id] if arxiv_id in works else _lookup(client, arxiv_id)
             if authorships is not None:
                 found[arxiv_id] = affiliations_from_authorships(authorships, papers[arxiv_id])
-        logger.info("%d papers looked up in OpenAlex", len(found))
+        logger.info("%s papers looked up in OpenAlex", f"{len(found):,}")
     return found
 
 

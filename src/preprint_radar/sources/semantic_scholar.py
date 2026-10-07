@@ -181,7 +181,7 @@ def _fetch_all[T](
         )
         refusals += refused
         if batch_found is None:
-            logger.warning("Semantic Scholar keeps refusing; stopping after %d papers", len(found))
+            logger.warning("Semantic Scholar keeps refusing; stopping after %s papers", f"{len(found):,}")
             break
         batches += 1
         found.update(batch_found)

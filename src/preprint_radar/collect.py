@@ -284,7 +284,7 @@ def reextract_category(
         A summary of the run: ``listed`` is the number of papers selected.
     """
     stored = [paper for paper in store.iter_papers(category) if paper.html_url and select(paper)]
-    logger.info("%s: %d papers to extract again", category, len(stored))
+    logger.info("%s: %s papers to extract again", category, f"{len(stored):,}")
     unread = [paper.without_affiliations() for paper in stored]
     reading = html or HtmlReading()
     read = _add_html_front_matter(
@@ -672,10 +672,10 @@ def add_institutions(papers: Sequence[Paper], client: HttpClient, *, limit: int 
     if not pending:
         return list(papers)
     strings = [affiliation for paper in pending for affiliation in paper.affiliations or ()]
-    logger.info("Looking up %d distinct affiliations in ROR", len(set(strings)))
+    logger.info("Looking up %s distinct affiliations in ROR", f"{len(set(strings)):,}")
     matches = match_institutions(client, strings, limit=limit)
     named = sum(match is not None for match in matches.values())
-    logger.info("ROR named %d of %d affiliations", named, len(matches))
+    logger.info("ROR named %s of %s affiliations", f"{named:,}", f"{len(matches):,}")
     return [
         _with_institutions(paper, [matches[affiliation] for affiliation in paper.affiliations or ()])
         if _needs_institutions(paper) and all(a in matches for a in paper.affiliations or ())

@@ -90,7 +90,7 @@ class Catalog:
                     partial.write(json.dumps(entry.to_record(), ensure_ascii=False) + "\n")
             count += len(page.entries)
             self._write_state({"harvested": harvested, "token": page.resumption_token})
-            logger.info("%d records harvested", count)
+            logger.info("%s records harvested", f"{count:,}")
 
         merged = self.entries()
         merged.update(_read(self._partial, tolerant=True))
