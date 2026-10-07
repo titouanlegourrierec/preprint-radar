@@ -4,9 +4,9 @@
  * lab or a conference without a server or an account. The site links the feed of the
  * institution or venue a list is filtered on.
  */
-import { ANY_VENUE, type SearchFilters } from "./search";
+import type { SearchFilters } from "./search";
 import { searchKey } from "./text";
-import { familyOf, MAJOR_VENUES, venueFamily } from "./venues";
+import { ANY_VENUE, familyOf, MAJOR_VENUES, venueFamily } from "./venues";
 
 /** Days of papers a feed holds, back from the newest day stored. */
 export const FEED_DAYS = 60;
