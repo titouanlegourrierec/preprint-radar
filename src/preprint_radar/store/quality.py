@@ -20,7 +20,7 @@ from enum import StrEnum
 from rich import box
 from rich.table import Table
 
-from preprint_radar.models import Paper
+from preprint_radar.models import Paper, Provenance
 from preprint_radar.sources.arxiv_html import (
     EXTRACTOR_VERSION,
     PageCache,
@@ -224,6 +224,7 @@ def extracted_again(papers: Iterable[Paper], cache: PageCache) -> list[tuple[Pap
             institutions=None,
             institution_ids=None,
             extractor=EXTRACTOR_VERSION,
+            affiliations_provenance=Provenance("html"),
             institutions_provenance=None,
         )
         pairs.append((paper, extracted))

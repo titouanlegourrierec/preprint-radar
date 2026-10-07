@@ -409,10 +409,13 @@ def _with_affiliations(papers: list[Paper], client: HttpClient, today: date) -> 
                 author_affiliations=result.author_affiliations,
                 institutions=names,
                 institution_ids=ids or None,
+                extractor=None,
                 affiliations_provenance=read,
                 institutions_provenance=read,
             )
-        return replace(paper, affiliations_provenance=read)
+        # A day file's paper whose page gave none: OpenAlex has none either, today. Its
+        # `extractor` is an HTML extraction's, which this lookup now stands for no longer.
+        return replace(paper, extractor=None, affiliations_provenance=read)
 
     return [updated(paper) for paper in papers]
 

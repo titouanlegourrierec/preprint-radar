@@ -74,14 +74,30 @@ def test_a_withdrawn_paper_says_so(listing: Listing) -> None:
             },
             "unknown source",
         ),
+        (
+            {"affiliations": ("MIT",), "extractor": 7, "affiliations_provenance": Provenance("openalex")},
+            "'extractor' is an HTML extraction's version",
+        ),
     ],
-    ids=["affiliations-reset", "institutions-reset", "affiliations-by-ror", "institutions-from-html"],
+    ids=[
+        "affiliations-reset",
+        "institutions-reset",
+        "affiliations-by-ror",
+        "institutions-from-html",
+        "extractor-of-openalex",
+    ],
 )
 def test_a_provenance_needs_its_field_and_a_source_of_its_kind(
     listing: Listing, changes: dict[str, object], message: str
 ) -> None:
     with pytest.raises(ValueError, match=message):
         replace(listing.papers[0], **changes)
+
+
+def test_an_extractor_goes_with_html_affiliations_or_an_unknown_source(listing: Listing) -> None:
+    paper = replace(listing.papers[0], affiliations=("MIT",), extractor=7)
+    assert replace(paper, affiliations_provenance=Provenance("html")).extractor == 7
+    assert paper.affiliations_provenance is None
 
 
 @pytest.mark.parametrize(

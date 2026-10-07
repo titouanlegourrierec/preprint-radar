@@ -206,6 +206,10 @@ class Paper:
             raise ValueError(msg)
 
     def _check_provenance(self) -> None:
+        source = self.affiliations_provenance.source if self.affiliations_provenance else None
+        if self.extractor is not None and source not in {None, "html"}:
+            msg = f"'extractor' is an HTML extraction's version, but the affiliations came from {source}"
+            raise ValueError(msg)
         for name, provenance, value, sources in (
             ("affiliations", self.affiliations_provenance, self.affiliations, AFFILIATION_SOURCES),
             ("institutions", self.institutions_provenance, self.institutions, INSTITUTION_SOURCES),

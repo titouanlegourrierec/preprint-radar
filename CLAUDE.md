@@ -208,7 +208,8 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
 - `extractor` (optional, written only when known): the version of the HTML extraction that
   gave the affiliations; absent when they came from the API or OpenAlex, or were read
   before versions were kept. `reextract` selects on it, so a paper read from the API is
-  never overwritten by its HTML.
+  never overwritten by its HTML. `Paper` refuses one with affiliations from another
+  source than `html`: OpenAlex's lookup of a day file's paper drops it (META-9).
 - `withdrawn` (optional, written only when true): the comments say its authors or arXiv
   withdrew it (`withdrawal.is_withdrawn`, decision 18), set wherever `venue` is and
   refreshed with the comments; such a paper never enters the archive, and the site marks

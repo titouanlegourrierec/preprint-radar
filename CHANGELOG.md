@@ -33,6 +33,11 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   (PROD-17). From a graph of archive years, "Show all" and opening a paper go to Highly
   cited over the same years, no longer to an empty list of recent days.
 
+### Data
+
+- A paper of the day files looked up by OpenAlex in the archive no longer keeps the
+  version of the HTML extraction that gave its former affiliations (META-9).
+
 ### Accessibility
 
 - Links inside text are underlined everywhere (the footer, About, "Report an error",

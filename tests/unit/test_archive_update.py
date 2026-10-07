@@ -296,6 +296,42 @@ def test_young_archived_papers_without_affiliations_are_asked_again_every_month(
     assert archived["2010.11929"].affiliations_provenance is None
 
 
+def test_openalex_affiliations_carry_no_html_extractor_version(store: PaperStore, catalog: Catalog) -> None:
+    _update(store, catalog, FakeServices(CITATIONS))
+    # Two papers of day files, read from their pages by extraction version 7: one not read
+    # yet, one whose page gave nothing more than a month ago.
+    read = Provenance("html", TODAY - timedelta(days=40))
+    store.write_archive(
+        "cs.CV",
+        [
+            replace(
+                paper,
+                affiliations=None if paper.arxiv_id == "1512.03385" else (),
+                author_affiliations=None,
+                institutions=None if paper.arxiv_id == "1512.03385" else (),
+                institution_ids=None,
+                extractor=7,
+                affiliations_provenance=None if paper.arxiv_id == "1512.03385" else read,
+                institutions_provenance=None,
+            )
+            if paper.arxiv_id in {"1512.03385", "2508.00001"}
+            else paper
+            for paper in store.iter_archive("cs.CV")
+        ],
+    )
+
+    _update(store, catalog, FakeServices(CITATIONS))
+
+    archived = {paper.arxiv_id: paper for paper in store.iter_archive("cs.CV")}
+    # OpenAlex gave the affiliations: no HTML extraction stands for them.
+    assert archived["1512.03385"].affiliations == ("Microsoft",)
+    assert archived["1512.03385"].extractor is None
+    # OpenAlex knows nothing yet either: the lookup is OpenAlex's, without a version.
+    assert archived["2508.00001"].affiliations == ()
+    assert archived["2508.00001"].affiliations_provenance == Provenance("openalex", TODAY)
+    assert archived["2508.00001"].extractor is None
+
+
 @pytest.mark.parametrize(
     ("age_days", "last_lookup_days", "asked"),
     [
