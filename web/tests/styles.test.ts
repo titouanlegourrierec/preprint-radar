@@ -51,3 +51,12 @@ describe("links inside text", () => {
     expect(rule).toContain("text-decoration: underline");
   });
 });
+
+describe("buttons inside text", () => {
+  it("are underlined as links are", () => {
+    const start = css.indexOf(".notice .link-button,");
+    const rule = css.slice(start, css.indexOf("}", start));
+    expect(rule).toContain(".graph__focus .link-button");
+    expect(rule).toContain("text-decoration: underline");
+  });
+});

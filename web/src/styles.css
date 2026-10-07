@@ -852,6 +852,14 @@ html {
   color: var(--accent);
   text-decoration: underline;
 }
+/* Buttons inside a sentence ("Show them", "Retry", "Show everything") are underlined as
+   its links are: their colour is the text's. */
+.notice .link-button,
+.graph__focus .link-button {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 /* Names on cards filter the list when clicked: say so without hovering. */
 .paper__authors .link-button,
 .paper__affiliations .link-button {
