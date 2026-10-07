@@ -131,3 +131,18 @@ test("a saved paper is in the reading list, which exports it", async ({ page }) 
   await expect(page.locator("article.paper")).toHaveCount(1);
   expect(errors).toEqual([]);
 });
+
+test("a paper the page cannot draw shows a message, not a blank page", async ({ page }) => {
+  const errors = watchErrors(page);
+  // A day whose first paper has no author list, which no card can draw.
+  await page.route("**/data/cs.CV/2026-09-25.json", async (route) => {
+    const response = await route.fetch();
+    const day = await response.json();
+    day.papers[0].authors = null;
+    await route.fulfill({ response, json: day });
+  });
+  await page.goto("./");
+  await expect(page.getByRole("alert")).toContainText("could not be displayed");
+  await expect(page.getByRole("button", { name: "Reload" })).toBeVisible();
+  expect(errors.length).toBeGreaterThan(0);
+});
