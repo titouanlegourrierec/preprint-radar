@@ -243,6 +243,7 @@ exist.
 | SEC-2, SEC-7 | Imported reading lists cannot put a `javascript:` or `data:` address on a paper: its arXiv and PDF links are made from its id, its HTML link kept on arxiv.org only, and an id that is not one refused; the "See it on arXiv" link of a `?paper=` that is no arXiv id is left out, and opens in a new tab; the pipeline resolves a listing's HTML link against arXiv and keeps it there only (from the backlog) | P2, P3 | done |
 | PERF-16 | Back to a period, or its preset chosen again, no longer downloads and indexes it again ("Loading papers…" over 3,646 papers): the load is keyed on the period's text (`periodKey`), and a new load lets the former index go first (not in the audit) | P2 | done |
 | UX-26 | "Hide seen" says what it hides: the count reads "· 12 seen papers hidden", and a list whose papers are all seen says so, with "Show seen papers", instead of "No paper matches" and remedies that do not help (also for a pasted arXiv id) (not in the audit) | P2 | done |
+| DATA-4, DOC-7 | Papers without an HTML rendering (224 of 4,832) are no longer counted as pending forever: `stats` gives them a *no page* column in the days (the archive's null still waits for OpenAlex), and the update report counts them apart ("1 without an HTML page"), so "no pending papers" can be reached (from the backlog) | P2 | done |
 | ARCH-2 | Enrichment step interface | P2 | todo |
 | DEBT-2, DEBT-3 | View model for `app.tsx`, `GraphView` split | P2, P3 | todo |
 | ARCH-4 | Multi-category, if wanted | P2 | todo |

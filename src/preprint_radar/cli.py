@@ -202,7 +202,8 @@ def _add_stats_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentP
             "Show, for each stored announcement day, then each archive year, how many papers "
             "have an abstract, affiliations, a detected venue and a citation count. "
             "Affiliation columns: at least one found (affiliated), searched without success "
-            "(none), not retrieved yet (pending); of the affiliated papers, mapped to their "
+            "(none), not retrieved yet (pending), never (no page: no HTML rendering to read); "
+            "of the affiliated papers, mapped to their "
             "authors (mapped) and with at least one institution named (named). With "
             "--affiliations, count signs of wrong affiliations instead, with examples."
         ),

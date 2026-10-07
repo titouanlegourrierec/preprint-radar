@@ -18,16 +18,28 @@ from preprint_radar.models import Paper
 from preprint_radar.store.paper_store import CitationCounts, PaperStore
 
 _SATURDAY = 5  # date.weekday(): Monday is 0
-_COLUMNS = ("papers", "abstracts", "affiliated", "none", "pending", "mapped", "named", "venues", "cited")
+_COLUMNS = (
+    "papers",
+    "abstracts",
+    "affiliated",
+    "none",
+    "pending",
+    "no page",
+    "mapped",
+    "named",
+    "venues",
+    "cited",
+)
 
 
 @dataclass(frozen=True, slots=True)
 class Coverage:
     """How many papers of a set carry each piece of enrichment.
 
-    Affiliations fall into three exclusive buckets: ``affiliations_found`` papers have at
-    least one, ``affiliations_empty`` were searched without success, and
-    ``affiliations_pending`` were not retrieved yet. Among papers with affiliations,
+    Affiliations fall into four exclusive buckets: ``affiliations_found`` papers have at
+    least one, ``affiliations_empty`` were searched without success,
+    ``affiliations_pending`` were not retrieved yet, and ``affiliations_no_page`` cannot be:
+    a day file's paper without an HTML rendering, which no run reads (DATA-4). Among papers with affiliations,
     ``mapped`` say which author has which, ``institutions_found`` name at least one
     institution, and ``institutions_pending`` were not looked up yet.
     """
@@ -37,6 +49,7 @@ class Coverage:
     affiliations_found: int = 0
     affiliations_empty: int = 0
     affiliations_pending: int = 0
+    affiliations_no_page: int = 0
     mapped: int = 0
     institutions_found: int = 0
     institutions_pending: int = 0
@@ -49,19 +62,27 @@ class Coverage:
         papers: Iterable[Paper],
         cited: Container[str] = frozenset(),
         published: Container[str] = frozenset(),
+        *,
+        pages: bool = True,
     ) -> Self:
         """Count the enrichment of ``papers``.
 
         ``cited`` holds the ids with a citation count, ``published`` those with a published
-        venue in ``scholar.json``, which count as having a venue.
+        venue in ``scholar.json``, which count as having a venue. Without ``pages`` (the
+        archive, whose affiliations come from OpenAlex), a paper without an HTML rendering
+        is pending like any other.
         """
-        counted = abstracts = found = empty = pending = mapped = named = unnamed = venues = with_count = 0
+        counted = abstracts = found = empty = pending = no_page = mapped = named = unnamed = venues = (
+            with_count
+        ) = 0
         for paper in papers:
             counted += 1
             abstracts += paper.abstract is not None
             venues += paper.venue is not None or paper.arxiv_id in published
             with_count += paper.arxiv_id in cited
-            if paper.affiliations is None:
+            if paper.affiliations is None and pages and paper.html_url is None:
+                no_page += 1
+            elif paper.affiliations is None:
                 pending += 1
             elif not paper.affiliations:
                 empty += 1
@@ -78,6 +99,7 @@ class Coverage:
             affiliations_found=found,
             affiliations_empty=empty,
             affiliations_pending=pending,
+            affiliations_no_page=no_page,
             mapped=mapped,
             institutions_found=named,
             institutions_pending=unnamed,
@@ -92,6 +114,7 @@ class Coverage:
             affiliations_found=self.affiliations_found + other.affiliations_found,
             affiliations_empty=self.affiliations_empty + other.affiliations_empty,
             affiliations_pending=self.affiliations_pending + other.affiliations_pending,
+            affiliations_no_page=self.affiliations_no_page + other.affiliations_no_page,
             mapped=self.mapped + other.mapped,
             institutions_found=self.institutions_found + other.institutions_found,
             institutions_pending=self.institutions_pending + other.institutions_pending,
@@ -121,7 +144,7 @@ def collect_archive_coverage(store: PaperStore, category: str) -> list[RowCovera
     """Coverage of each archive year of ``category``, most recent first."""
     cited, published = store.load_citations(category), _published(store, category)
     return [
-        RowCoverage(str(year), Coverage.of(store.load_archive(category, year), cited, published))
+        RowCoverage(str(year), Coverage.of(store.load_archive(category, year), cited, published, pages=False))
         for year in store.archive_years(category)
     ]
 
@@ -136,7 +159,8 @@ def format_coverage(category: str, days: Sequence[RowCoverage]) -> str:
     """Render the coverage of the days of one category, one row per day and a total.
 
     Columns count papers: with an abstract, with at least one affiliation (affiliated),
-    searched for affiliations without success (none), not searched yet (pending), with
+    searched for affiliations without success (none), not searched yet (pending), without
+    an HTML rendering to search, so never (no page), with
     affiliations mapped to their authors (mapped), with at least one institution named
     (named), with a venue (detected in the comments, or published according to
     Semantic Scholar), and with a citation count (cited).
@@ -233,6 +257,7 @@ def _cells(coverage: Coverage) -> tuple[str, ...]:
         coverage.affiliations_found,
         coverage.affiliations_empty,
         coverage.affiliations_pending,
+        coverage.affiliations_no_page,
         coverage.mapped,
         coverage.institutions_found,
         coverage.venues,

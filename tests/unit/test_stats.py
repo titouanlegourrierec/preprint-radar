@@ -25,6 +25,7 @@ BASE = Paper(
     announced=date(2026, 9, 25),
     title="A paper",
     authors=("Ada Lovelace",),
+    html_url="https://arxiv.org/html/2609.00000v1",
 )
 
 # One paper per affiliation bucket; two abstracts; one venue; the affiliated one is
@@ -86,6 +87,14 @@ def test_coverage_counts_each_affiliation_bucket_once() -> None:
         venues=1,
         cited=1,
     )
+
+
+def test_a_paper_without_an_html_page_is_not_pending_in_the_days() -> None:
+    unreadable = replace(BASE, html_url=None)
+
+    assert Coverage.of([unreadable]) == Coverage(papers=1, affiliations_no_page=1)
+    # The archive's affiliations come from OpenAlex, which has yet to answer.
+    assert Coverage.of([unreadable], pages=False) == Coverage(papers=1, affiliations_pending=1)
 
 
 def test_coverage_of_institutions_counts_only_papers_with_affiliations() -> None:
@@ -150,14 +159,16 @@ def test_format_coverage_lists_days_totals_and_percentages(archived: PaperStore)
         "affiliated",
         "none",
         "pending",
+        "no",
+        "page",
         "mapped",
         "named",
         "venues",
         "cited",
     ]
-    assert lines[2].split() == ["2026-09-25", "3", "2", "1", "1", "1", "1", "1", "1", "1"]
-    assert lines[3].split() == ["2026-09-24", "1", "0", "0", "0", "1", "0", "0", "0", "0"]
-    assert lines[4].split() == ["total", "4", "2", "1", "1", "2", "1", "1", "1", "1"]
+    assert lines[2].split() == ["2026-09-25", "3", "2", "1", "1", "1", "0", "1", "1", "1", "1"]
+    assert lines[3].split() == ["2026-09-24", "1", "0", "0", "0", "1", "0", "0", "0", "0", "0"]
+    assert lines[4].split() == ["total", "4", "2", "1", "1", "2", "0", "1", "1", "1", "1"]
     assert lines[5] == "abstracts 50%, affiliations 50% of 2 tried, venues 25%, citation counts 25%"
     assert lines[6] == "of the papers with affiliations: authors mapped 100%, institutions named 100%"
 
@@ -175,8 +186,8 @@ def test_format_archive_coverage_lists_years(archived: PaperStore) -> None:
     lines = report.splitlines()
     assert lines[0] == "cs.CV archive: 2 papers over 2 years"
     assert lines[1].split()[0] == "year"
-    assert lines[3].split() == ["2015", "1", "1", "1", "0", "0", "0", "1", "0", "1"]
-    assert lines[4].split() == ["total", "2", "2", "1", "1", "0", "0", "1", "0", "2"]
+    assert lines[3].split() == ["2015", "1", "1", "1", "0", "0", "0", "0", "1", "0", "1"]
+    assert lines[4].split() == ["total", "2", "2", "1", "1", "0", "0", "0", "1", "0", "2"]
 
 
 def test_format_citations_gives_source_and_date(archived: PaperStore) -> None:
@@ -209,7 +220,8 @@ def test_rich_tables_hold_the_same_rows(archived: PaperStore) -> None:
     assert "cs.CV: 4 papers over 2 days" in text
     assert "cs.CV archive: 2 papers over 2 years" in text
     assert any(
-        line.split() == ["total", "4", "2", "1", "1", "2", "1", "1", "1", "1"] for line in text.splitlines()
+        line.split() == ["total", "4", "2", "1", "1", "2", "0", "1", "1", "1", "1"]
+        for line in text.splitlines()
     )
     assert "abstracts 50%, affiliations 50% of 2 tried" in text
 

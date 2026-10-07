@@ -181,7 +181,7 @@ def test_stats_reports_coverage(tmp_path: Path, capsys: pytest.CaptureFixture[st
     out = capsys.readouterr().out
     lines = out.splitlines()
     assert lines[0] == "cs.CV: 7 papers over 2 days"
-    assert lines[2].split() == ["2026-09-25", "5", "0", "0", "0", "5", "0", "0", "2", "0"]
+    assert lines[2].split() == ["2026-09-25", "5", "0", "0", "0", "5", "0", "0", "0", "2", "0"]
     assert lines[-3].startswith("total")
     assert lines[-2].startswith("abstracts ")
     assert "archive" not in out  # no archive, no citation counts

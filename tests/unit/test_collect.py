@@ -729,6 +729,30 @@ def test_format_report_says_why_html_reading_stopped() -> None:
     assert not replace(report, stopped=Stop.DEADLINE).failed
 
 
+def test_format_report_counts_papers_without_a_page_apart() -> None:
+    report = UpdateReport(
+        category="cs.CV", listed=10, new=2, abstracts_fetched=2, affiliations_fetched=8, pending=1, no_page=1
+    )
+
+    assert format_report(report) == (
+        "cs.CV: 10 listed, 2 new, 2 abstracts and 8 affiliations fetched, "
+        "1 without an HTML page, 1 still pending"
+    )
+
+
+def test_a_paper_without_a_page_is_not_pending(fake: FakeArxiv, store: PaperStore) -> None:
+    with fake.client() as site, fake.client() as api:
+        report = update_category("cs.CV", store=store, site_client=site, api_client=api)
+    stored = list(store.iter_papers("cs.CV"))
+    without = sum(paper.affiliations is None and paper.html_url is None for paper in stored)
+
+    assert report.no_page == without
+    assert report.pending == sum(
+        paper.abstract is None or (paper.affiliations is None and paper.html_url is not None)
+        for paper in stored
+    )
+
+
 STORED = Paper(
     arxiv_id="2609.00000",
     announced=date(2026, 9, 25),

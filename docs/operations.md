@@ -77,7 +77,8 @@ arXiv's listing still covers the days missed (it shows the last five announcemen
    queued meanwhile waits for the manual one, then stops at its guard if it succeeded.
 2. For days older than the listing, fill *since* (`YYYY-MM-DD`): the run then calls
    `backfill` over the catchup pages from that day on, limited to *max-html* pages. Run it
-   again until `make stats` shows no pending papers for those days.
+   again until `make stats` shows no pending papers for those days; papers without an
+   HTML rendering count as *no page*, which no run reads (about 5%).
 
 ## Update data is red
 

@@ -90,7 +90,10 @@ class UpdateReport:
         new: Papers that were not in the store before.
         abstracts_fetched: Abstracts retrieved during this run.
         affiliations_fetched: Papers whose affiliations were retrieved during this run.
-        pending: Papers still missing an abstract or affiliations after the run.
+        pending: Papers still missing an abstract or affiliations after the run, which a
+            later run can still read.
+        no_page: Papers without affiliations nor an HTML rendering: no run reads them
+            (DATA-4).
         empty: Of the HTML pages read, those that gave no affiliation.
         unreadable: HTML pages that could not be fetched (tried again next run).
         stopped: Why the reading of HTML pages stopped early, if it did.
@@ -102,6 +105,7 @@ class UpdateReport:
     abstracts_fetched: int
     affiliations_fetched: int
     pending: int
+    no_page: int = 0
     empty: int = 0
     unreadable: int = 0
     stopped: Stop | None = None
@@ -173,7 +177,8 @@ def update_category(
         new=new,
         abstracts_fetched=abstracts_fetched,
         affiliations_fetched=read.pages,
-        pending=sum(not paper.is_enriched for paper in papers),
+        pending=sum(_still_pending(paper) for paper in papers),
+        no_page=sum(_without_page(paper) for paper in papers),
         empty=read.empty,
         unreadable=read.unreadable,
         stopped=read.stopped,
@@ -254,7 +259,8 @@ def backfill_category(
         new=new,
         abstracts_fetched=abstracts_fetched + read.abstracts,
         affiliations_fetched=read.pages,
-        pending=sum(not paper.is_enriched for paper in papers),
+        pending=sum(_still_pending(paper) for paper in papers),
+        no_page=sum(_without_page(paper) for paper in papers),
         empty=read.empty,
         unreadable=read.unreadable,
         stopped=read.stopped,
@@ -339,7 +345,8 @@ def reextract_category(
         new=0,
         abstracts_fetched=read.abstracts,
         affiliations_fetched=read.pages,
-        pending=sum(not paper.is_enriched for paper in papers),
+        pending=sum(_still_pending(paper) for paper in papers),
+        no_page=sum(_without_page(paper) for paper in papers),
         empty=read.empty,
         unreadable=read.unreadable,
         stopped=read.stopped,
@@ -922,6 +929,16 @@ _STOPS = {
 }
 
 
+def _without_page(paper: Paper) -> bool:
+    """Whether no run can read the paper's affiliations: none yet, and no HTML rendering."""
+    return paper.affiliations is None and paper.html_url is None
+
+
+def _still_pending(paper: Paper) -> bool:
+    """Whether a later run can still enrich the paper: an abstract, or a page to read."""
+    return paper.abstract is None or (paper.affiliations is None and paper.html_url is not None)
+
+
 def format_report(report: UpdateReport) -> str:
     """Render an :class:`UpdateReport` as a one-line human-readable summary."""
     return (
@@ -929,6 +946,7 @@ def format_report(report: UpdateReport) -> str:
         f"{report.abstracts_fetched} abstracts and {report.affiliations_fetched} affiliations fetched"
         + (f" ({report.empty} pages without any)" if report.empty else "")
         + (f", {report.unreadable} pages unreadable" if report.unreadable else "")
+        + (f", {report.no_page} without an HTML page" if report.no_page else "")
         + f", {report.pending} still pending"
         + (f"; HTML reading stopped: {_STOPS[report.stopped]}" if report.stopped else "")
     )
