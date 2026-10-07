@@ -72,3 +72,26 @@ test("the graph of an archive year lists its papers in Highly cited", async ({ p
   await expect(page.getByRole("heading", { name: "Attention for Looms" })).toBeVisible();
   expect(errors).toEqual([]);
 });
+
+test("marking a paper seen while seen papers are hidden moves the focus to the next one", async ({
+  page,
+}) => {
+  const errors = watchErrors(page);
+  await page.goto("./");
+  await expect(page.getByText("4 of 4 cs.CV papers")).toBeVisible();
+  await page.getByRole("checkbox", { name: "Hide seen" }).check();
+  // Keys typed in a form control are its own: leave the checkbox first.
+  await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur());
+  await page.keyboard.press("j");
+  const first = await page.evaluate(() => document.activeElement?.getAttribute("data-arxiv-id"));
+  expect(first).toBeTruthy();
+  await page.keyboard.press("x");
+  await expect(page.getByText("3 of 4 cs.CV papers")).toBeVisible();
+  // The card now at its place has the focus, so that j and x go on (UX-23).
+  await expect
+    .poll(() => page.evaluate(() => document.activeElement?.getAttribute("data-arxiv-id") ?? null))
+    .not.toBe(null);
+  const next = await page.evaluate(() => document.activeElement?.getAttribute("data-arxiv-id"));
+  expect(next).not.toBe(first);
+  expect(errors).toEqual([]);
+});

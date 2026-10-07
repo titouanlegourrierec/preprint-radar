@@ -5,6 +5,7 @@ import {
   archiveYearOf,
   DEFAULT_STATE,
   isNavigation,
+  listKey,
   paperLink,
   readState,
   writeState,
@@ -203,5 +204,21 @@ describe("paperLink", () => {
     expect(archiveYearOf("2019-03-01", "2026-09-01", [2017, 2025])).toBeNull();
     expect(archiveYearOf("2017-06-12", undefined, [2017])).toBeNull();
     expect(archiveYearOf("2026-09-25", "2026-09-01", [2026])).toBeNull();
+  });
+});
+
+describe("listKey", () => {
+  it("changes with what makes a new list, not with a shared paper or the graph's focus", () => {
+    const base = listKey(DEFAULT_STATE, "");
+    expect(listKey({ ...DEFAULT_STATE, paper: "2609.30234", focus: "institution:mit" }, "")).toBe(
+      base,
+    );
+    expect(listKey({ ...DEFAULT_STATE, period: { ...DEFAULT_STATE.period } }, "")).toBe(base);
+    expect(listKey(DEFAULT_STATE, "gaussian")).not.toBe(base);
+    expect(listKey({ ...DEFAULT_STATE, sort: "citations" }, "")).not.toBe(base);
+    expect(listKey({ ...DEFAULT_STATE, view: "cited" }, "")).not.toBe(base);
+    expect(
+      listKey({ ...DEFAULT_STATE, filters: { ...DEFAULT_STATE.filters, withCode: true } }, ""),
+    ).not.toBe(base);
   });
 });

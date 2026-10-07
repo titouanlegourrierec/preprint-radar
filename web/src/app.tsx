@@ -46,7 +46,7 @@ import {
   valueCounts,
 } from "./search";
 import type { Paper } from "./types";
-import { archiveYearOf, paperLink, type ViewState, writeState } from "./url-state";
+import { archiveYearOf, listKey, paperLink, type ViewState, writeState } from "./url-state";
 import { venueFacets } from "./venues";
 
 const FACET_SIZE = 12;
@@ -166,25 +166,29 @@ export function App() {
 
   const triaged = state.view === "papers";
   const hiding = triaged && triage.hideSeen && triage.seen.size > 0;
+  // The highly cited view ranks by citations; search words only narrow it down. Rising
+  // papers come before, by what they gained in a week (none known: by citations alone).
+  const byCount = cited || state.sort === "citations" || state.sort === "rising";
+  // In three steps, each redone only when what it reads changes (UX-23): marking a paper
+  // seen does not search again, nor do late counts when the order ignores them.
+  const found = useMemo(
+    () =>
+      state.view === "graph"
+        ? []
+        : (activeIndex?.search(query, state.filters, cited ? "newest" : state.sort) ?? []),
+    [state.view, cited, activeIndex, query, state.filters, state.sort],
+  );
+  const hiddenSeen = hiding ? triage.seen : null;
+  const shown = useMemo(
+    () => (hiddenSeen ? found.filter(({ paper }) => !hiddenSeen.has(paper.arxiv_id)) : found),
+    [found, hiddenSeen],
+  );
+  const rankingCounts = byCount ? citations.counts : null;
+  const rankingGains = state.sort === "rising" ? citations.gains : null;
   const results: SearchResult[] = useMemo(() => {
-    if (state.view === "graph") return [];
-    const found = activeIndex?.search(query, state.filters, cited ? "newest" : state.sort) ?? [];
-    const shown = hiding ? found.filter(({ paper }) => !triage.seen.has(paper.arxiv_id)) : found;
-    // The highly cited view ranks by citations; search words only narrow it down. Rising
-    // papers come before, by what they gained in a week (none known: by citations alone).
-    if (state.sort === "rising") return byGains(shown, citations.gains, citations.counts);
-    return cited || state.sort === "citations" ? byCitations(shown, citations.counts) : shown;
-  }, [
-    state.view,
-    cited,
-    activeIndex,
-    query,
-    state.filters,
-    state.sort,
-    citations,
-    hiding,
-    triage.seen,
-  ]);
+    if (rankingGains && rankingCounts) return byGains(shown, rankingGains, rankingCounts);
+    return rankingCounts ? byCitations(shown, rankingCounts) : shown;
+  }, [shown, rankingCounts, rankingGains]);
   // The graph has its own settings panel: it ignores the list filters, not the search words.
   const graphPapers = useMemo(
     () =>
@@ -221,7 +225,6 @@ export function App() {
   );
   const hasSearchWords = parseQuery(query).text !== "";
   // Day headings need results in announcement order (see search): no words, or newest.
-  const byCount = cited || state.sort === "citations" || state.sort === "rising";
   const groupByDay = !byCount && (!hasSearchWords || state.sort === "newest");
   // Without search words, relevance is the announcement order.
   const newest = state.sort === "newest" || (state.sort === "relevance" && !hasSearchWords);
@@ -880,6 +883,7 @@ export function App() {
                 )}
               <PaperList
                 results={results}
+                resetKey={listKey(state, query)}
                 nameHighlights={nameTerms}
                 groupByDay={groupByDay}
                 openId={state.paper}

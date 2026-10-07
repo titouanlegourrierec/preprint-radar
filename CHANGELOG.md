@@ -18,6 +18,13 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 - The venue filter has every edition of a venue at once, "CVPR, any year", its workshops
   apart (SRCH-15).
 
+### Triage
+
+- Marking a paper seen (x) while seen papers are hidden, or unsaving it (s) from the
+  reading list, keeps the papers loaded below it and gives the focus to the next one; it
+  used to fold the list back to 40 papers and lose the keyboard's place. Late citation
+  counts no longer fold it either (UX-23).
+
 ### Highly cited
 
 - Highly cited shows a range of years, or all of them, not only one: "2019 to 2021",

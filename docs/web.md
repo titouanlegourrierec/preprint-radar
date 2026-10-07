@@ -127,6 +127,12 @@ derives what only the site uses. The pipeline and `validate` never see these.
 - **Saved searches** (`saved-searches.ts`): the query string of their words and filters,
   so that they run on any period. The sidebar counts each one's papers new since the last
   visit, and opens them; exported and imported with the reading list.
+- **The list** (`components/PaperList.tsx`, `paging.ts`) adds 40 cards at a time as its
+  end comes into view, and starts over at 40 only for a new list (`listKey`: other words,
+  filters, sort, view, period, years or category). A card marked seen while seen papers
+  are hidden, or unsaved from the reading list, leaves without collapsing the list, and
+  the card now at its place takes the focus; late citation counts re-rank it only when
+  the order uses them (UX-23).
 - **Triage** (`triage.ts`, `hooks/use-triage.ts`), never in the URL: papers marked seen,
   per category, pruned to the last 3 months of identifiers, with "Hide seen"; the newest
   day of the previous visit, fixed for the session, for the "new papers since your last

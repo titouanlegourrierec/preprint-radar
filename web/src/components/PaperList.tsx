@@ -3,14 +3,15 @@ import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { dayGroups } from "../day-groups";
 import { countOf, formatShortDay } from "../format";
 import { hasModifier, isTyping } from "../keyboard";
+import { nextFocusIndex, PAGE_SIZE, pageCount } from "../paging";
 import type { NameFilter, SearchResult } from "../search";
 import type { Paper } from "../types";
 import { PaperCard } from "./PaperCard";
 
-const PAGE_SIZE = 40;
-
 interface Props {
   results: SearchResult[];
+  /** What makes a new list (`listKey`): its paging starts over only when this changes. */
+  resetKey: string;
   /** The names filtered on, which cards mark in their author and affiliation lines. */
   nameHighlights: readonly string[];
   /** Insert a heading before each day; needs results in announcement order. */
@@ -39,6 +40,7 @@ interface Props {
 /** Render results incrementally: the next page is added when the end of the list is visible. */
 export function PaperList({
   results,
+  resetKey,
   nameHighlights,
   groupByDay,
   openId,
@@ -60,6 +62,16 @@ export function PaperList({
   const [visible, setVisible] = useState(PAGE_SIZE);
   const sentinel = useRef<HTMLDivElement>(null);
   const list = useRef<HTMLDivElement>(null);
+
+  // A card marked seen while seen papers are hidden, or unsaved from the reading list,
+  // leaves the list and takes the focus with it: once the list is drawn again, the card now
+  // at its place takes it, so that j and x go on (UX-23).
+  const refocusAfter = (index: number) =>
+    setTimeout(() => {
+      if (!list.current || document.activeElement !== document.body) return;
+      const cards = list.current.querySelectorAll<HTMLElement>("article.paper");
+      cards[nextFocusIndex(cards.length, index)]?.focus();
+    }, 0);
 
   // Triage from the keyboard: j and k move between papers, o (or Enter on a paper) opens
   // it, s saves it, x marks it seen. Keys typed in a field are left alone.
@@ -87,8 +99,10 @@ export function PaperList({
         current?.querySelector<HTMLButtonElement>(".paper__more")?.click();
       } else if (event.key === "s" && paper) {
         actions.current.onToggleSaved(paper);
+        refocusAfter(index);
       } else if (event.key === "x" && paper && actions.current.onToggleSeen) {
         actions.current.onToggleSeen(paper.arxiv_id);
+        refocusAfter(index);
       } else {
         return;
       }
@@ -98,11 +112,15 @@ export function PaperList({
     return () => document.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  // Reset paging whenever the results change, keeping a shared link's target in reach.
+  // A new list starts over at one page; the same list keeps its cards when one leaves it
+  // or counts rank it (UX-23). A shared link's target stays in reach.
+  const listShown = useRef(resetKey);
   useEffect(() => {
-    const target = openId ? results.findIndex(({ paper }) => paper.arxiv_id === openId) : -1;
-    setVisible(Math.max(PAGE_SIZE, Math.ceil((target + 1) / PAGE_SIZE) * PAGE_SIZE));
-  }, [results, openId]);
+    const keyChanged = listShown.current !== resetKey;
+    listShown.current = resetKey;
+    const targetIndex = openId ? results.findIndex(({ paper }) => paper.arxiv_id === openId) : -1;
+    setVisible((visible) => pageCount({ keyChanged, visible, targetIndex }));
+  }, [results, openId, resetKey]);
 
   useEffect(() => {
     const element = sentinel.current;

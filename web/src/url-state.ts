@@ -146,6 +146,14 @@ function navigationKey(state: ViewState): string {
 }
 
 /**
+ * What makes a new list of papers, for its paging (`paging.ts`): the words, filters, sort,
+ * view, period, years and category. A shared link's paper and the graph's focus are not.
+ */
+export function listKey(state: ViewState, query: string): string {
+  return writeState({ ...state, query, paper: null, focus: null });
+}
+
+/**
  * Whether going from one state to the other is a step to keep in the browser's history:
  * another view, paper, period, year or category, or a filter set by a click.
  */
