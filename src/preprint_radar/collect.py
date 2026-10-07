@@ -73,8 +73,9 @@ class HtmlReading:
         limit: Pages to download at most (``None``: no limit, ``0``: none). Pages the
             cache holds are read from it, and do not count.
         save_every: Save progress after this many pages.
-        deadline: ``time.monotonic()`` value after which no page is started, so that the
-            run ends cleanly before it is killed (``None``: no deadline).
+        deadline: ``time.monotonic()`` value after which no page is started (nor, in a
+            backfill, a catchup page), so that the run ends cleanly before it is killed
+            (``None``: no deadline).
         cache: Pages read before (their front matter); pages downloaded are added to it.
     """
 
@@ -206,7 +207,8 @@ def backfill_category(
     fetched again. A day whose catchup page fails, or lists fewer entries than it
     announces, is not saved: the others are read, and the report names it (REL-4), for the
     next run to fetch it again. After ``MAX_CONSECUTIVE_DAY_FAILURES`` such days in a row,
-    or past the reading's deadline, the remaining days are not asked for, and named too.
+    the remaining days are not asked for, and named too; past the reading's deadline, they
+    are left for the next run, as its pages are (``Stop.DEADLINE``).
     As in :func:`update_category`, enrichment already in the store is reused and progress
     is saved regularly.
 
@@ -227,6 +229,7 @@ def backfill_category(
     known = {paper.arxiv_id: paper for paper in store.iter_papers()}
     papers: list[Paper] = []
     failed: list[date] = []
+    left: list[date] = []  # past the deadline: not asked for, and not failed
     failing = 0  # catchup pages that could not be read in a row
     for day in sorted(set(days), reverse=True):
         stored = store.load_day(category, day)
@@ -234,7 +237,10 @@ def backfill_category(
             # Past announcements never change: a day saved with its abstracts is reused, so
             # that resuming an interrupted backfill goes straight back to the HTML pages.
             listed = stored
-        elif failing >= MAX_CONSECUTIVE_DAY_FAILURES or _past(reading.deadline):
+        elif _past(reading.deadline):
+            left.append(day)
+            continue
+        elif failing >= MAX_CONSECUTIVE_DAY_FAILURES:
             # Not asked for: left for the next run, like the days that failed.
             failed.append(day)
             continue
@@ -256,6 +262,8 @@ def backfill_category(
             store.save(category, listed)
         logger.info("%s %s: %s papers", category, day.isoformat(), f"{len(listed):,}")
         papers.extend(listed)
+    if left:
+        logger.warning("Out of time: %d days left for the next run", len(left))
     # Let the web app show the new days while affiliations are being read.
     store.write_index()
 
@@ -281,7 +289,9 @@ def backfill_category(
         new=new,
         abstracts=abstracts_fetched,
     )
-    return replace(report, failed_days=tuple(failed))
+    # Days left at the deadline wait for the next run, as its pages do: out of time, not red.
+    stopped = report.stopped or (Stop.DEADLINE if left else None)
+    return replace(report, failed_days=tuple(failed), stopped=stopped)
 
 
 def _catchup_day(client: HttpClient, category: str, day: date) -> Listing | None:
@@ -971,8 +981,10 @@ _NAME_WORD_RE = re.compile(r"[^\W_]+")
 
 def _name_words(name: str) -> list[str]:
     """A name's words, folded, a hyphenated given name as one: "Jin-Chao" is "jinchao"."""
-    decomposed = unicodedata.normalize("NFD", name.lower().translate(PLAIN_LETTERS))
+    # In the order of ``institutions.search_key``: marks first, so that "ǿ" is "o" too.
+    decomposed = unicodedata.normalize("NFD", name)
     folded = "".join(char for char in decomposed if not unicodedata.combining(char))
+    folded = folded.lower().translate(PLAIN_LETTERS)
     return _NAME_WORD_RE.findall(_NAME_JOINER_RE.sub("", folded.replace(". ", " ")))
 
 

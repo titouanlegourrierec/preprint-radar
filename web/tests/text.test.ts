@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 // The pipeline's tests (tests/unit/test_institutions.py) read the same cases, so that
-// Python's `institutions.search_key` keys a name as the site does (AFF-24).
+// Python's `institutions.search_key` keys these cases as the site does (AFF-24).
 import foldCases from "../../tests/fixtures/fold-cases.json?raw";
 import { fold, searchKey } from "../src/text";
 

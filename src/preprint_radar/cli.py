@@ -705,8 +705,9 @@ def _add_store_arguments(parser: argparse.ArgumentParser, *, max_html: int | Non
         type=_duration,
         default=None,
         help=(
-            "start no HTML page after this many minutes, so that the run ends cleanly before "
-            "a time limit; the pages left wait for the next run (default: no deadline)"
+            "start no HTML page (nor, for backfill, catchup page) after this many minutes, so "
+            "that the run ends cleanly before a time limit; what is left waits for the next "
+            "run (default: no deadline)"
         ),
     )
     parser.add_argument(

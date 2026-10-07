@@ -525,14 +525,20 @@ def test_backfill_stops_asking_after_days_in_a_row_it_cannot_read(
     )
 
 
-def test_backfill_asks_for_no_day_past_its_deadline(fake_catchup: FakeArxiv, store: PaperStore) -> None:
+def test_backfill_asks_for_no_day_past_its_deadline(
+    fake_catchup: FakeArxiv, store: PaperStore, caplog: pytest.LogCaptureFixture
+) -> None:
     with fake_catchup.client() as site:
         report = backfill_category(
             "cs.CV", BACKFILL_DAYS, store=store, site_client=site, html=HtmlReading(deadline=0.0)
         )
 
+    # Out of time, as for pages: the days wait for the next run, and the run is not red.
     assert not [path for path in fake_catchup.hits if path.startswith("/catchup/")]
-    assert report.failed_days == tuple(sorted(BACKFILL_DAYS, reverse=True))
+    assert report.failed_days == ()
+    assert report.stopped is Stop.DEADLINE
+    assert not report.failed
+    assert "Out of time: 3 days left for the next run" in caplog.text
 
 
 def _paper(arxiv_id: str, affiliations: tuple[str, ...] | None) -> Paper:

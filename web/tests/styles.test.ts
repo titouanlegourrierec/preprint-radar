@@ -74,7 +74,9 @@ describe("focus rings", () => {
     const removing = rules.filter(
       ({ selector, body }) =>
         !selector.includes(":not(:focus-visible)") &&
-        /outline(?:-style|-width)?:\s*(?:none|0(?:px)?|transparent)(?![\w-])/.test(body),
+        /outline(?:-style|-width|-color)?:[^;]*?(?:\bnone\b|\btransparent\b|(?<![\d.\w-])0(?:px)?(?![\d.\w%-]))/.test(
+          body,
+        ),
     );
     expect(rules.length).toBeGreaterThan(100);
     expect(removing.map(({ selector }) => selector)).toEqual([".search__input"]);

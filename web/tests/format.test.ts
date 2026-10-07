@@ -130,7 +130,9 @@ describe("gainLabel", () => {
     const week = { since: "2026-10-04T05:41:00+00:00", to: "2026-10-11T06:02:00+00:00" };
     const label = gainLabel(1200, week, "Semantic Scholar");
     expect(label.text).toBe(`+${(1200).toLocaleString()} this week`);
-    expect(label.title).toMatch(/^1.200 new citations on Semantic Scholar between .+ and .+$/);
+    expect(label.title).toBe(
+      `${countOf(1200, "new citation")} on Semantic Scholar between ${formatDay(week.since)} and ${formatDay(week.to)}`,
+    );
 
     const longer = { since: "2026-09-30T13:19:35+00:00", to: "2026-10-11T06:02:00+00:00" };
     expect(gainLabel(1, longer, null).text).toBe(`+1 since ${formatDay(longer.since)}`);

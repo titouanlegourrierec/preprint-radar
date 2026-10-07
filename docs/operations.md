@@ -125,7 +125,7 @@ same days: the days already stored are reused, so only the missing ones are fetc
 day keeps failing with `lists` fewer entries, or the page no longer parses, the catchup
 layout changed. The canary does not read catchup pages, only the recent listing, whose
 entries they share: open the day's catchup page and check its dated title and its
-"showing N of M entries" headings, which `_catchup_day` reads.
+"showing N of M entries" headings, which `parse_catchup` (`sources/arxiv_listing.py`) reads.
 
 ### Validation failed: nothing was pushed
 
@@ -177,10 +177,12 @@ much more slowly.
 
 ### Out of time
 
-**Signal.** Warning annotation `Out of time` (`HTML renderings left for the next run`).
+**Signal.** Warning annotation `Out of time` (`HTML renderings left for the next run`, or
+for a backfill `days left for the next run`).
 
-The 175 minutes of *Fetch papers* ran out before every page was read: a big day, or a
-slow arxiv.org. Normal after a long gap; the next runs read the rest. If it shows every
+The 175 minutes of *Fetch papers* ran out before every page was read (or, for a backfill
+over several categories, before the later ones' catchup pages were asked for): a big day,
+or a slow arxiv.org. Normal after a long gap; the next runs read the rest. If it shows every
 day, reading cannot keep up (more than 600 papers a day at 15 s a page): lower the
 categories or accept a backlog.
 

@@ -12,8 +12,8 @@ const PLAIN_LETTERS: readonly (readonly [RegExp, string])[] = [
 /**
  * Lowercase and strip diacritics, so that "perez" matches "Pérez", and write the letters
  * that keep a stroke or a ligature plainly, so that "Nießner" is "Niessner" and "Bartłomiej"
- * is "Bartlomiej" (AFF-24). Python's `institutions.search_key` folds the same way, which
- * `tests/fixtures/fold-cases.json` checks in both test suites.
+ * is "Bartlomiej" (AFF-24). Python's `institutions.search_key` keys the cases of
+ * `tests/fixtures/fold-cases.json` the same way, which both test suites check.
  */
 export function fold(text: string): string {
   const lowered = text

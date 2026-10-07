@@ -22,8 +22,9 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   author in the graph and Rankings (AFF-24), and `searchKey`, which keys names, graph
   nodes and feeds, also collapses punctuation to one space. Python's
   `institutions.search_key` keys the cases of `tests/fixtures/fold-cases.json` the same
-  way, which both test suites read; spacing accents and modifier letters (ʻ, ˜) still
-  differ, which nothing compares today.
+  way, which both test suites read; spacing accents, modifier letters and the middle dot
+  (ʻ, ˜, ·), and the combining marks outside `\p{Diacritic}`, still differ, which nothing
+  compares today.
 - `"phrases"` match whole words and `-exclusions` word starts, over every searched field
   as one `searchKey` text per paper, so punctuation and hyphens do not count. A pasted
   arXiv identifier or link means that paper; stop words alone keep every paper.

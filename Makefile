@@ -12,6 +12,8 @@ SHELL := /bin/bash
 export PREPRINT_RADAR_CONTACT
 # Not exported even when the shell holds it, which Make would otherwise pass on everywhere.
 unexport SEMANTIC_SCHOLAR_API_KEY
+# A value given on make's command line also travels in MAKEFLAGS, to every recipe.
+MAKEOVERRIDES := $(filter-out SEMANTIC_SCHOLAR_API_KEY=%,$(MAKEOVERRIDES))
 archive citations scholar: export SEMANTIC_SCHOLAR_API_KEY := $(SEMANTIC_SCHOLAR_API_KEY)
 
 WEB := web
