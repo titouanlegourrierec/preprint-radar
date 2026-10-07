@@ -4,6 +4,7 @@ import { download, downloadBlob } from "../download";
 import { countOf } from "../format";
 import {
   buildGraph,
+  canonicalNodeId,
   type EntityKind,
   entitiesByPaper,
   type GraphOptions,
@@ -85,7 +86,9 @@ interface Props {
 
 /** Full-screen co-occurrence graph of the institutions and authors of the loaded papers. */
 export function GraphView(props: Props) {
-  const { papers, onShowPapers, onOpenPaper, theme, citations, focus, onFocus } = props;
+  const { papers, onShowPapers, onOpenPaper, theme, citations, onFocus } = props;
+  // The node focused on, as the graph keys it: a link may write it otherwise.
+  const focus = props.focus === null ? null : canonicalNodeId(props.focus);
   const [settings, setSettings] = useState<GraphSettings>(loadGraphSettings);
   const [panelOpen, setPanelOpen] = useState(() => window.matchMedia(WIDE_SCREEN).matches);
   const [highlight, setHighlight] = useState("");
@@ -342,13 +345,17 @@ export function GraphView(props: Props) {
     Boolean,
   );
   const selectedEntity = selected && isEntity(selected) ? selected : null;
+  // Its name: the node's, else its usual spelling among the papers, else its key.
+  const undrawnLabel = useMemo(
+    () => (focus !== null && !nodesById.has(focus) ? nodeLabel(papers, focus) : null),
+    [focus, nodesById, papers],
+  );
   const focusLabel = focus
-    ? (nodesById.get(focus)?.label ??
-      nodeLabel(papers, focus) ??
-      focus.slice(focus.indexOf(":") + 1))
+    ? (nodesById.get(focus)?.label ?? undrawnLabel ?? focus.slice(focus.indexOf(":") + 1))
     : null;
-  // A focus kept from other papers (another period, year or venue) may have none here.
-  const focusEmpty = focus !== null && focusedPapers.length === 0;
+  // A focus kept from other papers (another period, year or venue) may have none here;
+  // while papers load, or failed to, there are none to tell.
+  const focusEmpty = focus !== null && props.notice === null && focusedPapers.length === 0;
   const fileName = exportName(new Date().toISOString().slice(0, 10), focus);
   const exportGraphML = () =>
     download(`${fileName}.graphml`, toGraphML(graph), "application/graphml+xml");
@@ -366,8 +373,8 @@ export function GraphView(props: Props) {
           ? null
           : kinds.length === 0
             ? "Turn on institutions or authors in the graph settings."
-            : `No ${kinds.join(" or ")} to show: ${affiliatedCount.toLocaleString()} of these ` +
-              `${countOf(shownPapers.length, "paper")} have known affiliations so far.`);
+            : `No ${kinds.join(" or ")} to show: affiliations are known so far for ` +
+              `${affiliatedCount.toLocaleString()} of ${countOf(shownPapers.length, "paper")}.`);
 
   return (
     <main class="graph" id="main">
@@ -439,13 +446,15 @@ export function GraphView(props: Props) {
 
       {focusLabel && (
         <p class="graph__focus" role="status">
-          {focusEmpty
-            ? `${focusLabel} has no paper among these.`
-            : `${focusLabel} and ${
-                focusedPapers.length === 1
-                  ? "its paper"
-                  : `its ${countOf(focusedPapers.length, "paper")}`
-              }, with their institutions and authors.`}{" "}
+          {props.notice !== null
+            ? `Focused on ${focusLabel}.`
+            : focusEmpty
+              ? `${focusLabel} has no paper among these.`
+              : `${focusLabel} and ${
+                  focusedPapers.length === 1
+                    ? "its paper"
+                    : `its ${countOf(focusedPapers.length, "paper")}`
+                }, with their institutions and authors.`}{" "}
           <button type="button" class="link-button" onClick={() => onFocus(null)}>
             Show everything
           </button>

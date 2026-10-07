@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   buildGraph,
+  canonicalNodeId,
   countPeople,
   entitiesByPaper,
   type GraphOptions,
@@ -604,5 +605,13 @@ describe("nodeConnections", () => {
       "institution:google",
       "institution:inria",
     ]);
+  });
+});
+
+describe("canonicalNodeId", () => {
+  it("keys a hand-written id as the graph does, and leaves a paper's alone", () => {
+    expect(canonicalNodeId("institution:MIT")).toBe("institution:mit");
+    expect(canonicalNodeId("author:José Ruiz")).toBe("author:jose ruiz");
+    expect(canonicalNodeId("paper:2609.00001")).toBe("paper:2609.00001");
   });
 });

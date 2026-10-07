@@ -58,7 +58,7 @@ export function NoResults(props: Props) {
         </p>
       )}
       {props.allSeen > 0 && (
-        <p class="notice">
+        <p class="notice" role="status">
           {seenHidden(props.allSeen).empty}{" "}
           <button type="button" class="link-button" onClick={props.onShowSeen}>
             Show seen papers

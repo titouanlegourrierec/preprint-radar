@@ -144,9 +144,14 @@ export function App() {
     [state.view, cited, activeIndex, query, state.filters, state.sort],
   );
   const hiddenSeen = hiding ? triage.seen : null;
+  // A shared or opened paper stays, seen or not: it is the one asked for.
+  const target = state.paper;
   const shown = useMemo(
-    () => (hiddenSeen ? found.filter(({ paper }) => !hiddenSeen.has(paper.arxiv_id)) : found),
-    [found, hiddenSeen],
+    () =>
+      hiddenSeen
+        ? found.filter(({ paper }) => paper.arxiv_id === target || !hiddenSeen.has(paper.arxiv_id))
+        : found,
+    [found, hiddenSeen, target],
   );
   // Papers that Hide seen leaves out, which the count and an empty list say.
   const hiddenCount = found.length - shown.length;

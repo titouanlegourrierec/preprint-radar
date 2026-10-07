@@ -75,7 +75,7 @@ export function ListNotices(props: Props) {
           shown, as many as a period loads. Narrow the years for the{" "}
           {archiveBudget.leftOut.toLocaleString()} others.
           {archiveBudget.unranked > 0 &&
-            ` The citation counts of ${countOf(archiveBudget.unranked, "year")} could not be loaded: their papers come last.`}
+            ` The citation counts of ${countOf(archiveBudget.unranked, "year")} could not be loaded: their papers rank last, so most are among those left out.`}
         </p>
       )}
       {VIEW_NOTES[view] && (

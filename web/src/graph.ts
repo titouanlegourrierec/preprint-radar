@@ -443,6 +443,18 @@ export function linkPapers(
 }
 
 /**
+ * A node id as `buildGraph` keys nodes: a link written by hand ("institution:MIT") is the
+ * node "institution:mit"; a paper's id is its arXiv id, which a search key would break.
+ */
+export function canonicalNodeId(id: string): string {
+  const separator = id.indexOf(":");
+  const kind = id.slice(0, separator);
+  return kind === "institution" || kind === "author"
+    ? `${kind}:${searchKey(id.slice(separator + 1))}`
+    : id;
+}
+
+/**
  * The papers of a node, by its id (`institution:<key>`, `author:<key>`, `paper:<id>`):
  * the graph of these alone is the node's ego network, "Focus on this" (§17.1 #8), with
  * whom an institution or an author publishes. Matched as {@link buildGraph} keys nodes, so
