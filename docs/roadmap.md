@@ -232,6 +232,7 @@ exist.
 | §17.1 #10 | Per-entity timelines in Rankings, once 12 months of data exist | — | todo |
 | AFF-13, ARCH-3 | Institution canonicalization in the pipeline (decision 12): the site's rules ported to `institutions.py` (the same name for all 37,789 stored affiliations), ROR first then the rules, registry names made canonical, the archive's too; `make institutions-again`; the site displays only, keeping its acronyms for search | P2 | done |
 | AFF-H | Author identity (decision 13): Semantic Scholar's author ids, each kept only where its name is the arXiv author's, merged into the site's records; authors stay keyed by name, since Semantic Scholar has several profiles for most prolific authors (Luc Van Gool three), and a name whose profiles share no institution or co-author says it is perhaps several people (2026-10-07) | P2 | done |
+| PROD-17 | Highly cited over several years (asked on 2026-10-07, not in the audit): a range of years or all of them (`?year=2019-2021`, `?year=all`), in the graph and Rankings too; past 10,000 papers (all years hold 22,000, 300 MB once indexed), the best ranked by citations per year of age, saying how many are left out | P2 | done |
 | ARCH-2 | Enrichment step interface | P2 | todo |
 | DEBT-2, DEBT-3 | View model for `app.tsx`, `GraphView` split | P2, P3 | todo |
 | ARCH-4 | Multi-category, if wanted | P2 | todo |

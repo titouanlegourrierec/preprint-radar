@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "preact/hooks";
+import { ALL_YEARS, oneYear, publishedIn } from "./archive-years";
 import { toBibtexFile } from "./bibtex";
 import { About } from "./components/About";
 import { ActiveFilters } from "./components/ActiveFilters";
@@ -10,13 +11,7 @@ import { Sidebar } from "./components/Sidebar";
 import { download } from "./download";
 import { toCsv, toMarkdown, toRis } from "./export";
 import { feedOf } from "./feeds";
-import {
-  archiveYearLabel,
-  categoryName,
-  citationsNote as formatCitationsNote,
-  formatDay,
-  gainLabel,
-} from "./format";
+import { categoryName, citationsNote as formatCitationsNote, formatDay, gainLabel } from "./format";
 import { useCitations } from "./hooks/use-citations";
 import { usePapers } from "./hooks/use-papers";
 import { useReadingList } from "./hooks/use-reading-list";
@@ -108,12 +103,13 @@ export function App() {
     category,
     storeDays,
     archiveYears,
-    archiveYear,
+    archiveRange,
+    archiveLeftOut,
     load,
     searchable,
     retry,
     generatedAt,
-  } = usePapers(state.category, state.period, archived ? { year: state.year } : null);
+  } = usePapers(state.category, state.period, archived ? { years: state.year } : null);
   const readingList = useReadingList(load.status === "ready" ? load.index : null);
   const shownPapers = useMemo(
     () => [...(load.status === "ready" ? load.index.all() : []), ...readingList.papers],
@@ -263,9 +259,9 @@ export function App() {
     const loaded = load.status === "ready" && load.index.has(paper.arxiv_id);
     const year = archiveYearOf(paper.announced, oldestDay, yearsArchived);
     if (loaded) {
-      update({ view: "graph", paper: paper.arxiv_id, year: archived ? archiveYear : null });
+      update({ view: "graph", paper: paper.arxiv_id, year: archived ? archiveRange : null });
     } else if (year !== null) {
-      update({ view: "graph", paper: paper.arxiv_id, year });
+      update({ view: "graph", paper: paper.arxiv_id, year: oneYear(year) });
     } else {
       update({
         view: "graph",
@@ -327,7 +323,7 @@ export function App() {
             // From the highly cited papers, the graph shows them.
             {...tab(state.view === "graph", {
               view: "graph",
-              ...(cited ? { year: archiveYear } : {}),
+              ...(cited ? { year: archiveRange } : {}),
             })}
           >
             Graph
@@ -335,7 +331,7 @@ export function App() {
           <a
             class={`tab${rankings ? " tab--active" : ""}`}
             title="Institutions and authors of the papers shown, by papers or citations"
-            {...tab(rankings, { view: "rankings", ...(cited ? { year: archiveYear } : {}) })}
+            {...tab(rankings, { view: "rankings", ...(cited ? { year: archiveRange } : {}) })}
           >
             Rankings
           </a>
@@ -421,8 +417,8 @@ export function App() {
           period={state.period}
           onPeriod={(period) => update({ period })}
           archiveYears={archiveYears}
-          archiveYear={archived ? archiveYear : null}
-          onArchiveYear={(year) => update({ year })}
+          archiveRange={archived ? archiveRange : null}
+          onArchiveRange={(year) => update({ year })}
           query={state.query}
           onQuery={(value) => update({ query: value })}
           venues={venueCounts}
@@ -504,15 +500,19 @@ export function App() {
             onFilters={setFilters}
             archive={
               cited
-                ? { years: archiveYears, year: archiveYear, onYear: (year) => update({ year }) }
+                ? {
+                    years: archiveYears,
+                    range: archiveRange ?? ALL_YEARS,
+                    onRange: (year) => update({ year }),
+                  }
                 : undefined
             }
             source={
               rankings
                 ? {
                     years: archiveYears,
-                    year: archived ? archiveYear : null,
-                    onYear: (year) => update({ year }),
+                    range: archived ? archiveRange : null,
+                    onRange: (year) => update({ year }),
                   }
                 : undefined
             }
@@ -542,8 +542,8 @@ export function App() {
             <p class="muted" aria-live="polite">
               {state.view === "reading-list"
                 ? `${results.length} of ${readingList.papers.length} saved papers`
-                : archived && load.status === "ready" && archiveYear !== null
-                  ? `${results.length} of ${load.index.size} highly cited ${category ?? ""} papers first published in ${archiveAsOf ? archiveYearLabel(archiveYear, archiveAsOf) : archiveYear}`
+                : archived && load.status === "ready" && archiveRange !== null
+                  ? `${results.length} of ${load.index.size} highly cited ${category ?? ""} papers first published ${publishedIn(archiveRange, archiveYears, archiveAsOf)}`
                   : load.status === "ready"
                     ? `${results.length} of ${load.index.size} ${category ?? ""} papers`
                     : load.status === "loading"
@@ -746,6 +746,14 @@ export function App() {
             </p>
           )}
 
+          {archiveLeftOut > 0 && load.status === "ready" && (
+            <p class="help-note">
+              These years hold {(load.index.size + archiveLeftOut).toLocaleString()} papers: the{" "}
+              {load.index.size.toLocaleString()} best ranked by citations per year of age are shown,
+              as many as a period loads. Narrow the years for the {archiveLeftOut.toLocaleString()}{" "}
+              others.
+            </p>
+          )}
           {VIEW_NOTES[state.view] && (
             <p class="view-note muted">
               {VIEW_NOTES[state.view]}

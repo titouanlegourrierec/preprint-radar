@@ -1,3 +1,4 @@
+import { formatYears, oneYear, parseYears, type YearRange } from "./archive-years";
 import { between, DEFAULT_PERIOD, isIsoDay, isRange, LONGEST_RANGE, type Period } from "./period";
 import {
   exactly,
@@ -22,8 +23,12 @@ export interface ViewState {
   filters: SearchFilters;
   /** arXiv id from a shared `?paper=` link: its card is opened and scrolled into view. */
   paper: string | null;
-  /** Year of the archive shown by the highly cited view (`null`: the latest). */
-  year: number | null;
+  /**
+   * Years of the archive shown (`?year=2017`, `?year=2019-2021`, `?year=all`): by the
+   * highly cited view, and the graph and Rankings when set (`null`: the latest year there,
+   * the recent days here).
+   */
+  year: YearRange | null;
   /**
    * The graph node focused on (`?focus=institution:mit`): the graph of its papers alone,
    * its ego network (§17.1 #8).
@@ -77,7 +82,7 @@ export function readState(search: string): ViewState {
     sort: SORTS.find((sort) => sort === params.get("sort")) ?? DEFAULT_STATE.sort,
     view: VIEWS.find((view) => view === params.get("view")) ?? DEFAULT_STATE.view,
     paper: params.get("paper"),
-    year: /^\d{4}$/.test(params.get("year") ?? "") ? Number(params.get("year")) : null,
+    year: parseYears(params.get("year")),
     focus: params.get("focus"),
     filters: {
       excludeCrossLists: params.get("xl") === "0",
@@ -108,7 +113,7 @@ export function writeState(state: ViewState): string {
   set("sort", state.sort, DEFAULT_STATE.sort);
   set("view", state.view, DEFAULT_STATE.view);
   set("paper", state.paper);
-  set("year", state.year === null ? null : String(state.year));
+  set("year", state.year === null ? null : formatYears(state.year));
   set("focus", state.focus);
   set("xl", state.filters.excludeCrossLists ? "0" : null);
   set("code", state.filters.withCode ? "1" : null);
@@ -181,7 +186,7 @@ export function paperLink(
     category: where.category,
     ...(year === null
       ? { period: between(paper.announced, paper.announced) }
-      : { view: "cited" as const, year }),
+      : { view: "cited" as const, year: oneYear(year) }),
     paper: paper.arxiv_id,
   });
 }

@@ -67,10 +67,16 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   Links to the former "All days" (`?range=all`) open the longest preset.
 - `usePapers` cancels the requests of a period left; `data.ts` keeps the files loaded for
   the next periods (as many papers as a period loads), least recently used out first.
-- The *Highly cited* view (`?view=cited&year=`) loads one archive year instead of days,
-  ranked by citations. The graph and Rankings show an archive year when the URL has a
-  `year` (`?view=graph&year=2017`), else the recent days; the tabs carry the year from the
-  Highly cited view, and the Papers tab clears it.
+- The *Highly cited* view (`?view=cited&year=`) loads archive years instead of days,
+  ranked by citations: one (`year=2017`), a range (`year=2019-2021`, the From and To
+  selects of `components/ArchiveYears.tsx`) or all of them (`year=all`, which stays all
+  as years are added); without `year`, the latest. Past `PAPER_BUDGET` papers (all years
+  hold 22,000: 100 MB, 300 MB once indexed), it keeps the best ranked by citations per
+  year of age, the archive's own score (`archive-years.ts`, `bestRanked`, from the
+  citation shards of those years), and says how many it leaves out (PROD-17). The graph
+  and Rankings show archive years when the URL has a `year` (`?view=graph&year=all`),
+  else the recent days; the tabs carry the years from the Highly cited view, and the
+  Papers tab clears them.
 
 ## What the build derives from `data/` (`vite.config.ts`, `tooling/`)
 

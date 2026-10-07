@@ -1,6 +1,6 @@
 import type { ComponentChildren } from "preact";
 import { useState } from "preact/hooks";
-import { archiveYearLabel } from "../format";
+import type { YearRange } from "../archive-years";
 import { useMediaQuery } from "../hooks/use-media-query";
 import type { Period } from "../period";
 import {
@@ -11,6 +11,7 @@ import {
   typed,
 } from "../search";
 import type { ArchiveSummary, DaySummary } from "../types";
+import { ArchiveSourceSelect, YearRangePicker } from "./ArchiveYears";
 import { PeriodPicker } from "./PeriodPicker";
 import { VenueSelect } from "./VenueSelect";
 
@@ -31,20 +32,20 @@ interface Props {
   archive?:
     | {
         years: ArchiveSummary[];
-        year: number | null;
-        onYear: (year: number) => void;
+        range: YearRange;
+        onRange: (range: YearRange) => void;
       }
     | undefined;
   /** Date of the archive, which labels its youngest year ("2025, Jan–Oct"). */
   asOf?: Date | undefined;
   /** Shown below the filters. */
   children?: ComponentChildren;
-  /** Views of either kind of papers: the recent days (`null`) or an archive year. */
+  /** Views of either kind of papers: the recent days (`null`) or archive years. */
   source?:
     | {
         years: ArchiveSummary[];
-        year: number | null;
-        onYear: (year: number | null) => void;
+        range: YearRange | null;
+        onRange: (range: YearRange | null) => void;
       }
     | undefined;
 }
@@ -115,43 +116,21 @@ export function Sidebar(props: Props) {
       )}
 
       {props.source && props.source.years.length > 0 && (
-        <label class="field">
-          <span>From</span>
-          <select
-            value={props.source.year ?? "recent"}
-            onChange={(event) => {
-              const { value } = event.currentTarget;
-              props.source?.onYear(value === "recent" ? null : Number(value));
-            }}
-          >
-            <option value="recent">Recent days</option>
-            <optgroup label="Highly cited, first published in">
-              {props.source.years.map(({ year, count }) => (
-                <option key={year} value={year}>
-                  {props.asOf ? archiveYearLabel(year, props.asOf) : year} ({count.toLocaleString()}{" "}
-                  papers)
-                </option>
-              ))}
-            </optgroup>
-          </select>
-        </label>
+        <ArchiveSourceSelect
+          class="field"
+          years={props.source.years}
+          range={props.source.range}
+          onChange={props.source.onRange}
+          asOf={props.asOf}
+        />
       )}
 
-      {props.source && props.source.year !== null ? null : props.archive ? (
-        <label class="field">
-          <span>Year</span>
-          <select
-            value={props.archive.year ?? ""}
-            onChange={(event) => props.archive?.onYear(Number(event.currentTarget.value))}
-          >
-            {props.archive.years.map(({ year, count }) => (
-              <option key={year} value={year}>
-                {props.asOf ? archiveYearLabel(year, props.asOf) : year} ({count.toLocaleString()}{" "}
-                papers)
-              </option>
-            ))}
-          </select>
-        </label>
+      {props.source && props.source.range !== null ? null : props.archive ? (
+        <YearRangePicker
+          years={props.archive.years}
+          range={props.archive.range}
+          onChange={props.archive.onRange}
+        />
       ) : (
         <div class="field">
           <span>Period</span>

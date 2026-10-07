@@ -349,6 +349,39 @@ html {
   color: var(--text);
 }
 
+/* The years of the highly cited view: "2019 to 2021", then "All years". */
+.year-range {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.year-range legend {
+  margin-bottom: 4px;
+  padding: 0;
+}
+
+.year-range__selects {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.year-range__selects select {
+  flex: 1;
+  min-width: 0;
+}
+
+.year-range__all {
+  margin-top: 4px;
+}
+
+.year-range__all:disabled {
+  color: var(--text-muted);
+  cursor: default;
+}
+
 /* Period picker ------------------------------------------------------------ */
 
 .period-picker {

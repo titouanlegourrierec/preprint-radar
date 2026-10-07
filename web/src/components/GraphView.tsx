@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
+import type { YearRange } from "../archive-years";
 import { download, downloadBlob } from "../download";
 import { formatDay } from "../format";
 import {
@@ -59,9 +60,9 @@ interface Props {
   onPeriod: (period: Period) => void;
   /** Years of the archive of highly cited papers. */
   archiveYears: ArchiveSummary[];
-  /** The archive year shown, `null` for the recent days. */
-  archiveYear: number | null;
-  onArchiveYear: (year: number | null) => void;
+  /** The archive's years shown, `null` for the recent days. */
+  archiveRange: YearRange | null;
+  onArchiveRange: (range: YearRange | null) => void;
   query: string;
   onQuery: (query: string) => void;
   venues: FacetCount[];
@@ -629,8 +630,8 @@ export function GraphView(props: Props) {
         period={props.period}
         onPeriod={props.onPeriod}
         archiveYears={props.archiveYears}
-        archiveYear={props.archiveYear}
-        onArchiveYear={props.onArchiveYear}
+        archiveRange={props.archiveRange}
+        onArchiveRange={props.onArchiveRange}
         query={props.query}
         onQuery={props.onQuery}
         venues={props.venues}

@@ -1,11 +1,13 @@
 import type { RefObject } from "preact";
 import { useState } from "preact/hooks";
+import type { YearRange } from "../archive-years";
 import { formatShortDay } from "../format";
 import { type GraphNode, matchStatus } from "../graph";
 import type { Period } from "../period";
 import { authorLayer, type GraphSettings } from "../preferences";
 import type { FacetCount } from "../search";
 import type { ArchiveSummary, DaySummary } from "../types";
+import { ArchiveSourceSelect } from "./ArchiveYears";
 import { PeriodPicker } from "./PeriodPicker";
 import { VenueSelect } from "./VenueSelect";
 
@@ -55,9 +57,9 @@ interface Props {
   period: Period;
   onPeriod: (period: Period) => void;
   archiveYears: ArchiveSummary[];
-  /** The archive year shown, `null` for the recent days. */
-  archiveYear: number | null;
-  onArchiveYear: (year: number | null) => void;
+  /** The archive's years shown, `null` for the recent days. */
+  archiveRange: YearRange | null;
+  onArchiveRange: (range: YearRange | null) => void;
   query: string;
   onQuery: (query: string) => void;
   venues: FacetCount[];
@@ -243,27 +245,14 @@ export function GraphSettingsPanel(props: Props) {
               </label>
             )}
             {props.archiveYears.length > 0 && (
-              <label class="ctl-select">
-                <span>From</span>
-                <select
-                  value={props.archiveYear ?? "recent"}
-                  onChange={(event) => {
-                    const { value } = event.currentTarget;
-                    props.onArchiveYear(value === "recent" ? null : Number(value));
-                  }}
-                >
-                  <option value="recent">Recent days</option>
-                  <optgroup label="Highly cited, first published in">
-                    {props.archiveYears.map(({ year, count }) => (
-                      <option key={year} value={year}>
-                        {year} ({count.toLocaleString()} papers)
-                      </option>
-                    ))}
-                  </optgroup>
-                </select>
-              </label>
+              <ArchiveSourceSelect
+                class="ctl-select"
+                years={props.archiveYears}
+                range={props.archiveRange}
+                onChange={props.onArchiveRange}
+              />
             )}
-            {props.archiveYear === null && (
+            {props.archiveRange === null && (
               <PeriodPicker
                 days={props.storeDays}
                 period={props.period}

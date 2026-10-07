@@ -1,5 +1,12 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { forgetLoaded, loadArchive, loadCitationShard, loadDays, loadIndex } from "../src/data";
+import {
+  forgetLoaded,
+  loadArchive,
+  loadArchiveYears,
+  loadCitationShard,
+  loadDays,
+  loadIndex,
+} from "../src/data";
 import { PAPER_BUDGET } from "../src/period";
 import { makePaper } from "./fixtures";
 
@@ -78,6 +85,49 @@ describe("data", () => {
       },
     });
     await expect(loadArchive("cs.CV", 2017)).resolves.toHaveLength(1);
+  });
+
+  it("loads several archive years, the best ranked within the budget", async () => {
+    const archive = (year: number, ids: string[]) => ({
+      schema_version: 1,
+      papers: ids.map((id) => makePaper({ arxiv_id: id, announced: `${year}-06-01` })),
+    });
+    const shard = (counts: Record<string, number>) => ({
+      schema_version: 1,
+      category: "cs.CV",
+      generated_at: "2026-10-04T05:41:00+00:00",
+      source: "S2",
+      counts,
+    });
+    serve({
+      "cs.CV/archive/2016.json": archive(2016, ["a", "b"]),
+      "cs.CV/archive/2024.json": archive(2024, ["c", "d"]),
+      // a: 1,000 in ten years; c: 400 in two, which ranks it first.
+      "cs.CV/citations/2016.json": shard({ a: 1000, b: 10 }),
+      "cs.CV/citations/2024.json": shard({ c: 400 }),
+    });
+    const ids = (papers: { arxiv_id: string }[]) => papers.map(({ arxiv_id }) => arxiv_id);
+
+    const all = await loadArchiveYears("cs.CV", [2024, 2016], 10);
+    expect(ids(all.papers)).toEqual(["c", "d", "a", "b"]);
+    expect(all.total).toBe(4);
+
+    const best = await loadArchiveYears("cs.CV", [2024, 2016], 2);
+    expect(ids(best.papers)).toEqual(["c", "a"]);
+    expect(best.total).toBe(4);
+  });
+
+  it("ranks without counts when the shards fail", async () => {
+    serve(
+      {
+        "cs.CV/archive/2016.json": { schema_version: 1, papers: [makePaper({ arxiv_id: "a" })] },
+        "cs.CV/archive/2017.json": { schema_version: 1, papers: [makePaper({ arxiv_id: "b" })] },
+      },
+      { "cs.CV/citations/2016.json": 500 },
+    );
+    const loaded = await loadArchiveYears("cs.CV", [2017, 2016], 1);
+    expect(loaded.papers).toHaveLength(1);
+    expect(loaded.total).toBe(2);
   });
 
   it("keeps the files loaded for the next periods, within the budget", async () => {

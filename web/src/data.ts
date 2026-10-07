@@ -1,3 +1,4 @@
+import { bestRanked } from "./archive-years";
 import { citationShardPath } from "./citations";
 import { PAPER_BUDGET } from "./period";
 import {
@@ -113,6 +114,34 @@ export function loadArchive(
   signal?: AbortSignal,
 ): Promise<Paper[]> {
   return loadPapers(`${category}/archive/${year}.json`, "archive file", signal);
+}
+
+/**
+ * Load the archived papers of several years, within `budget`: past it, the best ranked by
+ * citations per year of age (`bestRanked`), from the citation shards of those years, and
+ * how many there were in all.
+ */
+export async function loadArchiveYears(
+  category: string,
+  years: readonly number[],
+  budget: number,
+  signal?: AbortSignal,
+): Promise<{ papers: Paper[]; total: number }> {
+  const files = await Promise.all(years.map((year) => loadArchive(category, year, signal)));
+  const papers = files.flat();
+  if (papers.length <= budget) return { papers, total: papers.length };
+  const shards = await Promise.all(
+    years.map((year) => loadCitationShard(category, String(year)).catch(() => null)),
+  );
+  const counts = new Map<string, number>();
+  let asOf: string | undefined;
+  for (const shard of shards) {
+    if (shard === null) continue;
+    asOf ??= shard.generated_at;
+    for (const [arxivId, count] of Object.entries(shard.counts)) counts.set(arxivId, count);
+  }
+  const date = asOf === undefined ? new Date() : new Date(asOf);
+  return { papers: bestRanked(papers, counts, date, budget), total: papers.length };
 }
 
 /**

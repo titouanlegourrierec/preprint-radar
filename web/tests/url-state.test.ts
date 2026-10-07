@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { ALL_YEARS, oneYear } from "../src/archive-years";
 import { exactly, typed } from "../src/search";
 import {
   archiveYearOf,
@@ -120,28 +121,38 @@ describe("url state", () => {
 
 describe("highly cited view", () => {
   it("round-trips the view and the archive year", () => {
-    const state = { ...DEFAULT_STATE, view: "cited" as const, year: 2017 };
+    const state = { ...DEFAULT_STATE, view: "cited" as const, year: oneYear(2017) };
 
     expect(writeState(state)).toBe("?view=cited&year=2017");
     expect(readState(writeState(state))).toEqual(state);
   });
 
   it("round-trips the graph of an archive year", () => {
-    const state = { ...DEFAULT_STATE, view: "graph" as const, year: 2017 };
+    const state = { ...DEFAULT_STATE, view: "graph" as const, year: oneYear(2017) };
 
     expect(writeState(state)).toBe("?view=graph&year=2017");
     expect(readState(writeState(state))).toEqual(state);
   });
 
   it("round-trips the rankings of an archive year", () => {
-    const state = { ...DEFAULT_STATE, view: "rankings" as const, year: 2017 };
+    const state = { ...DEFAULT_STATE, view: "rankings" as const, year: oneYear(2017) };
 
     expect(writeState(state)).toBe("?view=rankings&year=2017");
     expect(readState(writeState(state))).toEqual(state);
   });
 
+  it("round-trips a range of years, and all of them", () => {
+    const range = { ...DEFAULT_STATE, view: "cited" as const, year: { from: 2019, to: 2021 } };
+    expect(writeState(range)).toBe("?view=cited&year=2019-2021");
+    expect(readState(writeState(range))).toEqual(range);
+    const all = { ...DEFAULT_STATE, view: "cited" as const, year: ALL_YEARS };
+    expect(writeState(all)).toBe("?view=cited&year=all");
+    expect(readState(writeState(all))).toEqual(all);
+  });
+
   it("ignores a malformed year", () => {
     expect(readState("?view=cited&year=soon").year).toBeNull();
+    expect(readState("?view=cited&year=2019-20").year).toBeNull();
   });
 });
 
@@ -154,7 +165,7 @@ describe("isNavigation", () => {
   it("keeps a step for another view, paper, period, year or clicked filter", () => {
     expect(isNavigation(DEFAULT_STATE, { ...DEFAULT_STATE, view: "graph" })).toBe(true);
     expect(isNavigation(DEFAULT_STATE, { ...DEFAULT_STATE, paper: "2609.30234" })).toBe(true);
-    expect(isNavigation(DEFAULT_STATE, { ...DEFAULT_STATE, year: 2017 })).toBe(true);
+    expect(isNavigation(DEFAULT_STATE, { ...DEFAULT_STATE, year: oneYear(2017) })).toBe(true);
     expect(
       isNavigation(DEFAULT_STATE, { ...DEFAULT_STATE, period: { kind: "recent", range: "20" } }),
     ).toBe(true);
@@ -181,7 +192,11 @@ describe("paperLink", () => {
   it("opens an archived paper in its year of the Highly cited view", () => {
     const link = paperLink({ arxiv_id: "1706.03762", announced: "2017-06-12" }, where);
     expect(link).toBe("?cat=cs.CV&view=cited&paper=1706.03762&year=2017");
-    expect(readState(link)).toMatchObject({ view: "cited", year: 2017, paper: "1706.03762" });
+    expect(readState(link)).toMatchObject({
+      view: "cited",
+      year: oneYear(2017),
+      paper: "1706.03762",
+    });
   });
 
   it("falls back on the day when no archive year holds the paper", () => {
