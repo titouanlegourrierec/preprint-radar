@@ -2,9 +2,10 @@
 # Commit what a data run wrote under data/, and push it onto main.
 #
 # A run lasts hours, so main may have moved meanwhile: the commit is rebased onto it.
-# Conflicts on the two derived files are settled here instead of failing the run:
-# index.json is written again from the files on disk, and citations.json keeps this
-# run's counts (the daily citations step asks again for any count it lacks). A conflict
+# Conflicts on the derived files are settled here instead of failing the run: index.json
+# is written again from the files on disk, and citations.json keeps this run's counts (the
+# daily citations step asks again for any count it lacks), citation-gains.json the gains
+# written with them. A conflict
 # on any other file stops without pushing, and so does a push refused three times: the
 # commit is then saved as data-commit.bundle, which the workflow uploads. To recover it:
 #   git fetch data-commit.bundle HEAD:recovered-data
@@ -52,7 +53,7 @@ settle_conflicts() {
     case $path in
       data/index.json) ;;
       # During a rebase, "theirs" is the commit being replayed: this run's.
-      data/*/citations.json) git checkout --theirs -- "$path" || return 1 ;;
+      data/*/citations.json | data/*/citation-gains.json) git checkout --theirs -- "$path" || return 1 ;;
       *)
         echo "::error::$path changed both in this run and on main; nothing was pushed."
         return 1

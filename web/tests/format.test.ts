@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { citationsNote, formatDay, formatShortDay, subjectCode } from "../src/format";
+import { citationsNote, formatDay, formatShortDay, gainLabel, subjectCode } from "../src/format";
 
 describe("citationsNote", () => {
   const today = new Date("2026-10-01T12:00:00Z");
@@ -15,6 +15,19 @@ describe("citationsNote", () => {
     expect(citationsNote("Semantic Scholar", "2026-09-10T05:41:00+00:00", today)).toMatch(
       / \(21 days ago: they may be out of date\)$/,
     );
+  });
+});
+
+describe("gainLabel", () => {
+  it("says this week for a weekly refresh, the day for a longer span", () => {
+    const week = { since: "2026-10-04T05:41:00+00:00", to: "2026-10-11T06:02:00+00:00" };
+    const label = gainLabel(1200, week, "Semantic Scholar");
+    expect(label.text).toBe(`+${(1200).toLocaleString()} this week`);
+    expect(label.title).toMatch(/^1.200 new citations on Semantic Scholar between .+ and .+$/);
+
+    const longer = { since: "2026-09-30T13:19:35+00:00", to: "2026-10-11T06:02:00+00:00" };
+    expect(gainLabel(1, longer, null).text).toMatch(/^\+1 since .*2026$/);
+    expect(gainLabel(1, longer, null).title).toMatch(/^1 new citation between /);
   });
 });
 

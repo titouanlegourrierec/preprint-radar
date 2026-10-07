@@ -133,8 +133,8 @@ next run collects the same papers again.
 **Signal.** `changed both in this run and on main; nothing was pushed.` or
 `The data commit could not be pushed; nothing was pushed.`
 
-`main` moved during the run on a file other than `index.json` and `citations.json` (which
-`commit-data.sh` settles itself), usually a day file pushed by hand meanwhile, or three
+`main` moved during the run on a file other than `index.json`, `citations.json` and
+`citation-gains.json` (which `commit-data.sh` settles itself), usually a day file pushed by hand meanwhile, or three
 pushes were refused. Recover the `data-commit` artifact as above, then rebase it on `main`,
 settle the conflict (keep both sides' papers; `preprint-radar index` rewrites the index),
 validate and push. Prevention: never push `data/` while a data workflow runs.

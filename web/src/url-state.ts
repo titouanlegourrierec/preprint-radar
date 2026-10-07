@@ -11,7 +11,7 @@ import {
 export type View = "papers" | "cited" | "graph" | "rankings" | "reading-list" | "about";
 
 const VIEWS: readonly View[] = ["papers", "cited", "graph", "rankings", "reading-list", "about"];
-const SORTS: readonly SortOrder[] = ["relevance", "newest", "citations"];
+const SORTS: readonly SortOrder[] = ["relevance", "newest", "citations", "rising"];
 
 export interface ViewState {
   query: string;

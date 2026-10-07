@@ -15,6 +15,12 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 - The venue filter has every edition of a venue at once, "CVPR, any year", its workshops
   apart (SRCH-15).
 
+### Citations
+
+- Rising papers: each card says what it gained in the last week ("+12 this week"), and
+  the Papers and Highly cited views sort by it (Rising), from the weekly counts of
+  2026-10-11 on (CIT-9).
+
 ## 0.6.0 (2026-10-07): institutions and authors named by the pipeline
 
 The first release of Phase 4, which goes on without a fixed end: decisions 12, 13 and 17.

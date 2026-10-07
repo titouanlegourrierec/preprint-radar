@@ -87,10 +87,12 @@ describe("url state", () => {
     ).toBe("?from=2026-09-09");
   });
 
-  it("round-trips the citation sort", () => {
+  it("round-trips the citation sorts", () => {
     const state = { ...DEFAULT_STATE, sort: "citations" as const };
     expect(writeState(state)).toBe("?sort=citations");
     expect(readState(writeState(state))).toEqual(state);
+    const rising = { ...DEFAULT_STATE, sort: "rising" as const };
+    expect(readState(writeState(rising))).toEqual(rising);
   });
 
   it("reads the about view", () => {

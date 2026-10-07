@@ -69,9 +69,10 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   - `make validate`: `data/` against its contract (`store/validate.py`, 2 s). Errors fail
     it: a record that does not load, a paper stored twice, a file named after another day
     or year, an index or `citations.json` that disagrees with the files, a `scholar.json`
-    that does not load, a contact detail in an affiliation. Warnings: an affiliation that
-    only names authors, the last author alone holding every affiliation, a paper `reclean`
-    would change, stale `scholar.json` records. Run it after touching `data/` by hand.
+    or `citation-gains.json` that does not load, a contact detail in an affiliation.
+    Warnings: an affiliation that only names authors, the last author alone holding every
+    affiliation, a paper `reclean` would change, stale `scholar.json` records or gains.
+    Run it after touching `data/` by hand.
   - `make stats`: enrichment per day and per archive year (abstracts, affiliations,
     mappings, institutions, venues detected or published, citation counts).
   - `make quality-affiliations` (`stats --affiliations`, `store/quality.py`): signs of wrong
@@ -124,7 +125,8 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     appearance, rewritten as a whole each week.
   - `<category>/citations.json` and `<category>/scholar.json`: Semantic Scholar's counts
     and published versions of every stored paper, kept out of the records since they are
-    rewritten weekly.
+    rewritten weekly; `<category>/citation-gains.json`, what each gained between the last
+    two weekly refreshes (`docs/archive.md`).
 - `web/`: `src/` (the app; `docs/web.md`), `tooling/` (build plugins: what the site derives
   from `data/`, the third-party guard), `tests/` (Vitest), `e2e/` (Playwright and its store).
 - `.cache/` (git-ignored; the Actions cache in CI): `front-matter/<yymm>/<id>v<n>.html.gz`,
@@ -269,8 +271,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     `.github/scripts/validate-data.sh` (a structural error pushes nothing), and commit
     through `.github/scripts/commit-data.sh`, which rebases onto a `main` that moved during
     the run: on a conflict it writes `index.json` again and keeps the run's
-    `citations.json`; on any other conflict, or after three refused pushes, it uploads the
-    commit as `data-commit.bundle` (`tests/unit/test_commit_data.py`).
+    `citations.json` and `citation-gains.json`; on any other conflict, or after three
+    refused pushes, it uploads the commit as `data-commit.bundle`
+    (`tests/unit/test_commit_data.py`).
   - Reading HTML pages stops early three ways (`collect.Stop`): the deadline (CI passes 175
     of the step's 195 minutes: green, the rest waits), 5 failed pages in a row (arxiv.org
     down: red), or 90% of at least 40 pages without affiliation (a layout change: red, the

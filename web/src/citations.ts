@@ -4,7 +4,7 @@
  * each paper is filed (`tooling/citation-shards.ts`), and a page loads the shards of the
  * papers it shows.
  */
-import type { CitationsFile } from "./types";
+import type { CitationGainsFile, CitationsFile } from "./types";
 
 /** What a paper is filed under: its identifier and announcement day. */
 export interface Filed {
@@ -38,12 +38,14 @@ export function shardsOf(papers: Iterable<Filed>, oldestDay: string | undefined)
 /**
  * The shards of a citations file: each count goes to the shard of every record of its
  * paper (a paper both in a day file and in the archive may be filed twice), and the counts
- * of papers no longer stored are left out. Every shard keeps the file's date and source.
+ * of papers no longer stored are left out. Every shard keeps the file's date and source,
+ * and, with `gains`, its papers' gains and the days they span.
  */
 export function splitCitations(
   file: CitationsFile,
   records: Iterable<Filed>,
   oldestDay: string | undefined,
+  gains: CitationGainsFile | null = null,
 ): Map<string, CitationsFile> {
   const shards = new Map<string, CitationsFile>();
   for (const { arxiv_id, announced } of records) {
@@ -53,9 +55,12 @@ export function splitCitations(
     let part = shards.get(shard);
     if (part === undefined) {
       part = { ...file, counts: {} };
+      if (gains !== null) part.gains = { since: gains.since, to: gains.generated_at, counts: {} };
       shards.set(shard, part);
     }
     part.counts[arxiv_id] = count;
+    const gain = gains?.gains[arxiv_id];
+    if (gain !== undefined && part.gains !== undefined) part.gains.counts[arxiv_id] = gain;
   }
   return shards;
 }

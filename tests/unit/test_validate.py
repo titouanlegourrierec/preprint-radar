@@ -157,6 +157,22 @@ def test_citation_counts(store: PaperStore) -> None:
     assert _messages(store)[0].startswith("data/cs.CV/citations.json: Invalid citations file")
 
 
+def test_citation_gains(store: PaperStore) -> None:
+    path = store.root / "cs.CV" / "citation-gains.json"
+    payload = {"since": "2026-10-04T05:41:00+00:00", "generated_at": "2026-10-11T05:41:00+00:00"}
+    path.write_text(json.dumps({**payload, "gains": {"2609.00001": 2}}), encoding="utf-8")
+    assert validate_store(store).findings == []
+
+    path.write_text(json.dumps({**payload, "gains": {"2609.00001": 2, "2609.99999": 1}}), encoding="utf-8")
+    assert _messages(store) == []
+    assert _messages(store, Level.WARNING) == [
+        "data/cs.CV/citation-gains.json: 1 gains of papers that are not stored, e.g. 2609.99999"
+    ]
+
+    path.write_text("{}", encoding="utf-8")
+    assert _messages(store)[0].startswith("data/cs.CV/citation-gains.json: Invalid citation gains file")
+
+
 def test_without_citation_counts(store: PaperStore) -> None:
     (store.root / "cs.CV" / "citations.json").unlink()
 

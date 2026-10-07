@@ -18,6 +18,7 @@ pytestmark = pytest.mark.skipif(GIT is None or BASH is None, reason="needs git a
 FAKE_UV = "#!/bin/sh\nprintf '{\"rewritten\": true}\\n' > data/index.json\n"
 DAY = "data/cs.CV/2026-09-28.json"
 CITATIONS = "data/cs.CV/citations.json"
+GAINS = "data/cs.CV/citation-gains.json"
 INDEX = "data/index.json"
 
 
@@ -121,13 +122,15 @@ def test_writes_the_index_again_on_a_conflict(repos: Repos) -> None:
     assert (repos.maintainer / "data/cs.CV/2026-09-25.json").exists()
 
 
-def test_keeps_this_runs_citation_counts_on_a_conflict(repos: Repos) -> None:
-    _commit_and_push(repos, repos.maintainer, {CITATIONS: {"2609.00001": 1}})
+def test_keeps_this_runs_citation_counts_and_gains_on_a_conflict(repos: Repos) -> None:
+    _commit_and_push(repos, repos.maintainer, {CITATIONS: {"2609.00001": 1}, GAINS: {"2609.00001": 1}})
     _write(repos.bot, CITATIONS, {"2609.00002": 2})
+    _write(repos.bot, GAINS, {"2609.00002": 1})
 
     assert _commit_data(repos) == (0, {"pushed": "true"})
     _git(repos, repos.maintainer, "pull", "--quiet")
     assert _read(repos.maintainer, CITATIONS) == {"2609.00002": 2}
+    assert _read(repos.maintainer, GAINS) == {"2609.00002": 1}
 
 
 def test_stops_on_a_conflict_in_a_day_file_and_keeps_the_commit(repos: Repos) -> None:

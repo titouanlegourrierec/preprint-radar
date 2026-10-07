@@ -22,6 +22,8 @@ interface Props {
   onShowInGraph?: ((paper: Paper) => void) | undefined;
   citations: ReadonlyMap<string, number>;
   citationsNote?: string | undefined;
+  /** What a paper gained in the last week of counts, as its card says it (CIT-9). */
+  gainOf?: ((arxivId: string) => { text: string; title: string } | undefined) | undefined;
   showAbstracts: boolean;
   savedIds: ReadonlySet<string>;
   onToggleSaved: (paper: Paper) => void;
@@ -43,6 +45,7 @@ export function PaperList({
   onShowInGraph,
   citations,
   citationsNote,
+  gainOf,
   showAbstracts,
   savedIds,
   onToggleSaved,
@@ -141,6 +144,7 @@ export function PaperList({
       onShowInGraph={onShowInGraph}
       citations={citations.get(paper.arxiv_id)}
       citationsNote={citationsNote}
+      gain={gainOf?.(paper.arxiv_id)}
       onToggleSaved={onToggleSaved}
       onAuthor={onAuthor}
       onAffiliation={onAffiliation}

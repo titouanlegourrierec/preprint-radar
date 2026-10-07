@@ -7,6 +7,7 @@ Layout::
     └── <category>/
         ├── <YYYY-MM-DD>.json      # papers announced that day in that category
         ├── citations.json         # citation counts of the stored papers
+        ├── citation-gains.json    # what each gained between the last two full refreshes
         ├── scholar.json           # their DOI, published venue and author ids
         └── archive/
             └── <YYYY>.json        # highly cited older papers, by year of first version
@@ -22,7 +23,7 @@ import re
 from collections import defaultdict
 from collections.abc import Iterable, Iterator, Mapping
 from dataclasses import dataclass, replace
-from datetime import UTC, date, datetime
+from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -34,9 +35,13 @@ logger = logging.getLogger(__name__)
 SCHEMA_VERSION = 1
 INDEX_FILENAME = "index.json"
 CITATIONS_FILENAME = "citations.json"
+GAINS_FILENAME = "citation-gains.json"
 SCHOLAR_FILENAME = "scholar.json"
 ARCHIVE_DIRNAME = "archive"
 _DAY_STEM_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+# Counts are refreshed in full every week (the archive); a refresh run again within the
+# week keeps the gains of the first, which a day's interval would bring to nothing.
+GAINS_MIN_DAYS = 6
 _YEAR_STEM_RE = re.compile(r"^\d{4}$")
 
 
@@ -46,6 +51,21 @@ class CitationCounts:
 
     counts: dict[str, int]
     source: str
+    generated_at: datetime
+
+
+@dataclass(frozen=True, slots=True)
+class CitationGains:
+    """What the stored papers of a category gained between two full refreshes (CIT-9).
+
+    Attributes:
+        gains: Citations gained, for each paper that gained any.
+        since: Date of the refresh they are counted from.
+        generated_at: Date of the refresh they are counted to.
+    """
+
+    gains: dict[str, int]
+    since: datetime
     generated_at: datetime
 
 
@@ -246,9 +266,56 @@ class PaperStore:
             msg = f"Invalid citations file {path}: {exc}"
             raise StoreError(msg) from exc
 
-    def write_citations(self, category: str, counts: Mapping[str, int], *, source: str) -> None:
-        """Write the citation counts of the stored papers of ``category``, dated now."""
-        self._write_citations(category, counts, source=source, generated_at=datetime.now(tz=UTC))
+    def write_citations(
+        self, category: str, counts: Mapping[str, int], *, source: str, now: datetime | None = None
+    ) -> None:
+        """Write the citation counts of the stored papers of ``category``, dated now.
+
+        The counts they replace, when at least :data:`GAINS_MIN_DAYS` old, give what each
+        paper gained since into ``citation-gains.json``: the site's rising papers.
+        """
+        now = now or datetime.now(tz=UTC)
+        try:
+            current = self.load_citation_counts(category)
+        except StoreError:
+            logger.warning("No citation gains: the former counts of %s do not load", category)
+            current = None
+        if current is not None and now - current.generated_at >= timedelta(days=GAINS_MIN_DAYS):
+            gains = {
+                arxiv_id: count - before
+                for arxiv_id, count in counts.items()
+                if (before := current.counts.get(arxiv_id)) is not None and count > before
+            }
+            payload = {
+                "schema_version": SCHEMA_VERSION,
+                "category": category,
+                "since": current.generated_at.isoformat(timespec="seconds"),
+                "generated_at": now.isoformat(timespec="seconds"),
+                "source": source,
+                "gains": dict(sorted(gains.items())),
+            }
+            _write_json(self.root / category / GAINS_FILENAME, payload)
+        self._write_citations(category, counts, source=source, generated_at=now)
+
+    def load_citation_gains(self, category: str) -> CitationGains | None:
+        """What the papers of ``category`` gained between the last two full refreshes, if known.
+
+        Raises:
+            StoreError: If the file is not a valid citation gains file.
+        """
+        path = self.root / category / GAINS_FILENAME
+        if not path.is_file():
+            return None
+        try:
+            payload: Any = json.loads(path.read_text(encoding="utf-8"))
+            return CitationGains(
+                gains={str(arxiv_id): int(gain) for arxiv_id, gain in payload["gains"].items()},
+                since=datetime.fromisoformat(payload["since"]),
+                generated_at=datetime.fromisoformat(payload["generated_at"]),
+            )
+        except (json.JSONDecodeError, AttributeError, KeyError, TypeError, ValueError) as exc:
+            msg = f"Invalid citation gains file {path}: {exc}"
+            raise StoreError(msg) from exc
 
     def merge_citations(self, category: str, counts: Mapping[str, int], *, source: str) -> None:
         """Add counts to those of ``category``, updating the ones already there.

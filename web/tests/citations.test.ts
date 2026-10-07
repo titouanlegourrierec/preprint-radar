@@ -54,6 +54,49 @@ describe("citation shards", () => {
   });
 });
 
+describe("citation gains in the shards", () => {
+  const gains = {
+    schema_version: 1,
+    category: "cs.CV",
+    since: "2026-09-27T05:41:00+00:00",
+    generated_at: "2026-10-04T05:41:00+00:00",
+    source: "Semantic Scholar",
+    gains: { "1706.03762": 120, "2609.99999": 1 },
+  };
+
+  it("go with their papers, each shard saying the days they span", () => {
+    const shards = splitCitations(
+      citations,
+      [
+        { arxiv_id: "2609.00001", announced: "2026-09-24" },
+        { arxiv_id: "1706.03762", announced: "2017-06-12" },
+      ],
+      "2026-09-01",
+      gains,
+    );
+    expect(shards.get("2017")?.gains).toEqual({
+      since: gains.since,
+      to: gains.generated_at,
+      counts: { "1706.03762": 120 },
+    });
+    // A shard without gains still says that gains are known: none there.
+    expect(shards.get("2026-09")?.gains).toEqual({
+      since: gains.since,
+      to: gains.generated_at,
+      counts: {},
+    });
+  });
+
+  it("are absent without a gains file", () => {
+    const shards = splitCitations(
+      citations,
+      [{ arxiv_id: "1706.03762", announced: "2017-06-12" }],
+      "2026-09-01",
+    );
+    expect(shards.get("2017")?.gains).toBeUndefined();
+  });
+});
+
 describe("citationShardFiles", () => {
   const read = (files: Record<string, unknown>) => (path: string) => files[path] ?? null;
 
@@ -76,6 +119,11 @@ describe("citationShardFiles", () => {
           papers: [{ arxiv_id: "1706.03762", announced: "2017-06-12" }],
         },
         "cs.CV/citations.json": citations,
+        "cs.CV/citation-gains.json": {
+          since: "2026-09-27T05:41:00+00:00",
+          generated_at: "2026-10-04T05:41:00+00:00",
+          gains: { "1706.03762": 120 },
+        },
       }),
     );
     expect([...files.keys()].sort()).toEqual([
@@ -85,6 +133,7 @@ describe("citationShardFiles", () => {
     expect(JSON.parse(files.get("cs.CV/citations/2017.json") ?? "")).toMatchObject({
       generated_at: citations.generated_at,
       counts: { "1706.03762": 150000 },
+      gains: { counts: { "1706.03762": 120 } },
     });
   });
 

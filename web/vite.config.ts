@@ -33,7 +33,7 @@ function jsonReader(dataDir: string): (path: string) => unknown {
 
 /**
  * The citation shards of the store (`src/citations.ts`), derived again in development when
- * the index or a `citations.json` changes (`make citations` while the server runs).
+ * the index, a `citations.json` or its gains change (`make citations` while the server runs).
  */
 function shardsOf(dataDir: string): () => Map<string, string> {
   let cached: { stamp: string; files: Map<string, string> } | null = null;
@@ -41,7 +41,10 @@ function shardsOf(dataDir: string): () => Map<string, string> {
     const sources = existsSync(dataDir)
       ? [
           resolve(dataDir, "index.json"),
-          ...readdirSync(dataDir).map((name) => resolve(dataDir, name, "citations.json")),
+          ...readdirSync(dataDir).flatMap((name) => [
+            resolve(dataDir, name, "citations.json"),
+            resolve(dataDir, name, "citation-gains.json"),
+          ]),
         ].filter((path) => existsSync(path))
       : [];
     const stamp = sources.map((path) => `${path}@${statSync(path).mtimeMs}`).join("\n");

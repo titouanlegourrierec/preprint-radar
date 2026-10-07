@@ -14,6 +14,7 @@ import {
   categoryName,
   citationsNote as formatCitationsNote,
   formatDay,
+  gainLabel,
 } from "./format";
 import { useCitations } from "./hooks/use-citations";
 import { usePapers } from "./hooks/use-papers";
@@ -32,6 +33,7 @@ import {
   alphabetical,
   arxivIdOf,
   byCitations,
+  byGains,
   exactly,
   facetCounts,
   mostlyTied,
@@ -164,7 +166,9 @@ export function App() {
     if (state.view === "graph") return [];
     const found = activeIndex?.search(query, state.filters, cited ? "newest" : state.sort) ?? [];
     const shown = hiding ? found.filter(({ paper }) => !triage.seen.has(paper.arxiv_id)) : found;
-    // The highly cited view ranks by citations; search words only narrow it down.
+    // The highly cited view ranks by citations; search words only narrow it down. Rising
+    // papers come before, by what they gained in a week (none known: by citations alone).
+    if (state.sort === "rising") return byGains(shown, citations.gains, citations.counts);
     return cited || state.sort === "citations" ? byCitations(shown, citations.counts) : shown;
   }, [
     state.view,
@@ -213,10 +217,17 @@ export function App() {
   );
   const hasSearchWords = parseQuery(query).text !== "";
   // Day headings need results in announcement order (see search): no words, or newest.
-  const groupByDay =
-    !cited && state.sort !== "citations" && (!hasSearchWords || state.sort === "newest");
+  const byCount = cited || state.sort === "citations" || state.sort === "rising";
+  const groupByDay = !byCount && (!hasSearchWords || state.sort === "newest");
   // Without search words, relevance is the announcement order.
   const newest = state.sort === "newest" || (state.sort === "relevance" && !hasSearchWords);
+  // Rising papers, once two weekly refreshes of the counts are known (CIT-9).
+  const gainsSpan = citations.gainsSpan;
+  const rising = state.sort === "rising" && gainsSpan !== null;
+  const gainOf = (arxivId: string) => {
+    const gain = citations.gains.get(arxivId);
+    return gain && gainsSpan ? gainLabel(gain, gainsSpan, citations.source) : undefined;
+  };
   // A share link opens the paper on its own day, free of the sharer's search context.
   const pastedId = arxivIdOf(query);
   // "No paper matches" offers the longest preset when it holds more days than the period.
@@ -533,10 +544,10 @@ export function App() {
                       ? "Loading papers…"
                       : null}
             </p>
-            {(state.view === "papers" || state.view === "reading-list") && (
+            {(state.view === "papers" || state.view === "reading-list" || (cited && gainsSpan)) && (
               <fieldset class="segmented">
                 <legend class="visually-hidden">Sort results</legend>
-                {hasSearchWords && (
+                {hasSearchWords && !cited && (
                   <button
                     type="button"
                     class={`segmented__option${state.sort === "relevance" ? " segmented__option--active" : ""}`}
@@ -547,24 +558,37 @@ export function App() {
                     Relevance
                   </button>
                 )}
+                {!cited && (
+                  <button
+                    type="button"
+                    class={`segmented__option${newest ? " segmented__option--active" : ""}`}
+                    aria-pressed={newest}
+                    onClick={() => update({ sort: "newest" })}
+                  >
+                    Newest
+                  </button>
+                )}
                 <button
                   type="button"
-                  class={`segmented__option${newest ? " segmented__option--active" : ""}`}
-                  aria-pressed={newest}
-                  onClick={() => update({ sort: "newest" })}
-                >
-                  Newest
-                </button>
-                <button
-                  type="button"
-                  class={`segmented__option${state.sort === "citations" ? " segmented__option--active" : ""}`}
-                  aria-pressed={state.sort === "citations"}
+                  class={`segmented__option${byCount && !rising ? " segmented__option--active" : ""}`}
+                  aria-pressed={byCount && !rising}
                   title={citationsNote}
                   onClick={() => update({ sort: "citations" })}
                 >
                   Most cited
                 </button>
-                {hasSearchWords && (
+                {gainsSpan && (
+                  <button
+                    type="button"
+                    class={`segmented__option${rising ? " segmented__option--active" : ""}`}
+                    aria-pressed={rising}
+                    title={`By the citations gained between ${formatDay(gainsSpan.since)} and ${formatDay(gainsSpan.to)}`}
+                    onClick={() => update({ sort: "rising" })}
+                  >
+                    Rising
+                  </button>
+                )}
+                {hasSearchWords && !cited && (
                   <button
                     type="button"
                     class="help"
@@ -723,7 +747,8 @@ export function App() {
                 ` Chosen every week by citations per year of age, among the papers first published more than 12 months ago.${citationsNote ? ` ${citationsNote}.` : ""}`}
             </p>
           )}
-          {(cited || state.sort === "citations") &&
+          {byCount &&
+            !rising &&
             state.view !== "rankings" &&
             mostlyTied(results, citations.counts) && (
               <p class="help-note">
@@ -827,6 +852,7 @@ export function App() {
                 onShowInGraph={showInGraph}
                 citations={citations.counts}
                 citationsNote={citationsNote}
+                gainOf={gainOf}
                 showAbstracts={showAbstracts || state.view === "reading-list"}
                 savedIds={readingList.savedIds}
                 onToggleSaved={readingList.toggle}

@@ -127,4 +127,25 @@ export interface CitationsFile {
   /** Where the counts come from, e.g. "Semantic Scholar". */
   source: string;
   counts: Record<string, number>;
+  /** In a shard (`src/citations.ts`): what its papers gained, from `citation-gains.json`. */
+  gains?: CitationGains;
+}
+
+/** What papers gained between two weekly refreshes of their counts (CIT-9). */
+export interface CitationGains {
+  /** The day of the counts they are counted from, and to. */
+  since: string;
+  to: string;
+  /** Citations gained, for each paper that gained any. */
+  counts: Record<string, number>;
+}
+
+/** `<category>/citation-gains.json`, which the pipeline writes with the weekly counts. */
+export interface CitationGainsFile {
+  schema_version: number;
+  category: string;
+  since: string;
+  generated_at: string;
+  source: string;
+  gains: Record<string, number>;
 }

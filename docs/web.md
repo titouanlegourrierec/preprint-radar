@@ -83,7 +83,11 @@ derives what only the site uses. The pipeline and `validate` never see these.
   (`<category>/citations/2026-09.json`, `…/2019.json`). `hooks/use-citations.ts` loads the
   shards of the papers shown (the period or archive year, and the reading list): 11 KB
   gzipped for the recent days instead of 125 KB. A paper filed both in a day file and in
-  the archive is in both shards.
+  the archive is in both shards. Each shard carries its papers' gains from
+  `citation-gains.json` and the days they span (`gains`), which a card shows ("+12 this
+  week", `gainLabel`) and the Rising order sorts by (`?sort=rising`, `byGains`: the most
+  gained first, then the most cited), in the Papers and Highly cited views (CIT-9). The
+  Rising control shows once a gains file exists; before, `sort=rising` is Most cited.
 - **Published versions** (`tooling/scholar.ts`): the day and archive files get `doi`, and
   the published `venue` where the comments name none, from `scholar.json`.
 - `noThirdPartyLoads` (`tooling/third-party.ts`) fails the build if the site would load

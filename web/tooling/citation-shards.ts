@@ -1,5 +1,5 @@
 import { citationShardPath, type Filed, splitCitations } from "../src/citations";
-import type { CitationsFile, StoreIndex } from "../src/types";
+import type { CitationGainsFile, CitationsFile, StoreIndex } from "../src/types";
 
 /** Reads a JSON file of the store by its path under `data/`; `null` when there is none. */
 export type ReadJson = (path: string) => unknown;
@@ -7,7 +7,7 @@ export type ReadJson = (path: string) => unknown;
 /**
  * The citation shards of a store (see `src/citations.ts`), as JSON text by path under
  * `data/`: for each category of the index with a `citations.json`, its counts split by
- * the day and archive files the index lists.
+ * the day and archive files the index lists, with their gains (`citation-gains.json`).
  */
 export function citationShardFiles(read: ReadJson): Map<string, string> {
   const files = new Map<string, string>();
@@ -21,7 +21,8 @@ export function citationShardFiles(read: ReadJson): Map<string, string> {
       ...(index.archives?.[category] ?? []).map(({ year }) => `${category}/archive/${year}.json`),
     ];
     const records = paths.flatMap((path) => (read(path) as { papers: Filed[] }).papers);
-    for (const [shard, file] of splitCitations(citations, records, days.at(-1)?.date)) {
+    const gains = read(`${category}/citation-gains.json`) as CitationGainsFile | null;
+    for (const [shard, file] of splitCitations(citations, records, days.at(-1)?.date, gains)) {
       files.set(citationShardPath(category, shard), JSON.stringify(file));
     }
   }

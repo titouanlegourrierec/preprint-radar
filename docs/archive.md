@@ -60,6 +60,14 @@ before changing `archive/`, `sources/semantic_scholar.py`, `sources/openalex.py`
   catalog in CI) and reused for 7 days, so a failed or cancelled run resumes where it
   stopped: `citations.json`'s `generated_at` can postdate some counts by up to 6 days.
 - Counts older than 14 days are reported as stale, in `stats` and on the site.
+- Each full refresh (`write_citations`) also writes `citation-gains.json` (CIT-9): what
+  each paper gained since the counts it replaces, for the site's rising papers. Only from
+  counts at least 6 days old (`GAINS_MIN_DAYS`), so that a refresh run again within the
+  week keeps the week's gains; a count that went down is no gain, and a paper counted
+  since only by the daily step gains from that count. The first gains are those of the
+  archive of 2026-10-11: the run of 2026-10-04 reused the cached counts of 2026-09-30.
+  `validate` fails a gains file that does not load, and warns of gains of papers no
+  longer stored; `commit-data.sh` keeps the run's gains on a conflict, as its counts.
 - The site loads them in shards built from `citations.json` ([web.md](web.md)).
 
 ## Published versions (`scholar.json`)

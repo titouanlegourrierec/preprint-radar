@@ -4,6 +4,7 @@ import {
   ANY_VENUE,
   alphabetical,
   byCitations,
+  byGains,
   exactly,
   facetCounts,
   matchesFilters,
@@ -423,6 +424,33 @@ describe("byCitations", () => {
       "b",
       "d",
       "a",
+    ]);
+  });
+});
+
+describe("byGains", () => {
+  it("ranks results by citations gained, then by citations", () => {
+    const results = ["a", "b", "c", "d"].map((id) => ({
+      paper: makePaper({ arxiv_id: id }),
+      score: 0,
+      highlights: [],
+    }));
+    const counts = new Map([
+      ["a", 5],
+      ["b", 10],
+      ["c", 250],
+      ["d", 10],
+    ]);
+    const gains = new Map([
+      ["a", 3],
+      ["d", 4],
+    ]);
+
+    expect(byGains(results, gains, counts).map(({ paper }) => paper.arxiv_id)).toEqual([
+      "d",
+      "a",
+      "c",
+      "b",
     ]);
   });
 });

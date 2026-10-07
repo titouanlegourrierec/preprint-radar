@@ -9,10 +9,10 @@ import { ANY_VENUE, matchesVenue } from "./venues";
 export { ANY_VENUE };
 
 /**
- * Order of results. The index has no citation counts: `citations` orders them like
- * `newest`, and the caller ranks them with {@link byCitations}.
+ * Order of results. The index has no citation counts: `citations` and `rising` order them
+ * like `newest`, and the caller ranks them with {@link byCitations} or {@link byGains}.
  */
-export type SortOrder = "relevance" | "newest" | "citations";
+export type SortOrder = "relevance" | "newest" | "citations" | "rising";
 
 /**
  * An author or affiliation filter: a name clicked on a card, a Rankings row or a graph
@@ -476,6 +476,19 @@ export function byCitations(
  * Whether most results share one citation count (90%), so that ranking by citations says
  * little: recent days, where nearly every count is 0.
  */
+/**
+ * The results by citations gained between the last two weekly refreshes (CIT-9), the most
+ * first, then by citations: papers that gained none keep the order of the most cited.
+ */
+export function byGains(
+  results: readonly SearchResult[],
+  gains: ReadonlyMap<string, number>,
+  counts: ReadonlyMap<string, number>,
+): SearchResult[] {
+  const gain = (result: SearchResult) => gains.get(result.paper.arxiv_id) ?? 0;
+  return byCitations(results, counts).sort((a, b) => gain(b) - gain(a));
+}
+
 export function mostlyTied(
   results: readonly SearchResult[],
   counts: ReadonlyMap<string, number>,

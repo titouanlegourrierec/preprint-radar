@@ -1,6 +1,6 @@
 import json
 from dataclasses import replace
-from datetime import date, timedelta
+from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 
 import pytest
@@ -150,6 +150,63 @@ def test_merged_citations_keep_the_date_of_the_last_refresh(store: PaperStore) -
     assert merged.counts == {"2609.00001": 4, "2609.00002": 0}
     assert merged.generated_at.isoformat() == "2026-09-27T05:41:00+00:00"
     assert merged.source == "Semantic Scholar"
+
+
+def test_a_weekly_refresh_keeps_what_each_paper_gained(store: PaperStore) -> None:
+    week_ago = datetime(2026, 10, 4, 5, 41, tzinfo=UTC)
+    store.write_citations("cs.CV", {"a": 10, "b": 5, "c": 7}, source="S2", now=week_ago)
+    assert store.load_citation_gains("cs.CV") is None  # nothing to count from yet
+
+    # A paper counted since, by the daily update, gains from its first count.
+    store.merge_citations("cs.CV", {"d": 1}, source="S2")
+    store.write_citations(
+        "cs.CV", {"a": 14, "b": 5, "c": 6, "d": 3, "e": 2}, source="S2", now=week_ago + timedelta(days=7)
+    )
+
+    gains = store.load_citation_gains("cs.CV")
+    assert gains is not None
+    # Not b (no change), c (Semantic Scholar's count went down) or e (no count before).
+    assert gains.gains == {"a": 4, "d": 2}
+    assert gains.since == week_ago
+    assert gains.generated_at == week_ago + timedelta(days=7)
+
+
+def test_a_refresh_run_again_within_the_week_keeps_the_gains(store: PaperStore) -> None:
+    week_ago = datetime(2026, 10, 4, 5, 41, tzinfo=UTC)
+    store.write_citations("cs.CV", {"a": 10}, source="S2", now=week_ago)
+    store.write_citations("cs.CV", {"a": 14}, source="S2", now=week_ago + timedelta(days=7))
+    store.write_citations("cs.CV", {"a": 15}, source="S2", now=week_ago + timedelta(days=8))
+
+    gains = store.load_citation_gains("cs.CV")
+    assert gains is not None
+    assert gains.gains == {"a": 4}
+    assert store.load_citations("cs.CV") == {"a": 15}
+
+
+def test_a_refresh_over_broken_counts_writes_no_gains(
+    store: PaperStore, caplog: pytest.LogCaptureFixture
+) -> None:
+    path = store.root / "cs.CV" / "citations.json"
+    path.parent.mkdir(parents=True)
+    path.write_text("{not json", encoding="utf-8")
+
+    store.write_citations("cs.CV", {"a": 1}, source="S2")
+
+    assert store.load_citations("cs.CV") == {"a": 1}
+    assert store.load_citation_gains("cs.CV") is None
+    assert "No citation gains: the former counts of cs.CV do not load" in caplog.text
+
+
+@pytest.mark.parametrize(
+    "payload", ["{not json", '{"gains": {}}', '{"gains": [], "since": "x", "generated_at": "y"}']
+)
+def test_invalid_citation_gains_file_raises(store: PaperStore, payload: str) -> None:
+    path = store.root / "cs.CV" / "citation-gains.json"
+    path.parent.mkdir(parents=True)
+    path.write_text(payload, encoding="utf-8")
+
+    with pytest.raises(StoreError, match="Invalid citation gains file"):
+        store.load_citation_gains("cs.CV")
 
 
 @pytest.mark.parametrize(

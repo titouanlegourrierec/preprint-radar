@@ -8,9 +8,19 @@ export interface Citations {
   /** Where the counts come from, and when they were fetched. */
   source: string | null;
   asOf: string | null;
+  /** What papers gained between the last two weekly refreshes (CIT-9), when known. */
+  gains: ReadonlyMap<string, number>;
+  /** The days the gains span; `null` before a second weekly refresh. */
+  gainsSpan: { since: string; to: string } | null;
 }
 
-const NONE: Citations = { counts: new Map(), source: null, asOf: null };
+const NONE: Citations = {
+  counts: new Map(),
+  source: null,
+  asOf: null,
+  gains: new Map(),
+  gainsSpan: null,
+};
 
 /** The shards loaded, by path, for the page's lifetime; a failed one is asked for again. */
 const shards = new Map<string, Promise<CitationsFile | null>>();
@@ -47,13 +57,24 @@ export function useCitations(
     Promise.all(needed.split(" ").map((shard) => loadShard(category, shard))).then((files) => {
       if (cancelled) return;
       const counts = new Map<string, number>();
+      const gains = new Map<string, number>();
       let dated: CitationsFile | null = null;
       for (const file of files) {
         if (file === null) continue;
         dated ??= file;
         for (const [arxivId, count] of Object.entries(file.counts)) counts.set(arxivId, count);
+        for (const [arxivId, gain] of Object.entries(file.gains?.counts ?? {})) {
+          gains.set(arxivId, gain);
+        }
       }
-      setCitations({ counts, source: dated?.source ?? null, asOf: dated?.generated_at ?? null });
+      const span = dated?.gains;
+      setCitations({
+        counts,
+        source: dated?.source ?? null,
+        asOf: dated?.generated_at ?? null,
+        gains,
+        gainsSpan: span ? { since: span.since, to: span.to } : null,
+      });
     });
     return () => {
       cancelled = true;

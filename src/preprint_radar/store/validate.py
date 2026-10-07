@@ -20,6 +20,7 @@ from preprint_radar.models import Paper
 from preprint_radar.store.paper_store import (
     ARCHIVE_DIRNAME,
     CITATIONS_FILENAME,
+    GAINS_FILENAME,
     INDEX_FILENAME,
     SCHEMA_VERSION,
     SCHOLAR_FILENAME,
@@ -160,6 +161,7 @@ def _validate_category(store: PaperStore, category: str, report: ValidationRepor
     stored |= archived
 
     _validate_citations(store, category, stored, report)
+    _validate_gains(store, category, stored, report)
     _validate_scholar(store, category, authors, report)
     return {"days": days, "years": years}
 
@@ -235,6 +237,28 @@ def _validate_citations(store: PaperStore, category: str, stored: set[str], repo
         examples = ", ".join(unknown[:5])
         message = f"{len(unknown)} counts of papers that are not stored, e.g. {examples}"
         report.findings.append(Finding(Level.ERROR, where, message))
+
+
+def _validate_gains(store: PaperStore, category: str, stored: set[str], report: ValidationReport) -> None:
+    """``citation-gains.json`` must load; gains of papers no longer stored only warn.
+
+    It is written with the weekly counts, from which the pruned papers left, and the next
+    refresh drops them.
+    """
+    path = store.root / category / GAINS_FILENAME
+    if not path.is_file():
+        return
+    report.files += 1
+    where = _where(path, store)
+    try:
+        gains = store.load_citation_gains(category)
+    except StoreError as exc:
+        report.findings.append(Finding(Level.ERROR, where, str(exc)))
+        return
+    unknown = sorted(set(gains.gains) - stored) if gains else []
+    if unknown:
+        message = f"{len(unknown)} gains of papers that are not stored, e.g. {', '.join(unknown[:5])}"
+        report.findings.append(Finding(Level.WARNING, where, message))
 
 
 def _validate_scholar(

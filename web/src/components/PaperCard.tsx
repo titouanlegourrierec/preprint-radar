@@ -50,6 +50,8 @@ interface Props {
   citations?: number | undefined;
   /** Where and when the count comes from, for its tooltip. */
   citationsNote?: string | undefined;
+  /** The citations it gained in the last week of counts, when it gained any. */
+  gain?: { text: string; title: string } | undefined;
   onToggleSaved: (paper: Paper) => void;
   /** Absent where papers cannot be marked seen (the reading list). */
   onToggleSeen?: ((arxivId: string) => void) | undefined;
@@ -71,6 +73,7 @@ export function PaperCard({
   onShowInGraph,
   citations,
   citationsNote,
+  gain,
   onToggleSaved,
   onToggleSeen,
   onAuthor,
@@ -253,6 +256,11 @@ export function PaperCard({
               title={citationsNote}
             >
               {shownCitations.toLocaleString()} citation{shownCitations === 1 ? "" : "s"}
+            </span>
+          )}
+          {gain && (
+            <span class="citations citations--gain" title={gain.title}>
+              {gain.text}
             </span>
           )}
           {subject && <span title={paper.primary_subject ?? undefined}>{subject}</span>}

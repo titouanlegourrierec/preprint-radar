@@ -225,7 +225,8 @@ exist.
 | PROD-12 | "With code" (§17.1 #4): papers whose abstract or comments link a repository on GitHub or GitLab, else models or data on Hugging Face (918 of 4,832, as the audit's 19%), and a Code link on their card | P2 | done |
 | SRCH-11 | Link-outs (§17.1 #5): an unfolded card links the paper on Semantic Scholar, Connected Papers and alphaXiv, each address opened by hand; Hugging Face left out, its page being a 404 for 11 of 12 recent papers | P2 | done |
 | §17.1 #6 | Atom feeds per institution and per major venue, built with the site | — | todo |
-| PROD-11, CIT-9 | The most cited papers of the last 12 months, and those rising this week (§17.1 #7) | P2, P3 | todo |
+| CIT-9 | Rising papers (§17.1 #7): each weekly refresh of the counts writes what each paper gained since the one before (`citation-gains.json`, from counts at least 6 days old); cards say "+12 this week", and the Papers and Highly cited views sort by it (Rising). The first gains come with the archive of 2026-10-11, the one of 2026-10-04 having reused the counts of 2026-09-30 | P3 | done |
+| PROD-11 | The most cited papers of the last 12 months (§17.1 #7): the store holds none of them from 2025-10-04 to 2026-09-01 (the archive starts at 12 months, and decision 1 left the gap), so it waits for a decision or for the day files to fill a year | P2 | todo |
 | §17.1 #8 | Graph: the papers a link stands for, a node's ego network, PNG and GraphML export | — | todo |
 | SRCH-15 | Venue families (§17.1 #9): "CVPR, any year" (`venue=CVPR*`) before the editions of a venue loaded in more than one, its workshops a family of their own; a venue's view is its filter's link | P3 | done |
 | §17.1 #10 | Per-entity timelines in Rankings, once 12 months of data exist | — | todo |

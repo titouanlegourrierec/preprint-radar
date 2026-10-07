@@ -30,6 +30,27 @@ export function citationsNote(source: string, asOf: string, today: Date = new Da
   return age > STALE_CITATIONS_DAYS ? `${note} (${age} days ago: they may be out of date)` : note;
 }
 
+/** Days of a weekly refresh, and a day of slack for a run that started late. */
+const WEEK_DAYS = 8;
+
+/**
+ * A paper's citation gain between two weekly refreshes (CIT-9), as its card shows it ("+12
+ * this week", or "+12 since 4 Oct" when the refreshes were further apart), and its tooltip.
+ */
+export function gainLabel(
+  gain: number,
+  span: { since: string; to: string },
+  source: string | null,
+): { text: string; title: string } {
+  const days = Math.round((new Date(span.to).getTime() - new Date(span.since).getTime()) / DAY_MS);
+  const when = days <= WEEK_DAYS ? "this week" : `since ${formatDay(span.since)}`;
+  const citations = `${gain.toLocaleString()} new citation${gain === 1 ? "" : "s"}`;
+  return {
+    text: `+${gain.toLocaleString()} ${when}`,
+    title: `${citations}${source ? ` on ${source}` : ""} between ${formatDay(span.since)} and ${formatDay(span.to)}`,
+  };
+}
+
 // The arXiv name of each category the store may hold; another shows as its code alone.
 const CATEGORY_NAMES: Readonly<Record<string, string>> = {
   "cs.CV": "Computer Vision and Pattern Recognition",
