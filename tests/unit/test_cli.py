@@ -13,7 +13,7 @@ from rich.console import Console
 
 from preprint_radar.archive.catalog import Catalog
 from preprint_radar.archive.update import ArchiveClients, ArchiveReport
-from preprint_radar.cli import main
+from preprint_radar.cli import build_parser, main
 from preprint_radar.collect import CitationsReport, HtmlReading, Stop, UpdateReport
 from preprint_radar.exceptions import FetchError, NotFoundError
 from preprint_radar.http import HttpClient
@@ -161,6 +161,45 @@ def test_backfill_rejects_reversed_dates(capsys: pytest.CaptureFixture[str]) -> 
 
     assert exc_info.value.code == 2
     assert "--since must not be after --until" in capsys.readouterr().err
+
+
+@pytest.mark.parametrize(
+    ("argv", "message"),
+    [
+        (["fetch", "--max-entries", "0"], "must be between 1 and 2000, got 0"),
+        (["update", "--max-html", "-1"], "must be 0 or more, got -1"),
+        (["update", "--max-ror", "many"], "not a whole number: 'many'"),
+        (["citations", "--max-minutes", "-5"], "must be 0 or more, got -5"),
+        (["update", "--deadline-minutes", "nan"], "must be 0 or more, got nan"),
+        (["update", "--crawl-delay", "soon"], "not a number: 'soon'"),
+        (["stats", "--affiliations", "--changes"], "--changes needs --page-cache-dir"),
+        (["stats", "--page-cache-dir", "cache"], "--page-cache-dir goes with --affiliations"),
+    ],
+    ids=["entries", "html", "ror", "minutes", "nan", "delay", "changes", "cache"],
+)
+def test_arguments_out_of_range_are_refused_with_a_usage_line(
+    argv: list[str], message: str, capsys: pytest.CaptureFixture[str]
+) -> None:
+    with pytest.raises(SystemExit) as exc_info:
+        main(argv)
+
+    assert exc_info.value.code == 2
+    assert message in capsys.readouterr().err
+
+
+def test_verbose_goes_before_or_after_the_command() -> None:
+    parser = build_parser()
+
+    assert parser.parse_args(["-v", "stats"]).verbose == 1
+    assert parser.parse_args(["stats", "-vv"]).verbose == 2
+    assert parser.parse_args(["stats"]).verbose == 0
+
+
+def test_numbers_in_range_are_taken() -> None:
+    parser = build_parser()
+
+    assert parser.parse_args(["fetch", "--max-entries", "10"]).max_entries == 10
+    assert parser.parse_args(["update", "--max-html", "0", "--crawl-delay", "0"]).max_html == 0
 
 
 def test_backfill_rejects_malformed_dates(capsys: pytest.CaptureFixture[str]) -> None:

@@ -89,6 +89,41 @@ from preprint_radar.store.venues import detect_venues_again
 logger = logging.getLogger(__name__)
 
 
+def _count(text: str) -> int:
+    """A number of things, 0 or more: a limit or a budget (DEBT-5)."""
+    try:
+        value = int(text)
+    except ValueError:
+        msg = f"not a whole number: {text!r}"
+        raise argparse.ArgumentTypeError(msg) from None
+    if value < 0:
+        msg = f"must be 0 or more, got {value}"
+        raise argparse.ArgumentTypeError(msg)
+    return value
+
+
+def _duration(text: str) -> float:
+    """A length of time, 0 or more: minutes or seconds (DEBT-5)."""
+    try:
+        value = float(text)
+    except ValueError:
+        msg = f"not a number: {text!r}"
+        raise argparse.ArgumentTypeError(msg) from None
+    if not value >= 0:  # also refuses nan
+        msg = f"must be 0 or more, got {text}"
+        raise argparse.ArgumentTypeError(msg)
+    return value
+
+
+def _listing_size(text: str) -> int:
+    """Entries of a listing to request: arXiv's listing pages show 1 to MAX_LISTING_ENTRIES."""
+    value = _count(text)
+    if not 1 <= value <= MAX_LISTING_ENTRIES:
+        msg = f"must be between 1 and {MAX_LISTING_ENTRIES}, got {value}"
+        raise argparse.ArgumentTypeError(msg)
+    return value
+
+
 def build_parser() -> argparse.ArgumentParser:
     """Build the top-level argument parser."""
     parser = argparse.ArgumentParser(
@@ -123,6 +158,15 @@ def build_parser() -> argparse.ArgumentParser:
     _add_validate_parser(subparsers)
     _add_summary_parser(subparsers)
     _add_reextract_parser(subparsers)
+    # -v after the command too ("stats -v"); unset, it leaves the one before it (DOC-5).
+    for command in subparsers.choices.values():
+        command.add_argument(
+            "-v",
+            "--verbose",
+            action="count",
+            default=argparse.SUPPRESS,
+            help="increase log verbosity (-v: info, -vv: debug)",
+        )
     return parser
 
 
@@ -160,7 +204,7 @@ def _add_fetch_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentP
     )
     fetch.add_argument(
         "--max-entries",
-        type=int,
+        type=_listing_size,
         default=MAX_LISTING_ENTRIES,
         help=f"maximum number of entries to request (default: {MAX_LISTING_ENTRIES})",
     )
@@ -282,7 +326,7 @@ def _add_institutions_parser(subparsers: "argparse._SubParsersAction[argparse.Ar
     )
     institutions.add_argument(
         "--max-ror",
-        type=int,
+        type=_count,
         default=None,
         help="maximum number of affiliations to look up (default: no limit)",
     )
@@ -321,7 +365,7 @@ def _add_archive_parser(subparsers: "argparse._SubParsersAction[argparse.Argumen
     )
     archive.add_argument(
         "--budget",
-        type=int,
+        type=_count,
         default=DEFAULT_BUDGET,
         help=f"number of older papers the archive holds (default: {DEFAULT_BUDGET})",
     )
@@ -362,7 +406,7 @@ def _add_citations_parser(subparsers: "argparse._SubParsersAction[argparse.Argum
     citations.add_argument("--all", action="store_true", help="fetch the counts of every stored paper again")
     citations.add_argument(
         "--max-minutes",
-        type=float,
+        type=_duration,
         default=None,
         help="stop asking a refusing Semantic Scholar after this long (default: no limit)",
     )
@@ -396,7 +440,7 @@ def _add_scholar_parser(subparsers: "argparse._SubParsersAction[argparse.Argumen
     )
     scholar.add_argument(
         "--max-minutes",
-        type=float,
+        type=_duration,
         default=None,
         help="stop asking a refusing Semantic Scholar after this long (default: no limit)",
     )
@@ -560,13 +604,13 @@ def _add_store_arguments(parser: argparse.ArgumentParser) -> None:
     )
     parser.add_argument(
         "--max-html",
-        type=int,
+        type=_count,
         default=None,
         help="maximum number of HTML pages to download per category (default: no limit; 0 disables)",
     )
     parser.add_argument(
         "--max-ror",
-        type=int,
+        type=_count,
         default=DEFAULT_MAX_ROR_LOOKUPS,
         help=(
             "maximum number of affiliations to look up in the Research Organization Registry "
@@ -581,7 +625,7 @@ def _add_store_arguments(parser: argparse.ArgumentParser) -> None:
     )
     parser.add_argument(
         "--deadline-minutes",
-        type=float,
+        type=_duration,
         default=None,
         help=(
             "start no HTML page after this many minutes, so that the run ends cleanly before "
@@ -590,7 +634,7 @@ def _add_store_arguments(parser: argparse.ArgumentParser) -> None:
     )
     parser.add_argument(
         "--crawl-delay",
-        type=float,
+        type=_duration,
         default=ARXIV_CRAWL_DELAY_SECONDS,
         help=f"seconds between arxiv.org requests (default: {ARXIV_CRAWL_DELAY_SECONDS:g}, from robots.txt)",
     )
@@ -609,6 +653,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parser.parse_args(argv)
     if args.command == "backfill" and args.until is not None and args.since > args.until:
         parser.error("--since must not be after --until")
+    if args.command == "stats" and args.changes and args.page_cache_dir is None:
+        parser.error("--changes needs --page-cache-dir: the pages to extract again")
+    if args.command == "stats" and args.page_cache_dir is not None and not args.affiliations:
+        parser.error("--page-cache-dir goes with --affiliations")
     _configure_logging(args.verbose)
     try:
         return _COMMANDS[args.command](args)
