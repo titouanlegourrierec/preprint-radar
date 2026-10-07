@@ -12,7 +12,7 @@ function Option({ venue, starred }: { venue: FacetCount; starred: boolean }) {
   return (
     <option value={venue.value}>
       {starred ? "★ " : ""}
-      {venueLabel(venue.value)} ({venue.count})
+      {venueLabel(venue.value)} ({venue.count.toLocaleString()})
     </option>
   );
 }
@@ -48,7 +48,7 @@ export function VenueSelect({ venues, value, onChange }: Props) {
       onChange={(event) => onChange(event.currentTarget.value || null)}
     >
       <option value="">All papers</option>
-      <option value={ANY_VENUE}>Accepted at a venue ({accepted})</option>
+      <option value={ANY_VENUE}>Accepted at a venue ({accepted.toLocaleString()})</option>
       {major.length > 0 ? (
         <>
           <optgroup label="Major venues">

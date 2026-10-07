@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "preact/hooks";
 import { toBibtex } from "../bibtex";
 import { codeUrl } from "../code";
-import { daysSince, formatDay, subjectCode } from "../format";
+import { countOf, daysSince, formatDay, subjectCode } from "../format";
 import { highlight } from "../highlight";
 import { institutionsOf } from "../institutions";
 import { linkOuts } from "../link-outs";
@@ -255,7 +255,7 @@ export function PaperCard({
               class={`citations${shownCitations > 0 ? " citations--some" : ""}`}
               title={citationsNote}
             >
-              {shownCitations.toLocaleString()} citation{shownCitations === 1 ? "" : "s"}
+              {countOf(shownCitations, "citation")}
             </span>
           )}
           {gain && (

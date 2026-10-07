@@ -473,10 +473,6 @@ export function byCitations(
 }
 
 /**
- * Whether most results share one citation count (90%), so that ranking by citations says
- * little: recent days, where nearly every count is 0.
- */
-/**
  * The results by citations gained between the last two weekly refreshes (CIT-9), the most
  * first, then by citations: papers that gained none keep the order of the most cited.
  */
@@ -489,6 +485,10 @@ export function byGains(
   return byCitations(results, counts).sort((a, b) => gain(b) - gain(a));
 }
 
+/**
+ * Whether most results share one citation count (90%), so that ranking by citations says
+ * little: recent days, where nearly every count is 0.
+ */
 export function mostlyTied(
   results: readonly SearchResult[],
   counts: ReadonlyMap<string, number>,

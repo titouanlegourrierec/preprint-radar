@@ -4,6 +4,14 @@ export function formatDay(iso: string): string {
   return date.toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" });
 }
 
+/**
+ * A count and its noun, singular for one: "1 paper", "10,000 papers" (with the reader's
+ * thousands separator), "2 people" with `plural`.
+ */
+export function countOf(count: number, noun: string, plural = `${noun}s`): string {
+  return `${count.toLocaleString()} ${count === 1 ? noun : plural}`;
+}
+
 /** Subject code from its full name, e.g. "Robotics (cs.RO)" -> "cs.RO". */
 export function subjectCode(subject: string): string {
   return /\(([^()]+)\)\s*$/.exec(subject)?.[1] ?? subject;
@@ -44,7 +52,7 @@ export function gainLabel(
 ): { text: string; title: string } {
   const days = Math.round((new Date(span.to).getTime() - new Date(span.since).getTime()) / DAY_MS);
   const when = days <= WEEK_DAYS ? "this week" : `since ${formatDay(span.since)}`;
-  const citations = `${gain.toLocaleString()} new citation${gain === 1 ? "" : "s"}`;
+  const citations = countOf(gain, "new citation");
   return {
     text: `+${gain.toLocaleString()} ${when}`,
     title: `${citations}${source ? ` on ${source}` : ""} between ${formatDay(span.since)} and ${formatDay(span.to)}`,

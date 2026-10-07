@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import type { YearRange } from "../archive-years";
 import { download, downloadBlob } from "../download";
-import { formatDay } from "../format";
+import { countOf, formatDay } from "../format";
 import {
   buildGraph,
   type EntityKind,
@@ -414,10 +414,10 @@ export function GraphView(props: Props) {
         class="graph__canvas"
         role="img"
         aria-label={`Graph of ${[
-          plural(counts.paper, "paper"),
-          plural(counts.institution, "institution"),
-          plural(counts.author, "author"),
-          plural(graph.links.length, "link"),
+          countOf(counts.paper, "paper"),
+          countOf(counts.institution, "institution"),
+          countOf(counts.author, "author"),
+          countOf(graph.links.length, "link"),
         ].join(", ")}`}
         aria-describedby="graph-equivalent"
       />
@@ -460,7 +460,7 @@ export function GraphView(props: Props) {
           {focusLabel} and{" "}
           {focusedPapers.length === 1
             ? "its paper"
-            : `its ${plural(focusedPapers.length, "paper")}`}
+            : `its ${countOf(focusedPapers.length, "paper")}`}
           , with their institutions and authors.{" "}
           <button type="button" class="link-button" onClick={() => onFocus(null)}>
             Show everything
@@ -499,8 +499,8 @@ export function GraphView(props: Props) {
               <>
                 <h2>{selectedEntity.label}</h2>
                 <p class="muted" title="Over the papers shown: the period or year, and the search">
-                  {plural(selectedEntity.paperIds.length, "paper")} ·{" "}
-                  {plural(selectedEntity.citations, "citation")}
+                  {countOf(selectedEntity.paperIds.length, "paper")} ·{" "}
+                  {countOf(selectedEntity.citations, "citation")}
                   {selectedEntity.rorId && (
                     <>
                       {" · "}
@@ -531,7 +531,7 @@ export function GraphView(props: Props) {
                           </a>{" "}
                           <span class="muted">
                             · {formatDay(paper.announced)}
-                            {count !== undefined && ` · ${plural(count, "citation")}`}
+                            {count !== undefined && ` · ${countOf(count, "citation")}`}
                           </span>
                         </li>
                       ) : null;
@@ -559,7 +559,7 @@ export function GraphView(props: Props) {
                               setOpenConnection(openConnection === node.id ? null : node.id)
                             }
                           >
-                            {weight} shared paper{weight > 1 ? "s" : ""}
+                            {countOf(weight, "shared paper")}
                           </button>
                           {openConnection === node.id && (
                             <ul class="graph__shared">
@@ -592,7 +592,9 @@ export function GraphView(props: Props) {
                     class="button"
                     onClick={() => onShowPapers(selectedEntity.kind, selectedEntity.label)}
                   >
-                    Show all {selectedEntity.paperIds.length} papers
+                    {selectedEntity.paperIds.length === 1
+                      ? "Show its paper"
+                      : `Show all ${countOf(selectedEntity.paperIds.length, "paper")}`}
                   </button>
                   {focus !== selectedEntity.id && (
                     <button
@@ -679,7 +681,7 @@ export function GraphView(props: Props) {
         <span>{graph.links.length.toLocaleString()} links</span>
         {graph.consortia > 0 && (
           <span>
-            {plural(graph.consortia, "paper")} of over {MAX_CLIQUE_AUTHORS} authors, whose authors
+            {countOf(graph.consortia, "paper")} of over {MAX_CLIQUE_AUTHORS} authors, whose authors
             are not linked to one another
           </span>
         )}
@@ -691,11 +693,6 @@ export function GraphView(props: Props) {
       </p>
     </main>
   );
-}
-
-/** "1 paper", "12 papers". */
-function plural(count: number, noun: string): string {
-  return `${count.toLocaleString()} ${noun}${count === 1 ? "" : "s"}`;
 }
 
 /** Paper ids, most cited first; unknown counts last, and ties keep their order. */
@@ -729,7 +726,7 @@ function PaperDetails({
       <p class="muted">
         {formatDay(paper.announced)}
         {paper.venue && ` · ${paper.venue}`}
-        {citations !== undefined && ` · ${plural(citations, "citation")}`}
+        {citations !== undefined && ` · ${countOf(citations, "citation")}`}
       </p>
       <p>
         {authors}

@@ -11,7 +11,13 @@ import { Sidebar } from "./components/Sidebar";
 import { download } from "./download";
 import { toCsv, toMarkdown, toRis } from "./export";
 import { feedOf } from "./feeds";
-import { categoryName, citationsNote as formatCitationsNote, formatDay, gainLabel } from "./format";
+import {
+  categoryName,
+  countOf,
+  citationsNote as formatCitationsNote,
+  formatDay,
+  gainLabel,
+} from "./format";
 import { useCitations } from "./hooks/use-citations";
 import { usePapers } from "./hooks/use-papers";
 import { useReadingList } from "./hooks/use-reading-list";
@@ -339,7 +345,7 @@ export function App() {
             class={`tab${state.view === "reading-list" ? " tab--active" : ""}`}
             {...tab(state.view === "reading-list", { view: "reading-list" })}
           >
-            Reading list ({readingList.papers.length})
+            Reading list ({readingList.papers.length.toLocaleString()})
           </a>
           <a
             class={`tab${state.view === "about" ? " tab--active" : ""}`}
@@ -541,11 +547,11 @@ export function App() {
           <div class="results__header">
             <p class="muted" aria-live="polite">
               {state.view === "reading-list"
-                ? `${results.length} of ${readingList.papers.length} saved papers`
+                ? `${results.length.toLocaleString()} of ${countOf(readingList.papers.length, "saved paper")}`
                 : archived && load.status === "ready" && archiveRange !== null
-                  ? `${results.length} of ${load.index.size} highly cited ${category ?? ""} papers first published ${publishedIn(archiveRange, archiveYears, archiveAsOf)}`
+                  ? `${results.length.toLocaleString()} of ${countOf(load.index.size, `highly cited ${category ?? ""} paper`)} first published ${publishedIn(archiveRange, archiveYears, archiveAsOf)}`
                   : load.status === "ready"
-                    ? `${results.length} of ${load.index.size} ${category ?? ""} papers`
+                    ? `${results.length.toLocaleString()} of ${countOf(load.index.size, `${category ?? ""} paper`)}`
                     : load.status === "loading"
                       ? "Loading papers…"
                       : null}
@@ -726,8 +732,7 @@ export function App() {
 
           {triaged && sinceLastVisit && !samePeriod(state.period, sinceLastVisit.period) && (
             <p class="notice notice--new">
-              {sinceLastVisit.papers.toLocaleString()} new paper
-              {sinceLastVisit.papers === 1 ? "" : "s"} since your last visit.{" "}
+              {countOf(sinceLastVisit.papers, "new paper")} since your last visit.{" "}
               <button
                 type="button"
                 class="link-button"

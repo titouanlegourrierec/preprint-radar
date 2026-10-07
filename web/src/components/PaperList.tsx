@@ -1,7 +1,7 @@
 import type { ComponentChildren } from "preact";
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { dayGroups } from "../day-groups";
-import { formatShortDay } from "../format";
+import { countOf, formatShortDay } from "../format";
 import { hasModifier, isTyping } from "../keyboard";
 import type { NameFilter, SearchResult } from "../search";
 import type { Paper } from "../types";
@@ -167,9 +167,7 @@ export function PaperList({
               folding lives in state, which the paging budget reads. */}
           <summary class="day-heading" onClick={toggleDay(day)}>
             {formatShortDay(day)}
-            <span class="day-heading__count">
-              · {entries.length} paper{entries.length === 1 ? "" : "s"}
-            </span>
+            <span class="day-heading__count">· {countOf(entries.length, "paper")}</span>
           </summary>
           {isFolded ? null : entries.slice(0, budget).map(card)}
         </details>,

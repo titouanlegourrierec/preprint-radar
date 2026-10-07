@@ -27,6 +27,8 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 - Links inside text are underlined everywhere (the footer, About, "Report an error",
   notices, the feed line, the graph's details), not told from the text by their colour
   alone (UX-24).
+- Counts read right: "10,000 of 10,000 papers" with the reader's separator, and "1 paper"
+  rather than "1 papers", in the list, the graph, the calendar and the filters (UX-25).
 
 ### Feeds
 

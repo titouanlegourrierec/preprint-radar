@@ -1,5 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { citationsNote, formatDay, formatShortDay, gainLabel, subjectCode } from "../src/format";
+import {
+  citationsNote,
+  countOf,
+  formatDay,
+  formatShortDay,
+  gainLabel,
+  subjectCode,
+} from "../src/format";
 
 describe("citationsNote", () => {
   const today = new Date("2026-10-01T12:00:00Z");
@@ -15,6 +22,17 @@ describe("citationsNote", () => {
     expect(citationsNote("Semantic Scholar", "2026-09-10T05:41:00+00:00", today)).toMatch(
       / \(21 days ago: they may be out of date\)$/,
     );
+  });
+});
+
+describe("countOf", () => {
+  it("gives a count with its noun, singular for one", () => {
+    expect(countOf(0, "paper")).toBe("0 papers");
+    expect(countOf(1, "paper")).toBe("1 paper");
+    expect(countOf(2, "cs.CV paper")).toBe("2 cs.CV papers");
+    expect(countOf(10_000, "paper")).toBe(`${(10_000).toLocaleString()} papers`);
+    expect(countOf(2, "person", "people")).toBe("2 people");
+    expect(countOf(1, "person", "people")).toBe("1 person");
   });
 });
 

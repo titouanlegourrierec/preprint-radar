@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "preact/hooks";
+import { countOf } from "../format";
 import {
   loadReadingList,
   mergePapers,
@@ -80,7 +81,7 @@ export function useReadingList(loaded: PaperIndex | null) {
           : "";
     const more = also?.(value);
     setMessage(
-      `${added} paper${added === 1 ? "" : "s"} added, ${read.papers.length - added} already saved${skipped}${more ? `; ${more}` : ""}.`,
+      `${countOf(added, "paper")} added, ${(read.papers.length - added).toLocaleString()} already saved${skipped}${more ? `; ${more}` : ""}.`,
     );
   };
 

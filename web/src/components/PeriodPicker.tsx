@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "preact/hooks";
+import { countOf } from "../format";
 import {
   between,
   dayDate,
@@ -131,10 +132,8 @@ export function PeriodPicker({ days, period, onChange }: Props) {
         <span class="period-picker__label">
           <span>{period.kind === "recent" ? RANGES[period.range].label : span}</span>
           <span class="period-picker__detail">
-            {period.kind === "recent"
-              ? span
-              : `${selected.length} day${selected.length === 1 ? "" : "s"}`}{" "}
-            · {papers.toLocaleString()} paper{papers === 1 ? "" : "s"}
+            {period.kind === "recent" ? span : countOf(selected.length, "day")} ·{" "}
+            {countOf(papers, "paper")}
           </span>
         </span>
         <span aria-hidden="true">{open ? "▴" : "▾"}</span>
@@ -205,7 +204,7 @@ export function PeriodPicker({ days, period, onChange }: Props) {
                     disabled={count === undefined}
                     aria-pressed={inRange}
                     aria-label={`${LONG_DAY_FORMAT.format(dayDate(day))}, ${
-                      count === undefined ? "no announcement" : `${count} papers`
+                      count === undefined ? "no announcement" : countOf(count, "paper")
                     }`}
                     onClick={() => pick(day)}
                     onMouseEnter={() => setHovered(day)}

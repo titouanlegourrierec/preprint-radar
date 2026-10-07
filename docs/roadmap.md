@@ -234,6 +234,7 @@ exist.
 | AFF-H | Author identity (decision 13): Semantic Scholar's author ids, each kept only where its name is the arXiv author's, merged into the site's records; authors stay keyed by name, since Semantic Scholar has several profiles for most prolific authors (Luc Van Gool three), and a name whose profiles share no institution or co-author says it is perhaps several people (2026-10-07) | P2 | done |
 | PROD-17 | Highly cited over several years (asked on 2026-10-07, not in the audit): a range of years or all of them (`?year=2019-2021`, `?year=all`), in the graph and Rankings too; past 10,000 papers (all years hold 22,000, 300 MB once indexed), the best ranked by citations per year of age, saying how many are left out | P2 | done |
 | UX-24 | Links inside text underlined everywhere, not told by colour alone (WCAG 1.4.1): the footer, About, a card's "Report an error", notices, the feed line and the graph's details (not in the audit) | P2 | done |
+| UX-25 | Counts with thousands separators and singular nouns through one helper (`countOf`): "10,000 of 10,000", "Show its paper", a calendar day read as "1 paper"; the dates keep the reader's locale, as UX-17 leaves open (not in the audit) | P3 | done |
 | ARCH-2 | Enrichment step interface | P2 | todo |
 | DEBT-2, DEBT-3 | View model for `app.tsx`, `GraphView` split | P2, P3 | todo |
 | ARCH-4 | Multi-category, if wanted | P2 | todo |

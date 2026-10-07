@@ -203,7 +203,7 @@ export function Sidebar(props: Props) {
                 <option value="">All subjects</option>
                 {props.subjects.map(({ value, count }) => (
                   <option key={value} value={value}>
-                    {value} ({count})
+                    {value} ({count.toLocaleString()})
                   </option>
                 ))}
               </select>
