@@ -46,6 +46,28 @@ function remember(path: string, papers: Paper[]): void {
 /** Forget the files loaded (tests serve other files under the same paths). */
 export function forgetLoaded(): void {
   loaded.clear();
+  shards.clear();
+}
+
+/** The citation shards asked for, by path, for the page's lifetime. */
+const shards = new Map<string, Promise<CitationsFile | null>>();
+
+/**
+ * A citation shard, loaded once for the page (the counts of the papers shown, and the
+ * archive's ranking of its years); `null` when it does not exist or fails, which is asked
+ * for again next time. Citation counts are a bonus: without them, the papers still show.
+ */
+export function citationShard(category: string, shard: string): Promise<CitationsFile | null> {
+  const key = `${category}/${shard}`;
+  let file = shards.get(key);
+  if (file === undefined) {
+    file = loadCitationShard(category, shard).catch(() => {
+      shards.delete(key);
+      return null;
+    });
+    shards.set(key, file);
+  }
+  return file;
 }
 
 async function fetchJson<T>(path: string, signal?: AbortSignal): Promise<T> {
@@ -118,30 +140,33 @@ export function loadArchive(
 
 /**
  * Load the archived papers of several years, within `budget`: past it, the best ranked by
- * citations per year of age (`bestRanked`), from the citation shards of those years, and
- * how many there were in all.
+ * citations per year of age (`bestRanked`), from the citation shards of those years, how
+ * many there were in all, and how many years could not be ranked.
  */
 export async function loadArchiveYears(
   category: string,
   years: readonly number[],
   budget: number,
   signal?: AbortSignal,
-): Promise<{ papers: Paper[]; total: number }> {
+): Promise<{ papers: Paper[]; total: number; unranked: number }> {
   const files = await Promise.all(years.map((year) => loadArchive(category, year, signal)));
   const papers = files.flat();
-  if (papers.length <= budget) return { papers, total: papers.length };
-  const shards = await Promise.all(
-    years.map((year) => loadCitationShard(category, String(year)).catch(() => null)),
-  );
+  if (papers.length <= budget) return { papers, total: papers.length, unranked: 0 };
+  const rankings = await Promise.all(years.map((year) => citationShard(category, String(year))));
   const counts = new Map<string, number>();
   let asOf: string | undefined;
-  for (const shard of shards) {
-    if (shard === null) continue;
-    asOf ??= shard.generated_at;
-    for (const [arxivId, count] of Object.entries(shard.counts)) counts.set(arxivId, count);
+  for (const file of rankings) {
+    if (file === null) continue;
+    asOf ??= file.generated_at;
+    for (const [arxivId, count] of Object.entries(file.counts)) counts.set(arxivId, count);
   }
   const date = asOf === undefined ? new Date() : new Date(asOf);
-  return { papers: bestRanked(papers, counts, date, budget), total: papers.length };
+  return {
+    papers: bestRanked(papers, counts, date, budget),
+    total: papers.length,
+    // Years whose counts did not load: their papers rank last, which the page says.
+    unranked: rankings.filter((file) => file === null).length,
+  };
 }
 
 /**

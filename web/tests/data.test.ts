@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
+  citationShard,
   forgetLoaded,
   loadArchive,
   loadArchiveYears,
@@ -128,6 +129,33 @@ describe("data", () => {
     const loaded = await loadArchiveYears("cs.CV", [2017, 2016], 1);
     expect(loaded.papers).toHaveLength(1);
     expect(loaded.total).toBe(2);
+    expect(loaded.unranked).toBe(2);
+  });
+
+  it("ranks a paper without a count after those of none, and loads each shard once", async () => {
+    const requested = serve({
+      "cs.CV/archive/2016.json": {
+        schema_version: 1,
+        papers: [makePaper({ arxiv_id: "a", announced: "2016-06-01" })],
+      },
+      "cs.CV/archive/2017.json": {
+        schema_version: 1,
+        papers: [makePaper({ arxiv_id: "b", announced: "2017-06-01" })],
+      },
+      "cs.CV/citations/2016.json": {
+        schema_version: 1,
+        category: "cs.CV",
+        generated_at: "2026-10-04T05:41:00+00:00",
+        source: "S2",
+        counts: { a: 0 },
+      },
+    });
+    // 2017's shard is a 404: b's count is unknown, and ranks after a's 0.
+    const loaded = await loadArchiveYears("cs.CV", [2017, 2016], 1);
+    expect(loaded.papers.map(({ arxiv_id }) => arxiv_id)).toEqual(["a"]);
+    expect(loaded.unranked).toBe(1);
+    await citationShard("cs.CV", "2016");
+    expect(requested.filter((path) => path === "cs.CV/citations/2016.json")).toHaveLength(1);
   });
 
   it("keeps the files loaded for the next periods, within the budget", async () => {

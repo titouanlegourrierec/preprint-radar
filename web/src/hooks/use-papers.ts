@@ -45,8 +45,8 @@ export function usePapers(
   const [load, setLoad] = useState<LoadState>({ status: "loading" });
   // The loaded index once its full-text index is built, for searches that can wait for it.
   const [warmed, setWarmed] = useState<PaperIndex | null>(null);
-  // Papers of the archive's years left out by the budget.
-  const [leftOut, setLeftOut] = useState(0);
+  // Papers of the archive's years left out by the budget, and years it could not rank.
+  const [leftOut, setLeftOut] = useState({ papers: 0, unranked: 0 });
   // Each Retry loads again what failed: the index, or the papers.
   const [attempt, setAttempt] = useState(0);
 
@@ -84,24 +84,25 @@ export function usePapers(
     setLoad({ status: "loading" });
     // The former index and its full-text index can go: two would hold 20,000 papers.
     setWarmed(null);
-    let loaded: Promise<{ papers: Paper[]; total: number }>;
+    let loaded: Promise<{ papers: Paper[]; total: number; unranked: number }>;
     const range = parseYears(archiveKey);
     if (loadedPeriod !== null) {
       const days = selectDays(storeIndex.categories[category] ?? [], periodOfKey(loadedPeriod));
       loaded = loadDays(category, days, signal).then((papers) => ({
         papers,
         total: papers.length,
+        unranked: 0,
       }));
     } else if (range === null) {
-      loaded = Promise.resolve({ papers: [], total: 0 }); // no archive yet
+      loaded = Promise.resolve({ papers: [], total: 0, unranked: 0 }); // no archive yet
     } else {
       const years = yearsIn(range, storeIndex.archives?.[category] ?? []).map(({ year }) => year);
       loaded = loadArchiveYears(category, years, PAPER_BUDGET, signal);
     }
     loaded
-      .then(({ papers, total }) => {
+      .then(({ papers, total, unranked }) => {
         if (signal.aborted) return;
-        setLeftOut(total - papers.length);
+        setLeftOut({ papers: total - papers.length, unranked });
         const index = new PaperIndex(papers);
         setLoad({ status: "ready", index });
         // The list shows first; the search index is built after, while the page is idle.
@@ -124,7 +125,9 @@ export function usePapers(
     /** The archive's years shown, `null` for the recent days or before the first archive. */
     archiveRange,
     /** Papers of those years left out by the budget, the least cited for their age. */
-    archiveLeftOut: archived ? leftOut : 0,
+    archiveLeftOut: archived ? leftOut.papers : 0,
+    /** Years of those whose citation counts did not load: their papers ranked last. */
+    archiveUnranked: archived ? leftOut.unranked : 0,
     load,
     /** The papers loaded, once a search over them costs no indexing; else `null`. */
     searchable: load.status === "ready" && warmed === load.index ? load.index : null,

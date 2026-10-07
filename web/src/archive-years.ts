@@ -47,8 +47,10 @@ export function yearsIn(range: YearRange, years: readonly ArchiveSummary[]): Arc
 }
 
 /**
- * The range as shown: what the URL asks, else the latest year; a range without any year
- * of the archive is the latest year too. `null` before the first archive.
+ * The range as shown: what the URL asks, within the archive's years ("2005-2010" is 2010,
+ * the first one, rather than a From select without its year), else the latest year; a
+ * range without any year of the archive is the latest year too. `null` before the first
+ * archive.
  */
 export function shownYears(
   requested: YearRange | null,
@@ -56,7 +58,10 @@ export function shownYears(
 ): YearRange | null {
   const latest = years[0]?.year;
   if (latest === undefined) return null;
-  return requested !== null && yearsIn(requested, years).length > 0 ? requested : oneYear(latest);
+  if (requested === null || yearsIn(requested, years).length === 0) return oneYear(latest);
+  if (requested.from === null || requested.to === null) return requested;
+  const oldest = years.at(-1)?.year ?? latest;
+  return { from: Math.max(requested.from, oldest), to: Math.min(requested.to, latest) };
 }
 
 /** "2017", "2019–2021", "all years", for the views' sentences. */
@@ -83,7 +88,7 @@ export function citationRate(citations: number | undefined, announced: string, a
 
 /**
  * The papers within `budget`, the best ranked by {@link citationRate} first; all of them
- * when they fit. Unknown counts rank last.
+ * when they fit. Unknown counts rank last, after those of none.
  */
 export function bestRanked(
   papers: readonly Paper[],
@@ -93,7 +98,10 @@ export function bestRanked(
 ): Paper[] {
   if (papers.length <= budget) return [...papers];
   const score = new Map(
-    papers.map((paper) => [paper, citationRate(counts.get(paper.arxiv_id), paper.announced, asOf)]),
+    papers.map((paper) => {
+      const count = counts.get(paper.arxiv_id);
+      return [paper, count === undefined ? -1 : citationRate(count, paper.announced, asOf)];
+    }),
   );
   return [...papers].sort((a, b) => (score.get(b) ?? 0) - (score.get(a) ?? 0)).slice(0, budget);
 }

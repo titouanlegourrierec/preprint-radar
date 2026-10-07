@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "preact/hooks";
 import { type Filed, shardsOf } from "../citations";
-import { loadCitationShard } from "../data";
+import { citationShard } from "../data";
 import type { CitationsFile } from "../types";
 
 export interface Citations {
@@ -22,23 +22,6 @@ const NONE: Citations = {
   gainsSpan: null,
 };
 
-/** The shards loaded, by path, for the page's lifetime; a failed one is asked for again. */
-const shards = new Map<string, Promise<CitationsFile | null>>();
-
-function loadShard(category: string, shard: string): Promise<CitationsFile | null> {
-  const key = `${category}/${shard}`;
-  let file = shards.get(key);
-  if (file === undefined) {
-    file = loadCitationShard(category, shard).catch(() => {
-      shards.delete(key);
-      // Citation counts are a bonus: without them, the papers still show.
-      return null;
-    });
-    shards.set(key, file);
-  }
-  return file;
-}
-
 /**
  * Citation counts of the papers shown (the period or archive year, and the reading list),
  * from the shards that hold them. `oldestDay` is the oldest day file of the category.
@@ -54,7 +37,7 @@ export function useCitations(
     // While a period loads, the counts shown stay.
     if (!(category && needed)) return;
     let cancelled = false;
-    Promise.all(needed.split(" ").map((shard) => loadShard(category, shard))).then((files) => {
+    Promise.all(needed.split(" ").map((shard) => citationShard(category, shard))).then((files) => {
       if (cancelled) return;
       const counts = new Map<string, number>();
       const gains = new Map<string, number>();

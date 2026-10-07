@@ -35,8 +35,13 @@ describe("year ranges", () => {
   it("show the latest year when the URL asks none, or none of the archive's", () => {
     expect(shownYears(null, years)).toEqual(oneYear(2025));
     expect(shownYears(oneYear(2010), years)).toEqual(oneYear(2025));
-    expect(shownYears({ from: 2016, to: 2018 }, years)).toEqual({ from: 2016, to: 2018 });
+    expect(shownYears({ from: 2016, to: 2018 }, years)).toEqual({ from: 2017, to: 2018 });
     expect(shownYears(ALL_YEARS, [])).toBeNull();
+    // A range beyond the archive's years is kept to them.
+    expect(shownYears({ from: 2005, to: 2018 }, years)).toEqual({ from: 2017, to: 2018 });
+    expect(shownYears({ from: 2024, to: 2030 }, years)).toEqual({ from: 2024, to: 2025 });
+    expect(shownYears({ from: 2005, to: 2017 }, years)).toEqual(oneYear(2017));
+    expect(shownYears(ALL_YEARS, years)).toEqual(ALL_YEARS);
   });
 
   it("say which years they are", () => {

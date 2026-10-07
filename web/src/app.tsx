@@ -115,6 +115,7 @@ export function App() {
     archiveYears,
     archiveRange,
     archiveLeftOut,
+    archiveUnranked,
     load,
     searchable,
     retry,
@@ -782,6 +783,8 @@ export function App() {
               {load.index.size.toLocaleString()} best ranked by citations per year of age are shown,
               as many as a period loads. Narrow the years for the {archiveLeftOut.toLocaleString()}{" "}
               others.
+              {archiveUnranked > 0 &&
+                ` The citation counts of ${countOf(archiveUnranked, "year")} could not be loaded: their papers come last.`}
             </p>
           )}
           {VIEW_NOTES[state.view] && (
