@@ -1,8 +1,17 @@
+from datetime import UTC, datetime, timedelta
+from email.utils import format_datetime
+
 import httpx
 import pytest
 
 from preprint_radar.exceptions import FetchError, NotFoundError
-from preprint_radar.http import DEFAULT_USER_AGENT, HttpClient, RateLimiter, build_user_agent
+from preprint_radar.http import (
+    DEFAULT_USER_AGENT,
+    MAX_RETRY_AFTER_SECONDS,
+    HttpClient,
+    RateLimiter,
+    build_user_agent,
+)
 
 
 class FakeClock:
@@ -77,6 +86,42 @@ def test_retry_after_header_is_honored() -> None:
     with HttpClient(transport=transport, sleep=sleeps.append) as client:
         client.get_text("https://arxiv.org/")
     assert sleeps == [42.0]
+
+
+@pytest.mark.parametrize(
+    ("retry_after", "wait"),
+    [
+        # Far ahead: capped, like a number of seconds.
+        ("Fri, 31 Dec 2999 23:59:59 GMT", MAX_RETRY_AFTER_SECONDS),
+        # "-0000" parses to a naive date, UTC all the same.
+        ("Fri, 31 Dec 2999 23:59:59 -0000", MAX_RETRY_AFTER_SECONDS),
+        # Already past, or unreadable: the backoff.
+        ("Wed, 21 Oct 2015 07:28:00 GMT", 10.0),
+        ("soon", 10.0),
+        ("", 10.0),
+    ],
+)
+def test_retry_after_header_can_be_a_date(retry_after: str, wait: float) -> None:
+    responses = iter([httpx.Response(429, headers={"Retry-After": retry_after}), httpx.Response(200)])
+    sleeps: list[float] = []
+    transport = httpx.MockTransport(lambda _: next(responses))
+
+    with HttpClient(transport=transport, backoff=10.0, sleep=sleeps.append) as client:
+        client.get_text("https://api.semanticscholar.org/graph/v1/paper/batch")
+    assert sleeps == [wait]
+
+
+def test_retry_after_date_is_a_delay_from_now() -> None:
+    retry_at = format_datetime(datetime.now(tz=UTC) + timedelta(seconds=120), usegmt=True)
+    responses = iter([httpx.Response(503, headers={"Retry-After": retry_at}), httpx.Response(200)])
+    sleeps: list[float] = []
+    transport = httpx.MockTransport(lambda _: next(responses))
+
+    with HttpClient(transport=transport, sleep=sleeps.append) as client:
+        client.get_text("https://arxiv.org/")
+    [wait] = sleeps
+    # The header has whole seconds, and a little time passes before it is read.
+    assert 110 < wait <= 120
 
 
 def test_gives_up_after_max_attempts() -> None:

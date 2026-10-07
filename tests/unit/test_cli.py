@@ -99,24 +99,55 @@ def test_update_populates_store(
     assert "No contact given" in caplog.text
 
 
-def test_backfill_writes_the_index_even_when_it_fails(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, catchup_html: str
+def test_backfill_goes_on_past_a_failing_day_and_exits_1(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    catchup_html: str,
+    capsys: pytest.CaptureFixture[str],
+    caplog: pytest.LogCaptureFixture,
 ) -> None:
     def get_text(_: HttpClient, url: str, *, params: Mapping[str, str | int] | None = None) -> str:
         del params
-        # Days are fetched from the latest: 2026-09-01 is saved, then arXiv fails.
+        # Days are fetched from the latest: arXiv fails on 2026-09-02, then 2026-09-01 is saved.
         if url.endswith("/catchup/cs.CV/2026-09-01"):
             return catchup_html
         raise FetchError("arxiv.org is down")
 
     monkeypatch.setattr(HttpClient, "get_text", get_text)
+    monkeypatch.setenv("GITHUB_ACTIONS", "true")
     data_dir = tmp_path / "data"
 
-    args = ["--since", "2026-08-31", "--until", "2026-09-01", "--max-html", "0", "--crawl-delay", "0"]
+    args = ["--since", "2026-09-01", "--until", "2026-09-02", "--max-html", "0", "--crawl-delay", "0"]
     assert main(["backfill", "--data-dir", str(data_dir), *args]) == 1
 
     index = json.loads((data_dir / "index.json").read_text(encoding="utf-8"))
     assert index["categories"]["cs.CV"] == [{"date": "2026-09-01", "count": 4}]
+    out = capsys.readouterr().out
+    assert "::error title=Catchup pages failed::cs.CV: 4 listed, 4 new" in out
+    assert "; days not read: 2026-09-02" in out
+    assert "Reading HTML pages failed" not in out
+    assert "Catchup pages failed for cs.CV: see above" in caplog.text
+    assert "Reading HTML pages failed for" not in caplog.text
+
+
+def test_backfill_writes_the_index_even_when_it_fails(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    def backfill_category(category: str, *_: object, store: PaperStore, **__: object) -> UpdateReport:
+        store.save(
+            category, [Paper(arxiv_id="2609.00001", announced=date(2026, 9, 1), title="T", authors=())]
+        )
+        raise FetchError("arxiv.org is down")
+
+    monkeypatch.setattr("preprint_radar.cli.backfill_category", backfill_category)
+    data_dir = tmp_path / "data"
+
+    assert (
+        main(["backfill", "--data-dir", str(data_dir), "--since", "2026-09-01", "--until", "2026-09-01"]) == 1
+    )
+
+    index = json.loads((data_dir / "index.json").read_text(encoding="utf-8"))
+    assert index["categories"]["cs.CV"] == [{"date": "2026-09-01", "count": 1}]
 
 
 @pytest.mark.usefixtures("offline")

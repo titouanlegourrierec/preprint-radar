@@ -28,3 +28,7 @@ class ParseError(PreprintRadarError):
 
 class StoreError(PreprintRadarError):
     """Raised when the on-disk paper store is invalid."""
+
+
+class SchemaVersionError(StoreError):
+    """Raised when a file of the store was written with another ``schema_version``."""

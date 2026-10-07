@@ -17,6 +17,7 @@ from preprint_radar.collect import (
     HtmlReading,
     Stop,
     UpdateReport,
+    _about,
     _add_html_front_matter,
     add_institutions,
     backfill_category,
@@ -26,7 +27,7 @@ from preprint_radar.collect import (
     update_category,
     update_citation_counts,
 )
-from preprint_radar.http import HttpClient
+from preprint_radar.http import HttpClient, RateLimiter
 from preprint_radar.models import Listing, Paper, Provenance
 from preprint_radar.sources.arxiv_html import EXTRACTOR_VERSION, PageCache, parse_front_matter
 from preprint_radar.sources.arxiv_listing import parse_catchup
@@ -89,8 +90,9 @@ class FakeArxiv:
         self.hits: Counter[str] = Counter()
         self.api_ids: list[str] = []
         self.ror_requests: list[str] = []
-        # Catchup pages by path; other days have no announcement.
+        # Catchup pages by path; other days have no announcement, but those that fail.
         self.catchup_pages: dict[str, str] = {}
+        self.catchup_failing: set[str] = set()
         self.catchup_empty_html = ""
 
     def handle(self, request: httpx.Request) -> httpx.Response:
@@ -99,7 +101,7 @@ class FakeArxiv:
         if url.path.startswith("/list/"):
             return httpx.Response(200, text=self.listing_html)
         if url.path.startswith("/catchup/"):
-            return httpx.Response(200, text=self.catchup_pages.get(url.path, self.catchup_empty_html))
+            return self.catchup_page(url.path)
         if url.host == "rss.arxiv.org":
             return httpx.Response(200, text=_rss_feed(RSS_DAY_IDS))
         if url.host == "api.ror.org":
@@ -114,6 +116,11 @@ class FakeArxiv:
             # Simulate an entry the API could not return: its abstract must come from HTML.
             return httpx.Response(200, text=_atom_feed([i for i in ids if i != API_MISSING_ID]))
         return self.html_page(url.path)
+
+    def catchup_page(self, path: str) -> httpx.Response:
+        if path in self.catchup_failing:
+            return httpx.Response(503)
+        return httpx.Response(200, text=self.catchup_pages.get(path, self.catchup_empty_html))
 
     def html_page(self, path: str) -> httpx.Response:
         pages = {
@@ -138,8 +145,8 @@ def fake(listing_html: str, paper_html: Callable[[str], str], catchup_empty_html
     return fake
 
 
-def _catchup_page(ids: list[str]) -> str:
-    """Catchup page of Thu, 24 Sep 2026 announcing ``ids``, with abstracts."""
+def _catchup_page(ids: list[str], *, on: str = "Thu, 24 Sep 2026", total: int | None = None) -> str:
+    """Catchup page of the day ``on`` announcing ``ids`` (of ``total`` entries), with abstracts."""
     entries = "".join(
         f'<dt><a href="/abs/{arxiv_id}" title="Abstract" id="{arxiv_id}">arXiv:{arxiv_id}</a></dt>'
         f"<dd><div class='meta'><div class='list-title mathjax'>Paper {arxiv_id}</div>"
@@ -147,8 +154,8 @@ def _catchup_page(ids: list[str]) -> str:
         for arxiv_id in ids
     )
     return (
-        "<div id='dlpage'><h1>Catchup results for Computer Vision on Thu, 24 Sep 2026</h1>"
-        f"<dl id='articles'><h3>New submissions (showing {len(ids)} of {len(ids)} entries)</h3>"
+        f"<div id='dlpage'><h1>Catchup results for Computer Vision on {on}</h1>"
+        f"<dl id='articles'><h3>New submissions (showing {len(ids)} of {total or len(ids)} entries)</h3>"
         f"{entries}</dl></div>"
     )
 
@@ -438,6 +445,67 @@ def test_backfill_reuses_days_already_stored(fake_catchup: FakeArxiv, store: Pap
     ]
 
 
+def test_backfill_goes_on_past_the_days_it_cannot_read(
+    fake_catchup: FakeArxiv, store: PaperStore, caplog: pytest.LogCaptureFixture
+) -> None:
+    # 2026-09-02 fails; 2026-08-31 lists one of the two entries it announces.
+    fake_catchup.catchup_failing = {"/catchup/cs.CV/2026-09-02"}
+    incomplete = _catchup_page(["2608.20001"], on="Mon, 31 Aug 2026", total=2)
+    fake_catchup.catchup_pages["/catchup/cs.CV/2026-08-31"] = incomplete
+
+    with fake_catchup.client() as site:
+        report = backfill_category(
+            "cs.CV", BACKFILL_DAYS, store=store, site_client=site, html=HtmlReading(save_every=1)
+        )
+
+    # Neither is saved, and the day between them is read, its pages too.
+    assert store.days("cs.CV") == [date(2026, 9, 1)]
+    stored = {paper.arxiv_id: paper for paper in store.iter_papers("cs.CV")}
+    assert "NVIDIA" in (stored["2608.28663"].affiliations or ())
+    assert report.failed_days == (date(2026, 9, 2), date(2026, 8, 31))
+    assert report.failed
+    assert not report.html_failed
+    assert format_report(report).endswith("; days not read: 2026-09-02, 2026-08-31")
+    assert (
+        "cs.CV 2026-09-02: the catchup page could not be read (HTTP 503 for "
+        "https://arxiv.org/catchup/cs.CV/2026-09-02?abs=True); the day is left for the next run"
+    ) in caplog.text
+    assert "cs.CV 2026-08-31: the catchup page lists 1 of 2 entries; the day is left for the next run" in (
+        caplog.text
+    )
+
+    # The next run fetches them again, and only them.
+    fake_catchup.catchup_failing = set()
+    fake_catchup.catchup_pages["/catchup/cs.CV/2026-08-31"] = _catchup_page(
+        ["2608.20001", "2608.20002"], on="Mon, 31 Aug 2026"
+    )
+    fake_catchup.hits.clear()
+    with fake_catchup.client() as site:
+        report = backfill_category(
+            "cs.CV", BACKFILL_DAYS, store=store, site_client=site, html=HtmlReading(limit=0)
+        )
+
+    assert [path for path in fake_catchup.hits if path.startswith("/catchup/")] == [
+        "/catchup/cs.CV/2026-09-02",
+        "/catchup/cs.CV/2026-08-31",
+    ]
+    assert store.days("cs.CV") == [date(2026, 9, 1), date(2026, 8, 31)]
+    assert report.failed_days == ()
+    assert not report.failed
+
+
+def test_backfill_goes_on_past_a_catchup_page_it_cannot_parse(
+    fake_catchup: FakeArxiv, store: PaperStore
+) -> None:
+    fake_catchup.catchup_pages["/catchup/cs.CV/2026-09-02"] = "<html>Not a catchup page</html>"
+
+    with fake_catchup.client() as site:
+        report = backfill_category("cs.CV", BACKFILL_DAYS, store=store, site_client=site)
+
+    assert report.failed_days == (date(2026, 9, 2),)
+    assert store.days("cs.CV") == [date(2026, 9, 1)]
+
+
 def _paper(arxiv_id: str, affiliations: tuple[str, ...] | None) -> Paper:
     return Paper(
         arxiv_id=arxiv_id, announced=date(2026, 9, 25), title="T", authors=("A",), affiliations=affiliations
@@ -701,6 +769,54 @@ def test_html_reading_stops_at_the_deadline() -> None:
     assert stopped is Stop.DEADLINE
     assert requested == []
     assert papers == _pending(3)
+
+
+@pytest.mark.parametrize(
+    ("seconds", "said"),
+    [
+        (0, "a minute at most"),
+        (60, "a minute at most"),
+        (61, "about 2 minutes"),
+        (59 * 60, "about 59 minutes"),
+        (60 * 60, "about 1 h 00 min"),
+        (11 * 3600 + 5 * 60, "about 11 h 05 min"),
+    ],
+)
+def test_durations_in_the_logs(seconds: float, said: str) -> None:
+    assert _about(seconds) == said
+
+
+def test_html_reading_logs_the_time_it_takes(
+    paper_html: Callable[[str], str], tmp_path: Path, caplog: pytest.LogCaptureFixture
+) -> None:
+    page = paper_html("2609.30249")
+    papers = _pending(25)
+    cache = PageCache(tmp_path / "pages")
+    for paper in papers[:5]:
+        assert paper.html_url is not None
+        cache.put(paper.html_url, page)
+    # 15 s between requests, as for arxiv.org, without waiting for them.
+    limiter = RateLimiter(15.0, sleep=lambda _: None)
+    caplog.set_level("INFO")
+
+    with HttpClient(
+        transport=httpx.MockTransport(lambda _: httpx.Response(200, text=page)), rate_limiter=limiter
+    ) as client:
+        _add_html_front_matter(
+            papers, client, reading=HtmlReading(save_every=5, cache=cache), checkpoint=lambda _: None
+        )
+
+    lines = [record.getMessage() for record in caplog.records if "HTML renderings" in record.getMessage()]
+    # The cached pages come first, and cost no time.
+    assert lines == [
+        "Reading 5 HTML renderings from the page cache",
+        "Reading 20 HTML renderings at one every 15 s: about 5 minutes (this is slow on purpose)",
+        "5/25 HTML renderings read, progress saved; time left: about 5 minutes",
+        "10/25 HTML renderings read, progress saved; time left: about 4 minutes",
+        "15/25 HTML renderings read, progress saved; time left: about 3 minutes",
+        "20/25 HTML renderings read, progress saved; time left: about 2 minutes",
+        "25/25 HTML renderings read, progress saved",
+    ]
 
 
 def test_an_interrupted_reading_saves_what_it_read(paper_html: Callable[[str], str]) -> None:

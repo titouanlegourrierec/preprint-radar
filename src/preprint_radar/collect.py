@@ -6,6 +6,7 @@
 """
 
 import logging
+import math
 import re
 import time
 import unicodedata
@@ -18,7 +19,7 @@ from preprint_radar.config import DEFAULT_MAX_ROR_LOOKUPS, DEFAULT_SAVE_EVERY
 from preprint_radar.exceptions import FetchError, ParseError
 from preprint_radar.http import HttpClient
 from preprint_radar.institutions import name_institutions
-from preprint_radar.models import Institution, Paper, Provenance, ScholarRecord
+from preprint_radar.models import Institution, Listing, Paper, Provenance, ScholarRecord
 from preprint_radar.sources.arxiv_api import fetch_metadata
 from preprint_radar.sources.arxiv_html import (
     EXTRACTOR_VERSION,
@@ -97,6 +98,8 @@ class UpdateReport:
         empty: Of the HTML pages read, those that gave no affiliation.
         unreadable: HTML pages that could not be fetched (tried again next run).
         stopped: Why the reading of HTML pages stopped early, if it did.
+        failed_days: Days of a backfill whose catchup page failed or came back incomplete:
+            not saved, they are fetched again next run.
     """
 
     category: str
@@ -109,11 +112,17 @@ class UpdateReport:
     empty: int = 0
     unreadable: int = 0
     stopped: Stop | None = None
+    failed_days: tuple[date, ...] = ()
+
+    @property
+    def html_failed(self) -> bool:
+        """Whether the reading of HTML pages stopped on a failure (arXiv down, layout changed)."""
+        return self.stopped in {Stop.FAILURES, Stop.LAYOUT}
 
     @property
     def failed(self) -> bool:
-        """Whether the run stopped on a failure that should make it red."""
-        return self.stopped in {Stop.FAILURES, Stop.LAYOUT}
+        """Whether the run should be red: HTML reading failed, or days could not be read."""
+        return self.html_failed or bool(self.failed_days)
 
 
 def update_category(
@@ -191,8 +200,10 @@ def backfill_category(
     Catchup pages include abstracts, so each day is saved (and the index rewritten) as
     soon as it is fetched, before the slow part: reading affiliations from the HTML
     renderings, most recent day first. Days already stored with their abstracts are not
-    fetched again. As in :func:`update_category`, enrichment already in the store is
-    reused and progress is saved regularly.
+    fetched again. A day whose catchup page fails, or lists fewer entries than it
+    announces, is not saved: the others are read, and the report names it (REL-4), for the
+    next run to fetch it again. As in :func:`update_category`, enrichment already in the
+    store is reused and progress is saved regularly.
 
     Args:
         category: arXiv category, e.g. ``"cs.CV"``.
@@ -209,6 +220,7 @@ def backfill_category(
     """
     known = {paper.arxiv_id: paper for paper in store.iter_papers()}
     papers: list[Paper] = []
+    failed: list[date] = []
     for day in sorted(set(days), reverse=True):
         stored = store.load_day(category, day)
         if stored and all(paper.abstract is not None for paper in stored):
@@ -216,12 +228,13 @@ def backfill_category(
             # that resuming an interrupted backfill goes straight back to the HTML pages.
             listed = stored
         else:
-            listed = [
-                _carry_over(paper, known.get(paper.arxiv_id))
-                for paper in fetch_catchup(site_client, category, day).papers
-            ]
+            catchup = _catchup_day(site_client, category, day)
+            if catchup is None:
+                failed.append(day)
+                continue
+            listed = [_carry_over(paper, known.get(paper.arxiv_id)) for paper in catchup.papers]
             store.save(category, listed)
-        logger.info("%s %s: %d papers", category, day.isoformat(), len(listed))
+        logger.info("%s %s: %s papers", category, day.isoformat(), f"{len(listed):,}")
         papers.extend(listed)
     # Let the web app show the new days while affiliations are being read.
     store.write_index()
@@ -239,7 +252,7 @@ def backfill_category(
         reading=html or HtmlReading(),
         checkpoint=lambda current: store.save(category, current),
     )
-    return _name_and_report(
+    report = _name_and_report(
         category,
         read.papers,
         read,
@@ -248,6 +261,27 @@ def backfill_category(
         new=new,
         abstracts=abstracts_fetched,
     )
+    return replace(report, failed_days=tuple(failed))
+
+
+def _catchup_day(client: HttpClient, category: str, day: date) -> Listing | None:
+    """The catchup page of ``day``, or ``None`` when it failed or came back incomplete.
+
+    An incomplete day is not kept: saved with its abstracts, it would be reused as it is by
+    every later backfill.
+    """
+    try:
+        catchup = fetch_catchup(client, category, day)
+    except (FetchError, ParseError) as exc:
+        problem = f"could not be read ({exc})"
+    else:
+        if catchup.is_complete:
+            return catchup
+        problem = f"lists {len(catchup.papers):,} of {catchup.total:,} entries"
+    logger.error(
+        "%s %s: the catchup page %s; the day is left for the next run", category, day.isoformat(), problem
+    )
+    return None
 
 
 def reextract_category(
@@ -509,11 +543,11 @@ def _with_abstracts(papers: list[Paper], abstracts: Mapping[str, str]) -> list[P
     ]
 
 
-def _html_todo(papers: Sequence[Paper], reading: HtmlReading) -> list[tuple[int, str]]:
-    """The papers whose HTML page is to be read, as ``(position, url)``.
+def _html_todo(papers: Sequence[Paper], reading: HtmlReading) -> tuple[list[tuple[int, str]], int]:
+    """The papers whose HTML page is to be read, as ``(position, url)``, and how many to download.
 
     The pages the cache holds come first, all of them; then at most ``reading.limit`` pages
-    to download.
+    to download, which end the list.
     """
     todo = [
         (index, url)
@@ -526,10 +560,16 @@ def _html_todo(papers: Sequence[Paper], reading: HtmlReading) -> list[tuple[int,
     if reading.limit is not None:
         to_download = to_download[: reading.limit]
     if cached:
-        logger.info("Reading %d HTML renderings from the page cache", len(cached))
-    if to_download:
-        logger.info("Reading %d HTML renderings (this is slow on purpose)", len(to_download))
-    return cached + to_download
+        logger.info("Reading %s HTML renderings from the page cache", f"{len(cached):,}")
+    return cached + to_download, len(to_download)
+
+
+def _about(seconds: float) -> str:
+    """A duration as the logs give it: "a minute at most", "about 25 minutes", "about 3 h 05 min"."""
+    hours, minutes = divmod(math.ceil(seconds / 60), 60)
+    if hours:
+        return f"about {hours} h {minutes:02d} min"
+    return f"about {minutes} minutes" if minutes > 1 else "a minute at most"
 
 
 def _front_matter(client: HttpClient, paper: Paper, url: str, cache: PageCache | None) -> FrontMatter | None:
@@ -594,7 +634,16 @@ def _add_html_front_matter(
         The updated papers, the pages read, the abstracts added, the pages without
         affiliations, and why reading stopped early, if it did.
     """
-    todo = _html_todo(papers, reading)
+    todo, downloads = _html_todo(papers, reading)
+    # A page takes at least the client's interval (arxiv.org's crawl delay): the time to expect.
+    interval = client.min_interval
+    if downloads:
+        logger.info(
+            "Reading %s HTML renderings at one every %s s: %s (this is slow on purpose)",
+            f"{downloads:,}",
+            f"{interval:g}",
+            _about(downloads * interval),
+        )
     current = list(papers)
     pages = abstracts = failures = unreadable = 0
     empty: list[int] = []
@@ -634,7 +683,14 @@ def _add_html_front_matter(
                     break
             if done % reading.save_every == 0:
                 checkpoint(current)
-                logger.info("%d/%d HTML renderings read, progress saved", done, len(todo))
+                # The cached pages come first: those left are downloads, but at most all of them.
+                left = min(downloads, len(todo) - done)
+                logger.info(
+                    "%s/%s HTML renderings read, progress saved%s",
+                    f"{done:,}",
+                    f"{len(todo):,}",
+                    f"; time left: {_about(left * interval)}" if left else "",
+                )
     except KeyboardInterrupt:
         logger.warning("Interrupted: saving the %d HTML renderings read", pages)
         checkpoint(current)
@@ -949,4 +1005,9 @@ def format_report(report: UpdateReport) -> str:
         + (f", {report.no_page:,} without an HTML page" if report.no_page else "")
         + f", {report.pending:,} still pending"
         + (f"; HTML reading stopped: {_STOPS[report.stopped]}" if report.stopped else "")
+        + (
+            f"; days not read: {', '.join(day.isoformat() for day in report.failed_days)}"
+            if report.failed_days
+            else ""
+        )
     )

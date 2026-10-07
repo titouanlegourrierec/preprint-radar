@@ -110,6 +110,19 @@ To fix a real change:
    `sources/arxiv_html.py`, and bump `EXTRACTOR_VERSION`.
 3. Once pushed, the next runs read the pending papers again by themselves.
 
+### A backfill left days unread
+
+**Signal.** `the day is left for the next run` (error annotation `Catchup pages failed`),
+and the report line ends with `days not read:` and the days.
+
+A run with *since* (or `make backfill`) could not read the catchup page of those days: it
+failed (arxiv.org down, or a page that no longer parses), or listed fewer entries than it
+announces. They are not saved, since a day saved with its abstracts is never fetched again;
+the other days are, with their pages, then the run goes red (REL-4). Run it again over the
+same days: the days already stored are reused, so only the missing ones are fetched. If a
+day keeps failing with `lists` fewer entries, or the page no longer parses, the catchup
+layout changed: `make test-network` shows it.
+
 ### Validation failed: nothing was pushed
 
 **Signal.** `Data validation` in the job summary lists `ERROR` lines; the *Commit data*

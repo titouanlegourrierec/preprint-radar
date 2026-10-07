@@ -177,7 +177,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
 
 - The paper record is `Paper.to_record()` / `Paper.from_record()` in `models.py`, mirrored
   in `web/src/types.ts` (`tests/unit/test_record_contract.py` compares the fields). A breaking change bumps `SCHEMA_VERSION` in both
-  `store/paper_store.py` and `types.ts`. An optional field needs no bump: backfill `data/`
+  `store/paper_store.py` and `types.ts`, and ships with its one-off migration of `data/` in
+  the same commit: `PaperStore` refuses any file of another `schema_version` (`StoreError`,
+  an error in `validate`; DATA-9). An optional field needs no bump: backfill `data/`
   with a one-off script, and give it `?:` on the web side, since reading lists saved in
   browsers predate it (`venue` is optional for that reason).
 - `null` means "not retrieved yet" (`abstract`, `affiliations`, `institutions`): the

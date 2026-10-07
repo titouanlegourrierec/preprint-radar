@@ -159,7 +159,11 @@ def test_citation_counts(store: PaperStore) -> None:
 
 def test_citation_gains(store: PaperStore) -> None:
     path = store.root / "cs.CV" / "citation-gains.json"
-    payload = {"since": "2026-10-04T05:41:00+00:00", "generated_at": "2026-10-11T05:41:00+00:00"}
+    payload = {
+        "schema_version": 1,
+        "since": "2026-10-04T05:41:00+00:00",
+        "generated_at": "2026-10-11T05:41:00+00:00",
+    }
     path.write_text(json.dumps({**payload, "gains": {"2609.00001": 2}}), encoding="utf-8")
     assert validate_store(store).findings == []
 
@@ -171,6 +175,17 @@ def test_citation_gains(store: PaperStore) -> None:
 
     path.write_text("{}", encoding="utf-8")
     assert _messages(store)[0].startswith("data/cs.CV/citation-gains.json: Invalid citation gains file")
+
+
+@pytest.mark.parametrize("name", ["citations.json", "citation-gains.json", "scholar.json"])
+def test_a_file_of_another_schema_version(store: PaperStore, name: str) -> None:
+    path = store.root / "cs.CV" / name
+    path.write_text(json.dumps({"schema_version": 2}), encoding="utf-8")
+
+    [message] = _messages(store)
+
+    assert message.startswith(f"data/cs.CV/{name}: Invalid ")
+    assert message.endswith(f"{path}: schema_version is 2, expected 1")
 
 
 def test_without_citation_counts(store: PaperStore) -> None:

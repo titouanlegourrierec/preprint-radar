@@ -1,13 +1,15 @@
 import json
+import re
+from collections.abc import Callable
 from dataclasses import replace
 from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 
 import pytest
 
-from preprint_radar.exceptions import StoreError
-from preprint_radar.models import Listing, Paper
-from preprint_radar.store.paper_store import PaperStore
+from preprint_radar.exceptions import SchemaVersionError, StoreError
+from preprint_radar.models import Listing, Paper, ScholarRecord
+from preprint_radar.store.paper_store import SCHEMA_VERSION, PaperStore
 
 
 @pytest.fixture
@@ -198,7 +200,12 @@ def test_a_refresh_over_broken_counts_writes_no_gains(
 
 
 @pytest.mark.parametrize(
-    "payload", ["{not json", '{"gains": {}}', '{"gains": [], "since": "x", "generated_at": "y"}']
+    "payload",
+    [
+        "{not json",
+        '{"schema_version": 1, "gains": {}}',
+        '{"schema_version": 1, "gains": [], "since": "x", "generated_at": "y"}',
+    ],
 )
 def test_invalid_citation_gains_file_raises(store: PaperStore, payload: str) -> None:
     path = store.root / "cs.CV" / "citation-gains.json"
@@ -210,7 +217,12 @@ def test_invalid_citation_gains_file_raises(store: PaperStore, payload: str) -> 
 
 
 @pytest.mark.parametrize(
-    "payload", ["{not json", '{"counts": {}}', '{"counts": {}, "source": "S2", "generated_at": "soon"}']
+    "payload",
+    [
+        "{not json",
+        '{"schema_version": 1, "counts": {}}',
+        '{"schema_version": 1, "counts": {}, "source": "S2", "generated_at": "soon"}',
+    ],
 )
 def test_invalid_citations_file_raises(store: PaperStore, payload: str) -> None:
     path = store.root / "cs.CV" / "citations.json"
@@ -251,3 +263,68 @@ def test_remove_days(store: PaperStore, listing: Listing) -> None:
     store.remove_days("cs.CV", [date(2026, 9, 24)])
 
     assert store.days("cs.CV") == [date(2026, 9, 25)]
+
+
+def _every_file(store: PaperStore, listing: Listing) -> None:
+    """A store with a file of each kind: days, an archive year, counts, gains, ``scholar.json``."""
+    week_ago = datetime(2026, 10, 4, 5, 41, tzinfo=UTC)
+    store.save("cs.CV", listing.papers)
+    store.write_archive("cs.CV", [_archived(listing, 2015)])
+    store.write_citations("cs.CV", {"2609.30245": 1}, source="S2", now=week_ago)
+    store.write_citations("cs.CV", {"2609.30245": 3}, source="S2", now=week_ago + timedelta(days=7))
+    store.write_scholar("cs.CV", {"2609.30245": ScholarRecord(doi="10.1/x")}, source="S2")
+
+
+@pytest.mark.parametrize(
+    ("name", "kind", "load"),
+    [
+        ("2026-09-25.json", "papers", lambda store: store.load_day("cs.CV", date(2026, 9, 25))),
+        ("archive/2015.json", "papers", lambda store: store.load_archive("cs.CV", 2015)),
+        ("citations.json", "citations", lambda store: store.load_citation_counts("cs.CV")),
+        ("citation-gains.json", "citation gains", lambda store: store.load_citation_gains("cs.CV")),
+        ("scholar.json", "scholar", lambda store: store.load_scholar("cs.CV")),
+    ],
+)
+@pytest.mark.parametrize("version", [SCHEMA_VERSION + 1, None])
+def test_a_file_of_another_schema_version_is_refused(
+    store: PaperStore,
+    listing: Listing,
+    name: str,
+    kind: str,
+    load: Callable[[PaperStore], object],
+    version: int | None,
+) -> None:
+    _every_file(store, listing)
+    assert load(store)
+    path = store.root / "cs.CV" / name
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload["schema_version"] = version
+    path.write_text(json.dumps(payload), encoding="utf-8")
+
+    expected = f"Invalid {kind} file {path}: schema_version is {version!r}, expected {SCHEMA_VERSION}"
+    with pytest.raises(StoreError, match=re.escape(expected)):
+        load(store)
+
+
+def test_a_refresh_never_replaces_counts_of_another_schema_version(store: PaperStore) -> None:
+    store.write_citations("cs.CV", {"a": 1}, source="S2")
+    path = store.root / "cs.CV" / "citations.json"
+    newer = path.read_text(encoding="utf-8").replace('"schema_version": 1', '"schema_version": 2')
+    path.write_text(newer, encoding="utf-8")
+
+    with pytest.raises(SchemaVersionError, match="schema_version is 2, expected 1"):
+        store.write_citations("cs.CV", {"a": 2}, source="S2")
+
+    assert path.read_text(encoding="utf-8") == newer
+
+
+def test_save_never_relabels_a_store_of_another_schema_version(store: PaperStore, listing: Listing) -> None:
+    store.save("cs.CV", listing.papers)
+    path = store.root / "cs.CV" / "2026-09-24.json"
+    newer = path.read_text(encoding="utf-8").replace('"schema_version": 1', '"schema_version": 2')
+    path.write_text(newer, encoding="utf-8")
+
+    with pytest.raises(StoreError, match="schema_version is 2, expected 1"):
+        store.save("cs.CV", [replace(listing.papers[0], abstract="Rewritten.")])
+
+    assert path.read_text(encoding="utf-8") == newer

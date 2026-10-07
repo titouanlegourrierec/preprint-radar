@@ -235,9 +235,12 @@ def test_round_trips_and_refuses_bad_files(store: PaperStore) -> None:
     assert json.loads(path.read_text())["papers"] == {"2609.00001": record.to_record()}
     assert store.load_scholar("cs.LG") is None
 
-    path.write_text('{"papers": {"2609.00001": {"doi": 3}}, "source": "S2", "generated_at": "2026-10-04"}')
-    with pytest.raises(StoreError, match="Invalid scholar file"):
+    payload = json.loads(path.read_text())
+    payload["papers"] = {"2609.00001": {"doi": 3}}
+    path.write_text(json.dumps(payload))
+    with pytest.raises(StoreError, match="Invalid scholar file") as raised:
         store.load_scholar("cs.CV")
+    assert "schema_version" not in str(raised.value)
 
 
 def test_validate_accepts_up_to_date_records(store: PaperStore) -> None:

@@ -846,9 +846,11 @@ def _publish_update(report: UpdateReport) -> None:
     line = format_report(report)
     console.print(line)
     github_summary(f"**Papers.** {line}")
+    if report.failed_days:
+        github_annotation("error", "Catchup pages failed", line)
     if report.stopped is Stop.DEADLINE:
         github_annotation("warning", "Out of time", line)
-    elif report.failed:
+    elif report.html_failed:
         github_annotation("error", "Reading HTML pages failed", line)
 
 
@@ -906,12 +908,18 @@ def _html_reading(args: argparse.Namespace) -> HtmlReading:
 
 
 def _exit_code(reports: Sequence[UpdateReport]) -> int:
-    """1 when the reading of HTML pages stopped on a failure (arXiv down, layout changed)."""
-    failed = [report.category for report in reports if report.failed]
-    if failed:
-        logger.error("Reading HTML pages failed for %s: see above", ", ".join(failed))
-        return 1
-    return 0
+    """1 when a run failed: HTML pages, or days of a backfill, could not be read.
+
+    The reading of HTML pages stopped on a failure (arXiv down, layout changed), or the
+    catchup page of a day failed or came back incomplete.
+    """
+    html = [report.category for report in reports if report.html_failed]
+    if html:
+        logger.error("Reading HTML pages failed for %s: see above", ", ".join(html))
+    days = [report.category for report in reports if report.failed_days]
+    if days:
+        logger.error("Catchup pages failed for %s: see above", ", ".join(days))
+    return 1 if any(report.failed for report in reports) else 0
 
 
 @contextmanager

@@ -15,6 +15,10 @@ Layout::
 One file per day keeps each update small, and lets the web app load only the days
 it needs. The archive holds the papers kept for their citations once they are older than
 the days kept in full; it is rewritten as a whole by :meth:`PaperStore.write_archive`.
+
+Every file carries the ``schema_version`` it was written with, and the store refuses to
+read one of another version (DATA-9): an older pipeline would otherwise misread a newer
+store, and rewrite its files stamped with its own version.
 """
 
 import json
@@ -28,7 +32,7 @@ from pathlib import Path
 from typing import Any
 
 from preprint_radar.config import GAINS_MIN_DAYS
-from preprint_radar.exceptions import StoreError
+from preprint_radar.exceptions import SchemaVersionError, StoreError
 from preprint_radar.models import Paper, ScholarRecord
 
 logger = logging.getLogger(__name__)
@@ -115,7 +119,7 @@ class PaperStore:
         """Load the papers of one day, or an empty list if the day is not stored.
 
         Raises:
-            StoreError: If the file is not a valid day file.
+            StoreError: If the file is not a valid day file, or of another ``schema_version``.
         """
         return self._load_papers(self._day_path(category, day))
 
@@ -124,6 +128,7 @@ class PaperStore:
             return []
         try:
             payload: Any = json.loads(path.read_text(encoding="utf-8"))
+            _check_version(payload, path, "papers")
             records = payload["papers"]
         except (json.JSONDecodeError, KeyError, TypeError) as exc:
             msg = f"Invalid papers file {path}: {exc}"
@@ -185,8 +190,9 @@ class PaperStore:
         for day in self.days(category):
             path = self._day_path(category, day)
             try:
-                records = json.loads(path.read_text(encoding="utf-8"))["papers"]
-                ids = [str(record["arxiv_id"]) for record in records]
+                payload: Any = json.loads(path.read_text(encoding="utf-8"))
+                _check_version(payload, path, "papers")
+                ids = [str(record["arxiv_id"]) for record in payload["papers"]]
             except (json.JSONDecodeError, KeyError, TypeError) as exc:
                 msg = f"Invalid papers file {path}: {exc}"
                 raise StoreError(msg) from exc
@@ -213,7 +219,7 @@ class PaperStore:
         """Load the archived papers of one year, or an empty list.
 
         Raises:
-            StoreError: If the file is not a valid archive file.
+            StoreError: If the file is not a valid archive file, or of another ``schema_version``.
         """
         return self._load_papers(self._archive_path(category, year))
 
@@ -248,13 +254,14 @@ class PaperStore:
         """Citation counts of ``category`` with their source and date, if ever written.
 
         Raises:
-            StoreError: If the file is not a valid citations file.
+            StoreError: If the file is not a valid citations file, or of another ``schema_version``.
         """
         path = self.root / category / CITATIONS_FILENAME
         if not path.is_file():
             return None
         try:
             payload: Any = json.loads(path.read_text(encoding="utf-8"))
+            _check_version(payload, path, "citations")
             return CitationCounts(
                 counts={str(arxiv_id): int(count) for arxiv_id, count in payload["counts"].items()},
                 source=str(payload["source"]),
@@ -271,10 +278,15 @@ class PaperStore:
 
         The counts they replace, when at least ``GAINS_MIN_DAYS`` old (``config.py``), give
         what each paper gained since into ``citation-gains.json``: the site's rising papers.
+
+        Raises:
+            SchemaVersionError: If the counts it replaces are of another ``schema_version``.
         """
         now = now or datetime.now(tz=UTC)
         try:
             current = self.load_citation_counts(category)
+        except SchemaVersionError:
+            raise
         except StoreError:
             logger.warning("No citation gains: the former counts of %s do not load", category)
             current = None
@@ -299,13 +311,14 @@ class PaperStore:
         """What the papers of ``category`` gained between the last two full refreshes, if known.
 
         Raises:
-            StoreError: If the file is not a valid citation gains file.
+            StoreError: If the file is not a valid citation gains file, or of another ``schema_version``.
         """
         path = self.root / category / GAINS_FILENAME
         if not path.is_file():
             return None
         try:
             payload: Any = json.loads(path.read_text(encoding="utf-8"))
+            _check_version(payload, path, "citation gains")
             return CitationGains(
                 gains={str(arxiv_id): int(gain) for arxiv_id, gain in payload["gains"].items()},
                 since=datetime.fromisoformat(payload["since"]),
@@ -344,13 +357,14 @@ class PaperStore:
         """The DOIs, published venues and author ids of ``category``, if ever written.
 
         Raises:
-            StoreError: If the file is not a valid ``scholar.json``.
+            StoreError: If the file is not a valid ``scholar.json``, or of another ``schema_version``.
         """
         path = self.root / category / SCHOLAR_FILENAME
         if not path.is_file():
             return None
         try:
             payload: Any = json.loads(path.read_text(encoding="utf-8"))
+            _check_version(payload, path, "scholar")
             return ScholarFile(
                 papers={
                     str(arxiv_id): ScholarRecord.from_record(record)
@@ -423,6 +437,20 @@ class PaperStore:
             "papers": [paper.to_record() for paper in papers],
         }
         _write_json(path, payload)
+
+
+def _check_version(payload: object, path: Path, kind: str) -> None:
+    """Refuse a file written with another ``schema_version`` than this code's.
+
+    A breaking change bumps the version and migrates the files in the same commit, so a
+    file of another version is one this code would misread, or relabel when saving.
+
+    Raises:
+        SchemaVersionError: If ``payload`` is a JSON object without ``SCHEMA_VERSION``.
+    """
+    if isinstance(payload, dict) and (found := payload.get("schema_version")) != SCHEMA_VERSION:
+        msg = f"Invalid {kind} file {path}: schema_version is {found!r}, expected {SCHEMA_VERSION}"
+        raise SchemaVersionError(msg)
 
 
 def _write_json(path: Path, payload: object) -> None:

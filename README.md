@@ -131,7 +131,9 @@ one links it, for a feed reader.
 
 `backfill` collects past days (weekends are skipped quickly) and saves each day with its
 abstracts before reading the HTML pages for affiliations, most recent day first; stopping
-it loses nothing, and running it again resumes where it stopped. A month of cs.CV is about
+it loses nothing, and running it again resumes where it stopped. A day whose catchup page
+fails, or comes back incomplete, is not saved: the others are read, the report names it and
+the command exits with 1, and the next run fetches it again. A month of cs.CV is about
 2,900 papers: a few minutes for the days, then about 11 hours of HTML pages. Like `update`,
 it reads at most 600 HTML pages per category a run, 2.5 hours at one page every 15 s, which
 fits the daily workflow's time limit (`DEFAULT_MAX_HTML` in `config.py`): run it again for

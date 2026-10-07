@@ -3,6 +3,8 @@
 import logging
 import time
 from collections.abc import Callable, Mapping
+from datetime import UTC, datetime
+from email.utils import parsedate_to_datetime
 from types import TracebackType
 from typing import Self
 
@@ -130,6 +132,11 @@ class HttpClient:
         # set and order, but accepts this curl-like one.
         self._http.headers = httpx.Headers([("User-Agent", user_agent), ("Accept", "*/*")])
 
+    @property
+    def min_interval(self) -> float:
+        """Minimum number of seconds between two requests: the time a page takes at least."""
+        return self._rate_limiter.min_interval
+
     def __enter__(self) -> Self:
         """Enter the runtime context."""
         return self
@@ -245,6 +252,19 @@ def _json_detail(response: httpx.Response) -> str:
 
 
 def _retry_after(response: httpx.Response) -> float | None:
-    """Return the delay requested by a numeric ``Retry-After`` header, capped."""
-    value = response.headers.get("Retry-After", "")
-    return min(float(value), MAX_RETRY_AFTER_SECONDS) if value.isdigit() else None
+    """Return the delay a ``Retry-After`` header asks for, within ``[0, MAX_RETRY_AFTER_SECONDS]``.
+
+    The header is a number of seconds or an HTTP-date (RFC 9110), the time to retry at,
+    taken as a delay from now. A date already past gives 0, after which the caller falls
+    back to its backoff, as for a header it cannot read (``None``).
+    """
+    value = response.headers.get("Retry-After", "").strip()
+    if value.isdigit():
+        return min(float(value), MAX_RETRY_AFTER_SECONDS)
+    try:
+        retry_at = parsedate_to_datetime(value)
+        # A date in "-0000" comes back naive: it is UTC all the same.
+        delay = (retry_at.replace(tzinfo=retry_at.tzinfo or UTC) - datetime.now(tz=UTC)).total_seconds()
+    except (TypeError, ValueError):
+        return None
+    return min(max(delay, 0.0), MAX_RETRY_AFTER_SECONDS)
