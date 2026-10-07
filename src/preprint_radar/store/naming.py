@@ -10,7 +10,7 @@ only made canonical again), and the rest is named again from its affiliation str
 
 from dataclasses import dataclass, replace
 
-from preprint_radar.institutions import name_institutions
+from preprint_radar.institutions import ids_where_named, name_institutions
 from preprint_radar.models import Paper
 from preprint_radar.store.paper_store import PaperStore
 
@@ -104,10 +104,7 @@ def named_again(paper: Paper) -> Paper:
     names = name_institutions(paper.affiliations, registered, paper.authors)
     if names == paper.institutions:
         return paper
-    kept_ids = paper.institution_ids and tuple(
-        ror_id if name else None for ror_id, name in zip(paper.institution_ids, names, strict=True)
-    )
-    return replace(paper, institutions=names, institution_ids=kept_ids)
+    return replace(paper, institutions=names, institution_ids=ids_where_named(paper.institution_ids, names))
 
 
 def _unnamed(paper: Paper) -> int:

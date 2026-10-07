@@ -1,7 +1,7 @@
 """Domain models."""
 
 from collections.abc import Mapping
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from datetime import date
 from typing import Self
 
@@ -237,6 +237,44 @@ class Paper:
     def is_cross_list(self) -> bool:
         """Whether the paper is cross-listed from another category."""
         return self.cross_list_from is not None
+
+    def with_affiliations(
+        self,
+        affiliations: tuple[str, ...] | None,
+        author_affiliations: tuple[tuple[int, ...] | None, ...] | None,
+        *,
+        provenance: Provenance | None,
+        extractor: int | None = None,
+    ) -> "Paper":
+        """The paper with other affiliations, and nothing of what came with the former ones.
+
+        The data contract in one place (ARCH-2): its institutions, their ids and who named
+        them are reset, to be named again; ``extractor`` is the version of the HTML
+        extraction that gave the affiliations, ``None`` for any other source.
+
+        Args:
+            affiliations: The new affiliations, ``None`` for not retrieved yet.
+            author_affiliations: Who is where among them, ``None`` when unknown.
+            provenance: Where they came from, and when.
+            extractor: The HTML extraction's version, for affiliations from a page.
+
+        Returns:
+            The paper with them.
+        """
+        return replace(
+            self,
+            affiliations=affiliations,
+            author_affiliations=author_affiliations,
+            institutions=None,
+            institution_ids=None,
+            extractor=extractor,
+            affiliations_provenance=provenance,
+            institutions_provenance=None,
+        )
+
+    def without_affiliations(self) -> "Paper":
+        """The paper with its affiliations to read again: none yet, nor what came with them."""
+        return self.with_affiliations(None, None, provenance=None)
 
     @property
     def is_enriched(self) -> bool:

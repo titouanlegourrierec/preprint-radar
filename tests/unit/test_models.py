@@ -171,3 +171,24 @@ def test_from_record_rejects_a_mapping_out_of_step(
     record["author_affiliations"] = author_affiliations
     with pytest.raises(StoreError, match="author_affiliations"):
         Paper.from_record(record)
+
+
+def test_other_affiliations_take_nothing_of_the_former_ones(listing: Listing) -> None:
+    named = replace(
+        listing.papers[0],
+        affiliations=("MIT",),
+        author_affiliations=((0,),) * len(listing.papers[0].authors),
+        institutions=("Massachusetts Institute of Technology",),
+        institution_ids=("042nb2s44",),
+        extractor=7,
+        affiliations_provenance=Provenance("html"),
+        institutions_provenance=Provenance("ror"),
+    )
+
+    paper = named.with_affiliations(("Inria",), None, provenance=Provenance("api"))
+
+    assert (paper.affiliations, paper.author_affiliations) == (("Inria",), None)
+    assert (paper.institutions, paper.institution_ids, paper.institutions_provenance) == (None, None, None)
+    assert (paper.extractor, paper.affiliations_provenance) == (None, Provenance("api"))
+    unread = named.without_affiliations()
+    assert (unread.affiliations, unread.extractor, unread.affiliations_provenance) == (None, None, None)

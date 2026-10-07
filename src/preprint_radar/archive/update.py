@@ -42,7 +42,7 @@ from preprint_radar.config import (
     RECENT_DAYS,
 )
 from preprint_radar.http import HttpClient
-from preprint_radar.institutions import name_institutions
+from preprint_radar.institutions import ids_where_named, name_institutions
 from preprint_radar.latex import plain_text
 from preprint_radar.models import Paper, Provenance
 from preprint_radar.sources.arxiv_oai import CatalogEntry
@@ -400,17 +400,10 @@ def _with_affiliations(papers: list[Paper], client: HttpClient, today: date) -> 
             # OpenAlex's institutions are registry entries: they are their own institutions,
             # a company's subsidiaries named as the company (AFF-13).
             names = name_institutions(result.affiliations, result.affiliations, paper.authors)
-            ids = result.institution_ids and tuple(
-                ror_id if name else None for ror_id, name in zip(result.institution_ids, names, strict=True)
-            )
             return replace(
-                paper,
-                affiliations=result.affiliations,
-                author_affiliations=result.author_affiliations,
+                paper.with_affiliations(result.affiliations, result.author_affiliations, provenance=read),
                 institutions=names,
-                institution_ids=ids or None,
-                extractor=None,
-                affiliations_provenance=read,
+                institution_ids=ids_where_named(result.institution_ids, names),
                 institutions_provenance=read,
             )
         # A day file's paper whose page gave none: OpenAlex has none either, today. Its

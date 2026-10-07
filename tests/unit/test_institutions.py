@@ -4,7 +4,14 @@ from pathlib import Path
 
 import pytest
 
-from preprint_radar.institutions import ACRONYMS, canonical, institution_name, name_institutions, search_key
+from preprint_radar.institutions import (
+    ACRONYMS,
+    canonical,
+    ids_where_named,
+    institution_name,
+    name_institutions,
+    search_key,
+)
 
 
 @pytest.mark.parametrize(
@@ -105,3 +112,9 @@ def test_the_site_knows_the_same_acronyms() -> None:
     assert table is not None
     pairs = re.findall(r'^\s*("?)([^":]+)\1: (".*"),$', table.group(1), re.MULTILINE)
     assert {key: json.loads(name) for _, key, name in pairs} == ACRONYMS
+
+
+def test_an_id_stays_only_where_an_institution_is_named() -> None:
+    assert ids_where_named(("042nb2s44", "00f54p054"), ("MIT", None)) == ("042nb2s44", None)
+    assert ids_where_named(None, ("MIT",)) is None
+    assert ids_where_named((), ()) is None

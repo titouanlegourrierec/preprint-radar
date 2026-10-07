@@ -302,19 +302,7 @@ def reextract_category(
     """
     stored = [paper for paper in store.iter_papers(category) if paper.html_url and select(paper)]
     logger.info("%s: %d papers to extract again", category, len(stored))
-    unread = [
-        replace(
-            paper,
-            affiliations=None,
-            author_affiliations=None,
-            institutions=None,
-            institution_ids=None,
-            extractor=None,
-            affiliations_provenance=None,
-            institutions_provenance=None,
-        )
-        for paper in stored
-    ]
+    unread = [paper.without_affiliations() for paper in stored]
     reading = html or HtmlReading()
     read = _add_html_front_matter(
         unread,
@@ -481,15 +469,8 @@ def _add_abstracts(
         declared = bool(meta.affiliations) and meta.affiliations != paper.affiliations
         enriched.append(
             replace(
-                paper,
+                paper.with_affiliations(meta.affiliations, None, provenance=Provenance("api", today())),
                 abstract=meta.abstract,
-                affiliations=meta.affiliations,
-                author_affiliations=None,
-                institutions=None,
-                institution_ids=None,
-                extractor=None,
-                affiliations_provenance=Provenance("api", today()),
-                institutions_provenance=None,
             )
             if declared
             else replace(paper, abstract=meta.abstract)
@@ -542,15 +523,13 @@ def _front_matter(client: HttpClient, paper: Paper, url: str, cache: PageCache |
 def _with_front_matter(paper: Paper, front: FrontMatter) -> Paper:
     """The paper with what its HTML page gave: affiliations, and its abstract if it had none."""
     return replace(
-        paper,
-        affiliations=front.affiliations,
-        author_affiliations=front.author_affiliations,
-        institutions=None,
-        institution_ids=None,
+        paper.with_affiliations(
+            front.affiliations,
+            front.author_affiliations,
+            provenance=Provenance("html", today()),
+            extractor=EXTRACTOR_VERSION,
+        ),
         abstract=paper.abstract if paper.abstract is not None else front.abstract,
-        extractor=EXTRACTOR_VERSION,
-        affiliations_provenance=Provenance("html", today()),
-        institutions_provenance=None,
     )
 
 

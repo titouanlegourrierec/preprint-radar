@@ -239,6 +239,23 @@ def canonical(name: str) -> str:
     return name
 
 
+def ids_where_named(
+    ids: Sequence[str | None] | None, names: Sequence[str | None]
+) -> tuple[str | None, ...] | None:
+    """The registry ids of the institutions named, ``None`` where the rules name none.
+
+    Args:
+        ids: The ROR id of each affiliation's institution, ``None`` when not known.
+        names: The institutions named for them now.
+
+    Returns:
+        The ids kept, or ``None`` without ids.
+    """
+    if not ids:
+        return None
+    return tuple(ror_id if name else None for ror_id, name in zip(ids, names, strict=True))
+
+
 def name_institutions(
     affiliations: Sequence[str], registered: Sequence[str | None], authors: Sequence[str] = ()
 ) -> tuple[str | None, ...]:

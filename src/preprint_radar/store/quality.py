@@ -14,7 +14,7 @@ they miss what nobody has described yet.
 
 import re
 from collections.abc import Iterable, Iterator, Sequence
-from dataclasses import dataclass, field, replace
+from dataclasses import dataclass, field
 from enum import StrEnum
 
 from rich import box
@@ -217,15 +217,11 @@ def extracted_again(papers: Iterable[Paper], cache: PageCache) -> list[tuple[Pap
         if html is None:
             continue
         front = parse_front_matter(html, authors=paper.authors)
-        extracted = replace(
-            paper,
-            affiliations=front.affiliations,
-            author_affiliations=front.author_affiliations,
-            institutions=None,
-            institution_ids=None,
+        extracted = paper.with_affiliations(
+            front.affiliations,
+            front.author_affiliations,
+            provenance=Provenance("html"),
             extractor=EXTRACTOR_VERSION,
-            affiliations_provenance=Provenance("html"),
-            institutions_provenance=None,
         )
         pairs.append((paper, extracted))
     return pairs

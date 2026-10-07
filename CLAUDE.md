@@ -196,7 +196,8 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   `institutions.name_institutions` names it (AFF-13, decision 12): ROR's name (OpenAlex's
   in the archive), a company's subsidiaries as the company ("Google (Switzerland)" is
   Google), the rules' name where the registry has none, `null` where the affiliation names
-  no institution. Anything that changes `affiliations` resets it to `null`. The site only
+  no institution. Anything that changes `affiliations` resets it to `null`
+  (`Paper.with_affiliations`, which every source of affiliations goes through). The site only
   displays it (`web/src/institutions.ts` keeps the acronyms for its search, equal to
   Python's), and the affiliation filter matches both.
 - `institution_ids` (optional, written only when known) is parallel to `institutions`: the
