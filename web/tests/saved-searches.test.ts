@@ -71,6 +71,19 @@ describe("saved searches", () => {
     });
     afterEach(() => vi.unstubAllGlobals());
 
+    it("are none, and not saved, when the browser refuses its storage", () => {
+      vi.stubGlobal("localStorage", {
+        getItem: () => {
+          throw new Error("denied");
+        },
+        setItem: () => {
+          throw new Error("denied");
+        },
+      });
+      expect(loadSavedSearches()).toEqual([]);
+      expect(saveSavedSearches([{ name: "a", search: "?q=a" }])).toBe(false);
+    });
+
     it("are kept, and read back", () => {
       expect(loadSavedSearches()).toEqual([]);
       expect(saveSavedSearches([{ name: "a", search: "?q=a" }])).toBe(true);

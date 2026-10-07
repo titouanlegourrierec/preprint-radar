@@ -5,6 +5,7 @@ import {
   formatDays,
   isIsoDay,
   monthGrid,
+  monthOf,
   PAPER_BUDGET,
   periodKey,
   periodOfKey,
@@ -105,5 +106,11 @@ describe("period keys", () => {
     expect(samePeriod(between("2026-09-01", "2026-09-05"), { kind: "recent", range: "5" })).toBe(
       false,
     );
+  });
+});
+
+describe("monthOf", () => {
+  it("is the month of an ISO day", () => {
+    expect(monthOf("2026-09-25")).toBe("2026-09");
   });
 });

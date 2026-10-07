@@ -82,3 +82,24 @@ describe("bibtex", () => {
     ]);
   });
 });
+
+describe("bibtex edge cases", () => {
+  it("dates an old-style identifier by its announcement, and keys a nameless paper", () => {
+    const old = makePaper({
+      arxiv_id: "cs/0601001",
+      announced: "2006-01-02",
+      title: "A Survey",
+      authors: [],
+      primary_subject: null,
+    });
+    expect(citationKey(old)).toBe("anonymous2006survey");
+    expect(toBibtex(old)).not.toContain("primaryClass");
+  });
+
+  it("does not take a name suffix for a surname", () => {
+    const junior = makePaper({ arxiv_id: "2609.00001", authors: ["Eduil Nascimento Jr."] });
+    expect(citationKey(junior).startsWith("nascimento2026")).toBe(true);
+    const suffixOnly = makePaper({ arxiv_id: "2609.00002", authors: ["Jr."] });
+    expect(citationKey(suffixOnly).startsWith("anonymous2026")).toBe(true);
+  });
+});
