@@ -2,6 +2,7 @@ import os
 from collections.abc import Callable
 from pathlib import Path
 
+import httpx
 import pytest
 
 from preprint_radar.models import Listing
@@ -37,6 +38,35 @@ def _environment(monkeypatch: pytest.MonkeyPatch) -> None:
         "GITHUB_STEP_SUMMARY",
     ):
         monkeypatch.delenv(name, raising=False)
+
+
+class OfflineError(RuntimeError):
+    """A test reached for the network.
+
+    Not an httpx error on purpose: `HttpClient` retries those and turns them into
+    `FetchError`, which the pipeline often logs and skips (a page, a ROR lookup, an OpenAlex
+    batch), so that a test that forgot its mock would pass, slowly, against the real service.
+    """
+
+
+@pytest.fixture(autouse=True)
+def _offline(request: pytest.FixtureRequest, monkeypatch: pytest.MonkeyPatch) -> None:
+    """Keep tests off the network (TEST-6), but those marked ``network``.
+
+    A test injects `httpx.MockTransport` into `HttpClient`, or patches its
+    ``get_text``/``post_text``; the real transport refuses every request.
+    """
+    if request.node.get_closest_marker("network"):
+        return
+
+    def refuse(_transport: httpx.HTTPTransport, request: httpx.Request) -> httpx.Response:
+        msg = (
+            f"tests are offline, but this one asked for {request.url}: inject "
+            "httpx.MockTransport, or patch HttpClient.get_text or post_text"
+        )
+        raise OfflineError(msg)
+
+    monkeypatch.setattr(httpx.HTTPTransport, "handle_request", refuse)
 
 
 @pytest.fixture(scope="session")

@@ -147,7 +147,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   error annotation in Actions (`preprint-radar <command> failed`) and exit code 1, never a
   traceback.
 - Tests are offline: mock HTTP with `httpx.MockTransport` injected into `HttpClient`, or
-  monkeypatch `HttpClient.get_text` for CLI tests. Live tests live in `tests/integration/`
+  monkeypatch `HttpClient.get_text` for CLI tests. `tests/conftest.py` makes the real
+  transport raise `OfflineError` (not an httpx error, which the pipeline would retry and
+  skip) in every test not marked `network`. Live tests live in `tests/integration/`
   with the `network` marker, deselected by default. Data made up for a test is synthetic:
   no real author ids or e-mails (the fixtures' real pages have theirs replaced).
 - `tests/conftest.py` runs every test in its own temporary directory, since default paths

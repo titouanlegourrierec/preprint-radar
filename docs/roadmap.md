@@ -237,6 +237,7 @@ exist.
 | UX-25 | Counts with thousands separators and singular nouns through one helper (`countOf`): "10,000 of 10,000", "Show its paper", a calendar day read as "1 paper"; the dates keep the reader's locale, as UX-17 leaves open (not in the audit) | P3 | done |
 | SRCH-8 | A clicked author or affiliation highlights itself as a whole, in the author and affiliation lines only: "Hao Li" no longer marks "lightweight", "linear" and "limited" in titles and abstracts (from the backlog) | P2 | done |
 | UX-23 | Marking a paper seen, unsaving it and late citation counts keep the list's paging and the keyboard focus: the results are derived in three memos, the paging starts over only for a new list (`listKey`, `paging.ts`), and the next card takes the focus (from the backlog) | P3 | done |
+| TEST-6 | The tests cannot reach the network: the real httpx transport raises `OfflineError` in every test not marked `network`, an error the pipeline neither retries nor skips (from the backlog) | P2 | done |
 | ARCH-2 | Enrichment step interface | P2 | todo |
 | DEBT-2, DEBT-3 | View model for `app.tsx`, `GraphView` split | P2, P3 | todo |
 | ARCH-4 | Multi-category, if wanted | P2 | todo |
