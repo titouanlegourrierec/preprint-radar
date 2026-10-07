@@ -825,9 +825,8 @@ def update_scholar_records(
         record = fetched[arxiv_id]
         if record is None:
             continue
-        if record.author_ids is not None and len(record.author_ids) != len(paper.authors):
-            record = replace(record, author_ids=None)
-        records[arxiv_id] = record
+        author_ids = checked_author_ids(record, paper.authors)
+        records[arxiv_id] = replace(record, author_ids=author_ids, author_names=None)
     store.write_scholar(category, records, source=S2_SOURCE)
     found = [records[arxiv_id] for arxiv_id in fetched if arxiv_id in records]
     return ScholarReport(
@@ -841,6 +840,50 @@ def update_scholar_records(
             for arxiv_id in fetched
             if arxiv_id in records
         ),
+    )
+
+
+def checked_author_ids(record: ScholarRecord, authors: Sequence[str]) -> tuple[str | None, ...] | None:
+    """Semantic Scholar's author ids, each kept only where its name is the paper's author's.
+
+    Ids are given in Semantic Scholar's order, which is arXiv's but for papers it merged
+    with another version or another paper: a wrong id would credit a paper to someone else,
+    worse than a name shared by two people (AFF-H). None at all when the lists differ in
+    length; a name is the author's when one spelling holds the other's words ("Mahdi
+    Hosseini", "Mahdi S. Hosseini"), or the same surname and first initial ("M. Hosseini").
+
+    Args:
+        record: What Semantic Scholar knows of the paper, with its authors' names.
+        authors: The paper's authors, as arXiv lists them.
+
+    Returns:
+        One id or ``None`` per author, or ``None``.
+    """
+    ids, names = record.author_ids, record.author_names
+    if ids is None or len(ids) != len(authors):
+        return None
+    if names is None or len(names) != len(ids):
+        return ids
+    return tuple(
+        author_id if name is not None and _same_person(author, name) else None
+        for author_id, name, author in zip(ids, names, authors, strict=True)
+    )
+
+
+def _same_person(listed: str, named: str) -> bool:
+    words, other = set(name_key(listed)), set(name_key(named))
+    if not words or not other:
+        return False
+    if words <= other or other <= words:
+        return True
+    # Initials: the same surname, and given names that start alike.
+    listed_words, named_words = listed.split(), named.split()
+    given, other_given = name_key(listed_words[0]), name_key(named_words[0])
+    return (
+        name_key(listed_words[-1]) == name_key(named_words[-1])
+        and bool(given)
+        and bool(other_given)
+        and given[0][0] == other_given[0][0]
     )
 
 

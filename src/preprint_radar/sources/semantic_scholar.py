@@ -258,18 +258,17 @@ def _scholar_record(item: Mapping[str, Any]) -> ScholarRecord:
     alternate = [text for text in publication.get("alternate_names") or [] if isinstance(text, str)]
     year = _venue_year(journal, venue_string, doi)
     authors = item.get("authors")
-    author_ids = (
-        tuple(
-            author.get("authorId") if isinstance(author.get("authorId"), str) else None for author in authors
-        )
-        if isinstance(authors, list) and authors
-        else None
-    )
+    listed = isinstance(authors, list) and bool(authors)
     return ScholarRecord(
         doi=doi,
         venue=published_venue(name, alternate, venue_string, year),
-        author_ids=author_ids,
+        author_ids=_author_field(authors, "authorId") if listed else None,
+        author_names=_author_field(authors, "name") if listed else None,
     )
+
+
+def _author_field(authors: list[Mapping[str, Any]], key: str) -> tuple[str | None, ...]:
+    return tuple(author.get(key) if isinstance(author.get(key), str) else None for author in authors)
 
 
 def _venue_year(journal: Mapping[str, Any], venue: str | None, doi: str | None) -> int | None:

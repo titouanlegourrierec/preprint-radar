@@ -9,7 +9,12 @@ import httpx
 import pytest
 
 from preprint_radar.cli import main
-from preprint_radar.collect import ScholarReport, format_scholar_report, update_scholar_records
+from preprint_radar.collect import (
+    ScholarReport,
+    checked_author_ids,
+    format_scholar_report,
+    update_scholar_records,
+)
 from preprint_radar.exceptions import ParseError, StoreError
 from preprint_radar.http import HttpClient
 from preprint_radar.models import Paper, ScholarRecord
@@ -87,7 +92,12 @@ def test_parses_records_with_the_venue_year_and_a_published_doi() -> None:
     records = parse_records_response(text, ("1", "2", "3", "4", "5", "6"))
 
     assert records == {
-        "1": ScholarRecord(doi="10.1109/CVPR52688.2022.01234", venue="CVPR 2022", author_ids=("11", None)),
+        "1": ScholarRecord(
+            doi="10.1109/CVPR52688.2022.01234",
+            venue="CVPR 2022",
+            author_ids=("11", None),
+            author_names=("A", "B"),
+        ),
         "2": ScholarRecord(),
         "3": None,
         "4": ScholarRecord(venue="TIP 2023"),
@@ -111,7 +121,10 @@ def test_fetches_records_with_their_fields() -> None:
         records = fetch_scholar_records(client, ["2112.00001"], key="secret")
 
     assert records["2112.00001"] == ScholarRecord(
-        doi="10.1109/CVPR52688.2022.01234", venue="CVPR 2022", author_ids=("11", None)
+        doi="10.1109/CVPR52688.2022.01234",
+        venue="CVPR 2022",
+        author_ids=("11", None),
+        author_names=("A", "B"),
     )
     assert requests[0].url.params["fields"] == S2_RECORD_FIELDS
 
@@ -155,7 +168,10 @@ class FakeScholar:
 
 
 def test_updates_the_records_of_every_stored_paper(store: PaperStore) -> None:
-    two_authors = {"authors": [{"authorId": "1"}, {"authorId": "2"}], "venue": "ECCV Workshops"}
+    two_authors = {
+        "authors": [{"authorId": "1", "name": "A"}, {"authorId": "2", "name": "B"}],
+        "venue": "ECCV Workshops",
+    }
     fake = FakeScholar({"2112.00001": CVPR_2022, "2609.00001": two_authors, "2609.00002": two_authors})
 
     with HttpClient(transport=httpx.MockTransport(fake.handle), max_attempts=1) as client:
@@ -265,3 +281,28 @@ def test_stats_count_published_venues(store: PaperStore) -> None:
     (store.root / "cs.CV" / "scholar.json").unlink()
     assert [row.coverage.venues for row in collect_archive_coverage(store, "cs.CV")] == [0]
     assert replace(ScholarRecord(), venue="x").venue == "x"
+
+
+@pytest.mark.parametrize(
+    ("names", "ids"),
+    [
+        pytest.param(("Ada Lovelace", "Alan M. Turing"), ("1", "2"), id="same-people"),
+        pytest.param(("A. Lovelace", "Turing Alan"), ("1", "2"), id="initials-and-order"),
+        pytest.param(("Ada Lovelace", "Grace Hopper"), ("1", None), id="another-person"),
+        pytest.param(("Ada Lovelace", None), ("1", None), id="a-name-missing"),
+        pytest.param(("Ada Lovelace", "?"), ("1", None), id="a-name-without-letters"),
+    ],
+)
+def test_author_ids_are_kept_where_the_names_are_the_papers(
+    names: tuple[str | None, ...], ids: tuple[str | None, ...]
+) -> None:
+    record = ScholarRecord(author_ids=("1", "2"), author_names=names)
+
+    assert checked_author_ids(record, ("Ada Lovelace", "Alan Turing")) == ids
+
+
+def test_author_ids_go_when_the_lists_differ() -> None:
+    record = ScholarRecord(author_ids=("1", "2"), author_names=("Ada Lovelace", "Alan Turing"))
+
+    assert checked_author_ids(record, ("Ada Lovelace",)) is None
+    assert checked_author_ids(replace(record, author_names=None), ("A", "B")) == ("1", "2")

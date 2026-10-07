@@ -74,12 +74,16 @@ class ScholarRecord:
         venue: Where it was published, as ``venue.published_venue`` names it
             ("CVPR 2018", "Information Fusion 2024"), if any.
         author_ids: Semantic Scholar's id of each author, in order (``None`` for an author
-            it has none for); ``None`` altogether when its author list is not the paper's.
+            it has none for, or whose name is not the paper's at that place); ``None``
+            altogether when its author list is not the paper's.
+        author_names: The names Semantic Scholar gives its authors, read to check its ids
+            against the paper's authors (AFF-H); never stored.
     """
 
     doi: str | None = None
     venue: str | None = None
     author_ids: tuple[str | None, ...] | None = None
+    author_names: tuple[str | None, ...] | None = None
 
     def is_empty(self) -> bool:
         """Whether Semantic Scholar said nothing of use."""
