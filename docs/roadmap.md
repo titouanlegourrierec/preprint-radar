@@ -49,7 +49,7 @@ for the answer.
 | 18 | Withdrawn papers | Exclude from Highly cited, badge in the day views | META-2 | Exclude from Highly cited, badge in the day views (2026-10-06) |
 | 19 | Abstracts by default | On for "Latest day" | Phase 2 | Always collapsed, as now (2026-10-03) |
 | 20 | Shipping the audit | Commit it as a frozen baseline | — | Done: `docs/audit/2026-09-30.md` |
-| 21 | Versioning | Stay on 0.x; tag a minor release at the end of each phase, with a changelog; 1.0.0 once the public data format is documented and stable | — | Adopted: `v0.1.0` tags the audit commit as the baseline |
+| 21 | Versioning | Stay on 0.x; tag a minor release at the end of each phase, with a changelog; 1.0.0 once the public data format is documented and stable | — | Adopted: `v0.1.0` tags the audit commit as the baseline; Phase 4 has no end, so each set of its features is a minor release (2026-10-07) |
 
 ## Phase 0: stop publishing wrong data (1–2 days)
 

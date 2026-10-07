@@ -1,10 +1,14 @@
 # Changelog
 
-One minor release per phase of [`docs/roadmap.md`](docs/roadmap.md), a patch for a fix in
-between. Item IDs (`DATA-2`, `CIT-11`…) refer to the audit of 2026-09-30
+One minor release per phase of [`docs/roadmap.md`](docs/roadmap.md), and one per set of
+features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`DATA-2`, `CIT-11`…) refer to the audit of 2026-09-30
 ([`docs/audit/2026-09-30.md`](docs/audit/2026-09-30.md)).
 
 ## Unreleased
+
+## 0.6.0 (2026-10-07): institutions and authors named by the pipeline
+
+The first release of Phase 4, which goes on without a fixed end: decisions 12, 13 and 17.
 
 ### Institutions
 

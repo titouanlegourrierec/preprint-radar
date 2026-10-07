@@ -302,8 +302,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   unless asked.
 - Do not push changes under `data/` while *Update data* or *Archive* runs (`gh run list`):
   a conflict on a day file stops the bot's commit.
-- Versions stay 0.x: a minor release at the end of each roadmap phase (a `v0.N.0` tag,
-  `version` bumped in `pyproject.toml` and `web/package.json` together, a `CHANGELOG.md`
-  entry), a patch for a fix in between. Pushing the tag creates the GitHub release with
-  that entry as notes (`release.yml`, `.github/scripts/release-notes.sh`, which fails
-  without one). 1.0.0 comes once the public data format is documented and stable.
+- Versions stay 0.x: a minor release at the end of each roadmap phase, and for each set of
+  features of Phase 4, which has no end (a `v0.N.0` tag, `version` bumped in
+  `pyproject.toml` and `web/package.json` together, a `CHANGELOG.md` entry), a patch for a
+  fix in between. Pushing the tag creates the GitHub release with that entry as notes
+  (`release.yml`, `.github/scripts/release-notes.sh`, which fails without one). 1.0.0
+  comes once the public data format is documented and stable.
