@@ -393,8 +393,8 @@ export function GraphView(props: Props) {
           ? null
           : kinds.length === 0
             ? "Turn on institutions or authors in the graph settings."
-            : `No ${kinds.join(" or ")} to show: ${affiliatedCount} of these ` +
-              `${shownPapers.length} papers have known affiliations so far.`);
+            : `No ${kinds.join(" or ")} to show: ${affiliatedCount.toLocaleString()} of these ` +
+              `${countOf(shownPapers.length, "paper")} have known affiliations so far.`);
 
   return (
     <main class="graph" id="main">
@@ -693,7 +693,7 @@ export function GraphView(props: Props) {
               </span>
             ),
         )}
-        <span>{graph.links.length.toLocaleString()} links</span>
+        <span>{countOf(graph.links.length, "link")}</span>
         {graph.consortia > 0 && (
           <span>
             {countOf(graph.consortia, "paper")} of over {MAX_CLIQUE_AUTHORS} authors, whose authors
