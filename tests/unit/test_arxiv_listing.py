@@ -85,6 +85,20 @@ def test_parses_html_url_when_available(listing: Listing) -> None:
     assert _paper(listing, "2609.30245").html_url == "https://arxiv.org/html/2609.30245v1"
 
 
+@pytest.mark.parametrize(
+    ("href", "expected"),
+    [
+        ("/html/2609.30245v1", "https://arxiv.org/html/2609.30245v1"),
+        ("javascript:alert(1)", None),
+        ("https://example.org/html/2609.30245v1", None),
+    ],
+    ids=["relative", "another-scheme", "another-host"],
+)
+def test_html_url_is_on_arxiv_only(listing_html: str, href: str, expected: str | None) -> None:
+    html = listing_html.replace('href="https://arxiv.org/html/2609.30245v1"', f'href="{href}"')
+    assert _paper(parse_listing(html), "2609.30245").html_url == expected
+
+
 def test_html_url_is_optional(listing_html: str) -> None:
     html = listing_html.replace('title="View HTML"', 'title="Something else"')
     assert all(paper.html_url is None for paper in parse_listing(html).papers)

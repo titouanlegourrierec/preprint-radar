@@ -1,3 +1,4 @@
+import { arxivIdOf } from "./search";
 import type { Paper } from "./types";
 
 export const STORAGE_KEY = "preprint-radar:reading-list";
@@ -18,27 +19,31 @@ const isStringOrNull = (value: unknown): value is string | null =>
 const isStringArray = (value: unknown): value is string[] =>
   Array.isArray(value) && value.every(isString);
 
+const ARXIV = "https://arxiv.org";
+
 /**
  * The record as a paper, or `null` when it is not one: what the store writes, read as the
  * Python `Paper.from_record` does. Saved lists and imported files are untrusted: one bad
  * entry must not break the page. Fields that older records lack become `null` (or `[]`
- * for subjects), and a mapping out of step with the authors is dropped.
+ * for subjects), and a mapping out of step with the authors is dropped. Links come from
+ * the arXiv id, as the store makes them, never from the file: an imported `javascript:`
+ * address would run on a click (SEC-2); an HTML page is kept on arxiv.org only.
  */
 export function toPaper(value: unknown): Paper | null {
   if (typeof value !== "object" || value === null) return null;
   const record = value as Record<string, unknown>;
-  const { arxiv_id, announced, title, authors, abs_url, pdf_url } = record;
+  const { arxiv_id, announced, title, authors } = record;
   if (
     !isString(arxiv_id) ||
+    arxivIdOf(arxiv_id) !== arxiv_id ||
     !isString(announced) ||
     !/^\d{4}-\d{2}-\d{2}$/.test(announced) ||
     !isString(title) ||
-    !isStringArray(authors) ||
-    !isString(abs_url) ||
-    !isString(pdf_url)
+    !isStringArray(authors)
   ) {
     return null;
   }
+  const html = record.html_url;
   const nullable = (key: string) =>
     isStringOrNull(record[key]) ? (record[key] as string | null) : null;
   const affiliations = isStringArray(record.affiliations) ? record.affiliations : null;
@@ -77,7 +82,7 @@ export function toPaper(value: unknown): Paper | null {
     venue: nullable("venue"),
     ...(isString(record.doi) ? { doi: record.doi } : {}),
     cross_list_from: nullable("cross_list_from"),
-    html_url: nullable("html_url"),
+    html_url: isString(html) && html.startsWith(`${ARXIV}/html/`) ? html : null,
     abstract: nullable("abstract"),
     ...(typeof record.extractor === "number" ? { extractor: record.extractor } : {}),
     ...(record.withdrawn === true ? { withdrawn: true } : {}),
@@ -85,8 +90,8 @@ export function toPaper(value: unknown): Paper | null {
     author_affiliations: mappingFits ? (mapping as (number[] | null)[]) : null,
     institutions: institutionsFit ? (institutions as (string | null)[]) : null,
     ...(idsFit ? { institution_ids: ids as (string | null)[] } : {}),
-    abs_url,
-    pdf_url,
+    abs_url: `${ARXIV}/abs/${arxiv_id}`,
+    pdf_url: `${ARXIV}/pdf/${arxiv_id}`,
   };
 }
 

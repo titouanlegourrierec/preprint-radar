@@ -38,6 +38,11 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 - A paper of the day files looked up by OpenAlex in the archive no longer keeps the
   version of the HTML extraction that gave its former affiliations (META-9).
 
+### Security
+
+- An imported reading list can no longer put a `javascript:` address on a paper's links:
+  they are made from its arXiv id, as the store makes them (SEC-2, SEC-7).
+
 ### Accessibility
 
 - Links inside text are underlined everywhere (the footer, About, "Report an error",

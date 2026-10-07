@@ -840,14 +840,34 @@ export function App() {
                 !load.index.has(state.paper) && (
                   <p class="notice">
                     This paper is not among the stored papers of this period (it may be older than
-                    the papers kept).{" "}
-                    <a href={`https://arxiv.org/abs/${state.paper}`}>See it on arXiv</a>.
+                    the papers kept).
+                    {/* An arXiv link only for an arXiv id: `?paper=` is anyone's text (SEC-7). */}
+                    {arxivIdOf(state.paper) === state.paper && (
+                      <>
+                        {" "}
+                        <a
+                          href={`https://arxiv.org/abs/${state.paper}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          See it on arXiv
+                        </a>
+                        .
+                      </>
+                    )}
                   </p>
                 )}
               {pastedId && results.length === 0 && load.status === "ready" && (
                 <p class="notice">
                   {pastedId} is not among the stored papers of this period.{" "}
-                  <a href={`https://arxiv.org/abs/${pastedId}`}>See it on arXiv</a>.
+                  <a
+                    href={`https://arxiv.org/abs/${pastedId}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    See it on arXiv
+                  </a>
+                  .
                 </p>
               )}
               {!pastedId &&

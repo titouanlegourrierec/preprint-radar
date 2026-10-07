@@ -11,6 +11,7 @@ import logging
 import re
 from collections.abc import Iterator
 from datetime import date, datetime
+from urllib.parse import urljoin
 
 from bs4 import BeautifulSoup, Tag
 
@@ -225,6 +226,17 @@ def _parse_day(header: str) -> date:
         raise ParseError(msg) from exc
 
 
+def _html_url(link: Tag | None) -> str | None:
+    """The paper's HTML page, resolved against arXiv, and only there (SEC-2).
+
+    The site renders it as a link: another scheme or host from the page would reach readers.
+    """
+    if link is None:
+        return None
+    url = urljoin(f"{ARXIV_BASE_URL}/", str(link["href"]))
+    return url if url.startswith(f"{ARXIV_BASE_URL}/html/") else None
+
+
 def _parse_entry(term: Tag, detail: Tag, announced: date) -> Paper:
     arxiv_id = _normalize(_require(term, 'a[href^="/abs/"]').get_text()).removeprefix("arXiv:")
     cross_list = _CROSS_LIST_RE.search(term.get_text())
@@ -254,7 +266,7 @@ def _parse_entry(term: Tag, detail: Tag, announced: date) -> Paper:
         venue=extract_venue(comments, journal_ref),
         withdrawn=is_withdrawn(comments),
         cross_list_from=cross_list.group(1) if cross_list else None,
-        html_url=str(html_link["href"]) if html_link else None,
+        html_url=_html_url(html_link),
         abstract=plain_text(abstract) if abstract else None,
     )
 

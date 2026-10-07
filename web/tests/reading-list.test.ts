@@ -42,9 +42,32 @@ describe("toPaper", () => {
     ["no identifier", { ...ada, arxiv_id: 12 }],
     ["no date", { ...ada, announced: "yesterday" }],
     ["authors not a list", { ...ada, authors: "Ada" }],
-    ["no links", { ...ada, abs_url: undefined }],
+    ["an identifier that is a link", { ...ada, arxiv_id: "https://arxiv.org/abs/2609.00001" }],
+    ["a versioned identifier", { ...ada, arxiv_id: "2609.00001v2" }],
   ])("refuses a record with %s", (_, record) => {
     expect(toPaper(record)).toBeNull();
+  });
+
+  it("makes its links from the identifier, never from the file (SEC-2)", () => {
+    const hostile = {
+      ...ada,
+      abs_url: "javascript:alert(1)",
+      pdf_url: "data:text/html,<script>alert(1)</script>",
+      html_url: "javascript:alert(1)",
+    };
+    const paper = toPaper(hostile);
+    expect(paper?.abs_url).toBe("https://arxiv.org/abs/2609.00001");
+    expect(paper?.pdf_url).toBe("https://arxiv.org/pdf/2609.00001");
+    expect(paper?.html_url).toBeNull();
+    expect(toPaper({ ...ada, html_url: "/html/2609.00001" })?.html_url).toBeNull();
+    expect(toPaper({ ...ada, html_url: "https://arxiv.org/html/2609.00001v1" })?.html_url).toBe(
+      "https://arxiv.org/html/2609.00001v1",
+    );
+    const { abs_url: _, pdf_url: __, ...linkless } = ada;
+    expect(toPaper(linkless)?.abs_url).toBe("https://arxiv.org/abs/2609.00001");
+    expect(toPaper({ ...ada, arxiv_id: "cs/0601001" })?.pdf_url).toBe(
+      "https://arxiv.org/pdf/cs/0601001",
+    );
   });
 
   it("fills what older records lack, and drops a mapping out of step", () => {

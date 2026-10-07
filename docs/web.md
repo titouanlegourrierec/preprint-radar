@@ -121,7 +121,8 @@ derives what only the site uses. The pipeline and `validate` never see these.
 
 - **Reading list** (`reading-list.ts`, `hooks/use-reading-list.ts`): stored and exported as
   `{version: 1, papers}`, the bare array of older lists still read. Every entry goes
-  through `toPaper`, so that a bad one is skipped instead of breaking the page; import
+  through `toPaper`, so that a bad one is skipped instead of breaking the page, and its
+  links are made from its arXiv id, never taken from the file (SEC-2); import
   merges by id; the list follows other tabs through `storage` events and takes the fresher
   record of a loaded day; a refused save is said, not swallowed.
 - **Saved searches** (`saved-searches.ts`): the query string of their words and filters,
