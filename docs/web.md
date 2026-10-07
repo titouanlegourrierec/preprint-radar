@@ -114,6 +114,10 @@ out of Highly cited (decision 18). Reading lists keep the flag.
 - `export.ts` writes the results shown as CSV, RIS or Markdown, beside `bibtex.ts` (keys
   with a/b/c on collisions, LaTeX escaping, case-protected words): the Export menu of the
   Papers and Highly cited views. They cite the published DOI when known, else arXiv's.
+- An unfolded card links the paper on Semantic Scholar, Connected Papers and alphaXiv
+  (`link-outs.ts`, SRCH-11), which find related work from its arXiv id: a lexical "related
+  papers" here would be a weaker copy. Each address was opened by hand; Hugging Face is
+  left out, its page being a 404 for most recent papers.
 - `components/About.tsx` (`?view=about`): the data sources, the correction contact and the
   privacy note; keep it true when the pipeline or the app changes. Its link and each
   card's "Report an error" open a mail with a short template to fill in (`report.ts`).

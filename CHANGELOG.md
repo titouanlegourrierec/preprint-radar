@@ -10,6 +10,8 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 - "With code" keeps the papers that link their code, about one in five: a repository on
   GitHub or GitLab, else models or data on Hugging Face, which their card links (PROD-12).
+- An unfolded card links the paper on Semantic Scholar, Connected Papers and alphaXiv,
+  which find its related work (SRCH-11).
 
 ## 0.6.0 (2026-10-07): institutions and authors named by the pipeline
 

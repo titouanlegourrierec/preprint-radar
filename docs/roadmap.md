@@ -223,7 +223,7 @@ exist.
 |---|---|---|---|
 | §17.1 | The audit's features worth building, item by item below; #1 to #3 were done in Phase 2 (PROD-2, PROD-3, PROD-5 and PROD-9) | — | in progress |
 | PROD-12 | "With code" (§17.1 #4): papers whose abstract or comments link a repository on GitHub or GitLab, else models or data on Hugging Face (918 of 4,832, as the audit's 19%), and a Code link on their card | P2 | done |
-| SRCH-11 | Link-outs (§17.1 #5): an unfolded card links the paper on Semantic Scholar, Connected Papers and alphaXiv, each address opened by hand; Hugging Face left out, its page being a 404 for 11 of 12 recent papers | P2 | todo |
+| SRCH-11 | Link-outs (§17.1 #5): an unfolded card links the paper on Semantic Scholar, Connected Papers and alphaXiv, each address opened by hand; Hugging Face left out, its page being a 404 for 11 of 12 recent papers | P2 | done |
 | §17.1 #6 | Atom feeds per institution and per major venue, built with the site | — | todo |
 | PROD-11, CIT-9 | The most cited papers of the last 12 months, and those rising this week (§17.1 #7) | P2, P3 | todo |
 | §17.1 #8 | Graph: the papers a link stands for, a node's ego network, PNG and GraphML export | — | todo |

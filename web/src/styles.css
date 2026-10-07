@@ -103,7 +103,8 @@ a:hover {
 /* Links inside text are told by more than their color (WCAG 1.4.1): comments, where code
    and project URLs live, are muted like them. */
 .paper__abstract a,
-.paper__comments a {
+.paper__comments a,
+.paper__elsewhere a {
   text-decoration: underline;
   text-underline-offset: 2px;
   overflow-wrap: anywhere;
@@ -1534,7 +1535,8 @@ html {
   box-shadow: var(--shadow);
 }
 
-.paper__report {
+.paper__report,
+.paper__elsewhere {
   margin: 6px 0 0;
   font-size: 0.8rem;
 }
