@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { ALL_YEARS, oneYear, publishedIn } from "./archive-years";
 import { About } from "./components/About";
+import { ErrorBoundary } from "./components/ErrorBoundary";
 import { GraphView } from "./components/GraphView";
 import { ListNotices } from "./components/ListNotices";
 import { NoResults } from "./components/NoResults";
@@ -319,7 +320,10 @@ export function App() {
       <div class="layout">
         {skipLink}
         {topbar}
-        <About />
+        {/* A view that fails to draw leaves the tabs usable (TEST-10). */}
+        <ErrorBoundary what="this view">
+          <About />
+        </ErrorBoundary>
         {footer}
       </div>
     );
@@ -330,61 +334,63 @@ export function App() {
       <div class="layout layout--graph">
         {skipLink}
         {topbar}
-        <GraphView
-          papers={graphPapers}
-          citations={citations.counts}
-          focus={state.focus}
-          onFocus={(focus) => update({ focus })}
-          notice={
-            load.status === "loading"
-              ? "Loading papers…"
-              : load.status === "error"
-                ? `Could not load papers: ${load.message}`
-                : null
-          }
-          categories={categories}
-          category={category ?? ""}
-          onCategory={(value) => update({ category: value })}
-          storeDays={storeDays}
-          period={state.period}
-          onPeriod={(period) => update({ period })}
-          archiveYears={archiveYears}
-          archiveRange={archived ? archiveRange : null}
-          onArchiveRange={(year) => update({ year })}
-          query={state.query}
-          onQuery={(value) => update({ query: value })}
-          venues={venueCounts}
-          venue={state.filters.venue}
-          onVenue={(venue) => setFilters({ ...state.filters, venue })}
-          theme={resolved}
-          // A graph of archive years lists its papers in Highly cited, over the same years: the
-          // Papers view would load the recent days instead.
-          onShowPapers={(kind, label) =>
-            update({
-              view: archived ? "cited" : "papers",
-              filters: {
-                ...NO_FILTERS,
-                venue: state.filters.venue,
-                [kind === "institution" ? "affiliation" : "author"]: exactly(label),
-              },
-            })
-          }
-          focusPaper={state.paper}
-          onFocusPaperLeft={clearPaper}
-          onOpenPaper={(paper) =>
-            update(
-              archived
-                ? { view: "cited", query: "", filters: NO_FILTERS, paper: paper.arxiv_id }
-                : {
-                    view: "papers",
-                    query: "",
-                    filters: NO_FILTERS,
-                    period: between(paper.announced, paper.announced),
-                    paper: paper.arxiv_id,
-                  },
-            )
-          }
-        />
+        <ErrorBoundary what="the graph">
+          <GraphView
+            papers={graphPapers}
+            citations={citations.counts}
+            focus={state.focus}
+            onFocus={(focus) => update({ focus })}
+            notice={
+              load.status === "loading"
+                ? "Loading papers…"
+                : load.status === "error"
+                  ? `Could not load papers: ${load.message}`
+                  : null
+            }
+            categories={categories}
+            category={category ?? ""}
+            onCategory={(value) => update({ category: value })}
+            storeDays={storeDays}
+            period={state.period}
+            onPeriod={(period) => update({ period })}
+            archiveYears={archiveYears}
+            archiveRange={archived ? archiveRange : null}
+            onArchiveRange={(year) => update({ year })}
+            query={state.query}
+            onQuery={(value) => update({ query: value })}
+            venues={venueCounts}
+            venue={state.filters.venue}
+            onVenue={(venue) => setFilters({ ...state.filters, venue })}
+            theme={resolved}
+            // A graph of archive years lists its papers in Highly cited, over the same years: the
+            // Papers view would load the recent days instead.
+            onShowPapers={(kind, label) =>
+              update({
+                view: archived ? "cited" : "papers",
+                filters: {
+                  ...NO_FILTERS,
+                  venue: state.filters.venue,
+                  [kind === "institution" ? "affiliation" : "author"]: exactly(label),
+                },
+              })
+            }
+            focusPaper={state.paper}
+            onFocusPaperLeft={clearPaper}
+            onOpenPaper={(paper) =>
+              update(
+                archived
+                  ? { view: "cited", query: "", filters: NO_FILTERS, paper: paper.arxiv_id }
+                  : {
+                      view: "papers",
+                      query: "",
+                      filters: NO_FILTERS,
+                      period: between(paper.announced, paper.announced),
+                      paper: paper.arxiv_id,
+                    },
+              )
+            }
+          />
+        </ErrorBoundary>
       </div>
     );
   }
@@ -476,169 +482,172 @@ export function App() {
         )}
 
         <main class="results" id="main">
-          <ResultsHeader
-            model={model}
-            count={count}
-            onSort={(sort) => update({ sort })}
-            citationsNote={citationsNote}
-            gainsSpan={gainsSpan}
-            relevanceHelpShown={showRelevanceHelp}
-            onRelevanceHelp={() => setShowRelevanceHelp(!showRelevanceHelp)}
-            hideSeen={triage.hideSeen}
-            onHideSeen={triage.toggleHideSeen}
-            showAbstracts={showAbstracts}
-            onShowAbstracts={toggleAbstracts}
-            papers={resultPapers}
-            citations={citations.counts}
-            readingList={
-              state.view === "reading-list"
-                ? {
-                    papers: readingList.papers,
-                    onImport: (file) =>
-                      void readingList.importFile(file, (value) => {
-                        const added = savedSearches.importSearches(value);
-                        return added
-                          ? `${countOf(added, "saved search", "saved searches")} added`
-                          : null;
-                      }),
-                    json: () =>
-                      JSON.stringify(
-                        readingListFile(readingList.papers, savedSearches.searches),
-                        null,
-                        2,
-                      ),
-                  }
-                : undefined
-            }
-          />
-
-          <ListNotices
-            view={state.view}
-            relevanceHelp={hasSearchWords && showRelevanceHelp}
-            readingListMessage={
-              state.view === "reading-list" && readingList.message
-                ? { text: readingList.message, onDismiss: readingList.dismissMessage }
-                : null
-            }
-            sinceLastVisit={
-              triaged && sinceLastVisit && !samePeriod(state.period, sinceLastVisit.period)
-                ? {
-                    papers: sinceLastVisit.papers,
-                    onShow: () => update({ period: sinceLastVisit.period }),
-                  }
-                : null
-            }
-            shortcuts={triaged && load.status === "ready"}
-            archiveBudget={
-              archiveLeftOut > 0 && load.status === "ready"
-                ? { shown: load.index.size, leftOut: archiveLeftOut, unranked: archiveUnranked }
-                : null
-            }
-            citationsNote={citationsNote}
-            mostlyTied={byCount && !rising && !rankings && mostlyTied(results, citations.counts)}
-            filters={rankings ? null : state.filters}
-            onFilters={setFilters}
-            feed={feed}
-          />
-
-          {load.status === "error" && state.view !== "reading-list" ? (
-            <p class="notice notice--error" role="alert">
-              Could not load the papers: {load.message}.{" "}
-              <button type="button" class="link-button" onClick={retry}>
-                Retry
-              </button>
-            </p>
-          ) : rankings ? (
-            <Rankings
+          {/* A list that fails to draw leaves the tabs and the sidebar usable (TEST-10). */}
+          <ErrorBoundary key={state.view} what="this view">
+            <ResultsHeader
+              model={model}
+              count={count}
+              onSort={(sort) => update({ sort })}
+              citationsNote={citationsNote}
+              gainsSpan={gainsSpan}
+              relevanceHelpShown={showRelevanceHelp}
+              onRelevanceHelp={() => setShowRelevanceHelp(!showRelevanceHelp)}
+              hideSeen={triage.hideSeen}
+              onHideSeen={triage.toggleHideSeen}
+              showAbstracts={showAbstracts}
+              onShowAbstracts={toggleAbstracts}
               papers={resultPapers}
               citations={citations.counts}
-              citationsNote={citationsNote}
-              archived={archived}
-              onEntity={(kind, name) =>
-                update({
-                  view: archived ? "cited" : "papers",
-                  filters: {
-                    ...state.filters,
-                    [kind === "institution" ? "affiliation" : "author"]: exactly(name),
-                  },
-                })
+              readingList={
+                state.view === "reading-list"
+                  ? {
+                      papers: readingList.papers,
+                      onImport: (file) =>
+                        void readingList.importFile(file, (value) => {
+                          const added = savedSearches.importSearches(value);
+                          return added
+                            ? `${countOf(added, "saved search", "saved searches")} added`
+                            : null;
+                        }),
+                      json: () =>
+                        JSON.stringify(
+                          readingListFile(readingList.papers, savedSearches.searches),
+                          null,
+                          2,
+                        ),
+                    }
+                  : undefined
               }
             />
-          ) : cited && archiveYears.length === 0 ? (
-            <p class="notice">
-              The archive of highly cited papers is built weekly, from citation counts: it is not
-              there yet.
-            </p>
-          ) : state.view === "reading-list" && readingList.papers.length === 0 ? (
-            <p class="notice">
-              Your reading list is empty. Use ☆ on a paper to save it; the list is kept in this
-              browser.
-            </p>
-          ) : (
-            <>
-              <NoResults
-                missingPaper={
-                  state.view === "papers" &&
-                  state.paper &&
-                  load.status === "ready" &&
-                  !load.index.has(state.paper)
-                    ? state.paper
-                    : null
-                }
-                missingPastedId={
-                  pastedId && results.length === 0 && hiddenCount === 0 && load.status === "ready"
-                    ? pastedId
-                    : null
-                }
-                allSeen={results.length === 0 ? hiddenCount : 0}
-                onShowSeen={triage.toggleHideSeen}
-                noMatch={
-                  !pastedId &&
-                  results.length === 0 &&
-                  hiddenCount === 0 &&
-                  (load.status === "ready" || state.view === "reading-list") &&
-                  activeIndex !== null &&
-                  activeIndex.size > 0
-                    ? {
-                        inPeriod: state.view === "papers",
-                        onClearFilters:
-                          activeFilterCount(state.filters) > 0
-                            ? () => setFilters(NO_FILTERS)
-                            : null,
-                        wider:
-                          state.view === "papers" && widerPeriod
-                            ? {
-                                days: longestDays,
-                                onSearch: () => update({ period: longestPeriod }),
-                              }
-                            : null,
-                      }
-                    : null
-                }
-              />
-              <PaperList
-                results={results}
-                resetKey={listKey(state, query)}
-                nameHighlights={nameTerms}
-                groupByDay={groupByDay}
-                openId={state.paper}
-                linkTo={linkTo}
-                onOpenPaper={(arxivId) => update({ paper: arxivId })}
-                onClosePaper={() => update({ paper: null })}
-                onShowInGraph={showInGraph}
+
+            <ListNotices
+              view={state.view}
+              relevanceHelp={hasSearchWords && showRelevanceHelp}
+              readingListMessage={
+                state.view === "reading-list" && readingList.message
+                  ? { text: readingList.message, onDismiss: readingList.dismissMessage }
+                  : null
+              }
+              sinceLastVisit={
+                triaged && sinceLastVisit && !samePeriod(state.period, sinceLastVisit.period)
+                  ? {
+                      papers: sinceLastVisit.papers,
+                      onShow: () => update({ period: sinceLastVisit.period }),
+                    }
+                  : null
+              }
+              shortcuts={triaged && load.status === "ready"}
+              archiveBudget={
+                archiveLeftOut > 0 && load.status === "ready"
+                  ? { shown: load.index.size, leftOut: archiveLeftOut, unranked: archiveUnranked }
+                  : null
+              }
+              citationsNote={citationsNote}
+              mostlyTied={byCount && !rising && !rankings && mostlyTied(results, citations.counts)}
+              filters={rankings ? null : state.filters}
+              onFilters={setFilters}
+              feed={feed}
+            />
+
+            {load.status === "error" && state.view !== "reading-list" ? (
+              <p class="notice notice--error" role="alert">
+                Could not load the papers: {load.message}.{" "}
+                <button type="button" class="link-button" onClick={retry}>
+                  Retry
+                </button>
+              </p>
+            ) : rankings && load.status === "ready" ? (
+              <Rankings
+                papers={resultPapers}
                 citations={citations.counts}
                 citationsNote={citationsNote}
-                gainOf={gainOf}
-                showAbstracts={showAbstracts || state.view === "reading-list"}
-                savedIds={readingList.savedIds}
-                onToggleSaved={readingList.toggle}
-                seenIds={triaged ? triage.seen : undefined}
-                onToggleSeen={triaged ? triage.toggleSeen : undefined}
-                onAuthor={(author) => setFilters({ ...state.filters, author: exactly(author) })}
-                onAffiliation={(affiliation) => setFilters({ ...state.filters, affiliation })}
+                archived={archived}
+                onEntity={(kind, name) =>
+                  update({
+                    view: archived ? "cited" : "papers",
+                    filters: {
+                      ...state.filters,
+                      [kind === "institution" ? "affiliation" : "author"]: exactly(name),
+                    },
+                  })
+                }
               />
-            </>
-          )}
+            ) : cited && archiveYears.length === 0 ? (
+              <p class="notice">
+                The archive of highly cited papers is built weekly, from citation counts: it is not
+                there yet.
+              </p>
+            ) : state.view === "reading-list" && readingList.papers.length === 0 ? (
+              <p class="notice">
+                Your reading list is empty. Use ☆ on a paper to save it; the list is kept in this
+                browser.
+              </p>
+            ) : (
+              <>
+                <NoResults
+                  missingPaper={
+                    state.view === "papers" &&
+                    state.paper &&
+                    load.status === "ready" &&
+                    !load.index.has(state.paper)
+                      ? state.paper
+                      : null
+                  }
+                  missingPastedId={
+                    pastedId && results.length === 0 && hiddenCount === 0 && load.status === "ready"
+                      ? pastedId
+                      : null
+                  }
+                  allSeen={results.length === 0 ? hiddenCount : 0}
+                  onShowSeen={triage.toggleHideSeen}
+                  noMatch={
+                    !pastedId &&
+                    results.length === 0 &&
+                    hiddenCount === 0 &&
+                    (load.status === "ready" || state.view === "reading-list") &&
+                    activeIndex !== null &&
+                    activeIndex.size > 0
+                      ? {
+                          inPeriod: state.view === "papers",
+                          onClearFilters:
+                            activeFilterCount(state.filters) > 0
+                              ? () => setFilters(NO_FILTERS)
+                              : null,
+                          wider:
+                            state.view === "papers" && widerPeriod
+                              ? {
+                                  days: longestDays,
+                                  onSearch: () => update({ period: longestPeriod }),
+                                }
+                              : null,
+                        }
+                      : null
+                  }
+                />
+                <PaperList
+                  results={results}
+                  resetKey={listKey(state, query)}
+                  nameHighlights={nameTerms}
+                  groupByDay={groupByDay}
+                  openId={state.paper}
+                  linkTo={linkTo}
+                  onOpenPaper={(arxivId) => update({ paper: arxivId })}
+                  onClosePaper={() => update({ paper: null })}
+                  onShowInGraph={showInGraph}
+                  citations={citations.counts}
+                  citationsNote={citationsNote}
+                  gainOf={gainOf}
+                  showAbstracts={showAbstracts || state.view === "reading-list"}
+                  savedIds={readingList.savedIds}
+                  onToggleSaved={readingList.toggle}
+                  seenIds={triaged ? triage.seen : undefined}
+                  onToggleSeen={triaged ? triage.toggleSeen : undefined}
+                  onAuthor={(author) => setFilters({ ...state.filters, author: exactly(author) })}
+                  onAffiliation={(affiliation) => setFilters({ ...state.filters, affiliation })}
+                />
+              </>
+            )}
+          </ErrorBoundary>
         </main>
       </div>
 

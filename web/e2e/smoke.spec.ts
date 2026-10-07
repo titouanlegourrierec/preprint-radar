@@ -142,7 +142,10 @@ test("a paper the page cannot draw shows a message, not a blank page", async ({ 
     await route.fulfill({ response, json: day });
   });
   await page.goto("./");
-  await expect(page.getByRole("alert")).toContainText("could not be displayed");
+  await expect(page.getByRole("alert")).toContainText("this view could not be displayed");
   await expect(page.getByRole("button", { name: "Reload" })).toBeVisible();
+  // The view alone failed: the tabs still lead elsewhere.
+  await page.getByRole("link", { name: "About", exact: true }).click();
+  await expect(page.getByRole("heading", { name: "About Preprint Radar" })).toBeVisible();
   expect(errors.length).toBeGreaterThan(0);
 });
