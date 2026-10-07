@@ -150,6 +150,10 @@ stats: ## Show how much of data/ is enriched, per day and per archive year
 quality-affiliations: ## Count signs of wrong affiliations, with examples, stored and from the page cache
 	@uv run preprint-radar stats --affiliations --page-cache-dir .cache/front-matter $(CATEGORY_ARGS)
 
+.PHONY: extraction-diff
+extraction-diff: ## List the papers today's extraction changes, from the page cache (words lost first)
+	@uv run preprint-radar stats --affiliations --page-cache-dir .cache/front-matter --changes $(CATEGORY_ARGS)
+
 ##@ Web app
 
 .PHONY: dev

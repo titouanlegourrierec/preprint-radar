@@ -306,6 +306,15 @@ def test_stats_counts_them_in_what_the_page_cache_gives_today(
     assert "2609.00001: Code" not in reports[2]
     assert store.load_day("cs.CV", date(2026, 9, 25))[0].affiliations == ("Code",)  # nothing written
 
+    assert main([*options, "--changes"]) == 0
+    assert capsys.readouterr().out.splitlines() == [
+        f"cs.CV, version {EXTRACTOR_VERSION}: 1 of 1 cached papers change, 1 losing words",
+        "2609.00001  (who is where changes)",
+        "  - Code",
+        "  + Stanford University",
+        "  ! words lost: code",
+    ]
+
 
 def test_stats_draws_signs_in_a_terminal(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]

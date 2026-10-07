@@ -76,6 +76,10 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     author holding all), 5 examples each. With `--page-cache-dir`, the cached pages as
     stored and as extracted today, nothing written: run it before and after a heuristic
     change. Approximate (a few false positives each).
+  - `make extraction-diff` (`--changes`): each paper whose affiliations or mapping today's
+    extraction changes on the cached pages, with the words it would lose first. Run it
+    before any `EXTRACTOR_VERSION` bump: versions 4 to 7 each fixed a loss of the one
+    before that only the daily re-read showed.
   - `preprint-radar summary`: the newest day of each category and its age, the date of the
     counts, the `stats` tables and quality counts. The data workflows run it last; in
     Actions, `console.github_summary` and `console.github_annotation` put it and each

@@ -3,8 +3,9 @@
 ``stats`` measures coverage, how many papers have affiliations; this measures correctness,
 through signs of the failures seen so far, each counted with a few examples. Run it
 before and after a change to ``sources/arxiv_html.py`` (``stats --affiliations``): with
-``--page-cache``, it also measures what today's extraction gives for the cached pages,
-next to what is stored for those papers.
+``--page-cache-dir``, it also measures what today's extraction gives for the cached pages,
+next to what is stored for those papers, and with ``--changes`` lists the papers that
+change (``make extraction-diff``).
 
 The signs are heuristic: a few strings they flag are fine ("Department of Computer
 Science" is a whole affiliation when its institution is written on another line), and
@@ -227,6 +228,83 @@ def extracted_again(papers: Iterable[Paper], cache: PageCache) -> list[tuple[Pap
         )
         pairs.append((paper, extracted))
     return pairs
+
+
+@dataclass(frozen=True, slots=True)
+class ExtractionChange:
+    """What today's extraction changes for one stored paper whose page is cached.
+
+    Attributes:
+        arxiv_id: The paper.
+        removed: Stored affiliations that the extraction no longer gives.
+        added: Affiliations it gives that are not stored.
+        remapped: Whether who is where changes.
+        lost: Words of the stored affiliations found in none of the new ones: author names
+            and noise are expected, an institution's is a regression.
+    """
+
+    arxiv_id: str
+    removed: tuple[str, ...]
+    added: tuple[str, ...]
+    remapped: bool
+    lost: tuple[str, ...]
+
+
+# Words compared for :attr:`ExtractionChange.lost`: three letters or more, case folded.
+_WORD_RE = re.compile(r"[^\W\d_]{3,}")
+
+
+def extraction_changes(pairs: Iterable[tuple[Paper, Paper]]) -> list[ExtractionChange]:
+    """The papers of :func:`extracted_again` whose affiliations or mapping change.
+
+    Those that would lose words come first: run it before bumping ``EXTRACTOR_VERSION``,
+    as each version from 3 to 7 fixed what the one before lost.
+
+    Args:
+        pairs: ``(stored, extracted)`` pairs.
+
+    Returns:
+        The changes, those losing words first, then by identifier.
+    """
+    changes: list[ExtractionChange] = []
+    for stored, extracted in pairs:
+        old, new = stored.affiliations or (), extracted.affiliations or ()
+        remapped = stored.author_affiliations != extracted.author_affiliations
+        if old == new and not remapped:
+            continue
+        changes.append(
+            ExtractionChange(
+                arxiv_id=stored.arxiv_id,
+                removed=tuple(affiliation for affiliation in old if affiliation not in new),
+                added=tuple(affiliation for affiliation in new if affiliation not in old),
+                remapped=remapped,
+                lost=tuple(sorted(_words(old) - _words(new))),
+            )
+        )
+    return sorted(changes, key=lambda change: (not change.lost, change.arxiv_id))
+
+
+def _words(affiliations: Iterable[str]) -> set[str]:
+    return {word for affiliation in affiliations for word in _WORD_RE.findall(affiliation.casefold())}
+
+
+def format_changes(title: str, papers: int, changes: Sequence[ExtractionChange]) -> str:
+    """The changes as text: a summary line, then each paper, its lost words flagged.
+
+    Args:
+        title: What the papers are, e.g. ``"cs.CV"``.
+        papers: Papers compared (those with a cached page).
+        changes: From :func:`extraction_changes`.
+    """
+    losing = sum(bool(change.lost) for change in changes)
+    lines = [f"{title}: {len(changes)} of {papers} cached papers change, {losing} losing words"]
+    for change in changes:
+        lines.append(change.arxiv_id + ("  (who is where changes)" if change.remapped else ""))
+        lines += [f"  - {affiliation}" for affiliation in change.removed]
+        lines += [f"  + {affiliation}" for affiliation in change.added]
+        if change.lost:
+            lines.append(f"  ! words lost: {', '.join(change.lost)}")
+    return "\n".join(lines)
 
 
 def format_quality(title: str, quality: AffiliationQuality, *, examples: bool = True) -> str:

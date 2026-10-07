@@ -214,7 +214,8 @@ it happens often, run *Archive* by hand mid-week to keep the entry warm.
   them: `preprint-radar reextract --ids <ids>` or `--match <regex>` (15 s a page not in
   the cache).
 - Measure before and after with `make quality-affiliations`: with the page cache, it
-  compares what is stored with what the extraction gives today, without writing.
+  compares what is stored with what the extraction gives today, without writing. `make
+  extraction-diff` lists the papers it changes, those that would lose words first.
 - **Signal** `cached pages gave no affiliation to papers that have some`: pages kept before
   2026-10-06 lost the tables of their author block, where some classes write names and
   affiliations (2609.06629). Those papers keep what they had and their pages leave the

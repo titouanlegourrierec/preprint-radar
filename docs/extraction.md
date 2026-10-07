@@ -20,7 +20,10 @@ not "simplify" a rule away without the page that made it.
   `make institutions`. Changes that need the page (mapping tiers, new sources) only reach
   papers read again.
 - Measure before and after: `make quality-affiliations` (with `--page-cache-dir`, the
-  cached pages as stored and as extracted today, nothing written) and `make stats`.
+  cached pages as stored and as extracted today, nothing written) and `make stats`. Before
+  bumping `EXTRACTOR_VERSION`, `make extraction-diff` lists every cached paper the change
+  touches, those that would lose words first: read each one. A lost word is an author's
+  name or noise, or a regression (2610.02974 lost "Alicante" to the "at" of an address).
 
 ## Sources, in order
 

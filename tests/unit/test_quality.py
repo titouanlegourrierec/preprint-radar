@@ -9,9 +9,12 @@ from preprint_radar.models import Paper
 from preprint_radar.sources.arxiv_html import EXTRACTOR_VERSION, PageCache
 from preprint_radar.store.quality import (
     EXAMPLES,
+    ExtractionChange,
     Sign,
     affiliation_quality,
     extracted_again,
+    extraction_changes,
+    format_changes,
     format_quality,
     last_holds_all,
     names_only,
@@ -181,3 +184,31 @@ def test_extracted_again_reads_the_cached_pages_only(tmp_path: Path) -> None:
     assert extracted.author_affiliations == ((0,),)
     assert extracted.institutions is None
     assert extracted.extractor == EXTRACTOR_VERSION
+
+
+def test_extraction_changes_put_lost_words_first() -> None:
+    same = replace(PAPER, arxiv_id="2609.00001", author_affiliations=((0,), (0,)))
+    joined = replace(PAPER, arxiv_id="2609.00002", affiliations=("MIT", "Cambridge, MA, USA"))
+    emptied = replace(PAPER, arxiv_id="2609.00003", affiliations=("University of Alicante", "MIT"))
+    pairs = [
+        (same, same),
+        (joined, replace(joined, affiliations=("MIT, Cambridge, MA, USA",))),
+        (emptied, replace(emptied, affiliations=("MIT",), author_affiliations=((0,), None))),
+    ]
+
+    changes = extraction_changes(pairs)
+
+    assert changes == [
+        ExtractionChange(
+            "2609.00003", ("University of Alicante",), (), remapped=True, lost=("alicante", "university")
+        ),
+        ExtractionChange(
+            "2609.00002", ("MIT", "Cambridge, MA, USA"), ("MIT, Cambridge, MA, USA",), remapped=False, lost=()
+        ),
+    ]
+    text = format_changes("cs.CV", len(pairs), changes)
+    assert text.splitlines()[0] == "cs.CV: 2 of 3 cached papers change, 1 losing words"
+    assert "2609.00003  (who is where changes)" in text
+    assert "  - University of Alicante" in text
+    assert "  + MIT, Cambridge, MA, USA" in text
+    assert "  ! words lost: alicante, university" in text

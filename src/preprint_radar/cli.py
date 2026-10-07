@@ -63,7 +63,14 @@ from preprint_radar.sources.semantic_scholar import S2_ANONYMOUS_DELAY_SECONDS, 
 from preprint_radar.store import filters
 from preprint_radar.store.export import ExportFormat, export_papers
 from preprint_radar.store.paper_store import PaperStore
-from preprint_radar.store.quality import affiliation_quality, extracted_again, format_quality, quality_table
+from preprint_radar.store.quality import (
+    affiliation_quality,
+    extracted_again,
+    extraction_changes,
+    format_changes,
+    format_quality,
+    quality_table,
+)
 from preprint_radar.store.reclean import reclean_store
 from preprint_radar.store.stats import (
     archive_coverage_table,
@@ -214,6 +221,14 @@ def _add_stats_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentP
         help=(
             "with --affiliations, also count them in what today's extraction gives for the pages "
             "cached in this directory, next to what is stored for those papers (nothing is written)"
+        ),
+    )
+    stats.add_argument(
+        "--changes",
+        action="store_true",
+        help=(
+            "with --page-cache-dir, list the papers whose affiliations or mapping today's "
+            "extraction changes instead, those that would lose words first"
         ),
     )
     stats.add_argument(
@@ -789,7 +804,7 @@ def _run_stats(args: argparse.Namespace) -> int:
     # A terminal gets rich tables; CI and pipes the plain text, one line per row.
     styled = console.is_terminal
     reports = (
-        _affiliation_quality(store, categories, args.page_cache_dir, styled=styled)
+        _affiliation_quality(store, categories, args.page_cache_dir, styled=styled, changes=args.changes)
         if args.affiliations
         else _coverage(store, categories, styled=styled)
     )
@@ -823,9 +838,17 @@ def _coverage(store: PaperStore, categories: Iterable[str], *, styled: bool) -> 
 
 
 def _affiliation_quality(
-    store: PaperStore, categories: Iterable[str], page_cache_dir: Path | None, *, styled: bool
+    store: PaperStore,
+    categories: Iterable[str],
+    page_cache_dir: Path | None,
+    *,
+    styled: bool,
+    changes: bool = False,
 ) -> list[str | Table]:
-    """The quality reports of ``stats --affiliations``: stored, then extracted again from the cache."""
+    """The quality reports of ``stats --affiliations``: stored, then extracted again from the cache.
+
+    With ``changes``, the papers the extraction changes, instead of the counts.
+    """
     reports: list[str | Table] = []
 
     def add(title: str, papers: Iterable[Paper]) -> None:
@@ -837,12 +860,17 @@ def _affiliation_quality(
         if not papers:
             logger.warning("No stored papers for %s in %s.", category, store.root)
             continue
-        add(f"{category}: affiliations of the day files", papers)
+        if not changes:
+            add(f"{category}: affiliations of the day files", papers)
         if page_cache_dir is None:
             continue
         pairs = extracted_again(papers, PageCache(page_cache_dir))
         if not pairs:
             logger.warning("The page cache %s holds no page of %s.", page_cache_dir, category)
+            continue
+        if changes:
+            title = f"{category}, version {EXTRACTOR_VERSION}"
+            reports.append(format_changes(title, len(pairs), extraction_changes(pairs)))
             continue
         add(f"{category}: the papers with a cached page, as stored", (old for old, _ in pairs))
         add(
