@@ -72,8 +72,10 @@ Artificial".
   2610.03283).
   `_JUNK_RE` rejects what still passes: lone words ("the", "dot"), link and contribution
   leftovers ("Code", "Core Contributors"), units cut off by a line break ("School of") and
-  lone countries. The web's `institutionName` mirrors it (`JUNK_RE`, `COUNTRY_RE`) for
-  records extracted before.
+  lone countries. For records extracted before, `institutions.institution_name` names no
+  institution for such leftovers, through its own narrower `_JUNK_RE` and its
+  `_COUNTRY_RE` (`src/preprint_radar/institutions.py`); the site names none itself
+  (AFF-13).
 - Superscript markers split affiliations, except one between two lowercase letters
   ("Hyper<sup>2</sup>labs" is a name). Every `<br>` is a line break, also when LaTeXML
   writes no newline after it.
@@ -129,8 +131,9 @@ Artificial".
   ends "New South Wales". A name that ends with a country without a comma ("National
   Research Council Canada") takes a place in the same country ("London, ON, Canada",
   2609.12374), not one in another ("University of Luxembourg" then "Trier, Germany", the
-  next column of a table, 2609.06629). The web's `COUNTRY_RE` is the same list, which a
-  test checks.
+  next column of a table, 2609.06629). The institution rules' `_COUNTRY_RE` is built from
+  the same `COUNTRIES`, so there is one list; the site keeps only the acronyms of its
+  search, which `test_the_site_knows_the_same_acronyms` keeps equal to Python's.
 - A line ending with a preposition ("Key Laboratory ... of Ministry of" then "Education,
   Jilin University", 2609.11477) continues on the next one, unless a marker starts it.
   Lowercase only, after a space: "TU Wien, AT" ends with a country code, and
