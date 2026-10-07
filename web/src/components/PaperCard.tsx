@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "preact/hooks";
 import { toBibtex } from "../bibtex";
 import { codeUrl } from "../code";
+import { download } from "../download";
 import { countOf, daysSince, formatDay, subjectCode } from "../format";
 import { highlight } from "../highlight";
 import { institutionsOf } from "../institutions";
@@ -115,7 +116,6 @@ export function PaperCard({
   const affiliations = expanded
     ? allAffiliations
     : allAffiliations.slice(0, MAX_AFFILIATIONS_COLLAPSED);
-  const hasDetails = Boolean(paper.abstract || paper.comments);
   const code = codeUrl(paper);
   // A recent paper has no citations yet: "0 citations" on nearly every card says nothing.
   const shownCitations =
@@ -135,7 +135,8 @@ export function PaperCard({
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
     } catch {
-      // Clipboard access can be denied; nothing sensible to do.
+      // A refused clipboard: the entry as a file instead.
+      download(`${paper.arxiv_id.replace("/", "_")}.bib`, toBibtex(paper), "application/x-bibtex");
     }
   }
 
@@ -191,7 +192,17 @@ export function PaperCard({
             </span>
           ))}
           {authors.length < paper.authors.length && (
-            <span class="muted"> +{paper.authors.length - authors.length}</span>
+            <>
+              {" "}
+              <button
+                type="button"
+                class="link-button muted"
+                aria-label={`Show all ${paper.authors.length} authors`}
+                onClick={() => setExpanded(true)}
+              >
+                +{paper.authors.length - authors.length}
+              </button>
+            </>
           )}
         </p>
 
@@ -211,7 +222,17 @@ export function PaperCard({
               </span>
             ))}
             {affiliations.length < allAffiliations.length && (
-              <span> +{allAffiliations.length - affiliations.length}</span>
+              <>
+                {" "}
+                <button
+                  type="button"
+                  class="link-button"
+                  aria-label={`Show all ${allAffiliations.length} affiliations`}
+                  onClick={() => setExpanded(true)}
+                >
+                  +{allAffiliations.length - affiliations.length}
+                </button>
+              </>
             )}
           </p>
         )}
@@ -351,23 +372,26 @@ export function PaperCard({
               title="Seen papers are dimmed, and can be hidden (key x)"
               onClick={() => onToggleSeen(paper.arxiv_id)}
             >
-              {seen ? "Seen ✓" : "Mark seen"}
+              {/* One name, "Seen", its state said by aria-pressed; the mark is for the eye. */}
+              Seen{seen && <span aria-hidden="true"> ✓</span>}
             </button>
           )}
-          {hasDetails && (
-            <button
-              type="button"
-              aria-describedby={titleId}
-              class="link-button paper__more"
-              aria-expanded={expanded}
-              onClick={() => {
-                if (expanded && isTarget) onClose();
-                setExpanded(!expanded);
-              }}
-            >
-              {expanded ? "Less" : "More"}
-            </button>
-          )}
+          <button
+            type="button"
+            aria-describedby={titleId}
+            class="link-button paper__more"
+            aria-expanded={expanded}
+            onClick={() => {
+              if (expanded && isTarget) onClose();
+              setExpanded(!expanded);
+            }}
+          >
+            {expanded ? "Less" : "More"}
+          </button>
+          {/* What a copy did, said to screen readers: the buttons' text changes silently. */}
+          <span class="visually-hidden" role="status">
+            {copied ? "BibTeX copied" : linkCopied ? "Link copied" : ""}
+          </span>
         </footer>
       </div>
 

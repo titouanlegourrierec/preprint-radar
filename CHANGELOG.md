@@ -56,6 +56,9 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ### Accessibility
 
+- A card tells screen readers what a copy did, downloads its BibTeX when the clipboard is
+  refused, opens from its "+N" authors or affiliations, and its seen toggle is "Seen",
+  pressed or not (UX-15).
 - Links inside text are underlined everywhere (the footer, About, "Report an error",
   notices, the feed line, the graph's details), not told from the text by their colour
   alone (UX-24).

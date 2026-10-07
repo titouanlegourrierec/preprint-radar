@@ -101,7 +101,7 @@ test("a card's own Mark seen button hands the focus on as x does", async ({ page
   await page.getByRole("checkbox", { name: "Hide seen" }).check();
   const first = page.locator("article.paper").first();
   const id = await first.getAttribute("data-arxiv-id");
-  await first.getByRole("button", { name: "Mark seen" }).focus();
+  await first.getByRole("button", { name: "Seen" }).focus();
   await page.keyboard.press("Enter");
   await expect(page.getByText("3 of 4 cs.CV papers")).toBeVisible();
   const focused = page.locator("article.paper:focus");

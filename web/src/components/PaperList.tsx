@@ -152,7 +152,7 @@ export function PaperList({
     });
   };
 
-  // A card's own Mark seen and ☆ buttons hand the focus on too, when the card leaves.
+  // A card's own Seen and ☆ buttons hand the focus on too, when the card leaves.
   const cardIndex = (arxivId: string) =>
     [...(list.current?.querySelectorAll<HTMLElement>("article.paper") ?? [])].findIndex(
       (card) => card.dataset.arxivId === arxivId,
