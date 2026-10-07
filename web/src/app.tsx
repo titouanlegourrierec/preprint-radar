@@ -282,8 +282,9 @@ export function App() {
   };
 
   // Tabs are links, so that they open in a new tab too; a plain click stays in the page.
+  // A tab leaves the graph's focus behind (`update` does too): it is the graph's alone.
   const tab = (active: boolean, patch: Partial<ViewState>) => ({
-    href: `./${writeState({ ...state, query, paper: null, ...patch })}`,
+    href: `./${writeState({ ...state, query, paper: null, focus: null, ...patch })}`,
     "aria-current": active ? ("page" as const) : undefined,
     onClick: (event: MouseEvent) => {
       if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
@@ -404,6 +405,8 @@ export function App() {
         <GraphView
           papers={graphPapers}
           citations={citations.counts}
+          focus={state.focus}
+          onFocus={(focus) => update({ focus })}
           notice={
             load.status === "loading"
               ? "Loading papers…"

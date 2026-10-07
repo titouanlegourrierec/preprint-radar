@@ -1165,6 +1165,34 @@ html {
   padding-left: 18px;
 }
 
+.graph__shared {
+  margin: 4px 0 6px;
+  padding-left: 16px;
+  font-size: 0.8rem;
+}
+
+.graph__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.graph__focus {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  z-index: 4;
+  max-width: min(36em, calc(100% - 24px));
+  margin: 0;
+  padding: 6px 12px;
+  transform: translateX(-50%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  font-size: 0.85rem;
+}
+
 .graph__papers li,
 .graph__connections li {
   margin-bottom: 4px;

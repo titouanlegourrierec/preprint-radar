@@ -21,6 +21,12 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   papers of the last 60 days: filtered on one, the list links it, for a feed reader
   (§17.1 #6).
 
+### Graph
+
+- Each connection of a node lists the papers they share ("what did MIT and Google write
+  together"), "Focus on this" shows the graph of a node's papers alone, with a link to
+  share it, and the graph saves as PNG or GraphML for Gephi (§17.1 #8).
+
 ### Citations
 
 - Rising papers: each card says what it gained in the last week ("+12 this week"), and

@@ -74,6 +74,9 @@ interface Props {
   playing: boolean;
   onReplay: () => void;
   onReheat: () => void;
+  /** Save the graph as drawn, or its nodes and links for Gephi (§17.1 #8). */
+  onExportPng: () => void;
+  onExportGraphML: () => void;
   onFit: () => void;
   onReset: () => void;
   /** Whether any shown node has citations (sizing by citations then shows something). */
@@ -411,6 +414,22 @@ export function GraphSettingsPanel(props: Props) {
             </button>
             <button type="button" title="Back to default settings" onClick={props.onReset}>
               Reset
+            </button>
+          </div>
+          <div class="graph-settings__buttons">
+            <button
+              type="button"
+              title="Save the graph as drawn, for slides"
+              onClick={props.onExportPng}
+            >
+              PNG
+            </button>
+            <button
+              type="button"
+              title="Save its nodes and links, for Gephi, Cytoscape or NetworkX"
+              onClick={props.onExportGraphML}
+            >
+              GraphML
             </button>
           </div>
         </div>

@@ -238,6 +238,22 @@ export class GraphRenderer {
   private readonly reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   private readonly cleanups: (() => void)[] = [];
 
+  /**
+   * The graph as drawn, as a PNG on the page's background (the canvas itself is
+   * transparent), for slides (§17.1 #8). `null` if the browser refuses.
+   */
+  toPng(): Promise<Blob | null> {
+    const image = document.createElement("canvas");
+    image.width = this.canvas.width;
+    image.height = this.canvas.height;
+    const context = image.getContext("2d");
+    if (!context) return Promise.resolve(null);
+    context.fillStyle = getComputedStyle(document.documentElement).getPropertyValue("--bg").trim();
+    context.fillRect(0, 0, image.width, image.height);
+    context.drawImage(this.canvas, 0, 0);
+    return new Promise((resolve) => image.toBlob(resolve, "image/png"));
+  }
+
   constructor(canvas: HTMLCanvasElement, callbacks: RendererCallbacks, settings: RendererSettings) {
     const context = canvas.getContext("2d");
     if (!context) throw new Error("This browser cannot draw on a canvas.");

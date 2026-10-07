@@ -34,9 +34,14 @@ export function useUrlState() {
     return () => window.removeEventListener("popstate", onPopState);
   }, []);
 
-  // Any change drops the shared-paper anchor, like navigating away, unless the patch sets it.
+  // Any change drops the shared-paper anchor, like navigating away, unless the patch sets it;
+  // another view drops the graph's focus, which is the graph's alone.
   const update = useCallback(
-    (patch: Partial<ViewState>) => setState((current) => ({ ...current, paper: null, ...patch })),
+    (patch: Partial<ViewState>) =>
+      setState((current) => {
+        const next = { ...current, paper: null, ...patch };
+        return next.view === "graph" ? next : { ...next, focus: null };
+      }),
     [],
   );
   const setFilters = useCallback((filters: SearchFilters) => update({ filters }), [update]);

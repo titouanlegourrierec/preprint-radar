@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
+import { download, downloadBlob } from "../download";
 import { formatDay } from "../format";
 import {
   buildGraph,
@@ -7,9 +8,12 @@ import {
   isEntity,
   MAX_CLIQUE_AUTHORS,
   nodeMatches,
+  papersOfNode,
   replaySteps,
   severalPeople,
+  sharedPapers,
 } from "../graph";
+import { exportName, toGraphML } from "../graph-export";
 import { GraphRenderer } from "../graph-renderer";
 import { useMediaQuery } from "../hooks/use-media-query";
 import { isTyping } from "../keyboard";
@@ -74,11 +78,14 @@ interface Props {
   theme: "light" | "dark";
   /** Citation count of each paper, by arXiv id, when known. */
   citations: ReadonlyMap<string, number>;
+  /** The node focused on: the graph of its papers alone (§17.1 #8), `null` for all. */
+  focus: string | null;
+  onFocus: (id: string | null) => void;
 }
 
 /** Full-screen co-occurrence graph of the institutions and authors of the loaded papers. */
 export function GraphView(props: Props) {
-  const { papers, onShowPapers, onOpenPaper, theme, citations } = props;
+  const { papers, onShowPapers, onOpenPaper, theme, citations, focus, onFocus } = props;
   const [settings, setSettings] = useState<GraphSettings>(loadGraphSettings);
   const [panelOpen, setPanelOpen] = useState(() => window.matchMedia(WIDE_SCREEN).matches);
   const [highlight, setHighlight] = useState("");
@@ -86,6 +93,8 @@ export function GraphView(props: Props) {
   const [cutoff, setCutoff] = useState<number | null>(null);
   const [playing, setPlaying] = useState(false);
   const [introRead, setIntroRead] = useState(loadGraphIntroRead);
+  // The connection whose shared papers are listed in the details.
+  const [openConnection, setOpenConnection] = useState<string | null>(null);
 
   const changeSettings = (patch: Partial<GraphSettings>) =>
     setSettings((current) => {
@@ -94,11 +103,16 @@ export function GraphView(props: Props) {
       return next;
     });
 
+  // "Focus on this": the papers of one node alone, its ego network (§17.1 #8).
+  const focusedPapers = useMemo(
+    () => (focus ? papersOfNode(papers, focus) : papers),
+    [papers, focus],
+  );
   // Time-lapse: the announcement days of the papers (weeks or months for many), and the
   // last one shown.
   const days = useMemo(
-    () => replaySteps([...new Set(papers.map((paper) => paper.announced))].sort()),
-    [papers],
+    () => replaySteps([...new Set(focusedPapers.map((paper) => paper.announced))].sort()),
+    [focusedPapers],
   );
   // A new set of papers starts over with every day shown.
   useEffect(() => {
@@ -107,8 +121,11 @@ export function GraphView(props: Props) {
   }, [days]);
   const lastDay = cutoff === null ? undefined : days[cutoff];
   const shownPapers = useMemo(
-    () => (lastDay === undefined ? papers : papers.filter((paper) => paper.announced <= lastDay)),
-    [papers, lastDay],
+    () =>
+      lastDay === undefined
+        ? focusedPapers
+        : focusedPapers.filter((paper) => paper.announced <= lastDay),
+    [focusedPapers, lastDay],
   );
   useEffect(() => {
     if (!playing) return;
@@ -348,6 +365,16 @@ export function GraphView(props: Props) {
     Boolean,
   );
   const selectedEntity = selected && isEntity(selected) ? selected : null;
+  const focusLabel = focus
+    ? (nodesById.get(focus)?.label ?? focus.slice(focus.indexOf(":") + 1))
+    : null;
+  const fileName = exportName(new Date().toISOString().slice(0, 10), focus);
+  const exportGraphML = () =>
+    download(`${fileName}.graphml`, toGraphML(graph), "application/graphml+xml");
+  const exportPng = async () => {
+    const blob = await rendererRef.current?.toPng();
+    if (blob) downloadBlob(`${fileName}.png`, blob);
+  };
   const emptyMessage =
     props.notice ??
     (papers.length === 0
@@ -426,6 +453,19 @@ export function GraphView(props: Props) {
       </fieldset>
 
       {emptyMessage && <p class="graph__empty">{emptyMessage}</p>}
+
+      {focusLabel && (
+        <p class="graph__focus" role="status">
+          {focusLabel} and{" "}
+          {focusedPapers.length === 1
+            ? "its paper"
+            : `its ${plural(focusedPapers.length, "paper")}`}
+          , with their institutions and authors.{" "}
+          <button type="button" class="link-button" onClick={() => onFocus(null)}>
+            Show everything
+          </button>
+        </p>
+      )}
 
       {(selected || selectedPaper) && (
         <aside class="graph__details" aria-label="Details" ref={detailsRef} tabIndex={-1}>
@@ -509,21 +549,61 @@ export function GraphView(props: Props) {
                           >
                             {node.label}
                           </button>{" "}
-                          <span class="muted">
+                          <button
+                            type="button"
+                            class="link-button muted"
+                            aria-expanded={openConnection === node.id}
+                            title="The papers they share"
+                            onClick={() =>
+                              setOpenConnection(openConnection === node.id ? null : node.id)
+                            }
+                          >
                             {weight} shared paper{weight > 1 ? "s" : ""}
-                          </span>
+                          </button>
+                          {openConnection === node.id && (
+                            <ul class="graph__shared">
+                              {byCitationCount(sharedPapers(selectedEntity, node), citations).map(
+                                (id) => {
+                                  const paper = papersById.get(id);
+                                  return paper ? (
+                                    <li key={id}>
+                                      <a
+                                        href={paper.abs_url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                      >
+                                        {paper.title}
+                                      </a>
+                                    </li>
+                                  ) : null;
+                                },
+                              )}
+                            </ul>
+                          )}
                         </li>
                       ))}
                     </ul>
                   </>
                 )}
-                <button
-                  type="button"
-                  class="button"
-                  onClick={() => onShowPapers(selectedEntity.kind, selectedEntity.label)}
-                >
-                  Show all {selectedEntity.paperIds.length} papers
-                </button>
+                <div class="graph__actions">
+                  <button
+                    type="button"
+                    class="button"
+                    onClick={() => onShowPapers(selectedEntity.kind, selectedEntity.label)}
+                  >
+                    Show all {selectedEntity.paperIds.length} papers
+                  </button>
+                  {focus !== selectedEntity.id && (
+                    <button
+                      type="button"
+                      class="button"
+                      title="The graph of its papers alone: with whom it publishes"
+                      onClick={() => onFocus(selectedEntity.id)}
+                    >
+                      Focus on this
+                    </button>
+                  )}
+                </div>
               </>
             )
           )}
@@ -573,6 +653,8 @@ export function GraphView(props: Props) {
           setPlaying(!playing);
         }}
         onReheat={() => rendererRef.current?.reheat()}
+        onExportPng={exportPng}
+        onExportGraphML={exportGraphML}
         onFit={() => rendererRef.current?.fit()}
         onReset={() => changeSettings(DEFAULT_GRAPH_SETTINGS)}
       />

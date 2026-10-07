@@ -49,6 +49,12 @@ describe("url state", () => {
     expect(readState("?by=Hao+Li&author=hao").filters.author).toEqual(exactly("Hao Li"));
   });
 
+  it("round-trips the graph's focus", () => {
+    const state = { ...DEFAULT_STATE, view: "graph" as const, focus: "institution:mit" };
+    expect(writeState(state)).toBe("?view=graph&focus=institution%3Amit");
+    expect(readState(writeState(state))).toEqual(state);
+  });
+
   it("round-trips a paper permalink", () => {
     const state = {
       ...DEFAULT_STATE,

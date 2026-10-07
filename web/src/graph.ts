@@ -398,3 +398,33 @@ export function matchStatus(count: number, index: number | null, label: string |
   if (index === null) return `${matches}: Enter shows them one by one, Shift+Enter backwards`;
   return `${(index + 1).toLocaleString()} of ${matches}${label ? `: ${label}` : ""}`;
 }
+
+/** The papers two nodes share: what MIT and Google wrote together (§17.1 #8). */
+export function sharedPapers(a: GraphNode, b: GraphNode): string[] {
+  const other = new Set(b.paperIds);
+  return a.paperIds.filter((id) => other.has(id));
+}
+
+/**
+ * The papers of a node, by its id (`institution:<key>`, `author:<key>`, `paper:<id>`):
+ * the graph of these alone is the node's ego network, "Focus on this" (§17.1 #8), with
+ * whom an institution or an author publishes. Matched as {@link buildGraph} keys nodes, so
+ * that the node keeps all its papers.
+ */
+export function papersOfNode(papers: readonly Paper[], id: string): Paper[] {
+  const separator = id.indexOf(":");
+  const kind = id.slice(0, separator);
+  const key = id.slice(separator + 1);
+  switch (kind) {
+    case "paper":
+      return papers.filter((paper) => paper.arxiv_id === key);
+    case "institution":
+      return papers.filter((paper) =>
+        institutionsOf(paper).some((name) => name !== null && searchKey(name) === key),
+      );
+    case "author":
+      return papers.filter((paper) => paper.authors.some((author) => searchKey(author) === key));
+    default:
+      return [];
+  }
+}

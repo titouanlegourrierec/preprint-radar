@@ -7,7 +7,9 @@ import {
   MAX_REPLAY_STEPS,
   matchStatus,
   nodeMatches,
+  papersOfNode,
   replaySteps,
+  sharedPapers,
 } from "../src/graph";
 import { institutionsOf } from "../src/institutions";
 import { searchKey } from "../src/text";
@@ -434,5 +436,37 @@ describe("names that seem to be several people", () => {
     );
     expect(countPeople([profile([], []), profile([], [])])).toBe(2);
     expect(countPeople([])).toBe(0);
+  });
+});
+
+describe("a node's papers and its connections", () => {
+  const graph = buildGraph(papers, { ...INSTITUTIONS, authors: true });
+  const node = (id: string) => {
+    const found = graph.nodes.find((candidate) => candidate.id === id);
+    if (!found) throw new Error(`no node ${id}`);
+    return found;
+  };
+
+  it("are the papers two nodes share", () => {
+    expect(sharedPapers(node("institution:inria"), node("institution:google"))).toEqual(["1", "2"]);
+    expect(sharedPapers(node("author:bob"), node("institution:inria"))).toEqual(["1"]);
+    expect(sharedPapers(node("author:cyd"), node("institution:inria"))).toEqual([]);
+  });
+
+  it("are the papers of a node, as the graph keys it", () => {
+    const ids = (id: string) => papersOfNode(papers, id).map((paper) => paper.arxiv_id);
+    expect(ids("institution:inria")).toEqual(["1", "2"]);
+    expect(ids("author:ada")).toEqual(["1", "2"]);
+    expect(ids("paper:3")).toEqual(["3"]);
+    expect(ids("institution:nowhere")).toEqual([]);
+    expect(ids("venue:cvpr")).toEqual([]);
+    // Its ego network: the institutions and authors of its papers alone.
+    const ego = buildGraph(papersOfNode(papers, "author:bob"), { ...INSTITUTIONS, authors: true });
+    expect(ego.nodes.map((entry) => entry.id).sort()).toEqual([
+      "author:ada",
+      "author:bob",
+      "institution:google",
+      "institution:inria",
+    ]);
   });
 });

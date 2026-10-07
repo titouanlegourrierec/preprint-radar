@@ -24,6 +24,11 @@ export interface ViewState {
   paper: string | null;
   /** Year of the archive shown by the highly cited view (`null`: the latest). */
   year: number | null;
+  /**
+   * The graph node focused on (`?focus=institution:mit`): the graph of its papers alone,
+   * its ego network (§17.1 #8).
+   */
+  focus: string | null;
 }
 
 export const DEFAULT_STATE: ViewState = {
@@ -35,6 +40,7 @@ export const DEFAULT_STATE: ViewState = {
   filters: NO_FILTERS,
   paper: null,
   year: null,
+  focus: null,
 };
 
 /**
@@ -72,6 +78,7 @@ export function readState(search: string): ViewState {
     view: VIEWS.find((view) => view === params.get("view")) ?? DEFAULT_STATE.view,
     paper: params.get("paper"),
     year: /^\d{4}$/.test(params.get("year") ?? "") ? Number(params.get("year")) : null,
+    focus: params.get("focus"),
     filters: {
       excludeCrossLists: params.get("xl") === "0",
       withCode: params.get("code") === "1",
@@ -102,6 +109,7 @@ export function writeState(state: ViewState): string {
   set("view", state.view, DEFAULT_STATE.view);
   set("paper", state.paper);
   set("year", state.year === null ? null : String(state.year));
+  set("focus", state.focus);
   set("xl", state.filters.excludeCrossLists ? "0" : null);
   set("code", state.filters.withCode ? "1" : null);
   const { author, affiliation } = state.filters;

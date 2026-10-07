@@ -200,3 +200,15 @@ out of Highly cited (decision 18). Reading lists keep the flag.
 - Rankings (`rankings.ts`, `components/Rankings.tsx`): the institutions or authors of the
   papers shown, by papers or citations, named through `buildGraph` so that they match the
   graph.
+- What two nodes did together, and with whom one works (§17.1 #8): each of a node's
+  connections in the details lists their shared papers on a click (`sharedPapers`); "Focus
+  on this" shows the graph of the node's papers alone (`papersOfNode`, `?focus=
+  institution:<key>`, the node id), its institutions and authors as the settings show
+  them, with a bar that says so and goes back to everything. The focus is the graph's
+  alone: another view drops it (`use-url-state.ts`). A node's papers are its papers among
+  those loaded, matched as `buildGraph` keys nodes, which is simpler than a neighbourhood
+  in hops once papers are nodes too (an institution is two or three hops from another).
+- Export (the settings' PNG and GraphML buttons): the canvas as drawn on the page's
+  background (`GraphRenderer.toPng`), and the nodes (kind, name, papers, citations, ROR
+  id) and links (weight) of the graph shown for Gephi, Cytoscape or NetworkX
+  (`graph-export.ts`).
