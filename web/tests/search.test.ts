@@ -39,6 +39,7 @@ const papers = [
     arxiv_id: "2609.00003",
     title: "Robot Grasping with Vision",
     abstract: "Grasping objects using novel view synthesis priors.",
+    comments: "Code: https://github.com/example/grasping",
     affiliations: [],
   }),
 ];
@@ -114,6 +115,7 @@ describe("PaperIndex", () => {
     expect(ids("", { ...NO_FILTERS, affiliation: typed("NVIDIA") })).toEqual(["2609.00001"]);
     expect(ids("", { ...NO_FILTERS, author: exactly("Jane Doe") })).toEqual(["2609.00001"]);
     expect(ids("", { ...NO_FILTERS, subject: "Machine Learning (cs.LG)" })).toEqual(["2609.00002"]);
+    expect(ids("", { ...NO_FILTERS, withCode: true })).toEqual(["2609.00003"]);
   });
 
   it("filters by venue, or keeps every paper accepted somewhere", () => {

@@ -35,7 +35,7 @@ export function searchOf(saved: SavedSearch): SearchOf {
 
 /** "gaussian splatting · by Hao Li · at MIT · ECCV 2026". */
 export function searchName({ query, filters }: SearchOf): string {
-  const { author, affiliation, venue, subject, excludeCrossLists } = filters;
+  const { author, affiliation, venue, subject, excludeCrossLists, withCode } = filters;
   return [
     query.trim(),
     author && `by ${author.text}`,
@@ -43,6 +43,7 @@ export function searchName({ query, filters }: SearchOf): string {
     venue && (venue === "*" ? "any venue" : venue),
     subject,
     excludeCrossLists && "no cross-lists",
+    withCode && "with code",
   ]
     .filter(Boolean)
     .join(" · ");

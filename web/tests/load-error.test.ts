@@ -21,7 +21,8 @@ describe("activeFilterCount", () => {
         author: exactly("Ada"),
         affiliation: typed("  "),
         venue: "*",
+        withCode: true,
       }),
-    ).toBe(2);
+    ).toBe(3);
   });
 });

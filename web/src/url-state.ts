@@ -74,6 +74,7 @@ export function readState(search: string): ViewState {
     year: /^\d{4}$/.test(params.get("year") ?? "") ? Number(params.get("year")) : null,
     filters: {
       excludeCrossLists: params.get("xl") === "0",
+      withCode: params.get("code") === "1",
       author: readName(params, "by", "author"),
       affiliation: readName(params, "at", "aff"),
       subject: params.get("subject"),
@@ -102,6 +103,7 @@ export function writeState(state: ViewState): string {
   set("paper", state.paper);
   set("year", state.year === null ? null : String(state.year));
   set("xl", state.filters.excludeCrossLists ? "0" : null);
+  set("code", state.filters.withCode ? "1" : null);
   const { author, affiliation } = state.filters;
   set(author?.exact ? "by" : "author", author?.text ?? null);
   set(affiliation?.exact ? "at" : "aff", affiliation?.text ?? null);

@@ -1,4 +1,5 @@
 import MiniSearch, { type SearchResult as MiniSearchResult, type Options } from "minisearch";
+import { codeUrl } from "./code";
 import { wholeWord } from "./highlight";
 import { acronymOf, namedInstitutions } from "./institutions";
 import { fold, searchKey } from "./text";
@@ -21,6 +22,8 @@ export interface NameFilter {
 
 export interface SearchFilters {
   excludeCrossLists: boolean;
+  /** Papers that link their code (`codeUrl`). */
+  withCode: boolean;
   author: NameFilter | null;
   affiliation: NameFilter | null;
   subject: string | null;
@@ -43,6 +46,7 @@ export function exactly(text: string): NameFilter {
 
 export const NO_FILTERS: SearchFilters = {
   excludeCrossLists: false,
+  withCode: false,
   author: null,
   affiliation: null,
   subject: null,
@@ -327,6 +331,7 @@ export function activeFilterCount(filters: SearchFilters): number {
     filters.venue !== null,
     filters.subject !== null,
     filters.excludeCrossLists,
+    filters.withCode,
   ].filter(Boolean).length;
 }
 
@@ -397,6 +402,7 @@ function matchesAffiliation(paper: Paper, filter: NameFilter): boolean {
 export function matchesFilters(paper: Paper, filters: SearchFilters): boolean {
   return (
     !(filters.excludeCrossLists && paper.cross_list_from !== null) &&
+    (!filters.withCode || codeUrl(paper) !== null) &&
     (!isActive(filters.author) || matchesAuthor(paper, filters.author)) &&
     // Institutions are only named when an affiliation filter needs them.
     (!isActive(filters.affiliation) || matchesAffiliation(paper, filters.affiliation)) &&

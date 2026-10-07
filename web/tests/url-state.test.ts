@@ -24,6 +24,7 @@ describe("url state", () => {
       view: "reading-list" as const,
       filters: {
         excludeCrossLists: true,
+        withCode: true,
         author: typed("Ada"),
         affiliation: exactly("MIT"),
         subject: null,

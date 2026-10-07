@@ -42,9 +42,10 @@ describe("saved searches", () => {
           venue: "*",
           subject: "Robotics (cs.RO)",
           excludeCrossLists: true,
+          withCode: true,
         },
       }),
-    ).toBe("any venue · Robotics (cs.RO) · no cross-lists");
+    ).toBe("any venue · Robotics (cs.RO) · no cross-lists · with code");
   });
 
   it("read only what is a search, once", () => {

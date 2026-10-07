@@ -6,6 +6,11 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ## Unreleased
 
+### Search
+
+- "With code" keeps the papers that link their code, about one in five: a repository on
+  GitHub or GitLab, else models or data on Hugging Face, which their card links (PROD-12).
+
 ## 0.6.0 (2026-10-07): institutions and authors named by the pipeline
 
 The first release of Phase 4, which goes on without a fixed end: decisions 12, 13 and 17.

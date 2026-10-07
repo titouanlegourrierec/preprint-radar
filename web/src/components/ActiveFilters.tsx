@@ -26,6 +26,7 @@ export function ActiveFilters({ filters, onFilters }: Props) {
   if (filters.subject !== null) chips.push([filters.subject, { ...filters, subject: null }]);
   if (filters.excludeCrossLists)
     chips.push(["no cross-lists", { ...filters, excludeCrossLists: false }]);
+  if (filters.withCode) chips.push(["with code", { ...filters, withCode: false }]);
   if (chips.length === 0) return null;
 
   return (

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "preact/hooks";
 import { toBibtex } from "../bibtex";
+import { codeUrl } from "../code";
 import { daysSince, formatDay, subjectCode } from "../format";
 import { highlight } from "../highlight";
 import { institutionsOf } from "../institutions";
@@ -97,6 +98,7 @@ export function PaperCard({
     ? allAffiliations
     : allAffiliations.slice(0, MAX_AFFILIATIONS_COLLAPSED);
   const hasDetails = Boolean(paper.abstract || paper.comments);
+  const code = codeUrl(paper);
   // A recent paper has no citations yet: "0 citations" on nearly every card says nothing.
   const shownCitations =
     citations !== undefined && (citations > 0 || daysSince(paper.announced) >= YOUNG_DAYS)
@@ -266,6 +268,17 @@ export function PaperCard({
               rel="noopener noreferrer"
             >
               DOI
+            </a>
+          )}
+          {code && (
+            <a
+              aria-describedby={titleId}
+              href={code}
+              title={code}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Code
             </a>
           )}
           <button type="button" aria-describedby={titleId} class="link-button" onClick={copyBibtex}>

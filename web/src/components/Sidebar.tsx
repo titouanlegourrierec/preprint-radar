@@ -203,6 +203,15 @@ export function Sidebar(props: Props) {
             Hide cross-lists
           </label>
 
+          <label class="toggle">
+            <input
+              type="checkbox"
+              checked={filters.withCode}
+              onChange={(event) => onFilters({ ...filters, withCode: event.currentTarget.checked })}
+            />
+            With code
+          </label>
+
           {(props.subjects.length > 1 || filters.subject) && (
             <label class="field">
               <span>Primary subject</span>

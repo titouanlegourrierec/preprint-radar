@@ -221,7 +221,14 @@ exist.
 
 | ID | Item | Priority | Status |
 |---|---|---|---|
-| §17.1 | Card link-outs, institution and venue feeds, rising papers, graph ego networks and export | — | todo |
+| §17.1 | The audit's features worth building, item by item below; #1 to #3 were done in Phase 2 (PROD-2, PROD-3, PROD-5 and PROD-9) | — | in progress |
+| PROD-12 | "With code" (§17.1 #4): papers whose abstract or comments link a repository on GitHub or GitLab, else models or data on Hugging Face (918 of 4,832, as the audit's 19%), and a Code link on their card | P2 | done |
+| SRCH-11 | Link-outs (§17.1 #5): an unfolded card links the paper on Semantic Scholar, Connected Papers and alphaXiv, each address opened by hand; Hugging Face left out, its page being a 404 for 11 of 12 recent papers | P2 | todo |
+| §17.1 #6 | Atom feeds per institution and per major venue, built with the site | — | todo |
+| PROD-11, CIT-9 | The most cited papers of the last 12 months, and those rising this week (§17.1 #7) | P2, P3 | todo |
+| §17.1 #8 | Graph: the papers a link stands for, a node's ego network, PNG and GraphML export | — | todo |
+| SRCH-15 | Venue families, "any CVPR" (§17.1 #9) | P3 | todo |
+| §17.1 #10 | Per-entity timelines in Rankings, once 12 months of data exist | — | todo |
 | AFF-13, ARCH-3 | Institution canonicalization in the pipeline (decision 12): the site's rules ported to `institutions.py` (the same name for all 37,789 stored affiliations), ROR first then the rules, registry names made canonical, the archive's too; `make institutions-again`; the site displays only, keeping its acronyms for search | P2 | done |
 | AFF-H | Author identity (decision 13): Semantic Scholar's author ids, each kept only where its name is the arXiv author's, merged into the site's records; authors stay keyed by name, since Semantic Scholar has several profiles for most prolific authors (Luc Van Gool three), and a name whose profiles share no institution or co-author says it is perhaps several people (2026-10-07) | P2 | done |
 | ARCH-2 | Enrichment step interface | P2 | todo |

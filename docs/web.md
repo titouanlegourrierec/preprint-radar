@@ -38,6 +38,10 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   7-paper profile sharing nothing with the other.
 - The list sorts by relevance, newest or citations (`?sort=citations`: the index orders
   them like newest and `byCitations` ranks them).
+- "With code" (`?code=1`, PROD-12) keeps the papers whose abstract or comments link a
+  repository on GitHub or GitLab, else models or data on Hugging Face (`code.ts`), which
+  their card links: 918 of 4,832 stored papers, nearly all "Code is available at". A
+  project page (`*.github.io`) or a user's page is not code.
 
 ## URLs and history (`url-state.ts`)
 
