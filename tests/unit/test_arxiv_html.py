@@ -798,11 +798,13 @@ def test_parse_abstract(paper_html: PaperHtml) -> None:
     assert "\n" not in abstract
 
 
-def test_parse_abstract_renders_math_as_latex(paper_html: PaperHtml) -> None:
+def test_parse_abstract_renders_math_as_text(paper_html: PaperHtml) -> None:
+    # MathML becomes the inline LaTeX of arXiv's metadata, which reads as text (SRCH-19).
     abstract = parse_front_matter(paper_html("2609.23431")).abstract
 
     assert abstract is not None
-    assert "$K$" in abstract
+    assert "top-K" in abstract
+    assert "$" not in abstract
 
 
 def test_missing_front_matter(paper_html: PaperHtml) -> None:

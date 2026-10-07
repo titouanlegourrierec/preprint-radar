@@ -18,6 +18,7 @@ from bs4 import BeautifulSoup, NavigableString, Tag
 
 from preprint_radar.exceptions import NotFoundError
 from preprint_radar.http import HttpClient
+from preprint_radar.latex import plain_text
 
 logger = logging.getLogger(__name__)
 
@@ -429,10 +430,10 @@ def _abstract(soup: BeautifulSoup) -> str | None:
         return None
     for title in node.select(".ltx_title"):
         title.decompose()
-    # Render MathML the way arXiv metadata does, as inline LaTeX.
+    # Render MathML the way arXiv metadata does, as inline LaTeX, then as plain text.
     for math in node.select("math[alttext]"):
         math.replace_with(f"${math['alttext']}$")
-    return " ".join(node.get_text().split()) or None
+    return plain_text(node.get_text()) or None
 
 
 def _affiliations(soup: BeautifulSoup, authors: Sequence[str]) -> tuple[tuple[str, ...], bool]:

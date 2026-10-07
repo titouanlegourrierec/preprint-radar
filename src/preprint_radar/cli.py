@@ -444,9 +444,9 @@ def _add_venues_parser(subparsers: "argparse._SubParsersAction[argparse.Argument
         "venues",
         help="detect the venues of the stored papers again with the current rules",
         description=(
-            "Detect the venue of every stored paper again, from its comments and journal "
-            "reference, after a change to the detection: day files and archive alike. "
-            "Nothing is fetched."
+            "Detect the venue and withdrawal of every stored paper again, from its comments "
+            "and journal reference, and make its abstract plain text again, after a change to "
+            "these rules: day files and archive alike. Nothing is fetched."
         ),
     )
     venues.add_argument(
@@ -1020,7 +1020,7 @@ def _run_venues(args: argparse.Namespace) -> int:
         written = f"{report.days} day files" + (" and the archive" if report.archive else "")
         console.print(
             f"{category}: {report.changed} of {report.papers} papers changed, in {written}; "
-            f"venues {report.before} -> {report.after}"
+            f"venues {report.before} -> {report.after}, {report.abstracts} abstracts made plain"
         )
     return 0
 

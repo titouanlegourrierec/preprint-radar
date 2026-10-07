@@ -6,6 +6,12 @@ between. Item IDs (`DATA-2`, `CIT-11`…) refer to the audit of 2026-09-30
 
 ## Unreleased
 
+### Search
+
+- Abstracts read as text: "\textbf{GestureFAR}" is "GestureFAR", "\url{...}" its address,
+  "$\sim$18--20\%" is "~18–20%", and citations go; the search no longer matches "textbf"
+  for "text" (SRCH-19, decision 17).
+
 ### Fixes
 
 - Affiliations read better (extraction version 7): a sentence that ends with its authors'

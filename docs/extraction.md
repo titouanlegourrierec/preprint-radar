@@ -1,7 +1,7 @@
-# Affiliations and venues: how they are extracted
+# Affiliations, venues and abstracts: how they are extracted
 
 The rules behind `sources/arxiv_html.py` (affiliations and who is where), `venue.py` (the
-venue of a paper) and their offline re-runs. Every rule here was added for a real page;
+venue of a paper), `latex.py` (abstracts as plain text) and their offline re-runs. Every rule here was added for a real page;
 the arXiv identifiers are the evidence. Read this before changing the extraction, and do
 not "simplify" a rule away without the page that made it.
 
@@ -234,3 +234,20 @@ year ("NeurIPS").
 
 On the site, the comments' venue wins where both exist: Semantic Scholar takes papers of
 ICIP for the Information Photonics conference.
+
+## Abstracts (`latex.py`)
+
+arXiv abstracts are LaTeX, and every source gives them so (RSS, catchup pages, the API, the
+HTML page's MathML as inline LaTeX, the catalog): `latex.plain_text` makes them plain text
+where they are read, and `make venues` on the stored papers. Before it, 2,493 of 27,001
+abstracts held a macro, and the search matched "textbf" for "text" (SRCH-19, decision 17).
+
+- Text macros give their argument (`\textbf`, `\emph`, `{\em ...}`, `\underline`), `\url` its
+  address, `\href` what it shows and, when that is not an address, where it leads; citations
+  and labels go, with the space before them; a footnote goes in brackets.
+- Math symbols give their character (`\times`, `\pm`, `\le`, Greek letters, `^\circ`), accents
+  their letter (`B$\acute{\rm e}$zier`, `Schr\"odinger`), and `18--20` an en dash. A formula
+  left with text only loses its dollars (`$\sim$18%` is "~18%"); one that still holds markup
+  keeps them (`$S^2\times S^1$`). Math is not rendered.
+- A paper's own macros (`\method`, `\ours`) stay as written: nothing says what they stand for.
+  About 240 abstracts keep a backslash so, or in a formula.

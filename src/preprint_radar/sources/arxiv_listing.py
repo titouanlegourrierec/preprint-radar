@@ -16,6 +16,7 @@ from bs4 import BeautifulSoup, Tag
 
 from preprint_radar.exceptions import ParseError
 from preprint_radar.http import HttpClient
+from preprint_radar.latex import plain_text
 from preprint_radar.models import ARXIV_BASE_URL, Listing, Paper
 from preprint_radar.venue import extract_venue
 from preprint_radar.withdrawal import is_withdrawn
@@ -254,7 +255,7 @@ def _parse_entry(term: Tag, detail: Tag, announced: date) -> Paper:
         withdrawn=is_withdrawn(comments),
         cross_list_from=cross_list.group(1) if cross_list else None,
         html_url=str(html_link["href"]) if html_link else None,
-        abstract=abstract,
+        abstract=plain_text(abstract) if abstract else None,
     )
 
 

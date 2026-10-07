@@ -6,7 +6,8 @@ them. It is deployed on GitHub Pages; there is no server.
 
 ## Read before changing
 
-- `sources/arxiv_html.py`, `venue.py`, the cleaning or the author mapping: `docs/extraction.md`.
+- `sources/arxiv_html.py`, `venue.py`, `latex.py`, the cleaning or the author mapping:
+  `docs/extraction.md`.
   Every rule there came from a real page; never "simplify" one away.
 - `archive/`, `sources/semantic_scholar.py`, `sources/openalex.py`, `sources/arxiv_oai.py`:
   `docs/archive.md`.
@@ -60,7 +61,8 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   - `make reclean`: today's affiliation cleaning on the stored day files (strings cleaned
     and split, author names dropped, the mapping follows, changed papers lose their
     institutions: run `make institutions` after). Never the archive (OpenAlex names).
-  - `make venues`: today's venue detection on every stored paper, archive included.
+  - `make venues`: today's venue and withdrawal detection, and the abstracts' LaTeX made
+    plain text (`latex.plain_text`), on every stored paper, archive included.
 - Reports:
   - `make validate`: `data/` against its contract (`store/validate.py`, 2 s). Errors fail
     it: a record that does not load, a paper stored twice, a file named after another day
@@ -173,6 +175,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
 - A paper is stored once, on the first day it was announced: a cross-list is sometimes
   announced again days later (2609.10714), and `PaperStore.save` keeps it on its earlier
   day, or moves it there.
+- `abstract` is plain text: arXiv's LaTeX is made plain where it is read (`latex.plain_text`,
+  SRCH-19, decision 17): text macros give their argument, links their address, math
+  symbols their character; a formula still holding markup keeps its dollars.
 - `affiliations` are per paper, deduplicated, and never contain e-mails or URLs.
 - `author_affiliations` (optional) maps each author to indices into `affiliations`; `null`
   per author or altogether means "the page does not say". It is positional: `Paper`

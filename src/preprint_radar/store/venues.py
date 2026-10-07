@@ -1,13 +1,15 @@
 """Detect the venues of the stored papers again with today's rules, without fetching anything.
 
 The venue is detected once, when a paper is first stored, from its comments and journal
-reference (``venue.extract_venue``). After a change to the detection, ``venues`` applies
-it to the stored papers, the archive's included: their comments come from arXiv's catalog
-as the day files' come from the listing.
+reference (``venue.extract_venue``), and so is a withdrawal; the abstract is made plain
+text once, when it is read (``latex.plain_text``). After a change to any of these rules,
+``venues`` applies it to the stored papers, the archive's included: their comments and
+abstracts come from arXiv's catalog as the day files' come from the listing.
 """
 
 from dataclasses import dataclass, replace
 
+from preprint_radar.latex import plain_text
 from preprint_radar.models import Paper
 from preprint_radar.store.paper_store import PaperStore
 from preprint_radar.venue import extract_venue
@@ -26,6 +28,7 @@ class VenuesReport:
         changed: Papers whose venue changed (found, lost or another one).
         days: Day files written again.
         archive: Whether the archive was written again.
+        abstracts: Papers whose abstract today's LaTeX rules change.
     """
 
     category: str
@@ -35,6 +38,7 @@ class VenuesReport:
     changed: int
     days: int
     archive: bool
+    abstracts: int = 0
 
 
 def detect_venues_again(store: PaperStore, category: str) -> VenuesReport:
@@ -50,12 +54,13 @@ def detect_venues_again(store: PaperStore, category: str) -> VenuesReport:
     Returns:
         What was looked at and changed.
     """
-    papers = before = after = changed = days = 0
+    papers = before = after = changed = days = abstracts = 0
     for day in store.days(category):
         stored = store.load_day(category, day)
         detected = [_with_venue(paper) for paper in stored]
         updated = [new for old, new in zip(stored, detected, strict=True) if new != old]
         papers += len(stored)
+        abstracts += sum(new.abstract != old.abstract for old, new in zip(stored, detected, strict=True))
         before += sum(paper.venue is not None for paper in stored)
         after += sum(paper.venue is not None for paper in detected)
         if updated:
@@ -75,12 +80,15 @@ def detect_venues_again(store: PaperStore, category: str) -> VenuesReport:
         changed=changed + archive_changed,
         days=days,
         archive=archive_changed > 0,
+        abstracts=abstracts
+        + sum(new.abstract != old.abstract for old, new in zip(archived, detected, strict=True)),
     )
 
 
 def _with_venue(paper: Paper) -> Paper:
     venue = extract_venue(paper.comments, paper.journal_ref)
     withdrawn = is_withdrawn(paper.comments)
-    if (venue, withdrawn) == (paper.venue, paper.withdrawn):
+    abstract = plain_text(paper.abstract) if paper.abstract else paper.abstract
+    if (venue, withdrawn, abstract) == (paper.venue, paper.withdrawn, paper.abstract):
         return paper
-    return replace(paper, venue=venue, withdrawn=withdrawn)
+    return replace(paper, venue=venue, withdrawn=withdrawn, abstract=abstract)

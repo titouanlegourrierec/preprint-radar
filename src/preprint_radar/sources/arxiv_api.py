@@ -12,6 +12,7 @@ from defusedxml import ElementTree
 
 from preprint_radar.exceptions import FetchError, ParseError
 from preprint_radar.http import HttpClient
+from preprint_radar.latex import plain_text
 from preprint_radar.sources.arxiv_html import clean_affiliations
 
 logger = logging.getLogger(__name__)
@@ -105,7 +106,7 @@ def _parse_entry(entry: Element, arxiv_id: str) -> ApiMetadata:
 
     return ApiMetadata(
         arxiv_id=arxiv_id,
-        abstract=_normalize(_text(entry, "atom:summary")),
+        abstract=plain_text(_text(entry, "atom:summary")),
         affiliations=tuple(affiliations),
     )
 
@@ -113,7 +114,3 @@ def _parse_entry(entry: Element, arxiv_id: str) -> ApiMetadata:
 def _text(element: Element, path: str) -> str:
     node = element.find(path, _NAMESPACES)
     return node.text or "" if node is not None else ""
-
-
-def _normalize(text: str) -> str:
-    return " ".join(text.split())

@@ -13,6 +13,7 @@ from defusedxml import ElementTree
 
 from preprint_radar.exceptions import ParseError
 from preprint_radar.http import HttpClient
+from preprint_radar.latex import plain_text
 
 logger = logging.getLogger(__name__)
 
@@ -72,4 +73,4 @@ def _parse_item(item: Element) -> tuple[str, str] | None:
     if link is None or abstract is None:
         logger.debug("Skipping unexpected RSS item: %s", item.findtext("title"))
         return None
-    return link.group("id"), " ".join(abstract.group("abstract").split())
+    return link.group("id"), plain_text(abstract.group("abstract"))

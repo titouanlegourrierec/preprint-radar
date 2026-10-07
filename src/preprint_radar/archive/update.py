@@ -42,6 +42,7 @@ from preprint_radar.config import (
     RECENT_DAYS,
 )
 from preprint_radar.http import HttpClient
+from preprint_radar.latex import plain_text
 from preprint_radar.models import Paper, Provenance
 from preprint_radar.sources.arxiv_oai import CatalogEntry
 from preprint_radar.sources.openalex import fetch_affiliations
@@ -311,7 +312,7 @@ def paper_from_catalog(entry: CatalogEntry, category: str, subjects: Mapping[str
         venue=extract_venue(entry.comments, entry.journal_ref),
         withdrawn=is_withdrawn(entry.comments),
         cross_list_from=None if primary == category else primary,
-        abstract=entry.abstract,
+        abstract=plain_text(entry.abstract) if entry.abstract else None,
     )
 
 

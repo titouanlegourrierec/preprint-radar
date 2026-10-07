@@ -69,8 +69,8 @@ def test_cli_reports_each_category(tmp_path: Path, capsys: pytest.CaptureFixture
     assert main(["venues", "--data-dir", str(tmp_path / "data")]) == 0
 
     assert (
-        "cs.CV: 2 of 4 papers changed, in 1 day files and the archive; venues 3 -> 2"
-        in capsys.readouterr().out
+        "cs.CV: 2 of 4 papers changed, in 1 day files and the archive; venues 3 -> 2, "
+        "0 abstracts made plain" in capsys.readouterr().out
     )
 
 
@@ -85,3 +85,16 @@ def test_marks_the_papers_their_comments_say_were_withdrawn(tmp_path: Path) -> N
 
     [paper] = store.iter_papers("cs.CV")
     assert paper.withdrawn
+
+
+def test_makes_the_abstracts_plain_text(tmp_path: Path) -> None:
+    store = PaperStore(tmp_path / "data")
+    paper = replace(_paper("2609.00005", date(2026, 9, 24), None, None), abstract=r"we propose \textbf{X}")
+    store.save("cs.CV", [paper])
+    store.write_archive("cs.CV", [replace(paper, arxiv_id="1511.00002", announced=date(2015, 11, 2))])
+
+    report = detect_venues_again(store, "cs.CV")
+
+    assert (report.changed, report.abstracts) == (2, 2)
+    assert {paper.abstract for paper in store.iter_papers("cs.CV")} == {"we propose X"}
+    assert {paper.abstract for paper in store.iter_archive("cs.CV")} == {"we propose X"}
