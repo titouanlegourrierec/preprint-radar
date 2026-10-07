@@ -154,7 +154,10 @@ repository secret; a run that fails or is cancelled resumes from the counts it f
 The site is public, and so is all of `data/`, which it serves: GitHub Pages publishes a
 site to anyone even from a private repository (only GitHub Enterprise Cloud can restrict
 it to members). A fork that deploys it republishes the data, authors and affiliations
-included, under its own address.
+included, under its own address. A GitHub fork never runs the data workflows on
+schedule, so that turning its Actions on does not crawl arXiv daily: only runs started by
+hand or dispatched (step 6) go on. For daily runs on schedule, push a copy instead
+(step 1).
 
 1. Push the repository to GitHub.
 2. In *Settings → Pages*, set *Source* to **GitHub Actions**.

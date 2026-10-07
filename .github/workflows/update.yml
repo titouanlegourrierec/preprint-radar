@@ -24,7 +24,8 @@ concurrency:
 
 jobs:
   # A scheduled run is the fallback of the outside scheduler's dispatch: it stops when a
-  # run of the day already succeeded (.github/scripts/skip-if-done.sh).
+  # run of the day already succeeded, and always in a fork (.github/scripts/skip-if-done.sh).
+  # No `if:` on this job: skipped, it leaves `run` empty, which the next job reads as go.
   guard:
     runs-on: ubuntu-latest
     timeout-minutes: 5

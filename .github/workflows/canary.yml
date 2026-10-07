@@ -11,8 +11,12 @@ on:
 permissions:
   contents: read
 
+# Neither job runs on schedule when the event says the repository is a fork, only by hand:
+# a fork that turns Actions on must not crawl arXiv weekly (CI-11), as the data workflows'
+# guard stops their schedules (.github/scripts/skip-if-done.sh).
 jobs:
   canary:
+    if: github.event_name != 'schedule' || !github.event.repository.fork
     runs-on: ubuntu-latest
     # About ten pages at arxiv.org's 15 s crawl delay.
     timeout-minutes: 20
@@ -27,6 +31,7 @@ jobs:
       - run: uv run pytest -m network
 
   repository-size:
+    if: github.event_name != 'schedule' || !github.event.repository.fork
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:

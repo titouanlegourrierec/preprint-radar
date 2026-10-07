@@ -44,7 +44,10 @@ one into both jobs.
 A dispatched run always goes on. A scheduled one first runs the `guard` job
 (`.github/scripts/skip-if-done.sh`), which stops it once a run of the same workflow has
 succeeded that day (UTC), so a normal day has one run, and a failed or missing dispatch
-is retried by the fallback.
+is retried by the fallback. In a fork, the guard stops every scheduled run (a notice
+`Fork`), so a fork that turns Actions on collects data only when its owner runs or
+dispatches a workflow; the *arXiv canary* skips its jobs on schedule when the event says
+the repository is a fork.
 
 ### A scheduled run stopped at once
 
