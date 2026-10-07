@@ -234,7 +234,9 @@ out of Highly cited (decision 18). Reading lists keep the flag.
 - `components/GraphView.tsx` holds the graph's state (settings, selection, focus, time-lapse)
   and drives the renderer; `GraphDetails` shows the node selected and its connections
   (`nodeConnections`, `linkPapers`), `GraphLegend` what is drawn, `GraphSettingsPanel` the
-  settings (DEBT-3).
+  settings (DEBT-3). The settings' note under the search gives the share of the papers
+  shown whose affiliations are known, with the caveat below half, as Rankings does
+  (`affiliationCoverage`, PROD-16).
 - `graph-layout.ts` gives starting positions (each connected component in one piece, on a
   spiral); `graph-renderer.ts` draws on a canvas and handles the pointer (an imperative
   class); `components/GraphView.tsx` and the components above are the UI. It is full
@@ -280,7 +282,10 @@ out of Highly cited (decision 18). Reading lists keep the flag.
   component is big, else its repulsion keeps them in a ring far around it.
 - Rankings (`rankings.ts`, `components/Rankings.tsx`): the institutions or authors of the
   papers shown, by papers or citations, named through `buildGraph` so that they match the
-  graph.
+  graph. Institutions rank on the papers with known affiliations, a minority in the
+  youngest archive years (16% of 2025): the note gives their share
+  (`format.affiliationCoverage`, "Affiliations known for 331 of 2,018 papers (16%)") and,
+  below half, says that recent years are still being filled in (PROD-16).
 - What two nodes did together, and with whom one works (§17.1 #8): each of a node's
   connections in the details lists the papers their link stands for on a click
   (`linkPapers`: every shared paper when papers are nodes, in the projection only those

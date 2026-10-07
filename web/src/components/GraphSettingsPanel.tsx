@@ -1,7 +1,7 @@
 import type { RefObject } from "preact";
 import { useState } from "preact/hooks";
 import type { YearRange } from "../archive-years";
-import { countOf, formatShortDay } from "../format";
+import { affiliationCoverage, formatShortDay } from "../format";
 import { type GraphNode, matchStatus } from "../graph";
 import type { Period } from "../period";
 import { authorLayer, type GraphSettings } from "../preferences";
@@ -274,8 +274,11 @@ export function GraphSettingsPanel(props: Props) {
               onInput={(event) => props.onQuery(event.currentTarget.value)}
             />
             <p class="graph-settings__note">
-              {props.query.trim() ? `${countOf(props.paperCount, "matching paper")}, ` : ""}
-              {props.affiliatedCount.toLocaleString()} with affiliations
+              {`${affiliationCoverage(
+                props.affiliatedCount,
+                props.paperCount,
+                props.query.trim() ? "matching paper" : "paper",
+              )}.`}
             </p>
           </fieldset>
 

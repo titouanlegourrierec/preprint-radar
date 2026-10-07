@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  affiliationCoverage,
   citationsNote,
   countOf,
   formatDay,
@@ -23,6 +24,41 @@ describe("citationsNote", () => {
     expect(citationsNote("Semantic Scholar", "2026-09-10T05:41:00+00:00", today)).toMatch(
       / \(21 days ago: they may be out of date\)$/,
     );
+  });
+});
+
+describe("affiliationCoverage", () => {
+  const caveat = ": affiliations of recent years are still being filled in";
+
+  it("gives the share of papers with known affiliations, and the caveat below half", () => {
+    expect(affiliationCoverage(331, 2018)).toBe(
+      `Affiliations known for 331 of ${(2018).toLocaleString()} papers (16%)${caveat}`,
+    );
+    expect(affiliationCoverage(1633, 3407)).toBe(
+      `Affiliations known for ${(1633).toLocaleString()} of ${(3407).toLocaleString()} papers (48%)${caveat}`,
+    );
+    expect(affiliationCoverage(3628, 4832)).toBe(
+      `Affiliations known for ${(3628).toLocaleString()} of ${(4832).toLocaleString()} papers (75%)`,
+    );
+  });
+
+  it("gives no caveat at exactly half", () => {
+    expect(affiliationCoverage(5, 10)).toBe("Affiliations known for 5 of 10 papers (50%)");
+    expect(affiliationCoverage(4, 9)).toBe(`Affiliations known for 4 of 9 papers (44%)${caveat}`);
+  });
+
+  it("never rounds a few to 0% nor nearly all to 100%", () => {
+    expect(affiliationCoverage(0, 3)).toBe(`Affiliations known for 0 of 3 papers (0%)${caveat}`);
+    expect(affiliationCoverage(1, 1000)).toMatch(/ \(<1%\): /);
+    expect(affiliationCoverage(999, 1000)).toMatch(/ \(>99%\)$/);
+    expect(affiliationCoverage(1, 1)).toBe("Affiliations known for 1 of 1 paper (100%)");
+  });
+
+  it("names the papers counted, and gives no share of none", () => {
+    expect(affiliationCoverage(2, 3, "matching paper")).toBe(
+      "Affiliations known for 2 of 3 matching papers (67%)",
+    );
+    expect(affiliationCoverage(0, 0)).toBe("Affiliations known for 0 of 0 papers");
   });
 });
 

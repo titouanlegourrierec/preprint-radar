@@ -26,6 +26,29 @@ export function seenHidden(count: number): { count: string; empty: string } {
   };
 }
 
+/**
+ * How many papers have known affiliations, for the notes of Rankings and the graph (PROD-16):
+ * "Affiliations known for 331 of 2,018 papers (16%)". Below half, it adds that recent years
+ * are still being filled in (the archive asks OpenAlex again every 30 days for papers under
+ * two years old), so that a ranking on a minority of papers is not read as the whole field.
+ */
+export function affiliationCoverage(affiliated: number, total: number, noun = "paper"): string {
+  const known = `Affiliations known for ${affiliated.toLocaleString()} of ${countOf(total, noun)}`;
+  if (total === 0) return known;
+  const share = `${known} (${percentOf(affiliated, total)})`;
+  return affiliated * 2 < total
+    ? `${share}: affiliations of recent years are still being filled in`
+    : share;
+}
+
+/** A share in whole percent, never 0% for a few nor 100% for nearly all: "16%", "<1%". */
+function percentOf(part: number, whole: number): string {
+  const percent = Math.round((part / whole) * 100);
+  if (percent === 0 && part > 0) return "<1%";
+  if (percent === 100 && part < whole) return ">99%";
+  return `${percent}%`;
+}
+
 /** Subject code from its full name, e.g. "Robotics (cs.RO)" -> "cs.RO". */
 export function subjectCode(subject: string): string {
   return /\(([^()]+)\)\s*$/.exec(subject)?.[1] ?? subject;

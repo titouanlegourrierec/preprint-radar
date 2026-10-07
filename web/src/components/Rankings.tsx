@@ -1,5 +1,5 @@
 import { useMemo, useState } from "preact/hooks";
-import { countOf } from "../format";
+import { affiliationCoverage, countOf } from "../format";
 import { type EntityKind, severalPeople } from "../graph";
 import { type RankingMetric, rankEntities } from "../rankings";
 import type { Paper } from "../types";
@@ -57,8 +57,8 @@ export function Rankings({ papers, citations, citationsNote, archived, onEntity 
       </div>
       <p class="muted rankings__note">
         {countOf(ranked.length, kind)} in{" "}
-        {papers.length === 1 ? "this paper" : `these ${countOf(papers.length, "paper")}`}
-        {kind === "institution" && ` (${affiliated.toLocaleString()} with known affiliations)`}.
+        {papers.length === 1 ? "this paper" : `these ${countOf(papers.length, "paper")}`}.{" "}
+        {kind === "institution" && `${affiliationCoverage(affiliated, papers.length)}. `}
         Citations are summed over their papers{archived ? "" : ": recent papers have few yet"}.
       </p>
       {ranked.length > 0 && (
