@@ -5,6 +5,7 @@ import {
   formatDay,
   formatShortDay,
   gainLabel,
+  seenHidden,
   subjectCode,
 } from "../src/format";
 
@@ -33,6 +34,19 @@ describe("countOf", () => {
     expect(countOf(10_000, "paper")).toBe(`${(10_000).toLocaleString()} papers`);
     expect(countOf(2, "person", "people")).toBe("2 people");
     expect(countOf(1, "person", "people")).toBe("1 person");
+  });
+});
+
+describe("seenHidden", () => {
+  it("counts the papers Hide seen leaves out, and says why a list is empty", () => {
+    expect(seenHidden(1)).toEqual({
+      count: "1 seen paper hidden",
+      empty: "The only paper here is marked seen.",
+    });
+    expect(seenHidden(12)).toEqual({
+      count: "12 seen papers hidden",
+      empty: "All 12 papers here are marked seen.",
+    });
   });
 });
 

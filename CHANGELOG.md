@@ -29,6 +29,8 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   reading list, keeps the papers loaded below it and gives the focus to the next one; it
   used to fold the list back to 40 papers and lose the keyboard's place. Late citation
   counts no longer fold it either (UX-23).
+- "Hide seen" says what it hides: "· 12 seen papers hidden" by the count, and "All 12
+  papers here are marked seen" with "Show seen papers" when nothing else is left (UX-26).
 
 ### Highly cited
 

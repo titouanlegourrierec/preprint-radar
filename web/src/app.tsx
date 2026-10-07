@@ -17,6 +17,7 @@ import {
   citationsNote as formatCitationsNote,
   formatDay,
   gainLabel,
+  seenHidden,
 } from "./format";
 import { useCitations } from "./hooks/use-citations";
 import { usePapers } from "./hooks/use-papers";
@@ -183,6 +184,8 @@ export function App() {
     () => (hiddenSeen ? found.filter(({ paper }) => !hiddenSeen.has(paper.arxiv_id)) : found),
     [found, hiddenSeen],
   );
+  // Papers that Hide seen leaves out, which the count and an empty list say.
+  const hiddenCount = found.length - shown.length;
   const rankingCounts = byCount ? citations.counts : null;
   const rankingGains = state.sort === "rising" ? citations.gains : null;
   const results: SearchResult[] = useMemo(() => {
@@ -562,7 +565,7 @@ export function App() {
                 : archived && load.status === "ready" && archiveRange !== null
                   ? `${results.length.toLocaleString()} of ${countOf(load.index.size, `highly cited ${category ?? ""} paper`)} first published ${publishedIn(archiveRange, archiveYears, archiveAsOf)}`
                   : load.status === "ready"
-                    ? `${results.length.toLocaleString()} of ${countOf(load.index.size, `${category ?? ""} paper`)}`
+                    ? `${results.length.toLocaleString()} of ${countOf(load.index.size, `${category ?? ""} paper`)}${hiddenCount > 0 ? ` · ${seenHidden(hiddenCount).count}` : ""}`
                     : load.status === "loading"
                       ? "Loading papers…"
                       : null}
@@ -857,7 +860,7 @@ export function App() {
                     )}
                   </p>
                 )}
-              {pastedId && results.length === 0 && load.status === "ready" && (
+              {pastedId && results.length === 0 && hiddenCount === 0 && load.status === "ready" && (
                 <p class="notice">
                   {pastedId} is not among the stored papers of this period.{" "}
                   <a
@@ -870,8 +873,17 @@ export function App() {
                   .
                 </p>
               )}
+              {results.length === 0 && hiddenCount > 0 && (
+                <p class="notice">
+                  {seenHidden(hiddenCount).empty}{" "}
+                  <button type="button" class="link-button" onClick={triage.toggleHideSeen}>
+                    Show seen papers
+                  </button>
+                </p>
+              )}
               {!pastedId &&
                 results.length === 0 &&
+                hiddenCount === 0 &&
                 (load.status === "ready" || state.view === "reading-list") &&
                 activeIndex !== null &&
                 activeIndex.size > 0 && (

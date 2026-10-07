@@ -138,7 +138,9 @@ derives what only the site uses. The pipeline and `validate` never see these.
   the card now at its place takes the focus; late citation counts re-rank it only when
   the order uses them (UX-23).
 - **Triage** (`triage.ts`, `hooks/use-triage.ts`), never in the URL: papers marked seen,
-  per category, pruned to the last 3 months of identifiers, with "Hide seen"; the newest
+  per category, pruned to the last 3 months of identifiers, with "Hide seen", whose
+  count the header gives ("· 12 seen papers hidden") and which an empty list names as its
+  reason, with "Show seen papers" (UX-26); the newest
   day of the previous visit, fixed for the session, for the "new papers since your last
   visit" banner. The list's keys j/k/o/s/x and `/` use `keyboard.ts`'s typing guard, so
   the search box has no autofocus, which would take them, and Escape leaves it.

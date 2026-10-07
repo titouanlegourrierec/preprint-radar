@@ -12,6 +12,20 @@ export function countOf(count: number, noun: string, plural = `${noun}s`): strin
   return `${count.toLocaleString()} ${count === 1 ? noun : plural}`;
 }
 
+/**
+ * What "Hide seen" leaves out of the list, for its count ("· 12 seen papers hidden") and for
+ * an empty list, where it is the reason: "All 12 papers here are marked seen."
+ */
+export function seenHidden(count: number): { count: string; empty: string } {
+  return {
+    count: `${countOf(count, "seen paper")} hidden`,
+    empty:
+      count === 1
+        ? "The only paper here is marked seen."
+        : `All ${countOf(count, "paper")} here are marked seen.`,
+  };
+}
+
 /** Subject code from its full name, e.g. "Robotics (cs.RO)" -> "cs.RO". */
 export function subjectCode(subject: string): string {
   return /\(([^()]+)\)\s*$/.exec(subject)?.[1] ?? subject;
