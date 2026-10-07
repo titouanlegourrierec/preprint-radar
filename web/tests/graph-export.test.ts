@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { Graph } from "../src/graph";
-import { exportName, toGraphML } from "../src/graph-export";
+import { exportName, GRAPH_SOURCES, toGraphML } from "../src/graph-export";
 
 describe("toGraphML", () => {
   const graph: Graph = {
@@ -42,6 +42,9 @@ describe("toGraphML", () => {
       '<edge source="institution:mit" target="author:ada &amp; bob"><data key="weight">1</data></edge>',
     );
     expect(text.startsWith('<?xml version="1.0" encoding="UTF-8"?>')).toBe(true);
+    // Where the data comes from, and what the export shows when told.
+    expect(text).toContain(`<desc>${GRAPH_SOURCES.replaceAll("&", "&amp;")}</desc>`);
+    expect(toGraphML(graph, "Last 5 days & more")).toContain("<desc>Last 5 days &amp; more</desc>");
   });
 
   it("names the files by day, and by the node focused on", () => {

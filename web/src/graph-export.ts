@@ -13,17 +13,24 @@ const KEYS = [
   ["weight", "edge", "int"],
 ] as const;
 
+/** Where the graph's data comes from, which every export says (REL-10). */
+export const GRAPH_SOURCES =
+  "Papers from arXiv; institutions from the Research Organization Registry and OpenAlex; " +
+  "citation counts from Semantic Scholar. Made with Preprint Radar.";
+
 /**
  * The graph shown as GraphML (§17.1 #8), for Gephi, Cytoscape or NetworkX: its nodes with
  * their kind, name, papers and citations (and an institution's ROR id), its links with the
- * papers they stand for.
+ * number of papers they stand for (`weight`), and a description of what it shows and where
+ * its data comes from (`about`, REL-10).
  */
-export function toGraphML(graph: Graph): string {
+export function toGraphML(graph: Graph, about = GRAPH_SOURCES): string {
   const data = (key: string, value: string | number) =>
     `<data key="${key}">${xmlText(String(value))}</data>`;
   return [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<graphml xmlns="http://graphml.graphdrawing.org/xmlns">',
+    `  <desc>${xmlText(about)}</desc>`,
     ...KEYS.map(
       ([name, kind, type]) =>
         `  <key id="${name}" for="${kind}" attr.name="${name}" attr.type="${type}"/>`,
