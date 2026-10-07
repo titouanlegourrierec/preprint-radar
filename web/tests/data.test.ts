@@ -25,6 +25,7 @@ function serve(files: Record<string, unknown>, status: Record<string, number> = 
 
 afterEach(() => {
   vi.unstubAllGlobals();
+  vi.restoreAllMocks();
   forgetLoaded();
 });
 
@@ -119,6 +120,7 @@ describe("data", () => {
   });
 
   it("ranks without counts when the shards fail", async () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => undefined);
     serve(
       {
         "cs.CV/archive/2016.json": { schema_version: 1, papers: [makePaper({ arxiv_id: "a" })] },
@@ -130,6 +132,25 @@ describe("data", () => {
     expect(loaded.papers).toHaveLength(1);
     expect(loaded.total).toBe(2);
     expect(loaded.unranked).toBe(2);
+    // The failure is reported; 2017's shard, which does not exist, is not.
+    expect(warn).toHaveBeenCalledOnce();
+  });
+
+  it("reports a citation shard that fails in the console, and asks for it again", async () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => undefined);
+    const requested = serve({}, { "cs.CV/citations/2019.json": 503 });
+    await expect(citationShard("cs.CV", "2019")).resolves.toBeNull();
+    expect(warn).toHaveBeenCalledWith(
+      "Could not load the citation shard cs.CV/citations/2019.json",
+      expect.objectContaining({ message: "Could not load citation counts (HTTP 503)" }),
+    );
+    await expect(citationShard("cs.CV", "2019")).resolves.toBeNull();
+    expect(requested).toEqual(["cs.CV/citations/2019.json", "cs.CV/citations/2019.json"]);
+
+    // A shard that does not exist is no failure: no counts were published for it yet.
+    warn.mockClear();
+    await expect(citationShard("cs.CV", "2018")).resolves.toBeNull();
+    expect(warn).not.toHaveBeenCalled();
   });
 
   it("ranks a paper without a count after those of none, and loads each shard once", async () => {

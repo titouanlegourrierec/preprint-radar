@@ -55,13 +55,18 @@ const shards = new Map<string, Promise<CitationsFile | null>>();
 /**
  * A citation shard, loaded once for the page (the counts of the papers shown, and the
  * archive's ranking of its years); `null` when it does not exist or fails, which is asked
- * for again next time. Citation counts are a bonus: without them, the papers still show.
+ * for again next time. Citation counts are a bonus: without them, the papers still show,
+ * and a shard that fails is only reported in the console (SRCH-10).
  */
 export function citationShard(category: string, shard: string): Promise<CitationsFile | null> {
   const key = `${category}/${shard}`;
   let file = shards.get(key);
   if (file === undefined) {
-    file = loadCitationShard(category, shard).catch(() => {
+    file = loadCitationShard(category, shard).catch((error: unknown) => {
+      console.warn(
+        `Could not load the citation shard ${citationShardPath(category, shard)}`,
+        error,
+      );
       shards.delete(key);
       return null;
     });

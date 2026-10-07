@@ -145,6 +145,28 @@ function navigationKey(state: ViewState): string {
   });
 }
 
+function sameName(a: NameFilter | null, b: NameFilter | null): boolean {
+  return a === b || (a !== null && b !== null && a.text === b.text && a.exact === b.exact);
+}
+
+/**
+ * Whether going from the filters applied to these only changes the text typed in the author
+ * or affiliation filter, which then waits for a pause in the typing, like the search words
+ * (PERF-4). A name clicked, a filter cleared or any other filter applies at once, with
+ * whatever was typed; an edited clicked name stays applied until the pause.
+ */
+export function isTypedChange(from: SearchFilters, to: SearchFilters): boolean {
+  for (const key of Object.keys(NO_FILTERS) as (keyof SearchFilters)[]) {
+    if (key !== "author" && key !== "affiliation" && from[key] !== to[key]) return false;
+  }
+  const names: [NameFilter | null, NameFilter | null][] = [
+    [from.author, to.author],
+    [from.affiliation, to.affiliation],
+  ];
+  const changed = names.filter(([before, after]) => !sameName(before, after));
+  return changed.length > 0 && changed.every(([, after]) => after !== null && !after.exact);
+}
+
 /**
  * What makes a new list of papers, for its paging (`paging.ts`): the words, filters, sort,
  * view, period, years and category. A shared link's paper and the graph's focus are not.

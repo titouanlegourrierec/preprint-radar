@@ -64,7 +64,7 @@ const VIEW_TITLES: Record<ViewState["view"], string> = {
 };
 const SUGGESTION_SIZE = 300;
 export function App() {
-  const { state, query, update, setFilters } = useUrlState();
+  const { state, query, filters, update, setFilters } = useUrlState();
   const cited = state.view === "cited";
   const rankings = state.view === "rankings";
   const archived = showsArchive(state);
@@ -142,8 +142,8 @@ export function App() {
   // from Most cited to Rising when the gains arrive, an order the index does not tell apart.
   const order = cited ? "citations" : state.sort;
   const found = useMemo(
-    () => (state.view === "graph" ? [] : (activeIndex?.search(query, state.filters, order) ?? [])),
-    [state.view, activeIndex, query, state.filters, order],
+    () => (state.view === "graph" ? [] : (activeIndex?.search(query, filters, order) ?? [])),
+    [state.view, activeIndex, query, filters, order],
   );
   const hiddenSeen = hiding ? triage.seen : null;
   // A shared or opened paper stays, seen or not: it is the one asked for.
@@ -194,9 +194,9 @@ export function App() {
     [activeIndex],
   );
   const resultPapers = useMemo(() => results.map(({ paper }) => paper), [results]);
-  const nameTerms = useMemo(() => nameHighlights(state.filters), [state.filters]);
+  const nameTerms = useMemo(() => nameHighlights(filters), [filters]);
   // The feed of the institution or major venue the papers are filtered on (§17.1 #6).
-  const feedInstitution = state.view === "papers" ? state.filters.affiliation : null;
+  const feedInstitution = state.view === "papers" ? filters.affiliation : null;
   const feedKnown = useMemo(() => {
     if (!(feedInstitution?.exact && load.status === "ready")) return false;
     const key = searchKey(feedInstitution.text);
@@ -205,7 +205,7 @@ export function App() {
       .some((paper) => namedInstitutions(paper).some((name) => searchKey(name) === key));
   }, [feedInstitution, load]);
   const feed =
-    state.view === "papers" && category ? feedOf(category, state.filters, () => feedKnown) : null;
+    state.view === "papers" && category ? feedOf(category, filters, () => feedKnown) : null;
   const gainOf = (arxivId: string) => {
     const gain = citations.gains.get(arxivId);
     return gain && gainsSpan ? gainLabel(gain, gainsSpan, citations.source) : undefined;
@@ -280,7 +280,7 @@ export function App() {
   // Tabs are links, so that they open in a new tab too; a plain click stays in the page.
   // A tab leaves the graph's focus behind (`update` does too): it is the graph's alone.
   const tab = (active: boolean, patch: Partial<ViewState>) => ({
-    href: `./${writeState({ ...state, query, paper: null, focus: null, ...patch })}`,
+    href: `./${writeState({ ...state, query, filters, paper: null, focus: null, ...patch })}`,
     "aria-current": active ? ("page" as const) : undefined,
     onClick: (event: MouseEvent) => {
       if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
@@ -465,8 +465,8 @@ export function App() {
                 // Counted once the index is built, so that the list never waits for it.
                 index={searchable}
                 since={triage.previousVisit}
-                current={{ query, filters: state.filters }}
-                onSave={() => savedSearches.save({ query, filters: state.filters })}
+                current={{ query, filters }}
+                onSave={() => savedSearches.save({ query, filters })}
                 onRemove={savedSearches.remove}
                 onOpen={(saved, onlyNew) =>
                   update({
@@ -625,7 +625,7 @@ export function App() {
                 />
                 <PaperList
                   results={results}
-                  resetKey={listKey(state, query)}
+                  resetKey={listKey({ ...state, filters }, query)}
                   nameHighlights={nameTerms}
                   groupByDay={groupByDay}
                   openId={state.paper}

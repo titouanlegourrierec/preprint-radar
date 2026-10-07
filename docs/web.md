@@ -40,7 +40,10 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   (`startsWords`), except a known acronym (`acronymOf`, the `ACRONYMS` of
   `institutions.ts`), which means its institution and is a whole word ("HKU" is not
   "HKUST"). In the URL, `by=`/`at=` are clicked names, `author=`/`aff=` typed text, which
-  older links keep.
+  older links keep. Typed text, like the search words, searches and goes into the URL
+  after a pause of 150 ms, while the field shows it at once (`hooks/use-url-state.ts`,
+  `isTypedChange`, PERF-4); a name clicked, a checkbox, a venue or a subject applies at
+  once, an edited clicked name stays applied until the pause.
 - Authors are keyed by name (AFF-H, decision 13): Semantic Scholar has several profiles
   for most prolific authors (Luc Van Gool three, of 88, 74 and 18 papers; Dacheng Tao five),
   so its ids would split them. The build gives each record its authors' ids
@@ -170,7 +173,9 @@ derives what only the site uses. The pipeline and `validate` never see these.
   split by month for the papers of the day files and by year for the archive
   (`<category>/citations/2026-09.json`, `…/2019.json`). `hooks/use-citations.ts` loads the
   shards of the papers shown (the period or archive year, and the reading list): 11 KB
-  gzipped for the recent days instead of 125 KB. A paper filed both in a day file and in
+  gzipped for the recent days instead of 125 KB, each once for the page (`data.ts`,
+  `citationShard`): one that fails shows no counts, says why in the console and is asked
+  for again the next time a view needs it (SRCH-10). A paper filed both in a day file and in
   the archive is in both shards. Each shard carries its papers' gains from
   `citation-gains.json` and the days they span (`gains`), which a card shows ("+12 this
   week", `gainLabel`) and the Rising order sorts by (`?sort=rising`, `byGains`: the most

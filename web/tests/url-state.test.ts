@@ -1,11 +1,12 @@
 import { describe, expect, it } from "vitest";
 import docs from "../../docs/web.md?raw";
 import { ALL_YEARS, oneYear } from "../src/archive-years";
-import { exactly, typed } from "../src/search";
+import { exactly, NO_FILTERS, type SearchFilters, typed } from "../src/search";
 import {
   archiveYearOf,
   DEFAULT_STATE,
   isNavigation,
+  isTypedChange,
   listKey,
   paperLink,
   readState,
@@ -180,6 +181,52 @@ describe("isNavigation", () => {
     expect(isNavigation(DEFAULT_STATE, { ...DEFAULT_STATE, query: "gaussian" })).toBe(false);
     expect(isNavigation(DEFAULT_STATE, { ...DEFAULT_STATE, sort: "citations" })).toBe(false);
     expect(isNavigation(filtered(typed("hao")), filtered(typed("hao l")))).toBe(false);
+  });
+});
+
+describe("isTypedChange", () => {
+  const filters = (patch: Partial<SearchFilters>): SearchFilters => ({ ...NO_FILTERS, ...patch });
+
+  it("waits for a pause when only the typed author or affiliation text changes", () => {
+    expect(isTypedChange(NO_FILTERS, filters({ author: typed("k") }))).toBe(true);
+    expect(isTypedChange(filters({ author: typed("k") }), filters({ author: typed("ka") }))).toBe(
+      true,
+    );
+    expect(
+      isTypedChange(filters({ affiliation: typed("MI") }), filters({ affiliation: typed("MIT") })),
+    ).toBe(true);
+    // An edited clicked name stays applied until the pause.
+    expect(
+      isTypedChange(filters({ author: exactly("Kaiming He") }), filters({ author: typed("Kaim") })),
+    ).toBe(true);
+    // Other filters set before are kept as they are.
+    expect(
+      isTypedChange(
+        filters({ withCode: true, venue: "ECCV*", author: exactly("Kaiming He") }),
+        filters({
+          withCode: true,
+          venue: "ECCV*",
+          author: exactly("Kaiming He"),
+          affiliation: typed("M"),
+        }),
+      ),
+    ).toBe(true);
+  });
+
+  it("applies at once a name clicked, a filter cleared, any other filter, or no change", () => {
+    const typing = filters({ author: typed("kai") });
+    expect(isTypedChange(typing, filters({ author: exactly("Kaiming He") }))).toBe(false);
+    expect(isTypedChange(typing, NO_FILTERS)).toBe(false);
+    expect(isTypedChange(typing, filters({ author: typed("kai") }))).toBe(false);
+    expect(isTypedChange(typing, { ...typing, withCode: true })).toBe(false);
+    expect(isTypedChange(typing, { ...typing, excludeCrossLists: true })).toBe(false);
+    expect(isTypedChange(typing, { ...typing, venue: "ECCV 2026" })).toBe(false);
+    expect(isTypedChange(typing, { ...typing, subject: "Robotics (cs.RO)" })).toBe(false);
+    // Typed text with another filter in the same change (a link, Back) applies with it.
+    expect(isTypedChange(typing, filters({ author: typed("kaim"), withCode: true }))).toBe(false);
+    expect(
+      isTypedChange(typing, filters({ author: typed("kaim"), affiliation: exactly("MIT") })),
+    ).toBe(false);
   });
 });
 

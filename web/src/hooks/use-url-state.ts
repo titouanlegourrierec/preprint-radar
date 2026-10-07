@@ -1,31 +1,48 @@
 import { useCallback, useEffect, useState } from "preact/hooks";
 import type { SearchFilters } from "../search";
-import { isNavigation, readState, type ViewState, writeState } from "../url-state";
+import { isNavigation, isTypedChange, readState, type ViewState, writeState } from "../url-state";
 import { useDebounced } from "./use-debounced";
 
 const SEARCH_DEBOUNCE_MS = 150;
 
 /**
  * The view state, read from the URL on load and written back on every change, so that any
- * search can be shared or bookmarked, and the Back button undoes a step of navigation. `query` is the debounced search text: typing updates
- * `state.query` instantly, while searching and the URL wait for a pause.
+ * search can be shared or bookmarked, and the Back button undoes a step of navigation.
+ * `query` and `filters` are what the search and the URL use: typing updates `state.query`
+ * and the text of `state.filters` instantly, for the inputs, while searching and the URL
+ * wait for a pause (PERF-4); a name clicked, a checkbox, a venue or a subject applies at
+ * once (`isTypedChange`).
  */
 export function useUrlState() {
   const [state, setState] = useState<ViewState>(() => readState(window.location.search));
   const query = useDebounced(state.query, SEARCH_DEBOUNCE_MS);
 
+  // The filters last applied, which typed text leaves in place until the pause.
+  const [settled, setSettled] = useState(state.filters);
+  const typing = isTypedChange(settled, state.filters);
+  const filters = typing ? settled : state.filters;
+  useEffect(() => {
+    if (!typing) {
+      setSettled(state.filters);
+      return;
+    }
+    const timer = setTimeout(() => setSettled(state.filters), SEARCH_DEBOUNCE_MS);
+    return () => clearTimeout(timer);
+  }, [state.filters, typing]);
+
   // A step of navigation adds a history entry, so that Back returns to the previous view;
   // typing and sorting replace the current one.
   useEffect(() => {
-    const search = writeState({ ...state, query });
+    const applied = { ...state, query, filters };
+    const search = writeState(applied);
     if (search === window.location.search) return;
     const url = `${window.location.pathname}${search}`;
-    if (isNavigation(readState(window.location.search), { ...state, query })) {
+    if (isNavigation(readState(window.location.search), applied)) {
       window.history.pushState(null, "", url);
     } else {
       window.history.replaceState(null, "", url);
     }
-  }, [state, query]);
+  }, [state, query, filters]);
 
   // Back and Forward: show the state of the entry, which then matches the URL (no new entry).
   useEffect(() => {
@@ -44,6 +61,6 @@ export function useUrlState() {
       }),
     [],
   );
-  const setFilters = useCallback((filters: SearchFilters) => update({ filters }), [update]);
-  return { state, query, update, setFilters };
+  const setFilters = useCallback((next: SearchFilters) => update({ filters: next }), [update]);
+  return { state, query, filters, update, setFilters };
 }
