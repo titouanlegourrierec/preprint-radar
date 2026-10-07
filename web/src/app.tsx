@@ -40,12 +40,12 @@ import {
   byCitations,
   byGains,
   exactly,
-  facetCounts,
   mostlyTied,
   NO_FILTERS,
   nameHighlights,
   parseQuery,
   type SearchResult,
+  subjectFacets,
   valueCounts,
 } from "./search";
 import { searchKey } from "./text";
@@ -54,7 +54,6 @@ import { archiveYearOf, listKey, paperLink, type ViewState, writeState } from ".
 import { venueFacets } from "./venues";
 import { type CountLine, showsArchive, viewModel } from "./view-model";
 
-const FACET_SIZE = 12;
 const VIEW_TITLES: Record<ViewState["view"], string> = {
   papers: "",
   cited: "Highly cited",
@@ -136,13 +135,14 @@ export function App() {
   const { triaged, byCount, rising, groupByDay } = model;
   const hiding = triaged && triage.hideSeen && triage.seen.size > 0;
   // In three steps, each redone only when what it reads changes (UX-23): marking a paper
-  // seen does not search again, nor do late counts when the order ignores them.
+  // seen does not search again, nor do late counts when the order ignores them. The index
+  // orders by the sort asked (Most cited in Highly cited), so that with search words,
+  // equal counts keep the best match first (CIT-6); not by the one pressed, which turns
+  // from Most cited to Rising when the gains arrive, an order the index does not tell apart.
+  const order = cited ? "citations" : state.sort;
   const found = useMemo(
-    () =>
-      state.view === "graph"
-        ? []
-        : (activeIndex?.search(query, state.filters, cited ? "newest" : state.sort) ?? []),
-    [state.view, cited, activeIndex, query, state.filters, state.sort],
+    () => (state.view === "graph" ? [] : (activeIndex?.search(query, state.filters, order) ?? [])),
+    [state.view, activeIndex, query, state.filters, order],
   );
   const hiddenSeen = hiding ? triage.seen : null;
   // A shared or opened paper stays, seen or not: it is the one asked for.
@@ -223,14 +223,10 @@ export function App() {
   const yearsArchived = archiveYears.map((entry) => entry.year);
   const linkTo = (paper: Paper) =>
     paperLink(paper, { category: category ?? null, oldestDay, archiveYears: yearsArchived });
+  // Like venues, over every loaded paper: choosing a subject leaves the others listed.
   const subjects = useMemo(
-    () =>
-      facetCounts(
-        results,
-        (paper) => (paper.primary_subject ? [paper.primary_subject] : []),
-        FACET_SIZE,
-      ),
-    [results],
+    () => subjectFacets(activeIndex?.all() ?? [], state.filters.subject, SUGGESTION_SIZE),
+    [activeIndex, state.filters.subject],
   );
 
   const lastUpdate = generatedAt ? formatDay(generatedAt) : null;

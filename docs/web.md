@@ -48,8 +48,9 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   get it: Wei Wang 8, Hao Li 5; Luc Van Gool, Dacheng Tao one each, and Kaiming He 2, a
   7-paper profile sharing nothing with the other.
 - The list sorts by relevance, newest, citations or citations gained (`?sort=citations`,
-  `?sort=rising`: the index orders them like newest and `byCitations` or `byGains` ranks
-  them).
+  `?sort=rising`: the index orders them like relevance and `byCitations` or `byGains` ranks
+  them). Both sorts are stable, so equal counts keep the best match first with search
+  words, the newest first without (CIT-6); Highly cited ranks the same way.
 - "With code" (`?code=1`, PROD-12) keeps the papers whose abstract or comments link a
   repository on GitHub or GitLab, else models or data on Hugging Face (`code.ts`), which
   their card links: 918 of 4,832 stored papers, nearly all "Code is available at". A
@@ -59,6 +60,10 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   without its year, as the pipeline writes it for its table's venues and Semantic
   Scholar's alike; a workshop's family is its own ("CVPR Workshop"). `venueFacets` lists a
   family when more than one of its editions is loaded, before them.
+- The subject filter (SRCH-9) keeps the papers listed under a subject, primary or
+  cross-listed (`subjectsOf`): cs.CV's days hold 478 papers in cs.RO, 256 of them primary.
+  Like the venues, its choices (`subjectFacets`) count every loaded paper, not the results,
+  and show the code (`cs.RO`), while the URL keeps the name.
 
 ## The list views (`app.tsx`, `view-model.ts`)
 
@@ -101,7 +106,7 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   | `by`, `at` | An author or an institution, as clicked: that name only | none | the lists, Rankings |
   | `author`, `aff` | Typed author or affiliation text: word starts (old links' `by` and `at`) | none | the same |
   | `venue` | A venue (`ECCV 2026`), a family (`ECCV*`) or any (`*`) | none | the lists, Rankings, the graph |
-  | `subject` | A primary subject (`Machine Learning (cs.LG)`) | none | the lists, Rankings |
+  | `subject` | A subject, primary or cross-listed (`Machine Learning (cs.LG)`; the select shows `cs.LG`) | none | the lists, Rankings |
   | `xl` | `0`: cross-lists hidden | shown | the lists, Rankings |
   | `code` | `1`: papers that link their code | all | the lists, Rankings |
 

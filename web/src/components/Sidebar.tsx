@@ -1,6 +1,7 @@
 import type { ComponentChildren } from "preact";
 import { useState } from "preact/hooks";
 import type { YearRange } from "../archive-years";
+import { subjectCode } from "../format";
 import { useMediaQuery } from "../hooks/use-media-query";
 import type { Period } from "../period";
 import {
@@ -24,6 +25,7 @@ interface Props {
   authors: FacetCount[];
   affiliations: FacetCount[];
   venues: FacetCount[];
+  /** Subjects of the loaded papers, primary or cross-listed (`subjectFacets`). */
   subjects: FacetCount[];
   onCategory: (category: string) => void;
   onPeriod: (period: Period) => void;
@@ -193,7 +195,7 @@ export function Sidebar(props: Props) {
 
           {(props.subjects.length > 1 || filters.subject) && (
             <label class="field">
-              <span>Primary subject</span>
+              <span>Subject</span>
               <select
                 value={filters.subject ?? ""}
                 onChange={(event) =>
@@ -201,9 +203,10 @@ export function Sidebar(props: Props) {
                 }
               >
                 <option value="">All subjects</option>
+                {/* The code ("cs.RO"), as cards show it; the URL keeps the name. */}
                 {props.subjects.map(({ value, count }) => (
-                  <option key={value} value={value}>
-                    {value} ({count.toLocaleString()})
+                  <option key={value} value={value} title={value}>
+                    {subjectCode(value)} ({count.toLocaleString()})
                   </option>
                 ))}
               </select>

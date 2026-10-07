@@ -7,14 +7,17 @@ import {
   byCitations,
   byGains,
   exactly,
-  facetCounts,
   matchesFilters,
   NO_FILTERS,
   nameHighlights,
   PaperIndex,
   parseQuery,
+  type SearchResult,
   startsWords,
+  subjectFacets,
+  subjectsOf,
   typed,
+  valueCounts,
 } from "../src/search";
 import { makePaper } from "./fixtures";
 
@@ -37,6 +40,7 @@ const papers = [
     cross_list_from: "cs.LG",
     venue: "NeurIPS 2026",
     primary_subject: "Machine Learning (cs.LG)",
+    subjects: ["Machine Learning (cs.LG)", "Computer Vision and Pattern Recognition (cs.CV)"],
   }),
   makePaper({
     arxiv_id: "2609.00003",
@@ -475,12 +479,107 @@ describe("alphabetical", () => {
   });
 });
 
-describe("facetCounts", () => {
-  it("counts values across results, most frequent first", () => {
-    const results = index.search("", NO_FILTERS, "newest");
-    expect(facetCounts(results, (paper) => paper.affiliations ?? [], 5)).toEqual([
+describe("valueCounts", () => {
+  it("counts values across papers, most frequent first", () => {
+    expect(valueCounts(papers, (paper) => paper.affiliations ?? [], 5)).toEqual([
       { value: "MIT", count: 2 },
       { value: "NVIDIA", count: 1 },
+    ]);
+  });
+});
+
+describe("subjects", () => {
+  const CV = "Computer Vision and Pattern Recognition (cs.CV)";
+  const LG = "Machine Learning (cs.LG)";
+  const RO = "Robotics (cs.RO)";
+  const crossListed = makePaper({ arxiv_id: "2609.00012", subjects: [CV, LG, RO] });
+  // Saved in a browser before `subjects` was kept.
+  const saved = makePaper({ arxiv_id: "2609.00015", primary_subject: LG, subjects: [] });
+  const listed = [
+    makePaper({ arxiv_id: "2609.00011", subjects: [CV, RO] }),
+    crossListed,
+    makePaper({ arxiv_id: "2609.00013", primary_subject: RO, subjects: [RO, CV] }),
+    makePaper({ arxiv_id: "2609.00014" }),
+    saved,
+  ];
+  const subjectIndex = new PaperIndex(listed);
+  const under = (subject: string) =>
+    subjectIndex
+      .search("", { ...NO_FILTERS, subject }, "newest")
+      .map(({ paper }) => paper.arxiv_id)
+      .sort();
+
+  it("filters on a subject the paper is listed under, primary or cross-listed", () => {
+    expect(under(RO)).toEqual(["2609.00011", "2609.00012", "2609.00013"]);
+    expect(under(LG)).toEqual(["2609.00012", "2609.00015"]);
+    expect(under("Quantum Physics (quant-ph)")).toEqual([]);
+    expect(subjectsOf(saved)).toEqual([LG]);
+    expect(subjectsOf(crossListed)).toEqual([CV, LG, RO]);
+  });
+
+  it("counts every paper's subjects, whichever is chosen", () => {
+    const counts = [
+      { value: CV, count: 4 },
+      { value: RO, count: 3 },
+      { value: LG, count: 2 },
+    ];
+    expect(subjectFacets(listed, null, 10)).toEqual(counts);
+    expect(subjectFacets(listed, RO, 10)).toEqual(counts);
+  });
+
+  it("keeps the subject chosen listed, past the limit or held by no paper", () => {
+    expect(subjectFacets(listed, LG, 1)).toEqual([
+      { value: CV, count: 4 },
+      { value: LG, count: 2 },
+    ]);
+    expect(subjectFacets(listed, "Quantum Physics (quant-ph)", 1)).toEqual([
+      { value: CV, count: 4 },
+      { value: "Quantum Physics (quant-ph)", count: 0 },
+    ]);
+  });
+});
+
+describe("Most cited and Rising with search words", () => {
+  // Tied counts, as on recent days: the best match first, not the newest (CIT-6).
+  const tied = new PaperIndex([
+    makePaper({ arxiv_id: "2609.00021", announced: "2026-09-24", title: "Diffusion priors" }),
+    makePaper({
+      arxiv_id: "2609.00022",
+      announced: "2026-09-25",
+      title: "Robust depth",
+      comments: "A diffusion baseline",
+    }),
+    makePaper({ arxiv_id: "2609.00023", announced: "2026-09-23", title: "Fast stereo" }),
+  ]);
+  const counts = new Map([
+    ["2609.00021", 0],
+    ["2609.00022", 0],
+    ["2609.00023", 0],
+  ]);
+  const order = (results: readonly SearchResult[]) => results.map(({ paper }) => paper.arxiv_id);
+
+  it("keeps relevance among equal counts", () => {
+    const cited = byCitations(tied.search("diffusion", NO_FILTERS, "citations"), counts);
+    expect(order(cited)).toEqual(["2609.00021", "2609.00022"]);
+    const rising = byGains(tied.search("diffusion", NO_FILTERS, "rising"), new Map(), counts);
+    expect(order(rising)).toEqual(["2609.00021", "2609.00022"]);
+    // A higher count still comes first.
+    const more = new Map([...counts, ["2609.00022", 3]]);
+    expect(order(byCitations(tied.search("diffusion", NO_FILTERS, "citations"), more))).toEqual([
+      "2609.00022",
+      "2609.00021",
+    ]);
+  });
+
+  it("orders by date without search words, or when asked for the newest", () => {
+    expect(order(tied.search("diffusion", NO_FILTERS, "newest"))).toEqual([
+      "2609.00022",
+      "2609.00021",
+    ]);
+    expect(order(byCitations(tied.search("", NO_FILTERS, "citations"), counts))).toEqual([
+      "2609.00022",
+      "2609.00021",
+      "2609.00023",
     ]);
   });
 });

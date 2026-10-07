@@ -10,7 +10,9 @@ export { ANY_VENUE };
 
 /**
  * Order of results. The index has no citation counts: `citations` and `rising` order them
- * like `newest`, and the caller ranks them with {@link byCitations} or {@link byGains}.
+ * like `relevance` (best match first with search words, else newest first), and the caller
+ * ranks them with {@link byCitations} or {@link byGains}, which keep that order among
+ * equal counts (CIT-6).
  */
 export type SortOrder = "relevance" | "newest" | "citations" | "rising";
 
@@ -291,8 +293,9 @@ export class PaperIndex {
     for (const result of filtered) {
       result.highlights.push(...query.phrases);
     }
+    // Only Newest ignores the match: Most cited and Rising keep it among equal counts.
     return filtered.sort(
-      sort === "relevance" && typedTerms.length
+      sort !== "newest" && typedTerms.length
         ? (a, b) => b.score - a.score || newestFirst(a, b)
         : newestFirst,
     );
@@ -397,6 +400,18 @@ function matchesAffiliation(paper: Paper, filter: NameFilter): boolean {
 }
 
 /**
+ * The subjects a paper is listed under, primary or cross-listed (SRCH-9): its `subjects`,
+ * which the store starts with the primary one, and that one for a paper kept in a browser
+ * before `subjects` was (`reading-list.ts` gives it none).
+ */
+export function subjectsOf(paper: Paper): string[] {
+  const primary = paper.primary_subject;
+  return primary && !paper.subjects.includes(primary)
+    ? [primary, ...paper.subjects]
+    : paper.subjects;
+}
+
+/**
  * A clicked author or institution matches that name only (folded and with punctuation
  * collapsed, as {@link searchKey} does), and an institution by the name the graph gives it,
  * whatever the affiliation string ("CMU" for "Carnegie Mellon University"). Typed text
@@ -410,7 +425,7 @@ export function matchesFilters(paper: Paper, filters: SearchFilters): boolean {
     (!isActive(filters.author) || matchesAuthor(paper, filters.author)) &&
     // Institutions are only named when an affiliation filter needs them.
     (!isActive(filters.affiliation) || matchesAffiliation(paper, filters.affiliation)) &&
-    (filters.subject === null || paper.primary_subject === filters.subject) &&
+    (filters.subject === null || subjectsOf(paper).includes(filters.subject)) &&
     (filters.venue === null || matchesVenue(paper.venue, filters.venue))
   );
 }
@@ -502,17 +517,21 @@ export function alphabetical(values: readonly FacetCount[]): FacetCount[] {
   return [...values].sort((a, b) => fold(a.value).localeCompare(fold(b.value)));
 }
 
-/** Most frequent values of a multi-valued field among search results. */
-export function facetCounts(
-  results: SearchResult[],
-  values: (paper: Paper) => Iterable<string>,
+/**
+ * The subject filter's choices (SRCH-9): the subjects the papers are listed under, primary
+ * or cross-listed, the `limit` most frequent first. Counted over every paper loaded, not
+ * the results, so that choosing one leaves the others to choose from; the one chosen stays
+ * listed past the limit, or with a count of 0 when no paper has it (a shared link's).
+ */
+export function subjectFacets(
+  papers: Iterable<Paper>,
+  chosen: string | null,
   limit: number,
 ): FacetCount[] {
-  return valueCounts(
-    results.map(({ paper }) => paper),
-    values,
-    limit,
-  );
+  const subjects = valueCounts(papers, subjectsOf, Number.POSITIVE_INFINITY);
+  const listed = subjects.slice(0, limit);
+  if (chosen === null || listed.some(({ value }) => value === chosen)) return listed;
+  return [...listed, subjects.find(({ value }) => value === chosen) ?? { value: chosen, count: 0 }];
 }
 
 /**
