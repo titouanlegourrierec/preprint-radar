@@ -1,7 +1,7 @@
 import { useEffect, useState } from "preact/hooks";
 import { formatYears, parseYears, shownYears, type YearRange, yearsIn } from "../archive-years";
 import { loadArchiveYears, loadDays, loadIndex } from "../data";
-import { PAPER_BUDGET, type Period, selectDays } from "../period";
+import { PAPER_BUDGET, type Period, periodKey, periodOfKey, selectDays } from "../period";
 import { PaperIndex } from "../search";
 import type { ArchiveSummary, DaySummary, Paper, StoreIndex } from "../types";
 
@@ -67,6 +67,10 @@ export function usePapers(
   // A key for the effect: the range is a new object at each render.
   const archiveKey = archiveRange === null ? null : formatYears(archiveRange);
   const archived = archive !== null;
+  // Keys for the effect, equal for equal periods and ranges: another object for the same
+  // period (Back, a preset chosen again) loads nothing again, nor does a period behind the
+  // archive's years.
+  const loadedPeriod = archived ? null : periodKey(period);
 
   useEffect(() => {
     if (!storeIndex) return;
@@ -78,10 +82,12 @@ export function usePapers(
     const stop = new AbortController();
     const { signal } = stop;
     setLoad({ status: "loading" });
+    // The former index and its full-text index can go: two would hold 20,000 papers.
+    setWarmed(null);
     let loaded: Promise<{ papers: Paper[]; total: number }>;
     const range = parseYears(archiveKey);
-    if (!archived) {
-      const days = selectDays(storeIndex.categories[category] ?? [], period);
+    if (loadedPeriod !== null) {
+      const days = selectDays(storeIndex.categories[category] ?? [], periodOfKey(loadedPeriod));
       loaded = loadDays(category, days, signal).then((papers) => ({
         papers,
         total: papers.length,
@@ -108,7 +114,7 @@ export function usePapers(
           !signal.aborted && setLoad({ status: "error", message: loadErrorMessage(error) }),
       );
     return () => stop.abort();
-  }, [storeIndex, category, period, archived, archiveKey, attempt]);
+  }, [storeIndex, category, loadedPeriod, archiveKey, attempt]);
 
   return {
     categories,

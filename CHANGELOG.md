@@ -18,6 +18,11 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 - The venue filter has every edition of a venue at once, "CVPR, any year", its workshops
   apart (SRCH-15).
 
+### Fixes
+
+- Back to a period, or its preset chosen again, no longer loads and indexes its papers
+  again: the list stays as it was (PERF-16).
+
 ### Triage
 
 - Marking a paper seen (x) while seen papers are hidden, or unsaving it (s) from the

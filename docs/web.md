@@ -69,7 +69,10 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   20 s to index and about 480 MB, which crashes phones) and says what it leaves out.
   Links to the former "All days" (`?range=all`) open the longest preset.
 - `usePapers` cancels the requests of a period left; `data.ts` keeps the files loaded for
-  the next periods (as many papers as a period loads), least recently used out first.
+  the next periods (as many papers as a period loads), least recently used out first. It
+  loads again only for another period (`periodKey`): Back to a period, or its preset
+  chosen again, gives a new object for the same days and keeps the index; a new load lets
+  the former index go before the new one is built.
 - The *Highly cited* view (`?view=cited&year=`) loads archive years instead of days,
   ranked by citations: one (`year=2017`), a range (`year=2019-2021`, the From and To
   selects of `components/ArchiveYears.tsx`) or all of them (`year=all`, which stays all

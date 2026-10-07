@@ -241,6 +241,7 @@ exist.
 | META-9 | A day file's paper that OpenAlex looks up in the archive no longer keeps the HTML extraction's version (`extractor`) of its former affiliations, filled or still empty; `Paper` refuses an `extractor` beside affiliations from another source. Latent: no stored record had one, but day files age into the archive (not in the audit) | P2 | done |
 | TEST-15 | A test keeps `Paper.to_record()` and the `Paper` interface of `types.ts` in step, field by field (the build-only `doi` and `author_ids` apart, the fields written only when known optional on the site), and the two `SCHEMA_VERSION`s equal (from the backlog) | P2 | done |
 | SEC-2, SEC-7 | Imported reading lists cannot put a `javascript:` or `data:` address on a paper: its arXiv and PDF links are made from its id, its HTML link kept on arxiv.org only, and an id that is not one refused; the "See it on arXiv" link of a `?paper=` that is no arXiv id is left out, and opens in a new tab; the pipeline resolves a listing's HTML link against arXiv and keeps it there only (from the backlog) | P2, P3 | done |
+| PERF-16 | Back to a period, or its preset chosen again, no longer downloads and indexes it again ("Loading papers…" over 3,646 papers): the load is keyed on the period's text (`periodKey`), and a new load lets the former index go first (not in the audit) | P2 | done |
 | ARCH-2 | Enrichment step interface | P2 | todo |
 | DEBT-2, DEBT-3 | View model for `app.tsx`, `GraphView` split | P2, P3 | todo |
 | ARCH-4 | Multi-category, if wanted | P2 | todo |

@@ -6,6 +6,9 @@ import {
   isIsoDay,
   monthGrid,
   PAPER_BUDGET,
+  periodKey,
+  periodOfKey,
+  samePeriod,
   selectDays,
   shiftMonth,
 } from "../src/period";
@@ -78,5 +81,29 @@ describe("calendar helpers", () => {
   it("formats a day or a range", () => {
     expect(formatDays("2026-09-09", "2026-09-09")).toMatch(/9/);
     expect(formatDays("2026-09-09", "2026-09-18")).toMatch(/9.*18/);
+  });
+});
+
+describe("period keys", () => {
+  it("are equal for equal periods, and give the period back", () => {
+    const dates = between("2026-09-05", "2026-09-01");
+    expect(periodKey(dates)).toBe("2026-09-01..2026-09-05");
+    expect(periodKey({ kind: "recent", range: "20" })).toBe("20");
+    expect(periodOfKey(periodKey(dates))).toEqual(dates);
+    expect(periodOfKey("20")).toEqual({ kind: "recent", range: "20" });
+    expect(periodKey(between("2026-09-01", "2026-09-05"))).toBe(periodKey(dates));
+  });
+
+  it("tell equal periods apart from others", () => {
+    expect(samePeriod({ kind: "recent", range: "5" }, { kind: "recent", range: "5" })).toBe(true);
+    expect(samePeriod({ kind: "recent", range: "5" }, between("2026-09-01", "2026-09-05"))).toBe(
+      false,
+    );
+    expect(
+      samePeriod(between("2026-09-01", "2026-09-05"), between("2026-09-01", "2026-09-05")),
+    ).toBe(true);
+    expect(samePeriod(between("2026-09-01", "2026-09-05"), { kind: "recent", range: "5" })).toBe(
+      false,
+    );
   });
 });

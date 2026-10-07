@@ -83,6 +83,22 @@ export function daysOverBudget(days: readonly DaySummary[], period: Period): num
   return periodDays(days, period).length - selectDays(days, period).length;
 }
 
+/**
+ * A period as text, the same for equal periods ("5", "2026-09-01..2026-09-05"): what makes
+ * `usePapers` load again, since the URL gives a new object for the same period at each
+ * reading (Back, a preset chosen again).
+ */
+export function periodKey(period: Period): string {
+  return period.kind === "recent" ? period.range : `${period.from}..${period.to}`;
+}
+
+/** The period of a {@link periodKey}. */
+export function periodOfKey(key: string): Period {
+  if (isRange(key)) return { kind: "recent", range: key };
+  const [from = "", to = ""] = key.split("..");
+  return between(from, to);
+}
+
 export function samePeriod(a: Period, b: Period): boolean {
   return a.kind === "recent"
     ? b.kind === "recent" && a.range === b.range
