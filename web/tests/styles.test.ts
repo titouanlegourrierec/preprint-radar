@@ -1,6 +1,8 @@
 /** The palettes of `styles.css`, which CLAUDE.md asks to keep in step. */
 import { describe, expect, it } from "vitest";
+import html from "../index.html?raw";
 import css from "../src/styles.css?raw";
+import { BACKGROUNDS } from "../src/theme-color";
 
 /** The custom properties of the first block that `selector` opens. */
 function variables(selector: string): Map<string, string> {
@@ -24,6 +26,71 @@ describe("palettes", () => {
   it("give every color of the light palette a dark value", () => {
     const colors = [...light].filter(([, value]) => value.startsWith("#")).map(([name]) => name);
     expect(colors.filter((name) => !systemDark.has(name))).toEqual([]);
+  });
+
+  it("print black on white, over either theme (UX-18)", () => {
+    const print = variables(":root:root");
+    expect(css.indexOf(":root:root {")).toBeGreaterThan(css.indexOf(':root[data-theme="dark"] {'));
+    expect([...print.keys()].filter((name) => !light.has(name))).toEqual([]);
+    expect([print.get("--bg"), print.get("--text")]).toEqual(["#fff", "#000"]);
+  });
+});
+
+describe("the browser's bar (UX-18)", () => {
+  const backgrounds = {
+    light: variables(":root").get("--bg"),
+    dark: variables(':root:not([data-theme="light"])').get("--bg"),
+    forcedDark: variables(':root[data-theme="dark"]').get("--bg"),
+  };
+  // Each theme-color meta of index.html: its scheme (from `media`) and its color.
+  const metas = [...html.matchAll(/<meta name="theme-color"([^>]*)>/g)].map(([, attributes]) => ({
+    media: /media="([^"]*)"/.exec(attributes ?? "")?.[1],
+    content: /content="([^"]*)"/.exec(attributes ?? "")?.[1],
+  }));
+
+  it("takes the page's background in each scheme", () => {
+    expect(backgrounds).toEqual({
+      light: BACKGROUNDS.light,
+      dark: BACKGROUNDS.dark,
+      forcedDark: BACKGROUNDS.dark,
+    });
+    expect(metas).toEqual([
+      { media: "(prefers-color-scheme: light)", content: BACKGROUNDS.light },
+      { media: "(prefers-color-scheme: dark)", content: BACKGROUNDS.dark },
+    ]);
+  });
+
+  /** Runs index.html's inline script with `stored` as the remembered theme. */
+  function restore(stored: string | null) {
+    const script = /<script>([\s\S]*?)<\/script>/.exec(html)?.[1] ?? "";
+    const elements = metas.map(({ media, content }) => ({
+      content: content ?? "",
+      getAttribute: (name: string) => (name === "media" ? (media ?? null) : null),
+    }));
+    const root = { dataset: {} as Record<string, string> };
+    const document = {
+      documentElement: root,
+      querySelectorAll: (selector: string) =>
+        selector === 'meta[name="theme-color"]' ? elements : [],
+    };
+    const localStorage = { getItem: () => stored };
+    new Function("document", "localStorage", script)(document, localStorage);
+    return { theme: root.dataset.theme, colors: elements.map(({ content }) => content) };
+  }
+
+  it("follows a theme forced by the toggle from first paint", () => {
+    expect(restore(null)).toEqual({
+      theme: undefined,
+      colors: [BACKGROUNDS.light, BACKGROUNDS.dark],
+    });
+    expect(restore("dark")).toEqual({
+      theme: "dark",
+      colors: [BACKGROUNDS.dark, BACKGROUNDS.dark],
+    });
+    expect(restore("light")).toEqual({
+      theme: "light",
+      colors: [BACKGROUNDS.light, BACKGROUNDS.light],
+    });
   });
 });
 

@@ -1640,3 +1640,94 @@ html {
   margin: 6px 0 0;
   font-size: 0.8rem;
 }
+
+/* Print ------------------------------------------------------------------- */
+
+/* A list on paper (UX-18): its cards in black on white, each kept whole and followed by its
+   address, without the controls, the graph and the notes that only act on the screen. */
+@media print {
+  /* Whatever the theme (`:root` twice outranks both dark blocks): only the colors of text,
+     its backgrounds and borders, not a third palette that new colors need a value in. */
+  :root:root {
+    --bg: #fff;
+    --surface: #fff;
+    --surface-muted: #fff;
+    --border: #999;
+    --text: #000;
+    --text-muted: #444;
+    --accent: #000;
+    --accent-soft: #fff;
+    --mark: transparent;
+    --danger: #000;
+    --shadow: none;
+
+    color-scheme: light;
+  }
+
+  .skip-link,
+  .topbar,
+  .search,
+  .search__hint,
+  .sidebar,
+  .results__header .segmented,
+  .results__header .help,
+  .results__toggles,
+  .export-menu,
+  .results__actions,
+  .help-note,
+  .notice--new,
+  .shortcuts,
+  .feed-link,
+  .active-filters .link-button,
+  .active-filters .chip [aria-hidden="true"],
+  .rankings__controls,
+  .paper .icon-button,
+  .paper__meta a,
+  .paper__meta button,
+  .paper__elsewhere,
+  .paper__report,
+  .graph {
+    display: none;
+  }
+
+  /* The sidebar's column goes with it. */
+  .content {
+    display: block;
+  }
+
+  .day-heading {
+    break-after: avoid;
+  }
+
+  .paper,
+  .rankings__table tr {
+    break-inside: avoid;
+  }
+
+  .paper--seen {
+    opacity: 1;
+  }
+
+  /* No "More" on paper: an abstract shown is printed whole. */
+  .paper__abstract--clamped {
+    display: block;
+    overflow: visible;
+    -webkit-line-clamp: none;
+    line-clamp: none;
+  }
+
+  .paper__title a::after {
+    content: attr(href);
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 400;
+    overflow-wrap: anywhere;
+  }
+
+  /* Names filter the list when clicked, which paper cannot do. */
+  .paper__authors .link-button,
+  .paper__affiliations .link-button {
+    text-decoration: none;
+  }
+}

@@ -86,6 +86,10 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   a link to start over and the correction contact, and leaves the tabs and the sidebar
   usable; it draws again once the state or the papers change (`resetKeys`: Back, another
   period or filter). Around the whole app, a last one catches the rest.
+- Printed (`@media print` in `styles.css`, UX-18), a list is its cards in black on white
+  whatever the theme, none cut by a page break, each with its arXiv address under the
+  title and an abstract shown printed whole, without the top bar, search, sidebar,
+  controls, help notes and graph. Only the cards the list has loaded (40 at a time) print.
 
 ## URLs and history (`url-state.ts`)
 
@@ -221,7 +225,10 @@ derives what only the site uses. The pipeline and `validate` never see these.
   day of the previous visit, fixed for the session, for the "new papers since your last
   visit" banner. The list's keys j/k/o/s/x and `/` use `keyboard.ts`'s typing guard, so
   the search box has no autofocus, which would take them, and Escape leaves it.
-- **Preferences** (`preferences.ts`): per-browser settings in `localStorage`.
+- **Preferences** (`preferences.ts`): per-browser settings in `localStorage`. The theme
+  (`hooks/use-theme.ts`) also colors the browser's bar: `index.html`'s `theme-color` metas
+  give each scheme its `--bg`, and a forced theme gives both its own (`theme-color.ts`, and
+  the inline script before first paint), which `tests/styles.test.ts` checks (UX-18).
 
 ## Withdrawn papers, and old ones announced lately
 

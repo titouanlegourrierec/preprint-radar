@@ -5,16 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Search recent arXiv papers by keyword, author and affiliation." />
     <meta name="color-scheme" content="light dark" />
+    <!-- The browser's bar takes the page's background, --bg of styles.css (theme-color.ts). -->
+    <meta name="theme-color" content="#f7f7f5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)" />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>" />
     <title>Preprint Radar</title>
     <!-- The store's index, which every view needs first, loads with the page rather than
          after the app's script: data.ts fetches the same URL in the same mode (PERF-14). -->
     <link rel="preload" href="./data/index.json" as="fetch" crossorigin />
     <script>
-      // Restore the theme chosen with the toggle (see preferences.ts) before first paint.
+      // Restore the theme chosen with the toggle (see preferences.ts) before first paint, and
+      // give the browser's bar its color: the forced scheme's in both metas (theme-color.ts).
       try {
         const theme = localStorage.getItem("preprint-radar:theme");
-        if (theme === "light" || theme === "dark") document.documentElement.dataset.theme = theme;
+        if (theme === "light" || theme === "dark") {
+          document.documentElement.dataset.theme = theme;
+          const metas = [...document.querySelectorAll('meta[name="theme-color"]')];
+          const forced = metas.find((meta) => meta.getAttribute("media")?.includes(theme));
+          if (forced) for (const meta of metas) meta.content = forced.content;
+        }
       } catch {
         // Storage may be disabled; the system scheme then applies.
       }

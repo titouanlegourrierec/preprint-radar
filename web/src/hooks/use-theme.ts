@@ -1,5 +1,6 @@
 import { useEffect, useState } from "preact/hooks";
 import { loadTheme, saveTheme, type ThemePreference } from "../preferences";
+import { applyThemeColor } from "../theme-color";
 
 const DARK_SCHEME = "(prefers-color-scheme: dark)";
 const CYCLE: Record<ThemePreference, ThemePreference> = {
@@ -9,14 +10,16 @@ const CYCLE: Record<ThemePreference, ThemePreference> = {
 };
 
 /**
- * The theme preference, applied as `data-theme` on <html> (index.html restores it before
- * first paint) and remembered in this browser. `resolved` is the scheme shown right now:
- * it also tracks the system scheme while the preference is "auto", so canvas drawings
- * can re-read their colors. `cycle` advances auto → light → dark, previewed by `next`.
+ * The theme preference, applied as `data-theme` on <html> and as the color of the browser's
+ * bar (index.html restores both before first paint) and remembered in this browser.
+ * `resolved` is the scheme shown right now: it also tracks the system scheme while the
+ * preference is "auto", so canvas drawings can re-read their colors. `cycle` advances
+ * auto → light → dark, previewed by `next`.
  */
 function apply(theme: ThemePreference): void {
   if (theme === "auto") delete document.documentElement.dataset.theme;
   else document.documentElement.dataset.theme = theme;
+  applyThemeColor(document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]'), theme);
 }
 
 export function useTheme() {
