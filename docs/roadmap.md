@@ -239,6 +239,7 @@ exist.
 | UX-23 | Marking a paper seen, unsaving it and late citation counts keep the list's paging and the keyboard focus: the results are derived in three memos, the paging starts over only for a new list (`listKey`, `paging.ts`), and the next card takes the focus (from the backlog) | P3 | done |
 | TEST-6 | The tests cannot reach the network: the real httpx transport raises `OfflineError` in every test not marked `network`, an error the pipeline neither retries nor skips (from the backlog) | P2 | done |
 | META-9 | A day file's paper that OpenAlex looks up in the archive no longer keeps the HTML extraction's version (`extractor`) of its former affiliations, filled or still empty; `Paper` refuses an `extractor` beside affiliations from another source. Latent: no stored record had one, but day files age into the archive (not in the audit) | P2 | done |
+| TEST-15 | A test keeps `Paper.to_record()` and the `Paper` interface of `types.ts` in step, field by field (the build-only `doi` and `author_ids` apart, the fields written only when known optional on the site), and the two `SCHEMA_VERSION`s equal (from the backlog) | P2 | done |
 | ARCH-2 | Enrichment step interface | P2 | todo |
 | DEBT-2, DEBT-3 | View model for `app.tsx`, `GraphView` split | P2, P3 | todo |
 | ARCH-4 | Multi-category, if wanted | P2 | todo |

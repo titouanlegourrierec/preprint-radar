@@ -170,7 +170,7 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
 ## Data contract (keep both sides in sync)
 
 - The paper record is `Paper.to_record()` / `Paper.from_record()` in `models.py`, mirrored
-  in `web/src/types.ts`. A breaking change bumps `SCHEMA_VERSION` in both
+  in `web/src/types.ts` (`tests/unit/test_record_contract.py` compares the fields). A breaking change bumps `SCHEMA_VERSION` in both
   `store/paper_store.py` and `types.ts`. An optional field needs no bump: backfill `data/`
   with a one-off script, and give it `?:` on the web side, since reading lists saved in
   browsers predate it (`venue` is optional for that reason).
