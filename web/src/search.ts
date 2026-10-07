@@ -1,7 +1,7 @@
 import MiniSearch, { type SearchResult as MiniSearchResult, type Options } from "minisearch";
 import { codeUrl } from "./code";
 import { wholeWord } from "./highlight";
-import { acronymOf, namedInstitutions } from "./institutions";
+import { acronymOf, institutionsOf, namedInstitutions } from "./institutions";
 import { fold, searchKey } from "./text";
 import type { Paper } from "./types";
 import { ANY_VENUE, matchesVenue } from "./venues";
@@ -415,20 +415,61 @@ export function matchesFilters(paper: Paper, filters: SearchFilters): boolean {
   );
 }
 
+/** What the author and affiliation filters mark on a card (SRCH-8). */
+export interface NameHighlights {
+  /** In the author line only. */
+  authors: string[];
+  /** In the affiliation line only. */
+  affiliations: string[];
+  /**
+   * The key of the institution clicked: a card marks whole the affiliations it names,
+   * however they write it ("IIT Kanpur" for Indian Institute of Technology Kanpur).
+   */
+  institution: string | null;
+}
+
+/** A filter's needles: a clicked name whole, typed words as word starts, as each matches. */
+function filterNeedles(filter: NameFilter | null): string[] {
+  if (!isActive(filter)) return [];
+  // The filters compare `searchKey`s, whose punctuation the needle's words may stand
+  // across: "Julia A. Schnabel" marks "Julia A Schnabel", "Xi'an" marks "Xi’an".
+  const key = searchKey(filter.text);
+  if (filter.exact) return [wholeWord(key)];
+  return key.split(" ").filter((word) => !STOP_WORDS.has(word));
+}
+
 /**
- * What the author and affiliation filters highlight, in the author and affiliation lines
- * of a card (SRCH-8): a clicked name as a whole (`Hao Li`, not every word starting with
- * "li"), typed text as word starts, as it matches. An affiliation filtered through its
- * institution's name ("CMU" for Carnegie Mellon University) is not marked.
+ * What the author and affiliation filters highlight, each in its own line of a card
+ * (SRCH-8): a clicked name as a whole ("Hao Li", not every word starting with "li"), typed
+ * text as word starts, and the affiliations of a clicked institution.
  */
-export function nameHighlights(filters: SearchFilters): string[] {
-  return [filters.author, filters.affiliation].flatMap((filter) => {
-    if (!isActive(filter)) return [];
-    if (filter.exact) return [wholeWord(fold(filter.text).trim())];
-    return fold(filter.text)
-      .split(/\s+/)
-      .filter((word) => word && !STOP_WORDS.has(word));
-  });
+export function nameHighlights(filters: SearchFilters): NameHighlights {
+  const { affiliation } = filters;
+  return {
+    authors: filterNeedles(filters.author),
+    affiliations: filterNeedles(affiliation),
+    institution: affiliation?.exact && isActive(affiliation) ? searchKey(affiliation.text) : null,
+  };
+}
+
+/**
+ * What to mark in one of a paper's affiliations: the search words, the affiliation
+ * filter's needles, and the whole affiliation when it names the institution clicked.
+ */
+export function affiliationNeedles(
+  paper: Paper,
+  affiliation: string,
+  names: NameHighlights,
+  highlights: readonly string[],
+): string[] {
+  const institution = institutionsOf(paper)[paper.affiliations?.indexOf(affiliation) ?? -1];
+  const clicked =
+    names.institution !== null && institution && searchKey(institution) === names.institution;
+  return [
+    ...highlights,
+    ...names.affiliations,
+    ...(clicked ? [wholeWord(searchKey(affiliation))] : []),
+  ];
 }
 
 /** Most frequent values of a multi-valued field among papers. */

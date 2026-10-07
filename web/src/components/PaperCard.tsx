@@ -6,7 +6,13 @@ import { highlight } from "../highlight";
 import { institutionsOf } from "../institutions";
 import { linkOuts } from "../link-outs";
 import { reportLink } from "../report";
-import { exactly, type NameFilter, typed } from "../search";
+import {
+  affiliationNeedles,
+  exactly,
+  type NameFilter,
+  type NameHighlights,
+  typed,
+} from "../search";
 import type { Paper } from "../types";
 import { Highlighted } from "./Highlighted";
 import { RichText } from "./RichText";
@@ -34,7 +40,7 @@ interface Props {
   paper: Paper;
   highlights: readonly string[];
   /** The names filtered on, highlighted in the author and affiliation lines only (SRCH-8). */
-  nameHighlights: readonly string[];
+  nameHighlights: NameHighlights;
   showAbstract: boolean;
   saved: boolean;
   /** Marked seen by the reader: dimmed in the list. */
@@ -97,11 +103,14 @@ export function PaperCard({
     expanded || paper.authors.length <= MAX_AUTHORS_COLLAPSED
       ? paper.authors
       : paper.authors.slice(0, MAX_AUTHORS_COLLAPSED);
-  // Names are marked with the search words and the names filtered on.
-  const nameTerms = [...highlights, ...nameHighlights];
+  // Names are marked with the search words and the names filtered on, each in its line;
+  // an affiliation of the institution clicked is marked whole, however it writes it.
+  const authorTerms = [...highlights, ...nameHighlights.authors];
+  const affiliationTerms = (affiliation: string) =>
+    affiliationNeedles(paper, affiliation, nameHighlights, highlights);
   // Matching affiliations first, so that a filtered one is never hidden behind "+N".
   const allAffiliations = [...(paper.affiliations ?? [])].sort(
-    (a, b) => Number(matches(b, nameTerms)) - Number(matches(a, nameTerms)),
+    (a, b) => Number(matches(b, affiliationTerms(b))) - Number(matches(a, affiliationTerms(a))),
   );
   const affiliations = expanded
     ? allAffiliations
@@ -175,7 +184,7 @@ export function PaperCard({
                 title="Show papers by this author"
                 onClick={() => onAuthor(author)}
               >
-                <Highlighted text={author} terms={nameTerms} />
+                <Highlighted text={author} terms={authorTerms} />
               </button>
             </span>
           ))}
@@ -195,7 +204,7 @@ export function PaperCard({
                   title="Show papers from this affiliation"
                   onClick={() => onAffiliation(affiliationFilter(paper, affiliation))}
                 >
-                  <Highlighted text={affiliation} terms={nameTerms} />
+                  <Highlighted text={affiliation} terms={affiliationTerms(affiliation)} />
                 </button>
               </span>
             ))}

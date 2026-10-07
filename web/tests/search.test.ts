@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { highlight, wholeWord } from "../src/highlight";
 import {
   ANY_VENUE,
+  affiliationNeedles,
   alphabetical,
   byCitations,
   byGains,
@@ -325,14 +326,16 @@ describe("PaperIndex", () => {
     expect(result?.highlights).toEqual([]);
   });
 
-  it("highlights a typed filter's words but its stop words, as word starts", () => {
-    expect(nameHighlights({ ...NO_FILTERS, affiliation: typed("University of Tokyo") })).toEqual([
-      "university",
-      "tokyo",
-    ]);
+  it("highlights a typed filter's words but its stop words, as word starts, in its line", () => {
+    expect(nameHighlights({ ...NO_FILTERS, affiliation: typed("University of Tokyo") })).toEqual({
+      authors: [],
+      affiliations: ["university", "tokyo"],
+      institution: null,
+    });
     const typedHao = nameHighlights({ ...NO_FILTERS, author: typed("hao") });
-    expect(highlight("Haoran Li", typedHao).some((segment) => segment.match)).toBe(true);
-    expect(nameHighlights({ ...NO_FILTERS, author: typed("  ") })).toEqual([]);
+    expect(typedHao.affiliations).toEqual([]);
+    expect(highlight("Haoran Li", typedHao.authors).some((segment) => segment.match)).toBe(true);
+    expect(nameHighlights({ ...NO_FILTERS, author: typed("  ") }).authors).toEqual([]);
   });
 
   it("highlights a clicked name as a whole, not words starting like it", () => {
@@ -341,14 +344,48 @@ describe("PaperIndex", () => {
       author: exactly("Hao Li"),
       affiliation: exactly("NVIDIA"),
     });
-    expect(needles).toEqual([wholeWord("hao li"), wholeWord("nvidia")]);
-    const marked = (text: string) =>
-      highlight(text, needles)
+    expect(needles).toEqual({
+      authors: [wholeWord("hao li")],
+      affiliations: [wholeWord("nvidia")],
+      institution: "nvidia",
+    });
+    const marked = (text: string, terms: readonly string[]) =>
+      highlight(text, terms)
         .filter((segment) => segment.match)
         .map((segment) => segment.text);
-    expect(marked("A lightweight linear model for limited data")).toEqual([]);
-    expect(marked("Hao Li, Jane Doe")).toEqual(["Hao Li"]);
-    expect(marked("NVIDIA Research")).toEqual(["NVIDIA"]);
+    expect(marked("A lightweight linear model for limited data", needles.authors)).toEqual([]);
+    expect(marked("Hao Li, Jane Doe", needles.authors)).toEqual(["Hao Li"]);
+    expect(marked("NVIDIA Research", needles.affiliations)).toEqual(["NVIDIA"]);
+  });
+
+  it("marks whole the affiliations of a clicked institution, however they write it", () => {
+    const paper = makePaper({
+      arxiv_id: "1",
+      affiliations: ["IIT Kanpur", "Some Lab"],
+      institutions: ["Indian Institute of Technology Kanpur", null],
+    });
+    const names = nameHighlights({
+      ...NO_FILTERS,
+      affiliation: exactly("Indian Institute of Technology Kanpur"),
+    });
+    const marked = (affiliation: string) =>
+      highlight(affiliation, affiliationNeedles(paper, affiliation, names, ["lab"]))
+        .filter((segment) => segment.match)
+        .map((segment) => segment.text);
+    expect(marked("IIT Kanpur")).toEqual(["IIT Kanpur"]);
+    // Only the search words mark another affiliation.
+    expect(marked("Some Lab")).toEqual(["Lab"]);
+  });
+
+  it("matches a clicked name across its punctuation, as the filter does", () => {
+    const marked = (name: string, text: string) =>
+      highlight(text, nameHighlights({ ...NO_FILTERS, author: exactly(name) }).authors)
+        .filter((segment) => segment.match)
+        .map((segment) => segment.text);
+    expect(marked("Julia A. Schnabel", "Julia A Schnabel")).toEqual(["Julia A Schnabel"]);
+    expect(marked("Xi'an Jiaotong University", "Xi\u2019an Jiaotong University")).toEqual([
+      "Xi\u2019an Jiaotong University",
+    ]);
   });
 
   it("reports matched terms for highlighting", () => {
