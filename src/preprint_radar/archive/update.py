@@ -33,7 +33,7 @@ from pathlib import Path
 
 from preprint_radar.archive.catalog import Catalog
 from preprint_radar.archive.selection import Candidate, Selection, select_archive
-from preprint_radar.archive.subjects import subject_name, subject_names
+from preprint_radar.archive.subjects import SUBJECT_ALIASES, subject_name, subject_names
 from preprint_radar.config import (
     ARCHIVE_SINCE,
     CITATIONS_CACHE_DAYS,
@@ -305,7 +305,8 @@ def paper_from_catalog(entry: CatalogEntry, category: str, subjects: Mapping[str
             canonical code (:mod:`preprint_radar.archive.subjects`), and a code neither
             knows is kept as it is.
     """
-    primary = entry.categories[0] if entry.categories else category
+    # Under its canonical code, as its name: "cs.SY" is a cross-list from "eess.SY".
+    primary = SUBJECT_ALIASES.get(entry.categories[0], entry.categories[0]) if entry.categories else category
     return Paper(
         arxiv_id=entry.arxiv_id,
         announced=entry.first_seen,

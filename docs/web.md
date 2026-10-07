@@ -92,7 +92,8 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
 - Printed (`@media print` in `styles.css`, UX-18), a list is its cards in black on white
   whatever the theme, none cut by a page break, each with its arXiv address under the
   title and an abstract shown printed whole, without the top bar, search, sidebar,
-  controls, help notes and graph. Only the cards the list has loaded (40 at a time) print.
+  controls, help notes and graph; a folded card keeps its "+N" authors and affiliations,
+  which say how many are left out. Only the cards the list has loaded (40 at a time) print.
 
 ## URLs and history (`url-state.ts`)
 

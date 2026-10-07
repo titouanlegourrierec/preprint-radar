@@ -30,6 +30,9 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   "Bartłomiej" and "Bartlomiej" are one author in the graph and Rankings, and searching
   "lukasz" finds "Łukasz". BibTeX keys write these letters plainly, and the feed of an
   institution that writes them moves ("…-giessen.xml") (AFF-24).
+- Text typed in the Author or Affiliation filter searches, and goes into the link, after
+  the search box's short pause instead of at every key; a clicked name, the checkboxes,
+  the venue, the subject, Back and Forward still apply at once (PERF-4).
 
 ### Fixes
 
@@ -45,6 +48,8 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   announces: that day is not saved, the others are read, the report names it and the
   command exits with 1; after three such days in a row it asks for no more. A dated
   `Retry-After` is honoured (REL-4, REL-8).
+- A file of citation counts that fails to load is reported in the browser console instead
+  of being dropped silently (SRCH-10).
 
 ### Triage
 
@@ -58,6 +63,10 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   hands the focus on.
 - The reading list has the Export menu of the other lists (BibTeX, CSV, RIS, Markdown, of
   the saved papers its search shows), beside Import and Export JSON (SRCH-16).
+- A list prints as its cards, black on white whatever the theme, none cut by a page
+  break, each with its arXiv address under the title, without the controls, sidebar and
+  graph; the browser's bar takes the page's background, that of the forced theme too
+  (UX-18).
 
 ### Highly cited
 
@@ -80,6 +89,9 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 - The pipeline refuses a store file of another `schema_version`, naming the file and both
   versions, instead of misreading it or relabelling it; a breaking change ships with its
   migration of `data/` (DATA-9, ARCH-7).
+- Papers entering the archive name every subject as the listings do, from arXiv's taxonomy
+  where the day files never named it, and lose the footnote marks, the leading "and " and
+  the "others" that arXiv's metadata leaves among author names (META-8, AFF-21).
 
 ### Command line
 
@@ -100,6 +112,8 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   without success, so its fallback ran the whole update again (CI-9). A push deploys once
   the web tests pass (CI-4), a burst of pushes is tested once, and the static checks run
   on one Python version (CI-14, TEST-13).
+- A fork that turns its Actions on no longer crawls arXiv on schedule: the data
+  workflows' guard stops their scheduled runs there, and the canary skips its jobs (CI-11).
 
 ### Security
 
@@ -145,6 +159,7 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 - Rankings and the graph's settings give the share of papers whose affiliations are known,
   "Affiliations known for 331 of 2,018 papers (16%)", and below half that the others count
   for no institution (PROD-16).
+- A name a paper lists twice is one author, placed wherever either occurrence is (AFF-21).
 
 ### Citations
 

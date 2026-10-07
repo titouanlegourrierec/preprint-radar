@@ -541,7 +541,7 @@ def test_paper_from_catalog_names_an_alias_as_its_canonical_subject_once() -> No
         "Learned name (cs.IT)",
         "cs.XX",  # a code arXiv's taxonomy does not know stays as it is
     )
-    assert paper.cross_list_from == "cs.SY"
+    assert paper.cross_list_from == "eess.SY"
 
 
 def test_every_alias_names_a_subject_of_the_taxonomy() -> None:

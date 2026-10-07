@@ -132,10 +132,11 @@ def test_author_names_are_cleaned_once_and_for_all() -> None:
     assert author_names(names) == ("Ann Lee", "Bo Chen", "Cy Diaz")
     assert author_names(author_names(names)) == author_names(names)
     # A name ending in what is no marker, or holding "and" elsewhere, is left alone.
-    assert author_names(("Andrea Rossi", "Ann Anderson", "Others Jr")) == (
+    assert author_names(("Andrea Rossi", "Ann Anderson", "Others Jr", "Ferdinand and Lee")) == (
         "Andrea Rossi",
         "Ann Anderson",
         "Others Jr",
+        "Ferdinand and Lee",
     )
 
 

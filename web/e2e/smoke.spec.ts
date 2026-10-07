@@ -171,6 +171,22 @@ test("a card's +N shows the rest, and its first name takes the focus", async ({ 
   expect(errors).toEqual([]);
 });
 
+test("Back and Forward between a typed name and a clicked one keep the history", async ({
+  page,
+}) => {
+  await page.goto("./?author=gra");
+  await page.getByRole("button", { name: "Grace Hopper" }).first().click();
+  await expect(page).toHaveURL(/by=Grace/);
+  const entries = await page.evaluate("history.length");
+  await page.goBack();
+  await expect(page).toHaveURL(/author=gra/);
+  // Past the typing pause, nothing was pushed over the entry Forward leads to.
+  await page.waitForTimeout(400);
+  expect(await page.evaluate("history.length")).toBe(entries);
+  await page.goForward();
+  await expect(page).toHaveURL(/by=Grace/);
+});
+
 test("Rankings lists the institutions of the papers shown", async ({ page }) => {
   const errors = watchErrors(page);
   await page.goto("./?view=rankings");

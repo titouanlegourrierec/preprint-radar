@@ -44,9 +44,14 @@ export function useUrlState() {
     }
   }, [state, query, filters]);
 
-  // Back and Forward: show the state of the entry, which then matches the URL (no new entry).
+  // Back and Forward: show the state of the entry, which then matches the URL (no new entry);
+  // its filters apply at once, being no typing: else the lag would push entries over Forward.
   useEffect(() => {
-    const onPopState = () => setState(readState(window.location.search));
+    const onPopState = () => {
+      const next = readState(window.location.search);
+      setState(next);
+      setSettled(next.filters);
+    };
     window.addEventListener("popstate", onPopState);
     return () => window.removeEventListener("popstate", onPopState);
   }, []);
