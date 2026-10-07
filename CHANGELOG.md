@@ -15,6 +15,12 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 - The venue filter has every edition of a venue at once, "CVPR, any year", its workshops
   apart (SRCH-15).
 
+### Feeds
+
+- Every institution of the recent papers, and each major venue, has an Atom feed of its
+  papers of the last 60 days: filtered on one, the list links it, for a feed reader
+  (§17.1 #6).
+
 ### Citations
 
 - Rising papers: each card says what it gained in the last week ("+12 this week"), and

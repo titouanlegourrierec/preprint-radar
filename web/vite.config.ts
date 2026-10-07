@@ -14,6 +14,7 @@ import type { Plugin } from "vite";
 import { defineConfig } from "vitest/config";
 import type { ScholarFile, StoreIndex } from "./src/types";
 import { citationShardFiles } from "./tooling/citation-shards";
+import { feedFiles } from "./tooling/feeds";
 import { paperFiles, withScholar } from "./tooling/scholar";
 import { thirdPartyLoads } from "./tooling/third-party";
 
@@ -53,22 +54,56 @@ function shardsOf(dataDir: string): () => Map<string, string> {
   };
 }
 
+// The site's address, which the feeds' links need; the deploy workflow sets it.
+const SITE_URL = process.env.PREPRINT_RADAR_SITE_URL || null;
+
+/**
+ * The Atom feeds of the store (`tooling/feeds.ts`), derived again in development when the
+ * index changes (a new day) or `scholar.json` does.
+ */
+function feedsOf(dataDir: string): () => Map<string, string> {
+  let cached: { stamp: string; files: Map<string, string> } | null = null;
+  return () => {
+    const sources = existsSync(dataDir)
+      ? [
+          resolve(dataDir, "index.json"),
+          ...readdirSync(dataDir).map((name) => resolve(dataDir, name, "scholar.json")),
+        ].filter((path) => existsSync(path))
+      : [];
+    const stamp = sources.map((path) => `${path}@${statSync(path).mtimeMs}`).join("\n");
+    if (cached?.stamp !== stamp)
+      cached = { stamp, files: feedFiles(jsonReader(dataDir), SITE_URL) };
+    return cached.files;
+  };
+}
+
 // A day or archive file, whose records the site gets with their DOI and published venue.
 const PAPER_FILE_RE = /^\/([^/]+)\/(?:\d{4}-\d{2}-\d{2}|archive\/\d{4})\.json$/;
 
 /**
  * Serve the repository's `data/` store at `/data` during development and copy it into the
  * build output, so the Python pipeline and the web app share a single source of truth. What
- * only the site uses is derived from it here, not stored: the citation shards, and the
- * records with what `scholar.json` knows (`tooling/scholar.ts`).
+ * only the site uses is derived from it here, not stored: the citation shards, the records
+ * with what `scholar.json` knows (`tooling/scholar.ts`), and the Atom feeds, at `/feeds`.
  */
 function paperData(dataDir: string): Plugin {
   const shards = shardsOf(dataDir);
+  const feeds = feedsOf(dataDir);
   const read = jsonReader(dataDir);
   const scholarOf = (category: string) => read(`${category}/scholar.json`) as ScholarFile | null;
   return {
     name: "preprint-radar:data",
     configureServer(server) {
+      server.middlewares.use("/feeds", (req, res, next) => {
+        const path = decodeURIComponent((req.url ?? "/").split("?")[0] ?? "/");
+        const feed = feeds().get(`feeds${path}`);
+        if (feed === undefined) {
+          next();
+          return;
+        }
+        res.setHeader("Content-Type", "application/atom+xml; charset=utf-8");
+        res.end(feed);
+      });
       server.middlewares.use("/data", (req, res, next) => {
         const path = decodeURIComponent((req.url ?? "/").split("?")[0] ?? "/");
         const shard = shards().get(path.slice(1));
@@ -101,6 +136,11 @@ function paperData(dataDir: string): Plugin {
         });
         for (const [path, text] of shards()) {
           const target = resolve(output, path);
+          mkdirSync(dirname(target), { recursive: true });
+          writeFileSync(target, text);
+        }
+        for (const [path, text] of feeds()) {
+          const target = resolve(options.dir, path);
           mkdirSync(dirname(target), { recursive: true });
           writeFileSync(target, text);
         }

@@ -1,7 +1,7 @@
 import type { ScholarFile } from "../src/types";
 
 /** A paper as a day or archive file holds it, for what the merge reads and writes. */
-interface StoredPaper {
+export interface StoredPaper {
   arxiv_id: string;
   authors?: string[];
   venue?: string | null;
@@ -20,7 +20,13 @@ interface StoredPaper {
 export function withScholar(text: string, scholar: ScholarFile | null): string {
   if (scholar === null) return text;
   const file = JSON.parse(text) as { papers: StoredPaper[] };
-  for (const paper of file.papers) {
+  mergeScholar(file.papers, scholar);
+  return JSON.stringify(file);
+}
+
+/** The same merge on parsed records, in place: what the feeds read (`tooling/feeds.ts`). */
+export function mergeScholar(papers: StoredPaper[], scholar: ScholarFile): void {
+  for (const paper of papers) {
     const record = scholar.papers[paper.arxiv_id];
     if (record === undefined) continue;
     if (record.doi) paper.doi = record.doi;
@@ -29,7 +35,6 @@ export function withScholar(text: string, scholar: ScholarFile | null): string {
       paper.author_ids = record.author_ids;
     }
   }
-  return JSON.stringify(file);
 }
 
 /** The paths of the day and archive files of a store, under `data/`, from its index. */

@@ -9,6 +9,7 @@ import { SavedSearches } from "./components/SavedSearches";
 import { Sidebar } from "./components/Sidebar";
 import { download } from "./download";
 import { toCsv, toMarkdown, toRis } from "./export";
+import { feedOf } from "./feeds";
 import {
   archiveYearLabel,
   categoryName,
@@ -224,6 +225,8 @@ export function App() {
   // Rising papers, once two weekly refreshes of the counts are known (CIT-9).
   const gainsSpan = citations.gainsSpan;
   const rising = state.sort === "rising" && gainsSpan !== null;
+  // The feed of the institution or major venue the papers are filtered on (§17.1 #6).
+  const feed = state.view === "papers" && category ? feedOf(category, state.filters) : null;
   const gainOf = (arxivId: string) => {
     const gain = citations.gains.get(arxivId);
     return gain && gainsSpan ? gainLabel(gain, gainsSpan, citations.source) : undefined;
@@ -758,6 +761,15 @@ export function App() {
             )}
           {state.view !== "rankings" && (
             <ActiveFilters filters={state.filters} onFilters={setFilters} />
+          )}
+          {feed && (
+            <p class="feed-link muted">
+              New papers {feed.kind === "venue" ? "accepted at" : "from"} {feed.name}, in a feed
+              reader:{" "}
+              <a href={encodeURI(feed.path)} type="application/atom+xml">
+                Atom feed
+              </a>
+            </p>
           )}
 
           {load.status === "error" && state.view !== "reading-list" ? (

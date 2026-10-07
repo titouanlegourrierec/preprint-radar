@@ -39,6 +39,14 @@ export function About() {
         </li>
       </ul>
 
+      <h3>Following a lab or a venue</h3>
+      <p>
+        Every institution of the recent papers, and each major venue, has an Atom feed of its papers
+        of the last 60 days, for a feed reader: filter the papers on an institution (click its name)
+        or a major venue, and follow the link under the filters. Your feed reader then asks this
+        site for it; nothing else is involved.
+      </p>
+
       <h3>Corrections and removal</h3>
       <p>
         If a paper of yours shows a wrong affiliation or author, or you would like it removed from
@@ -64,8 +72,8 @@ export function About() {
           .
         </li>
         <li>
-          Links to arXiv, Semantic Scholar and others take you to those sites, under their own
-          terms.
+          Links to arXiv, Semantic Scholar, Connected Papers, alphaXiv and others take you to those
+          sites, under their own terms.
         </li>
       </ul>
     </main>

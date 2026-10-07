@@ -90,6 +90,18 @@ derives what only the site uses. The pipeline and `validate` never see these.
   Rising control shows once a gains file exists; before, `sort=rising` is Most cited.
 - **Published versions** (`tooling/scholar.ts`): the day and archive files get `doi`, and
   the published `venue` where the comments name none, from `scholar.json`.
+- **Atom feeds** (`tooling/feeds.ts`, `src/feeds.ts`, §17.1 #6): `feeds/<category>/
+  institutions/<slug>.xml` for every institution the day files name, and
+  `feeds/<category>/venues/<venue>.xml` for each major venue (every edition, not the
+  workshops), with their papers of the last 60 days (`FEED_DAYS`), at most 30 and 100. The
+  slug is the name's `searchKey`, hyphenated, so that the site finds a feed from the name
+  it filters on (`feedOf`: an institution clicked, else a major venue) and links it under
+  the filters; an institution keeps its feed while the store holds one of its papers,
+  empty after 60 quiet days. Entries are the site's records (with Semantic Scholar's
+  venues), ten authors and "and N more". The deploy workflow passes the site's address
+  (`PREPRINT_RADAR_SITE_URL`, from `configure-pages`) for each feed's id and `self` link;
+  a local build gives `urn:` ids and no links. About 2,900 feeds, 20 MB for five weeks of
+  days; a 60-day window keeps it there as the days grow.
 - `noThirdPartyLoads` (`tooling/third-party.ts`) fails the build if the site would load
   anything from another origin: the About page promises that it loads nothing from other
   websites. Links are fine; fonts, scripts, images or `fetch()` from a CDN are not.
