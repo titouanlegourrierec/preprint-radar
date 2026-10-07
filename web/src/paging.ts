@@ -26,6 +26,14 @@ export function pageCount({
 }
 
 /**
+ * Cards to show once the end of the list comes into view: a page more while some are left.
+ * An empty list (loading) or one shown whole, whose end is always in view, does not grow.
+ */
+export function nextPage(visible: number, total: number): number {
+  return visible < total ? visible + PAGE_SIZE : visible;
+}
+
+/**
  * The card to focus once the focused one at `index` left the list (marked seen while seen
  * papers are hidden, unsaved from the reading list): the one now at its place, else the
  * last; -1 when none is left.

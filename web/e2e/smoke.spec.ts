@@ -94,3 +94,17 @@ test("marking a paper seen while seen papers are hidden moves the focus to the n
   expect(await focused.getAttribute("data-arxiv-id")).not.toBe(first);
   expect(errors).toEqual([]);
 });
+
+test("a card's own Mark seen button hands the focus on as x does", async ({ page }) => {
+  await page.goto("./");
+  await expect(page.getByText("4 of 4 cs.CV papers")).toBeVisible();
+  await page.getByRole("checkbox", { name: "Hide seen" }).check();
+  const first = page.locator("article.paper").first();
+  const id = await first.getAttribute("data-arxiv-id");
+  await first.getByRole("button", { name: "Mark seen" }).focus();
+  await page.keyboard.press("Enter");
+  await expect(page.getByText("3 of 4 cs.CV papers")).toBeVisible();
+  const focused = page.locator("article.paper:focus");
+  await expect(focused).toHaveCount(1);
+  expect(await focused.getAttribute("data-arxiv-id")).not.toBe(id);
+});

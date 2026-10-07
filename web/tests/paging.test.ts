@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { nextFocusIndex, PAGE_SIZE, pageCount } from "../src/paging";
+import { nextFocusIndex, nextPage, PAGE_SIZE, pageCount } from "../src/paging";
 
 describe("pageCount", () => {
   it("starts a new list over at one page", () => {
@@ -24,5 +24,14 @@ describe("nextFocusIndex", () => {
     expect(nextFocusIndex(4, 4)).toBe(3);
     expect(nextFocusIndex(0, 0)).toBe(-1);
     expect(nextFocusIndex(3, -1)).toBe(0);
+  });
+});
+
+describe("nextPage", () => {
+  it("adds a page while cards are left, never to an empty list or one shown whole", () => {
+    expect(nextPage(40, 1016)).toBe(80);
+    expect(nextPage(40, 0)).toBe(40);
+    expect(nextPage(40, 23)).toBe(40);
+    expect(nextPage(1000, 1016)).toBe(1040);
   });
 });

@@ -3,8 +3,8 @@ import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { dayGroups } from "../day-groups";
 import { countOf, formatShortDay } from "../format";
 import { hasModifier, isTyping } from "../keyboard";
-import { nextFocusIndex, PAGE_SIZE, pageCount } from "../paging";
-import type { NameFilter, SearchResult } from "../search";
+import { nextFocusIndex, nextPage, PAGE_SIZE, pageCount } from "../paging";
+import type { NameFilter, NameHighlights, SearchResult } from "../search";
 import type { Paper } from "../types";
 import { PaperCard } from "./PaperCard";
 
@@ -13,7 +13,7 @@ interface Props {
   /** What makes a new list (`listKey`): its paging starts over only when this changes. */
   resetKey: string;
   /** The names filtered on, which cards mark in their author and affiliation lines. */
-  nameHighlights: readonly string[];
+  nameHighlights: NameHighlights;
   /** Insert a heading before each day; needs results in announcement order. */
   groupByDay: boolean;
   /** Paper of a shared `?paper=` link: its card is expanded and scrolled into view. */
@@ -81,6 +81,9 @@ export function PaperList({
   );
   const actions = useRef({ byId, onToggleSaved, onToggleSeen });
   actions.current = { byId, onToggleSaved, onToggleSeen };
+  // The results' count, for the observer that adds pages, set up once.
+  const total = useRef(results.length);
+  total.current = results.length;
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.defaultPrevented || hasModifier(event) || isTyping(event.target) || !list.current)
@@ -128,7 +131,7 @@ export function PaperList({
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries.some((entry) => entry.isIntersecting)) {
-          setVisible((count) => count + PAGE_SIZE);
+          setVisible((count) => nextPage(count, total.current));
         }
       },
       { rootMargin: "800px" },
@@ -149,6 +152,24 @@ export function PaperList({
     });
   };
 
+  // A card's own Mark seen and ☆ buttons hand the focus on too, when the card leaves.
+  const cardIndex = (arxivId: string) =>
+    [...(list.current?.querySelectorAll<HTMLElement>("article.paper") ?? [])].findIndex(
+      (card) => card.dataset.arxivId === arxivId,
+    );
+  const toggleSeen =
+    onToggleSeen &&
+    ((arxivId: string) => {
+      const index = cardIndex(arxivId);
+      onToggleSeen(arxivId);
+      refocusAfter(index);
+    });
+  const toggleSaved = (paper: Paper) => {
+    const index = cardIndex(paper.arxiv_id);
+    onToggleSaved(paper);
+    refocusAfter(index);
+  };
+
   const card = ({ paper, highlights }: SearchResult) => (
     <PaperCard
       key={paper.arxiv_id}
@@ -158,7 +179,7 @@ export function PaperList({
       showAbstract={showAbstracts}
       saved={savedIds.has(paper.arxiv_id)}
       seen={seenIds?.has(paper.arxiv_id) ?? false}
-      onToggleSeen={onToggleSeen}
+      onToggleSeen={toggleSeen}
       isTarget={paper.arxiv_id === openId}
       permalink={linkTo(paper)}
       onOpen={onOpenPaper}
@@ -167,7 +188,7 @@ export function PaperList({
       citations={citations.get(paper.arxiv_id)}
       citationsNote={citationsNote}
       gain={gainOf?.(paper.arxiv_id)}
-      onToggleSaved={onToggleSaved}
+      onToggleSaved={toggleSaved}
       onAuthor={onAuthor}
       onAffiliation={onAffiliation}
     />
