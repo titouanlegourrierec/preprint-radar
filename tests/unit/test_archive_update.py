@@ -9,6 +9,7 @@ import pytest
 from tests.conftest import FIXTURES_DIR
 
 from preprint_radar.archive.catalog import Catalog
+from preprint_radar.archive.subjects import ARXIV_SUBJECTS, SUBJECT_ALIASES, subject_name, subject_names
 from preprint_radar.archive.update import (
     ArchiveClients,
     ArchiveReport,
@@ -514,9 +515,37 @@ def test_format_archive_report() -> None:
 def test_paper_from_catalog_names_subjects() -> None:
     entry = _entry("2010.11929", date(2020, 10, 22), ("cs.LG", "cs.CV", "cs.AI"))
 
-    paper = paper_from_catalog(entry, "cs.CV", {"cs.LG": "Machine Learning (cs.LG)"})
+    # The name the stored days give comes first, arXiv's taxonomy names the others.
+    paper = paper_from_catalog(entry, "cs.CV", {"cs.LG": "Learned name (cs.LG)"})
 
-    assert paper.primary_subject == "Machine Learning (cs.LG)"
-    assert paper.subjects == ("Machine Learning (cs.LG)", "cs.CV", "cs.AI")
+    assert paper.primary_subject == "Learned name (cs.LG)"
+    assert paper.subjects == (
+        "Learned name (cs.LG)",
+        "Computer Vision and Pattern Recognition (cs.CV)",
+        "Artificial Intelligence (cs.AI)",
+    )
     assert paper.announced == date(2020, 10, 22)
     assert paper.affiliations is None
+
+
+def test_paper_from_catalog_names_an_alias_as_its_canonical_subject_once() -> None:
+    # OAI lists an alias next to its canonical code; the listings print the latter once.
+    entry = _entry("1203.00001", date(2012, 3, 1), ("cs.SY", "eess.SY", "cs.CV", "math.IT", "cs.XX"))
+
+    paper = paper_from_catalog(entry, "cs.CV", {"cs.IT": "Learned name (cs.IT)"})
+
+    assert paper.primary_subject == "Systems and Control (eess.SY)"
+    assert paper.subjects == (
+        "Systems and Control (eess.SY)",
+        "Computer Vision and Pattern Recognition (cs.CV)",
+        "Learned name (cs.IT)",
+        "cs.XX",  # a code arXiv's taxonomy does not know stays as it is
+    )
+    assert paper.cross_list_from == "cs.SY"
+
+
+def test_every_alias_names_a_subject_of_the_taxonomy() -> None:
+    assert set(SUBJECT_ALIASES).isdisjoint(ARXIV_SUBJECTS)
+    assert set(SUBJECT_ALIASES.values()) <= set(ARXIV_SUBJECTS)
+    assert subject_name("stat.TH", {}) == "Statistics Theory (math.ST)"
+    assert subject_names(("math-ph", "math.MP"), {}) == ("Mathematical Physics (math-ph)",)

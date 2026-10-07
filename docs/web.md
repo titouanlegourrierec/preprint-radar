@@ -266,6 +266,7 @@ cross-listed lately, says "first version 2019" beside its day (`firstVersionYear
 - `graph.ts` builds the graph (pure, tested) from three layers: papers, institutions,
   authors. With papers on, a paper links to its authors, and each institution to the
   authors the paper places there, else to the paper itself (never to an unplaced author).
+  A name a paper lists twice is one author, placed wherever either occurrence is (AFF-21).
   With papers off, it is the co-occurrence projection (nodes linked when they share a
   paper), except that a paper of more than 50 authors (`MAX_CLIQUE_AUTHORS`) does not link
   its authors to one another, only to its institutions, as the legend says (PERF-3,

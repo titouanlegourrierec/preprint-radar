@@ -193,6 +193,46 @@ describe("buildGraph with author affiliations", () => {
     expect(links).toContain("author:cyd->institution:inria");
   });
 
+  it("places a name the paper lists twice wherever either occurrence is (AFF-21)", () => {
+    const twice = (author_affiliations: (number[] | null)[]) =>
+      makePaper({
+        arxiv_id: "12",
+        authors: ["Ada", "Bob", "Ada", "Cyd"],
+        affiliations: ["Inria", "ETH Zurich", "MIT"],
+        author_affiliations,
+      });
+    const adaLinks = (paper: ReturnType<typeof makePaper>) =>
+      buildGraph([paper], { ...INSTITUTIONS, authors: true })
+        .links.map(({ source, target }) => `${source}->${target}`)
+        .filter((link) => link.startsWith("author:ada->institution:"))
+        .sort();
+
+    // Both occurrences placed: the union of their institutions.
+    expect(adaLinks(twice([[0], [2], [1, 0], null]))).toEqual([
+      "author:ada->institution:eth zurich",
+      "author:ada->institution:inria",
+    ]);
+    // One placed, the other not: where the paper places them.
+    expect(adaLinks(twice([null, [2], [1], [0]]))).toEqual(["author:ada->institution:eth zurich"]);
+    expect(adaLinks(twice([[1], [2], null, [0]]))).toEqual(["author:ada->institution:eth zurich"]);
+    // Neither placed: every institution of the paper, as for any unplaced author.
+    expect(adaLinks(twice([null, [2], null, [0]]))).toEqual([
+      "author:ada->institution:eth zurich",
+      "author:ada->institution:inria",
+      "author:ada->institution:mit",
+    ]);
+    // With papers shown, both of Ada's institutions hang from her.
+    const graph = buildGraph([twice([[0], [2], [1], null])], {
+      ...INSTITUTIONS,
+      papers: true,
+      authors: true,
+    });
+    const links = graph.links.map(({ source, target }) => `${source}->${target}`);
+    expect(links).toContain("author:ada->institution:inria");
+    expect(links).toContain("author:ada->institution:eth zurich");
+    expect(graph.nodes.find((node) => node.id === "author:ada")?.paperIds).toEqual(["12"]);
+  });
+
   it("drops the author-institution edge when their institution is filtered out", () => {
     const twice = makePaper({ arxiv_id: "10", authors: ["Cyd"], affiliations: ["Inria"] });
     const graph = buildGraph([mapped, twice], {

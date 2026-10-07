@@ -9,7 +9,7 @@ papers) takes about 45 minutes; a refresh only asks for the records modified sin
 
 import logging
 import re
-from collections.abc import Iterator
+from collections.abc import Iterable, Iterator
 from dataclasses import dataclass
 from datetime import date
 from typing import Self
@@ -31,6 +31,13 @@ OAI_TIMEOUT_SECONDS = 180.0
 
 # Identifiers since 2007: YYMM.NNNN(N), the month of first announcement.
 _NEW_STYLE_ID_RE = re.compile(r"^(?P<year>\d{2})(?P<month>\d{2})\.\d{4,5}$")
+# arXiv splits the author list it was given as written (AFF-21): a footnote marker stays
+# on the name ("Jie Qin1" in 2104.14913, "Yulong Cao*" in 2106.09249), the last author
+# keeps its "and " ("and Haibin Ling" in 2201.08049), and "et al." is an author named
+# "others" (2005.03412, 2505.18988).
+_NAME_MARKERS_RE = re.compile(r"[\s\d*†]+$")
+_LEADING_AND_RE = re.compile(r"^(?:and\s+)+")
+_ET_AL = "others"
 
 _OAI = "{http://www.openarchives.org/OAI/2.0/}"
 _ARXIV = "{http://arxiv.org/OAI/arXiv/}"
@@ -49,7 +56,7 @@ class CatalogEntry:
         created: Date of the first version.
         categories: Categories, the primary one first.
         title: Title, whitespace collapsed.
-        authors: Author names, "Forenames Keyname".
+        authors: Author names, "Forenames Keyname", cleaned by :func:`author_names`.
         abstract: Abstract, whitespace collapsed, or ``None``.
         comments: Author comments, or ``None``.
         journal_ref: Journal reference, or ``None``.
@@ -100,7 +107,8 @@ class CatalogEntry:
             created=date.fromisoformat(str(record["created"])),
             categories=tuple(str(item) for item in _list(record["categories"])),
             title=str(record["title"]),
-            authors=tuple(str(item) for item in _list(record["authors"])),
+            # A catalog harvested before the names were cleaned is cleaned as it is read.
+            authors=author_names(str(item) for item in _list(record["authors"])),
             abstract=_optional(record.get("abstract")),
             comments=_optional(record.get("comments")),
             journal_ref=_optional(record.get("journal_ref")),
@@ -148,6 +156,17 @@ def parse_list_records(xml: str) -> OaiPage:
     return OaiPage(tuple(entries), text or None)
 
 
+def author_names(names: Iterable[str]) -> tuple[str, ...]:
+    """Author names as arXiv's metadata gives them, without what the author list added.
+
+    Trailing digits and the markers ``*`` and ``†`` (footnotes) and a leading "and " are
+    dropped; so are the author "others" ("et al.") and a name left empty (a lone footnote
+    number). Cleaning clean names changes nothing, so a catalog can be cleaned again.
+    """
+    cleaned = (_NAME_MARKERS_RE.sub("", _LEADING_AND_RE.sub("", name.strip())) for name in names)
+    return tuple(name for name in cleaned if name and name != _ET_AL)
+
+
 def harvest(
     client: HttpClient, set_spec: str, *, since: date | None = None, token: str | None = None
 ) -> Iterator[OaiPage]:
@@ -189,19 +208,18 @@ def _entry(record: Element) -> CatalogEntry | None:
     title = _text(meta, "title")
     if not arxiv_id or not created or not title:
         return None
-    authors = []
-    for author in meta.findall(f"{_ARXIV}authors/{_ARXIV}author"):
-        name = " ".join(
+    authors = author_names(
+        " ".join(
             filter(None, (_text(author, "forenames"), _text(author, "keyname"), _text(author, "suffix")))
         )
-        if name:
-            authors.append(name)
+        for author in meta.findall(f"{_ARXIV}authors/{_ARXIV}author")
+    )
     return CatalogEntry(
         arxiv_id=arxiv_id,
         created=date.fromisoformat(created),
         categories=tuple((_text(meta, "categories") or "").split()),
         title=title,
-        authors=tuple(authors),
+        authors=authors,
         abstract=_text(meta, "abstract"),
         comments=_text(meta, "comments"),
         journal_ref=_text(meta, "journal-ref"),

@@ -4,7 +4,7 @@ import pytest
 from tests.conftest import FIXTURES_DIR
 
 from preprint_radar.exceptions import ParseError
-from preprint_radar.sources.arxiv_oai import CatalogEntry, parse_list_records
+from preprint_radar.sources.arxiv_oai import CatalogEntry, author_names, parse_list_records
 
 PAGE = (FIXTURES_DIR / "oai" / "list_records.xml").read_text(encoding="utf-8")
 NEXT_PAGE = "fixture-token"  # the resumption token of the fixture page
@@ -95,3 +95,52 @@ def test_invalid_records_raise() -> None:
         CatalogEntry.from_record(
             {"id": "1", "created": "2020-01-01", "categories": "cs.CV", "title": "T", "authors": []}
         )
+
+
+def _with_authors(*authors: tuple[str | None, str]) -> str:
+    """The fixture page, its first record's authors replaced by (forenames, keyname) pairs."""
+    record = PAGE.split("<authors>")[1].split("</authors>")[0]
+    replaced = "".join(
+        f"<author><keyname>{keyname}</keyname>"
+        + (f"<forenames>{forenames}</forenames>" if forenames else "")
+        + "</author>"
+        for forenames, keyname in authors
+    )
+    return PAGE.replace(record, replaced, 1)
+
+
+def test_author_names_lose_what_the_author_list_added() -> None:
+    # Synthetic names, marked as arXiv's metadata leaves them (AFF-21).
+    xml = _with_authors(
+        ("Ann", "Lee*"),
+        ("Bo", "Chen1"),
+        ("Cy", "Diaz†"),
+        (None, "2"),  # a footnote number arXiv split off as an author
+        ("and Dee", "Evans"),
+        ("Eve", "Fox *1"),
+        (None, "others"),
+    )
+
+    entry = parse_list_records(xml).entries[0]
+
+    assert entry.authors == ("Ann Lee", "Bo Chen", "Cy Diaz", "Dee Evans", "Eve Fox")
+
+
+def test_author_names_are_cleaned_once_and_for_all() -> None:
+    names = ("Ann Lee", "and Bo Chen2*", "Cy Diaz", "others")
+
+    assert author_names(names) == ("Ann Lee", "Bo Chen", "Cy Diaz")
+    assert author_names(author_names(names)) == author_names(names)
+    # A name ending in what is no marker, or holding "and" elsewhere, is left alone.
+    assert author_names(("Andrea Rossi", "Ann Anderson", "Others Jr")) == (
+        "Andrea Rossi",
+        "Ann Anderson",
+        "Others Jr",
+    )
+
+
+def test_a_catalog_harvested_before_the_cleaning_is_cleaned_as_it_is_read() -> None:
+    record = parse_list_records(PAGE).entries[0].to_record()
+    record["authors"] = ["Ann Lee*", "and Bo Chen", "others"]
+
+    assert CatalogEntry.from_record(record).authors == ("Ann Lee", "Bo Chen")

@@ -45,6 +45,16 @@ before changing `archive/`, `sources/semantic_scholar.py`, `sources/openalex.py`
 - Archived records: `announced` is the first appearance (from the identifier's month when
   OAI's `created` disagrees), `html_url` is `null` for a paper built from the catalog; one
   that enters from a day file keeps that record, its HTML link and affiliations with it.
+- A paper built from the catalog names its subjects as the listings do: as the day files
+  name the code, else from arXiv's taxonomy (`archive/subjects.py`, META-8), where an
+  alias is its canonical subject, listed once (OAI gives `eess.SY cs.SY`, the listings
+  "Systems and Control (eess.SY)"); a code neither knows stays bare. Its authors are
+  arXiv's metadata without what the author list added (`arxiv_oai.author_names`,
+  AFF-21): trailing footnote digits, `*` and `†` ("Jie Qin1"), a leading "and ", and the
+  author "others" ("et al."). The catalog is cleaned as it is read, so the cache
+  harvested before needs no new harvest. Both apply to the papers entering the archive:
+  archived records keep their names and subjects until a one-off rewrite, and day files
+  keep the names the listing gives (a starred one in 2610.05756).
 
 ## Citation counts (`citations.json`)
 

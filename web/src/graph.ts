@@ -74,6 +74,16 @@ function nodeKey(kind: EntityKind, label: string): string {
   return `${kind}:${searchKey(label)}`;
 }
 
+/**
+ * Where a name listed twice by a paper is placed: at the affiliations of either occurrence,
+ * `null` when the paper places neither.
+ */
+function placedAtEither(a: number[] | null | undefined, b: number[] | null): number[] | null {
+  if (!a) return b;
+  if (!b) return a;
+  return [...new Set([...a, ...b])];
+}
+
 /** Whether the node's name contains `key` (as returned by {@link searchKey}). */
 export function nodeMatches(node: GraphNode, key: string): boolean {
   return key !== "" && node.key.includes(key);
@@ -161,9 +171,12 @@ export function buildGraph(papers: Paper[], options: GraphOptions): Graph {
       const ids = paper.author_ids?.length === paper.authors.length ? paper.author_ids : null;
       const named = institutionsOf(paper);
       const keys = paper.authors.map((author) => searchKey(author));
+      // A name the paper lists twice is one author, placed wherever either is (AFF-21).
+      const placed = new Map<string, number[] | null>();
       for (const [position, author] of paper.authors.entries()) {
         const entry = register("author", author, paper.arxiv_id, seen);
-        if (entry?.first) authors.push({ key: entry.id, mapped: mapping?.[position] ?? null });
+        const mapped = mapping?.[position] ?? null;
+        if (entry) placed.set(entry.id, placedAtEither(placed.get(entry.id), mapped));
         const id = ids?.[position];
         if (!entry || !id) continue;
         const profile = profilesOf(profiles, entry.id, id);
@@ -175,6 +188,7 @@ export function buildGraph(papers: Paper[], options: GraphOptions): Graph {
         for (const [other, key] of keys.entries())
           if (other !== position) profile.coauthors.add(key);
       }
+      for (const [key, mapped] of placed) authors.push({ key, mapped });
     }
     perPaper.push({ paper, institutions, keyOfAffiliation, authors });
   }

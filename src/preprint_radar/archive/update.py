@@ -33,6 +33,7 @@ from pathlib import Path
 
 from preprint_radar.archive.catalog import Catalog
 from preprint_radar.archive.selection import Candidate, Selection, select_archive
+from preprint_radar.archive.subjects import subject_name, subject_names
 from preprint_radar.config import (
     ARCHIVE_SINCE,
     CITATIONS_CACHE_DAYS,
@@ -299,8 +300,10 @@ def paper_from_catalog(entry: CatalogEntry, category: str, subjects: Mapping[str
     Args:
         entry: Catalog entry.
         category: Category of the archive; another primary category makes a cross-list.
-        subjects: Full subject names by code ("cs.LG" -> "Machine Learning (cs.LG)");
-            codes without a name are kept as they are.
+        subjects: Full subject names the stored days give, by code ("cs.LG" -> "Machine
+            Learning (cs.LG)"); arXiv's taxonomy names the others, an alias as its
+            canonical code (:mod:`preprint_radar.archive.subjects`), and a code neither
+            knows is kept as it is.
     """
     primary = entry.categories[0] if entry.categories else category
     return Paper(
@@ -308,8 +311,8 @@ def paper_from_catalog(entry: CatalogEntry, category: str, subjects: Mapping[str
         announced=entry.first_seen,
         title=entry.title,
         authors=entry.authors,
-        primary_subject=subjects.get(primary, primary),
-        subjects=tuple(subjects.get(code, code) for code in entry.categories),
+        primary_subject=subject_name(primary, subjects),
+        subjects=subject_names(entry.categories, subjects),
         comments=entry.comments,
         journal_ref=entry.journal_ref,
         venue=extract_venue(entry.comments, entry.journal_ref),
