@@ -53,6 +53,16 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   Scholar's alike; a workshop's family is its own ("CVPR Workshop"). `venueFacets` lists a
   family when more than one of its editions is loaded, before them.
 
+## The list views (`app.tsx`, `view-model.ts`)
+
+- `App` holds the state and derives the papers shown; what a view shows and offers is
+  worked out once by `viewModel` (DEBT-2): whether it loads archive years
+  (`showsArchive`), its order and the sort choices it offers, its toggles and exports.
+  The rendering is in components: `Topbar` (the tabs), `ResultsHeader` (the count, the
+  sort control, the toggles, the Export menu and the reading list's tools), `ListNotices`
+  (help, news since the last visit, notes, the filters set, the feed), `NoResults` (why a
+  list is empty, and its remedies) and `SiteFooter`.
+
 ## URLs and history (`url-state.ts`)
 
 - Every view is a shareable URL. A step of navigation (`isNavigation`: another view,

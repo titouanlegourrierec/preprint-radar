@@ -245,7 +245,8 @@ exist.
 | UX-26 | "Hide seen" says what it hides: the count reads "· 12 seen papers hidden", and a list whose papers are all seen says so, with "Show seen papers", instead of "No paper matches" and remedies that do not help (also for a pasted arXiv id) (not in the audit) | P2 | done |
 | DATA-4, DOC-7 | Papers without an HTML rendering (224 of 4,832) are no longer counted as pending forever: `stats` gives them a *no page* column in the days (the archive's null still waits for OpenAlex), and the update report counts them apart ("1 without an HTML page"), so "no pending papers" can be reached (from the backlog) | P2 | done |
 | ARCH-2 | Enrichment step interface | P2 | todo |
-| DEBT-2, DEBT-3 | View model for `app.tsx`, `GraphView` split | P2, P3 | todo |
+| DEBT-2 | A view model for the list (`view-model.ts`: archive or days, order, sort choices, toggles, exports, tested over the six views), and its top bar, header, notices, empty states and footer as components: `app.tsx` from 959 to 643 lines; the smoke test opens Rankings and the reading list | P2 | done |
+| DEBT-3 | `GraphView` split | P3 | todo |
 | ARCH-4 | Multi-category, if wanted | P2 | todo |
 | PERF-1 (shards) | Per-month search shards built with the site, for searches over more months than a period loads (from Phase 3) | P2 | todo |
 | AFF-25 | Extraction version 4, after the daily re-read of 318 papers with version 3 (2026-10-06): names are never joined to an affiliation, anchors made of joined lines, a creator holding several authors' names is not a person, an "A & B" pair shares its block, "and Health Sciences" goes on with its unit, a pair is never placed at a place alone, an address in brackets ends a thanks sentence instead of dropping it (found after the release, not in the audit) | P2 | done |

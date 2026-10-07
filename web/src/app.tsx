@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { ALL_YEARS, oneYear, publishedIn } from "./archive-years";
 import { About } from "./components/About";
-import { ActiveFilters } from "./components/ActiveFilters";
 import { GraphView } from "./components/GraphView";
+import { ListNotices } from "./components/ListNotices";
+import { NoResults } from "./components/NoResults";
 import { PaperList } from "./components/PaperList";
 import { Rankings } from "./components/Rankings";
-import { RELEVANCE_HELP, ResultsHeader } from "./components/ResultsHeader";
+import { ResultsHeader } from "./components/ResultsHeader";
 import { SavedSearches } from "./components/SavedSearches";
 import { Sidebar } from "./components/Sidebar";
 import { SiteFooter } from "./components/SiteFooter";
@@ -27,7 +28,7 @@ import { useTriage } from "./hooks/use-triage";
 import { useUrlState } from "./hooks/use-url-state";
 import { namedInstitutions } from "./institutions";
 import { hasModifier, isTyping } from "./keyboard";
-import { between, LONGEST_RANGE, PAPER_BUDGET, samePeriod, selectDays } from "./period";
+import { between, LONGEST_RANGE, samePeriod, selectDays } from "./period";
 import { loadShowAbstracts, saveShowAbstracts } from "./preferences";
 import { readingListFile } from "./reading-list";
 import { searchOf } from "./saved-searches";
@@ -53,12 +54,6 @@ import { venueFacets } from "./venues";
 import { type CountLine, showsArchive, viewModel } from "./view-model";
 
 const FACET_SIZE = 12;
-// What each view shows, said once at its top: the tabs' tooltips are out of reach on touch.
-const VIEW_NOTES: Partial<Record<ViewState["view"], string>> = {
-  cited: "The most cited papers older than a year, by year of first version.",
-  rankings: "Institutions and authors of the papers shown, by papers or citations.",
-  "reading-list": "The papers you saved with ☆, kept in this browser.",
-};
 const VIEW_TITLES: Record<ViewState["view"], string> = {
   papers: "",
   cited: "Highly cited",
@@ -512,76 +507,34 @@ export function App() {
             }
           />
 
-          {hasSearchWords && showRelevanceHelp && <p class="help-note">{RELEVANCE_HELP}</p>}
-
-          {state.view === "reading-list" && readingList.message && (
-            <p class="notice notice--new" role="status">
-              {readingList.message}{" "}
-              <button type="button" class="link-button" onClick={readingList.dismissMessage}>
-                Dismiss
-              </button>
-            </p>
-          )}
-
-          {triaged && sinceLastVisit && !samePeriod(state.period, sinceLastVisit.period) && (
-            <p class="notice notice--new">
-              {countOf(sinceLastVisit.papers, "new paper")} since your last visit.{" "}
-              <button
-                type="button"
-                class="link-button"
-                onClick={() => update({ period: sinceLastVisit.period })}
-              >
-                {sinceLastVisit.papers > PAPER_BUDGET
-                  ? `Show the latest ${PAPER_BUDGET.toLocaleString()}`
-                  : "Show them"}
-              </button>
-            </p>
-          )}
-          {triaged && load.status === "ready" && (
-            <p class="shortcuts muted">
-              Keys: <kbd>j</kbd> <kbd>k</kbd> move, <kbd>o</kbd> open, <kbd>s</kbd> save,{" "}
-              <kbd>x</kbd> seen, <kbd>/</kbd> search, <kbd>Esc</kbd> leave the search.
-            </p>
-          )}
-
-          {archiveLeftOut > 0 && load.status === "ready" && (
-            <p class="help-note">
-              These years hold {(load.index.size + archiveLeftOut).toLocaleString()} papers: the{" "}
-              {load.index.size.toLocaleString()} best ranked by citations per year of age are shown,
-              as many as a period loads. Narrow the years for the {archiveLeftOut.toLocaleString()}{" "}
-              others.
-              {archiveUnranked > 0 &&
-                ` The citation counts of ${countOf(archiveUnranked, "year")} could not be loaded: their papers come last.`}
-            </p>
-          )}
-          {VIEW_NOTES[state.view] && (
-            <p class="view-note muted">
-              {VIEW_NOTES[state.view]}
-              {cited &&
-                ` Chosen every week by citations per year of age, among the papers first published more than 12 months ago.${citationsNote ? ` ${citationsNote}.` : ""}`}
-            </p>
-          )}
-          {byCount &&
-            !rising &&
-            state.view !== "rankings" &&
-            mostlyTied(results, citations.counts) && (
-              <p class="help-note">
-                Most of these papers have the same number of citations (often none yet, or not
-                known): among them, the order is by relevance or date.
-              </p>
-            )}
-          {state.view !== "rankings" && (
-            <ActiveFilters filters={state.filters} onFilters={setFilters} />
-          )}
-          {feed && (
-            <p class="feed-link muted">
-              New papers {feed.kind === "venue" ? "accepted at" : "from"} {feed.name}, in a feed
-              reader:{" "}
-              <a href={encodeURI(feed.path)} type="application/atom+xml">
-                Atom feed
-              </a>
-            </p>
-          )}
+          <ListNotices
+            view={state.view}
+            relevanceHelp={hasSearchWords && showRelevanceHelp}
+            readingListMessage={
+              state.view === "reading-list" && readingList.message
+                ? { text: readingList.message, onDismiss: readingList.dismissMessage }
+                : null
+            }
+            sinceLastVisit={
+              triaged && sinceLastVisit && !samePeriod(state.period, sinceLastVisit.period)
+                ? {
+                    papers: sinceLastVisit.papers,
+                    onShow: () => update({ period: sinceLastVisit.period }),
+                  }
+                : null
+            }
+            shortcuts={triaged && load.status === "ready"}
+            archiveBudget={
+              archiveLeftOut > 0 && load.status === "ready"
+                ? { shown: load.index.size, leftOut: archiveLeftOut, unranked: archiveUnranked }
+                : null
+            }
+            citationsNote={citationsNote}
+            mostlyTied={byCount && !rising && !rankings && mostlyTied(results, citations.counts)}
+            filters={rankings ? null : state.filters}
+            onFilters={setFilters}
+            feed={feed}
+          />
 
           {load.status === "error" && state.view !== "reading-list" ? (
             <p class="notice notice--error" role="alert">
@@ -618,82 +571,46 @@ export function App() {
             </p>
           ) : (
             <>
-              {state.view === "papers" &&
-                state.paper &&
-                load.status === "ready" &&
-                !load.index.has(state.paper) && (
-                  <p class="notice">
-                    This paper is not among the stored papers of this period (it may be older than
-                    the papers kept).
-                    {/* An arXiv link only for an arXiv id: `?paper=` is anyone's text (SEC-7). */}
-                    {arxivIdOf(state.paper) === state.paper && (
-                      <>
-                        {" "}
-                        <a
-                          href={`https://arxiv.org/abs/${state.paper}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          See it on arXiv
-                        </a>
-                        .
-                      </>
-                    )}
-                  </p>
-                )}
-              {pastedId && results.length === 0 && hiddenCount === 0 && load.status === "ready" && (
-                <p class="notice">
-                  {pastedId} is not among the stored papers of this period.{" "}
-                  <a
-                    href={`https://arxiv.org/abs/${pastedId}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    See it on arXiv
-                  </a>
-                  .
-                </p>
-              )}
-              {results.length === 0 && hiddenCount > 0 && (
-                <p class="notice">
-                  {seenHidden(hiddenCount).empty}{" "}
-                  <button type="button" class="link-button" onClick={triage.toggleHideSeen}>
-                    Show seen papers
-                  </button>
-                </p>
-              )}
-              {!pastedId &&
-                results.length === 0 &&
-                hiddenCount === 0 &&
-                (load.status === "ready" || state.view === "reading-list") &&
-                activeIndex !== null &&
-                activeIndex.size > 0 && (
-                  <p class="notice">
-                    No paper matches
-                    {state.view === "papers" ? " in this period" : ""}.{" "}
-                    {activeFilterCount(state.filters) > 0 && (
-                      <button
-                        type="button"
-                        class="link-button"
-                        onClick={() => setFilters(NO_FILTERS)}
-                      >
-                        Clear the filters
-                      </button>
-                    )}
-                    {state.view === "papers" && widerPeriod && (
-                      <>
-                        {activeFilterCount(state.filters) > 0 && " · "}
-                        <button
-                          type="button"
-                          class="link-button"
-                          onClick={() => update({ period: longestPeriod })}
-                        >
-                          Search the last {longestDays} days
-                        </button>
-                      </>
-                    )}
-                  </p>
-                )}
+              <NoResults
+                missingPaper={
+                  state.view === "papers" &&
+                  state.paper &&
+                  load.status === "ready" &&
+                  !load.index.has(state.paper)
+                    ? state.paper
+                    : null
+                }
+                missingPastedId={
+                  pastedId && results.length === 0 && hiddenCount === 0 && load.status === "ready"
+                    ? pastedId
+                    : null
+                }
+                allSeen={results.length === 0 ? hiddenCount : 0}
+                onShowSeen={triage.toggleHideSeen}
+                noMatch={
+                  !pastedId &&
+                  results.length === 0 &&
+                  hiddenCount === 0 &&
+                  (load.status === "ready" || state.view === "reading-list") &&
+                  activeIndex !== null &&
+                  activeIndex.size > 0
+                    ? {
+                        inPeriod: state.view === "papers",
+                        onClearFilters:
+                          activeFilterCount(state.filters) > 0
+                            ? () => setFilters(NO_FILTERS)
+                            : null,
+                        wider:
+                          state.view === "papers" && widerPeriod
+                            ? {
+                                days: longestDays,
+                                onSearch: () => update({ period: longestPeriod }),
+                              }
+                            : null,
+                      }
+                    : null
+                }
+              />
               <PaperList
                 results={results}
                 resetKey={listKey(state, query)}
