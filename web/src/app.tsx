@@ -1,18 +1,17 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { ALL_YEARS, oneYear, publishedIn } from "./archive-years";
-import { toBibtexFile } from "./bibtex";
 import { About } from "./components/About";
 import { ActiveFilters } from "./components/ActiveFilters";
 import { GraphView } from "./components/GraphView";
 import { PaperList } from "./components/PaperList";
 import { Rankings } from "./components/Rankings";
+import { RELEVANCE_HELP, ResultsHeader } from "./components/ResultsHeader";
 import { SavedSearches } from "./components/SavedSearches";
 import { Sidebar } from "./components/Sidebar";
-import { download } from "./download";
-import { toCsv, toMarkdown, toRis } from "./export";
+import { SiteFooter } from "./components/SiteFooter";
+import { Topbar } from "./components/Topbar";
 import { feedOf } from "./feeds";
 import {
-  categoryName,
   countOf,
   citationsNote as formatCitationsNote,
   formatDay,
@@ -29,7 +28,7 @@ import { useUrlState } from "./hooks/use-url-state";
 import { namedInstitutions } from "./institutions";
 import { hasModifier, isTyping } from "./keyboard";
 import { between, LONGEST_RANGE, PAPER_BUDGET, samePeriod, selectDays } from "./period";
-import { loadShowAbstracts, saveShowAbstracts, type ThemePreference } from "./preferences";
+import { loadShowAbstracts, saveShowAbstracts } from "./preferences";
 import { readingListFile } from "./reading-list";
 import { searchOf } from "./saved-searches";
 import {
@@ -51,36 +50,9 @@ import { searchKey } from "./text";
 import type { Paper } from "./types";
 import { archiveYearOf, listKey, paperLink, type ViewState, writeState } from "./url-state";
 import { venueFacets } from "./venues";
+import { type CountLine, showsArchive, viewModel } from "./view-model";
 
 const FACET_SIZE = 12;
-// The exports of the results shown, as files.
-const EXPORTS: {
-  label: string;
-  file: string;
-  type: string;
-  render: (papers: Paper[], citations: ReadonlyMap<string, number>) => string;
-}[] = [
-  {
-    label: "BibTeX",
-    file: "papers.bib",
-    type: "application/x-bibtex",
-    render: (papers) => toBibtexFile(papers),
-  },
-  { label: "CSV", file: "papers.csv", type: "text/csv", render: toCsv },
-  {
-    label: "RIS",
-    file: "papers.ris",
-    type: "application/x-research-info-systems",
-    render: (papers) => toRis(papers),
-  },
-  {
-    label: "Markdown",
-    file: "papers.md",
-    type: "text/markdown",
-    render: (papers) => toMarkdown(papers),
-  },
-];
-
 // What each view shows, said once at its top: the tabs' tooltips are out of reach on touch.
 const VIEW_NOTES: Partial<Record<ViewState["view"], string>> = {
   cited: "The most cited papers older than a year, by year of first version.",
@@ -96,18 +68,11 @@ const VIEW_TITLES: Record<ViewState["view"], string> = {
   about: "About",
 };
 const SUGGESTION_SIZE = 300;
-const THEME_ICONS: Record<ThemePreference, string> = { auto: "◐", light: "☀", dark: "☾" };
-const RELEVANCE_HELP =
-  "Relevance ranks papers by how well they match your search words. Rarer words weigh more, " +
-  "and a match counts most in the title, then in authors, affiliations, the abstract and " +
-  "comments. Exact words count more than partial or approximate ones.";
-
 export function App() {
   const { state, query, update, setFilters } = useUrlState();
   const cited = state.view === "cited";
   const rankings = state.view === "rankings";
-  // The highly cited view always shows the archive; the graph and rankings, given a year.
-  const archived = cited || ((state.view === "graph" || rankings) && state.year !== null);
+  const archived = showsArchive(state);
   const {
     categories,
     category,
@@ -131,7 +96,6 @@ export function App() {
     citations.source && citations.asOf
       ? formatCitationsNote(citations.source, citations.asOf)
       : undefined;
-  const importInput = useRef<HTMLInputElement>(null);
   const triage = useTriage(category ?? null, storeDays);
 
   const savedSearches = useSavedSearches();
@@ -168,11 +132,13 @@ export function App() {
     document.title = label ? `${label} · Preprint Radar` : "Preprint Radar";
   }, [focusedTitle, query, state.view]);
 
-  const triaged = state.view === "papers";
+  const hasSearchWords = parseQuery(query).text !== "";
+  // Rising papers, once two weekly refreshes of the counts are known (CIT-9).
+  const gainsSpan = citations.gainsSpan;
+  // What this view shows and offers (`view-model.ts`, DEBT-2).
+  const model = viewModel(state, { hasSearchWords, gainsKnown: gainsSpan !== null });
+  const { triaged, byCount, rising, groupByDay } = model;
   const hiding = triaged && triage.hideSeen && triage.seen.size > 0;
-  // The highly cited view ranks by citations; search words only narrow it down. Rising
-  // papers come before, by what they gained in a week (none known: by citations alone).
-  const byCount = cited || state.sort === "citations" || state.sort === "rising";
   // In three steps, each redone only when what it reads changes (UX-23): marking a paper
   // seen does not search again, nor do late counts when the order ignores them.
   const found = useMemo(
@@ -225,18 +191,7 @@ export function App() {
       ),
     [activeIndex],
   );
-  const rankedPapers = useMemo(
-    () => (rankings ? results.map(({ paper }) => paper) : []),
-    [rankings, results],
-  );
-  const hasSearchWords = parseQuery(query).text !== "";
-  // Day headings need results in announcement order (see search): no words, or newest.
-  const groupByDay = !byCount && (!hasSearchWords || state.sort === "newest");
-  // Without search words, relevance is the announcement order.
-  const newest = state.sort === "newest" || (state.sort === "relevance" && !hasSearchWords);
-  // Rising papers, once two weekly refreshes of the counts are known (CIT-9).
-  const gainsSpan = citations.gainsSpan;
-  const rising = state.sort === "rising" && gainsSpan !== null;
+  const resultPapers = useMemo(() => results.map(({ paper }) => paper), [results]);
   const nameTerms = useMemo(() => nameHighlights(state.filters), [state.filters]);
   // The feed of the institution or major venue the papers are filtered on (§17.1 #6).
   const feedInstitution = state.view === "papers" ? state.filters.affiliation : null;
@@ -279,6 +234,27 @@ export function App() {
 
   const lastUpdate = generatedAt ? formatDay(generatedAt) : null;
   const archiveAsOf = generatedAt ? new Date(generatedAt) : undefined;
+  // What the header counts: the saved papers, an archive's years, or the period's papers.
+  const count: CountLine | "loading" | null =
+    state.view === "reading-list"
+      ? { shown: results.length, total: readingList.papers.length, noun: "saved paper" }
+      : load.status === "ready" && archived && archiveRange !== null
+        ? {
+            shown: results.length,
+            total: load.index.size,
+            noun: `highly cited ${category ?? ""} paper`,
+            tail: ` first published ${publishedIn(archiveRange, archiveYears, archiveAsOf)}`,
+          }
+        : load.status === "ready"
+          ? {
+              shown: results.length,
+              total: load.index.size,
+              noun: `${category ?? ""} paper`,
+              ...(hiddenCount > 0 && { tail: ` · ${seenHidden(hiddenCount).count}` }),
+            }
+          : load.status === "loading"
+            ? "loading"
+            : null;
   // The graph shows the loaded papers; a saved paper from elsewhere brings its day, or
   // its archive year when it is older than the days kept.
   const showInGraph = (paper: Paper) => {
@@ -323,90 +299,20 @@ export function App() {
   );
 
   const topbar = (
-    <header class="topbar">
-      <div class="topbar__brand">
-        <h1>Preprint Radar</h1>
-        {category && <span class="topbar__category">{categoryName(category)}</span>}
-        {lastUpdate && <span class="muted">Updated {lastUpdate}</span>}
-      </div>
-      <div class="topbar__tools">
-        <nav class="tabs" aria-label="Views">
-          <a
-            class={`tab${state.view === "papers" ? " tab--active" : ""}`}
-            {...tab(state.view === "papers", { view: "papers", year: null })}
-          >
-            Papers
-          </a>
-          <a
-            class={`tab${cited ? " tab--active" : ""}`}
-            title="The most cited papers older than a year, by year of first version"
-            {...tab(cited, { view: "cited" })}
-          >
-            Highly cited
-          </a>
-          <a
-            class={`tab${state.view === "graph" ? " tab--active" : ""}`}
-            // From the highly cited papers, the graph shows them.
-            {...tab(state.view === "graph", {
-              view: "graph",
-              ...(cited ? { year: archiveRange } : {}),
-            })}
-          >
-            Graph
-          </a>
-          <a
-            class={`tab${rankings ? " tab--active" : ""}`}
-            title="Institutions and authors of the papers shown, by papers or citations"
-            {...tab(rankings, { view: "rankings", ...(cited ? { year: archiveRange } : {}) })}
-          >
-            Rankings
-          </a>
-          <a
-            class={`tab${state.view === "reading-list" ? " tab--active" : ""}`}
-            {...tab(state.view === "reading-list", { view: "reading-list" })}
-          >
-            Reading list ({readingList.papers.length.toLocaleString()})
-          </a>
-          <a
-            class={`tab${state.view === "about" ? " tab--active" : ""}`}
-            title="Where the data comes from, corrections and privacy"
-            {...tab(state.view === "about", { view: "about" })}
-          >
-            About
-          </a>
-        </nav>
-        <button
-          type="button"
-          class="icon-button"
-          title={`Theme: ${theme} — click for ${next}`}
-          aria-label={`Theme: ${theme}. Switch to ${next}.`}
-          onClick={cycle}
-        >
-          {THEME_ICONS[theme]}
-        </button>
-      </div>
-    </header>
+    <Topbar
+      view={state.view}
+      category={category}
+      lastUpdate={lastUpdate}
+      readingListSize={readingList.papers.length}
+      archiveRange={archiveRange}
+      tab={tab}
+      theme={theme}
+      nextTheme={next}
+      onTheme={cycle}
+    />
   );
 
-  const footer = (
-    <footer class="site-footer muted">
-      Data from <a href="https://arxiv.org">arXiv</a>, refreshed every weekday. Thank you to arXiv
-      for use of its open access interoperability. This project is not affiliated with arXiv.
-      Citation counts from <a href="https://www.semanticscholar.org">Semantic Scholar</a>,
-      institutions from the <a href="https://ror.org">Research Organization Registry</a> and{" "}
-      <a href="https://openalex.org">OpenAlex</a>.{" "}
-      <a
-        href="?view=about"
-        onClick={(event) => {
-          event.preventDefault();
-          update({ view: "about" });
-        }}
-      >
-        About the data, corrections and privacy
-      </a>
-      .
-    </footer>
-  );
+  const footer = <SiteFooter onAbout={() => update({ view: "about" })} />;
 
   if (state.view === "about") {
     return (
@@ -570,180 +476,41 @@ export function App() {
         )}
 
         <main class="results" id="main">
-          <div class="results__header">
-            <p class="muted" aria-live="polite">
-              {state.view === "reading-list"
-                ? `${results.length.toLocaleString()} of ${countOf(readingList.papers.length, "saved paper")}`
-                : archived && load.status === "ready" && archiveRange !== null
-                  ? `${results.length.toLocaleString()} of ${countOf(load.index.size, `highly cited ${category ?? ""} paper`)} first published ${publishedIn(archiveRange, archiveYears, archiveAsOf)}`
-                  : load.status === "ready"
-                    ? `${results.length.toLocaleString()} of ${countOf(load.index.size, `${category ?? ""} paper`)}${hiddenCount > 0 ? ` · ${seenHidden(hiddenCount).count}` : ""}`
-                    : load.status === "loading"
-                      ? "Loading papers…"
-                      : null}
-            </p>
-            {(state.view === "papers" || state.view === "reading-list" || (cited && gainsSpan)) && (
-              <fieldset class="segmented">
-                <legend class="visually-hidden">Sort results</legend>
-                {hasSearchWords && !cited && (
-                  <button
-                    type="button"
-                    class={`segmented__option${state.sort === "relevance" ? " segmented__option--active" : ""}`}
-                    aria-pressed={state.sort === "relevance"}
-                    title={RELEVANCE_HELP}
-                    onClick={() => update({ sort: "relevance" })}
-                  >
-                    Relevance
-                  </button>
-                )}
-                {!cited && (
-                  <button
-                    type="button"
-                    class={`segmented__option${newest ? " segmented__option--active" : ""}`}
-                    aria-pressed={newest}
-                    onClick={() => update({ sort: "newest" })}
-                  >
-                    Newest
-                  </button>
-                )}
-                <button
-                  type="button"
-                  class={`segmented__option${byCount && !rising ? " segmented__option--active" : ""}`}
-                  aria-pressed={byCount && !rising}
-                  title={citationsNote}
-                  onClick={() => update({ sort: "citations" })}
-                >
-                  Most cited
-                </button>
-                {gainsSpan && (
-                  <button
-                    type="button"
-                    class={`segmented__option${rising ? " segmented__option--active" : ""}`}
-                    aria-pressed={rising}
-                    title={`By the citations gained between ${formatDay(gainsSpan.since)} and ${formatDay(gainsSpan.to)}`}
-                    onClick={() => update({ sort: "rising" })}
-                  >
-                    Rising
-                  </button>
-                )}
-                {hasSearchWords && !cited && (
-                  <button
-                    type="button"
-                    class="help"
-                    aria-expanded={showRelevanceHelp}
-                    aria-label="How is relevance computed?"
-                    title={RELEVANCE_HELP}
-                    onClick={() => setShowRelevanceHelp(!showRelevanceHelp)}
-                  >
-                    ?
-                  </button>
-                )}
-              </fieldset>
-            )}
-            {state.view === "papers" && (
-              <div class="results__toggles">
-                <label class="toggle">
-                  <input
-                    type="checkbox"
-                    checked={triage.hideSeen}
-                    onChange={triage.toggleHideSeen}
-                  />
-                  Hide seen
-                </label>
-                <label class="toggle">
-                  <input type="checkbox" checked={showAbstracts} onChange={toggleAbstracts} />
-                  Show abstracts
-                </label>
-              </div>
-            )}
-            {(state.view === "papers" || cited) && results.length > 0 && (
-              <details class="export-menu">
-                <summary class="button export-menu__toggle">
-                  Export {results.length.toLocaleString()}
-                </summary>
-                <div class="export-menu__items">
-                  {EXPORTS.map(({ label, file, type, render }) => (
-                    <button
-                      key={label}
-                      type="button"
-                      class="link-button"
-                      onClick={() =>
-                        download(
-                          file,
-                          render(
-                            results.map(({ paper }) => paper),
-                            citations.counts,
-                          ),
-                          type,
-                        )
-                      }
-                    >
-                      {label}
-                    </button>
-                  ))}
-                </div>
-              </details>
-            )}
-            {state.view === "reading-list" && (
-              <div class="results__actions">
-                <button type="button" class="button" onClick={() => importInput.current?.click()}>
-                  Import
-                </button>
-                <input
-                  ref={importInput}
-                  type="file"
-                  accept="application/json,.json"
-                  hidden
-                  onChange={(event) => {
-                    const file = event.currentTarget.files?.[0];
-                    if (file) {
+          <ResultsHeader
+            model={model}
+            count={count}
+            onSort={(sort) => update({ sort })}
+            citationsNote={citationsNote}
+            gainsSpan={gainsSpan}
+            relevanceHelpShown={showRelevanceHelp}
+            onRelevanceHelp={() => setShowRelevanceHelp(!showRelevanceHelp)}
+            hideSeen={triage.hideSeen}
+            onHideSeen={triage.toggleHideSeen}
+            showAbstracts={showAbstracts}
+            onShowAbstracts={toggleAbstracts}
+            papers={resultPapers}
+            citations={citations.counts}
+            readingList={
+              state.view === "reading-list"
+                ? {
+                    papers: readingList.papers,
+                    onImport: (file) =>
                       void readingList.importFile(file, (value) => {
                         const added = savedSearches.importSearches(value);
                         return added
-                          ? `${added} saved search${added === 1 ? "" : "es"} added`
+                          ? `${countOf(added, "saved search", "saved searches")} added`
                           : null;
-                      });
-                    }
-                    event.currentTarget.value = "";
-                  }}
-                />
-              </div>
-            )}
-            {state.view === "reading-list" && readingList.papers.length > 0 && (
-              <div class="results__actions">
-                <button
-                  type="button"
-                  class="button"
-                  onClick={() =>
-                    download(
-                      "reading-list.bib",
-                      toBibtexFile(readingList.papers),
-                      "application/x-bibtex",
-                    )
-                  }
-                >
-                  Export BibTeX
-                </button>
-                <button
-                  type="button"
-                  class="button"
-                  onClick={() =>
-                    download(
-                      "reading-list.json",
+                      }),
+                    json: () =>
                       JSON.stringify(
                         readingListFile(readingList.papers, savedSearches.searches),
                         null,
                         2,
                       ),
-                      "application/json",
-                    )
                   }
-                >
-                  Export JSON
-                </button>
-              </div>
-            )}
-          </div>
+                : undefined
+            }
+          />
 
           {hasSearchWords && showRelevanceHelp && <p class="help-note">{RELEVANCE_HELP}</p>}
 
@@ -825,7 +592,7 @@ export function App() {
             </p>
           ) : rankings ? (
             <Rankings
-              papers={rankedPapers}
+              papers={resultPapers}
               citations={citations.counts}
               citationsNote={citationsNote}
               archived={archived}

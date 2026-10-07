@@ -108,3 +108,26 @@ test("a card's own Mark seen button hands the focus on as x does", async ({ page
   await expect(focused).toHaveCount(1);
   expect(await focused.getAttribute("data-arxiv-id")).not.toBe(id);
 });
+
+test("Rankings lists the institutions of the papers shown", async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.goto("./?view=rankings");
+  await expect(page.getByRole("table")).toBeVisible();
+  await expect(page.getByText(/in these 4 papers/)).toBeVisible();
+  expect(errors).toEqual([]);
+});
+
+test("a saved paper is in the reading list, which exports it", async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.goto("./");
+  await page
+    .locator("article.paper")
+    .first()
+    .getByRole("button", { name: "Save to reading list" })
+    .click();
+  await page.getByRole("link", { name: "Reading list (1)" }).click();
+  await expect(page.getByText("1 of 1 saved paper")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Export BibTeX" })).toBeVisible();
+  await expect(page.locator("article.paper")).toHaveCount(1);
+  expect(errors).toEqual([]);
+});
