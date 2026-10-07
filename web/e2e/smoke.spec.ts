@@ -57,3 +57,18 @@ test("the graph draws on a canvas", async ({ page }) => {
   await expect(page.locator('canvas.graph__canvas[data-layout="settled"]')).toBeVisible();
   expect(errors).toEqual([]);
 });
+
+test("the graph of an archive year lists its papers in Highly cited", async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.goto("./?view=graph&year=2017");
+  await expect(page.locator('canvas.graph__canvas[data-layout="settled"]')).toBeVisible();
+  // The Highlight field selects the match and shows its details, without touching the canvas.
+  const highlight = page.getByRole("combobox", { name: "Highlight nodes by name" });
+  await highlight.fill("Lyon");
+  await highlight.press("Enter");
+  await page.getByRole("button", { name: "Show its paper" }).click();
+  await expect(page).toHaveURL(/view=cited/);
+  await expect(page).toHaveURL(/year=2017/);
+  await expect(page.getByRole("heading", { name: "Attention for Looms" })).toBeVisible();
+  expect(errors).toEqual([]);
+});

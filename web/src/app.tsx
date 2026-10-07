@@ -431,9 +431,11 @@ export function App() {
           venue={state.filters.venue}
           onVenue={(venue) => setFilters({ ...state.filters, venue })}
           theme={resolved}
+          // A graph of archive years lists its papers in Highly cited, over the same years: the
+          // Papers view would load the recent days instead.
           onShowPapers={(kind, label) =>
             update({
-              view: "papers",
+              view: archived ? "cited" : "papers",
               filters: {
                 ...NO_FILTERS,
                 venue: state.filters.venue,
@@ -444,13 +446,17 @@ export function App() {
           focusPaper={state.paper}
           onFocusPaperLeft={clearPaper}
           onOpenPaper={(paper) =>
-            update({
-              view: "papers",
-              query: "",
-              filters: NO_FILTERS,
-              period: between(paper.announced, paper.announced),
-              paper: paper.arxiv_id,
-            })
+            update(
+              archived
+                ? { view: "cited", query: "", filters: NO_FILTERS, paper: paper.arxiv_id }
+                : {
+                    view: "papers",
+                    query: "",
+                    filters: NO_FILTERS,
+                    period: between(paper.announced, paper.announced),
+                    paper: paper.arxiv_id,
+                  },
+            )
           }
         />
       </div>

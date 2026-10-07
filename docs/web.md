@@ -76,7 +76,8 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   citation shards of those years), and says how many it leaves out (PROD-17). The graph
   and Rankings show archive years when the URL has a `year` (`?view=graph&year=all`),
   else the recent days; the tabs carry the years from the Highly cited view, and the
-  Papers tab clears them.
+  Papers tab clears them. A graph of archive years lists its papers ("Show all",
+  double-click, "Open in the list") in Highly cited over the same years, as Rankings does.
 
 ## What the build derives from `data/` (`vite.config.ts`, `tooling/`)
 

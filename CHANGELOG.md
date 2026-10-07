@@ -20,7 +20,8 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 - Highly cited shows a range of years, or all of them, not only one: "2019 to 2021",
   "All years", in the graph and Rankings too. Past 10,000 papers (all years hold 22,000),
   the best ranked for their age are shown, and the page says how many are left out
-  (PROD-17).
+  (PROD-17). From a graph of archive years, "Show all" and opening a paper go to Highly
+  cited over the same years, no longer to an empty list of recent days.
 
 ### Accessibility
 
