@@ -122,6 +122,7 @@ describe("PaperIndex", () => {
     expect(ids("", { ...NO_FILTERS, venue: "NeurIPS 2026" })).toEqual(["2609.00002"]);
     expect(ids("", { ...NO_FILTERS, venue: ANY_VENUE })).toEqual(["2609.00002"]);
     expect(ids("", { ...NO_FILTERS, venue: "NeurIPS" })).toEqual([]);
+    expect(ids("", { ...NO_FILTERS, venue: "NeurIPS*" })).toEqual(["2609.00002"]);
   });
 
   it("matches typed filters at the start of words, ignoring case and accents", () => {

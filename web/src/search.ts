@@ -4,6 +4,9 @@ import { wholeWord } from "./highlight";
 import { acronymOf, namedInstitutions } from "./institutions";
 import { fold, searchKey } from "./text";
 import type { Paper } from "./types";
+import { ANY_VENUE, matchesVenue } from "./venues";
+
+export { ANY_VENUE };
 
 /**
  * Order of results. The index has no citation counts: `citations` orders them like
@@ -27,12 +30,12 @@ export interface SearchFilters {
   author: NameFilter | null;
   affiliation: NameFilter | null;
   subject: string | null;
-  /** A venue as detected in the comments (e.g. "ECCV 2026"), or {@link ANY_VENUE}. */
+  /**
+   * A venue as detected in the comments (e.g. "ECCV 2026"), a family of them ("ECCV*",
+   * `venues.ts`), or {@link ANY_VENUE}.
+   */
   venue: string | null;
 }
-
-/** Venue filter value for papers accepted anywhere. */
-export const ANY_VENUE = "*";
 
 /** A filter on text typed by the user. */
 export function typed(text: string): NameFilter {
@@ -407,8 +410,7 @@ export function matchesFilters(paper: Paper, filters: SearchFilters): boolean {
     // Institutions are only named when an affiliation filter needs them.
     (!isActive(filters.affiliation) || matchesAffiliation(paper, filters.affiliation)) &&
     (filters.subject === null || paper.primary_subject === filters.subject) &&
-    (filters.venue === null ||
-      (filters.venue === ANY_VENUE ? Boolean(paper.venue) : paper.venue === filters.venue))
+    (filters.venue === null || matchesVenue(paper.venue, filters.venue))
   );
 }
 

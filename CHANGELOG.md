@@ -12,6 +12,8 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   GitHub or GitLab, else models or data on Hugging Face, which their card links (PROD-12).
 - An unfolded card links the paper on Semantic Scholar, Connected Papers and alphaXiv,
   which find its related work (SRCH-11).
+- The venue filter has every edition of a venue at once, "CVPR, any year", its workshops
+  apart (SRCH-15).
 
 ## 0.6.0 (2026-10-07): institutions and authors named by the pipeline
 

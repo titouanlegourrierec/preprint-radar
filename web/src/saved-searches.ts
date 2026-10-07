@@ -5,6 +5,7 @@
  */
 import type { SearchFilters } from "./search";
 import { DEFAULT_STATE, readState, writeState } from "./url-state";
+import { venueLabel } from "./venues";
 
 export const SAVED_SEARCHES_KEY = "preprint-radar:saved-searches";
 
@@ -40,7 +41,7 @@ export function searchName({ query, filters }: SearchOf): string {
     query.trim(),
     author && `by ${author.text}`,
     affiliation && `at ${affiliation.text}`,
-    venue && (venue === "*" ? "any venue" : venue),
+    venue && venueLabel(venue),
     subject,
     excludeCrossLists && "no cross-lists",
     withCode && "with code",

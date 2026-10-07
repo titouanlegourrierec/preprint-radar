@@ -42,6 +42,11 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   repository on GitHub or GitLab, else models or data on Hugging Face (`code.ts`), which
   their card links: 918 of 4,832 stored papers, nearly all "Code is available at". A
   project page (`*.github.io`) or a user's page is not code.
+- The venue filter (`venues.ts`, `components/VenueSelect.tsx`) takes a venue ("ECCV
+  2026"), any venue (`*`), or a family, every edition of one (`CVPR*`, SRCH-15): the venue
+  without its year, as the pipeline writes it for its table's venues and Semantic
+  Scholar's alike; a workshop's family is its own ("CVPR Workshop"). `venueFacets` lists a
+  family when more than one of its editions is loaded, before them.
 
 ## URLs and history (`url-state.ts`)
 

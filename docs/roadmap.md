@@ -227,7 +227,7 @@ exist.
 | §17.1 #6 | Atom feeds per institution and per major venue, built with the site | — | todo |
 | PROD-11, CIT-9 | The most cited papers of the last 12 months, and those rising this week (§17.1 #7) | P2, P3 | todo |
 | §17.1 #8 | Graph: the papers a link stands for, a node's ego network, PNG and GraphML export | — | todo |
-| SRCH-15 | Venue families, "any CVPR" (§17.1 #9) | P3 | todo |
+| SRCH-15 | Venue families (§17.1 #9): "CVPR, any year" (`venue=CVPR*`) before the editions of a venue loaded in more than one, its workshops a family of their own; a venue's view is its filter's link | P3 | done |
 | §17.1 #10 | Per-entity timelines in Rankings, once 12 months of data exist | — | todo |
 | AFF-13, ARCH-3 | Institution canonicalization in the pipeline (decision 12): the site's rules ported to `institutions.py` (the same name for all 37,789 stored affiliations), ROR first then the rules, registry names made canonical, the archive's too; `make institutions-again`; the site displays only, keeping its acronyms for search | P2 | done |
 | AFF-H | Author identity (decision 13): Semantic Scholar's author ids, each kept only where its name is the arXiv author's, merged into the site's records; authors stay keyed by name, since Semantic Scholar has several profiles for most prolific authors (Luc Van Gool three), and a name whose profiles share no institution or co-author says it is perhaps several people (2026-10-07) | P2 | done |

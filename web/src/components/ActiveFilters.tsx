@@ -1,4 +1,5 @@
-import { ANY_VENUE, isActive, NO_FILTERS, type SearchFilters } from "../search";
+import { isActive, NO_FILTERS, type SearchFilters } from "../search";
+import { venueLabel } from "../venues";
 
 interface Props {
   filters: SearchFilters;
@@ -18,10 +19,7 @@ export function ActiveFilters({ filters, onFilters }: Props) {
     chips.push([`at ${filters.affiliation.text}`, { ...filters, affiliation: null }]);
   }
   if (filters.venue !== null) {
-    chips.push([
-      filters.venue === ANY_VENUE ? "any venue" : filters.venue,
-      { ...filters, venue: null },
-    ]);
+    chips.push([venueLabel(filters.venue), { ...filters, venue: null }]);
   }
   if (filters.subject !== null) chips.push([filters.subject, { ...filters, subject: null }]);
   if (filters.excludeCrossLists)

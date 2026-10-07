@@ -42,6 +42,7 @@ import {
 } from "./search";
 import type { Paper } from "./types";
 import { archiveYearOf, paperLink, type ViewState, writeState } from "./url-state";
+import { venueFacets } from "./venues";
 
 const FACET_SIZE = 12;
 // The exports of the results shown, as files.
@@ -196,12 +197,7 @@ export function App() {
     [activeIndex],
   );
   const venueCounts = useMemo(
-    () =>
-      valueCounts(
-        activeIndex?.all() ?? [],
-        (paper) => (paper.venue ? [paper.venue] : []),
-        SUGGESTION_SIZE,
-      ),
+    () => venueFacets(activeIndex?.all() ?? [], SUGGESTION_SIZE),
     [activeIndex],
   );
   const affiliationSuggestions = useMemo(
