@@ -22,8 +22,8 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ### Fixes
 
-- Back to a period, or its preset chosen again, no longer loads and indexes its papers
-  again: the list stays as it was (PERF-16).
+- Back from a filter or a paper to the same period, or its preset chosen again, no longer
+  loads and indexes its papers again: the list stays as it was (PERF-16).
 - A page that fails to draw says so, with a Reload button and whom to tell, instead of
   going blank (TEST-10).
 

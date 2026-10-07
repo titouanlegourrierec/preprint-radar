@@ -88,8 +88,9 @@ The *Highly cited* tab shows the archive by year of first version, one year, a r
 years or all of them, ranked by citation count; search words and filters narrow it down.
 Past 10,000 papers (all years hold about 22,000), it keeps the best ranked by citations per
 year of age and says how many it leaves out. Papers show their citation count wherever it
-is known (0 for most new papers), and what they gained in the last week ("+12 this
-week"); the lists can be sorted by either (*Most cited*, *Rising*).
+is known (0 for most new papers), and, once two weekly counts exist, what they gained in
+the last week ("+12 this week"); the lists can be sorted by either (*Most cited*,
+*Rising*).
 
 The *Rankings* tab lists the institutions or the authors of the papers shown — the recent
 days or archive years, narrowed by the search and filters — by number of papers or by

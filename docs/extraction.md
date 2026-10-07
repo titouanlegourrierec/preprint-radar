@@ -75,8 +75,9 @@ Artificial".
   lone countries. For records extracted before, `institutions.institution_name` names no
   institution for most of them: its own narrower `_JUNK_RE` rejects lone words and link
   and contribution labels, and `_COUNTRY_RE` the countries
-  (`src/preprint_radar/institutions.py`); a cut-off unit ("School of") would still name
-  itself, though none is stored and `make reclean` drops them from day files. The site
+  (`src/preprint_radar/institutions.py`), and a department, school or faculty is no
+  institution; a cut-off "Institute of" or "Center for" would still name itself, though
+  none is stored and `make reclean` drops them from day files. The site
   names none itself (AFF-13).
 - Superscript markers split affiliations, except one between two lowercase letters
   ("Hyper<sup>2</sup>labs" is a name). Every `<br>` is a line break, also when LaTeXML

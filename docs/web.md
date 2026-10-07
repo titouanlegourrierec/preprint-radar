@@ -103,9 +103,10 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   Links to the former "All days" (`?range=all`) open the longest preset.
 - `usePapers` cancels the requests of a period left; `data.ts` keeps the files loaded for
   the next periods (as many papers as a period loads), least recently used out first. It
-  loads again only for another period (`periodKey`): Back to a period, or its preset
-  chosen again, gives a new object for the same days and keeps the index; a new load lets
-  the former index go before the new one is built.
+  loads again only for another period (`periodKey`): Back from a filter or a paper to the
+  same period, or its preset chosen again, gives a new object for the same days and keeps
+  the index (another period is loaded again, from the files kept); a new load lets the
+  former index go before the new one is built.
 - The *Highly cited* view (`?view=cited&year=`) loads archive years instead of days,
   ranked by citations: one (`year=2017`), a range (`year=2019-2021`, the From and To
   selects of `components/ArchiveYears.tsx`) or all of them (`year=all`, which stays all
@@ -159,7 +160,8 @@ derives what only the site uses. The pipeline and `validate` never see these.
 - **Reading list** (`reading-list.ts`, `hooks/use-reading-list.ts`): stored and exported as
   `{version: 1, papers}`, the bare array of older lists still read. Every entry goes
   through `toPaper`, so that a bad one is skipped instead of breaking the page, and its
-  links are made from its arXiv id, never taken from the file (SEC-2); import
+  arXiv and PDF links are made from its arXiv id, its HTML link kept only on arxiv.org
+  (SEC-2); import
   merges by id; the list follows other tabs through `storage` events and takes the fresher
   record of a loaded day; a refused save is said, not swallowed.
 - **Saved searches** (`saved-searches.ts`): the query string of their words and filters,
