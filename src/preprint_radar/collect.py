@@ -165,23 +165,14 @@ def update_category(
         reading=html or HtmlReading(),
         checkpoint=lambda current: store.save(category, current),
     )
-    papers = read.papers
-    abstracts_fetched += read.abstracts
-    if ror_client is not None:
-        papers = add_institutions(papers, ror_client, limit=max_ror_lookups)
-    store.save(category, papers)
-
-    return UpdateReport(
-        category=category,
-        listed=len(papers),
+    return _name_and_report(
+        category,
+        read.papers,
+        read,
+        Ror(ror_client, max_ror_lookups),
+        store=store,
         new=new,
-        abstracts_fetched=abstracts_fetched,
-        affiliations_fetched=read.pages,
-        pending=sum(_still_pending(paper) for paper in papers),
-        no_page=sum(_without_page(paper) for paper in papers),
-        empty=read.empty,
-        unreadable=read.unreadable,
-        stopped=read.stopped,
+        abstracts=abstracts_fetched,
     )
 
 
@@ -248,22 +239,14 @@ def backfill_category(
         reading=html or HtmlReading(),
         checkpoint=lambda current: store.save(category, current),
     )
-    papers = read.papers
-    if ror_client is not None:
-        papers = add_institutions(papers, ror_client, limit=max_ror_lookups)
-    store.save(category, papers)
-
-    return UpdateReport(
-        category=category,
-        listed=len(papers),
+    return _name_and_report(
+        category,
+        read.papers,
+        read,
+        Ror(ror_client, max_ror_lookups),
+        store=store,
         new=new,
-        abstracts_fetched=abstracts_fetched + read.abstracts,
-        affiliations_fetched=read.pages,
-        pending=sum(_still_pending(paper) for paper in papers),
-        no_page=sum(_without_page(paper) for paper in papers),
-        empty=read.empty,
-        unreadable=read.unreadable,
-        stopped=read.stopped,
+        abstracts=abstracts_fetched,
     )
 
 
@@ -324,14 +307,52 @@ def reextract_category(
         )
         for url in emptied:
             reading.cache.discard(url)
-    if ror_client is not None:
-        papers = add_institutions(papers, ror_client, limit=max_ror_lookups)
+    return _name_and_report(
+        category, papers, read, Ror(ror_client, max_ror_lookups), store=store, new=0, abstracts=0
+    )
+
+
+@dataclass(frozen=True, slots=True)
+class Ror:
+    """How a run names the institutions of the affiliations it read: ``client`` ``None`` skips it."""
+
+    client: HttpClient | None
+    #: At most this many affiliation strings looked up, ``None`` for no limit.
+    max_lookups: int | None
+
+
+def _name_and_report(
+    category: str,
+    papers: list[Paper],
+    read: "_HtmlRead",
+    ror: Ror,
+    *,
+    store: PaperStore,
+    new: int,
+    abstracts: int,
+) -> UpdateReport:
+    """The end of every run (update, backfill, reextract): name the institutions, save, report.
+
+    Args:
+        category: arXiv category.
+        papers: The papers of the run, with what their pages gave.
+        read: How the reading of their pages went.
+        ror: How their institutions are named.
+        store: The data store.
+        new: Papers new to the store.
+        abstracts: Abstracts fetched before the pages, which add theirs.
+
+    Returns:
+        The run's report.
+    """
+    if ror.client is not None:
+        papers = add_institutions(papers, ror.client, limit=ror.max_lookups)
     store.save(category, papers)
     return UpdateReport(
         category=category,
-        listed=len(stored),
-        new=0,
-        abstracts_fetched=read.abstracts,
+        listed=len(papers),
+        new=new,
+        abstracts_fetched=abstracts + read.abstracts,
         affiliations_fetched=read.pages,
         pending=sum(_still_pending(paper) for paper in papers),
         no_page=sum(_without_page(paper) for paper in papers),

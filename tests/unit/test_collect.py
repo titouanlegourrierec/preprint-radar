@@ -23,7 +23,6 @@ from preprint_radar.collect import (
     format_citations_report,
     format_report,
     reextract_category,
-    today,
     update_category,
     update_citation_counts,
 )
@@ -32,6 +31,16 @@ from preprint_radar.models import Listing, Paper, Provenance
 from preprint_radar.sources.arxiv_html import EXTRACTOR_VERSION, PageCache, parse_front_matter
 from preprint_radar.sources.arxiv_listing import parse_catchup
 from preprint_radar.store.paper_store import PaperStore
+
+# The day the tests read pages and look up ROR: fixed, so that a run across midnight UTC
+# cannot see two days.
+READ_ON = date(2026, 9, 25)
+
+
+@pytest.fixture(autouse=True)
+def _reading_day(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr("preprint_radar.collect.today", lambda: READ_ON)
+
 
 ATOM_ENTRY = """
   <entry>
@@ -189,8 +198,8 @@ def test_update_enriches_and_stores_papers(fake: FakeArxiv, store: PaperStore) -
     assert stored["2609.28466"].extractor is None
     assert stored["2609.30234"].extractor is None
     # Where the affiliations came from, and when; nothing for those not read yet.
-    assert stored["2609.30249"].affiliations_provenance == Provenance("html", today())
-    assert stored["2609.28466"].affiliations_provenance == Provenance("api", today())
+    assert stored["2609.30249"].affiliations_provenance == Provenance("html", READ_ON)
+    assert stored["2609.28466"].affiliations_provenance == Provenance("api", READ_ON)
     assert stored["2609.30234"].affiliations_provenance is None
 
 
@@ -330,7 +339,7 @@ def test_declared_affiliations_reset_the_author_mapping(
     assert stored["2609.28466"].affiliations == ("Declared Institute",)
     assert stored["2609.28466"].author_affiliations is None
     assert stored["2609.28466"].institutions is None
-    assert stored["2609.28466"].affiliations_provenance == Provenance("api", today())
+    assert stored["2609.28466"].affiliations_provenance == Provenance("api", READ_ON)
 
 
 def test_max_html_fetches_limits_downloads(fake: FakeArxiv, store: PaperStore) -> None:
@@ -470,7 +479,7 @@ def test_add_institutions_keeps_ror_ids(fake: FakeArxiv) -> None:
     assert peking_id
     # Only what ROR named has an id: "Meta" is the rules'.
     assert [paper.institution_ids for paper in named] == [(peking_id, None), None]
-    assert named[0].institutions_provenance == Provenance("ror", today())
+    assert named[0].institutions_provenance == Provenance("ror", READ_ON)
     assert fake.ror_requests == ["School of CS, Peking University", "Meta AI"]
     fake.ror_requests.clear()
     with fake.client() as ror:
