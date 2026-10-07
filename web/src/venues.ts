@@ -48,13 +48,17 @@ export function venueLabel(value: string): string {
 /**
  * The venue filter's values among the papers, the most frequent `limit`, with their
  * papers: each venue, and each family of more than one edition ("CVPR*" when "CVPR 2025"
- * and "CVPR 2026" are there), counted on the papers so that a cut edition still counts.
+ * and "CVPR 2026" are there), counted on the papers so that a cut edition still counts;
+ * and first, {@link ANY_VENUE} with every paper accepted somewhere, which the cut editions
+ * would undercount.
  */
 export function venueFacets(papers: Iterable<Paper>, limit: number): FacetCount[] {
+  let accepted = 0;
   const editions = new Map<string, number>();
   const families = new Map<string, { count: number; editions: Set<string> }>();
   for (const { venue } of papers) {
     if (!venue) continue;
+    accepted += 1;
     editions.set(venue, (editions.get(venue) ?? 0) + 1);
     const family = venueFamily(venue);
     const entry = families.get(family) ?? { count: 0, editions: new Set<string>() };
@@ -62,7 +66,7 @@ export function venueFacets(papers: Iterable<Paper>, limit: number): FacetCount[
     entry.editions.add(venue);
     families.set(family, entry);
   }
-  return [
+  const listed = [
     ...[...editions].map(([value, count]) => ({ value, count })),
     ...[...families]
       .filter(([, entry]) => entry.editions.size > 1)
@@ -70,6 +74,7 @@ export function venueFacets(papers: Iterable<Paper>, limit: number): FacetCount[
   ]
     .sort((a, b) => b.count - a.count || a.value.localeCompare(b.value))
     .slice(0, limit);
+  return [{ value: ANY_VENUE, count: accepted }, ...listed];
 }
 
 /**

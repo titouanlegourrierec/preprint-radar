@@ -128,11 +128,17 @@ describe("venue families", () => {
       makePaper({ arxiv_id: "5", venue: null }),
     ];
     expect(venueFacets(papers, 10)).toEqual([
+      { value: ANY_VENUE, count: 4 },
       { value: "CVPR*", count: 3 },
       { value: "CVPR 2026", count: 2 },
       { value: "CVPR 2025", count: 1 },
       { value: "ECCV 2026", count: 1 },
     ]);
-    expect(venueFacets(papers, 2).map(({ value }) => value)).toEqual(["CVPR*", "CVPR 2026"]);
+    // The papers accepted anywhere are counted over all of them, past the limit too.
+    expect(venueFacets(papers, 2)).toEqual([
+      { value: ANY_VENUE, count: 4 },
+      { value: "CVPR*", count: 3 },
+      { value: "CVPR 2026", count: 2 },
+    ]);
   });
 });

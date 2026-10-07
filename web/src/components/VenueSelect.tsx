@@ -22,14 +22,19 @@ function Option({ venue, starred }: { venue: FacetCount; starred: boolean }) {
  * any year", SRCH-15) or one venue (major ones starred).
  */
 export function VenueSelect({ venues, value, onChange }: Props) {
-  const editions = venues.filter((venue) => familyOf(venue.value) === null);
-  const accepted = editions.reduce((sum, venue) => sum + venue.count, 0);
+  // Every paper accepted somewhere, counted over all of them (`venueFacets`); the editions
+  // listed are the most frequent only.
+  const listed = venues.filter((venue) => venue.value !== ANY_VENUE);
+  const editions = listed.filter((venue) => familyOf(venue.value) === null);
+  const accepted =
+    venues.find((venue) => venue.value === ANY_VENUE)?.count ??
+    editions.reduce((sum, venue) => sum + venue.count, 0);
   // Keep a venue from a shared link selectable even when it is not listed: a family with
   // one edition loaded counts that edition's papers.
   const known =
-    value && value !== ANY_VENUE && !venues.some((venue) => venue.value === value)
+    value && value !== ANY_VENUE && !listed.some((venue) => venue.value === value)
       ? [
-          ...venues,
+          ...listed,
           {
             value,
             count: editions
@@ -37,7 +42,7 @@ export function VenueSelect({ venues, value, onChange }: Props) {
               .reduce((sum, venue) => sum + venue.count, 0),
           },
         ]
-      : venues;
+      : listed;
   const sorted = sortVenues(known);
   const major = sorted.filter((venue) => isMajorVenue(venue.value));
   const other = sorted.filter((venue) => !isMajorVenue(venue.value));
