@@ -414,10 +414,12 @@ export function sharedPapers(a: GraphNode, b: GraphNode): string[] {
 export function papersOfNode(papers: readonly Paper[], id: string): Paper[] {
   const separator = id.indexOf(":");
   const kind = id.slice(0, separator);
-  const key = id.slice(separator + 1);
+  const name = id.slice(separator + 1);
+  // A link written by hand ("institution:MIT") means the node keyed "institution:mit".
+  const key = searchKey(name);
   switch (kind) {
     case "paper":
-      return papers.filter((paper) => paper.arxiv_id === key);
+      return papers.filter((paper) => paper.arxiv_id === name);
     case "institution":
       return papers.filter((paper) =>
         institutionsOf(paper).some((name) => name !== null && searchKey(name) === key),
@@ -427,4 +429,28 @@ export function papersOfNode(papers: readonly Paper[], id: string): Paper[] {
     default:
       return [];
   }
+}
+
+/**
+ * A node's name among papers, its most frequent spelling as {@link buildGraph} names it:
+ * for a node the graph does not draw (filtered out, or a focus without papers left),
+ * rather than its lowercased key. `null` when no paper names it.
+ */
+export function nodeLabel(papers: readonly Paper[], id: string): string | null {
+  const separator = id.indexOf(":");
+  const kind = id.slice(0, separator);
+  const key = searchKey(id.slice(separator + 1));
+  const counts = new Map<string, number>();
+  for (const paper of papers) {
+    const names =
+      kind === "institution"
+        ? institutionsOf(paper).filter((name): name is string => name !== null)
+        : kind === "author"
+          ? paper.authors
+          : [];
+    for (const name of new Set(names)) {
+      if (searchKey(name) === key) counts.set(name, (counts.get(name) ?? 0) + 1);
+    }
+  }
+  return [...counts].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))[0]?.[0] ?? null;
 }

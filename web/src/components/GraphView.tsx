@@ -8,6 +8,7 @@ import {
   type GraphNode,
   isEntity,
   MAX_CLIQUE_AUTHORS,
+  nodeLabel,
   nodeMatches,
   papersOfNode,
   replaySteps,
@@ -367,8 +368,12 @@ export function GraphView(props: Props) {
   );
   const selectedEntity = selected && isEntity(selected) ? selected : null;
   const focusLabel = focus
-    ? (nodesById.get(focus)?.label ?? focus.slice(focus.indexOf(":") + 1))
+    ? (nodesById.get(focus)?.label ??
+      nodeLabel(papers, focus) ??
+      focus.slice(focus.indexOf(":") + 1))
     : null;
+  // A focus kept from other papers (another period, year or venue) may have none here.
+  const focusEmpty = focus !== null && focusedPapers.length === 0;
   const fileName = exportName(new Date().toISOString().slice(0, 10), focus);
   const exportGraphML = () =>
     download(`${fileName}.graphml`, toGraphML(graph), "application/graphml+xml");
@@ -378,14 +383,16 @@ export function GraphView(props: Props) {
   };
   const emptyMessage =
     props.notice ??
-    (papers.length === 0
-      ? "No paper matches these settings."
-      : graph.nodes.length > 0
-        ? null
-        : kinds.length === 0
-          ? "Turn on institutions or authors in the graph settings."
-          : `No ${kinds.join(" or ")} to show: ${affiliatedCount} of these ` +
-            `${shownPapers.length} papers have known affiliations so far.`);
+    (focusEmpty
+      ? null
+      : papers.length === 0
+        ? "No paper matches these settings."
+        : graph.nodes.length > 0
+          ? null
+          : kinds.length === 0
+            ? "Turn on institutions or authors in the graph settings."
+            : `No ${kinds.join(" or ")} to show: ${affiliatedCount} of these ` +
+              `${shownPapers.length} papers have known affiliations so far.`);
 
   return (
     <main class="graph" id="main">
@@ -457,11 +464,13 @@ export function GraphView(props: Props) {
 
       {focusLabel && (
         <p class="graph__focus" role="status">
-          {focusLabel} and{" "}
-          {focusedPapers.length === 1
-            ? "its paper"
-            : `its ${countOf(focusedPapers.length, "paper")}`}
-          , with their institutions and authors.{" "}
+          {focusEmpty
+            ? `${focusLabel} has no paper among these.`
+            : `${focusLabel} and ${
+                focusedPapers.length === 1
+                  ? "its paper"
+                  : `its ${countOf(focusedPapers.length, "paper")}`
+              }, with their institutions and authors.`}{" "}
           <button type="button" class="link-button" onClick={() => onFocus(null)}>
             Show everything
           </button>

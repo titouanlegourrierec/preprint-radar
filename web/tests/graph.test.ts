@@ -6,6 +6,7 @@ import {
   MAX_CLIQUE_AUTHORS,
   MAX_REPLAY_STEPS,
   matchStatus,
+  nodeLabel,
   nodeMatches,
   papersOfNode,
   replaySteps,
@@ -460,6 +461,9 @@ describe("a node's papers and its connections", () => {
     expect(ids("paper:3")).toEqual(["3"]);
     expect(ids("institution:nowhere")).toEqual([]);
     expect(ids("venue:cvpr")).toEqual([]);
+    // A link written by hand means the node keyed alike.
+    expect(ids("institution:Inria")).toEqual(["1", "2"]);
+    expect(ids("author:ADA")).toEqual(["1", "2"]);
     // Its ego network: the institutions and authors of its papers alone.
     const ego = buildGraph(papersOfNode(papers, "author:bob"), { ...INSTITUTIONS, authors: true });
     expect(ego.nodes.map((entry) => entry.id).sort()).toEqual([
@@ -468,5 +472,34 @@ describe("a node's papers and its connections", () => {
       "institution:google",
       "institution:inria",
     ]);
+  });
+});
+
+describe("nodeLabel", () => {
+  it("names a node by its most frequent spelling among the papers, or not at all", () => {
+    const spelled = [
+      makePaper({
+        arxiv_id: "1",
+        authors: ["José Ruiz"],
+        affiliations: ["MIT"],
+        institutions: ["MIT"],
+      }),
+      makePaper({
+        arxiv_id: "2",
+        authors: ["Jose Ruiz"],
+        affiliations: ["mit"],
+        institutions: ["mit"],
+      }),
+      makePaper({
+        arxiv_id: "3",
+        authors: ["José Ruiz"],
+        affiliations: ["MIT"],
+        institutions: ["MIT"],
+      }),
+    ];
+    expect(nodeLabel(spelled, "author:jose ruiz")).toBe("José Ruiz");
+    expect(nodeLabel(spelled, "institution:mit")).toBe("MIT");
+    expect(nodeLabel(spelled, "institution:nowhere")).toBeNull();
+    expect(nodeLabel(spelled, "paper:1")).toBeNull();
   });
 });

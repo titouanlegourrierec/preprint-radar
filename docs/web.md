@@ -227,7 +227,10 @@ out of Highly cited (decision 18). Reading lists keep the flag.
   connections in the details lists their shared papers on a click (`sharedPapers`); "Focus
   on this" shows the graph of the node's papers alone (`papersOfNode`, `?focus=
   institution:<key>`, the node id), its institutions and authors as the settings show
-  them, with a bar that says so and goes back to everything. The focus is the graph's
+  them, with a bar that says so and goes back to everything. The id matches as nodes
+  are keyed (`institution:MIT` is `institution:mit`), a node the graph does not draw is
+  named by its usual spelling (`nodeLabel`), and a focus with no paper among those shown
+  (another period, year or venue) says so. The focus is the graph's
   alone: another view drops it (`use-url-state.ts`). A node's papers are its papers among
   those loaded, matched as `buildGraph` keys nodes, which is simpler than a neighbourhood
   in hops once papers are nodes too (an institution is two or three hops from another).
