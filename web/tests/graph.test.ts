@@ -1,12 +1,15 @@
 import { describe, expect, it } from "vitest";
 import {
+  authorKey,
   buildGraph,
   type GraphOptions,
   MAX_CLIQUE_AUTHORS,
   MAX_REPLAY_STEPS,
   matchStatus,
   nodeMatches,
+  personKey,
   replaySteps,
+  semanticScholarId,
 } from "../src/graph";
 import { institutionsOf } from "../src/institutions";
 import { searchKey } from "../src/text";
@@ -385,5 +388,60 @@ describe("matchStatus", () => {
     );
     expect(matchStatus(12, 2, "MIT")).toBe("3 of 12 matches: MIT");
     expect(matchStatus(12, 2, null)).toBe("3 of 12 matches");
+  });
+});
+
+describe("authors and their Semantic Scholar ids", () => {
+  const AUTHORS: GraphOptions = { ...INSTITUTIONS, institutions: false, authors: true };
+  const wang = (arxiv_id: string, id: string | null, institution: string) =>
+    makePaper({
+      arxiv_id,
+      authors: ["Wei Wang", "Ada"],
+      author_ids: [id, null],
+      affiliations: [institution],
+      author_affiliations: [[0], null],
+    });
+
+  it("keys an author by their id, else by their name", () => {
+    const paper = wang("1", "42", "Tsinghua University");
+    expect(authorKey(paper, 0)).toBe("author:s2:42");
+    expect(authorKey(paper, 1)).toBe("author:ada");
+    expect(authorKey(makePaper({ arxiv_id: "2", authors: ["Ada"], author_ids: [] }), 0)).toBe(
+      "author:ada",
+    );
+    expect([personKey("Wei Wang", "42"), personKey("Wei Wang", null)]).toEqual([
+      "author:s2:42",
+      "author:wei wang",
+    ]);
+    expect([semanticScholarId("author:s2:42"), semanticScholarId("author:ada")]).toEqual([
+      "42",
+      null,
+    ]);
+  });
+
+  it("tells people of one name apart, by where their papers place them", () => {
+    const graph = buildGraph(
+      [
+        wang("1", "42", "Tsinghua University"),
+        wang("2", "42", "Tsinghua University"),
+        wang("3", "7", "Zhejiang University"),
+        wang("4", null, "Peking University"),
+        makePaper({ arxiv_id: "5", authors: ["Wei Wang"], author_ids: [null] }),
+      ],
+      AUTHORS,
+    );
+    const wangs = graph.nodes.filter((node) => node.name === "Wei Wang");
+
+    expect(wangs.map((node) => [node.id, node.label, node.paperIds.length])).toEqual([
+      // Those without an id gather, apart: they might be either, or someone else.
+      ["author:wei wang", "Wei Wang · Peking University", 2],
+      ["author:s2:42", "Wei Wang · Tsinghua University", 2],
+      ["author:s2:7", "Wei Wang · Zhejiang University", 1],
+    ]);
+  });
+
+  it("keeps the bare name of a person nobody shares it with", () => {
+    const graph = buildGraph([wang("1", "42", "Tsinghua University")], AUTHORS);
+    expect(graph.nodes.map((node) => node.label)).toEqual(["Ada", "Wei Wang"]);
   });
 });

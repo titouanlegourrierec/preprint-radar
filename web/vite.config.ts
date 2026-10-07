@@ -14,7 +14,7 @@ import type { Plugin } from "vite";
 import { defineConfig } from "vitest/config";
 import type { ScholarFile, StoreIndex } from "./src/types";
 import { citationShardFiles } from "./tooling/citation-shards";
-import { paperFiles, withScholar } from "./tooling/scholar";
+import { type AuthorIds, authorIdsByName, paperFiles, withScholar } from "./tooling/scholar";
 import { thirdPartyLoads } from "./tooling/third-party";
 
 // The repository's store; the smoke test (e2e/) builds the site over a small one instead.
@@ -63,6 +63,22 @@ function paperData(dataDir: string): Plugin {
   const shards = shardsOf(dataDir);
   const read = jsonReader(dataDir);
   const scholarOf = (category: string) => read(`${category}/scholar.json`) as ScholarFile | null;
+  // The names only one person of the store goes by, read once per category (AFF-H).
+  const byNames = new Map<string, AuthorIds>();
+  const byNameOf = (category: string, scholar: ScholarFile | null): AuthorIds => {
+    let byName = byNames.get(category);
+    if (byName === undefined) {
+      const index = read("index.json") as StoreIndex | null;
+      const texts = (index ? paperFiles(index) : [])
+        .filter((file) => file.category === category)
+        .map(({ path }) => resolve(dataDir, path))
+        .filter((file) => existsSync(file))
+        .map((file) => readFileSync(file, "utf8"));
+      byName = authorIdsByName(texts, scholar);
+      byNames.set(category, byName);
+    }
+    return byName;
+  };
   return {
     name: "preprint-radar:data",
     configureServer(server) {
@@ -82,7 +98,8 @@ function paperData(dataDir: string): Plugin {
         res.setHeader("Content-Type", "application/json; charset=utf-8");
         const category = PAPER_FILE_RE.exec(path)?.[1];
         if (category !== undefined) {
-          res.end(withScholar(readFileSync(file, "utf8"), scholarOf(category)));
+          const scholar = scholarOf(category);
+          res.end(withScholar(readFileSync(file, "utf8"), scholar, byNameOf(category, scholar)));
           return;
         }
         createReadStream(file).pipe(res);
@@ -108,7 +125,12 @@ function paperData(dataDir: string): Plugin {
           const scholar = scholars.get(category) ?? null;
           const target = resolve(output, path);
           if (scholar !== null && existsSync(target)) {
-            writeFileSync(target, withScholar(readFileSync(target, "utf8"), scholar));
+            const merged = withScholar(
+              readFileSync(target, "utf8"),
+              scholar,
+              byNameOf(category, scholar),
+            );
+            writeFileSync(target, merged);
           }
         }
       }

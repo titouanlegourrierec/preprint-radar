@@ -32,6 +32,7 @@ import {
   alphabetical,
   arxivIdOf,
   byCitations,
+  entityFilter,
   exactly,
   facetCounts,
   mostlyTied,
@@ -416,13 +417,17 @@ export function App() {
           venue={state.filters.venue}
           onVenue={(venue) => setFilters({ ...state.filters, venue })}
           theme={resolved}
-          onShowPapers={(kind, label) =>
+          onShowPapers={(node) =>
             update({
               view: "papers",
               filters: {
                 ...NO_FILTERS,
                 venue: state.filters.venue,
-                [kind === "institution" ? "affiliation" : "author"]: exactly(label),
+                [node.kind === "institution" ? "affiliation" : "author"]: entityFilter(
+                  node.kind,
+                  node.id,
+                  node.name,
+                ),
               },
             })
           }
@@ -752,12 +757,16 @@ export function App() {
               citations={citations.counts}
               citationsNote={citationsNote}
               archived={archived}
-              onEntity={(kind, name) =>
+              onEntity={(entity) =>
                 update({
                   view: archived ? "cited" : "papers",
                   filters: {
                     ...state.filters,
-                    [kind === "institution" ? "affiliation" : "author"]: exactly(name),
+                    [entity.kind === "institution" ? "affiliation" : "author"]: entityFilter(
+                      entity.kind,
+                      entity.id,
+                      entity.filterName,
+                    ),
                   },
                 })
               }
@@ -836,7 +845,9 @@ export function App() {
                 onToggleSaved={readingList.toggle}
                 seenIds={triaged ? triage.seen : undefined}
                 onToggleSeen={triaged ? triage.toggleSeen : undefined}
-                onAuthor={(author) => setFilters({ ...state.filters, author: exactly(author) })}
+                onAuthor={(author, person) =>
+                  setFilters({ ...state.filters, author: exactly(author, person) })
+                }
                 onAffiliation={(affiliation) => setFilters({ ...state.filters, affiliation })}
               />
             </>

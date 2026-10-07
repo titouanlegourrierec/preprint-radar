@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "preact/hooks";
 import { toBibtex } from "../bibtex";
 import { daysSince, formatDay, subjectCode } from "../format";
+import { authorKey } from "../graph";
 import { highlight } from "../highlight";
 import { institutionsOf } from "../institutions";
 import { reportLink } from "../report";
@@ -51,7 +52,8 @@ interface Props {
   onToggleSaved: (paper: Paper) => void;
   /** Absent where papers cannot be marked seen (the reading list). */
   onToggleSeen?: ((arxivId: string) => void) | undefined;
-  onAuthor: (author: string) => void;
+  /** An author clicked: their name, and the person they are ({@link authorKey}). */
+  onAuthor: (author: string, person: string) => void;
   /** The affiliation's institution, exactly, or the string itself when it names none. */
   onAffiliation: (filter: NameFilter) => void;
 }
@@ -162,7 +164,7 @@ export function PaperCard({
                 type="button"
                 class="link-button"
                 title="Show papers by this author"
-                onClick={() => onAuthor(author)}
+                onClick={() => onAuthor(author, authorKey(paper, index))}
               >
                 <Highlighted text={author} terms={highlights} />
               </button>

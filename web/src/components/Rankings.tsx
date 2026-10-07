@@ -1,6 +1,6 @@
 import { useMemo, useState } from "preact/hooks";
 import type { EntityKind } from "../graph";
-import { type RankingMetric, rankEntities } from "../rankings";
+import { type RankedEntity, type RankingMetric, rankEntities } from "../rankings";
 import type { Paper } from "../types";
 
 const SHOWN = 100;
@@ -14,7 +14,7 @@ interface Props {
   /** Whether the papers are highly cited ones: citations then rank them by default. */
   archived: boolean;
   /** Show the papers of an institution or author. */
-  onEntity: (kind: EntityKind, name: string) => void;
+  onEntity: (entity: RankedEntity) => void;
 }
 
 /** Institutions and authors of the papers shown, by number of papers or citations. */
@@ -86,7 +86,7 @@ export function Rankings({ papers, citations, citationsNote, archived, onEntity 
                     type="button"
                     class="link-button"
                     title="Show their papers"
-                    onClick={() => onEntity(entity.kind, entity.name)}
+                    onClick={() => onEntity(entity)}
                   >
                     {entity.name}
                   </button>

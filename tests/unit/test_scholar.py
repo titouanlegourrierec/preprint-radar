@@ -291,6 +291,10 @@ def test_stats_count_published_venues(store: PaperStore) -> None:
         pytest.param(("Ada Lovelace", "Grace Hopper"), ("1", None), id="another-person"),
         pytest.param(("Ada Lovelace", None), ("1", None), id="a-name-missing"),
         pytest.param(("Ada Lovelace", "?"), ("1", None), id="a-name-without-letters"),
+        pytest.param(("Ada Love-Lace", "Alan Turing"), ("1", "2"), id="a-hyphen"),
+        pytest.param(
+            ("Ada Lovelace", "Alan Tur\N{LATIN SMALL LETTER DOTLESS I}ng"), ("1", "2"), id="a-dotless-i"
+        ),
     ],
 )
 def test_author_ids_are_kept_where_the_names_are_the_papers(

@@ -8,7 +8,10 @@ export interface RankedEntity {
   /** Stable identifier, the one of its graph node. */
   id: string;
   kind: EntityKind;
+  /** As shown: a person's name with their institution when another shares it. */
   name: string;
+  /** The name alone, as a filter on the entity searches it. */
+  filterName: string;
   papers: number;
   /** Citations of those papers, summed; papers without a known count add nothing. */
   citations: number;
@@ -52,6 +55,7 @@ export function rankEntities(
       id: node.id,
       kind,
       name: node.label,
+      filterName: node.name,
       papers: node.paperIds.length,
       citations: node.citations,
       top,

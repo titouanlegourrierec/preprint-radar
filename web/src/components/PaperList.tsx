@@ -28,7 +28,7 @@ interface Props {
   /** Papers marked seen, and how to mark one; absent where papers are not triaged. */
   seenIds?: ReadonlySet<string> | undefined;
   onToggleSeen?: ((arxivId: string) => void) | undefined;
-  onAuthor: (author: string) => void;
+  onAuthor: (author: string, person: string) => void;
   onAffiliation: (filter: NameFilter) => void;
 }
 

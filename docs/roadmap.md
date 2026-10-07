@@ -223,7 +223,7 @@ exist.
 |---|---|---|---|
 | §17.1 | Card link-outs, institution and venue feeds, rising papers, graph ego networks and export | — | todo |
 | AFF-13, ARCH-3 | Institution canonicalization in the pipeline (decision 12): the site's rules ported to `institutions.py` (the same name for all 37,789 stored affiliations), ROR first then the rules, registry names made canonical, the archive's too; `make institutions-again`; the site displays only, keeping its acronyms for search | P2 | done |
-| AFF-H | Author identity | P2 | todo |
+| AFF-H | Author identity (decision 13): Semantic Scholar's author ids, each kept only where its name is the arXiv author's; merged into the site's records, an author without one taking the id of the only person of that name; authors keyed by id in the graph, Rankings and filters (`s2=` in links), homonyms told apart by their institution, a hint on authors without an id | P2 | done |
 | ARCH-2 | Enrichment step interface | P2 | todo |
 | DEBT-2, DEBT-3 | View model for `app.tsx`, `GraphView` split | P2, P3 | todo |
 | ARCH-4 | Multi-category, if wanted | P2 | todo |

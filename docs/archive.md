@@ -68,13 +68,20 @@ before changing `archive/`, `sources/semantic_scholar.py`, `sources/openalex.py`
   Semantic Scholar for every stored paper (about 26,000 in 52 requests, minutes with a
   key): the DOI of the published version (not arXiv's `10.48550/...`), its venue, named by
   `venue.published_venue` (see [extraction.md](extraction.md)), and the authors' ids, kept only when
-  Semantic Scholar lists as many authors as the paper, since they are matched by position.
+  Semantic Scholar lists as many authors as the paper, and each only where the name it
+  gives is the arXiv author's at that place (`collect.checked_author_ids`, AFF-H): Semantic
+  Scholar merges versions and papers, and lists some in another order (2303.17912, two
+  authors swapped; 2505.11594, shifted by one). A name is the author's when one spelling
+  holds the other's words ("Mahdi S. Hosseini"), hyphenated given names joined
+  ("Jin-Chao Zhang") and letters folded ("Kalaycıoğlu"), or with the same surname and first
+  initial ("D. Gopinath"). The names are never stored.
 - `collect.update_scholar_records` rewrites the file: a paper Semantic Scholar was not
   asked for (it kept refusing) keeps last week's record, and papers no longer stored are
   dropped. `validate` fails a file that does not load, and only warns on stale records.
   `stats` counts its venues with the detected ones.
 - The store keeps it apart from the records, since it changes every week; the build
-  merges the DOI and the venue into the records the site serves ([web.md](web.md)).
+  merges the DOI, the venue and the authors' ids into the records the site serves
+  ([web.md](web.md)).
 - Semantic Scholar has a venue for about 90% of the archive (52% from comments), and for
   5% of recent papers (19% from comments), so the comments stay first for those.
 

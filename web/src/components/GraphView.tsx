@@ -2,12 +2,13 @@ import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { formatDay } from "../format";
 import {
   buildGraph,
-  type EntityKind,
+  type EntityNode,
   type GraphNode,
   isEntity,
   MAX_CLIQUE_AUTHORS,
   nodeMatches,
   replaySteps,
+  semanticScholarId,
 } from "../graph";
 import { GraphRenderer } from "../graph-renderer";
 import { useMediaQuery } from "../hooks/use-media-query";
@@ -62,7 +63,7 @@ interface Props {
   venues: FacetCount[];
   venue: string | null;
   onVenue: (venue: string | null) => void;
-  onShowPapers: (kind: EntityKind, label: string) => void;
+  onShowPapers: (node: EntityNode) => void;
   /** Show one paper in the list, expanded (its permalink). */
   onOpenPaper: (paper: Paper) => void;
   /** Paper to select and center on (from the list or a shared link), by arXiv id. */
@@ -234,8 +235,8 @@ export function GraphView(props: Props) {
     if (node?.kind === "paper") {
       const paper = papersById.get(node.paperIds[0] ?? "");
       if (paper) onOpenPaper(paper);
-    } else if (node) {
-      onShowPapers(node.kind, node.label);
+    } else if (node && isEntity(node)) {
+      onShowPapers(node);
     }
   };
 
@@ -472,7 +473,26 @@ export function GraphView(props: Props) {
                       </a>
                     </>
                   )}
+                  {semanticScholarId(selectedEntity.id) && (
+                    <>
+                      {" · "}
+                      <a
+                        href={`https://www.semanticscholar.org/author/${semanticScholarId(selectedEntity.id)}`}
+                        title="This author on Semantic Scholar"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Semantic Scholar
+                      </a>
+                    </>
+                  )}
                 </p>
+                {selectedEntity.kind === "author" && !semanticScholarId(selectedEntity.id) && (
+                  <p class="muted">
+                    Not known to Semantic Scholar: papers by different people of this name may be
+                    counted together.
+                  </p>
+                )}
                 <ul class="graph__papers">
                   {byCitationCount(selectedEntity.paperIds, citations)
                     .slice(0, DETAILS_PAPERS)
@@ -513,11 +533,7 @@ export function GraphView(props: Props) {
                     </ul>
                   </>
                 )}
-                <button
-                  type="button"
-                  class="button"
-                  onClick={() => onShowPapers(selectedEntity.kind, selectedEntity.label)}
-                >
+                <button type="button" class="button" onClick={() => onShowPapers(selectedEntity)}>
                   Show all {selectedEntity.paperIds.length} papers
                 </button>
               </>

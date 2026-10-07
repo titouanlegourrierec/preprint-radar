@@ -6,7 +6,9 @@
 """
 
 import logging
+import re
 import time
+import unicodedata
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from dataclasses import dataclass, replace
 from datetime import UTC, date, datetime
@@ -871,20 +873,33 @@ def checked_author_ids(record: ScholarRecord, authors: Sequence[str]) -> tuple[s
 
 
 def _same_person(listed: str, named: str) -> bool:
-    words, other = set(name_key(listed)), set(name_key(named))
+    words, other = _name_words(listed), _name_words(named)
     if not words or not other:
         return False
-    if words <= other or other <= words:
+    if set(words) <= set(other) or set(other) <= set(words):
         return True
-    # Initials: the same surname, and given names that start alike.
-    listed_words, named_words = listed.split(), named.split()
-    given, other_given = name_key(listed_words[0]), name_key(named_words[0])
-    return (
-        name_key(listed_words[-1]) == name_key(named_words[-1])
-        and bool(given)
-        and bool(other_given)
-        and given[0][0] == other_given[0][0]
-    )
+    # Initials: the same surname, and given names that start alike ("D. Gopinath").
+    return words[-1] == other[-1] and words[0][0] == other[0][0]
+
+
+# Letters that do not decompose into a base letter and an accent.
+_PLAIN_LETTERS = str.maketrans({
+    "\N{LATIN SMALL LETTER DOTLESS I}": "i",
+    "\N{LATIN SMALL LETTER L WITH STROKE}": "l",
+    "\N{LATIN SMALL LETTER O WITH STROKE}": "o",
+    "\N{LATIN SMALL LETTER D WITH STROKE}": "d",
+    "\N{LATIN SMALL LETTER SHARP S}": "ss",
+    "\N{LATIN SMALL LETTER AE}": "ae",
+})  # fmt: skip
+_NAME_JOINER_RE = re.compile("[-'\N{RIGHT SINGLE QUOTATION MARK}.]")
+_NAME_WORD_RE = re.compile(r"[^\W_]+")
+
+
+def _name_words(name: str) -> list[str]:
+    """A name's words, folded, a hyphenated given name as one: "Jin-Chao" is "jinchao"."""
+    decomposed = unicodedata.normalize("NFD", name.lower().translate(_PLAIN_LETTERS))
+    folded = "".join(char for char in decomposed if not unicodedata.combining(char))
+    return _NAME_WORD_RE.findall(_NAME_JOINER_RE.sub("", folded.replace(". ", " ")))
 
 
 def format_scholar_report(report: ScholarReport) -> str:

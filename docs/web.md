@@ -26,6 +26,17 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   `institutions.ts`), which means its institution and is a whole word ("HKU" is not
   "HKUST"). In the URL, `by=`/`at=` are clicked names, `author=`/`aff=` typed text, which
   older links keep.
+- Authors are people, not names (AFF-H, decision 13): the build gives each record its
+  authors' Semantic Scholar ids (`author_ids`, from `scholar.json`), and an author without
+  one the id of the only person of the store with that name (`tooling/scholar.ts`,
+  `authorIdsByName`). `graph.authorKey` keys an author by id, else by name, so that two
+  people sharing a name are two nodes, and the unidentified papers of a name shared by
+  several ids gather apart. People of one name are told apart by the institution their
+  papers most often place them at ("Wei Wang · Tsinghua University"); the details panel
+  links a known author to Semantic Scholar, and says of one without an id that papers by
+  several people may be counted together. A clicked author is a person: `NameFilter.person`
+  holds the node id, and the URL adds `s2=<id>`, or `s2=none` for an author without one;
+  `by=` alone (links made before) is every author of that name.
 - The list sorts by relevance, newest or citations (`?sort=citations`: the index orders
   them like newest and `byCitations` ranks them).
 

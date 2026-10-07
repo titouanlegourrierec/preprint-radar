@@ -1,3 +1,4 @@
+import { personKey, semanticScholarId } from "./graph";
 import { between, DEFAULT_PERIOD, isIsoDay, isRange, LONGEST_RANGE, type Period } from "./period";
 import {
   exactly,
@@ -61,6 +62,17 @@ function readName(params: URLSearchParams, exactKey: string, typedKey: string): 
   return text ? typed(text) : null;
 }
 
+/**
+ * The author filter: a clicked name (`?by=`), and the person it is when the link says
+ * (`&s2=` their Semantic Scholar id, or `none` for an author without one), or typed text.
+ */
+function readAuthor(params: URLSearchParams): NameFilter | null {
+  const filter = readName(params, "by", "author");
+  const s2 = params.get("s2");
+  if (!filter?.exact || !s2) return filter;
+  return exactly(filter.text, personKey(filter.text, s2 === "none" ? null : s2));
+}
+
 /** Parse the view state from a query string, so that searches can be shared as links. */
 export function readState(search: string): ViewState {
   const params = new URLSearchParams(search);
@@ -74,7 +86,7 @@ export function readState(search: string): ViewState {
     year: /^\d{4}$/.test(params.get("year") ?? "") ? Number(params.get("year")) : null,
     filters: {
       excludeCrossLists: params.get("xl") === "0",
-      author: readName(params, "by", "author"),
+      author: readAuthor(params),
       affiliation: readName(params, "at", "aff"),
       subject: params.get("subject"),
       venue: params.get("venue"),
@@ -104,6 +116,7 @@ export function writeState(state: ViewState): string {
   set("xl", state.filters.excludeCrossLists ? "0" : null);
   const { author, affiliation } = state.filters;
   set(author?.exact ? "by" : "author", author?.text ?? null);
+  if (author?.exact && author.person) set("s2", semanticScholarId(author.person) ?? "none");
   set(affiliation?.exact ? "at" : "aff", affiliation?.text ?? null);
   set("subject", state.filters.subject);
   set("venue", state.filters.venue);

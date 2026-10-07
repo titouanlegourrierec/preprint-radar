@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { ScholarFile } from "../src/types";
-import { paperFiles, withScholar } from "../tooling/scholar";
+import { authorIdsByName, paperFiles, withScholar } from "../tooling/scholar";
 
 const scholar: ScholarFile = {
   schema_version: 1,
@@ -34,6 +34,36 @@ describe("withScholar", () => {
       { arxiv_id: "2609.00004", venue: null },
     ]);
     expect(withScholar("unchanged", null)).toBe("unchanged");
+  });
+
+  it("gives the site's records their authors' ids, by name where only one person has it", () => {
+    const papers = (...entries: object[]) => JSON.stringify({ schema_version: 1, papers: entries });
+    const ids: ScholarFile = {
+      ...scholar,
+      papers: {
+        "1": { author_ids: ["42", null] },
+        "2": { author_ids: ["7", "9"] },
+        "3": { author_ids: ["8"] },
+      },
+    };
+    const day = papers(
+      { arxiv_id: "1", authors: ["Wei Wang", "Ada Lovelace"] },
+      { arxiv_id: "2", authors: ["Wei Wang", "Ada Lovelace"] },
+      // One author too many: its ids are not the paper's.
+      { arxiv_id: "3", authors: ["Alan Turing", "Bob"] },
+      { arxiv_id: "4", authors: ["Wei Wang", "Ada Lovelace", "Cyd"] },
+    );
+    const byName = authorIdsByName([day], ids);
+
+    // Two people are Wei Wang, one is Ada Lovelace; Alan Turing's id was not his.
+    expect([...byName]).toEqual([["ada lovelace", "9"]]);
+    const merged = JSON.parse(withScholar(day, ids, byName)).papers;
+    expect(merged.map((paper: { author_ids?: unknown }) => paper.author_ids)).toEqual([
+      ["42", "9"],
+      ["7", "9"],
+      undefined,
+      [null, "9", null],
+    ]);
   });
 
   it("lists the day and archive files of the index", () => {

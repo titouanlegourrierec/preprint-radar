@@ -51,8 +51,8 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     institutions, archive included.
   - `make citations`: Semantic Scholar counts of the stored papers without one; `ALL=1` asks
     for every paper again. The daily workflow runs it.
-  - `make scholar`: the DOI, published venue and author ids of every stored paper into
-    `scholar.json` (52 requests). `archive.yml` runs it weekly.
+  - `make scholar`: the DOI, published venue and author ids (checked against the names)
+    of every stored paper into `scholar.json` (52 requests). `archive.yml` runs it weekly.
   - `make reextract [MAX_HTML=N]`: read again the pages of stored papers extracted by an
     older `EXTRACTOR_VERSION`, from the page cache when it holds them (offline), else at
     15 s a page within `MAX_HTML`; `--ids` or `--match REGEX` pick papers instead. A page
@@ -218,9 +218,11 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
 - Archived papers have the same record: `announced` is their first appearance,
   `html_url` is `null`, and affiliations, `institutions` and `institution_ids` come from
   OpenAlex.
-- The site's records are not quite the store's: the build adds `doi` and, where the
-  comments name no venue, the published `venue` from `scholar.json`. The pipeline never
-  writes `doi` into a record.
+- The site's records are not quite the store's: the build adds `doi`, the authors'
+  `author_ids` (an author without one taking the id of the only person of that name in
+  the store) and, where the comments name no venue, the published `venue` from
+  `scholar.json`. The pipeline never writes `doi` or `author_ids` into a record; it keeps
+  an author's id only where Semantic Scholar's name for it is the paper's at that place.
 
 ## arXiv and service rules (hard-won, do not "simplify" away)
 
