@@ -108,8 +108,9 @@ derives what only the site uses. The pipeline and `validate` never see these.
   `feeds/<category>/venues/<venue>.xml` for each major venue (every edition, not the
   workshops), with their papers of the last 60 days (`FEED_DAYS`), at most 30 and 100. The
   slug is the name's `searchKey`, hyphenated, so that the site finds a feed from the name
-  it filters on (`feedOf`: an institution clicked, else a major venue) and links it under
-  the filters; an institution keeps its feed while the store holds one of its papers,
+  it filters on (`feedOf`: an institution clicked that the loaded days name, since an
+  institution of the archive alone has none, else a major venue) and links it under the
+  filters; an institution keeps its feed while the store holds one of its papers,
   empty after 60 quiet days. Entries are the site's records (with Semantic Scholar's
   venues), ten authors and "and N more". The deploy workflow passes the site's address
   (`PREPRINT_RADAR_SITE_URL`, from `configure-pages`) for each feed's id and `self` link;

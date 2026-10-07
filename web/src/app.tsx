@@ -26,6 +26,7 @@ import { useSavedSearches } from "./hooks/use-saved-searches";
 import { useTheme } from "./hooks/use-theme";
 import { useTriage } from "./hooks/use-triage";
 import { useUrlState } from "./hooks/use-url-state";
+import { namedInstitutions } from "./institutions";
 import { hasModifier, isTyping } from "./keyboard";
 import { between, LONGEST_RANGE, PAPER_BUDGET, samePeriod, selectDays } from "./period";
 import { loadShowAbstracts, saveShowAbstracts, type ThemePreference } from "./preferences";
@@ -46,6 +47,7 @@ import {
   type SearchResult,
   valueCounts,
 } from "./search";
+import { searchKey } from "./text";
 import type { Paper } from "./types";
 import { archiveYearOf, listKey, paperLink, type ViewState, writeState } from "./url-state";
 import { venueFacets } from "./venues";
@@ -236,7 +238,16 @@ export function App() {
   const rising = state.sort === "rising" && gainsSpan !== null;
   const nameTerms = useMemo(() => nameHighlights(state.filters), [state.filters]);
   // The feed of the institution or major venue the papers are filtered on (§17.1 #6).
-  const feed = state.view === "papers" && category ? feedOf(category, state.filters) : null;
+  const feedInstitution = state.view === "papers" ? state.filters.affiliation : null;
+  const feedKnown = useMemo(() => {
+    if (!(feedInstitution?.exact && load.status === "ready")) return false;
+    const key = searchKey(feedInstitution.text);
+    return load.index
+      .all()
+      .some((paper) => namedInstitutions(paper).some((name) => searchKey(name) === key));
+  }, [feedInstitution, load]);
+  const feed =
+    state.view === "papers" && category ? feedOf(category, state.filters, () => feedKnown) : null;
   const gainOf = (arxivId: string) => {
     const gain = citations.gains.get(arxivId);
     return gain && gainsSpan ? gainLabel(gain, gainsSpan, citations.source) : undefined;

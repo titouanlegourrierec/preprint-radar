@@ -62,7 +62,8 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 - Every institution of the recent papers, and each major venue, has an Atom feed of its
   papers of the last 60 days: filtered on one, the list links it, for a feed reader
-  (§17.1 #6).
+  (§17.1 #6). An institution of the Highly cited papers alone, which has no feed, links
+  none.
 
 ### Graph
 

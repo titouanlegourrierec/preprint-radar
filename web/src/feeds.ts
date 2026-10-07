@@ -46,11 +46,17 @@ export interface FeedLink {
 
 /**
  * The feed of what the papers are filtered on, if there is one: an institution as clicked
- * (an exact filter, the name the feeds use), else a major venue.
+ * (an exact filter, the name the feeds use) that has a feed, else a major venue. The build
+ * writes the feeds of the day files' institutions only: `hasFeed` says whether the papers
+ * loaded name it, so that an institution of the archive alone ("OpenAI") links no 404.
  */
-export function feedOf(category: string, filters: SearchFilters): FeedLink | null {
+export function feedOf(
+  category: string,
+  filters: SearchFilters,
+  hasFeed: (institution: string) => boolean,
+): FeedLink | null {
   const { affiliation, venue } = filters;
-  if (affiliation?.exact) {
+  if (affiliation?.exact && hasFeed(affiliation.text)) {
     const path = institutionFeedPath(category, affiliation.text);
     if (path !== null) return { path, name: affiliation.text, kind: "institution" };
   }

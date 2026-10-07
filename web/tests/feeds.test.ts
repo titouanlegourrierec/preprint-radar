@@ -17,25 +17,32 @@ describe("feed paths", () => {
     expect(venueFeedPath("cs.CV", "NeurIPS")).toBe("feeds/cs.CV/venues/neurips.xml");
   });
 
+  const known = () => true;
+
   it("are the feed of the institution clicked, else of the major venue", () => {
     const at = { ...NO_FILTERS, affiliation: exactly("MIT"), venue: "CVPR*" };
-    expect(feedOf("cs.CV", at)).toEqual({
+    expect(feedOf("cs.CV", at, known)).toEqual({
       path: "feeds/cs.CV/institutions/mit.xml",
       name: "MIT",
       kind: "institution",
     });
     // Typed text is no institution's name.
-    expect(feedOf("cs.CV", { ...at, affiliation: typed("MIT") })).toEqual({
+    expect(feedOf("cs.CV", { ...at, affiliation: typed("MIT") }, known)).toEqual({
       path: "feeds/cs.CV/venues/cvpr.xml",
       name: "CVPR",
       kind: "venue",
     });
-    expect(feedOf("cs.CV", { ...NO_FILTERS, venue: "CVPR 2026" })?.name).toBe("CVPR");
-    expect(feedOf("cs.CV", { ...NO_FILTERS, venue: "CVPR 2026 Workshop" })).toBeNull();
-    expect(feedOf("cs.CV", { ...NO_FILTERS, venue: "TPAMI 2026" })).toBeNull();
-    expect(feedOf("cs.CV", { ...NO_FILTERS, venue: "*" })).toBeNull();
-    expect(feedOf("cs.CV", { ...NO_FILTERS, affiliation: exactly("?!") })).toBeNull();
-    expect(feedOf("cs.CV", NO_FILTERS)).toBeNull();
+    expect(feedOf("cs.CV", { ...NO_FILTERS, venue: "CVPR 2026" }, known)?.name).toBe("CVPR");
+    expect(feedOf("cs.CV", { ...NO_FILTERS, venue: "CVPR 2026 Workshop" }, known)).toBeNull();
+    expect(feedOf("cs.CV", { ...NO_FILTERS, venue: "TPAMI 2026" }, known)).toBeNull();
+    expect(feedOf("cs.CV", { ...NO_FILTERS, venue: "*" }, known)).toBeNull();
+    expect(feedOf("cs.CV", { ...NO_FILTERS, affiliation: exactly("?!") }, known)).toBeNull();
+    expect(feedOf("cs.CV", NO_FILTERS, known)).toBeNull();
+    // An institution of the archive alone has no feed: the venue's, if any, instead.
+    expect(feedOf("cs.CV", at, () => false)?.path).toBe("feeds/cs.CV/venues/cvpr.xml");
+    expect(
+      feedOf("cs.CV", { ...NO_FILTERS, affiliation: exactly("OpenAI") }, () => false),
+    ).toBeNull();
   });
 });
 
