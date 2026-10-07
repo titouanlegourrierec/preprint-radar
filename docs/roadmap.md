@@ -221,7 +221,7 @@ exist.
 
 | ID | Item | Priority | Status |
 |---|---|---|---|
-| §17.1 | The audit's features worth building, item by item below; #1 to #3 were done in Phase 2 (PROD-2, PROD-3, PROD-5 and PROD-9) | — | in progress |
+| §17.1 | The audit's features worth building, item by item below; #1 to #3 were done in Phase 2 (PROD-2, PROD-3, PROD-5 and PROD-9), #4 to #9 on 2026-10-07 but PROD-11, which waits for a decision, and #10 waits for a year of days | — | in progress |
 | PROD-12 | "With code" (§17.1 #4): papers whose abstract or comments link a repository on GitHub or GitLab, else models or data on Hugging Face (918 of 4,832, as the audit's 19%), and a Code link on their card | P2 | done |
 | SRCH-11 | Link-outs (§17.1 #5): an unfolded card links the paper on Semantic Scholar, Connected Papers and alphaXiv, each address opened by hand; Hugging Face left out, its page being a 404 for 11 of 12 recent papers | P2 | done |
 | §17.1 #6 | Atom feeds, built with the site: one for every institution of the day files and each major venue, their papers of the last 60 days, linked under the filters when the list is filtered on one (2,864 feeds, 20 MB) | — | done |
