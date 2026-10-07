@@ -30,9 +30,11 @@ export interface ViewModel {
   sorted: SortChoice;
   /** The "How is relevance computed?" help next to the sort control. */
   relevanceHelp: boolean;
-  /** Hide seen and Show abstracts. */
-  toggles: boolean;
-  /** The Export menu, for the results shown. */
+  /** The "Hide seen" toggle: the Papers view only, where papers are triaged. */
+  hideSeen: boolean;
+  /** The "Show abstracts" toggle: Papers and Highly cited (the reading list always shows them). */
+  abstracts: boolean;
+  /** The Export menu, for the results shown: Papers, Highly cited and the reading list. */
   exports: boolean;
 }
 
@@ -80,8 +82,9 @@ export function viewModel(
     sorts,
     sorted: sortedBy({ byCount, rising, newest }),
     relevanceHelp: sorts.includes("relevance"),
-    toggles: view === "papers",
-    exports: view === "papers" || cited,
+    hideSeen: view === "papers",
+    abstracts: view === "papers" || cited,
+    exports: listed || cited,
   };
 }
 

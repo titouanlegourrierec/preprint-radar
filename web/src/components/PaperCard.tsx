@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "preact/hooks";
 import { toBibtex } from "../bibtex";
 import { codeUrl } from "../code";
 import { download } from "../download";
-import { countOf, daysSince, formatDay, subjectCode } from "../format";
+import { countOf, daysSince, firstVersionYear, formatDay, subjectCode } from "../format";
 import { highlight } from "../highlight";
 import { institutionsOf } from "../institutions";
 import { linkOuts } from "../link-outs";
@@ -130,6 +130,8 @@ export function PaperCard({
     ? allAffiliations
     : allAffiliations.slice(0, MAX_AFFILIATIONS_COLLAPSED);
   const code = codeUrl(paper);
+  // An old paper announced lately, as a cross-list: the year it first went to arXiv (PROD-14).
+  const firstVersion = firstVersionYear(paper.arxiv_id, paper.announced);
   // A recent paper has no citations yet: "0 citations" on nearly every card says nothing.
   const shownCitations =
     citations !== undefined && (citations > 0 || daysSince(paper.announced) >= YOUNG_DAYS)
@@ -311,6 +313,14 @@ export function PaperCard({
             </span>
           )}
           <span>{formatDay(paper.announced)}</span>
+          {firstVersion !== null && (
+            <span
+              class="badge badge--muted"
+              title={`First submitted to arXiv in ${firstVersion}, announced here on ${formatDay(paper.announced)}`}
+            >
+              first version {firstVersion}
+            </span>
+          )}
           {shownCitations !== undefined && (
             <span
               class={`citations${shownCitations > 0 ? " citations--some" : ""}`}

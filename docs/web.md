@@ -70,6 +70,9 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
 - `App` holds the state and derives the papers shown; what a view shows and offers is
   worked out once by `viewModel` (DEBT-2): whether it loads archive years
   (`showsArchive`), its order and the sort choices it offers, its toggles and exports.
+  "Hide seen" is the Papers view's alone, "Show abstracts" that of Papers and Highly cited
+  (PROD-14; the reading list always shows them), and the Export menu that of Papers,
+  Highly cited and the reading list (SRCH-16).
   The rendering is in components: `Topbar` (the tabs), `ResultsHeader` (the count, the
   sort control, the toggles, the Export menu and the reading list's tools), `ListNotices`
   (help, news since the last visit, notes, the filters set, the feed), `NoResults` (why a
@@ -211,17 +214,23 @@ derives what only the site uses. The pipeline and `validate` never see these.
   the search box has no autofocus, which would take them, and Escape leaves it.
 - **Preferences** (`preferences.ts`): per-browser settings in `localStorage`.
 
-## Withdrawn papers
+## Withdrawn papers, and old ones announced lately
 
 A paper whose comments say its authors (or arXiv) withdrew it carries `withdrawn`: its
 card shows a Withdrawn badge, the reason being in its comments, and the pipeline keeps it
 out of Highly cited (decision 18). Reading lists keep the flag.
 
+A paper announced 12 months or more after the month of its identifier, an old paper
+cross-listed lately, says "first version 2019" beside its day (`firstVersionYear` in
+`format.ts`, PROD-14); an old-style identifier ("cs/0601001") is not read.
+
 ## Exports and corrections
 
 - `export.ts` writes the results shown as CSV, RIS or Markdown, beside `bibtex.ts` (keys
   with a/b/c on collisions, LaTeX escaping, case-protected words): the Export menu of the
-  Papers and Highly cited views. They cite the published DOI when known, else arXiv's.
+  Papers, Highly cited and reading list views (`papers.bib`, `reading-list.bib`…). They
+  cite the published DOI when known, else arXiv's. Beside it, the reading list's Import
+  and Export JSON carry the whole list and its saved searches, to another browser.
 - An unfolded card links the paper on Semantic Scholar, Connected Papers and alphaXiv
   (`link-outs.ts`, SRCH-11), which find related work from its arXiv id: a lexical "related
   papers" here would be a weaker copy. Each address was opened by hand; Hugging Face is

@@ -3,6 +3,7 @@ import {
   affiliationCoverage,
   citationsNote,
   countOf,
+  firstVersionYear,
   formatDay,
   formatShortDay,
   gainLabel,
@@ -142,5 +143,32 @@ describe("day and subject formats", () => {
     expect(formatShortDay("2026-09-25")).toMatch(/25/);
     expect(subjectCode("Robotics (cs.RO)")).toBe("cs.RO");
     expect(subjectCode("Robotics")).toBe("Robotics");
+  });
+});
+
+describe("firstVersionYear", () => {
+  it("gives the year of a first version 12 months or more before the announcement", () => {
+    // A paper of 2019 cross-listed in 2026.
+    expect(firstVersionYear("1906.01234", "2026-09-16")).toBe(2019);
+    // Exactly 12 months, whatever the day of the month.
+    expect(firstVersionYear("2509.01234", "2026-09-01")).toBe(2025);
+    expect(firstVersionYear("2512.01234", "2026-12-31")).toBe(2025);
+    // Four-digit numbers, from before 2015.
+    expect(firstVersionYear("0704.0001", "2026-09-16")).toBe(2007);
+  });
+
+  it("says nothing of a younger paper", () => {
+    expect(firstVersionYear("2609.00004", "2026-09-24")).toBeNull();
+    expect(firstVersionYear("2510.01234", "2026-09-30")).toBeNull();
+    // Announced the month after its submission, over a new year.
+    expect(firstVersionYear("2512.01234", "2026-01-02")).toBeNull();
+  });
+
+  it("does not read old-style or malformed identifiers", () => {
+    expect(firstVersionYear("cs/0601001", "2026-09-16")).toBeNull();
+    expect(firstVersionYear("math.GT/0309136", "2026-09-16")).toBeNull();
+    expect(firstVersionYear("1913.01234", "2026-09-16")).toBeNull();
+    expect(firstVersionYear("1900.01234", "2026-09-16")).toBeNull();
+    expect(firstVersionYear("1906.01234", "September 2026")).toBeNull();
   });
 });

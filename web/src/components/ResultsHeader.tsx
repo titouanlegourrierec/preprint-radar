@@ -6,29 +6,30 @@ import { countOf, formatDay } from "../format";
 import type { Paper } from "../types";
 import type { CountLine, SortChoice, ViewModel } from "../view-model";
 
-// The exports of the results shown, as files.
+// The exports of the results shown, as files named after the list ("papers.bib",
+// "reading-list.bib").
 const EXPORTS: {
   label: string;
-  file: string;
+  extension: string;
   type: string;
   render: (papers: Paper[], citations: ReadonlyMap<string, number>) => string;
 }[] = [
   {
     label: "BibTeX",
-    file: "papers.bib",
+    extension: "bib",
     type: "application/x-bibtex",
     render: (papers) => toBibtexFile(papers),
   },
-  { label: "CSV", file: "papers.csv", type: "text/csv", render: toCsv },
+  { label: "CSV", extension: "csv", type: "text/csv", render: toCsv },
   {
     label: "RIS",
-    file: "papers.ris",
+    extension: "ris",
     type: "application/x-research-info-systems",
     render: (papers) => toRis(papers),
   },
   {
     label: "Markdown",
-    file: "papers.md",
+    extension: "md",
     type: "text/markdown",
     render: (papers) => toMarkdown(papers),
   },
@@ -67,9 +68,10 @@ interface Props {
   /** The papers shown, for the Export menu, with their citation counts. */
   papers: Paper[];
   citations: ReadonlyMap<string, number>;
-  /** The reading list's own tools, in its view. */
+  /** The reading list's own tools, in its view, beside the Export menu. */
   readingList?:
     | {
+        /** Every saved paper, whatever the search shows of them. */
         papers: Paper[];
         onImport: (file: File) => void;
         /** The list as a JSON file, its saved searches with it. */
@@ -89,6 +91,7 @@ function countText(count: CountLine): string {
 export function ResultsHeader(props: Props) {
   const { model, count } = props;
   const importInput = useRef<HTMLInputElement>(null);
+  const exportName = props.readingList ? "reading-list" : "papers";
   const titles: Partial<Record<SortChoice, string | undefined>> = {
     relevance: RELEVANCE_HELP,
     citations: props.citationsNote,
@@ -130,16 +133,24 @@ export function ResultsHeader(props: Props) {
           )}
         </fieldset>
       )}
-      {model.toggles && (
+      {(model.hideSeen || model.abstracts) && (
         <div class="results__toggles">
-          <label class="toggle">
-            <input type="checkbox" checked={props.hideSeen} onChange={props.onHideSeen} />
-            Hide seen
-          </label>
-          <label class="toggle">
-            <input type="checkbox" checked={props.showAbstracts} onChange={props.onShowAbstracts} />
-            Show abstracts
-          </label>
+          {model.hideSeen && (
+            <label class="toggle">
+              <input type="checkbox" checked={props.hideSeen} onChange={props.onHideSeen} />
+              Hide seen
+            </label>
+          )}
+          {model.abstracts && (
+            <label class="toggle">
+              <input
+                type="checkbox"
+                checked={props.showAbstracts}
+                onChange={props.onShowAbstracts}
+              />
+              Show abstracts
+            </label>
+          )}
         </div>
       )}
       {model.exports && props.papers.length > 0 && (
@@ -148,12 +159,18 @@ export function ResultsHeader(props: Props) {
             Export {props.papers.length.toLocaleString()}
           </summary>
           <div class="export-menu__items">
-            {EXPORTS.map(({ label, file, type, render }) => (
+            {EXPORTS.map(({ label, extension, type, render }) => (
               <button
                 key={label}
                 type="button"
                 class="link-button"
-                onClick={() => download(file, render(props.papers, props.citations), type)}
+                onClick={() =>
+                  download(
+                    `${exportName}.${extension}`,
+                    render(props.papers, props.citations),
+                    type,
+                  )
+                }
               >
                 {label}
               </button>
@@ -177,32 +194,18 @@ export function ResultsHeader(props: Props) {
               event.currentTarget.value = "";
             }}
           />
-        </div>
-      )}
-      {props.readingList && props.readingList.papers.length > 0 && (
-        <div class="results__actions">
-          <button
-            type="button"
-            class="button"
-            onClick={() =>
-              download(
-                "reading-list.bib",
-                toBibtexFile(props.readingList?.papers ?? []),
-                "application/x-bibtex",
-              )
-            }
-          >
-            Export BibTeX
-          </button>
-          <button
-            type="button"
-            class="button"
-            onClick={() =>
-              download("reading-list.json", props.readingList?.json() ?? "", "application/json")
-            }
-          >
-            Export JSON
-          </button>
+          {props.readingList.papers.length > 0 && (
+            <button
+              type="button"
+              class="button"
+              title="The whole list and its saved searches, to import in another browser"
+              onClick={() =>
+                download("reading-list.json", props.readingList?.json() ?? "", "application/json")
+              }
+            >
+              Export JSON
+            </button>
+          )}
         </div>
       )}
     </div>

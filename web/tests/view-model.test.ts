@@ -14,7 +14,13 @@ describe("viewModel", () => {
     expect(model.sorted).toBe("relevance");
     expect(model.relevanceHelp).toBe(true);
     expect(model.groupByDay).toBe(false);
-    expect(model).toMatchObject({ triaged: true, toggles: true, exports: true, archived: false });
+    expect(model).toMatchObject({
+      triaged: true,
+      hideSeen: true,
+      abstracts: true,
+      exports: true,
+      archived: false,
+    });
   });
 
   it("is in announcement order, by day, without search words", () => {
@@ -51,7 +57,8 @@ describe("viewModel", () => {
     const cited = viewModel(state({ view: "cited" }), words);
     expect(cited).toMatchObject({ cited: true, archived: true, byCount: true, exports: true });
     expect(cited.sorts).toEqual([]);
-    expect(cited.toggles).toBe(false);
+    // Its papers are not triaged, but their abstracts can be shown (PROD-14).
+    expect(cited).toMatchObject({ triaged: false, hideSeen: false, abstracts: true });
     expect(
       viewModel(state({ view: "cited" }), { hasSearchWords: true, gainsKnown: true }).sorts,
     ).toEqual(["citations", "rising"]);
@@ -62,7 +69,8 @@ describe("viewModel", () => {
       expect(viewModel(state({ view }), words)).toMatchObject({
         sorts: [],
         relevanceHelp: false,
-        toggles: false,
+        hideSeen: false,
+        abstracts: false,
         exports: false,
         triaged: false,
       });
@@ -79,9 +87,15 @@ describe("viewModel", () => {
     expect(viewModel(state({ view: "rankings" }), none).sorts).toEqual([]);
   });
 
-  it("sorts the reading list without triage or export menu", () => {
+  it("sorts and exports the reading list, without triage or toggles", () => {
     const list = viewModel(state({ view: "reading-list" }), none);
     expect(list.sorts).toEqual(["newest", "citations"]);
-    expect(list).toMatchObject({ triaged: false, toggles: false, exports: false });
+    // Its abstracts are always shown; its Export menu is the other lists' (SRCH-16).
+    expect(list).toMatchObject({
+      triaged: false,
+      hideSeen: false,
+      abstracts: false,
+      exports: true,
+    });
   });
 });

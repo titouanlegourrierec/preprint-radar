@@ -139,6 +139,30 @@ export function categoryName(category: string): string {
   return name ? `${category} (${name})` : category;
 }
 
+// A new-style arXiv identifier ("1906.07927", since April 2007): the year and month of its
+// first version, then its number.
+const NEW_STYLE_ID_RE = /^(\d{2})(\d{2})\.\d{4,5}$/;
+
+/** Months between a paper's first version and its announcement past which its card says so. */
+const OLD_VERSION_MONTHS = 12;
+
+/**
+ * The year of a paper's first version when it came 12 months or more before the day it was
+ * announced in the category (PROD-14), as an old paper cross-listed lately is: its card
+ * says "first version 2019". Months are compared, the identifier holding no day. `null`
+ * for a younger paper, and for an old-style identifier ("cs/0601001"), which is not read.
+ */
+export function firstVersionYear(arxivId: string, announced: string): number | null {
+  const id = NEW_STYLE_ID_RE.exec(arxivId);
+  const day = /^(\d{4})-(\d{2})-\d{2}$/.exec(announced);
+  if (!(id && day)) return null;
+  const year = 2000 + Number(id[1]);
+  const month = Number(id[2]);
+  if (month < 1 || month > 12) return null;
+  const months = (Number(day[1]) - year) * 12 + (Number(day[2]) - month);
+  return months >= OLD_VERSION_MONTHS ? year : null;
+}
+
 /** Whole days from an ISO day to `today`. */
 export function daysSince(iso: string, today: Date = new Date()): number {
   return Math.floor((today.getTime() - new Date(`${iso}T00:00:00`).getTime()) / DAY_MS);

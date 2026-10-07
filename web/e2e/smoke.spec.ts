@@ -164,8 +164,18 @@ test("a saved paper is in the reading list, which exports it", async ({ page }) 
     .click();
   await page.getByRole("link", { name: "Reading list (1)" }).click();
   await expect(page.getByText("1 of 1 saved paper")).toBeVisible();
-  await expect(page.getByRole("button", { name: "Export BibTeX" })).toBeVisible();
   await expect(page.locator("article.paper")).toHaveCount(1);
+  // The Export menu of the other lists (SRCH-16), Import and Export JSON beside it.
+  await expect(page.getByRole("button", { name: "Import" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Export JSON" })).toBeVisible();
+  await page.locator(".export-menu__toggle").click();
+  const menu = page.locator(".export-menu__items");
+  for (const format of ["BibTeX", "CSV", "RIS", "Markdown"]) {
+    await expect(menu.getByRole("button", { name: format, exact: true })).toBeVisible();
+  }
+  const download = page.waitForEvent("download");
+  await menu.getByRole("button", { name: "RIS", exact: true }).click();
+  expect((await download).suggestedFilename()).toBe("reading-list.ris");
   expect(errors).toEqual([]);
 });
 

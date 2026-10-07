@@ -5,7 +5,7 @@ A friendlier way to browse and search recent arXiv papers for literature reviews
 A Python pipeline collects the papers announced every day in one or more arXiv
 categories — with abstracts and author affiliations — and a static web app hosted on
 GitHub Pages lets anyone search them by keyword, author or affiliation, and keep a
-reading list exported as BibTeX.
+reading list exported as BibTeX, RIS, CSV or Markdown.
 
 ```
                   GitHub Actions                              GitHub Pages
