@@ -100,11 +100,18 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Links inside text are told by more than their color (WCAG 1.4.1): comments, where code
-   and project URLs live, are muted like them. */
+/* Links inside text are underlined, never told by their color alone (WCAG 1.4.1,
+   CLAUDE.md): muted text puts the accent at about 1.1:1 against it. Controls that only
+   look like links (tabs, chips, buttons) and lists of titles are not text. */
 .paper__abstract a,
 .paper__comments a,
-.paper__elsewhere a {
+.paper__elsewhere a,
+.paper__report a,
+.site-footer a,
+.about a,
+.notice a,
+.feed-link a,
+.graph__details p a {
   text-decoration: underline;
   text-underline-offset: 2px;
   overflow-wrap: anywhere;
@@ -1530,10 +1537,6 @@ html {
 .feed-link {
   margin: 6px 0 0;
   font-size: 0.82rem;
-}
-
-.feed-link a {
-  text-decoration: underline;
 }
 
 .active-filters {

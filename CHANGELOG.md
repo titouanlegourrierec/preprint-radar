@@ -22,6 +22,12 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   the best ranked for their age are shown, and the page says how many are left out
   (PROD-17).
 
+### Accessibility
+
+- Links inside text are underlined everywhere (the footer, About, "Report an error",
+  notices, the feed line, the graph's details), not told from the text by their colour
+  alone (UX-24).
+
 ### Feeds
 
 - Every institution of the recent papers, and each major venue, has an Atom feed of its

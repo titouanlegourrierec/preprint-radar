@@ -26,3 +26,28 @@ describe("palettes", () => {
     expect(colors.filter((name) => !systemDark.has(name))).toEqual([]);
   });
 });
+
+describe("links inside text", () => {
+  // The selectors of the rule that underlines them: every class of running text with links.
+  const rule = css.slice(
+    css.indexOf(".paper__abstract a,"),
+    css.indexOf("}", css.indexOf(".paper__abstract a,")),
+  );
+
+  it("are underlined wherever text holds them", () => {
+    for (const selector of [
+      ".paper__abstract a",
+      ".paper__comments a",
+      ".paper__elsewhere a",
+      ".paper__report a",
+      ".site-footer a",
+      ".about a",
+      ".notice a",
+      ".feed-link a",
+      ".graph__details p a",
+    ]) {
+      expect(rule).toContain(`${selector}`);
+    }
+    expect(rule).toContain("text-decoration: underline");
+  });
+});
