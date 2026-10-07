@@ -62,8 +62,6 @@ jobs:
       PREPRINT_RADAR_CONTACT: ${{ vars.PREPRINT_RADAR_CONTACT || format('{0}/{1}', github.server_url, github.repository) }}
       MAX_HTML: ${{ inputs.max-html || '600' }}
       SINCE: ${{ inputs.since }}
-      # Optional: without it, Semantic Scholar is queried anonymously, slowly.
-      SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -124,6 +122,10 @@ jobs:
         # for again tomorrow; a rejected key fails the step.
         if: ${{ !cancelled() }}
         timeout-minutes: 15
+        env:
+          # Optional: without it, Semantic Scholar is queried anonymously, slowly. Given to
+          # the steps that ask Semantic Scholar only.
+          SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
         run: |
           args=()
           for category in $CATEGORIES; do args+=(--category "$category"); done

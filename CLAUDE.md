@@ -42,8 +42,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     the pages.
   - `make backfill SINCE=YYYY-MM-DD [UNTIL=...]`: past days from the catchup pages, then
     their pages (a month of cs.CV: about 11 hours).
-  - `make archive`: the weekly citation archive; about 207,000 counts in 415 Semantic
-    Scholar requests, hours without a key, and 45 minutes of catalog harvest the first time.
+  - `make archive [DRY_RUN=1] [BUDGET=N] [PRUNE=1]`: the weekly citation archive; about
+    207,000 counts in 415 Semantic Scholar requests, hours without a key, and 45 minutes of
+    catalog harvest the first time.
 - Network steps of the workflows, minutes each:
   - `make institutions`: ROR names, and their ids, for stored affiliations that have none,
     the rules naming the rest (one request per distinct string every 0.5 s, within a
@@ -157,8 +158,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
 - `tests/conftest.py` runs every test in its own temporary directory, since default paths
   are relative (`data/`, `.cache/`, `exports/`): a CLI test once wrote fake pages into the
   real page cache. It also hides `PREPRINT_RADAR_CONTACT`, `SEMANTIC_SCHOLAR_API_KEY` (the
-  Makefile exports `.env`), `GITHUB_ACTIONS` and `GITHUB_STEP_SUMMARY`: set them with
-  `monkeypatch.setenv` where a test needs them.
+  Makefile exports the contact of `.env` to every target, its key to `archive`, `citations`
+  and `scholar` only; the shell may hold either), `GITHUB_ACTIONS` and
+  `GITHUB_STEP_SUMMARY`: set them with `monkeypatch.setenv` where a test needs them.
 - Web: TypeScript strict (TS 7), Biome (no ESLint/Prettier), Preact hooks, no CSS
   framework. Theme colors are the CSS variables of `styles.css`: automatic light/dark plus
   a manual `data-theme` override. The dark palette is declared twice: keep both blocks

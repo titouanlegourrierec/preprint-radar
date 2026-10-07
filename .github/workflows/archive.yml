@@ -62,8 +62,6 @@ jobs:
       ARCHIVE_BUDGET: ${{ inputs.budget || vars.PREPRINT_RADAR_ARCHIVE_BUDGET || '22000' }}
       # Off until the maintainer turns it on (repository variable or manual run).
       ARCHIVE_PRUNE: ${{ inputs.prune || vars.PREPRINT_RADAR_ARCHIVE_PRUNE || 'false' }}
-      # Optional: without it, Semantic Scholar is queried anonymously, slowly.
-      SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -85,6 +83,10 @@ jobs:
 
       - name: Update the archive
         timeout-minutes: 280
+        env:
+          # Optional: without it, Semantic Scholar is queried anonymously, slowly. Given to
+          # the steps that ask Semantic Scholar only.
+          SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
         run: |
           args=(--budget "$ARCHIVE_BUDGET")
           for category in $CATEGORIES; do args+=(--category "$category"); done
@@ -97,6 +99,8 @@ jobs:
       - name: Fetch the published versions
         if: ${{ !cancelled() }}
         timeout-minutes: 25
+        env:
+          SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
         run: |
           args=()
           for category in $CATEGORIES; do args+=(--category "$category"); done

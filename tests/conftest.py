@@ -26,7 +26,7 @@ def _working_directory(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
 
 @pytest.fixture(autouse=True)
 def _environment(monkeypatch: pytest.MonkeyPatch) -> None:
-    """Hide the maintainer's settings, which the Makefile exports from ``.env``, and CI's.
+    """Hide the maintainer's settings, from ``.env`` through the Makefile or the shell, and CI's.
 
     In GitHub Actions, commands write to the job summary and print annotations: the tests
     that check it set these variables themselves.

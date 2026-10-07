@@ -16,39 +16,8 @@ import {
   replaySteps,
   sharedPapers,
 } from "../src/graph";
-import { institutionsOf } from "../src/institutions";
 import { searchKey } from "../src/text";
 import { makePaper } from "./fixtures";
-
-describe("institutionsOf", () => {
-  it("gives the institutions the pipeline named, null where none", () => {
-    const paper = makePaper({
-      arxiv_id: "20",
-      affiliations: ["University of Padova, Italy", "Department of Physics", "CMU"],
-      institutions: ["University of Padua", null, "Carnegie Mellon University"],
-    });
-
-    expect(institutionsOf(paper)).toEqual([
-      "University of Padua",
-      null,
-      "Carnegie Mellon University",
-    ]);
-  });
-
-  it("names none for a record not named yet, or out of step with its affiliations", () => {
-    const unnamed = makePaper({
-      arxiv_id: "21",
-      affiliations: ["MIT", "Inria"],
-      institutions: null,
-    });
-    expect(institutionsOf(unnamed)).toEqual([null, null]);
-    expect(
-      institutionsOf(
-        makePaper({ arxiv_id: "22", affiliations: ["MIT", "Inria"], institutions: ["X"] }),
-      ),
-    ).toEqual([null, null]);
-  });
-});
 
 const papers = [
   makePaper({

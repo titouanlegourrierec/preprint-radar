@@ -6,19 +6,24 @@
 .DEFAULT_GOAL := help
 SHELL := /bin/bash
 
-# Local settings (e.g. PREPRINT_RADAR_CONTACT), see .env.example.
+# Local settings (e.g. PREPRINT_RADAR_CONTACT), see .env.example. The contact goes to every
+# command, the Semantic Scholar key only to those that ask Semantic Scholar.
 -include .env
 export PREPRINT_RADAR_CONTACT
-export SEMANTIC_SCHOLAR_API_KEY
+archive citations scholar: export SEMANTIC_SCHOLAR_API_KEY := $(SEMANTIC_SCHOLAR_API_KEY)
 
 WEB := web
-CATEGORIES ?= cs.CV
+# Empty: each command's own default, cs.CV for update, backfill, reextract and archive, and
+# every stored category for the others.
+CATEGORIES ?=
 MAX_HTML ?=
 SINCE ?=
 UNTIL ?=
 CATEGORY_ARGS := $(foreach category,$(CATEGORIES),--category $(category))
 MAX_HTML_ARG := $(if $(MAX_HTML),--max-html $(MAX_HTML))
 UNTIL_ARG := $(if $(UNTIL),--until $(UNTIL))
+# PRUNE deletes day files: only 1 or true turn it on, not PRUNE=false.
+ARCHIVE_ARGS := $(if $(DRY_RUN),--dry-run) $(if $(BUDGET),--budget $(BUDGET)) $(if $(filter 1 true,$(PRUNE)),--prune)
 
 ##@ General
 
@@ -31,11 +36,15 @@ help: ## Show this help
 		/^[a-zA-Z_-]+:.*## / { split($$0, parts, ":.*## "); printf "  %s%-14s%s %s\n", cyan, parts[1], reset, parts[2] } \
 	' $(MAKEFILE_LIST); \
 	printf "\n%sVariables%s\n" "$$bold" "$$reset"; \
-	printf "  %s%-14s%s %s\n" "$$cyan" "CATEGORIES" "$$reset" "arXiv categories for update targets (default: $(CATEGORIES))"; \
+	printf "  %s%-14s%s %s\n" "$$cyan" "CATEGORIES" "$$reset" "arXiv categories (default: cs.CV for update, backfill, reextract and archive; every stored category for the others)"; \
 	printf "  %s%-14s%s %s\n" "$$cyan" "MAX_HTML" "$$reset" "maximum HTML pages read per category (default: no limit)"; \
 	printf "  %s%-14s%s %s\n" "$$cyan" "SINCE, UNTIL" "$$reset" "first and last day for backfill, YYYY-MM-DD (UNTIL defaults to today)"; \
+	printf "  %s%-14s%s %s\n" "$$cyan" "BUDGET" "$$reset" "archive: number of older papers it holds (default: the command's)"; \
+	printf "  %s%-14s%s %s\n" "$$cyan" "DRY_RUN=1" "$$reset" "archive: report what would change, write nothing"; \
+	printf "  %s%-14s%s %s\n" "$$cyan" "PRUNE=1" "$$reset" "archive: delete the day files older than 12 months"; \
 	printf "\nExamples: make update CATEGORIES=\"cs.CV cs.LG\" MAX_HTML=50\n"; \
-	printf "          make backfill SINCE=2026-09-01\n"
+	printf "          make backfill SINCE=2026-09-01\n"; \
+	printf "          make archive DRY_RUN=1 BUDGET=5000\n"
 
 .PHONY: install
 install: $(WEB)/node_modules ## Install Python and web dependencies, and the git hooks
@@ -76,9 +85,9 @@ test: $(WEB)/node_modules ## Run the offline test suites (Python and web)
 	cd $(WEB) && npm test
 
 .PHONY: coverage
-coverage: ## Run the Python tests with a coverage report
+coverage: ## Run the Python tests with a coverage report (opened in the browser on macOS)
 	uv run pytest --cov --cov-report html
-	open ./htmlcov/index.html
+	@if [ "$$(uname)" = Darwin ]; then open ./htmlcov/index.html; else echo "Report: htmlcov/index.html"; fi
 
 .PHONY: test-e2e
 test-e2e: $(WEB)/node_modules ## Smoke-test the built site in Chromium, over web/e2e/data (installs Chromium once)
@@ -112,7 +121,7 @@ backfill: ## Add past days (SINCE to UNTIL) to data/, with abstracts and affilia
 
 .PHONY: archive
 archive: ## Keep the most cited older papers in data/ (first run: about 2 hours)
-	uv run preprint-radar -v archive $(CATEGORY_ARGS)
+	uv run preprint-radar -v archive $(CATEGORY_ARGS) $(ARCHIVE_ARGS)
 
 .PHONY: institutions
 institutions: ## Name the institutions of stored affiliations through ROR, then the rules (minutes)

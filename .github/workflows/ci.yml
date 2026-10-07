@@ -8,12 +8,26 @@ on:
 permissions:
   contents: read
 
+# A burst of pushes is tested once, on its last commit, which holds the others. No path
+# filter: the data job below validates the maintainer's data pushes, and the web job builds
+# the site from data/.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   python:
+    # The matrix's static flag stays out of the check names: python (3.13), python (3.14).
+    name: python (${{ matrix.python-version }})
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: ["3.13", "3.14"]
+        # Formatting, lint, types and workflows do not depend on the Python version: they
+        # run on one entry only.
+        include:
+          - python-version: "3.13"
+            static: true
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
@@ -21,10 +35,14 @@ jobs:
           python-version: ${{ matrix.python-version }}
           enable-cache: true
       - run: uv sync --locked
-      - run: uv run ruff format --check .
-      - run: uv run ruff check .
-      - run: uv run ty check
-      - run: uv run actionlint
+      - if: matrix.static
+        run: uv run ruff format --check .
+      - if: matrix.static
+        run: uv run ruff check .
+      - if: matrix.static
+        run: uv run ty check
+      - if: matrix.static
+        run: uv run actionlint
       - run: uv run pytest --cov
 
   # Bot pushes do not trigger this workflow: the data workflows validate before committing.

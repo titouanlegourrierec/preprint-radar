@@ -160,7 +160,8 @@ repository secret; a run that fails or is cancelled resumes from the counts it f
    `backfill`, limited like any run to *max-html* HTML pages (run it again to go on).
 
 The *Update data* workflow then runs every weekday, commits the new data and redeploys
-the site. The *Deploy site* workflow also runs on every push touching `web/` or `data/`.
+the site. The *Deploy site* workflow also runs on every push touching `web/` or `data/`,
+after the web tests.
 
 When a run is red, late or missing, or the archive did not change, see
 [`docs/operations.md`](docs/operations.md): one section per symptom, starting from what
