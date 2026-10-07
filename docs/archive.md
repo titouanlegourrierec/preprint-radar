@@ -62,7 +62,7 @@ before changing `archive/`, `sources/semantic_scholar.py`, `sources/openalex.py`
 - Counts older than 14 days are reported as stale, in `stats` and on the site.
 - Each full refresh (`write_citations`) also writes `citation-gains.json` (CIT-9): what
   each paper gained since the counts it replaces, for the site's rising papers. Only from
-  counts at least 6 days old (`GAINS_MIN_DAYS`), so that a refresh run again within the
+  counts at least 6 days old (`config.GAINS_MIN_DAYS`), so that a refresh run again within the
   week keeps the week's gains; a count that went down is no gain, and a paper counted
   since only by the daily step gains from that count. The first gains are those of the
   archive of 2026-10-11: the run of 2026-10-04 reused the cached counts of 2026-09-30.

@@ -27,6 +27,7 @@ from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
+from preprint_radar.config import GAINS_MIN_DAYS
 from preprint_radar.exceptions import StoreError
 from preprint_radar.models import Paper, ScholarRecord
 
@@ -39,9 +40,6 @@ GAINS_FILENAME = "citation-gains.json"
 SCHOLAR_FILENAME = "scholar.json"
 ARCHIVE_DIRNAME = "archive"
 _DAY_STEM_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
-# Counts are refreshed in full every week (the archive); a refresh run again within the
-# week keeps the gains of the first, which a day's interval would bring to nothing.
-GAINS_MIN_DAYS = 6
 _YEAR_STEM_RE = re.compile(r"^\d{4}$")
 
 
@@ -271,8 +269,8 @@ class PaperStore:
     ) -> None:
         """Write the citation counts of the stored papers of ``category``, dated now.
 
-        The counts they replace, when at least :data:`GAINS_MIN_DAYS` old, give what each
-        paper gained since into ``citation-gains.json``: the site's rising papers.
+        The counts they replace, when at least ``GAINS_MIN_DAYS`` old (``config.py``), give
+        what each paper gained since into ``citation-gains.json``: the site's rising papers.
         """
         now = now or datetime.now(tz=UTC)
         try:

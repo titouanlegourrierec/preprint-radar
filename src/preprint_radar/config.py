@@ -56,6 +56,10 @@ OPENALEX_RETRY_EVERY_DAYS = 30
 CITATIONS_CACHE_DAYS = 7
 """Counts fetched by a run started fewer days ago are reused: a run that failed or was
 cancelled resumes where it stopped, and a weekly run starts afresh."""
+GAINS_MIN_DAYS = 6
+"""A full refresh of the counts writes what each paper gained since the counts it replaces
+only when these are at least this old (CIT-9): counts are refreshed weekly, and a refresh run
+again within the week keeps the week's gains, which a day's interval would bring to nothing."""
 STALE_DATA_WEEKDAYS = 3
 """A store whose newest announcement day is more weekdays old than this is reported as stale:
 arXiv announces every weekday, and runs missed (one may be a holiday)."""
