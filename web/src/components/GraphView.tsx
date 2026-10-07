@@ -498,7 +498,10 @@ export function GraphView(props: Props) {
             selectedEntity && (
               <>
                 <h2>{selectedEntity.label}</h2>
-                <p class="muted" title="Over the papers shown: the period or year, and the search">
+                <p
+                  class="muted graph__counts"
+                  title="Over the papers shown: the period or year, and the search"
+                >
                   {countOf(selectedEntity.paperIds.length, "paper")} ·{" "}
                   {countOf(selectedEntity.citations, "citation")}
                   {selectedEntity.rorId && (

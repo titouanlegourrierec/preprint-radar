@@ -79,19 +79,18 @@ test("marking a paper seen while seen papers are hidden moves the focus to the n
   const errors = watchErrors(page);
   await page.goto("./");
   await expect(page.getByText("4 of 4 cs.CV papers")).toBeVisible();
-  await page.getByRole("checkbox", { name: "Hide seen" }).check();
+  const hideSeen = page.getByRole("checkbox", { name: "Hide seen" });
+  await hideSeen.check();
   // Keys typed in a form control are its own: leave the checkbox first.
-  await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur());
+  await hideSeen.blur();
+  const focused = page.locator("article.paper:focus");
   await page.keyboard.press("j");
-  const first = await page.evaluate(() => document.activeElement?.getAttribute("data-arxiv-id"));
-  expect(first).toBeTruthy();
+  await expect(focused).toHaveCount(1);
+  const first = await focused.getAttribute("data-arxiv-id");
   await page.keyboard.press("x");
   await expect(page.getByText("3 of 4 cs.CV papers")).toBeVisible();
   // The card now at its place has the focus, so that j and x go on (UX-23).
-  await expect
-    .poll(() => page.evaluate(() => document.activeElement?.getAttribute("data-arxiv-id") ?? null))
-    .not.toBe(null);
-  const next = await page.evaluate(() => document.activeElement?.getAttribute("data-arxiv-id"));
-  expect(next).not.toBe(first);
+  await expect(focused).toHaveCount(1);
+  expect(await focused.getAttribute("data-arxiv-id")).not.toBe(first);
   expect(errors).toEqual([]);
 });

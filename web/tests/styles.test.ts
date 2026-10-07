@@ -44,7 +44,7 @@ describe("links inside text", () => {
       ".about a",
       ".notice a",
       ".feed-link a",
-      ".graph__details p a",
+      ".graph__counts a",
     ]) {
       expect(rule).toContain(`${selector}`);
     }
