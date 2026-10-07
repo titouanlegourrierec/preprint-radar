@@ -8,13 +8,19 @@ GitHub Pages lets anyone search them by keyword, author or affiliation, and keep
 reading list exported as BibTeX.
 
 ```
-            GitHub Actions (weekdays)                        GitHub Pages
+                  GitHub Actions                              GitHub Pages
 ┌────────────────────────────────────────────────┐   ┌────────────────────────────┐
-│ preprint-radar update                          │   │ web/ (Preact + MiniSearch) │
+│ update (weekdays)                              │   │ web/ (Preact + MiniSearch) │
 │   listing       arxiv.org/list/<cat>/recent    │   │  - full-text search        │
-│   abstracts     rss.arxiv.org, API, HTML       │──▶│  - author / affiliation    │
-│   affiliations  arxiv.org/html/<id>            │   │    filters and facets      │
-│ → data/<cat>/<date>.json + data/index.json     │   │  - reading list, BibTeX    │
+│   abstracts     rss.arxiv.org, catchup, API    │   │  - author / affiliation    │
+│   affiliations  arxiv.org/html/<id>            │   │    and venue filters       │
+│   institutions  ror.org                        │──▶│  - highly cited, rankings  │
+│   citations     Semantic Scholar               │   │  - graph, Atom feeds       │
+│ archive (Sundays)                              │   │  - reading list, BibTeX    │
+│   older papers  OAI-PMH, Semantic Scholar      │   │                            │
+│   affiliations  OpenAlex                       │   │                            │
+│ → data/<cat>/<date>.json, archive/<year>.json, │   │                            │
+│   citations.json, scholar.json, index.json     │   │                            │
 └────────────────────────────────────────────────┘   └────────────────────────────┘
 ```
 
@@ -26,7 +32,7 @@ reading list exported as BibTeX.
 | Abstract                      | The category RSS feed (latest day, one request), then the catchup page of each older day (one request per day); the arXiv API and the paper's HTML rendering as last resorts |
 | Affiliations                  | Submitter-declared affiliations from the API when present; otherwise the front matter of the paper's HTML rendering |
 | Institution of each affiliation | The [Research Organization Registry](https://ror.org) (ROR) affiliation matching, when confident; otherwise the pipeline's own rules (acronyms, companies, the main part of an address) |
-| Citations (archive)           | [Semantic Scholar](https://www.semanticscholar.org) citation counts, weekly; papers older than 12 months from arXiv's OAI-PMH, with affiliations from [OpenAlex](https://openalex.org) |
+| Citation counts (every stored paper) | [Semantic Scholar](https://www.semanticscholar.org), weekly (new papers the day they are added); the archive's papers, older than 12 months, from arXiv's OAI-PMH, with affiliations from [OpenAlex](https://openalex.org) |
 | Venue                         | Detected in the comments and journal reference ("Accepted to ECCV 2026", "BMVC2026", …); submissions and papers under review are ignored. Else where Semantic Scholar says it was published, with its DOI |
 
 Affiliations are **best effort**: arXiv metadata rarely includes them, and the HTML
@@ -42,9 +48,10 @@ without an HTML rendering (~6%) cannot be read.
 
 The pipeline is deliberately polite: one request every 15 s to arxiv.org (its
 `robots.txt` crawl delay), a few seconds between API calls, and each paper is enriched
-only once. `PREPRINT_RADAR_CONTACT` (an e-mail address or URL) is sent to arXiv in the
-User-Agent so they can reach whoever runs the crawler: put it in a local `.env` file (see
-`.env.example`, read by the Makefile) and in a repository variable on GitHub.
+only once. `PREPRINT_RADAR_CONTACT` (an e-mail address or URL) is sent to arXiv (its
+pages, API and OAI-PMH, never the other services) in the User-Agent so they can reach
+whoever runs the crawler: put it in a local `.env` file (see `.env.example`, read by the
+Makefile) and in a repository variable on GitHub.
 
 ## Requirements
 
@@ -145,8 +152,9 @@ repository secret; a run that fails or is cancelled resumes from the counts it f
    - `PREPRINT_RADAR_CONTACT`: your e-mail address, sent to arXiv in the User-Agent
      (default: the repository URL).
 4. Run the *Update data* workflow once by hand (*Actions → Update data → Run workflow*).
-   A first run over the five days of the listing reads ~750 HTML pages and takes about
-   3 hours; daily runs then take ~40 minutes. To collect older days, or days missed while
+   A first run over the five days of the listing (about 750 papers) reads at most 600 HTML
+   pages, the workflow's *max-html*, in about 2.5 hours; the next runs read the rest, and
+   daily runs then take ~40 minutes. To collect older days, or days missed while
    the workflow was not running, fill its *since* field (YYYY-MM-DD): it then runs
    `backfill`, limited like any run to *max-html* HTML pages (run it again to go on).
 

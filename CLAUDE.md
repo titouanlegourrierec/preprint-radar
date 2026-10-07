@@ -221,9 +221,10 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   without its field, so it is reset with it, like the ids. Records stored before it got
   one inferred once, without a day (`store/provenance.py`); affiliations read before
   versions were kept, without a mapping, have none: the API or an unmapped page.
-- Archived papers have the same record: `announced` is their first appearance,
-  `html_url` is `null`, and affiliations, `institutions` and `institution_ids` come from
-  OpenAlex.
+- Archived papers have the same record: `announced` is their first appearance, and,
+  built from the catalog, `html_url` is `null` and affiliations, `institutions` and
+  `institution_ids` come from OpenAlex; a paper that enters from a day file keeps that
+  record (its HTML link and affiliations), which OpenAlex fills only when it has none.
 - The site's records are not quite the store's: the build adds `doi`, the authors'
   `author_ids` and, where the comments name no venue, the published `venue` from
   `scholar.json`. The pipeline never writes them into a record; it keeps an author's id
@@ -250,8 +251,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   failing ROR never fails a run.
 - **Semantic Scholar:** refusals (429) are routine even with a key and are retried; a 401
   or 403 means a bad key and fails the run (`docs/archive.md`).
-- **Contact:** `PREPRINT_RADAR_CONTACT` goes into the User-Agent of arXiv requests only;
-  other services get the bare `DEFAULT_USER_AGENT`, never the maintainer's e-mail. It
+- **Contact:** `PREPRINT_RADAR_CONTACT` goes into the User-Agent of arXiv requests only
+  (arxiv.org, the API, OAI-PMH); other services get the bare `DEFAULT_USER_AGENT`, never
+  the maintainer's e-mail. It
   comes from `.env` locally (git-ignored, loaded by the Makefile) and from a repository
   variable in CI.
 

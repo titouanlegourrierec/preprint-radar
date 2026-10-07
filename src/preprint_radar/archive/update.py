@@ -320,11 +320,12 @@ def paper_from_catalog(entry: CatalogEntry, category: str, subjects: Mapping[str
 def format_archive_report(report: ArchiveReport) -> str:
     """Render an :class:`ArchiveReport` as a one-line human-readable summary."""
     return (
-        f"{report.category}: {report.archived} archived papers ({report.entered} in, {report.left} out), "
+        f"{report.category}: {report.archived:,} archived papers "
+        f"({report.entered:,} in, {report.left:,} out), "
         f"threshold {report.threshold:.1f} citations a year, citation counts for "
-        f"{100 * report.coverage:.1f}% of {report.candidates} papers"
-        + (f" ({report.carried} archived papers on last week's count)" if report.carried else "")
-        + f", {report.refreshed} papers' comments refreshed, {report.pruned_days} day files pruned"
+        f"{100 * report.coverage:.1f}% of {report.candidates:,} papers"
+        + (f" ({report.carried:,} archived papers on last week's count)" if report.carried else "")
+        + f", {report.refreshed:,} papers' comments refreshed, {report.pruned_days:,} day files pruned"
         + ("" if report.written else " (dry run: nothing written)")
     )
 

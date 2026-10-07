@@ -43,7 +43,8 @@ before changing `archive/`, `sources/semantic_scholar.py`, `sources/openalex.py`
   once it has written them (`archive.yml` validates and commits even then). Above it, an
   archived paper whose count is missing this week is ranked on last week's.
 - Archived records: `announced` is the first appearance (from the identifier's month when
-  OAI's `created` disagrees), `html_url` is `null`.
+  OAI's `created` disagrees), `html_url` is `null` for a paper built from the catalog; one
+  that enters from a day file keeps that record, its HTML link and affiliations with it.
 
 ## Citation counts (`citations.json`)
 

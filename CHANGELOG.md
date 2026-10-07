@@ -48,6 +48,10 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 - A paper of the day files looked up by OpenAlex in the archive no longer keeps the
   version of the HTML extraction that gave its former affiliations (META-9).
+- The weekly archive identifies itself to arXiv's OAI-PMH with the contact, as the listing
+  and the pages do; Semantic Scholar and OpenAlex still get the bare User-Agent (DOC-8).
+- Report lines group digits ("1,234 listed"), and `--help` says where abstracts come from
+  today, what the archive writes and what `validate` checks (DOC-8).
 
 ### Security
 

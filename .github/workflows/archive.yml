@@ -57,6 +57,8 @@ jobs:
       pushed: ${{ steps.commit.outputs.pushed }}
     env:
       CATEGORIES: ${{ vars.PREPRINT_RADAR_CATEGORIES || 'cs.CV' }}
+      # Sent to arXiv's OAI-PMH only, as in update.yml.
+      PREPRINT_RADAR_CONTACT: ${{ vars.PREPRINT_RADAR_CONTACT || format('{0}/{1}', github.server_url, github.repository) }}
       ARCHIVE_BUDGET: ${{ inputs.budget || vars.PREPRINT_RADAR_ARCHIVE_BUDGET || '22000' }}
       # Off until the maintainer turns it on (repository variable or manual run).
       ARCHIVE_PRUNE: ${{ inputs.prune || vars.PREPRINT_RADAR_ARCHIVE_PRUNE || 'false' }}

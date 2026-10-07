@@ -765,8 +765,8 @@ def update_citation_counts(
 def format_citations_report(report: CitationsReport) -> str:
     """Render a :class:`CitationsReport` as one line."""
     missing = report.asked - report.found
-    return f"{report.category}: citation counts for {report.found} of {report.asked} papers" + (
-        f", {missing} left for the next run" if missing else ""
+    return f"{report.category}: citation counts for {report.found:,} of {report.asked:,} papers" + (
+        f", {missing:,} left for the next run" if missing else ""
     )
 
 
@@ -912,14 +912,14 @@ def _name_words(name: str) -> list[str]:
 def format_scholar_report(report: ScholarReport) -> str:
     """Render a :class:`ScholarReport` as one line."""
     return (
-        f"{report.category}: Semantic Scholar knows {report.found} of {report.asked} papers: "
+        f"{report.category}: Semantic Scholar knows {report.found:,} of {report.asked:,} papers: "
         f"{_count(report.dois, 'DOI')}, {_count(report.venues, 'published venue')} "
-        f"({report.gained} where the comments name none)"
+        f"({report.gained:,} where the comments name none)"
     )
 
 
 def _count(number: int, noun: str) -> str:
-    return f"{number} {noun}{'' if number == 1 else 's'}"
+    return f"{number:,} {noun}{'' if number == 1 else 's'}"
 
 
 _STOPS = {
@@ -942,11 +942,11 @@ def _still_pending(paper: Paper) -> bool:
 def format_report(report: UpdateReport) -> str:
     """Render an :class:`UpdateReport` as a one-line human-readable summary."""
     return (
-        f"{report.category}: {report.listed} listed, {report.new} new, "
-        f"{report.abstracts_fetched} abstracts and {report.affiliations_fetched} affiliations fetched"
-        + (f" ({report.empty} pages without any)" if report.empty else "")
-        + (f", {report.unreadable} pages unreadable" if report.unreadable else "")
-        + (f", {report.no_page} without an HTML page" if report.no_page else "")
-        + f", {report.pending} still pending"
+        f"{report.category}: {report.listed:,} listed, {report.new:,} new, "
+        f"{report.abstracts_fetched:,} abstracts and {report.affiliations_fetched:,} affiliations fetched"
+        + (f" ({report.empty:,} pages without any)" if report.empty else "")
+        + (f", {report.unreadable:,} pages unreadable" if report.unreadable else "")
+        + (f", {report.no_page:,} without an HTML page" if report.no_page else "")
+        + f", {report.pending:,} still pending"
         + (f"; HTML reading stopped: {_STOPS[report.stopped]}" if report.stopped else "")
     )

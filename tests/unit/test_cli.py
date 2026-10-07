@@ -8,6 +8,7 @@ from collections.abc import Callable, Mapping
 from datetime import UTC, date, datetime
 from pathlib import Path
 
+import httpx
 import pytest
 from rich.console import Console
 
@@ -16,9 +17,12 @@ from preprint_radar.archive.update import ArchiveClients, ArchiveReport
 from preprint_radar.cli import build_parser, main
 from preprint_radar.collect import CitationsReport, HtmlReading, Stop, UpdateReport
 from preprint_radar.exceptions import FetchError, NotFoundError
-from preprint_radar.http import HttpClient
+from preprint_radar.http import DEFAULT_USER_AGENT, HttpClient
 from preprint_radar.models import Listing, Paper
 from preprint_radar.sources.arxiv_html import EXTRACTOR_VERSION, PageCache
+from preprint_radar.sources.arxiv_oai import OAI_URL
+from preprint_radar.sources.openalex import OPENALEX_WORKS_URL
+from preprint_radar.sources.semantic_scholar import S2_BATCH_URL
 from preprint_radar.store.paper_store import PaperStore
 
 
@@ -514,6 +518,42 @@ def test_archive_uses_the_semantic_scholar_key(
     assert "Semantic Scholar: requests with an API key" in caplog.text
     assert "test-key" not in caplog.text
     assert "No Semantic Scholar API key" not in caplog.text
+
+
+def test_archive_sends_the_contact_to_arxiv_only(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    agents: dict[str, str] = {}
+
+    def handle_request(_: httpx.HTTPTransport, request: httpx.Request) -> httpx.Response:
+        agents[request.url.host] = request.headers["User-Agent"]
+        return httpx.Response(200, text="")
+
+    def update_archive(category: str, *, clients: ArchiveClients, **_: object) -> ArchiveReport:
+        clients.oai.get_text(OAI_URL)
+        clients.citations.get_text(S2_BATCH_URL)
+        clients.openalex.get_text(OPENALEX_WORKS_URL)
+        return ArchiveReport(
+            category=category,
+            candidates=100,
+            coverage=0.99,
+            threshold=19.5,
+            archived=10,
+            entered=0,
+            left=0,
+            pruned_days=0,
+            written=False,
+        )
+
+    monkeypatch.setattr(httpx.HTTPTransport, "handle_request", handle_request)
+    monkeypatch.setattr("preprint_radar.cli.update_archive", update_archive)
+    args = ["archive", "--data-dir", str(tmp_path / "data"), "--catalog-dir", str(tmp_path / "catalog")]
+
+    assert main(["--contact", "author@example.org", *args]) == 0
+
+    assert agents == {
+        "oaipmh.arxiv.org": f"{DEFAULT_USER_AGENT} (author@example.org)",
+        "api.semanticscholar.org": DEFAULT_USER_AGENT,
+        "api.openalex.org": DEFAULT_USER_AGENT,
+    }
 
 
 def test_runs_as_a_module(monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]) -> None:

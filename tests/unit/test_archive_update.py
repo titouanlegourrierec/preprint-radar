@@ -502,11 +502,11 @@ def test_format_archive_report() -> None:
 
     assert format_archive_report(report) == (
         "cs.CV: 500 archived papers (3 in, 1 out), threshold 19.5 citations a year, "
-        "citation counts for 98.7% of 1000 papers, 0 papers' comments refreshed, 2 day files pruned"
+        "citation counts for 98.7% of 1,000 papers, 0 papers' comments refreshed, 2 day files pruned"
     )
     assert format_archive_report(replace(report, carried=4, written=False)) == (
         "cs.CV: 500 archived papers (3 in, 1 out), threshold 19.5 citations a year, "
-        "citation counts for 98.7% of 1000 papers (4 archived papers on last week's count), "
+        "citation counts for 98.7% of 1,000 papers (4 archived papers on last week's count), "
         "0 papers' comments refreshed, 2 day files pruned (dry run: nothing written)"
     )
 

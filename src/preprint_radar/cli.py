@@ -41,6 +41,7 @@ from preprint_radar.config import (
     DEFAULT_MAX_ROR_LOOKUPS,
     DEFAULT_PAGE_CACHE_DIR,
     MIN_COVERAGE,
+    S2_API_KEY_ENV,
     STALE_CITATIONS_DAYS,
     STALE_DATA_WEEKDAYS,
 )
@@ -215,9 +216,10 @@ def _add_update_parser(subparsers: "argparse._SubParsersAction[argparse.Argument
         "update",
         help="add recent papers to the data store, with abstracts and affiliations",
         description=(
-            "Fetch the recent listing of each category, retrieve abstracts from the arXiv API "
-            "and affiliations from the HTML renderings, and save everything to the data store "
-            "used by the web app."
+            "Fetch the recent listing of each category, retrieve abstracts (from the RSS feed, "
+            "then the catchup pages, then the arXiv API, then the HTML renderings) and "
+            "affiliations from the HTML renderings, name their institutions, and save everything "
+            "to the data store used by the web app."
         ),
     )
     _add_store_arguments(update)
@@ -338,9 +340,12 @@ def _add_archive_parser(subparsers: "argparse._SubParsersAction[argparse.Argumen
         help="keep the most cited older papers in the archive (weekly)",
         description=(
             "Refresh the category's catalog from OAI-PMH, fetch citation counts from "
-            "Semantic Scholar (API key from SEMANTIC_SCHOLAR_API_KEY, else anonymously and "
+            f"Semantic Scholar (API key from {S2_API_KEY_ENV}, else anonymously and "
             "slowly), keep the papers older than 12 months with the most citations per year "
-            "within the budget, and write the archive and the citation counts."
+            "within the budget, fill their affiliations from OpenAlex, and write the archive, "
+            "the citation counts and what each paper gained since the last week's. Stored days "
+            "take the comments, venues and withdrawals of their papers' latest versions; with "
+            "--prune, days older than 12 months are deleted."
         ),
     )
     archive.add_argument(
@@ -385,7 +390,7 @@ def _add_citations_parser(subparsers: "argparse._SubParsersAction[argparse.Argum
             "Fetch from Semantic Scholar the citation counts of the stored papers that have "
             "none yet (the papers announced since the last full refresh), or of every stored "
             "paper with --all, as the weekly archive does. API key from "
-            "SEMANTIC_SCHOLAR_API_KEY. A refusing Semantic Scholar never fails the command: "
+            f"{S2_API_KEY_ENV}. A refusing Semantic Scholar never fails the command: "
             "the papers left are asked for again next time. A rejected key does."
         ),
     )
@@ -419,7 +424,7 @@ def _add_scholar_parser(subparsers: "argparse._SubParsersAction[argparse.Argumen
         description=(
             "Fetch from Semantic Scholar the DOI, published venue and author ids of every "
             "stored paper (day files and archive) into scholar.json, as the weekly archive "
-            "workflow does. API key from SEMANTIC_SCHOLAR_API_KEY. Papers Semantic Scholar "
+            f"workflow does. API key from {S2_API_KEY_ENV}. Papers Semantic Scholar "
             "was not asked for, because it kept refusing, keep what they had. A rejected key "
             "fails the command."
         ),
@@ -570,11 +575,11 @@ def _add_validate_parser(subparsers: "argparse._SubParsersAction[argparse.Argume
         "validate",
         help="check the data store against its contract",
         description=(
-            "Check every file of the data store before it is committed: day files, archive "
-            "years, citation counts and the index. Structural rules (a record that does not "
-            "load, a paper stored twice, an index that disagrees with the files, a contact "
-            "detail in an affiliation) are errors and make the command fail; heuristic rules "
-            "(an affiliation that only names authors, a paper `reclean` would still change) "
+            "Check every file of the data store before it is committed: day files, archive years, "
+            "citation counts and gains, scholar.json and the index. Structural rules (a record "
+            "that does not load, a paper stored twice, an index that disagrees with the files, a "
+            "contact detail in an affiliation) are errors and make the command fail; heuristic "
+            "rules (an affiliation that only names authors, a paper `reclean` would still change) "
             "are warnings. Nothing is fetched or written."
         ),
     )
@@ -1105,8 +1110,11 @@ def _run_archive(args: argparse.Namespace) -> int:
     citations, key = _semantic_scholar()
     today = datetime.now(tz=UTC).date()
     with (
+        # OAI-PMH is arXiv's: the harvest gets the contact, Semantic Scholar and OpenAlex do not.
         HttpClient(
-            user_agent=DEFAULT_USER_AGENT, min_interval=OAI_DELAY_SECONDS, timeout=OAI_TIMEOUT_SECONDS
+            user_agent=build_user_agent(args.contact),
+            min_interval=OAI_DELAY_SECONDS,
+            timeout=OAI_TIMEOUT_SECONDS,
         ) as oai,
         citations,
         HttpClient(user_agent=DEFAULT_USER_AGENT, min_interval=OPENALEX_DELAY_SECONDS) as openalex,
