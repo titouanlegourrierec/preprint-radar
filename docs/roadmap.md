@@ -41,7 +41,7 @@ for the answer.
 | 10 | Primary persona | The daily cs.CV follower | Phase 2 order | Both, the daily follower and the literature search: Phase 2 goes by priority and dependencies, search first (2026-10-03) |
 | 11 | Multi-category | Stay single-category until Phase 3 is done | ARCH-4 | Single-category for now (2026-10-07) |
 | 12 | Institution canonicalization | Move the web rules into the pipeline, with ROR ids | AFF-13 | Move the web rules into the pipeline, with ROR ids (2026-10-07) |
-| 13 | Author identity | A homonym hint now, Semantic Scholar ids after the META-1 spike | AFF-H | Semantic Scholar author ids, a homonym hint where they are missing (2026-10-07) |
+| 13 | Author identity | A homonym hint now, Semantic Scholar ids after the META-1 spike | AFF-H | Semantic Scholar author ids (2026-10-07); then, as it has several profiles for most prolific authors, authors keyed by name with a hint where a name's profiles seem several people (2026-10-07) |
 | 14 | Graph accessibility target | Rankings as the text equivalent now, the full path later | UX-2 | The full path, with touch zoom (2026-10-06) |
 | 15 | Consortium papers in the author projection | Skip the clique above 50 authors; keep AFF-4's current rule | PERF-3 | Skip the clique above 50 authors (2026-10-06) |
 | 16 | Failure signalling | Red runs for data-affecting failures, an issue for scheduled runs | CI-2 | Red runs for data-affecting failures (2026-10-01); no issue for now |
