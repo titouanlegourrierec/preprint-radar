@@ -447,8 +447,9 @@ def test_add_institutions_names_each_distinct_affiliation_once(fake: FakeArxiv) 
         named = add_institutions(papers, ror, limit=None)
 
     assert fake.ror_requests == ["School of CS, Peking University", "Meta AI"]
+    # ROR names Peking University; the rules name the rest ("Meta AI" is the company).
     assert [paper.institutions for paper in named] == [
-        ("Peking University", None),
+        ("Peking University", "Meta"),
         ("Peking University",),
         None,
         None,
@@ -456,13 +457,10 @@ def test_add_institutions_names_each_distinct_affiliation_once(fake: FakeArxiv) 
 
 
 def test_add_institutions_keeps_ror_ids(fake: FakeArxiv) -> None:
-    peking = "School of CS, Peking University"
     papers = [
-        _paper("1", (peking, "Meta AI")),
-        # Named before ids were kept: asked again for the id, its names unchanged.
-        replace(_paper("2", (peking, "Lab")), institutions=("Peking University", "An older name")),
-        # Nothing was named: nothing to ask for.
-        replace(_paper("3", ("Lab",)), institutions=(None,)),
+        _paper("1", ("School of CS, Peking University", "Meta AI")),
+        # Named already, by ROR or the rules: nothing to ask for.
+        replace(_paper("2", ("Lab",)), institutions=(None,)),
     ]
 
     with fake.client() as ror:
@@ -470,26 +468,14 @@ def test_add_institutions_keeps_ror_ids(fake: FakeArxiv) -> None:
 
     peking_id = named[0].institution_ids[0] if named[0].institution_ids else None
     assert peking_id
-    assert [paper.institution_ids for paper in named] == [(peking_id, None), (peking_id, None), None]
-    assert named[1].institutions == ("Peking University", "An older name")
-    # Named today, or on a day not kept.
+    # Only what ROR named has an id: "Meta" is the rules'.
+    assert [paper.institution_ids for paper in named] == [(peking_id, None), None]
     assert named[0].institutions_provenance == Provenance("ror", today())
-    assert named[1].institutions_provenance == Provenance("ror")
-    assert "Lab" in fake.ror_requests
+    assert fake.ror_requests == ["School of CS, Peking University", "Meta AI"]
     fake.ror_requests.clear()
     with fake.client() as ror:
         assert add_institutions(named, ror, limit=None) == named
     assert fake.ror_requests == []
-
-
-def test_add_institutions_names_new_papers_before_getting_older_ids(fake: FakeArxiv) -> None:
-    older = replace(_paper("1", ("School of CS, Peking University",)), institutions=("Peking University",))
-
-    with fake.client() as ror:
-        named = add_institutions([older, _paper("2", ("Meta AI",))], ror, limit=1)
-
-    assert fake.ror_requests == ["Meta AI"]
-    assert [paper.institution_ids for paper in named] == [None, (None,)]
 
 
 def test_add_institutions_leaves_the_rest_for_next_run(fake: FakeArxiv) -> None:
@@ -499,7 +485,7 @@ def test_add_institutions_leaves_the_rest_for_next_run(fake: FakeArxiv) -> None:
         named = add_institutions(papers, ror, limit=1)
 
     # The second paper needs a string beyond the limit: none of its institutions is set.
-    assert [paper.institutions for paper in named] == [(None,), None]
+    assert [paper.institutions for paper in named] == [("Meta",), None]
 
 
 def test_update_names_institutions_and_keeps_them(fake: FakeArxiv, store: PaperStore) -> None:
@@ -803,17 +789,8 @@ def test_reextract_reads_the_selected_papers_again_and_keeps_what_fails(
     # Changed: named again through ROR.
     assert len(stored["2609.30249"].institutions or ()) == len(affiliations)
     assert stored["2609.30249"].abstract == "Stored."
-    # Kept as it was, but for the ROR id of its institution, named before ids were kept: ROR
-    # does not name "Kept" again, so it has none, and the name stays.
-    assert stored["2609.30234"] == _stored(
-        "2609.30234",
-        "1",
-        affiliations=("Kept",),
-        institutions=("Kept",),
-        institution_ids=(None,),
-        # Named by ROR on a day not kept.
-        institutions_provenance=Provenance("ror"),
-    )
+    # Kept as it was: its page could not be read, and its institutions are named.
+    assert stored["2609.30234"] == _stored("2609.30234", "1", affiliations=("Kept",), institutions=("Kept",))
     assert stored["2609.11111"] == _stored("2609.11111", "1", extractor=EXTRACTOR_VERSION)
     assert stored["2609.22222"].extractor is None
     assert (report.listed, report.affiliations_fetched, report.unreadable) == (2, 1, 1)

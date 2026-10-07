@@ -1,6 +1,6 @@
 import MiniSearch, { type SearchResult as MiniSearchResult, type Options } from "minisearch";
 import { wholeWord } from "./highlight";
-import { acronymOf, institutionsOf, paperInstitutions } from "./institutions";
+import { acronymOf, namedInstitutions } from "./institutions";
 import { fold, searchKey } from "./text";
 import type { Paper } from "./types";
 
@@ -125,7 +125,7 @@ function fieldValue(paper: Paper, field: string): string {
       return paper.authors.join(" ");
     case "affiliations":
       // The institutions' names too, so that "Carnegie Mellon" finds "CMU".
-      return [...new Set([...(paper.affiliations ?? []), ...paperInstitutions(paper)])].join(" ");
+      return [...new Set([...(paper.affiliations ?? []), ...namedInstitutions(paper)])].join(" ");
     case "title":
       return paper.title;
     case "abstract":
@@ -372,9 +372,9 @@ function matchesAffiliation(paper: Paper, filter: NameFilter): boolean {
   if (filter.exact) {
     // The institutions as the graph and Rankings count them, whatever the strings say.
     const key = searchKey(filter.text);
-    return institutionsOf(paper).some((name) => name !== null && searchKey(name) === key);
+    return namedInstitutions(paper).some((name) => searchKey(name) === key);
   }
-  const values = [...(paper.affiliations ?? []), ...paperInstitutions(paper)];
+  const values = [...(paper.affiliations ?? []), ...namedInstitutions(paper)];
   // A known acronym typed whole means its institution, however it is written ("NUS" finds
   // "National University of Singapore"), and is a whole word: "HKU" is not "HKUST".
   const acronym = acronymOf(filter.text);

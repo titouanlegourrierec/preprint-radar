@@ -45,8 +45,10 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   - `make archive`: the weekly citation archive; about 207,000 counts in 415 Semantic
     Scholar requests, hours without a key, and 45 minutes of catalog harvest the first time.
 - Network steps of the workflows, minutes each:
-  - `make institutions`: ROR names, and their ids, for stored affiliations that have none
-    (one request per distinct string every 0.5 s, within a budget; new papers first).
+  - `make institutions`: ROR names, and their ids, for stored affiliations that have none,
+    the rules naming the rest (one request per distinct string every 0.5 s, within a
+    budget). `make institutions-again`, offline: today's naming rules on the stored
+    institutions, archive included.
   - `make citations`: Semantic Scholar counts of the stored papers without one; `ALL=1` asks
     for every paper again. The daily workflow runs it.
   - `make scholar`: the DOI, published venue and author ids of every stored paper into
@@ -186,16 +188,19 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   the affiliations so that the HTML is read again; without an HTML rendering, it keeps the
   affiliations and drops the mapping. The graph links a placed author only to their own
   institutions.
-- `institutions` (optional) is parallel to `affiliations`: the ROR name of each one's
-  institution, `null` without a confident match. Anything that changes `affiliations`
-  resets it to `null`. The web app names the rest itself (`web/src/institutions.ts`), and
-  the affiliation filter matches both.
+- `institutions` (optional) is parallel to `affiliations`: each one's institution, as
+  `institutions.name_institutions` names it (AFF-13, decision 12): ROR's name (OpenAlex's
+  in the archive), a company's subsidiaries as the company ("Google (Switzerland)" is
+  Google), the rules' name where the registry has none, `null` where the affiliation names
+  no institution. Anything that changes `affiliations` resets it to `null`. The site only
+  displays it (`web/src/institutions.ts` keeps the acronyms for its search, equal to
+  Python's), and the affiliation filter matches both.
 - `institution_ids` (optional, written only when known) is parallel to `institutions`: the
-  ROR id of each ("03vek6s52"), `null` without one. `Paper` refuses ids without
-  institutions or not one per affiliation, so wherever `institutions` is set or reset, the
-  ids go with it (a forgotten reset fails the tests). Institutions named before October
-  2026 have none: `institutions` asks ROR again, keeping each name and taking only the id
-  of a name ROR gives again; the archive asks OpenAlex again (`docs/archive.md`).
+  ROR id of each ("03vek6s52"), `null` without one. In day files, an institution without an
+  id is the rules' (`make institutions-again` names those again). `Paper` refuses ids
+  without institutions or not one per affiliation, so wherever `institutions` is set or
+  reset, the ids go with it (a forgotten reset fails the tests); the archive asks OpenAlex
+  again for papers archived before ids were kept (`docs/archive.md`).
 - `extractor` (optional, written only when known): the version of the HTML extraction that
   gave the affiliations; absent when they came from the API or OpenAlex, or were read
   before versions were kept. `reextract` selects on it, so a paper read from the API is

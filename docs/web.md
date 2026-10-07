@@ -19,7 +19,9 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
 - Author and affiliation filters are a `NameFilter`. A name clicked on a card, a Rankings
   row or a graph node matches exactly: an author by `searchKey`, an institution by the
   name `institutionsOf` gives it, the one the graph and Rankings count, so that a row shows
-  as many papers as it says. Text typed in the sidebar matches word prefixes
+  as many papers as it says. The site names no institution itself: `institutionsOf` reads
+  the store's `institutions`, which the pipeline names (`src/preprint_radar/institutions.py`,
+  AFF-13); a record without them (not named yet, or kept in a browser before) names none. Text typed in the sidebar matches word prefixes
   (`startsWords`), except a known acronym (`acronymOf`, the `ACRONYMS` of
   `institutions.ts`), which means its institution and is a whole word ("HKU" is not
   "HKUST"). In the URL, `by=`/`at=` are clicked names, `author=`/`aff=` typed text, which
@@ -113,8 +115,9 @@ out of Highly cited (decision 18). Reading lists keep the flag.
   decision 15): the 2024 archive's author projection went from 397,000 links, 39% of them
   from one paper of 561 authors, to 112,000. Default: papers and institutions, without
   isolated nodes. An institution node
-  carries its ROR id when a paper gives it (`rorId`), linked to ror.org; nodes are still
-  keyed by name (AFF-13).
+  carries its ROR id when a paper gives it (`rorId`), linked to ror.org; nodes are keyed by
+  `searchKey` of the name, which the pipeline makes canonical (a company's subsidiaries are
+  the company), so that a company stays one node across its ROR entries.
 - `graph-layout.ts` gives starting positions (each connected component in one piece, on a
   spiral); `graph-renderer.ts` draws on a canvas and handles the pointer (an imperative
   class); `components/GraphView.tsx` and `GraphSettingsPanel.tsx` are the UI. It is full

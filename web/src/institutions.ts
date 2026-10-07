@@ -1,59 +1,9 @@
 import { searchKey } from "./text";
 import type { Paper } from "./types";
 
-// Words that identify the institution itself, as opposed to one of its departments or
-// its address. Scores: 3 = university-like, 2 = organization, 1 = anything else,
-// 0.5 = a unit of some institution, 0.25 = an address.
-const UNIVERSITY_RE =
-  /universit|université|universität|universidad|università|polytechn|politecnico|college|academy|école|ecole|\b(?:eth|epfl|kaist|mit|inria|cnrs|riken|max planck)\b/i;
-const ORGANIZATION_RE =
-  /\b(?:inc|ltd|llc|gmbh|corp|corporation|company|labs?|laborator(?:y|ies)|research|institute|institut|centre|center|hospital|foundation|google|deepmind|meta|microsoft|nvidia|amazon|apple|adobe|tencent|alibaba|bytedance|baidu|huawei|samsung|sony|intel|openai|ibm|qualcomm)\b/i;
-const UNIT_RE =
-  /^(?:the\s+)?(?:dept\.?|department|school|faculty|division|chair|group|graduate school|college of|laboratory of|key laboratory|state key laboratory)\b/i;
-// "Zhiyang Innovation Co., Ltd.": the legal suffix belongs to the name before it.
-const LEGAL_SUFFIX_RE = /,\s*(ltd|inc|llc|gmbh|co|corp|ag|plc|s\.a|s\.r\.l)\b/gi;
-// "A and B are with the University of X": only the institution matters.
-const ARE_WITH_RE = /^.*?\b(?:is|are)\s+(?:also\s+)?(?:with|at)\s+/i;
-// Not an institution at all: people who work on their own.
-const INDEPENDENT_RE =
-  /^(?:an?\s+)?(?:independent|individual)(?:\s+(?:researcher|scholar|scientist|author)s?)?$/i;
-// Not an affiliation either, in data extracted before the pipeline rejected them (as
-// `_JUNK_RE` in arxiv_html.py does): link labels, contribution notes, lone words, a country.
-const JUNK_RE =
-  /^(?:the|an?|dot|code|github|data(?:set)?|demo|video|website|homepage|graduate|correspondence|project\s+(?:page|website)|(?:core\s+|main\s+)?contributors?|(?:co-?)?(?:first|second|last|senior)\s+authors?)$/i;
-const COUNTRY_RE =
-  /^(?:USA|U\.S\.A?\.?|United States(?: of America)?|UK|U\.K\.|United Kingdom|England|Scotland|Northern Ireland|(?:P\.?\s?R\.?\s?)?China|Hong Kong(?: SAR)?|Macau|Macao|Taiwan|Japan|(?:South |Republic of )?Korea|Mongolia|Singapore|India|Sri Lanka|Nepal|Bhutan|Maldives|Pakistan|Bangladesh|Afghanistan|Kazakhstan|Uzbekistan|Kyrgyzstan|Tajikistan|Turkmenistan|Azerbaijan|Armenia|Vietnam|Viet Nam|Thailand|Malaysia|Indonesia|Philippines|Cambodia|Laos|Myanmar|Brunei|Germany|France|Italy|Spain|Portugal|(?:The )?Netherlands|Belgium|Luxembourg|Switzerland|Austria|Liechtenstein|Monaco|Andorra|Sweden|Norway|Denmark|Finland|Iceland|Ireland|Poland|Czech Republic|Czechia|Slovakia|Slovenia|Croatia|Serbia|Bosnia and Herzegovina|Montenegro|North Macedonia|Albania|Kosovo|Bulgaria|Hungary|Romania|Moldova|Greece|Cyprus|Malta|Estonia|Latvia|Lithuania|Belarus|Ukraine|Russia(?:n Federation)?|Turkey|Türkiye|Israel|Palestine|Lebanon|Syria|Iraq|Iran|Kuwait|Bahrain|Oman|Yemen|Saudi Arabia|United Arab Emirates|UAE|Qatar|Egypt|Libya|Tunisia|Algeria|Morocco|Nigeria|Ghana|Senegal|Cameroon|Ethiopia|Kenya|Uganda|Tanzania|Rwanda|Zambia|Zimbabwe|Botswana|Namibia|Mozambique|Madagascar|Mauritius|Benin|Burkina Faso|C[ôo]te d'Ivoire|Ivory Coast|Sudan|South Africa|Canada|Mexico|Guatemala|Costa Rica|Panama|Cuba|Jamaica|Puerto Rico|Dominican Republic|Brazil|Chile|Argentina|Uruguay|Paraguay|Bolivia|Colombia|Venezuela|Peru|Ecuador|Australia|New Zealand|Fiji)\.?$/i;
-// Companies are written many ways ("NVIDIA AI Technology Centre", "Microsoft Research
-// Asia", "ARC Lab, Tencent IEG"): any mention names the company. Hospitals named after
-// a company ("Samsung Medical Center") are not the company.
-const BRANDS: readonly (readonly [RegExp, string])[] = [
-  [/\bdeepmind\b/i, "Google DeepMind"],
-  [/\bgoogle\b/i, "Google"],
-  [/\bnvidia\b/i, "NVIDIA"],
-  [/\b(?:meta|facebook)\b/i, "Meta"],
-  [/\bmicrosoft\b/i, "Microsoft"],
-  [/\btencent\b/i, "Tencent"],
-  [/\badobe\b/i, "Adobe"],
-  [/\bhuawei\b/i, "Huawei"],
-  [/\b(?:alibaba|damo academy)\b/i, "Alibaba Group"],
-  [/\bbytedance\b/i, "ByteDance"],
-  [/\bbaidu\b/i, "Baidu"],
-  [/\bsamsung\b/i, "Samsung"],
-  [/\bsony\b/i, "Sony"],
-  [/\bamazon\b/i, "Amazon"],
-  [/\bapple\b/i, "Apple"],
-  [/\bintel\b/i, "Intel"],
-  [/\bqualcomm\b/i, "Qualcomm"],
-  [/\bibm\b/i, "IBM"],
-  [/\bopenai\b/i, "OpenAI"],
-  [/\bxiaomi\b/i, "Xiaomi"],
-  [/\bkuaishou\b/i, "Kuaishou"],
-  [/\bsensetime\b/i, "SenseTime"],
-];
-const NOT_A_BRAND_RE = /hospital|medical|clinic/i;
-// Acronyms written alone, mapped to the names the Research Organization Registry (ROR)
-// gives, so that they share a node with the full names it resolves. Keys are search
-// keys; ambiguous ones (NTU: Nanyang or National Taiwan) are left out.
+// Acronyms written alone, and the institution each stands for, as the pipeline names them
+// (`ACRONYMS` in src/preprint_radar/institutions.py, which a test keeps equal): the search
+// finds "NUS" in National University of Singapore's papers. Keys are search keys.
 const ACRONYMS: Readonly<Record<string, string>> = {
   mit: "Massachusetts Institute of Technology",
   cmu: "Carnegie Mellon University",
@@ -94,110 +44,29 @@ const ACRONYMS: Readonly<Record<string, string>> = {
   caltech: "California Institute of Technology",
   casia: "Chinese Academy of Sciences",
 };
-// Campuses of the University of California, written as a separate segment.
-const UC_CAMPUS_RE =
-  /^(?:berkeley|los angeles|san diego|davis|irvine|santa barbara|santa cruz|riverside|merced|san francisco)$/i;
-
-function segmentScore(segment: string): number {
-  if (UNIT_RE.test(segment)) return 0.5;
-  if (UNIVERSITY_RE.test(segment)) return 3;
-  // Postcodes and street numbers: an address, unless nothing better is written.
-  if (/\d/.test(segment)) return 0.25;
-  if (ORGANIZATION_RE.test(segment)) return 2;
-  return 1;
-}
-
-/**
- * Institution named by an affiliation string, so that variants of the same institution
- * share a node: "Google, Switzerland" and "Google" both give "Google", "School of
- * Computer Science, Peking University" gives "Peking University", "CMU" gives "Carnegie
- * Mellon University". Returns "" when the string names no institution: a department on
- * its own, an address, an independent researcher. This is a heuristic; unusual formats
- * may still produce separate nodes.
- */
-export function institutionName(affiliation: string): string {
-  const segments = affiliation
-    .replace(LEGAL_SUFFIX_RE, " $1")
-    .replace(ARE_WITH_RE, "")
-    .split(/[,;]/)
-    .map((segment) => segment.trim().replace(/^the\s+/i, ""))
-    // A lone "and" can be left over by the HTML extraction of older data.
-    .filter((segment) => /\p{L}{2}/u.test(segment) && !/^and$/i.test(segment))
-    .filter(
-      (segment) =>
-        !INDEPENDENT_RE.test(segment) && !JUNK_RE.test(segment) && !COUNTRY_RE.test(segment),
-    );
-  let best = "";
-  let bestIndex = -1;
-  let bestScore = -1;
-  for (const [index, segment] of segments.entries()) {
-    const alias = ACRONYMS[searchKey(segment)];
-    if (alias) return alias;
-    const score = segmentScore(segment);
-    if (score > bestScore) {
-      best = segment;
-      bestIndex = index;
-      bestScore = score;
-    }
-  }
-  if (bestScore < 3) {
-    for (const [pattern, brand] of BRANDS) {
-      if (segments.some((segment) => pattern.test(segment) && !NOT_A_BRAND_RE.test(segment))) {
-        return brand;
-      }
-    }
-  }
-  if (bestScore <= 0.5) return "";
-  const next = segments[bestIndex + 1];
-  if (/^university of california$/i.test(best) && next !== undefined && UC_CAMPUS_RE.test(next)) {
-    return `${best}, ${next}`;
-  }
-  return best;
-}
 
 /**
  * The institution an acronym stands for ("NUS" is National University of Singapore), as
- * the graph names it; `null` for anything else.
+ * the pipeline names it; `null` for anything else.
  */
 export function acronymOf(text: string): string | null {
   return ACRONYMS[searchKey(text)] ?? null;
 }
 
 /**
- * The name to give a company as ROR spells it ("Microsoft Research Asia"), so that it
- * shares a node with the other ways the company is written.
- */
-export function canonicalInstitution(name: string): string {
-  for (const [pattern, brand] of BRANDS) {
-    if (pattern.test(name) && !NOT_A_BRAND_RE.test(name)) return brand;
-  }
-  return name;
-}
-
-/**
- * The institution of each of the paper's affiliations, in order: the one the pipeline
- * found in the Research Organization Registry when there is one, else
- * {@link institutionName}. An empty string means that the affiliation names none.
- */
-export function paperInstitutions(paper: Paper): string[] {
-  const affiliations = paper.affiliations ?? [];
-  const registry = paper.institutions?.length === affiliations.length ? paper.institutions : null;
-  return affiliations.map((affiliation, index) => {
-    const found = registry?.[index];
-    return found ? canonicalInstitution(found) : institutionName(affiliation);
-  });
-}
-
-/**
- * The institution of each of the paper's affiliations as the graph and Rankings count
- * them: {@link paperInstitutions}, with `null` for an affiliation that names none, or that
- * names one of the paper's own authors (a person is not an institution). The exact
- * affiliation filter matches these, so that a clicked row shows as many papers as it says.
+ * The institution of each of the paper's affiliations, in order, as the pipeline named
+ * them: the Research Organization Registry's (or OpenAlex's), a company's subsidiaries as
+ * the company, and its own rules for the rest (`src/preprint_radar/institutions.py`).
+ * `null` for an affiliation that names none, and for every affiliation of a record not
+ * named yet. The graph, Rankings and the affiliation filter all count these.
  */
 export function institutionsOf(paper: Paper): (string | null)[] {
-  const people = new Set(paper.authors.map(searchKey));
-  return paperInstitutions(paper).map((name) => {
-    const key = searchKey(name);
-    return key === "" || people.has(key) ? null : name;
-  });
+  const affiliations = paper.affiliations ?? [];
+  const named = paper.institutions?.length === affiliations.length ? paper.institutions : null;
+  return affiliations.map((_, index) => named?.[index] || null);
+}
+
+/** The institutions the paper's affiliations name, without the gaps. */
+export function namedInstitutions(paper: Paper): string[] {
+  return institutionsOf(paper).filter((name): name is string => name !== null);
 }

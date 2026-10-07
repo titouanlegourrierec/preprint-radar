@@ -15,6 +15,7 @@ from enum import StrEnum
 from preprint_radar.config import DEFAULT_MAX_ROR_LOOKUPS, DEFAULT_SAVE_EVERY
 from preprint_radar.exceptions import FetchError, ParseError
 from preprint_radar.http import HttpClient
+from preprint_radar.institutions import name_institutions
 from preprint_radar.models import Institution, Paper, Provenance, ScholarRecord
 from preprint_radar.sources.arxiv_api import fetch_metadata
 from preprint_radar.sources.arxiv_html import (
@@ -647,22 +648,18 @@ def _set_back(
 
 
 def add_institutions(papers: Sequence[Paper], client: HttpClient, *, limit: int | None) -> list[Paper]:
-    """Name the institution of each affiliation through the Research Organization Registry.
+    """Name the institution of each affiliation: ROR first, then the rules (AFF-13).
 
     Only papers with affiliations and no institutions yet are looked up, each distinct
-    string once, and papers whose institutions were named before ROR ids were kept, to get
-    them. A paper gets its institutions and their ids when all its strings were looked
-    up; the others wait for the next run (lookup limit reached, or ROR unreachable), which
+    string once. A paper gets its institutions, with the ROR id of those ROR named, when
+    all its strings were looked up: :func:`institutions.name_institutions` names the rest.
+    The others wait for the next run (lookup limit reached, or ROR unreachable), which
     never fails the run.
 
     Returns:
         The papers, with institutions where they could be named.
     """
-    # Papers never named first: getting the ids of older ones must not delay them.
-    pending = sorted(
-        (paper for paper in papers if _needs_institutions(paper)),
-        key=lambda paper: paper.institutions is not None,
-    )
+    pending = [paper for paper in papers if _needs_institutions(paper)]
     if not pending:
         return list(papers)
     strings = [affiliation for paper in pending for affiliation in paper.affiliations or ()]
@@ -679,34 +676,22 @@ def add_institutions(papers: Sequence[Paper], client: HttpClient, *, limit: int 
 
 
 def _needs_institutions(paper: Paper) -> bool:
-    """Affiliations without institutions, or with institutions named before ids were kept."""
-    if not paper.affiliations:
-        return False
-    return paper.institutions is None or (
-        paper.institution_ids is None and any(name is not None for name in paper.institutions)
-    )
+    return bool(paper.affiliations) and paper.institutions is None
 
 
 def _with_institutions(paper: Paper, matches: Sequence[Institution | None]) -> Paper:
-    """The paper with the institutions ROR matched, and their ids.
-
-    Institutions named before ids were kept stay as they were: each only gets the id of
-    the institution ROR names again, so that a change at ROR never loses a name.
-    """
-    if paper.institutions is None:
-        return replace(
-            paper,
-            institutions=tuple(match.name if match else None for match in matches),
-            institution_ids=tuple(match.ror_id if match else None for match in matches),
-            institutions_provenance=Provenance("ror", today()),
-        )
-    ids = tuple(
-        match.ror_id if match is not None and match.name == name else None
-        for name, match in zip(paper.institutions, matches, strict=True)
+    """The paper with the institutions ROR matched, the rules' for the rest, and ROR's ids."""
+    names = name_institutions(
+        paper.affiliations or (), [match.name if match else None for match in matches], paper.authors
     )
-    # The names stay, and so does the day they were looked up, when it is known.
     return replace(
-        paper, institution_ids=ids, institutions_provenance=paper.institutions_provenance or Provenance("ror")
+        paper,
+        institutions=names,
+        institution_ids=tuple(
+            match.ror_id if match is not None and name is not None else None
+            for match, name in zip(matches, names, strict=True)
+        ),
+        institutions_provenance=Provenance("ror", today()),
     )
 
 

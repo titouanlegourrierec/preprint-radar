@@ -42,6 +42,7 @@ from preprint_radar.config import (
     RECENT_DAYS,
 )
 from preprint_radar.http import HttpClient
+from preprint_radar.institutions import name_institutions
 from preprint_radar.latex import plain_text
 from preprint_radar.models import Paper, Provenance
 from preprint_radar.sources.arxiv_oai import CatalogEntry
@@ -396,13 +397,18 @@ def _with_affiliations(papers: list[Paper], client: HttpClient, today: date) -> 
         if result is None:  # not asked, or the lookup failed: asked again next week
             return paper
         if paper.affiliations is None or result.affiliations:
+            # OpenAlex's institutions are registry entries: they are their own institutions,
+            # a company's subsidiaries named as the company (AFF-13).
+            names = name_institutions(result.affiliations, result.affiliations, paper.authors)
+            ids = result.institution_ids and tuple(
+                ror_id if name else None for ror_id, name in zip(result.institution_ids, names, strict=True)
+            )
             return replace(
                 paper,
                 affiliations=result.affiliations,
                 author_affiliations=result.author_affiliations,
-                # OpenAlex's institutions are registry entries: they are their own institutions.
-                institutions=result.affiliations,
-                institution_ids=result.institution_ids or None,
+                institutions=names,
+                institution_ids=ids or None,
                 affiliations_provenance=read,
                 institutions_provenance=read,
             )
@@ -426,7 +432,9 @@ def _needs_openalex(paper: Paper, today: date) -> bool:
         return (today - paper.announced).days < OPENALEX_RETRY_AGE_DAYS and (
             last is None or (today - last).days >= OPENALEX_RETRY_EVERY_DAYS
         )
-    return paper.institution_ids is None and paper.institutions == paper.affiliations
+    return paper.institution_ids is None and paper.institutions == tuple(
+        name_institutions(paper.affiliations, paper.affiliations, paper.authors)
+    )
 
 
 def _subject_names(papers: Iterable[Paper]) -> dict[str, str]:

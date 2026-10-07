@@ -62,6 +62,7 @@ from preprint_radar.sources.ror import ROR_DELAY_SECONDS
 from preprint_radar.sources.semantic_scholar import S2_ANONYMOUS_DELAY_SECONDS, S2_DELAY_SECONDS, api_key
 from preprint_radar.store import filters
 from preprint_radar.store.export import ExportFormat, export_papers
+from preprint_radar.store.naming import name_institutions_again
 from preprint_radar.store.paper_store import PaperStore
 from preprint_radar.store.quality import (
     affiliation_quality,
@@ -253,9 +254,16 @@ def _add_institutions_parser(subparsers: "argparse._SubParsersAction[argparse.Ar
         help="name the institutions of stored affiliations",
         description=(
             "Look up, in the Research Organization Registry, the stored affiliations whose "
-            "institution is not named yet. Update and backfill do it for the papers they "
-            "handle; this command catches up on the rest of the store."
+            "institution is not named yet; the site's rules name those it does not know. "
+            "Update and backfill do it for the papers they handle; this command catches up "
+            "on the rest of the store. With --again, name the stored institutions again with "
+            "today's rules instead, day files and archive, without asking ROR."
         ),
+    )
+    institutions.add_argument(
+        "--again",
+        action="store_true",
+        help="name the stored institutions again with today's rules, offline, archive included",
     )
     institutions.add_argument(
         "-c",
@@ -883,6 +891,15 @@ def _affiliation_quality(
 def _run_institutions(args: argparse.Namespace) -> int:
     store = PaperStore(args.data_dir)
     categories: list[str] = args.categories or store.categories()
+    if args.again:
+        for category in categories:
+            report = name_institutions_again(store, category)
+            written = f"{report.days} day files" + (" and the archive" if report.archive else "")
+            console.print(
+                f"{category}: {report.changed} of {report.papers} papers changed, in {written}; "
+                f"affiliations without an institution {report.unnamed_before} -> {report.unnamed_after}"
+            )
+        return 0
     with HttpClient(user_agent=DEFAULT_USER_AGENT, min_interval=ROR_DELAY_SECONDS) as client:
         for category in categories:
             papers = list(store.iter_papers(category))

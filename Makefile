@@ -115,8 +115,12 @@ archive: ## Keep the most cited older papers in data/ (first run: about 2 hours)
 	uv run preprint-radar -v archive $(CATEGORY_ARGS)
 
 .PHONY: institutions
-institutions: ## Name the institutions of stored affiliations through ROR (minutes)
+institutions: ## Name the institutions of stored affiliations through ROR, then the rules (minutes)
 	uv run preprint-radar -v institutions $(CATEGORY_ARGS)
+
+.PHONY: institutions-again
+institutions-again: ## Name the stored institutions again with today's rules, archive included (offline)
+	uv run preprint-radar -v institutions --again $(CATEGORY_ARGS)
 
 .PHONY: reextract
 reextract: ## Read again the pages of papers extracted by an older version (cache first; MAX_HTML downloads)

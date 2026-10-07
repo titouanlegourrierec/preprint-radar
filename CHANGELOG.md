@@ -6,6 +6,14 @@ between. Item IDs (`DATA-2`, `CIT-11`…) refer to the audit of 2026-09-30
 
 ## Unreleased
 
+### Institutions
+
+- The pipeline names every institution, the site only shows them: ROR's name, a company
+  for its subsidiaries, and the rules the site used to apply itself where ROR has none
+  (acronyms, companies, the main part of an address). Exports and the data files now carry
+  them: the affiliations without an institution went from 2,785 to 122 (AFF-13,
+  decision 12).
+
 ### Search
 
 - Abstracts read as text: "\textbf{GestureFAR}" is "GestureFAR", "\url{...}" its address,

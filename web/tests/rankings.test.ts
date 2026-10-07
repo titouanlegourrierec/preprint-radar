@@ -4,13 +4,24 @@ import { exactly, matchesFilters, NO_FILTERS } from "../src/search";
 import { makePaper } from "./fixtures";
 
 const papers = [
-  makePaper({ arxiv_id: "1", authors: ["Ada", "Bob"], affiliations: ["MIT", "Google"] }),
+  makePaper({
+    arxiv_id: "1",
+    authors: ["Ada", "Bob"],
+    affiliations: ["MIT", "Google"],
+    institutions: ["Massachusetts Institute of Technology", "Google"],
+  }),
   makePaper({
     arxiv_id: "2",
     authors: ["Ada"],
     affiliations: ["Massachusetts Institute of Technology"],
   }),
-  makePaper({ arxiv_id: "3", authors: ["Bob", "Carl"], affiliations: ["Google Research", "Bob"] }),
+  // The pipeline never names an author as an institution.
+  makePaper({
+    arxiv_id: "3",
+    authors: ["Bob", "Carl"],
+    affiliations: ["Google Research", "Bob"],
+    institutions: ["Google", null],
+  }),
 ];
 const citations = new Map([
   ["1", 3],
@@ -51,16 +62,23 @@ describe("a row of Rankings and the papers it shows", () => {
   // Names that the substring filter confused: people inside other names, institutions
   // inside longer ones, the same institution written three ways, a collective author.
   const tricky = [
-    makePaper({ arxiv_id: "1", authors: ["Hao Li", "Wei Wang"], affiliations: ["Intel Labs"] }),
+    makePaper({
+      arxiv_id: "1",
+      authors: ["Hao Li", "Wei Wang"],
+      affiliations: ["Intel Labs"],
+      institutions: ["Intel"],
+    }),
     makePaper({
       arxiv_id: "2",
       authors: ["Chuanhao Li", "Weiwei Wang"],
       affiliations: ["Institute of Artificial Intelligence", "The Chinese University of Hong Kong"],
+      institutions: ["Institute of Artificial Intelligence", "Chinese University of Hong Kong"],
     }),
     makePaper({
       arxiv_id: "3",
       authors: ["HAO LI", "Yuhao Liu"],
       affiliations: ["Dept. of CS, The University of Hong Kong", "CMU"],
+      institutions: ["University of Hong Kong", "Carnegie Mellon University"],
     }),
     makePaper({
       arxiv_id: "4",

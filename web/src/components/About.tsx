@@ -23,8 +23,8 @@ export function About() {
         </li>
         <li>
           Institutions: matched with the{" "}
-          <a href="https://ror.org">Research Organization Registry</a>, or named by the site's own
-          rules.
+          <a href="https://ror.org">Research Organization Registry</a>, or named by rules of our own
+          where it has no match (acronyms, companies, the main part of an address).
         </li>
         <li>
           Venues: read in the authors' comments ("Accepted to ECCV 2026"), else where the paper was

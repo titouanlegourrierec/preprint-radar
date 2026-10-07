@@ -153,7 +153,7 @@ _INSTITUTION_WORD_RE = re.compile(
 # Countries, by the names affiliations write them in (AFF-18: "Kazakhstan", "Sri Lanka" and
 # "Kenya" were missing). Not those that are also names of people, which a line of names
 # would end with (Jordan, Chad, Georgia), nor Wales, which ends "New South Wales".
-_COUNTRIES = (
+COUNTRIES = (
     r"USA|U\.S\.A?\.?|United States(?: of America)?|UK|U\.K\.|United Kingdom|England|Scotland"
     r"|Northern Ireland|(?:P\.?\s?R\.?\s?)?China|Hong Kong(?: SAR)?|Macau|Macao|Taiwan|Japan"
     r"|(?:South |Republic of )?Korea|Mongolia|Singapore|India|Sri Lanka|Nepal|Bhutan|Maldives|Pakistan"
@@ -172,11 +172,11 @@ _COUNTRIES = (
     r"|New Zealand|Fiji"
 )
 # A line that ends with a country, as in "Munich, Germany" or "CA 94720, USA".
-_COUNTRY_END_RE = re.compile(rf"(?:^|,\s*|\s)(?:{_COUNTRIES})\.?$", re.IGNORECASE)
+_COUNTRY_END_RE = re.compile(rf"(?:^|,\s*|\s)(?:{COUNTRIES})\.?$", re.IGNORECASE)
 # An affiliation that ends with its country, after a comma: not a name that ends with one,
 # like "National Research Council Canada" (2609.12374), which a place in the same country
 # still completes.
-_ADDRESS_END_RE = re.compile(rf"(?:^|,\s*)(?:{_COUNTRIES})\.?$", re.IGNORECASE)
+_ADDRESS_END_RE = re.compile(rf"(?:^|,\s*)(?:{COUNTRIES})\.?$", re.IGNORECASE)
 # What passes every other rule without being an affiliation: the leftover of a link label
 # or a contribution note ("Code", "Core Contributors"), a unit cut off by a line break
 # ("School of"), a lone word ("the", "dot"), or a country alone.
@@ -185,7 +185,7 @@ _JUNK_RE = re.compile(
     r"|(?:core\s+|main\s+)?contributors?|(?:co-?)?(?:first|second|last|senior)\s+authors?"
     r"|(?:graduate\s+school|graduate|school|department|faculty|institute|college|laboratory|lab|cent(?:er|re))"
     r"(?:\s+(?:of|for))?"
-    rf"|(?:{_COUNTRIES})\.?",
+    rf"|(?:{COUNTRIES})\.?",
     re.IGNORECASE,
 )
 _MAX_PLACE_LENGTH = 60

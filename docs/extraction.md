@@ -181,16 +181,34 @@ ambiguous name alignments drop the whole tier, and unresolved authors stay `null
   (EPFL), …", 2610.03290). When it cleans to no affiliation, it is cut into the paper's
   affiliations, one after another; a text not wholly made of them anchors nothing.
 
-## Institutions (ROR)
+## Institutions (ROR, then `institutions.py`)
 
 `api.ror.org/v2/organizations?affiliation=` marks one match `chosen`. Only those are kept,
 and only when one of the organization's names (not an acronym) of at least two words
 appears word for word in the affiliation: `chosen` alone matched "ARC Lab, Tencent" to an
-association called ARC and "180 Queen's Gate" to "The Gate". ROR names about 65% of the
-strings (universities in full); acronyms and companies are named by the web app's own
-rules (`web/src/institutions.ts`), which map acronyms to ROR's names so that both merge.
-The match also gives the organization's ROR id (`institution_ids`). A failing ROR never
-fails a run: lookups stop and resume next run.
+association called ARC and "180 Queen's Gate" to "The Gate". ROR names about 70% of the
+strings (universities in full), and gives each its id (`institution_ids`). A failing ROR
+never fails a run: lookups stop and resume next run.
+
+The rest are named by `institutions.name_institutions` (AFF-13, decision 12), which the
+site applied itself until 2026-10-07, in TypeScript; the port gave the same name for all
+37,789 stored affiliations. An affiliation is split at commas and its most
+institution-like part kept (a university over an organization over anything else; a unit
+or an address alone names nothing): "School of Computer Science, Peking University" is
+Peking University. A known acronym written alone is its institution as ROR names it
+("CMU", `ACRONYMS`, which the site keeps for its search, a test keeping both equal); a
+company mentioned anywhere is the company ("ARC Lab, Tencent IEG" is Tencent), but a
+hospital named after it is not; a campus of the University of California keeps its city.
+ROR's and OpenAlex's names go through `canonical` too, so that a company's subsidiaries
+("Google (Switzerland)", "Tencent (China)") are one institution. One of the paper's own
+authors is never an institution.
+
+An institution with a ROR id came from ROR (or OpenAlex, in the archive, whose names are
+registry names with or without an id); one without, from the rules. `make
+institutions-again` names the stored institutions again after a change to the rules:
+registry names are only made canonical again, the others named again from their
+affiliation (8 names ROR gave before ids were kept were named again by the rules so, on
+2026-10-07). It took the affiliations without an institution from 2,785 to 122.
 
 ## Venues (`venue.py`)
 

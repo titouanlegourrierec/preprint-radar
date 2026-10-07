@@ -23,12 +23,14 @@ const papers = [
     abstract: "We compress Gaussian splats for novel view synthesis.",
     authors: ["Tomás Lozano-Pérez", "Jane Doe"],
     affiliations: ["MIT", "NVIDIA"],
+    institutions: ["Massachusetts Institute of Technology", "NVIDIA"],
   }),
   makePaper({
     arxiv_id: "2609.00002",
     title: "Diffusion Models for Video Generation",
     abstract: "A survey of video diffusion models.",
     affiliations: ["MIT"],
+    institutions: ["Massachusetts Institute of Technology"],
     cross_list_from: "cs.LG",
     venue: "NeurIPS 2026",
     primary_subject: "Machine Learning (cs.LG)",
@@ -149,10 +151,26 @@ describe("PaperIndex", () => {
   it("finds an institution by its acronym, however its papers write it", () => {
     const named = [
       makePaper({ arxiv_id: "1", affiliations: ["National University of Singapore, Singapore"] }),
-      makePaper({ arxiv_id: "2", affiliations: ["NUS"] }),
-      makePaper({ arxiv_id: "3", affiliations: ["School of Computing, Singapore"] }),
-      makePaper({ arxiv_id: "4", affiliations: ["Dept. of CS, University College London, UK"] }),
-      makePaper({ arxiv_id: "5", affiliations: ["HKUST"] }),
+      makePaper({
+        arxiv_id: "2",
+        affiliations: ["NUS"],
+        institutions: ["National University of Singapore"],
+      }),
+      makePaper({
+        arxiv_id: "3",
+        affiliations: ["School of Computing, Singapore"],
+        institutions: [null],
+      }),
+      makePaper({
+        arxiv_id: "4",
+        affiliations: ["Dept. of CS, University College London, UK"],
+        institutions: ["University College London"],
+      }),
+      makePaper({
+        arxiv_id: "5",
+        affiliations: ["HKUST"],
+        institutions: ["Hong Kong University of Science and Technology"],
+      }),
       makePaper({ arxiv_id: "6", affiliations: ["HKU-TCL Joint Lab"] }),
     ];
     const kept = (text: string) =>
@@ -186,15 +204,33 @@ describe("PaperIndex", () => {
 
   it("matches a clicked institution by its name, not the strings that contain it", () => {
     const labs = [
-      makePaper({ arxiv_id: "1", affiliations: ["Intel Labs, Santa Clara"] }),
+      makePaper({
+        arxiv_id: "1",
+        affiliations: ["Intel Labs, Santa Clara"],
+        institutions: ["Intel"],
+      }),
       makePaper({
         arxiv_id: "2",
         affiliations: ["Institute of Artificial Intelligence, Peking University"],
+        institutions: ["Peking University"],
       }),
-      makePaper({ arxiv_id: "3", affiliations: ["The Chinese University of Hong Kong"] }),
-      makePaper({ arxiv_id: "4", affiliations: ["Dept. of CS, The University of Hong Kong"] }),
+      makePaper({
+        arxiv_id: "3",
+        affiliations: ["The Chinese University of Hong Kong"],
+        institutions: ["Chinese University of Hong Kong"],
+      }),
+      makePaper({
+        arxiv_id: "4",
+        affiliations: ["Dept. of CS, The University of Hong Kong"],
+        institutions: ["University of Hong Kong"],
+      }),
       // A collective listed among the affiliations is an author, not an institution.
-      makePaper({ arxiv_id: "5", authors: ["Intel"], affiliations: ["Intel"] }),
+      makePaper({
+        arxiv_id: "5",
+        authors: ["Intel"],
+        affiliations: ["Intel"],
+        institutions: [null],
+      }),
     ];
     const kept = (filter: ReturnType<typeof exactly>) =>
       labs

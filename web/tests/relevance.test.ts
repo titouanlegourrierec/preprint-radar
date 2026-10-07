@@ -22,6 +22,7 @@ const corpus = new PaperIndex([
     abstract: "Depth estimation in the wild, without death of performance.",
     authors: ["Yiwei Liu", "Yu Gan"],
     affiliations: ["HKUST"],
+    institutions: ["Hong Kong University of Science and Technology"],
   }),
   makePaper({
     arxiv_id: "2609.10003",
@@ -30,6 +31,7 @@ const corpus = new PaperIndex([
     abstract: "A ViT for open-vocabulary segmentation, mitigating label noise.",
     authors: ["Hao Li", "Weiwei Wang"],
     affiliations: ["MIT", "Intel Labs"],
+    institutions: ["Massachusetts Institute of Technology", "Intel"],
   }),
   makePaper({
     arxiv_id: "2609.10004",
@@ -37,6 +39,7 @@ const corpus = new PaperIndex([
     title: "A zero shot survey of on-device vision",
     authors: ["Chuanhao Li"],
     affiliations: ["Institute of Artificial Intelligence, Peking University"],
+    institutions: ["Peking University"],
   }),
   makePaper({
     arxiv_id: "1706.03762",

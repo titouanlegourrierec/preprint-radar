@@ -1,5 +1,4 @@
 import gzip
-import re
 from collections.abc import Callable
 from pathlib import Path
 
@@ -8,7 +7,6 @@ import pytest
 
 from preprint_radar.http import HttpClient
 from preprint_radar.sources.arxiv_html import (
-    _COUNTRIES,
     FrontMatter,
     PageCache,
     clean_affiliation,
@@ -1591,11 +1589,3 @@ def test_numbered_lines_place_names_that_start_with_a_number() -> None:
 )
 def test_parts_glued_by_latexml_are_separated(raw: str, expected: str) -> None:
     assert clean_affiliation(raw) == expected
-
-
-def test_the_site_knows_the_same_countries() -> None:
-    source = (Path(__file__).parents[2] / "web" / "src" / "institutions.ts").read_text(encoding="utf-8")
-    match = re.search(r"const COUNTRY_RE =\s*/\^\(\?:(.*)\)\\\.\?\$/i;", source)
-
-    assert match is not None
-    assert match.group(1) == _COUNTRIES

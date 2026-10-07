@@ -8,86 +8,37 @@ import {
   nodeMatches,
   replaySteps,
 } from "../src/graph";
-import { canonicalInstitution, institutionName, paperInstitutions } from "../src/institutions";
+import { institutionsOf } from "../src/institutions";
 import { searchKey } from "../src/text";
 import { makePaper } from "./fixtures";
 
-describe("institutionName", () => {
-  it.each([
-    ["Carnegie Mellon University, United States of America", "Carnegie Mellon University"],
-    ["School of Computer Science, Peking University", "Peking University"],
-    ["Google, Switzerland", "Google"],
-    ["Pengcheng Laboratory, China", "Pengcheng Laboratory"],
-    [
-      "School of Human Settlements and Civil Engineering, Xi’an Jiaotong University, Xi’an, 710049, China",
-      "Xi’an Jiaotong University",
-    ],
-    ["The University of Texas at Austin", "University of Texas at Austin"],
-    ["KAIST", "Korea Advanced Institute of Science and Technology"],
-    ["Meta", "Meta"],
-    ["and", ""],
-    // Units and addresses alone name no institution.
-    ["Department of Computer Science", ""],
-    ["College of Computer Science and Electronic Engineering", ""],
-    ["Nagoya 461-8680", ""],
-    ["Independent Researcher", ""],
-    ["Independent Researcher, University of Regensburg", "University of Regensburg"],
-    ["Independent Author", ""],
-    ["Independent researchers", ""],
-    // Leftovers that older data still holds: they must not become institution nodes.
-    ["Correspondence", ""],
-    ["the", ""],
-    ["Code", ""],
-    ["Core Contributors", ""],
-    ["USA", ""],
-    ["United Kingdom", ""],
-    ["Tencent, China", "Tencent"],
-    // Companies, however written; a hospital is not its sponsor.
-    ["NVIDIA AI Technology Centre, Singapore", "NVIDIA"],
-    ["ARC Lab, Tencent IEG", "Tencent"],
-    ["Microsoft Research Asia, Shanghai, China", "Microsoft"],
-    ["Samsung Medical Center", "Samsung Medical Center"],
-    ["Zhiyang Innovation Co., Ltd", "Zhiyang Innovation Co. Ltd"],
-    // Acronyms and campuses.
-    ["MIT, Boston, USA", "Massachusetts Institute of Technology"],
-    ["CASIA", "Chinese Academy of Sciences"],
-    ["University of California, Berkeley", "University of California, Berkeley"],
-    ["EECS, University of California, Los Angeles, CA", "University of California, Los Angeles"],
-    ["Luca Gandolfi and Chiara Plizzari are with Bocconi University", "Bocconi University"],
-  ])("%s -> %s", (affiliation, expected) => {
-    expect(institutionName(affiliation)).toBe(expected);
-  });
-});
-
-describe("paperInstitutions", () => {
-  it("prefers the registry's institution, and names the others locally", () => {
+describe("institutionsOf", () => {
+  it("gives the institutions the pipeline named, null where none", () => {
     const paper = makePaper({
       arxiv_id: "20",
-      affiliations: ["University of Padova, Italy", "CMU", "Microsoft Research Asia, Beijing"],
-      institutions: ["University of Padua", null, "Microsoft Research Asia"],
+      affiliations: ["University of Padova, Italy", "Department of Physics", "CMU"],
+      institutions: ["University of Padua", null, "Carnegie Mellon University"],
     });
 
-    expect(paperInstitutions(paper)).toEqual([
+    expect(institutionsOf(paper)).toEqual([
       "University of Padua",
+      null,
       "Carnegie Mellon University",
-      "Microsoft",
     ]);
   });
 
-  it("ignores institutions that do not match the affiliations one to one", () => {
-    const paper = makePaper({
+  it("names none for a record not named yet, or out of step with its affiliations", () => {
+    const unnamed = makePaper({
       arxiv_id: "21",
       affiliations: ["MIT", "Inria"],
-      institutions: ["X"],
+      institutions: null,
     });
-
-    expect(paperInstitutions(paper)).toEqual(["Massachusetts Institute of Technology", "Inria"]);
-  });
-
-  it("maps a company, as the registry spells it, to its common name", () => {
-    expect(canonicalInstitution("Google DeepMind")).toBe("Google DeepMind");
-    expect(canonicalInstitution("Tencent (China)")).toBe("Tencent");
-    expect(canonicalInstitution("Peking University")).toBe("Peking University");
+    expect(institutionsOf(unnamed)).toEqual([null, null]);
+    expect(
+      institutionsOf(
+        makePaper({ arxiv_id: "22", affiliations: ["MIT", "Inria"], institutions: ["X"] }),
+      ),
+    ).toEqual([null, null]);
   });
 });
 
@@ -173,16 +124,6 @@ describe("buildGraph", () => {
 
     expect(graph.nodes.map((node) => node.kind)).toEqual(["author", "author", "author"]);
     expect(graph.links).toEqual([{ source: "author:ada", target: "author:bob", weight: 1 }]);
-  });
-
-  it("never makes an institution of one of the paper's authors", () => {
-    const listed = makePaper({
-      arxiv_id: "12",
-      authors: ["Dong Liang", "Ada"],
-      affiliations: ["Dong Liang", "Inria"],
-    });
-
-    expect(buildGraph([listed], INSTITUTIONS).nodes.map((node) => node.label)).toEqual(["Inria"]);
   });
 
   it("can hide nodes that share no paper with another node", () => {

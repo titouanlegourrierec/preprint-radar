@@ -222,7 +222,7 @@ exist.
 | ID | Item | Priority | Status |
 |---|---|---|---|
 | §17.1 | Card link-outs, institution and venue feeds, rising papers, graph ego networks and export | — | todo |
-| AFF-13, ARCH-3 | Institution canonicalization in the pipeline | P2 | todo |
+| AFF-13, ARCH-3 | Institution canonicalization in the pipeline (decision 12): the site's rules ported to `institutions.py` (the same name for all 37,789 stored affiliations), ROR first then the rules, registry names made canonical, the archive's too; `make institutions-again`; the site displays only, keeping its acronyms for search | P2 | done |
 | AFF-H | Author identity | P2 | todo |
 | ARCH-2 | Enrichment step interface | P2 | todo |
 | DEBT-2, DEBT-3 | View model for `app.tsx`, `GraphView` split | P2, P3 | todo |
