@@ -3,6 +3,7 @@ import { namedInstitutions } from "../src/institutions";
 import { searchKey } from "../src/text";
 import type { Paper, ScholarFile, StoreIndex } from "../src/types";
 import { MAJOR_VENUES, venueFamily } from "../src/venues";
+import { xmlText } from "../src/xml";
 import type { ReadJson } from "./citation-shards";
 import { mergeScholar, type StoredPaper } from "./scholar";
 
@@ -14,32 +15,6 @@ export const VENUE_ENTRIES = 100;
 const ENTRY_AUTHORS = 10;
 const DAY_MS = 86_400_000;
 
-/**
- * Whether XML 1.0 takes a character, escaped or not: not control characters (but tab and
- * line breaks), halves of surrogate pairs, or U+FFFE and U+FFFF.
- */
-function isXmlChar(char: string): boolean {
-  const code = char.codePointAt(0) ?? 0;
-  return (
-    code === 0x9 ||
-    code === 0xa ||
-    code === 0xd ||
-    (code >= 0x20 && code < 0xd800) ||
-    (code >= 0xe000 && code <= 0xfffd) ||
-    code >= 0x10000
-  );
-}
-
-function xml(text: string): string {
-  return [...text]
-    .filter(isXmlChar)
-    .join("")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;");
-}
-
 /** A day as an Atom date: arXiv announces at midnight Eastern time, which the day is enough for. */
 function atomDay(day: string): string {
   return `${day}T00:00:00Z`;
@@ -50,15 +25,15 @@ function entry(paper: Paper): string {
   const more = paper.authors.length - authors.length;
   return [
     "  <entry>",
-    `    <id>${xml(paper.abs_url)}</id>`,
-    `    <title>${xml(paper.title)}</title>`,
-    `    <link rel="alternate" type="text/html" href="${xml(paper.abs_url)}"/>`,
+    `    <id>${xmlText(paper.abs_url)}</id>`,
+    `    <title>${xmlText(paper.title)}</title>`,
+    `    <link rel="alternate" type="text/html" href="${xmlText(paper.abs_url)}"/>`,
     `    <published>${atomDay(paper.announced)}</published>`,
     `    <updated>${atomDay(paper.announced)}</updated>`,
-    ...authors.map((author) => `    <author><name>${xml(author)}</name></author>`),
+    ...authors.map((author) => `    <author><name>${xmlText(author)}</name></author>`),
     ...(more > 0 ? [`    <author><name>and ${more} more</name></author>`] : []),
-    ...(paper.venue ? [`    <category term="${xml(paper.venue)}"/>`] : []),
-    ...(paper.abstract ? [`    <summary type="text">${xml(paper.abstract)}</summary>`] : []),
+    ...(paper.venue ? [`    <category term="${xmlText(paper.venue)}"/>`] : []),
+    ...(paper.abstract ? [`    <summary type="text">${xmlText(paper.abstract)}</summary>`] : []),
     "  </entry>",
   ].join("\n");
 }
@@ -87,15 +62,15 @@ export function atomFeed(feed: Feed, siteUrl: string | null): string {
   return [
     '<?xml version="1.0" encoding="utf-8"?>',
     '<feed xmlns="http://www.w3.org/2005/Atom">',
-    `  <id>${xml(id)}</id>`,
-    `  <title>${xml(feed.title)}</title>`,
-    `  <subtitle>${xml(feed.subtitle)}</subtitle>`,
+    `  <id>${xmlText(id)}</id>`,
+    `  <title>${xmlText(feed.title)}</title>`,
+    `  <subtitle>${xmlText(feed.subtitle)}</subtitle>`,
     `  <updated>${atomDay(updated)}</updated>`,
     ...(site === null
       ? []
       : [
-          `  <link rel="self" type="application/atom+xml" href="${xml(`${site}${feed.path}`)}"/>`,
-          `  <link rel="alternate" type="text/html" href="${xml(`${site}${feed.view}`)}"/>`,
+          `  <link rel="self" type="application/atom+xml" href="${xmlText(`${site}${feed.path}`)}"/>`,
+          `  <link rel="alternate" type="text/html" href="${xmlText(`${site}${feed.view}`)}"/>`,
         ]),
     "  <generator>Preprint Radar</generator>",
     ...feed.papers.map(entry),

@@ -1,12 +1,6 @@
+import { feedSlug } from "./feeds";
 import type { Graph } from "./graph";
-
-function xml(text: string): string {
-  return text
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;");
-}
+import { xmlText } from "./xml";
 
 // The attributes of nodes and links, as GraphML declares them: Gephi, Cytoscape and
 // NetworkX read them by these names.
@@ -26,7 +20,7 @@ const KEYS = [
  */
 export function toGraphML(graph: Graph): string {
   const data = (key: string, value: string | number) =>
-    `<data key="${key}">${xml(String(value))}</data>`;
+    `<data key="${key}">${xmlText(String(value))}</data>`;
   return [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<graphml xmlns="http://graphml.graphdrawing.org/xmlns">',
@@ -37,7 +31,7 @@ export function toGraphML(graph: Graph): string {
     '  <graph edgedefault="undirected">',
     ...graph.nodes.map(
       (node) =>
-        `    <node id="${xml(node.id)}">` +
+        `    <node id="${xmlText(node.id)}">` +
         data("label", node.label) +
         data("kind", node.kind) +
         data("papers", node.paperIds.length) +
@@ -47,7 +41,7 @@ export function toGraphML(graph: Graph): string {
     ),
     ...graph.links.map(
       (link) =>
-        `    <edge source="${xml(link.source)}" target="${xml(link.target)}">` +
+        `    <edge source="${xmlText(link.source)}" target="${xmlText(link.target)}">` +
         data("weight", link.weight) +
         "</edge>",
     ),
@@ -59,11 +53,10 @@ export function toGraphML(graph: Graph): string {
 
 /** A file name for the graph's exports: "preprint-radar-graph-2026-10-07". */
 export function exportName(day: string, focus: string | null): string {
-  const about = focus
-    ? `-${focus
-        .replace(/[^a-z0-9]+/gi, "-")
-        .replace(/^-|-$/g, "")
-        .toLowerCase()}`
-    : "";
-  return `preprint-radar-graph${about}-${day}`;
+  if (focus === null) return `preprint-radar-graph-${day}`;
+  // "author:Jürgen Müller" is "author-jurgen-muller"; a name in any script keeps its letters.
+  const separator = focus.indexOf(":");
+  const name = feedSlug(focus.slice(separator + 1));
+  const kind = focus.slice(0, separator);
+  return `preprint-radar-graph-${[kind, name].filter(Boolean).join("-")}-${day}`;
 }

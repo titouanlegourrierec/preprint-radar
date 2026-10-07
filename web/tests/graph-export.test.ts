@@ -49,5 +49,11 @@ describe("toGraphML", () => {
     expect(exportName("2026-10-07", "institution:massachusetts institute of technology")).toBe(
       "preprint-radar-graph-institution-massachusetts-institute-of-technology-2026-10-07",
     );
+    expect(exportName("2026-10-07", "author:Jürgen Müller")).toBe(
+      "preprint-radar-graph-author-jurgen-muller-2026-10-07",
+    );
+    expect(exportName("2026-10-07", "author:王小明")).toBe(
+      "preprint-radar-graph-author-王小明-2026-10-07",
+    );
   });
 });
