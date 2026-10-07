@@ -9,7 +9,10 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
 - MiniSearch over title, authors, affiliations and their institutions, venue, abstract and
   comments. Only the last word typed matches as a prefix, from 4 letters, so that acronyms
   stay words ("gan" is not "Gandhi", "mit" not "mitigate"); one typo is allowed from 7
-  letters. Highlights follow the same rules (`wholeWord`).
+  letters. Highlights follow the same rules (`wholeWord`). The names filtered on are
+  marked in the author and affiliation lines only (`nameHighlights`, SRCH-8): a clicked
+  name as a whole, typed text as word starts; "Li" no longer marks "lightweight" in a
+  title.
 - `"phrases"` match whole words and `-exclusions` word starts, over every searched field
   as one `searchKey` text per paper, so punctuation and hyphens do not count. A pasted
   arXiv identifier or link means that paper; stop words alone keep every paper.

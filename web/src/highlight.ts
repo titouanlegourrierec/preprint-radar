@@ -9,13 +9,6 @@ function escapeRegExp(text: string): string {
   return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-/**
- * Split `text` into segments, flagging the words that start with one of `terms`, or that
- * are one of them for a term made by {@link wholeWord}.
- * Matching is accent- and case-insensitive; the original text is preserved. The words of
- * a term of several words may be separated by any punctuation, as a phrase matches them:
- * "self supervised" flags "self-supervised".
- */
 /** A term to highlight as a whole word only, not as the start of longer words. */
 export function wholeWord(term: string): string {
   return `${term}${WHOLE_WORD}`;
@@ -32,6 +25,13 @@ function needlePattern(needle: string): string {
   return exact ? `${words}(?![\\p{L}\\p{N}])` : `${words}[\\p{L}\\p{N}]*`;
 }
 
+/**
+ * Split `text` into segments, flagging the words that start with one of `terms`, or that
+ * are one of them for a term made by {@link wholeWord}.
+ * Matching is accent- and case-insensitive; the original text is preserved. The words of
+ * a term of several words may be separated by any punctuation, as a phrase matches them:
+ * "self supervised" flags "self-supervised".
+ */
 export function highlight(text: string, terms: readonly string[]): Segment[] {
   const needles = [...new Set(terms.map(fold).filter((term) => term.length > 1))];
   if (needles.length === 0 || !text) return [{ text, match: false }];

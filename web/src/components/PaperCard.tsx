@@ -33,6 +33,8 @@ function matches(text: string, terms: readonly string[]): boolean {
 interface Props {
   paper: Paper;
   highlights: readonly string[];
+  /** The names filtered on, highlighted in the author and affiliation lines only (SRCH-8). */
+  nameHighlights: readonly string[];
   showAbstract: boolean;
   saved: boolean;
   /** Marked seen by the reader: dimmed in the list. */
@@ -63,6 +65,7 @@ interface Props {
 export function PaperCard({
   paper,
   highlights,
+  nameHighlights,
   showAbstract,
   saved,
   seen,
@@ -94,9 +97,11 @@ export function PaperCard({
     expanded || paper.authors.length <= MAX_AUTHORS_COLLAPSED
       ? paper.authors
       : paper.authors.slice(0, MAX_AUTHORS_COLLAPSED);
+  // Names are marked with the search words and the names filtered on.
+  const nameTerms = [...highlights, ...nameHighlights];
   // Matching affiliations first, so that a filtered one is never hidden behind "+N".
   const allAffiliations = [...(paper.affiliations ?? [])].sort(
-    (a, b) => Number(matches(b, highlights)) - Number(matches(a, highlights)),
+    (a, b) => Number(matches(b, nameTerms)) - Number(matches(a, nameTerms)),
   );
   const affiliations = expanded
     ? allAffiliations
@@ -170,7 +175,7 @@ export function PaperCard({
                 title="Show papers by this author"
                 onClick={() => onAuthor(author)}
               >
-                <Highlighted text={author} terms={highlights} />
+                <Highlighted text={author} terms={nameTerms} />
               </button>
             </span>
           ))}
@@ -190,7 +195,7 @@ export function PaperCard({
                   title="Show papers from this affiliation"
                   onClick={() => onAffiliation(affiliationFilter(paper, affiliation))}
                 >
-                  <Highlighted text={affiliation} terms={highlights} />
+                  <Highlighted text={affiliation} terms={nameTerms} />
                 </button>
               </span>
             ))}

@@ -40,6 +40,7 @@ import {
   facetCounts,
   mostlyTied,
   NO_FILTERS,
+  nameHighlights,
   parseQuery,
   type SearchResult,
   valueCounts,
@@ -227,6 +228,7 @@ export function App() {
   // Rising papers, once two weekly refreshes of the counts are known (CIT-9).
   const gainsSpan = citations.gainsSpan;
   const rising = state.sort === "rising" && gainsSpan !== null;
+  const nameTerms = useMemo(() => nameHighlights(state.filters), [state.filters]);
   // The feed of the institution or major venue the papers are filtered on (§17.1 #6).
   const feed = state.view === "papers" && category ? feedOf(category, state.filters) : null;
   const gainOf = (arxivId: string) => {
@@ -878,6 +880,7 @@ export function App() {
                 )}
               <PaperList
                 results={results}
+                nameHighlights={nameTerms}
                 groupByDay={groupByDay}
                 openId={state.paper}
                 linkTo={linkTo}

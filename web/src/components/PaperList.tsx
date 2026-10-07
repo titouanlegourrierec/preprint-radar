@@ -11,6 +11,8 @@ const PAGE_SIZE = 40;
 
 interface Props {
   results: SearchResult[];
+  /** The names filtered on, which cards mark in their author and affiliation lines. */
+  nameHighlights: readonly string[];
   /** Insert a heading before each day; needs results in announcement order. */
   groupByDay: boolean;
   /** Paper of a shared `?paper=` link: its card is expanded and scrolled into view. */
@@ -37,6 +39,7 @@ interface Props {
 /** Render results incrementally: the next page is added when the end of the list is visible. */
 export function PaperList({
   results,
+  nameHighlights,
   groupByDay,
   openId,
   linkTo,
@@ -133,6 +136,7 @@ export function PaperList({
       key={paper.arxiv_id}
       paper={paper}
       highlights={highlights}
+      nameHighlights={nameHighlights}
       showAbstract={showAbstracts}
       saved={savedIds.has(paper.arxiv_id)}
       seen={seenIds?.has(paper.arxiv_id) ?? false}

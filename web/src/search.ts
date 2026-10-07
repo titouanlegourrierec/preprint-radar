@@ -286,9 +286,10 @@ export class PaperIndex {
     const filtered = results.filter(
       ({ paper }) => matchesFilters(paper, filters) && this.matchesConstraints(paper, query),
     );
-    const extraHighlights = [...query.phrases, ...filterHighlights(filters)];
+    // The names filtered on are highlighted apart, in the author and affiliation lines only
+    // (`nameHighlights`): "Li" would mark "lightweight" in a title.
     for (const result of filtered) {
-      result.highlights.push(...extraHighlights);
+      result.highlights.push(...query.phrases);
     }
     return filtered.sort(
       sort === "relevance" && typedTerms.length
@@ -414,14 +415,20 @@ export function matchesFilters(paper: Paper, filters: SearchFilters): boolean {
   );
 }
 
-function filterHighlights(filters: SearchFilters): string[] {
-  return [filters.author, filters.affiliation].flatMap((filter) =>
-    filter
-      ? fold(filter.text)
-          .split(/\s+/)
-          .filter((word) => word && !STOP_WORDS.has(word))
-      : [],
-  );
+/**
+ * What the author and affiliation filters highlight, in the author and affiliation lines
+ * of a card (SRCH-8): a clicked name as a whole (`Hao Li`, not every word starting with
+ * "li"), typed text as word starts, as it matches. An affiliation filtered through its
+ * institution's name ("CMU" for Carnegie Mellon University) is not marked.
+ */
+export function nameHighlights(filters: SearchFilters): string[] {
+  return [filters.author, filters.affiliation].flatMap((filter) => {
+    if (!isActive(filter)) return [];
+    if (filter.exact) return [wholeWord(fold(filter.text).trim())];
+    return fold(filter.text)
+      .split(/\s+/)
+      .filter((word) => word && !STOP_WORDS.has(word));
+  });
 }
 
 /** Most frequent values of a multi-valued field among papers. */
