@@ -433,9 +433,12 @@ function filterNeedles(filter: NameFilter | null): string[] {
   if (!isActive(filter)) return [];
   // The filters compare `searchKey`s, whose punctuation the needle's words may stand
   // across: "Julia A. Schnabel" marks "Julia A Schnabel", "Xi'an" marks "Xi’an".
-  const key = searchKey(filter.text);
-  if (filter.exact) return [wholeWord(key)];
-  return key.split(" ").filter((word) => !STOP_WORDS.has(word));
+  if (filter.exact) return [wholeWord(searchKey(filter.text))];
+  // Each typed word whole, its own punctuation included: "AT&T" is one needle ("at t").
+  return filter.text
+    .split(/\s+/)
+    .map(searchKey)
+    .filter((word) => word && !STOP_WORDS.has(word));
 }
 
 /**

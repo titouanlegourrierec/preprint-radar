@@ -377,6 +377,17 @@ describe("PaperIndex", () => {
     expect(marked("Some Lab")).toEqual(["Lab"]);
   });
 
+  it("keeps a typed word whole across its punctuation", () => {
+    const marked = (typedText: string, text: string) =>
+      highlight(text, nameHighlights({ ...NO_FILTERS, affiliation: typed(typedText) }).affiliations)
+        .filter((segment) => segment.match)
+        .map((segment) => segment.text);
+    expect(marked("AT&T", "AT&T Labs Research")).toEqual(["AT&T"]);
+    expect(marked("Xi'an", "Xi\u2019an Jiaotong University")).toEqual(["Xi\u2019an"]);
+    expect(marked("Jean-Luc", "Luca Rossi")).toEqual([]);
+    expect(marked("Jean-Luc", "Jean-Luc Starck")).toEqual(["Jean-Luc"]);
+  });
+
   it("matches a clicked name across its punctuation, as the filter does", () => {
     const marked = (name: string, text: string) =>
       highlight(text, nameHighlights({ ...NO_FILTERS, author: exactly(name) }).authors)
