@@ -25,9 +25,9 @@ reading list exported as BibTeX.
 | Title, authors, subjects, comments, links | `https://arxiv.org/list/<category>/recent` (last 5 announcement days); `https://arxiv.org/catchup/<category>/<date>` for older days |
 | Abstract                      | The category RSS feed (latest day, one request), then the catchup page of each older day (one request per day); the arXiv API and the paper's HTML rendering as last resorts |
 | Affiliations                  | Submitter-declared affiliations from the API when present; otherwise the front matter of the paper's HTML rendering |
-| Institution of each affiliation | The [Research Organization Registry](https://ror.org) (ROR) affiliation matching, when confident; otherwise the web app's own rules (acronyms, companies, departments) |
+| Institution of each affiliation | The [Research Organization Registry](https://ror.org) (ROR) affiliation matching, when confident; otherwise the pipeline's own rules (acronyms, companies, the main part of an address) |
 | Citations (archive)           | [Semantic Scholar](https://www.semanticscholar.org) citation counts, weekly; papers older than 12 months from arXiv's OAI-PMH, with affiliations from [OpenAlex](https://openalex.org) |
-| Venue                         | Detected in the comments and journal reference ("Accepted to ECCV 2026", "BMVC2026", …); submissions and papers under review are ignored |
+| Venue                         | Detected in the comments and journal reference ("Accepted to ECCV 2026", "BMVC2026", …); submissions and papers under review are ignored. Else where Semantic Scholar says it was published, with its DOI |
 
 Affiliations are **best effort**: arXiv metadata rarely includes them, and the HTML
 front matter depends on each paper's LaTeX class. They are read from the affiliation and
@@ -70,28 +70,34 @@ In the web app, the search box supports prefix and typo-tolerant matching,
 comments. The *Period* calendar picks the latest days, one day or a range of days (it shows
 how many papers each day has). The *Author* and *Affiliation* fields filter by name (partial,
 case- and accent-insensitive, with suggestions); clicking a name on a paper fills them.
-The *Venue* filter keeps the papers accepted at one venue, or at any (major venues first, then alphabetically). With search
+The *Venue* filter keeps the papers accepted at one venue, every edition of one ("CVPR, any
+year"), or any venue (major venues first, then alphabetically); *With code* keeps the papers
+that link a repository (GitHub, GitLab) or models and data on Hugging Face. With search
 words, results are sorted by relevance: MiniSearch's BM25 score, where rarer words weigh
 more and matches count most in the title (×3), then authors (×2), affiliations (×1.5),
 abstract (×1) and comments (×0.5). Without search words (or sorted by newest), the papers
 of each announcement day fold under a heading. Searches are encoded in the URL, so they
 can be shared;
 *Share* on a paper copies a link that opens that paper alone, expanded, on its announcement
-day, and *Graph* opens the graph centered on it, with its details. The ◐ button next to
+day, and *Graph* opens the graph centered on it, with its details. A card links its *Code*
+when it has some, and, unfolded, its related work on Semantic Scholar, Connected Papers and
+alphaXiv. The ◐ button next to
 the tabs switches between the automatic, light and dark themes.
 
-The *Highly cited* tab shows the archive one year at a time (by year of first version),
-ranked by citation count; search words and filters narrow it down. Papers show their
-citation count wherever it is known (0 for most new papers), and the papers list can be
-sorted by it (*Most cited*).
+The *Highly cited* tab shows the archive by year of first version, one year, a range of
+years or all of them, ranked by citation count; search words and filters narrow it down.
+Past 10,000 papers (all years hold about 22,000), it keeps the best ranked by citations per
+year of age and says how many it leaves out. Papers show their citation count wherever it
+is known (0 for most new papers), and what they gained in the last week ("+12 this
+week"); the lists can be sorted by either (*Most cited*, *Rising*).
 
 The *Rankings* tab lists the institutions or the authors of the papers shown — the recent
-days or an archive year, narrowed by the search and filters — by number of papers or by
+days or archive years, narrowed by the search and filters — by number of papers or by
 citations, with each one's most cited paper; a name opens its papers. "Who works on
 gaussian splatting this month?" or "which labs wrote the most cited papers of 2017?".
 
 The *Graph* tab is a full-screen map of the loaded papers (the recent days, or the highly
-cited papers of one year, chosen under *From*), their institutions and
+cited papers of some years, chosen under *From*), their institutions and
 (optionally) their authors. By default it shows papers (squares) linked to their
 institutions; with authors on, a paper links to its authors, and an institution to the
 authors the paper places there. Without papers, it becomes a collaboration map: institutions
@@ -99,13 +105,20 @@ and authors linked when they appear on the same paper. Variants of an institutio
 merged approximately ("Google, Switzerland" and "Google", "CMU" and "Carnegie Mellon
 University", "Microsoft Research Asia" and "Microsoft"); a department or an address on its
 own makes no node. Drag, scroll to zoom, click a
-node to see its details, double-click it to list its papers (or open the paper). The
+node to see its details (each of its connections lists the papers they share), double-click
+it to list its papers (or open the paper); *Focus on this* shows the graph of a node's
+papers alone, with whom an institution or an author publishes. The
 *Graph settings* panel chooses the period (same calendar), restricts the graph to papers
 matching some words, highlights nodes by name or title (`/`), shows or hides papers,
 institutions, authors and isolated nodes, sets a minimum number of papers per institution
 or author or a maximum number of them (all by default), tunes the forces and labels, and
-replays how the graph grew day by day. An institution's or author's area grows with its
-number of papers. Settings are remembered in the browser.
+replays how the graph grew day by day, and saves it as PNG or GraphML (for Gephi). An
+institution's or author's area grows with its number of papers. Settings are remembered in
+the browser.
+
+Every institution of the recent papers, and each major venue, has an Atom feed of its
+papers of the last 60 days (`feeds/<category>/…`, built with the site): a list filtered on
+one links it, for a feed reader.
 
 `backfill` collects past days (weekends are skipped quickly) and saves each day with its
 abstracts before reading the HTML pages for affiliations, most recent day first; stopping

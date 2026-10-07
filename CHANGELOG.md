@@ -1,8 +1,10 @@
 # Changelog
 
 One minor release per phase of [`docs/roadmap.md`](docs/roadmap.md), and one per set of
-features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`DATA-2`, `CIT-11`…) refer to the audit of 2026-09-30
-([`docs/audit/2026-09-30.md`](docs/audit/2026-09-30.md)).
+features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`DATA-2`,
+`CIT-11`…) refer to the audit of 2026-09-30
+([`docs/audit/2026-09-30.md`](docs/audit/2026-09-30.md)), or, for items found since
+(`PROD-17`, `UX-24`…), to [`docs/roadmap.md`](docs/roadmap.md).
 
 ## Unreleased
 
