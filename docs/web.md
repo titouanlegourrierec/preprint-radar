@@ -41,8 +41,9 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   `severalPeople`). Their papers stay counted together. Over the whole store, 1,304 names
   get it: Wei Wang 8, Hao Li 5; Luc Van Gool, Dacheng Tao one each, and Kaiming He 2, a
   7-paper profile sharing nothing with the other.
-- The list sorts by relevance, newest or citations (`?sort=citations`: the index orders
-  them like newest and `byCitations` ranks them).
+- The list sorts by relevance, newest, citations or citations gained (`?sort=citations`,
+  `?sort=rising`: the index orders them like newest and `byCitations` or `byGains` ranks
+  them).
 - "With code" (`?code=1`, PROD-12) keeps the papers whose abstract or comments link a
   repository on GitHub or GitLab, else models or data on Hugging Face (`code.ts`), which
   their card links: 918 of 4,832 stored papers, nearly all "Code is available at". A
@@ -71,6 +72,26 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
 - The tabs are links, including `?paper=`: a paper permalink in the list, the focused
   paper in the graph. `paperLink` sends an archived paper to its year of the Highly cited
   view, since it has no day file. Share copies the link and changes nothing else.
+- The parameters, all optional (`readState`, `writeState`; a default value is left out of
+  the link, and a value the app does not know reads as the default):
+
+  | Parameter | Holds | Default | Read by |
+  | --- | --- | --- | --- |
+  | `q` | The search words | none | every list, the graph |
+  | `cat` | The category | the store's first | every view |
+  | `from`, `to` | A period of days (`from` alone: one day) | `range` | the Papers view, the graph and Rankings without `year` |
+  | `range` | A preset: `1`, `5`, `20`, `40` days (`all`, from old links, is `40`) | `5` | the same |
+  | `sort` | `relevance`, `newest`, `citations`, `rising` | `relevance` | the lists |
+  | `view` | `papers`, `cited`, `graph`, `rankings`, `reading-list`, `about` | `papers` | every view |
+  | `paper` | An arXiv id: the paper opened (a list) or selected (the graph) | none | the lists, the graph |
+  | `year` | Archive years: `2017`, `2019-2021`, `all` | the latest year in Highly cited, the recent days elsewhere | Highly cited, the graph, Rankings |
+  | `focus` | A graph node id, `institution:mit`: its papers alone | none | the graph (other views drop it) |
+  | `by`, `at` | An author or an institution, as clicked: that name only | none | the lists, Rankings |
+  | `author`, `aff` | Typed author or affiliation text: word starts (old links' `by` and `at`) | none | the same |
+  | `venue` | A venue (`ECCV 2026`), a family (`ECCV*`) or any (`*`) | none | the lists, the graph |
+  | `subject` | A primary subject (`Machine Learning (cs.LG)`) | none | the lists |
+  | `xl` | `0`: cross-lists hidden | shown | the lists |
+  | `code` | `1`: papers that link their code | all | the lists |
 
 ## Periods and loading (`period.ts`, `data.ts`, `hooks/use-papers.ts`)
 

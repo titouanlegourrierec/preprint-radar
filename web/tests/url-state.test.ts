@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import docs from "../../docs/web.md?raw";
 import { ALL_YEARS, oneYear } from "../src/archive-years";
 import { exactly, typed } from "../src/search";
 import {
@@ -10,6 +11,7 @@ import {
   readState,
   writeState,
 } from "../src/url-state";
+import source from "../src/url-state.ts?raw";
 
 describe("url state", () => {
   it("omits defaults", () => {
@@ -220,5 +222,19 @@ describe("listKey", () => {
     expect(
       listKey({ ...DEFAULT_STATE, filters: { ...DEFAULT_STATE.filters, withCode: true } }, ""),
     ).not.toBe(base);
+  });
+});
+
+describe("the URL's parameters", () => {
+  it("are all documented in docs/web.md", () => {
+    const read = new Set([
+      ...[...source.matchAll(/params\.get\("(\w+)"\)/g)].map((match) => match[1]),
+      ...[...source.matchAll(/readName\(params, "(\w+)", "(\w+)"\)/g)].flatMap((match) => [
+        match[1],
+        match[2],
+      ]),
+    ]);
+    expect(read.size).toBeGreaterThan(15);
+    for (const name of read) expect(docs).toContain(`\`${name}\``);
   });
 });
