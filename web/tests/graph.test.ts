@@ -579,6 +579,32 @@ describe("linkPapers", () => {
   });
 });
 
+describe("nodeConnections order", () => {
+  it("puts the most shared first, then the node of more papers", () => {
+    // Inria shares one paper with Google and one with MIT; MIT has two papers of its own.
+    const tied = [
+      makePaper({ arxiv_id: "1", affiliations: ["Inria", "Google"] }),
+      makePaper({ arxiv_id: "2", affiliations: ["Inria", "MIT"] }),
+      makePaper({ arxiv_id: "3", affiliations: ["MIT"] }),
+    ];
+    const options: GraphOptions = { ...INSTITUTIONS, papers: true, isolated: true };
+    const graph = buildGraph(tied, options);
+    const inria = graph.nodes.find((node) => node.id === "institution:inria");
+    if (!inria) throw new Error("no Inria");
+    expect(
+      nodeConnections(graph, inria, entitiesByPaper(graph), 10).map(({ node }) => node.id),
+    ).toEqual(["institution:mit", "institution:google"]);
+    // In the projection too, by weight then papers.
+    const projection = buildGraph(tied, { ...INSTITUTIONS, isolated: true });
+    const inriaAgain = projection.nodes.find((node) => node.id === "institution:inria");
+    if (!inriaAgain) throw new Error("no Inria");
+    expect(nodeConnections(projection, inriaAgain, null, 10).map(({ node }) => node.id)).toEqual([
+      "institution:mit",
+      "institution:google",
+    ]);
+  });
+});
+
 describe("nodeConnections", () => {
   it("are the entities a node shares papers with, when papers are nodes", () => {
     const options: GraphOptions = { ...INSTITUTIONS, papers: true, authors: true };

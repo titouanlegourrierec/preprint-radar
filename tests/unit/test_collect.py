@@ -750,16 +750,18 @@ def test_format_report_counts_papers_without_a_page_apart() -> None:
 
 
 def test_a_paper_without_a_page_is_not_pending(fake: FakeArxiv, store: PaperStore) -> None:
+    # 2609.30245 without its HTML rendering: no run can read its affiliations.
+    fake.listing_html = fake.listing_html.replace('href="https://arxiv.org/html/2609.30245v1"', "")
     with fake.client() as site, fake.client() as api:
         report = update_category("cs.CV", store=store, site_client=site, api_client=api)
-    stored = list(store.iter_papers("cs.CV"))
-    without = sum(paper.affiliations is None and paper.html_url is None for paper in stored)
+    stored = {paper.arxiv_id: paper for paper in store.iter_papers("cs.CV")}
 
-    assert report.no_page == without
-    assert report.pending == sum(
-        paper.abstract is None or (paper.affiliations is None and paper.html_url is not None)
-        for paper in stored
-    )
+    assert stored["2609.30245"].html_url is None
+    assert stored["2609.30245"].affiliations is None
+    assert report.no_page == 1
+    # Pending: the paper whose page could not be read this time, which a later run reads.
+    unread = [arxiv_id for arxiv_id, paper in stored.items() if paper.affiliations is None and paper.html_url]
+    assert report.unreadable == len(unread) == report.pending == 1
 
 
 STORED = Paper(

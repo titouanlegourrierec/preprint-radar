@@ -222,7 +222,7 @@ out of Highly cited (decision 18). Reading lists keep the flag.
   settings (DEBT-3).
 - `graph-layout.ts` gives starting positions (each connected component in one piece, on a
   spiral); `graph-renderer.ts` draws on a canvas and handles the pointer (an imperative
-  class); `components/GraphView.tsx` and `GraphSettingsPanel.tsx` are the UI. It is full
+  class); `components/GraphView.tsx` and the components above are the UI. It is full
   screen, without the search bar and sidebar, and shows every node unless the user sets a
   limit.
 - The force layout runs off the main thread (PERF-2): `graph-simulation.ts` is d3-force

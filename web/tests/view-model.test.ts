@@ -57,6 +57,18 @@ describe("viewModel", () => {
     ).toEqual(["citations", "rising"]);
   });
 
+  it("offers no list controls in Rankings, the graph or About", () => {
+    for (const view of ["rankings", "graph", "about"] as const) {
+      expect(viewModel(state({ view }), words)).toMatchObject({
+        sorts: [],
+        relevanceHelp: false,
+        toggles: false,
+        exports: false,
+        triaged: false,
+      });
+    }
+  });
+
   it("shows archive years in the graph and Rankings only when the URL has some", () => {
     expect(viewModel(state({ view: "rankings" }), none)).toMatchObject({
       rankings: true,
