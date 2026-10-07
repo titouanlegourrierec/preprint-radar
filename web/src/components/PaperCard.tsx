@@ -162,8 +162,10 @@ export function PaperCard({
     <article
       ref={root}
       class={`paper${expanded ? " paper--expanded" : ""}${isTarget ? " paper--target" : ""}${seen ? " paper--seen" : ""}`}
-      // Focused by the j and k keys of the list, which then act on this paper.
+      // Focused by the j and k keys of the list, which then act on this paper: named by
+      // its title, which a screen reader then says.
       tabIndex={-1}
+      aria-labelledby={titleId}
       data-arxiv-id={paper.arxiv_id}
     >
       <div class="paper__main">
