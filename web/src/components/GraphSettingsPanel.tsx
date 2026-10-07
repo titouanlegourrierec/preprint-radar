@@ -326,7 +326,7 @@ export function GraphSettingsPanel(props: Props) {
               </p>
             )}
             <label class="ctl-select">
-              <span>Max nodes</span>
+              <span>Top institutions &amp; authors</span>
               <select
                 value={settings.maxNodes}
                 onChange={(event) => onSettings({ maxNodes: Number(event.currentTarget.value) })}

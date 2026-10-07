@@ -528,7 +528,7 @@ export function GraphView(props: Props) {
         onReset={() => changeSettings(DEFAULT_GRAPH_SETTINGS)}
       />
 
-      <GraphLegend graph={graph} counts={counts} />
+      <GraphLegend graph={graph} counts={counts} cap={settings.maxNodes} />
       <p class="graph__hint">
         {coarse
           ? "drag · pinch to zoom · tap = details · double-tap = open in the list"

@@ -56,6 +56,8 @@ export interface Graph {
   links: GraphLink[];
   /** Whether nodes were dropped because of `maxNodes`. */
   truncated: boolean;
+  /** Institutions and authors with enough papers, before `maxNodes` keeps the first. */
+  eligible: number;
   /** Papers whose authors are not linked to one another: more than `MAX_CLIQUE_AUTHORS`. */
   consortia: number;
 }
@@ -216,6 +218,7 @@ export function buildGraph(papers: Paper[], options: GraphOptions): Graph {
     nodes: options.isolated ? shown : shown.filter((node) => linked.has(node.id)),
     links,
     truncated: eligible.length > kept.length,
+    eligible: eligible.length,
     consortia,
   };
 }

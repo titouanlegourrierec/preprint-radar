@@ -107,6 +107,7 @@ describe("buildGraph", () => {
     expect(graph.nodes.map((node) => node.label)).toEqual(["Google"]);
     expect(graph.links).toEqual([]);
     expect(graph.truncated).toBe(true);
+    expect(graph.eligible).toBe(2);
   });
 
   it("adds authors when requested, with their own threshold", () => {

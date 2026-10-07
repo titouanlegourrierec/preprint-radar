@@ -241,6 +241,8 @@ out of Highly cited (decision 18). Reading lists keep the flag.
   Shift+Enter go through all the matches, which a status line counts ("3 of 500 matches:
   MIT"). The canvas's label counts its nodes and links, and its description points to
   Rankings, the same institutions and authors as a table.
+- "Top institutions & authors" (`maxNodes`) keeps the most frequent institutions and authors,
+  never papers, and the legend says how many it leaves out (`Graph.eligible`, UX-20).
 - Turning authors on hides authors of a single paper (`authorLayer`, "Author ≥ papers" at
   2, with a note): they are most of the nodes. The time-lapse stops at every day, or at
   the last day of each week or month when there are more than 60 (`replaySteps`): an

@@ -25,6 +25,7 @@ describe("toGraphML", () => {
     ],
     links: [{ source: "institution:mit", target: "author:ada & bob", weight: 1 }],
     truncated: false,
+    eligible: 2,
     consortia: 0,
   };
 

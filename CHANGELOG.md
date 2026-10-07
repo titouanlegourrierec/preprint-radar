@@ -74,6 +74,8 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ### Graph
 
+- The graph's cap says what it does, "Top institutions & authors", and its legend how
+  many it leaves out ("top 100 of 5,993") (UX-20).
 - Each connection of a node lists the papers they share ("what did MIT and Google write
   together"), "Focus on this" shows the graph of a node's papers alone, with a link to
   share it, and the graph saves as PNG or GraphML for Gephi (§17.1 #8).

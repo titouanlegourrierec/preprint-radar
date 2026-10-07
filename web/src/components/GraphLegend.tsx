@@ -7,8 +7,20 @@ const KINDS = [
   ["author", "Authors"],
 ] as const;
 
-/** What the graph draws: its nodes of each kind, its links, the consortia left unlinked. */
-export function GraphLegend({ graph, counts }: { graph: Graph; counts: Record<NodeKind, number> }) {
+/**
+ * What the graph draws: its nodes of each kind, its links, the institutions and authors the
+ * cap leaves out, the consortia left unlinked.
+ */
+export function GraphLegend({
+  graph,
+  counts,
+  cap,
+}: {
+  graph: Graph;
+  counts: Record<NodeKind, number>;
+  /** The settings' "Top institutions & authors", when it cut some (UX-20). */
+  cap: number;
+}) {
   return (
     <div class="graph__legend">
       {KINDS.map(
@@ -21,6 +33,12 @@ export function GraphLegend({ graph, counts }: { graph: Graph; counts: Record<No
           ),
       )}
       <span>{countOf(graph.links.length, "link")}</span>
+      {graph.truncated && (
+        <span>
+          top {cap.toLocaleString()} of{" "}
+          {countOf(graph.eligible, "institution and author", "institutions and authors")}
+        </span>
+      )}
       {graph.consortia > 0 && (
         <span>
           {countOf(graph.consortia, "paper")} of over {MAX_CLIQUE_AUTHORS} authors, whose authors
