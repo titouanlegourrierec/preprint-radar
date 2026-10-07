@@ -1,6 +1,7 @@
 import { useEffect, useState } from "preact/hooks";
 import { formatYears, parseYears, shownYears, type YearRange, yearsIn } from "../archive-years";
 import { loadArchiveYears, loadDays, loadIndex } from "../data";
+import { loadingLine } from "../format";
 import { PAPER_BUDGET, type Period, periodKey, periodOfKey, selectDays } from "../period";
 import { PaperIndex } from "../search";
 import type { ArchiveSummary, DaySummary, Paper, StoreIndex } from "../types";
@@ -129,6 +130,16 @@ export function usePapers(
     /** Years of those whose citation counts did not load: their papers ranked last. */
     archiveUnranked: archived ? leftOut.unranked : 0,
     load,
+    /**
+     * What a load in progress says ("Loading 3,646 papers of 5 days…"), counted in the
+     * index: the days `selectDays` keeps, or the archive's years, as the effect loads them
+     * (UX-6).
+     */
+    loadingLine: loadingLine(
+      archived
+        ? { years: archiveRange === null ? [] : yearsIn(archiveRange, archiveYears) }
+        : { days: selectDays(storeDays, period) },
+    ),
     /** The papers loaded, once a search over them costs no indexing; else `null`. */
     searchable: load.status === "ready" && warmed === load.index ? load.index : null,
     retry: () => setAttempt((count) => count + 1),

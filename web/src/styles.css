@@ -1034,6 +1034,13 @@ html {
   pointer-events: none;
 }
 
+/* A failed load over the empty canvas: the overlay lets clicks through, its Retry takes them. */
+.graph__error {
+  margin: 0;
+  background: var(--surface);
+  pointer-events: auto;
+}
+
 /* Floating cards: settings (top right) and details (top left). */
 .graph-settings,
 .graph__details {

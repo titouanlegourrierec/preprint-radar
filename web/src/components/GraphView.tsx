@@ -49,8 +49,11 @@ const LISTED_MATCHES = 10;
 interface Props {
   /** Papers the graph is built from. */
   papers: Paper[];
-  /** Why there is nothing to show yet, if so. */
-  notice: string | null;
+  /**
+   * Why there is nothing to show yet, if so: what is loading ("Loading 3,646 papers of 5
+   * days…"), or why the papers did not load, with a way to try again.
+   */
+  notice: { loading: string } | { error: string; onRetry: () => void } | null;
   categories: string[];
   category: string;
   onCategory: (category: string) => void;
@@ -369,18 +372,22 @@ export function GraphView(props: Props) {
     const blob = await rendererRef.current?.toPng();
     if (blob) downloadBlob(`${fileName}.png`, blob);
   };
+  const failed = props.notice !== null && "error" in props.notice ? props.notice : null;
   const emptyMessage =
-    props.notice ??
-    (focusEmpty
-      ? null
-      : papers.length === 0
-        ? "No paper matches these settings."
-        : graph.nodes.length > 0
-          ? null
-          : kinds.length === 0
-            ? "Turn on institutions or authors in the graph settings."
-            : `No ${kinds.join(" or ")} to show: affiliations are known so far for ` +
-              `${affiliatedCount.toLocaleString()} of ${countOf(shownPapers.length, "paper")}.`);
+    props.notice !== null
+      ? "loading" in props.notice
+        ? props.notice.loading
+        : null
+      : focusEmpty
+        ? null
+        : papers.length === 0
+          ? "No paper matches these settings."
+          : graph.nodes.length > 0
+            ? null
+            : kinds.length === 0
+              ? "Turn on institutions or authors in the graph settings."
+              : `No ${kinds.join(" or ")} to show: affiliations are known so far for ` +
+                `${affiliatedCount.toLocaleString()} of ${countOf(shownPapers.length, "paper")}.`;
 
   return (
     <main class="graph" id="main">
@@ -448,7 +455,23 @@ export function GraphView(props: Props) {
         </button>
       </fieldset>
 
-      {emptyMessage && <p class="graph__empty">{emptyMessage}</p>}
+      {failed ? (
+        // As the list says it (UX-6): the error, and Retry, which loads again what failed.
+        <div class="graph__empty">
+          <p class="notice notice--error graph__error" role="alert">
+            Could not load the papers: {failed.error}.{" "}
+            <button type="button" class="link-button" onClick={failed.onRetry}>
+              Retry
+            </button>
+          </p>
+        </div>
+      ) : (
+        emptyMessage && (
+          <p class="graph__empty" role="status">
+            {emptyMessage}
+          </p>
+        )
+      )}
 
       {focusLabel && (
         <p class="graph__focus" role="status">

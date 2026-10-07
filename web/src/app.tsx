@@ -77,6 +77,7 @@ export function App() {
     archiveLeftOut,
     archiveUnranked,
     load,
+    loadingLine,
     searchable,
     retry,
     generatedAt,
@@ -232,7 +233,7 @@ export function App() {
   const lastUpdate = generatedAt ? formatDay(generatedAt) : null;
   const archiveAsOf = generatedAt ? new Date(generatedAt) : undefined;
   // What the header counts: the saved papers, an archive's years, or the period's papers.
-  const count: CountLine | "loading" | null =
+  const count: CountLine | { loading: string } | null =
     state.view === "reading-list"
       ? { shown: results.length, total: readingList.papers.length, noun: "saved paper" }
       : load.status === "ready" && archived && archiveRange !== null
@@ -250,7 +251,7 @@ export function App() {
               ...(hiddenCount > 0 && { tail: ` · ${seenHidden(hiddenCount).count}` }),
             }
           : load.status === "loading"
-            ? "loading"
+            ? { loading: loadingLine }
             : null;
   // The graph shows the loaded papers; a saved paper from elsewhere brings its day, or
   // its archive year when it is older than the days kept.
@@ -339,9 +340,9 @@ export function App() {
             onFocus={(focus) => update({ focus })}
             notice={
               load.status === "loading"
-                ? "Loading papers…"
+                ? { loading: loadingLine }
                 : load.status === "error"
-                  ? `Could not load papers: ${load.message}`
+                  ? { error: load.message, onRetry: retry }
                   : null
             }
             categories={categories}

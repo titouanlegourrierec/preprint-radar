@@ -48,8 +48,11 @@ const SORT_LABELS: Record<SortChoice, string> = {
 
 interface Props {
   model: ViewModel;
-  /** What the header counts; `null` while there is nothing to count. */
-  count: CountLine | "loading" | null;
+  /**
+   * What the header counts, or what is loading ("Loading 3,646 papers of 5 days…");
+   * `null` while there is nothing to count.
+   */
+  count: CountLine | { loading: string } | null;
   onSort: (sort: SortChoice) => void;
   /** Where the counts come from, for Most cited's tooltip. */
   citationsNote: string | undefined;
@@ -96,7 +99,7 @@ export function ResultsHeader(props: Props) {
   return (
     <div class="results__header">
       <p class="muted" aria-live="polite">
-        {count === "loading" ? "Loading papers…" : count && countText(count)}
+        {count && ("loading" in count ? count.loading : countText(count))}
       </p>
       {model.sorts.length > 0 && (
         <fieldset class="segmented">

@@ -6,6 +6,7 @@ import {
   formatDay,
   formatShortDay,
   gainLabel,
+  loadingLine,
   seenHidden,
   subjectCode,
 } from "../src/format";
@@ -70,6 +71,41 @@ describe("countOf", () => {
     expect(countOf(10_000, "paper")).toBe(`${(10_000).toLocaleString()} papers`);
     expect(countOf(2, "person", "people")).toBe("2 people");
     expect(countOf(1, "person", "people")).toBe("1 person");
+  });
+});
+
+describe("loadingLine", () => {
+  it("counts the papers of the days a period loads", () => {
+    const days = [
+      { date: "2026-09-25", count: 2143 },
+      { date: "2026-09-24", count: 1503 },
+    ];
+    expect(loadingLine({ days })).toBe(`Loading ${(3646).toLocaleString()} papers of 2 days…`);
+    expect(loadingLine({ days: days.slice(1) })).toBe(
+      `Loading ${(1503).toLocaleString()} papers of ${formatDay("2026-09-24")}…`,
+    );
+    expect(loadingLine({ days: [{ date: "2026-09-26", count: 1 }] })).toMatch(
+      /^Loading 1 paper of .+2026…$/,
+    );
+  });
+
+  it("counts the highly cited papers of the archive's years, all of them downloaded", () => {
+    expect(loadingLine({ years: [{ year: 2024, count: 3407 }] })).toBe(
+      `Loading ${(3407).toLocaleString()} highly cited papers of 2024…`,
+    );
+    const years = [
+      { year: 2025, count: 12_000 },
+      { year: 2024, count: 3407 },
+      { year: 2023, count: 6762 },
+    ];
+    expect(loadingLine({ years })).toBe(
+      `Loading ${(22_169).toLocaleString()} highly cited papers of 3 years…`,
+    );
+  });
+
+  it("says only that papers load while there is nothing to count", () => {
+    expect(loadingLine({ days: [] })).toBe("Loading papers…");
+    expect(loadingLine({ years: [] })).toBe("Loading papers…");
   });
 });
 

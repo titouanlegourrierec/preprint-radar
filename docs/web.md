@@ -135,6 +135,14 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   else the recent days; the tabs carry the years from the Highly cited view, and the
   Papers tab clears them. A graph of archive years lists its papers ("Show all",
   double-click, "Open in the list") in Highly cited over the same years, as Rankings does.
+- While a view loads, the results header and the graph say how many papers of what, from
+  the counts of `index.json`, which has no file sizes (`format.ts`, `loadingLine`):
+  "Loading 3,646 papers of 5 days…" for the days `selectDays` keeps, "Loading 3,407
+  highly cited papers of 2024…" or "… of 16 years…" for archive years, all of whose
+  papers are downloaded before the budget keeps the best ranked; "Loading papers…" until
+  the index arrives. A failed load says why, as an alert with a Retry button, in the lists
+  and the graph alike (UX-6): Retry loads again what failed, the index or the papers.
+  `loadErrorMessage` reads "Failed to fetch" as "the network or the site did not answer".
 
 ## What the build derives from `data/` (`vite.config.ts`, `tooling/`)
 
