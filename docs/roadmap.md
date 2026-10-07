@@ -39,13 +39,13 @@ for the answer.
 | 8 | License and data terms | MIT for the code; read the Semantic Scholar terms before going public | REL-3 | MIT for the code (2026-10-01); Semantic Scholar's terms checked, its data can be published (2026-10-06) |
 | 9 | Visibility, contact and Actions bill | Confirm the private repository with a public site; choose the correction contact | SEC-9 | Correction contact: titouanlegourrierec@kaist.ac.kr (2026-10-01) |
 | 10 | Primary persona | The daily cs.CV follower | Phase 2 order | Both, the daily follower and the literature search: Phase 2 goes by priority and dependencies, search first (2026-10-03) |
-| 11 | Multi-category | Stay single-category until Phase 3 is done | ARCH-4 | pending |
-| 12 | Institution canonicalization | Move the web rules into the pipeline, with ROR ids | AFF-13 | pending |
-| 13 | Author identity | A homonym hint now, Semantic Scholar ids after the META-1 spike | AFF-H | pending |
+| 11 | Multi-category | Stay single-category until Phase 3 is done | ARCH-4 | Single-category for now (2026-10-07) |
+| 12 | Institution canonicalization | Move the web rules into the pipeline, with ROR ids | AFF-13 | Move the web rules into the pipeline, with ROR ids (2026-10-07) |
+| 13 | Author identity | A homonym hint now, Semantic Scholar ids after the META-1 spike | AFF-H | Semantic Scholar author ids, a homonym hint where they are missing (2026-10-07) |
 | 14 | Graph accessibility target | Rankings as the text equivalent now, the full path later | UX-2 | The full path, with touch zoom (2026-10-06) |
 | 15 | Consortium papers in the author projection | Skip the clique above 50 authors; keep AFF-4's current rule | PERF-3 | Skip the clique above 50 authors (2026-10-06) |
 | 16 | Failure signalling | Red runs for data-affecting failures, an issue for scheduled runs | CI-2 | Red runs for data-affecting failures (2026-10-01); no issue for now |
-| 17 | Math in abstracts | Strip text macros now, lazy KaTeX only if asked | SRCH-19 | pending |
+| 17 | Math in abstracts | Strip text macros now, lazy KaTeX only if asked | SRCH-19 | Strip text macros, keeping their arguments; no KaTeX (2026-10-07) |
 | 18 | Withdrawn papers | Exclude from Highly cited, badge in the day views | META-2 | Exclude from Highly cited, badge in the day views (2026-10-06) |
 | 19 | Abstracts by default | On for "Latest day" | Phase 2 | Always collapsed, as now (2026-10-03) |
 | 20 | Shipping the audit | Commit it as a frozen baseline | — | Done: `docs/audit/2026-09-30.md` |
