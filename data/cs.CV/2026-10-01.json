@@ -1528,7 +1528,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.39960v1",
+   "html_url": "https://arxiv.org/html/2609.39960v2",
    "abstract": "4D scene reconstruction aims to recover the evolving geometry, appearance, and motion of dynamic environments from visual observations. Despite substantial progress in neural scene representations, reconstructing dynamic scenes remains challenging due to non-rigid motion, occlusions, temporal inconsistencies, and the trade-offs between reconstruction fidelity and computational efficiency. Recent advances in Neural Radiance Fields (NeRF) and 3D Gaussian Splatting (3DGS) have introduced diverse approaches to representing and reconstructing dynamic scenes, yet their relationships, underlying design choices, and evaluation protocols remain fragmented. In this paper, we present a unified perspective on 4D scene reconstruction, organizing existing methods around their scene representations, temporal modeling strategies, reconstruction pipelines, and optimization objectives. Through this framework, we examine how different design choices affect geometric fidelity, appearance consistency, motion representation, and computational efficiency. We further consolidate commonly used datasets and evaluation metrics, identify limitations in current experimental practices, and discuss open challenges in reconstructing complex, dynamic real-world environments. By connecting methodological developments with their underlying assumptions and evaluation evidence, this work provides a structured foundation for understanding existing approaches and identifying future research directions. An evolving collection of relevant papers and resources is available at https://github.com/ZiyangYan/Awesome-4D-Scene-Reconstruction.",
    "affiliations": [
     "Department of Computer Science and Engineering, University of Bologna, Italy",
@@ -5914,7 +5914,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.39157v1",
+   "html_url": "https://arxiv.org/html/2609.39157v2",
    "abstract": "Video object removal presents a uniquely difficult editing challenge. Because a removal prompt specifies only what to erase rather than what to generate, the model must infer and reconstruct a highly specific occluded background entirely from the surrounding context. Existing training-free methods struggle with this because their editing mechanisms act primarily as localized erasers. They fail to actively synthesize the missing background details and often leave behind ghosting artifacts. To solve this, we propose TripleFlow, a training-free framework that tightly couples erasure and generation. It coordinates a source flow, a residual flow, and a synthesis flow throughout the entire process. By reusing a single target prediction, the residual flow isolates and suppresses the object, while the synthesis flow independently reconstructs the occluded background. Crucially, TripleFlow injects this newly synthesized background back into the editing trajectory at every step. This continuous feedback loop ensures that the generated structures actively guide the removal process, achieving seamless completion that is spatiotemporally consistent with the unedited scene. Extensive evaluations across five challenging benchmarks demonstrate that TripleFlow establishes a new state-of-the-art, significantly outperforming existing baselines in both reconstruction fidelity and temporal consistency.",
    "affiliations": [
     "CSE Department, Penn State University",
@@ -7396,7 +7396,7 @@
   {
    "arxiv_id": "2609.38985",
    "announced": "2026-10-01",
-   "title": "MeshOctave generates meshes via cascading resolution transitions",
+   "title": "MeshOctave: Vertex Split-and-Rewire Cascades for Native Mesh Generation",
    "authors": [
     "Junkai Lin",
     "Tianhao Zhao",
@@ -7416,11 +7416,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "17 pages",
+   "comments": null,
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.38985v1",
+   "html_url": "https://arxiv.org/html/2609.38985v2",
    "abstract": "Generating compact, artist-style meshes with explicit topology typically relies on autoregressive models which incur prohibitive sequential per-token costs, or continuous flow models that depend on heuristic connectivity decoders. Next-scale generation paradigms offer a compelling alternative by enabling parallel intra-scale token prediction and coarse-to-fine refinement from global structure to local topology; yet, existing methods derive hierarchical scales via progressive mesh simplification and invert them sequentially. This eliminates intra-scale parallelism and scales generation steps linearly with face count. In this paper, we propose MeshOctave, which instead defines scale through dyadic spatial grid resolutions, framing coarsening as a deterministic collapse that merges vertices sharing a voxel cell and inherits connectivity. Its inverse operation, split-and-rewire, determines which octant sub-vertices are instantiated for each coarse face and resolves local connectivity using discrete structural tokens. These per-face operations require no serialization, each scale transition is modeled as an unordered set that adds one bit of coordinate precision, naturally supporting dynamic-length meshes and adaptive resolution refinement. We construct a scale-conditioned masked-uniform discrete diffusion model to learn split-and-rewire operation from resolution collapse hierarchies. MeshOctave outperforms strong baselines in geometric fidelity and topological validity by a non-trivial margin, while supporting adaptive resolution refinement and extending naturally to mesh subdivision tasks.",
    "affiliations": [
     "Huazhong University of Science and Technology",
@@ -8968,11 +8968,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": null,
+   "comments": "Page: https://anonymous.4open.science/w/No-Corners-Cut-6C5D/",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2609.38691v1",
+   "html_url": "https://arxiv.org/html/2609.38691v2",
    "abstract": "Streaming video generators allow users to dynamically modulate video synthesis via mid-stream prompt switching. Existing streaming methods can respond to the updated instruction while still cutting corners, prematurely realizing goals or taking heuristic shortcuts that bypass necessary intermediate state changes needed for a plausible transition. In this study, we present SEGUE, a novel framework that makes this process explicit and trains the generator to execute these transitions faithfully. At each switch, a training-free planner parses the latest frame and prompts, writes a few segue prompts with roles and durations, and then hands control back to the user's prompt. Furthermore, to address the inherent difficulty of training causal models on short-lived temporal schedules without corrupting preparatory supervision, we introduce SPANDMD, which evaluates each active prompt using the full rollout as temporal context while retaining its DMD residual only within the prompt's assigned span. On OpenTrans-360, a benchmark of 1,800 switches that scores how the old state exits and the new one begins, SEGUE ranks first on all eight transition metrics and raises the overall score over the strongest baseline from 0.866 to 0.887. It also ranks first on four of six instruction-response metrics of StreamAV-Bench, while the planner transfers to frozen autoregressive generators without retraining.",
    "affiliations": [
     "University of Chinese Academy of Sciences",

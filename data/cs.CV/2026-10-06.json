@@ -343,7 +343,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.06814v1",
+   "html_url": "https://arxiv.org/html/2610.06814v2",
    "abstract": "World models learn to predict how their environment will evolve, making them an important foundation for general-purpose robotic control. Yet world action models depend on camera inputs whose manipulation can corrupt the visual representations used across tasks and action policies. Existing attacks on these models optimize against the victim's actions or predicted futures and therefore require access to target-model outputs. In this paper, we propose an attack, TAPDreamer, against world action models that instead uses a public encoder alone to construct a fixed local perturbation that transfers across tasks and action architectures. TAPDreamer requires no target-policy queries. Our key insight is that interactions between patch-induced changes in attention weights and value vectors broadcast a nearly identical representation shift far beyond the patch footprint, and this shift remains stable across task observations. Guided by this insight, TAPDreamer uses six frames from one source task to maximize the global L1 distance between clean and patched encoder representations. In closed-loop evaluation, one frozen patch per benchmark, covering about 6.5% of the input, reduces FastWAM's success rate from 97.7% to 0.0% across 40 LIBERO tasks and from 90.8% to 0.0% across 50 RoboTwin tasks; matched random patches retain 81.5% and 79.2% success. The same patches reduce success to 2.1% and 0.8% on two DreamWAM configurations and to 10.0% on Motus. These results show that protecting downstream action generation alone is insufficient: defenses for world action models must also secure shared visual encoders against persistent local perturbations.",
    "affiliations": [
     "University of Washington",
@@ -677,7 +677,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.06687v1",
+   "html_url": "https://arxiv.org/html/2610.06687v2",
    "abstract": "While existing camera-controllable video generation models can produce visually compelling sequences, preserving intrinsic 4D spatiotemporal coherence remains challenging. To address this limitation, we propose ChronoWorld, an \"Observation--State--Reflection\" framework that leverages spatiotemporal causal cues and reconstruction priors to generate globally consistent, free-view 4D scenes. Given a context video, we introduce a Spatiotemporal Epipolar Causal Attention mechanism that enforces multi-view epipolar constraints and temporal causality throughout the generation process. In addition, we develop a reconstruction-driven geometric reflection pipeline with a 4D retrieval strategy to enable dynamic self-assessment and correction of generated outputs, improving consistency and accuracy. Extensive experiments show that ChronoWorld achieves state-of-the-art performance in spatiotemporally consistent, cinematic-quality 4D scene generation, with strong generalization and high-fidelity geometry across diverse scenarios.",
    "affiliations": [
     "Wangxuan Institute of Computer Technology, Peking University",
@@ -1087,7 +1087,7 @@
   {
    "arxiv_id": "2610.06602",
    "announced": "2026-10-06",
-   "title": "Multitask Conditional Generative Adversarial Network Enables Automatic Whole Knee Cartilage and Menisci Segmentation and Reliable T1\\r{ho} and T2 Quantification Without High-Resolution Morphological Images",
+   "title": "Multitask Conditional Generative Adversarial Network Enables Automatic Whole Knee Cartilage and Menisci Segmentation and Reliable $T_{1ρ}$ and $T_2$ Quantification Without High-Resolution Morphological Images",
    "authors": [
     "Ahmed Tahseen Minhaz",
     "Richard Lartey",
@@ -3314,11 +3314,11 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Artificial Intelligence (cs.AI)"
    ],
-   "comments": "submit ICASSP 2027",
+   "comments": "submit to ICASSP 2027",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.06052v1",
+   "html_url": "https://arxiv.org/html/2610.06052v2",
    "abstract": "Three-dimensional (3D) left ventricular (LV) reconstruction from sparse cardiac magnetic resonance (CMR) imaging remains challenging due to inter-slice misalignment and insufficient local spatial information between slices. Global aggregation of contour features may obscure local contour-to-surface relationships. We propose Local2Mesh, a spatially localized contour-to-mesh framework that deforms a template mesh to reconstruct 3D LV geometry from sparse 2D contours without 3D mesh annotations. The framework introduces geometry-aware alignment to correct inter-slice misalignment and a plane-aware Local Router that routes contour features to template vertices using vertex-to-plane distances. Local and global contour features then jointly guide graph-based template deformation for 3D LV reconstruction. Experiments on two public datasets, M\\&Ms-2 and ACDC, demonstrate superior geometric reconstruction and functional estimation over existing methods. Zero-shot transfer from M\\&Ms-2 to ACDC demonstrates strong cross-dataset generalization. Reconstructed meshes also improve disease classification over sparse contours, supporting their utility for downstream cardiac analysis. These results demonstrate that combining geometry-aware alignment with local contour-to-vertex modeling improves LV reconstruction from sparse 2D contours and supports downstream cardiac analysis. The code is available at \\url{https://github.com/hwu918945-alt/loca2mesh}.",
    "affiliations": [
     "Academy of Artificial Intelligence and Advanced Technology, Xi’an Jiaotong-Liverpool University, China",
@@ -4224,7 +4224,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.05899v1",
+   "html_url": "https://arxiv.org/html/2610.05899v2",
    "abstract": "Instance-level roof-to-footprint offset (RFO) prediction is central to extracting building footprints from off-nadir imagery. Query-based pipelines commonly use high-dimensional instance tokens to predict signed two-dimensional RFOs. We investigate whether RFO prediction can instead use a compact offset token. Under local pinhole projection and vertical-extrusion assumptions, the idealized RFO map admits a five-parameter sufficient descriptor comprising intrinsic shape, composite amplitude, and relative geometry. This factorization provides a structural prior for a five-dimensional offset token, whose channels learn task-relevant latent representations through end-to-end training. Based on this design, we propose LoDEOT, which retains high-dimensional instance tokens for detection and segmentation but maps instance-token, concentration-gated roof, and box-mask evidence to a five-dimensional offset token followed by an independent two-dimensional readout. Known denoising-query target indices further align each supervised decoder-layer estimate with the same clean instance RFO, organizing successive predictions as target-aligned recovery under perturbed query conditions. Experiments on five real-world building datasets demonstrate the effectiveness of LoDEOT for building footprint extraction. Experiments on real-world building datasets demonstrate that a five-dimensional offset token can support accurate RFO prediction. On BONAI, LoDEOT achieves the best roof-detection bAP and bAP50 and leads all five offset-corrected footprint metrics among the evaluated end-to-end methods, with FAP50 of 54.58 and mEPE of 5.23 pixels. Its FAP50 exceeds those of the evaluated end-to-end baselines by 7.56-16.85 percentage points.",
    "affiliations": [
     "City University of Hong Kong",
@@ -5921,7 +5921,7 @@
     "Lukas Radl",
     "Chris Wyman",
     "Georgios Kopanas",
-    "Bernhard Kerb",
+    "Bernhard Kerbl",
     "Markus Steinberger"
    ],
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
@@ -5933,7 +5933,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.05576v1",
+   "html_url": "https://arxiv.org/html/2610.05576v2",
    "abstract": "Stochastic order-independent transparency enables efficient and elegant rendering of primitive-based radiance fields like 3D Gaussian Splatting models, but remains impractical due to the inherent visible noise in the output. We propose a principled approach to minimize high-frequency noise, addressing its sources at the representation and image synthesis level. During stochastic rendering, our history-based spatial resampling scheme drastically accelerates image convergence, while temporal importance resampling ensures coherence under camera movement. During training, a color regularizer implicitly reduces the variance along view rays in the 3DGS models. With these properties, our optimized, Vulkan-based renderer effectively mitigates output noise at low and high sample counts, achieving a substantial 13~dB PSNR increase in quality over previous stochastic methods at 1 sample per pixel and quickly converging to sorted 3DGS with an average L1 error of less than $10^{-4}$.",
    "affiliations": [
     "Graz University of Technology",
@@ -5980,11 +5980,11 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-10-07"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-06"
+     "at": "2026-10-07"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.05576",
@@ -6010,11 +6010,73 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2610.05552v2",
    "abstract": "Three-dimensional gait analysis guides rehabilitation after spinal cord injury but depends on marker-based motion capture and force plates, which few clinics have. Monocular markerless pipelines have been established in fewer healthy adult cohorts but not in neurological cohorts. We present the SCAI SCI Gait dataset, comprising 239 adult individuals with spinal cord injury with synchronized video, motion capture, and force-plate measurements, we fitted a parametric body mesh to a single sagittal-view video, driving an anthropometrically scaled OpenSim model via virtual markers. Markerless lower-body kinematics showed state-of-the-art agreement with motion-capture measurements (r = 0.68-0.90, p < 0.001, and RMSE = 4.18-6.49 degrees), and accurate kinematics-based predicted ground-reaction forces closely matched those measured by force plates (r = 0.85-0.87, p < 0.001, and RMSE = 2.13-2.19 Newton per kg). Furthermore, conditional-dependence graph analysis with Markov blankets revealed that waveform components were conditionally associated with functional independence, and speed-stratified clustering revealed distinct mechanical strategies among individuals walking at similar speeds. These findings establish the use of monocular video as a scalable approach for clinically meaningful biomechanical assessment and data-driven phenotyping in patients with spinal cord injury. Github: https://github.com/SCAI-Lab/SCAI-SCI-Gait",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Spinal Cord Artificial Intelligence (SCAI) Lab, ETH Zürich, Zürich, Switzerland",
+    "Swiss Paraplegic Research, Swiss Paraplegic Centre, Nottwil, Switzerland",
+    "University Hospital Balgrist, Zurich, Switzerland",
+    "Graduate School of Engineering, Tohoku University, Sendai, Japan",
+    "Faculty of Health Sciences and Medicine, University of Lucerne, Lucerne, Switzerland",
+    "Swiss Paraplegic Centre, Nottwil, Switzerland",
+    "University of Tsukuba, 305-8577, Ibaraki, Tsukuba, Japan"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2,
+     3
+    ],
+    [
+     1,
+     4,
+     5
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "ETH Zurich",
+    "Swiss Paraplegic Research",
+    null,
+    "Tohoku University",
+    "University of Lucerne",
+    null,
+    "University of Tsukuba"
+   ],
+   "institution_ids": [
+    "05a28rw58",
+    "04jk2jb97",
+    null,
+    "01dq60k83",
+    "00kgrkn83",
+    null,
+    "02956yf07"
+   ],
+   "extractor": 7,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-07"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-07"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2610.05552",
    "pdf_url": "https://arxiv.org/pdf/2610.05552"
   },
@@ -6415,6 +6477,7 @@
     "Hsuan-Chi Liu",
     "Jia-Wei Liao",
     "Chien-Sheng Chiang",
+    "Cheng-Fu Chou",
     "Tsung-Wei Ke"
    ],
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
@@ -6425,12 +6488,15 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.05349v1",
+   "html_url": "https://arxiv.org/html/2610.05349v2",
    "abstract": "We introduce CNP-Flow, a flow matching framework for temporal generation that learns conditional source distributions through flow reversal. Whereas standard conditional flow matching (FM) incorporates conditioning through the vector field and draws source samples from a standard Gaussian, CNP-Flow uses a conditional noise predictor (CNP) to produce an isotropic Gaussian source for each temporal condition. The CNP is supervised by source samples obtained through flow reversal, which maps observed targets backward through a pretrained FM model. A three-stage pipeline pretrains the FM model, trains the CNP, and fine-tunes the FM model using the learned source distribution, while preserving the FM backbone architecture. Across video prediction, video interpolation, and 7-DoF Franka robot motion planning, CNP-Flow consistently improves generation quality. It also matches baseline performance with fewer function evaluations. Project page: https://embodiedai-ntu.github.io/cnpflow",
    "affiliations": [
     "National Taiwan University"
    ],
    "author_affiliations": [
+    [
+     0
+    ],
     [
      0
     ],
@@ -6457,11 +6523,11 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-10-07"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-06"
+     "at": "2026-10-07"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.05349",
@@ -13018,7 +13084,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.04007v1",
+   "html_url": "https://arxiv.org/html/2610.04007v2",
    "abstract": "We present VolS-GS, a relightable Gaussian splatting framework that reconstructs objects from one-light-at-a-time (OLAT) captures and renders them under novel lighting and viewpoints. Relightable Gaussian Splatting methods typically model appearance independently at each primitive, which makes non-local effects difficult to represent. This limitation is particularly apparent for subsurface scattering, where light entering the object at one location can emerge at another. Rather than modeling this effect solely with a neural network or a local kernel at each primitive, we use the spatial support of the Gaussian scene as the domain of a differentiable finite-volume transport solver, so that light can propagate through the object's interior. A small network predicts scattering and absorption coefficients for each Gaussian, and the solve redistributes incident light through the resulting field. The coefficients are fit to images rather than measured, so the solve supplies a transport-shaped path for aggregating per-primitive appearance, not a measurement of the material. To keep the learned shadow and specular terms from taking over the other components, our shadow term is predicted from visibility together with the transmittances and the scattering the solve produces, and a regularizer suppresses specular highlights in regions the shadow term predicts to be unlit. Experiments on three OLAT benchmarks show that VolS-GS consistently improves relighting quality on held-out lights and views.",
    "affiliations": [
     "KAIST AI"
@@ -13480,11 +13546,11 @@
     "Artificial Intelligence (cs.AI)",
     "Robotics (cs.RO)"
    ],
-   "comments": "8 pages, 3 figures, project page: https://github.com/liulixinkerry/WAMJET/blob/main/assets/blog.md",
+   "comments": "8 pages, 3 figures, project page: https://github.com/liulixinkerry/WAMJET",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.03797v1",
+   "html_url": "https://arxiv.org/html/2610.03797v2",
    "abstract": "World Action Models (WAMs) leverage pretrained video foundation models for robot manipulation, but their large backbones and video-action co-prediction are expensive. Although existing acceleration techniques offer many ways to reduce this cost, selecting and composing them requires substantial engineering for each model and hardware platform. To tackle this bottleneck, we present WAMJET, an agentic harness that accelerates WAM inference by equipping coding agents with reusable optimization guidance and measurement and validation tools. WAMJET follows a bottleneck-driven workflow where the agent profiles inference, modifies targeted code, validates effects, and iteratively refines the acceleration stack as bottlenecks shift, while preserving action quality. Experiments span six WAMs, three coding agents, and two GPU architectures. WAMJET achieves up to 9.95x lossless speedup over upstream implementations. Approximation and hardware-aware optimization yield additional latency reductions, with comparable success rates. The results show that WAMJET can produce effective acceleration stacks for WAM deployment.",
    "affiliations": [
     "Max Planck Institute for Intelligent Systems, Tubingen, Germany",
@@ -14106,7 +14172,7 @@
     "SeongJun Jung",
     "JungHoon Kim",
     "Boyang Albert Li",
-    "Jin-Young Park",
+    "JinYeong Bak",
     "Jaehong Yoon",
     "Jee-Hyong Lee"
    ],
@@ -14119,7 +14185,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.LG",
-   "html_url": "https://arxiv.org/html/2610.06505v1",
+   "html_url": "https://arxiv.org/html/2610.06505v2",
    "abstract": "Proactive AI assistants continuously observe a user's activity and decide whether to provide new guidance or remain silent. They should provide appropriate guidance for the task, determine when to provide the next guidance based on task progress, and adjust the guidance level to the user's expertise and needs. Supporting these capabilities requires training and evaluation data that reflect procedural structure and capture how guidance should adapt to task progress and user needs. However, existing datasets either focus on detection-based proactive understanding or provide procedural guidance at a fixed granularity. Fixed-granularity guidance provides limited information about fine-grained progress and broader procedural context, making it difficult to determine completion and adapt guidance granularity. To address these limitations, we introduce the ProactiveCoach suite, comprising ProactiveCoach-Instruct for training, ProactiveCoachBench for evaluation, and fine-tuned VLMs with an adaptive guidance system. ProactiveCoach-Instruct provides hierarchically structured guidance at the phase, step, and action levels for learning task progress and procedural context. ProactiveCoachBench evaluates whether models provide appropriate guidance at the right time across different guidance levels and adapt when the requested level changes. We fine-tune pretrained VLMs on ProactiveCoach-Instruct and demonstrate its effectiveness across backbones. Compared with fixed-granularity supervision, hierarchical supervision improves overall performance across backbones by up to 9.6%p. We further build an adaptive guidance system by combining our fine-tuned model with a lightweight guidance router. Without additional fine-tuning, our system outperforms the in-context adaptation baseline by 57.1%p across four guidance-level transitions. Our project page is available at https://jinsuby.github.io/ProactiveCoach/.",
    "affiliations": [
     "Department of Artificial Intelligence, Sungkyunkwan University, Republic of Korea",
@@ -14163,11 +14229,11 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-10-07"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-06"
+     "at": "2026-10-07"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.06505",
