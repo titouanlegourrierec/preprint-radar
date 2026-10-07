@@ -45,6 +45,16 @@ describe("highlight", () => {
     ).toBe("Tomás Lozano-Pérez");
   });
 
+  it("marks ß and ss alike, which fold longer than their characters", () => {
+    expect(marked("Matthias Nießner and Niessner", ["niessner"])).toEqual(["Nießner", "Niessner"]);
+    expect(marked("Matthias Niessner", ["Nießner"])).toEqual(["Niessner"]);
+    expect(
+      highlight("Matthias Nießner, TUM", ["niessner"])
+        .map((s) => s.text)
+        .join(""),
+    ).toBe("Matthias Nießner, TUM");
+  });
+
   it("returns the text unchanged without terms", () => {
     expect(highlight("Some text", [])).toEqual([{ text: "Some text", match: false }]);
   });

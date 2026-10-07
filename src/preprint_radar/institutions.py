@@ -152,8 +152,9 @@ def search_key(text: str) -> str:
     """A name as the site compares names: accents and case gone, punctuation one space.
 
     The site's ``searchKey`` (``web/src/text.ts``), which keys graph nodes: "Universität
-    Zürich" and "universitat zurich" are one institution. Unlike ``arxiv_html``'s fold, "ß"
-    stays.
+    Zürich" and "universitat zurich" are one institution. "ß" is "ss", as in ``arxiv_html``'s
+    fold, so that "Nießner" and "Niessner" are one author (AFF-24); the cases in
+    ``tests/fixtures/fold-cases.json`` give the same key in both languages.
 
     Args:
         text: A name.
@@ -162,7 +163,10 @@ def search_key(text: str) -> str:
         Its key.
     """
     decomposed = unicodedata.normalize("NFD", text)
-    folded = "".join(char for char in decomposed if not unicodedata.combining(char)).lower()
+    lowered = "".join(char for char in decomposed if not unicodedata.combining(char)).lower()
+    # Not ``casefold``, which also rewrites what JavaScript's ``toLowerCase`` leaves (ligatures,
+    # final sigma); ß last, since the capital ẞ lowercases to it.
+    folded = lowered.replace("\N{LATIN SMALL LETTER SHARP S}", "ss")
     return _KEY_SEPARATOR_RE.sub(" ", folded).strip()
 
 

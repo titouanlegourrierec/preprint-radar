@@ -16,6 +16,11 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   "J.Smith" marks "John Smith", as the filter keeps it), and every affiliation of a
   clicked institution, however it writes it ("IIT Kanpur" for Indian Institute of
   Technology Kanpur, `affiliationNeedles`); "Li" no longer marks "lightweight" in a title.
+- Text is compared folded (`text.ts`): `fold` drops accents and case and writes ß as "ss",
+  so that "Nießner" and "Niessner" are one author in the graph and Rankings (AFF-24), and
+  `searchKey`, which keys names, graph nodes and feeds, also collapses punctuation to one
+  space. Python's `institutions.search_key` keys a name the same way: both test suites
+  read the cases of `tests/fixtures/fold-cases.json`.
 - `"phrases"` match whole words and `-exclusions` word starts, over every searched field
   as one `searchKey` text per paper, so punctuation and hyphens do not count. A pasted
   arXiv identifier or link means that paper; stop words alone keep every paper.

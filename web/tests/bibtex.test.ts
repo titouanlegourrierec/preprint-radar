@@ -65,6 +65,10 @@ describe("bibtex", () => {
     expect(citationKey({ ...paper, authors: ["John Smith III"] })).toBe("smith2026practical");
   });
 
+  it("writes a surname's ß as ss", () => {
+    expect(citationKey({ ...paper, authors: ["Matthias Nießner"] })).toBe("niessner2026practical");
+  });
+
   it("adds the venue a paper was accepted at", () => {
     expect(toBibtex({ ...paper, venue: "ECCV 2026" })).toContain(
       "  note = {Accepted to ECCV 2026},",

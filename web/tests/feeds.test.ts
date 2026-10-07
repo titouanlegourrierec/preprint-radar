@@ -10,6 +10,7 @@ describe("feed paths", () => {
       "massachusetts-institute-of-technology",
     );
     expect(feedSlug("Université Paris-Saclay")).toBe("universite-paris-saclay");
+    expect(feedSlug("Justus-Liebig-Universität Gießen")).toBe("justus-liebig-universitat-giessen");
     expect(institutionFeedPath("cs.CV", "Google (DeepMind)")).toBe(
       "feeds/cs.CV/institutions/google-deepmind.xml",
     );

@@ -140,6 +140,19 @@ describe("buildGraph", () => {
 
     expect(graph.nodes.map((node) => node.label)).toEqual(["Google", "Inria"]);
   });
+
+  it("merges an author spelled with ß and with ss", () => {
+    const spelled = [
+      makePaper({ arxiv_id: "1", authors: ["Matthias Nießner"] }),
+      makePaper({ arxiv_id: "2", authors: ["Matthias Niessner"] }),
+      makePaper({ arxiv_id: "3", authors: ["Matthias Nießner"] }),
+    ];
+    const graph = buildGraph(spelled, { ...INSTITUTIONS, institutions: false, authors: true });
+
+    expect(graph.nodes.map((node) => [node.id, node.label, node.paperIds.length])).toEqual([
+      ["author:matthias niessner", "Matthias Nießner", 3],
+    ]);
+  });
 });
 
 describe("buildGraph of a consortium paper", () => {

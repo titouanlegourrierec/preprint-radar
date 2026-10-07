@@ -3,6 +3,7 @@ import re
 from pathlib import Path
 
 import pytest
+from tests.conftest import FIXTURES_DIR
 
 from preprint_radar.institutions import (
     ACRONYMS,
@@ -93,16 +94,19 @@ def test_the_registry_comes_first_and_the_rules_name_the_rest() -> None:
     )
 
 
-@pytest.mark.parametrize(
-    ("name", "key"),
-    [
-        ("Universität Zürich", "universitat zurich"),
-        ("University of California, San Diego", "university of california san diego"),
-        ("Straße_1", "straße 1"),
-    ],
-)
+# The site's tests (web/tests/text.test.ts) read the same cases.
+FOLD_CASES = json.loads((FIXTURES_DIR / "fold-cases.json").read_text(encoding="utf-8"))
+
+
+@pytest.mark.parametrize(("name", "key"), [(case["text"], case["key"]) for case in FOLD_CASES])
 def test_search_key_is_the_sites(name: str, key: str) -> None:
     assert search_key(name) == key
+
+
+def test_one_author_whether_spelled_with_sharp_s_or_ss() -> None:
+    names = name_institutions(("Matthias Niessner", "TUM"), (None, None), authors=("Matthias Nießner",))
+
+    assert names == (None, "Technical University of Munich")
 
 
 def test_the_site_knows_the_same_acronyms() -> None:
