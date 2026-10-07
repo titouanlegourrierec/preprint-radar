@@ -16,9 +16,20 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   which find its related work (SRCH-11).
 - A clicked author or affiliation is marked as a whole name, in the author and affiliation
   lines only: filtering on "Hao Li" no longer marks "lightweight" and "linear" in titles
-  and abstracts (SRCH-8). Typed, "J.Smith" marks "John Smith", as the filter keeps the paper.
+  and abstracts (SRCH-8). Typed, "J.Smith" marks "John Smith", as the filter keeps the
+  paper.
 - The venue filter has every edition of a venue at once, "CVPR, any year", its workshops
   apart (SRCH-15).
+- The subject filter keeps the papers listed under a subject, primary or cross-listed:
+  cs.RO holds 478 stored papers, 256 of them primary. Its choices show the code and count
+  every loaded paper, so choosing one no longer leaves it alone; old links keep working
+  (SRCH-9).
+- With search words, Most cited and Rising keep the best match first among equal counts,
+  most of a recent day's papers, instead of the newest (CIT-6).
+- Names compare alike on the site and in the pipeline: "Nießner" and "Niessner",
+  "Bartłomiej" and "Bartlomiej" are one author in the graph and Rankings, and searching
+  "lukasz" finds "Łukasz". BibTeX keys write these letters plainly, and the feed of an
+  institution that writes them moves ("…-giessen.xml") (AFF-24).
 
 ### Fixes
 
@@ -27,6 +38,13 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 - A page that fails to draw says so, with Reload, a link to start over and whom to tell,
   instead of going blank; the tabs and the sidebar stay usable, and Back or another period
   draws it again (TEST-10).
+- While a view loads, the header and the graph say what: "Loading 3,646 papers of 5
+  days…", "Loading 3,407 highly cited papers of 2024…" (UX-6).
+- The store's index loads with the page, preloaded, instead of after the script (PERF-14).
+- A backfill goes on past a day whose catchup page fails or lists fewer entries than it
+  announces: that day is not saved, the others are read, the report names it and the
+  command exits with 1; after three such days in a row it asks for no more. A dated
+  `Retry-After` is honoured (REL-4, REL-8).
 
 ### Triage
 
@@ -38,6 +56,8 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   papers here are marked seen" with "Show seen papers" when nothing else is left (UX-26).
   The paper a link opened stays while it is open, seen or not; folded, it leaves and
   hands the focus on.
+- The reading list has the Export menu of the other lists (BibTeX, CSV, RIS, Markdown, of
+  the saved papers its search shows), beside Import and Export JSON (SRCH-16).
 
 ### Highly cited
 
@@ -46,6 +66,8 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   the best ranked for their age are shown, and the page says how many are left out
   (PROD-17). From a graph of archive years, "Show all" and opening a paper go to Highly
   cited over the same years, no longer to an empty list of recent days.
+- Highly cited offers Show abstracts, and a card announced a year or more after its first
+  version says so ("first version 2019") (PROD-14).
 
 ### Data
 
@@ -55,6 +77,9 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   and the pages do; Semantic Scholar and OpenAlex still get the bare User-Agent (DOC-8).
 - Report and log lines group digits ("1,234 listed"), and `--help` says where abstracts
   come from today, what the archive writes and what `validate` checks (DOC-8).
+- The pipeline refuses a store file of another `schema_version`, naming the file and both
+  versions, instead of misreading it or relabelling it; a breaking change ships with its
+  migration of `data/` (DATA-9, ARCH-7).
 
 ### Command line
 
@@ -63,11 +88,27 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   before and after the command add up.
 - `--crawl-delay inf` or past an hour, and a `--match` that is not a regular expression,
   get a usage line instead of a traceback (DEBT-5).
+- `update` and `backfill` read at most 600 HTML pages a run by default, which fits the
+  daily workflow's time; `--max-html` (`MAX_HTML=` with `make`) changes it. Reading pages
+  logs the time it should take, and each checkpoint the time left (DEBT-7, DOC-12).
+- `make` leaves the categories to each command, so reports cover every stored category;
+  `make archive` takes `DRY_RUN=1`, `BUDGET=N` and `PRUNE=1` (DOC-9).
+
+### Continuous integration
+
+- A running deploy of the site is never cancelled: that left the data run that called it
+  without success, so its fallback ran the whole update again (CI-9). A push deploys once
+  the web tests pass (CI-4), a burst of pushes is tested once, and the static checks run
+  on one Python version (CI-14, TEST-13).
 
 ### Security
 
 - An imported reading list can no longer put a `javascript:` address on a paper's links:
   they are made from its arXiv id, as the store makes them (SEC-2, SEC-7).
+- The site's deploy gives its build, which runs npm packages, no token that could deploy:
+  each job gets only what it needs (SEC-3, CI-6). The Semantic Scholar key reaches only
+  the steps and the `make` targets that ask Semantic Scholar (SEC-5). Dependabot proposes
+  a release once it is 5 days old, 14 for a major; security updates do not wait (SEC-6).
 
 ### Accessibility
 
@@ -80,6 +121,9 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   alone (UX-24).
 - Counts read right: "10,000 of 10,000 papers" with the reader's separator, and "1 paper"
   rather than "1 papers", in the list, the graph, the calendar and the filters (UX-25).
+- The graph says a failed load as the lists do, an alert with Retry (UX-6).
+- The graph settings' search field and selects show the focus ring again, and the search
+  box has an outline in high-contrast modes, which drop its shadow ring (UX-9).
 
 ### Feeds
 
@@ -98,6 +142,9 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 - Each connection of a node lists the papers they share ("what did MIT and Google write
   together"), "Focus on this" shows the graph of a node's papers alone, with a link to
   share it, and the graph saves as PNG or GraphML for Gephi (§17.1 #8).
+- Rankings and the graph's settings give the share of papers whose affiliations are known,
+  "Affiliations known for 331 of 2,018 papers (16%)", and below half that the others count
+  for no institution (PROD-16).
 
 ### Citations
 

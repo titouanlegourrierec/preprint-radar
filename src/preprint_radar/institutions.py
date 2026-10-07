@@ -148,13 +148,26 @@ _UNIVERSITY_OF_CALIFORNIA_RE = re.compile(r"^university of california$", re.IGNO
 _KEY_SEPARATOR_RE = re.compile(r"[\W_]+")
 
 
+# Letters that do not decompose into a base letter and an accent, written as plain letters
+# wherever names are compared (AFF-24); the site's ``fold`` (``web/src/text.ts``) has the same.
+PLAIN_LETTERS = str.maketrans({
+    "\N{LATIN SMALL LETTER DOTLESS I}": "i",
+    "\N{LATIN SMALL LETTER L WITH STROKE}": "l",
+    "\N{LATIN SMALL LETTER O WITH STROKE}": "o",
+    "\N{LATIN SMALL LETTER D WITH STROKE}": "d",
+    "\N{LATIN SMALL LETTER SHARP S}": "ss",
+    "\N{LATIN SMALL LETTER AE}": "ae",
+})  # fmt: skip
+
+
 def search_key(text: str) -> str:
     """A name as the site compares names: accents and case gone, punctuation one space.
 
     The site's ``searchKey`` (``web/src/text.ts``), which keys graph nodes: "Universität
-    Zürich" and "universitat zurich" are one institution. "ß" is "ss", as in ``arxiv_html``'s
-    fold, so that "Nießner" and "Niessner" are one author (AFF-24); the cases in
-    ``tests/fixtures/fold-cases.json`` give the same key in both languages.
+    Zürich" and "universitat zurich" are one institution. The letters of ``PLAIN_LETTERS``
+    are written plainly, so that "Nießner" and "Niessner", or "Bartłomiej" and "Bartlomiej",
+    are one author (AFF-24); the cases in ``tests/fixtures/fold-cases.json`` give the same
+    key in both languages.
 
     Args:
         text: A name.
@@ -165,8 +178,8 @@ def search_key(text: str) -> str:
     decomposed = unicodedata.normalize("NFD", text)
     lowered = "".join(char for char in decomposed if not unicodedata.combining(char)).lower()
     # Not ``casefold``, which also rewrites what JavaScript's ``toLowerCase`` leaves (ligatures,
-    # final sigma); ß last, since the capital ẞ lowercases to it.
-    folded = lowered.replace("\N{LATIN SMALL LETTER SHARP S}", "ss")
+    # final sigma); the plain letters last, since capitals lowercase to them (ẞ to ß).
+    folded = lowered.translate(PLAIN_LETTERS)
     return _KEY_SEPARATOR_RE.sub(" ", folded).strip()
 
 

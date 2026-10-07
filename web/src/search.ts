@@ -1,5 +1,6 @@
 import MiniSearch, { type SearchResult as MiniSearchResult, type Options } from "minisearch";
 import { codeUrl } from "./code";
+import { subjectCode } from "./format";
 import { wholeWord, wordStarts } from "./highlight";
 import { acronymOf, institutionsOf, namedInstitutions } from "./institutions";
 import { fold, searchKey } from "./text";
@@ -412,6 +413,16 @@ export function subjectsOf(paper: Paper): string[] {
 }
 
 /**
+ * Whether a paper is listed under a subject, compared by code: the archive writes some
+ * subjects as a bare code ("math.ST") where the day files give the name, and a link may
+ * hold either (SRCH-9).
+ */
+function listedUnder(paper: Paper, subject: string): boolean {
+  const code = subjectCode(subject);
+  return subjectsOf(paper).some((listed) => subjectCode(listed) === code);
+}
+
+/**
  * A clicked author or institution matches that name only (folded and with punctuation
  * collapsed, as {@link searchKey} does), and an institution by the name the graph gives it,
  * whatever the affiliation string ("CMU" for "Carnegie Mellon University"). Typed text
@@ -425,7 +436,7 @@ export function matchesFilters(paper: Paper, filters: SearchFilters): boolean {
     (!isActive(filters.author) || matchesAuthor(paper, filters.author)) &&
     // Institutions are only named when an affiliation filter needs them.
     (!isActive(filters.affiliation) || matchesAffiliation(paper, filters.affiliation)) &&
-    (filters.subject === null || subjectsOf(paper).includes(filters.subject)) &&
+    (filters.subject === null || listedUnder(paper, filters.subject)) &&
     (filters.venue === null || matchesVenue(paper.venue, filters.venue))
   );
 }
@@ -528,10 +539,24 @@ export function subjectFacets(
   chosen: string | null,
   limit: number,
 ): FacetCount[] {
-  const subjects = valueCounts(papers, subjectsOf, Number.POSITIVE_INFINITY);
-  const listed = subjects.slice(0, limit);
-  if (chosen === null || listed.some(({ value }) => value === chosen)) return listed;
-  return [...listed, subjects.find(({ value }) => value === chosen) ?? { value: chosen, count: 0 }];
+  // One choice per code, named in full where some paper names it (SRCH-9).
+  const byCode = new Map<string, FacetCount>();
+  for (const { value, count } of valueCounts(papers, subjectsOf, Number.POSITIVE_INFINITY)) {
+    const code = subjectCode(value);
+    const known = byCode.get(code);
+    const named = known === undefined || (value !== code && known.value === code);
+    byCode.set(code, { value: named ? value : known.value, count: (known?.count ?? 0) + count });
+  }
+  const subjects = [...byCode.values()].sort(
+    (a, b) => b.count - a.count || a.value.localeCompare(b.value),
+  );
+  if (chosen === null) return subjects.slice(0, limit);
+  // The choice keeps the value the URL holds, so that the select shows it chosen.
+  const code = subjectCode(chosen);
+  const index = subjects.findIndex(({ value }) => subjectCode(value) === code);
+  const chosenFacet = { value: chosen, count: subjects[index]?.count ?? 0 };
+  const listed = subjects.slice(0, limit).map((facet, at) => (at === index ? chosenFacet : facet));
+  return index >= 0 && index < limit ? listed : [...listed, chosenFacet];
 }
 
 /**

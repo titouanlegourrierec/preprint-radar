@@ -73,7 +73,8 @@ describe("focus rings", () => {
     // it may restyle it, not remove it. The search box alone draws its own (below).
     const removing = rules.filter(
       ({ selector, body }) =>
-        !selector.includes(":not(:focus-visible)") && /outline:\s*(?:none|0)\b/.test(body),
+        !selector.includes(":not(:focus-visible)") &&
+        /outline(?:-style|-width)?:\s*(?:none|0(?:px)?|transparent)(?![\w-])/.test(body),
     );
     expect(rules.length).toBeGreaterThan(100);
     expect(removing.map(({ selector }) => selector)).toEqual([".search__input"]);

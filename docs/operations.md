@@ -118,10 +118,14 @@ and the report line ends with `days not read:` and the days.
 A run with *since* (or `make backfill`) could not read the catchup page of those days: it
 failed (arxiv.org down, or a page that no longer parses), or listed fewer entries than it
 announces. They are not saved, since a day saved with its abstracts is never fetched again;
-the other days are, with their pages, then the run goes red (REL-4). Run it again over the
+the other days are, with their pages, then the run goes red (REL-4). After three days in a
+row it could not read, it asks for no more (`catchup pages in a row could not be read`):
+arxiv.org is down, and each day would cost a minute of retries. Run it again over the
 same days: the days already stored are reused, so only the missing ones are fetched. If a
 day keeps failing with `lists` fewer entries, or the page no longer parses, the catchup
-layout changed: `make test-network` shows it.
+layout changed. The canary does not read catchup pages, only the recent listing, whose
+entries they share: open the day's catchup page and check its dated title and its
+"showing N of M entries" headings, which `_catchup_day` reads.
 
 ### Validation failed: nothing was pushed
 
@@ -276,7 +280,7 @@ At a warning (the migration trigger, decided with ARCH-1):
 | One HTML page | 15 s (arxiv.org's crawl delay) |
 | Daily update | 40 minutes to 2 hours (200 to 400 papers) |
 | First update of a category | about 3 hours (750 pages), over two runs |
-| Backfill of a month of cs.CV | about 11 hours |
+| Backfill of a month of cs.CV | about 11 hours (2,900 pages), over five runs of 600 pages, or one with `MAX_HTML=3000` |
 | Re-extraction from the page cache | seconds |
 | `reclean`, `validate`, `stats` | seconds |
 | `institutions` | a few minutes (one request per distinct string, every 0.5 s) |

@@ -1,17 +1,27 @@
+// Letters that do not decompose into a base letter and an accent, written as plain letters
+// (AFF-24), as the pipeline compares names (`institutions.PLAIN_LETTERS`).
+const PLAIN_LETTERS: readonly (readonly [RegExp, string])[] = [
+  [/ı/g, "i"],
+  [/ł/g, "l"],
+  [/ø/g, "o"],
+  [/đ/g, "d"],
+  [/ß/g, "ss"],
+  [/æ/g, "ae"],
+];
+
 /**
- * Lowercase and strip diacritics, so that "perez" matches "Pérez", and write ß as "ss", so
- * that "Nießner" is "Niessner" (AFF-24). Python's `institutions.search_key` folds the same
- * way, which `tests/fixtures/fold-cases.json` checks in both test suites.
+ * Lowercase and strip diacritics, so that "perez" matches "Pérez", and write the letters
+ * that keep a stroke or a ligature plainly, so that "Nießner" is "Niessner" and "Bartłomiej"
+ * is "Bartlomiej" (AFF-24). Python's `institutions.search_key` folds the same way, which
+ * `tests/fixtures/fold-cases.json` checks in both test suites.
  */
 export function fold(text: string): string {
-  return (
-    text
-      .normalize("NFD")
-      .replace(/\p{Diacritic}/gu, "")
-      .toLowerCase()
-      // Last, since the capital ẞ lowercases to ß.
-      .replace(/ß/g, "ss")
-  );
+  const lowered = text
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .toLowerCase();
+  // Last, since capitals lowercase to these (ẞ to ß, Ł to ł).
+  return PLAIN_LETTERS.reduce((folded, [letter, plain]) => folded.replace(letter, plain), lowered);
 }
 
 /** Name normalized for comparison: folded, punctuation collapsed to single spaces. */

@@ -18,7 +18,7 @@ from enum import StrEnum
 from preprint_radar.config import DEFAULT_MAX_ROR_LOOKUPS, DEFAULT_SAVE_EVERY
 from preprint_radar.exceptions import FetchError, ParseError
 from preprint_radar.http import HttpClient
-from preprint_radar.institutions import name_institutions
+from preprint_radar.institutions import PLAIN_LETTERS, name_institutions
 from preprint_radar.models import Institution, Listing, Paper, Provenance, ScholarRecord
 from preprint_radar.sources.arxiv_api import fetch_metadata
 from preprint_radar.sources.arxiv_html import (
@@ -45,6 +45,9 @@ def today() -> date:
 # Reading HTML pages stops after this many failures in a row: arxiv.org is down for now, and
 # each failing page costs minutes of retries.
 MAX_CONSECUTIVE_HTML_FAILURES = 5
+# A backfill stops asking for catchup pages after this many days in a row it could not read:
+# arxiv.org is down, or their layout changed, and each failing day costs a minute of retries.
+MAX_CONSECUTIVE_DAY_FAILURES = 3
 # Past this many pages read, a share of pages without affiliations this high is a layout
 # change (or HTML URLs that moved), not a bad day: 12 to 31% of the pages of a day give none.
 DRIFT_MIN_PAGES = 40
@@ -202,8 +205,10 @@ def backfill_category(
     renderings, most recent day first. Days already stored with their abstracts are not
     fetched again. A day whose catchup page fails, or lists fewer entries than it
     announces, is not saved: the others are read, and the report names it (REL-4), for the
-    next run to fetch it again. As in :func:`update_category`, enrichment already in the
-    store is reused and progress is saved regularly.
+    next run to fetch it again. After ``MAX_CONSECUTIVE_DAY_FAILURES`` such days in a row,
+    or past the reading's deadline, the remaining days are not asked for, and named too.
+    As in :func:`update_category`, enrichment already in the store is reused and progress
+    is saved regularly.
 
     Args:
         category: arXiv category, e.g. ``"cs.CV"``.
@@ -218,20 +223,35 @@ def backfill_category(
     Returns:
         A summary of the run.
     """
+    reading = html or HtmlReading()
     known = {paper.arxiv_id: paper for paper in store.iter_papers()}
     papers: list[Paper] = []
     failed: list[date] = []
+    failing = 0  # catchup pages that could not be read in a row
     for day in sorted(set(days), reverse=True):
         stored = store.load_day(category, day)
         if stored and all(paper.abstract is not None for paper in stored):
             # Past announcements never change: a day saved with its abstracts is reused, so
             # that resuming an interrupted backfill goes straight back to the HTML pages.
             listed = stored
+        elif failing >= MAX_CONSECUTIVE_DAY_FAILURES or _past(reading.deadline):
+            # Not asked for: left for the next run, like the days that failed.
+            failed.append(day)
+            continue
         else:
             catchup = _catchup_day(site_client, category, day)
             if catchup is None:
                 failed.append(day)
+                failing += 1
+                if failing == MAX_CONSECUTIVE_DAY_FAILURES:
+                    logger.error(
+                        "%s: %d catchup pages in a row could not be read; the other days are "
+                        "not asked for this run",
+                        category,
+                        failing,
+                    )
                 continue
+            failing = 0
             listed = [_carry_over(paper, known.get(paper.arxiv_id)) for paper in catchup.papers]
             store.save(category, listed)
         logger.info("%s %s: %s papers", category, day.isoformat(), f"{len(listed):,}")
@@ -249,7 +269,7 @@ def backfill_category(
     read = _add_html_front_matter(
         papers,
         site_client,
-        reading=html or HtmlReading(),
+        reading=reading,
         checkpoint=lambda current: store.save(category, current),
     )
     report = _name_and_report(
@@ -945,22 +965,13 @@ def _same_person(listed: str, named: str) -> bool:
     return words[-1] == other[-1] and words[0][0] == other[0][0]
 
 
-# Letters that do not decompose into a base letter and an accent.
-_PLAIN_LETTERS = str.maketrans({
-    "\N{LATIN SMALL LETTER DOTLESS I}": "i",
-    "\N{LATIN SMALL LETTER L WITH STROKE}": "l",
-    "\N{LATIN SMALL LETTER O WITH STROKE}": "o",
-    "\N{LATIN SMALL LETTER D WITH STROKE}": "d",
-    "\N{LATIN SMALL LETTER SHARP S}": "ss",
-    "\N{LATIN SMALL LETTER AE}": "ae",
-})  # fmt: skip
 _NAME_JOINER_RE = re.compile("[-'\N{RIGHT SINGLE QUOTATION MARK}.]")
 _NAME_WORD_RE = re.compile(r"[^\W_]+")
 
 
 def _name_words(name: str) -> list[str]:
     """A name's words, folded, a hyphenated given name as one: "Jin-Chao" is "jinchao"."""
-    decomposed = unicodedata.normalize("NFD", name.lower().translate(_PLAIN_LETTERS))
+    decomposed = unicodedata.normalize("NFD", name.lower().translate(PLAIN_LETTERS))
     folded = "".join(char for char in decomposed if not unicodedata.combining(char))
     return _NAME_WORD_RE.findall(_NAME_JOINER_RE.sub("", folded.replace(". ", " ")))
 

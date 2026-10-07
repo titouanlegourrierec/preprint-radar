@@ -10,6 +10,7 @@ from preprint_radar.http import (
     MAX_RETRY_AFTER_SECONDS,
     HttpClient,
     RateLimiter,
+    _retry_after,
     build_user_agent,
 )
 
@@ -109,6 +110,11 @@ def test_retry_after_header_can_be_a_date(retry_after: str, wait: float) -> None
     with HttpClient(transport=transport, backoff=10.0, sleep=sleeps.append) as client:
         client.get_text("https://api.semanticscholar.org/graph/v1/paper/batch")
     assert sleeps == [wait]
+
+
+def test_retry_after_header_in_other_digits_is_unreadable() -> None:
+    # "²" is a digit to str.isdigit(), not to float().
+    assert _retry_after(httpx.Response(429, headers=[(b"Retry-After", "²".encode())])) is None
 
 
 def test_retry_after_date_is_a_delay_from_now() -> None:

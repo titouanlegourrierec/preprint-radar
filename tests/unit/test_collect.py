@@ -3,7 +3,7 @@ import json
 from collections import Counter
 from collections.abc import Callable
 from dataclasses import replace
-from datetime import date
+from datetime import date, timedelta
 from pathlib import Path
 
 import httpx
@@ -12,6 +12,7 @@ from tests.conftest import FIXTURES_DIR
 
 from preprint_radar.collect import (
     DRIFT_MIN_PAGES,
+    MAX_CONSECUTIVE_DAY_FAILURES,
     MAX_CONSECUTIVE_HTML_FAILURES,
     CitationsReport,
     HtmlReading,
@@ -504,6 +505,34 @@ def test_backfill_goes_on_past_a_catchup_page_it_cannot_parse(
 
     assert report.failed_days == (date(2026, 9, 2),)
     assert store.days("cs.CV") == [date(2026, 9, 1)]
+
+
+def test_backfill_stops_asking_after_days_in_a_row_it_cannot_read(
+    fake_catchup: FakeArxiv, store: PaperStore, caplog: pytest.LogCaptureFixture
+) -> None:
+    days = [date(2026, 8, 24) + timedelta(days=offset) for offset in range(10)]
+    fake_catchup.catchup_failing = {f"/catchup/cs.CV/{day.isoformat()}" for day in days}
+
+    with fake_catchup.client() as site:
+        report = backfill_category("cs.CV", days, store=store, site_client=site, html=HtmlReading(limit=0))
+
+    # arxiv.org is down: three days are tried, the seven others left for the next run.
+    asked = {path for path in fake_catchup.hits if path.startswith("/catchup/")}
+    assert len(asked) == MAX_CONSECUTIVE_DAY_FAILURES
+    assert report.failed_days == tuple(sorted(days, reverse=True))
+    assert "cs.CV: 3 catchup pages in a row could not be read; the other days are not asked for" in (
+        caplog.text
+    )
+
+
+def test_backfill_asks_for_no_day_past_its_deadline(fake_catchup: FakeArxiv, store: PaperStore) -> None:
+    with fake_catchup.client() as site:
+        report = backfill_category(
+            "cs.CV", BACKFILL_DAYS, store=store, site_client=site, html=HtmlReading(deadline=0.0)
+        )
+
+    assert not [path for path in fake_catchup.hits if path.startswith("/catchup/")]
+    assert report.failed_days == tuple(sorted(BACKFILL_DAYS, reverse=True))
 
 
 def _paper(arxiv_id: str, affiliations: tuple[str, ...] | None) -> Paper:

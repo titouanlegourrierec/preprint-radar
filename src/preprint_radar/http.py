@@ -259,7 +259,7 @@ def _retry_after(response: httpx.Response) -> float | None:
     back to its backoff, as for a header it cannot read (``None``).
     """
     value = response.headers.get("Retry-After", "").strip()
-    if value.isdigit():
+    if value.isascii() and value.isdigit():  # not "²", which float() refuses
         return min(float(value), MAX_RETRY_AFTER_SECONDS)
     try:
         retry_at = parsedate_to_datetime(value)

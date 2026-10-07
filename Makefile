@@ -10,6 +10,8 @@ SHELL := /bin/bash
 # command, the Semantic Scholar key only to those that ask Semantic Scholar.
 -include .env
 export PREPRINT_RADAR_CONTACT
+# Not exported even when the shell holds it, which Make would otherwise pass on everywhere.
+unexport SEMANTIC_SCHOLAR_API_KEY
 archive citations scholar: export SEMANTIC_SCHOLAR_API_KEY := $(SEMANTIC_SCHOLAR_API_KEY)
 
 WEB := web

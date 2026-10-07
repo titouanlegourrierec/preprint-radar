@@ -537,6 +537,27 @@ describe("subjects", () => {
       { value: "Quantum Physics (quant-ph)", count: 0 },
     ]);
   });
+
+  it("compares subjects by code, as the archive writes some and a link may hold one", () => {
+    const archived = makePaper({
+      arxiv_id: "1801.00001",
+      subjects: ["cs.RO"],
+      primary_subject: "cs.RO",
+    });
+    const mixed = [...listed, archived];
+    expect(
+      new PaperIndex(mixed).search("", { ...NO_FILTERS, subject: "cs.RO" }, "newest"),
+    ).toHaveLength(4);
+    expect(new PaperIndex(mixed).search("", { ...NO_FILTERS, subject: RO }, "newest")).toHaveLength(
+      4,
+    );
+    // One choice per code, named in full, holding the value the link holds when chosen.
+    expect(subjectFacets(mixed, null, 10)).toContainEqual({ value: RO, count: 4 });
+    expect(subjectFacets(mixed, "cs.RO", 10)).toContainEqual({ value: "cs.RO", count: 4 });
+    expect(
+      subjectFacets(mixed, "cs.RO", 10).filter(({ value }) => value.includes("cs.RO")),
+    ).toHaveLength(1);
+  });
 });
 
 describe("Most cited and Rising with search words", () => {

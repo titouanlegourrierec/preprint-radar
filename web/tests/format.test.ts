@@ -30,7 +30,7 @@ describe("citationsNote", () => {
 });
 
 describe("affiliationCoverage", () => {
-  const caveat = ": affiliations of recent years are still being filled in";
+  const caveat = ": the others count for no institution";
 
   it("gives the share of papers with known affiliations, and the caveat below half", () => {
     expect(affiliationCoverage(331, 2018)).toBe(
@@ -44,8 +44,10 @@ describe("affiliationCoverage", () => {
     );
   });
 
-  it("gives no caveat at exactly half", () => {
+  it("gives no caveat from half on, as the share reads", () => {
     expect(affiliationCoverage(5, 10)).toBe("Affiliations known for 5 of 10 papers (50%)");
+    // 49.95% reads 50%: a caveat beside it would contradict it.
+    expect(affiliationCoverage(999, 2000)).toMatch(/ \(50%\)$/);
     expect(affiliationCoverage(4, 9)).toBe(`Affiliations known for 4 of 9 papers (44%)${caveat}`);
   });
 
@@ -85,8 +87,8 @@ describe("loadingLine", () => {
     expect(loadingLine({ days: days.slice(1) })).toBe(
       `Loading ${(1503).toLocaleString()} papers of ${formatDay("2026-09-24")}…`,
     );
-    expect(loadingLine({ days: [{ date: "2026-09-26", count: 1 }] })).toMatch(
-      /^Loading 1 paper of .+2026…$/,
+    expect(loadingLine({ days: [{ date: "2026-09-26", count: 1 }] })).toBe(
+      `Loading 1 paper of ${formatDay("2026-09-26")}…`,
     );
   });
 
@@ -131,7 +133,7 @@ describe("gainLabel", () => {
     expect(label.title).toMatch(/^1.200 new citations on Semantic Scholar between .+ and .+$/);
 
     const longer = { since: "2026-09-30T13:19:35+00:00", to: "2026-10-11T06:02:00+00:00" };
-    expect(gainLabel(1, longer, null).text).toMatch(/^\+1 since .*2026$/);
+    expect(gainLabel(1, longer, null).text).toBe(`+1 since ${formatDay(longer.since)}`);
     expect(gainLabel(1, longer, null).title).toMatch(/^1 new citation between /);
   });
 });

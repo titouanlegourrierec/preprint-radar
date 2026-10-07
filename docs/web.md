@@ -16,11 +16,14 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   "J.Smith" marks "John Smith", as the filter keeps it), and every affiliation of a
   clicked institution, however it writes it ("IIT Kanpur" for Indian Institute of
   Technology Kanpur, `affiliationNeedles`); "Li" no longer marks "lightweight" in a title.
-- Text is compared folded (`text.ts`): `fold` drops accents and case and writes ß as "ss",
-  so that "Nießner" and "Niessner" are one author in the graph and Rankings (AFF-24), and
-  `searchKey`, which keys names, graph nodes and feeds, also collapses punctuation to one
-  space. Python's `institutions.search_key` keys a name the same way: both test suites
-  read the cases of `tests/fixtures/fold-cases.json`.
+- Text is compared folded (`text.ts`): `fold` drops accents and case and writes the
+  letters with a stroke or a ligature plainly (ß, ł, ø, ı, đ, æ, as the pipeline compares
+  names), so that "Nießner" and "Niessner", or "Bartłomiej" and "Bartlomiej", are one
+  author in the graph and Rankings (AFF-24), and `searchKey`, which keys names, graph
+  nodes and feeds, also collapses punctuation to one space. Python's
+  `institutions.search_key` keys the cases of `tests/fixtures/fold-cases.json` the same
+  way, which both test suites read; spacing accents and modifier letters (ʻ, ˜) still
+  differ, which nothing compares today.
 - `"phrases"` match whole words and `-exclusions` word starts, over every searched field
   as one `searchKey` text per paper, so punctuation and hyphens do not count. A pasted
   arXiv identifier or link means that paper; stop words alone keep every paper.
@@ -234,7 +237,8 @@ cross-listed lately, says "first version 2019" beside its day (`firstVersionYear
 - `export.ts` writes the results shown as CSV, RIS or Markdown, beside `bibtex.ts` (keys
   with a/b/c on collisions, LaTeX escaping, case-protected words): the Export menu of the
   Papers, Highly cited and reading list views (`papers.bib`, `reading-list.bib`…). They
-  cite the published DOI when known, else arXiv's. Beside it, the reading list's Import
+  cite the published DOI when known, else arXiv's; like the other views, the reading list
+  exports the papers its search and filters show. Beside it, the reading list's Import
   and Export JSON carry the whole list and its saved searches, to another browser.
 - An unfolded card links the paper on Semantic Scholar, Connected Papers and alphaXiv
   (`link-outs.ts`, SRCH-11), which find related work from its arXiv id: a lexical "related
@@ -312,7 +316,7 @@ cross-listed lately, says "first version 2019" beside its day (`firstVersionYear
   graph. Institutions rank on the papers with known affiliations, a minority in the
   youngest archive years (16% of 2025): the note gives their share
   (`format.affiliationCoverage`, "Affiliations known for 331 of 2,018 papers (16%)") and,
-  below half, says that recent years are still being filled in (PROD-16).
+  below half, that the others count for no institution (PROD-16).
 - What two nodes did together, and with whom one works (§17.1 #8): each of a node's
   connections in the details lists the papers their link stands for on a click
   (`linkPapers`: every shared paper when papers are nodes, in the projection only those

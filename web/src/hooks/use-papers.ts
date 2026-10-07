@@ -76,7 +76,7 @@ export function usePapers(
   useEffect(() => {
     if (!storeIndex) return;
     if (!category) {
-      setLoad({ status: "error", message: "The data store is empty." });
+      setLoad({ status: "error", message: "The data store is empty" });
       return;
     }
     // Another period, year or category: the requests left and the indexing stop.
