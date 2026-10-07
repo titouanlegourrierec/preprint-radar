@@ -262,3 +262,47 @@ exist.
 | AFF-18 | The countries of the place-join rule (from the backlog, extraction version 5): the countries affiliations write but names of people, a name ending with a country takes a place in the same one, lines ending with a preposition go on, list connectors and dashes at the end, phone numbers, placeholders and LaTeX commands dropped; US states stay out (their codes are words); version 6: a preposition only after a space ("technikum-wien.at"), an address that ends a line ends its affiliation; version 7: mailboxes before their domain, "X is Robotics Lead at Y" | P3 | done |
 | AFF-26 | `make extraction-diff`: the papers today's extraction changes on the cached pages, those that would lose words first, to run before each `EXTRACTOR_VERSION` bump (versions 4 to 7 each fixed a loss of the one before; not in the audit) | P2 | done |
 | SRCH-19 | Abstracts as plain text (decision 17): text macros give their argument, links their address, math symbols their character, citations go; wherever an abstract is read, and on the stored papers through `make venues` (from the backlog) | P3 | done |
+
+## Backlog triage (2026-10-07)
+
+The 108 audit items no row above names, checked against the code of 2026-10-07 (`b3bfefc`).
+Those done since or no longer true are closed here; the rest stay in the audit's §18
+backlog, but for the ones waiting for an answer, listed with the recommended option.
+
+| ID | Status | Why |
+|---|---|---|
+| ARCH-6 | done | Under DEBT-2 and DEBT-3: the view model and the `GraphView` split |
+| CI-5 | done | Under CIT-4: the citations step has its timeout, and a rejected key stops it |
+| CIT-10 | done | Under SRCH-11: a card links Semantic Scholar for its references and citations |
+| DOC-11 | done | Tags since v0.1.0, `CHANGELOG.md`, release notes from it, a versioned User-Agent |
+| DOC-15 | done | Under CIT-11: the docstrings say pruning only decides deletions |
+| META-7 | done | DOI, venue and author ids come from Semantic Scholar's weekly batch (META-1, decision 13) |
+| PERF-6 | done | Under PERF-11: MiniSearch is built on first need, not on a star click |
+| PROD-8 | done | Under PROD-6 to PROD-10: Highly cited states its rule and the counts' date |
+| TEST-3 | done | Under CIT-1 to CIT-13: each archive case has its test |
+| TEST-14 | done | Under DATA-3: `validate` checks the invariants over the whole store, on every push |
+| DATA-8 | dropped | `generated_at` is now the site's "Updated" date and the reference for citations per year: an old stamp would make both wrong |
+| CI-15 | dropped | The weekly full refresh of the counts feeds the gains (CIT-9), which a partial refresh would break |
+| PERF-9 | dropped | Its premise is false: httpx merges its defaults under the assigned headers, so every request is compressed |
+| REL-9 | dropped | REL-3 settled it: arXiv's metadata, abstracts included, is CC0 |
+
+Waiting for the maintainer (the recommendation first):
+
+| ID | Question | Recommendation |
+|---|---|---|
+| CI-13 | How to pay for Actions | Make the repository public (the site and `data/` already are, the code is MIT), after a scan of the history for secrets |
+| AFF-12 | Read again the 833 papers stored without affiliations before extraction versions | Let the daily `reextract` take them within its 50-page cap (about 17 weekdays, up to 12 billed minutes a day), exempt from the layout breaker |
+| AFF-20 | Affiliations of archived papers from their published version's OpenAlex record | A one-request spike on 50 published DOIs first; the fallback only if half gain institutions |
+| AFF-11 | BMVC and IROS pages give no affiliations (91% and 41% empty) | Two fixtures of each, which takes a few page downloads (or the CI page cache), then a rule and a version bump |
+| UX-13 | The tabs overflow on phones | An edge fade when they scroll, the active tab scrolled into view |
+| UX-21 | The graph's force sliders | Under a closed "Advanced layout" disclosure |
+| UX-22 | Graph settings in shared links | Only the layers and thresholds, applied for the visit, never saved |
+| META-5 | Archive dates are approximate | Show archived papers by month ("Mar 2021"), skip arXivRaw |
+| SRCH-6 | A query language | Uppercase OR only; no field prefixes yet |
+| DEBT-6 | The `fetch` command and its export modules | Delete them: the site's exports and `data/` cover it |
+| CIT-5 | Counts fetched and thrown away; refreshing low-rate papers less often | Stop fetching what is thrown away; keep the weekly full refresh (gains) |
+| PROD-15 | One tagline | "Follow and search the cs.CV papers announced on arXiv every weekday, with their affiliations, citations and the most cited older papers." |
+| SEC-8 | `SECURITY.md` | A short one now, pointing to the correction contact; issue templates once public |
+| DOC-3, DOC-4, DOC-2 | ADRs, the calibration scripts, the README's purpose | No ADR folder (the Decisions table is the log), a paragraph on why `data/` is in git; the calibration's key tables in `docs/archive.md`, `experiments/` kept local; a shorter README walkthrough |
+| UX-18 | Manifest and favicon | Neither; `theme-color` and a print stylesheet only |
+| AFF-16, ARCH-5, ARCH-8, DOC-10, PERF-10, REL-11, UX-19 | Parent organizations, a weekend run, shorter field names, a data-format page, precomputed layouts, a removal channel, the edge color | Defer AFF-16, DOC-10 (to 1.0.0) and REL-11 (until a request); fold ARCH-5 into ARCH-4; drop ARCH-8, PERF-10 and UX-19 |
