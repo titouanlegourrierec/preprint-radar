@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "preact/hooks";
+import { useEffect, useLayoutEffect, useRef, useState } from "preact/hooks";
 import { toBibtex } from "../bibtex";
 import { codeUrl } from "../code";
 import { download } from "../download";
@@ -90,9 +90,22 @@ export function PaperCard({
   onAffiliation,
 }: Props) {
   const [expanded, setExpanded] = useState(isTarget);
-  const [copied, setCopied] = useState(false);
+  const [bibtex, setBibtex] = useState<"" | "copied" | "downloaded">("");
   const [linkCopied, setLinkCopied] = useState(false);
   const root = useRef<HTMLElement>(null);
+  // A "+N" opens the card and goes away: the first name it showed takes the focus, which
+  // would otherwise fall to the page (and "j" back to the first card).
+  const [revealing, setRevealing] = useState<"authors" | "affiliations" | null>(null);
+  const revealed = useRef<HTMLButtonElement>(null);
+  useLayoutEffect(() => {
+    if (revealing === null) return;
+    revealed.current?.focus();
+    setRevealing(null);
+  }, [revealing]);
+  const reveal = (list: "authors" | "affiliations") => {
+    setExpanded(true);
+    setRevealing(list);
+  };
 
   // A shared link's target is scrolled into view once, when the list first shows it.
   const targetOnMount = useRef(isTarget);
@@ -132,12 +145,13 @@ export function PaperCard({
   async function copyBibtex() {
     try {
       await navigator.clipboard.writeText(toBibtex(paper));
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
+      setBibtex("copied");
     } catch {
-      // A refused clipboard: the entry as a file instead.
+      // A refused clipboard: the entry as a file instead, and the button says so.
       download(`${paper.arxiv_id.replace("/", "_")}.bib`, toBibtex(paper), "application/x-bibtex");
+      setBibtex("downloaded");
     }
+    setTimeout(() => setBibtex(""), 1500);
   }
 
   // Plain click: copy the link, and say so; nothing else changes. Only when the clipboard
@@ -182,6 +196,7 @@ export function PaperCard({
             <span key={`${index}:${author}`}>
               {index > 0 && ", "}
               <button
+                ref={revealing === "authors" && index === MAX_AUTHORS_COLLAPSED ? revealed : null}
                 type="button"
                 class="link-button"
                 title="Show papers by this author"
@@ -197,10 +212,12 @@ export function PaperCard({
               <button
                 type="button"
                 class="link-button muted"
-                aria-label={`Show all ${paper.authors.length} authors`}
-                onClick={() => setExpanded(true)}
+                aria-describedby={titleId}
+                title={`Show all ${paper.authors.length} authors`}
+                onClick={() => reveal("authors")}
               >
                 +{paper.authors.length - authors.length}
+                <span class="visually-hidden"> more authors</span>
               </button>
             </>
           )}
@@ -212,6 +229,11 @@ export function PaperCard({
               <span key={affiliation}>
                 {index > 0 && "\u00a0· "}
                 <button
+                  ref={
+                    revealing === "affiliations" && index === MAX_AFFILIATIONS_COLLAPSED
+                      ? revealed
+                      : null
+                  }
                   type="button"
                   class="link-button"
                   title="Show papers from this affiliation"
@@ -227,10 +249,12 @@ export function PaperCard({
                 <button
                   type="button"
                   class="link-button"
-                  aria-label={`Show all ${allAffiliations.length} affiliations`}
-                  onClick={() => setExpanded(true)}
+                  aria-describedby={titleId}
+                  title={`Show all ${allAffiliations.length} affiliations`}
+                  onClick={() => reveal("affiliations")}
                 >
                   +{allAffiliations.length - affiliations.length}
+                  <span class="visually-hidden"> more affiliations</span>
                 </button>
               </>
             )}
@@ -342,7 +366,7 @@ export function PaperCard({
             </a>
           )}
           <button type="button" aria-describedby={titleId} class="link-button" onClick={copyBibtex}>
-            {copied ? "Copied!" : "BibTeX"}
+            {bibtex === "copied" ? "Copied!" : bibtex === "downloaded" ? "Downloaded" : "BibTeX"}
           </button>
           <a
             aria-describedby={titleId}
@@ -390,7 +414,13 @@ export function PaperCard({
           </button>
           {/* What a copy did, said to screen readers: the buttons' text changes silently. */}
           <span class="visually-hidden" role="status">
-            {copied ? "BibTeX copied" : linkCopied ? "Link copied" : ""}
+            {bibtex === "copied"
+              ? "BibTeX copied"
+              : bibtex === "downloaded"
+                ? "BibTeX downloaded: the clipboard was refused"
+                : linkCopied
+                  ? "Link copied"
+                  : ""}
           </span>
         </footer>
       </div>

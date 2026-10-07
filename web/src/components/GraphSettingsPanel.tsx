@@ -8,6 +8,7 @@ import { authorLayer, type GraphSettings } from "../preferences";
 import type { FacetCount } from "../search";
 import type { ArchiveSummary, DaySummary } from "../types";
 import { ArchiveSourceSelect } from "./ArchiveYears";
+import { Attribution } from "./Attribution";
 import { PeriodPicker } from "./PeriodPicker";
 import { VenueSelect } from "./VenueSelect";
 
@@ -83,6 +84,8 @@ interface Props {
   onReset: () => void;
   /** Whether any shown node has citations (sizing by citations then shows something). */
   cited: boolean;
+  /** Where the counts come from and their date, for the sources line. */
+  citationsNote: string | undefined;
 }
 
 function Slider(props: {
@@ -421,6 +424,10 @@ export function GraphSettingsPanel(props: Props) {
               GraphML
             </button>
           </div>
+          <p class="graph-settings__note graph-settings__sources">
+            <Attribution />
+            {props.citationsNote && ` ${props.citationsNote}.`}
+          </p>
         </div>
       )}
     </section>

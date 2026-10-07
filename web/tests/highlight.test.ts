@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { highlight, wholeWord } from "../src/highlight";
+import { highlight, wholeWord, wordStarts } from "../src/highlight";
 
 const marked = (text: string, terms: string[]) =>
   highlight(text, terms)
@@ -22,6 +22,14 @@ describe("highlight", () => {
     expect(
       marked("ViT and vitamins, Self-Supervised", [wholeWord("vit"), wholeWord("self supervised")]),
     ).toEqual(["ViT", "Self-Supervised"]);
+  });
+
+  it("marks every word start for a term made by wordStarts, a plain term's inner words whole", () => {
+    expect(marked("John Smith and Jo Smithson", [wordStarts("j smith")])).toEqual([
+      "John Smith",
+      "Jo Smithson",
+    ]);
+    expect(marked("John Smith", ["j smith"])).toEqual([]);
   });
 
   it("does not match inside words", () => {

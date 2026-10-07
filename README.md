@@ -66,6 +66,7 @@ uv run preprint-radar update                       # cs.CV into data/ (slow: rea
 uv run preprint-radar update -c cs.CV -c cs.LG --max-html 50
 uv run preprint-radar backfill --since 2026-09-01  # past days, from arXiv's catchup pages
 uv run preprint-radar fetch --latest-only -f csv   # quick one-off export of the listing
+uv run preprint-radar -q update                    # warnings only (long commands log progress)
 
 cd web
 npm install

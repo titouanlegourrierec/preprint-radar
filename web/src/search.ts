@@ -1,6 +1,6 @@
 import MiniSearch, { type SearchResult as MiniSearchResult, type Options } from "minisearch";
 import { codeUrl } from "./code";
-import { wholeWord } from "./highlight";
+import { wholeWord, wordStarts } from "./highlight";
 import { acronymOf, institutionsOf, namedInstitutions } from "./institutions";
 import { fold, searchKey } from "./text";
 import type { Paper } from "./types";
@@ -434,17 +434,21 @@ function filterNeedles(filter: NameFilter | null): string[] {
   // The filters compare `searchKey`s, whose punctuation the needle's words may stand
   // across: "Julia A. Schnabel" marks "Julia A Schnabel", "Xi'an" marks "Xi’an".
   if (filter.exact) return [wholeWord(searchKey(filter.text))];
-  // Each typed word whole, its own punctuation included: "AT&T" is one needle ("at t").
+  // Each typed word is one needle, its own punctuation included ("AT&T" is "at t"), whose
+  // pieces start words as the filter's do: "J.Smith" marks "John Smith". One letter alone
+  // stays a plain needle, which marks nothing.
   return filter.text
     .split(/\s+/)
     .map(searchKey)
-    .filter((word) => word && !STOP_WORDS.has(word));
+    .filter((word) => word && !STOP_WORDS.has(word))
+    .map((word) => (word.includes(" ") ? wordStarts(word) : word));
 }
 
 /**
  * What the author and affiliation filters highlight, each in its own line of a card
  * (SRCH-8): a clicked name as a whole ("Hao Li", not every word starting with "li"), typed
- * text as word starts, and the affiliations of a clicked institution.
+ * text as word starts (each piece of a typed word too), and the affiliations of a clicked
+ * institution.
  */
 export function nameHighlights(filters: SearchFilters): NameHighlights {
   const { affiliation } = filters;

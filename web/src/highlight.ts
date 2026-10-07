@@ -14,15 +14,27 @@ export function wholeWord(term: string): string {
   return `${term}${WHOLE_WORD}`;
 }
 
+/**
+ * A term of several words to highlight as word starts, each of them: "j smith" flags
+ * "John Smith", as a typed name filter keeps it. A plain term's inner words are whole,
+ * as a phrase's are.
+ */
+export function wordStarts(term: string): string {
+  return `${term}${WORD_STARTS}`;
+}
+
 const WHOLE_WORD = "\u0000";
+const WORD_STARTS = "\u0001";
+const BETWEEN_WORDS = "[^\\p{L}\\p{N}]+";
+const REST_OF_WORD = "[\\p{L}\\p{N}]*";
 
 function needlePattern(needle: string): string {
   const exact = needle.endsWith(WHOLE_WORD);
-  const words = (exact ? needle.slice(0, -WHOLE_WORD.length) : needle)
-    .split(/\s+/)
-    .map(escapeRegExp)
-    .join("[^\\p{L}\\p{N}]+");
-  return exact ? `${words}(?![\\p{L}\\p{N}])` : `${words}[\\p{L}\\p{N}]*`;
+  const starts = needle.endsWith(WORD_STARTS);
+  const words = (exact || starts ? needle.slice(0, -1) : needle).split(/\s+/).map(escapeRegExp);
+  if (exact) return `${words.join(BETWEEN_WORDS)}(?![\\p{L}\\p{N}])`;
+  if (starts) return words.map((word) => `${word}${REST_OF_WORD}`).join(BETWEEN_WORDS);
+  return `${words.join(BETWEEN_WORDS)}${REST_OF_WORD}`;
 }
 
 /**

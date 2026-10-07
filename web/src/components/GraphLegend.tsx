@@ -8,18 +8,21 @@ const KINDS = [
 ] as const;
 
 /**
- * What the graph draws: its nodes of each kind, its links, the institutions and authors the
+ * What the graph draws: its nodes of each kind, its links, the institutions or authors the
  * cap leaves out, the consortia left unlinked.
  */
 export function GraphLegend({
   graph,
   counts,
   cap,
+  capped,
 }: {
   graph: Graph;
   counts: Record<NodeKind, number>;
   /** The settings' "Top institutions & authors", when it cut some (UX-20). */
   cap: number;
+  /** What the cap ranks, as the settings draw them: "institutions", "authors" or both. */
+  capped: readonly string[];
 }) {
   return (
     <div class="graph__legend">
@@ -36,7 +39,11 @@ export function GraphLegend({
       {graph.truncated && (
         <span>
           top {cap.toLocaleString()} of{" "}
-          {countOf(graph.eligible, "institution and author", "institutions and authors")}
+          {countOf(
+            graph.eligible,
+            capped.map((kind) => kind.slice(0, -1)).join(" and "),
+            capped.join(" and "),
+          )}
         </span>
       )}
       {graph.consortia > 0 && (

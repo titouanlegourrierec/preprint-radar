@@ -12,9 +12,10 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   letters. Highlights follow the same rules (`wholeWord`). The names filtered on are
   marked each in its own line only (`nameHighlights`, SRCH-8): a clicked name as a whole,
   across punctuation as the filter compares it ("Julia A. Schnabel" marks "Julia A
-  Schnabel"), typed text as word starts, and every affiliation of a clicked institution,
-  however it writes it ("IIT Kanpur" for Indian Institute of Technology Kanpur,
-  `affiliationNeedles`); "Li" no longer marks "lightweight" in a title.
+  Schnabel"), typed text as word starts (each piece of a typed word too, `wordStarts`:
+  "J.Smith" marks "John Smith", as the filter keeps it), and every affiliation of a
+  clicked institution, however it writes it ("IIT Kanpur" for Indian Institute of
+  Technology Kanpur, `affiliationNeedles`); "Li" no longer marks "lightweight" in a title.
 - `"phrases"` match whole words and `-exclusions` word starts, over every searched field
   as one `searchKey` text per paper, so punctuation and hyphens do not count. A pasted
   arXiv identifier or link means that paper; stop words alone keep every paper.
@@ -62,7 +63,12 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   The rendering is in components: `Topbar` (the tabs), `ResultsHeader` (the count, the
   sort control, the toggles, the Export menu and the reading list's tools), `ListNotices`
   (help, news since the last visit, notes, the filters set, the feed), `NoResults` (why a
-  list is empty, and its remedies) and `SiteFooter`.
+  list is empty, and its remedies) and `SiteFooter` (the sources, `Attribution`, which the
+  graph's settings show too: REL-10).
+- `components/ErrorBoundary.tsx` (TEST-10): a view that fails to draw says so, with Reload,
+  a link to start over and the correction contact, and leaves the tabs and the sidebar
+  usable; it draws again once the state or the papers change (`resetKeys`: Back, another
+  period or filter). Around the whole app, a last one catches the rest.
 
 ## URLs and history (`url-state.ts`)
 
@@ -73,11 +79,12 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   paper in the graph. `paperLink` sends an archived paper to its year of the Highly cited
   view, since it has no day file. Share copies the link and changes nothing else.
 - The parameters, all optional (`readState`, `writeState`; a default value is left out of
-  the link, and a value the app does not know reads as the default):
+  the link; an unknown `view`, `sort`, `range`, `year`, `cat`, `xl` or `code` reads as the
+  default, while an unknown `subject` or `venue` is kept and matches no paper):
 
   | Parameter | Holds | Default | Read by |
   | --- | --- | --- | --- |
-  | `q` | The search words | none | every list, the graph |
+  | `q` | The search words | none | every list, Rankings, the graph |
   | `cat` | The category | the store's first | every view |
   | `from`, `to` | A period of days (`from` alone: one day) | `range` | the Papers view, the graph and Rankings without `year` |
   | `range` | A preset: `1`, `5`, `20`, `40` days (`all`, from old links, is `40`) | `5` | the same |
@@ -88,10 +95,10 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   | `focus` | A graph node id, `institution:mit`: its papers alone | none | the graph (other views drop it) |
   | `by`, `at` | An author or an institution, as clicked: that name only | none | the lists, Rankings |
   | `author`, `aff` | Typed author or affiliation text: word starts (old links' `by` and `at`) | none | the same |
-  | `venue` | A venue (`ECCV 2026`), a family (`ECCV*`) or any (`*`) | none | the lists, the graph |
-  | `subject` | A primary subject (`Machine Learning (cs.LG)`) | none | the lists |
-  | `xl` | `0`: cross-lists hidden | shown | the lists |
-  | `code` | `1`: papers that link their code | all | the lists |
+  | `venue` | A venue (`ECCV 2026`), a family (`ECCV*`) or any (`*`) | none | the lists, Rankings, the graph |
+  | `subject` | A primary subject (`Machine Learning (cs.LG)`) | none | the lists, Rankings |
+  | `xl` | `0`: cross-lists hidden | shown | the lists, Rankings |
+  | `code` | `1`: papers that link their code | all | the lists, Rankings |
 
 ## Periods and loading (`period.ts`, `data.ts`, `hooks/use-papers.ts`)
 
@@ -171,7 +178,10 @@ derives what only the site uses. The pipeline and `validate` never see these.
   end comes into view, and starts over at 40 only for a new list (`listKey`: other words,
   filters, sort, view, period, years or category). A card marked seen while seen papers
   are hidden, or unsaved from the reading list (with x and s, or the card's own buttons),
-  leaves without collapsing the list, and the card now at its place takes the focus; a
+  leaves without collapsing the list, and the card now at its place takes the focus; the
+  paper a link opened (`?paper=`) stays while it is open, seen or not, and leaves once
+  folded, handing the focus on the same way. A card's "+N" opens it, its first name
+  shown taking the focus from the button, which goes away; a
   list grows only while cards are left, so that one opens at 40 cards, not 80; late
   citation counts re-rank it only when the order uses them (UX-23).
 - **Triage** (`triage.ts`, `hooks/use-triage.ts`), never in the URL: papers marked seen,
@@ -242,7 +252,8 @@ out of Highly cited (decision 18). Reading lists keep the flag.
   MIT"). The canvas's label counts its nodes and links, and its description points to
   Rankings, the same institutions and authors as a table.
 - "Top institutions & authors" (`maxNodes`) keeps the most frequent institutions and authors,
-  never papers, and the legend says how many it leaves out (`Graph.eligible`, UX-20).
+  never papers, and the legend says how many it leaves out (`Graph.eligible`, UX-20),
+  naming only the kinds drawn ("top 100 of 750 institutions" without authors).
 - Turning authors on hides authors of a single paper (`authorLayer`, "Author ≥ papers" at
   2, with a note): they are most of the nodes. The time-lapse stops at every day, or at
   the last day of each week or month when there are more than 60 (`replaySteps`): an

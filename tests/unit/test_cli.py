@@ -14,7 +14,7 @@ from rich.console import Console
 
 from preprint_radar.archive.catalog import Catalog
 from preprint_radar.archive.update import ArchiveClients, ArchiveReport
-from preprint_radar.cli import build_parser, main
+from preprint_radar.cli import build_parser, log_level, main
 from preprint_radar.collect import CitationsReport, HtmlReading, Stop, UpdateReport
 from preprint_radar.exceptions import FetchError, NotFoundError
 from preprint_radar.http import DEFAULT_USER_AGENT, HttpClient
@@ -173,13 +173,16 @@ def test_backfill_rejects_reversed_dates(capsys: pytest.CaptureFixture[str]) -> 
         (["fetch", "--max-entries", "0"], "must be between 1 and 2000, got 0"),
         (["update", "--max-html", "-1"], "must be 0 or more, got -1"),
         (["update", "--max-ror", "many"], "not a whole number: 'many'"),
-        (["citations", "--max-minutes", "-5"], "must be 0 or more, got -5"),
-        (["update", "--deadline-minutes", "nan"], "must be 0 or more, got nan"),
+        (["citations", "--max-minutes", "-5"], "must be a number, 0 or more, got -5"),
+        (["update", "--deadline-minutes", "nan"], "must be a number, 0 or more, got nan"),
         (["update", "--crawl-delay", "soon"], "not a number: 'soon'"),
+        (["update", "--crawl-delay", "inf"], "must be a number, 0 or more, got inf"),
+        (["update", "--crawl-delay", "1e10"], "must be 3600 seconds at most, got 1e10"),
+        (["reextract", "--match", "("], "not a valid regular expression: missing )"),
         (["stats", "--affiliations", "--changes"], "--changes needs --page-cache-dir"),
         (["stats", "--page-cache-dir", "cache"], "--page-cache-dir goes with --affiliations"),
     ],
-    ids=["entries", "html", "ror", "minutes", "nan", "delay", "changes", "cache"],
+    ids=["entries", "html", "ror", "minutes", "nan", "delay", "inf", "long", "regex", "changes", "cache"],
 )
 def test_arguments_out_of_range_are_refused_with_a_usage_line(
     argv: list[str], message: str, capsys: pytest.CaptureFixture[str]
@@ -191,12 +194,23 @@ def test_arguments_out_of_range_are_refused_with_a_usage_line(
     assert message in capsys.readouterr().err
 
 
-def test_verbose_goes_before_or_after_the_command() -> None:
-    parser = build_parser()
-
-    assert parser.parse_args(["-v", "stats"]).verbose == 1
-    assert parser.parse_args(["stats", "-vv"]).verbose == 2
-    assert parser.parse_args(["stats"]).verbose == 0
+@pytest.mark.parametrize(
+    ("argv", "level"),
+    [
+        (["stats"], logging.WARNING),
+        (["-v", "stats"], logging.INFO),
+        (["stats", "-vv"], logging.DEBUG),
+        (["-v", "stats", "-v"], logging.DEBUG),
+        # The long commands log their progress without -v, but for -q (DOC-5).
+        (["update"], logging.INFO),
+        (["-v", "archive"], logging.INFO),
+        (["-vv", "citations"], logging.DEBUG),
+        (["-q", "update"], logging.WARNING),
+        (["backfill", "--since", "2026-09-01", "-q", "-v"], logging.WARNING),
+    ],
+)
+def test_verbosity_goes_before_or_after_the_command(argv: list[str], level: int) -> None:
+    assert log_level(build_parser().parse_args(argv)) == level
 
 
 def test_numbers_in_range_are_taken() -> None:

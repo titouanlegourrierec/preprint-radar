@@ -95,7 +95,7 @@ test("marking a paper seen while seen papers are hidden moves the focus to the n
   expect(errors).toEqual([]);
 });
 
-test("a card's own Mark seen button hands the focus on as x does", async ({ page }) => {
+test("a card's own Seen button hands the focus on as x does", async ({ page }) => {
   await page.goto("./");
   await expect(page.getByText("4 of 4 cs.CV papers")).toBeVisible();
   await page.getByRole("checkbox", { name: "Hide seen" }).check();
@@ -107,6 +107,43 @@ test("a card's own Mark seen button hands the focus on as x does", async ({ page
   const focused = page.locator("article.paper:focus");
   await expect(focused).toHaveCount(1);
   expect(await focused.getAttribute("data-arxiv-id")).not.toBe(id);
+});
+
+test("folding a seen paper a link opened hands the focus on", async ({ page }) => {
+  await page.goto("./?paper=2609.00002");
+  await page.getByRole("checkbox", { name: "Hide seen" }).check();
+  const target = page.locator('article.paper[data-arxiv-id="2609.00002"]');
+  await target.focus();
+  // Seen, the paper the link opened stays while it is open...
+  await page.keyboard.press("x");
+  await expect(target.getByRole("button", { name: "Seen" })).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  );
+  await expect(page.getByText("4 of 4 cs.CV papers")).toBeVisible();
+  // ...and leaves once folded, its focus going to the card now at its place.
+  await page.keyboard.press("o");
+  await expect(page.getByText("3 of 4 cs.CV papers")).toBeVisible();
+  await expect(target).toHaveCount(0);
+  const focused = page.locator("article.paper:focus");
+  await expect(focused).toHaveCount(1);
+});
+
+test("a card's +N shows the rest, and its first name takes the focus", async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.route("**/data/cs.CV/2026-09-25.json", async (route) => {
+    const response = await route.fetch();
+    const day = await response.json();
+    day.papers[0].authors = Array.from({ length: 8 }, (_, index) => `Author ${index + 1}`);
+    day.papers[0].author_affiliations = null;
+    await route.fulfill({ response, json: day });
+  });
+  await page.goto("./");
+  const card = page.locator('article.paper[data-arxiv-id="2609.00001"]');
+  await card.getByRole("button", { name: "+2 more authors" }).click();
+  await expect(card.getByRole("button", { name: "Author 7" })).toBeFocused();
+  await expect(card.getByRole("button", { name: "Author 8" })).toBeVisible();
+  expect(errors).toEqual([]);
 });
 
 test("Rankings lists the institutions of the papers shown", async ({ page }) => {
@@ -148,4 +185,21 @@ test("a paper the page cannot draw shows a message, not a blank page", async ({ 
   await page.getByRole("link", { name: "About", exact: true }).click();
   await expect(page.getByRole("heading", { name: "About Preprint Radar" })).toBeVisible();
   expect(errors.length).toBeGreaterThan(0);
+});
+
+test("a view that failed draws again for another period, or Back", async ({ page }) => {
+  await page.route("**/data/cs.CV/2026-09-25.json", async (route) => {
+    const response = await route.fetch();
+    const day = await response.json();
+    day.papers[0].authors = null;
+    await route.fulfill({ response, json: day });
+  });
+  await page.goto("./?from=2026-09-24");
+  await expect(page.getByText("1 of 1 cs.CV paper")).toBeVisible();
+  await page.locator(".period-picker__trigger").click();
+  await page.getByRole("button", { name: "Last 5 days" }).click();
+  await expect(page.getByRole("alert")).toContainText("this view could not be displayed");
+  await page.goBack();
+  await expect(page.getByRole("alert")).toHaveCount(0);
+  await expect(page.getByText("1 of 1 cs.CV paper")).toBeVisible();
 });

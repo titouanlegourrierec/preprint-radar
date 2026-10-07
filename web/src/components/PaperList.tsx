@@ -169,6 +169,13 @@ export function PaperList({
     onToggleSaved(paper);
     refocusAfter(index);
   };
+  // So does folding the paper a link opened: seen while seen papers are hidden, it stays
+  // only as long as it is open.
+  const closePaper = () => {
+    const index = openId ? cardIndex(openId) : -1;
+    onClosePaper();
+    refocusAfter(index);
+  };
 
   const card = ({ paper, highlights }: SearchResult) => (
     <PaperCard
@@ -183,7 +190,7 @@ export function PaperList({
       isTarget={paper.arxiv_id === openId}
       permalink={linkTo(paper)}
       onOpen={onOpenPaper}
-      onClose={onClosePaper}
+      onClose={closePaper}
       onShowInGraph={onShowInGraph}
       citations={citations.get(paper.arxiv_id)}
       citationsNote={citationsNote}

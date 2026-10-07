@@ -2,6 +2,7 @@
 
 import argparse
 import logging
+import math
 import os
 import re
 import signal
@@ -110,10 +111,33 @@ def _duration(text: str) -> float:
     except ValueError:
         msg = f"not a number: {text!r}"
         raise argparse.ArgumentTypeError(msg) from None
-    if not value >= 0:  # also refuses nan
-        msg = f"must be 0 or more, got {text}"
+    if not (math.isfinite(value) and value >= 0):  # nan and inf too
+        msg = f"must be a number, 0 or more, got {text}"
         raise argparse.ArgumentTypeError(msg)
     return value
+
+
+# A crawl delay is slept between requests: past an hour it is a typo, and past about 290
+# years time.sleep overflows.
+_MAX_CRAWL_DELAY_SECONDS = 3600
+
+
+def _crawl_delay(text: str) -> float:
+    """Seconds between two arxiv.org requests, up to an hour (DEBT-5)."""
+    value = _duration(text)
+    if value > _MAX_CRAWL_DELAY_SECONDS:
+        msg = f"must be {_MAX_CRAWL_DELAY_SECONDS} seconds at most, got {text}"
+        raise argparse.ArgumentTypeError(msg)
+    return value
+
+
+def _regex(text: str) -> re.Pattern[str]:
+    """A regular expression (DEBT-5): argparse would let re.error through as a traceback."""
+    try:
+        return re.compile(text)
+    except re.error as exc:
+        msg = f"not a valid regular expression: {exc}"
+        raise argparse.ArgumentTypeError(msg) from None
 
 
 def _listing_size(text: str) -> int:
@@ -140,6 +164,12 @@ def build_parser() -> argparse.ArgumentParser:
         help="increase log verbosity (-v: info, -vv: debug)",
     )
     parser.add_argument(
+        "-q",
+        "--quiet",
+        action="store_true",
+        help="warnings and errors only (the long commands log their progress otherwise)",
+    )
+    parser.add_argument(
         "--contact",
         default=os.environ.get(CONTACT_ENV_VAR),
         help=f"e-mail or URL sent in the User-Agent so arXiv can reach you (env: {CONTACT_ENV_VAR})",
@@ -159,16 +189,49 @@ def build_parser() -> argparse.ArgumentParser:
     _add_validate_parser(subparsers)
     _add_summary_parser(subparsers)
     _add_reextract_parser(subparsers)
-    # -v after the command too ("stats -v"); unset, it leaves the one before it (DOC-5).
+    # -v and -q after the command too ("stats -v"), which add to the ones before it (DOC-5).
     for command in subparsers.choices.values():
         command.add_argument(
             "-v",
             "--verbose",
+            dest="verbose_after",
             action="count",
-            default=argparse.SUPPRESS,
+            default=0,
             help="increase log verbosity (-v: info, -vv: debug)",
         )
+        command.add_argument(
+            "-q",
+            "--quiet",
+            action="store_true",
+            default=argparse.SUPPRESS,
+            help="warnings and errors only",
+        )
     return parser
+
+
+# The commands that run for minutes or hours: they log their progress unless -q (DOC-5).
+PROGRESS_COMMANDS = frozenset(
+    {"update", "backfill", "reextract", "institutions", "citations", "scholar", "archive"}
+)
+
+
+def log_level(args: argparse.Namespace) -> int:
+    """The logging level a command line asks for.
+
+    Args:
+        args: The parsed command line.
+
+    Returns:
+        WARNING by default, INFO with one -v (before and after the command add up), DEBUG
+        with more; INFO at least for the long commands (`PROGRESS_COMMANDS`), unless -q,
+        which asks for WARNING whatever else is given.
+    """
+    if args.quiet:
+        return logging.WARNING
+    verbosity = args.verbose + args.verbose_after
+    if args.command in PROGRESS_COMMANDS:
+        verbosity = max(verbosity, 1)
+    return {0: logging.WARNING, 1: logging.INFO}.get(verbosity, logging.DEBUG)
 
 
 def _add_fetch_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
@@ -545,7 +608,7 @@ def _add_reextract_parser(subparsers: "argparse._SubParsersAction[argparse.Argum
     )
     selection.add_argument("--ids", nargs="+", metavar="ARXIV_ID", help="these papers")
     selection.add_argument(
-        "--match", type=re.compile, metavar="REGEX", help="papers with an affiliation that this regex finds"
+        "--match", type=_regex, metavar="REGEX", help="papers with an affiliation that this regex finds"
     )
     _add_store_arguments(reextract)
 
@@ -639,7 +702,7 @@ def _add_store_arguments(parser: argparse.ArgumentParser) -> None:
     )
     parser.add_argument(
         "--crawl-delay",
-        type=_duration,
+        type=_crawl_delay,
         default=ARXIV_CRAWL_DELAY_SECONDS,
         help=f"seconds between arxiv.org requests (default: {ARXIV_CRAWL_DELAY_SECONDS:g}, from robots.txt)",
     )
@@ -662,7 +725,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         parser.error("--changes needs --page-cache-dir: the pages to extract again")
     if args.command == "stats" and args.page_cache_dir is not None and not args.affiliations:
         parser.error("--page-cache-dir goes with --affiliations")
-    _configure_logging(args.verbose)
+    _configure_logging(log_level(args))
     try:
         return _COMMANDS[args.command](args)
     except PreprintRadarError as exc:
@@ -1160,10 +1223,10 @@ def _day(value: str) -> date:
         raise argparse.ArgumentTypeError(msg) from exc
 
 
-def _configure_logging(verbosity: int) -> None:
-    configure_logging({0: logging.WARNING, 1: logging.INFO}.get(verbosity, logging.DEBUG))
+def _configure_logging(level: int) -> None:
+    configure_logging(level)
     # httpx logs every request at INFO level; only show it in debug mode.
-    logging.getLogger("httpx").setLevel(logging.DEBUG if verbosity > 1 else logging.WARNING)
+    logging.getLogger("httpx").setLevel(logging.DEBUG if level <= logging.DEBUG else logging.WARNING)
 
 
 _COMMANDS: dict[str, Callable[[argparse.Namespace], int]] = {

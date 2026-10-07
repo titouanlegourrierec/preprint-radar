@@ -334,10 +334,11 @@ export function App() {
       <div class="layout layout--graph">
         {skipLink}
         {topbar}
-        <ErrorBoundary what="the graph">
+        <ErrorBoundary what="the graph" resetKeys={[state, load]}>
           <GraphView
             papers={graphPapers}
             citations={citations.counts}
+            citationsNote={citationsNote}
             focus={state.focus}
             onFocus={(focus) => update({ focus })}
             notice={
@@ -482,8 +483,9 @@ export function App() {
         )}
 
         <main class="results" id="main">
-          {/* A list that fails to draw leaves the tabs and the sidebar usable (TEST-10). */}
-          <ErrorBoundary key={state.view} what="this view">
+          {/* A list that fails to draw leaves the tabs and the sidebar usable (TEST-10), and
+              another period, filter or Back draws it again. */}
+          <ErrorBoundary key={state.view} what="this view" resetKeys={[state, load]}>
             <ResultsHeader
               model={model}
               count={count}

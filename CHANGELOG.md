@@ -16,7 +16,7 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   which find its related work (SRCH-11).
 - A clicked author or affiliation is marked as a whole name, in the author and affiliation
   lines only: filtering on "Hao Li" no longer marks "lightweight" and "linear" in titles
-  and abstracts (SRCH-8).
+  and abstracts (SRCH-8). Typed, "J.Smith" marks "John Smith", as the filter keeps the paper.
 - The venue filter has every edition of a venue at once, "CVPR, any year", its workshops
   apart (SRCH-15).
 
@@ -24,8 +24,9 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 - Back from a filter or a paper to the same period, or its preset chosen again, no longer
   loads and indexes its papers again: the list stays as it was (PERF-16).
-- A page that fails to draw says so, with a Reload button and whom to tell, instead of
-  going blank (TEST-10).
+- A page that fails to draw says so, with Reload, a link to start over and whom to tell,
+  instead of going blank; the tabs and the sidebar stay usable, and Back or another period
+  draws it again (TEST-10).
 
 ### Triage
 
@@ -35,6 +36,8 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   counts no longer fold it either (UX-23).
 - "Hide seen" says what it hides: "· 12 seen papers hidden" by the count, and "All 12
   papers here are marked seen" with "Show seen papers" when nothing else is left (UX-26).
+  The paper a link opened stays while it is open, seen or not; folded, it leaves and
+  hands the focus on.
 
 ### Highly cited
 
@@ -53,6 +56,14 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 - Report and log lines group digits ("1,234 listed"), and `--help` says where abstracts
   come from today, what the archive writes and what `validate` checks (DOC-8).
 
+### Command line
+
+- The long commands (update, backfill, reextract, institutions, citations, scholar,
+  archive) log their progress without `-v`, and `-q` keeps warnings only (DOC-5); `-v`
+  before and after the command add up.
+- `--crawl-delay inf` or past an hour, and a `--match` that is not a regular expression,
+  get a usage line instead of a traceback (DEBT-5).
+
 ### Security
 
 - An imported reading list can no longer put a `javascript:` address on a paper's links:
@@ -61,8 +72,9 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 ### Accessibility
 
 - A card tells screen readers what a copy did, downloads its BibTeX when the clipboard is
-  refused, opens from its "+N" authors or affiliations, and its seen toggle is "Seen",
-  pressed or not (UX-15).
+  refused and says so, opens from its "+N" authors or affiliations ("+3 more authors"),
+  whose first name shown takes the focus, and its seen toggle is "Seen", pressed or not
+  (UX-15).
 - Links inside text are underlined everywhere (the footer, About, "Report an error",
   notices, the feed line, the graph's details), not told from the text by their colour
   alone (UX-24).
@@ -79,7 +91,10 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 ### Graph
 
 - The graph's cap says what it does, "Top institutions & authors", and its legend how
-  many it leaves out ("top 100 of 5,993") (UX-20).
+  many it leaves out ("top 100 of 5,993 institutions", authors named only when drawn)
+  (UX-20).
+- The graph's settings name the sources of its data and the date of the citation counts,
+  as the footer does elsewhere (REL-10).
 - Each connection of a node lists the papers they share ("what did MIT and Google write
   together"), "Focus on this" shows the graph of a node's papers alone, with a link to
   share it, and the graph saves as PNG or GraphML for Gephi (§17.1 #8).

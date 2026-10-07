@@ -386,6 +386,22 @@ describe("PaperIndex", () => {
     expect(marked("Xi'an", "Xi\u2019an Jiaotong University")).toEqual(["Xi\u2019an"]);
     expect(marked("Jean-Luc", "Luca Rossi")).toEqual([]);
     expect(marked("Jean-Luc", "Jean-Luc Starck")).toEqual(["Jean-Luc"]);
+    // The pieces of a typed word start words, as the filter reads them.
+    expect(marked("Univ-of-Tokyo", "University of Tokyo")).toEqual(["University of Tokyo"]);
+  });
+
+  it("marks a typed name whose pieces start words, as the filter keeps it", () => {
+    const filters = { ...NO_FILTERS, author: typed("J.Smith") };
+    const paper = makePaper({ arxiv_id: "1", authors: ["John Smith", "Jane Doe"] });
+    const marked = (text: string, needles: string[]) =>
+      highlight(text, needles)
+        .filter((segment) => segment.match)
+        .map((segment) => segment.text);
+    expect(matchesFilters(paper, filters)).toBe(true);
+    expect(marked("John Smith, Jane Doe", nameHighlights(filters).authors)).toEqual(["John Smith"]);
+    // An initial alone marks nothing.
+    const initial = nameHighlights({ ...NO_FILTERS, author: typed("J. Smith") }).authors;
+    expect(marked("John Smith, Jane Doe", initial)).toEqual(["Smith"]);
   });
 
   it("matches a clicked name across its punctuation, as the filter does", () => {

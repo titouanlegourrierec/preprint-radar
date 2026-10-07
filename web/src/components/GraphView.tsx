@@ -75,6 +75,8 @@ interface Props {
   focusPaper: string | null;
   /** The focused paper is no longer selected. */
   onFocusPaperLeft: () => void;
+  /** Where the citation counts come from and their date, for the sources line (REL-10). */
+  citationsNote: string | undefined;
   /** Scheme shown right now; the canvas re-reads its colors when it changes. */
   theme: "light" | "dark";
   /** Citation count of each paper, by arXiv id, when known. */
@@ -342,17 +344,21 @@ export function GraphView(props: Props) {
   };
 
   const kinds = [settings.institutions && "institutions", settings.authors && "authors"].filter(
-    Boolean,
+    (kind) => kind !== false,
   );
   const selectedEntity = selected && isEntity(selected) ? selected : null;
-  // Its name: the node's, else its usual spelling among the papers, else its key.
+  // Its name: the node's, else its usual spelling among the papers, else as the link
+  // writes it (while papers load, the key would read "eth zurich").
   const undrawnLabel = useMemo(
     () => (focus !== null && !nodesById.has(focus) ? nodeLabel(papers, focus) : null),
     [focus, nodesById, papers],
   );
-  const focusLabel = focus
-    ? (nodesById.get(focus)?.label ?? undrawnLabel ?? focus.slice(focus.indexOf(":") + 1))
-    : null;
+  const focusLabel =
+    focus !== null && props.focus !== null
+      ? (nodesById.get(focus)?.label ??
+        undrawnLabel ??
+        props.focus.slice(props.focus.indexOf(":") + 1))
+      : null;
   // A focus kept from other papers (another period, year or venue) may have none here;
   // while papers load, or failed to, there are none to tell.
   const focusEmpty = focus !== null && props.notice === null && focusedPapers.length === 0;
@@ -533,11 +539,12 @@ export function GraphView(props: Props) {
         onReheat={() => rendererRef.current?.reheat()}
         onExportPng={exportPng}
         onExportGraphML={exportGraphML}
+        citationsNote={props.citationsNote}
         onFit={() => rendererRef.current?.fit()}
         onReset={() => changeSettings(DEFAULT_GRAPH_SETTINGS)}
       />
 
-      <GraphLegend graph={graph} counts={counts} cap={settings.maxNodes} />
+      <GraphLegend graph={graph} counts={counts} cap={settings.maxNodes} capped={kinds} />
       <p class="graph__hint">
         {coarse
           ? "drag · pinch to zoom · tap = details · double-tap = open in the list"
