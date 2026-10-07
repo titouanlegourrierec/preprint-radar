@@ -39,6 +39,7 @@ from preprint_radar.config import (
     DEFAULT_CATEGORY,
     DEFAULT_DATA_DIR,
     DEFAULT_EXPORT_DIR,
+    DEFAULT_MAX_HTML,
     DEFAULT_MAX_ROR_LOOKUPS,
     DEFAULT_PAGE_CACHE_DIR,
     MIN_COVERAGE,
@@ -285,7 +286,7 @@ def _add_update_parser(subparsers: "argparse._SubParsersAction[argparse.Argument
             "to the data store used by the web app."
         ),
     )
-    _add_store_arguments(update)
+    _add_store_arguments(update, max_html=DEFAULT_MAX_HTML)
 
 
 def _add_backfill_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
@@ -300,7 +301,7 @@ def _add_backfill_parser(subparsers: "argparse._SubParsersAction[argparse.Argume
     )
     backfill.add_argument("--since", type=_day, required=True, help="first announcement day (YYYY-MM-DD)")
     backfill.add_argument("--until", type=_day, help="last announcement day (YYYY-MM-DD, default: today)")
-    _add_store_arguments(backfill)
+    _add_store_arguments(backfill, max_html=DEFAULT_MAX_HTML)
 
 
 def _add_stats_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
@@ -610,7 +611,7 @@ def _add_reextract_parser(subparsers: "argparse._SubParsersAction[argparse.Argum
     selection.add_argument(
         "--match", type=_regex, metavar="REGEX", help="papers with an affiliation that this regex finds"
     )
-    _add_store_arguments(reextract)
+    _add_store_arguments(reextract, max_html=None)
 
 
 def _add_summary_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
@@ -654,8 +655,13 @@ def _add_validate_parser(subparsers: "argparse._SubParsersAction[argparse.Argume
     )
 
 
-def _add_store_arguments(parser: argparse.ArgumentParser) -> None:
-    """Options shared by the commands that write to the data store."""
+def _add_store_arguments(parser: argparse.ArgumentParser, *, max_html: int | None) -> None:
+    """Options shared by the commands that write to the data store.
+
+    Args:
+        parser: The command's parser.
+        max_html: The command's default ``--max-html`` (``None``: no limit).
+    """
     parser.add_argument(
         "-c",
         "--category",
@@ -673,8 +679,11 @@ def _add_store_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument(
         "--max-html",
         type=_count,
-        default=None,
-        help="maximum number of HTML pages to download per category (default: no limit; 0 disables)",
+        default=max_html,
+        help=(
+            "maximum number of HTML pages to download per category "
+            f"(default: {'no limit' if max_html is None else max_html}; 0 disables)"
+        ),
     )
     parser.add_argument(
         "--max-ror",

@@ -12,8 +12,8 @@ on:
   workflow_dispatch:
     inputs:
       max-html:
-        description: Maximum number of HTML pages to read per category
-        default: "600"
+        description: Maximum number of HTML pages to read per category (empty for the pipeline's default)
+        default: ""
       since:
         description: Collect every day from this date on (YYYY-MM-DD), e.g. after missed runs
         default: ""
@@ -60,7 +60,8 @@ jobs:
       CATEGORIES: ${{ vars.PREPRINT_RADAR_CATEGORIES || 'cs.CV' }}
       # Defaults to the repository URL, so that forks never send someone else's address.
       PREPRINT_RADAR_CONTACT: ${{ vars.PREPRINT_RADAR_CONTACT || format('{0}/{1}', github.server_url, github.repository) }}
-      MAX_HTML: ${{ inputs.max-html || '600' }}
+      # Empty on a scheduled run: the pipeline's default (DEFAULT_MAX_HTML in config.py).
+      MAX_HTML: ${{ inputs.max-html }}
       SINCE: ${{ inputs.since }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -90,12 +91,13 @@ jobs:
         run: |
           args=(--deadline-minutes 175)
           for category in $CATEGORIES; do args+=(--category "$category"); done
+          if [ -n "$MAX_HTML" ]; then args+=(--max-html "$MAX_HTML"); fi
           if [ -n "$SINCE" ]; then
             # Catchup pages of every day since SINCE, with abstracts, then affiliations.
-            uv run --no-dev preprint-radar -v backfill "${args[@]}" --since "$SINCE" --max-html "$MAX_HTML"
+            uv run --no-dev preprint-radar -v backfill "${args[@]}" --since "$SINCE"
           else
             # Recent listing; abstracts from RSS and catchup pages, then affiliations.
-            uv run --no-dev preprint-radar -v update "${args[@]}" --max-html "$MAX_HTML"
+            uv run --no-dev preprint-radar -v update "${args[@]}"
           fi
 
       - name: Extract stored papers again

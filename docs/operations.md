@@ -76,9 +76,10 @@ arXiv's listing still covers the days missed (it shows the last five announcemen
    `gh workflow run update.yml`). Runs share a concurrency group, so a scheduled run
    queued meanwhile waits for the manual one, then stops at its guard if it succeeded.
 2. For days older than the listing, fill *since* (`YYYY-MM-DD`): the run then calls
-   `backfill` over the catchup pages from that day on, limited to *max-html* pages. Run it
-   again until `make stats` shows no pending papers for those days; papers without an
-   HTML rendering count as *no page*, which no run reads (about 5%).
+   `backfill` over the catchup pages from that day on, limited to 600 pages
+   (`DEFAULT_MAX_HTML`) unless *max-html* says otherwise. Run it again until `make stats`
+   shows no pending papers for those days; papers without an HTML rendering count as
+   *no page*, which no run reads (about 5%).
 
 ## Update data is red
 
@@ -227,7 +228,8 @@ it happens often, run *Archive* by hand mid-week to keep the entry warm.
 1. Set the repository variable `PREPRINT_RADAR_CATEGORIES` (space-separated, e.g.
    `cs.CV cs.LG`). Both data workflows read it.
 2. The first *Update data* run reads the five days of the new listing: about 750 pages,
-   3 hours, so the deadline leaves some for the next runs. Use *since* for older days.
+   3 hours, of which a run reads at most 600 (`DEFAULT_MAX_HTML`), within the deadline
+   the categories share; the next runs read the rest. Use *since* for older days.
 3. The archive harvests the category's OAI set (derived from the category: `cs.LG` is
    `cs:cs:LG`) and gives it its own archive, of the same budget (22,000 by default,
    `PREPRINT_RADAR_ARCHIVE_BUDGET`): the first run takes about 45 minutes more, and asks

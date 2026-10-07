@@ -29,6 +29,11 @@ S2_API_KEY_ENV = "SEMANTIC_SCHOLAR_API_KEY"
 """Semantic Scholar API key: citation counts are much slower without one."""
 
 # Collection (update and backfill).
+DEFAULT_MAX_HTML = 600
+"""HTML pages `update` and `backfill` download per category at most: at arXiv's 15 s crawl
+delay, 600 pages take 150 minutes, inside the 175-minute deadline of the daily workflow's
+fetch step (update.yml), and the pages left wait for the next run. `reextract` has no
+default limit (the workflow gives it 50)."""
 DEFAULT_SAVE_EVERY = 20
 """Papers enriched from their HTML page between two saves of the store."""
 DEFAULT_MAX_ROR_LOOKUPS = 1000

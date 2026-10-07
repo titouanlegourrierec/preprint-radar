@@ -16,6 +16,7 @@ from preprint_radar.archive.catalog import Catalog
 from preprint_radar.archive.update import ArchiveClients, ArchiveReport
 from preprint_radar.cli import build_parser, log_level, main
 from preprint_radar.collect import CitationsReport, HtmlReading, Stop, UpdateReport
+from preprint_radar.config import DEFAULT_MAX_HTML
 from preprint_radar.exceptions import FetchError, NotFoundError
 from preprint_radar.http import DEFAULT_USER_AGENT, HttpClient
 from preprint_radar.models import Listing, Paper
@@ -218,6 +219,34 @@ def test_numbers_in_range_are_taken() -> None:
 
     assert parser.parse_args(["fetch", "--max-entries", "10"]).max_entries == 10
     assert parser.parse_args(["update", "--max-html", "0", "--crawl-delay", "0"]).max_html == 0
+
+
+@pytest.mark.parametrize(
+    ("argv", "max_html"),
+    [
+        # What the daily workflow reads within its deadline, unless told otherwise (DEBT-7).
+        (["update"], DEFAULT_MAX_HTML),
+        (["backfill", "--since", "2026-09-01"], DEFAULT_MAX_HTML),
+        # The workflow gives reextract its own budget; locally, the cache makes most pages free.
+        (["reextract"], None),
+    ],
+    ids=["update", "backfill", "reextract"],
+)
+def test_html_pages_are_limited_by_default_but_for_reextract(argv: list[str], max_html: int | None) -> None:
+    assert build_parser().parse_args(argv).max_html == max_html
+
+
+@pytest.mark.parametrize(
+    ("command", "default"),
+    [("update", f"default: {DEFAULT_MAX_HTML};"), ("reextract", "default: no limit;")],
+)
+def test_help_gives_each_command_its_html_limit(
+    command: str, default: str, capsys: pytest.CaptureFixture[str]
+) -> None:
+    with pytest.raises(SystemExit):
+        main([command, "--help"])
+
+    assert default in " ".join(capsys.readouterr().out.split())
 
 
 def test_backfill_rejects_malformed_dates(capsys: pytest.CaptureFixture[str]) -> None:

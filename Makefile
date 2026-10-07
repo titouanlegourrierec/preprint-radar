@@ -37,7 +37,7 @@ help: ## Show this help
 	' $(MAKEFILE_LIST); \
 	printf "\n%sVariables%s\n" "$$bold" "$$reset"; \
 	printf "  %s%-14s%s %s\n" "$$cyan" "CATEGORIES" "$$reset" "arXiv categories (default: cs.CV for update, backfill, reextract and archive; every stored category for the others)"; \
-	printf "  %s%-14s%s %s\n" "$$cyan" "MAX_HTML" "$$reset" "maximum HTML pages read per category (default: no limit)"; \
+	printf "  %s%-14s%s %s\n" "$$cyan" "MAX_HTML" "$$reset" "maximum HTML pages downloaded per category (default: 600 for update and backfill, no limit for reextract)"; \
 	printf "  %s%-14s%s %s\n" "$$cyan" "SINCE, UNTIL" "$$reset" "first and last day for backfill, YYYY-MM-DD (UNTIL defaults to today)"; \
 	printf "  %s%-14s%s %s\n" "$$cyan" "BUDGET" "$$reset" "archive: number of older papers it holds (default: the command's)"; \
 	printf "  %s%-14s%s %s\n" "$$cyan" "DRY_RUN=1" "$$reset" "archive: report what would change, write nothing"; \

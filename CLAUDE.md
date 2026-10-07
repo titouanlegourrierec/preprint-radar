@@ -38,10 +38,12 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   the format changes. `make test-network`: the parsers against the live arXiv (slow).
 - `make format`: auto-fix formatting and lint. `make dev` / `make preview`: the site locally.
 - Long runs, **never without asking**; interrupting loses nothing, re-running resumes:
-  - `make update` (reads HTML pages at one every 15 s: hours). `make update-quick` skips
-    the pages.
+  - `make update` (reads at most 600 HTML pages per category, `DEFAULT_MAX_HTML`, at one
+    every 15 s: up to 2.5 hours; `MAX_HTML=N` changes it). `make update-quick` skips the
+    pages.
   - `make backfill SINCE=YYYY-MM-DD [UNTIL=...]`: past days from the catchup pages, then
-    their pages (a month of cs.CV: about 11 hours).
+    their pages, 600 a run like `update` (a month of cs.CV: about 11 hours, over five runs
+    or one with `MAX_HTML=3000`).
   - `make archive [DRY_RUN=1] [BUDGET=N] [PRUNE=1]`: the weekly citation archive; about
     207,000 counts in 415 Semantic Scholar requests, hours without a key, and 45 minutes of
     catalog harvest the first time.
@@ -109,9 +111,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   - `store/`: `paper_store.py` (the `data/` layout), `validate.py`, `stats.py`,
     `quality.py`, `reclean.py`, `venues.py`, `export.py`, `filters.py`.
   - `config.py`: tunable defaults (category, directories, environment variable names,
-    archive budget and policy, ROR lookups per run). Limits a service imposes (crawl
-    delays, batch sizes, URLs, timeouts, retries) are not settings: they stay in that
-    service's module, next to the reason for their value.
+    archive budget and policy, HTML pages and ROR lookups per run). Limits a service
+    imposes (crawl delays, batch sizes, URLs, timeouts, retries) are not settings: they
+    stay in that service's module, next to the reason for their value.
   - HTTP goes through `http.HttpClient` only (rate limiting, retries on throttling, server
     errors and timeouts, error mapping).
   - Output goes through `console.py`: `console.print` (never `print`) and

@@ -62,7 +62,7 @@ Makefile) and in a repository variable on GitHub.
 
 ```bash
 uv sync
-uv run preprint-radar update                       # cs.CV into data/ (slow: reads HTML pages)
+uv run preprint-radar update                       # cs.CV into data/ (slow: up to 600 HTML pages)
 uv run preprint-radar update -c cs.CV -c cs.LG --max-html 50
 uv run preprint-radar backfill --since 2026-09-01  # past days, from arXiv's catchup pages
 uv run preprint-radar fetch --latest-only -f csv   # quick one-off export of the listing
@@ -132,7 +132,10 @@ one links it, for a feed reader.
 `backfill` collects past days (weekends are skipped quickly) and saves each day with its
 abstracts before reading the HTML pages for affiliations, most recent day first; stopping
 it loses nothing, and running it again resumes where it stopped. A month of cs.CV is about
-2,900 papers: a few minutes for the days, then about 11 hours of HTML pages.
+2,900 papers: a few minutes for the days, then about 11 hours of HTML pages. Like `update`,
+it reads at most 600 HTML pages per category a run, 2.5 hours at one page every 15 s, which
+fits the daily workflow's time limit (`DEFAULT_MAX_HTML` in `config.py`): run it again for
+the rest, or raise the limit (`--max-html 3000`, `MAX_HTML=3000` with `make`).
 
 `archive` (weekly in CI) keeps the papers that matter beyond the last 12 months. It ranks
 every cs.CV paper since 2010 by citations per year of age — fair to old and recent papers
@@ -146,22 +149,45 @@ repository secret; a run that fails or is cancelled resumes from the counts it f
 
 ## Deployment on GitHub Pages
 
+The site is public, and so is all of `data/`, which it serves: GitHub Pages publishes a
+site to anyone even from a private repository (only GitHub Enterprise Cloud can restrict
+it to members). A fork that deploys it republishes the data, authors and affiliations
+included, under its own address.
+
 1. Push the repository to GitHub.
 2. In *Settings → Pages*, set *Source* to **GitHub Actions**.
 3. In *Settings → Secrets and variables → Actions → Variables*, optionally set:
    - `PREPRINT_RADAR_CATEGORIES`: space-separated categories (default: `cs.CV`);
    - `PREPRINT_RADAR_CONTACT`: your e-mail address, sent to arXiv in the User-Agent
-     (default: the repository URL).
+     (default: the repository URL);
+   - `PREPRINT_RADAR_ARCHIVE_BUDGET`: how many papers older than 12 months the archive
+     keeps per category (default: 22000);
+   - `PREPRINT_RADAR_ARCHIVE_PRUNE`: `true` to delete the day files older than 12 months,
+     for a rolling year of them (default: `false`; this repository sets it).
+
+   Under *Secrets*, optionally set `SEMANTIC_SCHOLAR_API_KEY`, a free
+   [Semantic Scholar API key](https://www.semanticscholar.org/product/api): without it,
+   citation counts are asked for anonymously, and the weekly archive takes hours instead of
+   about 40 minutes.
 4. Run the *Update data* workflow once by hand (*Actions → Update data → Run workflow*).
    A first run over the five days of the listing (about 750 papers) reads at most 600 HTML
-   pages, the workflow's *max-html*, in about 2.5 hours; the next runs read the rest, and
-   daily runs then take ~40 minutes. To collect older days, or days missed while
-   the workflow was not running, fill its *since* field (YYYY-MM-DD): it then runs
-   `backfill`, limited like any run to *max-html* HTML pages (run it again to go on).
+   pages, the pipeline's default (*max-html* changes it), in about 2.5 hours; the next runs
+   read the rest, and daily runs then take ~40 minutes. To collect older days, or days
+   missed while the workflow was not running, fill its *since* field (YYYY-MM-DD): it then
+   runs `backfill`, limited like any run to 600 HTML pages (run it again to go on).
+5. Run the *Archive* workflow once by hand too (*Actions → Archive → Run workflow*), or
+   *Highly cited* stays empty until the first Sunday. Its first run harvests arXiv's
+   catalog (about 45 minutes) before asking for the citation counts (about 40 minutes with
+   the key, hours without); it waits for a running *Update data*, since the two never
+   commit at the same time.
+6. For runs on time, have an outside scheduler dispatch both workflows: GitHub starts
+   scheduled runs hours late, so their own schedules are only fallbacks, four hours after
+   the dispatch times. [`docs/operations.md`](docs/operations.md#the-outside-scheduler)
+   sets it up with cron-job.org; without it, the fallbacks still run, late.
 
-The *Update data* workflow then runs every weekday, commits the new data and redeploys
-the site. The *Deploy site* workflow also runs on every push touching `web/` or `data/`,
-after the web tests.
+The *Update data* workflow then runs every weekday and *Archive* every Sunday; each commits
+the new data and redeploys the site. The *Deploy site* workflow also runs on every push
+touching `web/` or `data/`, after the web tests.
 
 When a run is red, late or missing, or the archive did not change, see
 [`docs/operations.md`](docs/operations.md): one section per symptom, starting from what
@@ -173,7 +199,7 @@ the run's page says, and how long each task takes.
 src/preprint_radar/
 ├── cli.py              # `preprint-radar` command (update, backfill, archive, citations, scholar, validate, stats…)
 ├── collect.py          # update, backfill, reextract → enrichment → store; citation and scholar steps
-├── config.py           # tunable defaults: category, directories, archive budget and policy
+├── config.py           # tunable defaults: category, directories, HTML pages per run, archive budget and policy
 ├── venue.py            # venue table: venues detected from comments, and Semantic Scholar's named alike
 ├── models.py           # Paper, Listing, ScholarRecord, Institution
 ├── http.py             # rate-limited HTTP client with retries
@@ -201,6 +227,10 @@ docs/               # operations (runbook), extraction, archive, web, roadmap, a
 ```
 
 ## Development
+
+Most of the history is past versions of `data/`: a partial clone,
+`git clone --filter=blob:none <url>`, downloads the files of the commit checked out, and
+past versions only when a command such as `git log -p` needs them.
 
 The `Makefile` wraps the usual commands (`make` lists them):
 
