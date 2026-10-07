@@ -2,11 +2,13 @@ import { describe, expect, it } from "vitest";
 import {
   buildGraph,
   countPeople,
+  entitiesByPaper,
   type GraphOptions,
   linkPapers,
   MAX_CLIQUE_AUTHORS,
   MAX_REPLAY_STEPS,
   matchStatus,
+  nodeConnections,
   nodeLabel,
   nodeMatches,
   papersOfNode,
@@ -572,5 +574,34 @@ describe("linkPapers", () => {
     const [ann, google] = [pick("author:ann"), pick("institution:google")];
     if (!(ann && google)) throw new Error("nodes missing");
     expect(linkPapers(ann, google, byId, options)).toEqual(["1", "2", "3"]);
+  });
+});
+
+describe("nodeConnections", () => {
+  it("are the entities a node shares papers with, when papers are nodes", () => {
+    const options: GraphOptions = { ...INSTITUTIONS, papers: true, authors: true };
+    const graph = buildGraph(papers, options);
+    const inria = graph.nodes.find((node) => node.id === "institution:inria");
+    if (!inria) throw new Error("no Inria");
+    const connections = nodeConnections(graph, inria, entitiesByPaper(graph), 10);
+    expect(connections.map(({ node, weight }) => [node.id, weight])).toEqual([
+      ["author:ada", 2],
+      ["institution:google", 2],
+      ["author:bob", 1],
+    ]);
+    expect(nodeConnections(graph, inria, entitiesByPaper(graph), 1)).toHaveLength(1);
+  });
+
+  it("are the nodes a node's links reach in the projection, by weight", () => {
+    const graph = buildGraph(papers, { ...INSTITUTIONS, authors: true });
+    const ada = graph.nodes.find((node) => node.id === "author:ada");
+    if (!ada) throw new Error("no Ada");
+    const connections = nodeConnections(graph, ada, null, 10);
+    expect(connections[0]?.weight).toBe(2);
+    expect(connections.map(({ node }) => node.id).sort()).toEqual([
+      "author:bob",
+      "institution:google",
+      "institution:inria",
+    ]);
   });
 });

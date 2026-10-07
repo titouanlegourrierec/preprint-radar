@@ -246,7 +246,7 @@ exist.
 | DATA-4, DOC-7 | Papers without an HTML rendering (224 of 4,832) are no longer counted as pending forever: `stats` gives them a *no page* column in the days (the archive's null still waits for OpenAlex), and the update report counts them apart ("1 without an HTML page"), so "no pending papers" can be reached (from the backlog) | P2 | done |
 | ARCH-2 | Enrichment step interface | P2 | todo |
 | DEBT-2 | A view model for the list (`view-model.ts`: archive or days, order, sort choices, toggles, exports, tested over the six views), and its top bar, header, notices, empty states and footer as components: `app.tsx` from 959 to 643 lines; the smoke test opens Rankings and the reading list | P2 | done |
-| DEBT-3 | `GraphView` split | P3 | todo |
+| DEBT-3 | `GraphView` split: its details panel (`GraphDetails`, whose connections fold back by its key on another node) and its legend (`GraphLegend`) as components, a node's connections a pure, tested `nodeConnections`; 763 to 539 lines | P3 | done |
 | ARCH-4 | Multi-category, if wanted | P2 | todo |
 | PERF-1 (shards) | Per-month search shards built with the site, for searches over more months than a period loads (from Phase 3) | P2 | todo |
 | AFF-25 | Extraction version 4, after the daily re-read of 318 papers with version 3 (2026-10-06): names are never joined to an affiliation, anchors made of joined lines, a creator holding several authors' names is not a person, an "A & B" pair shares its block, "and Health Sciences" goes on with its unit, a pair is never placed at a place alone, an address in brackets ends a thanks sentence instead of dropping it (found after the release, not in the audit) | P2 | done |

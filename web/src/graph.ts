@@ -488,3 +488,52 @@ export function nodeLabel(papers: readonly Paper[], id: string): string | null {
   }
   return [...counts].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))[0]?.[0] ?? null;
 }
+
+/** A node's connection in its details: another node, and the papers their link counts. */
+export interface Connection {
+  node: GraphNode;
+  weight: number;
+}
+
+/** The institutions and authors of each paper, when papers are nodes themselves. */
+export function entitiesByPaper(graph: Graph): Map<string, GraphNode[]> {
+  const byPaper = new Map<string, GraphNode[]>();
+  for (const node of graph.nodes) {
+    if (node.kind === "paper") continue;
+    for (const id of node.paperIds) byPaper.set(id, [...(byPaper.get(id) ?? []), node]);
+  }
+  return byPaper;
+}
+
+/**
+ * A node's most connected nodes, the strongest `limit` first: with papers as nodes (given
+ * `entities`, from {@link entitiesByPaper}), the entities it shares papers with; in the
+ * projection, the nodes its links reach, by their weight.
+ */
+export function nodeConnections(
+  graph: Graph,
+  node: GraphNode,
+  entities: ReadonlyMap<string, GraphNode[]> | null,
+  limit: number,
+): Connection[] {
+  let connections: Connection[];
+  if (entities) {
+    const shared = new Map<GraphNode, number>();
+    for (const id of node.paperIds) {
+      for (const other of entities.get(id) ?? []) {
+        if (other !== node) shared.set(other, (shared.get(other) ?? 0) + 1);
+      }
+    }
+    connections = [...shared].map(([other, weight]) => ({ node: other, weight }));
+  } else {
+    const byId = new Map(graph.nodes.map((entry) => [entry.id, entry]));
+    connections = graph.links.flatMap((link) => {
+      if (link.source !== node.id && link.target !== node.id) return [];
+      const other = byId.get(link.source === node.id ? link.target : link.source);
+      return other ? [{ node: other, weight: link.weight }] : [];
+    });
+  }
+  return connections
+    .sort((a, b) => b.weight - a.weight || b.node.paperIds.length - a.node.paperIds.length)
+    .slice(0, limit);
+}

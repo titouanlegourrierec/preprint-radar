@@ -1,20 +1,18 @@
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 import type { YearRange } from "../archive-years";
 import { download, downloadBlob } from "../download";
-import { countOf, formatDay } from "../format";
+import { countOf } from "../format";
 import {
   buildGraph,
   type EntityKind,
-  type GraphNode,
+  entitiesByPaper,
   type GraphOptions,
   isEntity,
-  linkPapers,
-  MAX_CLIQUE_AUTHORS,
+  nodeConnections,
   nodeLabel,
   nodeMatches,
   papersOfNode,
   replaySteps,
-  severalPeople,
 } from "../graph";
 import { exportName, toGraphML } from "../graph-export";
 import { GraphRenderer } from "../graph-renderer";
@@ -32,12 +30,11 @@ import {
 import type { FacetCount } from "../search";
 import { searchKey } from "../text";
 import type { ArchiveSummary, DaySummary, Paper } from "../types";
+import { GraphDetails } from "./GraphDetails";
+import { GraphLegend } from "./GraphLegend";
 import { GraphSettingsPanel } from "./GraphSettingsPanel";
 
-const DETAILS_PAPERS = 8;
 const DETAILS_CONNECTIONS = 8;
-const DETAILS_AUTHORS = 8;
-const KIND_NAMES = { paper: "Paper", institution: "Institution", author: "Author" } as const;
 /** Space taken by the overlays (width + margins), kept free when fitting or selecting. */
 const DETAILS_WIDTH_PX = 344;
 const SETTINGS_WIDTH_PX = 274;
@@ -96,8 +93,6 @@ export function GraphView(props: Props) {
   const [cutoff, setCutoff] = useState<number | null>(null);
   const [playing, setPlaying] = useState(false);
   const [introRead, setIntroRead] = useState(loadGraphIntroRead);
-  // The connection whose shared papers are listed in the details.
-  const [openConnection, setOpenConnection] = useState<string | null>(null);
 
   const changeSettings = (patch: Partial<GraphSettings>) =>
     setSettings((current) => {
@@ -197,41 +192,19 @@ export function GraphView(props: Props) {
   const [matchIndex, setMatchIndex] = useState<number | null>(null);
   useEffect(() => setMatchIndex(null), [matches]);
   const selected = (selectedId && nodesById.get(selectedId)) || null;
-  // Another node's details start with its connections folded.
-  useEffect(() => setOpenConnection(null), [selectedId]);
-  // Nodes of each paper, to find who shares papers when papers are nodes themselves.
-  const entitiesByPaper = useMemo(() => {
-    const byPaper = new Map<string, GraphNode[]>();
-    for (const node of graph.nodes) {
-      if (node.kind === "paper") continue;
-      for (const id of node.paperIds) byPaper.set(id, [...(byPaper.get(id) ?? []), node]);
-    }
-    return byPaper;
-  }, [graph]);
-  const connections = useMemo(() => {
-    if (!selected || selected.kind === "paper") return [];
-    if (settings.papers) {
-      const shared = new Map<GraphNode, number>();
-      for (const id of selected.paperIds) {
-        for (const node of entitiesByPaper.get(id) ?? []) {
-          if (node !== selected) shared.set(node, (shared.get(node) ?? 0) + 1);
-        }
-      }
-      return [...shared]
-        .map(([node, weight]) => ({ node, weight }))
-        .sort((a, b) => b.weight - a.weight || b.node.paperIds.length - a.node.paperIds.length)
-        .slice(0, DETAILS_CONNECTIONS);
-    }
-    return graph.links
-      .filter((link) => link.source === selected.id || link.target === selected.id)
-      .map((link) => ({
-        node: nodesById.get(link.source === selected.id ? link.target : link.source),
-        weight: link.weight,
-      }))
-      .filter((entry): entry is { node: GraphNode; weight: number } => entry.node !== undefined)
-      .sort((a, b) => b.weight - a.weight || b.node.paperIds.length - a.node.paperIds.length)
-      .slice(0, DETAILS_CONNECTIONS);
-  }, [graph, nodesById, selected, settings.papers, entitiesByPaper]);
+  // The selected entity's most connected nodes (`nodeConnections`), from the institutions
+  // and authors of each paper when papers are nodes themselves.
+  const entities = useMemo(
+    () => (settings.papers ? entitiesByPaper(graph) : null),
+    [graph, settings.papers],
+  );
+  const connections = useMemo(
+    () =>
+      selected && isEntity(selected)
+        ? nodeConnections(graph, selected, entities, DETAILS_CONNECTIONS)
+        : [],
+    [graph, selected, entities],
+  );
   // A paper can be selected without being a node (no institution or author to link it to).
   const selectedPaper = selectedId?.startsWith("paper:")
     ? papersById.get(selectedId.slice("paper:".length))
@@ -480,152 +453,30 @@ export function GraphView(props: Props) {
       )}
 
       {(selected || selectedPaper) && (
-        <aside class="graph__details" aria-label="Details" ref={detailsRef} tabIndex={-1}>
-          <button
-            type="button"
-            class="graph__close"
-            aria-label="Close"
-            onClick={() => setSelectedId(null)}
-          >
-            ×
-          </button>
-          <p class="graph__kind">{KIND_NAMES[selected?.kind ?? "paper"]}</p>
-          {selectedPaper ? (
-            <PaperDetails
-              paper={selectedPaper}
-              absent={
-                selected
-                  ? null
-                  : !settings.papers
-                    ? "Papers are hidden: turn them on in the graph settings to see this one."
-                    : !selectedPaper.affiliations?.length && !settings.authors
-                      ? "No affiliations are known for this paper yet: turn on Authors to see it with its authors."
-                      : "Not in the graph with these settings: its institutions and authors are filtered out."
-              }
-              citations={citations.get(selectedPaper.arxiv_id)}
-              onOpen={() => onOpenPaper(selectedPaper)}
-            />
-          ) : (
-            selectedEntity && (
-              <>
-                <h2>{selectedEntity.label}</h2>
-                <p
-                  class="muted graph__counts"
-                  title="Over the papers shown: the period or year, and the search"
-                >
-                  {countOf(selectedEntity.paperIds.length, "paper")} ·{" "}
-                  {countOf(selectedEntity.citations, "citation")}
-                  {selectedEntity.rorId && (
-                    <>
-                      {" · "}
-                      <a
-                        href={`https://ror.org/${selectedEntity.rorId}`}
-                        title="This institution in the Research Organization Registry"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        ROR
-                      </a>
-                    </>
-                  )}
-                </p>
-                {selectedEntity.people && (
-                  <p class="muted">{severalPeople(selectedEntity.people)}</p>
-                )}
-                <ul class="graph__papers">
-                  {byCitationCount(selectedEntity.paperIds, citations)
-                    .slice(0, DETAILS_PAPERS)
-                    .map((id) => {
-                      const paper = papersById.get(id);
-                      const count = citations.get(id);
-                      return paper ? (
-                        <li key={id}>
-                          <a href={paper.abs_url} target="_blank" rel="noopener noreferrer">
-                            {paper.title}
-                          </a>{" "}
-                          <span class="muted">
-                            · {formatDay(paper.announced)}
-                            {count !== undefined && ` · ${countOf(count, "citation")}`}
-                          </span>
-                        </li>
-                      ) : null;
-                    })}
-                </ul>
-                {connections.length > 0 && (
-                  <>
-                    <p class="graph__kind">Most connected</p>
-                    <ul class="graph__connections">
-                      {connections.map(({ node, weight }) => (
-                        <li key={node.id}>
-                          <button
-                            type="button"
-                            class="link-button"
-                            onClick={() => selectNode(node.id)}
-                          >
-                            {node.label}
-                          </button>{" "}
-                          <button
-                            type="button"
-                            class="link-button muted"
-                            aria-expanded={openConnection === node.id}
-                            title="The papers they share"
-                            onClick={() =>
-                              setOpenConnection(openConnection === node.id ? null : node.id)
-                            }
-                          >
-                            {countOf(weight, "shared paper")}
-                          </button>
-                          {openConnection === node.id && (
-                            <ul class="graph__shared">
-                              {byCitationCount(
-                                linkPapers(selectedEntity, node, papersById, graphOptions),
-                                citations,
-                              ).map((id) => {
-                                const paper = papersById.get(id);
-                                return paper ? (
-                                  <li key={id}>
-                                    <a
-                                      href={paper.abs_url}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                    >
-                                      {paper.title}
-                                    </a>
-                                  </li>
-                                ) : null;
-                              })}
-                            </ul>
-                          )}
-                        </li>
-                      ))}
-                    </ul>
-                  </>
-                )}
-                <div class="graph__actions">
-                  <button
-                    type="button"
-                    class="button"
-                    onClick={() => onShowPapers(selectedEntity.kind, selectedEntity.label)}
-                  >
-                    {selectedEntity.paperIds.length === 1
-                      ? "Show its paper"
-                      : `Show all ${countOf(selectedEntity.paperIds.length, "paper")}`}
-                  </button>
-                  {focus !== selectedEntity.id && (
-                    <button
-                      type="button"
-                      class="button"
-                      title="The graph of its papers alone: with whom it publishes"
-                      onClick={() => onFocus(selectedEntity.id)}
-                    >
-                      Focus on this
-                    </button>
-                  )}
-                </div>
-              </>
-            )
-          )}
-        </aside>
+        <GraphDetails
+          entity={selectedEntity}
+          paper={selectedPaper}
+          absent={
+            selected
+              ? null
+              : !settings.papers
+                ? "Papers are hidden: turn them on in the graph settings to see this one."
+                : !selectedPaper?.affiliations?.length && !settings.authors
+                  ? "No affiliations are known for this paper yet: turn on Authors to see it with its authors."
+                  : "Not in the graph with these settings: its institutions and authors are filtered out."
+          }
+          connections={connections}
+          papersById={papersById}
+          options={graphOptions}
+          citations={citations}
+          focus={focus}
+          detailsRef={detailsRef}
+          onClose={() => setSelectedId(null)}
+          onSelect={selectNode}
+          onShowPapers={onShowPapers}
+          onFocus={onFocus}
+          onOpenPaper={onOpenPaper}
+        />
       )}
 
       <GraphSettingsPanel
@@ -677,87 +528,12 @@ export function GraphView(props: Props) {
         onReset={() => changeSettings(DEFAULT_GRAPH_SETTINGS)}
       />
 
-      <div class="graph__legend">
-        {(
-          [
-            ["paper", "Papers"],
-            ["institution", "Institutions"],
-            ["author", "Authors"],
-          ] as const
-        ).map(
-          ([kind, name]) =>
-            counts[kind] > 0 && (
-              <span key={kind}>
-                <i class={`graph__dot graph__dot--${kind}`} />
-                {name} ({counts[kind].toLocaleString()})
-              </span>
-            ),
-        )}
-        <span>{countOf(graph.links.length, "link")}</span>
-        {graph.consortia > 0 && (
-          <span>
-            {countOf(graph.consortia, "paper")} of over {MAX_CLIQUE_AUTHORS} authors, whose authors
-            are not linked to one another
-          </span>
-        )}
-      </div>
+      <GraphLegend graph={graph} counts={counts} />
       <p class="graph__hint">
         {coarse
           ? "drag · pinch to zoom · tap = details · double-tap = open in the list"
           : "drag · scroll to zoom · click = details · double-click = open in the list"}
       </p>
     </main>
-  );
-}
-
-/** Paper ids, most cited first; unknown counts last, and ties keep their order. */
-function byCitationCount(ids: readonly string[], citations: ReadonlyMap<string, number>): string[] {
-  return [...ids].sort((a, b) => (citations.get(b) ?? -1) - (citations.get(a) ?? -1));
-}
-
-/** Details of a selected paper: what it is, who wrote it, where, and a way to read it. */
-function PaperDetails({
-  paper,
-  absent,
-  citations,
-  onOpen,
-}: {
-  paper: Paper;
-  /** Why the paper has no node, if it has none. */
-  absent: string | null;
-  /** Its citation count, when known. */
-  citations: number | undefined;
-  onOpen: () => void;
-}) {
-  const authors = paper.authors.slice(0, DETAILS_AUTHORS).join(", ");
-  const hidden = paper.authors.length - DETAILS_AUTHORS;
-  return (
-    <>
-      <h2>
-        <a href={paper.abs_url} target="_blank" rel="noopener noreferrer">
-          {paper.title}
-        </a>
-      </h2>
-      <p class="muted">
-        {formatDay(paper.announced)}
-        {paper.venue && ` · ${paper.venue}`}
-        {citations !== undefined && ` · ${countOf(citations, "citation")}`}
-      </p>
-      <p>
-        {authors}
-        {hidden > 0 && <span class="muted"> +{hidden}</span>}
-      </p>
-      {(paper.affiliations ?? []).length > 0 && (
-        <ul class="graph__connections">
-          {(paper.affiliations ?? []).map((affiliation) => (
-            <li key={affiliation}>{affiliation}</li>
-          ))}
-        </ul>
-      )}
-      {absent && <p class="muted">{absent}</p>}
-      <button type="button" class="button" onClick={onOpen}>
-        Open in the list
-      </button>
-    </>
   );
 }

@@ -193,6 +193,10 @@ out of Highly cited (decision 18). Reading lists keep the flag.
   carries its ROR id when a paper gives it (`rorId`), linked to ror.org; nodes are keyed by
   `searchKey` of the name, which the pipeline makes canonical (a company's subsidiaries are
   the company), so that a company stays one node across its ROR entries.
+- `components/GraphView.tsx` holds the graph's state (settings, selection, focus, time-lapse)
+  and drives the renderer; `GraphDetails` shows the node selected and its connections
+  (`nodeConnections`, `linkPapers`), `GraphLegend` what is drawn, `GraphSettingsPanel` the
+  settings (DEBT-3).
 - `graph-layout.ts` gives starting positions (each connected component in one piece, on a
   spiral); `graph-renderer.ts` draws on a canvas and handles the pointer (an imperative
   class); `components/GraphView.tsx` and `GraphSettingsPanel.tsx` are the UI. It is full
