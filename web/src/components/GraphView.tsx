@@ -6,14 +6,15 @@ import {
   buildGraph,
   type EntityKind,
   type GraphNode,
+  type GraphOptions,
   isEntity,
+  linkPapers,
   MAX_CLIQUE_AUTHORS,
   nodeLabel,
   nodeMatches,
   papersOfNode,
   replaySteps,
   severalPeople,
-  sharedPapers,
 } from "../graph";
 import { exportName, toGraphML } from "../graph-export";
 import { GraphRenderer } from "../graph-renderer";
@@ -143,19 +144,17 @@ export function GraphView(props: Props) {
     return () => clearTimeout(timer);
   }, [playing, cutoff, days.length]);
 
-  const graph = useMemo(
-    () =>
-      buildGraph(shownPapers, {
-        papers: settings.papers,
-        institutions: settings.institutions,
-        authors: settings.authors,
-        isolated: settings.isolated,
-        minPapers: { institution: settings.minInstitutionPapers, author: settings.minAuthorPapers },
-        maxNodes: settings.maxNodes > 0 ? settings.maxNodes : Number.POSITIVE_INFINITY,
-        citations,
-      }),
+  const graphOptions: GraphOptions = useMemo(
+    () => ({
+      papers: settings.papers,
+      institutions: settings.institutions,
+      authors: settings.authors,
+      isolated: settings.isolated,
+      minPapers: { institution: settings.minInstitutionPapers, author: settings.minAuthorPapers },
+      maxNodes: settings.maxNodes > 0 ? settings.maxNodes : Number.POSITIVE_INFINITY,
+      citations,
+    }),
     [
-      shownPapers,
       citations,
       settings.papers,
       settings.institutions,
@@ -166,6 +165,7 @@ export function GraphView(props: Props) {
       settings.maxNodes,
     ],
   );
+  const graph = useMemo(() => buildGraph(shownPapers, graphOptions), [shownPapers, graphOptions]);
   const nodesById = useMemo(() => new Map(graph.nodes.map((node) => [node.id, node])), [graph]);
   const papersById = useMemo(
     () => new Map(shownPapers.map((paper) => [paper.arxiv_id, paper])),
@@ -197,6 +197,8 @@ export function GraphView(props: Props) {
   const [matchIndex, setMatchIndex] = useState<number | null>(null);
   useEffect(() => setMatchIndex(null), [matches]);
   const selected = (selectedId && nodesById.get(selectedId)) || null;
+  // Another node's details start with its connections folded.
+  useEffect(() => setOpenConnection(null), [selectedId]);
   // Nodes of each paper, to find who shares papers when papers are nodes themselves.
   const entitiesByPaper = useMemo(() => {
     const byPaper = new Map<string, GraphNode[]>();
@@ -575,22 +577,23 @@ export function GraphView(props: Props) {
                           </button>
                           {openConnection === node.id && (
                             <ul class="graph__shared">
-                              {byCitationCount(sharedPapers(selectedEntity, node), citations).map(
-                                (id) => {
-                                  const paper = papersById.get(id);
-                                  return paper ? (
-                                    <li key={id}>
-                                      <a
-                                        href={paper.abs_url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                      >
-                                        {paper.title}
-                                      </a>
-                                    </li>
-                                  ) : null;
-                                },
-                              )}
+                              {byCitationCount(
+                                linkPapers(selectedEntity, node, papersById, graphOptions),
+                                citations,
+                              ).map((id) => {
+                                const paper = papersById.get(id);
+                                return paper ? (
+                                  <li key={id}>
+                                    <a
+                                      href={paper.abs_url}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                    >
+                                      {paper.title}
+                                    </a>
+                                  </li>
+                                ) : null;
+                              })}
                             </ul>
                           )}
                         </li>

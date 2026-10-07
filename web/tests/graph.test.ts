@@ -3,6 +3,7 @@ import {
   buildGraph,
   countPeople,
   type GraphOptions,
+  linkPapers,
   MAX_CLIQUE_AUTHORS,
   MAX_REPLAY_STEPS,
   matchStatus,
@@ -501,5 +502,75 @@ describe("nodeLabel", () => {
     expect(nodeLabel(spelled, "institution:mit")).toBe("MIT");
     expect(nodeLabel(spelled, "institution:nowhere")).toBeNull();
     expect(nodeLabel(spelled, "paper:1")).toBeNull();
+  });
+});
+
+describe("linkPapers", () => {
+  // Ann is placed at Google on paper 1 only; Google and MIT sign all three.
+  const placed = [
+    makePaper({
+      arxiv_id: "1",
+      authors: ["Ann", "Bo"],
+      affiliations: ["MIT", "Google"],
+      author_affiliations: [[1], [0]],
+    }),
+    makePaper({
+      arxiv_id: "2",
+      authors: ["Ann", "Bo"],
+      affiliations: ["MIT", "Google"],
+      author_affiliations: [[0], [1]],
+    }),
+    makePaper({
+      arxiv_id: "3",
+      authors: ["Ann", "Bo"],
+      affiliations: ["MIT", "Google"],
+      author_affiliations: [[0], [1]],
+    }),
+  ];
+  const byId = new Map(placed.map((paper) => [paper.arxiv_id, paper]));
+  const projection: GraphOptions = { ...INSTITUTIONS, authors: true };
+  const graph = buildGraph(placed, projection);
+  const node = (id: string) => {
+    const found = graph.nodes.find((candidate) => candidate.id === id);
+    if (!found) throw new Error(`no node ${id}`);
+    return found;
+  };
+  const weight = (a: string, b: string) =>
+    graph.links.find(
+      (link) =>
+        (link.source === a && link.target === b) || (link.source === b && link.target === a),
+    )?.weight;
+
+  it("lists the papers a projection link counts, as many as its weight", () => {
+    const papers = linkPapers(node("author:ann"), node("institution:google"), byId, projection);
+    expect(papers).toEqual(["1"]);
+    expect(weight("author:ann", "institution:google")).toBe(papers.length);
+    expect(
+      linkPapers(node("institution:mit"), node("institution:google"), byId, projection),
+    ).toEqual(["1", "2", "3"]);
+  });
+
+  it("leaves out the papers of too many authors from co-authorship", () => {
+    const authors = Array.from({ length: MAX_CLIQUE_AUTHORS + 1 }, (_, n) => `Author ${n}`);
+    const consortium = [
+      makePaper({ arxiv_id: "big", authors, affiliations: ["CERN"] }),
+      makePaper({ arxiv_id: "small", authors: ["Author 0", "Author 1"], affiliations: ["CERN"] }),
+    ];
+    const options: GraphOptions = { ...INSTITUTIONS, authors: true };
+    const big = buildGraph(consortium, options);
+    const pick = (id: string) => big.nodes.find((candidate) => candidate.id === id);
+    const [a, b] = [pick("author:author 0"), pick("author:author 1")];
+    if (!(a && b)) throw new Error("authors missing");
+    const lookup = new Map(consortium.map((paper) => [paper.arxiv_id, paper]));
+    expect(linkPapers(a, b, lookup, options)).toEqual(["small"]);
+  });
+
+  it("is every shared paper when papers are nodes", () => {
+    const options: GraphOptions = { ...INSTITUTIONS, papers: true, authors: true };
+    const withPapers = buildGraph(placed, options);
+    const pick = (id: string) => withPapers.nodes.find((candidate) => candidate.id === id);
+    const [ann, google] = [pick("author:ann"), pick("institution:google")];
+    if (!(ann && google)) throw new Error("nodes missing");
+    expect(linkPapers(ann, google, byId, options)).toEqual(["1", "2", "3"]);
   });
 });

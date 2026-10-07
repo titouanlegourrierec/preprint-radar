@@ -406,6 +406,40 @@ export function sharedPapers(a: GraphNode, b: GraphNode): string[] {
 }
 
 /**
+ * The papers a link stands for, as its weight counts them. With papers as nodes, two
+ * entities share a paper when both are on it ({@link sharedPapers}); in the projection, a
+ * paper links them only as {@link buildGraph} does: an author to their own institutions,
+ * co-authors of up to {@link MAX_CLIQUE_AUTHORS}. Whether a paper links two nodes depends
+ * on that paper alone, so the graph of each shared paper alone tells: few, built on demand.
+ */
+export function linkPapers(
+  a: GraphNode,
+  b: GraphNode,
+  papers: ReadonlyMap<string, Paper>,
+  options: GraphOptions,
+): string[] {
+  const shared = sharedPapers(a, b);
+  if (options.papers) return shared;
+  const single: GraphOptions = {
+    ...options,
+    minPapers: { institution: 1, author: 1 },
+    maxNodes: Number.POSITIVE_INFINITY,
+    isolated: true,
+  };
+  return shared.filter((id) => {
+    const paper = papers.get(id);
+    return (
+      paper !== undefined &&
+      buildGraph([paper], single).links.some(
+        (link) =>
+          (link.source === a.id && link.target === b.id) ||
+          (link.source === b.id && link.target === a.id),
+      )
+    );
+  });
+}
+
+/**
  * The papers of a node, by its id (`institution:<key>`, `author:<key>`, `paper:<id>`):
  * the graph of these alone is the node's ego network, "Focus on this" (§17.1 #8), with
  * whom an institution or an author publishes. Matched as {@link buildGraph} keys nodes, so

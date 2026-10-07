@@ -224,16 +224,18 @@ out of Highly cited (decision 18). Reading lists keep the flag.
   papers shown, by papers or citations, named through `buildGraph` so that they match the
   graph.
 - What two nodes did together, and with whom one works (§17.1 #8): each of a node's
-  connections in the details lists their shared papers on a click (`sharedPapers`); "Focus
-  on this" shows the graph of the node's papers alone (`papersOfNode`, `?focus=
+  connections in the details lists the papers their link stands for on a click
+  (`linkPapers`: every shared paper when papers are nodes, in the projection only those
+  that link them, as many as the link's weight; refolded for another node); "Focus on
+  this" shows the graph of the node's papers alone (`papersOfNode`, `?focus=
   institution:<key>`, the node id), its institutions and authors as the settings show
-  them, with a bar that says so and goes back to everything. The id matches as nodes
-  are keyed (`institution:MIT` is `institution:mit`), a node the graph does not draw is
-  named by its usual spelling (`nodeLabel`), and a focus with no paper among those shown
-  (another period, year or venue) says so. The focus is the graph's
-  alone: another view drops it (`use-url-state.ts`). A node's papers are its papers among
-  those loaded, matched as `buildGraph` keys nodes, which is simpler than a neighbourhood
-  in hops once papers are nodes too (an institution is two or three hops from another).
+  them, with a bar that says so and goes back to everything. The id matches as nodes are
+  keyed (`institution:MIT` is `institution:mit`), a node the graph does not draw is named
+  by its usual spelling (`nodeLabel`), and a focus with no paper among those shown
+  (another period, year or venue) says so. The focus is the graph's alone: another view
+  drops it (`use-url-state.ts`). A node's papers are its papers among those loaded,
+  matched as `buildGraph` keys nodes, which is simpler than a neighbourhood in hops once
+  papers are nodes too (an institution is two or three hops from another).
 - Export (the settings' PNG and GraphML buttons): the canvas as drawn on the page's
   background (`GraphRenderer.toPng`), and the nodes (kind, name, papers, citations, ROR
   id) and links (weight) of the graph shown for Gephi, Cytoscape or NetworkX
