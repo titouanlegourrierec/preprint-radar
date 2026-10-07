@@ -219,10 +219,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   `html_url` is `null`, and affiliations, `institutions` and `institution_ids` come from
   OpenAlex.
 - The site's records are not quite the store's: the build adds `doi`, the authors'
-  `author_ids` (an author without one taking the id of the only person of that name in
-  the store) and, where the comments name no venue, the published `venue` from
-  `scholar.json`. The pipeline never writes `doi` or `author_ids` into a record; it keeps
-  an author's id only where Semantic Scholar's name for it is the paper's at that place.
+  `author_ids` and, where the comments name no venue, the published `venue` from
+  `scholar.json`. The pipeline never writes them into a record; it keeps an author's id
+  only where Semantic Scholar's name for it is the paper's author at that place.
 
 ## arXiv and service rules (hard-won, do not "simplify" away)
 

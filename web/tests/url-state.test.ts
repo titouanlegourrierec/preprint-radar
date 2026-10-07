@@ -48,23 +48,6 @@ describe("url state", () => {
     expect(readState("?by=Hao+Li&author=hao").filters.author).toEqual(exactly("Hao Li"));
   });
 
-  it("round-trips the person a clicked author is", () => {
-    const link = (author: ReturnType<typeof exactly>) =>
-      writeState({ ...DEFAULT_STATE, filters: { ...DEFAULT_STATE.filters, author } });
-
-    expect(link(exactly("Wei Wang", "author:s2:42"))).toBe("?by=Wei+Wang&s2=42");
-    expect(link(exactly("Wei Wang", "author:wei wang"))).toBe("?by=Wei+Wang&s2=none");
-    expect(readState("?by=Wei+Wang&s2=42").filters.author).toEqual(
-      exactly("Wei Wang", "author:s2:42"),
-    );
-    expect(readState("?by=Wei+Wang&s2=none").filters.author).toEqual(
-      exactly("Wei Wang", "author:wei wang"),
-    );
-    // Without it, or on typed text, every author of that name.
-    expect(readState("?by=Wei+Wang").filters.author).toEqual(exactly("Wei Wang"));
-    expect(readState("?author=wang&s2=42").filters.author).toEqual(typed("wang"));
-  });
-
   it("round-trips a paper permalink", () => {
     const state = {
       ...DEFAULT_STATE,

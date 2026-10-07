@@ -7,16 +7,11 @@ export type NodeKind = "paper" | "institution" | "author";
 export type EntityKind = Exclude<NodeKind, "paper">;
 
 export interface GraphNode {
-  /**
-   * Stable identifier: kind + normalized name (or arXiv id for papers); an author's
-   * Semantic Scholar id when the paper gives it (see {@link authorKey}).
-   */
+  /** Stable identifier: kind + normalized name (or arXiv id for papers). */
   id: string;
   kind: NodeKind;
-  /** Name as shown, or title for papers; homonyms are told apart (see {@link buildGraph}). */
+  /** Name, or title for papers. */
   label: string;
-  /** Name alone, its most frequent spelling: what a filter on the node searches. */
-  name: string;
   /** The label as returned by {@link searchKey}, for highlighting by name. */
   key: string;
   /** Identifiers of the papers the node appears in (the paper itself for papers). */
@@ -25,33 +20,13 @@ export interface GraphNode {
   citations: number;
   /** An institution's id in the Research Organization Registry, when a paper gives it. */
   rorId?: string;
-}
-
-/** The prefix of the node id of an author known to Semantic Scholar. */
-const S2_AUTHOR = "author:s2:";
-
-/**
- * The node id of a paper's author: their Semantic Scholar id when the paper's record gives
- * it (`author_ids`, from `scholar.json`), else their name, so that two people sharing a
- * name are two nodes, and an author without an id gathers the papers of that name that
- * have none (AFF-H, decision 13). The filter on an author matches these.
- */
-export function authorKey(paper: Paper, position: number): string {
-  const id = paper.author_ids?.length === paper.authors.length ? paper.author_ids[position] : null;
-  return id ? `${S2_AUTHOR}${id}` : nodeKey("author", paper.authors[position] ?? "");
-}
-
-/**
- * The node id of the person a filter names: their Semantic Scholar id, or for an author
- * without one (`null`), their name.
- */
-export function personKey(name: string, semanticScholar: string | null): string {
-  return semanticScholar ? `${S2_AUTHOR}${semanticScholar}` : nodeKey("author", name);
-}
-
-/** An author's Semantic Scholar id, from their node id; `null` for anyone else. */
-export function semanticScholarId(nodeId: string): string | null {
-  return nodeId.startsWith(S2_AUTHOR) ? nodeId.slice(S2_AUTHOR.length) : null;
+  /**
+   * For an author: how many people the name seems to be, when more than one. Semantic
+   * Scholar has several profiles for most prolific authors, so its ids do not key authors;
+   * but profiles of one name whose papers share no institution and no co-author are
+   * probably different people ({@link countPeople}, AFF-H, decision 13).
+   */
+  people?: number;
 }
 
 export interface GraphLink {
@@ -139,30 +114,17 @@ type AddLink = (a: string, b: string) => void;
 export function buildGraph(papers: Paper[], options: GraphOptions): Graph {
   const nodes = new Map<string, EntityNode>();
   const labelCounts = new Map<string, Map<string, number>>();
-  // Per author node, the institutions its papers place it at.
-  const placedAt = new Map<string, Map<string, number>>();
+  // Per author node, its Semantic Scholar profiles, and where and with whom they publish.
+  const profiles = new Map<string, Map<string, Profile>>();
   const perPaper: PaperEntities[] = [];
   const citationsOf = (paperId: string) => options.citations?.get(paperId) ?? 0;
 
-  const register = (
-    kind: EntityKind,
-    label: string,
-    paperId: string,
-    seen: Set<string>,
-    id = nodeKey(kind, label),
-  ) => {
+  const register = (kind: EntityKind, label: string, paperId: string, seen: Set<string>) => {
+    const id = nodeKey(kind, label);
     if (id.endsWith(":")) return null;
     if (seen.has(id)) return { id, first: false };
     seen.add(id);
-    const node = nodes.get(id) ?? {
-      id,
-      kind,
-      label,
-      name: label,
-      key: "",
-      paperIds: [],
-      citations: 0,
-    };
+    const node = nodes.get(id) ?? { id, kind, label, key: "", paperIds: [], citations: 0 };
     node.paperIds.push(paperId);
     node.citations += citationsOf(paperId);
     nodes.set(id, node);
@@ -194,19 +156,22 @@ export function buildGraph(papers: Paper[], options: GraphOptions): Graph {
         paper.author_affiliations?.length === paper.authors.length
           ? paper.author_affiliations
           : null;
+      const ids = paper.author_ids?.length === paper.authors.length ? paper.author_ids : null;
       const named = institutionsOf(paper);
+      const keys = paper.authors.map((author) => searchKey(author));
       for (const [position, author] of paper.authors.entries()) {
-        const id = authorKey(paper, position);
-        const entry = register("author", author, paper.arxiv_id, seen, id);
-        if (!entry?.first) continue;
-        const mapped = mapping?.[position] ?? null;
-        authors.push({ key: entry.id, mapped });
-        const counts = placedAt.get(entry.id) ?? new Map<string, number>();
-        for (const index of mapped ?? []) {
+        const entry = register("author", author, paper.arxiv_id, seen);
+        if (entry?.first) authors.push({ key: entry.id, mapped: mapping?.[position] ?? null });
+        const id = ids?.[position];
+        if (!entry || !id) continue;
+        const profile = profilesOf(profiles, entry.id, id);
+        profile.papers += 1;
+        for (const index of mapping?.[position] ?? []) {
           const institution = named[index];
-          if (institution) counts.set(institution, (counts.get(institution) ?? 0) + 1);
+          if (institution) profile.institutions.add(institution);
         }
-        placedAt.set(entry.id, counts);
+        for (const [other, key] of keys.entries())
+          if (other !== position) profile.coauthors.add(key);
       }
     }
     perPaper.push({ paper, institutions, keyOfAffiliation, authors });
@@ -214,10 +179,14 @@ export function buildGraph(papers: Paper[], options: GraphOptions): Graph {
 
   for (const [id, counts] of labelCounts) {
     const node = nodes.get(id);
-    if (node) node.name = node.label = mostFrequent(counts) ?? node.label;
+    if (node) node.label = [...counts].sort((a, b) => b[1] - a[1])[0]?.[0] ?? node.label;
   }
-  tellHomonymsApart(nodes, placedAt);
   for (const node of nodes.values()) node.key = searchKey(node.label);
+  for (const [id, byProfile] of profiles) {
+    const people = countPeople([...byProfile.values()]);
+    const node = nodes.get(id);
+    if (node && people > 1) node.people = people;
+  }
 
   const eligible = [...nodes.values()]
     .filter((node) => node.paperIds.length >= options.minPapers[node.kind])
@@ -251,32 +220,69 @@ export function buildGraph(papers: Paper[], options: GraphOptions): Graph {
   };
 }
 
-function mostFrequent(counts: ReadonlyMap<string, number>): string | undefined {
-  return [...counts].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))[0]?.[0];
+/** What the site says of a name that seems to be several people. */
+export function severalPeople(people: number): string {
+  return (
+    `Perhaps ${people} people share this name: Semantic Scholar's profiles of it fall into ` +
+    `${people} groups whose papers here share no institution and no co-author. Their papers ` +
+    "are counted together."
+  );
+}
+
+/** A Semantic Scholar profile of a name: where its papers place it, and its co-authors. */
+export interface Profile {
+  institutions: Set<string>;
+  coauthors: Set<string>;
+  papers: number;
 }
 
 /**
- * Authors who share a name are told apart by the institution their papers most often place
- * them at: "Wei Wang · Tsinghua University", "Wei Wang · Zhejiang University". One that is
- * never placed keeps the bare name.
+ * Papers a group of profiles needs to count as a person: a profile of one paper is often
+ * an orphan duplicate, without an institution to tie it to the others (1,304 names of the
+ * store seem to be several people so, 5,967 counting those).
  */
-function tellHomonymsApart(
-  nodes: ReadonlyMap<string, EntityNode>,
-  placedAt: ReadonlyMap<string, ReadonlyMap<string, number>>,
-): void {
-  const byName = new Map<string, EntityNode[]>();
-  for (const node of nodes.values()) {
-    if (node.kind !== "author") continue;
-    const key = searchKey(node.name);
-    byName.set(key, [...(byName.get(key) ?? []), node]);
-  }
-  for (const homonyms of byName.values()) {
-    if (homonyms.length < 2) continue;
-    for (const node of homonyms) {
-      const institution = mostFrequent(placedAt.get(node.id) ?? new Map());
-      if (institution) node.label = `${node.name} \u00b7 ${institution}`;
+export const PERSON_PAPERS = 2;
+
+function profilesOf(
+  profiles: Map<string, Map<string, Profile>>,
+  node: string,
+  id: string,
+): Profile {
+  const byProfile = profiles.get(node) ?? new Map<string, Profile>();
+  profiles.set(node, byProfile);
+  const profile = byProfile.get(id) ?? { institutions: new Set(), coauthors: new Set(), papers: 0 };
+  byProfile.set(id, profile);
+  return profile;
+}
+
+/**
+ * How many people a name's profiles seem to be: profiles that share an institution or a
+ * co-author are one person (the same person's duplicates), and those left apart are others,
+ * with at least {@link PERSON_PAPERS} papers.
+ * Luc Van Gool's three profiles share ETH Zurich; two Wei Wangs, at Tsinghua and at
+ * Zhejiang with no co-author in common, are two.
+ */
+export function countPeople(profiles: readonly Profile[]): number {
+  const parent = profiles.map((_, index) => index);
+  const root = (index: number): number => {
+    let at = index;
+    while (parent[at] !== at) at = parent[at] ?? at;
+    return at;
+  };
+  const shares = (a: Set<string>, b: Set<string>) => [...a].some((value) => b.has(value));
+  for (const [i, a] of profiles.entries()) {
+    for (const [j, b] of profiles.entries()) {
+      if (j <= i) continue;
+      if (shares(a.institutions, b.institutions) || shares(a.coauthors, b.coauthors)) {
+        parent[root(j)] = root(i);
+      }
     }
   }
+  const papers = new Map<number, number>();
+  for (const [index, profile] of profiles.entries()) {
+    papers.set(root(index), (papers.get(root(index)) ?? 0) + profile.papers);
+  }
+  return [...papers.values()].filter((count) => count >= PERSON_PAPERS).length;
 }
 
 /** Link each paper to its shown authors, and its institutions to their authors or itself. */
@@ -308,7 +314,6 @@ function linkThroughPapers(
       id,
       kind: "paper",
       label: paper.title,
-      name: paper.title,
       key: searchKey(paper.title),
       paperIds: [paper.arxiv_id],
       citations: citationsOf(paper.arxiv_id),

@@ -8,16 +8,15 @@ export interface RankedEntity {
   /** Stable identifier, the one of its graph node. */
   id: string;
   kind: EntityKind;
-  /** As shown: a person's name with their institution when another shares it. */
   name: string;
-  /** The name alone, as a filter on the entity searches it. */
-  filterName: string;
   papers: number;
   /** Citations of those papers, summed; papers without a known count add nothing. */
   citations: number;
   /** Its most cited paper (the first one when no count is known). */
   top: Paper;
   topCitations: number | undefined;
+  /** For an author, how many people the name seems to be, when more than one. */
+  people?: number;
 }
 
 /**
@@ -55,11 +54,11 @@ export function rankEntities(
       id: node.id,
       kind,
       name: node.label,
-      filterName: node.name,
       papers: node.paperIds.length,
       citations: node.citations,
       top,
       topCitations: citations.get(topId),
+      ...(node.people ? { people: node.people } : {}),
     });
   }
   const [first, second] =

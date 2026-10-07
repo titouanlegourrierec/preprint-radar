@@ -26,9 +26,8 @@ export interface Paper {
   doi?: string | null;
   /**
    * Semantic Scholar's id of each author, in order, `null` for one it has none for: not in
-   * the store's records, the build merges it from `scholar.json`, giving an author without
-   * one the id of the only person of that name (`tooling/scholar.ts`, AFF-H). Absent when
-   * unknown.
+   * the store's records, the build merges it from `scholar.json` (`tooling/scholar.ts`).
+   * Absent when unknown.
    */
   author_ids?: (string | null)[];
   cross_list_from: string | null;

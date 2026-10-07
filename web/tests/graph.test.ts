@@ -1,15 +1,13 @@
 import { describe, expect, it } from "vitest";
 import {
-  authorKey,
   buildGraph,
+  countPeople,
   type GraphOptions,
   MAX_CLIQUE_AUTHORS,
   MAX_REPLAY_STEPS,
   matchStatus,
   nodeMatches,
-  personKey,
   replaySteps,
-  semanticScholarId,
 } from "../src/graph";
 import { institutionsOf } from "../src/institutions";
 import { searchKey } from "../src/text";
@@ -391,57 +389,50 @@ describe("matchStatus", () => {
   });
 });
 
-describe("authors and their Semantic Scholar ids", () => {
+describe("names that seem to be several people", () => {
   const AUTHORS: GraphOptions = { ...INSTITUTIONS, institutions: false, authors: true };
-  const wang = (arxiv_id: string, id: string | null, institution: string) =>
+  const wang = (arxiv_id: string, id: string | null, institution: string, coauthor = "Ada") =>
     makePaper({
       arxiv_id,
-      authors: ["Wei Wang", "Ada"],
+      authors: ["Wei Wang", coauthor],
       author_ids: [id, null],
       affiliations: [institution],
+      institutions: [institution],
       author_affiliations: [[0], null],
     });
 
-  it("keys an author by their id, else by their name", () => {
-    const paper = wang("1", "42", "Tsinghua University");
-    expect(authorKey(paper, 0)).toBe("author:s2:42");
-    expect(authorKey(paper, 1)).toBe("author:ada");
-    expect(authorKey(makePaper({ arxiv_id: "2", authors: ["Ada"], author_ids: [] }), 0)).toBe(
-      "author:ada",
-    );
-    expect([personKey("Wei Wang", "42"), personKey("Wei Wang", null)]).toEqual([
-      "author:s2:42",
-      "author:wei wang",
-    ]);
-    expect([semanticScholarId("author:s2:42"), semanticScholarId("author:ada")]).toEqual([
-      "42",
-      null,
-    ]);
-  });
-
-  it("tells people of one name apart, by where their papers place them", () => {
+  it("counts profiles that share no institution and no co-author as other people", () => {
     const graph = buildGraph(
       [
-        wang("1", "42", "Tsinghua University"),
-        wang("2", "42", "Tsinghua University"),
-        wang("3", "7", "Zhejiang University"),
-        wang("4", null, "Peking University"),
-        makePaper({ arxiv_id: "5", authors: ["Wei Wang"], author_ids: [null] }),
+        // Two profiles of one person, at one institution.
+        wang("1", "42", "Tsinghua University", "Ada"),
+        wang("2", "43", "Tsinghua University", "Bob"),
+        // Another Wei Wang, elsewhere, with other co-authors.
+        wang("3", "7", "Zhejiang University", "Cyd"),
+        wang("4", "7", "Zhejiang University", "Cyd"),
+        // A profile of one paper: perhaps an orphan duplicate.
+        wang("5", "9", "Peking University", "Dee"),
+        wang("6", null, "Peking University", "Dee"),
       ],
       AUTHORS,
     );
-    const wangs = graph.nodes.filter((node) => node.name === "Wei Wang");
+    const node = graph.nodes.find((each) => each.label === "Wei Wang");
 
-    expect(wangs.map((node) => [node.id, node.label, node.paperIds.length])).toEqual([
-      // Those without an id gather, apart: they might be either, or someone else.
-      ["author:wei wang", "Wei Wang · Peking University", 2],
-      ["author:s2:42", "Wei Wang · Tsinghua University", 2],
-      ["author:s2:7", "Wei Wang · Zhejiang University", 1],
-    ]);
+    expect(node?.paperIds.length).toBe(6);
+    expect(node?.people).toBe(2);
+    expect(graph.nodes.find((each) => each.label === "Ada")?.people).toBeUndefined();
   });
 
-  it("keeps the bare name of a person nobody shares it with", () => {
-    const graph = buildGraph([wang("1", "42", "Tsinghua University")], AUTHORS);
-    expect(graph.nodes.map((node) => node.label)).toEqual(["Ada", "Wei Wang"]);
+  it("joins profiles through a shared co-author", () => {
+    const profile = (institutions: string[], coauthors: string[]) => ({
+      institutions: new Set(institutions),
+      coauthors: new Set(coauthors),
+      papers: 2,
+    });
+    expect(countPeople([profile(["A"], ["x"]), profile(["B"], ["x"]), profile(["C"], ["y"])])).toBe(
+      2,
+    );
+    expect(countPeople([profile([], []), profile([], [])])).toBe(2);
+    expect(countPeople([])).toBe(0);
   });
 });

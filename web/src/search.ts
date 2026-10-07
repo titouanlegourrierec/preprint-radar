@@ -1,5 +1,4 @@
 import MiniSearch, { type SearchResult as MiniSearchResult, type Options } from "minisearch";
-import { authorKey, type EntityKind } from "./graph";
 import { wholeWord } from "./highlight";
 import { acronymOf, namedInstitutions } from "./institutions";
 import { fold, searchKey } from "./text";
@@ -18,12 +17,6 @@ export type SortOrder = "relevance" | "newest" | "citations";
 export interface NameFilter {
   text: string;
   exact: boolean;
-  /**
-   * The author's node id ({@link authorKey}): that person only, their Semantic Scholar id or,
-   * for an author without one, the occurrences of the name that have none. Absent: every
-   * author of that name (links made before ids, typed text).
-   */
-  person?: string;
 }
 
 export interface SearchFilters {
@@ -43,14 +36,9 @@ export function typed(text: string): NameFilter {
   return { text, exact: false };
 }
 
-/** A filter on one name, as clicked; on one person, when an author's node id is given. */
-export function exactly(text: string, person?: string): NameFilter {
-  return person ? { text, exact: true, person } : { text, exact: true };
-}
-
-/** The filter on a node of the graph or a row of Rankings: an institution's name, or a person. */
-export function entityFilter(kind: EntityKind, id: string, name: string): NameFilter {
-  return kind === "author" ? exactly(name, id) : exactly(name);
+/** A filter on one name, as clicked. */
+export function exactly(text: string): NameFilter {
+  return { text, exact: true };
 }
 
 export const NO_FILTERS: SearchFilters = {
@@ -376,8 +364,6 @@ function hasWords(
 
 function matchesAuthor(paper: Paper, filter: NameFilter): boolean {
   if (!filter.exact) return paper.authors.some((author) => startsWords(author, filter.text));
-  const { person } = filter;
-  if (person) return paper.authors.some((_, position) => authorKey(paper, position) === person);
   const key = searchKey(filter.text);
   return paper.authors.some((author) => searchKey(author) === key);
 }

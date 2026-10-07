@@ -4,7 +4,6 @@ import {
   ANY_VENUE,
   alphabetical,
   byCitations,
-  entityFilter,
   exactly,
   facetCounts,
   matchesFilters,
@@ -201,24 +200,6 @@ describe("PaperIndex", () => {
 
     expect(kept(exactly("Hao Li"))).toEqual(["1", "3"]);
     expect(kept(typed("Hao Li"))).toEqual(["1", "2", "3"]);
-  });
-
-  it("matches a clicked person, by their Semantic Scholar id or as one without", () => {
-    const wangs = [
-      makePaper({ arxiv_id: "1", authors: ["Wei Wang"], author_ids: ["42"] }),
-      makePaper({ arxiv_id: "2", authors: ["Wei Wang"], author_ids: ["7"] }),
-      makePaper({ arxiv_id: "3", authors: ["Wei Wang"] }),
-    ];
-    const kept = (filter: ReturnType<typeof exactly>) =>
-      wangs
-        .filter((paper) => matchesFilters(paper, { ...NO_FILTERS, author: filter }))
-        .map((paper) => paper.arxiv_id);
-
-    expect(kept(entityFilter("author", "author:s2:42", "Wei Wang"))).toEqual(["1"]);
-    expect(kept(exactly("Wei Wang", "author:wei wang"))).toEqual(["3"]);
-    // A link made before ids: every Wei Wang.
-    expect(kept(exactly("Wei Wang"))).toEqual(["1", "2", "3"]);
-    expect(entityFilter("institution", "institution:mit", "MIT")).toEqual(exactly("MIT"));
   });
 
   it("matches a clicked institution by its name, not the strings that contain it", () => {

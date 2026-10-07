@@ -16,12 +16,11 @@ between. Item IDs (`DATA-2`, `CIT-11`…) refer to the audit of 2026-09-30
 
 ### Authors
 
-- Authors are people, not names: the graph, Rankings and a clicked author follow their
-  Semantic Scholar id, so that the papers of two people named Wei Wang are no longer
-  counted together. People of one name are told apart by their institution ("Wei Wang ·
-  Tsinghua University"), and an author Semantic Scholar does not know says that papers by
-  several people may be counted together. An id is kept only where Semantic Scholar's
-  name for it is the paper's author at that place (AFF-H, decision 13).
+- A name that seems to be several people says so, in the graph and in Rankings ("2
+  people?"): Semantic Scholar's profiles of it fall into groups whose papers share no
+  institution and no co-author. Its ids do not split authors, as it has several profiles
+  for most prolific ones, and they are now checked against the paper's author names
+  (AFF-H, decision 13).
 
 ### Search
 
