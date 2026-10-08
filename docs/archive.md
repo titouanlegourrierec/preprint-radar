@@ -56,17 +56,53 @@ before changing `archive/`, `sources/semantic_scholar.py`, `sources/openalex.py`
   archived records keep their names and subjects until a one-off rewrite, and day files
   keep the names the listing gives (a starred one in 2610.05756).
 
+## The most cited papers of the last 12 months (`top-recent.json`, PROD-11)
+
+The archive starts at 12 months, and the day files began in September 2026 (decision 1): the
+papers first seen from October 2025 to August 2026 were in no file. The weekly archive has
+their counts anyway (it asks for every paper of the catalog), and keeps the most cited of
+them apart, in `<category>/top-recent.json`, which the site offers as Highly cited's "Last
+12 months". Once the day files hold a year, the list stays: a view loads 10,000 papers, a
+year of cs.CV is 46,000.
+
+- `archive/selection.py`, `select_top_recent`: the papers first seen within the last 12
+  months (`is_recent`, the window the archive leaves out), withdrawn and never-cited ones
+  excepted, ranked by citations per month of age, counting at least two months
+  (`config.TOP_RECENT_MIN_MONTHS`); the best 1,000 (`TOP_RECENT_BUDGET`). The archive's
+  score, per year of age counting at least one, would rank them by their raw counts: of the
+  623 papers at its threshold in September 2026, 6 were from July and none from August. Per
+  month of age from 80 to 180 papers a month enter, but 50, 29 and 25 for the last three
+  (the newest have had no time; the day files hold them), and the least cited have 4.
+  Counted over one month, two citations in a paper's first weeks (often its authors' next
+  paper) would rank it with the best of the year.
+- Records: a paper of the day files is its record there, filed under its first appearance
+  (the daily update enriches it, and the two read the same); one kept from last week keeps
+  its record (its OpenAlex affiliations), with the comments of its latest version; the
+  others are built from the catalog, with affiliations from OpenAlex, as archived papers
+  are (`_with_affiliations`, which asks again for those it knew nothing of every 30 days).
+  OpenAlex knows the affiliations of few recent papers: about one in six in 2025.
+- The file has the first day of the window (`since`, 364 days before the run) and is
+  rewritten whole; the index lists it (`top_recent`: `since` and `count`). It holds no
+  archived paper: both use the same window and first appearance. Below the coverage gate,
+  last week's papers stay, with their comments refreshed.
+- Every step on "every stored paper" includes them: the counts (`citations`, `ALL=1`), the
+  published versions (`scholar`), `make venues` and `make institutions-again`. `validate`
+  fails a file that does not load, a paper listed twice, announced before `since` or
+  archived too, and an index that disagrees with it.
+- A paper that ages out leaves at the next run; it enters the archive only if it ranks
+  there (from its day file, or the catalog and OpenAlex again).
+
 ## Citation counts (`citations.json`)
 
 - Semantic Scholar (`paper/batch`, 500 arXiv ids a request) counts all versions of a
   paper. OpenAlex undercounts published papers (×1.7 in median), so it is not used for
   counts.
-- `citations.json` holds the counts of every stored paper, day files and archive alike,
-  out of the paper records so that the weekly refresh rewrites one file, not every day
-  file. The weekly archive rewrites it (`write_citations`, dated); the daily `citations`
-  step adds the counts of new papers (`merge_citations`, which keeps the date of the last
-  refresh). Papers Semantic Scholar does not know yet (a few days) get no count and are
-  asked for again the next day.
+- `citations.json` holds the counts of every stored paper, day files, archive and the most
+  cited of the last 12 months alike, out of the paper records so that the weekly refresh
+  rewrites one file, not every day file. The weekly archive rewrites it (`write_citations`,
+  dated); the daily `citations` step adds the counts of new papers (`merge_citations`,
+  which keeps the date of the last refresh). Papers Semantic Scholar does not know yet (a
+  few days) get no count and are asked for again the next day.
 - Counts are cached in `.cache/catalog/<category>.citations.jsonl` (restored with the
   catalog in CI) and reused for 7 days, so a failed or cancelled run resumes where it
   stopped: `citations.json`'s `generated_at` can postdate some counts by up to 6 days.

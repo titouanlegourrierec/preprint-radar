@@ -82,6 +82,15 @@ def test_names_the_store_again(tmp_path: Path, capsys: pytest.CaptureFixture[str
     assert report == NamingReport(
         category="cs.CV", papers=2, unnamed_before=4, unnamed_after=2, changed=2, days=1, archive=True
     )
+    store.write_top_recent(
+        "cs.CV", [replace(PAPER, arxiv_id="2511.00001", announced=date(2025, 11, 3))], since=date(2025, 10, 1)
+    )
+    recent = name_institutions_again(store, "cs.CV")
+    assert (recent.papers, recent.changed, recent.archive) == (3, 1, True)
+    top_recent = store.load_top_recent("cs.CV")
+    assert top_recent is not None
+    [named] = top_recent.papers
+    assert named.institutions == ("Peking University", "Carnegie Mellon University", "Google", None)
     [stored] = store.iter_papers("cs.CV")
     assert stored.institutions == ("Peking University", "Carnegie Mellon University", "Google", None)
     again = name_institutions_again(store, "cs.CV")
@@ -89,6 +98,6 @@ def test_names_the_store_again(tmp_path: Path, capsys: pytest.CaptureFixture[str
 
     assert main(["institutions", "--again", "--data-dir", str(tmp_path / "data")]) == 0
     assert (
-        "cs.CV: 0 of 2 papers changed, in 0 day files; affiliations without an institution 2 -> 2"
+        "cs.CV: 0 of 3 papers changed, in 0 day files; affiliations without an institution 3 -> 3"
         in capsys.readouterr().out
     )

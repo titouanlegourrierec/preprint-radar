@@ -194,6 +194,19 @@ def test_updates_the_records_of_every_stored_paper(store: PaperStore) -> None:
     )
 
 
+def test_asks_for_the_most_cited_papers_of_the_last_12_months_too(store: PaperStore) -> None:
+    store.write_top_recent("cs.CV", [_paper("2511.00001", date(2025, 11, 3))], since=date(2025, 10, 1))
+    fake = FakeScholar({"2511.00001": CVPR_2022})
+
+    with HttpClient(transport=httpx.MockTransport(fake.handle), max_attempts=1) as client:
+        report = update_scholar_records(store, "cs.CV", client, key=None)
+
+    scholar = store.load_scholar("cs.CV")
+    assert scholar is not None
+    assert scholar.papers["2511.00001"].doi == "10.1109/CVPR52688.2022.01234"
+    assert report.asked == 5
+
+
 def test_keeps_the_records_of_papers_not_asked_for(store: PaperStore) -> None:
     with HttpClient(transport=httpx.MockTransport(lambda _: httpx.Response(503)), max_attempts=1) as client:
         report = update_scholar_records(store, "cs.CV", client, key=None, max_seconds=0)

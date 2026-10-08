@@ -10,7 +10,7 @@ import math
 import re
 import time
 import unicodedata
-from collections.abc import Callable, Iterable, Mapping, Sequence
+from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from dataclasses import dataclass, replace
 from datetime import UTC, date, datetime
 from enum import StrEnum
@@ -805,6 +805,13 @@ class CitationsReport:
     found: int
 
 
+def _every_stored_paper(store: PaperStore, category: str) -> Iterator[Paper]:
+    """The papers of the day files, the archive and the most cited of the last 12 months."""
+    yield from store.iter_papers(category)
+    yield from store.iter_archive(category)
+    yield from store.iter_top_recent(category)
+
+
 def update_citation_counts(
     store: PaperStore,
     category: str,
@@ -817,9 +824,10 @@ def update_citation_counts(
     """Fetch the citation counts of the stored papers of ``category`` into ``citations.json``.
 
     By default only the papers without a count, announced since the last full refresh:
-    one or two requests a day. With ``refresh``, every stored paper (day files and archive),
-    as the weekly archive does. Semantic Scholar learns new arXiv papers within days: the
-    ones it does not know yet stay without a count and are asked for again next time.
+    one or two requests a day. With ``refresh``, every stored paper (day files, archive and
+    the most cited of the last 12 months), as the weekly archive does. Semantic Scholar
+    learns new arXiv papers within days: the ones it does not know yet stay without a count
+    and are asked for again next time.
 
     Args:
         store: Data store.
@@ -836,7 +844,7 @@ def update_citation_counts(
     Raises:
         FetchError: If Semantic Scholar rejects the API key.
     """
-    stored = [paper.arxiv_id for paper in (*store.iter_papers(category), *store.iter_archive(category))]
+    stored = [paper.arxiv_id for paper in _every_stored_paper(store, category)]
     known = {} if refresh else store.load_citations(category)
     wanted = [arxiv_id for arxiv_id in dict.fromkeys(stored) if arxiv_id not in known]
     fetched = fetch_citation_counts(client, wanted, key=key, max_seconds=max_seconds) if wanted else {}
@@ -887,11 +895,11 @@ def update_scholar_records(
 ) -> ScholarReport:
     """Fetch the DOI, published venue and author ids of every stored paper into ``scholar.json``.
 
-    Every stored paper (day files and archive) is asked for: about 52 requests for 26,000
-    papers, a few minutes with a key. A paper keeps its previous record when Semantic
-    Scholar was not asked (it kept refusing), and papers no longer stored are dropped. The
-    author ids are kept only when Semantic Scholar lists as many authors as the paper,
-    since they are matched by position.
+    Every stored paper (day files, archive and the most cited of the last 12 months) is asked
+    for: about 54 requests for 27,000 papers, a few minutes with a key. A paper keeps its
+    previous record when Semantic Scholar was not asked (it kept refusing), and papers no
+    longer stored are dropped. The author ids are kept only when Semantic Scholar lists as
+    many authors as the paper, since they are matched by position.
 
     Args:
         store: Data store.
@@ -907,7 +915,7 @@ def update_scholar_records(
         FetchError: If Semantic Scholar rejects the API key.
     """
     stored: dict[str, Paper] = {}
-    for paper in (*store.iter_papers(category), *store.iter_archive(category)):
+    for paper in _every_stored_paper(store, category):
         stored.setdefault(paper.arxiv_id, paper)
     previous = store.load_scholar(category)
     fetched = fetch_scholar_records(client, stored, key=key, max_seconds=max_seconds)

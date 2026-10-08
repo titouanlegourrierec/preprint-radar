@@ -49,6 +49,13 @@ DEFAULT_BUDGET = 22_000
 """Number of older papers the archive holds (about 20 citations a year in 2026)."""
 DEFAULT_MARGIN = 1.15
 """An archived paper stays while it ranks within this multiple of the budget."""
+TOP_RECENT_BUDGET = 1_000
+"""Papers of the last 12 months the weekly archive keeps as the most cited (PROD-11), out of
+about 40,000: from 80 to 180 a month, but fewer for the last two (see below)."""
+TOP_RECENT_MIN_MONTHS = 2
+"""Age a young paper's citations per month are counted over, at least (PROD-11): with one
+month, two citations in its first weeks (often its authors' next paper) would rank a paper
+with the best of the year, and 50 papers of the last month would enter on 2 or 3 citations."""
 MIN_COVERAGE = 0.95
 """Share of candidates with a citation count below which the archive stays as it is: with
 counts missing (Semantic Scholar down), papers that deserve the archive would score nothing

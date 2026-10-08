@@ -466,6 +466,127 @@ def test_withdrawn_papers_leave_the_archive_and_never_enter_it(store: PaperStore
     assert "2209.00001" not in archived  # never entered, though within the budget
 
 
+def _add_entries(catalog: Catalog, *entries: CatalogEntry) -> None:
+    with gzip.open(catalog.path, "at", encoding="utf-8") as out:
+        for entry in entries:
+            out.write(json.dumps(entry.to_record()) + "\n")
+
+
+# Papers of the last 12 months the day files do not hold (PROD-11): cited, never cited, withdrawn.
+GAP = (
+    _entry("2511.00001", date(2025, 11, 20)),
+    _entry("2512.00002", date(2025, 12, 1)),
+    replace(_entry("2604.00003", date(2026, 4, 2)), comments="Withdrawn: a flaw in the proofs"),
+)
+GAP_CITATIONS = {**CITATIONS, "2511.00001": 50, "2512.00002": 0, "2604.00003": 900}
+
+
+def test_the_most_cited_papers_of_the_last_12_months_are_kept_apart(
+    store: PaperStore, catalog: Catalog
+) -> None:
+    _add_entries(catalog, *GAP)
+
+    report = _update(store, catalog, FakeServices(GAP_CITATIONS))
+
+    top_recent = store.load_top_recent("cs.CV")
+    assert top_recent is not None
+    assert top_recent.since == TODAY - timedelta(days=364)
+    papers = {paper.arxiv_id: paper for paper in top_recent.papers}
+    # Never cited, or withdrawn however cited, they are left out; the archive takes none.
+    assert set(papers) == {"2511.00001", "2609.00001"}
+    assert report.top_recent == 2
+    assert not set(papers) & {paper.arxiv_id for paper in store.iter_archive("cs.CV")}
+    # The day file's paper as the day file holds it, which the daily update enriches.
+    assert papers["2609.00001"] == next(
+        paper for paper in store.iter_papers("cs.CV") if paper.arxiv_id == "2609.00001"
+    )
+    # The other from the catalog, looked up on OpenAlex (which knows nothing of it).
+    gap = papers["2511.00001"]
+    assert (gap.title, gap.venue, gap.html_url) == ("Paper 2511.00001", "CVPR 2016", None)
+    assert gap.affiliations == ()
+    assert gap.affiliations_provenance == Provenance("openalex", TODAY)
+    # Their counts are stored, and the index lists them.
+    assert store.load_citations("cs.CV")["2511.00001"] == 50
+    index = json.loads((store.root / "index.json").read_text(encoding="utf-8"))
+    assert index["top_recent"] == {"cs.CV": {"since": "2025-10-01", "count": 2}}
+
+
+def test_papers_of_the_last_12_months_keep_last_weeks_records(store: PaperStore, catalog: Catalog) -> None:
+    _add_entries(catalog, *GAP)
+    _update(store, catalog, FakeServices(GAP_CITATIONS))
+    top_recent = store.load_top_recent("cs.CV")
+    assert top_recent is not None
+    looked_up = Provenance("openalex", TODAY)
+    store.write_top_recent(
+        "cs.CV",
+        [
+            replace(
+                paper,
+                comments=None,
+                affiliations=("Kept",),
+                institutions=("Kept",),
+                institution_ids=("0abcdef12",),
+                affiliations_provenance=looked_up,
+                institutions_provenance=looked_up,
+            )
+            if paper.arxiv_id == "2511.00001"
+            else paper
+            for paper in top_recent.papers
+        ],
+        since=top_recent.since,
+    )
+
+    _update(store, catalog, FakeServices(GAP_CITATIONS), today=TODAY + timedelta(days=7))
+
+    again = store.load_top_recent("cs.CV")
+    assert again is not None
+    assert again.since == top_recent.since + timedelta(days=7)
+    kept = next(paper for paper in again.papers if paper.arxiv_id == "2511.00001")
+    # Not built again from the catalog, nor asked of OpenAlex, but given its comments.
+    assert (kept.affiliations, kept.affiliations_provenance) == (("Kept",), looked_up)
+    assert kept.comments == "Accepted to CVPR 2016"
+
+
+def test_papers_of_the_last_12_months_stay_without_citation_counts(
+    store: PaperStore, catalog: Catalog, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr("preprint_radar.sources.semantic_scholar.S2_ANONYMOUS_RETRY_WAIT_SECONDS", 0)
+    _add_entries(catalog, *GAP)
+    _update(store, catalog, FakeServices(GAP_CITATIONS))
+    (catalog.directory / "cs.CV.citations.jsonl").unlink()
+
+    report = _update(
+        store, catalog, FakeServices(GAP_CITATIONS, citations_down=True), today=TODAY + timedelta(days=7)
+    )
+
+    top_recent = store.load_top_recent("cs.CV")
+    assert top_recent is not None
+    assert {paper.arxiv_id for paper in top_recent.papers} == {"2511.00001", "2609.00001"}
+    assert top_recent.since == TODAY - timedelta(days=364)  # last week's
+    assert report.top_recent == 2
+
+
+def test_without_citation_counts_no_list_of_the_last_12_months_is_started(
+    store: PaperStore, catalog: Catalog, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr("preprint_radar.sources.semantic_scholar.S2_ANONYMOUS_RETRY_WAIT_SECONDS", 0)
+
+    _update(store, catalog, FakeServices(CITATIONS, citations_down=True))
+
+    assert store.load_top_recent("cs.CV") is None
+    index = json.loads((store.root / "index.json").read_text(encoding="utf-8"))
+    assert index["top_recent"] == {}
+
+
+def test_dry_run_writes_no_papers_of_the_last_12_months(store: PaperStore, catalog: Catalog) -> None:
+    _add_entries(catalog, *GAP)
+
+    report = _update(store, catalog, FakeServices(GAP_CITATIONS), dry_run=True)
+
+    assert report.top_recent == 2
+    assert store.load_top_recent("cs.CV") is None
+
+
 def test_refreshed_takes_what_the_catalog_adds_and_never_empties_a_field() -> None:
     paper = Paper(
         arxiv_id="2609.00001",
@@ -499,14 +620,17 @@ def test_format_archive_report() -> None:
         left=1,
         pruned_days=2,
         written=True,
+        top_recent=1000,
     )
 
     assert format_archive_report(report) == (
         "cs.CV: 500 archived papers (3 in, 1 out), threshold 19.5 citations a year, "
+        "1,000 most cited of the last 12 months, "
         "citation counts for 98.7% of 1,000 papers, 0 papers' comments refreshed, 2 day files pruned"
     )
     assert format_archive_report(replace(report, carried=4, written=False)) == (
         "cs.CV: 500 archived papers (3 in, 1 out), threshold 19.5 citations a year, "
+        "1,000 most cited of the last 12 months, "
         "citation counts for 98.7% of 1,000 papers (4 archived papers on last week's count), "
         "0 papers' comments refreshed, 2 day files pruned (dry run: nothing written)"
     )

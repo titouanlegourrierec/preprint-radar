@@ -126,6 +126,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   - `<category>/<YYYY-MM-DD>.json`: the papers announced that day.
   - `<category>/archive/<YYYY>.json`: papers kept for their citations, by year of first
     appearance, rewritten as a whole each week.
+  - `<category>/top-recent.json`: the 1,000 most cited papers of the last 12 months by
+    citations per month of age, rewritten whole each week by the archive (PROD-11); those
+    of the day files are their records there, the others built from the catalog.
   - `<category>/citations.json` and `<category>/scholar.json`: Semantic Scholar's counts
     and published versions of every stored paper, kept out of the records since they are
     rewritten weekly; `<category>/citation-gains.json`, what each gained between the last

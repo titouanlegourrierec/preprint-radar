@@ -147,6 +147,64 @@ def test_archive_years(store: PaperStore) -> None:
     ]
 
 
+def _with_top_recent(store: PaperStore, *papers: Paper) -> Path:
+    store.write_top_recent("cs.CV", papers, since=date(2025, 9, 26))
+    store.write_citations("cs.CV", {"2609.00001": 3, "1706.03762": 100_000, "2511.00001": 40}, source="test")
+    store.write_index()
+    return store.root / "cs.CV" / "top-recent.json"
+
+
+def test_the_most_cited_papers_of_the_last_12_months(store: PaperStore) -> None:
+    gap = _paper("2511.00001", announced=date(2025, 11, 3))
+    # A paper of a day file is there too, as the day file holds it.
+    path = _with_top_recent(store, gap, _paper("2609.00001"))
+    # Its papers are stored: their counts, scholar records and gains are not stale.
+    assert validate_store(store).findings == []
+
+    def change(payload: dict[str, Any]) -> None:
+        payload["papers"].append(gap.to_record())
+        payload["papers"].append(_paper("2509.00001", announced=date(2025, 9, 25)).to_record())
+        payload["papers"].append(
+            _paper("1706.03762", announced=date(2025, 10, 1), affiliations=("a@b.org", "MIT")).to_record()
+        )
+
+    _edit(path, change)
+
+    assert _messages(store) == [
+        "data/cs.CV/top-recent.json: 2511.00001: listed twice",
+        "data/cs.CV/top-recent.json: 2509.00001: announced 2025-09-25",
+        "data/cs.CV/top-recent.json: 1706.03762: archived too",
+        "data/cs.CV/top-recent.json: 1706.03762: contact details in affiliation 'a@b.org'",
+        "data/index.json: the papers of the last 12 months differ from top-recent.json",
+    ]
+
+
+@pytest.mark.parametrize(
+    ("change", "expected"),
+    [
+        (lambda payload: payload.update(since="last year"), "'since' is 'last year', not a day"),
+        (lambda payload: payload.pop("since"), "'since' is None, not a day"),
+        (lambda payload: payload.update(category="cs.LG"), "'category' is 'cs.LG', expected 'cs.CV'"),
+    ],
+)
+def test_a_broken_list_of_the_last_12_months(
+    store: PaperStore, change: Callable[[dict[str, Any]], None], expected: str
+) -> None:
+    path = _with_top_recent(store, _paper("2511.00001", announced=date(2025, 11, 3)))
+    _edit(path, change)
+
+    assert f"data/cs.CV/top-recent.json: {expected}" in _messages(store)
+
+
+def test_a_list_of_the_last_12_months_the_index_does_not_know(store: PaperStore) -> None:
+    _with_top_recent(store, _paper("2511.00001", announced=date(2025, 11, 3)))
+    _edit(store.root / "index.json", lambda index: index.pop("top_recent"))
+
+    assert _messages(store) == [
+        "data/index.json: the papers of the last 12 months differ from top-recent.json"
+    ]
+
+
 def test_citation_counts(store: PaperStore) -> None:
     store.write_citations("cs.CV", {"2609.00001": 3, "2609.99999": 1}, source="test")
     assert _messages(store) == [

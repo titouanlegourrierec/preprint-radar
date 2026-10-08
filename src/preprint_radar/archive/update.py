@@ -10,17 +10,20 @@ week, :func:`update_archive`:
    files included, and builds the papers that enter it: from their day file when they have
    one (enrichment kept), else from the catalog, with affiliations from OpenAlex
    (:mod:`preprint_radar.sources.openalex`);
-4. writes the archive, the citation counts of the stored papers and the index, and, when
-   asked to, deletes the day files older than 12 months. Pruning only decides what is
-   deleted: day-file papers compete for the archive whether or not it is on.
+4. chooses the most cited papers of the last 12 months by citations per month of age
+   (PROD-11): those of the day files as these hold them, the others built from the catalog
+   or kept from last week, with affiliations from OpenAlex;
+5. writes the archive, those papers, the citation counts of the stored papers and the
+   index, and, when asked to, deletes the day files older than 12 months. Pruning only
+   decides what is deleted: day-file papers compete for the archive whether or not it is on.
 
 Every stored paper also takes the comments and journal reference of its latest version
 from the catalog, and the venue they give (META-2): records otherwise freeze once they
 leave the listing. Withdrawn papers never enter the archive, and leave it (decision 18).
 
-When Semantic Scholar misses too many counts (below ``MIN_COVERAGE``), the archive and the
-day files stay as they are, but for the comments of their papers, and the counts fetched are
-added to the stored ones.
+When Semantic Scholar misses too many counts (below ``MIN_COVERAGE``), the archive, the
+papers of the last 12 months and the day files stay as they are, but for the comments of
+their papers, and the counts fetched are added to the stored ones.
 """
 
 import json
@@ -30,9 +33,17 @@ from collections.abc import Iterable, Mapping
 from dataclasses import dataclass, replace
 from datetime import date
 from pathlib import Path
+from typing import NamedTuple
 
 from preprint_radar.archive.catalog import Catalog
-from preprint_radar.archive.selection import Candidate, Selection, select_archive
+from preprint_radar.archive.selection import (
+    Candidate,
+    Selection,
+    is_recent,
+    recent_since,
+    select_archive,
+    select_top_recent,
+)
 from preprint_radar.archive.subjects import SUBJECT_ALIASES, subject_name, subject_names
 from preprint_radar.config import (
     ARCHIVE_SINCE,
@@ -49,7 +60,7 @@ from preprint_radar.models import Paper, Provenance
 from preprint_radar.sources.arxiv_oai import CatalogEntry
 from preprint_radar.sources.openalex import fetch_affiliations
 from preprint_radar.sources.semantic_scholar import S2_SOURCE, fetch_citation_counts
-from preprint_radar.store.paper_store import PaperStore
+from preprint_radar.store.paper_store import PaperStore, TopRecent
 from preprint_radar.venue import extract_venue
 from preprint_radar.withdrawal import is_withdrawn
 
@@ -85,6 +96,7 @@ class ArchiveReport:
         pruned_days: Day files deleted (older than 12 months).
         written: Whether anything was written (not a dry run).
         refreshed: Stored papers whose comments or journal reference the catalog changed.
+        top_recent: Most cited papers of the last 12 months kept (PROD-11).
     """
 
     category: str
@@ -98,6 +110,7 @@ class ArchiveReport:
     written: bool
     carried: int = 0
     refreshed: int = 0
+    top_recent: int = 0
 
 
 def update_archive(
@@ -134,21 +147,10 @@ def update_archive(
     entries = {
         arxiv_id: entry for arxiv_id, entry in catalog.entries().items() if entry.first_seen >= ARCHIVE_SINCE
     }
-    stored_days = {day: store.load_day(category, day) for day in store.days(category)}
-    refreshed_days = {
-        day: [refreshed(paper, entries.get(paper.arxiv_id)) for paper in papers]
-        for day, papers in stored_days.items()
-    }
-    changed_in_days = [
-        new
-        for day, papers in stored_days.items()
-        for old, new in zip(papers, refreshed_days[day], strict=True)
-        if new is not old
-    ]
-    in_days = {paper.arxiv_id: paper for papers in refreshed_days.values() for paper in papers}
-    stored_archive = list(store.iter_archive(category))
-    archived = {paper.arxiv_id: refreshed(paper, entries.get(paper.arxiv_id)) for paper in stored_archive}
-    changed_in_archive = sum(archived[paper.arxiv_id] is not paper for paper in stored_archive)
+    stored_days, changed_in_days, in_days, archived, changed_in_archive, previous_top = _stored(
+        store, category, entries
+    )
+    previous_recent = {paper.arxiv_id: paper for paper in (previous_top.papers if previous_top else ())}
     # A stored paper was first seen on the earlier of its day file and the catalog's date,
     # which can be weeks later (2609.00036: announced 2026-09-02, catalog 2026-09-14).
     first_seen = {
@@ -158,7 +160,7 @@ def update_archive(
         for arxiv_id, entry in entries.items()
     }
 
-    wanted = [*entries, *in_days, *archived]
+    wanted = [*entries, *in_days, *archived, *previous_recent]
     counts = _citation_counts(catalog, clients, wanted, today)
     coverage = sum(arxiv_id in counts for arxiv_id in entries) / max(1, len(entries))
     logger.info(
@@ -172,6 +174,7 @@ def update_archive(
         )
         stale_days = []
         selection = Selection(keep=frozenset(archived), entered=frozenset(), left=frozenset(), threshold=0.0)
+        top_recent = frozenset(previous_recent)
     else:
         stale_days = [day for day in stored_days if (today - day).days >= RECENT_DAYS] if prune else []
         # An archived paper Semantic Scholar misses this week (a refused last batch, a
@@ -202,6 +205,14 @@ def update_archive(
             budget=budget,
             today=today,
         )
+        top_recent = select_top_recent(
+            (
+                Candidate(arxiv_id, first_seen[arxiv_id], counts.get(arxiv_id))
+                for arxiv_id in entries
+                if arxiv_id not in withdrawn and is_recent(first_seen[arxiv_id], today)
+            ),
+            today=today,
+        )
     subjects = _subject_names(in_days.values())
     new_papers = [
         _from_day_file(in_days[arxiv_id], first_seen[arxiv_id])
@@ -217,6 +228,20 @@ def update_archive(
         len(selection.left),
         selection.threshold,
     )
+    logger.info(
+        "%s: %d most cited papers of the last 12 months, %d of them new",
+        category,
+        len(top_recent),
+        len(top_recent - set(previous_recent)),
+    )
+    # Those of the day files are their records there, which the daily update enriches;
+    # the others are kept from last week, else built from the catalog.
+    recent = {
+        arxiv_id: _from_day_file(in_days[arxiv_id], first_seen[arxiv_id])
+        if arxiv_id in in_days
+        else previous_recent.get(arxiv_id) or paper_from_catalog(entries[arxiv_id], category, subjects)
+        for arxiv_id in sorted(top_recent)
+    }
 
     report = ArchiveReport(
         category=category,
@@ -230,6 +255,7 @@ def update_archive(
         written=not dry_run,
         carried=len(carried),
         refreshed=len(changed_in_days) + changed_in_archive,
+        top_recent=len(top_recent),
     )
     if dry_run:
         return report
@@ -240,13 +266,24 @@ def update_archive(
     # Entering papers, archived ones without OpenAlex's ids, and young ones it knew no
     # affiliations for (see _needs_openalex).
     store.write_archive(category, _with_affiliations([*kept, *new_papers], clients.openalex, today))
+    # Below the coverage, last week's papers stay, with the comments of their latest version.
+    since = (previous_top.since if previous_top else None) if gated else recent_since(today)
+    if since is not None:
+        looked_up = _with_affiliations(
+            [paper for arxiv_id, paper in recent.items() if arxiv_id not in in_days], clients.openalex, today
+        )
+        store.write_top_recent(
+            category,
+            [*(recent[arxiv_id] for arxiv_id in recent if arxiv_id in in_days), *looked_up],
+            since=since,
+        )
     store.remove_days(category, stale_days)
     on_disk = {
         paper.arxiv_id for day, papers in stored_days.items() if day not in stale_days for paper in papers
     }
     stored_counts = {
         arxiv_id: count
-        for arxiv_id in on_disk | selection.keep
+        for arxiv_id in on_disk | selection.keep | top_recent
         if (count := counts.get(arxiv_id)) is not None
     }
     if gated:
@@ -256,6 +293,53 @@ def update_archive(
         store.write_citations(category, stored_counts, source=S2_SOURCE)
     store.write_index()
     return report
+
+
+class _Stored(NamedTuple):
+    """The stored papers of a category, with the comments of their latest version (:func:`refreshed`)."""
+
+    #: Each day's papers, as stored.
+    days: dict[date, list[Paper]]
+    #: Papers of the day files the catalog changed.
+    changed_in_days: list[Paper]
+    #: The papers of the day files, by identifier.
+    in_days: dict[str, Paper]
+    #: The archived papers, by identifier.
+    archived: dict[str, Paper]
+    #: Number of archived papers the catalog changed.
+    changed_in_archive: int
+    #: Last week's most cited papers of the last 12 months, if any.
+    top_recent: TopRecent | None
+
+
+def _stored(store: PaperStore, category: str, entries: Mapping[str, CatalogEntry]) -> _Stored:
+    """The stored papers of ``category``, refreshed from the catalog's ``entries``."""
+    stored_days = {day: store.load_day(category, day) for day in store.days(category)}
+    refreshed_days = {
+        day: [refreshed(paper, entries.get(paper.arxiv_id)) for paper in papers]
+        for day, papers in stored_days.items()
+    }
+    changed_in_days = [
+        new
+        for day, papers in stored_days.items()
+        for old, new in zip(papers, refreshed_days[day], strict=True)
+        if new is not old
+    ]
+    stored_archive = list(store.iter_archive(category))
+    archived = {paper.arxiv_id: refreshed(paper, entries.get(paper.arxiv_id)) for paper in stored_archive}
+    top_recent = store.load_top_recent(category)
+    if top_recent is not None:
+        top_recent = replace(
+            top_recent, papers=[refreshed(paper, entries.get(paper.arxiv_id)) for paper in top_recent.papers]
+        )
+    return _Stored(
+        days=stored_days,
+        changed_in_days=changed_in_days,
+        in_days={paper.arxiv_id: paper for papers in refreshed_days.values() for paper in papers},
+        archived=archived,
+        changed_in_archive=sum(archived[paper.arxiv_id] is not paper for paper in stored_archive),
+        top_recent=top_recent,
+    )
 
 
 def refreshed(paper: Paper, entry: CatalogEntry | None) -> Paper:
@@ -328,7 +412,8 @@ def format_archive_report(report: ArchiveReport) -> str:
     return (
         f"{report.category}: {report.archived:,} archived papers "
         f"({report.entered:,} in, {report.left:,} out), "
-        f"threshold {report.threshold:.1f} citations a year, citation counts for "
+        f"threshold {report.threshold:.1f} citations a year, "
+        f"{report.top_recent:,} most cited of the last 12 months, citation counts for "
         f"{100 * report.coverage:.1f}% of {report.candidates:,} papers"
         + (f" ({report.carried:,} archived papers on last week's count)" if report.carried else "")
         + f", {report.refreshed:,} papers' comments refreshed, {report.pruned_days:,} day files pruned"

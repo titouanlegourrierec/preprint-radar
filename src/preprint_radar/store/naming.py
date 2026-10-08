@@ -21,12 +21,14 @@ class NamingReport:
 
     Attributes:
         category: The arXiv category.
-        papers: Papers looked at, day files and archive.
+        papers: Papers looked at, day files and archive (the most cited of the last 12
+            months with it).
         unnamed_before: Affiliations without an institution before.
         unnamed_after: Affiliations without an institution after.
         changed: Papers whose institutions changed.
         days: Day files written again.
-        archive: Whether the archive was written again.
+        archive: Whether the archive, or the most cited papers of the last 12 months, was
+            written again.
     """
 
     category: str
@@ -42,8 +44,8 @@ def name_institutions_again(store: PaperStore, category: str) -> NamingReport:
     """Name the institutions of every stored paper of a category again.
 
     Papers whose institutions are not named yet are left to ``institutions``. Only the day
-    files holding a changed paper are written, and the archive only when one of its papers
-    changed.
+    files holding a changed paper are written, and the archive, or the most cited papers of
+    the last 12 months, only when one of its papers changed.
 
     Args:
         store: The data store.
@@ -64,11 +66,18 @@ def name_institutions_again(store: PaperStore, category: str) -> NamingReport:
             store.save(category, updated)
             changed += len(updated)
             days += 1
-    archived = list(store.iter_archive(category))
-    named = [named_again(paper) for paper in archived]
+    archive = list(store.iter_archive(category))
+    top_recent = store.load_top_recent(category)
+    recent = top_recent.papers if top_recent else []
+    new_archive = [named_again(paper) for paper in archive]
+    new_recent = [named_again(paper) for paper in recent]
+    if new_archive != archive:
+        store.write_archive(category, new_archive)
+    if top_recent and new_recent != recent:
+        store.write_top_recent(category, new_recent, since=top_recent.since)
+    # The most cited papers of the last 12 months are counted with the archive.
+    archived, named = [*archive, *recent], [*new_archive, *new_recent]
     archive_changed = sum(new != old for old, new in zip(archived, named, strict=True))
-    if archive_changed:
-        store.write_archive(category, named)
     return NamingReport(
         category=category,
         papers=papers + len(archived),

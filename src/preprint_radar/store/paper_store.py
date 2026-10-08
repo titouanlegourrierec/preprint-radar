@@ -9,12 +9,15 @@ Layout::
         ├── citations.json         # citation counts of the stored papers
         ├── citation-gains.json    # what each gained between the last two full refreshes
         ├── scholar.json           # their DOI, published venue and author ids
+        ├── top-recent.json        # the most cited papers of the last 12 months
         └── archive/
             └── <YYYY>.json        # highly cited older papers, by year of first version
 
 One file per day keeps each update small, and lets the web app load only the days
 it needs. The archive holds the papers kept for their citations once they are older than
-the days kept in full; it is rewritten as a whole by :meth:`PaperStore.write_archive`.
+the days kept in full; it is rewritten as a whole by :meth:`PaperStore.write_archive`, and
+the most cited papers of the last 12 months, many of which no day file holds, by
+:meth:`PaperStore.write_top_recent` (PROD-11).
 
 Every file carries the ``schema_version`` it was written with, and the store refuses to
 read one of another version (DATA-9): an older pipeline would otherwise misread a newer
@@ -42,6 +45,7 @@ INDEX_FILENAME = "index.json"
 CITATIONS_FILENAME = "citations.json"
 GAINS_FILENAME = "citation-gains.json"
 SCHOLAR_FILENAME = "scholar.json"
+TOP_RECENT_FILENAME = "top-recent.json"
 ARCHIVE_DIRNAME = "archive"
 _DAY_STEM_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 _YEAR_STEM_RE = re.compile(r"^\d{4}$")
@@ -78,6 +82,19 @@ class ScholarFile:
     papers: dict[str, ScholarRecord]
     source: str
     generated_at: datetime
+
+
+@dataclass(frozen=True, slots=True)
+class TopRecent:
+    """The most cited papers of the last 12 months of a category, as the archive last chose them.
+
+    Attributes:
+        papers: The papers, newest first.
+        since: First day of first appearance of the 12 months they were chosen from.
+    """
+
+    papers: list[Paper]
+    since: date
 
 
 @dataclass(frozen=True, slots=True)
@@ -244,6 +261,49 @@ class PaperStore:
                 "papers": [paper.to_record() for paper in year_papers],
             }
             _write_json(self._archive_path(category, year), payload)
+
+    def load_top_recent(self, category: str) -> TopRecent | None:
+        """The most cited papers of the last 12 months of ``category``, if ever written.
+
+        Raises:
+            StoreError: If the file is not a valid top-recent file, or of another ``schema_version``.
+        """
+        path = self.root / category / TOP_RECENT_FILENAME
+        if not path.is_file():
+            return None
+        try:
+            payload: Any = json.loads(path.read_text(encoding="utf-8"))
+            _check_version(payload, path, "top-recent")
+            since = date.fromisoformat(payload["since"])
+            records = payload["papers"]
+        except (json.JSONDecodeError, KeyError, TypeError, ValueError) as exc:
+            msg = f"Invalid top-recent file {path}: {exc}"
+            raise StoreError(msg) from exc
+        return TopRecent([Paper.from_record(record) for record in records], since)
+
+    def iter_top_recent(self, category: str) -> Iterator[Paper]:
+        """Iterate over the most cited papers of the last 12 months of ``category``."""
+        top_recent = self.load_top_recent(category)
+        yield from top_recent.papers if top_recent else ()
+
+    def write_top_recent(self, category: str, papers: Iterable[Paper], *, since: date) -> None:
+        """Replace the most cited papers of the last 12 months of ``category``.
+
+        Args:
+            category: arXiv category.
+            papers: The papers, first seen on ``since`` or later.
+            since: First day of first appearance of the 12 months they were chosen from.
+        """
+        payload = {
+            "schema_version": SCHEMA_VERSION,
+            "category": category,
+            "since": since.isoformat(),
+            "papers": [
+                paper.to_record()
+                for paper in sorted(papers, key=lambda paper: (paper.announced, paper.arxiv_id), reverse=True)
+            ],
+        }
+        _write_json(self.root / category / TOP_RECENT_FILENAME, payload)
 
     def load_citations(self, category: str) -> dict[str, int]:
         """Citation counts of the stored papers of ``category`` (empty if never written)."""
@@ -415,6 +475,11 @@ class PaperStore:
                 category: [{"year": year, "count": len(self.load_archive(category, year))} for year in years]
                 for category in self.categories()
                 if (years := self.archive_years(category))
+            },
+            "top_recent": {
+                category: {"since": top_recent.since.isoformat(), "count": len(top_recent.papers)}
+                for category in self.categories()
+                if (top_recent := self.load_top_recent(category))
             },
         }
         path = self.root / INDEX_FILENAME

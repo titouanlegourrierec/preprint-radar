@@ -9,11 +9,12 @@ affiliation, a paper ``reclean`` would still change). Nothing is fetched or writ
 
 import json
 import re
-from collections.abc import Iterator
+from collections.abc import Iterator, Mapping
 from dataclasses import dataclass, field
+from datetime import date
 from enum import StrEnum
 from pathlib import Path
-from typing import TYPE_CHECKING, Any
+from typing import Any
 
 from preprint_radar.exceptions import StoreError
 from preprint_radar.models import Paper
@@ -24,13 +25,11 @@ from preprint_radar.store.paper_store import (
     INDEX_FILENAME,
     SCHEMA_VERSION,
     SCHOLAR_FILENAME,
+    TOP_RECENT_FILENAME,
     PaperStore,
 )
 from preprint_radar.store.quality import last_holds_all, names_only
 from preprint_radar.store.reclean import reclean_paper
-
-if TYPE_CHECKING:
-    from datetime import date
 
 # Contact details the contract keeps out of affiliations. "@" alone is not one: OpenAlex
 # names institutions like "IIT@MIT".
@@ -99,7 +98,7 @@ class ValidationReport:
 
 
 def validate_store(store: PaperStore) -> ValidationReport:
-    """Check every file of the store: day files, archive years, citations and the index.
+    """Check every file of the store: days, archive years, recent papers, citations and the index.
 
     Args:
         store: The data store.
@@ -116,7 +115,7 @@ def validate_store(store: PaperStore) -> ValidationReport:
 
 
 def _validate_category(store: PaperStore, category: str, report: ValidationReport) -> dict[str, Any]:
-    """Check one category's files; return its day and year counts, as the index lists them."""
+    """Check one category's files; return its days, years and recent papers, as the index lists them."""
     directory = store.root / category
     stored: set[str] = set()
     authors: dict[str, int] = {}
@@ -124,7 +123,7 @@ def _validate_category(store: PaperStore, category: str, report: ValidationRepor
     first_day: dict[str, date] = {}
     for day in store.days(category):
         path = directory / f"{day.isoformat()}.json"
-        papers, records = _load(path, store, report, category=category, key="date", value=day.isoformat())
+        papers, records, _ = _load(path, store, report, category=category, fields={"date": day.isoformat()})
         days.append({"date": day.isoformat(), "count": records})
         for paper in papers:
             where = _where(path, store)
@@ -145,7 +144,7 @@ def _validate_category(store: PaperStore, category: str, report: ValidationRepor
     archived: set[str] = set()
     for year in store.archive_years(category):
         path = directory / ARCHIVE_DIRNAME / f"{year}.json"
-        papers, records = _load(path, store, report, category=category, key="year", value=year)
+        papers, records, _ = _load(path, store, report, category=category, fields={"year": year})
         years.append({"year": year, "count": records})
         for paper in papers:
             where = _where(path, store)
@@ -159,19 +158,60 @@ def _validate_category(store: PaperStore, category: str, report: ValidationRepor
             authors.setdefault(paper.arxiv_id, len(paper.authors))
             _check_contacts(paper, where, report)
     stored |= archived
+    top_recent, recent = _validate_top_recent(store, category, archived, report)
+    stored.update(paper.arxiv_id for paper in recent)
+    for paper in recent:
+        authors.setdefault(paper.arxiv_id, len(paper.authors))
 
     _validate_citations(store, category, stored, report)
     _validate_gains(store, category, stored, report)
     _validate_scholar(store, category, authors, report)
-    return {"days": days, "years": years}
+    return {"days": days, "years": years, "top_recent": top_recent}
+
+
+def _validate_top_recent(
+    store: PaperStore, category: str, archived: set[str], report: ValidationReport
+) -> tuple[dict[str, Any] | None, list[Paper]]:
+    """``top-recent.json``: papers first seen since its ``since`` day, each once, none archived.
+
+    Returns its entry of the index (``None`` without the file) and its papers that load.
+    """
+    path = store.root / category / TOP_RECENT_FILENAME
+    if not path.is_file():
+        return None, []
+    where = _where(path, store)
+    papers, records, payload = _load(path, store, report, category=category)
+    try:
+        since = date.fromisoformat(payload["since"])
+    except (KeyError, TypeError, ValueError):
+        report.findings.append(Finding(Level.ERROR, where, f"'since' is {payload.get('since')!r}, not a day"))
+        return {"since": payload.get("since"), "count": records}, papers
+    listed: set[str] = set()
+    for paper in papers:
+        if paper.announced < since:
+            report.findings.append(
+                Finding(Level.ERROR, where, f"{paper.arxiv_id}: announced {paper.announced}")
+            )
+        if paper.arxiv_id in listed:
+            report.findings.append(Finding(Level.ERROR, where, f"{paper.arxiv_id}: listed twice"))
+        if paper.arxiv_id in archived:
+            report.findings.append(Finding(Level.ERROR, where, f"{paper.arxiv_id}: archived too"))
+        listed.add(paper.arxiv_id)
+        _check_contacts(paper, where, report)
+    return {"since": since.isoformat(), "count": records}, papers
 
 
 def _load(
-    path: Path, store: PaperStore, report: ValidationReport, *, category: str, key: str, value: object
-) -> tuple[list[Paper], int]:
-    """The papers of a day or archive file that load, and its number of records.
+    path: Path,
+    store: PaperStore,
+    report: ValidationReport,
+    *,
+    category: str,
+    fields: Mapping[str, object] | None = None,
+) -> tuple[list[Paper], int, dict[str, Any]]:
+    """The papers of a file of papers that load, its number of records, and its JSON object.
 
-    The broken rules are added to ``report``.
+    The broken rules are added to ``report``: among them, a field other than ``fields`` says.
     """
     report.files += 1
     where = _where(path, store)
@@ -179,11 +219,11 @@ def _load(
         payload = json.loads(path.read_text(encoding="utf-8"))
     except json.JSONDecodeError as exc:
         report.findings.append(Finding(Level.ERROR, where, f"not valid JSON: {exc}"))
-        return [], 0
+        return [], 0, {}
     if not isinstance(payload, dict) or not isinstance(payload.get("papers"), list):
         report.findings.append(Finding(Level.ERROR, where, "no 'papers' list"))
-        return [], 0
-    expected = {"schema_version": SCHEMA_VERSION, "category": category, key: value}
+        return [], 0, payload if isinstance(payload, dict) else {}
+    expected = {"schema_version": SCHEMA_VERSION, "category": category, **(fields or {})}
     for name, wanted in expected.items():
         if payload.get(name) != wanted:
             message = f"{name!r} is {payload.get(name)!r}, expected {wanted!r}"
@@ -195,7 +235,7 @@ def _load(
             papers.append(Paper.from_record(record))
         except StoreError as exc:
             report.findings.append(Finding(Level.ERROR, where, str(exc)))
-    return papers, len(payload["papers"])
+    return papers, len(payload["papers"]), payload
 
 
 def _check_contacts(paper: Paper, where: str, report: ValidationReport) -> None:
@@ -316,10 +356,14 @@ def _validate_index(store: PaperStore, counts: dict[str, dict[str, Any]], report
         report.findings.append(Finding(Level.ERROR, where, message))
     days = {category: found["days"] for category, found in counts.items()}
     years = {category: found["years"] for category, found in counts.items() if found["years"]}
+    recent = {category: found["top_recent"] for category, found in counts.items() if found["top_recent"]}
     if index.get("categories") != days:
         report.findings.append(Finding(Level.ERROR, where, "days or counts differ from the day files"))
     if index.get("archives", {}) != years:
         report.findings.append(Finding(Level.ERROR, where, "years or counts differ from the archive files"))
+    if index.get("top_recent", {}) != recent:
+        message = "the papers of the last 12 months differ from top-recent.json"
+        report.findings.append(Finding(Level.ERROR, where, message))
 
 
 def _where(path: Path, store: PaperStore) -> str:

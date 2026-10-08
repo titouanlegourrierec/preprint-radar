@@ -257,6 +257,47 @@ def test_index_lists_archive_years(store: PaperStore, listing: Listing) -> None:
     assert index["archives"] == {"cs.CV": [{"year": 2015, "count": 2}]}
 
 
+def test_the_most_cited_papers_of_the_last_12_months_are_written_apart(
+    store: PaperStore, listing: Listing
+) -> None:
+    assert store.load_top_recent("cs.CV") is None
+    assert list(store.iter_top_recent("cs.CV")) == []
+    store.save("cs.CV", listing.papers)
+    young = [replace(_archived(listing, 2025), announced=date(2025, 11, 3)), listing.papers[0]]
+
+    store.write_top_recent("cs.CV", young, since=date(2025, 10, 1))
+
+    top_recent = store.load_top_recent("cs.CV")
+    assert top_recent is not None
+    assert top_recent.since == date(2025, 10, 1)
+    # Newest first, as the archive's years; neither an archive year nor a day file.
+    assert [paper.arxiv_id for paper in top_recent.papers] == [listing.papers[0].arxiv_id, "2501.00000"]
+    assert list(store.iter_top_recent("cs.CV")) == top_recent.papers
+    assert store.archive_years("cs.CV") == []
+    assert store.days("cs.CV") == [date(2026, 9, 25), date(2026, 9, 24)]
+    index = json.loads(store.write_index().read_text(encoding="utf-8"))
+    assert index["top_recent"] == {"cs.CV": {"since": "2025-10-01", "count": 2}}
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        "{not json",
+        '{"schema_version": 1, "papers": []}',
+        '{"schema_version": 1, "since": "last year", "papers": []}',
+        '{"schema_version": 1, "since": "2025-10-01"}',
+        '{"schema_version": 1, "since": "2025-10-01", "papers": [{"arxiv_id": 1}]}',
+    ],
+)
+def test_invalid_top_recent_file_raises(store: PaperStore, payload: str) -> None:
+    path = store.root / "cs.CV" / "top-recent.json"
+    path.parent.mkdir(parents=True)
+    path.write_text(payload, encoding="utf-8")
+
+    with pytest.raises(StoreError, match=r"Invalid (top-recent file|paper record)"):
+        store.load_top_recent("cs.CV")
+
+
 def test_remove_days(store: PaperStore, listing: Listing) -> None:
     store.save("cs.CV", listing.papers)
 
@@ -273,6 +314,7 @@ def _every_file(store: PaperStore, listing: Listing) -> None:
     store.write_citations("cs.CV", {"2609.30245": 1}, source="S2", now=week_ago)
     store.write_citations("cs.CV", {"2609.30245": 3}, source="S2", now=week_ago + timedelta(days=7))
     store.write_scholar("cs.CV", {"2609.30245": ScholarRecord(doi="10.1/x")}, source="S2")
+    store.write_top_recent("cs.CV", listing.papers[:1], since=date(2025, 10, 1))
 
 
 @pytest.mark.parametrize(
@@ -283,6 +325,7 @@ def _every_file(store: PaperStore, listing: Listing) -> None:
         ("citations.json", "citations", lambda store: store.load_citation_counts("cs.CV")),
         ("citation-gains.json", "citation gains", lambda store: store.load_citation_gains("cs.CV")),
         ("scholar.json", "scholar", lambda store: store.load_scholar("cs.CV")),
+        ("top-recent.json", "top-recent", lambda store: store.load_top_recent("cs.CV")),
     ],
 )
 @pytest.mark.parametrize("version", [SCHEMA_VERSION + 1, None])

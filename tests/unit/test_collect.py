@@ -674,6 +674,20 @@ def test_update_citation_counts_refreshes_every_stored_paper(cited_store: PaperS
     assert format_citations_report(report) == "cs.CV: citation counts for 4 of 4 papers"
 
 
+def test_update_citation_counts_asks_for_the_most_cited_papers_of_the_last_12_months(
+    cited_store: PaperStore,
+) -> None:
+    young = replace(_paper("2511.00001", None), announced=date(2025, 11, 3))
+    cited_store.write_top_recent("cs.CV", [young], since=date(2025, 10, 1))
+    fake = FakeSemanticScholar({"2511.00001": 40})
+
+    with fake.client() as client:
+        update_citation_counts(cited_store, "cs.CV", client, key=None)
+
+    assert "2511.00001" in fake.asked
+    assert cited_store.load_citations("cs.CV")["2511.00001"] == 40
+
+
 def test_a_failing_refresh_keeps_the_counts(cited_store: PaperStore, monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr("preprint_radar.sources.semantic_scholar.S2_ANONYMOUS_RETRY_WAIT_SECONDS", 0)
     before = cited_store.load_citation_counts("cs.CV")

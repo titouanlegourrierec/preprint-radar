@@ -51,6 +51,24 @@ def test_detects_the_venues_of_day_files_and_archive_again(tmp_path: Path) -> No
     assert (again.changed, again.days, again.archive) == (0, 0, False)
 
 
+def test_detects_the_venues_of_the_most_cited_papers_of_the_last_12_months_again(tmp_path: Path) -> None:
+    store = PaperStore(tmp_path / "data")
+    since = date(2025, 10, 1)
+    store.write_top_recent(
+        "cs.CV", [_paper("2511.00001", date(2025, 11, 3), "accepted by CVPR16", "CVPR")], since=since
+    )
+
+    report = detect_venues_again(store, "cs.CV")
+
+    assert (report.papers, report.changed, report.archive) == (1, 1, True)
+    top_recent = store.load_top_recent("cs.CV")
+    assert top_recent is not None
+    assert [paper.venue for paper in top_recent.papers] == ["CVPR 2016"]
+    assert top_recent.since == since
+    assert store.archive_years("cs.CV") == []
+    assert detect_venues_again(store, "cs.CV").archive is False
+
+
 def test_leaves_an_up_to_date_archive_unwritten(tmp_path: Path) -> None:
     store = PaperStore(tmp_path / "data")
     paper = _paper("1511.00001", date(2015, 11, 2), "accepted by CVPR16", "CVPR 2016")

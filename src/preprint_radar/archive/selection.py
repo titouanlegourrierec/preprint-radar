@@ -11,11 +11,12 @@ threshold rises by itself. A paper already archived only leaves once it ranks be
 from collections.abc import Iterable
 from collections.abc import Set as AbstractSet
 from dataclasses import dataclass
-from datetime import date
+from datetime import date, timedelta
 
-from preprint_radar.config import DEFAULT_MARGIN, RECENT_DAYS
+from preprint_radar.config import DEFAULT_MARGIN, RECENT_DAYS, TOP_RECENT_BUDGET, TOP_RECENT_MIN_MONTHS
 
 DAYS_PER_YEAR = 365.25
+DAYS_PER_MONTH = DAYS_PER_YEAR / 12
 
 
 @dataclass(frozen=True, slots=True)
@@ -51,9 +52,54 @@ def citation_rate(citations: int | None, first_seen: date, today: date) -> float
     return (citations or 0) / max(age, 1.0)
 
 
+def monthly_rate(citations: int | None, first_seen: date, today: date, min_months: float) -> float:
+    """Citations per month of age, counting at least ``min_months``."""
+    age = (today - first_seen).days / DAYS_PER_MONTH
+    return (citations or 0) / max(age, min_months)
+
+
 def is_recent(first_seen: date, today: date) -> bool:
     """Whether a paper is within the rolling window kept in full."""
     return (today - first_seen).days < RECENT_DAYS
+
+
+def recent_since(today: date) -> date:
+    """The first day of first appearance within the rolling window (:func:`is_recent`)."""
+    return today - timedelta(days=RECENT_DAYS - 1)
+
+
+def select_top_recent(
+    candidates: Iterable[Candidate],
+    *,
+    budget: int = TOP_RECENT_BUDGET,
+    today: date,
+    min_months: float = TOP_RECENT_MIN_MONTHS,
+) -> frozenset[str]:
+    """Choose the most cited papers of the last 12 months (PROD-11).
+
+    The archive's score, citations per year of age counting at least a year, would rank
+    them by their raw counts, and keep the oldest months only (of 623 papers at its
+    threshold in September 2026, 6 were from July and none from August). Per month of age,
+    each month has its best papers; the list is rewritten as a whole every week.
+
+    Args:
+        candidates: Every paper of the category, older ones included (they are skipped).
+        budget: Number of papers kept.
+        today: Day of the selection.
+        min_months: Age the citations are counted over, at least.
+
+    Returns:
+        The ``budget`` best-ranked papers. Papers never cited are never kept.
+    """
+    ranked = sorted(
+        (
+            (monthly_rate(candidate.citations, candidate.first_seen, today, min_months), candidate.arxiv_id)
+            for candidate in candidates
+            if is_recent(candidate.first_seen, today) and candidate.citations
+        ),
+        key=lambda item: (-item[0], item[1]),
+    )
+    return frozenset(arxiv_id for _, arxiv_id in ranked[:budget])
 
 
 def select_archive(
