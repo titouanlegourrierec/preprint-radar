@@ -25,11 +25,13 @@ from preprint_radar.collect import (
     add_institutions,
     backfill_category,
     format_citations_report,
+    format_openalex_report,
     format_report,
     format_scholar_report,
     reextract_category,
     update_category,
     update_citation_counts,
+    update_openalex_affiliations,
     update_scholar_records,
 )
 from preprint_radar.config import (
@@ -181,6 +183,7 @@ def build_parser() -> argparse.ArgumentParser:
     _add_backfill_parser(subparsers)
     _add_stats_parser(subparsers)
     _add_institutions_parser(subparsers)
+    _add_affiliations_parser(subparsers)
     _add_archive_parser(subparsers)
     _add_citations_parser(subparsers)
     _add_index_parser(subparsers)
@@ -212,7 +215,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 # The commands that run for minutes or hours: they log their progress unless -q (DOC-5).
 PROGRESS_COMMANDS = frozenset(
-    {"update", "backfill", "reextract", "institutions", "citations", "scholar", "archive"}
+    {"update", "backfill", "reextract", "institutions", "affiliations", "citations", "scholar", "archive"}
 )
 
 
@@ -395,6 +398,34 @@ def _add_institutions_parser(subparsers: "argparse._SubParsersAction[argparse.Ar
         type=_count,
         default=None,
         help="maximum number of affiliations to look up (default: no limit)",
+    )
+
+
+def _add_affiliations_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
+    affiliations = subparsers.add_parser(
+        "affiliations",
+        help="ask OpenAlex for the affiliations of stored papers without an HTML page",
+        description=(
+            "Ask OpenAlex for the affiliations, and their institutions, of the stored papers "
+            "that arXiv has no HTML rendering of (about 5%), which no page can give: a few "
+            "requests. A paper it knows nothing of yet is asked again every 30 days while "
+            "under two years old. A failing OpenAlex never fails the command: the papers are "
+            "asked for again next time."
+        ),
+    )
+    affiliations.add_argument(
+        "-c",
+        "--category",
+        dest="categories",
+        action="append",
+        type=_category,
+        help="arXiv category, repeatable (default: every category in the store)",
+    )
+    affiliations.add_argument(
+        "--data-dir",
+        type=Path,
+        default=DEFAULT_DATA_DIR,
+        help=f"data store directory (default: {DEFAULT_DATA_DIR})",
     )
 
 
@@ -1048,6 +1079,19 @@ def _run_institutions(args: argparse.Namespace) -> int:
     return 0
 
 
+def _run_affiliations(args: argparse.Namespace) -> int:
+    store = PaperStore(args.data_dir)
+    categories: list[str] = args.categories or store.categories()
+    today = datetime.now(tz=UTC).date()
+    # Only arXiv gets the contact; the other services get the bare User-Agent.
+    with HttpClient(user_agent=DEFAULT_USER_AGENT, min_interval=OPENALEX_DELAY_SECONDS) as client:
+        for category in categories:
+            line = format_openalex_report(update_openalex_affiliations(store, category, client, today=today))
+            console.print(line)
+            github_summary(f"**Affiliations from OpenAlex.** {line}")
+    return 0
+
+
 def _semantic_scholar() -> tuple[HttpClient, str | None]:
     """A client for Semantic Scholar, and the API key it is used with (if any)."""
     key = api_key()
@@ -1253,6 +1297,7 @@ _COMMANDS: dict[str, Callable[[argparse.Namespace], int]] = {
     "backfill": _run_backfill,
     "stats": _run_stats,
     "institutions": _run_institutions,
+    "affiliations": _run_affiliations,
     "archive": _run_archive,
     "citations": _run_citations,
     "index": _run_index,

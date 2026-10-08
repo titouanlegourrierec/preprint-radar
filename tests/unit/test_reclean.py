@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from preprint_radar.models import Paper
+from preprint_radar.models import Paper, Provenance
 from preprint_radar.store.paper_store import PaperStore
 from preprint_radar.store.reclean import RecleanReport, reclean_paper, reclean_store
 
@@ -36,6 +36,9 @@ def test_leaves_clean_papers_and_papers_without_affiliations_alone() -> None:
     assert reclean_paper(clean) == clean
     assert reclean_paper(_paper(None)) == _paper(None)
     assert reclean_paper(_paper(())) == _paper(())
+    # OpenAlex's names, of a paper without an HTML page, are no strings of a page (AFF-27).
+    openalex = replace(_paper(("MIT", "Code"), None), affiliations_provenance=Provenance("openalex"))
+    assert reclean_paper(openalex) is openalex
 
 
 def test_drops_a_middle_string_and_shifts_the_mapping() -> None:

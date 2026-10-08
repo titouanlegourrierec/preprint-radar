@@ -13,8 +13,6 @@ from preprint_radar.archive.subjects import ARXIV_SUBJECTS, SUBJECT_ALIASES, sub
 from preprint_radar.archive.update import (
     ArchiveClients,
     ArchiveReport,
-    _needs_openalex,
-    _with_affiliations,
     format_archive_report,
     paper_from_catalog,
     refreshed,
@@ -22,6 +20,7 @@ from preprint_radar.archive.update import (
 )
 from preprint_radar.http import HttpClient
 from preprint_radar.models import Paper, Provenance
+from preprint_radar.openalex_affiliations import needs_openalex, with_openalex_affiliations
 from preprint_radar.sources.arxiv_oai import CatalogEntry
 from preprint_radar.store.paper_store import PaperStore
 
@@ -358,7 +357,7 @@ def test_an_empty_archived_paper_is_asked_again_while_young(
         ),
     )
 
-    assert _needs_openalex(paper, TODAY) is asked
+    assert needs_openalex(paper, TODAY) is asked
 
 
 def test_archived_papers_get_the_ror_ids_of_their_institutions(store: PaperStore, catalog: Catalog) -> None:
@@ -620,9 +619,11 @@ def test_every_lookup_comes_before_the_first_write(
         calls.append(len(papers))
         if len(calls) == 2:
             raise KeyboardInterrupt  # the run stopped while OpenAlex answers
-        return _with_affiliations(papers, client, today)
+        return with_openalex_affiliations(papers, client, today)
 
-    monkeypatch.setattr("preprint_radar.archive.update._with_affiliations", stopped_at_the_second_lookup)
+    monkeypatch.setattr(
+        "preprint_radar.archive.update.with_openalex_affiliations", stopped_at_the_second_lookup
+    )
     before = {path: path.read_bytes() for path in store.root.rglob("*.json")}
 
     with pytest.raises(KeyboardInterrupt):

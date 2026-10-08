@@ -238,6 +238,11 @@ class Paper:
         """Whether the paper is cross-listed from another category."""
         return self.cross_list_from is not None
 
+    @property
+    def affiliations_from_openalex(self) -> bool:
+        """Whether the affiliations are OpenAlex's registry names, not strings read on a page."""
+        return self.affiliations_provenance is not None and self.affiliations_provenance.source == "openalex"
+
     def with_affiliations(
         self,
         affiliations: tuple[str, ...] | None,

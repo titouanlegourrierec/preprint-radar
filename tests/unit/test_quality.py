@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 from rich.console import Console
 
-from preprint_radar.models import Paper
+from preprint_radar.models import Paper, Provenance
 from preprint_radar.sources.arxiv_html import EXTRACTOR_VERSION, PageCache
 from preprint_radar.store.quality import (
     EXAMPLES,
@@ -107,6 +107,13 @@ def test_affiliation_quality_counts_strings_and_papers() -> None:
         ),
         replace(PAPER, arxiv_id="2609.00003", affiliations=()),
         replace(PAPER, arxiv_id="2609.00004", affiliations=None),
+        # OpenAlex's names, of a paper without an HTML page (AFF-27): left out.
+        replace(
+            PAPER,
+            arxiv_id="2609.00005",
+            affiliations=("School of",),
+            affiliations_provenance=Provenance("openalex"),
+        ),
     ]
 
     quality = affiliation_quality(papers)

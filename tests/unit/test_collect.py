@@ -16,6 +16,7 @@ from preprint_radar.collect import (
     MAX_CONSECUTIVE_HTML_FAILURES,
     CitationsReport,
     HtmlReading,
+    OpenAlexReport,
     Stop,
     UpdateReport,
     _about,
@@ -23,10 +24,12 @@ from preprint_radar.collect import (
     add_institutions,
     backfill_category,
     format_citations_report,
+    format_openalex_report,
     format_report,
     reextract_category,
     update_category,
     update_citation_counts,
+    update_openalex_affiliations,
 )
 from preprint_radar.http import HttpClient, RateLimiter
 from preprint_radar.models import Listing, Paper, Provenance
@@ -708,6 +711,91 @@ def test_nothing_to_ask_for(cited_store: PaperStore) -> None:
 
     assert fake.asked == []
     assert report.asked == 0
+
+
+TODAY = date(2026, 10, 8)
+TSINGHUA = {
+    "doi": "https://doi.org/10.48550/arxiv.2609.00001",
+    "authorships": [
+        {
+            "author_position": "first",
+            "raw_author_name": "A",
+            "institutions": [
+                {
+                    "id": "https://openalex.org/I99065089",
+                    "display_name": "Tsinghua University",
+                    "ror": "https://ror.org/03cve4549",
+                    "type": "education",
+                }
+            ],
+        }
+    ],
+}
+
+
+def _without_page(arxiv_id: str, affiliations: tuple[str, ...] | None, looked_up: int | None = None) -> Paper:
+    """A paper of the day files arXiv has no HTML rendering of, OpenAlex asked ``looked_up`` days ago."""
+    return replace(
+        _paper(arxiv_id, affiliations),
+        affiliations_provenance=None
+        if looked_up is None
+        else Provenance("openalex", TODAY - timedelta(days=looked_up)),
+    )
+
+
+def test_openalex_gives_the_affiliations_of_papers_without_an_html_page(store: PaperStore) -> None:
+    store.save(
+        "cs.CV",
+        [
+            _without_page("2609.00001", None),
+            _without_page("2609.00002", (), looked_up=40),  # nothing a month ago: asked again
+            _without_page("2609.00003", (), looked_up=10),  # nothing ten days ago: not yet
+            replace(_paper("2609.00004", None), html_url="https://arxiv.org/html/2609.00004v1"),  # its page
+            replace(_paper("2609.00005", ("Read from the API",)), affiliations_provenance=Provenance("api")),
+        ],
+    )
+    asked: list[str] = []
+
+    def handle(request: httpx.Request) -> httpx.Response:
+        asked.append(request.url.params.get("filter") or request.url.path)
+        if request.url.path == "/works":
+            return httpx.Response(200, json={"results": [TSINGHUA]})
+        return httpx.Response(404)  # the one-by-one lookup of a paper it does not know
+
+    with HttpClient(transport=httpx.MockTransport(handle), max_attempts=1) as client:
+        report = update_openalex_affiliations(store, "cs.CV", client, today=TODAY)
+
+    assert asked[0] == "doi:10.48550/arxiv.2609.00001|10.48550/arxiv.2609.00002"
+    assert report == OpenAlexReport(category="cs.CV", asked=2, found=1)
+    assert format_openalex_report(report) == (
+        "cs.CV: OpenAlex gave affiliations for 1 of 2 papers without an HTML page"
+    )
+    papers = {paper.arxiv_id: paper for paper in store.iter_papers("cs.CV")}
+    found = papers["2609.00001"]
+    assert (found.affiliations, found.institutions, found.institution_ids) == (
+        ("Tsinghua University",),
+        ("Tsinghua University",),
+        ("03cve4549",),
+    )
+    assert found.author_affiliations == ((0,),)
+    assert found.affiliations_provenance == found.institutions_provenance == Provenance("openalex", TODAY)
+    assert found.affiliations_from_openalex
+    # Nothing yet: asked again in 30 days.
+    assert papers["2609.00002"].affiliations == ()
+    assert papers["2609.00002"].affiliations_provenance == Provenance("openalex", TODAY)
+    assert papers["2609.00003"].affiliations_provenance == Provenance("openalex", TODAY - timedelta(days=10))
+    assert papers["2609.00004"].affiliations is None
+    assert papers["2609.00005"].affiliations == ("Read from the API",)
+
+
+def test_a_failing_openalex_leaves_the_papers_for_the_next_run(store: PaperStore) -> None:
+    store.save("cs.CV", [_without_page("2609.00001", None)])
+
+    with HttpClient(transport=httpx.MockTransport(lambda _: httpx.Response(503)), max_attempts=1) as client:
+        report = update_openalex_affiliations(store, "cs.CV", client, today=TODAY)
+
+    assert report == OpenAlexReport(category="cs.CV", asked=1, found=0)
+    assert next(store.iter_papers("cs.CV")).affiliations is None
 
 
 def test_update_writes_the_index_before_reading_html_pages(

@@ -172,6 +172,13 @@ year of cs.CV is 46,000.
   (`OPENALEX_RETRY_EVERY_DAYS`) while under two years old (`OPENALEX_RETRY_AGE_DAYS`),
   counted from the day of its last lookup (`provenance`), or at once when that day is
   unknown; the log says how many of them have affiliations now (AFF-3, decision 5).
+- The papers of the day files that arXiv has no HTML rendering of (231 of 4,832 in
+  October 2026: it could not convert their LaTeX, and the abstract page lists names only)
+  are asked for too, daily (`collect.update_openalex_affiliations`, `make affiliations`,
+  AFF-27): two in five a month old have affiliations, 94 of 225 the first day; the others
+  are asked again every 30 days, as archived papers (`openalex_affiliations.py`, shared with
+  the archive). Their affiliations are OpenAlex's registry names, so `reclean`, `validate`'s
+  heuristics and `quality-affiliations` leave them alone, as the archive's.
 - Its institutions carry ROR ids. Archived papers whose affiliations came from OpenAlex
   before ids were kept (their institutions are their affiliations) are asked for again,
   once, by the weekly archive; those it now gives nothing for keep their affiliations

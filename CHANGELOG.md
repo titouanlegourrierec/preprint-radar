@@ -88,6 +88,9 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ### Data
 
+- The papers arXiv has no HTML rendering of, 5% of them, get their affiliations from
+  OpenAlex: 94 of 225 at once, and the others are asked for again every month, as OpenAlex
+  learns them (AFF-27). The daily workflow runs `affiliations` after the re-extraction.
 - A paper of the day files looked up by OpenAlex in the archive no longer keeps the
   version of the HTML extraction that gave its former affiliations (META-9).
 - The weekly archive identifies itself to arXiv's OAI-PMH with the contact, as the listing

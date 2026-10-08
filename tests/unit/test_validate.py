@@ -7,7 +7,7 @@ from typing import Any
 
 import pytest
 
-from preprint_radar.models import Paper
+from preprint_radar.models import Paper, Provenance
 from preprint_radar.store.paper_store import PaperStore
 from preprint_radar.store.validate import Finding, Level, validate_store
 
@@ -295,6 +295,13 @@ def test_heuristic_rules_only_warn(store: PaperStore) -> None:
             _paper("2609.00004", affiliations=("MIT", "Code")),
             # Named by the registry: a collective that signs as an author.
             _paper("2609.00005", affiliations=("Bob Smith", "MIT"), institutions=("Bob Smith", None)),
+            # OpenAlex's, for a paper without an HTML page: nothing extracted.
+            _paper(
+                "2609.00006",
+                affiliations=("MIT", "Code"),
+                affiliations_provenance=Provenance("openalex", DAY),
+                author_affiliations=(None, (0, 1)),
+            ),
         ],
     )
     store.write_index()

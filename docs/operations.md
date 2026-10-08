@@ -294,6 +294,7 @@ At a warning (the migration trigger, decided with ARCH-1):
 | Backfill of a month of cs.CV | about 11 hours (2,900 pages), over five runs of 600 pages, or one with `MAX_HTML=3000` |
 | Re-extraction from the page cache | seconds |
 | `reclean`, `validate`, `stats` | seconds |
+| `affiliations` (OpenAlex, papers without an HTML page) | seconds; 20 s the first time (225 papers) |
 | `institutions` | a few minutes (one request per distinct string, every 0.5 s) |
 | First catalog harvest | about 45 minutes |
 | Weekly archive of cs.CV | 207,000 counts in 415 requests: about 40 minutes with a key and a warm catalog; hours without a key |

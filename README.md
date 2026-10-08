@@ -30,7 +30,7 @@ reading list exported as BibTeX, RIS, CSV or Markdown.
 | ----------------------------- | ---------------------------------------------------------------------- |
 | Title, authors, subjects, comments, links | `https://arxiv.org/list/<category>/recent` (last 5 announcement days); `https://arxiv.org/catchup/<category>/<date>` for older days |
 | Abstract                      | The category RSS feed (latest day, one request), then the catchup page of each older day (one request per day); the arXiv API and the paper's HTML rendering as last resorts |
-| Affiliations                  | Submitter-declared affiliations from the API when present; otherwise the front matter of the paper's HTML rendering |
+| Affiliations                  | Submitter-declared affiliations from the API when present; otherwise the front matter of the paper's HTML rendering; for the 5% arXiv has no HTML rendering of, [OpenAlex](https://openalex.org) |
 | Institution of each affiliation | The [Research Organization Registry](https://ror.org) (ROR) affiliation matching, when confident; otherwise the pipeline's own rules (acronyms, companies, the main part of an address) |
 | Citation counts (every stored paper) | [Semantic Scholar](https://www.semanticscholar.org), weekly (new papers the day they are added); the archive's papers, older than 12 months, and the most cited of the last 12 months that no day file holds, from arXiv's OAI-PMH, with affiliations from [OpenAlex](https://openalex.org) |
 | Venue                         | Detected in the comments and journal reference ("Accepted to ECCV 2026", "BMVC2026", …); submissions and papers under review are ignored. Else where Semantic Scholar says it was published, with its DOI |

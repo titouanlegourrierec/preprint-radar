@@ -131,6 +131,10 @@ archive: ## Keep the most cited older papers in data/ (first run: about 2 hours)
 institutions: ## Name the institutions of stored affiliations through ROR, then the rules (minutes)
 	uv run preprint-radar -v institutions $(CATEGORY_ARGS)
 
+.PHONY: affiliations
+affiliations: ## Ask OpenAlex for the affiliations of stored papers without an HTML page (seconds)
+	uv run preprint-radar -v affiliations $(CATEGORY_ARGS)
+
 .PHONY: institutions-again
 institutions-again: ## Name the stored institutions again with today's rules, archive included (offline)
 	uv run preprint-radar -v institutions --again $(CATEGORY_ARGS)

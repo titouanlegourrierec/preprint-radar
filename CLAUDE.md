@@ -52,6 +52,10 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     the rules naming the rest (one request per distinct string every 0.5 s, within a
     budget). `make institutions-again`, offline: today's naming rules on the stored
     institutions, archive included.
+  - `make affiliations`: OpenAlex's affiliations and institutions for the papers of the day
+    files without an HTML page (5%, which no page can give; two in five a month old), each
+    one it knows nothing of asked again every 30 days (AFF-27); seconds. The daily workflow
+    runs it.
   - `make citations`: Semantic Scholar counts of the stored papers without one; `ALL=1` asks
     for every paper again. The daily workflow runs it.
   - `make scholar`: the DOI, published venue and author ids (checked against the names)
@@ -65,7 +69,8 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
 - Offline, seconds, after a change to the rules (then commit the data):
   - `make reclean`: today's affiliation cleaning on the stored day files (strings cleaned
     and split, author names dropped, the mapping follows, changed papers lose their
-    institutions: run `make institutions` after). Never the archive (OpenAlex names).
+    institutions: run `make institutions` after). Never the archive, nor a day file's
+    OpenAlex affiliations (registry names, not strings of a page).
   - `make venues`: today's venue and withdrawal detection, and the abstracts' LaTeX made
     plain text (`latex.plain_text`), on every stored paper, archive included.
 - Reports:
@@ -187,8 +192,11 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   browsers predate it (`venue` is optional for that reason).
 - `null` means "not retrieved yet" (`abstract`, `affiliations`, `institutions`): the
   pipeline retries. An empty list means "tried, nothing found": it does not, but for an
-  archived paper under two years old, which OpenAlex is asked again every 30 days after
-  the day of its last lookup (`provenance`, AFF-3): it learns recent papers over months.
+  archived paper, or a day file's paper without an HTML page (AFF-27), under two years old,
+  which OpenAlex is asked again every 30 days after the day of its last lookup
+  (`provenance`, AFF-3): it learns recent papers over months. A day file's affiliations are
+  OpenAlex's only for a paper without a page (`Paper.affiliations_from_openalex`), which
+  `reclean`, `validate`'s heuristics and `quality-affiliations` leave alone.
 - A paper is stored once, on the first day it was announced: a cross-list is sometimes
   announced again days later (2609.10714), and `PaperStore.save` keeps it on its earlier
   day, or moves it there.
@@ -302,7 +310,8 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     are fallbacks four hours later, whose `guard` job (`.github/scripts/skip-if-done.sh`)
     stops them once a run of the day succeeded; a dispatched or manual run always goes on.
   - `update.yml` (dispatched 06:17 UTC on weekdays): the update, then `reextract`
-    (50 downloads, 12 minutes), `citations` (10 minutes), commit; 240 minutes in all. It
+    (50 downloads, 12 minutes), `affiliations` (OpenAlex, seconds), `citations` (10
+    minutes), commit; 240 minutes in all. It
     restores the page cache from the Actions cache (`front-matter-<run id>`, saved even
     after a failure). Its manual *since* input runs `backfill` instead.
   - `archive.yml` (dispatched Sundays 05:41 UTC): the archive, then `scholar` (20 minutes).

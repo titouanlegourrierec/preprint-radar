@@ -15,7 +15,7 @@ from rich.console import Console
 from preprint_radar.archive.catalog import Catalog
 from preprint_radar.archive.update import ArchiveClients, ArchiveReport
 from preprint_radar.cli import build_parser, log_level, main
-from preprint_radar.collect import CitationsReport, HtmlReading, Stop, UpdateReport
+from preprint_radar.collect import CitationsReport, HtmlReading, OpenAlexReport, Stop, UpdateReport
 from preprint_radar.config import DEFAULT_MAX_HTML
 from preprint_radar.exceptions import FetchError, NotFoundError
 from preprint_radar.http import DEFAULT_USER_AGENT, HttpClient
@@ -671,6 +671,40 @@ def test_citations_fetches_the_missing_counts_of_each_category(
     assert calls == [("cs.CV", False, "test-key", 600), ("cs.LG", True, "test-key", None)]
     assert capsys.readouterr().out.count("citation counts for 3 of 3 papers") == 2
     assert summary.read_text(encoding="utf-8").count("**Citation counts.** cs.CV: citation counts") == 1
+
+
+def test_affiliations_asks_openalex_for_each_category(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    calls: list[tuple[str, str]] = []
+
+    def handle_request(_: httpx.HTTPTransport, request: httpx.Request) -> httpx.Response:
+        calls.append((request.url.host, request.headers["User-Agent"]))
+        return httpx.Response(200, text="")
+
+    def update_openalex_affiliations(
+        _: PaperStore, category: str, client: HttpClient, *, today: date
+    ) -> OpenAlexReport:
+        client.get_text(OPENALEX_WORKS_URL)
+        assert today == datetime.now(tz=UTC).date()
+        return OpenAlexReport(category=category, asked=4, found=1)
+
+    monkeypatch.setattr(httpx.HTTPTransport, "handle_request", handle_request)
+    monkeypatch.setattr("preprint_radar.cli.update_openalex_affiliations", update_openalex_affiliations)
+    monkeypatch.setenv("PREPRINT_RADAR_CONTACT", "author@example.org")
+    summary = tmp_path / "summary.md"
+    monkeypatch.setenv("GITHUB_STEP_SUMMARY", str(summary))
+    store = PaperStore(tmp_path / "data")
+    store.save("cs.CV", [Paper(arxiv_id="2609.00001", announced=date(2026, 9, 25), title="T", authors=())])
+
+    assert main(["affiliations", "--data-dir", str(store.root)]) == 0
+
+    # Only arXiv gets the contact.
+    assert calls == [("api.openalex.org", DEFAULT_USER_AGENT)]
+    assert (
+        "cs.CV: OpenAlex gave affiliations for 1 of 4 papers without an HTML page" in capsys.readouterr().out
+    )
+    assert "**Affiliations from OpenAlex.** cs.CV:" in summary.read_text(encoding="utf-8")
 
 
 def test_index_is_written_again_from_the_stored_files(

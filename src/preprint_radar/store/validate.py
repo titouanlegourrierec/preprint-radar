@@ -249,8 +249,11 @@ def _heuristics(paper: Paper) -> Iterator[str]:
     """What the extraction heuristics should have avoided in a day-file paper.
 
     The strongest signs of :mod:`~preprint_radar.store.quality`, which ``stats
-    --affiliations`` counts in full.
+    --affiliations`` counts in full. OpenAlex's affiliations (a paper without an HTML page,
+    AFF-27) were not extracted: none.
     """
+    if paper.affiliations_from_openalex:
+        return
     names = names_only(paper)
     for affiliation in names:
         yield f"{paper.arxiv_id}: affiliation {affiliation!r} only names authors"

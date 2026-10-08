@@ -20,6 +20,7 @@ from preprint_radar.exceptions import FetchError, ParseError
 from preprint_radar.http import HttpClient
 from preprint_radar.institutions import PLAIN_LETTERS, name_institutions
 from preprint_radar.models import Institution, Listing, Paper, Provenance, ScholarRecord
+from preprint_radar.openalex_affiliations import needs_openalex, with_openalex_affiliations
 from preprint_radar.sources.arxiv_api import fetch_metadata
 from preprint_radar.sources.arxiv_html import (
     EXTRACTOR_VERSION,
@@ -1002,6 +1003,61 @@ def format_scholar_report(report: ScholarReport) -> str:
         f"{report.category}: Semantic Scholar knows {report.found:,} of {report.asked:,} papers: "
         f"{_count(report.dois, 'DOI')}, {_count(report.venues, 'published venue')} "
         f"({report.gained:,} where the comments name none)"
+    )
+
+
+@dataclass(frozen=True, slots=True)
+class OpenAlexReport:
+    """Outcome of :func:`update_openalex_affiliations`.
+
+    Attributes:
+        category: Category of the papers.
+        asked: Papers without an HTML page asked for.
+        found: Of those, papers with affiliations now.
+    """
+
+    category: str
+    asked: int
+    found: int
+
+
+def update_openalex_affiliations(
+    store: PaperStore, category: str, client: HttpClient, *, today: date
+) -> OpenAlexReport:
+    """Ask OpenAlex for the affiliations of the stored papers without an HTML page (AFF-27).
+
+    No page of ours can give theirs (about 5% of the papers: arXiv could not convert their
+    LaTeX). OpenAlex knows those of about two papers in five a month after their
+    announcement: one it knows nothing of keeps an empty list, with the day of the lookup,
+    and is asked again every 30 days while under two years old (:func:`needs_openalex`).
+    A failing OpenAlex leaves the papers for the next run.
+
+    Args:
+        store: Data store.
+        category: arXiv category.
+        client: HTTP client for OpenAlex.
+        today: Day of the lookup.
+
+    Returns:
+        How many papers were asked for, and how many have affiliations now.
+    """
+    wanted = [
+        paper
+        for paper in store.iter_papers(category)
+        if paper.html_url is None and not paper.affiliations and needs_openalex(paper, today)
+    ]
+    looked_up = with_openalex_affiliations(wanted, client, today)
+    store.save(category, [new for old, new in zip(wanted, looked_up, strict=True) if new is not old])
+    return OpenAlexReport(
+        category=category, asked=len(wanted), found=sum(bool(paper.affiliations) for paper in looked_up)
+    )
+
+
+def format_openalex_report(report: OpenAlexReport) -> str:
+    """Render an :class:`OpenAlexReport` as one line."""
+    return (
+        f"{report.category}: OpenAlex gave affiliations for {report.found:,} of "
+        f"{_count(report.asked, 'paper')} without an HTML page"
     )
 
 

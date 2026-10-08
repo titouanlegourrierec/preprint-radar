@@ -119,15 +119,16 @@ def affiliation_quality(papers: Iterable[Paper]) -> AffiliationQuality:
     """Count the signs of wrong affiliations in ``papers``.
 
     Args:
-        papers: Papers of day files. Archived papers carry OpenAlex names, which these
-            signs do not describe.
+        papers: Papers of day files. OpenAlex's names, those of archived papers and of day
+            files' papers without an HTML page (AFF-27), are left out: these signs do not
+            describe them.
 
     Returns:
         The tallies, with up to :data:`EXAMPLES` examples each.
     """
     quality = AffiliationQuality()
     for paper in papers:
-        if not paper.affiliations:
+        if not paper.affiliations or paper.affiliations_from_openalex:
             continue
         quality.papers += 1
         quality.strings += len(paper.affiliations)

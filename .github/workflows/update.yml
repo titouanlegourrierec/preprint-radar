@@ -50,7 +50,8 @@ jobs:
     if: ${{ !cancelled() && needs.guard.outputs.run != 'false' }}
     runs-on: ubuntu-latest
     # Reading HTML pages is throttled to one every 15 s (arxiv.org robots.txt). Steps: 195
-    # minutes of papers, 15 of re-extraction, 15 of citation counts, then a few to commit.
+    # minutes of papers, 15 of re-extraction, seconds of OpenAlex (5 at most), 15 of citation
+    # counts, then a few to commit.
     timeout-minutes: 240
     permissions:
       contents: write
@@ -117,6 +118,17 @@ jobs:
         with:
           path: .cache/front-matter
           key: front-matter-${{ github.run_id }}
+
+      - name: Ask OpenAlex for the affiliations of papers without an HTML page
+        # No page gives theirs (about 5% of the papers): a few requests, seconds. Those it
+        # knows nothing of yet are asked again every 30 days; a failing OpenAlex leaves them
+        # for the next run.
+        if: ${{ !cancelled() }}
+        timeout-minutes: 5
+        run: |
+          args=()
+          for category in $CATEGORIES; do args+=(--category "$category"); done
+          uv run --no-dev preprint-radar -v affiliations "${args[@]}"
 
       - name: Fetch citation counts of new papers
         # A paper or two hundred: one or two requests. Semantic Scholar learns new papers
