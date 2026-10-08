@@ -45,8 +45,12 @@ export function YearRangePicker({ years, range, onChange, recent }: RangeProps) 
   const to = lastMonths ? null : (range.to ?? last);
   const all = !lastMonths && (range.from === null || range.to === null);
   const options = [
-    // Blank while the last 12 months are shown, which no year is.
-    lastMonths && <option key="none" value="" disabled />,
+    // A dash while the last 12 months are shown, which no year is.
+    lastMonths && (
+      <option key="none" value="" disabled>
+        –
+      </option>
+    ),
     ...ascending.map(({ year }) => (
       <option key={year} value={year}>
         {year}

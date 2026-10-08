@@ -52,6 +52,8 @@ describe("year ranges", () => {
     const recent = { since: "2025-10-05", count: 1000 };
     expect(shownYears(LAST_12_MONTHS, years, recent)).toBe(LAST_12_MONTHS);
     expect(shownYears(LAST_12_MONTHS, [], recent)).toBe(LAST_12_MONTHS);
+    expect(shownYears(null, [], recent)).toBe(LAST_12_MONTHS);
+    expect(shownYears(oneYear(2017), [], recent)).toBe(LAST_12_MONTHS);
     // An old store, or a link from a store that has them, before the first archive keeps them.
     expect(shownYears(LAST_12_MONTHS, years)).toEqual(oneYear(2025));
     expect(shownYears(LAST_12_MONTHS, [])).toBeNull();

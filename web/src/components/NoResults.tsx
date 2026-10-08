@@ -2,8 +2,10 @@ import { seenHidden } from "../format";
 import { arxivIdOf } from "../search";
 
 interface Props {
-  /** A shared `?paper=` this period does not hold. */
+  /** A shared `?paper=` this period, or the highly cited papers shown, do not hold. */
   missingPaper: string | null;
+  /** Said of the highly cited papers, which the archive chooses again every week. */
+  missingFromCited?: boolean;
   /** A pasted arXiv id that matches no paper here. */
   missingPastedId: string | null;
   /** Papers that Hide seen leaves out of an empty list: the reason it is empty. */
@@ -26,8 +28,9 @@ export function NoResults(props: Props) {
     <>
       {missingPaper && (
         <p class="notice">
-          This paper is not among the stored papers of this period (it may be older than the papers
-          kept).
+          {props.missingFromCited
+            ? "This paper is not among the highly cited papers shown: the archive chooses them again every week."
+            : "This paper is not among the stored papers of this period (it may be older than the papers kept)."}
           {/* An arXiv link only for an arXiv id: `?paper=` is anyone's text (SEC-7). */}
           {arxivIdOf(missingPaper) === missingPaper && (
             <>

@@ -75,16 +75,21 @@ year of cs.CV is 46,000.
   (the newest have had no time; the day files hold them), and the least cited have 4.
   Counted over one month, two citations in a paper's first weeks (often its authors' next
   paper) would rank it with the best of the year.
-- Records: a paper of the day files is its record there, filed under its first appearance
-  (the daily update enriches it, and the two read the same); one kept from last week keeps
-  its record (its OpenAlex affiliations), with the comments of its latest version; the
-  others are built from the catalog, with affiliations from OpenAlex, as archived papers
-  are (`_with_affiliations`, which asks again for those it knew nothing of every 30 days).
-  OpenAlex knows the affiliations of few recent papers: about one in six in 2025.
+- Records: a paper of the day files is its record there as the run reads it, on its day
+  (the catalog's date, its first version's, is often a day or two earlier, and the site
+  links it to its day); one kept from last week keeps its record (its OpenAlex
+  affiliations), with the comments of its latest version; the others are built from the
+  catalog, with affiliations from OpenAlex, as archived papers are (`_with_affiliations`,
+  which asks again for those it knew nothing of every 30 days). OpenAlex knows the
+  affiliations of few recent papers: about one in six in 2025. A paper Semantic Scholar
+  misses this week keeps last week's count, as an archived one.
 - The file has the first day of the window (`since`, 364 days before the run) and is
   rewritten whole; the index lists it (`top_recent`: `since` and `count`). It holds no
   archived paper: both use the same window and first appearance. Below the coverage gate,
-  last week's papers stay, with their comments refreshed.
+  last week's papers stay, with their comments refreshed. Every OpenAlex lookup comes
+  before the first write, and the list is written before the archive (last week's may hold
+  papers entering it, this week's none it held): a run stopped between two writes leaves
+  no paper in both, which `validate` would refuse.
 - Every step on "every stored paper" includes them: the counts (`citations`, `ALL=1`), the
   published versions (`scholar`), `make venues` and `make institutions-again`. `validate`
   fails a file that does not load, a paper listed twice, announced before `since` or

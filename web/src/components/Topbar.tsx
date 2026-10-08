@@ -49,7 +49,7 @@ export function Topbar(props: Props) {
           </a>
           <a
             class={`tab${cited ? " tab--active" : ""}`}
-            title="The most cited papers, by year of first version or of the last 12 months"
+            title="The most cited papers of each year of first version, and of the last 12 months"
             {...tab(cited, { view: "cited" })}
           >
             Highly cited

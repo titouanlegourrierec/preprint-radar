@@ -594,13 +594,14 @@ export function App() {
               <>
                 <NoResults
                   missingPaper={
-                    state.view === "papers" &&
+                    (state.view === "papers" || cited) &&
                     state.paper &&
                     load.status === "ready" &&
                     !load.index.has(state.paper)
                       ? state.paper
                       : null
                   }
+                  missingFromCited={cited}
                   missingPastedId={
                     pastedId && results.length === 0 && hiddenCount === 0 && load.status === "ready"
                       ? pastedId

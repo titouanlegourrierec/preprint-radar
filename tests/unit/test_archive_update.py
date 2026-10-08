@@ -14,6 +14,7 @@ from preprint_radar.archive.update import (
     ArchiveClients,
     ArchiveReport,
     _needs_openalex,
+    _with_affiliations,
     format_archive_report,
     paper_from_catalog,
     refreshed,
@@ -578,6 +579,58 @@ def test_without_citation_counts_no_list_of_the_last_12_months_is_started(
     assert index["top_recent"] == {}
 
 
+def test_a_day_file_paper_of_the_last_12_months_keeps_its_day(store: PaperStore, catalog: Catalog) -> None:
+    # The catalog dates a paper by its first version, a day or two before its announcement.
+    _add_entries(catalog, _entry("2609.00009", RECENT_DAY - timedelta(days=2)))
+    store.save("cs.CV", [Paper(arxiv_id="2609.00009", announced=RECENT_DAY, title="T", authors=("A One",))])
+
+    _update(store, catalog, FakeServices({**CITATIONS, "2609.00009": 30}))
+
+    top_recent = store.load_top_recent("cs.CV")
+    assert top_recent is not None
+    # Filed on its day, where its link leads, as the day file holds it.
+    [paper] = [paper for paper in top_recent.papers if paper.arxiv_id == "2609.00009"]
+    assert paper.announced == RECENT_DAY
+
+
+def test_a_paper_of_the_last_12_months_missing_a_count_keeps_last_weeks(
+    store: PaperStore, catalog: Catalog
+) -> None:
+    _add_entries(catalog, *GAP)
+    _update(store, catalog, FakeServices(GAP_CITATIONS))
+    (catalog.directory / "cs.CV.citations.jsonl").unlink()
+    missing = {arxiv_id: count for arxiv_id, count in GAP_CITATIONS.items() if arxiv_id != "2511.00001"}
+
+    report = _update(store, catalog, FakeServices(missing), today=TODAY + timedelta(days=7))
+
+    top_recent = store.load_top_recent("cs.CV")
+    assert top_recent is not None
+    assert "2511.00001" in {paper.arxiv_id for paper in top_recent.papers}
+    assert store.load_citations("cs.CV")["2511.00001"] == 50
+    assert report.carried == 1
+
+
+def test_every_lookup_comes_before_the_first_write(
+    store: PaperStore, catalog: Catalog, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _add_entries(catalog, *GAP)
+    calls: list[int] = []
+
+    def stopped_at_the_second_lookup(papers: list[Paper], client: HttpClient, today: date) -> list[Paper]:
+        calls.append(len(papers))
+        if len(calls) == 2:
+            raise KeyboardInterrupt  # the run stopped while OpenAlex answers
+        return _with_affiliations(papers, client, today)
+
+    monkeypatch.setattr("preprint_radar.archive.update._with_affiliations", stopped_at_the_second_lookup)
+    before = {path: path.read_bytes() for path in store.root.rglob("*.json")}
+
+    with pytest.raises(KeyboardInterrupt):
+        _update(store, catalog, FakeServices(GAP_CITATIONS))
+
+    assert {path: path.read_bytes() for path in store.root.rglob("*.json")} == before
+
+
 def test_dry_run_writes_no_papers_of_the_last_12_months(store: PaperStore, catalog: Catalog) -> None:
     _add_entries(catalog, *GAP)
 
@@ -631,7 +684,7 @@ def test_format_archive_report() -> None:
     assert format_archive_report(replace(report, carried=4, written=False)) == (
         "cs.CV: 500 archived papers (3 in, 1 out), threshold 19.5 citations a year, "
         "1,000 most cited of the last 12 months, "
-        "citation counts for 98.7% of 1,000 papers (4 archived papers on last week's count), "
+        "citation counts for 98.7% of 1,000 papers (4 papers on last week's count), "
         "0 papers' comments refreshed, 2 day files pruned (dry run: nothing written)"
     )
 

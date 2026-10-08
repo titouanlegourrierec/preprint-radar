@@ -88,7 +88,8 @@ class ArchiveReport:
         category: Updated category.
         candidates: Papers since 2010 in the catalog.
         coverage: Share of them with a citation count.
-        carried: Archived papers ranked on last week's count, missing this week.
+        carried: Archived papers, and last week's most cited of the last 12 months, ranked on
+            last week's count, missing this week.
         threshold: Citations per year of the last paper within the budget.
         archived: Papers in the archive after the update.
         entered: Papers that entered it.
@@ -177,12 +178,13 @@ def update_archive(
         top_recent = frozenset(previous_recent)
     else:
         stale_days = [day for day in stored_days if (today - day).days >= RECENT_DAYS] if prune else []
-        # An archived paper Semantic Scholar misses this week (a refused last batch, a
-        # flapping null) is ranked on last week's count rather than leave.
+        # An archived paper, or one of last week's most cited of the last 12 months, that
+        # Semantic Scholar misses this week (a refused last batch, a flapping null) is ranked
+        # on last week's count rather than leave.
         previous = store.load_citations(category)
         carried = {
             arxiv_id: previous[arxiv_id]
-            for arxiv_id in archived
+            for arxiv_id in (*archived, *previous_recent)
             if counts.get(arxiv_id) is None and arxiv_id in previous
         }
         counts = {**counts, **carried}
@@ -234,12 +236,13 @@ def update_archive(
         len(top_recent),
         len(top_recent - set(previous_recent)),
     )
-    # Those of the day files are their records there, which the daily update enriches;
-    # the others are kept from last week, else built from the catalog.
+    # Those of the day files are their records there, which the daily update enriches,
+    # filed on their day as the links to them; the others are kept from last week, else
+    # built from the catalog.
     recent = {
-        arxiv_id: _from_day_file(in_days[arxiv_id], first_seen[arxiv_id])
-        if arxiv_id in in_days
-        else previous_recent.get(arxiv_id) or paper_from_catalog(entries[arxiv_id], category, subjects)
+        arxiv_id: in_days.get(arxiv_id)
+        or previous_recent.get(arxiv_id)
+        or paper_from_catalog(entries[arxiv_id], category, subjects)
         for arxiv_id in sorted(top_recent)
     }
 
@@ -260,23 +263,30 @@ def update_archive(
     if dry_run:
         return report
 
-    if changed_in_days:
-        store.save(category, changed_in_days)
-    kept = [paper for arxiv_id, paper in archived.items() if arxiv_id in selection.keep]
+    # Every lookup comes before the first write: a run stopped between two writes would leave
+    # files that disagree, which validate refuses.
     # Entering papers, archived ones without OpenAlex's ids, and young ones it knew no
     # affiliations for (see _needs_openalex).
-    store.write_archive(category, _with_affiliations([*kept, *new_papers], clients.openalex, today))
+    archive = _with_affiliations(
+        [*(paper for arxiv_id, paper in archived.items() if arxiv_id in selection.keep), *new_papers],
+        clients.openalex,
+        today,
+    )
+    recent_papers = [
+        *(paper for arxiv_id, paper in recent.items() if arxiv_id in in_days),
+        *_with_affiliations(
+            [paper for arxiv_id, paper in recent.items() if arxiv_id not in in_days], clients.openalex, today
+        ),
+    ]
+    if changed_in_days:
+        store.save(category, changed_in_days)
     # Below the coverage, last week's papers stay, with the comments of their latest version.
+    # Written before the archive: last week's may hold papers entering it, this week's none
+    # it held.
     since = (previous_top.since if previous_top else None) if gated else recent_since(today)
     if since is not None:
-        looked_up = _with_affiliations(
-            [paper for arxiv_id, paper in recent.items() if arxiv_id not in in_days], clients.openalex, today
-        )
-        store.write_top_recent(
-            category,
-            [*(recent[arxiv_id] for arxiv_id in recent if arxiv_id in in_days), *looked_up],
-            since=since,
-        )
+        store.write_top_recent(category, recent_papers, since=since)
+    store.write_archive(category, archive)
     store.remove_days(category, stale_days)
     on_disk = {
         paper.arxiv_id for day, papers in stored_days.items() if day not in stale_days for paper in papers
@@ -415,7 +425,7 @@ def format_archive_report(report: ArchiveReport) -> str:
         f"threshold {report.threshold:.1f} citations a year, "
         f"{report.top_recent:,} most cited of the last 12 months, citation counts for "
         f"{100 * report.coverage:.1f}% of {report.candidates:,} papers"
-        + (f" ({report.carried:,} archived papers on last week's count)" if report.carried else "")
+        + (f" ({report.carried:,} papers on last week's count)" if report.carried else "")
         + f", {report.refreshed:,} papers' comments refreshed, {report.pruned_days:,} day files pruned"
         + ("" if report.written else " (dry run: nothing written)")
     )

@@ -91,6 +91,9 @@ test("the most cited papers of the last 12 months, apart from the archive's year
   const card = page.locator("article.paper--target");
   await expect(card).toContainText("Tabulating Machine Company");
   await expect(card).toContainText("80 citations");
+  // One that left the list, chosen again every week, is said to be missing.
+  await page.goto("./?view=cited&year=last-12-months&paper=2510.00009");
+  await expect(page.getByText(/not among the highly cited papers shown/)).toBeVisible();
   expect(errors).toEqual([]);
 });
 

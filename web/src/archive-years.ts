@@ -63,7 +63,8 @@ export function yearsIn(range: YearRange, years: readonly ArchiveSummary[]): Arc
  * The range as shown: what the URL asks, within the archive's years ("2005-2010" is 2010,
  * the first one, rather than a From select without its year), else the latest year; a
  * range without any year of the archive is the latest year too, and so are the last 12
- * months before the archive keeps them (`recent`). `null` before the first archive.
+ * months before the archive keeps them (`recent`). The last 12 months without any year;
+ * `null` before the first archive.
  */
 export function shownYears(
   requested: ArchiveRange | null,
@@ -75,7 +76,7 @@ export function shownYears(
     requested = null;
   }
   const latest = years[0]?.year;
-  if (latest === undefined) return null;
+  if (latest === undefined) return recent === undefined ? null : LAST_12_MONTHS;
   if (requested === null || yearsIn(requested, years).length === 0) return oneYear(latest);
   if (requested.from === null || requested.to === null) return requested;
   const oldest = years.at(-1)?.year ?? latest;
