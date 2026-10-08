@@ -20,7 +20,7 @@ interface Props {
   /** The day of the store's last update, as shown. */
   lastUpdate: string | null;
   readingListSize: number;
-  /** The archive's years the highly cited view shows, which the graph and Rankings take. */
+  /** The archive's years (or last 12 months) the highly cited view shows, which the graph and Rankings take. */
   archiveRange: ViewState["year"];
   tab: TabLink;
   theme: ThemePreference;
@@ -49,7 +49,7 @@ export function Topbar(props: Props) {
           </a>
           <a
             class={`tab${cited ? " tab--active" : ""}`}
-            title="The most cited papers older than a year, by year of first version"
+            title="The most cited papers, by year of first version or of the last 12 months"
             {...tab(cited, { view: "cited" })}
           >
             Highly cited

@@ -105,18 +105,35 @@ export interface ArchiveSummary {
   count: number;
 }
 
+/** The most cited papers of the last 12 months, which the archive keeps apart (PROD-11). */
+export interface TopRecentSummary {
+  /** First day of first appearance of the 12 months they were chosen from. */
+  since: string;
+  count: number;
+}
+
 export interface StoreIndex {
   schema_version: number;
   generated_at: string;
   categories: Record<string, DaySummary[]>;
   /** Years of the archive of highly cited older papers; absent before the first archive. */
   archives?: Record<string, ArchiveSummary[]>;
+  /** The most cited papers of the last 12 months; absent before the first archive to write them. */
+  top_recent?: Record<string, TopRecentSummary>;
 }
 
 export interface ArchiveFile {
   schema_version: number;
   category: string;
   year: number;
+  papers: Paper[];
+}
+
+/** `top-recent.json`: the most cited papers of the last 12 months, newest first. */
+export interface TopRecentFile {
+  schema_version: number;
+  category: string;
+  since: string;
   papers: Paper[];
 }
 

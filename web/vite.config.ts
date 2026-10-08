@@ -77,8 +77,9 @@ function feedsOf(dataDir: string): () => Map<string, string> {
   };
 }
 
-// A day or archive file, whose records the site gets with their DOI and published venue.
-const PAPER_FILE_RE = /^\/([^/]+)\/(?:\d{4}-\d{2}-\d{2}|archive\/\d{4})\.json$/;
+// A day or archive file, or the most cited papers of the last 12 months, whose records the
+// site gets with their DOI and published venue.
+const PAPER_FILE_RE = /^\/([^/]+)\/(?:\d{4}-\d{2}-\d{2}|archive\/\d{4}|top-recent)\.json$/;
 
 /**
  * Serve the repository's `data/` store at `/data` during development and copy it into the

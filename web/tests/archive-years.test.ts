@@ -4,6 +4,7 @@ import {
   bestRanked,
   citationRate,
   formatYears,
+  LAST_12_MONTHS,
   oneYear,
   parseYears,
   publishedIn,
@@ -11,6 +12,7 @@ import {
   yearsIn,
   yearsLabel,
 } from "../src/archive-years";
+import { formatDay } from "../src/format";
 import { makePaper } from "./fixtures";
 
 const years = [2025, 2024, 2023, 2017].map((year) => ({ year, count: year - 2000 }));
@@ -25,6 +27,8 @@ describe("year ranges", () => {
     expect(formatYears(oneYear(2017))).toBe("2017");
     expect(formatYears({ from: 2019, to: 2021 })).toBe("2019-2021");
     expect(formatYears(ALL_YEARS)).toBe("all");
+    expect(parseYears("last-12-months")).toBe(LAST_12_MONTHS);
+    expect(formatYears(LAST_12_MONTHS)).toBe("last-12-months");
   });
 
   it("pick the archive's years within them", () => {
@@ -42,6 +46,20 @@ describe("year ranges", () => {
     expect(shownYears({ from: 2024, to: 2030 }, years)).toEqual({ from: 2024, to: 2025 });
     expect(shownYears({ from: 2005, to: 2017 }, years)).toEqual(oneYear(2017));
     expect(shownYears(ALL_YEARS, years)).toEqual(ALL_YEARS);
+  });
+
+  it("show the last 12 months once the archive keeps them, else the latest year", () => {
+    const recent = { since: "2025-10-05", count: 1000 };
+    expect(shownYears(LAST_12_MONTHS, years, recent)).toBe(LAST_12_MONTHS);
+    expect(shownYears(LAST_12_MONTHS, [], recent)).toBe(LAST_12_MONTHS);
+    // An old store, or a link from a store that has them, before the first archive keeps them.
+    expect(shownYears(LAST_12_MONTHS, years)).toEqual(oneYear(2025));
+    expect(shownYears(LAST_12_MONTHS, [])).toBeNull();
+    expect(yearsLabel(LAST_12_MONTHS, years)).toBe("the last 12 months");
+    expect(publishedIn(LAST_12_MONTHS, years, undefined, recent)).toBe(
+      `since ${formatDay("2025-10-05")}`,
+    );
+    expect(publishedIn(LAST_12_MONTHS, years, undefined)).toBe("in the last 12 months");
   });
 
   it("say which years they are", () => {

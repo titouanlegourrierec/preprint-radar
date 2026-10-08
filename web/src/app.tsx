@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "preact/hooks";
-import { ALL_YEARS, oneYear, publishedIn } from "./archive-years";
+import { ALL_YEARS, LAST_12_MONTHS, publishedIn } from "./archive-years";
 import { About } from "./components/About";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { GraphView } from "./components/GraphView";
@@ -50,7 +50,7 @@ import {
 } from "./search";
 import { searchKey } from "./text";
 import type { Paper } from "./types";
-import { archiveYearOf, listKey, paperLink, type ViewState, writeState } from "./url-state";
+import { archiveRangeOf, listKey, paperLink, type ViewState, writeState } from "./url-state";
 import { venueFacets } from "./venues";
 import { type CountLine, showsArchive, viewModel } from "./view-model";
 
@@ -73,6 +73,7 @@ export function App() {
     category,
     storeDays,
     archiveYears,
+    topRecent,
     archiveRange,
     archiveLeftOut,
     archiveUnranked,
@@ -221,9 +222,14 @@ export function App() {
     period: between(triage.sinceLastVisit.from, triage.sinceLastVisit.to),
   };
   const oldestDay = storeDays.at(-1)?.date;
-  const yearsArchived = archiveYears.map((entry) => entry.year);
+  // Where the papers no day file holds are: the archive's years, its last 12 months.
+  const storedBefore = {
+    oldestDay,
+    archiveYears: archiveYears.map((entry) => entry.year),
+    recentSince: topRecent?.since,
+  };
   const linkTo = (paper: Paper) =>
-    paperLink(paper, { category: category ?? null, oldestDay, archiveYears: yearsArchived });
+    paperLink(paper, { ...storedBefore, category: category ?? null });
   // Like venues, over every loaded paper: choosing a subject leaves the others listed.
   const subjects = useMemo(
     () => subjectFacets(activeIndex?.all() ?? [], state.filters.subject, SUGGESTION_SIZE),
@@ -241,7 +247,7 @@ export function App() {
             shown: results.length,
             total: load.index.size,
             noun: `highly cited ${category ?? ""} paper`,
-            tail: ` first published ${publishedIn(archiveRange, archiveYears, archiveAsOf)}`,
+            tail: ` first published ${publishedIn(archiveRange, archiveYears, archiveAsOf, topRecent)}`,
           }
         : load.status === "ready"
           ? {
@@ -254,14 +260,14 @@ export function App() {
             ? { loading: loadingLine }
             : null;
   // The graph shows the loaded papers; a saved paper from elsewhere brings its day, or
-  // its archive year when it is older than the days kept.
+  // its archive year (or the last 12 months) when it is older than the days kept.
   const showInGraph = (paper: Paper) => {
     const loaded = load.status === "ready" && load.index.has(paper.arxiv_id);
-    const year = archiveYearOf(paper.announced, oldestDay, yearsArchived);
+    const year = archiveRangeOf(paper.announced, storedBefore);
     if (loaded) {
       update({ view: "graph", paper: paper.arxiv_id, year: archived ? archiveRange : null });
     } else if (year !== null) {
-      update({ view: "graph", paper: paper.arxiv_id, year: oneYear(year) });
+      update({ view: "graph", paper: paper.arxiv_id, year });
     } else {
       update({
         view: "graph",
@@ -354,6 +360,7 @@ export function App() {
             archiveYears={archiveYears}
             archiveRange={archived ? archiveRange : null}
             onArchiveRange={(year) => update({ year })}
+            topRecent={topRecent}
             query={state.query}
             onQuery={(value) => update({ query: value })}
             venues={venueCounts}
@@ -430,6 +437,7 @@ export function App() {
             categories={categories}
             category={category}
             asOf={archiveAsOf}
+            recent={topRecent}
             days={storeDays}
             period={state.period}
             filters={state.filters}
@@ -542,6 +550,7 @@ export function App() {
                   : null
               }
               citationsNote={citationsNote}
+              lastMonths={archived && archiveRange === LAST_12_MONTHS}
               mostlyTied={byCount && !rising && !rankings && mostlyTied(results, citations.counts)}
               filters={rankings ? null : state.filters}
               onFilters={setFilters}
@@ -571,7 +580,7 @@ export function App() {
                   })
                 }
               />
-            ) : cited && archiveYears.length === 0 ? (
+            ) : cited && archiveYears.length === 0 && !topRecent ? (
               <p class="notice">
                 The archive of highly cited papers is built weekly, from citation counts: it is not
                 there yet.

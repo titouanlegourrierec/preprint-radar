@@ -102,7 +102,9 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   Back undoes; typing and sorting replace the current one.
 - The tabs are links, including `?paper=`: a paper permalink in the list, the focused
   paper in the graph. `paperLink` sends an archived paper to its year of the Highly cited
-  view, since it has no day file. Share copies the link and changes nothing else.
+  view, since it has no day file, and one of the most cited of the last 12 months that no
+  day file holds (announced before the oldest day, since the `since` of `top_recent` in the
+  index) to the view's last 12 months (`archiveRangeOf`). Share copies the link and changes nothing else.
 - The parameters, all optional (`readState`, `writeState`; a default value is left out of
   the link; an unknown `view`, `sort`, `range`, `year`, `cat`, `xl` or `code` reads as the
   default, while an unknown `subject` or `venue` is kept and matches no paper):
@@ -116,7 +118,7 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   | `sort` | `relevance`, `newest`, `citations`, `rising` | `relevance` | the lists |
   | `view` | `papers`, `cited`, `graph`, `rankings`, `reading-list`, `about` | `papers` | every view |
   | `paper` | An arXiv id: the paper opened (a list) or selected (the graph) | none | the lists, the graph |
-  | `year` | Archive years: `2017`, `2019-2021`, `all` | the latest year in Highly cited, the recent days elsewhere | Highly cited, the graph, Rankings |
+  | `year` | Archive years: `2017`, `2019-2021`, `all`; or `last-12-months` (the latest year until the archive keeps them) | the latest year in Highly cited, the recent days elsewhere | Highly cited, the graph, Rankings |
   | `focus` | A graph node id, `institution:mit`: its papers alone | none | the graph (other views drop it) |
   | `by`, `at` | An author or an institution, as clicked: that name only | none | the lists, Rankings |
   | `author`, `aff` | Typed author or affiliation text: word starts (old links' `by` and `at`) | none | the same |
@@ -155,11 +157,23 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   else the recent days; the tabs carry the years from the Highly cited view, and the
   Papers tab clears them. A graph of archive years lists its papers ("Show all",
   double-click, "Open in the list") in Highly cited over the same years, as Rankings does.
+- Or the most cited papers of the last 12 months (`year=last-12-months`, PROD-11): 1,000
+  papers the weekly archive keeps apart from its years, in `top-recent.json`
+  ([archive.md](archive.md)), since none older than the day files is in the store
+  otherwise. `ArchiveRange` is a `YearRange` or `LAST_12_MONTHS`; the Years picker offers
+  "Last 12 months" next to "All years" (its year selects then blank), and the source
+  select of the graph and Rankings lists it first among the highly cited. They show once
+  the index has `top_recent` for the category: before, the link shows the latest year
+  (`shownYears`). The count says since when ("first published since 5 Oct 2025"), the
+  view's note how they are chosen. Their counts are in the year shards, as the archive's
+  (`citationShard`: they are announced before the oldest day), and the build merges
+  `scholar.json` into the file as into the others (`paperFiles`, `PAPER_FILE_RE`).
 - While a view loads, the results header and the graph say how many papers of what, from
   the counts of `index.json`, which has no file sizes (`format.ts`, `loadingLine`):
   "Loading 3,646 papers of 5 days…" for the days `selectDays` keeps, "Loading 3,407
   highly cited papers of 2024…" or "… of 16 years…" for archive years, all of whose
-  papers are downloaded before the budget keeps the best ranked; "Loading papers…" until
+  papers are downloaded before the budget keeps the best ranked, "Loading 1,000 highly cited
+  papers of the last 12 months…"; "Loading papers…" until
   the index arrives. A failed load says why, as an alert with a Retry button, in the lists
   and the graph alike (UX-6): Retry loads again what failed, the index or the papers.
   `loadErrorMessage` reads "Failed to fetch" as "the network or the site did not answer".

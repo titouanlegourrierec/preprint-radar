@@ -9,14 +9,16 @@ import {
   type Paper,
   SCHEMA_VERSION,
   type StoreIndex,
+  type TopRecentFile,
 } from "./types";
 
 const DATA_URL = `${import.meta.env.BASE_URL}data/`;
 const MAX_PARALLEL_REQUESTS = 6;
 
 /**
- * Day and archive files loaded, kept for the next periods (back to the last 5 days after
- * the last 20, a year of the archive after another): as many papers as a period loads,
+ * Day and archive files loaded (and the most cited papers of the last 12 months), kept for
+ * the next periods (back to the last 5 days after the last 20, a year of the archive after
+ * another): as many papers as a period loads,
  * besides those shown, which are shared. The least recently used files leave first.
  */
 const loaded = new Map<string, Paper[]>();
@@ -108,7 +110,7 @@ async function loadPapers(
 ): Promise<Paper[]> {
   const known = recall(path);
   if (known !== undefined) return known;
-  const file = await fetchJson<DayFile | ArchiveFile>(path, signal);
+  const file = await fetchJson<DayFile | ArchiveFile | TopRecentFile>(path, signal);
   checkSchema(file.schema_version, what);
   remember(path, file.papers);
   return file.papers;
@@ -146,6 +148,11 @@ export function loadArchive(
   signal?: AbortSignal,
 ): Promise<Paper[]> {
   return loadPapers(`${category}/archive/${year}.json`, "archive file", signal);
+}
+
+/** Load the most cited papers of the last 12 months, which the archive keeps apart (PROD-11). */
+export function loadTopRecent(category: string, signal?: AbortSignal): Promise<Paper[]> {
+  return loadPapers(`${category}/top-recent.json`, "top-recent file", signal);
 }
 
 /**

@@ -92,6 +92,12 @@ describe("loadingLine", () => {
     );
   });
 
+  it("counts the most cited papers of the last 12 months", () => {
+    expect(loadingLine({ recent: { since: "2025-10-05", count: 1000 } })).toBe(
+      `Loading ${(1000).toLocaleString()} highly cited papers of the last 12 months…`,
+    );
+  });
+
   it("counts the highly cited papers of the archive's years, all of them downloaded", () => {
     expect(loadingLine({ years: [{ year: 2024, count: 3407 }] })).toBe(
       `Loading ${(3407).toLocaleString()} highly cited papers of 2024…`,

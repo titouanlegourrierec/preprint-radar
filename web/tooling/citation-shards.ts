@@ -7,7 +7,8 @@ export type ReadJson = (path: string) => unknown;
 /**
  * The citation shards of a store (see `src/citations.ts`), as JSON text by path under
  * `data/`: for each category of the index with a `citations.json`, its counts split by
- * the day and archive files the index lists, with their gains (`citation-gains.json`).
+ * the day and archive files the index lists (and its most cited papers of the last 12
+ * months, by year as the archive's), with their gains (`citation-gains.json`).
  */
 export function citationShardFiles(read: ReadJson): Map<string, string> {
   const files = new Map<string, string>();
@@ -19,6 +20,7 @@ export function citationShardFiles(read: ReadJson): Map<string, string> {
     const paths = [
       ...days.map(({ date }) => `${category}/${date}.json`),
       ...(index.archives?.[category] ?? []).map(({ year }) => `${category}/archive/${year}.json`),
+      ...(index.top_recent?.[category] ? [`${category}/top-recent.json`] : []),
     ];
     const records = paths.flatMap((path) => (read(path) as { papers: Filed[] }).papers);
     const gains = read(`${category}/citation-gains.json`) as CitationGainsFile | null;

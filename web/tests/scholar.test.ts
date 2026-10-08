@@ -40,15 +40,17 @@ describe("withScholar", () => {
     expect(withScholar("unchanged", null)).toBe("unchanged");
   });
 
-  it("lists the day and archive files of the index", () => {
+  it("lists the day and archive files of the index, and the most cited of the last 12 months", () => {
     expect(
       paperFiles({
         categories: { "cs.CV": [{ date: "2026-09-25" }], "cs.RO": [] },
         archives: { "cs.CV": [{ year: 2017 }] },
+        top_recent: { "cs.CV": { since: "2025-10-05", count: 1 } },
       }),
     ).toEqual([
       { category: "cs.CV", path: "cs.CV/2026-09-25.json" },
       { category: "cs.CV", path: "cs.CV/archive/2017.json" },
+      { category: "cs.CV", path: "cs.CV/top-recent.json" },
     ]);
     expect(paperFiles({ categories: { "cs.CV": [] } })).toEqual([]);
   });

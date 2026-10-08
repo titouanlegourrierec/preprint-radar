@@ -70,6 +70,14 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ### Highly cited
 
+- Highly cited offers the most cited papers of the last 12 months ("Last 12 months",
+  `?year=last-12-months`), in the graph and Rankings too: the store held none from
+  October 2025 to August 2026, the archive starting at 12 months and the day files in
+  September 2026. The weekly archive keeps the 1,000 best by citations per month of age,
+  counted over two months at least, so that each month has its own, in `top-recent.json`;
+  those of the day files are their records there, the others come from arXiv's catalog,
+  with affiliations from OpenAlex. A paper's link opens it there. The first list comes
+  with the archive of 2026-10-11 (PROD-11).
 - Highly cited shows a range of years, or all of them, not only one: "2019 to 2021",
   "All years", in the graph and Rankings too. Past 10,000 papers (all years hold 22,000),
   the best ranked for their age are shown, and the page says how many are left out

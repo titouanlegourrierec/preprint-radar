@@ -73,6 +73,27 @@ test("a paper link opens the paper", async ({ page }) => {
   );
 });
 
+test("the most cited papers of the last 12 months, apart from the archive's years", async ({
+  page,
+}) => {
+  const errors = watchErrors(page);
+  await page.goto("./?view=cited");
+  await page.getByRole("button", { name: "Last 12 months (2 papers)" }).click();
+  await expect(page).toHaveURL(/year=last-12-months/);
+  await expect(
+    page.getByText(/2 of 2 highly cited cs\.CV papers first published since/),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Tabulating Machines for Open-Vocabulary Detection" }),
+  ).toBeVisible();
+  // A paper no day file holds: its link opens it there (PROD-11).
+  await page.goto("./?view=cited&year=last-12-months&paper=2511.00001");
+  const card = page.locator("article.paper--target");
+  await expect(card).toContainText("Tabulating Machine Company");
+  await expect(card).toContainText("80 citations");
+  expect(errors).toEqual([]);
+});
+
 test("the graph draws on a canvas", async ({ page }) => {
   const errors = watchErrors(page);
   await page.goto("./?view=graph");

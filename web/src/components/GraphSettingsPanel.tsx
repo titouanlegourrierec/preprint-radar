@@ -1,12 +1,12 @@
 import type { RefObject } from "preact";
 import { useState } from "preact/hooks";
-import type { YearRange } from "../archive-years";
+import type { ArchiveRange } from "../archive-years";
 import { affiliationCoverage, formatShortDay } from "../format";
 import { type GraphNode, matchStatus } from "../graph";
 import type { Period } from "../period";
 import { authorLayer, type GraphSettings } from "../preferences";
 import type { FacetCount } from "../search";
-import type { ArchiveSummary, DaySummary } from "../types";
+import type { ArchiveSummary, DaySummary, TopRecentSummary } from "../types";
 import { ArchiveSourceSelect } from "./ArchiveYears";
 import { Attribution } from "./Attribution";
 import { PeriodPicker } from "./PeriodPicker";
@@ -58,9 +58,11 @@ interface Props {
   period: Period;
   onPeriod: (period: Period) => void;
   archiveYears: ArchiveSummary[];
-  /** The archive's years shown, `null` for the recent days. */
-  archiveRange: YearRange | null;
-  onArchiveRange: (range: YearRange | null) => void;
+  /** The archive's years shown, or its last 12 months; `null` for the recent days. */
+  archiveRange: ArchiveRange | null;
+  onArchiveRange: (range: ArchiveRange | null) => void;
+  /** The most cited papers of the last 12 months, once the archive keeps them (PROD-11). */
+  topRecent?: TopRecentSummary | undefined;
   query: string;
   onQuery: (query: string) => void;
   venues: FacetCount[];
@@ -247,12 +249,13 @@ export function GraphSettingsPanel(props: Props) {
                 </select>
               </label>
             )}
-            {props.archiveYears.length > 0 && (
+            {(props.archiveYears.length > 0 || props.topRecent) && (
               <ArchiveSourceSelect
                 class="ctl-select"
                 years={props.archiveYears}
                 range={props.archiveRange}
                 onChange={props.onArchiveRange}
+                recent={props.topRecent}
               />
             )}
             {props.archiveRange === null && (

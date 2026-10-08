@@ -37,10 +37,14 @@ export function mergeScholar(papers: StoredPaper[], scholar: ScholarFile): void 
   }
 }
 
-/** The paths of the day and archive files of a store, under `data/`, from its index. */
+/**
+ * The paths of the day and archive files of a store, and of its most cited papers of the
+ * last 12 months, under `data/`, from its index.
+ */
 export function paperFiles(index: {
   categories: Record<string, { date: string }[]>;
   archives?: Record<string, { year: number }[]>;
+  top_recent?: Record<string, unknown>;
 }): { category: string; path: string }[] {
   return Object.entries(index.categories).flatMap(([category, days]) => [
     ...days.map(({ date }) => ({ category, path: `${category}/${date}.json` })),
@@ -48,5 +52,6 @@ export function paperFiles(index: {
       category,
       path: `${category}/archive/${year}.json`,
     })),
+    ...(index.top_recent?.[category] ? [{ category, path: `${category}/top-recent.json` }] : []),
   ]);
 }

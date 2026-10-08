@@ -111,6 +111,11 @@ describe("citationShardFiles", () => {
             "cs.RO": [{ date: "2026-09-24", count: 0 }],
           },
           archives: { "cs.CV": [{ year: 2017, count: 1 }] },
+          top_recent: { "cs.CV": { since: "2025-09-01", count: 1 } },
+        },
+        // The most cited of the last 12 months, by year like the archive's (PROD-11).
+        "cs.CV/top-recent.json": {
+          papers: [{ arxiv_id: "2509.12345", announced: "2025-09-20" }],
         },
         "cs.CV/2026-09-24.json": {
           papers: [{ arxiv_id: "2609.00001", announced: "2026-09-24" }],
@@ -128,8 +133,12 @@ describe("citationShardFiles", () => {
     );
     expect([...files.keys()].sort()).toEqual([
       "cs.CV/citations/2017.json",
+      "cs.CV/citations/2025.json",
       "cs.CV/citations/2026-09.json",
     ]);
+    expect(JSON.parse(files.get("cs.CV/citations/2025.json") ?? "").counts).toEqual({
+      "2509.12345": 40,
+    });
     expect(JSON.parse(files.get("cs.CV/citations/2017.json") ?? "")).toMatchObject({
       generated_at: citations.generated_at,
       counts: { "1706.03762": 150000 },

@@ -32,7 +32,7 @@ reading list exported as BibTeX, RIS, CSV or Markdown.
 | Abstract                      | The category RSS feed (latest day, one request), then the catchup page of each older day (one request per day); the arXiv API and the paper's HTML rendering as last resorts |
 | Affiliations                  | Submitter-declared affiliations from the API when present; otherwise the front matter of the paper's HTML rendering |
 | Institution of each affiliation | The [Research Organization Registry](https://ror.org) (ROR) affiliation matching, when confident; otherwise the pipeline's own rules (acronyms, companies, the main part of an address) |
-| Citation counts (every stored paper) | [Semantic Scholar](https://www.semanticscholar.org), weekly (new papers the day they are added); the archive's papers, older than 12 months, from arXiv's OAI-PMH, with affiliations from [OpenAlex](https://openalex.org) |
+| Citation counts (every stored paper) | [Semantic Scholar](https://www.semanticscholar.org), weekly (new papers the day they are added); the archive's papers, older than 12 months, and the most cited of the last 12 months that no day file holds, from arXiv's OAI-PMH, with affiliations from [OpenAlex](https://openalex.org) |
 | Venue                         | Detected in the comments and journal reference ("Accepted to ECCV 2026", "BMVC2026", …); submissions and papers under review are ignored. Else where Semantic Scholar says it was published, with its DOI |
 
 Affiliations are **best effort**: arXiv metadata rarely includes them, and the HTML
@@ -93,7 +93,8 @@ alphaXiv. The ◐ button next to
 the tabs switches between the automatic, light and dark themes.
 
 The *Highly cited* tab shows the archive by year of first version, one year, a range of
-years or all of them, ranked by citation count; search words and filters narrow it down.
+years or all of them, ranked by citation count, or the 1,000 most cited papers of the last
+12 months, by citations per month of age; search words and filters narrow it down.
 Past 10,000 papers (all years hold about 22,000), it keeps the best ranked by citations per
 year of age and says how many it leaves out. Papers show their citation count wherever it
 is known (0 for most new papers), and, once two weekly counts exist, what they gained in

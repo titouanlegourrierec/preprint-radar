@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
-import type { YearRange } from "../archive-years";
+import type { ArchiveRange } from "../archive-years";
 import { download, downloadBlob } from "../download";
 import { countOf } from "../format";
 import {
@@ -30,7 +30,7 @@ import {
 } from "../preferences";
 import type { FacetCount } from "../search";
 import { searchKey } from "../text";
-import type { ArchiveSummary, DaySummary, Paper } from "../types";
+import type { ArchiveSummary, DaySummary, Paper, TopRecentSummary } from "../types";
 import { GraphDetails } from "./GraphDetails";
 import { GraphLegend } from "./GraphLegend";
 import { GraphSettingsPanel } from "./GraphSettingsPanel";
@@ -63,9 +63,11 @@ interface Props {
   onPeriod: (period: Period) => void;
   /** Years of the archive of highly cited papers. */
   archiveYears: ArchiveSummary[];
-  /** The archive's years shown, `null` for the recent days. */
-  archiveRange: YearRange | null;
-  onArchiveRange: (range: YearRange | null) => void;
+  /** The archive's years shown, or its last 12 months; `null` for the recent days. */
+  archiveRange: ArchiveRange | null;
+  onArchiveRange: (range: ArchiveRange | null) => void;
+  /** The most cited papers of the last 12 months, once the archive keeps them (PROD-11). */
+  topRecent?: TopRecentSummary | undefined;
   query: string;
   onQuery: (query: string) => void;
   venues: FacetCount[];
@@ -538,6 +540,7 @@ export function GraphView(props: Props) {
         archiveYears={props.archiveYears}
         archiveRange={props.archiveRange}
         onArchiveRange={props.onArchiveRange}
+        topRecent={props.topRecent}
         query={props.query}
         onQuery={props.onQuery}
         venues={props.venues}

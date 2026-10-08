@@ -13,6 +13,13 @@ const VIEW_NOTES: Partial<Record<ViewState["view"], string>> = {
   "reading-list": "The papers you saved with ☆, kept in this browser.",
 };
 
+// How the highly cited papers are chosen, after the note: by the archive, or apart from it.
+const ARCHIVE_RULE =
+  "Chosen every week by citations per year of age, among the papers first published more than 12 months ago.";
+const RECENT_NOTE = "The most cited papers of the last 12 months.";
+const RECENT_RULE =
+  "Chosen every week by citations per month of age, counted over two months at least, so that each month has its best papers.";
+
 interface Props {
   view: ViewState["view"];
   /** "How is relevance computed?" was asked. */
@@ -27,6 +34,8 @@ interface Props {
   archiveBudget: { shown: number; leftOut: number; unranked: number } | null;
   /** Where and when the citation counts come from. */
   citationsNote: string | undefined;
+  /** The highly cited view shows the most cited papers of the last 12 months. */
+  lastMonths: boolean;
   /** Most papers ranked by citations share one count. */
   mostlyTied: boolean;
   /** The filters set, as chips, where the list has them. */
@@ -38,6 +47,7 @@ interface Props {
 /** What a list says above its papers: help, news, notes and the filters set. */
 export function ListNotices(props: Props) {
   const { view, archiveBudget } = props;
+  const note = view === "cited" && props.lastMonths ? RECENT_NOTE : VIEW_NOTES[view];
   return (
     <>
       {props.relevanceHelp && <p class="help-note">{RELEVANCE_HELP}</p>}
@@ -78,11 +88,11 @@ export function ListNotices(props: Props) {
             ` The citation counts of ${countOf(archiveBudget.unranked, "year")} could not be loaded: their papers rank last, the first to be left out.`}
         </p>
       )}
-      {VIEW_NOTES[view] && (
+      {note && (
         <p class="view-note muted">
-          {VIEW_NOTES[view]}
+          {note}
           {view === "cited" &&
-            ` Chosen every week by citations per year of age, among the papers first published more than 12 months ago.${props.citationsNote ? ` ${props.citationsNote}.` : ""}`}
+            ` ${props.lastMonths ? RECENT_RULE : ARCHIVE_RULE}${props.citationsNote ? ` ${props.citationsNote}.` : ""}`}
         </p>
       )}
       {props.mostlyTied && (

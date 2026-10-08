@@ -221,12 +221,12 @@ exist.
 
 | ID | Item | Priority | Status |
 |---|---|---|---|
-| §17.1 | The audit's features worth building, item by item below; #1 to #3 were done in Phase 2 (PROD-2, PROD-3, PROD-5 and PROD-9), #4 to #9 on 2026-10-07 but PROD-11, which waits for a decision, and #10 waits for a year of days | — | in progress |
+| §17.1 | The audit's features worth building, item by item below; #1 to #3 were done in Phase 2 (PROD-2, PROD-3, PROD-5 and PROD-9), #4 to #9 on 2026-10-07, PROD-11 on 2026-10-08, and #10 waits for a year of days | — | in progress |
 | PROD-12 | "With code" (§17.1 #4): papers whose abstract or comments link a repository on GitHub or GitLab, else models or data on Hugging Face (918 of 4,832, as the audit's 19%), and a Code link on their card | P2 | done |
 | SRCH-11 | Link-outs (§17.1 #5): an unfolded card links the paper on Semantic Scholar, Connected Papers and alphaXiv, each address opened by hand; Hugging Face left out, its page being a 404 for 11 of 12 recent papers | P2 | done |
 | §17.1 #6 | Atom feeds, built with the site (the link of an institution of the archive alone, a 404, left out since): one for every institution of the day files and each major venue, their papers of the last 60 days, linked under the filters when the list is filtered on one (2,864 feeds, 20 MB) | — | done |
 | CIT-9 | Rising papers (§17.1 #7): each weekly refresh of the counts writes what each paper gained since the one before (`citation-gains.json`, from counts at least 6 days old); cards say "+12 this week", and the Papers and Highly cited views sort by it (Rising). The first gains come with the archive of 2026-10-11, the one of 2026-10-04 having reused the counts of 2026-09-30 | P3 | done |
-| PROD-11 | The most cited papers of the last 12 months (§17.1 #7): the store holds none of them from 2025-10-04 to 2026-09-01 (the archive starts at 12 months, and decision 1 left the gap), so it waits for a decision or for the day files to fill a year | P2 | todo |
+| PROD-11 | The most cited papers of the last 12 months (§17.1 #7), asked for on 2026-10-08 rather than waiting for a year of days: the store held none from October 2025 to August 2026 (the archive starts at 12 months, and decision 1 left the gap). The weekly archive keeps the 1,000 best by citations per month of age, counting at least two months, apart from its years (`top-recent.json`: the archive's years and their rule stay as they were), from the counts it fetched and threw away; a day file's paper is its record there, the others are built from the catalog with OpenAlex's affiliations. The site offers "Last 12 months" (`?year=last-12-months`) in Highly cited, the graph and Rankings, and sends such a paper's link there. Chosen on September's counts: per year of age (the archive's score), 623 papers, none of August; per month of age counted over one month, papers of 2 citations in their first weeks; over two, 80 to 180 a month, 25 to 50 for the last three, at least 4 citations each. The first list comes with the archive of 2026-10-11 | P2 | done |
 | §17.1 #8 | Graph: a connection's shared papers in the details, "Focus on this" (the graph of a node's papers alone, `?focus=`, matched as nodes are keyed, and saying when it has no paper among those shown), PNG and GraphML export | — | done |
 | SRCH-15 | Venue families (§17.1 #9): "CVPR, any year" (`venue=CVPR*`) before the editions of a venue loaded in more than one, its workshops a family of their own; a venue's view is its filter's link | P3 | done |
 | §17.1 #10 | Per-entity timelines in Rankings, once 12 months of data exist | — | todo |
@@ -308,6 +308,7 @@ backlog, but for the ones waiting for an answer, listed with the recommended opt
 | CI-15 | dropped | The weekly full refresh of the counts feeds the gains (CIT-9), which a partial refresh would break |
 | PERF-9 | dropped | Its premise is false: httpx merges its defaults under the assigned headers, so every request is compressed |
 | REL-9 | dropped | REL-3 settled it: arXiv's metadata, abstracts included, is CC0 |
+| CIT-5 | dropped | PROD-11 chooses the most cited of the last 12 months from the counts it would stop fetching; refreshing low-rate papers less often would break the weekly gains (CIT-9), as CI-15 |
 
 Waiting for the maintainer (the recommendation first):
 
@@ -323,7 +324,6 @@ Waiting for the maintainer (the recommendation first):
 | META-5 | Archive dates are approximate | Show archived papers by month ("Mar 2021"), skip arXivRaw |
 | SRCH-6 | A query language | Uppercase OR only; no field prefixes yet |
 | DEBT-6 | The `fetch` command and its export modules | Delete them: the site's exports and `data/` cover it |
-| CIT-5 | Counts fetched and thrown away; refreshing low-rate papers less often | Stop fetching what is thrown away; keep the weekly full refresh (gains) |
 | PROD-15 | One tagline | "Follow and search the cs.CV papers announced on arXiv every weekday, with their affiliations, citations and the most cited older papers." |
 | SEC-8 | `SECURITY.md` | A short one now, pointing to the correction contact; issue templates once public |
 | DOC-3, DOC-4, DOC-2 | ADRs, the calibration scripts, the README's purpose | No ADR folder (the Decisions table is the log), a paragraph on why `data/` is in git; the calibration's key tables in `docs/archive.md`, `experiments/` kept local; a shorter README walkthrough |

@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
 import docs from "../../docs/web.md?raw";
-import { ALL_YEARS, oneYear } from "../src/archive-years";
+import { ALL_YEARS, LAST_12_MONTHS, oneYear } from "../src/archive-years";
 import { exactly, NO_FILTERS, type SearchFilters, typed } from "../src/search";
 import {
-  archiveYearOf,
+  archiveRangeOf,
   DEFAULT_STATE,
   isNavigation,
   isTypedChange,
@@ -151,6 +151,9 @@ describe("highly cited view", () => {
     expect(readState(writeState(range))).toEqual(range);
     const all = { ...DEFAULT_STATE, view: "cited" as const, year: ALL_YEARS };
     expect(writeState(all)).toBe("?view=cited&year=all");
+    const recent = { ...DEFAULT_STATE, view: "cited" as const, year: LAST_12_MONTHS };
+    expect(writeState(recent)).toBe("?view=cited&year=last-12-months");
+    expect(readState(writeState(recent))).toEqual(recent);
     expect(readState(writeState(all))).toEqual(all);
   });
 
@@ -231,7 +234,12 @@ describe("isTypedChange", () => {
 });
 
 describe("paperLink", () => {
-  const where = { category: "cs.CV", oldestDay: "2026-09-01", archiveYears: [2017, 2025] };
+  const where = {
+    category: "cs.CV",
+    oldestDay: "2026-09-01",
+    archiveYears: [2017, 2025],
+    recentSince: "2025-10-05",
+  };
 
   it("opens a paper of the days on its day", () => {
     expect(paperLink({ arxiv_id: "2609.30234", announced: "2026-09-25" }, where)).toBe(
@@ -249,10 +257,23 @@ describe("paperLink", () => {
     });
   });
 
+  it("opens a paper of the last 12 months that no day file holds among the most cited", () => {
+    // Its year, 2025, is the archive's too: the papers of its first 9 months.
+    const link = paperLink({ arxiv_id: "2511.21631", announced: "2025-11-27" }, where);
+    expect(link).toBe("?cat=cs.CV&view=cited&paper=2511.21631&year=last-12-months");
+    expect(archiveRangeOf("2025-10-05", where)).toBe(LAST_12_MONTHS);
+    expect(archiveRangeOf("2025-10-04", where)).toEqual(oneYear(2025));
+    // Before the archive keeps them, in their year.
+    expect(archiveRangeOf("2025-11-27", { ...where, recentSince: undefined })).toEqual(
+      oneYear(2025),
+    );
+  });
+
   it("falls back on the day when no archive year holds the paper", () => {
-    expect(archiveYearOf("2019-03-01", "2026-09-01", [2017, 2025])).toBeNull();
-    expect(archiveYearOf("2017-06-12", undefined, [2017])).toBeNull();
-    expect(archiveYearOf("2026-09-25", "2026-09-01", [2026])).toBeNull();
+    const before = { oldestDay: "2026-09-01", archiveYears: [2017, 2025], recentSince: undefined };
+    expect(archiveRangeOf("2019-03-01", before)).toBeNull();
+    expect(archiveRangeOf("2017-06-12", { ...before, oldestDay: undefined })).toBeNull();
+    expect(archiveRangeOf("2026-09-25", { ...where, archiveYears: [2026] })).toBeNull();
   });
 });
 

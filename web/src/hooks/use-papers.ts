@@ -1,10 +1,17 @@
 import { useEffect, useState } from "preact/hooks";
-import { formatYears, parseYears, shownYears, type YearRange, yearsIn } from "../archive-years";
-import { loadArchiveYears, loadDays, loadIndex } from "../data";
+import {
+  type ArchiveRange,
+  formatYears,
+  LAST_12_MONTHS,
+  parseYears,
+  shownYears,
+  yearsIn,
+} from "../archive-years";
+import { loadArchiveYears, loadDays, loadIndex, loadTopRecent } from "../data";
 import { loadingLine } from "../format";
 import { PAPER_BUDGET, type Period, periodKey, periodOfKey, selectDays } from "../period";
 import { PaperIndex } from "../search";
-import type { ArchiveSummary, DaySummary, Paper, StoreIndex } from "../types";
+import type { ArchiveSummary, DaySummary, Paper, StoreIndex, TopRecentSummary } from "../types";
 
 /**
  * What a failed load means for a reader: "TypeError: Failed to fetch" says the network or
@@ -35,12 +42,13 @@ export type LoadState =
  * With `archive` set, the papers are those of years of the archive of highly cited older
  * papers instead: the requested ones, else the latest year. Over {@link PAPER_BUDGET}
  * papers (all years hold 22,000), the best ranked by citations per year of age, the
- * archive's own score, from the citation shards of those years.
+ * archive's own score, from the citation shards of those years. Or the most cited papers
+ * of the last 12 months, once the archive keeps them (PROD-11).
  */
 export function usePapers(
   requestedCategory: string | null,
   period: Period,
-  archive: { years: YearRange | null } | null = null,
+  archive: { years: ArchiveRange | null } | null = null,
 ) {
   const [storeIndex, setStoreIndex] = useState<StoreIndex | null>(null);
   const [load, setLoad] = useState<LoadState>({ status: "loading" });
@@ -64,7 +72,9 @@ export function usePapers(
     requestedCategory && categories.includes(requestedCategory) ? requestedCategory : categories[0];
   const storeDays: DaySummary[] = (category && storeIndex?.categories[category]) || [];
   const archiveYears: ArchiveSummary[] = (category && storeIndex?.archives?.[category]) || [];
-  const archiveRange = archive ? shownYears(archive.years, archiveYears) : null;
+  const topRecent: TopRecentSummary | undefined =
+    (category && storeIndex?.top_recent?.[category]) || undefined;
+  const archiveRange = archive ? shownYears(archive.years, archiveYears, topRecent) : null;
   // A key for the effect: the range is a new object at each render.
   const archiveKey = archiveRange === null ? null : formatYears(archiveRange);
   const archived = archive !== null;
@@ -96,6 +106,12 @@ export function usePapers(
       }));
     } else if (range === null) {
       loaded = Promise.resolve({ papers: [], total: 0, unranked: 0 }); // no archive yet
+    } else if (range === LAST_12_MONTHS) {
+      loaded = loadTopRecent(category, signal).then((papers) => ({
+        papers,
+        total: papers.length,
+        unranked: 0,
+      }));
     } else {
       const years = yearsIn(range, storeIndex.archives?.[category] ?? []).map(({ year }) => year);
       loaded = loadArchiveYears(category, years, PAPER_BUDGET, signal);
@@ -123,7 +139,12 @@ export function usePapers(
     category,
     storeDays,
     archiveYears,
-    /** The archive's years shown, `null` for the recent days or before the first archive. */
+    /** The most cited papers of the last 12 months, once the archive keeps them. */
+    topRecent,
+    /**
+     * The archive's years shown, or its last 12 months; `null` for the recent days or before
+     * the first archive.
+     */
     archiveRange,
     /** Papers of those years left out by the budget, the least cited for their age. */
     archiveLeftOut: archived ? leftOut.papers : 0,
@@ -137,7 +158,14 @@ export function usePapers(
      */
     loadingLine: loadingLine(
       archived
-        ? { years: archiveRange === null ? [] : yearsIn(archiveRange, archiveYears) }
+        ? archiveRange === LAST_12_MONTHS && topRecent
+          ? { recent: topRecent }
+          : {
+              years:
+                archiveRange === null || archiveRange === LAST_12_MONTHS
+                  ? []
+                  : yearsIn(archiveRange, archiveYears),
+            }
         : { days: selectDays(storeDays, period) },
     ),
     /** The papers loaded, once a search over them costs no indexing; else `null`. */

@@ -7,6 +7,7 @@ import {
   loadCitationShard,
   loadDays,
   loadIndex,
+  loadTopRecent,
 } from "../src/data";
 import { PAPER_BUDGET } from "../src/period";
 import { makePaper } from "./fixtures";
@@ -87,6 +88,21 @@ describe("data", () => {
       },
     });
     await expect(loadArchive("cs.CV", 2017)).resolves.toHaveLength(1);
+  });
+
+  it("loads the most cited papers of the last 12 months, refusing another schema", async () => {
+    serve({
+      "cs.CV/top-recent.json": {
+        schema_version: 1,
+        since: "2025-10-05",
+        papers: [makePaper({ arxiv_id: "2511.21631" })],
+      },
+      "cs.RO/top-recent.json": { schema_version: 2, since: "2025-10-05", papers: [] },
+    });
+    await expect(loadTopRecent("cs.CV")).resolves.toHaveLength(1);
+    await expect(loadTopRecent("cs.RO")).rejects.toThrow(
+      "Unsupported top-recent file schema version 2",
+    );
   });
 
   it("loads several archive years, the best ranked within the budget", async () => {

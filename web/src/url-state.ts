@@ -1,4 +1,10 @@
-import { formatYears, oneYear, parseYears, type YearRange } from "./archive-years";
+import {
+  type ArchiveRange,
+  formatYears,
+  LAST_12_MONTHS,
+  oneYear,
+  parseYears,
+} from "./archive-years";
 import { between, DEFAULT_PERIOD, isIsoDay, isRange, LONGEST_RANGE, type Period } from "./period";
 import {
   exactly,
@@ -24,11 +30,11 @@ export interface ViewState {
   /** arXiv id from a shared `?paper=` link: its card is opened and scrolled into view. */
   paper: string | null;
   /**
-   * Years of the archive shown (`?year=2017`, `?year=2019-2021`, `?year=all`): by the
-   * highly cited view, and the graph and Rankings when set (`null`: the latest year there,
-   * the recent days here).
+   * Years of the archive shown (`?year=2017`, `?year=2019-2021`, `?year=all`), or the most
+   * cited papers of the last 12 months (`?year=last-12-months`): by the highly cited view,
+   * and the graph and Rankings when set (`null`: the latest year there, the recent days here).
    */
-  year: YearRange | null;
+  year: ArchiveRange | null;
   /**
    * The graph node focused on (`?focus=institution:mit`): the graph of its papers alone,
    * its ego network (§17.1 #8).
@@ -183,40 +189,45 @@ export function isNavigation(from: ViewState, to: ViewState): boolean {
   return navigationKey(from) !== navigationKey(to);
 }
 
-/**
- * The archive year that holds a paper the stored days do not: one announced before the
- * oldest day, in a year the archive has. `null` for a paper of the days.
- */
-export function archiveYearOf(
-  announced: string,
-  oldestDay: string | undefined,
-  archiveYears: readonly number[],
-): number | null {
-  const year = Number(announced.slice(0, 4));
-  return oldestDay !== undefined && announced < oldestDay && archiveYears.includes(year)
-    ? year
-    : null;
+/** Where the store keeps the papers no day file holds. */
+export interface StoredBefore {
+  /** The oldest day file of the category. */
+  oldestDay: string | undefined;
+  /** The years of its archive. */
+  archiveYears: readonly number[];
+  /** First day of the last 12 months whose most cited papers are kept (PROD-11). */
+  recentSince: string | undefined;
 }
 
 /**
- * A link to one paper, for its Share control: its archive year in the Highly cited view
- * when it is archived (an older paper has no day file), else its announcement day.
+ * Where the store keeps a paper the stored days do not: one announced before the oldest
+ * day is among the most cited of the last 12 months when announced in them, else in its
+ * year of the archive, if the archive has it. `null` for a paper of the days.
+ */
+export function archiveRangeOf(announced: string, where: StoredBefore): ArchiveRange | null {
+  const { oldestDay, archiveYears, recentSince } = where;
+  if (oldestDay === undefined || announced >= oldestDay) return null;
+  if (recentSince !== undefined && announced >= recentSince) return LAST_12_MONTHS;
+  const year = Number(announced.slice(0, 4));
+  return archiveYears.includes(year) ? oneYear(year) : null;
+}
+
+/**
+ * A link to one paper, for its Share control: where the Highly cited view shows it when no
+ * day file holds it (an archived paper, one of the most cited of the last 12 months), else
+ * its announcement day.
  */
 export function paperLink(
   paper: { arxiv_id: string; announced: string },
-  where: {
-    category: string | null;
-    oldestDay: string | undefined;
-    archiveYears: readonly number[];
-  },
+  where: StoredBefore & { category: string | null },
 ): string {
-  const year = archiveYearOf(paper.announced, where.oldestDay, where.archiveYears);
+  const year = archiveRangeOf(paper.announced, where);
   return writeState({
     ...DEFAULT_STATE,
     category: where.category,
     ...(year === null
       ? { period: between(paper.announced, paper.announced) }
-      : { view: "cited" as const, year: oneYear(year) }),
+      : { view: "cited" as const, year }),
     paper: paper.arxiv_id,
   });
 }

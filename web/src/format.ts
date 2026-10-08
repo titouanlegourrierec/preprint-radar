@@ -1,4 +1,4 @@
-import type { ArchiveSummary, DaySummary } from "./types";
+import type { ArchiveSummary, DaySummary, TopRecentSummary } from "./types";
 
 /** Format an ISO date or timestamp as a short, locale-aware day, e.g. "25 Sept 2026". */
 export function formatDay(iso: string): string {
@@ -14,17 +14,27 @@ export function countOf(count: number, noun: string, plural = `${noun}s`): strin
   return `${count.toLocaleString()} ${count === 1 ? noun : plural}`;
 }
 
-/** What a view loads, as the store index counts it: the days of a period, or archive years. */
-export type Loading = { days: readonly DaySummary[] } | { years: readonly ArchiveSummary[] };
+/**
+ * What a view loads, as the store index counts it: the days of a period, archive years, or
+ * the most cited papers of the last 12 months.
+ */
+export type Loading =
+  | { days: readonly DaySummary[] }
+  | { years: readonly ArchiveSummary[] }
+  | { recent: TopRecentSummary };
 
 /**
  * What a view says while it loads (UX-6), from the counts of the store index: "Loading
  * 3,646 papers of 5 days…" ("of 25 Sept 2026" for one day), "Loading 3,407 highly cited
  * papers of 2024…", "Loading 22,169 highly cited papers of 16 years…": the archive's count
- * is what is downloaded, before the budget keeps the best ranked. "Loading papers…" while
- * there is nothing to count: before the index arrives, or for no day or year.
+ * is what is downloaded, before the budget keeps the best ranked. "Loading 1,000 highly
+ * cited papers of the last 12 months…". "Loading papers…" while there is nothing to count:
+ * before the index arrives, or for no day or year.
  */
 export function loadingLine(loading: Loading): string {
+  if ("recent" in loading) {
+    return `Loading ${countOf(loading.recent.count, "highly cited paper")} of the last 12 months…`;
+  }
   const summaries: readonly { count: number }[] = "days" in loading ? loading.days : loading.years;
   if (summaries.length === 0) return "Loading papers…";
   const total = summaries.reduce((sum, { count }) => sum + count, 0);

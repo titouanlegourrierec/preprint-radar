@@ -1,6 +1,6 @@
 import type { ComponentChildren } from "preact";
 import { useState } from "preact/hooks";
-import type { YearRange } from "../archive-years";
+import type { ArchiveRange } from "../archive-years";
 import { subjectCode } from "../format";
 import { useMediaQuery } from "../hooks/use-media-query";
 import type { Period } from "../period";
@@ -11,7 +11,7 @@ import {
   type SearchFilters,
   typed,
 } from "../search";
-import type { ArchiveSummary, DaySummary } from "../types";
+import type { ArchiveSummary, DaySummary, TopRecentSummary } from "../types";
 import { ArchiveSourceSelect, YearRangePicker } from "./ArchiveYears";
 import { PeriodPicker } from "./PeriodPicker";
 import { VenueSelect } from "./VenueSelect";
@@ -30,24 +30,26 @@ interface Props {
   onCategory: (category: string) => void;
   onPeriod: (period: Period) => void;
   onFilters: (filters: SearchFilters) => void;
-  /** Highly cited view: years of the archive, shown instead of the period. */
+  /** Highly cited view: years of the archive, or its last 12 months, shown instead of the period. */
   archive?:
     | {
         years: ArchiveSummary[];
-        range: YearRange;
-        onRange: (range: YearRange) => void;
+        range: ArchiveRange;
+        onRange: (range: ArchiveRange) => void;
       }
     | undefined;
+  /** The most cited papers of the last 12 months, once the archive keeps them (PROD-11). */
+  recent?: TopRecentSummary | undefined;
   /** Date of the archive, which labels its youngest year ("2025, Jan–Oct"). */
   asOf?: Date | undefined;
   /** Shown below the filters. */
   children?: ComponentChildren;
-  /** Views of either kind of papers: the recent days (`null`) or archive years. */
+  /** Views of either kind of papers: the recent days (`null`), archive years or its last 12 months. */
   source?:
     | {
         years: ArchiveSummary[];
-        range: YearRange | null;
-        onRange: (range: YearRange | null) => void;
+        range: ArchiveRange | null;
+        onRange: (range: ArchiveRange | null) => void;
       }
     | undefined;
 }
@@ -117,13 +119,14 @@ export function Sidebar(props: Props) {
         </label>
       )}
 
-      {props.source && props.source.years.length > 0 && (
+      {props.source && (props.source.years.length > 0 || props.recent) && (
         <ArchiveSourceSelect
           class="field"
           years={props.source.years}
           range={props.source.range}
           onChange={props.source.onRange}
           asOf={props.asOf}
+          recent={props.recent}
         />
       )}
 
@@ -132,6 +135,7 @@ export function Sidebar(props: Props) {
           years={props.archive.years}
           range={props.archive.range}
           onChange={props.archive.onRange}
+          recent={props.recent}
         />
       ) : (
         <div class="field">
