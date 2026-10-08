@@ -59,15 +59,43 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "This paper investigates the problem of modeling Internet images and associated text or tags for tasks such as image-to-image search, tag-to-image search, and image-to-tag search (image annotation). We start with canonical correlation analysis (CCA), a popular and successful approach for mapping visual and textual features to the same latent space, and incorporate a third view capturing high-level image semantics, represented either by a single category or multiple non-mutually-exclusive concepts. We present two ways to train the three-view embedding: supervised, with the third view coming from ground-truth labels or search keywords; and unsupervised, with semantic themes automatically obtained by clustering the tags. To ensure high accuracy for retrieval tasks while keeping the learning process scalable, we combine multiple strong visual features and use explicit nonlinear kernel mappings to efficiently approximate kernel CCA. To perform retrieval, we use a specially designed similarity function in the embedded space, which substantially outperforms the Euclidean distance. The resulting system produces compelling qualitative results and outperforms a number of two-view baselines on retrieval tasks on three large-scale Internet image datasets.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of North Carolina at Chapel Hill",
+    "Microsoft",
+    "University of Illinois Urbana-Champaign"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "University of North Carolina at Chapel Hill",
+    "Microsoft",
+    "University of Illinois Urbana-Champaign"
+   ],
+   "institution_ids": [
+    "0130frc33",
+    "00d0nc645",
+    "047426m28"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1212.4522",
@@ -162,15 +190,49 @@
    "cross_list_from": "cs.RO",
    "html_url": null,
    "abstract": "Autonomous navigation for large Unmanned Aerial Vehicles (UAVs) is fairly straight-forward, as expensive sensors and monitoring devices can be employed. In contrast, obstacle avoidance remains a challenging task for Micro Aerial Vehicles (MAVs) which operate at low altitude in cluttered environments. Unlike large vehicles, MAVs can only carry very light sensors, such as cameras, making autonomous navigation through obstacles much more challenging. In this paper, we describe a system that navigates a small quadrotor helicopter autonomously at low altitude through natural forest environments. Using only a single cheap camera to perceive the environment, we are able to maintain a constant velocity of up to 1.5m/s. Given a small set of human pilot demonstrations, we use recent state-of-the-art imitation learning techniques to train a controller that can avoid trees by adapting the MAVs heading. We demonstrate the performance of our system in a more controlled environment indoors, and in real natural forest environments outdoors.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Carnegie Mellon University",
+    "Graz University of Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Carnegie Mellon University",
+    "Graz University of Technology"
+   ],
+   "institution_ids": [
+    "05x2bcf33",
+    "00d7xrm67"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1211.1690",
@@ -242,15 +304,32 @@
    "cross_list_from": "q-bio.QM",
    "html_url": null,
    "abstract": "Counting circular objects such as cell colonies is an important source of information for biologists. Although this task is often time-consuming and subjective, it is still predominantly performed manually. The aim of the present work is to provide a new tool to enumerate circular objects from digital pictures and video streams. Here, I demonstrate that the created program, OpenCFU, is very robust, accurate and fast. In addition, it provides control over the processing parameters and is implemented in an in- tuitive and modern interface. OpenCFU is a cross-platform and open-source software freely available at http://opencfu.sourceforge.net.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Freie Universität Berlin",
+    "University of Sheffield"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Freie Universität Berlin",
+    "University of Sheffield"
+   ],
+   "institution_ids": [
+    "046ak2485",
+    "05krs5044"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1210.5502",
@@ -328,15 +407,41 @@
    "cross_list_from": "cs.LG",
    "html_url": null,
    "abstract": "K-means is undoubtedly the most widely used partitional clustering algorithm. Unfortunately, due to its gradient descent nature, this algorithm is highly sensitive to the initial placement of the cluster centers. Numerous initialization methods have been proposed to address this problem. In this paper, we first present an overview of these methods with an emphasis on their computational efficiency. We then compare eight commonly used linear time complexity initialization methods on a large and diverse collection of data sets using various performance criteria. Finally, we analyze the experimental results using non-parametric statistical tests and provide recommendations for practitioners. We demonstrate that popular initialization methods often perform poorly and that there are in fact strong alternatives to these methods.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Louisiana State University",
+    "Louisiana State University in Shreveport",
+    "Georgia Institute of Technology"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "Louisiana State University",
+    "Louisiana State University in Shreveport",
+    "Georgia Institute of Technology"
+   ],
+   "institution_ids": [
+    "05ect4e57",
+    "02c4cbt39",
+    "01zkghx44"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1209.1960",
@@ -570,15 +675,34 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "The goal of this paper is to discover a set of discriminative patches which can serve as a fully unsupervised mid-level visual representation. The desired patches need to satisfy two requirements: 1) to be representative, they need to occur frequently enough in the visual world; 2) to be discriminative, they need to be different enough from the rest of the visual world. The patches could correspond to parts, objects, \"visual phrases\", etc. but are not restricted to be any one of them. We pose this as an unsupervised discriminative clustering problem on a huge dataset of image patches. We use an iterative procedure which alternates between clustering and training discriminative classifiers, while applying careful cross-validation at each step to prevent overfitting. The paper experimentally demonstrates the effectiveness of discriminative patches as an unsupervised mid-level visual representation, suggesting that it could be used in place of visual words for many tasks. Furthermore, discriminative patches can also be used in a supervised regime, such as scene classification, where they demonstrate state-of-the-art performance on the MIT Indoor-67 dataset.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Carnegie Mellon University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Carnegie Mellon University"
+   ],
+   "institution_ids": [
+    "05x2bcf33"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1205.3137",
@@ -733,15 +857,32 @@
    "cross_list_from": "eess.SY",
    "html_url": null,
    "abstract": "Recent developments in random finite sets (RFSs) have yielded a variety of tracking methods that avoid data association. This paper derives a form of the full Bayes RFS filter and observes that data association is implicitly present, in a data structure similar to MHT. Subsequently, algorithms are obtained by approximating the distribution of associations. Two algorithms result: one nearly identical to JIPDA, and another related to the MeMBer filter. Both improve performance in challenging environments.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Defence Science and Technology Group",
+    "University of Adelaide"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Defence Science and Technology Group",
+    "University of Adelaide"
+   ],
+   "institution_ids": [
+    "05ddrvt52",
+    "00892tw58"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1203.2995",
@@ -892,15 +1033,46 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Traditional methods of computer vision and machine learning cannot match human performance on tasks such as the recognition of handwritten digits or traffic signs. Our biologically plausible deep artificial neural network architectures can. Small (often minimal) receptive fields of convolutional winner-take-all neurons yield large network depth, resulting in roughly as many sparsely connected neural layers as found in mammals between retina and visual cortex. Only winner neurons are trained. Several deep neural columns become experts on inputs preprocessed in different ways; their predictions are averaged. Graphics cards allow for fast training. On the very competitive MNIST handwriting benchmark, our method is the first to achieve near-human performance. On a traffic sign recognition benchmark it outperforms humans by a factor of two. We also improve the state-of-the-art on a plethora of common image classification benchmarks.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Applied Sciences and Arts of Southern Switzerland",
+    "Dalle Molle Institute for Artificial Intelligence Research",
+    "Università della Svizzera italiana"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ]
+   ],
+   "institutions": [
+    "University of Applied Sciences and Arts of Southern Switzerland",
+    "Dalle Molle Institute for Artificial Intelligence Research",
+    "Università della Svizzera italiana"
+   ],
+   "institution_ids": [
+    "05ep8g269",
+    "013355g38",
+    "03c4atk17"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1202.2745",

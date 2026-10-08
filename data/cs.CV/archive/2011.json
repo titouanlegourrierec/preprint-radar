@@ -119,15 +119,43 @@
    "cross_list_from": "cs.RO",
    "html_url": null,
    "abstract": "Common estimation algorithms, such as least squares estimation or the Kalman filter, operate on a state in a state space S that is represented as a real-valued vector. However, for many quantities, most notably orientations in 3D, S is not a vector space, but a so-called manifold, i.e. it behaves like a vector space locally but has a more complex global topological structure. For integrating these quantities, several ad-hoc approaches have been proposed. Here, we present a principled solution to this problem where the structure of the manifold S is encapsulated by two operators, state displacement [+]:S x R^n --> S and its inverse [-]: S x S --> R^n. These operators provide a local vector-space view δ; --> x [+] δ; around a given state x. Generic estimation algorithms can then work on the manifold S mainly by replacing +/- with [+]/[-] where appropriate. We analyze these operators axiomatically, and demonstrate their use in least-squares estimation and the Unscented Kalman Filter. Moreover, we exploit the idea of encapsulation from a software engineering perspective in the Manifold Toolkit, where the [+]/[-] operators mediate between a \"flat-vector\" view for the generic algorithm and a \"named-members\" view for the problem specific functions.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Bremen",
+    "German Research Centre for Artificial Intelligence"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Bremen",
+    "German Research Centre for Artificial Intelligence"
+   ],
+   "institution_ids": [
+    "04ers2y35",
+    "01ayc5b57"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1107.1119",
@@ -152,15 +180,50 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "3D point clouds of natural environments relevant to problems in geomorphology often require classification of the data into elementary relevant classes. A typical example is the separation of riparian vegetation from ground in fluvial environments, the distinction between fresh surfaces and rockfall in cliff environments, or more generally the classification of surfaces according to their morphology. Natural surfaces are heterogeneous and their distinctive properties are seldom defined at a unique scale, prompting the use of multi-scale criteria to achieve a high degree of classification success. We have thus defined a multi-scale measure of the point cloud dimensionality around each point, which characterizes the local 3D organization. We can thus monitor how the local cloud geometry behaves across scales. We present the technique and illustrate its efficiency in separating riparian vegetation from ground and classifying a mountain stream as vegetation, rock, gravel or water surface. In these two cases, separating the vegetation from ground or other classes achieve accuracy larger than 98 %. Comparison with a single scale approach shows the superiority of the multi-scale analysis in enhancing class separability and spatial resolution. The technique is robust to missing data, shadow zones and changes in point density within the scene. The classification is fast and accurate and can account for some degree of intra-class morphological variability such as different vegetation types. A probabilistic confidence in the classification result is given at each point, allowing the user to remove the points for which the classification is uncertain. The process can be both fully automated, but also fully customized by the user including a graphical definition of the classifiers. Although developed for fully 3D data, the method can be readily applied to 2.5D airborne lidar data.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Centre National de la Recherche Scientifique",
+    "Géosciences Rennes",
+    "Université Rennes 1",
+    "Université de Rennes",
+    "University of Canterbury"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2,
+     3
+    ],
+    [
+     0,
+     4,
+     1,
+     2,
+     3
+    ]
+   ],
+   "institutions": [
+    "Centre National de la Recherche Scientifique",
+    "Géosciences Rennes",
+    "Université Rennes 1",
+    "Université de Rennes",
+    "University of Canterbury"
+   ],
+   "institution_ids": [
+    "02feahw73",
+    "00vn0zc62",
+    "00crteh33",
+    "015m7wh34",
+    "03y7q9t39"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1107.0550",
@@ -187,15 +250,37 @@
    "cross_list_from": "cs.RO",
    "html_url": null,
    "abstract": "Being able to detect and recognize human activities is essential for several applications, including personal assistive robotics. In this paper, we perform detection and recognition of unstructured human activity in unstructured environments. We use a RGBD sensor (Microsoft Kinect) as the input sensor, and compute a set of features based on human pose and motion, as well as based on image and pointcloud information. Our algorithm is based on a hierarchical maximum entropy Markov model (MEMM), which considers a person's activity as composed of a set of sub-activities. We infer the two-layered graph structure using a dynamic programming approach. We test our algorithm on detecting and recognizing twelve different activities performed by four people in different environments, such as a kitchen, a living room, an office, etc., and achieve good performance even when the person was not seen before in the training set.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Cornell University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Cornell University"
+   ],
+   "institution_ids": [
+    "05bnh6r87"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1107.0169",

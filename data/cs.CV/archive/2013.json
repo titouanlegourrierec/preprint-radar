@@ -562,15 +562,36 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "We propose a method for human pose estimation based on Deep Neural Networks (DNNs). The pose estimation is formulated as a DNN-based regression problem towards body joints. We present a cascade of such DNN regressors which results in high precision pose estimates. The approach has the advantage of reasoning about pose in a holistic fashion and has a simple but yet powerful formulation which capitalizes on recent advances in Deep Learning. We present a detailed empirical analysis with state-of-art or better performance on four academic benchmarks of diverse real-world images.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Google",
+    "Guangzhou University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Google",
+    "Guangzhou University"
+   ],
+   "institution_ids": [
+    "00njsd438",
+    "05ar8rn06"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1312.4659",
@@ -598,15 +619,40 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Recurrent neural networks (RNNs) with Long Short-Term memory cells currently hold the best known results in unconstrained handwriting recognition. We show that their performance can be greatly improved using dropout - a recently proposed regularization method for deep architectures. While previous works showed that dropout gave superior performance in the context of convolutional networks, it had never been applied to RNNs. In our approach, dropout is carefully used in the network so that it does not affect the recurrent connections, hence the power of RNNs in modeling sequence is preserved. Extensive experiments on a broad range of handwritten databases confirm the effectiveness of dropout on deep architectures even when the network mainly consists of recurrent and shared connections.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Singapore University of Technology and Design",
+    "Centre National de la Recherche Scientifique",
+    "Laboratoire d'Informatique pour la Mécanique et les Sciences de l'Ingénieur"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ],
+    null,
+    null
+   ],
+   "institutions": [
+    "Singapore University of Technology and Design",
+    "Centre National de la Recherche Scientifique",
+    "Laboratoire d'Informatique pour la Mécanique et les Sciences de l'Ingénieur"
+   ],
+   "institution_ids": [
+    "05j6fvn87",
+    "02feahw73",
+    "01raq4x89"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1312.4569",
@@ -887,15 +933,37 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Object detection performance, as measured on the canonical PASCAL VOC dataset, has plateaued in the last few years. The best-performing methods are complex ensemble systems that typically combine multiple low-level image features with high-level context. In this paper, we propose a simple and scalable detection algorithm that improves mean average precision (mAP) by more than 30% relative to the previous best result on VOC 2012—achieving a mAP of 53.3%. Our approach combines two key insights: (1) one can apply high-capacity convolutional neural networks (CNNs) to bottom-up region proposals in order to localize and segment objects and (2) when labeled training data is scarce, supervised pre-training for an auxiliary task, followed by domain-specific fine-tuning, yields a significant performance boost. Since we combine region proposals with CNNs, we call our method R-CNN: Regions with CNN features. We also compare R-CNN to OverFeat, a recently proposed sliding-window detector based on a similar CNN architecture. We find that R-CNN outperforms OverFeat by a large margin on the 200-class ILSVRC2013 detection dataset. Source code for the complete system is available at http://www.cs.berkeley.edu/~rbg/rcnn.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of California, Berkeley"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of California, Berkeley"
+   ],
+   "institution_ids": [
+    "01an7q238"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1311.2524",
@@ -921,15 +989,41 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Hyperspectral images show similar statistical properties to natural grayscale or color photographic images. However, the classification of hyperspectral images is more challenging because of the very high dimensionality of the pixels and the small number of labeled examples typically available for learning. These peculiarities lead to particular signal processing problems, mainly characterized by indetermination and complex manifolds. The framework of statistical learning has gained popularity in the last decade. New methods have been presented to account for the spatial homogeneity of images, to include user's interaction via active learning, to take advantage of the manifold structure with semisupervised learning, to extract and encode invariances, or to adapt classifiers and image representations to unseen yet similar scenes. This tutuorial reviews the main advances for hyperspectral remote sensing image classification through illustrative examples.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "École Polytechnique Fédérale de Lausanne",
+    "University of Trento",
+    "University of Iceland"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "École Polytechnique Fédérale de Lausanne",
+    "University of Trento",
+    "University of Iceland"
+   ],
+   "institution_ids": [
+    "02s376052",
+    "05trd4x28",
+    "01db6h964"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1310.5107",
@@ -996,15 +1090,40 @@
    "cross_list_from": "math.NA",
    "html_url": null,
    "abstract": "We obtain an improved finite-sample guarantee on the linear convergence of stochastic gradient descent for smooth and strongly convex objectives, improving from a quadratic dependence on the conditioning $(L/μ)^2$ (where L is a bound on the smoothness and μ on the strong convexity) to a linear dependence on L/μ. Furthermore, we show how reweighting the sampling distribution (i.e. importance sampling) is necessary in order to further improve convergence, and obtain a linear dependence in the average smoothness, dominating previous results. We also discuss importance sampling for SGD more broadly and show how it can improve convergence also in other scenarios. Our results are based on a connection we make between SGD and the randomized Kaczmarz algorithm, which allows us to transfer ideas between the separate bodies of literature studying each of the two methods. In particular, we recast the randomized Kaczmarz algorithm as an instance of SGD, and apply our results to prove its exponential convergence, but to the solution of a weighted least squares problem rather than the original least squares problem. We then present a modified Kaczmarz algorithm with partially biased sampling which does converge to the original least squares solution with the same exponential convergence rate.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Claremont McKenna College",
+    "Toyota Technological Institute at Chicago",
+    "University of Texas at Austin"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "Claremont McKenna College",
+    "Toyota Technological Institute at Chicago",
+    "University of Texas at Austin"
+   ],
+   "institution_ids": [
+    "04n1me355",
+    "02sn5gb64",
+    "00hj54h04"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1310.5715",
@@ -1139,15 +1258,44 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "It is an important task to faithfully evaluate the perceptual quality of output images in many applications such as image compression, image restoration and multimedia streaming. A good image quality assessment (IQA) model should not only deliver high quality prediction accuracy but also be computationally efficient. The efficiency of IQA metrics is becoming particularly important due to the increasing proliferation of high-volume visual data in high-speed networks. We present a new effective and efficient IQA model, called gradient magnitude similarity deviation (GMSD). The image gradients are sensitive to image distortions, while different local structures in a distorted image suffer different degrees of degradations. This motivates us to explore the use of global variation of gradient based local quality map for overall image quality prediction. We find that the pixel-wise gradient magnitude similarity (GMS) between the reference and distorted images combined with a novel pooling strategy the standard deviation of the GMS map can predict accurately perceptual image quality. The resulting GMSD algorithm is much faster than most state-of-the-art IQA methods, and delivers highly competitive prediction accuracy.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Hong Kong Polytechnic University",
+    "Xi'an Jiaotong University",
+    "University of Texas at Austin"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "Hong Kong Polytechnic University",
+    "Xi'an Jiaotong University",
+    "University of Texas at Austin"
+   ],
+   "institution_ids": [
+    "0030zas98",
+    "017zhmm22",
+    "00hj54h04"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1308.3052",
@@ -1174,15 +1322,35 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "The development of energy selective, photon counting X-ray detectors allows for a wide range of new possibilities in the area of computed tomographic image formation. Under the assumption of perfect energy resolution, here we propose a tensor-based iterative algorithm that simultaneously reconstructs the X-ray attenuation distribution for each energy. We use a multi-linear image model rather than a more standard \"stacked vector\" representation in order to develop novel tensor-based regularizers. Specifically, we model the multi-spectral unknown as a 3-way tensor where the first two dimensions are space and the third dimension is energy. This approach allows for the design of tensor nuclear norm regularizers, which like its two dimensional counterpart, is a convex function of the multi-spectral unknown. The solution to the resulting convex optimization problem is obtained using an alternating direction method of multipliers (ADMM) approach. Simulation results shows that the generalized tensor nuclear norm can be used as a stand alone regularization technique for the energy selective (spectral) computed tomography (CT) problem and when combined with total variation regularization it enhances the regularization capabilities especially at low energy images where the effects of noise are most prominent.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Tufts University"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Tufts University"
+   ],
+   "institution_ids": [
+    "05wvpxv85"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1307.5348",
@@ -1266,15 +1434,41 @@
    "cross_list_from": "math.NA",
    "html_url": null,
    "abstract": "We present the PyHST2 code which is in service at ESRF for phase-contrast and absorption tomography. This code has been engineered to sustain the high data flow typical of the third generation synchrotron facilities (10 terabytes per experiment) by adopting a distributed and pipelined architecture. The code implements, beside a default filtered backprojection reconstruction, iterative reconstruction techniques with a-priori knowledge. These latter are used to improve the reconstruction quality or in order to reduce the required data volume and reach a given quality goal. The implemented a-priori knowledge techniques are based on the total variation penalisation and a new recently found convex functional which is based on overlapping patches. We give details of the different methods and their implementations while the code is distributed under free license. We provide methods for estimating, in the absence of ground-truth data, the optimal parameters values for a-priori techniques.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Centre National de la Recherche Scientifique",
+    "Surface du Verre et Interfaces",
+    "Ludwig-Maximilians-Universität München"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    null,
+    null
+   ],
+   "institutions": [
+    "Centre National de la Recherche Scientifique",
+    "Surface du Verre et Interfaces",
+    "Ludwig-Maximilians-Universität München"
+   ],
+   "institution_ids": [
+    "02feahw73",
+    "04kadgz77",
+    "05591te55"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1306.1392",
@@ -1300,15 +1494,28 @@
    "cross_list_from": "math.RA",
    "html_url": null,
    "abstract": "We treat the quaternionic Fourier transform (QFT) applied to quaternion fields and investigate QFT properties useful for applications. Different forms of the QFT lead us to different Plancherel theorems. We relate the QFT computation for quaternion fields to the QFT of real signals. We research the general linear (GL) transformation behavior of the QFT with matrices, Clifford geometric algebra and with examples. We finally arrive at wide-ranging non-commutative multivector FT generalizations of the QFT. Examples given are new volume-time and spacetime algebra Fourier transformations.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Fukui"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Fukui"
+   ],
+   "institution_ids": [
+    "00msqp585"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1306.1023",
@@ -1334,15 +1541,48 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Colorectal polyps are important precursors to colon cancer, a major health problem. Colon capsule endoscopy (CCE) is a safe and minimally invasive examination procedure, in which the images of the intestine are obtained via digital cameras on board of a small capsule ingested by a patient. The video sequence is then analyzed for the presence of polyps. We propose an algorithm that relieves the labor of a human operator analyzing the frames in the video sequence. The algorithm acts as a binary classifier, which labels the frame as either containing polyps or not, based on the geometrical analysis and the texture content of the frame. The geometrical analysis is based on a segmentation of an image with the help of a mid-pass filter. The features extracted by the segmentation procedure are classified according to an assumption that the polyps are characterized as protrusions that are mostly round in shape. Thus, we use a best fit ball radius as a decision parameter of a binary classifier. We present a statistical study of the performance of our approach on a data set containing over 18,900 frames from the endoscopic video sequences of five adult patients. The algorithm demonstrates a solid performance, achieving 47% sensitivity per frame and over 81% sensitivity per polyp at a specificity level of 90%. On average, with a video sequence length of 3747 frames, only 367 false positive frames need to be inspected by a human operator.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Texas at Austin",
+    "Centro de Matemática",
+    "University of Coimbra",
+    "Hospitais da Universidade de Coimbra"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Texas at Austin",
+    "Centro de Matemática",
+    "University of Coimbra",
+    "Hospitais da Universidade de Coimbra"
+   ],
+   "institution_ids": [
+    "00hj54h04",
+    "0267j0k26",
+    "04z8k9a98",
+    "04032fz76"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1305.1912",
@@ -1369,15 +1609,44 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Recognizing 3D objects in the presence of noise, varying mesh resolution, occlusion and clutter is a very challenging task. This paper presents a novel method named Rotational Projection Statistics (RoPS). It has three major modules: Local Reference Frame (LRF) definition, RoPS feature description and 3D object recognition. We propose a novel technique to define the LRF by calculating the scatter matrix of all points lying on the local surface. RoPS feature descriptors are obtained by rotationally projecting the neighboring points of a feature point onto 2D planes and calculating a set of statistics (including low-order central moments and entropy) of the distribution of these projected points. Using the proposed LRF and RoPS descriptor, we present a hierarchical 3D object recognition algorithm. The performance of the proposed LRF, RoPS descriptor and object recognition algorithm was rigorously tested on a number of popular and publicly available datasets. Our proposed techniques exhibited superior performance compared to existing techniques. We also showed that our method is robust with respect to noise and varying mesh resolution. Our RoPS based algorithm achieved recognition rates of 100%, 98.9%, 95.4% and 96.0% respectively when tested on the Bologna, UWA, Queen's and Ca' Foscari Venezia Datasets.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "National University of Defense Technology",
+    "University of Western Australia"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "National University of Defense Technology",
+    "University of Western Australia"
+   ],
+   "institution_ids": [
+    "05d2yfz11",
+    "047272k79"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1304.3192",
@@ -1403,15 +1672,40 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "This paper presents a survey and a comparative evaluation of recent techniques for moving cast shadow detection. We identify shadow removal as a critical step for improving object detection and tracking. The survey covers methods published during the last decade, and places them in a feature-based taxonomy comprised of four categories: chromacity, physical, geometry and textures. A selection of prominent methods across the categories is compared in terms of quantitative performance measures (shadow detection and discrimination rates, colour desaturation) as well as qualitative observations. Furthermore, we propose the use of tracking performance as an unbiased approach for determining the practical usefulness of shadow detection methods. The evaluation indicates that all shadow detection approaches make different contributions and all have individual strength and weaknesses. Out of the selected methods, the geometry-based technique has strict assumptions and is not generalisable to various environments, but it is a straightforward choice when the objects of interest are easy to model and their shadows have different orientation. The chromacity based method is the fastest to implement and run, but it is sensitive to noise and less effective in low saturated scenes. The physical method improves upon the accuracy of the chromacity method by adapting to local shadow models, but fails when the spectral properties of the objects are similar to that of the background. The small-region texture based method is especially robust for pixels whose neighbourhood is textured, but may take longer to implement and is the most computationally expensive. The large-region texture based method produces the most accurate results, but has a significant computational load due to its multiple processing steps.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Queensland",
+    "Data61"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Queensland",
+    "Data61"
+   ],
+   "institution_ids": [
+    "00rqy9422",
+    "03q397159"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1304.1233",
@@ -1440,15 +1734,38 @@
    "cross_list_from": "physics.data-an",
    "html_url": null,
    "abstract": "The process of collecting and organizing sets of observations represents a common theme throughout the history of science. However, despite the ubiquity of scientists measuring, recording, and analyzing the dynamics of different processes, an extensive organization of scientific time-series data and analysis methods has never been performed. Addressing this, annotated collections of over 35 000 real-world and model-generated time series and over 9000 time-series analysis algorithms are analyzed in this work. We introduce reduced representations of both time series, in terms of their properties measured by diverse scientific methods, and of time-series analysis methods, in terms of their behaviour on empirical time series, and use them to organize these interdisciplinary resources. This new approach to comparing across diverse scientific data and methods allows us to organize time-series datasets automatically according to their properties, retrieve alternatives to particular analysis methods developed in other scientific disciplines, and automate the selection of useful methods for time-series classification and regression tasks. The broad scientific utility of these tools is demonstrated on datasets of electroencephalograms, self-affine time series, heart beat intervals, speech signals, and others, in each case contributing novel analysis techniques to the existing literature. Highly comparative techniques that compare across an interdisciplinary literature can thus be used to guide more focused research in time-series analysis for applications across the scientific disciplines.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Oxford",
+    "Imperial College London"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Oxford",
+    "Imperial College London"
+   ],
+   "institution_ids": [
+    "052gg0110",
+    "041kmwe10"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1304.1209",
@@ -1476,15 +1793,48 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "In video based face recognition, face images are typically captured over multiple frames in uncontrolled conditions, where head pose, illumination, shadowing, motion blur and focus change over the sequence. Additionally, inaccuracies in face localisation can also introduce scale and alignment variations. Using all face images, including images of poor quality, can actually degrade face recognition performance. While one solution it to use only the \"best\" subset of images, current face selection techniques are incapable of simultaneously handling all of the abovementioned issues. We propose an efficient patch-based face image quality assessment algorithm which quantifies the similarity of a face image to a probabilistic face model, representing an \"ideal\" face. Image characteristics that affect recognition are taken into account, including variations in geometric alignment (shift, rotation and scale), sharpness, head pose and cast shadows. Experiments on FERET and PIE datasets show that the proposed algorithm is able to identify images which are simultaneously the most frontal, aligned, sharp and well illuminated. Further experiments on a new video surveillance dataset (termed ChokePoint) show that the proposed method provides better face subsets than existing face selection techniques, leading to significant improvements in recognition accuracy.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Queensland",
+    "Data61"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Queensland",
+    "Data61"
+   ],
+   "institution_ids": [
+    "00rqy9422",
+    "03q397159"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1304.0869",
@@ -1712,15 +2062,49 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "We use mechanical translation of a coded aperture for code division multiple access compression of video. We present experimental results for reconstruction at 148 frames per coded snapshot.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Duke University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Duke University"
+   ],
+   "institution_ids": [
+    "00py81415"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1302.2575",
@@ -1748,15 +2132,40 @@
    "cross_list_from": "cs.LG",
    "html_url": null,
    "abstract": "We introduce the Self-Adaptive Goal Generation - Robust Intelligent Adaptive Curiosity (SAGG-RIAC) architecture as an intrinsi- cally motivated goal exploration mechanism which allows active learning of inverse models in high-dimensional redundant robots. This allows a robot to efficiently and actively learn distributions of parameterized motor skills/policies that solve a corresponding distribution of parameterized tasks/goals. The architecture makes the robot sample actively novel parameterized tasks in the task space, based on a measure of competence progress, each of which triggers low-level goal-directed learning of the motor policy pa- rameters that allow to solve it. For both learning and generalization, the system leverages regression techniques which allow to infer the motor policy parameters corresponding to a given novel parameterized task, and based on the previously learnt correspondences between policy and task parameters. We present experiments with high-dimensional continuous sensorimotor spaces in three different robotic setups: 1) learning the inverse kinematics in a highly-redundant robotic arm, 2) learning omnidirectional locomotion with motor primitives in a quadruped robot, 3) an arm learning to control a fishing rod with a flexible wire. We show that 1) exploration in the task space can be a lot faster than exploration in the actuator space for learning inverse models in redundant robots; 2) selecting goals maximizing competence progress creates developmental trajectories driving the robot to progressively focus on tasks of increasing complexity and is statistically significantly more efficient than selecting tasks randomly, as well as more efficient than different standard active motor babbling methods; 3) this architecture allows the robot to actively discover which parts of its task space it can learn to reach and which part it cannot.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Institut national de recherche en sciences et technologies du numérique",
+    "École Nationale Supérieure de Techniques Avancées Paris",
+    "École Nationale Supérieure de Techniques Avancées"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2,
+     1
+    ]
+   ],
+   "institutions": [
+    "Institut national de recherche en sciences et technologies du numérique",
+    "École Nationale Supérieure de Techniques Avancées Paris",
+    "École Nationale Supérieure de Techniques Avancées"
+   ],
+   "institution_ids": [
+    "02kvxyf05",
+    "0106ccb15",
+    "0309cs235"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1301.4862",

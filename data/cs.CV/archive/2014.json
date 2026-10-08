@@ -137,15 +137,31 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "With the of advent rich classification models and high computational power visual recognition systems have found many operational applications. Recognition in the real world poses multiple challenges that are not apparent in controlled lab environments. The datasets are dynamic and novel categories must be continuously detected and then added. At prediction time, a trained system has to deal with myriad unseen categories. Operational systems require minimum down time, even to learn. To handle these operational issues, we present the problem of Open World recognition and formally define it. We prove that thresholding sums of monotonically decreasing functions of distances in linearly transformed feature space can balance \"open space risk\" and empirical risk. Our theory extends existing algorithms for open world recognition. We present a protocol for evaluation of open world recognition systems. We present the Nearest Non-Outlier (NNO) algorithm which evolves model efficiently, adding object categories incrementally while detecting outliers and managing open space risk. We perform experiments on the ImageNet dataset with 1.2M+ images to validate the effectiveness of our method on large scale visual recognition tasks. NNO consistently yields superior results on open world recognition.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Colorado Colorado Springs"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Colorado Colorado Springs"
+   ],
+   "institution_ids": [
+    "054spjc55"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1412.5687",
@@ -1038,15 +1054,31 @@
    "cross_list_from": "cs.LG",
    "html_url": null,
    "abstract": "Deep learning has proven itself as a successful set of models for learning useful semantic representations of data. These, however, are mostly implicitly learned as part of a classification task. In this paper we propose the triplet network model, which aims to learn useful representations by distance comparisons. A similar model was defined by Wang et al. (2014), tailor made for learning a ranking for image information retrieval. Here we demonstrate using various datasets that our model learns a better representation than that of its immediate competitor, the Siamese network. We also discuss future possible usage as a framework for unsupervised learning.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Technion – Israel Institute of Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Technion – Israel Institute of Technology"
+   ],
+   "institution_ids": [
+    "03qryx823"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1412.6622",
@@ -1245,15 +1277,37 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "This paper provides an extensive study on the availability of image representations based on convolutional networks (ConvNets) for the task of visual instance retrieval. Besides the choice of convolutional layers, we present an efficient pipeline exploiting multi-scale schemes to extract local features, in particular, by taking geometric invariance into explicit account, i.e. positions, scales and spatial consistency. In our experiments using five standard image retrieval datasets, we demonstrate that generic ConvNet image representations can outperform other state-of-the-art methods if they are extracted appropriately.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "KTH Royal Institute of Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "KTH Royal Institute of Technology"
+   ],
+   "institution_ids": [
+    "026vcq606"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1412.6574",
@@ -1554,15 +1608,49 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Solving the visual symbol grounding problem has long been a goal of artificial intelligence. The field appears to be advancing closer to this goal with recent breakthroughs in deep learning for natural language grounding in static images. In this paper, we propose to translate videos directly to sentences using a unified deep neural network with both convolutional and recurrent structure. Described video datasets are scarce, and most existing methods have been applied to toy domains with a small vocabulary of possible words. By transferring knowledge from 1.2M+ images with category labels and 100,000+ images with captions, our method is able to create sentence descriptions of open-domain videos with large vocabularies. We compare our approach with recent work using language generation metrics, subject, verb, and object prediction accuracy, and a human evaluation.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Texas at Austin",
+    "University of Massachusetts Lowell",
+    "University of California, Berkeley"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Texas at Austin",
+    "University of Massachusetts Lowell",
+    "University of California, Berkeley"
+   ],
+   "institution_ids": [
+    "00hj54h04",
+    "03hamhx47",
+    "01an7q238"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1412.4729",
@@ -1791,15 +1879,37 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Deep neural networks (DNNs) have recently been achieving state-of-the-art performance on a variety of pattern-recognition tasks, most notably visual classification problems. Given that DNNs are now able to classify objects in images with near-human-level performance, questions naturally arise as to what differences remain between computer and human vision. A recent study revealed that changing an image (e.g. of a lion) in a way imperceptible to humans can cause a DNN to label the image as something else entirely (e.g. mislabeling a lion a library). Here we show a related result: it is easy to produce images that are completely unrecognizable to humans, but that state-of-the-art DNNs believe to be recognizable objects with 99.99% confidence (e.g. labeling with certainty that white noise static is a lion). Specifically, we take convolutional neural networks trained to perform well on either the ImageNet or MNIST datasets and then find images with evolutionary algorithms or gradient ascent that DNNs label with high confidence as belonging to each dataset class. It is possible to produce images totally unrecognizable to human eyes that DNNs believe with near certainty are familiar objects, which we call \"fooling images\" (more generally, fooling examples). Our results shed light on interesting differences between human vision and current DNNs, and raise questions about the generality of DNN computer vision.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Wyoming",
+    "Cornell University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Wyoming",
+    "Cornell University"
+   ],
+   "institution_ids": [
+    "01485tq96",
+    "05bnh6r87"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1412.1897",
@@ -1859,15 +1969,34 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "The topic of semantic segmentation has witnessed considerable progress due to the powerful features learned by convolutional neural networks (CNNs). The current leading approaches for semantic segmentation exploit shape information by extracting CNN features from masked image regions. This strategy introduces artificial boundaries on the images and may impact the quality of the extracted features. Besides, the operations on the raw image domain require to compute thousands of networks on a single image, which is time-consuming. In this paper, we propose to exploit shape information via masking convolutional features. The proposal segments (e.g., super-pixels) are treated as masks on the convolutional feature maps. The CNN features of segments are directly masked out from these maps and used to train classifiers for recognition. We further propose a joint method to handle objects and \"stuff\" (e.g., grass, sky, water) in the same framework. State-of-the-art results are demonstrated on benchmarks of PASCAL VOC and new PASCAL-CONTEXT, with a compelling computational speed.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Microsoft"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Microsoft"
+   ],
+   "institution_ids": [
+    "00d0nc645"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1412.1283",
@@ -2063,15 +2192,48 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "In this paper, we develop an approach to exploiting kernel methods with manifold-valued data. In many computer vision problems, the data can be naturally represented as points on a Riemannian manifold. Due to the non-Euclidean geometry of Riemannian manifolds, usual Euclidean computer vision and machine learning algorithms yield inferior results on such data. In this paper, we define Gaussian radial basis function (RBF)-based positive definite kernels on manifolds that permit us to embed a given manifold with a corresponding metric in a high dimensional reproducing kernel Hilbert space. These kernels make it possible to utilize algorithms developed for linear spaces on nonlinear manifold-valued data. Since the Gaussian RBF defined with any given metric is not always positive definite, we present a unified framework for analyzing the positive definiteness of the Gaussian RBF on a generic metric space. We then use the proposed framework to identify positive definite kernels on two specific manifolds commonly encountered in computer vision: the Riemannian manifold of symmetric positive definite matrices and the Grassmann manifold, i.e., the Riemannian manifold of linear subspaces of a Euclidean space. We show that many popular algorithms designed for Euclidean spaces, such as support vector machines, discriminant analysis and principal component analysis can be generalized to Riemannian manifolds with the help of such positive definite Gaussian kernels.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Australian National University",
+    "Data61"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Australian National University",
+    "Data61"
+   ],
+   "institution_ids": [
+    "019wvm592",
+    "03q397159"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1412.0265",
@@ -2291,15 +2453,28 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "We present a robust and real time approach to lane marker detection in urban streets. It is based on generating a top view of the road, filtering using selective oriented Gaussian filters, using RANSAC line fitting to give initial guesses to a new and fast RANSAC algorithm for fitting Bezier Splines, which is then followed by a post-processing step. Our algorithm can detect all lanes in still images of the street in various conditions, while operating at a rate of 50 Hz and achieving comparable results to previous techniques.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "California Institute of Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "California Institute of Technology"
+   ],
+   "institution_ids": [
+    "05dxps055"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1411.7113",
@@ -2473,15 +2648,210 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "The proliferative activity of breast tumors, which is routinely estimated by counting of mitotic figures in hematoxylin and eosin stained histology sections, is considered to be one of the most important prognostic markers. However, mitosis counting is laborious, subjective and may suffer from low inter-observer agreement. With the wider acceptance of whole slide images in pathology labs, automatic image analysis has been proposed as a potential solution for these issues. In this paper, the results from the Assessment of Mitosis Detection Algorithms 2013 (AMIDA13) challenge are described. The challenge was based on a data set consisting of 12 training and 11 testing subjects, with more than one thousand annotated mitotic figures by multiple observers. Short descriptions and results from the evaluation of eleven methods are presented. The top performing method has an error rate that is comparable to the inter-observer agreement among pathologists.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University Medical Center Utrecht",
+    "Case Western Reserve University",
+    "Universidad Nacional de Colombia",
+    "Technical University of Denmark",
+    "University of Applied Sciences and Arts of Southern Switzerland",
+    "Dalle Molle Institute for Artificial Intelligence Research",
+    "Università della Svizzera italiana",
+    "Işık University",
+    "Inserm",
+    "Université Paris Sciences et Lettres",
+    "Centre de Bio-Informatique",
+    "École Nationale Supérieure des Mines de Paris",
+    "Institut Curie",
+    "National Taiwan University of Science and Technology",
+    "Panasonic",
+    "Konica Minolta",
+    "University of Lancashire",
+    "Centre National de la Recherche Scientifique",
+    "Laboratoire d'Informatique, Signaux et Systèmes de Sophia Antipolis",
+    "Université Nice Sophia Antipolis",
+    "University of Surrey",
+    "University of Sheffield",
+    "University of Warwick",
+    "Qatar University",
+    "Princess Alexandra Hospital NHS Trust",
+    "Princess Alexandra Hospital",
+    "Utrecht University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     3
+    ],
+    [
+     3
+    ],
+    [
+     4,
+     5,
+     6
+    ],
+    [
+     4,
+     5,
+     6
+    ],
+    [
+     4,
+     5,
+     6
+    ],
+    [
+     4,
+     5,
+     6
+    ],
+    [
+     7
+    ],
+    [
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    [
+     13
+    ],
+    [
+     14,
+     15
+    ],
+    [
+     16
+    ],
+    [
+     17,
+     18,
+     19
+    ],
+    [
+     20
+    ],
+    [
+     20
+    ],
+    [
+     20,
+     21
+    ],
+    [
+     22
+    ],
+    [
+     22,
+     23
+    ],
+    [
+     24,
+     25
+    ],
+    [
+     0
+    ],
+    [
+     26,
+     0
+    ],
+    [
+     26,
+     0
+    ]
+   ],
+   "institutions": [
+    "University Medical Center Utrecht",
+    "Case Western Reserve University",
+    "Universidad Nacional de Colombia",
+    "Technical University of Denmark",
+    "University of Applied Sciences and Arts of Southern Switzerland",
+    "Dalle Molle Institute for Artificial Intelligence Research",
+    "Università della Svizzera italiana",
+    "Işık University",
+    "Inserm",
+    "Université Paris Sciences et Lettres",
+    "Centre de Bio-Informatique",
+    "École Nationale Supérieure des Mines de Paris",
+    "Institut Curie",
+    "National Taiwan University of Science and Technology",
+    "Panasonic",
+    "Konica Minolta",
+    "University of Lancashire",
+    "Centre National de la Recherche Scientifique",
+    "Laboratoire d'Informatique, Signaux et Systèmes de Sophia Antipolis",
+    "Université Nice Sophia Antipolis",
+    "University of Surrey",
+    "University of Sheffield",
+    "University of Warwick",
+    "Qatar University",
+    "Princess Alexandra Hospital NHS Trust",
+    "Princess Alexandra Hospital",
+    "Utrecht University"
+   ],
+   "institution_ids": [
+    "0575yy874",
+    "051fd9666",
+    "059yx9a68",
+    "04qtj9h94",
+    "05ep8g269",
+    "013355g38",
+    "03c4atk17",
+    "02j8k6t75",
+    "02vjkv261",
+    "013cjyk83",
+    "00c00ys31",
+    "04y8cs423",
+    "04t0gwh46",
+    "00q09pe49",
+    "011tm7n37",
+    "05dtvab05",
+    "010jbqd54",
+    "02feahw73",
+    "01215r597",
+    "02k9vew78",
+    "00ks66431",
+    "05krs5044",
+    "01a77tt86",
+    "00yhnba62",
+    "04kpzy923",
+    "05chwyh56",
+    "04pp8hn57"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1411.5825",
@@ -2744,15 +3114,56 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Hyperspectral remote sensing images (HSIs) usually have high spectral resolution and low spatial resolution. Conversely, multispectral images (MSIs) usually have low spectral and high spatial resolutions. The problem of inferring images which combine the high spectral and high spatial resolutions of HSIs and MSIs, respectively, is a data fusion problem that has been the focus of recent active research due to the increasing availability of HSIs and MSIs retrieved from the same geographical area. We formulate this problem as the minimization of a convex objective function containing two quadratic data-fitting terms and an edge-preserving regularizer. The data-fitting terms account for blur, different resolutions, and additive noise. The regularizer, a form of vector Total Variation, promotes piecewise-smooth solutions with discontinuities aligned across the hyperspectral bands. The downsampling operator accounting for the different spatial resolutions, the non-quadratic and non-smooth nature of the regularizer, and the very large size of the HSI to be estimated lead to a hard optimization problem. We deal with these difficulties by exploiting the fact that HSIs generally \"live\" in a low-dimensional subspace and by tailoring the Split Augmented Lagrangian Shrinkage Algorithm (SALSA), which is an instance of the Alternating Direction Method of Multipliers (ADMM), to this optimization problem, by means of a convenient variable splitting. The spatial blur and the spectral linear operators linked, respectively, with the HSI and MSI acquisition processes are also estimated, and we obtain an effective algorithm that outperforms the state-of-the-art, as illustrated in a series of experiments with simulated and real-life data.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Instituto de Telecomunicações",
+    "GIPSA-Lab",
+    "Instituto Superior Técnico",
+    "Pôle de recherche et d'enseignement supérieur Université de Grenoble",
+    "University of Lisbon",
+    "University of Iceland"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2,
+     3
+    ],
+    null,
+    [
+     4,
+     0,
+     2
+    ],
+    [
+     5,
+     1
+    ]
+   ],
+   "institutions": [
+    "Instituto de Telecomunicações",
+    "GIPSA-Lab",
+    "Instituto Superior Técnico",
+    "Pôle de recherche et d'enseignement supérieur Université de Grenoble",
+    "University of Lisbon",
+    "University of Iceland"
+   ],
+   "institution_ids": [
+    "02ht4fk33",
+    "02wrme198",
+    "03db2by73",
+    "04668v621",
+    "01c27hj86",
+    "01db6h964"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1411.4005",
@@ -3303,15 +3714,31 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Despite the importance of image representations such as histograms of oriented gradients and deep Convolutional Neural Networks (CNN), our theoretical understanding of them remains limited. Aiming at filling this gap, we investigate three key mathematical properties of representations: equivariance, invariance, and equivalence. Equivariance studies how transformations of the input image are encoded by the representation, invariance being a special case where a transformation has no effect. Equivalence studies whether two representations, for example two different parametrisations of a CNN, capture the same visual information or not. A number of methods to establish these properties empirically are proposed, including introducing transformation and stitching layers in CNNs. These methods are then applied to popular representations to reveal insightful aspects of their structure, including clarifying at which layers in a CNN certain geometric invariances are achieved. While the focus of the paper is theoretical, direct applications to structured-output regression are demonstrated too.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Oxford"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Oxford"
+   ],
+   "institution_ids": [
+    "052gg0110"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1411.5908",
@@ -3340,15 +3767,48 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Detecting and segmenting salient objects from natural scenes, often referred to as salient object detection, has attracted great interest in computer vision. While many models have been proposed and several applications have emerged, a deep understanding of achievements and issues remains lacking. We aim to provide a comprehensive review of recent progress in salient object detection and situate this field among other closely related areas such as generic scene segmentation, object proposal generation, and saliency for fixation prediction. Covering 228 publications, we survey i) roots, key concepts, and tasks, ii) core techniques and main modeling trends, and iii) datasets and evaluation metrics for salient object detection. We also discuss open problems such as evaluation metrics and dataset bias in model performance, and suggest future research directions.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Nankai University",
+    "University of Massachusetts Amherst",
+    "State Key Laboratory of Virtual Reality Technology and Systems",
+    "Beihang University"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2,
+     3
+    ]
+   ],
+   "institutions": [
+    "Nankai University",
+    "University of Massachusetts Amherst",
+    "State Key Laboratory of Virtual Reality Technology and Systems",
+    "Beihang University"
+   ],
+   "institution_ids": [
+    "01y1kjr75",
+    "0072zz521",
+    "0009eea46",
+    "00wk2mp56"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1411.5878",
@@ -3574,15 +4034,35 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "In this paper we address three different computer vision tasks using a single basic architecture: depth prediction, surface normal estimation, and semantic labeling. We use a multiscale convolutional network that is able to adapt easily to each task using only small modifications, regressing from the input image to the output map directly. Our method progressively refines predictions using a sequence of scales, and captures many image details without any superpixels or low-level segmentation. We achieve state-of-the-art performance on benchmarks for all three tasks.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "New York University",
+    "Meta"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "institutions": [
+    "New York University",
+    "Meta"
+   ],
+   "institution_ids": [
+    "0190ak572",
+    "01zbnvs85"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1411.4734",
@@ -3608,15 +4088,40 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "We introduce a learning-based approach to detect repeatable keypoints under drastic imaging changes of weather and lighting conditions to which state-of-the-art keypoint detectors are surprisingly sensitive. We first identify good keypoint candidates in multiple training images taken from the same viewpoint. We then train a regressor to predict a score map whose maxima are those points so that they can be found by simple non-maximum suppression. As there are no standard datasets to test the influence of these kinds of changes, we created our own, which we will make publicly available. We will show that our method significantly outperforms the state-of-the-art methods in such challenging conditions, while still achieving state-of-the-art performance on the untrained standard Oxford dataset.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "École Polytechnique Fédérale de Lausanne",
+    "Graz University of Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "École Polytechnique Fédérale de Lausanne",
+    "Graz University of Technology"
+   ],
+   "institution_ids": [
+    "02s376052",
+    "00d7xrm67"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1411.4568",
@@ -3699,15 +4204,61 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Models based on deep convolutional networks have dominated recent image interpretation tasks; we investigate whether models which are also recurrent, or \"temporally deep\", are effective for tasks involving sequences, visual and otherwise. We develop a novel recurrent convolutional architecture suitable for large-scale visual learning which is end-to-end trainable, and demonstrate the value of these models on benchmark video recognition tasks, image description and retrieval problems, and video narration challenges. In contrast to current models which assume a fixed spatio-temporal receptive field or simple temporal averaging for sequential processing, recurrent convolutional models are \"doubly deep\"' in that they can be compositional in spatial and temporal \"layers\". Such models may have advantages when target concepts are complex and/or training data are limited. Learning long-term dependencies is possible when nonlinearities are incorporated into the network state updates. Long-term RNN models are appealing in that they directly can map variable-length inputs (e.g., video frames) to variable length outputs (e.g., natural language text) and can model complex temporal dynamics; yet they can be optimized with backpropagation. Our recurrent long-term models are directly connected to modern visual convnet models and can be jointly trained to simultaneously learn temporal dynamics and convolutional perceptual representations. Our results show such models have distinct advantages over state-of-the-art models for recognition or generation which are separately defined and/or optimized.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of California, Berkeley",
+    "International Computer Science Institute",
+    "University of Texas at Austin",
+    "University of Massachusetts Lowell"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     2
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     3,
+     0
+    ],
+    [
+     3,
+     0
+    ]
+   ],
+   "institutions": [
+    "University of California, Berkeley",
+    "International Computer Science Institute",
+    "University of Texas at Austin",
+    "University of Massachusetts Lowell"
+   ],
+   "institution_ids": [
+    "01an7q238",
+    "01ewh7m12",
+    "00hj54h04",
+    "03hamhx47"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1411.4389",
@@ -3998,15 +4549,31 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Reliable microaneurysm detection in digital fundus images is still an open issue in medical image processing. We propose an ensemble-based framework to improve microaneurysm detection. Unlike the well-known approach of considering the output of multiple classifiers, we propose a combination of internal components of microaneurysm detectors, namely preprocessing methods and candidate extractors. We have evaluated our approach for microaneurysm detection in an online competition, where this algorithm is currently ranked as first and also on two other databases. Since microaneurysm detection is decisive in diabetic retinopathy grading, we also tested the proposed method for this task on the publicly available Messidor database, where a promising AUC 0.90 with 0.01 uncertainty is achieved in a 'DR/non-DR'-type classification based on the presence or absence of the microaneurysms.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Debrecen"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Debrecen"
+   ],
+   "institution_ids": [
+    "02xf66n48"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1410.8577",
@@ -4033,15 +4600,31 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "In this paper, an ensemble-based method for the screening of diabetic retinopathy (DR) is proposed. This approach is based on features extracted from the output of several retinal image processing algorithms, such as image-level (quality assessment, pre-screening, AM/FM), lesion-specific (microaneurysms, exudates) and anatomical (macula, optic disc) components. The actual decision about the presence of the disease is then made by an ensemble of machine learning classifiers. We have tested our approach on the publicly available Messidor database, where 90% sensitivity, 91% specificity and 90% accuracy and 0.989 AUC are achieved in a disease/no-disease setting. These results are highly competitive in this field and suggest that retinal image processing is a valid approach for automatic DR screening.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Debrecen"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Debrecen"
+   ],
+   "institution_ids": [
+    "02xf66n48"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1410.8576",
@@ -4069,15 +4652,45 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Salient object detection has been attracting a lot of interest, and recently various heuristic computational models have been designed. In this paper, we formulate saliency map computation as a regression problem. Our method, which is based on multi-level image segmentation, utilizes the supervised learning approach to map the regional feature vector to a saliency score. Saliency scores across multiple levels are finally fused to produce the saliency map. The contributions lie in two-fold. One is that we propose a discriminate regional feature integration approach for salient object detection. Compared with existing heuristic models, our proposed method is able to automatically integrate high-dimensional regional saliency features and choose discriminative ones. The other is that by investigating standard generic region properties as well as two widely studied concepts for salient object detection, i.e., regional contrast and backgroundness, our approach significantly outperforms state-of-the-art methods on six benchmark datasets. Meanwhile, we demonstrate that our method runs as fast as most existing algorithms.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Massachusetts Amherst",
+    "Xi'an Jiaotong University",
+    "Nankai University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    null,
+    [
+     1
+    ],
+    null
+   ],
+   "institutions": [
+    "University of Massachusetts Amherst",
+    "Xi'an Jiaotong University",
+    "Nankai University"
+   ],
+   "institution_ids": [
+    "0072zz521",
+    "017zhmm22",
+    "01y1kjr75"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1410.5926",
@@ -4194,15 +4807,56 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "We propose a generative model for robust tensor factorization in the presence of both missing data and outliers. The objective is to explicitly infer the underlying low-CP-rank tensor capturing the global information and a sparse tensor capturing the local information (also considered as outliers), thus providing the robust predictive distribution over missing entries. The low-CP-rank tensor is modeled by multilinear interactions between multiple latent factors on which the column sparsity is enforced by a hierarchical prior, while the sparse tensor is modeled by a hierarchical view of Student-t distribution that associates an individual hyperparameter with each element independently. For model learning, we develop an efficient closed-form variational inference under a fully Bayesian treatment, which can effectively prevent the overfitting problem and scales linearly with data size. In contrast to existing related works, our method can perform model selection automatically and implicitly without need of tuning parameters. More specifically, it can discover the groundtruth of CP rank and automatically adapt the sparsity inducing priors to various types of outliers. In addition, the tradeoff between the low-rank approximation and the sparse representation can be optimized in the sense of maximum model evidence. The extensive experiments and comparisons with many state-of-the-art algorithms on both synthetic and real-world datasets demonstrate the superiorities of our method from several perspectives.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Shanghai Jiao Tong University",
+    "RIKEN Center for Brain Science",
+    "RIKEN",
+    "Systems Research Institute",
+    "Polish Academy of Sciences"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     0
+    ],
+    [
+     1,
+     2,
+     3,
+     4
+    ],
+    null
+   ],
+   "institutions": [
+    "Shanghai Jiao Tong University",
+    "RIKEN Center for Brain Science",
+    "RIKEN",
+    "Systems Research Institute",
+    "Polish Academy of Sciences"
+   ],
+   "institution_ids": [
+    "0220qvk04",
+    "04j1n1c04",
+    "01sjwvz98",
+    "0111cp837",
+    "01dr6c206"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1410.2386",
@@ -4231,15 +4885,53 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Biometrics systems have significantly improved person identification and authentication, playing an important role in personal, national, and global security. However, these systems might be deceived (or \"spoofed\") and, despite the recent advances in spoofing detection, current solutions often rely on domain knowledge, specific biometric reading systems, and attack types. We assume a very limited knowledge about biometric spoofing at the sensor to derive outstanding spoofing detection systems for iris, face, and fingerprint modalities based on two deep learning approaches. The first approach consists of learning suitable convolutional network architectures for each domain, while the second approach focuses on learning the weights of the network via back-propagation. We consider nine biometric spoofing benchmarks — each one containing real and fake samples of a given biometric modality and attack type — and learn deep representations for each benchmark by combining and contrasting the two learning approaches. This strategy not only provides better comprehension of how these approaches interplay, but also creates systems that exceed the best known results in eight out of the nine benchmarks. The results strongly indicate that spoofing detection systems based on convolutional networks can be robust to attacks already known and possibly adapted, with little effort, to image-based attacks that are yet to come.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Universidade Federal de Ouro Preto",
+    "Universidade Estadual de Campinas (UNICAMP)",
+    "Universidade Federal de Minas Gerais"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Universidade Federal de Ouro Preto",
+    "Universidade Estadual de Campinas (UNICAMP)",
+    "Universidade Federal de Minas Gerais"
+   ],
+   "institution_ids": [
+    "056s65p46",
+    "04wffgt70",
+    "0176yjw32"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1410.1980",
@@ -4473,15 +5165,52 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "This paper presents a variational based approach to fusing hyperspectral and multispectral images. The fusion process is formulated as an inverse problem whose solution is the target image assumed to live in a much lower dimensional subspace. A sparse regularization term is carefully designed, relying on a decomposition of the scene on a set of dictionaries. The dictionary atoms and the corresponding supports of active coding coefficients are learned from the observed images. Then, conditionally on these dictionaries and supports, the fusion problem is solved via alternating optimization with respect to the target image (using the alternating direction method of multipliers) and the coding coefficients. Simulation results demonstrate the efficiency of the proposed algorithm when compared with the state-of-the-art fusion methods.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Institut de Recherche en Informatique de Toulouse",
+    "École Nationale Supérieure d'Électrotechnique, d'Électronique, d'Informatique, d'Hydraulique et des Télécommunications",
+    "Université de Toulouse",
+    "Institut National Polytechnique de Toulouse"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2
+    ],
+    null,
+    [
+     3,
+     0,
+     1,
+     2
+    ],
+    [
+     3,
+     0,
+     1,
+     2
+    ]
+   ],
+   "institutions": [
+    "Institut de Recherche en Informatique de Toulouse",
+    "École Nationale Supérieure d'Électrotechnique, d'Électronique, d'Informatique, d'Hydraulique et des Télécommunications",
+    "Université de Toulouse",
+    "Institut National Polytechnique de Toulouse"
+   ],
+   "institution_ids": [
+    "01rx4qw44",
+    "05wfw4946",
+    "01ahyrz84",
+    "033p9g875"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1409.5729",
@@ -4592,15 +5321,43 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Image classification has advanced significantly in recent years with the availability of large-scale image sets. However, fine-grained classification remains a major challenge due to the annotation cost of large numbers of fine-grained categories. This project shows that compelling classification performance can be achieved on such categories even without labeled training data. Given image and class embeddings, we learn a compatibility function such that matching embeddings are assigned a higher score than mismatching ones; zero-shot classification of an image proceeds by finding the label yielding the highest joint compatibility score. We use state-of-the-art image features and focus on different supervised attributes and unsupervised output embeddings either derived from hierarchies or learned from unlabeled text corpora. We establish a substantially improved state-of-the-art on the Animals with Attributes and Caltech-UCSD Birds datasets. Most encouragingly, we demonstrate that purely unsupervised output embeddings (learned from Wikipedia and improved with fine-grained text) achieve compelling results, even outperforming the previous supervised state-of-the-art. By combining different output embeddings, we further improve results.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Max Planck Institute for Informatics",
+    "University of Michigan"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Max Planck Institute for Informatics",
+    "University of Michigan"
+   ],
+   "institution_ids": [
+    "01w19ak89",
+    "00jmfr291"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1409.8403",
@@ -4628,15 +5385,64 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Multiple Object Tracking (MOT) has gained increasing attention due to its academic and commercial potential. Although different approaches have been proposed to tackle this problem, it still remains challenging due to factors like abrupt appearance changes and severe object occlusions. In this work, we contribute the first comprehensive and most recent review on this problem. We inspect the recent advances in various aspects and propose some interesting directions for future research. To the best of our knowledge, there has not been any extensive review on this topic in the community. We endeavor to provide a thorough review on the development of this problem in recent decades. The main contributions of this review are fourfold: 1) Key aspects in an MOT system, including formulation, categorization, key principles, evaluation of MOT are discussed; 2) Instead of enumerating individual works, we discuss existing approaches according to various aspects, in each of which methods are divided into different groups and each group is discussed in detail for the principles, advances and drawbacks; 3) We examine experiments of existing publications and summarize results on popular datasets to provide quantitative and comprehensive comparisons. By analyzing the results from different perspectives, we have verified some basic agreements in the field; and 4) We provide a discussion about issues of MOT research, as well as some interesting directions which will become potential research effort in the future.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Tencent",
+    "Imperial College London",
+    "Chinese Academy of Sciences",
+    "Institute of Automation",
+    "University of Chinese Academy of Sciences",
+    "Amazon",
+    "Wenzhou University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     2,
+     3,
+     4
+    ],
+    [
+     5
+    ],
+    [
+     6
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Tencent",
+    "Imperial College London",
+    "Chinese Academy of Sciences",
+    "Institute of Automation",
+    "University of Chinese Academy of Sciences",
+    "Amazon",
+    "Wenzhou University"
+   ],
+   "institution_ids": [
+    "00hhjss72",
+    "041kmwe10",
+    "034t30j35",
+    "022c3hy66",
+    "05qbk4x57",
+    "00b9ktm87",
+    "020hxh324"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1409.7618",
@@ -4767,15 +5573,34 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "We present a method for extracting depth information from a rectified image pair. We train a convolutional neural network to predict how well two image patches match and use it to compute the stereo matching cost. The cost is refined by cross-based cost aggregation and semiglobal matching, followed by a left-right consistency check to eliminate errors in the occluded regions. Our stereo method achieves an error rate of 2.61 % on the KITTI stereo dataset and is currently (August 2014) the top performing method on this dataset.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Ljubljana",
+    "New York University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Ljubljana",
+    "New York University"
+   ],
+   "institution_ids": [
+    "05njb9z20",
+    "0190ak572"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1409.4326",
@@ -5103,15 +5928,37 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "In this study, we show that landmark detection or face alignment task is not a single and independent problem. Instead, its robustness can be greatly improved with auxiliary information. Specifically, we jointly optimize landmark detection together with the recognition of heterogeneous but subtly correlated facial attributes, such as gender, expression, and appearance attributes. This is non-trivial since different attribute inference tasks have different learning difficulties and convergence rates. To address this problem, we formulate a novel tasks-constrained deep model, which not only learns the inter-task correlation but also employs dynamic task coefficients to facilitate the optimization convergence when learning multiple complex tasks. Extensive evaluations show that the proposed task-constrained learning (i) outperforms existing face alignment methods, especially in dealing with faces with severe occlusion and pose variation, and (ii) reduces model complexity drastically compared to the state-of-the-art methods based on cascaded deep model.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Chinese University of Hong Kong"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Chinese University of Hong Kong"
+   ],
+   "institution_ids": [
+    "00t33hh48"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1408.3967",
@@ -5136,15 +5983,42 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "We propose a method to address challenges in unconstrained face detection, such as arbitrary pose variations and occlusions. First, a new image feature called Normalized Pixel Difference (NPD) is proposed. NPD feature is computed as the difference to sum ratio between two pixel values, inspired by the Weber Fraction in experimental psychology. The new feature is scale invariant, bounded, and is able to reconstruct the original image. Second, we propose a deep quadratic tree to learn the optimal subset of NPD features and their combinations, so that complex face manifolds can be partitioned by the learned rules. This way, only a single soft-cascade classifier is needed to handle unconstrained face detection. Furthermore, we show that the NPD features can be efficiently obtained from a look up table, and the detection template can be easily scaled, making the proposed face detector very fast. Experimental results on three public face datasets (FDDB, GENKI, and CMU-MIT) show that the proposed method achieves state-of-the-art performance in detecting unconstrained faces with arbitrary pose variations and occlusions in cluttered scenes.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Chinese Academy of Sciences",
+    "Institute of Automation",
+    "Michigan State University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Chinese Academy of Sciences",
+    "Institute of Automation",
+    "Michigan State University"
+   ],
+   "institution_ids": [
+    "034t30j35",
+    "022c3hy66",
+    "05hs6h993"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1408.1656",
@@ -5718,15 +6592,34 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "In the last two years, convolutional neural networks (CNNs) have achieved an impressive suite of results on standard recognition datasets and tasks. CNN-based features seem poised to quickly replace engineered representations, such as SIFT and HOG. However, compared to SIFT and HOG, we understand much less about the nature of the features learned by large CNNs. In this paper, we experimentally probe several aspects of CNN feature learning in an attempt to help practitioners gain useful, evidence-backed intuitions about how to apply CNNs to computer vision problems.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of California, Berkeley"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of California, Berkeley"
+   ],
+   "institution_ids": [
+    "01an7q238"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1407.1610",
@@ -6266,15 +7159,64 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Automated Lymph Node (LN) detection is an important clinical diagnostic task but very challenging due to the low contrast of surrounding structures in Computed Tomography (CT) and to their varying sizes, poses, shapes and sparsely distributed locations. State-of-the-art studies show the performance range of 52.9% sensitivity at 3.1 false-positives per volume (FP/vol.), or 60.9% at 6.1 FP/vol. for mediastinal LN, by one-shot boosting on 3D HAAR features. In this paper, we first operate a preliminary candidate generation stage, towards 100% sensitivity at the cost of high FP levels (40 per patient), to harvest volumes of interest (VOI). Our 2.5D approach consequently decomposes any 3D VOI by resampling 2D reformatted orthogonal views N times, via scale, random translations, and rotations with respect to the VOI centroid coordinates. These random views are then used to train a deep Convolutional Neural Network (CNN) classifier. In testing, the CNN is employed to assign LN probabilities for all N random views that can be simply averaged (as a set) to compute the final classification probability per VOI. We validate the approach on two datasets: 90 CT volumes with 388 mediastinal LNs and 86 patients with 595 abdominal LNs. We achieve sensitivities of 70%/83% at 3 FP/vol. and 84%/90% at 6 FP/vol. in mediastinum and abdomen respectively, which drastically improves over the previous state-of-the-art work.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "National Institutes of Health",
+    "National Institutes of Health Clinical Center"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "National Institutes of Health",
+    "National Institutes of Health Clinical Center"
+   ],
+   "institution_ids": [
+    "01cwqze88",
+    "04vfsmv21"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1406.2639",
@@ -6509,15 +7451,53 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Convolutional Neural Network (CNN) has demonstrated promising performance in single-label image classification tasks. However, how CNN best copes with multi-label images still remains an open problem, mainly due to the complex underlying object layouts and insufficient multi-label training images. In this work, we propose a flexible deep CNN infrastructure, called Hypotheses-CNN-Pooling (HCP), where an arbitrary number of object segment hypotheses are taken as the inputs, then a shared CNN is connected with each hypothesis, and finally the CNN output results from different hypotheses are aggregated with max pooling to produce the ultimate multi-label predictions. Some unique characteristics of this flexible deep CNN infrastructure include: 1) no ground truth bounding box information is required for training; 2) the whole HCP infrastructure is robust to possibly noisy and/or redundant hypotheses; 3) no explicit hypothesis label is required; 4) the shared CNN may be well pre-trained with a large-scale single-label image dataset, e.g. ImageNet; and 5) it may naturally output multi-label prediction results. Experimental results on Pascal VOC2007 and VOC2012 multi-label image datasets well demonstrate the superiority of the proposed HCP infrastructure over other state-of-the-arts. In particular, the mAP reaches 84.2% by HCP only and 90.3% after the fusion with our complementary result in [47] based on hand-crafted features on the VOC2012 dataset, which significantly outperforms the state-of-the-arts with a large margin of more than 7%.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "National University of Singapore",
+    "Beijing Jiaotong University",
+    "Shanghai Jiao Tong University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "National University of Singapore",
+    "Beijing Jiaotong University",
+    "Shanghai Jiao Tong University"
+   ],
+   "institution_ids": [
+    "01tgyzw49",
+    "01yj56c84",
+    "0220qvk04"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1406.5726",
@@ -6591,15 +7571,47 @@
    "cross_list_from": "math.NA",
    "html_url": null,
    "abstract": "Optimization methods are at the core of many problems in signal/image processing, computer vision, and machine learning. For a long time, it has been recognized that looking at the dual of an optimization problem may drastically simplify its solution. Deriving efficient strategies which jointly brings into play the primal and the dual problems is however a more recent idea which has generated many important new contributions in the last years. These novel developments are grounded on recent advances in convex analysis, discrete optimization, parallel processing, and non-smooth optimization with emphasis on sparsity issues. In this paper, we aim at presenting the principles of primal-dual approaches, while giving an overview of numerical methods which have been proposed in different contexts. We show the benefits which can be drawn from primal-dual algorithms both for solving large-scale convex optimization problems and discrete ones, and we provide various application examples to illustrate their usefulness.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "École Normale Supérieure Paris-Saclay",
+    "Centre National de la Recherche Scientifique",
+    "École nationale des ponts et chaussées",
+    "Laboratoire d'Informatique Gaspard-Monge",
+    "Université Paris-Est Marne-la-Vallée"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2,
+     3
+    ],
+    [
+     3,
+     4
+    ]
+   ],
+   "institutions": [
+    "École Normale Supérieure Paris-Saclay",
+    "Centre National de la Recherche Scientifique",
+    "École nationale des ponts et chaussées",
+    "Laboratoire d'Informatique Gaspard-Monge",
+    "Université Paris-Est Marne-la-Vallée"
+   ],
+   "institution_ids": [
+    "00hx6zz33",
+    "02feahw73",
+    "02nwvxz07",
+    "04t50yk91",
+    "02aqt9c37"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1406.5429",
@@ -6682,15 +7694,43 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Existing deep convolutional neural networks (CNNs) require a fixed-size (e.g., 224x224) input image. This requirement is \"artificial\" and may reduce the recognition accuracy for the images or sub-images of an arbitrary size/scale. In this work, we equip the networks with another pooling strategy, \"spatial pyramid pooling\", to eliminate the above requirement. The new network structure, called SPP-net, can generate a fixed-length representation regardless of image size/scale. Pyramid pooling is also robust to object deformations. With these advantages, SPP-net should in general improve all CNN-based image classification methods. On the ImageNet 2012 dataset, we demonstrate that SPP-net boosts the accuracy of a variety of CNN architectures despite their different designs. On the Pascal VOC 2007 and Caltech101 datasets, SPP-net achieves state-of-the-art classification results using a single full-image representation and no fine-tuning. The power of SPP-net is also significant in object detection. Using SPP-net, we compute the feature maps from the entire image only once, and then pool features in arbitrary regions (sub-images) to generate fixed-length representations for training the detectors. This method avoids repeatedly computing the convolutional features. In processing test images, our method is 24-102x faster than the R-CNN method, while achieving better or comparable accuracy on Pascal VOC 2007. In ImageNet Large Scale Visual Recognition Challenge (ILSVRC) 2014, our methods rank #2 in object detection and #3 in image classification among all 38 teams. This manuscript also introduces the improvement made for this competition.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Microsoft Research Asia",
+    "Xi'an Jiaotong University",
+    "University of Science and Technology of China"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Microsoft",
+    "Xi'an Jiaotong University",
+    "University of Science and Technology of China"
+   ],
+   "institution_ids": [
+    "0300m5276",
+    "017zhmm22",
+    "04c4dkn09"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1406.4729",
@@ -7371,15 +8411,58 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "We present a new dataset with the goal of advancing the state-of-the-art in object recognition by placing the question of object recognition in the context of the broader question of scene understanding. This is achieved by gathering images of complex everyday scenes containing common objects in their natural context. Objects are labeled using per-instance segmentations to aid in precise object localization. Our dataset contains photos of 91 objects types that would be easily recognizable by a 4 year old. With a total of 2.5 million labeled instances in 328k images, the creation of our dataset drew upon extensive crowd worker involvement via novel user interfaces for category detection, instance spotting and instance segmentation. We present a detailed statistical analysis of the dataset in comparison to PASCAL, ImageNet, and SUN. Finally, we provide baseline performance analysis for bounding box and segmentation detection results using a Deformable Parts Model.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Cornell University",
+    "California Institute of Technology",
+    "University of California, Irvine",
+    "Microsoft"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    null,
+    null,
+    null,
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     3
+    ]
+   ],
+   "institutions": [
+    "Cornell University",
+    "California Institute of Technology",
+    "University of California, Irvine",
+    "Microsoft"
+   ],
+   "institution_ids": [
+    "05bnh6r87",
+    "05dxps055",
+    "04gyf1771",
+    "00d0nc645"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1405.0312",
@@ -7454,15 +8537,43 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "As surrogate functions of $L_0$-norm, many nonconvex penalty functions have been proposed to enhance the sparse vector recovery. It is easy to extend these nonconvex penalty functions on singular values of a matrix to enhance low-rank matrix recovery. However, different from convex optimization, solving the nonconvex low-rank minimization problem is much more challenging than the nonconvex sparse minimization problem. We observe that all the existing nonconvex penalty functions are concave and monotonically increasing on [0,∞). Thus their gradients are decreasing functions. Based on this property, we propose an Iteratively Reweighted Nuclear Norm (IRNN) algorithm to solve the nonconvex nonsmooth low-rank minimization problem. IRNN iteratively solves a Weighted Singular Value Thresholding (WSVT) problem. By setting the weight vector as the gradient of the concave penalty function, the WSVT problem has a closed form solution. In theory, we prove that IRNN decreases the objective function value monotonically, and any limit point is a stationary point. Extensive experiments on both synthetic data and real images demonstrate that IRNN enhances the low-rank matrix recovery compared with state-of-the-art convex algorithms.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "National University of Singapore",
+    "Nanjing University of Science and Technology",
+    "Peking University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "National University of Singapore",
+    "Nanjing University of Science and Technology",
+    "Peking University"
+   ],
+   "institution_ids": [
+    "01tgyzw49",
+    "00xp9wg62",
+    "02v51f717"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1404.7306",
@@ -7736,15 +8847,31 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Face verification remains a challenging problem in very complex conditions with large variations such as pose, illumination, expression, and occlusions. This problem is exacerbated when we rely unrealistically on a single training data source, which is often insufficient to cover the intrinsically complex face variations. This paper proposes a principled multi-task learning approach based on Discriminative Gaussian Process Latent Variable Model, named GaussianFace, to enrich the diversity of training data. In comparison to existing methods, our model exploits additional data from multiple source-domains to improve the generalization performance of face verification in an unknown target-domain. Importantly, our model can adapt automatically to complex data distributions, and therefore can well capture complex face variations inherent in multiple sources. Extensive experiments demonstrate the effectiveness of the proposed model in learning from diverse data sources and generalize to unseen domain. Specifically, the accuracy of our algorithm achieves an impressive accuracy rate of 98.52% on the well-known and challenging Labeled Faces in the Wild (LFW) benchmark. For the first time, the human-level performance in face verification (97.53%) on LFW is surpassed.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Chinese University of Hong Kong"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Chinese University of Hong Kong"
+   ],
+   "institution_ids": [
+    "00t33hh48"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1404.3840",
@@ -7774,15 +8901,59 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "In this work, we propose a very simple deep learning network for image classification which comprises only the very basic data processing components: cascaded principal component analysis (PCA), binary hashing, and block-wise histograms. In the proposed architecture, PCA is employed to learn multistage filter banks. It is followed by simple binary hashing and block histograms for indexing and pooling. This architecture is thus named as a PCA network (PCANet) and can be designed and learned extremely easily and efficiently. For comparison and better understanding, we also introduce and study two simple variations to the PCANet, namely the RandNet and LDANet. They share the same topology of PCANet but their cascaded filters are either selected randomly or learned from LDA. We have tested these basic networks extensively on many benchmark visual datasets for different tasks, such as LFW for face verification, MultiPIE, Extended Yale B, AR, FERET datasets for face recognition, as well as MNIST for hand-written digits recognition. Surprisingly, for all tasks, such a seemingly naive PCANet model is on par with the state of the art features, either prefixed, highly hand-crafted or carefully learned (by DNNs). Even more surprisingly, it sets new records for many classification tasks in Extended Yale B, AR, FERET datasets, and MNIST variations. Additional experiments on other public datasets also demonstrate the potential of the PCANet serving as a simple but highly competitive baseline for texture classification and object recognition.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "MediaTek",
+    "University of Macau",
+    "ShanghaiTech University",
+    "Tsinghua University",
+    "Advanced Digital Sciences Center",
+    "University of Illinois Urbana-Champaign"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     4
+    ],
+    [
+     5,
+     2
+    ]
+   ],
+   "institutions": [
+    "MediaTek",
+    "University of Macau",
+    "ShanghaiTech University",
+    "Tsinghua University",
+    "Advanced Digital Sciences Center",
+    "University of Illinois Urbana-Champaign"
+   ],
+   "institution_ids": [
+    "05g9jck81",
+    "01r4q9n85",
+    "030bhh786",
+    "03cve4549",
+    "01xaqx887",
+    "047426m28"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1404.3606",
@@ -7871,15 +9042,40 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Supervised hashing aims to map the original features to compact binary codes that are able to preserve label based similarity in the Hamming space. Non-linear hash functions have demonstrated the advantage over linear ones due to their powerful generalization capability. In the literature, kernel functions are typically used to achieve non-linearity in hashing, which achieve encouraging retrieval performance at the price of slow evaluation and training time. Here we propose to use boosted decision trees for achieving non-linearity in hashing, which are fast to train and evaluate, hence more suitable for hashing with high dimensional data. In our approach, we first propose sub-modular formulations for the hashing binary code inference problem and an efficient GraphCut based block search method for solving large-scale inference. Then we learn hash functions by training boosted decision trees to fit the binary codes. Experiments demonstrate that our proposed method significantly outperforms most state-of-the-art methods in retrieval precision and training time. Especially for high-dimensional data, our method is orders of magnitude faster than many methods in terms of training time.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Adelaide"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Adelaide"
+   ],
+   "institution_ids": [
+    "00892tw58"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1404.1561",
@@ -8107,15 +9303,38 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "In this paper, we propose an inertial forward backward splitting algorithm to compute a zero of the sum of two monotone operators, with one of the two operators being co-coercive. The algorithm is inspired by the accelerated gradient method of Nesterov, but can be applied to a much larger class of problems including convex-concave saddle point problems and general monotone inclusions. We prove convergence of the algorithm in a Hilbert space setting and show that several recently proposed first-order methods can be obtained as special cases of the general algorithm. Numerical results show that the proposed algorithm converges faster than existing methods, while keeping the computational cost of each iteration basically unchanged.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Technische Universität Braunschweig",
+    "AIT Austrian Institute of Technology GmbH",
+    "Graz University of Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ]
+   ],
+   "institutions": [
+    "Technische Universität Braunschweig",
+    "AIT Austrian Institute of Technology GmbH",
+    "Graz University of Technology"
+   ],
+   "institution_ids": [
+    "010nsgg66",
+    "04knbh022",
+    "00d7xrm67"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1403.3522",
@@ -8143,15 +9362,52 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Hyperspectral unmixing, the process of estimating a common set of spectral bases and their corresponding composite percentages at each pixel, is an important task for hyperspectral analysis, visualization and understanding. From an unsupervised learning perspective, this problem is very challenging—both the spectral bases and their composite percentages are unknown, making the solution space too large. To reduce the solution space, many approaches have been proposed by exploiting various priors. In practice, these priors would easily lead to some unsuitable solution. This is because they are achieved by applying an identical strength of constraints to all the factors, which does not hold in practice. To overcome this limitation, we propose a novel sparsity based method by learning a data-guided map to describe the individual mixed level of each pixel. Through this data-guided map, the $ℓ_{p}(0<p<1)$ constraint is applied in an adaptive manner. Such implementation not only meets the practical situation, but also guides the spectral bases toward the pixels under highly sparse constraint. What's more, an elegant optimization scheme as well as its convergence proof have been provided in this paper. Extensive experiments on several datasets also demonstrate that the data-guided map is feasible, and high quality unmixing results could be obtained by our method.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Chinese Academy of Sciences",
+    "Institute of Automation"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Chinese Academy of Sciences",
+    "Institute of Automation"
+   ],
+   "institution_ids": [
+    "034t30j35",
+    "022c3hy66"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1403.3155",
@@ -8314,15 +9570,46 @@
    "cross_list_from": "cs.LG",
    "html_url": null,
    "abstract": "CANDECOMP/PARAFAC (CP) tensor factorization of incomplete data is a powerful technique for tensor completion through explicitly capturing the multilinear latent factors. The existing CP algorithms require the tensor rank to be manually specified, however, the determination of tensor rank remains a challenging problem especially for CP rank. In addition, existing approaches do not take into account uncertainty information of latent factors, as well as missing entries. To address these issues, we formulate CP factorization using a hierarchical probabilistic model and employ a fully Bayesian treatment by incorporating a sparsity-inducing prior over multiple latent factors and the appropriate hyperpriors over all hyperparameters, resulting in automatic rank determination. To learn the model, we develop an efficient deterministic Bayesian inference algorithm, which scales linearly with data size. Our method is characterized as a tuning parameter-free approach, which can effectively infer underlying multilinear factors with a low-rank constraint, while also providing predictive distributions over missing entries. Extensive simulations on synthetic data illustrate the intrinsic capability of our method to recover the ground-truth of CP rank and prevent the overfitting problem, even when a large amount of entries are missing. Moreover, the results from real-world applications, including image inpainting and facial image synthesis, demonstrate that our method outperforms state-of-the-art approaches for both tensor factorization and tensor completion in terms of predictive performance.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Shanghai Jiao Tong University",
+    "RIKEN",
+    "RIKEN Center for Brain Science",
+    "Systems Research Institute"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     2,
+     1,
+     3
+    ]
+   ],
+   "institutions": [
+    "Shanghai Jiao Tong University",
+    "RIKEN",
+    "RIKEN Center for Brain Science",
+    "Systems Research Institute"
+   ],
+   "institution_ids": [
+    "0220qvk04",
+    "01sjwvz98",
+    "04j1n1c04",
+    "0111cp837"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1401.6497",
@@ -8348,15 +9635,40 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "To perform unconstrained face recognition robust to variations in illumination, pose and expression, this paper presents a new scheme to extract \"Multi-Directional Multi-Level Dual-Cross Patterns\" (MDML-DCPs) from face images. Specifically, the MDMLDCPs scheme exploits the first derivative of Gaussian operator to reduce the impact of differences in illumination and then computes the DCP feature at both the holistic and component levels. DCP is a novel face image descriptor inspired by the unique textural structure of human faces. It is computationally efficient and only doubles the cost of computing local binary patterns, yet is extremely robust to pose and expression variations. MDML-DCPs comprehensively yet efficiently encodes the invariant characteristics of a face image from multiple levels into patterns that are highly discriminative of inter-personal differences but robust to intra-personal variations. Experimental results on the FERET, CAS-PERL-R1, FRGC 2.0, and LFW databases indicate that DCP outperforms the state-of-the-art local descriptors (e.g. LBP, LTP, LPQ, POEM, tLBP, and LGXP) for both face identification and face verification tasks. More impressively, the best performance is achieved on the challenging LFW and FRGC 2.0 databases by deploying MDML-DCPs in a simple recognition scheme.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Technology Sydney",
+    "University of Maryland, College Park"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Technology Sydney",
+    "University of Maryland, College Park"
+   ],
+   "institution_ids": [
+    "03f0f6041",
+    "047s2c258"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1401.5311",
@@ -8417,15 +9729,29 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Medical image fusion is the process of registering and combining multiple images from single or multiple imaging modalities to improve the imaging quality and reduce randomness and redundancy in order to increase the clinical applicability of medical images for diagnosis and assessment of medical problems. Multi-modal medical image fusion algorithms and devices have shown notable achievements in improving clinical accuracy of decisions based on medical images. This review article provides a factual listing of methods and summarizes the broad scientific challenges faced in the field of medical image fusion. We characterize the medical image fusion research based on (1) the widely used image fusion methods, (2) imaging modalities, and (3) imaging of organs that are under study. This review concludes that even though there exists several open ended technological and scientific challenges, the fusion of medical images has proved to be useful for advancing the clinical reliability of using medical imaging for medical diagnostics and analysis, and is a scientific discipline that has the potential to significantly grow in the coming years.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Nazarbayev University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null
+   ],
+   "institutions": [
+    "Nazarbayev University"
+   ],
+   "institution_ids": [
+    "052bx8q98"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1401.0166",

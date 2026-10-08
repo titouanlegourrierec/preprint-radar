@@ -87,15 +87,43 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "As a powerful statistical image modeling technique, sparse representation has been successfully used in various image restoration applications. The success of sparse representation owes to the development of l1-norm optimization techniques, and the fact that natural images are intrinsically sparse in some domain. The image restoration quality largely depends on whether the employed sparse domain can represent well the underlying image. Considering that the contents can vary significantly across different images or different patches in a single image, we propose to learn various sets of bases from a pre-collected dataset of example image patches, and then for a given patch to be processed, one set of bases are adaptively selected to characterize the local sparse domain. We further introduce two adaptive regularization terms into the sparse representation framework. First, a set of autoregressive (AR) models are learned from the dataset of example image patches. The best fitted AR models to a given patch are adaptively selected to regularize the image local structures. Second, the image non-local self-similarity is introduced as another regularization term. In addition, the sparsity regularization parameter is adaptively estimated for better image restoration performance. Extensive experiments on image deblurring and super-resolution validate that by using adaptive sparse domain selection and adaptive regularization, the proposed method achieves much better results than many state-of-the-art algorithms in terms of both PSNR and visual perception.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Xidian University",
+    "Hong Kong Polytechnic University",
+    "McMaster University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "Xidian University",
+    "Hong Kong Polytechnic University",
+    "McMaster University"
+   ],
+   "institution_ids": [
+    "05s92vm98",
+    "0030zas98",
+    "02fa3aq29"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1012.1184",
@@ -121,15 +149,41 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Background: Dermoscopy is one of the major imaging modalities used in the diagnosis of melanoma and other pigmented skin lesions. Due to the difficulty and subjectivity of human interpretation, computerized analysis of dermoscopy images has become an important research area. One of the most important steps in dermoscopy image analysis is the automated detection of lesion borders. Methods: In this article, we present a systematic overview of the recent border detection methods in the literature paying particular attention to computational issues and evaluation aspects. Conclusion: Common problems with the existing approaches include the acquisition, size, and diagnostic distribution of the test image set, the evaluation of the results, and the inadequate description of the employed methods. Border determination by dermatologists appears to depend upon higher-level knowledge, therefore it is likely that the incorporation of domain knowledge in automated methods will enable them to perform better, especially in sets of images with a variety of diagnoses.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Louisiana State University in Shreveport",
+    "Hosei University",
+    "Aston University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    null
+   ],
+   "institutions": [
+    "Louisiana State University in Shreveport",
+    "Hosei University",
+    "Aston University"
+   ],
+   "institution_ids": [
+    "02c4cbt39",
+    "00bx6dj65",
+    "05j0ve876"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1011.0640",
@@ -160,15 +214,61 @@
    "cross_list_from": "cs.IT",
    "html_url": null,
    "abstract": "In this work we address the subspace recovery problem. Given a set of data samples (vectors) approximately drawn from a union of multiple subspaces, our goal is to segment the samples into their respective subspaces and correct the possible errors as well. To this end, we propose a novel method termed Low-Rank Representation (LRR), which seeks the lowest-rank representation among all the candidates that can represent the data samples as linear combinations of the bases in a given dictionary. It is shown that LRR well solves the subspace recovery problem: when the data is clean, we prove that LRR exactly captures the true subspace structures; for the data contaminated by outliers, we prove that under certain conditions LRR can exactly recover the row space of the original data and detect the outlier as well; for the data corrupted by arbitrary errors, LRR can also approximately recover the row space with theoretical guarantees. Since the subspace membership is provably determined by the row space, these further imply that LRR can perform robust subspace segmentation and error correction, in an efficient way.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Illinois Urbana-Champaign",
+    "National University of Singapore",
+    "Shanghai Jiao Tong University",
+    "Peking University",
+    "Columbia University",
+    "Microsoft Research Asia"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     3
+    ],
+    [
+     1
+    ],
+    [
+     4
+    ],
+    [
+     2
+    ],
+    [
+     0,
+     5
+    ]
+   ],
+   "institutions": [
+    "University of Illinois Urbana-Champaign",
+    "National University of Singapore",
+    "Shanghai Jiao Tong University",
+    "Peking University",
+    "Columbia University",
+    "Microsoft"
+   ],
+   "institution_ids": [
+    "047426m28",
+    "01tgyzw49",
+    "0220qvk04",
+    "02v51f717",
+    "00hj8s172",
+    "0300m5276"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1010.2955",
