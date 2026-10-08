@@ -875,9 +875,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "This study compared classifiers that differentiate between urbanized and non-urbanized areas based on unmanned aerial vehicle (UAV)-acquired RGB imagery. The tested solutions in-cluded numerous vegetation indices (VIs) thresholding and neural networks (NNs). The analysis was conducted for two study areas for which surveys were carried out using different UAVs and cameras. The ground sampling distances for the study areas were 10 mm and 15 mm, respectively. Reference classification was performed manually, obtaining approximately 24 million classified pix-els for the first area and approximately 3.8 million for the second. This research study included an analysis of the impact of the season on the threshold values for the tested VIs and the impact of image patch size provided as inputs for the NNs on classification accuracy. The results of the con-ducted research study indicate a higher classification accuracy using NNs (about 96%) compared with the best of the tested VIs, i.e., Excess Blue (about 87%). Due to the highly imbalanced nature of the used datasets (non-urbanized areas constitute approximately 87% of the total datasets), the Mat-thews correlation coefficient was also used to assess the correctness of the classification. The analysis based on statistical measures was supplemented with a qualitative assessment of the classification results, which allowed the identification of the most important sources of differences in classification between VIs thresholding and NNs.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.40212",
    "pdf_url": "https://arxiv.org/pdf/2609.40212"
   },
@@ -2603,9 +2613,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "This article introduces an algorithm that uses a U-Net architecture to determine vertical ground surface displacements from unmanned aerial vehicle (UAV)-photogrammetry point clouds, offering an alternative to traditional ground filtering methods. Unlike con-ventional ground filters that rely on point cloud classification, the proposed approach em-ploys heteroscedastic regression. The U-Net model predicts the conditional expected val-ues of the elevation corrections, aiming to reduce the impact of vegetation on determined ground surface elevations. Concurrently, it estimates the logarithm of the elevation cor-rection variance, allowing for direct quantification of the uncertainty associated with each elevation correction value. The algorithm was evaluated using three metrics: the root mean square error (RMSE) of vertical displacements, the percentage of nodes with deter-mined displacement values, and the percentage of outliers among those values. Perfor-mance was assessed using the technique for order of preference by similarity to ideal so-lution (TOPSIS) method and compared against several ground-filter-based algorithms across four datasets, each including at least two time intervals. In most cases, the U-Net-based approach demonstrated a slight performance advantage over traditional ground filtering techniques. For example, for the U-Net-based algorithm, for one of the test da-tasets, the RMSE of the determined subsidences was 6.1 cm, the percentage of nodes with determined subsidences was 80.5%, and the percentage of outliers was 0.2%. For the same case, the algorithm based on the next best model (SMRF) allowed an RMSE of 7.7 cm to be obtained; for 77.3% of nodes, the subsidences were determined; and the percentage of outliers was 0.3%.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.39756",
    "pdf_url": "https://arxiv.org/pdf/2609.39756"
   },
@@ -9495,9 +9515,60 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Neural implicit representations have had a significant impact on scene reconstruction by enabling robots to build continuous, differentiable, and high-fidelity 3D maps. Most existing works focus on geometric reconstruction and lack semantic information for high-level spatial understanding and task planning. Also, as the scale and complexity of the environment increase, neural representations face the challenge of maintaining computational efficiency in back-end optimization. To resolve these two challenges, we introduce a hierarchical neural field that leverages multiresolution submaps to achieve an efficient and scalable implicit representation, and a unified query and decoding mechanism to support both geometric and semantic features. More specifically, the learnable map features can be converted to the output with the query and decoding process for both training and inference. For large-scale representation, we decompose a scene into overlapping submaps and do hierarchical optimization within each local submap, thus enabling scalable computation. To further improve efficiency, we design feature encoders that predict initial hierarchical grid features to substantially reduce the time needed to optimize the submap features from scratch. To correct estimation drift among submaps, we align and fuse them entirely within the implicit feature space, leading to substantial acceleration by avoiding the need to decode the final output. Building upon this efficient hierarchical representation, we embed both geometric features and vision-language latent features into the map, and demonstrate it on both Signed Distance Field (SDF) construction and open-vocabulary object grounding. Our approach significantly improves computation and memory efficiency, maintains high estimation accuracy, and endows the robot with spatial awareness on large-scale real-world benchmarks.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "University of California San Diego",
+    "Southern University of Science and Technology",
+    "Norwegian University of Science and Technology",
+    "University of Michigan"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     0
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    [
+     3
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of California San Diego",
+    "Southern University of Science and Technology",
+    "Norwegian University of Science and Technology",
+    "University of Michigan"
+   ],
+   "institution_ids": [
+    "0168r3w48",
+    "049tv2d57",
+    "05xg72x27",
+    "00jmfr291"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.38620",
    "pdf_url": "https://arxiv.org/pdf/2609.38620"
   },
@@ -11074,9 +11145,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "We introduce modal kinetic typography, which animates a vector glyph to express a semantic concept while keeping it legible. Our key idea is to build motion from the glyph's natural vibration modes. Specifically, a finite-element eigenproblem assembled from the vector outline yields the glyph's softest modes, for the whole letter and for each of its parts, allowing it to bend. The problem's zero-energy solutions, i.e., rigid translations and rotations, are applied in closed form to each part, allowing parts to also move as blocks. To animate the glyph, a frozen video diffusion model supervises only the modes' amplitudes and phases. Our modal approach addresses two weaknesses of prior work. Free-form point optimization under video score distillation (SDS) moves each point and frame independently along noisy gradients, tearing the outline and causing jitter. In contrast, our modes are smooth along the outline and driven by a few whole-cycle harmonics, which restricts these gradients to smooth, seamlessly looping motion. On the other hand, structured alternatives rely on skeletons or keypoints from category-specific priors, whereas our modes come from the glyph itself; the only prior is a list naming each letter's moving parts, generated once for the whole alphabet by a language model. In modal kinetic typography, shape and motion are disentangled by construction: a single base outline is sculpted toward the concept, and the modal drive cannot alter it, so a letter can also be animated without being reshaped. Our method produces more articulated and smoother motion than Dynamic Typography and AniClipart at comparable or better concept alignment, with less glyph tearing than Dynamic Typography, and is preferred by human raters, including in a frozen-shape setting where motion alone must carry the concept. Our results were also preferred over Astra (GPT-6) by human raters.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.38325",
    "pdf_url": "https://arxiv.org/pdf/2609.38325"
   },
@@ -11497,9 +11578,33 @@
    "cross_list_from": "eess.IV",
    "html_url": null,
    "abstract": "One-class artifact detectors for whole-slide images learn normal tissue from a clean training pool and flag departures from it. The pool is built by a preprocessing pipeline whose tissue-detection step is usually treated as neutral. We tested whether it is. On 16 annotated TCGA slides, we rebuilt the clean pool of a diffusion-based detector with different tissue detection methods and compared the resulting models in a four-fold cross-validation. Per-slide saturation-Otsu detection excluded normal tissue, chiefly tissue with large clear spaces such as adipose tissue and alveolar parenchyma, and on slides with thick marker ink kept the ink while excluding ordinary tissue. Replacing it with entropy-based detection reduced the false-positive fraction on held-out clean slides from 0.102 to 0.016, in every fold and with a second training seed, without loss of sensitivity; the gain came from the composition of the pool, not its size. Across three tissue detection methods, false positives followed the fraction of such clear-space tissue in the pool, a statistic that needs no labels or training (0.103, 0.016 and 0.009). The effect did not carry over at the same size to a nearest-neighbour detector on foundation-model features. On an external cohort, the curated pool lowered clean-control false positives by about 20%, far less than within TCGA, and the remaining cross-center loss was not explained by stain differences. For one-class quality control, tissue detection decides what the model learns as normal and should be chosen and reported accordingly.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "University of Piraeus"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Piraeus"
+   ],
+   "institution_ids": [
+    "02qs84g94"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.40083",
    "pdf_url": "https://arxiv.org/pdf/2609.40083"
   },
@@ -12472,9 +12577,19 @@
    "cross_list_from": "cs.CL",
    "html_url": null,
    "abstract": "Block drafters for speculative decoding are commonly trained on corpora written by external models, where a single off-policy token invalidates supervision for all subsequent slots in a block. Existing approaches discard these divergent slots, resulting in severe supervision loss. To resolve this problem while preserving the training corpus, we propose a rollout-based training framework that recovers full supervision through two complementary components. The first component, Anchor-Label Relabelling (ALR), replaces corpus labels with distributions from greedy target rollouts, restoring valid supervision across all predicted slots. The second component, In-Rollout Anchors (IRA), places draft blocks directly inside these rollouts to expose the drafter to target-generated context, reusing precomputed rollout features at no additional target cost. Across fixed vision-language and text corpora, our framework increases greedy accepted length by up to 36.5% over DFlash and consistently outperforms erasing baselines. Notably, a single epoch of our method surpasses the best erase schedules. After three epochs, it matches the acceptance length of training on target-regenerated responses. These results show that our framework provides an effective and compute-efficient approach for training speculative drafters on fixed corpora without modifying the original text. Code is available at https://github.com/js-lee-AI/ALR-IRA.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.38795",
    "pdf_url": "https://arxiv.org/pdf/2609.38795"
   },

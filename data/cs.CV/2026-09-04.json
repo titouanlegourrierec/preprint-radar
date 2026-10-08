@@ -1572,9 +1572,41 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Preprocessing-based defenses are the standard first-line response to adversarial attacks on edge vision systems, requiring no retraining, no architectural changes, and widely recommended as model-agnostic mitigations. Yet the foundational evaluations of these defenses were conducted on residual or Inception-class architectures, not on the depthwise-separable CNNs that dominate edge deployments. This untested assumption leaves a gap in the security evaluation literature. This paper closes that gap by evaluating six preprocessing defenses against adversarial perturbations across both architecture families. Across all perturbation levels and defenses tested, the two depthwise-separable architectures show consistently poor recovery while the residual architecture shows partial recovery; ablation results are consistent with an architectural rather than parametric explanation, though only three architectures and one attack family are evaluated. Crucially, this failure is not merely a negative result. The same output divergence that disqualifies preprocessing as a recovery mechanism reveals a detection opportunity: preprocessing consistently disrupts clean predictions while leaving adversarial predictions largely unchanged, an asymmetry that is directly measurable without retraining or architectural modification. We further show that standard image quality metrics are unreliable proxies for defense effectiveness, a methodological gap in current evaluation practice. A practitioner decision framework is provided for adversarially resilient edge vision deployment.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "UNSW Sydney",
+    "Bangladesh University of Business and Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    null,
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "UNSW Sydney",
+    "Bangladesh University of Business and Technology"
+   ],
+   "institution_ids": [
+    "03r8z3t63",
+    "0400am365"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.03453",
    "pdf_url": "https://arxiv.org/pdf/2609.03453"
   },
@@ -1882,9 +1914,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "In conditional coding-based neural video compression, the quality of temporal context directly affects compression per- formance. Existing methods mostly construct context from prop- agated reference features, but they are vulnerable to motion esti- mation and local alignment errors in regions with complex mo- tion, occlusion, and high-frequency textures, resulting in inaccu- rate temporal information. To address this issue, this paper pro- poses a method combining deformable temporal alignment and difference-aware spatial selective fusion. A Context-aware Tem- poral Alignment Module is used to generate complementary tem- poral context, while a Difference-aware Spatial Selective Fusion module adaptively selects reliable temporal information and sup- presses misalignment. Experiments show that the proposed method achieves certain rate-distortion performance improve- ment over DCVC-DC.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.03520",
    "pdf_url": "https://arxiv.org/pdf/2609.03520"
   },
@@ -4173,9 +4215,54 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Dust in agriculture presents a significant challenge for autonomous agricultural machinery. Dust can impair the performance of sensors and algorithms. This work, therefore, presents a concept for a proving ground consisting of an indoor and outdoor area. The indoor area comprises a laboratory test bench where dust circulates in a closed system and a test hall where life-size objects can be placed. The outdoor area features dedicated test setups that enable reproducible data to be recorded with and without dust during real-world agriculture work. The proving ground and the setups are visualized in 3D.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Baden-Wuerttemberg Cooperative State University",
+    "Ravensburg University of Cooperative Education",
+    "Technical University of Munich"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    null,
+    [
+     0,
+     1,
+     2
+    ]
+   ],
+   "institutions": [
+    "Baden-Wuerttemberg Cooperative State University",
+    "Ravensburg University of Cooperative Education",
+    "Technical University of Munich"
+   ],
+   "institution_ids": [
+    "02xdzy536",
+    "014cnmj57",
+    "02kkvpp62"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.03895",
    "pdf_url": "https://arxiv.org/pdf/2609.03895"
   },
@@ -4282,9 +4369,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Generating complete 3D scenes from sparse, unconstrained views is a fundamental challenge in 3D vision which requires reasoning beyond observed content while remaining computationally tractable. Existing feed-forward reconstruction methods are inherently limited to content visible in the input images, while 3D generative modeling is hindered by the high computational cost of dense volumetric representations and the scarcity of large-scale 3D supervision. We introduce SPAR3S, a sparse voxel-aligned 3D latent generative model for conditional scene completion without requiring ground-truth 3D data for supervision. Our key insight is to formulate 3D scene generation in a structured, compact, voxel-aligned 3D latent space where only occupied voxels are represented. We learn this sparse latent space directly from multi-view images using photometric supervision via differentiable 3D Gaussian Splatting. Given a partial set of observed voxels encoded from sparse input views, scene completion reduces to predicting the missing latent tokens and their spatial support within the voxel grid. To this end, we train a masked autoregressive transformer that jointly models voxel occupancy and latent token values, enabling efficient and spatially consistent generation of unseen regions. We demonstrate the effectiveness of our method on synthetic indoor scenes, achieving higher novel-view quality than prior work. We further validate its generalization on RealEstate10k, highlighting its applicability to real-world data.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.03931",
    "pdf_url": "https://arxiv.org/pdf/2609.03931"
   },
@@ -6051,9 +6148,74 @@
    "cross_list_from": "physics.med-ph",
    "html_url": null,
    "abstract": "Training deep learning-based medical image segmentation models is challenging with limited curated datasets. For AGITG TOPGEAR, a gastric cancer trial, the Clinical Target Volume (CTV) is complex and defined by multiple anatomical landmarks, making upfront training data preparation difficult for an automated contour QA segmentation model. We investigate anatomical priors, derived from surrounding organ segmentations, to provide spatial context and improve TOPGEAR CTV segmentation accuracy. We also evaluate active learning, iteratively expanding the training dataset by selecting cases expected to improve performance. One hundred TOPGEAR CT scans were retrospectively analyzed. An initial set of 10 expert-contoured cases was used to train an nnU-Net model. TotalSegmentator generated a voxel-wise anatomical prior map from surrounding structures as an additional input channel. Active learning was simulated over four iterations, selecting cases by model uncertainty and segmentation performance. All models used five-fold cross-validation for an ensemble uncertainty measure. Evaluation used a hold-out testing set of 50 cases. The anatomical prior improved CTV segmentation accuracy, increasing mean Dice Similarity Coefficient (DSC) from 0.84 to 0.86. Active learning similarly improved performance to 0.86, with greatest benefit in the final round. Combining the anatomical prior with active learning achieved the highest accuracy, with a DSC of 0.87. Model uncertainty correlated with DSC, supporting its use in identifying suboptimal predictions and guiding active learning. Anatomical priors and active learning each improved CTV segmentation accuracy and generalizability, with their combination achieving the best performance, supporting integration into segmentation model development for automated contour QA in radiotherapy clinical trials.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "South Western Sydney Local Health District",
+    "Western Sydney University",
+    "University of Melbourne",
+    "Peter MacCallum Cancer Centre",
+    "Australian e-Health Research Centre",
+    "University of Sydney"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0,
+     1
+    ],
+    [
+     2,
+     3
+    ],
+    null,
+    null,
+    null,
+    [
+     3,
+     4
+    ],
+    [
+     3
+    ],
+    [
+     3
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     5
+    ],
+    null,
+    null,
+    null
+   ],
+   "institutions": [
+    "South Western Sydney Local Health District",
+    "Western Sydney University",
+    "University of Melbourne",
+    "Peter MacCallum Cancer Centre",
+    "Australian e-Health Research Centre",
+    "University of Sydney"
+   ],
+   "institution_ids": [
+    "05j37e495",
+    "03t52dk35",
+    "01ej9dk98",
+    "02a8bt934",
+    "04ywhbc61",
+    "0384j8v12"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.03186",
    "pdf_url": "https://arxiv.org/pdf/2609.03186"
   },

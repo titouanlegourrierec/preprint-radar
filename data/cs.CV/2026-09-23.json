@@ -404,9 +404,64 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Purposes: To characterize longitudinal retinal vascular changes in myopic children treated with orthokeratology (OK) or multifocal defocus lenses (Defocus) and to examine their association with axial elongation. Methods: In this retrospective cohort study, 43 myopic children underwent comprehensive clinical examination and fundus photography at baseline, 12 months, and 24 months. Axial length (AL) and spherical equivalent refraction (SER) were recorded at baseline, 6, 12, and 24 months. An automated segmentation model extracted vascular parameters, main vessel angle (MA), branching angle (BA), bifurcation edge angle (BEA), crossover point (COP), and terminal vessel count (TVC). Repeated-measures ANOVA assessed temporal changes. Pearson or Spearman correlations evaluated associations between AL and vascular metrics. Results: Over 24 months, the OK group exhibited significantly slower axial elongation than the Defocus group (0.214 mm and 0.522 mm, p < 0.01). In the OK group, MA and BA decreased modestly, BEA in arteries declined gradually, but COP and TVC remained relatively stable. The Defocus group demonstrated more pronounced decreases in MA and BA, an increase in BEA, and significant reductions in COP and TVC (p < 0.05). Correlation analysis revealed stronger associations between AL and vascular parameters, especially COP and TVC, in the Defocus group at all time points, whereas only BA and BEA correlated with AL in the OK group. Conclusions: OK lenses mitigate axial elongation and induce milder retinal vascular remodeling compared to Defocus lenses. Distinct temporal patterns of vascular metrics changes were observed between the two interventions, and correlate differentially with axial growth.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "TUM Klinikum",
+    "Tongji University",
+    "Shanghai Chengtou",
+    "Yangpu Hospital of Tongji University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     1
+    ],
+    null,
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "TUM Klinikum",
+    "Tongji University",
+    "Shanghai Chengtou",
+    "Yangpu Hospital of Tongji University"
+   ],
+   "institution_ids": [
+    "04jc43x05",
+    "03rc6as71",
+    "041rv6v55",
+    "05cqn9380"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.26662",
    "pdf_url": "https://arxiv.org/pdf/2609.26662"
   },
@@ -431,9 +486,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Laryngeal high-speed videoendoscopy (HSV) offers an effective means of observing the motion of different laryngeal structures along with vibratory behaviors of the vocal folds under various voicing conditions. Segmentation of laryngeal tissues enables analysis of different tissue structures and their dynamics, helping characterize the involvement of laryngeal muscles in voice production. Given the large number of HSV frames, automating this task is imperative. While deep learning-based methods have been implemented in previous studies to segment laryngeal structures, they have not been applied to HSV data during connected speech, which poses significant challenges due to excessive tissue movements and image quality limitations associated with fiberoptic image acquisition. The application of deep learning to connected speech data is critical for capturing nonstationary laryngeal behaviors and identifying anomalous patterns associated with voice disorders. The present study aims to address these gaps by training U-Net models to detect the aryepiglottic folds and arytenoid cartilages, vocal folds, epiglottis, and glottal area, using HSV data from both sustained vowel phonation and connected speech obtained from normophonic and disordered voices. Image pre-processing techniques, including noise removal and histogram equalization, were applied to improve the quality of the training HSV images and enhance network performance. Finally, to evaluate the accuracy and reliability of the networks, quantitative performance metrics were used alongside qualitative visual inspection of the test images. The high performance of the developed networks, with overall accuracies exceeding 95%, establishes their potential as reliable tools for automated laryngeal image analysis, quantitative characterization of laryngeal dynamics, and future detection of anomalous laryngeal behaviors in clinical settings.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.26636",
    "pdf_url": "https://arxiv.org/pdf/2609.26636"
   },
@@ -626,9 +691,47 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Foundation model embeddings of screening mammograms may encode pre-diagnostic tissue change without task-specific adaptation. We tested whether embeddings move faster along a data-derived \"cancer direction\" in women later biopsied for cancer than in matched screen-negative controls, and whether this depends on pretraining domain. We studied 1,773 biopsied women (785 malignant, 988 biopsy-negative) and 1,773 matched controls, each with at least two annual screening exams before their index exam. An identical pipeline was applied to four 2D models: Mammo-CLIP (MC, out-of-distribution mammography), HOPPR (in-distribution mammography), MedImageInsight (MII, general medical imaging), and BiomedCLIP (biomedical vision-language pretraining on literature figures). Breast-level embeddings quantified longitudinal movement along the cancer direction. We compared cases and controls using a between-patient design with complementary mixed-effects analysis, and biopsied versus healthy contralateral breasts within patients. Under matched modality in MII embedding space, malignant cases drifted significantly faster than controls in the first two screening intervals preceding the index exam; biopsy-negative cases showed significance only in the first. MC differences were significant in the first interval for both biopsy groups. Within-patient comparisons showed a broadly similar pattern, with MC significance extending to the second interval in both groups and HOPPR showing significance at interval 1. BiomedCLIP showed no significant differences in either design or biopsy group. Overall, directional embedding velocity emerges as a property of clinically grounded rather than general biomedical pretraining, showing that foundation model embeddings can encode pre-diagnostic mammographic change without task-specific adaptation.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "University of Utah",
+    "Woodland Hills Medical Center",
+    "Vanderbilt University Medical Center"
+   ],
+   "author_affiliations": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ],
+    null,
+    null
+   ],
+   "institutions": [
+    "University of Utah",
+    "Woodland Hills Medical Center",
+    "Vanderbilt University Medical Center"
+   ],
+   "institution_ids": [
+    "03r0ha626",
+    "02bx0ak73",
+    "05dq2gs74"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.26605",
    "pdf_url": "https://arxiv.org/pdf/2609.26605"
   },
@@ -2434,9 +2537,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Vision-Language Models (VLMs) offer promising capabilities for automated sports coaching but face a fundamental limitation: they implicitly compare against professional standards, making their feedback impractical for developing players. We present CricRAG, a retrieval-augmented framework that aligns VLMs with skill-appropriate benchmarks for personalized cricket coaching. Our key insight is that by retrieving similar-but-better techniques as reference points, we can guide VLMs to provide developmentally appropriate feedback that mirrors human coaching practices. We contribute: (1) a labelled dataset of 288 cricket technique videos spanning multiple skill levels, (2) an efficient motion retrieval pipeline using contrastive learning that achieves 78% top-3 retrieval accuracy, (3) a frame sampling technique that reduces inference costs, and (4) a retrieval-augmented approach that significantly improves feedback alignment with coaching principles, achieving up to 94% agreement with professional assessments compared to 67% without retrieval context.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.26056",
    "pdf_url": "https://arxiv.org/pdf/2609.26056"
   },
@@ -3258,9 +3371,45 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "This work presents a video summarization algorithm based on multi-object tracking and person reidentification. We integrate facial embeddings, 3D body-shape features, and visual appearance into a unified tracking framework. These representations enable hierarchical identity assignment and tracking through bidirectional anchoring, which robustly recovers trajectories under severe occlusion or low visual quality. From these stable trajectories, we generate a compact set of summaries for each identity. We select keyframes using a multi-factor weighting scheme that optimizes biometric clarity, social interaction, and motion dynamics, while Adaptive Non-Maximum Suppression ensures temporal diversity. Evaluation on a custom dataset demonstrates tracking stability, achieving an IDF1 of 97.89% and a MOTA of 95.79%. Compared to Top-K selection, our algorithm also increases visual diversity by 146%, temporal coverage by 89%, and information retrievability by 3.5%.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Universidad de León"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Universidad de León"
+   ],
+   "institution_ids": [
+    "02tzt0b78"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.25837",
    "pdf_url": "https://arxiv.org/pdf/2609.25837"
   },
@@ -4014,9 +4163,50 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Purpose: To develop and evaluate an interpretable artificial intelligence (AI) framework for glaucoma screening from low-cost portable, handheld retinal fundus photographs in a West African population and to compare its performance with clinical tabletop fundus imaging. Methods: We used data from a community-based study of 681 participants (1,362 eyes) in Nigeria, comprising 414 glaucoma, 478 glaucoma suspect, and 470 non-glaucoma eyes. Fundus photographs were acquired using the low-cost handheld, portable Volk Viva retinal camera and the Canon CR-2-AF tabletop camera. We fine-tuned component models separately to each device to perform vessel segmentation, cup and disc boundary segmentation, and feature extraction to detect optic nerve head features. A final classification model combined these components to classify scans as glaucoma, glaucoma suspect or non-glaucoma. Feature-weight analysis and Gradient-weighted Class Activation Mapping were used for interpretation. Results: The models performed well on both Volk Viva and Canon CR-2-AF images: Vessel segmentation: 0.98 Dice Coefficient (DC) (Volk) and 0.94 DC (Canon); Cup and disc segmentation: 0.95 DC (Volk) and 0.96 DC (Canon); Optic nerve head feature detection: area under the receiver operating characteristic curve (AUCs) of 0.83±0.03 (Volk) and 0.87±0.04 (Canon); Classification model: AUCs of 0.85±0.01 (Volk) and 0.93±0.01 (Canon). Reports for each image, present model decision confidence scores and decision-rationale visualizations to support clinical interpretation. Conclusions: Volk Viva results were reasonably comparable to Canon CR-2-AF in the component models and not far behind in classification. This shows that interpretable AI combined with low-cost, portable imaging may enhance community-level glaucoma screening, especially in settings with limited specialist access and resources.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "University of Ibadan",
+    "National University of Singapore",
+    "Duke University"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    null
+   ],
+   "institutions": [
+    "University of Ibadan",
+    "National University of Singapore",
+    "Duke University"
+   ],
+   "institution_ids": [
+    "03wx2rr30",
+    "01tgyzw49",
+    "00py81415"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.25697",
    "pdf_url": "https://arxiv.org/pdf/2609.25697"
   },
@@ -4142,9 +4332,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Atomic-scale phase imaging is central to resolving defects, interfaces, and weakly scattering atoms that govern the behavior of nanoscale materials. Electron ptychography delivers sub-ångström phase sensitivity but remains an offline technique, because its iterative reconstruction is computationally expensive and sensitive to experimental calibration, preventing live use during data acquisition. Here, a ptychography-supervised local inference framework is presented that converts four-dimensional scanning transmission electron microscopy (4D-STEM) into an acquisition-compatible phase-imaging workflow. Physics-constrained reference phase maps reconstructed from a single experimental AuPd dataset serve as teacher labels for a compact model that predicts local phase patches directly from diffraction measurements, without explicit probe input or online iterative optimization. Full-field images are assembled by deterministic overlap stitching. The workflow reaches an online latency of about 0.27 ms per probe position and a throughput of about 20,000 positions per second, an approximately 1,000-fold speed-up over GPU-accelerated ePIE, while preserving atomic-scale lattice contrast and reciprocal-space fidelity. Without fine-tuning, the same model transfers across materials (WS2), defocus conditions (high-entropy alloy nanoparticles), and instruments (hBN at 300 kV). The approach amortizes ptychographic redundancy into a fast, generalizable workflow that enables real-time atomic-scale phase imaging for materials microscopy.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.25684",
    "pdf_url": "https://arxiv.org/pdf/2609.25684"
   },
@@ -4346,9 +4546,42 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Large Vision-Language Models (LVLMs) incur high computational costs from redundant visual tokens. Although training-free attention-based multi-layer pruning in the vision encoder stage has been explored as an effective strategy, we find that pruning in shallow layers consistently degrades performance. In this paper, we aim to understand this problem and seek a solution. By analyzing attention patterns across network depth, we find that shallow layers primarily function as edge detectors with chaotic attention maps, while deeper layers transition through local subject recognition and unstable semantic aggregation. To address the misalignment between pruning strategies and network stages, we propose STD, a hierarchical token pruning framework that adapts token selection mechanisms to the functional role of each network stage. STD employs High-Frequency Spectral Analysis in shallow layers to deterministically preserve structural edges, uses Gaussian-Smoothed Attention in intermediate layers to maintain spatial coherence, and introduces a Stability-Adaptive Trigger in deep layers to execute pruning only during semantically stable phases. Extensive experiments show that STD outperforms state-of-the-art pruning methods by 1.1% on LLaVA-1.5-7B with 88.9% token reduction, while also being plug-and-play and highly effective when combined with other methods, and by 2.1% on LLaVA-NeXT-7B with 94.4% reduction, delivering a 3.9x speed-up in the prefilling stage. Our code will be released at https://github.com/Twilight03/STD.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Huazhong University of Science and Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Huazhong University of Science and Technology"
+   ],
+   "institution_ids": [
+    "00p991c53"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.25635",
    "pdf_url": "https://arxiv.org/pdf/2609.25635"
   },
@@ -5556,9 +5789,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Deepfakes, synthetic audiovisual content produced by deep generative models, have escalated into a critical threat across civilian and military domains, enabling identity fraud, disinformation campaigns, and evidence fabrication. In high-stakes environments, ranging from journalism and finance to healthcare and legal contexts, the consequences extend to severe misinformation, market manipulation, identity fraud, and the erosion of institutional trust. This entry explores how modern visual intelligence and computer vision techniques are used to detect deepfakes. It outlines key deepfake generation models, such as GANs, autoencoders, neural rendering, and diffusion systems, while also explaining how adversarial methods enhance realism and challenge existing detectors. The overview highlights visual artifacts, digital patterns, and physiological cues commonly leveraged in detection and reviews major CNN, transformer, and frequency-based approaches. It also summarizes evaluation practices and the difficulty of achieving strong generalization. Finally, it identifies emerging directions, including modern intelligence techniques for civilian and military content verification. This survey covers generation architectures (GANs, latent diffusion, neural rendering, video synthesis), the spatial, temporal, frequency-domain, and physiological artifacts they produce, and the detector families that exploit them. We examine evaluation benchmarks and protocols, highlighting cross-generator generalization as the field's central open challenge. Beyond detection, we discuss cryptographic provenance standards, watermarking, and regulatory frameworks (EU AI Act, DSA, GDPR). We conclude that effective deepfake governance requires defense-in-depth integrating forensic detection, verifiable provenance, and institutional accountability.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.25017",
    "pdf_url": "https://arxiv.org/pdf/2609.25017"
   },

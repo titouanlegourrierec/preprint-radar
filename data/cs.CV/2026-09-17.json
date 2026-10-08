@@ -21,9 +21,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Deep learning models for cervical cytology are almost always evaluated as if every prediction must be acted upon, yet a screening system deployed alongside a cytopathologist need not classify every slide: it can defer the cases it is least certain about. Evaluating such a system requires asking not only how often it is correct, but whether its confidence ranks its errors to the bottom. This paper studies selective prediction and uncertainty-aware referral on the Herlev Pap smear dataset under a binary Normal-versus-Abnormal formulation. Two lightweight transformer backbones (Swin-Tiny, TinyViT-5M) are fine-tuned on Herlev from ImageNet-pretrained weights with weighted random sampling, calibrated by post-hoc temperature scaling fit on a held-out calibration subset, and compared against a soft-voting ensemble of both models. Discrimination is reported alongside expected calibration error (ECE) and, as the primary endpoint, the area under the risk-coverage curve (AURC). No statistically significant difference was detected between the two configurations in accuracy or macro-F1, yet the ensemble halves AURC (0.0022 vs. 0.0045, a 51.8% reduction, lower in all five folds) and extends the coverage at which zero errors are made from 18.3% to 72.8% of the pooled test predictions. The same ensemble is nonetheless worse calibrated in absolute terms (ECE 0.0339 vs. 0.0247) and produces more false negatives (14 vs. 10). These results separate two properties that are frequently conflated: the ability to rank predictions by trustworthiness, and the accuracy of the confidence values themselves. Ensembling improves the former while degrading the latter, and the former directly governs the observed risk-coverage tradeoff, whereas the latter governs the interpretation of the reported confidence values.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.17545",
    "pdf_url": "https://arxiv.org/pdf/2609.17545"
   },
@@ -642,9 +652,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Pathology vision-language models are commonly built by pretraining or fine-tuning large encoders on paired image-caption data. We asked whether a pathology vision-language model can instead be assembled by parameter-efficient alignment of frozen unimodal foundation models, leaving their pretrained representations untouched. Here we present Lumen, which aligns frozen Virchow2 and BioMedBERT backbones using rank-4 adapters and projection heads, training only 0.40% of the total parameters on the public QUILT-1M corpus. Across nine public zero-shot patch benchmarks, Lumen achieved the highest mean chance-corrected balanced accuracy, 0.546 versus 0.461 for the strongest baseline (paired difference 0.086, 95% CI 0.042-0.136). On lymph-node metastasis detection, Lumen reached an AUROC of 0.964 (95% CI 0.956-0.971) on 4,214 held-out internal slides and 0.955 (95% CI 0.942-0.966) on 2,368 slides across nine external cohorts and six organs. At the internally calibrated threshold, it outperformed all vision-language baselines, with a balanced accuracy of 0.909 (95% CI 0.896-0.923) internally and 0.915 (95% CI 0.902-0.929) externally. Lumen performed competitively across the evaluations, with the exception of cross-modal retrieval, where it ranked third behind CONCH and PathGen-L/14. Fully fine-tuning both encoders gave Lumen no consistent benefit over low-rank adaptation, although it improved retrieval. Aligning frozen unimodal foundation models therefore yields strong and transferable performance at patch and slide level while training only a small fraction of the parameters.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.17868",
    "pdf_url": "https://arxiv.org/pdf/2609.17868"
   },
@@ -1142,9 +1162,42 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Novel view synthesis from unposed multi-view images remains challenging, as the model must jointly learn scene representations and camera parameters without pose supervision. Existing approaches largely fall into two extremes: implicit latent-space rendering is flexible and easy to optimize, but often yields weakly grounded camera estimation; explicit 3D representations provide stronger geometric grounding, but introduce heavier parameterization and more fragile optimization. In this paper, we present IRIS, a fully self-supervised framework that provides a practical middle ground between these two paradigms. Instead of decoding free latent tokens or reconstructing fully explicit 3D primitives, IRIS represents the scene as a latent neural field and renders novel views by querying this field under self-predicted cameras. Specifically, projected features from reference views are aggregated at sampled 3D points to form point-wise latent features, which are then composed along target rays for rendering. This design preserves the flexibility and optimization stability of implicit modeling, while introducing stronger geometric structure than unconstrained latent rendering. Extensive experiments show that IRIS achieves strong novel view synthesis quality with competitive pose accuracy under fully self-supervised learning. Our project page: https://leo-frank.github.io/IRIS",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "National University of Defense Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "National University of Defense Technology"
+   ],
+   "institution_ids": [
+    "05d2yfz11"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.18034",
    "pdf_url": "https://arxiv.org/pdf/2609.18034"
   },
@@ -4131,9 +4184,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Background.. Video-based markerless motion capture promises movement analysis without the cost, space and skin-marker constraints of optoelectronic systems, with particular potential for clinical and rehabilitation settings. Whether validated pipelines yet deliver clinically acceptable biomechanics, and how they relate to the underlying computer-vision research, remains unclear. Methods. We conducted a scoping review following the PRISMA extension for Scoping Reviews, with a registered protocol and searches of PubMed, Scopus and IEEE Xplore (January 2015 to February 2026; the computer-vision scan was updated to July 2026). A dual-tier design paired a primary corpus of validated biomechanical studies with a complementary, curated and deliberately non-exhaustive corpus of emerging computer-vision work, used qualitatively. We charted study characteristics, pipeline architecture, validation methods and joint-angle accuracy. Results. We included 117 studies, most published from 2024 onward and conducted on healthy adults walking in a laboratory. Pipelines formed five architectural families across monocular and multi-camera modalities; most reported raw joint angles without biomechanical refinement. Sagittal lower-limb agreement clustered around 5 to 6\\textdegree, generally short of clinical acceptability, while out-of-plane kinematics, kinetics, and pathological or older populations were rarely validated. Emerging computer-vision building blocks (foundation-model mesh recovery, differentiable inverse kinematics, video-based kinetics) were almost absent from validated studies. Conclusions. Video-based markerless capture is not yet interchangeable with marker-based systems for clinical joint kinematics, and it remains barely validated where rehabilitation needs it most: older and pathological populations, out-of-plane kinematics, and kinetics. Mapping this evidence gap onto emerging computer-vision advances, we propose hypothesis-generating design guidelines, not a validated method, to steer the next generation of pipelines toward accessible, clinically meaningful movement analysis.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.18667",
    "pdf_url": "https://arxiv.org/pdf/2609.18667"
   },
@@ -4829,9 +4892,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Early detection of dental caries remains challenging due to limitations in traditional diagnostic methods, particularly for proximal lesions in posterior teeth. Deep learning models show promise for automated caries detection but face scalability constraints due to requirements for large volumes of expertly annotated training data. This study presents a dual-stage deep learning framework combining Faster R-CNN for tooth localization with U-Net for pixel-wise caries segmentation in panoramic radiographs. We developed a systematic transformation pipeline to convert large-scale polygon-annotated datasets into high-resolution binary segmentation masks, enabling pixel-wise supervised learning. The framework was trained using both expert-verified datasets and algorithmically processed labels from 3,000 panoramic images. Our approach achieved robust performance with an IoU of 0.9013, Dice coefficient of 0.9482, Recall of 0.9433, and Precision of 0.9774, demonstrating superior accuracy compared to existing methods while significantly reducing false-positive rates. The dual-stage framework effectively addresses data annotation bottlenecks in dental AI applications and demonstrates potential for scalable, automated caries detection systems that can improve diagnostic consistency and support clinical decision-making.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.18952",
    "pdf_url": "https://arxiv.org/pdf/2609.18952"
   },
@@ -5273,9 +5346,37 @@
    "cross_list_from": "cs.RO",
    "html_url": null,
    "abstract": "Active perception allows autonomous agents to select their viewpoints rather than passively process the viewpoints given to them, enabling them to target where to reduce uncertainty about their environment. Learned systems typically encourage this behavior with hand-designed proxy objectives, such as coverage or curiosity bonuses, that may conflict with the task. In this work, we propose a method to learn emergent active perception (LEAP) without augmentation of the task objective. We formulate the problem of goal-oriented navigation over hazardous terrains with goals that must be discovered visually. We then propose an architecture for navigation policies with active perception, and train them on a terrain curriculum where task pressure alone leads to the emergence of gaze control. Key to this emergence, LEAP works on a gaze-invariant representation that integrates depth images into egocentric belief maps. We validate its performance in held-out evaluation scenarios, where it achieves a 92.7% success rate, compared to 74.2% for scripted or 34.5% for passive perception, and comes within 4.6 points of a privileged oracle. We validate that LEAP navigation policies, unchanged, can be directly applied to steering quadrupedal locomotion policies in physics simulation.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "WILLOW: Vision par ordinateur incarnée",
+    "Institut Systèmes Intelligents et de Robotique"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    null
+   ],
+   "institutions": [
+    "WILLOW: Vision par ordinateur incarnée",
+    "Institut Systèmes Intelligents et de Robotique"
+   ],
+   "institution_ids": [
+    "04c96ng72",
+    "05neq8668"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.17628",
    "pdf_url": "https://arxiv.org/pdf/2609.17628"
   },
@@ -5714,9 +5815,19 @@
    "cross_list_from": "cs.LG",
    "html_url": null,
    "abstract": "Over the years, Convolutional Neural Networks (CNNs) have demonstrated strong capability in cancer detection and classification using medical images. However, CNN-based models often struggle to capture long-range contextual dependencies. In such scenarios, integrating Compact Convolutional Transformer (CCT) architectures after the CCT layer allows CNN-extracted features to reshape into compact patch tokens using a CCT tokenizer, followed by the addition of positional embeddings to preserve spatial structure. Using 5-fold cross-validation, the model was tested on 3 sets of breast cancer mammography. With only 250,435 parameters, the model achieved 99%-100% accuracy across 3 datasets, indicating robust generalization. Explainable AI (XAI) was integrated into the model to explain the breast cancer classification process to enhance clinical trust. The results indicate that the proposed framework is suitable for computer-aided diagnosis systems, particularly in resource-constrained clinical environments. The novelty of the proposed CNN-integrated CCT overcomes the limitation of CNN's gradient degradation in the last layers by integrating convolutional tokenization with transformer-based learning. Lighter than ViT, which is effective in capturing long-range dependencies, the model has also proven efficient in breast cancer classification by capturing long-range dependencies among breast tissue regions.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.18212",
    "pdf_url": "https://arxiv.org/pdf/2609.18212"
   },

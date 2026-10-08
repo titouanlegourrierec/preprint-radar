@@ -387,9 +387,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Distribution Matching Distillation (DMD) trains a few-step student from the difference between separately estimated target and student scores, so it must keep an auxiliary diffusion model fitted to the student's evolving distribution at extra memory and computation cost. We introduce DMAD, Distribution Matching as Adversarial Distillation, which recasts distribution matching as classification and learns the required log-density ratios directly. Two discriminator heads on a shared backbone distinguish real data and teacher samples from the student's, and linear losses on their logits train the student without auxiliary score fitting. We prove that at the discriminator optimum these losses recover the distribution-matching gradient underlying DMD, through the classical identity linking discriminator logits to log-density ratios. We further introduce gap-based reweighting, which adapts teacher supervision across noise levels from the real-data head's empirical logit gap between real and teacher samples. DMAD reaches a Fréchet Inception Distance (FID) of 1.04 with one-step generation on ImageNet-64x64, 14.47 with four-step SDXL on COCO-10K, and a VBench total score of 85.15 with four-step Wan2.1-T2V-14B, the best values among the compared few-step methods and the multi-step teachers. On MiniMax-H3-33B, our four-step student achieves overall human preference rates of 79.1% over DMD2 and 84.6% over rCM for joint audio-video generation, excluding ties. Our code, models and demos are available at https://yzmblog.github.io/projects/DMAD.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2610.02188",
    "pdf_url": "https://arxiv.org/pdf/2610.02188"
   },
@@ -1272,9 +1282,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Recent vision-language models (VLMs) exhibit remarkable generalization and reasoning abilities, yet 3D understanding in these models is limited by data scale, training diversity, and reasoning capacity. Instead of naively extending these models into 3D, we take a different approach: we enable powerful 2D VLMs to operate reliably in 3D by introducing 3D grounding and iterative feedback loops with two novel concepts: Canonical Coordinate Framing (CCF) and Task-Adaptive Feedback (TAF). CCF serves as a unified visual representation that anchors both inputs and outputs to a shared Euclidean coordinate system, solving common challenges in 3D grounding such as axis ambiguity, inconsistent metric scale, and floating references. Complementary to this structured framing of the 3D inputs, TAF closes the reasoning loop with task-adaptive dynamic feedback that enables 2D VLMs to perform varied open-vocabulary tasks within their native visual context. Building on this foundation, we introduce 3D-Prog, a 3D understanding, reasoning, and generation framework that jointly employs the capabilities of CCF and TAF together with powerful VLMs. Without requiring any retraining, 3D-Prog performs open-vocabulary 3D understanding, manipulation, and generation across both object-level and scene-level tasks. Our experiments show that the joint use of CCF and TAF transforms 2D VLMs into geometry-aware 3D programmers, achieving consistent, interpretable, and high-quality results across diverse 3D tasks.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2610.02021",
    "pdf_url": "https://arxiv.org/pdf/2610.02021"
   },
@@ -1765,9 +1785,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Complex surgical procedures around critical anatomy, such as the endoscopic endonasal skull base surgery, requires significant practice and training on the part of the surgeon before they are allowed to perform the operation on a live patient. This training in typically done in cadaveric specimens, due to them containing the same critical structures as a living human. However, cadavers are not a perfect 1-to-1 substitute for a living patient. The dead and preserved tissues of a cadaver are colored completely differently than a living human, and -- without complex and expensive pumping systems -- do not bleed in the same way. As a result, identifying the critical pieces of anatomy that make this procedure so complex can be quite different in a live case than in a surgeon's cadaveric practice. This paper presents EndoLive, a framework for real-time style transfer between cadaveric endoscopic video and living human endoscopic video. Our method combines the ConStructS GAN model for realistic style transfer for surgical applications, with the HyPER-GAN model that can learn complex translations and perform them in real-time. We train EndoLive on unpaired cadaveric and live images taken from an endoscope, and test the trained model with cadaveric video, on a variety of devices. Experimental results demonstrate that EndoLive can perform cadaveric-to-live translation at speeds well above the minimum necessary for real-time, while maintaining semantic consistency of critical anatomical structures. Our source code is available at https://github.com/griffhurt/endolive.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2610.01956",
    "pdf_url": "https://arxiv.org/pdf/2610.01956"
   },
@@ -2506,9 +2536,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Reliable clinical deployment of deep medical image models is hindered by distribution shifts across scanners, sites, and acquisition protocols. Existing domain generalization (DG) methods often focus on style or intensity diversification, but they can still leave networks dependent on domain-specific texture correlations. Inspired by evidence that Fourier phase encodes semantic structure, we introduce PhaseAT, a phase-aware adversarial training framework for medical DG. PhaseAT forms phase-perturbed training views in the Fourier domain by iteratively updating a bounded phase perturbation while keeping the amplitude spectrum unchanged, thereby stressing spatial organization under matched appearance statistics. Perturbations are applied only to the luminance channel in YCbCr color space to avoid chromatic artifacts. Additionally, a simple phase-saliency mask concentrates updates on the most influential frequencies. The model is trained with a weighted combination of losses on clean and phase-perturbed samples, supporting both single-source and multi-source DG. We validate our method on two challenging medical datasets and demonstrate that PhaseAT achieves over 20% improvement in single-source domain generalization, outperforming several state-of-the-art DG methods. The code implementation is available at: https://github.com/ahmed-sharshar/PhaseAT.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2610.01807",
    "pdf_url": "https://arxiv.org/pdf/2610.01807"
   },
@@ -2815,9 +2855,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Category-level object pose estimation (COPE), capable of generalizing to intra-class unknown objects, has become a core technique for robotic 3D scene understanding. However, existing COPE methods still require labor-intensive recollection of real-world training data for novel object categories, which limits their scalability in practical applications. This paper aims to achieve synthetic-to-real (Syn2Real) generalized COPE, where a model is trained solely on rendered synthetic data and directly generalized to real-world deployments. The central challenge lies in the significant domain gap between synthetic and real-world data, particularly in texture appearance. To address this, we aim to enhance domain generalization by learning domain-invariant representations that capture semantic commonalities among objects within the same category. We introduce 2D and 3D semantic consistency constraints to reduce the sensitivity of feature encoders to domain-specific features. In addition, we propose an end-to-end pose regression framework that performs 2D-3D cross consistency learning, leveraging dense cross-modality fusion to further refine pose estimation. Since simplicity and effectiveness are essential for real-world robotic deployment, our model operates exclusively on global features, yielding a highly lightweight and efficient architecture. Extensive experiments on the REAL275 and Wild6D benchmarks, as well as real-world robotic manipulation scenes, show superior Syn2Real generalization performance of our paradigm. Code and demos are released at https://paperreview99.github.io/GenCOPE/.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2610.01758",
    "pdf_url": "https://arxiv.org/pdf/2610.01758"
   },
@@ -4117,7 +4167,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.01496v1",
+   "html_url": "https://arxiv.org/html/2610.01496v2",
    "abstract": "Recent work on language-model adaptation has shown that single models can obtain informative training signals by evaluating their behavior in demonstrationor feedback-augmented contexts, with the help of a teacher network, which is driven by the student's learned parameters. Inspired by this internal-reference principle, we investigate how diffusion models can identify self-referenced training signals without external demonstrations or teacher networks. We introduce SALD, a self-referenced training framework that evaluates each image-caption pair at two noise levels using the same model. The easier, lower-noise path is evaluated without gradient tracking to provide a reference, while the harder, higher-noise path provides the training gradient. Rather than directly distilling the easy-path prediction, SALD uses the difference between two path errors to adapt the hardpath objective. The proposed Advantage-Guided Diffusion (AGD) converts this relative error into a differentiable sample-level weight. Temporal Advantage Memory (TAM) accumulates relative difficulty across training and adapts the future gap between the two noise levels. Spectral Advantage Decomposition (SAD) further compares the residual power spectra of the two paths and constructs a differentiable, frequency-derived latent-element weight. All components share a single set of model parameters, requiring neither an external teacher network nor additional trainable parameters during training or inference, and no modification to the inference procedure. Experiments across multiple architectures and datasets demonstrate consistent improvements in generation quality, while component-wise ablations quantify the contributions of the proposed components.",
    "affiliations": [
     "Indian Institute of Technology Kanpur, India",
@@ -4289,9 +4339,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Unmanned aerial vehicle (UAV) photogrammetry is increasingly used in applications requiring high accuracy, such as determining ground surface changes caused by landslides, mining, or microrelief transformation. While acquisition strategies have been widely studied, the influence of the processing workflow-particularly Bundle Block Adjustment parameter settings-remains insufficiently explored. This study addresses this gap through a systematic, full-factorial evaluation of 768 processing variants applied to ten UAV datasets collected over 1.5 years in a 220 ha study area. Eight key parameters were analysed. The results show substantial variability in final 3D accuracy: the best performing variant achieved a root mean square error (RMSE) of 16 mm, whereas the weakest reached 303 mm. The most influential factors were the number of ground control points, the application of additional camera calibration corrections, and the use of the Post-Processing Kinematic GNSS method for determining camera projection center coordinates. The study also evaluates how workflow optimization affects the accuracy of displacement, tilt changes, and horizontal strain determination. While random displacement errors remained stable (RMSE of ~6-7 mm), systematic errors were significantly reduced by over half in all axes, with vertical median absolute error decreasing from 14 mm to 7 mm in the optimized configuration compared to the baseline previously used by the authors. This study provides the first large-scale, practice-oriented assessment of how processing parameter selection shapes the accuracy of both photogrammetric products and deformation indices determination. The results offer actionable guidance for developing more robust and repeatable UAV photogrammetry workflows tailored to high-precision monitoring.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2610.01438",
    "pdf_url": "https://arxiv.org/pdf/2610.01438"
   },
@@ -5494,9 +5554,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "An optical character recognition(OCR) system can scan paper and extract text, making people's jobs easier. While numerous OCR systems are accessible in the software sector, finding a dependable equivalent solution for Bangla is tough. When it comes to handwritten texts, the case is even more rare. The first fundamental step to any OCR is to segment words from text images. If this stage fails, the total OCR's performance will be poor no matter how promising the later stages perform. This research aims to segment words in a handwritten Bangla text image. This research can be implemented on any smartphone-captured image, irrespective of the color and type of paper and ink. Furthermore, as smartphone-captured images can create shadow interferences, the custom dataset built for this research is created in such a way that every possible obstacle that can be faced is included. For 7374 words, a total of 7278 bounding boxes are generated, which have recall of 90.60 %, precision of 91.80 %, and F1-score of 91.20 %. The system can be further improved with nested operations on bounding boxes containing several words or by adjusting the adaptive thresholding and dilation filter sizes to a more precise level.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2610.01191",
    "pdf_url": "https://arxiv.org/pdf/2610.01191"
   },
@@ -5805,9 +5875,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Intracranial aneurysm rupture is associated with substantial morbidity and mortality, yet aneurysm detection remains challenging, particularly for small lesions and on routine non-angiographic imaging examinations. To support the development and evaluation of artificial intelligence (AI) algorithms for intracranial aneurysm detection and localization, the Radiological Society of North America (RSNA), in collaboration with the American Society of Neuroradiology (ASNR), the Society of Neurointerventional Surgery (SNIS), and the European Society of Neuroradiology (ESNR), curated the RSNA Intracranial Aneurysm (RSNA-ICA) Dataset. Developed for the 2025 RSNA Intracranial Aneurysm Detection Challenge, RSNA-ICA is a large, publicly available, expert-annotated dataset comprising 7202 CTA, MRA, and MRI series from 4278 adult patients collected across 21 institutions in 12 countries spanning five continents. The dataset includes 2566 CTA, 2166 MRA, and 2470 MRI series from patients with and without intracranial saccular aneurysms, providing substantial geographic and imaging diversity. Expert annotations indicate both aneurysm presence and location, and 178 series additionally include three-dimensional segmentations of challenge-defined vascular locations. RSNA-ICA was used to develop and evaluate algorithms in the 2025 RSNA Intracranial Aneurysm Detection Challenge. Of the 7202 image series, 5041 are publicly available through MIRA (https://mira.rsna.org/dataset/7), while the remainder were used for challenge public and private test sets. The dataset is freely available to the research community for noncommercial use and provides a comprehensive resource for advancing AI-based aneurysm detection across both angiographic and routine neuroimaging examinations.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2610.01135",
    "pdf_url": "https://arxiv.org/pdf/2610.01135"
   },
@@ -5830,9 +5910,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "An optical character recognition (OCR) can scan a paper and extract text using technology, making people's jobs easier. While various OCR systems are available in the software industry, finding a reliable equivalent solution for Bangla takes much work. When it comes to handwritten texts, the situation is much more unusual. Recognizing words from word images is the most critical stage in any OCR process. It is the second stage after segmenting words from text pictures. If this stage fails, the overall performance of the OCR will be poor, regardless of how well the other phases perform. This study aims to recognize words using deep learning in a handwritten Bangla word image. Three object detection models, SSD with MobileNetV2, Faster R-CNN with InceptionResNetV2, and an ensemble model of these two, have been used to train and test handwritten word images. A modified Non-Maximum Suppression has been introduced to enhance the effectiveness of the models' results. A customized dataset of 9841 handwritten Bangla word images has been compiled, featuring diverse handwriting styles from various individuals. All three models' performances have been checked against the test dataset, and the ensemble model has been the most impressive, with an F1-score of 92.61%. Also, at the word level, the ensemble model correctly recognizes 96.12% of the words to some extent. The system can be further improved by introducing a post-processing phase to correct errors generated by the system.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2610.01134",
    "pdf_url": "https://arxiv.org/pdf/2610.01134"
   },
@@ -8596,9 +8686,33 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Foundation models pretrained on large-scale datasets demonstrate strong transferability to medical imaging tasks. However, understanding how their latent representations encode clinically relevant information remains an open challenge in safety-critical domains. This study proposes a prototype-based fuzzy-rule framework that interprets the patch-level features produced by the inner layers of pretrained foundation models, without any fine-tuning. Class-specific prototypes are learned by clustering in the feature space, yielding compact visual patterns. Patch features are then expressed as prototype similarities and classified by fuzzy rules with linguistic IF-THEN conditions that are human readable. The framework is applied across the final two blocks of ViT-S/16 backbones pretrained on ImageNet-1K and GastroNet-5M, and benchmarked against k-nearest neighbours, kernel SVM, and linear probing under identical frozen features, on wireless capsule endoscopy classification, gastrointestinal endoscopy classification, and colonic polyp segmentation. The experimental analysis shows that the proposed method, without backbone fine-tuning, reaches accuracy comparable to these black-box classifiers, and that domain-specific pretraining yields features that are both discriminative and symbolically compressible. Because the resulting rules are extracted from real data and expressed in interpretable terms, they are further used as an instrument to investigate synthetic medical images, providing a human-readable account of which real prototypes and rules a generator reproduces or fails to reproduce, localising where a synthetic image departs from real tissue rather than summarising it with a single score. The framework thus offers a transparent, depth-resolved view of how foundation models organise clinically relevant structure, together with a practical downstream use of the extracted rules.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "University of Thessaly"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Thessaly"
+   ],
+   "institution_ids": [
+    "04v4g9h31"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2610.00414",
    "pdf_url": "https://arxiv.org/pdf/2610.00414"
   },
@@ -8988,9 +9102,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "The segmentation of anatomical structures in medical images and particularly in MRI scans, is essential for clinical diagnosis and monitoring disease progression. While Deep Learning (DL) architectures, such as U-Net and its extensions are very effective in medical image segmentation tasks, they often struggle with preserving fine-grained details and global contextual information. This is especially challenging for MRI data segmentation, where anatomical structures are characterized by irregular boundaries and variations in shape, contrast, and scale. To address this challenge, we propose a novel DL architecture for MRI segmentation across different anatomical structures. Specifically, the architecture introduces a module, named Multi-Resolution Feature Fusion (MRFF), that can be easily integrated into any U-Net-like architecture. The MRFF is integrated in all levels of an encode-decoder structure, along with attention mechanisms and skip connections to extract features at multiple resolutions, enabling the model to capture both fine-grained details and global contextual information. We evaluate the MRFFU-Net on two publicly available benchmark MRI datasets of different anatomical targets; one for Cerebrospinal Fluid (CSF) segmentation in spinal MR scans, and one for left atrium cardiac segmentation, from the Medical Segmentation Decathlon (MSD) challenge. Experimental results indicate that MRFFU-Net outperforms state-of-the-art models across multiple evaluation metrics, demonstrating its effectiveness in MRI segmentation.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2610.00279",
    "pdf_url": "https://arxiv.org/pdf/2610.00279"
   },
@@ -9805,10 +9929,10 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 2,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.02196",
@@ -10039,9 +10163,19 @@
    "cross_list_from": "cs.RO",
    "html_url": null,
    "abstract": "Autonomous driving systems have become a central focus of intelligent transportation research, with End-to-End Learning and Modular Architectures offering two prominent design paradigms for their implementation. E2E Learning uses deep learning algorithms to map raw sensory inputs directly to driving actuators, providing a streamlined and adaptable solution. while Modular Architectures employ a pipeline-based approach, dividing the system into distinct subsystems for perception, cognition, planning, and control. This paper presents a comprehensive comparative analysis of these paradigms, focusing on their strengths, limitations, and trade-offs to provide insights into their suitability for various autonomous driving applications. The study evaluates key factors such as interpretability, scalability, robustness, and real-world applicability. While End-to-End Learning emphasizes simplicity and adaptability in dynamic environments, it lacks transparency and is highly dependent on large datasets. Conversely, Modular Architectures offer superior interpretability and task-specific optimization, but face challenges related to integration complexity and scalability. To address these limitations, hybrid approaches that combine the strengths of both paradigms have emerged, offering a promising direction for overcoming these challenges. Beyond this comparative synthesis, following work proposes a Four-Dimensional Architecture Selection Framework, comprising twelve binary criteria across safety, operating environment, data/computational resources, and deployment context, and validate it against ten published autonomous driving systems, correctly recommending 7/10 deployed architectures. This work synthesizes existing literature to highlight key trade-offs between the paradigms and identifies hybrid architectures as a promising direction for future research.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2610.01746",
    "pdf_url": "https://arxiv.org/pdf/2610.01746"
   },
@@ -10433,9 +10567,19 @@
    "cross_list_from": "cs.AI",
    "html_url": null,
    "abstract": "Modern retrieval systems must both be automated and interactive, allowing users to search and refine results in real time. We present AiSearch, a flexible multimodal retrieval framework that leverages the zero shot capabilities of Vision Language Models (VLMs) for natural language search over images and videos. AiSearch supports interactive search refinement through user feedback to tailor results to the user's intent, and allows visual benchmarking across multiple VLMs, enabling users to select the most suitable model for their task.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2610.01389",
    "pdf_url": "https://arxiv.org/pdf/2610.01389"
   },
@@ -11754,9 +11898,19 @@
    "cross_list_from": "cs.GR",
    "html_url": null,
    "abstract": "Recent advances in Gaussian Splatting (GS) compression have enabled substantial reductions in GS model size. Reliable objective quality assessment is therefore essential for comparing compression methods and guiding the development of more efficient GS codecs. Existing GS quality assessment typically relies on image and video quality metrics, requiring rendering of predefined viewpoints and making the quality estimate dependent on the selected views. This paper introduces GS-PQM, a novel full-reference quality metric for post-training GS compression that operates directly in the GS parameter domain. GS-PQM estimates perceptual quality from a set of parameter-domain distortion errors using a Support Vector Regression model. Experimental results show that GS-PQM outperforms 25 existing image, video, and point-cloud quality metrics in assessing compressed GS content, providing an accurate and computationally efficient alternative to rendering-based quality assessment.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2610.00195",
    "pdf_url": "https://arxiv.org/pdf/2610.00195"
   },
@@ -11820,9 +11974,19 @@
    "cross_list_from": "cs.CR",
    "html_url": null,
    "abstract": "One-Pixel Attacks (OPAs) represent one of the most extreme demonstrations of adversarial fragility in deep learning, where modifying a single pixel can reliably induce high-confidence misclassification across domains such as medical diagnosis, autonomous driving, biometrics, and quantum communication. Despite their conceptual simplicity, OPAs remain underexamined in existing adversarial-attack surveys, which provide only fragmented or cursory coverage. This PRISMA-guided review synthesizes high-quality studies from 2017 to 2026 and delivers a unified, multi-axis taxonomy of OPA research spanning algorithmic foundations, black-box evolutionary optimization, emerging hybrid and program-synthesis attacks, defence mechanisms, interpretability tools, and domain-specific vulnerabilities. Our analysis reveals the dominance of Differential Evolution-based strategies, the rise of efficiency-optimized and saliency-guided methods, and persistent gaps in dataset diversity, transferability, and standardized evaluation. We summarized and assess defence paradigms including pixel restoration, anomaly detection, input-space transformations, and robust training highlighting their trade-offs in robustness, imperceptibility, and computational overhead. Building on these insights, we outline future research priorities involving selective pixel recovery, transformer-specific vulnerability analysis, saliency-driven optimization, and real-world domain-adaptive defences. We further propose a regulatory framework emphasizing robustness testing, incident disclosure, and AI security governance. This review establishes a comprehensive foundation for understanding, evaluating, and mitigating ultra-sparse adversarial threats in contemporary AI systems.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2610.00125",
    "pdf_url": "https://arxiv.org/pdf/2610.00125"
   },

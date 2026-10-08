@@ -21,9 +21,30 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Deep learning registration methods routinely stack two kinds of enhancement on a base network: architectural additions such as affine pre-alignment stages, and training-objective additions such as regularization losses. Papers tend to adopt both at once, so it is unclear which is doing the work. I ran a controlled ablation to separate them. Using the OASIS brain MRI dataset (394 training subjects, 20 test subjects), I trained four variants of the same registration pipeline: a baseline 3D U-Net with basic similarity losses, the same U-Net with a full regularization suite, an affine-plus-deformable architecture with basic losses, and the affine architecture with the full suite. I evaluated registration accuracy (MSE, NCC, SSIM), deformation quality (Jacobian determinant preservation, displacement statistics, an anatomical plausibility score), and computational cost. Regularization alone accounted for most of the gain: a 21.3% relative gain on the MSE-improvement metric (1.78% to 2.16%, P<.001) and a 21.8% relative gain in NCC improvement, while cutting maximum deformation from 53.1 to 0.51 units, a 99.0% reduction, at essentially no computational cost (-0.06% inference time). The combined model produced the largest accuracy gain, 25.8% (1.78% to 2.24%), and raised anatomical plausibility from 0.596 to 0.930, at a moderate +9.8% inference-time cost. Gradient correlation rose from 0.742 at baseline to 0.980 for the fully enhanced model. All enhanced variants reached sub-voxel accuracy under plausible deformation constraints. Regularization losses are the primary driver in this setting, delivering the accuracy gains and almost all of the deformation control for free at inference time, while the affine architecture adds a smaller complementary benefit at acceptable cost. The 99% reduction in unrealistic deformations addresses a known barrier to clinical deployment.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Carnegie Mellon University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Carnegie Mellon University"
+   ],
+   "institution_ids": [
+    "05x2bcf33"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.05484",
    "pdf_url": "https://arxiv.org/pdf/2609.05484"
   },
@@ -191,9 +212,30 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Human observers prioritize visual information according to task goals. Most computational models of naturalistic viewing are gaze-trained for free viewing, leaving open whether goal-directed attention can emerge in systems without gaze supervision. We tested two off-the-shelf vision-language models (VLMs), Qwen3-VL-32B-Thinking and Gemma-4-26B-A4B-it, on 4,887 naturalistic scenes under visual-search and free-viewing instructions. Model predictions were compared with human fixations on the same images under corresponding tasks. Both models aligned more closely with human fixations under matching goals than under mismatched goals. This crossover persisted in target-absent scenes, where alignment could not be explained by simple visual grounding, and appeared in decoder-layer readouts. Furthermore, model-thinking traces were grounded in target semantics during search and in visual prominence during free viewing. These findings show that general-purpose VLMs can generate human-aligned, goal-directed spatial priorities without gaze-specific training, informing theories of goal-directed attention and offering scalable tools for predicting where people look across tasks.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Michigan Department of Transportation"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Michigan Department of Transportation"
+   ],
+   "institution_ids": [
+    "01kae7563"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.05517",
    "pdf_url": "https://arxiv.org/pdf/2609.05517"
   },
@@ -2189,9 +2231,37 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Single image super-resolution aims to reconstruct high-resolution images from low-resolution inputs. This paper proposes FreeTransformSR, a novel lightweight super-resolution network based on a channel-wise free low-rank learnable transform. The transform learns task-adaptive basis functions in a data-driven manner, enabling adaptive feature modulation with minimal parameter overhead. To further enhance high-frequency detail recovery, we introduce a local feature modulation branch that complements transform-domain processing with depthwise convolution. In addition, a soft complexity adaptive module dynamically fuses the outputs of local convolution and window self-attention branches through a lightweight gating network, adaptively adjusting the fusion ratio based on regional texture characteristics. An adaptive intensity modulation strategy is also incorporated to adjust transform-domain response strength at the sample level, enabling the network to dynamically adjust processing intensity according to input features. Extensive experiments on five benchmark datasets demonstrate that FreeTransformSR achieves competitive PSNR/SSIM performance with significantly fewer parameters and FLOPs. Specifically, FreeTransformSR achieves 32.41 dB on BSD100 x2 and 27.00 dB on Urban100 x4 with only 595K parameters, while delivering faster inference speed than competing methods, making it well-suited for deployment in resource-constrained scenarios. Source code is available at: https://github.com/HJiLi/FreeTransformSR.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Changchun Institute of Optics, Fine Mechanics and Physics",
+    "University of Chinese Academy of Sciences"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Changchun Institute of Optics, Fine Mechanics and Physics",
+    "University of Chinese Academy of Sciences"
+   ],
+   "institution_ids": [
+    "012rct222",
+    "05qbk4x57"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.05912",
    "pdf_url": "https://arxiv.org/pdf/2609.05912"
   },
@@ -7220,9 +7290,39 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Visual perception of built environments contributes to the affective impressions that people form in everyday life. However, how these impressions are represented within vision foundation models remains largely unexplored. To support the systematic investigation of this subject, we introduce the Emotional Impression of Spaces (EMOIS) dataset, comprising 1,544 real-world built-environment images. Each image is annotated with image-evoked valence and arousal ratings collected from Japanese adults by conducting a large-scale web-based survey, with approximately 120 ratings per image. Using Contrastive Language--Image Pre-training (CLIP) representations, we perform predictive and geometric analyses to systematically investigate how valence and arousal are encoded and organized within the representation space. These analyses reveal that valence exhibited stronger and more coherent organization than arousal. Cross-dataset analyses with the Open Affective Standardized Image Set (OASIS), a benchmark dataset of general affective photographs, reveal differences in affective organization between the two datasets. Regression analyses demonstrate high predictive performance for valence and arousal within EMOIS, with mean coefficients of determination of 0.865 and 0.807, respectively, across repeated internal hold-out evaluations. Finally, we present an example-based interface illustrating how learned representations can support qualitative interpretation of predicted affective values. These findings can help elucidate affective representations of built environments and establish EMOIS as a densely annotated resource for future affective computing research in this domain.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Toyota Central Research and Development Laboratories"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Toyota Central Research and Development Laboratories"
+   ],
+   "institution_ids": [
+    "05mjgqe69"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.06870",
    "pdf_url": "https://arxiv.org/pdf/2609.06870"
   },
@@ -7450,9 +7550,49 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Inter-frame affine misalignment caused by platform jitter and attitude adjustments poses a fundamental challenge for multi-frame analysis of point targets in optical surveillance. Conventional registration methods rely on spatial intensity correlations or distinctive image features, both of which are largely absent in low-signal-to-noise-ratio point target imagery. We introduce the Radon Point Spread Function (RPSF) to characterize point targets in the Radon-transformed domain, and derive a closed-form framework that jointly estimates inter-frame translation and rotation from as few as four scalar RPSF samples per frame pair. The method requires no iterative optimization, feature extraction or interpolation, which is suitable for resource-constrained onboard processing. Simulation results confirm sub-pixel translation accuracy and a mean rotation error of 0.2556° at 1° Radon angular resolution. Validation on five real space debris datasets including both ground-based and in-orbit observations yields a mean calibration error below 0.5 pixels, substantially exceeding the precision required for reliable multi-frame processing.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "China Academy of Space Technology",
+    "Beihang University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "China Academy of Space Technology",
+    "Beihang University"
+   ],
+   "institution_ids": [
+    "025397a59",
+    "00wk2mp56"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.06929",
    "pdf_url": "https://arxiv.org/pdf/2609.06929"
   },
@@ -8405,9 +8545,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Graphic designs, such as posters, advertisements, and infographics, are an important medium for communicating information and shaping understanding. Unlike natural images, they consist of layered elements with explicit compositional order. However, existing object detection models treat these elements as an unordered set, leaving compositional order unexploited. To address this limitation, we present Detect Anything in Graphic Design (DAD), a model that formulates graphic design detection as compositional deconstruction. It decodes elements in compositional order, using lower-layer elements to better detect higher-layer ones. The key feature of DAD is amodal detection, which predicts the full bounding box of each element, including regions occluded by elements placed above it. Building on this formulation, we propose Element Relative Policy Optimization (EleRPO), which extends GRPO from sequence-level supervision to element-level optimization. EleRPO provides fine-grained training signals that capture how each detected element contributes to overall detection quality, and works synergistically with compositional order to improve detection performance. To support training and evaluation, we build a dataset of 10 million graphic designs. Experiments show that DAD outperforms all baselines and achieves human-level performance in amodal detection, supporting effective image-to-layer decomposition. EleRPO consistently improves over GRPO across nine detection benchmarks.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.07072",
    "pdf_url": "https://arxiv.org/pdf/2609.07072"
   },
@@ -9282,9 +9432,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "The rapid evolution of video generation has shifted the paradigm from pure text-driven to multi-conditional controllable generation, with reference images now widely adopted as conditional inputs to achieve superior spatiotemporal consistency. While these reference images serve as powerful visual anchors that significantly enhance controllability, their impact on safety remains largely unexplored. In this work, we reveal the visual anchoring effect: by enforcing consistency, the mechanism prevents the generated content from drifting away from the original harmful intent, thereby eliminating the model's natural safety escape route from harmful to benign content. Consequently, visual anchors inherently increase the safety risk—this is the price of consistency. Building on this insight, we propose Decoupling Intent via Visual Anchors (DIVA), a training-free multimodal jailbreak framework for video generation that exploits this vulnerability. DIVA decouples harmful intent into a static visual anchor image and a dynamic motion text prompt, and employs dual-criteria selection to balance attack stealthiness with semantic preservation. Extensive experiments across various leading commercial platforms and mainstream open-source video generation models demonstrate that DIVA achieves a substantially higher Attack Success Rate than existing text-only methods. To facilitate future research, we additionally contribute TI2VSafetyBench, the first safety benchmark for multi-conditional video generation.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.07216",
    "pdf_url": "https://arxiv.org/pdf/2609.07216"
   },
@@ -11472,9 +11632,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Current text-to-image systems typically employ a \"text encoder plus diffusion decoder\" paradigm, in which text semantics directly modulate continuous latent noise. Despite their success, these methods lack an explicit, interpretable intermediate representation that effectively bridges high-level linguistic semantics and low-level visual signals. In this paper, we propose Vision-of-Thought (VoT), a framework that introduces a discrete visual-thinking layer between vision-language models (VLMs) and diffusion transformers (DiTs). Instead of treating VLMs merely as text encoders, we use them as multimodal planners that generate discrete VoT tokens representing high-level visual plans, such as objects and layouts, before rendering pixels. We train a specialized VoT tokenizer in the VLM semantic space with a closed-loop objective that combines VLM alignment, feature reconstruction, and vector-quantization losses. These objectives make the tokens semantically readable by the VLM while preserving the visual information needed for generation. Experimental results demonstrate that VoT improves semantic alignment and provides a structured interface for interpretable and controllable generation.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.07815",
    "pdf_url": "https://arxiv.org/pdf/2609.07815"
   },
@@ -13034,9 +13204,36 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Vision-language models (VLMs) demonstrate strong performance across compositional reasoning benchmarks, which require reasoning over semantic perturbations of objects, attributes, relations, and their interactions. However, our controlled analysis reveals that existing compositionality-aware VLMs exhibit element-specific biases, often underperforming vanilla CLIP on certain compositional elements. To address this, we propose Compositional Scene Graph-guided CLIP (CS-CLIP), which uses scene graphs to identify compositional elements and construct structured negatives via selective masking. We further retain negatives that are most contradictory to the original caption, forcing the model to rely on compositional structure rather than surface cues. CS-CLIP achieves state-of-the-art compositional reasoning with robust performance across compositional elements. It also preserves general vision-language capabilities such as cross-modal retrieval and downstream visual reasoning, while requiring fewer training samples than prior methods.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Seoul National University"
+   ],
+   "author_affiliations": [
+    null,
+    null,
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Seoul National University"
+   ],
+   "institution_ids": [
+    "04h9pn542"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.08242",
    "pdf_url": "https://arxiv.org/pdf/2609.08242"
   },
@@ -15899,9 +16096,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Object 6D pose estimation formulations have progressively reduced reliance on object-specific priors, evolving from explicit 3D models to multi-view object captures to single reference images. We take this progression to its extreme by introducing prior-free relative 6D pose estimation, which lifts the assumption of knowing which object is to be posed within the scene. This novel setting aims to estimate the relative poses of multiple instances of an unknown object within the same image, without requiring CAD models, templates, or reference images. We solve this by formulating a novel method (PROSE) that finds coarse correspondences between object instances using multimodal foundation features, thus requiring no training. We refine these correspondences by imposing cycle consistency across tuples of instances, and leverage the resulting globally consistent correspondences to estimate the relative 6D pose between any pair of instances. To enable systematic evaluation, we design a novel benchmark (PRENCH) built from three multi-instance BOP datasets and enriched with task-specific metadata. PROSE consistently outperforms baselines obtained by adapting state-of-the-art single-image methods to the proposed setting, while requiring neither task-specific supervision nor additional learned components. Project website: https://tev-fbk.github.io/PROSE/",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.08949",
    "pdf_url": "https://arxiv.org/pdf/2609.08949"
   },
@@ -19006,9 +19213,19 @@
    "cross_list_from": "cs.LG",
    "html_url": null,
    "abstract": "This study investigates the classification of individuals as healthy or at risk of Parkinson's disease using machine learning (ML) models, focusing on the impact of dataset size and preprocessing techniques on model performance. Four datasets are created from an original dataset: DS_0, (normal dataset), DS_1 (DS_O subjected to Canny edge detection and Hessian filtering), DS_2 (augmented DS_0), and DS_3 (augmented DS_1). We evaluate a range of ML models-Logistic Regression (LR), Decision Tree (DT), Random Forest (RF), Gradient Boosting (GB), XGBoost (XBG), Naive Bayes (NB), Support Vector Machine (SVM), and AdaBoost (AdB)-on these datasets, analyzing prediction accuracy, model size, and prediction latency. The results show that while larger datasets lead to increased model memory footprints and prediction latencies, the Canny edge detection preprocessing supplemented by Hessian filtering (used in DS_1 and DS_3) degrades the performance of most models. In our experiment, we observe that Random Forest (RF) maintains a stable memory footprint of 61 KB across all datasets, while models like KNN and SVM show significant increases in memory usage, from 5.7-7 KB on DS_0 to 102-220 KB on DS_2, and similar increases in prediction time. Logistic Regression, Decision Tree, and Naive Bayes show stable memory footprints and fast prediction times across all datasets. XGBoost's prediction time increases from 180-200 ms on DS_0 to 700-3000 ms on DS_2 (truncated)",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.07408",
    "pdf_url": "https://arxiv.org/pdf/2609.07408"
   },

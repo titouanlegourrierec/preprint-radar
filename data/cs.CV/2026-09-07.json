@@ -1061,9 +1061,46 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Catheterisation image processing requires segmentation models that are fast, accurate and explainable. While most of the existing studies usually focus on binary segmentation, there is a recent demand for simultaneous segmentation of multiple structures found in catheterization scenes. In this study, a dual-part MLBNet architecture is designed with multi-lateral encoder blocks and multi-head decoder branches for class-aware segmentation in cardiovascular catheterization scenes. Lateral branches in the encoder enables repeated feature extraction to learn diverse shared representations, while multiple decoder heads are used to introduce class-skewed branches that specialize in different structural properties in catheterization scenes. To analyze the performances of the dual-part MLBNet architecture, several multi-class segmentation angiogram data obtained during cardiovascular catheterization in phantom models, synthetic human-simulated aorta, and animal model are used for model training and evaluation. Results obtained showed the dual-part models could effectively separate guidewire, catheter, vessels and background pixels to their classes of memberships with high probability. The results demonstrate that all models were able to distinguish the dominant background class from foreground structures with high overall accuracy.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Central Queensland University",
+    "Tsinghua Shenzhen International Graduate School",
+    "Tsinghua University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Central Queensland University",
+    "Tsinghua Shenzhen International Graduate School",
+    "Tsinghua University"
+   ],
+   "institution_ids": [
+    "023q4bk22",
+    "01vceef04",
+    "03cve4549"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.04590",
    "pdf_url": "https://arxiv.org/pdf/2609.04590"
   },
@@ -4255,9 +4292,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Deepfake detection models often rely on high-quality inputs, fixed inference paths, and computationally expensive architectures, limiting their use in low-resolution and resource-constrained settings. This paper proposes AdaGate-DF, an adaptive gated deepfake detection framework that uses image-quality cues to route samples through a dual multi-exit system so high-quality images can exit earlier and save compute. We evaluated AdaGate-DF against MaD-CoRN, DefakeHop++, and ShuffleNetV2 on two benchmark datasets (Celeb-DF and FaceForensics++) under multiple configurations to test image resolution dependence and training and inference efficiency. On Celeb-DF, AdaGate-DF achieves an AUC of 0.9370, outperforming MaD-CoRN and DefakeHop++ while maintaining a low inference latency. Resolution-based testing shows consistent improvement as input resolution increases, reaching an AUC of 0.9708 at 384 by 384. The FaceForensics++ results highlight that AdaGate-DF remains effective under class imbalance, following competitive results with evaluated models. Overall, AdaGate-DF demonstrated a practical balance between detection performance, uncertainty-aware prediction, and computational efficiency for variable-quality deepfake detection.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.05320",
    "pdf_url": "https://arxiv.org/pdf/2609.05320"
   },
@@ -4624,9 +4671,44 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "More than a decade in, explainable AI (XAI) for computer vision has assembled a mature toolbox: attribution, feature visualization, concept-based, and circuit-based methods. Yet almost all of the field's effort has gone into building and comparing these methods, and little into the question they were meant to answer—how interpretable are our models, and are we making progress as they evolve? We argue for shifting the field's focus from methods to models, along two complementary lines. One is already within reach: existing tools let us characterize and compare what different models represent and compute. The other is harder, and largely neglected: whether a model can actually be understood by the humans who rely on it—the independent evaluators on whom trust and certification depend, not the experts confirming what they already expect. It can only be measured, not inferred. We review why the toolbox is mature enough to support both, survey the thin body of work comparing models, draw a parallel to systems neuroscience, and close with a model-centric XAI agenda.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Allen Institute for Brain Science",
+    "ELLIS Alicante",
+    "Brown University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0,
+     2
+    ]
+   ],
+   "institutions": [
+    "Allen Institute for Brain Science",
+    "ELLIS Alicante",
+    "Brown University"
+   ],
+   "institution_ids": [
+    "00dcv1019",
+    "002ye0093",
+    "05gq02987"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.05399",
    "pdf_url": "https://arxiv.org/pdf/2609.05399"
   },
@@ -4649,9 +4731,38 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "When there is not enough labeled data to properly train deep learning models, transfer learning can help. We still do not fully understand how effective it is in neuroimaging, especially for Alzheimer's disease research. It is also not clear if these transferred models can work on new datasets without being retrained for each specific task. We evaluate whether a compact, supervised pretrained model can serve as a reusable foundation model for downstream neuroimaging tasks. We freeze the 7.18 million weights of a 3D CNN previously trained for brain-age prediction, and adapt it to each task using Low-Rank Adaptation (LoRA), requiring only ~1% additional trainable parameters. We evaluate generalizability in six experiments. Adapting the model to classify cognitively normal versus Dementia on ADNI gave an AUC of 0.964 on held-out folds (Experiment #1). Applying that adapted model unchanged to OASIS-3, with no retraining, gave an AUC of 0.871 (Experiment #2). Reusing its output logit together with age and a cognitive score distinguished stable from progressing MCI with an AUC of 0.828 (Experiment #3). Adapting the same backbone to predict amyloid positivity from structural MRI gave an AUC of 0.804 (Experiment #4). Finally, the same approach estimated ICV-normalized hippocampal and white matter hypointensity volumes directly from the T1w image, with R^2 of 0.80 and 0.91 respectively, tasks normally addressed with much larger U-Net networks (Experiments #5 and #6). A compact model supervised on brain age can therefore serve as a reusable backbone, adapting to each task with ~1% additional parameters and transferring to an unseen cohort without any training. Our findings suggest that a carefully trained brain age model can serve as an effective foundation model for Alzheimer's related tasks, even under strict data constraints.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Montreal Neurological Institute and Hospital",
+    "McGill University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Montreal Neurological Institute and Hospital",
+    "McGill University"
+   ],
+   "institution_ids": [
+    "05ghs6f64",
+    "01pxwe438"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.05400",
    "pdf_url": "https://arxiv.org/pdf/2609.05400"
   },
@@ -5456,9 +5567,49 @@
    "cross_list_from": "cs.ET",
    "html_url": null,
    "abstract": "This paper proposes a spatio-temporal edge-movement direction pixel (STEMPix) for generating compact direction-aware edge movement information inside a CMOS-compatible image sensor array. The proposed design targets specialized sensing applications where local boundary movement is more important than full-frame intensity reconstruction. Instead of transferring full multi-bit frames for external processing, STEMPix generates a 3-bit local edge direction code (LEDC) by combining pixel-level temporal change information with neighboring-pixel spatial edge information. We design the architecture using a two-tier organization, where the photodiode layer is separated from the computation layer to preserve light-collection area while accommodating the additional in-array processing circuitry. The proposed circuit is evaluated through HSPICE transient simulations. The estimated implementation achieves a horizontal pitch of 1.73 μm, a vertical pitch of 2.36 μm, and a geometric fill factor of 95.47%. The average active switching energy is 0.465 fJ per LEDC operation across representative edge-movement cases. The proposed STEMPix operation also supports global-shutter capture and dynamic thresholding. These results indicate that STEMPix can provide a compact and scalable front-end representation for edge-movement-aware sensing systems.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "University of Tennessee at Knoxville",
+    "Purdue University West Lafayette",
+    "University of Pennsylvania",
+    "Philadelphia University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Tennessee at Knoxville",
+    "Purdue University West Lafayette",
+    "University of Pennsylvania",
+    "Philadelphia University"
+   ],
+   "institution_ids": [
+    "020f3ap87",
+    "02dqehb95",
+    "00b30xv10",
+    "03zzmyz63"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.04435",
    "pdf_url": "https://arxiv.org/pdf/2609.04435"
   },
@@ -6228,9 +6379,69 @@
    "cross_list_from": "cs.RO",
    "html_url": null,
    "abstract": "Vision-Language-Action (VLA) models have shown promising progress in language-conditioned robotic manipulation. However, existing datasets and benchmarks mainly evaluate task completion under predefined settings, offering limited insight into model reasoning under increasing spatial and procedural complexity. We introduce RoboSPA (Robot Spatial-Procedural Assessment), a large-scale robotic manipulation dataset and benchmark for diagnosing embodied reasoning in VLA models. RoboSPA focuses on two core dimensions, Fine-Grained Spatial Reasoning and Long-Horizon Procedural Planning, covering 10 task categories and 56 base tasks. Each task is instantiated across five difficulty levels, yielding 280 variants with increasing spatial ambiguity and procedural complexity. We collect 527K trajectories across multiple embodiments and diverse scenes. Beyond binary success rate, RoboSPA introduces diagnostic metrics for more detailed evaluation. Experiments on representative VLA models show that current systems still struggle with complex spatial relations, precise low-level execution, and memory-intensive planning. These results establish RoboSPA as a challenging diagnostic benchmark for developing more capable, reliable, and generalizable embodied agents. Our data and code are available at https://github.com/fanzhenxuan/RoboSPA.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Zhejiang University",
+    "University of Electronic Science and Technology of China",
+    "South China Normal University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Zhejiang University",
+    "University of Electronic Science and Technology of China",
+    "South China Normal University"
+   ],
+   "institution_ids": [
+    "00a2xv884",
+    "04qr3zq92",
+    "01kq0pv72"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.05324",
    "pdf_url": "https://arxiv.org/pdf/2609.05324"
   },

@@ -2497,9 +2497,46 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Anticipating whether a pedestrian will cross the road is safety-critical for autonomous vehicles, requiring real-time inference under challenging conditions including motion blur, high dynamic range, and class imbalance. Conventional frame-based deep networks process redundant RGB data at fixed frame rates, limiting their temporal resolution and energy efficiency. In this work we present an end-to-end pipeline that (i) converts real-world driving footage from the Joint Attention in Autonomous Driving (JAAD) dataset into synthetic dynamic vision sensor (DVS) event streams using the v2e simulator, (ii) augments training with the CARLA-simulated DVS sequences of the DVS-PedX dataset under both normal and adverse weather conditions, and (iii) trains a novel convolutional spiking neural network (Conv-SNN) with clip-consistent DVS augmentation to classify pedestrian crossing intent as binary: crossing or non-crossing. We detail all architectural decisions, the exact leaky-integrate-and-fire neuron dynamics with surrogate-gradient learning, the class-balanced loss formulation, JAAD oversampling at 6x, and a 70/15/15 stratified splitting protocol. The trained model achieves 95.83% accuracy and F1 = 0.9695 on the JAAD DVS test set, 97.79% accuracy and F1 = 0.9478 on normal CARLA DVS, and 94.78% accuracy and F1 = 0.8369 on adverse-weather CARLA DVS, all from a 1.07M-parameter architecture trained on CPU. Compared to prior frame-based approaches on JAAD, our method closes or surpasses the reported accuracy while operating natively on sparse temporal representations. We include a thorough analysis of the convergence behaviour across all 15 training epochs, domain transfer characteristics, and a quantitative comparison with representative related work.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Alma Mater Europaea",
+    "Jagiellonian University",
+    "AGH University of Krakow"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Alma Mater Europaea",
+    "Jagiellonian University",
+    "AGH University of Krakow"
+   ],
+   "institution_ids": [
+    "028a67802",
+    "03bqmcz70",
+    "00bas1c41"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.13328",
    "pdf_url": "https://arxiv.org/pdf/2609.13328"
   },
@@ -2801,9 +2838,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "The rapid development of unmanned aerial vehicle (UAV) technology has made aerial-image object detection increasingly important for natural-resource monitoring, traffic management, and disaster response. Detecting small objects in aerial images remains difficult because objects occupy very few pixels, high-frequency cues are easily lost, and global context is hard to model in cluttered scenes. Existing detectors often retain insufficient edge, corner, and texture information. We propose \\ours, an aerial-image detector built on the YOLO12 architecture. The model combines a triple-path high-frequency enhancement convolution module (TriPathHFConv), receptive-field coordinate-attention convolution (RFCAConv), and a Mamba-based global-context module. On VisDrone, at an input resolution of 960*960, ours achieves 60.0% mAP@50 and 38.6%mAP@50:95, demonstrating a favorable accuracy--efficiency trade-off for small-object detection. The benchmark and dataset protocol follow the VisDrone challenge setup.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.13647",
    "pdf_url": "https://arxiv.org/pdf/2609.13647"
   },
@@ -3776,9 +3823,30 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Earth-observation (EO) foundation models have become exceptionally effective at learning se mantic, high-dimensional geospatial embeddings, while modern weather and climate models have demonstrated that Earth-specific geometry, spherical operators, meshes, and hybrid physical solvers can materially improve prediction. Yet these two advances are not equivalent. A conventional latent embedding has no inherent physical transformation law, whereas scalar fields, tangent polar-vector fields, axial/pseudovector quantities, covectors, and higher-order tensors transform differently under rotations, reflections, and changes of local coordinate frame. This proposal asks whether a general purpose Earth foundation model should preserve those distinctions explicitly, or whether standard embeddings plus augmentation already learn everything that matters. The central contribution is therefore not a more complicated architecture by assumption, but a staged falsification program. A compute-conscious ERA5 dry run first compares conventional, augmentation-matched, typed equivariant, and Hodge/Helmholtz variants under spatial, temporal, orientation, and low-data shifts. Only if explicit geometric typing yields reproducible improvements does the program advance toward a multimodal Earth foundation model in which semantic embeddings coexist with physically typed fields. The proposed gap is narrower and more defensible than claiming that current models ignore geometry entirely: several systems already respect spherical domain geometry, and emerging work explicitly learns scalar/vector fields on spheres. The unresolved question is whether foundation-scale, multimodal, parity-aware field typing produces practical gains beyond those existing approaches.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Plaksha University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Plaksha University"
+   ],
+   "institution_ids": [
+    "01752qx54"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.13868",
    "pdf_url": "https://arxiv.org/pdf/2609.13868"
   },
@@ -3993,10 +4061,20 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Ptychographic phase reconstruction is commonly formulated as an iterative inverse problem, requiring repeated object-probe updates and resulting in substantial computational cost for large-scale 4D-STEM data. We present a direct local-to-global learning framework that reconstructs full-field phase maps from diffraction measurements without iterative refinement during inference. The proposed network predicts local wrapped-phase patches from individual diffraction patterns using a sine-cosine representation, and the predictions are assembled into a full-field reconstruction using calibrated scan positions and Gaussian-weighted stitching. To evaluate generalization beyond the training domain, the model is trained on one material and directly applied to another in a zero-shot setting without target-domain fine-tuning. Experiments on AuPd and MoS$_2$ demonstrate consistent cross-material transfer in both directions, with the proposed method achieving the best full-field MSE, PSNR, and MS-SSIM among the evaluated learning-based methods. Compared with the iterative ePIE approach, the proposed direct local-to-global pipeline reduces end-to-end reconstruction time by approximately 10x, demonstrating its potential for efficient and transferable ptychographic reconstruction.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
    "withdrawn": true,
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.13969",
    "pdf_url": "https://arxiv.org/pdf/2609.13969"
   },
@@ -4706,10 +4784,46 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Autism Spectrum Disorder (ASD) is a neurodevelopmental condition whose early diagnosis remains challenging because conventional clinical assessments are often subjective, time-consuming, and require expert evaluation. Gait provides a promising non-invasive behavioral biomarker for auto- mated ASD screening; however, existing studies have primarily relied on single-dataset evaluations, convolutional architectures, and descriptive summaries of cross-validation performance without formally assessing fold-to-fold stability. This study addresses these gaps with an attention-enhanced Transformer framework for ASD classification, evaluated on two structurally different 3D gait feature representations: precomputed statistical gait descriptors and raw biomechanical ground-reaction- force measurements. Under five-fold cross-validation, the proposed framework achieved 99.00% accuracy, 99.02% precision, 99.00% recall, 99.00% F1-score, and 99.00% specificity on the public Kinect-based benchmark, exceeding the performance of the compared state-of-the-art methods. On the independent private force-plate dataset, it achieved mean values of 95.00% accuracy, 93.81% precision, 96.67% recall, 95.13% F1-score, and 93.33% specificity.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Begum Rokeya University",
+    "Texas State University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    null,
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Begum Rokeya University",
+    "Texas State University"
+   ],
+   "institution_ids": [
+    "00hhr3x36",
+    "05h9q1g27"
+   ],
    "withdrawn": true,
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.14159",
    "pdf_url": "https://arxiv.org/pdf/2609.14159"
   },
@@ -6422,9 +6536,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Development and evaluation of computational pathology methods require access to large and diverse datasets. Over the past decade, various initiatives invested significantly into collecting, centralizing, and sharing pathology imaging data. In contrast, sharing of image-derived data such as region-of-interest delineations or segmentation masks is less well developed. In this work, we describe our approach to encoding and sharing image-derived pathology data in a standardized manner within the National Cancer Institute (NCI) Imaging Data Commons (IDC), a platform that hosts and provides public access to de-identified radiology and pathology data. The IDC relies on the Digital Imaging and Communications in Medicine (DICOM) standard for data harmonization, yet the adoption of DICOM for pathology image-derived content has remained largely unexplored until now. Here, we present five representative datasets harmonized by conversion from their original representations into DICOM and shared publicly in the IDC. We demonstrate the benefits of this harmonization, describe contributions to critical open-source tooling, and discuss technical considerations relevant to broader adoption of DICOM for pathology image-derived data.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.14530",
    "pdf_url": "https://arxiv.org/pdf/2609.14530"
   },
@@ -6476,9 +6600,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Autonomous agents that author building information models need more than access to a host API. They need a representation of what they intended, what a compiler decided on their behalf, what was refused, what was observed after execution and what remains unknown. We present KIR, a typed intermediate representation in which a building is authored as a program held in a versioned repository and lowered to host applications as build targets. KIR is organised around seven ways in which a generator writing into a stateful, partially observable host goes silently wrong, and gives each a representation in data: ambiguous selectors become typed refusals with candidates; defaults keep their provenance; obligations that will not be checked are named before execution; vacuous witnesses are rejected statically; a lost transaction response becomes the state UNCONFIRMED with a verify-before-retry rule; the reverse path obeys a census invariant; and decisions are bound by digest to the state they were made against. On a pinned snapshot with 83 operation contracts and Revit as the only backend, offline experiments refuse 29 of 42 stress-test programs with diagnostic codes and no uncaught exception, name 38 of 377 witness obligations as unwitnessable, admit 31 of 100 combinations of execution, witness and acceptance states under seven stated invariants, and find no vacuous witness in 219 certificate runs; a 60-storey tower is 11,263 characters as KIR against 3,709,235 characters of emitted C#. Native Revit runs are reported from project records and kept separate from reproduced results. A controlled comparison with agents that write host code directly is specified but not yet executed; it is the principal open question.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.14578",
    "pdf_url": "https://arxiv.org/pdf/2609.14578"
   },
@@ -6963,9 +7097,71 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Purpose: To compare four multimodal large language models (MLLMs) with radiologists of varying expertise in breast density assessment, BI-RADS assessment, biopsy candidacy determination, and continuous malignancy probability estimation using digital mammography (DM) and contrast-enhanced mammography (CEM). Methods: This study included 179 women with paired DM/CEM examinations and reference standards. Four MLLMs (ChatGPT-5.2, Gemini-3.1 Pro, Sonnet-4.6, Muse Spark) interpreted images with and without masks; three radiologists interpreted non-masked images. Results: For binary density classification on DM, radiologist accuracies ranged from 55.81% to 78.60%, exceeding most MLLM values (62.33%-71.63%), while masks added limited benefit. Five-category BI-RADS accuracies were higher for radiologists on DM (56.74-67.44%) and CEM (62.33-82.79%) compared with MLLMs (DM 31.16-45.12%; CEM 40.00-55.81%). Binary biopsy-candidacy accuracies were likewise higher for radiologists (DM 85.12-89.77%; CEM 86.98-92.09%) than for MLLMs (DM 61.39-75.35%; CEM 69.30-82.79%), although CEM improved performance across all readers. Lesion masks substantially improved MLLM continuous malignancy-probability accuracies from 64.65%-71.63% to 72.56-78.60% on DM and from 67.91%-77.21% to 72.56%-81.86% on CEM, approaching radiologist ranges (DM 63.72-82.79%; CEM 81.86-88.84%). The corresponding AUCs for the top masked models overlapped those of the human readers. Overall, Muse Spark, followed by Sonnet-4.6, demonstrated the strongest performance among the MLLMs across domains. Conclusion: Radiologists generally outperformed MLLMs in categorical tasks, while selected masked models approached human performance for continuous malignancy probability estimation, suggesting a potential adjunctive role.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Danube Private University",
+    "Urmia University",
+    "Urmia University of Medical Sciences",
+    "Iran University of Medical Sciences",
+    "University of Padua",
+    "Bahçeşehir University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ],
+    null,
+    null,
+    [
+     0
+    ],
+    [
+     3
+    ],
+    [
+     4
+    ],
+    [
+     5
+    ],
+    null,
+    null,
+    [
+     0
+    ],
+    null,
+    null,
+    null
+   ],
+   "institutions": [
+    "Danube Private University",
+    "Urmia University",
+    "Urmia University of Medical Sciences",
+    "Iran University of Medical Sciences",
+    "University of Padua",
+    "Bahçeşehir University"
+   ],
+   "institution_ids": [
+    "054ebrh70",
+    "032fk0x53",
+    "03jbsdf87",
+    "03w04rv71",
+    "00240q980",
+    "00yze4d93"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.14676",
    "pdf_url": "https://arxiv.org/pdf/2609.14676"
   },
@@ -9430,9 +9626,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Vessel segmentation in X-ray coronary angiography (XCA) is a fundamental step for quantitative coronary analysis and subsequent assessment of coronary artery disease. However, accurate vessel segmentation remains challenging because of imaging noise, complex bifurcations, and the overlap of vessels and background structures, which can lead to disrupted vascular connectivity and missed small branches. In this work, we propose BSC-Net, a ResNet-U-Net-based framework tailored to improve small-vessel representation and repair vascular structural continuity. BSC-Net enhances small-vessel representation through targeted sampling and improves vascular structural continuity by integrating long-range contextual modeling and Edge-Informed Loss (EIL). BSC-Net was validated on two public XCA datasets, demonstrating state-of-the-art (SOTA) performance in coronary vessel segmentation with Dice and IoU scores of 77.8%/90.6% and 64.5%/83.0%, respectively. Furthermore, based on the obtained vessel segmentation, we performed automated quantitative coronary analysis and derived clinically relevant morphological and hemodynamic parameters, including stenosis ratio, time-to-peak, and relative propagation velocity. These results demonstrate that BSC-Net produces accurate vessel segmentation results with preserved vascular continuity for quantitative coronary assessment, enabling reliable downstream analysis and clinical evaluation of coronary artery disease.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.15400",
    "pdf_url": "https://arxiv.org/pdf/2609.15400"
   },
@@ -9710,9 +9916,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Multimodal agents can create complex videos in software such as Blender by coding without relying on diffusion models. Yet video understanding benchmarks still evaluate models mainly through question answering. If an agent truly understands a video, it can reconstruct it programmatically. We introduce BVB, Blender-VideoBench, a benchmark that tests this ability by asking agents to reconstruct real-world videos as animated Blender scenes. To ensure fair comparison, each agent programs the reconstruction through a lightweight harness, Mini-BVB, in an identical sandbox under a shared cost limit. The benchmark renders each reconstruction from its animated camera and evaluates it on two axes: (1) Dual VQA measures how many spatiotemporal facts the reconstruction preserves. (2) Latent Similarity measures how closely the reconstruction matches the source video perceptually. Our overall score, a square-root mean, favors balanced performance. We evaluate 51 configurations from 10 model families and analyze semantic retention, perceptual similarity, reasoning effort, and cost. The best model reaches 88.6 Latent Similarity but retains only 53.7% of the source-correct spatiotemporal answers. Additional reasoning improves visual similarity but does not close this gap in factual accuracy. In a blind study with 15 raters and five configurations, Latent Similarity correlates strongly with human preference. These results show that programmatic reconstruction is a viable test of agentic video understanding, and that semantic retention remains the main challenge.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.15478",
    "pdf_url": "https://arxiv.org/pdf/2609.15478"
   },
@@ -9820,9 +10036,43 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "BraTS-GoAT evaluates tumor segmentation across heterogeneous populations. We trained a conventional 3D nnU-Net on 1,351 labeled cases using five-fold cross-validation and 1,000 epochs per fold. The final predictor averaged all folds and applied test-time mirroring. On pooled official validation, global DSC values were 0.7805, 0.8288, and 0.8854 for enhancing tumor (ET), tumor core (TC), and whole tumor (WT). Under matched fold-0 inference, mean regional Dice decreased from 0.9058 on source out-of-fold (OOF) cases to 0.8310 on pooled validation (difference--0.0747). Mirroring gave small single-fold gains but no clear ensemble benefit; a residual-encoder alternative reached 0.8282 mean Dice. In labeled OOF predictions, failure cases had substantially smaller reference ET volumes; after adjustment for ET and WT volume, lower Dice remained associated with more disconnected ET components and a smaller fraction of ET contained in the largest component.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Laboratoire des Sciences de l'Ingénieur, de l'Informatique et de l'Imagerie",
+    "Institut Strauss"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Laboratoire des Sciences de l'Ingénieur, de l'Informatique et de l'Imagerie",
+    "Institut Strauss"
+   ],
+   "institution_ids": [
+    "00k4e5n71",
+    "03k1y0r37"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.15524",
    "pdf_url": "https://arxiv.org/pdf/2609.15524"
   },
@@ -12394,9 +12644,33 @@
    "cross_list_from": "cs.SE",
    "html_url": null,
    "abstract": "woma is a real-time foundation model for gastrointestinal endoscopy: a network trained without labels on about a million endoscopy frames, from which task models are fine-tuned. We contribute a systematic design for production. Requirements and pass marks were fixed before any run, eight candidates screened under pre-registered rules, self-supervised training taken to a stopping rule, then fine-tuning and deployment optimisation, all on one self-contained library, numbat. We also contribute woma itself with two fine-tuned models, every outcome reported met or missed. Our colonoscopy model finds and outlines polyps, names which colon segment is in view, suggests polyp type and grades bowel preparation. Our gastroscopy model names a station out of 22 protocol sites, flags and outlines lesions, and names one of seven findings. Every number was read on data never seen in training, and shipped weights were chosen on that record. In colonoscopy, 96% of polyps in a six-hospital PolypGen set are found at precision >=0.85, and 19 of 19 polyps across fifteen full REAL-Colon videos at 1.6 false alarms per procedure. In gastroscopy, landmark region is named correctly on 92% of frames from unseen patients, and 37 of 39 held-out neoplasia frames are flagged at specificity 0.91. On one workstation GPU every task runs over 1080p video at about 100 frames per second, faster than PyTorch, ONNX Runtime and TensorRT in all four precision regimes tested. TensorRT comes closest: one pass of our foundation model takes it 3 to 27% longer than ours, and we deliver 6 to 31% more frames per second from frame to results. A second build links no vendor library at all -- our own kernels over Vulkan -- so a site deploys two files and needs no toolkit, no cuDNN and no framework; in f32 it beats the CUDA build on the same card.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Monash University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Monash University"
+   ],
+   "institution_ids": [
+    "02bfwt286"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.15130",
    "pdf_url": "https://arxiv.org/pdf/2609.15130"
   },
@@ -12493,9 +12767,43 @@
    "cross_list_from": "cs.AI",
    "html_url": null,
    "abstract": "We describe our submission to the MedReason 2026 challenge, covering multiple-choice (MCQ) and open-ended (OE) medical visual question answering (VQA) under fully offline, containerized inference. Our first finding is that MCQ retrieval must compare answer semantics rather than answer labels: labels are independently assigned per question, so copying a retrieved neighbor's label transfers no useful information, whereas scoring each current option's text against correct-answer text from similar training cases raises retrieval-only accuracy from 20.0% to 57.5% on a 200-case retrieval-excluded development holdout. Our second finding attributes the submitted system's accuracy: holding the task-specific MCQ Low-Rank Adaptation (LoRA) adapter fixed and varying the number k of in-prompt retrieved examples changes accuracy by at most one case — 187/200 (93.5%) at both k=0 and the adapter's training-time k=1, 188/200 (94.0%) at the packaged runtime's default k=3 — and the submitted confidence-gated override adds no net accuracy on top of k=3, selecting the VLM in 198/200 cases. With the final MCQ adapter fixed, retrieval changes accuracy by at most one case, and gating provides no net gain. On 20 OE cases, token-F1 and RaTEScore decrease as k grows, but paired sign tests on token-F1 differences are nonsignificant (p ≥0.29); a single-annotator comparison found 6/20 wrong-anchor errors for the final configuration and 14/20 for an earlier configuration that jointly differed in routing, adapter, and prompting. The system reaches 94.0% MCQ accuracy on the development holdout and 93.20% on the organizer's official pre-evaluation, versus 29.43% for the off-the-shelf reference baseline, while both of the organizer's open-ended scores are lower than that baseline's (ground-truth agreement 1.245 versus 1.588, visual accuracy 1.995 versus 2.696, each out of 4).",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Laboratoire des Sciences de l'Ingénieur, de l'Informatique et de l'Imagerie",
+    "Institut Strauss",
+    "China Agricultural University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "Laboratoire des Sciences de l'Ingénieur, de l'Informatique et de l'Imagerie",
+    "Institut Strauss",
+    "China Agricultural University"
+   ],
+   "institution_ids": [
+    "00k4e5n71",
+    "03k1y0r37",
+    "04v3ywz14"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.15530",
    "pdf_url": "https://arxiv.org/pdf/2609.15530"
   },

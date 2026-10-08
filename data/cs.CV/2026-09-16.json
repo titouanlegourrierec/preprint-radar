@@ -447,9 +447,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Breast histopathology analysis increasingly relies on distributed learning because direct data pooling across institutions is often restricted by privacy, governance, and communication constraints. This study compares server-based Federated Averaging (FedAvg), fully decentralized gossip learning, and Hybrid Gossip-FedAvg for invasive ductal carcinoma (IDC) patch classification. Experiments used 277,524 color image patches with patient-disjoint training, validation, and test partitions and a workload-balanced, Dirichlet-guided allocation across six nodes. Ring, random degree-3, and fully connected gossip topologies were evaluated together with sensitivity analyses for statistical heterogeneity, mixing coefficient, learning rate, model drift, prediction disagreement, calibration, clinically motivated operating points, communication payload, and patient-level IDC burden, together with auxiliary backbone robustness analyses. In the principal alpha=0.3 experiment, Hybrid Gossip-FedAvg achieved a test area under the receiver operating characteristic curve (ROC-AUC) of 0.8811, closely followed by FedAvg at 0.8801 and fully connected gossip at 0.8751. Across three independent patient-level repetitions, FedAvg and Hybrid Gossip-FedAvg obtained the same mean ROC-AUC of 0.9082, with standard deviations of 0.0037 and 0.0043, respectively. Hybrid achieved the highest mean area under the precision-recall curve of 0.8240, whereas FedAvg produced the lowest mean Brier score of 0.1335. Denser gossip graphs improved discrimination but increased theoretical model payload, while ring gossip remained sensitive to learning rate and mixing strength. Overall, FedAvg provided the most consistently reliable server-based baseline, topology-aware gossip offered a viable decentralized alternative, and Hybrid Gossip-FedAvg provided a balanced compromise between peer-to-peer diffusion and periodic global coordination.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.16448",
    "pdf_url": "https://arxiv.org/pdf/2609.16448"
   },
@@ -1024,9 +1034,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "We developed BrainVLM to classify all 12 World Health Organization (WHO) 2021 brain tumor types. BrainVLM integrates an uncertainty quantification strategy to indicate prediction reliability and a module for generating radiology reports to elucidate the clinical rationale. BrainVLM was trained on multi-modal data (MRI scans, demographics, and radiology reports) from 40,043 individuals. It was validated on 5,211 patients with pathologically confirmed brain tumors, including 3,877 held-out patients from the primary hospital and 1,334 patients from 11 independent hospitals. We further conducted two proof-of-concept studies to validate its clinical utility in AI-clinician workflows: 1) a blinded multireader study where 12 neuroradiologists across varying experience levels interpreted 248 retrospective cases with or without AI assistance, and 2) a real-world prospective study in which 1,009 patients were independently and blindly assessed by BrainVLM and radiologists before surgery. Additionally, we demonstrated BrainVLM's utility in preoperative molecular subgroup prediction for adult-type diffuse gliomas, using a multi-center cohort of 632 patients. In primary evaluation, BrainVLM achieved an area under the curve (macro-AUC) of 0.85 (95% CI: 0.84-0.86), and an F1 score of 0.82 (95% CI: 0.81-0.83), surpassing neuroradiologists (F1 = 0.80 (95% CI: 0.79-0.81)). In external validation across 11 centers, BrainVLM achieved an AUC = 0.80 (95% CI: 0.79-0.82) and F1 = 0.75 (95% CI: 0.73-0.78), compared with F1 = 0.71 (95% CI: 0.69-0.73) for neuroradiologists. In prospective real-world evaluation, BrainVLM maintained performance comparable to neuroradiologists.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.16597",
    "pdf_url": "https://arxiv.org/pdf/2609.16597"
   },
@@ -3426,9 +3446,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "No-reference video quality assessment (NR VQA) has recently seen promising progress with deep learning. However, video data is inherently large, and processing them with deep models incurs high computational cost. This challenge is particularly acute in VQA, where preserving original-resolution cues and dense temporal information is critical for accuracy. Existing efficiency-driven preprocessing strategies, such as fragmenting, reduce computation but alter the input data distribution, limiting effective reuse of pretrained video foundation models (ViFMs). To address these challenges, we propose High-Fidelity Video Quality Assessment (HFVQA), a framework built on fixed-size spatio-temporal (ST) patches that is fully compatible with pretrained ViFMs. HFVQA samples ST patches across multiple scales, including the original resolution, with minimal temporal subsampling to preserve low-level quality cues and semantic context. To limit computation, HFVQA introduces a lightweight auxiliary network trained end-to-end with the ViFM encoder to learn VQA-specific saliency. Distilled directly from quality supervision, this saliency captures task-specific importance patterns, reflecting that video quality perception is dominated by a small subset of spatio-temporal regions. By combining high-fidelity spatio-temporal cues with learned, task-specific saliency, HFVQA achieves SOTA performance on standard NR VQA benchmarks while processing as little as 12% of candidate ST patches, making high-fidelity ViFM-based VQA computationally tractable.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.16946",
    "pdf_url": "https://arxiv.org/pdf/2609.16946"
   },
@@ -4167,9 +4197,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "The analysis and classification of cultural heritage architectural styles remain challenging due to the complexity of visual images of buildings, which are highly relied on in traditional CNN-based classification approaches in comparison to textual descriptions, and the relative lack of non-western region-specific datasets. This paper addresses this gap by proposing a multimodal machine learning framework to analyze and classify Emirati residential architecture using OpenAI's CLIP model. We integrate visual features from images and textual features from expert descriptions into a unified 512-dimensional embedding, followed by dimensionality reduction with UMAP for visualization and unsupervised clustering using K-Means. Cluster labels, which are derived from manual analysis of the K-Means clusters, are used to train an SVM classifier for automated architectural style classification. Our approach achieves a classification accuracy of 98% across eight identified style clusters, higher than every other study in the literature, demonstrating the effectiveness of combining visual and textual modalities. Overall, this paper highlights the potential of using multimodal AI to support architectural heritage analysis, offering scalable and interpretable tools for exploring regional architectural identities.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.17181",
    "pdf_url": "https://arxiv.org/pdf/2609.17181"
   },
@@ -5541,9 +5581,19 @@
    "cross_list_from": "eess.IV",
    "html_url": null,
    "abstract": "Diffusion-based artifact detectors score whole-slide image patches by reconstruction error under a model fine-tuned on clean tissue. We show that conditioning this fine-tuning on random Gaussian embeddings -- resampled at every step from approx. 200 KB of precomputed embedding statistics, with no encoder, no cache, and no change to inference -- consistently widens the clean/artifact separation. A four-step ablation chain shows the benefit requires neither content (shuffled real embeddings), provenance (synthetic Gaussians), a tuned intensity (flat across an 8x variance range), nor per-patch identity (fresh per-step noise); a LoRA-dropout control shows the conditioning pathway specifically, not generic weight perturbation, carries the effect. Patch-level gains of +0.25-0.48 Cohen's d replicate across nine trainings; honest leave-one-slide-out evaluation clears a pre-registered bar in 2/2 seeds; and two pre-registered external endpoints on a 281-case set confirm pooled Delta F1 = +0.0073 (95% CI) and +0.0129 (97.5% CI, two-look corrected). We release the full evaluation protocol, including measured seed noise and selection-optimism pricing.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.16032",
    "pdf_url": "https://arxiv.org/pdf/2609.16032"
   },
@@ -5993,9 +6043,75 @@
    "cross_list_from": "cs.RO",
    "html_url": null,
    "abstract": "Autonomous soft-tissue cancer surgery has been limited to interventions on organ surfaces, because current systems cannot perceive and adapt to anatomy once it deforms or is cut. We introduce the first vision-guided autonomous system capable of performing complete tumor resections for partial nephrectomy. Our system integrates conditional occupancy networks, trained entirely in a physics-based simulation, that infer full 3-D anatomy (tumor, margin tissue, and kidney) from single-view partial point clouds. These occupancy networks maintain intraoperative tracking even as tissue is cut and deformed, enabling adaptive planning and execution. The surgical platform combines a depth camera for capturing surface point clouds, dual robotic arms for electrosurgical cutting and vacuum-based tissue manipulation, and an autonomous control strategy for tumor resection. In patient-derived hydrogel phantoms under an open partial nephrectomy setting, the robot performed eight consecutive autonomous tumor resections comprising 77 electrosurgical cuts, with all cuts achieving negative surgical margins and 1.61 ± 0.48 mm mean absolute margin error. This work demonstrates, for the first time, a foundation for supervised autonomous closed-loop, imaging-driven, margin-negative tumor removal in phantoms.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Johns Hopkins University",
+    "Friedrich-Alexander-Universität Erlangen-Nürnberg"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Johns Hopkins University",
+    "Friedrich-Alexander-Universität Erlangen-Nürnberg"
+   ],
+   "institution_ids": [
+    "00za53h95",
+    "00f7hpc57"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.16186",
    "pdf_url": "https://arxiv.org/pdf/2609.16186"
   },
@@ -6859,9 +6975,39 @@
    "cross_list_from": "cs.AI",
    "html_url": null,
    "abstract": "Assistive autonomous systems must anticipate human goals before an observed behavior is complete. This article formulates anticipation as goal inference from a partially observed multimodal episode together with structured prediction of the remaining behavior, rather than exact motor forecasting. A compact Hierarchical Planning Decoder (HPD) is attached to a frozen neuro-symbolic recognition encoder and predicts, at four ontological levels, the next actions, the remaining activities and low-level intentions, and the episode high-level intention(HLI). The decoder is trained with soft neuro-symbolic regularization combining transition-coherence and hierarchical continuity losses, and is decoded with hard reachability masks that enforce ontological validity at inference. On a compositional four-level benchmark of 15,002 multimodal episodes built over NTU RGB+D 120 features, three headline properties are observed together. The advantage over the strongest sequential baseline grows with the anticipation horizon, from +1.7 points at step 1 to +7.3 points at step 3 (top-5). Under compositional generalization, where one parent association per multi-parent low level intention is held out, this advantage widens to +4.9 points at step 1. At the episode level, 96.8% of anticipated trajectories satisfy the joint logic constraints, above the 88.1% strongest-baseline value and the 73.9% ground-truth floor; soft logic terms alone account for a 59.8 to 71.1% relative reduction of HLI-reachability violations, and the hard masks then eliminate them entirely. Neural generation supplies predictive ranking, symbolic constraints supply onto logical validity, and their combination yields coherent hierarchical anticipation while exposing remaining challenges in compositional goal generalization and unordered set prediction.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Laboratoire Images, signaux et systèmes intelligents"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Laboratoire Images, signaux et systèmes intelligents"
+   ],
+   "institution_ids": [
+    "00w0hef10"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.17064",
    "pdf_url": "https://arxiv.org/pdf/2609.17064"
   },

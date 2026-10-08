@@ -803,9 +803,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "A significant problem in endoscopic image analysis is that the machine learning (ML) models used for this purpose usually underperform when applied on images acquired from endoscopes that are different from those used to acquire the images of their training set. The main difference of the images originating from different endoscopes is their color distributions, which depend both on the image sensors and the light sources used. Although previous studies have highlighted this challenge, to the best of our knowledge it has not been previously explicitly tackled. This study focuses on this problem and proposes very simple but impactful method. It implements a reference-based image harmonization that reduces global appearance differences between endoscopic datasets. Specifically, it extracts global color statistics from a chosen reference dataset in the CIE-Lab color space and applies a statistical channel-wise transformation to map each target image toward the appearance of the images of the reference dataset. The method is evaluated in the context of polyp detection in both flexible colonoscopy and capsule endoscopy datasets using a dataset-level cross validation protocol. The results indicate that the proposed harmonization consistently improves cross-dataset performance up to 30.7%, outperforming relevant baseline and state-of-the-art methods. The results indicate that a substantial part of the generalization gap is driven by low-level appearance variation that can be mitigated without retraining.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2610.06663",
    "pdf_url": "https://arxiv.org/pdf/2610.06663"
   },
@@ -1112,9 +1122,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Early osteoarthritis detection through quantitative MRI (qMRI) requires accurate cartilage and meniscus segmentation, traditionally necessitating time-consuming, costly 3D high-resolution Double Echo Steady-State (DESS) MRI scans. This study developed a multi-task conditional generative adversarial network (MT-cGAN) to simultaneously synthesize DESS-like images and segment tissues directly from qMRI echo images. This retrospective study evaluated 508 knee MRI volumes from 361 subjects (mean age: 40.4 ±12.2 years; 179 female) across three cohorts. Ground truth segmentation masks were generated from DESS images using a pretrained model with manual correction, and $T_{1ρ}$ and $T_2$ maps were computed from magnetization-prepared angle-modulated partitioned k-space spoiled gradient echo snapshots (MAPSS) echo images. MT-cGAN was trained to jointly synthesize DESS-like images and segment cartilage and meniscus directly from echo images. Model performance was evaluated using Dice score for segmentation accuracy and coefficient of variation (CV) for $T_{1ρ}$ and $T_2$ quantification. MT-cGAN achieved the highest segmentation performance, mean Dice score 0.84 (range: 0.80–0.86) across all cartilage and meniscus compartments and significantly outperformed the state-of-the-art conditional GAN model with transfer learning (mean Dice, 0.82; p < 0.001, Wilcoxon signed-rank test). For relaxometry quantification, MT-cGAN demonstrated the highest consistency with the reference DESS protocol, yielding the lowest CV ($T_{1ρ}$: 1.84%, $T_2$: 1.81%). The proposed MT-cGAN accurately segmented cartilage and menisci while providing reliable $T_{1ρ}$ and $T_2$ quantification directly from echo images. By eliminating the need for separate morphological DESS scans, this workflow reduces required scan times to facilitate the clinical translation of qMRI.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2610.06602",
    "pdf_url": "https://arxiv.org/pdf/2610.06602"
   },
@@ -1295,9 +1315,45 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "FrontVeg V2 is an open-source, training-free software framework for foregroundaware zero-shot segmentation of plant traits in high-resolution images of trellised crops. The pipeline combines monocular depth estimation, automatic foreground extraction using Valley-Aware Depth Thresholding, tiled zero-shot segmentation, Graph-Based Mask Assembly, and geometry-aware fusion. This design enables plant organs and disease symptoms to be segmented while reducing detections arising from neighboring vegetation rows. The current implementation integrates Depth Anything V2 (DAV2) and SAM3 and can be used through both command-line batch processing and a Napari graphical interface. FrontVeg V2 provides a reusable framework for multi-crop, multi-trait digital phenotyping without task-specific model retraining.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Génétique et amélioration des fruits et légumes",
+    "Arbo Unie"
+   ],
+   "author_affiliations": [
+    null,
+    null,
+    null,
+    [
+     0
+    ],
+    null,
+    null,
+    [
+     1
+    ],
+    [
+     1
+    ],
+    null
+   ],
+   "institutions": [
+    "Génétique et amélioration des fruits et légumes",
+    "Arbo Unie"
+   ],
+   "institution_ids": [
+    "03kk92g72",
+    "05fwtr092"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2610.06575",
    "pdf_url": "https://arxiv.org/pdf/2610.06575"
   },
@@ -3738,9 +3794,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Computational pathology has the potential to improve clinical outcomes through a demonstrated increase in diagnostic and prognostic accuracy. However, the development and validation of deep learning algorithms still require annotated data, a costly procedure involving expert pathologists who already face critical workforce shortages. Existing coreset selection methods to optimize annotation efforts currently all rely on hyperparameters tuned on natural-image benchmarks that do not transfer to histopathology and are cumbersome to use in clinical practice. In this study, we present GCcore, a novel label-free coreset selection method that embeds every image of a dataset with any pathology foundation model and greedily selects the samples that collectively maximize the global coverage of the embedding space. The proposed method provides a lower-bound guarantee on the global coverage of the returned coreset for any coreset size, while being completely hyperparameter-free and deterministic. We demonstrate GCcore's superior performance over 14 baselines including state-of-the-art methods across 10 tasks and datasets spanning whole slide image classification, tile classification, and tissue segmentation, where it ranks first on six and within the top three on nine, while also demonstrating how existing methods can shift by up to five rank positions depending on their hyperparameter settings. Code is publicly available at https://github.com/OncoAI-ULBHUB/GCcore.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2610.05987",
    "pdf_url": "https://arxiv.org/pdf/2610.05987"
   },
@@ -4561,7 +4627,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.05870v1",
+   "html_url": "https://arxiv.org/html/2610.05870v2",
    "abstract": "Generative models can synthesize high-quality inauthentic multimedia content that is already being misused at scale. We evaluate twenty deepfake detectors against ten generators released in the last four years and find accuracy decreasing over time, from near-perfect 99.5% to 76%. Adversarial perturbations further reduce every baseline detector to below 2% accuracy, effectively inverting the detector's assigned label. We argue that this unreliability reflects a fundamental ambiguity: generators can reproduce authentic content exactly (e.g., through memorization), so content alone cannot reveal the true provenance label.For this reason, content produced by a generator must admit a faithful reconstruction by that same generator, and finding such a reconstruction makes synthetic provenance plausible and authenticity plausibly deniable.We therefore propose and evaluate a detection paradigm that outputs a calibrated prediction of whether authenticity is plausibly deniable: a faithful reconstruction by any known generator establishes plausible deniability, while calibration bounds how often content from known generators fails to be reproduced. Our evaluation shows that (i) our detector can be calibrated so that at most 1% of generated content is wrongly certified, an operating point at which most baseline detectors reach near-zero recall, including the strongest with 93% accuracy; (ii) calibrating a stricter security threshold on attacked samples preserves this bound against adaptive adversaries within the evaluated bounded-perturbation attack space, whose perturbations break every baseline, but does not cover arbitrary adversarial transformations; and (iii) post-hoc verifiability is eroding, as 1,116 of 3,000 Reddit images resist reproduction by a 2022 generator, but only 55 to 79 resist reproduction by 2024 generators.",
    "affiliations": [
     "Mohamed bin Zayed University of Artificial Intelligence, Abu Dhabi, UAE"
@@ -4962,9 +5028,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "A video assistant must speak when its instruction warrants a response and stay silent otherwise. We introduce a benchmark that evaluates this decision for the complete system of model, memory, and response controller. InteractionBench covers query responses, event triggers, and ongoing updates in 1,060 interactions over 812 videos, with 69 negative streams and 53 suites that pair counted events with look-alike near misses. It scores content accuracy, timing accuracy, and silence compliance on the video clock. Timely speech costs silence across systems. Polled Qwen3-VL-8B reaches 77.8 timing accuracy but 10.9 silence compliance. A native real-time interaction system reaches 29.2 silence compliance at 66.8 timing accuracy, yet emits on 89.9% of negative streams. No open-weight system clears a third of the near-miss suites. Fewer replies help only when chosen, as random deletion merely trades timing for silence. Offline scores miss these failures and mispredict online behavior. Adding restraint is costly, as the native system's controller adds little by itself and agentic systems add it only at about 30 s per poll.Project page: https://www.enxinsong.com/projects/interactionbench/ Code: https://github.com/Espere-1119-Song/InteractionBench Data: https://huggingface.co/datasets/InteractionBench/InteractionBench",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2610.05775",
    "pdf_url": "https://arxiv.org/pdf/2610.05775"
   },
@@ -5055,9 +5131,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "In the rapidly evolving field of construction management, worker safety remains a top priority. This paper introduces an innovative vision-based system for real-time detection of helmet compliance, specifically designed for construction sites, utilizing advanced computer vision techniques and machine learning algorithms within the YOLO (you only look once) framework. Our system leverages high-resolution video feeds from strategically positioned cameras to monitor adherence to safety regulations regarding helmet usage. By employing deep learning methodologies, the system effectively identifies individuals not wearing helmets, thereby significantly mitigating the risk of head injuries among workers. Our training and validation results revealed an impressive precision exceeding 97% at mAP@0.5 for both helmeted and non-helmeted individuals. Furthermore, our experiments demonstrate exceptional detection accuracy, demonstrating the system's resilience under varying lighting conditions and diverse worker movements. The consistent decrease in loss and improvement in metrics throughout training validates the effectiveness of the YOLOv8 model in enhancing recognition performance. The implications of this research extend beyond mere regulatory compliance, opening avenues for innovative applications in occupational safety management. This study highlights the critical role of technology in protecting lives and lays the groundwork for future advancements in smart construction environments.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2610.05756",
    "pdf_url": "https://arxiv.org/pdf/2610.05756"
   },
@@ -5079,9 +5165,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "This article introduces an innovative system that integrates landmark identification with deep learning to enhance fall detection accuracy and reliability. By utilizing advanced computer vision techniques, such as Media Pipe for spatial recognition, the system effectively differentiates between routine movements and actual falls. The integration of landmarks with a deep learning prediction algorithm minimizes false alarms, ensuring timely responses to genuine falls. Comprehensive experimentation underscores the system's versatility across various scenarios, emphasizing its potential to improve safety and independence for older adults. The training process demonstrates a steady increase in accuracy, stabilizing by the 40th cycle, while error rates decline significantly during the initial cycles. Real-time experiments, involving both male and female participants aged 8 to 50, recorded a remarkable 95% detection rate of falls, demonstrating the system's effectiveness and promising future applications in elder care and smart health monitoring environments.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2610.05749",
    "pdf_url": "https://arxiv.org/pdf/2610.05749"
   },
@@ -5795,7 +5891,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.05603v1",
+   "html_url": "https://arxiv.org/html/2610.05603v2",
    "abstract": "Echocardiography is the most widely used cardiac imaging modality, yet interpretation demands integrating visual evidence across global anatomy, localized structures and dynamic cardiac motion. Machine-learning models have automated individual tasks, but they are typically built for a single purpose and depend on expensively labeled datasets - a barrier particularly acute in pediatric care, where data are scarce and anatomy changes with age. Here we present EchoDino, a self-supervised foundation model for echocardiography, created by adapting the DINOv3 framework to 3.7 million frames from 1.7 million unlabeled pediatric echocardiography videos. With its encoder frozen, EchoDino produces representations that capture global context, local anatomy, and dense spatial detail. We introduce Motion-biased Entropy Maximization Sampling (MEMS) to select the most informative frames for video-level analysis. Across nine pediatric and adult datasets, EchoDino outperformed strong baseline models, raising view-classification accuracy from 0.609 to 0.889 and the area under the receiver operating characteristic curve for structural-heart-disease detection from 0.811 to 0.872, while also cutting age-estimation error from 3.857 to 1.389 years, achieving the best segmentation accuracy and lowering ejection-fraction errors. By generalizing from label-free pediatric data to adult echocardiography, EchoDino offers a versatile foundation for cardiac image analysis across the lifespan.",
    "affiliations": [
     "Department of Computer Science, Rice University, Houston, TX, USA",
@@ -9821,9 +9917,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "In worker-equipment proximity monitoring, video transformers are widely used for collision anticipation and have demonstrated strong performance. However, their accuracy comes with substantial computational demands, creating a tension with the need for low-latency inference on mobile robots and the pursuit of lower-carbon computation in construction. To address this, this study investigates where computation within an established video transformer is redundant and whether that redundancy can be removed without materially degrading predictive performance. Using VideoMAEv2-Base on the Nexar Collision Prediction dataset, we first examine how collision-relevant information evolves across network depth and then investigate two complementary forms of redundancy: structured capacity redundancy in multilayer perceptrons (MLPs) and spatiotemporal redundancy in the token stream. Linear probes show that interpretable motion cues, including flow magnitude, looming, and approach versus retreat, are most accessible at intermediate layers, whereas collision-label discrimination strengthens toward the final layer. Token redundancy is axis-specific: adjacent temporal-token similarity reaches 0.970 in later layers, while spatial similarity falls to 0.297, indicating substantially greater redundancy across time than across space. Exploiting this asymmetry, temporal token merging reduces backbone computation from 356.99 to 178.50 GFLOPs and latency from 12.69 to 7.21 ms per clip, a 1.76x speedup, while mean average precision changes only from 0.7478 to 0.7443. Importance-guided retention of 50% of MLP units preserves an AUC of 0.753, compared with 0.529 under matched random retention, and reveals that pruning alters score calibration before discriminative ranking collapses. These findings establish a new pathway for pursuing faster algorithms through targeted temporal token compression and neuron pruning.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2610.04727",
    "pdf_url": "https://arxiv.org/pdf/2610.04727"
   },
@@ -10221,7 +10327,7 @@
    "journal_ref": null,
    "venue": "SIGGRAPH Asia 2026 Workshop",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.04606v1",
+   "html_url": "https://arxiv.org/html/2610.04606v2",
    "abstract": "We present a 4D Gaussian Splatting framework for the Sparse-View Track of the SIGGRAPH Asia 2026 Volumetric Video Challenge, which requires dynamic scene reconstruction from only six cameras with wide baselines. To achieve robust dynamic reconstruction under such sparse views, our framework integrates three components. (1) Region-adaptive spatial priors: We use foreground masks to guide Gaussian initialization and mask voting to control densification separately for the dynamic foreground and static background. Background geometry is regularized using monocular depth aligned to metric scale. (2) Motion-consistent temporal priors: We provide supervision at intermediate times through frame interpolation and constrain projected Gaussian motion with estimated optical flow. (3) Generative assistance: We place virtual cameras in the widest angular gaps and restore their rendered images using a diffusion-based model conditioned on camera poses. The restored images are iteratively incorporated into training as pseudo-supervision. On the validation set, our framework improves full-frame PSNR from 25.60 dB for the baseline to 29.75 dB. On the official test benchmark, it achieves 30.04 dB full-frame PSNR and 27.88 dB foreground PSNR, ranking first overall in the Sparse-View Track.",
    "affiliations": [
     "Department of Automation, Tsinghua University, Beijing, China",
@@ -11140,7 +11246,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.04432v1",
+   "html_url": "https://arxiv.org/html/2610.04432v2",
    "abstract": "Building interactive simulators from real-world observations is a promising way to scale embodied data, but current pipelines still rely heavily on manual environment construction and calibration. We study whether frontier foundation models and coding agents can automate this process end to end. We formulate autonomous video-to-simulation as a software engineering task in which an agent observes an embodied video, constructs the corresponding simulated environment and robot behavior, and iteratively refines the result through execution feedback. To evaluate this capability, we introduce Video2World, a benchmark comprising 222 reconstruction instances derived from 189 robot and human demonstration videos. Video2World measures reconstructed worlds along geometric fidelity, dynamic fidelity, and functional correctness, capturing spatial perception, physical reasoning, and executable interaction. Evaluating 9 frontier coding-agent systems reveals a sharp improvement in Task success beginning with Claude Opus 5, rising from below 5% to over 15%, while substantial gaps to human-assisted reconstruction remain. We further find that worlds that look better could work worse: better visual fidelity does not always lead to higher task success. This echoes the broader gap between perceptual realism and factual correctness observed in generative models.",
    "affiliations": [],
    "author_affiliations": null,
@@ -12980,9 +13086,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Clinical MRI routinely acquires multiple contrast-weighted images of the same anatomy for complementary tissue characterization. However, current accelerated MRI methods typically reconstruct each contrast independently, without fully exploiting shared anatomical information. This work aims to learn anatomical representations invariant to contrast-dependent appearance for reconstruction of accelerated multi-contrast MRI. We propose MAX (MAnifold eXpansion), a subject-specific framework that learns anatomical representations from a single fully sampled reference contrast. To address the under-constrained separation of shared anatomy and contrast-dependent components from a single image, MAX expands the multi-contrast manifold using anatomy-preserving intensity augmentations. A disentangled implicit neural representation models augmented samples using shared spatial coordinates for anatomy and spatially invariant coordinates for contrast appearance. The learned anatomical representation is then fixed, with the contrast representation adapted to the undersampled target data, followed by unrolled refinement. Theoretical analyses further provide insight into the disentangled representation learning and explain how the learned anatomical representation improves the target contrast reconstruction. At R = 8 for brain MRI and R = 6 for knee MRI, MAX achieves the highest mean PSNR and SSIM across all tasks, improving PSNR by more than 1 dB over the strongest baseline for both brain contrasts. MAX more faithfully recovers subtle anatomical and pathological structures and remains robust to inter-contrast motion, structural heterogeneity between reference and target contrasts, and measurement noise. Therefore, MAX provides a general strategy for leveraging high-quality reference scans in accelerated MRI and has the potential to be extended to other reference-assisted MRI inverse problems.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2610.04028",
    "pdf_url": "https://arxiv.org/pdf/2610.04028"
   },
@@ -13521,9 +13637,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Recovering executable CAD programs from 3D meshes is challenging due to the compositional nature of CAD construction and the interaction between discrete modeling choices and continuous parameters. Many learning-based methods predict complete programs in a single pass and rely predominantly on sketch-extrude representations, limiting operation diversity and opportunities to correct geometric errors during reconstruction. We introduce StepCAD, a generative optimization approach that combines a state-conditioned CAD policy with geometry-guided search. Given an input mesh, the policy predicts construction actions conditioned on both target and intermediate geometry, and an IoU-guided tree search refines the resulting program through local edits. We also introduce ARCADE-1.5M, a large-scale dataset of 1.5M executable CAD programs spanning diverse operations, sequences with a maximum length of 150+ counted operations, and 12.5M intermediate state-action transitions. Experiments across multiple CAD reconstruction benchmarks show that StepCAD achieves state-of-the-art geometric reconstruction accuracy with consistently high validity, yielding up to 87.2% relative IoU improvement over the strongest evaluated baseline, with particularly large gains on complex shapes. Project page: https://ghadinehme.com/stepcad.github.io/",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2610.03799",
    "pdf_url": "https://arxiv.org/pdf/2610.03799"
   },
@@ -13546,11 +13672,11 @@
     "Artificial Intelligence (cs.AI)",
     "Robotics (cs.RO)"
    ],
-   "comments": "8 pages, 3 figures, project page: https://github.com/liulixinkerry/WAMJET",
+   "comments": "8 pages, 3 figures, project page: https://liulixinkerry.github.io/WAMJET/index.html",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.03797v2",
+   "html_url": "https://arxiv.org/html/2610.03797v3",
    "abstract": "World Action Models (WAMs) leverage pretrained video foundation models for robot manipulation, but their large backbones and video-action co-prediction are expensive. Although existing acceleration techniques offer many ways to reduce this cost, selecting and composing them requires substantial engineering for each model and hardware platform. To tackle this bottleneck, we present WAMJET, an agentic harness that accelerates WAM inference by equipping coding agents with reusable optimization guidance and measurement and validation tools. WAMJET follows a bottleneck-driven workflow where the agent profiles inference, modifies targeted code, validates effects, and iteratively refines the acceleration stack as bottlenecks shift, while preserving action quality. Experiments span six WAMs, three coding agents, and two GPU architectures. WAMJET achieves up to 9.95x lossless speedup over upstream implementations. Approximation and hardware-aware optimization yield additional latency reductions, with comparable success rates. The results show that WAMJET can produce effective acceleration stacks for WAM deployment.",
    "affiliations": [
     "Max Planck Institute for Intelligent Systems, Tubingen, Germany",
@@ -13674,9 +13800,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "The rapid growth of deep learning has substantially increased the energy consumption associated with model training, making energy efficiency an increasingly relevant design criterion. This study empirically measures the energy variation of training seven modern computer vision architectures, MobileNetV3-Small, MobileNetV3-Large, EfficientNet-B0, EfficientNet-B1, ViT-B/32, ConvNeXt-Tiny, and ViT-B/16 for the ImageNet-1k classification task, using a homogeneous 10,000-image subset (ImageNet-10k) and a uniform 40-epoch baseline configuration executed on two NVIDIA Tesla P100 GPUs at the Bioinformatics and Computational Biology Center of Colombia (BIOS). Energy was recorded directly via NVML and contrasted with the computational complexity of each model. The results show a Pearson correlation of 0.85 between floating-point operations (GFLOPs) and energy consumption in kWh, indicating that computational complexity is a strong but imperfect predictor of energy expenditure: architectures with comparable GFLOPs exhibited consumption differing by up to 3.1x due to differences in the hardware efficiency of their dominant operations. The EfficientNet variants offered the best balance between classification performance (Val Top-5 up to 97.15%) and energy efficiency (0.457-0.611 kWh), while Vision Transformers exhibited the highest relative energy consumption and lower classification performance under the evaluated configuration. These findings guide architecture selection in energy-constrained computing environments.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2610.03772",
    "pdf_url": "https://arxiv.org/pdf/2610.03772"
   },
@@ -13804,9 +13940,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "The magnitude of the generalized Euclidean cross product is a Gram volume whose degree under common scaling is fixed by the integer dimension of the spanning frame. We formulate a generalized Fractal Cross Product (FCP) as a nonlinear radial deformation with a prescribed positive degree D, which may be non-integer. The scalar construction applies in any ambient dimension m≥k, while its canonically oriented vector form requires codimension one. It recovers the classical generalized cross product exactly at D=k and retains orthogonality, alternation, rotation equivariance, and D-homogeneity, but is generally not multilinear. For exact self-similar frame systems, the construction also obeys a scale-balance law at the similarity dimension. We derive a differentiable, dimensionless image response and a non-circular empirical accumulation exponent obtained by regressing raw angular Gram responses across patch widths. Binary64 calculations recover the finite-frame identities to roundoff, while raster experiments recover the Sierpiński-triangle value 1.5849625 at three resolutions. In five-seed medical-imaging comparisons, FCP-centered fusion increased mean area under the receiver operating characteristic curve from 0.7264 to 0.8135 and from 0.5843 to 0.6765 on the random and hospital-separated Retinal Image Database for Optic Nerve Evaluation partitions, respectively, and from 0.7403 to 0.7475 on FracAtlas. On FracAtlas, balanced accuracy increased from 0.6186 to 0.6721 and the harmonic mean of precision and sensitivity from 0.3669 to 0.4457. These results support the utility of the complete fusion framework, but do not isolate the effect of FCP from that of its complementary descriptors and fusion head.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2610.03755",
    "pdf_url": "https://arxiv.org/pdf/2610.03755"
   },
@@ -15451,9 +15597,19 @@
    "cross_list_from": "cs.HC",
    "html_url": null,
    "abstract": "Visual search is a fundamental cognitive ability. This study investigates whether Multimodal Large Language Models (MLLMs) exhibit human-like difficulty signatures in visual search tasks. We compared search performance of humans (n = 1,250) and MLLMs using identical 2D and 3D stimuli across different set sizes. Both groups showed efficient performance in feature searches, most clearly when the target had a unique color, but performance degradation in conjunction searches as set sizes increased. Additionally, we found strong correlations between human and MLLM error rates (ρ= 0.82), which suggests that MLLMs are sensitive to similar objective complexities, such as stimulus heterogeneity. However, differences were found as well: whereas humans invested extra search time to respond accurately on target-absent trials, MLLMs exhibited extreme present/absent response biases in complex searches. We conclude that MLLMs replicate high-level human performance signatures, yet their underlying computations differ significantly.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2610.05463",
    "pdf_url": "https://arxiv.org/pdf/2610.05463"
   },

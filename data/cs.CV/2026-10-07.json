@@ -312,7 +312,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.08772v1",
+   "html_url": "https://arxiv.org/html/2610.08772v2",
    "abstract": "Diffusion Transformers (DiTs) have achieved strong performance in image and video generation, but the quadratic complexity of full attention makes high-resolution generation computationally expensive. Window attention offers an efficient alternative, yet existing methods face a practical trade-off: partitioned window attention typically achieves computational efficiency consistent with its theoretical complexity. However, isolated windows block cross-window interaction, often introducing visible grid-like artifacts in the generated results. Fine-grained sliding-window attention effectively restores interactions across neighboring windows and improves visual quality. However, its irregular computation patterns create a substantial gap between theoretical and practical speedups and require specialized kernels tailored to each hardware backend. To tackle these challenges, we propose BASA, a backend-agnostic sparse attention, which brings the best of both worlds: visual quality and practical acceleration. Specifically, BASA replaces visual self-attention with shifted local-window attention. By introducing a structured window-shifting scheme across DiT blocks, we allow tokens divided by window boundaries in one layer to communicate in the following layers, thereby achieving global information exchange and eliminating window-induced visual artifacts. Notably, our design introduces no additional irregular operators or customized kernels, making it readily deployable on existing attention backends and closing the gap between theoretical sparsity and practical acceleration. Experiments demonstrate that BASA achieves measured speedups exceeding 90% of the theoretical estimates on FLUX and delivers a 4.52× attention speedup on Wan while maintaining competitive generation quality.",
    "affiliations": [
     "School of Artificial Intelligence, Shanghai Jiao Tong University",
@@ -1484,7 +1484,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.08482v1",
+   "html_url": "https://arxiv.org/html/2610.08482v2",
    "abstract": "Vision-language models (VLMs) are increasingly being applied to three-dimensional medical imaging, but their application to knee MRI remains limited, particularly for interpreting the complementary sequences used in clinical practice. We introduce Knee3DVLM, a sequence-aware VLM that uses full-volume DESS and fluid-sensitive TSE MRI to predict 57 anatomically resolved binary diagnostic targets derived from the MRI Osteoarthritis Knee Score (MOAKS) for structured reporting. We evaluated DESS-only, TSE-only, and paired DESS-TSE configurations using subject-disjoint Osteoarthritis Initiative partitions. In a held-out cohort of 1,074 examinations, the fused model achieved 72.98% average accuracy, 71.17% balanced accuracy, 78.96% mean ROC-AUC, and 78.74% macro ROC-AUC, the highest values among the three configurations. In a secondary multiclass analysis aligned with the released 3DReasonKnee cohort, Knee3DVLM was numerically higher than the strongest reported 3DReasonKnee configuration across five pathology categories. These findings support dual-sequence full-volume modeling for comprehensive knee MRI assessment.",
    "affiliations": [],
    "author_affiliations": null,
@@ -1592,9 +1592,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Slice-to-volume registration between ultrasound (US) and preoperative computed tomography (CT) imaging would enhance many minimally invasive interventions, for example by locating soft tissue structures intra-operatively that are discernible in CT. While optical tracking enables initial rigid registration, contact from the probe induces soft tissue deformations that inhibit accurate alignment. In this work, we introduce a deformable CT-ultrasound registration framework that incorporates anatomical priors derived from CT to improve registration under deformation. Rigid registration is first established using a robot-assisted optical tracking system, after which a deformable transformation is estimated using a sinusoidal implicit neural representation (SIREN) optimized per frame. Tissue stiffness is approximated from CT-based HU values and used as spatially varying regularization, suppressing deformation in rigid structures such as bone while allowing more flexibility in soft tissue. Two additional constraints capture the physics of probe contact: a contact-zone displacement prior that drives the displacement field to compress tissue below the probe face, and a fan-geometry regularization term based on beam direction and convex transducer field of view. Model parameters are optimized with a normalized gradient field (NGF). The proposed approach improves alignment over rigid initialisation by 17% and outperforms classical deformable baselines while maintaining near-zero topological folding.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2610.08419",
    "pdf_url": "https://arxiv.org/pdf/2610.08419"
   },
@@ -3955,7 +3965,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.07911v1",
+   "html_url": "https://arxiv.org/html/2610.07911v2",
    "abstract": "Despite recent advances in video generation, motion customization remains challenging due to content leakage, where appearance attributes from the reference video unintentionally propagate into the generated output. We identify this issue as a consequence of the generative process collapsing toward the reference video, which arises from formulating the learning objective as a direct regression on the reference. To address this, we propose Control-based Motion Customization (CMC), a principled training framework that is structurally robust to content leakage. Our key idea is to steer generative dynamics toward desired motion while avoiding collapse toward the reference video, which we formalize using Stochastic Optimal Control (SOC). Under this formulation, customized videos acquire the target motion yet remain within the pre-trained model's prompt-conditional distribution, where appearance is determined by the text prompt rather than the reference video. Furthermore, to improve efficiency, we tailor the SOC formulation to motion customization by eliminating the need for an explicit reward and introducing a timestep-adaptive motion cost that focuses only on early generative stages, accelerating training by 2.5 times. Extensive experiments demonstrate that CMC effectively mitigates content leakage and achieves competitive motion fidelity while preserving the diversity of the base model across diverse scenarios.",
    "affiliations": [
     "Seoul National University, AIM Intelligence"
@@ -4582,7 +4592,7 @@
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
    "comments": null,
-   "journal_ref": "Advances in Neural Information Processing Systems Workshop (2026)",
+   "journal_ref": "NeurIPS 2026 Workshop: VLM4RWD",
    "venue": "NeurIPS 2026 Workshop",
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2610.07729v1",
@@ -5250,11 +5260,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "16 pages, 9 figures",
+   "comments": "10 pages, 6 figures",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.07464v1",
+   "html_url": "https://arxiv.org/html/2610.07464v2",
    "abstract": "Protective perturbations aim to stop malicious instruction-guided editing of personal photos, but they are optimized and evaluated at the editor's working resolution, whereas shared photos have 10 megapixels or more and editors first downscale them by an unknown factor. We model this resize as a frequency-selective channel. In this model, a perturbation computed at the native resolution decays with the downscaling factor and is weak even without a resize, and a perturbation computed at a fixed working resolution protects only a window of scales. The best worst-case protection over an unknown range of scales degrades only logarithmically with the width of the range, and averaging over scales does not reach it. Guided by this analysis, we propose SRIM, which samples a grid of anchor scales covering the whole range, with weights that favor the currently weakest scale, at the cost of standard expectation over transformation. On full-resolution photos of 9 to 30 megapixels and downscaling factors from 2 to 8, SRIM raises the worst-case disruption of FLUX.2-klein edits from 0.192 LPIPS, attained by the strongest published protection, to 0.463. At equal visibility, it roughly doubles the protection. The same protected photos also protect against the 9B model and against FLUX.2-dev, with worst cases of 0.450 and 0.386 against at most 0.184 for published protections, and SRIM leads on InstructPix2Pix as well.",
    "affiliations": [
     "University of Aberdeen",
@@ -5306,7 +5316,7 @@
    "journal_ref": null,
    "venue": "NeurIPS 2026",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.07460v1",
+   "html_url": "https://arxiv.org/html/2610.07460v2",
    "abstract": "Inserting objects into existing 3D scenes requires more than selecting a plausible location: the inserted object must also fit local geometry while preserving semantic intent and physical plausibility. Although recent Vision-Language Models (VLMs) and generative models enable semantic reasoning and visual content creation, they offer limited 3D grounding and geometric control when an inserted object must fit into constrained local spaces. We introduce ElasticFit, a VLM-guided framework for fit-aware object insertion centered on a novel scene-grounded representation. Given a language instruction and rendered scene observations, ElasticFit infers structured fitting cues that specify where the object should be grounded, what volume it should occupy, how it should be oriented, and its adaptation mode (rigid placement, uniform scaling, or elastic fitting). These cues convert high-level VLM reasoning into explicit 3D constraints that condition object generation and guide downstream geometric fitting. ElasticFit then generates a scene-conditioned object prior, reconstructs it in 3D, and refines the mesh through mode-specific fitting while enforcing collision avoidance, contact consistency, and physical grounding. In fixed-asset baseline comparisons, ElasticFit improves spatial relation success from 50.8% to 69.7% and support success from 48.3% to 91.7% over the strongest baseline, while providing novel support for generative \"make-it-fit\" insertions in complex scenarios.",
    "affiliations": [
     "Delft University of Technology, Delft, Netherlands"
@@ -5998,9 +6008,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Breast cancer is the leading cause of cancer-related mortality among women in Sub-Saharan Africa, where delayed diagnosis results from limited radiology expertise and fragmented clinical data systems. Although deep learning models have demonstrated strong performance in mammographic analysis, most rely solely on imaging data and are trained on Western populations, limiting their applicability in African healthcare settings. This paper presents a Hybrid Cross-Modal Attention Network (HCMAN) that integrates mammogram images with structured clinical data using transformer-based cross-modal attention mechanisms. The model was developed and validated using a locally collected dataset of 2,560 mammogram images from 1,024 patients across four Ethiopian referral hospitals, with biopsy-confirmed ground truth labels. The proposed framework achieves 97.8% accuracy, 97.2% sensitivity, 98.3% specificity, and an AUC of 0.987, significantly outperforming image-only baselines. The system demonstrates robustness to low-quality images typical of resource-limited settings, with only 3.2% performance degradation compared to 8.7% for image-only models. Cross-modal attention analysis reveals clinically appropriate behavior: higher reliance on clinical features for ambiguous cases such as dense breasts and young patients. The model's lightweight architecture enables deployment on standard hospital workstations (<2 seconds inference on CPU). This work advances sustainable, context-aware AI solutions for equitable breast cancer diagnostics in Africa.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2610.07243",
    "pdf_url": "https://arxiv.org/pdf/2610.07243"
   },
@@ -6394,9 +6414,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Driver fatigue poses a significant challenge to railway safety, with traditional systems like the dead-man switch offering limited and basic alertness checks. This study presents a vision-based monitoring system that relies solely on a single front-facing RGB camera and a graph neural network to classify simulated train-driver states into alert, not-alert, and an emergency class comprising acted emergency-like behaviours. To optimize input representations for the model, an ablation study was performed, comparing three feature configurations: skeletal-only, facial-only, and a combination of both. Experimental results show that combining facial and skeletal features yields the highest accuracy (81%) for the three-class model under the light condition, outperforming models that use only facial or skeletal features. Furthermore, the combination of facial and skeletal features achieves 99% accuracy in the alert/not alert classification in light condition. Additionally, we introduced a controlled RGB video dataset containing alert, not alert, and acted emergency-like behaviours recorded under three illumination conditions. These contributions represent a step toward passive and non-contact train-driver state recognition based on facial and upper-body dynamics.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2610.07083",
    "pdf_url": "https://arxiv.org/pdf/2610.07083"
   },
@@ -9356,7 +9386,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.LG",
-   "html_url": "https://arxiv.org/html/2610.07114v1",
+   "html_url": "https://arxiv.org/html/2610.07114v2",
    "abstract": "The Fréchet Inception Distance (FID) is widely used to evaluate generative models, but its empirical plug-in estimator suffers from finite-sample bias [BSAG18, CF20]. We study the sample complexity n of estimating FID to error ε between d-dimensional Gaussians with bounded mean distance and covariances, when one distribution is known. Our contributions are threefold. (1) We establish tight finite-sample $Θ(\\frac{d^2}{n})$ bias and $Θ(\\frac{d}{n} + \\frac {d^2} {n^2})$ variance bounds for the empirical plug-in estimator, establishing a $\\gtrsim d^2$ sample complexity. (2) To debias the empirical plug-in estimator, we generalize the ${FID}_∞$ estimator of [CF20] to extrapolation methods of arbitrary order k. We further prove tight bias and variance bounds of $Θ(\\frac{d^{k + 2}}{n^{k + 1}})$ and $Θ(\\frac d n + \\frac{d^2}{n^2})$ for any order-k extrapolation under our framework. (3) We introduce Relative Taylor Debiasing (RTD), a new, computationally efficient FID estimation algorithm using debiasing techniques inspired by U-statistics. We show that RTD achieves an $O(\\frac d {ε^2})$ sample complexity, and prove that this is optimal. We provide a complementary empirical evaluation of our new estimators. Our experiments on synthetic Gaussians validate the predicted residual bias and support the tightness of our bounds. On ImageNet with Inception embeddings, RTD achieves the lowest mean estimation error at the standard 50K sample budget, while our second-order variance-aware extrapolation estimator (VALE$_2$) uses only 10K samples to achieve accuracy comparable to FID$_∞$ at 50K samples.",
    "affiliations": [],
    "author_affiliations": null,

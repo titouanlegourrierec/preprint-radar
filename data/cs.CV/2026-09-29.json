@@ -861,9 +861,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Tool-based image editing (image retouching) is commonly formulated with autoregressive multimodal large language models (MLLMs) that sequentially generate reasoning, tool selections, and parameter values. In this work, we present a novel approach to tool-based image editing by framing the task as a flow matching problem. We introduce FlowTool, a framework that directly models the distribution of high-quality tool parameters conditioned on the input image and user instruction using conditional rectified flow. FlowTool combines a vision-language model backbone for multimodal understanding with a Diffusion Transformer parameter generator that transforms Gaussian noise into an editing plan. We train FlowTool with a two-stage supervised flow-matching curriculum, followed by reward-based post-training. Across MMArt-Bench, FlowTool-Eval, ArtEdit-Bench, and MIT-Adobe5K, FlowTool achieves significantly stronger reference-based performance than specialized MLLM editing agents and proprietary MLLMs, while remaining competitive with proprietary models under reference-free evaluation. Moreover, FlowTool significantly improves inference efficiency, reducing latency by at least 50× while requiring nearly 2× less memory than the compared baselines. These results demonstrate that tool-based image editing can be effectively modeled as conditional generation over structured continuous editing parameters, without autoregressive reasoning.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.35673",
    "pdf_url": "https://arxiv.org/pdf/2609.35673"
   },
@@ -3454,9 +3464,42 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Accurate segmentation of post-treatment brain metastases is essential for treatment planning, longitudinal disease monitoring, and quantitative assessment of therapeutic response. The BraTS-MET 2026 Task 1 challenge introduces a clinically relevant segmentation problem involving four anatomically distinct tumor subregions: non-enhancing tumor core (NETC), surrounding non-enhancing FLAIR hyperintensity (SNFH), enhancing tumor (ET), and the resection cavity (RC). Among these, RC segmentation is particularly challenging because of its low prevalence, heterogeneous postoperative appearance, and lesion-wise evaluation protocol, leading conventional segmentation networks to prioritize dominant tumor classes during optimization. The proposed nnU-Net-based framework explicitly addresses RC segmentation through four complementary components: (i) RC-weighted Dice and Cross-Entropy optimization to alleviate class imbalance, (ii) anatomically consistent cavity augmentation to increase the diversity of postoperative cavity appearances, (iii) a residual encoder architecture for enhanced multi-scale feature learning, and (iv) lesion-aware morphological post-processing to suppress false-positive cavity predictions while preserving anatomically plausible structures. The framework is evaluated on the BraTS-MET 2026 Task 1 online validation benchmark. Among the evaluated configurations, the ensemble model (Residual Encoder nnU-Net + nnU-Net + RC-aware CarveMix) achieves the best performance, with lesion-wise Dice scores of 0.732, 0.752, 0.708, and 0.575 and corresponding NSD scores of 0.794, 0.798, 0.727, and 0.474 for ET, TC, WT, and RC, respectively. These experimental results show that integrating RC-aware optimization, anatomically consistent augmentation, and lesion-aware post-processing provides an effective strategy for improving rare resection cavity segmentation in post-treatment brain metastases.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Old Dominion University"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    null
+   ],
+   "institutions": [
+    "Old Dominion University"
+   ],
+   "institution_ids": [
+    "04zjtrb98"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.35195",
    "pdf_url": "https://arxiv.org/pdf/2609.35195"
   },
@@ -7544,9 +7587,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Leveraging the paradigm of autoregressive diffusion, text-conditioned interactive video world models aim to simulate temporally coherent environments guided by textual instructions. While enabling low-latency, long-duration generation is pivotal for embodied AI and simulation-based planning, current frameworks primarily rely on sliding-window mechanisms to bound computational complexity. However, this approach inherently sacrifices historical context, undermining the long-range interactive capabilities. Conversely, maintaining a full-history cache remains computationally prohibitive and memory-intensive: the quadratic complexity of attention leads to excessive computational overhead, while the linear growth of the KV cache inevitably leads to GPU memory saturation. To overcome these limitations, we propose WorldAttention, a system-oriented attention architecture that achieves high efficiency through the co-design of specialized attention kernels and hierarchical KV cache management. First, we introduce Hybrid Sparse Attention (HSA), which integrates linear global attention supplemented with head-adaptive sparse attention. Additionally, we design a Hierarchical KV Cache (HKV) that organizes historical KV pairs into semantically indexed pages across multi-tier memory, enabling fine-grained retrieval and controlled GPU residency. These two designs are supported by tailored kernels to effectively translate their theoretical efficiency into real-world performance. Extensive experiments on VBench-Long and InterVBench demonstrate that WorldAttention consistently surpasses prior state-of-the-art methods, achieving subject consistency scores of 0.9472 on VBench-Long and 0.9668 on InterVBench, respectively.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.34606",
    "pdf_url": "https://arxiv.org/pdf/2609.34606"
   },
@@ -11680,9 +11733,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Domain adaptation is crucial for addressing distributional shifts that degrade model performance across domains. While most existing research has centered on classification, semi-supervised domain adaptation regression (SSDAR) for continuous-output tasks remains largely unexplored, particularly in practical scenarios with limited labeled target data. To address this gap, we propose semi-supervised domain adaptation regression through whitening transform and dual consistency (WhiteCon), which combines domain-specific whitening transform (DWT) and dual consistency regularization to enhance training stability and domain adaptation. DWT reduces the variance of the model parameters by transforming the feature covariance matrix into an identity matrix, thus stabilizing training under ordinary least squares assumptions. In addition, variance consistency regularization, as part of dual consistency regularization, aligns the variances of weak, strong, and mixup-augmented features to improve resilience against augmentation-induced perturbations. Empirical evaluations on various benchmark datasets under SSDAR settings demonstrate that the proposed WhiteCon achieves state-of-the-art performance compared to existing methods, effectively addressing domain shifts in regression tasks. The code for WhiteCon is available at https://github.com/sejin-sim/WhiteCon.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.34078",
    "pdf_url": "https://arxiv.org/pdf/2609.34078"
   },
@@ -15041,9 +15104,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Geometric view synthesis can expand a single wine-label photograph into a training set, but its value with pretrained image encoders is unclear. We study this on a public WineSensed-derived benchmark of 1,000 classes, one enrollment photograph per class, and 4,295 real queries. With the earlier DINO vision transformer (ViT-S/16) recipe, geometric views raise top-1 accuracy from 34.1% to 62.6-63.7%, about three times the gain from two-dimensional (2D) augmentation. Frozen SigLIP 2-B already reaches 94.7%. A linear head over its frozen features gains 1.2-1.3 percentage points with the two geometric pipelines localized by the Segment Anything Model (SAM), while the other pipelines gain an inconclusive 0.3-0.6 points. Low-rank adaptation (LoRA) and validation-selected full fine-tuning show no clear gain within the reported confidence intervals; fixed-budget full fine-tuning loses 9-24 points. SAM localization supplies all six views for 99% of sources, compared with 43% for the edge-based front end. Recognition differences between the two cylinder constructions depend on the training recipe and are confounded by their crop and canvas conventions. Rendered-cylinder tests show different responses to source tilt, but an uncalibrated rim-ratio proxy establishes no corresponding trend in recognition on real photographs. An author-confirmed audit of 50 residual errors identifies 21 query-enrollment appearance mismatches, without establishing an irreducible error rate. These results support geometric synthesis for the tested self-supervised recipe and a smaller benefit through frozen-feature adaptation of the text-supervised encoder.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.33359",
    "pdf_url": "https://arxiv.org/pdf/2609.33359"
   },
@@ -18413,9 +18486,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Video super-resolution (VSR) is an ill-posed inverse problem that aims to reconstruct a high-resolution (HR) video from a noisy, low-resolution (LR) version of it. We present LoCoVSR, a diffusion-based VSR framework that leverages pixel-space denoising diffusion probabilistic models. LoCoVSR integrates the Diffusion Posterior Sampling technique with spatio-temporal context learning, operating in a moving-average form. A localized window of adjacent LR frames is used for recovering each center frame, while applying a shared noise trajectory across all frames. The localized windowing enables processing of long videos without length limitations, supports parallel inference, and prevents error accumulation that may occur in recursive processing. Unlike prior methods, LoCoVSR offers a simple yet very effective VSR solution, avoiding explicit optical flow estimation, or information loss caused by latent space processing. Trained on the VFHQ face dataset, LoCoVSR achieves accurate, temporally consistent and high-quality upscaling with competitive results against recent diffusion-based VSR approaches.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.32742",
    "pdf_url": "https://arxiv.org/pdf/2609.32742"
   },
@@ -21871,9 +21954,39 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "DNA methylation (DNAM) profiling has emerged as a powerful diagnostic tool for classifying brain and solid tumors. However, existing computational models typically analyze methylation and copy number variation (CNV) data separately, failing to capture the complementary information their integration could provide. Moreover, current classification models lack mechanisms for within-class risk assessment analogous to traditional tumor grading, and no established explainability method can attribute classification decisions to specific genomic loci. In this paper, we present MOXAI (Multi-Omics Based Explainable AI), a deep learning framework that integrates DNA methylation and copy number data from methylation arrays to classify molecular subtypes of adult-type diffuse gliomas, alongside single-modality variants for comparison. Using a cohort from The Cancer Genome Atlas (TCGA), we trained ResNet50, DINOv2, and Graph Attention Network (GAT) models on methylation data alone, copy number data alone, and combined multimodal data. We further developed explainable AI (XAI) methods based on class activation maps (CAMs) and gradient-weighted CAM (Grad-CAM) to identify the specific CpG sites, genes, and chromosomal regions most relevant to each classification decision. The multimodal model achieved up to 92.98% cross-validation accuracy, outperforming models trained on CNV data alone. DINOv2 showed the strongest generalization, reaching 94.25% accuracy (confidence >0.9) on independent validation sets. XAI results aligned with established molecular features of adult-type diffuse glioma subtypes, confirming the biological interpretability of the framework.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "St. Jude Children's Research Hospital"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "St. Jude Children's Research Hospital"
+   ],
+   "institution_ids": [
+    "02r3e0967"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.32190",
    "pdf_url": "https://arxiv.org/pdf/2609.32190"
   },
@@ -24026,9 +24139,39 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Vision-based tactile sensors are a popular solution for capturing rich contact surface geometry. However, to obtain high-detail contact surface normals and depth, it is necessary to calibrate the sensor by physically pressing a probe with known geometry against the sensor elastomer and mapping tactile images onto the ground truth probe's shape. This approach does not scale across different tactile sensors, and the calibration effort can be complex depending on the sensor shape and optical system. Instead, we propose a calibration-free procedure for the estimation of contact surface normals using Universal Photometric Stereo neural networks. In a series of real-world experiments, we evaluate our approach on 3 sensors with different optical systems, demonstrating that universal methods are a suitable approach for estimating surface normals at the contact patch from tactile images, thereby alleviating the need for tactile sensor calibration. Controlled experiments with a metal ball show that universal methods match the calibrated method, with a mean angular error of $6.56^{∘}$. We show that the proposed framework recovers high-frequency surface details of objects with natural textures, achieving an overall mean angular error of $10.66^{∘}$. Universal method robustly recovers the contact surface normals captured with dome-shaped Digit 360, achieving a low angular discrepancy of $10.18^{∘}$ relative to the calibrated baseline. This experiment demonstrates that with sufficient illumination settings surface normals could be estimated using a model trained solely on synthetic data. By providing a unified representation of contact surfaces across different vision-based tactile sensor designs, Universal Photometric Stereo neural networks lay the foundation for transferable tactile perception across sensors.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Technische Universität Dresden",
+    "National Center for Tumor Diseases"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Technische Universität Dresden",
+    "National Center for Tumor Diseases"
+   ],
+   "institution_ids": [
+    "042aqky30",
+    "01txwsw02"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.31754",
    "pdf_url": "https://arxiv.org/pdf/2609.31754"
   },
@@ -24120,9 +24263,30 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Recognition of student affective states from classroom video is constrained by a class imbalance problem whose true nature is, we argue, under-analyzed. We show that on DAiSEE -- the de facto benchmark for this task -- class imbalance is fundamentally a dimension-specific phenomenon: raw imbalance ratios reach as high as approximately 79:1 (Frustration), and the structure of imbalance -- not only its magnitude -- varies across dimensions, so uniform algorithmic treatments (aggressive class reweighting, focal loss, uniform binary simplification) fail in dimension-dependent ways. We propose the Adaptive Hybrid Label Strategy (AHLS), which assigns four-level classification to dimensions with manageable imbalance and binary classification to severely long-tailed dimensions, coupled with a null-class placeholder mechanism that stabilizes multi-task optimization by compressing the maximum effective inverse-frequency weight ratio from as high as ~79× to at most ~8.5× across the four dimensions. Validated on a lightweight FERShuffleNetV2 + LTCN architecture (0.39 M parameters, 0.07 G FLOPs), the strategy attains the highest mean Macro-F1 of 47.70% across all four affective dimensions among 11 compared methods, including five state-of-the-art deep models (up to 167× larger) and five traditional machine-learning baselines. A cross-model behavioral analysis on DAiSEE indicates that, in this setting, classification strategy may influence minority-state recognition more strongly than further backbone scaling alone. We also report evidence of an annotation-density limitation of DAiSEE on minority affective states, which suggests that benchmark design may bound future progress as much as algorithmic refinement. Index Terms Affective computing, classroom video analysis, class imbalance, multi-task learning, lightweight deep learning, DAiSEE, engagement recognition.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Education University of Hong Kong"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Education University of Hong Kong"
+   ],
+   "institution_ids": [
+    "000t0f062"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.31750",
    "pdf_url": "https://arxiv.org/pdf/2609.31750"
   },
@@ -24412,9 +24576,30 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Acute Lymphoblastic Leukemia (ALL) patients require early, accurate detection to enable timely treatment and effective patient management. A Convolutional Neural Network (CNN) is well-suited for creating an end-to-end enabling environment for ALL detection and classification. However, most CNN-based ALL detection systems are theoretical and unsuitable for deployment on edge devices due to high computational demands. The Internet of Medical Things (IoMT)-enabled devices offer an opportunity to monitor ALL patients in real time. Wearables that track temperature, heart rate, oxygen saturation, and activity can deliver critical data to support timely clinical intervention and improve patient outcomes. In smart IoMT environments, a lightweight CNN is essential because connected devices often operate under limited computational power, memory, and latency constraints. To address this need, this study proposes LukeNet, a lightweight CNN integrated with explainable artificial intelligence (XAI) for an IoMT-based SMART Acute Lymphoblastic Leukemia Detection and Management System. Trained on three (3) ALL datasets and five-fold cross-validation, LukeNet achieved an impressive 99% model accuracy as well as 99% unseen test accuracy, which is higher than six state-of-the-art (SOTA) CNNs, such as DenseNet121, MobileNet, ResNet50, InceptionV3, Xception, and VGG16, as well as transfer learning models. Furthermore, LukeNet was compared with two ensemble models. In addition, explainable AI methods are integrated to highlight relevant regions in microscopic images. The novelty of this study lies in the architecture of LukeNet, which balances model depth and computational efficiency by using depthwise separable convolutions, mitigates the risk of gradient loss in deeper layers, and provides strong global and local feature extraction capabilities.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "North South University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "North South University"
+   ],
+   "institution_ids": [
+    "05wdbfp45"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.31736",
    "pdf_url": "https://arxiv.org/pdf/2609.31736"
   },
@@ -24604,9 +24789,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Collaborative medical AI platforms allow researchers to train models on sensitive imaging data while restricting data export. However, trained models can serve as covert carriers of patient information: medical images may be encoded within model parameters and reconstructed outside the secure environment. Existing defenses rely on lightweight sanitization (e.g., fine-tuning, pruning, quantization) and limited statistical auditing, creating a realistic insider exfiltration risk. We introduce a high-capacity neural steganography attack that encodes medical images as continuous latent representations embedded into model initialization. A StyleGAN2-based adversarial autoencoder learns compact latent codes regularized to match standard weight initialization statistics, keeping embedded parameters statistically consistent with clean models. Noise injection during training improves robustness to export-time mitigation. The carrier model remains functional on its intended task and hidden images can be reconstructed directly from its weights after export. This continuous encoding enables robust and scalable exfiltration, allowing up to 99 brain MRI volumes to be embedded within a 30MB model, and remains recoverable under mitigations that disrupt prior bit-level schemes. While reconstructions are approximate rather than pixel-exact, embedded content remains anatomically recognizable and recoverable at scale, exposing a privacy risk distinct from prior bit-level approaches. Experiments on MIMIC-CXR, BraTS, and LiTS demonstrate effectiveness across modalities, tasks, and architectures, highlighting the need for structural defenses beyond parameter-level sanitization. Code is available at https://github.com/ElieThellier/high-capacity-robust-medical-image-exfiltration.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.31726",
    "pdf_url": "https://arxiv.org/pdf/2609.31726"
   },
@@ -25454,9 +25649,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "A Hybrid Residual Attention Network is proposed for accurately classifying silkworm images into six different classes, including healthy and diseased states. It uses residual blocks for deep feature extraction and attention to focus on disease related features. A novel Integrated Adaptive Momentum Optimizer was introduced to enhance convergence and improve training efficiency. The dataset of silkworm images underwent preprocessing techniques such as normalization, resizing, and noise reduction, along with augmentation strategies to improve data quality and diversity. It is optimized using IAMO, achieved an accuracy of 98.67%.The integration of spatial and channel wise attention mechanisms, coupled with IAMO, significantly enhanced the model ability to recognize subtle differences between classes. Results indicate that HRAN can be used to detect disease at an early stage in sericulture, and future work will enhance scalability and efficiency in different environments.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.31701",
    "pdf_url": "https://arxiv.org/pdf/2609.31701"
   },
@@ -25795,9 +26000,45 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Explainable Artificial Intelligence (XAI) solutions are essential for building trust in AI technologies and their integration in real manufacturing lines. However, most existing methods are tailored to technical experts, limiting their accessibility to diverse user groups such as blue-collar workers in manufacturing lines who use AI for quality control. In this work, we introduce an XAI interface for object detection in industrial manufacturing based on a fine-tuned vision-language model, designed to generate intuitive explanations for non-expert users. We benchmark existing vision-language models and demonstrate that out-of-the-box models often fall short in delivering clear, context-relevant explanations for non-expert users. To address this, we fine-tune a vision-language model and integrate it into our interface, enabling contextualized, accessible explanations for non-expert users. We demonstrate improvements in explanation clarity, instruction adherence, image groundedness, and contextual awareness over GPT 4o-mini on proprietary and public robotics dataset. This approach advances the accessibility and usability of AI explanations, making them more intuitive and applicable in manufacturing domain.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Mercedes-Benz",
+    "University of Stuttgart"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Mercedes-Benz",
+    "University of Stuttgart"
+   ],
+   "institution_ids": [
+    "055rn2a38",
+    "04vnq7t77"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.31690",
    "pdf_url": "https://arxiv.org/pdf/2609.31690"
   },
@@ -25873,9 +26114,41 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Devnagari is a one of the ancient language of the Indian subcontinent consisting of 36 vowels, 14 consonants and 10 numerals. The accurate recognition of handwritten Devnagari characters is challenging due to high complexity of Devnagari scripts. This paper presents a method to fine tune the pre trained TrOCR model to accurately recognize Devanagari handwritten characters. The Methodology consists of a preprocessing mechanism where input images are standardized into RGB format, tokenized in batches and integrated with Hugging Face Dataset. The pre-trained microsoft/trocr-base-handwritten model is fine-tuned over a dataset of nearly 5000 character images that are uniformly partitioned in the ratio 8:1:1 for training, evaluation and testing. Further optimization is done is the training process through mixed precision training, gradient checkpointing, and early stopping mechanism. The model achieves a character error rate (CER) of 3.95% and a character-level accuracy of 96.05%, outperforming the previous CNN based models. A scalable web application is developed using Vite.js, Golang, and FastAPI which practically deploys the OCR model and serves character recognition task with a latency less than 5 seconds per request. This study demonstrates the use of TrOCR model to build a scalable handwritten Devnagari character recognition system and also a foundation to future research on Devnagari Script Recognition using Transformers.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Vellore Institute of Technology University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    null
+   ],
+   "institutions": [
+    "Vellore Institute of Technology University"
+   ],
+   "institution_ids": [
+    "00qzypv28"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.31681",
    "pdf_url": "https://arxiv.org/pdf/2609.31681"
   },
@@ -25952,9 +26225,45 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Face recognition is widely deployed in surveillance, access control, and forensic workflows, yet accuracy degrades sharply once the face is occluded by accessories, foreground objects, or the frame edge. Because most faces in the wild are partial, robust partial face recognition (PFR) remains open. This paper compares three pretrained convolutional backbones, ResNet-50, VGG-16, and FaceNet, fine-tuned for PFR by transfer learning under identical preprocessing, splitting, and optimization protocols on the Specs-on-Faces (SoF) dataset. All three arms use a common 160x160 input and a frozen backbone with a trainable head under a fixed epoch budget and no per-backbone hyperparameter search. The FaceNet configuration, denoted PFN (Partial FaceNet), substantially outperforms the other two, reaching 97.4% test accuracy with macro-averaged 87.04% precision, 84.61% recall, and 84.17% F1 over the 112 identity classes, the highest accuracy and recall reported on SoF.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "University of Sharjah",
+    "TU Dortmund University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Sharjah",
+    "TU Dortmund University"
+   ],
+   "institution_ids": [
+    "00engpz63",
+    "01k97gp34"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.31677",
    "pdf_url": "https://arxiv.org/pdf/2609.31677"
   },
@@ -26088,9 +26397,34 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Multimodal large language models (MLLMs) process multimodal inputs by converting text, images, and videos into token sequences that are subsequently processed by a backbone language model. While MLLMs have achieved excellent performance in understanding the content of individual images, video understanding remains significantly more difficult because videos contain large number of video frames. MLLMs typically process only a subset of these frames, usually ranging from 8 to 64. MLLMs usually sample frames uniformly, regardless of their relevance to the question being answered. To address this limitation, several training-free, model-agnostic methods for selecting question-relevant frames have recently been proposed. In this work, we introduce a frame-selection method designed specifically for multiple-choice questions. We extend the query text by appending semantic cues derived from the answer choices and employ a direct query-frame alignment scoring mechanism. To the best of our knowledge, our method is the first to directly utilize answer choices as inference-time cues for selecting frames relevant to answering a question. The method first constructs a compact candidate pool by subsampling video frames at a fixed rate. The frames are then scored according to their maximum cosine similarity across all question-answer pairs to identify the most relevant frames for a given query. This approach preserves a fixed token budget while improving the relevance of the visual evidence provided to the downstream MLLM. We evaluate the effectiveness of our frame-selection method on the MLVU, Video-MME, and LongVideoBench benchmarks using three MLLMs: LLaVA-Mini, Qwen2-VL, and LLaVA-Video. Experimental results demonstrate that answer-aware frame selection generally outperforms uniform sampling and existing training-free frame-selection methods under the same frame budget.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "University of Miami"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Miami"
+   ],
+   "institution_ids": [
+    "02dgjyy92"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.31668",
    "pdf_url": "https://arxiv.org/pdf/2609.31668"
   },
@@ -26378,9 +26712,46 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Video diffusion transformers depend on temporal attention to coordinate information across frames, yet nearly everything known about this mechanism comes from analyzing trained models, so when and where temporal-attention structure forms during training remains poorly characterized. Population averages can also hide it, since a few specializing heads and a diffusing majority cancel in the mean. We therefore conduct a checkpoint-resolved census of every temporal-attention head across nine Open-Sora STDiT training runs spanning three model scales (306M to 1.03B parameters), scoring each head with an entropy-normalized measure of cross-frame attention concentration (CFAC) under a preregistered change-point and effect-size selection rule. The census reveals the sparse picture that averages obscure. Aggregate CFAC is flat or decreasing in every run, while a small minority of heads, roughly 4–13% in full-grid runs, develops pronounced concentration. Across seeds, the reproducible signal is positional but block-level. Selected heads repeatedly arise in the first temporal block, whereas individual head coordinates do not reproduce once block membership is accounted for. Among the analyzed 760M selected heads, attention maps converge to a small repertoire of local frame-routing motifs, self-frame diagonals and adjacent-frame bands, even when the responsible coordinates differ across runs. Correlation and ablation analyses do not establish a causal link to generated video quality, and we bound our claims accordingly. Beyond this STDiT family, the study contributes a transferable methodology. Checkpoint-resolved, per-head analysis under fixed selection rules can expose sparse temporal organization in other factorized video diffusion transformers and, with adapted routing metrics, in joint spatio-temporal architectures.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "University of Colorado Colorado Springs",
+    "Dolby",
+    "Fairleigh Dickinson University"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "University of Colorado Colorado Springs",
+    "Dolby",
+    "Fairleigh Dickinson University"
+   ],
+   "institution_ids": [
+    "054spjc55",
+    "02kb3q578",
+    "04wkzvc75"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.31654",
    "pdf_url": "https://arxiv.org/pdf/2609.31654"
   },
@@ -28307,9 +28678,34 @@
    "cross_list_from": "cs.AI",
    "html_url": null,
    "abstract": "The rapid advancement of artificial intelligence has observed increased application in predicting vehicle interior noise levels within the automotive industry. However, the collection of labeled data for training models in this context involves significant costs. Previous studies in semi-supervised regression (SSR) have effectively mitigated the reliance on labeled data by incorporating unlabeled data. Nonetheless, these approaches often introduce a high computational cost due to the training of multiple models and data sampling. This study introduces SpecRegMatch, a novel SSR method aimed at addressing the computational cost associated with training by leveraging a single model, thus eliminating the need for multiple data samplings. SpecRegMatch integrates consistency regularization and information maximization to robustly train the model, achieved through various augmentations applied to both the embedding vectors and predicted values. Experimental results demonstrate that SpecRegMatch achieves state-of-the-art performance across various scenarios, even when using a single model. It attains a remarkable performance, as indicated by an R^2 score of 0.434. This is especially noteworthy in scenarios where labeled data is scarce. You can access the code for our proposed method at https://github.com/sejin-sim/SpecRegMatch.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Korea University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null
+   ],
+   "institutions": [
+    "Korea University"
+   ],
+   "institution_ids": [
+    "047dqcg40"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.34111",
    "pdf_url": "https://arxiv.org/pdf/2609.34111"
   },
@@ -28558,9 +28954,31 @@
    "cross_list_from": "cs.AI",
    "html_url": null,
    "abstract": "Phishing remains one of the most common vectors for financial and identity fraud, and most detection systems still rely on inspecting a page's URL, HTML markup, or domain registration history. These signals are easy for an attacker to rotate or obfuscate, and they say very little about what actually convinces a victim to hand over a password or a card number: the way the page looks. This paper describes a visual, image-based approach to phishing detection that treats a rendered webpage the same way a human eye would, as a picture that either matches a trusted brand or doesn't. A YOLOv8 convolutional neural network was trained to classify full-page website screenshots as phishing or legitimate based on layout, logo placement, color scheme, and login-form structure, rather than on text extracted from the page. The system reached 92% classification accuracy on a held-out test set, processed a single screenshot in roughly 100 milliseconds, and, after a round of data augmentation aimed specifically at lighting, compression, and scaling variation, cut the false-positive rate by 11% relative to the pre-augmentation baseline. The paper walks through the dataset construction, the augmentation strategy, the model architecture and training setup, and the resulting performance, and closes with a discussion of where this kind of visual detector fits alongside, rather than instead of, existing URL- and content-based defenses.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "San Diego State University"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "San Diego State University"
+   ],
+   "institution_ids": [
+    "0264fdx42"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.34015",
    "pdf_url": "https://arxiv.org/pdf/2609.34015"
   },
@@ -29554,9 +29972,36 @@
    "cross_list_from": "cs.LG",
    "html_url": null,
    "abstract": "Fraud detection is an important area of research in the insurance business due to its financial implications. The primary aim of a fraud detection model is to identify fraud and non-fraud cases with high accuracy along with other important metrics such as Sensitivity, Specificity, Precision, F1-score, False Positive Rate, False Discovery Rate, AUC etc. To achieve this, we need to explore a suitable classification model to identify fraud and non-fraud cases. In this work, we have used auto insurance data set and explored classification models such as Decision Tree (DT), Random Forest (RF), XGBoost, LightGBM and Gradient Boosting Machine (GBM). To overcome the problem of data imbalance, we have employed MWMOTE and TGAN techniques. We have used Topological Node Feature(TNF) based spectral embedding for low dimensional data representation along with some popular embedding methods like MDS, Isomaps and t-SNE. After studying all the 65 possible combinations of these models, we have proposed an innovative method for effective automobile insurance fraud detection. For the given dataset, our results show that using a combination of MWMOTE as a data imbalance handling technique (Phase I), TNFSE2 as data embedding (Phase II) and Random Forest as classification (Phase III) provides the best result in comparison to all other combinations. This work also highlights the efficacy of TNF based spectral embedding in automobile insurance dataset",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Sri Sathya Sai Institute of Higher Learning"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    null,
+    null
+   ],
+   "institutions": [
+    "Sri Sathya Sai Institute of Higher Learning"
+   ],
+   "institution_ids": [
+    "05arzt710"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.33376",
    "pdf_url": "https://arxiv.org/pdf/2609.33376"
   },
@@ -29994,9 +30439,51 @@
    "cross_list_from": "cs.LG",
    "html_url": null,
    "abstract": "When the human reference scores zero on a metric, the released GTRS-Dense label generator for NAVSIM marks every candidate trajectory in the scene as passing it. NAVSIM's authors introduced this human-reference forgiveness to avoid penalizing contextually justified maneuvers when scoring one trajectory, and warned that it could overlook important failures. In label generation it sets a whole column of 16,384 candidate targets to passing. To measure the consequences for supervision, we re-run the generator with the overwrite disabled and compare the pre-overwrite targets with the released labels on all 103,288 navtrain scenes. The rule erases a candidate distinction that the training loss reads on 11,237 of them (10.8793%). Firing usually changes most of a column: lane keeping carries 9,982 of the 13,042 forgiven loss columns, and its median forgiven column had 14,391 of 16,384 candidates failing before the overwrite. On held-out navtest scenes forgiven on lane keeping, the released lane-keeping head's median AUC against the pre-overwrite outcome is 0.7095; on unforgiven scenes matched on failing-candidate count it is 0.9807. For the Hydra-MDP checkpoint released with GTRS, whose configuration takes the same label file, the two values are 0.6627 and 0.9761. Continuing the released GTRS-Dense checkpoint for 300 optimizer steps with three paired seeds, we observe the forgiven-scene AUC 0.1086-0.1251 higher with pre-overwrite than with published targets, and a narrower gap between matched groups, still above zero. Scoring with forgiveness disabled, we observe lane keeping higher by 2.478-3.524 points on navtest scenes forgiven on any of five loss metrics, with lower adjacent-frame plan consistency. Both changes are larger there than on the rest. EPDMS, scored the same way, does not separate the two target sets.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Stanford University",
+    "University of Maryland, College Park"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Stanford University",
+    "University of Maryland, College Park"
+   ],
+   "institution_ids": [
+    "00f54p054",
+    "047s2c258"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.33189",
    "pdf_url": "https://arxiv.org/pdf/2609.33189"
   },
@@ -32128,9 +32615,46 @@
    "cross_list_from": "cs.CL",
    "html_url": null,
    "abstract": "Digital pens are widely used to capture handwriting on digital devices, enabling precise trace recording and enhancing human-computer interaction. However, most are bundled with tablets and lack cross-brand compatibility. Recent digital pens equipped with kinematic sensors have emerged, designed for use on any surface. This especially opens significant potential for supporting handwriting acquisition in classrooms. Handwriting reconstruction from such an IMU-equipped pen poses a challenge due to the significant variability in sensor signals between adults and children. Even when producing visually similar traces, variations in writing dynamics, motor control, pen holding, and user confidence introduce substantial discrepancies in the captured signals. Additionally, the high variability in children's handwriting requires collecting large amounts of data, which is not feasible to implement in a school environment at scale. Furthermore, models trained exclusively on adult data fail to generalize to children's handwriting, and conversely, models trained on children's data perform poorly on adult writers. This crosspopulation degradation highlights the need for a unified model that can be deployed directly on the pen, without any user-specific adaptation. To address this issue, we propose a cross-domain learning, using an original neural network architecture based on a Temporal Convolutional Network and multiple prediction heads. The model is designed to be robust across age groups by leveraging shared features while effectively handling variability induced by differences in graphomotor development. This approach aims to improve handwriting trace reconstruction from sensor data, where each domain benefits from additional data provided by the other domain.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Lappeenranta-Lahti University of Technology",
+    "Institut de Recherche en Informatique et Systèmes Aléatoires",
+    "Institut National des Sciences Appliquées de Rennes"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Lappeenranta-Lahti University of Technology",
+    "Institut de Recherche en Informatique et Systèmes Aléatoires",
+    "Institut National des Sciences Appliquées de Rennes"
+   ],
+   "institution_ids": [
+    "0208vgz68",
+    "00myn0z94",
+    "04xaa4j22"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.31666",
    "pdf_url": "https://arxiv.org/pdf/2609.31666"
   },

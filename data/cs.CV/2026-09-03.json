@@ -232,9 +232,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Unexploded ordnance (UXO) continues to restrict civilian access, agricultural activity, infrastructure recovery, and environmental remediation in contaminated areas around the world. This study created a multi campaign UAV thermal image data set of inert ordnance, developed a labeled image set from collected imagery, tested object detection models, and identified practical considerations for humanitarian mine action and demining applications. Data were collected during four field campaigns in Tennessee under summer and winter conditions using inert mines, munitions, and other ordnance placed in short grass, tall vegetation, gravel, mulch, rock, compost, and compacted surfaces. Thermal imagery was collected under flight altitutes of 33 m and 15 m. The final source inventory contained 5,855 thermal image label pairs, including 918 positive images and 4,937 background images. After retaining all positive images and downsampling background images, the 33 m dataset contained 420 training and 106 validation images, while the 15 m dataset contained 629 training and 157 validation images. YOLOV11l and RT-DETR-R50 algorithms were trained and evaluated to develop an automated candidate detection model. Practical recommendations include collecting thermal and RGB imagery together, incorporating varied surfaces and background only imagery, considering periods following changes in solar exposure, balancing survey coverage against target pixel representation, calibrating models with representative local data, and retaining qualified human review. The intended use is screening and prioritization for follow on technical survey or EOD assessment, and not a standalone clearance.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.01738",
    "pdf_url": "https://arxiv.org/pdf/2609.01738"
   },
@@ -721,9 +731,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Automatic Target Recognition (ATR) in Synthetic Aperture Sonar (SAS) is a task largely dominated by deep neural networks (DNNs). Most SAS-ATR models use convolutional neural network (CNN) architectures whereas transformer-based architectures have had much less representation in the literature despite being state of the art in general computer vision (CV) research. Additionally, researchers have had mixed results in attempting to overcome challenges presented by a scarcity of labeled training data by using methods such as data augmentation and the use of pretrained weights from a variety of imaging modalities. In this work, we compare the performance of modern CNN and transformer-based DNNs to determine which architecture and training configurations elicit the highest performance in SAS-ATR. We investigate how network size, architecture, pretraining method, data augmentation and other forms of regularization affect SAS-ATR performance with a focus on producing the highest-performing model and providing a roadmap for training state-of-the-art SAS-ATR models.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.01800",
    "pdf_url": "https://arxiv.org/pdf/2609.01800"
   },
@@ -795,9 +815,33 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Reliable characterization of structural defects requires methods capable of resolving both directly observable surface damage and damage that is not visible from the inspected surface. This study presents two complementary non-contact, vision-based approaches for the detection and quantitative characterization of defects in structural components. The first approach employs high-resolution laser scanning to generate three-dimensional (3D) point clouds of damaged steel specimens. Comparative processing of measured and reference point clouds is used to localize damaged regions, quantify geometric loss, and transfer the measured defect geometry to a finite element representation. The second approach combines full-field surface deformation measurements obtained using three-dimensional digital image correlation (3D-DIC) with finite element model updating and topology optimization. In this inverse framework, measured surface response is used to infer subsurface abnormalities through their influence on the spatial distribution of structural response. Experimental steel-beam specimens containing controlled smooth defects and randomly distributed defects are used to evaluate the approaches. Comparisons with milling-based ground-truth measurements demonstrate that both methods can identify and quantify defect geometry, while providing complementary information for visible and subsurface damage assessment. The combined framework establishes a pathway toward high-fidelity, non-contact structural condition assessment and model updating for components with complex and irregular damage.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Engineering Systems"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Engineering Systems"
+   ],
+   "institution_ids": [
+    "02qg60849"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.01808",
    "pdf_url": "https://arxiv.org/pdf/2609.01808"
   },
@@ -975,9 +1019,55 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Structural magnetic resonance imaging (MRI) images are sometimes corrupted over a contiguous set of slices, where acquisition, motion, hardware, or reconstruction effects leave a single slice or short interval inconsistent with its neighbors while the rest of the image remains usable. Such localized corruption can bias downstream morphometric analysis, yet discarding or reacquiring an otherwise usable image is costly. We formulate this as an image restoration problem: given the location of the affected interval, reconstruct those slices from the surrounding anatomical and imaging context. We propose SliceBridge, a framework for restoring corrupted slice intervals in T1-weighted MRI using rectified flow matching conditioned on the surrounding intact slices and their relative slice positions. Through-plane consistency is encouraged by coupling the slices within the interval through interval-correlated initial noise, a shared flow time, and synchronized sampling. The restored interval is then inserted back, leaving all other slices unchanged. We trained and validated the model on 9,877 T1-weighted brain MRI volumes from four datasets and evaluated it on 581 external subjects using clean interval withholding and controlled corruptions. Compared with a matched model that reconstructed target slices independently, SliceBridge reduced error in slice-to-slice changes within repaired intervals by 32.9%-41.3% across interval lengths and achieved higher SSIM at every interval length. In controlled-corruption cases, SliceBridge reduced the median error in regional brain volume estimates produced by a downstream segmentation model from 1.95% in corrupted volumes to 1.05%.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Vanderbilt University",
+    "Vanderbilt University Medical Center"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Vanderbilt University",
+    "Vanderbilt University Medical Center"
+   ],
+   "institution_ids": [
+    "02vm5rt34",
+    "05dq2gs74"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.01827",
    "pdf_url": "https://arxiv.org/pdf/2609.01827"
   },
@@ -1031,9 +1121,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Digital volume correlation (DVC) provides three-dimensional full-field displacement measurements from volumetric images, but how the internal resolution of a machine-learning-based DVC model affects accuracy and operating range remains poorly understood. Here, we present RAFT-DVC, a resolution-aware family of recurrent all-pairs field transforms (RAFT)-based DVC solvers with encoder downsampling factors s = 2, 4, and 8. Using a matched design, we find that the three solvers localize displacement to approximately 0.017 feature-grid voxel, giving an empirical raw-volume error scaling of approximately 0.017s voxel. The solvers exhibit complementary operating regimes governed jointly by displacement reach and volumetric-texture compatibility. Synthetic benchmarks show that RAFT-DVC achieves errors of the same order as tuned classical DVC under fine-texture, small-to-moderate-displacement conditions and becomes competitive or advantageous under coarse-texture, large-displacement conditions. Frequency-swept tests quantify deformation spatial resolution, while tiled inference enables dense estimation on large volumes. Evaluation on confocal volumetric images acquired during indentation illustrates the importance of matching solver operating regime to deformation magnitude and image texture. Tests on micro-CT images of elastomeric foam, despite training only on particle-labeled synthetic data, provide evidence of cross-texture transfer. We also identify coordinate-order inconsistencies in three-dimensional RAFT correlation sampling and introduce a non-cubic impulse test to verify sampler geometry independently of network training. Correcting the sampler improves native-input accuracy and generalization to unseen volume dimensions. Together, these results establish RAFT-DVC as a fast, resolution-aware framework for dense DVC with characterized accuracy and operating regimes.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.01876",
    "pdf_url": "https://arxiv.org/pdf/2609.01876"
   },
@@ -1808,9 +1908,58 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Few-step diffusion models substantially compress temporal computation, making the spatial cost of each model evaluation an increasingly dominant source of inference latency. Progressive-resolution inference reduces this cost by performing early denoising at low resolution and reserving high-resolution computation for refinement. However, existing methods typically lift intermediate latents directly and rely on subsequent steps to absorb the induced distribution mismatch. In the few-step regime, the limited recovery budget leaves these errors as visible artifacts, constraining how late the transition can occur and, consequently, how efficiently it can be performed. We introduce SelfLift, a self-recovering progressive-resolution framework that derives both transition-repair signals and trajectory-aligned supervision from the generative model itself. SelfLift-zero proposes a training-free Artifact-Aware Consistency Lift, using disagreement between direct latent lifting and pixel-VAE re-encoding as both a localized artifact-risk signal and a model-native correction direction. It enables reliable late transitions without external super-resolution, extra denoiser evaluations, or sampling-schedule modifications. Building on this robust transition, SelfLift-rich performs On-Policy Self Recovery on student-visited states, transferring dense high-resolution guidance from an internal self-teacher while remaining aligned with the altered progressive-resolution dynamics. Across FLUX.2-Klein and Z-Image-Turbo, SelfLift reduces end-to-end latency by 41.5% and 44.1%, respectively. Combined with timestep distillation, it delivers overall speedups of 29.61x and 19.21x over the corresponding 50-step models while preserving competitive generation quality, establishing a stronger speed-quality frontier for few-step diffusion.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "ByteDance",
+    "Tsinghua University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "ByteDance",
+    "Tsinghua University"
+   ],
+   "institution_ids": [
+    "04m8av638",
+    "03cve4549"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.02036",
    "pdf_url": "https://arxiv.org/pdf/2609.02036"
   },
@@ -2226,9 +2375,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "In computational pathology (CPath), developing omni-modal self-supervised learning (SSL) models that integrate histology, genomics, and clinical reports enables transferable representation learning for whole slide images (WSIs). Existing approaches implicitly force heterogeneous modalities into a uniform latent space by contrastive alignment, causing modality collapse where unique, synergistic diagnostic signals (termed as Φ) are discarded in favor of trivial redundancy. We hypothesize that the strongest task-agnostic SSL training signal stems from distilling the synergistic interactions over merely aligning shared redundancy. To this end, we introduce Φ-Omni, a synergistic information disentanglement framework grounded in Partial Information Decomposition (PID) theory for slide representation learning. Unlike standard contrastive approaches, Φ-Omni employs a Synergistic Information Bottleneck (SIB) regulated by the proposed ΦID objective, which explicitly suppresses marginal redundancy while maximizing irreducible synergy, thereby distilling high-order cross-modal interactions. Following pretraining on breast (n=1031) and lung (n=919) cohorts, Φ-Omni demonstrates superior few-shot performance across five independent external datasets spanning eight tasks compared to supervised and SSL baselines. Source code is available here.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.02118",
    "pdf_url": "https://arxiv.org/pdf/2609.02118"
   },
@@ -4479,9 +4638,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Beauty assessments from Multimodal Large Language Models (MLLMs) are increasingly popular amongst users, companies, and aestheticians. This raises the question of whether these AI models can accurately reflect human judgments of attractiveness. In a pre- registered exploratory study, we compared the attractiveness ratings of 2,513 human participants to four widely used commercial AI models: Claude, Gemini, GPT, and Grok. Results showed that MLLMs systematically rate faces more favourably and within a narrower range than humans and, at the time of study, do not reproduce human ratings in absolute terms. However, MLLMs exhibit strong correlations with human attractiveness judgments, accurately tracking the rank-ordering of faces. MLLMs may judge faces by different cues than humans; only face age was a predictor of facial attractiveness in both humans and MLLMs, with inconsistent patterns across models for ethnicity and gender. AI models strongly agree with one another, except for Grok, which also showed the lowest agreement with humans. Our findings suggest that while they may be able to approximate rank-orderings of human attractiveness, current off-the-shelf commercial MLLMs systematically overrate the beauty of human faces.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.02512",
    "pdf_url": "https://arxiv.org/pdf/2609.02512"
   },
@@ -7015,9 +7184,53 @@
    "cross_list_from": "cs.CR",
    "html_url": null,
    "abstract": "With the rapid proliferation of generative models on Machine Learning as a Service (MLaaS) platforms, reliably tracing the provenance of synthetic media without modifying generator architectures or parameters remains a major challenge. In this work, we propose a self-referential retrosynthesis framework for explainable AI provenance forensics under a fixed-generator setting. The framework leverages a jointly optimized encoder-decoder pair to implement a self-embedding mechanism that enables round-trip consistency verification. During inference, client inputs are first encoded and then processed by the generator to produce outputs with high visual fidelity. For forensic verification, the consistency between the resynthesized image and the query image is analyzed to determine whether the image originates from the target generative model. Our approach eliminates the need for watermark embedding or modifications to the generation process. Experimental results show that images generated from encoded inputs maintain visual quality comparable to original generator outputs, while decoded images reliably trace back to their corresponding source inputs. Furthermore, the framework provides interpretable evidence for generative content provenance, establishing a practical tool for explainable generative AI forensics.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Feng Chia University",
+    "National Institute of Informatics",
+    "University of Tokyo",
+    "Peking University Shenzhen Hospital"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1,
+     0,
+     2
+    ],
+    null,
+    [
+     3
+    ],
+    [
+     1,
+     0,
+     2
+    ]
+   ],
+   "institutions": [
+    "Feng Chia University",
+    "National Institute of Informatics",
+    "University of Tokyo",
+    "Peking University Shenzhen Hospital"
+   ],
+   "institution_ids": [
+    "05vhczg54",
+    "04ksd4g47",
+    "057zh3y96",
+    "03kkjyb15"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.02268",
    "pdf_url": "https://arxiv.org/pdf/2609.02268"
   },

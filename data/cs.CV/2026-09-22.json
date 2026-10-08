@@ -596,9 +596,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Two-stage oriented detectors achieve high localization accuracy in synthetic aperture radar (SAR) ship detection, but their large backbones, feature pyramids, proposal modules, and heavy region of interest (RoI) heads hinder deployment. Existing lightweight SAR ship detectors typically use one-stage frameworks that lack proposal-level refinement for precise rotated localization. This paper presents a dual-teacher knowledge distillation and pruning (DTKDP) framework for lightweight oriented SAR ship detection. DTKDP introduces learnable gates into convolutional, normalization, and linear layers to prune convolutional channels and RoI-head neurons. Rotated proposal alignment (RPA) distills teacher and student predictions in a shared teacher-generated rotated proposal space, while a dual-teacher scheme combines classification and regression guidance from a homogeneous main teacher with complementary classification cues from a heterogeneous auxiliary teacher. Experiments on the SAR Ship Detection Dataset (SSDD) and Rotated Ship Detection Dataset in SAR Images (RSDD-SAR) show that DTKDP reduces the parameters of Oriented Region-based Convolutional Neural Network (Oriented R-CNN) and RoI Transformer equipped with ResNet-50 backbones by 87.5-91.8% and their floating-point operations (FLOPs) by 75.6-79.9%. In terms of average precision (AP) and mean average precision (mAP), the resulting Oriented R-CNN-slim and RoI Transformer-slim retain accuracy close to their full-scale counterparts. Relative changes across $AP_{50}$, $AP_{75}$, $mAP_{50:75}$, and $mAP_{50:95}$ range from a 2.38% decrease to a 0.65% improvement. Compared with RTMDet-tiny, they improve all four metrics on both datasets by 0.52-27.55% and consistently surpass representative distillation methods, demonstrating a favorable accuracy-efficiency trade-off.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.24872",
    "pdf_url": "https://arxiv.org/pdf/2609.24872"
   },
@@ -2382,9 +2392,70 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Background: Microvascular invasion (MVI) predicts recurrence and survival in hepatocellular carcinoma (HCC) but requires postoperative histopathology for diagnosis. We developed and validated a model integrating multimodal ultrasound and clinical data for preoperative MVI prediction. Methods: This multicenter study included 489 patients with HCC from eight centers. All patients had B-mode ultrasound (BUS), color Doppler flow imaging (CDFI), dynamic contrast-enhanced ultrasound (DCE-US), and clinical information. Data from seven centers (n = 421) were used for model development with five-fold cross-validation; data from the remaining center (n = 68) formed an independent external validation cohort. The proposed multimodal information fusion network used modality-specific encoders, a hemodynamic temporal change module for bidirectional DCE-US perfusion changes, and a representation consistency learning module to align heterogeneous ultrasound representations before Transformer-based fusion. Results: In external validation, DCE-US achieved the highest single-modality area under the receiver operating characteristic curve (AUC; 0.8545+/-0.0198), versus clinical information (0.6715+/-0.0156), CDFI (0.6435+/-0.0344), and BUS (0.6087+/-0.0417). Pixel-difference sampling and the proposed temporal module outperformed alternative sampling and video representation methods. The full model achieved the best performance, with an AUC of 0.8953+/-0.0180, accuracy of 81.18%+/-2.83%, sensitivity of 86.40%+/-6.69%, and specificity of 78.14%+/-6.28. Conclusions: Integrating multimodal ultrasound and clinical information enabled promising preoperative MVI prediction in HCC. DCE-US was the main source of predictive information, while BUS, CDFI, and clinical information provided complementary value. The proposed framework may support preoperative risk stratification and individualized clinical decision-making.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Shenzhen University",
+    "Peking University Shenzhen Hospital",
+    "Chinese PLA General Hospital"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0,
+     2
+    ]
+   ],
+   "institutions": [
+    "Shenzhen University",
+    "Peking University Shenzhen Hospital",
+    "Chinese PLA General Hospital"
+   ],
+   "institution_ids": [
+    "01vy4gh70",
+    "03kkjyb15",
+    "04gw3ra78"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.24524",
    "pdf_url": "https://arxiv.org/pdf/2609.24524"
   },
@@ -4084,9 +4155,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Pedestrian head orientation recognition plays an important role in autonomous driving by providing valuable cues for understanding pedestrian attention and anticipating potential crossing behavior. However, reliable recognition in real-world traffic scenes remains challenging because pedestrian head regions are often captured at low resolution. To address this challenge, we propose a lightweight Low-Resolution Head Orientation Convolutional Neural Network (LRHO-CNN) for pedestrian head orientation recognition. We construct a new dataset by extracting pedestrian head images from multiple public datasets and manually annotating them into eight orientation categories. The collected images are systematically preprocessed and augmented to increase data diversity and better represent variations in illumination and image quality. The experimental analysis compares LRHO-CNN with three fine-tuned baseline models, namely ResNet-18, ResNet-34, and VGG-16. The results demonstrate that LRHO-CNN achieves the highest classification accuracy among the evaluated models. LRHO-CNN is further evaluated on the JAAD and PIE datasets, demonstrating its effectiveness in recognizing pedestrian head orientation in real-world traffic scenes and providing informative head-orientation cues that can support downstream pedestrian behavior and intention prediction.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.24193",
    "pdf_url": "https://arxiv.org/pdf/2609.24193"
   },
@@ -4952,9 +5033,44 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "New Guinea is the world's richest island flora (~2,856 orchid species), yet most species are represented by only a handful of photographs, far fewer than direct species-level classification requires. Methods for fine-grained identification in such species-rich, data-poor floras are needed, and it remains unclear which backbone architecture and pretraining strategy best support them. We built a two-stage system that first predicts the genus of a query photograph, then retrieves visually similar reference images of candidate species using FAISS. We compared four pretrained backbones -- two Vision Transformers (ViTs; DINOv2, BioCLIP 2) and two CNNs (ConvNeXt V2-L, EfficientNetV2-L) -- fine-tuned under an identical protocol on a fixed, species-stratified partition of 16,701 photographs spanning 120 genera and 1,350 species, assessing accuracy, calibration, error structure, species retrieval, and open-set detection of novel genera. DINOv2 attained the best genus performance (macro top-1 66.9%, 95% CI 63.7-70.6; global top-1 88.9%); both ViTs outranked both CNNs, and general-purpose self-supervised pretraining (DINOv2) outperformed domain-matched biological pretraining (BioCLIP 2) by 7.1 points of macro top-1. Errors concentrated on two abundant genera acting as error attractors. DINOv2 embeddings achieved species Recall@5 of 86.6% and genus Recall@5 of 98.7%; temperature scaling reduced every backbone's Expected Calibration Error to about 0.03; and a distance-based open-set gate flagged unseen genera (mean AUROC 0.958). A self-supervised Vision-Transformer backbone combined with embedding retrieval is an effective, deployable strategy for fine-grained identification in species-rich, data-poor floras. The system is released as an open web application (the New Guinea Orchid Identifier), offering a practical template for other hyperdiverse, under-documented taxa.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "James Cook University"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "James Cook University"
+   ],
+   "institution_ids": [
+    "04gsp2c11"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.24064",
    "pdf_url": "https://arxiv.org/pdf/2609.24064"
   },
@@ -5186,9 +5302,83 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Reliable quality control (QC) of magnetic resonance imaging (MRI) is essential for reliable diagnostic neuroimaging, yet standard manual assessment is subjective and time-consuming. MRIQC has established standardized automated extraction of image-quality metrics (IQMs), but its reliance on local computational imaging skills and capacity including high-performance computing, limits its adoption in resource-constrained settings (RCS). We present WebMRIQC (http://webmriqc.mailab.io), an open-source browser-based platform that wraps the validated MRIQC engine behind a zero-installation web interface. WebMRIQC automates the DICOM-to-BIDS conversion of de-identified MRI scans, executes the unmodified containerized MRIQC pipeline on a shared compute node governed by a fair-share job queue, and returns an interactive in-browser dashboard. The dashboard grounds every IQM in published quality thresholds, benchmarks each scan against the normative distribution of high-resource open datasets, and supports cross-site multicentre implementation of optimized scan protocols in http://RCS.We describe the system architecture and a validation framework establishing measurement equivalence between WebMRIQC and native MRIQC across thirteen IQMs on the BraTS-Africa and BraTS 2021 datasets. Preliminary results indicate strong agreement for contrast-, signal and noise-based metrics, demonstrating that web-based implementation lowers the barrier to standardized MRI QC and provides a foundation for harmonized, regionally adapted quality benchmarks across RCS imaging sites. The code is publicly available here https://github.com/CAMERA-MRI/WebMRIqc.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "University of Lagos",
+    "Medical Artificial Intelligence Laboratory",
+    "Montreal Neurological Institute and Hospital",
+    "Jomo Kenyatta University of Agriculture and Technology",
+    "Federal University of Health Sciences Azare",
+    "Muhimbili Orthopaedic Institute",
+    "McGill University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     4
+    ],
+    [
+     5
+    ],
+    [
+     1,
+     6
+    ],
+    [
+     1
+    ],
+    [
+     2,
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Lagos",
+    "Medical Artificial Intelligence Laboratory",
+    "Montreal Neurological Institute and Hospital",
+    "Jomo Kenyatta University of Agriculture and Technology",
+    "Federal University of Health Sciences Azare",
+    "Muhimbili Orthopaedic Institute",
+    "McGill University"
+   ],
+   "institution_ids": [
+    "05rk03822",
+    "05sdzff81",
+    "05ghs6f64",
+    "015h5sy57",
+    "0005yy970",
+    "05bvayz93",
+    "01pxwe438"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.24014",
    "pdf_url": "https://arxiv.org/pdf/2609.24014"
   },
@@ -6887,9 +7077,31 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Deploying efficient neural networks is essential in resource-constrained environments, yet compact models often sacrifice interpretability - a critical in safety-critical domains such as autonomous driving and medicine. This study investigates whether Knowledge Distillation transfers the spatial feature attribution of a large teacher network to a compact student. To assess the influence of the KD scheme on interpretability, we distill a ResNet-152 teacher into a ResNet-34 student on ImageNet-1K across five configurations by systematically varying the distillation temperature and soft-label loss weight. Models are evaluated on top-1 accuracy, along with two interpretability metrics: Relevance Mass Accuracy and Relevance Rank Accuracy. These metrics are computed via Grad-CAM heatmaps benchmarked against ground-truth object masks. Our results show that top-1 accuracy ranges from 71.6% to 74.0%. For Grad-CAM, RMA ranges from 7.7% to 9.7% and RRA from 7.3% to 10.1%; for Guided Grad-CAM, RMA ranges from 16.1% to 18.6% and RRA from 15.9% to 21.5%. Interpretability proves far more sensitive to the soft-label weight than to the temperature: keeping the student anchored to hard labels preserves both accuracy and coarse localization, whereas weighting the teacher heavily degrades both. Fine-grained attribution, however, fell below the undistilled baseline in every configuration tested, indicating that logit distillation transmits where a model attends more readily than the pixel-level structure of that attention. We evaluate 12 cross-architecture combinations of convolutional and transformer-based models, revealing that the inheritance of fine-grained spatial reasoning is fundamentally bottlenecked by the student's intrinsic structural biases. To our knowledge, this is the first application of this interpretability-aware evaluation framework - previously used for neural network pruning - to KD.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Ukrainian Catholic University"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Ukrainian Catholic University"
+   ],
+   "institution_ids": [
+    "05tt5nr09"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.23561",
    "pdf_url": "https://arxiv.org/pdf/2609.23561"
   },
@@ -7098,9 +7310,46 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Language-based 3D localization retrieves the point-cloud submap containing a target position from descriptions of nearby objects and their spatial relations. Existing methods typically compress queries and submaps into global descriptors, potentially obscuring object-level semantics and cross-description spatial coherence. We propose Position-Conditioned Evidence Localization (PosEviLoc), a query-position-aware framework for coarse text-to-point-cloud localization. Instead of relying on global matching, PosEviLoc evaluates each candidate submap using explicit semantic and spatial evidence. It models direction as a relation jointly determined by an object position and a hypothetical query position. The resulting Query-Position Spatial Evidence Field (QSEF) measures the fraction of query descriptions supported at each hypothetical position, explicitly capturing their agreement without using the ground-truth query pose to construct the evidence field. A Multi-Level Evidence Readout (MER) summarizes this evidence in a compact representation, which a lightweight MLP converts into a retrieval score. Across five benchmarks, PosEviLoc outperforms MNCL by an average of 17 percentage points in Recall@1. When used as a plug-and-play reranker, it improves MNCL by an average of 16 percentage points. Moreover, PosEviLoc introduces substantially fewer parameters and achieves faster inference speed than existing methods.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Purdue University West Lafayette",
+    "Xi’an Jiaotong-Liverpool University",
+    "Qilu University of Technology",
+    "Shandong Academy of Sciences"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2,
+     3
+    ]
+   ],
+   "institutions": [
+    "Purdue University West Lafayette",
+    "Xi’an Jiaotong-Liverpool University",
+    "Qilu University of Technology",
+    "Shandong Academy of Sciences"
+   ],
+   "institution_ids": [
+    "02dqehb95",
+    "03zmrmn05",
+    "04hyzq608",
+    "04y8d6y55"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.23534",
    "pdf_url": "https://arxiv.org/pdf/2609.23534"
   },
@@ -7282,9 +7531,39 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "The increasing reliance on mobile phones has made phone-induced pedestrian distraction increasingly prevalent. Activities such as texting, watching videos, and making phone calls have become significant contributors to traffic accidents. Reliable detection of pedestrian distraction is essential for autonomous vehicles, as it improves situational awareness and enables timely risk assessment, thereby supporting safe motion planning and vehicle control. We propose a multimodal fusion Transformer (MFT) for detecting phone-induced pedestrian distraction. MFT jointly extracts skeletal dynamics from body pose keypoints and visual appearance features from pedestrian images, effectively leveraging the complementary information provided by the two modalities. A cross-modal attention module is proposed to capture inter-modal dependencies through multi-head cross-attention, facilitating effective fusion of complementary information across the two modalities. Then, a temporal attention fusion module, implemented with a Transformer encoder, is employed to capture temporal dependencies. MFT is trained and evaluated on a manually annotated dataset comprising 287 pedestrian instances with 20,741 images. Extensive experiments demonstrate that MFT attains an overall accuracy of 95%, exceeding the performance of six baseline approaches by 6%.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Technische Universität Berlin"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Technische Universität Berlin"
+   ],
+   "institution_ids": [
+    "03v4gjf40"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.23507",
    "pdf_url": "https://arxiv.org/pdf/2609.23507"
   },
@@ -8052,9 +8331,34 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Shrimp diseases continue to cause devastating losses in the aquaculture industry, driving a critical need for robust, automated detection. This work contributes the first application of Vision Transformers (ViT) and Self-Supervised Learning (SSL) to the shrimp farming domain, addressing both performance bottlenecks and data labeling challenges. We propose two deep learning pipelines to classify four key diseases: Healthy, Black Gill (BG), White Spot Syndrome Virus (WSSV), and a co-infection of both using a dataset of 4,348 images. First, our supervised transfer-learning approach leverages ImageNet-pretrained ViT-Small/16 and EfficientNet backbones. Second, we introduce a contrastive learning framework (SimCLR) with a ViT-Small encoder to extract robust representations from unlabeled images prior to fine-tuning. Our results establish strong new baselines for sustainable aquaculture monitoring. The supervised approach achieves an outstanding 96% accuracy with fast convergence, outperforming traditional generic models, while the label-efficient SSL approach reaches a highly competitive 85% validation accuracy.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Vietnamese-German University"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Vietnamese-German University"
+   ],
+   "institution_ids": [
+    "01jxtqc31"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.23397",
    "pdf_url": "https://arxiv.org/pdf/2609.23397"
   },
@@ -9480,9 +9784,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Iterative text-to-motion generation delivers high-quality and semantically aligned motions but requires multiple network evaluations, resulting in substantial inference latency. We present MixiMotion, a strict one-step text-to-motion generation framework based on offline set distillation. Instead of distilling a single teacher trajectory for each text prompt, MixiMotion constructs an offline bank of multiple teacher motions and aligns teacher and student sample sets through asymmetric bidirectional matching. The teacher-to-student direction promotes coverage of diverse teacher-supported motions, while the student-to-teacher direction suppresses unsupported generations. We further introduce differentiable decoded-space kinematic supervision to complement normalized representation matching with constraints in the decoded motion space. At inference, MixiMotion generates a complete motion sequence with a single network evaluation, without teacher queries, iterative sampling, or candidate ranking. On ViMoGen, MixiMotion achieves a semantic alignment score of 0.835, outperforming the evaluated one-step baselines and approaching the 0.858 score of its 50-step HY-Motion-1.0-Lite teacher. In blinded human evaluation, MixiMotion obtains an overall rating of 4.33, compared with 4.50 for the teacher, while outperforming the evaluated one-/few-step baselines. Meanwhile, generation latency is reduced from 829.58 ms to 9.30 ms, corresponding to an 89.2× speedup. These results demonstrate an effective quality--efficiency trade-off for strict one-step text-to-motion generation.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.23010",
    "pdf_url": "https://arxiv.org/pdf/2609.23010"
   },
@@ -11323,9 +11637,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "We address the problem of recovering high-speed videos from dynamic scenes under extreme photon sparsity. Existing methods rely on aggregating photon detections in local spatiotemporal windows to improve signal-to-noise ratio; however, this local grouping discards global structure and fails in low-light regimes where photon detections are sparse in space and time. In this work, we show that the information needed to recover both motion and illumination is encoded in correlations over the full space-time pattern of photon arrivals. Building on this insight, we develop a spatiotemporal flux probing theory and an algorithm that estimates the Fourier coefficients of the underlying intensity directly from the photon stream. We demonstrate that our approach (1) recovers fast motion and temporal illumination dynamics with substantially fewer photons than prior methods, (2) enables velocity-selective videography that automatically refocuses video onto specific detected motions, and (3) generalizes across sensing modalities including single-photon, event, and spike cameras.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.22479",
    "pdf_url": "https://arxiv.org/pdf/2609.22479"
   },
@@ -11573,9 +11897,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Few-shot learning research is predominantly evaluated on accuracy alone, with limited attention to the parameter and training-sample budgets required to reach that accuracy - a real constraint for practitioners without large-scale compute. We present an ultra-lightweight (22,249-34,917 parameter) spatial-relational architecture for few-shot image classification that combines fixed Gabor edge-energy guidance with a windowed, content-adaptive patch locator. Under a strictly matched, iso-episode-budget protocol (250 meta-training episodes, 5 canonical seeds, 600 evaluation episodes per seed), our architecture achieves 5-shot accuracy gains, consistent across all five seeds, over Prototypical Networks, Relation Networks, and MAML on both CIFAR-FS and MiniImageNet, while using 27-53% fewer parameters than any baseline. It also converges in fewer training episodes, generalizes better to an unseen fine-grained domain (CUB-200-2011 birds, zero retraining), and is more robust to 50% occlusion and 25% spatial translation than all three baselines. A series of falsification ablations - zeroing relational tokens at inference and retraining without them entirely - shows that the architecture's pairwise relational computation, while present, is not the primary driver of its performance; the content-adaptive patch locator is. We report this honestly, together with a capacity sweep showing a genuine accuracy plateau near 22-35k parameters, and release full seed-level results and checkpoint hashes for reproducibility.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.22323",
    "pdf_url": "https://arxiv.org/pdf/2609.22323"
   },
@@ -11602,9 +11936,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Automated segmentation of CT images has become increasingly important to enhance the reliability of simulations through the generation of high fidelity numerical models. This study addresses the challenging task of semi-automatically tracking textile reinforcements in fan blade dry preforms using X-ray CT images captured at coarse resolutions (i.e., above 140 μm). Our approach offers a scalable, slice-based analysis conducted on planes orthogonal to the main yarn directions, applied to a large-scale real industrial component. This enables accurate identification and tracking of yarn paths while requiring minimal training. The method models three key yarn properties statistically: their typical cross-section shape, their continuity and movement in the 3D space, and their spatial relative arrangement with respect to neighboring yarns. These statistical properties are integrated into a tracking framework via a variational formulation that optimizes all yarn center positions in successive cross-section planes. The method tracks more than 3,000 warp yarns across 1,500 slices and achieves a tracking success rate above 90%. Overall, this work demonstrates a promising approach toward large-scale, automated textile reinforcement annotation, paving the way for more efficient material characterization in complex composite structures.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.22315",
    "pdf_url": "https://arxiv.org/pdf/2609.22315"
   },
@@ -12956,9 +13300,31 @@
    "cross_list_from": "cs.LG",
    "html_url": null,
    "abstract": "Test-time adaptation (TTA) addresses distribution shift using only unlabeled test data. Existing methods typically adapt pretrained models by updating their parameters, limiting both what is adapted and where adaptation can occur within the network. We instead keep the pretrained network frozen and steer its intermediate representations. We introduce SPeaR (Steering Primitive for Realigning Representations), which inserts lightweight learnable modules at stage boundaries and optimizes them directly from the test stream, requiring neither source data nor supervised warm-up. Each primitive is optimized using a gated objective that reduces uncertainty only when adaptation is beneficial, along with a diversity regularizer to prevent collapse, and a multi-depth anchor to stabilize adaptation. We show that steering early representations is the most effective strategy, and that the same primitive transfers across convolutional and Transformer architectures. Across CIFAR-10-C, CIFAR-100-C, and ImageNet-C, SPeaR consistently matches or outperforms methods that adapt orders of magnitude more parameters, remains robust across a wide range of batch sizes, and preserves source-domain performance during continual adaptation.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Queen's University"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Queen's University"
+   ],
+   "institution_ids": [
+    "02y72wh86"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.24111",
    "pdf_url": "https://arxiv.org/pdf/2609.24111"
   },
@@ -12991,9 +13357,19 @@
    "cross_list_from": "cs.AI",
    "html_url": null,
    "abstract": "Medical image interpretation is central to diagnosis and care, yet adapting general-purpose multimodal large language models (MLLMs) often requires resource-intensive domain-specific fine-tuning. Here we introduce representation-guided in-context learning (RG-ICL), a training-free inference framework that retrieves query-aligned demonstrations using frozen encoders, without task-specific parameter updates. Across eight datasets spanning histopathology, radiology and retinal fundoscopy, RG-ICL improved classification (mean gain 20 percentage points) and visual question answering (VQA) (mean gain 13 percentage points) over no-context and conventional ICL, approaching or exceeding training-based comparators. Which cases were retrieved mattered more than how many: 6 query-aligned cases outperformed up to 32 randomly selected ones, whereas fixed or random cases often reduced accuracy below baseline. For VQA, aligning reference cases with both image content and question intent produced further gains. These findings indicate that for medical image interpretation, curating which reference cases an MLLM sees is a practical alternative to retraining it.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.24057",
    "pdf_url": "https://arxiv.org/pdf/2609.24057"
   },
@@ -13392,9 +13768,19 @@
    "cross_list_from": "cs.LG",
    "html_url": null,
    "abstract": "This paper introduces a multi-temporal tabular dataset derived from satellite images to map burned areas in the Chapada dos Veadeiros National Park, in Goiás, Brazil, covering the years 2020 to 2022. The dataset contains blue, green, red, and near-infrared bands, as well as the BAI, EVI, GEMI, NDVI, and NDWI spectral indices from the WFI sensor on the CBERS-4A, CBERS-4, and AMAZONIA-1 satellites, organized into a regular grid. We applied the Random Forest classifier to develop and validate models based on samples labeled as totally burned, partially burned, and non-burned. Two classification approaches were tested: one combining burned and non-burned areas into binary classes and another distinguishing between totally burned (TB), partially burned (PB), and non-burned (NB) classes. Seven validation approaches assessed different post-classification combinations, focusing on accuracy, precision, recall, and intersection over union (IoU) metrics. Results showed higher IoU when TB, PB, and NB were used as individual classes and TB was reclassified as burned area (BA) while PB and NB were grouped as non-burned. Comparing the annual results of this approach to the MCD64A1 product, the errors of omission for the BA class were 22% in 2020, 28% in 2021 and 59% in 2022, while the errors of commission were 46%, 43% and 46%, respectively. The study highlights the utility of the WFI sensor for burned area mapping without inter-satellite spectral calibration and suggests further exploration with other machine learning algorithms to evaluate the dataset potential and limitations.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.23687",
    "pdf_url": "https://arxiv.org/pdf/2609.23687"
   },

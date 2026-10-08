@@ -384,9 +384,36 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Leaf-wood segmentation of individual trees from LiDAR point clouds is essential for quantitative structure models (QSMs) used in non-destructive biomass estimation. Existing segmentation methods typically exclude radiometric features (e.g., intensity, return number) to maximize cross-sensor compatibility. We challenge this design choice by evaluating cross-site and cross-platform generalization: training on the public Heidelberg dataset (terrestrial TLS, 1550nm) and testing on a novel dataset from Ontario, Canada (RPA-LS, 905nm). Results show that geometry-only methods - including state-of-the-art deep learning models trained on high-density LiDAR datasets - fail to generalize to the sparse, top-down geometry of aerial scans, achieving F1 scores <= 0.56. Incorporating radiometric features (intensity, return number, number of returns) improves F1 to 0.61, but more critically, increases wood recall by 119% from 0.16 to 0.35. Furthermore, geometry-only approaches often result in fragmented stem and branch components. We find that leveraging radiometric features preserves greater structural connectivity, resulting in more coherent architectures that are better suited for QSM reconstruction. We demonstrate that while geometric patterns are view-dependent and prone to overfitting scan patterns, radiometric features encode physical material properties that generalize across disparate sensors and environments.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "University of Waterloo"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Waterloo"
+   ],
+   "institution_ids": [
+    "01aff2v68"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.21903",
    "pdf_url": "https://arxiv.org/pdf/2609.21903"
   },
@@ -4078,9 +4105,42 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Affordable dust monitoring remains a pressing need for the cattle feedlot industry, yet camera-based PM estimation, despite its growing body of research in urban air quality settings, has not been evaluated under the extended concentration ranges characteristic of intensive livestock operations. This study developed an image-based approach using contrast panel features and machine learning to estimate PM10 concentrations in a commercial cattle feedlot, where hourly average PM10 ranged from 250 to 1,000 ug/m^-3 and instantaneous concentrations reached 5,000 to 20,000 ug/m^-3. Grayscale images were captured during the evening dust peak period, and features including panel contrast, black and white panel pixel values, and overall image brightness were extracted. The model also incorporated recent past values from preceding images and solar zenith angle as predictors. Among the candidate models evaluated, XGBoost achieved the highest predictive performance, with an R^2 of 0.792 and a median absolute error of 103 ug/m^-3. Feature importance analysis revealed that (a) panels positioned farthest from the camera contributed most strongly to predictions and (b) that black panel pixel values were more sensitive than white panel values to changes in PM10 concentration. Prediction accuracy during the sunset transition, which coincides with the onset of the feedlot evening dust peak, remains an area for further refinement. These findings demonstrate the feasibility of image-based PM10 estimation across PM concentration ranges substantially exceeding those reported in prior urban studies and provide practical guidelines for future deployment in feedlot environments.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Texas A&M University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Texas A&M University"
+   ],
+   "institution_ids": [
+    "01f5ytq51"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.20975",
    "pdf_url": "https://arxiv.org/pdf/2609.20975"
   },
@@ -4150,9 +4210,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "We present TAPe+ML v3, a compact computer vision system based on TAPe (Theory of Active Perception), a structured representation that encodes relations among perceptual elements before recognition. Instead of operating directly on pixel tensors, the system uses a shared TAPe representation and a modular recognition architecture for image classification, object detection, and instance segmentation. TAPe+ML v3 combines background and contour processing, local object localization, prototype-based classification, and a coordinator for specialized submodels. Across the reported experiments, it uses fewer than 100,000 parameters. On COCO object detection, it obtains 84.7 mAP50 and 65.3 mAP50-95. On COCO instance segmentation, it obtains 80.7 mask mAP50 and 58.4 mask mAP50-95. In classification experiments, it reaches 92 percent validation accuracy on Imagenette under an identical-training comparison with a raw-pixel baseline, and 89.9 percent Top-1 accuracy on ImageNet-Real. We also evaluate compactness in video scene detection and adaptation under distribution shift in an industrial pilot. The results suggest that shifting part of the modeling burden from network parameters to a structured input representation can support compact multi-task vision systems with reduced data, memory, and compute requirements.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.20869",
    "pdf_url": "https://arxiv.org/pdf/2609.20869"
   },
@@ -4544,9 +4614,19 @@
    "cross_list_from": "cs.CL",
    "html_url": null,
    "abstract": "In-context learning using Large Language Models (LLMs) offers a compelling path to training-free post-OCR correction, yet its effectiveness for Devanagari script remains entirely unexplored. We present the first systematic evaluation of LLMs (3B-32B) for post-OCR correction in Hindi and Marathi, comparing three in-context example retrieval strategies: domain-random selection, dense semantic retrieval, and our proposed CharBM25, which retrieves examples by character n-gram BM25 similarity over OCR inputs to target shared error patterns with the test sentence. Across a 20,000-sentence benchmark spanning five news domains, retrieval strategy is the decisive factor in correction quality: CharBM25 outperforms domain-random selection by 2.8-4.0pp absolute WER on Hindi and 2.9-3.8pp on Marathi, using character trigrams, which consistently outperform bigrams and unigrams. Scale dominates performance: Gemma-3-27B achieves WER reductions of 55.0% for Hindi and 33.3% for Marathi under CharBM25-5. Few-shot gains are capacity-gated: models below 8B do not reliably improve over the OCR baseline, and on Marathi the smallest models (3B) degrade more sentences than they improve. Marathi is persistently harder to correct than Hindi across all scales, reflecting its greater morphological complexity. These findings establish CharBM25 as an effective, GPU-free retrieval strategy that matches or exceeds dense retrieval at negligible computational cost, and show that combining it with a general-purpose LLM of 12B+ parameters delivers reliable, training-free Devanagari post-OCR correction without task-specific fine-tuning. Dataset: https://huggingface.co/datasets/AbhishekBhandari/Devanagari-OCR-ICL-Benchmark",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2609.21595",
    "pdf_url": "https://arxiv.org/pdf/2609.21595"
   },
@@ -5424,9 +5504,19 @@
    "cross_list_from": "physics.optics",
    "html_url": null,
    "abstract": "Hybrid optical systems combining refractive and diffractive optical responses have the potential to support new types of optical behavior, but they are difficult to model and optimize due to the disparate spatial scales and physics exhibited by ray and wave phenomena. In this work, we present a differentiable ray-wave framework for modeling hybrid refractive-diffractive optical systems that operates as a plug-and-play module within standard ray tracing pipelines. Our model uniquely applies to both planar and curvilinear diffractive surfaces and accommodates arbitrary scalar holographic profiles with high spatial frequency responses, with each simulation evaluated at a single wavelength. We analyze ray-wave modeling regimes that optimally account for the spatial frequency properties and spatial curvature of the diffractive surfaces, and we demonstrate the gradient-based end-to-end optimization of hybrid refractive-diffractive systems featuring planar and conformal diffractive surfaces. We anticipate that these modeling capabilities will enable new classes of hybrid optical systems relevant to computational imaging and display applications.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2605.15418",
    "pdf_url": "https://arxiv.org/pdf/2605.15418"
   },

@@ -403,9 +403,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Multi-exposure is an efficient way to capture real-world high-dynamic-range (HDR) scenes. However, HDR imaging suffers from severe ghosting artifacts in dynamic scenes due to the temporal gap between sequential exposures. In this article, we categorize the literature on two important topics on HDR imaging: multi-exposure fusion (MEF) and ghost removal. Conventional filter-based and data-driven methods are studied in pixel space and feature space. For popular deep learning-based approaches, we provide a granular taxonomy based on their alignment and fusion domains: pixel-space methods, which typically employ explicit motion compensation such as optical flow or spatial transformers, and feature-space methods, which leverage implicit alignment through deformable convolutions, attention mechanisms, or latent representation merging. Representative works are compared across different supervision settings, and key design principles are summarized. In addition, this survey summarizes commonly used datasets and evaluation metrics, discussing their applicability under diverse output forms. Finally, major bottlenecks and promising directions for future research are outlined.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2608.28674",
    "pdf_url": "https://arxiv.org/pdf/2608.28674"
   },
@@ -4822,9 +4832,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Natural images concentrate their detail in a small fraction of the frame, yet diffusion models spend a full token on every patch, in every layer and at every timestep. The waste is largest in pixel-space models, with no autoencoder to absorb low-level redundancy first. Probing a pretrained pixel text-to-image transformer, we find its middle-block tokens redundant wherever the image is flat. The redundancy occupies connected, content-shaped regions, and exploiting it requires tokens with the same geometry. Cutting a Hilbert ordering of the patches provides them. Consecutive positions are always image neighbours, so any contiguous run is a connected region whose size and shape follow the content, and grouping in two dimensions becomes a cut in one. Existing reductions each lose part of this. Similarity merging scatters its groups, latent bottlenecks discard position, and skipping deletes what it should summarize. We cut where the model's features change most and pool each run into one region token. Our Region Token Interface (\\method{}) adapts a diffusion model to these tokens, with the region count drawn at random during fine-tuning so one checkpoint serves every budget. \\method{} leads prior reduction methods at matched budgets, matches dense quality at 2.0× the speed, and stays close at 2.6×. The code and models are open-sourced at https://eduardzamfir.github.io/rti",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2608.29281",
    "pdf_url": "https://arxiv.org/pdf/2608.29281"
   },
@@ -5161,9 +5181,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Latent generative models typically follow a two-stage pipeline, training a variational autoencoder for reconstruction and then a generative model on the frozen latent space. Since reconstruction-optimized latents are not necessarily generation-friendly, jointly training both models is an appealing alternative. However, direct end-to-end training remains challenging, as it is prone to latent collapse and faces a generation-reconstruction conflict. We revisit this problem by analyzing how different objectives shape the latent space and identify two key insights. First, the entropy term in the Kullback-Leibler divergence objective is essential for preventing collapse: reconstruction and prior fitting tend to shrink the posterior, while entropy preserves non-degenerate latent uncertainty. Second, reconstruction and generation exhibit asymmetric learning dynamics: reconstruction is fast and strongly supervised, whereas generation is slower and harder to optimize. Based on these insights, we achieve the first direct end-to-end training without latent collapse and propose GenFirst, a simple generation-before-reconstruction strategy. The generative objective first shapes the latent space under weak reconstruction pressure, after which reconstruction is progressively strengthened to recover visual details. We validate GenFirst with continuous autoregressive priors with exact likelihoods and SiT priors with implicit likelihoods. With our end-to-end objective and GenFirst, SiT achieves a gFID of 0.97 with CFG and 1.45 without CFG on ImageNet-256, while MMDiT reaches a GenEval score of 0.90 on text-to-image generation. Beyond image generation, we extend the framework to shared visual latents for generation and representation learning, and to continuous unified text-image generation. These results demonstrate the generality of stable end-to-end latent learning across generative priors and modalities.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2608.29335",
    "pdf_url": "https://arxiv.org/pdf/2608.29335"
   },
@@ -5484,9 +5514,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Vision-language models such as CLIP and SigLIP provide strong zero-shot recognition, but their predictions can degrade when deployed on target data that differ from the pretraining distribution. Test-time adaptation offers a practical way to improve robustness without source data or target labels, yet existing methods often rely on either prompt-side adaptation or image-side target evidence alone. In this work, we introduce GATE, a training-free two-pass transductive test-time adaptation framework that uses the unlabeled target set while keeping the image encoder, text encoder, and prompt parameters fully frozen. Instead of representing each class with a single prototype, GATE builds two complementary Gaussian sources of evidence in the shared vision-language feature space: a text Gaussian estimated from multiple language descriptions and an image Gaussian estimated from reliable unlabeled target samples. A class-wise reliability gate controls the influence of image-derived pseudo-evidence, and a score-level generalized Product-of-Experts fusion produces a normalized residual correction to the original zero-shot logits. Across fine-grained recognition datasets, ImageNet-family distribution shifts, multiple CLIP backbones, and SigLIP-B/16, GATE achieves the best average accuracy in every benchmark/backbone group. It improves zero-shot performance by an average of 5.41 points and outperforms the strongest non-GATE baseline by 1.94 points, demonstrating the benefit of reliability-gated distributional evidence for frozen VLM adaptation.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2608.29395",
    "pdf_url": "https://arxiv.org/pdf/2608.29395"
   },
@@ -5509,9 +5549,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "An AI-based approach called ChatNDE Figure to Caption is introduced, which aims to automate the interpretation of NDE images using deep learning and natural language processing (NLP). A Vision-and-Language Pretraining (VLP) strategy is developed to help the model learn how to connect visual features with meaningful language. Basically, we built a large NDE image dataset, trained the model using annotated examples, and then evaluated how well it performed using BLEU scores to compare its output to expert written descriptions. So, the system combines a ResNet50 model to extract important features from the images and a GPT2 language model to turn those features into natural sounding text. Even though the accuracy of the model has been low the generated caption results have been solid so far, the captions were shorter but mentioned some important features of images what human experts would say, which shows the model is learning to pick up on key details. Also, a Visual Question Answering (VQA) model is used as part of the system. VQA models are designed to take an image and a question about that image (like Is there a crack? or Where is the defect located?) and generate a useful answer. By adding this layer, the platform will not just describe what it sees, it can also respond to specific questions, making it even more interactive and helpful for inspectors in the field. This whole approach is a big step toward speeding up NDE workflows, reducing human error, and making the technology more accessible.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2608.29408",
    "pdf_url": "https://arxiv.org/pdf/2608.29408"
   },
@@ -6428,9 +6478,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Attributing an artwork to an artist has traditionally relied on detailed visual observations and descriptions, known as stylistic analysis in art history. By contrast, current artificial intelligence (AI) models used in the field offer only unexplained probabilistic classifications. To bridge this methodological gap, we present an AI framework that automates stylistic analysis of paintings, providing a foundation for enhancing evidence collection, discovery, and verification. By training a vision transformer (ViT) on a large corpus of paintings with metadata, our system encodes this art history-specific data as embeddings. These representations are factorized via sparse dictionary learning into a shared set of features that recur across the training set. A large language model (LLM) then interprets each feature by retrieving associated artworks and their accompanying curator-written texts, and synthesizes them into descriptions that reflect their stylistic attributes. Finally, an autonomous coordinator LLM applies a reasoning-and-action (ReAct) framework to weight, test, and refine these features into cohesive descriptions of an artwork, or comparisons of artworks. This approach converts detailed visual features into descriptive terms, addressing a key challenge in art history. It thus connects the use of images as data with the semantic concerns of humanists, establishing vision-based computational art history as an area for future growth.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2608.29644",
    "pdf_url": "https://arxiv.org/pdf/2608.29644"
   },
@@ -7724,9 +7784,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Test-time adaptation (TTA) promises robustness under distribution shift by updating a pretrained model on unlabeled test data, but strict online TTA with batch size one and no access to source data is especially prone to drift or collapse. We introduce Sensitivity-Guided Erasing Adaptation (SEGA), a method for strict online continual TTA (CTTA) on corruption-style streams. SEGA uses a small number of structured erasures to probe how predictive entropy changes as information is removed, and uses the resulting per-sample sensitivity trajectories to coordinate recovery and sample selection rather than relying on raw entropy or batch statistics. This yields a practical feedback signal for long-horizon batch-size-one adaptation without periodic resets or model reservoirs. In experiments on ImageNet-C, CIFAR10/100-C, and corruption-generated aquaculture streams treated as controlled corruption-style proxies, SEGA yields consistent robustness and stability gains over strong CTTA baselines while reducing backward passes through sensitivity-based gating.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2608.29920",
    "pdf_url": "https://arxiv.org/pdf/2608.29920"
   },
@@ -10054,9 +10124,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Most shape reconstruction methods assume measurements defined over planar sensing domains, such as RGB images or depth maps. In this paper, we use a curved capacitive textile as a shape sensor, treating its surface as a non-planar sensing manifold. Each scan is represented as a capacitive proximity field on this manifold, induced by the interaction between the curved electrode layout and nearby object geometry. We introduce a multi-view feedforward reconstruction model that aggregates these fields across known sensor views and recovers the observed object shape. Simulated and physical experiments demonstrate robust reconstruction from capacitive proximity signals acquired on curved sensing surfaces, pointing toward a new route to robotic near-field geometric awareness via embodied sensing.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2608.30344",
    "pdf_url": "https://arxiv.org/pdf/2608.30344"
   },
@@ -11446,9 +11526,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Timely post-disaster building damage assessment from satellite imagery is a critical engineering decision support task, yet it remains constrained by class imbalance, ambiguous intermediate damage states, and limited cross-event transferability. This study presents, to our knowledge, the first application of Grassmann-Plucker (GP) token mixing to computer vision and introduces two extensions for image classification: the Quantum-inspired Grassmann-Plucker (QGP) head and the Hybrid Quantum Machine Learning Grassmann-Plucker (HQML-GP) head. The GP head represents multiscale relationships among image patch tokens by encoding subspaces formed by token pairs with Plucker coordinates; QGP enriches these coordinates with amplitude-derived probability features, whereas HQML-GP incorporates expectation values generated by a simulated quantum circuit into the geometric token representation. Paired pre- and post-event image patches from the xBD tornado dataset were processed using a frozen six-channel Vision Transformer base encoder with 16 x 16-pixel patches. The three GP-based heads were compared with multilayer perceptron and Transformer baselines under identical training, checkpoint selection, and evaluation protocols. Joplin and Moore tornado samples were used for model development and seen-event testing, while Tuscaloosa was reserved for unseen-event evaluation. QGP led both test sets in accuracy and macro-F1: 83.46% and 64.50% for the seen events, and 66.45% and 52.70% for the unseen event. Although HQML-GP obtained the highest validation macro-F1 of 65.63%, it did not surpass QGP on either test set and required substantially more training time per epoch. These results establish GP token mixing as a competitive attention-free alternative to conventional Transformer-based token mixing for paired satellite image damage classification.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2608.30633",
    "pdf_url": "https://arxiv.org/pdf/2608.30633"
   },
@@ -12649,9 +12739,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Background and Objective: Quality control is a prerequisite for whole-slide image analysis, yet the benchmarks on which quality-control methods are compared share four properties that make their reported differences hard to interpret: few independent slides, annotation concentrated in a minority of them, pooled ratio metrics with no closed-form standard error, and a single inherited train/test partition. We propose a reliability protocol for such benchmarks. Methods: The protocol quantifies four sources of variability - test-set sampling, training stochasticity, partition composition, and undocumented preprocessing - a claim is reportable only if it survives all four; three of the four cost minutes of compute. We apply it to an independent reconstruction of a published diffusion-based artifact detector, evaluated on the original 24-slide partition and against a supervised baseline. Results: The method's central mechanism reproduces: the auxiliary contrastive term improves pooled F1 from 0.673 to 0.688 and replicates under a second seed (+0.0156, p = 0.031; +0.0190, p = 0.005), although it acts on pen marking rather than the artifact types cited to motivate it. Its comparative claims do not: differences between design variants, and against the supervised baseline, fall inside the uncertainty of the evaluation. Four of 24 slides carry 70% of scored annotated pixels, giving an effective sample size of 6.2, and the inherited partition sits at the 7th percentile. An unreported tissue-restriction step excludes 41.4% of out-of-focus annotation against 2.6% of air bubble; such a gate is confounded with blur by construction. Conclusions: Small-cohort benchmarks support far weaker conclusions than current reporting implies. The four checks are cheap enough to accompany any evaluation on such a resource and separate reproducible effects from differences the evaluation cannot resolve.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2608.30835",
    "pdf_url": "https://arxiv.org/pdf/2608.30835"
   },
@@ -13337,9 +13437,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Cardiac magnetic resonance imaging (CMR) produces rich sequential data such as temporal cine videos and spatial LGE/mapping stacks, yet most deep learning approaches process individual 2D slices, discarding this context. We present MR-JEPA, a self-supervised video foundation model for CMR that extends LeJEPA to 3D spatiotemporal inputs through tubelet tokenization, spatiotemporal masking augmentation, and initialization from a 2D CMR foundation model. Unlike prior CMR video models limited to cine data, MR-JEPA is pretrained on multi-sequence data (cine, LGE, mapping) from 10,505 patients across two centers without annotations. We evaluate the frozen encoder on six downstream tasks using a unified multi-view gated attention architecture: LV ejection fraction, RV ejection fraction, three myocardial strains (GLS, GCS, GRS), and four-class disease detection. MR-JEPA outperforms other compared methods on all five regression tasks, including both a domain-specific CMR model pretrained on more data with text supervision and a natural-video foundation model, achieving an LV EF MAE of 4.79% (r =0.764) and a GLS MAE of 1.87 (r=0.805), with 21-27% MAE reductions over baselines on strain tasks. For disease detection, MR-JEPA achieved a macro AUG of 0.868, remaining competitive with the domain-specific baseline despite using a fully self-supervised pretraining objective. These results demonstrate the potential of a unified video encoder for robust, multi-view utilization of diverse CMR sequences in clinical cardiac quantification and diagnosis.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2608.30975",
    "pdf_url": "https://arxiv.org/pdf/2608.30975"
   },
@@ -13541,9 +13651,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "End-to-end autonomous driving models plan future trajectories from raw sensor input. While earlier driving benchmarks often measured deviation from the human trajectory, current benchmarks such as NAVSIM and Bench2Drive evaluate models with richer simulation-based metrics intended to capture safe and compliant driving. A high benchmark score should reflect that a model can understand the scene in front of it and act accordingly. But how much of that score specifically comes from reacting to the dynamic part of that scene? To probe this, we remove a model's camera input and replace it with memories from prior drives at the same location. The retrieved memories can provide persistent scene information, including road layout and location-conditioned regularities, but not the current traffic state. Surprisingly, memory is nearly sufficient on NAVSIM, reaching or even exceeding the performance of leading end-to-end methods without actually observing the evaluated scene. Our results suggest that a high NAVSIM score does not require a planner to react to the current traffic scene and should be treated with caution. This effect is benchmark-dependent: driving from memory causes substantially larger performance drops on Bench2Drive and RealEngine. We provide our code at https://github.com/boschresearch/MemoryDrivoR .",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2608.31029",
    "pdf_url": "https://arxiv.org/pdf/2608.31029"
   },
@@ -13899,9 +14019,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Patient identity errors can compromise longitudinal medical records, research databases, and downstream clinical decisions. We present a retinal biometric system for verifying claimed identities and retrieving the correct identity from color fundus images. We trained a 512-dimensional metric-learning encoder combining a ConvNeXtV2 backbone with ArcFace and triplet losses on 227,004 images from 21,851 patient-eye identities in the Rotterdam Study, spanning multiple imaging devices and up to 32.6 years of follow-up. The system was evaluated on held-out Rotterdam Study data and externally on the UK Biobank and Age-Related Eye Disease Study (AREDS). Before evaluation, we used the model to screen for identity inconsistencies and manually adjudicated flagged images, identifying incorrect assignments in 0.588% of Rotterdam Study images, 0.259% of UK Biobank images, and 0.164% of AREDS images. In retrospective-only verification after removing near-duplicate images, the system achieved AUROCs of 0.9998, 0.9997, and 0.9998 in the Rotterdam Study, UK Biobank, and AREDS, respectively. For identity retrieval using only previously acquired images, Recall@1 was 99.7%, 97.2%, and 97.6%, respectively, from galleries averaging 4436-8510 identities; the correct identity appeared among the top five results in at least 98.6% of cases. Performance remained robust across imaging devices and long follow-up intervals, while lower image quality and inconsistent retinal fields accounted for most failures. These findings establish retinal anatomy as a durable biometric signal, useful for safeguarding the integrity of longitudinal imaging records.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2608.31094",
    "pdf_url": "https://arxiv.org/pdf/2608.31094"
   },
@@ -14137,9 +14267,19 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "The bidirectional reflectance factor (BRF) characterizes the directional radiative properties of terrestrial surfaces. However, existing three-dimensional (3D) radiative transfer models require complex scene construction and computationally intensive radiative transfer solvers, limiting efficient generation of multi-angle hyperspectral reflectance imagery. 3D Gaussian Splatting (3DGS) offers an efficient framework for neural scene representation and novel view synthesis, but its low-order spherical harmonics representation is insufficient for complex directional reflectance, while the high dimensionality and inter-band quality differences of hyperspectral data introduce additional challenges. To address these challenges, we propose BRF-GS, a 3DGS-based framework for BRF modeling and hyperspectral reflectance image generation. BRF-GS introduces a hybrid BRDF-driven kernel to represent complex directional reflectance, selects geometry-reliable spectral bands for robust 3D scene initialization, and adopts a two-stage training strategy that decouples geometry optimization from spectral modeling. We further construct the AIR-BRF dataset, a multi-angle hyperspectral directional reflectance dataset comprising three scenes with diverse natural and artificial targets. Experiments demonstrate that BRF-GS achieves superior spatial and spectral fidelity and accurately reproduces characteristic view-dependent BRF responses. The proposed framework provides an efficient data-driven approach for BRF modeling and multi-angle hyperspectral reflectance image generation in remote sensing scenes.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2608.31159",
    "pdf_url": "https://arxiv.org/pdf/2608.31159"
   },
@@ -14163,9 +14303,19 @@
    "cross_list_from": "cs.AI",
    "html_url": null,
    "abstract": "Parkinson disease PD is a progressive neurodegenerative disease that can have a significant impact on motor performance resulting in the appearance of symptoms such as tremors rigidity postural instabilities and bradykinesia. Timely clinical treatment disease management and quality life of the patients are closely linked to early and appropriate identification of PD. Over the past few years the growth of wearable sensor technology and artificial intelligence AI have made it possible to create noninvasive and data driven disease detection methods. This paper proposes a comparative system using artificial intelligence to detect Parkinsons disease by analyzing the motion and tremor data captured by an inertial measurement unit IMU. The data comprises the signals of the acceleration and gyroscope sensors measuring movement in three directions X Y and Z. The signs and symptoms provide helpful information about subtle motor deficits associated with PD. Several classification models like Support Vector Machine SVM Logistic Regression LR KNearest Neighbors KNN Decision Tree DT Extreme Gradient Boosting XGBoost and Light Gradient Boosting Machine LightGBM were used to compare their effectiveness. The Logistic Regression model had a performance around 75 percent in all evaluation metrics and KNearest Neighbours KNN around 90 percent. The support vector machine SVM performed almost 94 percent whereas the performance of classifiers such as Decision Tree and XGBoost was close to 96 percent and overall classification efficacy respectively. LightGBM model performs consistently at the best rank among all of the evaluated methods having Accuracy, Precision, Recall and F1score of around 97 percent. The results show that the proposed machine learning approach offers an accurate and effective predictive capability in the classification of PD severity.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2608.28602",
    "pdf_url": "https://arxiv.org/pdf/2608.28602"
   },
@@ -14988,10 +15138,20 @@
    "cross_list_from": "eess.IV",
    "html_url": null,
    "abstract": "Perceptual losses are widely used in medical image synthesis because they encourage agreement in high-level structure beyond voxel-wise intensity similarity. In practice, most perceptual losses are still computed with natural-image backbones such as VGG16 or ResNet50, even when the target domain is magnetic resonance imaging (MRI). This mismatch may weaken supervision for anatomy, contrast enhancement, and acquisition variability. We test whether medical foundation model features provide a more suitable perceptual loss for brain MRI contrast dose simulation. The study has two stages. First, we compare RadImageNet, SegVol, and BrainIAC with ImageNet-pretrained VGG16 and ResNet50 as frozen feature extractors on four public medical imaging benchmarks: thyroid ultrasound, breast ultrasound, anterior cruciate ligament knee MRI, and meniscus knee MRI. RadImageNet achieves the lowest mean rank across the Stage I representation suite and is selected as $φ^\\star$. Second, we replace only the VGG16 feature extractor in an existing iterative brain MRI dose simulation framework with $φ^\\star$. The generator, reconstruction loss, adversarial loss, auxiliary losses, optimization schedule, and loss weights are kept unchanged. Standard metrics change modestly, with PSNR increasing from 41.63 to 41.74, SSIM from 0.9739 to 0.9754, RMSE decreasing from 0.1384 to 0.1369, and residual-uptake CNR from 0.0085 to 0.0082. The visual results show the main effect: RadImageNet reduces residual enhancement in marked structures, follows a more faithful dose-reduction trajectory, and remains close to the acquired 10% low-dose target. These results support domain-aligned radiology features as a practical perceptual feature space for MRI dose simulation, while leaving clinical equivalence and larger-cohort validation as future work.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
    "withdrawn": true,
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2608.28773",
    "pdf_url": "https://arxiv.org/pdf/2608.28773"
   },
@@ -15455,9 +15615,19 @@
    "cross_list_from": "cs.CL",
    "html_url": null,
    "abstract": "Chain-of-thought (CoT) reasoning has dramatically improved large language models (LLMs) by allowing them to decompose problems into intermediate steps. While CoT is widely effective for linguistic tasks, text-only CoT forces models to serialize visual problems into awkward prose. Although architectural solutions exist to process visual inputs, the community lacks a massive, multi-step, self-corrected dataset to teach models how to build and maintain internal visual workspaces when solving purely textual reasoning problems. To address this limitation, we introduce CoVA-SFT, a highly structured corpus of 51.9K samples containing over 222K multimodal reasoning steps across 5 distinct layout families and 17 complex tasks, and CoVA-Bench, a companion benchmark of 1,700 held-out test samples spanning the same tasks for reproducible evaluation. By providing explicit rationale formulations, agentic renderings, and verification loops, CoVA-SFT teaches multimodal language models to interleave text and visual abstractions. We validate the dataset by demonstrating that models fine-tuned on CoVA-SFT outperform all interleaved CoT baselines by more than 2x on average on CoVA-Bench, though they still fall short of strong text-only CoT baselines, highlighting open challenges for future work.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2608.28958",
    "pdf_url": "https://arxiv.org/pdf/2608.28958"
   },
@@ -16198,9 +16368,19 @@
    "cross_list_from": "cs.CL",
    "html_url": null,
    "abstract": "Large language models are increasingly deployed in Arabic-speaking markets, yet standard benchmarks overwhelmingly reward Modern Standard Arabic (MSA) fluency while leaving dialectal and culturally grounded competence unmeasured. This gap is consequential: everyday Arabic is largely dialectal, and dialect encodes social meaning that MSA-centric evaluation cannot capture. We present a rubric-based benchmark for the Saudi dialect, comprising 31 expert-authored prompts spanning idiomatic, pragmatic, lexical, and culturally-embedded phenomena, each paired with an expert-established ground truth. Our methodology separates evaluation into a model-agnostic phase, in which atomic, MECE positive criteria are derived solely from the ground truth, and a model-specific phase, in which four state-of-the-art systems -- Claude Opus 5, Gemini 3.7, GPT-5.6, and Kimi K3 -- are scored against those criteria and penalised for errors they actively introduce. Across 124 model-prompt evaluations we catalogue 466 error instances under a nine-category taxonomy. The four systems cluster within a narrow macro-average band (42.7%-53.1%), with no model exceeding 55% and every model recording at least one negative-scoring prompt, confirming that Saudi dialectal competence remains broadly unsolved. Notably, Ambiguous Framing is the dominant failure mode (37.3% of errors) while outright Hallucination accounts for only 11.2%, indicating that models fail less by stating falsehoods than by distorting register and flattening pragmatic nuance. We further observe a consistency-versus-ceiling trade-off and model-distinctive error signatures. We release the full prompt set, ground truths, and scored rubrics to support reproducible dialectal evaluation.",
-   "affiliations": null,
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2608.29990",
    "pdf_url": "https://arxiv.org/pdf/2608.29990"
   },
@@ -16527,9 +16707,43 @@
    "cross_list_from": "cs.HC",
    "html_url": null,
    "abstract": "AI image generators now create face portraits that are hard to tell from real photographs. Vision-language models (VLMs) are increasingly proposed to flag such images. We benchmarked 19 VLMs on the same 198 face portraits -- real photographs and identity-matched ChatGPT-4o and Imagen 3 versions -- under the same task as our earlier study of 1,667 adults (85% correct overall; accuracy fell steeply with age). The June-2026 cohort of 14 models only matched adults in their 20s-30s. Four weeks later the ceiling broke. Among five July-2026 releases under the identical protocol, gpt-5.6-sol reached 92.8% balanced accuracy (five-draw mean 92.1%), clearly above adults in their 20s (88.5%), and claude-fable-5 detected every AI image while averaging 91.9%. Model sensitivity now exceeds young adults decisively (d' up to 3.4 versus ~ 2.4). What has not been overtaken is human calibration. Model criteria spread from c = -1.10 to +1.45 while humans sit near zero at every age; both new leaders are biased (+0.44, -0.97), and only a few mid-ranked models approach the human balance. Changing the labelled examples still flipped about one answer in four. The best machines now out-see young adults here, without matching the human balance between suspicion and trust.",
-   "affiliations": null,
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Yonsei University",
+    "Hoseo University",
+    "Gwangju Institute of Science and Technology"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "Yonsei University",
+    "Hoseo University",
+    "Gwangju Institute of Science and Technology"
+   ],
+   "institution_ids": [
+    "01wjejq96",
+    "01qyd4k24",
+    "024kbgz78"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-08"
+    }
+   },
    "abs_url": "https://arxiv.org/abs/2608.30210",
    "pdf_url": "https://arxiv.org/pdf/2608.30210"
   },
