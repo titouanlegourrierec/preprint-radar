@@ -20,15 +20,18 @@ from preprint_radar.archive.catalog import Catalog
 from preprint_radar.archive.update import ArchiveClients, format_archive_report, update_archive
 from preprint_radar.collect import (
     HtmlReading,
+    Ror,
     Stop,
     UpdateReport,
     add_institutions,
     backfill_category,
+    format_archive_affiliations_report,
     format_citations_report,
     format_openalex_report,
     format_report,
     format_scholar_report,
     reextract_category,
+    update_archive_affiliations,
     update_category,
     update_citation_counts,
     update_openalex_affiliations,
@@ -184,6 +187,7 @@ def build_parser() -> argparse.ArgumentParser:
     _add_stats_parser(subparsers)
     _add_institutions_parser(subparsers)
     _add_affiliations_parser(subparsers)
+    _add_archive_affiliations_parser(subparsers)
     _add_archive_parser(subparsers)
     _add_citations_parser(subparsers)
     _add_index_parser(subparsers)
@@ -215,7 +219,17 @@ def build_parser() -> argparse.ArgumentParser:
 
 # The commands that run for minutes or hours: they log their progress unless -q (DOC-5).
 PROGRESS_COMMANDS = frozenset(
-    {"update", "backfill", "reextract", "institutions", "affiliations", "citations", "scholar", "archive"}
+    {
+        "update",
+        "backfill",
+        "reextract",
+        "institutions",
+        "affiliations",
+        "archive-affiliations",
+        "citations",
+        "scholar",
+        "archive",
+    }
 )
 
 
@@ -427,6 +441,26 @@ def _add_affiliations_parser(subparsers: "argparse._SubParsersAction[argparse.Ar
         default=DEFAULT_DATA_DIR,
         help=f"data store directory (default: {DEFAULT_DATA_DIR})",
     )
+
+
+def _add_archive_affiliations_parser(
+    subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]",
+) -> None:
+    archive_affiliations = subparsers.add_parser(
+        "archive-affiliations",
+        help="find affiliations for the highly cited papers without any",
+        description=(
+            "Find affiliations for the papers of the archive and the most cited of the last "
+            "12 months that have none: first OpenAlex's record of their published version "
+            "(the DOI of scholar.json), a few requests; then, with --max-html, the HTML "
+            "rendering of those arXiv renders (submitted since December 2023), the most cited "
+            "first, at arxiv.org's crawl delay: hours for thousands of pages. Pages the cache "
+            "holds are read from it, offline, and a page that does not exist is not asked for "
+            "again. Ctrl-C saves what was read; running it again resumes. The institutions "
+            "of the affiliations read are named through ROR."
+        ),
+    )
+    _add_store_arguments(archive_affiliations, max_html=0, max_ror=None)
 
 
 def _add_archive_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
@@ -686,12 +720,15 @@ def _add_validate_parser(subparsers: "argparse._SubParsersAction[argparse.Argume
     )
 
 
-def _add_store_arguments(parser: argparse.ArgumentParser, *, max_html: int | None) -> None:
+def _add_store_arguments(
+    parser: argparse.ArgumentParser, *, max_html: int | None, max_ror: int | None = DEFAULT_MAX_ROR_LOOKUPS
+) -> None:
     """Options shared by the commands that write to the data store.
 
     Args:
         parser: The command's parser.
         max_html: The command's default ``--max-html`` (``None``: no limit).
+        max_ror: The command's default ``--max-ror`` (``None``: no limit).
     """
     parser.add_argument(
         "-c",
@@ -719,10 +756,10 @@ def _add_store_arguments(parser: argparse.ArgumentParser, *, max_html: int | Non
     parser.add_argument(
         "--max-ror",
         type=_count,
-        default=DEFAULT_MAX_ROR_LOOKUPS,
+        default=max_ror,
         help=(
             "maximum number of affiliations to look up in the Research Organization Registry "
-            f"(default: {DEFAULT_MAX_ROR_LOOKUPS}; 0 disables)"
+            f"(default: {'no limit' if max_ror is None else max_ror}; 0 disables)"
         ),
     )
     parser.add_argument(
@@ -1092,6 +1129,40 @@ def _run_affiliations(args: argparse.Namespace) -> int:
     return 0
 
 
+def _run_archive_affiliations(args: argparse.Namespace) -> int:
+    categories: list[str] = args.categories or [DEFAULT_CATEGORY]
+    store = PaperStore(args.data_dir)
+    today = datetime.now(tz=UTC).date()
+    reading = _html_reading(args)
+    if args.max_html != 0 and not args.contact:
+        logger.warning("No contact given; consider setting %s so arXiv can reach you.", CONTACT_ENV_VAR)
+    failed = False
+    with (
+        _terminate_as_interrupt(),
+        HttpClient(user_agent=build_user_agent(args.contact), min_interval=args.crawl_delay) as site_client,
+        # The contact is for arXiv only: other services get the bare User-Agent.
+        HttpClient(user_agent=DEFAULT_USER_AGENT, min_interval=OPENALEX_DELAY_SECONDS) as openalex_client,
+        HttpClient(user_agent=DEFAULT_USER_AGENT, min_interval=ROR_DELAY_SECONDS) as ror_client,
+    ):
+        for category in categories:
+            report = update_archive_affiliations(
+                store,
+                category,
+                openalex_client=openalex_client,
+                today=today,
+                site_client=site_client if args.max_html != 0 else None,
+                html=reading,
+                ror=Ror(ror_client if args.max_ror != 0 else None, args.max_ror),
+            )
+            line = format_archive_affiliations_report(report)
+            console.print(line)
+            github_summary(f"**Affiliations of the highly cited papers.** {line}")
+            if report.failed:
+                github_annotation("error", "Reading HTML pages failed", line)
+            failed |= report.failed
+    return 1 if failed else 0
+
+
 def _semantic_scholar() -> tuple[HttpClient, str | None]:
     """A client for Semantic Scholar, and the API key it is used with (if any)."""
     key = api_key()
@@ -1298,6 +1369,7 @@ _COMMANDS: dict[str, Callable[[argparse.Namespace], int]] = {
     "stats": _run_stats,
     "institutions": _run_institutions,
     "affiliations": _run_affiliations,
+    "archive-affiliations": _run_archive_affiliations,
     "archive": _run_archive,
     "citations": _run_citations,
     "index": _run_index,

@@ -14,25 +14,29 @@ from preprint_radar.collect import (
     DRIFT_MIN_PAGES,
     MAX_CONSECUTIVE_DAY_FAILURES,
     MAX_CONSECUTIVE_HTML_FAILURES,
+    ArchiveAffiliationsReport,
     CitationsReport,
     HtmlReading,
     OpenAlexReport,
+    Ror,
     Stop,
     UpdateReport,
     _about,
     _add_html_front_matter,
     add_institutions,
     backfill_category,
+    format_archive_affiliations_report,
     format_citations_report,
     format_openalex_report,
     format_report,
     reextract_category,
+    update_archive_affiliations,
     update_category,
     update_citation_counts,
     update_openalex_affiliations,
 )
 from preprint_radar.http import HttpClient, RateLimiter
-from preprint_radar.models import Listing, Paper, Provenance
+from preprint_radar.models import Listing, Paper, Provenance, ScholarRecord
 from preprint_radar.sources.arxiv_html import EXTRACTOR_VERSION, PageCache, parse_front_matter
 from preprint_radar.sources.arxiv_listing import parse_catchup
 from preprint_radar.store.paper_store import PaperStore
@@ -796,6 +800,204 @@ def test_a_failing_openalex_leaves_the_papers_for_the_next_run(store: PaperStore
 
     assert report == OpenAlexReport(category="cs.CV", asked=1, found=0)
     assert next(store.iter_papers("cs.CV")).affiliations is None
+
+
+LOVELACE_TURING = ("Ada Lovelace", "Alan Turing")
+GOOGLE_ETH = [
+    {
+        "author": {"display_name": "Ada Lovelace"},
+        "institutions": [
+            {"display_name": "Google (United States)", "ror": "https://ror.org/00njsd438", "type": "company"}
+        ],
+    },
+    {
+        "author": {"display_name": "Alan M. Turing"},
+        "institutions": [{"display_name": "ETH Zurich", "ror": "https://ror.org/05a28rw58"}],
+    },
+]
+
+
+def _archived(
+    arxiv_id: str, affiliations: tuple[str, ...] = (), authors: tuple[str, ...] = LOVELACE_TURING
+) -> Paper:
+    """A paper built from the catalog, which OpenAlex gave ``affiliations`` by its arXiv DOI."""
+    return Paper(
+        arxiv_id=arxiv_id,
+        announced=date(2000 + int(arxiv_id[:2]), int(arxiv_id[2:4]), 3),
+        title="T",
+        authors=authors,
+        affiliations=affiliations,
+        affiliations_provenance=Provenance("openalex", date(2026, 10, 4)),
+    )
+
+
+def test_archive_affiliations_from_the_published_versions(store: PaperStore) -> None:
+    store.write_archive(
+        "cs.CV",
+        [
+            _archived("2503.00001"),
+            _archived("2503.00002"),  # arXiv's DOI only
+            _archived("2503.00003", ("MIT",)),  # has some
+            _archived("2503.00004"),  # its DOI is another paper's
+            _archived("1703.00005"),  # no published version
+        ],
+    )
+    in_day = replace(_paper("2609.00010", ()), html_url="https://arxiv.org/html/2609.00010v1")
+    store.save("cs.CV", [in_day])
+    store.write_top_recent("cs.CV", [in_day, _archived("2601.00011")], since=date(2025, 10, 9))
+    dois = {
+        "2503.00001": "10.1109/CVPR.2025.1",
+        "2503.00002": "10.48550/arXiv.2503.00002",
+        "2503.00003": "10.1/c",
+        "2503.00004": "10.1/d",
+        "2601.00011": "10.1/e",
+        "2609.00010": "10.1/f",  # its day record: the daily update's
+    }
+    store.write_scholar("cs.CV", {key: ScholarRecord(doi=doi) for key, doi in dois.items()}, source="S2")
+    works = [
+        {"doi": "https://doi.org/10.1109/cvpr.2025.1", "authorships": GOOGLE_ETH},
+        {"doi": "https://doi.org/10.1/d", "authorships": [{"author": {"display_name": "Someone Else"}}]},
+        {"doi": "https://doi.org/10.1/e", "authorships": GOOGLE_ETH[:1]},
+    ]
+    asked: list[str] = []
+
+    def handle(request: httpx.Request) -> httpx.Response:
+        asked.append(request.url.params["filter"])
+        return httpx.Response(200, json={"results": works})
+
+    with HttpClient(transport=httpx.MockTransport(handle), max_attempts=1) as client:
+        report = update_archive_affiliations(store, "cs.CV", openalex_client=client, today=TODAY)
+
+    assert asked == ["doi:10.1/d|10.1/e|10.1109/cvpr.2025.1"]
+    assert report == ArchiveAffiliationsReport(category="cs.CV", without=5, from_published=2)
+    assert format_archive_affiliations_report(report) == (
+        "cs.CV: 2 of 5 highly cited papers without affiliations got some, "
+        "2 from OpenAlex's published versions"
+    )
+    archived = {paper.arxiv_id: paper for paper in store.iter_archive("cs.CV")}
+    found = archived["2503.00001"]
+    assert (found.affiliations, found.institutions, found.institution_ids) == (
+        ("Google", "ETH Zurich"),
+        ("Google", "ETH Zurich"),
+        ("00njsd438", "05a28rw58"),
+    )
+    assert found.author_affiliations == ((0,), (1,))
+    assert found.affiliations_provenance == found.institutions_provenance == Provenance("openalex", TODAY)
+    for unchanged in ("2503.00002", "2503.00003", "2503.00004", "1703.00005"):
+        assert archived[unchanged] == _archived(unchanged, archived[unchanged].affiliations or ())
+    top = store.load_top_recent("cs.CV")
+    assert top is not None
+    assert top.since == date(2025, 10, 9)
+    recent = {paper.arxiv_id: paper for paper in top.papers}
+    assert recent["2609.00010"] == in_day
+    # Only Ada Lovelace is in the published version: Alan Turing is placed nowhere.
+    assert recent["2601.00011"].affiliations == ("Google",)
+    assert recent["2601.00011"].author_affiliations == ((0,), None)
+
+
+def test_archive_affiliations_from_the_html_pages(
+    store: PaperStore, tmp_path: Path, paper_html: Callable[[str], str]
+) -> None:
+    authors = ("Yuyao Liu", "Jiayuan Mao", "David Hsu", "Leslie Pack Kaelbling", "Tomás Lozano-Pérez")
+    store.write_archive(
+        "cs.CV",
+        [
+            _archived("2501.00001", authors=authors),
+            _archived("2501.00002"),  # no rendering
+            _archived("2205.00003"),  # before arXiv rendered any
+            _archived("2501.00004"),  # arxiv.org fails
+        ],
+    )
+    store.write_citations("cs.CV", {"2501.00001": 5, "2501.00002": 50}, source="S2")
+    requests: list[str] = []
+
+    def handle(request: httpx.Request) -> httpx.Response:
+        requests.append(request.url.host + request.url.path)
+        if request.url.host == "api.ror.org":
+            return httpx.Response(200, text=(FIXTURES_DIR / "ror" / "meta.json").read_text(encoding="utf-8"))
+        if request.url.path == "/html/2501.00001v1":
+            return httpx.Response(200, text=paper_html("2609.30249"))
+        if request.url.path == "/html/2501.00004v1":
+            return httpx.Response(503)
+        return httpx.Response(404)
+
+    reading = HtmlReading(limit=10, save_every=1, cache=PageCache(tmp_path / "pages"))
+
+    def run() -> ArchiveAffiliationsReport:
+        with HttpClient(transport=httpx.MockTransport(handle), max_attempts=1) as client:
+            return update_archive_affiliations(
+                store,
+                "cs.CV",
+                openalex_client=client,
+                today=TODAY,
+                site_client=client,
+                html=reading,
+                ror=Ror(client, None),
+            )
+
+    report = run()
+
+    # The most cited first; nothing asked of OpenAlex without a published version.
+    assert [path for path in requests if path.startswith("arxiv.org")] == [
+        "arxiv.org/html/2501.00002v1",
+        "arxiv.org/html/2501.00001v1",
+        "arxiv.org/html/2501.00004v1",
+    ]
+    assert report == ArchiveAffiliationsReport(
+        category="cs.CV", without=4, from_published=0, pages=2, from_pages=1, unreadable=1
+    )
+    assert format_archive_affiliations_report(report) == (
+        "cs.CV: 1 of 4 highly cited papers without affiliations got some, "
+        "0 from OpenAlex's published versions, 1 from 2 HTML pages (1 unreadable)"
+    )
+    archived = {paper.arxiv_id: paper for paper in store.iter_archive("cs.CV")}
+    read = archived["2501.00001"]
+    expected = json.loads((FIXTURES_DIR / "html" / "expected.json").read_text(encoding="utf-8"))["2609.30249"]
+    assert read.affiliations == tuple(expected["affiliations"])
+    assert read.html_url == "https://arxiv.org/html/2501.00001v1"
+    assert read.extractor == EXTRACTOR_VERSION
+    assert read.affiliations_provenance == Provenance("html", READ_ON)
+    assert read.institutions is not None
+    assert read.institutions_provenance == Provenance("ror", READ_ON)
+    for unchanged in ("2501.00002", "2205.00003", "2501.00004"):
+        assert archived[unchanged] == _archived(unchanged)
+
+    # Again: the page that does not exist is not asked for, the one read has affiliations.
+    requests.clear()
+    assert run().without == 3
+    assert requests == ["arxiv.org/html/2501.00004v1"]
+
+
+def test_archive_affiliations_without_an_archive(store: PaperStore) -> None:
+    def handle(request: httpx.Request) -> httpx.Response:
+        raise AssertionError(request.url)
+
+    with HttpClient(transport=httpx.MockTransport(handle), max_attempts=1) as client:
+        report = update_archive_affiliations(
+            store,
+            "cs.CV",
+            openalex_client=client,
+            today=TODAY,
+            site_client=client,
+            html=HtmlReading(limit=10),
+            ror=Ror(client, None),
+        )
+
+    assert report == ArchiveAffiliationsReport(category="cs.CV", without=0, from_published=0)
+    assert not store.root.exists()
+
+
+def test_format_archive_affiliations_report_says_why_the_pages_stopped() -> None:
+    report = ArchiveAffiliationsReport(
+        category="cs.CV", without=900, from_published=0, pages=40, stopped=Stop.LAYOUT
+    )
+
+    assert report.failed
+    assert not replace(report, stopped=Stop.DEADLINE).failed
+    assert format_archive_affiliations_report(report) == (
+        "cs.CV: 0 of 900 highly cited papers without affiliations got some, 0 from OpenAlex's "
+        "published versions, 0 from 40 HTML pages; stopped: nearly every page gave no affiliation"
+    )
 
 
 def test_update_writes_the_index_before_reading_html_pages(

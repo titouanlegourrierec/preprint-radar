@@ -40,15 +40,16 @@ help: ## Show this help
 		/^[a-zA-Z_-]+:.*## / { split($$0, parts, ":.*## "); printf "  %s%-14s%s %s\n", cyan, parts[1], reset, parts[2] } \
 	' $(MAKEFILE_LIST); \
 	printf "\n%sVariables%s\n" "$$bold" "$$reset"; \
-	printf "  %s%-14s%s %s\n" "$$cyan" "CATEGORIES" "$$reset" "arXiv categories (default: cs.CV for update, backfill, reextract and archive; every stored category for the others)"; \
-	printf "  %s%-14s%s %s\n" "$$cyan" "MAX_HTML" "$$reset" "maximum HTML pages downloaded per category (default: 600 for update and backfill, no limit for reextract)"; \
+	printf "  %s%-14s%s %s\n" "$$cyan" "CATEGORIES" "$$reset" "arXiv categories (default: cs.CV for update, backfill, reextract, archive and archive-affiliations; every stored category for the others)"; \
+	printf "  %s%-14s%s %s\n" "$$cyan" "MAX_HTML" "$$reset" "maximum HTML pages downloaded per category (default: 600 for update and backfill, no limit for reextract, none for archive-affiliations)"; \
 	printf "  %s%-14s%s %s\n" "$$cyan" "SINCE, UNTIL" "$$reset" "first and last day for backfill, YYYY-MM-DD (UNTIL defaults to today)"; \
 	printf "  %s%-14s%s %s\n" "$$cyan" "BUDGET" "$$reset" "archive: number of older papers it holds (default: the command's)"; \
 	printf "  %s%-14s%s %s\n" "$$cyan" "DRY_RUN=1" "$$reset" "archive: report what would change, write nothing"; \
 	printf "  %s%-14s%s %s\n" "$$cyan" "PRUNE=1" "$$reset" "archive: delete the day files older than 12 months"; \
 	printf "\nExamples: make update CATEGORIES=\"cs.CV cs.LG\" MAX_HTML=50\n"; \
 	printf "          make backfill SINCE=2026-09-01\n"; \
-	printf "          make archive DRY_RUN=1 BUDGET=5000\n"
+	printf "          make archive DRY_RUN=1 BUDGET=5000\n"; \
+	printf "          make archive-affiliations MAX_HTML=3000\n"
 
 .PHONY: install
 install: $(WEB)/node_modules ## Install Python and web dependencies, and the git hooks
@@ -134,6 +135,10 @@ institutions: ## Name the institutions of stored affiliations through ROR, then 
 .PHONY: affiliations
 affiliations: ## Ask OpenAlex for the affiliations of stored papers without an HTML page (seconds)
 	uv run preprint-radar -v affiliations $(CATEGORY_ARGS)
+
+.PHONY: archive-affiliations
+archive-affiliations: ## Affiliations for highly cited papers without any: OpenAlex (seconds); MAX_HTML=N reads N pages too (15 s each)
+	uv run preprint-radar -v archive-affiliations $(CATEGORY_ARGS) $(MAX_HTML_ARG)
 
 .PHONY: institutions-again
 institutions-again: ## Name the stored institutions again with today's rules, archive included (offline)

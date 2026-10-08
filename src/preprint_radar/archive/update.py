@@ -8,8 +8,8 @@ week, :func:`update_archive`:
 2. fetches the citation counts of every paper since 2010 (:mod:`preprint_radar.sources.semantic_scholar`);
 3. selects the archive among the papers first seen over 12 months ago, those of the day
    files included, and builds the papers that enter it: from their day file when they have
-   one (enrichment kept), else from the catalog, with affiliations from OpenAlex
-   (:mod:`preprint_radar.sources.openalex`);
+   one (enrichment kept), or the record they had among the last 12 months, else from the
+   catalog, with affiliations from OpenAlex (:mod:`preprint_radar.sources.openalex`);
 4. chooses the most cited papers of the last 12 months by citations per month of age
    (PROD-11): those of the day files as these hold them, the others built from the catalog
    or kept from last week, with affiliations from OpenAlex;
@@ -213,9 +213,11 @@ def update_archive(
             today=today,
         )
     subjects = _subject_names(in_days.values())
+    # A paper that leaves the last 12 months for the archive keeps the record it had there,
+    # with the affiliations its published version or its page gave (AFF-20, AFF-28).
     new_papers = [
-        _from_day_file(in_days[arxiv_id], first_seen[arxiv_id])
-        if arxiv_id in in_days
+        _from_day_file(stored, first_seen[arxiv_id])
+        if (stored := in_days.get(arxiv_id) or previous_recent.get(arxiv_id)) is not None
         else paper_from_catalog(entries[arxiv_id], category, subjects)
         for arxiv_id in sorted(selection.entered)
     ]
@@ -377,10 +379,11 @@ def refreshed(paper: Paper, entry: CatalogEntry | None) -> Paper:
 
 
 def _from_day_file(paper: Paper, first_seen: date) -> Paper:
-    """A paper entering the archive from its day file, filed under its first appearance.
+    """A paper entering the archive with its stored record, filed under its first appearance.
 
-    An old paper cross-listed into the category lately is filed under its own year, not
-    under the day of the cross-list.
+    Its record is its day file's, or the one it had among the last 12 months. An old paper
+    cross-listed into the category lately is filed under its own year, not under the day of
+    the cross-list.
     """
     return paper if paper.announced == first_seen else replace(paper, announced=first_seen)
 

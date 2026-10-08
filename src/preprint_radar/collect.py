@@ -7,9 +7,7 @@
 
 import logging
 import math
-import re
 import time
-import unicodedata
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from dataclasses import dataclass, replace
 from datetime import UTC, date, datetime
@@ -18,15 +16,21 @@ from enum import StrEnum
 from preprint_radar.config import DEFAULT_MAX_ROR_LOOKUPS, DEFAULT_SAVE_EVERY
 from preprint_radar.exceptions import FetchError, ParseError
 from preprint_radar.http import HttpClient
-from preprint_radar.institutions import PLAIN_LETTERS, name_institutions
+from preprint_radar.institutions import name_institutions
 from preprint_radar.models import Institution, Listing, Paper, Provenance, ScholarRecord
-from preprint_radar.openalex_affiliations import needs_openalex, with_openalex_affiliations
+from preprint_radar.names import same_person
+from preprint_radar.openalex_affiliations import (
+    needs_openalex,
+    with_openalex_affiliations,
+    with_published_affiliations,
+)
 from preprint_radar.sources.arxiv_api import fetch_metadata
 from preprint_radar.sources.arxiv_html import (
     EXTRACTOR_VERSION,
     FrontMatter,
     PageCache,
     fetch_front_matter,
+    first_version_url,
     name_key,
 )
 from preprint_radar.sources.arxiv_listing import fetch_catchup, fetch_listing
@@ -969,32 +973,9 @@ def checked_author_ids(record: ScholarRecord, authors: Sequence[str]) -> tuple[s
     if names is None or len(names) != len(ids):
         return ids
     return tuple(
-        author_id if name is not None and _same_person(author, name) else None
+        author_id if name is not None and same_person(author, name) else None
         for author_id, name, author in zip(ids, names, authors, strict=True)
     )
-
-
-def _same_person(listed: str, named: str) -> bool:
-    words, other = _name_words(listed), _name_words(named)
-    if not words or not other:
-        return False
-    if set(words) <= set(other) or set(other) <= set(words):
-        return True
-    # Initials: the same surname, and given names that start alike ("D. Gopinath").
-    return words[-1] == other[-1] and words[0][0] == other[0][0]
-
-
-_NAME_JOINER_RE = re.compile("[-'\N{RIGHT SINGLE QUOTATION MARK}.]")
-_NAME_WORD_RE = re.compile(r"[^\W_]+")
-
-
-def _name_words(name: str) -> list[str]:
-    """A name's words, folded, a hyphenated given name as one: "Jin-Chao" is "jinchao"."""
-    # In the order of ``institutions.search_key``: marks first, so that "ǿ" is "o" too.
-    decomposed = unicodedata.normalize("NFD", name)
-    folded = "".join(char for char in decomposed if not unicodedata.combining(char))
-    folded = folded.lower().translate(PLAIN_LETTERS)
-    return _NAME_WORD_RE.findall(_NAME_JOINER_RE.sub("", folded.replace(". ", " ")))
 
 
 def format_scholar_report(report: ScholarReport) -> str:
@@ -1059,6 +1040,165 @@ def format_openalex_report(report: OpenAlexReport) -> str:
         f"{report.category}: OpenAlex gave affiliations for {report.found:,} of "
         f"{_count(report.asked, 'paper')} without an HTML page"
     )
+
+
+@dataclass(frozen=True, slots=True)
+class ArchiveAffiliationsReport:
+    """Outcome of :func:`update_archive_affiliations`.
+
+    Attributes:
+        category: Category of the papers.
+        without: Highly cited papers without affiliations before the run.
+        from_published: Of those, papers placed by OpenAlex's record of their published version.
+        pages: HTML pages read, from the cache or downloaded (a page that does not exist included).
+        from_pages: Papers that got affiliations from their page.
+        unreadable: Pages that could not be fetched, read next time.
+        stopped: Why the reading of pages stopped early, if it did.
+    """
+
+    category: str
+    without: int
+    from_published: int
+    pages: int = 0
+    from_pages: int = 0
+    unreadable: int = 0
+    stopped: Stop | None = None
+
+    @property
+    def failed(self) -> bool:
+        """Whether the reading of pages stopped on a failure (arXiv down, layout changed)."""
+        return self.stopped in {Stop.FAILURES, Stop.LAYOUT}
+
+
+def update_archive_affiliations(
+    store: PaperStore,
+    category: str,
+    *,
+    openalex_client: HttpClient,
+    today: date,
+    site_client: HttpClient | None = None,
+    html: HtmlReading | None = None,
+    ror: Ror | None = None,
+) -> ArchiveAffiliationsReport:
+    """Affiliations for the highly cited papers without any (AFF-20, AFF-28).
+
+    The papers of the archive and the most cited of the last 12 months, but those of the
+    day files, whose records there are their day records, which the daily update enriches.
+    First OpenAlex's record of their published version (:func:`with_published_affiliations`,
+    seconds). Then, with a ``site_client``, the HTML rendering of the first version of
+    those still without that arXiv renders (:func:`first_version_url`), the most cited
+    first: the pages the cache holds, offline, then downloads within ``html.limit``, at
+    arxiv.org's crawl delay, a page that does not exist remembered in the cache. A paper
+    whose page gives affiliations takes them, with the page's link; the others keep what
+    they had. Progress is saved every ``html.save_every`` pages and on Ctrl-C; the reading
+    stops early as the update's does (:class:`Stop`). Last, the institutions of the
+    affiliations read are named through ROR, with those an interrupted run left unnamed.
+
+    Args:
+        store: Data store.
+        category: arXiv category.
+        openalex_client: HTTP client for OpenAlex.
+        today: Day of the lookups.
+        site_client: Client for arxiv.org (HTML pages); ``None`` reads none.
+        html: How the pages are read (limit, saves, deadline, cache).
+        ror: How the institutions are named (``None``: not named).
+
+    Returns:
+        A summary of the run.
+    """
+    archive = list(store.iter_archive(category))
+    top = store.load_top_recent(category)
+    in_days = {paper.arxiv_id for paper in store.iter_papers(category)}
+    own = [*archive, *(paper for paper in (top.papers if top else ()) if paper.arxiv_id not in in_days)]
+    changed: dict[str, Paper] = {}
+
+    def save(updated: Mapping[str, Paper]) -> None:
+        store.write_archive(category, [updated.get(paper.arxiv_id, paper) for paper in archive])
+        if top is not None:
+            papers = [updated.get(paper.arxiv_id, paper) for paper in top.papers]
+            store.write_top_recent(category, papers, since=top.since)
+
+    without = [paper for paper in own if not paper.affiliations]
+    scholar = store.load_scholar(category)
+    dois = {
+        arxiv_id: record.doi for arxiv_id, record in (scholar.papers if scholar else {}).items() if record.doi
+    }
+    looked_up = with_published_affiliations(without, openalex_client, today, dois)
+    changed |= {new.arxiv_id: new for old, new in zip(without, looked_up, strict=True) if new is not old}
+    from_published = len(changed)
+    if changed:  # saved before the pages, which can take a night
+        save(changed)
+
+    reading = html or HtmlReading(limit=0)
+    read: _HtmlRead | None = None
+    from_pages: dict[str, Paper] = {}
+    if site_client is not None and reading.limit != 0:
+        todo = _archive_pages(looked_up, reading.cache, store.load_citations(category))
+        unread = [replace(paper.without_affiliations(), html_url=url) for paper, url in todo]
+        read = _add_html_front_matter(
+            unread,
+            site_client,
+            reading=reading,
+            checkpoint=lambda current: save(changed | _with_affiliations(current)),
+        )
+        from_pages = _with_affiliations(read.papers)
+        if from_pages:
+            changed |= from_pages
+            save(changed)
+
+    if ror is not None and ror.client is not None:
+        unnamed = [paper for paper in (changed.get(p.arxiv_id, p) for p in own) if _needs_institutions(paper)]
+        named = add_institutions(unnamed, ror.client, limit=ror.max_lookups)
+        renamed = {new.arxiv_id: new for old, new in zip(unnamed, named, strict=True) if new is not old}
+        if renamed:
+            save(changed | renamed)
+    return ArchiveAffiliationsReport(
+        category=category,
+        without=len(without),
+        from_published=from_published,
+        pages=read.pages if read else 0,
+        from_pages=len(from_pages),
+        unreadable=read.unreadable if read else 0,
+        stopped=read.stopped if read else None,
+    )
+
+
+def _archive_pages(
+    papers: Iterable[Paper], cache: PageCache | None, citations: Mapping[str, int]
+) -> list[tuple[Paper, str]]:
+    """The papers without affiliations whose page to read, with its URL, the most cited first.
+
+    Those arXiv renders, but for the pages it answered do not exist.
+    """
+    todo = [
+        (paper, url)
+        for paper in papers
+        if not paper.affiliations
+        and (url := first_version_url(paper.arxiv_id)) is not None
+        and not (cache is not None and cache.missing(url))
+    ]
+    return sorted(todo, key=lambda entry: (-citations.get(entry[0].arxiv_id, 0), entry[0].arxiv_id))
+
+
+def _with_affiliations(papers: Iterable[Paper]) -> dict[str, Paper]:
+    """The papers their pages gave affiliations, by arXiv id."""
+    return {paper.arxiv_id: paper for paper in papers if paper.affiliations}
+
+
+def format_archive_affiliations_report(report: ArchiveAffiliationsReport) -> str:
+    """Render an :class:`ArchiveAffiliationsReport` as one line."""
+    line = (
+        f"{report.category}: {report.from_published + report.from_pages:,} of "
+        f"{_count(report.without, 'highly cited paper')} without affiliations got some, "
+        f"{report.from_published:,} from OpenAlex's published versions"
+    )
+    if report.pages or report.unreadable or report.stopped:
+        line += f", {report.from_pages:,} from {_count(report.pages, 'HTML page')}"
+    if report.unreadable:
+        line += f" ({report.unreadable:,} unreadable)"
+    if report.stopped:
+        line += f"; stopped: {_STOPS[report.stopped]}"
+    return line
 
 
 def _count(number: int, noun: str) -> str:

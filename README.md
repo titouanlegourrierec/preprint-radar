@@ -32,7 +32,7 @@ reading list exported as BibTeX, RIS, CSV or Markdown.
 | Abstract                      | The category RSS feed (latest day, one request), then the catchup page of each older day (one request per day); the arXiv API and the paper's HTML rendering as last resorts |
 | Affiliations                  | Submitter-declared affiliations from the API when present; otherwise the front matter of the paper's HTML rendering; for the 5% arXiv has no HTML rendering of, [OpenAlex](https://openalex.org) |
 | Institution of each affiliation | The [Research Organization Registry](https://ror.org) (ROR) affiliation matching, when confident; otherwise the pipeline's own rules (acronyms, companies, the main part of an address) |
-| Citation counts (every stored paper) | [Semantic Scholar](https://www.semanticscholar.org), weekly (new papers the day they are added); the archive's papers, older than 12 months, and the most cited of the last 12 months that no day file holds, from arXiv's OAI-PMH, with affiliations from [OpenAlex](https://openalex.org) |
+| Citation counts (every stored paper) | [Semantic Scholar](https://www.semanticscholar.org), weekly (new papers the day they are added); the archive's papers, older than 12 months, and the most cited of the last 12 months that no day file holds, from arXiv's OAI-PMH, with affiliations from [OpenAlex](https://openalex.org): its record of the preprint, else of the published version, else the paper's HTML rendering |
 | Venue                         | Detected in the comments and journal reference ("Accepted to ECCV 2026", "BMVC2026", …); submissions and papers under review are ignored. Else where Semantic Scholar says it was published, with its DOI |
 
 Affiliations are **best effort**: arXiv metadata rarely includes them, and the HTML
@@ -254,6 +254,7 @@ make stats       # how much of data/ is enriched, per day and per archive year
 make institutions # name the institutions of stored affiliations through ROR
 make citations   # citation counts of the papers added since the weekly archive (ALL=1: every paper)
 make archive     # keep the most cited older papers (weekly in CI; first run about 2 h)
+make archive-affiliations   # affiliations of highly cited papers from their published version (MAX_HTML=N: their HTML pages too)
 ```
 
 The underlying commands:

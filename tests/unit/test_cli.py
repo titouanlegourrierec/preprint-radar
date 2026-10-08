@@ -15,7 +15,15 @@ from rich.console import Console
 from preprint_radar.archive.catalog import Catalog
 from preprint_radar.archive.update import ArchiveClients, ArchiveReport
 from preprint_radar.cli import build_parser, log_level, main
-from preprint_radar.collect import CitationsReport, HtmlReading, OpenAlexReport, Stop, UpdateReport
+from preprint_radar.collect import (
+    ArchiveAffiliationsReport,
+    CitationsReport,
+    HtmlReading,
+    OpenAlexReport,
+    Ror,
+    Stop,
+    UpdateReport,
+)
 from preprint_radar.config import DEFAULT_MAX_HTML
 from preprint_radar.exceptions import FetchError, NotFoundError
 from preprint_radar.http import DEFAULT_USER_AGENT, HttpClient
@@ -705,6 +713,103 @@ def test_affiliations_asks_openalex_for_each_category(
         "cs.CV: OpenAlex gave affiliations for 1 of 4 papers without an HTML page" in capsys.readouterr().out
     )
     assert "**Affiliations from OpenAlex.** cs.CV:" in summary.read_text(encoding="utf-8")
+
+
+def _user_agents(monkeypatch: pytest.MonkeyPatch) -> list[tuple[str, str]]:
+    """The host and User-Agent of each request, which gets an empty answer."""
+    calls: list[tuple[str, str]] = []
+
+    def handle_request(_: httpx.HTTPTransport, request: httpx.Request) -> httpx.Response:
+        calls.append((request.url.host, request.headers["User-Agent"]))
+        return httpx.Response(200, text="")
+
+    monkeypatch.setattr(httpx.HTTPTransport, "handle_request", handle_request)
+    return calls
+
+
+def test_archive_affiliations_asks_openalex_only_by_default(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    calls: list[tuple[bool, int | None, bool, int | None]] = []
+
+    def update_archive_affiliations(
+        _: PaperStore,
+        category: str,
+        *,
+        openalex_client: HttpClient,
+        today: date,
+        site_client: HttpClient | None,
+        html: HtmlReading,
+        ror: Ror,
+    ) -> ArchiveAffiliationsReport:
+        openalex_client.get_text(OPENALEX_WORKS_URL)
+        assert today == datetime.now(tz=UTC).date()
+        calls.append((site_client is None, html.limit, ror.client is None, ror.max_lookups))
+        return ArchiveAffiliationsReport(category=category, without=10, from_published=7)
+
+    requests = _user_agents(monkeypatch)
+    monkeypatch.setattr("preprint_radar.cli.update_archive_affiliations", update_archive_affiliations)
+    monkeypatch.setenv("PREPRINT_RADAR_CONTACT", "author@example.org")
+    summary = tmp_path / "summary.md"
+    monkeypatch.setenv("GITHUB_STEP_SUMMARY", str(summary))
+
+    assert main(["archive-affiliations", "--data-dir", str(tmp_path / "data")]) == 0
+
+    # No page, and every unnamed institution looked up in ROR.
+    assert calls == [(True, 0, False, None)]
+    # Only arXiv gets the contact.
+    assert requests == [("api.openalex.org", DEFAULT_USER_AGENT)]
+    line = (
+        "cs.CV: 7 of 10 highly cited papers without affiliations got some, "
+        "7 from OpenAlex's published versions"
+    )
+    assert line in capsys.readouterr().out
+    assert f"**Affiliations of the highly cited papers.** {line}" in summary.read_text(encoding="utf-8")
+
+
+def test_archive_affiliations_reads_pages_with_the_contact(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    caplog: pytest.LogCaptureFixture,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    def update_archive_affiliations(
+        _: PaperStore,
+        category: str,
+        *,
+        site_client: HttpClient | None,
+        html: HtmlReading,
+        ror: Ror,
+        **_others: object,
+    ) -> ArchiveAffiliationsReport:
+        assert site_client is not None
+        site_client.get_text("https://arxiv.org/html/2501.00001v1")
+        assert (html.limit, html.cache is not None, ror.client) == (5, True, None)
+        return ArchiveAffiliationsReport(
+            category=category, without=10, from_published=0, stopped=Stop.FAILURES
+        )
+
+    requests = _user_agents(monkeypatch)
+    monkeypatch.setattr("preprint_radar.cli.update_archive_affiliations", update_archive_affiliations)
+    monkeypatch.setenv("GITHUB_ACTIONS", "true")
+    arguments = [
+        "archive-affiliations",
+        "--data-dir",
+        str(tmp_path / "data"),
+        "--max-html",
+        "5",
+        "--max-ror",
+        "0",
+    ]
+
+    # The reading of pages failed: the command fails.
+    assert main(["--contact", "author@example.org", *arguments]) == 1
+    assert "No contact given" not in caplog.text
+    assert requests[0][0] == "arxiv.org"
+    assert "author@example.org" in requests[0][1]
+    assert main(arguments) == 1
+    assert "No contact given" in caplog.text
+    assert "::error title=Reading HTML pages failed::cs.CV: 0 of 10" in capsys.readouterr().out
 
 
 def test_index_is_written_again_from_the_stored_files(

@@ -251,6 +251,47 @@ it happens often, run *Archive* by hand mid-week to keep the entry warm.
   affiliations (2609.06629). Those papers keep what they had and their pages leave the
   cache: the next run downloads them, within its budget. Nothing to do.
 
+## Affiliations of the highly cited papers
+
+The weekly *Archive* run ends with `archive-affiliations`: OpenAlex's record of the
+published version of each highly cited paper without affiliations (`docs/archive.md`).
+Its line is in the job summary, under **Affiliations of the highly cited papers**.
+
+**Signal.** `published versions: %s place the authors, %s name others` in the log: the
+versions that name others are papers Semantic Scholar linked to a wrong DOI (24 of 7,027
+in October 2026); they keep what they had. Nothing to do, unless that count grows.
+
+### Read their HTML pages (a night, on a machine of yours)
+
+The papers no published version places, about 2,000 of 2024 and 2025 and those of the
+last 12 months, have HTML pages on arXiv: 15 s each, a night, which no workflow runs (its
+minutes are billed). On a machine with `git`, `make` and `uv`, a clone of the repository
+and a `.env` holding `PREPRINT_RADAR_CONTACT`, in `tmux` or under `nohup`:
+
+```bash
+git pull
+make archive-affiliations MAX_HTML=3000
+make validate
+git add data
+git commit -m "chore(data): affiliations of highly cited papers from their HTML pages (AFF-28)"
+git pull --rebase && git push
+```
+
+- The most cited are read first; progress is saved every 20 pages and on Ctrl-C, and
+  running it again resumes: pages already read come from `.cache/front-matter/`, offline,
+  and those that answered 404 are not asked for again. To end it cleanly before a time
+  limit: `uv run preprint-radar -v --contact <e-mail> archive-affiliations --max-html
+  3000 --deadline-minutes 480` (only the Makefile reads `.env`).
+- It writes only the archive and `top-recent.json`, which the weekly *Archive* run
+  rewrites on Sundays (05:41 UTC): start once that run has pushed (the list of the last 12
+  months is then this week's, and exists from 2026-10-11 on), and push before the next,
+  never while *Update data* or *Archive* runs (`gh run list`). If `git pull --rebase`
+  stops on a conflict all the same, `git rebase --abort`, `git reset --hard origin/main`
+  (only the data commit is lost), then run it again: minutes, from the cache.
+- It stops as the daily update does: red after 5 failed pages in a row (`HTML renderings
+  in a row: stopping`) or nearly every page empty (`gave no affiliation: has arXiv's layout
+  changed?`); what it read is saved, so look at the cause, then run it again.
+
 ## Add a category
 
 1. Set the repository variable `PREPRINT_RADAR_CATEGORIES` (space-separated, e.g.
@@ -295,6 +336,8 @@ At a warning (the migration trigger, decided with ARCH-1):
 | Re-extraction from the page cache | seconds |
 | `reclean`, `validate`, `stats` | seconds |
 | `affiliations` (OpenAlex, papers without an HTML page) | seconds; 20 s the first time (225 papers) |
+| `archive-affiliations` (OpenAlex, published versions) | seconds; 2 minutes the first time (7,076 DOIs) |
+| `archive-affiliations MAX_HTML=3000` (HTML pages of highly cited papers) | 15 s a page: about 8 hours for the archive's 2,000, 3 more for the last 12 months |
 | `institutions` | a few minutes (one request per distinct string, every 0.5 s) |
 | First catalog harvest | about 45 minutes |
 | Weekly archive of cs.CV | 207,000 counts in 415 requests: about 40 minutes with a key and a warm catalog; hours without a key |

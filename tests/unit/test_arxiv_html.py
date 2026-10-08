@@ -12,6 +12,7 @@ from preprint_radar.sources.arxiv_html import (
     clean_affiliation,
     clean_affiliations,
     fetch_front_matter,
+    first_version_url,
     front_matter_html,
     name_key,
     names_only_authors,
@@ -1435,6 +1436,31 @@ def test_fetch_front_matter_reads_the_cache_first(tmp_path: Path, paper_html: Pa
     assert "NVIDIA" in first.affiliations
     assert missing == FrontMatter()
     assert "https://arxiv.org/html/2609.30249v9" not in cache
+    # A page that does not exist is remembered as such.
+    assert cache.missing("https://arxiv.org/html/2609.30249v9")
+    assert not cache.missing(url)
+
+
+def test_the_page_cache_remembers_only_pages_that_name_a_version(tmp_path: Path) -> None:
+    cache = PageCache(tmp_path / "pages")
+    cache.put_missing("https://arxiv.org/html/2609.30249")
+
+    assert not cache.missing("https://arxiv.org/html/2609.30249")
+    assert not (tmp_path / "pages").exists()
+
+
+@pytest.mark.parametrize(
+    ("arxiv_id", "url"),
+    [
+        ("2312.00001", "https://arxiv.org/html/2312.00001v1"),
+        ("2509.12345", "https://arxiv.org/html/2509.12345v1"),
+        ("2311.99999", None),  # before arXiv rendered any
+        ("1512.03385", None),
+        ("cs/0112017", None),
+    ],
+)
+def test_first_version_url(arxiv_id: str, url: str | None) -> None:
+    assert first_version_url(arxiv_id) == url
 
 
 # What the heuristics must not produce (TEST-4): each case names the wrong string a past

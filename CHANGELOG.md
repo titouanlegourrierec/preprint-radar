@@ -88,6 +88,14 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ### Data
 
+- Highly cited papers without affiliations get those of their published version from
+  OpenAlex, each author placed by name: 6,799 of 10,520 at once, the archive from 53% to
+  83% with affiliations, 2025 from 16% to 51% (AFF-20). The weekly archive runs
+  `archive-affiliations` after `scholar`.
+- `make archive-affiliations MAX_HTML=N` also reads the HTML pages of those still without
+  any, about 2,000 of 2024 and 2025, the most cited first: a night at arXiv's crawl delay,
+  resumable, its 404s remembered in the page cache (AFF-28). A paper that leaves the last
+  12 months for the archive keeps the record it had.
 - The papers arXiv has no HTML rendering of, 5% of them, get their affiliations from
   OpenAlex: 94 of 225 at once, and the others are asked for again every month, as OpenAlex
   learns them (AFF-27). The daily workflow runs `affiliations` after the re-extraction.

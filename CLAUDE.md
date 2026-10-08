@@ -56,6 +56,13 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     files without an HTML page (5%, which no page can give; two in five a month old), each
     one it knows nothing of asked again every 30 days (AFF-27); seconds. The daily workflow
     runs it.
+  - `make archive-affiliations [MAX_HTML=N]`: affiliations for the highly cited papers
+    without any (archive and last 12 months): OpenAlex's record of their published version,
+    by the DOI of `scholar.json` (AFF-20; 96% of those with one, 2 minutes the first time);
+    `archive.yml` runs it weekly. With `MAX_HTML=N`, also the HTML pages of those arXiv
+    renders (since December 2023), the most cited first, at 15 s a page (AFF-28): a night
+    for the 2,000 left, **never without asking**; resumable, its 404s remembered in the
+    page cache (`docs/operations.md`).
   - `make citations`: Semantic Scholar counts of the stored papers without one; `ALL=1` asks
     for every paper again. The daily workflow runs it.
   - `make scholar`: the DOI, published venue and author ids (checked against the names)
@@ -106,12 +113,15 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     (recent listing and catchup pages, which share the entry markup), `arxiv_rss.py`,
     `arxiv_api.py`, `arxiv_html.py` (front matter: affiliations, author mapping, abstract;
     `PageCache`), `arxiv_oai.py`, `semantic_scholar.py` (counts and published versions),
-    `openalex.py` (institutions of archived papers), `ror.py` (institution of a string).
+    `openalex.py` (institutions of archived papers, and of published versions), `ror.py`
+    (institution of a string).
   - `collect.py`: listing → abstracts → HTML front matter → institutions → store
     (`update_category`, `backfill_category`, `reextract_category`; `HtmlReading` bundles
-    how pages are read), and the Semantic Scholar steps (`update_citation_counts`,
-    `update_scholar_records`). `venue.py`: venues from comments, and Semantic Scholar's
-    named the same way.
+    how pages are read), the Semantic Scholar steps (`update_citation_counts`,
+    `update_scholar_records`) and the OpenAlex ones (`update_openalex_affiliations`,
+    `update_archive_affiliations`). `venue.py`: venues from comments, and Semantic
+    Scholar's named the same way. `names.py`: whether another service's name for an author
+    is arXiv's.
   - `archive/`: the weekly citation archive (`update.py`, `catalog.py`, `selection.py`).
   - `store/`: `paper_store.py` (the `data/` layout), `validate.py`, `stats.py`,
     `quality.py`, `reclean.py`, `venues.py`, `export.py`, `filters.py`.
@@ -143,7 +153,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
 - `.cache/` (git-ignored; the Actions cache in CI): `front-matter/<yymm>/<id>v<n>.html.gz`,
   the front matter of every HTML page read (1 or 2 KB, extracts exactly as the whole page,
   which a network test checks; pages kept before 2026-10-06 lost the tables of their
-  author block, `PageCache.stale`), and `catalog/` (the OAI catalog and the counts cache).
+  author block, `PageCache.stale`; a page that answered 404 leaves an empty
+  `<id>v<n>.html.missing`, which `archive-affiliations` never asks for again), and
+  `catalog/` (the OAI catalog and the counts cache).
 - `tests/fixtures/`: trimmed copies of real arXiv pages; `html/expected.json` pins what each
   HTML fixture gives (`docs/extraction.md`). Real e-mails in them are replaced by
   `author@example.org`. `fold-cases.json`: names and the key both languages give them
@@ -242,8 +254,13 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   versions were kept, without a mapping, have none: the API or an unmapped page.
 - Archived papers have the same record: `announced` is their first appearance, and,
   built from the catalog, `html_url` is `null` and affiliations, `institutions` and
-  `institution_ids` come from OpenAlex; a paper that enters from a day file keeps that
-  record (its HTML link and affiliations), which OpenAlex fills only when it has none.
+  `institution_ids` come from OpenAlex, by their arXiv DOI or their published version's
+  (AFF-20, each author placed by name); a paper that enters from a day file keeps that
+  record (its HTML link and affiliations), which OpenAlex fills only when it has none, and
+  so does one that leaves the last 12 months. `archive-affiliations` with pages gives a
+  catalog-built paper still without any its page's affiliations, with that page as
+  `html_url` (`v1`) and the `html` provenance (AFF-28); `reclean` and `reextract` never
+  read the archive.
 - The site's records are not quite the store's: the build adds `doi`, the authors'
   `author_ids` and, where the comments name no venue, the published `venue` from
   `scholar.json`. The pipeline never writes them into a record; it keeps an author's id
@@ -314,7 +331,8 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     minutes), commit; 240 minutes in all. It
     restores the page cache from the Actions cache (`front-matter-<run id>`, saved even
     after a failure). Its manual *since* input runs `backfill` instead.
-  - `archive.yml` (dispatched Sundays 05:41 UTC): the archive, then `scholar` (20 minutes).
+  - `archive.yml` (dispatched Sundays 05:41 UTC): the archive, then `scholar` (20 minutes),
+    then `archive-affiliations` (OpenAlex only, seconds).
   - `canary.yml` (Wednesdays): the network tests against the live arXiv (a red canary is a
     layout change to look at before it reaches the data), and the repository size.
   - Sizes (ARCH-1): `deploy.yml` fails a site above 800 MB (Pages refuses 1 GB) and warns

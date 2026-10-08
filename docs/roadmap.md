@@ -286,6 +286,8 @@ exist.
 | AFF-26 | `make extraction-diff`: the papers today's extraction changes on the cached pages, those that would lose words first, to run before each `EXTRACTOR_VERSION` bump (versions 4 to 7 each fixed a loss of the one before; not in the audit) | P2 | done |
 | AFF-27 | Affiliations of the papers arXiv has no HTML rendering of (231 of 4,832, 5%; its abstract page gives names only, and `robots.txt` forbids the LaTeX source): asked of OpenAlex daily (`make affiliations`, a step of `update.yml`), each one it knows nothing of again every 30 days while under two years old, as the archive's (`openalex_affiliations.py`, shared). A sample of 50 a month old gave 19 (38%), the first run 94 of 225; the first page of the PDF, the other way, waits until OpenAlex proves too little. OpenAlex's names are left alone by `reclean`, `validate`'s heuristics and `quality-affiliations` (asked on 2026-10-08, not in the audit) | P2 | done |
 | SRCH-19 | Abstracts as plain text (decision 17): text macros give their argument, links their address, math symbols their character, citations go; wherever an abstract is read, and on the stored papers through `make venues` (from the backlog) | P3 | done |
+| AFF-20 | Affiliations of the highly cited papers from their published version's OpenAlex record (`make archive-affiliations`, after `scholar` in `archive.yml`): each arXiv author takes the institutions of the published author of the same name (`names.py`), nothing when fewer than half are found (a wrong DOI). The spike passed its gate (46 of 49 published DOIs placed, names matching 49 of 50); the first run placed 6,799 of 7,076: the archive went from 53% to 83% with affiliations, 2025 from 16% to 51% (asked on 2026-10-08; the recommendation of the maintainer's table) | P2 | done |
+| AFF-28 | The HTML pages of the highly cited papers still without affiliations (about 2,000 of 2024 and 2025, and those of the last 12 months): `make archive-affiliations MAX_HTML=N`, the most cited first, 404s remembered in the page cache, run by the maintainer on a machine of theirs (a night at 15 s a page; `docs/operations.md`). A paper that leaves the last 12 months for the archive keeps its record, so what its page gave stays (asked on 2026-10-08, not in the audit) | P2 | done |
 
 ## Backlog triage (2026-10-07)
 
@@ -317,7 +319,6 @@ Waiting for the maintainer (the recommendation first):
 |---|---|---|
 | CI-13 | How to pay for Actions | Make the repository public (the site and `data/` already are, the code is MIT), after a scan of the history for secrets |
 | AFF-12 | Read again the 833 papers stored without affiliations before extraction versions | Let the daily `reextract` take them within its 50-page cap (about 17 weekdays, up to 12 billed minutes a day), exempt from the layout breaker |
-| AFF-20 | Affiliations of archived papers from their published version's OpenAlex record | A one-request spike on 50 published DOIs first; the fallback only if half gain institutions |
 | AFF-11 | BMVC and IROS pages give no affiliations (91% and 41% empty) | Two fixtures of each, which takes a few page downloads (or the CI page cache), then a rule and a version bump |
 | UX-13 | The tabs overflow on phones | An edge fade when they scroll, the active tab scrolled into view |
 | UX-21 | The graph's force sliders | Under a closed "Advanced layout" disclosure |

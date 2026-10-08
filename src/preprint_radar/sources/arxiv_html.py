@@ -276,7 +276,8 @@ class PageCache:
 
     One gzipped file per paper version (``<directory>/2609/2609.30249v1.html.gz``), holding
     :func:`front_matter_html` of the page: 1 or 2 KB instead of hundreds. A new version of
-    a paper is a new page, read again.
+    a paper is a new page, read again. A page that does not exist (404) leaves an empty
+    ``.missing`` file instead, which the archive's pages skip (:meth:`missing`).
     """
 
     def __init__(self, directory: Path) -> None:
@@ -306,6 +307,18 @@ class PageCache:
         tmp.write_bytes(gzip.compress(front_matter_html(html).encode("utf-8"), mtime=0))
         tmp.replace(path)
 
+    def missing(self, html_url: str) -> bool:
+        """Whether arXiv answered that the page at ``html_url`` does not exist (:meth:`put_missing`)."""
+        path = self._path(html_url)
+        return path is not None and path.with_suffix(".missing").is_file()
+
+    def put_missing(self, html_url: str) -> None:
+        """Remember that the page at ``html_url`` does not exist: arXiv could not render it."""
+        path = self._path(html_url)
+        if path is not None:
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.with_suffix(".missing").touch()
+
     def stale(self, html_url: str) -> bool:
         """Whether the page at ``html_url`` was kept before the front matter kept its tables.
 
@@ -329,6 +342,10 @@ class PageCache:
         return None if match is None else self.directory / match["month"] / f"{match[0]}.html.gz"
 
 
+ARXIV_HTML_URL = "https://arxiv.org/html"
+_NEW_STYLE_ID_RE = re.compile(r"\d{4}\.\d{4,5}")
+# The month of the first papers arXiv rendered in HTML.
+_FIRST_RENDERED_MONTH = "2312"
 _CACHE_KEY_RE = re.compile(r"(?P<month>\d{4})\.\d{4,5}v\d+$")
 # What follows the front matter in a LaTeXML document: the body, references and appendices.
 _BODY_CLASSES = frozenset({"ltx_section", "ltx_bibliography", "ltx_appendix"})
@@ -368,6 +385,18 @@ def front_matter_html(html: str) -> str:
     return f"<html><body>{article_tag}{''.join(kept)}</article></body></html>"
 
 
+def first_version_url(arxiv_id: str) -> str | None:
+    """The HTML rendering of a paper's first version, ``None`` before arXiv rendered any.
+
+    arXiv renders the papers submitted since December 2023 (``2312.*``): the first version
+    is the one a day file links to for a new paper. Older ones have no rendering, nor have
+    old-style identifiers ("cs/0112017").
+    """
+    if not _NEW_STYLE_ID_RE.fullmatch(arxiv_id) or arxiv_id < _FIRST_RENDERED_MONTH:
+        return None
+    return f"{ARXIV_HTML_URL}/{arxiv_id}v1"
+
+
 def fetch_front_matter(
     client: HttpClient, html_url: str, *, authors: Sequence[str] = (), cache: PageCache | None = None
 ) -> FrontMatter:
@@ -391,6 +420,8 @@ def fetch_front_matter(
             html = client.get_text(html_url)
         except NotFoundError:
             logger.info("No HTML rendering at %s", html_url)
+            if cache is not None:
+                cache.put_missing(html_url)
             return FrontMatter()
         if cache is not None:
             cache.put(html_url, html)

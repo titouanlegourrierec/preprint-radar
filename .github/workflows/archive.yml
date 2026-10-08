@@ -50,7 +50,8 @@ jobs:
     runs-on: ubuntu-latest
     # The first run harvests the whole catalog (about 45 minutes); every run then fetches
     # about 207,000 citation counts in 415 requests, far slower without an API key, then
-    # the published versions of the stored papers.
+    # the published versions of the stored papers, and their affiliations for the highly
+    # cited papers without any.
     timeout-minutes: 330
     permissions:
       contents: write
@@ -106,6 +107,17 @@ jobs:
           args=()
           for category in $CATEGORIES; do args+=(--category "$category"); done
           uv run --no-dev preprint-radar -v scholar --max-minutes 20 "${args[@]}"
+
+      # Affiliations for the highly cited papers without any, from OpenAlex's record of
+      # their published version (AFF-20): after scholar, whose DOIs it reads; seconds. No
+      # HTML page: the maintainer reads those (`make archive-affiliations MAX_HTML=N`).
+      - name: Ask OpenAlex for the affiliations of the published versions
+        if: ${{ !cancelled() }}
+        timeout-minutes: 15
+        run: |
+          args=()
+          for category in $CATEGORIES; do args+=(--category "$category"); done
+          uv run --no-dev preprint-radar -v archive-affiliations --max-ror 1000 "${args[@]}"
 
       - name: Save the catalog
         if: always()

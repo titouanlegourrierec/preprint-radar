@@ -81,8 +81,9 @@ year of cs.CV is 46,000.
   affiliations), with the comments of its latest version; the others are built from the
   catalog, with affiliations from OpenAlex, as archived papers are (`_with_affiliations`,
   which asks again for those it knew nothing of every 30 days). OpenAlex knows the
-  affiliations of few recent papers: about one in six in 2025. A paper Semantic Scholar
-  misses this week keeps last week's count, as an archived one.
+  affiliations of few recent preprints, about one in six in 2025, more by their published
+  version, and their pages give the others' (`archive-affiliations`, below). A paper
+  Semantic Scholar misses this week keeps last week's count, as an archived one.
 - The file has the first day of the window (`since`, 364 days before the run) and is
   rewritten whole; the index lists it (`top_recent`: `since` and `count`). It holds no
   archived paper: both use the same window and first appearance. Below the coverage gate,
@@ -95,7 +96,8 @@ year of cs.CV is 46,000.
   fails a file that does not load, a paper listed twice, announced before `since` or
   archived too, and an index that disagrees with it.
 - A paper that ages out leaves at the next run; it enters the archive only if it ranks
-  there (from its day file, or the catalog and OpenAlex again).
+  there, with the record it had (its day file's, or this list's, with what its published
+  version or its page gave), never built again from the catalog.
 
 ## Citation counts (`citations.json`)
 
@@ -183,6 +185,43 @@ year of cs.CV is 46,000.
   before ids were kept (their institutions are their affiliations) are asked for again,
   once, by the weekly archive; those it now gives nothing for keep their affiliations
   without ids and are asked for again every week (a few requests).
+
+## Affiliations of the highly cited papers (`archive-affiliations`)
+
+By their arXiv DOI, OpenAlex left 10,520 of the archive's 22,169 papers without
+affiliations in October 2026, 84% of those first seen in 2025, the year Highly cited
+shows first. `collect.update_archive_affiliations` (`make archive-affiliations`) fills
+those of the archive and of the last 12 months (but the day files' papers there, whose
+records are their day records) two ways:
+
+- **The published version** (AFF-20): OpenAlex knows the authors and institutions of
+  nearly every published version, by the DOI Semantic Scholar gives (`scholar.json`, not
+  arXiv's own `10.48550/...`): `sources/openalex.fetch_published_authors`, 50 DOIs a
+  request, 142 requests and two minutes for the 7,076 papers with one. Its authors can be
+  others or in another order, so each arXiv author takes the institutions of the published
+  author of the same name (`names.same_person`: one spelling holding the other's words, or
+  the surname and first initial), and fewer than half of them found means another paper
+  (a wrong DOI, 24 of 7,027): nothing is taken. A spike on 49 such papers gave 46; the
+  first run 6,799, every author placed for 84% of them (the others: OpenAlex places only
+  some authors of that version). The archive went from 53% to 83% with affiliations, 2025
+  from 16% to 51%, 2024 from 48% to 73%. `archive.yml` runs it after `scholar`, whose DOIs
+  it reads, every week: a paper it gives nothing yet is asked for again then (a few
+  requests), and a DOI Semantic Scholar learns later is asked for the next week. The
+  affiliations have the provenance `openalex`, as the arXiv DOI's.
+- **The HTML page** (AFF-28), with `--max-html N` (`MAX_HTML=N`): the papers still
+  without any that arXiv renders (submitted since December 2023,
+  `arxiv_html.first_version_url`, the first version, which a day file links to), the most
+  cited first, read as the daily update reads pages (`_add_html_front_matter`: 15 s a
+  page, the same stops), from the page cache when it holds them. A page that answers 404
+  leaves `<id>v1.html.missing` in the cache and is never asked for again; one that gives
+  nothing leaves the paper as it was, its page cached. A paper its page gives
+  affiliations takes them with the page's link (`html_url`), the extractor's version and
+  the provenance `html`; their institutions are named through ROR, with those an
+  interrupted run left unnamed. About 2,000 papers of 2024 and 2025 are left after the
+  published versions, a night of downloads: the maintainer runs it
+  (`docs/operations.md`), not a workflow, whose minutes are billed. A spike on 4 such
+  pages gave 3. Neither `reextract` nor `reclean` reads the archive: a later extraction
+  fix reaches these papers only through this command, for those without affiliations.
 
 ## OAI-PMH
 

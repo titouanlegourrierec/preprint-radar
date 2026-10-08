@@ -1,13 +1,16 @@
-"""Affiliations from OpenAlex, for the papers no page of ours gives them (AFF-3, AFF-27).
+"""Affiliations from OpenAlex, for the papers no page of ours gives them (AFF-3, AFF-20, AFF-27).
 
 The weekly archive asks it for the papers it builds from the catalog, and the daily
 ``affiliations`` step for the papers of the day files without an HTML rendering. OpenAlex's
 institutions are registry entries, with their ROR ids, so they are the papers' institutions
 too. It learns those of recent papers over months: a paper it knows nothing of is asked
-again every ``OPENALEX_RETRY_EVERY_DAYS`` while young.
+again every ``OPENALEX_RETRY_EVERY_DAYS`` while young. It knows those of nearly every
+published version, which the highly cited papers without any are asked for weekly
+(:func:`with_published_affiliations`).
 """
 
 import logging
+from collections.abc import Mapping
 from dataclasses import replace
 from datetime import date
 
@@ -15,9 +18,17 @@ from preprint_radar.config import OPENALEX_RETRY_AGE_DAYS, OPENALEX_RETRY_EVERY_
 from preprint_radar.http import HttpClient
 from preprint_radar.institutions import ids_where_named, name_institutions
 from preprint_radar.models import Paper, Provenance
-from preprint_radar.sources.openalex import fetch_affiliations
+from preprint_radar.sources.openalex import (
+    PaperAffiliations,
+    fetch_affiliations,
+    fetch_published_authors,
+    published_affiliations,
+)
 
 logger = logging.getLogger(__name__)
+
+# arXiv's DOIs of its own records, by which OpenAlex is asked for the preprints already.
+_ARXIV_DOI_PREFIX = "10.48550/"
 
 
 def with_openalex_affiliations(papers: list[Paper], client: HttpClient, today: date) -> list[Paper]:
@@ -46,20 +57,80 @@ def with_openalex_affiliations(papers: list[Paper], client: HttpClient, today: d
         if result is None:  # not asked, or the lookup failed: asked again next run
             return paper
         if paper.affiliations is None or result.affiliations:
-            # OpenAlex's institutions are registry entries: they are their own institutions,
-            # a company's subsidiaries named as the company (AFF-13).
-            names = name_institutions(result.affiliations, result.affiliations, paper.authors)
-            return replace(
-                paper.with_affiliations(result.affiliations, result.author_affiliations, provenance=read),
-                institutions=names,
-                institution_ids=ids_where_named(result.institution_ids, names),
-                institutions_provenance=read,
-            )
+            return _with_openalex(paper, result, read)
         # A day file's paper whose page gave none: OpenAlex has none either, today. Its
         # `extractor` is an HTML extraction's, which this lookup now stands for no longer.
         return replace(paper, extractor=None, affiliations_provenance=read)
 
     return [updated(paper) for paper in papers]
+
+
+def with_published_affiliations(
+    papers: list[Paper], client: HttpClient, today: date, dois: Mapping[str, str]
+) -> list[Paper]:
+    """Fill the papers without affiliations from OpenAlex's record of their published version (AFF-20).
+
+    OpenAlex knows the institutions of few preprints of the last two years (those of 16%
+    of 2025's highly cited papers), but those of nearly every published version: 46 of 49
+    such papers had some there. Each arXiv author takes the institutions of the published
+    author of the same name (:func:`~preprint_radar.sources.openalex.published_affiliations`).
+    A paper keeps what it had when OpenAlex does not know its version, places none of its
+    authors, or names other authors (a wrong DOI): it is asked for again next time.
+
+    Args:
+        papers: The papers; those with affiliations are left as they are.
+        client: HTTP client for OpenAlex.
+        today: Day of the lookup.
+        dois: Semantic Scholar's DOI of each paper's published version (``scholar.json``);
+            arXiv's own DOIs (``10.48550/arXiv.<id>``) are not published versions.
+
+    Returns:
+        The papers, those OpenAlex placed with its affiliations and institutions.
+    """
+    wanted = {
+        paper.arxiv_id: doi.lower()
+        for paper in papers
+        if not paper.affiliations
+        and (doi := dois.get(paper.arxiv_id))
+        and not doi.lower().startswith(_ARXIV_DOI_PREFIX)
+    }
+    if not wanted:
+        return papers
+    works = fetch_published_authors(client, wanted.values())
+    read = Provenance("openalex", today)
+    results = {
+        paper.arxiv_id: published_affiliations(paper.authors, works[doi])
+        for paper in papers
+        if (doi := wanted.get(paper.arxiv_id)) is not None and doi in works
+    }
+    logger.info(
+        "OpenAlex knows %s of %s published versions: %s place the authors, %s name others",
+        f"{len(results):,}",
+        f"{len(wanted):,}",
+        f"{sum(result is not None and bool(result.affiliations) for result in results.values()):,}",
+        f"{sum(result is None for result in results.values()):,}",
+    )
+    return [
+        _with_openalex(paper, result, read)
+        if (result := results.get(paper.arxiv_id)) is not None and result.affiliations
+        else paper
+        for paper in papers
+    ]
+
+
+def _with_openalex(paper: Paper, result: PaperAffiliations, read: Provenance) -> Paper:
+    """The paper with OpenAlex's affiliations, which are their own institutions.
+
+    OpenAlex's institutions are registry entries: a company's subsidiaries are named as the
+    company (AFF-13).
+    """
+    names = name_institutions(result.affiliations, result.affiliations, paper.authors)
+    return replace(
+        paper.with_affiliations(result.affiliations, result.author_affiliations, provenance=read),
+        institutions=names,
+        institution_ids=ids_where_named(result.institution_ids, names),
+        institutions_provenance=read,
+    )
 
 
 def needs_openalex(paper: Paper, today: date) -> bool:

@@ -547,6 +547,34 @@ def test_papers_of_the_last_12_months_keep_last_weeks_records(store: PaperStore,
     assert kept.comments == "Accepted to CVPR 2016"
 
 
+def test_a_paper_leaving_the_last_12_months_enters_the_archive_with_its_record(
+    store: PaperStore, catalog: Catalog
+) -> None:
+    _add_entries(catalog, *GAP)
+    _update(store, catalog, FakeServices(GAP_CITATIONS))
+    top_recent = store.load_top_recent("cs.CV")
+    assert top_recent is not None
+    # Its page gave its affiliations meanwhile (`archive-affiliations`, AFF-28).
+    read = replace(
+        next(paper for paper in top_recent.papers if paper.arxiv_id == "2511.00001").with_affiliations(
+            ("Read from its page",), None, provenance=Provenance("html", TODAY), extractor=7
+        ),
+        html_url="https://arxiv.org/html/2511.00001v1",
+    )
+    store.write_top_recent(
+        "cs.CV",
+        [read if paper.arxiv_id == read.arxiv_id else paper for paper in top_recent.papers],
+        since=top_recent.since,
+    )
+
+    # Two months later, it is over 12 months old.
+    _update(store, catalog, FakeServices(GAP_CITATIONS), budget=10, today=TODAY + timedelta(days=60))
+
+    archived = {paper.arxiv_id: paper for paper in store.iter_archive("cs.CV")}
+    # Not built again from the catalog: what its page gave stays.
+    assert archived["2511.00001"] == read
+
+
 def test_papers_of_the_last_12_months_stay_without_citation_counts(
     store: PaperStore, catalog: Catalog, monkeypatch: pytest.MonkeyPatch
 ) -> None:

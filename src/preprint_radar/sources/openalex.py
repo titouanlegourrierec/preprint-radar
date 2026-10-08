@@ -6,17 +6,23 @@ institutions of each author of an arXiv paper, looked up by its arXiv DOI
 (``10.48550/arXiv.<id>``), 50 papers per request. Its institutions are registry entries
 (ROR), so they serve as both the affiliations and their institutions; its raw
 affiliation strings are too rough to show ("Google,,,,,", "[Google Brain]").
+
+It knows those of few preprints of the last two years, but those of nearly every published
+version: :func:`fetch_published_authors` asks for the published versions of papers, by
+their DOI, and :func:`published_affiliations` keeps the institutions of their arXiv
+authors (AFF-20).
 """
 
 import json
 import logging
-from collections.abc import Iterable, Mapping
+from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass
 from itertools import batched
 
 from preprint_radar.exceptions import FetchError, NotFoundError, ParseError
 from preprint_radar.http import HttpClient
 from preprint_radar.models import Institution
+from preprint_radar.names import same_person
 from preprint_radar.sources.ror import organization_name, ror_id
 
 logger = logging.getLogger(__name__)
@@ -26,6 +32,10 @@ OPENALEX_BATCH_SIZE = 50
 # OpenAlex allows 10 requests per second; stay well below.
 OPENALEX_DELAY_SECONDS = 0.25
 _ARXIV_DOI_PREFIX = "10.48550/arxiv."
+_DOI_URL_PREFIX = "https://doi.org/"
+# What separates the values and the filters of a filter parameter: a DOI holding one cannot
+# be asked for in a batch (none of the 15,222 of cs.CV does).
+_FILTER_SEPARATORS = frozenset("|,")
 
 
 @dataclass(frozen=True, slots=True)
@@ -136,6 +146,115 @@ def affiliations_from_authorships(authorships: list[list[Institution]], authors:
         for institutions in authorships
     )
     return PaperAffiliations(tuple(affiliations), mapping, ids)
+
+
+@dataclass(frozen=True, slots=True)
+class PublishedAuthor:
+    """An author of a published version, as OpenAlex names them, with their institutions."""
+
+    name: str
+    institutions: tuple[Institution, ...]
+
+
+def fetch_published_authors(client: HttpClient, dois: Iterable[str]) -> dict[str, list[PublishedAuthor]]:
+    """The authors of published versions, with their institutions, 50 DOIs per request.
+
+    Args:
+        client: HTTP client for OpenAlex.
+        dois: DOIs of the published versions.
+
+    Returns:
+        The authors of each version OpenAlex knows, by lowercase DOI. Versions whose lookup
+        failed are left out, to be asked for again next time.
+    """
+    wanted = sorted({doi.lower() for doi in dois if not _FILTER_SEPARATORS & set(doi)})
+    found: dict[str, list[PublishedAuthor]] = {}
+    for batch in batched(wanted, OPENALEX_BATCH_SIZE, strict=False):
+        try:
+            text = client.get_text(
+                OPENALEX_WORKS_URL,
+                params={
+                    "filter": "doi:" + "|".join(batch),
+                    "select": "doi,authorships",
+                    "per-page": OPENALEX_BATCH_SIZE,
+                },
+            )
+            found.update(parse_published_works(text))
+        except (FetchError, ParseError) as exc:
+            logger.warning("OpenAlex lookup of %d published versions failed: %s", len(batch), exc)
+    return found
+
+
+def parse_published_works(text: str) -> dict[str, list[PublishedAuthor]]:
+    """The authors of the works in a ``/works`` response, with their institutions, by lowercase DOI.
+
+    Raises:
+        ParseError: If the response is not the expected JSON.
+    """
+    try:
+        works: dict[str, list[PublishedAuthor]] = {}
+        for work in json.loads(text)["results"]:
+            doi = str(work.get("doi") or "").lower().removeprefix(_DOI_URL_PREFIX)
+            if doi:
+                works[doi] = [
+                    PublishedAuthor(_author_name(authorship), tuple(_institutions(authorship)))
+                    for authorship in work.get("authorships") or []
+                ]
+    except (json.JSONDecodeError, AttributeError, KeyError, TypeError) as exc:
+        msg = f"Unexpected OpenAlex response: {exc}"
+        raise ParseError(msg) from exc
+    return works
+
+
+def published_affiliations(
+    authors: Sequence[str], published: Sequence[PublishedAuthor]
+) -> PaperAffiliations | None:
+    """The affiliations of a paper from the authors of its published version.
+
+    The published version can add or drop authors, or order them otherwise: each arXiv
+    author takes the institutions of the published author of the same name
+    (:func:`names.same_person`), and the institutions of authors arXiv does not list are
+    left out.
+
+    Args:
+        authors: The paper's authors, as arXiv lists them.
+        published: The authors of its published version.
+
+    Returns:
+        Its affiliations, with the mapping of each author placed; ``None`` when fewer than
+        half of its authors are among the published ones, whose version is then another
+        paper's (a wrong DOI).
+    """
+    unmatched = list(published)
+    per_author: list[tuple[Institution, ...] | None] = []
+    for author in authors:
+        match = next((candidate for candidate in unmatched if same_person(author, candidate.name)), None)
+        if match is not None:
+            unmatched.remove(match)
+        per_author.append(None if match is None else match.institutions)
+    if 2 * sum(institutions is not None for institutions in per_author) < len(authors):
+        return None
+    distinct: dict[str, Institution] = {}
+    for institutions in per_author:
+        for institution in institutions or ():
+            distinct.setdefault(institution.name, institution)
+    if not distinct:
+        return PaperAffiliations((), None)
+    names = list(distinct)
+    mapping = tuple(
+        tuple(names.index(institution.name) for institution in institutions or ()) or None
+        for institutions in per_author
+    )
+    return PaperAffiliations(
+        tuple(names), mapping, tuple(institution.ror_id for institution in distinct.values())
+    )
+
+
+def _author_name(authorship: Mapping[str, object]) -> str:
+    """OpenAlex's name for an author, else the name the work gives ("Dosovitskiy, Alexey")."""
+    author = authorship.get("author")
+    name = author.get("display_name") if isinstance(author, Mapping) else None
+    return str(name or authorship.get("raw_author_name") or "")
 
 
 def _institutions(authorship: Mapping[str, object]) -> list[Institution]:
