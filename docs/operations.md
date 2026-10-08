@@ -150,6 +150,12 @@ Then check out `recovered-data`, fix what `make validate` reports (usually a bug
 the code first, with a test), and push. If the data is not worth saving, do nothing: the
 next run collects the same papers again.
 
+On `top-recent.json` (the most cited papers of the last 12 months, PROD-11), "archived too",
+an `announced` before its `since`, or "the papers of the last 12 months differ from
+top-recent.json" in the index mean the archive wrote one file and not the other; the next
+archive rewrites both, so dispatching *Archive* again settles it (not on a Thursday or
+Friday if you want the week's gains: they need counts six days old).
+
 ### The data commit could not be pushed
 
 **Signal.** `changed both in this run and on main; nothing was pushed.` or
