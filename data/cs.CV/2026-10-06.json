@@ -2351,11 +2351,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "25 pages (8 main paper + ack), 25 pages total, 8 figures, under submission",
+   "comments": null,
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.06339v1",
+   "html_url": "https://arxiv.org/html/2610.06339v2",
    "abstract": "Reliable and practical audio-visual DeepFake detection requires benchmarks that reflect diverse linguistic contexts and modern data synthesis pipelines for visual as well as audio manipulations. However, existing datasets predominantly contain footage of English-speakers, often include outdated manipulation types, or overlook the audio modality. Further, many datasets feature individuals who did not consent to be used in DeepFake creation. We introduce BabelFake, a multilingual audio-visual DeepFake benchmark recorded with consenting participants. BabelFake contains 399k clips (1,323 hours) from 496 individuals spanning five languages (English, German, Italian, French, Spanish). Our modular data generation pipeline pairs 11 modern video manipulation methods with 4 voice cloning engines, distinguishing visual-only (face swapping) and joint audio-visual manipulations (lip synchronization and portrait animation). By benchmarking state-of-the-art detectors, we show that detection difficulty depends on the audio-visual generation pairing, with substantial performance degradation when authentic audio is preserved. Cross-language/demographic evaluation reveals sensitivity varying across detector architectures and training data, while human evaluation reveals that perceived realism and machine-detection difficulty do not necessarily align.",
    "affiliations": [
     "TU Darmstadt & Hessian.AI, Germany"
@@ -9682,11 +9682,13 @@
    "title": "Super-Resolution in The Right Latent Space: A Frozen Vision-Foundation Substrate",
    "authors": [
     "Wanzhou Lei",
-    "Cuifeng Sheng",
+    "Cuifeng Shen",
     "Yanjin He",
     "Maohua Li",
     "Hua Yuan",
     "Per-Olof Persson",
+    "Tao Lan",
+    "Kan Liu",
     "Hanlin Tang"
    ],
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
@@ -9697,7 +9699,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.04781v1",
+   "html_url": "https://arxiv.org/html/2610.04781v2",
    "abstract": "In an image latent space, the embeddings of high-resolution, natural, and sharp images form a manifold. Degradation of high-resolution images pushes their embeddings off this manifold. Real-world super-resolution (SR) then becomes the task of mapping the degraded embedding back onto this manifold — not anywhere on the manifold, but to the point that preserves what the input still carries, both its semantics and pixel details. Every published method implements this mapping in a reconstruction-oriented latent space or pixel space. We claim these spaces are the wrong substrates for SR. Low-resolution and degraded images are embedded far from the manifold, making the mapping difficult and expensive. The lack of semantic information in these substrates also makes it difficult to navigate to the faithful point on the manifold, causing severe hallucination when degradation is heavy. Thus, restoring in a suitable latent space is crucial to the SR task. We show that the latent space of 23 fused layers of a frozen DINOv3-L is one such space that makes the SR task easier. Degraded images are embedded near the manifold. Moreover, this substrate contains a hierarchy of information, from pixel record to degradation robust semantics, guiding the model to find the faithful point on the manifold. On this substrate, a 415M decoder is trained under reconstruction and adversarial objectives to map the degraded embeddings back and decode to pixel space in one pass. The resulting model, RAESR, attains the best fidelity--perception trade-off among state-of-the-art adversarial and diffusion-based restorers on RealSR, DRealSR, LSDIR and DIV2K-Val, at 37 ms per 512 by 512 image on a single H20 GPU. Swapping the substrate for a VAE latent under an identical recipe loses on every metric.",
    "affiliations": [
     "University of California, Berkeley",
@@ -9715,9 +9717,11 @@
      1
     ],
     [
+     1,
      2
     ],
     [
+     1,
      3
     ],
     [
@@ -9725,6 +9729,12 @@
     ],
     [
      0
+    ],
+    [
+     1
+    ],
+    [
+     1
     ],
     [
      1
@@ -9748,11 +9758,11 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-10-09"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-06"
+     "at": "2026-10-09"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.04781",
@@ -12074,7 +12084,7 @@
   {
    "arxiv_id": "2610.04203",
    "announced": "2026-10-06",
-   "title": "Sparse-GS2Mesh: 3D Gaussian Splatting Guided by Novel Stereo Views and 2DGS for Sparse View Surface Reconstruction}",
+   "title": "Sparse-GS2Mesh: 3D Gaussian Splatting Guided by Novel Stereo Views and 2DGS for Sparse View Surface Reconstruction",
    "authors": [
     "Younghyun Noh",
     "Minje Kim",
@@ -12084,11 +12094,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "13, pages, 7 figures, accepted to NIPS 2026 PhysWorldAI workshops",
+   "comments": "Accepted to NIPS 2026 PhysWorldAI workshops. Project Page: https://yhnoh8623.github.io/projects/s-gs2mesh/",
    "journal_ref": null,
    "venue": "NeurIPS 2026 Workshop",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.04203v1",
+   "html_url": "https://arxiv.org/html/2610.04203v2",
    "abstract": "Surface reconstruction under sparse-view settings remains challenging due to limited geometric cues. Volume rendering methods based on signed distance functions often produce over-smoothed surfaces, while 3D Gaussian Splatting (3DGS), though time-efficient, suffers from incomplete geometry due to the lack of reliable depth supervision and the limitation of being optimized only from given input views. In this paper, we present Sparse-GS2Mesh, a stereo-aware framework for surface reconstruction from sparse views. While 3DGS and stereo matching have been leveraged for surface reconstruction under dense view settings, we extend them to operate effectively under sparse view conditions by first initializing 3DGS using epipolar depth priors to mitigate the 3DGS overfitting problem, followed by our three key components: (I) adaptive baseline selection, (II) fine-tuning with a stereo matching network, and (III) 2D/3D co-regularized fine-tuning. Given a warmed-up 3DGS initialized with epipolar depth, the adaptive baseline selection automatically determines a baseline to synthesize for each sparse view. We then fine-tune 3DGS by backpropagating depth-refining gradients from the stereo matching network, effectively specializing the 3DGS for stereo matching. The 2D/3D co-regularization further helps obtain stable reconstruction, addressing weak geometric cues in close stereo views. Sparse-GS2Mesh achieves a 15% improvement over state-of-the-art methods in little-overlap settings and comparable results in large-overlap settings. Codes will be publicly available.",
    "affiliations": [
     "KAIST"
@@ -15088,6 +15098,7 @@
    "primary_subject": "Machine Learning (cs.LG)",
    "subjects": [
     "Machine Learning (cs.LG)",
+    "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (stat.ML)"
    ],
@@ -15904,11 +15915,11 @@
     "Robotics (cs.RO)",
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "Accepted at the Conference on Robot Learning (CoRL) 2026",
+   "comments": "Accepted at the Conference on Robot Learning (CoRL) 2026. Project page: https://zju3dv.github.io/freeloc/",
    "journal_ref": null,
    "venue": "CoRL 2026",
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2610.05011v1",
+   "html_url": "https://arxiv.org/html/2610.05011v2",
    "abstract": "Floorplans provide compact and widely available geometric maps for indoor localization, but existing high-performing floorplan-based methods still convert them into dense scene-specific offline databases, tying accuracy, storage, and runtime to the sampling resolution of the discretized pose space. We present FreeLoc, an online RGB-based floorplan localization framework that treats the floorplan as a directly queryable geometric map. FreeLoc introduces an efficient online geometric querying and diffusion-aided refinement scheme, which retrieves plausible pose anchors through on-the-fly floorplan ray querying and refines them into accurate continuous pose estimates. For sequential localization, FreeLoc develops an online likelihood construction strategy that bridges single-frame localization and probabilistic temporal fusion by constructing likelihoods from coarse-sampled candidates and refined pose hypotheses, enabling histogram-filter-based temporal fusion without offline databases. Experiments demonstrate real-time online inference and state-of-the-art performance in both single-frame and sequential localization, while real-world results validate practical deployability in indoor robotic localization scenarios.",
    "affiliations": [
     "State Key Lab of CAD&CG, Zhejiang University"

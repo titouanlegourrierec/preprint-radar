@@ -1199,7 +1199,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.08560v1",
+   "html_url": "https://arxiv.org/html/2610.08560v2",
    "abstract": "Streaming video-language models must decide not only what to answer, but whether the evidence needed for the current question has arrived. Existing systems learn that decision as a separate trigger; we ask whether an unmodified model already computes it. We show that frozen VideoLLMs carry a linearly readable evidence-readiness signal, labelled from timestamped evidence rather than from model output. It decodes in all seven models of a shared byte-identical evaluation (AUROC 0.733-0.905 under the strictest not-ready sampling, where a fitted clock is near chance), and a probe fitted without any of a benchmark family's footage still reads that family. It is question-conditioned: on byte-identical windows, changing only the question reverses the readout on 66.1% of pairs, while every question-blind control is at chance by construction. The model can answer incorrectly and still encode readiness: AUROC remains 0.722 among wrong answers. Readiness also beats uncertainty estimators and their supervised combination on latency-matched answer selection, and tracks independent human judgments more closely than confidence. Released streaming triggers are also linear readouts, yet a trained trigger read on its own base model's activations is approximately orthogonal to readiness and decodes it far less accurately than a probe. We turn the readout into Readiness Gating, an answer-timing policy that improves accuracy by up to +9.75 pp at matched video duration with negligible computational overhead. How much it gains varies with the accuracy headroom the task makes available: across 26 configurations the gain tracks that headroom, and an intervention that moves it over identical pixels moves the gain with it.",
    "affiliations": [
     "INSIGHT Lab, Ben-Gurion University of the Negev, Israel",
@@ -2045,7 +2045,7 @@
   {
    "arxiv_id": "2610.08365",
    "announced": "2026-10-07",
-   "title": "A Stevens's Power Law Check-up of GPT-5.5's Image-Based Visualization Reading",
+   "title": "A Stevens's Power Law Check-up of GPT-5.5's Implicit Reading of Visual Encoding",
    "authors": [
     "Kaichun Yang",
     "Jian Chen"
@@ -2058,7 +2058,7 @@
    "journal_ref": null,
    "venue": "VIS 2026 Workshop",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.08365v1",
+   "html_url": "https://arxiv.org/html/2610.08365v2",
    "abstract": "We adapt Stevens's power law to measure the innate ability of AI models to read visualizations, which can reveal the built-in perceptual mechanisms of algorithmic models. In our pilot study, models see no legend. A model first views a reference visual representation and estimates its magnitude, then estimates the magnitude of each subsequent image of the same representation relative to that reference. Our evaluation of twelve visual variables makes how algorithmic models read visual encodings measurable, comparable with human perception, and more interpretable to humans.",
    "affiliations": [
     "The Ohio State University"
@@ -2169,7 +2169,7 @@
    "journal_ref": null,
    "venue": "NeurIPS 2026",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.08346v1",
+   "html_url": "https://arxiv.org/html/2610.08346v2",
    "abstract": "Polarization imaging provides physical cues beyond intensity imaging but typically requires specialized hardware. Recent methods infer polarization from RGB-like inputs, yet predict only normalized Stokes components or relative descriptors, from which the radiometric scale needed for full Stokes reconstruction has been divided out. We introduce PolarScale, a benchmark that makes this scale an explicit prediction and evaluation target. Built on existing trichromatic full-Stokes measurements, PolarScale takes the per-scene normalized total-intensity image $s_0$ (a scene-referred linear image, not a consumer sRGB photograph) and asks models to predict normalized Stokes components, AoLP/DoLP/DoCP, and a per-scene scale. Because the scale is divided out of the input, it is not physically identifiable; PolarScale therefore evaluates dataset-conditioned semantic scale estimation against a constant-scale control, together with angular, self-consistency, and physical-bound metrics. Across seven restoration-based and generative backbones and three prediction strategies, the strongest restoration models estimate the scale with 3.6-4.3% mean relative error versus 5.7% for the constant control and violate physical bounds on fewer than 0.25% of pixels, whereas two generative baselines collapse to a near-zero scale; explicit descriptor supervision improves descriptor accuracy (23.66 vs. 18.88 dB PSNR for MAE). Predicted full-Stokes representations improve diffuse/specular separation, material segmentation, and glare classification, although in diffuse/specular separation the learned scale performs only on par with the constant control.",
    "affiliations": [
     "National University of Singapore",
@@ -5016,7 +5016,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.07609v1",
+   "html_url": "https://arxiv.org/html/2610.07609v2",
    "abstract": "Neural simulation of high-fidelity deformable bodies is a foundational challenge in computer graphics and physical AI. Long-horizon prediction for high-resolution 3D volumetric meshes is hard: autoregressive methods are susceptible to error accumulation, while direct multi-frame prediction at native resolution is computationally prohibitive. This motivates a compact spatiotemporal latent representation, which is largely unexplored for mesh-based volumetric physics. Meanwhile, it remains unclear whether deterministic regression or generative diffusion is the more appropriate predictive paradigm. To address these coupled challenges, we introduce PhysLDM, a unified latent-diffusion paradigm for one-shot volumetric deformable simulation. Its core is a holistic spatiotemporal VAE that avoids the \"staircase\" artifacts of standard temporal compression (as in common video VAEs), achieving ~2.48 mm reconstruction precision on meter-scale scenes at up to 78x token compression. Based on this reliable latent space, we systematically compare regression and diffusion methods. Our experiments uncover a key modeling insight: complex deformable dynamics are often chaotic, and in this regime deterministic regression tends to produce non-physical averages, whereas diffusion better models their distribution. Accordingly, we employ a latent diffusion model that effectively learns from the chaotic data to generate physically plausible trajectories. Trained purely kinematically on an Objaverse-scale dataset, a single PhysLDM generalizes zero-shot to unseen OOD datasets (GSO and Toys4K). Its differentiability further enables efficient solution of inverse problems and higher-order design optimization. To our knowledge, PhysLDM is the first high-fidelity spatiotemporal autoencoder and latent-diffusion paradigm for volumetric deformable dynamics, offering a scalable and robust approach to neural simulation.",
    "affiliations": [],
    "author_affiliations": null,
@@ -8122,7 +8122,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2610.08133v1",
+   "html_url": "https://arxiv.org/html/2610.08133v2",
    "abstract": "Vision-Language-Action (VLA) models achieve strong robotic manipulation performance but incur high computational costs from processing long token sequences at every control step, limiting real-time deployment. Visual token pruning offers a direct solution, as visual patches dominate the input sequence and contain considerable redundancy. Existing approaches, however, either rely on indirect training-free heuristics, such as attention scores and motion thresholds, or require costly fine-tuning of the base VLA model. We introduce VLA-ACL (Action Consistency Learning), which learns a lightweight visual token pruning policy through action-level supervision while keeping the base VLA model entirely frozen. The training objective encourages actions produced from pruned visual contexts to remain consistent with the full-context teacher, with ground-truth actions as auxiliary supervision. This directly ties token selection to its effect on the downstream control output. Experiments on LIBERO and real-world manipulation tasks show that VLA-ACL prunes up to 87.5% of visual tokens while retaining competitive performance, reduces computation by up to 75%, and achieves a 1.5x inference speedup. These results establish a stronger performance-efficiency trade-off than existing frozen-VLA pruning methods and demonstrate the value of action-level supervision for visual token selection. Code is available at https://github.com/du-owen/VLA-ACL.",
    "affiliations": [
     "ETH Zurich",
@@ -9515,7 +9515,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2610.06955v1",
+   "html_url": "https://arxiv.org/html/2610.06955v2",
    "abstract": "Humans inherently understand the physical world through an active process. When sensory evidence is insufficient to infer physical properties, we naturally interact with the environment by deciding what information is missing, how to acquire it, and when sufficient evidence has been obtained. In stark contrast, existing multi-sensory robot systems mainly integrate sensory inputs rather than actively acquiring missing evidence through interactions. In this work, we introduce ROMA, an LLM-based system for Real-World Object-Centric Multi-Sensory Active Perception. ROMA integrates vision, audio, tactile, and force sensing into a reasoning-interaction-feedback loop. The model identifies missing evidence and determines the target objects, interactions, and modalities, while a physical interface executes the selected interactions and collects the multi-sensory feedback. To support this capability, we construct ROMI-2K, a large-scale real-world multi-sensory object interaction dataset covering nearly 2,000 objects and 6 atomic interactions with synchronized sensory feedback. Building on these data, we develop a two-stage training framework that aligns sensory modalities and equips the LLM to assess evidence sufficiency, select informative interactions, and reason over the multi-sensory feedback. We further characterize active perception as perception chains, where acquired evidence guides subsequent interactions and reasoning, and establish ROMA Bench to evaluate single-attribute, long-horizon multi-attribute, and intent-driven active perception. Experiments show that ROMA can actively acquire missing evidence and solve complex, long-chain multi-sensory perception tasks that existing methods struggle to handle, laying a strong perceptual foundation for active multi-sensory embodied agents.",
    "affiliations": [],
    "author_affiliations": null,
