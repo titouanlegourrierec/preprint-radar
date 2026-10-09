@@ -276,6 +276,13 @@ abstracts held a macro, and the search matched "textbf" for "text" (SRCH-19, dec
 - Math symbols give their character (`\times`, `\pm`, `\le`, Greek letters, `^\circ`), accents
   their letter (`B$\acute{\rm e}$zier`, `Schr\"odinger`), and `18--20` an en dash. A formula
   left with text only loses its dollars (`$\sim$18%` is "~18%"); one that still holds markup
-  keeps them (`$S^2\times S^1$`). Math is not rendered.
+  keeps them (`$S^2\times S^1$`). Math is not rendered. A formula of text only loses them
+  before the groups go, or a group around it keeps its braces (`{8$\times$}` gave "{8×}",
+  2609.23733; four stored abstracts).
+- `make venues` reads stored abstracts, plain already, again: a second reading leaves them
+  as they are (`test_latex.py` checks it for every case). An escaped dollar is a price, and
+  plain text keeps it bare, so two dollars are no formula when what lies between holds a
+  space and the second is followed by a digit (`$300,000 ($26,000 vs. $320,000)`,
+  2310.00426, lost its prices to it); a symbol still is one (`$\sim$18`).
 - A paper's own macros (`\method`, `\ours`) stay as written: nothing says what they stand for.
   About 240 abstracts keep a backslash so, or in a formula.

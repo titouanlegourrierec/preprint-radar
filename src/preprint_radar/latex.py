@@ -183,7 +183,10 @@ _MACRO_END_RE = re.compile(r"\\[A-Za-z]+\*?$")
 _DEGREE_RE = re.compile(r"\^\s*\{?\s*\\circ\s*\}?")
 _UNICODE_RE = re.compile(r"\\unicode\{x?([0-9A-Fa-f]{2,6})\}")
 _INLINE_MATH_RE = re.compile(r"\\\((.*?)\\\)")
-_MATH_RE = re.compile(r"\$([^$]*)\$")
+# A formula: what lies between two dollars, but for prices, which `make venues` meets in
+# abstracts already plain ("$300,000 ($26,000 vs. $320,000)", 2310.00426): no formula holds
+# spaces and is followed by a digit, as a symbol is ("$\sim$18").
+_MATH_RE = re.compile(r"\$((?=[^$]*\$(?!\d))[^$]*|[^$\s]*)\$")
 # What a formula holds once it is more than text.
 _MARKUP_RE = re.compile(r"[\\^_{}]")
 # A range between numbers: "18--20"; and a dash: "efficiency---gains".
@@ -208,11 +211,17 @@ def plain_text(text: str) -> str:
     while (grouped := _FONT_GROUP_RE.sub(r"{\1}", text)) != text:
         text = grouped
     text = _SYMBOL_ACCENT_RE.sub(lambda match: _accented(match[2] or match[3], match[1]), text)
-    text = _outside_math(_macros(text), _ungrouped)
+    # A formula of text only is text before groups go, or "{8$\times$}" keeps its braces.
+    text = _outside_math(_text_formulas(_macros(text)), _ungrouped)
     text = _ESCAPE_RE.sub(lambda match: _ESCAPES[match[1]], text)
-    text = _MATH_RE.sub(lambda match: match[0] if _MARKUP_RE.search(match[1]) else match[1], text)
+    text = _text_formulas(text)
     text = _DASH_RE.sub("\N{EM DASH}", _RANGE_RE.sub("\N{EN DASH}", text))
     return " ".join(text.split()).replace(_DOLLAR, "$")
+
+
+def _text_formulas(text: str) -> str:
+    """The text with each formula that holds no markup as its text, without its dollars."""
+    return _MATH_RE.sub(lambda match: match[0] if _MARKUP_RE.search(match[1]) else match[1], text)
 
 
 def _ungrouped(text: str) -> str:

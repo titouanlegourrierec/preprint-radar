@@ -54,6 +54,9 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ### Fixes
 
+- `make venues` no longer takes the prices of an abstract for formulas ("saving nearly
+  $300,000" lost its dollar), and a group around a formula loses its braces when the
+  abstract is read: "an 8× speedup", not "an {8×} speedup" (SRCH-19).
 - A list of mailbox names cut across two nodes of a page, or holding an underscore
   ("{pau.rodriguez,...,michal_klein,", then "Apple"), no longer ends up in an affiliation:
   the first run over the highly cited papers' pages stored one, which `validate` refused

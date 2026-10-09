@@ -64,6 +64,18 @@ from preprint_radar.latex import plain_text
             id="escapes",
         ),
         pytest.param(r"efficiency---gains, \(k\) grows", "efficiency\N{EM DASH}gains, k grows", id="dashes"),
+        pytest.param(
+            r"an {8$\times$} speedup, at {$64\times64$}, {i.e., GTA5 $\rightarrow$ Cityscapes}",
+            "an 8\N{MULTIPLICATION SIGN} speedup, at 64\N{MULTIPLICATION SIGN}64, "
+            "i.e., GTA5 \N{RIGHTWARDS ARROW} Cityscapes",
+            id="group-of-a-formula",
+        ),
+        pytest.param(
+            # Plain already, as `make venues` reads stored abstracts: prices, not formulas.
+            "saving nearly $300,000 ($26,000 vs. $320,000), at $5.95 per subject, or $8.38",
+            "saving nearly $300,000 ($26,000 vs. $320,000), at $5.95 per subject, or $8.38",
+            id="prices",
+        ),
         pytest.param("SLAug . Spaces  stay\nwritten", "SLAug . Spaces stay written", id="spaces"),
         pytest.param(r"\textbf{unclosed and \url", r"\textbf{unclosed and \url", id="malformed"),
         pytest.param(
@@ -75,3 +87,5 @@ from preprint_radar.latex import plain_text
 )
 def test_plain_text(abstract: str, plain: str) -> None:
     assert plain_text(abstract) == plain
+    # `make venues` reads the stored abstracts again: plain text stays as it is.
+    assert plain_text(plain) == plain
