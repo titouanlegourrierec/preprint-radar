@@ -306,160 +306,178 @@ export function PaperCard({
           </p>
         )}
 
-        <footer class="paper__meta">
-          {paper.withdrawn && (
-            <span
-              class="badge badge--withdrawn"
-              title="Its authors withdrew it from arXiv; its comments say why"
-            >
-              Withdrawn
-            </span>
-          )}
-          {paper.venue && (
-            <span
-              class={`badge${paper.venue.endsWith("Workshop") ? " badge--muted" : ""}`}
-              title={paper.comments ?? paper.journal_ref ?? undefined}
-            >
-              <Highlighted text={paper.venue} terms={highlights} />
-            </span>
-          )}
-          <span>{formatDay(paper.announced)}</span>
-          {firstVersion !== null && (
-            <span
-              class="badge badge--muted"
-              title={`First submitted to arXiv in ${firstVersion}, announced here on ${formatDay(paper.announced)}`}
-            >
-              first version {firstVersion}
-            </span>
-          )}
-          {shownCitations !== undefined && (
-            <span
-              class={`citations${shownCitations > 0 ? " citations--some" : ""}`}
-              title={citationsNote}
-            >
-              {countOf(shownCitations, "citation")}
-            </span>
-          )}
-          {gain && (
-            <span class="citations citations--gain" title={gain.title}>
-              {gain.text}
-            </span>
-          )}
-          {subject && <span title={paper.primary_subject ?? undefined}>{subject}</span>}
-          <a
-            aria-describedby={titleId}
-            href={paper.pdf_url}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <PdfIcon />
-            PDF
-          </a>
-          {paper.html_url && (
+        <footer class="paper__footer">
+          <div class="paper__meta">
+            {paper.withdrawn && (
+              <span
+                class="badge badge--withdrawn"
+                title="Its authors withdrew it from arXiv; its comments say why"
+              >
+                Withdrawn
+              </span>
+            )}
+            {paper.venue && (
+              <span
+                class={`badge${paper.venue.endsWith("Workshop") ? " badge--muted" : ""}`}
+                title={paper.comments ?? paper.journal_ref ?? undefined}
+              >
+                <Highlighted text={paper.venue} terms={highlights} />
+              </span>
+            )}
+            <span>{formatDay(paper.announced)}</span>
+            {firstVersion !== null && (
+              <span
+                class="badge badge--muted"
+                title={`First submitted to arXiv in ${firstVersion}, announced here on ${formatDay(paper.announced)}`}
+              >
+                first version {firstVersion}
+              </span>
+            )}
+            {shownCitations !== undefined && (
+              <span
+                class={`citations${shownCitations > 0 ? " citations--some" : ""}`}
+                title={citationsNote}
+              >
+                {countOf(shownCitations, "citation")}
+              </span>
+            )}
+            {gain && (
+              <span class="citations citations--gain" title={gain.title}>
+                {gain.text}
+              </span>
+            )}
+            {subject && <span title={paper.primary_subject ?? undefined}>{subject}</span>}
+          </div>
+          <div class="paper__actions">
             <a
+              class="action"
               aria-describedby={titleId}
-              href={paper.html_url}
+              href={paper.pdf_url}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <HtmlIcon />
-              HTML
+              <PdfIcon />
+              PDF
             </a>
-          )}
-          {paper.doi && (
+            {paper.html_url && (
+              <a
+                class="action"
+                aria-describedby={titleId}
+                href={paper.html_url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <HtmlIcon />
+                HTML
+              </a>
+            )}
+            {paper.doi && (
+              <a
+                class="action"
+                aria-describedby={titleId}
+                href={`https://doi.org/${paper.doi}`}
+                title="The published version"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <BrandIcon brand="doi" />
+                DOI
+              </a>
+            )}
+            {code && (
+              // The stars of the code joined to its link, one badge (PROD-18).
+              <span class="action-group">
+                <a
+                  class="action"
+                  aria-describedby={titleId}
+                  href={code}
+                  title={code}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <BrandIcon brand={codeHost(code)} />
+                  Code
+                </a>
+                {badge && (
+                  <span
+                    class={`action action--count stars${badge.shared ? " stars--shared" : ""}`}
+                    title={badge.title}
+                  >
+                    <span aria-hidden="true" class="stars__symbol">
+                      {badge.symbol}
+                    </span>{" "}
+                    {badge.count}
+                    <span class="visually-hidden"> {badge.noun}</span>
+                    {badge.gained && <span class="stars__gained"> {badge.gained}</span>}
+                    {badge.shared && <span class="stars__shared"> shared</span>}
+                  </span>
+                )}
+              </span>
+            )}
+            <button type="button" aria-describedby={titleId} class="action" onClick={copyBibtex}>
+              <CiteIcon />
+              {bibtex === "copied" ? "Copied!" : bibtex === "downloaded" ? "Downloaded" : "BibTeX"}
+            </button>
             <a
+              class="action"
               aria-describedby={titleId}
-              href={`https://doi.org/${paper.doi}`}
-              title="The published version"
-              target="_blank"
-              rel="noopener noreferrer"
+              href={permalink}
+              title="Copy a link to this paper"
+              onClick={copyLink}
             >
-              <BrandIcon brand="doi" />
-              DOI
+              <LinkIcon />
+              {linkCopied ? "Copied!" : "Share"}
             </a>
-          )}
-          {code && (
-            <a
-              aria-describedby={titleId}
-              href={code}
-              title={code}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <BrandIcon brand={codeHost(code)} />
-              Code
-            </a>
-          )}
-          {badge && (
-            <span class={`stars${badge.shared ? " stars--shared" : ""}`} title={badge.title}>
-              <span aria-hidden="true">{badge.symbol}</span> {badge.count}
-              <span class="visually-hidden"> {badge.noun}</span>
-              {badge.gained && <span class="stars__gained"> {badge.gained}</span>}
-              {badge.shared && <span class="stars__shared"> shared</span>}
-            </span>
-          )}
-          <button type="button" aria-describedby={titleId} class="link-button" onClick={copyBibtex}>
-            <CiteIcon />
-            {bibtex === "copied" ? "Copied!" : bibtex === "downloaded" ? "Downloaded" : "BibTeX"}
-          </button>
-          <a
-            aria-describedby={titleId}
-            href={permalink}
-            title="Copy a link to this paper"
-            onClick={copyLink}
-          >
-            <LinkIcon />
-            {linkCopied ? "Copied!" : "Share"}
-          </a>
-          {onShowInGraph && (
+            {onShowInGraph && (
+              <button
+                type="button"
+                aria-describedby={titleId}
+                class="action"
+                title="Show this paper in the graph, with its institutions"
+                onClick={() => onShowInGraph(paper)}
+              >
+                <GraphIcon />
+                Graph
+              </button>
+            )}
+            {onToggleSeen && (
+              <button
+                type="button"
+                aria-describedby={titleId}
+                class="action"
+                aria-pressed={seen}
+                title="Seen papers are dimmed, and can be hidden (key x)"
+                onClick={() => onToggleSeen(paper.arxiv_id)}
+              >
+                {/* One name, "Seen", its state said by aria-pressed; the mark is for the eye. */}
+                <EyeIcon />
+                Seen{seen && <span aria-hidden="true"> ✓</span>}
+              </button>
+            )}
             <button
               type="button"
               aria-describedby={titleId}
-              class="link-button"
-              title="Show this paper in the graph, with its institutions"
-              onClick={() => onShowInGraph(paper)}
+              class="action action--quiet paper__more"
+              aria-expanded={expanded}
+              onClick={() => {
+                if (expanded && isTarget) onClose();
+                setExpanded(!expanded);
+              }}
             >
-              <GraphIcon />
-              Graph
+              {expanded ? "Less" : "More"}
+              <ChevronIcon up={expanded} />
             </button>
-          )}
-          {onToggleSeen && (
-            <button
-              type="button"
-              aria-describedby={titleId}
-              class="link-button"
-              aria-pressed={seen}
-              title="Seen papers are dimmed, and can be hidden (key x)"
-              onClick={() => onToggleSeen(paper.arxiv_id)}
-            >
-              {/* One name, "Seen", its state said by aria-pressed; the mark is for the eye. */}
-              <EyeIcon />
-              Seen{seen && <span aria-hidden="true"> ✓</span>}
-            </button>
-          )}
-          <button
-            type="button"
-            aria-describedby={titleId}
-            class="link-button paper__more"
-            aria-expanded={expanded}
-            onClick={() => {
-              if (expanded && isTarget) onClose();
-              setExpanded(!expanded);
-            }}
-          >
-            {expanded ? "Less" : "More"}
-            <ChevronIcon up={expanded} />
-          </button>
-          {/* What a copy did, said to screen readers: the buttons' text changes silently. */}
-          <span class="visually-hidden" role="status">
-            {bibtex === "copied"
-              ? "BibTeX copied"
-              : bibtex === "downloaded"
-                ? "BibTeX downloaded: the clipboard was refused"
-                : linkCopied
-                  ? "Link copied"
-                  : ""}
-          </span>
+            {/* What a copy did, said to screen readers: the buttons' text changes silently. */}
+            <span class="visually-hidden" role="status">
+              {bibtex === "copied"
+                ? "BibTeX copied"
+                : bibtex === "downloaded"
+                  ? "BibTeX downloaded: the clipboard was refused"
+                  : linkCopied
+                    ? "Link copied"
+                    : ""}
+            </span>
+          </div>
         </footer>
       </div>
 

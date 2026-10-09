@@ -844,8 +844,12 @@ html {
   white-space: nowrap;
 }
 
+.stars__symbol {
+  color: var(--star);
+}
+
 .stars__gained {
-  color: var(--accent);
+  color: var(--text);
 }
 
 .stars__shared {
@@ -975,24 +979,28 @@ html {
   font-style: italic;
 }
 
+/* What a card says of its paper, then what it offers (UX-28), a row each. */
+.paper__footer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 6px;
+}
+
 .paper__meta {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 4px 14px;
-  margin-top: 6px;
   font-size: 0.8rem;
   color: var(--text-muted);
 }
 
-.paper__meta a,
-.paper__meta .link-button {
-  /* Each with its icon before its name (UX-28), on one line. */
-  display: inline-flex;
+.paper__actions {
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 0.3em;
-  white-space: nowrap;
-  color: var(--accent);
+  gap: 6px;
 }
 
 /* An icon beside a control's name (`components/icons.tsx`): in its color, at its size. */
@@ -1000,6 +1008,73 @@ html {
   flex-shrink: 0;
   width: 1.15em;
   height: 1.15em;
+}
+
+/* A card's links and controls as badges (UX-28): neutral, so that the facts above keep the
+   color; their name in the text color, their icon muted. Not text: never underlined. */
+.action {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 26px;
+  padding: 2px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 120ms,
+    border-color 120ms;
+}
+
+.action:hover,
+.action[aria-pressed="true"] {
+  border-color: var(--border-strong);
+  background: var(--surface-muted);
+  text-decoration: none;
+}
+
+.action .icon {
+  color: var(--text-muted);
+}
+
+.action:hover .icon {
+  color: var(--text);
+}
+
+/* More and Less: a fold, not a destination, so without the badge's outline. */
+.action--quiet {
+  border-color: transparent;
+  background: none;
+  color: var(--text-muted);
+}
+
+/* Code and its stars, one badge in two parts: the link, then the count, which is not one. */
+.action-group {
+  display: inline-flex;
+}
+
+.action-group > .action:first-child:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.action--count,
+.action--count:hover {
+  margin-left: -1px;
+  border-color: var(--border);
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  background: var(--surface-muted);
+  color: var(--text-muted);
+  cursor: default;
 }
 
 .icon-button {
@@ -1717,8 +1792,8 @@ html {
   .active-filters .chip [aria-hidden="true"],
   .rankings__controls,
   .paper .icon-button,
-  .paper__meta a,
-  .paper__meta button,
+  .paper__actions a,
+  .paper__actions button,
   .paper__elsewhere,
   .paper__report,
   .graph {
