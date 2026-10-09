@@ -8,6 +8,12 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ## Unreleased
 
+## 0.7.0 (2026-10-09): the stars of the code, and the last 12 months of Highly cited
+
+The second set of features of Phase 4: the code a paper links and its GitHub stars, the
+most cited papers of the last 12 months, the affiliations of the highly cited ones from
+their published versions and pages, and cards whose links are badges.
+
 ### Code
 
 - A card's links and controls are badges, on a row of their own under its facts, neutral
