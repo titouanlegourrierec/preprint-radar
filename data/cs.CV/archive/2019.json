@@ -28992,15 +28992,130 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "The number of biomedical image analysis challenges organized per year is steadily increasing. These international competitions have the purpose of benchmarking algorithms on common data sets, typically to identify the best method for a given problem. Recent research, however, revealed that common practice related to challenge reporting does not allow for adequate interpretation and reproducibility of results. To address the discrepancy between the impact of challenges and the quality (control), the Biomedical I mage Analysis ChallengeS (BIAS) initiative developed a set of recommendations for the reporting of challenges. The BIAS statement aims to improve the transparency of the reporting of a biomedical image analysis challenge regardless of field of application, image modality or task category assessed. This article describes how the BIAS statement was developed and presents a checklist which authors of biomedical image analysis challenges are encouraged to include in their submission when giving a paper on a challenge into review. The purpose of the checklist is to standardize and facilitate the review process and raise interpretability and reproducibility of challenge results by making relevant information explicit.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "German Cancer Research Center",
+    "Masaryk University",
+    "University of Toronto",
+    "Sunnybrook Research Institute",
+    "McGill University",
+    "TU Wien",
+    "Complexity Science Hub",
+    "Inserm",
+    "Laboratoire Traitement du Signal et de l'Image",
+    "Université Rennes 1",
+    "Université de Rennes",
+    "University of Geneva",
+    "HES-SO University of Applied Sciences and Arts Western Switzerland",
+    "HES-SO Genève",
+    "Heidelberg University",
+    "University Hospital Heidelberg",
+    "RWTH Aachen University",
+    "Radboud University Nijmegen",
+    "Radboud University Medical Center",
+    "Vanderbilt University"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     4
+    ],
+    [
+     0
+    ],
+    [
+     5,
+     6
+    ],
+    [
+     7,
+     8,
+     9,
+     10
+    ],
+    [
+     11,
+     12,
+     13
+    ],
+    [
+     0
+    ],
+    [
+     14,
+     15,
+     16
+    ],
+    [
+     17,
+     18
+    ],
+    null,
+    [
+     19
+    ]
+   ],
+   "institutions": [
+    "German Cancer Research Center",
+    "Masaryk University",
+    "University of Toronto",
+    "Sunnybrook Research Institute",
+    "McGill University",
+    "TU Wien",
+    "Complexity Science Hub",
+    "Inserm",
+    "Laboratoire Traitement du Signal et de l'Image",
+    "Université Rennes 1",
+    "Université de Rennes",
+    "University of Geneva",
+    "HES-SO University of Applied Sciences and Arts Western Switzerland",
+    "HES-SO Genève",
+    "Heidelberg University",
+    "University Hospital Heidelberg",
+    "RWTH Aachen University",
+    "Radboud University Nijmegen",
+    "Radboud University Medical Center",
+    "Vanderbilt University"
+   ],
+   "institution_ids": [
+    "04cdgtt98",
+    "02j46qs45",
+    "03dbr7087",
+    "05n0tzs53",
+    "01pxwe438",
+    "04d836q62",
+    "023dz9m50",
+    "02vjkv261",
+    "01f1amm71",
+    "00crteh33",
+    "015m7wh34",
+    "01swzsf04",
+    "01xkakk17",
+    "007gfwn20",
+    "038t36y30",
+    "013czdx64",
+    "04xfq0f34",
+    "016xsfp80",
+    "05wg1m734",
+    "02vm5rt34"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1910.04071",
@@ -101480,15 +101595,43 @@
    "cross_list_from": "stat.ML",
    "html_url": null,
    "abstract": "This study investigates the effects of Markov chain Monte Carlo (MCMC) sampling in unsupervised Maximum Likelihood (ML) learning. Our attention is restricted to the family of unnormalized probability densities for which the negative log density (or energy function) is a ConvNet. We find that many of the techniques used to stabilize training in previous studies are not necessary. ML learning with a ConvNet potential requires only a few hyper-parameters and no regularization. Using this minimal framework, we identify a variety of ML learning outcomes that depend solely on the implementation of MCMC sampling. On one hand, we show that it is easy to train an energy-based model which can sample realistic images with short-run Langevin. ML can be effective and stable even when MCMC samples have much higher energy than true steady-state samples throughout training. Based on this insight, we introduce an ML method with purely noise-initialized MCMC, high-quality short-run synthesis, and the same budget as ML with informative MCMC initialization such as CD or PCD. Unlike previous models, our energy model can obtain realistic high-diversity samples from a noise signal after training. On the other hand, ConvNet potentials learned with non-convergent MCMC do not have a valid steady-state and cannot be considered approximate unnormalized densities of the training data because long-run MCMC samples differ greatly from observed images. We show that it is much harder to train a ConvNet potential to learn a steady-state over realistic images. To our knowledge, long-run MCMC samples of all previous models lose the realism of short-run samples. With correct tuning of Langevin noise, we train the first ConvNet potentials for which long-run and steady-state MCMC samples are realistic images.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of California, Los Angeles",
+    "Stevens Institute of Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of California, Los Angeles",
+    "Stevens Institute of Technology"
+   ],
+   "institution_ids": [
+    "046rm7j60",
+    "02z43xh36"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/1903.12370",

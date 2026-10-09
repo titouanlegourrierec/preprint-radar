@@ -1605,17 +1605,55 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.15059v1",
    "abstract": "Recent advances in neural radiance fields enable novel view synthesis of photo-realistic images in dynamic settings, which can be applied to scenarios with human animation. Commonly used implicit backbones to establish accurate models, however, require many input views and additional annotations such as human masks, UV maps and depth maps. In this work, we propose ParDy-Human (Parameterized Dynamic Human Avatar), a fully explicit approach to construct a digital avatar from as little as a single monocular sequence. ParDy-Human introduces parameter-driven dynamics into 3D Gaussian Splatting where 3D Gaussians are deformed by a human pose model to animate the avatar. Our method is composed of two parts: A first module that deforms canonical 3D Gaussians according to SMPL vertices and a consecutive module that further takes their designed joint encodings and predicts per Gaussian deformations to deal with dynamics beyond SMPL vertex deformations. Images are then synthesized by a rasterizer. ParDy-Human constitutes an explicit model for realistic dynamic human avatars which requires significantly fewer training views and images. Our avatars learning is free of additional annotations such as masks and can be trained with variable backgrounds while inferring full-resolution images efficiently even on consumer hardware. We provide experimental evidence to show that ParDy-Human outperforms state-of-the-art methods on ZJU-MoCap and THUman4.0 datasets both quantitatively and visually.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Technical University of Munich",
+    "Huawei Noah’s Ark Lab"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Technical University of Munich",
+    "Huawei"
+   ],
+   "institution_ids": [
+    "02kkvpp62",
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.15059",
@@ -2375,17 +2413,42 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.12436v1",
    "abstract": "The surge of interest towards Multi-modal Large Language Models (MLLMs), e.g., GPT-4V(ision) from OpenAI, has marked a significant trend in both academia and industry. They endow Large Language Models (LLMs) with powerful capabilities in visual understanding, enabling them to tackle diverse multi-modal tasks. Very recently, Google released Gemini, its newest and most capable MLLM built from the ground up for multi-modality. In light of the superior reasoning capabilities, can Gemini challenge GPT-4V's leading position in multi-modal learning? In this paper, we present a preliminary exploration of Gemini Pro's visual understanding proficiency, which comprehensively covers four domains: fundamental perception, advanced cognition, challenging vision tasks, and various expert capacities. We compare Gemini Pro with the state-of-the-art GPT-4V to evaluate its upper limits, along with the latest open-sourced MLLM, Sphinx, which reveals the gap between manual efforts and black-box systems. The qualitative samples indicate that, while GPT-4V and Gemini showcase different answering styles and preferences, they can exhibit comparable visual reasoning capabilities, and Sphinx still trails behind them concerning domain generalizability. Specifically, GPT-4V tends to elaborate detailed explanations and intermediate steps, and Gemini prefers to output a direct and concise answer. The quantitative evaluation on the popular MME benchmark also demonstrates the potential of Gemini to be a strong challenger to GPT-4V. Our early investigation of Gemini also observes some common issues of MLLMs, indicating that there still remains a considerable distance towards artificial general intelligence. Our project for tracking the progress of MLLM is released at https://github.com/BradyFU/Awesome-Multimodal-Large-Language-Models.",
-   "affiliations": [],
+   "affiliations": [
+    "Tencent Youtu Lab",
+    "Xiamen University",
+    "ECNU",
+    "Shanghai AI Laboratory",
+    "USTC",
+    "Peking University"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Tencent",
+    "Xiamen University",
+    "ECNU",
+    "Shanghai Artificial Intelligence Laboratory",
+    "University of Science and Technology of China",
+    "Peking University"
+   ],
+   "institution_ids": [
+    null,
+    "00mcjh785",
+    null,
+    "03wkvpx79",
+    null,
+    "02v51f717"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.12436",
@@ -2633,17 +2696,63 @@
    "journal_ref": null,
    "venue": "NeurIPS 2023",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.12425v1",
    "abstract": "In this paper, we explore a principal way to enhance the quality of object masks produced by different segmentation models. We propose a model-agnostic solution called SegRefiner, which offers a novel perspective on this problem by interpreting segmentation refinement as a data generation process. As a result, the refinement process can be smoothly implemented through a series of denoising diffusion steps. Specifically, SegRefiner takes coarse masks as inputs and refines them using a discrete diffusion process. By predicting the label and corresponding states-transition probabilities for each pixel, SegRefiner progressively refines the noisy masks in a conditional denoising manner. To assess the effectiveness of SegRefiner, we conduct comprehensive experiments on various segmentation tasks, including semantic segmentation, instance segmentation, and dichotomous image segmentation. The results demonstrate the superiority of our SegRefiner from multiple aspects. Firstly, it consistently improves both the segmentation metrics and boundary metrics across different types of coarse masks. Secondly, it outperforms previous model-agnostic refinement methods by a significant margin. Lastly, it exhibits a strong capability to capture extremely fine details when refining high-resolution images. The source code and trained models are available at https://github.com/MengyuWang826/SegRefiner.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Institute of Information Science, Beijing Jiaotong University",
+    "Beijing Key Laboratory of Advanced Information Science and Network",
+    "Nanyang Technological University",
+    "ByteDance",
+    "Peng Cheng Laboratory"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     3
+    ],
+    [
+     0,
+     4,
+     1
+    ],
+    [
+     0,
+     4,
+     1
+    ]
+   ],
+   "institutions": [
+    "Beijing Jiaotong University",
+    "Beijing Key Laboratory of Advanced Information Science and Network",
+    "Nanyang Technological University",
+    "ByteDance",
+    "Peng Cheng Laboratory"
+   ],
+   "institution_ids": [
+    "01yj56c84",
+    null,
+    "02e7b5302",
+    null,
+    "03qdqbt06"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.12425",
@@ -4101,17 +4210,49 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.09579v1",
    "abstract": "Segment anything model (SAM) addresses two practical yet challenging segmentation tasks: segment anything (SegAny), which utilizes a certain point to predict the mask for a single object of interest, and segment everything (SegEvery), which predicts the masks for all objects on the image. What makes SegAny slow for SAM is its heavyweight image encoder, which has been addressed by MobileSAM via decoupled knowledge distillation. The efficiency bottleneck of SegEvery with SAM, however, lies in its mask decoder because it needs to first generate numerous masks with redundant grid-search prompts and then perform filtering to obtain the final valid masks. We propose to improve its efficiency by directly generating the final masks with only valid prompts, which can be obtained through object discovery. Our proposed approach not only helps reduce the total time on the mask decoder by at least 16 times but also achieves superior performance. Specifically, our approach yields an average performance boost of 3.6% (42.5% v.s. 38.9%) for zero-shot object proposal on the LVIS dataset with the mask AR@K metric. Qualitative results show that our approach generates fine-grained masks while avoiding over-segmenting things. This project targeting faster SegEvery than the original SAM is termed MobileSAMv2 to differentiate from MobileSAM which targets faster SegAny. Moreover, we demonstrate that our new prompt sampling is also compatible with the distilled image encoders in MobileSAM, contributing to a unified framework for efficient SegAny and SegEvery. The code is available at the same link as MobileSAM Project https://github.com/ChaoningZhang/MobileSAM. \\end{abstract}",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Kyung Hee University",
+    "Nota Inc"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Kyung Hee University",
+    "Nota Inc"
+   ],
+   "institution_ids": [
+    "01zqcg218",
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.09579",
@@ -4501,17 +4642,44 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.09109v1",
    "abstract": "Consistency models have demonstrated powerful capability in efficient image generation and allowed synthesis within a few sampling steps, alleviating the high computational cost in diffusion models. However, the consistency model in the more challenging and resource-consuming video generation is still less explored. In this report, we present the VideoLCM framework to fill this gap, which leverages the concept of consistency models from image generation to efficiently synthesize videos with minimal steps while maintaining high quality. VideoLCM builds upon existing latent video diffusion models and incorporates consistency distillation techniques for training the latent consistency model. Experimental results reveal the effectiveness of our VideoLCM in terms of computational efficiency, fidelity and temporal consistency. Notably, VideoLCM achieves high-fidelity and smooth video synthesis with only four sampling steps, showcasing the potential for real-time synthesis. We hope that VideoLCM can serve as a simple yet effective baseline for subsequent research. The source code and models will be publicly available.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Alibaba Group",
+    "Key Laboratory of Image Processing and Intelligent Control, School of Artificial Intelligence and Automation, Huazhong University of Science and Technology"
+   ],
+   "author_affiliations": [
+    null,
+    null,
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    null
+   ],
+   "institutions": [
+    "Alibaba Group",
+    "Huazhong University of Science and Technology"
+   ],
+   "institution_ids": [
+    "00k642b80",
+    "00p991c53"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.09109",
@@ -5438,17 +5606,43 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.06960v1",
    "abstract": "We introduce a method to train vision-language models for remote-sensing images without using any textual annotations. Our key insight is to use co-located internet imagery taken on the ground as an intermediary for connecting remote-sensing images and language. Specifically, we train an image encoder for remote sensing images to align with the image encoder of CLIP using a large amount of paired internet and satellite images. Our unsupervised approach enables the training of a first-of-its-kind large-scale vision language model (VLM) for remote sensing images at two different resolutions. We show that these VLMs enable zero-shot, open-vocabulary image classification, retrieval, segmentation and visual question answering for satellite images. On each of these tasks, our VLM trained without textual annotations outperforms existing VLMs trained with supervision, with gains of up to 20% for classification and 80% for segmentation.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Cornell University, Ithaca, NY",
+    "Columbia University, New York, NY"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    null,
+    null,
+    [
+     0,
+     1
+    ],
+    null,
+    null
+   ],
+   "institutions": [
+    "Cornell University",
+    "Columbia University"
+   ],
+   "institution_ids": [
+    "05bnh6r87",
+    "00hj8s172"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.06960",
@@ -5654,17 +5848,50 @@
    "journal_ref": null,
    "venue": "NeurIPS 2023",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.06647v1",
    "abstract": "Current machine learning models for vision are often highly specialized and limited to a single modality and task. In contrast, recent large language models exhibit a wide range of capabilities, hinting at a possibility for similarly versatile models in computer vision. In this paper, we take a step in this direction and propose a multimodal training scheme called 4M. It consists of training a single unified Transformer encoder-decoder using a masked modeling objective across a wide range of input/output modalities - including text, images, geometric, and semantic modalities, as well as neural network feature maps. 4M achieves scalability by unifying the representation space of all modalities through mapping them into discrete tokens and performing multimodal masked modeling on a small randomized subset of tokens. 4M leads to models that exhibit several key capabilities: (1) they can perform a diverse set of vision tasks out of the box, (2) they excel when fine-tuned for unseen downstream tasks or new input modalities, and (3) they can function as a generative model that can be conditioned on arbitrary modalities, enabling a wide variety of expressive multimodal editing capabilities with remarkable flexibility. Through experimental analyses, we demonstrate the potential of 4M for training versatile and scalable foundation models for vision tasks, setting the stage for further exploration in multimodal learning for vision and other domains.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Swiss Federal Institute of Technology Lausanne (EPFL)",
+    "Apple"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "École Polytechnique Fédérale de Lausanne",
+    "Apple"
+   ],
+   "institution_ids": [
+    "02s376052",
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.06647",
@@ -6540,17 +6767,46 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.05038v1",
    "abstract": "Image restoration, which aims to retrieve and enhance degraded images, is fundamental across a wide range of applications. While conventional deep learning approaches have notably improved the image quality across various tasks, they still suffer from (i) the high storage cost needed for various task-specific models and (ii) the lack of interactivity and flexibility, hindering their wider application. Drawing inspiration from the pronounced success of prompts in both linguistic and visual domains, we propose novel Prompt-In-Prompt learning for universal image restoration, named PIP. First, we present two novel prompts, a degradation-aware prompt to encode high-level degradation knowledge and a basic restoration prompt to provide essential low-level information. Second, we devise a novel prompt-to-prompt interaction module to fuse these two prompts into a universal restoration prompt. Third, we introduce a selective prompt-to-feature interaction module to modulate the degradation-related feature. By doing so, the resultant PIP works as a plug-and-play module to enhance existing restoration models for universal image restoration. Extensive experimental results demonstrate the superior performance of PIP on multiple restoration tasks, including image denoising, deraining, dehazing, deblurring, and low-light enhancement. Remarkably, PIP is interpretable, flexible, efficient, and easy-to-use, showing promising potential for real-world applications. The code is available at https://github.com/longzilicart/pip_universal.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Shanghai Key Lab of Intelligent Information Processing, School of Computer Science, Fudan University, Shanghai 200433, China",
+    "Institute of Science and Technology for Brain-inspired Intelligence and MOE Frontiers Centerfor Brain Science, Fudan University, Shanghai 200433, China"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Fudan University",
+    "Fudan University"
+   ],
+   "institution_ids": [
+    "013q1eq08",
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.05038",
@@ -6677,17 +6933,46 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.04965v1",
    "abstract": "Despite recent advances in inversion-based editing, text-guided image manipulation remains challenging for diffusion models. The primary bottlenecks include 1) the time-consuming nature of the inversion process; 2) the struggle to balance consistency with accuracy; 3) the lack of compatibility with efficient consistency sampling methods used in consistency models. To address the above issues, we start by asking ourselves if the inversion process can be eliminated for editing. We show that when the initial sample is known, a special variance schedule reduces the denoising step to the same form as the multi-step consistency sampling. We name this Denoising Diffusion Consistent Model (DDCM), and note that it implies a virtual inversion strategy without explicit inversion in sampling. We further unify the attention control mechanisms in a tuning-free framework for text-guided editing. Combining them, we present inversion-free editing (InfEdit), which allows for consistent and faithful editing for both rigid and non-rigid semantic changes, catering to intricate modifications without compromising on the image's integrity and explicit inversion. Through extensive experiments, InfEdit shows strong performance in various editing tasks and also maintains a seamless workflow (less than 3 seconds on one single A40), demonstrating the potential for real-time applications. Project Page: https://sled-group.github.io/InfEdit/",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Michigan",
+    "University of California, Berkeley"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Michigan",
+    "University of California, Berkeley"
+   ],
+   "institution_ids": [
+    "00jmfr291",
+    "01an7q238"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.04965",
@@ -7542,17 +7827,48 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.04393v1",
    "abstract": "Humans interact with objects all the time. Enabling a humanoid to learn human-object interaction (HOI) is a key step for future smart animation and intelligent robotics systems. However, recent progress in physics-based HOI requires carefully designed task-specific rewards, making the system unscalable and labor-intensive. This work focuses on dynamic HOI imitation: teaching humanoid dynamic interaction skills through imitating kinematic HOI demonstrations. It is quite challenging because of the complexity of the interaction between body parts and objects and the lack of dynamic HOI data. To handle the above issues, we present PhysHOI, the first physics-based whole-body HOI imitation approach without task-specific reward designs. Except for the kinematic HOI representations of humans and objects, we introduce the contact graph to model the contact relations between body parts and objects explicitly. A contact graph reward is also designed, which proved to be critical for precise HOI imitation. Based on the key designs, PhysHOI can imitate diverse HOI tasks simply yet effectively without prior knowledge. To make up for the lack of dynamic HOI scenarios in this area, we introduce the BallPlay dataset that contains eight whole-body basketball skills. We validate PhysHOI on diverse HOI tasks, including whole-body grasping and basketball skills.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Peking University",
+    "International Digital Economy Academy",
+    "Tsinghua University",
+    "Carnegie Mellon University"
+   ],
+   "author_affiliations": [
+    null,
+    null,
+    null,
+    [
+     0,
+     1,
+     2,
+     3
+    ],
+    null,
+    null
+   ],
+   "institutions": [
+    "Peking University",
+    "International Digital Economy Academy",
+    "Tsinghua University",
+    "Carnegie Mellon University"
+   ],
+   "institution_ids": [
+    "02v51f717",
+    null,
+    "03cve4549",
+    "05x2bcf33"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.04393",
@@ -8114,17 +8430,52 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.02663v1",
    "abstract": "This study investigates identity-preserving image synthesis, an intriguing task in image generation that seeks to maintain a subject's identity while adding a personalized, stylistic touch. Traditional methods, such as Textual Inversion and DreamBooth, have made strides in custom image creation, but they come with significant drawbacks. These include the need for extensive resources and time for fine-tuning, as well as the requirement for multiple reference images. To overcome these challenges, our research introduces a novel approach to identity-preserving synthesis, with a particular focus on human images. Our model leverages a direct feed-forward mechanism, circumventing the need for intensive fine-tuning, thereby facilitating quick and efficient image generation. Central to our innovation is a hybrid guidance framework, which combines stylized images, facial images, and textual prompts to guide the image generation process. This unique combination enables our model to produce a variety of applications, such as artistic portraits and identity-blended images. Our experimental results, including both qualitative and quantitative evaluations, demonstrate the superiority of our method over existing baseline models and previous works, particularly in its remarkable efficiency and ability to preserve the subject's identity with high fidelity.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Tencent"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Tencent"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.02663",
@@ -8622,17 +8973,55 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.02928v1",
    "abstract": "Despite the recent progress in text-to-video generation, existing studies usually overlook the issue that only spatial contents but not temporal motions in synthesized videos are under the control of text. Towards such a challenge, this work presents a practical system, named LivePhoto, which allows users to animate an image of their interest with text descriptions. We first establish a strong baseline that helps a well-learned text-to-image generator (i.e., Stable Diffusion) take an image as a further input. We then equip the improved generator with a motion module for temporal modeling and propose a carefully designed training pipeline to better link texts and motions. In particular, considering the facts that (1) text can only describe motions roughly (e.g., regardless of the moving speed) and (2) text may include both content and motion descriptions, we introduce a motion intensity estimation module as well as a text re-weighting module to reduce the ambiguity of text-to-motion mapping. Empirical evidence suggests that our approach is capable of well decoding motion-related textual instructions into videos, such as actions, camera movements, or even conjuring new contents from thin air (e.g., pouring water into an empty glass). Interestingly, thanks to the proposed intensity learning mechanism, our system offers users an additional control signal (i.e., the motion intensity) besides text for video customization.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "The University of Hong Kong",
+    "Alibaba Group",
+    "Ant Group"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Hong Kong",
+    "Alibaba Group",
+    "Ant Group"
+   ],
+   "institution_ids": [
+    null,
+    "00k642b80",
+    "00g5w7n47"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.02928",
@@ -10578,17 +10967,40 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.17225v1",
    "abstract": "Aided by text-to-image and text-to-video diffusion models, existing 4D content creation pipelines utilize score distillation sampling to optimize the entire dynamic 3D scene. However, as these pipelines generate 4D content from text or image inputs directly, they are constrained by limited motion capabilities and depend on unreliable prompt engineering for desired results. To address these problems, this work introduces 4DGen, a novel framework for grounded 4D content creation. We identify monocular video sequences as a key component in constructing the 4D content. Our pipeline facilitates controllable 4D generation, enabling users to specify the motion via monocular video or adopt image-to-video generations, thus offering superior control over content creation. Furthermore, we construct our 4D representation using dynamic 3D Gaussians, which permits efficient, high-resolution supervision through rendering during training, thereby facilitating high-quality 4D generation. Additionally, we employ spatial-temporal pseudo labels on anchor frames, along with seamless consistency priors implemented through 3D-aware score distillation sampling and smoothness regularizations. Compared to existing video-to-4D baselines, our approach yields superior results in faithfully reconstructing input signals and realistically inferring renderings from novel viewpoints and timesteps. More importantly, compared to previous image-to-4D and text-to-4D works, 4DGen supports grounded generation, offering users enhanced control and improved motion generation capabilities, a feature difficult to achieve with previous methods. Project page: https://vita-group.github.io/4DGen/",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Texas at Austin",
+    "Beijing Jiaotong University"
+   ],
+   "author_affiliations": [
+    null,
+    null,
+    [
+     0
+    ],
+    [
+     1
+    ],
+    null
+   ],
+   "institutions": [
+    "University of Texas at Austin",
+    "Beijing Jiaotong University"
+   ],
+   "institution_ids": [
+    null,
+    "01yj56c84"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.17225",
@@ -11006,17 +11418,39 @@
    "journal_ref": null,
    "venue": "CVPR 2024",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.16812v1",
    "abstract": "Novel view synthesis of dynamic scenes has been an intriguing yet challenging problem. Despite recent advancements, simultaneously achieving high-resolution photorealistic results, real-time rendering, and compact storage remains a formidable task. To address these challenges, we propose Spacetime Gaussian Feature Splatting as a novel dynamic scene representation, composed of three pivotal components. First, we formulate expressive Spacetime Gaussians by enhancing 3D Gaussians with temporal opacity and parametric motion/rotation. This enables Spacetime Gaussians to capture static, dynamic, as well as transient content within a scene. Second, we introduce splatted feature rendering, which replaces spherical harmonics with neural features. These features facilitate the modeling of view- and time-dependent appearance while maintaining small size. Third, we leverage the guidance of training error and coarse depth to sample new Gaussians in areas that are challenging to converge with existing pipelines. Experiments on several established real-world datasets demonstrate that our method achieves state-of-the-art rendering quality and speed, while retaining compact storage. At 8K resolution, our lite-version model can render at 60 FPS on an Nvidia RTX 4090 GPU. Our code is available at https://github.com/oppo-us-research/SpacetimeGaussians.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "OPPO US Research Center",
+    "Portland State"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    null,
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "OPPO US Research Center",
+    "Portland State"
+   ],
+   "institution_ids": [
+    null,
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.16812",
@@ -11731,17 +12165,51 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.15915v1",
    "abstract": "Multimodal Large Language Models (MLLMs) have shown impressive capabilities in image understanding and generation. However, current benchmarks fail to accurately evaluate the chart comprehension of MLLMs due to limited chart types and inappropriate metrics. To address this, we propose ChartBench, a comprehensive benchmark designed to assess chart comprehension and data reliability through complex visual reasoning. ChartBench includes 42 categories, 66.6k charts, and 600k question-answer pairs. Notably, many charts lack data point annotations, which requires MLLMs to derive values similar to human understanding by leveraging inherent chart elements such as color, legends, and coordinate systems. We also design an enhanced evaluation metric, Acc+, to evaluate MLLMs without extensive manual or costly LLM-based evaluations. Furthermore, we propose two baselines based on the chain of thought and supervised fine-tuning to improve model performance on unannotated charts. Extensive experimental evaluations of 18 open-sourced and 3 proprietary MLLMs reveal their limitations in chart comprehension and offer valuable insights for further research. Code and dataset are publicly available at https://chartbench.github.io.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "IDEA Research, International Digital Economy Academy",
+    "SIGS, Tsinghua University",
+    "The Hong Kong University of Science and Technology (Guangzhou)"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0,
+     2
+    ]
+   ],
+   "institutions": [
+    "International Digital Economy Academy",
+    "Tsinghua University",
+    "Hong Kong University of Science and Technology (Guangzhou)"
+   ],
+   "institution_ids": [
+    null,
+    "03cve4549",
+    "050h0vm43"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.15915",
@@ -11768,17 +12236,52 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.15084v1",
    "abstract": "Detailed forest inventories are critical for sustainable and flexible management of forest resources, to conserve various ecosystem services. Modern airborne laser scanners deliver high-density point clouds with great potential for fine-scale forest inventory and analysis, but automatically partitioning those point clouds into meaningful entities like individual trees or tree components remains a challenge. The present study aims to fill this gap and introduces a deep learning framework, termed ForAINet, that is able to perform such a segmentation across diverse forest types and geographic regions. From the segmented data, we then derive relevant biophysical parameters of individual trees as well as stands. The system has been tested on FOR-Instance, a dataset of point clouds that have been acquired in five different countries using surveying drones. The segmentation back-end achieves over 85% F-score for individual trees, respectively over 73% mean IoU across five semantic categories: ground, low vegetation, stems, live branches and dead branches. Building on the segmentation results our pipeline then densely calculates biophysical features of each individual tree (height, crown diameter, crown volume, DBH, and location) and properties per stand (digital terrain model and stand density). Especially crown-related features are in most cases retrieved with high accuracy, whereas the estimates for DBH and location are less reliable, due to the airborne scanning setup.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Photogrammetry and Remote Sensing, ETH Zürich, 8093 Zürich, Switzerland",
+    "Norwegian Institute of Bioeconomy Research (NIBIO), 1433 Ås, Norway"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "ETH Zurich",
+    "Norwegian Institute of Bioeconomy Research"
+   ],
+   "institution_ids": [
+    "05a28rw58",
+    "04aah1z61"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.15084",
@@ -11940,17 +12443,46 @@
    "journal_ref": null,
    "venue": "ACL 2024",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.14867v1",
    "abstract": "In the rapidly advancing field of conditional image generation research, challenges such as limited explainability lie in effectively evaluating the performance and capabilities of various models. This paper introduces VIEScore, a Visual Instruction-guided Explainable metric for evaluating any conditional image generation tasks. VIEScore leverages general knowledge from Multimodal Large Language Models (MLLMs) as the backbone and does not require training or fine-tuning. We evaluate VIEScore on seven prominent tasks in conditional image tasks and found: (1) VIEScore (GPT4-o) achieves a high Spearman correlation of 0.4 with human evaluations, while the human-to-human correlation is 0.45. (2) VIEScore (with open-source MLLM) is significantly weaker than GPT-4o and GPT-4v in evaluating synthetic images. (3) VIEScore achieves a correlation on par with human ratings in the generation tasks but struggles in editing tasks. With these results, we believe VIEScore shows its great potential to replace human judges in evaluating image synthesis tasks.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Waterloo",
+    "IN.AI Research"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Waterloo",
+    "IN.AI Research"
+   ],
+   "institution_ids": [
+    "01aff2v68",
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.14867",
@@ -12234,17 +12766,63 @@
    "journal_ref": null,
    "venue": "ECCV 2024",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.14150v1",
    "abstract": "We study how vision-language models (VLMs) trained on web-scale data can be integrated into end-to-end driving systems to boost generalization and enable interactivity with human users. While recent approaches adapt VLMs to driving via single-round visual question answering (VQA), human drivers reason about decisions in multiple steps. Starting from the localization of key objects, humans estimate object interactions before taking actions. The key insight is that with our proposed task, Graph VQA, where we model graph-structured reasoning through perception, prediction and planning question-answer pairs, we obtain a suitable proxy task to mimic the human reasoning process. We instantiate datasets (DriveLM-Data) built upon nuScenes and CARLA, and propose a VLM-based baseline approach (DriveLM-Agent) for jointly performing Graph VQA and end-to-end driving. The experiments demonstrate that Graph VQA provides a simple, principled framework for reasoning about a driving scene, and DriveLM-Data provides a challenging benchmark for this task. Our DriveLM-Agent baseline performs end-to-end autonomous driving competitively in comparison to state-of-the-art driving-specific architectures. Notably, its benefits are pronounced when it is evaluated zero-shot on unseen objects or sensor configurations. We hope this work can be the starting point to shed new light on how to apply VLMs for autonomous driving. To facilitate future research, all code, data, and models are available to the public.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Hong Kong",
+    "In memoriam Prof. Sean Xiao’ou Tang",
+    "University of Tübingen",
+    "Tübingen AI Center"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     0,
+     1
+    ],
+    null,
+    null,
+    null,
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    null
+   ],
+   "institutions": [
+    "University of Hong Kong",
+    "In memoriam Prof. Sean Xiao’ou Tang",
+    "University of Tübingen",
+    "Tübingen AI Center"
+   ],
+   "institution_ids": [
+    "02zhqgq86",
+    null,
+    "03a1kwz48",
+    "0107nyd78"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.14150",
@@ -12555,17 +13133,27 @@
    "journal_ref": null,
    "venue": "ECCV 2024",
    "cross_list_from": "cs.RO",
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.14115v1",
    "abstract": "We introduce LingoQA, a novel dataset and benchmark for visual question answering in autonomous driving. The dataset contains 28K unique short video scenarios, and 419K annotations. Evaluating state-of-the-art vision-language models on our benchmark shows that their performance is below human capabilities, with GPT-4V responding truthfully to 59.6% of the questions compared to 96.6% for humans. For evaluation, we propose a truthfulness classifier, called Lingo-Judge, that achieves a 0.95 Spearman correlation coefficient to human evaluations, surpassing existing techniques like METEOR, BLEU, CIDEr, and GPT-4. We establish a baseline vision-language model and run extensive ablation studies to understand its performance. We release our dataset and benchmark as an evaluation platform for vision-language models in autonomous driving.",
-   "affiliations": [],
+   "affiliations": [
+    "Wayve"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Wayve"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.14115",
@@ -12591,17 +13179,33 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.14091v1",
    "abstract": "Recent progress in text-guided image inpainting, based on the unprecedented success of text-to-image diffusion models, has led to exceptionally realistic and visually plausible results. However, there is still significant potential for improvement in current text-to-image inpainting models, particularly in better aligning the inpainted area with user prompts and performing high-resolution inpainting. Therefore, we introduce HD-Painter, a training free approach that accurately follows prompts and coherently scales to high resolution image inpainting. To this end, we design the Prompt-Aware Introverted Attention (PAIntA) layer enhancing self-attention scores by prompt information resulting in better text aligned generations. To further improve the prompt coherence we introduce the Reweighting Attention Score Guidance (RASG) mechanism seamlessly integrating a post-hoc sampling strategy into the general form of DDIM to prevent out-of-distribution latent shifts. Moreover, HD-Painter allows extension to larger scales by introducing a specialized super-resolution technique customized for inpainting, enabling the completion of missing regions in images of up to 2K resolution. Our experiments demonstrate that HD-Painter surpasses existing state-of-the-art approaches quantitatively and qualitatively across multiple metrics and a user study. Code is publicly available at: https://github.com/Picsart-AI-Research/HD-Painter",
-   "affiliations": [],
+   "affiliations": [
+    "Picsart AI Research (PAIR)",
+    "UT Austin",
+    "Georgia Tech"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Picsart AI Research (PAIR)",
+    "University of Texas at Austin",
+    "Georgia Institute of Technology"
+   ],
+   "institution_ids": [
+    null,
+    "00hj54h04",
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.14091",
@@ -13523,17 +14127,54 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.12359v1",
    "abstract": "The popular CLIP model displays impressive zero-shot capabilities thanks to its seamless interaction with arbitrary text prompts. However, its lack of spatial awareness makes it unsuitable for dense computer vision tasks, e.g., semantic segmentation, without an additional fine-tuning step that often uses annotations and can potentially suppress its original open-vocabulary properties. Meanwhile, self-supervised representation methods have demonstrated good localization properties without human-made annotations nor explicit supervision. In this work, we take the best of both worlds and propose an open-vocabulary semantic segmentation method, which does not require any annotations. We propose to locally improve dense MaskCLIP features, which are computed with a simple modification of CLIP's last pooling layer, by integrating localization priors extracted from self-supervised features. By doing so, we greatly improve the performance of MaskCLIP and produce smooth outputs. Moreover, we show that the used self-supervised feature properties can directly be learnt from CLIP features. Our method CLIP-DINOiser needs only a single forward pass of CLIP and two light convolutional layers at inference, no extra supervision nor extra memory and reaches state-of-the-art results on challenging and fine-grained benchmarks such as COCO, Pascal Context, Cityscapes and ADE20k. The code to reproduce our results is available at https://github.com/wysoczanska/clip_dinoiser.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Warsaw University of Technology",
+    "Valeo.ai",
+    "Meta AI",
+    "Tooploox",
+    "IDEAS NCBR"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     1
+    ],
+    null,
+    null
+   ],
+   "institutions": [
+    "Warsaw University of Technology",
+    "Valeo.ai",
+    "Meta",
+    "Tooploox",
+    "IDEAS NCBR"
+   ],
+   "institution_ids": [
+    "00y0xnp53",
+    null,
+    null,
+    null,
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.12359",
@@ -14366,17 +15007,52 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.11460v1",
    "abstract": "Robust locomotion control depends on accurate state estimations. However, the sensors of most legged robots can only provide partial and noisy observations, making the estimation particularly challenging, especially for external states like terrain frictions and elevation maps. Inspired by the classical Internal Model Control principle, we consider these external states as disturbances and introduce Hybrid Internal Model (HIM) to estimate them according to the response of the robot. The response, which we refer to as the hybrid internal embedding, contains the robot's explicit velocity and implicit stability representation, corresponding to two primary goals for locomotion tasks: explicitly tracking velocity and implicitly maintaining stability. We use contrastive learning to optimize the embedding to be close to the robot's successor state, in which the response is naturally embedded. HIM has several appealing benefits: It only needs the robot's proprioceptions, i.e., those from joint encoders and IMU as observations. It innovatively maintains consistent observations between simulation reference and reality that avoids information loss in mimicking learning. It exploits batch-level information that is more robust to noises and keeps better sample efficiency. It only requires 1 hour of training on an RTX 4090 to enable a quadruped robot to traverse any terrain under any disturbances. A wealth of real-world experiments demonstrates its agility, even in high-difficulty tasks and cases never occurred during the training process, revealing remarkable open-world generalizability.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "OpenRobotLab, Shanghai AI Laboratory",
+    "Tsinghua University",
+    "Zhejiang University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    null
+   ],
+   "institutions": [
+    "Shanghai Artificial Intelligence Laboratory",
+    "Tsinghua University",
+    "Zhejiang University"
+   ],
+   "institution_ids": [
+    "03wkvpx79",
+    "03cve4549",
+    "00a2xv884"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.11460",
@@ -14716,17 +15392,46 @@
    "journal_ref": null,
    "venue": "ICML 2024",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.10299v1",
    "abstract": "Diffusion models exhibit powerful generative capabilities enabling noise mapping to data via reverse stochastic differential equations. However, in image restoration, the focus is on the mapping relationship from low-quality to high-quality images. Regarding this issue, we introduce the Generalized Ornstein-Uhlenbeck Bridge (GOUB) model. By leveraging the natural mean-reverting property of the generalized OU process and further eliminating the variance of its steady-state distribution through the Doob's h-transform, we achieve diffusion mappings from point to point enabling the recovery of high-quality images from low-quality ones. Moreover, we unravel the fundamental mathematical essence shared by various bridge models, all of which are special instances of GOUB and empirically demonstrate the optimality of our proposed models. Additionally, we present the corresponding Mean-ODE model adept at capturing both pixel-level details and structural perceptions. Experimental outcomes showcase the state-of-the-art performance achieved by both models across diverse tasks, including inpainting, deraining, and super-resolution. Code is available at https://github.com/Hammour-steak/GOUB.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Department of Computer Science, Sun Yat-sen University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Sun Yat-sen University"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.10299",
@@ -15167,17 +15872,40 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.10070v1",
    "abstract": "We present a dense simultaneous localization and mapping (SLAM) method that uses 3D Gaussians as a scene representation. Our approach enables interactive-time reconstruction and photo-realistic rendering from real-world single-camera RGBD videos. To this end, we propose a novel effective strategy for seeding new Gaussians for newly explored areas and their effective online optimization that is independent of the scene size and thus scalable to larger scenes. This is achieved by organizing the scene into sub-maps which are independently optimized and do not need to be kept in memory. We further accomplish frame-to-model camera tracking by minimizing photometric and geometric losses between the input and rendered frames. The Gaussian representation allows for high-quality photo-realistic real-time rendering of real-world scenes. Evaluation on synthetic and real-world datasets demonstrates competitive or superior performance in mapping, tracking, and rendering compared to existing neural dense SLAM methods.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Amsterdam, Netherlands"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Amsterdam"
+   ],
+   "institution_ids": [
+    "04dkp9463"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.10070",
@@ -16830,17 +17558,61 @@
    "journal_ref": null,
    "venue": "ECCV 2024",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.08754v1",
    "abstract": "Recent advancements in text-to-3D generation technology have significantly advanced the conversion of textual descriptions into imaginative well-geometrical and finely textured 3D objects. Despite these developments, a prevalent limitation arises from the use of RGB data in diffusion or reconstruction models, which often results in models with inherent lighting and shadows effects that detract from their realism, thereby limiting their usability in applications that demand accurate relighting capabilities. To bridge this gap, we present UniDream, a text-to-3D generation framework by incorporating unified diffusion priors. Our approach consists of three main components: (1) a dual-phase training process to get albedo-normal aligned multi-view diffusion and reconstruction models, (2) a progressive generation procedure for geometry and albedo-textures based on Score Distillation Sample (SDS) using the trained reconstruction and diffusion models, and (3) an innovative application of SDS for finalizing PBR generation while keeping a fixed albedo based on Stable Diffusion model. Extensive evaluations demonstrate that UniDream surpasses existing methods in generating 3D objects with clearer albedo textures, smoother surfaces, enhanced realism, and superior relighting capabilities.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "The University of Hong Kong",
+    "Zhejiang University",
+    "VAST",
+    "Shanghai AI Laboratory"
+   ],
+   "author_affiliations": [
+    null,
+    null,
+    null,
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     3
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ]
+   ],
+   "institutions": [
+    "University of Hong Kong",
+    "Zhejiang University",
+    "VAST",
+    "Shanghai Artificial Intelligence Laboratory"
+   ],
+   "institution_ids": [
+    null,
+    "00a2xv884",
+    null,
+    "03wkvpx79"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.08754",
@@ -16866,17 +17638,61 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.08578v1",
    "abstract": "Curation methods for massive vision-language datasets trade off between dataset size and quality. However, even the highest quality of available curated captions are far too short to capture the rich visual detail in an image. To show the value of dense and highly-aligned image-text pairs, we collect the Densely Captioned Images (DCI) dataset, containing 7805 natural images human-annotated with mask-aligned descriptions averaging above 1000 words each. With precise and reliable captions associated with specific parts of an image, we can evaluate vision-language models' (VLMs) understanding of image content with a novel task that matches each caption with its corresponding subcrop. As current models are often limited to 77 text tokens, we also introduce a summarized version (sDCI) in which each caption length is limited. We show that modern techniques that make progress on standard benchmarks do not correspond with significant improvement on our sDCI based benchmark. Lastly, we finetune CLIP using sDCI and show significant improvements over the baseline despite a small training set. By releasing the first human annotated dense image captioning dataset, we hope to enable the development of new benchmarks or fine-tuning recipes for the next generation of VLMs to come.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "FAIR at Meta",
+    "Mila",
+    "Universite de Montreal",
+    "McGill University",
+    "Canada CIFAR AI chair"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     1,
+     3,
+     4
+    ]
+   ],
+   "institutions": [
+    "Meta",
+    "Mila",
+    "Université de Montréal",
+    "McGill University",
+    "Canada CIFAR AI chair"
+   ],
+   "institution_ids": [
+    null,
+    null,
+    "0161xgx34",
+    "01pxwe438",
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.08578",
@@ -19644,17 +20460,34 @@
    "journal_ref": null,
    "venue": "CVPR 2024",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.05239v1",
    "abstract": "Despite their ability to generate high-resolution and diverse images from text prompts, text-to-image diffusion models often suffer from slow iterative sampling processes. Model distillation is one of the most effective directions to accelerate these models. However, previous distillation methods fail to retain the generation quality while requiring a significant amount of images for training, either from real data or synthetically generated by the teacher model. In response to this limitation, we present a novel image-free distillation scheme named SwiftBrush. Drawing inspiration from text-to-3D synthesis, in which a 3D neural radiance field that aligns with the input prompt can be obtained from a 2D text-to-image diffusion prior via a specialized loss without the use of any 3D data ground-truth, our approach re-purposes that same loss for distilling a pretrained multi-step text-to-image model to a student network that can generate high-fidelity images with just a single inference step. In spite of its simplicity, our model stands as one of the first one-step text-to-image generators that can produce images of comparable quality to Stable Diffusion without reliance on any training image data. Remarkably, SwiftBrush achieves an FID score of 16.67 and a CLIP score of 0.29 on the COCO-30K benchmark, achieving competitive results or even substantially surpassing existing state-of-the-art distillation techniques.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "VinAI Research, Hanoi, Vietnam"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "VinAI Research"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.05239",
@@ -19684,17 +20517,64 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.05133v1",
    "abstract": "This paper presents a 3D Gaussian Inverse Rendering (GIR) method, employing 3D Gaussian representations to effectively factorize the scene into material properties, light, and geometry. The key contributions lie in three-fold. We compute the normal of each 3D Gaussian using the shortest eigenvector, with a directional masking scheme forcing accurate normal estimation without external supervision. We adopt an efficient voxel-based indirect illumination tracing scheme that stores direction-aware outgoing radiance in each 3D Gaussian to disentangle secondary illumination for approximating multi-bounce light transport. To further enhance the illumination disentanglement, we represent a high-resolution environmental map with a learnable low-resolution map and a lightweight, fully convolutional network. Our method achieves state-of-the-art performance in both relighting and novel view synthesis tasks among the recently proposed inverse rendering methods while achieving real-time rendering. This substantiates our proposed method's efficacy and broad applicability, highlighting its potential as an influential tool in various real-time interactive graphics applications such as material editing and relighting. The code will be released at https://github.com/guduxiaolang/GIR.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Beihang University",
+    "Shenzhen Graduate School, Peking University",
+    "Baidu VIS"
+   ],
+   "author_affiliations": [
+    null,
+    null,
+    null,
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    null,
+    null,
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ]
+   ],
+   "institutions": [
+    "Beihang University",
+    "Peking University",
+    "Baidu"
+   ],
+   "institution_ids": [
+    "00wk2mp56",
+    "02v51f717",
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.05133",
@@ -19977,17 +20857,37 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.04564v1",
    "abstract": "Recently, 3D Gaussian splatting (3D-GS) has gained popularity in novel-view scene synthesis. It addresses the challenges of lengthy training times and slow rendering speeds associated with Neural Radiance Fields (NeRFs). Through rapid, differentiable rasterization of 3D Gaussians, 3D-GS achieves real-time rendering and accelerated training. They, however, demand substantial memory resources for both training and storage, as they require millions of Gaussians in their point cloud representation for each scene. We present a technique utilizing quantized embeddings to significantly reduce per-point memory storage requirements and a coarse-to-fine training strategy for a faster and more stable optimization of the Gaussian point clouds. Our approach develops a pruning stage which results in scene representations with fewer Gaussians, leading to faster training times and rendering speeds for real-time rendering of high resolution scenes. We reduce storage memory by more than an order of magnitude all while preserving the reconstruction quality. We validate the effectiveness of our approach on a variety of datasets and scenes preserving the visual quality while consuming 10-20x lesser memory and faster training/inference speed. Project page and code is available https://efficientgaussian.github.io",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Maryland, College Park"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Maryland, College Park"
+   ],
+   "institution_ids": [
+    "047s2c258"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.04564",
@@ -20695,17 +21595,49 @@
    "journal_ref": null,
    "venue": "ECCV 2024",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.03913v1",
    "abstract": "Synthesizing semantic-aware, long-horizon, human-object interaction is critical to simulate realistic human behaviors. In this work, we address the challenging problem of generating synchronized object motion and human motion guided by language descriptions in 3D scenes. We propose Controllable Human-Object Interaction Synthesis (CHOIS), an approach that generates object motion and human motion simultaneously using a conditional diffusion model given a language description, initial object and human states, and sparse object waypoints. Here, language descriptions inform style and intent, and waypoints, which can be effectively extracted from high-level planning, ground the motion in the scene. Naively applying a diffusion model fails to predict object motion aligned with the input waypoints; it also cannot ensure the realism of interactions that require precise hand-object and human-floor contact. To overcome these problems, we introduce an object geometry loss as additional supervision to improve the matching between generated object motion and input object waypoints; we also design guidance terms to enforce contact constraints during the sampling process of the trained diffusion model. We demonstrate that our learned interaction module can synthesize realistic human-object interactions, adhering to provided textual descriptions and sparse waypoint conditions. Additionally, our module seamlessly integrates with a path planning module, enabling the generation of long-term interactions in 3D environments.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Stanford University",
+    "FAIR, Meta"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Stanford University",
+    "Meta"
+   ],
+   "institution_ids": [
+    "00f54p054",
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.03913",
@@ -20962,17 +21894,46 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.03774v1",
    "abstract": "Occupancy prediction has increasingly garnered attention in recent years for its fine-grained understanding of 3D scenes. Traditional approaches typically rely on dense, regular grid representations, which often leads to excessive computational demands and a loss of spatial details for small objects. This paper introduces OctreeOcc, an innovative 3D occupancy prediction framework that leverages the octree representation to adaptively capture valuable information in 3D, offering variable granularity to accommodate object shapes and semantic regions of varying sizes and complexities. In particular, we incorporate image semantic information to improve the accuracy of initial octree structures and design an effective rectification mechanism to refine the octree structure iteratively. Our extensive evaluations show that OctreeOcc not only surpasses state-of-the-art methods in occupancy prediction, but also achieves a 15%-24% reduction in computational overhead compared to dense-grid-based methods.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "ShanghaiTech University",
+    "The Chinese University of Hong Kong",
+    "Shanghai AI Laboratory"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "ShanghaiTech University",
+    "Chinese University of Hong Kong",
+    "Shanghai Artificial Intelligence Laboratory"
+   ],
+   "institution_ids": [
+    "030bhh786",
+    "00t33hh48",
+    "03wkvpx79"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.03774",
@@ -20998,17 +21959,43 @@
    "journal_ref": null,
    "venue": "CVPR 2024",
    "cross_list_from": "cs.GR",
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.03704v1",
    "abstract": "The fidelity of relighting is bounded by both geometry and appearance representations. For geometry, both mesh and volumetric approaches have difficulty modeling intricate structures like 3D hair geometry. For appearance, existing relighting models are limited in fidelity and often too slow to render in real-time with high-resolution continuous environments. In this work, we present Relightable Gaussian Codec Avatars, a method to build high-fidelity relightable head avatars that can be animated to generate novel expressions. Our geometry model based on 3D Gaussians can capture 3D-consistent sub-millimeter details such as hair strands and pores on dynamic face sequences. To support diverse materials of human heads such as the eyes, skin, and hair in a unified manner, we present a novel relightable appearance model based on learnable radiance transfer. Together with global illumination-aware spherical harmonics for the diffuse components, we achieve real-time relighting with all-frequency reflections using spherical Gaussians. This appearance model can be efficiently relit under both point light and continuous illumination. We further improve the fidelity of eye reflections and enable explicit gaze control by introducing relightable explicit eye models. Our method outperforms existing approaches without compromising real-time performance. We also demonstrate real-time relighting of avatars on a tethered consumer VR headset, showcasing the efficiency and fidelity of our avatars.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Codec Avatars Lab, Meta"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Meta"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.03704",
@@ -21446,17 +22433,47 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.03594v1",
    "abstract": "Advancing image inpainting is challenging as it requires filling user-specified regions for various intents, such as background filling and object synthesis. Existing approaches focus on either context-aware filling or object synthesis using text descriptions. However, achieving both tasks simultaneously is challenging due to differing training strategies. To overcome this challenge, we introduce PowerPaint, the first high-quality and versatile inpainting model that excels in multiple inpainting tasks. First, we introduce learnable task prompts along with tailored fine-tuning strategies to guide the model's focus on different inpainting targets explicitly. This enables PowerPaint to accomplish various inpainting tasks by utilizing different task prompts, resulting in state-of-the-art performance. Second, we demonstrate the versatility of the task prompt in PowerPaint by showcasing its effectiveness as a negative prompt for object removal. Moreover, we leverage prompt interpolation techniques to enable controllable shape-guided object inpainting, enhancing the model's applicability in shape-guided applications. Finally, we conduct extensive experiments and applications to verify the effectiveness of PowerPaint. We release our codes and models on our project page: https://powerpaint.github.io/.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Tsinghua Shenzhen International Graduate School, Tsinghua University",
+    "Shanghai AI Laboratory"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Tsinghua University",
+    "Shanghai Artificial Intelligence Laboratory"
+   ],
+   "institution_ids": [
+    "03cve4549",
+    "03wkvpx79"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.03594",
@@ -21659,17 +22676,49 @@
    "journal_ref": null,
    "venue": "ECCV 2024",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.03341v1",
    "abstract": "The construction of online vectorized High-Definition (HD) maps is critical for downstream prediction and planning. Recent efforts have built strong baselines for this task, however, shapes and relations of instances in urban road systems are still under-explored, such as parallelism, perpendicular, or rectangle-shape. In our work, we propose GeMap (Geometry Map), which end-to-end learns Euclidean shapes and relations of map instances beyond basic perception. Specifically, we design a geometric loss based on angle and distance clues, which is robust to rigid transformations. We also decouple self-attention to independently handle Euclidean shapes and relations. Our method achieves new state-of-the-art performance on the NuScenes and Argoverse 2 datasets. Remarkably, it reaches a 71.8% mAP on the large-scale Argoverse 2 dataset, outperforming MapTR V2 by +4.4% and surpassing the 70% mAP threshold for the first time. Code is available at https://github.com/cnzzx/GeMap.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Beijing Institute of Technology",
+    "The Chinese University of Hong Kong",
+    "Tencent AI Lab"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Beijing Institute of Technology",
+    "Chinese University of Hong Kong",
+    "Tencent"
+   ],
+   "institution_ids": [
+    "01skt4w74",
+    "00t33hh48",
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.03341",
@@ -21919,17 +22968,57 @@
    "journal_ref": null,
    "venue": "ECCV 2024",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.03048v1",
    "abstract": "Large, pretrained latent diffusion models (LDMs) have demonstrated an extraordinary ability to generate creative content, specialize to user data through few-shot fine-tuning, and condition their output on other modalities, such as semantic maps. However, are they usable as large-scale data generators, e.g., to improve tasks in the perception stack, like semantic segmentation? We investigate this question in the context of autonomous driving, and answer it with a resounding \"yes\". We propose an efficient data generation pipeline termed DGInStyle. First, we examine the problem of specializing a pretrained LDM to semantically-controlled generation within a narrow domain. Second, we propose a Style Swap technique to endow the rich generative prior with the learned semantic control. Third, we design a Multi-resolution Latent Fusion technique to overcome the bias of LDMs towards dominant objects. Using DGInStyle, we generate a diverse dataset of street scenes, train a domain-agnostic semantic segmentation model on it, and evaluate the model on multiple popular autonomous driving datasets. Our approach consistently increases the performance of several domain generalization methods compared to the previous state-of-the-art methods. The source code and the generated dataset are available at https://dginstyle.github.io.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "ETH Zurich",
+    "KU Leuven",
+    "INSAIT Sofia"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "ETH Zurich",
+    "KU Leuven",
+    "INSAIT Sofia"
+   ],
+   "institution_ids": [
+    "05a28rw58",
+    "05f950310",
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.03048",
@@ -22338,17 +23427,43 @@
    "journal_ref": null,
    "venue": "ECCV 2024",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.02934v1",
    "abstract": "Generating multi-camera street-view videos is critical for augmenting autonomous driving datasets, addressing the urgent demand for extensive and varied data. Due to the limitations in diversity and challenges in handling lighting conditions, traditional rendering-based methods are increasingly being supplanted by diffusion-based methods. However, a significant challenge in diffusion-based methods is ensuring that the generated sensor data preserve both intra-world consistency and inter-sensor coherence. To address these challenges, we combine an additional explicit world volume and propose the World Volume-aware Multi-camera Driving Scene Generator (WoVoGen). This system is specifically designed to leverage 4D world volume as a foundational element for video generation. Our model operates in two distinct phases: (i) envisioning the future 4D temporal world volume based on vehicle control sequences, and (ii) generating multi-camera videos, informed by this envisioned 4D temporal world volume and sensor interconnectivity. The incorporation of the 4D world volume empowers WoVoGen not only to generate high-quality street-view videos in response to vehicle control inputs but also to facilitate scene editing tasks.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "School of Data Science, Fudan University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Fudan University"
+   ],
+   "institution_ids": [
+    "013q1eq08"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.02934",
@@ -22760,17 +23875,71 @@
    "journal_ref": null,
    "venue": "ECCV 2024",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.02256v1",
    "abstract": "We introduce Efficient Motion Diffusion Model (EMDM) for fast and high-quality human motion generation. Current state-of-the-art generative diffusion models have produced impressive results but struggle to achieve fast generation without sacrificing quality. On the one hand, previous works, like motion latent diffusion, conduct diffusion within a latent space for efficiency, but learning such a latent space can be a non-trivial effort. On the other hand, accelerating generation by naively increasing the sampling step size, e.g., DDIM, often leads to quality degradation as it fails to approximate the complex denoising distribution. To address these issues, we propose EMDM, which captures the complex distribution during multiple sampling steps in the diffusion model, allowing for much fewer sampling steps and significant acceleration in generation. This is achieved by a conditional denoising diffusion GAN to capture multimodal data distributions among arbitrary (and potentially larger) step sizes conditioned on control signals, enabling fewer-step motion sampling with high fidelity and diversity. To minimize undesired motion artifacts, geometric losses are imposed during network learning. As a result, EMDM achieves real-time motion generation and significantly improves the efficiency of motion diffusion models compared to existing methods while achieving high-quality motion generation. Our code will be publicly available upon publication.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Cambridge",
+    "University of Hong Kong",
+    "University of Pennsylvania",
+    "Shanghai AI Laboratory",
+    "Texas A&M University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     3
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     4
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "University of Cambridge",
+    "University of Hong Kong",
+    "University of Pennsylvania",
+    "Shanghai Artificial Intelligence Laboratory",
+    "Texas A&M University"
+   ],
+   "institution_ids": [
+    "013meh722",
+    "02zhqgq86",
+    "00b30xv10",
+    "03wkvpx79",
+    "01f5ytq51"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.02256",
@@ -23126,17 +24295,43 @@
    "journal_ref": null,
    "venue": "ECCV 2024",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.02139v1",
    "abstract": "Diffusion models with their powerful expressivity and high sample quality have achieved State-Of-The-Art (SOTA) performance in the generative domain. The pioneering Vision Transformer (ViT) has also demonstrated strong modeling capabilities and scalability, especially for recognition tasks. In this paper, we study the effectiveness of ViTs in diffusion-based generative learning and propose a new model denoted as Diffusion Vision Transformers (DiffiT). Specifically, we propose a methodology for finegrained control of the denoising process and introduce the Time-dependant Multihead Self Attention (TMSA) mechanism. DiffiT is surprisingly effective in generating high-fidelity images with significantly better parameter efficiency. We also propose latent and image space DiffiT models and show SOTA performance on a variety of class-conditional and unconditional synthesis tasks at different resolutions. The Latent DiffiT model achieves a new SOTA FID score of 1.73 on ImageNet256 dataset while having 19.85%, 16.88% less parameters than other Transformer-based diffusion models such as MDT and DiT,respectively. Code: https://github.com/NVlabs/DiffiT",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "NVIDIA"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "NVIDIA"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.02139",
@@ -23364,17 +24559,40 @@
    "journal_ref": null,
    "venue": "ECCV 2024",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.02116v1",
    "abstract": "We introduce Generative Infinite-Vocabulary Transformers (GIVT) which generate vector sequences with real-valued entries, instead of discrete tokens from a finite vocabulary. To this end, we propose two surprisingly simple modifications to decoder-only transformers: 1) at the input, we replace the finite-vocabulary lookup table with a linear projection of the input vectors; and 2) at the output, we replace the logits prediction (usually mapped to a categorical distribution) with the parameters of a multivariate Gaussian mixture model. Inspired by the image-generation paradigm of VQ-GAN and MaskGIT, where transformers are used to model the discrete latent sequences of a VQ-VAE, we use GIVT to model the unquantized real-valued latent sequences of a β-VAE. In class-conditional image generation GIVT outperforms VQ-GAN (and improved variants thereof) as well as MaskGIT, and achieves performance competitive with recent latent diffusion models. Finally, we obtain strong results outside of image generation when applying GIVT to panoptic segmentation and depth estimation with a VAE variant of the UViM framework.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Google DeepMind",
+    "Google Research"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Google DeepMind",
+    "Google"
+   ],
+   "institution_ids": [
+    "00971b260",
+    "00njsd438"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.02116",
@@ -23397,17 +24615,37 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.02109v1",
    "abstract": "This work introduces ArtAdapter, a transformative text-to-image (T2I) style transfer framework that transcends traditional limitations of color, brushstrokes, and object shape, capturing high-level style elements such as composition and distinctive artistic expression. The integration of a multi-level style encoder with our proposed explicit adaptation mechanism enables ArtAdapter to achieve unprecedented fidelity in style transfer, ensuring close alignment with textual descriptions. Additionally, the incorporation of an Auxiliary Content Adapter (ACA) effectively separates content from style, alleviating the borrowing of content from style references. Moreover, our novel fast finetuning approach could further enhance zero-shot style representation while mitigating the risk of overfitting. Comprehensive evaluations confirm that ArtAdapter surpasses current state-of-the-art methods.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Cardinal Blue"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Cardinal Blue"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.02109",
@@ -23944,17 +25182,33 @@
    "journal_ref": null,
    "venue": "ECCV 2024",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.01261v1",
    "abstract": "Text-to-Image (TTI) generative models have shown great progress in the past few years in terms of their ability to generate complex and high-quality imagery. At the same time, these models have been shown to suffer from harmful biases, including exaggerated societal biases (e.g., gender, ethnicity), as well as incidental correlations that limit such a model's ability to generate more diverse imagery. In this paper, we propose a general approach to study and quantify a broad spectrum of biases, for any TTI model and for any prompt, using counterfactual reasoning. Unlike other works that evaluate generated images on a predefined set of bias axes, our approach automatically identifies potential biases that might be relevant to the given prompt, and measures those biases. In addition, we complement quantitative scores with post-hoc explanations in terms of semantic concepts in the images generated. We show that our method is uniquely capable of explaining complex multi-dimensional biases through semantic concepts, as well as the intersectionality between different biases for any given prompt. We perform extensive user studies to illustrate that the results of our method and analysis are consistent with human judgements.",
-   "affiliations": [],
+   "affiliations": [
+    "University of British Columbia",
+    "Carleton College",
+    "Toyota Technological Institute at Chicago"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "University of British Columbia",
+    "Carleton College",
+    "Toyota Technological Institute at Chicago"
+   ],
+   "institution_ids": [
+    "03rmrcq20",
+    "03jep7677",
+    "02sn5gb64"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.01261",
@@ -24269,17 +25523,27 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.00863v1",
    "abstract": "Segment Anything Model (SAM) has emerged as a powerful tool for numerous vision applications. A key component that drives the impressive performance for zero-shot transfer and high versatility is a super large Transformer model trained on the extensive high-quality SA-1B dataset. While beneficial, the huge computation cost of SAM model has limited its applications to wider real-world applications. To address this limitation, we propose EfficientSAMs, light-weight SAM models that exhibits decent performance with largely reduced complexity. Our idea is based on leveraging masked image pretraining, SAMI, which learns to reconstruct features from SAM image encoder for effective visual representation learning. Further, we take SAMI-pretrained light-weight image encoders and mask decoder to build EfficientSAMs, and finetune the models on SA-1B for segment anything task. We perform evaluations on multiple vision tasks including image classification, object detection, instance segmentation, and semantic object detection, and find that our proposed pretraining method, SAMI, consistently outperforms other masked image pretraining methods. On segment anything task such as zero-shot instance segmentation, our EfficientSAMs with SAMI-pretrained lightweight image encoders perform favorably with a significant gain (e.g., ~4 AP on COCO/LVIS) over other fast SAM models.",
-   "affiliations": [],
+   "affiliations": [
+    "Meta AI Research"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Meta"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.00863",
@@ -24306,17 +25570,50 @@
    "journal_ref": null,
    "venue": "AAAI 2025",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.00860v1",
    "abstract": "This paper presents SAGA (Segment Any 3D GAussians), a highly efficient 3D promptable segmentation method based on 3D Gaussian Splatting (3D-GS). Given 2D visual prompts as input, SAGA can segment the corresponding 3D target represented by 3D Gaussians within 4 ms. This is achieved by attaching an scale-gated affinity feature to each 3D Gaussian to endow it a new property towards multi-granularity segmentation. Specifically, a scale-aware contrastive training strategy is proposed for the scale-gated affinity feature learning. It 1) distills the segmentation capability of the Segment Anything Model (SAM) from 2D masks into the affinity features and 2) employs a soft scale gate mechanism to deal with multi-granularity ambiguity in 3D segmentation through adjusting the magnitude of each feature channel according to a specified 3D physical scale. Evaluations demonstrate that SAGA achieves real-time multi-granularity segmentation with quality comparable to state-of-the-art methods. As one of the first methods addressing promptable segmentation in 3D-GS, the simplicity and effectiveness of SAGA pave the way for future advancements in this field. Our code will be released.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "MoE Key Lab of Artificial Intelligence, AI Institute, Shanghai Jiao Tong University",
+    "Huawei Inc"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    null,
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Shanghai Jiao Tong University",
+    "Huawei"
+   ],
+   "institution_ids": [
+    "0220qvk04",
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.00860",
@@ -24340,17 +25637,45 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.00853v1",
    "abstract": "Real-world low-resolution (LR) videos have diverse and complex degradations, imposing great challenges on video super-resolution (VSR) algorithms to reproduce their high-resolution (HR) counterparts with high quality. Recently, the diffusion models have shown compelling performance in generating realistic details for image restoration tasks. However, the diffusion process has randomness, making it hard to control the contents of restored images. This issue becomes more serious when applying diffusion models to VSR tasks because temporal consistency is crucial to the perceptual quality of videos. In this paper, we propose an effective real-world VSR algorithm by leveraging the strength of pre-trained latent diffusion models. To ensure the content consistency among adjacent frames, we exploit the temporal dynamics in LR videos to guide the diffusion process by optimizing the latent sampling path with a motion-guided loss, ensuring that the generated HR video maintains a coherent and continuous visual flow. To further mitigate the discontinuity of generated details, we insert temporal module to the decoder and fine-tune it with an innovative sequence-oriented loss. The proposed motion-guided latent diffusion (MGLD) based VSR algorithm achieves significantly better perceptual quality than state-of-the-arts on real-world VSR benchmark datasets, validating the effectiveness of the proposed model design and training strategies.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "The Hong Kong Polytechnic University",
+    "OPPO Research Institute"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Hong Kong Polytechnic University",
+    "OPPO Research Institute"
+   ],
+   "institution_ids": [
+    "0030zas98",
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.00853",
@@ -25215,17 +26540,54 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.00438v1",
    "abstract": "The quest for fully autonomous vehicles (AVs) capable of navigating complex real-world scenarios with human-like understanding and responsiveness. In this paper, we introduce Dolphins, a novel vision-language model architected to imbibe human-like abilities as a conversational driving assistant. Dolphins is adept at processing multimodal inputs comprising video (or image) data, text instructions, and historical control signals to generate informed outputs corresponding to the provided instructions. Building upon the open-sourced pretrained Vision-Language Model, OpenFlamingo, we first enhance Dolphins's reasoning capabilities through an innovative Grounded Chain of Thought (GCoT) process. Then we tailored Dolphins to the driving domain by constructing driving-specific instruction data and conducting instruction tuning. Through the utilization of the BDD-X dataset, we designed and consolidated four distinct AV tasks into Dolphins to foster a holistic understanding of intricate driving scenarios. As a result, the distinctive features of Dolphins are characterized into two dimensions: (1) the ability to provide a comprehensive understanding of complex and long-tailed open-world driving scenarios and solve a spectrum of AV tasks, and (2) the emergence of human-like capabilities including gradient-free instant adaptation via in-context learning and error recovery via reflection.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Wisconsin-Madison",
+    "NVIDIA",
+    "University of Michigan",
+    "Stanford University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Wisconsin–Madison",
+    "NVIDIA",
+    "University of Michigan",
+    "Stanford University"
+   ],
+   "institution_ids": [
+    "01y2jtd41",
+    null,
+    "00jmfr291",
+    "00f54p054"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.00438",
@@ -25509,17 +26871,37 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2312.00112v1",
    "abstract": "Accurately and efficiently modeling dynamic scenes and motions is considered so challenging a task due to temporal dynamics and motion complexity. To address these challenges, we propose DynMF, a compact and efficient representation that decomposes a dynamic scene into a few neural trajectories. We argue that the per-point motions of a dynamic scene can be decomposed into a small set of explicit or learned trajectories. Our carefully designed neural framework consisting of a tiny set of learned basis queried only in time allows for rendering speed similar to 3D Gaussian Splatting, surpassing 120 FPS, while at the same time, requiring only double the storage compared to static scenes. Our neural representation adequately constrains the inherently underconstrained motion field of a dynamic scene leading to effective and fast optimization. This is done by biding each point to motion coefficients that enforce the per-point sharing of basis trajectories. By carefully applying a sparsity loss to the motion coefficients, we are able to disentangle the motions that comprise the scene, independently control them, and generate novel motion combinations that have never been seen before. We can reach state-of-the-art render quality within just 5 minutes of training and in less than half an hour, we can synthesize novel views of dynamic scenes with superior photorealistic quality. Our representation is interpretable, efficient, and expressive enough to offer real-time view synthesis of complex dynamic scene motions, in monocular and multi-view scenarios.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Pennsylvania"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Pennsylvania"
+   ],
+   "institution_ids": [
+    "00b30xv10"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2312.00112",
@@ -53870,15 +55252,31 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Although large-scale labeled data are essential for deep convolutional neural networks (ConvNets) to learn high-level semantic visual representations, it is time-consuming and impractical to collect and annotate large-scale datasets. A simple and efficient unsupervised representation learning method named ScaleNet based on multi-scale images is proposed in this study to enhance the performance of ConvNets when limited information is available. The input images are first resized to a smaller size and fed to the ConvNet to recognize the rotation degree. Next, the ConvNet learns the rotation-prediction task for the original size images based on the parameters transferred from the previous model. The CIFAR-10 and ImageNet datasets are examined on different architectures such as AlexNet and ResNet50 in this study. The current study demonstrates that specific image features, such as Harris corner information, play a critical role in the efficiency of the rotation-prediction task. The ScaleNet supersedes the RotNet by ~7% in the limited CIFAR-10 dataset. The transferred parameters from a ScaleNet model with limited data improve the ImageNet Classification task by about 6% compared to the RotNet model. This study shows the capability of the ScaleNet method to improve other cutting-edge models such as SimCLR by learning effective features for classification tasks.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Georgia Institute of Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Georgia Institute of Technology"
+   ],
+   "institution_ids": [
+    "01zkghx44"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2310.02386",
@@ -59678,15 +61076,86 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Radar has stronger adaptability in adverse scenarios for autonomous driving environmental perception compared to widely adopted cameras and LiDARs. Compared with commonly used 3D radars, the latest 4D radars have precise vertical resolution and higher point cloud density, making it a highly promising sensor for autonomous driving in complex environmental perception. However, due to the much higher noise than LiDAR, manufacturers choose different filtering strategies, resulting in an inverse ratio between noise level and point cloud density. There is still a lack of comparative analysis on which method is beneficial for deep learning-based perception algorithms in autonomous driving. One of the main reasons is that current datasets only adopt one type of 4D radar, making it difficult to compare different 4D radars in the same scene. Therefore, in this paper, we introduce a novel large-scale multi-modal dataset featuring, for the first time, two types of 4D radars captured simultaneously. This dataset enables further research into effective 4D radar perception algorithms.Our dataset consists of 151 consecutive series, most of which last 20 seconds and contain 10,007 meticulously synchronized and annotated frames. Moreover, our dataset captures a variety of challenging driving scenarios, including many road conditions, weather conditions, nighttime and daytime with different lighting intensities and periods. Our dataset annotates consecutive frames, which can be applied to 3D object detection and tracking, and also supports the study of multi-modal tasks. We experimentally validate our dataset, providing valuable results for studying different types of 4D radars. This dataset is released on https://github.com/adept-thu/Dual-Radar.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "National University of Singapore",
+    "Tsinghua University",
+    "Beijing Institute of Technology",
+    "China University of Mining and Technology - Beijing",
+    "Beijing Jiaotong University",
+    "Jilin University",
+    "Harbin Institute of Technology",
+    "Beijing University of Chemical Technology"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     3
+    ],
+    [
+     1
+    ],
+    [
+     4
+    ],
+    [
+     5
+    ],
+    [
+     6
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     1
+    ],
+    [
+     7
+    ],
+    null,
+    null,
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "National University of Singapore",
+    "Tsinghua University",
+    "Beijing Institute of Technology",
+    "China University of Mining and Technology - Beijing",
+    "Beijing Jiaotong University",
+    "Jilin University",
+    "Harbin Institute of Technology",
+    "Beijing University of Chemical Technology"
+   ],
+   "institution_ids": [
+    "01tgyzw49",
+    "03cve4549",
+    "01skt4w74",
+    "003ncxf91",
+    "01yj56c84",
+    "00js3aw79",
+    "01yqg2h08",
+    "00df5yc52"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2310.07602",
@@ -200676,15 +202145,34 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Semantic image segmentation (SiS) plays a fundamental role in a broad variety of computer vision applications, providing key information for the global understanding of an image. This survey is an effort to summarize two decades of research in the field of SiS, where we propose a literature review of solutions starting from early historical methods followed by an overview of more recent deep learning methods including the latest trend of using transformers. We complement the review by discussing particular cases of the weak supervision and side machine learning techniques that can be used to improve the semantic segmentation such as curriculum, incremental or self-supervised learning. State-of-the-art SiS models rely on a large amount of annotated samples, which are more expensive to obtain than labels for tasks such as image classification. Since unlabeled data is instead significantly cheaper to obtain, it is not surprising that Unsupervised Domain Adaptation (UDA) reached a broad success within the semantic segmentation community. Therefore, a second core contribution of this book is to summarize five years of a rapidly growing field, Domain Adaptation for Semantic Image Segmentation (DASiS) which embraces the importance of semantic segmentation itself and a critical need of adapting segmentation models to new environments. In addition to providing a comprehensive survey on DASiS techniques, we unveil also newer trends such as multi-domain learning, domain generalization, domain incremental learning, test-time adaptation and source-free domain adaptation. Finally, we conclude this survey by describing datasets and benchmarks most widely used in SiS and DASiS and briefly discuss related tasks such as instance and panoptic image segmentation, as well as applications such as medical image segmentation.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Naver"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Naver"
+   ],
+   "institution_ids": [
+    "04nzrnx83"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2302.06378",

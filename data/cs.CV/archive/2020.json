@@ -32185,15 +32185,117 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "There has been a substantial amount of research involving computer methods and technology for the detection and recognition of diabetic foot ulcers (DFUs), but there is a lack of systematic comparisons of state-of-the-art deep learning object detection frameworks applied to this problem. DFUC2020 provided participants with a comprehensive dataset consisting of 2,000 images for training and 2,000 images for testing. This paper summarises the results of DFUC2020 by comparing the deep learning-based algorithms proposed by the winning teams: Faster R-CNN, three variants of Faster R-CNN and an ensemble method; YOLOv3; YOLOv5; EfficientDet; and a new Cascade Attention Network. For each deep learning method, we provide a detailed description of model architecture, parameter settings for training and additional stages including pre-processing, data augmentation and post-processing. We provide a comprehensive evaluation for each method. All the methods required a data augmentation stage to increase the number of images available for training and a post-processing stage to remove false positives. The best performance was obtained from Deformable Convolution, a variant of Faster R-CNN, with a mean average precision (mAP) of 0.6940 and an F1-Score of 0.7434. Finally, we demonstrate that the ensemble method based on different deep learning methods can enhanced the F1-Score but not the mAP.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Manchester Metropolitan University",
+    "Keio University",
+    "Baker Heart and Diabetes Institute",
+    "Dortmund University of Applied Sciences and Arts",
+    "Institut für Medizinische Informatik, Biometrie und Epidemiologie",
+    "Essen University Hospital",
+    "Dartmouth College",
+    "Shanghai University",
+    "Lancashire Teaching Hospitals NHS Foundation Trust",
+    "University of Waikato"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3,
+     4,
+     5
+    ],
+    [
+     0
+    ],
+    [
+     6
+    ],
+    [
+     7
+    ],
+    [
+     3
+    ],
+    [
+     2
+    ],
+    [
+     7
+    ],
+    [
+     1
+    ],
+    [
+     6
+    ],
+    [
+     3,
+     4,
+     5
+    ],
+    [
+     2
+    ],
+    [
+     7
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     8
+    ],
+    null,
+    [
+     9
+    ]
+   ],
+   "institutions": [
+    "Manchester Metropolitan University",
+    "Keio University",
+    "Baker Heart and Diabetes Institute",
+    "Dortmund University of Applied Sciences and Arts",
+    "Institut für Medizinische Informatik, Biometrie und Epidemiologie",
+    "Essen University Hospital",
+    "Dartmouth College",
+    "Shanghai University",
+    "Lancashire Teaching Hospitals NHS Foundation Trust",
+    "University of Waikato"
+   ],
+   "institution_ids": [
+    "02hstj355",
+    "02kn6nx58",
+    "03rke0285",
+    "03dv91853",
+    "00wqjrk21",
+    "02na8dn90",
+    "049s0rh22",
+    "006teas31",
+    "02j7n9748",
+    "013fsnh78"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2010.03341",
@@ -48447,15 +48549,34 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Social distancing is a recommended solution by the World Health Organisation (WHO) to minimise the spread of COVID-19 in public places. The majority of governments and national health authorities have set the 2-meter physical distancing as a mandatory safety measure in shopping centres, schools and other covered areas. In this research, we develop a hybrid Computer Vision and YOLOv4-based Deep Neural Network model for automated people detection in the crowd in indoor and outdoor environments using common CCTV security cameras. The proposed DNN model in combination with an adapted inverse perspective mapping (IPM) technique and SORT tracking algorithm leads to a robust people detection and social distancing monitoring. The model has been trained against two most comprehensive datasets by the time of the research the Microsoft Common Objects in Context (MS COCO) and Google Open Image datasets. The system has been evaluated against the Oxford Town Centre dataset with superior performance compared to three state-of-the-art methods. The evaluation has been conducted in challenging conditions, including occlusion, partial visibility, and under lighting variations with the mean average precision of 99.8% and the real-time speed of 24.1 fps. We also provide an online infection risk assessment scheme by statistical analysis of the Spatio-temporal data from people's moving trajectories and the rate of social distancing violations. The developed model is a generic and accurate people detection and tracking solution that can be applied in many other fields such as autonomous vehicles, human action recognition, anomaly detection, sports, crowd analysis, or any other research areas where the human detection is in the centre of attention.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Leeds",
+    "Qazvin Islamic Azad University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Leeds",
+    "Qazvin Islamic Azad University"
+   ],
+   "institution_ids": [
+    "024mrxd33",
+    "023kjn321"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2008.11672",
@@ -70260,15 +70381,52 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Point clouds have been recognized as a crucial data structure for 3D content and are essential in a number of applications such as virtual and mixed reality, autonomous driving, cultural heritage, etc. In this paper, we propose a set of contributions to improve deep point cloud compression, i.e.: using a scale hyperprior model for entropy coding; employing deeper transforms; a different balancing weight in the focal loss; optimal thresholding for decoding; and sequential model training. In addition, we present an extensive ablation study on the impact of each of these factors, in order to provide a better understanding about why they improve RD performance. An optimal combination of the proposed improvements achieves BD-PSNR gains over G-PCC trisoup and octree of 5.50 (6.48) dB and 6.84 (5.95) dB, respectively, when using the point-to-point (point-to-plane) metric. Code is available at https://github.com/mauriceqch/pcc_geo_cnn_v2 .",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Centre National de la Recherche Scientifique",
+    "Université Paris-Saclay",
+    "Laboratoire des signaux et systèmes",
+    "CentraleSupélec"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2,
+     3
+    ],
+    [
+     0,
+     1,
+     2,
+     3
+    ],
+    [
+     0,
+     1,
+     2,
+     3
+    ]
+   ],
+   "institutions": [
+    "Centre National de la Recherche Scientifique",
+    "Université Paris-Saclay",
+    "Laboratoire des signaux et systèmes",
+    "CentraleSupélec"
+   ],
+   "institution_ids": [
+    "02feahw73",
+    "03xjwb503",
+    "00skw9v43",
+    "019tcpt25"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2006.09043",
@@ -88926,15 +89084,37 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Our objective in this work is long range understanding of the narrative structure of movies. Instead of considering the entire movie, we propose to learn from the `key scenes' of the movie, providing a condensed look at the full storyline. To this end, we make the following three contributions: (i) We create the Condensed Movies Dataset (CMD) consisting of the key scenes from over 3K movies: each key scene is accompanied by a high level semantic description of the scene, character face-tracks, and metadata about the movie. The dataset is scalable, obtained automatically from YouTube, and is freely available for anybody to download and use. It is also an order of magnitude larger than existing movie datasets in the number of movies; (ii) We provide a deep network baseline for text-to-video retrieval on our dataset, combining character, speech and visual cues into a single video embedding; and finally (iii) We demonstrate how the addition of context from other video clips improves retrieval performance.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Oxford"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Oxford"
+   ],
+   "institution_ids": [
+    "052gg0110"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2005.04208",
@@ -97248,15 +97428,37 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Saliency methods seek to explain the predictions of a model by producing an importance map across each input sample. A popular class of such methods is based on backpropagating a signal and analyzing the resulting gradient. Despite much research on such methods, relatively little work has been done to clarify the differences between such methods as well as the desiderata of these techniques. Thus, there is a need for rigorously understanding the relationships between different methods as well as their failure modes. In this work, we conduct a thorough analysis of backpropagation-based saliency methods and propose a single framework under which several such methods can be unified. As a result of our study, we make three additional contributions. First, we use our framework to propose NormGrad, a novel saliency method based on the spatial contribution of gradients of convolutional weights. Second, we combine saliency maps at different layers to test the ability of saliency methods to extract complementary information at different network levels (e.g.~trading off spatial resolution and distinctiveness) and we explain why some methods fail at specific layers (e.g., Grad-CAM anywhere besides the last convolutional layer). Third, we introduce a class-sensitivity metric and a meta-learning inspired paradigm applicable to any saliency method for improving sensitivity to the output class being explained.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Oxford"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Oxford"
+   ],
+   "institution_ids": [
+    "052gg0110"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2004.02866",
