@@ -36,6 +36,10 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ### Fixes
 
+- A list of mailbox names cut across two nodes of a page, or holding an underscore
+  ("{pau.rodriguez,...,michal_klein,", then "Apple"), no longer ends up in an affiliation:
+  the first run over the highly cited papers' pages stored one, which `validate` refused
+  (AFF-28).
 - Back from a filter or a paper to the same period, or its preset chosen again, no longer
   loads and indexes its papers again: the list stays as it was (PERF-16).
 - A page that fails to draw says so, with Reload, a link to start over and whom to tell,

@@ -69,7 +69,11 @@ Artificial".
   made the whole sentence a contact detail. So is an address that ends a line ("...,
   Vienna, Austria schwaige@...", 2610.02974): its four authors lost their university;
   mailboxes before their domain too ("..., Germany. {pm.wolf, cremers}@tum.de",
-  2610.03283).
+  2610.03283). A list can be cut across two contact nodes, the first ending with a comma,
+  which the line join glues to the next affiliation: "{pau.rodriguez,...,napostoloff,"
+  then "Apple" gave "{pau.rodriguez,...,napostoloff, Apple" (2410.23054, which `validate`
+  refused); an unclosed list ends before a capital, and mailboxes may hold underscores
+  ("michal_klein").
   `_JUNK_RE` rejects what still passes: lone words ("the", "dot"), link and contribution
   leftovers ("Code", "Core Contributors"), units cut off by a line break ("School of") and
   lone countries. For records extracted before, `institutions.institution_name` names no

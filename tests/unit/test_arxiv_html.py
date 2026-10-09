@@ -1013,6 +1013,10 @@ def test_clean_affiliation_drops_what_names_nothing(raw: str) -> None:
         pytest.param("MIT, USA lab [at] example [dot] org", "MIT, USA", id="obfuscated-address-after"),
         pytest.param("Jilin University{jane.doe, john.roe, j.smith}", "Jilin University", id="mailbox-names"),
         pytest.param("{jane.doe, john.roe. j.smith", None, id="unclosed-mailbox-names"),
+        pytest.param("MIT{jane_doe, john.roe}", "MIT", id="mailbox-names-with-underscores"),
+        pytest.param(
+            "{jane.doe,j_roe,jsmith, Apple", "Apple", id="unclosed-mailbox-names-before-an-affiliation"
+        ),
         pytest.param("{Department of Physics}, MIT", "{Department of Physics}, MIT", id="braces-of-latex"),
         pytest.param(
             "University of Zurich, Switzerland ()", "University of Zurich, Switzerland", id="empty-brackets"

@@ -81,9 +81,12 @@ _OBFUSCATED_EMAIL_RE = re.compile(
 )
 # What is left of a contact detail in brackets: "University of Zurich, Switzerland ()".
 _EMPTY_BRACKETS_RE = re.compile(r"\(\s*\)|\[\s*\]")
-# Mailbox names whose "@domain" is printed elsewhere: "{jane.doe, john.roe}", sometimes unclosed.
+# Mailbox names whose "@domain" is printed elsewhere: "{jane.doe, john.roe}", sometimes
+# unclosed, the list going on in another node, whose affiliation the line join glues on:
+# "{pau.rodriguez,ablaas,michal_klein,napostoloff, Apple" (2410.23054).
 _MAILBOX_LIST_RE = re.compile(
-    r"\{\s*[a-z0-9._+-]+(?:\s*[,;|]\s*[a-z0-9._+-]+|\s+[a-z0-9._+-]+)+\s*[,;]?\s*(?:\}|$)"
+    r"\{\s*[a-z0-9_.+-]+(?:\s*[,;|]\s*[a-z0-9_.+-]+|\s+[a-z0-9_.+-]+)+"
+    r"\s*(?:[,;]?\s*(?:\}|$)|[,;]\s*(?=[A-Z]))"
 )
 # The people an IEEE-style affiliation starts with: "The authors are with Delft University",
 # "A. Doe and B. Roe are with the University of X", or their role there: "Manoj Karnekar is
