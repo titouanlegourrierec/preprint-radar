@@ -33,6 +33,15 @@ export function codeUrl(paper: Pick<Paper, "abstract" | "comments">): string | n
   return url;
 }
 
+/** Where a link `codeUrl` found points: its card shows that site's logo (UX-28). */
+export type CodeHost = "github" | "gitlab" | "huggingface";
+
+/** The host of a link `codeUrl` found, as the pipeline names it (`code.py`'s `code_link`). */
+export function codeHost(url: string): CodeHost {
+  const host = (url.split("/")[2] ?? "").toLowerCase().replace(/^www\./, "");
+  return host === "github.com" ? "github" : host === "gitlab.com" ? "gitlab" : "huggingface";
+}
+
 /** How popular a paper's code is, as its card says it next to the Code link (PROD-18). */
 export interface CodeBadge {
   /** The count shown after its symbol: "1,234". */

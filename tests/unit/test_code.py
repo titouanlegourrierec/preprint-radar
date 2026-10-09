@@ -15,6 +15,7 @@ def test_the_code_link_is_the_sites(case: dict[str, Any]) -> None:
     assert code_url(case["abstract"], case.get("comments")) == case["url"]
     link = code_link(case["abstract"], case.get("comments"))
     assert (link.url if link else None) == case["url"]
+    assert (link.host if link else None) == case.get("host")
     if link is not None and "key" in case:
         assert link.key == case["key"]
     if link is not None and "folder" in case:

@@ -10,6 +10,9 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ### Code
 
+- A card's links and controls have an icon before their name: the logo of the site linked
+  for DOI and Code (GitHub, GitLab or Hugging Face), drawn ones for PDF, HTML, BibTeX,
+  Share, Graph, Seen and More, in the link's color in both themes (UX-28).
 - A card shows the GitHub stars of the code it links, "★ 1,234", with those gained in the
   week ("+12 this week"), or the Hugging Face likes of its models, data or demo; a
   repository other papers link too, or a folder of a larger one, is marked shared, its

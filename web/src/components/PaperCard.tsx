@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "preact/hooks";
 import { toBibtex } from "../bibtex";
-import { codeBadge, codeUrl } from "../code";
+import { codeBadge, codeHost, codeUrl } from "../code";
 import { download } from "../download";
 import { countOf, daysSince, firstVersionYear, formatDay, subjectCode } from "../format";
 import { highlight } from "../highlight";
@@ -16,6 +16,16 @@ import {
 } from "../search";
 import type { Paper } from "../types";
 import { Highlighted } from "./Highlighted";
+import {
+  BrandIcon,
+  ChevronIcon,
+  CiteIcon,
+  EyeIcon,
+  GraphIcon,
+  HtmlIcon,
+  LinkIcon,
+  PdfIcon,
+} from "./icons";
 import { RichText } from "./RichText";
 
 const MAX_AUTHORS_COLLAPSED = 6;
@@ -342,6 +352,7 @@ export function PaperCard({
             target="_blank"
             rel="noopener noreferrer"
           >
+            <PdfIcon />
             PDF
           </a>
           {paper.html_url && (
@@ -351,6 +362,7 @@ export function PaperCard({
               target="_blank"
               rel="noopener noreferrer"
             >
+              <HtmlIcon />
               HTML
             </a>
           )}
@@ -362,6 +374,7 @@ export function PaperCard({
               target="_blank"
               rel="noopener noreferrer"
             >
+              <BrandIcon brand="doi" />
               DOI
             </a>
           )}
@@ -373,6 +386,7 @@ export function PaperCard({
               target="_blank"
               rel="noopener noreferrer"
             >
+              <BrandIcon brand={codeHost(code)} />
               Code
             </a>
           )}
@@ -385,6 +399,7 @@ export function PaperCard({
             </span>
           )}
           <button type="button" aria-describedby={titleId} class="link-button" onClick={copyBibtex}>
+            <CiteIcon />
             {bibtex === "copied" ? "Copied!" : bibtex === "downloaded" ? "Downloaded" : "BibTeX"}
           </button>
           <a
@@ -393,6 +408,7 @@ export function PaperCard({
             title="Copy a link to this paper"
             onClick={copyLink}
           >
+            <LinkIcon />
             {linkCopied ? "Copied!" : "Share"}
           </a>
           {onShowInGraph && (
@@ -403,6 +419,7 @@ export function PaperCard({
               title="Show this paper in the graph, with its institutions"
               onClick={() => onShowInGraph(paper)}
             >
+              <GraphIcon />
               Graph
             </button>
           )}
@@ -416,6 +433,7 @@ export function PaperCard({
               onClick={() => onToggleSeen(paper.arxiv_id)}
             >
               {/* One name, "Seen", its state said by aria-pressed; the mark is for the eye. */}
+              <EyeIcon />
               Seen{seen && <span aria-hidden="true"> ✓</span>}
             </button>
           )}
@@ -430,6 +448,7 @@ export function PaperCard({
             }}
           >
             {expanded ? "Less" : "More"}
+            <ChevronIcon up={expanded} />
           </button>
           {/* What a copy did, said to screen readers: the buttons' text changes silently. */}
           <span class="visually-hidden" role="status">

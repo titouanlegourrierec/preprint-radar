@@ -79,6 +79,10 @@ test("a card shows the stars of its code, and Most starred ranks by them", async
   // Merged by the build from code.json (PROD-18).
   const card = page.locator("article.paper--target");
   await expect(card.locator(".stars")).toHaveText("★ 42 GitHub stars +5 this week");
+  // Its Code link shows the logo of the site it links (UX-28), named by its text alone.
+  await expect(
+    card.getByRole("link", { name: "Code", exact: true }).locator("svg"),
+  ).toHaveAttribute("data-icon", "github");
   await page.goto("./");
   await page.getByRole("button", { name: "Most starred" }).click();
   await expect(page).toHaveURL(/sort=stars/);

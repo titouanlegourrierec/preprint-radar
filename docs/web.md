@@ -84,6 +84,13 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   on a phone (`.segmented` wraps, its labels whole). A card shows the stars after its Code
   link (`codeBadge`: "★ 1,234", "+12 this week", "shared"; "♥ 23" for the Hub's likes),
   with what they are in its tooltip and for screen readers.
+  Each link and control of a card has an icon before its name (UX-28,
+  `components/icons.tsx`): the site's logo where the link names one (DOI; Code by
+  `codeHost`, GitHub, GitLab or Hugging Face, the pipeline's own hosts, which
+  `code-cases.json` pins for both), otherwise one drawn here (PDF, HTML, BibTeX, Share,
+  Graph, Seen, More). The logos are Simple Icons' (CC0), copied in, in the link's color
+  (`currentColor`): a brand's own would vanish in one theme. Every icon is
+  `aria-hidden`, so a control's name stays its text.
   "Hide seen" is the Papers view's alone, "Show abstracts" that of Papers and Highly cited
   (PROD-14; the reading list always shows them), and the Export menu that of Papers,
   Highly cited and the reading list (SRCH-16).

@@ -987,7 +987,19 @@ html {
 
 .paper__meta a,
 .paper__meta .link-button {
+  /* Each with its icon before its name (UX-28), on one line. */
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  white-space: nowrap;
   color: var(--accent);
+}
+
+/* An icon beside a control's name (`components/icons.tsx`): in its color, at its size. */
+.icon {
+  flex-shrink: 0;
+  width: 1.15em;
+  height: 1.15em;
 }
 
 .icon-button {

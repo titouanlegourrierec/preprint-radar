@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import codeCases from "../../tests/fixtures/code-cases.json?raw";
-import { codeBadge, codeUrl } from "../src/code";
+import { codeBadge, codeHost, codeUrl } from "../src/code";
 
 const paper = (abstract: string | null, comments: string | null = null) => ({
   abstract,
@@ -58,10 +58,13 @@ describe("codeUrl and the pipeline", () => {
     abstract: string;
     comments?: string;
     url: string | null;
+    host?: string;
   }[];
 
-  it.each(cases)("finds $url", ({ abstract, comments, url }) => {
+  it.each(cases)("finds $url", ({ abstract, comments, url, host }) => {
     expect(codeUrl(paper(abstract, comments ?? null))).toBe(url);
+    // The site its card's logo names (UX-28) is the one the pipeline asks for the stars.
+    expect(url === null ? undefined : codeHost(url)).toBe(host);
   });
 });
 
