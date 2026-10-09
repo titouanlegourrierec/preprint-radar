@@ -89,8 +89,7 @@ of each announcement day fold under a heading. Searches are encoded in the URL, 
 can be shared;
 *Share* on a paper copies a link that opens that paper alone, expanded, on its announcement
 day, and *Graph* opens the graph centered on it, with its details. A card links its *Code*
-when it has some, and, unfolded, its related work on Semantic Scholar, Connected Papers and
-alphaXiv. The ◐ button next to
+when it has some. The ◐ button next to
 the tabs switches between the automatic, light and dark themes.
 
 The *Highly cited* tab shows the archive by year of first version, one year, a range of

@@ -5,7 +5,6 @@ import { download } from "../download";
 import { countOf, daysSince, firstVersionYear, formatDay, subjectCode } from "../format";
 import { highlight } from "../highlight";
 import { institutionsOf } from "../institutions";
-import { linkOuts } from "../link-outs";
 import { reportLink } from "../report";
 import {
   affiliationNeedles,
@@ -285,20 +284,6 @@ export function PaperCard({
         {paper.abstract && (showAbstract || expanded) && (
           <p class={`paper__abstract${expanded ? "" : " paper__abstract--clamped"}`}>
             <RichText text={paper.abstract} terms={highlights} />
-          </p>
-        )}
-
-        {expanded && (
-          <p class="paper__elsewhere">
-            Related work:{" "}
-            {linkOuts(paper.arxiv_id).map((link, index) => (
-              <span key={link.name}>
-                {index > 0 && "\u00a0· "}
-                <a href={link.url} title={link.title} target="_blank" rel="noopener noreferrer">
-                  {link.name}
-                </a>
-              </span>
-            ))}
           </p>
         )}
 

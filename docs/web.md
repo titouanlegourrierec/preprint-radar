@@ -293,10 +293,6 @@ cross-listed lately, says "first version 2019" beside its day (`firstVersionYear
   cite the published DOI when known, else arXiv's; like the other views, the reading list
   exports the papers its search and filters show. Beside it, the reading list's Import
   and Export JSON carry the whole list and its saved searches, to another browser.
-- An unfolded card links the paper on Semantic Scholar, Connected Papers and alphaXiv
-  (`link-outs.ts`, SRCH-11), which find related work from its arXiv id: a lexical "related
-  papers" here would be a weaker copy. Each address was opened by hand; Hugging Face is
-  left out, its page being a 404 for most recent papers.
 - `components/About.tsx` (`?view=about`): the data sources, the correction contact and the
   privacy note; keep it true when the pipeline or the app changes. Its link and each
   card's "Report an error" open a mail with a short template to fill in (`report.ts`).

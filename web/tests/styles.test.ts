@@ -105,7 +105,6 @@ describe("links inside text", () => {
     for (const selector of [
       ".paper__abstract a",
       ".paper__comments a",
-      ".paper__elsewhere a",
       ".paper__report a",
       ".site-footer a",
       ".about a",

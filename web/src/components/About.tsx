@@ -81,8 +81,8 @@ export function About() {
           .
         </li>
         <li>
-          Links to arXiv, Semantic Scholar, Connected Papers, alphaXiv and others take you to those
-          sites, under their own terms.
+          Links to arXiv, GitHub, Hugging Face and others take you to those sites, under their own
+          terms.
         </li>
       </ul>
     </main>

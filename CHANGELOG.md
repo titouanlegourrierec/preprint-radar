@@ -32,8 +32,6 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 - "With code" keeps the papers that link their code, about one in five: a repository on
   GitHub or GitLab, else models or data on Hugging Face, which their card links (PROD-12).
-- An unfolded card links the paper on Semantic Scholar, Connected Papers and alphaXiv,
-  which find its related work (SRCH-11).
 - A clicked author or affiliation is marked as a whole name, in the author and affiliation
   lines only: filtering on "Hao Li" no longer marks "lightweight" and "linear" in titles
   and abstracts (SRCH-8). Typed, "J.Smith" marks "John Smith", as the filter keeps the
