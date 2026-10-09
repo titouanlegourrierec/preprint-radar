@@ -13,7 +13,8 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 - A card's links and controls are badges, on a row of their own under its facts, neutral
   rather than blue links, each with an icon: the logo of the site linked for DOI and Code
   (GitHub, GitLab or Hugging Face), drawn ones for PDF, HTML, BibTeX, Share, Graph, Seen
-  and More. The stars of the code are the second part of its badge (UX-28).
+  and More. The stars of the code are the second part of its badge, and the authors and
+  the affiliations each follow an icon (UX-28).
 - A card shows the GitHub stars of the code it links, "★ 1,234", with those gained in the
   week ("+12 this week"), or the Hugging Face likes of its models, data or demo; a
   repository other papers link too, or a folder of a larger one, is marked shared, its

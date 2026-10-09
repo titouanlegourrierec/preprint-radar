@@ -95,6 +95,8 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   otherwise one drawn here (PDF, HTML, BibTeX, Share, Graph, Seen, More). The logos are
   Simple Icons' (CC0), copied in, in one color (`currentColor`): a brand's own would
   vanish in one theme. Every icon is `aria-hidden`, so a control's name stays its text.
+  The authors and the affiliations each follow an icon too (people, a building;
+  `.paper__line`), their lines wrapping beside it, the icon one line high (`1lh`).
   "Hide seen" is the Papers view's alone, "Show abstracts" that of Papers and Highly cited
   (PROD-14; the reading list always shows them), and the Export menu that of Papers,
   Highly cited and the reading list (SRCH-16).

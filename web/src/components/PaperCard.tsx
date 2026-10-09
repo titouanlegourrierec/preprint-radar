@@ -17,12 +17,14 @@ import {
 import type { Paper } from "../types";
 import { Highlighted } from "./Highlighted";
 import {
+  AuthorsIcon,
   BrandIcon,
   ChevronIcon,
   CiteIcon,
   EyeIcon,
   GraphIcon,
   HtmlIcon,
+  InstitutionIcon,
   LinkIcon,
   PdfIcon,
 } from "./icons";
@@ -203,74 +205,80 @@ export function PaperCard({
           </a>
         </h2>
 
-        <p class="paper__authors">
-          {authors.map((author, index) => (
-            // Two authors may share a name.
-            <span key={`${index}:${author}`}>
-              {index > 0 && ", "}
-              <button
-                ref={revealing === "authors" && index === MAX_AUTHORS_COLLAPSED ? revealed : null}
-                type="button"
-                class="link-button"
-                title="Show papers by this author"
-                onClick={() => onAuthor(author)}
-              >
-                <Highlighted text={author} terms={authorTerms} />
-              </button>
-            </span>
-          ))}
-          {authors.length < paper.authors.length && (
-            <>
-              {" "}
-              <button
-                type="button"
-                class="link-button muted"
-                aria-describedby={titleId}
-                title={`Show all ${paper.authors.length} authors`}
-                onClick={() => reveal("authors")}
-              >
-                +{paper.authors.length - authors.length}
-                <span class="visually-hidden"> more authors</span>
-              </button>
-            </>
-          )}
-        </p>
-
-        {affiliations.length > 0 && (
-          <p class="paper__affiliations">
-            {affiliations.map((affiliation, index) => (
-              <span key={affiliation}>
-                {index > 0 && "\u00a0· "}
+        <p class="paper__authors paper__line">
+          <AuthorsIcon />
+          <span>
+            {authors.map((author, index) => (
+              // Two authors may share a name.
+              <span key={`${index}:${author}`}>
+                {index > 0 && ", "}
                 <button
-                  ref={
-                    revealing === "affiliations" && index === MAX_AFFILIATIONS_COLLAPSED
-                      ? revealed
-                      : null
-                  }
+                  ref={revealing === "authors" && index === MAX_AUTHORS_COLLAPSED ? revealed : null}
                   type="button"
                   class="link-button"
-                  title="Show papers from this affiliation"
-                  onClick={() => onAffiliation(affiliationFilter(paper, affiliation))}
+                  title="Show papers by this author"
+                  onClick={() => onAuthor(author)}
                 >
-                  <Highlighted text={affiliation} terms={affiliationTerms(affiliation)} />
+                  <Highlighted text={author} terms={authorTerms} />
                 </button>
               </span>
             ))}
-            {affiliations.length < allAffiliations.length && (
+            {authors.length < paper.authors.length && (
               <>
                 {" "}
                 <button
                   type="button"
-                  class="link-button"
+                  class="link-button muted"
                   aria-describedby={titleId}
-                  title={`Show all ${allAffiliations.length} affiliations`}
-                  onClick={() => reveal("affiliations")}
+                  title={`Show all ${paper.authors.length} authors`}
+                  onClick={() => reveal("authors")}
                 >
-                  +{allAffiliations.length - affiliations.length}
-                  <span class="visually-hidden"> more affiliations</span>
+                  +{paper.authors.length - authors.length}
+                  <span class="visually-hidden"> more authors</span>
                 </button>
               </>
             )}
+          </span>
+        </p>
+
+        {affiliations.length > 0 && (
+          <p class="paper__affiliations paper__line">
+            <InstitutionIcon />
+            <span>
+              {affiliations.map((affiliation, index) => (
+                <span key={affiliation}>
+                  {index > 0 && "\u00a0· "}
+                  <button
+                    ref={
+                      revealing === "affiliations" && index === MAX_AFFILIATIONS_COLLAPSED
+                        ? revealed
+                        : null
+                    }
+                    type="button"
+                    class="link-button"
+                    title="Show papers from this affiliation"
+                    onClick={() => onAffiliation(affiliationFilter(paper, affiliation))}
+                  >
+                    <Highlighted text={affiliation} terms={affiliationTerms(affiliation)} />
+                  </button>
+                </span>
+              ))}
+              {affiliations.length < allAffiliations.length && (
+                <>
+                  {" "}
+                  <button
+                    type="button"
+                    class="link-button"
+                    aria-describedby={titleId}
+                    title={`Show all ${allAffiliations.length} affiliations`}
+                    onClick={() => reveal("affiliations")}
+                  >
+                    +{allAffiliations.length - affiliations.length}
+                    <span class="visually-hidden"> more affiliations</span>
+                  </button>
+                </>
+              )}
+            </span>
           </p>
         )}
 

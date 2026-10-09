@@ -109,6 +109,25 @@ export function EyeIcon() {
   );
 }
 
+/** Two people: the authors. */
+export function AuthorsIcon() {
+  return (
+    <Outline name="authors">
+      <circle cx="6" cy="5" r="2.5" />
+      <path d="M1.5 13.5c0-2.5 2-4.5 4.5-4.5s4.5 2 4.5 4.5M10.5 2.75a2.25 2.25 0 0 1 0 4.5M12 9.25c1.5.5 2.5 2.1 2.5 4.25" />
+    </Outline>
+  );
+}
+
+/** A building with columns: the institutions. */
+export function InstitutionIcon() {
+  return (
+    <Outline name="institution">
+      <path d="M2 6.25 8 2.5l6 3.75M2.5 6.5h11M4 8.75v3.5M8 8.75v3.5M12 8.75v3.5M2 14h12" />
+    </Outline>
+  );
+}
+
 /** A chevron, down to unfold, up to fold. */
 export function ChevronIcon({ up }: { up: boolean }) {
   return (

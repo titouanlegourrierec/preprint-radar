@@ -958,6 +958,29 @@ html {
   color: var(--text-muted);
 }
 
+/* An icon beside a control's name or a card's line (`components/icons.tsx`): in its color, at its size. */
+.icon {
+  flex-shrink: 0;
+  width: 1.15em;
+  height: 1.15em;
+}
+
+/* The authors and the affiliations, each after its icon (UX-28), their lines wrapping
+   beside it rather than under it. */
+.paper__line {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.paper__line > .icon {
+  /* As wide on both lines, their text aligned, and on the first line's middle: an SVG
+     keeps its proportions, centered in its box. */
+  width: 15px;
+  height: 1lh;
+  color: var(--text-muted);
+}
+
 .paper__abstract {
   margin: 8px 0 0;
   font-size: 0.9rem;
@@ -1001,13 +1024,6 @@ html {
   flex-wrap: wrap;
   align-items: center;
   gap: 6px;
-}
-
-/* An icon beside a control's name (`components/icons.tsx`): in its color, at its size. */
-.icon {
-  flex-shrink: 0;
-  width: 1.15em;
-  height: 1.15em;
 }
 
 /* A card's links and controls as badges (UX-28): neutral, so that the facts above keep the
