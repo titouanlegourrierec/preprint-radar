@@ -235,7 +235,31 @@ def test_citation_gains(store: PaperStore) -> None:
     assert _messages(store)[0].startswith("data/cs.CV/citation-gains.json: Invalid citation gains file")
 
 
-@pytest.mark.parametrize("name", ["citations.json", "citation-gains.json", "scholar.json"])
+def test_code_stars(store: PaperStore) -> None:
+    path = store.root / "cs.CV" / "code.json"
+    payload = {
+        "schema_version": 1,
+        "source": "GitHub",
+        "since": None,
+        "generated_at": "2026-10-11T05:41:00+00:00",
+    }
+    record = {"url": "https://github.com/lab/fast-net", "stars": 3}
+    path.write_text(json.dumps({**payload, "papers": {"2609.00001": record}}), encoding="utf-8")
+    assert validate_store(store).findings == []
+
+    path.write_text(
+        json.dumps({**payload, "papers": {"2609.00001": record, "2609.99999": record}}), encoding="utf-8"
+    )
+    assert _messages(store) == []
+    assert _messages(store, Level.WARNING) == [
+        "data/cs.CV/code.json: 1 records of papers that are not stored, e.g. 2609.99999"
+    ]
+
+    path.write_text("{}", encoding="utf-8")
+    assert _messages(store)[0].startswith("data/cs.CV/code.json: Invalid code file")
+
+
+@pytest.mark.parametrize("name", ["citations.json", "citation-gains.json", "scholar.json", "code.json"])
 def test_a_file_of_another_schema_version(store: PaperStore, name: str) -> None:
     path = store.root / "cs.CV" / name
     path.write_text(json.dumps({"schema_version": 2}), encoding="utf-8")

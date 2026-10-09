@@ -182,6 +182,20 @@ gh secret set SEMANTIC_SCHOLAR_API_KEY
 Locally, update `SEMANTIC_SCHOLAR_API_KEY` in `.env`. Without a key, requests still work,
 much more slowly.
 
+### GitHub rejected the token
+
+**Signal.** Error annotation *preprint-radar code failed* in the weekly *Archive* run:
+`GitHub rejected the token` (HTTP 401), or locally `No GitHub token: set` (`GITHUB_TOKEN`).
+
+In CI the step passes the workflow's own token (`GITHUB_TOKEN: ${{ github.token }}`); a
+401 there means GitHub refused it for a while: the run after next tries again, and the
+stars of last week stay on the site meanwhile. Locally, put any GitHub token in `.env`
+(`GITHUB_TOKEN=`, one without permissions is enough), or run `GITHUB_TOKEN=$(gh auth
+token) make code`.
+
+**Signal.** `GitHub refused the query` (a warning): a rate limit, or a query it would not
+run. Those papers keep last week's stars; nothing to do unless it comes back every week.
+
 ## Update data is green, but something is off
 
 ### Out of time
@@ -336,6 +350,7 @@ At a warning (the migration trigger, decided with ARCH-1):
 | Re-extraction from the page cache | seconds |
 | `reclean`, `validate`, `stats` | seconds |
 | `affiliations` (OpenAlex, papers without an HTML page) | seconds; 20 s the first time (225 papers) |
+| `code` (GitHub stars, Hugging Face likes) | a minute (80 GraphQL queries, 63 Hub pages) |
 | `archive-affiliations` (OpenAlex, published versions) | seconds; 2 minutes the first time (7,076 DOIs) |
 | `archive-affiliations MAX_HTML=3000` (HTML pages of highly cited papers) | 15 s a page: about 8 hours for the archive's 2,000, 3 more for the last 12 months |
 | `institutions` | a few minutes (one request per distinct string, every 0.5 s) |

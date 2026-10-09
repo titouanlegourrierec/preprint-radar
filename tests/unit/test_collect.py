@@ -16,6 +16,7 @@ from preprint_radar.collect import (
     MAX_CONSECUTIVE_HTML_FAILURES,
     ArchiveAffiliationsReport,
     CitationsReport,
+    CodeReport,
     HtmlReading,
     OpenAlexReport,
     Ror,
@@ -27,16 +28,19 @@ from preprint_radar.collect import (
     backfill_category,
     format_archive_affiliations_report,
     format_citations_report,
+    format_code_report,
     format_openalex_report,
     format_report,
     reextract_category,
     update_archive_affiliations,
     update_category,
     update_citation_counts,
+    update_code_records,
     update_openalex_affiliations,
 )
+from preprint_radar.exceptions import SchemaVersionError
 from preprint_radar.http import HttpClient, RateLimiter
-from preprint_radar.models import Listing, Paper, Provenance, ScholarRecord
+from preprint_radar.models import CodeRecord, Listing, Paper, Provenance, ScholarRecord
 from preprint_radar.sources.arxiv_html import EXTRACTOR_VERSION, PageCache, parse_front_matter
 from preprint_radar.sources.arxiv_listing import parse_catchup
 from preprint_radar.store.paper_store import PaperStore
@@ -998,6 +1002,116 @@ def test_format_archive_affiliations_report_says_why_the_pages_stopped() -> None
         "cs.CV: 0 of 900 highly cited papers without affiliations got some, 0 from OpenAlex's "
         "published versions, 0 from 40 HTML pages; stopped: nearly every page gave no affiliation"
     )
+
+
+def _linking(arxiv_id: str, abstract: str, announced: date = date(2026, 9, 25)) -> Paper:
+    return Paper(arxiv_id=arxiv_id, announced=announced, title="T", authors=("A",), abstract=abstract)
+
+
+def test_the_stars_of_the_code_stored_papers_link(store: PaperStore) -> None:
+    store.save(
+        "cs.CV",
+        [
+            _linking("2609.00001", "Code: https://github.com/Lab/Fast-Net."),
+            _linking("2609.00002", "Code: https://github.com/lab/zoo/tree/main/projects/x"),  # a folder
+            _linking("2609.00003", "Code: https://github.com/lab/gone"),  # deleted
+            _linking("2609.00004", "Code: https://github.com/lab/flaky"),  # gone too, its record with it
+            _linking("2609.00005", "Weights: https://huggingface.co/lab/model"),
+            _linking("2609.00006", "Code: https://gitlab.com/lab/net"),  # not asked
+            _linking("2609.00007", "See https://huggingface.co/collections/lab/all"),  # not asked
+            _linking("2609.00008", "No code."),
+        ],
+    )
+    store.write_archive(
+        "cs.CV", [_linking("2001.00009", "Code: https://github.com/lab/fast-net", date(2020, 1, 3))]
+    )
+    # A day file's paper among the last 12 months is counted once.
+    store.write_top_recent(
+        "cs.CV", [_linking("2609.00001", "Code: https://github.com/Lab/Fast-Net.")], since=date(2025, 10, 9)
+    )
+    flaky = CodeRecord("https://github.com/lab/flaky", stars=5)
+    store.write_code(
+        "cs.CV",
+        {"2609.00004": flaky, "2609.00003": CodeRecord("https://github.com/lab/gone", stars=9)},
+        source="GitHub",
+    )
+    queries: list[str] = []
+
+    def handle(request: httpx.Request) -> httpx.Response:
+        if request.url.host == "huggingface.co":
+            return httpx.Response(200, json={"likes": 12})
+        query = json.loads(request.content)["query"]
+        queries.append(query)
+        # Sorted: lab/fast-net, lab/flaky, lab/gone, lab/zoo.
+        assert (
+            query.index('"fast-net"') < query.index('"flaky"') < query.index('"gone"') < query.index('"zoo"')
+        )
+        data = {
+            "repo0": {"stargazerCount": 300},
+            "repo1": None,
+            "repo2": None,
+            "repo3": {"stargazerCount": 9000},
+        }
+        errors = [
+            {"type": "NOT_FOUND", "path": ["repo2"]},
+            {"type": "NOT_FOUND", "path": ["repo1"]},
+        ]
+        return httpx.Response(200, json={"data": data, "errors": errors})
+
+    with HttpClient(transport=httpx.MockTransport(handle), max_attempts=1) as client:
+        report = update_code_records(store, "cs.CV", github=client, token="test-token", hub=client)
+
+    assert len(queries) == 1
+    code = store.load_code("cs.CV")
+    assert code is not None
+    assert code.papers == {
+        # Two stored papers link it: its stars are not theirs alone.
+        "2609.00001": CodeRecord("https://github.com/Lab/Fast-Net", stars=300, shared=True),
+        "2001.00009": CodeRecord("https://github.com/lab/fast-net", stars=300, shared=True),
+        "2609.00002": CodeRecord("https://github.com/lab/zoo/tree/main/projects/x", stars=9000, shared=True),
+        "2609.00005": CodeRecord("https://huggingface.co/lab/model", likes=12),
+    }
+    assert report == CodeReport(category="cs.CV", linked=8, stars=3, shared=3, likes=1, gone=2, kept=0)
+    assert format_code_report(report) == (
+        "cs.CV: 8 papers link their code: 3 with GitHub stars (3 shared), 1 with Hugging Face likes; "
+        "2 gone, 0 kept from last week"
+    )
+
+
+def test_a_failed_star_lookup_keeps_last_weeks(store: PaperStore) -> None:
+    store.save("cs.CV", [_linking("2609.00004", "Code: https://github.com/lab/flaky")])
+    flaky = CodeRecord("https://github.com/lab/flaky", stars=5)
+    store.write_code("cs.CV", {"2609.00004": flaky}, source="GitHub")
+
+    with HttpClient(transport=httpx.MockTransport(lambda _: httpx.Response(502)), max_attempts=1) as client:
+        report = update_code_records(store, "cs.CV", github=client, token="test-token", hub=client)
+
+    assert report.kept == 1
+    code = store.load_code("cs.CV")
+    assert code is not None
+    assert code.papers == {"2609.00004": flaky}
+
+
+def test_a_broken_code_file_keeps_nothing(store: PaperStore, caplog: pytest.LogCaptureFixture) -> None:
+    store.save("cs.CV", [_linking("2609.00004", "Code: https://github.com/lab/flaky")])
+    (store.root / "cs.CV" / "code.json").write_text("{not json", encoding="utf-8")
+
+    with HttpClient(transport=httpx.MockTransport(lambda _: httpx.Response(502)), max_attempts=1) as client:
+        report = update_code_records(store, "cs.CV", github=client, token="test-token", hub=client)
+
+    assert report.kept == 0
+    assert "Last week's code.json does not load" in caplog.text
+
+
+def test_a_code_file_of_another_schema_version_stops_the_stars(store: PaperStore) -> None:
+    store.save("cs.CV", [_linking("2609.00004", "Code: https://github.com/lab/flaky")])
+    (store.root / "cs.CV" / "code.json").write_text('{"schema_version": 99, "papers": {}}', encoding="utf-8")
+
+    with (
+        HttpClient(transport=httpx.MockTransport(lambda _: httpx.Response(502)), max_attempts=1) as client,
+        pytest.raises(SchemaVersionError),
+    ):
+        update_code_records(store, "cs.CV", github=client, token="test-token", hub=client)
 
 
 def test_update_writes_the_index_before_reading_html_pages(

@@ -18,6 +18,7 @@ from preprint_radar.cli import build_parser, log_level, main
 from preprint_radar.collect import (
     ArchiveAffiliationsReport,
     CitationsReport,
+    CodeReport,
     HtmlReading,
     OpenAlexReport,
     Ror,
@@ -810,6 +811,38 @@ def test_archive_affiliations_reads_pages_with_the_contact(
     assert main(arguments) == 1
     assert "No contact given" in caplog.text
     assert "::error title=Reading HTML pages failed::cs.CV: 0 of 10" in capsys.readouterr().out
+
+
+def test_code_needs_a_github_token(tmp_path: Path, caplog: pytest.LogCaptureFixture) -> None:
+    assert main(["code", "--data-dir", str(tmp_path / "data")]) == 1
+    assert "No GitHub token: set GITHUB_TOKEN" in caplog.text
+
+
+def test_code_asks_github_and_the_hub_without_the_contact(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    def update_code_records(
+        _: PaperStore, category: str, *, github: HttpClient, token: str, hub: HttpClient
+    ) -> CodeReport:
+        assert token == "test-token"
+        github.get_text("https://api.github.com/graphql")
+        hub.get_text("https://huggingface.co/api/models/lab/fast-net")
+        return CodeReport(category=category, linked=5, stars=3, shared=1, likes=1, gone=1, kept=0)
+
+    requests = _user_agents(monkeypatch)
+    monkeypatch.setattr("preprint_radar.cli.update_code_records", update_code_records)
+    monkeypatch.setenv("GITHUB_TOKEN", "test-token")
+    monkeypatch.setenv("PREPRINT_RADAR_CONTACT", "author@example.org")
+    summary = tmp_path / "summary.md"
+    monkeypatch.setenv("GITHUB_STEP_SUMMARY", str(summary))
+    store = PaperStore(tmp_path / "data")
+    store.save("cs.CV", [Paper(arxiv_id="2609.00001", announced=date(2026, 9, 25), title="T", authors=())])
+
+    assert main(["code", "--data-dir", str(store.root)]) == 0
+
+    assert requests == [("api.github.com", DEFAULT_USER_AGENT), ("huggingface.co", DEFAULT_USER_AGENT)]
+    assert "cs.CV: 5 papers link their code: 3 with GitHub stars" in capsys.readouterr().out
+    assert "**Stars of the code.** cs.CV:" in summary.read_text(encoding="utf-8")
 
 
 def test_index_is_written_again_from_the_stored_files(

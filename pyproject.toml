@@ -59,6 +59,8 @@ ignore = [
     "INP001",   # tests are not a package
     "PLR2004",  # magic values are expected in assertions
     "S101",     # assert is how pytest works
+    "S105",     # made-up tokens, never real ones
+    "S106",
 ]
 
 [tool.ruff.lint.pylint]

@@ -50,8 +50,8 @@ jobs:
     runs-on: ubuntu-latest
     # The first run harvests the whole catalog (about 45 minutes); every run then fetches
     # about 207,000 citation counts in 415 requests, far slower without an API key, then
-    # the published versions of the stored papers, and their affiliations for the highly
-    # cited papers without any.
+    # the published versions of the stored papers, their affiliations for the highly cited
+    # papers without any, and the stars of the code they link.
     timeout-minutes: 330
     permissions:
       contents: write
@@ -118,6 +118,18 @@ jobs:
           args=()
           for category in $CATEGORIES; do args+=(--category "$category"); done
           uv run --no-dev preprint-radar -v archive-affiliations --max-ror 1000 "${args[@]}"
+
+      # The GitHub stars (Hugging Face likes) of the code the stored papers link, in
+      # code.json (PROD-18): a minute. The workflow's own token reads public data.
+      - name: Fetch the stars of the papers' code
+        if: ${{ !cancelled() }}
+        timeout-minutes: 10
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          args=()
+          for category in $CATEGORIES; do args+=(--category "$category"); done
+          uv run --no-dev preprint-radar -v code "${args[@]}"
 
       - name: Save the catalog
         if: always()

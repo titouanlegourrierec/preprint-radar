@@ -7,14 +7,16 @@
 SHELL := /bin/bash
 
 # Local settings (e.g. PREPRINT_RADAR_CONTACT), see .env.example. The contact goes to every
-# command, the Semantic Scholar key only to those that ask Semantic Scholar.
+# command, the Semantic Scholar key only to those that ask Semantic Scholar, the GitHub
+# token only to `code`.
 -include .env
 export PREPRINT_RADAR_CONTACT
-# Not exported even when the shell holds it, which Make would otherwise pass on everywhere.
-unexport SEMANTIC_SCHOLAR_API_KEY
+# Not exported even when the shell holds them, which Make would otherwise pass on everywhere.
+unexport SEMANTIC_SCHOLAR_API_KEY GITHUB_TOKEN
 # A value given on make's command line also travels in MAKEFLAGS, to every recipe.
-MAKEOVERRIDES := $(filter-out SEMANTIC_SCHOLAR_API_KEY=%,$(MAKEOVERRIDES))
+MAKEOVERRIDES := $(filter-out SEMANTIC_SCHOLAR_API_KEY=% GITHUB_TOKEN=%,$(MAKEOVERRIDES))
 archive citations scholar: export SEMANTIC_SCHOLAR_API_KEY := $(SEMANTIC_SCHOLAR_API_KEY)
+code: export GITHUB_TOKEN := $(GITHUB_TOKEN)
 
 WEB := web
 # Empty: each command's own default, cs.CV for update, backfill, reextract and archive, and
@@ -163,6 +165,10 @@ citations: ## Fetch the citation counts of stored papers without one (ALL=1: eve
 .PHONY: scholar
 scholar: ## Fetch the DOI, published venue and author ids of every stored paper (minutes)
 	uv run preprint-radar -v scholar $(CATEGORY_ARGS)
+
+.PHONY: code
+code: ## Fetch the GitHub stars (Hugging Face likes) of the code stored papers link (GITHUB_TOKEN; a minute)
+	uv run preprint-radar -v code $(CATEGORY_ARGS)
 
 .PHONY: validate
 validate: ## Check data/ against its contract (errors fail, heuristic warnings do not)

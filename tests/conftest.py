@@ -34,6 +34,7 @@ def _environment(monkeypatch: pytest.MonkeyPatch) -> None:
     for name in (
         "PREPRINT_RADAR_CONTACT",
         "SEMANTIC_SCHOLAR_API_KEY",
+        "GITHUB_TOKEN",
         "GITHUB_ACTIONS",
         "GITHUB_STEP_SUMMARY",
     ):

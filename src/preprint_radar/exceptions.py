@@ -22,6 +22,10 @@ class NotFoundError(FetchError):
     """Raised when a resource does not exist (HTTP 404)."""
 
 
+class ConfigurationError(PreprintRadarError):
+    """A setting the command needs is missing (a token)."""
+
+
 class ParseError(PreprintRadarError):
     """Raised when a document does not have the expected structure."""
 

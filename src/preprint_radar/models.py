@@ -114,6 +114,55 @@ class ScholarRecord:
         )
 
 
+@dataclass(frozen=True, slots=True)
+class CodeRecord:
+    """How popular a paper's code is (``code.json``, PROD-18).
+
+    Attributes:
+        url: The link the paper gives, which its card shows (``code.code_url``).
+        stars: The stars of its GitHub repository.
+        likes: The likes of its page on the Hugging Face Hub.
+        gained: The stars it gained between the last two weekly refreshes, when any.
+        shared: The stars are not the paper's alone: other stored papers link the same
+            repository, or the paper links a folder of it.
+    """
+
+    url: str
+    stars: int | None = None
+    likes: int | None = None
+    gained: int | None = None
+    shared: bool = False
+
+    def to_record(self) -> dict[str, object]:
+        """The record, without its absent fields."""
+        record: dict[str, object] = {"url": self.url}
+        if self.stars is not None:
+            record["stars"] = self.stars
+        if self.likes is not None:
+            record["likes"] = self.likes
+        if self.gained is not None:
+            record["gained"] = self.gained
+        if self.shared:
+            record["shared"] = True
+        return record
+
+    @classmethod
+    def from_record(cls, record: Mapping[str, object]) -> Self:
+        """Rebuild a record written by :meth:`to_record`.
+
+        Raises:
+            KeyError: If it has no ``url``.
+            TypeError: If a field has the wrong type.
+        """
+        return cls(
+            url=_str(record, "url"),
+            stars=_optional_int(record, "stars"),
+            likes=_optional_int(record, "likes"),
+            gained=_optional_int(record, "gained"),
+            shared=_optional_bool(record, "shared"),
+        )
+
+
 @dataclass(frozen=True, slots=True, kw_only=True)
 class Paper:
     """A paper as announced in an arXiv listing, optionally enriched.

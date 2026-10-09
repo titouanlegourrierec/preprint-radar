@@ -8,16 +8,18 @@
 import logging
 import math
 import time
+from collections import Counter
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from dataclasses import dataclass, replace
 from datetime import UTC, date, datetime
 from enum import StrEnum
 
+from preprint_radar.code import CodeLink, code_link
 from preprint_radar.config import DEFAULT_MAX_ROR_LOOKUPS, DEFAULT_SAVE_EVERY
-from preprint_radar.exceptions import FetchError, ParseError
+from preprint_radar.exceptions import FetchError, ParseError, SchemaVersionError, StoreError
 from preprint_radar.http import HttpClient
 from preprint_radar.institutions import name_institutions
-from preprint_radar.models import Institution, Listing, Paper, Provenance, ScholarRecord
+from preprint_radar.models import CodeRecord, Institution, Listing, Paper, Provenance, ScholarRecord
 from preprint_radar.names import same_person
 from preprint_radar.openalex_affiliations import (
     needs_openalex,
@@ -35,6 +37,8 @@ from preprint_radar.sources.arxiv_html import (
 )
 from preprint_radar.sources.arxiv_listing import fetch_catchup, fetch_listing
 from preprint_radar.sources.arxiv_rss import fetch_rss_abstracts
+from preprint_radar.sources.github import fetch_stars
+from preprint_radar.sources.huggingface import fetch_likes
 from preprint_radar.sources.ror import match_institutions
 from preprint_radar.sources.semantic_scholar import S2_SOURCE, fetch_citation_counts, fetch_scholar_records
 from preprint_radar.store.paper_store import PaperStore
@@ -1199,6 +1203,135 @@ def format_archive_affiliations_report(report: ArchiveAffiliationsReport) -> str
     if report.stopped:
         line += f"; stopped: {_STOPS[report.stopped]}"
     return line
+
+
+CODE_SOURCE = "GitHub, Hugging Face"
+"""The services of ``code.json``."""
+
+
+@dataclass(frozen=True, slots=True)
+class CodeReport:
+    """Outcome of :func:`update_code_records`.
+
+    Attributes:
+        category: Category of the papers.
+        linked: Stored papers whose abstract or comments link their code.
+        stars: Of those, papers with their repository's GitHub stars.
+        shared: Of those, papers whose stars are not theirs alone.
+        likes: Papers with their Hugging Face page's likes.
+        gone: Papers whose repository or page no longer exists, or never did.
+        kept: Papers whose lookup failed, keeping last week's record.
+    """
+
+    category: str
+    linked: int
+    stars: int
+    shared: int
+    likes: int
+    gone: int
+    kept: int
+
+
+def update_code_records(
+    store: PaperStore,
+    category: str,
+    *,
+    github: HttpClient,
+    token: str,
+    hub: HttpClient,
+    now: datetime | None = None,
+) -> CodeReport:
+    """The stars of the code every stored paper links, into ``code.json`` (PROD-18).
+
+    The link is the one its card shows (:func:`code.code_link`): a repository on GitHub,
+    whose stars GitHub's GraphQL API gives, 100 a request; else a page of the Hugging Face
+    Hub, whose likes its API gives, one a request; GitLab's (6 papers) are not asked for.
+    A repository that several stored papers link, or a folder of one, is marked shared:
+    its stars are not the paper's alone (``google-research/google-research``, 19 papers).
+    A lookup that failed keeps last week's record; a repository GitHub no longer knows
+    loses its own. The stars gained since the last refresh are the store's to count
+    (:meth:`PaperStore.write_code`).
+
+    Args:
+        store: Data store.
+        category: arXiv category.
+        github: HTTP client for GitHub.
+        token: A GitHub token (any: public data only).
+        hub: HTTP client for the Hugging Face Hub.
+        now: Date of the refresh (default: now).
+
+    Returns:
+        How many papers link their code, and what each service said of it.
+
+    Raises:
+        FetchError: If GitHub rejects the token.
+    """
+    papers: dict[str, Paper] = {}
+    for paper in _every_stored_paper(store, category):
+        papers.setdefault(paper.arxiv_id, paper)
+    links = {
+        arxiv_id: link
+        for arxiv_id, paper in papers.items()
+        if (link := code_link(paper.abstract, paper.comments)) is not None
+    }
+    repositories = Counter(link.key for link in links.values() if link.host == "github" and link.key)
+    stars = fetch_stars(github, repositories, token=token)
+    likes = fetch_likes(hub, {link.key for link in links.values() if link.host == "huggingface" and link.key})
+    previous = _previous_code(store, category)
+    records: dict[str, CodeRecord] = {}
+    gone = kept = 0
+    for arxiv_id, link in links.items():
+        if link.key is None:  # GitLab, or a Hub page that is no model, dataset or demo
+            continue
+        on_github = link.host == "github"
+        counts = stars.stars if on_github else likes.likes
+        missing = stars.missing if on_github else likes.missing
+        if link.key in counts:
+            records[arxiv_id] = _code_record(link, counts[link.key], shared=repositories[link.key] > 1)
+        elif link.key in missing:
+            gone += 1
+        elif (before := previous.get(arxiv_id)) is not None and before.url == link.url:
+            records[arxiv_id] = before
+            kept += 1
+    store.write_code(category, records, source=CODE_SOURCE, now=now)
+    return CodeReport(
+        category=category,
+        linked=len(links),
+        stars=sum(record.stars is not None for record in records.values()),
+        shared=sum(record.shared for record in records.values()),
+        likes=sum(record.likes is not None for record in records.values()),
+        gone=gone,
+        kept=kept,
+    )
+
+
+def _code_record(link: CodeLink, count: int, *, shared: bool) -> CodeRecord:
+    """The record of a paper's code: GitHub's stars, or the Hub's likes."""
+    if link.host == "github":
+        return CodeRecord(link.url, stars=count, shared=shared or link.folder)
+    return CodeRecord(link.url, likes=count)
+
+
+def _previous_code(store: PaperStore, category: str) -> dict[str, CodeRecord]:
+    """Last week's records, to keep where a lookup fails; none when they do not load."""
+    try:
+        code = store.load_code(category)
+    except SchemaVersionError:
+        raise
+    except StoreError as exc:
+        logger.warning("Last week's code.json does not load, none of it kept: %s", exc)
+        return {}
+    return code.papers if code else {}
+
+
+def format_code_report(report: CodeReport) -> str:
+    """Render a :class:`CodeReport` as one line."""
+    return (
+        f"{report.category}: {_count(report.linked, 'paper')} link their code: "
+        f"{report.stars:,} with GitHub stars ({report.shared:,} shared), "
+        f"{report.likes:,} with Hugging Face likes; {report.gone:,} gone, "
+        f"{report.kept:,} kept from last week"
+    )
 
 
 def _count(number: int, noun: str) -> str:

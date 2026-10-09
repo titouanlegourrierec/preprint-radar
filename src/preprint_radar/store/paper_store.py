@@ -9,6 +9,7 @@ Layout::
         ├── citations.json         # citation counts of the stored papers
         ├── citation-gains.json    # what each gained between the last two full refreshes
         ├── scholar.json           # their DOI, published venue and author ids
+        ├── code.json              # the stars (or likes) of the code they link
         ├── top-recent.json        # the most cited papers of the last 12 months
         └── archive/
             └── <YYYY>.json        # highly cited older papers, by year of first version
@@ -36,7 +37,7 @@ from typing import Any
 
 from preprint_radar.config import GAINS_MIN_DAYS
 from preprint_radar.exceptions import SchemaVersionError, StoreError
-from preprint_radar.models import Paper, ScholarRecord
+from preprint_radar.models import CodeRecord, Paper, ScholarRecord
 
 logger = logging.getLogger(__name__)
 
@@ -45,6 +46,7 @@ INDEX_FILENAME = "index.json"
 CITATIONS_FILENAME = "citations.json"
 GAINS_FILENAME = "citation-gains.json"
 SCHOLAR_FILENAME = "scholar.json"
+CODE_FILENAME = "code.json"
 TOP_RECENT_FILENAME = "top-recent.json"
 ARCHIVE_DIRNAME = "archive"
 _DAY_STEM_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
@@ -72,6 +74,23 @@ class CitationGains:
 
     gains: dict[str, int]
     since: datetime
+    generated_at: datetime
+
+
+@dataclass(frozen=True, slots=True)
+class CodeFile:
+    """How popular the code of the stored papers of a category is, as last written (PROD-18).
+
+    Attributes:
+        papers: The record of each paper whose code GitHub or the Hub knows.
+        source: The services asked.
+        since: Date of the refresh the stars gained are counted from, once there was one.
+        generated_at: Date of this refresh.
+    """
+
+    papers: dict[str, CodeRecord]
+    source: str
+    since: datetime | None
     generated_at: datetime
 
 
@@ -454,6 +473,78 @@ class PaperStore:
             },
         }
         _write_json(self.root / category / SCHOLAR_FILENAME, payload)
+
+    def load_code(self, category: str) -> CodeFile | None:
+        """The stars and likes of the code of ``category``'s papers, if ever written.
+
+        Raises:
+            StoreError: If the file is not a valid ``code.json``, or of another ``schema_version``.
+        """
+        path = self.root / category / CODE_FILENAME
+        if not path.is_file():
+            return None
+        try:
+            payload: Any = json.loads(path.read_text(encoding="utf-8"))
+            _check_version(payload, path, "code")
+            return CodeFile(
+                papers={
+                    str(arxiv_id): CodeRecord.from_record(record)
+                    for arxiv_id, record in payload["papers"].items()
+                },
+                source=str(payload["source"]),
+                since=None if payload.get("since") is None else datetime.fromisoformat(payload["since"]),
+                generated_at=datetime.fromisoformat(payload["generated_at"]),
+            )
+        except (json.JSONDecodeError, AttributeError, KeyError, TypeError, ValueError) as exc:
+            msg = f"Invalid code file {path}: {exc}"
+            raise StoreError(msg) from exc
+
+    def write_code(
+        self, category: str, papers: Mapping[str, CodeRecord], *, source: str, now: datetime | None = None
+    ) -> None:
+        """Write the stars and likes of the code of ``category``'s papers, dated now.
+
+        The stars each paper gained come from the file this one replaces, as the citations'
+        gains do (:meth:`write_citations`): counted from it when it is at least
+        ``GAINS_MIN_DAYS`` old, else kept from it, so that a second run in a week keeps the
+        week's gains. A paper whose link changed gained nothing yet.
+
+        Raises:
+            SchemaVersionError: If the file it replaces is of another ``schema_version``.
+        """
+        now = now or datetime.now(tz=UTC)
+        try:
+            current = self.load_code(category)
+        except SchemaVersionError:
+            raise
+        except StoreError:
+            logger.warning("No stars gained: the former code.json of %s does not load", category)
+            current = None
+        counted = current is not None and now - current.generated_at >= timedelta(days=GAINS_MIN_DAYS)
+        since = None if current is None else current.generated_at if counted else current.since
+
+        def gained(arxiv_id: str, record: CodeRecord) -> int | None:
+            before = current.papers.get(arxiv_id) if current else None
+            if before is None or before.url != record.url:
+                return None
+            if not counted:
+                return before.gained
+            if record.stars is None or before.stars is None or record.stars <= before.stars:
+                return None
+            return record.stars - before.stars
+
+        payload = {
+            "schema_version": SCHEMA_VERSION,
+            "category": category,
+            "generated_at": now.isoformat(timespec="seconds"),
+            "since": None if since is None else since.isoformat(timespec="seconds"),
+            "source": source,
+            "papers": {
+                arxiv_id: replace(record, gained=gained(arxiv_id, record)).to_record()
+                for arxiv_id, record in sorted(papers.items())
+            },
+        }
+        _write_json(self.root / category / CODE_FILENAME, payload)
 
     def summaries(self, category: str) -> list[DaySummary]:
         """Return the number of papers per day for ``category``, most recent first."""

@@ -1,9 +1,10 @@
 # The citation archive and the scholarly sources
 
-How the weekly archive (`archive/`), the citation counts and the published versions work,
-and what Semantic Scholar, OpenAlex and arXiv's OAI-PMH are like to work with. Read this
-before changing `archive/`, `sources/semantic_scholar.py`, `sources/openalex.py` or
-`sources/arxiv_oai.py`. The failures and what to do about them are in [operations.md](operations.md).
+How the weekly archive (`archive/`), the citation counts, the published versions and the
+stars of the papers' code work, and what Semantic Scholar, OpenAlex, arXiv's OAI-PMH,
+GitHub and the Hugging Face Hub are like to work with. Read this before changing
+`archive/`, `sources/semantic_scholar.py`, `sources/openalex.py`, `sources/arxiv_oai.py`,
+`sources/github.py` or `sources/huggingface.py`. The failures and what to do about them are in [operations.md](operations.md).
 
 ## The weekly archive (`archive/update.py`, `archive.yml`, Sundays)
 
@@ -222,6 +223,39 @@ records are their day records) two ways:
   (`docs/operations.md`), not a workflow, whose minutes are billed. A spike on 4 such
   pages gave 3. Neither `reextract` nor `reclean` reads the archive: a later extraction
   fix reaches these papers only through this command, for those without affiliations.
+
+## Stars of the papers' code (`code.json`, PROD-18)
+
+- The link is the one the card shows (`code.py`, a port of `web/src/code.ts` and
+  `linkify.ts`; `tests/fixtures/code-cases.json` holds the cases both test suites read):
+  the first repository on GitHub or GitLab in the abstract or comments, else a model,
+  dataset or demo on the Hugging Face Hub. In October 2026, 7,834 stored papers of 27,000
+  link GitHub (7,541 repositories), 65 the Hub, 6 GitLab (not asked for).
+- `sources/github.py`: GitHub's GraphQL API, 100 repositories a query (aliases of
+  `repository { stargazerCount }`), one point of the hourly quota each: about 80 queries,
+  a minute. It needs a token, any, even one without permission (`GITHUB_TOKEN`: the
+  workflow's own in CI, which allows 1,000 points an hour; the Makefile gives `.env`'s to
+  `make code` only). The REST API's 60 anonymous requests an hour would take days. A
+  repository deleted, made private or never published comes back as its alias's
+  `NOT_FOUND` error (3 of 100 sampled): the paper loses its record. Any other error fails
+  the query, whose papers keep last week's records; a 401 is a bad token and fails the run.
+- `sources/huggingface.py`: the Hub's `/api/models/<id>` (or `datasets`, `spaces`), one
+  request each, without a key: its `likes`, kept apart from the stars. A 401 or 404 means
+  the page is gone (the Hub answers 401 for one that never existed).
+- `shared`: a repository more than one stored paper links (`google-research/
+  google-research` 19 papers, `big_vision` 9, `mmdetection` 8), or a link into a folder of
+  one (`/tree/<branch>/<folder>`, or a file below the root: 116 links);
+  `/tree/<branch>` alone, or a file at the root, is the repository. In October 2026, 478
+  papers share their repository with another stored paper (a lab's toolbox, a paper and its
+  extension). Their stars show, said shared, and Most starred ranks them with the papers
+  without stars.
+- Gains: `PaperStore.write_code` counts each paper's stars gained from the file it
+  replaces, as the citations' (`GAINS_MIN_DAYS`), and keeps them through a second run in
+  the week; a paper whose link changed gained nothing yet. The first gains come a week
+  after the first file.
+- `archive.yml` runs `code` every week after `scholar` (`GITHUB_TOKEN: ${{ github.token }}`).
+  New papers get their stars the next Sunday. Every stored paper is asked for: the day
+  files, the archive and the most cited of the last 12 months, each once.
 
 ## OAI-PMH
 

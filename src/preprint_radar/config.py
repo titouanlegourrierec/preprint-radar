@@ -27,6 +27,9 @@ CONTACT_ENV_VAR = "PREPRINT_RADAR_CONTACT"
 """E-mail or URL sent in the User-Agent of arXiv requests (never to other services)."""
 S2_API_KEY_ENV = "SEMANTIC_SCHOLAR_API_KEY"
 """Semantic Scholar API key: citation counts are much slower without one."""
+GITHUB_AUTH_ENV = "GITHUB_TOKEN"
+"""A GitHub token, which GitHub's GraphQL API needs for the stars of the papers' code (any
+token: it reads public data only; a workflow's own in CI)."""
 
 # Collection (update and backfill).
 DEFAULT_MAX_HTML = 600

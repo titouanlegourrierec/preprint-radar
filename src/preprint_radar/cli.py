@@ -27,6 +27,7 @@ from preprint_radar.collect import (
     backfill_category,
     format_archive_affiliations_report,
     format_citations_report,
+    format_code_report,
     format_openalex_report,
     format_report,
     format_scholar_report,
@@ -34,6 +35,7 @@ from preprint_radar.collect import (
     update_archive_affiliations,
     update_category,
     update_citation_counts,
+    update_code_records,
     update_openalex_affiliations,
     update_scholar_records,
 )
@@ -47,13 +49,14 @@ from preprint_radar.config import (
     DEFAULT_MAX_HTML,
     DEFAULT_MAX_ROR_LOOKUPS,
     DEFAULT_PAGE_CACHE_DIR,
+    GITHUB_AUTH_ENV,
     MIN_COVERAGE,
     S2_API_KEY_ENV,
     STALE_CITATIONS_DAYS,
     STALE_DATA_WEEKDAYS,
 )
 from preprint_radar.console import configure_logging, console, github_annotation, github_summary
-from preprint_radar.exceptions import PreprintRadarError
+from preprint_radar.exceptions import ConfigurationError, PreprintRadarError
 from preprint_radar.http import (
     ARXIV_API_DELAY_SECONDS,
     ARXIV_CRAWL_DELAY_SECONDS,
@@ -65,6 +68,8 @@ from preprint_radar.models import Paper
 from preprint_radar.sources.arxiv_html import EXTRACTOR_VERSION, PageCache
 from preprint_radar.sources.arxiv_listing import MAX_LISTING_ENTRIES, fetch_listing, validate_category
 from preprint_radar.sources.arxiv_oai import OAI_DELAY_SECONDS, OAI_TIMEOUT_SECONDS
+from preprint_radar.sources.github import GITHUB_DELAY_SECONDS
+from preprint_radar.sources.huggingface import HUGGINGFACE_DELAY_SECONDS
 from preprint_radar.sources.openalex import OPENALEX_DELAY_SECONDS
 from preprint_radar.sources.ror import ROR_DELAY_SECONDS
 from preprint_radar.sources.semantic_scholar import S2_ANONYMOUS_DELAY_SECONDS, S2_DELAY_SECONDS, api_key
@@ -193,6 +198,7 @@ def build_parser() -> argparse.ArgumentParser:
     _add_index_parser(subparsers)
     _add_reclean_parser(subparsers)
     _add_scholar_parser(subparsers)
+    _add_code_parser(subparsers)
     _add_venues_parser(subparsers)
     _add_validate_parser(subparsers)
     _add_summary_parser(subparsers)
@@ -228,6 +234,7 @@ PROGRESS_COMMANDS = frozenset(
         "archive-affiliations",
         "citations",
         "scholar",
+        "code",
         "archive",
     }
 )
@@ -577,6 +584,34 @@ def _add_scholar_parser(subparsers: "argparse._SubParsersAction[argparse.Argumen
         type=_duration,
         default=None,
         help="stop asking a refusing Semantic Scholar after this long (default: no limit)",
+    )
+
+
+def _add_code_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
+    code = subparsers.add_parser(
+        "code",
+        help="fetch the GitHub stars of the code stored papers link",
+        description=(
+            "Fetch the GitHub stars of the repository each stored paper links (the link its "
+            "card shows), or the Hugging Face likes of its models, data or demo, into "
+            f"code.json: 100 repositories a request, a minute. GitHub's API needs a token, "
+            f"from {GITHUB_AUTH_ENV}: any token, since it reads public data only. A lookup "
+            "that fails keeps last week's record."
+        ),
+    )
+    code.add_argument(
+        "-c",
+        "--category",
+        dest="categories",
+        action="append",
+        type=_category,
+        help="arXiv category, repeatable (default: every category in the store)",
+    )
+    code.add_argument(
+        "--data-dir",
+        type=Path,
+        default=DEFAULT_DATA_DIR,
+        help=f"data store directory (default: {DEFAULT_DATA_DIR})",
     )
 
 
@@ -1163,6 +1198,26 @@ def _run_archive_affiliations(args: argparse.Namespace) -> int:
     return 1 if failed else 0
 
 
+def _run_code(args: argparse.Namespace) -> int:
+    token = os.environ.get(GITHUB_AUTH_ENV)
+    if not token:
+        msg = f"No GitHub token: set {GITHUB_AUTH_ENV} (any token: it reads public data only)"
+        raise ConfigurationError(msg)
+    store = PaperStore(args.data_dir)
+    categories: list[str] = args.categories or store.categories()
+    # Only arXiv gets the contact; the other services get the bare User-Agent.
+    with (
+        HttpClient(user_agent=DEFAULT_USER_AGENT, min_interval=GITHUB_DELAY_SECONDS) as github,
+        HttpClient(user_agent=DEFAULT_USER_AGENT, min_interval=HUGGINGFACE_DELAY_SECONDS) as hub,
+    ):
+        for category in categories:
+            report = update_code_records(store, category, github=github, token=token, hub=hub)
+            line = format_code_report(report)
+            console.print(line)
+            github_summary(f"**Stars of the code.** {line}")
+    return 0
+
+
 def _semantic_scholar() -> tuple[HttpClient, str | None]:
     """A client for Semantic Scholar, and the API key it is used with (if any)."""
     key = api_key()
@@ -1376,6 +1431,7 @@ _COMMANDS: dict[str, Callable[[argparse.Namespace], int]] = {
     "reclean": _run_reclean,
     "venues": _run_venues,
     "scholar": _run_scholar,
+    "code": _run_code,
     "validate": _run_validate,
     "summary": _run_summary,
     "reextract": _run_reextract,

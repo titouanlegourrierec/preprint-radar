@@ -8,7 +8,7 @@ from pathlib import Path
 import pytest
 
 from preprint_radar.exceptions import SchemaVersionError, StoreError
-from preprint_radar.models import Listing, Paper, ScholarRecord
+from preprint_radar.models import CodeRecord, Listing, Paper, ScholarRecord
 from preprint_radar.store.paper_store import SCHEMA_VERSION, PaperStore
 
 
@@ -183,6 +183,110 @@ def test_a_refresh_run_again_within_the_week_keeps_the_gains(store: PaperStore) 
     assert gains is not None
     assert gains.gains == {"a": 4}
     assert store.load_citations("cs.CV") == {"a": 15}
+
+
+def test_the_stars_each_paper_gained_in_a_week(store: PaperStore) -> None:
+    week_ago = datetime(2026, 10, 11, 5, 41, tzinfo=UTC)
+    url = "https://github.com/lab/{}"
+    store.write_code(
+        "cs.CV",
+        {
+            "a": CodeRecord(url.format("a"), stars=10),
+            "b": CodeRecord(url.format("b"), stars=5),
+            "c": CodeRecord(url.format("c"), stars=7),
+            "e": CodeRecord("https://huggingface.co/lab/e", likes=2),
+        },
+        source="GitHub",
+        now=week_ago,
+    )
+    first = store.load_code("cs.CV")
+    assert first is not None
+    assert first.since is None  # nothing to count from yet
+    assert all(record.gained is None for record in first.papers.values())
+
+    store.write_code(
+        "cs.CV",
+        {
+            "a": CodeRecord(url.format("a"), stars=14, shared=True),
+            "b": CodeRecord(url.format("b"), stars=4),
+            "c": CodeRecord(url.format("other"), stars=70),  # another link: nothing gained yet
+            "d": CodeRecord(url.format("d"), stars=3),  # new
+            "e": CodeRecord("https://huggingface.co/lab/e", likes=5),
+        },
+        source="GitHub",
+        now=week_ago + timedelta(days=7),
+    )
+
+    code = store.load_code("cs.CV")
+    assert code is not None
+    assert code.since == week_ago
+    assert code.generated_at == week_ago + timedelta(days=7)
+    assert code.source == "GitHub"
+    assert {arxiv_id: record.gained for arxiv_id, record in code.papers.items()} == {
+        "a": 4,
+        "b": None,
+        "c": None,
+        "d": None,
+        "e": None,
+    }
+    assert code.papers["a"] == CodeRecord(url.format("a"), stars=14, gained=4, shared=True)
+
+    # Again within the week: the week's gains stay.
+    store.write_code(
+        "cs.CV",
+        {"a": CodeRecord(url.format("a"), stars=15)},
+        source="GitHub",
+        now=week_ago + timedelta(days=8),
+    )
+    again = store.load_code("cs.CV")
+    assert again is not None
+    assert again.since == week_ago
+    assert again.papers == {"a": CodeRecord(url.format("a"), stars=15, gained=4)}
+
+
+def test_stars_over_a_broken_code_file_gain_nothing(
+    store: PaperStore, caplog: pytest.LogCaptureFixture
+) -> None:
+    path = store.root / "cs.CV" / "code.json"
+    path.parent.mkdir(parents=True)
+    path.write_text("{not json", encoding="utf-8")
+
+    store.write_code("cs.CV", {"a": CodeRecord("https://github.com/lab/a", stars=1)}, source="GitHub")
+
+    code = store.load_code("cs.CV")
+    assert code is not None
+    assert code.papers["a"].gained is None
+    assert "No stars gained: the former code.json of cs.CV does not load" in caplog.text
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        "{not json",
+        '{"schema_version": 1, "papers": {}}',
+        '{"schema_version": 1, "papers": {"a": {"stars": 3}}, "source": "G", "generated_at": "2026-10-11"}',
+        '{"schema_version": 1, "papers": {"a": {"url": "u", "stars": "3"}}, "generated_at": "2026-10-11"}',
+    ],
+)
+def test_invalid_code_file_raises(store: PaperStore, payload: str) -> None:
+    path = store.root / "cs.CV" / "code.json"
+    path.parent.mkdir(parents=True)
+    path.write_text(payload, encoding="utf-8")
+
+    with pytest.raises(StoreError, match="Invalid code file"):
+        store.load_code("cs.CV")
+
+
+def test_a_code_file_of_another_schema_version_is_refused(store: PaperStore) -> None:
+    path = store.root / "cs.CV" / "code.json"
+    path.parent.mkdir(parents=True)
+    path.write_text(json.dumps({"schema_version": SCHEMA_VERSION + 1, "papers": {}}), encoding="utf-8")
+
+    with pytest.raises(SchemaVersionError):
+        store.load_code("cs.CV")
+    # Nor is it replaced: a newer pipeline wrote it.
+    with pytest.raises(SchemaVersionError):
+        store.write_code("cs.CV", {}, source="GitHub")
 
 
 def test_a_refresh_over_broken_counts_writes_no_gains(

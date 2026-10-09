@@ -21,6 +21,7 @@ from preprint_radar.models import Paper
 from preprint_radar.store.paper_store import (
     ARCHIVE_DIRNAME,
     CITATIONS_FILENAME,
+    CODE_FILENAME,
     GAINS_FILENAME,
     INDEX_FILENAME,
     SCHEMA_VERSION,
@@ -166,6 +167,7 @@ def _validate_category(store: PaperStore, category: str, report: ValidationRepor
     _validate_citations(store, category, stored, report)
     _validate_gains(store, category, stored, report)
     _validate_scholar(store, category, authors, report)
+    _validate_code(store, category, stored, report)
     return {"days": days, "years": years, "top_recent": top_recent}
 
 
@@ -301,6 +303,28 @@ def _validate_gains(store: PaperStore, category: str, stored: set[str], report: 
     unknown = sorted(set(gains.gains) - stored) if gains else []
     if unknown:
         message = f"{len(unknown)} gains of papers that are not stored, e.g. {', '.join(unknown[:5])}"
+        report.findings.append(Finding(Level.WARNING, where, message))
+
+
+def _validate_code(store: PaperStore, category: str, stored: set[str], report: ValidationReport) -> None:
+    """``code.json`` must load; records of papers no longer stored only warn.
+
+    It is written weekly, with the counts, from which the pruned papers left, and the next
+    refresh drops them.
+    """
+    path = store.root / category / CODE_FILENAME
+    if not path.is_file():
+        return
+    report.files += 1
+    where = _where(path, store)
+    try:
+        code = store.load_code(category)
+    except StoreError as exc:
+        report.findings.append(Finding(Level.ERROR, where, str(exc)))
+        return
+    unknown = sorted(set(code.papers) - stored) if code else []
+    if unknown:
+        message = f"{len(unknown)} records of papers that are not stored, e.g. {', '.join(unknown[:5])}"
         report.findings.append(Finding(Level.WARNING, where, message))
 
 
