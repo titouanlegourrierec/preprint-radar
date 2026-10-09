@@ -39,6 +39,7 @@ import {
   arxivIdOf,
   byCitations,
   byGains,
+  byStars,
   exactly,
   mostlyTied,
   NO_FILTERS,
@@ -132,9 +133,14 @@ export function App() {
   const hasSearchWords = parseQuery(query).text !== "";
   // Rising papers, once two weekly refreshes of the counts are known (CIT-9).
   const gainsSpan = citations.gainsSpan;
+  // The stars of the code the papers link, once the weekly refresh gave some (PROD-18).
+  const starsKnown = useMemo(
+    () => activeIndex?.all().some(({ code }) => code?.stars !== undefined) ?? false,
+    [activeIndex],
+  );
   // What this view shows and offers (`view-model.ts`, DEBT-2).
-  const model = viewModel(state, { hasSearchWords, gainsKnown: gainsSpan !== null });
-  const { triaged, byCount, rising, groupByDay } = model;
+  const model = viewModel(state, { hasSearchWords, gainsKnown: gainsSpan !== null, starsKnown });
+  const { triaged, byCount, rising, starred, groupByDay } = model;
   const hiding = triaged && triage.hideSeen && triage.seen.size > 0;
   // In three steps, each redone only when what it reads changes (UX-23): marking a paper
   // seen does not search again, nor do late counts when the order ignores them. The index
@@ -161,9 +167,10 @@ export function App() {
   const rankingCounts = byCount ? citations.counts : null;
   const rankingGains = state.sort === "rising" ? citations.gains : null;
   const results: SearchResult[] = useMemo(() => {
+    if (starred) return byStars(shown);
     if (rankingGains && rankingCounts) return byGains(shown, rankingGains, rankingCounts);
     return rankingCounts ? byCitations(shown, rankingCounts) : shown;
-  }, [shown, rankingCounts, rankingGains]);
+  }, [shown, rankingCounts, rankingGains, starred]);
   // The graph has its own settings panel: it ignores the list filters, not the search words.
   const graphPapers = useMemo(
     () =>

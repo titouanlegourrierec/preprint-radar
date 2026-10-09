@@ -675,6 +675,8 @@ html {
   margin: 0;
   border: 0;
   display: flex;
+  /* Five orders (Most starred, PROD-18) take two rows on a phone, each label whole. */
+  flex-wrap: wrap;
   align-items: center;
   gap: 2px;
   padding: 2px;
@@ -685,6 +687,7 @@ html {
 
 .segmented__option {
   padding: 3px 10px;
+  white-space: nowrap;
   border: 0;
   border-radius: 6px;
   background: transparent;
@@ -833,6 +836,20 @@ html {
 
 .citations--gain {
   color: var(--accent);
+}
+
+/* The stars of a paper's code (PROD-18), after its Code link. */
+.stars {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.stars__gained {
+  color: var(--accent);
+}
+
+.stars__shared {
+  color: var(--text-muted);
 }
 
 .badge--muted {

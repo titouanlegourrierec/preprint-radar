@@ -10,12 +10,12 @@ import { ANY_VENUE, matchesVenue } from "./venues";
 export { ANY_VENUE };
 
 /**
- * Order of results. The index has no citation counts: `citations` and `rising` order them
- * like `relevance` (best match first with search words, else newest first), and the caller
- * ranks them with {@link byCitations} or {@link byGains}, which keep that order among
- * equal counts (CIT-6).
+ * Order of results. The index has no citation counts nor stars: `citations`, `rising` and
+ * `stars` order them like `relevance` (best match first with search words, else newest
+ * first), and the caller ranks them with {@link byCitations}, {@link byGains} or
+ * {@link byStars}, which keep that order among equal counts (CIT-6).
  */
-export type SortOrder = "relevance" | "newest" | "citations" | "rising";
+export type SortOrder = "relevance" | "newest" | "citations" | "rising" | "stars";
 
 /**
  * An author or affiliation filter: a name clicked on a card, a Rankings row or a graph
@@ -582,6 +582,17 @@ export function byGains(
 ): SearchResult[] {
   const gain = (result: SearchResult) => gains.get(result.paper.arxiv_id) ?? 0;
   return byCitations(results, counts).sort((a, b) => gain(b) - gain(a));
+}
+
+/**
+ * Results by the GitHub stars of the code they link (PROD-18), the most first; papers
+ * whose stars are not theirs alone (a repository other papers link too, or a folder of
+ * one) rank with those without stars, after them. Stable, as {@link byCitations}.
+ */
+export function byStars(results: readonly SearchResult[]): SearchResult[] {
+  const stars = ({ paper: { code } }: SearchResult) =>
+    code?.stars !== undefined && !code.shared ? code.stars : -1;
+  return [...results].sort((a, b) => stars(b) - stars(a));
 }
 
 /**

@@ -104,6 +104,9 @@ describe("url state", () => {
     expect(readState(writeState(state))).toEqual(state);
     const rising = { ...DEFAULT_STATE, sort: "rising" as const };
     expect(readState(writeState(rising))).toEqual(rising);
+    const stars = { ...DEFAULT_STATE, sort: "stars" as const };
+    expect(writeState(stars)).toBe("?sort=stars");
+    expect(readState(writeState(stars))).toEqual(stars);
   });
 
   it("reads the about view", () => {

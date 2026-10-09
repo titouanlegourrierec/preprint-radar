@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "preact/hooks";
 import { toBibtex } from "../bibtex";
-import { codeUrl } from "../code";
+import { codeBadge, codeUrl } from "../code";
 import { download } from "../download";
 import { countOf, daysSince, firstVersionYear, formatDay, subjectCode } from "../format";
 import { highlight } from "../highlight";
@@ -130,6 +130,7 @@ export function PaperCard({
     ? allAffiliations
     : allAffiliations.slice(0, MAX_AFFILIATIONS_COLLAPSED);
   const code = codeUrl(paper);
+  const badge = code ? codeBadge(paper.code) : null;
   // An old paper announced lately, as a cross-list: the year it first went to arXiv (PROD-14).
   const firstVersion = firstVersionYear(paper.arxiv_id, paper.announced);
   // A recent paper has no citations yet: "0 citations" on nearly every card says nothing.
@@ -374,6 +375,14 @@ export function PaperCard({
             >
               Code
             </a>
+          )}
+          {badge && (
+            <span class={`stars${badge.shared ? " stars--shared" : ""}`} title={badge.title}>
+              <span aria-hidden="true">{badge.symbol}</span> {badge.count}
+              <span class="visually-hidden"> {badge.noun}</span>
+              {badge.gained && <span class="stars__gained"> {badge.gained}</span>}
+              {badge.shared && <span class="stars__shared"> shared</span>}
+            </span>
           )}
           <button type="button" aria-describedby={titleId} class="link-button" onClick={copyBibtex}>
             {bibtex === "copied" ? "Copied!" : bibtex === "downloaded" ? "Downloaded" : "BibTeX"}

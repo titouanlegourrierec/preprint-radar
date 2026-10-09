@@ -35,9 +35,16 @@ export function About() {
           Highly cited papers: chosen every week by citations per year of age, from the counts of{" "}
           <a href="https://www.semanticscholar.org">Semantic Scholar</a>, and, for the last 12
           months, by citations per month of age. Their affiliations come from{" "}
-          <a href="https://openalex.org">OpenAlex</a>, which learns those of recent papers over
-          months. A paper its authors withdrew from arXiv is never among them, and is marked
-          Withdrawn elsewhere.
+          <a href="https://openalex.org">OpenAlex</a>, for the paper or its published version, else
+          from the HTML version of the paper. A paper its authors withdrew from arXiv is never among
+          them, and is marked Withdrawn elsewhere.
+        </li>
+        <li>
+          Code: the repository, or the models, data or demo on Hugging Face, that a paper links in
+          its abstract or comments, with its stars on <a href="https://github.com">GitHub</a> (likes
+          on <a href="https://huggingface.co">Hugging Face</a>), refreshed every week. A repository
+          other papers link too, or a folder of a larger one, is marked shared: its stars are not
+          the paper's alone, and Most starred ranks it last.
         </li>
       </ul>
 

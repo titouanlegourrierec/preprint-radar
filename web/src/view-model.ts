@@ -6,7 +6,7 @@
 import type { ViewState } from "./url-state";
 
 /** An order the list offers, as its sort control shows it. */
-export type SortChoice = "relevance" | "newest" | "citations" | "rising";
+export type SortChoice = "relevance" | "newest" | "citations" | "rising" | "stars";
 
 export interface ViewModel {
   /** The Highly cited view: archive years, ranked by citations. */
@@ -20,6 +20,8 @@ export interface ViewModel {
   byCount: boolean;
   /** Rising papers first: the sort asks it and gains are known. */
   rising: boolean;
+  /** The most starred code first (PROD-18): the sort asks it and stars are known. */
+  starred: boolean;
   /** Announcement order: Newest, or relevance without search words. */
   newest: boolean;
   /** Day headings fold the list: announcement order, outside the highly cited view. */
@@ -48,26 +50,35 @@ export function showsArchive(state: Pick<ViewState, "view" | "year">): boolean {
 
 /**
  * The view model of a state: `hasSearchWords` when the query holds words (not only
- * phrases or exclusions), `gainsKnown` once two weekly refreshes of the counts exist.
+ * phrases or exclusions), `gainsKnown` once two weekly refreshes of the counts exist,
+ * `starsKnown` once papers loaded have the stars of their code (`code.json`).
  */
 export function viewModel(
   state: Pick<ViewState, "view" | "sort" | "year">,
-  { hasSearchWords, gainsKnown }: { hasSearchWords: boolean; gainsKnown: boolean },
+  {
+    hasSearchWords,
+    gainsKnown,
+    starsKnown = false,
+  }: { hasSearchWords: boolean; gainsKnown: boolean; starsKnown?: boolean },
 ): ViewModel {
   const { view, sort } = state;
   const cited = view === "cited";
   const rankings = view === "rankings";
   const listed = view === "papers" || view === "reading-list";
-  const byCount = cited || sort === "citations" || sort === "rising";
+  const starred = sort === "stars" && starsKnown && (listed || cited);
+  const byCount = !starred && (cited || sort === "citations" || sort === "rising");
   const rising = sort === "rising" && gainsKnown;
-  const newest = sort === "newest" || (sort === "relevance" && !hasSearchWords);
+  // Most starred before the stars are known is the view's own order, as relevance is.
+  const relevance = sort === "relevance" || (sort === "stars" && !starred);
+  const newest = sort === "newest" || (relevance && !hasSearchWords);
   const sorts: SortChoice[] =
-    listed || (cited && gainsKnown)
+    listed || (cited && (gainsKnown || starsKnown))
       ? [
           ...(hasSearchWords && !cited ? (["relevance"] as const) : []),
           ...(cited ? [] : (["newest"] as const)),
           "citations",
           ...(gainsKnown ? (["rising"] as const) : []),
+          ...(starsKnown ? (["stars"] as const) : []),
         ]
       : [];
   return {
@@ -77,10 +88,11 @@ export function viewModel(
     triaged: view === "papers",
     byCount,
     rising,
+    starred,
     newest,
-    groupByDay: !byCount && (!hasSearchWords || sort === "newest"),
+    groupByDay: !byCount && !starred && (!hasSearchWords || sort === "newest"),
     sorts,
-    sorted: sortedBy({ byCount, rising, newest }),
+    sorted: sortedBy({ byCount, rising, starred, newest }),
     relevanceHelp: sorts.includes("relevance"),
     hideSeen: view === "papers",
     abstracts: view === "papers" || cited,
@@ -92,12 +104,15 @@ export function viewModel(
 function sortedBy({
   byCount,
   rising,
+  starred,
   newest,
 }: {
   byCount: boolean;
   rising: boolean;
+  starred: boolean;
   newest: boolean;
 }): SortChoice {
+  if (starred) return "stars";
   if (rising) return "rising";
   if (byCount) return "citations";
   return newest ? "newest" : "relevance";

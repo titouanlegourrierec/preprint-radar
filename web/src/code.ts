@@ -1,5 +1,6 @@
+import { countOf } from "./format";
 import { linkify } from "./linkify";
-import type { Paper } from "./types";
+import type { CodeStats, Paper } from "./types";
 
 // A repository: an owner and a name on a code host. A user's page or a project page
 // (`*.github.io`) is not one.
@@ -30,4 +31,57 @@ export function codeUrl(paper: Pick<Paper, "abstract" | "comments">): string | n
     found.set(paper, url);
   }
   return url;
+}
+
+/** How popular a paper's code is, as its card says it next to the Code link (PROD-18). */
+export interface CodeBadge {
+  /** The count shown after its symbol: "1,234". */
+  count: string;
+  /** "★" for GitHub's stars, "♥" for the Hub's likes. */
+  symbol: string;
+  /** What the count is, for screen readers: "GitHub stars". */
+  noun: string;
+  /** "+12 this week": the stars gained between the last two weekly refreshes. */
+  gained: string | null;
+  /** Its stars are not the paper's alone. */
+  shared: boolean;
+  /** The tooltip, which says all of it. */
+  title: string;
+}
+
+/** The badge of a paper's code, `null` when nothing is known of it. */
+export function codeBadge(stats: CodeStats | undefined): CodeBadge | null {
+  if (stats?.stars !== undefined) {
+    const shared = stats.shared === true;
+    const gained = stats.gained ? `+${stats.gained.toLocaleString()} this week` : null;
+    const sentences = [
+      `${countOf(stats.stars, "star")} on GitHub, refreshed every week`,
+      ...(gained ? [`${countOf(stats.gained ?? 0, "star")} gained in the last week`] : []),
+      ...(shared
+        ? [
+            "Shared: other papers link the same repository, or this one a folder of a larger " +
+              "one, so these stars are not this paper's alone",
+          ]
+        : []),
+    ];
+    return {
+      count: stats.stars.toLocaleString(),
+      symbol: "★",
+      noun: stats.stars === 1 ? "GitHub star" : "GitHub stars",
+      gained,
+      shared,
+      title: `${sentences.join(". ")}.`,
+    };
+  }
+  if (stats?.likes !== undefined) {
+    return {
+      count: stats.likes.toLocaleString(),
+      symbol: "♥",
+      noun: stats.likes === 1 ? "Hugging Face like" : "Hugging Face likes",
+      gained: null,
+      shared: false,
+      title: `${countOf(stats.likes, "like")} on Hugging Face, refreshed every week.`,
+    };
+  }
+  return null;
 }

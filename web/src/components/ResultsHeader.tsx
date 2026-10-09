@@ -45,7 +45,13 @@ const SORT_LABELS: Record<SortChoice, string> = {
   newest: "Newest",
   citations: "Most cited",
   rising: "Rising",
+  stars: "Most starred",
 };
+
+const STARS_TITLE =
+  "By the GitHub stars of the code they link. A repository other papers link too, or a " +
+  "folder of a larger one, ranks with the papers without stars: its stars are not the " +
+  "paper's alone.";
 
 interface Props {
   model: ViewModel;
@@ -95,6 +101,7 @@ export function ResultsHeader(props: Props) {
   const titles: Partial<Record<SortChoice, string | undefined>> = {
     relevance: RELEVANCE_HELP,
     citations: props.citationsNote,
+    stars: STARS_TITLE,
     ...(props.gainsSpan && {
       rising: `By the citations gained between ${formatDay(props.gainsSpan.since)} and ${formatDay(props.gainsSpan.to)}`,
     }),

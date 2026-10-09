@@ -12,10 +12,10 @@ import { basename, dirname, resolve, sep } from "node:path";
 import preact from "@preact/preset-vite";
 import type { Plugin } from "vite";
 import { defineConfig } from "vitest/config";
-import type { ScholarFile, StoreIndex } from "./src/types";
+import type { CodeFile, ScholarFile, StoreIndex } from "./src/types";
 import { citationShardFiles } from "./tooling/citation-shards";
 import { feedFiles } from "./tooling/feeds";
-import { paperFiles, withScholar } from "./tooling/scholar";
+import { paperFiles, withSiteFields } from "./tooling/scholar";
 import { thirdPartyLoads } from "./tooling/third-party";
 
 // The repository's store; the smoke test (e2e/) builds the site over a small one instead.
@@ -78,20 +78,22 @@ function feedsOf(dataDir: string): () => Map<string, string> {
 }
 
 // A day or archive file, or the most cited papers of the last 12 months, whose records the
-// site gets with their DOI and published venue.
+// site gets with their DOI, published venue and the stars of their code.
 const PAPER_FILE_RE = /^\/([^/]+)\/(?:\d{4}-\d{2}-\d{2}|archive\/\d{4}|top-recent)\.json$/;
 
 /**
  * Serve the repository's `data/` store at `/data` during development and copy it into the
  * build output, so the Python pipeline and the web app share a single source of truth. What
  * only the site uses is derived from it here, not stored: the citation shards, the records
- * with what `scholar.json` knows (`tooling/scholar.ts`), and the Atom feeds, at `/feeds`.
+ * with what `scholar.json` and `code.json` know (`tooling/scholar.ts`, `tooling/code.ts`),
+ * and the Atom feeds, at `/feeds`.
  */
 function paperData(dataDir: string): Plugin {
   const shards = shardsOf(dataDir);
   const feeds = feedsOf(dataDir);
   const read = jsonReader(dataDir);
   const scholarOf = (category: string) => read(`${category}/scholar.json`) as ScholarFile | null;
+  const codeOf = (category: string) => read(`${category}/code.json`) as CodeFile | null;
   return {
     name: "preprint-radar:data",
     configureServer(server) {
@@ -121,7 +123,8 @@ function paperData(dataDir: string): Plugin {
         res.setHeader("Content-Type", "application/json; charset=utf-8");
         const category = PAPER_FILE_RE.exec(path)?.[1];
         if (category !== undefined) {
-          res.end(withScholar(readFileSync(file, "utf8"), scholarOf(category)));
+          const text = readFileSync(file, "utf8");
+          res.end(withSiteFields(text, scholarOf(category), codeOf(category)));
           return;
         }
         createReadStream(file).pipe(res);
@@ -146,13 +149,13 @@ function paperData(dataDir: string): Plugin {
           writeFileSync(target, text);
         }
         const index = read("index.json") as StoreIndex | null;
-        const scholars = new Map<string, ScholarFile | null>();
+        const merged = new Map<string, [ScholarFile | null, CodeFile | null]>();
         for (const { category, path } of index ? paperFiles(index) : []) {
-          if (!scholars.has(category)) scholars.set(category, scholarOf(category));
-          const scholar = scholars.get(category) ?? null;
+          if (!merged.has(category)) merged.set(category, [scholarOf(category), codeOf(category)]);
+          const [scholar, code] = merged.get(category) ?? [null, null];
           const target = resolve(output, path);
-          if (scholar !== null && existsSync(target)) {
-            writeFileSync(target, withScholar(readFileSync(target, "utf8"), scholar));
+          if ((scholar !== null || code !== null) && existsSync(target)) {
+            writeFileSync(target, withSiteFields(readFileSync(target, "utf8"), scholar, code));
           }
         }
       }

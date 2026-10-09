@@ -64,6 +64,30 @@ describe("viewModel", () => {
     ).toEqual(["citations", "rising"]);
   });
 
+  it("ranks by the stars of the code once they are known (PROD-18)", () => {
+    const stars = { hasSearchWords: false, gainsKnown: false, starsKnown: true };
+    const starred = viewModel(state({ sort: "stars" }), stars);
+    expect(starred.sorts).toEqual(["newest", "citations", "stars"]);
+    expect(starred).toMatchObject({
+      sorted: "stars",
+      starred: true,
+      byCount: false,
+      groupByDay: false,
+    });
+    // Without stars, the URL's sort falls back to the view's own order.
+    expect(viewModel(state({ sort: "stars" }), none)).toMatchObject({
+      sorted: "newest",
+      starred: false,
+    });
+    // The highly cited view offers it too, ranked by stars instead of citations.
+    const cited = viewModel(state({ view: "cited", sort: "stars" }), stars);
+    expect(cited.sorts).toEqual(["citations", "stars"]);
+    expect(cited).toMatchObject({ sorted: "stars", byCount: false });
+    expect(viewModel(state({ view: "cited" }), stars)).toMatchObject({ sorted: "citations" });
+    // Not in Rankings.
+    expect(viewModel(state({ view: "rankings", sort: "stars" }), stars).starred).toBe(false);
+  });
+
   it("offers no list controls in Rankings, the graph or About", () => {
     for (const view of ["rankings", "graph", "about"] as const) {
       expect(viewModel(state({ view }), words)).toMatchObject({

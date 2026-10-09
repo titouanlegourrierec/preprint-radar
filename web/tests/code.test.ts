@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { codeUrl } from "../src/code";
+import codeCases from "../../tests/fixtures/code-cases.json?raw";
+import { codeBadge, codeUrl } from "../src/code";
 
 const paper = (abstract: string | null, comments: string | null = null) => ({
   abstract,
@@ -48,5 +49,48 @@ describe("codeUrl", () => {
     expect(codeUrl(record)).toBe("https://github.com/example/once");
     record.abstract = "changed";
     expect(codeUrl(record)).toBe("https://github.com/example/once");
+  });
+});
+
+describe("codeUrl and the pipeline", () => {
+  // The same cases as tests/unit/test_code.py: a paper's stars are those of its card's link.
+  const cases = JSON.parse(codeCases) as {
+    abstract: string;
+    comments?: string;
+    url: string | null;
+  }[];
+
+  it.each(cases)("finds $url", ({ abstract, comments, url }) => {
+    expect(codeUrl(paper(abstract, comments ?? null))).toBe(url);
+  });
+});
+
+describe("codeBadge", () => {
+  it("says the stars, those gained this week, and whether they are shared", () => {
+    expect(codeBadge({ stars: 1234, gained: 12 })).toEqual({
+      count: "1,234",
+      symbol: "★",
+      noun: "GitHub stars",
+      gained: "+12 this week",
+      shared: false,
+      title: "1,234 stars on GitHub, refreshed every week. 12 stars gained in the last week.",
+    });
+    const shared = codeBadge({ stars: 1, shared: true });
+    expect(shared).toMatchObject({ count: "1", noun: "GitHub star", gained: null, shared: true });
+    expect(shared?.title).toContain("not this paper's alone");
+  });
+
+  it("says the likes of a page on the Hub", () => {
+    expect(codeBadge({ likes: 1 })).toMatchObject({
+      symbol: "♥",
+      noun: "Hugging Face like",
+      title: "1 like on Hugging Face, refreshed every week.",
+    });
+    expect(codeBadge({ likes: 3 })?.noun).toBe("Hugging Face likes");
+  });
+
+  it("is nothing without counts", () => {
+    expect(codeBadge(undefined)).toBeNull();
+    expect(codeBadge({})).toBeNull();
   });
 });

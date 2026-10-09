@@ -1,4 +1,5 @@
-import type { ScholarFile } from "../src/types";
+import type { CodeFile, CodeStats, ScholarFile } from "../src/types";
+import { mergeCode } from "./code";
 
 /** A paper as a day or archive file holds it, for what the merge reads and writes. */
 export interface StoredPaper {
@@ -7,24 +8,35 @@ export interface StoredPaper {
   venue?: string | null;
   doi?: string | null;
   author_ids?: (string | null)[];
+  abstract?: string | null;
+  comments?: string | null;
+  code?: CodeStats;
 }
 
 /**
- * A day or archive file (JSON text) with what `scholar.json` knows of its papers: the DOI of
- * the published version, and the venue it was published at where the comments name none
- * (the comments, when they name one, are more often right: Semantic Scholar takes papers of
- * the Image Processing ICIP for the Information Photonics one), and its authors' ids,
- * which tell the graph when a name is several people's. The store keeps them apart, since
- * `scholar.json` is rewritten every week; the site's records carry them.
+ * A day or archive file (JSON text) with what only the site's records hold, which the store
+ * keeps apart since it is rewritten every week: what `scholar.json` knows of its papers
+ * ({@link mergeScholar}), and how popular their code is (`code.json`, `mergeCode`).
  */
-export function withScholar(text: string, scholar: ScholarFile | null): string {
-  if (scholar === null) return text;
+export function withSiteFields(
+  text: string,
+  scholar: ScholarFile | null,
+  code: CodeFile | null = null,
+): string {
+  if (scholar === null && code === null) return text;
   const file = JSON.parse(text) as { papers: StoredPaper[] };
-  mergeScholar(file.papers, scholar);
+  if (scholar !== null) mergeScholar(file.papers, scholar);
+  if (code !== null) mergeCode(file.papers, code);
   return JSON.stringify(file);
 }
 
-/** The same merge on parsed records, in place: what the feeds read (`tooling/feeds.ts`). */
+/**
+ * What `scholar.json` knows of the papers, in place: the DOI of the published version, and
+ * the venue it was published at where the comments name none (the comments, when they name
+ * one, are more often right: Semantic Scholar takes papers of the Image Processing ICIP for
+ * the Information Photonics one), and its authors' ids, which tell the graph when a name is
+ * several people's. The feeds read it too (`tooling/feeds.ts`).
+ */
 export function mergeScholar(papers: StoredPaper[], scholar: ScholarFile): void {
   for (const paper of papers) {
     const record = scholar.papers[paper.arxiv_id];

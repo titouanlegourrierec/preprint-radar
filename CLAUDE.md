@@ -67,6 +67,10 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     for every paper again. The daily workflow runs it.
   - `make scholar`: the DOI, published venue and author ids (checked against the names)
     of every stored paper into `scholar.json` (52 requests). `archive.yml` runs it weekly.
+  - `make code`: the GitHub stars of the repository each stored paper links (the card's
+    link), or the Hugging Face likes of its page, into `code.json` (PROD-18): GraphQL, 100
+    repositories a query, a minute; it needs `GITHUB_TOKEN` (any token, public data only:
+    `.env` locally, the workflow's own in CI). `archive.yml` runs it weekly.
   - `make reextract [MAX_HTML=N]`: read again the pages of stored papers extracted by an
     older `EXTRACTOR_VERSION`, from the page cache when it holds them (offline), else at
     15 s a page within `MAX_HTML`; `--ids` or `--match REGEX` pick papers instead. A page
@@ -114,14 +118,15 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     `arxiv_api.py`, `arxiv_html.py` (front matter: affiliations, author mapping, abstract;
     `PageCache`), `arxiv_oai.py`, `semantic_scholar.py` (counts and published versions),
     `openalex.py` (institutions of archived papers, and of published versions), `ror.py`
-    (institution of a string).
+    (institution of a string), `github.py` (stars) and `huggingface.py` (likes).
   - `collect.py`: listing → abstracts → HTML front matter → institutions → store
     (`update_category`, `backfill_category`, `reextract_category`; `HtmlReading` bundles
     how pages are read), the Semantic Scholar steps (`update_citation_counts`,
     `update_scholar_records`) and the OpenAlex ones (`update_openalex_affiliations`,
-    `update_archive_affiliations`). `venue.py`: venues from comments, and Semantic
-    Scholar's named the same way. `names.py`: whether another service's name for an author
-    is arXiv's.
+    `update_archive_affiliations`), and the stars of the code (`update_code_records`).
+    `venue.py`: venues from comments, and Semantic Scholar's named the same way.
+    `names.py`: whether another service's name for an author is arXiv's. `code.py`: the
+    code a paper links, as the site's card finds it.
   - `archive/`: the weekly citation archive (`update.py`, `catalog.py`, `selection.py`).
   - `store/`: `paper_store.py` (the `data/` layout), `validate.py`, `stats.py`,
     `quality.py`, `reclean.py`, `venues.py`, `export.py`, `filters.py`.
@@ -147,7 +152,8 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   - `<category>/citations.json` and `<category>/scholar.json`: Semantic Scholar's counts
     and published versions of every stored paper, kept out of the records since they are
     rewritten weekly; `<category>/citation-gains.json`, what each gained between the last
-    two weekly refreshes (`docs/archive.md`).
+    two weekly refreshes (`docs/archive.md`); `<category>/code.json`, the stars of the code
+    each links, and those gained in the week.
 - `web/`: `src/` (the app; `docs/web.md`), `tooling/` (build plugins: what the site derives
   from `data/`, the third-party guard), `tests/` (Vitest), `e2e/` (Playwright and its store).
 - `.cache/` (git-ignored; the Actions cache in CI): `front-matter/<yymm>/<id>v<n>.html.gz`,
@@ -159,7 +165,8 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
 - `tests/fixtures/`: trimmed copies of real arXiv pages; `html/expected.json` pins what each
   HTML fixture gives (`docs/extraction.md`). Real e-mails in them are replaced by
   `author@example.org`. `fold-cases.json`: names and the key both languages give them
-  (`searchKey`, `institutions.search_key`), read by pytest and Vitest. Git hooks never
+  (`searchKey`, `institutions.search_key`), read by pytest and Vitest, and so is
+  `code-cases.json` (the code link both find, `code.py` and `code.ts`). Git hooks never
   rewrite `tests/fixtures/` or `data/`.
 
 ## Conventions
@@ -179,10 +186,11 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   no real author ids or e-mails (the fixtures' real pages have theirs replaced).
 - `tests/conftest.py` runs every test in its own temporary directory, since default paths
   are relative (`data/`, `.cache/`, `exports/`): a CLI test once wrote fake pages into the
-  real page cache. It also hides `PREPRINT_RADAR_CONTACT`, `SEMANTIC_SCHOLAR_API_KEY` (the
-  Makefile exports the contact of `.env` to every target, its key to `archive`, `citations`
-  and `scholar` only; the shell may hold either), `GITHUB_ACTIONS` and
-  `GITHUB_STEP_SUMMARY`: set them with `monkeypatch.setenv` where a test needs them.
+  real page cache. It also hides `PREPRINT_RADAR_CONTACT`, `SEMANTIC_SCHOLAR_API_KEY`,
+  `GITHUB_TOKEN` (the Makefile exports the contact of `.env` to every target, its key to
+  `archive`, `citations` and `scholar` only, its token to `code` only; the shell may hold
+  any), `GITHUB_ACTIONS` and `GITHUB_STEP_SUMMARY`: set them with `monkeypatch.setenv`
+  where a test needs them.
 - Web: TypeScript strict (TS 7), Biome (no ESLint/Prettier), Preact hooks, no CSS
   framework. Theme colors are the CSS variables of `styles.css`: automatic light/dark plus
   a manual `data-theme` override. The dark palette is declared twice: keep both blocks
@@ -263,7 +271,8 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   read the archive.
 - The site's records are not quite the store's: the build adds `doi`, the authors'
   `author_ids` and, where the comments name no venue, the published `venue` from
-  `scholar.json`. The pipeline never writes them into a record; it keeps an author's id
+  `scholar.json`, and `code` (stars, gains, likes, `shared`) from `code.json` where its
+  link is still the card's. The pipeline never writes them into a record; it keeps an author's id
   only where Semantic Scholar's name for it is the paper's author at that place.
 
 ## arXiv and service rules (hard-won, do not "simplify" away)
@@ -287,9 +296,11 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   failing ROR never fails a run.
 - **Semantic Scholar:** refusals (429) are routine even with a key and are retried; a 401
   or 403 means a bad key and fails the run (`docs/archive.md`).
+- **GitHub:** GraphQL only (100 repositories a query; REST allows 60 anonymous requests an
+  hour), with a token; a 401 fails the run, any other refusal leaves last week's stars.
 - **Contact:** `PREPRINT_RADAR_CONTACT` goes into the User-Agent of arXiv requests only
-  (arxiv.org, the API, OAI-PMH); other services get the bare `DEFAULT_USER_AGENT`, never
-  the maintainer's e-mail. It
+  (arxiv.org, the API, OAI-PMH); other services (Semantic Scholar, OpenAlex, ROR, GitHub,
+  the Hub) get the bare `DEFAULT_USER_AGENT`, never the maintainer's e-mail. It
   comes from `.env` locally (git-ignored, loaded by the Makefile) and from a repository
   variable in CI.
 
@@ -332,7 +343,8 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     restores the page cache from the Actions cache (`front-matter-<run id>`, saved even
     after a failure). Its manual *since* input runs `backfill` instead.
   - `archive.yml` (dispatched Sundays 05:41 UTC): the archive, then `scholar` (20 minutes),
-    then `archive-affiliations` (OpenAlex only, seconds).
+    then `archive-affiliations` (OpenAlex only, seconds) and `code` (a minute, with the
+    workflow's `GITHUB_TOKEN`).
   - `canary.yml` (Wednesdays): the network tests against the live arXiv (a red canary is a
     layout change to look at before it reaches the data), and the repository size.
   - Sizes (ARCH-1): `deploy.yml` fails a site above 800 MB (Pages refuses 1 GB) and warns

@@ -8,6 +8,19 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ## Unreleased
 
+### Code
+
+- A card shows the GitHub stars of the code it links, "★ 1,234", with those gained in the
+  week ("+12 this week"), or the Hugging Face likes of its models, data or demo; a
+  repository other papers link too, or a folder of a larger one, is marked shared, its
+  stars not the paper's alone (PROD-18).
+- Most starred (`?sort=stars`) ranks the papers by those stars, the shared ones with the
+  papers without stars, in the Papers and Highly cited views, once the stars are known.
+  The sort control takes two rows on a phone rather than cut its labels.
+- `make code` fetches them into `code.json`: GitHub's GraphQL API, 100 repositories a
+  query, a minute for the 7,541 repositories of the stored papers; it needs a GitHub
+  token (`GITHUB_TOKEN`, any). The weekly archive runs it with the workflow's own.
+
 ### Search
 
 - "With code" keeps the papers that link their code, about one in five: a repository on

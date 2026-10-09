@@ -30,6 +30,12 @@ export interface Paper {
    * Absent when unknown.
    */
   author_ids?: (string | null)[];
+  /**
+   * How popular the code the paper links is (`codeUrl`): not in the store's records, the
+   * build merges it from `code.json` (`tooling/code.ts`) where the link is still the one
+   * the card shows. Absent when unknown.
+   */
+  code?: CodeStats;
   cross_list_from: string | null;
   html_url: string | null;
   /** `null` when not retrieved yet. */
@@ -77,6 +83,30 @@ export interface Provenance {
   source: string;
   /** The day it was read; absent for what was read before provenance was kept. */
   at?: string;
+}
+
+/**
+ * How popular a paper's code is (PROD-18): the stars of its GitHub repository and those it
+ * gained between the last two weekly refreshes, or the likes of its Hugging Face page.
+ * `shared` when other papers link the same repository, or this one a folder of it: its
+ * stars are not the paper's alone.
+ */
+export interface CodeStats {
+  stars?: number;
+  gained?: number;
+  likes?: number;
+  shared?: boolean;
+}
+
+/** `<category>/code.json`: the stars of the code the stored papers link, by arXiv id. */
+export interface CodeFile {
+  schema_version: number;
+  category: string;
+  generated_at: string;
+  /** The refresh the stars gained are counted from; `null` before a second one. */
+  since: string | null;
+  source: string;
+  papers: Record<string, CodeStats & { url: string }>;
 }
 
 /** `<category>/scholar.json`: what Semantic Scholar knows of the stored papers. */

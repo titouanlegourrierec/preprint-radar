@@ -77,6 +77,13 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
 - `App` holds the state and derives the papers shown; what a view shows and offers is
   worked out once by `viewModel` (DEBT-2): whether it loads archive years
   (`showsArchive`), its order and the sort choices it offers, its toggles and exports.
+  The sort control offers Most starred (`?sort=stars`, PROD-18) once the papers loaded have
+  the stars of their code: `byStars` ranks them by their GitHub stars, a repository other
+  papers link too, or a folder of a larger one (`shared`), with the papers without stars;
+  before any `code.json`, `sort=stars` is the view's own order. Five orders take two rows
+  on a phone (`.segmented` wraps, its labels whole). A card shows the stars after its Code
+  link (`codeBadge`: "★ 1,234", "+12 this week", "shared"; "♥ 23" for the Hub's likes),
+  with what they are in its tooltip and for screen readers.
   "Hide seen" is the Papers view's alone, "Show abstracts" that of Papers and Highly cited
   (PROD-14; the reading list always shows them), and the Export menu that of Papers,
   Highly cited and the reading list (SRCH-16).
@@ -198,6 +205,11 @@ derives what only the site uses. The pipeline and `validate` never see these.
   Rising control shows once a gains file exists; before, `sort=rising` is Most cited.
 - **Published versions** (`tooling/scholar.ts`): the day and archive files get `doi`, and
   the published `venue` where the comments name none, from `scholar.json`.
+- **Stars of the code** (`tooling/code.ts`, PROD-18): each paper gets `code` from
+  `code.json` (`stars`, `gained` the last week, or `likes` on the Hub, and `shared`), only
+  where the record's link is still the one its card shows (`codeUrl`: a new version that
+  links other code waits for the next weekly refresh). `withSiteFields` merges both files
+  in one pass, in development as in the build.
 - **Atom feeds** (`tooling/feeds.ts`, `src/feeds.ts`, §17.1 #6): `feeds/<category>/
   institutions/<slug>.xml` for every institution the day files name, and
   `feeds/<category>/venues/<venue>.xml` for each major venue (every edition, not the

@@ -34,6 +34,7 @@ reading list exported as BibTeX, RIS, CSV or Markdown.
 | Institution of each affiliation | The [Research Organization Registry](https://ror.org) (ROR) affiliation matching, when confident; otherwise the pipeline's own rules (acronyms, companies, the main part of an address) |
 | Citation counts (every stored paper) | [Semantic Scholar](https://www.semanticscholar.org), weekly (new papers the day they are added); the archive's papers, older than 12 months, and the most cited of the last 12 months that no day file holds, from arXiv's OAI-PMH, with affiliations from [OpenAlex](https://openalex.org): its record of the preprint, else of the published version, else the paper's HTML rendering |
 | Venue                         | Detected in the comments and journal reference ("Accepted to ECCV 2026", "BMVC2026", …); submissions and papers under review are ignored. Else where Semantic Scholar says it was published, with its DOI |
+| Code and its stars            | The first GitHub or GitLab repository the abstract or comments link, else its models, data or demo on Hugging Face; the repository's [GitHub](https://github.com) stars (the page's Hugging Face likes), weekly, with those gained in the week. A repository other stored papers link too, or a folder of a larger one, is marked shared |
 
 Affiliations are **best effort**: arXiv metadata rarely includes them, and the HTML
 front matter depends on each paper's LaTeX class. They are read from the affiliation and
@@ -255,6 +256,7 @@ make institutions # name the institutions of stored affiliations through ROR
 make citations   # citation counts of the papers added since the weekly archive (ALL=1: every paper)
 make archive     # keep the most cited older papers (weekly in CI; first run about 2 h)
 make archive-affiliations   # affiliations of highly cited papers from their published version (MAX_HTML=N: their HTML pages too)
+make code        # GitHub stars of the code papers link (GITHUB_TOKEN in .env; weekly in CI)
 ```
 
 The underlying commands:

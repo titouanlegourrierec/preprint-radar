@@ -9,7 +9,9 @@ export function Attribution() {
       interoperability. Citation counts from{" "}
       <a href="https://www.semanticscholar.org">Semantic Scholar</a>, institutions from the{" "}
       <a href="https://ror.org">Research Organization Registry</a> and{" "}
-      <a href="https://openalex.org">OpenAlex</a>.
+      <a href="https://openalex.org">OpenAlex</a>, stars from{" "}
+      <a href="https://github.com">GitHub</a> and likes from{" "}
+      <a href="https://huggingface.co">Hugging Face</a>.
     </>
   );
 }

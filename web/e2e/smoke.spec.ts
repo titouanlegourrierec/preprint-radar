@@ -73,6 +73,21 @@ test("a paper link opens the paper", async ({ page }) => {
   );
 });
 
+test("a card shows the stars of its code, and Most starred ranks by them", async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.goto("./?paper=2609.00001");
+  // Merged by the build from code.json (PROD-18).
+  const card = page.locator("article.paper--target");
+  await expect(card.locator(".stars")).toHaveText("★ 42 GitHub stars +5 this week");
+  await page.goto("./");
+  await page.getByRole("button", { name: "Most starred" }).click();
+  await expect(page).toHaveURL(/sort=stars/);
+  await expect(page.locator("article.paper").first()).toContainText(
+    "Gaussian Splatting for Analytical Engines",
+  );
+  expect(errors).toEqual([]);
+});
+
 test("the most cited papers of the last 12 months, apart from the archive's years", async ({
   page,
 }) => {
