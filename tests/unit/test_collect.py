@@ -1,9 +1,10 @@
 import gzip
 import json
+import re
 from collections import Counter
 from collections.abc import Callable
 from dataclasses import replace
-from datetime import date, timedelta
+from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 
 import httpx
@@ -1071,11 +1072,97 @@ def test_the_stars_of_the_code_stored_papers_link(store: PaperStore) -> None:
         "2609.00002": CodeRecord("https://github.com/lab/zoo/tree/main/projects/x", stars=9000, shared=True),
         "2609.00005": CodeRecord("https://huggingface.co/lab/model", likes=12),
     }
-    assert report == CodeReport(category="cs.CV", linked=8, stars=3, shared=3, likes=1, gone=2, kept=0)
-    assert format_code_report(report) == (
-        "cs.CV: 8 papers link their code: 3 with GitHub stars (3 shared), 1 with Hugging Face likes; "
-        "2 gone, 0 kept from last week"
+    assert report == CodeReport(
+        category="cs.CV", linked=8, asked=6, stars=3, shared=3, likes=1, gone=2, kept=0
     )
+    assert format_code_report(report) == (
+        "cs.CV: 8 papers link their code, 6 asked: 3 with GitHub stars (3 shared), 1 with Hugging "
+        "Face likes; 2 gone, 0 kept from last week"
+    )
+
+
+def test_the_daily_run_asks_only_for_the_papers_without_stars(store: PaperStore) -> None:
+    refreshed = datetime(2026, 10, 4, 5, 41, tzinfo=UTC)
+    store.save(
+        "cs.CV",
+        [
+            _linking("2609.00001", "Code: https://github.com/lab/fast-net"),
+            _linking("2609.00002", "Weights: https://huggingface.co/lab/model"),
+            _linking("2609.00003", "Code: https://github.com/lab/moved"),  # its link changed
+            _linking("2609.00004", "Code: https://github.com/lab/later"),  # not public yet
+            _linking("2610.00005", "Code: https://github.com/lab/fast-net", date(2026, 10, 6)),
+            _linking("2610.00006", "Code: https://github.com/lab/new-net", date(2026, 10, 6)),
+            _linking("2610.00007", "Code: https://gitlab.com/lab/net", date(2026, 10, 6)),
+        ],
+    )
+    fast = CodeRecord("https://github.com/lab/fast-net", stars=300, gained=12)
+    model = CodeRecord("https://huggingface.co/lab/model", likes=7)
+    old = CodeRecord("https://github.com/lab/old", stars=1)
+    # Two weekly refreshes: the stars gained in the week between.
+    for now, stars in ((refreshed - timedelta(days=7), 288), (refreshed, 300)):
+        store.write_code(
+            "cs.CV",
+            {"2609.00001": replace(fast, stars=stars, gained=None), "2609.00002": model, "2609.00003": old},
+            source="GitHub, Hugging Face",
+            now=now,
+        )
+    before = store.load_code("cs.CV")
+    assert before is not None
+    asked: list[str] = []
+
+    def handle(request: httpx.Request) -> httpx.Response:
+        assert request.url.host == "api.github.com"  # the Hub's page has its likes
+        query = json.loads(request.content)["query"]
+        names = re.findall(r'name: "([^"]+)"', query)
+        asked.extend(names)
+        stars = {"fast-net": 310, "moved": 40, "new-net": 2}
+        data = {
+            f"repo{index}": {"stargazerCount": stars[name]} if name in stars else None
+            for index, name in enumerate(names)
+        }
+        errors = [{"type": "NOT_FOUND", "path": [f"repo{names.index('later')}"]}]
+        return httpx.Response(200, json={"data": data, "errors": errors})
+
+    with HttpClient(transport=httpx.MockTransport(handle), max_attempts=1) as client:
+        report = update_code_records(
+            store, "cs.CV", github=client, token="test-token", hub=client, new_only=True
+        )
+
+    assert sorted(asked) == ["fast-net", "later", "moved", "new-net"]
+    code = store.load_code("cs.CV")
+    assert code is not None
+    # Dated by the weekly refresh still, which the next one counts the week's gains from.
+    assert (code.generated_at, code.since) == (before.generated_at, before.since)
+    assert code.papers == {
+        # A new paper links it too: its stars are no longer its own alone.
+        "2609.00001": replace(fast, shared=True),
+        "2609.00002": model,
+        "2609.00003": CodeRecord("https://github.com/lab/moved", stars=40),
+        "2610.00005": CodeRecord("https://github.com/lab/fast-net", stars=310, shared=True),
+        "2610.00006": CodeRecord("https://github.com/lab/new-net", stars=2),
+    }
+    assert report == CodeReport(
+        category="cs.CV", linked=7, asked=4, stars=4, shared=2, likes=1, gone=1, kept=0
+    )
+
+
+def test_the_daily_run_without_a_code_file_asks_for_every_paper(store: PaperStore) -> None:
+    store.save("cs.CV", [_linking("2609.00001", "Code: https://github.com/lab/fast-net")])
+    answer = {"data": {"repo0": {"stargazerCount": 5}}}
+    now = datetime(2026, 10, 6, 10, 17, tzinfo=UTC)
+
+    with HttpClient(
+        transport=httpx.MockTransport(lambda _: httpx.Response(200, json=answer)), max_attempts=1
+    ) as client:
+        report = update_code_records(
+            store, "cs.CV", github=client, token="test-token", hub=client, new_only=True, now=now
+        )
+
+    assert report.asked == 1
+    code = store.load_code("cs.CV")
+    assert code is not None
+    assert code.generated_at == now
+    assert code.papers == {"2609.00001": CodeRecord("https://github.com/lab/fast-net", stars=5)}
 
 
 def test_a_failed_star_lookup_keeps_last_weeks(store: PaperStore) -> None:

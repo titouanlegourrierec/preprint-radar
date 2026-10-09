@@ -253,9 +253,18 @@ records are their day records) two ways:
   replaces, as the citations' (`GAINS_MIN_DAYS`), and keeps them through a second run in
   the week; a paper whose link changed gained nothing yet. The first gains come a week
   after the first file.
-- `archive.yml` runs `code` every week after `scholar` (`GITHUB_TOKEN: ${{ github.token }}`).
-  New papers get their stars the next Sunday. Every stored paper is asked for: the day
-  files, the archive and the most cited of the last 12 months, each once.
+- `archive.yml` runs `code` every week after `scholar` (`GITHUB_TOKEN: ${{ github.token }}`):
+  every stored paper is asked for, the day files, the archive and the most cited of the
+  last 12 months, each once.
+- `update.yml` runs `code --new` every weekday after `citations` (`NEW=1` locally): only
+  the papers without a record of their link, those announced since Sunday (34 on
+  2026-10-09, which waited up to a week before) and those whose repository GitHub did not
+  know (117 of 7,939 papers linking code, a 404 for each of 12 sampled: code announced
+  before it is public, or a typo of the abstract), a query or two. The others keep their
+  record and gains, and the file the date of Sunday's refresh (`PaperStore.add_code`):
+  written dated that day, it would leave Sunday a file less than `GAINS_MIN_DAYS` old,
+  whose gains it keeps instead of counting them. Only `shared` is worked out again, since
+  a new paper may link a repository already stored.
 
 ## OAI-PMH
 

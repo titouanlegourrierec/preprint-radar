@@ -244,6 +244,36 @@ def test_the_stars_each_paper_gained_in_a_week(store: PaperStore) -> None:
     assert again.papers == {"a": CodeRecord(url.format("a"), stars=15, gained=4)}
 
 
+def test_added_stars_keep_the_refresh_its_date_and_gains(store: PaperStore) -> None:
+    week_ago = datetime(2026, 10, 4, 5, 41, tzinfo=UTC)
+    url = "https://github.com/lab/{}"
+    store.write_code("cs.CV", {"a": CodeRecord(url.format("a"), stars=10)}, source="GitHub", now=week_ago)
+    refreshed = week_ago + timedelta(days=7)
+    store.write_code("cs.CV", {"a": CodeRecord(url.format("a"), stars=14)}, source="GitHub", now=refreshed)
+
+    store.add_code(
+        "cs.CV",
+        {
+            "a": CodeRecord(url.format("a"), stars=14, shared=True),
+            "b": CodeRecord(url.format("b"), stars=3),  # announced since
+        },
+    )
+
+    code = store.load_code("cs.CV")
+    assert code is not None
+    # The next refresh counts the week's gains from this one.
+    assert (code.generated_at, code.since, code.source) == (refreshed, week_ago, "GitHub")
+    assert code.papers == {
+        "a": CodeRecord(url.format("a"), stars=14, gained=4, shared=True),
+        "b": CodeRecord(url.format("b"), stars=3),
+    }
+
+
+def test_stars_are_added_to_a_code_file_only(store: PaperStore) -> None:
+    with pytest.raises(StoreError, match=r"No code\.json of cs\.CV to add stars to"):
+        store.add_code("cs.CV", {"a": CodeRecord("https://github.com/lab/a", stars=1)})
+
+
 def test_stars_over_a_broken_code_file_gain_nothing(
     store: PaperStore, caplog: pytest.LogCaptureFixture
 ) -> None:

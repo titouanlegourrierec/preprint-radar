@@ -596,7 +596,9 @@ def _add_code_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentPa
             "card shows), or the Hugging Face likes of its models, data or demo, into "
             f"code.json: 100 repositories a request, a minute. GitHub's API needs a token, "
             f"from {GITHUB_AUTH_ENV}: any token, since it reads public data only. A lookup "
-            "that fails keeps last week's record."
+            "that fails keeps last week's record. With --new, the daily run, only the papers "
+            "without a record: those announced since the weekly refresh, which alone counts "
+            "the stars gained in the week."
         ),
     )
     code.add_argument(
@@ -612,6 +614,11 @@ def _add_code_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentPa
         type=Path,
         default=DEFAULT_DATA_DIR,
         help=f"data store directory (default: {DEFAULT_DATA_DIR})",
+    )
+    code.add_argument(
+        "--new",
+        action="store_true",
+        help="ask only for the papers without a record, keeping the others and the week's gains",
     )
 
 
@@ -1211,7 +1218,9 @@ def _run_code(args: argparse.Namespace) -> int:
         HttpClient(user_agent=DEFAULT_USER_AGENT, min_interval=HUGGINGFACE_DELAY_SECONDS) as hub,
     ):
         for category in categories:
-            report = update_code_records(store, category, github=github, token=token, hub=hub)
+            report = update_code_records(
+                store, category, github=github, token=token, hub=hub, new_only=args.new
+            )
             line = format_code_report(report)
             console.print(line)
             github_summary(f"**Stars of the code.** {line}")

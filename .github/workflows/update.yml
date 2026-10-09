@@ -146,6 +146,20 @@ jobs:
           for category in $CATEGORIES; do args+=(--category "$category"); done
           uv run --no-dev preprint-radar -v citations "${args[@]}" --max-minutes 10
 
+      - name: Fetch the stars of new papers' code
+        # The papers without a record in code.json (PROD-18): those announced since the
+        # weekly archive, which refreshes every paper and counts the week's gains, and
+        # those whose repository GitHub did not know yet. A query or two, seconds; the
+        # workflow's own token reads public data.
+        if: ${{ !cancelled() }}
+        timeout-minutes: 5
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          args=()
+          for category in $CATEGORIES; do args+=(--category "$category"); done
+          uv run --no-dev preprint-radar -v code --new "${args[@]}"
+
       # Even after a failed or cancelled fetch: progress is saved as it goes.
       - name: Validate data
         id: validate

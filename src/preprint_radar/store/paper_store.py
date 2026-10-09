@@ -533,16 +533,59 @@ class PaperStore:
                 return None
             return record.stars - before.stars
 
+        self._write_code_file(
+            category,
+            CodeFile(
+                {
+                    arxiv_id: replace(record, gained=gained(arxiv_id, record))
+                    for arxiv_id, record in papers.items()
+                },
+                source=source,
+                since=since,
+                generated_at=now,
+            ),
+        )
+
+    def add_code(self, category: str, papers: Mapping[str, CodeRecord]) -> None:
+        """Write the stars and likes of ``category``'s papers, those of the refresh kept.
+
+        For the daily run, which asks only for the papers without a record (PROD-18): the
+        file keeps the date and source of the last refresh, the next one counting the
+        week's gains from it, and each paper whose link did not change its gains. Writing
+        it dated now would leave the weekly refresh a file less than ``GAINS_MIN_DAYS``
+        old, whose gains it keeps rather than counts.
+
+        Raises:
+            StoreError: If there is no ``code.json`` to add to, or it does not load.
+        """
+        current = self.load_code(category)
+        if current is None:
+            msg = f"No code.json of {category} to add stars to"
+            raise StoreError(msg)
+
+        def gained(arxiv_id: str, record: CodeRecord) -> int | None:
+            before = current.papers.get(arxiv_id)
+            return before.gained if before is not None and before.url == record.url else None
+
+        self._write_code_file(
+            category,
+            replace(
+                current,
+                papers={
+                    arxiv_id: replace(record, gained=gained(arxiv_id, record))
+                    for arxiv_id, record in papers.items()
+                },
+            ),
+        )
+
+    def _write_code_file(self, category: str, code: CodeFile) -> None:
         payload = {
             "schema_version": SCHEMA_VERSION,
             "category": category,
-            "generated_at": now.isoformat(timespec="seconds"),
-            "since": None if since is None else since.isoformat(timespec="seconds"),
-            "source": source,
-            "papers": {
-                arxiv_id: replace(record, gained=gained(arxiv_id, record)).to_record()
-                for arxiv_id, record in sorted(papers.items())
-            },
+            "generated_at": code.generated_at.isoformat(timespec="seconds"),
+            "since": None if code.since is None else code.since.isoformat(timespec="seconds"),
+            "source": code.source,
+            "papers": {arxiv_id: record.to_record() for arxiv_id, record in sorted(code.papers.items())},
         }
         _write_json(self.root / category / CODE_FILENAME, payload)
 

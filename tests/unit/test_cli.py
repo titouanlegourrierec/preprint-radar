@@ -822,12 +822,13 @@ def test_code_asks_github_and_the_hub_without_the_contact(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
 ) -> None:
     def update_code_records(
-        _: PaperStore, category: str, *, github: HttpClient, token: str, hub: HttpClient
+        _: PaperStore, category: str, *, github: HttpClient, token: str, hub: HttpClient, new_only: bool
     ) -> CodeReport:
         assert token == "test-token"
+        assert new_only  # --new: the daily run
         github.get_text("https://api.github.com/graphql")
         hub.get_text("https://huggingface.co/api/models/lab/fast-net")
-        return CodeReport(category=category, linked=5, stars=3, shared=1, likes=1, gone=1, kept=0)
+        return CodeReport(category=category, linked=5, asked=1, stars=3, shared=1, likes=1, gone=1, kept=0)
 
     requests = _user_agents(monkeypatch)
     monkeypatch.setattr("preprint_radar.cli.update_code_records", update_code_records)
@@ -838,10 +839,10 @@ def test_code_asks_github_and_the_hub_without_the_contact(
     store = PaperStore(tmp_path / "data")
     store.save("cs.CV", [Paper(arxiv_id="2609.00001", announced=date(2026, 9, 25), title="T", authors=())])
 
-    assert main(["code", "--data-dir", str(store.root)]) == 0
+    assert main(["code", "--data-dir", str(store.root), "--new"]) == 0
 
     assert requests == [("api.github.com", DEFAULT_USER_AGENT), ("huggingface.co", DEFAULT_USER_AGENT)]
-    assert "cs.CV: 5 papers link their code: 3 with GitHub stars" in capsys.readouterr().out
+    assert "cs.CV: 5 papers link their code, 1 asked: 3 with GitHub stars" in capsys.readouterr().out
     assert "**Stars of the code.** cs.CV:" in summary.read_text(encoding="utf-8")
 
 

@@ -1232,15 +1232,18 @@ class CodeReport:
     Attributes:
         category: Category of the papers.
         linked: Stored papers whose abstract or comments link their code.
-        stars: Of those, papers with their repository's GitHub stars.
+        asked: Of those, papers whose code was asked for: every one GitHub or the Hub can
+            count, or only those without a record with ``new_only``.
+        stars: Papers of ``code.json`` with their repository's GitHub stars.
         shared: Of those, papers whose stars are not theirs alone.
-        likes: Papers with their Hugging Face page's likes.
-        gone: Papers whose repository or page no longer exists, or never did.
+        likes: Papers of ``code.json`` with their Hugging Face page's likes.
+        gone: Papers asked for whose repository or page no longer exists, or never did.
         kept: Papers whose lookup failed, keeping last week's record.
     """
 
     category: str
     linked: int
+    asked: int
     stars: int
     shared: int
     likes: int
@@ -1255,6 +1258,7 @@ def update_code_records(
     github: HttpClient,
     token: str,
     hub: HttpClient,
+    new_only: bool = False,
     now: datetime | None = None,
 ) -> CodeReport:
     """The stars of the code every stored paper links, into ``code.json`` (PROD-18).
@@ -1268,12 +1272,21 @@ def update_code_records(
     loses its own. The stars gained since the last refresh are the store's to count
     (:meth:`PaperStore.write_code`).
 
+    With ``new_only``, the daily run, only the papers without a record of their link are
+    asked for: those announced since the weekly refresh, and those whose repository GitHub
+    did not know yet (code announced before it is public), a query or two. The others keep
+    their record, and the file its date and gains, which the weekly refresh counts the
+    week's gains from (:meth:`PaperStore.add_code`); only whether their stars are shared is
+    worked out again, since a new paper may link the same repository. Without a
+    ``code.json`` yet, every paper is asked for.
+
     Args:
         store: Data store.
         category: arXiv category.
         github: HTTP client for GitHub.
         token: A GitHub token (any: public data only).
         hub: HTTP client for the Hugging Face Hub.
+        new_only: Ask only for the papers without a record of their link.
         now: Date of the refresh (default: now).
 
     Returns:
@@ -1291,16 +1304,29 @@ def update_code_records(
         if (link := code_link(paper.abstract, paper.comments)) is not None
     }
     repositories = Counter(link.key for link in links.values() if link.host == "github" and link.key)
-    with progress("GitHub stars", len(repositories)) as advance:
-        stars = fetch_stars(github, repositories, token=token, progress=advance)
-    pages = {link.key for link in links.values() if link.host == "huggingface" and link.key}
+    previous = _previous_code(store, category)
+    adding = new_only and bool(previous)
+    asked = {
+        arxiv_id: link
+        for arxiv_id, link in links.items()
+        # GitLab, or a Hub page that is no model, dataset or demo, has nothing to count.
+        if link.key is not None and not (adding and _recorded(previous.get(arxiv_id), link))
+    }
+    wanted = list(dict.fromkeys(link.key for link in asked.values() if link.host == "github" and link.key))
+    with progress("GitHub stars", len(wanted)) as advance:
+        stars = fetch_stars(github, wanted, token=token, progress=advance)
+    pages = {link.key for link in asked.values() if link.host == "huggingface" and link.key}
     with progress("Hugging Face likes", len(pages)) as advance:
         likes = fetch_likes(hub, pages, progress=advance)
-    previous = _previous_code(store, category)
     records: dict[str, CodeRecord] = {}
     gone = kept = 0
     for arxiv_id, link in links.items():
-        if link.key is None:  # GitLab, or a Hub page that is no model, dataset or demo
+        if link.key is None:
+            continue
+        if arxiv_id not in asked:  # recorded, for the daily run
+            before = previous[arxiv_id]
+            shared = before.stars is not None and (repositories[link.key] > 1 or link.folder)
+            records[arxiv_id] = replace(before, shared=shared)
             continue
         on_github = link.host == "github"
         counts = stars.stars if on_github else likes.likes
@@ -1312,16 +1338,25 @@ def update_code_records(
         elif (before := previous.get(arxiv_id)) is not None and before.url == link.url:
             records[arxiv_id] = before
             kept += 1
-    store.write_code(category, records, source=CODE_SOURCE, now=now)
+    if adding:
+        store.add_code(category, records)
+    else:
+        store.write_code(category, records, source=CODE_SOURCE, now=now)
     return CodeReport(
         category=category,
         linked=len(links),
+        asked=len(asked),
         stars=sum(record.stars is not None for record in records.values()),
         shared=sum(record.shared for record in records.values()),
         likes=sum(record.likes is not None for record in records.values()),
         gone=gone,
         kept=kept,
     )
+
+
+def _recorded(record: CodeRecord | None, link: CodeLink) -> bool:
+    """Whether a paper's record is that of its link: none when its abstract changed it."""
+    return record is not None and record.url == link.url
 
 
 def _code_record(link: CodeLink, count: int, *, shared: bool) -> CodeRecord:
@@ -1346,8 +1381,8 @@ def _previous_code(store: PaperStore, category: str) -> dict[str, CodeRecord]:
 def format_code_report(report: CodeReport) -> str:
     """Render a :class:`CodeReport` as one line."""
     return (
-        f"{report.category}: {_count(report.linked, 'paper')} link their code: "
-        f"{report.stars:,} with GitHub stars ({report.shared:,} shared), "
+        f"{report.category}: {_count(report.linked, 'paper')} link their code, "
+        f"{report.asked:,} asked: {report.stars:,} with GitHub stars ({report.shared:,} shared), "
         f"{report.likes:,} with Hugging Face likes; {report.gone:,} gone, "
         f"{report.kept:,} kept from last week"
     )

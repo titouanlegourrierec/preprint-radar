@@ -21,6 +21,8 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 - Most starred (`?sort=stars`) ranks the papers by those stars, the shared ones with the
   papers without stars, in the Papers and Highly cited views, once the stars are known.
   The sort control takes two rows on a phone rather than cut its labels.
+- The stars of new papers come with the next weekday's run (`code --new`, `NEW=1`), not
+  the next Sunday: only the papers without them are asked for, the week's gains kept.
 - `make code` fetches them into `code.json`: GitHub's GraphQL API, 100 repositories a
   query, a minute for the 7,541 repositories of the stored papers; it needs a GitHub
   token (`GITHUB_TOKEN`, any). The weekly archive runs it with the workflow's own.

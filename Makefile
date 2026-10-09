@@ -167,8 +167,8 @@ scholar: ## Fetch the DOI, published venue and author ids of every stored paper 
 	uv run preprint-radar -v scholar $(CATEGORY_ARGS)
 
 .PHONY: code
-code: ## Fetch the GitHub stars (Hugging Face likes) of the code stored papers link (GITHUB_TOKEN; a minute)
-	uv run preprint-radar -v code $(CATEGORY_ARGS)
+code: ## Fetch the GitHub stars (Hugging Face likes) of the code stored papers link (GITHUB_TOKEN; a minute; NEW=1: those without yet)
+	uv run preprint-radar -v code $(CATEGORY_ARGS) $(if $(NEW),--new)
 
 .PHONY: validate
 validate: ## Check data/ against its contract (errors fail, heuristic warnings do not)
