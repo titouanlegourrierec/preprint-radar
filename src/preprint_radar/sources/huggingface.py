@@ -10,6 +10,7 @@ import logging
 from collections.abc import Iterable
 from dataclasses import dataclass, field
 
+from preprint_radar.console import Advance, no_progress
 from preprint_radar.exceptions import FetchError, NotFoundError
 from preprint_radar.http import HttpClient
 
@@ -37,12 +38,13 @@ class Likes:
     missing: set[str] = field(default_factory=set)
 
 
-def fetch_likes(client: HttpClient, pages: Iterable[str]) -> Likes:
+def fetch_likes(client: HttpClient, pages: Iterable[str], *, progress: Advance = no_progress) -> Likes:
     """The likes of Hub pages, one request each.
 
     Args:
         client: HTTP client for the Hub.
         pages: ``models/owner/name``, ``datasets/owner/name`` or ``spaces/owner/name``.
+        progress: Told of each page asked for.
 
     Returns:
         Their likes, and those the Hub does not know.
@@ -62,6 +64,8 @@ def fetch_likes(client: HttpClient, pages: Iterable[str]) -> Likes:
                 logger.warning("Hugging Face lookup of %s failed: %s", page, exc)
         except (json.JSONDecodeError, KeyError, TypeError, ValueError) as exc:
             logger.warning("Unexpected Hugging Face answer for %s: %s", page, exc)
+        finally:
+            progress(1)
     logger.info(
         "The Hub knows %d of %d pages (%d not found)", len(found.likes), len(wanted), len(found.missing)
     )

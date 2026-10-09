@@ -117,8 +117,11 @@ def test_fetches_records_with_their_fields() -> None:
         requests.append(request)
         return httpx.Response(200, json=[CVPR_2022])
 
+    done: list[int] = []
     with HttpClient(transport=httpx.MockTransport(handle), max_attempts=1) as client:
-        records = fetch_scholar_records(client, ["2112.00001"], key="secret")
+        records = fetch_scholar_records(client, ["2112.00001"], key="secret", progress=done.append)
+
+    assert done == [1]
 
     assert records["2112.00001"] == ScholarRecord(
         doi="10.1109/CVPR52688.2022.01234",

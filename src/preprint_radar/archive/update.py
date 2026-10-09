@@ -51,6 +51,7 @@ from preprint_radar.config import (
     MIN_COVERAGE,
     RECENT_DAYS,
 )
+from preprint_radar.console import progress
 from preprint_radar.http import HttpClient
 from preprint_radar.latex import plain_text
 from preprint_radar.models import Paper
@@ -448,9 +449,12 @@ def _citation_counts(
 
     missing = [arxiv_id for arxiv_id in dict.fromkeys(arxiv_ids) if arxiv_id not in counts]
     if missing:
-        counts.update(
-            fetch_citation_counts(clients.citations, missing, key=clients.citations_key, on_batch=save)
-        )
+        with progress("Citation counts", len(missing)) as advance:
+            counts.update(
+                fetch_citation_counts(
+                    clients.citations, missing, key=clients.citations_key, on_batch=save, progress=advance
+                )
+            )
     return counts
 
 

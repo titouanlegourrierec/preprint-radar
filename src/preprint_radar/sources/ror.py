@@ -15,6 +15,7 @@ import re
 import unicodedata
 from collections.abc import Iterable, Mapping
 
+from preprint_radar.console import Advance, no_progress
 from preprint_radar.exceptions import FetchError, NotFoundError, ParseError
 from preprint_radar.http import HttpClient
 from preprint_radar.models import Institution
@@ -89,7 +90,11 @@ def parse_ror_response(text: str, affiliation: str) -> Institution | None:
 
 
 def match_institutions(
-    client: HttpClient, affiliations: Iterable[str], *, limit: int | None = None
+    client: HttpClient,
+    affiliations: Iterable[str],
+    *,
+    limit: int | None = None,
+    progress: Advance = no_progress,
 ) -> dict[str, Institution | None]:
     """Match distinct affiliation strings, giving up when ROR keeps failing.
 
@@ -100,6 +105,7 @@ def match_institutions(
         client: HTTP client for the ROR API.
         affiliations: Affiliation strings; duplicates are looked up once.
         limit: Maximum number of requests (``None``: no limit).
+        progress: Told of each string looked up.
 
     Returns:
         The strings that could be looked up, with their institution (``None``: no match).
@@ -120,6 +126,8 @@ def match_institutions(
                 break
         else:
             failures = 0
+        finally:
+            progress(1)
     return matches
 
 

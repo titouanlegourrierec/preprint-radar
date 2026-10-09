@@ -127,9 +127,12 @@ def test_match_institutions_stops_at_the_limit() -> None:
 def test_match_institutions_skips_a_failure_and_stops_when_ror_is_down() -> None:
     requested: list[str] = []
     strings = ["Unreachable 1", "Meta AI", "Unreachable 2", "Unreachable 3", "Unreachable 4", "Later"]
+    done: list[int] = []
     with _client(requested) as client:
-        matches = match_institutions(client, strings)
+        matches = match_institutions(client, strings, progress=done.append)
 
+    # Each string asked for counts, failed or not.
+    assert sum(done) == 5
     # One failure is skipped (left for the next run); three in a row stop the lookups.
     assert matches == {"Meta AI": None}
     assert requested == strings[:5]

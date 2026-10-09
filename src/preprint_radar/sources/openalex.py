@@ -19,6 +19,7 @@ from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass
 from itertools import batched
 
+from preprint_radar.console import Advance, no_progress
 from preprint_radar.exceptions import FetchError, NotFoundError, ParseError
 from preprint_radar.http import HttpClient
 from preprint_radar.models import Institution
@@ -54,12 +55,15 @@ class PaperAffiliations:
     institution_ids: tuple[str | None, ...] = ()
 
 
-def fetch_affiliations(client: HttpClient, papers: Mapping[str, int]) -> dict[str, PaperAffiliations]:
+def fetch_affiliations(
+    client: HttpClient, papers: Mapping[str, int], *, progress: Advance = no_progress
+) -> dict[str, PaperAffiliations]:
     """Affiliations of arXiv papers.
 
     Args:
         client: HTTP client for OpenAlex.
         papers: Number of arXiv authors of each paper, by arXiv identifier.
+        progress: Told the papers of each batch, looked up or not.
 
     Returns:
         The affiliations of the papers looked up (empty when OpenAlex does not know the
@@ -80,6 +84,7 @@ def fetch_affiliations(client: HttpClient, papers: Mapping[str, int]) -> dict[st
             works = parse_works(text)
         except (FetchError, ParseError) as exc:
             logger.warning("OpenAlex lookup of %d papers failed: %s", len(batch), exc)
+            progress(len(batch))
             continue
         for arxiv_id in batch:
             # The DOI filter misses some works that the DOI lookup finds (a batch of 25 such
@@ -87,6 +92,7 @@ def fetch_affiliations(client: HttpClient, papers: Mapping[str, int]) -> dict[st
             authorships = works[arxiv_id] if arxiv_id in works else _lookup(client, arxiv_id)
             if authorships is not None:
                 found[arxiv_id] = affiliations_from_authorships(authorships, papers[arxiv_id])
+        progress(len(batch))
         logger.info("%s papers looked up in OpenAlex", f"{len(found):,}")
     return found
 
@@ -156,18 +162,23 @@ class PublishedAuthor:
     institutions: tuple[Institution, ...]
 
 
-def fetch_published_authors(client: HttpClient, dois: Iterable[str]) -> dict[str, list[PublishedAuthor]]:
+def fetch_published_authors(
+    client: HttpClient, dois: Iterable[str], *, progress: Advance = no_progress
+) -> dict[str, list[PublishedAuthor]]:
     """The authors of published versions, with their institutions, 50 DOIs per request.
 
     Args:
         client: HTTP client for OpenAlex.
         dois: DOIs of the published versions.
+        progress: Told the DOIs of each request, answered or not (and those it cannot ask).
 
     Returns:
         The authors of each version OpenAlex knows, by lowercase DOI. Versions whose lookup
         failed are left out, to be asked for again next time.
     """
-    wanted = sorted({doi.lower() for doi in dois if not _FILTER_SEPARATORS & set(doi)})
+    distinct = {doi.lower() for doi in dois}
+    wanted = sorted(doi for doi in distinct if not _FILTER_SEPARATORS & set(doi))
+    progress(len(distinct) - len(wanted))
     found: dict[str, list[PublishedAuthor]] = {}
     for batch in batched(wanted, OPENALEX_BATCH_SIZE, strict=False):
         try:
@@ -182,6 +193,7 @@ def fetch_published_authors(client: HttpClient, dois: Iterable[str]) -> dict[str
             found.update(parse_published_works(text))
         except (FetchError, ParseError) as exc:
             logger.warning("OpenAlex lookup of %d published versions failed: %s", len(batch), exc)
+        progress(len(batch))
     return found
 
 

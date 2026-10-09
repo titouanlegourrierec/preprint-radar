@@ -137,7 +137,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   - HTTP goes through `http.HttpClient` only (rate limiting, retries on throttling, server
     errors and timeouts, error mapping).
   - Output goes through `console.py`: `console.print` (never `print`) and
-    `configure_logging`. rich styles it only in a terminal; CI, pipes and tests get plain,
+    `configure_logging`; a long step takes a `progress: Advance` (`console.no_progress` by
+    default) and its caller wraps it in `console.progress(description, total)`, a rich bar
+    in a terminal only. rich styles the output only in a terminal; CI, pipes and tests get plain,
     unwrapped lines (`09:52:13 INFO name: message`), so logs stay greppable and tests
     assert on text. `stats` draws rich tables in a terminal, the plain `format_*` text
     elsewhere.

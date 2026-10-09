@@ -10,12 +10,14 @@ import math
 import time
 from collections import Counter
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
+from contextlib import ExitStack
 from dataclasses import dataclass, replace
 from datetime import UTC, date, datetime
 from enum import StrEnum
 
 from preprint_radar.code import CodeLink, code_link
 from preprint_radar.config import DEFAULT_MAX_ROR_LOOKUPS, DEFAULT_SAVE_EVERY
+from preprint_radar.console import progress
 from preprint_radar.exceptions import FetchError, ParseError, SchemaVersionError, StoreError
 from preprint_radar.http import HttpClient
 from preprint_radar.institutions import name_institutions
@@ -687,6 +689,9 @@ def _add_html_front_matter(
     pages = abstracts = failures = unreadable = 0
     empty: list[int] = []
     stopped: Stop | None = None
+    # A bar in a terminal, closed however the reading ends.
+    bar = ExitStack()
+    advance = bar.enter_context(progress("HTML pages", len(todo)))
     try:
         for done, (index, url) in enumerate(todo, start=1):
             if _past(reading.deadline):
@@ -695,6 +700,7 @@ def _add_html_front_matter(
                 break
             paper = current[index]
             front = _front_matter(client, paper, url, reading.cache)
+            advance(1)
             if front is None:
                 failures += 1
                 unreadable += 1
@@ -734,6 +740,8 @@ def _add_html_front_matter(
         logger.warning("Interrupted: saving the %d HTML renderings read", pages)
         checkpoint(current)
         raise
+    finally:
+        bar.close()
     return _HtmlRead(current, pages, abstracts, len(empty), unreadable, stopped)
 
 
@@ -767,8 +775,10 @@ def add_institutions(papers: Sequence[Paper], client: HttpClient, *, limit: int 
     if not pending:
         return list(papers)
     strings = [affiliation for paper in pending for affiliation in paper.affiliations or ()]
-    logger.info("Looking up %s distinct affiliations in ROR", f"{len(set(strings)):,}")
-    matches = match_institutions(client, strings, limit=limit)
+    distinct = len(set(strings))
+    logger.info("Looking up %s distinct affiliations in ROR", f"{distinct:,}")
+    with progress("ROR institutions", distinct if limit is None else min(distinct, limit)) as advance:
+        matches = match_institutions(client, strings, limit=limit, progress=advance)
     named = sum(match is not None for match in matches.values())
     logger.info("ROR named %s of %s affiliations", f"{named:,}", f"{len(matches):,}")
     return [
@@ -856,7 +866,12 @@ def update_citation_counts(
     stored = [paper.arxiv_id for paper in _every_stored_paper(store, category)]
     known = {} if refresh else store.load_citations(category)
     wanted = [arxiv_id for arxiv_id in dict.fromkeys(stored) if arxiv_id not in known]
-    fetched = fetch_citation_counts(client, wanted, key=key, max_seconds=max_seconds) if wanted else {}
+    with progress("Citation counts", len(wanted)) as advance:
+        fetched = (
+            fetch_citation_counts(client, wanted, key=key, max_seconds=max_seconds, progress=advance)
+            if wanted
+            else {}
+        )
     counts = {arxiv_id: count for arxiv_id, count in fetched.items() if count is not None}
     if refresh and len(fetched) == len(wanted):
         store.write_citations(category, counts, source=S2_SOURCE)
@@ -927,7 +942,8 @@ def update_scholar_records(
     for paper in _every_stored_paper(store, category):
         stored.setdefault(paper.arxiv_id, paper)
     previous = store.load_scholar(category)
-    fetched = fetch_scholar_records(client, stored, key=key, max_seconds=max_seconds)
+    with progress("Published versions", len(stored)) as advance:
+        fetched = fetch_scholar_records(client, stored, key=key, max_seconds=max_seconds, progress=advance)
     records: dict[str, ScholarRecord] = {}
     for arxiv_id, paper in stored.items():
         if arxiv_id not in fetched:
@@ -1275,8 +1291,11 @@ def update_code_records(
         if (link := code_link(paper.abstract, paper.comments)) is not None
     }
     repositories = Counter(link.key for link in links.values() if link.host == "github" and link.key)
-    stars = fetch_stars(github, repositories, token=token)
-    likes = fetch_likes(hub, {link.key for link in links.values() if link.host == "huggingface" and link.key})
+    with progress("GitHub stars", len(repositories)) as advance:
+        stars = fetch_stars(github, repositories, token=token, progress=advance)
+    pages = {link.key for link in links.values() if link.host == "huggingface" and link.key}
+    with progress("Hugging Face likes", len(pages)) as advance:
+        likes = fetch_likes(hub, pages, progress=advance)
     previous = _previous_code(store, category)
     records: dict[str, CodeRecord] = {}
     gone = kept = 0

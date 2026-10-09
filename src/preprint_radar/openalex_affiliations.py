@@ -15,6 +15,7 @@ from dataclasses import replace
 from datetime import date
 
 from preprint_radar.config import OPENALEX_RETRY_AGE_DAYS, OPENALEX_RETRY_EVERY_DAYS
+from preprint_radar.console import progress
 from preprint_radar.http import HttpClient
 from preprint_radar.institutions import ids_where_named, name_institutions
 from preprint_radar.models import Paper, Provenance
@@ -43,7 +44,8 @@ def with_openalex_affiliations(papers: list[Paper], client: HttpClient, today: d
     pending = {paper.arxiv_id: len(paper.authors) for paper in papers if needs_openalex(paper, today)}
     if not pending:
         return papers
-    found = fetch_affiliations(client, pending)
+    with progress("OpenAlex affiliations", len(pending)) as advance:
+        found = fetch_affiliations(client, pending, progress=advance)
     read = Provenance("openalex", today)
     retried = [paper for paper in papers if paper.affiliations == () and paper.arxiv_id in found]
     logger.info(
@@ -96,7 +98,8 @@ def with_published_affiliations(
     }
     if not wanted:
         return papers
-    works = fetch_published_authors(client, wanted.values())
+    with progress("OpenAlex, published versions", len(set(wanted.values()))) as advance:
+        works = fetch_published_authors(client, wanted.values(), progress=advance)
     read = Provenance("openalex", today)
     results = {
         paper.arxiv_id: published_affiliations(paper.authors, works[doi])

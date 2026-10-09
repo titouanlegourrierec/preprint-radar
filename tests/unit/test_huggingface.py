@@ -27,8 +27,11 @@ def test_fetch_likes_asks_each_page() -> None:
         "models/lab/down",
         "models/lab/fast-net",
     ]
+    done: list[int] = []
     with HttpClient(transport=httpx.MockTransport(handle), max_attempts=1) as client:
-        found = fetch_likes(client, pages)
+        found = fetch_likes(client, pages, progress=done.append)
+
+    assert sum(done) == 6
 
     assert HUGGINGFACE_API_URL.endswith("/api")
     assert len(asked) == 6  # each page once

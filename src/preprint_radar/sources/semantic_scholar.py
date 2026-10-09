@@ -26,6 +26,7 @@ from itertools import batched
 from typing import Any
 
 from preprint_radar.config import S2_API_KEY_ENV
+from preprint_radar.console import Advance, no_progress
 from preprint_radar.exceptions import FetchError, ParseError
 from preprint_radar.http import HttpClient
 from preprint_radar.models import ScholarRecord
@@ -76,6 +77,7 @@ def fetch_citation_counts(
     key: str | None = None,
     on_batch: Callable[[Mapping[str, int | None]], None] | None = None,
     max_seconds: float | None = None,
+    progress: Advance = no_progress,
     sleep: Callable[[float], None] = time.sleep,
     clock: Callable[[], float] = time.monotonic,
 ) -> dict[str, int | None]:
@@ -90,6 +92,7 @@ def fetch_citation_counts(
             the caller can save progress.
         max_seconds: Time budget: past it, refused batches are not tried again, and the
             papers from the first of them on are left out. ``None``: no budget.
+        progress: Told the papers of each batch fetched.
         sleep: Sleep function between tries of a refused batch, injectable for testing.
         clock: Monotonic clock for the time budget, injectable for testing.
 
@@ -101,12 +104,18 @@ def fetch_citation_counts(
         FetchError: If Semantic Scholar rejects the API key (or, without one, the
             requests): no try would get through.
     """
+
+    def fetched(batch: Mapping[str, int | None]) -> None:
+        if on_batch is not None:
+            on_batch(batch)
+        progress(len(batch))
+
     return _fetch_all(
         client,
         arxiv_ids,
         _BatchKind("citation counts", S2_COUNT_FIELDS, parse_batch_response),
         key=key,
-        on_batch=on_batch,
+        on_batch=fetched,
         max_seconds=max_seconds,
         sleep=sleep,
         clock=clock,
@@ -119,6 +128,7 @@ def fetch_scholar_records(
     *,
     key: str | None = None,
     max_seconds: float | None = None,
+    progress: Advance = no_progress,
     sleep: Callable[[float], None] = time.sleep,
     clock: Callable[[], float] = time.monotonic,
 ) -> dict[str, ScholarRecord | None]:
@@ -136,7 +146,7 @@ def fetch_scholar_records(
         arxiv_ids,
         _BatchKind("paper records", S2_RECORD_FIELDS, parse_records_response),
         key=key,
-        on_batch=None,
+        on_batch=lambda batch: progress(len(batch)),
         max_seconds=max_seconds,
         sleep=sleep,
         clock=clock,
@@ -158,7 +168,7 @@ def _fetch_all[T](
     kind: _BatchKind[T],
     *,
     key: str | None,
-    on_batch: Callable[[Mapping[str, T | None]], None] | None,
+    on_batch: Callable[[Mapping[str, T | None]], object],
     max_seconds: float | None,
     sleep: Callable[[float], None],
     clock: Callable[[], float],
@@ -185,8 +195,7 @@ def _fetch_all[T](
             break
         batches += 1
         found.update(batch_found)
-        if on_batch is not None:
-            on_batch(batch_found)
+        on_batch(batch_found)
         if batches % _PROGRESS_EVERY == 0 or len(found) == len(wanted):
             logger.info(
                 "%s of %s %s fetched (%.0f%%)",

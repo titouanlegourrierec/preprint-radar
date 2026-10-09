@@ -16,6 +16,7 @@ from dataclasses import dataclass, field
 from itertools import batched
 from typing import Any
 
+from preprint_radar.console import Advance, no_progress
 from preprint_radar.exceptions import FetchError, ParseError
 from preprint_radar.http import HttpClient
 
@@ -45,13 +46,16 @@ class Stars:
     missing: set[str] = field(default_factory=set)
 
 
-def fetch_stars(client: HttpClient, repositories: Iterable[str], *, token: str) -> Stars:
+def fetch_stars(
+    client: HttpClient, repositories: Iterable[str], *, token: str, progress: Advance = no_progress
+) -> Stars:
     """The stars of GitHub repositories, 100 per query.
 
     Args:
         client: HTTP client for GitHub.
         repositories: ``owner/name`` of each.
         token: A GitHub token; any, even one that reads only public data.
+        progress: Told the repositories of each query, answered or not.
 
     Returns:
         Their stars, and those GitHub does not know.
@@ -72,6 +76,8 @@ def fetch_stars(client: HttpClient, repositories: Iterable[str], *, token: str) 
                 raise FetchError(msg, status=exc.status) from exc
             logger.warning("GitHub lookup of %d repositories failed: %s", len(batch), exc)
             continue
+        finally:
+            progress(len(batch))
         found.stars.update(stars)
         found.missing.update(missing)
         logger.debug("GitHub: %s points left this hour", remaining)

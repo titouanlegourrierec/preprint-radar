@@ -131,6 +131,10 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ### Command line
 
+- In a terminal, the long steps draw a progress bar: what they do, how many items of how
+  many, the time spent and the time left (HTML pages, citation counts, published
+  versions, OpenAlex, ROR, GitHub stars); log lines print above it. In CI and pipes the
+  output stays plain lines (UX-27).
 - The long commands (update, backfill, reextract, institutions, citations, scholar,
   archive) log their progress without `-v`, and `-q` keeps warnings only (DOC-5); `-v`
   before and after the command add up.

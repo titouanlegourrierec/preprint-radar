@@ -1,3 +1,4 @@
+import io
 import logging
 import re
 from pathlib import Path
@@ -6,7 +7,14 @@ import pytest
 from rich.console import Console
 from rich.logging import RichHandler
 
-from preprint_radar.console import PLAIN_LOG_FORMAT, github_annotation, github_summary, log_handler
+from preprint_radar.console import (
+    PLAIN_LOG_FORMAT,
+    github_annotation,
+    github_summary,
+    log_handler,
+    no_progress,
+    progress,
+)
 
 
 def test_logs_are_plain_lines_outside_a_terminal(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -51,3 +59,32 @@ def test_annotations_are_printed_in_github_actions_only(
     github_annotation("error", "Archive not updated", "50% of the counts\nand more")
 
     assert capsys.readouterr().out == "::error title=Archive not updated::50%25 of the counts%0Aand more\n"
+
+
+def test_a_progress_bar_in_a_terminal(monkeypatch: pytest.MonkeyPatch) -> None:
+    out = io.StringIO()
+    monkeypatch.setattr(
+        "preprint_radar.console.err_console", Console(file=out, force_terminal=True, width=100)
+    )
+
+    with progress("GitHub stars", 200) as advance:
+        advance(100)
+        advance(100)
+
+    assert "GitHub stars" in out.getvalue()
+    assert "200/200" in out.getvalue()
+
+
+def test_no_progress_bar_elsewhere(monkeypatch: pytest.MonkeyPatch) -> None:
+    out = io.StringIO()
+    monkeypatch.setattr("preprint_radar.console.err_console", Console(file=out, force_terminal=False))
+
+    with progress("GitHub stars", 200) as advance:
+        advance(200)
+    # Nor for nothing to do, in a terminal.
+    monkeypatch.setattr("preprint_radar.console.err_console", Console(file=out, force_terminal=True))
+    with progress("GitHub stars", 0) as advance:
+        advance(0)
+
+    assert advance is no_progress
+    assert out.getvalue() == ""

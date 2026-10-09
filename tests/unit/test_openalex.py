@@ -99,8 +99,10 @@ def test_fetch_affiliations_leaves_a_failed_batch_for_later() -> None:
         requests.append(request)
         return httpx.Response(503)
 
+    done: list[int] = []
     with HttpClient(transport=httpx.MockTransport(handle), max_attempts=1) as client:
-        assert fetch_affiliations(client, {"1512.03385": 4, "2010.11929": 4}) == {}
+        assert fetch_affiliations(client, {"1512.03385": 4, "2010.11929": 4}, progress=done.append) == {}
+    assert done == [2]
     assert len(requests) == 1  # no one-by-one lookups after a failed batch
 
 
@@ -189,11 +191,14 @@ def test_fetch_published_authors_asks_50_dois_per_request() -> None:
         return httpx.Response(200, json={"results": [work]})
 
     dois = ["10.1/A", *(f"10.2/{number}" for number in range(OPENALEX_BATCH_SIZE)), "10.3/a|b"]
+    done: list[int] = []
     with HttpClient(transport=httpx.MockTransport(handle), max_attempts=1) as client:
-        found = fetch_published_authors(client, dois)
+        found = fetch_published_authors(client, dois, progress=done.append)
 
     assert found == {"10.1/a": [PublishedAuthor("Ada Lovelace", (GOOGLE_INSTITUTION,))]}
     # Lowercase, and without the DOI that would split the filter.
     assert len(filters) == 2
     assert filters[0].startswith("doi:10.1/a|10.2/0|")
     assert "10.3/a" not in "".join(filters)
+    # Every DOI counts for the progress bar, the one not asked for too.
+    assert sum(done) == len(dois)

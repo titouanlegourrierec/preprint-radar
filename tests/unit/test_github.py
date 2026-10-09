@@ -48,8 +48,11 @@ def test_fetch_stars_asks_100_repositories_a_query() -> None:
         return httpx.Response(200, text=_answer({f"repo{i}": {"stargazerCount": i} for i in range(count)}))
 
     repositories = [f"lab/net-{number:03d}" for number in range(GITHUB_BATCH_SIZE + 1)]
+    done: list[int] = []
     with HttpClient(transport=httpx.MockTransport(handle), max_attempts=1) as client:
-        found = fetch_stars(client, [*repositories, "lab/net-000"], token="test-token")
+        found = fetch_stars(client, [*repositories, "lab/net-000"], token="test-token", progress=done.append)
+
+    assert done == [100, 1]  # the failed query too
 
     assert len(queries) == 2
     assert 'repo0: repository(owner: "lab", name: "net-000") { stargazerCount }' in queries[0]

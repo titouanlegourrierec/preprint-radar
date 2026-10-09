@@ -93,8 +93,12 @@ def test_fetch_citation_counts_reports_progress_every_ten_batches(caplog: pytest
         return httpx.Response(200, json=[{"citationCount": 1}] * len(json.loads(request.content)["ids"]))
 
     ids = [f"2609.{number:05d}" for number in range(11 * S2_BATCH_SIZE)]
+    done: list[int] = []
     with HttpClient(transport=httpx.MockTransport(handle), max_attempts=1) as client:
-        assert len(fetch_citation_counts(client, ids)) == len(ids)
+        assert len(fetch_citation_counts(client, ids, progress=done.append)) == len(ids)
+
+    # The progress bar is told each batch.
+    assert done == [S2_BATCH_SIZE] * 11
 
     progress = [line for line in caplog.text.splitlines() if "citation counts fetched" in line]
     assert len(progress) == 2
