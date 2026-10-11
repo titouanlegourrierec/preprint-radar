@@ -526,7 +526,7 @@
     "Artificial Intelligence (cs.AI)",
     "Robotics (cs.RO)"
    ],
-   "comments": "19 pages, 11 figures, 5 tables",
+   "comments": "35 pages, 7 figures, 14 tables. Revised version with a new title; adds prototype controls, matched supervision references, a second backbone, paired query protocols, a third dataset and an external experiment on Hyperspherical Prototype Networks",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
@@ -2069,9 +2069,9 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Artificial Intelligence (cs.AI)"
    ],
-   "comments": null,
+   "comments": "Accepted at NeurIPS 2026. Project page: https://sealical.github.io/st-mem/",
    "journal_ref": null,
-   "venue": null,
+   "venue": "NeurIPS 2026",
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.04802v1",
    "abstract": "Embodied agents performing long-horizon tasks require a memory representation in which the state transitions of dynamic objects remain queryable in natural language across hours-to-days observation horizons. Existing systems either drop fine-grained motion (clip-level video-language embeddings), keep it only as raw coordinates (geometric SLAM), or organise it around immediate task context (agent working memories). None of them gives the agent a per-object timeline whose state transitions are themselves queryable in language. Our key contribution is Linguistic Trajectory Encoding (LTE), which compresses dynamic object motion histories via a hybrid representation combining natural language descriptions, sparse spatial anchors, and visual anchors. LTE adapts compression to motion complexity by anchoring periods without reliable observations to the last seen location, while representing motion with geometric waypoints and linguistic descriptions to preserve accuracy. To evaluate these capabilities across extended time horizons, we construct the Spatial Memory Benchmark (SMB) from EgoLife multi-day recordings, targeting capabilities absent in existing benchmarks: semantic trajectory retrieval and long-horizon object retrieval. On SMB, the LTE-based system achieves 45.3% success in semantic trajectory retrieval and 48.7% in long-horizon object retrieval, outperforming structured-memory and VLM baselines (best prior: 31.9% and 34.4%). LTE achieves trajectory compression by factors of 8.7× to 26.1× with sub-second query latency on 24 h video. On Ego4D natural-language queries, the system reaches 28.75% / 55.10% R@1/R@5, +15.80 / +31.30 pts over EgoVLPv2.",
@@ -2424,7 +2424,7 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Artificial Intelligence (cs.AI)"
    ],
-   "comments": "9 pages, 5 figures. Submitted to IEEE Robotics and Automation Letters",
+   "comments": "9 pages, 5 figures. Submitted to ICRA",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
@@ -5105,7 +5105,7 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Audio and Speech Processing (eess.AS)"
    ],
-   "comments": "28 pages, 4 figures, 12 tables. Project page: https://step-out.github.io/Motion-Omni-Page/ Code: https://github.com/step-out/Motion-Omni Data: https://huggingface.co/datasets/ChengqianMa/Motion-Omni",
+   "comments": "30 pages, 6 figures, 12 tables. Updated figures, presentation, and author notes. Project page: https://step-out.github.io/Motion-Omni-Page/ Code: https://github.com/step-out/Motion-Omni Data: https://huggingface.co/datasets/ChengqianMa/Motion-Omni",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.SD",

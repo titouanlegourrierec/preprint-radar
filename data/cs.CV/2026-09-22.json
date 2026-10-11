@@ -369,9 +369,9 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": null,
+   "comments": "Accepted to NeurIPS 2026 Code: https://github.com/NVlabs/PixelDiT",
    "journal_ref": null,
-   "venue": null,
+   "venue": "NeurIPS 2026",
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.24919v1",
    "abstract": "Recent advances in pixel-space diffusion models have narrowed the image quality gap with latent-space diffusion, but still converge more slowly and lag behind in final image quality. We argue that a key reason is the lack of an explicit representation prior: unlike latent diffusion, which usually denoises in a compact and structured latent space, pixel diffusion needs to learn denoising-friendly representations and pixel generation simultaneously from raw RGB space. To address this problem, we propose PixelDiT2, an end-to-end pixel-space diffusion model designed to decouple representation learning from pixel generation without introducing an autoencoder or latent reconstruction bottleneck. We propose representation grounding that uses a frozen pretrained vision foundation model to provide explicit per-patch representation guidance throughout denoising, allowing the pixel diffusion transformer to focus more on pixel generation. On ImageNet-256x256, PixelDiT2 achieves an FID of 1.46 after 600 epochs; at 512x512 resolution, PixelDiT2 achieves an FID of 1.48 after 680 epochs.",
@@ -9206,7 +9206,7 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": null,
+   "comments": "Code and weights are available at:https://github.com/AlibabaResearch/SparkDiffusion and https://huggingface.co/collections/alibabagroup/sparkdiffusion",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
@@ -11524,7 +11524,7 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "17 pages, 9 figures. Code available at https://github.com/mehizelali/linear-kan-transformer",
+   "comments": "19 pages, 9 figures. Code available at https://github.com/mehizelali/linear-kan-transformer",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,

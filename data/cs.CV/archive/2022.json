@@ -2251,6 +2251,64 @@
    "pdf_url": "https://arxiv.org/pdf/2212.06727"
   },
   {
+   "arxiv_id": "2212.06437",
+   "announced": "2022-12-13",
+   "title": "DiffStack: A Differentiable and Modular Control Stack for Autonomous Vehicles",
+   "authors": [
+    "Peter Karkus",
+    "Boris Ivanovic",
+    "Shie Mannor",
+    "Marco Pavone"
+   ],
+   "primary_subject": "Robotics (cs.RO)",
+   "subjects": [
+    "Robotics (cs.RO)",
+    "Artificial Intelligence (cs.AI)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "CoRL 2022 camera ready",
+   "journal_ref": null,
+   "venue": "CoRL 2022",
+   "cross_list_from": "cs.RO",
+   "html_url": null,
+   "abstract": "Autonomous vehicle (AV) stacks are typically built in a modular fashion, with explicit components performing detection, tracking, prediction, planning, control, etc. While modularity improves reusability, interpretability, and generalizability, it also suffers from compounding errors, information bottlenecks, and integration challenges. To overcome these challenges, a prominent approach is to convert the AV stack into an end-to-end neural network and train it with data. While such approaches have achieved impressive results, they typically lack interpretability and reusability, and they eschew principled analytical components, such as planning and control, in favor of deep neural networks. To enable the joint optimization of AV stacks while retaining modularity, we present DiffStack, a differentiable and modular stack for prediction, planning, and control. Crucially, our model-based planning and control algorithms leverage recent advancements in differentiable optimization to produce gradients, enabling optimization of upstream components, such as prediction, via backpropagation through planning and control. Our results on the nuScenes dataset indicate that end-to-end training with DiffStack yields substantial improvements in open-loop and closed-loop planning metrics by, e.g., learning to make fewer prediction errors that would affect planning. Beyond these immediate benefits, DiffStack opens up new opportunities for fully data-driven yet modular and interpretable AV architectures. Project website: https://sites.google.com/view/diffstack",
+   "affiliations": [
+    "Technion – Israel Institute of Technology",
+    "Stanford University"
+   ],
+   "author_affiliations": [
+    null,
+    null,
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Technion – Israel Institute of Technology",
+    "Stanford University"
+   ],
+   "institution_ids": [
+    "03qryx823",
+    "00f54p054"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2212.06437",
+   "pdf_url": "https://arxiv.org/pdf/2212.06437"
+  },
+  {
    "arxiv_id": "2212.04711",
    "announced": "2022-12-13",
    "title": "ShadowDiffusion: When Degradation Prior Meets Diffusion Model for Shadow Removal",
@@ -37872,6 +37930,60 @@
    "pdf_url": "https://arxiv.org/pdf/2210.15947"
   },
   {
+   "arxiv_id": "2210.15889",
+   "announced": "2022-10-01",
+   "title": "Towards Data-and Knowledge-Driven Artificial Intelligence: A Survey on Neuro-Symbolic Computing",
+   "authors": [
+    "Wenguan Wang",
+    "Yi Yang",
+    "Fei Wu"
+   ],
+   "primary_subject": "Artificial Intelligence (cs.AI)",
+   "subjects": [
+    "Artificial Intelligence (cs.AI)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "PAMI 2024",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.AI",
+   "html_url": null,
+   "abstract": "Neural-symbolic computing (NeSy), which pursues the integration of the symbolic and statistical paradigms of cognition, has been an active research area of Artificial Intelligence (AI) for many years. As NeSy shows promise of reconciling the advantages of reasoning and interpretability of symbolic representation and robust learning in neural networks, it may serve as a catalyst for the next generation of AI. In the present paper, we provide a systematic overview of the recent developments and important contributions of NeSy research. Firstly, we introduce study history of this area, covering early work and foundations. We further discuss background concepts and identify key driving factors behind the development of NeSy. Afterward, we categorize recent landmark approaches along several main characteristics that underline this research paradigm, including neural-symbolic integration, knowledge representation, knowledge embedding, and functionality. Next, we briefly discuss the successful application of modern NeSy approaches in several domains. Then, we benchmark several NeSy methods on three representative application tasks. Finally, we identify the open problems together with potential future research directions. This survey is expected to help new researchers enter this rapidly evolving field and accelerate the progress towards data-and knowledge-driven AI.",
+   "affiliations": [
+    "Zhejiang University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Zhejiang University"
+   ],
+   "institution_ids": [
+    "00a2xv884"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2210.15889",
+   "pdf_url": "https://arxiv.org/pdf/2210.15889"
+  },
+  {
    "arxiv_id": "2210.15858",
    "announced": "2022-10-01",
    "title": "Vox-Fusion: Dense Tracking and Mapping with Voxel-based Neural Implicit Representation",
@@ -55172,7 +55284,8 @@
    ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
      "source": "openalex"
@@ -68272,6 +68385,44 @@
    "pdf_url": "https://arxiv.org/pdf/2207.03912"
   },
   {
+   "arxiv_id": "2207.03434",
+   "announced": "2022-07-07",
+   "title": "LASSIE: Learning Articulated Shapes from Sparse Image Ensemble via 3D Part Discovery",
+   "authors": [
+    "Chun-Han Yao",
+    "Wei-Chih Hung",
+    "Yuanzhen Li",
+    "Michael Rubinstein",
+    "Ming-Hsuan Yang",
+    "Varun Jampani"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Creating high-quality articulated 3D models of animals is challenging either via manual creation or using 3D scanning tools. Therefore, techniques to reconstruct articulated 3D objects from 2D images are crucial and highly useful. In this work, we propose a practical problem setting to estimate 3D pose and shape of animals given only a few (10-30) in-the-wild images of a particular animal species (say, horse). Contrary to existing works that rely on pre-defined template shapes, we do not assume any form of 2D or 3D ground-truth annotations, nor do we leverage any multi-view or temporal information. Moreover, each input image ensemble can contain animal instances with varying poses, backgrounds, illuminations, and textures. Our key insight is that 3D parts have much simpler shape compared to the overall animal and that they are robust w.r.t. animal pose articulations. Following these insights, we propose LASSIE, a novel optimization framework which discovers 3D parts in a self-supervised manner with minimal user intervention. A key driving force behind LASSIE is the enforcing of 2D-3D part consistency using self-supervisory deep features. Experiments on Pascal-Part and self-collected in-the-wild animal datasets demonstrate considerably better 3D reconstructions as well as both 2D and 3D part discovery compared to prior arts. Project page: chhankyao.github.io/lassie/",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2207.03434",
+   "pdf_url": "https://arxiv.org/pdf/2207.03434"
+  },
+  {
    "arxiv_id": "2207.03342",
    "announced": "2022-07-06",
    "title": "Monkeypox Skin Lesion Detection Using Deep Learning Models: A Feasibility Study",
@@ -76772,7 +76923,8 @@
    ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
      "source": "openalex"
@@ -96440,6 +96592,72 @@
    },
    "abs_url": "https://arxiv.org/abs/2205.13764",
    "pdf_url": "https://arxiv.org/pdf/2205.13764"
+  },
+  {
+   "arxiv_id": "2205.13616",
+   "announced": "2022-05-01",
+   "title": "Towards A Proactive ML Approach for Detecting Backdoor Poison Samples",
+   "authors": [
+    "Xiangyu Qi",
+    "Tinghao Xie",
+    "Jiachen T. Wang",
+    "Tong Wu",
+    "Saeed Mahloujifar",
+    "Prateek Mittal"
+   ],
+   "primary_subject": "Machine Learning (cs.LG)",
+   "subjects": [
+    "Machine Learning (cs.LG)",
+    "Cryptography and Security (cs.CR)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "USENIX Security 2023",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.LG",
+   "html_url": null,
+   "abstract": "Adversaries can embed backdoors in deep learning models by introducing backdoor poison samples into training datasets. In this work, we investigate how to detect such poison samples to mitigate the threat of backdoor attacks. First, we uncover a post-hoc workflow underlying most prior work, where defenders passively allow the attack to proceed and then leverage the characteristics of the post-attacked model to uncover poison samples. We reveal that this workflow does not fully exploit defenders' capabilities, and defense pipelines built on it are prone to failure or performance degradation in many scenarios. Second, we suggest a paradigm shift by promoting a proactive mindset in which defenders engage proactively with the entire model training and poison detection pipeline, directly enforcing and magnifying distinctive characteristics of the post-attacked model to facilitate poison detection. Based on this, we formulate a unified framework and provide practical insights on designing detection pipelines that are more robust and generalizable. Third, we introduce the technique of Confusion Training (CT) as a concrete instantiation of our framework. CT applies an additional poisoning attack to the already poisoned dataset, actively decoupling benign correlation while exposing backdoor patterns to detection. Empirical evaluations on 4 datasets and 14 types of attacks validate the superiority of CT over 14 baseline defenses.",
+   "affiliations": [
+    "Princeton University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Princeton University"
+   ],
+   "institution_ids": [
+    "00hx57361"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2205.13616",
+   "pdf_url": "https://arxiv.org/pdf/2205.13616"
   },
   {
    "arxiv_id": "2205.13542",
@@ -136746,6 +136964,79 @@
    "pdf_url": "https://arxiv.org/pdf/2203.12178"
   },
   {
+   "arxiv_id": "2203.12175",
+   "announced": "2022-03-01",
+   "title": "Adaptive Transformers for Robust Few-shot Cross-domain Face Anti-spoofing",
+   "authors": [
+    "Hsin-Ping Huang",
+    "Deqing Sun",
+    "Yaojie Liu",
+    "Wen-Sheng Chu",
+    "Taihong Xiao",
+    "Jinwei Yuan",
+    "Hartwig Adam",
+    "Ming-Hsuan Yang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "While recent face anti-spoofing methods perform well under the intra-domain setups, an effective approach needs to account for much larger appearance variations of images acquired in complex scenes with different sensors for robust performance. In this paper, we present adaptive vision transformers (ViT) for robust cross-domain face antispoofing. Specifically, we adopt ViT as a backbone to exploit its strength to account for long-range dependencies among pixels. We further introduce the ensemble adapters module and feature-wise transformation layers in the ViT to adapt to different domains for robust performance with a few samples. Experiments on several benchmark datasets show that the proposed models achieve both robust and competitive performance against the state-of-the-art methods for cross-domain face anti-spoofing using a few samples.",
+   "affiliations": [
+    "University of California, Merced",
+    "Google"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    null
+   ],
+   "institutions": [
+    "University of California, Merced",
+    "Google"
+   ],
+   "institution_ids": [
+    "00d9ah105",
+    "00njsd438"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2203.12175",
+   "pdf_url": "https://arxiv.org/pdf/2203.12175"
+  },
+  {
    "arxiv_id": "2203.12119",
    "announced": "2022-03-01",
    "title": "Visual Prompt Tuning",
@@ -153225,7 +153516,8 @@
    ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
      "source": "openalex"
@@ -160838,7 +161130,8 @@
    ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
      "source": "openalex"

@@ -6979,6 +6979,65 @@
    "pdf_url": "https://arxiv.org/pdf/2312.04965"
   },
   {
+   "arxiv_id": "2312.04962",
+   "announced": "2023-12-07",
+   "title": "Point2CAD: Reverse Engineering CAD Models from 3D Point Clouds",
+   "authors": [
+    "Yujia Liu",
+    "Anton Obukhov",
+    "Jan Dirk Wegner",
+    "Konrad Schindler"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Computer-Aided Design (CAD) model reconstruction from point clouds is an important problem at the intersection of computer vision, graphics, and machine learning; it saves the designer significant time when iterating on in-the-wild objects. Recent advancements in this direction achieve relatively reliable semantic segmentation but still struggle to produce an adequate topology of the CAD model. In this work, we analyze the current state of the art for that ill-posed task and identify shortcomings of existing methods. We propose a hybrid analytic-neural reconstruction scheme that bridges the gap between segmented point clouds and structured CAD models and can be readily combined with different segmentation backbones. Moreover, to power the surface fitting stage, we propose a novel implicit neural representation of freeform surfaces, driving up the performance of our overall CAD reconstruction scheme. We extensively evaluate our method on the popular ABC benchmark of CAD models and set a new state-of-the-art for that dataset. Project page: https://www.obukhov.ai/point2cad}{https://www.obukhov.ai/point2cad.",
+   "affiliations": [
+    "ETH Zurich",
+    "University of Zurich"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "ETH Zurich",
+    "University of Zurich"
+   ],
+   "institution_ids": [
+    "05a28rw58",
+    "02crff812"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2312.04962",
+   "pdf_url": "https://arxiv.org/pdf/2312.04962"
+  },
+  {
    "arxiv_id": "2312.04567",
    "announced": "2023-12-07",
    "title": "Scaling Laws of Synthetic Images for Model Training ... for Now",
@@ -12489,6 +12548,131 @@
    "pdf_url": "https://arxiv.org/pdf/2312.14867"
   },
   {
+   "arxiv_id": "2312.14705",
+   "announced": "2023-12-01",
+   "title": "SCUNet++: Swin-UNet and CNN Bottleneck Hybrid Architecture with Multi-Fusion Dense Skip Connection for Pulmonary Embolism CT Image Segmentation",
+   "authors": [
+    "Yifei Chen",
+    "Binfeng Zou",
+    "Zhaoxin Guo",
+    "Yiyu Huang",
+    "Yifan Huang",
+    "Feiwei Qin",
+    "Qinhai Li",
+    "Changmiao Wang"
+   ],
+   "primary_subject": "Image and Video Processing (eess.IV)",
+   "subjects": [
+    "Image and Video Processing (eess.IV)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "10 pages, 7 figures, accept WACV2024",
+   "journal_ref": "WACV 2024",
+   "venue": "WACV 2024",
+   "cross_list_from": "eess.IV",
+   "html_url": null,
+   "abstract": "Pulmonary embolism (PE) is a prevalent lung disease that can lead to right ventricular hypertrophy and failure in severe cases, ranking second in severity only to myocardial infarction and sudden death. Pulmonary artery CT angiography (CTPA) is a widely used diagnostic method for PE. However, PE detection presents challenges in clinical practice due to limitations in imaging technology. CTPA can produce noises similar to PE, making confirmation of its presence time-consuming and prone to overdiagnosis. Nevertheless, the traditional segmentation method of PE can not fully consider the hierarchical structure of features, local and global spatial features of PE CT images. In this paper, we propose an automatic PE segmentation method called SCUNet++ (Swin Conv UNet++). This method incorporates multiple fusion dense skip connections between the encoder and decoder, utilizing the Swin Transformer as the encoder. And fuses features of different scales in the decoder subnetwork to compensate for spatial information loss caused by the inevitable downsampling in Swin-UNet or other state-of-the-art methods, effectively solving the above problem. We provide a theoretical analysis of this method in detail and validate it on publicly available PE CT image datasets FUMPE and CAD-PE. The experimental results indicate that our proposed method achieved a Dice similarity coefficient (DSC) of 83.47% and a Hausdorff distance 95th percentile (HD95) of 3.83 on the FUMPE dataset, as well as a DSC of 83.42% and an HD95 of 5.10 on the CAD-PE dataset. These findings demonstrate that our method exhibits strong performance in PE segmentation tasks, potentially enhancing the accuracy of automatic segmentation of PE and providing a powerful diagnostic tool for clinical physicians. Our source code and new FUMPE dataset are available at https://github.com/JustlfC03/SCUNet-plusplus.",
+   "affiliations": [
+    "Hangzhou Dianzi University",
+    "Chinese University of Hong Kong",
+    "Shenzhen Research Institute of Big Data"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "Hangzhou Dianzi University",
+    "Chinese University of Hong Kong",
+    "Shenzhen Research Institute of Big Data"
+   ],
+   "institution_ids": [
+    "0576gt767",
+    "00t33hh48",
+    "00z1gwf89"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2312.14705",
+   "pdf_url": "https://arxiv.org/pdf/2312.14705"
+  },
+  {
+   "arxiv_id": "2312.14556",
+   "announced": "2023-12-01",
+   "title": "CaptainCook4D: A Dataset for Understanding Errors in Procedural Activities",
+   "authors": [
+    "Rohith Peddi",
+    "Shivvrat Arya",
+    "Bharath Challa",
+    "Likhitha Pallapothula",
+    "Akshay Vyas",
+    "Bhavya Gouripeddi",
+    "Jikai Wang",
+    "Qifan Zhang",
+    "Vasundhara Komaragiri",
+    "Eric Ragan",
+    "Nicholas Ruozzi",
+    "Yu Xiang",
+    "Vibhav Gogate"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted to the 2024 Neural Information Processing Systems Datasets and Benchmarks Track, Project Page: https://rohithpeddi.github.io/#/captaincook",
+   "journal_ref": null,
+   "venue": "NeurIPS 2024",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Following step-by-step procedures is an essential component of various activities carried out by individuals in their daily lives. These procedures serve as a guiding framework that helps to achieve goals efficiently, whether it is assembling furniture or preparing a recipe. However, the complexity and duration of procedural activities inherently increase the likelihood of making errors. Understanding such procedural activities from a sequence of frames is a challenging task that demands an accurate interpretation of visual information and the ability to reason about the structure of the activity. To this end, we collect a new egocentric 4D dataset, CaptainCook4D, comprising 384 recordings (94.5 hours) of people performing recipes in real kitchen environments. This dataset consists of two distinct types of activity: one in which participants adhere to the provided recipe instructions and another in which they deviate and induce errors. We provide 5.3K step annotations and 10K fine-grained action annotations and benchmark the dataset for the following tasks: supervised error recognition, multistep localization, and procedure learning",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2312.14556",
+   "pdf_url": "https://arxiv.org/pdf/2312.14556"
+  },
+  {
    "arxiv_id": "2312.14457",
    "announced": "2023-12-01",
    "title": "QUAR-VLA: Vision-Language-Action Model for Quadruped Robots",
@@ -14294,6 +14478,81 @@
    "pdf_url": "https://arxiv.org/pdf/2312.12274"
   },
   {
+   "arxiv_id": "2312.12263",
+   "announced": "2023-12-01",
+   "title": "FedDiv: Collaborative Noise Filtering for Federated Learning with Noisy Labels",
+   "authors": [
+    "Jichang Li",
+    "Guanbin Li",
+    "Hui Cheng",
+    "Zicheng Liao",
+    "Yizhou Yu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "To appear in AAAI-2024; correct formats to meet standards of the AAAI manuscript",
+   "journal_ref": null,
+   "venue": "AAAI 2024",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Federated learning with noisy labels (F-LNL) aims at seeking an optimal server model via collaborative distributed learning by aggregating multiple client models trained with local noisy or clean samples. On the basis of a federated learning framework, recent advances primarily adopt label noise filtering to separate clean samples from noisy ones on each client, thereby mitigating the negative impact of label noise. However, these prior methods do not learn noise filters by exploiting knowledge across all clients, leading to sub-optimal and inferior noise filtering performance and thus damaging training stability. In this paper, we present FedDiv to tackle the challenges of F-LNL. Specifically, we propose a global noise filter called Federated Noise Filter for effectively identifying samples with noisy labels on every client, thereby raising stability during local training sessions. Without sacrificing data privacy, this is achieved by modeling the global distribution of label noise across all clients. Then, in an effort to make the global model achieve higher performance, we introduce a Predictive Consistency based Sampler to identify more credible local data for local model training, thus preventing noise memorization and further boosting the training stability. Extensive experiments on CIFAR-10, CIFAR-100, and Clothing1M demonstrate that FedDiv achieves superior performance over state-of-the-art F-LNL methods under different label noise settings for both IID and non-IID data partitions. Source code is publicly available at https://github.com/lijichang/FLNL-FedDiv.",
+   "affiliations": [
+    "Sun Yat-sen University",
+    "University of Hong Kong",
+    "Guangdong Province Key Laboratory of Information Security Technology",
+    "Shanghai Jiao Tong University",
+    "Zhejiang University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     3
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Sun Yat-sen University",
+    "University of Hong Kong",
+    "Guangdong Province Key Laboratory of Information Security Technology",
+    "Shanghai Jiao Tong University",
+    "Zhejiang University"
+   ],
+   "institution_ids": [
+    "0064kty71",
+    "02zhqgq86",
+    "03xyaz886",
+    "0220qvk04",
+    "00a2xv884"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2312.12263",
+   "pdf_url": "https://arxiv.org/pdf/2312.12263"
+  },
+  {
    "arxiv_id": "2312.12198",
    "announced": "2023-12-01",
    "title": "Mask Grounding for Referring Image Segmentation",
@@ -15438,6 +15697,103 @@
    "pdf_url": "https://arxiv.org/pdf/2312.10299"
   },
   {
+   "arxiv_id": "2312.10251",
+   "announced": "2023-12-01",
+   "title": "Advancing Surgical VQA with Scene Graph Knowledge",
+   "authors": [
+    "Kun Yuan",
+    "Manasi Kattel",
+    "Joel L. Lavanchy",
+    "Nassir Navab",
+    "Vinkle Srivastav",
+    "Nicolas Padoy"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": "IPCAI 2024, Int J CARS (2024)",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Modern operating room is becoming increasingly complex, requiring innovative intra-operative support systems. While the focus of surgical data science has largely been on video analysis, integrating surgical computer vision with language capabilities is emerging as a necessity. Our work aims to advance Visual Question Answering (VQA) in the surgical context with scene graph knowledge, addressing two main challenges in the current surgical VQA systems: removing question-condition bias in the surgical VQA dataset and incorporating scene-aware reasoning in the surgical VQA model design. First, we propose a Surgical Scene Graph-based dataset, SSG-QA, generated by employing segmentation and detection models on publicly available datasets. We build surgical scene graphs using spatial and action information of instruments and anatomies. These graphs are fed into a question engine, generating diverse QA pairs. Our SSG-QA dataset provides a more complex, diverse, geometrically grounded, unbiased, and surgical action-oriented dataset compared to existing surgical VQA datasets. We then propose SSG-QA-Net, a novel surgical VQA model incorporating a lightweight Scene-embedded Interaction Module (SIM), which integrates geometric scene knowledge in the VQA model design by employing cross-attention between the textual and the scene features. Our comprehensive analysis of the SSG-QA dataset shows that SSG-QA-Net outperforms existing methods across different question types and complexities. We highlight that the primary limitation in the current surgical VQA systems is the lack of scene knowledge to answer complex queries. We present a novel surgical VQA dataset and model and show that results can be significantly improved by incorporating geometric scene features in the VQA model design. The source code and the dataset will be made publicly available at: https://github.com/CAMMA-public/SSG-QA",
+   "affiliations": [
+    "Centre National de la Recherche Scientifique",
+    "Inserm",
+    "Laboratoire des Sciences de l'Ingénieur, de l'Informatique et de l'Imagerie",
+    "Institut de Chirurgie Guidée par l'Image",
+    "Technical University of Munich",
+    "Université de Strasbourg"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    [
+     0,
+     1,
+     2,
+     3,
+     5
+    ],
+    [
+     3
+    ],
+    [
+     4
+    ],
+    [
+     0,
+     1,
+     2,
+     3,
+     5
+    ],
+    [
+     0,
+     1,
+     2,
+     3,
+     5
+    ]
+   ],
+   "institutions": [
+    "Centre National de la Recherche Scientifique",
+    "Inserm",
+    "Laboratoire des Sciences de l'Ingénieur, de l'Informatique et de l'Imagerie",
+    "Institut de Chirurgie Guidée par l'Image",
+    "Technical University of Munich",
+    "Université de Strasbourg"
+   ],
+   "institution_ids": [
+    "02feahw73",
+    "02vjkv261",
+    "00k4e5n71",
+    "053694011",
+    "02kkvpp62",
+    "00pg6eq24"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2312.10251",
+   "pdf_url": "https://arxiv.org/pdf/2312.10251"
+  },
+  {
    "arxiv_id": "2312.10240",
    "announced": "2023-12-01",
    "title": "Rich Human Feedback for Text-to-Image Generation",
@@ -16147,6 +16503,98 @@
    },
    "abs_url": "https://arxiv.org/abs/2312.09866",
    "pdf_url": "https://arxiv.org/pdf/2312.09866"
+  },
+  {
+   "arxiv_id": "2312.09788",
+   "announced": "2023-12-01",
+   "title": "Collaborating Foundation Models for Domain Generalized Semantic Segmentation",
+   "authors": [
+    "Yasser Benigmim",
+    "Subhankar Roy",
+    "Slim Essid",
+    "Vicky Kalogeiton",
+    "Stéphane Lathuilière"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "https://github.com/yasserben/CLOUDS ; Accepted to CVPR 2024",
+   "journal_ref": null,
+   "venue": "CVPR 2024",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Domain Generalized Semantic Segmentation (DGSS) deals with training a model on a labeled source domain with the aim of generalizing to unseen domains during inference. Existing DGSS methods typically effectuate robust features by means of Domain Randomization (DR). Such an approach is often limited as it can only account for style diversification and not content. In this work, we take an orthogonal approach to DGSS and propose to use an assembly of CoLlaborative FOUndation models for Domain Generalized Semantic Segmentation (CLOUDS). In detail, CLOUDS is a framework that integrates FMs of various kinds: (i) CLIP backbone for its robust feature representation, (ii) generative models to diversify the content, thereby covering various modes of the possible target distribution, and (iii) Segment Anything Model (SAM) for iteratively refining the predictions of the segmentation model. Extensive experiments show that our CLOUDS excels in adapting from synthetic to real DGSS benchmarks and under varying weather conditions, notably outperforming prior methods by 5.6% and 6.7% on averaged miou, respectively. The code is available at : https://github.com/yasserben/CLOUDS",
+   "affiliations": [
+    "Télécom Paris",
+    "Centre National de la Recherche Scientifique",
+    "École Polytechnique",
+    "Laboratoire d'Informatique de l'École Polytechnique",
+    "Institut Polytechnique de Paris",
+    "Laboratoire Traitement et Communication de l’Information",
+    "University of Aberdeen"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5
+    ],
+    [
+     6
+    ],
+    [
+     0,
+     4,
+     5
+    ],
+    [
+     1,
+     2,
+     3,
+     4
+    ],
+    [
+     0,
+     4,
+     5
+    ]
+   ],
+   "institutions": [
+    "Télécom Paris",
+    "Centre National de la Recherche Scientifique",
+    "École Polytechnique",
+    "Laboratoire d'Informatique de l'École Polytechnique",
+    "Institut Polytechnique de Paris",
+    "Laboratoire Traitement et Communication de l’Information",
+    "University of Aberdeen"
+   ],
+   "institution_ids": [
+    "01naq7912",
+    "02feahw73",
+    "05hy3tk52",
+    "04afed728",
+    "042tfbd02",
+    "057er4c39",
+    "016476m91"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2312.09788",
+   "pdf_url": "https://arxiv.org/pdf/2312.09788"
   },
   {
    "arxiv_id": "2312.09570",
@@ -29455,6 +29903,50 @@
    "pdf_url": "https://arxiv.org/pdf/2311.17055"
   },
   {
+   "arxiv_id": "2311.17053",
+   "announced": "2023-11-28",
+   "title": "DiffuseBot: Breeding Soft Robots With Physics-Augmented Generative Diffusion Models",
+   "authors": [
+    "Tsun-Hsuan Wang",
+    "Juntian Zheng",
+    "Pingchuan Ma",
+    "Yilun Du",
+    "Byungchul Kim",
+    "Andrew Spielberg",
+    "Joshua Tenenbaum",
+    "Chuang Gan",
+    "Daniela Rus"
+   ],
+   "primary_subject": "Robotics (cs.RO)",
+   "subjects": [
+    "Robotics (cs.RO)",
+    "Artificial Intelligence (cs.AI)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "NeurIPS 2023. Project page: https://diffusebot.github.io/",
+   "journal_ref": null,
+   "venue": "NeurIPS 2023",
+   "cross_list_from": "cs.RO",
+   "html_url": null,
+   "abstract": "Nature evolves creatures with a high complexity of morphological and behavioral intelligence, meanwhile computational methods lag in approaching that diversity and efficacy. Co-optimization of artificial creatures' morphology and control in silico shows promise for applications in physical soft robotics and virtual character creation; such approaches, however, require developing new learning algorithms that can reason about function atop pure structure. In this paper, we present DiffuseBot, a physics-augmented diffusion model that generates soft robot morphologies capable of excelling in a wide spectrum of tasks. DiffuseBot bridges the gap between virtually generated content and physical utility by (i) augmenting the diffusion process with a physical dynamical simulation which provides a certificate of performance, and (ii) introducing a co-design procedure that jointly optimizes physical design and control by leveraging information about physical sensitivities from differentiable simulation. We showcase a range of simulated and fabricated robots along with their capabilities. Check our website at https://diffusebot.github.io/",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2311.17053",
+   "pdf_url": "https://arxiv.org/pdf/2311.17053"
+  },
+  {
    "arxiv_id": "2311.17043",
    "announced": "2023-11-28",
    "title": "LLaMA-VID: An Image is Worth 2 Tokens in Large Language Models",
@@ -40326,75 +40818,6 @@
    },
    "abs_url": "https://arxiv.org/abs/2311.16711",
    "pdf_url": "https://arxiv.org/pdf/2311.16711"
-  },
-  {
-   "arxiv_id": "2311.16593",
-   "announced": "2023-11-01",
-   "title": "Empowering COVID-19 Detection: Optimizing Performance Through Fine-Tuned EfficientNet Deep Learning Architecture",
-   "authors": [
-    "Md. Alamin Talukder",
-    "Md. Abu Layek",
-    "Mohsin Kazi",
-    "Md Ashraf Uddin",
-    "Sunil Aryal"
-   ],
-   "primary_subject": "Image and Video Processing (eess.IV)",
-   "subjects": [
-    "Image and Video Processing (eess.IV)",
-    "Computer Vision and Pattern Recognition (cs.CV)",
-    "Machine Learning (cs.LG)"
-   ],
-   "comments": "After further evaluation, we identified an issue in our methodology affecting result reliability. Specifically, a fine-tuning preprocessing step requires refinement to enhance model performance and reproducibility. To address this, we are withdrawing the preprint for updates before resubmission. We appreciate readers' understanding and apologize for any inconvenience",
-   "journal_ref": "Computers in Biology and Medicine, Elsevier 2023",
-   "venue": null,
-   "cross_list_from": "eess.IV",
-   "html_url": null,
-   "abstract": "The worldwide COVID-19 pandemic has profoundly influenced the health and everyday experiences of individuals across the planet. It is a highly contagious respiratory disease requiring early and accurate detection to curb its rapid transmission. Initial testing methods primarily revolved around identifying the genetic composition of the coronavirus, exhibiting a relatively low detection rate and requiring a time-intensive procedure. To address this challenge, experts have suggested using radiological imagery, particularly chest X-rays, as a valuable approach within the diagnostic protocol. This study investigates the potential of leveraging radiographic imaging (X-rays) with deep learning algorithms to swiftly and precisely identify COVID-19 patients. The proposed approach elevates the detection accuracy by fine-tuning with appropriate layers on various established transfer learning models. The experimentation was conducted on a COVID-19 X-ray dataset containing 2000 images. The accuracy rates achieved were impressive of 100% for EfficientNetB4 model. The fine-tuned EfficientNetB4 achieved an excellent accuracy score, showcasing its potential as a robust COVID-19 detection model. Furthermore, EfficientNetB4 excelled in identifying Lung disease using Chest X-ray dataset containing 4,350 Images, achieving remarkable performance with an accuracy of 99.17%, precision of 99.13%, recall of 99.16%, and f1-score of 99.14%. These results highlight the promise of fine-tuned transfer learning for efficient lung detection through medical imaging, especially with X-ray images. This research offers radiologists an effective means of aiding rapid and precise COVID-19 diagnosis and contributes valuable assistance for healthcare professionals in accurately identifying affected patients.",
-   "affiliations": [
-    "Jagannath University",
-    "King Saud University",
-    "Deakin University"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     1
-    ],
-    [
-     2
-    ],
-    [
-     2
-    ]
-   ],
-   "institutions": [
-    "Jagannath University",
-    "King Saud University",
-    "Deakin University"
-   ],
-   "institution_ids": [
-    "02c4z7527",
-    "02f81g417",
-    "02czsnj07"
-   ],
-   "withdrawn": true,
-   "provenance": {
-    "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-08"
-    },
-    "institutions": {
-     "source": "openalex",
-     "at": "2026-10-08"
-    }
-   },
-   "abs_url": "https://arxiv.org/abs/2311.16593",
-   "pdf_url": "https://arxiv.org/pdf/2311.16593"
   },
   {
    "arxiv_id": "2311.16567",
@@ -68947,7 +69370,8 @@
    ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
      "source": "openalex"
@@ -73562,6 +73986,74 @@
    "pdf_url": "https://arxiv.org/pdf/2309.14181"
   },
   {
+   "arxiv_id": "2309.14065",
+   "announced": "2023-09-01",
+   "title": "AsymFormer: Asymmetrical Cross-Modal Representation Learning for Mobile Platform Real-Time RGB-D Semantic Segmentation",
+   "authors": [
+    "Siqi Du",
+    "Weixi Wang",
+    "Renzhong Guo",
+    "Ruisheng Wang",
+    "Yibin Tian",
+    "Shengjun Tang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Understanding indoor scenes is crucial for urban studies. Considering the dynamic nature of indoor environments, effective semantic segmentation requires both real-time operation and high accuracy.To address this, we propose AsymFormer, a novel network that improves real-time semantic segmentation accuracy using RGB-D multi-modal information without substantially increasing network complexity. AsymFormer uses an asymmetrical backbone for multimodal feature extraction, reducing redundant parameters by optimizing computational resource distribution. To fuse asymmetric multimodal features, a Local Attention-Guided Feature Selection (LAFS) module is used to selectively fuse features from different modalities by leveraging their dependencies. Subsequently, a Cross-Modal Attention-Guided Feature Correlation Embedding (CMA) module is introduced to further extract cross-modal representations. The AsymFormer demonstrates competitive results with 54.1% mIoU on NYUv2 and 49.1% mIoU on SUNRGBD. Notably, AsymFormer achieves an inference speed of 65 FPS (79 FPS after implementing mixed precision quantization) on RTX3090, demonstrating that AsymFormer can strike a balance between high accuracy and efficiency.",
+   "affiliations": [
+    "Shenzhen University",
+    "University of Calgary"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Shenzhen University",
+    "University of Calgary"
+   ],
+   "institution_ids": [
+    "01vy4gh70",
+    "03yjb2x39"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2309.14065",
+   "pdf_url": "https://arxiv.org/pdf/2309.14065"
+  },
+  {
    "arxiv_id": "2309.14062",
    "announced": "2023-09-01",
    "title": "FeCAM: Exploiting the Heterogeneity of Class Distributions in Exemplar-Free Continual Learning",
@@ -73914,6 +74406,72 @@
    },
    "abs_url": "https://arxiv.org/abs/2309.13101",
    "pdf_url": "https://arxiv.org/pdf/2309.13101"
+  },
+  {
+   "arxiv_id": "2309.13042",
+   "announced": "2023-09-01",
+   "title": "MosaicFusion: Diffusion Models as Data Augmenters for Large Vocabulary Instance Segmentation",
+   "authors": [
+    "Jiahao Xie",
+    "Wei Li",
+    "Xiangtai Li",
+    "Ziwei Liu",
+    "Yew Soon Ong",
+    "Chen Change Loy"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "International Journal of Computer Vision (IJCV), 2024",
+   "journal_ref": null,
+   "venue": "IJCV 2024",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We present MosaicFusion, a simple yet effective diffusion-based data augmentation approach for large vocabulary instance segmentation. Our method is training-free and does not rely on any label supervision. Two key designs enable us to employ an off-the-shelf text-to-image diffusion model as a useful dataset generator for object instances and mask annotations. First, we divide an image canvas into several regions and perform a single round of diffusion process to generate multiple instances simultaneously, conditioning on different text prompts. Second, we obtain corresponding instance masks by aggregating cross-attention maps associated with object prompts across layers and diffusion time steps, followed by simple thresholding and edge-aware refinement processing. Without bells and whistles, our MosaicFusion can produce a significant amount of synthetic labeled data for both rare and novel categories. Experimental results on the challenging LVIS long-tailed and open-vocabulary benchmarks demonstrate that MosaicFusion can significantly improve the performance of existing instance segmentation models, especially for rare and novel categories. Code: https://github.com/Jiahao000/MosaicFusion.",
+   "affiliations": [
+    "Nanyang Technological University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Nanyang Technological University"
+   ],
+   "institution_ids": [
+    "02e7b5302"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2309.13042",
+   "pdf_url": "https://arxiv.org/pdf/2309.13042"
   },
   {
    "arxiv_id": "2309.12867",
@@ -77609,7 +78167,8 @@
    ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
      "source": "openalex"
@@ -83333,7 +83892,8 @@
    ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
      "source": "openalex"
@@ -93502,7 +94062,8 @@
    ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
      "source": "openalex"
@@ -97967,6 +98528,65 @@
    "pdf_url": "https://arxiv.org/pdf/2307.12775"
   },
   {
+   "arxiv_id": "2307.12698",
+   "announced": "2023-07-24",
+   "title": "MC-JEPA: A Joint-Embedding Predictive Architecture for Self-Supervised Learning of Motion and Content Features",
+   "authors": [
+    "Adrien Bardes",
+    "Jean Ponce",
+    "Yann LeCun"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Self-supervised learning of visual representations has been focusing on learning content features, which do not capture object motion or location, and focus on identifying and differentiating objects in images and videos. On the other hand, optical flow estimation is a task that does not involve understanding the content of the images on which it is estimated. We unify the two approaches and introduce MC-JEPA, a joint-embedding predictive architecture and self-supervised learning approach to jointly learn optical flow and content features within a shared encoder, demonstrating that the two associated objectives; the optical flow estimation objective and the self-supervised learning objective; benefit from each other and thus learn content features that incorporate motion information. The proposed approach achieves performance on-par with existing unsupervised optical flow benchmarks, as well as with common self-supervised learning approaches on downstream tasks such as semantic segmentation of images and videos.",
+   "affiliations": [
+    "École Normale Supérieure",
+    "Courant Institute of Mathematical Sciences",
+    "New York University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    [
+     1,
+     2
+    ]
+   ],
+   "institutions": [
+    "École Normale Supérieure",
+    "Courant Institute of Mathematical Sciences",
+    "New York University"
+   ],
+   "institution_ids": [
+    "01dp7jr64",
+    "037tm7f56",
+    "0190ak572"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2307.12698",
+   "pdf_url": "https://arxiv.org/pdf/2307.12698"
+  },
+  {
    "arxiv_id": "2307.12616",
    "announced": "2023-07-24",
    "title": "CTVIS: Consistent Training for Online Video Instance Segmentation",
@@ -101767,7 +102387,8 @@
    ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
      "source": "openalex"
@@ -102297,6 +102918,58 @@
    },
    "abs_url": "https://arxiv.org/abs/2307.01694",
    "pdf_url": "https://arxiv.org/pdf/2307.01694"
+  },
+  {
+   "arxiv_id": "2307.01630",
+   "announced": "2023-07-04",
+   "title": "ChildPlay: A New Benchmark for Understanding Children's Gaze Behaviour",
+   "authors": [
+    "Samy Tafasca",
+    "Anshul Gupta",
+    "Jean-Marc Odobez"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "First submitted for CVPR 2022. Current draft is in review",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Gaze behaviors such as eye-contact or shared attention are important markers for diagnosing developmental disorders in children. While previous studies have looked at some of these elements, the analysis is usually performed on private datasets and is restricted to lab settings. Furthermore, all publicly available gaze target prediction benchmarks mostly contain instances of adults, which makes models trained on them less applicable to scenarios with young children. In this paper, we propose the first study for predicting the gaze target of children and interacting adults. To this end, we introduce the ChildPlay dataset: a curated collection of short video clips featuring children playing and interacting with adults in uncontrolled environments (e.g. kindergarten, therapy centers, preschools etc.), which we annotate with rich gaze information. We further propose a new model for gaze target prediction that is geometrically grounded by explicitly identifying the scene parts in the 3D field of view (3DFoV) of the person, leveraging recent geometry preserving depth inference methods. Our model achieves state of the art results on benchmark datasets and ChildPlay. Furthermore, results show that looking at faces prediction performance on children is much worse than on adults, and can be significantly improved by fine-tuning models using child gaze annotations. Our dataset and models will be made publicly available.",
+   "affiliations": [
+    "Idiap Research Institute"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Idiap Research Institute"
+   ],
+   "institution_ids": [
+    "05932h694"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2307.01630",
+   "pdf_url": "https://arxiv.org/pdf/2307.01630"
   },
   {
    "arxiv_id": "2307.01492",
@@ -108638,6 +109311,61 @@
    "pdf_url": "https://arxiv.org/pdf/2307.03373"
   },
   {
+   "arxiv_id": "2307.03177",
+   "announced": "2023-07-01",
+   "title": "PanoDiffusion: 360-degree Panorama Outpainting via Diffusion",
+   "authors": [
+    "Tianhao Wu",
+    "Chuanxia Zheng",
+    "Tat-Jen Cham"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Project Page: https://sm0kywu.github.io/panodiffusion/",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Generating complete 360-degree panoramas from narrow field of view images is ongoing research as omnidirectional RGB data is not readily available. Existing GAN-based approaches face some barriers to achieving higher quality output, and have poor generalization performance over different mask types. In this paper, we present our 360-degree indoor RGB-D panorama outpainting model using latent diffusion models (LDM), called PanoDiffusion. We introduce a new bi-modal latent diffusion structure that utilizes both RGB and depth panoramic data during training, which works surprisingly well to outpaint depth-free RGB images during inference. We further propose a novel technique of introducing progressive camera rotations during each diffusion denoising step, which leads to substantial improvement in achieving panorama wraparound consistency. Results show that our PanoDiffusion not only significantly outperforms state-of-the-art methods on RGB-D panorama outpainting by producing diverse well-structured results for different types of masks, but can also synthesize high-quality depth panoramas to provide realistic 3D indoor models.",
+   "affiliations": [
+    "Nanyang Technological University",
+    "University of Oxford"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Nanyang Technological University",
+    "University of Oxford"
+   ],
+   "institution_ids": [
+    "02e7b5302",
+    "052gg0110"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2307.03177",
+   "pdf_url": "https://arxiv.org/pdf/2307.03177"
+  },
+  {
    "arxiv_id": "2307.02869",
    "announced": "2023-07-01",
    "title": "MomentDiff: Generative Video Moment Retrieval from Random to Real",
@@ -108763,7 +109491,8 @@
    ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
      "source": "openalex"
@@ -122160,6 +122889,43 @@
    "pdf_url": "https://arxiv.org/pdf/2306.05414"
   },
   {
+   "arxiv_id": "2306.05401",
+   "announced": "2023-06-01",
+   "title": "RDumb: A simple approach that questions our progress in continual test-time adaptation",
+   "authors": [
+    "Ori Press",
+    "Steffen Schneider",
+    "Matthias Kümmerer",
+    "Matthias Bethge"
+   ],
+   "primary_subject": "Machine Learning (cs.LG)",
+   "subjects": [
+    "Machine Learning (cs.LG)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.LG",
+   "html_url": null,
+   "abstract": "Test-Time Adaptation (TTA) allows to update pre-trained models to changing data distributions at deployment time. While early work tested these algorithms for individual fixed distribution shifts, recent work proposed and applied methods for continual adaptation over long timescales. To examine the reported progress in the field, we propose the Continually Changing Corruptions (CCC) benchmark to measure asymptotic performance of TTA techniques. We find that eventually all but one state-of-the-art methods collapse and perform worse than a non-adapting model, including models specifically proposed to be robust to performance collapse. In addition, we introduce a simple baseline, \"RDumb\", that periodically resets the model to its pretrained state. RDumb performs better or on par with the previously proposed state-of-the-art in all considered benchmarks. Our results show that previous TTA approaches are neither effective at regularizing adaptation to avoid collapse nor able to outperform a simplistic resetting strategy.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2306.05401",
+   "pdf_url": "https://arxiv.org/pdf/2306.05401"
+  },
+  {
    "arxiv_id": "2306.05381",
    "announced": "2023-06-01",
    "title": "FollowNet: A Comprehensive Benchmark for Car-Following Behavior Modeling",
@@ -123684,6 +124450,46 @@
    },
    "abs_url": "https://arxiv.org/abs/2306.03413",
    "pdf_url": "https://arxiv.org/pdf/2306.03413"
+  },
+  {
+   "arxiv_id": "2306.03038",
+   "announced": "2023-06-01",
+   "title": "HeadSculpt: Crafting 3D Head Avatars with Text",
+   "authors": [
+    "Xiao Han",
+    "Yukang Cao",
+    "Kai Han",
+    "Xiatian Zhu",
+    "Jiankang Deng",
+    "Yi-Zhe Song",
+    "Tao Xiang",
+    "Kwan-Yee K. Wong"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Webpage: https://brandonhan.uk/HeadSculpt/",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Recently, text-guided 3D generative methods have made remarkable advancements in producing high-quality textures and geometry, capitalizing on the proliferation of large vision-language and image diffusion models. However, existing methods still struggle to create high-fidelity 3D head avatars in two aspects: (1) They rely mostly on a pre-trained text-to-image diffusion model whilst missing the necessary 3D awareness and head priors. This makes them prone to inconsistency and geometric distortions in the generated avatars. (2) They fall short in fine-grained editing. This is primarily due to the inherited limitations from the pre-trained 2D image diffusion models, which become more pronounced when it comes to 3D head avatars. In this work, we address these challenges by introducing a versatile coarse-to-fine pipeline dubbed HeadSculpt for crafting (i.e., generating and editing) 3D head avatars from textual prompts. Specifically, we first equip the diffusion model with 3D awareness by leveraging landmark-based control and a learned textual embedding representing the back view appearance of heads, enabling 3D-consistent head avatar generations. We further propose a novel identity-aware editing score distillation strategy to optimize a textured mesh with a high-resolution differentiable rendering technique. This enables identity preservation while following the editing instruction. We showcase HeadSculpt's superior fidelity and editing capabilities through comprehensive experiments and comparisons with existing methods.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2306.03038",
+   "pdf_url": "https://arxiv.org/pdf/2306.03038"
   },
   {
    "arxiv_id": "2306.02986",
@@ -130509,6 +131315,84 @@
    "pdf_url": "https://arxiv.org/pdf/2305.12248"
   },
   {
+   "arxiv_id": "2305.12218",
+   "announced": "2023-05-20",
+   "title": "Text-Video Retrieval with Disentangled Conceptualization and Set-to-Set Alignment",
+   "authors": [
+    "Peng Jin",
+    "Hao Li",
+    "Zesen Cheng",
+    "Jinfa Huang",
+    "Zhennan Wang",
+    "Li Yuan",
+    "Chang Liu",
+    "Jie Chen"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)",
+    "Information Retrieval (cs.IR)"
+   ],
+   "comments": "IJCAI 2023",
+   "journal_ref": null,
+   "venue": "IJCAI 2023",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Text-video retrieval is a challenging cross-modal task, which aims to align visual entities with natural language descriptions. Current methods either fail to leverage the local details or are computationally expensive. What's worse, they fail to leverage the heterogeneous concepts in data. In this paper, we propose the Disentangled Conceptualization and Set-to-set Alignment (DiCoSA) to simulate the conceptualizing and reasoning process of human beings. For disentangled conceptualization, we divide the coarse feature into multiple latent factors related to semantic concepts. For set-to-set alignment, where a set of visual concepts correspond to a set of textual concepts, we propose an adaptive pooling method to aggregate semantic concepts to address the partial matching. In particular, since we encode concepts independently in only a few dimensions, DiCoSA is superior at efficiency and granularity, ensuring fine-grained interactions using a similar computational complexity as coarse-grained alignment. Extensive experiments on five datasets, including MSR-VTT, LSMDC, MSVD, ActivityNet, and DiDeMo, demonstrate that our method outperforms the existing state-of-the-art methods.",
+   "affiliations": [
+    "Peking University",
+    "Peng Cheng Laboratory",
+    "Beijing National Research Center for Information Science and Technology",
+    "Tsinghua University"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    null,
+    [
+     2,
+     3
+    ],
+    null
+   ],
+   "institutions": [
+    "Peking University",
+    "Peng Cheng Laboratory",
+    "Beijing National Research Center for Information Science and Technology",
+    "Tsinghua University"
+   ],
+   "institution_ids": [
+    "02v51f717",
+    "03qdqbt06",
+    "02tcm9e24",
+    "03cve4549"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2305.12218",
+   "pdf_url": "https://arxiv.org/pdf/2305.12218"
+  },
+  {
    "arxiv_id": "2305.11846",
    "announced": "2023-05-19",
    "title": "Any-to-Any Generation via Composable Diffusion",
@@ -132957,6 +133841,44 @@
    },
    "abs_url": "https://arxiv.org/abs/2305.06799",
    "pdf_url": "https://arxiv.org/pdf/2305.06799"
+  },
+  {
+   "arxiv_id": "2305.06720",
+   "announced": "2023-05-11",
+   "title": "Bi-level Dynamic Learning for Jointly Multi-modality Image Fusion and Beyond",
+   "authors": [
+    "Zhu Liu",
+    "Jinyuan Liu",
+    "Guanyao Wu",
+    "Long Ma",
+    "Xin Fan",
+    "Risheng Liu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "9 pages,6 figures, published to IJCAI",
+   "journal_ref": null,
+   "venue": "IJCAI",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Recently, multi-modality scene perception tasks, e.g., image fusion and scene understanding, have attracted widespread attention for intelligent vision systems. However, early efforts always consider boosting a single task unilaterally and neglecting others, seldom investigating their underlying connections for joint promotion. To overcome these limitations, we establish the hierarchical dual tasks-driven deep model to bridge these tasks. Concretely, we firstly construct an image fusion module to fuse complementary characteristics and cascade dual task-related modules, including a discriminator for visual effects and a semantic network for feature measurement. We provide a bi-level perspective to formulate image fusion and follow-up downstream tasks. To incorporate distinct task-related responses for image fusion, we consider image fusion as a primary goal and dual modules as learnable constraints. Furthermore, we develop an efficient first-order approximation to compute corresponding gradients and present dynamic weighted aggregation to balance the gradients for fusion learning. Extensive experiments demonstrate the superiority of our method, which not only produces visually pleasant fused results but also realizes significant promotion for detection and segmentation than the state-of-the-art approaches.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2305.06720",
+   "pdf_url": "https://arxiv.org/pdf/2305.06720"
   },
   {
    "arxiv_id": "2305.06621",
@@ -139051,7 +139973,8 @@
    ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
      "source": "openalex"
@@ -144345,7 +145268,8 @@
    ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
      "source": "openalex"
@@ -181412,6 +182336,58 @@
    "pdf_url": "https://arxiv.org/pdf/2303.07336"
   },
   {
+   "arxiv_id": "2303.02328",
+   "announced": "2023-03-15",
+   "title": "Decompose, Adjust, Compose: Effective Normalization by Playing with Frequency for Domain Generalization",
+   "authors": [
+    "Sangrok Lee",
+    "Jongseong Bae",
+    "Ha Young Kim"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "10 pages,6 figures, Conference on Computer Vision and Pattern Recognition 2023",
+   "journal_ref": null,
+   "venue": "CVPR 2023",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Domain generalization (DG) is a principal task to evaluate the robustness of computer vision models. Many previous studies have used normalization for DG. In normalization, statistics and normalized features are regarded as style and content, respectively. However, it has a content variation problem when removing style because the boundary between content and style is unclear. This study addresses this problem from the frequency domain perspective, where amplitude and phase are considered as style and content, respectively. First, we verify the quantitative phase variation of normalization through the mathematical derivation of the Fourier transform formula. Then, based on this, we propose a novel normalization method, PCNorm, which eliminates style only as the preserving content through spectral decomposition. Furthermore, we propose advanced PCNorm variants, CCNorm and SCNorm, which adjust the degrees of variations in content and style, respectively. Thus, they can learn domain-agnostic representations for DG. With the normalization methods, we propose ResNet-variant models, DAC-P and DAC-SC, which are robust to the domain gap. The proposed models outperform other recent DG methods. The DAC-SC achieves an average state-of-the-art performance of 65.6% on five datasets: PACS, VLCS, Office-Home, DomainNet, and TerraIncognita.",
+   "affiliations": [
+    "Yonsei University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Yonsei University"
+   ],
+   "institution_ids": [
+    "01wjejq96"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2303.02328",
+   "pdf_url": "https://arxiv.org/pdf/2303.02328"
+  },
+  {
    "arxiv_id": "2303.08138",
    "announced": "2023-03-14",
    "title": "Diversity-Aware Meta Visual Prompting",
@@ -188840,7 +189816,8 @@
    ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
      "source": "openalex"
@@ -189984,6 +190961,62 @@
    },
    "abs_url": "https://arxiv.org/abs/2303.13873",
    "pdf_url": "https://arxiv.org/pdf/2303.13873"
+  },
+  {
+   "arxiv_id": "2303.13867",
+   "announced": "2023-03-01",
+   "title": "Few Shot Medical Image Segmentation with Cross Attention Transformer",
+   "authors": [
+    "Yi Lin",
+    "Yufan Chen",
+    "Kwang-Ting Cheng",
+    "Hao Chen"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted by MICCAI 2023",
+   "journal_ref": null,
+   "venue": "MICCAI 2023",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Medical image segmentation has made significant progress in recent years. Deep learning-based methods are recognized as data-hungry techniques, requiring large amounts of data with manual annotations. However, manual annotation is expensive in the field of medical image analysis, which requires domain-specific expertise. To address this challenge, few-shot learning has the potential to learn new classes from only a few examples. In this work, we propose a novel framework for few-shot medical image segmentation, termed CAT-Net, based on cross masked attention Transformer. Our proposed network mines the correlations between the support image and query image, limiting them to focus only on useful foreground information and boosting the representation capacity of both the support prototype and query features. We further design an iterative refinement framework that refines the query image segmentation iteratively and promotes the support feature in turn. We validated the proposed method on three public datasets: Abd-CT, Abd-MRI, and Card-MRI. Experimental results demonstrate the superior performance of our method compared to state-of-the-art methods and the effectiveness of each component. Code: https://github.com/hust-linyi/CAT-Net.",
+   "affiliations": [
+    "Hong Kong University of Science and Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Hong Kong University of Science and Technology"
+   ],
+   "institution_ids": [
+    "00q4vv597"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2303.13867",
+   "pdf_url": "https://arxiv.org/pdf/2303.13867"
   },
   {
    "arxiv_id": "2303.13764",
@@ -191288,6 +192321,75 @@
    },
    "abs_url": "https://arxiv.org/abs/2303.12071",
    "pdf_url": "https://arxiv.org/pdf/2303.12071"
+  },
+  {
+   "arxiv_id": "2303.12060",
+   "announced": "2023-03-01",
+   "title": "VideoXum: Cross-modal Visual and Textural Summarization of Videos",
+   "authors": [
+    "Jingyang Lin",
+    "Hang Hua",
+    "Ming Chen",
+    "Yikang Li",
+    "Jenhao Hsiao",
+    "Chiuman Ho",
+    "Jiebo Luo"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Computation and Language (cs.CL)"
+   ],
+   "comments": "13 pages, 7 figures",
+   "journal_ref": "IEEE Transactions on Multimedia, VOL. 26 (2024) 5548-5560",
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Video summarization aims to distill the most important information from a source video to produce either an abridged clip or a textual narrative. Traditionally, different methods have been proposed depending on whether the output is a video or text, thus ignoring the correlation between the two semantically related tasks of visual summarization and textual summarization. We propose a new joint video and text summarization task. The goal is to generate both a shortened video clip along with the corresponding textual summary from a long video, collectively referred to as a cross-modal summary. The generated shortened video clip and text narratives should be semantically well aligned. To this end, we first build a large-scale human-annotated dataset -- VideoXum (X refers to different modalities). The dataset is reannotated based on ActivityNet. After we filter out the videos that do not meet the length requirements, 14,001 long videos remain in our new dataset. Each video in our reannotated dataset has human-annotated video summaries and the corresponding narrative summaries. We then design a novel end-to-end model -- VTSUM-BILP to address the challenges of our proposed task. Moreover, we propose a new metric called VT-CLIPScore to help evaluate the semantic consistency of cross-modality summary. The proposed model achieves promising performance on this new task and establishes a benchmark for future research.",
+   "affiliations": [
+    "University of Rochester"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Rochester"
+   ],
+   "institution_ids": [
+    "022kthw22"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2303.12060",
+   "pdf_url": "https://arxiv.org/pdf/2303.12060"
   },
   {
    "arxiv_id": "2303.12048",
@@ -197069,6 +198171,73 @@
    "pdf_url": "https://arxiv.org/pdf/2303.05234"
   },
   {
+   "arxiv_id": "2303.05156",
+   "announced": "2023-03-01",
+   "title": "Local Implicit Normalizing Flow for Arbitrary-Scale Image Super-Resolution",
+   "authors": [
+    "Jie-En Yao",
+    "Li-Yuan Tsao",
+    "Yi-Chen Lo",
+    "Roy Tseng",
+    "Chia-Che Chang",
+    "Chun-Yi Lee"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted by CVPR 2023. Code: https://github.com/JNNNNYao/LINF",
+   "journal_ref": null,
+   "venue": "CVPR 2023",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Flow-based methods have demonstrated promising results in addressing the ill-posed nature of super-resolution (SR) by learning the distribution of high-resolution (HR) images with the normalizing flow. However, these methods can only perform a predefined fixed-scale SR, limiting their potential in real-world applications. Meanwhile, arbitrary-scale SR has gained more attention and achieved great progress. Nonetheless, previous arbitrary-scale SR methods ignore the ill-posed problem and train the model with per-pixel L1 loss, leading to blurry SR outputs. In this work, we propose \"Local Implicit Normalizing Flow\" (LINF) as a unified solution to the above problems. LINF models the distribution of texture details under different scaling factors with normalizing flow. Thus, LINF can generate photo-realistic HR images with rich texture details in arbitrary scale factors. We evaluate LINF with extensive experiments and show that LINF achieves the state-of-the-art perceptual quality compared with prior arbitrary-scale SR methods.",
+   "affiliations": [
+    "National Tsing Hua University",
+    "MediaTek"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "National Tsing Hua University",
+    "MediaTek"
+   ],
+   "institution_ids": [
+    "00zdnkx70",
+    "05g9jck81"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2303.05156",
+   "pdf_url": "https://arxiv.org/pdf/2303.05156"
+  },
+  {
    "arxiv_id": "2303.05118",
    "announced": "2023-03-01",
    "title": "SLCA: Slow Learner with Classifier Alignment for Continual Learning on a Pre-trained Model",
@@ -199048,6 +200217,62 @@
    },
    "abs_url": "https://arxiv.org/abs/2303.00304",
    "pdf_url": "https://arxiv.org/pdf/2303.00304"
+  },
+  {
+   "arxiv_id": "2303.00193",
+   "announced": "2023-03-01",
+   "title": "CLIPER: A Unified Vision-Language Framework for In-the-Wild Facial Expression Recognition",
+   "authors": [
+    "Hanting Li",
+    "Hongjing Niu",
+    "Zhaoqing Zhu",
+    "Feng Zhao"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Facial expression recognition (FER) is an essential task for understanding human behaviors. As one of the most informative behaviors of humans, facial expressions are often compound and variable, which is manifested by the fact that different people may express the same expression in very different ways. However, most FER methods still use one-hot or soft labels as the supervision, which lack sufficient semantic descriptions of facial expressions and are less interpretable. Recently, contrastive vision-language pre-training (VLP) models (e.g., CLIP) use text as supervision and have injected new vitality into various computer vision tasks, benefiting from the rich semantics in text. Therefore, in this work, we propose CLIPER, a unified framework for both static and dynamic facial Expression Recognition based on CLIP. Besides, we introduce multiple expression text descriptors (METD) to learn fine-grained expression representations that make CLIPER more interpretable. We conduct extensive experiments on several popular FER benchmarks and achieve state-of-the-art performance, which demonstrates the effectiveness of CLIPER.",
+   "affiliations": [
+    "University of Science and Technology of China"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Science and Technology of China"
+   ],
+   "institution_ids": [
+    "04c4dkn09"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2303.00193",
+   "pdf_url": "https://arxiv.org/pdf/2303.00193"
   },
   {
    "arxiv_id": "2302.14816",

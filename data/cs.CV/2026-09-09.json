@@ -727,7 +727,7 @@
     "Machine Learning (cs.LG)",
     "Robotics (cs.RO)"
    ],
-   "comments": "29 pages, 12 figures",
+   "comments": "30 pages, 14 figures",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
@@ -3004,7 +3004,7 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "20 pages, 11 figures, including supplementary material. v2: added code link; scientific content unchanged. Code: https://github.com/I2WM/FujinSplat",
+   "comments": "20 pages, 11 figures, including supplementary material. Updated author affiliations and funding acknowledgments; scientific content unchanged. Code: https://github.com/I2WM/FujinSplat",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
@@ -4437,7 +4437,7 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Robotics (cs.RO)"
    ],
-   "comments": "15 pages, 8 figures",
+   "comments": "21 pages, 7 figures",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
@@ -5050,9 +5050,9 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Graphics (cs.GR)"
    ],
-   "comments": null,
-   "journal_ref": null,
-   "venue": null,
+   "comments": "34 pages, 15 figures, including supplementary material. ECCV 2026. Additional evaluation data are provided as ancillary files",
+   "journal_ref": "Computer Vision - ECCV 2026, Lecture Notes in Computer Science, vol. 17050, pp. 281-299, Springer, Cham, 2026",
+   "venue": "ECCV 2026",
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.06436v1",
    "abstract": "High-resolution 3D asset generation is vital in various 3D applications. Existing state-of-the-art diffusion-based models remain constrained by fixed resolutions, limiting their ability to produce details. In this paper, we tackle the challenge of generating more detailed, higher-resolution 3D objects by introducing a 3D super-resolution (SR) framework built on existing 3D generative foundation models. To this end, we design PLSR, a progressive and localized super-resolution solution to achieve this goal effectively and memory efficiently. Technically, given a coarse geometry from a pretrained 3D generator, we decompose the global SR task into localized sub-tasks via an associative input decomposition scheme, adapt a flow-based 3D generator into a localized super-resolution model through low-cost finetuning, and unify them in an iterative patch-wise denoising pipeline for seamless high-resolution output. Experiments on challenging objects show that our approach is able to generate 3D details with new strong fine-detail fidelity while significantly reducing the computational cost, offering a new and practical solution for high-resolution 3D asset generation.",
@@ -5556,7 +5556,7 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "6 pages, 3 figures, 2 tables. Published in 2024 27th International Conference on Computer and Information Technology (ICCIT), Cox's Bazar, Bangladesh, 2024, pp. 2488-2493, doi: https://doi.org/10.1109/ICCIT64611.2024.11022598",
+   "comments": "6 pages, 3 figures, 2 tables. Published in 2024 27th International Conference on Computer and Information Technology (ICCIT), Cox's Bazar, Bangladesh, 2024, pp. 2488-2493, doi: 10.1109/ICCIT64611.2024.11022598",
    "journal_ref": "2024 27th International Conference on Computer and Information Technology (ICCIT), Cox's Bazar, Bangladesh, 2024, pp. 2488-2493",
    "venue": null,
    "cross_list_from": null,
@@ -5940,7 +5940,7 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "30 pages, 4 figures. Code is available at [https://github.com/starx237/GeoCo](https://github.com/starx237/GeoCo)",
+   "comments": "40 pages, 4 figures",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
@@ -13165,7 +13165,7 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)"
    ],
-   "comments": "15 pages, 6 figures. Project page: https://pardistaghavi.github.io/actionsplice-website/",
+   "comments": "16 pages, 6 figures. Project page: https://pardistaghavi.github.io/actionsplice-website/",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
@@ -15453,9 +15453,9 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "16 http://pages.Accepted to 23rd Pacific Rim International Conference on Artificial Intelligence (PRICAI 2026)",
+   "comments": "16 pages.Accepted to 23rd Pacific Rim International Conference on Artificial Intelligence (PRICAI 2026)",
    "journal_ref": null,
-   "venue": null,
+   "venue": "PRICAI 2026",
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.08786v1",
    "abstract": "Hyperspectral unmixing decomposes mixed pixels into material endmembers and their abundances from contiguous spectral observations. In modular sensing pipelines, endmembers are often first identified and then treated as fixed during abundance estimation. When this fixed endmember prior is inaccurate, spatially structured mismatch arising from illumination changes, sensor artifacts, or material boundaries may be incorrectly captured by the abundance variables, leading to unstable decompositions. This study presents an interpretable stage-wise hyperspectral unmixing framework (I-HyperSU) under fixed endmember priors, which is explicitly decomposed into a fixed endmember matrix A, an abundance block X, and a structural residual refinement block S. The X-block estimates abundances using FISTA with nonnegativity and sparsity enhancement, and a soft penalty that approximately enforces sum-to-one constraints. The S-block jointly applies low-rank SVD structural regularization and a lightweight deep image prior (DIP) to refine structured residuals. This staged design makes the interaction between abundance and residual components transparent and interpretable. Experiments on Samson, Urban, and Jasper Ridge datasets demonstrate that, under fixed and imperfect endmember priors, soft abundance relaxation consistently outperforms hard simplex projection. Under the default N-FINDR endmember prior, the proposed framework reduces the joint reconstruction error by 61.7%--69.5% compared with a fixed-A UCLS baseline, while keeping the abundance RMSE nearly unchanged, indicating that the residual refinement branch accounts for structured model mismatch without degrading the abundance estimates. For example, on Urban, the reconstruction SAM decreases from 5.99° for the X-only model to 1.92° for the full model.",
@@ -19310,9 +19310,9 @@
     "Computation and Language (cs.CL)",
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": null,
+   "comments": "Accepted at VLM4RWD at NeurIPS 2026",
    "journal_ref": null,
-   "venue": null,
+   "venue": "NeurIPS 2026",
    "cross_list_from": "cs.LG",
    "html_url": "https://arxiv.org/html/2609.07596v1",
    "abstract": "Vision-language models are increasingly used in settings where some input modalities may be unavailable, yet we know little about whether they can faithfully explain how such missing information affects their own predictions. We introduce an interventional protocol for evaluating self-explanations of modality dynamics: models state what each modality alone would support, whether restoring a missing modality would change their answer, and whether the available evidence is sufficient; we then execute the corresponding modality intervention and compare these claims with the model's realized behavior. We evaluate eight open-weight VLMs from two model families across four tasks spanning complementary and isomorphic text-image settings and a multi-view driving setting. We find a systematic tendency to overstate the sufficiency of available modality evidence. Models substantially underestimate the effect of restoring missing modalities: task-level median predicted change rates are at most 8.8%, while the corresponding executed change rates reach 72.1%, with underprediction in 62 of 64 model-task-condition settings. Insufficiency claims are rare, but precise when produced: restoring the modality changes the answer in a median of 78-100% of flagged cases. Retrospective self-explanations show the same tendency: on complementary data, models over-credit single-modality sufficiency; on isomorphic data, they over-credit single representation sufficiency relative to their executed behavior. Together, these results show that VLMs systematically mischaracterize how their predictions depend on available and missing modality evidence, motivating executable interventions as a behavioral ground truth for evaluating multimodal self-explanations.",
