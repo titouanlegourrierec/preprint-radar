@@ -301,6 +301,13 @@ exist.
 | UX-27 | A progress bar for the long steps in a terminal (`console.progress`, rich): HTML pages, citation counts, published versions, OpenAlex, ROR, GitHub stars and Hub likes, with the items done, the time spent and left; nothing in CI or pipes, whose plain log lines stay. `make code` printed nothing for its 4 minutes of GitHub queries (asked on 2026-10-09, not in the audit) | P3 | done |
 | UX-28 | A card's links and controls as badges, on a row of their own under the facts: neutral (surface, border, text color) where they were accent-blue links, each with an icon, the logo of the site it links (DOI; Code: GitHub, GitLab or Hugging Face, by the host the pipeline asks for its stars), drawn ones for PDF, HTML, BibTeX, Share, Graph, Seen and More, and before the authors and the affiliations; the stars the second part of the Code badge; inline SVG, hidden from screen readers, the names unchanged (asked on 2026-10-09, not in the audit) | P3 | done |
 
+*Result of v0.7.0 (2026-10-09; `make stats` and `make validate` on 2026-10-11).* Day files:
+5,225 papers, abstracts 100%, affiliations 77% of those tried (authors mapped 90%,
+institutions named 100%), venues 22%, citation counts 96%. Archive: 22,169 papers,
+affiliations 91% (83% after AFF-20, 53% before it), authors mapped 99%, venues 89%, counts
+100%. The stars of 7,778 of the 7,939 papers linking code (98%). `validate`: no error, one
+warning (a `scholar.json` author list a new version changed, which Sunday's run refreshes).
+
 ## Backlog triage (2026-10-07)
 
 The audit items no row above named on 2026-10-07, checked against the code of that day (`b3bfefc`).
