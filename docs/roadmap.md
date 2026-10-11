@@ -7,11 +7,17 @@ This file is the living part.
 
 - Update an item's status in the commit that changes it, and name the ID in the commit
   message, e.g. `fix(collect): reset the author mapping when the author list changes (DATA-2)`.
-- Status: `todo`, `done` (with the commit), `dropped` (with the reason).
+- Status: `todo`, `done` (its commit names the ID), `dropped` (with the reason).
 - Priorities are the audit's, after verification. Items outside the phases below stay in the
   audit's §18 backlog: pick them up when touching the same code.
-- After each phase, run `make stats` (and `validate` once it exists) and note the result under
+- After each phase, run `make stats` and `make validate` and note the result under
   the phase.
+
+- What is left: the rows marked `todo`, in the phases and in the open backlog at the end,
+  and the questions waiting for the maintainer. Three have a date: PERF-1 (shards) before
+  the day files pass a period's 10,000 papers (5,225 in 28 days on 2026-10-11, so late
+  November 2026: a longer period then loads only its latest days), PROD-18 (rising code)
+  from 2026-10-18, and §17.1 #10 once 12 months of days exist (September 2027).
 
 ## Corrections to the audit
 
@@ -37,7 +43,7 @@ for the answer.
 | 6 | Filter semantics | Exact for clicked names, word prefix for typed text | SRCH-1 | Exact for clicked names, word prefix for typed text (2026-10-03) |
 | 7 | Validation strictness | Fail on structural rules, warn on heuristic ones | DATA-3 | Fail on structural rules, warn on heuristic ones (2026-10-01) |
 | 8 | License and data terms | MIT for the code; read the Semantic Scholar terms before going public | REL-3 | MIT for the code (2026-10-01); Semantic Scholar's terms checked, its data can be published (2026-10-06) |
-| 9 | Visibility, contact and Actions bill | Confirm the private repository with a public site; choose the correction contact | SEC-9 | Correction contact: titouanlegourrierec@kaist.ac.kr (2026-10-01) |
+| 9 | Visibility, contact and Actions bill | Confirm the private repository with a public site; choose the correction contact | SEC-9 | Correction contact: titouanlegourrierec@kaist.ac.kr (2026-10-01); the visibility waits, as CI-13 |
 | 10 | Primary persona | The daily cs.CV follower | Phase 2 order | Both, the daily follower and the literature search: Phase 2 goes by priority and dependencies, search first (2026-10-03) |
 | 11 | Multi-category | Stay single-category until Phase 3 is done | ARCH-4 | Single-category for now (2026-10-07) |
 | 12 | Institution canonicalization | Move the web rules into the pipeline, with ROR ids | AFF-13 | Move the web rules into the pipeline, with ROR ids (2026-10-07) |
@@ -91,7 +97,7 @@ audit). The archive is unchanged: 22,071 papers, 11,621 affiliated.
 | ID | Item | Priority | Status |
 |---|---|---|---|
 | REL-1 | Layout-drift breaker and a weekly network canary | P1 | done |
-| REL-2 | HTML deadline, then a consecutive-failure breaker (and REL-6: progress saved on SIGTERM) | P1 | done |
+| REL-2, REL-6 | HTML deadline, then a consecutive-failure breaker (and REL-6: progress saved on SIGTERM) | P1 | done |
 | CI-2 | Run summary and annotations; red runs for data-affecting failures, no failure issue (decision 16) | P1 | done |
 | CI-3 | Deploy gating on what was pushed | P2 | done |
 | CIT-4 | Stop on a 403, flag stale counts | P1 | done |
@@ -201,7 +207,7 @@ from their page and 1 from the arXiv API, 22,168 archived ones from OpenAlex. 12
 are withdrawn, 5 in day files and 7 in the archive, which its next run drops. Deviations from
 the audit: no 11-month fill (PROD-1, decision 1); the per-month search shards move to Phase 4;
 META-3 keeps no page version beside `extractor`. Pruning is on (decision 2). Decisions 11,
-12, 13 and 17 are still open; the first three gate Phase 4 items.
+12, 13 and 17 are still open (all four answered on 2026-10-07); the first three gate Phase 4 items.
 
 *META-1 spike (2026-10-03).* One keyed batch of 500 archive papers (a uniform sample) and one
 of 500 recent day-file papers, asking `paper/batch` for `externalIds`, `venue`,
@@ -221,7 +227,7 @@ exist.
 
 | ID | Item | Priority | Status |
 |---|---|---|---|
-| §17.1 | The audit's features worth building, item by item below; #1 to #3 were done in Phase 2 (PROD-2, PROD-3, PROD-5 and PROD-9), #4 to #9 on 2026-10-07, PROD-11 on 2026-10-08, and #10 waits for a year of days | — | in progress |
+| §17.1 | The audit's features worth building, item by item below; #1 to #3 were done in Phase 2 (PROD-2, PROD-3, PROD-5 and PROD-9), #4 and #6 to #9 on 2026-10-07, #5 dropped on 2026-10-09 (SRCH-11), PROD-11 on 2026-10-08; #10 waits for a year of days | — | todo |
 | PROD-12 | "With code" (§17.1 #4): papers whose abstract or comments link a repository on GitHub or GitLab, else models or data on Hugging Face (918 of 4,832, as the audit's 19%), and a Code link on their card | P2 | done |
 | SRCH-11 | Link-outs (§17.1 #5): an unfolded card linked the paper on Semantic Scholar, Connected Papers and alphaXiv, each address opened by hand; Hugging Face left out, its page being a 404 for 11 of 12 recent papers. Removed on 2026-10-09 at the maintainer's request, before any release had it | P2 | dropped |
 | §17.1 #6 | Atom feeds, built with the site (the link of an institution of the archive alone, a 404, left out since): one for every institution of the day files and each major venue, their papers of the last 60 days, linked under the filters when the list is filtered on one (2,864 feeds, 20 MB) | — | done |
@@ -247,7 +253,7 @@ exist.
 | TEST-10 | An error boundary around the app, and around each view (keyed by it, so another view starts afresh, the tabs staying usable): an error while rendering (a record it cannot draw, a bug) shows what failed, Reload and the correction contact, not a blank page; the smoke test serves a paper without authors to see it; it offers to start over, and draws again once the state or the papers change (`resetKeys`: Back, another period or filter) (from the backlog) | P2 | done |
 | UX-15 (cards) | A card says its copies to screen readers ("BibTeX copied"), downloads the BibTeX when the clipboard is refused and says so, opens from its "+N" authors and affiliations ("+3 more authors", which a card without abstract could not show), the first name shown taking the focus from the button that goes away, always has More, and its seen toggle keeps one name, "Seen", its state in `aria-pressed`; the day headings and the graph's focus return wait for a screen-reader check (from the backlog) | P3 | done |
 | DEBT-5, DOC-5 | The CLI refuses bad arguments with a usage line, not a traceback or a silent skip (`--max-entries 0`, `--max-html -1`, negative minutes, `nan`, `inf`, a crawl delay past an hour, which `time.sleep` cannot take, a `--match` that is not a regex), `-v` goes after the command too (`stats -v`) and adds to the one before, and `stats --changes` without `--page-cache-dir` (or the cache without `--affiliations`) says so. The long commands (update, backfill, reextract, institutions, citations, scholar, archive) log their progress at info without `-v`, `-q` keeping warnings only, as the audit advised: the README's commands no longer run silent for hours. Dropped: the audit's floor on `--crawl-delay` (the default is robots.txt's 15 s, the tests run at 0, and a lower delay is typed on purpose) (from the backlog) | P3, P2 | done |
-| DEBT-5 (shared arguments) | `-c` and `--data-dir` declared once for the commands that take them, and one category default (`DEFAULT_CATEGORY` or every stored category, as each command says) | P3 | todo |
+| DEBT-5 (shared arguments) | `-c` and `--data-dir` declared once for the commands that still declare them (`_add_store_arguments` serves update, backfill, reextract and archive-affiliations; `--category` is declared 11 times, `--data-dir` 13), each command keeping its category default (`DEFAULT_CATEGORY` or every stored category) | P3 | todo |
 | UX-20 | The graph's cap is "Top institutions & authors" (it never capped papers), and the legend says what it leaves out: "top 100 of 5,993 institutions and authors", naming only the kinds drawn (from the backlog) | P2 | done |
 | REL-10 | The full-screen graph names its sources: its settings end with the footer's attribution (`Attribution`) and the date of the citation counts, and the GraphML export says them in a `<desc>`; the PNG, an image for slides, carries none | P2 | done |
 | AFF-24 | Names fold alike on the site and in the pipeline: `text.ts` `fold` and `institutions.search_key` write ß, ł, ø, ı, đ and æ plainly (`institutions.PLAIN_LETTERS`, the pipeline's own name comparison), so that "Matthias Nießner" (77 papers) and "Matthias Niessner" (5), and 15 other people, are one author in the graph and Rankings; `tests/fixtures/fold-cases.json` holds the cases both test suites read. Effects: BibTeX keys of these names, and the feed address of an institution that writes them ("…-giessen") (from the backlog) | P2 | done |
@@ -275,11 +281,11 @@ exist.
 | CI-11 | Scheduled runs stop in a fork: the data workflows' guard (`skip-if-done.sh`) writes `run=false` for a scheduled run in a fork (the event's payload, else the API), not an `if:` on the guard job, which would leave the data job running; the canary's jobs skip on schedule in a fork; dispatched and manual runs go on (from the backlog) | P3 | done |
 | DOC-8, DOC-16 | Drift fixed: the `--help` of update, archive and validate says what they do today (abstracts from RSS, then catchup pages, then the API; OpenAlex, gains, `scholar.json`), report and log lines group digits ("1,234 listed", "207,212 records harvested"), the README's diagram has the archive and Semantic Scholar, its first run the 600-page cap, its citations row every stored paper, and an archived paper from a day file keeps its HTML link (CLAUDE.md, `docs/archive.md`). Decision: arXiv's OAI-PMH gets the contact too, like every arXiv request: the archive's harvest is the heaviest traffic to arXiv, which asks crawlers to be reachable; Semantic Scholar and OpenAlex keep the bare User-Agent | P3, P3 | done |
 | ARCH-2 (shared rules) | What every enrichment step repeated, in one place: `Paper.with_affiliations` (setting affiliations from a source resets what came with the former ones; five hand-written copies, one of which forgot the extractor, META-9), `ids_where_named`, and the end of update, backfill and reextract (`_name_and_report`); the collect tests read pages on a fixed day | P2 | done |
-| ARCH-2 | Enrichment step interface: a `Step` protocol with per-step counts over HTML, ROR and OpenAlex, which differ in budgets, breakers and checkpoints (the shared rules above come first) | P2 | todo |
+| ARCH-2, DEBT-1 | Enrichment step interface: a `Step` protocol with per-step counts over the eight enrichment loops (abstracts, HTML, ROR, citations, published versions, OpenAlex for day files and for the archive, stars), each with its own missing test, budget and checkpoint; the shared rules above are done | P2 | todo |
 | DEBT-2 | A view model for the list (`view-model.ts`: archive or days, order, sort choices, toggles, exports, tested over the six views), and its top bar, header, notices, empty states and footer as components: `app.tsx` from 959 to 643 lines; the smoke test opens Rankings and the reading list | P2 | done |
 | DEBT-3 | `GraphView` split: its details panel (`GraphDetails`, whose connections fold back by its key on another node, or when the node leaves the graph and comes back) and its legend (`GraphLegend`) as components, a node's connections a pure, tested `nodeConnections`; 763 to 539 lines | P3 | done |
-| ARCH-4 | Multi-category, if wanted | P2 | todo |
-| PERF-1 (shards) | Per-month search shards built with the site, for searches over more months than a period loads (from Phase 3) | P2 | todo |
+| ARCH-4 | Multi-category, if wanted: one category for now (decision 11); with REL-5, and ARCH-5 once answered | P3 | todo |
+| PERF-1 (shards) | Per-month search shards built with the site, for searches over more months than a period loads (from Phase 3): needed before the day files pass a period's 10,000 papers (`PAPER_BUDGET`), late November 2026 at about 185 papers a day | P2 | todo |
 | AFF-25 | Extraction version 4, after the daily re-read of 318 papers with version 3 (2026-10-06): names are never joined to an affiliation, anchors made of joined lines, a creator holding several authors' names is not a person, an "A & B" pair shares its block, "and Health Sciences" goes on with its unit, a pair is never placed at a place alone, an address in brackets ends a thanks sentence instead of dropping it (found after the release, not in the audit) | P2 | done |
 | DATA-1 (tables) | The page cache kept no table, and lost the affiliations some author blocks lay out in one (2609.06629): it keeps those of the author block, and a page kept before never empties a paper on re-read, but leaves the cache (found after the release) | P1 | done |
 | AFF-18 | The countries of the place-join rule (from the backlog, extraction version 5): the countries affiliations write but names of people, a name ending with a country takes a place in the same one, lines ending with a preposition go on, list connectors and dashes at the end, phone numbers, placeholders and LaTeX commands dropped; US states stay out (their codes are words); version 6: a preposition only after a space ("technikum-wien.at"), an address that ends a line ends its affiliation; version 7: mailboxes before their domain, "X is Robotics Lead at Y" | P3 | done |
@@ -289,7 +295,7 @@ exist.
 | SRCH-19 (again) | `make venues` read stored abstracts, plain already, as LaTeX: prices lost their dollars ("$300,000 ($26,000" became "300,000 (26,000", 2 papers), and groups around a formula, kept by the first reading, lost their braces (4). Two dollars are no formula when what lies between holds a space and the second is followed by a digit; a formula of text only loses its dollars before groups go; a second reading changes nothing (found on 2026-10-09, not in the audit) | P2 | done |
 | AFF-20 | Affiliations of the highly cited papers from their published version's OpenAlex record (`make archive-affiliations`, after `scholar` in `archive.yml`): each arXiv author takes the institutions of the published author of the same name (`names.py`), nothing when fewer than half are found (a wrong DOI). The spike passed its gate (46 of 49 published DOIs placed, names matching 49 of 50); the first run placed 6,799 of 7,076: the archive went from 53% to 83% with affiliations, 2025 from 16% to 51% (asked on 2026-10-08; the recommendation of the maintainer's table) | P2 | done |
 | AFF-28 | The HTML pages of the highly cited papers still without affiliations (about 2,000 of 2024 and 2025, and those of the last 12 months): `make archive-affiliations MAX_HTML=N`, the most cited first, 404s remembered in the page cache, run by the maintainer on a machine of theirs (a night at 15 s a page; `docs/operations.md`). A paper that leaves the last 12 months for the archive keeps its record, so what its page gave stays. The first run (2026-10-08, the archive's pages) stored a list of mailbox names cut across two nodes as an affiliation (2410.23054), which `validate` refused: the cleaning now strips an unclosed list before a capital, and mailboxes with underscores (asked on 2026-10-08, not in the audit) | P2 | done |
-| PROD-18 | The GitHub stars of the code papers link (Hugging Face likes for the Hub), weekly into `code.json` (`make code`, a step of `archive.yml`: GraphQL, 100 repositories a query, a minute for 7,541): on the card after the Code link with those gained in the week, and a Most starred order. The link is the card's (`code.py`, a port of `code.ts`, `tests/fixtures/code-cases.json`); a repository other stored papers link (478 papers) or a folder of one (116) is shared, ranked with the papers without stars. A spike of 100 repositories: 97 found, median 121 stars (asked on 2026-10-09, not in the audit) | P2 | done |
+| PROD-18 | The GitHub stars of the code papers link (Hugging Face likes for the Hub), weekly into `code.json` (`make code`, a step of `archive.yml`: GraphQL, 100 repositories a query, about 4 minutes for 7,541 with the Hub's 63 pages): on the card after the Code link with those gained in the week, and a Most starred order. The link is the card's (`code.py`, a port of `code.ts`, `tests/fixtures/code-cases.json`); a repository other stored papers link (478 papers) or a folder of one (116) is shared, ranked with the papers without stars. A spike of 100 repositories: 97 found, median 121 stars (asked on 2026-10-09, not in the audit) | P2 | done |
 | PROD-18 (daily stars) | The new papers' stars the next weekday, not the next Sunday: `code --new` in `update.yml` asks only for the papers without a record of their link (the day's, and repositories GitHub did not know yet), a query or two, keeping the file's date and the week's gains (`PaperStore.add_code`); 34 papers of 2026-10-09 had none (asked on 2026-10-09, not in the audit) | P2 | done |
 | PROD-18 (rising code) | A "Rising stars" order by the stars gained in the week, once a second weekly `code.json` gives gains (from 2026-10-18), if the sort control can take a sixth order | P3 | todo |
 | UX-27 | A progress bar for the long steps in a terminal (`console.progress`, rich): HTML pages, citation counts, published versions, OpenAlex, ROR, GitHub stars and Hub likes, with the items done, the time spent and left; nothing in CI or pipes, whose plain log lines stay. `make code` printed nothing for its 4 minutes of GitHub queries (asked on 2026-10-09, not in the audit) | P3 | done |
@@ -297,7 +303,7 @@ exist.
 
 ## Backlog triage (2026-10-07)
 
-The 108 audit items no row above names, checked against the code of 2026-10-07 (`b3bfefc`).
+The audit items no row above named on 2026-10-07, checked against the code of that day (`b3bfefc`).
 Those done since or no longer true are closed here; the rest stay in the audit's §18
 backlog, but for the ones waiting for an answer, listed with the recommended option.
 
@@ -310,7 +316,6 @@ backlog, but for the ones waiting for an answer, listed with the recommended opt
 | DOC-15 | done | Under CIT-11: the docstrings say pruning only decides deletions |
 | META-7 | done | DOI, venue and author ids come from Semantic Scholar's weekly batch (META-1, decision 13) |
 | PERF-6 | done | Under PERF-11: MiniSearch is built on first need, not on a star click |
-| PROD-8 | done | Under PROD-6 to PROD-10: Highly cited states its rule and the counts' date |
 | TEST-3 | done | Under CIT-1 to CIT-13: each archive case has its test |
 | TEST-14 | done | Under DATA-3: `validate` checks the invariants over the whole store, on every push |
 | DATA-8 | dropped | `generated_at` is now the site's "Updated" date and the reference for citations per year: an old stamp would make both wrong |
@@ -318,14 +323,17 @@ backlog, but for the ones waiting for an answer, listed with the recommended opt
 | PERF-9 | dropped | Its premise is false: httpx merges its defaults under the assigned headers, so every request is compressed |
 | REL-9 | dropped | REL-3 settled it: arXiv's metadata, abstracts included, is CC0 |
 | CIT-5 | dropped | PROD-11 chooses the most cited of the last 12 months from the counts it would stop fetching; refreshing low-rate papers less often would break the weekly gains (CIT-9), as CI-15 |
+| AFF-4 | dropped | Decision 15 keeps the rule: an author the paper does not place is linked to every institution of the paper (2026-10-11) |
+| CIT-7 | dropped | Unknown to Semantic Scholar and not asked yet look the same, and one date covers counts of several ages: the audit kept it unless a tiered refresh landed, which CI-15 and CIT-5 drop (2026-10-11) |
+| UX-18 (manifest) | dropped | As recommended: no manifest, an emoji favicon in a data URI; `theme-color` and print are done (UX-18 above) (2026-10-11) |
 
 Waiting for the maintainer (the recommendation first):
 
 | ID | Question | Recommendation |
 |---|---|---|
-| CI-13 | How to pay for Actions | Make the repository public (the site and `data/` already are, the code is MIT), after a scan of the history for secrets |
-| AFF-12 | Read again the 833 papers stored without affiliations before extraction versions | Let the daily `reextract` take them within its 50-page cap (about 17 weekdays, up to 12 billed minutes a day), exempt from the layout breaker |
-| AFF-11 | BMVC and IROS pages give no affiliations (91% and 41% empty) | Two fixtures of each, which takes a few page downloads (or the CI page cache), then a rule and a version bump |
+| CI-13 | How to pay for Actions, and the visibility half of decision 9 | Make the repository public (the site and `data/` already are, the code is MIT), after a scan of the history for secrets |
+| AFF-12 | Read again the 833 papers stored without affiliations before extraction versions (still 833 on 2026-10-11, from the days of September 2026, none in the page cache) | Let the daily `reextract` take them within its 50-page cap (about 17 weekdays, up to 12 billed minutes a day), exempt from the layout breaker; it reaches them only by `--ids` today, so a selector first. 49 of AFF-11's 58 empty BMVC and IROS papers are among them |
+| AFF-11 | BMVC and IROS pages give no affiliations (92% and 39% empty on 2026-10-11) | Two fixtures of each, after AFF-12, whose re-read puts their pages in the CI page cache; then a rule and a version bump |
 | UX-13 | The tabs overflow on phones | An edge fade when they scroll, the active tab scrolled into view |
 | UX-21 | The graph's force sliders | Under a closed "Advanced layout" disclosure |
 | UX-22 | Graph settings in shared links | Only the layers and thresholds, applied for the visit, never saved |
@@ -334,6 +342,48 @@ Waiting for the maintainer (the recommendation first):
 | DEBT-6 | The `fetch` command and its export modules | Delete them: the site's exports and `data/` cover it |
 | PROD-15 | One tagline | "Follow and search the cs.CV papers announced on arXiv every weekday, with their affiliations, citations and the most cited older papers." |
 | SEC-8 | `SECURITY.md` | A short one now, pointing to the correction contact; issue templates once public |
-| DOC-3, DOC-4, DOC-2 | ADRs, the calibration scripts, the README's purpose | No ADR folder (the Decisions table is the log), a paragraph on why `data/` is in git; the calibration's key tables in `docs/archive.md`, `experiments/` kept local; a shorter README walkthrough |
-| UX-18 | Manifest and favicon | Neither; `theme-color` and a print stylesheet only |
+| DOC-3, DOC-4, DOC-2 | ADRs, the calibration scripts, the README's purpose | No ADR folder (the Decisions table is the log), a paragraph on why `data/` is in git; the calibration's key tables in `docs/archive.md`, `experiments/` kept local; a shorter README walkthrough (298 lines, 214 at the audit) |
 | AFF-16, ARCH-5, ARCH-8, DOC-10, PERF-10, REL-11, UX-19 | Parent organizations, a weekend run, shorter field names, a data-format page, precomputed layouts, a removal channel, the edge color | Defer AFF-16, DOC-10 (to 1.0.0) and REL-11 (until a request); fold ARCH-5 into ARCH-4; drop ARCH-8, PERF-10 and UX-19 |
+
+## Audit backlog still open (2026-10-11)
+
+The audit items no row above names, each checked against the code of 2026-10-11 (`e51c206`):
+what is left of it. With these rows, every item of the audit has a status in this file. Pick
+one up when touching the same code.
+
+| ID | Item | Priority | Status |
+|---|---|---|---|
+| AFF-9 | A thanks note's "is at/with" clause is an affiliation whatever follows ("This work is at the intersection of vision and language" gives one, which the single-affiliation shortcut maps to every author); none stored today. A gate (an institution word, a country or a comma), a `;` split, the shortcut kept to the first tiers; a fixture and a version bump | P2 | todo |
+| DEBT-4 | Runs read more of the store than they need: `write_index` loads every day file, archive year and `top-recent.json` to count them, two or three times a run; the citation ids come from every stored paper; `save()` reads every day file at each checkpoint. `known` no longer reads the archive | P2 | todo |
+| PERF-5 | Hypothesis: once settled, the graph's hover and pan rebuild every `Path2D`. Measure, then cache the scene without the focus | P2 | todo |
+| PROD-13 | `?since=YYYY-MM-DD`, open to the newest day: `?from=` alone is one day, so "since 15 September" cannot be bookmarked | P2 | todo |
+| SEC-1 | A Content-Security-Policy: the theme script out of `index.html`, a meta CSP injected at build (`img-src data:` for the emoji favicon) | P2 | todo |
+| SRCH-18 | Compound queries match scattered words ("text-to-image generation"): an adjacency re-rank, or hyphenated tokens as phrases | P2 | todo |
+| TEST-2 | Partial failures not tested: a failing listing in `update`, two categories where one fails (changed authors, a page failing mid-run and a failing backfill day are) | P2 | todo |
+| TEST-9 | Cross-language contracts: the dark palettes and `ACRONYMS` are checked; the venue spellings of `venues.ts` against `venue.py`, and `ACRONYMS` against stored names, are not | P2 | todo |
+| AFF-17 | ROR's answers reused across runs: an `{affiliation: institution}` map from the stored papers before asking ROR | P3 | todo |
+| AFF-19 | Hypothesis: whether OAI's `arXiv` format fills `<affiliation>` (one live request); read before OpenAlex if it does | P3 | todo |
+| AFF-22 | Hypothesis: footnotes LaTeXML wraps are not read; none in 334 cached pages, so only when one shows up | P3 | todo |
+| AFF-L | A learned filter of affiliation noise (character n-grams, ROR-named strings as positives) as a last, conservative gate; AFF-Q and the page cache, its prerequisites, are done | P3 | todo |
+| CI-7 | After an outage longer than the listing window, `update.yml` runs `backfill` by itself (newest stored day over 6 days old); today the stale-data warning and a manual `since` | P3 | todo |
+| CI-8 | A failed archive gets the 09:41 fallback the same Sunday; if both fail it waits a week, when the counts cache has expired (`< 7` days): a Saturday catch-up, or a cache of 8 days | P3 | todo |
+| CI-10 | The catalog cache (about 118 MB) is restored only on Sundays, at the edge of GitHub's 7-day eviction when the fallback starts late: a mid-week restore, or accept it | P3 | todo |
+| CI-12 | `write_archive` rewrites every year file, unchanged ones too: compare with the file on disk first | P3 | todo |
+| CIT-8 | Semantic Scholar's retries ignore `Retry-After` (its client has `max_attempts=1`, `_fetch_batch` doubles its own wait): log one 429's headers, then use it | P3 | todo |
+| CIT-14 | With pruning on, a day-file paper missing from the catalog (a cross-list first seen before 2010) is deleted without being a candidate; it matters from September 2027 | P3 | todo |
+| DOC-13 | Args sections: 40 of 95 public functions of two parameters or more have none (`write_citations`, `fetch_scholar_records`…); commit scopes drift (`extract`, `extraction`, `arxiv-html`) | P3 | todo |
+| META-6 | The incremental catalog never drops deleted records, and `set_spec` is checked for `cs:cs:CV` only; latent while one category runs | P3 | todo |
+| PERF-7 | The graph is rebuilt and reheated when the counts arrive: a memo of its own, and the resize path `setSettings` already has | P3 | todo |
+| PERF-8 | Data files at fixed URLs: after a deploy a browser can mix a fresh index and stale day files; hashes per file, keeping the index's preload | P3 | todo |
+| PERF-13 | `GraphView`, its renderer and panels imported on demand (d3-force is in the worker chunk already) | P3 | todo |
+| PERF-15 | A size line or budget for the landing payload: only the whole site's size is checked | P3 | todo |
+| REL-5 | One failing category stops the others (the index is written in `finally` already); it matters with ARCH-4 | P3 | todo |
+| REL-7 | The listing accepts entries without authors or HTML link silently: fail above 10% and 50% | P3 | todo |
+| SRCH-13 | Rankings' kind and metric in the URL (`by=` is taken), a caption and row headers | P3 | todo |
+| SRCH-14 | "Last 5 days" counts announcement days, a calendar week: rename the presets or count calendar days | P3 | todo |
+| SRCH-20 | A year without an archive file shows the latest one while the URL keeps the year asked (the count names the year shown): rewrite the URL, or say so | P3 | todo |
+| TEST-11 | The CLI tests of `archive` stub it, and `citations` runs only its rejected-key case: one real run of each over fixtures | P3 | todo |
+| TEST-12 | `graph-layout`'s three `Math.random` calls (d3-force is seeded already): inject the random source | P3 | todo |
+| UX-14 | The calendar: a roving tabindex with arrow keys, the range preview on focus, `aria-controls` only when open, a label for "Period" | P3 | todo |
+| UX-16 | Sizes in rem from the reader's font size (the body is 15 px), no text under 11 px, 24 px targets | P3 | todo |
+| UX-17 | Dates and numbers in the reader's locale in an English interface: pass "en", or accept the mix (UX-25 left it open) | P3 | todo |
