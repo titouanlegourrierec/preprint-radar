@@ -69,7 +69,7 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     of every stored paper into `scholar.json` (52 requests). `archive.yml` runs it weekly.
   - `make code`: the GitHub stars of the repository each stored paper links (the card's
     link), or the Hugging Face likes of its page, into `code.json` (PROD-18): GraphQL, 100
-    repositories a query, a minute; it needs `GITHUB_TOKEN` (any token, public data only:
+    repositories a query, about 4 minutes; it needs `GITHUB_TOKEN` (any token, public data only:
     `.env` locally, the workflow's own in CI). `archive.yml` runs it weekly; `NEW=1`
     (`--new`) asks only for the papers without a record, keeping the file's date and the
     week's gains, which the daily workflow runs.
@@ -347,7 +347,7 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     restores the page cache from the Actions cache (`front-matter-<run id>`, saved even
     after a failure). Its manual *since* input runs `backfill` instead.
   - `archive.yml` (dispatched Sundays 05:41 UTC): the archive, then `scholar` (20 minutes),
-    then `archive-affiliations` (OpenAlex only, seconds) and `code` (a minute, with the
+    then `archive-affiliations` (OpenAlex only, seconds) and `code` (about 4 minutes, with the
     workflow's `GITHUB_TOKEN`).
   - `canary.yml` (Wednesdays): the network tests against the live arXiv (a red canary is a
     layout change to look at before it reaches the data), and the repository size.

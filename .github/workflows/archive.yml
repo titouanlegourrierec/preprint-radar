@@ -120,7 +120,7 @@ jobs:
           uv run --no-dev preprint-radar -v archive-affiliations --max-ror 1000 "${args[@]}"
 
       # The GitHub stars (Hugging Face likes) of the code the stored papers link, in
-      # code.json (PROD-18): a minute. The workflow's own token reads public data.
+      # code.json (PROD-18): about 4 minutes. The workflow's own token reads public data.
       - name: Fetch the stars of the papers' code
         if: ${{ !cancelled() }}
         timeout-minutes: 10

@@ -232,8 +232,8 @@ records are their day records) two ways:
   dataset or demo on the Hugging Face Hub. In October 2026, 7,834 stored papers of 27,000
   link GitHub (7,541 repositories), 65 the Hub, 6 GitLab (not asked for).
 - `sources/github.py`: GitHub's GraphQL API, 100 repositories a query (aliases of
-  `repository { stargazerCount }`), one point of the hourly quota each: about 80 queries,
-  a minute. It needs a token, any, even one without permission (`GITHUB_TOKEN`: the
+  `repository { stargazerCount }`), one point of the hourly quota each: 76 queries, about
+  4 minutes with the Hub's 63 pages at 0.5 s. It needs a token, any, even one without permission (`GITHUB_TOKEN`: the
   workflow's own in CI, which allows 1,000 points an hour; the Makefile gives `.env`'s to
   `make code` only). The REST API's 60 anonymous requests an hour would take days. A
   repository deleted, made private or never published comes back as its alias's
