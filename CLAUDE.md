@@ -69,7 +69,7 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     of every stored paper into `scholar.json` (52 requests). `archive.yml` runs it weekly.
   - `make code`: the GitHub stars of the repository each stored paper links (the card's
     link), or the Hugging Face likes of its page, into `code.json` (PROD-18): GraphQL, 100
-    repositories a query, about 4 minutes; it needs `GITHUB_TOKEN` (any token, public data only:
+    repositories a query, one every 3 s, about 5 minutes; it needs `GITHUB_TOKEN` (any token, public data only:
     `.env` locally, the workflow's own in CI). `archive.yml` runs it weekly; `NEW=1`
     (`--new`) asks only for the papers without a record, keeping the file's date and the
     week's gains, which the daily workflow runs.
@@ -301,7 +301,10 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
 - **Semantic Scholar:** refusals (429) are routine even with a key and are retried; a 401
   or 403 means a bad key and fails the run (`docs/archive.md`).
 - **GitHub:** GraphQL only (100 repositories a query; REST allows 60 anonymous requests an
-  hour), with a token; a 401 fails the run, any other refusal leaves last week's stars.
+  hour), with a token, one query every 3 s: GitHub's secondary limits cap the CPU time of
+  its queries, about 2 s each, which one a second passed after 30. A 401 fails the run; a
+  limit (403, 429) waits for its `Retry-After`, else a minute, doubled, and tries twice
+  more, then stops asking; any other refusal leaves last week's stars.
 - **Contact:** `PREPRINT_RADAR_CONTACT` goes into the User-Agent of arXiv requests only
   (arxiv.org, the API, OAI-PMH); other services (Semantic Scholar, OpenAlex, ROR, GitHub,
   the Hub) get the bare `DEFAULT_USER_AGENT`, never the maintainer's e-mail. It
@@ -345,9 +348,10 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     (50 downloads, 12 minutes), `affiliations` (OpenAlex, seconds), `citations` (10
     minutes), `code --new` (the new papers' stars, seconds), commit; 240 minutes in all. It
     restores the page cache from the Actions cache (`front-matter-<run id>`, saved even
-    after a failure). Its manual *since* input runs `backfill` instead.
+    after a failure), and the archive's catalog only to keep it from eviction (CI-10).
+    Its manual *since* input runs `backfill` instead.
   - `archive.yml` (dispatched Sundays 05:41 UTC): the archive, then `scholar` (20 minutes),
-    then `archive-affiliations` (OpenAlex only, seconds) and `code` (about 4 minutes, with the
+    then `archive-affiliations` (OpenAlex only, seconds) and `code` (about 5 minutes, with the
     workflow's `GITHUB_TOKEN`).
   - `canary.yml` (Wednesdays): the network tests against the live arXiv (a red canary is a
     layout change to look at before it reaches the data), and the repository size.

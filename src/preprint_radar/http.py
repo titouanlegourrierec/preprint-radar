@@ -239,7 +239,7 @@ class HttpClient:
 
         if response.is_error:
             msg = f"HTTP {response.status_code} for {response.url}{_json_detail(response)}"
-            raise FetchError(msg, status=response.status_code)
+            raise FetchError(msg, status=response.status_code, retry_after=_retry_after(response))
         return response.text
 
 

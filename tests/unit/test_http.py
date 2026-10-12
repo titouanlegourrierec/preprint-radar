@@ -89,6 +89,15 @@ def test_retry_after_header_is_honored() -> None:
     assert sleeps == [42.0]
 
 
+def test_a_refusal_says_how_long_to_wait() -> None:
+    def handle(_: httpx.Request) -> httpx.Response:
+        return httpx.Response(403, headers={"Retry-After": "7"})
+
+    with HttpClient(transport=httpx.MockTransport(handle)) as client, pytest.raises(FetchError) as caught:
+        client.get_text("https://api.github.com/")
+    assert (caught.value.status, caught.value.retry_after) == (403, 7.0)
+
+
 @pytest.mark.parametrize(
     ("retry_after", "wait"),
     [

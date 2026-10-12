@@ -197,6 +197,12 @@ token) make code`.
 **Signal.** `GitHub refused the query` (a warning): a rate limit, or a query it would not
 run. Those papers keep last week's stars; nothing to do unless it comes back every week.
 
+**Signal.** `GitHub limits the queries` (info), then perhaps `GitHub kept limiting the
+queries` (a warning): its secondary limits refused a query three times despite the waits
+(`Retry-After`, else one minute, then two), and the repositories left keep last week's
+stars. One a week is harmless; if it comes back, raise `GITHUB_DELAY_SECONDS` in the
+GitHub source (3 s since 2026-10-12, when 1 s was refused after 30 queries).
+
 ## Update data is green, but something is off
 
 ### Out of time
@@ -219,6 +225,12 @@ Semantic Scholar answered 429 for 10 minutes (20 for the published versions): th
 get their counts on a later day, and the papers not asked for keep last week's DOI and venue.
 Harmless, and the step stays green. If counts stop arriving altogether, the
 summary's `Stale citation counts` warning shows it after 14 days.
+
+**Signal.** `cannot answer for` (a warning, with what Semantic Scholar answered), or
+`Semantic Scholar keeps answering batches that do not match; stopping after`. A batch got
+an answer that is not one entry per paper; asked for in halves, the paper it cannot answer
+for is left out of the week's counts. A few in a run are harmless. If the log shows the
+same paper every week, its arXiv id is one Semantic Scholar refuses: look it up by hand.
 
 ### A traceback that ends in KeyboardInterrupt
 
@@ -243,10 +255,12 @@ cached for 7 days in `.cache/catalog/`, so it resumes where it stopped.
 **Signal.** The *Archive* log says `Harvesting` the set `(everything)` instead of
 since a date, and the run takes about 45 minutes more.
 
-GitHub evicts Actions cache entries unused for 7 days, and the archive runs weekly. The
+GitHub evicts Actions cache entries unused for 7 days, and the archive runs weekly: when
+it started late, on 2026-10-11 (the fallback, which GitHub started at 15:57), the entry of
+the Sunday before was gone. *Update data* now restores it on weekdays only to keep it in
+the cache (CI-10), so this means that step failed all week, or the entry was deleted. The
 catalog is rebuilt from scratch (OAI-PMH is meant for it; 5 s between pages). Nothing
-else is lost: the cached citation counts only serve a run that resumes within 7 days. If
-it happens often, run *Archive* by hand mid-week to keep the entry warm.
+else is lost: the cached citation counts only serve a run that resumes within 7 days.
 
 ## Re-extract after a heuristic fix
 
@@ -351,7 +365,7 @@ At a warning (the migration trigger, decided with ARCH-1):
 | Re-extraction from the page cache | seconds |
 | `reclean`, `validate`, `stats` | seconds |
 | `affiliations` (OpenAlex, papers without an HTML page) | seconds; 20 s the first time (225 papers) |
-| `code` (GitHub stars, Hugging Face likes) | about 4 minutes (76 GraphQL queries, 63 Hub pages); `--new`, daily, seconds (a query or two) |
+| `code` (GitHub stars, Hugging Face likes) | about 5 minutes (76 GraphQL queries at one every 3 s, 63 Hub pages); `--new`, daily, seconds (a query or two) |
 | `archive-affiliations` (OpenAlex, published versions) | seconds; 2 minutes the first time (7,076 DOIs) |
 | `archive-affiliations MAX_HTML=3000` (HTML pages of highly cited papers) | 15 s a page: about 8 hours for the archive's 2,000, 3 more for the last 12 months |
 | `institutions` | a few minutes (one request per distinct string, every 0.5 s) |

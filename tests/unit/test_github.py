@@ -5,7 +5,13 @@ import pytest
 
 from preprint_radar.exceptions import FetchError, ParseError
 from preprint_radar.http import HttpClient
-from preprint_radar.sources.github import GITHUB_BATCH_SIZE, fetch_stars, parse_stars
+from preprint_radar.sources.github import (
+    GITHUB_BATCH_SIZE,
+    GITHUB_LIMIT_WAIT_SECONDS,
+    Stars,
+    fetch_stars,
+    parse_stars,
+)
 
 
 def _answer(data: dict[str, object], errors: list[dict[str, object]] | None = None) -> str:
@@ -71,3 +77,48 @@ def test_fetch_stars_fails_on_a_rejected_token() -> None:
         pytest.raises(FetchError, match="GitHub rejected the token"),
     ):
         fetch_stars(client, ["lab/fast-net"], token="bad")
+
+
+# GitHub's answer to a query its secondary limits refuse (2026-10-11, in the workflow).
+_LIMITED = {
+    "documentation_url": "https://docs.github.com/graphql/overview/rate-limits-and-node-limits-for-the-graphql-api#secondary-rate-limits",
+    "message": "You have exceeded a secondary rate limit. Please wait a few minutes before you try again.",
+}
+
+
+def test_a_query_refused_for_a_limit_is_asked_again_after_the_wait() -> None:
+    answers = iter(
+        [
+            httpx.Response(403, json=_LIMITED, headers={"Retry-After": "7"}),
+            httpx.Response(403, json=_LIMITED),  # no Retry-After: a minute
+            httpx.Response(200, text=_answer({"repo0": {"stargazerCount": 12}})),
+        ]
+    )
+    sleeps: list[float] = []
+    with HttpClient(transport=httpx.MockTransport(lambda _: next(answers)), max_attempts=1) as client:
+        found = fetch_stars(client, ["lab/fast-net"], token="test-token", sleep=sleeps.append)
+
+    assert sleeps == [7.0, 2 * GITHUB_LIMIT_WAIT_SECONDS]  # the minute doubled at the second
+    assert found.stars == {"lab/fast-net": 12}
+
+
+def test_a_limit_that_lasts_stops_the_queries() -> None:
+    asked: list[str] = []
+
+    def handle(request: httpx.Request) -> httpx.Response:
+        asked.append(json.loads(request.content)["query"])
+        return httpx.Response(403, json=_LIMITED)
+
+    repositories = [f"lab/net-{number:03d}" for number in range(GITHUB_BATCH_SIZE + 1)]
+    sleeps: list[float] = []
+    done: list[int] = []
+    with HttpClient(transport=httpx.MockTransport(handle), max_attempts=1) as client:
+        found = fetch_stars(
+            client, repositories, token="test-token", progress=done.append, sleep=sleeps.append
+        )
+
+    # Three tries of the first query, then none: the rest keep last week's stars.
+    assert len(asked) == 3
+    assert sleeps == [GITHUB_LIMIT_WAIT_SECONDS, 2 * GITHUB_LIMIT_WAIT_SECONDS]
+    assert done == [GITHUB_BATCH_SIZE + 1]
+    assert found == Stars()

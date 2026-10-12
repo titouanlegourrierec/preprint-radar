@@ -594,8 +594,9 @@ def _add_code_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentPa
         description=(
             "Fetch the GitHub stars of the repository each stored paper links (the link its "
             "card shows), or the Hugging Face likes of its models, data or demo, into "
-            f"code.json: 100 repositories a request, about 4 minutes. GitHub's API needs a token, "
-            f"from {GITHUB_AUTH_ENV}: any token, since it reads public data only. A lookup "
+            "code.json: 100 repositories a request, one every 3 s, about 5 minutes. GitHub's "
+            f"API needs a token, from {GITHUB_AUTH_ENV}: any token, since it reads public data "
+            "only. A lookup "
             "that fails keeps last week's record. With --new, the daily run, only the papers "
             "without a record: those announced since the weekly refresh, which alone counts "
             "the stars gained in the week."

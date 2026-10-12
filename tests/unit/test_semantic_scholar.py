@@ -9,6 +9,7 @@ from preprint_radar.http import HttpClient
 from preprint_radar.sources.semantic_scholar import (
     S2_BATCH_SIZE,
     S2_BATCH_TRIES,
+    S2_MISMATCH_TRIES,
     S2_RETRY_WAIT_SECONDS,
     api_key,
     fetch_citation_counts,
@@ -20,10 +21,69 @@ def test_parse_batch_response() -> None:
     text = '[{"paperId": "x", "citationCount": 12}, null, {"paperId": "y"}]'
 
     assert parse_batch_response(text, ("1", "2", "3")) == {"1": 12, "2": None, "3": None}
-    with pytest.raises(ParseError):
+    with pytest.raises(ParseError, match=r"\(1\): 0 entries"):
         parse_batch_response("[]", ("1",))
     with pytest.raises(ParseError):
         parse_batch_response("oops", ("1",))
+    # What it answered instead, for the log.
+    with pytest.raises(ParseError, match=r'does not match the requested papers \(1\): \{"error": "Bad id"\}'):
+        parse_batch_response('{"error": "Bad id"}', ("1",))
+
+
+def _answering_all_but(bad: str, asked: list[tuple[str, ...]]) -> httpx.MockTransport:
+    """Semantic Scholar answering one entry per paper, but not for a batch holding ``bad``."""
+
+    def handle(request: httpx.Request) -> httpx.Response:
+        ids = tuple(paper.removeprefix("ARXIV:") for paper in json.loads(request.content)["ids"])
+        asked.append(ids)
+        if bad in ids:
+            return httpx.Response(200, json={"error": "Bad id"})
+        return httpx.Response(200, json=[{"citationCount": len(paper)} for paper in ids])
+
+    return httpx.MockTransport(handle)
+
+
+def test_a_batch_whose_answer_does_not_match_is_asked_in_halves(caplog: pytest.LogCaptureFixture) -> None:
+    caplog.set_level(logging.INFO)
+    ids = ["2609.1", "2609.22", "2609.333", "2609.bad"]
+    asked: list[tuple[str, ...]] = []
+    batches: list[dict[str, int | None]] = []
+    with HttpClient(transport=_answering_all_but("2609.bad", asked), max_attempts=1) as client:
+        counts = fetch_citation_counts(
+            client, ids, key="secret", on_batch=lambda b: batches.append(dict(b)), sleep=lambda _: None
+        )
+
+    # The paper it cannot answer for alone is left out; the others are counted.
+    assert counts == {"2609.1": 6, "2609.22": 7, "2609.333": 8}
+    tries = S2_MISMATCH_TRIES
+    assert asked == [
+        *[tuple(ids)] * tries,
+        ("2609.1", "2609.22"),
+        *[("2609.333", "2609.bad")] * tries,
+        ("2609.333",),
+        *[("2609.bad",)] * tries,
+    ]
+    assert batches == [{"2609.1": 6, "2609.22": 7}, {"2609.333": 8}]
+    assert "A batch of 4 papers got an answer that does not match it; asking in halves" in caplog.text
+    assert "cannot answer for 2609.bad, left out: Semantic Scholar response does not match" in caplog.text
+    assert '{"error":"Bad id"}' in caplog.text
+
+
+def test_answers_that_never_match_stop_the_run(
+    monkeypatch: pytest.MonkeyPatch, caplog: pytest.LogCaptureFixture
+) -> None:
+    monkeypatch.setattr("preprint_radar.sources.semantic_scholar.S2_MAX_MISMATCHED_BATCHES", 2)
+
+    def handle(_: httpx.Request) -> httpx.Response:
+        return httpx.Response(200, json=[])
+
+    with HttpClient(transport=httpx.MockTransport(handle), max_attempts=1) as client:
+        counts = fetch_citation_counts(client, ["2609.1", "2609.2"], key="secret", sleep=lambda _: None)
+
+    # The batch, then its first half, which is left out; the second is one too many.
+    assert counts == {}
+    assert "cannot answer for 2609.1, left out" in caplog.text
+    assert "keeps answering batches that do not match; stopping after 0 papers" in caplog.text
 
 
 def test_fetch_citation_counts_sends_the_key_and_retries_refusals() -> None:

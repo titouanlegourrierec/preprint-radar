@@ -6,7 +6,10 @@ its published version together), unlike OpenAlex, which undercounts published pa
 request. With an API key (``SEMANTIC_SCHOLAR_API_KEY``, free on request) it allows one
 request per second, yet still refuses (429) about half of the batches at that pace: they
 are tried again after a short wait. Anonymous requests share a small, busy pool and are
-tried again after a long one.
+tried again after a long one. A batch whose answer is not one entry per paper asked for is
+no refusal: the archive of 2026-10-11 tried one 30 times over 25 minutes, then left the
+1,415 papers after it without a count. It is tried twice, then asked for in halves, down
+to the paper Semantic Scholar cannot answer for, which alone is left out.
 
 The same endpoint gives the published version of a paper (:func:`fetch_scholar_records`):
 its DOI, its venue and its authors' ids. The year of the venue is read from the names of
@@ -20,6 +23,7 @@ import logging
 import os
 import re
 import time
+from collections import deque
 from collections.abc import Callable, Iterable, Mapping
 from dataclasses import dataclass
 from itertools import batched
@@ -49,6 +53,11 @@ S2_ANONYMOUS_RETRY_WAIT_SECONDS = 20.0
 S2_MAX_RETRY_WAIT_SECONDS = 60.0
 # An invalid or revoked key gets these on every request: trying again only wastes the run.
 S2_KEY_REJECTED = frozenset({401, 403})
+# An answer that does not match its batch is tried that many times before the batch is
+# halved; past that many such batches in a run (one bad paper in 500 takes about 10), the
+# run stops, as for refusals.
+S2_MISMATCH_TRIES = 2
+S2_MAX_MISMATCHED_BATCHES = 50
 # A few refusals in a row are routine, even with a key: only longer streaks are reported.
 _REPORTED_STREAK = 5
 # Progress is reported every that many batches (5,000 papers).
@@ -178,17 +187,37 @@ def _fetch_all[T](
     deadline = None if max_seconds is None else clock() + max_seconds
     wanted = list(dict.fromkeys(arxiv_ids))
     found: dict[str, T | None] = {}
-    batches = refusals = 0
-    for batch in batched(wanted, S2_BATCH_SIZE, strict=False):
-        batch_found, refused = _fetch_batch(
-            client,
-            batch,
-            kind,
-            headers=headers,
-            sleep=sleep,
-            first_wait=first_wait,
-            stop_waiting=(lambda wait: clock() + wait > deadline) if deadline is not None else None,
-        )
+    batches = refusals = mismatched = 0
+    pending = deque(batched(wanted, S2_BATCH_SIZE, strict=False))
+    while pending:
+        batch = pending.popleft()
+        try:
+            batch_found, refused = _fetch_batch(
+                client,
+                batch,
+                kind,
+                headers=headers,
+                sleep=sleep,
+                first_wait=first_wait,
+                stop_waiting=(lambda wait: clock() + wait > deadline) if deadline is not None else None,
+            )
+        except ParseError as exc:
+            mismatched += 1
+            if mismatched > S2_MAX_MISMATCHED_BATCHES:
+                logger.warning(
+                    "Semantic Scholar keeps answering batches that do not match; stopping after %s papers",
+                    f"{len(found):,}",
+                )
+                break
+            if len(batch) == 1:
+                logger.warning("Semantic Scholar cannot answer for %s, left out: %s", batch[0], exc)
+                continue
+            half = (len(batch) + 1) // 2
+            logger.info(
+                "A batch of %d papers got an answer that does not match it; asking in halves", len(batch)
+            )
+            pending.extendleft((batch[half:], batch[:half]))
+            continue
         refusals += refused
         if batch_found is None:
             logger.warning("Semantic Scholar keeps refusing; stopping after %s papers", f"{len(found):,}")
@@ -233,7 +262,8 @@ def _batch_items(text: str, arxiv_ids: tuple[str, ...]) -> list[dict[str, Any] |
         msg = f"Invalid Semantic Scholar response: {exc}"
         raise ParseError(msg) from exc
     if not isinstance(items, list) or len(items) != len(arxiv_ids):
-        msg = "Semantic Scholar response does not match the requested papers"
+        answer = f"{len(items)} entries" if isinstance(items, list) else " ".join(text.split())[:200]
+        msg = f"Semantic Scholar response does not match the requested papers ({len(arxiv_ids)}): {answer}"
         raise ParseError(msg)
     return [item if isinstance(item, dict) else None for item in items]
 
@@ -317,8 +347,10 @@ def _fetch_batch[T](
 
     Raises:
         FetchError: If the key (or, without one, the request) is rejected.
+        ParseError: If ``S2_MISMATCH_TRIES`` answers did not match the batch.
     """
     error: FetchError | ParseError | None = None
+    mismatches = 0
     for attempt in range(1, S2_BATCH_TRIES + 1):
         try:
             text = client.post_text(
@@ -333,6 +365,10 @@ def _fetch_batch[T](
                 rejected = "the API key" if headers else "the request"
                 msg = f"Semantic Scholar rejected {rejected} (HTTP {exc.status}): {exc}"
                 raise FetchError(msg, status=exc.status) from exc
+            if isinstance(exc, ParseError):
+                mismatches += 1
+                if mismatches == S2_MISMATCH_TRIES:
+                    raise
             error = exc
             logger.debug("Semantic Scholar batch refused (try %d): %s", attempt, exc)
             if attempt < S2_BATCH_TRIES:

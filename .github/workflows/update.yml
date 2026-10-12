@@ -86,6 +86,17 @@ jobs:
           key: front-matter-${{ github.run_id }}
           restore-keys: front-matter-
 
+      # The archive's catalog (about 118 MB), restored only to keep it in the cache: GitHub
+      # evicts an entry unused for 7 days, and a Sunday run that starts late (the fallback,
+      # which GitHub starts hours late) found none on 2026-10-11 and harvested the whole
+      # catalog again (CI-10). Nothing here reads it.
+      - name: Keep the archive's catalog in the cache
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .cache/catalog
+          key: catalog-kept-alive
+          restore-keys: catalog-
+
       - name: Fetch papers
         # Stop early enough to commit what was fetched; progress is saved as it goes. The
         # deadline leaves 20 minutes for ROR and the last save before the step is killed.

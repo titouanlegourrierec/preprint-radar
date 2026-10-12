@@ -10,12 +10,14 @@ class FetchError(PreprintRadarError):
 
     Attributes:
         status: The HTTP status the server answered with, ``None`` if it did not answer.
+        retry_after: The seconds its ``Retry-After`` header asked to wait, if it sent one.
     """
 
-    def __init__(self, message: str, *, status: int | None = None) -> None:
-        """Create the error, with the HTTP status of the refusal if there was one."""
+    def __init__(self, message: str, *, status: int | None = None, retry_after: float | None = None) -> None:
+        """Create the error, with the HTTP status of the refusal and its wait, if any."""
         super().__init__(message)
         self.status = status
+        self.retry_after = retry_after
 
 
 class NotFoundError(FetchError):

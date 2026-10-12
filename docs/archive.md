@@ -163,6 +163,12 @@ year of cs.CV is 46,000.
   rejected the API key", which fails the run (`FetchError.status`).
 - The daily `citations` step gives a refusing Semantic Scholar 10 minutes
   (`--max-minutes`), the weekly `scholar` step 20, then leaves the papers for later.
+- An answer that is not one entry per paper asked for (a JSON object, a shorter list) is no
+  refusal: on 2026-10-11 one batch got it 30 times over 25 minutes, and the 1,415 papers
+  from it on got no count that week. It is tried twice (`S2_MISMATCH_TRIES`), then asked
+  for in halves (`_fetch_all`), down to the paper Semantic Scholar cannot answer for, left
+  out with what it answered in the log (`cannot answer for`); about 10 requests for one
+  such paper among 500. Past 50 such batches in a run, it stops as for refusals.
 
 ## OpenAlex
 
@@ -232,13 +238,21 @@ records are their day records) two ways:
   dataset or demo on the Hugging Face Hub. In October 2026, 7,834 stored papers of 27,000
   link GitHub (7,541 repositories), 65 the Hub, 6 GitLab (not asked for).
 - `sources/github.py`: GitHub's GraphQL API, 100 repositories a query (aliases of
-  `repository { stargazerCount }`), one point of the hourly quota each: 76 queries, about
-  4 minutes with the Hub's 63 pages at 0.5 s. It needs a token, any, even one without permission (`GITHUB_TOKEN`: the
+  `repository { stargazerCount }`), one point of the hourly quota each: 76 queries, one
+  every 3 s, about 5 minutes with the Hub's 63 pages at 0.5 s. It needs a token, any, even
+  one without permission (`GITHUB_TOKEN`: the
   workflow's own in CI, which allows 1,000 points an hour; the Makefile gives `.env`'s to
   `make code` only). The REST API's 60 anonymous requests an hour would take days. A
   repository deleted, made private or never published comes back as its alias's
   `NOT_FOUND` error (3 of 100 sampled): the paper loses its record. Any other error fails
   the query, whose papers keep last week's records; a 401 is a bad token and fails the run.
+- GitHub's secondary limits cap the CPU time of GraphQL queries, 60 s a minute, and one of
+  100 repositories takes about 2 s: at one a second, the first run in CI (2026-10-11) was
+  refused (403, "You have exceeded a secondary rate limit") after 30 queries, and 4,698
+  papers kept the stars of 2026-10-09. Queries go one every 3 s (`GITHUB_DELAY_SECONDS`,
+  from the start of one to the next), and one refused for a limit (403 or 429) waits for
+  its `Retry-After` (`FetchError.retry_after`), else a minute, then two, as GitHub advises;
+  refused a third time, the run stops asking and the rest keep last week's records.
 - `sources/huggingface.py`: the Hub's `/api/models/<id>` (or `datasets`, `spaces`), one
   request each, without a key: its `likes`, kept apart from the stars. A 401 or 404 means
   the page is gone (the Hub answers 401 for one that never existed).
