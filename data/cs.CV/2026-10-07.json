@@ -2684,7 +2684,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.08192v1",
+   "html_url": "https://arxiv.org/html/2610.08192v2",
    "abstract": "Audio-visual models improve egocentric action recognition by exploiting complementary cues, yet typically assume that both streams remain available at inference. Existing missing-modality methods operate on trimmed, single-event clips in which a stream is entirely present or absent, whereas real sensors fail and recover within long, untrimmed observations. We redefine egocentric modality missingness as temporally localized sensor outages within untrimmed, multi-event observations, with whole-clip absence as the limiting case. We introduce MacJEPA, a missing-modality-robust Masked-context query JEPA that recognizes visual actions and acoustic events from supplied interval queries over audio-visual context. Window-local modality dropout simulates these sensor outages during training. MacJEPA further repurposes masking in JEPA from a self-supervised pretext into a supervised robustness objective, aligning masked and clean latent representations of both multimodal content tokens and the task-conditioned queries. All objectives are optimized jointly with recognition in a single stage, requiring no test-time adaptation. Across Epic-Kitchens-100 and Epic-Sounds, a single checkpoint remains competitive under complete input and consistently surpasses published missing-modality baselines when either the dominant or auxiliary stream is removed. MacJEPA thus unifies strong full-input recognition with temporal missing-modality robustness in a single model operating on untrimmed multi-event videos.",
    "affiliations": [
     "Peter L. Reichertz Institute for Medical Informatics, Hannover Medical School, Germany",
@@ -5254,46 +5254,29 @@
     "Zhongliang Guo",
     "Yan Lin",
     "Yifei Qian",
-    "Daizong Liu"
+    "Daizong Liu",
+    "Ognjen Arandjelović",
+    "Jianfeng Dong",
+    "Chun Pong Lau"
    ],
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "10 pages, 6 figures",
+   "comments": "14 pages, 10 figures",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.07464v2",
+   "html_url": "https://arxiv.org/html/2610.07464v3",
    "abstract": "Protective perturbations aim to stop malicious instruction-guided editing of personal photos, but they are optimized and evaluated at the editor's working resolution, whereas shared photos have 10 megapixels or more and editors first downscale them by an unknown factor. We model this resize as a frequency-selective channel. In this model, a perturbation computed at the native resolution decays with the downscaling factor and is weak even without a resize, and a perturbation computed at a fixed working resolution protects only a window of scales. The best worst-case protection over an unknown range of scales degrades only logarithmically with the width of the range, and averaging over scales does not reach it. Guided by this analysis, we propose SRIM, which samples a grid of anchor scales covering the whole range, with weights that favor the currently weakest scale, at the cost of standard expectation over transformation. On full-resolution photos of 9 to 30 megapixels and downscaling factors from 2 to 8, SRIM raises the worst-case disruption of FLUX.2-klein edits from 0.192 LPIPS, attained by the strongest published protection, to 0.463. At equal visibility, it roughly doubles the protection. The same protected photos also protect against the 9B model and against FLUX.2-dev, with worst cases of 0.450 and 0.386 against at most 0.184 for published protections, and SRIM leads on InstructPix2Pix as well.",
-   "affiliations": [
-    "University of Aberdeen",
-    "Newcastle University",
-    "University of Nottingham",
-    "Wuhan University"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "University of Aberdeen",
-    "Newcastle University",
-    "University of Nottingham",
-    "Wuhan University"
-   ],
-   "institution_ids": [
-    "016476m91",
-    null,
-    "01ee9ar58",
-    "033vjfk17"
-   ],
+   "institutions": null,
    "extractor": 7,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
-    },
-    "institutions": {
-     "source": "ror",
-     "at": "2026-10-07"
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.07464",

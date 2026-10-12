@@ -2176,7 +2176,7 @@
    "journal_ref": null,
    "venue": "OBPDC 2026 Workshop",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.12182v1",
+   "html_url": "https://arxiv.org/html/2610.12182v2",
    "abstract": "Very-high-resolution Earth-observation satellites acquire more data than they can store and downlink, while in maritime surveillance the vessels cover a tiny fraction of each scene. We study onboard vessel detection as a way to select what is downlinked, which reduces the data according to its content rather than coding every pixel; it is complementary to conventional onboard compression. The work follows three axes. (i) Data and algorithm: a controlled dataset is generated from 68 annotated Maxar scenes with 43 vessel classes, and a YOLOX-S detector is trained on it. (ii) Embedded deployment: the detector is quantized and deployed on the DPU of a Versal VC1902, with a limited loss of detection quality and a processing time of a few seconds per scene. (iii) Data reduction: we propose several downlink modes, from metadata only (box, class and score of each detection) to image crops around vessels, tiles holding detections, or the whole scene with a degraded background, and estimate from the measured detection errors the trade-off each offers between the vessels kept and the volume downlinked. On our dense harbor and coastal scenes, tiles keep 98% of the vessels with 29% of the scene volume, and crops 83% with 3%.",
    "affiliations": [],
    "author_affiliations": null,
@@ -2697,7 +2697,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.12069v1",
+   "html_url": "https://arxiv.org/html/2610.12069v2",
    "abstract": "Realistic household simulation must capture not only diverse environments but also the lived-in object arrangements and spatial constraints that shape robot motion and interaction. Existing resources often trade off scale, real-world correspondence, and interaction readiness, leaving a gap in faithful, interactive replicas of how real homes are actually arranged. To this end, we introduce LIVIN, a benchmark for spatial and embodied intelligence built on digital twins of 30 diverse lived-in homes. These replicas preserve observed room layouts, furniture configurations, and everyday belongings. To construct them, we design a human-in-the-loop workflow comprising instance recognition, architectural reconstruction, and object generation and placement, with intermediate results reviewed and corrected by humans against the source observations at each stage. We evaluate four tasks in LIVIN: 3D detection, 3D reconstruction, navigation, and loco-manipulation. Our evaluations show that current methods remain challenged by the dense object arrangements, occlusions, limited free space, and constrained interaction regions found in realistic lived-in homes. We hope LIVIN will help advance embodied AI in real-world homes, from spatial understanding to robotic interaction, and ultimately bring embodied intelligence into everyday home environments.",
    "affiliations": [
     "ShanghaiTech University",
@@ -5960,7 +5960,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.11374v1",
+   "html_url": "https://arxiv.org/html/2610.11374v2",
    "abstract": "CLIP serves as a foundational vision-language model and the de facto vision encoder for downstream VLMs such as LLaVA. Post-training offers a lightweight route to refine CLIP, but recent work argues that the standard contrastive loss is unsuitable for post-training due to catastrophic forgetting under small batches, motivating designs that abandon the contrastive objective in favor of distillation. We revisit this premise and find that, for the InfoNCE objective, the reported forgetting is driven primarily not by insufficient negatives but by an inappropriate magnitude of the contrastive temperature τ: with τ set sufficiently small, contrastive post-training improves rather than degrades the pretrained CLIP, which we explain through the temperature dependence of the InfoNCE gradient. Building on this finding, we propose ComCLIP, a lightweight single-epoch post-training recipe that freezes CLIP's text encoder—so the refined vision encoder is a drop-in replacement with unchanged architecture and inference cost—and trains the vision encoder with a properly-tempered contrastive loss, an MSE anchoring loss against the original CLIP, and a relational distillation loss from DINOv2. Over multiple seeds, ComCLIP matches the self-distillation baseline CLIP-Refine on zero-shot classification while significantly improving the transferability of visual features, measured by linear probing (48.99 vs.\\ 42.28 on ViT-B/16), and on ViT-L/14 it also improves MMVP over CLIP-Refine (24.20 vs.\\ 19.01); CLIP-Refine remains stronger on image-text retrieval. Used as a drop-in vision encoder for LLaVA-1.5-7B without re-aligning the projector or LLM, ComCLIP yields no net change across 8 VLM benchmarks, i.e., the refinement does not break downstream compatibility. Code and models are available at https://github.com/showstarpro/ComCLIP.git.",
    "affiliations": [
     "Huazhong University of Science and Technology",
@@ -6404,7 +6404,7 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Human-Computer Interaction (cs.HC)"
    ],
-   "comments": "16 pages, 5 figures, 6 tables. Data and code: doi:10.5281/zenodo.23224681",
+   "comments": "16 pages, 5 figures, 6 tables. Data and code: doi:https://doi.org/10.5281/zenodo.23224681",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
@@ -7267,7 +7267,7 @@
    "journal_ref": null,
    "venue": "VCIP 2026",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.11205v1",
+   "html_url": "https://arxiv.org/html/2610.11205v2",
    "abstract": "Representation structure is crucial for understanding Vision Transformer (ViT) architectures and their generalization behavior. However, prior studies neither isolate nor analyze module-level features nor investigate how their interactions contribute to performance estimation. In this work, we conduct the first rigorous analysis of feature information across diverse architectural scales, empirically uncover the relationship between ViT representation and generalization behavior, and leverage these insights to guide efficient ViT design. Our contributions are fivefold: Across diverse architectural scales, 1) We identify feature collapse at initialization, which leads to redundancy, and propose a reduction scheme to mitigate this issue. 2) We quantify feature information using entropy and the minimum eigenvalue, demonstrating that these metrics serve as reliable indicators for generalization prediction. 3) We show that feature in the token space provides a more faithful representation than those in embedding space. 4) We discover an unexpected finding: features produced by linear submodules within ViT layers are critical for the prediction of generalization performance. 5) Our proposed proxy improves the correlation ranking by 18-48% over prior baselines and can effectively identify ViT architectures that achieve higher accuracy at lower or comparable computational cost.",
    "affiliations": [
     "Temasek Laboratories",
@@ -10044,7 +10044,7 @@
    "authors": [
     "Sanket Gandhi",
     "Utkarsh Giri",
-    "Varun Subramanium",
+    "Varun Subramaniam",
     "Rohan Paul",
     "Parag Singla"
    ],
@@ -10057,7 +10057,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.10722v1",
+   "html_url": "https://arxiv.org/html/2610.10722v2",
    "abstract": "This paper studies the problem of learning disentangled representations of objects and their attributes from raw, unstructured image data. Slot-based methods have shown considerable success in unsupervised learning of object representations from images. Block-slot attention-based methods extend this framework to attribute representations by assuming a uniform factorization of object representations into attributes, which may be suboptimal and consequently limit the quality of the learned representations. We therefore investigate a framework for jointly discovering object and attribute representations. Our key contribution is leveraging the Linear Representation Hypothesis (LRH), which postulates that composable concepts can be represented as linearly additive subspaces in slot representations. Based on this insight, we propose a probabilistic model connecting images, slots (objects), and blocks (attributes). We present an architecture that leverages block attention to connect attribute representations to slots and incorporates LRH in both object and attribute representation spaces. This architecture effectively optimizes the Evidence Lower Bound (ELBO) of the proposed graphical model. Our experiments demonstrate (i) effective discovery of disentangled object and attribute representations, (ii) empirical evidence for LRH in slot space, and (iii) the ability to perform image editing owing to the disentangled and interpretable nature of the learned representations. Our experiments on multiple datasets demonstrate improvements in DCI scores over state-of-the-art methods.",
    "affiliations": [
     "Yardi School of AI, IIT Delhi"
@@ -10089,11 +10089,11 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-09"
+     "at": "2026-10-12"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-09"
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.10722",
@@ -10198,9 +10198,9 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Artificial Intelligence (cs.AI)"
    ],
-   "comments": "Accepted by NeurIPS 2026.Project page \\href{https://bogao-code.github.io/SLVR/}",
+   "comments": "Accepted by NeurIPS http://2026.Project page \\href{https://bogao-code.github.io/SLVR/}",
    "journal_ref": null,
-   "venue": "NeurIPS 2026",
+   "venue": "NeurIPS",
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2610.10563v1",
    "abstract": "Multimodal large language models (MLLMs) often answer visual reasoning questions by relying on linguistic priors rather than task-relevant visual evidence. Textual chain-of-thought reasoning can partially mitigate this issue by encouraging models to decompose visual questions into intermediate evidence-seeking steps, but generating these steps autoregressively increases inference cost. Latent reasoning avoids explicit rationale generation, but existing approaches provide limited control over what intermediate states encode, making it difficult to impose separate supervision for planning, grounding, and evidence selection. We propose Structured Latent Visual Reasoning (SLVR), a training framework that bridges explicit chain-of-thought and latent reasoning by organizing multimodal reasoning into typed latent stages for planning, grounding, evidence selection, and reasoning integration. SLVR first trains the model to rely on the image by masking answer-revealing text and contrasting the correct answer with visually plausible distractors. It then organizes reasoning into latent stages for planning, grounding, evidence selection, and integration, supervising each stage with the corresponding signal: plans, boxes, visual evidence, and final rationales. This gives latent reasoning an explicit functional structure while avoiding generated textual chains at inference time. Built on Qwen2.5-VL-7B, SLVR improves consistently across multimodal reasoning benchmarks, with absolute gains of +9.4 on MMVP and +14.2 on BLINK Relation, as well as improvements on V*, MathVista, and ChartQA. These results suggest that structured latent supervision can improve fine-grained visual reasoning without the decoding overhead of textual CoT. Project page is available here (https://bogao-code.github.io/SLVR/).",
@@ -11076,7 +11076,8 @@
     "Zhangbo Xu",
     "Ruoxi Zhang",
     "Rui Hu",
-    "Yisong Wang"
+    "Yisong Wang",
+    "Xitong Li"
    ],
    "primary_subject": "Artificial Intelligence (cs.AI)",
    "subjects": [
@@ -11087,10 +11088,12 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.AI",
-   "html_url": "https://arxiv.org/html/2610.11723v1",
+   "html_url": "https://arxiv.org/html/2610.11723v2",
    "abstract": "Multiplayer world models must ensure that independently controlled views remain consistent with one shared and persistent world. We introduce MultiWorldBench, a diagnostic Minecraft benchmark containing 495 case configurations across seven task suites and ten capabilities, including independent control, cross-view motion, shared-state synchronization, persistence, structural reasoning, concurrent interaction, and delayed revisit. We evaluate Solaris, Gamma-World, and MineWorld, using Engine GT as a reference. Gamma-World achieves the highest ten-capability average among the generated systems at 21.39, followed by Solaris at 20.88 and MineWorld at 1.89, while Engine GT reaches 91.69. Gamma-World performs better on several control, shared-state, and revisit capabilities, whereas Solaris leads in cross-view motion and race-condition consistency. Nevertheless, all generated systems score at most 8.00 on state persistence and 1.33 on structural consistency, and none succeeds in spatial reasoning or building-identity preservation. Human preferences produce the same overall ranking and show strong alignment with the automatic evaluation, with a mean dimension-level Spearman correlation of 0.96. These results show that plausible individual views do not yet constitute a coherent multiplayer world.",
    "affiliations": [
-    "Zhiying Guangnian Technology Co., Ltd"
+    "Zhiying Guangnian Technology Co., Ltd",
+    "Imperial College London",
+    "HEC Paris"
    ],
    "author_affiliations": [
     [
@@ -11104,23 +11107,31 @@
     ],
     [
      0
+    ],
+    [
+     1,
+     2
     ]
    ],
    "institutions": [
-    "Zhiying Guangnian Technology Co. Ltd"
+    "Zhiying Guangnian Technology Co. Ltd",
+    "Imperial College London",
+    "HEC Paris"
    ],
    "institution_ids": [
-    null
+    null,
+    "041kmwe10",
+    "0423jsj19"
    ],
    "extractor": 7,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-09"
+     "at": "2026-10-12"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-09"
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.11723",
@@ -11833,7 +11844,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.LG",
-   "html_url": "https://arxiv.org/html/2610.11315v1",
+   "html_url": "https://arxiv.org/html/2610.11315v2",
    "abstract": "In diffusion transformers, low-rank branches can mitigate 4-bit weight--activation (W4A4) post-training quantization (PTQ) loss by decomposing each weight into a low-bit residual and a high-precision low-rank component. Existing low-rank PTQ approaches, however, either optimize low-rank compensation and residual quantization separately, often requiring higher ranks, or rely on second-order weight updates without explicitly modeling activation quantization error, which becomes particularly pronounced under 4-bit quantization. To address these limitations, we present \\method{}, a unified framework modeling low-rank-assisted W4A4 PTQ as a coupled calibration problem and deriving optimization-based solvers from the joint objective. Eliminating the output-side low-rank factor yields a deflated Hessian that discounts residual errors already captured by the low-rank component, while an activation-noise surrogate is incorporated to suppress activation quantization error. Across five diffusion backbones, rank-4 \\method{} consistently outperforms rank-4 SVDQuant in PSNR and LPIPS. It further surpasses rank-32 SVDQuant on SANA-1.6B, FLUX.1-schnell, and FLUX.1-dev with an 8× smaller rank and up to 6.25× faster quantization. Furthermore, on the Qwen3-8B LLM, rank-4 \\method{} improves MMLU accuracy from 61.50% to 68.17% over rank-32 SVDQuant. Overall, \\method{} achieves better W4A4 performance with substantially lower rank and quantization cost.",
    "affiliations": [
     "The University of Hong Kong",

@@ -2153,7 +2153,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.06349v1",
+   "html_url": "https://arxiv.org/html/2610.06349v2",
    "abstract": "Embodied world models predict the visual consequences of candidate actions before execution. However, existing action-conditioned world models often adopt uniformly weighted visual generation objectives that can be misaligned with embodied prediction needs. Even with explicit motion conditioning, these objectives can underemphasize spatially sparse changes that are critical to interaction. We propose KineWorld, a transport-aware world-modeling framework that extends robot kinematics from motion conditioning to the spatial allocation of generative supervision. Kinematic Transport Lifting (KTL) constructs renderer-derived, camera-aligned transport fields from commanded robot motion. Transport-Aware World Diffusion (TAWD) calibrates their motion support on the video-latent grid and reweights future-RGB flow matching through a normalized mixture of uniform and transport-focused distributions. We train KineWorld using ALOHA-AgileX bimanual manipulation data from RoboTwin 2.0. KineWorld achieves an EWMScore-P of 68.95 in single-view evaluation and a TWB-Score of 54.82 in multi-view evaluation. These results support a shift from appearance fitting toward action-consequence modeling for embodied decision-making.",
    "affiliations": [
     "Nanyang Technological University",
@@ -6781,11 +6781,11 @@
     "Differential Geometry (math.DG)",
     "Optimization and Control (math.OC)"
    ],
-   "comments": "19 pages, 3 figures",
+   "comments": "20 pages, 3 figures",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.05326v1",
+   "html_url": "https://arxiv.org/html/2610.05326v2",
    "abstract": "The corpus callosum (CC) is a major white-matter structure and a well-established marker of brain aging, but most studies quantify it using scalar summaries that discard its boundary geometry. We present a Riemannian shape-space framework for analyzing age-related morphological change in the midsagittal CC, applied to the OASIS-1 cohort. Each contour is represented by 128 landmarks and embedded into Kendall shape space, where translation, rotation, and scale are removed. We derive a multivariate geodesic regression with exact Riemannian gradients and use the fitted age-velocity field to localize age-related deformation to five anatomical sub-regions. In the cognitively normal cohort (n = 252), geodesic regression outperforms the Euclidean linear benchmark ($R^2 = 0.1355$ vs.\\ 0.1216). Regional energy is posterior-dominant: the Splenium carries 41.4% and the Isthmus 23.8% of total age-related shape change, together accounting for ~65% despite comprising only ~35% of landmarks. Signed projections confirm the ordering (Splenium r = 0.570; Isthmus r = 0.473). In contrast, age explains less than 0.5% of shape variance in Alzheimer's disease (n = 88), indicating that the disease disrupts the healthy aging trajectory. A tangent-space classifier achieves an age-group AUC of 0.791 from the 2D contour alone, exceeding a recent volumetric benchmark (0.67).",
    "affiliations": [],
    "author_affiliations": null,
@@ -11256,7 +11256,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.04432v2",
+   "html_url": "https://arxiv.org/html/2610.04432v3",
    "abstract": "Building interactive simulators from real-world observations is a promising way to scale embodied data, but current pipelines still rely heavily on manual environment construction and calibration. We study whether frontier foundation models and coding agents can automate this process end to end. We formulate autonomous video-to-simulation as a software engineering task in which an agent observes an embodied video, constructs the corresponding simulated environment and robot behavior, and iteratively refines the result through execution feedback. To evaluate this capability, we introduce Video2World, a benchmark comprising 222 reconstruction instances derived from 189 robot and human demonstration videos. Video2World measures reconstructed worlds along geometric fidelity, dynamic fidelity, and functional correctness, capturing spatial perception, physical reasoning, and executable interaction. Evaluating 9 frontier coding-agent systems reveals a sharp improvement in Task success beginning with Claude Opus 5, rising from below 5% to over 15%, while substantial gaps to human-assisted reconstruction remain. We further find that worlds that look better could work worse: better visual fidelity does not always lead to higher task success. This echoes the broader gap between perceptual realism and factual correctness observed in generative models.",
    "affiliations": [],
    "author_affiliations": null,
@@ -11278,7 +11278,7 @@
    "authors": [
     "Abdulla Alshehhi",
     "Zongyan Han",
-    "Rao Anwer"
+    "Rao Muhammad Anwer"
    ],
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
    "subjects": [
@@ -11289,7 +11289,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.04425v1",
+   "html_url": "https://arxiv.org/html/2610.04425v2",
    "abstract": "Agricultural visual models are typically evaluated for either recognition or localization, but reliable diagnosis requires identifying what is present and localizing the evidence. Agricultural visual question answering (VQA) datasets carry rich semantic labels but rarely link them to image regions, and adding such annotations by hand is costly at scale. We introduce AgroGround, a large-scale dataset for grounded agricultural recognition: identifying plant diseases and other agricultural targets and localizing their image regions. An automated pipeline converts the labels of eight agricultural VQA datasets into annotations for disease lesions and whole objects, producing 794,850 instruction examples. Healthy images provide negative supervision for disease queries, teaching the model to return empty predictions. We fine-tune a shared vision-language model on known-target grounding instructions combined with instructions requiring both recognition and localization. We evaluate predicted identities, regions, joint correctness, and healthy-image abstention on 1,480 human-verified images disjoint from all training data. Grounding-only fine-tuning reduces recognition accuracy from 51.8% to 29.1%, while adding recognition-and-localization instructions raises it to 72.6%. With images and annotations held fixed, combining the two formats raises joint accuracy from 19.2% to 43.3% at comparable grounding. Healthy negatives raise abstention on healthy images to 95.0%, and reinforcement learning improves lesion-level grounding. The resulting 2B model exceeds its annotation teacher in grounding F1 on our benchmark and on the external PlantSeg test set. AgroGround establishes a benchmark for grounded agricultural recognition, measuring joint correctness of identity and localization along with abstention on healthy images. The code is available at https://github.com/AB-Abdulla/AgroGround.",
    "affiliations": [],
    "author_affiliations": null,
@@ -11298,7 +11298,7 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.04425",
@@ -15318,7 +15318,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.AI",
-   "html_url": "https://arxiv.org/html/2610.05615v1",
+   "html_url": "https://arxiv.org/html/2610.05615v2",
    "abstract": "Multi-agent debate (MAD) has emerged as an effective paradigm to improve the reasoning capabilities of large language models (LLMs) and is increasingly being extended to multimodal settings. However, existing multimodal MAD frameworks typically expose agents to the same fixed visual input, ignoring substantial variation in the visual scale needed across samples and agents. In addition, these frameworks frequently suffer from groupthink, a phenomenon where agents prematurely abandon correct deductions to conform with confident but hallucinated peer responses. To address these bottlenecks, we introduce DREAM (Dynamic Resolution Assignment For Multimodal Multi-Agent Debate), which operates via two core components: (1) Dynamic Resolution Assignment, a zero-shot probe round where agents test multiple resolutions, quantify uncertainty using Average Normalized Log-Likelihood (ANLL), and use an adaptive threshold to assign each agent to its empirically optimal resolution; (2) Uncertainty-Guided Rollback Aggregation counters groupthink by tracking each agent's uncertainty over rounds and restoring early low-uncertainty answers overridden by group pressure. On six multimodal datasets, DREAM improves the accuracy-token trade-off over multi-agent debate baselines by 1.5-3.2% accuracy without dataset-specific tuning.",
    "affiliations": [
     "Deakin University",
@@ -16318,7 +16318,7 @@
     "Zhe Tao",
     "Feiran Wang",
     "Gaowen Liu",
-    "Ramana Rao Kompella$",
+    "Ramana Rao Kompella",
     "Yan Yan"
    ],
    "primary_subject": "Robotics (cs.RO)",
@@ -16330,7 +16330,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2610.04607v1",
+   "html_url": "https://arxiv.org/html/2610.04607v2",
    "abstract": "Robots need to anticipate how their actions will change the world, since manipulation success hinges on the resulting contacts and object motions. However, existing Vision-Language-Action (VLA) policies that predict future observations from shared features leave the forecast decoupled from the actions the policy will actually execute, and impose no physical constraints on how the scene may evolve. We introduce ForeAct3D, a framework for policy-grounded future world modeling within VLA policies. Learnable geometric queries decode depth, semantic segmentation, and camera pose from the policy representation into current and future semantic 3D scene states, and the future queries are conditioned on the policy-generated action chunk to ground the forecast in the planned interaction. A physical-consistency closure relates the two states through background staticity and instance-level rigidity, and anchors the wrist-camera pose to end-effector kinematics. These objectives shape the shared representation used for action generation during training, and no future prediction is required at inference. Without robot pretraining, ForeAct3D achieves 98.3% average success on LIBERO and an average task length of 3.73 on CALVIN, outperforming its base policy on every suite. Ablations show that semantic 3D supervision, physical consistency, and action conditioning each improve manipulation performance, and that action conditioning substantially improves future object localization. Real-world experiments on spatial placement, object insertion, and sequential manipulation further raise average success from 6.7% to 37.8% over the base policy. The project page and code are available at https://github.com/anthonytao80-crypto/ForeAct3D.",
    "affiliations": [
     "University of Illinois Urbana-Champaign",
@@ -16950,7 +16950,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2610.03861v1",
+   "html_url": "https://arxiv.org/html/2610.03861v2",
    "abstract": "Foundation models and large-scale human data provide rich sources of manipulation intent, but translating this intent into multi-fingered robot behavior remains difficult. Dexterous hands still lack a reusable low-level primitive that reliably establishes contact across tasks and embodiments. We propose GOTT, a reach-acquire-move framework built around a single cross-embodiment contact-acquisition primitive. Given a robot-agnostic object trajectory and a reach specification, GOTT first brings the hand near a task-relevant contact region. The shared closed-loop primitive then establishes stable contact from this approximate initialization, and a pose-conditioned controller tracks the desired object motion. Reach specifications may come from future-aware planning, external models, or human demonstrations, while the primitive and tracking backend remain unchanged. Simulation and real-world experiments show that GOTT is able to establish robust contact across diverse objects, arm-hand platforms, and seen and unseen hand morphologies. It also consistently improves end-to-end task success over open-loop grasp execution.",
    "affiliations": [
     "Amazon FAR",
