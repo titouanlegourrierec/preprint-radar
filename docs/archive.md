@@ -221,7 +221,10 @@ records are their day records) two ways:
   cited first, read as the daily update reads pages (`_add_html_front_matter`: 15 s a
   page, the same stops), from the page cache when it holds them. A page that answers 404
   leaves `<id>v1.html.missing` in the cache and is never asked for again; one that gives
-  nothing leaves the paper as it was, its page cached. A paper its page gives
+  nothing leaves the paper as it was, its page cached, and is not read again while
+  today's extraction finds nothing in it: read first, since cached, 349 such pages stopped
+  the second run as a layout change (2026-10-12). A stale page (`PageCache.stale`) is
+  read again all the same. A paper its page gives
   affiliations takes them with the page's link (`html_url`), the extractor's version and
   the provenance `html`; their institutions are named through ROR, with those an
   interrupted run left unnamed. About 2,000 papers of 2024 and 2025 are left after the

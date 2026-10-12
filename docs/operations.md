@@ -308,7 +308,8 @@ git pull --rebase && git push
 
 - The most cited are read first; progress is saved every 20 pages and on Ctrl-C, and
   running it again resumes: pages already read come from `.cache/front-matter/`, offline,
-  and those that answered 404 are not asked for again. To end it cleanly before a time
+  and those that answered 404 are not asked for again, nor read again those that gave no
+  affiliation (`cached HTML renderings gave no affiliation: not read again`). To end it cleanly before a time
   limit: `uv run preprint-radar -v --contact <e-mail> archive-affiliations --max-html
   3000 --deadline-minutes 480` (only the Makefile reads `.env`).
 - It writes only the archive and `top-recent.json`, which the weekly *Archive* run

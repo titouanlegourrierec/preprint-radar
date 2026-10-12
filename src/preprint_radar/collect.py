@@ -36,6 +36,7 @@ from preprint_radar.sources.arxiv_html import (
     fetch_front_matter,
     first_version_url,
     name_key,
+    parse_front_matter,
 )
 from preprint_radar.sources.arxiv_listing import fetch_catchup, fetch_listing
 from preprint_radar.sources.arxiv_rss import fetch_rss_abstracts
@@ -1188,7 +1189,10 @@ def _archive_pages(
 ) -> list[tuple[Paper, str]]:
     """The papers without affiliations whose page to read, with its URL, the most cited first.
 
-    Those arXiv renders, but for the pages it answered do not exist.
+    Those arXiv renders, but for the pages it answered do not exist and those a run before
+    read that give no affiliation today: their papers keep what they had, so each run would
+    read them again, first since cached, and their share of empty pages would stop it as a
+    layout change.
     """
     todo = [
         (paper, url)
@@ -1197,7 +1201,26 @@ def _archive_pages(
         and (url := first_version_url(paper.arxiv_id)) is not None
         and not (cache is not None and cache.missing(url))
     ]
+    if cache is not None:
+        read = [(paper, url) for paper, url in todo if _gives_nothing(cache, url, paper.authors)]
+        if read:
+            logger.info("%s cached HTML renderings gave no affiliation: not read again", f"{len(read):,}")
+            todo = [entry for entry in todo if entry not in read]
     return sorted(todo, key=lambda entry: (-citations.get(entry[0].arxiv_id, 0), entry[0].arxiv_id))
+
+
+def _gives_nothing(cache: PageCache, url: str, authors: Sequence[str]) -> bool:
+    """Whether the cache holds the page at ``url`` and today's extraction finds no affiliation in it.
+
+    A stale page (:meth:`PageCache.stale`) may have lost the affiliations of its tables: it
+    is read again, and gives what it gives.
+    """
+    html = cache.get(url)
+    return (
+        html is not None
+        and not cache.stale(url)
+        and not parse_front_matter(html, authors=authors).affiliations
+    )
 
 
 def _with_affiliations(papers: Iterable[Paper]) -> dict[str, Paper]:

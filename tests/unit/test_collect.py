@@ -973,6 +973,48 @@ def test_archive_affiliations_from_the_html_pages(
     assert requests == ["arxiv.org/html/2501.00004v1"]
 
 
+def test_archive_affiliations_read_no_cached_page_again_that_gave_none(
+    store: PaperStore, tmp_path: Path, paper_html: Callable[[str], str], caplog: pytest.LogCaptureFixture
+) -> None:
+    caplog.set_level("INFO")
+    # A run before read their pages: read first again, they stopped the next as a layout change.
+    read = [_archived(f"2501.{index:05d}", authors=("Yuyao Liu",)) for index in range(DRIFT_MIN_PAGES)]
+    authors = ("Yuyao Liu", "Jiayuan Mao", "David Hsu", "Leslie Pack Kaelbling", "Tomás Lozano-Pérez")
+    # Kept before the cache kept the tables of author blocks: read again.
+    stale = _archived("2501.99999", authors=("Yuyao Liu",))
+    store.write_archive("cs.CV", [*read, stale, _archived("2502.00001", authors=authors)])
+    cache = PageCache(tmp_path / "pages")
+    for paper in read:
+        cache.put(f"https://arxiv.org/html/{paper.arxiv_id}v1", NO_AFFILIATION_PAGE)
+    stale_page = tmp_path / "pages" / "2501" / "2501.99999v1.html.gz"
+    stale_page.write_bytes(gzip.compress(NO_AFFILIATION_PAGE.encode()))
+    requests: list[str] = []
+
+    def handle(request: httpx.Request) -> httpx.Response:
+        requests.append(request.url.path)
+        return httpx.Response(200, text=paper_html("2609.30249"))
+
+    with HttpClient(transport=httpx.MockTransport(handle), max_attempts=1) as client:
+        report = update_archive_affiliations(
+            store,
+            "cs.CV",
+            openalex_client=client,
+            today=TODAY,
+            site_client=client,
+            html=HtmlReading(limit=10, cache=cache),
+        )
+
+    assert requests == ["/html/2502.00001v1"]
+    assert report == ArchiveAffiliationsReport(
+        category="cs.CV", without=DRIFT_MIN_PAGES + 2, from_published=0, pages=2, from_pages=1
+    )
+    assert f"{DRIFT_MIN_PAGES} cached HTML renderings gave no affiliation: not read again" in caplog.text
+    archived = {paper.arxiv_id: paper for paper in store.iter_archive("cs.CV")}
+    assert archived["2502.00001"].affiliations
+    assert archived["2501.99999"] == stale
+    assert all(f"https://arxiv.org/html/{paper.arxiv_id}v1" in cache for paper in read)
+
+
 def test_archive_affiliations_without_an_archive(store: PaperStore) -> None:
     def handle(request: httpx.Request) -> httpx.Response:
         raise AssertionError(request.url)
