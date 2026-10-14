@@ -21,11 +21,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": null,
+   "comments": "https://physicalvision.github.io/artisan/",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.13947v1",
+   "html_url": "https://arxiv.org/html/2610.13947v2",
    "abstract": "In this paper, we study physically grounded articulated 3D asset generation—moving the goal from reproducing how objects look to capturing how they move and function. Inspired by the literature on procedural and agentic generation, we present Artisan, a system that extends the latest method Articraft by introducing a multi-agent pipeline with physical simulation feedback, enabling comprehensive attributes beyond geometry, appearance, and physically plausible articulation, such as collision-free motion, stability under gravity, and accurate mass and material properties. Furthermore, we construct a unified benchmark spanning four key aspects: spatial fidelity, physical plausibility, downstream task performance, and overall quality. The benchmark encompasses 100 reference assets from ArtVIP and LightWheel, 50 stability prompts, and 50 ABO objects with reference masses, with protocols evaluating various metrics. Through extensive evaluation of more than 10 representative models, Artisan achieves competitive spatial fidelity while attaining the lowest collision rates and highest stability rates among the evaluated methods. Together, our system and benchmark establish insights for advancing 3D generation towards physically plausible, functionally usable assets.",
    "affiliations": [
     "PVG, Nanyang Technological University",
@@ -190,7 +190,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.13941v1",
+   "html_url": "https://arxiv.org/html/2610.13941v2",
    "abstract": "Multimodal diffusion transformers (MMDiTs) allow the evolving image to update internal text representations through joint attention. These representations then guide subsequent image updates, raising a question: does this feedback help correct deviations from the prompt, or preserve them? We find that image-to-text (I2T) feedback can preserve the objects and attributes already represented in the evolving image, including errors. Transplanting I2T messages can rescue failures or disrupt successes. At matched intervention strengths, suppressing the influence of I2T feedback improves generation, whereas opposite controls degrade it. These findings motivate Semantic Feedback Guidance (SFG), which suppresses the influence of I2T feedback by guiding away from an auxiliary branch that strengthens this feedback and weakens text-to-image conditioning. The in-place variant, iSFG, directly suppresses I2T feedback and strengthens text-to-image conditioning, requiring no extra model evaluations. Temporal interventions motivate running the SFG branch during the first 20% of image sampling steps, requiring about 1.2× the base NFE without classifier-free guidance (CFG). Experiments across three image-generation backbones show gains in alignment and preference-model scores. On FLUX, adding SFG to CFG raises GenEval from 0.6661 to 0.7479; on SD3.5M, iSFG adds +1.33 HPSv2.1 over CFG at zero extra NFE. The control also transfers to text-to-video and image-to-video generation, improving VBench scores. Code is available at https://github.com/yyc1215lll-creator/SFG.",
    "affiliations": [
     "Stanford University",
@@ -259,7 +259,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.13935v1",
+   "html_url": "https://arxiv.org/html/2610.13935v2",
    "abstract": "Interpreting machine learning model predictions is a central challenge, particularly for black-box vision models. Concept-based attribution methods interpret models using human-understandable concepts. Existing concept-based methods can only interpret classification and regression models. They require access to model weights or large concept-annotated datasets, and most methods cannot provide image-level attribution. We propose Hide and Seek (HnS), a new method for concept-level attribution that does not require access to model weights or labeled concept datasets. HnS can interpret a wide range of vision models. Given a concept and image set, HnS retrieves concept-aligned images using a vision-language model, localizes the concept within each image, masks the localized region, and measures attribution from the change in the black-box model's output between the original and masked images. This enables faithful attribution by directly measuring the model's behavior and supporting local attributions. We validated HnS on CelebA and COCO-Stuff. Compared to existing methods, HnS showed better agreement with ground-truth attributions. We demonstrated the applicability of HnS on diverse tasks, including image captioning and satellite image segmentation, where no existing concept attribution method can be used. We provided our anonymous code in the supplementary material.",
    "affiliations": [
     "Arizona State University"
@@ -573,7 +573,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.13858v1",
+   "html_url": "https://arxiv.org/html/2610.13858v2",
    "abstract": "Modern vision and language models process ever longer token sequences, and reducing them is the main lever on downstream cost. Token compression, however, faces a fundamental trade-off: selecting tokens discards information, while existing merging methods preserve it only through pairwise token-to-token matching or MN token-to-output interactions. We introduce LapMerge, a differentiable merging operator that resolves this trade-off for ordered sequences: a learned mass distribution partitions the sequence into exactly N equal-mass segments under a Laplace-kernel density, and prefix/suffix scans aggregate each segment, so both the forward and the backward pass run in O(M+N) time. This combination - an exact output budget, end-to-end differentiability, and linear cost - is precisely what previous reducers trade off against one another. The budget can be changed without changing operator parameters, and the learned mass doubles as a token-level map of where the budget is allocated. Across vision and vision-language tasks, LapMerge matches or improves on strong token reducers while being up to two orders of magnitude faster at large sequence lengths; it is particularly effective when token order reflects spatial or temporal locality, and works both as a drop-in reduction module and as a trainable architectural component.",
    "affiliations": [],
    "author_affiliations": null,
@@ -3540,7 +3540,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.13239v1",
+   "html_url": "https://arxiv.org/html/2610.13239v2",
    "abstract": "Visual grounding combines image--language understanding with geometric prediction, yet autoregressive multimodal models often express a box as a coordinate sequence. Sequential decoding adds computation to the multimodal processing needed for localization. Adapting these representations to box geometry offers a route to direct prediction. We present Jag, which adapts a compact pretrained multimodal model for direct continuous box prediction. A lightweight regression head reads the last valid input-token state, conditioned on the image and referring expression, and predicts all four box coordinates together. Geometric supervision jointly adapts the language backbone, visual merger, and regression head, allowing localization losses to shape both the multimodal representations and the coordinate mapping. Inference retains image--language processing and returns the box in one forward pass, without coordinate generation or text parsing. Across benchmarks, Jag consistently improves grounding accuracy over its base model across the observed target sizes and expression groups. Component ablation show that jointly adapting the representations and head substantially improves accuracy over training the head alone. Against existing specialized grounding models, it achieves competitive accuracy with lower single-request latency and GPU memory use. These results show how supervision tailored to the geometric answer can specialize a compact pretrained multimodal model for accurate grounding and efficient direct prediction. Project page: https://xyzzzh.github.io/Jag/",
    "affiliations": [
     "University of Chinese Academy of Sciences, Beijing, China",
@@ -3865,7 +3865,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.13217v1",
+   "html_url": "https://arxiv.org/html/2610.13217v2",
    "abstract": "Video generation supports digital content creation, with applications in virtual avatars, AI-driven filmmaking, interactive game engines, and world models. State-of-the-art systems achieve controllability primarily through image-to-video (I2V) generation, in which an injected anchor image determines the identity, composition, and style of the resulting video. In modern pipelines, this anchor is synthesized by a text-to-image (T2I) generator. This raises a largely overlooked question: Are images obtained directly from the T2I model truly suitable for current video models? Our analysis shows that anchor aesthetic and quality scores are weakly correlated with downstream video quality. The structure-and-texture score is negatively correlated with I2V video quality in both the visual and motion dimensions. Fine-tuning the T2I model on an image reward accordingly yields anchors with visibly denser structural and character detail: they score higher on image metrics, yet lower the video reward on every I2V model we test and change downstream motion unpredictably. We therefore introduce Golden Anchor Learning (GAL), to our knowledge the first framework for learning golden anchors by optimizing a T2I generator with downstream video feedback. GAL evaluates candidate anchors through the videos they induce under a frozen I2V model and converts video rewards into image-level preferences for DPO fine-tuning of the T2I generator. On all four I2V models, GAL raises the VBench average by 2.97%--8.46% over the untuned generator. The rendered clips also score higher under VideoReward-Overall, and their extracted frames under HPSv3 and UniPercept. GAL yields consistent motion gains across all four I2V models, as measured by a 5.62%--38.24% increase in VBench dynamic degree. Although GAL is trained only on HunyuanVideo-1.5 renders, these gains extend to the other three I2V models.",
    "affiliations": [
     "The Hong Kong University of Science and Technology (Guangzhou)",
@@ -5608,7 +5608,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.12942v1",
+   "html_url": "https://arxiv.org/html/2610.12942v2",
    "abstract": "Vision-language models (VLMs) learn strong statistical regularities during training, which can make them fail to properly respond to visual evidence when input images violate those regularities. It is challenging to disambiguate these prior-induced errors from errors caused by the model missing the underlying visual capabilities. In this work, we use controlled visual in-context learning to encourage the model to focus on the visual evidence, and demonstrate that this alone is frequently sufficient to correct the errors -- suggesting that the models in fact do possess the relevant visual capabilities. Specifically, we show that across five vision-centric tasks, demonstrations yield large gains on prior-conflicting counterfactual examples (+27.2% for Qwen3-VL 235B and +15.1% for Qwen3-VL 32B) while leaving accuracy on prior-aligned examples nearly unchanged. These findings generalize across five VLM families with gains from +9.7% to +30.3%. We analyze visual representations and find that demonstrations indeed redirect attention toward grounding cues while reducing reliance on cues that support the learned prior. Finally, we find that in-context learning is limited when the underlying visual capability is weak or absent. Together, these results show that current VLMs possess visual grounding capabilities that standard evaluations may overlook, underscoring the need for controlled evaluation design in diagnosing and improving model capability.",
    "affiliations": [
     "Princeton University"
@@ -5669,7 +5669,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.12941v1",
+   "html_url": "https://arxiv.org/html/2610.12941v2",
    "abstract": "Image deblurring is a fundamental task in computer vision, yet existing methods mainly specialize in isolated scenarios. Consequently, the deblurring performance of these models drops significantly across scenarios with different cameras and image contents. This motivates the development of a unified motion deblurring framework that can handle diverse blur patterns. To this end, we construct a multi-source dataset and develop a data pruning and quality control pipeline. Then, to restore blur images with various motion blur kernels across different scenarios, we propose a unified motion deblurring framework via Fourier Convolution Learning. Existing deblurring networks usually rely on pixel-level mappings and overlook the convolutional nature of blur. Thus, the network mostly fits the image content itself rather than learning the convolution process, making it difficult to handle multi-source blur images. Instead of relying on spatial mapping, we perform blur-adaptive global filter learning in Fourier space, which avoids the limited spatial support of kernel estimation. Extensive experiments demonstrate that our unified model effectively handles motion blurs across diverse sources and scenes, achieving competitive performance across both in-domain and OOD benchmarks. Code will be released at http://github.com/DeepMed-Lab-ECNU/Single-Image-Deblur.",
    "affiliations": [
     "Shanghai Key Laboratory of Multidimensional Information Processing, East China Normal University, China",

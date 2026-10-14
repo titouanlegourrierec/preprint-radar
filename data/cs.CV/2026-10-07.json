@@ -1422,7 +1422,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.08518v1",
+   "html_url": "https://arxiv.org/html/2610.08518v2",
    "abstract": "Many modern learning approaches are still struggling with spatial reasoning tasks, i.e. they lack the ability to utilize geometric information of perceived entities and their spatial relation to each other to solve problems. We introduce a novel Adaptive Neural Cellular Automata (aNCA) architecture which uses deformable convolutions to dynamically adapt the perceptive field and iteratively reason over 2D spatial relations on grid-like data structures (e.g. images). Empirical results on public benchmarks show state of the art comprehensible results with high generalization abilities for solving image based puzzles like Sudoku or finding the shortest path in a maze.",
    "affiliations": [
     "Institute for Machine Learning and Analytics (IMLA), Offenburg University, Germany",
@@ -5851,11 +5851,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": null,
+   "comments": "Accepted by NeurIPS 2026; Project page: https://yaqicai.github.io/lao-x/",
    "journal_ref": null,
-   "venue": null,
+   "venue": "NeurIPS 2026",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.07326v1",
+   "html_url": "https://arxiv.org/html/2610.07326v2",
    "abstract": "Universal object localization in X-ray security inspection is critical for automated threat detection in safety-critical venues. However, unlike everyday RGB images that dominate web-scale visual data, X-ray scans exhibit distinct color patterns, ambiguous boundaries, and compositional structures caused by volumetric superposition. These gaps hinder the direct zero-shot transfer of dense perception foundation models trained on web-scale RGB data. Moreover, annotated X-ray data is scarce and requires expert labeling, limiting both the training of generalizable X-ray native models and the adaptation of RGB foundation models for X-ray data via fine-tuning. Given these challenges, the bright promise of highly generalizable perception models, enabled by data scaling laws in the RGB domain, remains largely out of reach for X-ray inspection. To this end, we introduce LAO-X, a self-supervised adaptation framework that Locates Any Object in X-ray scans using diverse synthesized image--annotation pairs with granularity-aware supervision. LAO-X first designs a saliency-guided X-ray object mining module to separate diverse object instances, which are then used for physics-guided synthesis in the absorbance domain. LAO-X further incorporates an occlusion-controlled curriculum strategy to fine-tune a Segment Anything Model 2 (SAM2) localizer, progressively adapting it to X-ray scans with increasing object counts and overlap levels. Experiments on six X-ray benchmarks show that LAO-X substantially improves category-agnostic localization, achieving 2% to 23% mAP gains over SAM2 and X-ray specific baselines in heavily cluttered scenarios, entirely without human-annotated labels.",
    "affiliations": [
     "University of Trento",
@@ -8057,7 +8057,6 @@
     "Zheng Gao",
     "Xiaoyu Li",
     "Zhicheng Bao",
-    "Yang Song",
     "Jiaojiao Jiang"
    ],
    "primary_subject": "Cryptography and Security (cs.CR)",
@@ -8069,7 +8068,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.CR",
-   "html_url": "https://arxiv.org/html/2610.08137v1",
+   "html_url": "https://arxiv.org/html/2610.08137v2",
    "abstract": "AI systems create images and videos with image/video generation models or by writing code and graphics descriptions that are then rendered. These routes can produce similar visible artifacts but expose different representations, intervention points, and provenance evidence. We develop a production-centered framework that compares detection and watermarking across both routes. An explicit verification specification distinguishes passive inference, message recovery, and authenticated provenance. We organize image, video, source-code, and rendering-aware watermarks by production stage. We examine the different requirements of generated images and video, plots and SVG, programmable video, and agent-composed workflows. Documented Claude, OpenAI, and rendering-tool interfaces connect the framework to concrete systems. We pose ten scoped research questions on identifiability, observability, fair comparison across stages, recoverable payload, reconstruction, synchronization, composition, hybrid local contribution, and private production-event authentication. The result is a conceptual research agenda grounded in published methods, inspected interfaces, and elementary boundary examples. It reports no experiments and claims no new theorems; its appendix results are elementary calculations, and documentation and source inspection establish interfaces, not empirical robustness.",
    "affiliations": [],
    "author_affiliations": null,
@@ -8078,7 +8077,7 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-14"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.08137",
