@@ -202,6 +202,21 @@ test("the Content-Security-Policy refuses nothing the site does", async ({ page 
   expect(errors).toEqual([]);
 });
 
+test("a year the archive does not hold names the year shown in the link, in place", async ({
+  page,
+}) => {
+  await page.goto("./");
+  await expect(page.getByText("4 of 4 cs.CV papers")).toBeVisible();
+  const entries = await page.evaluate("history.length");
+  await page.goto("./?view=cited&year=2005&paper=1706.00001");
+  // The archive holds 2017 alone: the link says so, keeping the paper (SRCH-20).
+  await expect(page).toHaveURL(/\?view=cited&paper=1706\.00001&year=2017$/);
+  await expect(page.locator("article.paper--target")).toContainText("Attention for Looms");
+  expect(await page.evaluate("history.length")).toBe(Number(entries) + 1);
+  await page.goBack();
+  await expect(page.getByText("4 of 4 cs.CV papers")).toBeVisible();
+});
+
 test("the graph draws on a canvas", async ({ page }) => {
   const errors = watchErrors(page);
   await page.goto("./?view=graph");

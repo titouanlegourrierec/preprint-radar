@@ -149,7 +149,7 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   | `sort` | `relevance`, `newest`, `citations`, `rising` | `relevance` | the lists |
   | `view` | `papers`, `cited`, `graph`, `rankings`, `reading-list`, `about` | `papers` | every view |
   | `paper` | An arXiv id: the paper opened (a list) or selected (the graph) | none | the lists, the graph |
-  | `year` | Archive years: `2017`, `2019-2021`, `all`; or `last-12-months` (the latest year until the archive keeps them) | the latest year in Highly cited, the recent days elsewhere | Highly cited, the graph, Rankings |
+  | `year` | Archive years: `2017`, `2019-2021`, `all`; or `last-12-months` (the latest year until the archive keeps them). Years the archive does not hold show others, which the URL then names in place (`correct`, SRCH-20) | the latest year in Highly cited, the recent days elsewhere | Highly cited, the graph, Rankings |
   | `focus` | A graph node id, `institution:mit`: its papers alone | none | the graph (other views drop it) |
   | `by`, `at` | An author or an institution, as clicked: that name only | none | the lists, Rankings |
   | `author`, `aff` | Typed author or affiliation text: word starts (old links' `by` and `at`) | none | the same |

@@ -400,7 +400,7 @@ one up when touching the same code.
 | REL-7 | The listing accepts entries without authors or HTML link silently: fail above 10% and 50% | P3 | todo |
 | SRCH-13 | Rankings' kind and metric in the URL (`by=` is taken), a caption and row headers | P3 | todo |
 | SRCH-14 | "Last 5 days" counted announcement days, a calendar week: the presets are now the latest day, the last week and the last month, in calendar days to the latest announcement day (a week holds five, fewer after a holiday), and the calendar picks any other period; former links open the preset that holds as many days (asked by the maintainer on 2026-10-15) | P3 | done |
-| SRCH-20 | A year without an archive file shows the latest one while the URL keeps the year asked (the count names the year shown): rewrite the URL, or say so | P3 | todo |
+| SRCH-20 | A year without an archive file shows the latest one while the URL keeps the year asked (the count names the year shown): rewrite the URL, or say so. The URL is rewritten to the years shown, in place (`useUrlState().correct`: no history entry, the shared paper kept), so that a link opens what was seen; ranges past the archive's years are clamped the same way (2026-10-15) | P3 | done |
 | TEST-11 | The CLI tests of `archive` stub it, and `citations` runs only its rejected-key case: one real run of each over fixtures | P3 | todo |
 | TEST-12 | `graph-layout`'s three `Math.random` calls (d3-force is seeded already): inject the random source | P3 | todo |
 | UX-14 | The calendar: a roving tabindex with arrow keys, the range preview on focus, `aria-controls` only when open, a label for "Period" | P3 | todo |

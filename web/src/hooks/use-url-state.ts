@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "preact/hooks";
+import { useCallback, useEffect, useRef, useState } from "preact/hooks";
 import type { SearchFilters } from "../search";
 import { isNavigation, isTypedChange, readState, type ViewState, writeState } from "../url-state";
 import { useDebounced } from "./use-debounced";
@@ -30,14 +30,19 @@ export function useUrlState() {
     return () => clearTimeout(timer);
   }, [state.filters, typing]);
 
+  // A correction of the URL to what is shown (`correct`), which replaces its entry.
+  const correcting = useRef(false);
+
   // A step of navigation adds a history entry, so that Back returns to the previous view;
-  // typing and sorting replace the current one.
+  // typing and sorting replace the current one, and so does a correction.
   useEffect(() => {
     const applied = { ...state, query, filters };
     const search = writeState(applied);
+    const corrected = correcting.current;
+    correcting.current = false;
     if (search === window.location.search) return;
     const url = `${window.location.pathname}${search}`;
-    if (isNavigation(readState(window.location.search), applied)) {
+    if (!corrected && isNavigation(readState(window.location.search), applied)) {
       window.history.pushState(null, "", url);
     } else {
       window.history.replaceState(null, "", url);
@@ -67,5 +72,10 @@ export function useUrlState() {
     [],
   );
   const setFilters = useCallback((next: SearchFilters) => update({ filters: next }), [update]);
-  return { state, query, filters, update, setFilters };
+  // The URL made to say what is shown, in place: no step of navigation, the paper kept.
+  const correct = useCallback((patch: Partial<ViewState>) => {
+    correcting.current = true;
+    setState((current) => ({ ...current, ...patch }));
+  }, []);
+  return { state, query, filters, update, setFilters, correct };
 }

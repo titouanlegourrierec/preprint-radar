@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "preact/hooks";
-import { ALL_YEARS, LAST_12_MONTHS, publishedIn } from "./archive-years";
+import { ALL_YEARS, formatYears, LAST_12_MONTHS, publishedIn } from "./archive-years";
 import { About } from "./components/About";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { LazyGraphView } from "./components/LazyGraphView";
@@ -65,7 +65,7 @@ const VIEW_TITLES: Record<ViewState["view"], string> = {
 };
 const SUGGESTION_SIZE = 300;
 export function App() {
-  const { state, query, filters, update, setFilters } = useUrlState();
+  const { state, query, filters, update, setFilters, correct } = useUrlState();
   const cited = state.view === "cited";
   const rankings = state.view === "rankings";
   const archived = showsArchive(state);
@@ -85,6 +85,13 @@ export function App() {
     retry,
     generatedAt,
   } = usePapers(state.category, state.period, archived ? { years: state.year } : null);
+  // Years the archive does not hold (`?year=2005`) show others, which the URL then names,
+  // in place, so that a shared link opens what was seen (SRCH-20).
+  const shownYearsKey = archiveRange === null ? null : formatYears(archiveRange);
+  useEffect(() => {
+    if (!archived || state.year === null || archiveRange === null) return;
+    if (formatYears(state.year) !== shownYearsKey) correct({ year: archiveRange });
+  }, [archived, state.year, shownYearsKey]);
   const readingList = useReadingList(load.status === "ready" ? load.index : null);
   const shownPapers = useMemo(
     () => [...(load.status === "ready" ? load.index.all() : []), ...readingList.papers],
