@@ -891,7 +891,6 @@ def _run_update(args: argparse.Namespace) -> int:
         logger.warning("No contact given; consider setting %s so arXiv can reach you.", CONTACT_ENV_VAR)
 
     reading = _html_reading(args)
-    reports: list[UpdateReport] = []
     # The index is written even after a failure, so that the days saved meanwhile show.
     try:
         with (
@@ -901,14 +900,15 @@ def _run_update(args: argparse.Namespace) -> int:
             # The contact is for arXiv only: other services get the bare User-Agent.
             HttpClient(user_agent=DEFAULT_USER_AGENT, min_interval=ROR_DELAY_SECONDS) as ror_client,
         ):
-            for category in categories:
+
+            def update(category: str) -> UpdateReport:
                 day = collect.today()
                 if since := catch_up_since(store, category, day):
                     # Days the listing no longer holds, or with papers it dropped (CI-7).
                     line = f"{category}: reading every day since {since.isoformat()} from catchup pages"
                     logger.warning("%s", line)
                     github_annotation("warning", "Catching up", line)
-                    report = backfill_category(
+                    return backfill_category(
                         category,
                         [since + timedelta(days=offset) for offset in range((day - since).days + 1)],
                         store=store,
@@ -917,21 +917,19 @@ def _run_update(args: argparse.Namespace) -> int:
                         max_ror_lookups=args.max_ror,
                         html=reading,
                     )
-                else:
-                    report = update_category(
-                        category,
-                        store=store,
-                        site_client=site_client,
-                        api_client=api_client,
-                        ror_client=ror_client if args.max_ror else None,
-                        max_ror_lookups=args.max_ror,
-                        html=reading,
-                    )
-                _publish_update(report)
-                reports.append(report)
+                return update_category(
+                    category,
+                    store=store,
+                    site_client=site_client,
+                    api_client=api_client,
+                    ror_client=ror_client if args.max_ror else None,
+                    max_ror_lookups=args.max_ror,
+                    html=reading,
+                )
+
+            return _per_category(args.command, categories, update)
     finally:
         console.print(f"Index written to {store.write_index()}")
-    return _exit_code(reports)
 
 
 def _run_backfill(args: argparse.Namespace) -> int:
@@ -944,7 +942,6 @@ def _run_backfill(args: argparse.Namespace) -> int:
 
     user_agent = build_user_agent(args.contact)
     reading = _html_reading(args)
-    reports: list[UpdateReport] = []
     # The index is written even after a failure, so that the days saved meanwhile show.
     try:
         with (
@@ -953,8 +950,10 @@ def _run_backfill(args: argparse.Namespace) -> int:
             # The contact is for arXiv only: other services get the bare User-Agent.
             HttpClient(user_agent=DEFAULT_USER_AGENT, min_interval=ROR_DELAY_SECONDS) as ror_client,
         ):
-            for category in categories:
-                report = backfill_category(
+            return _per_category(
+                args.command,
+                categories,
+                lambda category: backfill_category(
                     category,
                     days,
                     store=store,
@@ -962,12 +961,31 @@ def _run_backfill(args: argparse.Namespace) -> int:
                     ror_client=ror_client if args.max_ror else None,
                     max_ror_lookups=args.max_ror,
                     html=reading,
-                )
-                _publish_update(report)
-                reports.append(report)
+                ),
+            )
     finally:
         console.print(f"Index written to {store.write_index()}")
-    return _exit_code(reports)
+
+
+def _per_category(command: str, categories: Sequence[str], run: Callable[[str], UpdateReport]) -> int:
+    """Run ``run`` on each category and publish its report, one failing leaving the others (REL-5).
+
+    Returns:
+        The exit code: 1 when a category failed, or a report says so (:func:`_exit_code`).
+    """
+    reports: list[UpdateReport] = []
+    failed = False
+    for category in categories:
+        try:
+            report = run(category)
+        except PreprintRadarError as exc:
+            logger.error("%s: %s", category, exc)  # noqa: TRY400 - the message is enough
+            github_annotation("error", f"preprint-radar {command} failed", str(exc))
+            failed = True
+            continue
+        _publish_update(report)
+        reports.append(report)
+    return max(_exit_code(reports), int(failed))
 
 
 def _publish_update(report: UpdateReport) -> None:
@@ -990,7 +1008,6 @@ def _run_reextract(args: argparse.Namespace) -> int:
     store = PaperStore(args.data_dir)
     select = _reextract_selection(args)
     reading = _html_reading(args)
-    reports: list[UpdateReport] = []
     user_agent = build_user_agent(args.contact)
     try:
         with (
@@ -999,8 +1016,10 @@ def _run_reextract(args: argparse.Namespace) -> int:
             # The contact is for arXiv only: other services get the bare User-Agent.
             HttpClient(user_agent=DEFAULT_USER_AGENT, min_interval=ROR_DELAY_SECONDS) as ror_client,
         ):
-            for category in categories:
-                report = reextract_category(
+            return _per_category(
+                args.command,
+                categories,
+                lambda category: reextract_category(
                     category,
                     select,
                     store=store,
@@ -1008,12 +1027,10 @@ def _run_reextract(args: argparse.Namespace) -> int:
                     ror_client=ror_client if args.max_ror else None,
                     max_ror_lookups=args.max_ror,
                     html=reading,
-                )
-                _publish_update(report)
-                reports.append(report)
+                ),
+            )
     finally:
         console.print(f"Index written to {store.write_index()}")
-    return _exit_code(reports)
 
 
 def _reextract_selection(args: argparse.Namespace) -> Callable[[Paper], bool]:

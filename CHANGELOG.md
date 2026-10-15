@@ -61,6 +61,9 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   HTML links (more than half), fails the run instead of storing papers without them: the
   arXiv layout changed (REL-7).
 
+- With several categories, one that fails no longer stops the others: `update`, `backfill`
+  and `reextract` run the next ones and exit 1 (REL-5).
+
 ### Security
 
 - The site has a Content-Security-Policy: its own scripts, styles, data and graph worker

@@ -218,6 +218,36 @@ def test_update_keeps_a_category_read_before_another_fails(
     assert "arxiv.org is down: https://arxiv.org/list/cs.RO/recent" in caplog.text
 
 
+@pytest.mark.usefixtures("offline")
+def test_a_failing_category_leaves_the_next_to_run(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, listing_html: str, capsys: pytest.CaptureFixture[str]
+) -> None:
+    def get_text(_: HttpClient, url: str, *, params: Mapping[str, str | int] | None = None) -> str:
+        del params
+        if url.endswith("/list/cs.CV/recent"):
+            return listing_html
+        if "/list/" in url:
+            raise FetchError(f"arxiv.org is down: {url}")
+        raise NotFoundError(url)
+
+    monkeypatch.setattr(HttpClient, "get_text", get_text)
+    monkeypatch.setenv("GITHUB_ACTIONS", "true")
+    data_dir = tmp_path / "data"
+
+    args = ["--data-dir", str(data_dir), "--crawl-delay", "0", "--category", "cs.RO", "--category", "cs.CV"]
+    assert main(["update", *args]) == 1
+
+    # cs.RO failed first; cs.CV ran all the same (REL-5).
+    index = json.loads((data_dir / "index.json").read_text(encoding="utf-8"))
+    assert [day["count"] for day in index["categories"]["cs.CV"]] == [5, 2]
+    out = capsys.readouterr().out
+    assert (
+        "::error title=preprint-radar update failed::arxiv.org is down: https://arxiv.org/list/cs.RO/recent"
+        in out
+    )
+    assert "cs.CV: 7 listed, 7 new" in out
+
+
 def test_backfill_goes_on_past_a_failing_day_and_exits_1(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
