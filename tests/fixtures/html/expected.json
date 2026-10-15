@@ -531,7 +531,8 @@
     ],
     "affiliations": [
       "Faculty of Library, Information and Media Science, University of Tsukuba",
-      "Pixie Dust Technologies, Inc"
+      "Pixie Dust Technologies, Inc",
+      "R&D Center for Digital Nature, University of Tsukuba"
     ],
     "placed": [
       [
@@ -860,8 +861,91 @@
       "Hui Xiong",
       "Davide Scaramuzza"
     ],
-    "affiliations": [],
-    "placed": null,
+    "affiliations": [
+      "Hong Kong University of Science and Technology (Guangzhou)",
+      "National University of Singapore",
+      "Xidian University",
+      "Tsinghua University",
+      "Huazhong University of Science and Technology",
+      "Peking University",
+      "The University of Tokyo",
+      "Robotics and Perception Group"
+    ],
+    "placed": [
+      [
+        "Yunfan Lu",
+        [
+          "Hong Kong University of Science and Technology (Guangzhou)"
+        ]
+      ],
+      [
+        "Mingchao Xu",
+        [
+          "Hong Kong University of Science and Technology (Guangzhou)"
+        ]
+      ],
+      [
+        "Hanyu Zhou",
+        [
+          "National University of Singapore"
+        ]
+      ],
+      [
+        "Shaoyu Liu",
+        [
+          "Xidian University",
+          "Tsinghua University"
+        ]
+      ],
+      [
+        "Haoyue Liu",
+        [
+          "Huazhong University of Science and Technology"
+        ]
+      ],
+      [
+        "Peiqi Duan",
+        [
+          "Peking University"
+        ]
+      ],
+      [
+        "Shihan Peng",
+        [
+          "Huazhong University of Science and Technology"
+        ]
+      ],
+      [
+        "Yinqiang Zheng",
+        [
+          "The University of Tokyo"
+        ]
+      ],
+      [
+        "Boxin Shi",
+        [
+          "Peking University"
+        ]
+      ],
+      [
+        "Gim Hee Lee",
+        [
+          "National University of Singapore"
+        ]
+      ],
+      [
+        "Hui Xiong",
+        [
+          "Hong Kong University of Science and Technology (Guangzhou)"
+        ]
+      ],
+      [
+        "Davide Scaramuzza",
+        [
+          "Robotics and Perception Group"
+        ]
+      ]
+    ],
     "abstract": null
   },
   "2609.29350": {
@@ -2012,5 +2096,360 @@
     ],
     "placed": null,
     "abstract": "The increasing capabilities of large generative models and their ever more widespread deployment have raised concerns about their reliability, safety, and potential misuse. To address these issues, recent works have proposed to control model generation by steering model activations in order to effectively induce or prevent the emergence of concepts or behaviors in the generated output. In this paper we introduce Activation Transport (AcT), a general framework to steer activations guided by optimal transport theory that generalizes many previous activation-steering works. AcT is modality-agnostic and provides fine-grained control over the model behavior with negligible computational overhead, while minimally impacting model abilities. We experimentally show the effectiveness and versatility of our approach by addressing key challenges in large language models (LLMs) and text-to-image diffusion models (T2Is). For LLMs, we show that AcT can effectively mitigate toxicity, induce arbitrary concepts, and increase their truthfulness. In T2Is, we show how AcT enables fine-grained style control and concept negation."
+  },
+  "2610.12978": {
+    "authors": [
+      "Zihao Pan",
+      "Mengting Chen",
+      "Cheng Shi",
+      "Taihang Hu",
+      "Zhengrong Yue",
+      "Zikang Wang",
+      "Yuan Wang",
+      "Wei Li",
+      "Sibei Yang"
+    ],
+    "affiliations": [
+      "Sun Yat-sen University",
+      "Alibaba Group",
+      "The University of Hong Kong",
+      "Shanghai Jiao Tong University"
+    ],
+    "placed": [
+      [
+        "Zihao Pan",
+        [
+          "Sun Yat-sen University",
+          "Alibaba Group",
+          "The University of Hong Kong"
+        ]
+      ],
+      [
+        "Mengting Chen",
+        [
+          "Alibaba Group"
+        ]
+      ],
+      [
+        "Cheng Shi",
+        [
+          "The University of Hong Kong"
+        ]
+      ],
+      [
+        "Taihang Hu",
+        [
+          "Alibaba Group"
+        ]
+      ],
+      [
+        "Zhengrong Yue",
+        [
+          "Shanghai Jiao Tong University"
+        ]
+      ],
+      [
+        "Zikang Wang",
+        null
+      ],
+      [
+        "Yuan Wang",
+        [
+          "Alibaba Group"
+        ]
+      ],
+      [
+        "Wei Li",
+        [
+          "Alibaba Group"
+        ]
+      ],
+      [
+        "Sibei Yang",
+        [
+          "Sun Yat-sen University"
+        ]
+      ]
+    ],
+    "abstract": "Visual representations are largely developed for understanding, yet what makes them useful for generation remains unclear. We study this question in pixel diffusion transformers and uncover two key insights. First, better representation quality does not necessarily translate into greater generative utility, as externally aligned semantics can be progressively lost during pixel synthesis. Second, architectural separation with specialized pixel decoders mainly redistributes semantic and spatial modeling, without necessarily yielding representations better suited to generation. These insights suggest that a useful generative representation must be both properly formed and actively exploited. Motivated by these insights, we introduce Representation Guidance (RG), which directly forms and exploits internal representations while retaining a plain Transformer architecture. A low-dimensional bottleneck forces generation-relevant information into a compact representation, which is then explicitly used to guide decoder generation by modifying the flow-matching target according to its induced prediction offset. RG learns clearer semantic and spatial structure while scaling efficiently in both parameters and computation. On ImageNet 256×256, RG-L/16 with only 459M parameters outperforms substantially larger pixel diffusion transformers, while RG-XL/16 achieves an FID of 1.55. RG further reaches an FID of 1.74 at 512×512 and extends to text-to-image generation, achieving 0.89 on GenEval and 87.1 on DPG-Bench."
+  },
+  "2610.15403": {
+    "authors": [
+      "Hao Li",
+      "Wenping Yin",
+      "Fabian Deuser",
+      "Jia Jia",
+      "Ziqi Liu",
+      "Levente Juhász",
+      "Fan Zhang",
+      "Filip Biljecki"
+    ],
+    "affiliations": [
+      "Department of Geography, National University of Singapore, Singapore",
+      "College of Geodesy and Geomatics, Shandong University of Science and Technology, China",
+      "University of the Bundeswehr Munich, Germany",
+      "State Key Laboratory of Information Engineering in Surveying, Mapping and Remote Sensing, Wuhan University, China",
+      "School of Forest, Fisheries and Geomatics Sciences, University of Florida, Gainesville, FL, USA",
+      "Fort Lauderdale Research and Education Center, University of Florida, Davie, FL, USA",
+      "Institute of Remote Sensing and GIS, Peking University, China",
+      "Department of Architecture, National University of Singapore, Singapore",
+      "Department of Real Estate, National University of Singapore, Singapore"
+    ],
+    "placed": [
+      [
+        "Hao Li",
+        [
+          "Department of Geography, National University of Singapore, Singapore"
+        ]
+      ],
+      [
+        "Wenping Yin",
+        [
+          "College of Geodesy and Geomatics, Shandong University of Science and Technology, China"
+        ]
+      ],
+      [
+        "Fabian Deuser",
+        [
+          "University of the Bundeswehr Munich, Germany"
+        ]
+      ],
+      [
+        "Jia Jia",
+        [
+          "Department of Geography, National University of Singapore, Singapore"
+        ]
+      ],
+      [
+        "Ziqi Liu",
+        [
+          "State Key Laboratory of Information Engineering in Surveying, Mapping and Remote Sensing, Wuhan University, China"
+        ]
+      ],
+      [
+        "Levente Juhász",
+        [
+          "School of Forest, Fisheries and Geomatics Sciences, University of Florida, Gainesville, FL, USA",
+          "Fort Lauderdale Research and Education Center, University of Florida, Davie, FL, USA"
+        ]
+      ],
+      [
+        "Fan Zhang",
+        [
+          "Institute of Remote Sensing and GIS, Peking University, China"
+        ]
+      ],
+      [
+        "Filip Biljecki",
+        [
+          "Department of Architecture, National University of Singapore, Singapore",
+          "Department of Real Estate, National University of Singapore, Singapore"
+        ]
+      ]
+    ],
+    "abstract": "Crowdsourced disaster imagery provides timely, ground-level observations when conventional disaster mapping is delayed or incomplete, yet its geographic value depends on where observations are produced, how they are interpreted, and whether they can be reliably located as actionable Geospatial Intelligence (GEOINT). Using more than a decade of PhotoMappers, a crowdsourced disaster-mapping initiative, this study examines the changing geography of disaster information and asks how emerging GeoAI models compare with human geographic interpretation. We combine longitudinal spatial analysis with cross-view geolocalization using street view imagery (SVI) and remote sensing imagery (RSI), and evaluate vision-language models (VLMs) reasoning through 30 indicators spanning geographic cues and reasoning evidence. The results reveal a geographically and temporally uneven archive shaped by changing disaster types, Community Lifelines, and operational priorities. Integrating VGI, SVI, and RSI with Sinkhorn re-ranking achieves 40.90% R@1, 61.10% R@5, and 69.45% R@10, while yearly R@1 varies markedly from 25.00% to 65.07%. Geographic reasoning is similarly uneven: Qwen3.6-27B achieves an overall agreement of 67% compared with 51% for InternVL3-8B, with both models showing greater difficulty with localized and place-specific evidence than broad spatial configurations. These findings show that geolocalization and geographic reasoning are related but distinct capabilities, shifting attention from whether AI can autonomously geolocate disaster imagery to when, where, and through what geographic evidence it can do so reliably. We argue that the value of GeoAI lies less in replacing volunteered geographic interpretation than in complementing it, scaling candidate retrieval while retaining human judgment for ambiguous and consequential cases. This provides a pathway toward more human-centered and responsible GeoAI for disaster mapping. All data and code are openly available at https://github.com/bobleegogogo/PhotoMappers-VLM."
+  },
+  "2610.17412": {
+    "authors": [
+      "Xiaoya Tang",
+      "Shilong Liu",
+      "Daniel Smolyak",
+      "Xiwen Li",
+      "Quynh Nguyen",
+      "Tolga Tasdizen"
+    ],
+    "affiliations": [
+      "Scientific Computing and Imaging Institute, University of Utah",
+      "Princeton AI Lab, Princeton University",
+      "National Institutes of Health"
+    ],
+    "placed": [
+      [
+        "Xiaoya Tang",
+        [
+          "Scientific Computing and Imaging Institute, University of Utah"
+        ]
+      ],
+      [
+        "Shilong Liu",
+        [
+          "Princeton AI Lab, Princeton University"
+        ]
+      ],
+      [
+        "Daniel Smolyak",
+        [
+          "National Institutes of Health"
+        ]
+      ],
+      [
+        "Xiwen Li",
+        [
+          "Scientific Computing and Imaging Institute, University of Utah"
+        ]
+      ],
+      [
+        "Quynh Nguyen",
+        [
+          "National Institutes of Health"
+        ]
+      ],
+      [
+        "Tolga Tasdizen",
+        [
+          "Scientific Computing and Imaging Institute, University of Utah"
+        ]
+      ]
+    ],
+    "abstract": "Vision Transformers incur high computational costs when processing long visual token sequences. Existing reduction methods typically rank tokens independently and discard those deemed unimportant or redundant. We propose a Reconstruction-guided framework for visual token condensation(ReConV), which that summarizes the complete visual sequence with a compact Summary Bank (SMB) and retains tokens whose information is not adequately captured by the SMB, as indicated by their reconstruction residuals. At each compression layer, a lightweight position-conditioned decoder reconstructs the current tokens, leaving shared information compressed in the SMB while explicitly preserving poorly reconstructed details. Experiments on image classification and multimodal understanding demonstrate favorable performance–efficiency trade-offs: ReConV surpasses the uncompressed baseline with 48% fewer GMACs on ImageNet and enables reusable image-level representations for efficient multi-turn inference. Code is available at TokenDrop."
+  },
+  "2610.17605": {
+    "authors": [
+      "Mingze Xia",
+      "Yuxiao Li",
+      "Baixi Sun",
+      "Wenbo Li",
+      "Pu Jiao",
+      "Sheng Di",
+      "Franck Cappello",
+      "Hanqi Guo",
+      "Xin Liang"
+    ],
+    "affiliations": [
+      "Oregon State University",
+      "The Ohio State University",
+      "Argonne National Laboratory",
+      "The University of Texas Rio Grande Valley"
+    ],
+    "placed": [
+      [
+        "Mingze Xia",
+        [
+          "Oregon State University"
+        ]
+      ],
+      [
+        "Yuxiao Li",
+        [
+          "The Ohio State University"
+        ]
+      ],
+      [
+        "Baixi Sun",
+        [
+          "Argonne National Laboratory"
+        ]
+      ],
+      [
+        "Wenbo Li",
+        [
+          "Oregon State University"
+        ]
+      ],
+      [
+        "Pu Jiao",
+        [
+          "The University of Texas Rio Grande Valley"
+        ]
+      ],
+      [
+        "Sheng Di",
+        [
+          "Argonne National Laboratory"
+        ]
+      ],
+      [
+        "Franck Cappello",
+        [
+          "Argonne National Laboratory"
+        ]
+      ],
+      [
+        "Hanqi Guo",
+        [
+          "The Ohio State University"
+        ]
+      ],
+      [
+        "Xin Liang",
+        [
+          "Oregon State University"
+        ]
+      ]
+    ],
+    "abstract": "Existing 3D Gaussian Splatting (3DGS) codecs report reconstruction quality after compression, and give users little control over the distortion of individual primitives. We present PLEDGE, a training-free, progressive, error-bounded codec that translates four user-declared tolerances into per-primitive quantization bounds: screen-space position, footprint deformation due to rotation and scale, view-dependent color, and opacity. The bounds apply throughout a declared camera domain, including previously unseen viewpoints. Position and opacity are bounded directly; footprint deformation is bounded under the rasterizer’s affine projection model, and color is bounded over all viewing directions. PLEDGE organizes quantized residuals into a progressive bitstream with explicit error bounds for every valid prefix. Experiments across thirteen scenes verify all declared per-mechanism bounds and demonstrate competitive rate–distortion performance. The four tolerances incur substantially different rate costs, so users can spend rate where their application needs it."
+  },
+  "2610.18323": {
+    "authors": [
+      "Pan Yin. Shuai Yang",
+      "Yuanhao Liu",
+      "Datao Tang",
+      "Jialin Li",
+      "Hao Wang",
+      "Pei Liu",
+      "Kaiyu Li",
+      "Cong Zhao",
+      "Xiangyong Cao"
+    ],
+    "affiliations": [
+      "Xi’an Jiaotong University"
+    ],
+    "placed": [
+      [
+        "Pan Yin. Shuai Yang",
+        [
+          "Xi’an Jiaotong University"
+        ]
+      ],
+      [
+        "Yuanhao Liu",
+        [
+          "Xi’an Jiaotong University"
+        ]
+      ],
+      [
+        "Datao Tang",
+        [
+          "Xi’an Jiaotong University"
+        ]
+      ],
+      [
+        "Jialin Li",
+        [
+          "Xi’an Jiaotong University"
+        ]
+      ],
+      [
+        "Hao Wang",
+        [
+          "Xi’an Jiaotong University"
+        ]
+      ],
+      [
+        "Pei Liu",
+        [
+          "Xi’an Jiaotong University"
+        ]
+      ],
+      [
+        "Kaiyu Li",
+        [
+          "Xi’an Jiaotong University"
+        ]
+      ],
+      [
+        "Cong Zhao",
+        [
+          "Xi’an Jiaotong University"
+        ]
+      ],
+      [
+        "Xiangyong Cao",
+        [
+          "Xi’an Jiaotong University"
+        ]
+      ]
+    ],
+    "abstract": "Practical remote sensing applications often require both understanding and generation capabilities for the same geographic scene. However, most existing methods address either understanding or generation in isolation, while existing unified remote sensing models’ generative ability is limited to text-to-image. To bridge this gap, we propose Omni-RS, a unified framework supporting four remote sensing understanding tasks and five generation tasks. Specifically, we introduce the “Scene-Guided Two-Stage Training” strategy, which first adapts a multimodal large language model to remote sensing understanding and then uses its hidden states to guide a diffusion transformer for image generation. To enable joint learning across diverse generation tasks, we construct UniGen, a unified multi-task generation dataset, by organizing heterogeneous remote sensing data into a unified format. Furthermore, we introduce “Detailed Visual Conditioning”, which uses visual conditions encoded by a VAE to guide the generation process, thereby supporting additional generation tasks that require reference images. Extensive experiments demonstrate that Omni-RS performs exceptionally well in understanding tasks and has achieved outstanding results in a variety of generative tasks."
   }
 }

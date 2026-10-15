@@ -1,0 +1,57 @@
+<html><body><article class="ltx_document" data-front-matter="2">
+<h1 class="ltx_title ltx_font_bold ltx_title_document" style="font-size:120%;">PLEDGE: Progressive Lossy Error-Bounded Compression
+<br class="ltx_break"/>of 3D Gaussian Splatting</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Mingze Xia <sup class="ltx_sup" id="id1">*</sup>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Yuxiao Li <sup class="ltx_sup" id="id2">†</sup>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Baixi Sun <sup class="ltx_sup" id="id3">‡</sup>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Wenbo Li <sup class="ltx_sup" id="id4">*</sup>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Pu Jiao <sup class="ltx_sup" id="id5">§</sup>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">
+<br class="ltx_break"/>Sheng Di <sup class="ltx_sup" id="id6">‡</sup>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Franck Cappello <sup class="ltx_sup" id="id7">‡</sup>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Hanqi Guo <sup class="ltx_sup" id="id8">†</sup>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Xin Liang <sup class="ltx_sup" id="id9">*</sup>
+<br class="ltx_break" style="--ltx-break-space:3.0pt;"/>
+<sup class="ltx_sup" id="id10"><span class="ltx_text" id="id10.1" style="font-size:80%;">*</span></sup><span class="ltx_text" id="id11" style="font-size:80%;">Oregon State University <sup class="ltx_sup" id="id11.1">†</sup>The Ohio State University <sup class="ltx_sup" id="id11.2">‡</sup>Argonne National Laboratory
+<br class="ltx_break"/><sup class="ltx_sup" id="id11.3">§</sup>The University of Texas Rio Grande Valley
+<br class="ltx_break" style="--ltx-break-space:1.5pt;"/></span>
+<span class="ltx_text ltx_font_typewriter" id="id12" style="font-size:80%;">author@example.org<span class="ltx_text ltx_font_serif" id="id12.1"> </span>author@example.org
+<br class="ltx_break"/>author@example.org<span class="ltx_text ltx_font_serif" id="id12.2"> </span>author@example.org</span>
+</span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Existing 3D Gaussian Splatting (3DGS) codecs report reconstruction
+quality after compression, and give users little control over the
+distortion of individual primitives. We present PLEDGE, a
+training-free, progressive, error-bounded codec that translates four
+user-declared tolerances into per-primitive quantization bounds:
+screen-space position, footprint deformation due to rotation and
+scale, view-dependent color, and opacity. The bounds apply throughout
+a declared camera domain, including previously unseen viewpoints.
+Position and opacity are bounded directly; footprint deformation is
+bounded under the rasterizer’s affine projection model, and color is
+bounded over all viewing directions. PLEDGE organizes quantized residuals into a
+progressive bitstream with explicit error bounds for every valid
+prefix. Experiments across thirteen scenes verify all declared
+per-mechanism bounds and demonstrate competitive rate–distortion
+performance. The four tolerances incur substantially different rate
+costs, so users can spend rate where their application needs it.</p>
+</div>
+</article></body></html>

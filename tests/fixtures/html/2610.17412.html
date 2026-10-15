@@ -1,0 +1,45 @@
+<html><body><article class="ltx_document" data-front-matter="2">
+<h1 class="ltx_title ltx_title_document">Bottlenecked Semantic Compression by
+Representation Reconstruction</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Xiaoya TangScientific Computing and Imaging InstituteUniversity of Utah
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_email"><span class="ltx_contact_name">Email: </span><a href="mailto:author@example.org"><span class="ltx_text ltx_font_typewriter" id="id1">author@example.org</span></a>
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Shilong LiuPrinceton AI LabPrinceton University
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_email"><span class="ltx_contact_name">Email: </span><a href="mailto:author@example.org"><span class="ltx_text ltx_font_typewriter" id="id2">author@example.org</span></a>
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Equal Contribution.<sup class="ltx_sup" id="id3">*</sup>Corresponding authors.
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Daniel SmolyakNational Institutes of Health
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_email"><span class="ltx_contact_name">Email: </span><a href="mailto:author@example.org"><span class="ltx_text ltx_font_typewriter" id="id4">author@example.org</span></a>
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Equal Contribution.<sup class="ltx_sup" id="id5">*</sup>Corresponding authors.
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Xiwen LiScientific Computing and Imaging InstituteUniversity of Utah
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_email"><span class="ltx_contact_name">Email: </span><a href="mailto:author@example.org"><span class="ltx_text ltx_font_typewriter" id="id6">author@example.org</span></a>
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Quynh NguyenNational Institutes of Health
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_email"><span class="ltx_contact_name">Email: </span><a href="mailto:author@example.org"><span class="ltx_text ltx_font_typewriter" id="id7">author@example.org</span></a>
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Tolga Tasdizen<sup class="ltx_sup" id="id8">*</sup>Scientific Computing and Imaging InstituteUniversity of Utah
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_email"><span class="ltx_contact_name">Email: </span><a href="mailto:author@example.org"><span class="ltx_text ltx_font_typewriter" id="id9">author@example.org</span></a>
+</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Vision Transformers incur high computational costs when processing long visual token sequences. Existing reduction methods typically rank tokens independently and discard those deemed unimportant or redundant. We propose a Reconstruction-guided framework for visual token condensation(ReConV), which that summarizes the complete visual sequence with a compact Summary Bank (SMB) and retains tokens whose information is not adequately captured by the SMB, as indicated by their reconstruction residuals. At each compression layer, a lightweight position-conditioned decoder reconstructs the current tokens, leaving shared information compressed in the SMB while explicitly preserving poorly reconstructed details. Experiments on image classification and multimodal understanding demonstrate favorable performance–efficiency trade-offs: ReConV surpasses the uncompressed baseline with <math alttext="48\%" class="ltx_Math" display="inline" id="abstract1.m1" intent=":literal"><semantics><mrow><mn>48</mn><mo>%</mo></mrow><annotation encoding="application/x-tex">48\%</annotation></semantics></math> fewer GMACs on ImageNet and enables reusable image-level representations for efficient multi-turn inference. Code is available at <a class="ltx_ref ltx_url ltx_font_typewriter" href="https://TokenDrop" title="">TokenDrop</a>.</p>
+</div>
+<div class="ltx_para" id="p1">
+
+</div>
+</article></body></html>

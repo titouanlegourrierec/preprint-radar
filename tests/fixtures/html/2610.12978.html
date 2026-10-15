@@ -1,0 +1,82 @@
+<html><body><article class="ltx_document" data-front-matter="2">
+<h1 class="ltx_title ltx_title_document">Learning Representations to Guide Pixel Diffusion Transformers</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Zihao Pan<sup class="ltx_sup" id="id1"><span class="ltx_text" id="id1.1" style="--ltx-fg-color:#16697A;">1,2,3</span></sup>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Mengting Chen<sup class="ltx_sup" id="id2"><span class="ltx_text" id="id2.1" style="--ltx-fg-color:#16697A;">2</span></sup><sup class="ltx_sup" id="id3"><math alttext="\dagger" class="ltx_Math" display="inline" id="m1" intent=":literal"><semantics><mo mathcolor="#16697A" style="--ltx-fg-color:#16697A;">†</mo><annotation encoding="application/x-tex">\dagger</annotation></semantics></math></sup>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Cheng Shi<sup class="ltx_sup" id="id4"><span class="ltx_text" id="id4.1" style="--ltx-fg-color:#16697A;">3</span></sup>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Taihang Hu<sup class="ltx_sup" id="id5"><span class="ltx_text" id="id5.1" style="--ltx-fg-color:#16697A;">2</span></sup>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Zhengrong Yue<sup class="ltx_sup" id="id6"><span class="ltx_text" id="id6.1" style="--ltx-fg-color:#16697A;">4</span></sup>
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span><span class="ltx_text ltx_font_bold" id="id7">Zikang Wang<sup class="ltx_sup" id="id7.1"><span class="ltx_text ltx_font_medium" id="id7.1.1" style="--ltx-fg-color:#16697A;">4</span></sup></span>
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Yuan Wang<sup class="ltx_sup" id="id8"><span class="ltx_text" id="id8.1" style="--ltx-fg-color:#16697A;">2</span></sup>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Wei Li<sup class="ltx_sup" id="id9"><span class="ltx_text" id="id9.1" style="--ltx-fg-color:#16697A;">2</span></sup>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Sibei Yang<sup class="ltx_sup" id="id10"><span class="ltx_text" id="id10.1" style="--ltx-fg-color:#16697A;">1</span></sup><sup class="ltx_sup" id="id11">
+<span aria-hidden="true" class="ltx_inline-block fas fa-envelope" id="id11.1">
+</span></sup>
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span><sup class="ltx_sup" id="id12"><span class="ltx_text" id="id12.1" style="--ltx-fg-color:#16697A;">1</span></sup>Sun Yat-sen University
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"><sup class="ltx_sup" id="id13"><span class="ltx_text" id="id13.1" style="--ltx-fg-color:#16697A;">2</span></sup>Alibaba Group
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"><sup class="ltx_sup" id="id14"><span class="ltx_text" id="id14.1" style="--ltx-fg-color:#16697A;">3</span></sup>The University of Hong Kong
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"><sup class="ltx_sup" id="id15"><span class="ltx_text" id="id15.1" style="--ltx-fg-color:#16697A;">4</span></sup>Shanghai Jiao Tong University
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span><span class="ltx_text ltx_font_typewriter" id="id16" style="--ltx-fg-color:#66737B;">
+author@example.org,</span>
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">author@example.org
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">author@example.org
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span><sup class="ltx_sup" id="id17"><math alttext="\dagger" class="ltx_Math" display="inline" id="m2" intent=":literal"><semantics><mo mathcolor="#16697A" style="--ltx-fg-color:#16697A;">†</mo><annotation encoding="application/x-tex">\dagger</annotation></semantics></math></sup>Project leader
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"><sup class="ltx_sup" id="id18">
+<span aria-hidden="true" class="ltx_inline-block fas fa-envelope" id="id18.1">
+</span></sup>Corresponding author
+</span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Visual representations are largely developed for understanding, yet what makes them useful for generation remains unclear.
+We study this question in pixel diffusion transformers and uncover two key insights.
+First, better representation quality does not necessarily translate into greater generative utility, as externally aligned semantics can be progressively lost during pixel synthesis.
+Second, architectural separation with specialized pixel decoders mainly redistributes semantic and spatial modeling, without necessarily yielding representations better suited to generation.
+These insights suggest that a useful generative representation must be both <span class="ltx_text ltx_font_italic" id="abstract1.1.1">properly formed</span> and <span class="ltx_text ltx_font_italic" id="abstract1.1.2">actively exploited</span>.
+Motivated by these insights, we introduce <span class="ltx_text ltx_font_bold" id="abstract1.1.3">Representation Guidance (RG)</span>, which directly forms and exploits internal representations while retaining a plain Transformer architecture.
+A low-dimensional bottleneck forces generation-relevant information into a compact representation, which is then explicitly used to guide decoder generation by modifying the flow-matching target according to its induced prediction offset.
+RG learns clearer semantic and spatial structure while scaling efficiently in both parameters and computation.
+On ImageNet <math alttext="256\times 256" class="ltx_Math" display="inline" id="abstract1.m1" intent=":literal"><semantics><mrow><mn>256</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>256</mn></mrow><annotation encoding="application/x-tex">256\times 256</annotation></semantics></math>, RG-L/16 with only 459M parameters outperforms substantially larger pixel diffusion transformers, while RG-XL/16 achieves an FID of 1.55.
+RG further reaches an FID of 1.74 at <math alttext="512\times 512" class="ltx_Math" display="inline" id="abstract1.m2" intent=":literal"><semantics><mrow><mn>512</mn><mo lspace="0.222em" rspace="0.222em">×</mo><mn>512</mn></mrow><annotation encoding="application/x-tex">512\times 512</annotation></semantics></math> and extends to text-to-image generation, achieving 0.89 on GenEval and 87.1 on DPG-Bench.</p>
+</div>
+<div class="ltx_logical-block ltx_align_bottom" id="id19">
+<span class="ltx_rule ltx_align_center" style="width:100%;height:0.8pt;--ltx-fg-color:#16697A;--ltx-bg-color:#16697A;display:inline-block;"> </span>
+<span class="ltx_rule ltx_align_center" style="width:100%;height:0.8pt;--ltx-fg-color:#16697A;--ltx-bg-color:#16697A;display:inline-block;"> </span>
+<div class="ltx_para" id="p1">
+
+</div>
+</div>
+<div class="ltx_para ltx_noindent ltx_align_center" id="p2">
+</div>
+
+<div class="ltx_pagination ltx_role_newpage"></div>
+</article></body></html>

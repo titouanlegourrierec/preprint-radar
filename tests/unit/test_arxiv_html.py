@@ -210,6 +210,8 @@ PaperHtml = Callable[[str], str]
             (
                 "Faculty of Library, Information and Media Science, University of Tsukuba",
                 "Pixie Dust Technologies, Inc",
+                # Its own creator, numbered: "¹R&D Center for Digital Nature, ...".
+                "R&D Center for Digital Nature, University of Tsukuba",
             ),
             id="obfuscated-address-alone",
         ),
@@ -223,6 +225,38 @@ PaperHtml = Callable[[str], str]
             ("National University of Singapore", "University of Science and Technology of China"),
             id="are-with-sentences-in-the-affiliation",
         ),
+        pytest.param(
+            "2610.15403",
+            (
+                "Department of Geography, National University of Singapore, Singapore",
+                "College of Geodesy and Geomatics, Shandong University of Science and Technology, China",
+                "University of the Bundeswehr Munich, Germany",
+                (
+                    "State Key Laboratory of Information Engineering in Surveying, Mapping and Remote "
+                    "Sensing, Wuhan University, China"
+                ),
+                (
+                    "School of Forest, Fisheries and Geomatics Sciences, University of Florida, "
+                    "Gainesville, FL, USA"
+                ),
+                "Fort Lauderdale Research and Education Center, University of Florida, Davie, FL, USA",
+                "Institute of Remote Sensing and GIS, Peking University, China",
+                "Department of Architecture, National University of Singapore, Singapore",
+                "Department of Real Estate, National University of Singapore, Singapore",
+            ),
+            id="affiliation-note-after-the-abstract",
+        ),
+        pytest.param(
+            "2610.17605",
+            (
+                "Oregon State University",
+                "The Ohio State University",
+                "Argonne National Laboratory",
+                "The University of Texas Rio Grande Valley",
+            ),
+            id="lines-led-by-symbols",
+        ),
+        pytest.param("2610.18323", ("Xi\u2019an Jiaotong University",), id="unmarked-line-under-the-names"),
     ],
 )
 def test_parse_affiliations(paper_html: PaperHtml, arxiv_id: str, expected: tuple[str, ...]) -> None:
@@ -516,6 +550,58 @@ AUTHORS = {
         "Thomas R. Niesler",
     ),
     "2609.36407": ("Zhiyuan Yang", "Jiahao Cheng", "Mahdi S. Hosseini"),
+    "2610.12978": (
+        "Zihao Pan",
+        "Mengting Chen",
+        "Cheng Shi",
+        "Taihang Hu",
+        "Zhengrong Yue",
+        "Zikang Wang",
+        "Yuan Wang",
+        "Wei Li",
+        "Sibei Yang",
+    ),
+    "2610.15403": (
+        "Hao Li",
+        "Wenping Yin",
+        "Fabian Deuser",
+        "Jia Jia",
+        "Ziqi Liu",
+        "Levente Juhász",
+        "Fan Zhang",
+        "Filip Biljecki",
+    ),
+    "2610.17412": (
+        "Xiaoya Tang",
+        "Shilong Liu",
+        "Daniel Smolyak",
+        "Xiwen Li",
+        "Quynh Nguyen",
+        "Tolga Tasdizen",
+    ),
+    "2610.17605": (
+        "Mingze Xia",
+        "Yuxiao Li",
+        "Baixi Sun",
+        "Wenbo Li",
+        "Pu Jiao",
+        "Sheng Di",
+        "Franck Cappello",
+        "Hanqi Guo",
+        "Xin Liang",
+    ),
+    # The listing glues the first two names: "Pan Yin. Shuai Yang".
+    "2610.18323": (
+        "Pan Yin. Shuai Yang",
+        "Yuanhao Liu",
+        "Datao Tang",
+        "Jialin Li",
+        "Hao Wang",
+        "Pei Liu",
+        "Kaiyu Li",
+        "Cong Zhao",
+        "Xiangyong Cao",
+    ),
 }
 
 
@@ -600,6 +686,23 @@ AUTHORS = {
         ),
         # Two authors' names printed as the fourth one's affiliation, beside the shared one.
         pytest.param("2610.02382", None, id="names-beside-the-only-affiliation"),
+        # The numbered lines and addresses set as authors are nobody: the last person alone
+        # holds a contact ("¹Sun Yat-sen University"), so the markers place them. Zikang Wang
+        # is written inside a contact, not as a creator: placed nowhere.
+        pytest.param(
+            "2610.12978",
+            ((0, 1, 2), (1,), (2,), (1,), (3,), None, (1,), (1,), (0,)),
+            id="numbered-lines-set-as-authors",
+        ),
+        pytest.param(
+            "2610.15403", ((0,), (1,), (2,), (0,), (3,), (4, 5), (6,), (7, 8)), id="lettered-affiliation-note"
+        ),
+        pytest.param("2610.17412", ((0,), (1,), (2,), (0,), (2,), (0,)), id="affiliations-glued-to-names"),
+        pytest.param(
+            "2610.17605", ((0,), (1,), (2,), (0,), (3,), (2,), (2,), (1,), (0,)), id="lines-led-by-symbols"
+        ),
+        # The one affiliation of a block without markers is everyone's.
+        pytest.param("2610.18323", ((0,),) * 9, id="unmarked-line-under-the-names"),
     ],
 )
 def test_maps_authors_to_their_affiliations(
@@ -1053,6 +1156,18 @@ def test_clean_affiliation_drops_what_names_nothing(raw: str) -> None:
             "HKUST, Hong Kong SAR, China (author@example.org)",
             "HKUST, Hong Kong SAR, China",
             id="address-in-brackets",
+        ),
+        # The sentence of a thanks note ends after the address (2609.28184).
+        pytest.param(
+            "the University of Trento, Trento, Italy. {name.surname}@example.org.",
+            "the University of Trento, Trento, Italy",
+            id="address-before-the-full-stop",
+        ),
+        # A lost line break glues the label to the country (2608.29996).
+        pytest.param(
+            "Wayne State University, MI, USAEmail: {jane, john}@example.org",
+            "Wayne State University, MI, USA",
+            id="label-glued-to-the-country",
         ),
         pytest.param(
             "K. Prentice and J. Martin are with Guide Dogs NSW, Sydney, Australia",
@@ -1586,6 +1701,120 @@ def test_pages_never_give(html: str, authors: tuple[str, ...], wrong: str, expec
 
 def test_numbered_lines_place_names_that_start_with_a_number() -> None:
     front = parse_front_matter(_NUMBERED_BLOCK, authors=("Ada Lovelace", "Bob Smith"))
+    assert front.author_affiliations == ((0,), (1,))
+
+
+def test_lines_led_by_symbols_skip_notes() -> None:
+    html = _author_block(
+        ("Ada Lovelace<sup>*</sup>", ()),
+        ("Bob Smith<sup>\u2020</sup>", ()),
+        (
+            "<br><sup>*</sup>Equal contribution <sup>*</sup>Stanford University <sup>\u2020</sup>MIT Lab",
+            (),
+        ),
+    )
+
+    front = parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith"))
+
+    assert front.affiliations == ("Stanford University", "MIT Lab")
+    assert front.author_affiliations == ((0,), (1,))
+
+
+def test_lines_led_by_symbols_count_only_when_each_names_an_institution() -> None:
+    html = _author_block(
+        ("Ada Lovelace<sup>*</sup>", ()),
+        ("Bob Smith<sup>\u2020</sup>", ()),
+        ("<br><sup>*</sup>Stanford University <sup>\u2020</sup>Now at Google", ()),
+    )
+
+    assert parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith")).affiliations == ()
+
+
+def test_unmarked_lines_never_hold_an_author() -> None:
+    html = _author_block(
+        ("Ada Lovelace  Bob Smith<br>Ada Lovelace, Stanford University<br>MIT Media Lab", ())
+    )
+
+    front = parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith"))
+
+    assert front.affiliations == ("MIT Media Lab",)
+    # A line left out may hold another affiliation: the one kept is not everyone's.
+    assert front.author_affiliations is None
+
+
+def test_the_one_unmarked_line_is_everyones() -> None:
+    # "Labussière" holds "lab", which no line of names is an institution for (2610.06596).
+    html = _author_block(
+        ("Ada Lovelace  Mathieu Labussière<br>Stanford University<br>author@example.org", ())
+    )
+
+    front = parse_front_matter(html, authors=("Ada Lovelace", "Mathieu Labussière"))
+
+    assert front.affiliations == ("Stanford University",)
+    assert front.author_affiliations == ((0,), (0,))
+
+
+def test_unmarked_lines_are_no_source_beside_contacts() -> None:
+    html = _author_block(("Ada Lovelace<br>Stanford University", ("Equal contribution",)))
+
+    assert parse_front_matter(html, authors=("Ada Lovelace",)).affiliations == ()
+
+
+@pytest.mark.parametrize(
+    ("name", "expected"),
+    [
+        pytest.param("Ada LovelaceMIT Media Lab", ("MIT Media Lab",), id="glued"),
+        pytest.param(
+            "Ada Lovelace<sup>1</sup>Stanford University", ("Stanford University",), id="marker-between"
+        ),
+        pytest.param("Ada Lovelace MIT Media Lab", (), id="a-space-is-no-glue"),
+        pytest.param("Ada Lovelacex Media Lab", (), id="lowercase-goes-on-with-the-name"),
+    ],
+)
+def test_an_affiliation_glued_to_its_author(name: str, expected: tuple[str, ...]) -> None:
+    html = _author_block((name, ()), ("Bob Smith", ("Equal contribution",)))
+
+    assert parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith")).affiliations == expected
+
+
+def test_numbered_lines_set_as_authors_are_affiliations(paper_html: PaperHtml) -> None:
+    front = parse_front_matter(paper_html("2610.12978"), authors=AUTHORS["2610.12978"])
+
+    # "¹Sun Yat-sen University" is a contact of the last author; the other numbered lines
+    # are creators of their own, beside e-mail addresses set as authors.
+    assert front.affiliations == (
+        "Sun Yat-sen University",
+        "Alibaba Group",
+        "The University of Hong Kong",
+        "Shanghai Jiao Tong University",
+    )
+
+
+def test_a_marker_before_a_name_keeps_the_person() -> None:
+    html = _author_block(
+        ("<sup>*</sup>Ada Lovelace", ("Stanford University",)),
+        ("Bob Smith", ("MIT Media Lab",)),
+        ("<sup>1</sup>Equal contribution", ()),
+    )
+
+    front = parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith"))
+
+    assert front.author_affiliations == ((0,), (1,))
+
+
+def test_markers_written_in_math_are_read_without_their_source() -> None:
+    dagger = (
+        '<math alttext="\\dagger"><semantics><mo>\u2020</mo>'
+        '<annotation encoding="application/x-tex">\\dagger</annotation></semantics></math>'
+    )
+    html = _author_block(
+        (f"Ada Lovelace<sup>1</sup><sup>{dagger}</sup>", ()),
+        ("Bob Smith<sup>2</sup>", ()),
+        contacts=("<sup>1</sup>Stanford University <sup>2</sup>MIT Media Lab",),
+    )
+
+    front = parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith"))
+
     assert front.author_affiliations == ((0,), (1,))
 
 

@@ -22,7 +22,7 @@ from preprint_radar.latex import plain_text
 
 logger = logging.getLogger(__name__)
 
-EXTRACTOR_VERSION = 7
+EXTRACTOR_VERSION = 8
 """Version of the extraction heuristics of this module, stored with the affiliations they give.
 
 Bump it with any change that alters what a page gives (affiliations, author mapping), so
@@ -48,6 +48,13 @@ that ``reextract`` reads those papers again, from the page cache when it holds t
   ("technikum-wien.at"), and an address at the end of a line ends its affiliation.
 - 7: so does a list of mailboxes before its domain ("{a, b}@tum.de"), and "X is Robotics
   Lead at Y" gives Y, as "X is with Y" does.
+- 8: affiliation notes are read (2610.15403), and so are numbered lines set as authors
+  (2610.12978), an affiliation glued to its author's name (2610.17412), lines led by
+  symbols that each name an institution (2610.17605) and, last, the lines of a block
+  without markers that name one (2610.18323); addresses and marker lines set as authors
+  are nobody, markers written in math are read without their TeX source, and an address
+  before a full stop (2609.28184) or after a glued "Email:" label (2608.29996) ends its
+  affiliation.
 """
 
 # LaTeXML renders line breaks and \quad between affiliations as newlines, em spaces
@@ -70,9 +77,12 @@ _LINK_LABEL_RE = re.compile(r"project\s+(?:page|website|homepage|repository|site
 # an address in brackets, which unwrapped thanks notes glue to the sentence: "..., Hong
 # Kong SAR, China (xhubd@connect.ust.hk)" (2609.10082), or one that ends the line: "...,
 # Vienna, Austria schwaige@technikum-wien.at" (2610.02974), mailboxes included: "...,
-# Germany. {pm.wolf, cremers}@tum.de" (2610.03283).
+# Germany. {pm.wolf, cremers}@tum.de" (2610.03283), the sentence's full stop after it: "...,
+# Italy. {name.surname}@unitn.it." (2609.28184). Its label may be glued to the country
+# before it: "..., MI, USAEmail:" (2608.29996).
 _CONTACT_TAIL_RE = re.compile(
-    r"\(?\s*\be-?mails?\b.*$|[(\[]\s*[\w.+-]+@.*$|\s(?:\{[^{}]*\}|[\w.+-]+)@[\w-]+(?:\.[\w-]+)+\s*$",
+    r"\(?\s*\be-?mails?\b.*$|(?<=[a-z])e-?mails?\s*:.*$|[(\[]\s*[\w.+-]+@.*$"
+    r"|\s(?:\{[^{}]*\}|[\w.+-]+)@[\w-]+(?:\.[\w-]+)+\.?\s*$",
     re.IGNORECASE | re.DOTALL,
 )
 # E-mail addresses written to escape harvesters: "jane (at) example.org", "lab [at] example.org".
@@ -128,6 +138,11 @@ _NUMBER_NAME = r"(?![DKM]\b)\s*(?P<name>(?:\d[DKM]\b\s*)?(?:[A-Z]|[a-z](?=[A-Z])
 # A line break, which LaTeXML does not always follow with a newline: "Dept. of Computer
 # Science<br>University of Alabama" would read as one affiliation.
 _LINE_BREAK_RE = re.compile(r"<br\b[^>]*>", re.IGNORECASE)
+# The TeX source LaTeXML keeps beside rendered math: a marker written "$\dagger$" read
+# "†\dagger", which no affiliation anchors, and the markers placed nobody (2610.12978).
+_ANNOTATION_RE = re.compile(
+    r"<annotation(?:-xml)?\b[^>]*>.*?</annotation(?:-xml)?>", re.IGNORECASE | re.DOTALL
+)
 # Conjunctions left over when a line break splits "A University and B Institute".
 _CONNECTOR_RE = re.compile(r"^(?:and|&)(?:\s+|$)", re.IGNORECASE)
 # A line that ends like this continues on the next one ("School of Medicine, and").
@@ -148,9 +163,11 @@ _INLINE_MARKER_RE = re.compile(r"(?<=\S\s)\d{1,2}(?=[^\W\d_]{2})")
 _MARKED_WORD_RE = re.compile(r"\d{1,2}[^\W\d_][^\d\s]*")
 # Numbered affiliation lines in free-form author blocks (CVPR-like classes): "1ETH Zurich".
 _NUMBERED_LINE_RE = re.compile(r"^\s*\d{1,2}" + _NUMBER_NAME, re.MULTILINE)
+# Words of institutions. Not "Foundation Model", a team of Li Auto (2609.21449) and the
+# subject of half the papers.
 _INSTITUTION_WORD_RE = re.compile(
     r"univ|institut|college|school|lab|cent(?:er|re)|hospital|academy|\binc\b|\bltd\b|gmbh|corp|company"
-    r"|research|department|faculty|foundation|technolog|polytechn",
+    r"|research|department|faculty|foundation(?!\s+models?\b)|technolog|polytechn",
     re.IGNORECASE,
 )
 # Countries, by the names affiliations write them in (AFF-18: "Kazakhstan", "Sri Lanka" and
@@ -252,6 +269,18 @@ _COLLECTIVE_RE = re.compile(r"\b(?:initiative|consortium|collaboration|team|grou
 _ALL_AUTHORS_RE = re.compile(r"\b(?:the|all(?:\s+the)?)\s+authors\b")
 # Sentence ends, except after an initial ("E. Milara") or an acronym ("USA.").
 _SENTENCE_SPLIT_RE = re.compile(r"(?<=[^\sA-Z][.;])\s+")
+# Notes holding affiliations, wherever they are: address and institute macros, and
+# affiliation notes, where Taylor & Francis' class lists its lettered affiliations after
+# the abstract (2610.15403).
+_AFFILIATION_NOTES = (
+    ".ltx_note.ltx_role_address, .ltx_note.ltx_role_institutetext, .ltx_note.ltx_role_affiliation"
+)
+# Free-form lines led by symbol markers: "*Oregon State University †The Ohio State
+# University" (2610.17605). Symbols mark notes too ("*Equal contribution"): see
+# :func:`_symbol_affiliations`.
+_SYMBOL_LINE_RE = re.compile(
+    rf"^\s*(?P<marker>[{re.escape(''.join(sorted(_SYMBOL_MARKERS)))}]+)" + _NUMBER_NAME, re.MULTILINE
+)
 
 type AuthorAffiliations = tuple[tuple[int, ...] | None, ...]
 """Per author, the indices of their affiliations; ``None`` when unknown for that author."""
@@ -446,15 +475,13 @@ def parse_front_matter(html: str, *, authors: Sequence[str] = ()) -> FrontMatter
     Returns:
         The front matter.
     """
-    html = _LINE_BREAK_RE.sub("\n", html)
+    html = _ANNOTATION_RE.sub("", _LINE_BREAK_RE.sub("\n", html))
     soup = BeautifulSoup(html, "html.parser")
-    affiliations, names_dropped = _affiliations(soup, authors)
+    affiliations, partial = _affiliations(soup, authors)
     return FrontMatter(
         affiliations=affiliations,
         abstract=_abstract(soup),
-        author_affiliations=_author_affiliations(
-            html, tuple(authors), affiliations, names_dropped=names_dropped
-        ),
+        author_affiliations=_author_affiliations(html, tuple(authors), affiliations, partial=partial),
     )
 
 
@@ -471,22 +498,25 @@ def _abstract(soup: BeautifulSoup) -> str | None:
 
 
 def _affiliations(soup: BeautifulSoup, authors: Sequence[str]) -> tuple[tuple[str, ...], bool]:
-    """Distinct affiliations of the front matter, and whether author names were dropped from them.
+    """Distinct affiliations of the front matter, and whether its source left some lines out.
+
+    Lines left out are author names dropped from the affiliations, or lines of a block
+    without markers that may be other affiliations: either way, one affiliation left is not
+    everyone's (:func:`_author_affiliations`).
 
     Sources, from the most to the least reliable: affiliations and addresses marked up in
-    the author block, front-matter notes (from the LaTeX address, institute and numbered
-    footnotetext macros), numbered lines after the author names, and "A is with B"
-    sentences in thanks notes. The first source that gives an affiliation is used; one that
-    only names authors gives none: IEEE classes put the names in the affiliation macro and
-    the affiliations in thanks notes. Affiliations are deduplicated case-insensitively.
+    the author block (with the numbered lines LaTeXML set as authors beside them, and the
+    affiliations glued to a name), front-matter notes (from the LaTeX address, institute,
+    affiliation and numbered footnotetext macros), numbered lines after the author names,
+    lines led by symbols that each name an institution, "A is with B" sentences in thanks
+    notes, and last the lines of a block without markers that name an institution. The
+    first source that gives an affiliation is used; one that only names authors gives none:
+    IEEE classes put the names in the affiliation macro and the affiliations in thanks
+    notes. Affiliations are deduplicated case-insensitively.
     """
     article = soup.select_one("article.ltx_document") or soup
     # Notes are read first: the author block is then cleaned of them.
-    from_notes = [
-        segment
-        for note in soup.select(".ltx_note.ltx_role_address, .ltx_note.ltx_role_institutetext")
-        for segment in _note_segments(note)
-    ]
+    from_notes = [segment for note in soup.select(_AFFILIATION_NOTES) for segment in _note_segments(note)]
     from_notes += [
         segment
         for note in article.find_all("span", class_="ltx_role_footnotetext", recursive=False)
@@ -496,21 +526,37 @@ def _affiliations(soup: BeautifulSoup, authors: Sequence[str]) -> tuple[tuple[st
 
     tagged: list[str] = []
     numbered: list[str] = []
+    symbols: list[str] = []
+    unmarked: list[str] = []
+    unmarked_partial = False
     block = soup.select_one("div.ltx_authors")
     if block is not None:
         for noise in block.select(".ltx_role_email, .ltx_contact_name, .ltx_note, a"):
             noise.decompose()
         tagged = _tagged_affiliations(block, authors)
-        numbered = [] if tagged else _numbered_affiliations(block)
+        if tagged:
+            tagged += _numbered_creators(block)
+        else:
+            numbered = _numbered_affiliations(block)
+            symbols = _symbol_affiliations(block)
+            unmarked, unmarked_partial = _unmarked_affiliations(block, authors)
+        tagged += _glued_affiliations(block, authors)
+    sources = (
+        (tagged + from_notes, False),
+        (numbered, False),
+        (symbols, False),
+        (_stated_affiliations(thanks), False),
+        (unmarked, unmarked_partial),
+    )
     names_dropped = False
-    for source in (tagged + from_notes, numbered, _stated_affiliations(thanks)):
+    for source, partial in sources:
         found = _dedupe(source)
         affiliations = tuple(
             affiliation for affiliation in found if not names_only_authors(affiliation, authors)
         )
         names_dropped = names_dropped or len(affiliations) < len(found)
         if affiliations:
-            return affiliations, names_dropped
+            return affiliations, names_dropped or partial
     return (), names_dropped
 
 
@@ -540,6 +586,105 @@ def _contact_groups(authors: Tag) -> list[list[Tag]]:
 def _contact_segments(nodes: Iterable[Tag], authors: Sequence[str]) -> list[str]:
     """The affiliations in one author's contact nodes, read as the lines of one text."""
     return _joined((line for node in nodes for line in _lines(node)), authors)
+
+
+def _numbered_creators(block: Tag) -> list[str]:
+    """The numbered affiliation lines LaTeXML set as authors, beside contact nodes.
+
+    2610.12978 gives "¹Sun Yat-sen University" as a contact of its last author, then
+    "²Alibaba Group", "³The University of Hong Kong" and "⁴Shanghai Jiao Tong University"
+    as creators of their own, each name starting with its number.
+    """
+    return [
+        segment
+        for name in block.select("span.ltx_creator.ltx_role_author .ltx_personname")
+        if (marker := _leading_marker(name)) is not None and marker.get_text().strip().isdigit()
+        for segment in _segments(_pruned(name))
+    ]
+
+
+def _leading_marker(name: Tag) -> Tag | None:
+    """The superscript a creator's name starts with: a line of notes or affiliations, no name."""
+    first = next((child for child in name.children if not str(child).isspace()), None)
+    return first if isinstance(first, Tag) and first.name == "sup" else None
+
+
+def _glued_affiliations(block: Tag, authors: Sequence[str]) -> list[str]:
+    """The affiliations LaTeXML glued to their author's name (:func:`_glued_name`)."""
+    return [
+        glued[1]
+        for name in block.select("span.ltx_creator.ltx_role_author .ltx_personname")
+        if (glued := _glued_name(_plain_text(name), authors)) is not None
+    ]
+
+
+def _glued_name(name: str, authors: Sequence[str]) -> tuple[str, str] | None:
+    """The author a creator's name starts with, and the affiliation glued to it.
+
+    Some IEEE conference blocks lose every line break of an author's address, the one after
+    the name included: "Xiaoya TangScientific Computing and Imaging InstituteUniversity of
+    Utah" (2610.17412), and "Tolga Tasdizen*Scientific..." once its marker is dropped. Only
+    a listed name followed by a capital, without a space, counts.
+    """
+    for author in authors:
+        rest = name[len(author) :]
+        if rest[:1].isupper() and _fold(name[: len(author)]) == _fold(author):
+            return author, rest
+    return None
+
+
+def _symbol_affiliations(block: Tag) -> list[str]:
+    """Affiliation lines led by symbol markers in a free-form block: "*Oregon State University".
+
+    2610.17605 marks its four affiliations "*", "†", "‡" and "§". Symbols mark notes too
+    ("*Equal contribution", "†Now at Google"): the lines count only when each one that is
+    not noise names an institution, as numbered footnotes must (:func:`_footnote_affiliations`).
+    """
+    lines = [match["name"] for match in _SYMBOL_LINE_RE.finditer(_numbered_text(block))]
+    kept = [line for line in lines if not _NOISE_RE.search(line)]
+    return kept if all(_INSTITUTION_WORD_RE.search(line) for line in kept) else []
+
+
+def _unmarked_affiliations(block: Tag, authors: Sequence[str]) -> tuple[list[str], bool]:
+    """The lines of a block without contacts nor markers that name an institution: the last source.
+
+    2610.18323 writes its ten names in the rows of a table, then "Xi'an Jiaotong University"
+    and an address, without any marker. Any line of a block could pass: only those with an
+    institution word or ending with a country count ("United Imaging Intelligence, Boston,
+    MA, USA", 2610.02343), joined as :func:`_joined` joins lines, and never one holding an
+    author's name (a name LaTeXML glued to its affiliation). A block with lines led by
+    markers is read by them alone.
+
+    Returns:
+        The affiliations, and whether lines that may be others were left out ("Tencent
+        HY", "HKUST(GZ)"): the one affiliation of such a block is everyone's only when
+        nothing but names and noise is left.
+    """
+    marked = _numbered_text(block)
+    if _NUMBERED_LINE_RE.search(marked) or _SYMBOL_LINE_RE.search(marked):
+        return [], False
+    copy = _pruned(block)
+    for sup in copy.select("sup"):
+        sup.decompose()
+    text = _LATEX_SPACE_RE.sub("\n", copy.get_text().replace("\xa0", " "))
+    lines = [_Line(line.strip()) for line in _SEPARATOR_RE.split(text) if line.strip()]
+    names = [_fold(author) for author in authors]
+    kept: list[str] = []
+    left_out = False
+    for line in _joined(lines, authors):
+        # Without the authors' names, whose words may hold an institution's ("Labussière").
+        rest = _fold(line)
+        held = [name for name in names if name in rest]
+        for name in held:
+            rest = rest.replace(name, " ")
+        named = _INSTITUTION_WORD_RE.search(rest) or _ADDRESS_END_RE.search(rest.rstrip(_EDGE_PUNCTUATION))
+        if held:
+            left_out = left_out or bool(named)
+        elif named:
+            kept.append(line)
+        elif not names_only_authors(line, authors) and clean_affiliations(line):
+            left_out = True
+    return kept, left_out
 
 
 def _note_segments(note: Tag) -> list[str]:
@@ -980,7 +1125,7 @@ def names_only_authors(text: str, authors: Sequence[str]) -> bool:
 
 
 def _author_affiliations(
-    html: str, authors: tuple[str, ...], affiliations: tuple[str, ...], *, names_dropped: bool
+    html: str, authors: tuple[str, ...], affiliations: tuple[str, ...], *, partial: bool
 ) -> AuthorAffiliations | None:
     """Map each author to their affiliations, as indices into ``affiliations``.
 
@@ -988,11 +1133,13 @@ def _author_affiliations(
     author, superscript markers matched with marked lines and notes, and "A and B are
     with X" sentences. ``None`` when the page never says who is where; a ``None`` entry
     when it says it only for the other authors. A single affiliation is not everyone's
-    when author names were dropped next to it: the page had placed people elsewhere.
+    when its source left lines out (``partial``): author names dropped next to it, as the
+    page had placed people elsewhere, or lines of a block without markers that may be
+    other affiliations ("Tencent HY" beside "Southeast University", 2610.14852).
     """
     if not authors or not affiliations:
         return None
-    if len(authors) == 1 or (len(affiliations) == 1 and not names_dropped):
+    if len(authors) == 1 or (len(affiliations) == 1 and not partial):
         return (tuple(range(len(affiliations))),) * len(authors)
     # The soup of the paper-level pass was pruned in place: parse a fresh one.
     soup = BeautifulSoup(html, "html.parser")
@@ -1009,18 +1156,7 @@ def _per_creator_map(
     soup: BeautifulSoup, authors: tuple[str, ...], index_of: Mapping[str, int]
 ) -> AuthorAffiliations | None:
     """One affiliation block per author (ACM- and IEEE-like classes)."""
-    creators: list[tuple[str, tuple[int, ...], bool]] = []
-    for creator in soup.select("div.ltx_authors span.ltx_creator.ltx_role_author"):
-        name = creator.select_one(".ltx_personname")
-        # Links set as authors ("Project Page", a repository) name nobody: 2609.37107.
-        if name is None or not _plain_text(_pruned(name)):
-            continue
-        contacts = _contact_segments(
-            (_pruned(contact) for contact in creator.select(".ltx_role_affiliation, .ltx_role_address")),
-            authors,
-        )
-        marked = _pruned(name).select_one("sup") is not None
-        creators.append((_plain_text(name), _indices(contacts, index_of), marked))
+    creators = _creators(soup, authors, index_of)
     if not any(indices for _, indices, _ in creators):
         return None
     if len(creators) > 1 and not any(indices for _, indices, _ in creators[:-1]):
@@ -1053,6 +1189,45 @@ def _per_creator_map(
     for creator_index, author_index in aligned.items():
         mapping[author_index] = people[creator_index][1] or None
     return tuple(mapping) if any(mapping) else None
+
+
+def _creators(
+    soup: BeautifulSoup, authors: tuple[str, ...], index_of: Mapping[str, int]
+) -> list[tuple[str, tuple[int, ...], bool]]:
+    """The people of the author block: each one's name, affiliations, and whether markers follow it.
+
+    An affiliation glued to a name is that person's (2610.17412).
+    """
+    creators: list[tuple[str, tuple[int, ...], bool]] = []
+    for creator in soup.select("div.ltx_authors span.ltx_creator.ltx_role_author"):
+        name = creator.select_one(".ltx_personname")
+        if name is None or not _names_a_person(name, authors):
+            continue
+        contacts = _contact_segments(
+            (_pruned(contact) for contact in creator.select(".ltx_role_affiliation, .ltx_role_address")),
+            authors,
+        )
+        person = _plain_text(name)
+        if (glued := _glued_name(person, authors)) is not None:
+            person, affiliation = glued
+            contacts.append(affiliation)
+        marked = _pruned(name).select_one("sup") is not None
+        creators.append((person, _indices(contacts, index_of), marked))
+    return creators
+
+
+def _names_a_person(name: Tag, authors: Sequence[str]) -> bool:
+    """Whether a creator's name is a person's.
+
+    Not a link set as an author ("Project Page", a repository: 2609.37107), nor what else
+    LaTeXML makes creators of (2610.12978): an address ("cmt271286@taobao.com"), or a line
+    led by a marker ("²Alibaba Group", "✉Corresponding author") that names no author. Left
+    in, the last of them would hide that only the last person carries the shared block.
+    """
+    text = _plain_text(_pruned(name))
+    if not text or all("@" in word for word in text.replace(",", " ").split()):
+        return False
+    return _leading_marker(name) is None or names_only_authors(text, authors)
 
 
 def _several_people(name: str, authors: Sequence[str]) -> bool:
@@ -1123,7 +1298,7 @@ def _anchors(soup: BeautifulSoup, block: Tag, index_of: Mapping[str, int]) -> di
     """Affiliations introduced by a marker, as ``marker -> affiliation indices``."""
     article = soup.select_one("article.ltx_document") or soup
     nodes: list[Tag] = list(block.select(".ltx_role_affiliation, .ltx_role_address"))
-    nodes += soup.select(".ltx_note.ltx_role_address, .ltx_note.ltx_role_institutetext")
+    nodes += soup.select(_AFFILIATION_NOTES)
     nodes += article.find_all("span", class_="ltx_role_footnotetext", recursive=False)
 
     anchors: dict[str, tuple[int, ...]] = {}
@@ -1154,8 +1329,10 @@ def _anchors(soup: BeautifulSoup, block: Tag, index_of: Mapping[str, int]) -> di
         elif label is not None:
             # A note whose only marker is its own mark: "1institutetext: ...".
             add(_plain_text(label), _MARKED_RE.sub(" ", marked))
-    # Free-form blocks write the marker as plain text: "1ETH Zurich".
-    for match in _NUMBERED_ANCHOR_RE.finditer(_numbered_text(_pruned(block))):
+    # Free-form blocks write the marker as plain text: "1ETH Zurich", or a symbol: "*Oregon
+    # State University" (2610.17605), which anchors only an affiliation, not "*Equal contribution".
+    text = _numbered_text(_pruned(block))
+    for match in (*_NUMBERED_ANCHOR_RE.finditer(text), *_SYMBOL_LINE_RE.finditer(text)):
         add(match.group("marker"), match.group("name"))
     return anchors
 

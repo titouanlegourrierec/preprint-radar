@@ -27,14 +27,34 @@ not "simplify" a rule away without the page that made it.
 
 ## Sources, in order
 
-- `ltx_role_affiliation`/`ltx_role_address` contacts in `div.ltx_authors`.
-- `ltx_note` of roles `address` and `institutetext` anywhere, and `footnotetext` notes that
-  are direct children of the article and start with a marker.
+- `ltx_role_affiliation`/`ltx_role_address` contacts in `div.ltx_authors`. Beside them,
+  the numbered lines LaTeXML set as authors ("¹Sun Yat-sen University" is a contact of the
+  last author, "²Alibaba Group" and the others creators of their own, 2610.12978), and
+  wherever they are, the affiliations glued to their author's name: "Xiaoya
+  TangScientific Computing and Imaging InstituteUniversity of Utah" (2610.17412), a listed
+  name followed by a capital without a space.
+- `ltx_note` of roles `address`, `institutetext` and `affiliation` anywhere (Taylor &
+  Francis' class lists its lettered affiliations in one after the abstract, 2610.15403),
+  and `footnotetext` notes that are direct children of the article and start with a
+  marker.
 - Numbered lines after the names.
+- Lines led by symbols ("*Oregon State University †The Ohio State University", 2610.17605),
+  when each one that is not noise names an institution: symbols mark notes too ("*Equal
+  contribution", "†Now at Google").
 - "A is with B" sentences in `thanks` notes.
+- Last, in a block without contacts nor marked lines, the lines that name an institution
+  or end with a country, never one holding an author's name: 2610.18323 writes its names
+  in the rows of a table, then "Xi'an Jiaotong University" alone. Its one affiliation is
+  everyone's only when nothing but names and noise was left out: "Southeast University"
+  beside "Tencent HY" (2610.14852) is not. "Foundation Model" is no institution
+  (2609.21449, a team of Li Auto).
 
 A source that only names authors leaves its turn to the next one: IEEE classes put the
 names in the affiliation macro and the affiliations in thanks notes.
+
+LaTeXML keeps the TeX source of math beside its rendering (an `annotation`): it is dropped
+before anything is read, or a marker written `$\dagger$` reads "†\dagger", which no
+affiliation anchors, and the markers placed nobody (2610.12978, 2609.34299).
 
 Thanks notes keep the line breaks of their LaTeX source, which wrap sentences anywhere
 ("are with the School of" / "Intelligent Engineering and Automation", 2609.33097): a line
@@ -62,6 +82,8 @@ Artificial".
   collectives that sign as authors ("Alzheimer's Disease Neuroimaging Initiative"). Once
   names were dropped, a single affiliation left is not everyone's: 2609.38180 would
   otherwise put Takaaki Shiratori at CMU.
+- An e-mail label glued to the country before it by a lost line break ends the
+  affiliation: "..., MI, USAEmail: {...}@wayne.edu" (2608.29996).
 - Obfuscated addresses ("jane (at) example.org", "lab [at] example.org") and lists of
   mailbox names ("{jane.doe, john.roe}") are stripped, keeping the affiliation they follow;
   so is an address in brackets, with what follows it: thanks notes, once unwrapped, end
@@ -69,11 +91,13 @@ Artificial".
   made the whole sentence a contact detail. So is an address that ends a line ("...,
   Vienna, Austria schwaige@...", 2610.02974): its four authors lost their university;
   mailboxes before their domain too ("..., Germany. {pm.wolf, cremers}@tum.de",
-  2610.03283). A list can be cut across two contact nodes, the first ending with a comma,
-  which the line join glues to the next affiliation: "{pau.rodriguez,...,napostoloff,"
-  then "Apple" gave "{pau.rodriguez,...,napostoloff, Apple" (2410.23054, which `validate`
-  refused); an unclosed list ends before a capital, and mailboxes may hold underscores
-  ("michal_klein").
+  2610.03283), and one before the full stop of its sentence ("..., Italy.
+  {name.surname}@unitn.it.", 2609.28184: two of its three affiliations were noise, and
+  the one left placed all six authors). A list can be cut across two contact nodes, the
+  first ending with a comma, which the line join glues to the next affiliation:
+  "{pau.rodriguez,...,napostoloff," then "Apple" gave "{pau.rodriguez,...,napostoloff,
+  Apple" (2410.23054, which `validate` refused); an unclosed list ends before a capital,
+  and mailboxes may hold underscores ("michal_klein").
   `_JUNK_RE` rejects what still passes: lone words ("the", "dot"), link and contribution
   leftovers ("Code", "Core Contributors"), units cut off by a line break ("School of") and
   lone countries. For records extracted before, `institutions.institution_name` names no
@@ -161,7 +185,12 @@ trivial single-affiliation and single-author cases. A wrong pair is worse than n
 ambiguous name alignments drop the whole tier, and unresolved authors stay `null`.
 
 - Links set as authors ("Project Page", a repository) are not creators: 2609.37107
-  followed its last author with two, and its shared block went unnoticed.
+  followed its last author with two, and its shared block went unnoticed. Nor are
+  addresses set as authors, or lines led by a marker that name no author ("²Alibaba
+  Group", "✉Corresponding author", 2610.12978): its last person alone holds a contact,
+  "¹Sun Yat-sen University", so the markers place everyone.
+- A creator whose name an affiliation is glued to is that author, the affiliation its
+  contact (2610.17412).
 - After a name, a marker glued to the next word introduces an affiliation line, not the
   name's: "Bob Smith⟨2⟩ ⟨1⟩Stanford University" places Bob at 2 only. In free-form blocks
   such a marker also starts a numbered line, for the affiliations and their anchors
