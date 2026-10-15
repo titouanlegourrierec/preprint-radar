@@ -8,6 +8,65 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ## Unreleased
 
+## 0.8.0 (2026-10-15): months of search, and five more page layouts read
+
+The third set of features of Phase 4: a period searches months of papers, its presets are
+a day, a week and a month, and the extraction reads affiliations from five more layouts of
+arXiv's pages.
+
+### Search
+
+- A period searches months of titles, authors, affiliations and venues, not only the days
+  it loads whole. The build writes the papers of the day files by month without their
+  abstract and comments (`<category>/search/<YYYY-MM>.json`, 134 bytes a paper gzipped
+  instead of 735); a period loads its latest days whole, within 10,000 papers, and its
+  older ones from these, within 20,000 more: about seven months. Without them, a period
+  would have loaded only its latest days from about 2026-11-12 (PERF-1).
+- Abstracts are searched over the days loaded whole, which the period picker says; the
+  card of an older day loads its abstract when opened, or on "Load the abstract", and its
+  star saves it whole. A month that fails to load leaves its days out, with a notice and
+  Retry.
+- The presets are the latest day, the last week and the last month, in calendar days to
+  the latest announcement day, where they were 1, 5, 20 and 40 announcement days; the
+  calendar picks any other period. Links to the former presets open the one holding as
+  many days, and "All days" the month (SRCH-14).
+
+### Data
+
+- Extraction version 8 reads five more layouts: affiliation notes after the abstract
+  (Taylor & Francis), numbered lines LaTeXML sets as authors, an affiliation glued to its
+  author's name, lines led by symbols, and the lines under the names that name an
+  institution or end with a country. Of 100 pages stored without affiliation, 29 give
+  some. Markers written in math, an address before a full stop and a glued "Email:" label
+  no longer misplace authors (AFF-29).
+- Version 9 fixes what version 8 got wrong on the archive's pages: names glued to each
+  other read as an affiliation, pieces of author fields cut at commas ("Technology of
+  China"), symbols that follow their affiliation, markers after two spaces, and IEEE's
+  template author. With it, the cached pages of the highly cited papers gave 79 more of
+  them affiliations, none lost; the daily re-extraction reads the 1,993 papers of version 7
+  again.
+- `archive-affiliations` no longer reads first the cached pages that gave nothing: its
+  second run stopped after a second, taking them for a layout change (AFF-28).
+
+### Fixes
+
+- GitHub's limits are waited for: at one query a second, 48 of 79 were refused on
+  2026-10-11, and 4,698 papers kept the stars of the week before. One query every 3 s; a
+  refused one waits for its `Retry-After`, else a minute, then two, and the run stops
+  asking after a third refusal (PROD-18).
+- A Semantic Scholar answer that is not one entry per paper asked for is no longer retried
+  for 25 minutes as a refusal, leaving the 1,415 papers after it without a count: it is
+  asked for in halves down to the paper it cannot answer for, which alone is left out,
+  with the answer in the log (CIT-15).
+
+### Continuous integration
+
+- *Update data* restores the archive's catalog on weekdays too, only to keep it in the
+  Actions cache: the archive of 2026-10-11 found it evicted and harvested it again
+  (CI-10).
+- The build backend is `uv_build` 0.13, the uv every run installs, which warned at each
+  run.
+
 ## 0.7.0 (2026-10-09): the stars of the code, and the last 12 months of Highly cited
 
 The second set of features of Phase 4: the code a paper links and its GitHub stars, the

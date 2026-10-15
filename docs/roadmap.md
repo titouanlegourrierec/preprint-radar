@@ -309,6 +309,15 @@ affiliations 91% (83% after AFF-20, 53% before it), authors mapped 99%, venues 8
 100%. The stars of 7,778 of the 7,939 papers linking code (98%). `validate`: no error, one
 warning (a `scholar.json` author list a new version changed, which Sunday's run refreshes).
 
+*Result of v0.8.0 (2026-10-15; `make stats` and `make validate` that day, before the daily
+re-extraction with version 9).* Day files: 5,857 papers, abstracts 100%, affiliations 77% of
+those tried (authors mapped 90%, institutions named 100%), venues 21%, citation counts 93%
+(those of 2026-10-11, and the new papers' that Semantic Scholar knows). Archive: 22,321
+papers, affiliations 91%, authors mapped 99%, venues 89%, counts 100%. The stars of 8,231 of
+the 8,365 papers linking code (98%). `validate`: no error, two warnings (2610.12978, which
+version 9 reads again today, and four `scholar.json` author lists new versions changed). A
+period searches the 30 days stored, 5,857 papers, all of them whole.
+
 ## Backlog triage (2026-10-07)
 
 The audit items no row above named on 2026-10-07, checked against the code of that day (`b3bfefc`).
