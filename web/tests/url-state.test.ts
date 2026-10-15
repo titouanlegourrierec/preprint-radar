@@ -121,6 +121,19 @@ describe("url state", () => {
     expect(readState(writeState(stars))).toEqual(stars);
   });
 
+  it("round-trips what Rankings ranks, and by what (SRCH-13)", () => {
+    const state = { ...DEFAULT_STATE, view: "rankings" as const, rank: "author" as const };
+    expect(writeState(state)).toBe("?view=rankings&rank=author");
+    expect(readState(writeState(state))).toEqual(state);
+    const cited = { ...state, metric: "citations" as const };
+    expect(writeState(cited)).toBe("?view=rankings&rank=author&metric=citations");
+    expect(readState(writeState(cited))).toEqual(cited);
+    expect(readState("?rank=people&metric=stars")).toMatchObject({
+      rank: "institution",
+      metric: null,
+    });
+  });
+
   it("reads the about view", () => {
     expect(readState("?view=about").view).toBe("about");
     expect(writeState({ ...DEFAULT_STATE, view: "about" })).toBe("?view=about");
@@ -202,6 +215,9 @@ describe("isNavigation", () => {
     expect(isNavigation(DEFAULT_STATE, { ...DEFAULT_STATE, query: "gaussian" })).toBe(false);
     expect(isNavigation(DEFAULT_STATE, { ...DEFAULT_STATE, sort: "citations" })).toBe(false);
     expect(isNavigation(filtered(typed("hao")), filtered(typed("hao l")))).toBe(false);
+    expect(
+      isNavigation(DEFAULT_STATE, { ...DEFAULT_STATE, rank: "author", metric: "papers" }),
+    ).toBe(false);
   });
 });
 

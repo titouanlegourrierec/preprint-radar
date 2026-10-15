@@ -5,7 +5,9 @@ import {
   oneYear,
   parseYears,
 } from "./archive-years";
+import type { EntityKind } from "./graph";
 import { between, DEFAULT_PERIOD, isIsoDay, type Period, rangeOf } from "./period";
+import type { RankingMetric } from "./rankings";
 import {
   exactly,
   type NameFilter,
@@ -19,6 +21,7 @@ export type View = "papers" | "cited" | "graph" | "rankings" | "reading-list" | 
 
 const VIEWS: readonly View[] = ["papers", "cited", "graph", "rankings", "reading-list", "about"];
 const SORTS: readonly SortOrder[] = ["relevance", "newest", "citations", "rising", "stars"];
+const METRICS: readonly RankingMetric[] = ["papers", "citations"];
 
 export interface ViewState {
   query: string;
@@ -40,6 +43,13 @@ export interface ViewState {
    * its ego network (§17.1 #8).
    */
   focus: string | null;
+  /** What Rankings ranks: institutions, or authors (`?rank=author`, SRCH-13). */
+  rank: EntityKind;
+  /**
+   * What Rankings ranks by (`?metric=papers`, `citations`); `null` for its default, citations
+   * for highly cited papers, papers for recent ones, which have few yet.
+   */
+  metric: RankingMetric | null;
 }
 
 export const DEFAULT_STATE: ViewState = {
@@ -52,6 +62,8 @@ export const DEFAULT_STATE: ViewState = {
   paper: null,
   year: null,
   focus: null,
+  rank: "institution",
+  metric: null,
 };
 
 /**
@@ -93,6 +105,8 @@ export function readState(search: string): ViewState {
     paper: params.get("paper"),
     year: parseYears(params.get("year")),
     focus: params.get("focus"),
+    rank: params.get("rank") === "author" ? "author" : DEFAULT_STATE.rank,
+    metric: METRICS.find((metric) => metric === params.get("metric")) ?? null,
     filters: {
       excludeCrossLists: params.get("xl") === "0",
       withCode: params.get("code") === "1",
@@ -126,6 +140,8 @@ export function writeState(state: ViewState): string {
   set("paper", state.paper);
   set("year", state.year === null ? null : formatYears(state.year));
   set("focus", state.focus);
+  set("rank", state.rank, DEFAULT_STATE.rank);
+  set("metric", state.metric);
   set("xl", state.filters.excludeCrossLists ? "0" : null);
   set("code", state.filters.withCode ? "1" : null);
   const { author, affiliation } = state.filters;
@@ -138,9 +154,9 @@ export function writeState(state: ViewState): string {
 }
 
 /**
- * The state as far as the Back button is concerned: typing (the query, typed filters) and
- * the sort are left out, so that they replace the current history entry instead of adding
- * one per keystroke.
+ * The state as far as the Back button is concerned: typing (the query, typed filters), the
+ * sort and what Rankings ranks are left out, so that they replace the current history entry
+ * instead of adding one per keystroke or choice.
  */
 function navigationKey(state: ViewState): string {
   const { author, affiliation } = state.filters;
@@ -148,6 +164,8 @@ function navigationKey(state: ViewState): string {
     ...state,
     query: "",
     sort: DEFAULT_STATE.sort,
+    rank: DEFAULT_STATE.rank,
+    metric: null,
     filters: {
       ...state.filters,
       author: author?.exact ? author : null,

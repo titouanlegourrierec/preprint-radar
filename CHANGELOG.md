@@ -16,6 +16,9 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   generation" in an abstract ranks before the three words apart, though not before them in
   a title. The top 20 results of 17 queries of two words or more held them as typed 84%
   of the time, 95% now ("3d reconstruction": 10 of 20, then 20) (SRCH-18).
+- Rankings keeps what it ranks and by what in the link (`?rank=author`,
+  `?metric=citations`), and its table has a caption and row headers for screen readers
+  (SRCH-13).
 - `?since=2026-09-15` opens the days since a day to the latest one, a bookmark new days
   join; the period picker names it ("Since 15 Sept 2026") and offers it for a range that
   ends on the latest day, "Keep adding new days" (PROD-13).

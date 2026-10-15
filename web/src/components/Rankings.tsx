@@ -1,4 +1,4 @@
-import { useMemo, useState } from "preact/hooks";
+import { useMemo } from "preact/hooks";
 import { affiliationCoverage, countOf } from "../format";
 import { type EntityKind, severalPeople } from "../graph";
 import { type RankingMetric, rankEntities } from "../rankings";
@@ -14,16 +14,21 @@ interface Props {
   citationsNote: string | undefined;
   /** Whether the papers are highly cited ones: citations then rank them by default. */
   archived: boolean;
+  /** Institutions or authors, as the URL says (`?rank=`, SRCH-13). */
+  kind: EntityKind;
+  /** By papers or citations (`?metric=`), `null` for the default. */
+  metric: RankingMetric | null;
+  onKind: (kind: EntityKind) => void;
+  onMetric: (metric: RankingMetric) => void;
   /** Show the papers of an institution or author. */
   onEntity: (kind: EntityKind, name: string) => void;
 }
 
 /** Institutions and authors of the papers shown, by number of papers or citations. */
-export function Rankings({ papers, citations, citationsNote, archived, onEntity }: Props) {
-  const [kind, setKind] = useState<EntityKind>("institution");
-  const [chosenMetric, setMetric] = useState<RankingMetric | null>(null);
+export function Rankings(props: Props) {
+  const { papers, citations, citationsNote, archived, kind, onEntity } = props;
   // Recent papers are rarely cited yet: they rank by papers unless asked otherwise.
-  const metric = chosenMetric ?? (archived ? "citations" : "papers");
+  const metric = props.metric ?? (archived ? "citations" : "papers");
   const ranked = useMemo(
     () => rankEntities(papers, kind, metric, citations),
     [papers, kind, metric, citations],
@@ -43,7 +48,7 @@ export function Rankings({ papers, citations, citationsNote, archived, onEntity 
             ["author", KIND_NAMES.author],
           ]}
           value={kind}
-          onChange={setKind}
+          onChange={props.onKind}
         />
         <Segmented
           label="By"
@@ -52,7 +57,7 @@ export function Rankings({ papers, citations, citationsNote, archived, onEntity 
             ["citations", "Citations"],
           ]}
           value={metric}
-          onChange={setMetric}
+          onChange={props.onMetric}
         />
       </div>
       <p class="muted rankings__note">
@@ -63,6 +68,9 @@ export function Rankings({ papers, citations, citationsNote, archived, onEntity 
       </p>
       {ranked.length > 0 && (
         <table class="rankings__table">
+          <caption class="visually-hidden">
+            {KIND_NAMES[kind]} of the papers shown, by {metric}
+          </caption>
           <thead>
             <tr>
               <th scope="col" class="rankings__rank">
@@ -82,7 +90,7 @@ export function Rankings({ papers, citations, citationsNote, archived, onEntity 
             {ranked.slice(0, SHOWN).map((entity, index) => (
               <tr key={entity.id}>
                 <td class="rankings__rank">{index + 1}</td>
-                <td>
+                <th scope="row">
                   <button
                     type="button"
                     class="link-button"
@@ -97,7 +105,7 @@ export function Rankings({ papers, citations, citationsNote, archived, onEntity 
                       · {entity.people} people?
                     </span>
                   )}
-                </td>
+                </th>
                 <td class="rankings__number">{entity.papers.toLocaleString()}</td>
                 <td class="rankings__number">{entity.citations.toLocaleString()}</td>
                 <td class="rankings__top">

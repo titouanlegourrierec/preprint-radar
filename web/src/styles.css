@@ -1604,8 +1604,15 @@ html {
   font-size: 0.8rem;
 }
 
-.rankings__table tbody tr:last-child td {
+.rankings__table tbody tr:last-child > * {
   border-bottom: 0;
+}
+
+/* Each row's institution or author, its header for screen readers, looks like its cells. */
+.rankings__table tbody th {
+  color: inherit;
+  font-weight: inherit;
+  font-size: inherit;
 }
 
 .rankings__table .link-button {

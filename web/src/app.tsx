@@ -590,6 +590,10 @@ export function App() {
                 citations={citations.counts}
                 citationsNote={citationsNote}
                 archived={archived}
+                kind={state.rank}
+                metric={state.metric}
+                onKind={(rank) => update({ rank })}
+                onMetric={(metric) => update({ metric })}
                 onEntity={(kind, name) =>
                   update({
                     view: archived ? "cited" : "papers",

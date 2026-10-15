@@ -334,8 +334,19 @@ test("Back and Forward between a typed name and a clicked one keep the history",
 test("Rankings lists the institutions of the papers shown", async ({ page }) => {
   const errors = watchErrors(page);
   await page.goto("./?view=rankings");
-  await expect(page.getByRole("table")).toBeVisible();
+  await expect(
+    page.getByRole("table", { name: "Institutions of the papers shown, by papers" }),
+  ).toBeVisible();
   await expect(page.getByText(/in these 4 papers/)).toBeVisible();
+  // Authors by citations, in the link, which opens them again (SRCH-13).
+  await page.getByRole("button", { name: "Authors", exact: true }).click();
+  await page.getByRole("button", { name: "Citations", exact: true }).click();
+  await expect(page).toHaveURL(/\?view=rankings&rank=author&metric=citations$/);
+  await page.reload();
+  await expect(
+    page.getByRole("table", { name: "Authors of the papers shown, by citations" }),
+  ).toBeVisible();
+  await expect(page.getByRole("rowheader").first()).toBeVisible();
   expect(errors).toEqual([]);
 });
 
