@@ -18,20 +18,34 @@ export const PAPER_BUDGET = Number(import.meta.env.VITE_PAPER_BUDGET) || 10_000;
 export const LIGHT_BUDGET = 20_000;
 
 /**
- * Preset periods: the latest announcement days. The longest stays within the budget at
- * cs.CV's pace (about 195 papers a day, 7,800 in 40 days).
+ * Preset periods: the announcement days of the last calendar days to the latest one
+ * (SRCH-14), whose names say what they hold: "Last 5 days" counted announcement days, a
+ * calendar week. A week holds five, fewer after a holiday, and a month about 22 (4,300
+ * papers at cs.CV's pace of about 195 a day), well within the budget; the calendar picks
+ * any other period.
  */
 export const RANGES = {
-  "1": { label: "Latest day", days: 1 },
-  "5": { label: "Last 5 days", days: 5 },
-  "20": { label: "Last 20 days", days: 20 },
-  "40": { label: "Last 40 days", days: 40 },
+  day: { label: "Latest day", calendarDays: 1 },
+  week: { label: "Last week", calendarDays: 7 },
+  month: { label: "Last month", calendarDays: 30 },
 } as const;
 
 export type RangeKey = keyof typeof RANGES;
 
 /** The longest preset, which links to "All days" (`?range=all`, before the budget) open. */
-export const LONGEST_RANGE: RangeKey = "40";
+export const LONGEST_RANGE: RangeKey = "month";
+
+/**
+ * The presets of former links, counted in announcement days ("Last 5 days"): each opens
+ * the one that holds as many days, and "All days" the longest.
+ */
+const FORMER_RANGES: Record<string, RangeKey> = {
+  "1": "day",
+  "5": "week",
+  "20": "month",
+  "40": "month",
+  all: LONGEST_RANGE,
+};
 
 /** Papers to show: the latest announcement days, or the days between two dates. */
 export type Period =
@@ -46,12 +60,18 @@ export type Period =
 
 export type DateRange = Extract<Period, { kind: "dates" }>;
 
-export const DEFAULT_PERIOD: Period = { kind: "recent", range: "5" };
+export const DEFAULT_PERIOD: Period = { kind: "recent", range: "week" };
 
 const ISO_DAY_RE = /^\d{4}-\d{2}-\d{2}$/;
 
 export function isRange(value: string | null): value is RangeKey {
   return value !== null && Object.hasOwn(RANGES, value);
+}
+
+/** The preset a link's `range` names, a former one's included; `null` for none. */
+export function rangeOf(value: string | null): RangeKey | null {
+  if (isRange(value)) return value;
+  return (value !== null && Object.hasOwn(FORMER_RANGES, value) && FORMER_RANGES[value]) || null;
 }
 
 export function isIsoDay(value: string | null): value is string {
@@ -67,9 +87,15 @@ export function between(first: string, second: string): DateRange {
 
 /** Days of `days` (most recent first, as in the store index) that fall in the period. */
 function periodDays(days: readonly DaySummary[], period: Period): DaySummary[] {
-  return period.kind === "recent"
-    ? days.slice(0, RANGES[period.range].days)
-    : days.filter((day) => day.date >= period.from && day.date <= period.to);
+  if (period.kind === "dates") {
+    return days.filter((day) => day.date >= period.from && day.date <= period.to);
+  }
+  const latest = days[0]?.date;
+  if (latest === undefined) return [];
+  const first = dayDate(latest);
+  first.setDate(first.getDate() - (RANGES[period.range].calendarDays - 1));
+  const from = isoDay(first);
+  return days.filter((day) => day.date >= from);
 }
 
 /**

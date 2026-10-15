@@ -310,7 +310,7 @@ test("a view that failed draws again for another period, or Back", async ({ page
   await page.goto("./?from=2026-09-24");
   await expect(page.getByText("1 of 1 cs.CV paper")).toBeVisible();
   await page.locator(".period-picker__trigger").click();
-  await page.getByRole("button", { name: "Last 5 days" }).click();
+  await page.getByRole("button", { name: "Last week" }).click();
   await expect(page.getByRole("alert")).toContainText("this view could not be displayed");
   await page.goBack();
   await expect(page.getByRole("alert")).toHaveCount(0);

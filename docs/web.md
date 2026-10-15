@@ -150,7 +150,11 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
 ## Periods and loading (`period.ts`, `data.ts`, `hooks/use-papers.ts`)
 
 - A preset (`?range=`) or a custom date range (`?from=&to=`), shown by
-  `components/PeriodPicker.tsx`.
+  `components/PeriodPicker.tsx`. The presets are the latest day, the last week and the
+  last month (`day`, `week`, `month`), counted in calendar days to the latest announcement
+  day, so that their names say what they hold: a week has five announcement days, fewer
+  after a holiday (SRCH-14). Links to the former presets, counted in announcement days,
+  open the one that holds as many (`?range=5` a week, `20` and `40` a month, `rangeOf`).
 - Every paper of a period is downloaded and indexed in the browser, so a period loads its
   latest days whole within `PAPER_BUDGET` (10,000 papers: a year of cs.CV, 46,000, would
   take 20 s to index and about 480 MB, which crashes phones), and its older days from the

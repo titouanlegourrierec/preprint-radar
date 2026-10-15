@@ -5,7 +5,7 @@ import {
   oneYear,
   parseYears,
 } from "./archive-years";
-import { between, DEFAULT_PERIOD, isIsoDay, isRange, LONGEST_RANGE, type Period } from "./period";
+import { between, DEFAULT_PERIOD, isIsoDay, type Period, rangeOf } from "./period";
 import {
   exactly,
   type NameFilter,
@@ -55,16 +55,16 @@ export const DEFAULT_STATE: ViewState = {
 };
 
 /**
- * `?from=…&to=…` (a single `from` is one day), else `?range=…`, else the default. "All
- * days" (`?range=all`) is gone, since a period is bounded: its links open the longest preset.
+ * `?from=…&to=…` (a single `from` is one day), else `?range=…`, else the default. Former
+ * presets open the one that holds as many days ("5" a week), and "All days" (`?range=all`),
+ * gone since a period is bounded, the longest (`rangeOf`).
  */
 function readPeriod(params: URLSearchParams): Period {
   const from = params.get("from");
   const to = params.get("to") ?? from;
   if (isIsoDay(from) && isIsoDay(to)) return between(from, to);
-  const range = params.get("range");
-  if (range === "all") return { kind: "recent", range: LONGEST_RANGE };
-  return isRange(range) ? { kind: "recent", range } : DEFAULT_PERIOD;
+  const range = rangeOf(params.get("range"));
+  return range === null ? DEFAULT_PERIOD : { kind: "recent", range };
 }
 
 /**

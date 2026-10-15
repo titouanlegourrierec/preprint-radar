@@ -12,6 +12,7 @@ import {
   PAPER_BUDGET,
   periodKey,
   periodOfKey,
+  rangeOf,
   samePeriod,
   selectDays,
   shiftMonth,
@@ -26,10 +27,10 @@ const days = [
 
 describe("selectDays", () => {
   it("keeps the latest days of a preset", () => {
-    expect(selectDays(days, { kind: "recent", range: "1" }).map((day) => day.date)).toEqual([
+    expect(selectDays(days, { kind: "recent", range: "day" }).map((day) => day.date)).toEqual([
       "2026-09-25",
     ]);
-    expect(selectDays(days, { kind: "recent", range: "40" })).toHaveLength(4);
+    expect(selectDays(days, { kind: "recent", range: "month" })).toHaveLength(4);
   });
 
   it("keeps the days between two dates, inclusive", () => {
@@ -56,15 +57,39 @@ describe("selectDays", () => {
     expect(light).toHaveLength(Math.floor(LIGHT_BUDGET / 300));
     expect(light[0]).toEqual(year[loaded.length]);
     expect(daysOverBudget(year, period)).toBe(250 - loaded.length - light.length);
-    expect(daysOverBudget(days, { kind: "recent", range: "40" })).toBe(0);
-    expect(lightDays(days, { kind: "recent", range: "40" })).toEqual([]);
+    expect(daysOverBudget(days, { kind: "recent", range: "month" })).toBe(0);
+    expect(lightDays(days, { kind: "recent", range: "month" })).toEqual([]);
   });
 
   it("always loads the latest day, however large", () => {
-    const huge = [{ date: "2026-09-25", count: PAPER_BUDGET + 1 }, ...days];
-    expect(selectDays(huge, { kind: "recent", range: "5" })).toEqual([huge[0]]);
-    expect(lightDays(huge, { kind: "recent", range: "5" })).toEqual(days);
-    expect(daysOverBudget(huge, { kind: "recent", range: "5" })).toBe(0);
+    const huge = [{ date: "2026-09-26", count: PAPER_BUDGET + 1 }, ...days];
+    expect(selectDays(huge, { kind: "recent", range: "month" })).toEqual([huge[0]]);
+    expect(lightDays(huge, { kind: "recent", range: "month" })).toEqual(days);
+    expect(daysOverBudget(huge, { kind: "recent", range: "month" })).toBe(0);
+  });
+
+  it("counts a preset in calendar days to the latest announcement day (SRCH-14)", () => {
+    // A week to Friday 25 September holds its five weekdays; one with a holiday, four.
+    const weekdays = ["2026-09-25", "2026-09-24", "2026-09-23", "2026-09-22", "2026-09-21"];
+    const announced = [...weekdays, "2026-09-18"].map((date) => ({ date, count: 100 }));
+    const week = { kind: "recent", range: "week" } as const;
+    expect(selectDays(announced, week).map((day) => day.date)).toEqual(weekdays);
+    const holiday = announced.filter((day) => day.date !== "2026-09-21");
+    expect(selectDays(holiday, week)).toHaveLength(4);
+    expect(selectDays(days, { kind: "recent", range: "week" })).toHaveLength(2);
+    expect(selectDays([], week)).toEqual([]);
+  });
+
+  it("opens the presets of former links as the ones that hold as many days", () => {
+    expect(rangeOf("week")).toBe("week");
+    expect(rangeOf("1")).toBe("day");
+    expect(rangeOf("5")).toBe("week");
+    expect(rangeOf("20")).toBe("month");
+    expect(rangeOf("40")).toBe("month");
+    expect(rangeOf("all")).toBe("month");
+    expect(rangeOf("42")).toBeNull();
+    expect(rangeOf("toString")).toBeNull();
+    expect(rangeOf(null)).toBeNull();
   });
 });
 
@@ -98,21 +123,23 @@ describe("period keys", () => {
   it("are equal for equal periods, and give the period back", () => {
     const dates = between("2026-09-05", "2026-09-01");
     expect(periodKey(dates)).toBe("2026-09-01..2026-09-05");
-    expect(periodKey({ kind: "recent", range: "20" })).toBe("20");
+    expect(periodKey({ kind: "recent", range: "month" })).toBe("month");
     expect(periodOfKey(periodKey(dates))).toEqual(dates);
-    expect(periodOfKey("20")).toEqual({ kind: "recent", range: "20" });
+    expect(periodOfKey("month")).toEqual({ kind: "recent", range: "month" });
     expect(periodKey(between("2026-09-01", "2026-09-05"))).toBe(periodKey(dates));
   });
 
   it("tell equal periods apart from others", () => {
-    expect(samePeriod({ kind: "recent", range: "5" }, { kind: "recent", range: "5" })).toBe(true);
-    expect(samePeriod({ kind: "recent", range: "5" }, between("2026-09-01", "2026-09-05"))).toBe(
+    expect(samePeriod({ kind: "recent", range: "week" }, { kind: "recent", range: "week" })).toBe(
+      true,
+    );
+    expect(samePeriod({ kind: "recent", range: "week" }, between("2026-09-01", "2026-09-05"))).toBe(
       false,
     );
     expect(
       samePeriod(between("2026-09-01", "2026-09-05"), between("2026-09-01", "2026-09-05")),
     ).toBe(true);
-    expect(samePeriod(between("2026-09-01", "2026-09-05"), { kind: "recent", range: "5" })).toBe(
+    expect(samePeriod(between("2026-09-01", "2026-09-05"), { kind: "recent", range: "week" })).toBe(
       false,
     );
   });

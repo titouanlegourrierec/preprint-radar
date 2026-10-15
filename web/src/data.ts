@@ -18,7 +18,7 @@ const MAX_PARALLEL_REQUESTS = 6;
 
 /**
  * Day and archive files loaded (and the most cited papers of the last 12 months), kept for
- * the next periods (back to the last 5 days after the last 20, a year of the archive after
+ * the next periods (back to the last week after the last month, a year of the archive after
  * another): as many papers as a period loads,
  * besides those shown, which are shared. The least recently used files leave first.
  */

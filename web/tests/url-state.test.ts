@@ -24,7 +24,7 @@ describe("url state", () => {
       ...DEFAULT_STATE,
       query: 'gaussian "novel view"',
       category: "cs.CV",
-      period: { kind: "recent" as const, range: "20" as const },
+      period: { kind: "recent" as const, range: "month" as const },
       sort: "newest" as const,
       view: "reading-list" as const,
       filters: {
@@ -121,7 +121,10 @@ describe("url state", () => {
   it("falls back to defaults on invalid values", () => {
     expect(readState("?range=42&sort=weird")).toEqual(DEFAULT_STATE);
     // "All days" left with the paper budget: its links open the longest preset.
-    expect(readState("?range=all").period).toEqual({ kind: "recent", range: "40" });
+    expect(readState("?range=all").period).toEqual({ kind: "recent", range: "month" });
+    // The presets of former links, counted in announcement days (SRCH-14).
+    expect(readState("?range=5").period).toEqual({ kind: "recent", range: "week" });
+    expect(readState("?range=20").period).toEqual({ kind: "recent", range: "month" });
     expect(readState("?from=yesterday&to=2026-13-45")).toEqual(DEFAULT_STATE);
   });
 });
@@ -177,7 +180,7 @@ describe("isNavigation", () => {
     expect(isNavigation(DEFAULT_STATE, { ...DEFAULT_STATE, paper: "2609.30234" })).toBe(true);
     expect(isNavigation(DEFAULT_STATE, { ...DEFAULT_STATE, year: oneYear(2017) })).toBe(true);
     expect(
-      isNavigation(DEFAULT_STATE, { ...DEFAULT_STATE, period: { kind: "recent", range: "20" } }),
+      isNavigation(DEFAULT_STATE, { ...DEFAULT_STATE, period: { kind: "recent", range: "month" } }),
     ).toBe(true);
     expect(isNavigation(DEFAULT_STATE, filtered(exactly("Hao Li")))).toBe(true);
     expect(isNavigation(filtered(exactly("Hao Li")), filtered(typed("Hao Li")))).toBe(true);
