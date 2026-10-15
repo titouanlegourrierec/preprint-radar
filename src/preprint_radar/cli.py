@@ -15,7 +15,7 @@ from pathlib import Path
 
 from rich.table import Table
 
-from preprint_radar import __version__
+from preprint_radar import __version__, collect
 from preprint_radar.archive.catalog import Catalog
 from preprint_radar.archive.update import ArchiveClients, format_archive_report, update_archive
 from preprint_radar.collect import (
@@ -25,6 +25,7 @@ from preprint_radar.collect import (
     UpdateReport,
     add_institutions,
     backfill_category,
+    catch_up_since,
     format_archive_affiliations_report,
     format_citations_report,
     format_code_report,
@@ -901,15 +902,31 @@ def _run_update(args: argparse.Namespace) -> int:
             HttpClient(user_agent=DEFAULT_USER_AGENT, min_interval=ROR_DELAY_SECONDS) as ror_client,
         ):
             for category in categories:
-                report = update_category(
-                    category,
-                    store=store,
-                    site_client=site_client,
-                    api_client=api_client,
-                    ror_client=ror_client if args.max_ror else None,
-                    max_ror_lookups=args.max_ror,
-                    html=reading,
-                )
+                day = collect.today()
+                if since := catch_up_since(store, category, day):
+                    # Days the listing no longer holds, or with papers it dropped (CI-7).
+                    line = f"{category}: reading every day since {since.isoformat()} from catchup pages"
+                    logger.warning("%s", line)
+                    github_annotation("warning", "Catching up", line)
+                    report = backfill_category(
+                        category,
+                        [since + timedelta(days=offset) for offset in range((day - since).days + 1)],
+                        store=store,
+                        site_client=site_client,
+                        ror_client=ror_client if args.max_ror else None,
+                        max_ror_lookups=args.max_ror,
+                        html=reading,
+                    )
+                else:
+                    report = update_category(
+                        category,
+                        store=store,
+                        site_client=site_client,
+                        api_client=api_client,
+                        ror_client=ror_client if args.max_ror else None,
+                        max_ror_lookups=args.max_ror,
+                        html=reading,
+                    )
                 _publish_update(report)
                 reports.append(report)
     finally:

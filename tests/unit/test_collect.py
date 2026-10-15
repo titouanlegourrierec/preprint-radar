@@ -27,12 +27,14 @@ from preprint_radar.collect import (
     _add_html_front_matter,
     add_institutions,
     backfill_category,
+    catch_up_since,
     format_archive_affiliations_report,
     format_citations_report,
     format_code_report,
     format_openalex_report,
     format_report,
     reextract_category,
+    today,
     update_archive_affiliations,
     update_category,
     update_citation_counts,
@@ -49,6 +51,14 @@ from preprint_radar.store.paper_store import PaperStore
 # The day the tests read pages and look up ROR: fixed, so that a run across midnight UTC
 # cannot see two days.
 READ_ON = date(2026, 9, 25)
+
+
+# The function itself, before the fixture below pins the day of every test.
+_TODAY = today
+
+
+def test_a_run_is_dated_in_utc() -> None:
+    assert _TODAY() == datetime.now(tz=UTC).date()
 
 
 @pytest.fixture(autouse=True)
@@ -303,6 +313,47 @@ def test_update_reads_a_catchup_page_only_for_a_weekday_the_listing_lacks(
     assert report.caught_up is None
     assert report.listed == 7
     assert ("whose catchup page could not be read" in caplog.text) == (page == "failing")
+
+
+RUN_DAY = date(2026, 10, 15)  # a Thursday
+
+
+@pytest.mark.parametrize(
+    ("stored", "expected"),
+    [
+        pytest.param({}, None, id="empty"),
+        pytest.param({date(2026, 10, 14): True}, None, id="up-to-date"),
+        # The listing still holds the four weekdays after a Friday.
+        pytest.param({date(2026, 10, 9): True}, None, id="listing-covers"),
+        pytest.param({date(2026, 10, 8): True}, date(2026, 10, 9), id="outage"),
+        pytest.param({date(2026, 8, 3): True}, date(2026, 9, 15), id="outage-bounded"),
+        # Papers still pending on a day the listing dropped, within 30 days.
+        pytest.param({date(2026, 10, 14): True, date(2026, 10, 1): False}, date(2026, 10, 1), id="pending"),
+        pytest.param({date(2026, 10, 14): True, date(2026, 10, 13): False}, None, id="pending-listed"),
+        pytest.param({date(2026, 10, 14): True, date(2026, 9, 1): False}, None, id="pending-too-old"),
+    ],
+)
+def test_update_catches_up_on_days_no_listing_holds(
+    store: PaperStore, listing: Listing, stored: dict[date, bool], expected: date | None
+) -> None:
+    base = listing.papers[0]
+    store.save(
+        "cs.CV",
+        [
+            replace(
+                base,
+                arxiv_id=f"2610.{9000 + at}",
+                announced=day,
+                abstract="An abstract.",
+                affiliations=("MIT",) if read else None,
+                author_affiliations=None,
+                html_url=f"https://arxiv.org/html/2610.{9000 + at}v1",
+            )
+            for at, (day, read) in enumerate(stored.items())
+        ],
+    )
+
+    assert catch_up_since(store, "cs.CV", RUN_DAY) == expected
 
 
 def test_update_falls_back_to_the_api_when_a_catchup_page_fails(

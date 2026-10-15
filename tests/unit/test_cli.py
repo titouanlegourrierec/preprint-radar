@@ -36,6 +36,12 @@ from preprint_radar.sources.semantic_scholar import S2_BATCH_URL
 from preprint_radar.store.paper_store import PaperStore
 
 
+@pytest.fixture(autouse=True)
+def _run_day(monkeypatch: pytest.MonkeyPatch) -> None:
+    """The day of the fixtures' newest announcement: `update` sees the store as up to date (CI-7)."""
+    monkeypatch.setattr("preprint_radar.collect.today", lambda: date(2026, 9, 25))
+
+
 @pytest.fixture
 def offline(
     monkeypatch: pytest.MonkeyPatch,
@@ -135,6 +141,25 @@ def test_update_warns_of_a_listing_out_of_date(
     out = capsys.readouterr().out
     assert "::warning title=Listing out of date::cs.CV: 11 listed, 11 new" in out
     assert "the listing lacked 2026-09-28: 4 papers from its catchup page" in out
+
+
+@pytest.mark.usefixtures("offline")
+def test_update_catches_up_on_days_after_an_outage(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    data_dir = tmp_path / "data"
+    assert main(["update", "--data-dir", str(data_dir), "--crawl-delay", "0", "--max-html", "0"]) == 0
+    # Six weekdays later: the listing no longer holds the days in between, nor those of the
+    # papers whose pages were not read (CI-7).
+    monkeypatch.setattr("preprint_radar.collect.today", lambda: date(2026, 10, 5))
+    monkeypatch.setenv("GITHUB_ACTIONS", "true")
+    capsys.readouterr()
+
+    assert main(["update", "--data-dir", str(data_dir), "--crawl-delay", "0", "--max-html", "0"]) == 0
+
+    out = capsys.readouterr().out
+    assert "::warning title=Catching up::cs.CV: reading every day since 2026-09-24 from catchup pages" in out
+    assert "cs.CV: 0 listed, 0 new" in out
 
 
 @pytest.mark.usefixtures("offline")

@@ -38,6 +38,10 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   it still lacks comes from that day's catchup page, with a warning `Listing out of date`
   (REL-12).
 
+- `update` catches up by itself after an outage longer than the five days the listing
+  holds, or when papers are still pending on a day the listing dropped: it reads every day
+  since from the catchup pages, within 30 days, with a warning `Catching up` (CI-7).
+
 ### Security
 
 - The site has a Content-Security-Policy: its own scripts, styles, data and graph worker

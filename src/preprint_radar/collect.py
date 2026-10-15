@@ -12,11 +12,16 @@ from collections import Counter
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from contextlib import ExitStack
 from dataclasses import dataclass, replace
-from datetime import UTC, date, datetime
+from datetime import UTC, date, datetime, timedelta
 from enum import StrEnum
 
 from preprint_radar.code import CodeLink, code_link
-from preprint_radar.config import DEFAULT_MAX_ROR_LOOKUPS, DEFAULT_SAVE_EVERY
+from preprint_radar.config import (
+    CATCH_UP_DAYS,
+    CATCH_UP_WEEKDAYS,
+    DEFAULT_MAX_ROR_LOOKUPS,
+    DEFAULT_SAVE_EVERY,
+)
 from preprint_radar.console import progress
 from preprint_radar.exceptions import FetchError, ParseError, SchemaVersionError, StoreError
 from preprint_radar.http import HttpClient
@@ -45,12 +50,13 @@ from preprint_radar.sources.huggingface import fetch_likes
 from preprint_radar.sources.ror import match_institutions
 from preprint_radar.sources.semantic_scholar import S2_SOURCE, fetch_citation_counts, fetch_scholar_records
 from preprint_radar.store.paper_store import PaperStore
+from preprint_radar.store.stats import weekdays_since
 
 logger = logging.getLogger(__name__)
 
 
 def today() -> date:
-    """The day of a reading, in UTC, for the provenance of what it gives."""
+    """The day of a run, in UTC: the provenance of what it reads, and the day it expects."""
     return datetime.now(tz=UTC).date()
 
 
@@ -240,6 +246,41 @@ def _missing_day(client: HttpClient, category: str, listing: Listing, day: date)
 
 
 _SATURDAY = 5
+
+
+def catch_up_since(store: PaperStore, category: str, day: date) -> date | None:
+    """The first day ``update`` should read from catchup pages, ``None`` when the listing suffices.
+
+    The recent listing holds the last five announcement days (CI-7). After an outage longer
+    than that, the days between the newest stored one and the listing's are in no listing:
+    every day since the newest stored one is read, as a backfill does. And papers still
+    pending on a day the listing no longer holds (pages past a run's budget, after such an
+    outage) are read from their stored day. Never further back than ``CATCH_UP_DAYS``, nor
+    for an empty store.
+
+    Args:
+        store: Data store.
+        category: arXiv category.
+        day: The day of the run.
+
+    Returns:
+        The day to catch up from, or ``None``.
+    """
+    days = store.days(category)
+    if not days:
+        return None
+    oldest = day - timedelta(days=CATCH_UP_DAYS)
+    candidates: list[date] = []
+    if weekdays_since(days[0], day) > CATCH_UP_WEEKDAYS:
+        candidates.append(days[0] + timedelta(days=1))
+    candidates.extend(
+        stored
+        for stored in days
+        if oldest <= stored
+        and weekdays_since(stored, day) > CATCH_UP_WEEKDAYS
+        and any(_still_pending(paper) for paper in store.load_day(category, stored))
+    )
+    return max(min(candidates), oldest) if candidates else None
 
 
 def backfill_category(

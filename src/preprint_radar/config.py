@@ -75,6 +75,13 @@ GAINS_MIN_DAYS = 6
 """A full refresh of the counts writes what each paper gained since the counts it replaces
 only when these are at least this old (CIT-9): counts are refreshed weekly, and a refresh run
 again within the week keeps the week's gains, which a day's interval would bring to nothing."""
+CATCH_UP_WEEKDAYS = 4
+"""The recent listing holds the last five announcement days: past this many weekdays since the
+newest stored day, it may have lost some, and `update` reads every day since from their
+catchup pages instead, as a backfill does (CI-7)."""
+CATCH_UP_DAYS = 30
+"""How far back `update` catches up by itself: days missing, or with papers still pending
+after the listing dropped them (pages past a run's budget). Older ones need a `backfill`."""
 STALE_DATA_WEEKDAYS = 3
 """A store whose newest announcement day is more weekdays old than this is reported as stale:
 arXiv announces every weekday, and runs missed (one may be a holiday)."""

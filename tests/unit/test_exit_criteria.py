@@ -27,6 +27,12 @@ DAY = date(2026, 9, 25)
 UPDATE = ["update", "--crawl-delay", "0", "--max-ror", "0"]
 
 
+@pytest.fixture(autouse=True)
+def _run_day(monkeypatch: pytest.MonkeyPatch) -> None:
+    """The day of the fixtures' newest announcement: `update` sees the store as up to date (CI-7)."""
+    monkeypatch.setattr("preprint_radar.collect.today", lambda: date(2026, 9, 25))
+
+
 @pytest.fixture
 def arxiv(
     monkeypatch: pytest.MonkeyPatch,

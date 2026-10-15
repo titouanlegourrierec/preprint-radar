@@ -78,11 +78,16 @@ arXiv's listing still covers the days missed (it shows the last five announcemen
 1. Run it by hand: *Actions → Update data → Run workflow* (or
    `gh workflow run update.yml`). Runs share a concurrency group, so a scheduled run
    queued meanwhile waits for the manual one, then stops at its guard if it succeeded.
-2. For days older than the listing, fill *since* (`YYYY-MM-DD`): the run then calls
+2. Days older than the listing are caught up by themselves (CI-7): when the newest stored
+   day is more than 4 weekdays old (`CATCH_UP_WEEKDAYS`), or a day the listing dropped
+   still has papers pending (pages past a run's budget), `update` reads every day since
+   from the catchup pages, as `backfill` does, within the last 30 days (`CATCH_UP_DAYS`),
+   with a warning annotation `Catching up` (`reading every day since`). The next runs
+   read the pages left, until `make stats` shows no pending papers for those days; papers
+   without an HTML rendering count as *no page*, which no run reads (about 5%).
+3. For days older than 30 days, fill *since* (`YYYY-MM-DD`): the run then calls
    `backfill` over the catchup pages from that day on, limited to 600 pages
-   (`DEFAULT_MAX_HTML`) unless *max-html* says otherwise. Run it again until `make stats`
-   shows no pending papers for those days; papers without an HTML rendering count as
-   *no page*, which no run reads (about 5%).
+   (`DEFAULT_MAX_HTML`) unless *max-html* says otherwise.
 
 ## Update data is red
 

@@ -40,7 +40,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
 - Long runs, **never without asking**; interrupting loses nothing, re-running resumes:
   - `make update` (reads at most 600 HTML pages per category, `DEFAULT_MAX_HTML`, at one
     every 15 s: up to 2.5 hours; `MAX_HTML=N` changes it). `make update-quick` skips the
-    pages.
+    pages. After an outage longer than the listing's five days, or with papers pending on
+    a day it dropped, it reads every day since from the catchup pages instead, within 30
+    days (`collect.catch_up_since`, CI-7).
   - `make backfill SINCE=YYYY-MM-DD [UNTIL=...]`: past days from the catchup pages, then
     their pages, 600 a run like `update` (a month of cs.CV: about 11 hours, over five runs
     or one with `MAX_HTML=3000`).
