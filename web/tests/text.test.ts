@@ -21,4 +21,17 @@ describe("fold", () => {
     expect(fold("Nießner")).toBe(fold("NIESSNER"));
     expect(fold("GROẞE Straße")).toBe("grosse strasse");
   });
+
+  it("folds each ASCII character as the whole folding would, lowercasing most (SRCH-18)", () => {
+    const whole = (text: string) =>
+      text
+        .normalize("NFD")
+        .replace(/\p{Diacritic}/gu, "")
+        .toLowerCase();
+    for (let code = 0; code < 128; code++) {
+      const character = String.fromCharCode(code);
+      expect(fold(`Text-to-${character}`)).toBe(whole(`Text-to-${character}`));
+    }
+    expect(fold("a^b`c")).toBe("abc");
+  });
 });

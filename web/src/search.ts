@@ -115,22 +115,26 @@ const MIN_FUZZY_LENGTH = 7;
  */
 const ADJACENCY_BOOST = 2;
 
+/** What lies between two words, as {@link searchKey} sees them: anything but letters and digits. */
+const NOT_A_WORD = "[^\\p{L}\\p{N}]+";
+
 /**
  * What a query's words must hold side by side to rank first (SRCH-18): each two of its
- * words that follow each other, with the stop words between them, the last one as a
- * prefix as the search takes it: "text to image" and "image generation" for
- * "text-to-image generation", each with a space before (and after, but for a prefix).
+ * words that follow each other, with the stop words between them, as patterns over a
+ * paper's {@link fold}ed text ("text to image" and "image generation" for "text-to-image
+ * generation"). Whole words with anything but letters and digits between them, as
+ * {@link searchKey} sees them, the last one a prefix as the search takes it: a pattern
+ * costs a fraction of the key of every paper a broad search finds.
  */
-function adjacentPieces(text: string): string[] {
+function adjacentPatterns(text: string): RegExp[] {
   const words = searchKey(text).split(" ");
   const kept = words.flatMap((word, at) => (processTerm(word) ? [at] : []));
   return kept.slice(1).map((end, at) => {
-    const piece = words.slice(kept[at], end + 1).join(" ");
+    const piece = words.slice(kept[at], end + 1).join(NOT_A_WORD);
     const prefix = at === kept.length - 2 && (words[end]?.length ?? 0) >= MIN_PREFIX_LENGTH;
-    return ` ${piece}${prefix ? "" : " "}`;
+    return new RegExp(`(?<![\\p{L}\\p{N}])${piece}${prefix ? "" : "(?![\\p{L}\\p{N}])"}`, "u");
   });
 }
-
 export function parseQuery(raw: string): ParsedQuery {
   const phrases: string[] = [];
   const excluded: string[] = [];
@@ -231,6 +235,8 @@ export class PaperIndex {
   private fullText: MiniSearch<Paper> | null = null;
   /** {@link constraintText} of each paper, built when a query first needs it. */
   private readonly constraints = new Map<string, string>();
+  /** The folded text of each paper, built when a query of several words first needs it. */
+  private readonly folded = new Map<string, string>();
 
   constructor(papers: Paper[]) {
     // A paper cross-listed in several loaded days would otherwise be indexed twice.
@@ -322,15 +328,25 @@ export class PaperIndex {
     }
     // Only Newest ignores the match: Most cited and Rising keep it among equal counts.
     if (sort === "newest" || typedTerms.length === 0) return filtered.sort(newestFirst);
-    const pieces = adjacentPieces(query.text);
+    const pieces = adjacentPatterns(query.text);
     if (pieces.length > 0) {
       for (const result of filtered) {
-        const text = this.constraintsOf(result.paper);
-        const together = pieces.filter((piece) => text.includes(piece)).length;
+        const text = this.foldedOf(result.paper);
+        const together = pieces.filter((piece) => piece.test(text)).length;
         result.score *= 1 + (ADJACENCY_BOOST * together) / pieces.length;
       }
     }
     return filtered.sort((a, b) => b.score - a.score || newestFirst(a, b));
+  }
+
+  /** Every searched field of a paper, {@link fold}ed, built once: what side by side is read in. */
+  private foldedOf(paper: Paper): string {
+    let text = this.folded.get(paper.arxiv_id);
+    if (text === undefined) {
+      text = fold(SEARCHED_FIELDS.map((field) => fieldValue(paper, field)).join(" "));
+      this.folded.set(paper.arxiv_id, text);
+    }
+    return text;
   }
 
   /** {@link constraintText} of a paper, built once. */
