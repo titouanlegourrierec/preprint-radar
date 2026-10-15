@@ -165,7 +165,10 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
 - A preset (`?range=`), a custom date range (`?from=&to=`) or the days since a day
   (`?since=`, PROD-13: "since 15 September" as a bookmark, which new days join; the
   calendar offers it for a range that ends on the latest day, "Keep adding new days"), shown
-  by `components/PeriodPicker.tsx`. The presets are the latest day, the last week and the
+  by `components/PeriodPicker.tsx`. Its calendar works from the keyboard (UX-14): one day
+  takes Tab (the one the focus was on, else the period's last), the arrows move a day or a
+  week past the days without papers (`stepDay`), into the next month too, Enter picks, and
+  a focused day previews the range as the pointer does; its button reads "Period: …". The presets are the latest day, the last week and the
   last month (`day`, `week`, `month`), counted in calendar days to the latest announcement
   day, so that their names say what they hold: a week has five announcement days, fewer
   after a holiday (SRCH-14). Links to the former presets, counted in announcement days,

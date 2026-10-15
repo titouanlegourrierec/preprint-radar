@@ -235,3 +235,24 @@ export function formatMissingDays(days: readonly string[]): string {
   }
   return sorted.map((day) => DAY_FORMAT.format(dayDate(day))).join(" and ");
 }
+
+/**
+ * The day an arrow key moves the calendar's focus to (UX-14): `step` days away (±1 a day,
+ * ±7 a week), past the days that cannot be picked (no announcement); `null` beyond the
+ * days stored.
+ */
+export function stepDay(
+  from: string,
+  step: number,
+  canPick: (day: string) => boolean,
+  bounds: { earliest: string; latest: string },
+): string | null {
+  if (step === 0) return null;
+  const date = dayDate(from);
+  for (;;) {
+    date.setDate(date.getDate() + step);
+    const day = isoDay(date);
+    if (day < bounds.earliest || day > bounds.latest) return null;
+    if (canPick(day)) return day;
+  }
+}

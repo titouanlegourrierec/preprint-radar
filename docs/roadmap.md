@@ -403,6 +403,6 @@ one up when touching the same code.
 | SRCH-20 | A year without an archive file shows the latest one while the URL keeps the year asked (the count names the year shown): rewrite the URL, or say so. The URL is rewritten to the years shown, in place (`useUrlState().correct`: no history entry, the shared paper kept), so that a link opens what was seen; ranges past the archive's years are clamped the same way (2026-10-15) | P3 | done |
 | TEST-11 | The CLI tests of `archive` stub it, and `citations` runs only its rejected-key case: one real run of each over fixtures | P3 | todo |
 | TEST-12 | `graph-layout`'s three `Math.random` calls (d3-force is seeded already): inject the random source | P3 | todo |
-| UX-14 | The calendar: a roving tabindex with arrow keys, the range preview on focus, `aria-controls` only when open, a label for "Period" | P3 | todo |
+| UX-14 | The calendar: a roving tabindex with arrow keys, the range preview on focus, `aria-controls` only when open, a label for "Period". All four: one day takes Tab, the arrows move a day or a week past the days without papers (`stepDay`), across months; focus previews the range; the button reads "Period: …" (2026-10-15) | P3 | done |
 | UX-16 | Sizes in rem from the reader's font size (the body is 15 px), no text under 11 px, 24 px targets | P3 | todo |
 | UX-17 | Dates and numbers in the reader's locale in an English interface: pass "en", or accept the mix (UX-25 left it open) | P3 | todo |

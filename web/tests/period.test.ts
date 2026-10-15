@@ -17,6 +17,7 @@ import {
   samePeriod,
   selectDays,
   shiftMonth,
+  stepDay,
 } from "../src/period";
 
 const days = [
@@ -178,6 +179,27 @@ describe("formatMissingDays", () => {
     expect(formatMissingDays(["2026-09-30", "2026-09-01", "2026-09-14"])).toBe(
       `3 days in ${formatDays("2026-09-01", "2026-09-30")}`,
     );
+  });
+});
+
+describe("stepDay", () => {
+  // Days with papers: Thursday 24 and Friday 25 September, Monday 28, Thursday 1 October.
+  const stored = new Set(["2026-09-24", "2026-09-25", "2026-09-28", "2026-10-01"]);
+  const bounds = { earliest: "2026-09-24", latest: "2026-10-01" };
+  const step = (from: string, by: number) => stepDay(from, by, (day) => stored.has(day), bounds);
+
+  it("moves a day or a week, past the days without papers (UX-14)", () => {
+    expect(step("2026-09-25", 1)).toBe("2026-09-28");
+    expect(step("2026-09-28", -1)).toBe("2026-09-25");
+    expect(step("2026-09-24", 7)).toBe("2026-10-01");
+    expect(step("2026-10-01", -7)).toBe("2026-09-24");
+  });
+
+  it("stops at the days stored", () => {
+    expect(step("2026-10-01", 1)).toBeNull();
+    expect(step("2026-09-24", -1)).toBeNull();
+    expect(step("2026-09-25", 7)).toBeNull();
+    expect(step("2026-09-25", 0)).toBeNull();
   });
 });
 

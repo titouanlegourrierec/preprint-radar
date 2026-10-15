@@ -15,6 +15,7 @@ import {
   type RangeKey,
   selectDays,
   shiftMonth,
+  stepDay,
 } from "../period";
 import type { DaySummary } from "../types";
 
@@ -28,6 +29,14 @@ const LONG_DAY_FORMAT = new Intl.DateTimeFormat(undefined, {
   month: "long",
   year: "numeric",
 });
+
+// The days an arrow key moves the calendar's focus by.
+const ARROWS: Readonly<Record<string, number>> = {
+  ArrowLeft: -1,
+  ArrowRight: 1,
+  ArrowUp: -7,
+  ArrowDown: 7,
+};
 
 interface Props {
   /** Days with papers, most recent first, with their paper counts (as in the store index). */
@@ -55,6 +64,10 @@ export function PeriodPicker({ days, period, onChange }: Props) {
   const [month, setMonth] = useState<string | null>(null);
   const [anchor, setAnchor] = useState<string | null>(null);
   const [hovered, setHovered] = useState<string | null>(null);
+  // The day the calendar's keyboard focus is on, which an arrow key moved (UX-14).
+  const [cursor, setCursor] = useState<string | null>(null);
+  const moved = useRef(false);
+  const gridRef = useRef<HTMLDivElement>(null);
   const rootRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const panelId = useId();
@@ -82,6 +95,30 @@ export function PeriodPicker({ days, period, onChange }: Props) {
         ? between(first, last)
         : null;
   const shown = month ?? monthOf(range?.to ?? latest);
+  // One day of the month shown takes Tab, the arrows the others: the day the focus was on,
+  // else the period's last day, else the month's last day with papers.
+  const pickable = monthGrid(shown)
+    .flat()
+    .filter((day): day is string => day !== null && counts.has(day));
+  const tabbable =
+    [cursor, range?.to].find((day) => day && pickable.includes(day)) ?? pickable.at(-1);
+  const onGridKey = (event: KeyboardEvent) => {
+    const step = ARROWS[event.key];
+    const from = event.target instanceof HTMLElement ? event.target.dataset.day : undefined;
+    if (step === undefined || from === undefined) return;
+    event.preventDefault();
+    const day = stepDay(from, step, (candidate) => counts.has(candidate), { earliest, latest });
+    if (day === null) return;
+    moved.current = true;
+    setCursor(day);
+    setMonth(monthOf(day));
+  };
+  // The day an arrow moved to takes the focus once drawn, in another month too.
+  useEffect(() => {
+    if (!moved.current || cursor === null) return;
+    moved.current = false;
+    gridRef.current?.querySelector<HTMLElement>(`[data-day="${cursor}"]`)?.focus();
+  }, [cursor, shown]);
 
   const close = useCallback((returnFocus = false) => {
     setOpen(false);
@@ -125,7 +162,7 @@ export function PeriodPicker({ days, period, onChange }: Props) {
         class="period-picker__trigger"
         ref={triggerRef}
         aria-expanded={open}
-        aria-controls={panelId}
+        aria-controls={open ? panelId : undefined}
         onClick={() => {
           setMonth(null);
           if (open) close();
@@ -133,6 +170,7 @@ export function PeriodPicker({ days, period, onChange }: Props) {
         }}
       >
         <CalendarIcon />
+        <span class="visually-hidden">Period: </span>
         <span class="period-picker__label">
           <span>
             {period.kind === "recent"
@@ -196,7 +234,7 @@ export function PeriodPicker({ days, period, onChange }: Props) {
             </button>
           </div>
 
-          <div class="period-picker__grid">
+          <div class="period-picker__grid" ref={gridRef}>
             {WEEKDAYS.map((name, index) => (
               <span key={index} class="period-picker__weekday" aria-hidden="true">
                 {name}
@@ -216,13 +254,22 @@ export function PeriodPicker({ days, period, onChange }: Props) {
                     class={`period-picker__day${inRange ? " is-in-range" : ""}${edge ? " is-edge" : ""}`}
                     style={count ? `--heat: ${(count / maxCount).toFixed(2)}` : undefined}
                     disabled={count === undefined}
+                    tabIndex={day === tabbable ? 0 : -1}
+                    data-day={day}
                     aria-pressed={inRange}
                     aria-label={`${LONG_DAY_FORMAT.format(dayDate(day))}, ${
                       count === undefined ? "no announcement" : countOf(count, "paper")
                     }`}
                     onClick={() => pick(day)}
+                    onKeyDown={onGridKey}
                     onMouseEnter={() => setHovered(day)}
                     onMouseLeave={() => setHovered(null)}
+                    // The range being picked previews from the keyboard too.
+                    onFocus={() => {
+                      setHovered(day);
+                      setCursor(day);
+                    }}
+                    onBlur={() => setHovered(null)}
                   >
                     <span>{Number(day.slice(8))}</span>
                     {count !== undefined && <small>{count}</small>}
@@ -236,7 +283,7 @@ export function PeriodPicker({ days, period, onChange }: Props) {
               ? "Now click the last day of the range."
               : period.kind === "since"
                 ? "New days join this period as they are announced. Click a day, then another one to select a range."
-                : "Click a day, then another one to select a range."}
+                : "Click a day, then another one to select a range (or use the arrows and Enter)."}
             {!anchor && period.kind === "dates" && period.to === latest && (
               <>
                 {" "}

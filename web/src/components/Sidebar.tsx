@@ -139,7 +139,8 @@ export function Sidebar(props: Props) {
         />
       ) : (
         <div class="field">
-          <span>Period</span>
+          {/* The picker's button says it, for screen readers (UX-14). */}
+          <span aria-hidden="true">Period</span>
           <PeriodPicker days={props.days} period={props.period} onChange={props.onPeriod} />
         </div>
       )}

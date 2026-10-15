@@ -93,6 +93,24 @@ test("older days past the budget are searched, and a card loads its abstract", a
   expect(errors).toEqual([]);
 });
 
+test("the calendar picks a day from the keyboard", async ({ page }) => {
+  await page.goto("./");
+  await expect(page.getByText("4 of 4 cs.CV papers")).toBeVisible();
+  const trigger = page.getByRole("button", { name: /^Period: / });
+  await expect(trigger).not.toHaveAttribute("aria-controls");
+  await trigger.click();
+  await expect(trigger).toHaveAttribute("aria-controls");
+  // One day takes Tab, the period's last; the arrows move to the others (UX-14).
+  await page.locator('.period-picker__day[tabindex="0"]').focus();
+  await expect(page.locator(".period-picker__day:focus")).toHaveAttribute("data-day", "2026-09-25");
+  await page.keyboard.press("ArrowLeft");
+  await expect(page.locator(".period-picker__day:focus")).toHaveAttribute("data-day", "2026-09-24");
+  await page.keyboard.press("Enter");
+  await page.keyboard.press("Enter");
+  await expect(page).toHaveURL(/\?from=2026-09-24$/);
+  await expect(page.getByText("1 of 1 cs.CV paper")).toBeVisible();
+});
+
 test("a range to the latest day keeps adding new days, as a since link", async ({ page }) => {
   await page.goto("./?from=2026-09-24&to=2026-09-25");
   await expect(page.getByText("4 of 4 cs.CV papers")).toBeVisible();

@@ -19,6 +19,9 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 - Rankings keeps what it ranks and by what in the link (`?rank=author`,
   `?metric=citations`), and its table has a caption and row headers for screen readers
   (SRCH-13).
+- The period's calendar works from the keyboard: Tab reaches one day, the arrows move a
+  day or a week past the days without papers, Enter picks, and the range being picked
+  previews as the pointer shows it (UX-14).
 - `?since=2026-09-15` opens the days since a day to the latest one, a bookmark new days
   join; the period picker names it ("Since 15 Sept 2026") and offers it for a range that
   ends on the latest day, "Keep adding new days" (PROD-13).
