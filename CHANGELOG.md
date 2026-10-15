@@ -40,6 +40,13 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   demand: the affiliation coverage, the attribution and the citation counts' date. The
   open panel no longer covers the zoom buttons, and the mouse hint shows from 1,280 px
   wide, where it leaves room for the time-lapse (UX-29).
+- The graph's layout reaches its equilibrium by itself: it stopped short of it, and each
+  Reheat made the links shorter, by 19% after three on a week of papers. It now cools
+  without collisions and with less friction, then parts overlapping nodes in a short last
+  pass: as good as three Reheats in 3.6 s instead of 11, and with authors, links half as
+  long as before. Reheat is gentler: the layout settles back instead of scattering, and a
+  new graph no longer bursts open on screen: it opens out of sight for half a second, then
+  fades in and settles gently (UX-30).
 
 ### Performance
 

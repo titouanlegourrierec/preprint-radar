@@ -1313,6 +1313,23 @@ html {
   touch-action: none;
 }
 
+/* A new graph fades in once the layout has opened it (UX-30). */
+.graph__canvas--reveal {
+  animation: graph-reveal 0.35s ease-out;
+}
+
+@keyframes graph-reveal {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .graph__canvas--reveal {
+    animation: none;
+  }
+}
+
 .graph__empty {
   position: absolute;
   inset: 0;

@@ -25,7 +25,8 @@ function run(): void {
   const start = performance.now();
   let moving = layout.running;
   while (moving && performance.now() - start < POST_EVERY_MS) moving = layout.step();
-  post(moving);
+  // The violent start of a cooling ticks on without being posted (UX-30).
+  if (!moving || !layout.hidden) post(moving);
   if (moving) schedule();
 }
 

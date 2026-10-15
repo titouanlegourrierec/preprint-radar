@@ -409,6 +409,29 @@ cross-listed lately, says "first version 2019" beside its day (`firstVersionYear
   follows the pointer at once and is pinned in the worker. Under reduced motion the worker
   runs the layout to rest at once, for a new graph, new forces or Reheat. The canvas says
   `data-layout="moving"` or `"settled"`, which the smoke test waits for.
+- The layout reaches its equilibrium without Reheat (UX-30): a new graph (or one mostly
+  new, the renderer's alpha 1) cools without collisions and with little friction
+  (`velocityDecay` 0.1), in 530 ticks up to 2,500 nodes and fewer above, in proportion
+  (`coolingDecay`, at least 80), then a last pass with collisions (alpha 0.1) parts
+  overlapping nodes. Measured on a week of cs.CV, each two linked nodes' distance against
+  two nodes' at random, over three starting positions: the former cooling (300 ticks with
+  collisions, friction 0.4) left 0.188, which three Reheats brought to 0.152 in 11 s; this
+  one gets 0.153 in 3.6 s (friction 0.2 left 0.164, two Reheats short of it). With authors
+  (2,337 nodes, the former fast cooling of large graphs: 82 ticks, friction 0.6) 0.323
+  became 0.170; a month with authors (10,234 nodes) 0.383 became 0.226. A layout at its
+  equilibrium that moves again settles back with d3's decay and friction (`SETTLING`):
+  Reheat (from alpha 0.5), new forces, a graph mostly laid out already (alpha 0.4). Reheat
+  from 1 with the cooling's friction moved nodes by a third of the graph's radius; now by
+  4%, five times slower. A dragged node of a layout at rest moves as the last pass does,
+  and settles quickly. The start of a cooling is not shown (`Layout.hidden`, down to alpha
+  0.3, 0.5 s on a week): the starting spiral bursts open there, a frame moving nodes by a
+  third of the final radius and the view zooming out 1.6 times to follow; the worker ticks
+  without posting, the canvas keeps its former frame, then fades the opened graph in
+  (`graph__canvas--reveal`), whose frames move nodes by 1.8% of the radius at most (the
+  former cooling, shown from its start: 22%). Equilibrium makes positions mean something, not the default view
+  readable: papers and institutions stay a tangle around the biggest institutions, linked
+  to everything, where the institutions alone (Papers off) are a map of who works with
+  whom (39% of each node's nearest nodes are its neighbors, 16% with papers).
 - Touch and keyboards (UX-2, decision 14): two fingers pinch to zoom (`pinchView`, about
   their midpoint, a second finger turning a drag into a pinch), and +, − and Fit buttons
   sit on the canvas. The Find field is a combobox: its first 10 matches are listed
@@ -427,8 +450,8 @@ cross-listed lately, says "first version 2019" beside its day (`firstVersionYear
   links (10,000 with authors of two papers or more); the projection with authors about
   19,000 nodes and 100,000 links (every co-author pair, up to 50 authors); papers and institutions (the
   default) about 5,700 nodes and 6,700 links. The renderer batches drawing into a few
-  `Path2D` per frame; graphs over 2,000 nodes use `theta` 1.2, no collisions and a faster
-  cooling (about 100 ms a tick for 26,000 nodes, in the worker).
+  `Path2D` per frame; graphs over 2,000 nodes use `theta` 1.2, no collisions and a shorter
+  cooling (UX-30; about 100 ms a tick for 26,000 nodes, in the worker).
 - Node sizes ("Size by"): papers (institutions and authors by their number of papers, area
   proportional, `nodeRadius`; papers all alike) or citations (every node by the citations
   of its papers, summed, `GraphNode.citations`, from the citation shards; unknown counts

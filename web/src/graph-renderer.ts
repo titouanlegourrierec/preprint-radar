@@ -235,6 +235,11 @@ export class GraphRenderer {
   /** Pointers down on the canvas, by id, at their latest screen position. */
   private readonly pointers = new Map<number, Point>();
   private frame = 0;
+  /**
+   * A new graph whose first positions have not come yet: the layout opens it out of sight
+   * (UX-30), and the canvas keeps its former frame until it fades the graph in.
+   */
+  private revealing = false;
   private readonly reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   private readonly cleanups: (() => void)[] = [];
 
@@ -344,8 +349,11 @@ export class GraphRenderer {
       node.y = start[index]?.y ?? 0;
     }
 
-    // A mostly new graph (other papers, authors turned on) is framed again from scratch.
-    if (known < this.nodes.length / 2) this.autoFit = true;
+    // A mostly new graph (other papers, authors turned on) is framed again from scratch,
+    // once the layout has opened it.
+    const fresh = known < this.nodes.length / 2;
+    if (fresh) this.autoFit = true;
+    this.revealing = fresh && !this.reducedMotion;
     if (this.autoFit) this.fitNow();
     this.requestDraw();
     const layout: LayoutGraph = {
@@ -364,7 +372,8 @@ export class GraphRenderer {
         generation: this.generation,
         graph: layout,
         settings: this.forces(),
-        alpha: known === 0 ? 1 : 0.4,
+        // A mostly new graph cools to its equilibrium, one mostly laid out settles (UX-30).
+        alpha: fresh ? 1 : 0.4,
         settle: this.reducedMotion,
       },
       Object.values(layout).map((array: ArrayBufferView) => array.buffer as ArrayBuffer),
@@ -470,8 +479,11 @@ export class GraphRenderer {
     this.requestDraw();
   }
 
-  /** Restart the layout, e.g. to escape a tangled state; at once under reduced motion. */
-  reheat(alpha = 1): void {
+  /**
+   * Shake the layout, which settles back (UX-30): gently, from alpha 0.5, since it is at its
+   * equilibrium already; at once under reduced motion.
+   */
+  reheat(alpha = 0.5): void {
     this.send({ type: "heat", alpha, settle: this.reducedMotion });
   }
 
@@ -502,10 +514,16 @@ export class GraphRenderer {
     const followed = this.followed === null ? undefined : this.byId.get(this.followed);
     if (followed) this.centerOn(followed, this.view.k);
     else if (this.autoFit) this.fitNow();
-    if (!moving) {
-      this.savePositions();
-      this.canvas.dataset.layout = "settled";
+    if (this.revealing) {
+      this.revealing = false;
+      // Restarts the fade: the class comes off, a layout is forced, and it goes back on.
+      this.canvas.classList.remove("graph__canvas--reveal");
+      void this.canvas.offsetWidth;
+      this.canvas.classList.add("graph__canvas--reveal");
     }
+    // Moving again after Reheat, new forces or a drag, as for a new graph.
+    this.canvas.dataset.layout = moving ? "moving" : "settled";
+    if (!moving) this.savePositions();
     this.requestDraw();
   }
 
@@ -575,6 +593,8 @@ export class GraphRenderer {
   private draw(): void {
     cancelAnimationFrame(this.frame);
     this.frame = 0;
+    // The former frame stays while the new graph opens out of sight.
+    if (this.revealing) return;
     const { canvas, context, view, colors } = this;
     const ratio = window.devicePixelRatio || 1;
     context.setTransform(1, 0, 0, 1, 0, 0);
