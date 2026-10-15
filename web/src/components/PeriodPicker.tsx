@@ -38,11 +38,21 @@ const ARROWS: Readonly<Record<string, number>> = {
   ArrowDown: 7,
 };
 
+/** The graph's one-line chip ("Last week · 982 papers"), beside the highly cited one. */
+interface Chip {
+  /** Whether the recent days are what shows; the chip is muted under another source. */
+  active: boolean;
+  /** Picking a day or a preset shows the recent days again. */
+  onActivate: () => void;
+}
+
 interface Props {
   /** Days with papers, most recent first, with their paper counts (as in the store index). */
   days: DaySummary[];
   period: Period;
   onChange: (period: Period) => void;
+  /** The graph's chip (UX-29); the budget note then moves into the panel. */
+  chip?: Chip | undefined;
 }
 
 function CalendarIcon() {
@@ -59,7 +69,7 @@ function CalendarIcon() {
  * shows how many papers each day has. The first click picks a day, the second extends it
  * into a range.
  */
-export function PeriodPicker({ days, period, onChange }: Props) {
+export function PeriodPicker({ days, period, onChange, chip }: Props) {
   const [open, setOpen] = useState(false);
   const [month, setMonth] = useState<string | null>(null);
   const [anchor, setAnchor] = useState<string | null>(null);
@@ -133,11 +143,17 @@ export function PeriodPicker({ days, period, onChange }: Props) {
     setAnchor(null);
     if (returnFocus) triggerRef.current?.focus();
   }, []);
+  // A day or a preset picked while another source shows goes back to the recent days.
+  const activate = () => {
+    if (chip && !chip.active) chip.onActivate();
+  };
   const pick = (day: string) => {
+    activate();
     onChange(between(anchor ?? day, day));
     setAnchor(anchor ? null : day);
   };
   const choose = (key: RangeKey) => {
+    activate();
     onChange({ kind: "recent", range: key });
     close(true);
   };
@@ -163,11 +179,31 @@ export function PeriodPicker({ days, period, onChange }: Props) {
     };
   }, [open, close]);
 
+  const recentName =
+    period.kind === "recent"
+      ? RANGES[period.range].label
+      : period.kind === "since"
+        ? `Since ${formatDays(period.from, period.from)}`
+        : span;
+  const note = (light.length > 0 || leftOut > 0) && (
+    <p class="period-picker__note">
+      A period loads {PAPER_BUDGET.toLocaleString()} papers whole: abstracts are searched over its
+      latest {countOf(whole.length, "day")}
+      {light.length > 0 &&
+        `, titles, authors, affiliations and venues over ${countOf(light.length, "older day")} too`}
+      {leftOut > 0 &&
+        `, and ${countOf(leftOut, "older day")} ${leftOut === 1 ? "is" : "are"} left out`}
+      .
+    </p>
+  );
+
   return (
     <div class="period-picker" ref={rootRef}>
       <button
         type="button"
-        class="period-picker__trigger"
+        class={`period-picker__trigger${chip ? " period-picker__trigger--chip" : ""}${
+          chip && !chip.active ? " period-picker__trigger--muted" : ""
+        }`}
         ref={triggerRef}
         aria-expanded={open}
         aria-controls={open ? panelId : undefined}
@@ -178,33 +214,23 @@ export function PeriodPicker({ days, period, onChange }: Props) {
         }}
       >
         <CalendarIcon />
-        <span class="visually-hidden">Period: </span>
-        <span class="period-picker__label">
-          <span>
-            {period.kind === "recent"
-              ? RANGES[period.range].label
-              : period.kind === "since"
-                ? `Since ${formatDays(period.from, period.from)}`
-                : span}
+        <span class="visually-hidden">{chip ? "Papers: " : "Period: "}</span>
+        {chip ? (
+          <span class="period-picker__label period-picker__label--chip">
+            {chip.active && papers > 0 ? `${recentName} · ${countOf(papers, "paper")}` : recentName}
           </span>
-          <span class="period-picker__detail">
-            {period.kind === "dates" ? countOf(selected.length, "day") : span} ·{" "}
-            {countOf(papers, "paper")}
+        ) : (
+          <span class="period-picker__label">
+            <span>{recentName}</span>
+            <span class="period-picker__detail">
+              {period.kind === "dates" ? countOf(selected.length, "day") : span} ·{" "}
+              {countOf(papers, "paper")}
+            </span>
           </span>
-        </span>
+        )}
         <span aria-hidden="true">{open ? "▴" : "▾"}</span>
       </button>
-      {(light.length > 0 || leftOut > 0) && (
-        <p class="period-picker__note">
-          A period loads {PAPER_BUDGET.toLocaleString()} papers whole: abstracts are searched over
-          its latest {countOf(whole.length, "day")}
-          {light.length > 0 &&
-            `, titles, authors, affiliations and venues over ${countOf(light.length, "older day")} too`}
-          {leftOut > 0 &&
-            `, and ${countOf(leftOut, "older day")} ${leftOut === 1 ? "is" : "are"} left out`}
-          .
-        </p>
-      )}
+      {!chip && note}
 
       {open && (
         <div class="period-picker__panel" id={panelId}>
@@ -214,7 +240,9 @@ export function PeriodPicker({ days, period, onChange }: Props) {
                 key={key}
                 type="button"
                 class="chip"
-                aria-pressed={period.kind === "recent" && period.range === key}
+                aria-pressed={
+                  (!chip || chip.active) && period.kind === "recent" && period.range === key
+                }
                 onClick={() => choose(key as RangeKey)}
               >
                 {label}
@@ -299,6 +327,7 @@ export function PeriodPicker({ days, period, onChange }: Props) {
                   type="button"
                   class="link-button"
                   onClick={() => {
+                    activate();
                     onChange({ kind: "since", from: period.from });
                     close(true);
                   }}
@@ -308,6 +337,7 @@ export function PeriodPicker({ days, period, onChange }: Props) {
               </>
             )}
           </p>
+          {chip && note}
         </div>
       )}
     </div>

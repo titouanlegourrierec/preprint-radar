@@ -26,6 +26,21 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   join; the period picker names it ("Since 15 Sept 2026") and offers it for a range that
   ends on the latest day, "Keep adding new days" (PROD-13).
 
+### Graph
+
+- The graph's controls are split in two, everything floating on the canvas. Chips at the
+  top left name the papers shown and choose them: the period chip ("Last week · 982
+  papers") opens the presets and the calendar, the highly cited chip the archive's years,
+  the venue chip the venues, and a quoted chip names the words filtering the papers, and
+  clears them. Find a node sits under the chips: it highlights the matching nodes, and the
+  last row of its matches filters the papers to the words instead. The settings panel says
+  what is drawn: the nodes, each layer with its color and its threshold ("≥ 2 papers"),
+  their size and labels, and the forces folded under Layout. The time-lapse is a player at
+  the bottom of the canvas, and an ⓘ beside the legend opens the notes on the data on
+  demand: the affiliation coverage, the attribution and the citation counts' date. The
+  open panel no longer covers the zoom buttons, and the mouse hint shows from 1,280 px
+  wide, where it leaves room for the time-lapse (UX-29).
+
 ### Performance
 
 - The page loads 18% less script: the graph, its renderer and panels download when the

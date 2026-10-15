@@ -368,10 +368,31 @@ cross-listed lately, says "first version 2019" beside its day (`firstVersionYear
   the company), so that a company stays one node across its ROR entries.
 - `components/GraphView.tsx` holds the graph's state (settings, selection, focus, time-lapse)
   and drives the renderer; `GraphDetails` shows the node selected and its connections
-  (`nodeConnections`, `linkPapers`), `GraphLegend` what is drawn, `GraphSettingsPanel` the
-  settings (DEBT-3). The settings' note under the search gives the share of the papers
-  shown whose affiliations are known, with the caveat below half, as Rankings does
-  (`affiliationCoverage`, PROD-16).
+  (`nodeConnections`, `linkPapers`), `GraphLegend` what is drawn, `GraphFilters` which
+  papers, `GraphSettingsPanel` how they are drawn (DEBT-3), `GraphFind` the field that
+  finds a node, `GraphInfo` the notes on the data and `GraphTimeline` the time-lapse.
+- The view's controls (UX-29): which papers and how to draw them apart, since the first are
+  the URL's, shared with the other views, and the second preferences of this browser.
+  Everything floats on the canvas. At the top left, chips name the papers shown and choose
+  them: the period chip ("Last week · 982 papers", `PeriodPicker` with `chip`) opens the
+  presets and the calendar, the highly cited chip the archive's years (a day or a preset
+  goes back to the recent days, a year leaves them: the source that does not show is
+  muted), the venue chip is the venue select, and a quoted chip names the words filtering
+  the papers, and clears them. The Find field sits under the
+  chips (`/`), the details of the node selected below (`.graph__side`; on a phone, the
+  field and the chips take a row each and the details are a bottom sheet); the last row of
+  its matches, "Only show papers matching…", filters the papers to the words typed instead
+  of highlighting nodes. The panel at the top right (`GraphSettingsPanel`) holds
+  Nodes (each layer with the legend's color and its threshold, "≥ 2 papers"; isolated
+  nodes; Limit), Appearance (Size by; node size; Labels, which reads `labelThreshold`
+  backwards: more labels to the right) and Layout, folded, with the forces and Reheat;
+  Reset in its head, the exports at its foot. The panel stops above the zoom buttons, and
+  folded it is its button alone. The ⓘ beside the legend opens the notes on the data on
+  demand (`GraphInfo`): the share of the papers shown whose affiliations are known, with
+  the caveat below half, as Rankings has (`affiliationCoverage`, PROD-16), the attribution
+  and the citation counts' date (REL-10). The time-lapse is a player at the bottom of the
+  canvas, absent for a single day; the mouse hint shows from 1,280 px wide, where it leaves
+  the time-lapse room.
 - `graph-layout.ts` gives starting positions (each connected component in one piece, on a
   spiral); `graph-renderer.ts` draws on a canvas and handles the pointer (an imperative
   class); `components/GraphView.tsx` and the components above are the UI. It is full
@@ -390,16 +411,16 @@ cross-listed lately, says "first version 2019" beside its day (`firstVersionYear
   `data-layout="moving"` or `"settled"`, which the smoke test waits for.
 - Touch and keyboards (UX-2, decision 14): two fingers pinch to zoom (`pinchView`, about
   their midpoint, a second finger turning a drag into a pinch), and +, − and Fit buttons
-  sit on the canvas. The Highlight field is a combobox: its first 10 matches are listed
+  sit on the canvas. The Find field is a combobox: its first 10 matches are listed
   under it (arrows and Enter choose one, whose details then take the focus), and Enter or
   Shift+Enter go through all the matches, which a status line counts ("3 of 500 matches:
   MIT"). The canvas's label counts its nodes and links, and its description points to
   Rankings, the same institutions and authors as a table.
-- "Top institutions & authors" (`maxNodes`) keeps the most frequent institutions and authors,
+- Limit (`maxNodes`, "Top 100") keeps the most frequent institutions and authors,
   never papers, and the legend says how many it leaves out (`Graph.eligible`, UX-20),
   naming only the kinds drawn ("top 100 of 750 institutions" without authors).
-- Turning authors on hides authors of a single paper (`authorLayer`, "Author ≥ papers" at
-  2, with a note): they are most of the nodes. The time-lapse stops at every day, or at
+- Turning authors on hides authors of a single paper (`authorLayer`, the Authors layer's
+  threshold at "≥ 2 papers"): they are most of the nodes. The time-lapse stops at every day, or at
   the last day of each week or month when there are more than 60 (`replaySteps`): an
   archive year has about 340 days.
 - Sizes: a month of papers (3,500) with all three layers is about 23,000 nodes and 34,000

@@ -117,14 +117,16 @@ University", "Microsoft Research Asia" and "Microsoft"); a department or an addr
 own makes no node. Drag, scroll to zoom, click a
 node to see its details (each of its connections lists the papers they share), double-click
 it to list its papers (or open the paper); *Focus on this* shows the graph of a node's
-papers alone, with whom an institution or an author publishes. The
-*Graph settings* panel chooses the period (same calendar), restricts the graph to papers
-matching some words, highlights nodes by name or title (`/`), shows or hides papers,
-institutions, authors and isolated nodes, sets a minimum number of papers per institution
-or author or a maximum number of them (all by default), tunes the forces and labels, and
-replays how the graph grew day by day, and saves it as PNG or GraphML (for Gephi). An
-institution's or author's area grows with its number of papers. Settings are remembered in
-the browser.
+papers alone, with whom an institution or an author publishes. Chips over
+the graph name the papers shown and choose them: the period (presets and a calendar), the
+highly cited years, the venue, and the words the papers must match. *Find a
+node* highlights nodes by name or title (`/`) and can filter the papers to the words
+instead. The *Graph settings* panel chooses what it draws: papers, institutions, authors
+and isolated nodes, a minimum number of papers per institution or author or a maximum
+number of them (all by default), node sizes, labels and forces; it saves the graph as PNG
+or GraphML (for Gephi). The player under the graph replays how it grew day by day, and an
+ⓘ beside the legend holds the notes on the data. An institution's or author's area grows
+with its number of papers. Settings are remembered in the browser.
 
 Every institution of the recent papers, and each major venue, has an Atom feed of its
 papers of the last 60 days (`feeds/<category>/…`, built with the site): a list filtered on

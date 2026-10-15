@@ -242,6 +242,25 @@ test("the graph draws on a canvas", async ({ page }) => {
   await expect(page.getByText(/institutions?/i).first()).toBeVisible();
   // The layout runs in a worker, which sends the positions until they settle.
   await expect(page.locator('canvas.graph__canvas[data-layout="settled"]')).toBeVisible();
+  // The papers are chosen with the floating chips (UX-29): the period chip holds the
+  // presets and the calendar, the highly cited chip the archive's years, the venue chip
+  // the venues. The data notes sit behind the (i), and / finds a node.
+  const papers = page.getByRole("region", { name: "Papers" });
+  await papers.getByRole("button", { name: /^Papers:/ }).click();
+  await expect(page.getByRole("button", { name: "Latest day" })).toBeVisible();
+  await page.keyboard.press("Escape");
+  await papers.getByRole("button", { name: /^Highly cited/ }).click();
+  await expect(page.getByRole("button", { name: "All years" })).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(papers.getByRole("combobox", { name: "Venue" })).toBeVisible();
+  await expect(page.getByRole("region", { name: "Graph settings" })).toBeVisible();
+  // The intro card sits over the (i) until it is read.
+  await page.getByRole("button", { name: "Got it" }).click();
+  await page.getByRole("button", { name: "About the data" }).click();
+  await expect(page.getByText(/Affiliations known for/)).toBeVisible();
+  await page.keyboard.press("Escape");
+  await page.keyboard.press("/");
+  await expect(page.getByRole("combobox", { name: "Find a node by name" })).toBeFocused();
   expect(errors).toEqual([]);
 });
 
@@ -249,10 +268,10 @@ test("the graph of an archive year lists its papers in Highly cited", async ({ p
   const errors = watchErrors(page);
   await page.goto("./?view=graph&year=2017");
   await expect(page.locator('canvas.graph__canvas[data-layout="settled"]')).toBeVisible();
-  // The Highlight field selects the match and shows its details, without touching the canvas.
-  const highlight = page.getByRole("combobox", { name: "Highlight nodes by name" });
-  await highlight.fill("Lyon");
-  await highlight.press("Enter");
+  // The Find field selects the match and shows its details, without touching the canvas.
+  const find = page.getByRole("combobox", { name: "Find a node by name" });
+  await find.fill("Lyon");
+  await find.press("Enter");
   await page.getByRole("button", { name: "Show its paper" }).click();
   await expect(page).toHaveURL(/view=cited/);
   await expect(page).toHaveURL(/year=2017/);

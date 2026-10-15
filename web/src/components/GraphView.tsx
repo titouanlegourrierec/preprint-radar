@@ -32,8 +32,12 @@ import type { FacetCount } from "../search";
 import { searchKey } from "../text";
 import type { ArchiveSummary, DaySummary, Paper, TopRecentSummary } from "../types";
 import { GraphDetails } from "./GraphDetails";
+import { GraphFilters } from "./GraphFilters";
+import { GraphFind } from "./GraphFind";
+import { GraphInfo } from "./GraphInfo";
 import { GraphLegend } from "./GraphLegend";
 import { GraphSettingsPanel } from "./GraphSettingsPanel";
+import { GraphTimeline } from "./GraphTimeline";
 
 const DETAILS_CONNECTIONS = 8;
 /** Space taken by the overlays (width + margins), kept free when fitting or selecting. */
@@ -43,7 +47,7 @@ const WIDE_SCREEN = "(min-width: 900px)";
 const REPLAY_STEP_MS = 900;
 /** Zoom of one press of the + or − button. */
 const ZOOM_STEP = 1.5;
-/** Matches listed under the Highlight field. */
+/** Matches listed under the Find field. */
 const LISTED_MATCHES = 10;
 
 interface Props {
@@ -316,8 +320,7 @@ export function GraphView(props: Props) {
         setSelectedId(null);
       } else if (event.key === "/" && !isTyping(event.target)) {
         event.preventDefault();
-        setPanelOpen(true);
-        requestAnimationFrame(() => highlightInput.current?.focus());
+        highlightInput.current?.focus();
       }
     };
     window.addEventListener("keydown", onKeyDown);
@@ -393,189 +396,205 @@ export function GraphView(props: Props) {
 
   return (
     <main class="graph" id="main">
-      {!introRead && (
-        <section class="graph__intro" aria-label="About the graph">
-          <p>
-            Papers (green squares) link to their institutions (orange) and, when shown, authors
-            (blue). Drag to move, scroll or pinch to zoom, select a node for its details;
-            double-click, or "Show papers" in the details, to list its papers. The settings choose
-            what is shown.
-          </p>
-          <button
-            type="button"
-            class="button"
-            onClick={() => {
-              setIntroRead(true);
-              saveGraphIntroRead();
-            }}
-          >
-            Got it
-          </button>
-        </section>
-      )}
-      <canvas
-        ref={canvasRef}
-        class="graph__canvas"
-        role="img"
-        aria-label={`Graph of ${[
-          countOf(counts.paper, "paper"),
-          countOf(counts.institution, "institution"),
-          countOf(counts.author, "author"),
-          countOf(graph.links.length, "link"),
-        ].join(", ")}`}
-        aria-describedby="graph-equivalent"
-      />
-      <p id="graph-equivalent" class="visually-hidden">
-        The Rankings tab lists the same institutions and authors in a table. The Highlight field of
-        the settings finds a node by name, and Enter goes from one match to the next.
-      </p>
-      <fieldset class="graph__zoom">
-        <legend class="visually-hidden">Zoom</legend>
-        <button
-          type="button"
-          aria-label="Zoom in"
-          title="Zoom in"
-          onClick={() => rendererRef.current?.zoomBy(ZOOM_STEP)}
-        >
-          +
-        </button>
-        <button
-          type="button"
-          aria-label="Zoom out"
-          title="Zoom out"
-          onClick={() => rendererRef.current?.zoomBy(1 / ZOOM_STEP)}
-        >
-          −
-        </button>
-        <button
-          type="button"
-          aria-label="Fit the graph to the view"
-          title="Fit"
-          onClick={() => rendererRef.current?.fit()}
-        >
-          ⤢
-        </button>
-      </fieldset>
+      <div class="graph__stage">
+        {!introRead && (
+          <section class="graph__intro" aria-label="About the graph">
+            <p>
+              Papers (green squares) link to their institutions (orange) and, when shown, authors
+              (blue). Drag to move, scroll or pinch to zoom, select a node for its details;
+              double-click, or "Show papers" in the details, to list its papers. The chips above
+              choose the papers, the settings what is drawn.
+            </p>
+            <button
+              type="button"
+              class="button"
+              onClick={() => {
+                setIntroRead(true);
+                saveGraphIntroRead();
+              }}
+            >
+              Got it
+            </button>
+          </section>
+        )}
+        <canvas
+          ref={canvasRef}
+          class="graph__canvas"
+          role="img"
+          aria-label={`Graph of ${[
+            countOf(counts.paper, "paper"),
+            countOf(counts.institution, "institution"),
+            countOf(counts.author, "author"),
+            countOf(graph.links.length, "link"),
+          ].join(", ")}`}
+          aria-describedby="graph-equivalent"
+        />
+        <p id="graph-equivalent" class="visually-hidden">
+          The Rankings tab lists the same institutions and authors in a table. The Find field finds
+          a node by name, and Enter goes from one match to the next.
+        </p>
+        <GraphFilters
+          categories={props.categories}
+          category={props.category}
+          onCategory={props.onCategory}
+          storeDays={props.storeDays}
+          period={props.period}
+          onPeriod={props.onPeriod}
+          archiveYears={props.archiveYears}
+          archiveRange={props.archiveRange}
+          onArchiveRange={props.onArchiveRange}
+          topRecent={props.topRecent}
+          query={props.query}
+          onQuery={props.onQuery}
+          venues={props.venues}
+          venue={props.venue}
+          onVenue={props.onVenue}
+        />
+        <div class="graph__side">
+          <GraphFind
+            value={highlight}
+            input={highlightInput}
+            onChange={setHighlight}
+            matches={matches.slice(0, LISTED_MATCHES)}
+            matchCount={matches.length}
+            matchIndex={matchIndex}
+            matchLabel={matchIndex === null ? null : (matches[matchIndex]?.label ?? null)}
+            onCycle={cycleMatch}
+            onChoose={(index) => showMatch(index, true)}
+            onFilter={props.onQuery}
+          />
+          {(selected || selectedPaper) && (
+            <GraphDetails
+              entity={selectedEntity}
+              paper={selectedPaper}
+              absent={
+                selected
+                  ? null
+                  : !settings.papers
+                    ? "Papers are hidden: turn them on in the graph settings to see this one."
+                    : !selectedPaper?.affiliations?.length && !settings.authors
+                      ? "No affiliations are known for this paper yet: turn on Authors to see it with its authors."
+                      : "Not in the graph with these settings: its institutions and authors are filtered out."
+              }
+              connections={connections}
+              papersById={papersById}
+              options={graphOptions}
+              citations={citations}
+              focus={focus}
+              detailsRef={detailsRef}
+              onClose={() => setSelectedId(null)}
+              onSelect={selectNode}
+              onShowPapers={onShowPapers}
+              onFocus={onFocus}
+              onOpenPaper={onOpenPaper}
+            />
+          )}
+        </div>
 
-      {failed ? (
-        // As the list says it (UX-6): the error, and Retry, which loads again what failed.
-        <div class="graph__empty">
-          <p class="notice notice--error graph__error" role="alert">
-            Could not load the papers: {failed.error}.{" "}
-            <button type="button" class="link-button" onClick={failed.onRetry}>
-              Retry
+        {failed ? (
+          // As the list says it (UX-6): the error, and Retry, which loads again what failed.
+          <div class="graph__empty">
+            <p class="notice notice--error graph__error" role="alert">
+              Could not load the papers: {failed.error}.{" "}
+              <button type="button" class="link-button" onClick={failed.onRetry}>
+                Retry
+              </button>
+            </p>
+          </div>
+        ) : (
+          emptyMessage && (
+            <p class="graph__empty" role="status">
+              {emptyMessage}
+            </p>
+          )
+        )}
+
+        {focusLabel && (
+          <p class="graph__focus" role="status">
+            {props.notice !== null
+              ? `Focused on ${focusLabel}.`
+              : focusEmpty
+                ? `${focusLabel} has no paper among these.`
+                : `${focusLabel} and ${
+                    focusedPapers.length === 1
+                      ? "its paper"
+                      : `its ${countOf(focusedPapers.length, "paper")}`
+                  }, with their institutions and authors.`}{" "}
+            <button type="button" class="link-button" onClick={() => onFocus(null)}>
+              Show everything
             </button>
           </p>
-        </div>
-      ) : (
-        emptyMessage && (
-          <p class="graph__empty" role="status">
-            {emptyMessage}
-          </p>
-        )
-      )}
+        )}
 
-      {focusLabel && (
-        <p class="graph__focus" role="status">
-          {props.notice !== null
-            ? `Focused on ${focusLabel}.`
-            : focusEmpty
-              ? `${focusLabel} has no paper among these.`
-              : `${focusLabel} and ${
-                  focusedPapers.length === 1
-                    ? "its paper"
-                    : `its ${countOf(focusedPapers.length, "paper")}`
-                }, with their institutions and authors.`}{" "}
-          <button type="button" class="link-button" onClick={() => onFocus(null)}>
-            Show everything
-          </button>
-        </p>
-      )}
-
-      {(selected || selectedPaper) && (
-        <GraphDetails
-          entity={selectedEntity}
-          paper={selectedPaper}
-          absent={
-            selected
-              ? null
-              : !settings.papers
-                ? "Papers are hidden: turn them on in the graph settings to see this one."
-                : !selectedPaper?.affiliations?.length && !settings.authors
-                  ? "No affiliations are known for this paper yet: turn on Authors to see it with its authors."
-                  : "Not in the graph with these settings: its institutions and authors are filtered out."
-          }
-          connections={connections}
-          papersById={papersById}
-          options={graphOptions}
-          citations={citations}
-          focus={focus}
-          detailsRef={detailsRef}
-          onClose={() => setSelectedId(null)}
-          onSelect={selectNode}
-          onShowPapers={onShowPapers}
-          onFocus={onFocus}
-          onOpenPaper={onOpenPaper}
+        <GraphSettingsPanel
+          open={panelOpen}
+          onToggle={() => setPanelOpen(!panelOpen)}
+          settings={settings}
+          onSettings={changeSettings}
+          cited={graph.nodes.some((node) => node.citations > 0)}
+          onReheat={() => rendererRef.current?.reheat()}
+          onExportPng={exportPng}
+          onExportGraphML={exportGraphML}
+          onReset={() => changeSettings(DEFAULT_GRAPH_SETTINGS)}
         />
-      )}
 
-      <GraphSettingsPanel
-        open={panelOpen}
-        onToggle={() => setPanelOpen(!panelOpen)}
-        highlight={highlight}
-        highlightInput={highlightInput}
-        onHighlight={setHighlight}
-        matches={matches.slice(0, LISTED_MATCHES)}
-        matchCount={matches.length}
-        matchIndex={matchIndex}
-        matchLabel={matchIndex === null ? null : (matches[matchIndex]?.label ?? null)}
-        onCycleMatch={cycleMatch}
-        onChooseMatch={(index) => showMatch(index, true)}
-        categories={props.categories}
-        category={props.category}
-        onCategory={props.onCategory}
-        storeDays={props.storeDays}
-        period={props.period}
-        onPeriod={props.onPeriod}
-        archiveYears={props.archiveYears}
-        archiveRange={props.archiveRange}
-        onArchiveRange={props.onArchiveRange}
-        topRecent={props.topRecent}
-        query={props.query}
-        onQuery={props.onQuery}
-        venues={props.venues}
-        venue={props.venue}
-        onVenue={props.onVenue}
-        paperCount={shownPapers.length}
-        affiliatedCount={affiliatedCount}
-        settings={settings}
-        onSettings={changeSettings}
-        cited={graph.nodes.some((node) => node.citations > 0)}
-        days={days}
-        cutoff={cutoff}
-        onCutoff={(value) => {
-          setPlaying(false);
-          setCutoff(value);
-        }}
-        playing={playing}
-        onReplay={() => {
-          setCutoff(playing ? null : 0);
-          setPlaying(!playing);
-        }}
-        onReheat={() => rendererRef.current?.reheat()}
-        onExportPng={exportPng}
-        onExportGraphML={exportGraphML}
-        citationsNote={props.citationsNote}
-        onFit={() => rendererRef.current?.fit()}
-        onReset={() => changeSettings(DEFAULT_GRAPH_SETTINGS)}
-      />
+        <GraphTimeline
+          days={days}
+          cutoff={cutoff}
+          onCutoff={(value) => {
+            setPlaying(false);
+            setCutoff(value);
+          }}
+          playing={playing}
+          onReplay={() => {
+            setCutoff(playing ? null : 0);
+            setPlaying(!playing);
+          }}
+        />
 
-      <GraphLegend graph={graph} counts={counts} cap={settings.maxNodes} capped={kinds} />
-      <p class="graph__hint">
-        {coarse
-          ? "drag · pinch to zoom · tap = details · double-tap = open in the list"
-          : "drag · scroll to zoom · click = details · double-click = open in the list"}
-      </p>
+        <fieldset class="graph__zoom">
+          <legend class="visually-hidden">Zoom</legend>
+          <button
+            type="button"
+            aria-label="Zoom in"
+            title="Zoom in"
+            onClick={() => rendererRef.current?.zoomBy(ZOOM_STEP)}
+          >
+            +
+          </button>
+          <button
+            type="button"
+            aria-label="Zoom out"
+            title="Zoom out"
+            onClick={() => rendererRef.current?.zoomBy(1 / ZOOM_STEP)}
+          >
+            −
+          </button>
+          <button
+            type="button"
+            aria-label="Fit the graph to the view"
+            title="Fit"
+            onClick={() => rendererRef.current?.fit()}
+          >
+            ⤢
+          </button>
+        </fieldset>
+
+        <div class="graph__corner">
+          <GraphInfo
+            affiliated={affiliatedCount}
+            total={shownPapers.length}
+            noun={props.query.trim() ? "matching paper" : "paper"}
+            citationsNote={props.citationsNote}
+          />
+          <GraphLegend graph={graph} counts={counts} cap={settings.maxNodes} capped={kinds} />
+        </div>
+        <p class="graph__hint">
+          {coarse
+            ? "drag · pinch to zoom · tap = details · double-tap = open in the list"
+            : "drag · scroll to zoom · click = details · double-click = open in the list"}
+        </p>
+      </div>
     </main>
   );
 }
