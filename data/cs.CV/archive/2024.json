@@ -1053,46 +1053,18 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2412.18605v1",
+   "html_url": null,
    "abstract": "Orientation is a key attribute of objects, crucial for understanding their spatial pose and arrangement in images. However, practical solutions for accurate orientation estimation from a single image remain underexplored. In this work, we introduce Orient Anything, the first expert and foundational model designed to estimate object orientation in a single- and free-view image. Due to the scarcity of labeled data, we propose extracting knowledge from the 3D world. By developing a pipeline to annotate the front face of 3D objects and render images from random views, we collect 2M images with precise orientation annotations. To fully leverage the dataset, we design a robust training objective that models the 3D orientation as probability distributions of three angles and predicts the object orientation by fitting these distributions. Besides, we employ several strategies to improve synthetic-to-real transfer. Our model achieves state-of-the-art orientation estimation accuracy in both rendered and real images and exhibits impressive zero-shot ability in various scenarios. More importantly, our model enhances many applications, such as comprehension and generation of complex spatial concepts and 3D object pose adjustment.",
-   "affiliations": [
-    "Zhejiang University; Sea AI Lab; The University of Hong Kong"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "University of Hong Kong"
-   ],
-   "institution_ids": [
-    "02zhqgq86"
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex"
     }
    },
    "abs_url": "https://arxiv.org/abs/2412.18605",
@@ -37226,42 +37198,18 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2411.15633v1",
+   "html_url": null,
    "abstract": "AI-generated images (AIGIs), such as natural or face images, have become increasingly important yet challenging. In this paper, we start from a new perspective to excavate the reason behind the failure generalization in AIGI detection, named the asymmetry phenomenon, where a naively trained detector tends to favor overfitting to the limited and monotonous fake patterns, causing the feature space to become highly constrained and low-ranked, which is proved seriously limiting the expressivity and generalization. One potential remedy is incorporating the pre-trained knowledge within the vision foundation models (higher-ranked) to expand the feature space, alleviating the model's overfitting to fake. To this end, we employ Singular Value Decomposition (SVD) to decompose the original feature space into two orthogonal subspaces. By freezing the principal components and adapting only the remained components, we preserve the pre-trained knowledge while learning fake patterns. Compared to existing full-parameters and LoRA-based tuning methods, we explicitly ensure orthogonality, enabling the higher rank of the whole feature space, effectively minimizing overfitting and enhancing generalization. We finally identify a crucial insight: our method implicitly learns a vital prior that fakes are actually derived from the real, indicating a hierarchical relationship rather than independence. Modeling this prior, we believe, is essential for achieving superior generalization. Our codes are publicly available at GitHub (https://github.com/YZY-stack/Effort-AIGI-Detection).",
-   "affiliations": [
-    "School of Electronic, Computer Engineering",
-    "Peking Univerisity",
-    "Tencent Youtu Lab",
-    "University of Science",
-    "Technology of China",
-    "School of Data Science, The Chinese University of Hong Kong"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "Computer Engineering",
-    "Peking Univerisity",
-    "Tencent",
-    "University of Science",
-    "Technology of China",
-    "Chinese University of Hong Kong"
-   ],
-   "institution_ids": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    "00t33hh48"
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex"
     }
    },
    "abs_url": "https://arxiv.org/abs/2411.15633",
@@ -44466,30 +44414,18 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2410.23004v1",
+   "html_url": null,
    "abstract": "Grasping in cluttered scenes remains highly challenging for dexterous hands due to the scarcity of data. To address this problem, we present a large-scale synthetic benchmark, encompassing 1319 objects, 8270 scenes, and 427 million grasps. Beyond benchmarking, we also propose a novel two-stage grasping method that learns efficiently from data by using a diffusion model that conditions on local geometry. Our proposed generative method outperforms all baselines in simulation experiments. Furthermore, with the aid of test-time-depth restoration, our method demonstrates zero-shot sim-to-real transfer, attaining 90.7% real-world dexterous grasping success rate in cluttered scenes.",
-   "affiliations": [
-    "School of Computer Science, Peking University",
-    "Beijing Academy of Artificial Intelligence"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "Peking University",
-    "Beijing Academy of Artificial Intelligence"
-   ],
-   "institution_ids": [
-    "02v51f717",
-    "016a74861"
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex"
     }
    },
    "abs_url": "https://arxiv.org/abs/2410.23004",
@@ -45445,36 +45381,18 @@
    "journal_ref": null,
    "venue": "NeurIPS 2024",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2410.18822v1",
+   "html_url": null,
    "abstract": "Novel view synthesis from sparse inputs is a vital yet challenging task in 3D computer vision. Previous methods explore 3D Gaussian Splatting with neural priors (e.g. depth priors) as an additional supervision, demonstrating promising quality and efficiency compared to the NeRF based methods. However, the neural priors from 2D pretrained models are often noisy and blurry, which struggle to precisely guide the learning of radiance fields. In this paper, We propose a novel method for synthesizing novel views from sparse views with Gaussian Splatting that does not require external prior as supervision. Our key idea lies in exploring the self-supervisions inherent in the binocular stereo consistency between each pair of binocular images constructed with disparity-guided image warping. To this end, we additionally introduce a Gaussian opacity constraint which regularizes the Gaussian locations and avoids Gaussian redundancy for improving the robustness and efficiency of inferring 3D Gaussians from sparse views. Extensive experiments on the LLFF, DTU, and Blender datasets demonstrate that our method significantly outperforms the state-of-the-art methods.",
-   "affiliations": [
-    "School of Software, Tsinghua University",
-    "Beijing, China",
-    "Department of Computer Science, Wayne State University",
-    "Detroit, USA"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "Tsinghua University",
-    "Beijing",
-    "Wayne State University",
-    "Detroit"
-   ],
-   "institution_ids": [
-    "03cve4549",
-    null,
-    "01070mq45",
-    null
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex"
     }
    },
    "abs_url": "https://arxiv.org/abs/2410.18822",
@@ -47631,36 +47549,18 @@
    "journal_ref": null,
    "venue": "NeurIPS 2024",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2410.15971v1",
+   "html_url": null,
    "abstract": "Large language and vision models have been leading a revolution in visual computing. By greatly scaling up sizes of data and model parameters, the large models learn deep priors which lead to remarkable performance in various tasks. In this work, we present deep prior assembly, a novel framework that assembles diverse deep priors from large models for scene reconstruction from single images in a zero-shot manner. We show that this challenging task can be done without extra knowledge but just simply generalizing one deep prior in one sub-task. To this end, we introduce novel methods related to poses, scales, and occlusion parsing which are keys to enable deep priors to work together in a robust way. Deep prior assembly does not require any 3D or 2D data-driven training in the task and demonstrates superior performance in generalizing priors to open-world scenes. We conduct evaluations on various datasets, and report analysis, numerical and visual comparisons with the latest methods to show our superiority. Project page: https://junshengzhou.github.io/DeepPriorAssembly.",
-   "affiliations": [
-    "School of Software, Tsinghua University",
-    "Beijing, China",
-    "Department of Computer Science, Wayne State University",
-    "Detroit, USA"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "Tsinghua University",
-    "Beijing",
-    "Wayne State University",
-    "Detroit"
-   ],
-   "institution_ids": [
-    "03cve4549",
-    null,
-    "01070mq45",
-    null
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex"
     }
    },
    "abs_url": "https://arxiv.org/abs/2410.15971",
@@ -49139,27 +49039,18 @@
    "journal_ref": null,
    "venue": "CoRL",
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2410.11792v1",
+   "html_url": null,
    "abstract": "We study the problem of teaching humanoid robots manipulation skills by imitating from single video demonstrations. We introduce OKAMI, a method that generates a manipulation plan from a single RGB-D video and derives a policy for execution. At the heart of our approach is object-aware retargeting, which enables the humanoid robot to mimic the human motions in an RGB-D video while adjusting to different object locations during deployment. OKAMI uses open-world vision models to identify task-relevant objects and retarget the body motions and hand poses separately. Our experiments show that OKAMI achieves strong generalizations across varying visual and spatial conditions, outperforming the state-of-the-art baseline on open-world imitation from observation. Furthermore, OKAMI rollout trajectories are leveraged to train closed-loop visuomotor policies, which achieve an average success rate of 79.2% without the need for labor-intensive teleoperation. More videos can be found on our website https://ut-austin-rpl.github.io/OKAMI/.",
-   "affiliations": [
-    "NVIDIA Research"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "NVIDIA"
-   ],
-   "institution_ids": [
-    null
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex"
     }
    },
    "abs_url": "https://arxiv.org/abs/2410.11792",
@@ -49427,27 +49318,18 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2410.10812v1",
+   "html_url": null,
    "abstract": "We introduce Hybrid Autoregressive Transformer (HART), an autoregressive (AR) visual generation model capable of directly generating 1024x1024 images, rivaling diffusion models in image generation quality. Existing AR models face limitations due to the poor image reconstruction quality of their discrete tokenizers and the prohibitive training costs associated with generating 1024px images. To address these challenges, we present the hybrid tokenizer, which decomposes the continuous latents from the autoencoder into two components: discrete tokens representing the big picture and continuous tokens representing the residual components that cannot be represented by the discrete tokens. The discrete component is modeled by a scalable-resolution discrete AR model, while the continuous component is learned with a lightweight residual diffusion module with only 37M parameters. Compared with the discrete-only VAR tokenizer, our hybrid approach improves reconstruction FID from 2.11 to 0.30 on MJHQ-30K, leading to a 31% generation FID improvement from 7.85 to 5.38. HART also outperforms state-of-the-art diffusion models in both FID and CLIP score, with 4.5-7.7x higher throughput and 6.9-13.4x lower MACs. Our code is open sourced at https://github.com/mit-han-lab/hart.",
-   "affiliations": [
-    "Tsinghua University"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "Tsinghua University"
-   ],
-   "institution_ids": [
-    "03cve4549"
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex"
     }
    },
    "abs_url": "https://arxiv.org/abs/2410.10812",
@@ -51932,33 +51814,17 @@
    "journal_ref": null,
    "venue": "CoRL 2024",
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2410.03645v1",
+   "html_url": null,
    "abstract": "Robotic simulation today remains challenging to scale up due to the human efforts required to create diverse simulation tasks and scenes. Simulation-trained policies also face scalability issues as many sim-to-real methods focus on a single task. To address these challenges, this work proposes GenSim2, a scalable framework that leverages coding LLMs with multi-modal and reasoning capabilities for complex and realistic simulation task creation, including long-horizon tasks with articulated objects. To automatically generate demonstration data for these tasks at scale, we propose planning and RL solvers that generalize within object categories. The pipeline can generate data for up to 100 articulated tasks with 200 objects and reduce the required human efforts. To utilize such data, we propose an effective multi-task language-conditioned policy architecture, dubbed proprioceptive point-cloud transformer (PPT), that learns from the generated demonstrations and exhibits strong sim-to-real zero-shot transfer. Combining the proposed pipeline and the policy architecture, we show a promising usage of GenSim2 that the generated data can be used for zero-shot transfer or co-train with real-world collected data, which enhances the policy performance by 20% compared with training exclusively on limited real data.",
-   "affiliations": [
-    "Institute for Interdisciplinary Information Sciences",
-    "Tsinghua University",
-    "Shanghai Jiao Tong University"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "Institute for Interdisciplinary Information Sciences",
-    "Tsinghua University",
-    "Shanghai Jiao Tong University"
-   ],
-   "institution_ids": [
-    null,
-    "03cve4549",
-    "0220qvk04"
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex"
     }
    },
    "abs_url": "https://arxiv.org/abs/2410.03645",
@@ -52801,55 +52667,17 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2410.23775v1",
+   "html_url": null,
    "abstract": "Recent research arXiv:2410.15027 has explored the use of diffusion transformers (DiTs) for task-agnostic image generation by simply concatenating attention tokens across images. However, despite substantial computational resources, the fidelity of the generated images remains suboptimal. In this study, we reevaluate and streamline this framework by hypothesizing that text-to-image DiTs inherently possess in-context generation capabilities, requiring only minimal tuning to activate them. Through diverse task experiments, we qualitatively demonstrate that existing text-to-image DiTs can effectively perform in-context generation without any tuning. Building on this insight, we propose a remarkably simple pipeline to leverage the in-context abilities of DiTs: (1) concatenate images instead of tokens, (2) perform joint captioning of multiple images, and (3) apply task-specific LoRA tuning using small datasets (e.g., 20~100 samples) instead of full-parameter tuning with large datasets. We name our models In-Context LoRA (IC-LoRA). This approach requires no modifications to the original DiT models, only changes to the training data. Remarkably, our pipeline generates high-fidelity image sets that better adhere to prompts. While task-specific in terms of tuning data, our framework remains task-agnostic in architecture and pipeline, offering a powerful tool for the community and providing valuable insights for further research on product-level task-agnostic generation systems. We release our code, data, and models at https://github.com/ali-vilab/In-Context-LoRA",
-   "affiliations": [
-    "Tongyi Lab"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "Tongyi Lab"
-   ],
-   "institution_ids": [
-    null
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex"
     }
    },
    "abs_url": "https://arxiv.org/abs/2410.23775",
@@ -65203,30 +65031,17 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2410.01756v1",
+   "html_url": null,
    "abstract": "Image tokenizers are crucial for visual generative models, e.g., diffusion models (DMs) and autoregressive (AR) models, as they construct the latent representation for modeling. Increasing token length is a common approach to improve the image reconstruction quality. However, tokenizers with longer token lengths are not guaranteed to achieve better generation quality. There exists a trade-off between reconstruction and generation quality regarding token length. In this paper, we investigate the impact of token length on both image reconstruction and generation and provide a flexible solution to the tradeoff. We propose ImageFolder, a semantic tokenizer that provides spatially aligned image tokens that can be folded during autoregressive modeling to improve both generation efficiency and quality. To enhance the representative capability without increasing token length, we leverage dual-branch product quantization to capture different contexts of images. Specifically, semantic regularization is introduced in one branch to encourage compacted semantic information while another branch is designed to capture the remaining pixel-level details. Extensive experiments demonstrate the superior quality of image generation and shorter token length with ImageFolder tokenizer.",
-   "affiliations": [
-    "Carnegie Mellon University",
-    "Adobe Research"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "Carnegie Mellon University",
-    "Adobe"
-   ],
-   "institution_ids": [
-    "05x2bcf33",
-    null
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex"
     }
    },
    "abs_url": "https://arxiv.org/abs/2410.01756",
@@ -69284,40 +69099,17 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "eess.IV",
-   "html_url": "https://arxiv.org/html/2409.09173v1",
+   "html_url": null,
    "abstract": "Gathering histopathology slides from over 100 publicly available cohorts, we compile a diverse dataset of 460 million pathology tiles covering more than 30 cancer sites. Using this dataset, we train a large self-supervised vision transformer using DINOv2 and publicly release one iteration of this model for further experimentation, coined Phikon-v2. While trained on publicly available histology slides, Phikon-v2 surpasses our previously released model (Phikon) and performs on par with other histopathology foundation models (FM) trained on proprietary data. Our benchmarks include eight slide-level tasks with results reported on external validation cohorts avoiding any data contamination between pre-training and evaluation datasets. Our downstream training procedure follows a simple yet robust ensembling strategy yielding a +1.75 AUC increase across tasks and models compared to one-shot retraining (p<0.001). We compare Phikon (ViT-B) and Phikon-v2 (ViT-L) against 14 different histology feature extractors, making our evaluation the most comprehensive to date. Our result support evidences that DINOv2 handles joint model and data scaling better than iBOT. Also, we show that recent scaling efforts are overall beneficial to downstream performance in the context of biomarker prediction with GigaPath and H-Optimus-0 (two ViT-g with 1.1B parameters each) standing out. However, the statistical margins between the latest top-performing FMs remain mostly non-significant; some even underperform on specific indications or tasks such as MSI prediction - deposed by a 13x smaller model developed internally. While latest foundation models may exhibit limitations for clinical deployment, they nonetheless offer excellent grounds for the development of more specialized and cost-efficient histology encoders fueling AI-guided diagnostic tools.",
-   "affiliations": [
-    "Owkin"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "Owkin"
-   ],
-   "institution_ids": [
-    null
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex"
     }
    },
    "abs_url": "https://arxiv.org/abs/2409.09173",
@@ -76128,27 +75920,17 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2409.04429v1",
+   "html_url": null,
    "abstract": "VILA-U is a Unified foundation model that integrates Video, Image, Language understanding and generation. Traditional visual language models (VLMs) use separate modules for understanding and generating visual content, which can lead to misalignment and increased complexity. In contrast, VILA-U employs a single autoregressive next-token prediction framework for both tasks, eliminating the need for additional components like diffusion models. This approach not only simplifies the model but also achieves near state-of-the-art performance in visual language understanding and generation. The success of VILA-U is attributed to two main factors: the unified vision tower that aligns discrete visual tokens with textual inputs during pretraining, which enhances visual perception, and autoregressive image generation can achieve similar quality as diffusion models with high-quality dataset. This allows VILA-U to perform comparably to more complex models using a fully token-based autoregressive framework.",
-   "affiliations": [
-    "Tsinghua University"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "Tsinghua University"
-   ],
-   "institution_ids": [
-    "03cve4549"
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex"
     }
    },
    "abs_url": "https://arxiv.org/abs/2409.04429",
@@ -87476,27 +87258,17 @@
    "journal_ref": null,
    "venue": "ICLR 2025",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2408.06072v1",
+   "html_url": null,
    "abstract": "We present CogVideoX, a large-scale text-to-video generation model based on diffusion transformer, which can generate 10-second continuous videos aligned with text prompt, with a frame rate of 16 fps and resolution of 768 * 1360 pixels. Previous video generation models often had limited movement and short durations, and is difficult to generate videos with coherent narratives based on text. We propose several designs to address these issues. First, we propose a 3D Variational Autoencoder (VAE) to compress videos along both spatial and temporal dimensions, to improve both compression rate and video fidelity. Second, to improve the text-video alignment, we propose an expert transformer with the expert adaptive LayerNorm to facilitate the deep fusion between the two modalities. Third, by employing a progressive training and multi-resolution frame pack technique, CogVideoX is adept at producing coherent, long-duration, different shape videos characterized by significant motions. In addition, we develop an effective text-video data processing pipeline that includes various data preprocessing strategies and a video captioning method, greatly contributing to the generation quality and semantic alignment. Results show that CogVideoX demonstrates state-of-the-art performance across both multiple machine metrics and human evaluations. The model weight of both 3D Causal VAE, Video caption model and CogVideoX are publicly available at https://github.com/THUDM/CogVideo.",
-   "affiliations": [
-    "Tsinghua University"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "Tsinghua University"
-   ],
-   "institution_ids": [
-    "03cve4549"
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex"
     }
    },
    "abs_url": "https://arxiv.org/abs/2408.06072",
@@ -104075,33 +103847,17 @@
    "journal_ref": null,
    "venue": "ICLR 2025",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2407.15886v1",
+   "html_url": null,
    "abstract": "Virtual try-on methods based on diffusion models achieve realistic effects but often require additional encoding modules, a large number of training parameters, and complex preprocessing, which increases the burden on training and inference. In this work, we re-evaluate the necessity of additional modules and analyze how to improve training efficiency and reduce redundant steps in the inference process. Based on these insights, we propose CatVTON, a simple and efficient virtual try-on diffusion model that transfers in-shop or worn garments of arbitrary categories to target individuals by concatenating them along spatial dimensions as inputs of the diffusion model. The efficiency of CatVTON is reflected in three aspects: (1) Lightweight network. CatVTON consists only of a VAE and a simplified denoising UNet, removing redundant image and text encoders as well as cross-attentions, and includes just 899.06M parameters. (2) Parameter-efficient training. Through experimental analysis, we identify self-attention modules as crucial for adapting pre-trained diffusion models to the virtual try-on task, enabling high-quality results with only 49.57M training parameters. (3) Simplified inference. CatVTON eliminates unnecessary preprocessing, such as pose estimation, human parsing, and captioning, requiring only a person image and garment reference to guide the virtual try-on process, reducing over 49% memory usage compared to other diffusion-based methods. Extensive experiments demonstrate that CatVTON achieves superior qualitative and quantitative results compared to baseline methods and demonstrates strong generalization performance in in-the-wild scenarios, despite being trained solely on public datasets with 73K samples.",
-   "affiliations": [
-    "Sun Yat-Sen University",
-    "Pixocial Technology",
-    "Pengcheng Laboratory"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "Sun Yat-Sen University",
-    "Pixocial Technology",
-    "Pengcheng Laboratory"
-   ],
-   "institution_ids": [
-    null,
-    null,
-    null
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex"
     }
    },
    "abs_url": "https://arxiv.org/abs/2407.15886",
@@ -115455,30 +115211,17 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2406.10328v1",
+   "html_url": null,
    "abstract": "Training large vision-language models requires extensive, high-quality image-text pairs. Existing web-scraped datasets, however, are noisy and lack detailed image descriptions. To bridge this gap, we introduce PixelProse, a comprehensive dataset of over 16M (million) synthetically generated captions, leveraging cutting-edge vision-language models for detailed and accurate descriptions. To ensure data integrity, we rigorously analyze our dataset for problematic content, including child sexual abuse material (CSAM), personally identifiable information (PII), and toxicity. We also provide valuable metadata such as watermark presence and aesthetic scores, aiding in further dataset filtering. We hope PixelProse will be a valuable resource for future vision-language research. PixelProse is available at https://huggingface.co/datasets/tomg-group-umd/pixelprose",
-   "affiliations": [
-    "University of Maryland",
-    "College Park"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "University of Maryland",
-    "College Park"
-   ],
-   "institution_ids": [
-    null,
-    null
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex"
     }
    },
    "abs_url": "https://arxiv.org/abs/2406.10328",
@@ -119753,40 +119496,17 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2406.01920v1",
+   "html_url": null,
    "abstract": "Large Multi-modal Models (LMMs) have recently demonstrated remarkable abilities in visual context understanding and coherent response generation. However, alongside these advancements, the issue of hallucinations has emerged as a significant challenge, producing erroneous responses that are unrelated to the visual contents. In this paper, we introduce a novel contrastive-based decoding method, COuntering DEscription Contrastive Decoding (CODE), which leverages self-generated descriptions as contrasting references during the decoding phase of LMMs to address hallucination issues. CODE utilizes the comprehensive descriptions from model itself as visual counterpart to correct and improve response alignment with actual visual content. By dynamically adjusting the information flow and distribution of next-token predictions in the LMM's vocabulary, CODE enhances the coherence and informativeness of generated responses. Extensive experiments demonstrate that our method significantly reduces hallucinations and improves cross-modal consistency across various benchmarks and cutting-edge LMMs. Our method provides a simple yet effective decoding strategy that can be integrated to existing LMM frameworks without additional training.",
-   "affiliations": [
-    "Yeonju KimYong Man RoIntegrated Vision and Language Lab, KAIST"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "Korea Advanced Institute of Science and Technology"
-   ],
-   "institution_ids": [
-    null
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex"
     }
    },
    "abs_url": "https://arxiv.org/abs/2406.01920",
@@ -120978,33 +120698,17 @@
    "journal_ref": null,
    "venue": "CoRL 2024",
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2406.19464v1",
+   "html_url": null,
    "abstract": "Audio signals provide rich information for the robot interaction and object properties through contact. This information can surprisingly ease the learning of contact-rich robot manipulation skills, especially when the visual information alone is ambiguous or incomplete. However, the usage of audio data in robot manipulation has been constrained to teleoperated demonstrations collected by either attaching a microphone to the robot or object, which significantly limits its usage in robot learning pipelines. In this work, we introduce ManiWAV: an 'ear-in-hand' data collection device to collect in-the-wild human demonstrations with synchronous audio and visual feedback, and a corresponding policy interface to learn robot manipulation policy directly from the demonstrations. We demonstrate the capabilities of our system through four contact-rich manipulation tasks that require either passively sensing the contact events and modes, or actively sensing the object surface materials and states. In addition, we show that our system can generalize to unseen in-the-wild environments by learning from diverse in-the-wild human demonstrations.",
-   "affiliations": [
-    "Stanford University",
-    "Columbia University",
-    "Toyota Research Institute"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "Stanford University",
-    "Columbia University",
-    "Toyota Research Institute"
-   ],
-   "institution_ids": [
-    "00f54p054",
-    "00hj8s172",
-    "04fpkc108"
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex"
     }
    },
    "abs_url": "https://arxiv.org/abs/2406.19464",
@@ -145223,27 +144927,17 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2405.03162v1",
+   "html_url": null,
    "abstract": "Many clinical tasks require an understanding of specialized data, such as medical images and genomics, which is not typically found in general-purpose large multimodal models. Building upon Gemini's multimodal models, we develop several models within the new Med-Gemini family that inherit core capabilities of Gemini and are optimized for medical use via fine-tuning with 2D and 3D radiology, histopathology, ophthalmology, dermatology and genomic data. Med-Gemini-2D sets a new standard for AI-based chest X-ray (CXR) report generation based on expert evaluation, exceeding previous best results across two separate datasets by an absolute margin of 1% and 12%, where 57% and 96% of AI reports on normal cases, and 43% and 65% on abnormal cases, are evaluated as \"equivalent or better\" than the original radiologists' reports. We demonstrate the first ever large multimodal model-based report generation for 3D computed tomography (CT) volumes using Med-Gemini-3D, with 53% of AI reports considered clinically acceptable, although additional research is needed to meet expert radiologist reporting quality. Beyond report generation, Med-Gemini-2D surpasses the previous best performance in CXR visual question answering (VQA) and performs well in CXR classification and radiology VQA, exceeding SoTA or baselines on 17 of 20 tasks. In histopathology, ophthalmology, and dermatology image classification, Med-Gemini-2D surpasses baselines across 18 out of 20 tasks and approaches task-specific model performance. Beyond imaging, Med-Gemini-Polygenic outperforms the standard linear polygenic risk score-based approach for disease risk prediction and generalizes to genetically correlated diseases for which it has never been trained. Although further development and evaluation are necessary in the safety-critical medical domain, our results highlight the potential of Med-Gemini across a wide range of medical tasks.",
-   "affiliations": [
-    "Google Research and Google DeepMind"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "Google DeepMind"
-   ],
-   "institution_ids": [
-    "00971b260"
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex"
     }
    },
    "abs_url": "https://arxiv.org/abs/2405.03162",
@@ -146855,52 +146549,17 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2405.20279v1",
+   "html_url": null,
    "abstract": "Spatio-temporal compression of videos, utilizing networks such as Variational Autoencoders (VAE), plays a crucial role in OpenAI's SORA and numerous other video generative models. For instance, many LLM-like video models learn the distribution of discrete tokens derived from 3D VAEs within the VQVAE framework, while most diffusion-based video models capture the distribution of continuous latent extracted by 2D VAEs without quantization. The temporal compression is simply realized by uniform frame sampling which results in unsmooth motion between consecutive frames. Currently, there lacks of a commonly used continuous video (3D) VAE for latent diffusion-based video models in the research community. Moreover, since current diffusion-based approaches are often implemented using pre-trained text-to-image (T2I) models, directly training a video VAE without considering the compatibility with existing T2I models will result in a latent space gap between them, which will take huge computational resources for training to bridge the gap even with the T2I models as initialization. To address this issue, we propose a method for training a video VAE of latent video models, namely CV-VAE, whose latent space is compatible with that of a given image VAE, e.g., image VAE of Stable Diffusion (SD). The compatibility is achieved by the proposed novel latent space regularization, which involves formulating a regularization loss using the image VAE. Benefiting from the latent space compatibility, video models can be trained seamlessly from pre-trained T2I or video models in a truly spatio-temporally compressed latent space, rather than simply sampling video frames at equal intervals. With our CV-VAE, existing video models can generate four times more frames with minimal finetuning. Extensive experiments are conducted to demonstrate the effectiveness of the proposed video VAE.",
-   "affiliations": [
-    "Tencent AI Lab"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "Tencent"
-   ],
-   "institution_ids": [
-    null
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex"
     }
    },
    "abs_url": "https://arxiv.org/abs/2405.20279",
@@ -154337,30 +153996,17 @@
    "journal_ref": "NeurIPS 2024",
    "venue": "NeurIPS 2024",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2405.11473v1",
+   "html_url": null,
    "abstract": "We propose a novel inference technique based on a pretrained diffusion model for text-conditional video generation. Our approach, called FIFO-Diffusion, is conceptually capable of generating infinitely long videos without additional training. This is achieved by iteratively performing diagonal denoising, which simultaneously processes a series of consecutive frames with increasing noise levels in a queue; our method dequeues a fully denoised frame at the head while enqueuing a new random noise frame at the tail. However, diagonal denoising is a double-edged sword as the frames near the tail can take advantage of cleaner frames by forward reference but such a strategy induces the discrepancy between training and inference. Hence, we introduce latent partitioning to reduce the training-inference gap and lookahead denoising to leverage the benefit of forward referencing. Practically, FIFO-Diffusion consumes a constant amount of memory regardless of the target video length given a baseline model, while well-suited for parallel inference on multiple GPUs. We have demonstrated the promising results and effectiveness of the proposed methods on existing text-to-video generation baselines. Generated video examples and source codes are available at our project page.",
-   "affiliations": [
-    "Computer Vision Laboratory",
-    "Seoul National University"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "Computer Vision Laboratory",
-    "Seoul National University"
-   ],
-   "institution_ids": [
-    "059ygsz90",
-    "04h9pn542"
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex"
     }
    },
    "abs_url": "https://arxiv.org/abs/2405.11473",
@@ -173960,58 +173606,17 @@
    "journal_ref": null,
    "venue": "ECCV 2024",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2404.12390v1",
+   "html_url": null,
    "abstract": "We introduce Blink, a new benchmark for multimodal language models (LLMs) that focuses on core visual perception abilities not found in other evaluations. Most of the Blink tasks can be solved by humans \"within a blink\" (e.g., relative depth estimation, visual correspondence, forensics detection, and multi-view reasoning). However, we find these perception-demanding tasks cast significant challenges for current multimodal LLMs because they resist mediation through natural language. Blink reformats 14 classic computer vision tasks into 3,807 multiple-choice questions, paired with single or multiple images and visual prompting. While humans get 95.70% accuracy on average, Blink is surprisingly challenging for existing multimodal LLMs: even the best-performing GPT-4V and Gemini achieve accuracies of 51.26% and 45.72%, only 13.17% and 7.63% higher than random guessing, indicating that such perception abilities have not \"emerged\" yet in recent multimodal LLMs. Our analysis also highlights that specialist CV models could solve these problems much better, suggesting potential pathways for future improvements. We believe Blink will stimulate the community to help multimodal LLMs catch up with human-level visual perception.",
-   "affiliations": [
-    "University of Pennsylvania, University of Washington, Allen Institute for AI, University of California, Davis, Columbia University"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "University of California, Davis"
-   ],
-   "institution_ids": [
-    "05rrcem69"
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex"
     }
    },
    "abs_url": "https://arxiv.org/abs/2404.12390",
@@ -174554,55 +174159,17 @@
    "journal_ref": null,
    "venue": "NeurIPS 2024",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2404.10667v1",
+   "html_url": null,
    "abstract": "We introduce VASA, a framework for generating lifelike talking faces with appealing visual affective skills (VAS) given a single static image and a speech audio clip. Our premiere model, VASA-1, is capable of not only generating lip movements that are exquisitely synchronized with the audio, but also producing a large spectrum of facial nuances and natural head motions that contribute to the perception of authenticity and liveliness. The core innovations include a holistic facial dynamics and head movement generation model that works in a face latent space, and the development of such an expressive and disentangled face latent space using videos. Through extensive experiments including evaluation on a set of new metrics, we show that our method significantly outperforms previous methods along various dimensions comprehensively. Our method not only delivers high video quality with realistic facial and head dynamics but also supports the online generation of 512x512 videos at up to 40 FPS with negligible starting latency. It paves the way for real-time engagements with lifelike avatars that emulate human conversational behaviors.",
-   "affiliations": [
-    "Microsoft Research Asia"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "Microsoft"
-   ],
-   "institution_ids": [
-    null
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex"
     }
    },
    "abs_url": "https://arxiv.org/abs/2404.10667",
@@ -175283,30 +174850,17 @@
    "journal_ref": null,
    "venue": "ICML 2024",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2404.10177v1",
+   "html_url": null,
    "abstract": "Ambient diffusion is a recently proposed framework for training diffusion models using corrupted data. Both Ambient Diffusion and alternative SURE-based approaches for learning diffusion models from corrupted data resort to approximations which deteriorate performance. We present the first framework for training diffusion models that provably sample from the uncorrupted distribution given only noisy training data, solving an open problem in this space. Our key technical contribution is a method that uses a double application of Tweedie's formula and a consistency loss function that allows us to extend sampling at noise levels below the observed data noise. We also provide further evidence that diffusion models memorize from their training sets by identifying extremely corrupted images that are almost perfectly reconstructed, raising copyright and privacy concerns. Our method for training using corrupted samples can be used to mitigate this problem. We demonstrate this by fine-tuning Stable Diffusion XL to generate samples from a distribution using only noisy samples. Our framework reduces the amount of memorization of the fine-tuning dataset, while maintaining competitive performance.",
-   "affiliations": [
-    "Computer Science Department",
-    "ECE Department"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "Computer Science Department",
-    "ECE Department"
-   ],
-   "institution_ids": [
-    null,
-    null
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex"
     }
    },
    "abs_url": "https://arxiv.org/abs/2404.10177",
@@ -208577,33 +208131,17 @@
    "journal_ref": null,
    "venue": "ECCV 2024",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2403.09622v1",
+   "html_url": null,
    "abstract": "Visual text rendering poses a fundamental challenge for contemporary text-to-image generation models, with the core problem lying in text encoder deficiencies. To achieve accurate text rendering, we identify two crucial requirements for text encoders: character awareness and alignment with glyphs. Our solution involves crafting a series of customized text encoder, Glyph-ByT5, by fine-tuning the character-aware ByT5 encoder using a meticulously curated paired glyph-text dataset. We present an effective method for integrating Glyph-ByT5 with SDXL, resulting in the creation of the Glyph-SDXL model for design image generation. This significantly enhances text rendering accuracy, improving it from less than 20% to nearly 90% on our design image benchmark. Noteworthy is Glyph-SDXL's newfound ability for text paragraph rendering, achieving high spelling accuracy for tens to hundreds of characters with automated multi-line layouts. Finally, through fine-tuning Glyph-SDXL with a small set of high-quality, photorealistic images featuring visual text, we showcase a substantial improvement in scene text rendering capabilities in open-domain real images. These compelling outcomes aim to encourage further exploration in designing customized text encoders for diverse and challenging tasks.",
-   "affiliations": [
-    "Tsinghua University",
-    "Peking University",
-    "The Australian National University"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "Tsinghua University",
-    "Peking University",
-    "Australian National University"
-   ],
-   "institution_ids": [
-    "03cve4549",
-    "02v51f717",
-    "019wvm592"
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex"
     }
    },
    "abs_url": "https://arxiv.org/abs/2403.09622",
@@ -223694,49 +223232,17 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.GR",
-   "html_url": "https://arxiv.org/html/2402.13251v1",
+   "html_url": null,
    "abstract": "Manually creating textures for 3D meshes is time-consuming, even for expert visual content creators. We propose a fast approach for automatically texturing an input 3D mesh based on a user-provided text prompt. Importantly, our approach disentangles lighting from surface material/reflectance in the resulting texture so that the mesh can be properly relit and rendered in any lighting environment. We introduce LightControlNet, a new text-to-image model based on the ControlNet architecture, which allows the specification of the desired lighting as a conditioning image to the model. Our text-to-texture pipeline then constructs the texture in two stages. The first stage produces a sparse set of visually consistent reference views of the mesh using LightControlNet. The second stage applies a texture optimization based on Score Distillation Sampling (SDS) that works with LightControlNet to increase the texture quality while disentangling surface material from lighting. Our algorithm is significantly faster than previous text-to-texture methods, while producing high-quality and relightable textures.",
-   "affiliations": [
-    "Roblox 2Carnegie Mellon University 3Stanford University"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "Roblox 2Carnegie Mellon University 3Stanford University"
-   ],
-   "institution_ids": [
-    null
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex"
     }
    },
    "abs_url": "https://arxiv.org/abs/2402.13251",
@@ -230619,43 +230125,17 @@
    "journal_ref": null,
    "venue": "ECCV 2024",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2402.00752v1",
+   "html_url": null,
    "abstract": "3D Gaussian Splatting has garnered extensive attention and application in real-time neural rendering. Concurrently, concerns have been raised about the limitations of this technology in aspects such as point cloud storage, performance, and robustness in sparse viewpoints, leading to various improvements. However, there has been a notable lack of attention to the fundamental problem of projection errors introduced by the local affine approximation inherent in the splatting itself, and the consequential impact of these errors on the quality of photo-realistic rendering. This paper addresses the projection error function of 3D Gaussian Splatting, commencing with the residual error from the first-order Taylor expansion of the projection function. The analysis establishes a correlation between the error and the Gaussian mean position. Subsequently, leveraging function optimization theory, this paper analyzes the function's minima to provide an optimal projection strategy for Gaussian Splatting referred to Optimal Gaussian Splatting, which can accommodate a variety of camera models. Experimental validation further confirms that this projection methodology reduces artifacts, resulting in a more convincingly realistic rendering.",
-   "affiliations": [
-    "Nanjing University"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "Nanjing University"
-   ],
-   "institution_ids": [
-    "01rxvg760"
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex"
     }
    },
    "abs_url": "https://arxiv.org/abs/2402.00752",
@@ -231605,46 +231085,17 @@
    "journal_ref": null,
    "venue": "ICLR 2024",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2401.16702v1",
+   "html_url": null,
    "abstract": "Existing video-language studies mainly focus on learning short video clips, leaving long-term temporal dependencies rarely explored due to over-high computational cost of modeling long videos. To address this issue, one feasible solution is learning the correspondence between video clips and captions, which however inevitably encounters the multi-granularity noisy correspondence (MNC) problem. To be specific, MNC refers to the clip-caption misalignment (coarse-grained) and frame-word misalignment (fine-grained), hindering temporal learning and video understanding. In this paper, we propose NOise Robust Temporal Optimal traNsport (Norton) that addresses MNC in a unified optimal transport (OT) framework. In brief, Norton employs video-paragraph and clip-caption contrastive losses to capture long-term dependencies based on OT. To address coarse-grained misalignment in video-paragraph contrast, Norton filters out the irrelevant clips and captions through an alignable prompt bucket and realigns asynchronous clip-caption pairs based on transport distance. To address the fine-grained misalignment, Norton incorporates a soft-maximum operator to identify crucial words and key frames. Additionally, Norton exploits the potential faulty negative samples in clip-caption contrast by rectifying the alignment target with OT assignment to ensure precise temporal modeling. Extensive experiments on video retrieval, videoQA, and action segmentation verify the effectiveness of our method. Code is available at https://lin-yijie.github.io/projects/Norton.",
-   "affiliations": [
-    "Sichuan University"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "Sichuan University"
-   ],
-   "institution_ids": [
-    "011ashp19"
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex"
     }
    },
    "abs_url": "https://arxiv.org/abs/2401.16702",
@@ -236576,64 +236027,17 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2401.04468v1",
+   "html_url": null,
    "abstract": "The growing demand for high-fidelity video generation from textual descriptions has catalyzed significant research in this field. In this work, we introduce MagicVideo-V2 that integrates the text-to-image model, video motion generator, reference image embedding module and frame interpolation module into an end-to-end video generation pipeline. Benefiting from these architecture designs, MagicVideo-V2 can generate an aesthetically pleasing, high-resolution video with remarkable fidelity and smoothness. It demonstrates superior performance over leading Text-to-Video systems such as Runway, Pika 1.0, Morph, Moon Valley and Stable Video Diffusion model via user evaluation at large scale.",
-   "affiliations": [
-    "Bytedance Inc"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "ByteDance"
-   ],
-   "institution_ids": [
-    null
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex"
     }
    },
    "abs_url": "https://arxiv.org/abs/2401.04468",

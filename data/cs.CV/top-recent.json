@@ -3236,46 +3236,19 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2608.24053v1",
+   "html_url": null,
    "abstract": "Universal multimodal embeddings are becoming a core component of modern AI systems, enabling heterogeneous content to be represented in a shared space for applications such as retrieval, recommendation, classification, and agentic systems. In this report, we present WeMM-Embedding, a family of universal multimodal embedding models supporting text, images, videos, visual documents, and arbitrarily interleaved multimodal inputs with flexible output dimensions. The family comprises 2B, 4B, and 9B variants and is trained in two stages: a large-scale multimodal alignment stage, followed by a refinement stage using curated data, fine-grained relevance supervision, and cross-scale knowledge transfer. Across extensive evaluations, WeMM-Embedding achieves leading performance on multiple public benchmarks. Notably, the 2B variant already surpasses the previously leading 8B open-source baseline on MMEB-v2, while the 9B variant further achieves a new state-of-the-art overall score of 80.6. WeMM-Embedding also demonstrates strong practical performance across WeChat applications, with substantial gains on a 26-task in-house benchmark and consistent improvements across 14 online A/B tests. It has been deployed at scale across recommendation and search applications, including WeChat Channels, Official Accounts, Moments, and e-commerce services. We have released the model weights and code to facilitate future research at https://github.com/Tencent/WeMM-Embedding.",
-   "affiliations": [
-    "WeChat Vision, Tencent Inc"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "Tencent"
-   ],
-   "institution_ids": [
-    null
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2608.24053",
@@ -7648,27 +7621,19 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2607.26004v1",
+   "html_url": null,
    "abstract": "Generation in video diffusion or flow models is computationally expensive due to the slow and iterative sampling process. Current state-of-the-art (SOTA) acceleration methods heavily rely on variational score distillation (VSD) and adversarial losses to distill diffusion models into few-step generators. Albeit achieving high-quality video generation, these training losses are notoriously hard to optimize and suffer from mode collapse, leading to loss of video diversity and lack of motion. In this paper, we introduce Parallel Decoding Distillation (PDD), a simplified and scalable trajectory-based distillation method for fast inference of diffusion and flow matching models. Our architecture and training procedure are compatible with any pre-trained model and support sampling with a varying number of function evaluations (NFE). PDD accelerates generation by predicting multiple denoising steps per network evaluation. Conceptually, it learns a representation of the mean velocity without regressing its derivative using JVPs or finite-difference approximations. Our method achieves SOTA performance with 4-8 NFE on LTX-2.3 Text-to-Video/Audio, Wan 14B Text-to-Video, and Qwen-Image Text-to-Image. Moreover, PDD presents a significant improvement in generated video diversity.",
-   "affiliations": [
-    "Weizmann Institute of Science"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "Weizmann Institute of Science"
-   ],
-   "institution_ids": [
-    "0316ej306"
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2607.26004",
@@ -9633,27 +9598,19 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2607.12894v1",
+   "html_url": null,
    "abstract": "Building capable embodied agents requires not only multimodal perception and understanding, but also agentic capabilities for reasoning about actions, adapting to evolving situations, and interacting with the physical world. In this report, we introduce Hy-Embodied-VLM-1.0, an efficient and powerful embodied foundation model specifically designed for embodied agents operating in the physical world. To cultivate such capabilities from the pre-training stage onward, we define an action-centric capability taxonomy comprising three progressive dimensions: Action-Relevant State Understanding, Action-Transition Reasoning, and Sequential and Adaptive Reasoning. Guided by this taxonomy, we develop a systematic data pipeline and curate data mixtures spanning both pre-training and post-training. To deliver strong physical-world understanding and interaction capabilities while supporting latency-sensitive deployment, we build our model on the Hy3-A3B language backbone and the Hy-ViT2 vision encoder. Its efficient Mixture-of-Experts architecture combines strong model capacity with high inference efficiency. We evaluate Hy-Embodied-VLM-1.0 on a comprehensive suite of 38 benchmarks covering embodied perception, physical-world understanding, and embodied reasoning. The model achieves the best performance among similarly sized models on 19 of the 38 benchmarks and substantially outperforms strong competitors, including Qwen3.6-A3B and Cosmos 3. Compared with the previous-generation Hy-Embodied-0.5 MoT-2B, Hy-Embodied-VLM-1.0 improves average performance by 8.4%. Despite activating only 3B parameters, it achieves performance close to that of the previous-generation model with 32B activated parameters. Beyond static benchmark evaluation, Hy-Embodied-VLM-1.0 also demonstrates strong performance on embodied agentic tasks requiring multi-turn interaction and long-horizon reasoning.",
-   "affiliations": [
-    "Futian Laboratory"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "Futian Laboratory"
-   ],
-   "institution_ids": [
-    null
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2607.12894",
@@ -10567,91 +10524,19 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2607.00678v1",
+   "html_url": null,
    "abstract": "Mobile manipulation is a key capability for general-purpose robots, yet remains challenging for current embodied learning methods. VLA policies are typically reactive and lack explicit world modeling, while existing World Action Models (WAMs) are still poorly aligned with the structure of mobile manipulation: they operate on coarse video chunks, model entangled navigation-manipulation actions, and train inverse dynamics under supervision that does not match autoregressive inference. As a result, they often miss fine-grained contact dynamics, suffer from action-distribution conflicts, and accumulate errors over long-horizon rollouts. We propose ABot-M0.5, a new WAM built on the insight that mobile manipulation requires alignment at three levels: temporal granularity, action space, and train-test consistency. To align temporal granularity, we introduce intermediate latent actions that capture local visual state transitions and serve as an bridging action space between video latents and embodiment-specific controls. To align action space, we design a dual-level Mixture-of-Transformers architecture that disentangles both modality representations and heterogeneous action subspaces such as base movement and arm manipulation. To align inference conditions, we propose the dream-forcing training strategy that progressively trains inverse dynamics on model-predicted videos, improving train-test alignment and robustness during autoregressive prediction. Experiments on challenging mobile and fine-grained manipulation benchmarks demonstrate that ABot-M0.5 achieves state-of-the-art performance in both long-horizon task success and finegrained control accuracy. These results highlight the critical importance of granularity-aligned, action-disentangled, and inference-consistent world-action modeling.",
-   "affiliations": [
-    "AMAP CV Lab"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "AMAP CV Lab"
-   ],
-   "institution_ids": [
-    null
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2607.00678",
@@ -14644,61 +14529,19 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2606.13673v1",
+   "html_url": null,
    "abstract": "Spatial reasoning, the ability to determine where objects are, how they relate, and how they move in 3D, remains a fundamental challenge for vision-language models (VLMs). Tool-augmented agents attempt to address this by augmenting VLMs with specialist perception modules, yet their effectiveness is bounded by the action interface through which those tools are invoked. In this work, we study how the design of this interface shapes the agent's capacity for open-ended spatial reasoning. Existing spatial agents either employ single-pass code execution, which commits to a full analysis strategy before any intermediate result is observed, or rely on a structured tool-call interface that often offers less flexibility for freely composing operations or tailoring the analysis to each task. Both designs offer limited flexibility for open-ended, complex 3D/4D spatial reasoning. We therefore propose SpatialClaw, a training-free framework for spatial reasoning that adopts code as the action interface. SpatialClaw maintains a stateful Python kernel pre-loaded with input frames and a suite of perception and geometry primitives, letting a VLM-backed agent write one executable cell per step conditioned on all prior outputs, enabling the agent to flexibly compose and manipulate perception results and adapt its analysis to both intermediate text and visual observations and the demands of each problem. Evaluated across 20 spatial reasoning benchmarks spanning a broad range of static and dynamic 3D/4D spatial reasoning tasks, SpatialClaw achieves 59.9% average accuracy, outperforming the recent spatial agent by +11.2 points, with consistent gains across six VLM backbones from two model families without any benchmark- or model-specific adaptation.",
-   "affiliations": [
-    "Links: · NVIDIA"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "NVIDIA"
-   ],
-   "institution_ids": [
-    null
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2606.13673",
@@ -20117,33 +19960,19 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2605.25979v1",
+   "html_url": null,
    "abstract": "We introduce LLaVA-OneVision-2 (LLaVA-OV-2), the most capable vision-language model in the LLaVA-OneVision series to date, achieving superior performance across a broad range of multimodal benchmarks. The model builds on a native OneVision-Encoder and incorporates Windowed Attention for efficient local computation while maintaining native resolution. Its key advance is codec-stream tokenization: it treats compressed video as a continuous bit-cost stream, where bit-cost dynamics determine adaptive temporal groups, and motion-residual cues select salient spatial evidence into compact visual canvases. This allocation concentrates a limited token budget on event-bearing content, enabling more stable long-video token compression than fixed groups of pictures. A shared 3D RoPE further places codec canvases, sampled frames, and images in a unified spatiotemporal coordinate system. Furthermore, we build the LLaVA-OV-2 data and training stack around large-scale open supervision: approximately 8M re-captioned video samples for pretraining, a 4M-sample spatial corpus for fine-tuning. We also introduce JumpScore, a temporal-localization benchmark targeting fine-grained grounding in high-frequency, densely repeated motion, a regime underrepresented by existing video evaluations. A standout capability of LLaVA-OV-2 is its unified perception across video understanding, temporal grounding, spatial grounding, and manipulation-trace reasoning. On JumpScore, LLaVA-OneVision-2-8B reaches 74.9 JumpScore mAP, surpassing Qwen3-VL-8B (30.1) by +44.8 points; under matched visual-token budgets on the same benchmark, codec-stream inputs improve temporal grounding over frame sampling by +9.7 points. Across standard benchmarks, LLaVA-OneVision-2-8B further outperforms Qwen3-VL-8B by +4.3 average points on video tasks, +5.3 on spatial tasks, and +15.6 average J&F on tracking tasks.",
-   "affiliations": [
-    "Glint Lab",
-    "AIM for Health Lab",
-    "MVP Lab"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "Glint Lab",
-    "AIM for Health Lab",
-    "MVP Lab"
-   ],
-   "institution_ids": [
-    null,
-    null,
-    null
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2605.25979",
@@ -24764,30 +24593,19 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2605.18324v1",
+   "html_url": null,
    "abstract": "Representation Autoencoders (RAE) replace traditional VAE with pretrained vision encoders. In this paper, we systematically investigate several design choices and find three insights which simplify and improve RAE. First, we study a generalized formulation where the representation is defined as sum of the last k encoder layers rather than solely the final layer. This simple change greatly improves reconstruction without encoder finetuning or specialized data (e.g., text, faces). Second, we study the prevalent assumption that RAE (using pretrained representation as encoder) replaces representation alignment (REPA), which distills the same representation to intermediate layers instead. Through large-scale empirical analysis, we uncover a surprising finding: RAE and REPA exhibit complementary working mechanisms, allowing the same representation to be used as both encoder and target for intermediate diffusion layers. Finally, the original RAE struggles with classifier-free guidance (CFG) and requires training a second, weaker diffusion model for AutoGuidance (AG). We show that REPA itself can be viewed as x-prediction in RAE latent space. By simply re-parameterizing the output of the DiT model, it can provide guidance for \"free\". Overall, RAEv2 leads to more than 10x faster convergence over the original RAE, achieving a state-of-the-art gFID of 1.06 in just 80 epochs on ImageNet-256. On FDr6, RAEv2 achieves a state-of-the-art 2.17 at just 80 epochs compared to the previous best 3.26 (800 epochs) without any post-training. This motivates EPFID@k (epochs to reach unguided gFID < k) as a measure of training efficiency. RAEv2 attains an EPFID@2 of 35 epochs, versus 177 for the original RAE. We also validate our approach across diverse settings for text-to-image generation and navigation world models, showing consistent improvements. The code is available at https://raev2.github.io.",
-   "affiliations": [
-    "Adobe Research",
-    "New York University"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "Adobe",
-    "New York University"
-   ],
-   "institution_ids": [
-    null,
-    null
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2605.18324",
@@ -25829,346 +25647,19 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2604.04135v1",
+   "html_url": null,
    "abstract": "This paper presents a comprehensive review of the NTIRE 2026 3D Restoration and Reconstruction (3DRR) Challenge, detailing the proposed methods and results. The challenge seeks to identify robust reconstruction pipelines that are robust under real-world adverse conditions, specifically extreme low-light and smoke-degraded environments, as captured by our RealX3D benchmark. A total of 279 participants registered for the competition, of whom 33 teams submitted valid results. We thoroughly evaluate the submitted approaches against state-of-the-art baselines, revealing significant progress in 3D reconstruction under adverse conditions. Our analysis highlights shared design principles among top-performing methods and provides insights into effective strategies for handling 3D scene degradation.",
-   "affiliations": [
-    "Yun LiuRyo UmagamiTomohiro HashimotoZijian HuYuan GanTianhan XuYusuke KuroseTatsuya HaradaJunwei YuanGengjia ChangXining GeMache YouQida CaoZeliang LiXinyuan HuHongde GuChangyue ShiJiajun DingZhou YuJun YuSeungsang OhFei WangDonggun KimZhiliang WuSeho AhnXinye ZhengKun LiYanyan WeiWeisi LinDizhe ZhangYuchao ChenMeixi Song Hanqing WangHaoran FengLu QiJiaao ShanYang GuJiacheng LiuShiyu LiuKui JiangJunjun JiangRunyu ZhuSixun DongQingxia YeZhiqiang ZhangZhihua XuZhiwei WangPhan The SonZhimiao ShiZixuan GuoXueming FuLixia HanChanghe LiuZhenyu ZhaoManabu TsukadaZheng ZhangZihan ZhaiTingting LiZiyang ZhengYuhao LiuDingju WangJeongbin YouYounghyuk KimIl-Youp KwakMingzhe LyuJunbo YangWenhan YangHongsen ZhangJinqiang CuiHong ZhangHaojie GuoHantang LiQiang ZhuBowen HeXiandong MengDebin ZhaoXiaopeng FanWei ZhouLinzhe JiangLinfeng LiLouzhe XuQi XuHang SongChenkun GuoWeizhi NieYufei LiXingan ZhanZhanqi ShiDufeng ZhangBoyuan TianJingshuo ZengGang HeYubao FuWeijie WangCunchuan Huang"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "Yun LiuRyo UmagamiTomohiro HashimotoZijian HuYuan GanTianhan XuYusuke KuroseTatsuya HaradaJunwei YuanGengjia ChangXining GeMache YouQida CaoZeliang LiXinyuan HuHongde GuChangyue ShiJiajun DingZhou YuJun YuSeungsang OhFei WangDonggun KimZhiliang WuSeho AhnXinye ZhengKun LiYanyan WeiWeisi LinDizhe ZhangYuchao ChenMeixi Song Hanqing WangHaoran FengLu QiJiaao ShanYang GuJiacheng LiuShiyu LiuKui JiangJunjun JiangRunyu ZhuSixun DongQingxia YeZhiqiang ZhangZhihua XuZhiwei WangPhan The SonZhimiao ShiZixuan GuoXueming FuLixia HanChanghe LiuZhenyu ZhaoManabu TsukadaZheng ZhangZihan ZhaiTingting LiZiyang ZhengYuhao LiuDingju WangJeongbin YouYounghyuk KimIl-Youp KwakMingzhe LyuJunbo YangWenhan YangHongsen ZhangJinqiang CuiHong ZhangHaojie GuoHantang LiQiang ZhuBowen HeXiandong MengDebin ZhaoXiaopeng FanWei ZhouLinzhe JiangLinfeng LiLouzhe XuQi XuHang SongChenkun GuoWeizhi NieYufei LiXingan ZhanZhanqi ShiDufeng ZhangBoyuan TianJingshuo ZengGang HeYubao FuWeijie WangCunchuan Huang"
-   ],
-   "institution_ids": [
-    null
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2604.04135",
@@ -27820,30 +27311,19 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2604.03037v1",
+   "html_url": null,
    "abstract": "Long-horizon robotic manipulation remains challenging for reinforcement learning (RL) because sparse rewards provide limited guidance for credit assignment. Practical policy improvement thus relies on richer intermediate supervision, such as dense progress rewards, which are costly to obtain and ill-suited to non-monotonic behaviors such as backtracking and recovery. To address this, we propose Advantage Reward Modeling (ARM), a framework that shifts from hard-to-quantify absolute progress to estimating relative advantage. We introduce a cost-effective tri-state labeling strategy -- Progressive, Regressive, and Stagnant -- that reduces human cognitive overhead while ensuring high cross-annotator consistency. By training on these intuitive signals, ARM enables automated progress annotation for both complete demonstrations and fragmented DAgger-style data. Integrating ARM into an offline RL pipeline allows for adaptive action-reward reweighting, effectively filtering suboptimal samples. Our approach achieves a 99.4% success rate on a challenging long-horizon towel-folding task, demonstrating improved stability and data efficiency over current VLA baselines with near-zero human intervention during policy training.",
-   "affiliations": [
-    "Beijing University of Posts and Telecommunications",
-    "Zhejiang University"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "Beijing University of Posts and Telecommunications",
-    "Zhejiang University"
-   ],
-   "institution_ids": [
-    "04w9fbh59",
-    "00a2xv884"
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2604.03037",
@@ -30112,262 +29592,19 @@
    "journal_ref": null,
    "venue": "CVPR 2026 Workshop",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2604.10551v1",
+   "html_url": null,
    "abstract": "This paper presents an overview of the NTIRE 2026 Challenge on Short-form UGC Video Restoration in the Wild with Generative Models. This challenge utilizes a new short-form UGC (S-UGC) video restoration benchmark, termed KwaiVIR, which is contributed by USTC and Kuaishou Technology. It contains both synthetically distorted videos and real-world short-form UGC videos in the wild. For this edition, the released data include 200 synthetic training videos, 48 wild training videos, 11 validation videos, and 20 testing videos. The primary goal of this challenge is to establish a strong and practical benchmark for restoring short-form UGC videos under complex real-world degradations, especially in the emerging paradigm of generative-model-based S-UGC video restoration. This challenge has two tracks: (i) the primary track is a subjective track, where the evaluation is based on a user study; (ii) the second track is an objective track. These two tracks enable a comprehensive assessment of restoration quality. In total, 95 teams have registered for this competition. And 12 teams submitted valid final solutions and fact sheets for the testing phase. The submitted methods achieved strong performance on the KwaiVIR benchmark, demonstrating encouraging progress in short-form UGC video restoration in the wild.",
-   "affiliations": [
-    "Yuxiang ChenShibo YinYilian ZhongYushun FangXilei ZhuYahui WangChen LuMeisong ZhengXiaoxu ChenJing YangZhaokun HuJiahui LiuYing ChenHaoran BaiSibin DengShengxi LiMai XuJunyang ChenHao ChenXinzhe ZhuFengkai ZhangLong SunYixing YangXindong ZhangJiangxin DongJinshan PanJiyuan ZhangShuai LiuYibin HuangXiaotao WangLei LeiZhirui LiuShinan ChenShang-Quan SunWenqi RenJingyi XuZihong ChenZhuoya ZouXiuhao QiuJingyu MaHuiyuan FuKun LiuHuadong MaDehao FengZhijie MaBoqi ZhangJiawei ShiHao KangYixin YangYeying JinXu ChengYuxuan JiangChengxi ZengTianhao PengFan ZhangDavid BullYanan XingJiachen TuGuoyi XuYaoxin JiangJiajia LiuYaokun ShiWei ZhouLinfeng LiHang SongQi XuKun YuanYizhen ShaoYulin Ren"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "Yuxiang ChenShibo YinYilian ZhongYushun FangXilei ZhuYahui WangChen LuMeisong ZhengXiaoxu ChenJing YangZhaokun HuJiahui LiuYing ChenHaoran BaiSibin DengShengxi LiMai XuJunyang ChenHao ChenXinzhe ZhuFengkai ZhangLong SunYixing YangXindong ZhangJiangxin DongJinshan PanJiyuan ZhangShuai LiuYibin HuangXiaotao WangLei LeiZhirui LiuShinan ChenShang-Quan SunWenqi RenJingyi XuZihong ChenZhuoya ZouXiuhao QiuJingyu MaHuiyuan FuKun LiuHuadong MaDehao FengZhijie MaBoqi ZhangJiawei ShiHao KangYixin YangYeying JinXu ChengYuxuan JiangChengxi ZengTianhao PengFan ZhangDavid BullYanan XingJiachen TuGuoyi XuYaoxin JiangJiajia LiuYaokun ShiWei ZhouLinfeng LiHang SongQi XuKun YuanYizhen ShaoYulin Ren"
-   ],
-   "institution_ids": [
-    null
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2604.10551",
@@ -33274,56 +32511,19 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2604.08995v1",
+   "html_url": null,
    "abstract": "With the advancement of interactive video generation, diffusion models have increasingly demonstrated their potential as world models. However, existing approaches still struggle to simultaneously achieve memory-enabled long-term temporal consistency and high-resolution real-time generation, limiting their applicability in real-world scenarios. To address this, we present Matrix-Game 3.0, a memory-augmented interactive world model designed for 720p real-time longform video generation. Building upon Matrix-Game 2.0, we introduce systematic improvements across data, model, and inference. First, we develop an upgraded industrial-scale infinite data engine that integrates Unreal Engine-based synthetic data, large-scale automated collection from AAA games, and real-world video augmentation to produce high-quality Video-Pose-Action-Prompt quadruplet data at scale. Second, we propose a training framework for long-horizon consistency: by modeling prediction residuals and re-injecting imperfect generated frames during training, the base model learns self-correction; meanwhile, camera-aware memory retrieval and injection enable the base model to achieve long horizon spatiotemporal consistency. Third, we design a multi-segment autoregressive distillation strategy based on Distribution Matching Distillation (DMD), combined with model quantization and VAE decoder pruning, to achieve efficient real-time inference. Experimental results show that Matrix-Game 3.0 achieves up to 40 FPS real-time generation at 720p resolution with a 5B model, while maintaining stable memory consistency over minute-long sequences. Scaling up to a 2x14B model further improves generation quality, dynamics, and generalization. Our approach provides a practical pathway toward industrial-scale deployable world models.",
-   "affiliations": [
-    "Zexiang LiuJaixing LiKaichen HuangBaixin XuFei KangMengyin AnPeiyu WangBiao JiangYichen WeiYidan XietianJiangbo PeiLiang HuBoyi JiangHua XueZidong WangHaofeng SunWei LiWanli OuyangXianglong He",
-    "Yahui ZhouSkywork AI"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null
-   ],
-   "institutions": [
-    "Zexiang LiuJaixing LiKaichen HuangBaixin XuFei KangMengyin AnPeiyu WangBiao JiangYichen WeiYidan XietianJiangbo PeiLiang HuBoyi JiangHua XueZidong WangHaofeng SunWei LiWanli OuyangXianglong He",
-    "Yahui ZhouSkywork AI"
-   ],
-   "institution_ids": [
-    null,
-    null
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2604.08995",
@@ -34045,27 +33245,19 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2604.02486v1",
+   "html_url": null,
    "abstract": "Vision-language models (VLMs) have achieved impressive performance across a wide range of multimodal tasks. However, they often fail on tasks that require fine-grained visual perception, even when the required information is still present in their internal representations. Prior work has attributed this ``hidden-in-plain-sight'' gap to the language model, but the cause remains unexplained. In this work, we demonstrate that this gap arises from the language model's lack of semantic labels for fine-grained visual details: when visual entities can be mapped to known concepts, VLMs bypass visual comparison and reason through language; when they cannot, VLMs resort to brittle and hallucinated descriptions. We verify this across semantic correspondence, synthetic shape matching, and face matching, and find that VLMs perform much better when the relevant entities are nameable than when they are unnamable. Mechanistically, Logit Lens analysis confirms that VLMs explicitly recover semantic labels for nameable entities and surface more unique tokens compared to unnameable entities. Furthermore, we show that this limitation can be addressed: teaching completely arbitrary names for unknown entities improves performance. More importantly, task-specific finetuning yields even stronger generalization without relying on language priors, i.e., through real visual perception. Our findings suggest that current VLM failures on visual tasks reflect a learned shortcut rather than a fundamental limitation of multimodal reasoning. Code and datasets are available at https://github.com/Patchwork53/VLMs-Need-Words-COLM2026.",
-   "affiliations": [
-    "University of California"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "University of California System"
-   ],
-   "institution_ids": [
-    "00pjdza24"
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2604.02486",
@@ -34967,70 +34159,19 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2603.23376v1",
+   "html_url": null,
    "abstract": "Video-based world models offer a powerful paradigm for embodied simulation and planning, yet state-of-the-art models often generate physically implausible manipulations - such as object penetration and anti-gravity motion - due to training on generic visual data and likelihood-based objectives that ignore physical laws. We present ABot-PhysWorld, a 14B Diffusion Transformer model that generates visually realistic, physically plausible, and action-controllable videos. Built on a curated dataset of three million manipulation clips with physics-aware annotation, it uses a novel DPO-based post-training framework with decoupled discriminators to suppress unphysical behaviors while preserving visual quality. A parallel context block enables precise spatial action injection for cross-embodiment control. To better evaluate generalization, we introduce EZSbench, the first training-independent embodied zero-shot benchmark combining real and synthetic unseen robot-task-scene combinations. It employs a decoupled protocol to separately assess physical realism and action alignment. ABot-PhysWorld achieves new state-of-the-art performance on PBench and EZSbench, surpassing Veo 3.1 and Sora v2 Pro in physical plausibility and trajectory consistency. We will release EZSbench to promote standardized evaluation in embodied video generation.",
-   "affiliations": [
-    "AMAP CV Lab"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "AMAP CV Lab"
-   ],
-   "institution_ids": [
-    null
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2603.23376",
@@ -36333,40 +35474,19 @@
    "journal_ref": null,
    "venue": "CVPR 2026",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2603.19224v1",
+   "html_url": null,
    "abstract": "Video object removal aims to eliminate dynamic target objects and their visual effects, such as deformation, shadows, and reflections, while restoring seamless backgrounds. Recent diffusion-based video inpainting and object removal methods can remove the objects but often struggle to erase these effects and to synthesize coherent backgrounds. Beyond method limitations, progress is further hampered by the lack of a comprehensive dataset that systematically captures common object effects across varied environments for training and evaluation. To address this, we introduce VOR (Video Object Removal), a large-scale dataset that provides diverse paired videos, each consisting of one video where the target object is present with its effects and a counterpart where the object and effects are absent, with corresponding object masks. VOR contains 60K high-quality video pairs from captured and synthetic sources, covers five effects types, and spans a wide range of object categories as well as complex, dynamic multi-object scenes. Building on VOR, we propose EffectErase, an effect-aware video object removal method that treats video object insertion as the inverse auxiliary task within a reciprocal learning scheme. The model includes task-aware region guidance that focuses learning on affected areas and enables flexible task switching. Then, an insertion-removal consistency objective that encourages complementary behaviors and shared localization of effect regions and structural cues. Trained on VOR, EffectErase achieves superior performance in extensive experiments, delivering high-quality video object effect erasing across diverse scenarios.",
-   "affiliations": [
-    "Yike ZhengZiyun Dai"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "Yike ZhengZiyun Dai"
-   ],
-   "institution_ids": [
-    null
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2603.19224",
@@ -37999,39 +37119,19 @@
    "journal_ref": null,
    "venue": "ICLR 2026",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2603.09488v1",
+   "html_url": null,
    "abstract": "Large pretrained diffusion models have significantly enhanced the quality of generated videos, and yet their use in real-time streaming remains limited. Autoregressive models offer a natural framework for sequential frame synthesis but require heavy computation to achieve high fidelity. Diffusion distillation can compress these models into efficient few-step variants, but existing video distillation approaches largely adapt image-specific methods that neglect temporal dependencies. These techniques often excel in image generation but underperform in video synthesis, exhibiting reduced motion coherence, error accumulation over long sequences, and a latency-quality trade-off. We identify two factors that result in these limitations: insufficient utilization of temporal context during step reduction and implicit prediction of subsequent noise levels in next-chunk prediction (i.e., exposure bias). To address these issues, we propose Diagonal Distillation, which operates orthogonally to existing approaches and better exploits temporal information across both video chunks and denoising steps. Central to our approach is an asymmetric generation strategy: more steps early, fewer steps later. This design allows later chunks to inherit rich appearance information from thoroughly processed early chunks, while using partially denoised chunks as conditional inputs for subsequent synthesis. By aligning the implicit prediction of subsequent noise levels during chunk generation with the actual inference conditions, our approach mitigates error propagation and reduces oversaturation in long-range sequences. We further incorporate implicit optical flow modeling to preserve motion quality under strict step constraints. Our method generates a 5-second video in 2.61 seconds (up to 31 FPS), achieving a 277.3x speedup over the undistilled model.",
-   "affiliations": [
-    "South China University of Technology",
-    "Westlake University",
-    "Johns Hopkins University",
-    "University of California",
-    "The Chinese University of Hong Kong"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "South China University of Technology",
-    "Westlake University",
-    "Johns Hopkins University",
-    "University of California System",
-    "Chinese University of Hong Kong"
-   ],
-   "institution_ids": [
-    "0530pts50",
-    "05hfa4n20",
-    "00za53h95",
-    "00pjdza24",
-    "00t33hh48"
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2603.09488",
@@ -40188,559 +39288,19 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.LG",
-   "html_url": "https://arxiv.org/html/2603.25040v1",
+   "html_url": null,
    "abstract": "We introduce Intern-S1-Pro, the first one-trillion-parameter scientific multimodal foundation model. Scaling to this unprecedented size, the model delivers a comprehensive enhancement across both general and scientific domains. Beyond stronger reasoning and image-text understanding capabilities, its intelligence is augmented with advanced agent capabilities. Simultaneously, its scientific expertise has been vastly expanded to master over 100 specialized tasks across critical science fields, including chemistry, materials, life sciences, and earth sciences. Achieving this massive scale is made possible by the robust infrastructure support of XTuner and LMDeploy, which facilitates highly efficient Reinforcement Learning (RL) training at the 1-trillion parameter level while ensuring strict precision consistency between training and inference. By seamlessly integrating these advancements, Intern-S1-Pro further fortifies the fusion of general and specialized intelligence, working as a Specializable Generalist, demonstrating its position in the top tier of open-source models for general capabilities, while outperforming proprietary models in the depth of specialized scientific tasks.",
-   "affiliations": [
-    "Intern-S1-Pro Team, Shanghai AI Laboratory"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "Shanghai Artificial Intelligence Laboratory"
-   ],
-   "institution_ids": [
-    "03wkvpx79"
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2603.25040",
@@ -41776,42 +40336,19 @@
    "journal_ref": null,
    "venue": "IROS 2026",
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2603.03279v1",
+   "html_url": null,
    "abstract": "Achieving autonomous and versatile whole-body loco-manipulation remains a central barrier to making humanoids practically useful. Yet existing approaches are fundamentally constrained: retargeted data are often scarce or low-quality; methods struggle to scale to large skill repertoires; and, most importantly, they rely on tracking predefined motion references rather than generating behavior from perception and high-level task specifications. To address these limitations, we propose ULTRA, a unified framework with two key components. First, we introduce a physics-driven neural retargeting algorithm that translates large-scale motion capture to humanoid embodiments while preserving physical plausibility for contact-rich interactions. Second, we learn a unified multimodal controller that supports both dense references and sparse task specifications, under sensing ranging from accurate motion-capture state to noisy egocentric visual inputs. We distill a universal tracking policy into this controller, compress motor skills into a compact latent space, and apply reinforcement learning finetuning to expand coverage and improve robustness under out-of-distribution scenarios. This enables coordinated whole-body behavior from sparse intent without test-time reference motions. We evaluate ULTRA in simulation and on a real Unitree G1 humanoid. Results show that ULTRA generalizes to autonomous, goal-conditioned whole-body loco-manipulation from egocentric perception, consistently outperforming tracking-only baselines with limited skills.",
-   "affiliations": [
-    "Xinyao LiRunpei DongLiuyu Bian",
-    "University of Illinois Urbana-Champaign"
-   ],
-   "author_affiliations": [
-    null,
-    [
-     0
-    ],
-    null,
-    null,
-    null,
-    null,
-    [
-     1
-    ]
-   ],
-   "institutions": [
-    "Xinyao LiRunpei DongLiuyu Bian",
-    "University of Illinois Urbana-Champaign"
-   ],
-   "institution_ids": [
-    null,
-    "047426m28"
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2603.03279",
@@ -42780,55 +41317,19 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2602.22208v1",
+   "html_url": null,
    "abstract": "Existing action-conditioned video generation models (video world models) are limited to single-agent perspectives, failing to capture the multi-agent interactions of real-world environments. We introduce Solaris, a multiplayer video world model that simulates consistent multi-view observations. To enable this, we develop a multiplayer data system designed for robust, continuous, and automated data collection on video games such as Minecraft. Unlike prior platforms built for single-player settings, our system supports coordinated multi-agent interaction and synchronized videos + actions capture. Using this system, we collect 12.64 million multiplayer frames and propose an evaluation framework for multiplayer movement, memory, grounding, building, and view consistency. We train Solaris using a staged pipeline that progressively transitions from single-player to multiplayer modeling, combining bidirectional, causal, and Self Forcing training. In the final stage, we introduce Checkpointed Self Forcing, a memory-efficient Self Forcing variant that enables a longer-horizon teacher. Results show our architecture and training design outperform existing baselines. Through open-sourcing our system and models, we hope to lay the groundwork for a new generation of multi-agent world models.",
-   "affiliations": [
-    "New York University"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "New York University"
-   ],
-   "institution_ids": [
-    null
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2602.22208",
@@ -44746,160 +43247,19 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2602.11598v1",
+   "html_url": null,
    "abstract": "Embodied navigation has long been fragmented by task-specific architectures. We introduce ABot-N0, a unified Vision-Language-Action (VLA) foundation model that achieves a ``Grand Unification'' across 5 core tasks: Point-Goal, Object-Goal, Instruction-Following, POI-Goal, and Person-Following. ABot-N0 utilizes a hierarchical ``Brain-Action'' architecture, pairing an LLM-based Cognitive Brain for semantic reasoning with a Flow Matching-based Action Expert for precise, continuous trajectory generation. To support large-scale learning, we developed the ABot-N0 Data Engine, curating 16.9M expert trajectories and 5.0M reasoning samples across 7,802 high-fidelity 3D scenes (10.7 $km^2$). ABot-N0 achieves new SOTA performance across 7 benchmarks, significantly outperforming specialized models. Furthermore, our Agentic Navigation System integrates a planner with hierarchical topological memory, enabling robust, long-horizon missions in dynamic real-world environments.",
-   "affiliations": [
-    "AMAP CV Lab"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "AMAP CV Lab"
-   ],
-   "institution_ids": [
-    null
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2602.11598",
@@ -48389,85 +46749,19 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2602.13344v1",
+   "html_url": null,
    "abstract": "We present FireRed-Image-Edit, a diffusion transformer for instruction-based image editing that achieves state-of-the-art performance through systematic optimization of data curation, training methodology, and evaluation design. We construct a 1.6B-sample training corpus, comprising 900M text-to-image and 700M image editing pairs from diverse sources. After rigorous cleaning, stratification, auto-labeling, and two-stage filtering, we retain over 100M high-quality samples balanced between generation and editing, ensuring strong semantic coverage and instruction alignment. Our multi-stage training pipeline progressively builds editing capability via pre-training, supervised fine-tuning, and reinforcement learning. To improve data efficiency, we introduce a Multi-Condition Aware Bucket Sampler for variable-resolution batching and Stochastic Instruction Alignment with dynamic prompt re-indexing. To stabilize optimization and enhance controllability, we propose Asymmetric Gradient Optimization for DPO, DiffusionNFT with layout-aware OCR rewards for text editing, and a differentiable Consistency Loss for identity preservation. We further establish REDEdit-Bench, a comprehensive benchmark spanning 15 editing categories, including newly introduced beautification and low-level enhancement tasks. Extensive experiments on REDEdit-Bench and public benchmarks (ImgEdit and GEdit) demonstrate competitive or superior performance against both open-source and proprietary systems. To support future research, our code, models, and benchmark suite are publicly available at https://github.com/FireRedTeam/FireRed-Image-Edit/ .",
-   "affiliations": [
-    "Xiaohongshu Inc"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "Xiaohongshu Inc"
-   ],
-   "institution_ids": [
-    null
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2602.13344",
@@ -48660,70 +46954,19 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2602.11236v1",
+   "html_url": null,
    "abstract": "Building general-purpose embodied agents across diverse hardware remains a central challenge in robotics, often framed as the ''one-brain, many-forms'' paradigm. Progress is hindered by fragmented data, inconsistent representations, and misaligned training objectives. We present ABot-M0, a framework that builds a systematic data curation pipeline while jointly optimizing model architecture and training strategies, enabling end-to-end transformation of heterogeneous raw data into unified, efficient representations. From six public datasets, we clean, standardize, and balance samples to construct UniACT-dataset, a large-scale dataset with over 6 million trajectories and 9,500 hours of data, covering diverse robot morphologies and task scenarios. Unified pre-training improves knowledge transfer and generalization across platforms and tasks, supporting general-purpose embodied intelligence. To improve action prediction efficiency and stability, we propose the Action Manifold Hypothesis: effective robot actions lie not in the full high-dimensional space but on a low-dimensional, smooth manifold governed by physical laws and task constraints. Based on this, we introduce Action Manifold Learning (AML), which uses a DiT backbone to predict clean, continuous action sequences directly. This shifts learning from denoising to projection onto feasible manifolds, improving decoding speed and policy stability. ABot-M0 supports modular perception via a dual-stream mechanism that integrates VLM semantics with geometric priors and multi-view inputs from plug-and-play 3D modules such as VGGT and Qwen-Image-Edit, enhancing spatial understanding without modifying the backbone and mitigating standard VLM limitations in 3D reasoning. Experiments show components operate independently with additive benefits. We will release all code and pipelines for reproducibility and future research.",
-   "affiliations": [
-    "AMAP CV Lab"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "AMAP CV Lab"
-   ],
-   "institution_ids": [
-    null
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2602.11236",
@@ -50866,30 +49109,19 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2601.11514v1",
+   "html_url": null,
    "abstract": "Recent advances in 3D shape generation have achieved impressive results, but most existing methods rely on clean, unoccluded, and well-segmented inputs. Such conditions are rarely met in real-world scenarios. We present ShapeR, a novel approach for conditional 3D object shape generation from casually captured sequences. Given an image sequence, we leverage off-the-shelf visual-inertial SLAM, 3D detection algorithms, and vision-language models to extract, for each object, a set of sparse SLAM points, posed multi-view images, and machine-generated captions. A rectified flow transformer trained to effectively condition on these modalities then generates high-fidelity metric 3D shapes. To ensure robustness to the challenges of casually captured data, we employ a range of techniques including on-the-fly compositional augmentations, a curriculum training scheme spanning object- and scene-level datasets, and strategies to handle background clutter. Additionally, we introduce a new evaluation benchmark comprising 178 in-the-wild objects across 7 real-world scenes with geometry annotations. Experiments show that ShapeR significantly outperforms existing approaches in this challenging setting, achieving an improvement of 2.7x in Chamfer distance compared to state of the art.",
-   "affiliations": [
-    "Meta Reality Labs Research",
-    "Simon Fraser University"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "Meta",
-    "Simon Fraser University"
-   ],
-   "institution_ids": [
-    null,
-    "0213rcc28"
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2601.11514",
@@ -51482,52 +49714,19 @@
    "journal_ref": null,
    "venue": "NeurIPS 2025",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2601.05573v1",
+   "html_url": null,
    "abstract": "This work presents Orient Anything V2, an enhanced foundation model for unified understanding of object 3D orientation and rotation from single or paired images. Building upon Orient Anything V1, which defines orientation via a single unique front face, V2 extends this capability to handle objects with diverse rotational symmetries and directly estimate relative rotations. These improvements are enabled by four key innovations: 1) Scalable 3D assets synthesized by generative models, ensuring broad category coverage and balanced data distribution; 2) An efficient, model-in-the-loop annotation system that robustly identifies 0 to N valid front faces for each object; 3) A symmetry-aware, periodic distribution fitting objective that captures all plausible front-facing orientations, effectively modeling object rotational symmetry; 4) A multi-frame architecture that directly predicts relative object rotations. Extensive experiments show that Orient Anything V2 achieves state-of-the-art zero-shot performance on orientation estimation, 6DoF pose estimation, and object symmetry recognition across 11 widely used benchmarks. The model demonstrates strong generalization, significantly broadening the applicability of orientation estimation in diverse downstream tasks.",
-   "affiliations": [
-    "Zhejiang University; Shanghai AI Lab; Sea AI Lab; The University of Hong Kong"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "University of Hong Kong"
-   ],
-   "institution_ids": [
-    "02zhqgq86"
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2601.05573",
@@ -52883,27 +51082,19 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2601.21957v1",
+   "html_url": null,
    "abstract": "We introduce PaddleOCR-VL-1.5, an upgraded model achieving a new state-of-the-art (SOTA) accuracy of 94.5% on OmniDocBench v1.5. To rigorously evaluate robustness against real-world physical distortions, including scanning, skew, warping, screen-photography, and illumination, we propose the Real5-OmniDocBench benchmark. Experimental results demonstrate that this enhanced model attains SOTA performance on the newly curated benchmark. Furthermore, we extend the model's capabilities by incorporating seal recognition and text spotting tasks, while remaining a 0.9B ultra-compact VLM with high efficiency. Code: https://github.com/PaddlePaddle/PaddleOCR",
-   "affiliations": [
-    "PaddlePaddle Team, Baidu Inc"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "Baidu"
-   ],
-   "institution_ids": [
-    "03vs3wt56"
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2601.21957",
@@ -53175,157 +51366,19 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.AI",
-   "html_url": "https://arxiv.org/html/2601.18491v1",
+   "html_url": null,
    "abstract": "The rise of AI agents introduces complex safety and security challenges arising from autonomous tool use and environmental interactions. Current guardrail models lack agentic risk awareness and transparency in risk diagnosis. To introduce an agentic guardrail that covers complex and numerous risky behaviors, we first propose a unified three-dimensional taxonomy that orthogonally categorizes agentic risks by their source (where), failure mode (how), and consequence (what). Guided by this structured and hierarchical taxonomy, we introduce a new fine-grained agentic safety benchmark (ATBench) and a Diagnostic Guardrail framework for agent safety and security (AgentDoG). AgentDoG provides fine-grained and contextual monitoring across agent trajectories. More Crucially, AgentDoG can diagnose the root causes of unsafe actions and seemingly safe but unreasonable actions, offering provenance and transparency beyond binary labels to facilitate effective agent alignment. AgentDoG variants are available in three sizes (4B, 7B, and 8B parameters) across Qwen and Llama model families. Extensive experimental results demonstrate that AgentDoG achieves state-of-the-art performance in agentic safety moderation in diverse and complex interactive scenarios. All models and datasets are openly released.",
-   "affiliations": [
-    "Shanghai Artificial Intelligence Laboratory"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "Shanghai Artificial Intelligence Laboratory"
-   ],
-   "institution_ids": [
-    "03wkvpx79"
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2601.18491",
@@ -54192,49 +52245,19 @@
    "journal_ref": null,
    "venue": "CVPR 2026",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2601.09708v1",
+   "html_url": null,
    "abstract": "Vision-Language-Action (VLA) tasks require reasoning over complex visual scenes and executing adaptive actions in dynamic environments. While recent studies on reasoning VLAs show that explicit chain-of-thought (CoT) can improve generalization, they suffer from high inference latency due to lengthy reasoning traces. We propose Fast-ThinkAct, an efficient reasoning framework that achieves compact yet performant planning through verbalizable latent reasoning. Fast-ThinkAct learns to reason efficiently with latent CoTs by distilling from a teacher, driven by a preference-guided objective to align manipulation trajectories that transfers both linguistic and visual planning capabilities for embodied control. This enables reasoning-enhanced policy learning that effectively connects compact reasoning to action execution. Extensive experiments across diverse embodied manipulation and reasoning benchmarks demonstrate that Fast-ThinkAct achieves strong performance with up to 89.3% reduced inference latency over state-of-the-art reasoning VLAs, while maintaining effective long-horizon planning, few-shot adaptation, and failure recovery.",
-   "affiliations": [
-    "NVIDIA"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "NVIDIA"
-   ],
-   "institution_ids": [
-    null
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2601.09708",
@@ -54794,27 +52817,19 @@
    "journal_ref": null,
    "venue": "CVPR 2026",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2601.05138v1",
+   "html_url": null,
    "abstract": "Video world models aim to simulate dynamic, real-world environments, yet existing methods struggle to provide unified and precise control over camera and multi-object motion, as videos inherently capture dynamics in the projected 2D image plane. To bridge this gap, we introduce VerseCrafter, a geometry-driven video world model that generates dynamic, realistic videos from a unified 4D geometric world state. Our approach is centered on a novel 4D Geometric Control representation, which encodes the world state as a static background point cloud and per-object 3D Gaussian trajectories. This representation captures each object's motion path and probabilistic 3D occupancy over time, providing a flexible, category-agnostic alternative to rigid bounding boxes and parametric models. We render 4D Geometric Control into 4D control maps for a pretrained video diffusion model, enabling high-fidelity, view-consistent video generation that faithfully follows the specified dynamics. To enable training at scale, we develop an automatic data engine and construct VerseControl4D, a real-world dataset of 35K training samples with automatically derived prompts and rendered 4D control maps. Extensive experiments show that VerseCrafter achieves superior visual quality and more accurate control over camera and multi-object motion than prior methods.",
-   "affiliations": [
-    "Fudan University Shanghai Innovation Institute HKU ARC Lab"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "Fudan University"
-   ],
-   "institution_ids": [
-    "013q1eq08"
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2601.05138",
@@ -56073,27 +54088,19 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2512.22047v1",
+   "html_url": null,
    "abstract": "The development of GUI agents could revolutionize the next generation of human-computer interaction. Motivated by this vision, we present MAI-UI, a family of foundation GUI agents spanning the full spectrum of sizes, including 2B, 8B, 32B, and 235B-A22B variants. We identify four key challenges to realistic deployment: the lack of native agent-user interaction, the limits of UI-only operation, the absence of a practical deployment architecture, and brittleness in dynamic environments. MAI-UI addresses these issues with a unified methodology: a self-evolving data pipeline that expands the navigation data to include user interaction and MCP tool calls, a native device-cloud collaboration system routes execution by task state, and an online RL framework with advanced optimizations to scale parallel environments and context length. MAI-UI establishes new state-of-the-art across GUI grounding and mobile navigation. On grounding benchmarks, it reaches 73.5% on ScreenSpot-Pro, 91.3% on MMBench GUI L2, 70.9% on OSWorld-G, and 49.2% on UI-Vision, surpassing Gemini-3-Pro and Seed1.8 on ScreenSpot-Pro. On mobile GUI navigation, it sets a new SOTA of 76.7% on AndroidWorld, surpassing UI-Tars-2, Gemini-2.5-Pro and Seed1.8. On MobileWorld, MAI-UI obtains 41.7% success rate, significantly outperforming end-to-end GUI models and competitive with Gemini-3-Pro based agentic frameworks. Our online RL experiments show significant gains from scaling parallel environments from 32 to 512 (+5.2 points) and increasing environment step budget from 15 to 50 (+4.3 points). Finally, the native device-cloud collaboration system improves on-device performance by 33%, reduces cloud model calls by over 40%, and preserves user privacy.",
-   "affiliations": [
-    "Tongyi Lab"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "Tongyi Lab"
-   ],
-   "institution_ids": [
-    null
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2512.22047",
@@ -57611,27 +55618,19 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2512.15431v1",
+   "html_url": null,
    "abstract": "Recent advances in multimodal large language models unlock unprecedented opportunities for GUI automation. However, a fundamental challenge remains: how to efficiently acquire high-quality training data while maintaining annotation reliability? We introduce a self-evolving training pipeline powered by the Calibrated Step Reward System, which converts model-generated trajectories into reliable training signals through trajectory-level calibration, achieving >90% annotation accuracy with 10-100x lower cost. Leveraging this pipeline, we introduce Step-GUI, a family of models (4B/8B) that achieves state-of-the-art GUI performance (8B: 80.2% AndroidWorld, 48.5% OSWorld, 62.6% ScreenShot-Pro) while maintaining robust general capabilities. As GUI agent capabilities improve, practical deployment demands standardized interfaces across heterogeneous devices while protecting user privacy. To this end, we propose GUI-MCP, the first Model Context Protocol for GUI automation with hierarchical architecture that combines low-level atomic operations and high-level task delegation to local specialist models, enabling high-privacy execution where sensitive data stays on-device. Finally, to assess whether agents can handle authentic everyday usage, we introduce AndroidDaily, a benchmark grounded in real-world mobile usage patterns with 3146 static actions and 235 end-to-end tasks across high-frequency daily scenarios (8B: static 89.91%, end-to-end 52.50%). Our work advances the development of practical GUI agents and demonstrates strong potential for real-world deployment in everyday digital interactions.",
-   "affiliations": [
-    "GELab-Team, StepFun"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "GELab-Team"
-   ],
-   "institution_ids": [
-    null
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2512.15431",
@@ -57965,232 +55964,19 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2512.16776v1",
+   "html_url": null,
    "abstract": "We present Kling-Omni, a generalist generative framework designed to synthesize high-fidelity videos directly from multimodal visual language inputs. Adopting an end-to-end perspective, Kling-Omni bridges the functional separation among diverse video generation, editing, and intelligent reasoning tasks, integrating them into a holistic system. Unlike disjointed pipeline approaches, Kling-Omni supports a diverse range of user inputs, including text instructions, reference images, and video contexts, processing them into a unified multimodal representation to deliver cinematic-quality and highly-intelligent video content creation. To support these capabilities, we constructed a comprehensive data system that serves as the foundation for multimodal video creation. The framework is further empowered by efficient large-scale pre-training strategies and infrastructure optimizations for inference. Comprehensive evaluations reveal that Kling-Omni demonstrates exceptional capabilities in in-context generation, reasoning-based editing, and multimodal instruction following. Moving beyond a content creation tool, we believe Kling-Omni is a pivotal advancement toward multimodal world simulators capable of perceiving, reasoning, generating and interacting with the dynamic and complex worlds.",
-   "affiliations": [
-    "Kuaishou Technology"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "Kuaishou"
-   ],
-   "institution_ids": [
-    "0258as409"
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2512.16776",
@@ -59812,70 +57598,19 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2512.08924v1",
+   "html_url": null,
    "abstract": "Understanding and reconstructing the complex geometry and motion of dynamic scenes from video remains a formidable challenge in computer vision. This paper introduces D4RT, a simple yet powerful feedforward model designed to efficiently solve this task. D4RT utilizes a unified transformer architecture to jointly infer depth, spatio-temporal correspondence, and full camera parameters from a single video. Its core innovation is a novel querying mechanism that sidesteps the heavy computation of dense, per-frame decoding and the complexity of managing multiple, task-specific decoders. Our decoding interface allows the model to independently and flexibly probe the 3D position of any point in space and time. The result is a lightweight and highly scalable method that enables remarkably efficient training and inference. We demonstrate that our approach sets a new state of the art, outperforming previous methods across a wide spectrum of 4D reconstruction tasks. We refer to the project webpage for animated results: https://d4rt-paper.github.io/.",
-   "affiliations": [
-    "Google DeepMindUniversity College London, University of Oxford"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "University of Oxford"
-   ],
-   "institution_ids": [
-    "052gg0110"
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2512.08924",
@@ -59908,30 +57643,19 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2512.08765v1",
+   "html_url": null,
    "abstract": "We present Wan-Move, a simple and scalable framework that brings motion control to video generative models. Existing motion-controllable methods typically suffer from coarse control granularity and limited scalability, leaving their outputs insufficient for practical use. We narrow this gap by achieving precise and high-quality motion control. Our core idea is to directly make the original condition features motion-aware for guiding video synthesis. To this end, we first represent object motions with dense point trajectories, allowing fine-grained control over the scene. We then project these trajectories into latent space and propagate the first frame's features along each trajectory, producing an aligned spatiotemporal feature map that tells how each scene element should move. This feature map serves as the updated latent condition, which is naturally integrated into the off-the-shelf image-to-video model, e.g., Wan-I2V-14B, as motion guidance without any architecture change. It removes the need for auxiliary motion encoders and makes fine-tuning base models easily scalable. Through scaled training, Wan-Move generates 5-second, 480p videos whose motion controllability rivals Kling 1.5 Pro's commercial Motion Brush, as indicated by user studies. To support comprehensive evaluation, we further design MoveBench, a rigorously curated benchmark featuring diverse content categories and hybrid-verified annotations. It is distinguished by larger data volume, longer video durations, and high-quality motion annotations. Extensive experiments on MoveBench and the public dataset consistently show Wan-Move's superior motion quality. Code, models, and benchmark data are made publicly available.",
-   "affiliations": [
-    "Tongyi Lab, Alibaba Group",
-    "Tsinghua University"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "Alibaba Group",
-    "Tsinghua University"
-   ],
-   "institution_ids": [
-    "00k642b80",
-    "03cve4549"
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2512.08765",
@@ -60528,33 +58252,19 @@
    "journal_ref": "The Thirty-ninth Annual Conference on Neural Information Processing Systems(NeurIPS2025)",
    "venue": "NeurIPS 2025",
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2512.06963v1",
+   "html_url": null,
    "abstract": "Generalization in robot manipulation is essential for deploying robots in open-world environments and advancing toward artificial general intelligence. While recent Vision-Language-Action (VLA) models leverage large pre-trained understanding models for perception and instruction following, their ability to generalize to novel tasks, objects, and settings remains limited. In this work, we present VideoVLA, a simple approach that explores the potential of transforming large video generation models into robotic VLA manipulators. Given a language instruction and an image, VideoVLA predicts an action sequence as well as the future visual outcomes. Built on a multi-modal Diffusion Transformer, VideoVLA jointly models video, language, and action modalities, using pre-trained video generative models for joint visual and action forecasting. Our experiments show that high-quality imagined futures correlate with reliable action predictions and task success, highlighting the importance of visual imagination in manipulation. VideoVLA demonstrates strong generalization, including imitating other embodiments' skills and handling novel objects. This dual-prediction strategy - forecasting both actions and their visual consequences - explores a paradigm shift in robot learning and unlocks generalization capabilities in manipulation systems.",
-   "affiliations": [
-    "IAIR, Xi’an Jiaotong University",
-    "Microsoft Research Asia",
-    "Fudan University"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "Xi'an Jiaotong University",
-    "Microsoft",
-    "Fudan University"
-   ],
-   "institution_ids": [
-    "017zhmm22",
-    null,
-    "013q1eq08"
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2512.06963",
@@ -62584,52 +60294,19 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2512.15693v1",
+   "html_url": null,
    "abstract": "The misuse of AI-driven video generation technologies has raised serious social concerns, highlighting the urgent need for reliable AI-generated video detectors. However, most existing methods are limited to binary classification and lack the necessary explanations for human interpretation. In this paper, we present Skyra, a specialized multimodal large language model (MLLM) that identifies human-perceivable visual artifacts in AI-generated videos and leverages them as grounded evidence for both detection and explanation. To support this objective, we construct ViF-CoT-4K for Supervised Fine-Tuning (SFT), which represents the first large-scale AI-generated video artifact dataset with fine-grained human annotations. We then develop a two-stage training strategy that systematically enhances our model's spatio-temporal artifact perception, explanation capability, and detection accuracy. To comprehensively evaluate Skyra, we introduce ViF-Bench, a benchmark comprising 3K high-quality samples generated by over ten state-of-the-art video generators. Extensive experiments demonstrate that Skyra surpasses existing methods across multiple benchmarks, while our evaluation yields valuable insights for advancing explainable AI-generated video detection.",
-   "affiliations": [
-    "Department of Automation, Tsinghua University"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "Tsinghua University"
-   ],
-   "institution_ids": [
-    "03cve4549"
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2512.15693",
@@ -69171,27 +66848,19 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2511.23002v1",
+   "html_url": null,
    "abstract": "Agent-based editing models have substantially advanced interactive experiences, processing quality, and creative flexibility. However, two critical challenges persist: (1) instruction hallucination, text-only chain-of-thought (CoT) reasoning cannot fully prevent factual errors due to inherent information bottlenecks; (2) reward hacking, dynamic policy optimization against static reward models allows agents to exploit flaws in reward functions. To address these issues, we propose JarvisEvo, a unified image editing agent that emulates an expert human designer by iteratively editing, selecting appropriate tools, evaluating results, and reflecting on its own decisions to refine outcomes. JarvisEvo offers three key advantages: (1) an interleaved multimodal chain-of-thought (iMCoT) reasoning mechanism that enhances instruction following and editing quality; (2) a synergistic editor-evaluator policy optimization (SEPO) framework that enables self-improvement without external rewards, effectively mitigating reward hacking; and (3) support for both global and local fine-grained editing through seamless integration of Adobe Lightroom. On ArtEdit-Bench, JarvisEvo outperforms Nano-Banana by an average of 18.95% on preservative editing metrics, including a substantial 44.96% improvement in pixel-level content fidelity. Project page: https://jarvisevo.vercel.app/",
-   "affiliations": [
-    "Xiamen University"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "Xiamen University"
-   ],
-   "institution_ids": [
-    "00mcjh785"
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2511.23002",
@@ -72630,42 +70299,19 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2510.27350v1",
+   "html_url": null,
    "abstract": "The rapid advancement of Multimodal Large Language Models (MLLMs) has extended CLIP-based frameworks to produce powerful, universal embeddings for retrieval tasks. However, existing methods primarily focus on natural images, offering limited support for other crucial visual modalities such as videos and visual documents. To bridge this gap, we introduce RzenEmbed, a unified framework to learn embeddings across a diverse set of modalities, including text, images, videos, and visual documents. We employ a novel two-stage training strategy to learn discriminative representations. The first stage focuses on foundational text and multimodal retrieval. In the second stage, we introduce an improved InfoNCE loss, incorporating two key enhancements. Firstly, a hardness-weighted mechanism guides the model to prioritize challenging samples by assigning them higher weights within each batch. Secondly, we implement an approach to mitigate the impact of false negatives and alleviate data noise. This strategy not only enhances the model's discriminative power but also improves its instruction-following capabilities. We further boost performance with learnable temperature parameter and model souping. RzenEmbed sets a new state-of-the-art on the MMEB benchmark. It not only achieves the best overall score but also outperforms all prior work on the challenging video and visual document retrieval tasks. Our models are available in https://huggingface.co/qihoo360/RzenEmbed.",
-   "affiliations": [
-    "Yajun ZhangDawei LiangChunyu XieYixiao He",
-    "Yuhui Yin360 AI Research"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    null,
-    null,
-    null,
-    null,
-    [
-     1
-    ],
-    null
-   ],
-   "institutions": [
-    "Yajun ZhangDawei LiangChunyu XieYixiao He",
-    null
-   ],
-   "institution_ids": [
-    null,
-    null
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2510.27350",
@@ -74798,42 +72444,19 @@
    "journal_ref": null,
    "venue": "NeurIPS 2025",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2510.11387v1",
+   "html_url": null,
    "abstract": "Modeling reflections from 2D images is essential for photorealistic rendering and novel view synthesis. Recent approaches enhance Gaussian primitives with reflection-related material attributes to enable physically based rendering (PBR) with Gaussian Splatting. However, the material inference often lacks sufficient constraints, especially under limited environment modeling, resulting in illumination aliasing and reduced generalization. In this work, we revisit the problem from a multi-view perspective and show that multi-view consistent material inference with more physically-based environment modeling is key to learning accurate reflections with Gaussian Splatting. To this end, we enforce 2D Gaussians to produce multi-view consistent material maps during deferred shading. We also track photometric variations across views to identify highly reflective regions, which serve as strong priors for reflection strength terms. To handle indirect illumination caused by inter-object occlusions, we further introduce an environment modeling strategy through ray tracing with 2DGS, enabling photorealistic rendering of indirect radiance. Experiments on widely used benchmarks show that our method faithfully recovers both illumination and geometry, achieving state-of-the-art rendering quality in novel views synthesis.",
-   "affiliations": [
-    "School of Software, Tsinghua University",
-    "Beijing, China",
-    "Center for AI, Robotics (CAIR)",
-    "NYU Abu Dhabi, UAE",
-    "Department of Computer Science, Wayne State University",
-    "Detroit, USA"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "Tsinghua University",
-    "Beijing",
-    "Center for AI",
-    "New York University Abu Dhabi",
-    "Wayne State University",
-    "Detroit"
-   ],
-   "institution_ids": [
-    "03cve4549",
-    null,
-    null,
-    "00e5k0821",
-    "01070mq45",
-    null
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2510.11387",
@@ -75526,27 +73149,19 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2510.04290v1",
+   "html_url": null,
    "abstract": "Recent advances in large generative models have greatly enhanced both image editing and in-context image generation, yet a critical gap remains in ensuring physical consistency, where edited objects must remain coherent. This capability is especially vital for world simulation related tasks. In this paper, we present ChronoEdit, a framework that reframes image editing as a video generation problem. First, ChronoEdit treats the input and edited images as the first and last frames of a video, allowing it to leverage large pretrained video generative models that capture not only object appearance but also the implicit physics of motion and interaction through learned temporal consistency. Second, ChronoEdit introduces a temporal reasoning stage that explicitly performs editing at inference time. Under this setting, target frame is jointly denoised with reasoning tokens to imagine a plausible editing trajectory that constrains the solution space to physically viable transformations. The reasoning tokens are then dropped after a few steps to avoid the high computational cost of rendering a full video. To validate ChronoEdit, we introduce PBench-Edit, a new benchmark of image-prompt pairs for contexts that require physical consistency, and demonstrate that ChronoEdit surpasses state-of-the-art baselines in both visual fidelity and physical plausibility. Project page for code and models: https://research.nvidia.com/labs/toronto-ai/chronoedit",
-   "affiliations": [
-    "University of Toronto"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "University of Toronto"
-   ],
-   "institution_ids": [
-    "03dbr7087"
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2510.04290",
@@ -75693,27 +73308,19 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2510.13778v1",
+   "html_url": null,
    "abstract": "We introduce InternVLA-M1, a unified framework for spatial grounding and robot control that advances instruction-following robots toward scalable, general-purpose intelligence. Its core idea is spatially guided vision-language-action training, where spatial grounding serves as the critical link between instructions and robot actions. InternVLA-M1 employs a two-stage pipeline: (i) spatial grounding pre-training on over 2.3M spatial reasoning data to determine ``where to act'' by aligning instructions with visual, embodiment-agnostic positions, and (ii) spatially guided action post-training to decide ``how to act'' by generating embodiment-aware actions through plug-and-play spatial prompting. This spatially guided training recipe yields consistent gains: InternVLA-M1 outperforms its variant without spatial guidance by +14.6% on SimplerEnv Google Robot, +17% on WidowX, and +4.3% on LIBERO Franka, while demonstrating stronger spatial reasoning capability in box, point, and trace prediction. To further scale instruction following, we built a simulation engine to collect 244K generalizable pick-and-place episodes, enabling a 6.2% average improvement across 200 tasks and 3K+ objects. In real-world clustered pick-and-place, InternVLA-M1 improved by 7.3%, and with synthetic co-training, achieved +20.6% on unseen objects and novel configurations. Moreover, in long-horizon reasoning-intensive scenarios, it surpassed existing works by over 10%. These results highlight spatially guided training as a unifying principle for scalable and resilient generalist robots. Code and models are available at https://github.com/InternRobotics/InternVLA-M1.",
-   "affiliations": [
-    "Shanghai AI Laboratory"
-   ],
+   "affiliations": [],
    "author_affiliations": null,
-   "institutions": [
-    "Shanghai Artificial Intelligence Laboratory"
-   ],
-   "institution_ids": [
-    "03wkvpx79"
-   ],
-   "extractor": 8,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2510.13778",
@@ -76191,55 +73798,19 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2510.12798v1",
+   "html_url": null,
    "abstract": "Object detection has long been dominated by traditional coordinate regression-based models, such as YOLO, DETR, and Grounding DINO. Although recent efforts have attempted to leverage MLLMs to tackle this task, they face challenges like low recall rate, duplicate predictions, coordinate misalignment, etc. In this work, we bridge this gap and propose Rex-Omni, a 3B-scale MLLM that achieves state-of-the-art object perception performance. On benchmarks like COCO and LVIS, Rex-Omni attains performance comparable to or exceeding regression-based models (e.g., DINO, Grounding DINO) in a zero-shot setting. This is enabled by three key designs: 1) Task Formulation: we use special tokens to represent quantized coordinates from 0 to 999, reducing the model's learning difficulty and improving token efficiency for coordinate prediction; 2) Data Engines: we construct multiple data engines to generate high-quality grounding, referring, and pointing data, providing semantically rich supervision for training; \\3) Training Pipelines: we employ a two-stage training process, combining supervised fine-tuning on 22 million data with GRPO-based reinforcement post-training. This RL post-training leverages geometry-aware rewards to effectively bridge the discrete-to-continuous coordinate prediction gap, improve box accuracy, and mitigate undesirable behaviors like duplicate predictions that stem from the teacher-guided nature of the initial SFT stage. Beyond conventional detection, Rex-Omni's inherent language understanding enables versatile capabilities such as object referring, pointing, visual prompting, GUI grounding, spatial referring, OCR and key-pointing, all systematically evaluated on dedicated benchmarks. We believe that Rex-Omni paves the way for more versatile and language-aware visual perception systems.",
-   "affiliations": [
-    "International Digital Economy Academy (IDEA)"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
-   "institutions": [
-    "International Digital Economy Academy (IDEA)"
-   ],
-   "institution_ids": [
-    null
-   ],
-   "extractor": 8,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
    "provenance": {
     "affiliations": {
-     "source": "html",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     },
     "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
+     "source": "openalex",
+     "at": "2026-10-11"
     }
    },
    "abs_url": "https://arxiv.org/abs/2510.12798",
