@@ -25,6 +25,10 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 - A day file that fails to load no longer fails its period: it is asked for once more,
   then left out with a notice naming the days missing, those of a month whose search shard
   failed too, and Retry. A period whose every day file fails is still an error (SRCH-10).
+- A page that sets its list of acronyms before its title is kept whole in the page cache:
+  it was kept empty, and two papers read again from it lost their affiliations, which are
+  back. A paper read again from a page kept with less than its front matter keeps what it
+  had while the page is downloaded again (DATA-1).
 - "UCSD" written alone is the University of California San Diego as ROR writes it, without
   the comma that made it an institution of its own; `validate` warns of an acronym's
   institution that no institution with an id is called (TEST-9).

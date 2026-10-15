@@ -164,7 +164,8 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
 - `.cache/` (git-ignored; the Actions cache in CI): `front-matter/<yymm>/<id>v<n>.html.gz`,
   the front matter of every HTML page read (1 or 2 KB, extracts exactly as the whole page,
   which a network test checks; pages kept before 2026-10-06 lost the tables of their
-  author block, `PageCache.stale`; a page that answered 404 leaves an empty
+  author block, and those setting a list of acronyms before their title kept nothing
+  until 2026-10-15, `PageCache.stale`; a page that answered 404 leaves an empty
   `<id>v<n>.html.missing`, which `archive-affiliations` never asks for again), and
   `catalog/` (the OAI catalog and the counts cache).
 - `tests/fixtures/`: trimmed copies of real arXiv pages; `html/expected.json` pins what each

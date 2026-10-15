@@ -277,8 +277,9 @@ else is lost: the cached citation counts only serve a run that resumes within 7 
   extraction-diff` lists the papers it changes, those that would lose words first.
 - **Signal** `cached pages gave no affiliation to papers that have some`: pages kept before
   2026-10-06 lost the tables of their author block, where some classes write names and
-  affiliations (2609.06629). Those papers keep what they had and their pages leave the
-  cache: the next run downloads them, within its budget. Nothing to do.
+  affiliations (2609.06629), and pages kept before 2026-10-15 that set a list of acronyms
+  before their title kept nothing (2610.09677). Those papers keep what they had and their
+  pages leave the cache: the next run downloads them, within its budget. Nothing to do.
 
 ## Affiliations of the highly cited papers
 

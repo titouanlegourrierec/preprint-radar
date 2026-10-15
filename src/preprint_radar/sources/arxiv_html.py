@@ -361,15 +361,20 @@ class PageCache:
             path.with_suffix(".missing").touch()
 
     def stale(self, html_url: str) -> bool:
-        """Whether the page at ``html_url`` was kept before the front matter kept its tables.
+        """Whether the page at ``html_url`` was kept with less than its front matter.
 
-        Such a page lost the tables of its author block, which some classes lay names and
-        affiliations out in (2609.06629): reading it may give fewer affiliations than the
-        page has.
+        Kept before the front matter kept its tables, a page lost those of its author block,
+        which some classes lay names and affiliations out in (2609.06629); kept before a list
+        of acronyms set before the title was skipped, it lost everything (2610.09677). Read
+        again, either may give fewer affiliations than the page has.
         """
         html = self.get(html_url)
         # A page without a document was kept whole, and lost nothing.
-        return html is not None and _FRONT_MATTER_MARK not in html and "ltx_document" in html
+        return (
+            html is not None
+            and "ltx_document" in html
+            and (_FRONT_MATTER_MARK not in html or _EMPTY_FRONT_MATTER_RE.search(html) is not None)
+        )
 
     def discard(self, html_url: str) -> None:
         """Forget the page at ``html_url``, so that it is downloaded again next time."""
@@ -390,12 +395,17 @@ _FIRST_RENDERED_MONTH = "2312"
 _CACHE_KEY_RE = re.compile(r"(?P<month>\d{4})\.\d{4,5}v\d+$")
 # What follows the front matter in a LaTeXML document: the body, references and appendices.
 _BODY_CLASSES = frozenset({"ltx_section", "ltx_bibliography", "ltx_appendix"})
+# Sections a document may set before its title: a list of acronyms or a glossary
+# (2610.09677, 2610.11653), not the body the front matter ends at.
+_PREAMBLE_CLASSES = frozenset({"ltx_glossary"})
 # Figures and tables say nothing of affiliations, and are most of a front matter's size;
 # but for the tables of the author block.
 _FIGURE_TAGS = ("figure", "img", "svg", "table")
 _FIGURE_CLASSES = frozenset({"ltx_figure", "ltx_table"})
 # What a front matter that kept the tables of its author block says of itself.
 _FRONT_MATTER_MARK = 'data-front-matter="2"'
+# A front matter that kept nothing: every document has a title at least.
+_EMPTY_FRONT_MATTER_RE = re.compile(rf"{_FRONT_MATTER_MARK}>\s*</article>")
 
 
 def front_matter_html(html: str) -> str:
@@ -404,7 +414,9 @@ def front_matter_html(html: str) -> str:
     The children of the document before its first section (title, author block and its
     notes, footnotes, abstract), without figures or tables: what the cache keeps. The
     tables of the author block stay: some classes lay names and affiliations out in one
-    (2609.06629, whose five affiliations a cached page had lost).
+    (2609.06629, whose five affiliations a cached page had lost). A list of acronyms set
+    before the title is no first section: the pages of 2610.09677 and 2610.11653 were kept
+    empty, and read again from the cache, lost their affiliations.
     """
     soup = BeautifulSoup(html, "html.parser")
     article = soup.select_one("article.ltx_document")
@@ -414,6 +426,8 @@ def front_matter_html(html: str) -> str:
     for child in article.children:
         if isinstance(child, Tag):
             classes = set(child.get_attribute_list("class"))
+            if _PREAMBLE_CLASSES & classes:
+                continue
             if child.name == "section" or _BODY_CLASSES & classes:
                 break
             if child.name in _FIGURE_TAGS or _FIGURE_CLASSES & classes:

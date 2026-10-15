@@ -1473,6 +1473,30 @@ TABLE_PAGE = """<html><body><article class="ltx_document">
 </article></body></html>"""
 
 
+GLOSSARY_PAGE = """<html><body><article class="ltx_document">
+<section class="ltx_glossary ltx_acronym ltx_list_acronym"><h6>Acronyms</h6>
+<dl><dt>CNN</dt><dd>Convolutional Neural Network</dd></dl></section>
+<h1 class="ltx_title ltx_title_document">A paper</h1>
+<div class="ltx_authors"><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Ada Lovelace</span>
+<span class="ltx_contact ltx_role_affiliation">University of Augsburg</span></span></div>
+<div class="ltx_abstract"><p>We do things.</p></div>
+<section class="ltx_section"><h2>Introduction</h2><p>Body text, Stanford University.</p></section>
+</article></body></html>"""
+
+
+def test_the_front_matter_goes_past_a_list_of_acronyms_before_the_title() -> None:
+    small = front_matter_html(GLOSSARY_PAGE)
+
+    # 2610.09677: the acronyms ended a front matter that had not begun.
+    assert parse_front_matter(small, authors=("Ada Lovelace",)) == parse_front_matter(
+        GLOSSARY_PAGE, authors=("Ada Lovelace",)
+    )
+    assert parse_front_matter(small).affiliations == ("University of Augsburg",)
+    assert "Convolutional" not in small
+    assert "Introduction" not in small
+
+
 def test_the_front_matter_keeps_the_tables_of_the_author_block() -> None:
     small = front_matter_html(TABLE_PAGE)
 
@@ -1482,7 +1506,7 @@ def test_the_front_matter_keeps_the_tables_of_the_author_block() -> None:
     assert "results table" not in small
 
 
-def test_a_page_kept_before_the_tables_is_stale(tmp_path: Path) -> None:
+def test_a_page_kept_before_the_tables_or_empty_is_stale(tmp_path: Path) -> None:
     cache = PageCache(tmp_path / "pages")
     url = "https://arxiv.org/html/2609.30249v2"
 
@@ -1493,6 +1517,15 @@ def test_a_page_kept_before_the_tables_is_stale(tmp_path: Path) -> None:
         gzip.compress(b'<html><body><article class="ltx_document"></article></body></html>')
     )
     assert cache.stale(url)
+    # Kept empty, a list of acronyms ending it before the title (2610.09677).
+    (tmp_path / "pages" / "2609" / "2609.30249v2.html.gz").write_bytes(
+        gzip.compress(
+            b'<html><body><article class="ltx_document" data-front-matter="2">\n</article></body></html>'
+        )
+    )
+    assert cache.stale(url)
+    cache.put(url, GLOSSARY_PAGE)
+    assert not cache.stale(url)
     # A page without a document is kept whole: it lost nothing.
     cache.put(url, "<p>Maintenance</p>")
     assert not cache.stale(url)
