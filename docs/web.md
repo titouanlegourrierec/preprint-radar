@@ -276,6 +276,10 @@ derives what only the site uses. The pipeline and `validate` never see these.
 - `noThirdPartyLoads` (`tooling/third-party.ts`) fails the build if the site would load
   anything from another origin: the About page promises that it loads nothing from other
   websites. Links are fine; fonts, scripts, images or `fetch()` from a CDN are not.
+- `landingBudget` (`tooling/landing.ts`) prints what `index.html` loads, gzipped ("Landing
+  page: 55.4 kB gzipped of 75.0 kB"), and fails the build past `LANDING_BUDGET` (PERF-15):
+  a dependency or a module the list does not need, imported eagerly. Only the whole site's
+  size was checked (`deploy.yml`).
 - `contentSecurityPolicy` adds a Content-Security-Policy meta to `index.html`, right
   after its charset (GitHub Pages sends no headers): the site's own scripts, styles, data
   and graph worker only, and the emoji favicon's `data:` image
@@ -367,7 +371,9 @@ cross-listed lately, says "first version 2019" beside its day (`firstVersionYear
   spiral); `graph-renderer.ts` draws on a canvas and handles the pointer (an imperative
   class); `components/GraphView.tsx` and the components above are the UI. It is full
   screen, without the search bar and sidebar, and shows every node unless the user sets a
-  limit.
+  limit. The view, its renderer and panels are a chunk of their own, downloaded when the
+  Graph tab first opens (`components/LazyGraphView.tsx`, PERF-13: 12 kB of the 61 kB the
+  list loaded); a chunk that fails, the site updated meanwhile, offers Reload.
 - The force layout runs off the main thread (PERF-2): `graph-simulation.ts` is d3-force
   without a DOM (tested in Node), `graph-worker.ts` ticks it in a module worker and posts
   positions as a transferred `Float32Array` at most once a frame, numbered by graph so

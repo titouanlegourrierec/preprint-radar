@@ -394,8 +394,8 @@ one up when touching the same code.
 | META-6 | The incremental catalog never drops deleted records, and `set_spec` is checked for `cs:cs:CV` only; latent while one category runs | P3 | todo |
 | PERF-7 | The graph is rebuilt and reheated when the counts arrive: a memo of its own, and the resize path `setSettings` already has | P3 | todo |
 | PERF-8 | Data files at fixed URLs: after a deploy a browser can mix a fresh index and stale day files; hashes per file, keeping the index's preload | P3 | todo |
-| PERF-13 | `GraphView`, its renderer and panels imported on demand (d3-force is in the worker chunk already) | P3 | todo |
-| PERF-15 | A size line or budget for the landing payload: only the whole site's size is checked | P3 | todo |
+| PERF-13 | `GraphView`, its renderer and panels imported on demand (d3-force is in the worker chunk already). `LazyGraphView` downloads them when the Graph tab first opens, with Reload if the chunk fails: the landing script went from 173 to 141 kB (60.8 to 49.9 kB gzipped), the graph a chunk of 35 kB (12.4 kB) (2026-10-15) | P3 | done |
+| PERF-15 | A size line or budget for the landing payload: only the whole site's size is checked. The build prints what `index.html` loads, gzipped (55.4 kB on 2026-10-15), and fails past 75 kB (`tooling/landing.ts`, `LANDING_BUDGET`) | P3 | done |
 | REL-5 | One failing category stops the others (the index is written in `finally` already); it matters with ARCH-4 | P3 | todo |
 | REL-7 | The listing accepts entries without authors or HTML link silently: fail above 10% and 50% | P3 | todo |
 | SRCH-13 | Rankings' kind and metric in the URL (`by=` is taken), a caption and row headers | P3 | todo |

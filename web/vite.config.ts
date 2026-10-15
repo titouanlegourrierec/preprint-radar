@@ -9,6 +9,7 @@ import {
   writeFileSync,
 } from "node:fs";
 import { basename, dirname, resolve, sep } from "node:path";
+import { gzipSync } from "node:zlib";
 import preact from "@preact/preset-vite";
 import type { Plugin } from "vite";
 import { defineConfig } from "vitest/config";
@@ -16,6 +17,7 @@ import type { CodeFile, ScholarFile, StoreIndex } from "./src/types";
 import { citationShardFiles } from "./tooling/citation-shards";
 import { CONTENT_SECURITY_POLICY } from "./tooling/content-security-policy";
 import { feedFiles } from "./tooling/feeds";
+import { LANDING_BUDGET, landingAssets, landingReport } from "./tooling/landing";
 import { paperFiles, withSiteFields } from "./tooling/scholar";
 import { searchShardFiles } from "./tooling/search-shards";
 import { thirdPartyLoads } from "./tooling/third-party";
@@ -206,6 +208,30 @@ function contentSecurityPolicy(): Plugin {
   };
 }
 
+/** Print what the landing page loads, gzipped, and fail the build past its budget (PERF-15). */
+function landingBudget(): Plugin {
+  return {
+    name: "preprint-radar:landing-budget",
+    apply: "build",
+    // After Vite has emitted index.html.
+    enforce: "post",
+    generateBundle(_, bundle) {
+      const text = (name: string): string | null => {
+        const output = bundle[name];
+        if (output === undefined) return null;
+        return output.type === "chunk" ? output.code : String(output.source);
+      };
+      const html = text("index.html");
+      if (html === null) return;
+      const files = new Map([["index.html", html]]);
+      for (const asset of landingAssets(html)) files.set(asset, text(asset) ?? "");
+      const { bytes, line } = landingReport(files, (code) => gzipSync(code, { level: 9 }).length);
+      this.info(line);
+      if (bytes > LANDING_BUDGET) this.error(`${line}: past the budget`);
+    },
+  };
+}
+
 /** Fail the build if the site would load anything from another origin (see About, privacy). */
 function noThirdPartyLoads(): Plugin {
   return {
@@ -228,7 +254,13 @@ function noThirdPartyLoads(): Plugin {
 export default defineConfig({
   // Relative base: the site works under any GitHub Pages path (user.github.io/<repo>/).
   base: "./",
-  plugins: [preact(), paperData(DATA_DIR), contentSecurityPolicy(), noThirdPartyLoads()],
+  plugins: [
+    preact(),
+    paperData(DATA_DIR),
+    contentSecurityPolicy(),
+    noThirdPartyLoads(),
+    landingBudget(),
+  ],
   // The graph layout runs in a module worker (graph-worker.ts), split like the app.
   worker: { format: "es" },
   test: {

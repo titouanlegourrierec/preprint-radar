@@ -20,6 +20,12 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   join; the period picker names it ("Since 15 Sept 2026") and offers it for a range that
   ends on the latest day, "Keep adding new days" (PROD-13).
 
+### Performance
+
+- The page loads 18% less script: the graph, its renderer and panels download when the
+  Graph tab first opens (49.9 kB gzipped instead of 60.8). The build prints what the
+  landing page loads and fails past 75 kB gzipped (PERF-13, PERF-15).
+
 ### Fixes
 
 - A day file that fails to load no longer fails its period: it is asked for once more,

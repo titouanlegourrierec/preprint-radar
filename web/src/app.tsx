@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "preact/hooks"
 import { ALL_YEARS, LAST_12_MONTHS, publishedIn } from "./archive-years";
 import { About } from "./components/About";
 import { ErrorBoundary } from "./components/ErrorBoundary";
-import { GraphView } from "./components/GraphView";
+import { LazyGraphView } from "./components/LazyGraphView";
 import { ListNotices } from "./components/ListNotices";
 import { NoResults } from "./components/NoResults";
 import { PaperList } from "./components/PaperList";
@@ -346,7 +346,7 @@ export function App() {
         {skipLink}
         {topbar}
         <ErrorBoundary what="the graph" resetKeys={[state, load]}>
-          <GraphView
+          <LazyGraphView
             papers={graphPapers}
             citations={citations.counts}
             citationsNote={citationsNote}
