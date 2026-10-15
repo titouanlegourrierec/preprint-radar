@@ -48,6 +48,15 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   new graph no longer bursts open on screen: it opens out of sight for half a second, then
   fades in and settles gently (UX-30).
 
+### Interface
+
+- The tabs have icons, and on a phone the other tabs are their icons alone, so that all
+  six fit without scrolling (UX-31).
+- Every view has the same top bar: one line across the window, the site's name on the
+  left and the tabs floating on the right, in the same place from one view to the next,
+  where the lists had two lines in their column and the graph a ruled bar. The name stands
+  without the category, and the Graph tab comes second, after Papers (UX-32).
+
 ### Performance
 
 - The page loads 18% less script: the graph, its renderer and panels download when the

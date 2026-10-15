@@ -130,6 +130,18 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
 - Every view is a shareable URL. A step of navigation (`isNavigation`: another view,
   paper, period, year, category, or a filter set by a click) adds a history entry that
   Back undoes; typing and sorting replace the current one.
+- The top bar is one across the window above every view, the graph's (UX-32): the site's
+  name on the left, the tabs on the right, outside the views' centered column, so that the
+  tabs stay in place from one view to the next. No rule under it: the tabs float, a pill
+  on the page's background, as they did above the lists. The name stands alone, without
+  the category (the lists' count names it). The bar keeps to one line down to about
+  950 px, the day of the update going under 1,120 (a phone, the tabs on a line of their
+  own, keeps it). The tabs: Papers, Graph, Highly cited, Rankings, Reading list, About.
+- Each tab has an icon (`icons.tsx`, UX-31): pages for Papers, the graph's nodes, a
+  rising line for Highly cited (the graph's highly cited chip has it too), a podium for
+  Rankings, the cards' star for the Reading list, a circled i for About. Under 640 px the
+  other tabs are their icons alone, so that all fit without scrolling; their labels stay
+  for screen readers, and the current tab shows its own.
 - The tabs are links, including `?paper=`: a paper permalink in the list, the focused
   paper in the graph. `paperLink` sends an archived paper to its year of the Highly cited
   view, since it has no day file, and one of the most cited of the last 12 months that no

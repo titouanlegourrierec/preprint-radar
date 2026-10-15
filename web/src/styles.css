@@ -168,16 +168,35 @@ mark {
 .layout {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 0 16px 48px;
+  padding: 8px 16px 48px;
 }
 
+/* One bar across the window above every view (UX-32): the site's name on the left, the
+   tabs on the right, on one line where they fit. No rule under it: the tabs float, a pill
+   on the page's background, as they did above the lists. */
 .topbar {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 20px 0 12px;
+  gap: 8px 12px;
+  padding: 16px 24px 12px;
+}
+
+/* What gives way when the tabs would no longer fit beside the name, so that the bar keeps
+   to one line down to about 1,000 px: the day of the update. A phone has the tabs on a
+   line of their own, and room for it. */
+@media (min-width: 641px) and (max-width: 1119px) {
+  .topbar__updated {
+    display: none;
+  }
+}
+
+/* A phone's bar keeps to the content's edges. */
+@media (max-width: 640px) {
+  .topbar {
+    padding: 12px 16px 8px;
+  }
 }
 
 .topbar__brand {
@@ -218,7 +237,10 @@ mark {
 }
 
 .tab {
+  display: inline-flex;
   flex-shrink: 0;
+  gap: 6px;
+  align-items: center;
   white-space: nowrap;
   text-decoration: none;
   border: 0;
@@ -232,6 +254,19 @@ mark {
 @media (max-width: 480px) {
   .tab {
     padding: 6px 10px;
+  }
+}
+
+/* On a phone the other tabs are their icons, so that all fit without scrolling; the
+   labels stay for screen readers, and the current tab shows its own. */
+@media (max-width: 640px) {
+  .tab:not(.tab--active) .tab__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 }
 
@@ -1128,11 +1163,6 @@ html {
   max-width: none;
   height: 100dvh;
   padding: 0;
-}
-
-.layout--graph .topbar {
-  padding: 10px 16px;
-  border-bottom: 1px solid var(--border);
 }
 
 .graph {
@@ -2236,11 +2266,6 @@ html {
 
 .graph__intro p {
   margin: 0 0 8px;
-}
-
-.topbar__category {
-  font-size: 0.85rem;
-  color: var(--text);
 }
 
 .export-menu {

@@ -1,6 +1,6 @@
-import { categoryName } from "../format";
 import type { ThemePreference } from "../preferences";
 import type { ViewState } from "../url-state";
+import { CitedIcon, GraphIcon, InfoIcon, PapersIcon, RankingsIcon, StarIcon } from "./icons";
 
 const THEME_ICONS: Record<ThemePreference, string> = { auto: "◐", light: "☀", dark: "☾" };
 
@@ -16,7 +16,6 @@ export type TabLink = (
 
 interface Props {
   view: ViewState["view"];
-  category: string | undefined;
   /** The day of the store's last update, as shown. */
   lastUpdate: string | null;
   readingListSize: number;
@@ -36,8 +35,7 @@ export function Topbar(props: Props) {
     <header class="topbar">
       <div class="topbar__brand">
         <h1>Preprint Radar</h1>
-        {props.category && <span class="topbar__category">{categoryName(props.category)}</span>}
-        {props.lastUpdate && <span class="muted">Updated {props.lastUpdate}</span>}
+        {props.lastUpdate && <span class="muted topbar__updated">Updated {props.lastUpdate}</span>}
       </div>
       <div class="topbar__tools">
         <nav class="tabs" aria-label="Views">
@@ -45,14 +43,8 @@ export function Topbar(props: Props) {
             class={`tab${view === "papers" ? " tab--active" : ""}`}
             {...tab(view === "papers", { view: "papers", year: null })}
           >
-            Papers
-          </a>
-          <a
-            class={`tab${cited ? " tab--active" : ""}`}
-            title="The most cited papers of each year of first version, and of the last 12 months"
-            {...tab(cited, { view: "cited" })}
-          >
-            Highly cited
+            <PapersIcon />
+            <span class="tab__label">Papers</span>
           </a>
           <a
             class={`tab${view === "graph" ? " tab--active" : ""}`}
@@ -62,7 +54,16 @@ export function Topbar(props: Props) {
               ...(cited ? { year: props.archiveRange } : {}),
             })}
           >
-            Graph
+            <GraphIcon />
+            <span class="tab__label">Graph</span>
+          </a>
+          <a
+            class={`tab${cited ? " tab--active" : ""}`}
+            title="The most cited papers of each year of first version, and of the last 12 months"
+            {...tab(cited, { view: "cited" })}
+          >
+            <CitedIcon />
+            <span class="tab__label">Highly cited</span>
           </a>
           <a
             class={`tab${view === "rankings" ? " tab--active" : ""}`}
@@ -72,20 +73,23 @@ export function Topbar(props: Props) {
               ...(cited ? { year: props.archiveRange } : {}),
             })}
           >
-            Rankings
+            <RankingsIcon />
+            <span class="tab__label">Rankings</span>
           </a>
           <a
             class={`tab${view === "reading-list" ? " tab--active" : ""}`}
             {...tab(view === "reading-list", { view: "reading-list" })}
           >
-            Reading list ({props.readingListSize.toLocaleString()})
+            <StarIcon />
+            <span class="tab__label">Reading list ({props.readingListSize.toLocaleString()})</span>
           </a>
           <a
             class={`tab${view === "about" ? " tab--active" : ""}`}
             title="Where the data comes from, corrections and privacy"
             {...tab(view === "about", { view: "about" })}
           >
-            About
+            <InfoIcon />
+            <span class="tab__label">About</span>
           </a>
         </nav>
         <button

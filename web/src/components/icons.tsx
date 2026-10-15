@@ -128,6 +128,54 @@ export function InstitutionIcon() {
   );
 }
 
+/** Two pages, one before the other: the papers of the recent days. */
+export function PapersIcon() {
+  return (
+    <Outline name="papers">
+      <path d="M4.5 3.5V2a.5.5 0 0 1 .5-.5h5l3 3V12a.5.5 0 0 1-.5.5H11" />
+      <path d="M3 3.5h5l3 3v7.5a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4a.5.5 0 0 1 .5-.5Z" />
+      <path d="M4.75 9h4M4.75 11.5h4" />
+    </Outline>
+  );
+}
+
+/** A line rising to an arrow: the highly cited papers. */
+export function CitedIcon() {
+  return (
+    <Outline name="cited">
+      <path d="M1.5 12.5 6 8l2.75 2.75L14.5 5M10.5 5h4v4" />
+    </Outline>
+  );
+}
+
+/** A podium: the rankings. */
+export function RankingsIcon() {
+  return (
+    <Outline name="rankings">
+      <path d="M1.5 14.5h13M2 14.5V9.5h4v5M6 14.5V5.5h4v9M10 14.5V8h4v6.5" />
+    </Outline>
+  );
+}
+
+/** A star, as on the cards that save a paper: the reading list. */
+export function StarIcon() {
+  return (
+    <Outline name="star">
+      <path d="M8 1.75l1.9 3.85 4.25.62-3.08 3 .73 4.23L8 11.45l-3.8 2 .73-4.23-3.08-3 4.25-.62z" />
+    </Outline>
+  );
+}
+
+/** A circled i: about the site. */
+export function InfoIcon() {
+  return (
+    <Outline name="info">
+      <circle cx="8" cy="8" r="6.5" />
+      <path d="M8 7.25v4M8 4.9v.1" />
+    </Outline>
+  );
+}
+
 /** A chevron, down to unfold, up to fold. */
 export function ChevronIcon({ up }: { up: boolean }) {
   return (

@@ -320,7 +320,6 @@ export function App() {
   const topbar = (
     <Topbar
       view={state.view}
-      category={category}
       lastUpdate={lastUpdate}
       readingListSize={readingList.papers.length}
       archiveRange={archiveRange}
@@ -333,17 +332,20 @@ export function App() {
 
   const footer = <SiteFooter onAbout={() => update({ view: "about" })} />;
 
+  // The top bar spans the window above every view, as the graph's does (UX-32).
   if (state.view === "about") {
     return (
-      <div class="layout">
+      <>
         {skipLink}
         {topbar}
-        {/* A view that fails to draw leaves the tabs usable (TEST-10). */}
-        <ErrorBoundary what="this view">
-          <About />
-        </ErrorBoundary>
-        {footer}
-      </div>
+        <div class="layout">
+          {/* A view that fails to draw leaves the tabs usable (TEST-10). */}
+          <ErrorBoundary what="this view">
+            <About />
+          </ErrorBoundary>
+          {footer}
+        </div>
+      </>
     );
   }
 
@@ -416,275 +418,281 @@ export function App() {
   }
 
   return (
-    <div class="layout">
+    <>
       {skipLink}
       {topbar}
+      <div class="layout">
+        <div class="search">
+          <input
+            type="search"
+            class="search__input"
+            ref={searchInput}
+            placeholder="Search papers…"
+            value={state.query}
+            onInput={(event) => update({ query: event.currentTarget.value })}
+            aria-label="Search papers"
+            aria-describedby="search-hint"
+            // No autofocus: j and k would type into the box. "/" comes here, Escape leaves.
+            onKeyDown={(event) => {
+              if (event.key !== "Escape") return;
+              // Leave the box, keeping its words (a search box clears them on Escape).
+              event.preventDefault();
+              event.currentTarget.blur();
+            }}
+          />
+        </div>
+        {/* Outside the sticky bar, which then stays short and hides no focused control. */}
+        <p id="search-hint" class="search__hint muted">
+          Searches titles, abstracts, authors, affiliations, venues and comments, or an arXiv id.{" "}
+          <code>"neural radiance field"</code> in quotes finds that exact phrase;{" "}
+          <code>-survey</code> leaves out the papers that contain the word.
+        </p>
 
-      <div class="search">
-        <input
-          type="search"
-          class="search__input"
-          ref={searchInput}
-          placeholder="Search papers…"
-          value={state.query}
-          onInput={(event) => update({ query: event.currentTarget.value })}
-          aria-label="Search papers"
-          aria-describedby="search-hint"
-          // No autofocus: j and k would type into the box. "/" comes here, Escape leaves.
-          onKeyDown={(event) => {
-            if (event.key !== "Escape") return;
-            // Leave the box, keeping its words (a search box clears them on Escape).
-            event.preventDefault();
-            event.currentTarget.blur();
-          }}
-        />
-      </div>
-      {/* Outside the sticky bar, which then stays short and hides no focused control. */}
-      <p id="search-hint" class="search__hint muted">
-        Searches titles, abstracts, authors, affiliations, venues and comments, or an arXiv id.{" "}
-        <code>"neural radiance field"</code> in quotes finds that exact phrase; <code>-survey</code>{" "}
-        leaves out the papers that contain the word.
-      </p>
-
-      <div class="content">
-        {category && (
-          <Sidebar
-            categories={categories}
-            category={category}
-            asOf={archiveAsOf}
-            recent={topRecent}
-            days={storeDays}
-            period={state.period}
-            filters={state.filters}
-            authors={authorSuggestions}
-            affiliations={affiliationSuggestions}
-            venues={venueCounts}
-            subjects={subjects}
-            onCategory={(value) => update({ category: value })}
-            onPeriod={(period) => update({ period })}
-            onFilters={setFilters}
-            archive={
-              cited
-                ? {
-                    years: archiveYears,
-                    range: archiveRange ?? ALL_YEARS,
-                    onRange: (year) => update({ year }),
-                  }
-                : undefined
-            }
-            source={
-              rankings
-                ? {
-                    years: archiveYears,
-                    range: archived ? archiveRange : null,
-                    onRange: (year) => update({ year }),
-                  }
-                : undefined
-            }
-          >
-            {triaged && (
-              <SavedSearches
-                searches={savedSearches.searches}
-                // Counted once the index is built, so that the list never waits for it.
-                index={searchable}
-                since={triage.previousVisit}
-                current={{ query, filters }}
-                onSave={() => savedSearches.save({ query, filters })}
-                onRemove={savedSearches.remove}
-                onOpen={(saved, onlyNew) =>
-                  update({
-                    ...searchOf(saved),
-                    ...(onlyNew && sinceLastVisit ? { period: sinceLastVisit.period } : {}),
-                  })
-                }
-              />
-            )}
-          </Sidebar>
-        )}
-
-        <main class="results" id="main">
-          {/* A list that fails to draw leaves the tabs and the sidebar usable (TEST-10), and
-              another period, filter or Back draws it again. */}
-          <ErrorBoundary key={state.view} what="this view" resetKeys={[state, load]}>
-            <ResultsHeader
-              model={model}
-              count={count}
-              onSort={(sort) => update({ sort })}
-              citationsNote={citationsNote}
-              gainsSpan={gainsSpan}
-              relevanceHelpShown={showRelevanceHelp}
-              onRelevanceHelp={() => setShowRelevanceHelp(!showRelevanceHelp)}
-              hideSeen={triage.hideSeen}
-              onHideSeen={triage.toggleHideSeen}
-              showAbstracts={showAbstracts}
-              onShowAbstracts={toggleAbstracts}
-              papers={resultPapers}
-              citations={citations.counts}
-              readingList={
-                state.view === "reading-list"
+        <div class="content">
+          {category && (
+            <Sidebar
+              categories={categories}
+              category={category}
+              asOf={archiveAsOf}
+              recent={topRecent}
+              days={storeDays}
+              period={state.period}
+              filters={state.filters}
+              authors={authorSuggestions}
+              affiliations={affiliationSuggestions}
+              venues={venueCounts}
+              subjects={subjects}
+              onCategory={(value) => update({ category: value })}
+              onPeriod={(period) => update({ period })}
+              onFilters={setFilters}
+              archive={
+                cited
                   ? {
-                      papers: readingList.papers,
-                      onImport: (file) =>
-                        void readingList.importFile(file, (value) => {
-                          const added = savedSearches.importSearches(value);
-                          return added
-                            ? `${countOf(added, "saved search", "saved searches")} added`
-                            : null;
-                        }),
-                      json: () =>
-                        JSON.stringify(
-                          readingListFile(readingList.papers, savedSearches.searches),
-                          null,
-                          2,
-                        ),
+                      years: archiveYears,
+                      range: archiveRange ?? ALL_YEARS,
+                      onRange: (year) => update({ year }),
                     }
                   : undefined
               }
-            />
-
-            <ListNotices
-              view={state.view}
-              relevanceHelp={hasSearchWords && showRelevanceHelp}
-              readingListMessage={
-                state.view === "reading-list" && readingList.message
-                  ? { text: readingList.message, onDismiss: readingList.dismissMessage }
-                  : null
-              }
-              sinceLastVisit={
-                triaged && sinceLastVisit && !samePeriod(state.period, sinceLastVisit.period)
+              source={
+                rankings
                   ? {
-                      papers: sinceLastVisit.papers,
-                      onShow: () => update({ period: sinceLastVisit.period }),
+                      years: archiveYears,
+                      range: archived ? archiveRange : null,
+                      onRange: (year) => update({ year }),
                     }
-                  : null
+                  : undefined
               }
-              shortcuts={triaged && load.status === "ready"}
-              missingDays={
-                missingDays.length > 0 && load.status === "ready"
-                  ? { days: missingDays, onRetry: retry }
-                  : null
-              }
-              archiveBudget={
-                archiveLeftOut > 0 && load.status === "ready"
-                  ? { shown: load.index.size, leftOut: archiveLeftOut, unranked: archiveUnranked }
-                  : null
-              }
-              citationsNote={citationsNote}
-              lastMonths={archived && archiveRange === LAST_12_MONTHS}
-              mostlyTied={byCount && !rising && !rankings && mostlyTied(results, citations.counts)}
-              filters={rankings ? null : state.filters}
-              onFilters={setFilters}
-              feed={feed}
-            />
+            >
+              {triaged && (
+                <SavedSearches
+                  searches={savedSearches.searches}
+                  // Counted once the index is built, so that the list never waits for it.
+                  index={searchable}
+                  since={triage.previousVisit}
+                  current={{ query, filters }}
+                  onSave={() => savedSearches.save({ query, filters })}
+                  onRemove={savedSearches.remove}
+                  onOpen={(saved, onlyNew) =>
+                    update({
+                      ...searchOf(saved),
+                      ...(onlyNew && sinceLastVisit ? { period: sinceLastVisit.period } : {}),
+                    })
+                  }
+                />
+              )}
+            </Sidebar>
+          )}
 
-            {load.status === "error" && state.view !== "reading-list" ? (
-              <p class="notice notice--error" role="alert">
-                Could not load the papers: {load.message}.{" "}
-                <button type="button" class="link-button" onClick={retry}>
-                  Retry
-                </button>
-              </p>
-            ) : rankings && load.status === "ready" ? (
-              <Rankings
+          <main class="results" id="main">
+            {/* A list that fails to draw leaves the tabs and the sidebar usable (TEST-10), and
+              another period, filter or Back draws it again. */}
+            <ErrorBoundary key={state.view} what="this view" resetKeys={[state, load]}>
+              <ResultsHeader
+                model={model}
+                count={count}
+                onSort={(sort) => update({ sort })}
+                citationsNote={citationsNote}
+                gainsSpan={gainsSpan}
+                relevanceHelpShown={showRelevanceHelp}
+                onRelevanceHelp={() => setShowRelevanceHelp(!showRelevanceHelp)}
+                hideSeen={triage.hideSeen}
+                onHideSeen={triage.toggleHideSeen}
+                showAbstracts={showAbstracts}
+                onShowAbstracts={toggleAbstracts}
                 papers={resultPapers}
                 citations={citations.counts}
-                citationsNote={citationsNote}
-                archived={archived}
-                kind={state.rank}
-                metric={state.metric}
-                onKind={(rank) => update({ rank })}
-                onMetric={(metric) => update({ metric })}
-                onEntity={(kind, name) =>
-                  update({
-                    view: archived ? "cited" : "papers",
-                    filters: {
-                      ...state.filters,
-                      [kind === "institution" ? "affiliation" : "author"]: exactly(name),
-                    },
-                  })
+                readingList={
+                  state.view === "reading-list"
+                    ? {
+                        papers: readingList.papers,
+                        onImport: (file) =>
+                          void readingList.importFile(file, (value) => {
+                            const added = savedSearches.importSearches(value);
+                            return added
+                              ? `${countOf(added, "saved search", "saved searches")} added`
+                              : null;
+                          }),
+                        json: () =>
+                          JSON.stringify(
+                            readingListFile(readingList.papers, savedSearches.searches),
+                            null,
+                            2,
+                          ),
+                      }
+                    : undefined
                 }
               />
-            ) : cited && archiveYears.length === 0 && !topRecent ? (
-              <p class="notice">
-                The archive of highly cited papers is built weekly, from citation counts: it is not
-                there yet.
-              </p>
-            ) : state.view === "reading-list" && readingList.papers.length === 0 ? (
-              <p class="notice">
-                Your reading list is empty. Use ☆ on a paper to save it; the list is kept in this
-                browser.
-              </p>
-            ) : (
-              <>
-                <NoResults
-                  missingPaper={
-                    (state.view === "papers" || cited) &&
-                    state.paper &&
-                    load.status === "ready" &&
-                    !load.index.has(state.paper)
-                      ? state.paper
-                      : null
-                  }
-                  missingFromCited={cited}
-                  missingPastedId={
-                    pastedId && results.length === 0 && hiddenCount === 0 && load.status === "ready"
-                      ? pastedId
-                      : null
-                  }
-                  allSeen={results.length === 0 ? hiddenCount : 0}
-                  onShowSeen={triage.toggleHideSeen}
-                  noMatch={
-                    !pastedId &&
-                    results.length === 0 &&
-                    hiddenCount === 0 &&
-                    (load.status === "ready" || state.view === "reading-list") &&
-                    activeIndex !== null &&
-                    activeIndex.size > 0
-                      ? {
-                          inPeriod: state.view === "papers",
-                          onClearFilters:
-                            activeFilterCount(state.filters) > 0
-                              ? () => setFilters(NO_FILTERS)
-                              : null,
-                          wider:
-                            state.view === "papers" && widerPeriod
-                              ? {
-                                  days: longestDays,
-                                  onSearch: () => update({ period: longestPeriod }),
-                                }
-                              : null,
-                        }
-                      : null
-                  }
-                />
-                <PaperList
-                  results={results}
-                  resetKey={listKey({ ...state, filters }, query)}
-                  nameHighlights={nameTerms}
-                  groupByDay={groupByDay}
-                  openId={state.paper}
-                  linkTo={linkTo}
-                  onOpenPaper={(arxivId) => update({ paper: arxivId })}
-                  onClosePaper={() => update({ paper: null })}
-                  onShowInGraph={showInGraph}
+
+              <ListNotices
+                view={state.view}
+                relevanceHelp={hasSearchWords && showRelevanceHelp}
+                readingListMessage={
+                  state.view === "reading-list" && readingList.message
+                    ? { text: readingList.message, onDismiss: readingList.dismissMessage }
+                    : null
+                }
+                sinceLastVisit={
+                  triaged && sinceLastVisit && !samePeriod(state.period, sinceLastVisit.period)
+                    ? {
+                        papers: sinceLastVisit.papers,
+                        onShow: () => update({ period: sinceLastVisit.period }),
+                      }
+                    : null
+                }
+                shortcuts={triaged && load.status === "ready"}
+                missingDays={
+                  missingDays.length > 0 && load.status === "ready"
+                    ? { days: missingDays, onRetry: retry }
+                    : null
+                }
+                archiveBudget={
+                  archiveLeftOut > 0 && load.status === "ready"
+                    ? { shown: load.index.size, leftOut: archiveLeftOut, unranked: archiveUnranked }
+                    : null
+                }
+                citationsNote={citationsNote}
+                lastMonths={archived && archiveRange === LAST_12_MONTHS}
+                mostlyTied={
+                  byCount && !rising && !rankings && mostlyTied(results, citations.counts)
+                }
+                filters={rankings ? null : state.filters}
+                onFilters={setFilters}
+                feed={feed}
+              />
+
+              {load.status === "error" && state.view !== "reading-list" ? (
+                <p class="notice notice--error" role="alert">
+                  Could not load the papers: {load.message}.{" "}
+                  <button type="button" class="link-button" onClick={retry}>
+                    Retry
+                  </button>
+                </p>
+              ) : rankings && load.status === "ready" ? (
+                <Rankings
+                  papers={resultPapers}
                   citations={citations.counts}
                   citationsNote={citationsNote}
-                  gainOf={gainOf}
-                  showAbstracts={showAbstracts || state.view === "reading-list"}
-                  savedIds={readingList.savedIds}
-                  onToggleSaved={readingList.toggle}
-                  seenIds={triaged ? triage.seen : undefined}
-                  onToggleSeen={triaged ? triage.toggleSeen : undefined}
-                  onAuthor={(author) => setFilters({ ...state.filters, author: exactly(author) })}
-                  onAffiliation={(affiliation) => setFilters({ ...state.filters, affiliation })}
+                  archived={archived}
+                  kind={state.rank}
+                  metric={state.metric}
+                  onKind={(rank) => update({ rank })}
+                  onMetric={(metric) => update({ metric })}
+                  onEntity={(kind, name) =>
+                    update({
+                      view: archived ? "cited" : "papers",
+                      filters: {
+                        ...state.filters,
+                        [kind === "institution" ? "affiliation" : "author"]: exactly(name),
+                      },
+                    })
+                  }
                 />
-              </>
-            )}
-          </ErrorBoundary>
-        </main>
-      </div>
+              ) : cited && archiveYears.length === 0 && !topRecent ? (
+                <p class="notice">
+                  The archive of highly cited papers is built weekly, from citation counts: it is
+                  not there yet.
+                </p>
+              ) : state.view === "reading-list" && readingList.papers.length === 0 ? (
+                <p class="notice">
+                  Your reading list is empty. Use ☆ on a paper to save it; the list is kept in this
+                  browser.
+                </p>
+              ) : (
+                <>
+                  <NoResults
+                    missingPaper={
+                      (state.view === "papers" || cited) &&
+                      state.paper &&
+                      load.status === "ready" &&
+                      !load.index.has(state.paper)
+                        ? state.paper
+                        : null
+                    }
+                    missingFromCited={cited}
+                    missingPastedId={
+                      pastedId &&
+                      results.length === 0 &&
+                      hiddenCount === 0 &&
+                      load.status === "ready"
+                        ? pastedId
+                        : null
+                    }
+                    allSeen={results.length === 0 ? hiddenCount : 0}
+                    onShowSeen={triage.toggleHideSeen}
+                    noMatch={
+                      !pastedId &&
+                      results.length === 0 &&
+                      hiddenCount === 0 &&
+                      (load.status === "ready" || state.view === "reading-list") &&
+                      activeIndex !== null &&
+                      activeIndex.size > 0
+                        ? {
+                            inPeriod: state.view === "papers",
+                            onClearFilters:
+                              activeFilterCount(state.filters) > 0
+                                ? () => setFilters(NO_FILTERS)
+                                : null,
+                            wider:
+                              state.view === "papers" && widerPeriod
+                                ? {
+                                    days: longestDays,
+                                    onSearch: () => update({ period: longestPeriod }),
+                                  }
+                                : null,
+                          }
+                        : null
+                    }
+                  />
+                  <PaperList
+                    results={results}
+                    resetKey={listKey({ ...state, filters }, query)}
+                    nameHighlights={nameTerms}
+                    groupByDay={groupByDay}
+                    openId={state.paper}
+                    linkTo={linkTo}
+                    onOpenPaper={(arxivId) => update({ paper: arxivId })}
+                    onClosePaper={() => update({ paper: null })}
+                    onShowInGraph={showInGraph}
+                    citations={citations.counts}
+                    citationsNote={citationsNote}
+                    gainOf={gainOf}
+                    showAbstracts={showAbstracts || state.view === "reading-list"}
+                    savedIds={readingList.savedIds}
+                    onToggleSaved={readingList.toggle}
+                    seenIds={triaged ? triage.seen : undefined}
+                    onToggleSeen={triaged ? triage.toggleSeen : undefined}
+                    onAuthor={(author) => setFilters({ ...state.filters, author: exactly(author) })}
+                    onAffiliation={(affiliation) => setFilters({ ...state.filters, affiliation })}
+                  />
+                </>
+              )}
+            </ErrorBoundary>
+          </main>
+        </div>
 
-      {footer}
-    </div>
+        {footer}
+      </div>
+    </>
   );
 }

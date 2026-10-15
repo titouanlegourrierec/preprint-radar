@@ -11,20 +11,9 @@ import { countOf } from "../format";
 import type { Period } from "../period";
 import type { FacetCount } from "../search";
 import type { ArchiveSummary, DaySummary, TopRecentSummary } from "../types";
+import { CitedIcon } from "./icons";
 import { PeriodPicker } from "./PeriodPicker";
 import { VenueSelect } from "./VenueSelect";
-
-function StarIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path
-        d="M8 1.8l1.9 3.9 4.3.6-3.1 3 .7 4.3L8 11.6l-3.8 2 .7-4.3-3.1-3 4.3-.6z"
-        stroke="currentColor"
-        stroke-linejoin="round"
-      />
-    </svg>
-  );
-}
 
 /** An award ribbon: the venue a paper was accepted at. */
 function VenueIcon() {
@@ -127,7 +116,7 @@ function ArchiveChip(archive: ArchiveProps) {
         aria-controls={open ? panelId : undefined}
         onClick={() => setOpen(!open)}
       >
-        <StarIcon />
+        <CitedIcon />
         <span class="graph-chips__name">
           {range === null
             ? "Highly cited"
