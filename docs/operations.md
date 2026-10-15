@@ -84,7 +84,11 @@ arXiv's listing still covers the days missed (it shows the last five announcemen
    from the catchup pages, as `backfill` does, within the last 30 days (`CATCH_UP_DAYS`),
    with a warning annotation `Catching up` (`reading every day since`). The next runs
    read the pages left, until `make stats` shows no pending papers for those days; papers
-   without an HTML rendering count as *no page*, which no run reads (about 5%).
+   without an HTML rendering count as *no page*, which no run reads (about 5%). A
+   `Catching up` every day comes from one paper whose page never reads (a 503 for good):
+   each run then reads the catchup pages since its day, about 7 minutes, and skips the
+   listing's checks (a day it lacks, changed author lists), until the day is 30 days old.
+   `make stats` names the day; `reextract --ids` that paper to try its page by hand.
 3. For days older than 30 days, fill *since* (`YYYY-MM-DD`): the run then calls
    `backfill` over the catchup pages from that day on, limited to 600 pages
    (`DEFAULT_MAX_HTML`) unless *max-html* says otherwise.
