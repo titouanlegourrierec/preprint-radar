@@ -34,6 +34,7 @@ from preprint_radar.collect import (
     format_openalex_report,
     format_report,
     reextract_category,
+    ror_answers,
     today,
     update_archive_affiliations,
     update_category,
@@ -43,7 +44,7 @@ from preprint_radar.collect import (
 )
 from preprint_radar.exceptions import SchemaVersionError
 from preprint_radar.http import HttpClient, RateLimiter
-from preprint_radar.models import CodeRecord, Listing, Paper, Provenance, ScholarRecord
+from preprint_radar.models import CodeRecord, Institution, Listing, Paper, Provenance, ScholarRecord
 from preprint_radar.sources.arxiv_html import EXTRACTOR_VERSION, PageCache, parse_front_matter
 from preprint_radar.sources.arxiv_listing import parse_catchup
 from preprint_radar.store.paper_store import PaperStore
@@ -714,6 +715,52 @@ def test_add_institutions_keeps_ror_ids(fake: FakeArxiv) -> None:
     with fake.client() as ror:
         assert add_institutions(named, ror, limit=None) == named
     assert fake.ror_requests == []
+
+
+def test_add_institutions_asks_ror_only_for_strings_it_never_answered(fake: FakeArxiv) -> None:
+    with fake.client() as ror:
+        earlier = add_institutions(
+            [_paper("1", ("School of CS, Peking University", "Meta AI"))], ror, limit=None
+        )
+    fake.ror_requests.clear()
+    papers = [_paper("2", ("School of CS, Peking University", "Meta AI", "Tencent ARC Lab"))]
+
+    with fake.client() as ror:
+        named = add_institutions(papers, ror, limit=None, known=ror_answers(earlier))
+
+    # ROR's match and the rules' name come back as they were, the new string is asked (AFF-17).
+    assert fake.ror_requests == ["Tencent ARC Lab"]
+    assert named[0].institutions == ("Peking University", "Meta", "Tencent")
+    peking_id = earlier[0].institution_ids[0] if earlier[0].institution_ids else None
+    assert peking_id
+    assert named[0].institution_ids == (peking_id, None, None)
+    fake.ror_requests.clear()
+    with fake.client() as ror:
+        add_institutions(papers, ror, limit=None, known=ror_answers([*earlier, *named]))
+    assert fake.ror_requests == []
+
+
+def test_ror_answers_are_its_own_and_its_latest() -> None:
+    def named(day: date, institution: str | None, ror_id: str | None, source: str = "ror") -> Paper:
+        return replace(
+            _paper(str(day.day), ("Lab of Things",)),
+            institutions=(institution,),
+            institution_ids=(ror_id,),
+            institutions_provenance=Provenance(source, day),
+        )
+
+    assert ror_answers(
+        [named(date(2026, 10, 1), "Old Name", "0abc"), named(date(2026, 10, 5), "New Name", "0abc")]
+    ) == {"Lab of Things": Institution("New Name", "0abc")}
+    # Whichever comes first.
+    assert ror_answers(
+        [named(date(2026, 10, 5), "New Name", "0abc"), named(date(2026, 10, 1), "Old Name", "0abc")]
+    ) == {"Lab of Things": Institution("New Name", "0abc")}
+    # The rules named it after ROR matched nothing: no institution to give.
+    assert ror_answers([named(date(2026, 10, 1), "Lab of Things", None)]) == {"Lab of Things": None}
+    # OpenAlex's names, and names without their ids, are not ROR's answers.
+    assert ror_answers([named(date(2026, 10, 1), "Lab", "0abc", source="openalex")]) == {}
+    assert ror_answers([replace(named(date(2026, 10, 1), "Lab", "0abc"), institution_ids=None)]) == {}
 
 
 def test_add_institutions_leaves_the_rest_for_next_run(fake: FakeArxiv) -> None:

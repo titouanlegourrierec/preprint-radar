@@ -52,7 +52,7 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
 - Network steps of the workflows, minutes each:
   - `make institutions`: ROR names, and their ids, for stored affiliations that have none,
     the rules naming the rest (one request per distinct string every 0.5 s, within a
-    budget). `make institutions-again`, offline: today's naming rules on the stored
+    budget; strings ROR answered in an earlier run are not asked again, AFF-17). `make institutions-again`, offline: today's naming rules on the stored
     institutions, archive included.
   - `make affiliations`: OpenAlex's affiliations and institutions for the papers of the day
     files without an HTML page (5%, which no page can give; two in five a month old), each

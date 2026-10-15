@@ -240,7 +240,11 @@ and only when one of the organization's names (not an acronym) of at least two w
 appears word for word in the affiliation: `chosen` alone matched "ARC Lab, Tencent" to an
 association called ARC and "180 Queen's Gate" to "The Gate". ROR names about 70% of the
 strings (universities in full), and gives each its id (`institution_ids`). A failing ROR
-never fails a run: lookups stop and resume next run.
+never fails a run: lookups stop and resume next run. A string ROR answered for in an
+earlier run is not asked again (`collect.ror_answers`, AFF-17): its latest answer, read
+from the day files' papers ROR named with their ids, an institution with an id being its
+match and one without what the rules gave; on 2026-10-15, 7,343 strings, and all but 4 of
+4,237 papers came out the same (strings ROR had answered differently on other days).
 
 The rest are named by `institutions.name_institutions` (AFF-13, decision 12), which the
 site applied itself until 2026-10-07, in TypeScript; the port gave the same name for all

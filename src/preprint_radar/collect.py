@@ -504,7 +504,8 @@ def _name_and_report(
         The run's report.
     """
     if ror.client is not None:
-        papers = add_institutions(papers, ror.client, limit=ror.max_lookups)
+        known = ror_answers(store.iter_papers(category))
+        papers = add_institutions(papers, ror.client, limit=ror.max_lookups, known=known)
     store.save(category, papers)
     return UpdateReport(
         category=category,
@@ -842,14 +843,21 @@ def _set_back(
             cache.discard(url)
 
 
-def add_institutions(papers: Sequence[Paper], client: HttpClient, *, limit: int | None) -> list[Paper]:
+def add_institutions(
+    papers: Sequence[Paper],
+    client: HttpClient,
+    *,
+    limit: int | None,
+    known: Mapping[str, Institution | None] | None = None,
+) -> list[Paper]:
     """Name the institution of each affiliation: ROR first, then the rules (AFF-13).
 
     Only papers with affiliations and no institutions yet are looked up, each distinct
-    string once. A paper gets its institutions, with the ROR id of those ROR named, when
-    all its strings were looked up: :func:`institutions.name_institutions` names the rest.
-    The others wait for the next run (lookup limit reached, or ROR unreachable), which
-    never fails the run.
+    string once, but those ROR answered for in an earlier run (``known``, :func:`ror_answers`,
+    AFF-17). A paper gets its institutions, with the ROR id of those ROR named, when all its
+    strings were looked up: :func:`institutions.name_institutions` names the rest. The
+    others wait for the next run (lookup limit reached, or ROR unreachable), which never
+    fails the run.
 
     Returns:
         The papers, with institutions where they could be named.
@@ -857,19 +865,48 @@ def add_institutions(papers: Sequence[Paper], client: HttpClient, *, limit: int 
     pending = [paper for paper in papers if _needs_institutions(paper)]
     if not pending:
         return list(papers)
-    strings = [affiliation for paper in pending for affiliation in paper.affiliations or ()]
-    distinct = len(set(strings))
-    logger.info("Looking up %s distinct affiliations in ROR", f"{distinct:,}")
-    with progress("ROR institutions", distinct if limit is None else min(distinct, limit)) as advance:
-        matches = match_institutions(client, strings, limit=limit, progress=advance)
-    named = sum(match is not None for match in matches.values())
-    logger.info("ROR named %s of %s affiliations", f"{named:,}", f"{len(matches):,}")
+    known = known or {}
+    strings = dict.fromkeys(affiliation for paper in pending for affiliation in paper.affiliations or ())
+    asked = [affiliation for affiliation in strings if affiliation not in known]
+    matches = {affiliation: known[affiliation] for affiliation in strings if affiliation in known}
+    reused = f" ({len(matches):,} more known from earlier runs)" if matches else ""
+    logger.info("Looking up %s distinct affiliations in ROR%s", f"{len(asked):,}", reused)
+    if asked:
+        with progress("ROR institutions", len(asked) if limit is None else min(len(asked), limit)) as advance:
+            looked_up = match_institutions(client, asked, limit=limit, progress=advance)
+        named = sum(match is not None for match in looked_up.values())
+        logger.info("ROR named %s of %s affiliations", f"{named:,}", f"{len(looked_up):,}")
+        matches |= looked_up
     return [
         _with_institutions(paper, [matches[affiliation] for affiliation in paper.affiliations or ()])
         if _needs_institutions(paper) and all(a in matches for a in paper.affiliations or ())
         else paper
         for paper in papers
     ]
+
+
+def ror_answers(papers: Iterable[Paper]) -> dict[str, Institution | None]:
+    """What ROR answered for the affiliation strings of papers it named, to ask it no more (AFF-17).
+
+    An institution with an id is ROR's match; one without, or none, what the rules gave
+    when ROR matched nothing or a match named no institution: either way, the same string
+    gets the same names again (all but 4 of 4,237 papers on 2026-10-15, which ROR answered
+    differently on other days: the latest answer wins). Only papers named with their ids,
+    by ROR: before ids were kept, its names and the rules' look alike, and OpenAlex's are
+    not its answers.
+    """
+    answers: dict[str, tuple[date, Institution | None]] = {}
+    for paper in papers:
+        provenance = paper.institutions_provenance
+        if provenance is None or provenance.source != "ror" or paper.institution_ids is None:
+            continue
+        day = provenance.at or date.min
+        for affiliation, name, ror_id in zip(
+            paper.affiliations or (), paper.institutions or (), paper.institution_ids, strict=True
+        ):
+            if affiliation not in answers or answers[affiliation][0] <= day:
+                answers[affiliation] = (day, Institution(name, ror_id) if name and ror_id else None)
+    return {affiliation: answer for affiliation, (_, answer) in answers.items()}
 
 
 def _needs_institutions(paper: Paper) -> bool:
@@ -1251,7 +1288,8 @@ def update_archive_affiliations(
 
     if ror is not None and ror.client is not None:
         unnamed = [paper for paper in (changed.get(p.arxiv_id, p) for p in own) if _needs_institutions(paper)]
-        named = add_institutions(unnamed, ror.client, limit=ror.max_lookups)
+        known = ror_answers(store.iter_papers(category))
+        named = add_institutions(unnamed, ror.client, limit=ror.max_lookups, known=known)
         renamed = {new.arxiv_id: new for old, new in zip(unnamed, named, strict=True) if new is not old}
         if renamed:
             save(changed | renamed)

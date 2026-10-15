@@ -32,6 +32,9 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   Graph tab first opens (49.9 kB gzipped instead of 60.8). The build prints what the
   landing page loads and fails past 75 kB gzipped (PERF-13, PERF-15).
 
+- ROR is asked only for affiliation strings it never answered: the 7,343 it named in the
+  day files are reused (AFF-17).
+
 ### Fixes
 
 - A day file that fails to load no longer fails its period: it is asked for once more,

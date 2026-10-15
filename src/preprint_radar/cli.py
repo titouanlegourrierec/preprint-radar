@@ -33,6 +33,7 @@ from preprint_radar.collect import (
     format_report,
     format_scholar_report,
     reextract_category,
+    ror_answers,
     update_archive_affiliations,
     update_category,
     update_citation_counts,
@@ -1185,7 +1186,7 @@ def _run_institutions(args: argparse.Namespace) -> int:
     with HttpClient(user_agent=DEFAULT_USER_AGENT, min_interval=ROR_DELAY_SECONDS) as client:
         for category in categories:
             papers = list(store.iter_papers(category))
-            named = add_institutions(papers, client, limit=args.max_ror)
+            named = add_institutions(papers, client, limit=args.max_ror, known=ror_answers(papers))
             changed = [new for old, new in zip(papers, named, strict=True) if new is not old]
             store.save(category, changed)
             pending = sum(bool(paper.affiliations) and paper.institutions is None for paper in named)
