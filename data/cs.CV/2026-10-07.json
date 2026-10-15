@@ -348,11 +348,11 @@
     "013q1eq08",
     "02zhqgq86"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -1245,11 +1245,11 @@
     "05tkyf982",
     "05tkyf982"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -1480,11 +1480,11 @@
     null,
     "031bsb921"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -1524,11 +1524,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.08482",
@@ -2112,11 +2112,11 @@
    "institution_ids": [
     "00rs6vg23"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -2219,11 +2219,11 @@
     "01tgyzw49",
     "00jmfr291"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -2742,11 +2742,11 @@
     "00f2yqf98",
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -4075,11 +4075,11 @@
    "institution_ids": [
     "04h9pn542"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -5103,14 +5103,28 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2610.07609v2",
    "abstract": "Neural simulation of high-fidelity deformable bodies is a foundational challenge in computer graphics and physical AI. Long-horizon prediction for high-resolution 3D volumetric meshes is hard: autoregressive methods are susceptible to error accumulation, while direct multi-frame prediction at native resolution is computationally prohibitive. This motivates a compact spatiotemporal latent representation, which is largely unexplored for mesh-based volumetric physics. Meanwhile, it remains unclear whether deterministic regression or generative diffusion is the more appropriate predictive paradigm. To address these coupled challenges, we introduce PhysLDM, a unified latent-diffusion paradigm for one-shot volumetric deformable simulation. Its core is a holistic spatiotemporal VAE that avoids the \"staircase\" artifacts of standard temporal compression (as in common video VAEs), achieving ~2.48 mm reconstruction precision on meter-scale scenes at up to 78x token compression. Based on this reliable latent space, we systematically compare regression and diffusion methods. Our experiments uncover a key modeling insight: complex deformable dynamics are often chaotic, and in this regime deterministic regression tends to produce non-physical averages, whereas diffusion better models their distribution. Accordingly, we employ a latent diffusion model that effectively learns from the chaotic data to generate physically plausible trajectories. Trained purely kinematically on an Objaverse-scale dataset, a single PhysLDM generalizes zero-shot to unseen OOD datasets (GSO and Toys4K). Its differentiability further enables efficient solution of inverse problems and higher-order design optimization. To our knowledge, PhysLDM is the first high-fidelity spatiotemporal autoencoder and latent-diffusion paradigm for volumetric deformable dynamics, offering a scalable and robust approach to neural simulation.",
-   "affiliations": [],
+   "affiliations": [
+    "S-Lab, Nanyang Technological University, Singapore",
+    "Shanghai Artificial Intelligence Laboratory, Shanghai, China"
+   ],
    "author_affiliations": null,
-   "institutions": null,
-   "extractor": 7,
+   "institutions": [
+    "Nanyang Technological University",
+    "Shanghai Artificial Intelligence Laboratory"
+   ],
+   "institution_ids": [
+    "02e7b5302",
+    "03wkvpx79"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.07609",
@@ -5403,11 +5417,11 @@
    "institution_ids": [
     "02e2c7k09"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -6001,11 +6015,11 @@
     "023hj5876",
     "02czkny70"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -8233,11 +8247,11 @@
     "05a28rw58",
     "03cve4549"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -9472,11 +9486,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.07114",
@@ -9601,11 +9615,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.06955",

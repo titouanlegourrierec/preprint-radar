@@ -367,11 +367,11 @@
     "05tdz6m39",
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -681,26 +681,29 @@
    "abstract": "While existing camera-controllable video generation models can produce visually compelling sequences, preserving intrinsic 4D spatiotemporal coherence remains challenging. To address this limitation, we propose ChronoWorld, an \"Observation--State--Reflection\" framework that leverages spatiotemporal causal cues and reconstruction priors to generate globally consistent, free-view 4D scenes. Given a context video, we introduce a Spatiotemporal Epipolar Causal Attention mechanism that enforces multi-view epipolar constraints and temporal causality throughout the generation process. In addition, we develop a reconstruction-driven geometric reflection pipeline with a 4D retrieval strategy to enable dynamic self-assessment and correction of generated outputs, improving consistency and accuracy. Extensive experiments show that ChronoWorld achieves state-of-the-art performance in spatiotemporally consistent, cinematic-quality 4D scene generation, with strong generalization and high-fidelity geometry across diverse scenarios.",
    "affiliations": [
     "Wangxuan Institute of Computer Technology, Peking University",
+    "VGI Labs Co., Ltd",
     "University of California, Merced"
    ],
    "author_affiliations": null,
    "institutions": [
     "Peking University",
+    "VGI Labs Co. Ltd",
     "University of California, Merced"
    ],
    "institution_ids": [
     "02v51f717",
+    null,
     "00d9ah105"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-06"
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.06687",
@@ -2179,71 +2182,14 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2610.06349v2",
    "abstract": "Embodied world models predict the visual consequences of candidate actions before execution. However, existing action-conditioned world models often adopt uniformly weighted visual generation objectives that can be misaligned with embodied prediction needs. Even with explicit motion conditioning, these objectives can underemphasize spatially sparse changes that are critical to interaction. We propose KineWorld, a transport-aware world-modeling framework that extends robot kinematics from motion conditioning to the spatial allocation of generative supervision. Kinematic Transport Lifting (KTL) constructs renderer-derived, camera-aligned transport fields from commanded robot motion. Transport-Aware World Diffusion (TAWD) calibrates their motion support on the video-latent grid and reweights future-RGB flow matching through a normalized mixture of uniform and transport-focused distributions. We train KineWorld using ALOHA-AgileX bimanual manipulation data from RoboTwin 2.0. KineWorld achieves an EWMScore-P of 68.95 in single-view evaluation and a TWB-Score of 54.82 in multi-view evaluation. These results support a shift from appearance fitting toward action-consequence modeling for embodied decision-making.",
-   "affiliations": [
-    "Nanyang Technological University",
-    "North University of China",
-    "Psibot",
-    "The Hong Kong Polytechnic University",
-    "China Academy of Information and Communications Technology",
-    "University of Hong Kong",
-    "Peking University"
-   ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     1
-    ],
-    [
-     2
-    ],
-    [
-     3
-    ],
-    [
-     4
-    ],
-    [
-     0
-    ],
-    [
-     5
-    ],
-    [
-     0
-    ],
-    [
-     6
-    ]
-   ],
-   "institutions": [
-    "Nanyang Technological University",
-    "North University of China",
-    "Psibot",
-    "Hong Kong Polytechnic University",
-    "China Academy of Information and Communications Technology",
-    "University of Hong Kong",
-    "Peking University"
-   ],
-   "institution_ids": [
-    "02e7b5302",
-    "047bp1713",
-    null,
-    "0030zas98",
-    "038dte259",
-    "02zhqgq86",
-    "02v51f717"
-   ],
-   "extractor": 7,
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
-    },
-    "institutions": {
-     "source": "ror",
-     "at": "2026-10-06"
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.06349",
@@ -2401,11 +2347,11 @@
    "institution_ids": [
     "05n911h24"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -3430,11 +3376,11 @@
     "0030zas98",
     "01ee9ar58"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -4384,11 +4330,11 @@
     "00a2xv884",
     "01ryk1543"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -4693,11 +4639,11 @@
    "institution_ids": [
     "0258gkt32"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -5997,11 +5943,11 @@
     "02pttbw34",
     "05cz92x43"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -6852,14 +6798,28 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2610.05326v2",
    "abstract": "The corpus callosum (CC) is a major white-matter structure and a well-established marker of brain aging, but most studies quantify it using scalar summaries that discard its boundary geometry. We present a Riemannian shape-space framework for analyzing age-related morphological change in the midsagittal CC, applied to the OASIS-1 cohort. Each contour is represented by 128 landmarks and embedded into Kendall shape space, where translation, rotation, and scale are removed. We derive a multivariate geodesic regression with exact Riemannian gradients and use the fitted age-velocity field to localize age-related deformation to five anatomical sub-regions. In the cognitively normal cohort (n = 252), geodesic regression outperforms the Euclidean linear benchmark ($R^2 = 0.1355$ vs.\\ 0.1216). Regional energy is posterior-dominant: the Splenium carries 41.4% and the Isthmus 23.8% of total age-related shape change, together accounting for ~65% despite comprising only ~35% of landmarks. Signed projections confirm the ordering (Splenium r = 0.570; Isthmus r = 0.473). In contrast, age explains less than 0.5% of shape variance in Alzheimer's disease (n = 88), indicating that the disease disrupts the healthy aging trajectory. A tangent-space classifier achieves an age-group AUC of 0.791 from the 2D contour alone, exceeding a recent volumetric benchmark (0.67).",
-   "affiliations": [],
+   "affiliations": [
+    "African Institute for Mathematical Sciences (AIMS), Rwanda",
+    "African Institute for Mathematical Sciences (AIMS), Senegal"
+   ],
    "author_affiliations": null,
-   "institutions": null,
-   "extractor": 7,
+   "institutions": [
+    "African Institute for Mathematical Sciences (AIMS)",
+    "African Institute for Mathematical Sciences (AIMS)"
+   ],
+   "institution_ids": [
+    null,
+    null
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.05326",
@@ -10476,11 +10436,11 @@
     null,
     "03cve4549"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -11351,11 +11311,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.04432",
@@ -12249,11 +12209,11 @@
    "institution_ids": [
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -13372,11 +13332,11 @@
    "institution_ids": [
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -13884,11 +13844,11 @@
     "00t33hh48",
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -15490,11 +15450,11 @@
     "02czsnj07",
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -16121,11 +16081,11 @@
    "institution_ids": [
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -16588,11 +16548,11 @@
     "02mpq6x41",
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -17222,11 +17182,11 @@
     "024mw5h28",
     "01an7q238"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
