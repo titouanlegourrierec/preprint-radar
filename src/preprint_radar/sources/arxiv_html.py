@@ -22,7 +22,7 @@ from preprint_radar.latex import plain_text
 
 logger = logging.getLogger(__name__)
 
-EXTRACTOR_VERSION = 8
+EXTRACTOR_VERSION = 9
 """Version of the extraction heuristics of this module, stored with the affiliations they give.
 
 Bump it with any change that alters what a page gives (affiliations, author mapping), so
@@ -55,6 +55,11 @@ that ``reextract`` reads those papers again, from the page cache when it holds t
   are nobody, markers written in math are read without their TeX source, and an address
   before a full stop (2609.28184) or after a glued "Email:" label (2608.29996) ends its
   affiliation.
+- 9: what version 8 got wrong on the archive's pages (2026-10-15): names glued to each
+  other are no affiliation (2508.10104), a block LaTeXML cut at its commas and "and"s
+  gives no pieces (2411.15633), symbols that follow their affiliations lead none
+  (2505.11293) and one symbol's affiliation is never everyone's, markers after wide spaces
+  split (2402.13251), and IEEE's template author is no affiliation.
 """
 
 # LaTeXML renders line breaks and \quad between affiliations as newlines, em spaces
@@ -205,10 +210,14 @@ _JUNK_RE = re.compile(
     r"|(?:core\s+|main\s+)?contributors?|(?:co-?)?(?:first|second|last|senior)\s+authors?"
     r"|(?:graduate\s+school|graduate|school|department|faculty|institute|college|laboratory|lab|cent(?:er|re))"
     r"(?:\s+(?:of|for))?"
+    # The author of IEEE's template, left in by some (2312.17663).
+    r"|ieee\s+publication\s+technology\s+department"
     rf"|(?:{COUNTRIES})\.?",
     re.IGNORECASE,
 )
 _MAX_PLACE_LENGTH = 60
+# The longest piece of an author field cut at its commas that tells the cut: "College Park".
+_MAX_PIECE_WORDS = 2
 # A unit whose institution is missing: "Department of Computer Science and Engineering".
 _BARE_UNIT_RE = re.compile(
     r"(?:the\s+)?(?:department|dept\.?|school|faculty|division|laboratory|lab|cent(?:er|re)|institute)"
@@ -544,7 +553,8 @@ def _affiliations(soup: BeautifulSoup, authors: Sequence[str]) -> tuple[tuple[st
     sources = (
         (tagged + from_notes, False),
         (numbered, False),
-        (symbols, False),
+        # A symbol marks some of the authors, never all of them.
+        (symbols, True),
         (_stated_affiliations(thanks), False),
         (unmarked, unmarked_partial),
     )
@@ -624,11 +634,17 @@ def _glued_name(name: str, authors: Sequence[str]) -> tuple[str, str] | None:
     Some IEEE conference blocks lose every line break of an author's address, the one after
     the name included: "Xiaoya TangScientific Computing and Imaging InstituteUniversity of
     Utah" (2610.17412), and "Tolga Tasdizen*Scientific..." once its marker is dropped. Only
-    a listed name followed by a capital, without a space, counts.
+    a listed name followed by a capital, without a space, counts, and never before another
+    author's: LaTeXML glues names to each other too, "Huy V. VoMaximilian SeitzerFederico
+    Baldassarre..." (2508.10104).
     """
     for author in authors:
         rest = name[len(author) :]
-        if rest[:1].isupper() and _fold(name[: len(author)]) == _fold(author):
+        if (
+            rest[:1].isupper()
+            and _fold(name[: len(author)]) == _fold(author)
+            and not any(_fold(other) in _fold(rest) for other in authors if other != author)
+        ):
             return author, rest
     return None
 
@@ -639,9 +655,14 @@ def _symbol_affiliations(block: Tag) -> list[str]:
     2610.17605 marks its four affiliations "*", "†", "‡" and "§". Symbols mark notes too
     ("*Equal contribution", "†Now at Google"): the lines count only when each one that is
     not noise names an institution, as numbered footnotes must (:func:`_footnote_affiliations`).
+    Nor when one ends with a symbol: the block's markers follow their affiliations, and
+    "Independent§University of Waterloo¶" is not "University of Waterloo" marked "§"
+    (2505.11293).
     """
-    lines = [match["name"] for match in _SYMBOL_LINE_RE.finditer(_numbered_text(block))]
+    lines = [match["name"].strip() for match in _SYMBOL_LINE_RE.finditer(_numbered_text(block))]
     kept = [line for line in lines if not _NOISE_RE.search(line)]
+    if any(line.endswith(tuple(_SYMBOL_MARKERS)) for line in lines):
+        return []
     return kept if all(_INSTITUTION_WORD_RE.search(line) for line in kept) else []
 
 
@@ -653,7 +674,7 @@ def _unmarked_affiliations(block: Tag, authors: Sequence[str]) -> tuple[list[str
     institution word or ending with a country count ("United Imaging Intelligence, Boston,
     MA, USA", 2610.02343), joined as :func:`_joined` joins lines, and never one holding an
     author's name (a name LaTeXML glued to its affiliation). A block with lines led by
-    markers is read by them alone.
+    markers is read by them alone, and so is a block :func:`_split_at_commas`.
 
     Returns:
         The affiliations, and whether lines that may be others were left out ("Tencent
@@ -661,7 +682,7 @@ def _unmarked_affiliations(block: Tag, authors: Sequence[str]) -> tuple[list[str
         nothing but names and noise is left.
     """
     marked = _numbered_text(block)
-    if _NUMBERED_LINE_RE.search(marked) or _SYMBOL_LINE_RE.search(marked):
+    if _NUMBERED_LINE_RE.search(marked) or _SYMBOL_LINE_RE.search(marked) or _split_at_commas(block, authors):
         return [], False
     copy = _pruned(block)
     for sup in copy.select("sup"):
@@ -685,6 +706,35 @@ def _unmarked_affiliations(block: Tag, authors: Sequence[str]) -> tuple[list[str
         elif not names_only_authors(line, authors) and clean_affiliations(line):
             left_out = True
     return kept, left_out
+
+
+def _split_at_commas(block: Tag, authors: Sequence[str]) -> bool:
+    """Whether LaTeXML cut the author field at each comma and "and", affiliations included.
+
+    Each piece is then a creator: "University of Science" and "Technology of China", "School
+    of Software", "Tsinghua University", "Beijing", "China" (2411.15633, 2510.11387), whose
+    lines are pieces rather than affiliations. A creator naming no author that holds a line
+    of at most two words naming no institution nor country ("College Park", "Computer
+    Engineering", "Telecommunications") tells it.
+    """
+    names = [_fold(author) for author in authors]
+    for name in block.select("span.ltx_creator.ltx_role_author .ltx_personname"):
+        text = _plain_text(_pruned(name))
+        if any(author in _fold(text) for author in names):
+            continue
+        for line in _SEPARATOR_RE.split(name.get_text().replace("\xa0", " ")):
+            piece = line.strip(_EDGE_PUNCTUATION)
+            # A qualifier in brackets is no piece: "(Guangzhou)" under its university (2609.33258).
+            if (
+                piece
+                and not piece.startswith("(")
+                and len(piece.split()) <= _MAX_PIECE_WORDS
+                and not _NOISE_RE.search(piece)
+                and not _INSTITUTION_WORD_RE.search(piece)
+                and not _ADDRESS_END_RE.search(piece)
+            ):
+                return True
+    return False
 
 
 def _note_segments(note: Tag) -> list[str]:
@@ -995,7 +1045,7 @@ def clean_affiliations(text: str) -> tuple[str, ...]:
         affiliation
         for statement in statements
         for part in _ALSO_WITH_RE.split(statement)
-        for piece in marked_pieces(part)
+        for piece in marked_pieces(" ".join(part.split()))
         if (affiliation := clean_affiliation(piece))
     )
 

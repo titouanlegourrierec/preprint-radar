@@ -256,7 +256,6 @@ PaperHtml = Callable[[str], str]
             ),
             id="lines-led-by-symbols",
         ),
-        pytest.param("2610.18323", ("Xi\u2019an Jiaotong University",), id="unmarked-line-under-the-names"),
     ],
 )
 def test_parse_affiliations(paper_html: PaperHtml, arxiv_id: str, expected: tuple[str, ...]) -> None:
@@ -1097,6 +1096,7 @@ def test_notes_without_content_give_nothing() -> None:
         "Core Contributors",
         "second authors",
         "School of",
+        "IEEE Publication Technology Department",
         "Department of",
         "Graduate",
         "USA",
@@ -1231,6 +1231,12 @@ def test_clean_affiliation_strips_contact_details_and_people(raw: str, expected:
             id="markers-after-commas",
         ),
         pytest.param("Code", (), id="nothing"),
+        # Two spaces before a marker written as text (2402.13251).
+        pytest.param(
+            "Roblox  2Carnegie Mellon University  3Stanford University",
+            ("Roblox", "Carnegie Mellon University", "Stanford University"),
+            id="markers-after-wide-spaces",
+        ),
     ],
 )
 def test_clean_affiliations_splits_what_holds_several(raw: str, expected: tuple[str, ...]) -> None:
@@ -1730,6 +1736,28 @@ def test_lines_led_by_symbols_count_only_when_each_names_an_institution() -> Non
     assert parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith")).affiliations == ()
 
 
+def test_one_line_led_by_a_symbol_is_only_its_authors() -> None:
+    html = _author_block(
+        ("Ada Lovelace<sup>*</sup>\n", ()), ("Bob Smith\n", ()), ("<sup>*</sup>Stanford University", ())
+    )
+
+    front = parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith"))
+
+    assert front.affiliations == ("Stanford University",)
+    assert front.author_affiliations == ((0,), None)
+
+
+def test_symbols_that_follow_their_affiliations_lead_none() -> None:
+    # "Independent§University of Waterloo¶" (2505.11293): "§" is Independent's.
+    html = _author_block(
+        ("Ada Lovelace<sup>\u00a7</sup>\n", ()),
+        ("Bob Smith<sup>\u00b6</sup>\n", ()),
+        ("Independent<sup>\u00a7</sup>University of Waterloo<sup>\u00b6</sup>", ()),
+    )
+
+    assert parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith")).affiliations == ()
+
+
 def test_unmarked_lines_never_hold_an_author() -> None:
     html = _author_block(
         ("Ada Lovelace  Bob Smith<br>Ada Lovelace, Stanford University<br>MIT Media Lab", ())
@@ -1739,6 +1767,41 @@ def test_unmarked_lines_never_hold_an_author() -> None:
 
     assert front.affiliations == ("MIT Media Lab",)
     # A line left out may hold another affiliation: the one kept is not everyone's.
+    assert front.author_affiliations is None
+
+
+def test_an_unmarked_line_under_the_names_is_an_affiliation(paper_html: PaperHtml) -> None:
+    front = parse_front_matter(paper_html("2610.18323"), authors=AUTHORS["2610.18323"])
+
+    assert front.affiliations == ("Xi\u2019an Jiaotong University",)
+
+
+@pytest.mark.parametrize(
+    "pieces",
+    [
+        pytest.param(
+            ("University of Science", "Technology of China", "Beijing", "China"), id="and-and-commas"
+        ),
+        pytest.param(("Peking University", "Computer Engineering"), id="unit-cut-off"),
+    ],
+)
+def test_an_author_field_cut_at_its_commas_gives_no_pieces(pieces: tuple[str, ...]) -> None:
+    # LaTeXML makes a creator of each piece (2411.15633, 2510.11387).
+    names = ("Ada Lovelace", "Bob Smith", *pieces)
+    html = _author_block(*((f"{name}\n", ()) for name in names))
+
+    assert parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith")).affiliations == ()
+
+
+def test_creators_that_are_whole_affiliations_are_read() -> None:
+    names = ("Ada Lovelace", "Bob Smith", "Stanford University\n(Palo Alto)", "Corresponding author.")
+    html = _author_block(*((f"{name}\n", ()) for name in names))
+
+    front = parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith"))
+
+    assert front.affiliations == ("Stanford University",)
+    # "(Palo Alto)" was left out, as "(Guangzhou)" under its university (2609.33258): the
+    # one affiliation kept is not surely everyone's.
     assert front.author_affiliations is None
 
 
@@ -1769,6 +1832,8 @@ def test_unmarked_lines_are_no_source_beside_contacts() -> None:
         ),
         pytest.param("Ada Lovelace MIT Media Lab", (), id="a-space-is-no-glue"),
         pytest.param("Ada Lovelacex Media Lab", (), id="lowercase-goes-on-with-the-name"),
+        # Names glued to each other are no affiliation (2508.10104).
+        pytest.param("Ada LovelaceBob Smith", (), id="names-glued-to-each-other"),
     ],
 )
 def test_an_affiliation_glued_to_its_author(name: str, expected: tuple[str, ...]) -> None:

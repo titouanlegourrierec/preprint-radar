@@ -32,7 +32,9 @@ not "simplify" a rule away without the page that made it.
   last author, "²Alibaba Group" and the others creators of their own, 2610.12978), and
   wherever they are, the affiliations glued to their author's name: "Xiaoya
   TangScientific Computing and Imaging InstituteUniversity of Utah" (2610.17412), a listed
-  name followed by a capital without a space.
+  name followed by a capital without a space, and never by another author's name: LaTeXML
+  glues names to each other too ("Huy V. VoMaximilian SeitzerFederico Baldassarre...",
+  2508.10104, which version 8 stored as an affiliation).
 - `ltx_note` of roles `address`, `institutetext` and `affiliation` anywhere (Taylor &
   Francis' class lists its lettered affiliations in one after the abstract, 2610.15403),
   and `footnotetext` notes that are direct children of the article and start with a
@@ -40,14 +42,23 @@ not "simplify" a rule away without the page that made it.
 - Numbered lines after the names.
 - Lines led by symbols ("*Oregon State University †The Ohio State University", 2610.17605),
   when each one that is not noise names an institution: symbols mark notes too ("*Equal
-  contribution", "†Now at Google").
+  contribution", "†Now at Google"). Not when a line ends with a symbol: the markers then
+  follow their affiliations, and "Independent§University of Waterloo¶" is no "University
+  of Waterloo" marked "§" (2505.11293, which placed its ten authors there). One symbol's
+  affiliation is never everyone's.
 - "A is with B" sentences in `thanks` notes.
 - Last, in a block without contacts nor marked lines, the lines that name an institution
   or end with a country, never one holding an author's name: 2610.18323 writes its names
   in the rows of a table, then "Xi'an Jiaotong University" alone. Its one affiliation is
   everyone's only when nothing but names and noise was left out: "Southeast University"
   beside "Tencent HY" (2610.14852) is not. "Foundation Model" is no institution
-  (2609.21449, a team of Li Auto).
+  (2609.21449, a team of Li Auto). Some classes have LaTeXML cut the whole author field at
+  its commas and "and"s, each piece a creator: "University of Science" and "Technology of
+  China", "School of Software", "Tsinghua University", "Beijing", "China" (2411.15633,
+  2510.11387). A creator naming no author that holds a piece of at most two words naming
+  no institution nor country ("College Park", "Computer Engineering",
+  "Telecommunications"; not a qualifier in brackets, "(Guangzhou)") tells it, and the
+  block gives nothing rather than pieces.
 
 A source that only names authors leaves its turn to the next one: IEEE classes put the
 names in the affiliation macro and the affiliations in thanks notes.
@@ -99,8 +110,9 @@ Artificial".
   Apple" (2410.23054, which `validate` refused); an unclosed list ends before a capital,
   and mailboxes may hold underscores ("michal_klein").
   `_JUNK_RE` rejects what still passes: lone words ("the", "dot"), link and contribution
-  leftovers ("Code", "Core Contributors"), units cut off by a line break ("School of") and
-  lone countries. For records extracted before, `institutions.institution_name` names no
+  leftovers ("Code", "Core Contributors"), units cut off by a line break ("School of"),
+  lone countries, and the author of IEEE's template, "IEEE Publication Technology
+  Department", which some papers keep (2312.17663). For records extracted before, `institutions.institution_name` names no
   institution for most of them: its own narrower `_JUNK_RE` rejects lone words and link
   and contribution labels, and `_COUNTRY_RE` the countries
   (`src/preprint_radar/institutions.py`), and a department, school or faculty is no
@@ -136,7 +148,8 @@ Artificial".
   an author's nodes are read as the lines of one text, by the extraction and the
   per-creator tier alike.
 - Numbered markers written as text inside a string ("Cornell University 2University of
-  California, Berkeley", AFF-23) split it: one or two digits glued to a capitalized word
+  California, Berkeley", AFF-23; after wide spaces too, "1Roblox  2Carnegie Mellon
+  University", 2402.13251) split it: one or two digits glued to a capitalized word
   ("2Duke", "3HKUST", "4eBay") after a space, when the word before holds no digit or is
   itself marked ("2CASIA 3HKUST"), so that postcodes stay whole ("London WC1E 6AE", "QC
   H2S 3H1") and so do "3D" or "4K". This is cleaning, so `reclean` splits stored strings.
