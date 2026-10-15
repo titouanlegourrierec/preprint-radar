@@ -55,12 +55,28 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.17565v1",
    "abstract": "Online handwriting recognition systems typically represent pen trajectories through fixed-length Euclidean shape descriptors that capture the spatial outline of each stroke, but are insensitive to the order in which that outline is produced. Two strokes that trace the same region of the plane in opposite directions are indistinguishable to any such order-blind representation, yet their traversal directions may carry decisive class information in characters where loop orientation and stroke sequencing matter. This paper introduces a Heisenberg-lift framework that addresses this gap through a compact, interpretable, order-sensitive augmentation for online pen-trajectory features. The simplest instance is the terminal signed area, a single parameter-free scalar appended to an existing Euclidean descriptor at negligible computational cost. Evaluated on two standard online handwriting benchmarks, this one-scalar addition, consistently raises classifier accuracy over the Euclidean baseline. On the hardest character pair in our study, the letters o and y, the signed area alone achieves perfect separation while the Euclidean baseline falls short. The advantage grows further under additive coordinate noise, a practically relevant degradation in pen-trajectory data. A richer fifteen-dimensional extension, derived from a noncommutative Heisenberg-group subdivision scheme, provides additional gains in noisy and loop-structured conditions. Dimension-matched statistical controls confirm that all improvements reflect geometric information rather than feature-count inflation. The resulting descriptor is lightweight, closed-form, and directly interpretable, making it a practical augmentation for online handwriting and related document-trajectory classification pipelines in which the direction of stroke execution carries discriminative information.",
-   "affiliations": [],
+   "affiliations": [
+    "Centre for Visual Computing and Intelligent Systems, University of Bradford, Bradford, United Kingdom",
+    "School of Individualized Study, Rochester Institute of Technology, New York, United States"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "University of Bradford",
+    "Rochester Institute of Technology"
+   ],
+   "institution_ids": [
+    "00vs8d940",
+    "00v4yb702"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.17565",
@@ -84,12 +100,28 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.17566v1",
    "abstract": "Curve subdivision is pivotal in computer graphics for generating smooth geometric objects from control polygons. Interpolatory subdivision is especially attractive because the refined curve is guaranteed to pass through the designer's control points. Classical four-point and six-point schemes preserve this property, but their behaviour is governed by a single global tension parameter, limiting their ability to adapt across flat regions, sharp turns and varying local geometries. We introduce an adaptive local-angle formulation that keeps the interpolatory structure intact while learning how each new vertex should be inserted. A compact edge-wise predictor assigns one insertion angle per edge, while the original vertices are copied exactly at every refinement level. Interpolation is therefore a structural property of the operator and does not depend on the trained weights. The same predictor is used with geometry-specific geodesic primitives on the Euclidean plane, the two-sphere and the Poincaré disk. Under a matched-density evaluation protocol, the method reduces nearest-neighbour error by factors of five to seventeen over the best validation-tuned fixed-tension baseline, and by about 1.8 over centripetal Catmull-Rom in the Euclidean case. It also substantially reduces bending energy and tangent roughness, while remaining competitive with separately trained per-geometry models.",
-   "affiliations": [],
+   "affiliations": [
+    "Centre for Visual Computing and Intelligent Systems, University of Bradford, Bradford, United Kingdom",
+    "School of Individualized Study, Rochester Institute of Technology, New York, United States"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "University of Bradford",
+    "Rochester Institute of Technology"
+   ],
+   "institution_ids": [
+    "00vs8d940",
+    "00v4yb702"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.17566",
@@ -154,9 +186,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.17740",
@@ -299,12 +333,32 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.17790v1",
    "abstract": "Pre-trained vision-language models (VLMs) exhibit strong cross-domain recognition performance even without additional training. However, this robustness can also preserve undesirable domain-specific behavior, as domain-related and semantic information often remain entangled within the learned representation space, making selective domain unlearning challenging. Existing approaches typically address this problem through latent-space disentanglement and prompt- or feature-level interventions, without directly attributing and attenuating individual patch-token contributions. However, here we suggest that rather than uniformly suppressing the full representation, it may be more effective to exploit the spatial structure of vision transformers to localize and suppress patch regions that contribute disproportionately to forget-domain prediction. Patches that strongly influence forget-domain prediction may not be equally important for semantic recognition, suggesting that forgetting should be guided according to the domain contribution of different visual regions. Specifically, we propose a two-stage patch-selective framework that first estimates patch-level domain sensitivity and then selectively attenuates patches whose contribution to forget-domain prediction is stronger than their semantic utility. We evaluate our framework on Office-Home, Mini DomainNet, and DomainNet. Experimental results demonstrate improved forgetting-retention tradeoffs compared to prior methods while improving retained-domain recognition by up to 3.8%. Additional evaluations under visually overlapping and unseen-domain settings further demonstrate improved robustness under distribution shift.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Indian Institute of Science Education and Research Bhopal, India"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Indian Institute of Science Education and Research, Bhopal"
+   ],
+   "institution_ids": [
+    "02rb21j89"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.17790",
@@ -616,9 +670,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.17856",
@@ -786,9 +842,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.17909",
@@ -1391,9 +1449,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.18058",
@@ -1978,9 +2038,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.18210",
@@ -2131,9 +2193,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.18256",
@@ -2445,9 +2509,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.18329",
@@ -2906,9 +2972,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.18430",
@@ -3080,12 +3148,25 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.18462v3",
    "abstract": "FastWAM-style world action models enable efficient action-only inference, but generalize poorly under visual distribution shifts. Their reconstruction-oriented representations emphasize appearance-specific details, limiting generalization to unseen scenes and objects. Without observation history, the model also lacks temporal evidence for robustly identifying task-relevant state changes and motion in unfamiliar visual conditions. To address these limitations, we present the Causal Semantic World Action Model (CSWAM), which augments FastWAM with a causal semantic expert built on V-JEPA 2.1. V-JEPA provides temporally grounded representations of semantic state changes and motion with less dependence on appearance-specific details. The expert learns their future evolution from a sparse history of current and past observations and shares the history-derived context with both the video and action streams through causal attention. At inference, CSWAM conditions action denoising on the current video state and observed semantic history, retaining efficient action-only inference. We conduct simulation and real-robot experiments to evaluate generalization under distribution shifts. With embodied pretraining, CSWAM raises Randomized success on RoboTwin 2.0 Clean-to-Randomized transfer from 10.16% to 45.18%, a gain of 35.02 percentage points over FastWAM. Across two real-robot tasks and three OOD difficulty levels, CSWAM improves average success over FastWAM by 42.5 percentage points, from 27.5% to 70.0%.",
-   "affiliations": [],
+   "affiliations": [
+    "Tongji University"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Tongji University"
+   ],
+   "institution_ids": [
+    "03rc6as71"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.18462",
@@ -3985,12 +4066,25 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.18602v1",
    "abstract": "Despite recent progress in learned image compression, existing methods remain computationally expensive on resource-constrained hardware, particularly CPUs. We introduce PULSE, a practical codec that enables (1) low-latency decoding on diverse hardware platforms with an ultra-low-complexity 5.2 kMAC/pixel neural receiver, and (2) efficient bit-exact entropy coding with an integer linear CDF predictor and a meta prior. To recover compression performance under this tight budget, we introduce an agentic evolution process guided by heuristic probes that iteratively improves the architecture through human-LLM collaboration. PULSE decodes a 1080p image in 126 ms on a single CPU thread while achieving compression performance comparable to HM. After perceptual optimization, PULSE competes with larger perceptual codecs like MS-ILLM. Codes are at https://github.com/microsoft/GenCodec/tree/main/PULSE",
-   "affiliations": [],
+   "affiliations": [
+    "Independent Researcher"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    null
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.18602",
@@ -4361,9 +4455,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.18716",
@@ -4862,9 +4958,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.18943",
@@ -4931,9 +5029,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.18955",
@@ -5009,9 +5109,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.18980",
@@ -5038,9 +5140,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.19119",
@@ -5130,9 +5234,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.19138",
@@ -5166,9 +5272,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.19142",
@@ -5255,12 +5363,28 @@
    "cross_list_from": "cs.CL",
    "html_url": "https://arxiv.org/html/2609.17538v1",
    "abstract": "Large language models (LLMs) are increasingly used for structured information extraction from documents, yet their behavior under realistic OCR noise remains poorly understood. We present a systematic benchmark of open-source instruction-tuned LLMs for key-value pair (KVP) extraction under both clean-text and noisy OCR conditions. We evaluate representative decoder-only models (Gemma, Mistral, Qwen2.5, LLaMA 3, and DeepSeek) on the FUNSD, CORD, and SROIE benchmarks using both Gold-text annotations and OCR outputs from PaddleOCR, EasyOCR, and Tesseract. A unified evaluation protocol isolates the effects of input quality, model design, and prompting under consistent conditions. The results show that modern LLMs act as strong semantic extractors when high-quality text is available, in some cases approaching supervised layout-aware systems. Under OCR noise, however, performance degrades substantially and performance gaps between models narrow as input corruption increases. Across all datasets, extraction performance is governed by two factors: semantic reasoning over text and preservation of textual fidelity under OCR noise. While larger models improve results on clean text, these gains diminish under noisy inputs, where OCR quality becomes the dominant factor. We also identify recurring failure modes, including key-value misalignment, hallucination, and numeric corruption. Our findings highlight the gap between clean-text evaluation and real-world deployment, emphasizing the need to jointly improve OCR quality, structural reasoning, and LLM-based semantic modeling.",
-   "affiliations": [],
+   "affiliations": [
+    "Independent AI Researcher",
+    "Professor, Computer Science and Engineering, University of Texas at Arlington"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Independent AI Researcher",
+    "University of Texas at Arlington"
+   ],
+   "institution_ids": [
+    null,
+    "019kgqr73"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.17538",
@@ -5286,12 +5410,29 @@
    "cross_list_from": "cs.LG",
    "html_url": "https://arxiv.org/html/2609.17560v1",
    "abstract": "Every production model is updated, by retraining, fine-tuning, quantization, or a silent vendor swap, and each update risks being worse than what it replaced. We formalize update promotion as certified paired risk-difference auditing. Our starting point is a support identity: the risk difference between two models lives on the inputs where they disagree, observable without labels. We build DISCERN, a sequential two-tier protocol. A zero-label tier certifies benign updates whose disagreement rate is below tolerance from unlabeled traffic alone. An audited tier labels only sampled disagreements through an anytime-valid confidence sequence, valid at every stopping time and under any label-routing rule, even an adversarial judge. We prove finite-sample validity and matching label-complexity bounds of order rho^2/eps^2 at the rate level, so exploiting free disagreement provably saves a factor 1/rho over any pairing-blind auditor, and the guarantee composes across an unbounded sequence of promotions from one error budget. Across 14,000+ replayed audit streams over 785 update pairs, including LoRA fine-tunes of language models up to 1.4B parameters, miscoverage is 0.0002 (nominal 5%), power 0.986 with zero false alarms, and 56% of benign updates certify with zero labels. Each audit emits a machine-checkable evidence record for post-market monitoring.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Independent Researcher"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    null
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.17560",
@@ -5315,12 +5456,29 @@
    "cross_list_from": "cs.LG",
    "html_url": "https://arxiv.org/html/2609.17575v1",
    "abstract": "Sharpness-aware minimization (SAM) doubles the cost of every training step, yet its benefit concentrates where training ends. We study where an expensive training mode should be spent and propose Temperon: a plain-SGD explorer for the first 43% of the epoch budget, then one scheduled hand-off that gives the entire final cosine anneal to a SAM-wrapped Muon refiner. On CIFAR-10/100, SVHN and Tiny ImageNet (five seeds, times reported as epochs-to-target times an idle-GPU-calibrated epoch cost), Temperon matches the best full-time-SAM recipe on accuracy everywhere while reaching the hardest common target 35%, 34% and 32% sooner on three of the four, and sits a tier above the published SAM+SGD recipe at level cost. Ablations make the attribution exact: the Muon refiner is worth +0.85pp with everything else fixed; the explorer's shape and its restarts are worth nothing, and we withdraw them as contributions. Re-running the closest rival, late-phase SAM, at matched budget shows the frontier: it is fastest to every mid-level target, but the tier the Muon refiner buys (0.83 on CIFAR-100, 0.97 on CIFAR-10) is reached by no SGD-refined method in any seed, and on Tiny ImageNet, where Muon buys no tier, the rival simply wins -- the measured boundary of the method. The allocation law transfers to GPT-2 pretraining (full-SAM quality at -29% wall-clock) and GLUE fine-tuning (never worse than full-time SAM at a third of its SAM cost). Two constants organize the economics: skipping SAM early buys a fixed credit, and a Muon epoch costs 1.50x a SAM+SGD epoch on all four datasets. Finally, the hand-off cannot be timed from the trajectory: under cosine schedules the accuracy curve is plateau-then-surge, so the information lives in the schedule, making the scheduled switch principled rather than convenient. Code and a pip-installable implementation are released.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Independent Researcher, tmnetworks.gr"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "tmnetworks.gr"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.17575",
@@ -5659,12 +5817,41 @@
    "cross_list_from": "cs.RO",
    "html_url": "https://arxiv.org/html/2609.18100v1",
    "abstract": "Synthetic data can reduce the cost of collecting and annotating training data for robotic perception, but generating sensor observations that preserve the characteristics relevant to downstream perception remains challenging, particularly for sonar imagery. In this work, we investigate whether conventional image-fidelity metrics adequately reflect the downstream perception performance of GAN-generated synthetic sonar data. We employ a Pix2Pix conditional generative adversarial network with four discriminator configurations characterized by different receptive fields: PixelGAN, PatchGAN-16, PatchGAN-70, and ImageGAN. The models are trained using sonar imagery from two datasets and evaluated using conventional image-fidelity metrics, including Structural Similarity Index (SSIM), Peak Signal-to-Noise Ratio (PSNR), and Mean Squared Error (MSE). To complement these pixel-level measures with task-oriented evaluation, YOLOX-S, YOLOX-L, and Faster R-CNN detectors are trained exclusively on real sonar imagery and subsequently evaluated on the GAN-generated images using identical test samples and annotations across all discriminator configurations. The results reveal a discrepancy between image-fidelity and downstream object-detection performance: the configuration achieving the best SSIM, PSNR, and MSE does not consistently yield the best detection performance. In particular, PatchGAN configurations achieve strong downstream detection results despite not achieving the highest pixel-level similarity scores. These findings suggest, for the datasets and models considered, pixel-level image-fidelity metrics alone may not consistently capture the task-relevant realism of synthetic sonar observations and motivate the use of task-aware evaluation for synthetic sensor data intended for robotic perception.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "XITASO GmbH IT & Software Solutions, Augsburg, Germany",
+    "Muhammad Moazam Fraz is Professor in School of Electrical Engineering and Computer Science at National University of Sciences and Technology (NUST), Islamabad, Pakistan",
+    "Karsten Berns is Professor in Department of Computer Science at Technical University of Kaiserslautern, Kaiserslautern, Germany"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "XITASO GmbH IT & Software Solutions",
+    "National University of Sciences and Technology",
+    "Karsten Berns is Professor in Department of Computer Science at Technical University of Kaiserslautern"
+   ],
+   "institution_ids": [
+    null,
+    "03w2j5y17",
+    null
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.18100",
@@ -5953,9 +6140,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.18487",
@@ -6043,9 +6232,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.18844",
@@ -6139,9 +6330,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.19010",
@@ -6170,9 +6363,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.19042",

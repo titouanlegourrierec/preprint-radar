@@ -339,9 +339,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.30221",
@@ -613,9 +615,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.30096",
@@ -646,12 +650,31 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.30080v1",
    "abstract": "Foundation segmenters such as SAM return several plausible masks for an unlabeled image, and a student trained on the wrong one inherits its errors. Choosing among them means querying a second large model or fitting a quality head to annotated masks. We show that a candidate can be judged by what it does to a frozen self-supervised backbone's features. Normalized DINOv2 patch features lie on a hypersphere, and a candidate mask splits that sphere in two. Based on this reading, we introduce SphereTrust, which scores each candidate by three properties of the split, the angular contrast between the two sides, the coverage of the foreground's appearance modes, and contact with the image frame, one for each of three common ways a mask fails, and ranks a pool in 0.55 s per image from the frozen features alone. On eight SAM and SAM3 candidate pools spanning camouflaged, salient, and dichotomous segmentation and camouflage under low light, SphereTrust exceeds the strongest evaluated external baseline on six pools by 1.7 to 9.3 percentage points in mean selected Dice. These comparisons include published selection rules and explicitly labeled adaptations of DSS and UCOD-MKD. On the two prompted camouflage pools, its mean selected Dice is within 0.1 percentage points of the candidate-derived DSS adaptation, with a lower catastrophic-error rate. Which cue carries the signal depends on the candidate pool. The same sphere also supports training. The leading candidates enter as a candidate set with their scores as priors, prototypes reorder them, and a cross-fitted second round completes the labels, raising weighted F by 4.5, 2.3, and 5.5 points over fixed-label training on the three MLLM anchor pools, with students competitive with published unsupervised methods on nineteen test sets.",
-   "affiliations": [],
+   "affiliations": [
+    "Duke University",
+    "Carnegie Mellon University",
+    "University of Alabama at Birmingham"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Duke University",
+    "Carnegie Mellon University",
+    "University of Alabama at Birmingham"
+   ],
+   "institution_ids": [
+    "00py81415",
+    "05x2bcf33",
+    "008s83205"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.30080",
@@ -1079,9 +1102,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.29940",
@@ -1112,12 +1137,50 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.29934v1",
    "abstract": "Does progress on spatial reasoning benchmarks translate into better navigation? Existing benchmarks test isolated inferences from images or videos, with little connection to downstream navigation. Our analysis reveals a gap between benchmark-oriented spatial specialization and navigation performance, and shows how aligning spatial supervision with navigation goals, phases, and decision learning improves navigation. Guided by these findings, we build Spatial-Nav-100K and fine-tune in two stages, i.e. first learning a shared spatial-navigation foundation, and then specializing each phase with the abilities it relies on. We further introduce Spatial-NPD, where a teacher conditioned on spatial priors produces grounded action preferences and distills them into a student policy, so no explicit spatial reasoning is needed at inference. With 45 A100 GPU-hours of policy training, our 8B model reaches SR/SPL of 77.4/35.4 on HM3D-v0.2, 60.2/30.5 on HM3D-v0.1, and 47.9/20.6 on train-unseen MP3D. It outperforms several systems that rely on closed-source models or thousands of GPU-hours of training, at 148 ms per action step. All code and datasets will be publicly available at https://github.com/ylwhxht/Spatial-Nav.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Xiamen University, Zhongguancun Academy, Beihang University, Beijing Institute of Technology, University of Chinese Academy of Sciences"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Chinese Academy of Sciences"
+   ],
+   "institution_ids": [
+    "05qbk4x57"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.29934",
@@ -1484,9 +1547,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.29816",
@@ -1996,12 +2061,41 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.29678v1",
    "abstract": "Semi-supervised fine-grained visual recognition is highly vulnerable to overconfident pseudo-label errors: visually similar categories frequently produce high-confidence yet incorrect predictions, and consistency regularization then reinforces these errors throughout training. Existing semi-supervised learning (SSL) methods estimate pseudo-label reliability almost entirely from the visual classifier itself—maximum probability, adaptive thresholds, or entropy—signals that remain blind to whether a predicted class is semantically compatible with the visual representation. We propose ReCalMatch, a reliability-calibrated semantic framework for semi-supervised fine-grained recognition. Rather than treating textual semantics as auxiliary supervision, ReCalMatch uses multi-aspect semantic prototypes as calibration evidence for pseudo-label learning. We construct class-conditioned semantic prototypes from class names and domain-specific semantic aspects, and measure a visual--semantic agreement score between each unlabeled embedding and its pseudo-label prototype. This agreement is combined with prediction confidence and entropy into a single reliability weight that down-weights pseudo-labels that are visually confident but semantically inconsistent. A semantic consistency term and a semantic margin regularizer further sharpen prototype separability under limited labels. Extensive experiments on CUB-200-2011, Stanford Dogs, NABirds, and iNaturalist18 show that ReCalMatch consistently improves strong SSL baselines, with the largest gains in low-label regimes where pseudo-label noise is most severe.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Department of Computer Science, University of Warwick, Coventry, UK"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Warwick"
+   ],
+   "institution_ids": [
+    "01a77tt86"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.29678",
@@ -2481,12 +2575,33 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.29592v1",
    "abstract": "Adapting large pretrained vision models under limited data and frozen-backbone constraints remains a central challenge in transfer learning. While lightweight adapters and parameter-efficient fine-tuning methods are widely adopted, most rely on generic multilayer perceptrons or low-rank linear updates, offering limited control over the spectral and geometric structure of feature transformations. We investigate whether structured nonlinear feature lifting can improve representational alignment in frozen regimes. We introduce Quantum-Inspired Nonlinear Adapters (QINA), compact modules that perform learnable trigonometric feature lifting followed by bounded nonlinear aggregation. The design induces structured oscillatory basis functions with an explicit norm-dependent Lipschitz bound, enabling spectral reshaping of pretrained representations without increasing the receptive field or significantly expanding parameter count. Importantly, the method operates entirely within standard deep learning frameworks and does not require quantum hardware. Through systematic experiments across natural and medical imaging datasets, classification and segmentation tasks, multiple adapters and placements, and varying training budgets, we show that performance in frozen regimes is primarily representation-limited. Nonlinear lifting improves adaptation, and the proposed structured trigonometric formulation consistently outperforms identity baselines, fixed Fourier feature mappings, and parameter-matched baseline adapters. Within the evaluated frozen-backbone settings, structured spectral parameterization provides a more effective inductive bias than generic nonlinear adapters. This work highlights the importance of geometry- and spectrum-aware adaptation mechanisms for large pretrained vision models.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Pioneer Centre for AI",
+    "University of Copenhagen"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Pioneer Centre for AI",
+    "University of Copenhagen"
+   ],
+   "institution_ids": [
+    null,
+    null
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.29592",
@@ -2572,9 +2687,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.29581",
@@ -2603,12 +2720,28 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.29555v1",
    "abstract": "Navigation World Models (NWMs) predict action-conditioned visual futures for planning. Two practical challenges are central to their design: selecting a suitable visual representation and efficiently modeling observation history for repeated candidate queries. Standard Global-Softmax attention provides flexible interactions but repeatedly processes the same history, leading to increasing computation and memory costs for long contexts and multi-query planning. We study both problems within a unified conditional flow-transformer framework. We first compare five frozen visual representations under the same dynamics model and evaluation. To reduce redundant history computation, we design Cached-Linear, a hybrid architecture that combines local and shifted-window attention for target mixing with linear attention for reusable history access. We further develop Balanced Gated Delta Network (GDN), which augments this design with frame-wise recurrent memory for temporal history modeling. Experiments on RECON, SACSoN, and SCAND show that representation choice depends on the prediction objective: PAE-L performs best for reconstruction, RAE-B for direct prediction, and V-JEPA for long-horizon rollout. Under shared-history workloads, Cached-Linear substantially reduces computation and memory compared with Global-Softmax, while Balanced GDN improves selected direct-prediction endpoints with efficient context reuse. Overall, we systematically study visual representation and history modeling for NWMs and develop hybrid reusable-history architectures for efficient long-context and multi-query prediction.",
-   "affiliations": [],
+   "affiliations": [
+    "Clemson University, Clemson, SC, USA",
+    "University of Ottawa, Ottawa, ON, Canada"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Clemson University",
+    "University of Ottawa"
+   ],
+   "institution_ids": [
+    "037s24f05",
+    "03c4mmv16"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.29555",
@@ -2902,9 +3035,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.29517",
@@ -3815,12 +3950,84 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.29347v1",
    "abstract": "Event cameras provide a high dynamic range and preserve brightness-change cues in lighting conditions where conventional RGB frames may be noisy or saturated. To benchmark event-guided restoration across a broad illumination range, we organized the SEE Challenge 2026 with the Event-Based Multimodal Vision Workshop at ECCV 2026. The task conditions restoration on one or more RGB frames, synchronized events, and a scalar target-brightness statistic provided by the organizers. It uses SEE-600K, which contains 610,126 image-event observations from 202 real-world scenes spanning low-light, normal-light, and high-light conditions with illumination variations of up to 1,000×. The challenge follows an open-system protocol: participants may use different temporal contexts, architectures, pretrained weights, test-time augmentation, and post-processing strategies. PSNR determines the ranking, and SSIM is reported as a secondary metric. Around 70 teams registered interest and 15 valid CodaBench submissions were received. Six distinct teams completed organizer-side identity and technical verification, provided method descriptions, checkpoints, inference code, and instructions, and are included in the verified open-system ranking reported here. Beyond the ranking, this report analyzes exposure subsets, semantically distinct test cases, a shared failure pattern, system design choices, and inference strategies. The top systems obtain closely spaced average scores, while the best-performing method varies across cases and metrics; under severe underexposure, all verified systems retain visible local errors.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Hong Kong University of Science and Technology (Guangzhou)",
+    "National University of Singapore",
+    "Xidian University",
+    "Tsinghua University",
+    "Huazhong University of Science and Technology",
+    "Peking University",
+    "The University of Tokyo",
+    "Robotics and Perception Group"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     4
+    ],
+    [
+     5
+    ],
+    [
+     4
+    ],
+    [
+     6
+    ],
+    [
+     5
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     7
+    ]
+   ],
+   "institutions": [
+    "Hong Kong University of Science and Technology (Guangzhou)",
+    "National University of Singapore",
+    "Xidian University",
+    "Tsinghua University",
+    "Huazhong University of Science and Technology",
+    "Peking University",
+    "University of Tokyo",
+    "Robotics and Perception Group"
+   ],
+   "institution_ids": [
+    "050h0vm43",
+    "01tgyzw49",
+    "05s92vm98",
+    "03cve4549",
+    "00p991c53",
+    "02v51f717",
+    "057zh3y96",
+    null
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.29347",
@@ -4035,9 +4242,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.29256",
@@ -4078,9 +4287,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.29252",
@@ -5050,9 +5261,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.29028",
@@ -5421,9 +5634,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.28931",
@@ -5521,9 +5736,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.28923",
@@ -5551,12 +5768,47 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.28865v1",
    "abstract": "Action representation plays a central role in discrete-token vision-language-action (VLA) learning but remains underexamined. Under conventional pose-increment representations, action tokens are sensitive to execution speed and dataset-specific normalization, potentially obscuring geometric structure shared across demonstrations and datasets. We introduce Direction-Scale Decomposition (DSD), an action representation that decomposes translation and rotation increments into direction and scale components before tokenization. DSD isolates motion direction while retaining magnitudes in separate scale channels. We evaluate DSD with uniform binning (BIN) and BEAST, a B-spline-based tokenizer, in simulation and real-world manipulation under both single-dataset and mixed-dataset training. On LIBERO, DSD improves average success rates with both tokenizers. On SimplerEnv, DSD-BIN outperforms BIN by 10.3 percentage points in overall success rate under mixed-dataset training. Real-robot experiments further show gains both with and without robotics pretraining. These results support DSD as an effective action representation for discrete-token VLA models and suggest its potential to mitigate performance degradation when training on large and diverse dataset mixtures. Our project page with additional resources is available at https://vla-dsd.github.io/",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Department of Robotics, Perception and Learning, KTH Royal Institude of Technology, Stockholm",
+    "Department of Computer Science, University of Copenhagen, Copenhagen",
+    "Department of Computer Science, Stanford University, Stanford"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Perception and Learning",
+    "University of Copenhagen",
+    "Stanford University"
+   ],
+   "institution_ids": [
+    null,
+    "035b05819",
+    "00f54p054"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.28865",
@@ -6269,12 +6521,35 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.28645v1",
    "abstract": "Recent advancements in 3D Gaussian Splatting (3DGS) have extended its capabilities to multi-scale segmentation. Existing methods reconstruct a scene with Gaussian primitives and learn multi-scale segmentation features separately, which leaves the geometry unaware of semantic structure and the feature learning dependent on incomplete mask supervision. To address these limitations, we present PePESeg3D, a novel framework that injects perception priors into a multi-scale 3D Gaussian segmentation pipeline. To fully exploit perception priors, we integrate them not only into contrastive feature learning but also into the upstream geometry reconstruction. Specifically, PePE Reconstruction incorporates monocular depth and mask constraints to ensure semantically coherent object structures. Building on this aligned geometry, PePE Contrastive Learning leverages dense depth-color cues and view-consistent centroid supervision to compensate for the incompleteness of multi-scale masks obtained from a 2D foundation model. Extensive experiments on the SPIn-NeRF, LERF-Mask, and NVOS benchmarks demonstrate that PePESeg3D achieves state-of-the-art performance in both multi-scale segmentation and scene reconstruction, highlighting the importance of integrating perception priors into both geometry optimization and feature learning for accurate multi-scale 3D segmentation. Our code is available at https://github.com/BeCow5X5/PePESeg3D.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "School of Electrical Engineering, Korea Advanced Institute of Science and Technology (KAIST), Daejeon, South Korea"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Korea Advanced Institute of Science and Technology"
+   ],
+   "institution_ids": [
+    "05apxxy63"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.28645",
@@ -6979,9 +7254,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.29932",
@@ -7643,12 +7920,35 @@
    "cross_list_from": "cs.RO",
    "html_url": "https://arxiv.org/html/2609.29310v2",
    "abstract": "Robot manipulation policies trained through imitation learning inherit not only the demonstrated behavior but also the conservative execution tempo of robot demonstrations. Existing acceleration approaches can execute faster than the original demonstrations, but determine the appropriate acceleration primarily from robot-side information or a predefined set of tempo factors, leaving open how to obtain a task-appropriate reference for how fast each manipulation phase should progress. We introduce EgoSpeedUp, a framework that uses human manipulation as temporal supervision for robot imitation learning. Our key insight is that human demonstrations naturally reveal task-appropriate, phase-wise manipulation tempo. Given slow robot demonstrations and human demonstrations of the same task, EgoSpeedUp aligns corresponding manipulation phases, estimates their relative execution tempos from multiple human demonstrations, and transfers the resulting phase-wise tempo by retiming the robot demonstrations. The retimed demonstrations are then used for standard behavior cloning, allowing the robot to retain its executable manipulation behavior while learning to perform it at a human-informed tempo. Across two real-world manipulation tasks, EgoSpeedUp improves the task success rate by an average of 25 percentage points (pp) while reducing successful execution time by 36.5%. These results demonstrate that human manipulation tempo provides an effective temporal reference for learning faster and more reliable robot policies.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Artificial Intelligence Research Center, National Institute of Advanced Industrial Science and Technology (AIST), Japan"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "National Institute of Advanced Industrial Science and Technology"
+   ],
+   "institution_ids": [
+    "01703db54"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.29310",
@@ -7759,12 +8059,41 @@
    "cross_list_from": "cs.RO",
    "html_url": "https://arxiv.org/html/2609.29092v1",
    "abstract": "Vision-based legged locomotion methods assume clean depth at training time and rely on hand-tuned post-processing filters at deployment. However, filter parameters are rarely disclosed, hindering reproducibility, and performance degrades substantially when depth noise is left unaddressed. Building noise robustness directly into the learning pipeline would eliminate this dependency. While such robustness has been explored for proprioceptive inputs, analogous approaches for depth perception remain largely absent in legged locomotion. We propose DAWN (Denoising and Alignment in World models for Noise-robustness), a noise-robust perception framework for legged locomotion, which builds noise robustness directly into a world model via two modifications: (1) feeding noisy depth to the encoder while keeping clean depth as the reconstruction target, forcing the model to implicitly denoise its input; and (2) applying contrastive learning to align the latent states of noisy and clean depth. Importantly, DAWN is not tied to a specific noise model, requiring no manual tuning to the noise distribution at deployment. Furthermore, it incurs no additional inference cost over existing world model-based methods. Without any manual filter calibration -- relying solely on the learned noise-robust representation -- DAWN achieves zero-shot quadruped parkour on a Unitree Go1: traversing stairs up to 18 cm, clearing gaps up to 70 cm, and mounting steps up to 45 cm from raw depth observations. Ablation studies show that denoising and contrastive alignment contribute at complementary levels -- reconstruction and representation, respectively -- and yield additive gains when combined. Videos and code are available at: https://dawn-parkour.github.io/",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "School of Electrical, Electronics and Communication Engineering, Korea University of Technology and Education, Cheonan, 31253, South Korea"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Korea University of Technology and Education"
+   ],
+   "institution_ids": [
+    "053nycv62"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.29092",
@@ -8228,9 +8557,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.28554",
@@ -8259,9 +8590,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.28541",

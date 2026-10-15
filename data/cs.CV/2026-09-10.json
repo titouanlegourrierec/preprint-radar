@@ -74,9 +74,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.09185",
@@ -731,9 +733,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.09424",
@@ -1629,9 +1633,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.09737",
@@ -1984,9 +1990,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.09876",
@@ -2181,9 +2189,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.09895",
@@ -2460,9 +2470,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.10001",
@@ -2551,12 +2563,41 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.10008v1",
    "abstract": "Composed video retrieval (CoVR) searches a gallery for the target video that realizes a natural-language modification of a source clip. However, at gallery scale, this creates a fundamental tension: compact embeddings enable efficient, reusable search but can miss the transient actions, state changes, and subtle constraints that demand fine-grained video reasoning, whereas applying large multimodal models uniformly sacrifices scalability. To address these limitations, we propose that frozen foundation models should instead occupy complementary roles, with inference depth adapted to query difficulty. Based on this premise, we introduce \\methodname{}, a framework for training-free \\methodexpansion{}. Specifically, a composed-query embedding first searches reusable video-only gallery representations; uncertain queries undergo bounded reranking and candidate expansion; ambiguous edits trigger target-description generation; and only close leading candidates reach multimodal verification. To support these roles, frame selection, spatial resolution, and time cues are adapted to each stage. Across complete target-gallery evaluations, our method reaches state-of-the-art performance among training-free approaches, with 89.55 and 93.43 R@1 on Dense-WebVid-CoVR and CoVR-R, respectively (with more than +35% and +25% absolute margins to the closest counterpart). These results show that adaptively orchestrating foundation-model capabilities can combine scalable retrieval with fine-grained reasoning without task-specific training. The source code and all relevant guidelines are available on https://github.com/demidovd98/CoVRAGE.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Mohamed bin Zayed University of Artificial Intelligence, UAE"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Mohamed bin Zayed University of Artificial Intelligence"
+   ],
+   "institution_ids": [
+    "0258gkt32"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.10008",
@@ -2629,12 +2670,28 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.10095v1",
    "abstract": "3D Gaussian Splatting (3DGS) enables real-time novel view synthesis but produces millions of primitives through adaptive densification, leading to significant storage overhead. Learned-mask pruning methods such as LP-3DGS address this by assigning each Gaussian a learnable mask to identify and prune redundant primitives. However, we identify a limitation of this paradigm: the steep slope of the Gumbel-Sigmoid activation drives mask values to the extremes within the short mask-training window, before the importance ranking has stabilized, producing a sharply bimodal distribution from which that ranking can no longer be reliably recovered. We propose LinearMask-GS, which replaces Gumbel-Sigmoid with a linear increment activation that keeps mask values in a mid-confidence regime throughout mask training, producing a stable, unimodal mask distribution whose ranking tracks importance. On Mip-NeRF 360, our method achieves 3.6x and 1.6x Gaussian reductions over 3DGS and LP-3DGS, respectively, while maintaining or improving rendering quality. For outdoor scenes, it yields a 1.6x reduction (from 2.18M to 1.36M) with notable gains in PSNR (+0.38 dB), SSIM (+0.025), and LPIPS (-0.029).",
-   "affiliations": [],
+   "affiliations": [
+    "Department of Intelligent Semiconductor Engineering, Chung-Ang University, Seoul, Republic of Korea",
+    "School of Electrical and Electronics Engineering, Chung-Ang University, Seoul, Republic of Korea"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Chung-Ang University",
+    "Chung-Ang University"
+   ],
+   "institution_ids": [
+    "01r024a98",
+    "01r024a98"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.10095",
@@ -3215,12 +3272,44 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.10297v1",
    "abstract": "GUI agents accumulate high-resolution screenshots as the trajectory unfolds, increasing inference latency and memory usage. Training-free visual token pruning can reduce this cost, but cache reuse introduces a fundamental constraint. Once tokens are discarded, the corresponding visual evidence cannot be recovered without re-encoding. Pruning therefore becomes an irreversible admission decision that must remain useful for unknown future targets while preserving coverage of operable regions under tight budgets. To address these challenges, we propose \\method{}, a training-free framework for Trajectory-robust Admission and Coverage-aware Evidence ordering. Specifically, we combine a query-independent layout-derived interaction prior with instruction relevance and feature novelty to rank visual evidence according to both potential future utility and diversity. Then, we reserve part of the budget for native visual tokens distributed across the screen, repairing missing spatial coverage without breaking the ordering. Together, these mechanisms produce a nested token order, allowing retained visual evidence to shrink monotonically across budgets while remaining reusable throughout the trajectory. Finally, our monotone KV contraction incrementally contracts retired frames into compact session state, avoiding repeated visual encoding or pruning. Extensive experiments across six GUI benchmarks and diverse models verify the effectiveness of our proposed \\method{} under tight budgets. The source code will be released.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Dalian University of Technology, OPPO Research Institute, The Hong Kong Polytechnic University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Hong Kong Polytechnic University"
+   ],
+   "institution_ids": [
+    "0030zas98"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.10297",
@@ -3245,12 +3334,31 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.10303v1",
    "abstract": "Face recognition (FR) is a widely used modality for biometric authentication, but conventional models rely on visible-spectrum imagery and degrade when high-quality RGB images cannot be captured. Cross-spectral face recognition addresses this limitation by matching visible images with other modalities such as thermal imagery, enabling more reliable performance in low-light, nighttime, and unconstrained conditions. However, progress is limited by the scarcity of paired visible-thermal data, which is difficult and costly to collect at scale. We propose SynThermFace, a framework that amplifies limited real visible-thermal supervision into larger paired adaptation datasets for cross-spectral face recognition. A diffusion model is first adapted using a limited set of paired visible--thermal images and then used to generate large-scale paired visible--synthetic thermal data from existing real or synthetic visible face datasets. The generated pairs are used to adapt a pretrained visible-spectrum face recognition model into a CFR model. Unlike synthesis-based approaches that require image translation at test time, the proposed method shifts generation to the training stage and performs inference with a single forward pass through the adapted recognition model. Under the same MCXFace real-pair protocol, PACT improves over the evaluated CFR adaptation baselines, isolating the effect of the proposed adaptation objective. Training PACT on larger generated paired datasets provides additional improvements over both the unadapted model and the real-pair PACT configuration. Cross-database evaluation on the Tufts dataset provides evidence that the learned representation transfers to an unseen database. The source code and trained models will be made publicly available.",
-   "affiliations": [],
+   "affiliations": [
+    "Idiap Research Institute",
+    "Rue Marconi 19, Martigny, Switzerland",
+    "University of Lausanne (UNIL), Lausanne, Switzerland"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Idiap Research Institute",
+    "Martigny",
+    "University of Lausanne"
+   ],
+   "institution_ids": [
+    "05932h694",
+    null,
+    "019whta54"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.10303",
@@ -3285,9 +3393,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.10317",
@@ -3500,9 +3610,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.10346",
@@ -4294,9 +4406,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.10518",
@@ -4418,9 +4532,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.10540",
@@ -4508,12 +4624,34 @@
    "cross_list_from": "cs.RO",
    "html_url": "https://arxiv.org/html/2509.06285v3",
    "abstract": "LiDAR point cloud registration is fundamental to robotic perception and navigation. In geometrically degenerate environments (e.g., corridors), registration becomes ill-conditioned: certain motion directions are weakly constrained, causing unstable solutions and degraded accuracy. Existing detect-then-mitigate methods fail to reliably detect, physically interpret, and stabilize this ill-conditioning without corrupting the optimization. We introduce DCReg (Decoupled Characterization for Ill-conditioned Registration), establishing a detect-characterize-mitigate paradigm that systematically addresses ill-conditioned registration via three innovations. First, DCReg achieves reliable ill-conditioning detection by employing Schur complement decomposition on the Hessian matrix. This decouples the 6-DoF registration into 3-DoF clean rotational and translational subspaces, eliminating coupling effects that mask degeneracy in full-Hessian analyses. Second, within these subspaces, we develop interpretable characterization techniques resolving eigen-basis ambiguities via basis alignment. This establishes stable mappings between eigenspaces and physical motion directions, providing actionable insights on which motions lack constraints and to what extent. Third, leveraging this spectral information, we design a targeted mitigation via a structured preconditioner. Guided by MAP regularization, we implement eigenvalue clamping exclusively within the preconditioner rather than modifying the original problem. This preserves the least-squares objective and minimizer, enabling efficient optimization via Preconditioned Conjugate Gradient with a single interpretable parameter. Experiments demonstrate DCReg achieves 20-50% higher long-duration localization accuracy and 5-30x speedups (up to 116x) over degeneracy-aware baselines across diverse environments. Code: https://github.com/JokerJohn/DCReg",
-   "affiliations": [],
+   "affiliations": [
+    "\\affilnum1Department of Electronic and Computer Engineering, Hong Kong University of Science and Technology, Hong Kong, China",
+    "\\affilnum2Department of Mechanical Engineering at National University of Defense Technology, Changsha, Hunan",
+    "\\affilnum3School of Intelligent Science and Technology, University of Science and Technology Beijing, Beijing, China",
+    "\\affilnum4University of Toronto Institute for Aerospace Studies and the University of Toronto Robotics Institute, Toronto, Canada"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Hong Kong University of Science and Technology",
+    "National University of Defense Technology",
+    "University of Science and Technology Beijing",
+    "University of Toronto"
+   ],
+   "institution_ids": [
+    "00q4vv597",
+    "05d2yfz11",
+    "02egmk993",
+    "03dbr7087"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2509.06285",
@@ -4799,9 +4937,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.09250",
@@ -5452,9 +5592,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.10084",
@@ -5483,9 +5625,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.10307",
@@ -5919,9 +6063,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.10522",

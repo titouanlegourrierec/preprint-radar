@@ -25,9 +25,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.04276",
@@ -582,12 +584,41 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.04383v2",
    "abstract": "Real-world dynamics are inherently compositional: multiple entities move simultaneously within a shared scene, each exhibiting distinct motion patterns. Yet current motion representation models entangle the dynamics of different entities, without explicitly capturing localized motion for each individually. Crucially, motion is defined relative to a global reference frame, including camera motion and scene layout. However, localized embeddings are often computed from cropped images or obtained by masking features after encoding, discarding the context needed to interpret motion. To address this, we introduce a promptable localized motion representation that produces persistent embeddings for user-specified regions defined by spatial masks. Rather than cropping the input or masking features, our model processes the full video and conditions motion encoding directly on the queried region. This yields temporally consistent, region-addressable embeddings that isolate local dynamics while retaining the global context required for disambiguation. We demonstrate object-level motion transfer, enabling controlled composition of dynamic scenes. Beyond generative control, our embeddings support localized action classification in multi-actor videos. Across both tasks, our approach improves controllability and outperforms global representations localized through cropping or post-hoc masking.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Munich Center for Machine Learning (MCML)"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Munich Center for Machine Learning"
+   ],
+   "institution_ids": [
+    "02nfy3535"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.04383",
@@ -1028,12 +1059,34 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.04555v1",
    "abstract": "Vision foundation models (VFMs) are valuable in data-scarce domains such as surgery, where a single pretrained backbone can provide rich representations for many downstream tasks. Yet the dominant self-supervised pretraining paradigm uses only RGB images, leaving readily available complementary signals, such as depth maps, unused. This is a particular missed opportunity in surgery, where natural-image VFMs transfer poorly while the scene geometry is rich and informative. With strong off-the-shelf models now able to produce pseudo-labeled dense depth for any image corpus, we hypothesize that such signals can be folded into pretraining to learn better representations. We present DART, an RGB-D pretraining recipe that builds on DINOv2 with a simple modification: a pixel-space depth reconstruction objective applied to masked iBOT patches, supervised by pseudo-labeled depth. Depth is used only during pretraining, so fine-tuning and inference remain RGB-only. We find that this pixel-level reconstruction head improves representation quality rather than disrupting it. We further show that depth, which encodes scene geometry, is more effective as a target than alternative dense signals such as Canny edges, confirming that the gains stem from depth rather than added supervision alone. Across eight surgical benchmarks spanning segmentation, depth estimation, and image-level recognition, DART outperforms both natural-image and in-domain baselines, including a vanilla DINOv2 trained on identical data, improving dense prediction while also strengthening image-level understanding. More broadly, DART shows that freely available geometric pseudo-labels can strengthen foundation model pretraining without extra labels or added inference cost, pointing toward stronger backbones for surgery.",
-   "affiliations": [],
+   "affiliations": [
+    "Vanderbilt University",
+    "West End Ave, Nashville, Tennessee, USA",
+    "Intuitive Surgical, Inc",
+    "Kifer Rd, Sunnyvale, California, USA"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Vanderbilt University",
+    "West End Ave",
+    "Intuitive Surgical Inc",
+    "Kifer Rd"
+   ],
+   "institution_ids": [
+    "02vm5rt34",
+    null,
+    null,
+    null
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.04555",
@@ -1298,12 +1351,44 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.04649v2",
    "abstract": "We present DiT Readout (ReaDiT) Guidance, a lightweight framework for controlling generation with Diffusion Transformer (DiT) models via their internal feature representations. ReaDiT Guidance uses features from a single DiT block to steer the generative process according to spatial targets - like depth, pose, or edge maps - provided at test time. Furthermore, since modern text-to-video models are largely built on DiT backbones, ReaDiT Guidance naturally extends to video generation, enabling camera and motion control. Experimental results demonstrate that our approach achieves competitive or improved results compared to existing feature-based and off-the-shelf adapter-based approaches while requiring fewer parameters.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "University of Illinois Urbana-Champaign"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Illinois Urbana-Champaign"
+   ],
+   "institution_ids": [
+    "047426m28"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.04649",
@@ -1501,9 +1586,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.04709",
@@ -1535,9 +1622,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.04716",
@@ -1876,12 +1965,58 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.04781v1",
    "abstract": "Multi-modal medical images and clinical reports provide complementary anatomical, functional, and semantic information for medical image segmentation. Effectively exploiting these heterogeneous sources requires fine-grained cross-modal information fusion that preserves subtle spatial details while capturing semantic dependencies across modalities. Existing fusion approaches frequently rely on cross-attention, whose computational burden increases rapidly with spatial resolution, making dense cross-modal interaction difficult on high-resolution feature maps, particularly for volumetric medical images. In this work, we propose CoMLP, a cooperatively-gated MLP module for fine-grained cross-modal information fusion in medical image segmentation. CoMLP models cross-modal dependencies through cooperative cross-gating, built upon complementary regional and dilated MLP interactions, to capture local and global cross-modal dependencies. We further develop a multi-source fusion architecture in which CoMLP performs both inter-image fusion across imaging modalities and vision-language fusion between visual features and textual reports, enabling heterogeneous information to be integrated without relying on dense cross-attention. Extensive experiments on five medical segmentation benchmarks, covering 2D/3D images, clinical reports, multiple imaging modalities, and diverse anatomical regions, demonstrate consistent improvements over state-of-the-art multi-modal and language-guided segmentation methods. Ablation studies further show that fine-grained interaction at high spatial resolutions and complementary local-global fusion are critical to the performance gains. These results demonstrate the potential of MLP-based interaction as an effective alternative for fine-grained cross-modal information fusion in medical image segmentation.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Institute of Translational Medicine, Shanghai Jiao Tong University, Shanghai, China",
+    "Zhongguancun Academy & Zhongguancun Institute of Artificial Intelligence, Beijing, China",
+    "School of Computer Science, the University of Sydney, Sydney, NSW, Australia",
+    "China United Network Communications Group Co., Ltd., Beijing, China",
+    "School of Computer Science, the University of Sydney, Australia"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     2
+    ],
+    [
+     0,
+     4
+    ]
+   ],
+   "institutions": [
+    "Shanghai Jiao Tong University",
+    "Zhongguancun Academy & Zhongguancun Institute of Artificial Intelligence",
+    "University of Sydney",
+    "China United Network Communications Group Co. Ltd.",
+    "University of Sydney"
+   ],
+   "institution_ids": [
+    "0220qvk04",
+    null,
+    "0384j8v12",
+    null,
+    "0384j8v12"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.04781",
@@ -2430,12 +2565,51 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.04886v1",
    "abstract": "Changes in sensor height and viewpoint alter object-level point distributions, making cross-platform LiDAR unsupervised domain adaptation (UDA) difficult. Self-training uses labeled source scans and unlabeled target scans, yet a retained prediction may provide a useful target location while enclosing sparse foreground returns, background clutter, or points inconsistent with the predicted box. We refer to this mismatch as box-point inconsistency. We introduce SimFuse3D, which preserves the target placement and repairs the associated pseudo-object using measured geometry from labeled source scans. Object Memory retrieves a compatible labeled source instance. Target Simulation places its ground-truth box at the target location, aligns its points with the target viewing geometry, and filters the aligned crop to approximate the target observation. Confidence-Guided Multi-Stage Localization Reweighting (CMLR) maps each target pseudo-object confidence score to a bounded weight shared by RPN localization and R-CNN box regression. All components operate only during adaptation, leaving the detector architecture and inference graph unchanged. Across six cross-platform transfers, SimFuse3D exceeds Pi3DET-Net on every reported AP metric and ranks first among the compared adaptation methods on nearly all metrics. On nuScenes-to-KITTI, it ranks first among the compared adaptation methods with both evaluated detectors.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "SenseTime",
+    "Hong Kong University of Science and Technology (Guangzhou)"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ],
+    null,
+    null,
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "SenseTime",
+    "Hong Kong University of Science and Technology (Guangzhou)"
+   ],
+   "institution_ids": [
+    null,
+    "050h0vm43"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.04886",
@@ -2687,9 +2861,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.04911",
@@ -3852,9 +4028,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.05174",
@@ -3923,9 +4101,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.05210",
@@ -4066,12 +4246,28 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.05239v1",
    "abstract": "We present a system that uses a Vision-Language Model (VLM) as a diagnostic agent for adapting a detect-to-track pipeline to a new target domain without access to target-domain labels. Rather than optimizing against annotated metrics, the VLM directly inspects rendered tracking outputs, identifies visual failure modes, and recommends parameter updates through an iterative tuning loop. We first demonstrate that ground-truth-supervised hyperparameter transfer can be brittle. On MOT17->MOT20, applying a source-derived oracle configuration reduces mean HOTA by 0.090, from a target-domain ceiling of 0.357, to 0.267. Without using any target-domain labels, our VLM-based tuner recovers 67.8% of this lost headroom, finishing within 0.029 HOTA of the target ceiling; on the highest-density target sequence, it recovers up to 86.7%. We further show that label-free Bayesian optimization with handcrafted proxy objectives struggles under large domain shifts and can degrade configurations that are already strong. In contrast, the VLM tuner acts selectively: when its visual diagnosis reveals no clear failure mode, it declines to modify the configuration, preserving performance on easy transfers while improving hard ones. Finally, we characterize the conditions under which this approach succeeds, namely, when domain shift manifests through exposed detection-level parameters, versus where it is less effective, such as MOT17->DanceTrack, where the source oracle is already near-optimal.",
-   "affiliations": [],
+   "affiliations": [
+    "Cisco Systems, Inc",
+    "San Jose, CA"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Cisco Systems Inc",
+    "San Jose"
+   ],
+   "institution_ids": [
+    null,
+    null
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.05239",
@@ -4874,9 +5070,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.05416",
@@ -4990,12 +5188,41 @@
    "cross_list_from": "eess.AS",
    "html_url": "https://arxiv.org/html/2609.04242v1",
    "abstract": "Audio-visual understanding remains challenging because models must jointly interpret spoken content, visual events, and their temporal relationships. Existing omni models typically introduce dedicated audio encoders and rely on expensive audio-video-text training, tightly coupling omni capability to specific VLM backbones and potentially weakening their existing visual and reasoning abilities. This raises three questions: whether native omni training is necessary for every new VLM, whether speech-centric omni capability can be added while preserving the original backbone, and where richer acoustic representations remain essential. We introduce Training-Free Omni (TFO), a plug-and-play framework that converts a frozen VLM into a speech-centric omni model without architectural modification, or multimodal re-alignment. TFO uses Whisper to extract confidence-filtered, timestamped transcripts and routes them through the VLM's existing language interface, while leaving its visual pathway unchanged. Across matched comparisons with native omni models on 56 benchmarks and 21 languages, TFO is competitive on audio-visual understanding, improves average audio-only performance across all five model settings, and achieves substantial multilingual speech gains. Freezing the VLM also generally preserves stronger image/video understanding, visual grounding, coding, mathematical reasoning, and medical question answering than the corresponding native omni checkpoints. These results show that strong speech-centric omni understanding can often be obtained through modular audio-to-language routing rather than costly backbone-specific training.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Mohamed bin Zayed University of Artificial Intelligence, Abu Dhabi, United Arab Emirates"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Mohamed bin Zayed University of Artificial Intelligence"
+   ],
+   "institution_ids": [
+    "0258gkt32"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.04242",
@@ -5111,12 +5338,31 @@
    "cross_list_from": "cs.SD",
    "html_url": "https://arxiv.org/html/2609.04250v1",
    "abstract": "An avatar that holds a conversation should decide what to say and to move while saying it, yet these abilities live in separate model families: spoken dialogue models produce speech without motion, and co-speech motion models produce motion only from audio handed to them. The standard remedy is a cascade that first generates the spoken response and then runs a motion model over the finished audio, which requires a second full inference pass and precludes any joint optimisation between the two. We present Motion-Omni, an end-to-end framework in which a spoken dialogue model natively outputs explicit facial expression together with hand, upper-body and lower-body motion, generated directly from the hidden states that produce the speech. Joint training is not optional here: with the speech pathway frozen, motion remains misaligned with the audio, and co-adapting the LLM, Speech Generator and Motion Generator under both objectives is what recovers alignment while retaining spoken-dialogue ability. Supervision comes from a scalable, model-agnostic pipeline that pseudo-labels consistent-voice speech responses with a replaceable motion teacher, yielding 422,856 quality-ranked pairs (1,402 hours). We further release SwDA-500 and, to our knowledge, the first public evaluation protocol for stochastic open-ended full-body spoken dialogue, matching audio across motion systems while unifying rendering, automatic metrics, human evaluation, and latency measurement. Instantiated with a Qwen2.5-7B-Instruct backbone, Motion-Omni-Q7 matches the same-audio teacher cascade to within 2% on reference-free motion metrics while responding 5.4 x faster (RTF=0.78, faster than real time), surpasses all non-teacher cascades on beat correlation and diversity, and reaches a 2.62% word error rate, the lowest among the omni-modal systems compared.",
-   "affiliations": [],
+   "affiliations": [
+    "Peking University",
+    "The Chinese University of Hong Kong, Shenzhen",
+    "Independent Researcher"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Peking University",
+    "Chinese University of Hong Kong, Shenzhen",
+    null
+   ],
+   "institution_ids": [
+    "02v51f717",
+    "02d5ks197",
+    null
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.04250",
@@ -5323,9 +5569,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.04277",
@@ -5875,9 +6123,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.04545",

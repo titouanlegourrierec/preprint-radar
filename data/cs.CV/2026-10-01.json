@@ -310,12 +310,31 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.40347v1",
    "abstract": "We introduce VideoMSN, a Masked Siamese Network framework for efficient self-supervised spatio-temporal representation learning in videos. Instead of relying on heavy 3D architectures or reconstruction-based autoencoders for learning with unlabeled data, we repurpose standard image Vision Transformers by representing videos as super images which are grids composed of frames sampled from videos. From each super image, we construct two views: one with spatial patch masking and the other with temporal frame masking, ensuring no information leakage across frames. A shared Vision Transformer (ViT) encoder aligns their embeddings using a masked Siamese loss, capturing both motion and appearance cues without reconstruction. Our decoder-free formulation leverages an image foundation model towards efficient video representation learning. Starting from pretrained DINO-v3 and DeiT-v3 image encoders, VideoMSN achieves state-of-the-art performance on Kinetics-400, UCF101, and HMDB51 while requiring up to 32× fewer and 160× fewer video pretraining epochs compared to prior video self-supervised learning methods. Our proposed approach also shows strong performance in low-shot classification, confirming the transferability of the learned representations in a label-scarce scenario. Project Page: https://cvir.github.io/projects/videomsn.",
-   "affiliations": [],
+   "affiliations": [
+    "Indian Institute of Technology, Kharagpur, India",
+    "Indian Institute of Science, Bangalore, India",
+    "École de technologie supérieure, Montreal, Canada"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Indian Institute of Technology Kharagpur",
+    "Indian Institute of Science",
+    "École de Technologie Supérieure"
+   ],
+   "institution_ids": [
+    "03w5sq511",
+    null,
+    "0020snb74"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.40347",
@@ -400,9 +419,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.40322",
@@ -501,12 +522,28 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.40317v1",
    "abstract": "While talking head generation has advanced rapidly, generating natural listener behavior in dyadic conversations, which know when to react, how to react, and with what type of response, remains underexplored. Existing dyadic datasets lack fine-grained listener reaction annotations, and prevailing evaluation metrics inherited from talking-head and video generation measure visual realism rather than whether a listener reacted appropriately. We address these gaps along three aspects. First, we curate a listening-head-specific dataset built from RealTalk and Seamless Interaction, comprising approximately 147 hours of paired speaker-listener videos with 64,557 event-level reaction annotations across six categories: nodding, head shaking, smiling, laughing, frowning, and surprised. Second, we introduce an audio-driven baseline built on a flow-matching transformer, namely GLARE, with prosody conditioning derived from Qwen2-Audio and a temporal reaction loss that explicitly supervises frame-wise reactions. Third, we propose a reaction-oriented evaluation protocol that jointly measures reaction occurrence (R-F1), temporal alignment (R-tIoU), asymmetric temporal deviation (R-ATD), and reaction-region visual quality (R-FID), giving a more behaviorally grounded assessment than visual-quality-only metrics. Experiment results show consistent gains over prior listening-head methods in both visual fidelity and reaction-level metrics, suggesting that reaction-aware data, modeling, and evaluation are critical for natural listening behavior.",
-   "affiliations": [],
+   "affiliations": [
+    "Department of Computer Science, Stony Brook University",
+    "Atmanity Inc"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Stony Brook University",
+    "Atmanity Inc"
+   ],
+   "institution_ids": [
+    "05qghxh33",
+    null
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.40317",
@@ -670,9 +707,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.40244",
@@ -1182,9 +1221,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.40079",
@@ -1213,12 +1254,44 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.40055v1",
    "abstract": "On-policy distillation (OPD) provides dense supervision directly on student-generated trajectories, making it an effective post-training strategy for vision-language models in temporal video grounding (TVG). However, existing pipelines typically construct the training curriculum from a fixed teacher and the initial student state, implicitly assuming that selected examples retain positive supervision value throughout optimization. We show that supervision trustworthiness and supervision necessity are distinct yet coupled: the former concerns target credibility, while the latter varies with the student's current task competence; together, they shape supervision value. Building on this coupled view, we introduce Student-Curriculum Coupling (SCC), a closed-loop framework in which a compact Anchor-Frontier curriculum defines the candidate supervision space and the evolving student dynamically determines its active subset. Supervision can therefore be activated, suspended, or reactivated as competence changes, concentrating teacher computation and optimization on current task-level deficits. Across three TVG benchmarks, SCC achieves a 5.1% relative improvement in mean recall over Video-OPD on its original curriculum, while using 60.0% fewer training examples and reducing training time by 50.4%. Ablations support the complementary roles of capability-structured curriculum design and student-dependent supervision in achieving these gains. Together, these results establish SCC as a data- and compute-efficient framework for TVG post-training, delivering stronger temporal grounding by aligning trustworthy supervision with the student's evolving learning needs.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "State University of New York at Stony Brook"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "State University of New York"
+   ],
+   "institution_ids": [
+    "01q1z8k08"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.40055",
@@ -1980,12 +2053,28 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.39915v1",
    "abstract": "Vision-Language Navigation (VLN) requires embodied agents to generate actions based on instructions and observations. General-purpose multimodal agents offer a promising basis for this task, but selecting plausible local actions does not ensure that execution remains consistent with the intended route, particularly in long-horizon tasks. Moreover, the accumulated interaction history increases the input required for subsequent decisions, resulting in a significant inference overhead. To this end, we introduce \\method, an Agentic VLN framework that includes a Goal Agent that sets adaptive goals for local actions, a Verify Agent that dynamically verifies whether a goal has been completed, a Memory Agent for multimodal context compression, and a Visuomotor Agent to execute adaptive goals. Specifically, the Goal Agent formulates adaptive goals based on the instruction, current observation, and execution history. Then the Visuomotor Agent executes navigation actions to achieve each goal, while the Verify Agent uses a goal-specific verification question to dynamically assess whether the observed outcomes satisfy the intended completion condition. Verified goal completion then marks a boundary for the Memory Agent to compress the corresponding multimodal interaction history while preserving information needed for subsequent navigation. We evaluate navigation on R2R-CE and RxR-CE, examine framework variants across three model backbones, and study context evolution during execution. For Real-World evaluation, \\method achieves 83.3% success and 1.51 m navigation error across eight challenging routes evaluated three times each.",
-   "affiliations": [],
+   "affiliations": [
+    "Harbin Institute of Technology (Shenzhen)",
+    "Pengcheng Laboratory"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Harbin Institute of Technology",
+    "Pengcheng Laboratory"
+   ],
+   "institution_ids": [
+    "01yqg2h08",
+    null
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.39915",
@@ -2503,12 +2592,28 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.39794v1",
    "abstract": "Vision-Language-Action (VLA) models have shown strong promise for general-purpose robotic manipulation, yet adapting them to new tasks and domains remains inefficient: existing methods often rely on parameter tuning, incurring substantial costs and risking catastrophic forgetting of previously learned tasks. To address this, we propose Optimus-R, a memory-centric VLA framework that formulates robotic adaptation as explicit query-skill memory tuning. Optimus-R introduces: (i) An Inline Memory Interface for skill extraction. It inserts learnable memory tokens into the VLA prefix stream, allowing the backbone to derive control-aware query and skill representations within the native action-conditioning pathway. (ii) A Query-Skill Memory Bank for skill learning. It externalizes skills into query prototypes for deciding what to retrieve and skill values for specifying how to act, supporting skill reuse and expansion with limited parameter updates. (iii) A lightweight Bridge-and-Adapt mechanism for skill updating. It aligns target-domain queries and skills with the existing memory space through a lightweight adapter and residual memory updates. Experiments on in-domain adaptation, cross-domain adaptation, and lifelong learning show that Optimus-R enables data-efficient skill learning while mitigating catastrophic forgetting.",
-   "affiliations": [],
+   "affiliations": [
+    "Harbin Institute of Technology (Shenzhen)",
+    "Pengcheng Laboratory"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Harbin Institute of Technology",
+    "Pengcheng Laboratory"
+   ],
+   "institution_ids": [
+    "01yqg2h08",
+    null
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.39794",
@@ -2654,9 +2759,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.39748",
@@ -2957,12 +3064,37 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.39684v1",
    "abstract": "Privacy has become an increasingly important concern in the Document Analysis community, to the extent that in many environments such as archives, governmental institutions, and local businesses, the adoption of automation is restricted by legal and policy constraints. While federated learning has often been regarded as a ``necessary evil'', implying an unavoidable performance trade-off in exchange for decentralization and privacy, many prior works overlook its potential to improve robustness to out-of-distribution data. In this paper, we present Unapologetically Distributed, the first comprehensive study evaluating distributed learning in Document Analysis along three key axes simultaneously: the tasks addressed, the architectures employed, and the fine-tuning strategies applied. Specifically, we demonstrate how various distributed training approaches enhance generalization capabilities across diverse tasks such as Table Recognition, handwriting recognition, and Word Spotting, particularly during transfer learning stages. Our results provide strong evidence that decentralization is not merely a constraint, but a valuable opportunity to improve model robustness and adaptability in real-world Document Analysis scenarios.",
-   "affiliations": [],
+   "affiliations": [
+    "Centre de Visió per Computador",
+    "Universitat Autònoma de Barcelona",
+    "Bellaterra, Catalonia",
+    "Computer Science Department",
+    "Universitat Autònoma de Barcelona, Bellaterra, Catalonia"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Computer Vision Center",
+    "Universitat Autònoma de Barcelona",
+    "Bellaterra",
+    "Computer Science Department",
+    "Universitat Autònoma de Barcelona"
+   ],
+   "institution_ids": [
+    "00s0nnj93",
+    "052g8jq94",
+    null,
+    null,
+    "052g8jq94"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.39684",
@@ -3363,9 +3495,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.39627",
@@ -3393,12 +3527,34 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.39625v1",
    "abstract": "Sparse autoencoders (SAEs) reveal visual structure in diffusion transformers (DiTs), but interpreting a feature does not establish whether it can be used to control generation. We introduce D-Scope (Diffusion Scope), a framework that connects feature interpretation to generation control through shared visual evidence. D-Scope aggregates SigLIP~2 embeddings of highly activating image patches into visual centroids. Matching target text descriptions against these visual centroids in the shared image-text embedding space then enables retrieval of individual features without per-feature text annotations. The underlying patches provide evidence for inspecting each selection, while spatially masked interventions test the corresponding decoder direction at varying strengths under fixed generation conditions. We characterize 150 SAEs across two model families and five layers, and introduce a benchmark of 100 target concepts with ten contexts each spanning under-specified and explicit-conflict conditions. Our empirical results show that high reconstruction fidelity can coexist with low dictionary utilization and limited visual-evidence coverage. Under per-case best-of-sweep strength selection, contrastive retrieval yields larger mean regional SigLIP~2 gains than direct retrieval across the tested steering configurations, without consistently improving outside-region preservation. D-Scope provides an inspectable framework for evaluating sparse DiT features through their visual evidence and the effects of their decoder directions on generation. The demo is available at https://jiahaozhang-public.github.io/d-scope/.",
-   "affiliations": [],
+   "affiliations": [
+    "Pivotal Research",
+    "Mohamed bin Zayed University of Artificial Intelligence",
+    "Stanford University",
+    "University of Illinois at Urbana-Champaign"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Pivotal Research",
+    "Mohamed bin Zayed University of Artificial Intelligence",
+    "Stanford University",
+    "University of Illinois Urbana-Champaign"
+   ],
+   "institution_ids": [
+    null,
+    "0258gkt32",
+    "00f54p054",
+    "047426m28"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.39625",
@@ -3527,12 +3683,28 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.39605v1",
    "abstract": "The rapid advancement of generative video models has enabled the synthesis of increasingly realistic and temporally coherent videos, while also raising concerns about the generation of harmful content. The reliance on large-scale web datasets during training inevitably exposes these models to undesirable material, making concept unlearning an essential mitigation. Existing methods mainly target static visual concepts, such as objects, identities, or unsafe appearance, largely overlooking motion unlearning. Furthermore, these approaches often pay little attention to preserving the surrounding scene. As a result, successful concept removal may unintentionally alter the background, composition, or overall video dynamics. We argue that effective unlearning should ideally change only what is targeted, while minimizing unnecessary changes to the remaining scene. In this work, we introduce FOMO, to the best of our knowledge the first training-based selective video unlearning method that directly treats preservation of the original scene as a priority. We formulate unlearning around two complementary objectives: what to change and what to preserve. Our method localizes concept-related representations and modifies them, while the preservation mechanism maintains non-target scene information without requiring auxiliary data. Beyond simply erasing unwanted concepts, FOMO explicitly redirects the generation toward a specified safe alternative. We further extend this formulation to motion unlearning, where the concept is defined by temporal behavior rather than a fixed spatial region. Our solution achieves effective unlearning across unsafe content, object, and motion concepts, while achieving the best trade-off between concept removal and scene preservation. Code: https://github.com/gmum/FOMO Project Page https://gmum.github.io/FOMO",
-   "affiliations": [],
+   "affiliations": [
+    "Jagiellonian University",
+    "IDEAS Research Institute"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Jagiellonian University",
+    "IDEAS Research Institute"
+   ],
+   "institution_ids": [
+    "03bqmcz70",
+    null
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.39605",
@@ -3586,9 +3758,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.39601",
@@ -3638,9 +3812,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.39600",
@@ -3745,9 +3921,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.39590",
@@ -3942,12 +4120,44 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.39573v1",
    "abstract": "As state-of-the-art text-to-image flow models achieve near-photorealistic quality, controlling their outputs, e.g., suppressing harmful content while promoting benign alternatives, has become a central challenge. The current steering paradigm consists of adding a global steering vector to selected activations. While functional, a fixed and example-agnostic vector applied uniformly along the entire trajectory cannot adapt to the changing state of the generation and often causes unintended global changes. We introduce Steering Fields, a generalization of steering vectors that adaptively re-estimates the steering direction at each step of the generative process. Steering Fields operate on the noisy states of flow models, expose a continuous trade-off between steering strength and content preservation, and are compositional, enabling the simultaneous induction and inhibition of concepts, setting a new state of the art on safety steering benchmarks. Despite using no explicit spatial masks or object priors, the trajectory-adaptive estimation naturally preserves local structure, in a manner reminiscent of image editing. In fact, Steering Fields can serve as a structure-preserving image-editing technique that achieves state-of-the-art semantic fidelity (CLIP, VQAScore), while remaining model-agnostic and inversion-free.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Max Planck Institute for Informatics, Sapienza University of Rome"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Sapienza University of Rome"
+   ],
+   "institution_ids": [
+    "02be6w209"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.39573",
@@ -4877,9 +5087,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.39429",
@@ -5280,9 +5492,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.39335",
@@ -5308,12 +5522,38 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.39315v1",
    "abstract": "Generative image compression produces visually plausible reconstructions at low bitrates, yet their behavior as the rate approaches zero remains largely unexplored. When pushed below normal operating rates, representative codecs undergo semantic collapse: rather than gracefully losing source-specific detail, they produce malformed or unrecognizable content. Our analysis identifies two factors. As the bitrate decreases, reconstruction losses increasingly conflict with semantic objectives on gradients and visual results, while pixel-space and reconstruction-oriented VAE diffusion models become less efficient on semantic preservation. Guided by these findings, we introduce RAE-CoD, a compression-oriented diffusion (CoD) built in a representation autoencoder (RAE) space with direct alignment between compressed and source representations, preserving recognizable, naturally structured content for a 256×256 image with as few as 16 bits. We evaluate this framework using five vision foundation models (VFM) and a blinded vision-language model protocol. On MSCOCO-30K, RAE-CoD stands out from all evaluation. At 0.001-0.008 bpp, it reduces relative VFM feature MSE and Fréchet Distance ratio by at least 25.7% and 69.1% over the best competitors. Meanwhile, semantic recognizability and quality of the reconstructions remain nearly constant while source consistency falls smoothly, replacing abrupt semantic collapse with a graceful transition toward unconditional generation. Code will be released at https://github.com/LuizScarlet/RAE-CoD.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "University of Science and Technology of China"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Science and Technology of China"
+   ],
+   "institution_ids": [
+    "04c4dkn09"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.39315",
@@ -5455,9 +5695,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.39266",
@@ -5643,9 +5885,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.39222",
@@ -6209,12 +6453,44 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.39135v1",
    "abstract": "Physical reasoning from video requires inferring latent physical properties and dynamics beyond direct observation. Direct VLM inference remains unreliable on complex physical tasks without explicit modeling and validation, while predefined tool pipelines rely on task- and domain-specific priors that limit generalization across materials, dynamics, and reasoning tasks. We introduce Asking the World (ATW), a generalist agent that constructs and interrogates task-relevant executable worlds through two adaptive stages: World Modeling calibrates a world from video, while World Probing queries, simulates, and intervenes on it to obtain question-relevant evidence. Rather than prescribing the operations in either stage, ATW determines how to model and probe according to the scene and question. We develop PolyWorld Engine, a lightweight and highly programmable Warp-based multiphysics simulator for constructing and probing worlds with rigid bodies, soft bodies, cloth, ropes, fluids, and their coupled interactions. CEM-based system identification recovers task-relevant dynamics during World Modeling. The resulting world becomes an active workspace for question-directed physical experiments rather than a predetermined downstream tool. We evaluate ATW on CLEVRER, ContPhy, and three real-world scenarios. Using Gemini-3-Flash as its base VLM, ATW achieves 80.82% overall per-question accuracy on CLEVRER, improving direct Gemini-3-Flash by 46.50 points, GPT-5.5 by 13.58 points, and PhysMind by 8.27 points. On ContPhy, it reaches 70.56% overall accuracy, surpassing Gemini-3-Flash by 28.10 points and GPT-5.5 by 3.53 points. Across the three real-world scenarios, ATW achieves 71.67% accuracy, 28.33 points above GPT-5.5. These results establish agentic world modeling and probing as an effective, execution-grounded approach to generalist physical reasoning.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Tsinghua University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Tsinghua University"
+   ],
+   "institution_ids": [
+    "03cve4549"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.39135",
@@ -6468,9 +6744,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.39128",
@@ -6830,9 +7108,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.39096",
@@ -7539,12 +7819,31 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.38979v2",
    "abstract": "Multiple object hallucination, where large vision-language models (LVLMs) generate objects not supported by the visual input, is a persistent challenge caused by visual uncertainty during decoding. Existing methods reduce hallucinations using contrastive signals, but they rely on heuristics and lack principled control of false positives at the image level. To address this, we propose False Discovery Rate-COntRol of HALlucination (CORAL), a training-free framework that models visual uncertainty using an uncertainty-aware visual data splitting strategy and leverages mirror statistics to quantify visual contrast during decoding. By computing mirror statistics from paired, symmetrically perturbed visual inputs, CORAL estimates spurious object predictions and sets a data-driven threshold to control the expected fraction of false discoveries per image, suppressing hallucinations while retaining high power for truly grounded objects. The framework is flexible, supports multiple LVLMs, and mitigates hallucinations without retraining or supervision. Extensive experiments on multiple benchmarks with several evaluation metrics demonstrate that CORAL consistently outperforms state-of-the-art methods, providing more reliable and robust hallucination control. Code is available at: https://changliu1993-cl.github.io/CORAL/",
-   "affiliations": [],
+   "affiliations": [
+    "School of Data, Mathematical, and Statistical Sciences",
+    "Institute of Artificial Intelligence",
+    "University of Central Florida"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Mathematical",
+    "Institute of Artificial Intelligence",
+    "University of Central Florida"
+   ],
+   "institution_ids": [
+    null,
+    null,
+    "036nfer12"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.38979",
@@ -8611,9 +8910,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.38748",
@@ -8908,9 +9209,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.38714",
@@ -9067,9 +9370,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.38689",
@@ -9723,12 +10028,28 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.38603v1",
    "abstract": "While earth observation models have advanced substantially, they still lack interpretability. While concept-bottleneck models provide interpretability and expert interaction, they are either too expensive to train for the remote sensing domain or perform poorly without annotation. We posit that in expert domains like remote sensing, such training-free models require both fine details in both image and concept space. In image space, we propose a multiscale concept bottleneck using greedy quadtree routing to locate small concepts. In concept space, we replace contrastive vision language models with pre-trained MLLMs and present a way to get reliable concept scores from them. We introduce APERTURE that blends concept scores at the global image and native concept-scale level to give state-ofthe-art training-free model performance. To test these models, introduce SiFC, a fine-grained concept-centric dataset across three countries, with human-reviewed class-level concept maps. On SiFC, APERTURE outperforms the best training-free baselines by more than 10 percentage points in macro F1-score, and notably also outperforms supervised concept bottleneck models. Targeted component-removal tests examine whether concept scores respond to changes in visual evidence, while temporal experiments show that descriptor updates improve recognition of technological changes without retraining.",
-   "affiliations": [],
+   "affiliations": [
+    "Indian Institute of Technology Gandhinagar, India",
+    "Mohamed bin Zayed University of Artificial Intelligence, UAE"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Indian Institute of Technology Gandhinagar",
+    "Mohamed bin Zayed University of Artificial Intelligence"
+   ],
+   "institution_ids": [
+    "0036p5w23",
+    "0258gkt32"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.38603",
@@ -9764,9 +10085,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.38597",
@@ -9798,9 +10121,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.38592",
@@ -10297,12 +10622,34 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.38485v1",
    "abstract": "Unified multimodal models (UMMs) train image understanding and autoregressive image generation on shared parameters, and the two objectives are known to interfere. Existing diagnoses and remedies operate at the resolution of layers or experts, measuring conflict per layer and resolving it by separating parameters. We argue that this resolution hides an orthogonal axis. Generation in a UMM is next-token prediction over a raster sequence of visual tokens whose roles vary systematically with position, so how strongly a generation gradient interferes with understanding should depend on where in the sequence it originates. We introduce a position-resolved interference map that attributes understanding-generation gradient conflict to visual-token positions within every layer, computed from a single backward pass at 1.2× the cost of a standard backward pass. On Show-o and Janus-Pro, position explains a large share of conflict variance after controlling for depth (partial $η^2=0.31$ vs. 0.35 for layer on Show-o; 0.15 vs. 0.30 on Janus-Pro): the first quarter of the sequence has a mean gradient cosine of -0.18 against understanding, the last quarter -0.02. The dependence survives per-position gradient-norm normalization, retaining 80% of its effect size, and conflict strength tracks semantic content (Spearman ρ=0.64). Building on the map, we propose position-aware modulation (PAM), which removes the anti-aligned component of generation gradients only at high-conflict positions without changing the architecture. Under a matched trainable-parameter budget, PAM improves over layer-wise separation by +21 MME and +2.4 GenEval points on Show-o while matching it on POPE and overall FID; a random-position control recovers about 31% of the gain. Position-based and layer-based separation are complementary degrees of freedom and can be combined.",
-   "affiliations": [],
+   "affiliations": [
+    "University of California, Los Angeles",
+    "College of Computer Science and Technology",
+    "National University of Defense Technology",
+    "Key Laboratory of Advanced"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "University of California, Los Angeles",
+    null,
+    "National University of Defense Technology",
+    null
+   ],
+   "institution_ids": [
+    "046rm7j60",
+    null,
+    "05d2yfz11",
+    null
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.38485",
@@ -10634,9 +10981,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.38426",
@@ -11308,12 +11657,34 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.38278v1",
    "abstract": "Self-supervised learning (SSL) removes the need for annotations and makes models that are capable across more domains than supervised learning. The autoencoder SSL framework learns by reconstructing its own input after information loss through a bottleneck or noise injection. Masked autoencoders (MAE) are the most successful instantiation of this framework: they encode a random subset of patches, then decode the masked-out patches. In this work, we introduce key modifications to improve MAEs. Our method augments an image in two different ways, then masks and encodes each view separately. It then exchanges the global representations (CLS tokens) between views before decoding the masked patches. By design, our Masked Swingers encourages learning a view-agnostic summary of the image to facilitate efficient transfer. We perform extensive experiments, and find Masked Swingers outperforms MAE by +3-5% on ImageNet-1K kNN and provides large gains on fine-grained tasks, e.g., relative gains of +45% on instance retrieval, +22% on animal re-ID, and +76% on Omniglot character recognition. To boot, Swingers reduces error -64% relative to MAE on three new state-probing datasets, opening the door to world modeling. Welcome to our Swingers party.",
-   "affiliations": [],
+   "affiliations": [
+    "Vector Institute",
+    "University of British Columbia",
+    "Carleton University",
+    "University of Guelph"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Vector Institute",
+    "University of British Columbia",
+    "Carleton University",
+    "University of Guelph"
+   ],
+   "institution_ids": [
+    null,
+    "03rmrcq20",
+    "02qtvee93",
+    "01r7awg59"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.38278",
@@ -12340,9 +12711,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.39098",
@@ -12994,9 +13367,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.38616",
@@ -13098,9 +13473,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.38488",
@@ -13128,12 +13505,34 @@
    "cross_list_from": "cs.LG",
    "html_url": "https://arxiv.org/html/2609.38465v1",
    "abstract": "Unified multimodal models (UMMs) are increasingly designed around gradient conflict between understanding and generation objectives. The premise that reducing these metrics improves the downstream understanding-generation trade-off has never been tested directly. We audit it in a controlled testbed, GRIDUMM, which mirrors key structural ingredients of UMM training while making the ground-truth trade-off exactly computable. Across 63 configurations and 372 measured checkpoints, no directional conflict metric reaches an absolute Spearman correlation of 0.3 with a confidence interval excluding zero for conflict measured during training against the eventual trade-off. A dose-response intervention that monotonically suppresses conflict leaves the trade-off flat, separating correlation from causation. The norm ratio is a generation-failure detector and becomes null among configurations that master generation. Functional interference measures outperform directional conflict metrics, while training loss tracks the trade-off strongly. Our results do not show that conflict is useless; they show that its validity as a diagnostic target must be established, not assumed, and we release the audit protocol as a reusable standard.",
-   "affiliations": [],
+   "affiliations": [
+    "University of California, Los Angeles",
+    "College of Computer Science and Technology",
+    "National University of Defense Technology",
+    "Key Laboratory of Advanced"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "University of California, Los Angeles",
+    null,
+    "National University of Defense Technology",
+    null
+   ],
+   "institution_ids": [
+    "046rm7j60",
+    null,
+    "05d2yfz11",
+    null
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.38465",
@@ -13416,9 +13815,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.38182",

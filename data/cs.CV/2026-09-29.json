@@ -176,9 +176,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.35767",
@@ -531,9 +533,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.35728",
@@ -678,9 +682,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.35718",
@@ -1329,9 +1335,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.35583",
@@ -1471,9 +1479,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.35560",
@@ -1501,12 +1511,31 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.35539v1",
    "abstract": "Video segmentation models maintain object identities by carrying instance information across frames. Under prolonged occlusion, reappearance, or interactions between similar instances, however, an unreliable update can overwrite a valid history and cause persistent identity drift. We introduce POSReasoner, a trainable, plug-and-play framework that explicitly decides when an observation should change an object's state. Each persistent state records identity, confidence, and absence history. A sparse state-observation graph supports Propose-Verify reasoning: provisional associations are revisited using object history, predicted presence, and competition among identities. The verified decisions determine whether to retain, update, reactivate, or suppress each state, while a learned gate controls the evidence written back to memory. Only verified transitions update the persistent state used in subsequent frames. POSReasoner uses standard video annotations and keeps the base model frozen, enabling integration with diverse VOS and VIS architectures. Experiments across long-term VOS and VIS benchmarks show consistent improvements over strong baselines, with the largest gains under occlusion and object reappearance.",
-   "affiliations": [],
+   "affiliations": [
+    "Shanghai Jiao Tong University",
+    "Sun Yat-sen University",
+    "Fudan University"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Shanghai Jiao Tong University",
+    "Sun Yat-sen University",
+    "Fudan University"
+   ],
+   "institution_ids": [
+    "0220qvk04",
+    null,
+    "013q1eq08"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.35539",
@@ -1542,9 +1571,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.35536",
@@ -1894,9 +1925,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.35491",
@@ -1924,12 +1957,25 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.35490v2",
    "abstract": "Generalist multitasking vision models aim to unify multiple vision tasks within a single framework, enabling more efficient and versatile learning. However, handling diverse vision tasks -- spanning dense and sparse predictions -- remains challenging due to their inherently varying output structures. In this paper, we propose AHMAD, a simple yet effective framework for generalist multitask learning that integrates different key vision tasks: semantic segmentation, instance segmentation, depth estimation, keypoint detection, and object detection. Our approach incorporates these five tasks into a unified structure: a shared encoder-decoder with several lightweight task-specific projectors. Under the multitask learning paradigm, we observed a complementary performance gain, achieving a state-of-the-art PQ of 53.1 and an mIoU of 66.5 for COCO-val panoptic and semantic segmentation, respectively. Additionally, for top-down keypoint detection, which typically incurs high computational overhead due to multiple forward passes, we introduce a knowledge distillation-based method that enables a single forward pass over the entire image, greatly improving efficiency. Ultimately, our model delivers a lightweight yet effective generalist multitask learning framework, demonstrating strong performance across five vision tasks.",
-   "affiliations": [],
+   "affiliations": [
+    "INSAIT, Sofia University “St. Kliment Ohridski”"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Sofia University “St. Kliment Ohridski”"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.35490",
@@ -1954,12 +2000,32 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.35473v1",
    "abstract": "In self-supervised pretraining for Handwritten Text Recognition (HTR), pixel reconstruction methods outperform contrastive methods, unlike in natural-image classification. We argue that this difference follows from where discriminative signal lies in pixel space: for HTR, it is concentrated in high-variance directions and largely absent from low-variance ones. This predicts that objectives preserving high-variance pixel content will transfer best. We test six SSL methods from three families (pixel-grounded MIM, JEPA, and contrastive) under matched encoder, data, and evaluation protocols on six handwriting benchmarks across five languages. With full labels, pixel-groundrounded SSL achieves the lowest CER on every benchmark and both frozen probes, exposes per-position character information that other families recover only through the readout, and is the only family to benefit from pretraining on real handwriting. Pixel-grounded representations are also more label efficient. Across datasets, encoder alignment with the high-variance pixel subspace predicts CER within every method. With a pretrained LLM decoder, a frozen pixel-grounded encoder is competitive with fully fine-tuned supervised baselines; full fine-tuning achieves the lowest mean CER and ranks first or second on every benchmark. These results show that the value of pixel reconstruction depends on where discriminative signal lies in the input.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "University of Alicante, Spain"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Alicante"
+   ],
+   "institution_ids": [
+    "05t8bcz72"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.35473",
@@ -2251,9 +2317,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.35420",
@@ -3144,12 +3212,28 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.35247v1",
    "abstract": "When a VLM answers a visual query, current interpretability tools rely on text rationales, which use a mismatched modality, or on internal read-outs, which originate too early to reflect the final output and require white-box access to the model. We introduce AnswerMap, a training-free, task-agnostic, black-box visual rationale constructed from the output head. The image is cut into K row and K column bands, each shown alone to the frozen model along with the query in the format of a yes/no relevance question. The outer product of the row and column ``yes'' posteriors gives the query-conditioned spatial map. Crucially, by defining a fixed read-out R (e.g., expectation, maximum) on top of AnswerMap, we can derive continuous outputs like location natively. This bypasses the reliance on discrete text tokens for continuous-output tasks and guarantees an image-dependent answer by construction. However, a rationale can be confabulated, so we validate AnswerMap across four models and three query distributions with two tests: (a) agreement with the model's own generated point and (b) deletion of the map's region. The map lands where the model points (AUC 0.85 against 0.38 for attention), and deleting its region flips 53% of correct answers (against 19% for attention's). Beyond establishing faithfulness, we demonstrate the map's task-agnostic utility through three distinct read-outs: its maximum flags hallucinated objects without generation, its expectation localizes correctly when the model's own pointing fails, and its top-mass region, fed back as a crop, fixes half of the model's wrong answers. AnswerMap thus offers a new lens on VLM interpretability and, through its read-outs, a new output interface for visual tasks beyond text tokens.",
-   "affiliations": [],
+   "affiliations": [
+    "King Abdullah University of Science and Technology (KAUST), Thuwal, Saudi Arabia",
+    "Department of Computer Science, Edge Hill University, Ormskirk, England"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "King Abdullah University of Science and Technology",
+    "Edge Hill University"
+   ],
+   "institution_ids": [
+    "01q3tbs38",
+    "028ndzd53"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.35247",
@@ -3223,9 +3307,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.35232",
@@ -3700,12 +3786,28 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.35120v1",
    "abstract": "Low-cost handheld ultrasound devices can be widely deployed compared to professional hospital ultrasound machines. However, their images suffer from compound degradation that can mislead clinical judgment. Motivated by this observation, mapping handheld low-quality (LQ) to hospital high-quality (HQ) images has been considered a valuable research question. Conventionally, the mapping requires pixel-aligned LQ-HQ pairs. This requirement is unsatisfactory in practical scenarios because real scans at different times are never pixel-aligned. This paper addresses the challenge with a two-stage framework. The first stage generates pixel-aligned LQ-HQ datasets, and the second stage trains an enhancement model that improves LQ images. The first stage trains a cycle-consistent style-transfer model on unaligned real LQ-HQ pairs to learn a HQ-to-LQ model. Then, the model transforms real HQ images into pixel-aligned LQ images. Based on the dataset generated by the first stage, the second stage uses the Dual Degradation-Guided (DDG) Low-Rank Adaptation (LoRA) method to fine-tune an LQ-to-HQ model based on aligned pairs. In this stage, the model is based on the well known PiSA-SR framework but inserts a degradation-conditioned correction matrix. Experimental results on the USenhance2023 dataset show that the FID metric is improved by 16.7% over the strongest baseline while other metrics indicate that our enhanced outputs are well aligned with the real HQ distribution. The source code of our method is available at https://github.com/Jason0411202/DDG_LoRA.",
-   "affiliations": [],
+   "affiliations": [
+    "Department of Computer Science, National Yang Ming Chiao Tung University, Hsinchu, Taiwan",
+    "Ho Chi Minh City University of Technology and Engineering, Ho Chi Minh City, Vietnam"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "National Yang Ming Chiao Tung University",
+    "Ho Chi Minh City University of Technology and Engineering"
+   ],
+   "institution_ids": [
+    "00se2k293",
+    "05hzn5427"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.35120",
@@ -4113,12 +4215,34 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.35046v1",
    "abstract": "Category-level 6D pose estimation from a single RGB-D observation is inherently under-constrained, since partial visible geometry must be interpreted together with a canonical object structure before a stable pose can be determined. We present LEGAU, a unified framework that jointly predicts NOCS correspondence, object pose and size, and a canonical Semantic Gaussian Field. Rather than treating reconstruction as a detached auxiliary task, LEGAU uses the Gaussian field as a category-conditioned structural prior that participates in multimodal feature fusion and provides global guidance for local pose reasoning. Conditioned on a categorical text embedding, LEGAU processes RGB-D observations through a transformer-based fusion module that integrates visual, geometric, and category-level cues, decoding the NOCS map, pose and size information and the Gaussian-based object representation. Extensive experiments on synthetic and real-world benchmarks show that this coupled pose-shape formulation achieves strong performance in a single-model multi-category setting, with up to 22% on SOPE and competitive transfer to real-world data. These results highlight the benefit of jointly learning canonical correspondence, object shape, and pose alignment within a unified representation.",
-   "affiliations": [],
+   "affiliations": [
+    "Technical University of Munich, Munich, Germany",
+    "Siemens AG, Munich, Germany",
+    "Munich Center for Machine Learning, Munich, Germany",
+    "ROBOX, Cambridge, MA, USA"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Technical University of Munich",
+    "Siemens AG",
+    "Munich Center for Machine Learning",
+    "ROBOX"
+   ],
+   "institution_ids": [
+    "02kkvpp62",
+    null,
+    "02nfy3535",
+    null
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.35046",
@@ -4195,9 +4319,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.35023",
@@ -4487,9 +4613,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34981",
@@ -4706,9 +4834,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34972",
@@ -4998,12 +5128,50 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.34897v1",
    "abstract": "Whole slide image classification is a fundamental task in computational pathology, where patch representation quality directly affects downstream aggregation and slide-level discriminability. Pathology foundation models are widely adopted as frozen feature extractors for WSI classification; however, their fixed encoders may produce representations insufficiently adapted to target-specific tissue patterns and discriminative cues. Fine-tuning can improve target adaptation, but introduces a trade-off between pathology-specific representation capacity and adaptation efficiency, particularly in data-scarce settings. To address this, we propose a pathology role-guided mixture-of-experts feed-forward network (MoE-FFN) framework for efficient encoder-level representation learning. We design a two-stage training paradigm to establish and adapt pathology-aware expert specialization. In source-domain expert initialization, pathology-specific priors are distilled from a frozen Virchow2 teacher into a lightweight DINOv2-small student, while role prototypes serve as weak pathological anchors to encourage distinct expert functions. MoE-FFN blocks are introduced into selected high-level transformer layers to provide transformation diversity for heterogeneous pathological patterns. In target-domain adaptation, the initialized experts are refined through asymmetric prototype-guided optimization, enhancing task-relevant positive evidence and separating confusable hard negatives. The resulting encoder extracts offline patch representations that can be directly integrated with standard MIL aggregators. Experiments on the public BRACS dataset and a private PAROTID WSI dataset across five representative backbones demonstrate consistent improvements over the strongest baseline.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Artificial Intelligence Research Institute, Shenzhen MSU-BIT University, Shenzhen 518172, China",
+    "Shenzhen People’s Hospital, Shenzhen 518020, China"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Shenzhen MSU-BIT University",
+    "ShenZhen People’s Hospital"
+   ],
+   "institution_ids": [
+    "02q963474",
+    "01hcefx46"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34897",
@@ -5105,9 +5273,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34893",
@@ -5212,9 +5382,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34875",
@@ -5303,9 +5475,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34863",
@@ -7007,9 +7181,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34688",
@@ -7236,12 +7412,35 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.34652v1",
    "abstract": "Medical time series (MedTS) underpin many clinical classification tasks, yet existing methods usually represent them only as numerical sequences and underuse the morphology that is explicit in waveform inspection. To bridge this gap, we introduce Vision-Informed Retrieval (ViRe), which uses a frozen VLM-derived waveform representation as a morphology-aware Query to guide retrieval from raw numerical MedTS features. Specifically, a Vision Query is extracted using pre-trained vision-language models (VLMs) to obtain morphology-aware priors from waveform plots. A tailored attention-based cross-modal retrieval mechanism then uses the Vision Query to select morphology-relevant temporal and channel evidence from the numerical representation. ViRe demonstrates strong effectiveness against ten established baselines, yielding an overall 6.42% relative improvement over the previous state of the art across six public benchmarks. Code, training scripts, and reproducibility materials are publicly available in the GitHub Repository: https://github.com/Levi-Ackman/ViRe.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Department of Biomedical Engineering and Sports Technology, The Hong Kong Polytechnic University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Hong Kong Polytechnic University"
+   ],
+   "institution_ids": [
+    "0030zas98"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34652",
@@ -7465,9 +7664,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34622",
@@ -7629,9 +7830,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34598",
@@ -7784,9 +7987,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34581",
@@ -8015,9 +8220,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34563",
@@ -8096,12 +8303,25 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.34547v1",
    "abstract": "Video-capable vision-language models score above 80% on popular benchmarks yet struggle with spatial-temporal binding: associating the right action with the right person at the right moment. We introduce ActionLens, a diagnostic benchmark of 6,701 multiple-choice video questions spanning five targeted diagnostics: transition detection, actor-specific identification, concurrent action binding, directed interaction reasoning, and gaze detection. Ground-truth answers are derived deterministically from 1.58 million per-second, per-person annotations. Fourteen rounds of human quality engineering raised answer clarity from 53% to above 90% human accuracy. Across 20 VLMs, the full-set leader scores 68.8%; on the human-reviewed subset, it scores 65.9% versus 91.0% for the pooled human reference. Gaze detection remains near chance against 89.6% human accuracy. On actor disambiguation, reference-interface controls show that relational descriptions recover 5.55–13.25 points over static coordinates, confirming a substantial numeric-parsing penalty; yet visual boxes still lead every model by 1.15–6.50 points, exposing a residual unboxed actor-resolution gap. A binding-trap analysis shows models systematically select the wrong actor's action. ActionLens provides diagnostic measurements of these distinct failure modes across model families and scales for direct comparison. We release all data, code, and evaluation scripts at https://anonymous.4open.science/r/lmms-eval-2276",
-   "affiliations": [],
+   "affiliations": [
+    "National Taiwan University"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "National Taiwan University"
+   ],
+   "institution_ids": [
+    "05bqach95"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34547",
@@ -8132,9 +8352,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34539",
@@ -8279,9 +8501,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34525",
@@ -8426,9 +8650,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34502",
@@ -8456,9 +8682,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34501",
@@ -9202,9 +9430,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34396",
@@ -9418,12 +9648,55 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.34381v1",
    "abstract": "Video and audio are perceived together, yet most generative models treat them in isolation. We examine methods that model the two modalities jointly, generate one from the other, or edit them in a coupled manner, organized around a single question: how is the output kept coherent across modalities in time and semantics? A unified formulation casts joint generation, cross-modal generation, and joint editing as three problems defined on a single distribution over audio-visual pairs, and a taxonomy compares methods along five design axes. To our knowledge, this is the first overview to systematically taxonomize joint audio-visual editing, which we map as nine edit categories spanning 28 edit types. We describe methods, datasets, and metrics for each setting and close with the open problems we view as most consequential.",
-   "affiliations": [],
+   "affiliations": [
+    "University of Massachusetts Amherst",
+    "University of Texas at Dallas",
+    "Texas A&M University",
+    "University of Southern California",
+    "Vanderbilt University",
+    "University of Illinois Urbana-Champaign",
+    "Adobe Research",
+    "Arizona State University",
+    "University of Oregon",
+    "Stanford University",
+    "Dolby Laboratories"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "University of Massachusetts Amherst",
+    "University of Texas at Dallas",
+    "Texas A&M University",
+    "University of Southern California",
+    "Vanderbilt University",
+    "University of Illinois Urbana-Champaign",
+    "Adobe",
+    "Arizona State University",
+    "University of Oregon",
+    "Stanford University",
+    "Dolby Laboratories"
+   ],
+   "institution_ids": [
+    "0072zz521",
+    null,
+    "01f5ytq51",
+    "03taz7m60",
+    "02vm5rt34",
+    "047426m28",
+    null,
+    "03efmqc40",
+    "0293rh119",
+    "00f54p054",
+    null
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34381",
@@ -10289,9 +10562,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34294",
@@ -11064,9 +11339,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34190",
@@ -11200,9 +11477,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34176",
@@ -11315,12 +11594,28 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.34149v1",
    "abstract": "Current methods for egocentric view action recognition often face challenges in perceiving dynamic hand movements relying solely on geometrical or physical information. In this work, we effectively address this problem by gaining insights into the correlation between functional hand configurations and objects, which improves the detailed interpretation of real-world scenarios. To this end, we introduce a practical taxonomy of hand types based on the functioning perspective and utilize it for per-frame hand type labeling on existing datasets. We also propose a novel hand action recognition framework considering semantic details of the hand type as prior. This approach boosts the network's understanding of the continuous hand interaction throughout the action sequence. Our whole pipeline consists of three main modules: (1) Feature Extraction, (2) Egocentric Knowledge Module, which estimates 3D hand pose, object category, and hand type leveraging short-term cues, and (2) Egocentric Action Module, which aggregates per-frame knowledge, including text embeddings of hand type, over a longer time. In our extensive experiments with large-scale benchmarks, FPHA and H2O, our model outperforms current state-of-the-art methods, demonstrating its superior performance.",
-   "affiliations": [],
+   "affiliations": [
+    "Department of Artificial Intelligence, Korea University, Seoul, Republic of Korea",
+    "Electrical and Computer Engineering, Purdue University, West Lafayette, Indiana, USA"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Korea University",
+    "Purdue University West Lafayette"
+   ],
+   "institution_ids": [
+    null,
+    "02dqehb95"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34149",
@@ -11478,9 +11773,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34143",
@@ -11505,12 +11802,35 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.34142v1",
    "abstract": "Continuous video analytics requires accurate localization at low latency within embedded power budgets. This paper presents a hardware-software design methodology that reuses codec motion vectors (MVs) between detector invocations. Two alternative models support translation and scale changes: analytical motion-vector propagation (Analytical-MV) and learned propagation using a convolutional neural network (CNN) (CNN-MV). The learned model uses convolutional operations and independent object updates suited to parallel execution on an edge graphics processing unit (GPU). Analytical-MV combines a harmonic-mean precision-recall score (F1) of 0.909 with a mean end-to-end latency of 9.03 ms and an energy consumption of 0.177 J per frame, yielding the lowest latency and energy among the evaluated configurations. Relative to detection on every frame, it reduces mean latency by 25.9% and energy per frame by 36.4%. CNN-MV offers a different trade-off: its fastest configuration raises recall from 0.871 for Analytical-MV to 0.890 and lowers mean power from 19.64 to 17.32 W, while achieving a latency of 18.42 ms and an energy consumption of 0.319 J per frame. It is therefore useful when recall or operating power is more important than minimum latency and energy. Execution on a deep learning accelerator (DLA) further reduces time-averaged GPU utilization relative to GPU execution. Host-processing optimization substantially improves both latency and energy, demonstrating the value of jointly designing temporal models and their execution pipelines.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Department of Computer and Information Engineering, Khalifa University, Abu Dhabi, UAE"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Khalifa University of Science and Technology"
+   ],
+   "institution_ids": [
+    "05hffr360"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34142",
@@ -11734,9 +12054,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34094",
@@ -12864,9 +13186,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.33833",
@@ -13104,9 +13428,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.33735",
@@ -13285,9 +13611,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.33701",
@@ -13578,9 +13906,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.33659",
@@ -14151,12 +14481,34 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.33558v2",
    "abstract": "3D Visual Query Localization (3DVQL) retrieves the latest contiguous occurrence of a queried object in an RGB--point-cloud sequence and predicts a 9-DoF cuboid for every response frame. The query is captured independently of the search sequence, so its annotated pose may differ from how the object appears in the search frames. The benchmark baseline predicts cuboids after feature modeling, leaving their geometry unused for subsequent feature refinement. We investigate whether complete intermediate cuboids can improve query and proposal representations before final decoding. We introduce Progressive Geometric Learning for 3DVQL (PGL-3D), a predict--select--refine--re-predict framework that uses intermediate cuboids to guide the aggregation of search evidence and update query and proposal representations. A shared head first predicts a complete cuboid for every proposal. Query--Tube--Memory (QTM) then selects reference observations by combining proposal association, cuboid quality, frame response, and target absence, since association confidence alone establishes neither target presence nor geometric accuracy. The center, size, and orientation of each selected cuboid define soft pooling weights over query-conditioned proposal features. The pooled memory updates the query and proposal representations, and the head re-predicts from the updated features. A training-only objective, ST-D9O, supervises cuboid geometry at every stage by adding boundary, signed-distance, and soft-overlap terms to parameter regression. PGL-3D achieves a mean stAP of 0.270 ±0.004 on 3DVQL, compared with 0.044 reported for LaF. Ablations support the benefits of geometry-guided feature updates, while stage-wise analyses show improved cuboid accuracy. Replacing the geometry objective in our PROT3D reproduction with ST-D9O improves mAO on GSOT3D from 21.63% to 25.78%. Our code and models will be released.",
-   "affiliations": [],
+   "affiliations": [
+    "School of Computer Science, National Engineering Research Center for Multimedia Software, Institute of Artificial Intelligence, Hubei Key Laboratory of Multimedia and Network",
+    "Communication Engineering, Wuhan University",
+    "University of North Texas",
+    "Institute of Software, Chinese Academy of Sciences"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "National Engineering Research Center for Multimedia Software",
+    "Wuhan University",
+    "University of North Texas",
+    "Chinese Academy of Sciences"
+   ],
+   "institution_ids": [
+    null,
+    "033vjfk17",
+    "00v97ad02",
+    "034t30j35"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.33558",
@@ -14390,9 +14742,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.33513",
@@ -14628,9 +14982,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.33432",
@@ -15174,9 +15530,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.33353",
@@ -15260,9 +15618,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.33338",
@@ -15357,12 +15717,25 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.33325v1",
    "abstract": "Visual backbones have evolved from Convolutional Neural Networks (CNNs) with local aggregation to Vision Transformers (ViTs) with global interactions, State-Space Models (SSMs) with input-dependent state transitions, and Test-Time Training (TTT) layers that adapt an inner learner while processing an image. Across this progression, visual computation has become increasingly adaptive to each input, yet the rules governing that adaptation remain largely prescribed by the trained backbone. We introduce VisionHOPE, the first generic visual backbone formulated as a self-modifying learning system, in which what the model remembers and how it learns co-evolve within an image. Building on the self-referential construction of Nested Learning (NL), VisionHOPE realizes this co-evolution through five coupled memories that store content, generate key and value representations, and govern learning rate and retention. These memories evolve jointly as visual context accumulates along each scan. However, directly applying the unconstrained self-referential update to a visual backbone leads to instability. We therefore derive a stability-matched step-size control scheme that combines a soft cap on self-referential injection with a spectral clamp on the retained memory transition, and prove that the resulting memory dynamics are non-expansive along each scan. For two-dimensional feature maps, we adapt NL's chunk formulation by aligning chunks with image rows and columns across four directional scans. The proposed VisionHOPE achieves competitive results on ImageNet-1K, COCO, and ADE20K, establishing self-modifying learning systems as a practical foundation for general-purpose visual backbones. The code is available at https://github.com/PSRben/VisionHOPE.",
-   "affiliations": [],
+   "affiliations": [
+    "Mininglamp Technology"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Mininglamp"
+   ],
+   "institution_ids": [
+    "04tb90x61"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.33325",
@@ -15393,9 +15766,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.33318",
@@ -15422,12 +15797,31 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.33306v1",
    "abstract": "Current Transformer-based tracking methods typically stack multiple Transformer blocks with separate parameters to model interactions between the target template and the search region for target localization. These trackers often incur substantial parameter overhead from stacked blocks, making their deployment on resource-limited devices difficult. To address this, we propose a parameter-efficient Transformer tracking framework, dubbed LoopTrack, which repeatedly applies a set of Transformer blocks with shared parameters to interact features in a looped architecture for tracking, significantly reducing the number of parameters. To further exploit target cues, we present two lightweight designs, including target-aware looping (TAL) and gated target memory (GTM). The former applies intermediate target information generated by one loop to guide feature interaction in the subsequent loop, enabling progressive feature refinement, while the latter maintains a compact memory across frames, which is incorporated into the loop process to provide long-term information to the tracker, mitigating temporal drift in tracking. Compared to existing Transformer trackers, LoopTrack enables multiple rounds of feature interaction with fewer model parameters, making it resource-friendly for deployment. In extensive experiments on multiple datasets, LoopTrack shows a favorable accuracy-parameter trade-off. In particular, our LoopTrack$_{One}$, with a single shared Transformer block, achieves 66.2% SUC score on LaSOT with only 3.4M parameters, while LoopTrack$_{Three}$, using three shared blocks, achieves 69.3% SUC score with 6.4M parameters, surpassing existing parameter-efficient tracking methods with comparable or larger model size. With LoopTrack, we aim to establish a simple yet strong baseline for parameter-efficient Transformer tracking. Our code and models will be released.",
-   "affiliations": [],
+   "affiliations": [
+    "School of Computer Science, National Engineering Research Center for Multimedia Software, Institute of Artificial Intelligence, Hubei Key Laboratory of Multimedia and Network Communication Engineering, Wuhan University",
+    "University of North Texas",
+    "Institute of Software, Chinese Academy of Sciences"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Wuhan University",
+    "University of North Texas",
+    "Chinese Academy of Sciences"
+   ],
+   "institution_ids": [
+    null,
+    "00v97ad02",
+    "034t30j35"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.33306",
@@ -15669,9 +16063,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.33264",
@@ -15760,9 +16156,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.33253",
@@ -15925,9 +16323,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.33218",
@@ -16195,12 +16595,56 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.33190v1",
    "abstract": "Driving decisions depend on both where to focus and how to act on what is seen. Effective driving reasoning must establish which objects matter, where they are, and how they inform the intended action. Text-based rationales can describe a driving response while leaving its correspondence to specific visual evidence implicit. Visual focus provides a concrete starting point for this connection by identifying what matters in the scene and where it is. We propose FocusDrive, a structured multimodal reasoning framework that organizes end-to-end planning around explicit visual focus. It pairs descriptions of decision-relevant objects with image-patch references, bringing explicit visual focus into the reasoning that generates driving plans and trajectories. We first assess this focus representation through driver gaze prediction, then investigate its role in planning reasoning using driving-focus annotations within existing NAVSIM training scenes. Experiments on W3DA and NAVSIM demonstrate competitive gaze prediction and end-to-end planning performance, with FocusDrive improving over text-based chain-of-thought. These results support visual focus as an effective link between scene understanding and driving action.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Tsinghua University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Tsinghua University"
+   ],
+   "institution_ids": [
+    "03cve4549"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.33190",
@@ -16340,9 +16784,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.33176",
@@ -16447,12 +16893,43 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.33158v1",
    "abstract": "Progress in AI-based retinal image analysis has advanced with foundation models, yet evaluating their reliability remains challenging. Performance reported on a single dataset does not capture how models behave under dataset shift, across clinical definitions, or for different patient subgroups. This limitation is particularly critical in medical imaging analysis, where robustness, calibration, and fairness are essential for safe deployment. We introduce FOCUS (Foundation Ophthalmic Cross-Dataset Understanding under Shift), a cross-dataset benchmark for evaluating retinal fundus models that considers vision-only encoder models (VM), vision-language dual-encoder models (VLM), and multimodal large language models (MLLM). FOCUS harmonizes binary diabetic retinopathy, referable diabetic retinopathy, and glaucomatous optic neuropathy tasks across ten public datasets spanning diverse geographies, acquisition conditions, and label protocols. The benchmark evaluates models through a unified analysis layer that measures ranking performance, calibration, subgroup disparities, and image-quality robustness. We present a large-scale evaluation covering 532 base configurations and 228 MLLM configurations adapted through supervised fine-tuning with low-rank adaptation (LoRA). Results show that no model family consistently dominates across tasks and datasets: general VM encoders achieve the strongest average ranking performance, medical MLLMs are competitive but variable, and dual encoder VLMs benefit substantially from lightweight adaptation. Fine-tuning improves in-domain performance but exhibits heterogeneous transfer to external datasets, particularly in calibration. These findings demonstrate that retinal model evaluation is inherently multidimensional. FOCUS provides a practical framework and public benchmark to assess generalization, reliability, and robustness beyond single-dataset leaderboards",
-   "affiliations": [],
+   "affiliations": [
+    "CentraleSupélec, Université Paris-Saclay, France",
+    "Cancer Data Science Unit, IHU PRISM, Université Paris-Saclay, CentraleSupélec, Gustave Roussy, INSERM, France",
+    "University of Michigan, USA",
+    "Federal University of São Paulo, Brazil",
+    "University of Porto, Portugal",
+    "Aalborg University, Denmark",
+    "Universidad de Buenos Aires, Argentina"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Université Paris-Saclay",
+    "Université Paris-Saclay",
+    "University of Michigan",
+    "Universidade Federal de São Paulo",
+    "Universidade do Porto",
+    "Aalborg University",
+    "Universidad de Buenos Aires"
+   ],
+   "institution_ids": [
+    "03xjwb503",
+    "03xjwb503",
+    "00jmfr291",
+    "02k5swt12",
+    "043pwc612",
+    "04m5j1k67",
+    "0081fs513"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.33158",
@@ -16566,12 +17043,25 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.33125v1",
    "abstract": "Co-training offers a straightforward way to build a multi-task vision-language-action (VLA) policy, but can fall short of the performance achieved by training each task independently. The challenge is to retain these task-specific gains in a multi-task policy without joint post-training. Combining independently trained experts through model merging is a natural approach, yet strong individual experts do not necessarily yield a strong merged policy. We identify one source of this incompatibility: task-specific changes to the action interface, comprising action normalization and the action encoder and decoder. We propose PolicyWeave, combining merge-compatible post-training with context-guided sparse merging. During post-training, all experts retain the common base policy's action interface, while task adaptation is restricted to LoRA updates in the hidden layers of the action model. This makes the experts more compatible with existing model merging methods. However, merging all experts can still introduce interference from unrelated tasks at deployment. PolicyWeave scores each expert's LoRA updates using the initial visual-language context, determines the expert set through leave-one-layer-out ranking stability, and forms a sparse weighted merge of the selected updates that remains fixed for current task. We evaluate PolicyWeave with GR00T N1.5 on 18 RoboCasa365 tasks, using only 10% of the target-task demonstrations for supervised fine-tuning (SFT). Preserving the shared action interface raises the average success rate across four static merging methods from 17.0% to 52.8%. PolicyWeave achieves 64.7% success with these SFT experts and 74.1% after task-specific reinforcement learning (RL), compared with 60.7% for joint RL. Further evaluations on LIBERO-10 and an AgileX Piper arm support the deployment of independently learned skills in long-horizon and real-world manipulation.",
-   "affiliations": [],
+   "affiliations": [
+    "UQMM Lab, The University of Queensland"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "University of Queensland"
+   ],
+   "institution_ids": [
+    "00rqy9422"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.33125",
@@ -17166,9 +17656,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.33003",
@@ -17196,9 +17688,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.32996",
@@ -17856,9 +18350,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.32846",
@@ -18277,9 +18773,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.32789",
@@ -18632,9 +19130,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.32737",
@@ -18933,9 +19433,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.32690",
@@ -20026,9 +20528,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.32534",
@@ -21166,9 +21670,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.32352",
@@ -21490,9 +21996,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.32316",
@@ -21815,12 +22323,38 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.32222v1",
    "abstract": "Raw 3D point clouds are a core geometric representation. Establishing their ownership is challenging because point sets are irregular, unstructured, and frequently altered by resampling and geometric preprocessing. We present a blind watermarking framework that operates directly on xyz coordinates and supports both object-level shapes and scene-scale scans. At verification time, the embedded message is recovered from the observed point cloud alone, without access to the original point cloud, color, normals, or mesh connectivity. The method jointly learns watermark embedding and extraction through a feed-forward octree-based architecture, enabling efficient multi-scale geometric reasoning on large point sets. During training, a stochastic transformation layer exposes the decoder to common geometric perturbations, while progressive pose alignment improves robustness to pose changes. Experiments on object-level and scene-level benchmarks demonstrate reliable message recovery under common geometric processing while maintaining low geometric distortion. Qualitative comparisons further show that the learned perturbations are less visually conspicuous and less spatially structured than those of handcrafted alternatives.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Peking University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Peking University"
+   ],
+   "institution_ids": [
+    "02v51f717"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.32222",
@@ -23137,9 +23671,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.31985",
@@ -23449,9 +23985,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.31911",
@@ -24342,9 +24880,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.31749",
@@ -24577,9 +25117,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.31737",
@@ -24654,9 +25196,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.31734",
@@ -25868,12 +26412,43 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.31694v1",
    "abstract": "Removing an invisible watermark and concealing the forensic evidence are distinct objectives: successfully disrupting the embedded watermark does not imply that the removal process is forensically undetectable. When verification fails, removal traces can provide complementary evidence for provenance and ownership verification, whereas their absence leaves the cause of the failure ambiguous. Existing methods are typically evaluated by watermark suppression and perceptual quality, while forensic stealth is rarely considered. We therefore study watermark-attack-specific few-shot forensics: for each known pipeline, a specialist can separate its outputs from paired clean and unattacked watermarked controls. Separate Attack-vs-Clean and Attack-vs-Watermarked evaluations prevent watermark-presence shortcuts. Image-aligned and prompt-matched controls are used for post-hoc and generator-integrated schemes, respectively. In this work, we introduce RemTraceNet, which fuses constrained residuals, local relations, FFT/Haar statistics, and block-DCT evidence at native resolution. Across 23 removal pipelines and 10 watermark configurations, we evaluate native 256 x 256 and 512 x 512 inputs. With 100 attacked training images per pipeline, the three-seed TPR@1%FPR, macro-averaged over attacks and watermark configurations, ranges from 82.75% to 88.17% across resolutions and control types. Under the condition of same labels and protocol, RemTraceNet outperforms retrained SRNet, ZhuNet, and SiaStegNet baselines by 10.80–15.68 percentage points. Extensive experimental results show that erasing a watermark and erasing evidence of its removal are distinct challenges, and that removal traces remain learnable under limited supervision.",
-   "affiliations": [],
+   "affiliations": [
+    "Key Laboratory of Computing Power Network and Information Security, Ministry of Education; Shandong Computer Science Center",
+    "Shandong Provincial Key Laboratory of Industrial Network and Information System Security",
+    "Shandong Fundamental Research Center for Computer Science",
+    "Qilu University of Technology (Shandong Academy of Sciences), Jinan 250353, China",
+    "Department of Computer Science, City University of Hong Kong (Dongguan), Dongguan, Guangdong 518057, China",
+    "Institute of Cybersecurity and Cryptology (iC2), University of Wollongong, Australia",
+    "School of Information Science and Engineering, Dalian Polytechnic University, Dalian 116034, China"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Shandong Computer Science Center",
+    "Shandong Provincial Key Laboratory of Industrial Network and Information System Security",
+    "Shandong Fundamental Research Center for Computer Science",
+    "Qilu University of Technology (Shandong Academy of Sciences)",
+    "City University of Hong Kong (Dongguan)",
+    "University of Wollongong",
+    "Dalian Polytechnic University"
+   ],
+   "institution_ids": [
+    null,
+    null,
+    null,
+    null,
+    "03hj2gd47",
+    "00jtmb277",
+    "00c7x4a95"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.31694",
@@ -26533,9 +27108,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.31662",
@@ -26566,9 +27143,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.31661",
@@ -26808,9 +27387,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.31651",
@@ -27225,9 +27806,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.35336",
@@ -27322,12 +27905,44 @@
    "cross_list_from": "cs.LG",
    "html_url": "https://arxiv.org/html/2609.35288v2",
    "abstract": "Joint-embedding self-supervised learning typically combines an invariance objective across augmented views with additional mechanisms to prevent representational collapse. These objectives are often applied after a projection head, while downstream tasks use the backbone representation before the projector. We find that this mismatch does not necessarily prevent dimensional collapse in the backbone, which can retain low effective rank and potentially limit downstream transfer. To address this, we introduce SACReg, a spectral anti-collapse regularizer motivated by an analysis of λ-balance, which captures the relative scale of weight matrices across layers. In a two-layer linear network, we show that (i) λ-balance prevents collapse, and (ii) our regularizer applied to the backbone induces λ-balance. In the nonlinear case, this regularizer leads to anti-collapse as well and, in realistic architectures on ImageNet100, it empirically increases the representations' ranks. We apply SACReg to JEPA and propose λ-JEPA, which improves over LeJEPA and VISReg on ImageNet-1k classification and in average linear-probe transfer performance across eight downstream image datasets. On video self-supervised learning, λ-JEPA improves over LeVJEPA and V-JEPA 2 on the Something-Something-v2 and Kinetics-400 benchmarks. Code is available at https://github.com/berkerdemirel/lambda-jepa.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Institute of Science and Technology Austria (ISTA), Am Campus 1, 3400 Klosterneuburg, Austria"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Institute of Science and Technology Austria"
+   ],
+   "institution_ids": [
+    "03gnh5541"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.35288",
@@ -27361,9 +27976,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.35269",
@@ -27588,9 +28205,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.35110",
@@ -28200,9 +28819,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34750",
@@ -28323,12 +28944,28 @@
    "cross_list_from": "cs.LG",
    "html_url": "https://arxiv.org/html/2609.34677v1",
    "abstract": "World models predict future observations from current experience and actions, yet prediction can depend on observations seen far in the past. Episodic memory preserves past observations for later recall; however, as memory accumulates, it raises a fundamental question: which memories are useful for the current prediction, and which available retrieval cues should be trusted to find them? This is challenging because fixed criteria based on recency, pose overlap, or visual similarity can be unreliable across environments and queries. We propose Future-Aware Recall (FAR), a framework that learns episodic recall from future-aware predictive supervision and adaptive multi-cue scoring. During training, FAR measures predictive utility by the conditional log-likelihood of the realized future given recalled context, approximated by negative diffusion prediction loss, and uses it to train a retriever that remains future-blind at inference. The retriever learns cue-specific relevance and automatically determines which available retrieval cues, such as time, pose, vision, and audio, to trust for each query when selecting memories. Across three complementary settings, FAR outperforms hand-designed recall even with the same retrieval cues, automatically adapts which available cues to trust, and recalls the right history as the world changes. Together, these results establish FAR as a flexible, principled approach to episodic memory access in world models.",
-   "affiliations": [],
+   "affiliations": [
+    "Sony Group Corporation",
+    "Imperial College London"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Sony",
+    "Imperial College London"
+   ],
+   "institution_ids": [
+    null,
+    "041kmwe10"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34677",
@@ -28356,9 +28993,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34507",
@@ -28490,12 +29129,44 @@
    "cross_list_from": "cs.AI",
    "html_url": "https://arxiv.org/html/2609.34280v1",
    "abstract": "Predicting molecular profiles from histopathology remains challenging because whole-slide images contain spatially organized, heterogeneous tissue patterns, while gene expression comprises thousands of correlated targets. We introduce MoSPR (Morpho-Spatial Program Regression), a linear framework that couples an adjacency-informed histology representation with a low-rank molecular basis. MoSPR clusters frozen patch embeddings into morphology microstates, aggregates their spatial adjacencies across the training cohort, and groups microstates with similar adjacency patterns into shared macrostates. Each slide is then represented by global morphology and macrostate-specific deviations, which are linearly mapped to coefficients of a training-derived low-rank gene-expression basis. Across three cancer cohorts from The Cancer Genome Atlas, MoSPR achieves the highest mean gene-expression prediction scores among all evaluated methods. Without pathway-level supervision, pathway scores derived from its predicted expression profiles rank first in eight of nine comparisons across three pathway collections. Ablation studies on the breast cancer cohort show complementary gains from adjacency-derived macrostate representation and low-rank molecular prediction. Moreover, with half of the training data on this cohort, MoSPR exceeds the full-data gene-prediction score of the strongest competing baseline. Finally, its linear formulation enables exact decomposition of each predicted expression profile into global and macrostate-specific molecular contributions, providing an interpretable link between spatially coherent macrostate regions and their associated molecular programs. Our code is available at https://github.com/Radisen-Panthera/MoSPR.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "OmixAI Co. Ltd.Oncocross Co. Ltd",
+    "OmixAI Co. Ltd",
+    "Kyunghee UniversityOmixAI Co. Ltd.Oncocross Co. Ltd"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "OmixAI Co. Ltd.Oncocross Co. Ltd",
+    "OmixAI Co. Ltd",
+    "Kyunghee UniversityOmixAI Co. Ltd.Oncocross Co. Ltd"
+   ],
+   "institution_ids": [
+    null,
+    null,
+    null
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.34280",
@@ -29481,12 +30152,32 @@
    "cross_list_from": "cs.RO",
    "html_url": "https://arxiv.org/html/2609.33836v1",
    "abstract": "Construction environments evolve continuously, causing large geometric changes that degrade static mapping and registration performance. This necessitates active perception, where robots deliberately select sensing configurations to resolve the environment's current state. We present DeltaSeek, an initial framework toward active perception in evolving built environments. While our broader objective is a system that reasons about where, how, and when to observe, this paper addresses a critical prerequisite: how a robot's sensing embodiment constrains the observations it can acquire. We formalize an embodiment's permissible observation set and evaluate with a Husky A300 equipped with a UR5e on an IFC-derived benchmark under chassis-mounted and wrist-mounted RGB-D configurations, scoring observations by geometric visibility and effort by drivable distance. In a room-scale scene with eight controlled changes spanning four observability conditions, exhaustive evaluation over 240 permissible base poses and five arm postures shows that two changes admit no chassis viewpoint whatsoever, while the wrist camera resolves both. For changes observed by both embodiments, the median base travel is 6.0~m for the wrist camera and 15.2~m for the chassis camera. These results distinguish sensing limitations from acquisition costs, clarifying whether an observation is impossible or simply requires more travel.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Department of Civil Engineering, University of Texas at Arlington, TX 76019, USA"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Texas at Arlington"
+   ],
+   "institution_ids": [
+    "019kgqr73"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.33836",
@@ -29592,9 +30283,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.33790",
@@ -30313,12 +31006,28 @@
    "cross_list_from": "cs.RO",
    "html_url": "https://arxiv.org/html/2609.33258v1",
    "abstract": "Recent task-driven and just-in-time 3D Scene Graph (3DSG) methods reduce per-task representations by constructing or activating only task-relevant information. Yet sparse per-task working sets do not bound onboard memory usage over a robot's lifetime: as tasks change, payloads accumulated for earlier tasks may become irrelevant to the current task but can be useful again in future tasks. Over repeated task switches and expanding environments, retaining such reusable payloads causes local memory to grow, whereas discarding them entirely can lead to costly repeated construction of the same payloads later. We introduce PORTER, which decouples persistence from residency: lightweight anchors remain in the limited memory of the edge robot while heavy object payloads migrate between the edge and the cloud. Relevance alone is insufficient for deciding residency because multiple relevant payloads may provide redundant information. We therefore decompose each task into functional requirements and introduce Irreplaceable Support Erasure (ISE), which measures the loss in requirement coverage caused by offloading. ISE discounts replaceable support and penalizes losses more strongly when the remaining coverage of a requirement is weak. PORTER constructs a budget-aware local working set by repeatedly offloading the payload with the smallest marginal ISE per byte. Experiments on JITOMA-Bench evaluate PORTER across four 3DSG builders. Under progressive compression, pooled relative mR@3 remains at 100% through 91% payload-byte offloading.",
-   "affiliations": [],
+   "affiliations": [
+    "The Hong Kong University of Science and Technology",
+    "Guangdong University of Technology"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Hong Kong University of Science and Technology",
+    "Guangdong University of Technology"
+   ],
+   "institution_ids": [
+    "00q4vv597",
+    "04azbjn80"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.33258",
@@ -30665,12 +31374,44 @@
    "cross_list_from": "cs.LG",
    "html_url": "https://arxiv.org/html/2609.33171v1",
    "abstract": "Latent diffusion models serve as powerful priors for solving inverse problems in image restoration, such as deblurring, inpainting, and super-resolution. Current methods have a trade-off between generality and efficiency. Solvers that are restricted to a fixed set of degradation operators are fast and efficient. Methods that support arbitrary degradation operators are slow and require gradients through the diffusion network. To break this bottleneck, we introduce PASEO (Perturb-And-Solve for Efficient Operator conditioning), a method that uses a small (1M parameters) learned network to degrade diffusion model predictions in latent space. PASEO supports learned degradation operators without back-propagating through the diffusion network. We efficiently sample reconstructions from an approximate posterior by combining the diffusion model's prediction with the observed image. We do this by adding noise and solving linear equations based on a local linear approximation of the learned network, without building or inverting large covariance matrices. Across super-resolution, deblurring, and inpainting on FFHQ and COCO, PASEO achieves strong perceptual quality while running up to 9x faster and using up to 34% less peak memory than the tested baselines, with the same or fewer model evaluations.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Mohamed bin Zayed University of Artificial Intelligence"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Mohamed bin Zayed University of Artificial Intelligence"
+   ],
+   "institution_ids": [
+    "0258gkt32"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.33171",
@@ -30907,9 +31648,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.32855",
@@ -30940,9 +31683,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.32844",
@@ -31248,9 +31993,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.32757",
@@ -31812,9 +32559,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.32272",
@@ -31843,9 +32592,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.32241",
@@ -32057,9 +32808,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.31932",
@@ -32750,12 +33503,35 @@
    "cross_list_from": "cs.LG",
    "html_url": "https://arxiv.org/html/2609.31636v1",
    "abstract": "Vision-language models are increasingly used for driving-scene understanding, yet the semantic relations expressed in their outputs are often difficult to verify against the underlying traffic situation. This paper introduces a deterministic multi-dataset predicate framework that derives driving-scene semantics from measurable geometric, kinematic, temporal, map, and traffic-control evidence. Dataset-specific interfaces are used only to recover the required scene information, while predicate definitions remain unchanged across nuPlan and nuScenes and are materialised in a common Predicate Knowledge Graph. Quantitative semantic validation against manually annotated predicate relations on 200 scenarios from each dataset yields macro F1 scores of 0.94 on nuPlan and 0.93 on nuScenes, with an average cross-dataset difference of 0.02 across the shared predicates. The Predicate KG is further evaluated using a frozen LLaVA-OneVision-7B model on the nine NuPlanQA subtasks. Predicate grounding achieves the highest accuracy among the evaluated visual-input conditions in seven of nine NuPlanQA subtasks, including Traffic Light (53.2% to 71.5%), Situation Assessment (76.2% to 86.1%), and Action Recommendation (82.9% to 89.0%). Weather/Lighting remains essentially unchanged (89.4% vs. 88.8%), consistent with the absence of corresponding predicates, while Predicate KG only input outperforms metadata-only input in eight of nine subtasks. The results show that deterministic predicates provide a consistent and traceable semantic representation and, under oracle grounding, can reduce visual dependence for reasoning tasks covered by the predicate vocabulary.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "AImotion Bavaria, Technische Hochschule Ingolstadt, 85049 Ingolstadt, Germany"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Technische Hochschule Ingolstadt"
+   ],
+   "institution_ids": [
+    "02bxzcy64"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.31636",
@@ -32790,9 +33566,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.24815",

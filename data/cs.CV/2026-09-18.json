@@ -105,9 +105,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.19236",
@@ -444,9 +446,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.19444",
@@ -1423,9 +1427,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.19716",
@@ -1733,9 +1739,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.19767",
@@ -1771,9 +1779,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.19793",
@@ -1867,12 +1877,28 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.19815v1",
    "abstract": "We propose SnapPhysics, a training-free framework that reconstructs 3D objects and estimates their physical properties such as mass, friction, and center of gravity from a single image. For physically coherent interactions in mixed reality (MR), such properties are as important as geometry. Prior approaches infer them by analyzing object dynamics in video, which is computationally costly, or by querying vision-language models (VLMs) on single images, which lacks geometric grounding and inter-object relationships. We address these limitations by combining instance-level 3D reconstruction and spatial alignment with a physics-aware scene graph that encodes these relationships and per-object metric geometry as structured context for VLM-based property reasoning. Experiments on 3D-FRONT show that SnapPhysics improves scene-level F-Score by 18.6% over the best learning-based method, and on real captured scenes with ground-truth mass, it reduces the mean absolute log difference error (mALDE) by up to 20.5% and improves log-scale correlation ($r^2_{ls}$) by up to 19.6% over VLM-only estimation. SnapPhysics enables physically interactive MR experiences without manual parameter tuning. Project page: https://snapphysics-ismar2026.github.io/.",
-   "affiliations": [],
+   "affiliations": [
+    "KAIST UVR Lab",
+    "University of Stuttgart"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "KAIST UVR Lab",
+    "University of Stuttgart"
+   ],
+   "institution_ids": [
+    null,
+    "04vnq7t77"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.19815",
@@ -2420,9 +2446,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.19911",
@@ -2713,9 +2741,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.19990",
@@ -2977,9 +3007,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.20066",
@@ -3053,12 +3085,37 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.20100v1",
    "abstract": "Recent findings indicate that Vision Transformers settle into locally similar computational phases, implying a level of depthwise computational redundancy. However, existing methods to exploit this redundancy either fail to reduce inference compute or severely degrade model expressivity. In this work, we formalise a unified view of block redundancy that decouples the geometry from specific surrogate interventions. We then introduce Transformer-Within-Transformer (TWT), a post-hoc method that fuses contiguous groups of redundant layers into a single learned surrogate layer. TWT reduces parameter count and inference compute while remaining competitive with original models using half the depth on natural images, and in several downstream histopathology settings, TWT matches or even improves on the original baseline.",
-   "affiliations": [],
+   "affiliations": [
+    "Institute for Cancer Genetics and Informatics",
+    "Oslo University Hospital, Oslo, Norway",
+    "Department of Informatics, University of Oslo, Oslo, Norway",
+    "SFI Visual Intelligence",
+    "UiT The Arctic University of Norway, Tromsø, Norway"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Institute for Cancer Genetics and Informatics",
+    "Oslo University Hospital",
+    "University of Oslo",
+    "SFI Visual Intelligence",
+    "UiT The Arctic University of Norway"
+   ],
+   "institution_ids": [
+    null,
+    "00j9c2840",
+    "01xtthb56",
+    null,
+    "00wge5k78"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.20100",
@@ -3246,9 +3303,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.20147",
@@ -3415,12 +3474,44 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.20160v1",
    "abstract": "Monitoring flying animals is important for understanding and protecting biodiversity, but nocturnal species such as bats are difficult to observe in the field. Using LiDAR, bat movements at night result in ultra-sparse 3D spatio-temporal data in which standard reconstruction losses tend to predict only background and miss real flight paths. We study this problem as voxel-wise occupancy detection in sensor-centric LiDAR raystacks. A lightweight 3D U-Net is proposed that preserves temporal resolution, uses skip connections for spatial detail, and combines weighted binary cross-entropy with Dice loss to handle the strong class imbalance. In real LiDAR recordings of bats over open fields, cross-checked with acoustic monitoring, a reconstruction-based 3D convolutional autoencoder baseline fails to recover foreground trajectories. In contrast, the proposed U-Net recovers sparse foreground occupancy in diagnostic experiments and produces coherent occupancy patterns along bat flight trajectories, providing a practical basis for validation-scale experiments, later clustering of flight tracks, and future integration of bat activity information into biodiversity-aware turbine curtailment strategies.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Center for Solar Energy and Hydrogen Research (ZSW), Stuttgart, Germany",
+    "University of Stuttgart, Institute of Flight Mechanics and Control (iFR), Flight Robotics and Perception Group (FRPG), Stuttgart, Germany"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Center for Solar Energy and Hydrogen Research (ZSW)",
+    "University of Stuttgart"
+   ],
+   "institution_ids": [
+    null,
+    "04vnq7t77"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.20160",
@@ -3613,12 +3704,46 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.20235v1",
    "abstract": "Indoor mobile robots require open-vocabulary scene understanding that grounds natural-language queries in a consistent 3D map. Many existing systems ultimately rely on cosine-similarity retrieval with contrastive image--text encoders, which is efficient but brittle when labels are near-synonymous or multiple similar instances appear. We present Scene-Q, a confidence-aware coarse-to-fine querying framework that normalizes encoder scores with temperature scaling and selectively invokes a reasoning VLM only for low-confidence cases. High-confidence queries are answered by fast retrieval, while ambiguous ones are reranked over a small top-K candidate set using the original multi-view images and instance bounding boxes, enabling context-aware disambiguation at low cost. Scene-Q improves open-vocabulary 3D instance segmentation on ScanNet200 and natural-language 3D instance retrieval on real-world reconstructions, with the largest gains on spatial and relational queries while keeping a substantial fraction of queries on the fast path.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "Interdisciplinary Program in AI, Seoul National University",
+    "Artificial Intelligence Institute, Seoul National University",
+    "Department of Computer Science, Seoul National UniversityThis work was partly supported by Institute of Information & communications Technology Planning & Evaluation (IITP) grant funded by the Korea government(MSIT) [RS-2021-II211343, Artificial Intelligence Graduate School Program (Seoul National University)] and (RS-2021-II212068-AIHub/10%, RS-2021-II211343-GSAI/15%, 2022-0-00951-LBA/15%, 2022-0-00953-PICA/20%), NRF (RS-2024-00353991/20%, RS-2023-00274280/10%), and KEIT (RS-2024-00423940/10%) grant funded by the Korean government"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     1,
+     2
+    ]
+   ],
+   "institutions": [
+    "Seoul National University",
+    "Seoul National University",
+    "Institute of Information & Communications Technology Planning & Evaluation"
+   ],
+   "institution_ids": [
+    "04h9pn542",
+    "04h9pn542",
+    "01g0hqq23"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.20235",
@@ -3649,9 +3774,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.20245",
@@ -3678,9 +3805,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.20248",
@@ -3707,9 +3836,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.20262",
@@ -3736,12 +3867,38 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.20263v1",
    "abstract": "The proliferation of generative video models has shifted the practical detection threat from fully fabricated clips to partially manipulated footages. Although modern detectors achieve strong accuracy using foundation backbones of 400M+ parameters, their resource footprint precludes edge deployment. In this paper, we present a lightweight full-frame detector for partially manipulated AI-generated video, designed for deployment on edge hardware without face-detection preprocessing. The system distills a DINOv2-Base teacher into a frozen MobileNetV3-Small student through a pipeline that combines temperature-annealed soft-label transfer, attention-diversity regularization, frame-level supervision, and a residual feature adapter that conditions ImageNet features for artifact detection. We additionally target two failure modes specific to the partial-manipulation regime: false positives on legitimate scene cuts, addressed through within-video temporal hard negatives; and threshold-level miscalibration on the dominant pure-real class, addressed through calibration-aware sampling. Evaluation on a 55,393-sample spliced test set across fake-frame ratios from 6.2% to 31.2% demonstrates the student model closing 58% of the gap to the DINOv2-Base teacher (AUC 0.766) while running at 3.65 ms per 16-frame clip on RTX A4000 with a 150.4 MB checkpoint compatible with edge-device memory and latency budgets.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "City University of New York"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "City University of New York"
+   ],
+   "institution_ids": [
+    "00453a208"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.20263",
@@ -4054,9 +4211,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.20340",
@@ -4132,9 +4291,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.20348",
@@ -4167,9 +4328,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.20377",
@@ -4470,9 +4633,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.20475",
@@ -4693,12 +4858,28 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.20574v2",
    "abstract": "Answer grounding in document visual question answering remains an open challenge: most benchmarks lack grounding annotations or provide limited-quality labels, while constructing grounded datasets still requires costly manual effort. We introduce DocAttriBench (DAB), a large-scale benchmark for fine-grained, element-level source attribution in Document VQA, grounding answers to specific layout elements such as text blocks, tables, and images. To build DAB, we propose a Mask-based Perplexity-Derived Attribution method (MAPPET) that combines document layout and language modeling to identify the most informative element for each answer. MAPPET measures the increase in perplexity after masking candidate elements and attributes the answer to the element contributing most to model confidence. Applying MAPPET to multiple existing Document VQA datasets yields DAB, with 237k documents and 296k question-answer pairs with element-level grounding. We benchmark grounding-capable multimodal LLMs on DAB, evaluating answer accuracy, attribution accuracy, and overall answer quality. Results show that while larger models generally achieve higher answer accuracy, even the strongest models often fail to localize the supporting elements. DAB provides a scalable benchmark for developing grounded, verifiable, and trustworthy Document VQA models. Dataset and code are available at https://aimagelab.github.io/DocAttriBench/.",
-   "affiliations": [],
+   "affiliations": [
+    "University of Modena and Reggio Emilia, Modena, Italy",
+    "University of Pisa, Pisa, Italy"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "University of Modena and Reggio Emilia",
+    "University of Pisa"
+   ],
+   "institution_ids": [
+    "02d4c4y02",
+    "03ad39j10"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.20574",
@@ -4725,9 +4906,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.20589",
@@ -5067,9 +5250,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.20700",
@@ -5791,12 +5976,32 @@
    "cross_list_from": "eess.IV",
    "html_url": "https://arxiv.org/html/2609.19525v1",
    "abstract": "Clinical B-mode images are widely available as potential data sources for quantitative ultrasound (QUS) analysis for tissue characterization. However, standard clinical ultrasound devices apply unknown log-compression to RF envelope data before display and storage. Previous work has demonstrated estimation of the underlying RF envelope statistics in the presence of an unknown compression law. Using Fisher information analysis, we show that finite-offset log compression causes severe information loss when estimating the Rayleigh scale σ, which controls diffuse speckle. For a single image window, unknown compression raises the minimum achievable variance for unbiased estimation of σ by a compression-independent factor of approximately $\\FisherMinInflation$. When M equal-sized windows share the same unknown compression settings, the excess variance decays as 1/M; even in the most favorable regime, reducing the variance inflation factor below 1.1 requires $\\FisherBestCaseWindows$ windows. Our analysis treats the contrast parameter a as unknown and the boundary offset b as known; estimating b experimentally shows even larger variance. We validate this theory using synthetic estimation experiments and demonstrate RF-scale recovery on real RF-envelope windows from the OASBUD dataset. Together, these results clarify the limitations of using routine B-mode images for QUS.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "\\affilnum1 Clemson University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Clemson University"
+   ],
+   "institution_ids": [
+    "037s24f05"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.19525",
@@ -6131,9 +6336,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.19863",
@@ -6235,9 +6442,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.20191",
@@ -6264,12 +6473,35 @@
    "cross_list_from": "cs.RO",
    "html_url": "https://arxiv.org/html/2609.20318v1",
    "abstract": "Testing Autonomous Driving Systems (ADS) requires realistic safety-critical scenarios, but collecting such data from real-world driving is costly and unsafe. This paper presents an automated pipeline that transforms safe driving scenes into safety-critical scenarios by combining computer vision, Large Language Models (LLMs), and Augmented Reality (AR). The system detects and tracks road users, extracts safety features including distance, velocity, motion direction, and Time-to-Collision (TTC), and assesses scene criticality. Safe scenes are modified by an LLM, which generates realistic collision-inducing objects and behaviors that are integrated into the original scene using AR. The proposed pipeline was evaluated on the nuScenes dataset, achieving 97.52% safety classification accuracy and successfully generating realistic scenarios such as pedestrian crossings, rear overtaking vehicles, and sudden-stop events. The results demonstrate an effective and flexible approach for automated generation of safety-critical scenarios to support the testing and validation of autonomous driving systems.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "C-DRiVeS Lab: Cognitive Driving Research in Vehicular Systems, Cairo, Egypt"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "C-DRiVeS Lab: Cognitive Driving Research in Vehicular Systems"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.20318",
@@ -6797,9 +7029,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.20680",

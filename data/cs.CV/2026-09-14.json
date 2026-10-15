@@ -176,9 +176,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.12151",
@@ -382,9 +384,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.12181",
@@ -418,9 +422,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.12202",
@@ -640,12 +646,31 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.12350v1",
    "abstract": "Close-range first-person field images are important for mobile maize phenotyping because many plant-level traits depend on in-canopy structures that are difficult to ob serve from overhead views. However, post-seedling maize fields create a difficult in stance segmentation setting: stems, leaves, tassels, and neighboring plants are elon gated, repetitive, and strongly occluded. We introduce EgoMaize, a compact benchmark for first-person maize instance segmentation, where the task is to predict ownership consistent plant masks and plant-owned stem/tassel cues from close-range field images with severe same-class overlap. Existing visible-only labels can fragment one physi cal plant into disconnected supervision, while full-amodal labels may require unverifi able completion behind neighboring plants or field objects. EgoMaize therefore uses an evidence-closed annotation workflow for occluded maize regions and assigns unreli able maize regions to ignore rather than background. Baseline results show that pre trained query-based grouping, boundary refinement, and high-resolution crop refine ment help different aspects of the task, but no architecture solves the coupled chal lenges of fine structure recovery, same-class instance ownership, and occlusion reason ing; occlusion-level analysis further shows that performance decreases as plant visi bility becomes more limited. The dataset and code are publicly available at https: //github.com/JaaaaaaaD/EgoMaize.",
-   "affiliations": [],
+   "affiliations": [
+    "College of Computer Science",
+    "Beijing University of Technology, Beijing, China",
+    "School of Mathematics, Statistics and Mechanics"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    null,
+    "Beijing University of Technology",
+    "Statistics and Mechanics"
+   ],
+   "institution_ids": [
+    null,
+    "037b1pp87",
+    null
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.12350",
@@ -731,9 +756,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.12397",
@@ -990,9 +1017,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.12411",
@@ -1440,12 +1469,28 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.12505v1",
    "abstract": "Vision-based reinforcement learning holds strong potential for decision-making in controlled environment agriculture (CEA). However, its development is hindered by the scarcity of labelled crop images. To address this gap, LettuceVisSim, a lettuce growth simulator that generates labelled time series of crop images, was developed and validated. The simulator contains a process-based model (PBM) for shoot dry weight dynamics, a canopy layout algorithm for deriving canopy layout representations from shoot dry weight, and a Unity rendering engine for image generation. Five findings support the simulator. First, the PBM reproduced shoot dry weight under dynamic plant-density management with $R^{2}=0.84$. Second, a piecewise cubic regression mapped shoot dry weight to potential projected area with $R^{2}=0.94$. Third, the canopy layout representation was validated using 12 experimental datasets each having different dynamic environmental and spacing conditions. It reproduced the ground coverage ratio dynamics observed in measured images, achieving $R^{2}=0.84$ when driven by measured shoot dry weight and $R^{2}=0.40$ (0.76 excluding one outlier) when driven by PBM-simulated values. Fourth, the Unity rendering engine converted canopy layout representations into RGB and segmentation images at less than 10~ms. Fifth, a demonstration showed that a lighting-control policy can be learned and applied by observing only crop images that were generated with LettuceVisSim, providing a proof of concept of vision-based reinforcement learning in CEA using LettuceVisSim.",
-   "affiliations": [],
+   "affiliations": [
+    "Agricultural Biosystems Engineering Group, Wageningen University & Research, The Netherlands",
+    "Biometris, Wageningen University & Research, The Netherlands"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Wageningen University & Research",
+    "Wageningen University & Research"
+   ],
+   "institution_ids": [
+    "04qw24q55",
+    "04qw24q55"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.12505",
@@ -1512,9 +1557,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.12517",
@@ -1664,9 +1711,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.12552",
@@ -2495,9 +2544,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.12744",
@@ -2696,9 +2747,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.12818",
@@ -2927,9 +2980,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.12827",
@@ -3032,9 +3087,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.12834",
@@ -3140,9 +3197,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.12843",
@@ -3303,9 +3362,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.12874",
@@ -3430,9 +3491,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.12898",
@@ -3675,9 +3738,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.12929",
@@ -3889,9 +3954,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.12997",
@@ -3985,12 +4052,31 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.13012v1",
    "abstract": "Vision-language models retain a substantial amount of pixel-decodable visual content in their visual key-value cache. We show, in our setting, that this retention is task-inert: across our preregistered tests, how much a unit retains never positively tracks whether the computation that answers the question causally relies on it. We measure retention with a learned pixel-inversion decoder and causal use with single-super-patch KV ablation, the teacher-forced drop in gold-answer log-probability, and relate the two within images under a preregistered, sign-calibrated, held-out design. Retention is decoupled from attention and, in a well-powered null, from causal utilization. Utilization is not inert to every proxy: attention weakly but significantly tracks it, the only signal we find that does and the design's positive control. We characterize pixel-decodable retention as an informational axis of the visual KV cache, orthogonal to the functional one. How much task-inert content a cache holds differs by architecture in our model pair: the encoder-free model retains 2.7 times more than the encoder-based one. The engineering consequence is a controlled negative result. At super-patch granularity, deconfounded pixel-decodable retention ranks KV eviction no better than random; at token granularity it acquires only a weak inverse-importance signal at larger budgets, dominated at every budget by attention magnitude. In our setting, pixel-decodable reconstructability is not a competitive KV-compression signal at any granularity we test.",
-   "affiliations": [],
+   "affiliations": [
+    "School of Engineering, Institute of Science Tokyo, Japan",
+    "College of Control Science and Engineering, Zhejiang University, China",
+    "Department of Electrical and Computer Engineering, National University of Singapore"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Institute of Science Tokyo",
+    "Zhejiang University",
+    "National University of Singapore"
+   ],
+   "institution_ids": [
+    "05dqf9946",
+    "00a2xv884",
+    "01tgyzw49"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.13012",
@@ -4128,9 +4214,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.13043",
@@ -4161,9 +4249,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.11939",
@@ -4193,12 +4283,41 @@
    "cross_list_from": "cs.RO",
    "html_url": "https://arxiv.org/html/2609.11947v1",
    "abstract": "Increasing safety is the primary objective of automated vehicles. Achieving this goal requires reliable safety metrics that incorporate safety-relevant factors such as object type, velocity, and criticality. A key capability of such metrics is the distinction between critical and non-critical objects, which is addressed through criticality or relevance estimation. Existing criticality metrics are typically designed for specific scenarios and primarily focus on vehicle-to-vehicle interactions. In this paper, we therefore propose a novel criticality metric tailored to vulnerable road users (VRUs), which require special consideration due to their less predictable motion behavior. Furthermore, to avoid the complexity introduced by scenario-specific metrics, we introduce a scenario-independent criticality prediction framework applicable to all traffic participant classes. The effectiveness of both the proposed VRU-centric criticality metric and the criticality prediction framework is evaluated using the DeepAccident dataset, which contains a diverse set of safety-critical traffic scenarios. The proposed VRU-centric criticality metric improves pedestrian criticality classification performance by up to 50 %. In addition, the proposed criticality prediction framework outperforms state-of-the-art metrics by 275 %, achieving an F1-score of 0.96 and enabling scenario-independent criticality assessment across all object classes. These results demonstrate the strong potential of the proposed approaches to enhance criticality assessment for safety evaluation in automated driving systems.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
+   "affiliations": [
+    "University of Tübingen, Faculty of Science, Department of Computer Science, Embedded Systems Group"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Tübingen"
+   ],
+   "institution_ids": [
+    "03a1kwz48"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.11947",
@@ -4431,9 +4550,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.12285",
@@ -4686,9 +4807,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "html"
+     "source": "html",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.12663",
