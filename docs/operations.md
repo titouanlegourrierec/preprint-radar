@@ -118,6 +118,18 @@ To fix a real change:
    `sources/arxiv_html.py`, and bump `EXTRACTOR_VERSION`.
 3. Once pushed, the next runs read the pending papers again by themselves.
 
+### The listing's entries lost their authors or links
+
+**Signal.** "N of the M entries of the listing have no authors" (or no HTML link, or of
+the catchup page): `the arXiv layout may have changed`, in the error annotation
+*preprint-radar update failed*.
+
+More than 10% of at least 20 entries had no author, or more than half no HTML link where
+arXiv renders them (REL-7): the listing's markup changed, and the run stored nothing
+rather than papers without authors. Of the 6,000 papers stored on 2026-10-15, none lacked
+authors and 4.6% a link. Fix the parser in `sources/arxiv_listing.py` against a saved
+copy of the page, as for a layout change above.
+
 ### A backfill left days unread
 
 **Signal.** `the day is left for the next run` (error annotation `Catchup pages failed`),

@@ -139,6 +139,54 @@ def test_rejects_malformed_entries(listing_html: str, old: str, new: str, error:
         parse_listing(listing_html.replace(old, new, 1))
 
 
+def _entries_page(authors: int, links: int, total: int = 40, *, day: str = "Thu, 15 Oct 2026") -> str:
+    """A listing of ``total`` entries, the first ``authors`` with an author, ``links`` with an HTML link."""
+    entries = "".join(
+        f'<dt><a href ="/abs/2610.{10000 + n}" title="Abstract">arXiv:2610.{10000 + n}</a>'
+        + (f'<a href="/html/2610.{10000 + n}v1" title="View HTML">html</a>' if n < links else "")
+        + f"</dt><dd><div class='list-title mathjax'>Paper {n}</div>"
+        + ("<div class='list-authors'><a href='/a/x'>Ada Lovelace</a></div>" if n < authors else "")
+        + "</dd>"
+        for n in range(total)
+    )
+    return f"<dl id='articles'><h3>{day} (showing {total} of {total} entries )</h3>{entries}</dl>"
+
+
+@pytest.mark.parametrize(
+    ("authors", "links", "error"),
+    [
+        pytest.param(36, 40, None, id="ten-percent-without-authors"),
+        pytest.param(35, 40, "5 of the 40 entries of the listing have no authors", id="more-without-authors"),
+        pytest.param(40, 20, None, id="half-without-links"),
+        pytest.param(
+            40, 19, "21 of the 40 entries of the listing have no HTML link", id="more-without-links"
+        ),
+    ],
+)
+def test_rejects_a_listing_whose_entries_lost_authors_or_links(
+    authors: int, links: int, error: str | None
+) -> None:
+    html = _entries_page(authors, links)
+    if error is None:
+        assert len(parse_listing(html).papers) == 40
+    else:
+        with pytest.raises(ParseError, match=error):
+            parse_listing(html)
+
+
+def test_judges_neither_a_few_entries_nor_the_links_of_days_before_html() -> None:
+    assert len(parse_listing(_entries_page(0, 0, total=19)).papers) == 19
+    assert len(parse_listing(_entries_page(40, 0, day="Thu, 16 Nov 2023")).papers) == 40
+
+
+def test_rejects_a_catchup_page_whose_entries_lost_their_authors() -> None:
+    page = _entries_page(0, 40).replace("Thu, 15 Oct 2026 (showing", "New submissions (showing")
+    html = f"<div id='dlpage'><h1>Catchup results for Computer Vision on Thu, 15 Oct 2026</h1>{page}</div>"
+
+    with pytest.raises(ParseError, match="40 of the 40 entries of the catchup page have no authors"):
+        parse_catchup(html)
+
+
 def test_rejects_page_without_articles() -> None:
     with pytest.raises(ParseError, match="dl#articles"):
         parse_listing("<html><body><p>Nothing here</p></body></html>")

@@ -51,6 +51,10 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 - A link to a year the archive does not hold (`?year=2005`) names the year shown instead,
   in place, so that a shared link opens what was seen (SRCH-20).
 
+- A listing or catchup page whose entries lost their authors (more than 10%), or their
+  HTML links (more than half), fails the run instead of storing papers without them: the
+  arXiv layout changed (REL-7).
+
 ### Security
 
 - The site has a Content-Security-Policy: its own scripts, styles, data and graph worker

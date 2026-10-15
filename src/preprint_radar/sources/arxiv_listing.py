@@ -9,7 +9,7 @@ Two kinds of pages share the same ``<dt>``/``<dd>`` markup for their entries:
 
 import logging
 import re
-from collections.abc import Iterator
+from collections.abc import Iterator, Sequence
 from datetime import UTC, date, datetime
 from urllib.parse import urljoin
 
@@ -151,6 +151,7 @@ def parse_listing(html: str) -> Listing:
         raise ParseError(msg)
 
     papers = tuple(paper for section in sections for paper in _parse_section(section))
+    _check_entries(papers, "listing")
     return Listing(papers=papers, total=_parse_total(soup))
 
 
@@ -194,7 +195,43 @@ def parse_catchup(html: str) -> Listing:
         totals.append(int(showing.group(1)) if showing else None)
         papers.extend(_parse_entries(section, announced))
     total = None if None in totals else sum(count for count in totals if count is not None)
+    _check_entries(papers, "catchup page")
     return Listing(papers=tuple(papers), total=total)
+
+
+def _check_entries(papers: Sequence[Paper], page: str) -> None:
+    """Refuse a page whose entries a layout change emptied: their authors, or HTML links (REL-7).
+
+    Of the 6,000 papers stored on 2026-10-15, none lacked authors and 4.6% an HTML link;
+    a page of a few entries says nothing, nor, for the links, the days before arXiv
+    rendered papers in HTML.
+
+    Raises:
+        ParseError: If more than 10% of the entries have no author, or more than half of
+            those arXiv renders no HTML link.
+    """
+    if len(papers) < _MIN_ENTRIES_CHECKED:
+        return
+    without_authors = sum(not paper.authors for paper in papers)
+    rendered = [paper for paper in papers if paper.announced >= _FIRST_RENDERED_DAY]
+    without_links = sum(paper.html_url is None for paper in rendered)
+    for missing, among, share, what in (
+        (without_authors, len(papers), _MAX_WITHOUT_AUTHORS, "authors"),
+        (without_links, len(rendered), _MAX_WITHOUT_HTML_LINK, "HTML link"),
+    ):
+        if among and missing > share * among:
+            msg = (
+                f"{missing:,} of the {among:,} entries of the {page} have no {what}; "
+                "the arXiv layout may have changed."
+            )
+            raise ParseError(msg)
+
+
+_MIN_ENTRIES_CHECKED = 20
+_MAX_WITHOUT_AUTHORS = 0.1
+_MAX_WITHOUT_HTML_LINK = 0.5
+# arXiv renders the papers submitted since December 2023 in HTML.
+_FIRST_RENDERED_DAY = date(2023, 12, 1)
 
 
 def _parse_total(soup: BeautifulSoup) -> int | None:
