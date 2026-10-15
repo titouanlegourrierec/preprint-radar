@@ -43,6 +43,13 @@ describe("selectDays", () => {
     expect(selectDays(days, between("2026-09-10", "2026-09-20"))).toEqual([]);
   });
 
+  it("keeps the days since a day, to the latest (PROD-13)", () => {
+    expect(selectDays(days, { kind: "since", from: "2026-09-09" }).map(({ date }) => date)).toEqual(
+      ["2026-09-25", "2026-09-24", "2026-09-09"],
+    );
+    expect(selectDays(days, { kind: "since", from: "2026-09-26" })).toEqual([]);
+  });
+
   it("loads the latest days of a period within the paper budget", () => {
     // A year of days, 300 papers each: the budget holds the latest 33.
     const year = Array.from({ length: 250 }, (_, index) => ({
@@ -128,6 +135,9 @@ describe("period keys", () => {
     expect(periodOfKey(periodKey(dates))).toEqual(dates);
     expect(periodOfKey("month")).toEqual({ kind: "recent", range: "month" });
     expect(periodKey(between("2026-09-01", "2026-09-05"))).toBe(periodKey(dates));
+    const since = { kind: "since" as const, from: "2026-09-15" };
+    expect(periodKey(since)).toBe("2026-09-15..");
+    expect(periodOfKey(periodKey(since))).toEqual(since);
   });
 
   it("tell equal periods apart from others", () => {
@@ -143,6 +153,9 @@ describe("period keys", () => {
     expect(samePeriod(between("2026-09-01", "2026-09-05"), { kind: "recent", range: "week" })).toBe(
       false,
     );
+    const since = { kind: "since" as const, from: "2026-09-01" };
+    expect(samePeriod(since, { ...since })).toBe(true);
+    expect(samePeriod(since, between("2026-09-01", "2026-09-25"))).toBe(false);
   });
 });
 

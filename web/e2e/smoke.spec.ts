@@ -92,6 +92,17 @@ test("older days past the budget are searched, and a card loads its abstract", a
   expect(errors).toEqual([]);
 });
 
+test("a range to the latest day keeps adding new days, as a since link", async ({ page }) => {
+  await page.goto("./?from=2026-09-24&to=2026-09-25");
+  await expect(page.getByText("4 of 4 cs.CV papers")).toBeVisible();
+  await page.locator(".period-picker__trigger").click();
+  await page.getByRole("button", { name: "Keep adding new days" }).click();
+  // The link no longer ends on 25 September: tomorrow's papers will join it (PROD-13).
+  await expect(page).toHaveURL(/\?since=2026-09-24$/);
+  await expect(page.locator(".period-picker__trigger")).toContainText("Since");
+  await expect(page.getByText("4 of 4 cs.CV papers")).toBeVisible();
+});
+
 test("a day that fails to load is asked for again, then left out with a notice", async ({
   page,
 }) => {

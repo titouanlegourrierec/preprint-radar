@@ -134,9 +134,15 @@ export function PeriodPicker({ days, period, onChange }: Props) {
       >
         <CalendarIcon />
         <span class="period-picker__label">
-          <span>{period.kind === "recent" ? RANGES[period.range].label : span}</span>
+          <span>
+            {period.kind === "recent"
+              ? RANGES[period.range].label
+              : period.kind === "since"
+                ? `Since ${formatDays(period.from, period.from)}`
+                : span}
+          </span>
           <span class="period-picker__detail">
-            {period.kind === "recent" ? span : countOf(selected.length, "day")} ·{" "}
+            {period.kind === "dates" ? countOf(selected.length, "day") : span} ·{" "}
             {countOf(papers, "paper")}
           </span>
         </span>
@@ -228,7 +234,24 @@ export function PeriodPicker({ days, period, onChange }: Props) {
           <p class="period-picker__summary">
             {anchor
               ? "Now click the last day of the range."
-              : "Click a day, then another one to select a range."}
+              : period.kind === "since"
+                ? "New days join this period as they are announced. Click a day, then another one to select a range."
+                : "Click a day, then another one to select a range."}
+            {!anchor && period.kind === "dates" && period.to === latest && (
+              <>
+                {" "}
+                <button
+                  type="button"
+                  class="link-button"
+                  onClick={() => {
+                    onChange({ kind: "since", from: period.from });
+                    close(true);
+                  }}
+                >
+                  Keep adding new days
+                </button>
+              </>
+            )}
           </p>
         </div>
       )}

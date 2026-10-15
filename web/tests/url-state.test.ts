@@ -79,6 +79,18 @@ describe("url state", () => {
     expect(readState(writeState(state))).toEqual(state);
   });
 
+  it("round-trips the days since a day, which dates override (PROD-13)", () => {
+    const state = { ...DEFAULT_STATE, period: { kind: "since" as const, from: "2026-09-15" } };
+    expect(writeState(state)).toBe("?since=2026-09-15");
+    expect(readState(writeState(state))).toEqual(state);
+    expect(readState("?since=2026-09-15&from=2026-09-20").period).toEqual({
+      kind: "dates",
+      from: "2026-09-20",
+      to: "2026-09-20",
+    });
+    expect(readState("?since=15-09-2026").period).toEqual(DEFAULT_STATE.period);
+  });
+
   it("reads a single day and dates given in any order", () => {
     expect(readState("?from=2026-09-09").period).toEqual({
       kind: "dates",

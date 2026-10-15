@@ -134,7 +134,8 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   | `q` | The search words | none | every list, Rankings, the graph |
   | `cat` | The category | the store's first | every view |
   | `from`, `to` | A period of days (`from` alone: one day) | `range` | the Papers view, the graph and Rankings without `year` |
-  | `range` | A preset: `1`, `5`, `20`, `40` days (`all`, from old links, is `40`) | `5` | the same |
+  | `since` | The days since a day, to the latest, which a bookmark keeps following (PROD-13) | `range` | the same |
+  | `range` | A preset: `day`, `week`, `month` (`1`, `5`, `20`, `40` and `all`, from old links, open the one that holds as many days) | `week` | the same |
   | `sort` | `relevance`, `newest`, `citations`, `rising` | `relevance` | the lists |
   | `view` | `papers`, `cited`, `graph`, `rankings`, `reading-list`, `about` | `papers` | every view |
   | `paper` | An arXiv id: the paper opened (a list) or selected (the graph) | none | the lists, the graph |
@@ -149,8 +150,10 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
 
 ## Periods and loading (`period.ts`, `data.ts`, `hooks/use-papers.ts`)
 
-- A preset (`?range=`) or a custom date range (`?from=&to=`), shown by
-  `components/PeriodPicker.tsx`. The presets are the latest day, the last week and the
+- A preset (`?range=`), a custom date range (`?from=&to=`) or the days since a day
+  (`?since=`, PROD-13: "since 15 September" as a bookmark, which new days join; the
+  calendar offers it for a range that ends on the latest day, "Keep adding new days"), shown
+  by `components/PeriodPicker.tsx`. The presets are the latest day, the last week and the
   last month (`day`, `week`, `month`), counted in calendar days to the latest announcement
   day, so that their names say what they hold: a week has five announcement days, fewer
   after a holiday (SRCH-14). Links to the former presets, counted in announcement days,

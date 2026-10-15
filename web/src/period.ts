@@ -47,7 +47,10 @@ const FORMER_RANGES: Record<string, RangeKey> = {
   all: LONGEST_RANGE,
 };
 
-/** Papers to show: the latest announcement days, or the days between two dates. */
+/**
+ * Papers to show: the latest announcement days, the days between two dates, or those since
+ * a date, to the latest day (`?since=`, PROD-13), which a bookmark keeps following.
+ */
 export type Period =
   | { kind: "recent"; range: RangeKey }
   | {
@@ -56,6 +59,11 @@ export type Period =
       from: string;
       /** Last day, inclusive. */
       to: string;
+    }
+  | {
+      kind: "since";
+      /** First day, as an ISO date. */
+      from: string;
     };
 
 export type DateRange = Extract<Period, { kind: "dates" }>;
@@ -90,6 +98,7 @@ function periodDays(days: readonly DaySummary[], period: Period): DaySummary[] {
   if (period.kind === "dates") {
     return days.filter((day) => day.date >= period.from && day.date <= period.to);
   }
+  if (period.kind === "since") return days.filter((day) => day.date >= period.from);
   const latest = days[0]?.date;
   if (latest === undefined) return [];
   const first = dayDate(latest);
@@ -139,25 +148,24 @@ export function daysOverBudget(days: readonly DaySummary[], period: Period): num
 }
 
 /**
- * A period as text, the same for equal periods ("5", "2026-09-01..2026-09-05"): what makes
- * `usePapers` load again, since the URL gives a new object for the same period at each
- * reading (Back, a preset chosen again).
+ * A period as text, the same for equal periods ("week", "2026-09-01..2026-09-05",
+ * "2026-09-15.." since a day): what makes `usePapers` load again, since the URL gives a new
+ * object for the same period at each reading (Back, a preset chosen again).
  */
 export function periodKey(period: Period): string {
-  return period.kind === "recent" ? period.range : `${period.from}..${period.to}`;
+  if (period.kind === "recent") return period.range;
+  return `${period.from}..${period.kind === "dates" ? period.to : ""}`;
 }
 
 /** The period of a {@link periodKey}. */
 export function periodOfKey(key: string): Period {
   if (isRange(key)) return { kind: "recent", range: key };
   const [from = "", to = ""] = key.split("..");
-  return between(from, to);
+  return to === "" ? { kind: "since", from } : between(from, to);
 }
 
 export function samePeriod(a: Period, b: Period): boolean {
-  return a.kind === "recent"
-    ? b.kind === "recent" && a.range === b.range
-    : b.kind === "dates" && a.from === b.from && a.to === b.to;
+  return periodKey(a) === periodKey(b);
 }
 
 /** Local midnight of an ISO day, for display. */

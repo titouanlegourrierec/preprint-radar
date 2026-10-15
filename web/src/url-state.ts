@@ -55,14 +55,17 @@ export const DEFAULT_STATE: ViewState = {
 };
 
 /**
- * `?from=…&to=…` (a single `from` is one day), else `?range=…`, else the default. Former
- * presets open the one that holds as many days ("5" a week), and "All days" (`?range=all`),
- * gone since a period is bounded, the longest (`rangeOf`).
+ * `?from=…&to=…` (a single `from` is one day), else `?since=…` (to the latest day), else
+ * `?range=…`, else the default. Former presets open the one that holds as many days ("5" a
+ * week), and "All days" (`?range=all`), gone since a period is bounded, the longest
+ * (`rangeOf`).
  */
 function readPeriod(params: URLSearchParams): Period {
   const from = params.get("from");
   const to = params.get("to") ?? from;
   if (isIsoDay(from) && isIsoDay(to)) return between(from, to);
+  const since = params.get("since");
+  if (isIsoDay(since)) return { kind: "since", from: since };
   const range = rangeOf(params.get("range"));
   return range === null ? DEFAULT_PERIOD : { kind: "recent", range };
 }
@@ -113,6 +116,8 @@ export function writeState(state: ViewState): string {
   if (period.kind === "dates") {
     set("from", period.from);
     set("to", period.to, period.from);
+  } else if (period.kind === "since") {
+    set("since", period.from);
   } else {
     set("range", period.range, DEFAULT_PERIOD.kind === "recent" ? DEFAULT_PERIOD.range : null);
   }
