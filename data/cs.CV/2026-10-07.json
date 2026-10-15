@@ -46,11 +46,11 @@
     "02v51f717",
     "03cve4549"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -87,11 +87,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.08790",
@@ -150,11 +150,11 @@
    "institution_ids": [
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -215,11 +215,11 @@
     null,
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -279,11 +279,11 @@
     "03b94tp07",
     "03r8z3t63"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -393,11 +393,11 @@
    "institution_ids": [
     "05h0z7c09"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -426,14 +426,35 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2610.08756v1",
    "abstract": "The same Gaussian of a 3D Gaussian Splatting model is seen from many views, and these views do not always agree on the class it belongs to. The Gaussian may be occluded in some of them, and the confidence of the detector is not the same from one view to another. The ground truth, on the other hand, is given as an annotated mesh, because two training runs do not produce the same Gaussians. In this work, we propose a post-training lifting method that works with one target class at a time and combines the information coming from all the views. Target and non-target evidence are accumulated simultaneously, weighted by the visibility of each Gaussian in each view. After that, the Gaussians are filtered with two thresholds: a main threshold β selects the high-confidence seeds, and a lower one γβ adds the connected components around them. For the evaluation, the labels are transferred from the Gaussians to the mesh vertices that are both visible and annotated. With this design, we can separate three sources of error: the 2D detector, the lifting and the transfer between representations. The thresholds and the transfer operator are chosen on seven Replica validation scenes, and the method is evaluated on ten held-out ScanNet++ scenes with the same values for every scene and class. The mean mIoU on the validation scenes was 0.93 with masks from the dataset annotations and 0.65 with YOLO masks, and on the ScanNet++ test scenes it was 0.80 and 0.54. Compared with thresholding the evidence per view, as a previous version of the method did, the fraction improves the test mIoU by 0.24 and makes it possible to use a single threshold for all the classes and scenes of both datasets. Finally, the error analysis shows that most of the remaining error comes from the detector.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
-   "extractor": 7,
+   "affiliations": [
+    "Department of Computer Languages and Computer Science, University of Málaga"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Universidad de Málaga"
+   ],
+   "institution_ids": [
+    "036b2ww28"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.08756",
@@ -479,11 +500,11 @@
    "institution_ids": [
     "00py81415"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -517,11 +538,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.08713",
@@ -583,11 +604,11 @@
     null,
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -640,11 +661,11 @@
    "institution_ids": [
     "01y0j0j86"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -698,11 +719,11 @@
    "institution_ids": [
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -759,11 +780,11 @@
    "institution_ids": [
     "00py81415"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -826,11 +847,11 @@
     "04qr3zq92",
     "023rhb549"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -887,11 +908,11 @@
    "institution_ids": [
     "00py81415"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -957,11 +978,11 @@
     "041kmwe10",
     "01tgyzw49"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -1010,11 +1031,11 @@
    "institution_ids": [
     "012k1v959"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -1071,11 +1092,11 @@
     "03yacj906",
     "03yacj906"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -1166,11 +1187,11 @@
     "05apxxy63",
     "02zhqgq86"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -1292,11 +1313,11 @@
     "033vjfk17",
     "033vjfk17"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -1359,11 +1380,11 @@
     "0440ra149",
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -1393,14 +1414,28 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2610.08528v1",
    "abstract": "Clinical diagnosis is inherently a structured reasoning process, yet existing deep learning models often bypass this structure by mapping image features directly to disease labels without explicitly interrogating the morphological and textural criteria that clinicians systematically evaluate. This limits diagnostic transparency and may compromise safe clinical deployment. We present MedCORE (Medical Criteria-Oriented Reasoning and Evidence), a structured diagnostic framework that operationalizes clinical reasoning within a vision-language architecture. For each input image, MedCORE decomposes the diagnostic process into clinically defined criteria, spatially localizes each criterion to diagnostically relevant image regions, encodes evidence through multi-scale representations that capture macro-structural and micro-textural pathological characteristics, and refines criterion representations using a Graph Attention Network that explicitly models inter-criteria dependencies. Criterion representations are further aligned with clinical text descriptors, reinforced through class-wise visual prototypes, and aggregated using uncertainty-calibrated weighting that proportionally discounts low-confidence diagnostic evidence. MedCORE is validated across three clinically heterogeneous imaging modalities, including dermoscopic lesion classification on ISIC 2018, breast ultrasound lesion characterization on BUSI, and diabetic retinopathy grading on IDRiD. Quantitatively, MedCORE achieves 89.2% accuracy, 85.7% macro-F1, and 96.4% AUC on ISIC 2018; 96.1% accuracy, 95.2% macro-F1, and 98.4% AUC on BUSI; and 84.3% accuracy, 80.2% macro-F1, and 92.8% AUC on IDRiD. These results demonstrate consistent improvements over strong CNN, transformer, biomedical vision-language, concept-based, and prototype-based baselines.",
-   "affiliations": [],
+   "affiliations": [
+    "Deparment of Computer Science, Khalifa University, Abu Dhabi, UAE",
+    "Department of Aerosapce Engineering, Khalifa University, Abu Dhabi, UAE"
+   ],
    "author_affiliations": null,
-   "institutions": null,
-   "extractor": 7,
+   "institutions": [
+    "Khalifa University of Science and Technology",
+    "Khalifa University of Science and Technology"
+   ],
+   "institution_ids": [
+    "05hffr360",
+    "05hffr360"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.08528",
@@ -1552,11 +1587,11 @@
     "03n6nwv02",
     "01v5cv687"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -1668,11 +1703,11 @@
     "00hj8s172",
     "00hj8s172"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -1743,11 +1778,11 @@
     "02v51f717",
     "02e7b5302"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -1817,11 +1852,11 @@
     "00f1zfq44",
     "03x80pn82"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -1872,11 +1907,11 @@
     "01ythxj32",
     "01jepya76"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -1937,11 +1972,11 @@
     "01zkghx44",
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -1994,11 +2029,11 @@
     "00g5w7n47",
     "00a2xv884"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -2032,11 +2067,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.08379",
@@ -2134,11 +2169,11 @@
     null,
     "013meh722"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -2264,11 +2299,11 @@
     "00wk2mp56",
     "01tgyzw49"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -2332,11 +2367,11 @@
     null,
     "04h9pn542"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -2367,11 +2402,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.08331",
@@ -2420,11 +2455,11 @@
     "04dkp9463",
     "03sg2bq51"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -2480,11 +2515,11 @@
     "03p14d497",
     "057zh3y96"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -2536,11 +2571,11 @@
     "03p14d497",
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -2604,11 +2639,11 @@
     "010pmpe69",
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -2654,11 +2689,11 @@
     "01ee9ar58",
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -2786,11 +2821,11 @@
     "01skt4w74",
     "00q4vv597"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -2852,11 +2887,11 @@
    "institution_ids": [
     "017zhmm22"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -2917,11 +2952,11 @@
     "03p14d497",
     "05kkv3f82"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -2967,11 +3002,11 @@
    "institution_ids": [
     "01ft5vz71"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -3039,11 +3074,11 @@
     "05m7pjf47",
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -3133,11 +3168,11 @@
     "04k51q396",
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -3207,11 +3242,11 @@
     "0030zas98",
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -3260,11 +3295,11 @@
     "02v51f717",
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -3363,11 +3398,11 @@
     "00t33hh48",
     "00a2xv884"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -3395,14 +3430,29 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2610.07984v1",
    "abstract": "Multimodal assistants answer questions from long-term memories that contain images. After retrieval, each retrieved image reaches the answering model either as pixels, at about a thousand visual tokens per image, or as a stored text proxy that often misses the detail the question asks about. We find that the benefit of pixels usually comes from one or two retrieved memories, and that it can be predicted before the answering model runs, without reading any full-resolution image. In PixelTriage, a plug-in placed after retrieval, a small model that does not generate text reads the dialogue, a short note and a thumbnail of each retrieved memory and predicts how much its pixels would add. It is trained on synthetic memory episodes labeled by a frozen 27B model that answers each question with and without each memory's pixels. With a 7B answering model, PixelTriage lies on the accuracy--cost frontier of M$^3$Exam, DMV and MemEye and uses 11–23% of the visual tokens without a significant loss of accuracy. On DMV it answers 2.9 times faster than opening all images. It outperforms retrieval order and uniform down-sizing at equal budgets and transfers to other memory systems and to a 397B answering model.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
-   "extractor": 7,
+   "affiliations": [
+    "The Chinese University of Hong Kong"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Chinese University of Hong Kong"
+   ],
+   "institution_ids": [
+    "00t33hh48"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.07984",
@@ -3465,11 +3515,11 @@
     "03x80pn82",
     "036wvzt09"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -3515,11 +3565,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.07969",
@@ -3582,11 +3632,11 @@
     "041051y78",
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -3638,11 +3688,11 @@
     "01wjejq96",
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -3705,11 +3755,11 @@
     "05hs6h993",
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -3740,14 +3790,31 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2610.07928v1",
    "abstract": "Dynamic multimodal learning aims to learn robust representations by adaptively modeling information discrepancies across modalities. However, existing methods still suffer from two limitations: (i) static cross-modal alignment strategies usually impose uniform constraints on all samples while overlooking sample-wise variations, potentially leading to unreasonable over-alignment; and (ii) confidence- or uncertainty-aware fusion methods often fail to adequately account for feature magnitude and confidence differences across modalities. For modality pairs with significant feature magnitude differences or small confidence gaps, it might be unreliable to strictly align fusion weights according to confidence. To address these issues, we propose an Alignment- and Calibration-driven Multimodal Learning framework (ACML). Specifically, ACML incorporates a dynamic cross-modal triplet alignment module, which enforces strong semantic consistency for high-confidence positive pairs while encouraging diverse representation learning between high- and low-confidence positive pairs according to their confidence gaps. Additionally, ACML introduces a difference-aware attention calibration strategy that adaptively adjusts attention regularization based on feature magnitude and confidence differences across modalities, thereby mitigating biases caused by unreasonable fusion constraints. Extensive experiments on multiple multimodal benchmark datasets demonstrate that ACML consistently achieves superior performance and robustness over recent state-of-the-art methods.",
-   "affiliations": [],
+   "affiliations": [
+    "School of Computer Science and Engineering, University of Electronic Science and Technology of China, Chengdu,China",
+    "Tianyijiaotong Technology Ltd.,China",
+    "School of Computer Science and Technology, Hainan University, Haikou, China"
+   ],
    "author_affiliations": null,
-   "institutions": null,
-   "extractor": 7,
+   "institutions": [
+    "University of Electronic Science and Technology of China",
+    "Tianyijiaotong Technology Ltd.",
+    "Hainan University"
+   ],
+   "institution_ids": [
+    "04qr3zq92",
+    null,
+    "03q648j11"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.07928",
@@ -3771,14 +3838,32 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2610.07925v1",
    "abstract": "Partially Relevant Video Retrieval (PRVR) aims to retrieve untrimmed videos containing moments relevant to a given text query. Despite recent progress, existing PRVR methods suffer from two key limitations: a fixed video decomposition scheme that causes semantic dilution, and source-domain overfitting induced by task-specific training. In this paper, we propose TF-PRVR, the first training-free framework for PRVR. TF-PRVR leverages frozen vision-language features to construct video-specific hierarchical representations. It derives temporal semantic signals from frame-level features and applies frequency-based multi-scale analysis to identify adaptive temporal boundaries, producing hierarchical segments with coherent event-level semantics. Built on these segments, TF-PRVR constructs a unified multi-scale graph and propagates query relevance across temporally and semantically related nodes. A moment-aware scoring strategy then aggregates temporally aligned relevance across scales, emphasizing consistently supported moments while suppressing isolated false responses. Without task-specific training, TF-PRVR preserves the general-purpose alignment capability of pre-trained vision-language models and avoids dataset-specific overfitting. Extensive experiments demonstrate consistent performance across datasets with diverse visual and temporal characteristics, suggesting a practical direction for training-free PRVR.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
-   "extractor": 7,
+   "affiliations": [
+    "Chung-Ang University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Chung-Ang University"
+   ],
+   "institution_ids": [
+    "01r024a98"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.07925",
@@ -3882,11 +3967,11 @@
     "03taz7m60",
     "01285e189"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -3932,11 +4017,11 @@
    "institution_ids": [
     "03yacj906"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -4053,11 +4138,11 @@
     null,
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -4113,11 +4198,11 @@
     "00sge8677",
     "01znkr924"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -4166,11 +4251,11 @@
    "institution_ids": [
     "01an57a31"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -4234,11 +4319,11 @@
     null,
     "05hwzrf74"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -4305,11 +4390,11 @@
     "021vseb03",
     "04d5vba33"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -4366,11 +4451,11 @@
    "institution_ids": [
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -4426,11 +4511,11 @@
     "01y0j0j86",
     "02w30qy89"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -4465,11 +4550,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.07788",
@@ -4510,11 +4595,11 @@
    "institution_ids": [
     "012k1v959"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -4564,11 +4649,11 @@
    "institution_ids": [
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -4610,11 +4695,11 @@
     null,
     "01zqcg218"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -4687,11 +4772,11 @@
    "institution_ids": [
     "04tm3k558"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -4741,11 +4826,11 @@
    "institution_ids": [
     "049s0rh22"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -4781,11 +4866,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.07711",
@@ -4815,11 +4900,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.07705",
@@ -4860,11 +4945,11 @@
    "institution_ids": [
     "05a1qpv97"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -4899,11 +4984,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.07694",
@@ -4934,11 +5019,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.07689",
@@ -4984,11 +5069,11 @@
    "institution_ids": [
     "02czkny70"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -5075,11 +5160,11 @@
     null,
     "04h9pn542"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -5126,11 +5211,11 @@
     "046rm7j60",
     "05dxps055"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -5182,11 +5267,11 @@
     null,
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -5232,11 +5317,11 @@
     "01pxwe438",
     "01pxwe438"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -5272,11 +5357,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-12"
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.07464",
@@ -5374,11 +5459,11 @@
     "047rhhm47",
     "05x2bcf33"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -5458,11 +5543,11 @@
     null,
     "03ajsaw82"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -5515,11 +5600,11 @@
    "institution_ids": [
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -5564,11 +5649,11 @@
    "institution_ids": [
     "0020snb74"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -5645,11 +5730,11 @@
     "03nawhv43",
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -5691,11 +5776,11 @@
     null,
     "02kkvpp62"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -5782,11 +5867,11 @@
     "024ctqw02",
     "00py81415"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -5820,14 +5905,28 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2610.07337v1",
    "abstract": "Removing copyrighted, unsafe, or user-specified concepts from a deployed text-to-image diffusion model is now a practical requirement. Weight-editing methods can suppress fixed targets, but they require per-target retraining and modify the model checkpoint. Training-free methods, on the other hand, are deployment-friendly, but they suffer from text-side routing failures on compositional prompts. In such prompts, the erase target may be invoked through a related class rather than its lexical name, and its modifiers may migrate onto preserved objects. This paper proposes Hierarchically Grounded Semantic Surgery (HGSS), a training-free framework for compositional concept erasure. The framework lifts both the routing signal and the edit operator used by text-side erasure. First, hierarchical span grounding resolves erase-target spans through lexical, taxonomic, and semantic evidence, while guarding against broad-hypernym and compound-head false positives. Second, dynamic attribute binding refines the text conditioning during early denoising via a counterfactual reference and a preserve-aware cross-attention objective, keeping surviving attribute-noun bindings intact. HGSS selectively removes the erase target without updating model weights or adding learned parameters. On SEE, HGSS cuts hierarchical evasion from 29.54 to 10.02 and roughly halves pairwise attribute leakage, achieving the best Neighbor E and AttrP scores among the reported erasure methods. On UnlearnCanvas, HGSS slightly improves the six-metric average over the matched Semantic Surgery baseline, reaching state-of-the-art.",
-   "affiliations": [],
+   "affiliations": [
+    "Department of Computer Science, Virginia Tech, Alexandria, Virginia, USA",
+    "Verisign, Inc, Reston, Virginia, USA"
+   ],
    "author_affiliations": null,
-   "institutions": null,
-   "extractor": 7,
+   "institutions": [
+    "Virginia Tech",
+    "Verisign Inc"
+   ],
+   "institution_ids": [
+    "02smfhw86",
+    null
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.07337",
@@ -5956,11 +6055,11 @@
    "institution_ids": [
     "0155zta11"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -6061,11 +6160,11 @@
     "01tqv1p28",
     "00sge8677"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -6137,11 +6236,11 @@
     "034t30j35",
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -6179,11 +6278,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.07127",
@@ -6229,11 +6328,11 @@
     "02d4c4y02",
     "01tevnk56"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -6325,11 +6424,11 @@
     "01yqg2h08",
     "00q4vv597"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -6361,11 +6460,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.07087",
@@ -6473,11 +6572,11 @@
     "03hj2gd47",
     "043nxc105"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -6541,11 +6640,11 @@
     "03bqmcz70",
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -6609,11 +6708,11 @@
     "03bqmcz70",
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -6668,11 +6767,11 @@
     "04x0kvm78",
     "04eps4h65"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -6756,11 +6855,11 @@
     "006hf6230",
     "01tgyzw49"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -6825,11 +6924,11 @@
     "05j6fvn87",
     "03dbr7087"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -6891,11 +6990,11 @@
    "institution_ids": [
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -6929,11 +7028,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.07014",
@@ -7011,11 +7110,11 @@
     "034t30j35",
     "050qmg959"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -7056,11 +7155,11 @@
     "010842375",
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -7097,11 +7196,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.06978",
@@ -7135,11 +7234,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.06977",
@@ -7201,11 +7300,11 @@
     "02aqsxs83",
     "02aqsxs83"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -7238,11 +7337,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.06972",
@@ -7315,11 +7414,11 @@
     "00q4vv597",
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -7385,11 +7484,11 @@
     "00y0xnp53",
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -7467,11 +7566,11 @@
     "019kgqr73",
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -7531,11 +7630,11 @@
     null,
     "0064kty71"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -7594,11 +7693,11 @@
     "02jx3x895",
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -7649,11 +7748,11 @@
    "institution_ids": [
     "03kqpb082"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -7750,11 +7849,11 @@
     null,
     "0220qvk04"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -7796,11 +7895,11 @@
    "institution_ids": [
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -7862,11 +7961,11 @@
    "institution_ids": [
     "02ryrf141"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -7938,11 +8037,11 @@
     null,
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -7985,11 +8084,11 @@
    "institution_ids": [
     "013meh722"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -8035,11 +8134,11 @@
     "00t33hh48",
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -8073,11 +8172,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-14"
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.08137",
@@ -8203,11 +8302,11 @@
     null,
     "04dkp9463"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -8269,11 +8368,11 @@
     "04qscbg47",
     "05grdyy37"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -8340,11 +8439,11 @@
     null,
     "05bqach95"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -8398,11 +8497,11 @@
    "institution_ids": [
     "02kkvpp62"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -8480,11 +8579,11 @@
    "institution_ids": [
     "00f54p054"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -8546,11 +8645,11 @@
     "03taz7m60",
     "0168r3w48"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -8639,11 +8738,11 @@
     "00f200z37",
     "00f200z37"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -8708,11 +8807,11 @@
     null,
     "05bqach95"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -8755,11 +8854,11 @@
    "institution_ids": [
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -8824,11 +8923,11 @@
     "0197nmd03",
     "05x2bcf33"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -8879,11 +8978,11 @@
    "institution_ids": [
     "01y2jtd41"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -8943,11 +9042,11 @@
     "03pnv4752",
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -9017,11 +9116,11 @@
     "00f54p054",
     "04fpkc108"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -9067,11 +9166,11 @@
    "institution_ids": [
     "00f54p054"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -9129,11 +9228,11 @@
     null,
     "03gnh5541"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -9185,11 +9284,11 @@
     null,
     "01an7q238"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -9240,11 +9339,11 @@
     "00f54p054",
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -9278,11 +9377,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.07217",
@@ -9332,11 +9431,11 @@
     null,
     "03m2x1q45"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -9408,11 +9507,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.07091",
@@ -9461,11 +9560,11 @@
     "028g18b61",
     null
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -9554,11 +9653,11 @@
    "institution_ids": [
     "024mw5h28"
    ],
-   "extractor": 7,
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
     },
     "institutions": {
      "source": "ror",
@@ -9590,14 +9689,28 @@
    "cross_list_from": "cs.LG",
    "html_url": "https://arxiv.org/html/2610.06855v1",
    "abstract": "Scalable driver identification requires embedding models that maintain discriminative performance as fleet size grows, yet existing triplet-loss formulations degrade rapidly with driver pool size and overfit to session-specific patterns under rigorous temporal evaluation. We introduce TEMPEST, a Temporal Convolutional Network embedding model trained with an additive angular margin (ArcFace) loss that enforces global class-level separation in a normalized angular space. TEMPEST maps 60-second multimodal driving windows to compact 96-dimensional embeddings, supporting truly dynamic enrollment without any retraining or classifier refitting. Under rigorous temporal evaluation on a 45-driver dataset, TEMPEST achieves 91.71% Rank-1 accuracy, outperforming the best classical model by 17.9 pp and the strongest triplet-loss baseline by 58.4 pp. TEMPEST degrades by only 4.3 pp when growing the subject pool from 10 to 45 drivers, compared to 22 pp and 32.5 pp for supervised and unsupervised triplet-loss baselines, and its cross-session advantage is corroborated on the public KIA Soul dataset, where it outperforms the best classical model by 7.3 pp within-session and 14.3 pp cross-session. With 720K parameters, a 2.80 MB footprint, and 50-epoch convergence, TEMPEST establishes a rigorous, reproducible baseline for scalable behavioral driver biometric identification.",
-   "affiliations": [],
+   "affiliations": [
+    "The University of Tennessee, Knoxville",
+    "Oak Ridge National Laboratory"
+   ],
    "author_affiliations": null,
-   "institutions": null,
-   "extractor": 7,
+   "institutions": [
+    "University of Tennessee at Knoxville",
+    "Oak Ridge National Laboratory"
+   ],
+   "institution_ids": [
+    "020f3ap87",
+    "01qz5mb56"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-07"
+     "at": "2026-10-15"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.06855",
