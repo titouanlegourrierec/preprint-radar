@@ -4,11 +4,13 @@ Structural rules are errors: a file that does not load, a record the web app wou
 misread, an index that disagrees with the files, a contact detail in an affiliation.
 Heuristic rules are warnings: what the extraction heuristics should have avoided, in day
 files (an affiliation that only names authors, the last author alone holding every
-affiliation, a paper ``reclean`` would still change). Nothing is fetched or written.
+affiliation, a paper ``reclean`` would still change), and an acronym named otherwise than
+the registry names its institution. Nothing is fetched or written.
 """
 
 import json
 import re
+from collections import defaultdict
 from collections.abc import Iterator, Mapping
 from dataclasses import dataclass, field
 from datetime import date
@@ -17,6 +19,7 @@ from pathlib import Path
 from typing import Any
 
 from preprint_radar.exceptions import StoreError
+from preprint_radar.institutions import ACRONYMS
 from preprint_radar.models import Paper
 from preprint_radar.store.paper_store import (
     ARCHIVE_DIRNAME,
@@ -120,6 +123,8 @@ def _validate_category(store: PaperStore, category: str, report: ValidationRepor
     directory = store.root / category
     stored: set[str] = set()
     authors: dict[str, int] = {}
+    # Each institution named, and whether a registry named it with its id once.
+    named: dict[str, bool] = {}
     days: list[dict[str, Any]] = []
     first_day: dict[str, date] = {}
     for day in store.days(category):
@@ -137,6 +142,7 @@ def _validate_category(store: PaperStore, category: str, report: ValidationRepor
                 report.findings.append(Finding(Level.ERROR, where, message))
             first_day.setdefault(paper.arxiv_id, day)
             _check_contacts(paper, where, report)
+            _note_institutions(paper, named)
             report.findings.extend(Finding(Level.WARNING, where, message) for message in _heuristics(paper))
         stored.update(paper.arxiv_id for paper in papers)
         authors.update((paper.arxiv_id, len(paper.authors)) for paper in papers)
@@ -158,12 +164,15 @@ def _validate_category(store: PaperStore, category: str, report: ValidationRepor
             archived.add(paper.arxiv_id)
             authors.setdefault(paper.arxiv_id, len(paper.authors))
             _check_contacts(paper, where, report)
+            _note_institutions(paper, named)
     stored |= archived
     top_recent, recent = _validate_top_recent(store, category, archived, report)
     stored.update(paper.arxiv_id for paper in recent)
     for paper in recent:
         authors.setdefault(paper.arxiv_id, len(paper.authors))
+        _note_institutions(paper, named)
 
+    _validate_acronyms(_where(directory, store), named, report)
     _validate_citations(store, category, stored, report)
     _validate_gains(store, category, stored, report)
     _validate_scholar(store, category, authors, report)
@@ -245,6 +254,35 @@ def _check_contacts(paper: Paper, where: str, report: ValidationReport) -> None:
         if _CONTACT_RE.search(affiliation):
             message = f"{paper.arxiv_id}: contact details in affiliation {affiliation!r}"
             report.findings.append(Finding(Level.ERROR, where, message))
+
+
+def _note_institutions(paper: Paper, named: dict[str, bool]) -> None:
+    """Add the institutions ``paper`` names to ``named``, each true once named with its id."""
+    ids = paper.institution_ids or ()
+    for at, name in enumerate(paper.institutions or ()):
+        if name is not None:
+            named[name] = named.get(name, False) or (at < len(ids) and ids[at] is not None)
+
+
+def _validate_acronyms(where: str, named: Mapping[str, bool], report: ValidationReport) -> None:
+    """An acronym's institution the store names, but never with a registry's id (TEST-9).
+
+    ``ACRONYMS`` gives an acronym written alone the name ROR gives its institution, so that
+    both share a node; spelled otherwise, it makes a node of its own: "University of
+    California, San Diego" held the 7 papers that wrote "UCSD" alone, apart from the 246
+    of ROR's "University of California San Diego".
+    """
+    acronyms: defaultdict[str, list[str]] = defaultdict(list)
+    for acronym, name in ACRONYMS.items():
+        acronyms[name].append(acronym)
+    for name, written in acronyms.items():
+        if named.get(name) is False:
+            plural = len(written) > 1
+            message = (
+                f"{'acronyms' if plural else 'acronym'} {' and '.join(map(repr, written))} "
+                f"{'name' if plural else 'names'} {name!r}, which no institution with an id is called"
+            )
+            report.findings.append(Finding(Level.WARNING, where, message))
 
 
 def _heuristics(paper: Paper) -> Iterator[str]:

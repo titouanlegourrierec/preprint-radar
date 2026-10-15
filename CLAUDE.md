@@ -92,7 +92,8 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     or year, an index or `citations.json` that disagrees with the files, a `scholar.json`
     or `citation-gains.json` that does not load, a contact detail in an affiliation.
     Warnings: an affiliation that only names authors, the last author alone holding every
-    affiliation, a paper `reclean` would change, stale `scholar.json` records or gains.
+    affiliation, a paper `reclean` would change, stale `scholar.json` records or gains, an
+    acronym's institution (`ACRONYMS`) that no institution with an id is called.
     Run it after touching `data/` by hand.
   - `make stats`: enrichment per day and per archive year (abstracts, affiliations,
     mappings, institutions, venues detected or published, citation counts).

@@ -248,7 +248,9 @@ site applied itself until 2026-10-07, in TypeScript; the port gave the same name
 institution-like part kept (a university over an organization over anything else; a unit
 or an address alone names nothing): "School of Computer Science, Peking University" is
 Peking University. A known acronym written alone is its institution as ROR names it
-("CMU", `ACRONYMS`, which the site keeps for its search, a test keeping both equal); a
+("CMU", `ACRONYMS`, which the site keeps for its search, a test keeping both equal;
+`validate` warns of a name no institution with an id has, as "University of California,
+San Diego" was, ROR writing it without the comma); a
 company mentioned anywhere is the company ("ARC Lab, Tencent IEG" is Tencent), but a
 hospital named after it is not; a campus of the University of California keeps its city.
 ROR's and OpenAlex's names go through `canonical` too, so that a company's subsidiaries

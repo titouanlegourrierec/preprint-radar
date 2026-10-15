@@ -1,6 +1,12 @@
+import json
+import re
+from pathlib import Path
+
 import pytest
 
-from preprint_radar.venue import extract_venue
+from preprint_radar.venue import VENUES, extract_venue, published_venue
+
+SITE_VENUES = (Path(__file__).parents[2] / "web" / "src" / "venues.ts").read_text(encoding="utf-8")
 
 
 @pytest.mark.parametrize(
@@ -138,3 +144,32 @@ def test_uses_journal_reference() -> None:
         "2026, pp. 7679-7688"
     )
     assert extract_venue(None, journal_ref) == "WACV 2026"
+
+
+def test_the_site_pins_venues_by_their_names_here() -> None:
+    """The venues the site's filter lists first are spelled as this table names them (TEST-9)."""
+    table = re.search(r"export const MAJOR_VENUES = \[(.*?)\] as const;", SITE_VENUES, re.DOTALL)
+
+    assert table is not None
+    pinned = json.loads(f"[{table.group(1)}]")
+    assert pinned
+    assert set(pinned) <= {venue.name for venue in VENUES}
+
+
+@pytest.mark.parametrize(
+    ("venue", "family"),
+    [
+        (extract_venue("Accepted to ECCV 2026"), "ECCV"),
+        (extract_venue("ECCV Workshop 2026, AI City Challenge"), "ECCV Workshop"),
+        (extract_venue("18 pages. SIGGRAPH Asia '26"), "SIGGRAPH Asia"),
+        (published_venue("Computer Vision and Pattern Recognition", ["CVPR"], None, 2018), "CVPR"),
+        (published_venue("Information Fusion", [], "Information Fusion", 2024), "Information Fusion"),
+    ],
+)
+def test_the_site_finds_the_family_of_each_edition_written_here(venue: str | None, family: str) -> None:
+    """The site's year of an edition (`EDITION_YEAR_RE`, SRCH-15) is the one written here (TEST-9)."""
+    pattern = re.search(r"const EDITION_YEAR_RE = /(.*)/;", SITE_VENUES)
+
+    assert pattern is not None
+    assert venue is not None
+    assert re.sub(pattern.group(1), "", venue, count=1) == family

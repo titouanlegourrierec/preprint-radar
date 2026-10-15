@@ -343,5 +343,30 @@ def test_heuristic_rules_only_warn(store: PaperStore) -> None:
     )
 
 
+def test_an_acronym_named_otherwise_than_the_registry_warns(store: PaperStore) -> None:
+    mit, eth = "Massachusetts Institute of Technology", "ETH Zurich"
+    # Named by the acronyms alone: no registry gave either name an id (TEST-9).
+    store.save("cs.CV", [_paper("2609.00003", institutions=(mit, eth))])
+    store.write_index()
+
+    assert _messages(store, Level.WARNING) == [
+        f"data/cs.CV: acronym 'mit' names '{mit}', which no institution with an id is called",
+        f"data/cs.CV: acronyms 'eth' and 'ethz' name '{eth}', which no institution with an id is called",
+    ]
+
+    named = _paper(
+        "1706.00001",
+        announced=date(2017, 6, 1),
+        institutions=(mit, None),
+        institution_ids=("042nb2s44", None),
+    )
+    store.write_archive("cs.CV", [*store.load_archive("cs.CV", 2017), named])
+    store.write_index()
+
+    assert _messages(store, Level.WARNING) == [
+        f"data/cs.CV: acronyms 'eth' and 'ethz' name '{eth}', which no institution with an id is called",
+    ]
+
+
 def test_finding_line() -> None:
     assert str(Finding(Level.ERROR, "data/index.json", "missing")) == "ERROR data/index.json: missing"
