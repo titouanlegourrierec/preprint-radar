@@ -5,7 +5,7 @@ const HIDE_SEEN_KEY = "preprint-radar:hide-seen";
 const GRAPH_INTRO_KEY = "preprint-radar:graph-intro-read";
 // v2: papers joined the graph, and the defaults changed with them.
 const GRAPH_SETTINGS_KEY = "preprint-radar:graph-settings:v2";
-// Also read by the inline script in index.html, which restores the theme before first paint.
+// Also read by public/theme.js, which restores the theme before first paint.
 const THEME_KEY = "preprint-radar:theme";
 
 /** "auto" follows the system scheme; "light" and "dark" force one. */

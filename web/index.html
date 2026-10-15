@@ -13,21 +13,9 @@
     <!-- The store's index, which every view needs first, loads with the page rather than
          after the app's script: data.ts fetches the same URL in the same mode (PERF-14). -->
     <link rel="preload" href="./data/index.json" as="fetch" crossorigin />
-    <script>
-      // Restore the theme chosen with the toggle (see preferences.ts) before first paint, and
-      // give the browser's bar its color: the forced scheme's in both metas (theme-color.ts).
-      try {
-        const theme = localStorage.getItem("preprint-radar:theme");
-        if (theme === "light" || theme === "dark") {
-          document.documentElement.dataset.theme = theme;
-          const metas = [...document.querySelectorAll('meta[name="theme-color"]')];
-          const forced = metas.find((meta) => meta.getAttribute("media")?.includes(theme));
-          if (forced) for (const meta of metas) meta.content = forced.content;
-        }
-      } catch {
-        // Storage may be disabled; the system scheme then applies.
-      }
-    </script>
+    <!-- The theme forced with the toggle, before first paint: a file, not an inline script,
+         which the Content-Security-Policy the build adds refuses (SEC-1). -->
+    <script src="/theme.js"></script>
   </head>
   <body>
     <div id="app"></div>

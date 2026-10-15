@@ -1,6 +1,7 @@
 /** The palettes of `styles.css`, which CLAUDE.md asks to keep in step. */
 import { describe, expect, it } from "vitest";
 import html from "../index.html?raw";
+import themeScript from "../public/theme.js?raw";
 import css from "../src/styles.css?raw";
 import { BACKGROUNDS } from "../src/theme-color";
 
@@ -60,9 +61,9 @@ describe("the browser's bar (UX-18)", () => {
     ]);
   });
 
-  /** Runs index.html's inline script with `stored` as the remembered theme. */
+  /** Runs `public/theme.js`, which index.html loads first, with `stored` as the remembered theme. */
   function restore(stored: string | null) {
-    const script = /<script>([\s\S]*?)<\/script>/.exec(html)?.[1] ?? "";
+    expect(html).toContain('<script src="/theme.js"></script>');
     const elements = metas.map(({ media, content }) => ({
       content: content ?? "",
       getAttribute: (name: string) => (name === "media" ? (media ?? null) : null),
@@ -74,7 +75,7 @@ describe("the browser's bar (UX-18)", () => {
         selector === 'meta[name="theme-color"]' ? elements : [],
     };
     const localStorage = { getItem: () => stored };
-    new Function("document", "localStorage", script)(document, localStorage);
+    new Function("document", "localStorage", themeScript)(document, localStorage);
     return { theme: root.dataset.theme, colors: elements.map(({ content }) => content) };
   }
 

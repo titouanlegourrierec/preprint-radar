@@ -266,6 +266,14 @@ derives what only the site uses. The pipeline and `validate` never see these.
 - `noThirdPartyLoads` (`tooling/third-party.ts`) fails the build if the site would load
   anything from another origin: the About page promises that it loads nothing from other
   websites. Links are fine; fonts, scripts, images or `fetch()` from a CDN are not.
+- `contentSecurityPolicy` adds a Content-Security-Policy meta to `index.html`, right
+  after its charset (GitHub Pages sends no headers): the site's own scripts, styles, data
+  and graph worker only, and the emoji favicon's `data:` image
+  (`tooling/content-security-policy.ts`, SEC-1). The site renders third-party text and
+  links, which it keeps from ever running a script; there is no inline script
+  (`public/theme.js` restores the theme), and styles set from code go through the CSSOM,
+  which the policy allows, where a `style` attribute written as HTML is refused. The smoke
+  test checks that nothing the site does is refused. The development server goes without.
 - `base: "./"` keeps the site working under `user.github.io/<repo>/`.
 
 ## In this browser only
@@ -300,7 +308,7 @@ derives what only the site uses. The pipeline and `validate` never see these.
 - **Preferences** (`preferences.ts`): per-browser settings in `localStorage`. The theme
   (`hooks/use-theme.ts`) also colors the browser's bar: `index.html`'s `theme-color` metas
   give each scheme its `--bg`, and a forced theme gives both its own (`theme-color.ts`, and
-  the inline script before first paint), which `tests/styles.test.ts` checks (UX-18).
+  `public/theme.js` before first paint), which `tests/styles.test.ts` checks (UX-18).
 
 ## Withdrawn papers, and old ones announced lately
 

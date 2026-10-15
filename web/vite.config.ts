@@ -14,6 +14,7 @@ import type { Plugin } from "vite";
 import { defineConfig } from "vitest/config";
 import type { CodeFile, ScholarFile, StoreIndex } from "./src/types";
 import { citationShardFiles } from "./tooling/citation-shards";
+import { CONTENT_SECURITY_POLICY } from "./tooling/content-security-policy";
 import { feedFiles } from "./tooling/feeds";
 import { paperFiles, withSiteFields } from "./tooling/scholar";
 import { searchShardFiles } from "./tooling/search-shards";
@@ -187,6 +188,24 @@ function paperData(dataDir: string): Plugin {
   };
 }
 
+/**
+ * The Content-Security-Policy as a meta (GitHub Pages sends no headers), right after the
+ * charset, since it applies to what follows only. The development server goes without, its
+ * module reloading being inline.
+ */
+function contentSecurityPolicy(): Plugin {
+  const charset = '<meta charset="UTF-8" />';
+  return {
+    name: "preprint-radar:content-security-policy",
+    apply: "build",
+    transformIndexHtml(html) {
+      if (!html.includes(charset)) throw new Error(`index.html has no ${charset} to follow`);
+      const meta = `<meta http-equiv="Content-Security-Policy" content="${CONTENT_SECURITY_POLICY}" />`;
+      return html.replace(charset, `${charset}\n    ${meta}`);
+    },
+  };
+}
+
 /** Fail the build if the site would load anything from another origin (see About, privacy). */
 function noThirdPartyLoads(): Plugin {
   return {
@@ -209,7 +228,7 @@ function noThirdPartyLoads(): Plugin {
 export default defineConfig({
   // Relative base: the site works under any GitHub Pages path (user.github.io/<repo>/).
   base: "./",
-  plugins: [preact(), paperData(DATA_DIR), noThirdPartyLoads()],
+  plugins: [preact(), paperData(DATA_DIR), contentSecurityPolicy(), noThirdPartyLoads()],
   // The graph layout runs in a module worker (graph-worker.ts), split like the app.
   worker: { format: "es" },
   test: {

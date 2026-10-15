@@ -319,7 +319,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
 - The Makefile must run on macOS's GNU Make 3.81: no `--eval`, `.ONESHELL`, or `$(file ...)`.
 - `web/vite.config.ts` derives files that only the site has (citation shards, search
   shards, the merged DOIs and venues, the Atom feeds): they never exist in `data/`
-  (`docs/web.md`). The build fails if the site would load anything from another origin.
+  (`docs/web.md`). The build fails if the site would load anything from another origin,
+  and adds a Content-Security-Policy that refuses inline scripts and `style` attributes
+  written as HTML: keep scripts in files (`public/theme.js`) and set styles from code.
 - GitHub Actions:
   - Pushes made with `GITHUB_TOKEN` trigger no other workflow, so `update.yml` and
     `archive.yml` call `deploy.yml` (`workflow_call`) when the bot pushed, also after a

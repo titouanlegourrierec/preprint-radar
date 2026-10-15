@@ -11,8 +11,8 @@ interface ThemeColorMeta {
 
 /**
  * Colors the browser's bar as the page (UX-18): each meta its own scheme's background while
- * the theme follows the system, both the forced scheme's when the toggle forces one. The
- * inline script of index.html does the same before first paint.
+ * the theme follows the system, both the forced scheme's when the toggle forces one.
+ * `public/theme.js` does the same before first paint.
  */
 export function applyThemeColor(metas: Iterable<ThemeColorMeta>, theme: ThemePreference): void {
   for (const meta of metas) {

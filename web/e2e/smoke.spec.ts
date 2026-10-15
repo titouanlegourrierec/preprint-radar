@@ -3,6 +3,7 @@
  * `npm run test:e2e` (or `make test-e2e`); `playwright.config.ts` builds and serves it.
  */
 import { expect, type Page, test } from "@playwright/test";
+import { CONTENT_SECURITY_POLICY } from "../tooling/content-security-policy";
 
 /** Fail the test on any error the page logs or throws. */
 function watchErrors(page: Page): string[] {
@@ -171,6 +172,33 @@ test("the most cited papers of the last 12 months, apart from the archive's year
   // One that left the list, chosen again every week, is said to be missing.
   await page.goto("./?view=cited&year=last-12-months&paper=2510.00009");
   await expect(page.getByText(/not among the highly cited papers shown/)).toBeVisible();
+  expect(errors).toEqual([]);
+});
+
+test("the Content-Security-Policy refuses nothing the site does", async ({ page }) => {
+  const errors = watchErrors(page);
+  // In the page (e2e has no DOM types): what the policy refused, and a theme forced.
+  await page.addInitScript({
+    content: `
+      window.refused = [];
+      document.addEventListener("securitypolicyviolation", (event) =>
+        window.refused.push(event.violatedDirective + " " + event.blockedURI));
+      localStorage.setItem("preprint-radar:theme", "dark");
+    `,
+  });
+  await page.goto("./");
+  await expect(page.locator('meta[http-equiv="Content-Security-Policy"]')).toHaveAttribute(
+    "content",
+    CONTENT_SECURITY_POLICY,
+  );
+  // public/theme.js ran before first paint: the theme forced with the toggle (SEC-1).
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await expect(page.getByText("4 of 4 cs.CV papers")).toBeVisible();
+  await page.goto("./?view=graph");
+  await expect(page.locator("canvas.graph__canvas")).toBeVisible();
+  await page.goto("./?view=cited&year=2017");
+  await expect(page.getByText("Attention for Looms")).toBeVisible();
+  expect(await page.evaluate("window.refused")).toEqual([]);
   expect(errors).toEqual([]);
 });
 
