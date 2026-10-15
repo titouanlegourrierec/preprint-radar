@@ -11548,7 +11548,7 @@
    "html_url": "https://arxiv.org/html/2609.22631v1",
    "abstract": "Accurate automated interpretation of electrocardio- grams (ECGs) is essential for early detection of cardiac condi- tions such as myocardial infarction and rhythm abnormalities. However, many high-performing deep learning models remain difficult to deploy in clinical settings due to limited transparency and lack of reliability validation. In this work, we present X- Beat, an explainable and reliability-aware benchmark framework for ECG image classification designed to support trustworthy AI systems in healthcare. The proposed framework combines transfer learning with post-hoc explainability and systematic reliability evaluation across four cardiac classes: Abnormal Heartbeat, History of Myocardial Infarction, Myocardial In- farction, and Normal Heartbeat. Multiple ImageNet-pretrained CNN backbones, including EfficientNet-B0, ResNet-50, DenseNet- 121, and MobileNetV3-Large, are evaluated under a unified training protocol. Beyond standard performance metrics, we incorporate Grad-CAM-based visual explanations together with additional analyses, including explanation stability, regional sen- sitivity, and confidence-based reliability assessment, to examine whether model predictions are supported by clinically meaningful evidence. Experimental results show that ResNet-50 achieves the best performance, reaching 91.94% accuracy and a macro F1- score of 0.9098, with strong class separability (AUC up to 0.995). Explanation analyses indicate that the model primarily focuses on waveform-relevant regions, while reliability evaluation suggests that most incorrect predictions occur with lower confidence. Overall, this work provides a structured and reproducible bench- mark for evaluating both predictive performance and explanation reliability in ECG image classification, contributing toward the development of trustworthy and interpretable AI components for clinical decision support systems.",
    "affiliations": [
-    "AI-Based Autonomous System Research Lab, Department of Electrical Engineering and Computer ScienceTexas A&M University-Kingsville (TAMUK), Kingsville, TX, USA"
+    "AI-Based Autonomous System Research Lab, Department of Electrical Engineering and Computer Science, Texas A&M University-Kingsville (TAMUK), Kingsville, TX, USA"
    ],
    "author_affiliations": [
     [
@@ -11562,10 +11562,10 @@
     ]
    ],
    "institutions": [
-    "AI-Based Autonomous System Research Lab"
+    "Texas A&M University"
    ],
    "institution_ids": [
-    null
+    "01f5ytq51"
    ],
    "extractor": 9,
    "provenance": {
