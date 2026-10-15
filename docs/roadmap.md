@@ -15,8 +15,9 @@ This file is the living part.
 
 - What is left: the rows marked `todo`, in the phases and in the open backlog at the end,
   and the questions waiting for the maintainer. Three have a date: PERF-1 (shards) before
-  the day files pass a period's 10,000 papers (5,225 in 28 days on 2026-10-11, so late
-  November 2026: a longer period then loads only its latest days), PROD-18 (rising code)
+  the day files pass a period's 10,000 papers (5,857 in 30 announcement days on
+  2026-10-15, about 195 a day, so around 2026-11-12: a longer period then loads only its
+  latest days), PROD-18 (rising code)
   from 2026-10-18, and §17.1 #10 once 12 months of days exist (September 2027).
 
 ## Corrections to the audit
@@ -285,7 +286,7 @@ exist.
 | DEBT-2 | A view model for the list (`view-model.ts`: archive or days, order, sort choices, toggles, exports, tested over the six views), and its top bar, header, notices, empty states and footer as components: `app.tsx` from 959 to 643 lines; the smoke test opens Rankings and the reading list | P2 | done |
 | DEBT-3 | `GraphView` split: its details panel (`GraphDetails`, whose connections fold back by its key on another node, or when the node leaves the graph and comes back) and its legend (`GraphLegend`) as components, a node's connections a pure, tested `nodeConnections`; 763 to 539 lines | P3 | done |
 | ARCH-4 | Multi-category, if wanted: one category for now (decision 11); with REL-5, and ARCH-5 once answered | P3 | todo |
-| PERF-1 (shards) | Per-month search shards built with the site, for searches over more months than a period loads (from Phase 3): needed before the day files pass a period's 10,000 papers (`PAPER_BUDGET`), late November 2026 at about 185 papers a day | P2 | todo |
+| PERF-1 (shards) | Per-month search shards built with the site, for searches over more months than a period loads (from Phase 3): needed before the day files pass a period's 10,000 papers (`PAPER_BUDGET`), around 2026-11-12 at about 195 papers an announcement day (5,857 in 30 on 2026-10-15) | P2 | todo |
 | AFF-25 | Extraction version 4, after the daily re-read of 318 papers with version 3 (2026-10-06): names are never joined to an affiliation, anchors made of joined lines, a creator holding several authors' names is not a person, an "A & B" pair shares its block, "and Health Sciences" goes on with its unit, a pair is never placed at a place alone, an address in brackets ends a thanks sentence instead of dropping it (found after the release, not in the audit) | P2 | done |
 | DATA-1 (tables) | The page cache kept no table, and lost the affiliations some author blocks lay out in one (2609.06629): it keeps those of the author block, and a page kept before never empties a paper on re-read, but leaves the cache (found after the release) | P1 | done |
 | AFF-18 | The countries of the place-join rule (from the backlog, extraction version 5): the countries affiliations write but names of people, a name ending with a country takes a place in the same one, lines ending with a preposition go on, list connectors and dashes at the end, phone numbers, placeholders and LaTeX commands dropped; US states stay out (their codes are words); version 6: a preposition only after a space ("technikum-wien.at"), an address that ends a line ends its affiliation; version 7: mailboxes before their domain, "X is Robotics Lead at Y" | P3 | done |
