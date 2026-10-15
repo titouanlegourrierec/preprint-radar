@@ -73,6 +73,25 @@ test("a paper link opens the paper", async ({ page }) => {
   );
 });
 
+test("older days past the budget are searched, and a card loads its abstract", async ({ page }) => {
+  const errors = watchErrors(page);
+  // Built with a budget of 3 papers: 2026-09-24 comes from its month's search shard (PERF-1).
+  await page.goto("./");
+  await expect(page.getByText("4 cs.CV papers")).toBeVisible();
+  await page.locator(".period-picker__trigger").click();
+  await expect(page.locator(".period-picker__note")).toContainText(
+    "titles, authors, affiliations and venues over 1 older day too",
+  );
+  await page.keyboard.press("Escape");
+  await page.getByRole("searchbox", { name: "Search papers" }).fill("computable");
+  const card = page.locator("article.paper").filter({ hasText: "Computable Numbers" });
+  await expect(card).toHaveCount(1);
+  await expect(card).not.toContainText("On diffusion, with an application.");
+  await card.getByRole("button", { name: "More" }).click();
+  await expect(card).toContainText("On diffusion, with an application.");
+  expect(errors).toEqual([]);
+});
+
 test("a card shows the stars of its code, and Most starred ranks by them", async ({ page }) => {
   const errors = watchErrors(page);
   await page.goto("./?paper=2609.00001");

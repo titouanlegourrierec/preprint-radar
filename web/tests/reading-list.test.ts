@@ -70,6 +70,20 @@ describe("toPaper", () => {
     );
   });
 
+  it("keeps the day file and the code of a search shard's record, as the build writes them", () => {
+    const light = { ...ada, abstract: null, light: "cs.CV/2026-09-25.json", code_url: null };
+    expect(toPaper(JSON.parse(JSON.stringify(light)))).toEqual(light);
+    const coded = { ...light, code_url: "https://github.com/example/tool" };
+    expect(toPaper(coded)).toEqual(coded);
+    const hostile = toPaper({
+      ...light,
+      light: "https://example.org/x.json",
+      code_url: "javascript:alert(1)",
+    });
+    expect(hostile).not.toHaveProperty("light");
+    expect(hostile).not.toHaveProperty("code_url");
+  });
+
   it("fills what older records lack, and drops a mapping out of step", () => {
     const { subjects: _, venue: __, ...older } = { ...ada, author_affiliations: [[0], [1]] };
     const paper = toPaper(older);

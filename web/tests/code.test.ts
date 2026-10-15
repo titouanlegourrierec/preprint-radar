@@ -20,6 +20,15 @@ describe("codeUrl", () => {
     );
   });
 
+  it("takes the code a search shard's record names, which has no abstract nor comments", () => {
+    expect(
+      codeUrl({ abstract: null, comments: null, code_url: "https://github.com/example/a" }),
+    ).toBe("https://github.com/example/a");
+    expect(
+      codeUrl({ abstract: "https://github.com/example/b", comments: null, code_url: null }),
+    ).toBeNull();
+  });
+
   it("prefers a repository to models or data on the Hub", () => {
     expect(
       codeUrl(

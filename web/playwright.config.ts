@@ -14,7 +14,8 @@ export default defineConfig({
   webServer: {
     command:
       "vite build --outDir e2e/dist --emptyOutDir && vite preview --outDir e2e/dist --port 4173 --strictPort",
-    env: { PREPRINT_RADAR_DATA_DIR: "e2e/data" },
+    // A budget of 3 papers: the store's older day loads from the search shards (PERF-1).
+    env: { PREPRINT_RADAR_DATA_DIR: "e2e/data", VITE_PAPER_BUDGET: "3" },
     url: "http://localhost:4173/",
     reuseExistingServer: false,
     timeout: 120_000,

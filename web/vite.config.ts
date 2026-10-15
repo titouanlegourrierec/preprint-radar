@@ -16,6 +16,7 @@ import type { CodeFile, ScholarFile, StoreIndex } from "./src/types";
 import { citationShardFiles } from "./tooling/citation-shards";
 import { feedFiles } from "./tooling/feeds";
 import { paperFiles, withSiteFields } from "./tooling/scholar";
+import { searchShardFiles } from "./tooling/search-shards";
 import { thirdPartyLoads } from "./tooling/third-party";
 
 // The repository's store; the smoke test (e2e/) builds the site over a small one instead.
@@ -54,6 +55,28 @@ function shardsOf(dataDir: string): () => Map<string, string> {
   };
 }
 
+/**
+ * The search shards of the store (`src/search-shards.ts`), derived again in development when
+ * the index (a new day, or day files written again), a `scholar.json` or a `code.json` changes.
+ */
+function searchShardsOf(dataDir: string): () => Map<string, string> {
+  let cached: { stamp: string; files: Map<string, string> } | null = null;
+  return () => {
+    const sources = existsSync(dataDir)
+      ? [
+          resolve(dataDir, "index.json"),
+          ...readdirSync(dataDir).flatMap((name) => [
+            resolve(dataDir, name, "scholar.json"),
+            resolve(dataDir, name, "code.json"),
+          ]),
+        ].filter((path) => existsSync(path))
+      : [];
+    const stamp = sources.map((path) => `${path}@${statSync(path).mtimeMs}`).join("\n");
+    if (cached?.stamp !== stamp) cached = { stamp, files: searchShardFiles(jsonReader(dataDir)) };
+    return cached.files;
+  };
+}
+
 // The site's address, which the feeds' links need; the deploy workflow sets it.
 const SITE_URL = process.env.PREPRINT_RADAR_SITE_URL || null;
 
@@ -84,12 +107,13 @@ const PAPER_FILE_RE = /^\/([^/]+)\/(?:\d{4}-\d{2}-\d{2}|archive\/\d{4}|top-recen
 /**
  * Serve the repository's `data/` store at `/data` during development and copy it into the
  * build output, so the Python pipeline and the web app share a single source of truth. What
- * only the site uses is derived from it here, not stored: the citation shards, the records
- * with what `scholar.json` and `code.json` know (`tooling/scholar.ts`, `tooling/code.ts`),
- * and the Atom feeds, at `/feeds`.
+ * only the site uses is derived from it here, not stored: the citation shards, the search
+ * shards, the records with what `scholar.json` and `code.json` know (`tooling/scholar.ts`,
+ * `tooling/code.ts`), and the Atom feeds, at `/feeds`.
  */
 function paperData(dataDir: string): Plugin {
   const shards = shardsOf(dataDir);
+  const searchShards = searchShardsOf(dataDir);
   const feeds = feedsOf(dataDir);
   const read = jsonReader(dataDir);
   const scholarOf = (category: string) => read(`${category}/scholar.json`) as ScholarFile | null;
@@ -109,7 +133,7 @@ function paperData(dataDir: string): Plugin {
       });
       server.middlewares.use("/data", (req, res, next) => {
         const path = decodeURIComponent((req.url ?? "/").split("?")[0] ?? "/");
-        const shard = shards().get(path.slice(1));
+        const shard = shards().get(path.slice(1)) ?? searchShards().get(path.slice(1));
         if (shard !== undefined) {
           res.setHeader("Content-Type", "application/json; charset=utf-8");
           res.end(shard);
@@ -138,7 +162,7 @@ function paperData(dataDir: string): Plugin {
           recursive: true,
           filter: (source) => !basename(source).startsWith(".") && !source.endsWith(".tmp"),
         });
-        for (const [path, text] of shards()) {
+        for (const [path, text] of [...shards(), ...searchShards()]) {
           const target = resolve(output, path);
           mkdirSync(dirname(target), { recursive: true });
           writeFileSync(target, text);

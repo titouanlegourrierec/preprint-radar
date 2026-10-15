@@ -3,7 +3,10 @@ import {
   between,
   daysOverBudget,
   formatDays,
+  formatMonth,
   isIsoDay,
+  LIGHT_BUDGET,
+  lightDays,
   monthGrid,
   monthOf,
   PAPER_BUDGET,
@@ -48,14 +51,20 @@ describe("selectDays", () => {
     const loaded = selectDays(year, period);
     expect(loaded).toHaveLength(Math.floor(PAPER_BUDGET / 300));
     expect(loaded[0]).toEqual(year[0]);
-    expect(daysOverBudget(year, period)).toBe(250 - loaded.length);
+    // The older days from the search shards, within their own budget; the rest left out.
+    const light = lightDays(year, period);
+    expect(light).toHaveLength(Math.floor(LIGHT_BUDGET / 300));
+    expect(light[0]).toEqual(year[loaded.length]);
+    expect(daysOverBudget(year, period)).toBe(250 - loaded.length - light.length);
     expect(daysOverBudget(days, { kind: "recent", range: "40" })).toBe(0);
+    expect(lightDays(days, { kind: "recent", range: "40" })).toEqual([]);
   });
 
   it("always loads the latest day, however large", () => {
     const huge = [{ date: "2026-09-25", count: PAPER_BUDGET + 1 }, ...days];
     expect(selectDays(huge, { kind: "recent", range: "5" })).toEqual([huge[0]]);
-    expect(daysOverBudget(huge, { kind: "recent", range: "5" })).toBe(4);
+    expect(lightDays(huge, { kind: "recent", range: "5" })).toEqual(days);
+    expect(daysOverBudget(huge, { kind: "recent", range: "5" })).toBe(0);
   });
 });
 
@@ -105,6 +114,16 @@ describe("period keys", () => {
     ).toBe(true);
     expect(samePeriod(between("2026-09-01", "2026-09-05"), { kind: "recent", range: "5" })).toBe(
       false,
+    );
+  });
+});
+
+describe("formatMonth", () => {
+  it("names a month in full", () => {
+    expect(formatMonth("2026-09")).toBe(
+      new Intl.DateTimeFormat(undefined, { month: "long", year: "numeric" }).format(
+        new Date(2026, 8, 1),
+      ),
     );
   });
 });

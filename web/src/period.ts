@@ -1,16 +1,25 @@
 import type { DaySummary } from "./types";
 
 /**
- * Most papers a period loads. Every paper of a period is downloaded and indexed in the
- * browser: a year of cs.CV (about 46,000 papers, 117 MB of JSON) takes 20 s to index and
+ * Most papers a period loads whole. Every paper of a period is downloaded and indexed in
+ * the browser: a year of cs.CV (about 46,000 papers, 117 MB of JSON) takes 20 s to index and
  * about 480 MB of memory, which crashes phones; 10,000 papers stay near 100 MB. A longer
- * period loads its latest days up to this budget.
+ * period loads its latest days whole up to this budget, and its older ones from the search
+ * shards ({@link LIGHT_BUDGET}). The smoke test builds the site with a smaller one
+ * (`VITE_PAPER_BUDGET`), to read a period past it.
  */
-export const PAPER_BUDGET = 10_000;
+export const PAPER_BUDGET = Number(import.meta.env.VITE_PAPER_BUDGET) || 10_000;
+
+/**
+ * Most papers a period loads from the search shards (`search-shards.ts`), past
+ * {@link PAPER_BUDGET}: without abstracts, 5,857 papers took 0.3 s to index and 29 MB
+ * (1.6 s and 77 MB whole, PERF-1), so that about seven months are searched in all.
+ */
+export const LIGHT_BUDGET = 20_000;
 
 /**
  * Preset periods: the latest announcement days. The longest stays within the budget at
- * cs.CV's pace (about 185 papers a day, 7,400 in 40 days).
+ * cs.CV's pace (about 195 papers a day, 7,800 in 40 days).
  */
 export const RANGES = {
   "1": { label: "Latest day", days: 1 },
@@ -78,9 +87,29 @@ export function selectDays(days: readonly DaySummary[], period: Period): DaySumm
   return selected;
 }
 
-/** How many days of the period {@link selectDays} leaves out for the budget. */
+/**
+ * The days of the period older than those {@link selectDays} keeps, which load from the
+ * search shards: as many as {@link LIGHT_BUDGET} allows, most recent first.
+ */
+export function lightDays(days: readonly DaySummary[], period: Period): DaySummary[] {
+  const older = periodDays(days, period).slice(selectDays(days, period).length);
+  const light: DaySummary[] = [];
+  let papers = 0;
+  for (const day of older) {
+    if (papers + day.count > LIGHT_BUDGET) break;
+    light.push(day);
+    papers += day.count;
+  }
+  return light;
+}
+
+/** How many days of the period are left out past both budgets, whole and light. */
 export function daysOverBudget(days: readonly DaySummary[], period: Period): number {
-  return periodDays(days, period).length - selectDays(days, period).length;
+  return (
+    periodDays(days, period).length -
+    selectDays(days, period).length -
+    lightDays(days, period).length
+  );
 }
 
 /**
@@ -139,6 +168,13 @@ export function monthGrid(month: string): (string | null)[][] {
   for (let day = 1; day <= length; day++) cells.push(isoDay(new Date(year, index - 1, day)));
   while (cells.length % 7 !== 0) cells.push(null);
   return Array.from({ length: cells.length / 7 }, (_, week) => cells.slice(week * 7, week * 7 + 7));
+}
+
+const MONTH_FORMAT = new Intl.DateTimeFormat(undefined, { month: "long", year: "numeric" });
+
+/** "September 2026" for "2026-09". */
+export function formatMonth(month: string): string {
+  return MONTH_FORMAT.format(dayDate(`${month}-01`));
 }
 
 const DAY_FORMAT = new Intl.DateTimeFormat(undefined, {

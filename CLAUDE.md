@@ -276,8 +276,10 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
 - The site's records are not quite the store's: the build adds `doi`, the authors'
   `author_ids` and, where the comments name no venue, the published `venue` from
   `scholar.json`, and `code` (stars, gains, likes, `shared`) from `code.json` where its
-  link is still the card's. The pipeline never writes them into a record; it keeps an author's id
-  only where Semantic Scholar's name for it is the paper's author at that place.
+  link is still the card's; a search shard's record has no abstract nor comments, but
+  `code_url` and `light` (its day file, PERF-1). The pipeline never writes them into a
+  record; it keeps an author's id only where Semantic Scholar's name for it is the paper's
+  author at that place.
 
 ## arXiv and service rules (hard-won, do not "simplify" away)
 
@@ -314,9 +316,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
 ## Gotchas
 
 - The Makefile must run on macOS's GNU Make 3.81: no `--eval`, `.ONESHELL`, or `$(file ...)`.
-- `web/vite.config.ts` derives files that only the site has (citation shards, the merged
-  DOIs and venues, the Atom feeds): they never exist in `data/` (`docs/web.md`). The build
-  fails if the site would load anything from another origin.
+- `web/vite.config.ts` derives files that only the site has (citation shards, search
+  shards, the merged DOIs and venues, the Atom feeds): they never exist in `data/`
+  (`docs/web.md`). The build fails if the site would load anything from another origin.
 - GitHub Actions:
   - Pushes made with `GITHUB_TOKEN` trigger no other workflow, so `update.yml` and
     `archive.yml` call `deploy.yml` (`workflow_call`) when the bot pushed, also after a

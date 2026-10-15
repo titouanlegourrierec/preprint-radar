@@ -5,6 +5,8 @@ import {
   dayDate,
   daysOverBudget,
   formatDays,
+  formatMonth,
+  lightDays,
   monthGrid,
   monthOf,
   PAPER_BUDGET,
@@ -20,7 +22,6 @@ import type { DaySummary } from "../types";
 const WEEKDAYS = Array.from({ length: 7 }, (_, index) =>
   new Intl.DateTimeFormat(undefined, { weekday: "narrow" }).format(new Date(2026, 0, 5 + index)),
 );
-const MONTH_FORMAT = new Intl.DateTimeFormat(undefined, { month: "long", year: "numeric" });
 const LONG_DAY_FORMAT = new Intl.DateTimeFormat(undefined, {
   weekday: "long",
   day: "numeric",
@@ -60,7 +61,10 @@ export function PeriodPicker({ days, period, onChange }: Props) {
   const counts = useMemo(() => new Map(days.map((day) => [day.date, day.count])), [days]);
   const maxCount = useMemo(() => Math.max(1, ...days.map((day) => day.count)), [days]);
 
-  const selected = selectDays(days, period);
+  // The latest days load whole, the older ones from the search shards (PERF-1).
+  const whole = selectDays(days, period);
+  const light = lightDays(days, period);
+  const selected = [...whole, ...light];
   const first = selected.at(-1)?.date;
   const last = selected[0]?.date;
   const latest = days[0]?.date ?? "";
@@ -138,11 +142,15 @@ export function PeriodPicker({ days, period, onChange }: Props) {
         </span>
         <span aria-hidden="true">{open ? "▴" : "▾"}</span>
       </button>
-      {leftOut > 0 && (
+      {(light.length > 0 || leftOut > 0) && (
         <p class="period-picker__note">
-          A period loads {PAPER_BUDGET.toLocaleString()} papers at most: its latest{" "}
-          {selected.length} days are shown, and {leftOut} older day{leftOut === 1 ? " is" : "s are"}{" "}
-          left out.
+          A period loads {PAPER_BUDGET.toLocaleString()} papers whole: abstracts are searched over
+          its latest {countOf(whole.length, "day")}
+          {light.length > 0 &&
+            `, titles, authors, affiliations and venues over ${countOf(light.length, "older day")} too`}
+          {leftOut > 0 &&
+            `, and ${countOf(leftOut, "older day")} ${leftOut === 1 ? "is" : "are"} left out`}
+          .
         </p>
       )}
 
@@ -171,7 +179,7 @@ export function PeriodPicker({ days, period, onChange }: Props) {
             >
               ‹
             </button>
-            <span>{MONTH_FORMAT.format(dayDate(`${shown}-01`))}</span>
+            <span>{formatMonth(shown)}</span>
             <button
               type="button"
               aria-label="Next month"

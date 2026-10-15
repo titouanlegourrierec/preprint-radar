@@ -1,6 +1,7 @@
 import { bestRanked } from "./archive-years";
 import { citationShardPath } from "./citations";
 import { PAPER_BUDGET } from "./period";
+import { monthsOf, type SearchShardFile, searchShardPath } from "./search-shards";
 import {
   type ArchiveFile,
   type CitationsFile,
@@ -49,6 +50,7 @@ function remember(path: string, papers: Paper[]): void {
 export function forgetLoaded(): void {
   loaded.clear();
   shards.clear();
+  searchShards.clear();
 }
 
 /** The citation shards asked for, by path, for the page's lifetime. */
@@ -184,6 +186,66 @@ export async function loadArchiveYears(
     // Years whose counts did not load: their papers rank last, which the page says.
     unranked: rankings.filter((file) => file === null).length,
   };
+}
+
+/**
+ * The search shards asked for, by path, for the page's lifetime: apart from the day files
+ * loaded, which a month of papers would push out.
+ */
+const searchShards = new Map<string, Promise<Paper[] | null>>();
+
+/**
+ * The papers of a month's search shard (`search-shards.ts`), loaded once for the page and
+ * never cancelled, as another period may ask for it while it loads; `null` when it fails
+ * (SRCH-10), which is asked for again next time.
+ */
+function searchShard(category: string, month: string): Promise<Paper[] | null> {
+  const path = searchShardPath(category, month);
+  let papers = searchShards.get(path);
+  if (papers === undefined) {
+    papers = fetchJson<SearchShardFile>(path)
+      .then((file) => {
+        checkSchema(file.schema_version, "search shard");
+        return file.papers;
+      })
+      .catch((error: unknown) => {
+        searchShards.delete(path);
+        console.warn(`Could not load the search shard ${path}`, error);
+        return null;
+      });
+    searchShards.set(path, papers);
+  }
+  return papers;
+}
+
+/**
+ * The papers of the given days from the search shards of their months, without abstracts
+ * (PERF-1), and the months whose shard could not be loaded: their days are left out, and
+ * the period says so.
+ */
+export async function loadLightDays(
+  category: string,
+  days: readonly DaySummary[],
+): Promise<{ papers: Paper[]; missing: string[] }> {
+  const wanted = new Set(days.map(({ date }) => date));
+  const months = monthsOf(days);
+  const shards = await Promise.all(months.map((month) => searchShard(category, month)));
+  return {
+    papers: shards.flatMap((papers) =>
+      (papers ?? []).filter((paper) => wanted.has(paper.announced)),
+    ),
+    missing: months.filter((_, at) => shards[at] === null),
+  };
+}
+
+/**
+ * A paper whole, from the day file a search shard's record names (`light`); the record
+ * itself for a paper loaded whole, or when its day file no longer holds it.
+ */
+export async function loadWholePaper(paper: Paper): Promise<Paper> {
+  if (paper.light === undefined) return paper;
+  const papers = await loadPapers(paper.light, "day file", undefined);
+  return papers.find(({ arxiv_id }) => arxiv_id === paper.arxiv_id) ?? paper;
 }
 
 /**

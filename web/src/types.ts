@@ -36,6 +36,16 @@ export interface Paper {
    * the card shows. Absent when unknown.
    */
   code?: CodeStats;
+  /**
+   * Only in a search shard's record (`search-shards.ts`), which has no abstract nor
+   * comments: the code they link (`codeUrl`), `null` for none.
+   */
+  code_url?: string | null;
+  /**
+   * Only in a search shard's record: the path under `data/` of the day file that holds the
+   * paper whole, which its card loads for the abstract.
+   */
+  light?: string;
   cross_list_from: string | null;
   html_url: string | null;
   /** `null` when not retrieved yet. */

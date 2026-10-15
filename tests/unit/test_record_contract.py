@@ -15,8 +15,9 @@ from preprint_radar.models import Paper, Provenance
 from preprint_radar.store.paper_store import SCHEMA_VERSION
 
 TYPES = (Path(__file__).parents[2] / "web" / "src" / "types.ts").read_text(encoding="utf-8")
-# Fields only the site's records have: the build merges them from scholar.json and code.json.
-BUILD_ONLY = {"doi", "author_ids", "code"}
+# Fields only the site's records have: the build merges them from scholar.json and code.json,
+# and its search shards add the code and the day file of their records (PERF-1).
+BUILD_ONLY = {"doi", "author_ids", "code", "code_url", "light"}
 # Fields the store writes only when known: the site cannot count on them.
 WRITTEN_WHEN_KNOWN = {"institution_ids", "extractor", "withdrawn", "provenance"}
 

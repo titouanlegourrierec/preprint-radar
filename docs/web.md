@@ -152,9 +152,20 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
 - A preset (`?range=`) or a custom date range (`?from=&to=`), shown by
   `components/PeriodPicker.tsx`.
 - Every paper of a period is downloaded and indexed in the browser, so a period loads its
-  latest days within `PAPER_BUDGET` (10,000 papers: a year of cs.CV, 46,000, would take
-  20 s to index and about 480 MB, which crashes phones) and says what it leaves out.
-  Links to the former "All days" (`?range=all`) open the longest preset.
+  latest days whole within `PAPER_BUDGET` (10,000 papers: a year of cs.CV, 46,000, would
+  take 20 s to index and about 480 MB, which crashes phones), and its older days from the
+  search shards within `LIGHT_BUDGET` (20,000 more, `lightDays`; PERF-1): records without
+  abstract nor comments, 5,857 of which took 0.3 s to index and 29 MB instead of 1.6 s and
+  77 MB, so that about seven months are searched by title, authors, affiliations and venue.
+  The period picker says over which days abstracts are searched, and what is left out past
+  both budgets; a month whose shard fails leaves its days out, with a notice and Retry
+  (`missingMonths`). A card of a shard's paper loads its day file for its abstract when it
+  is opened, or on "Load the abstract" when abstracts are shown (`hooks/use-whole-paper.ts`,
+  `loadWholePaper`), and its ☆ saves the whole record once loaded; a reading list keeps the
+  day file (`light`) and the code (`code_url`) of a light one, checked as the build writes
+  them (SEC-2). The smoke test builds the site with `VITE_PAPER_BUDGET=3`, so that its
+  older day comes from a shard. Links to the former "All days" (`?range=all`) open the
+  longest preset.
 - `index.html` preloads `data/index.json` (`<link rel="preload" as="fetch" crossorigin>`),
   which every view needs before any day file, so it loads with the page rather than after
   the script; `loadIndex` takes that response, since it asks for the same URL with
@@ -216,6 +227,13 @@ derives what only the site uses. The pipeline and `validate` never see these.
   week", `gainLabel`) and the Rising order sorts by (`?sort=rising`, `byGains`: the most
   gained first, then the most cited), in the Papers and Highly cited views (CIT-9). The
   Rising control shows once a gains file exists; before, `sort=rising` is Most cited.
+- **Search shards** (`tooling/search-shards.ts`, `src/search-shards.ts`, PERF-1): the papers
+  of the day files by month (`<category>/search/2026-09.json`), as the site gets them (with
+  `doi`, venue and `code` merged) but without `abstract` and `comments` (134 bytes a paper
+  gzipped instead of 735, about 6 MB for a year), with `code_url` (the code they linked,
+  which `codeUrl` reads then) and `light` (the day file that holds the paper whole). A
+  period loads them for its days past `PAPER_BUDGET`; each is loaded once for the page and
+  never cancelled, apart from the day files kept (a month would push them out).
 - **Published versions** (`tooling/scholar.ts`): the day and archive files get `doi`, and
   the published `venue` where the comments name none, from `scholar.json`.
 - **Stars of the code** (`tooling/code.ts`, PROD-18): each paper gets `code` from

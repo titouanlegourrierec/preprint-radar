@@ -4,6 +4,7 @@ import { codeBadge, codeHost, codeUrl } from "../code";
 import { download } from "../download";
 import { countOf, daysSince, firstVersionYear, formatDay, subjectCode } from "../format";
 import { highlight } from "../highlight";
+import { useWholePaper } from "../hooks/use-whole-paper";
 import { institutionsOf } from "../institutions";
 import { reportLink } from "../report";
 import {
@@ -101,6 +102,11 @@ export function PaperCard({
   onAffiliation,
 }: Props) {
   const [expanded, setExpanded] = useState(isTarget);
+  // A paper of a search shard has no abstract nor comments: opening it, or asking for its
+  // abstract, loads its day file (PERF-1).
+  const [abstractWanted, setAbstractWanted] = useState(false);
+  const whole = useWholePaper(paper, expanded || abstractWanted);
+  const { abstract, comments } = whole.paper;
   const [bibtex, setBibtex] = useState<"" | "copied" | "downloaded">("");
   const [linkCopied, setLinkCopied] = useState(false);
   const root = useRef<HTMLElement>(null);
@@ -281,9 +287,22 @@ export function PaperCard({
           </p>
         )}
 
-        {paper.abstract && (showAbstract || expanded) && (
+        {abstract && (showAbstract || expanded) && (
           <p class={`paper__abstract${expanded ? "" : " paper__abstract--clamped"}`}>
-            <RichText text={paper.abstract} terms={highlights} />
+            <RichText text={abstract} terms={highlights} />
+          </p>
+        )}
+        {!abstract && paper.light !== undefined && (showAbstract || expanded) && (
+          <p class="paper__abstract muted">
+            {whole.loading ? (
+              "Loading the abstract…"
+            ) : whole.failed ? (
+              "The abstract could not be loaded."
+            ) : expanded || abstractWanted ? null : (
+              <button type="button" class="link-button" onClick={() => setAbstractWanted(true)}>
+                Load the abstract
+              </button>
+            )}
           </p>
         )}
 
@@ -293,9 +312,9 @@ export function PaperCard({
           </p>
         )}
 
-        {expanded && paper.comments && (
+        {expanded && comments && (
           <p class="paper__comments">
-            <RichText text={paper.comments} terms={highlights} />
+            <RichText text={comments} terms={highlights} />
           </p>
         )}
 
@@ -481,7 +500,8 @@ export function PaperCard({
         aria-label="Save to reading list"
         aria-describedby={titleId}
         title={saved ? "Remove from reading list" : "Add to reading list"}
-        onClick={() => onToggleSaved(paper)}
+        // Whole once opened, so that the reading list keeps the abstract.
+        onClick={() => onToggleSaved(whole.paper)}
       >
         <span aria-hidden="true">{saved ? "★" : "☆"}</span>
       </button>

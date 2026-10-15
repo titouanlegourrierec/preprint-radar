@@ -7,7 +7,9 @@ import {
   loadCitationShard,
   loadDays,
   loadIndex,
+  loadLightDays,
   loadTopRecent,
+  loadWholePaper,
 } from "../src/data";
 import { PAPER_BUDGET } from "../src/period";
 import { makePaper } from "./fixtures";
@@ -225,6 +227,73 @@ describe("data", () => {
     await loadDays("cs.CV", [{ date: "2026-09-10", count: 1 }], controller.signal);
     await loadArchive("cs.CV", 2017);
     expect(signals).toEqual([controller.signal, undefined]);
+  });
+
+  it("loads older days from the search shards of their months, each once", async () => {
+    const light = (arxiv_id: string, announced: string) =>
+      makePaper({ arxiv_id, announced, light: `cs.CV/${announced}.json` });
+    const requested = serve({
+      "cs.CV/search/2026-09.json": {
+        schema_version: 1,
+        papers: [light("a", "2026-09-30"), light("b", "2026-09-29"), light("c", "2026-09-01")],
+      },
+      "cs.CV/search/2026-08.json": { schema_version: 1, papers: [light("d", "2026-08-31")] },
+    });
+    const days = [
+      { date: "2026-09-30", count: 1 },
+      { date: "2026-09-01", count: 1 },
+      { date: "2026-08-31", count: 1 },
+    ];
+
+    const { papers, missing } = await loadLightDays("cs.CV", days);
+
+    // The days asked for only: a shard holds the whole month.
+    expect(papers.map((paper) => paper.arxiv_id)).toEqual(["a", "c", "d"]);
+    expect(missing).toEqual([]);
+    await loadLightDays("cs.CV", days.slice(0, 1));
+    expect(requested).toEqual(["cs.CV/search/2026-09.json", "cs.CV/search/2026-08.json"]);
+  });
+
+  it("says which months could not be loaded, and asks for them again", async () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => undefined);
+    serve(
+      { "cs.CV/search/2026-08.json": { schema_version: 2, papers: [] } },
+      {
+        "cs.CV/search/2026-09.json": 500,
+      },
+    );
+    const days = [
+      { date: "2026-09-30", count: 1 },
+      { date: "2026-08-31", count: 1 },
+    ];
+
+    await expect(loadLightDays("cs.CV", days)).resolves.toEqual({
+      papers: [],
+      missing: ["2026-09", "2026-08"],
+    });
+    expect(warn).toHaveBeenCalledTimes(2);
+    const requested = serve({
+      "cs.CV/search/2026-09.json": { schema_version: 1, papers: [] },
+      "cs.CV/search/2026-08.json": { schema_version: 1, papers: [] },
+    });
+    await expect(loadLightDays("cs.CV", days)).resolves.toEqual({ papers: [], missing: [] });
+    expect(requested).toHaveLength(2);
+  });
+
+  it("loads a search shard's paper whole from its day file", async () => {
+    const whole = makePaper({ arxiv_id: "a", announced: "2026-09-30", abstract: "The abstract." });
+    serve({ "cs.CV/2026-09-30.json": { schema_version: 1, papers: [whole] } });
+    const light = makePaper({
+      arxiv_id: "a",
+      announced: "2026-09-30",
+      light: "cs.CV/2026-09-30.json",
+    });
+
+    await expect(loadWholePaper(light)).resolves.toEqual(whole);
+    // Loaded whole already, or gone from its day file: the record as given.
+    await expect(loadWholePaper(whole)).resolves.toBe(whole);
+    const gone = { ...light, arxiv_id: "b" };
+    await expect(loadWholePaper(gone)).resolves.toBe(gone);
   });
 
   it("loads a shard of citation counts, which may not exist", async () => {

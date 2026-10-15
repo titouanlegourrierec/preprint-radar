@@ -16,9 +16,11 @@ const found = new WeakMap<object, string | null>();
  * GitHub or GitLab, else its models or data on Hugging Face; `null` when it links none.
  * About one paper in five (918 of 4,832 in October 2026), nearly all "Code is available
  * at": a library a paper builds on is seldom linked. Kept per record, since the filter
- * asks again at each search.
+ * asks again at each search. A search shard's record has no abstract nor comments: the
+ * build found its code before (`code_url`).
  */
-export function codeUrl(paper: Pick<Paper, "abstract" | "comments">): string | null {
+export function codeUrl(paper: Pick<Paper, "abstract" | "comments" | "code_url">): string | null {
+  if (paper.code_url !== undefined) return paper.code_url;
   let url = found.get(paper);
   if (url === undefined) {
     const urls = [paper.abstract, paper.comments].flatMap((text) =>
