@@ -66,7 +66,8 @@ export function PeriodPicker({ days, period, onChange }: Props) {
   const [hovered, setHovered] = useState<string | null>(null);
   // The day the calendar's keyboard focus is on, which an arrow key moved (UX-14).
   const [cursor, setCursor] = useState<string | null>(null);
-  const moved = useRef(false);
+  // A day of another month an arrow moved to, to focus once its month is drawn.
+  const focusNext = useRef<string | null>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const rootRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -109,16 +110,23 @@ export function PeriodPicker({ days, period, onChange }: Props) {
     event.preventDefault();
     const day = stepDay(from, step, (candidate) => counts.has(candidate), { earliest, latest });
     if (day === null) return;
-    moved.current = true;
     setCursor(day);
+    const target = gridRef.current?.querySelector<HTMLElement>(`[data-day="${day}"]`);
+    if (target) {
+      target.focus();
+      return;
+    }
+    focusNext.current = day;
     setMonth(monthOf(day));
   };
-  // The day an arrow moved to takes the focus once drawn, in another month too.
+  // The day an arrow moved to in another month takes the focus once that month is drawn.
   useEffect(() => {
-    if (!moved.current || cursor === null) return;
-    moved.current = false;
-    gridRef.current?.querySelector<HTMLElement>(`[data-day="${cursor}"]`)?.focus();
-  }, [cursor, shown]);
+    const day = focusNext.current;
+    const target = day && gridRef.current?.querySelector<HTMLElement>(`[data-day="${day}"]`);
+    if (!target) return;
+    focusNext.current = null;
+    target.focus();
+  }, [shown]);
 
   const close = useCallback((returnFocus = false) => {
     setOpen(false);
