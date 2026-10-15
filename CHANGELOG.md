@@ -8,6 +8,34 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ## Unreleased
 
+### Search
+
+- Papers holding the search words side by side, as typed, rank first: each two words that
+  follow each other, with the stop words between them ("text to image", "image
+  generation"), triple a paper's score when all are there, so that "text-to-image
+  generation" in an abstract ranks before the three words apart, though not before them in
+  a title. The top 20 results of 17 queries of two words or more held them as typed 84%
+  of the time, 95% now ("3d reconstruction": 10 of 20, then 20) (SRCH-18).
+- `?since=2026-09-15` opens the days since a day to the latest one, a bookmark new days
+  join; the period picker names it ("Since 15 Sept 2026") and offers it for a range that
+  ends on the latest day, "Keep adding new days" (PROD-13).
+
+### Fixes
+
+- A day file that fails to load no longer fails its period: it is asked for once more,
+  then left out with a notice naming the days missing, those of a month whose search shard
+  failed too, and Retry. A period whose every day file fails is still an error (SRCH-10).
+- "UCSD" written alone is the University of California San Diego as ROR writes it, without
+  the comma that made it an institution of its own; `validate` warns of an acronym's
+  institution that no institution with an id is called (TEST-9).
+
+### Security
+
+- The site has a Content-Security-Policy: its own scripts, styles, data and graph worker
+  only, and the favicon's `data:` image, so that the third-party text and links it renders
+  can never run a script. The theme is restored before first paint by a file rather than
+  an inline script (SEC-1).
+
 ## 0.8.0 (2026-10-15): months of search, and five more page layouts read
 
 The third set of features of Phase 4: a period searches months of papers, its presets are
