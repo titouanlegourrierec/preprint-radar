@@ -1,3 +1,4 @@
+import re
 from datetime import date
 
 import httpx
@@ -163,6 +164,8 @@ def test_fetch_listing_requests_recent_page(listing_html: str) -> None:
     [request] = requests
     assert request.url.path == "/list/cs.CV/recent"
     assert request.url.params["show"] == "100"
+    # New at each request, so that arXiv's cache never serves the page hours old.
+    assert re.fullmatch(r"\d{14}", request.url.params["fresh"])
 
 
 def test_fetch_listing_warns_about_missing_entries(

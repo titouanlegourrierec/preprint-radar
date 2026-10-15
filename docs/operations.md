@@ -216,6 +216,19 @@ or a slow arxiv.org. Normal after a long gap; the next runs read the rest. If it
 day, reading cannot keep up (more than 600 papers a day at 15 s a page): lower the
 categories or accept a backlog.
 
+### The listing lacked today's announcement
+
+**Signal.** Warning annotation `Listing out of date` (`the listing lacks` a day, whose
+`papers come from its catchup page`), or `whose catchup page could not be read`.
+
+arXiv's cache served the recent listing hours old: on 2026-10-15, after an announcement
+late that night, the runs of 06:17 and 06:43 UTC got a copy without the day (`age: 16802`,
+`x-cache: HIT`). The listing request carries a parameter new at each run (`fresh`), and on
+a weekday the listing still lacks, the run reads that day's catchup page, abstracts
+included; a holiday's is empty, and says nothing. Nothing to do: the next day's listing
+holds the day too. If the catchup page could not be read, the next run's listing has the
+day, or dispatch *Update data* with the day as *since*.
+
 ### Semantic Scholar keeps refusing
 
 **Signal.** `Semantic Scholar keeps refusing; stopping after` in the citations step, or in the weekly

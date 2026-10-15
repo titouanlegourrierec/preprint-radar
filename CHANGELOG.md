@@ -33,6 +33,11 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   the comma that made it an institution of its own; `validate` warns of an acronym's
   institution that no institution with an id is called (TEST-9).
 
+- A day arXiv announced late is no longer missed when its cache serves the recent listing
+  hours old, as on 2026-10-15: the listing is asked for without the cache, and a weekday
+  it still lacks comes from that day's catchup page, with a warning `Listing out of date`
+  (REL-12).
+
 ### Security
 
 - The site has a Content-Security-Policy: its own scripts, styles, data and graph worker

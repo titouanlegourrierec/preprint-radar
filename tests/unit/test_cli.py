@@ -108,6 +108,35 @@ def test_update_populates_store(
     assert "No contact given" in caplog.text
 
 
+def test_update_warns_of_a_listing_out_of_date(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    listing_html: str,
+    catchup_html: str,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    def get_text(_: HttpClient, url: str, *, params: Mapping[str, str | int] | None = None) -> str:
+        del params
+        if "/list/" in url:
+            return listing_html
+        if url.endswith("/catchup/cs.CV/2026-09-28"):
+            return catchup_html.replace("Tue, 01 Sep 2026", "Mon, 28 Sep 2026")
+        raise NotFoundError(url)
+
+    monkeypatch.setattr(HttpClient, "get_text", get_text)
+    monkeypatch.setattr("preprint_radar.collect.today", lambda: date(2026, 9, 28))
+    monkeypatch.setenv("GITHUB_ACTIONS", "true")
+    data_dir = tmp_path / "data"
+
+    assert main(["update", "--data-dir", str(data_dir), "--crawl-delay", "0", "--max-html", "0"]) == 0
+
+    index = json.loads((data_dir / "index.json").read_text(encoding="utf-8"))
+    assert index["categories"]["cs.CV"][0] == {"date": "2026-09-28", "count": 4}
+    out = capsys.readouterr().out
+    assert "::warning title=Listing out of date::cs.CV: 11 listed, 11 new" in out
+    assert "the listing lacked 2026-09-28: 4 papers from its catchup page" in out
+
+
 @pytest.mark.usefixtures("offline")
 def test_update_whose_listing_fails_keeps_the_store_and_exits_1(
     tmp_path: Path,

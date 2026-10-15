@@ -116,6 +116,8 @@ class UpdateReport:
         stopped: Why the reading of HTML pages stopped early, if it did.
         failed_days: Days of a backfill whose catchup page failed or came back incomplete:
             not saved, they are fetched again next run.
+        caught_up: The day the recent listing lacked, and the papers of it taken from its
+            catchup page (:func:`_missing_day`): arXiv served a listing out of date.
     """
 
     category: str
@@ -129,6 +131,7 @@ class UpdateReport:
     unreadable: int = 0
     stopped: Stop | None = None
     failed_days: tuple[date, ...] = ()
+    caught_up: tuple[date, int] | None = None
 
     @property
     def html_failed(self) -> bool:
@@ -171,8 +174,10 @@ def update_category(
         A summary of the run.
     """
     listing = fetch_listing(site_client, category)
+    day = today()
+    caught_up = _missing_day(site_client, category, listing, day)
     known = {paper.arxiv_id: paper for paper in store.iter_papers()}
-    papers = [_carry_over(paper, known.get(paper.arxiv_id)) for paper in listing.papers]
+    papers = [_carry_over(paper, known.get(paper.arxiv_id)) for paper in (*caught_up, *listing.papers)]
     new = sum(paper.arxiv_id not in known for paper in papers)
     logger.info("%s: %d papers listed, %d new", category, len(papers), new)
 
@@ -190,7 +195,7 @@ def update_category(
         reading=html or HtmlReading(),
         checkpoint=lambda current: store.save(category, current),
     )
-    return _name_and_report(
+    report = _name_and_report(
         category,
         read.papers,
         read,
@@ -199,6 +204,42 @@ def update_category(
         new=new,
         abstracts=abstracts_fetched,
     )
+    return replace(report, caught_up=(day, len(caught_up))) if caught_up else report
+
+
+def _missing_day(client: HttpClient, category: str, listing: Listing, day: date) -> tuple[Paper, ...]:
+    """The papers announced on ``day`` from its catchup page, when the listing has none of them.
+
+    arXiv's cache served the listing page hours old on 2026-10-15: the runs of 06:17 and
+    06:43 UTC got one without that day, announced late, which its catchup page held whole.
+    Asked for on a weekday the listing lacks only; a day without announcement (a holiday)
+    gives an empty page. Papers listed on an earlier day too stay there.
+    """
+    if day.weekday() >= _SATURDAY or any(paper.announced >= day for paper in listing.papers):
+        return ()
+    try:
+        catchup = fetch_catchup(client, category, day)
+    except (FetchError, ParseError) as exc:
+        logger.warning(
+            "%s: the listing lacks %s, whose catchup page could not be read (%s)",
+            category,
+            day.isoformat(),
+            exc,
+        )
+        return ()
+    listed = {paper.arxiv_id for paper in listing.papers}
+    papers = tuple(paper for paper in catchup.papers if paper.arxiv_id not in listed)
+    if papers:
+        logger.warning(
+            "%s: the listing lacks %s: its %s papers come from its catchup page",
+            category,
+            day.isoformat(),
+            f"{len(papers):,}",
+        )
+    return papers
+
+
+_SATURDAY = 5
 
 
 def backfill_category(
@@ -1445,6 +1486,12 @@ def format_report(report: UpdateReport) -> str:
         + (
             f"; days not read: {', '.join(day.isoformat() for day in report.failed_days)}"
             if report.failed_days
+            else ""
+        )
+        + (
+            f"; the listing lacked {report.caught_up[0].isoformat()}: "
+            f"{report.caught_up[1]:,} papers from its catchup page"
+            if report.caught_up
             else ""
         )
     )

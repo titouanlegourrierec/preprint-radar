@@ -288,6 +288,10 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
 - **arxiv.org:** `robots.txt` asks for a 15 s crawl delay, used for the listing, RSS and
   HTML pages (`ARXIV_CRAWL_DELAY_SECONDS`). `robots.txt` disallows `/e-print` and `/src`:
   raw LaTeX is not an option.
+- **The listing's cache:** arXiv's cache served the recent listing hours old on
+  2026-10-15, without the day announced late that night: the request carries a `fresh`
+  parameter new at each run, and a weekday the listing lacks comes from its catchup page
+  (`collect._missing_day`).
 - **export.arxiv.org (the API):** its firewall returns an empty `406` to httpx's default
   header order and to `%2C`-encoded commas, so `HttpClient` sends a curl-like header set
   and `sources/arxiv_api.py` builds the query with literal commas: keep both. It throttles

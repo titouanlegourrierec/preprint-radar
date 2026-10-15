@@ -242,6 +242,69 @@ def test_update_takes_older_abstracts_from_catchup_pages(fake: FakeArxiv, store:
     assert fake.api_ids == []
 
 
+def _run_on(day: date, fake: FakeArxiv, store: PaperStore, monkeypatch: pytest.MonkeyPatch) -> UpdateReport:
+    monkeypatch.setattr("preprint_radar.collect.today", lambda: day)
+    with fake.client() as site, fake.client() as api:
+        return update_category(
+            "cs.CV", store=store, site_client=site, api_client=api, html=HtmlReading(limit=0)
+        )
+
+
+def test_update_takes_a_weekday_the_listing_lacks_from_its_catchup_page(
+    fake: FakeArxiv, store: PaperStore, monkeypatch: pytest.MonkeyPatch, caplog: pytest.LogCaptureFixture
+) -> None:
+    # The listing ends on Friday 25 September; Monday's announcement came late, after the
+    # page arXiv's cache served was taken. A cross-list of the 24th stays on its day.
+    fake.catchup_pages = {
+        "/catchup/cs.CV/2026-09-28": _catchup_page(
+            ["2609.40001", "2609.40002", "2609.28466"], on="Mon, 28 Sep 2026"
+        )
+    }
+
+    report = _run_on(date(2026, 9, 28), fake, store, monkeypatch)
+
+    assert [paper.arxiv_id for paper in store.load_day("cs.CV", date(2026, 9, 28))] == [
+        "2609.40001",
+        "2609.40002",
+    ]
+    assert "2609.28466" in {paper.arxiv_id for paper in store.load_day("cs.CV", date(2026, 9, 24))}
+    assert store.load_day("cs.CV", date(2026, 9, 28))[0].abstract == "From catchup 2609.40001."
+    assert report.caught_up == (date(2026, 9, 28), 2)
+    assert (report.listed, report.new) == (9, 9)
+    assert "the listing lacked 2026-09-28: 2 papers from its catchup page" in format_report(report)
+    assert "cs.CV: the listing lacks 2026-09-28: its 2 papers come from its catchup page" in caplog.text
+
+
+@pytest.mark.parametrize(
+    ("day", "page", "asked"),
+    [
+        pytest.param(date(2026, 9, 25), None, False, id="listed"),
+        pytest.param(date(2026, 9, 26), None, False, id="saturday"),
+        pytest.param(date(2026, 9, 28), None, True, id="holiday"),
+        pytest.param(date(2026, 9, 28), "failing", True, id="failing"),
+    ],
+)
+def test_update_reads_a_catchup_page_only_for_a_weekday_the_listing_lacks(
+    fake: FakeArxiv,
+    store: PaperStore,
+    monkeypatch: pytest.MonkeyPatch,
+    caplog: pytest.LogCaptureFixture,
+    day: date,
+    page: str | None,
+    asked: bool,  # noqa: FBT001 - a pytest parameter
+) -> None:
+    path = f"/catchup/cs.CV/{day.isoformat()}"
+    if page == "failing":
+        fake.catchup_failing.add(path)
+
+    report = _run_on(day, fake, store, monkeypatch)
+
+    assert fake.hits[path] == asked
+    assert report.caught_up is None
+    assert report.listed == 7
+    assert ("whose catchup page could not be read" in caplog.text) == (page == "failing")
+
+
 def test_update_falls_back_to_the_api_when_a_catchup_page_fails(
     fake: FakeArxiv, store: PaperStore, monkeypatch: pytest.MonkeyPatch, caplog: pytest.LogCaptureFixture
 ) -> None:

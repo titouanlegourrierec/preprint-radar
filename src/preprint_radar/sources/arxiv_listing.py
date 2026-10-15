@@ -10,7 +10,7 @@ Two kinds of pages share the same ``<dt>``/``<dd>`` markup for their entries:
 import logging
 import re
 from collections.abc import Iterator
-from datetime import date, datetime
+from datetime import UTC, date, datetime
 from urllib.parse import urljoin
 
 from bs4 import BeautifulSoup, Tag
@@ -80,7 +80,10 @@ def fetch_listing(client: HttpClient, category: str, *, max_entries: int = MAX_L
 
     logger.info("Fetching the recent listing of %s", category)
     html = client.get_text(
-        f"{ARXIV_BASE_URL}/list/{category}/recent", params={"skip": 0, "show": max_entries}
+        f"{ARXIV_BASE_URL}/list/{category}/recent",
+        # A parameter arXiv ignores, new at each request: its cache served this page hours
+        # old on 2026-10-15 (`age: 16802`), without the day announced late that night.
+        params={"skip": 0, "show": max_entries, "fresh": datetime.now(tz=UTC).strftime("%Y%m%d%H%M%S")},
     )
     listing = parse_listing(html)
     if not listing.is_complete:

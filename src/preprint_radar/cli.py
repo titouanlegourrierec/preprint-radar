@@ -960,6 +960,8 @@ def _publish_update(report: UpdateReport) -> None:
     github_summary(f"**Papers.** {line}")
     if report.failed_days:
         github_annotation("error", "Catchup pages failed", line)
+    if report.caught_up:
+        github_annotation("warning", "Listing out of date", line)
     if report.stopped is Stop.DEADLINE:
         github_annotation("warning", "Out of time", line)
     elif report.html_failed:
