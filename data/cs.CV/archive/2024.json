@@ -42091,19 +42091,40 @@
    "journal_ref": null,
    "venue": "WACV 2025",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2411.02799v1",
    "abstract": "We propose an image-adaptive object detection method for adverse weather conditions such as fog and low-light. Our framework employs differentiable preprocessing filters to perform image enhancement suitable for later-stage object detections. Our framework introduces two differentiable filters: a Bézier curve-based pixel-wise (BPW) filter and a kernel-based local (KBL) filter. These filters unify the functions of classical image processing filters and improve performance of object detection. We also propose a domain-agnostic data augmentation strategy using the BPW filter. Our method does not require data-specific customization of the filter combinations, parameter ranges, and data augmentation. We evaluate our proposed approach, called Enhanced Robustness by Unified Image Processing (ERUP)-YOLO, by applying it to the YOLOv3 detector. Experiments on adverse weather datasets demonstrate that our proposed filters match or exceed the expressiveness of conventional methods and our ERUP-YOLO achieved superior performance in a wide range of adverse weather conditions, including fog and low-light conditions.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "NEC Corporation"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "NEC Corporation"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2411.02799",
@@ -47950,19 +47971,37 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2410.14250v1",
    "abstract": "Vision-language navigation (VLN) requires an agent to execute actions following human instructions. Existing VLN models are optimized through expert demonstrations by supervised behavioural cloning or incorporating manual reward engineering. While straightforward, these efforts overlook the accumulation of errors in the Markov decision process, and struggle to match the distribution of the expert policy. Going beyond this, we propose an Energy-based Navigation Policy (ENP) to model the joint state-action distribution using an energy-based model. At each step, low energy values correspond to the state-action pairs that the expert is most likely to perform, and vice versa. Theoretically, the optimization objective is equivalent to minimizing the forward divergence between the occupancy measure of the expert and ours. Consequently, ENP learns to globally align with the expert policy by maximizing the likelihood of the actions and modeling the dynamics of the navigation states in a collaborative manner. With a variety of VLN architectures, ENP achieves promising performances on R2R, REVERIE, RxR, and R2R-CE, unleashing the power of existing VLN models.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "ReLER, CCAI, Zhejiang University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Zhejiang University"
+   ],
+   "institution_ids": [
+    "00a2xv884"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2410.14250",
@@ -75466,19 +75505,40 @@
    "journal_ref": null,
    "venue": "CoRL 2024",
    "cross_list_from": "cs.RO",
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2409.07914v1",
    "abstract": "Bimanual manipulation presents unique challenges compared to unimanual tasks due to the complexity of coordinating two robotic arms. In this paper, we introduce InterACT: Inter-dependency aware Action Chunking with Hierarchical Attention Transformers, a novel imitation learning framework designed specifically for bimanual manipulation. InterACT leverages hierarchical attention mechanisms to effectively capture inter-dependencies between dual-arm joint states and visual inputs. The framework comprises a Hierarchical Attention Encoder, which processes multi-modal inputs through segment-wise and cross-segment attention mechanisms, and a Multi-arm Decoder that generates each arm's action predictions in parallel, while sharing information between the arms through synchronization blocks by providing the other arm's intermediate output as context. Our experiments, conducted on various simulated and real-world bimanual manipulation tasks, demonstrate that InterACT outperforms existing methods. Detailed ablation studies further validate the significance of key components, including the impact of CLS tokens, cross-segment encoders, and synchronization blocks on task performance. We provide supplementary materials and videos on our project page.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of California Davis"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of California Davis"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2409.07914",
@@ -77148,19 +77208,57 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2409.00877v1",
    "abstract": "Digital Twins (DTs) are becoming popular in Additive Manufacturing (AM) due to their ability to create virtual replicas of physical components of AM machines, which helps in real-time production monitoring. Advanced techniques such as Machine Learning (ML), Augmented Reality (AR), and simulation-based models play key roles in developing intelligent and adaptable DTs in manufacturing processes. However, questions remain regarding scalability, the integration of high-quality data, and the computational power required for real-time applications in developing DTs. Understanding the current state of DTs in AM is essential to address these challenges and fully utilize their potential in advancing AM processes. Considering this opportunity, this work aims to provide a comprehensive overview of DTs in AM by addressing the following four research questions: (1) What are the key types of DTs used in AM and their specific applications? (2) What are the recent developments and implementations of DTs? (3) How are DTs employed in process improvement and hybrid manufacturing? (4) How are DTs integrated with Industry 4.0 technologies? By discussing current applications and techniques, we aim to offer a better understanding and potential future research directions for researchers and practitioners in AM and DTs.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Industrial and Systems Engineering",
+    "University of Oklahoma",
+    "Norman, Oklahoma-73071",
+    "Aerospace and Mechanical Engineering"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     3,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     3,
+     1,
+     2
+    ]
+   ],
+   "institutions": [
+    "Industrial and Systems Engineering",
+    "University of Oklahoma",
+    "Norman",
+    "Aerospace and Mechanical Engineering"
+   ],
+   "institution_ids": [
+    null,
+    "02aqsxs83",
+    null,
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2409.00877",
@@ -96329,19 +96427,27 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2407.07788v1",
    "abstract": "We introduce BiGym, a new benchmark and learning environment for mobile bi-manual demo-driven robotic manipulation. BiGym features 40 diverse tasks set in home environments, ranging from simple target reaching to complex kitchen cleaning. To capture the real-world performance accurately, we provide human-collected demonstrations for each task, reflecting the diverse modalities found in real-world robot trajectories. BiGym supports a variety of observations, including proprioceptive data and visual inputs such as RGB, and depth from 3 camera views. To validate the usability of BiGym, we thoroughly benchmark the state-of-the-art imitation learning algorithms and demo-driven reinforcement learning algorithms within the environment and discuss the future opportunities.",
-   "affiliations": [],
+   "affiliations": [
+    "Dyson Robot Learning Lab"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Dyson Robot Learning Lab"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2407.07788",
@@ -96453,19 +96559,61 @@
    "journal_ref": null,
    "venue": "ECCV 2024",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2407.06938v1",
    "abstract": "We present RodinHD, which can generate high-fidelity 3D avatars from a portrait image. Existing methods fail to capture intricate details such as hairstyles which we tackle in this paper. We first identify an overlooked problem of catastrophic forgetting that arises when fitting triplanes sequentially on many avatars, caused by the MLP decoder sharing scheme. To overcome this issue, we raise a novel data scheduling strategy and a weight consolidation regularization term, which improves the decoder's capability of rendering sharper details. Additionally, we optimize the guiding effect of the portrait image by computing a finer-grained hierarchical representation that captures rich 2D texture cues, and injecting them to the 3D diffusion model at multiple layers via cross-attention. When trained on 46K avatars with a noise schedule optimized for triplanes, the resulting model can generate 3D avatars with notably better details than previous methods and can generalize to in-the-wild portrait input.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Science and Technology of China",
+    "Tsinghua University",
+    "Microsoft Research Asia"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "University of Science and Technology of China",
+    "Tsinghua University",
+    "Microsoft"
+   ],
+   "institution_ids": [
+    "04c4dkn09",
+    "03cve4549",
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2407.06938",

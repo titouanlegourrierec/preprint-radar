@@ -34,19 +34,78 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2510.10274v1",
    "abstract": "Successful generalist Vision-Language-Action (VLA) models rely on effective training across diverse robotic platforms with large-scale, cross-embodiment, heterogeneous datasets. To facilitate and leverage the heterogeneity in rich, diverse robotic data sources, we propose a novel Soft Prompt approach with minimally added parameters, by infusing prompt learning concepts into cross-embodiment robot learning and introducing separate sets of learnable embeddings for each distinct data source. These embeddings serve as embodiment-specific prompts, which in unity empower VLA models with effective exploitation of varying cross-embodiment features. Our new X-VLA, a neat flow-matching-based VLA architecture, relies exclusively on soft-prompted standard Transformer encoders, enjoying both scalability and simplicity. Evaluated across 6 simulations as well as 3 real-world robots, our 0.9B instantiation-X-VLA-0.9B simultaneously achieves SOTA performance over a sweep of benchmarks, demonstrating superior results on a wide axes of capabilities, from flexible dexterity to quick adaptation across embodiments, environments, and tasks. Website: https://thu-air-dream.github.io/X-VLA/",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Institute for AI Industry Research (AIR), Tsinghua University",
+    "Peking University",
+    "Shanghai AI Lab"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Tsinghua University",
+    "Peking University",
+    "Shanghai Artificial Intelligence Laboratory"
+   ],
+   "institution_ids": [
+    "03cve4549",
+    "02v51f717",
+    "03wkvpx79"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2510.10274",
@@ -158,19 +217,43 @@
    "journal_ref": null,
    "venue": "NeurIPS 2025",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2510.17845v1",
    "abstract": "Multi-label image classification demands adaptive training strategies to navigate complex, evolving visual-semantic landscapes, yet conventional methods rely on static configurations that falter in dynamic settings. We propose MAT-Agent, a novel multi-agent framework that reimagines training as a collaborative, real-time optimization process. By deploying autonomous agents to dynamically tune data augmentation, optimizers, learning rates, and loss functions, MAT-Agent leverages non-stationary multi-armed bandit algorithms to balance exploration and exploitation, guided by a composite reward harmonizing accuracy, rare-class performance, and training stability. Enhanced with dual-rate exponential moving average smoothing and mixed-precision training, it ensures robustness and efficiency. Extensive experiments across Pascal VOC, COCO, and VG-256 demonstrate MAT-Agent's superiority: it achieves an mAP of 97.4 (vs. 96.2 for PAT-T), OF1 of 92.3, and CF1 of 91.4 on Pascal VOC; an mAP of 92.8 (vs. 92.0 for HSQ-CvN), OF1 of 88.2, and CF1 of 87.1 on COCO; and an mAP of 60.9, OF1 of 70.8, and CF1 of 61.1 on VG-256. With accelerated convergence and robust cross-domain generalization, MAT-Agent offers a scalable, intelligent solution for optimizing complex visual models, paving the way for adaptive deep learning advancements.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Sun Yat-sen University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Sun Yat-sen University"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2510.17845",
@@ -261,19 +344,30 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.CR",
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2510.09269v1",
    "abstract": "Recent advances in vision-language-action (VLA) models have greatly improved embodied AI, enabling robots to follow natural language instructions and perform diverse tasks. However, their reliance on uncurated training datasets raises serious security concerns. Existing backdoor attacks on VLAs mostly assume white-box access and result in task failures instead of enforcing specific actions. In this work, we reveal a more practical threat: attackers can manipulate VLAs by simply injecting physical objects as triggers into the training dataset. We propose goal-oriented backdoor attacks (GoBA), where the VLA behaves normally in the absence of physical triggers but executes predefined and goal-oriented actions in the presence of physical triggers. Specifically, based on a popular VLA benchmark LIBERO, we introduce BadLIBERO that incorporates diverse physical triggers and goal-oriented backdoor actions. In addition, we propose a three-level evaluation that categorizes the victim VLA's actions under GoBA into three states: nothing to do, try to do, and success to do. Experiments show that GoBA enables the victim VLA to successfully achieve the backdoor goal in 97 percentage of inputs when the physical trigger is present, while causing zero performance degradation on clean inputs. Finally, by investigating factors related to GoBA, we find that the action trajectory and trigger color significantly influence attack performance, while trigger size has surprisingly little effect. The code and BadLIBERO dataset are accessible via the project page at https://goba-attack.github.io/.",
-   "affiliations": [],
+   "affiliations": [
+    "The University of Auckland",
+    "The King Abdullah University of Science and Technology"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "University of Auckland",
+    "King Abdullah University of Science and Technology"
+   ],
+   "institution_ids": [
+    "03b94tp07",
+    "01q3tbs38"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2510.09269",
@@ -338,19 +432,54 @@
    "journal_ref": null,
    "venue": "NeurIPS 2025",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2510.02912v1",
    "abstract": "Despite their powerful capabilities, Multimodal Large Language Models (MLLMs) suffer from considerable computational overhead due to their reliance on massive visual tokens. Recent studies have explored token pruning to alleviate this problem, which typically uses text-vision cross-attention or [CLS] attention to assess and discard redundant visual tokens. In this work, we identify a critical limitation of such attention-first pruning approaches, i.e., they tend to preserve semantically similar tokens, resulting in pronounced performance drops under high pruning ratios. To this end, we propose HoloV, a simple yet effective, plug-and-play visual token pruning framework for efficient inference. Distinct from previous attention-first schemes, HoloV rethinks token retention from a holistic perspective. By adaptively distributing the pruning budget across different spatial crops, HoloV ensures that the retained tokens capture the global visual context rather than isolated salient features. This strategy minimizes representational collapse and maintains task-relevant information even under aggressive pruning. Experimental results demonstrate that our HoloV achieves superior performance across various tasks, MLLM architectures, and pruning ratios compared to SOTA methods. For instance, LLaVA1.5 equipped with HoloV preserves 95.8% of the original performance after pruning 88.9% of visual tokens, achieving superior efficiency-accuracy trade-offs.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "The Hong Kong University of Science and Technology",
+    "INSAIT, Sofia University “St. Kliment Ohridski”",
+    "Shanghai Jiao Tong University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Hong Kong University of Science and Technology",
+    "Sofia University “St. Kliment Ohridski”",
+    "Shanghai Jiao Tong University"
+   ],
+   "institution_ids": [
+    "00q4vv597",
+    null,
+    "0220qvk04"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2510.02912",
@@ -379,19 +508,50 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2510.08568v1",
    "abstract": "Enabling robots to execute novel manipulation tasks zero-shot is a central goal in robotics. Most existing methods assume in-distribution tasks or rely on fine-tuning with embodiment-matched data, limiting transfer across platforms. We present NovaFlow, an autonomous manipulation framework that converts a task description into an actionable plan for a target robot without any demonstrations. Given a task description, NovaFlow synthesizes a video using a video generation model and distills it into 3D actionable object flow using off-the-shelf perception modules. From the object flow, it computes relative poses for rigid objects and realizes them as robot actions via grasp proposals and trajectory optimization. For deformable objects, this flow serves as a tracking objective for model-based planning with a particle-based dynamics model. By decoupling task understanding from low-level control, NovaFlow naturally transfers across embodiments. We validate on rigid, articulated, and deformable object manipulation tasks using a table-top Franka arm and a Spot quadrupedal mobile robot, and achieve effective zero-shot execution without demonstrations or embodiment-specific training. Project website: https://novaflow.lhy.xyz/.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Robotics and AI Institute",
+    "Brown University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Robotics and AI Institute",
+    "Brown University"
+   ],
+   "institution_ids": [
+    "00kqcs728",
+    "05gq02987"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2510.08568",
@@ -622,19 +782,27 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2510.08485v1",
    "abstract": "With recent advances in Multimodal Large Language Models (MLLMs) showing strong visual understanding and reasoning, interest is growing in using them to improve the editing performance of diffusion models. Despite rapid progress, most studies lack an in-depth analysis of MLLM design choices. Moreover, the integration of MLLMs and diffusion models remains an open challenge in some difficult tasks, such as video editing. In this paper, we present InstructX, a unified framework for image and video editing. Specifically, we conduct a comprehensive study on integrating MLLMs and diffusion models for instruction-driven editing across diverse tasks. Building on this study, we analyze the cooperation and distinction between images and videos in unified modeling. (1) We show that training on image data can lead to emergent video editing capabilities without explicit supervision, thereby alleviating the constraints imposed by scarce video training data. (2) By incorporating modality-specific MLLM features, our approach effectively unifies image and video editing tasks within a single model. Extensive experiments demonstrate that our method can handle a broad range of image and video editing tasks and achieves state-of-the-art performance.",
-   "affiliations": [],
+   "affiliations": [
+    "Intelligent Creation Team, ByteDance"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "ByteDance"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2510.08485",
@@ -660,19 +828,43 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2510.08475v1",
    "abstract": "We present DexMan, an automated framework that converts human visual demonstrations into bimanual dexterous manipulation skills for humanoid robots in simulation. Operating directly on third-person videos of humans manipulating rigid objects, DexMan eliminates the need for camera calibration, depth sensors, scanned 3D object assets, or ground-truth hand and object motion annotations. Unlike prior approaches that consider only simplified floating hands, it directly controls a humanoid robot and leverages novel contact-based rewards to improve policy learning from noisy hand-object poses estimated from in-the-wild videos. DexMan achieves state-of-the-art performance in object pose estimation on the TACO benchmark, with absolute gains of 0.08 and 0.12 in ADD-S and VSD. Meanwhile, its reinforcement learning policy surpasses previous methods by 19% in success rate on OakInk-v2. Furthermore, DexMan can generate skills from both real and synthetic videos, without the need for manual data collection and costly motion capture, and enabling the creation of large-scale, diverse datasets for training generalist dexterous manipulation.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "National Taiwan University",
+    "Stanford University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "National Taiwan University",
+    "Stanford University"
+   ],
+   "institution_ids": [
+    "05bqach95",
+    "00f54p054"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2510.08475",
@@ -904,19 +1096,36 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2510.06679v1",
    "abstract": "Recent advancements in instruction-based image editing and subject-driven generation have garnered significant attention, yet both tasks still face limitations in meeting practical user needs. Instruction-based editing relies solely on language instructions, which often fail to capture specific editing details, making reference images necessary. Meanwhile, subject-driven generation is limited to combining concrete objects or people, overlooking broader, abstract concepts. To address these challenges, we propose two novel tasks: multimodal instruction-based editing and generation. These tasks support both text and image instructions and extend the scope to include both concrete and abstract concepts, greatly enhancing their practical applications. We introduce DreamOmni2, tackling two primary challenges: data creation and model framework design. Our data synthesis pipeline consists of three steps: (1) using a feature mixing method to create extraction data for both abstract and concrete concepts, (2) generating multimodal instruction-based editing training data using the editing and extraction models, and (3) further applying the extraction model to create training data for multimodal instruction-based editing. For the framework, to handle multi-image input, we propose an index encoding and position encoding shift scheme, which helps the model distinguish images and avoid pixel confusion. Additionally, we introduce joint training with the VLM and our generation/editing model to better process complex instructions. In addition, we have proposed comprehensive benchmarks for these two new tasks to drive their development. Experiments show that DreamOmni2 has achieved impressive results. Models and codes will be released.",
-   "affiliations": [],
+   "affiliations": [
+    "ByteDance Inc",
+    "CUHK",
+    "HKUST",
+    "HKU"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "ByteDance",
+    "Chinese University of Hong Kong",
+    "Hong Kong University of Science and Technology",
+    "University of Hong Kong"
+   ],
+   "institution_ids": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2510.06679",
@@ -1016,19 +1225,153 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2510.06308v1",
    "abstract": "We introduce Lumina-DiMOO, an open-source foundational model for seamless multi-modal generation and understanding. Lumina-DiMOO sets itself apart from prior unified models by utilizing a fully discrete diffusion modeling to handle inputs and outputs across various modalities. This innovative approach allows Lumina-DiMOO to achieve higher sampling efficiency compared to previous autoregressive (AR) or hybrid AR-Diffusion paradigms and adeptly support a broad spectrum of multi-modal tasks, including text-to-image generation, image-to-image generation (e.g., image editing, subject-driven generation, and image inpainting, etc.), as well as image understanding. Lumina-DiMOO achieves state-of-the-art performance on multiple benchmarks, surpassing existing open-source unified multi-modal models. To foster further advancements in multi-modal and discrete diffusion model research, we release our code and checkpoints to the community. Project Page: https://synbol.github.io/Lumina-DiMOO.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Shanghai AI Laboratory",
+    "Shanghai Innovation Institute",
+    "Nanjing University",
+    "The University of Sydney",
+    "Shanghai Jiao Tong University",
+    "Tsinghua University",
+    "The Chinese University of Hong Kong"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     0,
+     4
+    ],
+    [
+     0,
+     4
+    ],
+    [
+     0,
+     5
+    ],
+    [
+     4
+    ],
+    [
+     0,
+     4
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     6
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     3
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     6
+    ],
+    [
+     0,
+     4
+    ],
+    [
+     0,
+     6
+    ],
+    [
+     0
+    ],
+    [
+     1,
+     4
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Shanghai Artificial Intelligence Laboratory",
+    "Shanghai Innovation Institute",
+    "Nanjing University",
+    "University of Sydney",
+    "Shanghai Jiao Tong University",
+    "Tsinghua University",
+    "Chinese University of Hong Kong"
+   ],
+   "institution_ids": [
+    "03wkvpx79",
+    "01fatbw66",
+    "01rxvg760",
+    "0384j8v12",
+    "0220qvk04",
+    "03cve4549",
+    "00t33hh48"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2510.06308",
@@ -1056,19 +1399,60 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2510.06208v1",
    "abstract": "Video-conditioned 4D shape generation aims to recover time-varying 3D geometry and view-consistent appearance directly from an input video. In this work, we introduce a native video-to-4D shape generation framework that synthesizes a single dynamic 3D representation end-to-end from the video. Our framework introduces three key components based on large-scale pre-trained 3D models: (i) a temporal attention that conditions generation on all frames while producing a time-indexed dynamic representation; (ii) a time-aware point sampling and 4D latent anchoring that promote temporally consistent geometry and texture; and (iii) noise sharing across frames to enhance temporal stability. Our method accurately captures non-rigid motion, volume changes, and even topological transitions without per-frame optimization. Across diverse in-the-wild videos, our method improves robustness and perceptual fidelity and reduces failure modes compared with the baselines.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Snap",
+    "Purdue University",
+    "KAUST"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Snap",
+    "Purdue University",
+    "King Abdullah University of Science and Technology"
+   ],
+   "institution_ids": [
+    null,
+    null,
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2510.06208",
@@ -1093,19 +1477,33 @@
    "journal_ref": null,
    "venue": "NeurIPS 2025",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2510.06077v1",
    "abstract": "Video reasoning, the task of enabling machines to infer from dynamic visual content through multi-step logic, is crucial for advanced AI. While the Chain-of-Thought (CoT) mechanism has enhanced reasoning in text-based tasks, its application to video understanding remains underexplored. This paper presents a systematic analysis revealing that CoT often degrades performance in video reasoning, generating verbose but misleading internal monologues, and leading to hallucinated visual details and overridden correct intuitions - a phenomenon we term \"visual thinking drift\". We explain this drift through a Bayesian lens, positing that CoT traces often diverge from actual visual evidence, instead amplifying internal biases or language priors, causing models to storytell rather than engage in grounded reasoning. To counteract this, we introduce Visual Evidence Reward (VER), a novel reinforcement learning framework that explicitly rewards the generation of reasoning traces that are verifiably grounded in visual evidence. Comprehensive evaluation across 10 diverse video understanding benchmarks demonstrates that our Video-VER consistently achieves top performance. Our work sheds light on the distinct challenges of video-centric reasoning and encourages the development of AI that robustly grounds its inferences in visual evidence - for large multimodal models that not only \"think before answering\", but also \"see while thinking\".",
-   "affiliations": [],
+   "affiliations": [
+    "The University of Texas at Austin",
+    "UC Berkeley",
+    "Bespoke Labs"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "University of Texas at Austin",
+    "University of California, Berkeley",
+    "Bespoke Labs"
+   ],
+   "institution_ids": [
+    "00hj54h04",
+    "01an7q238",
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2510.06077",
@@ -1749,19 +2147,59 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2510.27684v1",
    "abstract": "Distribution Matching Distillation (DMD) distills score-based generative models into efficient one-step generators, without requiring a one-to-one correspondence with the sampling trajectories of their teachers. Yet, the limited capacity of one-step distilled models compromises generative diversity and degrades performance in complex generative tasks, e.g., generating intricate object motions in text-to-video task. Directly extending DMD to multi-step distillation increases memory usage and computational depth, leading to instability and reduced efficiency. While prior works propose stochastic gradient truncation as a potential solution, we observe that it substantially reduces the generative diversity in text-to-image generation and slows motion dynamics in video generation, reducing performance to the level of one-step models. To address these limitations, we propose Phased DMD, a multi-step distillation framework that bridges the idea of phase-wise distillation with Mixture-of-Experts (MoE), reducing learning difficulty while enhancing model capacity. Phased DMD incorporates two key ideas: progressive distribution matching and score matching within subintervals. First, our model divides the SNR range into subintervals, progressively refining the model to higher SNR levels, to better capture complex distributions. Next, to ensure accurate training within each subinterval, we derive rigorous mathematical formulations for the objective. We validate Phased DMD by distilling state-of-the-art image and video generation models, including Qwen-Image-20B and Wan2.2-28B. Experiments demonstrate that Phased DMD enhances motion dynamics, improves visual fidelity in video generation, and increases output diversity in image generation. Our code and models are available at https://x-niper.github.io/projects/Phased-DMD/.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "SenseTime Research",
+    "Beihang University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "SenseTime",
+    "Beihang University"
+   ],
+   "institution_ids": [
+    null,
+    "00wk2mp56"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2510.27684",
@@ -2671,19 +3109,43 @@
    "journal_ref": null,
    "venue": "NeurIPS 2025",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2510.24709v1",
    "abstract": "Object binding, the brain's ability to bind the many features that collectively represent an object into a coherent whole, is central to human cognition. It groups low-level perceptual features into high-level object representations, stores those objects efficiently and compositionally in memory, and supports human reasoning about individual object instances. While prior work often imposes object-centric attention (e.g., Slot Attention) explicitly to probe these benefits, it remains unclear whether this ability naturally emerges in pre-trained Vision Transformers (ViTs). Intuitively, they could: recognizing which patches belong to the same object should be useful for downstream prediction and thus guide attention. Motivated by the quadratic nature of self-attention, we hypothesize that ViTs represent whether two patches belong to the same object, a property we term IsSameObject. We decode IsSameObject from patch embeddings across ViT layers using a quadratic similarity probe, which reaches over 90% accuracy. Crucially, this object-binding capability emerges reliably in DINO, CLIP, and ImageNet-supervised ViTs, but is markedly weaker in MAE, suggesting that binding is not a trivial architectural artifact, but an ability acquired through specific pretraining objectives. We further discover that IsSameObject is encoded in a low-dimensional subspace on top of object features, and that this signal actively guides attention. Ablating IsSameObject from model activations degrades downstream performance and works against the learning objective, implying that emergent object binding naturally serves the pretraining objective. Our findings challenge the view that ViTs lack object binding and highlight how symbolic knowledge of \"which parts belong together\" emerges naturally in a connectionist system.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Pennsylvania",
+    "Machine Learning Group, Technical University of Berlin"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Pennsylvania",
+    "Technische Universität Berlin"
+   ],
+   "institution_ids": [
+    "00b30xv10",
+    "03v4gjf40"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2510.24709",
@@ -7926,19 +8388,75 @@
    "journal_ref": null,
    "venue": "ICLR 2026",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2510.06218v1",
    "abstract": "Most existing benchmarks for understanding egocentric vision focus primarily on daytime scenarios, overlooking the low-light conditions that are inevitable in real-world applications. To investigate this gap, we present EgoNight, the first comprehensive benchmark for nighttime egocentric vision, with visual question answering (VQA) as the core task. A key feature of EgoNight is the introduction of day-night aligned videos, which enhance night annotation quality using the daytime data and reveal clear performance gaps between lighting conditions. To achieve this, we collect both synthetic videos rendered by Blender and real-world recordings, ensuring that scenes and actions are visually and temporally aligned. Leveraging these paired videos, we construct EgoNight-VQA, supported by a novel day-augmented night auto-labeling engine and refinement through extensive human verification. Each QA pair is double-checked by annotators for reliability. In total, EgoNight-VQA contains 3658 QA pairs across 90 videos, spanning 12 diverse QA types, with more than 300 hours of human work. Evaluations of state-of-the-art multimodal large language models (MLLMs) reveal substantial performance drops when transferring from day to night, underscoring the challenges of reasoning under low-light conditions. Beyond VQA, EgoNight also introduces two auxiliary tasks, day-night correspondence retrieval and egocentric depth estimation at night, that further explore the boundaries of existing models. We believe EgoNight-VQA provides a strong foundation for advancing application-driven egocentric vision research and for developing models that generalize across illumination domains. The code and data can be found at https://github.com/dehezhang2/EgoNight.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "INSAIT, Sofia University “St. Kliment Ohridski”",
+    "East China Normal University",
+    "HKUST(GZ)",
+    "Nankai University",
+    "Fudan University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     3
+    ],
+    [
+     0
+    ],
+    [
+     4
+    ],
+    [
+     4
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Sofia University “St. Kliment Ohridski”",
+    "East China Normal University",
+    "HKUST(GZ)",
+    "Nankai University",
+    "Fudan University"
+   ],
+   "institution_ids": [
+    null,
+    "02n96ep67",
+    null,
+    "01y1kjr75",
+    "013q1eq08"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2510.06218",
@@ -9692,19 +10210,75 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2509.25079v1",
    "abstract": "High-fidelity 3D asset generation is crucial for various industries. While recent 3D pretrained models show strong capability in producing realistic content, most are built upon diffusion models and follow a two-stage pipeline that first generates geometry and then synthesizes appearance. Such a decoupled design tends to produce geometry-texture misalignment and non-negligible cost. In this paper, we propose UniLat3D, a unified framework that encodes geometry and appearance in a single latent space, enabling direct single-stage generation. Our key contribution is a geometry-appearance Unified VAE, which compresses high-resolution sparse features into a compact latent representation -- UniLat. UniLat integrates structural and visual information into a dense low-resolution latent, which can be efficiently decoded into diverse 3D formats, e.g., 3D Gaussians and meshes. Based on this unified representation, we train a single flow-matching model to map Gaussian noise directly into UniLat, eliminating redundant stages. Trained solely on public datasets, UniLat3D produces high-quality 3D assets in seconds from a single image, achieving superior appearance fidelity and geometric quality. More demos & code are available at https://unilat3d.github.io/",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Huawei Inc",
+    "Shanghai Jiaotong University",
+    "Huazhong University of Science and Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    null,
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    null
+   ],
+   "institutions": [
+    "Huawei",
+    "Shanghai Jiao Tong University",
+    "Huazhong University of Science and Technology"
+   ],
+   "institution_ids": [
+    null,
+    "0220qvk04",
+    "00p991c53"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2509.25079",
@@ -15299,19 +15873,27 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2509.06953v1",
    "abstract": "Generating collision-free motion in dynamic, partially observable environments is a fundamental challenge for robotic manipulators. Classical motion planners can compute globally optimal trajectories but require full environment knowledge and are typically too slow for dynamic scenes. Neural motion policies offer a promising alternative by operating in closed-loop directly on raw sensory inputs but often struggle to generalize in complex or dynamic settings. We propose Deep Reactive Policy (DRP), a visuo-motor neural motion policy designed for reactive motion generation in diverse dynamic environments, operating directly on point cloud sensory input. At its core is IMPACT, a transformer-based neural motion policy pretrained on 10 million generated expert trajectories across diverse simulation scenarios. We further improve IMPACT's static obstacle avoidance through iterative student-teacher finetuning. We additionally enhance the policy's dynamic obstacle avoidance at inference time using DCP-RMP, a locally reactive goal-proposal module. We evaluate DRP on challenging tasks featuring cluttered scenes, dynamic moving obstacles, and goal obstructions. DRP achieves strong generalization, outperforming prior classical and neural methods in success rate across both simulated and real-world settings. Video results and code available at https://deep-reactive-policy.com",
-   "affiliations": [],
+   "affiliations": [
+    "Carnegie Mellon University"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Carnegie Mellon University"
+   ],
+   "institution_ids": [
+    "05x2bcf33"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2509.06953",
@@ -19902,19 +20484,30 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2509.07120v1",
    "abstract": "Efficient and accurate feed-forward multi-view reconstruction has long been an important task in computer vision. Recent transformer-based models like VGGT, $π^3$ and MapAnything have demonstrated remarkable performance with relatively simple architectures. However, their scalability is fundamentally constrained by the quadratic complexity of global attention, which imposes a significant runtime bottleneck when processing large image sets. In this work, we empirically analyze the global attention matrix of these models and observe that the probability mass concentrates on a small subset of patch-patch interactions corresponding to cross-view geometric correspondences. Building on this insight and inspired by recent advances in large language models, we propose a training-free, block-sparse replacement for dense global attention, implemented with highly optimized kernels. Our method accelerates inference by more than 3× while maintaining comparable task performance. Evaluations on a comprehensive suite of multi-view benchmarks demonstrate that our approach seamlessly integrates into existing global attention-based architectures such as VGGT, $π^3$ , and MapAnything, while substantially improving scalability to large image collections.",
-   "affiliations": [],
+   "affiliations": [
+    "Computer Vision Group",
+    "RWTH Aachen University"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Computer Vision Group",
+    "RWTH Aachen University"
+   ],
+   "institution_ids": [
+    null,
+    "04xfq0f34"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2509.07120",
@@ -28679,19 +29272,114 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2508.09210v1",
    "abstract": "Recent advances in multimodal large language models (MLLMs) have catalyzed transformative progress in affective computing, enabling models to exhibit emergent emotional intelligence. Despite substantial methodological progress, current emotional benchmarks remain limited, as it is still unknown: (a) the generalization abilities of MLLMs across distinct scenarios, and (b) their reasoning capabilities to identify the triggering factors behind emotional states. To bridge these gaps, we present MME-Emotion, a systematic benchmark that assesses both emotional understanding and reasoning capabilities of MLLMs, enjoying scalable capacity, diverse settings, and unified protocols. As the largest emotional intelligence benchmark for MLLMs, MME-Emotion contains over 6,000 curated video clips with task-specific questioning-answering (QA) pairs, spanning broad scenarios to formulate eight emotional tasks. It further incorporates a holistic evaluation suite with hybrid metrics for emotion recognition and reasoning, analyzed through a multi-agent system framework. Through a rigorous evaluation of 20 advanced MLLMs, we uncover both their strengths and limitations, yielding several key insights: \\ding{182} Current MLLMs exhibit unsatisfactory emotional intelligence, with the best-performing model achieving only 39.3% recognition score and 56.0% Chain-of-Thought (CoT) score on our benchmark. \\ding{183} Generalist models (e.g., Gemini-2.5-Pro) derive emotional intelligence from generalized multimodal understanding capabilities, while specialist models (e.g., R1-Omni) can achieve comparable performance through domain-specific post-training adaptation. By introducing MME-Emotion, we hope that it can serve as a foundation for advancing MLLMs' emotional intelligence in the future.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "CUHK",
+    "Tongyi Lab",
+    "SZTU",
+    "PKU",
+    "CASIA",
+    "Tencent",
+    "UCLA",
+    "Westlake University",
+    "NTU"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     1
+    ],
+    [
+     3
+    ],
+    [
+     4
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     5
+    ],
+    [
+     5
+    ],
+    [
+     6
+    ],
+    [
+     7
+    ],
+    [
+     2
+    ],
+    [
+     5
+    ],
+    [
+     8
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Chinese University of Hong Kong",
+    "Tongyi Lab",
+    "SZTU",
+    "Peking University",
+    "Chinese Academy of Sciences",
+    "Tencent",
+    "University of California, Los Angeles",
+    "Westlake University",
+    "NTU"
+   ],
+   "institution_ids": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    "05hfa4n20",
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2508.09210",
@@ -32357,17 +33045,61 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Partially Relevant Video Retrieval (PRVR) addresses the critical challenge of matching untrimmed videos with text queries describing only partial content. Existing methods suffer from geometric distortion in Euclidean space that sometimes misrepresents the intrinsic hierarchical structure of videos and overlooks certain hierarchical semantics, ultimately leading to suboptimal temporal modeling. To address this issue, we propose the first hyperbolic modeling framework for PRVR, namely HLFormer, which leverages hyperbolic space learning to compensate for the suboptimal hierarchical modeling capabilities of Euclidean space. Specifically, HLFormer integrates the Lorentz Attention Block and Euclidean Attention Block to encode video embeddings in hybrid spaces, using the Mean-Guided Adaptive Interaction Module to dynamically fuse features. Additionally, we introduce a Partial Order Preservation Loss to enforce \"text < video\" hierarchy through Lorentzian cone constraints. This approach further enhances cross-modal matching by reinforcing partial relevance between video content and text queries. Extensive experiments show that HLFormer outperforms state-of-the-art methods. Code is released at https://github.com/lijun2005/ICCV25-HLFormer.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Harbin Institute of Technology",
+    "Hong Kong University of Science and Technology",
+    "Tsinghua Shenzhen International Graduate School",
+    "Tsinghua University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     0
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Harbin Institute of Technology",
+    "Hong Kong University of Science and Technology",
+    "Tsinghua Shenzhen International Graduate School",
+    "Tsinghua University"
+   ],
+   "institution_ids": [
+    "01yqg2h08",
+    "00q4vv597",
+    "01vceef04",
+    "03cve4549"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-11"
+     "at": "2026-10-12"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-11"
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2507.17402",
@@ -42052,19 +42784,33 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2507.02861v1",
    "abstract": "We propose LiteReality, a novel pipeline that converts RGB-D scans of indoor environments into compact, realistic, and interactive 3D virtual replicas. LiteReality not only reconstructs scenes that visually resemble reality but also supports key features essential for graphics pipelines -- such as object individuality, articulation, high-quality physically based rendering materials, and physically based interaction. At its core, LiteReality first performs scene understanding and parses the results into a coherent 3D layout and objects with the help of a structured scene graph. It then reconstructs the scene by retrieving the most visually similar 3D artist-crafted models from a curated asset database. Next, the Material Painting module enhances realism by recovering high-quality, spatially varying materials. Finally, the reconstructed scene is integrated into a simulation engine with basic physical properties to enable interactive behavior. The resulting scenes are compact, editable, and fully compatible with standard graphics pipelines, making them suitable for applications in AR/VR, gaming, robotics, and digital twins. In addition, LiteReality introduces a training-free object retrieval module that achieves state-of-the-art similarity performance on the Scan2CAD benchmark, along with a robust material painting module capable of transferring appearances from images of any style to 3D assets -- even under severe misalignment, occlusion, and poor lighting. We demonstrate the effectiveness of LiteReality on both real-life scans and public datasets. Project page: https://litereality.github.io; Video: https://www.youtube.com/watch?v=ecK9m3LXg2c",
-   "affiliations": [],
+   "affiliations": [
+    "University of Cambridge",
+    "The University of Hong Kong",
+    "Technical University of Munich"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "University of Cambridge",
+    "University of Hong Kong",
+    "Technical University of Munich"
+   ],
+   "institution_ids": [
+    "013meh722",
+    null,
+    "02kkvpp62"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2507.02861",
@@ -49321,19 +50067,56 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.AI",
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2506.05904v1",
    "abstract": "Recent advances in conversational AI have been substantial, but developing real-time systems for perceptual task guidance remains challenging. These systems must provide interactive, proactive assistance based on streaming visual inputs, yet their development is constrained by the costly and labor-intensive process of data collection and system evaluation. To address these limitations, we present a comprehensive framework with three key contributions. First, we introduce a novel data curation pipeline that synthesizes dialogues from annotated egocentric videos, resulting in \\dataset, a large-scale synthetic dialogue dataset spanning multiple domains. Second, we develop a suite of automatic evaluation metrics, validated through extensive human studies. Third, we propose an end-to-end model that processes streaming video inputs to generate contextually appropriate responses, incorporating novel techniques for handling data imbalance and long-duration videos. This work lays the foundation for developing real-time, proactive AI assistants capable of guiding users through diverse tasks. Project page: https://pro-assist.github.io/",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Meta",
+    "University of Michigan"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Meta",
+    "University of Michigan"
+   ],
+   "institution_ids": [
+    null,
+    "00jmfr291"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2506.05904",
@@ -58277,19 +59060,65 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2506.01031v1",
    "abstract": "Multimodal Large Language Models (MLLMs) have demonstrated strong generalization in vision-language tasks, yet their ability to understand and act within embodied environments remains underexplored. We present NavBench, a benchmark to evaluate the embodied navigation capabilities of MLLMs under zero-shot settings. NavBench consists of two components: (1) navigation comprehension, assessed through three cognitively grounded tasks including global instruction alignment, temporal progress estimation, and local observation-action reasoning, covering 3,200 question-answer pairs; and (2) step-by-step execution in 432 episodes across 72 indoor scenes, stratified by spatial, cognitive, and execution complexity. To support real-world deployment, we introduce a pipeline that converts MLLMs' outputs into robotic actions. We evaluate both proprietary and open-source models, finding that GPT-4o performs well across tasks, while lighter open-source models succeed in simpler cases. Results also show that models with higher comprehension scores tend to achieve better execution performance. Providing map-based context improves decision accuracy, especially in medium-difficulty scenarios. However, most models struggle with temporal understanding, particularly in estimating progress during navigation, which may pose a key challenge.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "The University of Adelaide",
+    "The University of Queensland",
+    "CSIRO Data61",
+    "Mohamed bin Zayed University of Artificial Intelligence",
+    "Tongji University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     0
+    ],
+    [
+     3
+    ],
+    [
+     4
+    ],
+    [
+     3
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Adelaide",
+    "University of Queensland",
+    null,
+    "Mohamed bin Zayed University of Artificial Intelligence",
+    "Tongji University"
+   ],
+   "institution_ids": [
+    null,
+    "00rqy9422",
+    null,
+    "0258gkt32",
+    "03rc6as71"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2506.01031",
@@ -58786,19 +59615,59 @@
    "journal_ref": null,
    "venue": "ICLR 2026",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2506.00523v1",
    "abstract": "The Distribution Matching Distillation (DMD) has been successfully applied to text-to-image diffusion models such as Stable Diffusion (SD) 1.5. However, vanilla DMD suffers from convergence difficulties on large-scale flow-based text-to-image models, such as SD 3.5 and FLUX. In this paper, we first analyze the issues when applying vanilla DMD on large-scale models. Then, to overcome the scalability challenge, we propose implicit distribution alignment (IDA) to constrain the divergence between the generator and the fake distribution. Furthermore, we propose intra-segment guidance (ISG) to relocate the timestep denoising importance from the teacher model. With IDA alone, DMD converges for SD 3.5; employing both IDA and ISG, DMD converges for SD 3.5 and FLUX.1 dev. Together with a scaled VFM-based discriminator, our final model, dubbed SenseFlow, achieves superior performance in distillation for both diffusion based text-to-image models such as SDXL, and flow-matching models such as SD 3.5 Large and FLUX.1 dev. The source code is available at https://github.com/XingtongGe/SenseFlow",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "The Hong Kong University of Science and Technology",
+    "SenseTime Research",
+    "Institute for AI Industry Research, Tsinghua University",
+    "The Chinese University of Hong Kong"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Hong Kong University of Science and Technology",
+    "SenseTime",
+    "Tsinghua University",
+    "Chinese University of Hong Kong"
+   ],
+   "institution_ids": [
+    "00q4vv597",
+    null,
+    "03cve4549",
+    "00t33hh48"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2506.00523",
@@ -64907,19 +65776,30 @@
    "journal_ref": null,
    "venue": "ICLR 2025",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2505.11245v1",
    "abstract": "Diffusion models have made substantial advances in image generation, yet models trained on large, unfiltered datasets often yield outputs misaligned with human preferences. Numerous methods have been proposed to fine-tune pre-trained diffusion models, achieving notable improvements in aligning generated outputs with human preferences. However, we argue that existing preference alignment methods neglect the critical role of handling unconditional/negative-conditional outputs, leading to a diminished capacity to avoid generating undesirable outcomes. This oversight limits the efficacy of classifier-free guidance~(CFG), which relies on the contrast between conditional generation and unconditional/negative-conditional generation to optimize output quality. In response, we propose a straightforward but versatile effective approach that involves training a model specifically attuned to negative preferences. This method does not require new training strategies or datasets but rather involves minor modifications to existing techniques. Our approach integrates seamlessly with models such as SD1.5, SDXL, video diffusion models and models that have undergone preference optimization, consistently enhancing their alignment with human preferences.",
-   "affiliations": [],
+   "affiliations": [
+    "MMLab, CUHK, Hong Kong",
+    "Shanghai Jiang Tong University, Shanghai, CPII under InnoHK, Hong Kong"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Chinese University of Hong Kong",
+    "Shanghai Jiang Tong University"
+   ],
+   "institution_ids": [
+    null,
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2505.11245",
@@ -66850,19 +67730,142 @@
    "journal_ref": null,
    "venue": "ICML 2025",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2505.04620v1",
    "abstract": "The Multimodal Large Language Model (MLLM) is currently experiencing rapid growth, driven by the advanced capabilities of LLMs. Unlike earlier specialists, existing MLLMs are evolving towards a Multimodal Generalist paradigm. Initially limited to understanding multiple modalities, these models have advanced to not only comprehend but also generate across modalities. Their capabilities have expanded from coarse-grained to fine-grained multimodal understanding and from supporting limited modalities to arbitrary ones. While many benchmarks exist to assess MLLMs, a critical question arises: Can we simply assume that higher performance across tasks indicates a stronger MLLM capability, bringing us closer to human-level AI? We argue that the answer is not as straightforward as it seems. This project introduces General-Level, an evaluation framework that defines 5-scale levels of MLLM performance and generality, offering a methodology to compare MLLMs and gauge the progress of existing systems towards more robust multimodal generalists and, ultimately, towards AGI. At the core of the framework is the concept of Synergy, which measures whether models maintain consistent capabilities across comprehension and generation, and across multiple modalities. To support this evaluation, we present General-Bench, which encompasses a broader spectrum of skills, modalities, formats, and capabilities, including over 700 tasks and 325,800 instances. The evaluation results that involve over 100 existing state-of-the-art MLLMs uncover the capability rankings of generalists, highlighting the challenges in reaching genuine AI. We expect this project to pave the way for future research on next-generation multimodal foundation models, providing a robust infrastructure to accelerate the realization of AGI. Project page: https://generalist.top/",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "NUS",
+    "NTU",
+    "ZJU",
+    "KAUST",
+    "PKU",
+    "HFUT",
+    "NJU",
+    "WHU",
+    "SJTU"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     3
+    ],
+    [
+     1
+    ],
+    [
+     4
+    ],
+    [
+     4
+    ],
+    null,
+    [
+     5
+    ],
+    [
+     2
+    ],
+    null,
+    [
+     2
+    ],
+    [
+     6
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     1
+    ],
+    [
+     7
+    ],
+    [
+     8
+    ],
+    [
+     7
+    ],
+    [
+     4
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "National University of Singapore",
+    "NTU",
+    "Zhejiang University",
+    "King Abdullah University of Science and Technology",
+    "Peking University",
+    "HFUT",
+    "Nanjing University",
+    "WHU",
+    "Shanghai Jiao Tong University"
+   ],
+   "institution_ids": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2505.04620",
@@ -74103,19 +75106,42 @@
    "journal_ref": null,
    "venue": "NeurIPS 2025",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2505.16687v1",
    "abstract": "While recent diffusion-based generative image codecs have shown impressive performance, their iterative sampling process introduces unpleasing latency. In this work, we revisit the design of a diffusion-based codec and argue that multi-step sampling is not necessary for generative compression. Based on this insight, we propose OneDC, a One-step Diffusion-based generative image Codec -- that integrates a latent compression module with a one-step diffusion generator. Recognizing the critical role of semantic guidance in one-step diffusion, we propose using the hyperprior as a semantic signal, overcoming the limitations of text prompts in representing complex visual content. To further enhance the semantic capability of the hyperprior, we introduce a semantic distillation mechanism that transfers knowledge from a pretrained generative tokenizer to the hyperprior codec. Additionally, we adopt a hybrid pixel- and latent-domain optimization to jointly enhance both reconstruction fidelity and perceptual realism. Extensive experiments demonstrate that OneDC achieves SOTA perceptual quality even with one-step generation, offering over 39% bitrate reduction and 20x faster decoding compared to prior multi-step diffusion-based codecs. Project: https://onedc-codec.github.io/",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Communication University of China",
+    "University of Science and Technology of China",
+    "Microsoft Research Asia. This paper stems from an open-source project"
+   ],
+   "author_affiliations": [
+    null,
+    null,
+    null,
+    null,
+    [
+     0
+    ],
+    null
+   ],
+   "institutions": [
+    "Communication University of China",
+    "University of Science and Technology of China",
+    "Microsoft"
+   ],
+   "institution_ids": [
+    "04facbs33",
+    "04c4dkn09",
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2505.16687",
@@ -76117,19 +77143,37 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2505.12677v1",
    "abstract": "As Text-to-Image models continue to evolve, so does the risk of generating unsafe, copyrighted, or privacy-violating content. Existing safety interventions - ranging from training data curation and model fine-tuning to inference-time filtering and guidance - often suffer from incomplete concept removal, susceptibility to jail-breaking, computational inefficiency, or collateral damage to unrelated capabilities. In this paper, we introduce CURE, a training-free concept unlearning framework that operates directly in the weight space of pre-trained diffusion models, enabling fast, interpretable, and highly specific suppression of undesired concepts. At the core of our method is the Spectral Eraser, a closed-form, orthogonal projection module that identifies discriminative subspaces using Singular Value Decomposition over token embeddings associated with the concepts to forget and retain. Intuitively, the Spectral Eraser identifies and isolates features unique to the undesired concept while preserving safe attributes. This operator is then applied in a single step update to yield an edited model in which the target concept is effectively unlearned - without retraining, supervision, or iterative optimization. To balance the trade-off between filtering toxicity and preserving unrelated concepts, we further introduce an Expansion Mechanism for spectral regularization which selectively modulates singular vectors based on their relative significance to control the strength of forgetting. All the processes above are in closed-form, guaranteeing extremely efficient erasure in only 2 seconds. Benchmarking against prior approaches, CURE achieves a more efficient and thorough removal for targeted artistic styles, objects, identities, or explicit content, with minor damage to original generation ability and demonstrates enhanced robustness against red-teaming.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Purdue University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Purdue University"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2505.12677",
@@ -99740,19 +100784,30 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2503.19683v1",
    "abstract": "This paper tackles the challenge of detecting partially manipulated facial deepfakes, which involve subtle alterations to specific facial features while retaining the overall context, posing a greater detection difficulty than fully synthetic faces. We leverage the Contrastive Language-Image Pre-training (CLIP) model, specifically its ViT-L/14 visual encoder, to develop a generalizable detection method that performs robustly across diverse datasets and unknown forgery techniques with minimal modifications to the original model. The proposed approach utilizes parameter-efficient fine-tuning (PEFT) techniques, such as LN-tuning, to adjust a small subset of the model's parameters, preserving CLIP's pre-trained knowledge and reducing overfitting. A tailored preprocessing pipeline optimizes the method for facial images, while regularization strategies, including L2 normalization and metric learning on a hyperspherical manifold, enhance generalization. Trained on the FaceForensics++ dataset and evaluated in a cross-dataset fashion on Celeb-DF-v2, DFDC, FFIW, and others, the proposed method achieves competitive detection accuracy comparable to or outperforming much more complex state-of-the-art techniques. This work highlights the efficacy of CLIP's visual encoder in facial deepfake detection and establishes a simple, powerful baseline for future research, advancing the field of generalizable deepfake detection. The code is available at: https://github.com/yermandy/deepfake-detection",
-   "affiliations": [],
+   "affiliations": [
+    "Visual Recognition Group",
+    "Faculty of Electrical Engineering, Czech Technical University in Prague"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Visual Recognition Group",
+    "Czech Technical University in Prague"
+   ],
+   "institution_ids": [
+    null,
+    "03kqpb082"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2503.19683",
@@ -113131,19 +114186,43 @@
    "journal_ref": null,
    "venue": "NeurIPS 2025",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2503.23356v1",
    "abstract": "Current image fusion methods struggle to address the composite degradations encountered in real-world imaging scenarios and lack the flexibility to accommodate user-specific requirements. In response to these challenges, we propose a controllable image fusion framework with language-vision prompts, termed ControlFusion, which adaptively neutralizes composite degradations. On the one hand, we develop a degraded imaging model that integrates physical imaging mechanisms, including the Retinex theory and atmospheric scattering principle, to simulate composite degradations, thereby providing potential for addressing real-world complex degradations from the data level. On the other hand, we devise a prompt-modulated restoration and fusion network that dynamically enhances features with degradation prompts, enabling our method to accommodate composite degradation of varying levels. Specifically, considering individual variations in quality perception of users, we incorporate a text encoder to embed user-specified degradation types and severity levels as degradation prompts. We also design a spatial-frequency collaborative visual adapter that autonomously perceives degradations in source images, thus eliminating the complete dependence on user instructions. Extensive experiments demonstrate that ControlFusion outperforms SOTA fusion methods in fusion quality and degradation handling, particularly in countering real-world and compound degradations with various levels. The source code is publicly available at https://github.com/Linfeng-Tang/ControlFusion.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Wuhan University",
+    "Macau University of Science and Technology",
+    "Harbin Institute of Technology"
+   ],
+   "author_affiliations": [
+    null,
+    null,
+    null,
+    [
+     0,
+     1,
+     2
+    ],
+    null
+   ],
+   "institutions": [
+    "Wuhan University",
+    "Macau University of Science and Technology",
+    "Harbin Institute of Technology"
+   ],
+   "institution_ids": [
+    "033vjfk17",
+    "03jqs2n27",
+    "01yqg2h08"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2503.23356",
@@ -118127,19 +119206,47 @@
    "journal_ref": null,
    "venue": "CVPR 2025",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2503.12356v1",
    "abstract": "Fine-tuning based concept erasing has demonstrated promising results in preventing generation of harmful contents from text-to-image diffusion models by removing target concepts while preserving remaining concepts. To maintain the generation capability of diffusion models after concept erasure, it is necessary to remove only the image region containing the target concept when it locally appears in an image, leaving other regions intact. However, prior arts often compromise fidelity of the other image regions in order to erase the localized target concept appearing in a specific area, thereby reducing the overall performance of image generation. To address these limitations, we first introduce a framework called localized concept erasure, which allows for the deletion of only the specific area containing the target concept in the image while preserving the other regions. As a solution for the localized concept erasure, we propose a training-free approach, dubbed Gated Low-rank adaptation for Concept Erasure (GLoCE), that injects a lightweight module into the diffusion model. GLoCE consists of low-rank matrices and a simple gate, determined only by several generation steps for concepts without training. By directly applying GLoCE to image embeddings and designing the gate to activate only for target concepts, GLoCE can selectively remove only the region of the target concepts, even when target and remaining concepts coexist within an image. Extensive experiments demonstrated GLoCE not only improves the image fidelity to text prompts after erasing the localized target concepts, but also outperforms prior arts in efficacy, specificity, and robustness by large margin and can be extended to mass concept erasure.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Department of ECE",
+    "IPAI",
+    "Department of ECE, IPAI",
+    "INMC, Seoul National University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2,
+     3
+    ]
+   ],
+   "institutions": [
+    null,
+    "IPAI",
+    "IPAI",
+    "Seoul National University"
+   ],
+   "institution_ids": [
+    null,
+    null,
+    null,
+    "04h9pn542"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2503.12356",
@@ -123375,19 +124482,33 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2503.01342v1",
    "abstract": "Generalist models have achieved remarkable success in both language and vision-language tasks, showcasing the potential of unified modeling. However, effectively integrating fine-grained perception tasks like detection and segmentation into these models remains a significant challenge. This is primarily because these tasks often rely heavily on task-specific designs and architectures that can complicate the modeling process. To address this challenge, we present \\ours, a framework that Unifies Fine-grained visual perception tasks through an Open-ended language interface. By transforming all perception targets into the language space, \\ours unifies object-level detection, pixel-level segmentation, and image-level vision-language tasks into a single model. Additionally, we introduce a novel embedding retrieval approach that relies solely on the language interface to support segmentation tasks. Our framework bridges the gap between fine-grained perception and vision-language tasks, significantly simplifying architectural design and training strategies while achieving comparable or superior performance to methods with intricate task-specific designs. After multi-task training on five standard visual perception datasets, \\ours outperforms the previous state-of-the-art generalist models by 12.3 mAP on COCO instance segmentation and 3.3 mIoU on ADE20K semantic segmentation. Furthermore, our method seamlessly integrates with existing MLLMs, effectively combining fine-grained perception capabilities with their advanced language abilities, thereby enabling more challenging tasks such as reasoning segmentation. Code and models are available at https://github.com/nnnth/UFO.",
-   "affiliations": [],
+   "affiliations": [
+    "Center for Data Science, Peking University",
+    "Alibaba Group",
+    "Institute of Automation, Chinese Academy of Sciences"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Peking University",
+    "Alibaba Group",
+    "Chinese Academy of Sciences"
+   ],
+   "institution_ids": [
+    "02v51f717",
+    "00k642b80",
+    "034t30j35"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2503.01342",
@@ -138814,19 +139935,43 @@
    "journal_ref": null,
    "venue": "ICLR 2026",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2502.03566v1",
    "abstract": "CLIP (Contrastive Language-Image Pretraining) has become a popular choice for various downstream tasks. However, recent studies have questioned its ability to represent compositional concepts effectively. These works suggest that CLIP often acts like a bag-of-words (BoW) model, interpreting images and text as sets of individual concepts without grasping the structural relationships. In particular, CLIP struggles to correctly bind attributes to their corresponding objects when multiple objects are present in an image or text. In this work, we investigate why CLIP exhibits this BoW-like behavior. Our key finding is that CLIP does not lack binding information. Through linear probing, robustness tests with increasing object counts, and conjunctive search experiments, we show that attribute-object bindings are already encoded within CLIP's text and image embeddings. The weakness lies in the cross-modal alignment, which fails to preserve this information. We show it can be accessed cross-modally with a simple linear transformation to text embeddings. This improves CLIP's attribute-object binding performance and confirms that the information was already encoded unimodally. In practice, this means CLIP-based systems can be enhanced with a lightweight linear layer trained on existing embeddings, avoiding costly encoder retraining. The code is available at https://github.com/kdariina/CLIP-not-BoW-unimodally.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Tübingen",
+    "Tübingen AI Center"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Tübingen",
+    "Tübingen AI Center"
+   ],
+   "institution_ids": [
+    "03a1kwz48",
+    "0107nyd78"
+   ],
+   "extractor": 7,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-12"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "ror",
+     "at": "2026-10-12"
     }
    },
    "abs_url": "https://arxiv.org/abs/2502.03566",
