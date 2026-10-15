@@ -74,10 +74,16 @@ function adjacency(count: number, links: readonly (readonly [number, number])[])
   return neighbors;
 }
 
+/**
+ * Starting positions of `count` nodes: those `known` stay, their new neighbors start next
+ * to them, and the other components on a spiral around them. `random` jitters both, so
+ * that neither the neighbors nor the spiral overlap; tests pass a seeded one (TEST-12).
+ */
 export function initialPositions(
   count: number,
   links: readonly (readonly [number, number])[],
   known: readonly (Point | undefined)[],
+  random: () => number = Math.random,
 ): Point[] {
   const neighbors = adjacency(count, links);
   const positions: (Point | undefined)[] = Array.from({ length: count }, (_, i) => known[i]);
@@ -114,8 +120,8 @@ export function initialPositions(
       for (const next of neighbors[queue[head] ?? 0] ?? []) {
         if (positions[next] || !from) continue;
         positions[next] = {
-          x: from.x + (Math.random() - 0.5) * JITTER,
-          y: from.y + (Math.random() - 0.5) * JITTER,
+          x: from.x + (random() - 0.5) * JITTER,
+          y: from.y + (random() - 0.5) * JITTER,
         };
         queue.push(next);
       }
@@ -130,7 +136,7 @@ export function initialPositions(
     const footprint = (SPACING * Math.sqrt(members.length) + MARGIN) ** 2;
     const distance = area === 0 ? 0 : Math.sqrt(area + footprint / 2);
     area += footprint;
-    const angle = index * GOLDEN_ANGLE + (Math.random() - 0.5) * 0.4;
+    const angle = index * GOLDEN_ANGLE + (random() - 0.5) * 0.4;
     const origin = {
       x: center.x + distance * Math.cos(angle),
       y: center.y + distance * Math.sin(angle),

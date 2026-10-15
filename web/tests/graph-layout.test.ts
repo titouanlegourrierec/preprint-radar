@@ -12,7 +12,31 @@ const links = [
   [3, 4],
 ] as const;
 
+/** A seeded random source (mulberry32): the same positions at each run. */
+function seeded(seed: number): () => number {
+  let state = seed;
+  return () => {
+    state = (state + 0x6d2b79f5) | 0;
+    let mixed = Math.imul(state ^ (state >>> 15), 1 | state);
+    mixed = (mixed + Math.imul(mixed ^ (mixed >>> 7), 61 | mixed)) ^ mixed;
+    return ((mixed ^ (mixed >>> 14)) >>> 0) / 4_294_967_296;
+  };
+}
+
 describe("initialPositions", () => {
+  it("places the same way from the same random source (TEST-12)", () => {
+    const known = [{ x: 500, y: -200 }, undefined, undefined, undefined, undefined, undefined];
+
+    expect(initialPositions(6, links, known, seeded(7))).toEqual(
+      initialPositions(6, links, known, seeded(7)),
+    );
+    expect(initialPositions(6, links, known, seeded(7))).not.toEqual(
+      initialPositions(6, links, known, seeded(8)),
+    );
+    // Without jitter, a new neighbor starts on its placed one.
+    expect(initialPositions(6, links, known, () => 0.5)[1]).toEqual({ x: 500, y: -200 });
+  });
+
   it("keeps known positions and starts new neighbors next to them", () => {
     const known = [{ x: 500, y: -200 }, undefined, undefined, undefined, undefined, undefined];
     const positions = initialPositions(6, links, known);
