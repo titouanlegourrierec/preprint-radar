@@ -1,4 +1,5 @@
 import json
+import os
 import re
 from collections.abc import Callable
 from dataclasses import replace
@@ -380,6 +381,21 @@ def test_archive_is_written_by_year_and_replaced_as_a_whole(store: PaperStore, l
 
     assert store.archive_years("cs.CV") == [2017]
     assert [paper.arxiv_id for paper in store.iter_archive("cs.CV")] == ["1701.00000"]
+
+
+def test_a_file_that_would_not_change_is_not_written(store: PaperStore, listing: Listing) -> None:
+    store.write_archive("cs.CV", [_archived(listing, 2015), _archived(listing, 2017)])
+    unchanged = store.root / "cs.CV" / "archive" / "2015.json"
+    changed = store.root / "cs.CV" / "archive" / "2017.json"
+    for path in (unchanged, changed):
+        os.utime(path, ns=(0, 0))
+
+    store.write_archive("cs.CV", [_archived(listing, 2015), _archived(listing, 2017, 1)])
+
+    # Its year unchanged, 2015's file is left as it was (CI-12); 2017's is written.
+    assert unchanged.stat().st_mtime_ns == 0
+    assert changed.stat().st_mtime_ns > 0
+    assert [paper.arxiv_id for paper in store.load_archive("cs.CV", 2017)] == ["1701.00001"]
 
 
 def test_index_lists_archive_years(store: PaperStore, listing: Listing) -> None:

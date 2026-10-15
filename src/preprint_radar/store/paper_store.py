@@ -653,8 +653,15 @@ def _check_version(payload: object, path: Path, kind: str) -> None:
 
 
 def _write_json(path: Path, payload: object) -> None:
-    """Write JSON atomically, so an interrupted run never leaves a truncated file."""
+    """Write JSON atomically, so an interrupted run never leaves a truncated file.
+
+    A file that would not change is left as it is: the weekly archive rewrote its 16 year
+    files, 56 MB, most of them the same (CI-12).
+    """
+    text = json.dumps(payload, ensure_ascii=False, indent=1) + "\n"
+    if path.is_file() and path.read_text(encoding="utf-8") == text:
+        return
     path.parent.mkdir(parents=True, exist_ok=True)
     tmp = path.with_suffix(path.suffix + ".tmp")
-    tmp.write_text(json.dumps(payload, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    tmp.write_text(text, encoding="utf-8")
     tmp.replace(path)
