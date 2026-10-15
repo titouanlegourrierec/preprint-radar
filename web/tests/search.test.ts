@@ -420,6 +420,30 @@ describe("PaperIndex", () => {
     ]);
   });
 
+  it("ranks first the papers holding the words side by side (SRCH-18)", () => {
+    const apart = makePaper({
+      arxiv_id: "2609.00011",
+      title: "Image Synthesis",
+      abstract: "Generation from a text prompt.",
+    });
+    const together = makePaper({
+      arxiv_id: "2609.00012",
+      title: "A Benchmark",
+      abstract: "We evaluate text-to-image generation, and image editing.",
+    });
+    const index = new PaperIndex([apart, together]);
+    const order = (query: string) =>
+      index.search(query, NO_FILTERS, "relevance").map(({ paper }) => paper.arxiv_id);
+
+    // The title's word weighs more than the abstract's, but the others are not side by side.
+    expect(order("generation image")).toEqual(["2609.00011", "2609.00012"]);
+    expect(order("text-to-image generation")).toEqual(["2609.00012", "2609.00011"]);
+    // The last word as the prefix it is typed as, and the stop words between kept.
+    expect(order("text to image gener")).toEqual(["2609.00012", "2609.00011"]);
+    // Newest ignores the match.
+    expect(index.search("text-to-image generation", NO_FILTERS, "newest")).toHaveLength(2);
+  });
+
   it("reports matched terms for highlighting", () => {
     const [result] = index.search("splatting", NO_FILTERS, "relevance");
     expect(result?.highlights).toContain("splatting");

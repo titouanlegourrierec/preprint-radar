@@ -38,7 +38,8 @@ const EXPORTS: {
 export const RELEVANCE_HELP =
   "Relevance ranks papers by how well they match your search words. Rarer words weigh more, " +
   "and a match counts most in the title, then in authors, affiliations, the abstract and " +
-  "comments. Exact words count more than partial or approximate ones.";
+  "comments. Exact words count more than partial or approximate ones, and your words side " +
+  "by side, as you typed them, more than apart.";
 
 const SORT_LABELS: Record<SortChoice, string> = {
   relevance: "Relevance",
