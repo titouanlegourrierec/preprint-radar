@@ -108,6 +108,62 @@ def test_update_populates_store(
     assert "No contact given" in caplog.text
 
 
+@pytest.mark.usefixtures("offline")
+def test_update_whose_listing_fails_keeps_the_store_and_exits_1(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    data_dir = tmp_path / "data"
+    assert main(["update", "--data-dir", str(data_dir), "--crawl-delay", "0"]) == 0
+    stored = {path.name: path.read_bytes() for path in (data_dir / "cs.CV").glob("2026-*.json")}
+
+    def get_text(_: HttpClient, url: str, *, params: Mapping[str, str | int] | None = None) -> str:
+        del params
+        raise FetchError(f"arxiv.org is down: {url}")
+
+    monkeypatch.setattr(HttpClient, "get_text", get_text)
+    monkeypatch.setenv("GITHUB_ACTIONS", "true")
+    capsys.readouterr()
+
+    assert main(["update", "--data-dir", str(data_dir), "--crawl-delay", "0"]) == 1
+
+    # The days stored before are untouched, and the index still lists them (TEST-2).
+    assert {path.name: path.read_bytes() for path in (data_dir / "cs.CV").glob("2026-*.json")} == stored
+    index = json.loads((data_dir / "index.json").read_text(encoding="utf-8"))
+    assert [day["count"] for day in index["categories"]["cs.CV"]] == [5, 2]
+    assert "arxiv.org is down: https://arxiv.org/list/cs.CV/recent" in caplog.text
+    out = capsys.readouterr().out
+    assert "Index written to" in out
+    assert "::error title=preprint-radar update failed::arxiv.org is down" in out
+
+
+@pytest.mark.usefixtures("offline")
+def test_update_keeps_a_category_read_before_another_fails(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, listing_html: str, caplog: pytest.LogCaptureFixture
+) -> None:
+    def get_text(_: HttpClient, url: str, *, params: Mapping[str, str | int] | None = None) -> str:
+        del params
+        if url.endswith("/list/cs.CV/recent"):
+            return listing_html
+        if "/list/" in url:
+            raise FetchError(f"arxiv.org is down: {url}")
+        raise NotFoundError(url)
+
+    monkeypatch.setattr(HttpClient, "get_text", get_text)
+    data_dir = tmp_path / "data"
+
+    args = ["--data-dir", str(data_dir), "--crawl-delay", "0", "--category", "cs.CV", "--category", "cs.RO"]
+    assert main(["update", *args]) == 1
+
+    # cs.CV's days are saved and indexed; cs.RO has none (TEST-2).
+    index = json.loads((data_dir / "index.json").read_text(encoding="utf-8"))
+    assert list(index["categories"]) == ["cs.CV"]
+    assert [day["count"] for day in index["categories"]["cs.CV"]] == [5, 2]
+    assert "arxiv.org is down: https://arxiv.org/list/cs.RO/recent" in caplog.text
+
+
 def test_backfill_goes_on_past_a_failing_day_and_exits_1(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
