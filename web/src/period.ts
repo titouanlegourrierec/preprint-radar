@@ -215,3 +215,15 @@ export function formatDays(from: string, to: string): string {
     ? DAY_FORMAT.format(dayDate(from))
     : DAY_FORMAT.formatRange(dayDate(from), dayDate(to));
 }
+
+/**
+ * Days a period could not load, as its notice names them: "25 Sept 2026", "24 Sept 2026 and
+ * 25 Sept 2026", past two their count and span, "12 days in 1 – 30 Sept 2026".
+ */
+export function formatMissingDays(days: readonly string[]): string {
+  const sorted = [...days].sort();
+  if (sorted.length > 2) {
+    return `${sorted.length} days in ${formatDays(sorted[0] ?? "", sorted.at(-1) ?? "")}`;
+  }
+  return sorted.map((day) => DAY_FORMAT.format(dayDate(day))).join(" and ");
+}

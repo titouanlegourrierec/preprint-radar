@@ -162,9 +162,11 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   abstract nor comments, 5,857 of which took 0.3 s to index and 29 MB instead of 1.6 s and
   77 MB, so that about seven months are searched by title, authors, affiliations and venue.
   The period picker says over which days abstracts are searched, and what is left out past
-  both budgets; a month whose shard fails leaves its days out, with a notice and Retry
-  (`missingMonths`). A card of a shard's paper loads its day file for its abstract when it
-  is opened, or on "Load the abstract" when abstracts are shown (`hooks/use-whole-paper.ts`,
+  both budgets. A day file that fails is asked for once more, then left out, and so are
+  the days of a month whose shard fails: a notice names them, with Retry (`missingDays`,
+  `formatMissingDays`; SRCH-10); only a period whose every day file fails is an error. A
+  card of a shard's paper loads its day file for its abstract when it is opened, or on
+  "Load the abstract" when abstracts are shown (`hooks/use-whole-paper.ts`,
   `loadWholePaper`), and its ☆ saves the whole record once loaded; a reading list keeps the
   day file (`light`) and the code (`code_url`) of a light one, checked as the build writes
   them (SEC-2). The smoke test builds the site with `VITE_PAPER_BUDGET=3`, so that its

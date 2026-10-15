@@ -78,7 +78,7 @@ export function App() {
     archiveRange,
     archiveLeftOut,
     archiveUnranked,
-    missingMonths,
+    missingDays,
     load,
     loadingLine,
     searchable,
@@ -552,9 +552,9 @@ export function App() {
                   : null
               }
               shortcuts={triaged && load.status === "ready"}
-              missingMonths={
-                missingMonths.length > 0 && load.status === "ready"
-                  ? { months: missingMonths, onRetry: retry }
+              missingDays={
+                missingDays.length > 0 && load.status === "ready"
+                  ? { days: missingDays, onRetry: retry }
                   : null
               }
               archiveBudget={

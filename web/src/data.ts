@@ -87,9 +87,14 @@ async function fetchJson<T>(path: string, signal?: AbortSignal): Promise<T> {
   return (await response.json()) as T;
 }
 
+/** A file of another schema version: the site and its data do not match, asking again cannot help. */
+class SchemaVersionError extends Error {}
+
 function checkSchema(version: number, what: string): void {
   if (version !== SCHEMA_VERSION) {
-    throw new Error(`Unsupported ${what} schema version ${version} (expected ${SCHEMA_VERSION})`);
+    throw new SchemaVersionError(
+      `Unsupported ${what} schema version ${version} (expected ${SCHEMA_VERSION})`,
+    );
   }
 }
 
@@ -119,15 +124,34 @@ async function loadPapers(
 }
 
 /**
+ * A day file's papers, asked for once more when it fails: a request the network or the
+ * site dropped is often answered the second time. Not when the period was left, nor for a
+ * file of another schema version.
+ */
+async function loadDay(path: string, signal: AbortSignal | undefined): Promise<Paper[]> {
+  try {
+    return await loadPapers(path, "day file", signal);
+  } catch (error) {
+    if (signal?.aborted || error instanceof SchemaVersionError) throw error;
+    return loadPapers(path, "day file", signal);
+  }
+}
+
+/**
  * Load the papers of the given days, most recent first, with bounded parallelism;
- * `signal` cancels the requests left (the period changed).
+ * `signal` cancels the requests left (the period changed). A day file that fails twice is
+ * left out, reported in the console, and its day returned among the `missing` ones, which
+ * the period names (SRCH-10); when every one fails, the network or the site is down, and
+ * the period fails, as it does for a file of another schema version, which a deploy that
+ * went wrong serves.
  */
 export async function loadDays(
   category: string,
-  days: DaySummary[],
+  days: readonly DaySummary[],
   signal?: AbortSignal,
-): Promise<Paper[]> {
-  const results: Paper[][] = new Array(days.length);
+): Promise<{ papers: Paper[]; missing: string[] }> {
+  const results: (Paper[] | null)[] = new Array(days.length);
+  let failure: unknown;
   let next = 0;
 
   async function worker(): Promise<void> {
@@ -135,12 +159,20 @@ export async function loadDays(
       const position = next++;
       const day = days[position];
       if (day === undefined) return;
-      results[position] = await loadPapers(`${category}/${day.date}.json`, "day file", signal);
+      const path = `${category}/${day.date}.json`;
+      results[position] = await loadDay(path, signal).catch((error: unknown) => {
+        if (signal?.aborted || error instanceof SchemaVersionError) throw error;
+        console.warn(`Could not load the day file ${path}`, error);
+        failure = error;
+        return null;
+      });
     }
   }
 
   await Promise.all(Array.from({ length: Math.min(MAX_PARALLEL_REQUESTS, days.length) }, worker));
-  return results.flat();
+  const missing = days.filter((_, at) => results[at] === null).map(({ date }) => date);
+  if (missing.length > 0 && missing.length === days.length) throw failure;
+  return { papers: results.flatMap((papers) => papers ?? []), missing };
 }
 
 /** Load the archived papers of one year (highly cited older papers). */
@@ -220,8 +252,8 @@ function searchShard(category: string, month: string): Promise<Paper[] | null> {
 
 /**
  * The papers of the given days from the search shards of their months, without abstracts
- * (PERF-1), and the months whose shard could not be loaded: their days are left out, and
- * the period says so.
+ * (PERF-1), and the days of the months whose shard could not be loaded: they are left out,
+ * and the period names them.
  */
 export async function loadLightDays(
   category: string,
@@ -230,11 +262,12 @@ export async function loadLightDays(
   const wanted = new Set(days.map(({ date }) => date));
   const months = monthsOf(days);
   const shards = await Promise.all(months.map((month) => searchShard(category, month)));
+  const failed = new Set(months.filter((_, at) => shards[at] === null));
   return {
     papers: shards.flatMap((papers) =>
       (papers ?? []).filter((paper) => wanted.has(paper.announced)),
     ),
-    missing: months.filter((_, at) => shards[at] === null),
+    missing: days.filter(({ date }) => failed.has(date.slice(0, 7))).map(({ date }) => date),
   };
 }
 

@@ -92,6 +92,34 @@ test("older days past the budget are searched, and a card loads its abstract", a
   expect(errors).toEqual([]);
 });
 
+test("a day that fails to load is asked for again, then left out with a notice", async ({
+  page,
+}) => {
+  const errors = watchErrors(page);
+  // The latest day's first request is dropped, and answered the second time (SRCH-10).
+  let dropped = false;
+  await page.route("**/data/cs.CV/2026-09-25.json", async (route) => {
+    if (dropped) return route.fallback();
+    dropped = true;
+    return route.abort("connectionreset");
+  });
+  // The older day's month fails until Retry.
+  let shardDown = true;
+  await page.route("**/data/cs.CV/search/2026-09.json", (route) =>
+    shardDown ? route.fulfill({ status: 503, body: "" }) : route.fallback(),
+  );
+  await page.goto("./");
+  await expect(page.getByText("3 of 3 cs.CV papers")).toBeVisible();
+  const notice = page.getByRole("alert");
+  await expect(notice).toContainText("could not be loaded: they are not shown");
+  shardDown = false;
+  await notice.getByRole("button", { name: "Retry" }).click();
+  await expect(page.getByText("4 of 4 cs.CV papers")).toBeVisible();
+  await expect(page.getByRole("alert")).toHaveCount(0);
+  // The failed requests are the browser's own errors; the page logs none.
+  expect(errors.filter((error) => !error.includes("Failed to load resource"))).toEqual([]);
+});
+
 test("a card shows the stars of its code, and Most starred ranks by them", async ({ page }) => {
   const errors = watchErrors(page);
   await page.goto("./?paper=2609.00001");

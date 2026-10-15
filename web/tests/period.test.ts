@@ -3,6 +3,7 @@ import {
   between,
   daysOverBudget,
   formatDays,
+  formatMissingDays,
   formatMonth,
   isIsoDay,
   LIGHT_BUDGET,
@@ -151,6 +152,18 @@ describe("formatMonth", () => {
       new Intl.DateTimeFormat(undefined, { month: "long", year: "numeric" }).format(
         new Date(2026, 8, 1),
       ),
+    );
+  });
+});
+
+describe("formatMissingDays", () => {
+  it("names one or two days, and counts more over their span", () => {
+    expect(formatMissingDays(["2026-09-25"])).toBe(formatDays("2026-09-25", "2026-09-25"));
+    expect(formatMissingDays(["2026-09-25", "2026-09-24"])).toBe(
+      `${formatDays("2026-09-24", "2026-09-24")} and ${formatDays("2026-09-25", "2026-09-25")}`,
+    );
+    expect(formatMissingDays(["2026-09-30", "2026-09-01", "2026-09-14"])).toBe(
+      `3 days in ${formatDays("2026-09-01", "2026-09-30")}`,
     );
   });
 });

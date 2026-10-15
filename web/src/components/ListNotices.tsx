@@ -1,6 +1,6 @@
 import type { FeedLink } from "../feeds";
 import { countOf } from "../format";
-import { formatMonth, PAPER_BUDGET } from "../period";
+import { formatMissingDays, PAPER_BUDGET } from "../period";
 import type { SearchFilters } from "../search";
 import type { ViewState } from "../url-state";
 import { ActiveFilters } from "./ActiveFilters";
@@ -30,8 +30,8 @@ interface Props {
   sinceLastVisit: { papers: number; onShow: () => void } | null;
   /** The keys of triage, once the papers are there. */
   shortcuts: boolean;
-  /** Months whose search shard did not load: the older days of the period they hold are missing. */
-  missingMonths: { months: string[]; onRetry: () => void } | null;
+  /** Days of the period whose day file or search shard did not load, not shown. */
+  missingDays: { days: string[]; onRetry: () => void } | null;
   /** Archive years past the budget: the papers shown and left out, the years unranked. */
   archiveBudget: { shown: number; leftOut: number; unranked: number } | null;
   /** Where and when the citation counts come from. */
@@ -80,11 +80,11 @@ export function ListNotices(props: Props) {
         </p>
       )}
 
-      {props.missingMonths && (
+      {props.missingDays && (
         <p class="notice notice--error" role="alert">
-          The papers of {props.missingMonths.months.map(formatMonth).join(", ")} past the latest
-          days could not be loaded: those days are not shown.{" "}
-          <button type="button" class="link-button" onClick={props.missingMonths.onRetry}>
+          The papers of {formatMissingDays(props.missingDays.days)} could not be loaded: they are
+          not shown.{" "}
+          <button type="button" class="link-button" onClick={props.missingDays.onRetry}>
             Retry
           </button>
         </p>

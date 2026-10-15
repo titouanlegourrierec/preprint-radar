@@ -62,24 +62,80 @@ describe("data", () => {
     );
     const requested = serve(files);
 
-    const papers = await loadDays("cs.CV", days);
+    const { papers, missing } = await loadDays("cs.CV", days);
 
     expect(papers.map(({ arxiv_id }) => arxiv_id)).toEqual(days.map(({ date }) => date));
+    expect(missing).toEqual([]);
     expect(requested).toHaveLength(9);
-    await expect(loadDays("cs.CV", [])).resolves.toEqual([]);
+    await expect(loadDays("cs.CV", [])).resolves.toEqual({ papers: [], missing: [] });
   });
 
-  it("fails a period whose day file fails", async () => {
-    serve(
-      { "cs.CV/2026-09-10.json": { schema_version: 1, papers: [] } },
-      { "cs.CV/2026-09-11.json": 500 },
+  it("asks for a failed day file once more, then leaves its day out", async () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => undefined);
+    const requested: string[] = [];
+    let dropped = 1;
+    vi.stubGlobal("fetch", async (url: string) => {
+      const path = url.slice(url.indexOf("data/") + "data/".length);
+      requested.push(path);
+      if (path === "cs.CV/2026-09-11.json") return new Response("{}", { status: 500 });
+      if (path === "cs.CV/2026-09-10.json" && dropped-- > 0) throw new TypeError("Failed to fetch");
+      return new Response(JSON.stringify(dayFile(path.slice(6, 16))));
+    });
+    const days = ["2026-09-12", "2026-09-11", "2026-09-10"].map((date) => ({ date, count: 1 }));
+
+    const { papers, missing } = await loadDays("cs.CV", days);
+
+    // The tenth's dropped request was answered the second time; the eleventh never was.
+    expect(papers.map(({ arxiv_id }) => arxiv_id)).toEqual(["2026-09-12.0", "2026-09-10.0"]);
+    expect(missing).toEqual(["2026-09-11"]);
+    expect(requested.filter((path) => path === "cs.CV/2026-09-10.json")).toHaveLength(2);
+    expect(requested.filter((path) => path === "cs.CV/2026-09-11.json")).toHaveLength(2);
+    expect(warn).toHaveBeenCalledExactlyOnceWith(
+      "Could not load the day file cs.CV/2026-09-11.json",
+      new Error("Could not load cs.CV/2026-09-11.json (HTTP 500)"),
     );
+  });
+
+  it("fails a period whose every day file fails", async () => {
+    vi.spyOn(console, "warn").mockImplementation(() => undefined);
+    serve({}, { "cs.CV/2026-09-10.json": 500, "cs.CV/2026-09-11.json": 503 });
     await expect(
       loadDays("cs.CV", [
         { date: "2026-09-10", count: 0 },
         { date: "2026-09-11", count: 0 },
       ]),
-    ).rejects.toThrow("Could not load cs.CV/2026-09-11.json (HTTP 500)");
+    ).rejects.toThrow(/Could not load cs\.CV\/2026-09-1[01]\.json \(HTTP 50[03]\)/);
+  });
+
+  it("fails a period with a day file of another schema version, asked for once", async () => {
+    const requested = serve({
+      "cs.CV/2026-09-10.json": dayFile("2026-09-10"),
+      "cs.CV/2026-09-11.json": { schema_version: 2, papers: [] },
+    });
+    await expect(
+      loadDays("cs.CV", [
+        { date: "2026-09-10", count: 1 },
+        { date: "2026-09-11", count: 0 },
+      ]),
+    ).rejects.toThrow("Unsupported day file schema version 2 (expected 1)");
+    expect(requested.filter((path) => path === "cs.CV/2026-09-11.json")).toHaveLength(1);
+  });
+
+  it("asks for nothing again once the period is left", async () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => undefined);
+    const controller = new AbortController();
+    let requests = 0;
+    vi.stubGlobal("fetch", async () => {
+      requests++;
+      controller.abort();
+      throw new DOMException("The operation was aborted.", "AbortError");
+    });
+
+    await expect(
+      loadDays("cs.CV", [{ date: "2026-09-10", count: 1 }], controller.signal),
+    ).rejects.toThrow("The operation was aborted.");
+    expect(requests).toBe(1);
+    expect(warn).not.toHaveBeenCalled();
   });
 
   it("loads an archive year", async () => {
@@ -254,7 +310,7 @@ describe("data", () => {
     expect(requested).toEqual(["cs.CV/search/2026-09.json", "cs.CV/search/2026-08.json"]);
   });
 
-  it("says which months could not be loaded, and asks for them again", async () => {
+  it("says which days could not be loaded, and asks for their months again", async () => {
     const warn = vi.spyOn(console, "warn").mockImplementation(() => undefined);
     serve(
       { "cs.CV/search/2026-08.json": { schema_version: 2, papers: [] } },
@@ -269,7 +325,7 @@ describe("data", () => {
 
     await expect(loadLightDays("cs.CV", days)).resolves.toEqual({
       papers: [],
-      missing: ["2026-09", "2026-08"],
+      missing: ["2026-09-30", "2026-08-31"],
     });
     expect(warn).toHaveBeenCalledTimes(2);
     const requested = serve({

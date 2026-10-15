@@ -63,8 +63,8 @@ export function usePapers(
   const [warmed, setWarmed] = useState<PaperIndex | null>(null);
   // Papers of the archive's years left out by the budget, and years it could not rank.
   const [leftOut, setLeftOut] = useState({ papers: 0, unranked: 0 });
-  // Months of the period whose search shard did not load: their days are not shown.
-  const [missingMonths, setMissingMonths] = useState<string[]>([]);
+  // Days of the period whose day file or search shard did not load, not shown (SRCH-10).
+  const [missingDays, setMissingDays] = useState<string[]>([]);
   // Each Retry loads again what failed: the index, or the papers.
   const [attempt, setAttempt] = useState(0);
 
@@ -114,11 +114,11 @@ export function usePapers(
       loaded = Promise.all([
         loadDays(category, selectDays(known, period), signal),
         older.length > 0 ? loadLightDays(category, older) : { papers: [], missing: [] },
-      ]).then(([papers, light]) => ({
-        papers: [...light.papers, ...papers],
-        total: light.papers.length + papers.length,
+      ]).then(([whole, light]) => ({
+        papers: [...light.papers, ...whole.papers],
+        total: light.papers.length + whole.papers.length,
         unranked: 0,
-        missing: light.missing,
+        missing: [...whole.missing, ...light.missing],
       }));
     } else if (range === null) {
       loaded = Promise.resolve({ papers: [], total: 0, unranked: 0 }); // no archive yet
@@ -136,7 +136,7 @@ export function usePapers(
       .then(({ papers, total, unranked, missing = [] }) => {
         if (signal.aborted) return;
         setLeftOut({ papers: total - papers.length, unranked });
-        setMissingMonths(missing);
+        setMissingDays(missing);
         const index = new PaperIndex(papers);
         setLoad({ status: "ready", index });
         // The list shows first; the search index is built after, while the page is idle.
@@ -167,8 +167,8 @@ export function usePapers(
     archiveLeftOut: archived ? leftOut.papers : 0,
     /** Years of those whose citation counts did not load: their papers ranked last. */
     archiveUnranked: archived ? leftOut.unranked : 0,
-    /** Months of the period whose search shard did not load ("2026-09"), their days not shown. */
-    missingMonths: archived ? [] : missingMonths,
+    /** Days of the period whose papers did not load ("2026-09-25"), not shown. */
+    missingDays: archived ? [] : missingDays,
     load,
     /**
      * What a load in progress says ("Loading 3,646 papers of 5 days…"), counted in the
