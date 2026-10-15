@@ -4012,18 +4012,61 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2510.21307v1",
    "abstract": "3D Gaussian Splatting (3DGS), a 3D representation method with photorealistic real-time rendering capabilities, is regarded as an effective tool for narrowing the sim-to-real gap. However, it lacks fine-grained semantics and physical executability for Visual-Language Navigation (VLN). To address this, we propose SAGE-3D (Semantically and Physically Aligned Gaussian Environments for 3D Navigation), a new paradigm that upgrades 3DGS into an executable, semantically and physically aligned environment. It comprises two components: (1) Object-Centric Semantic Grounding, which adds object-level fine-grained annotations to 3DGS; and (2) Physics-Aware Execution Jointing, which embeds collision objects into 3DGS and constructs rich physical interfaces. We release InteriorGS, containing 1K object-annotated 3DGS indoor scene data, and introduce SAGE-Bench, the first 3DGS-based VLN benchmark with 2M VLN data. Experiments show that 3DGS scene data is more difficult to converge, while exhibiting strong generalizability, improving baseline performance by 31% on the VLN-CE Unseen task. Our data and code are available at: https://sage-3d.github.io.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Zhejiang University, Manycore Tech Inc, Huazhong University of Science and Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Huazhong University of Science and Technology"
+   ],
+   "institution_ids": [
+    "00p991c53"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-15"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2510.21307",
@@ -5699,18 +5742,30 @@
    "journal_ref": null,
    "venue": "ICLR 2026",
    "cross_list_from": "cs.LG",
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2510.14974v1",
    "abstract": "Few-step diffusion or flow-based generative models typically distill a velocity-predicting teacher into a student that predicts a shortcut towards denoised data. This format mismatch has led to complex distillation procedures that often suffer from a quality-diversity trade-off. To address this, we propose policy-based flow models (π-Flow). π-Flow modifies the output layer of a student flow model to predict a network-free policy at one timestep. The policy then produces dynamic flow velocities at future substeps with negligible overhead, enabling fast and accurate ODE integration on these substeps without extra network evaluations. To match the policy's ODE trajectory to the teacher's, we introduce a novel imitation distillation approach, which matches the policy's velocity to the teacher's along the policy's trajectory using a standard $ℓ_2$ flow matching loss. By simply mimicking the teacher's behavior, π-Flow enables stable and scalable training and avoids the quality-diversity trade-off. On ImageNet 256$^2$, it attains a 1-NFE FID of 2.85, outperforming previous 1-NFE models of the same DiT architecture. On FLUX.1-12B and Qwen-Image-20B at 4 NFEs, π-Flow achieves substantially better diversity than state-of-the-art DMD models, while maintaining teacher-level quality.",
-   "affiliations": [],
+   "affiliations": [
+    "Stanford University",
+    "Adobe Research"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Stanford University",
+    "Adobe"
+   ],
+   "institution_ids": [
+    "00f54p054",
+    null
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-15"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2510.14974",
@@ -5934,18 +5989,27 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2510.14528v1",
    "abstract": "In this report, we propose PaddleOCR-VL, a SOTA and resource-efficient model tailored for document parsing. Its core component is PaddleOCR-VL-0.9B, a compact yet powerful vision-language model (VLM) that integrates a NaViT-style dynamic resolution visual encoder with the ERNIE-4.5-0.3B language model to enable accurate element recognition. This innovative model efficiently supports 109 languages and excels in recognizing complex elements (e.g., text, tables, formulas, and charts), while maintaining minimal resource consumption. Through comprehensive evaluations on widely used public benchmarks and in-house benchmarks, PaddleOCR-VL achieves SOTA performance in both page-level document parsing and element-level recognition. It significantly outperforms existing solutions, exhibits strong competitiveness against top-tier VLMs, and delivers fast inference speeds. These strengths make it highly suitable for practical deployment in real-world scenarios. Code is available at https://github.com/PaddlePaddle/PaddleOCR .",
-   "affiliations": [],
+   "affiliations": [
+    "PaddlePaddle Team, Baidu Inc"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Baidu"
+   ],
+   "institution_ids": [
+    "03vs3wt56"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-15"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2510.14528",
@@ -8921,18 +8985,37 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2510.01174v1",
    "abstract": "While recent generative models advance pixel-space video synthesis, they remain limited in producing professional educational videos, which demand disciplinary knowledge, precise visual structures, and coherent transitions, limiting their applicability in educational scenarios. Intuitively, such requirements are better addressed through the manipulation of a renderable environment, which can be explicitly controlled via logical commands (e.g., code). In this work, we propose Code2Video, a code-centric agent framework for generating educational videos via executable Python code. The framework comprises three collaborative agents: (i) Planner, which structures lecture content into temporally coherent flows and prepares corresponding visual assets; (ii) Coder, which converts structured instructions into executable Python codes while incorporating scope-guided auto-fix to enhance efficiency; and (iii) Critic, which leverages vision-language models (VLM) with visual anchor prompts to refine spatial layout and ensure clarity. To support systematic evaluation, we build MMMC, a benchmark of professionally produced, discipline-specific educational videos. We evaluate MMMC across diverse dimensions, including VLM-as-a-Judge aesthetic scores, code efficiency, and particularly, TeachQuiz, a novel end-to-end metric that quantifies how well a VLM, after unlearning, can recover knowledge by watching the generated videos. Our results demonstrate the potential of Code2Video as a scalable, interpretable, and controllable approach, achieving 40% improvement over direct code generation and producing videos comparable to human-crafted tutorials. The code and datasets are available at https://github.com/showlab/Code2Video.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Show Lab, National University of Singapore"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "National University of Singapore"
+   ],
+   "institution_ids": [
+    "01tgyzw49"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-15"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2510.01174",
@@ -11206,18 +11289,30 @@
    "journal_ref": "Proceedings of The 9th Conference on Robot Learning, PMLR 305:4697-4708, 2025",
    "venue": "CoRL 2025",
    "cross_list_from": "cs.RO",
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2509.22653v1",
    "abstract": "We present See, Point, Fly (SPF), a training-free aerial vision-and-language navigation (AVLN) framework built atop vision-language models (VLMs). SPF is capable of navigating to any goal based on any type of free-form instructions in any kind of environment. In contrast to existing VLM-based approaches that treat action prediction as a text generation task, our key insight is to consider action prediction for AVLN as a 2D spatial grounding task. SPF harnesses VLMs to decompose vague language instructions into iterative annotation of 2D waypoints on the input image. Along with the predicted traveling distance, SPF transforms predicted 2D waypoints into 3D displacement vectors as action commands for UAVs. Moreover, SPF also adaptively adjusts the traveling distance to facilitate more efficient navigation. Notably, SPF performs navigation in a closed-loop control manner, enabling UAVs to follow dynamic targets in dynamic environments. SPF sets a new state of the art in DRL simulation benchmark, outperforming the previous best method by an absolute margin of 63%. In extensive real-world evaluations, SPF outperforms strong baselines by a large margin. We also conduct comprehensive ablation studies to highlight the effectiveness of our design choice. Lastly, SPF shows remarkable generalization to different VLMs. Project page: https://spf-web.pages.dev",
-   "affiliations": [],
+   "affiliations": [
+    "National Yang Ming Chiao Tung University",
+    "National Taiwan University"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "National Yang Ming Chiao Tung University",
+    "National Taiwan University"
+   ],
+   "institution_ids": [
+    "00se2k293",
+    "05bqach95"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-15"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2509.22653",
@@ -13864,18 +13959,118 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2509.15221v1",
    "abstract": "Vision-Language Models (VLMs) have enabled computer use agents (CUAs) that operate GUIs autonomously, showing great potential, yet progress is limited by the lack of large-scale, open-source computer use data and foundation models. In this work, we introduce ScaleCUA, a step toward scaling open-source CUAs. It offers a large-scale dataset spanning 6 operating systems and 3 task domains, built via a closed-loop pipeline uniting automated agents with human experts. Trained on this scaled-up data, ScaleCUA can operate seamlessly across platforms. Specifically, it delivers strong gains over baselines (+26.6 on WebArena-Lite-v2, +10.7 on ScreenSpot-Pro) and sets new state-of-the-art results (94.4% on MMBench-GUI L1-Hard, 60.6% on OSWorld-G, 47.4% on WebArena-Lite-v2). These findings underscore the power of data-driven scaling for general-purpose computer use agents. We will release data, models, and code to advance future research: https://github.com/OpenGVLab/ScaleCUA.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Shanghai AI Laboratory"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Shanghai Artificial Intelligence Laboratory"
+   ],
+   "institution_ids": [
+    "03wkvpx79"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-15"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2509.15221",
@@ -17421,18 +17616,30 @@
    "journal_ref": null,
    "venue": "ICLR 2026",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2509.25162v1",
    "abstract": "In this work, we propose aligning pretrained visual encoders to serve as tokenizers for latent diffusion models in image generation. Unlike training a variational autoencoder (VAE) from scratch, which primarily emphasizes low-level details, our approach leverages the rich semantic structure of foundation encoders. We introduce a three-stage alignment strategy called AlignTok: (1) freeze the encoder and train an adapter and a decoder to establish a semantic latent space; (2) jointly optimize all components with an additional semantic preservation loss, enabling the encoder to capture perceptual details while retaining high-level semantics; and (3) refine the decoder for improved reconstruction quality. This alignment yields semantically rich image tokenizers that benefit diffusion models. On ImageNet 256×256, our tokenizer accelerates the convergence of diffusion models, reaching a gFID of 1.90 within just 64 epochs, and improves generation both with and without classifier-free guidance. Scaling to LAION, text-to-image models trained with our tokenizer consistently outperforms FLUX VAE and VA-VAE under the same training steps. Overall, our method is simple, scalable, and establishes a semantically grounded paradigm for continuous tokenizer design.",
-   "affiliations": [],
+   "affiliations": [
+    "University of Washington",
+    "Massachusetts Institute of Technology"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "University of Washington",
+    "Massachusetts Institute of Technology"
+   ],
+   "institution_ids": [
+    "00cvxb145",
+    "042nb2s44"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-15"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2509.25162",
@@ -22313,18 +22520,27 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2508.18265v1",
    "abstract": "We introduce InternVL 3.5, a new family of open-source multimodal models that significantly advances versatility, reasoning capability, and inference efficiency along the InternVL series. A key innovation is the Cascade Reinforcement Learning (Cascade RL) framework, which enhances reasoning through a two-stage process: offline RL for stable convergence and online RL for refined alignment. This coarse-to-fine training strategy leads to substantial improvements on downstream reasoning tasks, e.g., MMMU and MathVista. To optimize efficiency, we propose a Visual Resolution Router (ViR) that dynamically adjusts the resolution of visual tokens without compromising performance. Coupled with ViR, our Decoupled Vision-Language Deployment (DvD) strategy separates the vision encoder and language model across different GPUs, effectively balancing computational load. These contributions collectively enable InternVL3.5 to achieve up to a +16.0% gain in overall reasoning performance and a 4.05× inference speedup compared to its predecessor, i.e., InternVL3. In addition, InternVL3.5 supports novel capabilities such as GUI interaction and embodied agency. Notably, our largest model, i.e., InternVL3.5-241B-A28B, attains state-of-the-art results among open-source MLLMs across general multimodal, reasoning, text, and agentic tasks -- narrowing the performance gap with leading commercial models like GPT-5. All models and code are publicly released.",
-   "affiliations": [],
+   "affiliations": [
+    "InternVL Team, Shanghai AI Laboratory"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Shanghai Artificial Intelligence Laboratory"
+   ],
+   "institution_ids": [
+    "03wkvpx79"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-15"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2508.18265",
@@ -36840,18 +37056,27 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2507.05595v1",
    "abstract": "This technical report introduces PaddleOCR 3.0, an Apache-licensed open-source toolkit for OCR and document parsing. To address the growing demand for document understanding in the era of large language models, PaddleOCR 3.0 presents three major solutions: (1) PP-OCRv5 for multilingual text recognition, (2) PP-StructureV3 for hierarchical document parsing, and (3) PP-ChatOCRv4 for key information extraction. Compared to mainstream vision-language models (VLMs), these models with fewer than 100 million parameters achieve competitive accuracy and efficiency, rivaling billion-parameter VLMs. In addition to offering a high-quality OCR model library, PaddleOCR 3.0 provides efficient tools for training, inference, and deployment, supports heterogeneous hardware acceleration, and enables developers to easily build intelligent document applications.",
-   "affiliations": [],
+   "affiliations": [
+    "PaddlePaddle Team, Baidu Inc"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Baidu"
+   ],
+   "institution_ids": [
+    "03vs3wt56"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-15"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2507.05595",
@@ -38198,18 +38423,49 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2507.22827v1",
    "abstract": "Automating the transformation of user interface (UI) designs into front-end code holds significant promise for accelerating software development and democratizing design workflows. While multimodal large language models (MLLMs) can translate images to code, they often fail on complex UIs, struggling to unify visual perception, layout planning, and code synthesis within a single monolithic model, which leads to frequent perception and planning errors. To address this, we propose ScreenCoder, a modular multi-agent framework that decomposes the task into three interpretable stages: grounding, planning, and generation. By assigning these distinct responsibilities to specialized agents, our framework achieves significantly higher robustness and fidelity than end-to-end approaches. Furthermore, ScreenCoder serves as a scalable data engine, enabling us to generate high-quality image-code pairs. We use this data to fine-tune open-source MLLM via a dual-stage pipeline of supervised fine-tuning and reinforcement learning, demonstrating substantial gains in its UI generation capabilities. Extensive experiments demonstrate that our approach achieves state-of-the-art performance in layout accuracy, structural coherence, and code correctness. Our code is made publicly available at https://github.com/leigest519/ScreenCoder.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "CUHK MMLab & ARISE Lab"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "CUHK MMLab & ARISE Lab"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-15"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2507.22827",
@@ -40891,18 +41147,46 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2507.11539v1",
    "abstract": "Perceiving and reconstructing 3D geometry from videos is a fundamental yet challenging computer vision task. To facilitate interactive and low-latency applications, we propose a streaming visual geometry transformer that shares a similar philosophy with autoregressive large language models. We explore a simple and efficient design and employ a causal transformer architecture to process the input sequence in an online manner. We use temporal causal attention and cache the historical keys and values as implicit memory to enable efficient streaming long-term 3D reconstruction. This design can handle low-latency 3D reconstruction by incrementally integrating historical information while maintaining high-quality spatial consistency. For efficient training, we propose to distill knowledge from the dense bidirectional visual geometry grounded transformer (VGGT) to our causal model. For inference, our model supports the migration of optimized efficient attention operators (e.g., FlashAttention) from large language models. Extensive experiments on various 3D geometry perception benchmarks demonstrate that our model enhances inference speed in online scenarios while maintaining competitive performance, thereby facilitating scalable and interactive 3D vision systems. Code is available at: https://github.com/wzzheng/StreamVGGT.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Tsinghua University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Tsinghua University"
+   ],
+   "institution_ids": [
+    "03cve4549"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-15"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2507.11539",
@@ -42307,18 +42591,27 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.AI",
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2507.05201v1",
    "abstract": "Artificial intelligence (AI) has significant potential in healthcare applications, but its training and deployment faces challenges due to healthcare's diverse data, complex tasks, and the need to preserve privacy. Foundation models that perform well on medical tasks and require less task-specific tuning data are critical to accelerate the development of healthcare AI applications. We introduce MedGemma, a collection of medical vision-language foundation models based on Gemma 3 4B and 27B. MedGemma demonstrates advanced medical understanding and reasoning on images and text, significantly exceeding the performance of similar-sized generative models and approaching the performance of task-specific models, while maintaining the general capabilities of the Gemma 3 base models. For out-of-distribution tasks, MedGemma achieves 2.6-10% improvement on medical multimodal question answering, 15.5-18.1% improvement on chest X-ray finding classification, and 10.8% improvement on agentic evaluations compared to the base models. Fine-tuning MedGemma further improves performance in subdomains, reducing errors in electronic health record information retrieval by 50% and reaching comparable performance to existing specialized state-of-the-art methods for pneumothorax classification and histopathology patch classification. We additionally introduce MedSigLIP, a medically-tuned vision encoder derived from SigLIP. MedSigLIP powers the visual understanding capabilities of MedGemma and as an encoder achieves comparable or better performance than specialized medical image encoders. Taken together, the MedGemma collection provides a strong foundation of medical image and text capabilities, with potential to significantly accelerate medical research and development of downstream applications. The MedGemma collection, including tutorials and model weights, can be found at https://goo.gle/medgemma.",
-   "affiliations": [],
+   "affiliations": [
+    "Google Research and Google DeepMind"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Google DeepMind"
+   ],
+   "institution_ids": [
+    "00971b260"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-15"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2507.05201",
@@ -42745,18 +43038,40 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2507.02863v1",
    "abstract": "Dense 3D scene reconstruction from an ordered sequence or unordered image collections is a critical step when bringing research in computer vision into practical scenarios. Following the paradigm introduced by DUSt3R, which unifies an image pair densely into a shared coordinate system, subsequent methods maintain an implicit memory to achieve dense 3D reconstruction from more images. However, such implicit memory is limited in capacity and may suffer from information loss of earlier frames. We propose Point3R, an online framework targeting dense streaming 3D reconstruction. To be specific, we maintain an explicit spatial pointer memory directly associated with the 3D structure of the current scene. Each pointer in this memory is assigned a specific 3D position and aggregates scene information nearby in the global coordinate system into a changing spatial feature. Information extracted from the latest frame interacts explicitly with this pointer memory, enabling dense integration of the current observation into the global coordinate system. We design a 3D hierarchical position embedding to promote this interaction and design a simple yet effective fusion mechanism to ensure that our pointer memory is uniform and efficient. Our method achieves competitive or state-of-the-art performance on various tasks with low training costs. Code: https://github.com/YkiWu/Point3R.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Department of Automation, Tsinghua University, China"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Tsinghua University"
+   ],
+   "institution_ids": [
+    "03cve4549"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-15"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2507.02863",
@@ -46064,18 +46379,48 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2506.18385v1",
    "abstract": "Recent benchmarks and datasets have been proposed to improve spatial reasoning in vision-language models (VLMs), yet existing open resources remain limited in scale, visual diversity, and instruction expressiveness. In this work, we introduce InternSpatial, the largest open-source dataset for spatial reasoning in VLMs, along with InternSpatial-Bench, a corresponding evaluation benchmark designed to assess spatial understanding under diverse instruction formats. InternSpatial comprises 12 million QA pairs spanning both single-view and multi-view settings, drawn from diverse visual environments and supporting 19 instruction formats that reflect varied query styles. For evaluation, we propose InternSpatial-Bench for single-view tasks and expand multi-view reasoning by introducing a novel rotation angle prediction task that has not been explored in prior work. Experimental results show that models trained on InternSpatial achieve 12.1% improvement on InternSpatial-Bench and 10.7% on VSI-Bench, while maintaining strong performance on general-purpose benchmarks. We hope these resources will support the development of spatially capable VLMs in practical applications such as robotics and embodied AI.",
-   "affiliations": [],
+   "affiliations": [
+    "Shanghai AI Laboratory",
+    "The Chinese University of Hong Kong",
+    "University of Science",
+    "Technology of China",
+    "Shanghai Jiao Tong University",
+    "Donghua University",
+    "Nanjing University",
+    "Tsinghua University"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Shanghai Artificial Intelligence Laboratory",
+    "Chinese University of Hong Kong",
+    "University of Science",
+    "Technology of China",
+    "Shanghai Jiao Tong University",
+    "Donghua University",
+    "Nanjing University",
+    "Tsinghua University"
+   ],
+   "institution_ids": [
+    "03wkvpx79",
+    "00t33hh48",
+    null,
+    null,
+    "0220qvk04",
+    "035psfh38",
+    "01rxvg760",
+    "03cve4549"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-15"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2506.18385",
@@ -54089,18 +54434,94 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2506.18871v1",
    "abstract": "In this work, we introduce OmniGen2, a versatile and open-source generative model designed to provide a unified solution for diverse generation tasks, including text-to-image, image editing, and in-context generation. Unlike OmniGen v1, OmniGen2 features two distinct decoding pathways for text and image modalities, utilizing unshared parameters and a decoupled image tokenizer. This design enables OmniGen2 to build upon existing multimodal understanding models without the need to re-adapt VAE inputs, thereby preserving the original text generation capabilities. To facilitate the training of OmniGen2, we developed comprehensive data construction pipelines, encompassing image editing and in-context generation data. Additionally, we introduce a reflection mechanism tailored for image generation tasks and curate a dedicated reflection dataset based on OmniGen2. Despite its relatively modest parameter size, OmniGen2 achieves competitive results on multiple task benchmarks, including text-to-image and image editing. To further evaluate in-context generation, also referred to as subject-driven tasks, we introduce a new benchmark named OmniContext. OmniGen2 achieves state-of-the-art performance among open-source models in terms of consistency. We will release our models, training code, datasets, and data construction pipeline to support future research in this field. Project Page: https://vectorspacelab.github.io/OmniGen2; GitHub Link: https://github.com/VectorSpaceLab/OmniGen2",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Beijing Academy of Artificial Intelligence"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Beijing Academy of Artificial Intelligence"
+   ],
+   "institution_ids": [
+    "016a74861"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-15"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2506.18871",
@@ -62120,18 +62541,82 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2505.07538v1",
    "abstract": "We completely discard the conventional spatial prior in image representation and introduce a novel discrete visual tokenizer: Self-consistency Tokenizer (Selftok). At its design core, we compose an autoregressive (AR) prior -- mirroring the causal structure of language -- into visual tokens by using the reverse diffusion process of image generation. The AR property makes Selftok fundamentally distinct from traditional spatial tokens in the following two key ways: - Selftok offers an elegant and minimalist approach to unify diffusion and AR for vision-language models (VLMs): By representing images with Selftok tokens, we can train a VLM using a purely discrete autoregressive architecture -- like that in LLMs -- without requiring additional modules or training objectives. - We theoretically show that the AR prior satisfies the Bellman equation, whereas the spatial prior does not. Therefore, Selftok supports reinforcement learning (RL) for visual generation with effectiveness comparable to that achieved in LLMs. Besides the AR property, Selftok is also a SoTA tokenizer that achieves a favorable trade-off between high-quality reconstruction and compression rate. We use Selftok to build a pure AR VLM for both visual comprehension and generation tasks. Impressively, without using any text-image training pairs, a simple policy gradient RL working in the visual tokens can significantly boost the visual generation benchmark, surpassing all the existing models by a large margin. Therefore, we believe that Selftok effectively addresses the long-standing challenge that visual tokens cannot support effective RL. When combined with the well-established strengths of RL in LLMs, this brings us one step closer to realizing a truly multimodal LLM. Project Page: https://selftok-team.github.io/report/.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Selftok Team, Media Technology Institute, Huawei Singapore"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Huawei"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-15"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2505.07538",
@@ -72120,18 +72605,42 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2505.20793v1",
    "abstract": "Scalable Vector Graphics (SVG) offer a powerful format for representing visual designs as interpretable code. Recent advances in vision-language models (VLMs) have enabled high-quality SVG generation by framing the problem as a code generation task and leveraging large-scale pretraining. VLMs are particularly suitable for this task as they capture both global semantics and fine-grained visual patterns, while transferring knowledge across vision, natural language, and code domains. However, existing VLM approaches often struggle to produce faithful and efficient SVGs because they never observe the rendered images during training. Although differentiable rendering for autoregressive SVG code generation remains unavailable, rendered outputs can still be compared to original inputs, enabling evaluative feedback suitable for reinforcement learning (RL). We introduce RLRF (Reinforcement Learning from Rendering Feedback), an RL method that enhances SVG generation in autoregressive VLMs by leveraging feedback from rendered SVG outputs. Given an input image, the model generates SVG roll-outs that are rendered and compared to the original image to compute a reward. This visual fidelity feedback guides the model toward producing more accurate, efficient, and semantically coherent SVGs. RLRF significantly outperforms supervised fine-tuning, addressing common failure modes and enabling precise, high-quality SVG generation with strong structural understanding and generalization.",
-   "affiliations": [],
+   "affiliations": [
+    "ServiceNow Research",
+    "Polytechnique Montréal",
+    "Columbia University",
+    "Stony Brook University",
+    "Google Research",
+    "McGill University"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "ServiceNow Research",
+    "Polytechnique Montréal",
+    "Columbia University",
+    "Stony Brook University",
+    "Google",
+    "McGill University"
+   ],
+   "institution_ids": [
+    null,
+    "05f8d4e86",
+    "00hj8s172",
+    "05qghxh33",
+    "00njsd438",
+    "01pxwe438"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-15"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2505.20793",
@@ -73966,18 +74475,43 @@
    "journal_ref": null,
    "venue": "ICLR 2026",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2505.17702v1",
    "abstract": "The advent of Computer-Aided Design (CAD) generative modeling will significantly transform the design of industrial products. The recent research endeavor has extended into the realm of Large Language Models (LLMs). In contrast to fine-tuning methods, training-free approaches typically utilize the advanced closed-source LLMs, thereby offering enhanced flexibility and efficiency in the development of AI agents for generating CAD parametric models. However, the substantial cost and limitations of local deployment of the top-tier closed-source LLMs pose challenges in practical applications. The Seek-CAD is the pioneer exploration of locally deployed open-source inference LLM DeepSeek-R1 for CAD parametric model generation with a training-free methodology. This study is the first investigation to incorporate both visual and Chain-of-Thought (CoT) feedback within the self-refinement mechanism for generating CAD models. Specifically, the initial generated parametric CAD model is rendered into a sequence of step-wise perspective images, which are subsequently processed by a Vision Language Model (VLM) alongside the corresponding CoTs derived from DeepSeek-R1 to assess the CAD model generation. Then, the feedback is utilized by DeepSeek-R1 to refine the initial generated model for the next round of generation. Moreover, we present an innovative 3D CAD model dataset structured around the SSR (Sketch, Sketch-based feature, and Refinements) triple design paradigm. This dataset encompasses a wide range of CAD commands, thereby aligning effectively with industrial application requirements and proving suitable for the generation of LLMs. Extensive experiments validate the effectiveness of Seek-CAD under various metrics.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "School of Computer Science, Fudan University, Shanghai, China"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Fudan University"
+   ],
+   "institution_ids": [
+    "013q1eq08"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-15"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2505.17702",
@@ -74931,18 +75465,65 @@
    "journal_ref": null,
    "venue": "NeurIPS 2025",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2505.16864v1",
    "abstract": "Despite the remarkable generation quality of video Diffusion Transformer (DiT) models, their practical deployment is severely hindered by extensive computational requirements. This inefficiency stems from two key challenges: the quadratic complexity of self-attention with respect to token length and the multi-step nature of diffusion models. To address these limitations, we present Jenga, a novel inference pipeline that combines dynamic attention carving with progressive resolution generation. Our approach leverages two key insights: (1) early denoising steps do not require high-resolution latents, and (2) later steps do not require dense attention. Jenga introduces a block-wise attention mechanism that dynamically selects relevant token interactions using 3D space-filling curves, alongside a progressive resolution strategy that gradually increases latent resolution during generation. Experimental results demonstrate that Jenga achieves substantial speedups across multiple state-of-the-art video diffusion models while maintaining comparable generation quality (8.83× speedup with 0.01% performance drop on VBench). As a plug-and-play solution, Jenga enables practical, high-quality video generation on modern hardware by reducing inference time from minutes to seconds -- without requiring model retraining. Code: https://github.com/dvlab-research/Jenga",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "CUHK",
+    "HKUST",
+    "Kuaishou Technology",
+    "SmartMore"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     1,
+     3
+    ]
+   ],
+   "institutions": [
+    "Chinese University of Hong Kong",
+    "Hong Kong University of Science and Technology",
+    "Kuaishou",
+    "SmartMore"
+   ],
+   "institution_ids": [
+    null,
+    null,
+    "0258as409",
+    null
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-15"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2505.16864",
@@ -79811,18 +80392,30 @@
    "journal_ref": "NeurIPS 2025",
    "venue": "NeurIPS 2025",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2505.01481v1",
    "abstract": "Vision-Language Models (VLMs) have achieved strong results in video understanding, yet a key question remains: do they truly comprehend visual content or only learn shallow correlations between vision and language? Real visual understanding, especially of physics and common sense, is essential for AI systems that interact with the physical world. Current evaluations mostly use real-world videos similar to training data, so high benchmark scores may not reflect real reasoning ability. To address this, we propose negative-control tests using videos that depict physically impossible or logically inconsistent events. We introduce VideoHallu, a synthetic dataset of physics- and commonsense-violating scenes generated with Veo2, Sora, and Kling. It includes expert-annotated question-answer pairs across four categories of violations. Tests of leading VLMs (Qwen-2.5-VL, Video-R1, VideoChat-R1) show that, despite strong results on benchmarks such as MVBench and MMVU, they often miss these violations, exposing gaps in visual reasoning. Reinforcement learning fine-tuning on VideoHallu improves recognition of such violations without reducing standard benchmark performance. Our data is available at https://github.com/zli12321/VideoHallu.git.",
-   "affiliations": [],
+   "affiliations": [
+    "University of Maryland, College Park",
+    "University of Southern California"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "University of Maryland, College Park",
+    "University of Southern California"
+   ],
+   "institution_ids": [
+    "047s2c258",
+    "03taz7m60"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-15"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2505.01481",
@@ -93959,18 +94552,30 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2504.11695v1",
    "abstract": "Vision-language models encode images and text in a joint space, minimizing the distance between corresponding image and text pairs. How are language and images organized in this joint space, and how do the models encode meaning and modality? To investigate this, we train and release sparse autoencoders (SAEs) on the embedding spaces of four vision-language models (CLIP, SigLIP, SigLIP2, and AIMv2). SAEs approximate model embeddings as sparse linear combinations of learned directions, or \"concepts\". We find that, compared to other methods of linear feature learning, SAEs are better at reconstructing the real embeddings, while also able to retain the most sparsity. Retraining SAEs with different seeds or different data diet leads to two findings: the rare, specific concepts captured by the SAEs are liable to change drastically, but we also show that commonly-activating concepts are remarkably stable across runs. Interestingly, while most concepts activate primarily for one modality, we find they are not merely encoding modality per se. Many are almost orthogonal to the subspace that defines modality, and the concept directions do not function as good modality classifiers, suggesting that they encode cross-modal semantics. To quantify this bridging behavior, we introduce the Bridge Score, a metric that identifies concept pairs which are both co-activated across aligned image-text inputs and geometrically aligned in the shared space. This reveals that even single-modality concepts can collaborate to support cross-modal integration. We release interactive demos of the SAEs for all models, allowing researchers to explore the organization of the concept spaces. Overall, our findings uncover a sparse linear structure within VLM embedding spaces that is shaped by modality, yet stitched together through latent bridges, offering new insight into how multimodal meaning is constructed.",
-   "affiliations": [],
+   "affiliations": [
+    "Kempner Institute for the Study of Natural and Artificial Intelligence, Harvard University",
+    "Department of Computer Science, Harvard University"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Harvard University",
+    "Harvard University"
+   ],
+   "institution_ids": [
+    "03vek6s52",
+    "03vek6s52"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-15"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2504.11695",
@@ -100108,18 +100713,43 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2503.20853v1",
    "abstract": "Multimodal generative models that can understand and generate across multiple modalities are dominated by autoregressive (AR) approaches, which process tokens sequentially from left to right, or top to bottom. These models jointly handle images, text, video, and audio for various tasks such as image captioning, question answering, and image generation. In this work, we explore discrete diffusion models as a unified generative formulation in the joint text and image domain, building upon their recent success in text generation. Discrete diffusion models offer several advantages over AR models, including improved control over quality versus diversity of generated samples, the ability to perform joint multimodal inpainting (across both text and image domains), and greater controllability in generation through guidance. Leveraging these benefits, we present the first Unified Multimodal Discrete Diffusion (UniDisc) model which is capable of jointly understanding and generating text and images for a variety of downstream tasks. We compare UniDisc to multimodal AR models, performing a scaling analysis and demonstrating that UniDisc outperforms them in terms of both performance and inference-time compute, enhanced controllability, editability, inpainting, and flexible trade-off between inference time and generation quality. Code and additional visualizations are available at https://unidisc.github.io.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Carnegie Mellon University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Carnegie Mellon University"
+   ],
+   "institution_ids": [
+    "05x2bcf33"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-15"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2503.20853",
@@ -107825,18 +108455,33 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2503.11495v1",
    "abstract": "Human processes video reasoning in a sequential spatio-temporal reasoning logic, we first identify the relevant frames (\"when\") and then analyse the spatial relationships (\"where\") between key objects, and finally leverage these relationships to draw inferences (\"what\"). However, can Video Large Language Models (Video-LLMs) also \"reason through a sequential spatio-temporal logic\" in videos? Existing Video-LLM benchmarks primarily focus on assessing object presence, neglecting relational reasoning. Consequently, it is difficult to measure whether a model truly comprehends object interactions (actions/events) in videos or merely relies on pre-trained \"memory\" of co-occurrences as biases in generating answers. In this work, we introduce a Video Spatio-Temporal Reasoning (V-STaR) benchmark to address these shortcomings. The key idea is to decompose video understanding into a Reverse Spatio-Temporal Reasoning (RSTR) task that simultaneously evaluates what objects are present, when events occur, and where they are located while capturing the underlying Chain-of-thought (CoT) logic. To support this evaluation, we construct a dataset to elicit the spatial-temporal reasoning process of Video-LLMs. It contains coarse-to-fine CoT questions generated by a semi-automated GPT-4-powered pipeline, embedding explicit reasoning chains to mimic human cognition. Experiments from 14 Video-LLMs on our V-STaR reveal significant gaps between current Video-LLMs and the needs for robust and consistent spatio-temporal reasoning.",
-   "affiliations": [],
+   "affiliations": [
+    "Queen Mary University of London",
+    "Nanjing University",
+    "Nanyang Technological University"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Queen Mary University of London",
+    "Nanjing University",
+    "Nanyang Technological University"
+   ],
+   "institution_ids": [
+    "026zzn846",
+    "01rxvg760",
+    "02e7b5302"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-15"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2503.11495",
@@ -110503,18 +111148,37 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2503.07314v1",
    "abstract": "Existing long-form video generation frameworks lack automated planning, requiring manual input for storylines, scenes, cinematography, and character interactions, resulting in high costs and inefficiencies. To address these challenges, we present MovieAgent, an automated movie generation via multi-agent Chain of Thought (CoT) planning. MovieAgent offers two key advantages: 1) We firstly explore and define the paradigm of automated movie/long-video generation. Given a script and character bank, our MovieAgent can generates multi-scene, multi-shot long-form videos with a coherent narrative, while ensuring character consistency, synchronized subtitles, and stable audio throughout the film. 2) MovieAgent introduces a hierarchical CoT-based reasoning process to automatically structure scenes, camera settings, and cinematography, significantly reducing human effort. By employing multiple LLM agents to simulate the roles of a director, screenwriter, storyboard artist, and location manager, MovieAgent streamlines the production pipeline. Experiments demonstrate that MovieAgent achieves new state-of-the-art results in script faithfulness, character consistency, and narrative coherence. Our hierarchical framework takes a step forward and provides new insights into fully automated movie generation. The code and project website are available at: https://github.com/showlab/MovieAgent and https://weijiawu.github.io/MovieAgent.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Show Lab, National University of Singapore"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "National University of Singapore"
+   ],
+   "institution_ids": [
+    "01tgyzw49"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-15"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2503.07314",
@@ -110879,18 +111543,37 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.LG",
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2503.05379v1",
    "abstract": "In this work, we present the first application of Reinforcement Learning with Verifiable Reward (RLVR) to an Omni-multimodal large language model in the context of emotion recognition, a task where both visual and audio modalities play crucial roles. We leverage RLVR to optimize the Omni model, significantly enhancing its performance in three key aspects: reasoning capability, emotion recognition accuracy, and generalization ability. The introduction of RLVR not only improves the model's overall performance on in-distribution data but also demonstrates superior robustness when evaluated on out-of-distribution datasets. More importantly, the improved reasoning capability enables clear analysis of the contributions of different modalities, particularly visual and audio information, in the emotion recognition process. This provides valuable insights into the optimization of multimodal large language models.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Tongyi Lab, Alibaba Group"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Alibaba Group"
+   ],
+   "institution_ids": [
+    "00k642b80"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-15"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2503.05379",
@@ -115499,18 +116182,37 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2503.19325v1",
    "abstract": "Long-context video modeling is essential for enabling generative models to function as world simulators, as they must maintain temporal coherence over extended time spans. However, most existing models are trained on short clips, limiting their ability to capture long-range dependencies, even with test-time extrapolation. While training directly on long videos is a natural solution, the rapid growth of vision tokens makes it computationally prohibitive. To support exploring efficient long-context video modeling, we first establish a strong autoregressive baseline called Frame AutoRegressive (FAR). FAR models temporal dependencies between continuous frames, converges faster than video diffusion transformers, and outperforms token-level autoregressive models. Based on this baseline, we observe context redundancy in video autoregression. Nearby frames are critical for maintaining temporal consistency, whereas distant frames primarily serve as context memory. To eliminate this redundancy, we propose the long short-term context modeling using asymmetric patchify kernels, which apply large kernels to distant frames to reduce redundant tokens, and standard kernels to local frames to preserve fine-grained detail. This significantly reduces the training cost of long videos. Our method achieves state-of-the-art results on both short and long video generation, providing an effective baseline for long-context autoregressive video modeling.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Show Lab, National University of Singapore"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "National University of Singapore"
+   ],
+   "institution_ids": [
+    "01tgyzw49"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-15"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2503.19325",
@@ -118604,18 +119306,43 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2503.13139v1",
    "abstract": "Understanding long video content is a complex endeavor that often relies on densely sampled frame captions or end-to-end feature selectors, yet these techniques commonly overlook the logical relationships between textual queries and visual elements. In practice, computational constraints necessitate coarse frame subsampling, a challenge analogous to \"finding a needle in a haystack.\" To address this issue, we introduce a semantics-driven search framework that reformulates keyframe selection under the paradigm of Visual Semantic-Logical Search. Specifically, we systematically define four fundamental logical dependencies: 1) spatial co-occurrence, 2) temporal proximity, 3) attribute dependency, and 4) causal order. These relations dynamically update frame sampling distributions through an iterative refinement process, enabling context-aware identification of semantically critical frames tailored to specific query requirements. Our method establishes new SOTA performance on the manually annotated benchmark in key-frame selection metrics. Furthermore, when applied to downstream video question-answering tasks, the proposed approach demonstrates the best performance gains over existing methods on LongVideoBench and Video-MME, validating its effectiveness in bridging the logical gap between textual queries and visual-temporal reasoning. The code will be publicly available.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Shanghai AI Laboratory",
+    "AI Thrust, HKUST(GZ)"
+   ],
+   "author_affiliations": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    [
+     0
+    ],
+    null,
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Shanghai Artificial Intelligence Laboratory",
+    "AI Thrust"
+   ],
+   "institution_ids": [
+    "03wkvpx79",
+    null
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-15"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2503.13139",
@@ -120105,18 +120832,61 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2503.11070v1",
    "abstract": "This paper introduces a holistic vision-language foundation model tailored for remote sensing, named Falcon. Falcon offers a unified, prompt-based paradigm that effectively executes comprehensive and complex remote sensing tasks. Falcon demonstrates powerful understanding and reasoning abilities at the image, region, and pixel levels. Specifically, given simple natural language instructions and remote sensing images, Falcon can produce impressive results in text form across 14 distinct tasks, i.e., image classification, object detection, segmentation, image captioning, and etc. To facilitate Falcon's training and empower its representation capacity to encode rich spatial and semantic information, we developed Falcon_SFT, a large-scale, multi-task, instruction-tuning dataset in the field of remote sensing. The Falcon_SFT dataset consists of approximately 78 million high-quality data samples, covering 5.6 million multi-spatial resolution and multi-view remote sensing images with diverse instructions. It features hierarchical annotations and undergoes manual sampling verification to ensure high data quality and reliability. Extensive comparative experiments are conducted, which verify that Falcon achieves remarkable performance over 67 datasets and 14 tasks, despite having only 0.7B parameters. We release the complete dataset, code, and model weights at https://github.com/TianHuiLab/Falcon, hoping to help further develop the open-source community.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Research Center for Space Computing System, ZhejiangLab, Hangzhou, China"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Research Center for Space Computing System"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-15"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2503.11070",
@@ -122189,18 +122959,36 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2503.07365v1",
    "abstract": "DeepSeek R1, and o1 have demonstrated powerful reasoning capabilities in the text domain through stable large-scale reinforcement learning. To enable broader applications, some works have attempted to transfer these capabilities to multimodal reasoning. However, these efforts have been limited by the limited difficulty of selected tasks and relatively small training scales, making it challenging to demonstrate strong multimodal reasoning abilities. To address this gap, we introduce the MMK12 dataset and MM-EUREKA with 7B and 32B parameters. The former is a high-quality multimodal mathematics reasoning dataset featuring diverse knowledge domains with human-verified answers and solution processes. The latter is a multimodal model employing rule-based reinforcement learning on MMK12, utilizing online filtering and two-stage training strategy to enhance training stability. MM-EUREKA demonstrates remarkable performance gains in multimodal mathematical reasoning, outperforming previous powerful models like InternVL2.5-78B or InternVL2.5-38B-MPO. In particular, MM-EUREKA achieves competitive or superior performance compared to both open-source and closed-source models, and trails slightly behind o1 in multidisciplinary reasoning tasks. We open-source our complete pipeline to foster further research in this area. We release all our codes, models, data, etc. at https://github.com/ModalMinds/MM-EUREKA",
-   "affiliations": [],
+   "affiliations": [
+    "Shanghai AI Laboratory",
+    "Shanghai Innovation Institute",
+    "Shanghai Jiao Tong University",
+    "The University of Hong Kong"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Shanghai Artificial Intelligence Laboratory",
+    "Shanghai Innovation Institute",
+    "Shanghai Jiao Tong University",
+    "University of Hong Kong"
+   ],
+   "institution_ids": [
+    "03wkvpx79",
+    "01fatbw66",
+    "0220qvk04",
+    null
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-15"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2503.07365",
@@ -144491,18 +145279,40 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2501.10018v1",
    "abstract": "Recent video inpainting algorithms integrate flow-based pixel propagation with transformer-based generation to leverage optical flow for restoring textures and objects using information from neighboring frames, while completing masked regions through visual Transformers. However, these approaches often encounter blurring and temporal inconsistencies when dealing with large masks, highlighting the need for models with enhanced generative capabilities. Recently, diffusion models have emerged as a prominent technique in image and video generation due to their impressive performance. In this paper, we introduce DiffuEraser, a video inpainting model based on stable diffusion, designed to fill masked regions with greater details and more coherent structures. We incorporate prior information to provide initialization and weak conditioning,which helps mitigate noisy artifacts and suppress hallucinations. Additionally, to improve temporal consistency during long-sequence inference, we expand the temporal receptive fields of both the prior model and DiffuEraser, and further enhance consistency by leveraging the temporal smoothing property of Video Diffusion Models. Experimental results demonstrate that our proposed method outperforms state-of-the-art techniques in both content completeness and temporal consistency while maintaining acceptable efficiency.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Tongyi Lab, Alibaba Group"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Alibaba Group"
+   ],
+   "institution_ids": [
+    "00k642b80"
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-15"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2501.10018",
@@ -145185,18 +145995,49 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2501.02487v1",
    "abstract": "We report ACE++, an instruction-based diffusion framework that tackles various image generation and editing tasks. Inspired by the input format for the inpainting task proposed by FLUX.1-Fill-dev, we improve the Long-context Condition Unit (LCU) introduced in ACE and extend this input paradigm to any editing and generation tasks. To take full advantage of image generative priors, we develop a two-stage training scheme to minimize the efforts of finetuning powerful text-to-image diffusion models like FLUX.1-dev. In the first stage, we pre-train the model using task data with the 0-ref tasks from the text-to-image model. There are many models in the community based on the post-training of text-to-image foundational models that meet this training paradigm of the first stage. For example, FLUX.1-Fill-dev deals primarily with painting tasks and can be used as an initialization to accelerate the training process. In the second stage, we finetune the above model to support the general instructions using all tasks defined in ACE. To promote the widespread application of ACE++ in different scenarios, we provide a comprehensive set of models that cover both full finetuning and lightweight finetuning, while considering general applicability and applicability in vertical scenarios. The qualitative analysis showcases the superiority of ACE++ in terms of generating image quality and prompt following ability. Code and models will be available on the project page: https://ali-vilab. github.io/ACE_plus_page/.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Tongyi Lab"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Tongyi Lab"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-15"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2501.02487",
@@ -153666,18 +154507,46 @@
    "journal_ref": null,
    "venue": "ACL 2025",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2501.05952v1",
    "abstract": "In this paper, we introduce SAIL-VL (ScAlable Vision Language Model TraIning via High QuaLity Data Curation), an open-source vision language model (VLM) series achieving state-of-the-art (SOTA) performance in 2B and 8B parameters. The following three key improvements contribute to SAIL-VL's leading performance: (1) Scalable high-quality visual understanding data construction: We implement a data construction pipeline to enable hundred-million-scale high-quality recaption data annotation. The resulted dataset SAIL-Caption is validated to be of the highest data quality compared with opensource datasets. (2) Scalable Pretraining with High-Quality Visual Understanding Data: We scale SAIL-VL's pretraining budget up to 655B tokens and show that even a 2B VLM benefits from scaled up training data sizes, exhibiting logarithmic data size scaling laws in benchmark performance. (3) Scalable SFT via data quantity and complexity scaling: We curate a high-quality SFT dataset collection with leading data quantity scaling effectiveness and demonstrate that training with progressively higher-complexity data surpasses baseline one-stage training by a large margin. SAIL-VL series models achieve the highest average score in 18 widely used VLM benchmarks in our evaluation, with the 2B model takes the top position over VLMs of comparable sizes on OpenCompass 2024 (https://rank.opencompass.org.cn/leaderboard-multimodal), demonstrating robust visual comprehension abilities. SAIL-VL series models are released at HuggingFace (https://huggingface.co/BytedanceDouyinContent).",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "ByteDance Douyin Content Group"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "ByteDance"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 9,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-15"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2501.05952",
