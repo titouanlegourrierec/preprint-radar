@@ -63,6 +63,8 @@ interface Props {
   onAdd: (name: string) => void;
   onRename: (from: string, to: string) => void;
   onDelete: (name: string) => void;
+  /** Download a folder's papers, for another browser or someone else (UX-44). */
+  onExport: (name: string) => void;
   /** A card dropped on a folder goes in it, on All saved out of its folder (UX-39). */
   onDropPaper: (name: string | null, arxivId: string) => void;
 }
@@ -83,6 +85,7 @@ export function Folders(props: Props) {
   // Another folder shown asks again before deleting.
   useEffect(() => setConfirming(false), [active]);
   const count = (folder: Folder) => folder.papers.filter((id) => savedIds.has(id)).length;
+  const shown = folders.find((folder) => folder.name === active);
 
   // The row a card is dragged over, and the one it landed on (`undefined`: none; `null`:
   // All saved), which bounces its count (UX-39).
@@ -197,6 +200,19 @@ export function Folders(props: Props) {
                 Rename
               </button>{" "}
               ·{" "}
+              {shown && count(shown) > 0 && (
+                <>
+                  <button
+                    type="button"
+                    class="link-button"
+                    title="This folder's papers as a file, which Import library reads in another browser"
+                    onClick={() => props.onExport(shown.name)}
+                  >
+                    Export
+                  </button>{" "}
+                  ·{" "}
+                </>
+              )}
               <button type="button" class="link-button" onClick={() => setConfirming(true)}>
                 Delete
               </button>

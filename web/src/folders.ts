@@ -121,22 +121,27 @@ export function putPaper(folders: Folder[], arxivId: string, name: string | null
 /**
  * The folders of an imported file merged into these: a folder of the same name takes the
  * file's papers that no folder holds here, a new one is added with them. How many folders
- * were added; the same array when nothing changed.
+ * were added, and how many of the file's papers stayed in another folder here (`kept`: a
+ * paper is in one folder, and this browser's choice wins); the same array when nothing
+ * changed.
  */
 export function mergeFolders(
   saved: Folder[],
   imported: readonly Folder[],
-): { folders: Folder[]; added: number } {
+): { folders: Folder[]; added: number; kept: number } {
   let folders = saved;
   let added = 0;
+  let kept = 0;
   for (const folder of imported) {
     if (!findFolder(folders, folder.name)) {
       folders = addFolder(folders, folder.name);
       added++;
     }
     for (const id of [...folder.papers].reverse()) {
-      if (folderOf(folders, id) === null) folders = putPaper(folders, id, folder.name);
+      const here = folderOf(folders, id);
+      if (here === null) folders = putPaper(folders, id, folder.name);
+      else if (!sameName(here, folder.name)) kept++;
     }
   }
-  return { folders, added };
+  return { folders, added, kept };
 }

@@ -142,6 +142,31 @@ export function readingListFile(
   };
 }
 
+/**
+ * One folder as a file to export (UX-44): its saved papers, in the list's order, and the
+ * folder alone, without the saved searches. Import library reads it as any library, the
+ * folder merging by name.
+ */
+export function folderFile(papers: readonly Paper[], folder: Folder): ReadingListFile {
+  const inFolder = new Set(folder.papers);
+  const saved = papers.filter((paper) => inFolder.has(paper.arxiv_id));
+  const savedIds = new Set(saved.map((paper) => paper.arxiv_id));
+  return readingListFile(saved, undefined, [
+    { name: folder.name, papers: folder.papers.filter((id) => savedIds.has(id)) },
+  ]);
+}
+
+/** The file of a folder's export, its name as a slug: "reading-list-to-read.json". */
+export function folderFileName(name: string): string {
+  const slug = name
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+  return `reading-list${slug ? `-${slug}` : ""}.json`;
+}
+
 /** Papers saved by the user, persisted in the browser (full records, so they survive data pruning). */
 export function loadReadingList(): Paper[] {
   try {

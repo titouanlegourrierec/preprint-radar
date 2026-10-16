@@ -547,10 +547,20 @@ test("the reading list's folders group saved papers, and stay", async ({ page })
   await page.getByRole("button", { name: "Export library" }).click();
   const file = JSON.parse(readFileSync(await (await download).path(), "utf8"));
   expect(file.folders).toEqual([{ name: "To read", papers: [expect.any(String)] }]);
+  // A folder alone, which Import library brings back (UX-44).
+  const exported = page.waitForEvent("download");
+  await folders.getByRole("button", { name: "Export" }).click();
+  const folderFile = await exported;
+  expect(folderFile.suggestedFilename()).toBe("reading-list-to-read.json");
+  const alone = JSON.parse(readFileSync(await folderFile.path(), "utf8"));
+  expect([alone.papers.length, alone.folders]).toEqual([1, file.folders]);
   // Deleted, its papers stay saved.
   await folders.getByRole("button", { name: "Delete" }).click();
   await folders.getByRole("button", { name: "Delete" }).click();
   await expect(page.getByText("2 of 2 saved papers")).toBeVisible();
+  await page.locator('input[type="file"]').setInputFiles(await folderFile.path());
+  await expect(page.getByText("0 papers added, 1 already saved; 1 folder added.")).toBeVisible();
+  await expect(folders.getByRole("button", { name: /^To read 1$/ })).toBeVisible();
   expect(errors).toEqual([]);
 });
 

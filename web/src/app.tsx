@@ -15,6 +15,7 @@ import { SavedSearches } from "./components/SavedSearches";
 import { Sidebar, SidebarToggle, WIDE_QUERY } from "./components/Sidebar";
 import { SiteFooter } from "./components/SiteFooter";
 import { Topbar } from "./components/Topbar";
+import { download } from "./download";
 import { feedOf } from "./feeds";
 import { findFolder, folderOf } from "./folders";
 import {
@@ -43,7 +44,7 @@ import {
   saveShowAbstracts,
   saveSidebarFolded,
 } from "./preferences";
-import { readingListFile } from "./reading-list";
+import { folderFile, folderFileName, readingListFile } from "./reading-list";
 import { searchOf } from "./saved-searches";
 import {
   activeFilterCount,
@@ -563,6 +564,15 @@ export function App() {
                       update({ folder: null });
                     }}
                     onDropPaper={(name, arxivId) => folders.put(arxivId, name)}
+                    onExport={(name) => {
+                      const folder = findFolder(folders.folders, name);
+                      if (!folder) return;
+                      download(
+                        folderFileName(folder.name),
+                        JSON.stringify(folderFile(readingList.papers, folder), null, 2),
+                        "application/json",
+                      );
+                    }}
                   />
                 )
               }

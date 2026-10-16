@@ -1,5 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
+  folderFile,
+  folderFileName,
   loadReadingList,
   mergePapers,
   movePaper,
@@ -104,6 +106,22 @@ describe("readPapers", () => {
     expect(readingListFile([ada], [], folders)).toEqual({ version: 1, papers: [ada], folders });
     expect(readingListFile([ada], [], [])).toEqual({ version: 1, papers: [ada] });
     expect(readPapers([ada, bob]).papers).toEqual([ada, bob]);
+  });
+
+  it("exports one folder: its saved papers in the list's order, the folder alone (UX-44)", () => {
+    const cy = makePaper({ arxiv_id: "2609.00003", authors: ["Cy"] });
+    // Put last in it, Ada leads the folder; the list has Bob first. A paper unsaved since
+    // is left out.
+    const folder = { name: "Pour lire", papers: [ada.arxiv_id, "2609.00009", bob.arxiv_id] };
+    expect(folderFile([bob, cy, ada], folder)).toEqual({
+      version: 1,
+      papers: [bob, ada],
+      folders: [{ name: "Pour lire", papers: [ada.arxiv_id, bob.arxiv_id] }],
+    });
+    expect(readPapers(folderFile([bob, cy, ada], folder)).papers).toEqual([bob, ada]);
+    expect(folderFileName("Pour lire")).toBe("reading-list-pour-lire.json");
+    expect(folderFileName("  Ré-lire / ✨ ")).toBe("reading-list-re-lire.json");
+    expect(folderFileName("✨")).toBe("reading-list.json");
   });
 
   it("skips what is not a paper, and keeps a paper once", () => {

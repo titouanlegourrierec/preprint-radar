@@ -62,12 +62,22 @@ export function useFolders() {
       );
       // Over the folders drawn, not in an update, whose count would come too late to say.
       const merged = mergeFolders(folders, imported);
-      if (merged.folders === folders) return null;
-      saveFolders(merged.folders);
-      setFolders(merged.folders);
-      return merged.added > 0
-        ? `${countOf(merged.added, "folder")} added`
-        : "papers put in folders";
+      if (merged.folders !== folders) {
+        saveFolders(merged.folders);
+        setFolders(merged.folders);
+      }
+      const said = [
+        merged.added > 0
+          ? `${countOf(merged.added, "folder")} added`
+          : merged.folders !== folders
+            ? "papers put in folders"
+            : null,
+        // A paper is in one folder: one filed here stays where it is (UX-44).
+        merged.kept > 0
+          ? `${countOf(merged.kept, "paper")} already in another folder stayed there`
+          : null,
+      ];
+      return said.filter(Boolean).join("; ") || null;
     },
   };
 }

@@ -100,6 +100,10 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 - The world map zooms, with its buttons, a pinch, or the wheel holding Ctrl or ⌘, and a
   drag moves it; it turns into a globe, which a drag turns, and which turns to a country
   chosen in the table. The page remembers Flat or Globe (UX-43).
+- A folder of the reading list exports alone, from its Export beside Rename and Delete: a
+  file of its papers that Import library reads, the way to bring one folder to another
+  browser or to give it to someone. The folder merges by name; a paper already in another
+  folder here stays there, and the import says how many did (UX-44).
 
 ### Data
 

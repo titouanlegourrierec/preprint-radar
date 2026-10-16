@@ -106,12 +106,16 @@ describe("changing folders", () => {
   });
 
   it("merges an imported file's folders by name", () => {
-    const { folders: merged, added } = mergeFolders(folders, [
-      // The file's papers already in a folder here stay where they are.
-      { name: "to read", papers: ["2609.00007", "2609.00003"] },
+    const {
+      folders: merged,
+      added,
+      kept,
+    } = mergeFolders(folders, [
+      // The file's papers already in a folder here stay where they are, and are counted.
+      { name: "to read", papers: ["2609.00007", "2609.00003", "2609.00001"] },
       { name: "Diffusion", papers: ["2609.00008", "2609.00009"] },
     ]);
-    expect(added).toBe(1);
+    expect([added, kept]).toEqual([1, 1]);
     expect(merged).toEqual([
       { name: "To read", papers: ["2609.00007", "2609.00001", "2609.00002"] },
       { name: "Splatting", papers: ["2609.00003"] },
@@ -120,6 +124,7 @@ describe("changing folders", () => {
     expect(mergeFolders(folders, [{ name: "Splatting", papers: ["2609.00003"] }])).toEqual({
       folders,
       added: 0,
+      kept: 0,
     });
   });
 });

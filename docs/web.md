@@ -376,7 +376,12 @@ derives what only the site uses. The pipeline and `validate` never see these.
   require: several would need no migration. Names are trimmed, cut to 60 characters and
   kept once whatever their case; a file's folders go through `readFolders` (ids kept when
   they are arXiv ids, a paper in the first folder holding it) and merge by name, a paper
-  already in a folder here staying there. The sidebar lists them where the other lists
+  already in a folder here staying there (`mergeFolders`' `kept`, which the import's
+  message counts: "1 paper already in another folder stayed there"). A folder exports
+  alone (UX-44, its Export beside Rename and Delete, `folderFile`): a library file of its
+  saved papers and the folder, without the saved searches (`reading-list-to-read.json`),
+  which Import library reads as any: the way to import one folder, or to give one to
+  someone. The sidebar lists them where the other lists
   choose their period (the reading list had a period picker it did not use): every saved
   paper, then each folder and its count, the one shown (`?folder=`) raised, renamed in
   place or deleted after an inline confirmation (its papers stay saved), and a new one
