@@ -9,7 +9,7 @@ import { LazyGraphView } from "./components/LazyGraphView";
 import { ListNotices, ViewNotes } from "./components/ListNotices";
 import { NoResults } from "./components/NoResults";
 import { PaperList } from "./components/PaperList";
-import { Rankings, RankingsControls, WorldMapButton } from "./components/Rankings";
+import { Rankings, RankingsControls } from "./components/Rankings";
 import { ResultsHeader } from "./components/ResultsHeader";
 import { SavedSearches } from "./components/SavedSearches";
 import { Sidebar, SidebarToggle, WIDE_QUERY } from "./components/Sidebar";
@@ -546,16 +546,6 @@ export function App() {
         <div class={folded ? "content content--folded" : "content"}>
           {category && (
             <Sidebar
-              tools={
-                rankings && (
-                  <WorldMapButton
-                    active={state.rank === "country"}
-                    onToggle={() =>
-                      update({ rank: state.rank === "country" ? "institution" : "country" })
-                    }
-                  />
-                )
-              }
               folders={
                 state.view === "reading-list" && (
                   <Folders
@@ -748,6 +738,7 @@ export function App() {
                   archived={archived}
                   kind={state.rank}
                   metric={state.metric}
+                  onMetric={(metric) => update({ metric })}
                   onEntity={(kind, name) =>
                     update({
                       view: archived ? "cited" : "papers",

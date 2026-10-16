@@ -5,9 +5,9 @@ import { type RankingMetric, rankEntities } from "../rankings";
 import type { Paper } from "../types";
 import type { RankKind } from "../url-state";
 import type { CountryMetric } from "../world";
-import { ChevronIcon, GlobeIcon } from "./icons";
 import { LazyWorldMap } from "./LazyWorldMap";
 import { Segmented } from "./Segmented";
+import { SortHeader } from "./SortHeader";
 
 const SHOWN = 100;
 const KIND_NAMES: Record<RankKind, string> = {
@@ -28,6 +28,8 @@ interface Props {
   kind: RankKind;
   /** By papers or citations, and for countries per million people or impact (`?metric=`). */
   metric: CountryMetric | null;
+  /** Rank by another metric: a column's header pressed (UX-42). */
+  onMetric: (metric: CountryMetric) => void;
   /** Show the papers of an institution or author. */
   onEntity: (kind: EntityKind, name: string) => void;
 }
@@ -47,33 +49,6 @@ function countryMetricOf(metric: CountryMetric | null, archived: boolean): Count
     : metric;
 }
 
-/**
- * The way to the world map in Rankings' sidebar (UX-41), drawn as a card: where the papers
- * come from, countries ranked; pressed again, back to the institutions.
- */
-export function WorldMapButton(props: { active: boolean; onToggle: () => void }) {
-  return (
-    <button
-      type="button"
-      class="world-map-button"
-      aria-pressed={props.active}
-      onClick={props.onToggle}
-    >
-      <span class="world-map-button__globe" aria-hidden="true">
-        <GlobeIcon />
-      </span>
-      <span class="world-map-button__label">
-        <span>World map</span>
-        <span class="world-map-button__detail">
-          {props.active ? "Back to the institutions" : "Where the papers come from"}
-        </span>
-      </span>
-      <span class="world-map-button__chevron" aria-hidden="true">
-        <ChevronIcon up={false} />
-      </span>
-    </button>
-  );
-}
 /** What Rankings ranks and how, in the list's header (UX-33), as the lists' order. */
 export function RankingsControls(props: {
   archived: boolean;
@@ -137,6 +112,7 @@ export function Rankings(props: Props) {
       citations={props.citations}
       metric={countryMetricOf(props.metric, props.archived)}
       archived={props.archived}
+      onMetric={props.onMetric}
     />
   ) : (
     <EntityRankings {...props} kind={props.kind} />
@@ -145,7 +121,7 @@ export function Rankings(props: Props) {
 
 /** Institutions or authors of the papers shown, by number of papers or citations. */
 function EntityRankings(props: Props & { kind: EntityKind }) {
-  const { papers, citations, citationsNote, archived, kind, onEntity } = props;
+  const { papers, citations, citationsNote, archived, kind, onMetric, onEntity } = props;
   const metric = metricOf(props.metric, archived);
   const ranked = useMemo(
     () => rankEntities(papers, kind, metric, citations),
@@ -177,12 +153,14 @@ function EntityRankings(props: Props & { kind: EntityKind }) {
                 #
               </th>
               <th scope="col">{kind === "institution" ? "Institution" : "Author"}</th>
-              <th scope="col" class="rankings__number">
-                Papers
-              </th>
-              <th scope="col" class="rankings__number" title={citationsNote}>
-                Citations
-              </th>
+              <SortHeader metric="papers" active={metric} name="Papers" onSort={onMetric} />
+              <SortHeader
+                metric="citations"
+                active={metric}
+                name="Citations"
+                title={citationsNote}
+                onSort={onMetric}
+              />
               <th scope="col">Most cited paper</th>
             </tr>
           </thead>

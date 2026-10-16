@@ -3,6 +3,7 @@ import type { NodeSizing } from "./graph-renderer";
 const SHOW_ABSTRACTS_KEY = "preprint-radar:show-abstracts";
 const HIDE_SEEN_KEY = "preprint-radar:hide-seen";
 const SIDEBAR_FOLDED_KEY = "preprint-radar:sidebar-folded";
+const MAP_GLOBE_KEY = "preprint-radar:map-globe";
 const GRAPH_INTRO_KEY = "preprint-radar:graph-intro-read";
 // v2: papers joined the graph, and the defaults changed with them.
 const GRAPH_SETTINGS_KEY = "preprint-radar:graph-settings:v2";
@@ -77,6 +78,23 @@ export function loadSidebarFolded(): boolean {
 export function saveSidebarFolded(folded: boolean): void {
   try {
     localStorage.setItem(SIDEBAR_FOLDED_KEY, String(folded));
+  } catch {
+    // Storage may be disabled (private browsing); the choice then lasts for the session.
+  }
+}
+
+/** Whether Rankings' world map is drawn as a globe rather than flat (UX-43). */
+export function loadMapGlobe(): boolean {
+  try {
+    return localStorage.getItem(MAP_GLOBE_KEY) === "true";
+  } catch {
+    return false;
+  }
+}
+
+export function saveMapGlobe(globe: boolean): void {
+  try {
+    localStorage.setItem(MAP_GLOBE_KEY, String(globe));
   } catch {
     // Storage may be disabled (private browsing); the choice then lasts for the session.
   }

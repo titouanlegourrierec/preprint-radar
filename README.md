@@ -106,7 +106,7 @@ days or archive years, narrowed by the search and filters — by number of paper
 citations, with each one's most cited paper; a name opens its papers. "Who works on
 gaussian splatting this month?" or "which labs wrote the most cited papers of 2017?". Its
 world map shows the countries the papers come from, by papers, citations, papers per
-million people or citations per paper.
+million people or citations per paper, flat or on a globe.
 
 The *Graph* tab is a full-screen map of the loaded papers (the recent days, or the highly
 cited papers of some years, chosen with the chips at its top), their institutions and

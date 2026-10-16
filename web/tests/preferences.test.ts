@@ -6,12 +6,14 @@ import {
   loadGraphIntroRead,
   loadGraphSettings,
   loadHideSeen,
+  loadMapGlobe,
   loadShowAbstracts,
   loadSidebarFolded,
   loadTheme,
   saveGraphIntroRead,
   saveGraphSettings,
   saveHideSeen,
+  saveMapGlobe,
   saveShowAbstracts,
   saveSidebarFolded,
   saveTheme,
@@ -60,19 +62,22 @@ describe("display preferences", () => {
       loadHideSeen(),
       loadGraphIntroRead(),
       loadSidebarFolded(),
-    ]).toEqual(["auto", false, false, false, false]);
+      loadMapGlobe(),
+    ]).toEqual(["auto", false, false, false, false, false]);
     saveTheme("dark");
     saveShowAbstracts(true);
     saveHideSeen(true);
     saveGraphIntroRead();
     saveSidebarFolded(true);
+    saveMapGlobe(true);
     expect([
       loadTheme(),
       loadShowAbstracts(),
       loadHideSeen(),
       loadGraphIntroRead(),
       loadSidebarFolded(),
-    ]).toEqual(["dark", true, true, true, true]);
+      loadMapGlobe(),
+    ]).toEqual(["dark", true, true, true, true, true]);
     saveTheme("auto");
     expect(loadTheme()).toBe("auto");
   });
@@ -88,12 +93,14 @@ describe("display preferences", () => {
       loadHideSeen(),
       loadGraphIntroRead(),
       loadSidebarFolded(),
-    ]).toEqual(["auto", false, false, false, false]);
+      loadMapGlobe(),
+    ]).toEqual(["auto", false, false, false, false, false]);
     expect(() => {
       saveTheme("light");
       saveShowAbstracts(true);
       saveHideSeen(true);
       saveSidebarFolded(true);
+      saveMapGlobe(true);
       saveGraphIntroRead();
       saveGraphSettings(DEFAULT_GRAPH_SETTINGS);
     }).not.toThrow();

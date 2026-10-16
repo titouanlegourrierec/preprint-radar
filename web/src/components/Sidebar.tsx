@@ -58,8 +58,6 @@ interface Props {
   children?: ComponentChildren;
   /** The reading list's folders, in place of the period it does not use (UX-38). */
   folders?: ComponentChildren;
-  /** After the papers' source: Rankings' world map (UX-41). */
-  tools?: ComponentChildren;
 }
 
 function FilterInput({
@@ -190,8 +188,6 @@ export function Sidebar(props: Props) {
           />
         )}
       </div>
-
-      {props.tools}
 
       <details
         class="filters"

@@ -560,10 +560,12 @@ cross-listed lately, says "first version 2019" beside its day (`firstVersionYear
   (`format.affiliationCoverage`, "Affiliations known for 331 of 2,018 papers (16%)"), and
   below half the table's own note says it too, with that the others count for no
   institution (PROD-16). What it ranks and by what are in the list's header (UX-33), its
-  papers chosen in the sidebar as the graph's: the period, or the highly cited years.
+  papers chosen in the sidebar as the graph's: the period, or the highly cited years. A
+  column's header ranks the table by it, as the By control does (`SortHeader`, UX-42), the
+  column ranked by marked with an arrow and `aria-sort`.
 - The world map (UX-41, `world.ts`, `components/WorldMap.tsx`): Rankings' countries
-  (`?rank=country`), opened from the sidebar's card (`WorldMapButton`) or the Rank control,
-  and downloaded then (`LazyWorldMap`: the map, d3-geo and topojson-client, 44 kB gzipped,
+  (`?rank=country`), chosen in the Rank control, and downloaded then (`LazyWorldMap`: the
+  map, d3-geo and topojson-client, 49 kB gzipped,
   which the lists never load). A paper is in the countries of its institutions with a ROR
   id (`countries.json`, UX-40), counted fractionally: half for each of two countries, its
   citations shared alike, so that a collaboration is not counted twice. Four metrics: papers,
@@ -582,7 +584,19 @@ cross-listed lately, says "first version 2019" beside its day (`firstVersionYear
   spaced on a logarithmic scale at nice numbers (`logThresholds`), as a few countries hold
   most papers. The pointer's tooltip gives the values first, then the country and its
   institutions with most papers; a click pins it. The table under the map, the map's values
-  for the keyboard and screen readers, pins a country from its name.
+  for the keyboard and screen readers, pins a country from its name, brought into view.
+  Flat or a globe (UX-43, `components/MapFrame.tsx`, the geometry in `map-view.ts`), as
+  this browser last chose (`loadMapGlobe`): the flat map zooms (eight times at most, kept
+  to its edges) as a `transform` on its group, the strokes and hatching as thin zoomed;
+  the globe (`geoOrthographic`) turns by a drag, opens turning to the first country of the
+  metric, and turns to a country pinned from the table (at once with reduced motion); it is
+  projected again at most once a frame, 11 ms in development for its 176 shapes. Both
+  zoom by the buttons, a pinch, or the wheel with Ctrl or ⌘, a trackpad's pinch coming as
+  one (`wheelFactor`, d3-zoom's steps): the wheel alone scrolls the page, the map being part
+  of it, and says the key a moment. A finger scrolls the page too (`touch-action: pan-y`),
+  but on a zoomed map, which it moves. A tooltip points at the center of a country's
+  largest part (`anchorOf`), France's not in the Atlantic. On a phone the globe is drawn in
+  a square, the flat map's height too little for it, and the countries' headers wrap.
 - What two nodes did together, and with whom one works (§17.1 #8): each of a node's
   connections in the details lists the papers their link stands for on a click
   (`linkPapers`: every shared paper when papers are nodes, in the projection only those

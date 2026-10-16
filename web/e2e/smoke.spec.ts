@@ -277,6 +277,10 @@ test("the Content-Security-Policy refuses nothing the site does", async ({ page 
   await expect(page.getByRole("img", { name: /^World map of the countries/ })).toBeVisible();
   await page.locator('[data-code="GB"]').hover();
   await expect(page.locator(".world-map__tip")).toBeVisible();
+  // Zoomed, and as a globe, its transforms and gradient (UX-43).
+  await page.getByRole("button", { name: "Zoom in" }).click();
+  await page.getByRole("button", { name: "Globe" }).click();
+  await expect(page.locator(".world-map__sea")).toBeVisible();
   expect(await page.evaluate("window.refused")).toEqual([]);
   expect(errors).toEqual([]);
 });
@@ -438,21 +442,31 @@ test("Rankings lists the institutions of the papers shown", async ({ page }) => 
   await expect(page.getByText(/in these 4 papers/)).toBeVisible();
   // Authors by citations, in the link, which opens them again (SRCH-13).
   await page.getByRole("button", { name: "Authors", exact: true }).click();
-  await page.getByRole("button", { name: "Citations", exact: true }).click();
+  await page.getByRole("group", { name: "By" }).getByRole("button", { name: "Citations" }).click();
   await expect(page).toHaveURL(/\?view=rankings&rank=author&metric=citations$/);
   await page.reload();
   await expect(
     page.getByRole("table", { name: "Authors of the papers shown, by citations" }),
   ).toBeVisible();
   await expect(page.getByRole("rowheader").first()).toBeVisible();
+  // A column's header ranks by it (UX-42).
+  await page
+    .getByRole("columnheader", { name: "Papers" })
+    .getByRole("button", { name: "Papers" })
+    .click();
+  await expect(page).toHaveURL(/\?view=rankings&rank=author&metric=papers$/);
+  await expect(page.getByRole("columnheader", { name: "Papers" })).toHaveAttribute(
+    "aria-sort",
+    "descending",
+  );
   expect(errors).toEqual([]);
 });
 
 test("Rankings maps the countries of the papers shown", async ({ page }) => {
   const errors = watchErrors(page);
   await page.goto("./?view=rankings");
-  // The sidebar's card opens the map, loaded then (UX-41).
-  await page.getByRole("button", { name: /^World map/ }).click();
+  // Countries open the map, loaded then (UX-41).
+  await page.getByRole("button", { name: "Countries", exact: true }).click();
   await expect(page).toHaveURL(/rank=country/);
   await expect(page.getByRole("img", { name: /^World map of the countries/ })).toBeVisible();
   // A paper of two countries counts half for each.
@@ -462,8 +476,23 @@ test("Rankings maps the countries of the papers shown", async ({ page }) => {
   // A country of the table is shown on the map.
   await table.getByRole("button", { name: "United Kingdom" }).click();
   await expect(page.locator('.world-map__shape--pinned[data-code="GB"]')).toHaveCount(1);
-  await page.getByRole("button", { name: "Per million people" }).click();
+  await expect(page.locator(".world-map__tip")).toContainText("United Kingdom");
+  // Its header ranks the table by a column (UX-42).
+  await table.getByRole("button", { name: "Per million people" }).click();
   await expect(page).toHaveURL(/metric=per-million/);
+  await expect(
+    page.getByRole("table", { name: "The countries of the papers shown, by per million people" }),
+  ).toBeVisible();
+  // The map zooms, and turns into a globe, which this browser remembers (UX-43).
+  const map = page.locator(".world-map__svg > g");
+  await expect(map).toHaveAttribute("transform", "translate(0 0) scale(1)");
+  await page.getByRole("button", { name: "Zoom in" }).click();
+  await expect(map).not.toHaveAttribute("transform", "translate(0 0) scale(1)");
+  await page.getByRole("button", { name: "Globe" }).click();
+  await expect(page.locator(".world-map__sea")).toBeVisible();
+  await expect(page.locator('[data-code="GB"]')).toHaveCount(1);
+  await page.reload();
+  await expect(page.locator(".world-map__sea")).toBeVisible();
   expect(errors).toEqual([]);
 });
 

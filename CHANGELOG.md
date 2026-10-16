@@ -89,12 +89,17 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 - The reading list keeps the order you give it, "My order": drag a card by its handle
   between two others, or onto a folder to file it; Alt+↑ and Alt+↓ move the focused one.
   Its Import and Export JSON are now Import library and Export library (UX-39).
-- Rankings has a world map of where the papers come from, opened from a card in its
-  sidebar: the countries of their institutions, colored by papers, citations, papers per
-  million people, or impact for highly cited papers (citations per paper over the world's),
-  so that large countries do not hide the others. A paper of several countries counts a
-  share for each; a tooltip gives each country's values and institutions, and a table lists
-  them all. The map loads only when opened (UX-41).
+- Rankings has a world map of where the papers come from, its Countries: the countries of
+  their institutions, colored by papers, citations, papers per million people, or impact
+  for highly cited papers (citations per paper over the world's), so that large countries
+  do not hide the others. A paper of several countries counts a share for each; a tooltip
+  gives each country's values and institutions, and a table lists them all. The map loads
+  only when opened (UX-41).
+- A click on a column's header ranks Rankings' tables by it, as the By control does
+  (UX-42).
+- The world map zooms, with its buttons, a pinch, or the wheel holding Ctrl or ⌘, and a
+  drag moves it; it turns into a globe, which a drag turns, and which turns to a country
+  chosen in the table. The page remembers Flat or Globe (UX-43).
 
 ### Data
 

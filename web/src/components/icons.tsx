@@ -349,6 +349,15 @@ export function SidebarIcon() {
   );
 }
 
+/** An arrow down: the column a table is ranked by, highest first (UX-42). */
+export function SortIcon() {
+  return (
+    <Outline name="sort">
+      <path d="M8 3v10M4.5 9.5 8 13l3.5-3.5" />
+    </Outline>
+  );
+}
+
 /** A chevron, down to unfold, up to fold. */
 export function ChevronIcon({ up }: { up: boolean }) {
   return (

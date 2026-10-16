@@ -37,6 +37,9 @@
   --map-d4: #2a78d6;
   --map-none: #f1f0ec;
   --map-none-line: #d6d5cf;
+  --map-sea: #f2f6fb;
+  --map-sea-deep: #d9e4f1;
+  --map-graticule: #d5dfeb;
   /* The fields, buttons and cards of every view, as the graph's chips (UX-33). */
   --radius: 12px;
   /* A paper's card, rounder (UX-34). */
@@ -89,6 +92,9 @@
     --map-d4: #5598e7;
     --map-none: #222221;
     --map-none-line: #3a3a37;
+    --map-sea: #1f2731;
+    --map-sea-deep: #12171d;
+    --map-graticule: #2c3745;
     --shadow: none;
     --shadow-raised: none;
 
@@ -130,6 +136,9 @@
   --map-d4: #5598e7;
   --map-none: #222221;
   --map-none-line: #3a3a37;
+  --map-sea: #1f2731;
+  --map-sea-deep: #12171d;
+  --map-graticule: #2c3745;
   --shadow: none;
   --shadow-raised: none;
 
@@ -2482,7 +2491,8 @@ html {
   border: 0;
 }
 
-.graph__zoom button {
+.graph__zoom button,
+.map-zoom button {
   width: 34px;
   height: 34px;
   border: 1px solid var(--border-strong);
@@ -2494,7 +2504,8 @@ html {
   cursor: pointer;
 }
 
-.graph__zoom button:hover {
+.graph__zoom button:hover,
+.map-zoom button:hover {
   background: var(--accent-soft);
 }
 
@@ -2755,6 +2766,40 @@ html {
   font-size: 0.82rem;
 }
 
+/* A column's header ranks the table by it (UX-42): its arrow shows on the column ranked
+   by, and faintly under the pointer on the others. */
+.rankings__sort {
+  display: inline-flex;
+  gap: 3px;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.rankings__arrow {
+  display: flex;
+  font-size: 0.95em;
+  opacity: 0;
+}
+
+.rankings__sort:hover,
+.rankings__sort--active {
+  color: var(--text);
+}
+
+.rankings__sort--active .rankings__arrow {
+  opacity: 1;
+}
+
+.rankings__sort:not(.rankings__sort--active):hover .rankings__arrow {
+  opacity: 0.5;
+}
+
 .rankings__top a {
   color: inherit;
 }
@@ -2763,6 +2808,45 @@ html {
   .rankings__top,
   .rankings__table th:last-child {
     display: none;
+  }
+
+  /* A phone's width for the countries' five numbers: their headers wrap. */
+  .rankings__table th.rankings__number,
+  .rankings__sort {
+    white-space: normal;
+  }
+
+  .rankings__sort {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    text-align: right;
+  }
+
+  .rankings__sort:not(.rankings__sort--active) .rankings__arrow {
+    display: none;
+  }
+
+  .world-map__table {
+    font-size: 0.8rem;
+  }
+
+  .world-map__table th,
+  .world-map__table td {
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+
+  .world-map__table .rankings__rank {
+    width: auto;
+  }
+
+  /* Its last column hidden, the one before ends the rows. */
+  .world-map__table tr > :first-child {
+    padding-left: 10px;
+  }
+
+  .world-map__table tr > :nth-last-child(2) {
+    padding-right: 8px;
   }
 }
 
@@ -2880,9 +2964,10 @@ html {
 }
 
 /* Rankings' world map (UX-41): a card with the map, its tooltip and legend, then the
-   countries' table; the way to it in the sidebar, a card too. */
+   countries' table. */
 .world-map {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 12px;
 }
 
@@ -2896,10 +2981,17 @@ html {
 
 .world-map__head {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 6px;
+}
+
+.world-map__tools {
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
 
 .world-map__head p {
@@ -2912,8 +3004,21 @@ html {
   font-size: 0.95rem;
 }
 
+/* The wheel alone scrolls the page, and so does a finger, but on a zoomed map, which it
+   moves (UX-43). */
 .world-map__frame {
   position: relative;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.world-map__frame--movable {
+  cursor: grab;
+}
+
+.world-map__frame--zoomed {
+  touch-action: none;
 }
 
 .world-map__svg {
@@ -2927,6 +3032,7 @@ html {
 .world-map__point {
   stroke: var(--surface);
   stroke-width: 0.6;
+  vector-effect: non-scaling-stroke;
   cursor: pointer;
 }
 
@@ -2939,6 +3045,12 @@ html {
 .world-map__shape--pinned {
   stroke: var(--text);
   stroke-width: 1.2;
+}
+
+.world-map__frame--dragging,
+.world-map__frame--dragging .world-map__shape,
+.world-map__frame--dragging .world-map__point {
+  cursor: grabbing;
 }
 
 .world-map__fill--none {
@@ -3011,6 +3123,71 @@ html {
 .world-map__fill--d4 {
   fill: var(--map-d4);
   background: var(--map-d4);
+}
+
+/* The globe (UX-43): its sea lit from the top left, under the countries, which keep their
+   colors; the parallels and meridians every 10°; a rim. */
+.world-map__sea {
+  fill: url("#world-map-sea");
+  filter: drop-shadow(0 6px 14px rgb(0 0 0 / 0.12));
+}
+
+.world-map__sea-light {
+  stop-color: var(--map-sea);
+}
+
+.world-map__sea-deep {
+  stop-color: var(--map-sea-deep);
+}
+
+.world-map__graticule {
+  fill: none;
+  stroke: var(--map-graticule);
+  stroke-width: 0.6;
+  pointer-events: none;
+}
+
+.world-map__rim {
+  fill: none;
+  stroke: var(--border-strong);
+  stroke-opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Said a moment when the wheel scrolls past the map. */
+.world-map__hint {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  margin: 0;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--text) 78%, transparent);
+  color: var(--surface);
+  font-size: 0.85rem;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+.world-map__hint--shown {
+  opacity: 1;
+}
+
+/* The map's zoom, as the graph's. */
+.map-zoom {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
 
 /* The values lead, the country follows (the legend's order inverted). */
@@ -3107,64 +3284,6 @@ html {
 
 .world-map__more {
   justify-self: start;
-}
-
-.world-map-button {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  width: 100%;
-  padding: 8px 12px;
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius);
-  background: linear-gradient(
-    135deg,
-    color-mix(in srgb, var(--accent) 12%, var(--surface)),
-    var(--surface) 70%
-  );
-  font-size: 0.85rem;
-  text-align: left;
-  cursor: pointer;
-}
-
-.world-map-button:hover,
-.world-map-button[aria-pressed="true"] {
-  border-color: var(--accent);
-}
-
-.world-map-button[aria-pressed="true"] {
-  background: var(--accent-soft);
-}
-
-.world-map-button__globe {
-  display: grid;
-  flex-shrink: 0;
-  place-items: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--accent-soft);
-  font-size: 17px;
-  color: var(--accent);
-}
-
-.world-map-button__label {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  line-height: 1.3;
-}
-
-.world-map-button__detail {
-  font-size: 0.72rem;
-  color: var(--text-muted);
-}
-
-/* A chevron to the right: it opens a view. */
-.world-map-button__chevron {
-  display: flex;
-  color: var(--text-muted);
-  transform: rotate(-90deg);
 }
 
 .saved-searches {

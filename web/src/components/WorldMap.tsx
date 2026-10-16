@@ -1,11 +1,7 @@
-import { geoEqualEarth, geoPath } from "d3-geo";
-import type { FeatureCollection, GeoJsonProperties, Geometry } from "geojson";
-import { useEffect, useMemo, useRef, useState } from "preact/hooks";
-import { feature } from "topojson-client";
-import type { GeometryCollection, Topology } from "topojson-specification";
+import { useCallback, useEffect, useMemo, useState } from "preact/hooks";
 import { loadCountries } from "../data";
 import { countOf } from "../format";
-import world from "../geo/world.json";
+import { loadMapGlobe, saveMapGlobe } from "../preferences";
 import type { Paper } from "../types";
 import {
   byMetric,
@@ -21,16 +17,10 @@ import {
   worldStats,
 } from "../world";
 import { InfoButton } from "./InfoButton";
+import { MapFrame, nameOf, WORLD } from "./MapFrame";
+import { Segmented } from "./Segmented";
+import { SortHeader } from "./SortHeader";
 
-interface WorldFile {
-  source: string;
-  topology: Topology<{ countries: GeometryCollection }>;
-  /** Each country's name and population, and a point for one too small to draw. */
-  facts: Record<string, { name: string; population: number; point?: [number, number] }>;
-}
-
-const WORLD = world as unknown as WorldFile;
-const WIDTH = 960;
 /** The volume metrics' classes, light to dark (`--map-s0`…); impact has five (`--map-d0`…). */
 const CLASSES = 6;
 /** Countries listed before "Show all". */
@@ -48,33 +38,6 @@ const METRIC_TITLES: Record<CountryMetric, string> = {
   "per-million": "Papers per million people",
   impact: "Impact: citations per paper over the world's",
 };
-
-/**
- * The countries' shapes in the Equal Earth projection, which keeps their areas (a globe
- * would hide half of them), projected once: Natural Earth's 1:110m countries without
- * Antarctica, and a point for each country too small for them (Hong Kong, Singapore).
- */
-const MAP = (() => {
-  const countries = feature(WORLD.topology, WORLD.topology.objects.countries) as FeatureCollection<
-    Geometry,
-    GeoJsonProperties
-  >;
-  const projection = geoEqualEarth().fitWidth(WIDTH, countries);
-  const path = geoPath(projection);
-  const height = Math.ceil(path.bounds(countries)[1][1]);
-  const shapes = countries.features.map((country) => ({
-    code: String(country.id ?? ""),
-    d: path(country) ?? "",
-    center: path.centroid(country),
-  }));
-  const points = Object.entries(WORLD.facts).flatMap(([code, facts]) => {
-    const at = facts.point ? projection(facts.point) : null;
-    return at ? [{ code, center: at }] : [];
-  });
-  return { height, shapes, points };
-})();
-
-const nameOf = (code: string) => WORLD.facts[code]?.name ?? code;
 
 /** A value of a metric as the map says it. */
 function formatValue(value: number | null, metric: CountryMetric): string {
@@ -106,16 +69,19 @@ interface Props {
   metric: CountryMetric;
   /** Highly cited papers, whose citations say something: impact is offered then. */
   archived: boolean;
+  /** Rank by another metric: a column's header pressed (UX-42). */
+  onMetric: (metric: CountryMetric) => void;
 }
 
 /**
  * Where the papers shown come from (UX-41): a world map of the countries of their
  * institutions, colored by papers, citations, papers per million people or impact, with
  * a tooltip on each country (its values and institutions with most papers), pinned by a
- * click; then the countries as a table, the map's values for those who do not see it.
- * Loaded with its chunk, only when Rankings shows countries.
+ * click, flat or a globe (UX-43); then the countries as a table, the map's values for
+ * those who do not see it, ranked by a column's header. Loaded with its chunk, only when
+ * Rankings shows countries.
  */
-export function WorldMap({ category, papers, citations, metric, archived }: Props) {
+export function WorldMap({ category, papers, citations, metric, archived, onMetric }: Props) {
   const [file, setFile] = useState<CountriesFile | null | undefined>(undefined);
   const [failed, setFailed] = useState(false);
   useEffect(() => {
@@ -157,95 +123,30 @@ export function WorldMap({ category, papers, citations, metric, archived }: Prop
           ),
     [stats, metric],
   );
-  const fill = (code: string): string => {
-    const country = byCode.get(code);
-    const value = country ? metricValue(country, metric) : null;
-    if (value === null) return "world-map__fill--none";
-    return `world-map__fill--${metric === "impact" ? "d" : "s"}${classOf(value, thresholds)}`;
-  };
+  const fillOf = useCallback(
+    (code: string): string => {
+      const country = byCode.get(code);
+      const value = country ? metricValue(country, metric) : null;
+      if (value === null) return "world-map__fill--none";
+      return `world-map__fill--${metric === "impact" ? "d" : "s"}${classOf(value, thresholds)}`;
+    },
+    [byCode, metric, thresholds],
+  );
+  // The countries too small for the map's shapes, a dot each where they have papers.
+  const dots = useMemo(
+    () => Object.keys(WORLD.facts).filter((code) => WORLD.facts[code]?.point && byCode.has(code)),
+    [byCode],
+  );
 
-  // The country under the pointer, or pinned by a click (a tap): its tooltip.
-  const [hovered, setHovered] = useState<{ code: string; x: number; y: number } | null>(null);
+  // The country pinned by a click (a tap), or from the table: its tooltip.
   const [pinned, setPinned] = useState<string | null>(null);
   const [all, setAll] = useState(false);
-  const frame = useRef<HTMLDivElement>(null);
-  // The country under the pointer: the shape or dot it is over (`data-code`).
-  const codeAt = (target: EventTarget | null): string | null =>
-    target instanceof Element
-      ? (target.closest<SVGElement>("[data-code]")?.dataset.code ?? null)
-      : null;
-  const pointAt = (event: PointerEvent) => {
-    const code = codeAt(event.target);
-    const box = frame.current?.getBoundingClientRect();
-    if (code === null || !box) setHovered(null);
-    else setHovered({ code, x: event.clientX - box.left, y: event.clientY - box.top });
+  // Flat or a globe (UX-43), as this browser last showed it.
+  const [globe, setGlobe] = useState(loadMapGlobe);
+  const project = (view: "flat" | "globe") => {
+    setGlobe(view === "globe");
+    saveMapGlobe(view === "globe");
   };
-  // A pinned country's tooltip sits at its center, as the frame scales the map.
-  const pinnedAt = (code: string) => {
-    const center =
-      MAP.shapes.find((shape) => shape.code === code)?.center ??
-      MAP.points.find((point) => point.code === code)?.center;
-    const width = frame.current?.clientWidth ?? WIDTH;
-    return center ? { code, x: (center[0] * width) / WIDTH, y: (center[1] * width) / WIDTH } : null;
-  };
-  const shown = hovered ?? (pinned ? pinnedAt(pinned) : null);
-
-  // The shapes are drawn again only when their colors or the pinned country change, not
-  // as the pointer moves over them.
-  const drawing = useMemo(
-    () => (
-      <svg
-        class="world-map__svg"
-        viewBox={`0 0 ${WIDTH} ${MAP.height}`}
-        role="img"
-        aria-label={`World map of the countries of these papers, by ${METRIC_NAMES[metric]}: ${byMetric(
-          stats?.countries ?? [],
-          metric,
-        )
-          .slice(0, 5)
-          .map(
-            (country) =>
-              `${nameOf(country.code)} ${formatValue(metricValue(country, metric), metric)}`,
-          )
-          .join(", ")}. The table below lists every country.`}
-      >
-        {/* Hatched where the metric says nothing, apart from any of its colors. */}
-        <defs>
-          <pattern
-            id="world-map-hatch"
-            width="4"
-            height="4"
-            patternUnits="userSpaceOnUse"
-            patternTransform="rotate(45)"
-          >
-            <rect class="world-map__hatch-ground" width="4" height="4" />
-            <rect class="world-map__hatch-line" width="1.4" height="4" />
-          </pattern>
-        </defs>
-        {MAP.shapes.map(({ code, d }, index) => (
-          <path
-            key={code || `shape-${index}`}
-            d={d}
-            class={`world-map__shape ${fill(code)}${pinned === code ? " world-map__shape--pinned" : ""}`}
-            data-code={code || undefined}
-          />
-        ))}
-        {MAP.points
-          .filter(({ code }) => byCode.has(code))
-          .map(({ code, center }) => (
-            <circle
-              key={code}
-              cx={center[0]}
-              cy={center[1]}
-              r={5}
-              class={`world-map__point ${fill(code)}${pinned === code ? " world-map__shape--pinned" : ""}`}
-              data-code={code}
-            />
-          ))}
-      </svg>
-    ),
-    [stats, metric, thresholds, pinned],
-  );
 
   if (failed) {
     return (
@@ -273,7 +174,6 @@ export function WorldMap({ category, papers, citations, metric, archived }: Prop
   const ordered = byMetric(stats.countries, metric);
   const listed = all ? ordered : ordered.slice(0, LISTED);
   const labels = classLabels(thresholds, metric);
-  const tip = shown ? byCode.get(shown.code) : undefined;
   const pinnedCountry = pinned ? byCode.get(pinned) : undefined;
   return (
     <section class="world-map" aria-label="World map">
@@ -287,69 +187,88 @@ export function WorldMap({ category, papers, citations, metric, archived }: Prop
               {stats.total ? Math.round((100 * stats.placed) / stats.total) : 0}%)
             </span>
           </p>
-          <InfoButton label="About the map" end>
-            <p>
-              {`Countries known for ${stats.placed.toLocaleString()} of ${countOf(stats.total, "paper")} (${
-                stats.total ? Math.round((100 * stats.placed) / stats.total) : 0
-              }%): those of their institutions with a ROR id, which OpenAlex places; the others count for no country.`}
-            </p>
-            <p>
-              A paper of several countries counts a share for each: half for each of two, so that a
-              collaboration is not counted twice. Its citations are shared the same way.
-            </p>
-            <p>
-              Papers per million people leave out countries under a million people. Impact is the
-              citations per paper of a country over those of all the papers placed, for countries of{" "}
-              {MIN_IMPACT_PAPERS} papers or more: 1.2× is a fifth above the world's; it means most
-              for highly cited papers, recent ones having few citations yet.
-            </p>
-            <p>
-              {`Map and populations from Natural Earth (public domain), estimated mostly in 2019; Hong Kong, Singapore and other countries too small for the map are its dots.`}
-            </p>
-          </InfoButton>
+          <div class="world-map__tools">
+            <Segmented
+              legend="Projection"
+              options={[
+                ["flat", "Flat"],
+                ["globe", "Globe"],
+              ]}
+              value={globe ? "globe" : "flat"}
+              onChange={project}
+              titles={{
+                flat: "The whole world at once, each country at its size",
+                globe: "A globe to turn",
+              }}
+            />
+            <InfoButton label="About the map" end>
+              <p>
+                {`Countries known for ${stats.placed.toLocaleString()} of ${countOf(stats.total, "paper")} (${
+                  stats.total ? Math.round((100 * stats.placed) / stats.total) : 0
+                }%): those of their institutions with a ROR id, which OpenAlex places; the others count for no country.`}
+              </p>
+              <p>
+                A paper of several countries counts a share for each: half for each of two, so that
+                a collaboration is not counted twice. Its citations are shared the same way.
+              </p>
+              <p>
+                Papers per million people leave out countries under a million people. Impact is the
+                citations per paper of a country over those of all the papers placed, for countries
+                of {MIN_IMPACT_PAPERS} papers or more: 1.2× is a fifth above the world's; it means
+                most for highly cited papers, recent ones having few citations yet.
+              </p>
+              <p>
+                {`Map and populations from Natural Earth (public domain), estimated mostly in 2019; Hong Kong, Singapore and other countries too small for the map are its dots.`}
+              </p>
+              <p>
+                {`Zoom with the buttons, a pinch, or the wheel holding Ctrl or ⌘ (the wheel alone scrolls the page); drag to move the map or turn the globe. The flat map shows every country at its size, the globe half of them at a time.`}
+              </p>
+            </InfoButton>
+          </div>
         </div>
-        {/* The pointer's tooltips; the table below holds the same values for the keyboard and
-            screen readers. */}
-        <div
-          class="world-map__frame"
-          ref={frame}
-          onPointerMove={pointAt}
-          onPointerLeave={() => setHovered(null)}
-          // A click or a tap pins a country's tooltip; the table's buttons do from the keyboard.
-          onPointerUp={(event) => {
-            const code = codeAt(event.target);
-            if (code !== null) setPinned(pinned === code ? null : code);
+        <MapFrame
+          key={globe ? "globe" : "flat"}
+          globe={globe}
+          label={`World map of the countries of these papers, by ${METRIC_NAMES[metric]}: ${ordered
+            .slice(0, 5)
+            .map(
+              (country) =>
+                `${nameOf(country.code)} ${formatValue(metricValue(country, metric), metric)}`,
+            )
+            .join(", ")}. The table below lists every country.`}
+          fillOf={fillOf}
+          dots={dots}
+          pinned={pinned}
+          onPin={setPinned}
+          lead={ordered[0]?.code ?? null}
+          tip={(code) => {
+            const tip = byCode.get(code);
+            return (
+              <>
+                <strong>
+                  {tip ? formatValue(metricValue(tip, metric), metric) : "—"}
+                  <span> {tip ? METRIC_NAMES[metric] : "no paper placed"}</span>
+                </strong>
+                <span class="world-map__tip-name">{nameOf(code)}</span>
+                {tip && (
+                  <dl>
+                    {(["papers", "citations", "per-million", "impact"] as const)
+                      .filter((other) => other !== metric && (other !== "impact" || archived))
+                      .map((other) => (
+                        <div key={other}>
+                          <dt>{METRIC_NAMES[other]}</dt>
+                          <dd>{formatValue(metricValue(tip, other), other)}</dd>
+                        </div>
+                      ))}
+                  </dl>
+                )}
+                {tip && tip.institutions.length > 0 && (
+                  <p>{tip.institutions.map(({ name }) => name).join(" · ")}</p>
+                )}
+              </>
+            );
           }}
-        >
-          {drawing}
-          {shown && (
-            <div
-              class={`world-map__tip${shown.x > (frame.current?.clientWidth ?? WIDTH) / 2 ? " world-map__tip--left" : ""}`}
-              style={{ left: `${shown.x}px`, top: `${shown.y}px` }}
-            >
-              <strong>
-                {tip ? formatValue(metricValue(tip, metric), metric) : "—"}
-                <span> {tip ? METRIC_NAMES[metric] : "no paper placed"}</span>
-              </strong>
-              <span class="world-map__tip-name">{nameOf(shown.code)}</span>
-              {tip && (
-                <dl>
-                  {(["papers", "citations", "per-million", "impact"] as const)
-                    .filter((other) => other !== metric && (other !== "impact" || archived))
-                    .map((other) => (
-                      <div key={other}>
-                        <dt>{METRIC_NAMES[other]}</dt>
-                        <dd>{formatValue(metricValue(tip, other), other)}</dd>
-                      </div>
-                    ))}
-                </dl>
-              )}
-              {tip && tip.institutions.length > 0 && (
-                <p>{tip.institutions.map(({ name }) => name).join(" · ")}</p>
-              )}
-            </div>
-          )}
-        </div>
+        />
         <ul class="world-map__legend" aria-label={`Legend: ${METRIC_NAMES[metric]}`}>
           {labels.map((label, index) => (
             <li key={label} class="world-map__key">
@@ -377,19 +296,16 @@ export function WorldMap({ category, papers, citations, metric, archived }: Prop
               #
             </th>
             <th scope="col">Country</th>
-            <th scope="col" class="rankings__number">
-              Papers
-            </th>
-            <th scope="col" class="rankings__number">
-              Citations
-            </th>
-            <th scope="col" class="rankings__number">
-              Per million people
-            </th>
+            <SortHeader metric="papers" active={metric} name="Papers" onSort={onMetric} />
+            <SortHeader metric="citations" active={metric} name="Citations" onSort={onMetric} />
+            <SortHeader
+              metric="per-million"
+              active={metric}
+              name="Per million people"
+              onSort={onMetric}
+            />
             {archived && (
-              <th scope="col" class="rankings__number">
-                Impact
-              </th>
+              <SortHeader metric="impact" active={metric} name="Impact" onSort={onMetric} />
             )}
             <th scope="col">Institutions with most papers</th>
           </tr>
