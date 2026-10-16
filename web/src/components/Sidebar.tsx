@@ -13,7 +13,14 @@ import {
 } from "../search";
 import type { ArchiveSummary, DaySummary, TopRecentSummary } from "../types";
 import { ArchivePicker } from "./ArchiveYears";
-import { AuthorsIcon, CategoryIcon, InstitutionIcon, SelectChevron, VenueIcon } from "./icons";
+import {
+  AuthorsIcon,
+  CategoryIcon,
+  InstitutionIcon,
+  SelectChevron,
+  SidebarIcon,
+  VenueIcon,
+} from "./icons";
 import { PeriodPicker } from "./PeriodPicker";
 import { VenueSelect } from "./VenueSelect";
 
@@ -94,8 +101,38 @@ function FilterInput({
   );
 }
 
-// Wide screens always show the filters, whose summary they hide (styles.css).
-const WIDE_QUERY = "(min-width: 821px)";
+// Wide screens always show the filters, whose summary they hide (styles.css), and can
+// fold the whole sidebar instead (UX-35).
+export const WIDE_QUERY = "(min-width: 821px)";
+
+/**
+ * The button that folds the sidebar, the papers then the whole width, and shows it again
+ * (UX-35): at the left of the list's count, beside the sidebar it folds. Folded, it counts
+ * the filters set, which the chips above the papers name.
+ */
+export function SidebarToggle(props: { folded: boolean; active: number; onToggle: () => void }) {
+  const label = props.folded
+    ? `Show the filters${props.active > 0 ? ` (${props.active} set)` : ""}`
+    : "Hide the filters";
+  return (
+    <button
+      type="button"
+      class="sidebar-toggle"
+      aria-controls="sidebar"
+      aria-expanded={!props.folded}
+      aria-label={label}
+      title={label}
+      onClick={props.onToggle}
+    >
+      <SidebarIcon />
+      {props.folded && props.active > 0 && (
+        <span class="sidebar-toggle__count" aria-hidden="true">
+          {props.active}
+        </span>
+      )}
+    </button>
+  );
+}
 
 export function Sidebar(props: Props) {
   const { filters, onFilters, archive } = props;
@@ -105,7 +142,7 @@ export function Sidebar(props: Props) {
   // window widened past the breakpoint shows it, whatever was decided.
   const [filtersOpen, setFiltersOpen] = useState(active > 0);
   return (
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar">
       {props.categories.length > 1 && (
         <label class="field field--select">
           <CategoryIcon />

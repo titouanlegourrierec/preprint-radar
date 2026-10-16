@@ -73,6 +73,9 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   and a click on it opens its abstract, as More does. "Hide cross-lists" leaves the filters;
   a link or saved search that hides them still does, its chip above the papers clearing
   it (UX-34).
+- The sidebar folds, so that the papers take the whole width: the button at the left of
+  the count hides it and shows it again, counting the filters set while it is folded, and
+  the page remembers the choice (UX-35).
 
 ### Performance
 

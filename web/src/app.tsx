@@ -11,7 +11,7 @@ import { PaperList } from "./components/PaperList";
 import { Rankings, RankingsControls } from "./components/Rankings";
 import { ResultsHeader } from "./components/ResultsHeader";
 import { SavedSearches } from "./components/SavedSearches";
-import { Sidebar } from "./components/Sidebar";
+import { Sidebar, SidebarToggle, WIDE_QUERY } from "./components/Sidebar";
 import { SiteFooter } from "./components/SiteFooter";
 import { Topbar } from "./components/Topbar";
 import { feedOf } from "./feeds";
@@ -24,6 +24,7 @@ import {
   staleCitations,
 } from "./format";
 import { useCitations } from "./hooks/use-citations";
+import { useMediaQuery } from "./hooks/use-media-query";
 import { usePapers } from "./hooks/use-papers";
 import { useReadingList } from "./hooks/use-reading-list";
 import { useSavedSearches } from "./hooks/use-saved-searches";
@@ -33,7 +34,12 @@ import { useUrlState } from "./hooks/use-url-state";
 import { namedInstitutions } from "./institutions";
 import { hasModifier, isTyping } from "./keyboard";
 import { between, LONGEST_RANGE, samePeriod, selectDays } from "./period";
-import { loadShowAbstracts, saveShowAbstracts } from "./preferences";
+import {
+  loadShowAbstracts,
+  loadSidebarFolded,
+  saveShowAbstracts,
+  saveSidebarFolded,
+} from "./preferences";
 import { readingListFile } from "./reading-list";
 import { searchOf } from "./saved-searches";
 import {
@@ -141,6 +147,10 @@ export function App() {
   }, [state.view]);
   const { theme, resolved, next, cycle } = useTheme();
   const [showAbstracts, setShowAbstracts] = useState(loadShowAbstracts);
+  // A folded sidebar leaves the papers the whole width (UX-35); phones stack it instead.
+  const [sidebarFolded, setSidebarFolded] = useState(loadSidebarFolded);
+  const wide = useMediaQuery(WIDE_QUERY);
+  const folded = wide && sidebarFolded;
 
   const activeIndex =
     state.view === "reading-list" ? readingList.index : load.status === "ready" ? load.index : null;
@@ -307,6 +317,10 @@ export function App() {
     }
   };
   const clearPaper = useCallback(() => update({ paper: null }), [update]);
+  const toggleSidebar = () => {
+    setSidebarFolded(!sidebarFolded);
+    saveSidebarFolded(!sidebarFolded);
+  };
   const toggleAbstracts = () => {
     setShowAbstracts(!showAbstracts);
     saveShowAbstracts(!showAbstracts);
@@ -482,7 +496,7 @@ export function App() {
           <SearchHint />
         </p>
 
-        <div class="content">
+        <div class={folded ? "content content--folded" : "content"}>
           {category && (
             <Sidebar
               categories={categories}
@@ -540,6 +554,16 @@ export function App() {
                 onSort={(sort) => update({ sort })}
                 citationsNote={citationsNote}
                 gainsSpan={gainsSpan}
+                sidebarToggle={
+                  wide &&
+                  category && (
+                    <SidebarToggle
+                      folded={folded}
+                      active={activeFilterCount(state.filters)}
+                      onToggle={toggleSidebar}
+                    />
+                  )
+                }
                 notes={
                   <ViewNotes
                     view={state.view}

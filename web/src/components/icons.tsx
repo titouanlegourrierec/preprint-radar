@@ -261,6 +261,16 @@ export function AutoThemeIcon() {
   );
 }
 
+/** A window with a column on its left: the lists' sidebar, folded or shown. */
+export function SidebarIcon() {
+  return (
+    <Outline name="sidebar">
+      <rect x="1.75" y="2.5" width="12.5" height="11" rx="2" />
+      <path d="M6 2.5v11" />
+    </Outline>
+  );
+}
+
 /** A chevron, down to unfold, up to fold. */
 export function ChevronIcon({ up }: { up: boolean }) {
   return (

@@ -112,6 +112,23 @@ test("a click on a folded card opens it, not one on its controls", async ({ page
   expect(errors).toEqual([]);
 });
 
+test("the sidebar folds, the papers the whole width, and stays so", async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.goto("./");
+  await expect(page.getByText("4 of 4 cs.CV papers")).toBeVisible();
+  const sidebar = page.locator("#sidebar");
+  await expect(sidebar).toBeVisible();
+  // Folded, it is out of sight and of the tab order; the choice is remembered (UX-35).
+  await page.getByRole("button", { name: "Hide the filters" }).click();
+  await expect(sidebar).toBeHidden();
+  await page.reload();
+  await expect(page.getByText("4 of 4 cs.CV papers")).toBeVisible();
+  await expect(sidebar).toBeHidden();
+  await page.getByRole("button", { name: "Show the filters" }).click();
+  await expect(sidebar).toBeVisible();
+  expect(errors).toEqual([]);
+});
+
 test("the calendar picks a day from the keyboard", async ({ page }) => {
   await page.goto("./");
   await expect(page.getByText("4 of 4 cs.CV papers")).toBeVisible();

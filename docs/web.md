@@ -141,6 +141,13 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   buttons, cards and notices share the graph's radius (`--radius`, 12 px). The cards' star
   and the theme button are drawn icons (`StarIcon`, filled once saved; a sun, a crescent,
   a half circle for the system's theme).
+- On a wide screen the sidebar folds (UX-35): `SidebarToggle`, at the left of the count
+  (`aria-controls="sidebar"`), closes its column (`.content--folded`, a transition of the
+  grid's columns, the sidebar's children keeping their width so that it clips rather than
+  squeezes them), then hides it (`visibility`, out of the tab order); folded, a badge
+  counts the filters set (`activeFilterCount`), which the chips above the papers name. The
+  choice is this browser's (`loadSidebarFolded`). Under 821 px the sidebar is stacked above
+  the papers, its filters folded in `<details>`, and the button is not shown.
 - `components/ErrorBoundary.tsx` (TEST-10): a view that fails to draw says so, with Reload,
   a link to start over and the correction contact, and leaves the tabs and the sidebar
   usable; it draws again once the state or the papers change (`resetKeys`: Back, another

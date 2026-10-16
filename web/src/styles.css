@@ -392,6 +392,16 @@ html {
   grid-template-columns: 260px minmax(0, 1fr);
   gap: 28px;
   margin-top: 8px;
+  transition:
+    grid-template-columns 220ms ease,
+    column-gap 220ms ease;
+}
+
+/* The sidebar folded (UX-35): its column closes, the papers widen, and it hides once
+   closed, out of the tab order and of screen readers. */
+.content--folded {
+  grid-template-columns: 0 minmax(0, 1fr);
+  column-gap: 0;
 }
 
 @media (max-width: 820px) {
@@ -411,8 +421,28 @@ html {
   position: sticky;
   top: 76px;
   max-height: calc(100vh - 90px);
+  overflow-x: hidden;
   overflow-y: auto;
   padding-bottom: 12px;
+}
+
+/* As wide while its column closes, which clips them rather than squeezes them. */
+.sidebar > * {
+  flex-shrink: 0;
+  min-width: 260px;
+}
+
+/* Folded, hidden once its column closed (above). */
+.content--folded .sidebar {
+  visibility: hidden;
+  transition: visibility 0s 220ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .content,
+  .content--folded .sidebar {
+    transition: none;
+  }
 }
 
 @media (max-width: 820px) {
@@ -721,6 +751,45 @@ html {
   gap: 8px 16px;
   min-height: 36px;
   padding-bottom: 6px;
+}
+
+/* The sidebar's fold, at the left of the count (UX-35), as the graph's buttons. */
+.sidebar-toggle {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.sidebar-toggle:hover,
+.sidebar-toggle[aria-expanded="false"] {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+/* The filters set while it is folded. */
+.sidebar-toggle__count {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  display: grid;
+  place-items: center;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--surface);
+  font-size: 0.65rem;
+  font-weight: 600;
+  line-height: 1;
 }
 
 /* The count and its ⓘ, the rest pushed to the right. */

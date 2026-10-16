@@ -7,11 +7,13 @@ import {
   loadGraphSettings,
   loadHideSeen,
   loadShowAbstracts,
+  loadSidebarFolded,
   loadTheme,
   saveGraphIntroRead,
   saveGraphSettings,
   saveHideSeen,
   saveShowAbstracts,
+  saveSidebarFolded,
   saveTheme,
 } from "../src/preferences";
 
@@ -52,22 +54,25 @@ describe("display preferences", () => {
   afterEach(() => vi.unstubAllGlobals());
 
   it("are remembered", () => {
-    expect([loadTheme(), loadShowAbstracts(), loadHideSeen(), loadGraphIntroRead()]).toEqual([
-      "auto",
-      false,
-      false,
-      false,
-    ]);
+    expect([
+      loadTheme(),
+      loadShowAbstracts(),
+      loadHideSeen(),
+      loadGraphIntroRead(),
+      loadSidebarFolded(),
+    ]).toEqual(["auto", false, false, false, false]);
     saveTheme("dark");
     saveShowAbstracts(true);
     saveHideSeen(true);
     saveGraphIntroRead();
-    expect([loadTheme(), loadShowAbstracts(), loadHideSeen(), loadGraphIntroRead()]).toEqual([
-      "dark",
-      true,
-      true,
-      true,
-    ]);
+    saveSidebarFolded(true);
+    expect([
+      loadTheme(),
+      loadShowAbstracts(),
+      loadHideSeen(),
+      loadGraphIntroRead(),
+      loadSidebarFolded(),
+    ]).toEqual(["dark", true, true, true, true]);
     saveTheme("auto");
     expect(loadTheme()).toBe("auto");
   });
@@ -77,16 +82,18 @@ describe("display preferences", () => {
       throw new Error("denied");
     };
     vi.stubGlobal("localStorage", { getItem: refuse, setItem: refuse, removeItem: refuse });
-    expect([loadTheme(), loadShowAbstracts(), loadHideSeen(), loadGraphIntroRead()]).toEqual([
-      "auto",
-      false,
-      false,
-      false,
-    ]);
+    expect([
+      loadTheme(),
+      loadShowAbstracts(),
+      loadHideSeen(),
+      loadGraphIntroRead(),
+      loadSidebarFolded(),
+    ]).toEqual(["auto", false, false, false, false]);
     expect(() => {
       saveTheme("light");
       saveShowAbstracts(true);
       saveHideSeen(true);
+      saveSidebarFolded(true);
       saveGraphIntroRead();
       saveGraphSettings(DEFAULT_GRAPH_SETTINGS);
     }).not.toThrow();

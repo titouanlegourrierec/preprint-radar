@@ -71,6 +71,8 @@ interface Props {
   gainsSpan: { since: string; to: string } | null;
   /** What the view says of its papers: an ⓘ beside the count (UX-33). */
   notes?: ComponentChildren;
+  /** The button folding the sidebar, before the count (UX-35). */
+  sidebarToggle?: ComponentChildren;
   /** The view's own controls, after the count: Rankings' (UX-33). */
   controls?: ComponentChildren;
   hideSeen: boolean;
@@ -115,6 +117,7 @@ export function ResultsHeader(props: Props) {
   return (
     <div class="results__header">
       <div class="results__count">
+        {props.sidebarToggle}
         <p class="muted" aria-live="polite">
           {count && ("loading" in count ? count.loading : countText(count))}
         </p>

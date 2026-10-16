@@ -2,6 +2,7 @@ import type { NodeSizing } from "./graph-renderer";
 
 const SHOW_ABSTRACTS_KEY = "preprint-radar:show-abstracts";
 const HIDE_SEEN_KEY = "preprint-radar:hide-seen";
+const SIDEBAR_FOLDED_KEY = "preprint-radar:sidebar-folded";
 const GRAPH_INTRO_KEY = "preprint-radar:graph-intro-read";
 // v2: papers joined the graph, and the defaults changed with them.
 const GRAPH_SETTINGS_KEY = "preprint-radar:graph-settings:v2";
@@ -59,6 +60,23 @@ export function loadHideSeen(): boolean {
 export function saveHideSeen(hide: boolean): void {
   try {
     localStorage.setItem(HIDE_SEEN_KEY, String(hide));
+  } catch {
+    // Storage may be disabled (private browsing); the choice then lasts for the session.
+  }
+}
+
+/** Whether the lists' sidebar is folded, the papers then the whole width (UX-35). */
+export function loadSidebarFolded(): boolean {
+  try {
+    return localStorage.getItem(SIDEBAR_FOLDED_KEY) === "true";
+  } catch {
+    return false;
+  }
+}
+
+export function saveSidebarFolded(folded: boolean): void {
+  try {
+    localStorage.setItem(SIDEBAR_FOLDED_KEY, String(folded));
   } catch {
     // Storage may be disabled (private browsing); the choice then lasts for the session.
   }
