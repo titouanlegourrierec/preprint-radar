@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "preact/hooks";
 import type { SearchFilters } from "../search";
+import { readShare } from "../share";
 import { isNavigation, isTypedChange, readState, type ViewState, writeState } from "../url-state";
 import { useDebounced } from "./use-debounced";
 
@@ -41,7 +42,10 @@ export function useUrlState() {
     const corrected = correcting.current;
     correcting.current = false;
     if (search === window.location.search) return;
-    const url = `${window.location.pathname}${search}`;
+    // A shared folder's fragment stays while the reading list shows it (UX-46).
+    const { hash } = window.location;
+    const shared = applied.view === "reading-list" && readShare(hash) !== null;
+    const url = `${window.location.pathname}${search}${shared ? hash : ""}`;
     if (!corrected && isNavigation(readState(window.location.search), applied)) {
       window.history.pushState(null, "", url);
     } else {

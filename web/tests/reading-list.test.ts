@@ -11,6 +11,7 @@ import {
   saveReadingList,
   toPaper,
 } from "../src/reading-list";
+import { lightRecord } from "../src/search-shards";
 import { makePaper } from "./fixtures";
 
 const ada = makePaper({ arxiv_id: "2609.00001", authors: ["Ada"], affiliations: ["MIT"] });
@@ -122,6 +123,17 @@ describe("readPapers", () => {
     expect(folderFileName("Pour lire")).toBe("reading-list-pour-lire.json");
     expect(folderFileName("  Ré-lire / ✨ ")).toBe("reading-list-re-lire.json");
     expect(folderFileName("✨")).toBe("reading-list.json");
+  });
+
+  it("keeps a search shard's record its way to the abstract, as a shared paper saved (UX-46)", () => {
+    const light = lightRecord(
+      { ...ada, comments: "Code: https://github.com/example/ada" },
+      "cs.CV/2026-09-30.json",
+    );
+    const [saved] = readPapers(readingListFile([light])).papers;
+    expect(saved?.light).toBe("cs.CV/2026-09-30.json");
+    expect(saved?.code_url).toBe("https://github.com/example/ada");
+    expect(saved?.abstract).toBeNull();
   });
 
   it("skips what is not a paper, and keeps a paper once", () => {

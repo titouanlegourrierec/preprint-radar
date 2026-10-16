@@ -213,6 +213,7 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   | `rank` | `author`: Rankings ranks authors (SRCH-13); `country`: countries, on a world map (UX-41) | institutions | Rankings |
   | `metric` | `papers` or `citations`: what Rankings ranks by; for countries `per-million` (papers per million people) or `impact` (highly cited papers only) too | citations for highly cited papers, else papers | Rankings |
   | `folder` | A folder of the reading list (`To read`; UX-38), written in its links only: folders are this browser's, and a name it does not have shows every saved paper | every saved paper | the reading list |
+  | `#folder=…&papers=…` | The fragment of a folder's link (UX-46): its name and its papers' arXiv ids, kept while the reading list shows it | none | the reading list |
   | `by`, `at` | An author or an institution, as clicked: that name only | none | the lists, Rankings |
   | `author`, `aff` | Typed author or affiliation text: word starts (old links' `by` and `at`) | none | the same |
   | `venue` | A venue (`ECCV 2026`), a family (`ECCV*`) or any (`*`) | none | the lists, Rankings, the graph |
@@ -392,6 +393,26 @@ derives what only the site uses. The pipeline and `validate` never see these.
   that the counts are the saved papers'.
   The count line names the folder ("1 of 1 saved paper in “To read”"), and the Export menu
   exports its papers.
+- **A folder shared by a link** (UX-46, `share.ts`, `hooks/use-shared-folder.ts`,
+  `components/SharedNotice.tsx`): the folder's Share (beside Export) copies a link, its
+  name and its saved papers' arXiv ids, in the list's order, in the fragment
+  (`#folder=To%20read&papers=2610.01234,2609.12345`, commas as they are, 1,000 papers at
+  most): browsers do not send it, so the papers shared never reach GitHub's servers, and no
+  length limit of theirs applies; a refused clipboard shows the link to copy. Opened, the
+  reading list shows the folder in place of the saved papers, a row of its own above All
+  saved (another folder chosen leaves it, the row returns to it), with the list's search,
+  orders and cards. Its papers are found in the site's data by their ids
+  (`data.loadPapersById`): the search shards of the months an id says it was announced in
+  (its own and the next, `candidateMonths`; light records, which a card loads whole when
+  opened, and which the reading list keeps so), then the archive's years
+  (`candidateYears`), then the most cited papers of the last 12 months; one the data does
+  not hold (older than a year and not highly cited) is named with its arXiv link. "Add to
+  my reading list" saves them, in a folder of that name (merged with one this browser has),
+  then shows it; Close drops the link. The fragment is untrusted (`readShare`: a folder's
+  name cleaned, arXiv ids only). A paper cross-listed to the category months after its
+  submission is in a later month's shard than its id says, and shows as not held unless
+  the archive keeps it: rare, and every month's shard would cost about 0.9 MB gzipped each. A copy, not a folder kept in common: that would need a
+  server.
 - **The reading list's own order** (UX-39): "My order", its default without search words
   (`viewModel().custom`, `?sort=custom`), the stored list's order, the paper saved last
   first, as the user arranges it: a card is dragged by its handle (`.paper__grip`, which

@@ -12,9 +12,11 @@ import { PaperList } from "./components/PaperList";
 import { Rankings, RankingsControls } from "./components/Rankings";
 import { ResultsHeader } from "./components/ResultsHeader";
 import { SavedSearches } from "./components/SavedSearches";
+import { SharedNotice } from "./components/SharedNotice";
 import { Sidebar, SidebarToggle, WIDE_QUERY } from "./components/Sidebar";
 import { SiteFooter } from "./components/SiteFooter";
 import { Topbar } from "./components/Topbar";
+import type { StoreHolding } from "./data";
 import { download } from "./download";
 import { feedOf } from "./feeds";
 import { findFolder, foldersOf } from "./folders";
@@ -32,6 +34,7 @@ import { useMediaQuery } from "./hooks/use-media-query";
 import { usePapers } from "./hooks/use-papers";
 import { useReadingList } from "./hooks/use-reading-list";
 import { useSavedSearches } from "./hooks/use-saved-searches";
+import { useSharedFolder } from "./hooks/use-shared-folder";
 import { useTheme } from "./hooks/use-theme";
 import { useTriage } from "./hooks/use-triage";
 import { useUrlState } from "./hooks/use-url-state";
@@ -62,9 +65,17 @@ import {
   subjectFacets,
   valueCounts,
 } from "./search";
+import { shareHash } from "./share";
 import { searchKey } from "./text";
 import type { Paper } from "./types";
-import { archiveRangeOf, listKey, paperLink, type ViewState, writeState } from "./url-state";
+import {
+  archiveRangeOf,
+  DEFAULT_STATE,
+  listKey,
+  paperLink,
+  type ViewState,
+  writeState,
+} from "./url-state";
 import { venueFacets } from "./venues";
 import { type CountLine, showsArchive, viewModel } from "./view-model";
 
@@ -120,8 +131,50 @@ export function App() {
   const readingList = useReadingList(load.status === "ready" ? load.index : null);
   // The reading list's folders (UX-38): the one the URL names, its papers among the saved.
   const folders = useFolders();
+  // A folder a link shares (UX-46), shown in the reading list in place of the saved papers
+  // until it is added or closed, or another folder chosen.
+  // Kept while the store's index is: a new one would look for the papers again.
+  const heldYears = archiveYears.map(({ year }) => year).join();
+  const heldTopRecent = topRecent !== undefined;
+  const holding = useMemo<StoreHolding | null>(
+    () =>
+      storeDays.length > 0
+        ? {
+            days: storeDays,
+            archiveYears: heldYears ? heldYears.split(",").map(Number) : [],
+            topRecent: heldTopRecent,
+          }
+        : null,
+    [storeDays, heldYears, heldTopRecent],
+  );
+  const shared = useSharedFolder(category ?? null, holding);
+  const [sharedShown, setSharedShown] = useState(true);
+  // Another link pasted in the address bar shows its folder, whatever the last one did.
+  useEffect(() => setSharedShown(true), [shared.folder]);
+  const sharing = state.view === "reading-list" && shared.folder !== null && sharedShown;
+  const closeShared = () => {
+    shared.close();
+    setSharedShown(true);
+  };
+  // Its papers saved, in a folder of its name, which is then shown.
+  const addShared = () => {
+    if (shared.folder === null || shared.found.status !== "ready") return;
+    const { papers } = shared.found;
+    const name = folders.merge({
+      name: shared.folder.name,
+      papers: papers.map(({ arxiv_id }) => arxiv_id),
+    });
+    const added = readingList.addPapers(papers);
+    readingList.say(
+      `${countOf(papers.length, "paper")} in “${name}”, ${added.toLocaleString()} newly saved.`,
+    );
+    closeShared();
+    update({ folder: name });
+  };
   const activeFolder =
-    state.view === "reading-list" ? (findFolder(folders.folders, state.folder) ?? null) : null;
+    state.view === "reading-list" && !sharing
+      ? (findFolder(folders.folders, state.folder) ?? null)
+      : null;
   const folderIds = useMemo(
     () =>
       activeFolder
@@ -179,7 +232,13 @@ export function App() {
   const folded = wide && sidebarFolded;
 
   const activeIndex =
-    state.view === "reading-list" ? readingList.index : load.status === "ready" ? load.index : null;
+    state.view === "reading-list"
+      ? sharing
+        ? shared.index
+        : readingList.index
+      : load.status === "ready"
+        ? load.index
+        : null;
 
   // The tab's title says what is shown: a paper, a search, or the view.
   const focusedTitle = state.paper ? activeIndex?.get(state.paper)?.title : undefined;
@@ -227,9 +286,16 @@ export function App() {
   const rankingGains = state.sort === "rising" ? citations.gains : null;
   // The reading list's own order (UX-39): where each saved paper stands in it.
   const custom = model.custom;
+  // A shared folder's, its link's order.
   const savedOrder = useMemo(
-    () => new Map(readingList.papers.map((paper, index) => [paper.arxiv_id, index])),
-    [readingList.papers],
+    () =>
+      new Map(
+        (sharing ? shared.papers : readingList.papers).map((paper, index) => [
+          paper.arxiv_id,
+          index,
+        ]),
+      ),
+    [sharing, shared.papers, readingList.papers],
   );
   const results: SearchResult[] = useMemo(() => {
     if (custom) {
@@ -316,30 +382,37 @@ export function App() {
   const archiveAsOf = generatedAt ? new Date(generatedAt) : undefined;
   // What the header counts: the saved papers, an archive's years, or the period's papers.
   const count: CountLine | { loading: string } | null =
-    state.view === "reading-list"
+    sharing && shared.folder
       ? {
           shown: results.length,
-          total: folderIds?.size ?? readingList.papers.length,
-          noun: "saved paper",
-          ...(activeFolder && { tail: ` in “${activeFolder.name}”` }),
+          total: shared.papers.length,
+          noun: "shared paper",
+          tail: ` in “${shared.folder.name}”`,
         }
-      : load.status === "ready" && archived && archiveRange !== null
+      : state.view === "reading-list"
         ? {
             shown: results.length,
-            total: load.index.size,
-            noun: `highly cited ${category ?? ""} paper`,
-            tail: ` first published ${publishedIn(archiveRange, archiveYears, archiveAsOf, topRecent)}`,
+            total: folderIds?.size ?? readingList.papers.length,
+            noun: "saved paper",
+            ...(activeFolder && { tail: ` in “${activeFolder.name}”` }),
           }
-        : load.status === "ready"
+        : load.status === "ready" && archived && archiveRange !== null
           ? {
               shown: results.length,
               total: load.index.size,
-              noun: `${category ?? ""} paper`,
-              ...(hiddenCount > 0 && { tail: ` · ${seenHidden(hiddenCount).count}` }),
+              noun: `highly cited ${category ?? ""} paper`,
+              tail: ` first published ${publishedIn(archiveRange, archiveYears, archiveAsOf, topRecent)}`,
             }
-          : load.status === "loading"
-            ? { loading: loadingLine }
-            : null;
+          : load.status === "ready"
+            ? {
+                shown: results.length,
+                total: load.index.size,
+                noun: `${category ?? ""} paper`,
+                ...(hiddenCount > 0 && { tail: ` · ${seenHidden(hiddenCount).count}` }),
+              }
+            : load.status === "loading"
+              ? { loading: loadingLine }
+              : null;
   // The graph shows the loaded papers; a saved paper from elsewhere brings its day, or
   // its archive year (or the last 12 months) when it is older than the days kept.
   const showInGraph = (paper: Paper) => {
@@ -553,7 +626,10 @@ export function App() {
                     folders={folders.folders}
                     savedIds={readingList.savedIds}
                     active={activeFolder?.name ?? null}
-                    onSelect={(folder) => update({ folder })}
+                    onSelect={(folder) => {
+                      setSharedShown(false);
+                      update({ folder });
+                    }}
                     onAdd={folders.add}
                     onRename={(from, to) => {
                       const renamed = folders.rename(from, to);
@@ -577,6 +653,35 @@ export function App() {
                         "application/json",
                       );
                     }}
+                    shareLink={(name) => {
+                      const folder = findFolder(folders.folders, name);
+                      if (!folder) return null;
+                      // Its saved papers, in the list's order, as its export.
+                      const papers = folderFile(readingList.papers, folder).papers.map(
+                        ({ arxiv_id }) => arxiv_id,
+                      );
+                      if (papers.length === 0) return null;
+                      const page = writeState({
+                        ...DEFAULT_STATE,
+                        view: "reading-list",
+                        category: state.category,
+                      });
+                      return new URL(
+                        `./${page}${shareHash(folder.name, papers)}`,
+                        window.location.href,
+                      ).toString();
+                    }}
+                    shared={
+                      shared.folder
+                        ? {
+                            name: shared.folder.name,
+                            count:
+                              shared.found.status === "ready" ? shared.found.papers.length : null,
+                            shown: sharing,
+                            onShow: () => setSharedShown(true),
+                          }
+                        : undefined
+                    }
                   />
                 )
               }
@@ -699,6 +804,17 @@ export function App() {
                 }
               />
 
+              {sharing && shared.folder && (
+                <SharedNotice
+                  name={shared.folder.name}
+                  asked={shared.folder.ids.length}
+                  found={shared.found}
+                  existing={findFolder(folders.folders, shared.folder.name)?.name ?? null}
+                  onAdd={addShared}
+                  onRetry={shared.retry}
+                  onClose={closeShared}
+                />
+              )}
               <ListNotices
                 readingListMessage={
                   state.view === "reading-list" && readingList.message
@@ -768,7 +884,9 @@ export function App() {
                   The archive of highly cited papers is built weekly, from citation counts: it is
                   not there yet.
                 </p>
-              ) : state.view === "reading-list" && readingList.papers.length === 0 ? (
+              ) : sharing && shared.papers.length === 0 ? null : !sharing &&
+                state.view === "reading-list" &&
+                readingList.papers.length === 0 ? (
                 <p class="notice">
                   Your reading list is empty. Use <StarIcon />
                   <span class="visually-hidden">the star</span> on a paper to save it; the list is
@@ -846,9 +964,9 @@ export function App() {
                     onToggleSeen={triaged ? triage.toggleSeen : undefined}
                     onAuthor={(author) => setFilters({ ...state.filters, author: exactly(author) })}
                     onAffiliation={(affiliation) => setFilters({ ...state.filters, affiliation })}
-                    onMove={custom ? readingList.move : undefined}
+                    onMove={custom && !sharing ? readingList.move : undefined}
                     folders={
-                      state.view === "reading-list"
+                      state.view === "reading-list" && !sharing
                         ? {
                             names: folders.folders.map((folder) => folder.name),
                             of: (arxivId) => foldersOf(folders.folders, arxivId),

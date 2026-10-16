@@ -80,7 +80,8 @@ export function About() {
         <li>
           The site is hosted on GitHub Pages. As for any website, GitHub receives the address of
           each page you open, and here addresses include your search words and filters, so that a
-          search can be shared as a link. See the{" "}
+          search can be shared as a link; a folder's link names its papers after a <code>#</code>,
+          which browsers do not send. See the{" "}
           <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement">
             GitHub privacy statement
           </a>

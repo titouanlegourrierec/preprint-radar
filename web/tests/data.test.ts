@@ -9,6 +9,7 @@ import {
   loadDays,
   loadIndex,
   loadLightDays,
+  loadPapersById,
   loadTopRecent,
   loadWholePaper,
 } from "../src/data";
@@ -354,6 +355,50 @@ describe("data", () => {
     });
     await expect(loadLightDays("cs.CV", days)).resolves.toEqual({ papers: [], missing: [] });
     expect(requested).toHaveLength(2);
+  });
+
+  it("finds a shared folder's papers by their ids, asking each file only for those left (UX-46)", async () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => undefined);
+    const paper = (arxiv_id: string) => makePaper({ arxiv_id });
+    const requested = serve({
+      // Announced the month after its id's.
+      "cs.CV/search/2026-10.json": { schema_version: 1, papers: [paper("2609.11111")] },
+      "cs.CV/search/2026-09.json": { schema_version: 1, papers: [paper("2609.22222")] },
+      "cs.CV/archive/2017.json": { schema_version: 1, papers: [paper("1706.03762")] },
+      "cs.CV/top-recent.json": { schema_version: 1, papers: [paper("2604.33333")] },
+    });
+    const holding = {
+      days: [
+        { date: "2026-10-15", count: 1 },
+        { date: "2026-09-01", count: 1 },
+      ],
+      archiveYears: [2017, 2018],
+      topRecent: true,
+    };
+    const ids = ["2604.33333", "2609.11111", "1706.03762", "2609.22222", "1801.00001"];
+
+    const { papers, missing } = await loadPapersById("cs.CV", ids, holding);
+
+    // In the link's order; the shards' months the store holds, the archive's years.
+    expect(papers.map(({ arxiv_id }) => arxiv_id)).toEqual(ids.slice(0, 4));
+    expect(missing).toEqual(["1801.00001"]);
+    expect(requested.sort()).toEqual([
+      "cs.CV/archive/2017.json",
+      "cs.CV/archive/2018.json",
+      "cs.CV/search/2026-09.json",
+      "cs.CV/search/2026-10.json",
+      "cs.CV/top-recent.json",
+    ]);
+    // Found in the shards alone: nothing else is asked for.
+    const again = serve({
+      "cs.CV/search/2026-10.json": { schema_version: 1, papers: [paper("2609.11111")] },
+    });
+    forgetLoaded();
+    await expect(
+      loadPapersById("cs.CV", ["2609.11111"], { ...holding, days: holding.days.slice(0, 1) }),
+    ).resolves.toEqual({ papers: [paper("2609.11111")], missing: [] });
+    expect(again).toEqual(["cs.CV/search/2026-10.json"]);
+    expect(warn).toHaveBeenCalled();
   });
 
   it("loads a search shard's paper whole from its day file", async () => {

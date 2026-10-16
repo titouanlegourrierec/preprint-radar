@@ -94,14 +94,23 @@ export function useReadingList(loaded: PaperIndex | null) {
     );
   };
 
+  /** Save the papers not saved yet, after the others (a shared folder's, UX-46): how many. */
+  const addPapers = (added: Paper[]): number => {
+    const merged = mergePapers(papers, added);
+    setPapers(store(merged.papers));
+    return merged.added;
+  };
+
   return {
     papers,
     index,
     savedIds,
     toggle,
     move,
+    addPapers,
     importFile,
     message,
+    say: setMessage,
     dismissMessage: () => setMessage(null),
   };
 }

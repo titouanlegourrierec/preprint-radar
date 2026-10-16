@@ -59,6 +59,18 @@ export function useFolders() {
       ),
     /** Take an unsaved paper out of every folder. */
     forget: (arxivId: string) => change((current) => forgetPaper(current, arxivId)),
+    /**
+     * Put papers in a folder, made if there is none of that name (a shared folder's,
+     * UX-46), and give the folder's name, in its case here.
+     */
+    merge: (folder: Folder): string => {
+      const merged = mergeFolders(folders, [folder]).folders;
+      if (merged !== folders) {
+        saveFolders(merged);
+        setFolders(merged);
+      }
+      return findFolder(merged, folder.name)?.name ?? folder.name;
+    },
     /** Merge the folders of an imported file, and say how many were added. */
     importFolders: (value: unknown): string | null => {
       const imported = readFolders(

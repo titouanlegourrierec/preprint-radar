@@ -2951,6 +2951,15 @@ html {
   color: var(--text-muted);
 }
 
+/* A folder a link shares (UX-46), above every saved paper until added or closed. */
+.folder__tag {
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  font-size: 0.7rem;
+  color: var(--accent);
+}
+
 /* A card dragged over a folder (UX-39), and its count bouncing once it landed. */
 .folder.folder--drop {
   border-color: var(--accent);
@@ -2996,6 +3005,36 @@ html {
 
 .folders__delete {
   color: var(--danger);
+}
+
+/* A folder's link, when the clipboard refused it: to copy by hand. */
+.folders__link {
+  width: calc(100% - 24px);
+  margin: 6px 12px 0;
+  padding: 4px 8px;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  background: var(--surface);
+  font: inherit;
+  font-size: 0.75rem;
+  color: var(--text);
+}
+
+/* What a shared folder is, above its papers, and the way to add it (UX-46). */
+.shared-notice > p {
+  margin: 0;
+}
+
+.shared-notice strong {
+  color: var(--text);
+}
+
+.shared-notice > .shared-notice__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  align-items: center;
+  margin-top: 10px;
 }
 
 /* Rankings' world map (UX-41): a card with the map, its tooltip and legend, then the

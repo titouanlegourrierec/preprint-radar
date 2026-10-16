@@ -107,6 +107,10 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   dropped on a folder goes in it too, and on All saved leaves the folder shown; an import
   adds a folder's papers to the folder of that name, whatever other folders hold them here
   (UX-45).
+- A folder is shared by a link: its Share copies it, and whoever opens it sees the
+  folder's papers in their reading list, with a button to add them, in a folder of that
+  name. The link names the papers after a `#`, which browsers never send to the server
+  (UX-46).
 
 ### Data
 

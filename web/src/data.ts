@@ -2,6 +2,7 @@ import { bestRanked } from "./archive-years";
 import { citationShardPath } from "./citations";
 import { PAPER_BUDGET } from "./period";
 import { monthsOf, type SearchShardFile, searchShardPath } from "./search-shards";
+import { candidateMonths, candidateYears } from "./share";
 import {
   type ArchiveFile,
   type CitationsFile,
@@ -269,6 +270,63 @@ export async function loadLightDays(
       (papers ?? []).filter((paper) => wanted.has(paper.announced)),
     ),
     missing: days.filter(({ date }) => failed.has(date.slice(0, 7))).map(({ date }) => date),
+  };
+}
+
+/** What the store holds of a category, where the papers of a shared folder are looked for. */
+export interface StoreHolding {
+  days: readonly DaySummary[];
+  archiveYears: readonly number[];
+  /** Whether it keeps the most cited papers of the last 12 months apart. */
+  topRecent: boolean;
+}
+
+/**
+ * The papers of a shared folder (UX-46), by their arXiv ids: from the search shards of the
+ * months their ids say they were announced in (without abstracts, which a card loads when
+ * opened), then the archive's years, then the most cited papers of the last 12 months,
+ * each asked for only for the papers still not found. The papers in the order of the ids,
+ * and the ids the site's data does not hold (older than a year and not highly cited, or of
+ * a file that failed to load).
+ */
+export async function loadPapersById(
+  category: string,
+  ids: readonly string[],
+  holding: StoreHolding,
+): Promise<{ papers: Paper[]; missing: string[] }> {
+  const asked = new Set(ids);
+  const found = new Map<string, Paper>();
+  const wanted = (papers: readonly Paper[] | null) => {
+    for (const paper of papers ?? []) {
+      if (asked.has(paper.arxiv_id) && !found.has(paper.arxiv_id)) {
+        found.set(paper.arxiv_id, paper);
+      }
+    }
+  };
+  const left = () => ids.filter((id) => !found.has(id));
+  // A file that fails leaves its papers missing, which the page says.
+  const orNone = (what: string) => (error: unknown) => {
+    console.warn(`Could not load ${what}`, error);
+    return null;
+  };
+
+  const held = new Set(monthsOf(holding.days));
+  const months = [...new Set(ids.flatMap(candidateMonths))].filter((month) => held.has(month));
+  for (const papers of await Promise.all(months.map((month) => searchShard(category, month)))) {
+    wanted(papers);
+  }
+  const archived = new Set(holding.archiveYears);
+  const years = [...new Set(left().flatMap(candidateYears))].filter((year) => archived.has(year));
+  const files = await Promise.all(
+    years.map((year) => loadArchive(category, year).catch(orNone(`the archive of ${year}`))),
+  );
+  for (const papers of files) wanted(papers);
+  if (holding.topRecent && left().length > 0) {
+    wanted(await loadTopRecent(category).catch(orNone("the most cited recent papers")));
+  }
+  return {
+    papers: ids.flatMap((id) => found.get(id) ?? []),
+    missing: left(),
   };
 }
 

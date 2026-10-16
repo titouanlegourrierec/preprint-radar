@@ -620,6 +620,43 @@ test("the reading list's own order, arranged by Alt+arrows or a drag", async ({ 
   expect(errors).toEqual([]);
 });
 
+test("a folder's link shows its papers, which the reading list then keeps (UX-46)", async ({
+  page,
+}) => {
+  const errors = watchErrors(page);
+  await page.goto(
+    "./?view=reading-list#folder=Shared%20set&papers=2609.00002,1706.00001,2501.99999",
+  );
+  // Found in the site's data, a recent paper and an archived one; the other on arXiv.
+  await expect(
+    page.getByText("“Shared set”, a folder shared with you: 2 papers; 1 other is not in", {
+      exact: false,
+    }),
+  ).toBeVisible();
+  await expect(page.getByRole("link", { name: "2501.99999" })).toHaveAttribute(
+    "href",
+    "https://arxiv.org/abs/2501.99999",
+  );
+  await expect(page.locator("article.paper")).toHaveCount(2);
+  // Another order keeps the link's fragment.
+  await page.getByRole("button", { name: "Newest" }).click();
+  await expect(page).toHaveURL(/sort=newest&view=reading-list#folder=Shared%20set&papers=/);
+  await page.getByRole("button", { name: "Add to my reading list" }).click();
+  await expect(page).toHaveURL(/folder=Shared\+set$/);
+  await expect(page.getByText("2 papers in “Shared set”, 2 newly saved.")).toBeVisible();
+  await expect(page.getByRole("link", { name: "Reading list (2)" })).toBeVisible();
+  const folders = page.getByRole("navigation", { name: "Folders" });
+  await expect(folders.getByRole("button", { name: /^Shared set 2$/ })).toBeVisible();
+  // Its own Share copies the link again, the papers in the list's order.
+  await page.context().grantPermissions(["clipboard-read", "clipboard-write"]);
+  await folders.getByRole("button", { name: "Share", exact: true }).click();
+  await expect(folders.getByRole("button", { name: "Link copied" })).toBeVisible();
+  expect(await page.evaluate("navigator.clipboard.readText()")).toMatch(
+    /\?view=reading-list#folder=Shared%20set&papers=2609\.00002,1706\.00001$/,
+  );
+  expect(errors).toEqual([]);
+});
+
 test("a paper the page cannot draw shows a message, not a blank page", async ({ page }) => {
   const errors = watchErrors(page);
   // A day whose first paper has no author list, which no card can draw.
