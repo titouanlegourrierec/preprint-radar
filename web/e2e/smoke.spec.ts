@@ -263,6 +263,12 @@ test("the Content-Security-Policy refuses nothing the site does", async ({ page 
   );
   // public/theme.js ran before first paint: the theme forced with the toggle (SEC-1).
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  // The logo, inline, named once, leads home; the favicons are the site's own (UX-48).
+  await expect(page.getByRole("link", { name: "Preprint Radar" })).toHaveAttribute("href", "./");
+  await expect(page.locator('link[rel="icon"][type="image/svg+xml"]')).toHaveAttribute(
+    "href",
+    "./favicon.svg",
+  );
   await expect(page.getByText("4 of 4 cs.CV papers")).toBeVisible();
   // A saved paper's star bursts and flies to its tab, placed from the script (UX-37).
   await page.getByRole("button", { name: "Save to reading list" }).first().click();

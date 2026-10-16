@@ -8,7 +8,11 @@
     <!-- The browser's bar takes the page's background, --bg of styles.css (theme-color.ts). -->
     <meta name="theme-color" content="#f7f7f5" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)" />
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>" />
+    <!-- The logo (UX-48): the SVG follows the browser's theme, the ICO is for those without. -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
     <title>Preprint Radar</title>
     <!-- The store's index, which every view needs first, loads with the page rather than
          after the app's script: data.ts fetches the same URL in the same mode (PERF-14). -->

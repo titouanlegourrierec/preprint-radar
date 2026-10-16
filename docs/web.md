@@ -352,8 +352,8 @@ derives what only the site uses. The pipeline and `validate` never see these.
   a dependency or a module the list does not need, imported eagerly. Only the whole site's
   size was checked (`deploy.yml`).
 - `contentSecurityPolicy` adds a Content-Security-Policy meta to `index.html`, right
-  after its charset (GitHub Pages sends no headers): the site's own scripts, styles, data
-  and graph worker only, and the emoji favicon's `data:` image
+  after its charset (GitHub Pages sends no headers): the site's own scripts, styles, data,
+  images and graph worker only (the emoji favicon's `data:` image went with UX-48)
   (`tooling/content-security-policy.ts`, SEC-1). The site renders third-party text and
   links, which it keeps from ever running a script; there is no inline script
   (`public/theme.js` restores the theme), and styles set from code go through the CSSOM,
@@ -373,6 +373,17 @@ derives what only the site uses. The pipeline and `validate` never see these.
   loads nothing from elsewhere otherwise. Ad blockers often stop it: the counts are a
   floor. A malformed token fails the build. To stop counting, delete the variable.
 - `base: "./"` keeps the site working under `user.github.io/<repo>/`.
+- **The logo** (UX-48, `logo.ts`, `components/Logo.tsx`): the designer's files in `public/`
+  (the lockup, the mark, a lockup in each theme's fixed colors for `<img>` uses such as the
+  README, `favicon.svg`, which follows the browser's theme, `favicon.ico` for browsers
+  without SVG icons, `apple-touch-icon.png`, and `icon-192.png` and `icon-512.png`, which
+  `manifest.webmanifest` names). The top bar's logo is the lockup inline, 32 px high, so
+  that it takes the text's color and the accent on the dot of the i in either theme
+  (`.site-logo`, which an `<img>` would not); a link home, named once by the SVG's
+  `aria-label`. Its paths are never redrawn, simplified or optimized (the P is cut out of
+  the square by `fill-rule="evenodd"`): `tests/logo.test.ts` compares them with the files,
+  which Biome leaves as delivered (`!public/*.svg`). Do not go under 24 px high; below, the
+  mark alone. Inline, its paths weigh 2.7 kB gzipped of the landing page's budget.
 
 ## In this browser only
 

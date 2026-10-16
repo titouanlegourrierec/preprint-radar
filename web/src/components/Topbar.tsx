@@ -1,6 +1,6 @@
 import type { JSX } from "preact";
 import type { ThemePreference } from "../preferences";
-import type { ViewState } from "../url-state";
+import { DEFAULT_STATE, type ViewState } from "../url-state";
 import {
   AutoThemeIcon,
   CitedIcon,
@@ -12,6 +12,10 @@ import {
   StarIcon,
   SunIcon,
 } from "./icons";
+import { Lockup } from "./Logo";
+
+// The logo leads home: the default view, but the category shown.
+const { category: _category, ...HOME } = DEFAULT_STATE;
 
 const THEME_ICONS: Record<ThemePreference, () => JSX.Element> = {
   auto: AutoThemeIcon,
@@ -50,7 +54,11 @@ export function Topbar(props: Props) {
   return (
     <header class="topbar">
       <div class="topbar__brand">
-        <h1>Preprint Radar</h1>
+        <h1>
+          <a class="site-logo" {...props.tab(false, HOME)}>
+            <Lockup />
+          </a>
+        </h1>
         {props.lastUpdate && <span class="muted topbar__updated">Updated {props.lastUpdate}</span>}
       </div>
       <div class="topbar__tools">

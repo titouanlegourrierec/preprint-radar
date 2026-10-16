@@ -273,15 +273,37 @@ mark {
 
 .topbar__brand {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 12px;
   flex-wrap: wrap;
 }
 
 .topbar__brand h1 {
   margin: 0;
-  font-size: 1.35rem;
-  letter-spacing: -0.01em;
+  line-height: 0;
+}
+
+/* The logo (UX-48): 32 px high, its width from its viewBox; the text's color, the dot of
+   the i the accent's; the P cut out of the square shows the bar's background. */
+.site-logo {
+  display: inline-flex;
+  border-radius: 6px;
+  color: var(--text);
+}
+
+.site-logo svg {
+  display: block;
+  width: auto;
+  height: 32px;
+}
+
+.site-logo__dot {
+  fill: var(--accent);
+}
+
+.site-logo:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
 }
 
 .topbar__brand span {

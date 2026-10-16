@@ -115,6 +115,9 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   as a repository variable, the build adds Cloudflare's script, the only thing the site
   then loads from elsewhere, and About says what it counts; without it, nothing changes
   (UX-47).
+- The site has its logo: a P cut out of a rounded square beside its name, in the top bar
+  (a link home), in the theme's colors, and as the tab's icon in light and dark, the
+  phone's home screen icon, and the README's heading (UX-48).
 
 ### Data
 
