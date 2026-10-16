@@ -56,6 +56,18 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   left and the tabs floating on the right, in the same place from one view to the next,
   where the lists had two lines in their column and the graph a ruled bar. The name stands
   without the category, and the Graph tab comes second, after Papers (UX-32).
+- The lists look as the graph. Their sidebar holds the graph's chips in a column: Rankings
+  chooses its papers with the period and highly cited buttons instead of its "From"
+  select, and Highly cited its years with the same highly cited button instead of two
+  selects: its panel, in the graph too, picks a year or a range of years on a grid drawn
+  as the calendar, each year with its papers. The filters have their icon inside and the
+  same chevron as every select. What a view says of its papers is behind an ⓘ beside its
+  count, as in the graph: what it shows, how its papers are chosen, how many have known
+  affiliations and the citation counts' date; the search's syntax and the keys are behind
+  the ⓘ of the search field, which has the graph's magnifier and `/`. Rankings' controls
+  sit in the header, where the lists have their order. Fields, buttons and notices share
+  the graph's rounder corners, and the cards' star and the theme button are drawn icons
+  (UX-33).
 
 ### Performance
 

@@ -1,8 +1,23 @@
+import type { JSX } from "preact";
 import type { ThemePreference } from "../preferences";
 import type { ViewState } from "../url-state";
-import { CitedIcon, GraphIcon, InfoIcon, PapersIcon, RankingsIcon, StarIcon } from "./icons";
+import {
+  AutoThemeIcon,
+  CitedIcon,
+  GraphIcon,
+  InfoIcon,
+  MoonIcon,
+  PapersIcon,
+  RankingsIcon,
+  StarIcon,
+  SunIcon,
+} from "./icons";
 
-const THEME_ICONS: Record<ThemePreference, string> = { auto: "◐", light: "☀", dark: "☾" };
+const THEME_ICONS: Record<ThemePreference, () => JSX.Element> = {
+  auto: AutoThemeIcon,
+  light: SunIcon,
+  dark: MoonIcon,
+};
 
 /** A tab's link: its address, whether it is the current view, and its plain click. */
 export type TabLink = (
@@ -31,6 +46,7 @@ interface Props {
 export function Topbar(props: Props) {
   const { view, tab } = props;
   const cited = view === "cited";
+  const ThemeIcon = THEME_ICONS[props.theme];
   return (
     <header class="topbar">
       <div class="topbar__brand">
@@ -99,7 +115,7 @@ export function Topbar(props: Props) {
           aria-label={`Theme: ${props.theme}. Switch to ${props.nextTheme}.`}
           onClick={props.onTheme}
         >
-          {THEME_ICONS[props.theme]}
+          <ThemeIcon />
         </button>
       </div>
     </header>

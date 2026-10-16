@@ -174,11 +174,21 @@ test("the most cited papers of the last 12 months, apart from the archive's year
 }) => {
   const errors = watchErrors(page);
   await page.goto("./?view=cited");
-  await page.getByRole("button", { name: "Last 12 months (2 papers)" }).click();
+  // The years are chosen as in the graph's chip (UX-33): a year of the grid, or a preset.
+  await page.getByRole("button", { name: /^Highly cited/ }).click();
+  await expect(page.getByRole("button", { name: /^2017, 1 paper/ })).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  );
+  await page.getByRole("button", { name: "Last 12 months" }).click();
   await expect(page).toHaveURL(/year=last-12-months/);
   await expect(
     page.getByText(/2 of 2 highly cited cs\.CV papers first published since/),
   ).toBeVisible();
+  // How they are chosen is said behind the (i) beside the count.
+  await page.getByRole("button", { name: "About these papers" }).click();
+  await expect(page.getByText(/by citations per month of age/)).toBeVisible();
+  await page.keyboard.press("Escape");
   await expect(
     page.getByRole("heading", { name: "Tabulating Machines for Open-Vocabulary Detection" }),
   ).toBeVisible();

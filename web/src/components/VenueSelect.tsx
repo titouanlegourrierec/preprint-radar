@@ -6,8 +6,6 @@ interface Props {
   venues: FacetCount[];
   value: string | null;
   onChange: (venue: string | null) => void;
-  /** The first option, no filter: "All papers", or the graph bar's "All venues". */
-  allLabel?: string | undefined;
 }
 
 function Option({ venue, starred }: { venue: FacetCount; starred: boolean }) {
@@ -23,7 +21,7 @@ function Option({ venue, starred }: { venue: FacetCount; starred: boolean }) {
  * Venue filter: every paper, papers accepted anywhere, every edition of a venue ("CVPR,
  * any year", SRCH-15) or one venue (major ones starred).
  */
-export function VenueSelect({ venues, value, onChange, allLabel }: Props) {
+export function VenueSelect({ venues, value, onChange }: Props) {
   // Every paper accepted somewhere, counted over all of them (`venueFacets`); the editions
   // listed are the most frequent only.
   const listed = venues.filter((venue) => venue.value !== ANY_VENUE);
@@ -54,7 +52,7 @@ export function VenueSelect({ venues, value, onChange, allLabel }: Props) {
       aria-label="Venue"
       onChange={(event) => onChange(event.currentTarget.value || null)}
     >
-      <option value="">{allLabel ?? "All papers"}</option>
+      <option value="">All venues</option>
       <option value={ANY_VENUE}>Accepted at a venue ({accepted.toLocaleString()})</option>
       {major.length > 0 ? (
         <>

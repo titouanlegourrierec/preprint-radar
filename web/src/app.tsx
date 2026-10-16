@@ -2,11 +2,13 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "preact/hooks"
 import { ALL_YEARS, formatYears, LAST_12_MONTHS, publishedIn } from "./archive-years";
 import { About } from "./components/About";
 import { ErrorBoundary } from "./components/ErrorBoundary";
+import { InfoButton } from "./components/InfoButton";
+import { SearchIcon, StarIcon } from "./components/icons";
 import { LazyGraphView } from "./components/LazyGraphView";
-import { ListNotices } from "./components/ListNotices";
+import { ListNotices, ViewNotes } from "./components/ListNotices";
 import { NoResults } from "./components/NoResults";
 import { PaperList } from "./components/PaperList";
-import { Rankings } from "./components/Rankings";
+import { Rankings, RankingsControls } from "./components/Rankings";
 import { ResultsHeader } from "./components/ResultsHeader";
 import { SavedSearches } from "./components/SavedSearches";
 import { Sidebar } from "./components/Sidebar";
@@ -19,6 +21,7 @@ import {
   formatDay,
   gainLabel,
   seenHidden,
+  staleCitations,
 } from "./format";
 import { useCitations } from "./hooks/use-citations";
 import { usePapers } from "./hooks/use-papers";
@@ -64,6 +67,18 @@ const VIEW_TITLES: Record<ViewState["view"], string> = {
   about: "About",
 };
 const SUGGESTION_SIZE = 300;
+
+/** What the search finds, in the field's ⓘ and for screen readers. */
+function SearchHint() {
+  return (
+    <>
+      Searches titles, abstracts, authors, affiliations, venues and comments, or an arXiv id.{" "}
+      <code>"neural radiance field"</code> in quotes finds that exact phrase; <code>-survey</code>{" "}
+      leaves out the papers that contain the word.
+    </>
+  );
+}
+
 export function App() {
   const { state, query, filters, update, setFilters, correct } = useUrlState();
   const cited = state.view === "cited";
@@ -126,7 +141,6 @@ export function App() {
   }, [state.view]);
   const { theme, resolved, next, cycle } = useTheme();
   const [showAbstracts, setShowAbstracts] = useState(loadShowAbstracts);
-  const [showRelevanceHelp, setShowRelevanceHelp] = useState(false);
 
   const activeIndex =
     state.view === "reading-list" ? readingList.index : load.status === "ready" ? load.index : null;
@@ -422,30 +436,50 @@ export function App() {
       {skipLink}
       {topbar}
       <div class="layout">
+        {/* The search as the graph's Find field (UX-33): its icon, its key, and its syntax
+            and the list's keys behind an ⓘ. */}
         <div class="search">
-          <input
-            type="search"
-            class="search__input"
-            ref={searchInput}
-            placeholder="Search papers…"
-            value={state.query}
-            onInput={(event) => update({ query: event.currentTarget.value })}
-            aria-label="Search papers"
-            aria-describedby="search-hint"
-            // No autofocus: j and k would type into the box. "/" comes here, Escape leaves.
-            onKeyDown={(event) => {
-              if (event.key !== "Escape") return;
-              // Leave the box, keeping its words (a search box clears them on Escape).
-              event.preventDefault();
-              event.currentTarget.blur();
-            }}
-          />
+          <div class="search__field">
+            <SearchIcon />
+            <input
+              type="search"
+              class="search__input"
+              ref={searchInput}
+              placeholder="Search papers…"
+              value={state.query}
+              onInput={(event) => update({ query: event.currentTarget.value })}
+              aria-label="Search papers"
+              aria-describedby="search-hint"
+              aria-keyshortcuts="/"
+              // No autofocus: j and k would type into the box. "/" comes here, Escape leaves.
+              onKeyDown={(event) => {
+                if (event.key !== "Escape") return;
+                // Leave the box, keeping its words (a search box clears them on Escape).
+                event.preventDefault();
+                event.currentTarget.blur();
+              }}
+            />
+            {state.query === "" && (
+              <span class="search__key" aria-hidden="true">
+                /
+              </span>
+            )}
+            <InfoButton label="Search syntax and keys" class="search__info" end>
+              <p>
+                <SearchHint />
+              </p>
+              {triaged && (
+                <p class="search__keys">
+                  Keys: <kbd>j</kbd> <kbd>k</kbd> move, <kbd>o</kbd> open, <kbd>s</kbd> save,{" "}
+                  <kbd>x</kbd> seen, <kbd>/</kbd> search, <kbd>Esc</kbd> leave the search.
+                </p>
+              )}
+            </InfoButton>
+          </div>
         </div>
-        {/* Outside the sticky bar, which then stays short and hides no focused control. */}
-        <p id="search-hint" class="search__hint muted">
-          Searches titles, abstracts, authors, affiliations, venues and comments, or an arXiv id.{" "}
-          <code>"neural radiance field"</code> in quotes finds that exact phrase;{" "}
-          <code>-survey</code> leaves out the papers that contain the word.
+        {/* The syntax said to screen readers in the field, whose ⓘ shows it (UX-33). */}
+        <p id="search-hint" class="visually-hidden">
+          <SearchHint />
         </p>
 
         <div class="content">
@@ -466,20 +500,12 @@ export function App() {
               onPeriod={(period) => update({ period })}
               onFilters={setFilters}
               archive={
-                cited
+                cited || rankings
                   ? {
                       years: archiveYears,
-                      range: archiveRange ?? ALL_YEARS,
+                      range: cited ? (archiveRange ?? ALL_YEARS) : archived ? archiveRange : null,
                       onRange: (year) => update({ year }),
-                    }
-                  : undefined
-              }
-              source={
-                rankings
-                  ? {
-                      years: archiveYears,
-                      range: archived ? archiveRange : null,
-                      onRange: (year) => update({ year }),
+                      only: cited,
                     }
                   : undefined
               }
@@ -514,8 +540,26 @@ export function App() {
                 onSort={(sort) => update({ sort })}
                 citationsNote={citationsNote}
                 gainsSpan={gainsSpan}
-                relevanceHelpShown={showRelevanceHelp}
-                onRelevanceHelp={() => setShowRelevanceHelp(!showRelevanceHelp)}
+                notes={
+                  <ViewNotes
+                    view={state.view}
+                    papers={resultPapers}
+                    citationsNote={citationsNote}
+                    archived={archived}
+                    lastMonths={archived && archiveRange === LAST_12_MONTHS}
+                  />
+                }
+                controls={
+                  rankings && (
+                    <RankingsControls
+                      archived={archived}
+                      kind={state.rank}
+                      metric={state.metric}
+                      onKind={(rank) => update({ rank })}
+                      onMetric={(metric) => update({ metric })}
+                    />
+                  )
+                }
                 hideSeen={triage.hideSeen}
                 onHideSeen={triage.toggleHideSeen}
                 showAbstracts={showAbstracts}
@@ -545,8 +589,6 @@ export function App() {
               />
 
               <ListNotices
-                view={state.view}
-                relevanceHelp={hasSearchWords && showRelevanceHelp}
                 readingListMessage={
                   state.view === "reading-list" && readingList.message
                     ? { text: readingList.message, onDismiss: readingList.dismissMessage }
@@ -560,7 +602,6 @@ export function App() {
                       }
                     : null
                 }
-                shortcuts={triaged && load.status === "ready"}
                 missingDays={
                   missingDays.length > 0 && load.status === "ready"
                     ? { days: missingDays, onRetry: retry }
@@ -571,8 +612,11 @@ export function App() {
                     ? { shown: load.index.size, leftOut: archiveLeftOut, unranked: archiveUnranked }
                     : null
                 }
-                citationsNote={citationsNote}
-                lastMonths={archived && archiveRange === LAST_12_MONTHS}
+                staleCitations={
+                  citationsNote && citations.asOf && staleCitations(citations.asOf)
+                    ? citationsNote
+                    : null
+                }
                 mostlyTied={
                   byCount && !rising && !rankings && mostlyTied(results, citations.counts)
                 }
@@ -596,8 +640,6 @@ export function App() {
                   archived={archived}
                   kind={state.rank}
                   metric={state.metric}
-                  onKind={(rank) => update({ rank })}
-                  onMetric={(metric) => update({ metric })}
                   onEntity={(kind, name) =>
                     update({
                       view: archived ? "cited" : "papers",
@@ -615,8 +657,9 @@ export function App() {
                 </p>
               ) : state.view === "reading-list" && readingList.papers.length === 0 ? (
                 <p class="notice">
-                  Your reading list is empty. Use ☆ on a paper to save it; the list is kept in this
-                  browser.
+                  Your reading list is empty. Use <StarIcon />
+                  <span class="visually-hidden">the star</span> on a paper to save it; the list is
+                  kept in this browser.
                 </p>
               ) : (
                 <>

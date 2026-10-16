@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "preact/hooks";
 import { countOf } from "../format";
+import { useDismiss } from "../hooks/use-dismiss";
 import {
   between,
   dayDate,
@@ -18,6 +19,7 @@ import {
   stepDay,
 } from "../period";
 import type { DaySummary } from "../types";
+import { CalendarIcon, ChevronIcon } from "./icons";
 
 // Monday first: 5 January 2026 was a Monday.
 const WEEKDAYS = Array.from({ length: 7 }, (_, index) =>
@@ -38,9 +40,9 @@ const ARROWS: Readonly<Record<string, number>> = {
   ArrowDown: 7,
 };
 
-/** The graph's one-line chip ("Last week · 982 papers"), beside the highly cited one. */
-interface Chip {
-  /** Whether the recent days are what shows; the chip is muted under another source. */
+/** The recent days as one source of the papers, beside the highly cited ones (graph, Rankings). */
+interface Source {
+  /** Whether the recent days are what shows; the button is muted under the other source. */
   active: boolean;
   /** Picking a day or a preset shows the recent days again. */
   onActivate: () => void;
@@ -51,17 +53,9 @@ interface Props {
   days: DaySummary[];
   period: Period;
   onChange: (period: Period) => void;
-  /** The graph's chip (UX-29); the budget note then moves into the panel. */
-  chip?: Chip | undefined;
-}
-
-function CalendarIcon() {
-  return (
-    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <rect x="1.5" y="2.5" width="13" height="12" rx="2" stroke="currentColor" />
-      <path d="M1.5 6.5h13M5 1v3M11 1v3" stroke="currentColor" stroke-linecap="round" />
-    </svg>
-  );
+  source?: Source | undefined;
+  /** The graph's one-line chip (UX-29), whose budget note is in the panel; else two lines. */
+  compact?: boolean | undefined;
 }
 
 /**
@@ -69,7 +63,7 @@ function CalendarIcon() {
  * shows how many papers each day has. The first click picks a day, the second extends it
  * into a range.
  */
-export function PeriodPicker({ days, period, onChange, chip }: Props) {
+export function PeriodPicker({ days, period, onChange, source, compact }: Props) {
   const [open, setOpen] = useState(false);
   const [month, setMonth] = useState<string | null>(null);
   const [anchor, setAnchor] = useState<string | null>(null);
@@ -145,7 +139,7 @@ export function PeriodPicker({ days, period, onChange, chip }: Props) {
   }, []);
   // A day or a preset picked while another source shows goes back to the recent days.
   const activate = () => {
-    if (chip && !chip.active) chip.onActivate();
+    if (source && !source.active) source.onActivate();
   };
   const pick = (day: string) => {
     activate();
@@ -159,25 +153,8 @@ export function PeriodPicker({ days, period, onChange, chip }: Props) {
   };
 
   // The calendar is a disclosure: a click elsewhere closes it, Escape also returns the
-  // focus to its button. Tab is free to leave it, so there is no focus trap.
-  useEffect(() => {
-    if (!open) return;
-    const onPointerDown = (event: PointerEvent) => {
-      if (event.target instanceof Node && !rootRef.current?.contains(event.target)) close();
-    };
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        event.stopPropagation();
-        close(true);
-      }
-    };
-    document.addEventListener("pointerdown", onPointerDown);
-    document.addEventListener("keydown", onKeyDown);
-    return () => {
-      document.removeEventListener("pointerdown", onPointerDown);
-      document.removeEventListener("keydown", onKeyDown);
-    };
-  }, [open, close]);
+  // focus to its button.
+  useDismiss(open, rootRef, close);
 
   const recentName =
     period.kind === "recent"
@@ -201,8 +178,8 @@ export function PeriodPicker({ days, period, onChange, chip }: Props) {
     <div class="period-picker" ref={rootRef}>
       <button
         type="button"
-        class={`period-picker__trigger${chip ? " period-picker__trigger--chip" : ""}${
-          chip && !chip.active ? " period-picker__trigger--muted" : ""
+        class={`period-picker__trigger${compact ? " period-picker__trigger--chip" : ""}${
+          source && !source.active ? " period-picker__trigger--muted" : ""
         }`}
         ref={triggerRef}
         aria-expanded={open}
@@ -214,10 +191,12 @@ export function PeriodPicker({ days, period, onChange, chip }: Props) {
         }}
       >
         <CalendarIcon />
-        <span class="visually-hidden">{chip ? "Papers: " : "Period: "}</span>
-        {chip ? (
+        <span class="visually-hidden">{compact ? "Papers: " : "Period: "}</span>
+        {compact ? (
           <span class="period-picker__label period-picker__label--chip">
-            {chip.active && papers > 0 ? `${recentName} · ${countOf(papers, "paper")}` : recentName}
+            {source?.active !== false && papers > 0
+              ? `${recentName} · ${countOf(papers, "paper")}`
+              : recentName}
           </span>
         ) : (
           <span class="period-picker__label">
@@ -228,9 +207,9 @@ export function PeriodPicker({ days, period, onChange, chip }: Props) {
             </span>
           </span>
         )}
-        <span aria-hidden="true">{open ? "▴" : "▾"}</span>
+        <ChevronIcon up={open} />
       </button>
-      {!chip && note}
+      {!compact && note}
 
       {open && (
         <div class="period-picker__panel" id={panelId}>
@@ -241,7 +220,7 @@ export function PeriodPicker({ days, period, onChange, chip }: Props) {
                 type="button"
                 class="chip"
                 aria-pressed={
-                  (!chip || chip.active) && period.kind === "recent" && period.range === key
+                  source?.active !== false && period.kind === "recent" && period.range === key
                 }
                 onClick={() => choose(key as RangeKey)}
               >
@@ -337,7 +316,7 @@ export function PeriodPicker({ days, period, onChange, chip }: Props) {
               </>
             )}
           </p>
-          {chip && note}
+          {compact && note}
         </div>
       )}
     </div>

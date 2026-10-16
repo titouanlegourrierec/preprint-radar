@@ -1,4 +1,4 @@
-import type { ComponentChildren } from "preact";
+import type { ComponentChildren, JSX } from "preact";
 import { useState } from "preact/hooks";
 import type { ArchiveRange } from "../archive-years";
 import { subjectCode } from "../format";
@@ -12,7 +12,8 @@ import {
   typed,
 } from "../search";
 import type { ArchiveSummary, DaySummary, TopRecentSummary } from "../types";
-import { ArchiveSourceSelect, YearRangePicker } from "./ArchiveYears";
+import { ArchivePicker } from "./ArchiveYears";
+import { AuthorsIcon, CategoryIcon, InstitutionIcon, SelectChevron, VenueIcon } from "./icons";
 import { PeriodPicker } from "./PeriodPicker";
 import { VenueSelect } from "./VenueSelect";
 
@@ -30,12 +31,16 @@ interface Props {
   onCategory: (category: string) => void;
   onPeriod: (period: Period) => void;
   onFilters: (filters: SearchFilters) => void;
-  /** Highly cited view: years of the archive, or its last 12 months, shown instead of the period. */
+  /**
+   * The archive's years, or its last 12 months: the highly cited view's papers (`only`),
+   * or Rankings' other source, beside the recent days (`range` is then `null`).
+   */
   archive?:
     | {
         years: ArchiveSummary[];
-        range: ArchiveRange;
-        onRange: (range: ArchiveRange) => void;
+        range: ArchiveRange | null;
+        onRange: (range: ArchiveRange | null) => void;
+        only: boolean;
       }
     | undefined;
   /** The most cited papers of the last 12 months, once the archive keeps them (PROD-11). */
@@ -44,25 +49,19 @@ interface Props {
   asOf?: Date | undefined;
   /** Shown below the filters. */
   children?: ComponentChildren;
-  /** Views of either kind of papers: the recent days (`null`), archive years or its last 12 months. */
-  source?:
-    | {
-        years: ArchiveSummary[];
-        range: ArchiveRange | null;
-        onRange: (range: ArchiveRange | null) => void;
-      }
-    | undefined;
 }
 
 function FilterInput({
   label,
-  placeholder,
+  icon,
+  example,
   value,
   suggestions,
   onChange,
 }: {
   label: string;
-  placeholder: string;
+  icon: JSX.Element;
+  example: string;
   value: NameFilter | null;
   suggestions: FacetCount[];
   onChange: (value: NameFilter | null) => void;
@@ -70,13 +69,17 @@ function FilterInput({
   const listId = `${label.toLowerCase()}-suggestions`;
   return (
     <label class="field">
-      <span>{label}</span>
+      {icon}
       <input
         type="search"
         list={listId}
-        placeholder={placeholder}
-        // A clicked name matches exactly; once edited, the text matches word prefixes.
-        title={value?.exact ? "This name exactly; edit it to match the start of words" : undefined}
+        aria-label={label}
+        placeholder={`${label}, e.g. ${example}`}
+        // A clicked name matches exactly; once edited, the text matches word prefixes. Its
+        // name says what a filled field filters, its placeholder gone.
+        title={
+          value?.exact ? `${label}: this name exactly; edit it to match the start of words` : label
+        }
         value={value?.text ?? ""}
         onInput={(event) =>
           onChange(event.currentTarget.value ? typed(event.currentTarget.value) : null)
@@ -95,7 +98,7 @@ function FilterInput({
 const WIDE_QUERY = "(min-width: 821px)";
 
 export function Sidebar(props: Props) {
-  const { filters, onFilters } = props;
+  const { filters, onFilters, archive } = props;
   const wide = useMediaQuery(WIDE_QUERY);
   const active = activeFilterCount(filters);
   // On phones the section starts open when a filter is set; then the reader decides. A
@@ -104,9 +107,10 @@ export function Sidebar(props: Props) {
   return (
     <aside class="sidebar">
       {props.categories.length > 1 && (
-        <label class="field">
-          <span>Category</span>
+        <label class="field field--select">
+          <CategoryIcon />
           <select
+            aria-label="Category"
             value={props.category}
             onChange={(event) => props.onCategory(event.currentTarget.value)}
           >
@@ -116,34 +120,34 @@ export function Sidebar(props: Props) {
               </option>
             ))}
           </select>
+          <SelectChevron />
         </label>
       )}
 
-      {props.source && (props.source.years.length > 0 || props.recent) && (
-        <ArchiveSourceSelect
-          class="field"
-          years={props.source.years}
-          range={props.source.range}
-          onChange={props.source.onRange}
-          asOf={props.asOf}
-          recent={props.recent}
-        />
-      )}
-
-      {props.source && props.source.range !== null ? null : props.archive ? (
-        <YearRangePicker
-          years={props.archive.years}
-          range={props.archive.range}
-          onChange={props.archive.onRange}
-          recent={props.recent}
-        />
-      ) : (
-        <div class="field">
-          {/* The picker's button says it, for screen readers (UX-14). */}
-          <span aria-hidden="true">Period</span>
-          <PeriodPicker days={props.days} period={props.period} onChange={props.onPeriod} />
-        </div>
-      )}
+      {/* The papers: the recent days, the highly cited ones, or either (Rankings), as the
+          graph's chips choose them (UX-33). */}
+      <div class="sidebar__papers">
+        {!archive?.only && (
+          <PeriodPicker
+            days={props.days}
+            period={props.period}
+            onChange={props.onPeriod}
+            source={
+              archive && { active: archive.range === null, onActivate: () => archive.onRange(null) }
+            }
+          />
+        )}
+        {archive && (archive.years.length > 0 || props.recent) && (
+          <ArchivePicker
+            years={archive.years}
+            range={archive.range}
+            onRange={archive.onRange}
+            recent={props.recent}
+            asOf={props.asOf}
+            recentDays={archive.only ? undefined : { onShow: () => archive.onRange(null) }}
+          />
+        )}
+      </div>
 
       <details
         class="filters"
@@ -156,27 +160,53 @@ export function Sidebar(props: Props) {
         <div class="filters__body">
           <FilterInput
             label="Author"
-            placeholder="e.g. Kaiming He"
+            icon={<AuthorsIcon />}
+            example="Kaiming He"
             value={filters.author}
             suggestions={props.authors}
             onChange={(author) => onFilters({ ...filters, author })}
           />
           <FilterInput
             label="Affiliation"
-            placeholder="e.g. KAIST, Google"
+            icon={<InstitutionIcon />}
+            example="KAIST"
             value={filters.affiliation}
             suggestions={props.affiliations}
             onChange={(affiliation) => onFilters({ ...filters, affiliation })}
           />
 
-          <div class="field">
-            <span aria-hidden="true">Venue</span>
+          {/* The select names itself "Venue". */}
+          <div class="field field--select">
+            <VenueIcon />
             <VenueSelect
               venues={props.venues}
               value={filters.venue}
               onChange={(venue) => onFilters({ ...filters, venue })}
             />
+            <SelectChevron />
           </div>
+
+          {(props.subjects.length > 1 || filters.subject) && (
+            <label class="field field--select">
+              <CategoryIcon />
+              <select
+                aria-label="Subject"
+                value={filters.subject ?? ""}
+                onChange={(event) =>
+                  onFilters({ ...filters, subject: event.currentTarget.value || null })
+                }
+              >
+                <option value="">All subjects</option>
+                {/* The code ("cs.RO"), as cards show it; the URL keeps the name. */}
+                {props.subjects.map(({ value, count }) => (
+                  <option key={value} value={value} title={value}>
+                    {subjectCode(value)} ({count.toLocaleString()})
+                  </option>
+                ))}
+              </select>
+              <SelectChevron />
+            </label>
+          )}
 
           <label class="toggle">
             <input
@@ -197,26 +227,6 @@ export function Sidebar(props: Props) {
             />
             With code
           </label>
-
-          {(props.subjects.length > 1 || filters.subject) && (
-            <label class="field">
-              <span>Subject</span>
-              <select
-                value={filters.subject ?? ""}
-                onChange={(event) =>
-                  onFilters({ ...filters, subject: event.currentTarget.value || null })
-                }
-              >
-                <option value="">All subjects</option>
-                {/* The code ("cs.RO"), as cards show it; the URL keeps the name. */}
-                {props.subjects.map(({ value, count }) => (
-                  <option key={value} value={value} title={value}>
-                    {subjectCode(value)} ({count.toLocaleString()})
-                  </option>
-                ))}
-              </select>
-            </label>
-          )}
         </div>
       </details>
       {props.children}

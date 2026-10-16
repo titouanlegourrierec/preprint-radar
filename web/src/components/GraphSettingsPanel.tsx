@@ -1,4 +1,6 @@
 import { authorLayer, type GraphSettings } from "../preferences";
+import { ChevronIcon, SelectChevron } from "./icons";
+import { Segmented } from "./Segmented";
 
 const MAX_NODES_OPTIONS = [0, 100, 300, 1000, 3000];
 /** The thresholds of the institution and author layers: at least 1 to 10 papers. */
@@ -93,18 +95,20 @@ function Layer(props: {
         {props.label}
       </label>
       {props.min && (
-        <select
-          class="graph-layer__min"
-          aria-label={props.min.label}
-          value={props.min.value}
-          onChange={(event) => props.min?.onChange(Number(event.currentTarget.value))}
-        >
-          {MIN_PAPERS_OPTIONS.map((count) => (
-            <option key={count} value={count}>
-              {count === 1 ? "≥ 1 paper" : `≥ ${count} papers`}
-            </option>
-          ))}
-        </select>
+        <span class="graph-settings__select graph-layer__min">
+          <select
+            aria-label={props.min.label}
+            value={props.min.value}
+            onChange={(event) => props.min?.onChange(Number(event.currentTarget.value))}
+          >
+            {MIN_PAPERS_OPTIONS.map((count) => (
+              <option key={count} value={count}>
+                {count === 1 ? "≥ 1 paper" : `≥ ${count} papers`}
+              </option>
+            ))}
+          </select>
+          <SelectChevron />
+        </span>
       )}
     </div>
   );
@@ -131,7 +135,7 @@ export function GraphSettingsPanel(props: Props) {
           onClick={props.onToggle}
         >
           <span>Graph settings</span>
-          <span aria-hidden="true">{props.open ? "▴" : "▾"}</span>
+          <ChevronIcon up={props.open} />
         </button>
         {props.open && (
           <button
@@ -192,16 +196,19 @@ export function GraphSettingsPanel(props: Props) {
             )}
             <label class="ctl-select" title="Only the institutions and authors of most papers">
               <span>Limit</span>
-              <select
-                value={settings.maxNodes}
-                onChange={(event) => onSettings({ maxNodes: Number(event.currentTarget.value) })}
-              >
-                {MAX_NODES_OPTIONS.map((count) => (
-                  <option key={count} value={count}>
-                    {count === 0 ? "None" : `Top ${count.toLocaleString()}`}
-                  </option>
-                ))}
-              </select>
+              <span class="graph-settings__select">
+                <select
+                  value={settings.maxNodes}
+                  onChange={(event) => onSettings({ maxNodes: Number(event.currentTarget.value) })}
+                >
+                  {MAX_NODES_OPTIONS.map((count) => (
+                    <option key={count} value={count}>
+                      {count === 0 ? "None" : `Top ${count.toLocaleString()}`}
+                    </option>
+                  ))}
+                </select>
+                <SelectChevron />
+              </span>
             </label>
           </fieldset>
 
@@ -209,25 +216,21 @@ export function GraphSettingsPanel(props: Props) {
             <legend>Appearance</legend>
             <div class="ctl-select">
               <span aria-hidden="true">Size by</span>
-              <fieldset class="segmented graph-settings__segmented">
-                <legend class="visually-hidden">Size by</legend>
-                {(["papers", "citations"] as const).map((sizeBy) => (
-                  <button
-                    key={sizeBy}
-                    type="button"
-                    class={`segmented__option${settings.sizeBy === sizeBy ? " segmented__option--active" : ""}`}
-                    aria-pressed={settings.sizeBy === sizeBy}
-                    onClick={() => onSettings({ sizeBy })}
-                  >
-                    {sizeBy === "papers" ? "Papers" : "Citations"}
-                  </button>
-                ))}
-              </fieldset>
+              <Segmented
+                legend="Size by"
+                class="graph-settings__segmented"
+                options={[
+                  ["papers", "Papers"],
+                  ["citations", "Citations"],
+                ]}
+                value={settings.sizeBy}
+                onChange={(sizeBy) => onSettings({ sizeBy })}
+              />
             </div>
             {settings.sizeBy === "citations" && !props.cited && (
               <p class="graph-settings__note">
                 No citations yet for these papers: recent papers are rarely cited, and new ones get
-                their counts within days. The highly cited papers (From, above) show them best.
+                their counts within days. The highly cited papers (the chip above) show them best.
               </p>
             )}
             <Slider

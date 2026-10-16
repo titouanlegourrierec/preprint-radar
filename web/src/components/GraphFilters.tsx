@@ -1,186 +1,11 @@
-import { useEffect, useId, useRef, useState } from "preact/hooks";
-import {
-  ALL_YEARS,
-  type ArchiveRange,
-  LAST_12_MONTHS,
-  oneYear,
-  yearsIn,
-  yearsLabel,
-} from "../archive-years";
-import { countOf } from "../format";
+import type { ArchiveRange } from "../archive-years";
 import type { Period } from "../period";
 import type { FacetCount } from "../search";
 import type { ArchiveSummary, DaySummary, TopRecentSummary } from "../types";
-import { CitedIcon } from "./icons";
+import { ArchivePicker } from "./ArchiveYears";
+import { CategoryIcon, FilterIcon, SelectChevron, VenueIcon } from "./icons";
 import { PeriodPicker } from "./PeriodPicker";
 import { VenueSelect } from "./VenueSelect";
-
-/** An award ribbon: the venue a paper was accepted at. */
-function VenueIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <circle cx="8" cy="5.8" r="3.6" stroke="currentColor" />
-      <path d="M6 8.9L4.8 14 8 12.2 11.2 14 10 8.9" stroke="currentColor" stroke-linejoin="round" />
-    </svg>
-  );
-}
-
-/** A funnel: the words filtering the papers. */
-function WordsIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path d="M2.5 3h11l-4.2 4.8V12l-2.6 1.7V7.8z" stroke="currentColor" stroke-linejoin="round" />
-    </svg>
-  );
-}
-
-/** Four tiles: the arXiv category. */
-function CategoryIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <path
-        d="M2.5 2.5h4.6v4.6H2.5zM8.9 2.5h4.6v4.6H8.9zM2.5 8.9h4.6v4.6H2.5zM8.9 8.9h4.6v4.6H8.9z"
-        stroke="currentColor"
-        stroke-linejoin="round"
-      />
-    </svg>
-  );
-}
-
-interface ArchiveProps {
-  /** The archive's years, newest first, as the index lists them. */
-  years: ArchiveSummary[];
-  /** The years shown, or the last 12 months; `null` for the recent days. */
-  range: ArchiveRange | null;
-  onRange: (range: ArchiveRange | null) => void;
-  /** The most cited papers of the last 12 months, once the archive keeps them (PROD-11). */
-  recent?: TopRecentSummary | undefined;
-}
-
-function papersIn(range: ArchiveRange, { years, recent }: ArchiveProps): number {
-  if (range === LAST_12_MONTHS) return recent?.count ?? 0;
-  return yearsIn(range, years).reduce((sum, year) => sum + year.count, 0);
-}
-
-/**
- * The chip of the highly cited papers: muted while the recent days show, named after the
- * years shown otherwise ("Highly cited, 2024 · 1,037 papers"). Its panel offers the last
- * 12 months, all years or one of them; the period chip goes back to the recent days.
- */
-function ArchiveChip(archive: ArchiveProps) {
-  const { range, onRange } = archive;
-  const [open, setOpen] = useState(false);
-  const rootRef = useRef<HTMLDivElement>(null);
-  const triggerRef = useRef<HTMLButtonElement>(null);
-  const panelId = useId();
-  // A click elsewhere closes it, Escape also returns the focus to its button.
-  useEffect(() => {
-    if (!open) return;
-    const onPointerDown = (event: PointerEvent) => {
-      if (event.target instanceof Node && !rootRef.current?.contains(event.target)) {
-        setOpen(false);
-      }
-    };
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        event.stopPropagation();
-        setOpen(false);
-        triggerRef.current?.focus();
-      }
-    };
-    document.addEventListener("pointerdown", onPointerDown);
-    document.addEventListener("keydown", onKeyDown);
-    return () => {
-      document.removeEventListener("pointerdown", onPointerDown);
-      document.removeEventListener("keydown", onKeyDown);
-    };
-  }, [open]);
-  const choose = (chosen: ArchiveRange) => {
-    onRange(chosen);
-    setOpen(false);
-    triggerRef.current?.focus();
-  };
-  const pressed = (candidate: ArchiveRange): boolean =>
-    range !== null &&
-    (range === LAST_12_MONTHS || candidate === LAST_12_MONTHS
-      ? range === candidate
-      : range.from === candidate.from && range.to === candidate.to);
-
-  return (
-    <div class="graph-chips__source" ref={rootRef}>
-      <button
-        type="button"
-        class={`graph-chips__chip${range === null ? " graph-chips__chip--muted" : ""}`}
-        ref={triggerRef}
-        aria-expanded={open}
-        aria-controls={open ? panelId : undefined}
-        onClick={() => setOpen(!open)}
-      >
-        <CitedIcon />
-        <span class="graph-chips__name">
-          {range === null
-            ? "Highly cited"
-            : `Highly cited, ${yearsLabel(range, archive.years)} · ${countOf(
-                papersIn(range, archive),
-                "paper",
-              )}`}
-        </span>
-        <span aria-hidden="true">{open ? "▴" : "▾"}</span>
-      </button>
-      {open && (
-        <div class="graph-chips__panel" id={panelId}>
-          <p class="graph-chips__panel-label">The most cited papers, first published in</p>
-          <div class="graph-chips__years">
-            {archive.recent && (
-              <button
-                type="button"
-                class="chip"
-                aria-pressed={pressed(LAST_12_MONTHS)}
-                onClick={() => choose(LAST_12_MONTHS)}
-              >
-                Last 12 months
-              </button>
-            )}
-            {archive.years.length > 0 && (
-              <button
-                type="button"
-                class="chip"
-                aria-pressed={pressed(ALL_YEARS)}
-                onClick={() => choose(ALL_YEARS)}
-              >
-                All years
-              </button>
-            )}
-            {archive.years.map(({ year }) => (
-              <button
-                key={year}
-                type="button"
-                class="chip"
-                aria-pressed={pressed(oneYear(year))}
-                onClick={() => choose(oneYear(year))}
-              >
-                {year}
-              </button>
-            ))}
-          </div>
-          {range !== null && (
-            <button
-              type="button"
-              class="chip"
-              onClick={() => {
-                onRange(null);
-                setOpen(false);
-                triggerRef.current?.focus();
-              }}
-            >
-              Back to the recent days
-            </button>
-          )}
-        </div>
-      )}
-    </div>
-  );
-}
 
 interface Props {
   categories: string[];
@@ -229,33 +54,33 @@ export function GraphFilters(props: Props) {
               </option>
             ))}
           </select>
+          <SelectChevron />
         </span>
       )}
       <PeriodPicker
         days={props.storeDays}
         period={props.period}
         onChange={props.onPeriod}
-        chip={{
+        source={{
           active: props.archiveRange === null,
           onActivate: () => props.onArchiveRange(null),
         }}
+        compact
       />
       {(props.archiveYears.length > 0 || props.topRecent) && (
-        <ArchiveChip
+        <ArchivePicker
           years={props.archiveYears}
           range={props.archiveRange}
           onRange={props.onArchiveRange}
           recent={props.topRecent}
+          recentDays={{ onShow: () => props.onArchiveRange(null) }}
+          compact
         />
       )}
       <span class="graph-chips__select">
         <VenueIcon />
-        <VenueSelect
-          venues={props.venues}
-          value={props.venue}
-          onChange={props.onVenue}
-          allLabel="All venues"
-        />
+        <VenueSelect venues={props.venues} value={props.venue} onChange={props.onVenue} />
+        <SelectChevron />
       </span>
       {query !== "" && (
         <button
@@ -265,7 +90,7 @@ export function GraphFilters(props: Props) {
           title="Show all papers"
           onClick={() => props.onQuery("")}
         >
-          <WordsIcon />
+          <FilterIcon />
           <span class="graph-chips__name">“{query}”</span>
           <span aria-hidden="true">×</span>
         </button>

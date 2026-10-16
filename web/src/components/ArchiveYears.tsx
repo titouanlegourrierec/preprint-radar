@@ -1,178 +1,221 @@
+import { useCallback, useId, useRef, useState } from "preact/hooks";
 import {
   ALL_YEARS,
   type ArchiveRange,
-  formatYears,
   LAST_12_MONTHS,
   oneYear,
-  parseYears,
   type YearRange,
   yearsIn,
-  yearsLabel,
 } from "../archive-years";
-import { archiveYearLabel } from "../format";
+import { archiveYearLabel, countOf } from "../format";
+import { useDismiss } from "../hooks/use-dismiss";
 import type { ArchiveSummary, TopRecentSummary } from "../types";
+import { ChevronIcon, CitedIcon } from "./icons";
 
-function yearName(year: number, asOf: Date | undefined): string {
-  return asOf ? archiveYearLabel(year, asOf) : String(year);
+interface Props {
+  /** The archive's years, newest first, as the index lists them. */
+  years: ArchiveSummary[];
+  /** The years shown, or the last 12 months; `null` while the recent days show. */
+  range: ArchiveRange | null;
+  onRange: (range: ArchiveRange) => void;
+  /** The most cited papers of the last 12 months, once the archive keeps them (PROD-11). */
+  recent?: TopRecentSummary | undefined;
+  /** Date of the archive, which names its youngest year ("2025, Jan–Oct"). */
+  asOf?: Date | undefined;
+  /**
+   * The recent days, where they are the other source of the papers (the graph, Rankings):
+   * the button is muted while they show, and its panel goes back to them.
+   */
+  recentDays?: { onShow: () => void } | undefined;
+  /** The graph's one-line chip ("Highly cited, 2024 · 1,037 papers"), else two lines. */
+  compact?: boolean | undefined;
 }
 
-function papersIn(range: YearRange, years: readonly ArchiveSummary[]): number {
+function papersIn(
+  range: ArchiveRange,
+  years: readonly ArchiveSummary[],
+  recent?: TopRecentSummary,
+) {
+  if (range === LAST_12_MONTHS) return recent?.count ?? 0;
   return yearsIn(range, years).reduce((sum, { count }) => sum + count, 0);
 }
 
-interface RangeProps {
-  /** The archive's years, newest first, as the index lists them. */
-  years: ArchiveSummary[];
-  range: ArchiveRange;
-  onChange: (range: ArchiveRange) => void;
-  /** The most cited papers of the last 12 months, once the archive keeps them (PROD-11). */
-  recent?: TopRecentSummary | undefined;
+/** "2024", "2025, Jan–Oct", "2019–2021", "All years", "Last 12 months". */
+function rangeName(range: ArchiveRange, years: readonly ArchiveSummary[], asOf?: Date): string {
+  if (range === LAST_12_MONTHS) return "Last 12 months";
+  if (range.from === null || range.to === null) return "All years";
+  const shown = yearsIn(range, years);
+  const first = shown.at(-1)?.year ?? range.from;
+  const last = shown[0]?.year ?? range.to;
+  if (first !== last) return `${first}–${last}`;
+  return asOf ? archiveYearLabel(first, asOf) : String(first);
+}
+
+function isAllYears(range: ArchiveRange | null): boolean {
+  return range !== null && range !== LAST_12_MONTHS && (range.from === null || range.to === null);
 }
 
 /**
- * The years of the highly cited view: from one year to another (the same for one year),
- * or all of them, which stays all of them as years are added; or the most cited papers of
- * the last 12 months, which the year selects leave blank. The options name the year
- * alone, for two to fit the sidebar; the view's count says how many papers, and "2025,
- * Jan–Oct".
+ * The highly cited papers' years (UX-33): the button names the years shown and their
+ * papers, and its panel, drawn as the period's calendar, offers the last 12 months, all
+ * years, or a year or a range of years picked on a grid that shows each year's papers: the
+ * first click picks a year, the second extends it into a range. The same in the graph's
+ * chips, Rankings' sidebar beside the period, and the highly cited view's.
  */
-export function YearRangePicker({ years, range, onChange, recent }: RangeProps) {
+export function ArchivePicker(props: Props) {
+  const { years, range, onRange, recent, asOf, recentDays, compact } = props;
+  const [open, setOpen] = useState(false);
+  const [anchor, setAnchor] = useState<number | null>(null);
+  const [hovered, setHovered] = useState<number | null>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const panelId = useId();
+  const maxCount = Math.max(1, ...years.map(({ count }) => count));
   const ascending = [...years].reverse();
-  const first = ascending[0]?.year ?? 0;
-  const last = ascending.at(-1)?.year ?? 0;
-  const lastMonths = range === LAST_12_MONTHS;
-  const from = lastMonths ? null : (range.from ?? first);
-  const to = lastMonths ? null : (range.to ?? last);
-  const all = !lastMonths && (range.from === null || range.to === null);
-  const options = [
-    // A dash while the last 12 months are shown, which no year is.
-    lastMonths && (
-      <option key="none" value="" disabled>
-        –
-      </option>
-    ),
-    ...ascending.map(({ year }) => (
-      <option key={year} value={year}>
-        {year}
-      </option>
-    )),
-  ];
+
+  const close = useCallback((returnFocus: boolean) => {
+    setOpen(false);
+    setAnchor(null);
+    if (returnFocus) triggerRef.current?.focus();
+  }, []);
+  useDismiss(open, rootRef, close);
+
+  const choose = (chosen: ArchiveRange) => {
+    onRange(chosen);
+    close(true);
+  };
+  const pick = (year: number) => {
+    onRange(
+      anchor === null
+        ? oneYear(year)
+        : { from: Math.min(anchor, year), to: Math.max(anchor, year) },
+    );
+    setAnchor(anchor === null ? year : null);
+  };
+  // Years shown as selected: the range being picked, else the one shown.
+  const selected: YearRange | null =
+    anchor !== null
+      ? { from: Math.min(anchor, hovered ?? anchor), to: Math.max(anchor, hovered ?? anchor) }
+      : range === null || range === LAST_12_MONTHS
+        ? null
+        : range;
+  const muted = range === null && recentDays !== undefined;
+  const count = range === null ? 0 : papersIn(range, years, recent);
+
   return (
-    <fieldset class="field year-range">
-      <legend>Years</legend>
-      <div class="year-range__selects">
-        <select
-          aria-label="From the year"
-          value={from ?? ""}
-          onChange={(event) => {
-            const year = Number(event.currentTarget.value);
-            onChange(to === null ? oneYear(year) : { from: year, to: Math.max(year, to) });
-          }}
-        >
-          {options}
-        </select>
-        <span aria-hidden="true">to</span>
-        <select
-          aria-label="To the year"
-          value={to ?? ""}
-          onChange={(event) => {
-            const year = Number(event.currentTarget.value);
-            onChange(from === null ? oneYear(year) : { from: Math.min(from, year), to: year });
-          }}
-        >
-          {options}
-        </select>
-      </div>
+    <div class="period-picker archive-picker" ref={rootRef}>
       <button
         type="button"
-        class="link-button year-range__all"
-        aria-pressed={all}
-        disabled={all}
-        onClick={() => onChange(ALL_YEARS)}
+        class={`period-picker__trigger${compact ? " period-picker__trigger--chip" : ""}${
+          muted ? " period-picker__trigger--muted" : ""
+        }`}
+        ref={triggerRef}
+        aria-expanded={open}
+        aria-controls={open ? panelId : undefined}
+        onClick={() => (open ? close(false) : setOpen(true))}
       >
-        {all ? "All years" : `All years (${papersIn(ALL_YEARS, years).toLocaleString()} papers)`}
+        <CitedIcon />
+        {compact ? (
+          <span class="period-picker__label period-picker__label--chip">
+            {range === null
+              ? "Highly cited"
+              : `Highly cited, ${rangeName(range, years).toLowerCase()} · ${countOf(count, "paper")}`}
+          </span>
+        ) : (
+          <span class="period-picker__label">
+            <span>Highly cited</span>
+            <span class="period-picker__detail">
+              {range === null
+                ? "By year of first version"
+                : `${rangeName(range, years, asOf)} · ${countOf(count, "paper")}`}
+            </span>
+          </span>
+        )}
+        <ChevronIcon up={open} />
       </button>
-      {recent && (
-        <button
-          type="button"
-          class="link-button year-range__all"
-          aria-pressed={lastMonths}
-          disabled={lastMonths}
-          onClick={() => onChange(LAST_12_MONTHS)}
-        >
-          {lastMonths
-            ? "Last 12 months"
-            : `Last 12 months (${recent.count.toLocaleString()} papers)`}
-        </button>
+
+      {open && (
+        <div class="period-picker__panel" id={panelId}>
+          <p class="period-picker__summary">The most cited papers, by year of first version</p>
+          <div class="period-picker__presets">
+            {recent && (
+              <button
+                type="button"
+                class="chip"
+                aria-pressed={range === LAST_12_MONTHS}
+                title={countOf(recent.count, "paper")}
+                onClick={() => choose(LAST_12_MONTHS)}
+              >
+                Last 12 months
+              </button>
+            )}
+            {years.length > 0 && (
+              <button
+                type="button"
+                class="chip"
+                aria-pressed={isAllYears(range)}
+                title={countOf(papersIn(ALL_YEARS, years), "paper")}
+                onClick={() => choose(ALL_YEARS)}
+              >
+                All years
+              </button>
+            )}
+          </div>
+
+          {years.length > 0 && (
+            <div class="archive-picker__grid">
+              {ascending.map(({ year, count: papers }) => {
+                const inRange =
+                  selected !== null &&
+                  (selected.from === null || year >= selected.from) &&
+                  (selected.to === null || year <= selected.to);
+                const edge =
+                  selected !== null &&
+                  selected.from !== null &&
+                  (year === selected.from || year === selected.to);
+                return (
+                  <button
+                    key={year}
+                    type="button"
+                    class={`period-picker__day${inRange ? " is-in-range" : ""}${edge ? " is-edge" : ""}`}
+                    style={`--heat: ${(papers / maxCount).toFixed(2)}`}
+                    aria-pressed={inRange}
+                    aria-label={`${asOf ? archiveYearLabel(year, asOf) : year}, ${countOf(papers, "paper")}`}
+                    onClick={() => pick(year)}
+                    onMouseEnter={() => setHovered(year)}
+                    onMouseLeave={() => setHovered(null)}
+                    onFocus={() => setHovered(year)}
+                    onBlur={() => setHovered(null)}
+                  >
+                    <span>{year}</span>
+                    <small>{papers.toLocaleString()}</small>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          {years.length > 1 && (
+            <p class="period-picker__summary">
+              {anchor === null
+                ? "Click a year, then another one to select a range."
+                : "Now click the last year of the range."}
+            </p>
+          )}
+          {recentDays && range !== null && (
+            <button
+              type="button"
+              class="chip archive-picker__back"
+              onClick={() => {
+                recentDays.onShow();
+                close(true);
+              }}
+            >
+              Back to the recent days
+            </button>
+          )}
+        </div>
       )}
-    </fieldset>
-  );
-}
-
-interface SourceProps {
-  /** The class of its label: the sidebar's field, or the graph settings' control. */
-  class: string;
-  years: ArchiveSummary[];
-  /** The archive's years shown, or its last 12 months; `null` for the recent days. */
-  range: ArchiveRange | null;
-  onChange: (range: ArchiveRange | null) => void;
-  asOf?: Date | undefined;
-  /** The most cited papers of the last 12 months, once the archive keeps them (PROD-11). */
-  recent?: TopRecentSummary | undefined;
-}
-
-/**
- * The papers of the graph or Rankings: the recent days, the most cited of the last 12
- * months, all the archive's years, one of them, or the range the highly cited view showed.
- */
-export function ArchiveSourceSelect({
-  class: className,
-  years,
-  range,
-  onChange,
-  asOf,
-  recent,
-}: SourceProps) {
-  const value = range === null ? "recent" : formatYears(range);
-  // A range of several years, from the highly cited view, stays selectable.
-  const custom =
-    range !== null &&
-    range !== LAST_12_MONTHS &&
-    range.from !== null &&
-    range.to !== null &&
-    range.from !== range.to;
-  return (
-    <label class={className}>
-      <span>From</span>
-      <select
-        value={value}
-        onChange={(event) => {
-          const { value: chosen } = event.currentTarget;
-          onChange(chosen === "recent" ? null : parseYears(chosen));
-        }}
-      >
-        <option value="recent">Recent days</option>
-        <optgroup label="Highly cited, first published in">
-          {recent && (
-            <option value={LAST_12_MONTHS}>
-              The last 12 months ({recent.count.toLocaleString()} papers)
-            </option>
-          )}
-          <option value="all">
-            All years ({papersIn(ALL_YEARS, years).toLocaleString()} papers)
-          </option>
-          {custom && (
-            <option value={value}>
-              {yearsLabel(range, years)} ({papersIn(range, years).toLocaleString()} papers)
-            </option>
-          )}
-          {years.map(({ year, count }) => (
-            <option key={year} value={year}>
-              {yearName(year, asOf)} ({count.toLocaleString()} papers)
-            </option>
-          ))}
-        </optgroup>
-      </select>
-    </label>
+    </div>
   );
 }

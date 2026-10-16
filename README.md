@@ -107,7 +107,7 @@ citations, with each one's most cited paper; a name opens its papers. "Who works
 gaussian splatting this month?" or "which labs wrote the most cited papers of 2017?".
 
 The *Graph* tab is a full-screen map of the loaded papers (the recent days, or the highly
-cited papers of some years, chosen under *From*), their institutions and
+cited papers of some years, chosen with the chips at its top), their institutions and
 (optionally) their authors. By default it shows papers (squares) linked to their
 institutions; with authors on, a paper links to its authors, and an institution to the
 authors the paper places there. Without papers, it becomes a collaboration map: institutions

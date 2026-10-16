@@ -1,6 +1,6 @@
-import { useEffect, useId, useRef, useState } from "preact/hooks";
 import { affiliationCoverage } from "../format";
 import { Attribution } from "./Attribution";
+import { InfoButton } from "./InfoButton";
 
 interface Props {
   /** The papers drawn, and those of them whose affiliations are known. */
@@ -18,54 +18,13 @@ interface Props {
  * PROD-16), the attribution, and the citation counts' date.
  */
 export function GraphInfo({ affiliated, total, noun, citationsNote }: Props) {
-  const [open, setOpen] = useState(false);
-  const rootRef = useRef<HTMLDivElement>(null);
-  const panelId = useId();
-  // A click elsewhere or Escape closes it, like the period picker's calendar; Escape stays
-  // here, not also deselecting the graph's node.
-  useEffect(() => {
-    if (!open) return;
-    const onPointerDown = (event: PointerEvent) => {
-      if (event.target instanceof Node && !rootRef.current?.contains(event.target)) {
-        setOpen(false);
-      }
-    };
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        event.stopPropagation();
-        setOpen(false);
-      }
-    };
-    document.addEventListener("pointerdown", onPointerDown);
-    document.addEventListener("keydown", onKeyDown);
-    return () => {
-      document.removeEventListener("pointerdown", onPointerDown);
-      document.removeEventListener("keydown", onKeyDown);
-    };
-  }, [open]);
-
   return (
-    <div class="graph-info" ref={rootRef}>
-      {open && (
-        <div class="graph-info__panel" id={panelId}>
-          <p>{`${affiliationCoverage(affiliated, total, noun)}.`}</p>
-          <p>
-            <Attribution />
-            {citationsNote && ` ${citationsNote}.`}
-          </p>
-        </div>
-      )}
-      <button
-        type="button"
-        class="graph-info__button"
-        aria-label="About the data"
-        title="About the data"
-        aria-expanded={open}
-        aria-controls={open ? panelId : undefined}
-        onClick={() => setOpen(!open)}
-      >
-        <span aria-hidden="true">i</span>
-      </button>
-    </div>
+    <InfoButton label="About the data" class="graph-info" above>
+      <p>{`${affiliationCoverage(affiliated, total, noun)}.`}</p>
+      <p>
+        <Attribution />
+        {citationsNote && ` ${citationsNote}.`}
+      </p>
+    </InfoButton>
   );
 }

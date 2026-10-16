@@ -27,6 +27,7 @@ import {
   InstitutionIcon,
   LinkIcon,
   PdfIcon,
+  StarIcon,
 } from "./icons";
 import { RichText } from "./RichText";
 
@@ -503,7 +504,7 @@ export function PaperCard({
         // Whole once opened, so that the reading list keeps the abstract.
         onClick={() => onToggleSaved(whole.paper)}
       >
-        <span aria-hidden="true">{saved ? "★" : "☆"}</span>
+        <StarIcon filled={saved} />
       </button>
     </article>
   );

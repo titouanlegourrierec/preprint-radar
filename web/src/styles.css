@@ -17,7 +17,8 @@
   --graph-institution: #e8590c;
   --graph-author: #4c6ef5;
   --graph-edge: #adb5bd;
-  --radius: 10px;
+  /* The fields, buttons and cards of every view, as the graph's chips (UX-33). */
+  --radius: 12px;
   --shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 2px 8px rgb(0 0 0 / 0.04);
   --font-sans:
     ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
@@ -83,6 +84,8 @@
 
 body {
   margin: 0;
+  /* Checkboxes and sliders, in the lists as in the graph's settings. */
+  accent-color: var(--accent);
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-sans);
@@ -111,7 +114,7 @@ a:hover {
 .notice a,
 .feed-link a,
 .graph__counts a,
-.graph-info__panel a {
+.info__panel a {
   text-decoration: underline;
   text-underline-offset: 2px;
   overflow-wrap: anywhere;
@@ -283,6 +286,13 @@ mark {
   }
 }
 
+/* An icon beside a control's name or a card's line (`components/icons.tsx`): in its color, at its size. */
+.icon {
+  flex-shrink: 0;
+  width: 1.15em;
+  height: 1.15em;
+}
+
 /* Height of the sticky search bar: what scrolling to a focused element must clear. */
 :root {
   --search-bar-height: 72px;
@@ -313,7 +323,7 @@ html {
 
 .search__input {
   width: 100%;
-  padding: 12px 16px;
+  padding: 12px 76px 12px 44px;
   font-size: 1rem;
   border: 1px solid var(--border-strong);
   border-radius: var(--radius);
@@ -322,17 +332,41 @@ html {
   outline: none;
 }
 
-.search__hint {
-  margin: -4px 2px 0;
-  font-size: 0.8rem;
+/* The magnifier on the left, the "/" key and the ⓘ on the right, as in the graph's Find. */
+.search__field {
+  position: relative;
 }
 
-.search__hint code {
-  padding: 0 4px;
+.search__field > .icon {
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  width: 17px;
+  height: 17px;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.search__key {
+  position: absolute;
+  top: 50%;
+  right: 46px;
+  padding: 0 6px;
+  border: 1px solid var(--border-strong);
   border-radius: 4px;
-  background: var(--surface-muted);
-  font-size: 0.95em;
-  color: var(--text);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* As specific as `.info`'s position, which comes later. */
+.search__field > .search__info {
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  transform: translateY(-50%);
 }
 
 .search__input:focus {
@@ -362,10 +396,11 @@ html {
 
 /* Sidebar ----------------------------------------------------------------- */
 
+/* The controls 8 px apart, as the graph's chips. */
 .sidebar {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 8px;
   align-self: start;
   position: sticky;
   top: 76px;
@@ -381,54 +416,62 @@ html {
   }
 }
 
+/* The papers' source: the period, the highly cited years, or both (Rankings). */
+.sidebar__papers {
+  display: grid;
+  gap: 8px;
+}
+
+/* A filter (UX-33): its icon inside, as the graph's chips, its name in its placeholder and
+   for screen readers, the border of a form field (WCAG 1.4.11). */
 .field {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  position: relative;
+  display: block;
   font-size: 0.85rem;
+}
+
+.field > .icon {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  /* Over the field's own background. */
+  z-index: 1;
+  transform: translateY(-50%);
   color: var(--text-muted);
+  pointer-events: none;
 }
 
 .field input,
 .field select {
-  padding: 7px 10px;
+  width: 100%;
+  min-height: 36px;
+  padding: 6px 12px 6px 36px;
   border: 1px solid var(--border-strong);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: var(--surface);
   color: var(--text);
 }
 
-/* The years of the highly cited view: "2019 to 2021", then "All years". */
-.year-range {
-  min-width: 0;
-  margin: 0;
-  padding: 0;
-  border: 0;
+.field input:hover,
+.field select:hover {
+  border-color: var(--accent);
 }
 
-.year-range legend {
-  margin-bottom: 4px;
-  padding: 0;
+/* The selects drawn as the period's button, with its chevron. */
+.field select {
+  padding-right: 30px;
+  appearance: none;
+  cursor: pointer;
 }
 
-.year-range__selects {
+.select-chevron {
+  position: absolute;
+  top: 50%;
+  right: 10px;
   display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.year-range__selects select {
-  flex: 1;
-  min-width: 0;
-}
-
-.year-range__all {
-  margin-top: 4px;
-}
-
-.year-range__all:disabled {
+  transform: translateY(-50%);
   color: var(--text-muted);
-  cursor: default;
+  pointer-events: none;
 }
 
 /* Period picker ------------------------------------------------------------ */
@@ -444,10 +487,11 @@ html {
   align-items: center;
   gap: 9px;
   width: 100%;
-  padding: 6px 10px;
+  padding: 5px 12px;
   border: 1px solid var(--border-strong);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: var(--surface);
+  font-size: 0.85rem;
   text-align: left;
   cursor: pointer;
 }
@@ -479,20 +523,25 @@ html {
   white-space: nowrap;
 }
 
-/* The graph bar's one-line button: "Last week · 982 papers". */
-.period-picker__label--compact {
-  flex-direction: row;
-  white-space: nowrap;
-}
-
 .period-picker__panel {
   display: grid;
   gap: 8px;
   padding: 10px;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius);
   background: var(--surface);
   box-shadow: var(--shadow);
+}
+
+/* The highly cited years, drawn as the calendar's days (UX-33): four a row, oldest first. */
+.archive-picker__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2px;
+}
+
+.archive-picker__back {
+  justify-self: start;
 }
 
 .period-picker__presets {
@@ -630,7 +679,7 @@ html {
 .filters__body {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 8px;
 }
 
 .filters summary {
@@ -669,10 +718,17 @@ html {
   border-bottom: 1px solid var(--border);
 }
 
-.results__header p {
+/* The count and its ⓘ, the rest pushed to the right. */
+.results__count {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: auto;
+}
+
+.results__count p {
   margin: 0;
   font-size: 0.9rem;
-  margin-right: auto;
 }
 
 .results__actions {
@@ -691,23 +747,25 @@ html {
   font-size: inherit;
 }
 
-.shortcuts {
-  margin: 4px 0 0;
-  font-size: 0.75rem;
+/* The checkboxes under the fields, in their size, a step apart from them. */
+.filters__body .toggle {
+  padding: 2px 4px;
+  font-size: 0.85rem;
 }
 
-.shortcuts kbd {
-  padding: 0 4px;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  font-family: inherit;
-  font-size: 0.95em;
+.filters__body .field + .toggle {
+  margin-top: 4px;
 }
 
 /* Keys only help with a keyboard. */
 @media (pointer: coarse) {
-  .shortcuts {
+  .search__keys,
+  .search__key {
     display: none;
+  }
+
+  .search__input {
+    padding-right: 44px;
   }
 }
 
@@ -723,6 +781,12 @@ html {
   border-radius: 8px;
   background: var(--surface-muted);
   font-size: 0.85rem;
+}
+
+/* The relevance's notes open under the whole control, inside the window even where its
+   options take two rows (a phone) and the ⓘ ends up in the middle. */
+.segmented {
+  position: relative;
 }
 
 .segmented__option {
@@ -741,25 +805,101 @@ html {
   box-shadow: var(--shadow);
 }
 
-.help {
-  display: inline-grid;
+/* An ⓘ and the notes it opens (`InfoButton`): a list's view, the search's syntax, the
+   relevance, the graph's data (UX-33). */
+.info {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+/* The relevance's, placed by its control (above). */
+.segmented > .info {
+  position: static;
+}
+
+.info__button {
+  display: grid;
   place-items: center;
-  width: 18px;
-  height: 18px;
-  margin: 0 4px;
-  border-radius: 50%;
-  border: 1px solid var(--border);
-  color: var(--text-muted);
-  background: transparent;
+  width: 20px;
+  height: 20px;
   padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface);
   font-size: 0.72rem;
-  cursor: help;
+  font-style: italic;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.info__button:hover,
+.info__button[aria-expanded="true"] {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.info__panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 20;
+  width: min(340px, calc(100vw - 32px));
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  font-size: 0.8rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text-muted);
+  text-align: left;
+  white-space: normal;
+  cursor: auto;
+}
+
+.info__panel--above {
+  top: auto;
+  bottom: calc(100% + 8px);
+}
+
+.info__panel--end {
+  right: 0;
+  left: auto;
+}
+
+.info__panel p {
+  margin: 0 0 8px;
+}
+
+.info__panel p:last-child {
+  margin-bottom: 0;
+}
+
+.info__panel code,
+.info__panel kbd {
+  padding: 0 4px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface-muted);
+  font-family: inherit;
+  font-size: 0.95em;
+  color: var(--text);
+}
+
+.info__panel code {
+  border: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 .help-note {
   margin: 8px 0 0;
   padding: 10px 12px;
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: var(--surface-muted);
   font-size: 0.85rem;
   color: var(--text-muted);
@@ -777,7 +917,7 @@ html {
 .button {
   padding: 6px 12px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius);
   background: var(--surface);
   cursor: pointer;
 }
@@ -787,12 +927,20 @@ html {
   color: var(--accent);
 }
 
+/* A card above or instead of the papers, as the graph's floating ones (UX-33). */
 .notice {
   margin-top: 16px;
-  padding: 16px;
-  border: 1px dashed var(--border);
+  padding: 14px 16px;
+  border: 1px solid var(--border);
   border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
   color: var(--text-muted);
+}
+
+/* An icon in a sentence ("Use ☆ on a paper"), on its line. */
+.notice .icon {
+  vertical-align: -0.15em;
 }
 
 .notice--new {
@@ -998,13 +1146,6 @@ html {
   color: var(--text-muted);
 }
 
-/* An icon beside a control's name or a card's line (`components/icons.tsx`): in its color, at its size. */
-.icon {
-  flex-shrink: 0;
-  width: 1.15em;
-  height: 1.15em;
-}
-
 /* The authors and the affiliations, each after its icon (UX-28), their lines wrapping
    beside it rather than under it. */
 .paper__line {
@@ -1146,6 +1287,11 @@ html {
   color: var(--text-muted);
 }
 
+.icon-button > svg {
+  width: 18px;
+  height: 18px;
+}
+
 .icon-button:hover {
   background: var(--surface-muted);
 }
@@ -1256,17 +1402,6 @@ html {
   appearance: none;
 }
 
-.graph-chips__select::after {
-  content: "▾";
-  position: absolute;
-  top: 50%;
-  right: 12px;
-  transform: translateY(-50%);
-  color: var(--text);
-  font-size: 0.8rem;
-  pointer-events: none;
-}
-
 .graph-chips .period-picker {
   position: relative;
   max-width: 100%;
@@ -1283,9 +1418,8 @@ html {
   white-space: nowrap;
 }
 
-/* The chips' panels float over the canvas; the sidebar's calendar stays in the flow. */
-.graph-chips .period-picker__panel,
-.graph-chips__panel {
+/* The chips' panels float over the canvas; the sidebar's stay in the flow. */
+.graph-chips .period-picker__panel {
   position: absolute;
   top: calc(100% + 6px);
   left: 0;
@@ -1293,35 +1427,6 @@ html {
   width: min(340px, calc(100vw - 24px));
   max-height: calc(100dvh - 230px);
   overflow-y: auto;
-}
-
-.graph-chips__source {
-  position: relative;
-  max-width: 100%;
-}
-
-.graph-chips__panel {
-  display: grid;
-  gap: 8px;
-  justify-items: start;
-  width: min(320px, calc(100vw - 24px));
-  padding: 12px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: var(--surface);
-  box-shadow: var(--shadow);
-}
-
-.graph-chips__panel-label {
-  margin: 0;
-  font-size: 0.72rem;
-  color: var(--text-muted);
-}
-
-.graph-chips__years {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
 }
 
 /* The canvas and what floats over it. */
@@ -1431,6 +1536,10 @@ html {
   cursor: pointer;
 }
 
+.graph-settings__toggle svg {
+  color: var(--text-muted);
+}
+
 .graph-settings__reset {
   margin-right: 8px;
   padding: 2px 6px;
@@ -1472,14 +1581,26 @@ html {
   color: var(--text-muted);
 }
 
+/* The selects with the chevron of the others (UX-33). */
+.graph-settings__select {
+  position: relative;
+  display: block;
+}
+
 .graph-settings select {
   width: 100%;
-  padding: 4px 8px;
+  padding: 4px 24px 4px 8px;
   border: 1px solid var(--border-strong);
-  border-radius: 7px;
+  border-radius: 8px;
   background: var(--surface);
   color: var(--text);
   font-size: 12.5px;
+  appearance: none;
+  cursor: pointer;
+}
+
+.graph-settings .select-chevron {
+  right: 6px;
 }
 
 /* An accent border beside the inset `:focus-visible` ring, never instead of it (UX-9). */
@@ -1495,9 +1616,9 @@ html {
   gap: 8px;
 }
 
-.graph-settings .graph-layer__min {
+.graph-settings .graph-layer__min select {
   width: auto;
-  padding: 2px 4px;
+  padding: 2px 22px 2px 6px;
   font-size: 11.5px;
 }
 
@@ -1813,55 +1934,22 @@ html {
   pointer-events: none;
 }
 
+/* The graph's ⓘ, larger, and translucent over the canvas as its neighbours. */
 .graph-info {
-  position: relative;
   pointer-events: auto;
 }
 
-.graph-info__button {
-  display: grid;
-  place-items: center;
+.graph-info .info__button {
   width: 30px;
   height: 30px;
-  padding: 0;
-  border: 1px solid var(--border);
-  border-radius: 50%;
   background: color-mix(in srgb, var(--surface) 82%, transparent);
   backdrop-filter: blur(6px);
   font-size: 13px;
-  font-style: italic;
-  font-weight: 600;
-  color: var(--text-muted);
-  cursor: pointer;
 }
 
-.graph-info__button:hover,
-.graph-info__button[aria-expanded="true"] {
-  border-color: var(--accent);
-  color: var(--text);
-}
-
-.graph-info__panel {
-  position: absolute;
-  bottom: calc(100% + 8px);
-  left: 0;
-  z-index: 6;
+.graph-info .info__panel {
   width: min(320px, calc(100vw - 24px));
-  padding: 10px 12px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: var(--surface);
-  box-shadow: var(--shadow);
   font-size: 12px;
-  color: var(--text-muted);
-}
-
-.graph-info__panel p {
-  margin: 0 0 8px;
-}
-
-.graph-info__panel p:last-child {
-  margin-bottom: 0;
 }
 
 .graph__legend {
@@ -2107,7 +2195,6 @@ html {
   display: flex;
   flex-wrap: wrap;
   gap: 8px 20px;
-  margin-bottom: 8px;
 }
 
 .rankings__group {
@@ -2118,7 +2205,7 @@ html {
 }
 
 .rankings__note {
-  margin: 0 0 10px;
+  margin: 10px 0;
   font-size: 0.85rem;
 }
 
@@ -2192,6 +2279,7 @@ html {
   flex-direction: column;
   align-items: flex-start;
   gap: 6px;
+  margin-top: 12px;
   font-size: 0.85rem;
 }
 
@@ -2243,11 +2331,6 @@ html {
   border-color: var(--accent);
   color: var(--text);
   font-size: 0.8rem;
-}
-
-.view-note {
-  margin: 4px 0 0;
-  font-size: 0.85rem;
 }
 
 .graph__intro {
@@ -2334,16 +2417,14 @@ html {
   .skip-link,
   .topbar,
   .search,
-  .search__hint,
   .sidebar,
   .results__header .segmented,
-  .results__header .help,
+  .results__header .info,
   .results__toggles,
   .export-menu,
   .results__actions,
   .help-note,
   .notice--new,
-  .shortcuts,
   .feed-link,
   .active-filters .link-button,
   .active-filters .chip [aria-hidden="true"],

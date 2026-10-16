@@ -1,3 +1,4 @@
+import type { ComponentChildren } from "preact";
 import { useRef } from "preact/hooks";
 import { toBibtexFile } from "../bibtex";
 import { download } from "../download";
@@ -5,6 +6,8 @@ import { toCsv, toMarkdown, toRis } from "../export";
 import { countOf, formatDay } from "../format";
 import type { Paper } from "../types";
 import type { CountLine, SortChoice, ViewModel } from "../view-model";
+import { InfoButton } from "./InfoButton";
+import { Segmented } from "./Segmented";
 
 // The exports of the results shown, as files named after the list ("papers.bib",
 // "reading-list.bib").
@@ -66,8 +69,10 @@ interface Props {
   citationsNote: string | undefined;
   /** The days Rising's gains span, for its tooltip. */
   gainsSpan: { since: string; to: string } | null;
-  relevanceHelpShown: boolean;
-  onRelevanceHelp: () => void;
+  /** What the view says of its papers: an ⓘ beside the count (UX-33). */
+  notes?: ComponentChildren;
+  /** The view's own controls, after the count: Rankings' (UX-33). */
+  controls?: ComponentChildren;
   hideSeen: boolean;
   onHideSeen: () => void;
   showAbstracts: boolean;
@@ -109,37 +114,27 @@ export function ResultsHeader(props: Props) {
   };
   return (
     <div class="results__header">
-      <p class="muted" aria-live="polite">
-        {count && ("loading" in count ? count.loading : countText(count))}
-      </p>
+      <div class="results__count">
+        <p class="muted" aria-live="polite">
+          {count && ("loading" in count ? count.loading : countText(count))}
+        </p>
+        {props.notes}
+      </div>
+      {props.controls}
       {model.sorts.length > 0 && (
-        <fieldset class="segmented">
-          <legend class="visually-hidden">Sort results</legend>
-          {model.sorts.map((sort) => (
-            <button
-              key={sort}
-              type="button"
-              class={`segmented__option${model.sorted === sort ? " segmented__option--active" : ""}`}
-              aria-pressed={model.sorted === sort}
-              title={titles[sort]}
-              onClick={() => props.onSort(sort)}
-            >
-              {SORT_LABELS[sort]}
-            </button>
-          ))}
+        <Segmented
+          legend="Sort results"
+          options={model.sorts.map((sort) => [sort, SORT_LABELS[sort]] as const)}
+          value={model.sorted}
+          onChange={props.onSort}
+          titles={titles}
+        >
           {model.relevanceHelp && (
-            <button
-              type="button"
-              class="help"
-              aria-expanded={props.relevanceHelpShown}
-              aria-label="How is relevance computed?"
-              title={RELEVANCE_HELP}
-              onClick={props.onRelevanceHelp}
-            >
-              ?
-            </button>
+            <InfoButton label="How is relevance computed?" end>
+              <p>{RELEVANCE_HELP}</p>
+            </InfoButton>
           )}
-        </fieldset>
+        </Segmented>
       )}
       {(model.hideSeen || model.abstracts) && (
         <div class="results__toggles">

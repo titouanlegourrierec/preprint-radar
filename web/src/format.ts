@@ -106,8 +106,17 @@ const DAY_MS = 86_400_000;
 /** The note on citation counts: their source and date, and a warning once they are stale. */
 export function citationsNote(source: string, asOf: string, today: Date = new Date()): string {
   const note = `Citations on ${source}, as of ${formatDay(asOf)}`;
-  const age = Math.floor((today.getTime() - new Date(asOf).getTime()) / DAY_MS);
-  return age > STALE_CITATIONS_DAYS ? `${note} (${age} days ago: they may be out of date)` : note;
+  const age = citationsAge(asOf, today);
+  return staleCitations(asOf, today) ? `${note} (${age} days ago: they may be out of date)` : note;
+}
+
+function citationsAge(asOf: string, today: Date): number {
+  return Math.floor((today.getTime() - new Date(asOf).getTime()) / DAY_MS);
+}
+
+/** Whether counts of this date are old enough for a list to say so above its papers. */
+export function staleCitations(asOf: string, today: Date = new Date()): boolean {
+  return citationsAge(asOf, today) > STALE_CITATIONS_DAYS;
 }
 
 /** Days of a weekly refresh, and a day of slack for a run that started late. */

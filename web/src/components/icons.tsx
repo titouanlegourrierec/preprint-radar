@@ -29,13 +29,21 @@ export function BrandIcon({ brand }: { brand: Brand }) {
   );
 }
 
-/** An icon of our own, drawn in lines on a 16 px grid like `PeriodPicker`'s calendar. */
-function Outline({ name, children }: { name: string; children: ComponentChildren }) {
+/** An icon of our own, drawn in lines on a 16 px grid; `filled`, its shapes filled too. */
+function Outline({
+  name,
+  filled,
+  children,
+}: {
+  name: string;
+  filled?: boolean;
+  children: ComponentChildren;
+}) {
   return (
     <svg
       class="icon"
       viewBox="0 0 16 16"
-      fill="none"
+      fill={filled ? "currentColor" : "none"}
       stroke="currentColor"
       stroke-width="1.3"
       stroke-linecap="round"
@@ -157,10 +165,10 @@ export function RankingsIcon() {
   );
 }
 
-/** A star, as on the cards that save a paper: the reading list. */
-export function StarIcon() {
+/** A star: the reading list, and a card's button saving it there, filled once saved. */
+export function StarIcon({ filled = false }: { filled?: boolean }) {
   return (
-    <Outline name="star">
+    <Outline name={filled ? "star-filled" : "star"} filled={filled}>
       <path d="M8 1.75l1.9 3.85 4.25.62-3.08 3 .73 4.23L8 11.45l-3.8 2 .73-4.23-3.08-3 4.25-.62z" />
     </Outline>
   );
@@ -176,11 +184,97 @@ export function InfoIcon() {
   );
 }
 
+/** A calendar: the period of the recent days. */
+export function CalendarIcon() {
+  return (
+    <Outline name="calendar">
+      <rect x="1.5" y="2.5" width="13" height="12" rx="2" />
+      <path d="M1.5 6.5h13M5 1v3M11 1v3" />
+    </Outline>
+  );
+}
+
+/** An award ribbon: the venue a paper was accepted at. */
+export function VenueIcon() {
+  return (
+    <Outline name="venue">
+      <circle cx="8" cy="5.8" r="3.6" />
+      <path d="M6 8.9 4.8 14 8 12.2l3.2 1.8L10 8.9" />
+    </Outline>
+  );
+}
+
+/** A funnel: the words filtering the papers. */
+export function FilterIcon() {
+  return (
+    <Outline name="filter">
+      <path d="M2.5 3h11L9.3 7.8V12l-2.6 1.7V7.8z" />
+    </Outline>
+  );
+}
+
+/** Four tiles: the arXiv category, or a paper's subjects. */
+export function CategoryIcon() {
+  return (
+    <Outline name="category">
+      <path d="M2.5 2.5h4.6v4.6H2.5zM8.9 2.5h4.6v4.6H8.9zM2.5 8.9h4.6v4.6H2.5zM8.9 8.9h4.6v4.6H8.9z" />
+    </Outline>
+  );
+}
+
+/** A magnifier: a search field. */
+export function SearchIcon() {
+  return (
+    <Outline name="search">
+      <circle cx="7" cy="7" r="4.6" />
+      <path d="M10.4 10.4 14 14" />
+    </Outline>
+  );
+}
+
+/** A sun: the light theme. */
+export function SunIcon() {
+  return (
+    <Outline name="sun">
+      <circle cx="8" cy="8" r="2.75" />
+      <path d="M8 1.5v1.25M8 13.25v1.25M1.5 8h1.25M13.25 8h1.25M3.4 3.4l.9.9M11.7 11.7l.9.9M3.4 12.6l.9-.9M11.7 4.3l.9-.9" />
+    </Outline>
+  );
+}
+
+/** A crescent: the dark theme. */
+export function MoonIcon() {
+  return (
+    <Outline name="moon">
+      <path d="M13.5 9.6A5.75 5.75 0 1 1 6.4 2.5a4.6 4.6 0 0 0 7.1 7.1Z" />
+    </Outline>
+  );
+}
+
+/** A circle half filled: the theme of the system. */
+export function AutoThemeIcon() {
+  return (
+    <Outline name="theme-auto">
+      <circle cx="8" cy="8" r="6.25" />
+      <path d="M8 1.75a6.25 6.25 0 0 1 0 12.5Z" fill="currentColor" />
+    </Outline>
+  );
+}
+
 /** A chevron, down to unfold, up to fold. */
 export function ChevronIcon({ up }: { up: boolean }) {
   return (
     <Outline name={up ? "chevron-up" : "chevron-down"}>
       <path d={up ? "M4 10l4-4 4 4" : "M4 6l4 4 4-4"} />
     </Outline>
+  );
+}
+
+/** The chevron of a select drawn as a field or a chip, over its right end (UX-33). */
+export function SelectChevron() {
+  return (
+    <span class="select-chevron">
+      <ChevronIcon up={false} />
+    </span>
   );
 }

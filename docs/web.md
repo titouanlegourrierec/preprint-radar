@@ -110,11 +110,28 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   "Hide seen" is the Papers view's alone, "Show abstracts" that of Papers and Highly cited
   (PROD-14; the reading list always shows them), and the Export menu that of Papers,
   Highly cited and the reading list (SRCH-16).
-  The rendering is in components: `Topbar` (the tabs), `ResultsHeader` (the count, the
-  sort control, the toggles, the Export menu and the reading list's tools), `ListNotices`
-  (help, news since the last visit, notes, the filters set, the feed), `NoResults` (why a
-  list is empty, and its remedies) and `SiteFooter` (the sources, `Attribution`, which the
-  graph's settings show too: REL-10).
+  The rendering is in components: `Topbar` (the tabs), `ResultsHeader` (the count and
+  its ⓘ, the sort control or Rankings' own, the toggles, the Export menu and the reading
+  list's tools), `ListNotices` (news since the last visit, warnings, the filters set, the
+  feed), `NoResults` (why a list is empty, and its remedies) and `SiteFooter` (the
+  sources, `Attribution`, which the graph's ⓘ shows too: REL-10).
+- The lists look as the graph (UX-33). The sidebar's controls are the graph's chips in a
+  column: the papers' source first (`PeriodPicker`, and in Highly cited and Rankings
+  `ArchivePicker`, the graph's two chips as fields of two lines), then the filters, each
+  with its icon inside and its name in the placeholder and for screen readers (`title`
+  too, a filled field having lost its placeholder), the selects with the chevron of the
+  others (`SelectChevron`), the border of a form field kept (`--border-strong`, WCAG
+  1.4.11). What a view says of its papers is behind an ⓘ beside the count (`ViewNotes` in
+  `InfoButton`, as the graph's `GraphInfo`): what it shows and how its papers are chosen,
+  the affiliation coverage and the citation counts' date; stale counts are also said above
+  the papers, and Rankings says the coverage beside its count when it is below half. The
+  search field has the Find field's magnifier and `/` key, its syntax and the list's keys
+  behind its own ⓘ (still its description for screen readers, `#search-hint`), and the
+  relevance's ⓘ explains that order. One `Segmented` draws the orders, Rankings' controls
+  (in the header, where the lists have their order) and the graph's Size by; fields,
+  buttons, cards and notices share the graph's radius (`--radius`, 12 px). The cards' star
+  and the theme button are drawn icons (`StarIcon`, filled once saved; a sun, a crescent,
+  a half circle for the system's theme).
 - `components/ErrorBoundary.tsx` (TEST-10): a view that fails to draw says so, with Reload,
   a link to start over and the correction contact, and leaves the tabs and the sidebar
   usable; it draws again once the state or the papers change (`resetKeys`: Back, another
@@ -180,7 +197,9 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   by `components/PeriodPicker.tsx`. Its calendar works from the keyboard (UX-14): one day
   takes Tab (the one the focus was on, else the period's last), the arrows move a day or a
   week past the days without papers (`stepDay`), into the next month too, Enter picks, and
-  a focused day previews the range as the pointer does; its button reads "Period: …". The presets are the latest day, the last week and the
+  a focused day previews the range as the pointer does; its button reads "Period: …"
+  ("Papers: …" as the graph's one-line chip, `compact`), and is muted where the highly
+  cited papers show instead (`source`: the graph, Rankings). The presets are the latest day, the last week and the
   last month (`day`, `week`, `month`), counted in calendar days to the latest announcement
   day, so that their names say what they hold: a week has five announcement days, fewer
   after a holiday (SRCH-14). Links to the former presets, counted in announcement days,
@@ -214,9 +233,12 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   the index (another period is loaded again, from the files kept); a new load lets the
   former index go before the new one is built.
 - The *Highly cited* view (`?view=cited&year=`) loads archive years instead of days,
-  ranked by citations: one (`year=2017`), a range (`year=2019-2021`, the From and To
-  selects of `components/ArchiveYears.tsx`) or all of them (`year=all`, which stays all
-  as years are added); without `year`, the latest. Past `PAPER_BUDGET` papers (all years
+  ranked by citations: one (`year=2017`), a range (`year=2019-2021`) or all of them
+  (`year=all`, which stays all as years are added); without `year`, the latest. They are
+  chosen as the graph's (`ArchivePicker`, `components/ArchiveYears.tsx`, UX-33): a
+  button naming the years and their papers opens the last 12 months, all years, and a
+  grid of the years drawn as the calendar's days, each with its papers, where a click picks
+  a year and a second one extends it into a range. Past `PAPER_BUDGET` papers (all years
   hold 22,000: 100 MB, 300 MB once indexed), it keeps the best ranked by citations per
   year of age, the archive's own score (`archive-years.ts`, `bestRanked`, from the
   citation shards of those years), and says how many it leaves out (PROD-17). The graph
@@ -227,9 +249,8 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
 - Or the most cited papers of the last 12 months (`year=last-12-months`, PROD-11): 1,000
   papers the weekly archive keeps apart from its years, in `top-recent.json`
   ([archive.md](archive.md)), since none older than the day files is in the store
-  otherwise. `ArchiveRange` is a `YearRange` or `LAST_12_MONTHS`; the Years picker offers
-  "Last 12 months" next to "All years" (its year selects then blank), and the source
-  select of the graph and Rankings lists it first among the highly cited. They show once
+  otherwise. `ArchiveRange` is a `YearRange` or `LAST_12_MONTHS`; the years' panel offers
+  "Last 12 months" first, beside "All years", in Highly cited as in the graph and Rankings. They show once
   the index has `top_recent` for the category: before, the link shows the latest year
   (`shownYears`). The count says since when ("first published since 5 Oct 2025"), the
   view's note how they are chosen. Their counts are in the year shards, as the archive's
@@ -386,8 +407,8 @@ cross-listed lately, says "first version 2019" beside its day (`firstVersionYear
 - The view's controls (UX-29): which papers and how to draw them apart, since the first are
   the URL's, shared with the other views, and the second preferences of this browser.
   Everything floats on the canvas. At the top left, chips name the papers shown and choose
-  them: the period chip ("Last week · 982 papers", `PeriodPicker` with `chip`) opens the
-  presets and the calendar, the highly cited chip the archive's years (a day or a preset
+  them: the period chip ("Last week · 982 papers", `PeriodPicker`, `compact`) opens the
+  presets and the calendar, the highly cited chip (`ArchivePicker`) the archive's years (a day or a preset
   goes back to the recent days, a year leaves them: the source that does not show is
   muted), the venue chip is the venue select, and a quoted chip names the words filtering
   the papers, and clears them. The Find field sits under the
@@ -476,9 +497,11 @@ cross-listed lately, says "first version 2019" beside its day (`firstVersionYear
 - Rankings (`rankings.ts`, `components/Rankings.tsx`): the institutions or authors of the
   papers shown, by papers or citations, named through `buildGraph` so that they match the
   graph. Institutions rank on the papers with known affiliations, a minority in the
-  youngest archive years (16% of 2025): the note gives their share
-  (`format.affiliationCoverage`, "Affiliations known for 331 of 2,018 papers (16%)") and,
-  below half, that the others count for no institution (PROD-16).
+  youngest archive years (16% of 2025): the ⓘ beside the count gives their share
+  (`format.affiliationCoverage`, "Affiliations known for 331 of 2,018 papers (16%)"), and
+  below half the table's own note says it too, with that the others count for no
+  institution (PROD-16). What it ranks and by what are in the list's header (UX-33), its
+  papers chosen in the sidebar as the graph's: the period, or the highly cited years.
 - What two nodes did together, and with whom one works (§17.1 #8): each of a node's
   connections in the details lists the papers their link stands for on a click
   (`linkPapers`: every shared paper when papers are nodes, in the projection only those
