@@ -29,6 +29,7 @@ from preprint_radar.collect import (
     format_archive_affiliations_report,
     format_citations_report,
     format_code_report,
+    format_countries_report,
     format_openalex_report,
     format_report,
     format_scholar_report,
@@ -38,6 +39,7 @@ from preprint_radar.collect import (
     update_category,
     update_citation_counts,
     update_code_records,
+    update_countries,
     update_openalex_affiliations,
     update_scholar_records,
 )
@@ -201,6 +203,7 @@ def build_parser() -> argparse.ArgumentParser:
     _add_reclean_parser(subparsers)
     _add_scholar_parser(subparsers)
     _add_code_parser(subparsers)
+    _add_countries_parser(subparsers)
     _add_venues_parser(subparsers)
     _add_validate_parser(subparsers)
     _add_summary_parser(subparsers)
@@ -237,6 +240,7 @@ PROGRESS_COMMANDS = frozenset(
         "citations",
         "scholar",
         "code",
+        "countries",
         "archive",
     }
 )
@@ -586,6 +590,34 @@ def _add_scholar_parser(subparsers: "argparse._SubParsersAction[argparse.Argumen
         type=_duration,
         default=None,
         help="stop asking a refusing Semantic Scholar after this long (default: no limit)",
+    )
+
+
+def _add_countries_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
+    countries = subparsers.add_parser(
+        "countries",
+        help="place the institutions of stored papers in their country",
+        description=(
+            "Ask OpenAlex for the country of the institutions of every stored paper, by their "
+            "ROR id, into countries.json (UX-40), for the site's map: 50 a request, seconds. "
+            "Only those without a country yet are asked for, unless --all; a lookup that "
+            "fails is asked for again next time."
+        ),
+    )
+    countries.add_argument(
+        "-c",
+        "--category",
+        dest="categories",
+        action="append",
+        type=_category,
+        help="arXiv category, repeatable (default: every category in the store)",
+    )
+    countries.add_argument("--all", action="store_true", help="ask for every institution again")
+    countries.add_argument(
+        "--data-dir",
+        type=Path,
+        default=DEFAULT_DATA_DIR,
+        help=f"data store directory (default: {DEFAULT_DATA_DIR})",
     )
 
 
@@ -1265,6 +1297,19 @@ def _run_code(args: argparse.Namespace) -> int:
     return 0
 
 
+def _run_countries(args: argparse.Namespace) -> int:
+    store = PaperStore(args.data_dir)
+    categories: list[str] = args.categories or store.categories()
+    # Only arXiv gets the contact; the other services get the bare User-Agent.
+    with HttpClient(user_agent=DEFAULT_USER_AGENT, min_interval=OPENALEX_DELAY_SECONDS) as client:
+        for category in categories:
+            report = update_countries(store, category, client, refresh=args.all)
+            line = format_countries_report(report)
+            console.print(line)
+            github_summary(f"**Countries of institutions.** {line}")
+    return 0
+
+
 def _semantic_scholar() -> tuple[HttpClient, str | None]:
     """A client for Semantic Scholar, and the API key it is used with (if any)."""
     key = api_key()
@@ -1479,6 +1524,7 @@ _COMMANDS: dict[str, Callable[[argparse.Namespace], int]] = {
     "venues": _run_venues,
     "scholar": _run_scholar,
     "code": _run_code,
+    "countries": _run_countries,
     "validate": _run_validate,
     "summary": _run_summary,
     "reextract": _run_reextract,

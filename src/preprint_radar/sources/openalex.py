@@ -11,10 +11,14 @@ It knows those of few preprints of the last two years, but those of nearly every
 version: :func:`fetch_published_authors` asks for the published versions of papers, by
 their DOI, and :func:`published_affiliations` keeps the institutions of their arXiv
 authors (AFF-20).
+
+It also places institutions in their country, by their ROR id (:func:`fetch_countries`,
+UX-40), for the site's map of where the papers come from.
 """
 
 import json
 import logging
+import re
 from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass
 from itertools import batched
@@ -29,6 +33,7 @@ from preprint_radar.sources.ror import organization_name, ror_id
 logger = logging.getLogger(__name__)
 
 OPENALEX_WORKS_URL = "https://api.openalex.org/works"
+OPENALEX_INSTITUTIONS_URL = "https://api.openalex.org/institutions"
 OPENALEX_BATCH_SIZE = 50
 # OpenAlex allows 10 requests per second; stay well below.
 OPENALEX_DELAY_SECONDS = 0.25
@@ -37,6 +42,9 @@ _DOI_URL_PREFIX = "https://doi.org/"
 # What separates the values and the filters of a filter parameter: a DOI holding one cannot
 # be asked for in a batch (none of the 15,222 of cs.CV does).
 _FILTER_SEPARATORS = frozenset("|,")
+# A ROR id as the store keeps it ("03vek6s52"), and an ISO 3166-1 alpha-2 country code.
+_ROR_ID_RE = re.compile(r"^0[a-z0-9]{8}$")
+_COUNTRY_RE = re.compile(r"^[A-Z]{2}$")
 
 
 @dataclass(frozen=True, slots=True)
@@ -281,3 +289,60 @@ def _institutions(authorship: Mapping[str, object]) -> list[Institution]:
         if all(known.name != name for known in found):
             found.append(Institution(name, ror_id(institution.get("ror"))))
     return found
+
+
+def fetch_countries(
+    client: HttpClient, ror_ids: Sequence[str], *, progress: Advance = no_progress
+) -> dict[str, str | None]:
+    """The country of institutions, by their ROR id (UX-40), 50 a request.
+
+    Args:
+        client: HTTP client for OpenAlex.
+        ror_ids: ROR ids, as the store keeps them ("03vek6s52"); others are not asked for.
+        progress: Told the ids of each batch, looked up or not.
+
+    Returns:
+        The ISO 3166-1 alpha-2 code of each institution looked up ("US"), ``None`` for one
+        OpenAlex does not place in a country (or does not know), so that it is not asked
+        for again each run. The ids of a batch that failed are left out, to be asked again.
+    """
+    found: dict[str, str | None] = {}
+    wanted = [ror for ror in dict.fromkeys(ror_ids) if _ROR_ID_RE.match(ror)]
+    for batch in batched(wanted, OPENALEX_BATCH_SIZE, strict=False):
+        try:
+            text = client.get_text(
+                OPENALEX_INSTITUTIONS_URL,
+                params={
+                    "filter": "ror:" + "|".join(batch),
+                    "select": "ror,country_code",
+                    "per-page": OPENALEX_BATCH_SIZE,
+                },
+            )
+            countries = parse_countries(text)
+        except (FetchError, ParseError) as exc:
+            logger.warning("OpenAlex lookup of %d institutions failed: %s", len(batch), exc)
+            progress(len(batch))
+            continue
+        for ror in batch:
+            found[ror] = countries.get(ror)
+        progress(len(batch))
+    return found
+
+
+def parse_countries(text: str) -> dict[str, str]:
+    """The country code of each institution of an ``/institutions`` response, by ROR id.
+
+    Raises:
+        ParseError: If the response is not the expected JSON.
+    """
+    try:
+        countries: dict[str, str] = {}
+        for institution in json.loads(text)["results"]:
+            ror = ror_id(institution.get("ror"))
+            code = institution.get("country_code")
+            if ror is not None and isinstance(code, str) and _COUNTRY_RE.match(code):
+                countries[ror] = code
+    except (json.JSONDecodeError, AttributeError, KeyError, TypeError) as exc:
+        msg = f"Unexpected OpenAlex response: {exc}"
+        raise ParseError(msg) from exc
+    return countries

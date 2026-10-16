@@ -119,6 +119,16 @@ jobs:
           for category in $CATEGORIES; do args+=(--category "$category"); done
           uv run --no-dev preprint-radar -v archive-affiliations --max-ror 1000 "${args[@]}"
 
+      # The country of the institutions those and the archive added, for the site's map
+      # (UX-40): OpenAlex, 50 a request, seconds; those known already are not asked again.
+      - name: Ask OpenAlex for the countries of the institutions
+        if: ${{ !cancelled() }}
+        timeout-minutes: 5
+        run: |
+          args=()
+          for category in $CATEGORIES; do args+=(--category "$category"); done
+          uv run --no-dev preprint-radar -v countries "${args[@]}"
+
       # The GitHub stars (Hugging Face likes) of the code the stored papers link, in
       # code.json (PROD-18): about 5 minutes, a query every 3 s, more when GitHub's limits
       # ask to wait. The workflow's own token reads public data.

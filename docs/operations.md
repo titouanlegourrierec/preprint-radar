@@ -224,6 +224,19 @@ queries` (a warning): its secondary limits refused a query three times despite t
 stars. One a week is harmless; if it comes back, raise `GITHUB_DELAY_SECONDS` in the
 GitHub source (3 s since 2026-10-12, when 1 s was refused after 30 queries).
 
+### OpenAlex placed no institution
+
+**Signal.** "OpenAlex lookup of 50 `institutions failed`" (a warning) in *Update data* or
+*Archive* (`countries`, UX-40): OpenAlex refused or broke a request.
+
+Those institutions are asked for again by the next run; meanwhile the map counts their
+papers in no country.
+
+**Signal.** `The former countries.json does not load` (a warning): the file was broken.
+
+Every institution is then asked for again, about 90 requests; `make validate` names what
+was wrong.
+
 ## Update data is green, but something is off
 
 ### Out of time
@@ -402,6 +415,7 @@ At a warning (the migration trigger, decided with ARCH-1):
 | `reclean`, `validate`, `stats` | seconds |
 | `affiliations` (OpenAlex, papers without an HTML page) | seconds; 20 s the first time (225 papers) |
 | `code` (GitHub stars, Hugging Face likes) | about 5 minutes (76 GraphQL queries at one every 3 s, 63 Hub pages); `--new`, daily, seconds (a query or two) |
+| `countries` (OpenAlex, the institutions' countries) | seconds; about 90 requests the first time (4,300 institutions) |
 | `archive-affiliations` (OpenAlex, published versions) | seconds; 2 minutes the first time (7,076 DOIs) |
 | `archive-affiliations MAX_HTML=3000` (HTML pages of highly cited papers) | 15 s a page: about 8 hours for the archive's 2,000, 3 more for the last 12 months |
 | `institutions` | a few minutes (one request per distinct string, every 0.5 s) |

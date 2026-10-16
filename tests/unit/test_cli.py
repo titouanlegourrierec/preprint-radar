@@ -19,6 +19,7 @@ from preprint_radar.collect import (
     ArchiveAffiliationsReport,
     CitationsReport,
     CodeReport,
+    CountriesReport,
     HtmlReading,
     OpenAlexReport,
     Ror,
@@ -984,6 +985,40 @@ def test_code_asks_github_and_the_hub_without_the_contact(
     assert requests == [("api.github.com", DEFAULT_USER_AGENT), ("huggingface.co", DEFAULT_USER_AGENT)]
     assert "cs.CV: 5 papers link their code, 1 asked: 3 with GitHub stars" in capsys.readouterr().out
     assert "**Stars of the code.** cs.CV:" in summary.read_text(encoding="utf-8")
+
+
+def test_countries_ask_openalex_without_the_contact(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    def update_countries(
+        _: PaperStore, category: str, client: HttpClient, *, refresh: bool
+    ) -> CountriesReport:
+        assert refresh  # --all
+        client.get_text("https://api.openalex.org/institutions")
+        return CountriesReport(
+            category=category,
+            institutions=3,
+            asked=3,
+            placed=2,
+            nowhere=1,
+            failed=0,
+            papers=4,
+            papers_placed=2,
+        )
+
+    requests = _user_agents(monkeypatch)
+    monkeypatch.setattr("preprint_radar.cli.update_countries", update_countries)
+    monkeypatch.setenv("PREPRINT_RADAR_CONTACT", "author@example.org")
+    summary = tmp_path / "summary.md"
+    monkeypatch.setenv("GITHUB_STEP_SUMMARY", str(summary))
+    store = PaperStore(tmp_path / "data")
+    store.save("cs.CV", [Paper(arxiv_id="2609.00001", announced=date(2026, 9, 25), title="T", authors=())])
+
+    assert main(["countries", "--data-dir", str(store.root), "--all"]) == 0
+
+    assert requests == [("api.openalex.org", DEFAULT_USER_AGENT)]
+    assert "cs.CV: 3 institutions, 3 asked: 2 placed in a country" in capsys.readouterr().out
+    assert "**Countries of institutions.** cs.CV:" in summary.read_text(encoding="utf-8")
 
 
 def test_index_is_written_again_from_the_stored_files(

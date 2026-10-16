@@ -12,7 +12,9 @@ from preprint_radar.sources.openalex import (
     PublishedAuthor,
     affiliations_from_authorships,
     fetch_affiliations,
+    fetch_countries,
     fetch_published_authors,
+    parse_countries,
     parse_published_works,
     parse_works,
     published_affiliations,
@@ -202,3 +204,42 @@ def test_fetch_published_authors_asks_50_dois_per_request() -> None:
     assert "10.3/a" not in "".join(filters)
     # Every DOI counts for the progress bar, the one not asked for too.
     assert sum(done) == len(dois)
+
+
+def test_fetch_countries_places_institutions_and_keeps_the_unplaced(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr("preprint_radar.sources.openalex.OPENALEX_BATCH_SIZE", 2)
+    asked: list[str] = []
+
+    def handle(request: httpx.Request) -> httpx.Response:
+        values = request.url.params["filter"]
+        asked.append(values)
+        if "0bad00000" in values:
+            return httpx.Response(503)
+        return httpx.Response(
+            200,
+            json={
+                "results": [
+                    {"ror": "https://ror.org/03vek6s52", "country_code": "US"},
+                    {"ror": "https://ror.org/0220mzb33", "country_code": None},
+                    {"ror": "not a ROR address", "country_code": "FR"},
+                    {"ror": "https://ror.org/0000000ac", "country_code": "France"},
+                ]
+            },
+        )
+
+    advanced: list[int] = []
+    ids = ["03vek6s52", "0220mzb33", "0bad00000", "0000000aa", "0000000ab", "03vek6s52", "not-an-id"]
+    with HttpClient(transport=httpx.MockTransport(handle), max_attempts=1) as client:
+        countries = fetch_countries(client, ids, progress=advanced.append)
+
+    # Each id once, ROR ids only, 2 a request (UX-40).
+    assert asked == ["ror:03vek6s52|0220mzb33", "ror:0bad00000|0000000aa", "ror:0000000ab"]
+    # Those of a failed batch are left out, to be asked again; an unplaced one is None.
+    assert countries == {"03vek6s52": "US", "0220mzb33": None, "0000000ab": None}
+    assert advanced == [2, 2, 1]
+
+
+@pytest.mark.parametrize("text", ["{not json", "{}", '{"results": [3]}'])
+def test_parse_countries_refuses_another_response(text: str) -> None:
+    with pytest.raises(ParseError):
+        parse_countries(text)

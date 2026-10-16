@@ -18,6 +18,7 @@ from preprint_radar.collect import (
     ArchiveAffiliationsReport,
     CitationsReport,
     CodeReport,
+    CountriesReport,
     HtmlReading,
     OpenAlexReport,
     Ror,
@@ -31,6 +32,7 @@ from preprint_radar.collect import (
     format_archive_affiliations_report,
     format_citations_report,
     format_code_report,
+    format_countries_report,
     format_openalex_report,
     format_report,
     reextract_category,
@@ -40,6 +42,7 @@ from preprint_radar.collect import (
     update_category,
     update_citation_counts,
     update_code_records,
+    update_countries,
     update_openalex_affiliations,
 )
 from preprint_radar.exceptions import SchemaVersionError
@@ -1770,3 +1773,102 @@ def test_reextract_keeps_everything_when_the_layout_seems_changed(store: PaperSt
 
     assert report.stopped is Stop.LAYOUT
     assert sorted(store.iter_papers("cs.CV"), key=lambda paper: paper.arxiv_id) == papers
+
+
+def _placed(arxiv_id: str, *ids: str | None, announced: date = date(2026, 9, 25)) -> Paper:
+    """A paper at institutions with these ROR ids (or none)."""
+    names = tuple(f"Institution {number}" for number in range(len(ids)))
+    return Paper(
+        arxiv_id=arxiv_id,
+        announced=announced,
+        title="T",
+        authors=("Ada",),
+        affiliations=names,
+        institutions=names,
+        institution_ids=ids,
+    )
+
+
+def test_the_countries_of_the_stored_papers_institutions(store: PaperStore) -> None:
+    store.save(
+        "cs.CV",
+        [_placed("2609.00001", "03vek6s52", None), _placed("2609.00002", "0220mzb33"), _placed("2609.00003")],
+    )
+    store.write_archive("cs.CV", [_placed("2001.00004", "0000000aa", announced=date(2020, 1, 3))])
+    # A day file's paper among the last 12 months is counted once.
+    store.write_top_recent("cs.CV", [_placed("2609.00001", "03vek6s52")], since=date(2025, 10, 9))
+    # One known already, which is not asked again; one of no stored paper, which leaves.
+    store.write_countries("cs.CV", {"0220mzb33": "GB", "0stale000": "FR"}, source="OpenAlex")
+    asked: list[str] = []
+
+    def handle(request: httpx.Request) -> httpx.Response:
+        asked.append(request.url.params["filter"])
+        return httpx.Response(
+            200, json={"results": [{"ror": "https://ror.org/03vek6s52", "country_code": "US"}]}
+        )
+
+    now = datetime(2026, 10, 16, 5, tzinfo=UTC)
+    with HttpClient(transport=httpx.MockTransport(handle), max_attempts=1) as client:
+        report = update_countries(store, "cs.CV", client, now=now)
+
+    assert asked == ["ror:0000000aa|03vek6s52"]
+    countries = store.load_countries("cs.CV")
+    assert countries is not None
+    assert countries.institutions == {"0000000aa": None, "0220mzb33": "GB", "03vek6s52": "US"}
+    assert countries.generated_at == now
+    assert report == CountriesReport(
+        category="cs.CV",
+        institutions=3,
+        asked=2,
+        placed=2,
+        nowhere=1,
+        failed=0,
+        papers=4,
+        papers_placed=2,
+    )
+    assert format_countries_report(report) == (
+        "cs.CV: 3 institutions, 2 asked: 2 placed in a country, 1 nowhere, 0 failed; "
+        "a country for 2 of 4 papers (50%)"
+    )
+
+    # Asked again, all of them: a failing OpenAlex keeps what was known, and leaves out a
+    # new institution, asked for next time.
+    store.save("cs.CV", [_placed("2609.00005", "0new00000")])
+    with HttpClient(transport=httpx.MockTransport(lambda _: httpx.Response(503)), max_attempts=1) as client:
+        report = update_countries(store, "cs.CV", client, refresh=True)
+
+    assert (report.asked, report.failed, report.placed) == (4, 1, 2)
+    countries = store.load_countries("cs.CV")
+    assert countries is not None
+    assert "0new00000" not in countries.institutions
+
+
+def test_without_papers_the_countries_report_says_none(store: PaperStore) -> None:
+    with HttpClient(transport=httpx.MockTransport(lambda _: httpx.Response(503)), max_attempts=1) as client:
+        report = update_countries(store, "cs.CV", client)
+
+    assert format_countries_report(report).endswith("a country for 0 of 0 papers (0%)")
+
+
+def test_a_broken_countries_file_asks_for_every_institution(
+    store: PaperStore, caplog: pytest.LogCaptureFixture
+) -> None:
+    store.save("cs.CV", [_placed("2609.00002", "0220mzb33")])
+    (store.root / "cs.CV" / "countries.json").write_text("{not json", encoding="utf-8")
+
+    with HttpClient(transport=httpx.MockTransport(lambda _: httpx.Response(503)), max_attempts=1) as client:
+        report = update_countries(store, "cs.CV", client)
+
+    assert report.asked == 1
+    assert "The former countries.json does not load" in caplog.text
+
+
+def test_a_countries_file_of_another_schema_version_stops_the_countries(store: PaperStore) -> None:
+    store.save("cs.CV", [_placed("2609.00002", "0220mzb33")])
+    (store.root / "cs.CV" / "countries.json").write_text('{"schema_version": 99}', encoding="utf-8")
+
+    with (
+        HttpClient(transport=httpx.MockTransport(lambda _: httpx.Response(503)), max_attempts=1) as client,
+        pytest.raises(SchemaVersionError),
+    ):
+        update_countries(store, "cs.CV", client)

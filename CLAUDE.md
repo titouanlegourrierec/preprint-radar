@@ -75,6 +75,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     `.env` locally, the workflow's own in CI). `archive.yml` runs it weekly; `NEW=1`
     (`--new`) asks only for the papers without a record, keeping the file's date and the
     week's gains, which the daily workflow runs.
+  - `make countries`: the country of the institutions of every stored paper, by their ROR
+    ids, into `countries.json` (UX-40, the site's map): OpenAlex, 50 a request, seconds;
+    only those without one yet (`ALL=1`: all again). Both data workflows run it.
   - `make reextract [MAX_HTML=N]`: read again the pages of stored papers extracted by an
     older `EXTRACTOR_VERSION`, from the page cache when it holds them (offline), else at
     15 s a page within `MAX_HTML`; `--ids` or `--match REGEX` pick papers instead. A page
@@ -160,7 +163,8 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     and published versions of every stored paper, kept out of the records since they are
     rewritten weekly; `<category>/citation-gains.json`, what each gained between the last
     two weekly refreshes (`docs/archive.md`); `<category>/code.json`, the stars of the code
-    each links, and those gained in the week.
+    each links, and those gained in the week; `<category>/countries.json`, the country of
+    each institution of the stored papers, by ROR id (`null`: OpenAlex places it nowhere).
 - `web/`: `src/` (the app; `docs/web.md`), `tooling/` (build plugins: what the site derives
   from `data/`, the third-party guard), `tests/` (Vitest), `e2e/` (Playwright and its store).
 - `.cache/` (git-ignored; the Actions cache in CI): `front-matter/<yymm>/<id>v<n>.html.gz`,
@@ -360,13 +364,14 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     stops them once a run of the day succeeded; a dispatched or manual run always goes on.
   - `update.yml` (dispatched 06:17 UTC on weekdays): the update, then `reextract`
     (50 downloads, 12 minutes), `affiliations` (OpenAlex, seconds), `citations` (10
-    minutes), `code --new` (the new papers' stars, seconds), commit; 240 minutes in all. It
+    minutes), `code --new` (the new papers' stars, seconds), `countries` (the new
+    institutions', seconds), commit; 240 minutes in all. It
     restores the page cache from the Actions cache (`front-matter-<run id>`, saved even
     after a failure), and the archive's catalog only to keep it from eviction (CI-10).
     Its manual *since* input runs `backfill` instead.
   - `archive.yml` (dispatched Sundays 05:41 UTC): the archive, then `scholar` (20 minutes),
-    then `archive-affiliations` (OpenAlex only, seconds) and `code` (about 5 minutes, with the
-    workflow's `GITHUB_TOKEN`).
+    then `archive-affiliations` (OpenAlex only, seconds), `countries` (seconds) and `code`
+    (about 5 minutes, with the workflow's `GITHUB_TOKEN`).
   - `canary.yml` (Wednesdays): the network tests against the live arXiv (a red canary is a
     layout change to look at before it reaches the data), and the repository size.
   - Sizes (ARCH-1): `deploy.yml` fails a site above 800 MB (Pages refuses 1 GB) and warns

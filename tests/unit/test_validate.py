@@ -259,7 +259,17 @@ def test_code_stars(store: PaperStore) -> None:
     assert _messages(store)[0].startswith("data/cs.CV/code.json: Invalid code file")
 
 
-@pytest.mark.parametrize("name", ["citations.json", "citation-gains.json", "scholar.json", "code.json"])
+def test_countries(store: PaperStore) -> None:
+    store.write_countries("cs.CV", {"03vek6s52": "US", "0220mzb33": None}, source="OpenAlex")
+    assert validate_store(store).findings == []
+
+    (store.root / "cs.CV" / "countries.json").write_text("{}", encoding="utf-8")
+    assert _messages(store)[0].startswith("data/cs.CV/countries.json: Invalid countries file")
+
+
+@pytest.mark.parametrize(
+    "name", ["citations.json", "citation-gains.json", "scholar.json", "code.json", "countries.json"]
+)
 def test_a_file_of_another_schema_version(store: PaperStore, name: str) -> None:
     path = store.root / "cs.CV" / name
     path.write_text(json.dumps({"schema_version": 2}), encoding="utf-8")

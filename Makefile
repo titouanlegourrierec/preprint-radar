@@ -170,6 +170,10 @@ scholar: ## Fetch the DOI, published venue and author ids of every stored paper 
 code: ## Fetch the GitHub stars (Hugging Face likes) of the code stored papers link (GITHUB_TOKEN; about 5 minutes; NEW=1: those without yet)
 	uv run preprint-radar -v code $(CATEGORY_ARGS) $(if $(NEW),--new)
 
+.PHONY: countries
+countries: ## Place the institutions of stored papers in their country, from OpenAlex (seconds; ALL=1: every institution again)
+	uv run preprint-radar -v countries $(CATEGORY_ARGS) $(if $(ALL),--all)
+
 .PHONY: validate
 validate: ## Check data/ against its contract (errors fail, heuristic warnings do not)
 	@uv run preprint-radar validate

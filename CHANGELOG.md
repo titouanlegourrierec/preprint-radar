@@ -90,6 +90,13 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   between two others, or onto a folder to file it; Alt+↑ and Alt+↓ move the focused one.
   Its Import and Export JSON are now Import library and Export library (UX-39).
 
+### Data
+
+- The institutions of the stored papers are placed in their country, from OpenAlex, by
+  their ROR ids (`countries.json`, `make countries`, in both data workflows): 85% of the
+  papers have a country, in 108 countries, for the coming map of where they come from
+  (UX-40).
+
 ### Performance
 
 - The page loads 18% less script: the graph, its renderer and panels download when the

@@ -141,6 +141,16 @@ jobs:
           for category in $CATEGORIES; do args+=(--category "$category"); done
           uv run --no-dev preprint-radar -v affiliations "${args[@]}"
 
+      - name: Ask OpenAlex for the countries of new institutions
+        # For the site's map (UX-40): the institutions of the day's papers that no stored
+        # paper had, a request or none; those it fails to place are asked for again.
+        if: ${{ !cancelled() }}
+        timeout-minutes: 5
+        run: |
+          args=()
+          for category in $CATEGORIES; do args+=(--category "$category"); done
+          uv run --no-dev preprint-radar -v countries "${args[@]}"
+
       - name: Fetch citation counts of new papers
         # A paper or two hundred: one or two requests. Semantic Scholar learns new papers
         # within days, so some are left for the next run; the weekly archive refreshes all.

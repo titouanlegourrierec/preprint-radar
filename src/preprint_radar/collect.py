@@ -47,6 +47,7 @@ from preprint_radar.sources.arxiv_listing import fetch_catchup, fetch_listing
 from preprint_radar.sources.arxiv_rss import fetch_rss_abstracts
 from preprint_radar.sources.github import fetch_stars
 from preprint_radar.sources.huggingface import fetch_likes
+from preprint_radar.sources.openalex import fetch_countries
 from preprint_radar.sources.ror import match_institutions
 from preprint_radar.sources.semantic_scholar import S2_SOURCE, fetch_citation_counts, fetch_scholar_records
 from preprint_radar.store.paper_store import PaperStore
@@ -1528,6 +1529,113 @@ def format_code_report(report: CodeReport) -> str:
         f"{report.asked:,} asked: {report.stars:,} with GitHub stars ({report.shared:,} shared), "
         f"{report.likes:,} with Hugging Face likes; {report.gone:,} gone, "
         f"{report.kept:,} kept from last week"
+    )
+
+
+COUNTRIES_SOURCE = "OpenAlex"
+"""The service of ``countries.json``."""
+
+
+@dataclass(frozen=True, slots=True)
+class CountriesReport:
+    """Outcome of :func:`update_countries`.
+
+    Attributes:
+        category: Category of the papers.
+        institutions: Distinct ROR ids of the stored papers' institutions.
+        asked: Of those, the ones asked for: those without a country yet, or all.
+        placed: Institutions of ``countries.json`` placed in a country.
+        nowhere: Institutions the source places in no country.
+        failed: Institutions whose lookup failed, asked for again next time.
+        papers: Stored papers.
+        papers_placed: Of those, papers with an institution placed in a country.
+    """
+
+    category: str
+    institutions: int
+    asked: int
+    placed: int
+    nowhere: int
+    failed: int
+    papers: int
+    papers_placed: int
+
+
+def update_countries(
+    store: PaperStore,
+    category: str,
+    client: HttpClient,
+    *,
+    refresh: bool = False,
+    now: datetime | None = None,
+) -> CountriesReport:
+    """The country of every stored paper's institutions, into ``countries.json`` (UX-40).
+
+    The site's map of where the papers come from places each paper in the countries of its
+    institutions, by their ROR ids, which OpenAlex places, 50 a request: those of the day
+    files, the archive and the most cited of the last 12 months. Only the institutions the
+    file lacks are asked for, unless ``refresh``; one OpenAlex places nowhere is kept so,
+    and not asked again; one whose lookup failed is left out, to be asked next time. The
+    institutions of no stored paper leave the file.
+
+    Args:
+        store: Data store.
+        category: arXiv category.
+        client: HTTP client for OpenAlex.
+        refresh: Ask for every institution again.
+        now: Date of the refresh (default: now).
+
+    Returns:
+        How many institutions were asked for, and placed.
+    """
+    papers: dict[str, Paper] = {}
+    for paper in _every_stored_paper(store, category):
+        papers.setdefault(paper.arxiv_id, paper)
+    ids = sorted({ror for paper in papers.values() for ror in paper.institution_ids or () if ror})
+    previous = _previous_countries(store, category)
+    asked = ids if refresh else [ror for ror in ids if ror not in previous]
+    with progress("Countries of institutions", len(asked)) as advance:
+        fetched = fetch_countries(client, asked, progress=advance)
+    countries = {
+        ror: fetched[ror] if ror in fetched else previous[ror]
+        for ror in ids
+        if ror in fetched or ror in previous
+    }
+    store.write_countries(category, countries, source=COUNTRIES_SOURCE, now=now)
+    placed = {ror for ror, country in countries.items() if country is not None}
+    return CountriesReport(
+        category=category,
+        institutions=len(ids),
+        asked=len(asked),
+        placed=len(placed),
+        nowhere=len(countries) - len(placed),
+        failed=len(ids) - len(countries),
+        papers=len(papers),
+        papers_placed=sum(
+            any(ror in placed for ror in paper.institution_ids or ()) for paper in papers.values()
+        ),
+    )
+
+
+def _previous_countries(store: PaperStore, category: str) -> dict[str, str | None]:
+    """The countries known already; none when the file does not load, asked for again."""
+    try:
+        countries = store.load_countries(category)
+    except SchemaVersionError:
+        raise
+    except StoreError as exc:
+        logger.warning("The former countries.json does not load, every institution asked for: %s", exc)
+        return {}
+    return countries.institutions if countries else {}
+
+
+def format_countries_report(report: CountriesReport) -> str:
+    """Render a :class:`CountriesReport` as one line."""
+    share = round(100 * report.papers_placed / report.papers) if report.papers else 0
+    return (
+        f"{report.category}: {_count(report.institutions, 'institution')}, {report.asked:,} asked: "
+        f"{report.placed:,} placed in a country, {report.nowhere:,} nowhere, {report.failed:,} failed; "
+        f"a country for {report.papers_placed:,} of {_count(report.papers, 'paper')} ({share}%)"
     )
 
 

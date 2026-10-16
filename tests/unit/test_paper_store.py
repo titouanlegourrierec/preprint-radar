@@ -10,7 +10,7 @@ import pytest
 
 from preprint_radar.exceptions import SchemaVersionError, StoreError
 from preprint_radar.models import CodeRecord, Listing, Paper, ScholarRecord
-from preprint_radar.store.paper_store import SCHEMA_VERSION, PaperStore
+from preprint_radar.store.paper_store import SCHEMA_VERSION, CountriesFile, PaperStore
 
 
 @pytest.fixture
@@ -521,3 +521,42 @@ def test_save_never_relabels_a_store_of_another_schema_version(store: PaperStore
         store.save("cs.CV", [replace(listing.papers[0], abstract="Rewritten.")])
 
     assert path.read_text(encoding="utf-8") == newer
+
+
+def test_countries_are_written_sorted_and_read_back(store: PaperStore) -> None:
+    now = datetime(2026, 10, 16, 5, tzinfo=UTC)
+    store.write_countries("cs.CV", {"0b0000000": "US", "0a0000000": None}, source="OpenAlex", now=now)
+
+    payload = json.loads((store.root / "cs.CV" / "countries.json").read_text(encoding="utf-8"))
+    assert list(payload["institutions"]) == ["0a0000000", "0b0000000"]
+    assert store.load_countries("cs.CV") == CountriesFile(
+        {"0a0000000": None, "0b0000000": "US"}, "OpenAlex", now
+    )
+    assert store.load_countries("cs.RO") is None
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        "{not json",
+        '{"schema_version": 1, "institutions": {}}',
+        '{"schema_version": 1, "source": "O", "generated_at": "2026-10-16", "institutions": {"a": "usa"}}',
+        '{"schema_version": 1, "source": "O", "generated_at": "2026-10-16", "institutions": {"a": 3}}',
+    ],
+)
+def test_invalid_countries_file_raises(store: PaperStore, payload: str) -> None:
+    path = store.root / "cs.CV" / "countries.json"
+    path.parent.mkdir(parents=True)
+    path.write_text(payload, encoding="utf-8")
+
+    with pytest.raises(StoreError, match="Invalid countries file"):
+        store.load_countries("cs.CV")
+
+
+def test_a_countries_file_of_another_schema_version_is_refused(store: PaperStore) -> None:
+    path = store.root / "cs.CV" / "countries.json"
+    path.parent.mkdir(parents=True)
+    path.write_text(json.dumps({"schema_version": SCHEMA_VERSION + 1}), encoding="utf-8")
+
+    with pytest.raises(SchemaVersionError):
+        store.load_countries("cs.CV")

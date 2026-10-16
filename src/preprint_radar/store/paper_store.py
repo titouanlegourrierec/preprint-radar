@@ -10,6 +10,7 @@ Layout::
         ├── citation-gains.json    # what each gained between the last two full refreshes
         ├── scholar.json           # their DOI, published venue and author ids
         ├── code.json              # the stars (or likes) of the code they link
+        ├── countries.json         # the country of their institutions
         ├── top-recent.json        # the most cited papers of the last 12 months
         └── archive/
             └── <YYYY>.json        # highly cited older papers, by year of first version
@@ -47,10 +48,12 @@ CITATIONS_FILENAME = "citations.json"
 GAINS_FILENAME = "citation-gains.json"
 SCHOLAR_FILENAME = "scholar.json"
 CODE_FILENAME = "code.json"
+COUNTRIES_FILENAME = "countries.json"
 TOP_RECENT_FILENAME = "top-recent.json"
 ARCHIVE_DIRNAME = "archive"
 _DAY_STEM_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 _YEAR_STEM_RE = re.compile(r"^\d{4}$")
+_COUNTRY_RE = re.compile(r"^[A-Z]{2}$")
 
 
 @dataclass(frozen=True, slots=True)
@@ -91,6 +94,22 @@ class CodeFile:
     papers: dict[str, CodeRecord]
     source: str
     since: datetime | None
+    generated_at: datetime
+
+
+@dataclass(frozen=True, slots=True)
+class CountriesFile:
+    """The country of the institutions of a category's papers, as last written (UX-40).
+
+    Attributes:
+        institutions: The ISO 3166-1 alpha-2 code of each ROR id ("US"); ``None`` for an
+            institution the source places in no country.
+        source: The service asked.
+        generated_at: Date of this refresh.
+    """
+
+    institutions: dict[str, str | None]
+    source: str
     generated_at: datetime
 
 
@@ -589,6 +608,49 @@ class PaperStore:
         }
         _write_json(self.root / category / CODE_FILENAME, payload)
 
+    def load_countries(self, category: str) -> CountriesFile | None:
+        """The country of the institutions of ``category``'s papers, if ever written.
+
+        Raises:
+            StoreError: If the file is not a valid ``countries.json``, or of another
+                ``schema_version``.
+        """
+        path = self.root / category / COUNTRIES_FILENAME
+        if not path.is_file():
+            return None
+        try:
+            payload: Any = json.loads(path.read_text(encoding="utf-8"))
+            _check_version(payload, path, "countries")
+            institutions = {
+                str(ror): _country_code(country) for ror, country in payload["institutions"].items()
+            }
+            return CountriesFile(
+                institutions=institutions,
+                source=str(payload["source"]),
+                generated_at=datetime.fromisoformat(payload["generated_at"]),
+            )
+        except (json.JSONDecodeError, AttributeError, KeyError, TypeError, ValueError) as exc:
+            msg = f"Invalid countries file {path}: {exc}"
+            raise StoreError(msg) from exc
+
+    def write_countries(
+        self,
+        category: str,
+        institutions: Mapping[str, str | None],
+        *,
+        source: str,
+        now: datetime | None = None,
+    ) -> None:
+        """Write the country of the institutions of ``category``'s papers, dated now."""
+        payload = {
+            "schema_version": SCHEMA_VERSION,
+            "category": category,
+            "generated_at": (now or datetime.now(tz=UTC)).isoformat(timespec="seconds"),
+            "source": source,
+            "institutions": dict(sorted(institutions.items())),
+        }
+        _write_json(self.root / category / COUNTRIES_FILENAME, payload)
+
     def summaries(self, category: str) -> list[DaySummary]:
         """Return the number of papers per day for ``category``, most recent first."""
         return [DaySummary(day, len(self.load_day(category, day))) for day in self.days(category)]
@@ -636,6 +698,18 @@ class PaperStore:
             "papers": [paper.to_record() for paper in papers],
         }
         _write_json(path, payload)
+
+
+def _country_code(value: object) -> str | None:
+    """A country of ``countries.json``: an ISO 3166-1 alpha-2 code, or ``None``.
+
+    Raises:
+        ValueError: If it is neither.
+    """
+    if value is None or (isinstance(value, str) and _COUNTRY_RE.match(value)):
+        return value
+    msg = f"{value!r} is not a country code"
+    raise ValueError(msg)
 
 
 def _check_version(payload: object, path: Path, kind: str) -> None:

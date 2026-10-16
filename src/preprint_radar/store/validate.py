@@ -25,6 +25,7 @@ from preprint_radar.store.paper_store import (
     ARCHIVE_DIRNAME,
     CITATIONS_FILENAME,
     CODE_FILENAME,
+    COUNTRIES_FILENAME,
     GAINS_FILENAME,
     INDEX_FILENAME,
     SCHEMA_VERSION,
@@ -177,6 +178,7 @@ def _validate_category(store: PaperStore, category: str, report: ValidationRepor
     _validate_gains(store, category, stored, report)
     _validate_scholar(store, category, authors, report)
     _validate_code(store, category, stored, report)
+    _validate_countries(store, category, report)
     return {"days": days, "years": years, "top_recent": top_recent}
 
 
@@ -364,6 +366,18 @@ def _validate_code(store: PaperStore, category: str, stored: set[str], report: V
     if unknown:
         message = f"{len(unknown)} records of papers that are not stored, e.g. {', '.join(unknown[:5])}"
         report.findings.append(Finding(Level.WARNING, where, message))
+
+
+def _validate_countries(store: PaperStore, category: str, report: ValidationReport) -> None:
+    """``countries.json`` must load (UX-40): the site's map reads it as it is."""
+    path = store.root / category / COUNTRIES_FILENAME
+    if not path.is_file():
+        return
+    report.files += 1
+    try:
+        store.load_countries(category)
+    except StoreError as exc:
+        report.findings.append(Finding(Level.ERROR, _where(path, store), str(exc)))
 
 
 def _validate_scholar(
