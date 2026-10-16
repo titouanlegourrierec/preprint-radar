@@ -156,6 +156,21 @@ export function PaperCard({
     citations !== undefined && (citations > 0 || daysSince(paper.announced) >= YOUNG_DAYS)
       ? citations
       : undefined;
+  const toggle = () => {
+    if (expanded && isTarget) onClose();
+    setExpanded(!expanded);
+  };
+  // A click on a folded card opens it, as its More button does (UX-34); its links and
+  // controls keep their own, and so does a drag that selected text. An open card stays
+  // open, its text free to click and select; Less (or o) folds it.
+  const openOnClick = (event: MouseEvent) => {
+    if (expanded || event.button !== 0 || event.defaultPrevented) return;
+    const { target } = event;
+    if (target instanceof Element && target.closest("a, button, input, select, label")) return;
+    if (window.getSelection()?.toString()) return;
+    setExpanded(true);
+  };
+
   // The controls of every card read alike ("PDF", "Share"): each names its paper.
   const titleId = `title-${paper.arxiv_id}`;
   const subject = [paper.primary_subject && subjectCode(paper.primary_subject)]
@@ -195,6 +210,8 @@ export function PaperCard({
   }
 
   return (
+    /* biome-ignore lint/a11y/useKeyWithClickEvents: the keyboard's way is the list's (o, or
+       Enter on the focused card, `PaperList`), and More, which the click only shortens. */
     <article
       ref={root}
       class={`paper${expanded ? " paper--expanded" : ""}${isTarget ? " paper--target" : ""}${seen ? " paper--seen" : ""}`}
@@ -203,6 +220,8 @@ export function PaperCard({
       tabIndex={-1}
       aria-labelledby={titleId}
       data-arxiv-id={paper.arxiv_id}
+      // The pointer's shortcut to More, which the keyboard has (o, Enter) and names.
+      onClick={openOnClick}
     >
       <div class="paper__main">
         <h2 class="paper__title" id={titleId}>
@@ -472,10 +491,7 @@ export function PaperCard({
               aria-describedby={titleId}
               class="action action--quiet paper__more"
               aria-expanded={expanded}
-              onClick={() => {
-                if (expanded && isTarget) onClose();
-                setExpanded(!expanded);
-              }}
+              onClick={toggle}
             >
               {expanded ? "Less" : "More"}
               <ChevronIcon up={expanded} />

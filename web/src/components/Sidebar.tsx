@@ -208,17 +208,8 @@ export function Sidebar(props: Props) {
             </label>
           )}
 
-          <label class="toggle">
-            <input
-              type="checkbox"
-              checked={filters.excludeCrossLists}
-              onChange={(event) =>
-                onFilters({ ...filters, excludeCrossLists: event.currentTarget.checked })
-              }
-            />
-            Hide cross-lists
-          </label>
-
+          {/* No "Hide cross-lists" (UX-34): too technical for a filter of its own. A link or
+              saved search with `xl=0` still hides them, its chip above the papers. */}
           <label class="toggle">
             <input
               type="checkbox"

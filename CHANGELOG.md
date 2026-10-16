@@ -68,6 +68,11 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   sit in the header, where the lists have their order. Fields, buttons and notices share
   the graph's rounder corners, and the cards' star and the theme button are drawn icons
   (UX-33).
+- Each paper is a card, rounder than the fields, with a squircle's smooth corners where the
+  browser draws them, and so is Rankings' table. A card rises a little under the pointer,
+  and a click on it opens its abstract, as More does. "Hide cross-lists" leaves the filters;
+  a link or saved search that hides them still does, its chip above the papers clearing
+  it (UX-34).
 
 ### Performance
 

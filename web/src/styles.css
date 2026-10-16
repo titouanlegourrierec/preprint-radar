@@ -19,7 +19,11 @@
   --graph-edge: #adb5bd;
   /* The fields, buttons and cards of every view, as the graph's chips (UX-33). */
   --radius: 12px;
+  /* A paper's card, rounder (UX-34). */
+  --card-radius: 18px;
   --shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 2px 8px rgb(0 0 0 / 0.04);
+  /* A card under the pointer, raised (UX-34). */
+  --shadow-raised: 0 2px 4px rgb(0 0 0 / 0.04), 0 8px 20px rgb(0 0 0 / 0.08);
   --font-sans:
     ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
   --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
@@ -49,6 +53,7 @@
     --graph-author: #748ffc;
     --graph-edge: #5c5f66;
     --shadow: none;
+    --shadow-raised: none;
 
     color-scheme: dark;
   }
@@ -72,6 +77,7 @@
   --graph-author: #748ffc;
   --graph-edge: #5c5f66;
   --shadow: none;
+  --shadow-raised: none;
 
   color-scheme: dark;
 }
@@ -715,7 +721,6 @@ html {
   gap: 8px 16px;
   min-height: 36px;
   padding-bottom: 6px;
-  border-bottom: 1px solid var(--border);
 }
 
 /* The count and its ⓘ, the rest pushed to the right. */
@@ -965,7 +970,7 @@ html {
   display: flex;
   align-items: baseline;
   gap: 6px;
-  margin: 26px 0 2px;
+  margin: 24px 4px 0;
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.05em;
@@ -1087,19 +1092,64 @@ html {
 
 /* Paper row --------------------------------------------------------------- */
 
+/* Each paper a card on the page's background (UX-34), as the graph's floating panels:
+   rounder than the fields, a squircle where the browser draws one (`corner-shape`), whose
+   corners need a larger radius to look as round. */
 .paper {
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  padding: 14px 4px;
-  border-bottom: 1px solid var(--border);
+  margin-top: 10px;
+  padding: 16px 12px 14px 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--card-radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease;
+}
+
+/* A folded card opens on a click (UX-34): under the pointer it rises a little, its border
+   darker (the only sign in the dark theme, which has no shadows). */
+.paper:not(.paper--expanded) {
+  cursor: pointer;
+}
+
+@media (hover: hover) {
+  .paper:not(.paper--expanded):hover {
+    border-color: color-mix(in srgb, var(--text) 16%, var(--border));
+    box-shadow: var(--shadow-raised);
+    transform: translateY(-2px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .paper {
+    transition: none;
+  }
+
+  .paper:not(.paper--expanded):hover {
+    transform: none;
+  }
+}
+
+@supports (corner-shape: squircle) {
+  :root {
+    --card-radius: 32px;
+  }
+
+  .paper,
+  .rankings__table {
+    corner-shape: squircle;
+  }
 }
 
 /* The paper the j and k keys reached. */
 .paper:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
-  border-radius: var(--radius);
 }
 
 .paper--seen {
@@ -1108,8 +1158,8 @@ html {
 
 /* The paper a shared `?paper=` link points at. */
 .paper--target {
-  background: color-mix(in srgb, var(--accent) 7%, transparent);
-  border-radius: var(--radius);
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+  background: color-mix(in srgb, var(--accent) 7%, var(--surface));
   scroll-margin-top: 120px;
 }
 
@@ -2209,12 +2259,15 @@ html {
   font-size: 0.85rem;
 }
 
+/* A card as the papers' (UX-34): separate borders, which a collapsed table would not round. */
 .rankings__table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow);
   font-size: 0.9rem;
 }
 
@@ -2224,6 +2277,15 @@ html {
   border-bottom: 1px solid var(--border);
   text-align: left;
   vertical-align: top;
+}
+
+/* Clear of the card's rounder corners. */
+.rankings__table tr > :first-child {
+  padding-left: 18px;
+}
+
+.rankings__table tr > :last-child {
+  padding-right: 18px;
 }
 
 .rankings__table th {
@@ -2453,6 +2515,15 @@ html {
 
   .paper--seen {
     opacity: 1;
+  }
+
+  /* On paper, rows under a rule rather than cards: no box to ink around each. */
+  .paper {
+    margin: 0;
+    padding: 12px 0;
+    border: 0;
+    border-bottom: 1px solid var(--border);
+    border-radius: 0;
   }
 
   /* No "More" on paper: an abstract shown is printed whole. */

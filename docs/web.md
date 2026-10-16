@@ -94,6 +94,15 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   on a phone (`.segmented` wraps, its labels whole). A card shows the stars after its Code
   link (`codeBadge`: "★ 1,234", "+12 this week", "shared"; "♥ 23" for the Hub's likes),
   with what they are in its tooltip and for screen readers.
+  Each paper is a card on the page's background (UX-34), as the graph's floating panels:
+  rounder than the fields (`--card-radius`, 18 px), a squircle where the browser draws one
+  (`corner-shape: squircle`, with a radius of 32 px, which its flatter corners need to
+  look as round), and so is Rankings' table; printed, they are rows under a rule again.
+  A folded card rises under the pointer (`--shadow-raised`, its border darker, which is
+  the only sign in the dark theme; no motion with `prefers-reduced-motion`), and a click
+  on it opens it as More does (`openOnClick`), but on its links and controls or after a
+  drag that selected text; an open card ignores clicks, so that its text can be selected,
+  and Less, `o` or Enter fold it.
   A card's footer has two rows (UX-28): what it says of the paper (`.paper__meta`: venue,
   day, citations, subject), then what it offers (`.paper__actions`), each link and
   control a badge (`.action`) with an icon before its name (`components/icons.tsx`).
@@ -186,7 +195,7 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   | `author`, `aff` | Typed author or affiliation text: word starts (old links' `by` and `at`) | none | the same |
   | `venue` | A venue (`ECCV 2026`), a family (`ECCV*`) or any (`*`) | none | the lists, Rankings, the graph |
   | `subject` | A subject, primary or cross-listed (`Machine Learning (cs.LG)`; the select shows `cs.LG`) | none | the lists, Rankings |
-  | `xl` | `0`: cross-lists hidden | shown | the lists, Rankings |
+  | `xl` | `0`: cross-lists hidden; no control offers it since UX-34, links and saved searches still do (its chip clears it) | shown | the lists, Rankings |
   | `code` | `1`: papers that link their code | all | the lists, Rankings |
 
 ## Periods and loading (`period.ts`, `data.ts`, `hooks/use-papers.ts`)

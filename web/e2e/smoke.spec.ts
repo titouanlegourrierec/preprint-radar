@@ -93,6 +93,25 @@ test("older days past the budget are searched, and a card loads its abstract", a
   expect(errors).toEqual([]);
 });
 
+test("a click on a folded card opens it, not one on its controls", async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.goto("./");
+  await expect(page.getByText("4 of 4 cs.CV papers")).toBeVisible();
+  const card = page.locator("article.paper").first();
+  const more = card.locator(".paper__more");
+  // Its own buttons keep their action (UX-34).
+  await card.getByRole("button", { name: "Seen" }).click();
+  await expect(more).toHaveAttribute("aria-expanded", "false");
+  await card.locator(".paper__meta").click({ position: { x: 4, y: 4 } });
+  await expect(more).toHaveAttribute("aria-expanded", "true");
+  // Open, it stays open to a click on its text; Less folds it.
+  await card.locator(".paper__abstract").click();
+  await expect(more).toHaveAttribute("aria-expanded", "true");
+  await more.click();
+  await expect(more).toHaveAttribute("aria-expanded", "false");
+  expect(errors).toEqual([]);
+});
+
 test("the calendar picks a day from the keyboard", async ({ page }) => {
   await page.goto("./");
   await expect(page.getByText("4 of 4 cs.CV papers")).toBeVisible();
