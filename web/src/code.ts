@@ -46,10 +46,10 @@ export function codeHost(url: string): CodeHost {
 
 /** How popular a paper's code is, as its card says it next to the Code link (PROD-18). */
 export interface CodeBadge {
-  /** The count shown after its symbol: "1,234". */
+  /** The count shown after its icon: "1,234". */
   count: string;
-  /** "★" for GitHub's stars, "♥" for the Hub's likes. */
-  symbol: string;
+  /** Its icon, drawn (UX-36): a star for GitHub's stars, a heart for the Hub's likes. */
+  icon: "star" | "heart";
   /** What the count is, for screen readers: "GitHub stars". */
   noun: string;
   /** "+12 this week": the stars gained between the last two weekly refreshes. */
@@ -77,7 +77,7 @@ export function codeBadge(stats: CodeStats | undefined): CodeBadge | null {
     ];
     return {
       count: stats.stars.toLocaleString(),
-      symbol: "★",
+      icon: "star",
       noun: stats.stars === 1 ? "GitHub star" : "GitHub stars",
       gained,
       shared,
@@ -87,7 +87,7 @@ export function codeBadge(stats: CodeStats | undefined): CodeBadge | null {
   if (stats?.likes !== undefined) {
     return {
       count: stats.likes.toLocaleString(),
-      symbol: "♥",
+      icon: "heart",
       noun: stats.likes === 1 ? "Hugging Face like" : "Hugging Face likes",
       gained: null,
       shared: false,

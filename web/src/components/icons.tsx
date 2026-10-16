@@ -232,6 +232,24 @@ export function SearchIcon() {
   );
 }
 
+/** A heart: the likes of a Hugging Face page. */
+export function HeartIcon() {
+  return (
+    <Outline name="heart" filled>
+      <path d="M8 13.5S2 10 2 5.9A3.1 3.1 0 0 1 8 4.6a3.1 3.1 0 0 1 6 1.3C14 10 8 13.5 8 13.5Z" />
+    </Outline>
+  );
+}
+
+/** A check mark: a paper marked seen. */
+export function CheckIcon() {
+  return (
+    <Outline name="check">
+      <path d="M3.25 8.5 6.5 11.75l6.25-7" />
+    </Outline>
+  );
+}
+
 /** A sun: the light theme. */
 export function SunIcon() {
   return (
@@ -257,6 +275,24 @@ export function AutoThemeIcon() {
     <Outline name="theme-auto">
       <circle cx="8" cy="8" r="6.25" />
       <path d="M8 1.75a6.25 6.25 0 0 1 0 12.5Z" fill="currentColor" />
+    </Outline>
+  );
+}
+
+/** An arrow down into a tray: an export, saved as a file. */
+export function DownloadIcon() {
+  return (
+    <Outline name="download">
+      <path d="M8 2.25v8M4.75 7 8 10.25 11.25 7M2.5 11.25v1.25a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1v-1.25" />
+    </Outline>
+  );
+}
+
+/** An arrow up out of a tray: an import, read from a file. */
+export function UploadIcon() {
+  return (
+    <Outline name="upload">
+      <path d="M8 10.25v-8M4.75 5.5 8 2.25l3.25 3.25M2.5 11.25v1.25a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1v-1.25" />
     </Outline>
   );
 }

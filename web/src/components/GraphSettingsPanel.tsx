@@ -1,5 +1,5 @@
 import { authorLayer, type GraphSettings } from "../preferences";
-import { ChevronIcon, SelectChevron } from "./icons";
+import { ChevronIcon, DownloadIcon, SelectChevron } from "./icons";
 import { Segmented } from "./Segmented";
 
 const MAX_NODES_OPTIONS = [0, 100, 300, 1000, 3000];
@@ -286,6 +286,7 @@ export function GraphSettingsPanel(props: Props) {
               title="Save the graph as drawn, for slides"
               onClick={props.onExportPng}
             >
+              <DownloadIcon />
               PNG
             </button>
             <button
@@ -294,6 +295,7 @@ export function GraphSettingsPanel(props: Props) {
               title="Save its nodes and links, for Gephi, Cytoscape or NetworkX"
               onClick={props.onExportGraphML}
             >
+              <DownloadIcon />
               GraphML
             </button>
           </div>

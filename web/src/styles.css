@@ -17,6 +17,11 @@
   --graph-institution: #e8590c;
   --graph-author: #4c6ef5;
   --graph-edge: #adb5bd;
+  /* The first three ranks of Highly cited (UX-36), dark text on them in either theme. */
+  --medal-gold: #ebbd3a;
+  --medal-silver: #c8cdd4;
+  --medal-bronze: #d39563;
+  --medal-text: #1c1c1a;
   /* The fields, buttons and cards of every view, as the graph's chips (UX-33). */
   --radius: 12px;
   /* A paper's card, rounder (UX-34). */
@@ -52,6 +57,10 @@
     --graph-institution: #ff922b;
     --graph-author: #748ffc;
     --graph-edge: #5c5f66;
+    --medal-gold: #e2b33a;
+    --medal-silver: #b9bfc8;
+    --medal-bronze: #c98a58;
+    --medal-text: #1c1c1a;
     --shadow: none;
     --shadow-raised: none;
 
@@ -76,6 +85,10 @@
   --graph-institution: #ff922b;
   --graph-author: #748ffc;
   --graph-edge: #5c5f66;
+  --medal-gold: #e2b33a;
+  --medal-silver: #b9bfc8;
+  --medal-bronze: #c98a58;
+  --medal-text: #1c1c1a;
   --shadow: none;
   --shadow-raised: none;
 
@@ -988,12 +1001,20 @@ html {
   white-space: nowrap;
 }
 
+/* A button, its icon before its name (UX-36): Export, Import. */
 .button {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
   padding: 6px 12px;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--surface);
   cursor: pointer;
+}
+
+.button > .icon {
+  color: var(--text-muted);
 }
 
 .button:hover {
@@ -1055,13 +1076,14 @@ html {
   display: none;
 }
 
-.day-heading::before {
-  content: "▾";
-  font-size: 0.9em;
+.day-heading__fold {
+  display: flex;
+  align-self: center;
+  transition: transform 150ms ease;
 }
 
-.day-group:not([open]) > .day-heading::before {
-  content: "▸";
+.day-group:not([open]) > .day-heading > .day-heading__fold {
+  transform: rotate(-90deg);
 }
 
 .day-heading:hover {
@@ -1104,10 +1126,6 @@ html {
 .stars {
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
-}
-
-.stars__symbol {
-  color: var(--star);
 }
 
 .stars__gained {
@@ -1230,6 +1248,46 @@ html {
   border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
   background: color-mix(in srgb, var(--accent) 7%, var(--surface));
   scroll-margin-top: 120px;
+}
+
+/* A card's rank in Highly cited's order (UX-36), before its title: the first three in
+   gold, silver and bronze, a light sheen over the metal; the others neutral. */
+.paper__rank {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  min-width: 30px;
+  height: 30px;
+  margin-top: -2px;
+  padding: 0 7px;
+  border-radius: 999px;
+  background: var(--surface-muted);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.paper__rank--gold,
+.paper__rank--silver,
+.paper__rank--bronze {
+  background-image: linear-gradient(145deg, rgb(255 255 255 / 0.5), transparent 55%);
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.08);
+  color: var(--medal-text);
+  font-weight: 700;
+}
+
+.paper__rank--gold {
+  background-color: var(--medal-gold);
+}
+
+.paper__rank--silver {
+  background-color: var(--medal-silver);
+}
+
+.paper__rank--bronze {
+  background-color: var(--medal-bronze);
 }
 
 .paper__main {
@@ -1362,6 +1420,16 @@ html {
 }
 
 .action:hover .icon {
+  color: var(--text);
+}
+
+/* The star or heart of the code's count, drawn (UX-36), in the saved star's color; and
+   Seen's check mark, pressed, in the text's. */
+.action.stars > .icon {
+  color: var(--star);
+}
+
+.action[aria-pressed="true"] > .icon {
   color: var(--text);
 }
 
@@ -1832,6 +1900,9 @@ html {
 }
 
 .graph-settings__button {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
   justify-self: start;
   padding: 4px 10px;
   border: 1px solid var(--border);
@@ -2541,8 +2612,8 @@ html {
   }
 
   /* The fold marks of the day headings act on the screen only. */
-  .day-heading::before {
-    content: none;
+  .day-heading__fold {
+    display: none;
   }
 
   .skip-link,

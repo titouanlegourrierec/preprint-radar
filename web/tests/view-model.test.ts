@@ -57,6 +57,9 @@ describe("viewModel", () => {
     const cited = viewModel(state({ view: "cited" }), words);
     expect(cited).toMatchObject({ cited: true, archived: true, byCount: true, exports: true });
     expect(cited.sorts).toEqual([]);
+    // Its cards say their rank (UX-36); the other lists' do not.
+    expect(cited.ranked).toBe(true);
+    expect(viewModel(state({ sort: "citations" }), words).ranked).toBe(false);
     // Its papers are not triaged, but their abstracts can be shown (PROD-14).
     expect(cited).toMatchObject({ triaged: false, hideSeen: false, abstracts: true });
     expect(

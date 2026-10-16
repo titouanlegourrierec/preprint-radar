@@ -191,7 +191,8 @@ test("a card shows the stars of its code, and Most starred ranks by them", async
   await page.goto("./?paper=2609.00001");
   // Merged by the build from code.json (PROD-18).
   const card = page.locator("article.paper--target");
-  await expect(card.locator(".stars")).toHaveText("★ 42 GitHub stars +5 this week");
+  await expect(card.locator(".stars")).toHaveText("42 GitHub stars +5 this week");
+  await expect(card.locator('.stars svg[data-icon="star-filled"]')).toHaveCount(1);
   // Its Code link shows the logo of the site it links (UX-28), named by its text alone.
   await expect(
     card.getByRole("link", { name: "Code", exact: true }).locator("svg"),
@@ -221,6 +222,10 @@ test("the most cited papers of the last 12 months, apart from the archive's year
   await expect(
     page.getByText(/2 of 2 highly cited cs\.CV papers first published since/),
   ).toBeVisible();
+  // Each card says its rank, the first ones in medal colors (UX-36).
+  const cards = page.locator("article.paper");
+  await expect(cards.nth(0).locator(".paper__rank--gold")).toHaveText("Rank 1");
+  await expect(cards.nth(1).locator(".paper__rank--silver")).toHaveText("Rank 2");
   // How they are chosen is said behind the (i) beside the count.
   await page.getByRole("button", { name: "About these papers" }).click();
   await expect(page.getByText(/by citations per month of age/)).toBeVisible();

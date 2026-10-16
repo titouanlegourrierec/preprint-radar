@@ -736,6 +736,7 @@ export function App() {
                     resetKey={listKey({ ...state, filters }, query)}
                     nameHighlights={nameTerms}
                     groupByDay={groupByDay}
+                    ranked={model.ranked}
                     openId={state.paper}
                     linkTo={linkTo}
                     onOpenPaper={(arxivId) => update({ paper: arxivId })}

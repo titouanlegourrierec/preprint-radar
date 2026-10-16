@@ -92,7 +92,8 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   papers link too, or a folder of a larger one (`shared`), with the papers without stars;
   before any `code.json`, `sort=stars` is the view's own order. Five orders take two rows
   on a phone (`.segmented` wraps, its labels whole). A card shows the stars after its Code
-  link (`codeBadge`: "★ 1,234", "+12 this week", "shared"; "♥ 23" for the Hub's likes),
+  link (`codeBadge`: a star and "1,234", "+12 this week", "shared"; a heart and "23" for the
+  Hub's likes, both drawn icons since UX-36),
   with what they are in its tooltip and for screen readers.
   Each paper is a card on the page's background (UX-34), as the graph's floating panels:
   rounder than the fields (`--card-radius`, 18 px), a squircle where the browser draws one
@@ -103,6 +104,11 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   on it opens it as More does (`openOnClick`), but on its links and controls or after a
   drag that selected text; an open card ignores clicks, so that its text can be selected,
   and Less, `o` or Enter fold it.
+  In Highly cited (`viewModel().ranked`), a card says its rank in the order shown before
+  its title (`.paper__rank`): its position among the results, whatever the search and
+  filters keep and whether by citations, gains or stars, the first three in gold, silver
+  and bronze (`--medal-gold`, `--medal-silver`, `--medal-bronze`, with `--medal-text` on
+  them in either theme), the others a neutral pill; "Rank 1" for screen readers.
   A card's footer has two rows (UX-28): what it says of the paper (`.paper__meta`: venue,
   day, citations, subject), then what it offers (`.paper__actions`), each link and
   control a badge (`.action`) with an icon before its name (`components/icons.tsx`).

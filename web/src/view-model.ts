@@ -26,6 +26,11 @@ export interface ViewModel {
   newest: boolean;
   /** Day headings fold the list: announcement order, outside the highly cited view. */
   groupByDay: boolean;
+  /**
+   * Each card says its rank in the order shown (UX-36): the highly cited view, always
+   * ranked, by citations, gains or stars.
+   */
+  ranked: boolean;
   /** The orders the sort control offers, in order; empty when it does not show. */
   sorts: SortChoice[];
   /** The order pressed among them. */
@@ -91,6 +96,7 @@ export function viewModel(
     starred,
     newest,
     groupByDay: !byCount && !starred && (!hasSearchWords || sort === "newest"),
+    ranked: cited,
     sorts,
     sorted: sortedBy({ byCount, rising, starred, newest }),
     relevanceHelp: sorts.includes("relevance"),

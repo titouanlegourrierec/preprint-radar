@@ -19,10 +19,12 @@ import { Highlighted } from "./Highlighted";
 import {
   AuthorsIcon,
   BrandIcon,
+  CheckIcon,
   ChevronIcon,
   CiteIcon,
   EyeIcon,
   GraphIcon,
+  HeartIcon,
   HtmlIcon,
   InstitutionIcon,
   LinkIcon,
@@ -50,8 +52,13 @@ function matches(text: string, terms: readonly string[]): boolean {
   return highlight(text, terms).some((segment) => segment.match);
 }
 
+/** The first three ranks, in medal colors (UX-36). */
+const MEDALS = ["gold", "silver", "bronze"] as const;
+
 interface Props {
   paper: Paper;
+  /** Its rank in the order shown, where the list ranks (Highly cited, UX-36). */
+  rank?: number | undefined;
   highlights: readonly string[];
   /** The names filtered on, highlighted in the author and affiliation lines only (SRCH-8). */
   nameHighlights: NameHighlights;
@@ -84,6 +91,7 @@ interface Props {
 
 export function PaperCard({
   paper,
+  rank,
   highlights,
   nameHighlights,
   showAbstract,
@@ -223,6 +231,14 @@ export function PaperCard({
       // The pointer's shortcut to More, which the keyboard has (o, Enter) and names.
       onClick={openOnClick}
     >
+      {rank !== undefined && (
+        <span
+          class={`paper__rank${rank <= MEDALS.length ? ` paper__rank--${MEDALS[rank - 1]}` : ""}`}
+        >
+          <span class="visually-hidden">Rank </span>
+          {rank.toLocaleString()}
+        </span>
+      )}
       <div class="paper__main">
         <h2 class="paper__title" id={titleId}>
           <a href={paper.abs_url} target="_blank" rel="noopener noreferrer">
@@ -435,9 +451,7 @@ export function PaperCard({
                     class={`action action--count stars${badge.shared ? " stars--shared" : ""}`}
                     title={badge.title}
                   >
-                    <span aria-hidden="true" class="stars__symbol">
-                      {badge.symbol}
-                    </span>{" "}
+                    {badge.icon === "star" ? <StarIcon filled /> : <HeartIcon />}
                     {badge.count}
                     <span class="visually-hidden"> {badge.noun}</span>
                     {badge.gained && <span class="stars__gained"> {badge.gained}</span>}
@@ -483,7 +497,7 @@ export function PaperCard({
               >
                 {/* One name, "Seen", its state said by aria-pressed; the mark is for the eye. */}
                 <EyeIcon />
-                Seen{seen && <span aria-hidden="true"> ✓</span>}
+                Seen{seen && <CheckIcon />}
               </button>
             )}
             <button

@@ -6,6 +6,7 @@ import { hasModifier, isTyping } from "../keyboard";
 import { nextFocusIndex, nextPage, PAGE_SIZE, pageCount } from "../paging";
 import type { NameFilter, NameHighlights, SearchResult } from "../search";
 import type { Paper } from "../types";
+import { ChevronIcon } from "./icons";
 import { PaperCard } from "./PaperCard";
 
 interface Props {
@@ -16,6 +17,8 @@ interface Props {
   nameHighlights: NameHighlights;
   /** Insert a heading before each day; needs results in announcement order. */
   groupByDay: boolean;
+  /** Each card says its rank in the order shown (UX-36); never with day headings. */
+  ranked: boolean;
   /** Paper of a shared `?paper=` link: its card is expanded and scrolled into view. */
   openId: string | null;
   linkTo: (paper: Paper) => string;
@@ -43,6 +46,7 @@ export function PaperList({
   resetKey,
   nameHighlights,
   groupByDay,
+  ranked,
   openId,
   linkTo,
   onOpenPaper,
@@ -177,10 +181,11 @@ export function PaperList({
     refocusAfter(index);
   };
 
-  const card = ({ paper, highlights }: SearchResult) => (
+  const card = ({ paper, highlights }: SearchResult, rank?: number) => (
     <PaperCard
       key={paper.arxiv_id}
       paper={paper}
+      rank={rank}
       highlights={highlights}
       nameHighlights={nameHighlights}
       showAbstract={showAbstracts}
@@ -216,17 +221,23 @@ export function PaperList({
               interactive; the rule does not know it. The click is intercepted so that
               folding lives in state, which the paging budget reads. */}
           <summary class="day-heading" onClick={toggleDay(day)}>
+            {/* Down while open, turned to the right while folded (styles.css). */}
+            <span class="day-heading__fold">
+              <ChevronIcon up={false} />
+            </span>
             {formatShortDay(day)}
             <span class="day-heading__count">· {countOf(entries.length, "paper")}</span>
           </summary>
-          {isFolded ? null : entries.slice(0, budget).map(card)}
+          {isFolded ? null : entries.slice(0, budget).map((entry) => card(entry))}
         </details>,
       );
       if (!isFolded) budget -= entries.length;
     }
     content = rendered;
   } else {
-    content = results.slice(0, visible).map(card);
+    content = results
+      .slice(0, visible)
+      .map((result, index) => card(result, ranked ? index + 1 : undefined));
   }
 
   return (

@@ -76,6 +76,10 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 - The sidebar folds, so that the papers take the whole width: the button at the left of
   the count hides it and shows it again, counting the filters set while it is folded, and
   the page remembers the choice (UX-35).
+- Highly cited numbers its papers in the order shown, the first three in gold, silver and
+  bronze. The export and import buttons have icons, and the last characters standing for
+  icons are drawn ones: the code's stars and likes, Seen's check mark and the day
+  headings' fold (UX-36).
 
 ### Performance
 

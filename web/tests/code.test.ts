@@ -81,7 +81,7 @@ describe("codeBadge", () => {
   it("says the stars, those gained this week, and whether they are shared", () => {
     expect(codeBadge({ stars: 1234, gained: 12 })).toEqual({
       count: "1,234",
-      symbol: "★",
+      icon: "star",
       noun: "GitHub stars",
       gained: "+12 this week",
       shared: false,
@@ -94,7 +94,7 @@ describe("codeBadge", () => {
 
   it("says the likes of a page on the Hub", () => {
     expect(codeBadge({ likes: 1 })).toMatchObject({
-      symbol: "♥",
+      icon: "heart",
       noun: "Hugging Face like",
       title: "1 like on Hugging Face, refreshed every week.",
     });

@@ -7,6 +7,7 @@ import { countOf, formatDay } from "../format";
 import type { Paper } from "../types";
 import type { CountLine, SortChoice, ViewModel } from "../view-model";
 import { InfoButton } from "./InfoButton";
+import { DownloadIcon, UploadIcon } from "./icons";
 import { Segmented } from "./Segmented";
 
 // The exports of the results shown, as files named after the list ("papers.bib",
@@ -162,6 +163,7 @@ export function ResultsHeader(props: Props) {
       {model.exports && props.papers.length > 0 && (
         <details class="export-menu">
           <summary class="button export-menu__toggle">
+            <DownloadIcon />
             Export {props.papers.length.toLocaleString()}
           </summary>
           <div class="export-menu__items">
@@ -187,6 +189,7 @@ export function ResultsHeader(props: Props) {
       {props.readingList && (
         <div class="results__actions">
           <button type="button" class="button" onClick={() => importInput.current?.click()}>
+            <UploadIcon />
             Import
           </button>
           <input
@@ -209,6 +212,7 @@ export function ResultsHeader(props: Props) {
                 download("reading-list.json", props.readingList?.json() ?? "", "application/json")
               }
             >
+              <DownloadIcon />
               Export JSON
             </button>
           )}
