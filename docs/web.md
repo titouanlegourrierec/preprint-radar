@@ -109,6 +109,14 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   filters keep and whether by citations, gains or stars, the first three in gold, silver
   and bronze (`--medal-gold`, `--medal-silver`, `--medal-bronze`, with `--medal-text` on
   them in either theme), the others a neutral pill; "Rank 1" for screen readers.
+  A paper saved from its card, by the star or the `s` key (a change of `saved`, not a
+  card drawn saved), bursts (UX-37): the star pops, a ring and eight sparks spread from it
+  (`.save-burst`, angles by `nth-child`), and `flyToReadingList` flies a copy of the star
+  to the Reading list tab (`data-tab="reading-list"`) with the Web Animations API, placed
+  through `style` from the script, which the Content-Security-Policy allows (the smoke test
+  saves a paper under it); the tab's star bounces as it lands (`.tab--bump`). The flight
+  only while the tab is in sight, the bar scrolling away with the list; none of it under
+  `prefers-reduced-motion`.
   A card's footer has two rows (UX-28): what it says of the paper (`.paper__meta`: venue,
   day, citations, subject), then what it offers (`.paper__actions`), each link and
   control a badge (`.action`) with an icon before its name (`components/icons.tsx`).

@@ -94,6 +94,8 @@ export function Topbar(props: Props) {
           </a>
           <a
             class={`tab${view === "reading-list" ? " tab--active" : ""}`}
+            // Where a saved paper's star flies to (UX-37).
+            data-tab="reading-list"
             {...tab(view === "reading-list", { view: "reading-list" })}
           >
             <StarIcon />

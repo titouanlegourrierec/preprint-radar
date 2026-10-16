@@ -48,6 +48,51 @@ export function affiliationFilter(paper: Paper, affiliation: string): NameFilter
   return institution ? exactly(institution) : typed(affiliation);
 }
 
+const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
+/** The sparks a saved paper's star bursts into (UX-37), each at its angle (styles.css). */
+const SPARKS = 8;
+/** How long the burst lasts, its longest animation and a little more. */
+const BURST_MS = 800;
+
+/**
+ * A star flies from a card's button to the Reading list tab, then the tab bounces (UX-37):
+ * only while the tab is in sight (the bar scrolls away with the list), drawn over the page
+ * and gone once landed.
+ */
+function flyToReadingList(from: Element | null): void {
+  const tab = document.querySelector<HTMLElement>('[data-tab="reading-list"]');
+  const target = tab?.querySelector(".icon")?.getBoundingClientRect();
+  const star = from?.querySelector("svg")?.cloneNode(true);
+  if (!(tab && target && from && star instanceof SVGElement)) return;
+  if (target.bottom < 0 || target.top > window.innerHeight) return;
+  const start = from.getBoundingClientRect();
+  const dx = target.left + target.width / 2 - (start.left + start.width / 2);
+  const dy = target.top + target.height / 2 - (start.top + start.height / 2);
+  star.classList.add("save-flight");
+  star.style.left = `${start.left + start.width / 2 - 10}px`;
+  star.style.top = `${start.top + start.height / 2 - 10}px`;
+  document.body.append(star);
+  // An arc: up past the tab's height at its middle, turning, then down onto it.
+  const flight = star.animate(
+    [
+      { transform: "translate(0, 0) scale(1) rotate(0)" },
+      {
+        transform: `translate(${dx / 2}px, ${Math.min(dy / 2, 0) - 70}px) scale(1.5) rotate(200deg)`,
+        offset: 0.45,
+      },
+      { transform: `translate(${dx}px, ${dy}px) scale(0.5) rotate(360deg)`, opacity: 0.3 },
+    ],
+    { duration: 750, easing: "cubic-bezier(0.45, 0, 0.25, 1)" },
+  );
+  flight.onfinish = () => {
+    star.remove();
+    // Restarted, should a second paper land before the first bounce ends.
+    tab.classList.remove("tab--bump");
+    void tab.offsetWidth;
+    tab.classList.add("tab--bump");
+  };
+}
+
 function matches(text: string, terms: readonly string[]): boolean {
   return highlight(text, terms).some((segment) => segment.match);
 }
@@ -118,6 +163,22 @@ export function PaperCard({
   const { abstract, comments } = whole.paper;
   const [bibtex, setBibtex] = useState<"" | "copied" | "downloaded">("");
   const [linkCopied, setLinkCopied] = useState(false);
+  // Saved here, by its button or the s key: its star bursts, and flies to the tab (UX-37).
+  const starButton = useRef<HTMLButtonElement>(null);
+  const [burst, setBurst] = useState(0);
+  const wasSaved = useRef(saved);
+  useEffect(() => {
+    if (saved && !wasSaved.current && !window.matchMedia(REDUCED_MOTION).matches) {
+      setBurst((count) => count + 1);
+      flyToReadingList(starButton.current);
+    }
+    wasSaved.current = saved;
+  }, [saved]);
+  useEffect(() => {
+    if (burst === 0) return;
+    const timer = setTimeout(() => setBurst(0), BURST_MS);
+    return () => clearTimeout(timer);
+  }, [burst]);
   const root = useRef<HTMLElement>(null);
   // A "+N" opens the card and goes away: the first name it showed takes the focus, which
   // would otherwise fall to the page (and "j" back to the first card).
@@ -526,7 +587,8 @@ export function PaperCard({
 
       <button
         type="button"
-        class={`icon-button${saved ? " icon-button--active" : ""}`}
+        ref={starButton}
+        class={`icon-button${saved ? " icon-button--active" : ""}${burst ? " icon-button--burst" : ""}`}
         aria-pressed={saved}
         aria-label="Save to reading list"
         aria-describedby={titleId}
@@ -534,7 +596,15 @@ export function PaperCard({
         // Whole once opened, so that the reading list keeps the abstract.
         onClick={() => onToggleSaved(whole.paper)}
       >
-        <StarIcon filled={saved} />
+        {/* Keyed by the burst, so that a second save pops it again. */}
+        <StarIcon key={`star-${burst}`} filled={saved} />
+        {burst > 0 && (
+          <span key={`burst-${burst}`} class="save-burst" aria-hidden="true">
+            {Array.from({ length: SPARKS }, (_, index) => (
+              <i key={index} />
+            ))}
+          </span>
+        )}
       </button>
     </article>
   );

@@ -263,6 +263,10 @@ test("the Content-Security-Policy refuses nothing the site does", async ({ page 
   // public/theme.js ran before first paint: the theme forced with the toggle (SEC-1).
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
   await expect(page.getByText("4 of 4 cs.CV papers")).toBeVisible();
+  // A saved paper's star bursts and flies to its tab, placed from the script (UX-37).
+  await page.getByRole("button", { name: "Save to reading list" }).first().click();
+  await expect(page.locator(".save-burst")).toHaveCount(1);
+  await expect(page.locator(".save-flight")).toHaveCount(0);
   await page.goto("./?view=graph");
   await expect(page.locator("canvas.graph__canvas")).toBeVisible();
   await page.goto("./?view=cited&year=2017");

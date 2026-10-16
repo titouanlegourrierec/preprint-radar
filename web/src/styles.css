@@ -1487,6 +1487,164 @@ html {
   color: var(--star);
 }
 
+/* Saving a paper (UX-37): its star pops, and a ring and sparks of gold and blue burst from
+   it; a copy of the star flies to the Reading list tab (`flyToReadingList`), which bounces.
+   None of it with reduced motion, which the script checks too. */
+.icon-button {
+  position: relative;
+}
+
+.icon-button--burst > svg {
+  animation: star-pop 480ms cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+.save-burst {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.save-burst::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 2px solid var(--star);
+  border-radius: 50%;
+  opacity: 0;
+  animation: burst-ring 520ms ease-out;
+}
+
+.save-burst > i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 50%;
+  background: var(--star);
+  opacity: 0;
+  animation: burst-spark 650ms cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+.save-burst > i:nth-child(even) {
+  width: 4px;
+  height: 4px;
+  margin: -2px 0 0 -2px;
+  background: var(--accent);
+  animation-delay: 40ms;
+}
+
+.save-burst > i:nth-child(1) {
+  --angle: 0deg;
+}
+
+.save-burst > i:nth-child(2) {
+  --angle: 45deg;
+}
+
+.save-burst > i:nth-child(3) {
+  --angle: 90deg;
+}
+
+.save-burst > i:nth-child(4) {
+  --angle: 135deg;
+}
+
+.save-burst > i:nth-child(5) {
+  --angle: 180deg;
+}
+
+.save-burst > i:nth-child(6) {
+  --angle: 225deg;
+}
+
+.save-burst > i:nth-child(7) {
+  --angle: 270deg;
+}
+
+.save-burst > i:nth-child(8) {
+  --angle: 315deg;
+}
+
+.save-flight {
+  position: fixed;
+  z-index: 100;
+  width: 20px;
+  height: 20px;
+  color: var(--star);
+  pointer-events: none;
+}
+
+.tab--bump > svg {
+  animation: tab-bump 480ms cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+@keyframes star-pop {
+  0% {
+    transform: scale(0.4) rotate(-35deg);
+  }
+
+  60% {
+    transform: scale(1.35) rotate(12deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(0);
+  }
+}
+
+@keyframes burst-ring {
+  0% {
+    opacity: 0.9;
+    transform: scale(0.3);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.7);
+  }
+}
+
+@keyframes burst-spark {
+  0% {
+    opacity: 1;
+    transform: rotate(var(--angle)) translateY(-4px) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: rotate(var(--angle)) translateY(-24px) scale(0.3);
+  }
+}
+
+@keyframes tab-bump {
+  0% {
+    color: var(--star);
+    transform: scale(1);
+  }
+
+  45% {
+    color: var(--star);
+    transform: scale(1.45) rotate(-12deg);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icon-button--burst > svg,
+  .tab--bump > svg {
+    animation: none;
+  }
+
+  .save-burst {
+    display: none;
+  }
+}
+
 /* Graph ------------------------------------------------------------------- */
 
 /* The graph view fills the window below the top bar; the page itself does not scroll. */

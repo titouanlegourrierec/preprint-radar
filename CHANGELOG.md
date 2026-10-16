@@ -80,6 +80,9 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   bronze. The export and import buttons have icons, and the last characters standing for
   icons are drawn ones: the code's stars and likes, Seen's check mark and the day
   headings' fold (UX-36).
+- Saving a paper bursts its star into sparks, and the star flies to the Reading list tab,
+  which bounces as it lands, when the tab is in sight; nothing moves for those who ask
+  their system for less motion (UX-37).
 
 ### Performance
 
