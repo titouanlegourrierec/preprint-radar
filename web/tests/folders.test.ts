@@ -1,17 +1,19 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   addFolder,
+  addPaper,
   deleteFolder,
   FOLDERS_KEY,
   type Folder,
   findFolder,
   folderName,
-  folderOf,
+  foldersOf,
+  forgetPaper,
   loadFolders,
   MAX_FOLDER_NAME,
   mergeFolders,
-  putPaper,
   readFolders,
+  removePaper,
   renameFolder,
   saveFolders,
 } from "../src/folders";
@@ -34,9 +36,9 @@ describe("folder names", () => {
     expect(findFolder(folders, null)).toBeUndefined();
   });
 
-  it("say which folder holds a paper", () => {
-    expect(folderOf(folders, "2609.00003")).toBe("Splatting");
-    expect(folderOf(folders, "2609.00009")).toBeNull();
+  it("say which folders hold a paper", () => {
+    expect(foldersOf(folders, "2609.00003")).toEqual(["Splatting"]);
+    expect(foldersOf(folders, "2609.00009")).toEqual([]);
   });
 });
 
@@ -57,13 +59,13 @@ describe("readFolders", () => {
         // Another folder of the same name, whatever its case, and one without papers.
         { name: "to read", papers: ["2609.00005"] },
         { name: "Later" },
-        // A paper is in the first folder holding it only.
+        // A paper can be in several folders (UX-45).
         { name: "Again", papers: ["2609.00001", "2609.00006"] },
       ]),
     ).toEqual([
       { name: "To read", papers: ["2609.00001"] },
       { name: "Later", papers: [] },
-      { name: "Again", papers: ["2609.00006"] },
+      { name: "Again", papers: ["2609.00001", "2609.00006"] },
     ]);
   });
 });
@@ -91,40 +93,47 @@ describe("changing folders", () => {
     expect(deleteFolder(folders, "Diffusion")).toBe(folders);
   });
 
-  it("puts a paper in one folder at most", () => {
-    const moved = putPaper(folders, "2609.00003", "To read");
-    expect(moved).toEqual([
+  it("puts a paper in several folders, first, and takes it out of one (UX-45)", () => {
+    const both = addPaper(folders, "2609.00003", "to read");
+    expect(both).toEqual([
+      { name: "To read", papers: ["2609.00003", "2609.00001", "2609.00002"] },
+      { name: "Splatting", papers: ["2609.00003"] },
+    ]);
+    expect(foldersOf(both, "2609.00003")).toEqual(["To read", "Splatting"]);
+    expect(removePaper(both, "2609.00003", "Splatting")).toEqual([
       { name: "To read", papers: ["2609.00003", "2609.00001", "2609.00002"] },
       { name: "Splatting", papers: [] },
     ]);
-    expect(putPaper(moved, "2609.00003", null)).toEqual([
+    // Nothing to change: the same folders.
+    expect(addPaper(folders, "2609.00003", "splatting")).toBe(folders);
+    expect(addPaper(folders, "2609.00003", "Diffusion")).toBe(folders);
+    expect(removePaper(folders, "2609.00009", "To read")).toBe(folders);
+    expect(removePaper(folders, "2609.00001", "Diffusion")).toBe(folders);
+  });
+
+  it("takes an unsaved paper out of every folder", () => {
+    expect(forgetPaper(addPaper(folders, "2609.00003", "To read"), "2609.00003")).toEqual([
       { name: "To read", papers: ["2609.00001", "2609.00002"] },
       { name: "Splatting", papers: [] },
     ]);
-    expect(putPaper(folders, "2609.00003", "splatting")).toBe(folders);
-    expect(putPaper(folders, "2609.00009", null)).toBe(folders);
+    expect(forgetPaper(folders, "2609.00009")).toBe(folders);
   });
 
   it("merges an imported file's folders by name", () => {
-    const {
-      folders: merged,
-      added,
-      kept,
-    } = mergeFolders(folders, [
-      // The file's papers already in a folder here stay where they are, and are counted.
+    const { folders: merged, added } = mergeFolders(folders, [
+      // A paper in another folder here goes in the file's too, and stays in its own.
       { name: "to read", papers: ["2609.00007", "2609.00003", "2609.00001"] },
       { name: "Diffusion", papers: ["2609.00008", "2609.00009"] },
     ]);
-    expect([added, kept]).toEqual([1, 1]);
+    expect(added).toBe(1);
     expect(merged).toEqual([
-      { name: "To read", papers: ["2609.00007", "2609.00001", "2609.00002"] },
+      { name: "To read", papers: ["2609.00007", "2609.00003", "2609.00001", "2609.00002"] },
       { name: "Splatting", papers: ["2609.00003"] },
       { name: "Diffusion", papers: ["2609.00008", "2609.00009"] },
     ]);
     expect(mergeFolders(folders, [{ name: "Splatting", papers: ["2609.00003"] }])).toEqual({
       folders,
       added: 0,
-      kept: 0,
     });
   });
 });

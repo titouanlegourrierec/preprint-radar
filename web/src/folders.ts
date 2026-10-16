@@ -1,8 +1,7 @@
 /**
  * The reading list's folders (UX-38): named groups of saved papers, kept in this browser
- * apart from the papers, as the saved searches are, and exported with them. A paper is in
- * one folder at most; the stored form, each folder's ids, would take several without a
- * migration.
+ * apart from the papers, as the saved searches are, and exported with them. A paper can be
+ * in several (UX-45), as the stored form, each folder's ids, always allowed.
  */
 import { arxivIdOf } from "./search";
 
@@ -33,29 +32,27 @@ export function findFolder(folders: readonly Folder[], name: string | null): Fol
   return name === null ? undefined : folders.find((folder) => sameName(folder.name, name));
 }
 
-/** The name of the folder holding a paper, `null` when none does. */
-export function folderOf(folders: readonly Folder[], arxivId: string): string | null {
-  return folders.find((folder) => folder.papers.includes(arxivId))?.name ?? null;
+/** The names of the folders holding a paper, in their order; none when no folder does. */
+export function foldersOf(folders: readonly Folder[], arxivId: string): string[] {
+  return folders.filter((folder) => folder.papers.includes(arxivId)).map(({ name }) => name);
 }
 
 /**
  * The folders of a stored value or an imported file, which are untrusted: entries that are
- * not folders are skipped, names are cleaned and kept once, ids kept when they are arXiv
- * ids, and a paper in the first folder that holds it only.
+ * not folders are skipped, names are cleaned and kept once, ids kept once a folder when
+ * they are arXiv ids.
  */
 export function readFolders(value: unknown): Folder[] {
   if (!Array.isArray(value)) return [];
   const folders: Folder[] = [];
-  const placed = new Set<string>();
   for (const entry of value) {
     if (typeof entry !== "object" || entry === null) continue;
     const { name, papers } = entry as Record<string, unknown>;
     const cleaned = typeof name === "string" ? folderName(name) : "";
     if (cleaned === "" || findFolder(folders, cleaned)) continue;
     const ids = (Array.isArray(papers) ? papers : []).filter(
-      (id): id is string => typeof id === "string" && arxivIdOf(id) === id && !placed.has(id),
+      (id): id is string => typeof id === "string" && arxivIdOf(id) === id,
     );
-    for (const id of ids) placed.add(id);
     folders.push({ name: cleaned, papers: [...new Set(ids)] });
   }
   return folders;
@@ -106,42 +103,56 @@ export function deleteFolder(folders: Folder[], name: string): Folder[] {
 }
 
 /**
- * A paper put in a folder, first, and out of any other; out of every folder for `null` (a
- * paper unsaved). The same folders when nothing changes.
+ * A paper put in a folder, first, staying in the others (UX-45); the same folders when it
+ * is there already, or there is no such folder.
  */
-export function putPaper(folders: Folder[], arxivId: string, name: string | null): Folder[] {
+export function addPaper(folders: Folder[], arxivId: string, name: string): Folder[] {
   const target = findFolder(folders, name);
-  if (folderOf(folders, arxivId) === (target?.name ?? null)) return folders;
-  return folders.map((folder) => {
-    const papers = folder.papers.filter((id) => id !== arxivId);
-    return { ...folder, papers: folder === target ? [arxivId, ...papers] : papers };
-  });
+  if (target === undefined || target.papers.includes(arxivId)) return folders;
+  return folders.map((folder) =>
+    folder === target ? { ...folder, papers: [arxivId, ...folder.papers] } : folder,
+  );
+}
+
+/** A paper taken out of a folder; the same folders when it is not there. */
+export function removePaper(folders: Folder[], arxivId: string, name: string): Folder[] {
+  const target = findFolder(folders, name);
+  if (target === undefined || !target.papers.includes(arxivId)) return folders;
+  return folders.map((folder) =>
+    folder === target
+      ? { ...folder, papers: folder.papers.filter((id) => id !== arxivId) }
+      : folder,
+  );
+}
+
+/** A paper out of every folder: unsaved. The same folders when none holds it. */
+export function forgetPaper(folders: Folder[], arxivId: string): Folder[] {
+  if (!folders.some((folder) => folder.papers.includes(arxivId))) return folders;
+  return folders.map((folder) =>
+    folder.papers.includes(arxivId)
+      ? { ...folder, papers: folder.papers.filter((id) => id !== arxivId) }
+      : folder,
+  );
 }
 
 /**
  * The folders of an imported file merged into these: a folder of the same name takes the
- * file's papers that no folder holds here, a new one is added with them. How many folders
- * were added, and how many of the file's papers stayed in another folder here (`kept`: a
- * paper is in one folder, and this browser's choice wins); the same array when nothing
- * changed.
+ * file's papers it lacks, in the file's order before its own, a new one is added with them;
+ * a paper in other folders here stays in them too. How many folders were added; the same
+ * array when nothing changed.
  */
 export function mergeFolders(
   saved: Folder[],
   imported: readonly Folder[],
-): { folders: Folder[]; added: number; kept: number } {
+): { folders: Folder[]; added: number } {
   let folders = saved;
   let added = 0;
-  let kept = 0;
   for (const folder of imported) {
     if (!findFolder(folders, folder.name)) {
       folders = addFolder(folders, folder.name);
       added++;
     }
-    for (const id of [...folder.papers].reverse()) {
-      const here = folderOf(folders, id);
-      if (here === null) folders = putPaper(folders, id, folder.name);
-      else if (!sameName(here, folder.name)) kept++;
-    }
+    for (const id of [...folder.papers].reverse()) folders = addPaper(folders, id, folder.name);
   }
-  return { folders, added, kept };
+  return { folders, added };
 }

@@ -17,7 +17,7 @@ import { SiteFooter } from "./components/SiteFooter";
 import { Topbar } from "./components/Topbar";
 import { download } from "./download";
 import { feedOf } from "./feeds";
-import { findFolder, folderOf } from "./folders";
+import { findFolder, foldersOf } from "./folders";
 import {
   countOf,
   citationsNote as formatCitationsNote,
@@ -135,9 +135,9 @@ export function App() {
       correct({ folder: null });
     }
   }, [state.view, state.folder, activeFolder]);
-  // An unsaved paper leaves its folder, which counts the saved ones only.
+  // An unsaved paper leaves its folders, which count the saved ones only.
   const toggleSaved = (paper: Paper) => {
-    if (readingList.savedIds.has(paper.arxiv_id)) folders.put(paper.arxiv_id, null);
+    if (readingList.savedIds.has(paper.arxiv_id)) folders.forget(paper.arxiv_id);
     readingList.toggle(paper);
   };
   const shownPapers = useMemo(
@@ -563,7 +563,11 @@ export function App() {
                       folders.remove(name);
                       update({ folder: null });
                     }}
-                    onDropPaper={(name, arxivId) => folders.put(arxivId, name)}
+                    onDropPaper={(name, arxivId) => {
+                      // Onto a folder, in it too; onto All saved, out of the one shown.
+                      if (name !== null) folders.put(arxivId, name, true);
+                      else if (activeFolder) folders.put(arxivId, activeFolder.name, false);
+                    }}
                     onExport={(name) => {
                       const folder = findFolder(folders.folders, name);
                       if (!folder) return;
@@ -847,7 +851,7 @@ export function App() {
                       state.view === "reading-list"
                         ? {
                             names: folders.folders.map((folder) => folder.name),
-                            of: (arxivId) => folderOf(folders.folders, arxivId),
+                            of: (arxivId) => foldersOf(folders.folders, arxivId),
                             onPut: folders.put,
                           }
                         : undefined

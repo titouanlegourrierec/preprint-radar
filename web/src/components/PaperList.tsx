@@ -43,12 +43,12 @@ interface Props {
    * dragging its card, or Alt+arrows on it; absent in any other order.
    */
   onMove?: ((arxivId: string, target: string, place: "before" | "after") => void) | undefined;
-  /** The reading list's folders, each card's select putting its paper in one (UX-38). */
+  /** The reading list's folders, each card's menu putting its paper in some (UX-38, UX-45). */
   folders?:
     | {
         names: string[];
-        of: (arxivId: string) => string | null;
-        onPut: (arxivId: string, name: string | null) => void;
+        of: (arxivId: string) => string[];
+        onPut: (arxivId: string, name: string, inFolder: boolean) => void;
       }
     | undefined;
 }
@@ -270,9 +270,9 @@ export function PaperList({
       folder={
         folders && folders.names.length > 0
           ? {
-              name: folders.of(paper.arxiv_id),
+              holding: folders.of(paper.arxiv_id),
               names: folders.names,
-              onChange: (name) => folders.onPut(paper.arxiv_id, name),
+              onChange: (name, inFolder) => folders.onPut(paper.arxiv_id, name, inFolder),
             }
           : undefined
       }

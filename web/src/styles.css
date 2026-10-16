@@ -1553,25 +1553,60 @@ html {
 
 /* A card's folder in the reading list (UX-38): a select drawn as the badges, with the
    chevron of the others. */
-.action--select {
+/* A card's folders (UX-45): the badge names them, its box checks one or several, over the
+   cards below, which come later in the page. */
+.paper:has(.folder-menu__panel) {
   position: relative;
-  padding-right: 0;
+  z-index: 4;
 }
 
-.action--select select {
+/* A card's folders (UX-45): the badge names them, its box checks one or several. */
+.folder-menu {
+  position: relative;
+  display: inline-flex;
+}
+
+.folder-menu__label {
   max-width: 11rem;
-  padding: 0 26px 0 0;
-  border: 0;
-  background: transparent;
-  font: inherit;
-  color: inherit;
+  overflow: hidden;
   text-overflow: ellipsis;
-  appearance: none;
+}
+
+.folder-menu__panel {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 5;
+  display: grid;
+  gap: 2px;
+  min-width: 180px;
+  max-height: 260px;
+  margin: 0;
+  padding: 6px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: var(--shadow-raised);
+}
+
+.folder-menu__option {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 5px 8px;
+  border-radius: 8px;
+  font-size: 0.82rem;
   cursor: pointer;
 }
 
-.action--select .select-chevron {
-  right: 9px;
+.folder-menu__option:hover {
+  background: var(--surface-muted);
+}
+
+.folder-menu__option input {
+  margin: 0;
+  accent-color: var(--accent);
 }
 
 /* More and Less: a fold, not a destination, so without the badge's outline. */

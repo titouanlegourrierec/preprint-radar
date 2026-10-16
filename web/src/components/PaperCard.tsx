@@ -16,6 +16,7 @@ import {
   typed,
 } from "../search";
 import type { Paper } from "../types";
+import { FolderMenu } from "./FolderMenu";
 import { Highlighted } from "./Highlighted";
 import {
   AuthorsIcon,
@@ -24,7 +25,6 @@ import {
   ChevronIcon,
   CiteIcon,
   EyeIcon,
-  FolderIcon,
   GraphIcon,
   GripIcon,
   HeartIcon,
@@ -32,7 +32,6 @@ import {
   InstitutionIcon,
   LinkIcon,
   PdfIcon,
-  SelectChevron,
   StarIcon,
 } from "./icons";
 import { RichText } from "./RichText";
@@ -137,11 +136,15 @@ interface Props {
   /** The affiliation's institution, exactly, or the string itself when it names none. */
   onAffiliation: (filter: NameFilter) => void;
   /**
-   * The reading list's folder of the paper, and the folders to put it in (UX-38): in the
-   * reading list, once it has folders.
+   * The reading list's folders holding the paper, and every folder to put it in (UX-38,
+   * several since UX-45): in the reading list, once it has folders.
    */
   folder?:
-    | { name: string | null; names: string[]; onChange: (name: string | null) => void }
+    | {
+        holding: string[];
+        names: string[];
+        onChange: (name: string, inFolder: boolean) => void;
+      }
     | undefined;
   /**
    * The reading list's cards are dragged by their handle (UX-39): onto a folder, or between
@@ -262,7 +265,7 @@ export function PaperCard({
     const { target } = event;
     if (
       target instanceof Element &&
-      target.closest("a, button, input, select, label, .paper__grip")
+      target.closest("a, button, input, select, label, .paper__grip, .folder-menu")
     )
       return;
     if (window.getSelection()?.toString()) return;
@@ -607,24 +610,12 @@ export function PaperCard({
               </button>
             )}
             {folder && (
-              // A label, which a click on the card leaves alone (`openOnClick`).
-              <label class="action action--select" title="Its folder in the reading list">
-                <FolderIcon />
-                <select
-                  aria-label="Folder"
-                  aria-describedby={titleId}
-                  value={folder.name ?? ""}
-                  onChange={(event) => folder.onChange(event.currentTarget.value || null)}
-                >
-                  <option value="">No folder</option>
-                  {folder.names.map((name) => (
-                    <option key={name} value={name}>
-                      {name}
-                    </option>
-                  ))}
-                </select>
-                <SelectChevron />
-              </label>
+              <FolderMenu
+                names={folder.names}
+                holding={folder.holding}
+                onChange={folder.onChange}
+                describedBy={titleId}
+              />
             )}
             {onToggleSeen && (
               <button

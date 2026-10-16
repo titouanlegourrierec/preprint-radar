@@ -1,15 +1,17 @@
 import { useEffect, useState } from "preact/hooks";
 import {
   addFolder,
+  addPaper,
   deleteFolder,
   FOLDERS_KEY,
   type Folder,
   findFolder,
   folderName,
+  forgetPaper,
   loadFolders,
   mergeFolders,
-  putPaper,
   readFolders,
+  removePaper,
   renameFolder,
   saveFolders,
 } from "../folders";
@@ -50,9 +52,13 @@ export function useFolders() {
       return findFolder(renamed, folderName(to))?.name ?? null;
     },
     remove: (name: string) => change((current) => deleteFolder(current, name)),
-    /** Put a paper in a folder, or in none (`null`, a paper unsaved). */
-    put: (arxivId: string, name: string | null) =>
-      change((current) => putPaper(current, arxivId, name)),
+    /** Put a paper in a folder too, or take it out of one (UX-45). */
+    put: (arxivId: string, name: string, inFolder: boolean) =>
+      change((current) =>
+        inFolder ? addPaper(current, arxivId, name) : removePaper(current, arxivId, name),
+      ),
+    /** Take an unsaved paper out of every folder. */
+    forget: (arxivId: string) => change((current) => forgetPaper(current, arxivId)),
     /** Merge the folders of an imported file, and say how many were added. */
     importFolders: (value: unknown): string | null => {
       const imported = readFolders(
@@ -62,22 +68,12 @@ export function useFolders() {
       );
       // Over the folders drawn, not in an update, whose count would come too late to say.
       const merged = mergeFolders(folders, imported);
-      if (merged.folders !== folders) {
-        saveFolders(merged.folders);
-        setFolders(merged.folders);
-      }
-      const said = [
-        merged.added > 0
-          ? `${countOf(merged.added, "folder")} added`
-          : merged.folders !== folders
-            ? "papers put in folders"
-            : null,
-        // A paper is in one folder: one filed here stays where it is (UX-44).
-        merged.kept > 0
-          ? `${countOf(merged.kept, "paper")} already in another folder stayed there`
-          : null,
-      ];
-      return said.filter(Boolean).join("; ") || null;
+      if (merged.folders === folders) return null;
+      saveFolders(merged.folders);
+      setFolders(merged.folders);
+      return merged.added > 0
+        ? `${countOf(merged.added, "folder")} added`
+        : "papers put in folders";
     },
   };
 }

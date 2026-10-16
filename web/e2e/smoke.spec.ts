@@ -535,7 +535,10 @@ test("the reading list's folders group saved papers, and stay", async ({ page })
   await expect(name).toBeFocused();
   await name.fill("To read");
   await name.press("Enter");
-  await page.getByRole("combobox", { name: "Folder" }).first().selectOption("To read");
+  // Its card's menu puts a paper in it (UX-45).
+  await page.getByRole("button", { name: "Folder", exact: true }).first().click();
+  await page.getByRole("checkbox", { name: "To read" }).check();
+  await page.keyboard.press("Escape");
   await folders.getByRole("button", { name: /^To read/ }).click();
   await expect(page).toHaveURL(/folder=To\+read/);
   await expect(page.getByText("1 of 1 saved paper in “To read”")).toBeVisible();
@@ -597,7 +600,23 @@ test("the reading list's own order, arranged by Alt+arrows or a drag", async ({ 
     .locator(".paper__grip")
     .dragTo(folders.getByRole("button", { name: /^To read/ }));
   await expect(folders.getByRole("button", { name: /^To read/ })).toHaveText(/1$/);
-  await expect(cards.nth(1).getByRole("combobox", { name: "Folder" })).toHaveValue("To read");
+  // And in another too, from its menu: a paper is in as many folders as one likes (UX-45).
+  await folders.getByRole("button", { name: "New folder" }).click();
+  await page.getByRole("textbox", { name: "The new folder's name" }).fill("Later");
+  await page.getByRole("textbox", { name: "The new folder's name" }).press("Enter");
+  await cards.nth(1).getByRole("button", { name: "To read", exact: true }).click();
+  await page.getByRole("checkbox", { name: "Later" }).check();
+  await expect(cards.nth(1).getByRole("button", { name: "2 folders" })).toBeVisible();
+  await expect(folders.getByRole("button", { name: /^To read/ })).toHaveText(/1$/);
+  await expect(folders.getByRole("button", { name: /^Later/ })).toHaveText(/1$/);
+  // Dragged onto All saved from a folder, it leaves that one only.
+  await folders.getByRole("button", { name: /^Later/ }).click();
+  await cards
+    .nth(0)
+    .locator(".paper__grip")
+    .dragTo(folders.getByRole("button", { name: /^All saved/ }));
+  await expect(folders.getByRole("button", { name: /^Later/ })).toHaveText(/0$/);
+  await expect(folders.getByRole("button", { name: /^To read/ })).toHaveText(/1$/);
   expect(errors).toEqual([]);
 });
 

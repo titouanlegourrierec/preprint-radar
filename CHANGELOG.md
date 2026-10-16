@@ -102,8 +102,11 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   chosen in the table. The page remembers Flat or Globe (UX-43).
 - A folder of the reading list exports alone, from its Export beside Rename and Delete: a
   file of its papers that Import library reads, the way to bring one folder to another
-  browser or to give it to someone. The folder merges by name; a paper already in another
-  folder here stays there, and the import says how many did (UX-44).
+  browser or to give it to someone. The folder merges by name (UX-44).
+- A paper can be in several folders: its card's menu has a box to check for each. A card
+  dropped on a folder goes in it too, and on All saved leaves the folder shown; an import
+  adds a folder's papers to the folder of that name, whatever other folders hold them here
+  (UX-45).
 
 ### Data
 

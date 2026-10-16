@@ -372,12 +372,12 @@ derives what only the site uses. The pipeline and `validate` never see these.
   reading list's papers grouped under names, stored apart from them
   (`preprint-radar:reading-folders`, as `[{name, papers: [arXiv ids]}]`), as the saved
   searches are, and exported in the same file (`folders`; the version stays 1, older files
-  have none). A paper is in one folder at most (`putPaper`), which the stored form does not
-  require: several would need no migration. Names are trimmed, cut to 60 characters and
-  kept once whatever their case; a file's folders go through `readFolders` (ids kept when
-  they are arXiv ids, a paper in the first folder holding it) and merge by name, a paper
-  already in a folder here staying there (`mergeFolders`' `kept`, which the import's
-  message counts: "1 paper already in another folder stayed there"). A folder exports
+  have none). A paper is in as many folders as one likes (UX-45, `addPaper`,
+  `removePaper`; one at most until then, which the stored form never required: no
+  migration). Names are trimmed, cut to 60 characters and kept once whatever their case; a
+  file's folders go through `readFolders` (ids kept once a folder when they are arXiv ids)
+  and merge by name, a folder taking the file's papers it lacks, which stay in their other
+  folders here: nothing conflicts. A folder exports
   alone (UX-44, its Export beside Rename and Delete, `folderFile`): a library file of its
   saved papers and the folder, without the saved searches (`reading-list-to-read.json`),
   which Import library reads as any: the way to import one folder, or to give one to
@@ -385,9 +385,11 @@ derives what only the site uses. The pipeline and `validate` never see these.
   choose their period (the reading list had a period picker it did not use): every saved
   paper, then each folder and its count, the one shown (`?folder=`) raised, renamed in
   place or deleted after an inline confirmation (its papers stay saved), and a new one
-  named in place. A card of the reading list puts its paper in one by a select
-  (`action--select`, a label, which a click on the card leaves alone), once there are
-  folders; an unsaved paper leaves its folder, so that the counts are the saved papers'.
+  named in place. A card of the reading list puts its paper in folders by its menu, once
+  there are some (`FolderMenu`: a badge naming its folder, or "2 folders", which opens a
+  box to check for each; the card raised over the next while it is open, and a click in
+  it does not open the abstract); an unsaved paper leaves its folders (`forgetPaper`), so
+  that the counts are the saved papers'.
   The count line names the folder ("1 of 1 saved paper in “To read”"), and the Export menu
   exports its papers.
 - **The reading list's own order** (UX-39): "My order", its default without search words
@@ -396,9 +398,11 @@ derives what only the site uses. The pipeline and `validate` never see these.
   makes it `draggable` while pressed, so that a drag on its text still selects it) and
   goes before or after the card under the pointer's half, a line in the gap saying where
   (`PaperList`, `movePaper`); Alt+↑ and Alt+↓ move the focused card past its neighbour,
-  which keeps the focus. A folder or All saved takes a card dropped on it, in any order
-  (`PAPER_DRAG_TYPE`), its count bouncing. The handle shows where there is a pointer to
-  drag with (`hover: hover`); a phone has the folder select and nothing to reorder by.
+  which keeps the focus. A folder takes a card dropped on it, in any order
+  (`PAPER_DRAG_TYPE`), its count bouncing: the paper goes in it too, leaving no other
+  (UX-45); All saved takes one out of the folder shown. The handle shows where there is a
+  pointer to drag with (`hover: hover`); a phone has the folder menu and nothing to
+  reorder by.
   With a search or a folder, a move places the paper by the neighbours shown.
 - **Saved searches** (`saved-searches.ts`): the query string of their words and filters,
   so that they run on any period. The sidebar counts each one's papers new since the last
