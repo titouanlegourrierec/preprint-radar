@@ -1,10 +1,10 @@
-import type { RefObject } from "preact";
+import type { Ref } from "preact";
 import { useState } from "preact/hooks";
 import { type GraphNode, matchStatus } from "../graph";
 
 interface Props {
   value: string;
-  input: RefObject<HTMLInputElement>;
+  input: Ref<HTMLInputElement>;
   onChange: (text: string) => void;
   /** The first matches, listed under the field. */
   matches: GraphNode[];
@@ -48,7 +48,11 @@ export function GraphFind(props: Props) {
       <input
         ref={props.input}
         type="search"
+        /* biome-ignore lint/a11y/noRedundantRoles: the field has no list (`list={undefined}`
+           only meets Preact 11's types, which want one for a combobox on a search field), so
+           its role is not implied; ARIA in HTML allows it, its matches being its listbox. */
         role="combobox"
+        list={undefined}
         placeholder="Find a node…"
         aria-label="Find a node by name"
         aria-keyshortcuts="/"

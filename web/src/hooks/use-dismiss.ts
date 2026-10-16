@@ -8,7 +8,7 @@ import { useEffect } from "preact/hooks";
  */
 export function useDismiss(
   open: boolean,
-  root: RefObject<HTMLElement>,
+  root: RefObject<HTMLElement | null>,
   onClose: (escaped: boolean) => void,
 ): void {
   useEffect(() => {
