@@ -53,6 +53,9 @@ jobs:
         working-directory: web
         env:
           PREPRINT_RADAR_SITE_URL: ${{ steps.pages.outputs.base_url }}
+          # Cloudflare Web Analytics' site token, a repository variable: no secret, every
+          # page shows it. Unset, the site counts no visit (UX-47, docs/web.md).
+          PREPRINT_RADAR_ANALYTICS_TOKEN: ${{ vars.PREPRINT_RADAR_ANALYTICS_TOKEN }}
       # GitHub Pages refuses a site over 1 GB. Fail well before it, and warn at the size that
       # calls for moving data/ off main (docs/operations.md, "The site or the repository grows").
       - name: Check the site size

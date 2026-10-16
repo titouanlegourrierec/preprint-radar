@@ -15,12 +15,13 @@ import type { Plugin } from "vite";
 import { defineConfig } from "vitest/config";
 import type { CodeFile, ScholarFile, StoreIndex } from "./src/types";
 import { citationShardFiles } from "./tooling/citation-shards";
-import { CONTENT_SECURITY_POLICY } from "./tooling/content-security-policy";
+import { contentSecurityPolicy as policy } from "./tooling/content-security-policy";
 import { feedFiles } from "./tooling/feeds";
 import { LANDING_BUDGET, landingAssets, landingReport } from "./tooling/landing";
 import { paperFiles, withSiteFields } from "./tooling/scholar";
 import { searchShardFiles } from "./tooling/search-shards";
 import { thirdPartyLoads } from "./tooling/third-party";
+import { analyticsToken, beaconTag } from "./tooling/web-analytics";
 
 // The repository's store; the smoke test (e2e/) builds the site over a small one instead.
 const DATA_DIR = resolve(
@@ -82,6 +83,8 @@ function searchShardsOf(dataDir: string): () => Map<string, string> {
 
 // The site's address, which the feeds' links need; the deploy workflow sets it.
 const SITE_URL = process.env.PREPRINT_RADAR_SITE_URL || null;
+/** Cloudflare Web Analytics' site token (UX-47): visits are counted only when it is given. */
+const ANALYTICS_TOKEN = analyticsToken(process.env.PREPRINT_RADAR_ANALYTICS_TOKEN);
 
 /**
  * The Atom feeds of the store (`tooling/feeds.ts`), derived again in development when the
@@ -192,8 +195,9 @@ function paperData(dataDir: string): Plugin {
 
 /**
  * The Content-Security-Policy as a meta (GitHub Pages sends no headers), right after the
- * charset, since it applies to what follows only. The development server goes without, its
- * module reloading being inline.
+ * charset, since it applies to what follows only, and with a token, Cloudflare Web
+ * Analytics' script before the body's end, as its snippet goes (UX-47). The development
+ * server goes without either, its module reloading being inline.
  */
 function contentSecurityPolicy(): Plugin {
   const charset = '<meta charset="UTF-8" />';
@@ -202,8 +206,11 @@ function contentSecurityPolicy(): Plugin {
     apply: "build",
     transformIndexHtml(html) {
       if (!html.includes(charset)) throw new Error(`index.html has no ${charset} to follow`);
-      const meta = `<meta http-equiv="Content-Security-Policy" content="${CONTENT_SECURITY_POLICY}" />`;
-      return html.replace(charset, `${charset}\n    ${meta}`);
+      const meta = `<meta http-equiv="Content-Security-Policy" content="${policy(ANALYTICS_TOKEN !== null)}" />`;
+      const page = html.replace(charset, `${charset}\n    ${meta}`);
+      if (ANALYTICS_TOKEN === null) return page;
+      if (!page.includes("</body>")) throw new Error("index.html has no </body> to end");
+      return page.replace("</body>", `  ${beaconTag(ANALYTICS_TOKEN)}\n  </body>`);
     },
   };
 }
@@ -232,8 +239,12 @@ function landingBudget(): Plugin {
   };
 }
 
-/** Fail the build if the site would load anything from another origin (see About, privacy). */
+/**
+ * Fail the build if the site would load anything from another origin (see About, privacy),
+ * but the analytics script given a token, which the policy allows alone (UX-47).
+ */
 function noThirdPartyLoads(): Plugin {
+  const allowed = ANALYTICS_TOKEN === null ? null : beaconTag(ANALYTICS_TOKEN);
   return {
     name: "preprint-radar:no-third-party-loads",
     apply: "build",
@@ -241,7 +252,9 @@ function noThirdPartyLoads(): Plugin {
     enforce: "post",
     generateBundle(_, bundle) {
       for (const [fileName, output] of Object.entries(bundle)) {
-        const code = output.type === "chunk" ? output.code : String(output.source);
+        const emitted = output.type === "chunk" ? output.code : String(output.source);
+        const code =
+          allowed !== null && fileName === "index.html" ? emitted.replace(allowed, "") : emitted;
         const found = thirdPartyLoads(fileName, code);
         if (found.length > 0) {
           this.error(`${fileName} loads from another origin: ${found.join(", ")}`);

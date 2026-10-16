@@ -111,6 +111,10 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   folder's papers in their reading list, with a button to add them, in a folder of that
   name. The link names the papers after a `#`, which browsers never send to the server
   (UX-46).
+- Visits can be counted by Cloudflare Web Analytics, without cookies: given its site token
+  as a repository variable, the build adds Cloudflare's script, the only thing the site
+  then loads from elsewhere, and About says what it counts; without it, nothing changes
+  (UX-47).
 
 ### Data
 

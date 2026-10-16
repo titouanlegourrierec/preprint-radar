@@ -4,6 +4,8 @@ const CORRECTION_LINK = reportLink();
 
 /** What the site is, where its data comes from, how to get it corrected, and privacy. */
 export function About() {
+  // Whether this build counts visits (UX-47): its page then holds Cloudflare's script.
+  const counted = document.querySelector("script[data-cf-beacon]") !== null;
   return (
     <main class="about" id="main">
       <h2>About Preprint Radar</h2>
@@ -71,7 +73,18 @@ export function About() {
 
       <h3>Privacy</h3>
       <ul>
-        <li>No account, no cookies, no analytics: the site loads nothing from other websites.</li>
+        {counted ? (
+          <li>
+            No account, no cookies. Visits are counted by Cloudflare Web Analytics, whose script is
+            the only thing the site loads from another website: it stores nothing in your browser,
+            and reports each page's address without what follows a <code>?</code> or a{" "}
+            <code>#</code> (your search, a shared folder), the site you came from, and your browser,
+            device and country, as counts. See{" "}
+            <a href="https://www.cloudflare.com/web-analytics/">Cloudflare Web Analytics</a>.
+          </li>
+        ) : (
+          <li>No account, no cookies, no analytics: the site loads nothing from other websites.</li>
+        )}
         <li>
           Your reading list, saved searches, the papers you marked seen, the day of your last visit,
           your theme and display settings are kept in your browser (local storage), and never sent

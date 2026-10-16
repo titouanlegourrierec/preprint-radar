@@ -345,7 +345,8 @@ derives what only the site uses. The pipeline and `validate` never see these.
   days; a 60-day window keeps it there as the days grow.
 - `noThirdPartyLoads` (`tooling/third-party.ts`) fails the build if the site would load
   anything from another origin: the About page promises that it loads nothing from other
-  websites. Links are fine; fonts, scripts, images or `fetch()` from a CDN are not.
+  websites. Links are fine; fonts, scripts, images or `fetch()` from a CDN are not. One
+  exception, given its token: Cloudflare Web Analytics' script (below).
 - `landingBudget` (`tooling/landing.ts`) prints what `index.html` loads, gzipped ("Landing
   page: 55.4 kB gzipped of 75.0 kB"), and fails the build past `LANDING_BUDGET` (PERF-15):
   a dependency or a module the list does not need, imported eagerly. Only the whole site's
@@ -358,6 +359,19 @@ derives what only the site uses. The pipeline and `validate` never see these.
   (`public/theme.js` restores the theme), and styles set from code go through the CSSOM,
   which the policy allows, where a `style` attribute written as HTML is refused. The smoke
   test checks that nothing the site does is refused. The development server goes without.
+- **Visits** (UX-47, `tooling/web-analytics.ts`): counted by Cloudflare Web Analytics when
+  the build is given its site token, `PREPRINT_RADAR_ANALYTICS_TOKEN`, a repository
+  variable (Settings, Secrets and variables, Actions, Variables), which `deploy.yml`
+  passes: it is no secret, every page shows it. The build then ends `index.html` with
+  Cloudflare's snippet (`beaconTag`), and the policy allows its script and the address it
+  reports to, those two only (`contentSecurityPolicy(true)`); without it, nothing changes.
+  No cookie, nothing stored in the browser; its script reports each page's address
+  without the query or the fragment (the search, a shared folder: its code and its reports
+  read on 2026-10-16), the referrer, and what the browser says of itself, and Cloudflare
+  adds the country, as counts in its dashboard (Analytics & Logs, Web Analytics). About
+  says so when the page holds the script (`script[data-cf-beacon]`), and that the site
+  loads nothing from elsewhere otherwise. Ad blockers often stop it: the counts are a
+  floor. A malformed token fails the build. To stop counting, delete the variable.
 - `base: "./"` keeps the site working under `user.github.io/<repo>/`.
 
 ## In this browser only
