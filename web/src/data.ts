@@ -12,6 +12,7 @@ import {
   type StoreIndex,
   type TopRecentFile,
 } from "./types";
+import type { CountriesFile } from "./world";
 
 const DATA_URL = `${import.meta.env.BASE_URL}data/`;
 const MAX_PARALLEL_REQUESTS = 6;
@@ -279,6 +280,20 @@ export async function loadWholePaper(paper: Paper): Promise<Paper> {
   if (paper.light === undefined) return paper;
   const papers = await loadPapers(paper.light, "day file", undefined);
   return papers.find(({ arxiv_id }) => arxiv_id === paper.arxiv_id) ?? paper;
+}
+
+/**
+ * The country of each institution of a category's papers (`countries.json`, UX-40), for
+ * Rankings' world map; `null` before the pipeline first writes it.
+ */
+export async function loadCountries(category: string): Promise<CountriesFile | null> {
+  const path = `${category}/countries.json`;
+  const response = await fetch(`${DATA_URL}${path}`);
+  if (response.status === 404) return null;
+  if (!response.ok) throw new Error(`Could not load ${path} (HTTP ${response.status})`);
+  const file = (await response.json()) as CountriesFile;
+  checkSchema(file.schema_version, "countries");
+  return file;
 }
 
 /**

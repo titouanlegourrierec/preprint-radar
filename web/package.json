@@ -16,16 +16,22 @@
   },
   "dependencies": {
     "d3-force": "^3.0.0",
+    "d3-geo": "^3.1.1",
     "minisearch": "^7.2.0",
-    "preact": "^10.29.8"
+    "preact": "^10.29.8",
+    "topojson-client": "^3.1.0"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.15",
     "@playwright/test": "^1.63.0",
     "@preact/preset-vite": "^2.10.6",
     "@types/d3-force": "^3.0.10",
+    "@types/d3-geo": "^3.1.1",
     "@types/node": "^26.6.4",
+    "@types/topojson-client": "^3.1.5",
+    "@types/topojson-server": "^3.0.4",
     "@vitest/coverage-v8": "^5.0.3",
+    "topojson-server": "^3.0.1",
     "typescript": "^7.0.2",
     "vite": "^8.3.2",
     "vitest": "^5.0.2"

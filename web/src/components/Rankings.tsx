@@ -3,39 +3,86 @@ import { affiliationCoverage, countOf } from "../format";
 import { type EntityKind, severalPeople } from "../graph";
 import { type RankingMetric, rankEntities } from "../rankings";
 import type { Paper } from "../types";
+import type { RankKind } from "../url-state";
+import type { CountryMetric } from "../world";
+import { ChevronIcon, GlobeIcon } from "./icons";
+import { LazyWorldMap } from "./LazyWorldMap";
 import { Segmented } from "./Segmented";
 
 const SHOWN = 100;
-const KIND_NAMES: Record<EntityKind, string> = { institution: "Institutions", author: "Authors" };
+const KIND_NAMES: Record<RankKind, string> = {
+  institution: "Institutions",
+  author: "Authors",
+  country: "Countries",
+};
 
 interface Props {
+  category: string;
   /** The papers ranked: those of the period or archive year matching the search and filters. */
   papers: Paper[];
   citations: ReadonlyMap<string, number>;
   citationsNote: string | undefined;
   /** Whether the papers are highly cited ones: citations then rank them by default. */
   archived: boolean;
-  /** Institutions or authors, as the URL says (`?rank=`, SRCH-13). */
-  kind: EntityKind;
-  /** By papers or citations (`?metric=`), `null` for the default. */
-  metric: RankingMetric | null;
+  /** Institutions, authors or countries, as the URL says (`?rank=`, SRCH-13, UX-41). */
+  kind: RankKind;
+  /** By papers or citations, and for countries per million people or impact (`?metric=`). */
+  metric: CountryMetric | null;
   /** Show the papers of an institution or author. */
   onEntity: (kind: EntityKind, name: string) => void;
 }
 
-/** Recent papers are rarely cited yet: they rank by papers unless asked otherwise. */
-function metricOf(metric: RankingMetric | null, archived: boolean): RankingMetric {
-  return metric ?? (archived ? "citations" : "papers");
+/**
+ * Recent papers are rarely cited yet: they rank by papers unless asked otherwise. Only
+ * countries rank by people or impact.
+ */
+function metricOf(metric: CountryMetric | null, archived: boolean): RankingMetric {
+  return metric === "papers" || metric === "citations" ? metric : archived ? "citations" : "papers";
 }
 
+/** The countries' metric (UX-41): impact only for highly cited papers, which have citations. */
+function countryMetricOf(metric: CountryMetric | null, archived: boolean): CountryMetric {
+  return metric === null || (metric === "impact" && !archived)
+    ? metricOf(metric, archived)
+    : metric;
+}
+
+/**
+ * The way to the world map in Rankings' sidebar (UX-41), drawn as a card: where the papers
+ * come from, countries ranked; pressed again, back to the institutions.
+ */
+export function WorldMapButton(props: { active: boolean; onToggle: () => void }) {
+  return (
+    <button
+      type="button"
+      class="world-map-button"
+      aria-pressed={props.active}
+      onClick={props.onToggle}
+    >
+      <span class="world-map-button__globe" aria-hidden="true">
+        <GlobeIcon />
+      </span>
+      <span class="world-map-button__label">
+        <span>World map</span>
+        <span class="world-map-button__detail">
+          {props.active ? "Back to the institutions" : "Where the papers come from"}
+        </span>
+      </span>
+      <span class="world-map-button__chevron" aria-hidden="true">
+        <ChevronIcon up={false} />
+      </span>
+    </button>
+  );
+}
 /** What Rankings ranks and how, in the list's header (UX-33), as the lists' order. */
 export function RankingsControls(props: {
   archived: boolean;
-  kind: EntityKind;
-  metric: RankingMetric | null;
-  onKind: (kind: EntityKind) => void;
-  onMetric: (metric: RankingMetric) => void;
+  kind: RankKind;
+  metric: CountryMetric | null;
+  onKind: (kind: RankKind) => void;
+  onMetric: (metric: CountryMetric) => void;
 }) {
+  const countries = props.kind === "country";
   return (
     <div class="rankings__controls">
       <div class="rankings__group">
@@ -47,6 +94,7 @@ export function RankingsControls(props: {
           options={[
             ["institution", KIND_NAMES.institution],
             ["author", KIND_NAMES.author],
+            ["country", KIND_NAMES.country],
           ]}
           value={props.kind}
           onChange={props.onKind}
@@ -56,22 +104,47 @@ export function RankingsControls(props: {
         <span class="muted" aria-hidden="true">
           By
         </span>
-        <Segmented
+        <Segmented<CountryMetric>
           legend="By"
           options={[
             ["papers", "Papers"],
             ["citations", "Citations"],
+            ...(countries ? ([["per-million", "Per million people"]] as const) : []),
+            ...(countries && props.archived ? ([["impact", "Impact"]] as const) : []),
           ]}
-          value={metricOf(props.metric, props.archived)}
+          value={
+            countries
+              ? countryMetricOf(props.metric, props.archived)
+              : metricOf(props.metric, props.archived)
+          }
           onChange={props.onMetric}
+          titles={{
+            "per-million": "Papers per million people, for countries of a million people or more",
+            impact: "Citations per paper over the world's, for countries of 10 papers or more",
+          }}
         />
       </div>
     </div>
   );
 }
 
-/** Institutions and authors of the papers shown, by number of papers or citations. */
+/** Institutions, authors or countries of the papers shown, by papers or citations. */
 export function Rankings(props: Props) {
+  return props.kind === "country" ? (
+    <LazyWorldMap
+      category={props.category}
+      papers={props.papers}
+      citations={props.citations}
+      metric={countryMetricOf(props.metric, props.archived)}
+      archived={props.archived}
+    />
+  ) : (
+    <EntityRankings {...props} kind={props.kind} />
+  );
+}
+
+/** Institutions or authors of the papers shown, by number of papers or citations. */
+function EntityRankings(props: Props & { kind: EntityKind }) {
   const { papers, citations, citationsNote, archived, kind, onEntity } = props;
   const metric = metricOf(props.metric, archived);
   const ranked = useMemo(

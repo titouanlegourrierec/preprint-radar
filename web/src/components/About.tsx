@@ -46,6 +46,12 @@ export function About() {
           other papers link too, or a folder of a larger one, is marked shared: its stars are not
           the paper's alone, and Most starred ranks it last.
         </li>
+        <li>
+          Countries, on the world map of Rankings: those of the institutions, as{" "}
+          <a href="https://openalex.org">OpenAlex</a> places them, refreshed every weekday; a paper
+          of several countries counts a share for each. The map and populations are{" "}
+          <a href="https://www.naturalearthdata.com">Natural Earth</a>'s (public domain).
+        </li>
       </ul>
 
       <h3>Following a lab or a venue</h3>

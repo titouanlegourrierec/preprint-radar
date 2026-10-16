@@ -272,6 +272,11 @@ test("the Content-Security-Policy refuses nothing the site does", async ({ page 
   await expect(page.locator("canvas.graph__canvas")).toBeVisible();
   await page.goto("./?view=cited&year=2017");
   await expect(page.getByText("Attention for Looms")).toBeVisible();
+  // The world map's chunk: its shapes, a hatching pattern, a tooltip placed from the script.
+  await page.goto("./?view=rankings&rank=country");
+  await expect(page.getByRole("img", { name: /^World map of the countries/ })).toBeVisible();
+  await page.locator('[data-code="GB"]').hover();
+  await expect(page.locator(".world-map__tip")).toBeVisible();
   expect(await page.evaluate("window.refused")).toEqual([]);
   expect(errors).toEqual([]);
 });
@@ -440,6 +445,25 @@ test("Rankings lists the institutions of the papers shown", async ({ page }) => 
     page.getByRole("table", { name: "Authors of the papers shown, by citations" }),
   ).toBeVisible();
   await expect(page.getByRole("rowheader").first()).toBeVisible();
+  expect(errors).toEqual([]);
+});
+
+test("Rankings maps the countries of the papers shown", async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.goto("./?view=rankings");
+  // The sidebar's card opens the map, loaded then (UX-41).
+  await page.getByRole("button", { name: /^World map/ }).click();
+  await expect(page).toHaveURL(/rank=country/);
+  await expect(page.getByRole("img", { name: /^World map of the countries/ })).toBeVisible();
+  // A paper of two countries counts half for each.
+  const table = page.getByRole("table", { name: "The countries of the papers shown, by papers" });
+  await expect(table.getByRole("row", { name: /United Kingdom 1\.5/ })).toBeVisible();
+  await expect(table.getByRole("row", { name: /United States of America 1\.5/ })).toBeVisible();
+  // A country of the table is shown on the map.
+  await table.getByRole("button", { name: "United Kingdom" }).click();
+  await expect(page.locator('.world-map__shape--pinned[data-code="GB"]')).toHaveCount(1);
+  await page.getByRole("button", { name: "Per million people" }).click();
+  await expect(page).toHaveURL(/metric=per-million/);
   expect(errors).toEqual([]);
 });
 

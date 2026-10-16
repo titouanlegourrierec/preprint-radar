@@ -7,7 +7,6 @@ import {
 } from "./archive-years";
 import type { EntityKind } from "./graph";
 import { between, DEFAULT_PERIOD, isIsoDay, type Period, rangeOf } from "./period";
-import type { RankingMetric } from "./rankings";
 import {
   exactly,
   type NameFilter,
@@ -16,6 +15,7 @@ import {
   type SortOrder,
   typed,
 } from "./search";
+import type { CountryMetric } from "./world";
 
 export type View = "papers" | "cited" | "graph" | "rankings" | "reading-list" | "about";
 
@@ -28,7 +28,11 @@ const SORTS: readonly SortOrder[] = [
   "stars",
   "custom",
 ];
-const METRICS: readonly RankingMetric[] = ["papers", "citations"];
+const METRICS: readonly CountryMetric[] = ["papers", "citations", "per-million", "impact"];
+
+/** What Rankings ranks: institutions, authors, or countries on a world map (UX-41). */
+export type RankKind = EntityKind | "country";
+const RANKS: readonly RankKind[] = ["institution", "author", "country"];
 
 export interface ViewState {
   query: string;
@@ -50,13 +54,17 @@ export interface ViewState {
    * its ego network (§17.1 #8).
    */
   focus: string | null;
-  /** What Rankings ranks: institutions, or authors (`?rank=author`, SRCH-13). */
-  rank: EntityKind;
   /**
-   * What Rankings ranks by (`?metric=papers`, `citations`); `null` for its default, citations
-   * for highly cited papers, papers for recent ones, which have few yet.
+   * What Rankings ranks: institutions, authors (`?rank=author`, SRCH-13), or countries, on
+   * a world map (`?rank=country`, UX-41).
    */
-  metric: RankingMetric | null;
+  rank: RankKind;
+  /**
+   * What Rankings ranks by (`?metric=papers`, `citations`; for countries `per-million` and
+   * `impact` too); `null` for its default, citations for highly cited papers, papers for
+   * recent ones, which have few yet.
+   */
+  metric: CountryMetric | null;
   /**
    * The reading list's folder shown (`?folder=To+read`, UX-38), `null` for every saved
    * paper; written in the reading list's links only, its folders being this browser's.
@@ -118,7 +126,7 @@ export function readState(search: string): ViewState {
     paper: params.get("paper"),
     year: parseYears(params.get("year")),
     focus: params.get("focus"),
-    rank: params.get("rank") === "author" ? "author" : DEFAULT_STATE.rank,
+    rank: RANKS.find((rank) => rank === params.get("rank")) ?? DEFAULT_STATE.rank,
     metric: METRICS.find((metric) => metric === params.get("metric")) ?? null,
     folder: params.get("folder"),
     filters: {

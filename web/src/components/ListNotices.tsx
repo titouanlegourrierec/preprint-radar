@@ -11,7 +11,7 @@ import { InfoButton } from "./InfoButton";
 // What each view shows, in its ⓘ: the tabs' tooltips are out of reach on touch.
 const VIEW_NOTES: Partial<Record<ViewState["view"], string>> = {
   cited: "The most cited papers older than a year, by year of first version.",
-  rankings: "Institutions and authors of the papers shown, by papers or citations.",
+  rankings: "Institutions, authors or countries of the papers shown, by papers or citations.",
   "reading-list": "The papers you saved from the star of their card, kept in this browser.",
 };
 

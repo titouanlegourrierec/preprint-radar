@@ -128,6 +128,12 @@ describe("url state", () => {
     const cited = { ...state, metric: "citations" as const };
     expect(writeState(cited)).toBe("?view=rankings&rank=author&metric=citations");
     expect(readState(writeState(cited))).toEqual(cited);
+    // Countries, on the world map, by their own metrics (UX-41).
+    const map = { ...DEFAULT_STATE, view: "rankings" as const, rank: "country" as const };
+    expect(readState(writeState({ ...map, metric: "per-million" }))).toEqual({
+      ...map,
+      metric: "per-million",
+    });
     expect(readState("?rank=people&metric=stars")).toMatchObject({
       rank: "institution",
       metric: null,

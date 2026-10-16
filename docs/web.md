@@ -210,8 +210,8 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   | `paper` | An arXiv id: the paper opened (a list) or selected (the graph) | none | the lists, the graph |
   | `year` | Archive years: `2017`, `2019-2021`, `all`; or `last-12-months` (the latest year until the archive keeps them). Years the archive does not hold show others, which the URL then names in place (`correct`, SRCH-20) | the latest year in Highly cited, the recent days elsewhere | Highly cited, the graph, Rankings |
   | `focus` | A graph node id, `institution:mit`: its papers alone | none | the graph (other views drop it) |
-  | `rank` | `author`: Rankings ranks authors (SRCH-13) | institutions | Rankings |
-  | `metric` | `papers` or `citations`: what Rankings ranks by | citations for highly cited papers, else papers | Rankings |
+  | `rank` | `author`: Rankings ranks authors (SRCH-13); `country`: countries, on a world map (UX-41) | institutions | Rankings |
+  | `metric` | `papers` or `citations`: what Rankings ranks by; for countries `per-million` (papers per million people) or `impact` (highly cited papers only) too | citations for highly cited papers, else papers | Rankings |
   | `folder` | A folder of the reading list (`To read`; UX-38), written in its links only: folders are this browser's, and a name it does not have shows every saved paper | every saved paper | the reading list |
   | `by`, `at` | An author or an institution, as clicked: that name only | none | the lists, Rankings |
   | `author`, `aff` | Typed author or affiliation text: word starts (old links' `by` and `at`) | none | the same |
@@ -561,6 +561,28 @@ cross-listed lately, says "first version 2019" beside its day (`firstVersionYear
   below half the table's own note says it too, with that the others count for no
   institution (PROD-16). What it ranks and by what are in the list's header (UX-33), its
   papers chosen in the sidebar as the graph's: the period, or the highly cited years.
+- The world map (UX-41, `world.ts`, `components/WorldMap.tsx`): Rankings' countries
+  (`?rank=country`), opened from the sidebar's card (`WorldMapButton`) or the Rank control,
+  and downloaded then (`LazyWorldMap`: the map, d3-geo and topojson-client, 44 kB gzipped,
+  which the lists never load). A paper is in the countries of its institutions with a ROR
+  id (`countries.json`, UX-40), counted fractionally: half for each of two countries, its
+  citations shared alike, so that a collaboration is not counted twice. Four metrics: papers,
+  citations, papers per million people (countries of a million people or more), and impact,
+  the citations per paper over those of every paper placed (countries of 10 papers or more,
+  offered for highly cited papers only, recent ones having few citations): the bias of size
+  answered twice, by people and by citations per paper. The shapes are Natural Earth's
+  1:110m countries in the Equal Earth projection, which keeps their areas
+  (`src/geo/world.json`, written by `tooling/world-map.ts` from Natural Earth's files, with
+  the instructions there); countries too small for them (Hong Kong, Singapore, Macao: 8% of
+  the papers placed) are dots at their 1:50m label points, and each country's name and
+  population (Natural Earth's, mostly 2019) come from the 1:50m file, a country's most
+  populous entry for its code. Colors by class (`--map-s0`…`--map-s5`, a blue ramp light to
+  dark, flipped in the dark theme; `--map-d0`…`--map-d4`, red and blue around a gray for
+  impact; hatching where the metric says nothing), the classes of the volume metrics
+  spaced on a logarithmic scale at nice numbers (`logThresholds`), as a few countries hold
+  most papers. The pointer's tooltip gives the values first, then the country and its
+  institutions with most papers; a click pins it. The table under the map, the map's values
+  for the keyboard and screen readers, pins a country from its name.
 - What two nodes did together, and with whom one works (§17.1 #8): each of a node's
   connections in the details lists the papers their link stands for on a click
   (`linkPapers`: every shared paper when papers are nodes, in the projection only those

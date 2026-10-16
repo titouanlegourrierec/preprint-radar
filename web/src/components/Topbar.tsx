@@ -83,7 +83,7 @@ export function Topbar(props: Props) {
           </a>
           <a
             class={`tab${view === "rankings" ? " tab--active" : ""}`}
-            title="Institutions and authors of the papers shown, by papers or citations"
+            title="Institutions, authors and countries of the papers shown, by papers or citations"
             {...tab(view === "rankings", {
               view: "rankings",
               ...(cited ? { year: props.archiveRange } : {}),

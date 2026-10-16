@@ -22,6 +22,21 @@
   --medal-silver: #c8cdd4;
   --medal-bronze: #d39563;
   --medal-text: #1c1c1a;
+  /* Rankings' world map (UX-41): a blue ramp light to dark for the volumes, and red and
+     blue around a gray for impact, below and above the world's; no data the faintest. */
+  --map-s0: #cde2fb;
+  --map-s1: #9ec5f4;
+  --map-s2: #6da7ec;
+  --map-s3: #3987e5;
+  --map-s4: #256abf;
+  --map-s5: #104281;
+  --map-d0: #e34948;
+  --map-d1: #f1a7a0;
+  --map-d2: #d9d8d3;
+  --map-d3: #9ec5f4;
+  --map-d4: #2a78d6;
+  --map-none: #f1f0ec;
+  --map-none-line: #d6d5cf;
   /* The fields, buttons and cards of every view, as the graph's chips (UX-33). */
   --radius: 12px;
   /* A paper's card, rounder (UX-34). */
@@ -61,6 +76,19 @@
     --medal-silver: #b9bfc8;
     --medal-bronze: #c98a58;
     --medal-text: #1c1c1a;
+    --map-s0: #183a66;
+    --map-s1: #1c5cab;
+    --map-s2: #2a78d6;
+    --map-s3: #5598e7;
+    --map-s4: #86b6ef;
+    --map-s5: #cde2fb;
+    --map-d0: #e66767;
+    --map-d1: #7d3a3a;
+    --map-d2: #4a4a46;
+    --map-d3: #1c4f8f;
+    --map-d4: #5598e7;
+    --map-none: #222221;
+    --map-none-line: #3a3a37;
     --shadow: none;
     --shadow-raised: none;
 
@@ -89,6 +117,19 @@
   --medal-silver: #b9bfc8;
   --medal-bronze: #c98a58;
   --medal-text: #1c1c1a;
+  --map-s0: #183a66;
+  --map-s1: #1c5cab;
+  --map-s2: #2a78d6;
+  --map-s3: #5598e7;
+  --map-s4: #86b6ef;
+  --map-s5: #cde2fb;
+  --map-d0: #e66767;
+  --map-d1: #7d3a3a;
+  --map-d2: #4a4a46;
+  --map-d3: #1c4f8f;
+  --map-d4: #5598e7;
+  --map-none: #222221;
+  --map-none-line: #3a3a37;
   --shadow: none;
   --shadow-raised: none;
 
@@ -525,10 +566,17 @@ html {
 
 /* Period picker ------------------------------------------------------------ */
 
+/* No wider than its column, its detail cut ("Sep 16 – Oct 15, 2026 · …") rather than
+   overflowing it: grid items are as wide as their content otherwise. */
 .period-picker {
   display: grid;
   gap: 8px;
+  min-width: 0;
   color: var(--text);
+}
+
+.period-picker > * {
+  min-width: 0;
 }
 
 .period-picker__trigger {
@@ -2829,6 +2877,294 @@ html {
 
 .folders__delete {
   color: var(--danger);
+}
+
+/* Rankings' world map (UX-41): a card with the map, its tooltip and legend, then the
+   countries' table; the way to it in the sidebar, a card too. */
+.world-map {
+  display: grid;
+  gap: 12px;
+}
+
+.world-map__card {
+  padding: 12px 16px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--card-radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.world-map__head {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.world-map__head p {
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.world-map__head strong {
+  margin-right: 8px;
+  font-size: 0.95rem;
+}
+
+.world-map__frame {
+  position: relative;
+}
+
+.world-map__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* The countries parted by a thin line of the card, as fills are by a gap. */
+.world-map__shape,
+.world-map__point {
+  stroke: var(--surface);
+  stroke-width: 0.6;
+  cursor: pointer;
+}
+
+.world-map__point {
+  stroke-width: 1.5;
+}
+
+.world-map__shape:hover,
+.world-map__point:hover,
+.world-map__shape--pinned {
+  stroke: var(--text);
+  stroke-width: 1.2;
+}
+
+.world-map__fill--none {
+  fill: url("#world-map-hatch");
+  background: repeating-linear-gradient(
+    135deg,
+    var(--map-none-line) 0 1.4px,
+    var(--map-none) 1.4px 4px
+  );
+}
+
+.world-map__hatch-ground {
+  fill: var(--map-none);
+}
+
+.world-map__hatch-line {
+  fill: var(--map-none-line);
+}
+
+.world-map__fill--s0 {
+  fill: var(--map-s0);
+  background: var(--map-s0);
+}
+
+.world-map__fill--s1 {
+  fill: var(--map-s1);
+  background: var(--map-s1);
+}
+
+.world-map__fill--s2 {
+  fill: var(--map-s2);
+  background: var(--map-s2);
+}
+
+.world-map__fill--s3 {
+  fill: var(--map-s3);
+  background: var(--map-s3);
+}
+
+.world-map__fill--s4 {
+  fill: var(--map-s4);
+  background: var(--map-s4);
+}
+
+.world-map__fill--s5 {
+  fill: var(--map-s5);
+  background: var(--map-s5);
+}
+
+.world-map__fill--d0 {
+  fill: var(--map-d0);
+  background: var(--map-d0);
+}
+
+.world-map__fill--d1 {
+  fill: var(--map-d1);
+  background: var(--map-d1);
+}
+
+.world-map__fill--d2 {
+  fill: var(--map-d2);
+  background: var(--map-d2);
+}
+
+.world-map__fill--d3 {
+  fill: var(--map-d3);
+  background: var(--map-d3);
+}
+
+.world-map__fill--d4 {
+  fill: var(--map-d4);
+  background: var(--map-d4);
+}
+
+/* The values lead, the country follows (the legend's order inverted). */
+.world-map__tip {
+  position: absolute;
+  z-index: 2;
+  min-width: 180px;
+  max-width: 260px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  box-shadow: 0 4px 16px rgb(0 0 0 / 0.12);
+  font-size: 0.8rem;
+  transform: translate(14px, -50%);
+  pointer-events: none;
+}
+
+.world-map__tip--left {
+  transform: translate(calc(-100% - 14px), -50%);
+}
+
+.world-map__tip strong {
+  display: block;
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.world-map__tip strong span {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.world-map__tip-name {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.world-map__tip dl {
+  display: grid;
+  gap: 2px;
+  margin: 4px 0 0;
+}
+
+.world-map__tip dl > div {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.world-map__tip dt {
+  color: var(--text-muted);
+}
+
+.world-map__tip dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.world-map__tip p {
+  margin: 6px 0 0;
+  color: var(--text-muted);
+}
+
+.world-map__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin: 8px 0 0;
+  padding: 0;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  list-style: none;
+}
+
+.world-map__key {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.world-map__swatch {
+  width: 14px;
+  height: 10px;
+  border-radius: 3px;
+}
+
+.world-map__row--pinned {
+  background: var(--accent-soft);
+}
+
+.world-map__more {
+  justify-self: start;
+}
+
+.world-map-button {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent) 12%, var(--surface)),
+    var(--surface) 70%
+  );
+  font-size: 0.85rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.world-map-button:hover,
+.world-map-button[aria-pressed="true"] {
+  border-color: var(--accent);
+}
+
+.world-map-button[aria-pressed="true"] {
+  background: var(--accent-soft);
+}
+
+.world-map-button__globe {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  font-size: 17px;
+  color: var(--accent);
+}
+
+.world-map-button__label {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  line-height: 1.3;
+}
+
+.world-map-button__detail {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* A chevron to the right: it opens a view. */
+.world-map-button__chevron {
+  display: flex;
+  color: var(--text-muted);
+  transform: rotate(-90deg);
 }
 
 .saved-searches {

@@ -5,6 +5,7 @@ import {
   loadArchive,
   loadArchiveYears,
   loadCitationShard,
+  loadCountries,
   loadDays,
   loadIndex,
   loadLightDays,
@@ -40,6 +41,25 @@ function dayFile(date: string, papers = 1) {
 }
 
 describe("data", () => {
+  it("loads the countries of the institutions, none before the first are written (UX-40)", async () => {
+    const countries = {
+      schema_version: 1,
+      generated_at: "2026-10-16T05:00:00+00:00",
+      source: "OpenAlex",
+      institutions: { "03vek6s52": "US" },
+    };
+    serve({ "cs.CV/countries.json": countries });
+    await expect(loadCountries("cs.CV")).resolves.toEqual(countries);
+    serve({});
+    await expect(loadCountries("cs.CV")).resolves.toBeNull();
+    serve({ "cs.CV/countries.json": { ...countries, schema_version: 2 } });
+    await expect(loadCountries("cs.CV")).rejects.toThrow("Unsupported countries schema version 2");
+    serve({}, { "cs.CV/countries.json": 503 });
+    await expect(loadCountries("cs.CV")).rejects.toThrow(
+      "Could not load cs.CV/countries.json (HTTP 503)",
+    );
+  });
+
   it("loads the index, refusing another schema", async () => {
     serve({ "index.json": { schema_version: 1, generated_at: "x", categories: {} } });
     await expect(loadIndex()).resolves.toMatchObject({ schema_version: 1 });

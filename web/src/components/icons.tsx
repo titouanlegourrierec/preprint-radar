@@ -306,6 +306,16 @@ export function FolderIcon() {
   );
 }
 
+/** A globe, its meridians and parallels: the world map (UX-41). */
+export function GlobeIcon() {
+  return (
+    <Outline name="globe">
+      <circle cx="8" cy="8" r="6.25" />
+      <path d="M1.75 8h12.5M8 1.75c1.75 1.75 2.6 3.9 2.6 6.25S9.75 12.5 8 14.25C6.25 12.5 5.4 10.35 5.4 8S6.25 3.5 8 1.75Z" />
+    </Outline>
+  );
+}
+
 /** Six dots: a handle to drag a card by (UX-39). */
 export function GripIcon() {
   return (
