@@ -205,13 +205,14 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   | `from`, `to` | A period of days (`from` alone: one day) | `range` | the Papers view, the graph and Rankings without `year` |
   | `since` | The days since a day, to the latest, which a bookmark keeps following (PROD-13) | `range` | the same |
   | `range` | A preset: `day`, `week`, `month` (`1`, `5`, `20`, `40` and `all`, from old links, open the one that holds as many days) | `week` | the same |
-  | `sort` | `relevance`, `newest`, `citations`, `rising` | `relevance` | the lists |
+  | `sort` | `relevance`, `newest`, `citations`, `rising`, `stars`, `custom` (the reading list's own order, UX-39) | `relevance` (the reading list's own order there, without search words) | the lists |
   | `view` | `papers`, `cited`, `graph`, `rankings`, `reading-list`, `about` | `papers` | every view |
   | `paper` | An arXiv id: the paper opened (a list) or selected (the graph) | none | the lists, the graph |
   | `year` | Archive years: `2017`, `2019-2021`, `all`; or `last-12-months` (the latest year until the archive keeps them). Years the archive does not hold show others, which the URL then names in place (`correct`, SRCH-20) | the latest year in Highly cited, the recent days elsewhere | Highly cited, the graph, Rankings |
   | `focus` | A graph node id, `institution:mit`: its papers alone | none | the graph (other views drop it) |
   | `rank` | `author`: Rankings ranks authors (SRCH-13) | institutions | Rankings |
   | `metric` | `papers` or `citations`: what Rankings ranks by | citations for highly cited papers, else papers | Rankings |
+  | `folder` | A folder of the reading list (`To read`; UX-38), written in its links only: folders are this browser's, and a name it does not have shows every saved paper | every saved paper | the reading list |
   | `by`, `at` | An author or an institution, as clicked: that name only | none | the lists, Rankings |
   | `author`, `aff` | Typed author or affiliation text: word starts (old links' `by` and `at`) | none | the same |
   | `venue` | A venue (`ECCV 2026`), a family (`ECCV*`) or any (`*`) | none | the lists, Rankings, the graph |
@@ -367,6 +368,33 @@ derives what only the site uses. The pipeline and `validate` never see these.
   (SEC-2); import
   merges by id; the list follows other tabs through `storage` events and takes the fresher
   record of a loaded day; a refused save is said, not swallowed.
+- **Folders** (`folders.ts`, `hooks/use-folders.ts`, `components/Folders.tsx`, UX-38): the
+  reading list's papers grouped under names, stored apart from them
+  (`preprint-radar:reading-folders`, as `[{name, papers: [arXiv ids]}]`), as the saved
+  searches are, and exported in the same file (`folders`; the version stays 1, older files
+  have none). A paper is in one folder at most (`putPaper`), which the stored form does not
+  require: several would need no migration. Names are trimmed, cut to 60 characters and
+  kept once whatever their case; a file's folders go through `readFolders` (ids kept when
+  they are arXiv ids, a paper in the first folder holding it) and merge by name, a paper
+  already in a folder here staying there. The sidebar lists them where the other lists
+  choose their period (the reading list had a period picker it did not use): every saved
+  paper, then each folder and its count, the one shown (`?folder=`) raised, renamed in
+  place or deleted after an inline confirmation (its papers stay saved), and a new one
+  named in place. A card of the reading list puts its paper in one by a select
+  (`action--select`, a label, which a click on the card leaves alone), once there are
+  folders; an unsaved paper leaves its folder, so that the counts are the saved papers'.
+  The count line names the folder ("1 of 1 saved paper in “To read”"), and the Export menu
+  exports its papers.
+- **The reading list's own order** (UX-39): "My order", its default without search words
+  (`viewModel().custom`, `?sort=custom`), the stored list's order, the paper saved last
+  first, as the user arranges it: a card is dragged by its handle (`.paper__grip`, which
+  makes it `draggable` while pressed, so that a drag on its text still selects it) and
+  goes before or after the card under the pointer's half, a line in the gap saying where
+  (`PaperList`, `movePaper`); Alt+↑ and Alt+↓ move the focused card past its neighbour,
+  which keeps the focus. A folder or All saved takes a card dropped on it, in any order
+  (`PAPER_DRAG_TYPE`), its count bouncing. The handle shows where there is a pointer to
+  drag with (`hover: hover`); a phone has the folder select and nothing to reorder by.
+  With a search or a folder, a move places the paper by the neighbours shown.
 - **Saved searches** (`saved-searches.ts`): the query string of their words and filters,
   so that they run on any period. The sidebar counts each one's papers new since the last
   visit, and opens them; exported and imported with the reading list.
@@ -409,7 +437,8 @@ cross-listed lately, says "first version 2019" beside its day (`firstVersionYear
   Papers, Highly cited and reading list views (`papers.bib`, `reading-list.bib`…). They
   cite the published DOI when known, else arXiv's; like the other views, the reading list
   exports the papers its search and filters show. Beside it, the reading list's Import
-  and Export JSON carry the whole list and its saved searches, to another browser.
+  library and Export library carry the whole list, its folders and saved searches, to
+  another browser (a JSON file; named so since UX-39, the Export menu exporting too).
 - `components/About.tsx` (`?view=about`): the data sources, the correction contact and the
   privacy note; keep it true when the pipeline or the app changes. Its link and each
   card's "Report an error" open a mail with a short template to fill in (`report.ts`).

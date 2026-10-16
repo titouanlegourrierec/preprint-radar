@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "preact/hooks"
 import { ALL_YEARS, formatYears, LAST_12_MONTHS, publishedIn } from "./archive-years";
 import { About } from "./components/About";
 import { ErrorBoundary } from "./components/ErrorBoundary";
+import { Folders } from "./components/Folders";
 import { InfoButton } from "./components/InfoButton";
 import { SearchIcon, StarIcon } from "./components/icons";
 import { LazyGraphView } from "./components/LazyGraphView";
@@ -15,6 +16,7 @@ import { Sidebar, SidebarToggle, WIDE_QUERY } from "./components/Sidebar";
 import { SiteFooter } from "./components/SiteFooter";
 import { Topbar } from "./components/Topbar";
 import { feedOf } from "./feeds";
+import { findFolder, folderOf } from "./folders";
 import {
   countOf,
   citationsNote as formatCitationsNote,
@@ -24,6 +26,7 @@ import {
   staleCitations,
 } from "./format";
 import { useCitations } from "./hooks/use-citations";
+import { useFolders } from "./hooks/use-folders";
 import { useMediaQuery } from "./hooks/use-media-query";
 import { usePapers } from "./hooks/use-papers";
 import { useReadingList } from "./hooks/use-reading-list";
@@ -114,6 +117,28 @@ export function App() {
     if (formatYears(state.year) !== shownYearsKey) correct({ year: archiveRange });
   }, [archived, state.year, shownYearsKey]);
   const readingList = useReadingList(load.status === "ready" ? load.index : null);
+  // The reading list's folders (UX-38): the one the URL names, its papers among the saved.
+  const folders = useFolders();
+  const activeFolder =
+    state.view === "reading-list" ? (findFolder(folders.folders, state.folder) ?? null) : null;
+  const folderIds = useMemo(
+    () =>
+      activeFolder
+        ? new Set(activeFolder.papers.filter((id) => readingList.savedIds.has(id)))
+        : null,
+    [activeFolder, readingList.savedIds],
+  );
+  // A folder deleted, or one of another browser's link: every saved paper, named so.
+  useEffect(() => {
+    if (state.view === "reading-list" && state.folder !== null && activeFolder === null) {
+      correct({ folder: null });
+    }
+  }, [state.view, state.folder, activeFolder]);
+  // An unsaved paper leaves its folder, which counts the saved ones only.
+  const toggleSaved = (paper: Paper) => {
+    if (readingList.savedIds.has(paper.arxiv_id)) folders.put(paper.arxiv_id, null);
+    readingList.toggle(paper);
+  };
   const shownPapers = useMemo(
     () => [...(load.status === "ready" ? load.index.all() : []), ...readingList.papers],
     [load, readingList.papers],
@@ -180,10 +205,11 @@ export function App() {
   // equal counts keep the best match first (CIT-6); not by the one pressed, which turns
   // from Most cited to Rising when the gains arrive, an order the index does not tell apart.
   const order = cited ? "citations" : state.sort;
-  const found = useMemo(
-    () => (state.view === "graph" ? [] : (activeIndex?.search(query, filters, order) ?? [])),
-    [state.view, activeIndex, query, filters, order],
-  );
+  const found = useMemo(() => {
+    if (state.view === "graph") return [];
+    const all = activeIndex?.search(query, filters, order) ?? [];
+    return folderIds ? all.filter(({ paper }) => folderIds.has(paper.arxiv_id)) : all;
+  }, [state.view, activeIndex, query, filters, order, folderIds]);
   const hiddenSeen = hiding ? triage.seen : null;
   // A shared or opened paper stays, seen or not: it is the one asked for.
   const target = state.paper;
@@ -198,11 +224,21 @@ export function App() {
   const hiddenCount = found.length - shown.length;
   const rankingCounts = byCount ? citations.counts : null;
   const rankingGains = state.sort === "rising" ? citations.gains : null;
+  // The reading list's own order (UX-39): where each saved paper stands in it.
+  const custom = model.custom;
+  const savedOrder = useMemo(
+    () => new Map(readingList.papers.map((paper, index) => [paper.arxiv_id, index])),
+    [readingList.papers],
+  );
   const results: SearchResult[] = useMemo(() => {
+    if (custom) {
+      const at = (result: SearchResult) => savedOrder.get(result.paper.arxiv_id) ?? 0;
+      return [...shown].sort((a, b) => at(a) - at(b));
+    }
     if (starred) return byStars(shown);
     if (rankingGains && rankingCounts) return byGains(shown, rankingGains, rankingCounts);
     return rankingCounts ? byCitations(shown, rankingCounts) : shown;
-  }, [shown, rankingCounts, rankingGains, starred]);
+  }, [shown, rankingCounts, rankingGains, starred, custom, savedOrder]);
   // The graph has its own settings panel: it ignores the list filters, not the search words.
   const graphPapers = useMemo(
     () =>
@@ -280,7 +316,12 @@ export function App() {
   // What the header counts: the saved papers, an archive's years, or the period's papers.
   const count: CountLine | { loading: string } | null =
     state.view === "reading-list"
-      ? { shown: results.length, total: readingList.papers.length, noun: "saved paper" }
+      ? {
+          shown: results.length,
+          total: folderIds?.size ?? readingList.papers.length,
+          noun: "saved paper",
+          ...(activeFolder && { tail: ` in “${activeFolder.name}”` }),
+        }
       : load.status === "ready" && archived && archiveRange !== null
         ? {
             shown: results.length,
@@ -488,6 +529,12 @@ export function App() {
                   <kbd>x</kbd> seen, <kbd>/</kbd> search, <kbd>Esc</kbd> leave the search.
                 </p>
               )}
+              {state.view === "reading-list" && (
+                <p class="search__keys">
+                  Keys: <kbd>j</kbd> <kbd>k</kbd> move, <kbd>o</kbd> open, <kbd>s</kbd> remove,{" "}
+                  <kbd>Alt</kbd> <kbd>↑</kbd> <kbd>↓</kbd> move a paper in My order.
+                </p>
+              )}
             </InfoButton>
           </div>
         </div>
@@ -499,6 +546,26 @@ export function App() {
         <div class={folded ? "content content--folded" : "content"}>
           {category && (
             <Sidebar
+              folders={
+                state.view === "reading-list" && (
+                  <Folders
+                    folders={folders.folders}
+                    savedIds={readingList.savedIds}
+                    active={activeFolder?.name ?? null}
+                    onSelect={(folder) => update({ folder })}
+                    onAdd={folders.add}
+                    onRename={(from, to) => {
+                      const renamed = folders.rename(from, to);
+                      if (renamed && activeFolder?.name === from) update({ folder: renamed });
+                    }}
+                    onDelete={(name) => {
+                      folders.remove(name);
+                      update({ folder: null });
+                    }}
+                    onDropPaper={(name, arxivId) => folders.put(arxivId, name)}
+                  />
+                )
+              }
               categories={categories}
               category={category}
               asOf={archiveAsOf}
@@ -597,13 +664,19 @@ export function App() {
                         onImport: (file) =>
                           void readingList.importFile(file, (value) => {
                             const added = savedSearches.importSearches(value);
-                            return added
+                            const searches = added
                               ? `${countOf(added, "saved search", "saved searches")} added`
                               : null;
+                            const filed = folders.importFolders(value);
+                            return [searches, filed].filter(Boolean).join("; ") || null;
                           }),
                         json: () =>
                           JSON.stringify(
-                            readingListFile(readingList.papers, savedSearches.searches),
+                            readingListFile(
+                              readingList.papers,
+                              savedSearches.searches,
+                              folders.folders,
+                            ),
                             null,
                             2,
                           ),
@@ -685,6 +758,11 @@ export function App() {
                   <span class="visually-hidden">the star</span> on a paper to save it; the list is
                   kept in this browser.
                 </p>
+              ) : activeFolder && folderIds?.size === 0 ? (
+                <p class="notice">
+                  No paper in “{activeFolder.name}” yet: choose this folder in the folder menu of a
+                  saved paper's card.
+                </p>
               ) : (
                 <>
                   <NoResults
@@ -747,11 +825,21 @@ export function App() {
                     gainOf={gainOf}
                     showAbstracts={showAbstracts || state.view === "reading-list"}
                     savedIds={readingList.savedIds}
-                    onToggleSaved={readingList.toggle}
+                    onToggleSaved={toggleSaved}
                     seenIds={triaged ? triage.seen : undefined}
                     onToggleSeen={triaged ? triage.toggleSeen : undefined}
                     onAuthor={(author) => setFilters({ ...state.filters, author: exactly(author) })}
                     onAffiliation={(affiliation) => setFilters({ ...state.filters, affiliation })}
+                    onMove={custom ? readingList.move : undefined}
+                    folders={
+                      state.view === "reading-list"
+                        ? {
+                            names: folders.folders.map((folder) => folder.name),
+                            of: (arxivId) => folderOf(folders.folders, arxivId),
+                            onPut: folders.put,
+                          }
+                        : undefined
+                    }
                   />
                 </>
               )}

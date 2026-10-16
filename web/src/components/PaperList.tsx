@@ -38,6 +38,19 @@ interface Props {
   onToggleSeen?: ((arxivId: string) => void) | undefined;
   onAuthor: (author: string) => void;
   onAffiliation: (filter: NameFilter) => void;
+  /**
+   * Move a paper before or after another, in the reading list's own order (UX-39): by
+   * dragging its card, or Alt+arrows on it; absent in any other order.
+   */
+  onMove?: ((arxivId: string, target: string, place: "before" | "after") => void) | undefined;
+  /** The reading list's folders, each card's select putting its paper in one (UX-38). */
+  folders?:
+    | {
+        names: string[];
+        of: (arxivId: string) => string | null;
+        onPut: (arxivId: string, name: string | null) => void;
+      }
+    | undefined;
 }
 
 /** Render results incrementally: the next page is added when the end of the list is visible. */
@@ -62,8 +75,13 @@ export function PaperList({
   onToggleSeen,
   onAuthor,
   onAffiliation,
+  onMove,
+  folders,
 }: Props) {
   const [visible, setVisible] = useState(PAGE_SIZE);
+  // The card dragged by its handle, and where it would go among the others (UX-39).
+  const [dragged, setDragged] = useState<string | null>(null);
+  const [drop, setDrop] = useState<{ id: string; place: "before" | "after" } | null>(null);
   const sentinel = useRef<HTMLDivElement>(null);
   const list = useRef<HTMLDivElement>(null);
 
@@ -83,13 +101,46 @@ export function PaperList({
     () => new Map(results.map(({ paper }) => [paper.arxiv_id, paper])),
     [results],
   );
-  const actions = useRef({ byId, onToggleSaved, onToggleSeen });
-  actions.current = { byId, onToggleSaved, onToggleSeen };
+  const order = useMemo(() => results.map(({ paper }) => paper.arxiv_id), [results]);
+  const actions = useRef({ byId, onToggleSaved, onToggleSeen, onMove, order });
+  actions.current = { byId, onToggleSaved, onToggleSeen, onMove, order };
   // The results' count, for the observer that adds pages, set up once.
   const total = useRef(results.length);
   total.current = results.length;
   useEffect(() => {
+    // Alt+arrows move the focused card in the reading list's own order (UX-39), as a drag.
+    const moveFocused = (event: KeyboardEvent): boolean => {
+      const { onMove, order } = actions.current;
+      const card = document.activeElement;
+      const up = event.key === "ArrowUp";
+      if (!(onMove && card instanceof HTMLElement && card.matches("article.paper"))) return false;
+      const id = card.dataset.arxivId ?? "";
+      const index = order.indexOf(id);
+      const neighbour = order[index + (up ? -1 : 1)];
+      if (index === -1 || neighbour === undefined) return false;
+      onMove(id, neighbour, up ? "before" : "after");
+      // Moved in the page, the card can lose the focus: it takes it back once drawn.
+      setTimeout(() => {
+        const moved = list.current?.querySelector<HTMLElement>(
+          `article.paper[data-arxiv-id="${CSS.escape(id)}"]`,
+        );
+        moved?.focus();
+        moved?.scrollIntoView({ block: "nearest" });
+      }, 0);
+      return true;
+    };
     const onKeyDown = (event: KeyboardEvent) => {
+      if (
+        event.altKey &&
+        !event.metaKey &&
+        !event.ctrlKey &&
+        (event.key === "ArrowUp" || event.key === "ArrowDown") &&
+        !event.defaultPrevented &&
+        moveFocused(event)
+      ) {
+        event.preventDefault();
+        return;
+      }
       if (event.defaultPrevented || hasModifier(event) || isTyping(event.target) || !list.current)
         return;
       const cards = [...list.current.querySelectorAll<HTMLElement>("article.paper")];
@@ -203,6 +254,28 @@ export function PaperList({
       onToggleSaved={toggleSaved}
       onAuthor={onAuthor}
       onAffiliation={onAffiliation}
+      drag={
+        folders
+          ? {
+              dragging: dragged === paper.arxiv_id,
+              drop: drop?.id === paper.arxiv_id ? drop.place : null,
+              onStart: setDragged,
+              onEnd: () => {
+                setDragged(null);
+                setDrop(null);
+              },
+            }
+          : undefined
+      }
+      folder={
+        folders && folders.names.length > 0
+          ? {
+              name: folders.of(paper.arxiv_id),
+              names: folders.names,
+              onChange: (name) => folders.onPut(paper.arxiv_id, name),
+            }
+          : undefined
+      }
     />
   );
 
@@ -242,7 +315,38 @@ export function PaperList({
 
   return (
     <>
-      <div class="paper-list" ref={list}>
+      {/* biome-ignore lint/a11y/noStaticElementInteractions: where a dragged card lands, for
+          the pointer; the keyboard moves the focused card with Alt+arrows (above). */}
+      <div
+        class={dragged ? "paper-list paper-list--dragging" : "paper-list"}
+        ref={list}
+        // A card dragged over another goes before or after it, as the pointer is over its
+        // top or bottom half; in the reading list's own order only (UX-39).
+        onDragOver={(event) => {
+          if (!onMove || dragged === null || !(event.target instanceof Element)) return;
+          const card = event.target.closest<HTMLElement>("article.paper");
+          const id = card?.dataset.arxivId;
+          if (!card || !id || id === dragged) {
+            if (drop) setDrop(null);
+            return;
+          }
+          event.preventDefault();
+          if (event.dataTransfer) event.dataTransfer.dropEffect = "move";
+          const box = card.getBoundingClientRect();
+          const place = event.clientY < box.top + box.height / 2 ? "before" : "after";
+          if (drop?.id !== id || drop.place !== place) setDrop({ id, place });
+        }}
+        onDragLeave={(event) => {
+          if (!(event.relatedTarget instanceof Node && list.current?.contains(event.relatedTarget)))
+            setDrop(null);
+        }}
+        onDrop={(event) => {
+          if (!onMove || dragged === null || drop === null) return;
+          event.preventDefault();
+          onMove(dragged, drop.id, drop.place);
+          setDrop(null);
+        }}
+      >
         {content}
       </div>
       <div ref={sentinel} aria-hidden="true" />

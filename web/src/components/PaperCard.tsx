@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "preact/hooks";
 import { toBibtex } from "../bibtex";
 import { codeBadge, codeHost, codeUrl } from "../code";
 import { download } from "../download";
+import { PAPER_DRAG_TYPE } from "../folders";
 import { countOf, daysSince, firstVersionYear, formatDay, subjectCode } from "../format";
 import { highlight } from "../highlight";
 import { useWholePaper } from "../hooks/use-whole-paper";
@@ -23,12 +24,15 @@ import {
   ChevronIcon,
   CiteIcon,
   EyeIcon,
+  FolderIcon,
   GraphIcon,
+  GripIcon,
   HeartIcon,
   HtmlIcon,
   InstitutionIcon,
   LinkIcon,
   PdfIcon,
+  SelectChevron,
   StarIcon,
 } from "./icons";
 import { RichText } from "./RichText";
@@ -132,6 +136,25 @@ interface Props {
   onAuthor: (author: string) => void;
   /** The affiliation's institution, exactly, or the string itself when it names none. */
   onAffiliation: (filter: NameFilter) => void;
+  /**
+   * The reading list's folder of the paper, and the folders to put it in (UX-38): in the
+   * reading list, once it has folders.
+   */
+  folder?:
+    | { name: string | null; names: string[]; onChange: (name: string | null) => void }
+    | undefined;
+  /**
+   * The reading list's cards are dragged by their handle (UX-39): onto a folder, or between
+   * other cards in its own order, where `drop` says where one dragged over this would go.
+   */
+  drag?:
+    | {
+        dragging: boolean;
+        drop: "before" | "after" | null;
+        onStart: (arxivId: string) => void;
+        onEnd: () => void;
+      }
+    | undefined;
 }
 
 export function PaperCard({
@@ -154,6 +177,8 @@ export function PaperCard({
   onToggleSeen,
   onAuthor,
   onAffiliation,
+  folder,
+  drag,
 }: Props) {
   const [expanded, setExpanded] = useState(isTarget);
   // A paper of a search shard has no abstract nor comments: opening it, or asking for its
@@ -235,7 +260,11 @@ export function PaperCard({
   const openOnClick = (event: MouseEvent) => {
     if (expanded || event.button !== 0 || event.defaultPrevented) return;
     const { target } = event;
-    if (target instanceof Element && target.closest("a, button, input, select, label")) return;
+    if (
+      target instanceof Element &&
+      target.closest("a, button, input, select, label, .paper__grip")
+    )
+      return;
     if (window.getSelection()?.toString()) return;
     setExpanded(true);
   };
@@ -283,7 +312,9 @@ export function PaperCard({
        Enter on the focused card, `PaperList`), and More, which the click only shortens. */
     <article
       ref={root}
-      class={`paper${expanded ? " paper--expanded" : ""}${isTarget ? " paper--target" : ""}${seen ? " paper--seen" : ""}`}
+      class={`paper${expanded ? " paper--expanded" : ""}${isTarget ? " paper--target" : ""}${seen ? " paper--seen" : ""}${
+        drag?.dragging ? " paper--dragging" : ""
+      }${drag?.drop ? ` paper--drop-${drag.drop}` : ""}`}
       // Focused by the j and k keys of the list, which then act on this paper: named by
       // its title, which a screen reader then says.
       tabIndex={-1}
@@ -291,7 +322,35 @@ export function PaperCard({
       data-arxiv-id={paper.arxiv_id}
       // The pointer's shortcut to More, which the keyboard has (o, Enter) and names.
       onClick={openOnClick}
+      // Draggable only from its handle, so that its text is still selected by a drag.
+      onDragStart={
+        drag &&
+        ((event) => {
+          event.dataTransfer?.setData(PAPER_DRAG_TYPE, paper.arxiv_id);
+          event.dataTransfer?.setData("text/plain", paper.abs_url);
+          if (event.dataTransfer) event.dataTransfer.effectAllowed = "move";
+          drag.onStart(paper.arxiv_id);
+        })
+      }
+      onDragEnd={
+        drag &&
+        (() => {
+          root.current?.removeAttribute("draggable");
+          drag.onEnd();
+        })
+      }
     >
+      {drag && (
+        <span
+          class="paper__grip"
+          aria-hidden="true"
+          title="Drag onto a folder, or between papers in My order (Alt+↑ ↓ from the keyboard)"
+          onPointerDown={() => root.current?.setAttribute("draggable", "true")}
+          onPointerUp={() => root.current?.removeAttribute("draggable")}
+        >
+          <GripIcon />
+        </span>
+      )}
       {rank !== undefined && (
         <span
           class={`paper__rank${rank <= MEDALS.length ? ` paper__rank--${MEDALS[rank - 1]}` : ""}`}
@@ -546,6 +605,26 @@ export function PaperCard({
                 <GraphIcon />
                 Graph
               </button>
+            )}
+            {folder && (
+              // A label, which a click on the card leaves alone (`openOnClick`).
+              <label class="action action--select" title="Its folder in the reading list">
+                <FolderIcon />
+                <select
+                  aria-label="Folder"
+                  aria-describedby={titleId}
+                  value={folder.name ?? ""}
+                  onChange={(event) => folder.onChange(event.currentTarget.value || null)}
+                >
+                  <option value="">No folder</option>
+                  {folder.names.map((name) => (
+                    <option key={name} value={name}>
+                      {name}
+                    </option>
+                  ))}
+                </select>
+                <SelectChevron />
+              </label>
             )}
             {onToggleSeen && (
               <button

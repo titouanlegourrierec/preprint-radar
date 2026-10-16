@@ -56,6 +56,8 @@ interface Props {
   asOf?: Date | undefined;
   /** Shown below the filters. */
   children?: ComponentChildren;
+  /** The reading list's folders, in place of the period it does not use (UX-38). */
+  folders?: ComponentChildren;
 }
 
 function FilterInput({
@@ -164,7 +166,8 @@ export function Sidebar(props: Props) {
       {/* The papers: the recent days, the highly cited ones, or either (Rankings), as the
           graph's chips choose them (UX-33). */}
       <div class="sidebar__papers">
-        {!archive?.only && (
+        {props.folders}
+        {!props.folders && !archive?.only && (
           <PeriodPicker
             days={props.days}
             period={props.period}

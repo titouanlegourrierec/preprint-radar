@@ -6,7 +6,7 @@
 import type { ViewState } from "./url-state";
 
 /** An order the list offers, as its sort control shows it. */
-export type SortChoice = "relevance" | "newest" | "citations" | "rising" | "stars";
+export type SortChoice = "relevance" | "newest" | "citations" | "rising" | "stars" | "custom";
 
 export interface ViewModel {
   /** The Highly cited view: archive years, ranked by citations. */
@@ -24,6 +24,11 @@ export interface ViewModel {
   starred: boolean;
   /** Announcement order: Newest, or relevance without search words. */
   newest: boolean;
+  /**
+   * The reading list's own order (UX-39), which drag and drop and Alt+arrows arrange: its
+   * default without search words, as relevance is the others'.
+   */
+  custom: boolean;
   /** Day headings fold the list: announcement order, outside the highly cited view. */
   groupByDay: boolean;
   /**
@@ -73,12 +78,17 @@ export function viewModel(
   const starred = sort === "stars" && starsKnown && (listed || cited);
   const byCount = !starred && (cited || sort === "citations" || sort === "rising");
   const rising = sort === "rising" && gainsKnown;
-  // Most starred before the stars are known is the view's own order, as relevance is.
-  const relevance = sort === "relevance" || (sort === "stars" && !starred);
+  // Most starred before the stars are known is the view's own order, as relevance is; so
+  // is the reading list's own order elsewhere.
+  const ownOrder = sort === "relevance" || sort === "custom" || (sort === "stars" && !starred);
+  const readingList = view === "reading-list";
+  const custom = readingList && (sort === "custom" || (ownOrder && !hasSearchWords));
+  const relevance = ownOrder && !custom;
   const newest = sort === "newest" || (relevance && !hasSearchWords);
   const sorts: SortChoice[] =
     listed || (cited && (gainsKnown || starsKnown))
       ? [
+          ...(readingList ? (["custom"] as const) : []),
           ...(hasSearchWords && !cited ? (["relevance"] as const) : []),
           ...(cited ? [] : (["newest"] as const)),
           "citations",
@@ -95,10 +105,11 @@ export function viewModel(
     rising,
     starred,
     newest,
-    groupByDay: !byCount && !starred && (!hasSearchWords || sort === "newest"),
+    custom,
+    groupByDay: !byCount && !starred && !custom && (!hasSearchWords || sort === "newest"),
     ranked: cited,
     sorts,
-    sorted: sortedBy({ byCount, rising, starred, newest }),
+    sorted: sortedBy({ byCount, rising, starred, newest, custom }),
     relevanceHelp: sorts.includes("relevance"),
     hideSeen: view === "papers",
     abstracts: view === "papers" || cited,
@@ -112,12 +123,15 @@ function sortedBy({
   rising,
   starred,
   newest,
+  custom,
 }: {
   byCount: boolean;
   rising: boolean;
   starred: boolean;
   newest: boolean;
+  custom: boolean;
 }): SortChoice {
+  if (custom) return "custom";
   if (starred) return "stars";
   if (rising) return "rising";
   if (byCount) return "citations";

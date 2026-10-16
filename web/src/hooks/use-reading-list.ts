@@ -3,6 +3,7 @@ import { countOf } from "../format";
 import {
   loadReadingList,
   mergePapers,
+  movePaper,
   readPapers,
   refreshPapers,
   STORAGE_KEY,
@@ -58,6 +59,14 @@ export function useReadingList(loaded: PaperIndex | null) {
     );
   };
 
+  /** Move a paper before or after another, in the list's own order (UX-39). */
+  const move = (arxivId: string, target: string, place: "before" | "after") => {
+    setPapers((current) => {
+      const moved = movePaper(current, arxivId, target, place);
+      return moved === current ? current : store(moved);
+    });
+  };
+
   /**
    * Add the papers of an exported list (JSON), and say how many were added; `also` takes
    * the rest of the file (the saved searches) and says what it added.
@@ -90,6 +99,7 @@ export function useReadingList(loaded: PaperIndex | null) {
     index,
     savedIds,
     toggle,
+    move,
     importFile,
     message,
     dismissMessage: () => setMessage(null),

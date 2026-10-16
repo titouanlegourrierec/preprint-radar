@@ -116,7 +116,18 @@ describe("viewModel", () => {
 
   it("sorts and exports the reading list, without triage or toggles", () => {
     const list = viewModel(state({ view: "reading-list" }), none);
-    expect(list.sorts).toEqual(["newest", "citations"]);
+    expect(list.sorts).toEqual(["custom", "newest", "citations"]);
+    // Its own order first, by default (UX-39), without day headings; relevance with words.
+    expect(list).toMatchObject({ sorted: "custom", custom: true, groupByDay: false });
+    const words = { hasSearchWords: true, gainsKnown: false };
+    expect(viewModel(state({ view: "reading-list" }), words).sorted).toBe("relevance");
+    expect(viewModel(state({ view: "reading-list", sort: "custom" }), words).sorted).toBe("custom");
+    expect(viewModel(state({ view: "reading-list", sort: "newest" }), none).sorted).toBe("newest");
+    // Elsewhere, a link's custom order is the view's own.
+    expect(viewModel(state({ sort: "custom" }), none)).toMatchObject({
+      sorted: "newest",
+      custom: false,
+    });
     // Its abstracts are always shown; its Export menu is the other lists' (SRCH-16).
     expect(list).toMatchObject({
       triaged: false,

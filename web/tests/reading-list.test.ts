@@ -2,6 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   loadReadingList,
   mergePapers,
+  movePaper,
   readingListFile,
   readPapers,
   refreshPapers,
@@ -98,6 +99,10 @@ describe("toPaper", () => {
 describe("readPapers", () => {
   it("reads the current format and the bare array of the first versions", () => {
     expect(readPapers(readingListFile([ada, bob])).papers).toEqual([ada, bob]);
+    // The folders go with the papers, when there are some (UX-38).
+    const folders = [{ name: "To read", papers: [ada.arxiv_id] }];
+    expect(readingListFile([ada], [], folders)).toEqual({ version: 1, papers: [ada], folders });
+    expect(readingListFile([ada], [], [])).toEqual({ version: 1, papers: [ada] });
     expect(readPapers([ada, bob]).papers).toEqual([ada, bob]);
   });
 
@@ -154,5 +159,29 @@ describe("storage", () => {
       arxiv_id: `2609.${String(n).padStart(5, "0")}`,
     }));
     expect(saveReadingList(many)).toBe(false);
+  });
+});
+
+describe("movePaper", () => {
+  const ids = (papers: { arxiv_id: string }[]) => papers.map((paper) => paper.arxiv_id.slice(-1));
+  const list = ["1", "2", "3", "4"].map((n) => makePaper({ arxiv_id: `2609.0000${n}` }));
+
+  it("moves a paper before or after another, the reading list's own order (UX-39)", () => {
+    expect(ids(movePaper(list, "2609.00004", "2609.00002", "before"))).toEqual([
+      "1",
+      "4",
+      "2",
+      "3",
+    ]);
+    expect(ids(movePaper(list, "2609.00001", "2609.00003", "after"))).toEqual(["2", "3", "1", "4"]);
+    expect(ids(movePaper(list, "2609.00002", "2609.00004", "after"))).toEqual(["1", "3", "4", "2"]);
+  });
+
+  it("leaves the list as it is when nothing moves", () => {
+    expect(movePaper(list, "2609.00002", "2609.00003", "before")).toBe(list);
+    expect(movePaper(list, "2609.00002", "2609.00001", "after")).toBe(list);
+    expect(movePaper(list, "2609.00002", "2609.00002", "after")).toBe(list);
+    expect(movePaper(list, "2609.00009", "2609.00001", "after")).toBe(list);
+    expect(movePaper(list, "2609.00001", "2609.00009", "after")).toBe(list);
   });
 });

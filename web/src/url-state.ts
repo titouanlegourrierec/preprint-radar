@@ -20,7 +20,14 @@ import {
 export type View = "papers" | "cited" | "graph" | "rankings" | "reading-list" | "about";
 
 const VIEWS: readonly View[] = ["papers", "cited", "graph", "rankings", "reading-list", "about"];
-const SORTS: readonly SortOrder[] = ["relevance", "newest", "citations", "rising", "stars"];
+const SORTS: readonly SortOrder[] = [
+  "relevance",
+  "newest",
+  "citations",
+  "rising",
+  "stars",
+  "custom",
+];
 const METRICS: readonly RankingMetric[] = ["papers", "citations"];
 
 export interface ViewState {
@@ -50,6 +57,11 @@ export interface ViewState {
    * for highly cited papers, papers for recent ones, which have few yet.
    */
   metric: RankingMetric | null;
+  /**
+   * The reading list's folder shown (`?folder=To+read`, UX-38), `null` for every saved
+   * paper; written in the reading list's links only, its folders being this browser's.
+   */
+  folder: string | null;
 }
 
 export const DEFAULT_STATE: ViewState = {
@@ -64,6 +76,7 @@ export const DEFAULT_STATE: ViewState = {
   focus: null,
   rank: "institution",
   metric: null,
+  folder: null,
 };
 
 /**
@@ -107,6 +120,7 @@ export function readState(search: string): ViewState {
     focus: params.get("focus"),
     rank: params.get("rank") === "author" ? "author" : DEFAULT_STATE.rank,
     metric: METRICS.find((metric) => metric === params.get("metric")) ?? null,
+    folder: params.get("folder"),
     filters: {
       excludeCrossLists: params.get("xl") === "0",
       withCode: params.get("code") === "1",
@@ -142,6 +156,7 @@ export function writeState(state: ViewState): string {
   set("focus", state.focus);
   set("rank", state.rank, DEFAULT_STATE.rank);
   set("metric", state.metric);
+  set("folder", state.view === "reading-list" ? state.folder : null);
   set("xl", state.filters.excludeCrossLists ? "0" : null);
   set("code", state.filters.withCode ? "1" : null);
   const { author, affiliation } = state.filters;

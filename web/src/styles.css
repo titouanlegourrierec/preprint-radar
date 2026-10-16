@@ -1183,6 +1183,7 @@ html {
    rounder than the fields, a squircle where the browser draws one (`corner-shape`), whose
    corners need a larger radius to look as round. */
 .paper {
+  position: relative;
   display: flex;
   align-items: flex-start;
   gap: 12px;
@@ -1248,6 +1249,66 @@ html {
   border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
   background: color-mix(in srgb, var(--accent) 7%, var(--surface));
   scroll-margin-top: 120px;
+}
+
+/* The reading list's cards are dragged by a handle (UX-39), in their left margin: faint
+   until the card is under the pointer, absent where there is no pointer to drag with. The
+   card dragged fades; a line in the gap says where it would land; a folder takes it. */
+.paper__grip {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 18px;
+  height: 24px;
+  margin: 0 -6px 0 -12px;
+  border-radius: 6px;
+  color: var(--text-muted);
+  opacity: 0.35;
+  cursor: grab;
+  transition: opacity 150ms ease;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.paper:hover > .paper__grip {
+  opacity: 1;
+}
+
+.paper__grip:hover {
+  background: var(--surface-muted);
+}
+
+@media (hover: none) {
+  .paper__grip {
+    display: none;
+  }
+}
+
+.paper--dragging {
+  opacity: 0.4;
+}
+
+.paper--drop-before::after,
+.paper--drop-after::after {
+  content: "";
+  position: absolute;
+  right: 16px;
+  left: 16px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+
+.paper--drop-before::after {
+  top: -7px;
+}
+
+.paper--drop-after::after {
+  bottom: -7px;
+}
+
+.paper-list--dragging .paper:hover {
+  transform: none;
 }
 
 /* A card's rank in Highly cited's order (UX-36), before its title: the first three in
@@ -1431,6 +1492,29 @@ html {
 
 .action[aria-pressed="true"] > .icon {
   color: var(--text);
+}
+
+/* A card's folder in the reading list (UX-38): a select drawn as the badges, with the
+   chevron of the others. */
+.action--select {
+  position: relative;
+  padding-right: 0;
+}
+
+.action--select select {
+  max-width: 11rem;
+  padding: 0 26px 0 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  text-overflow: ellipsis;
+  appearance: none;
+  cursor: pointer;
+}
+
+.action--select .select-chevron {
+  right: 9px;
 }
 
 /* More and Less: a fold, not a destination, so without the badge's outline. */
@@ -2632,6 +2716,119 @@ html {
   .rankings__table th:last-child {
     display: none;
   }
+}
+
+/* The reading list's folders (UX-38), where the other lists choose their papers: rows as
+   the fields, the one shown raised as a card, its icon in the accent. */
+.folders {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+
+.folders__list {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.folder,
+.folders__add {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  width: 100%;
+  min-height: 36px;
+  padding: 6px 12px;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  background: transparent;
+  font-size: 0.85rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.folder:hover,
+.folders__add:hover {
+  background: var(--surface-muted);
+}
+
+.folder[aria-pressed="true"] {
+  border-color: var(--border-strong);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.folder > svg,
+.folders__add > svg {
+  color: var(--text-muted);
+}
+
+.folder[aria-pressed="true"] > svg {
+  color: var(--accent);
+}
+
+.folder__name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.folder__count {
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+}
+
+/* A card dragged over a folder (UX-39), and its count bouncing once it landed. */
+.folder.folder--drop {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.folder--landed > .folder__count {
+  animation: tab-bump 480ms cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .folder--landed > .folder__count {
+    animation: none;
+  }
+}
+
+/* A name typed in place: the row a field. */
+.folder--editing {
+  border-color: var(--border-strong);
+  background: var(--surface);
+  cursor: auto;
+}
+
+/* Its focus ring kept (UX-9), the row's border a field's. */
+.folder__input {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+}
+
+.folders__add {
+  color: var(--text-muted);
+}
+
+.folders__actions {
+  margin: 0 12px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.folders__delete {
+  color: var(--danger);
 }
 
 .saved-searches {

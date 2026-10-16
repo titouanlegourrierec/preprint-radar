@@ -297,6 +297,38 @@ export function UploadIcon() {
   );
 }
 
+/** A folder: one of the reading list's (UX-38). */
+export function FolderIcon() {
+  return (
+    <Outline name="folder">
+      <path d="M1.75 4.25a1 1 0 0 1 1-1h3.4l1.6 1.75h5.5a1 1 0 0 1 1 1v6.75a1 1 0 0 1-1 1H2.75a1 1 0 0 1-1-1Z" />
+    </Outline>
+  );
+}
+
+/** Six dots: a handle to drag a card by (UX-39). */
+export function GripIcon() {
+  return (
+    <Outline name="grip" filled>
+      <circle cx="6" cy="3.5" r="1.1" />
+      <circle cx="10" cy="3.5" r="1.1" />
+      <circle cx="6" cy="8" r="1.1" />
+      <circle cx="10" cy="8" r="1.1" />
+      <circle cx="6" cy="12.5" r="1.1" />
+      <circle cx="10" cy="12.5" r="1.1" />
+    </Outline>
+  );
+}
+
+/** A plus: something to add, a new folder. */
+export function PlusIcon() {
+  return (
+    <Outline name="plus">
+      <path d="M8 3v10M3 8h10" />
+    </Outline>
+  );
+}
+
 /** A window with a column on its left: the lists' sidebar, folded or shown. */
 export function SidebarIcon() {
   return (

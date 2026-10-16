@@ -1,3 +1,4 @@
+import type { Folder } from "./folders";
 import { arxivIdOf } from "./search";
 import type { Paper } from "./types";
 
@@ -11,6 +12,8 @@ export interface ReadingListFile {
   papers: Paper[];
   /** The saved searches, exported with the papers (`saved-searches.ts` reads them). */
   searches?: unknown[];
+  /** The folders of the papers (UX-38; `folders.ts` reads them). */
+  folders?: Folder[];
 }
 
 const isString = (value: unknown): value is string => typeof value === "string";
@@ -126,8 +129,17 @@ export function readPapers(value: unknown): { papers: Paper[]; skipped: number }
 }
 
 /** The reading list as a file to export, which {@link readPapers} reads back. */
-export function readingListFile(papers: Paper[], searches?: unknown[]): ReadingListFile {
-  return { version: FORMAT_VERSION, papers, ...(searches?.length ? { searches } : {}) };
+export function readingListFile(
+  papers: Paper[],
+  searches?: unknown[],
+  folders?: Folder[],
+): ReadingListFile {
+  return {
+    version: FORMAT_VERSION,
+    papers,
+    ...(searches?.length ? { searches } : {}),
+    ...(folders?.length ? { folders } : {}),
+  };
 }
 
 /** Papers saved by the user, persisted in the browser (full records, so they survive data pruning). */
@@ -151,6 +163,27 @@ export function saveReadingList(papers: Paper[]): boolean {
   } catch {
     return false;
   }
+}
+
+/**
+ * The list with a paper moved just before or after another (UX-39): the reading list's own
+ * order, which drag and drop and Alt+arrows arrange. The same list when either is not in
+ * it, or nothing moves.
+ */
+export function movePaper(
+  papers: Paper[],
+  arxivId: string,
+  target: string,
+  place: "before" | "after",
+): Paper[] {
+  const from = papers.findIndex((paper) => paper.arxiv_id === arxivId);
+  const moved = papers[from];
+  if (moved === undefined || arxivId === target) return papers;
+  const rest = papers.filter((_, index) => index !== from);
+  const at = rest.findIndex((paper) => paper.arxiv_id === target);
+  if (at === -1) return papers;
+  const to = place === "before" ? at : at + 1;
+  return to === from ? papers : [...rest.slice(0, to), moved, ...rest.slice(to)];
 }
 
 /** The saved papers, followed by the imported ones not saved yet. */

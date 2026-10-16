@@ -134,6 +134,13 @@ describe("url state", () => {
     });
   });
 
+  it("round-trips the reading list's folder, in its own links only (UX-38)", () => {
+    const state = { ...DEFAULT_STATE, view: "reading-list" as const, folder: "To read" };
+    expect(writeState(state)).toBe("?view=reading-list&folder=To+read");
+    expect(readState(writeState(state))).toEqual(state);
+    expect(writeState({ ...state, view: "papers" })).toBe("");
+  });
+
   it("reads the about view", () => {
     expect(readState("?view=about").view).toBe("about");
     expect(writeState({ ...DEFAULT_STATE, view: "about" })).toBe("?view=about");

@@ -83,6 +83,12 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 - Saving a paper bursts its star into sparks, and the star flies to the Reading list tab,
   which bounces as it lands, when the tab is in sight; nothing moves for those who ask
   their system for less motion (UX-37).
+- The reading list has folders: made, renamed and deleted in its sidebar, each with its
+  count, a paper put in one from its card. They stay in this browser, go into the JSON
+  export with the papers, and merge by name on import (UX-38).
+- The reading list keeps the order you give it, "My order": drag a card by its handle
+  between two others, or onto a folder to file it; Alt+↑ and Alt+↓ move the focused one.
+  Its Import and Export JSON are now Import library and Export library (UX-39).
 
 ### Performance
 

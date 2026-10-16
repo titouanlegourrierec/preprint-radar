@@ -15,7 +15,8 @@ export { ANY_VENUE };
  * first), and the caller ranks them with {@link byCitations}, {@link byGains} or
  * {@link byStars}, which keep that order among equal counts (CIT-6).
  */
-export type SortOrder = "relevance" | "newest" | "citations" | "rising" | "stars";
+/** `custom`: the reading list's own order (UX-39), which the index leaves to its caller. */
+export type SortOrder = "relevance" | "newest" | "citations" | "rising" | "stars" | "custom";
 
 /**
  * An author or affiliation filter: a name clicked on a card, a Rankings row or a graph

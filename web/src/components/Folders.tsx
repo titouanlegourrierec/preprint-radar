@@ -1,0 +1,215 @@
+import { useEffect, useRef, useState } from "preact/hooks";
+import { type Folder, MAX_FOLDER_NAME, PAPER_DRAG_TYPE } from "../folders";
+import { FolderIcon, PlusIcon, StarIcon } from "./icons";
+
+/**
+ * A folder's name typed in place, in the list: Enter keeps it, Escape or an empty name
+ * gives up, leaving the field keeps what was typed.
+ */
+function NameField(props: {
+  label: string;
+  initial: string;
+  onDone: (name: string | null) => void;
+}) {
+  const [text, setText] = useState(props.initial);
+  const input = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    input.current?.focus();
+    input.current?.select();
+  }, []);
+  // Enter and leaving the field both end it: once only.
+  const done = useRef(false);
+  const finish = (name: string | null) => {
+    if (done.current) return;
+    done.current = true;
+    props.onDone(name?.trim() ? name : null);
+  };
+  return (
+    <form
+      class="folder folder--editing"
+      onSubmit={(event) => {
+        event.preventDefault();
+        finish(text);
+      }}
+    >
+      <FolderIcon />
+      <input
+        ref={input}
+        class="folder__input"
+        aria-label={props.label}
+        placeholder="Folder name"
+        maxLength={MAX_FOLDER_NAME}
+        value={text}
+        onInput={(event) => setText(event.currentTarget.value)}
+        onKeyDown={(event) => {
+          if (event.key !== "Escape") return;
+          event.preventDefault();
+          event.stopPropagation();
+          finish(null);
+        }}
+        onBlur={() => finish(text)}
+      />
+    </form>
+  );
+}
+
+interface Props {
+  folders: Folder[];
+  /** The saved papers: a folder counts those it holds. */
+  savedIds: ReadonlySet<string>;
+  /** The folder shown, `null` for every saved paper. */
+  active: string | null;
+  onSelect: (name: string | null) => void;
+  onAdd: (name: string) => void;
+  onRename: (from: string, to: string) => void;
+  onDelete: (name: string) => void;
+  /** A card dropped on a folder goes in it, on All saved out of its folder (UX-39). */
+  onDropPaper: (name: string | null, arxivId: string) => void;
+}
+
+/** How long a folder's count bounces once a card lands on it. */
+const LANDED_MS = 600;
+
+/**
+ * The reading list's folders (UX-38), in the sidebar where the other lists choose their
+ * papers: every saved paper, then each folder with its count; the folder shown can be
+ * renamed or deleted (its papers stay saved), and a new one added. A paper goes in a folder
+ * from its card.
+ */
+export function Folders(props: Props) {
+  const { folders, savedIds, active } = props;
+  const [editing, setEditing] = useState<"new" | "rename" | null>(null);
+  const [confirming, setConfirming] = useState(false);
+  // Another folder shown asks again before deleting.
+  useEffect(() => setConfirming(false), [active]);
+  const count = (folder: Folder) => folder.papers.filter((id) => savedIds.has(id)).length;
+
+  // The row a card is dragged over, and the one it landed on (`undefined`: none; `null`:
+  // All saved), which bounces its count (UX-39).
+  const [over, setOver] = useState<string | null | undefined>(undefined);
+  const [landed, setLanded] = useState<string | null | undefined>(undefined);
+  useEffect(() => {
+    if (landed === undefined) return;
+    const timer = setTimeout(() => setLanded(undefined), LANDED_MS);
+    return () => clearTimeout(timer);
+  }, [landed]);
+  const dropTarget = (name: string | null) => ({
+    class: `folder${over === name ? " folder--drop" : ""}${landed === name ? " folder--landed" : ""}`,
+    onDragOver: (event: DragEvent) => {
+      if (!event.dataTransfer?.types.includes(PAPER_DRAG_TYPE)) return;
+      event.preventDefault();
+      event.dataTransfer.dropEffect = "move";
+      setOver(name);
+    },
+    onDragLeave: (event: DragEvent) => {
+      const row = event.currentTarget;
+      if (
+        row instanceof Node &&
+        event.relatedTarget instanceof Node &&
+        row.contains(event.relatedTarget)
+      )
+        return;
+      setOver((current) => (current === name ? undefined : current));
+    },
+    onDrop: (event: DragEvent) => {
+      const id = event.dataTransfer?.getData(PAPER_DRAG_TYPE);
+      setOver(undefined);
+      if (!id) return;
+      event.preventDefault();
+      props.onDropPaper(name, id);
+      setLanded(name);
+    },
+  });
+
+  return (
+    <nav class="folders" aria-label="Folders">
+      <ul class="folders__list">
+        <li>
+          <button
+            type="button"
+            {...dropTarget(null)}
+            aria-pressed={active === null}
+            onClick={() => props.onSelect(null)}
+          >
+            <StarIcon />
+            <span class="folder__name">All saved</span>
+            <span class="folder__count">{savedIds.size.toLocaleString()}</span>
+          </button>
+        </li>
+        {folders.map((folder) => (
+          <li key={folder.name}>
+            {editing === "rename" && folder.name === active ? (
+              <NameField
+                label="The folder's new name"
+                initial={folder.name}
+                onDone={(name) => {
+                  setEditing(null);
+                  if (name !== null) props.onRename(folder.name, name);
+                }}
+              />
+            ) : (
+              <button
+                type="button"
+                {...dropTarget(folder.name)}
+                aria-pressed={folder.name === active}
+                onClick={() => props.onSelect(folder.name)}
+              >
+                <FolderIcon />
+                <span class="folder__name">{folder.name}</span>
+                <span class="folder__count">{count(folder).toLocaleString()}</span>
+              </button>
+            )}
+          </li>
+        ))}
+        {editing === "new" && (
+          <li>
+            <NameField
+              label="The new folder's name"
+              initial=""
+              onDone={(name) => {
+                setEditing(null);
+                if (name !== null) props.onAdd(name);
+              }}
+            />
+          </li>
+        )}
+      </ul>
+
+      {active !== null && editing === null && (
+        <p class="folders__actions">
+          {confirming ? (
+            <>
+              Delete “{active}”? Its papers stay saved.{" "}
+              <button
+                type="button"
+                class="link-button folders__delete"
+                onClick={() => props.onDelete(active)}
+              >
+                Delete
+              </button>{" "}
+              <button type="button" class="link-button" onClick={() => setConfirming(false)}>
+                Cancel
+              </button>
+            </>
+          ) : (
+            <>
+              <button type="button" class="link-button" onClick={() => setEditing("rename")}>
+                Rename
+              </button>{" "}
+              ·{" "}
+              <button type="button" class="link-button" onClick={() => setConfirming(true)}>
+                Delete
+              </button>
+            </>
+          )}
+        </p>
+      )}
+      {editing !== "new" && (
+        <button type="button" class="folders__add" onClick={() => setEditing("new")}>
+          <PlusIcon />
+          New folder
+        </button>
+      )}
+    </nav>
+  );
+}

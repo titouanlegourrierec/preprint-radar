@@ -2,6 +2,7 @@
  * Smoke test of the built site: the four things a broken deploy would break first. Run with
  * `npm run test:e2e` (or `make test-e2e`); `playwright.config.ts` builds and serves it.
  */
+import { readFileSync } from "node:fs";
 import { expect, type Page, test } from "@playwright/test";
 import { CONTENT_SECURITY_POLICY } from "../tooling/content-security-policy";
 
@@ -453,9 +454,9 @@ test("a saved paper is in the reading list, which exports it", async ({ page }) 
   await page.getByRole("link", { name: "Reading list (1)" }).click();
   await expect(page.getByText("1 of 1 saved paper")).toBeVisible();
   await expect(page.locator("article.paper")).toHaveCount(1);
-  // The Export menu of the other lists (SRCH-16), Import and Export JSON beside it.
-  await expect(page.getByRole("button", { name: "Import" })).toBeVisible();
-  await expect(page.getByRole("button", { name: "Export JSON" })).toBeVisible();
+  // The Export menu of the other lists (SRCH-16), the library's Import and Export beside it.
+  await expect(page.getByRole("button", { name: "Import library" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Export library" })).toBeVisible();
   await page.locator(".export-menu__toggle").click();
   const menu = page.locator(".export-menu__items");
   for (const format of ["BibTeX", "CSV", "RIS", "Markdown"]) {
@@ -464,6 +465,76 @@ test("a saved paper is in the reading list, which exports it", async ({ page }) 
   const download = page.waitForEvent("download");
   await menu.getByRole("button", { name: "RIS", exact: true }).click();
   expect((await download).suggestedFilename()).toBe("reading-list.ris");
+  expect(errors).toEqual([]);
+});
+
+test("the reading list's folders group saved papers, and stay", async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.goto("./");
+  const saves = page.getByRole("button", { name: "Save to reading list" });
+  await saves.nth(0).click();
+  await saves.nth(1).click();
+  await page.getByRole("link", { name: "Reading list (2)" }).click();
+  // A folder is made in the sidebar, and a paper put in it from its card (UX-38).
+  const folders = page.getByRole("navigation", { name: "Folders" });
+  await folders.getByRole("button", { name: "New folder" }).click();
+  const name = page.getByRole("textbox", { name: "The new folder's name" });
+  await expect(name).toBeFocused();
+  await name.fill("To read");
+  await name.press("Enter");
+  await page.getByRole("combobox", { name: "Folder" }).first().selectOption("To read");
+  await folders.getByRole("button", { name: /^To read/ }).click();
+  await expect(page).toHaveURL(/folder=To\+read/);
+  await expect(page.getByText("1 of 1 saved paper in “To read”")).toBeVisible();
+  await expect(page.locator("article.paper")).toHaveCount(1);
+  // Kept in this browser, and exported with the papers.
+  await page.reload();
+  await expect(page.getByText("1 of 1 saved paper in “To read”")).toBeVisible();
+  const download = page.waitForEvent("download");
+  await page.getByRole("button", { name: "Export library" }).click();
+  const file = JSON.parse(readFileSync(await (await download).path(), "utf8"));
+  expect(file.folders).toEqual([{ name: "To read", papers: [expect.any(String)] }]);
+  // Deleted, its papers stay saved.
+  await folders.getByRole("button", { name: "Delete" }).click();
+  await folders.getByRole("button", { name: "Delete" }).click();
+  await expect(page.getByText("2 of 2 saved papers")).toBeVisible();
+  expect(errors).toEqual([]);
+});
+
+test("the reading list's own order, arranged by Alt+arrows or a drag", async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.goto("./");
+  const saves = page.getByRole("button", { name: "Save to reading list" });
+  await saves.nth(1).click();
+  await saves.nth(0).click();
+  await page.getByRole("link", { name: "Reading list (2)" }).click();
+  // My order, the list's default (UX-39): the paper saved last first.
+  await expect(page.getByRole("button", { name: "My order" })).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  );
+  const cards = page.locator("article.paper");
+  const first = await cards.nth(0).getAttribute("data-arxiv-id");
+  await cards.nth(0).focus();
+  await page.keyboard.press("Alt+ArrowDown");
+  await expect(cards.nth(1)).toHaveAttribute("data-arxiv-id", first ?? "");
+  await expect(cards.nth(1)).toBeFocused();
+  // Kept in this browser.
+  await page.reload();
+  await expect(cards.nth(1)).toHaveAttribute("data-arxiv-id", first ?? "");
+  // A card dragged by its handle onto a folder goes in it.
+  const folders = page.getByRole("navigation", { name: "Folders" });
+  await folders.getByRole("button", { name: "New folder" }).click();
+  const name = page.getByRole("textbox", { name: "The new folder's name" });
+  await expect(name).toBeFocused();
+  await name.fill("To read");
+  await name.press("Enter");
+  await cards
+    .nth(1)
+    .locator(".paper__grip")
+    .dragTo(folders.getByRole("button", { name: /^To read/ }));
+  await expect(folders.getByRole("button", { name: /^To read/ })).toHaveText(/1$/);
+  await expect(cards.nth(1).getByRole("combobox", { name: "Folder" })).toHaveValue("To read");
   expect(errors).toEqual([]);
 });
 

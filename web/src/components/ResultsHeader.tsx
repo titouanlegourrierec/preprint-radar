@@ -51,6 +51,7 @@ const SORT_LABELS: Record<SortChoice, string> = {
   citations: "Most cited",
   rising: "Rising",
   stars: "Most starred",
+  custom: "My order",
 };
 
 const STARS_TITLE =
@@ -190,7 +191,7 @@ export function ResultsHeader(props: Props) {
         <div class="results__actions">
           <button type="button" class="button" onClick={() => importInput.current?.click()}>
             <UploadIcon />
-            Import
+            Import library
           </button>
           <input
             ref={importInput}
@@ -207,13 +208,13 @@ export function ResultsHeader(props: Props) {
             <button
               type="button"
               class="button"
-              title="The whole list and its saved searches, to import in another browser"
+              title="The whole list, its folders and saved searches, to import in another browser"
               onClick={() =>
                 download("reading-list.json", props.readingList?.json() ?? "", "application/json")
               }
             >
               <DownloadIcon />
-              Export JSON
+              Export library
             </button>
           )}
         </div>
