@@ -8,7 +8,7 @@ draw a progress bar in a terminal (:func:`progress`), and only there.
 
 import logging
 import os
-from collections.abc import Callable, Iterator
+from collections.abc import Callable, Generator
 from contextlib import contextmanager
 from pathlib import Path
 from typing import Literal
@@ -60,7 +60,7 @@ def no_progress(_done: int) -> None:
 
 
 @contextmanager
-def progress(description: str, total: int) -> Iterator[Advance]:
+def progress(description: str, total: int) -> Generator[Advance]:
     """A progress bar on stderr for a step of ``total`` items, in a terminal only.
 
     The bar counts the items done, the time spent and the time left; log records print

@@ -8,7 +8,7 @@ import re
 import signal
 import time
 from collections import Counter
-from collections.abc import Callable, Iterable, Iterator, Sequence
+from collections.abc import Callable, Generator, Iterable, Sequence
 from contextlib import contextmanager
 from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
@@ -1104,7 +1104,7 @@ def _exit_code(reports: Sequence[UpdateReport]) -> int:
 
 
 @contextmanager
-def _terminate_as_interrupt() -> Iterator[None]:
+def _terminate_as_interrupt() -> Generator[None]:
     """Turn SIGTERM into KeyboardInterrupt, so that a cancelled or timed-out job saves its progress."""
 
     def interrupt(*_: object) -> None:
