@@ -7,6 +7,7 @@ import { countOf, daysSince, firstVersionYear, formatDay, subjectCode } from "..
 import { highlight } from "../highlight";
 import { useWholePaper } from "../hooks/use-whole-paper";
 import { institutionsOf } from "../institutions";
+import { shareLink } from "../native-share";
 import { reportLink } from "../report";
 import {
   affiliationNeedles,
@@ -291,19 +292,21 @@ export function PaperCard({
     setTimeout(() => setBibtex(""), 1500);
   }
 
-  // Plain click: copy the link, and say so; nothing else changes. Only when the clipboard
-  // is refused does the address bar show the link, to copy from there. Modified clicks keep
-  // their meaning (open in a new tab...), the href being a real link.
+  // Plain click: a phone's share sheet (UX-49), else copy the link, and say so; nothing else
+  // changes. Only when the clipboard is refused does the address bar show the link, to copy
+  // from there. Modified clicks keep their meaning (open in a new tab...), the href being a
+  // real link.
   async function copyLink(event: MouseEvent) {
     if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
       return;
     }
     event.preventDefault();
-    try {
-      await navigator.clipboard.writeText(new URL(permalink, window.location.href).toString());
+    const url = new URL(permalink, window.location.href).toString();
+    const shared = await shareLink({ title: paper.title, text: paper.title, url });
+    if (shared === "copied") {
       setLinkCopied(true);
       setTimeout(() => setLinkCopied(false), 1500);
-    } catch {
+    } else if (shared === "refused") {
       // Open, so that its Less button folds it back and clears the address bar.
       onOpen(paper.arxiv_id);
       setExpanded(true);

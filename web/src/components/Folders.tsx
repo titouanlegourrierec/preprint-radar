@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "preact/hooks";
 import { type Folder, MAX_FOLDER_NAME, PAPER_DRAG_TYPE } from "../folders";
+import { shareLink } from "../native-share";
 import { FolderIcon, LinkIcon, PlusIcon, StarIcon } from "./icons";
 
 /**
@@ -98,15 +99,17 @@ export function Folders(props: Props) {
     const timer = setTimeout(() => setLink(null), 2000);
     return () => clearTimeout(timer);
   }, [link]);
+  // A phone's share sheet (UX-49), else the link copied.
   const share = async (name: string) => {
     const url = props.shareLink(name);
     if (url === null) return;
-    try {
-      await navigator.clipboard.writeText(url);
-      setLink("copied");
-    } catch {
-      setLink(url);
-    }
+    const shared = await shareLink({
+      title: `“${name}” · Preprint Radar`,
+      text: `“${name}”, papers shared from Preprint Radar`,
+      url,
+    });
+    if (shared === "copied") setLink("copied");
+    else if (shared === "refused") setLink(url);
   };
   const { shared } = props;
   const count = (folder: Folder) => folder.papers.filter((id) => savedIds.has(id)).length;

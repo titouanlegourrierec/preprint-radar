@@ -118,6 +118,9 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 - The site has its logo: a P cut out of a rounded square beside its name, in the top bar
   (a link home), in the theme's colors, and as the tab's icon in light and dark, the
   phone's home screen icon, and the README's heading (UX-48).
+- A link to the site shared in a chat or a post shows a card with the logo, its name and
+  what it does. On a phone, Share opens the system's share sheet (Messages, WhatsApp,
+  Mail…); on a computer it copies the link, as before (UX-49).
 
 ### Data
 

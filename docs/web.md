@@ -384,6 +384,20 @@ derives what only the site uses. The pipeline and `validate` never see these.
   the square by `fill-rule="evenodd"`): `tests/logo.test.ts` compares them with the files,
   which Biome leaves as delivered (`!public/*.svg`). Do not go under 24 px high; below, the
   mark alone. Inline, its paths weigh 2.7 kB gzipped of the landing page's budget.
+- **A shared link's card** (UX-49, `tooling/share-card.ts`): the Open Graph tags that
+  Slack, WhatsApp, iMessage, X or LinkedIn read, the page's title and description in
+  `index.html`, and its image, `public/share.png` (the light lockup centered on the light
+  background, 1200 by 630, made from the designer's file with `rsvg-convert` and
+  ImageMagick), which the build adds with an absolute address when it knows the site's
+  (`PREPRINT_RADAR_SITE_URL`, in `deploy.yml`). Those apps read the page without running
+  its script, and the site is one page: every link, a paper's, a search's or a folder's,
+  shows that same card. A paper's own would take a page of its own per paper (about
+  28,500, 35 MB), not made; a folder's name and papers stay in the fragment, which no
+  preview sees.
+- **Sharing from a phone** (UX-49, `native-share.ts`): a card's and a folder's Share open
+  the system's share sheet (the Web Share API) where the pointer is a finger, its title
+  and link given; closed, nothing happens. Elsewhere, and when the sheet fails, the link is
+  copied as before.
 
 ## In this browser only
 

@@ -20,6 +20,7 @@ import { feedFiles } from "./tooling/feeds";
 import { LANDING_BUDGET, landingAssets, landingReport } from "./tooling/landing";
 import { paperFiles, withSiteFields } from "./tooling/scholar";
 import { searchShardFiles } from "./tooling/search-shards";
+import { shareImageTags } from "./tooling/share-card";
 import { thirdPartyLoads } from "./tooling/third-party";
 import { analyticsToken, beaconTag } from "./tooling/web-analytics";
 
@@ -215,6 +216,20 @@ function contentSecurityPolicy(): Plugin {
   };
 }
 
+/** The image of the card a shared link shows, after the card's tags (UX-49). */
+function shareCard(): Plugin {
+  const anchor = '<meta name="twitter:card" content="summary_large_image" />';
+  return {
+    name: "preprint-radar:share-card",
+    apply: "build",
+    transformIndexHtml(html) {
+      if (!html.includes(anchor)) throw new Error(`index.html has no ${anchor} to follow`);
+      const tags = shareImageTags(SITE_URL);
+      return html.replace(anchor, [anchor, ...tags].join("\n    "));
+    },
+  };
+}
+
 /** Print what the landing page loads, gzipped, and fail the build past its budget (PERF-15). */
 function landingBudget(): Plugin {
   return {
@@ -271,6 +286,7 @@ export default defineConfig({
     preact(),
     paperData(DATA_DIR),
     contentSecurityPolicy(),
+    shareCard(),
     noThirdPartyLoads(),
     landingBudget(),
   ],
