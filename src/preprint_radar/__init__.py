@@ -1,4 +1,4 @@
-"""Tools for conducting literature reviews from arXiv listings."""
+"""Preprint Radar's pipeline: follow the papers announced on arXiv every weekday."""
 
 from importlib.metadata import version
 

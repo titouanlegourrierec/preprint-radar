@@ -168,7 +168,10 @@ def build_parser() -> argparse.ArgumentParser:
     """Build the top-level argument parser."""
     parser = argparse.ArgumentParser(
         prog="preprint-radar",
-        description="Collect arXiv papers to support a literature review.",
+        description=(
+            "Follow the papers announced on arXiv every weekday, with their affiliations, "
+            "citations and the most cited older papers."
+        ),
     )
     parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
     parser.add_argument(

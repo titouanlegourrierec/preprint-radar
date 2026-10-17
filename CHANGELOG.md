@@ -8,6 +8,13 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ## Unreleased
 
+### Interface
+
+- One tagline everywhere, the site's description, the card of a shared link, the home
+  screen's, the README and the package's: "Follow and search the cs.CV papers announced on
+  arXiv every weekday, with their affiliations, citations and the most cited older papers."
+  (PROD-15).
+
 ## 0.9.0 (2026-10-17): a new interface, folders shared by a link, and a world map
 
 The fourth set of features of Phase 4: the lists and the graph share one interface of

@@ -1,6 +1,6 @@
 # <picture><source media="(prefers-color-scheme: dark)" srcset="web/public/preprint-radar-lockup-dark.svg"><img src="web/public/preprint-radar-lockup-light.svg" alt="Preprint Radar" height="40"></picture>
 
-A friendlier way to browse and search recent arXiv papers for literature reviews.
+Follow and search the cs.CV papers announced on arXiv every weekday, with their affiliations, citations and the most cited older papers.
 
 A Python pipeline collects the papers announced every day in one or more arXiv
 categories — with abstracts and author affiliations — and a static web app hosted on
