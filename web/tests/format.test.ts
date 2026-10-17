@@ -36,13 +36,13 @@ describe("affiliationCoverage", () => {
 
   it("gives the share of papers with known affiliations, and the caveat below half", () => {
     expect(affiliationCoverage(331, 2018)).toBe(
-      `Affiliations known for 331 of ${(2018).toLocaleString()} papers (16%)${caveat}`,
+      `Affiliations known for 331 of 2,018 papers (16%)${caveat}`,
     );
     expect(affiliationCoverage(1633, 3407)).toBe(
-      `Affiliations known for ${(1633).toLocaleString()} of ${(3407).toLocaleString()} papers (48%)${caveat}`,
+      `Affiliations known for 1,633 of 3,407 papers (48%)${caveat}`,
     );
     expect(affiliationCoverage(3628, 4832)).toBe(
-      `Affiliations known for ${(3628).toLocaleString()} of ${(4832).toLocaleString()} papers (75%)`,
+      `Affiliations known for 3,628 of 4,832 papers (75%)`,
     );
   });
 
@@ -73,7 +73,7 @@ describe("countOf", () => {
     expect(countOf(0, "paper")).toBe("0 papers");
     expect(countOf(1, "paper")).toBe("1 paper");
     expect(countOf(2, "cs.CV paper")).toBe("2 cs.CV papers");
-    expect(countOf(10_000, "paper")).toBe(`${(10_000).toLocaleString()} papers`);
+    expect(countOf(10_000, "paper")).toBe(`10,000 papers`);
     expect(countOf(2, "person", "people")).toBe("2 people");
     expect(countOf(1, "person", "people")).toBe("1 person");
   });
@@ -85,9 +85,9 @@ describe("loadingLine", () => {
       { date: "2026-09-25", count: 2143 },
       { date: "2026-09-24", count: 1503 },
     ];
-    expect(loadingLine({ days })).toBe(`Loading ${(3646).toLocaleString()} papers of 2 days…`);
+    expect(loadingLine({ days })).toBe(`Loading 3,646 papers of 2 days…`);
     expect(loadingLine({ days: days.slice(1) })).toBe(
-      `Loading ${(1503).toLocaleString()} papers of ${formatDay("2026-09-24")}…`,
+      `Loading 1,503 papers of ${formatDay("2026-09-24")}…`,
     );
     expect(loadingLine({ days: [{ date: "2026-09-26", count: 1 }] })).toBe(
       `Loading 1 paper of ${formatDay("2026-09-26")}…`,
@@ -96,22 +96,20 @@ describe("loadingLine", () => {
 
   it("counts the most cited papers of the last 12 months", () => {
     expect(loadingLine({ recent: { since: "2025-10-05", count: 1000 } })).toBe(
-      `Loading ${(1000).toLocaleString()} highly cited papers of the last 12 months…`,
+      `Loading 1,000 highly cited papers of the last 12 months…`,
     );
   });
 
   it("counts the highly cited papers of the archive's years, all of them downloaded", () => {
     expect(loadingLine({ years: [{ year: 2024, count: 3407 }] })).toBe(
-      `Loading ${(3407).toLocaleString()} highly cited papers of 2024…`,
+      `Loading 3,407 highly cited papers of 2024…`,
     );
     const years = [
       { year: 2025, count: 12_000 },
       { year: 2024, count: 3407 },
       { year: 2023, count: 6762 },
     ];
-    expect(loadingLine({ years })).toBe(
-      `Loading ${(22_169).toLocaleString()} highly cited papers of 3 years…`,
-    );
+    expect(loadingLine({ years })).toBe(`Loading 22,169 highly cited papers of 3 years…`);
   });
 
   it("says only that papers load while there is nothing to count", () => {
@@ -137,7 +135,7 @@ describe("gainLabel", () => {
   it("says this week for a weekly refresh, the day for a longer span", () => {
     const week = { since: "2026-10-04T05:41:00+00:00", to: "2026-10-11T06:02:00+00:00" };
     const label = gainLabel(1200, week, "Semantic Scholar");
-    expect(label.text).toBe(`+${(1200).toLocaleString()} this week`);
+    expect(label.text).toBe(`+1,200 this week`);
     expect(label.title).toBe(
       `${countOf(1200, "new citation")} on Semantic Scholar between ${formatDay(week.since)} and ${formatDay(week.to)}`,
     );
@@ -150,7 +148,9 @@ describe("gainLabel", () => {
 
 describe("day and subject formats", () => {
   it("formats days and subject codes", () => {
-    expect(formatDay("2026-09-25")).toMatch(/2026/);
+    // In British English, whatever the reader's locale (UX-17).
+    expect(formatDay("2026-09-25")).toBe("25 Sept 2026");
+    expect(countOf(10_000, "paper")).toBe("10,000 papers");
     expect(formatDay("2026-09-25T06:17:00Z")).toMatch(/2026/);
     expect(formatShortDay("2026-09-25")).toMatch(/25/);
     expect(subjectCode("Robotics (cs.RO)")).toBe("cs.RO");
@@ -161,7 +161,7 @@ describe("day and subject formats", () => {
 describe("formatAnnounced", () => {
   const oldestDay = "2026-09-01";
   const month = (iso: string) =>
-    new Date(`${iso}T00:00:00`).toLocaleDateString(undefined, { month: "short", year: "numeric" });
+    new Date(`${iso}T00:00:00`).toLocaleDateString("en-GB", { month: "short", year: "numeric" });
 
   it("dates a paper of the day files by its day", () => {
     expect(datedByMonth("2026-09-01", oldestDay)).toBe(false);

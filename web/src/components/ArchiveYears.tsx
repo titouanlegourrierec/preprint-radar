@@ -9,6 +9,7 @@ import {
 } from "../archive-years";
 import { archiveYearLabel, countOf } from "../format";
 import { useDismiss } from "../hooks/use-dismiss";
+import { LOCALE } from "../locale";
 import type { ArchiveSummary, TopRecentSummary } from "../types";
 import { ChevronIcon, CitedIcon } from "./icons";
 
@@ -188,7 +189,7 @@ export function ArchivePicker(props: Props) {
                     onBlur={() => setHovered(null)}
                   >
                     <span>{year}</span>
-                    <small>{papers.toLocaleString()}</small>
+                    <small>{papers.toLocaleString(LOCALE)}</small>
                   </button>
                 );
               })}

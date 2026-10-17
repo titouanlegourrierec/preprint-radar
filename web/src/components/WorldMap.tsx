@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "preact/hooks";
 import { loadCountries } from "../data";
 import { countOf } from "../format";
+import { LOCALE } from "../locale";
 import { loadMapGlobe, saveMapGlobe } from "../preferences";
 import type { Paper } from "../types";
 import {
@@ -43,17 +44,14 @@ const METRIC_TITLES: Record<CountryMetric, string> = {
 function formatValue(value: number | null, metric: CountryMetric): string {
   if (value === null) return "—";
   if (metric === "impact") return `${value.toFixed(2)}×`;
-  if (metric === "per-million")
-    return value.toLocaleString(undefined, { maximumFractionDigits: 2 });
+  if (metric === "per-million") return value.toLocaleString(LOCALE, { maximumFractionDigits: 2 });
   return formatShare(value);
 }
 
 /** The legend's label of each class: "< 5", "5–20", …, "≥ 2,000". */
 function classLabels(thresholds: readonly number[], metric: CountryMetric): string[] {
   const show = (value: number) =>
-    metric === "impact"
-      ? `${value}×`
-      : value.toLocaleString(undefined, { maximumFractionDigits: 2 });
+    metric === "impact" ? `${value}×` : value.toLocaleString(LOCALE, { maximumFractionDigits: 2 });
   return [
     `< ${show(thresholds[0] ?? 0)}`,
     ...thresholds.slice(1).map((value, index) => `${show(thresholds[index] ?? 0)}–${show(value)}`),
@@ -183,7 +181,7 @@ export function WorldMap({ category, papers, citations, metric, archived, onMetr
             <strong>{METRIC_TITLES[metric]}</strong>
             <span class="muted">
               {countOf(stats.countries.length, "country", "countries")} ·{" "}
-              {stats.placed.toLocaleString()} of {countOf(stats.total, "paper")} placed (
+              {stats.placed.toLocaleString(LOCALE)} of {countOf(stats.total, "paper")} placed (
               {stats.total ? Math.round((100 * stats.placed) / stats.total) : 0}%)
             </span>
           </p>
@@ -203,7 +201,7 @@ export function WorldMap({ category, papers, citations, metric, archived, onMetr
             />
             <InfoButton label="About the map" end>
               <p>
-                {`Countries known for ${stats.placed.toLocaleString()} of ${countOf(stats.total, "paper")} (${
+                {`Countries known for ${stats.placed.toLocaleString(LOCALE)} of ${countOf(stats.total, "paper")} (${
                   stats.total ? Math.round((100 * stats.placed) / stats.total) : 0
                 }%): those of their institutions with a ROR id, which OpenAlex places; the others count for no country.`}
               </p>

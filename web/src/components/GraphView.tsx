@@ -19,6 +19,7 @@ import { exportName, toGraphML } from "../graph-export";
 import { GraphRenderer } from "../graph-renderer";
 import { useMediaQuery } from "../hooks/use-media-query";
 import { isTyping } from "../keyboard";
+import { LOCALE } from "../locale";
 import type { Period } from "../period";
 import {
   DEFAULT_GRAPH_SETTINGS,
@@ -392,7 +393,7 @@ export function GraphView(props: Props) {
             : kinds.length === 0
               ? "Turn on institutions or authors in the graph settings."
               : `No ${kinds.join(" or ")} to show: affiliations are known so far for ` +
-                `${affiliatedCount.toLocaleString()} of ${countOf(shownPapers.length, "paper")}.`;
+                `${affiliatedCount.toLocaleString(LOCALE)} of ${countOf(shownPapers.length, "paper")}.`;
 
   return (
     <main class="graph" id="main">

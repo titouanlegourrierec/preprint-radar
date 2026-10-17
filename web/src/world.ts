@@ -5,6 +5,8 @@
  * twice — with four ways to read the map: papers, citations, papers per million people,
  * and impact, the citations per paper over the world's.
  */
+
+import { LOCALE } from "./locale";
 import type { Paper } from "./types";
 
 /** What colors the map, and orders the countries' table. */
@@ -180,6 +182,6 @@ export function classOf(value: number, thresholds: readonly number[]): number {
 /** A share of papers or citations as shown: whole from 10 up, else to a tenth ("2.5"). */
 export function formatShare(value: number): string {
   return value >= 10
-    ? Math.round(value).toLocaleString()
-    : value.toLocaleString(undefined, { maximumFractionDigits: 1 });
+    ? Math.round(value).toLocaleString(LOCALE)
+    : value.toLocaleString(LOCALE, { maximumFractionDigits: 1 });
 }

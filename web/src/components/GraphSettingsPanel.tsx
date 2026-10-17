@@ -1,3 +1,4 @@
+import { LOCALE } from "../locale";
 import { authorLayer, type GraphSettings } from "../preferences";
 import { ChevronIcon, DownloadIcon, SelectChevron } from "./icons";
 import { Segmented } from "./Segmented";
@@ -203,7 +204,7 @@ export function GraphSettingsPanel(props: Props) {
                 >
                   {MAX_NODES_OPTIONS.map((count) => (
                     <option key={count} value={count}>
-                      {count === 0 ? "None" : `Top ${count.toLocaleString()}`}
+                      {count === 0 ? "None" : `Top ${count.toLocaleString(LOCALE)}`}
                     </option>
                   ))}
                 </select>

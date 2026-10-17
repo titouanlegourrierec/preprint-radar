@@ -15,6 +15,7 @@ import {
 import { highlight } from "../highlight";
 import { useWholePaper } from "../hooks/use-whole-paper";
 import { institutionsOf } from "../institutions";
+import { LOCALE } from "../locale";
 import { shareLink } from "../native-share";
 import { reportLink } from "../report";
 import {
@@ -375,7 +376,7 @@ export function PaperCard({
           class={`paper__rank${rank <= MEDALS.length ? ` paper__rank--${MEDALS[rank - 1]}` : ""}`}
         >
           <span class="visually-hidden">Rank </span>
-          {rank.toLocaleString()}
+          {rank.toLocaleString(LOCALE)}
         </span>
       )}
       <div class="paper__main">

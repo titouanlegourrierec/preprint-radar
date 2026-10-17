@@ -1,6 +1,7 @@
 import { useMemo } from "preact/hooks";
 import { affiliationCoverage, countOf } from "../format";
 import { type EntityKind, severalPeople } from "../graph";
+import { LOCALE } from "../locale";
 import { rankEntities } from "../rankings";
 import type { Paper } from "../types";
 import type { RankKind } from "../url-state";
@@ -110,14 +111,14 @@ function EntityRankings(props: Props & { kind: EntityKind }) {
                     </span>
                   )}
                 </th>
-                <td class="rankings__number">{entity.papers.toLocaleString()}</td>
-                <td class="rankings__number">{entity.citations.toLocaleString()}</td>
+                <td class="rankings__number">{entity.papers.toLocaleString(LOCALE)}</td>
+                <td class="rankings__number">{entity.citations.toLocaleString(LOCALE)}</td>
                 <td class="rankings__top">
                   <a href={entity.top.abs_url} target="_blank" rel="noopener noreferrer">
                     {entity.top.title}
                   </a>
                   {entity.topCitations !== undefined && (
-                    <span class="muted"> · {entity.topCitations.toLocaleString()}</span>
+                    <span class="muted"> · {entity.topCitations.toLocaleString(LOCALE)}</span>
                   )}
                 </td>
               </tr>
@@ -127,7 +128,8 @@ function EntityRankings(props: Props & { kind: EntityKind }) {
       )}
       {ranked.length > SHOWN && (
         <p class="muted rankings__note">
-          The first {SHOWN} of {ranked.length.toLocaleString()}: narrow the search to see others.
+          The first {SHOWN} of {ranked.length.toLocaleString(LOCALE)}: narrow the search to see
+          others.
         </p>
       )}
     </section>

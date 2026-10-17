@@ -1,4 +1,5 @@
 import { institutionsOf } from "./institutions";
+import { LOCALE } from "./locale";
 import { searchKey } from "./text";
 import type { Paper } from "./types";
 
@@ -411,9 +412,9 @@ function weekOf(day: string): string {
 /** What the graph's Highlight field found, and which match is shown (`label`, at `index`). */
 export function matchStatus(count: number, index: number | null, label: string | null): string {
   if (count === 0) return "No match";
-  const matches = `${count.toLocaleString()} ${count === 1 ? "match" : "matches"}`;
+  const matches = `${count.toLocaleString(LOCALE)} ${count === 1 ? "match" : "matches"}`;
   if (index === null) return `${matches}: Enter shows them one by one, Shift+Enter backwards`;
-  return `${(index + 1).toLocaleString()} of ${matches}${label ? `: ${label}` : ""}`;
+  return `${(index + 1).toLocaleString(LOCALE)} of ${matches}${label ? `: ${label}` : ""}`;
 }
 
 /** The papers two nodes share: what MIT and Google wrote together (§17.1 #8). */

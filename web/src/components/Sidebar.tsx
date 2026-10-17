@@ -3,6 +3,7 @@ import { useState } from "preact/hooks";
 import type { ArchiveRange } from "../archive-years";
 import { subjectCode } from "../format";
 import { useMediaQuery } from "../hooks/use-media-query";
+import { LOCALE } from "../locale";
 import type { Period } from "../period";
 import {
   activeFilterCount,
@@ -240,7 +241,7 @@ export function Sidebar(props: Props) {
                 {/* The code ("cs.RO"), as cards show it; the URL keeps the name. */}
                 {props.subjects.map(({ value, count }) => (
                   <option key={value} value={value} title={value}>
-                    {subjectCode(value)} ({count.toLocaleString()})
+                    {subjectCode(value)} ({count.toLocaleString(LOCALE)})
                   </option>
                 ))}
               </select>

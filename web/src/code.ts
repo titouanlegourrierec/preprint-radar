@@ -1,5 +1,6 @@
 import { countOf } from "./format";
 import { linkify } from "./linkify";
+import { LOCALE } from "./locale";
 import type { CodeStats, Paper } from "./types";
 
 // A repository: an owner and a name on a code host. A user's page or a project page
@@ -64,7 +65,7 @@ export interface CodeBadge {
 export function codeBadge(stats: CodeStats | undefined): CodeBadge | null {
   if (stats?.stars !== undefined) {
     const shared = stats.shared === true;
-    const gained = stats.gained ? `+${stats.gained.toLocaleString()} this week` : null;
+    const gained = stats.gained ? `+${stats.gained.toLocaleString(LOCALE)} this week` : null;
     const sentences = [
       `${countOf(stats.stars, "star")} on GitHub, refreshed every week`,
       ...(gained ? [`${countOf(stats.gained ?? 0, "star")} gained in the last week`] : []),
@@ -76,7 +77,7 @@ export function codeBadge(stats: CodeStats | undefined): CodeBadge | null {
         : []),
     ];
     return {
-      count: stats.stars.toLocaleString(),
+      count: stats.stars.toLocaleString(LOCALE),
       icon: "star",
       noun: stats.stars === 1 ? "GitHub star" : "GitHub stars",
       gained,
@@ -86,7 +87,7 @@ export function codeBadge(stats: CodeStats | undefined): CodeBadge | null {
   }
   if (stats?.likes !== undefined) {
     return {
-      count: stats.likes.toLocaleString(),
+      count: stats.likes.toLocaleString(LOCALE),
       icon: "heart",
       noun: stats.likes === 1 ? "Hugging Face like" : "Hugging Face likes",
       gained: null,

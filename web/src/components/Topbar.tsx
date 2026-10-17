@@ -1,4 +1,5 @@
 import type { JSX } from "preact";
+import { LOCALE } from "../locale";
 import type { ThemePreference } from "../preferences";
 import { DEFAULT_STATE, type ViewState } from "../url-state";
 import {
@@ -107,7 +108,9 @@ export function Topbar(props: Props) {
             {...tab(view === "reading-list", { view: "reading-list" })}
           >
             <StarIcon />
-            <span class="tab__label">Reading list ({props.readingListSize.toLocaleString()})</span>
+            <span class="tab__label">
+              Reading list ({props.readingListSize.toLocaleString(LOCALE)})
+            </span>
           </a>
           <a
             class={`tab${view === "about" ? " tab--active" : ""}`}

@@ -1,4 +1,5 @@
 import { countOf } from "../format";
+import { LOCALE } from "../locale";
 import type { Paper } from "../types";
 import { StarIcon } from "./icons";
 
@@ -71,7 +72,8 @@ export function SharedNotice({ name, asked, found, existing, onAdd, onRetry, onC
                 </a>
               </span>
             ))}
-            {missing.length > LISTED && ` and ${(missing.length - LISTED).toLocaleString()} more`}
+            {missing.length > LISTED &&
+              ` and ${(missing.length - LISTED).toLocaleString(LOCALE)} more`}
           </>
         )}
         .

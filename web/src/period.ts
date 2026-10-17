@@ -1,3 +1,4 @@
+import { LOCALE } from "./locale";
 import type { DaySummary } from "./types";
 
 /**
@@ -204,14 +205,14 @@ export function monthGrid(month: string): (string | null)[][] {
   return Array.from({ length: cells.length / 7 }, (_, week) => cells.slice(week * 7, week * 7 + 7));
 }
 
-const MONTH_FORMAT = new Intl.DateTimeFormat(undefined, { month: "long", year: "numeric" });
+const MONTH_FORMAT = new Intl.DateTimeFormat(LOCALE, { month: "long", year: "numeric" });
 
 /** "September 2026" for "2026-09". */
 export function formatMonth(month: string): string {
   return MONTH_FORMAT.format(dayDate(`${month}-01`));
 }
 
-const DAY_FORMAT = new Intl.DateTimeFormat(undefined, {
+const DAY_FORMAT = new Intl.DateTimeFormat(LOCALE, {
   day: "numeric",
   month: "short",
   year: "numeric",

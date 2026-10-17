@@ -35,6 +35,9 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ### Interface
 
+- Dates and numbers are written in British English whatever the reader's locale, as the
+  rest of the interface is English: "25 Sept 2026" and "10,000", not "25 sept. 2026" and
+  "10 000" for a French reader (UX-17).
 - One tagline everywhere, the site's description, the card of a shared link, the home
   screen's, the README and the package's: "Follow and search the cs.CV papers announced on
   arXiv every weekday, with their affiliations, citations and the most cited older papers."

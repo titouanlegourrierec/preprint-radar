@@ -42,6 +42,7 @@ import { useTriage } from "./hooks/use-triage";
 import { useUrlState } from "./hooks/use-url-state";
 import { namedInstitutions } from "./institutions";
 import { hasModifier, isTyping } from "./keyboard";
+import { LOCALE } from "./locale";
 import { between, LONGEST_RANGE, samePeriod, selectDays } from "./period";
 import {
   loadShowAbstracts,
@@ -190,7 +191,7 @@ export function App() {
     });
     const added = readingList.addPapers(papers);
     readingList.say(
-      `${countOf(papers.length, "paper")} in “${name}”, ${added.toLocaleString()} newly saved.`,
+      `${countOf(papers.length, "paper")} in “${name}”, ${added.toLocaleString(LOCALE)} newly saved.`,
     );
     closeShared();
     update({ folder: name });

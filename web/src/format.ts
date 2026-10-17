@@ -1,9 +1,10 @@
+import { LOCALE } from "./locale";
 import type { ArchiveSummary, DaySummary, TopRecentSummary } from "./types";
 
 /** Format an ISO date or timestamp as a short, locale-aware day, e.g. "25 Sept 2026". */
 export function formatDay(iso: string): string {
   const date = iso.length === 10 ? new Date(`${iso}T00:00:00`) : new Date(iso);
-  return date.toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" });
+  return date.toLocaleDateString(LOCALE, { day: "numeric", month: "short", year: "numeric" });
 }
 
 /**
@@ -19,7 +20,7 @@ export function datedByMonth(announced: string, oldestDay: string | undefined): 
 /** When a paper was announced: its day ("25 Sept 2026"), or its month ("Mar 2021") alone. */
 export function formatAnnounced(announced: string, oldestDay: string | undefined): string {
   if (!datedByMonth(announced, oldestDay)) return formatDay(announced);
-  return new Date(`${announced}T00:00:00`).toLocaleDateString(undefined, {
+  return new Date(`${announced}T00:00:00`).toLocaleDateString(LOCALE, {
     month: "short",
     year: "numeric",
   });
@@ -34,7 +35,7 @@ export const DATED_BY_MONTH =
  * thousands separator), "2 people" with `plural`.
  */
 export function countOf(count: number, noun: string, plural = `${noun}s`): string {
-  return `${count.toLocaleString()} ${count === 1 ? noun : plural}`;
+  return `${count.toLocaleString(LOCALE)} ${count === 1 ? noun : plural}`;
 }
 
 /**
@@ -93,7 +94,7 @@ export function seenHidden(count: number): { count: string; empty: string } {
  * ones and narrow searches are not).
  */
 export function affiliationCoverage(affiliated: number, total: number, noun = "paper"): string {
-  const known = `Affiliations known for ${affiliated.toLocaleString()} of ${countOf(total, noun)}`;
+  const known = `Affiliations known for ${affiliated.toLocaleString(LOCALE)} of ${countOf(total, noun)}`;
   if (total === 0) return known;
   const percent = Math.round((affiliated / total) * 100);
   const share = `${known} (${percentLabel(percent, affiliated, total)})`;
@@ -114,7 +115,7 @@ export function subjectCode(subject: string): string {
 
 /** Format an ISO date as a short day with its weekday, e.g. "Tue 8 Sept". */
 export function formatShortDay(iso: string): string {
-  return new Date(`${iso}T00:00:00`).toLocaleDateString(undefined, {
+  return new Date(`${iso}T00:00:00`).toLocaleDateString(LOCALE, {
     weekday: "short",
     day: "numeric",
     month: "short",
@@ -158,7 +159,7 @@ export function gainLabel(
   const when = days <= WEEK_DAYS ? "this week" : `since ${formatDay(span.since)}`;
   const citations = countOf(gain, "new citation");
   return {
-    text: `+${gain.toLocaleString()} ${when}`,
+    text: `+${gain.toLocaleString(LOCALE)} ${when}`,
     title: `${citations}${source ? ` on ${source}` : ""} between ${formatDay(span.since)} and ${formatDay(span.to)}`,
   };
 }
@@ -209,7 +210,7 @@ export function daysSince(iso: string, today: Date = new Date()): number {
   return Math.floor((today.getTime() - new Date(`${iso}T00:00:00`).getTime()) / DAY_MS);
 }
 
-const MONTH_FORMAT = new Intl.DateTimeFormat(undefined, { month: "short" });
+const MONTH_FORMAT = new Intl.DateTimeFormat(LOCALE, { month: "short" });
 
 /**
  * The label of an archive year: "2025, Jan–Oct" for the youngest year, which only holds

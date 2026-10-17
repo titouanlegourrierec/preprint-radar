@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "preact/hooks";
 import { countOf } from "../format";
 import { useDismiss } from "../hooks/use-dismiss";
+import { LOCALE } from "../locale";
 import {
   between,
   dayDate,
@@ -23,9 +24,9 @@ import { CalendarIcon, ChevronIcon } from "./icons";
 
 // Monday first: 5 January 2026 was a Monday.
 const WEEKDAYS = Array.from({ length: 7 }, (_, index) =>
-  new Intl.DateTimeFormat(undefined, { weekday: "narrow" }).format(new Date(2026, 0, 5 + index)),
+  new Intl.DateTimeFormat(LOCALE, { weekday: "narrow" }).format(new Date(2026, 0, 5 + index)),
 );
-const LONG_DAY_FORMAT = new Intl.DateTimeFormat(undefined, {
+const LONG_DAY_FORMAT = new Intl.DateTimeFormat(LOCALE, {
   weekday: "long",
   day: "numeric",
   month: "long",
@@ -164,8 +165,8 @@ export function PeriodPicker({ days, period, onChange, source, compact }: Props)
         : span;
   const note = (light.length > 0 || leftOut > 0) && (
     <p class="period-picker__note">
-      A period loads {PAPER_BUDGET.toLocaleString()} papers whole: abstracts are searched over its
-      latest {countOf(whole.length, "day")}
+      A period loads {PAPER_BUDGET.toLocaleString(LOCALE)} papers whole: abstracts are searched over
+      its latest {countOf(whole.length, "day")}
       {light.length > 0 &&
         `, titles, authors, affiliations and venues over ${countOf(light.length, "older day")} too`}
       {leftOut > 0 &&

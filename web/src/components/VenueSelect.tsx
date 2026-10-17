@@ -1,3 +1,4 @@
+import { LOCALE } from "../locale";
 import type { FacetCount } from "../search";
 import { ANY_VENUE, familyOf, isMajorVenue, matchesVenue, sortVenues, venueLabel } from "../venues";
 
@@ -12,7 +13,7 @@ function Option({ venue, starred }: { venue: FacetCount; starred: boolean }) {
   return (
     <option value={venue.value}>
       {starred ? "★ " : ""}
-      {venueLabel(venue.value)} ({venue.count.toLocaleString()})
+      {venueLabel(venue.value)} ({venue.count.toLocaleString(LOCALE)})
     </option>
   );
 }
@@ -53,7 +54,7 @@ export function VenueSelect({ venues, value, onChange }: Props) {
       onChange={(event) => onChange(event.currentTarget.value || null)}
     >
       <option value="">All venues</option>
-      <option value={ANY_VENUE}>Accepted at a venue ({accepted.toLocaleString()})</option>
+      <option value={ANY_VENUE}>Accepted at a venue ({accepted.toLocaleString(LOCALE)})</option>
       {major.length > 0 ? (
         <>
           <optgroup label="Major venues">

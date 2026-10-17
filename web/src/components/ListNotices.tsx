@@ -1,6 +1,7 @@
 import { useMemo } from "preact/hooks";
 import type { FeedLink } from "../feeds";
 import { affiliationCoverage, countOf } from "../format";
+import { LOCALE } from "../locale";
 import { formatMissingDays, PAPER_BUDGET } from "../period";
 import type { SearchFilters } from "../search";
 import type { Paper } from "../types";
@@ -103,7 +104,7 @@ export function ListNotices(props: Props) {
           {countOf(props.sinceLastVisit.papers, "new paper")} since your last visit.{" "}
           <button type="button" class="link-button" onClick={props.sinceLastVisit.onShow}>
             {props.sinceLastVisit.papers > PAPER_BUDGET
-              ? `Show the latest ${PAPER_BUDGET.toLocaleString()}`
+              ? `Show the latest ${PAPER_BUDGET.toLocaleString(LOCALE)}`
               : "Show them"}
           </button>
         </p>
@@ -120,10 +121,10 @@ export function ListNotices(props: Props) {
       )}
       {archiveBudget && (
         <p class="help-note">
-          These years hold {(archiveBudget.shown + archiveBudget.leftOut).toLocaleString()} papers:
-          the {archiveBudget.shown.toLocaleString()} best ranked by citations per year of age are
-          shown, as many as a period loads. Narrow the years for the{" "}
-          {archiveBudget.leftOut.toLocaleString()} others.
+          These years hold {(archiveBudget.shown + archiveBudget.leftOut).toLocaleString(LOCALE)}{" "}
+          papers: the {archiveBudget.shown.toLocaleString(LOCALE)} best ranked by citations per year
+          of age are shown, as many as a period loads. Narrow the years for the{" "}
+          {archiveBudget.leftOut.toLocaleString(LOCALE)} others.
           {archiveBudget.unranked > 0 &&
             ` The citation counts of ${countOf(archiveBudget.unranked, "year")} could not be loaded: their papers rank last, the first to be left out.`}
         </p>

@@ -180,6 +180,9 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   title and an abstract shown printed whole, without the top bar, search, sidebar,
   controls, help notes and graph; a folded card keeps its "+N" authors and affiliations,
   which say how many are left out. Only the cards the list has loaded (40 at a time) print.
+- Every date and number is written in British English (`LOCALE`, `locale.ts`, UX-17),
+  whatever the reader's locale, as the rest of the interface is English: "25 Sept 2026",
+  "10,000". Counts go through `countOf` ("1 paper", "10,000 papers", UX-25).
 
 ## URLs and history (`url-state.ts`)
 

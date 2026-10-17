@@ -1,4 +1,5 @@
 import { useMemo } from "preact/hooks";
+import { LOCALE } from "../locale";
 import { type SavedSearch, type SearchOf, savedSearch, searchOf } from "../saved-searches";
 import type { PaperIndex } from "../search";
 
@@ -68,7 +69,7 @@ export function SavedSearches({
                 {count !== null && count !== undefined && (
                   <span class={count && since ? "saved-searches__new" : "muted"}>
                     {" "}
-                    {count.toLocaleString()}
+                    {count.toLocaleString(LOCALE)}
                     {since !== null ? " new" : ""}
                   </span>
                 )}

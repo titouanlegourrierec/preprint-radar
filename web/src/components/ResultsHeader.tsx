@@ -4,6 +4,7 @@ import { toBibtexFile } from "../bibtex";
 import { download } from "../download";
 import { toCsv, toMarkdown, toRis } from "../export";
 import { countOf, formatDay } from "../format";
+import { LOCALE } from "../locale";
 import type { Paper } from "../types";
 import type { CountLine, SortChoice, ViewModel } from "../view-model";
 import { InfoButton } from "./InfoButton";
@@ -97,7 +98,7 @@ interface Props {
 }
 
 function countText(count: CountLine): string {
-  return `${count.shown.toLocaleString()} of ${countOf(count.total, count.noun)}${count.tail ?? ""}`;
+  return `${count.shown.toLocaleString(LOCALE)} of ${countOf(count.total, count.noun)}${count.tail ?? ""}`;
 }
 
 /**
@@ -165,7 +166,7 @@ export function ResultsHeader(props: Props) {
         <details class="export-menu">
           <summary class="button export-menu__toggle">
             <DownloadIcon />
-            Export {props.papers.length.toLocaleString()}
+            Export {props.papers.length.toLocaleString(LOCALE)}
           </summary>
           <div class="export-menu__items">
             {EXPORTS.map(({ label, extension, type, render }) => (

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "preact/hooks";
 import { type Folder, MAX_FOLDER_NAME, PAPER_DRAG_TYPE } from "../folders";
+import { LOCALE } from "../locale";
 import { shareLink } from "../native-share";
 import { FolderIcon, LinkIcon, PlusIcon, StarIcon } from "./icons";
 
@@ -167,7 +168,7 @@ export function Folders(props: Props) {
               <LinkIcon />
               <span class="folder__name">{shared.name}</span>
               <span class="folder__tag">shared</span>
-              <span class="folder__count">{shared.count?.toLocaleString() ?? "…"}</span>
+              <span class="folder__count">{shared.count?.toLocaleString(LOCALE) ?? "…"}</span>
             </button>
           </li>
         )}
@@ -180,7 +181,7 @@ export function Folders(props: Props) {
           >
             <StarIcon />
             <span class="folder__name">All saved</span>
-            <span class="folder__count">{savedIds.size.toLocaleString()}</span>
+            <span class="folder__count">{savedIds.size.toLocaleString(LOCALE)}</span>
           </button>
         </li>
         {folders.map((folder) => (
@@ -203,7 +204,7 @@ export function Folders(props: Props) {
               >
                 <FolderIcon />
                 <span class="folder__name">{folder.name}</span>
-                <span class="folder__count">{count(folder).toLocaleString()}</span>
+                <span class="folder__count">{count(folder).toLocaleString(LOCALE)}</span>
               </button>
             )}
           </li>

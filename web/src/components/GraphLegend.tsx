@@ -1,5 +1,6 @@
 import { countOf } from "../format";
 import { type Graph, MAX_CLIQUE_AUTHORS, type NodeKind } from "../graph";
+import { LOCALE } from "../locale";
 
 const KINDS = [
   ["paper", "Papers"],
@@ -31,14 +32,14 @@ export function GraphLegend({
           counts[kind] > 0 && (
             <span key={kind}>
               <i class={`graph__dot graph__dot--${kind}`} />
-              {name} ({counts[kind].toLocaleString()})
+              {name} ({counts[kind].toLocaleString(LOCALE)})
             </span>
           ),
       )}
       <span>{countOf(graph.links.length, "link")}</span>
       {graph.truncated && (
         <span>
-          top {cap.toLocaleString()} of{" "}
+          top {cap.toLocaleString(LOCALE)} of{" "}
           {countOf(
             graph.eligible,
             capped.map((kind) => kind.slice(0, -1)).join(" and "),
