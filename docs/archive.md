@@ -53,9 +53,12 @@ GitHub and the Hugging Face Hub are like to work with. Read this before changing
   arXiv's metadata without what the author list added (`arxiv_oai.author_names`,
   AFF-21): trailing footnote digits, `*` and `†` ("Jie Qin1"), a leading "and ", and the
   author "others" ("et al."). The catalog is cleaned as it is read, so the cache
-  harvested before needs no new harvest. Both apply to the papers entering the archive:
-  archived records keep their names and subjects until a one-off rewrite, and day files
-  keep the names the listing gives (a starred one in 2610.05756).
+  harvested before needs no new harvest. Both apply to the papers entering the archive,
+  and each week to those of the archive and of the last 12 months that no day file holds
+  (`cleaned`, AFF-21, META-8): on 2026-10-17, 158 stored papers had names or subjects
+  written before, 7 of them names ("Jie Qin1", "others", "and Haibin Ling") and 161 bare
+  subjects; a dropped author leaves the mapping with its place. Day files keep the names
+  the listing gives (a starred one in 2610.05756).
 
 ## Why citations per year of age (the calibration of September 2026)
 

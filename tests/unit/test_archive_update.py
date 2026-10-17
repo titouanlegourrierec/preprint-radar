@@ -13,6 +13,7 @@ from preprint_radar.archive.subjects import ARXIV_SUBJECTS, SUBJECT_ALIASES, sub
 from preprint_radar.archive.update import (
     ArchiveClients,
     ArchiveReport,
+    cleaned,
     format_archive_report,
     paper_from_catalog,
     refreshed,
@@ -295,6 +296,46 @@ def test_young_archived_papers_without_affiliations_are_asked_again_every_month(
     assert archived["2508.00001"].affiliations_provenance == Provenance("openalex", TODAY)
     # Too old to be asked again.
     assert archived["2010.11929"].affiliations_provenance is None
+
+
+def test_archived_papers_written_before_the_catalog_was_cleaned_are_cleaned(
+    store: PaperStore, catalog: Catalog
+) -> None:
+    _update(store, catalog, FakeServices(CITATIONS))
+    # An archived paper as the archive wrote it before AFF-21 and META-8: the author list's
+    # markers in its names, the author "others", and subjects by their codes.
+    store.write_archive(
+        "cs.CV",
+        [
+            replace(
+                paper,
+                authors=("A One1", "and B Two", "others", "C Three*"),
+                author_affiliations=((0,), None, (0,), (0,)),
+                primary_subject="cs.LG",
+                subjects=("cs.LG", "Computer Vision and Pattern Recognition (cs.CV)", "eess.IV"),
+            )
+            if paper.arxiv_id == "2010.11929"
+            else paper
+            for paper in store.iter_archive("cs.CV")
+        ],
+    )
+
+    report = _update(store, catalog, FakeServices(CITATIONS))
+
+    vit = next(paper for paper in store.iter_archive("cs.CV") if paper.arxiv_id == "2010.11929")
+    assert vit.authors == ("A One", "B Two", "C Three")
+    # The author "others" leaves the mapping with its place.
+    assert vit.author_affiliations == ((0,), None, (0,))
+    # Named as the stored days name it, else as arXiv's taxonomy does.
+    assert vit.primary_subject == "Machine Learning (cs.LG)"
+    assert vit.subjects == (
+        "Machine Learning (cs.LG)",
+        "Computer Vision and Pattern Recognition (cs.CV)",
+        "Image and Video Processing (eess.IV)",
+    )
+    assert report.refreshed >= 1
+    # Cleaned once: the next week leaves it as it is.
+    assert cleaned(vit, {}) is vit
 
 
 def test_openalex_affiliations_carry_no_html_extractor_version(store: PaperStore, catalog: Catalog) -> None:

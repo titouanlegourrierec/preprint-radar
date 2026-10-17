@@ -46,6 +46,10 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ### Data
 
+- The highly cited papers archived before the catalog was cleaned are cleaned each week as
+  it is: 7 lose what the author list added to their names ("Jie Qin1", the author
+  "others"), and 161 subjects stored by their code are named ("Machine Learning
+  (cs.LG)") (AFF-21, META-8).
 - An affiliation that writes a longer name holding the one ROR chose gets that one:
   "Texas A&M University-Kingsville" was Texas A&M University, ROR writing Texas A&M
   University – Kingsville with a spaced en dash. Asked again, the 11 stored strings where a

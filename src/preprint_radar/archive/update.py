@@ -19,7 +19,9 @@ week, :func:`update_archive`:
 
 Every stored paper also takes the comments and journal reference of its latest version
 from the catalog, and the venue they give (META-2): records otherwise freeze once they
-leave the listing. Withdrawn papers never enter the archive, and leave it (decision 18).
+leave the listing. The papers of the archive and of the last 12 months that no day file
+holds have their authors and subjects cleaned as the catalog's are (AFF-21, META-8), those
+written before it was. Withdrawn papers never enter the archive, and leave it (decision 18).
 
 When Semantic Scholar misses too many counts (below ``MIN_COVERAGE``), the archive, the
 papers of the last 12 months and the day files stay as they are, but for the comments of
@@ -56,7 +58,7 @@ from preprint_radar.http import HttpClient
 from preprint_radar.latex import plain_text
 from preprint_radar.models import Paper
 from preprint_radar.openalex_affiliations import with_openalex_affiliations
-from preprint_radar.sources.arxiv_oai import CatalogEntry
+from preprint_radar.sources.arxiv_oai import CatalogEntry, author_names
 from preprint_radar.sources.semantic_scholar import S2_SOURCE, fetch_citation_counts
 from preprint_radar.store.paper_store import PaperStore, TopRecent
 from preprint_radar.venue import extract_venue
@@ -335,17 +337,29 @@ def _stored(store: PaperStore, category: str, entries: Mapping[str, CatalogEntry
         for old, new in zip(papers, refreshed_days[day], strict=True)
         if new is not old
     ]
+    in_days = {paper.arxiv_id: paper for papers in refreshed_days.values() for paper in papers}
+    subjects = _subject_names(in_days.values())
     stored_archive = list(store.iter_archive(category))
-    archived = {paper.arxiv_id: refreshed(paper, entries.get(paper.arxiv_id)) for paper in stored_archive}
+    archived = {
+        paper.arxiv_id: cleaned(refreshed(paper, entries.get(paper.arxiv_id)), subjects)
+        for paper in stored_archive
+    }
     top_recent = store.load_top_recent(category)
     if top_recent is not None:
+        # Those of the day files are their records there, which keep the listing's names.
         top_recent = replace(
-            top_recent, papers=[refreshed(paper, entries.get(paper.arxiv_id)) for paper in top_recent.papers]
+            top_recent,
+            papers=[
+                refreshed(paper, entries.get(paper.arxiv_id))
+                if paper.arxiv_id in in_days
+                else cleaned(refreshed(paper, entries.get(paper.arxiv_id)), subjects)
+                for paper in top_recent.papers
+            ],
         )
     return _Stored(
         days=stored_days,
         changed_in_days=changed_in_days,
-        in_days={paper.arxiv_id: paper for papers in refreshed_days.values() for paper in papers},
+        in_days=in_days,
         archived=archived,
         changed_in_archive=sum(archived[paper.arxiv_id] is not paper for paper in stored_archive),
         top_recent=top_recent,
@@ -376,6 +390,42 @@ def refreshed(paper: Paper, entry: CatalogEntry | None) -> Paper:
         journal_ref=journal_ref,
         venue=extract_venue(comments, journal_ref),
         withdrawn=is_withdrawn(comments),
+    )
+
+
+def cleaned(paper: Paper, subjects: Mapping[str, str]) -> Paper:
+    """A paper built from the catalog, with its authors and subjects as the catalog's are now.
+
+    The archive's papers written before the catalog was cleaned (AFF-21, META-8) kept what
+    the author list added to the names ("Jie Qin1", the author "others") and the codes of
+    the subjects neither the days nor the taxonomy named then ("cs.LG"). A name dropped
+    takes its place in the author mapping with it. The same paper comes back when nothing
+    changes, as for any paper cleaned before.
+
+    Args:
+        paper: A stored paper of the archive, or of the last 12 months no day file holds.
+        subjects: Full subject names the stored days give, by code.
+    """
+    kept = [
+        (position, names[0]) for position, name in enumerate(paper.authors) if (names := author_names([name]))
+    ]
+    authors = tuple(name for _, name in kept)
+    mapping = paper.author_affiliations
+    if mapping is not None and authors != paper.authors:
+        mapping = tuple(mapping[position] for position, _ in kept)
+    primary = paper.primary_subject
+    if primary is not None and not _SUBJECT_CODE_RE.search(primary):
+        primary = subject_name(primary, subjects)
+    named = tuple(
+        dict.fromkeys(
+            subject if _SUBJECT_CODE_RE.search(subject) else subject_name(subject, subjects)
+            for subject in paper.subjects
+        )
+    )
+    if (authors, primary, named) == (paper.authors, paper.primary_subject, paper.subjects):
+        return paper
+    return replace(
+        paper, authors=authors, author_affiliations=mapping, primary_subject=primary, subjects=named
     )
 
 
