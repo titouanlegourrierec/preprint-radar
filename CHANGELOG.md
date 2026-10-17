@@ -83,6 +83,8 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ### Command line
 
+- Every command declares `-c` and `--data-dir` through one function, each keeping its
+  default category: 165 lines fewer in `cli.py`, the same help (DEBT-5).
 - `fetch` is gone, with its modules `store/export.py` and `store/filters.py`: it exported
   the raw listing, without abstracts or affiliations, and no workflow ran it; `data/` and
   the site's exports (BibTeX, CSV, RIS, Markdown, JSON) hold more (DEBT-6).

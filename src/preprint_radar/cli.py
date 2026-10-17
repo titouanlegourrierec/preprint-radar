@@ -322,20 +322,7 @@ def _add_stats_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentP
             "extraction changes instead, those that would lose words first"
         ),
     )
-    stats.add_argument(
-        "-c",
-        "--category",
-        dest="categories",
-        action="append",
-        type=_category,
-        help="arXiv category, repeatable (default: every category in the store)",
-    )
-    stats.add_argument(
-        "--data-dir",
-        type=Path,
-        default=DEFAULT_DATA_DIR,
-        help=f"data store directory (default: {DEFAULT_DATA_DIR})",
-    )
+    _add_store_location(stats, every_category=True)
 
 
 def _add_institutions_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
@@ -355,20 +342,7 @@ def _add_institutions_parser(subparsers: "argparse._SubParsersAction[argparse.Ar
         action="store_true",
         help="name the stored institutions again with today's rules, offline, archive included",
     )
-    institutions.add_argument(
-        "-c",
-        "--category",
-        dest="categories",
-        action="append",
-        type=_category,
-        help="arXiv category, repeatable (default: every category in the store)",
-    )
-    institutions.add_argument(
-        "--data-dir",
-        type=Path,
-        default=DEFAULT_DATA_DIR,
-        help=f"data store directory (default: {DEFAULT_DATA_DIR})",
-    )
+    _add_store_location(institutions, every_category=True)
     institutions.add_argument(
         "--max-ror",
         type=_count,
@@ -390,20 +364,7 @@ def _add_affiliations_parser(subparsers: "argparse._SubParsersAction[argparse.Ar
             "OpenAlex never fails the command: the papers are asked for again next time."
         ),
     )
-    affiliations.add_argument(
-        "-c",
-        "--category",
-        dest="categories",
-        action="append",
-        type=_category,
-        help="arXiv category, repeatable (default: every category in the store)",
-    )
-    affiliations.add_argument(
-        "--data-dir",
-        type=Path,
-        default=DEFAULT_DATA_DIR,
-        help=f"data store directory (default: {DEFAULT_DATA_DIR})",
-    )
+    _add_store_location(affiliations, every_category=True)
 
 
 def _add_archive_affiliations_parser(
@@ -440,20 +401,7 @@ def _add_archive_parser(subparsers: "argparse._SubParsersAction[argparse.Argumen
             "--prune, days older than 12 months are deleted."
         ),
     )
-    archive.add_argument(
-        "-c",
-        "--category",
-        dest="categories",
-        action="append",
-        type=_category,
-        help=f"arXiv category, repeatable (default: {DEFAULT_CATEGORY})",
-    )
-    archive.add_argument(
-        "--data-dir",
-        type=Path,
-        default=DEFAULT_DATA_DIR,
-        help=f"data store directory (default: {DEFAULT_DATA_DIR})",
-    )
+    _add_store_location(archive, every_category=False)
     archive.add_argument(
         "--catalog-dir",
         type=Path,
@@ -486,20 +434,7 @@ def _add_citations_parser(subparsers: "argparse._SubParsersAction[argparse.Argum
             "the papers left are asked for again next time. A rejected key does."
         ),
     )
-    citations.add_argument(
-        "-c",
-        "--category",
-        dest="categories",
-        action="append",
-        type=_category,
-        help="arXiv category, repeatable (default: every category in the store)",
-    )
-    citations.add_argument(
-        "--data-dir",
-        type=Path,
-        default=DEFAULT_DATA_DIR,
-        help=f"data store directory (default: {DEFAULT_DATA_DIR})",
-    )
+    _add_store_location(citations, every_category=True)
     citations.add_argument("--all", action="store_true", help="fetch the counts of every stored paper again")
     citations.add_argument(
         "--max-minutes",
@@ -521,20 +456,7 @@ def _add_scholar_parser(subparsers: "argparse._SubParsersAction[argparse.Argumen
             "fails the command."
         ),
     )
-    scholar.add_argument(
-        "-c",
-        "--category",
-        dest="categories",
-        action="append",
-        type=_category,
-        help="arXiv category, repeatable (default: every category in the store)",
-    )
-    scholar.add_argument(
-        "--data-dir",
-        type=Path,
-        default=DEFAULT_DATA_DIR,
-        help=f"data store directory (default: {DEFAULT_DATA_DIR})",
-    )
+    _add_store_location(scholar, every_category=True)
     scholar.add_argument(
         "--max-minutes",
         type=_duration,
@@ -554,21 +476,8 @@ def _add_countries_parser(subparsers: "argparse._SubParsersAction[argparse.Argum
             "fails is asked for again next time."
         ),
     )
-    countries.add_argument(
-        "-c",
-        "--category",
-        dest="categories",
-        action="append",
-        type=_category,
-        help="arXiv category, repeatable (default: every category in the store)",
-    )
+    _add_store_location(countries, every_category=True)
     countries.add_argument("--all", action="store_true", help="ask for every institution again")
-    countries.add_argument(
-        "--data-dir",
-        type=Path,
-        default=DEFAULT_DATA_DIR,
-        help=f"data store directory (default: {DEFAULT_DATA_DIR})",
-    )
 
 
 def _add_code_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
@@ -586,20 +495,7 @@ def _add_code_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentPa
             "the stars gained in the week."
         ),
     )
-    code.add_argument(
-        "-c",
-        "--category",
-        dest="categories",
-        action="append",
-        type=_category,
-        help="arXiv category, repeatable (default: every category in the store)",
-    )
-    code.add_argument(
-        "--data-dir",
-        type=Path,
-        default=DEFAULT_DATA_DIR,
-        help=f"data store directory (default: {DEFAULT_DATA_DIR})",
-    )
+    _add_store_location(code, every_category=True)
     code.add_argument(
         "--new",
         action="store_true",
@@ -617,12 +513,7 @@ def _add_index_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentP
             "data commits. Nothing is fetched."
         ),
     )
-    index.add_argument(
-        "--data-dir",
-        type=Path,
-        default=DEFAULT_DATA_DIR,
-        help=f"data store directory (default: {DEFAULT_DATA_DIR})",
-    )
+    _add_data_dir(index)
 
 
 def _add_reclean_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
@@ -637,20 +528,7 @@ def _add_reclean_parser(subparsers: "argparse._SubParsersAction[argparse.Argumen
             "Nothing is fetched, and the citation archive is left as it is."
         ),
     )
-    reclean.add_argument(
-        "-c",
-        "--category",
-        dest="categories",
-        action="append",
-        type=_category,
-        help="arXiv category, repeatable (default: every category in the store)",
-    )
-    reclean.add_argument(
-        "--data-dir",
-        type=Path,
-        default=DEFAULT_DATA_DIR,
-        help=f"data store directory (default: {DEFAULT_DATA_DIR})",
-    )
+    _add_store_location(reclean, every_category=True)
 
 
 def _add_venues_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
@@ -663,20 +541,7 @@ def _add_venues_parser(subparsers: "argparse._SubParsersAction[argparse.Argument
             "these rules: day files and archive alike. Nothing is fetched."
         ),
     )
-    venues.add_argument(
-        "-c",
-        "--category",
-        dest="categories",
-        action="append",
-        type=_category,
-        help="arXiv category, repeatable (default: every category in the store)",
-    )
-    venues.add_argument(
-        "--data-dir",
-        type=Path,
-        default=DEFAULT_DATA_DIR,
-        help=f"data store directory (default: {DEFAULT_DATA_DIR})",
-    )
+    _add_store_location(venues, every_category=True)
 
 
 def _add_reextract_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
@@ -718,12 +583,7 @@ def _add_summary_parser(subparsers: "argparse._SubParsersAction[argparse.Argumen
             "counts are stale. Nothing is fetched or written."
         ),
     )
-    summary.add_argument(
-        "--data-dir",
-        type=Path,
-        default=DEFAULT_DATA_DIR,
-        help=f"data store directory (default: {DEFAULT_DATA_DIR})",
-    )
+    _add_data_dir(summary)
 
 
 def _add_validate_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
@@ -739,7 +599,33 @@ def _add_validate_parser(subparsers: "argparse._SubParsersAction[argparse.Argume
             "are warnings. Nothing is fetched or written."
         ),
     )
-    validate.add_argument(
+    _add_data_dir(validate)
+
+
+def _add_store_location(parser: argparse.ArgumentParser, *, every_category: bool) -> None:
+    """``-c`` and ``--data-dir``, as every command over the store takes them (DEBT-5).
+
+    Args:
+        parser: The command's parser.
+        every_category: Whether no ``-c`` means every category of the store, as for the
+            steps over stored papers, rather than ``DEFAULT_CATEGORY``, as for those that
+            read arXiv.
+    """
+    default = "every category in the store" if every_category else DEFAULT_CATEGORY
+    parser.add_argument(
+        "-c",
+        "--category",
+        dest="categories",
+        action="append",
+        type=_category,
+        help=f"arXiv category, repeatable (default: {default})",
+    )
+    _add_data_dir(parser)
+
+
+def _add_data_dir(parser: argparse.ArgumentParser) -> None:
+    """``--data-dir``, the data store's directory."""
+    parser.add_argument(
         "--data-dir",
         type=Path,
         default=DEFAULT_DATA_DIR,
@@ -757,20 +643,7 @@ def _add_store_arguments(
         max_html: The command's default ``--max-html`` (``None``: no limit).
         max_ror: The command's default ``--max-ror`` (``None``: no limit).
     """
-    parser.add_argument(
-        "-c",
-        "--category",
-        dest="categories",
-        action="append",
-        type=_category,
-        help=f"arXiv category, repeatable (default: {DEFAULT_CATEGORY})",
-    )
-    parser.add_argument(
-        "--data-dir",
-        type=Path,
-        default=DEFAULT_DATA_DIR,
-        help=f"data store directory (default: {DEFAULT_DATA_DIR})",
-    )
+    _add_store_location(parser, every_category=False)
     parser.add_argument(
         "--max-html",
         type=_count,
