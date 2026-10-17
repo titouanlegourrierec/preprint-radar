@@ -36,9 +36,9 @@ not "simplify" a rule away without the page that made it.
   glues names to each other too ("Huy V. VoMaximilian SeitzerFederico Baldassarre...",
   2508.10104, which version 8 stored as an affiliation).
 - `ltx_note` of roles `address`, `institutetext` and `affiliation` anywhere (Taylor &
-  Francis' class lists its lettered affiliations in one after the abstract, 2610.15403),
-  and `footnotetext` notes that are direct children of the article and start with a
-  marker.
+  Francis' class lists its lettered affiliations in one after the abstract, 2610.15403;
+  BMVC's one note an institution, without saying whose, 2608.29904), and `footnotetext`
+  notes that are direct children of the article and start with a marker.
 - Numbered lines after the names.
 - Lines led by symbols ("*Oregon State University †The Ohio State University", 2610.17605),
   when each one that is not noise names an institution: symbols mark notes too ("*Equal
@@ -59,6 +59,21 @@ not "simplify" a rule away without the page that made it.
   no institution nor country ("College Park", "Computer Engineering",
   "Telecommunications"; not a qualifier in brackets, "(Guangzhou)") tells it, and the
   block gives nothing rather than pieces.
+- Last of all, the affiliations a thanks note lists without a sentence around them
+  (AFF-11, version 10). IEEE conference classes, which IROS papers use, make the whole
+  note an affiliation ("Department of Computer Science, University of Freiburg,
+  Germany.", 2609.26325) or a numbered one each ("¹FZI Research Center for Information
+  Technology, 76131 Karlsruhe, Germany.", 2609.03677), or list numbered ones after other
+  sentences, their markers math LaTeXML printed as text ("$ˆ1$University of Southern
+  California, $ˆ2$Stanford University", a modifier circumflex, 2609.16443). A note
+  qualifies when none of its pieces reads as a sentence ("is", "was", "work", "done",
+  "now", "funded"…) or is a web domain ("jzlab.org", 2610.00751), and at least half of
+  them name an institution or end with a country: "UC San Diego" names none. Notes
+  LaTeXML types as funding or correspondence never do, "German Research Foundation"
+  notwithstanding. Last, so that it only fills a page that gave nothing: of the 166 thanks
+  notes of 401 cached pages (2026-10-17), it read those of these three papers, and the
+  domain. Their markers place nobody: thanks notes anchor no marker of the mapping, and
+  2609.03677's names carry 1 and 2.
 
 A source that only names authors leaves its turn to the next one: IEEE classes put the
 names in the affiliation macro and the affiliations in thanks notes.

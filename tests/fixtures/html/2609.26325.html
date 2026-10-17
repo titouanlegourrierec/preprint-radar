@@ -1,0 +1,17 @@
+<html><body><article class="ltx_document" data-front-matter="2">
+<h1 class="ltx_title ltx_font_bold ltx_title_document" style="font-size:173%;">Leveraging Vision-Based Point Cloud Map Priors for Camera-Based 3D Object Detection and Online Vectorized HD Mapping
+</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Markus Käppeler
+</span></span>
+<span class="ltx_author_before">   </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Rohit Mohan
+</span></span>
+<span class="ltx_author_before">   </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Abhinav Valada
+</span><span class="ltx_note ltx_note_frontmatter ltx_thanks_note ltx_role_thanks" id="id1"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup><span class="ltx_note_type">thanks: </span><span class="ltx_text" id="id1.1">Department of Computer Science, University of Freiburg, Germany.</span></span></span></span><span class="ltx_note ltx_note_frontmatter ltx_thanks_funding ltx_role_thanks" id="id2"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup><span class="ltx_note_type">thanks: </span><span class="ltx_text" id="id2.1">This work was funded by the European Union’s Horizon research innovation program grant No 101202228-HIDDEN and the German Research Foundation Emmy Noether Program grant number 468878300.</span></span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1"><span class="ltx_text" id="abstract1.1.1">Camera-based 3D object detection and online vectorized HD mapping provide compact scene representations for autonomous driving, but both depend on accurate metric geometry and remain limited by depth ambiguity. Over long-term deployment, observations from repeated traversals can be accumulated into persistent point cloud priors that provide geometric context beyond the current observations. Existing explicit point cloud prior approaches, however, rely on LiDAR-based map construction and therefore require expensive 3D ranging sensors. We propose a framework that constructs a static point cloud prior map from previous camera traversals using Pi3X and augments each point with DINOv3 features. At runtime, a local prior patch is retrieved using global localization, encoded with a sparse voxel backbone, and fused in bird’s-eye view (BEV) with lifted multi-view camera features. Task-specific sparse transformer heads then predict 3D objects and vectorized map elements from the fused representation. On Argoverse 2, the vision-based prior improves a strong baseline from 0.287 to 0.299 CDS and from 0.669 to 0.750 vectorized mapping mAP. Ablations show that semantic DINOv3 features are particularly important for vectorized mapping. These results demonstrate that vision-built geometric-semantic priors provide an effective form of long-term scene memory for camera-based perception, improving both tasks without LiDAR for prior-map construction or online inference.</span></p>
+</div>
+</article></body></html>

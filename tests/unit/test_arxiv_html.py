@@ -941,8 +941,58 @@ def _contact(text: str) -> str:
     return f'<span class="ltx_contact ltx_role_affiliation">{text}</span>'
 
 
-def _thanks(text: str) -> str:
-    return f'<span class="ltx_note ltx_role_thanks"><span class="ltx_note_content">{text}</span></span>'
+def _thanks(text: str, kind: str = "") -> str:
+    """A thanks note; ``kind`` is the type LaTeXML gives some ("funding", "correspondence")."""
+    classes = f"ltx_note ltx_thanks_{kind} ltx_role_thanks" if kind else "ltx_note ltx_role_thanks"
+    return f'<span class="{classes}"><span class="ltx_note_content">{text}</span></span>'
+
+
+def test_a_thanks_note_that_only_names_an_affiliation_is_the_papers() -> None:
+    # IEEE conference classes, as IROS papers write them (2609.26325, AFF-11).
+    authors = ("Ada Lovelace", "Bob Smith")
+    html = (
+        _author_block(*((name, ()) for name in authors))
+        + _thanks("Department of Computer Science, University of Freiburg, Germany.", "note")
+        + _thanks("German Research Foundation, Emmy Noether Program.", "funding")
+    )
+
+    front = parse_front_matter(html, authors=authors)
+
+    assert front.affiliations == ("Department of Computer Science, University of Freiburg, Germany",)
+    assert front.author_affiliations == ((0,), (0,))
+
+
+def test_a_numbered_list_in_a_thanks_note_after_its_sentences() -> None:
+    # Markers LaTeXML printed as text, with a modifier circumflex (2609.16443).
+    html = _thanks(
+        "*Equal contribution. Work done while A. Doe was at USC. $\u02c61$University of Southern "
+        "California, $\u02c62$Stanford University, $^{3}$UC San Diego."
+    )
+
+    assert parse_front_matter(html).affiliations == (
+        "University of Southern California",
+        "Stanford University",
+        "UC San Diego",
+    )
+
+
+@pytest.mark.parametrize(
+    "note",
+    [
+        pytest.param("Now at Google Research.", id="sentence"),
+        pytest.param("jzlab.org", id="domain"),
+        pytest.param("$^1$Alpha, $^2$Beta, $^3$Gamma University", id="too-few-institutions"),
+        pytest.param(" . ", id="empty"),
+    ],
+)
+def test_a_thanks_note_that_lists_no_affiliation_gives_none(note: str) -> None:
+    assert parse_front_matter(_thanks(note)).affiliations == ()
+
+
+def test_a_listed_affiliation_is_the_last_source() -> None:
+    html = _author_block(("Ada Lovelace", ("MIT",))) + _thanks("University of Freiburg, Germany.")
+
+    assert parse_front_matter(html, authors=("Ada Lovelace",)).affiliations == ("MIT",)
 
 
 def test_thanks_sentences_on_one_line_end_before_the_next_initials() -> None:

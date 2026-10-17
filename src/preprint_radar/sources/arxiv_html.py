@@ -22,7 +22,7 @@ from preprint_radar.latex import plain_text
 
 logger = logging.getLogger(__name__)
 
-EXTRACTOR_VERSION = 9
+EXTRACTOR_VERSION = 10
 """Version of the extraction heuristics of this module, stored with the affiliations they give.
 
 Bump it with any change that alters what a page gives (affiliations, author mapping), so
@@ -60,6 +60,9 @@ that ``reextract`` reads those papers again, from the page cache when it holds t
   gives no pieces (2411.15633), symbols that follow their affiliations lead none
   (2505.11293) and one symbol's affiliation is never everyone's, markers after wide spaces
   split (2402.13251), and IEEE's template author is no affiliation.
+- 10: last, the affiliations a thanks note lists without a sentence around them, IEEE
+  conference classes' (2609.26325, 2609.03677), their numbered markers read where LaTeXML
+  printed their math as text (2609.16443) (AFF-11).
 """
 
 # LaTeXML renders line breaks and \quad between affiliations as newlines, em spaces
@@ -290,6 +293,23 @@ _AFFILIATION_NOTES = (
 _SYMBOL_LINE_RE = re.compile(
     rf"^\s*(?P<marker>[{re.escape(''.join(sorted(_SYMBOL_MARKERS)))}]+)" + _NUMBER_NAME, re.MULTILINE
 )
+
+# Thanks notes LaTeXML types as saying who funded the work, or whom to write to.
+_OTHER_THANKS = frozenset({"ltx_thanks_funding", "ltx_thanks_correspondence"})
+# A numbered marker LaTeXML printed as text, its math unparsed: "$^1$University of Southern
+# California, $^2$Stanford University" (2609.16443, whose ^ is U+02C6, the modifier letter
+# circumflex), "$^{2}$".
+_TEXT_MARKER_RE = re.compile(r"\$\s*[\^\u02c6]\s*\{?\s*(\d{1,2})\s*\}?\s*\$")
+# What a sentence of a thanks note says, and a list of affiliations does not: "Work done
+# while A was a visiting student", "This work was supported by the X Foundation", "Now at".
+_SENTENCE_WORD_RE = re.compile(
+    r"\b(?:is|are|was|were|be|been|has|have|had|work(?:ed|s)?|done|while|supported|funded"
+    r"|grants?|projects?|contribut\w*|correspond\w*|equal\w*|e-?mail|thanks?|acknowledg\w*"
+    r"|submitted|accepted|published|copyright|now)\b",
+    re.IGNORECASE,
+)
+# A web domain alone, whose "lab" is no laboratory: "jzlab.org" (2610.00751).
+_DOMAIN_RE = re.compile(r"[\w-]+(?:\.[\w-]+)+")
 
 type AuthorAffiliations = tuple[tuple[int, ...] | None, ...]
 """Per author, the indices of their affiliations; ``None`` when unknown for that author."""
@@ -532,7 +552,8 @@ def _affiliations(soup: BeautifulSoup, authors: Sequence[str]) -> tuple[tuple[st
     affiliations glued to a name), front-matter notes (from the LaTeX address, institute,
     affiliation and numbered footnotetext macros), numbered lines after the author names,
     lines led by symbols that each name an institution, "A is with B" sentences in thanks
-    notes, and last the lines of a block without markers that name an institution. The
+    notes, the lines of a block without markers that name an institution, and last the
+    affiliations a thanks note lists without a sentence (:func:`_listed_affiliations`). The
     first source that gives an affiliation is used; one that only names authors gives none:
     IEEE classes put the names in the affiliation macro and the affiliations in thanks
     notes. Affiliations are deduplicated case-insensitively.
@@ -545,7 +566,13 @@ def _affiliations(soup: BeautifulSoup, authors: Sequence[str]) -> tuple[tuple[st
         for note in article.find_all("span", class_="ltx_role_footnotetext", recursive=False)
         for segment in _footnote_affiliations(note)
     ]
-    thanks = [_note_text(note) for note in soup.select(".ltx_note.ltx_role_thanks")]
+    thanks_notes = soup.select(".ltx_note.ltx_role_thanks")
+    thanks = [_note_text(note) for note in thanks_notes]
+    listing = [
+        text
+        for note, text in zip(thanks_notes, thanks, strict=True)
+        if not _OTHER_THANKS & set(note.get_attribute_list("class"))
+    ]
 
     tagged: list[str] = []
     numbered: list[str] = []
@@ -571,6 +598,7 @@ def _affiliations(soup: BeautifulSoup, authors: Sequence[str]) -> tuple[tuple[st
         (symbols, True),
         (_stated_affiliations(thanks), False),
         (unmarked, unmarked_partial),
+        (_listed_affiliations(listing), False),
     )
     names_dropped = False
     for source, partial in sources:
@@ -830,6 +858,40 @@ def _stated_affiliations(notes: list[str]) -> list[str]:
             else:
                 text = line[match.end() :]
             affiliations.append(_NEXT_SENTENCE_RE.split(_CONTACT_TAIL_RE.sub("", text), maxsplit=1)[0])
+    return affiliations
+
+
+def _listed_affiliations(notes: list[str]) -> list[str]:
+    """The affiliations a thanks note lists without a sentence around them: the last source.
+
+    IEEE conference classes, which IROS papers use, put the affiliations in thanks notes:
+    as "A is with B" sentences (:func:`_stated_affiliations`), or alone, the whole note
+    ("Department of Computer Science, University of Freiburg, Germany.", 2609.26325), a
+    note each, numbered ("¹FZI Research Center for Information Technology, 76131
+    Karlsruhe, Germany.", 2609.03677), or a numbered list after other sentences, whose
+    markers LaTeXML printed as text ("$^1$University of Southern California, $^2$Stanford
+    University", 2609.16443). A note qualifies when none of its pieces reads as a sentence
+    or is a web domain, and at least half of them name an institution or end with a
+    country: "UC San Diego" names none. Notes on funding and correspondence never do.
+    Last, so that it only ever fills an empty page: of 166 thanks notes of 401 cached
+    pages (2026-10-17), it read the 4 of these 3 papers, and a domain.
+    """
+    affiliations: list[str] = []
+    for note in notes:
+        pieces = marked_pieces(" ".join(_TEXT_MARKER_RE.sub(r" \1", note).split()))
+        if len(pieces) > 1 and not pieces[0][:1].isdigit():
+            # The sentences before a numbered list.
+            pieces = pieces[1:]
+        pieces = [stripped for piece in pieces if (stripped := piece.strip(" ,;."))]
+        if not pieces or any(
+            _SENTENCE_WORD_RE.search(piece) or _DOMAIN_RE.fullmatch(piece) for piece in pieces
+        ):
+            continue
+        named = [
+            piece for piece in pieces if _INSTITUTION_WORD_RE.search(piece) or _ADDRESS_END_RE.search(piece)
+        ]
+        if 2 * len(named) >= len(pieces):
+            affiliations += pieces
     return affiliations
 
 

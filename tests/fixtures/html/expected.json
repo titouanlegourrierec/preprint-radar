@@ -2451,5 +2451,125 @@
       ]
     ],
     "abstract": "Practical remote sensing applications often require both understanding and generation capabilities for the same geographic scene. However, most existing methods address either understanding or generation in isolation, while existing unified remote sensing models’ generative ability is limited to text-to-image. To bridge this gap, we propose Omni-RS, a unified framework supporting four remote sensing understanding tasks and five generation tasks. Specifically, we introduce the “Scene-Guided Two-Stage Training” strategy, which first adapts a multimodal large language model to remote sensing understanding and then uses its hidden states to guide a diffusion transformer for image generation. To enable joint learning across diverse generation tasks, we construct UniGen, a unified multi-task generation dataset, by organizing heterogeneous remote sensing data into a unified format. Furthermore, we introduce “Detailed Visual Conditioning”, which uses visual conditions encoded by a VAE to guide the generation process, thereby supporting additional generation tasks that require reference images. Extensive experiments demonstrate that Omni-RS performs exceptionally well in understanding tasks and has achieved outstanding results in a variety of generative tasks."
+  },
+  "2608.29904": {
+    "authors": [
+      "Hai Nguyen-Truong",
+      "Tuan-Anh Vu",
+      "Dang Huynh"
+    ],
+    "affiliations": [
+      "Fulbright University Vietnam",
+      "University of California, Los Angeles"
+    ],
+    "placed": null,
+    "abstract": "Modern video generators routinely fail at physical dynamics — objects float, trajectories violate gravity, contacts vanish. Standard denoising and flow-matching objectives fit visual data distributions but do not explicitly penalize such physical violations. Existing remedies can improve physical consistency, but typically add substantial inference or training cost. Candidate-selection methods generate and score multiple videos, while gradient-based world-model guidance repeatedly decodes and re-encodes intermediate estimates. Generator-internal refinement adds perturbation and re-denoising loops, whereas post-training requires curated data and additional optimization. We propose Off-Manifold Refinement (OMR), an inference-time method that instead injects world-model feedback directly into a single sampling trajectory. During scheduled middle ODE steps, we augment the generator velocity with the gradient of an adapter-space V-JEPA 2.1 surprise energy. This external correction can move the latent away from the uncorrected sampling trajectory and toward regions ranked as more physically plausible by the frozen predictor, after which the generator continues rendering from the corrected state. A small trained latent-to-embedding adapter keeps the gradient tractable at inference, and both the video generator and the world model remain frozen. On our fixed 400-prompt VideoPhy-2 detailed subset, OMR lifts the joint Semantic-Adherence-and-Physical-Commonsense metric from 47.0% to 52.0% (+5.0pp absolute, +10.6% relative) over the base Wan2.2-T2V-A14B sampler. On a separate fixed 50-prompt efficiency subset, it requires 1.71× the base runtime rather than the multiplicative cost of reward/search alternatives. Project Page: https://itruonghai.github.io/omr."
+  },
+  "2609.07884": {
+    "authors": [
+      "Shangzhe Di",
+      "Zhaokai Wang",
+      "Weidi Xie"
+    ],
+    "affiliations": [
+      "Shanghai Jiao Tong University, China"
+    ],
+    "placed": [
+      [
+        "Shangzhe Di",
+        [
+          "Shanghai Jiao Tong University, China"
+        ]
+      ],
+      [
+        "Zhaokai Wang",
+        [
+          "Shanghai Jiao Tong University, China"
+        ]
+      ],
+      [
+        "Weidi Xie",
+        [
+          "Shanghai Jiao Tong University, China"
+        ]
+      ]
+    ],
+    "abstract": "Recent work, such as Vision Banana, shows that lightweight instruction tuning can enable an image generator to achieve state-of-the-art performance across multiple visual perception tasks. Motivated by this perspective, we ask how far image generators can go on public visual perception benchmarks in a zero-shot setting. We introduce ProbeGen, a benchmark for zero-shot generative perception that casts monocular depth estimation, referring/reasoning segmentation, and object counting as conditional generation tasks specified through text prompts, and compares 20 models in total—including proprietary and open-weight image generators, specialist perception models, and MLLMs—across 11 published benchmarks. We observe that pretrained image generators show measurable zero-shot perceptual competence, but with a clear trade-off: specialist models remain stronger for in-distribution accuracy and efficiency, while generative models are often more robust under distribution shift and better at compositional semantic reasoning. We hope this study helps establish zero-shot generative perception as a meaningful research direction and provides a useful foundation for future work at the intersection of visual generation and understanding."
+  },
+  "2609.03677": {
+    "authors": [
+      "Julian Truetsch",
+      "Felix Hauser",
+      "Christoph Stiller",
+      "Frank Bieder"
+    ],
+    "affiliations": [
+      "FZI Research Center for Information Technology, 76131 Karlsruhe, Germany",
+      "Karlsruhe Institute of Technology (KIT), 76131 Karlsruhe, Germany"
+    ],
+    "placed": null,
+    "abstract": "Understanding the composition of large-scale autonomous driving datasets is essential for safety, robustness, and reliable operation across domains. For example, domain shift between locations could lead to the operating environment being misaligned with the training data, resulting in potentially dangerous performance degradation. Yet, existing data analysis pipelines largely rely on metadata, predefined labels, or manual inspection, which provide limited semantic insight or do not scale. This paper studies set difference captioning: given two subsets of images, the goal is to produce a natural-language hypothesis describing differences between the target and reference set. Building on a two-stage formulation, we adapt the method to autonomous driving by focusing on object-centric patches derived from object detection, which simplifies aggregation and enables attribution of differences to specific object instances or categories. To evaluate this setting in-domain, we introduce a new benchmark, AD-Diff Bench. Low-concentration experiments assess the suitability of set-difference-captioning approaches to sparse, real-world differences. We restrict our experiments to open-weight models to support reproducibility and ease of deployment. The proposed benchmark and analysis provide a step towards practical, human-interpretable dataset introspection for autonomous driving datasets. Our implementation and benchmark dataset are available at https://github.com/KIT-MRT/AD-Diff"
+  },
+  "2609.16443": {
+    "authors": [
+      "Ziyu Chen",
+      "Henghui Bao",
+      "Haoran Chang",
+      "Alan Yu",
+      "Ran Choi",
+      "Kai McClennen",
+      "Gio Huh",
+      "Kevin Yang",
+      "Ri-Zhao Qiu",
+      "Yajvan Ravan",
+      "John J. Leonard",
+      "Xiaolong Wang",
+      "Phillip Isola",
+      "Ge Yang",
+      "Yue Wang"
+    ],
+    "affiliations": [
+      "University of Southern California",
+      "Stanford University",
+      "UC San Diego",
+      "Massachusetts Institute of Technology",
+      "FortyFive Labs",
+      "UC Los Angeles",
+      "California Institute of Technology",
+      "Harvard University"
+    ],
+    "placed": null,
+    "abstract": "State-of-the-art visual locomotion controllers are increasingly capable at handling complex visual environments, making evaluating their real-world performance before deployment increasingly difficult. This work intends to narrow this train/evaluation gap by developing a collection of hyper-photo-realistic, closed-loop evaluation environments – The Neverwhere Benchmark Suite – comprised of over sixty 3D Gaussian Splatting reconstructions of urban indoor and outdoor scenes. Our goal is to encourage large-scale and reproducible robot evaluation by making it easier to create and integrate Gaussian splats-based reconstructions into simulated continuous testing setups. We also underscore the potential pitfalls of relying exclusively on 3D Gaussian-generated data for training, by providing policy checkpoints trained over multiple Neverwhere scenes and their performance when evaluated in novel scenes. Our analysis illustrates the necessity of sourcing diverse data to ensure performance. Code and data are available on the project page: https://ziyc.github.io/neverwhere-bench/."
+  },
+  "2609.26325": {
+    "authors": [
+      "Markus Käppeler",
+      "Rohit Mohan",
+      "Abhinav Valada"
+    ],
+    "affiliations": [
+      "Department of Computer Science, University of Freiburg, Germany"
+    ],
+    "placed": [
+      [
+        "Markus Käppeler",
+        [
+          "Department of Computer Science, University of Freiburg, Germany"
+        ]
+      ],
+      [
+        "Rohit Mohan",
+        [
+          "Department of Computer Science, University of Freiburg, Germany"
+        ]
+      ],
+      [
+        "Abhinav Valada",
+        [
+          "Department of Computer Science, University of Freiburg, Germany"
+        ]
+      ]
+    ],
+    "abstract": "Camera-based 3D object detection and online vectorized HD mapping provide compact scene representations for autonomous driving, but both depend on accurate metric geometry and remain limited by depth ambiguity. Over long-term deployment, observations from repeated traversals can be accumulated into persistent point cloud priors that provide geometric context beyond the current observations. Existing explicit point cloud prior approaches, however, rely on LiDAR-based map construction and therefore require expensive 3D ranging sensors. We propose a framework that constructs a static point cloud prior map from previous camera traversals using Pi3X and augments each point with DINOv3 features. At runtime, a local prior patch is retrieved using global localization, encoded with a sparse voxel backbone, and fused in bird’s-eye view (BEV) with lifted multi-view camera features. Task-specific sparse transformer heads then predict 3D objects and vectorized map elements from the fused representation. On Argoverse 2, the vision-based prior improves a strong baseline from 0.287 to 0.299 CDS and from 0.669 to 0.750 vectorized mapping mAP. Ablations show that semantic DINOv3 features are particularly important for vectorized mapping. These results demonstrate that vision-built geometric-semantic priors provide an effective form of long-term scene memory for camera-based perception, improving both tasks without LiDAR for prior-map construction or online inference."
   }
 }

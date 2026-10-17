@@ -1,0 +1,34 @@
+<html><body><article class="ltx_document" data-front-matter="2">
+<h1 class="ltx_title ltx_title_document">Understanding Autonomous Driving Datasets by Describing Differences between Image Subsets in Natural Language</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Julian Truetsch<sup class="ltx_sup" id="id1">1</sup><sup class="ltx_sup" id="id2">2</sup>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Felix Hauser<sup class="ltx_sup" id="id3">1</sup><sup class="ltx_sup" id="id4">2</sup>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Christoph Stiller<sup class="ltx_sup" id="id5">2</sup>
+</span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">and Frank Bieder<sup class="ltx_sup" id="id6">1</sup><sup class="ltx_sup" id="id7">2</sup>
+</span><span class="ltx_note ltx_note_frontmatter ltx_thanks_note ltx_role_thanks" id="id8"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup><span class="ltx_note_type">thanks: </span><sup class="ltx_sup" id="id8.1">1</sup>FZI Research Center for Information Technology, 76131 Karlsruhe, Germany.</span></span></span><span class="ltx_note ltx_note_frontmatter ltx_thanks_note ltx_role_thanks" id="id9"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup><span class="ltx_note_type">thanks: </span><sup class="ltx_sup" id="id9.1">2</sup>Karlsruhe Institute of Technology (KIT), 76131 Karlsruhe, Germany.</span></span></span><span class="ltx_note ltx_note_frontmatter ltx_thanks_correspondence ltx_role_thanks" id="id10"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup><span class="ltx_note_type">thanks: </span>Corresponding author: Julian Truetsch (e-mail: author@example.org).</span></span></span><span class="ltx_note ltx_note_frontmatter ltx_thanks_funding ltx_role_thanks" id="id11"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup><span class="ltx_note_type">thanks: </span>The research leading to these results is funded by the German Federal Ministry for Economic Affairs and Energy within the projects jbDATA and nxtAIM.
+We acknowledge support by the Karlsruhe School of Optics˜&amp; Photonics (KSOP) and the Ministry of Science, Research and Arts of Baden-Württemberg as part of the sustainability financing of the projects of the Excellence Initiative˜II.
+The authors gratefully acknowledge the computing time provided on the high-performance computer HoreKa by the National High-Performance Computing Center at KIT (NHR@KIT). This center is jointly supported by the Federal Ministry of Education and Research and the Ministry of Science, Research and Arts of Baden-Württemberg, as part of the <a class="ltx_ref ltx_href" href="https://www.nhr-verein.de/en/our-partners" title="">National High-Performance Computing (NHR) joint funding program</a>. HoreKa is partly funded by the German Research Foundation (DFG).</span></span></span><span class="ltx_note ltx_note_frontmatter ltx_thanks_funding ltx_role_thanks" id="id12"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup><span class="ltx_note_type">thanks: </span>This work has been submitted to the IEEE for possible publication. Copyright may be transferred without notice, after which this version may no longer be accessible.</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Understanding the composition of large-scale autonomous driving datasets is essential for safety, robustness, and reliable operation across domains.
+For example, domain shift between locations could lead to the operating environment being misaligned with the training data, resulting in potentially dangerous performance degradation.
+Yet, existing data analysis pipelines largely rely on metadata, predefined labels, or manual inspection, which provide limited semantic insight or do not scale.
+This paper studies <em class="ltx_emph ltx_font_italic" id="abstract1.1.1">set difference captioning</em>: given two subsets of images, the goal is to produce a natural-language hypothesis describing differences between the target and reference set.
+Building on a two-stage formulation, we adapt the method to autonomous driving by focusing on object-centric patches derived from object detection, which simplifies aggregation and enables attribution of differences to specific object instances or categories.
+To evaluate this setting in-domain, we introduce a new benchmark, AD-Diff Bench.
+Low-<em class="ltx_emph ltx_font_italic" id="abstract1.1.2">concentration</em> experiments assess the suitability of set-difference-captioning approaches to sparse, real-world differences.
+We restrict our experiments to open-weight models to support reproducibility and ease of deployment.
+The proposed benchmark and analysis provide a step towards practical, human-interpretable dataset introspection for autonomous driving datasets.
+Our implementation and benchmark dataset are available at <a class="ltx_ref ltx_url ltx_font_typewriter" href="https://github.com/KIT-MRT/AD-Diff" title="">https://github.com/KIT-MRT/AD-Diff</a></p>
+</div>
+<div class="ltx_keywords">
+<h6 class="ltx_title ltx_title_keywords">Index Terms: </h6>autonomous driving, benchmark, dataset introspection, domain shift, set difference captioning, vision language model
+
+</div>
+</article></body></html>

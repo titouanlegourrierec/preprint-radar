@@ -25,6 +25,17 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   its identifier's month, not by the day it was announced. A tooltip says so, on its card
   and in the graph's details (META-5).
 
+### Data
+
+- Extraction version 10 reads, last, the affiliations a thanks note lists without a
+  sentence around them, as IEEE conference classes write them: the whole note
+  ("Department of Computer Science, University of Freiburg, Germany."), a numbered one
+  each, or a numbered list after other sentences, markers LaTeXML left as text
+  (`$ˆ1$University of Southern California`). Of the six IROS papers of the day files
+  without affiliations, two have them now; three have none on their page. BMVC's papers,
+  92% without affiliations on 2026-10-11, have them since version 8, but one without a
+  page; two of their pages and two of IROS's are fixtures now (AFF-11).
+
 ### Documentation
 
 - The README is shorter: what the site does in six lines, where the data comes from, how
