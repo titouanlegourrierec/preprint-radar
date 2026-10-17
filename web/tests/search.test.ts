@@ -8,6 +8,7 @@ import {
   byGains,
   byStars,
   exactly,
+  hasSearchWords,
   matchesFilters,
   NO_FILTERS,
   nameHighlights,
@@ -62,7 +63,39 @@ describe("parseQuery", () => {
       text: "gaussian splats",
       phrases: ["novel view"],
       excluded: ["survey"],
+      either: [],
     });
+  });
+
+  it("joins the words and phrases on each side of an uppercase OR (SRCH-6)", () => {
+    const word = (text: string, typing = false) => ({ text, phrase: false, typing });
+    const phrase = (text: string) => ({ text, phrase: true, typing: false });
+
+    expect(parseQuery('video nerf OR "Gaussian Splatting" OR gan')).toEqual({
+      text: "video",
+      phrases: [],
+      excluded: [],
+      either: [[word("nerf"), phrase("gaussian splatting"), word("gan", true)]],
+    });
+    // OR binds the word next to it: quotes make several words one alternative.
+    expect(parseQuery("nerf OR gaussian splatting").either).toEqual([
+      [word("nerf"), word("gaussian")],
+    ]);
+    expect(parseQuery("nerf OR gaussian splatting").text).toBe("splatting");
+    expect(parseQuery("a OR b c OR d").either).toHaveLength(2);
+  });
+
+  it("reads a lowercase or, and an OR with nothing to join, as words", () => {
+    expect(parseQuery("nerf or gan")).toMatchObject({ text: "nerf or gan", either: [] });
+    expect(parseQuery("OR nerf OR")).toMatchObject({ text: "nerf", either: [] });
+    // An exclusion stands alone.
+    expect(parseQuery("nerf -survey OR gan")).toMatchObject({
+      text: "nerf gan",
+      excluded: ["survey"],
+      either: [],
+    });
+    expect(hasSearchWords(parseQuery('"novel view"'))).toBe(false);
+    expect(hasSearchWords(parseQuery("nerf OR gan"))).toBe(true);
   });
 });
 
@@ -112,6 +145,34 @@ describe("PaperIndex", () => {
   it("supports phrases and exclusions", () => {
     expect(ids('"novel view synthesis"').sort()).toEqual(["2609.00001", "2609.00003"]);
     expect(ids('"novel view synthesis" -grasping')).toEqual(["2609.00001"]);
+  });
+
+  it("finds the papers holding either side of an OR (SRCH-6)", () => {
+    expect(ids("grasping OR compression").sort()).toEqual(["2609.00001", "2609.00003"]);
+    // The rest of the query still holds: video, and diffusion or grasping.
+    expect(ids("video diffusion OR grasping")).toEqual(["2609.00002"]);
+    // Lowercase, it is a stop word: both words are needed, as before.
+    expect(ids("grasping or compression")).toEqual([]);
+    // A phrase is one alternative, held whole: these words apart do not count.
+    expect(ids('"view synthesis" OR diffusion').sort()).toEqual([
+      "2609.00001",
+      "2609.00002",
+      "2609.00003",
+    ]);
+    expect(ids('"synthesis view" OR diffusion')).toEqual(["2609.00002"]);
+    expect(ids('"synthesis view" OR "video generation"')).toEqual(["2609.00002"]);
+    // Only the word being typed is a prefix, here the last alternative.
+    expect(ids("grasping OR splat").sort()).toEqual(["2609.00001", "2609.00003"]);
+    expect(ids("splat OR grasping")).toEqual(["2609.00003"]);
+    expect(ids("grasping OR splat video")).toEqual([]);
+    // Stop words alone on a side leave the other one.
+    expect(ids("the OR grasping")).toEqual(["2609.00003"]);
+    expect(ids("the OR of")).toHaveLength(3);
+  });
+
+  it("highlights each side of an OR as it matched", () => {
+    const [hit] = index.search('robot OR "novel view" OR compre', NO_FILTERS, "relevance");
+    expect(hit?.highlights).toEqual([wholeWord("robot"), "novel view", "compre"]);
   });
 
   it("searches venues", () => {

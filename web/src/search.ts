@@ -1,4 +1,4 @@
-import MiniSearch, { type SearchResult as MiniSearchResult, type Options } from "minisearch";
+import MiniSearch, { type Options, type Query } from "minisearch";
 import { codeUrl } from "./code";
 import { subjectCode } from "./format";
 import { wholeWord, wordStarts } from "./highlight";
@@ -60,6 +60,14 @@ export const NO_FILTERS: SearchFilters = {
   venue: null,
 };
 
+/** One side of an `OR` (SRCH-6): a word, as typed, or a `"phrase"`, as its {@link searchKey}. */
+export interface Alternative {
+  text: string;
+  phrase: boolean;
+  /** The last word typed, which the search takes as a prefix, as it does the last of `text`. */
+  typing: boolean;
+}
+
 export interface ParsedQuery {
   /** Free text, matched with prefix and fuzzy search. */
   text: string;
@@ -70,6 +78,13 @@ export interface ParsedQuery {
   phrases: string[];
   /** `-words`: no word of any searched field may start with them. */
   excluded: string[];
+  /**
+   * Words and phrases an uppercase `OR` joins (SRCH-6): a paper holds one of each group's
+   * alternatives, and all of the rest. `OR` joins the word or phrase on each side, so that
+   * `nerf OR gaussian splatting` is nerf or gaussian, and splatting: quotes make several
+   * words one alternative (`nerf OR "gaussian splatting"`).
+   */
+  either: Alternative[][];
 }
 
 export interface SearchResult {
@@ -136,23 +151,108 @@ function adjacentPatterns(text: string): RegExp[] {
     return new RegExp(`(?<![\\p{L}\\p{N}])${piece}${prefix ? "" : "(?![\\p{L}\\p{N}])"}`, "u");
   });
 }
+// A `"phrase"`, else a word; a quote left unclosed is not part of any.
+const QUERY_TOKEN_RE = /"([^"]+)"|[^\s"]+/g;
+
 export function parseQuery(raw: string): ParsedQuery {
-  const phrases: string[] = [];
   const excluded: string[] = [];
-  const text = raw
-    .replace(/"([^"]+)"/g, (_, phrase: string) => {
-      const key = searchKey(phrase);
-      if (key) phrases.push(key);
-      return " ";
-    })
-    .replace(/(^|\s)-(\S+)/g, (_, space: string, word: string) => {
-      const key = searchKey(word);
+  // Each word or phrase, with those an `OR` joins to it.
+  const units: Alternative[][] = [];
+  let typing: Alternative | null = null;
+  // Whether the token before was a word or a phrase, and whether an `OR` follows it.
+  let afterTerm = false;
+  let joining = false;
+  for (const [token, quoted] of raw.matchAll(QUERY_TOKEN_RE)) {
+    if (token === "OR") {
+      joining = afterTerm;
+      afterTerm = false;
+      continue;
+    }
+    if (quoted === undefined && token.length > 1 && token.startsWith("-")) {
+      const key = searchKey(token.slice(1));
       if (key) excluded.push(key);
-      return space;
-    })
-    .replace(/\s+/g, " ")
-    .trim();
-  return { text, phrases, excluded };
+      afterTerm = joining = false;
+      continue;
+    }
+    const text = quoted === undefined ? token : searchKey(quoted);
+    if (!text) continue;
+    const alternative = { text, phrase: quoted !== undefined, typing: false };
+    if (!alternative.phrase) typing = alternative;
+    const last = units.at(-1);
+    if (joining && last) last.push(alternative);
+    else units.push([alternative]);
+    afterTerm = true;
+    joining = false;
+  }
+  const either = units.filter((unit) => unit.length > 1);
+  if (typing && either.some((group) => group.includes(typing))) typing.typing = true;
+  const alone = units.flatMap((unit) => (unit.length === 1 ? unit : []));
+  return {
+    text: alone.flatMap(({ text, phrase }) => (phrase ? [] : [text])).join(" "),
+    phrases: alone.flatMap(({ text, phrase }) => (phrase ? [text] : [])),
+    excluded,
+    either,
+  };
+}
+
+/** Whether a query has words to rank papers by: free text, or alternatives (SRCH-6). */
+export function hasSearchWords(query: ParsedQuery): boolean {
+  return query.text !== "" || query.either.length > 0;
+}
+
+/** The words of a text the index holds: folded, without stop words. */
+function termsOf(text: string): string[] {
+  return tokenize(text)
+    .map(processTerm)
+    .filter((term): term is string => Boolean(term));
+}
+
+/**
+ * What the index is asked (SRCH-6): every word of the free text, and one alternative of
+ * each group, the words of each all (a phrase's whole, its order checked afterwards, by
+ * {@link holdsEither}). Only the word being typed is a prefix. `null` without a word the
+ * index holds: stop words alone search nothing.
+ */
+function queryTree(query: ParsedQuery): Query | null {
+  const typing = query.either.some((group) => group.some((alternative) => alternative.typing));
+  const queries: Query[] = [];
+  if (termsOf(query.text).length > 0) {
+    queries.push(
+      typing ? { combineWith: "AND", prefix: false, queries: [query.text] } : query.text,
+    );
+  }
+  for (const group of query.either) {
+    const alternatives: Query[] = group
+      .filter((alternative) => termsOf(alternative.text).length > 0)
+      .map((alternative) => ({
+        combineWith: "AND",
+        queries: [alternative.text],
+        ...(alternative.phrase ? { prefix: false, fuzzy: false } : {}),
+        ...(alternative.typing ? {} : { prefix: false }),
+      }));
+    if (alternatives.length > 0) queries.push({ combineWith: "OR", queries: alternatives });
+  }
+  return queries.length > 0 ? { combineWith: "AND", queries } : null;
+}
+
+/**
+ * The words to highlight, as the search matched them: whole, but for the word being typed,
+ * a prefix. Not what a typo allowance matched ("depth" does not mark "death"), nor longer
+ * words for an acronym ("vit" does not mark "vitamins"). Phrases are marked apart.
+ */
+function highlightTerms(query: ParsedQuery): string[] {
+  const alternatives = query.either.flat();
+  const typing = alternatives.some((alternative) => alternative.typing);
+  const marked = (text: string, prefix: boolean) =>
+    termsOf(text).map((term, index, terms) =>
+      prefix && isPrefix(term, index, terms) ? term : wholeWord(term),
+    );
+  return [
+    ...marked(query.text, !typing),
+    ...alternatives.flatMap((alternative) =>
+      alternative.phrase ? [alternative.text] : marked(alternative.text, alternative.typing),
+    ),
+  ];
 }
 
 function processTerm(term: string): string | null {
@@ -299,13 +399,6 @@ export class PaperIndex {
 
   search(rawQuery: string, filters: SearchFilters, sort: SortOrder): SearchResult[] {
     const query = parseQuery(rawQuery);
-    // The words typed are highlighted as the search matched them, whole or, for the last
-    // one, as a prefix: not what a typo allowance matched ("depth" does not mark "death"),
-    // nor longer words for an acronym ("vit" does not mark "vitamins").
-    const typedTerms = tokenize(query.text)
-      .map(processTerm)
-      .filter((term): term is string => Boolean(term))
-      .map((term, index, terms) => (isPrefix(term, index, terms) ? term : wholeWord(term)));
     // A pasted arXiv identifier or link means that paper, whatever the filters.
     const arxivId = arxivIdOf(rawQuery);
     if (arxivId !== null) {
@@ -313,10 +406,17 @@ export class PaperIndex {
       return paper ? [{ paper, score: 0, highlights: [] }] : [];
     }
     // Stop words alone ("the", "on" while typing "on-device") search nothing: every paper.
-    const results = typedTerms.length
+    const tree = queryTree(query);
+    const highlights = highlightTerms(query);
+    const results = tree
       ? this.complete()
-          .search(query.text)
-          .flatMap((hit) => this.toResult(hit, typedTerms))
+          .search(tree)
+          .flatMap((hit) => {
+            const paper = this.papers.get(String(hit.id));
+            return paper && this.holdsEither(paper, query.either, hit.queryTerms)
+              ? [{ paper, score: hit.score, highlights: [...highlights] }]
+              : [];
+          })
       : [...this.papers.values()].map((paper) => ({ paper, score: 0, highlights: [] }));
 
     const filtered = results.filter(
@@ -328,7 +428,7 @@ export class PaperIndex {
       result.highlights.push(...query.phrases);
     }
     // Only Newest ignores the match: Most cited and Rising keep it among equal counts.
-    if (sort === "newest" || typedTerms.length === 0) return filtered.sort(newestFirst);
+    if (sort === "newest" || tree === null) return filtered.sort(newestFirst);
     const pieces = adjacentPatterns(query.text);
     if (pieces.length > 0) {
       for (const result of filtered) {
@@ -370,9 +470,21 @@ export class PaperIndex {
     );
   }
 
-  private toResult(hit: MiniSearchResult, typedTerms: readonly string[]): SearchResult[] {
-    const paper = this.papers.get(String(hit.id));
-    return paper ? [{ paper, score: hit.score, highlights: [...typedTerms] }] : [];
+  /**
+   * Whether a paper the index found holds an alternative of each group of the query
+   * (SRCH-6): the index matched a phrase's words anywhere, so a group with a phrase is
+   * checked here, the phrase whole (`matched`: the words the index matched).
+   */
+  private holdsEither(paper: Paper, either: Alternative[][], matched: readonly string[]): boolean {
+    return either.every(
+      (group) =>
+        !group.some((alternative) => alternative.phrase) ||
+        group.some((alternative) =>
+          alternative.phrase
+            ? this.constraintsOf(paper).includes(` ${alternative.text} `)
+            : termsOf(alternative.text).every((term) => matched.includes(term)),
+        ),
+    );
   }
 }
 

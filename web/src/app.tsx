@@ -57,6 +57,7 @@ import {
   byGains,
   byStars,
   exactly,
+  hasSearchWords,
   mostlyTied,
   NO_FILTERS,
   nameHighlights,
@@ -95,7 +96,8 @@ function SearchHint() {
     <>
       Searches titles, abstracts, authors, affiliations, venues and comments, or an arXiv id.{" "}
       <code>"neural radiance field"</code> in quotes finds that exact phrase; <code>-survey</code>{" "}
-      leaves out the papers that contain the word.
+      leaves out the papers that contain the word; <code>nerf OR "gaussian splatting"</code> finds
+      either.
     </>
   );
 }
@@ -247,7 +249,7 @@ export function App() {
     document.title = label ? `${label} · Preprint Radar` : "Preprint Radar";
   }, [focusedTitle, query, state.view]);
 
-  const hasSearchWords = parseQuery(query).text !== "";
+  const searchWords = hasSearchWords(parseQuery(query));
   // Rising papers, once two weekly refreshes of the counts are known (CIT-9).
   const gainsSpan = citations.gainsSpan;
   // The stars of the code the papers link, once the weekly refresh gave some (PROD-18).
@@ -256,7 +258,11 @@ export function App() {
     [activeIndex],
   );
   // What this view shows and offers (`view-model.ts`, DEBT-2).
-  const model = viewModel(state, { hasSearchWords, gainsKnown: gainsSpan !== null, starsKnown });
+  const model = viewModel(state, {
+    hasSearchWords: searchWords,
+    gainsKnown: gainsSpan !== null,
+    starsKnown,
+  });
   const { triaged, byCount, rising, starred, groupByDay } = model;
   const hiding = triaged && triage.hideSeen && triage.seen.size > 0;
   // In three steps, each redone only when what it reads changes (UX-23): marking a paper

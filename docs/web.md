@@ -29,6 +29,14 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
 - `"phrases"` match whole words and `-exclusions` word starts, over every searched field
   as one `searchKey` text per paper, so punctuation and hyphens do not count. A pasted
   arXiv identifier or link means that paper; stop words alone keep every paper.
+- An uppercase `OR` joins the word or phrase on each side (SRCH-6): `nerf OR "gaussian
+  splatting"` finds either, `video nerf OR gan` video, and nerf or gan; a lowercase "or" is
+  a stop word, an `OR` with nothing to join is nothing, and an exclusion stands alone.
+  `parseQuery` groups the alternatives (`either`), `queryTree` asks MiniSearch a tree:
+  all of the free words, one alternative of each group (a phrase's words all, its order
+  checked afterwards by `holdsEither`). Only the word being typed is a prefix, an
+  alternative or the last free word. No field prefixes (`title:`): the recommendation of
+  2026-10-17 kept to `OR`.
 - Relevance favors the papers that hold a query's words side by side (SRCH-18,
   `adjacentPieces`): each two words that follow each other in the query, with the stop
   words between them and the last one as a prefix ("text to image", "image generation"),

@@ -8,6 +8,12 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ## Unreleased
 
+### Search
+
+- An uppercase `OR` finds either side: `nerf OR "gaussian splatting"`, where a lowercase
+  "or" is still a word to ignore. `OR` joins the word or phrase on each side, so that
+  `video nerf OR gan` is video, and nerf or gan; the search field's ⓘ says so (SRCH-6).
+
 ### Interface
 
 - One tagline everywhere, the site's description, the card of a shared link, the home
