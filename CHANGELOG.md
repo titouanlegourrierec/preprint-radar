@@ -15,6 +15,12 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   into the site's index, and the site asks for the file with it, so that a changed file
   has a new address and an unchanged one stays in the cache (PERF-8).
 
+### Performance
+
+- The first page loads 8% less: About, Rankings' tables, the reading list's folders and
+  the notice of a shared folder download when first shown, as the graph and the map do
+  (67.2 kB gzipped instead of 72.7, of a budget of 75).
+
 ### Search
 
 - An uppercase `OR` finds either side: `nerf OR "gaussian splatting"`, where a lowercase

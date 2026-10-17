@@ -1,18 +1,20 @@
+import type { ComponentProps } from "preact";
 import { useCallback, useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { ALL_YEARS, formatYears, LAST_12_MONTHS, publishedIn } from "./archive-years";
-import { About } from "./components/About";
 import { ErrorBoundary } from "./components/ErrorBoundary";
-import { Folders } from "./components/Folders";
+import type { Folders as FolderList } from "./components/Folders";
 import { InfoButton } from "./components/InfoButton";
 import { SearchIcon, StarIcon } from "./components/icons";
 import { LazyGraphView } from "./components/LazyGraphView";
 import { ListNotices, ViewNotes } from "./components/ListNotices";
+import { lazyView } from "./components/lazy-view";
 import { NoResults } from "./components/NoResults";
 import { PaperList } from "./components/PaperList";
-import { Rankings, RankingsControls } from "./components/Rankings";
+import type { Rankings as RankingsTables } from "./components/Rankings";
+import { RankingsControls } from "./components/RankingsControls";
 import { ResultsHeader } from "./components/ResultsHeader";
 import { SavedSearches } from "./components/SavedSearches";
-import { SharedNotice } from "./components/SharedNotice";
+import type { SharedNotice as SharedFolderNotice } from "./components/SharedNotice";
 import { Sidebar, SidebarToggle, WIDE_QUERY } from "./components/Sidebar";
 import { SiteFooter } from "./components/SiteFooter";
 import { Topbar } from "./components/Topbar";
@@ -89,6 +91,26 @@ const VIEW_TITLES: Record<ViewState["view"], string> = {
   about: "About",
 };
 const SUGGESTION_SIZE = 300;
+
+// What the papers' list never shows, downloaded when first shown (PERF-15): About, the
+// tables of Rankings with the graph's model they rank, the reading list's folders and the
+// notice of a shared one.
+const About = lazyView<object>("page", () =>
+  import("./components/About").then(({ About }) => About),
+);
+const Rankings = lazyView<ComponentProps<typeof RankingsTables>>("rankings", () =>
+  import("./components/Rankings").then(({ Rankings }) => Rankings),
+);
+const Folders = lazyView<ComponentProps<typeof FolderList>>(
+  "folders",
+  () => import("./components/Folders").then(({ Folders }) => Folders),
+  { quiet: true },
+);
+const SharedNotice = lazyView<ComponentProps<typeof SharedFolderNotice>>(
+  "shared folder",
+  () => import("./components/SharedNotice").then(({ SharedNotice }) => SharedNotice),
+  { quiet: true },
+);
 
 /** What the search finds, in the field's ⓘ and for screen readers. */
 function SearchHint() {

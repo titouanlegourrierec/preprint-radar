@@ -370,7 +370,13 @@ derives what only the site uses. The pipeline and `validate` never see these.
 - `landingBudget` (`tooling/landing.ts`) prints what `index.html` loads, gzipped ("Landing
   page: 55.4 kB gzipped of 75.0 kB"), and fails the build past `LANDING_BUDGET` (PERF-15):
   a dependency or a module the list does not need, imported eagerly. Only the whole site's
-  size was checked (`deploy.yml`).
+  size was checked (`deploy.yml`). What the papers' list never shows loads on demand,
+  each through `lazyView` (`components/lazy-view.tsx`: its chunk asked for once, a notice
+  meanwhile, Reload when it fails): the graph (PERF-13), the world map, and since
+  2026-10-17 About, Rankings' tables with the graph's model they rank (`rankings.ts`,
+  `graph.ts`; its controls, `RankingsControls.tsx`, stay in the header), the reading
+  list's folders and the notice of a shared one, both quiet while they load. The landing
+  page went from 72.7 kB to 67.2.
 - `contentSecurityPolicy` adds a Content-Security-Policy meta to `index.html`, right
   after its charset (GitHub Pages sends no headers): the site's own scripts, styles, data,
   images and graph worker only (the emoji favicon's `data:` image went with UX-48)
