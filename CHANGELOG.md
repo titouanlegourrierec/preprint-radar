@@ -8,6 +8,13 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ## Unreleased
 
+## 0.9.0 (2026-10-17): a new interface, folders shared by a link, and a world map
+
+The fourth set of features of Phase 4: the lists and the graph share one interface of
+cards and floating controls, under the site's logo; the reading list has folders, which a
+link shares; Rankings has a world map of where the papers come from, flat or as a globe;
+and the search ranks first the papers holding its words side by side.
+
 ### Search
 
 - Papers holding the search words side by side, as typed, rank first: each two words that
@@ -134,7 +141,6 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 - The page loads 18% less script: the graph, its renderer and panels download when the
   Graph tab first opens (49.9 kB gzipped instead of 60.8). The build prints what the
   landing page loads and fails past 75 kB gzipped (PERF-13, PERF-15).
-
 - ROR is asked only for affiliation strings it never answered: the 7,343 it named in the
   day files are reused (AFF-17).
 
@@ -150,31 +156,29 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 - "UCSD" written alone is the University of California San Diego as ROR writes it, without
   the comma that made it an institution of its own; `validate` warns of an acronym's
   institution that no institution with an id is called (TEST-9).
-
 - A day arXiv announced late is no longer missed when its cache serves the recent listing
   hours old, as on 2026-10-15: the listing is asked for without the cache, and a weekday
   it still lacks comes from that day's catchup page, with a warning `Listing out of date`
   (REL-12).
-
 - `update` catches up by itself after an outage longer than the five days the listing
   holds, or when papers are still pending on a day the listing dropped: it reads every day
   since from the catchup pages, within 30 days, with a warning `Catching up` (CI-7).
-
 - A link to a year the archive does not hold (`?year=2005`) names the year shown instead,
   in place, so that a shared link opens what was seen (SRCH-20).
-
 - A listing or catchup page whose entries lost their authors (more than 10%), or their
   HTML links (more than half), fails the run instead of storing papers without them: the
   arXiv layout changed (REL-7).
-
 - With several categories, one that fails no longer stops the others: `update`, `backfill`
   and `reextract` run the next ones and exit 1 (REL-5).
 
+### Dependencies
+
+- Preact 11 (from 10), Ruff 0.17 and the week's other updates Dependabot proposed.
+
 ### Security
 
-- The site has a Content-Security-Policy: its own scripts, styles, data and graph worker
-  only, and the favicon's `data:` image, so that the third-party text and links it renders
-  can never run a script. The theme is restored before first paint by a file rather than
+- The site has a Content-Security-Policy: its own scripts, styles, images, data and graph
+  worker only, so that the third-party text and links it renders can never run a script. The theme is restored before first paint by a file rather than
   an inline script (SEC-1).
 
 ## 0.8.0 (2026-10-15): months of search, and five more page layouts read
