@@ -371,7 +371,8 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     restores the page cache from the Actions cache (`front-matter-<run id>`, saved even
     after a failure), and the archive's catalog only to keep it from eviction (CI-10).
     Its manual *since* input runs `backfill` instead.
-  - `archive.yml` (dispatched Sundays 05:41 UTC): the archive, then `scholar` (20 minutes),
+  - `archive.yml` (dispatched Sundays 05:41 UTC; on Saturdays a catch-up when no run
+    succeeded since Sunday, CI-8): the archive, then `scholar` (20 minutes),
     then `archive-affiliations` (OpenAlex only, seconds), `countries` (seconds) and `code`
     (about 5 minutes, with the workflow's `GITHUB_TOKEN`).
   - `canary.yml` (Wednesdays): the network tests against the live arXiv (a red canary is a

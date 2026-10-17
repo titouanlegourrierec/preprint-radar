@@ -17,6 +17,9 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 - A refusal of Semantic Scholar that says how long to wait (`Retry-After`) is waited for as
   it asks, rather than by the wait doubling from 2 s, and the run's summary counts such
   refusals, so that the next runs tell whether it sends any (CIT-8).
+- When both Sunday runs of *Archive* fail, Saturday catches up while the counts they
+  fetched are still cached, instead of the next Sunday asking for all 207,000 again; it
+  stops at once after a successful Sunday (CI-8).
 
 ### Performance
 

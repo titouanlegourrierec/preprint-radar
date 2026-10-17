@@ -9,7 +9,7 @@ import shutil
 import subprocess
 from collections.abc import Callable, Mapping
 from dataclasses import dataclass
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 import pytest
@@ -66,11 +66,13 @@ def run_guard(tmp_path: Path) -> Callable[..., Guard]:
         fail: bool = False,
         payload: Mapping[str, object] | str | None = NOT_A_FORK,
         api_fork: str | None = "false",
+        days_back: str | None = None,
     ) -> Guard:
         """Run the guard for ``event``.
 
         ``payload`` is the event's payload (raw text if a string, no file if None), and
-        ``api_fork`` what the API says of the repository's ``fork`` (None: the call fails).
+        ``api_fork`` what the API says of the repository's ``fork`` (None: the call fails), and
+        ``days_back`` the script's second argument, if any.
         """
         assert BASH is not None
         env = {
@@ -94,7 +96,11 @@ def run_guard(tmp_path: Path) -> Callable[..., Guard]:
             env["GITHUB_EVENT_PATH"] = str(event_file)
         # A fixed script with fixed arguments.
         result = subprocess.run(  # noqa: S603
-            [BASH, str(SCRIPT), "update.yml"], env=env, capture_output=True, text=True, check=False
+            [BASH, str(SCRIPT), "update.yml", *([days_back] if days_back is not None else [])],
+            env=env,
+            capture_output=True,
+            text=True,
+            check=False,
         )
         lines = output.read_text(encoding="utf-8").splitlines()
         return Guard(
@@ -135,6 +141,23 @@ def test_a_scheduled_run_stops_after_a_successful_run_today(run_guard: Callable[
         ("--repo", "owner/preprint-radar"),
     ]:
         assert guard.gh_args[guard.gh_args.index(flag) + 1] == value
+
+
+@pytest.mark.parametrize(("prints", "run"), [("1", "false"), ("0", "true")], ids=["done", "not done"])
+def test_a_catch_up_stops_after_a_successful_run_of_the_last_days(
+    run_guard: Callable[..., Guard], prints: str, run: str
+) -> None:
+    # The archive's Saturday catch-up, back to Sunday (CI-8).
+    guard = run_guard("schedule", prints=prints, days_back="6")
+
+    assert guard.returncode == 0
+    assert guard.output == {"run": run}
+    sunday = (datetime.now(UTC) - timedelta(days=6)).date().isoformat()
+    assert guard.gh_args is not None
+    assert f">={sunday}" in guard.gh_args
+    assert (
+        f"::notice title=Already done this week::A run of update.yml succeeded since {sunday}" in guard.log
+    ) == (run == "false")
 
 
 def test_a_scheduled_run_goes_on_without_a_successful_run_today(run_guard: Callable[..., Guard]) -> None:

@@ -4,10 +4,13 @@
 # schedule is the fallback: a scheduled run stops once a run of the same workflow has
 # succeeded today (UTC). In a fork, every scheduled run stops: a fork that turns Actions on
 # must not crawl arXiv daily under its own name. Dispatched and manual runs always go on.
+# With a number of days, a scheduled run stops once a run succeeded since that many days
+# ago: the archive's Saturday catch-up, which runs only when no run succeeded since
+# Sunday (CI-8).
 #
-# Usage: skip-if-done.sh <workflow file>, with GH_TOKEN (actions: read), GITHUB_REPOSITORY,
-# GITHUB_EVENT_NAME and GITHUB_EVENT_PATH (all set by Actions). Writes run=true or
-# run=false to $GITHUB_OUTPUT.
+# Usage: skip-if-done.sh <workflow file> [days back, 0 by default: today], with GH_TOKEN
+# (actions: read), GITHUB_REPOSITORY, GITHUB_EVENT_NAME and GITHUB_EVENT_PATH (all set by
+# Actions). Writes run=true or run=false to $GITHUB_OUTPUT.
 set -euo pipefail
 
 # Whether this repository is a fork: from the event's payload, else from the API, in case a
@@ -23,19 +26,30 @@ is_fork() {
   [ "$fork" = true ]
 }
 
+# The UTC day that many days ago, by GNU date (the runners') or BSD date (macOS).
+days_ago() {
+  local epoch=$(($(date -u +%s) - $1 * 86400))
+  date -u -d "@$epoch" +%Y-%m-%d 2>/dev/null || date -u -r "$epoch" +%Y-%m-%d
+}
+
 workflow=$1
+back=${2:-0}
 run=true
 if [ "${GITHUB_EVENT_NAME:-}" = schedule ]; then
-  today=$(date -u +%Y-%m-%d)
+  since=$(days_ago "$back")
   if is_fork; then
     run=false
     echo "::notice title=Fork::$GITHUB_REPOSITORY is a fork, so this scheduled run stops; run $workflow by hand to collect data"
   # A skipped run concludes success too, but only ever after a run that did the work.
   elif done=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow "$workflow" \
-    --created ">=$today" --status success --limit 1 --json databaseId --jq length); then
+    --created ">=$since" --status success --limit 1 --json databaseId --jq length); then
     if [ "$done" -gt 0 ]; then
       run=false
-      echo "::notice title=Already done today::A run of $workflow succeeded today, so this scheduled run stops"
+      if [ "$back" -eq 0 ]; then
+        echo "::notice title=Already done today::A run of $workflow succeeded today, so this scheduled run stops"
+      else
+        echo "::notice title=Already done this week::A run of $workflow succeeded since $since, so this catch-up stops"
+      fi
     fi
   else
     # Without the run history, run: a second run only costs minutes.

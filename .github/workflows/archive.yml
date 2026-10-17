@@ -3,10 +3,13 @@ name: Archive
 # Weekly: keep the most cited papers older than 12 months, within a size budget (see
 # src/preprint_radar/archive/update.py). Sunday morning UTC: the daily update does not run then.
 # An outside scheduler dispatches it at 05:41 UTC; the schedule is the fallback, four hours
-# later, and stops when a run of the day already succeeded (see update.yml).
+# later, and stops when a run of the day already succeeded (see update.yml). When both fail,
+# Saturday catches up, while the counts they fetched are cached (7 days), and stops when a
+# run succeeded since Sunday (CI-8): a week later, everything would be asked for again.
 on:
   schedule:
     - cron: "41 9 * * 0"
+    - cron: "41 5 * * 6"
   workflow_dispatch:
     inputs:
       budget:
@@ -41,7 +44,9 @@ jobs:
       - id: check
         env:
           GH_TOKEN: ${{ github.token }}
-        run: bash .github/scripts/skip-if-done.sh archive.yml
+          # Saturday's catch-up looks back to Sunday; Sunday's fallback, at today.
+          DAYS_BACK: ${{ github.event.schedule == '41 5 * * 6' && '6' || '0' }}
+        run: bash .github/scripts/skip-if-done.sh archive.yml "$DAYS_BACK"
 
   archive:
     needs: guard

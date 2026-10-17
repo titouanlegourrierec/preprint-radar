@@ -30,7 +30,7 @@ schedules are fallbacks, four hours later (set each cron-job.org job's time zone
 | Workflow | Dispatched (UTC) | Fallback schedule (UTC) |
 |---|---|---|
 | *Update data* | Monday to Friday, 06:17 | 10:17 |
-| *Archive* | Sunday, 05:41 | 09:41 |
+| *Archive* | Sunday, 05:41 | 09:41, and Saturday 05:41 when no run succeeded since Sunday |
 
 Each cron-job.org job sends `POST
 https://api.github.com/repos/titouanlegourrierec/preprint-radar/actions/workflows/<file>/dispatches`
@@ -44,7 +44,10 @@ one into both jobs.
 A dispatched run always goes on. A scheduled one first runs the `guard` job
 (`.github/scripts/skip-if-done.sh`), which stops it once a run of the same workflow has
 succeeded that day (UTC), so a normal day has one run, and a failed or missing dispatch
-is retried by the fallback. In a fork, the guard stops every scheduled run (a notice
+is retried by the fallback. *Archive* has a third chance, Saturday's catch-up (CI-8),
+whose guard looks back to Sunday: when both Sunday runs failed, it runs while the counts
+they fetched are still cached (7 days), rather than the next Sunday asking for all of them
+again. In a fork, the guard stops every scheduled run (a notice
 `Fork`), so a fork that turns Actions on collects data only when its owner runs or
 dispatches a workflow; the *arXiv canary* skips its jobs on schedule when the event says
 the repository is a fork.
@@ -52,9 +55,9 @@ the repository is a fork.
 ### A scheduled run stopped at once
 
 **Signal.** A notice `Already done today` on a scheduled run, whose `update` or `archive`
-job is skipped.
+job is skipped, or `Already done this week` on a Saturday's *Archive*.
 
-The normal case: the dispatched run of the day succeeded. Nothing to do.
+The normal case: the dispatched run of the day succeeded, or Sunday's did. Nothing to do.
 
 ### A scheduled run did the work
 
@@ -295,7 +298,8 @@ the log `of citation counts: the archive and day files stay as they are`.
 Fewer than 95% of the candidates got a count, mostly because Semantic Scholar refused too
 many batches. The counts fetched are merged into `citations.json` (its date stays), the
 archive is left as it was, and the run is red. Run *Archive* again by hand: counts are
-cached for 7 days in `.cache/catalog/`, so it resumes where it stopped.
+cached for 7 days in `.cache/catalog/`, so it resumes where it stopped. Without you,
+Sunday's fallback tries again, then Saturday's catch-up.
 
 ## Catalog cache evicted
 
