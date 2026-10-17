@@ -58,6 +58,11 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   without affiliations, two have them now; three have none on their page. BMVC's papers,
   92% without affiliations on 2026-10-11, have them since version 8, but one without a
   page; two of their pages and two of IROS's are fixtures now (AFF-11).
+- Extraction version 11: an "is at" or "is with" of a thanks note gives an affiliation
+  only when what follows is a name ("This work is at the intersection of vision and
+  language" gave one, which every author then held), cut at its semicolons; one
+  affiliation such sentences give places only whom they name; and the numbered markers of
+  thanks notes place the authors that carry them (AFF-9).
 
 ### Documentation
 

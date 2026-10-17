@@ -1041,6 +1041,30 @@ def test_thanks_sentences_place_each_author_once() -> None:
     assert parse_front_matter(html, authors=authors).author_affiliations == ((0,), (0, 1))
 
 
+def test_a_sentence_that_names_no_place_states_no_affiliation() -> None:
+    # A thanks note's "is at" whatever follows (AFF-9).
+    html = _thanks("A. Doe is with MIT. This work is at the intersection of vision and language.")
+
+    assert parse_front_matter(html).affiliations == ("MIT",)
+
+
+def test_a_stated_affiliation_is_cut_at_its_semicolons() -> None:
+    html = _thanks("A. Doe is with the University of Madrid; Robotics Institute, ETH Zurich.")
+
+    assert parse_front_matter(html).affiliations == ("University of Madrid", "Robotics Institute, ETH Zurich")
+
+
+def test_one_stated_affiliation_places_only_whom_it_names() -> None:
+    # Not everyone's, as one affiliation of the first sources is (AFF-9).
+    authors = ("Ada Lovelace", "Bob Smith")
+    html = _author_block(*((name, ()) for name in authors)) + _thanks("Ada Lovelace is with MIT.")
+
+    front = parse_front_matter(html, authors=authors)
+
+    assert front.affiliations == ("MIT",)
+    assert front.author_affiliations == ((0,), None)
+
+
 def test_no_mapping_without_an_author_block() -> None:
     html = _thanks("Ada Lovelace is with MIT. Bob Smith is with NVIDIA.")
 

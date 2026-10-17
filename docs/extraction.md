@@ -46,7 +46,11 @@ not "simplify" a rule away without the page that made it.
   follow their affiliations, and "Independent§University of Waterloo¶" is no "University
   of Waterloo" marked "§" (2505.11293, which placed its ten authors there). One symbol's
   affiliation is never everyone's.
-- "A is with B" sentences in `thanks` notes.
+- "A is with B" sentences in `thanks` notes. What follows "is at" or "is with" is cut at
+  its semicolons, each piece kept only when it is a name: capitalized ("MIT", "ETH
+  Zurich"), or naming an institution, ending with a country or holding a comma, not "the
+  intersection of vision and language" of "This work is at the intersection of…" (AFF-9,
+  version 11).
 - Last, in a block without contacts nor marked lines, the lines that name an institution
   or end with a country, never one holding an author's name: 2610.18323 writes its names
   in the rows of a table, then "Xi'an Jiaotong University" alone. Its one affiliation is
@@ -211,6 +215,14 @@ matched with marker-led (or marker-trailed) lines, "A is with B" sentences (in t
 and affiliation contacts: 2609.06721 writes them in the last author's block), plus the
 trivial single-affiliation and single-author cases. A wrong pair is worse than none:
 ambiguous name alignments drop the whole tier, and unresolved authors stay `null`.
+
+- One affiliation is everyone's but when its source left lines out, or when it came from
+  "A is with B" sentences (AFF-9, version 11): they place whom they name, "The authors"
+  everyone, and "A. Doe is with MIT" no longer places Doe's co-authors there too.
+- The numbered markers of thanks notes anchor the authors' ("¹FZI Research Center…",
+  "²Karlsruhe Institute of Technology", 2609.03677), by their markers only: a thanks
+  note's own mark, the same "†" for every note, anchors nothing. Notes on funding and
+  correspondence are no anchors.
 
 - Links set as authors ("Project Page", a repository) are not creators: 2609.37107
   followed its last author with two, and its shared block went unnoticed. Nor are

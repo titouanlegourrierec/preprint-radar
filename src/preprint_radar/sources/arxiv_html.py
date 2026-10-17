@@ -22,7 +22,7 @@ from preprint_radar.latex import plain_text
 
 logger = logging.getLogger(__name__)
 
-EXTRACTOR_VERSION = 10
+EXTRACTOR_VERSION = 11
 """Version of the extraction heuristics of this module, stored with the affiliations they give.
 
 Bump it with any change that alters what a page gives (affiliations, author mapping), so
@@ -63,6 +63,12 @@ that ``reextract`` reads those papers again, from the page cache when it holds t
 - 10: last, the affiliations a thanks note lists without a sentence around them, IEEE
   conference classes' (2609.26325, 2609.03677), their numbered markers read where LaTeXML
   printed their math as text (2609.16443) (AFF-11).
+- 11: a sentence's "is at" or "is with" gives an affiliation only when it is capitalized,
+  names an institution, ends with a country or holds a comma ("This work is at the
+  intersection of vision and language" gives none), cut at its semicolons; one
+  affiliation such sentences give is no longer everyone's, the sentences placing whom they
+  name; and the numbered markers of thanks notes anchor authors' markers (2609.03677)
+  (AFF-9).
 """
 
 # LaTeXML renders line breaks and \quad between affiliations as newlines, em spaces
@@ -596,7 +602,8 @@ def _affiliations(soup: BeautifulSoup, authors: Sequence[str]) -> tuple[tuple[st
         (numbered, False),
         # A symbol marks some of the authors, never all of them.
         (symbols, True),
-        (_stated_affiliations(thanks), False),
+        # The people a sentence names are where it says, not everyone (AFF-9).
+        (_stated_affiliations(thanks), True),
         (unmarked, unmarked_partial),
         (_listed_affiliations(listing), False),
     )
@@ -842,7 +849,10 @@ def _stated_affiliations(notes: list[str]) -> list[str]:
     """Affiliations stated in sentences: "A and B are with the X, Y (e-mail: ...)".
 
     Thanks notes are written that way, and so are some affiliation macros, several
-    sentences in a row: "A, B and C are at X. A is with Y. B is with Z".
+    sentences in a row: "A, B and C are at X. A is with Y. B is with Z". What follows "is
+    at" or "is with" is cut at its semicolons, and each piece kept only when it is a name
+    (:func:`_names_a_place`, AFF-9): "This work is at the intersection of vision and
+    language" states none.
     """
     affiliations: list[str] = []
     for line in (line for note in notes for line in note.splitlines()):
@@ -857,8 +867,21 @@ def _stated_affiliations(notes: list[str]) -> list[str]:
                     text = _TRAILING_CONNECTOR_RE.sub("", text)
             else:
                 text = line[match.end() :]
-            affiliations.append(_NEXT_SENTENCE_RE.split(_CONTACT_TAIL_RE.sub("", text), maxsplit=1)[0])
+            stated = _NEXT_SENTENCE_RE.split(_CONTACT_TAIL_RE.sub("", text), maxsplit=1)[0]
+            affiliations += [piece for piece in stated.split(";") if _names_a_place(piece)]
     return affiliations
+
+
+def _names_a_place(text: str) -> bool:
+    """Whether a stated affiliation is a name, not "the intersection of vision and language".
+
+    Capitalized ("MIT", "NVIDIA", "ETH Zurich"), or naming an institution, ending with a
+    country or holding a comma, as "the department of physics, ..." does.
+    """
+    text = text.strip().rstrip(".")
+    return bool(
+        text[:1].isupper() or _INSTITUTION_WORD_RE.search(text) or _ADDRESS_END_RE.search(text) or "," in text
+    )
 
 
 def _listed_affiliations(notes: list[str]) -> list[str]:
@@ -1426,6 +1449,13 @@ def _anchors(soup: BeautifulSoup, block: Tag, index_of: Mapping[str, int]) -> di
     nodes: list[Tag] = list(block.select(".ltx_role_affiliation, .ltx_role_address"))
     nodes += soup.select(_AFFILIATION_NOTES)
     nodes += article.find_all("span", class_="ltx_role_footnotetext", recursive=False)
+    # Thanks notes that number their affiliation ("¹FZI Research Center...", 2609.03677), by
+    # their markers only: their own mark, the same for every note, names no affiliation.
+    thanks = [
+        note
+        for note in soup.select(".ltx_note.ltx_role_thanks")
+        if not _OTHER_THANKS & set(note.get_attribute_list("class"))
+    ]
 
     anchors: dict[str, tuple[int, ...]] = {}
 
@@ -1433,8 +1463,8 @@ def _anchors(soup: BeautifulSoup, block: Tag, index_of: Mapping[str, int]) -> di
         if indices := _anchored(candidate, index_of):
             anchors.setdefault(marker.strip(), indices)
 
-    for node in nodes:
-        label = node.select_one(".ltx_note_mark")
+    for node in [*nodes, *thanks]:
+        label = node.select_one(".ltx_note_mark") if node not in thanks else None
         marked = _marked_text(_pruned(node))
         # Markers may lead ("¹ETH Zurich") or trail ("Tampere University¹") their
         # affiliation: keep the orientation that explains more of the node.
