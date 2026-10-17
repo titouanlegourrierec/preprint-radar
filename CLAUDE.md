@@ -55,9 +55,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     budget; strings ROR answered in an earlier run are not asked again, AFF-17). `make institutions-again`, offline: today's naming rules on the stored
     institutions, archive included.
   - `make affiliations`: OpenAlex's affiliations and institutions for the papers of the day
-    files without an HTML page (5%, which no page can give; two in five a month old), each
-    one it knows nothing of asked again every 30 days (AFF-27); seconds. The daily workflow
-    runs it.
+    files without an HTML page (5%, which no page can give; two in five a month old), and
+    for those whose page gave none, a month after it was read (AFF-31), each one it knows
+    nothing of asked again every 30 days (AFF-27); seconds. The daily workflow runs it.
   - `make archive-affiliations [MAX_HTML=N]`: affiliations for the highly cited papers
     without any (archive and last 12 months): OpenAlex's record of their published version,
     by the DOI of `scholar.json` (AFF-20; 96% of those with one, 2 minutes the first time);
@@ -224,9 +224,11 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   browsers predate it (`venue` is optional for that reason).
 - `null` means "not retrieved yet" (`abstract`, `affiliations`, `institutions`): the
   pipeline retries. An empty list means "tried, nothing found": it does not, but for an
-  archived paper, or a day file's paper without an HTML page (AFF-27), under two years old,
-  which OpenAlex is asked again every 30 days after the day of its last lookup
-  (`provenance`, AFF-3): it learns recent papers over months. A day file's affiliations are
+  archived paper, or a day file's paper without an HTML page (AFF-27) or whose page gave
+  none (AFF-31), under two years old, which OpenAlex is asked again every 30 days after the
+  day of its last lookup (`provenance`, AFF-3): it learns recent papers over months. A
+  page's paper OpenAlex knows nothing of keeps its `html` provenance and `extractor`, the
+  day the lookup's, so that `reextract` still reads it at the next version. A day file's affiliations are
   OpenAlex's only for a paper without a page (`Paper.affiliations_from_openalex`), which
   `reclean`, `validate`'s heuristics and `quality-affiliations` leave alone.
 - A paper is stored once, on the first day it was announced: a cross-list is sometimes

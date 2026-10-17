@@ -380,13 +380,14 @@ def _add_institutions_parser(subparsers: "argparse._SubParsersAction[argparse.Ar
 def _add_affiliations_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
     affiliations = subparsers.add_parser(
         "affiliations",
-        help="ask OpenAlex for the affiliations of stored papers without an HTML page",
+        help="ask OpenAlex for the affiliations of stored papers no page gave them",
         description=(
             "Ask OpenAlex for the affiliations, and their institutions, of the stored papers "
-            "that arXiv has no HTML rendering of (about 5%), which no page can give: a few "
-            "requests. A paper it knows nothing of yet is asked again every 30 days while "
-            "under two years old. A failing OpenAlex never fails the command: the papers are "
-            "asked for again next time."
+            "that arXiv has no HTML rendering of (about 5%), which no page can give, and of "
+            "those whose page gave none, a month after it was read: a few requests. A paper it "
+            "knows nothing of yet is asked again every 30 days while under two years old; one "
+            "with a page keeps its extraction version, read again by the next one. A failing "
+            "OpenAlex never fails the command: the papers are asked for again next time."
         ),
     )
     affiliations.add_argument(

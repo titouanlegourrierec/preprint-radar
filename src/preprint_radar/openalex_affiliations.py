@@ -1,7 +1,8 @@
 """Affiliations from OpenAlex, for the papers no page of ours gives them (AFF-3, AFF-20, AFF-27).
 
 The weekly archive asks it for the papers it builds from the catalog, and the daily
-``affiliations`` step for the papers of the day files without an HTML rendering. OpenAlex's
+``affiliations`` step for the papers of the day files without an HTML rendering, or whose
+page gave none (AFF-31). OpenAlex's
 institutions are registry entries, with their ROR ids, so they are the papers' institutions
 too. It learns those of recent papers over months: a paper it knows nothing of is asked
 again every ``OPENALEX_RETRY_EVERY_DAYS`` while young. It knows those of nearly every
@@ -32,7 +33,9 @@ logger = logging.getLogger(__name__)
 _ARXIV_DOI_PREFIX = "10.48550/"
 
 
-def with_openalex_affiliations(papers: list[Paper], client: HttpClient, today: date) -> list[Paper]:
+def with_openalex_affiliations(
+    papers: list[Paper], client: HttpClient, today: date, *, pages_kept: bool = False
+) -> list[Paper]:
     """Fill the affiliations of papers that need them from OpenAlex (:func:`needs_openalex`).
 
     Papers whose affiliations came from OpenAlex before ROR ids were kept (their
@@ -40,6 +43,11 @@ def with_openalex_affiliations(papers: list[Paper], client: HttpClient, today: d
     once, for the ids: their affiliations are replaced by OpenAlex's current ones, unless
     it now gives none. A paper it still knows nothing of keeps what it had, with the day of
     this lookup, from which the next one is counted.
+
+    With ``pages_kept`` (the day files, AFF-31), a paper whose page gave nothing, which
+    OpenAlex knows nothing of either, keeps that page's provenance and extraction version,
+    only its day the lookup's: ``reextract`` reads it again at the next version, which an
+    OpenAlex provenance would keep it from (META-9). The archive's are never read again.
     """
     pending = {paper.arxiv_id: len(paper.authors) for paper in papers if needs_openalex(paper, today)}
     if not pending:
@@ -60,8 +68,10 @@ def with_openalex_affiliations(papers: list[Paper], client: HttpClient, today: d
             return paper
         if paper.affiliations is None or result.affiliations:
             return _with_openalex(paper, result, read)
-        # A day file's paper whose page gave none: OpenAlex has none either, today. Its
-        # `extractor` is an HTML extraction's, which this lookup now stands for no longer.
+        # A paper whose page gave none: OpenAlex has none either, today.
+        if pages_kept and paper.extractor is not None:
+            return replace(paper, affiliations_provenance=Provenance("html", today))
+        # In the archive, its `extractor`, an HTML extraction's, stands for this lookup no longer.
         return replace(paper, extractor=None, affiliations_provenance=read)
 
     return [updated(paper) for paper in papers]

@@ -58,6 +58,11 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   without affiliations, two have them now; three have none on their page. BMVC's papers,
   92% without affiliations on 2026-10-11, have them since version 8, but one without a
   page; two of their pages and two of IROS's are fixtures now (AFF-11).
+- A paper whose page gave no affiliation is asked of OpenAlex a month after it was read,
+  then every 30 days while under two years old, as those without a page were: OpenAlex
+  learns recent papers over months, and their published versions. One it knows nothing of
+  keeps its page's extraction version, so that the next version reads the page again
+  (AFF-31).
 - Extraction version 11: an "is at" or "is with" of a thanks note gives an affiliation
   only when what follows is a name ("This work is at the intersection of vision and
   language" gave one, which every author then held), cut at its semicolons; one

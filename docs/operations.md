@@ -417,7 +417,7 @@ At a warning (the migration trigger, decided with ARCH-1):
 | Backfill of a month of cs.CV | about 11 hours (2,900 pages), over five runs of 600 pages, or one with `MAX_HTML=3000` |
 | Re-extraction from the page cache | seconds |
 | `reclean`, `validate`, `stats` | seconds |
-| `affiliations` (OpenAlex, papers without an HTML page) | seconds; 20 s the first time (225 papers) |
+| `affiliations` (OpenAlex, papers without an HTML page or whose page gave none) | seconds; 20 s the first time (225 papers) |
 | `code` (GitHub stars, Hugging Face likes) | about 5 minutes (76 GraphQL queries at one every 3 s, 63 Hub pages); `--new`, daily, seconds (a query or two) |
 | `countries` (OpenAlex, the institutions' countries) | seconds; about 90 requests the first time (4,300 institutions) |
 | `archive-affiliations` (OpenAlex, published versions) | seconds; 2 minutes the first time (7,076 DOIs) |

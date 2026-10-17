@@ -808,7 +808,8 @@ def test_affiliations_asks_openalex_for_each_category(
     # Only arXiv gets the contact.
     assert calls == [("api.openalex.org", DEFAULT_USER_AGENT)]
     assert (
-        "cs.CV: OpenAlex gave affiliations for 1 of 4 papers without an HTML page" in capsys.readouterr().out
+        "cs.CV: OpenAlex gave affiliations for 1 of 4 papers without any from a page"
+        in capsys.readouterr().out
     )
     assert "**Affiliations from OpenAlex.** cs.CV:" in summary.read_text(encoding="utf-8")
 

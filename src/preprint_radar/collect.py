@@ -1134,7 +1134,7 @@ class OpenAlexReport:
 
     Attributes:
         category: Category of the papers.
-        asked: Papers without an HTML page asked for.
+        asked: Papers asked for: without an HTML page, or whose page gave none.
         found: Of those, papers with affiliations now.
     """
 
@@ -1146,13 +1146,15 @@ class OpenAlexReport:
 def update_openalex_affiliations(
     store: PaperStore, category: str, client: HttpClient, *, today: date
 ) -> OpenAlexReport:
-    """Ask OpenAlex for the affiliations of the stored papers without an HTML page (AFF-27).
+    """Ask OpenAlex for the affiliations of the stored papers no page gave them (AFF-27, AFF-31).
 
-    No page of ours can give theirs (about 5% of the papers: arXiv could not convert their
-    LaTeX). OpenAlex knows those of about two papers in five a month after their
-    announcement: one it knows nothing of keeps an empty list, with the day of the lookup,
-    and is asked again every 30 days while under two years old (:func:`needs_openalex`).
-    A failing OpenAlex leaves the papers for the next run.
+    Those without an HTML page (about 5% of the papers: arXiv could not convert their
+    LaTeX), and those whose page gave none, read by an extraction: about one in five, from
+    a month after the page was read. OpenAlex knows those of about two papers in five a
+    month after their announcement, more once they are published: one it knows nothing of
+    keeps an empty list, with the day of the lookup, and is asked again every 30 days while
+    under two years old (:func:`needs_openalex`); a page's keeps its extraction version, so
+    that the next one reads it again. A failing OpenAlex leaves the papers for the next run.
 
     Args:
         store: Data store.
@@ -1166,9 +1168,10 @@ def update_openalex_affiliations(
     wanted = [
         paper
         for paper in store.iter_papers(category)
-        if paper.html_url is None and not paper.affiliations and needs_openalex(paper, today)
+        if (paper.affiliations == () or (paper.html_url is None and paper.affiliations is None))
+        and needs_openalex(paper, today)
     ]
-    looked_up = with_openalex_affiliations(wanted, client, today)
+    looked_up = with_openalex_affiliations(wanted, client, today, pages_kept=True)
     store.save(category, [new for old, new in zip(wanted, looked_up, strict=True) if new is not old])
     return OpenAlexReport(
         category=category, asked=len(wanted), found=sum(bool(paper.affiliations) for paper in looked_up)
@@ -1179,7 +1182,7 @@ def format_openalex_report(report: OpenAlexReport) -> str:
     """Render an :class:`OpenAlexReport` as one line."""
     return (
         f"{report.category}: OpenAlex gave affiliations for {report.found:,} of "
-        f"{_count(report.asked, 'paper')} without an HTML page"
+        f"{_count(report.asked, 'paper')} without any from a page"
     )
 
 
