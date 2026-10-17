@@ -15,6 +15,11 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   arXiv every weekday, with their affiliations, citations and the most cited older papers."
   (PROD-15).
 
+### Security
+
+- `SECURITY.md` says how to report a vulnerability: to the site's correction contact,
+  rather than in public, and what counts (SEC-8).
+
 ## 0.9.0 (2026-10-17): a new interface, folders shared by a link, and a world map
 
 The fourth set of features of Phase 4: the lists and the graph share one interface of

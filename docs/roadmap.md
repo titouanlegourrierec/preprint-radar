@@ -331,7 +331,7 @@ exist.
 | DOC-2, DOC-3, DOC-4 | A shorter README walkthrough; no ADR folder (the Decisions table is the log), a paragraph on why `data/` is in git; the calibration's key tables in `docs/archive.md`, `experiments/` kept local (answered on 2026-10-17) | P2 | todo |
 | DEBT-6 | Delete the `fetch` command and its export modules: the site's exports and `data/` cover them (answered on 2026-10-17) | P3 | todo |
 | PROD-15 | One tagline everywhere: "Follow and search the cs.CV papers announced on arXiv every weekday, with their affiliations, citations and the most cited older papers." (answered on 2026-10-17). The meta and Open Graph descriptions of `index.html`, the web manifest's, the README's first line and `pyproject.toml`'s; the CLI's help and the package's docstring the same without the category, which `-c` chooses (2026-10-17) | P3 | done |
-| SEC-8 | A short `SECURITY.md`, pointing to the correction contact; issue templates once public (answered on 2026-10-17) | P3 | todo |
+| SEC-8 | A short `SECURITY.md`, pointing to the correction contact; issue templates once public (answered on 2026-10-17). It says what the site is (no server, no account, the reader's data in their browser), to write to the correction contact rather than in public, what counts (a script or load the policy should refuse, from the third-party text, an imported list or a shared link; the workflows and their secrets; the published data), that fixes go to `main`, which the site always is, and that wrong data goes to the same address (2026-10-17); the issue templates wait for CI-13 | P3 | done |
 
 *Result of v0.7.0 (2026-10-09; `make stats` and `make validate` on 2026-10-11).* Day files:
 5,225 papers, abstracts 100%, affiliations 77% of those tried (authors mapped 90%,
