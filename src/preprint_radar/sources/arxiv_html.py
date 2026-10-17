@@ -364,7 +364,12 @@ class PageCache:
         return gzip.decompress(path.read_bytes()).decode("utf-8")
 
     def put(self, html_url: str, html: str) -> None:
-        """Keep the front matter of the page at ``html_url``, whose HTML is ``html``."""
+        """Keep the front matter of the page at ``html_url``, whose HTML is ``html``.
+
+        Args:
+            html_url: URL of the paper's HTML rendering, which names the cached file.
+            html: The page's HTML, of which only the front matter is kept.
+        """
         path = self._path(html_url)
         if path is None:
             return

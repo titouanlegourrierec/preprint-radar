@@ -21,6 +21,10 @@ def same_person(listed: str, named: str) -> bool:
     Mahdi"), or both have the same surname and given names that start alike ("M.
     Hosseini"). Accents and letters such as "ø" fold away; a transliteration does not
     ("Plötz" is not "Ploetz").
+
+    Args:
+        listed: The name arXiv lists.
+        named: Another service's name for an author.
     """
     words, other = name_words(listed), name_words(named)
     if not words or not other:

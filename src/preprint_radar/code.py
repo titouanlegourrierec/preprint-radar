@@ -77,7 +77,12 @@ def _trimmed(candidate: str) -> str:
 
 
 def code_url(abstract: str | None, comments: str | None) -> str | None:
-    """The paper's code (``codeUrl`` of ``code.ts``): its first repository, else its Hub page."""
+    """The paper's code (``codeUrl`` of ``code.ts``): its first repository, else its Hub page.
+
+    Args:
+        abstract: The paper's abstract, ``None`` when not retrieved.
+        comments: Its authors' comments, ``None`` when there are none.
+    """
     links = [url for text in (abstract, comments) if text for url in urls(text)]
     return next((url for url in links if _REPOSITORY_RE.match(url)), None) or next(
         (url for url in links if _HUB_RE.match(url)), None
@@ -85,7 +90,12 @@ def code_url(abstract: str | None, comments: str | None) -> str | None:
 
 
 def code_link(abstract: str | None, comments: str | None) -> CodeLink | None:
-    """The paper's code, with what to ask its host for; ``None`` when it links none."""
+    """The paper's code, with what to ask its host for; ``None`` when it links none.
+
+    Args:
+        abstract: The paper's abstract, ``None`` when not retrieved.
+        comments: Its authors' comments, ``None`` when there are none.
+    """
     url = code_url(abstract, comments)
     if url is None:
         return None

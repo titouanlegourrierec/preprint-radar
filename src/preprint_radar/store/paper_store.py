@@ -173,6 +173,10 @@ class PaperStore:
     def load_day(self, category: str, day: date) -> list[Paper]:
         """Load the papers of one day, or an empty list if the day is not stored.
 
+        Args:
+            category: arXiv category.
+            day: Announcement day.
+
         Raises:
             StoreError: If the file is not a valid day file, or of another ``schema_version``.
         """
@@ -256,7 +260,12 @@ class PaperStore:
         return days
 
     def remove_days(self, category: str, days: Iterable[date]) -> None:
-        """Delete the files of the given days (the archive keeps what must be kept)."""
+        """Delete the files of the given days (the archive keeps what must be kept).
+
+        Args:
+            category: arXiv category.
+            days: The days whose files go.
+        """
         for day in days:
             self._day_path(category, day).unlink(missing_ok=True)
 
@@ -273,6 +282,10 @@ class PaperStore:
     def load_archive(self, category: str, year: int) -> list[Paper]:
         """Load the archived papers of one year, or an empty list.
 
+        Args:
+            category: arXiv category.
+            year: Year of first appearance.
+
         Raises:
             StoreError: If the file is not a valid archive file, or of another ``schema_version``.
         """
@@ -284,7 +297,12 @@ class PaperStore:
             yield from self.load_archive(category, year)
 
     def write_archive(self, category: str, papers: Iterable[Paper]) -> None:
-        """Replace the whole archive of ``category``: one file per year of ``announced``."""
+        """Replace the whole archive of ``category``: one file per year of ``announced``.
+
+        Args:
+            category: arXiv category.
+            papers: Every archived paper of the category.
+        """
         by_year: defaultdict[int, list[Paper]] = defaultdict(list)
         for paper in papers:
             by_year[paper.announced.year].append(paper)
@@ -377,6 +395,12 @@ class PaperStore:
         The counts they replace, when at least ``GAINS_MIN_DAYS`` old (``config.py``), give
         what each paper gained since into ``citation-gains.json``: the site's rising papers.
 
+        Args:
+            category: arXiv category.
+            counts: The count of each stored paper, by arXiv id.
+            source: Where they come from ("Semantic Scholar").
+            now: The time they are dated with (``None``: now).
+
         Raises:
             SchemaVersionError: If the counts it replaces are of another ``schema_version``.
         """
@@ -431,6 +455,11 @@ class PaperStore:
 
         The file keeps the date and source of its last full refresh
         (:meth:`write_citations`): the counts added in between are newer, never older.
+
+        Args:
+            category: arXiv category.
+            counts: New counts, by arXiv id.
+            source: Where they come from, for a file not written yet.
         """
         current = self.load_citation_counts(category)
         if current is None:
@@ -479,6 +508,11 @@ class PaperStore:
         """Write what Semantic Scholar knows of the stored papers of ``category``, dated now.
 
         Papers it knows nothing of are left out.
+
+        Args:
+            category: arXiv category.
+            papers: Semantic Scholar's record of each paper it knows, by arXiv id.
+            source: Where they come from ("Semantic Scholar").
         """
         payload = {
             "schema_version": SCHEMA_VERSION,
@@ -528,6 +562,12 @@ class PaperStore:
         ``GAINS_MIN_DAYS`` old, else kept from it, so that a second run in a week keeps the
         week's gains. A paper whose link changed gained nothing yet.
 
+        Args:
+            category: arXiv category.
+            papers: The record of each paper's code, by arXiv id.
+            source: Where the counts come from ("GitHub, Hugging Face").
+            now: The time they are dated with (``None``: now).
+
         Raises:
             SchemaVersionError: If the file it replaces is of another ``schema_version``.
         """
@@ -573,6 +613,10 @@ class PaperStore:
         week's gains from it, and each paper whose link did not change its gains. Writing
         it dated now would leave the weekly refresh a file less than ``GAINS_MIN_DAYS``
         old, whose gains it keeps rather than counts.
+
+        Args:
+            category: arXiv category.
+            papers: The records of the papers asked for, by arXiv id.
 
         Raises:
             StoreError: If there is no ``code.json`` to add to, or it does not load.
@@ -641,7 +685,14 @@ class PaperStore:
         source: str,
         now: datetime | None = None,
     ) -> None:
-        """Write the country of the institutions of ``category``'s papers, dated now."""
+        """Write the country of the institutions of ``category``'s papers, dated now.
+
+        Args:
+            category: arXiv category.
+            institutions: The country code of each institution, by ROR id (``None``: placed nowhere).
+            source: Where they come from ("OpenAlex").
+            now: The time they are dated with (``None``: now).
+        """
         payload = {
             "schema_version": SCHEMA_VERSION,
             "category": category,

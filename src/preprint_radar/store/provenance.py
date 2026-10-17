@@ -88,6 +88,10 @@ def infer_provenance_again(store: PaperStore, category: str) -> ProvenanceReport
 
     Only the day files holding a changed paper are written, and the archive only when one
     of its papers changed.
+
+    Args:
+        store: Data store.
+        category: arXiv category.
     """
     sources: Counter[str] = Counter()
     papers = unknown = 0

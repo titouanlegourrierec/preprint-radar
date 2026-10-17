@@ -48,6 +48,12 @@ def with_openalex_affiliations(
     OpenAlex knows nothing of either, keeps that page's provenance and extraction version,
     only its day the lookup's: ``reextract`` reads it again at the next version, which an
     OpenAlex provenance would keep it from (META-9). The archive's are never read again.
+
+    Args:
+        papers: The papers; only those :func:`needs_openalex` picks are asked for.
+        client: HTTP client for OpenAlex.
+        today: Day of the lookup.
+        pages_kept: Whether a page's paper OpenAlex knows nothing of keeps its page's provenance.
     """
     pending = {paper.arxiv_id: len(paper.authors) for paper in papers if needs_openalex(paper, today)}
     if not pending:
@@ -153,6 +159,10 @@ def needs_openalex(paper: Paper, today: date) -> bool:
     is young (``OPENALEX_RETRY_AGE_DAYS``), once ``OPENALEX_RETRY_EVERY_DAYS`` have passed
     since the last lookup (or when its day is unknown): OpenAlex learns the institutions of
     recent papers over months, so an early "nothing" is not final.
+
+    Args:
+        paper: A stored paper.
+        today: Day of the lookup.
     """
     if paper.affiliations is None:
         return True

@@ -81,6 +81,8 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ### Documentation
 
+- Every public function of two parameters or more says what each is (an Args section: 38
+  of them had none), and CLAUDE.md lists the commit scopes (DOC-13).
 - The README is shorter: what the site does in six lines, where the data comes from, how
   to run and deploy it, the live site's address, and why `data/` is in git, which the
   roadmap's Decisions table logs with the other choices, there being no other record of

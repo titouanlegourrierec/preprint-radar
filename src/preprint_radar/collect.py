@@ -860,6 +860,12 @@ def add_institutions(
     others wait for the next run (lookup limit reached, or ROR unreachable), which never
     fails the run.
 
+    Args:
+        papers: The papers to name.
+        client: HTTP client for the ROR API.
+        limit: Most strings to ask ROR for (``None``: no limit).
+        known: ROR's answers of earlier runs, by string (:func:`ror_answers`), not asked again.
+
     Returns:
         The papers, with institutions where they could be named.
     """

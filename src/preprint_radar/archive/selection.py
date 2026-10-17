@@ -47,19 +47,37 @@ class Selection:
 
 
 def citation_rate(citations: int | None, first_seen: date, today: date) -> float:
-    """Citations per year of age, counting at least one year."""
+    """Citations per year of age, counting at least one year.
+
+    Args:
+        citations: The paper's count; ``None``, unknown, counts as none.
+        first_seen: Its first appearance.
+        today: The day of the ranking.
+    """
     age = (today - first_seen).days / DAYS_PER_YEAR
     return (citations or 0) / max(age, 1.0)
 
 
 def monthly_rate(citations: int | None, first_seen: date, today: date, min_months: float) -> float:
-    """Citations per month of age, counting at least ``min_months``."""
+    """Citations per month of age, counting at least ``min_months``.
+
+    Args:
+        citations: The paper's count; ``None``, unknown, counts as none.
+        first_seen: Its first appearance.
+        today: The day of the ranking.
+        min_months: The fewest months of age it counts, so that a paper of days does not lead.
+    """
     age = (today - first_seen).days / DAYS_PER_MONTH
     return (citations or 0) / max(age, min_months)
 
 
 def is_recent(first_seen: date, today: date) -> bool:
-    """Whether a paper is within the rolling window kept in full."""
+    """Whether a paper is within the rolling window kept in full.
+
+    Args:
+        first_seen: The paper's first appearance.
+        today: The day of the selection.
+    """
     return (today - first_seen).days < RECENT_DAYS
 
 

@@ -201,6 +201,10 @@ def organization_name(name: str, *, company: bool) -> str:
 
     Drops a leading "The", and a company's country ("Google DeepMind (United Kingdom)",
     "Microsoft (United States)"); a university's campus ("... (Guangzhou)") is kept.
+
+    Args:
+        name: The registry's name.
+        company: Whether the organization is a company, whose country goes.
     """
     name = _LEADING_THE_RE.sub("", name.strip())
     return _TRAILING_PARENTHESIS_RE.sub("", name) if company else name

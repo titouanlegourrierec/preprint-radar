@@ -67,10 +67,13 @@ class Coverage:
     ) -> Self:
         """Count the enrichment of ``papers``.
 
-        ``cited`` holds the ids with a citation count, ``published`` those with a published
-        venue in ``scholar.json``, which count as having a venue. Without ``pages`` (the
-        archive, whose affiliations come from OpenAlex), a paper without an HTML rendering
-        is pending like any other.
+        Args:
+            papers: The papers of a day or of an archive year.
+            cited: The ids with a citation count.
+            published: The ids with a published venue in ``scholar.json``, which count as
+                having a venue.
+            pages: Whether a paper without an HTML rendering is never pending, as in the day
+                files; not for the archive, whose affiliations come from OpenAlex.
         """
         counted = abstracts = found = empty = pending = no_page = mapped = named = unnamed = venues = (
             with_count
@@ -132,7 +135,12 @@ class RowCoverage:
 
 
 def collect_coverage(store: PaperStore, category: str) -> list[RowCoverage]:
-    """Coverage of each stored day of ``category``, most recent first."""
+    """Coverage of each stored day of ``category``, most recent first.
+
+    Args:
+        store: Data store.
+        category: arXiv category.
+    """
     cited, published = store.load_citations(category), _published(store, category)
     return [
         RowCoverage(day.isoformat(), Coverage.of(store.load_day(category, day), cited, published))
@@ -141,7 +149,12 @@ def collect_coverage(store: PaperStore, category: str) -> list[RowCoverage]:
 
 
 def collect_archive_coverage(store: PaperStore, category: str) -> list[RowCoverage]:
-    """Coverage of each archive year of ``category``, most recent first."""
+    """Coverage of each archive year of ``category``, most recent first.
+
+    Args:
+        store: Data store.
+        category: arXiv category.
+    """
     cited, published = store.load_citations(category), _published(store, category)
     return [
         RowCoverage(str(year), Coverage.of(store.load_archive(category, year), cited, published, pages=False))
@@ -164,22 +177,41 @@ def format_coverage(category: str, days: Sequence[RowCoverage]) -> str:
     affiliations mapped to their authors (mapped), with at least one institution named
     (named), with a venue (detected in the comments, or published according to
     Semantic Scholar), and with a citation count (cited).
+
+    Args:
+        category: arXiv category, which the total names.
+        days: The coverage of each day (:func:`collect_coverage`).
     """
     return _table(_days_title(category, days), "day", days)
 
 
 def format_archive_coverage(category: str, years: Sequence[RowCoverage]) -> str:
-    """Render the coverage of the archive of one category, one row per year and a total."""
+    """Render the coverage of the archive of one category, one row per year and a total.
+
+    Args:
+        category: arXiv category, which the total names.
+        years: The coverage of each archive year (:func:`collect_archive_coverage`).
+    """
     return _table(_years_title(category, years), "year", years)
 
 
 def coverage_table(category: str, days: Sequence[RowCoverage]) -> Table:
-    """:func:`format_coverage` as a rich table, for a terminal."""
+    """:func:`format_coverage` as a rich table, for a terminal.
+
+    Args:
+        category: arXiv category, which the total names.
+        days: The coverage of each day (:func:`collect_coverage`).
+    """
     return _rich_table(_days_title(category, days), "day", days)
 
 
 def archive_coverage_table(category: str, years: Sequence[RowCoverage]) -> Table:
-    """:func:`format_archive_coverage` as a rich table, for a terminal."""
+    """:func:`format_archive_coverage` as a rich table, for a terminal.
+
+    Args:
+        category: arXiv category, which the total names.
+        years: The coverage of each archive year (:func:`collect_archive_coverage`).
+    """
     return _rich_table(_years_title(category, years), "year", years)
 
 
@@ -194,7 +226,12 @@ def _years_title(category: str, years: Sequence[RowCoverage]) -> str:
 
 
 def weekdays_since(day: date, today: date) -> int:
-    """Weekdays after ``day``, up to ``today``: the announcement days a store may be missing."""
+    """Weekdays after ``day``, up to ``today``: the announcement days a store may be missing.
+
+    Args:
+        day: The newest stored day.
+        today: The day of the report.
+    """
     return sum(
         (day + timedelta(days=offset)).weekday() < _SATURDAY for offset in range(1, (today - day).days + 1)
     )
@@ -204,6 +241,11 @@ def format_citations(category: str, citations: CitationCounts, *, today: date) -
     """One line on the citation counts of a category: how many, from where, and when.
 
     Counts older than ``STALE_CITATIONS_DAYS`` are said to be stale: weekly runs failed.
+
+    Args:
+        category: arXiv category.
+        citations: The stored counts, with their source and date.
+        today: The day of the report.
     """
     refreshed = citations.generated_at.date()
     age = (today - refreshed).days

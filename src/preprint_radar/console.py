@@ -99,7 +99,13 @@ def github_summary(markdown: str) -> None:
 
 
 def github_annotation(level: Literal["notice", "warning", "error"], title: str, message: str) -> None:
-    """Show a message at the top of a GitHub Actions run's page; nothing elsewhere."""
+    """Show a message at the top of a GitHub Actions run's page; nothing elsewhere.
+
+    Args:
+        level: The annotation's kind, its color on the page.
+        title: Its title, which names the step or the failure.
+        message: Its text, one line.
+    """
     if os.environ.get("GITHUB_ACTIONS") == "true":
         # Workflow commands end at a newline, and use % for escapes.
         escaped = message.replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")

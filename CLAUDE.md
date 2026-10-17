@@ -389,7 +389,10 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
 
 - The maintainer writes in French: answer in French; everything in the repo stays English.
 - Commit freely, in small commits that name the roadmap item they change (`fix(collect): …
-  (DATA-2)`), with its status updated in `docs/roadmap.md` in the same commit. Never push,
+  (DATA-2)`), with its status updated in `docs/roadmap.md` in the same commit. The scope
+  is the part changed, one of: `web`, `extract` (`sources/arxiv_html.py` and its rules),
+  `collect`, `cli`, `archive`, `citations`, `openalex`, `ror`, `store`, `stats`, `data`
+  (`data/` alone), `roadmap`, `release`; none for docs or CI across parts (`docs:`, `ci:`). Never push,
   create the GitHub repo, or start `make update`, `make backfill` or `make archive`
   unless asked.
 - Do not push changes under `data/` while *Update data* or *Archive* runs (`gh run list`):

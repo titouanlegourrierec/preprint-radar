@@ -160,6 +160,10 @@ def _query(batch: tuple[str, ...]) -> str:
 def parse_stars(text: str, batch: tuple[str, ...]) -> tuple[dict[str, int], set[str], int | None]:
     """The stars of a batch's repositories, those not found, and the points left.
 
+    Args:
+        text: GraphQL's response.
+        batch: The repositories asked for, as ``owner/name``, in the query's order.
+
     Raises:
         ParseError: If the response is not GraphQL's JSON, or reports another error than a
             repository not found (a rate limit, a query it refused): the whole batch then

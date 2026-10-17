@@ -196,5 +196,9 @@ def subject_names(codes: Iterable[str], learned: Mapping[str, str]) -> tuple[str
     """The names of a paper's subjects (:func:`subject_name`), each once, in order.
 
     An alias and its canonical code are one subject, as on the listings.
+
+    Args:
+        codes: arXiv categories, the primary one first, aliases included.
+        learned: Names the stored days give, by code; they come first.
     """
     return tuple(dict.fromkeys(subject_name(code, learned) for code in codes))

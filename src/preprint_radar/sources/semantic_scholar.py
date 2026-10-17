@@ -144,7 +144,16 @@ def fetch_scholar_records(
 ) -> dict[str, ScholarRecord | None]:
     """The DOI, published venue and author ids of arXiv papers, as Semantic Scholar knows them.
 
-    Args and failures as :func:`fetch_citation_counts`.
+    Failures as :func:`fetch_citation_counts`.
+
+    Args:
+        client: HTTP client for Semantic Scholar, making a single attempt per request.
+        arxiv_ids: arXiv identifiers, without version.
+        key: API key, sent as ``x-api-key``; ``None`` for anonymous requests.
+        max_seconds: Time budget for refusals, as :func:`fetch_citation_counts`'s.
+        progress: Told the papers of each batch fetched.
+        sleep: Sleep function between tries of a refused batch, injectable for testing.
+        clock: Monotonic clock for the time budget, injectable for testing.
 
     Returns:
         A record per paper fetched (``None``: unknown to Semantic Scholar); papers from a
@@ -248,6 +257,10 @@ def _fetch_all[T](
 def parse_batch_response(text: str, arxiv_ids: tuple[str, ...]) -> dict[str, int | None]:
     """Match a batch response (one entry per requested id, ``null`` if unknown) to its ids.
 
+    Args:
+        text: The batch's response.
+        arxiv_ids: The identifiers asked for, in the request's order.
+
     Raises:
         ParseError: If the response is not a list of that length.
     """
@@ -278,6 +291,10 @@ def _batch_items(text: str, arxiv_ids: tuple[str, ...]) -> list[dict[str, Any] |
 
 def parse_records_response(text: str, arxiv_ids: tuple[str, ...]) -> dict[str, ScholarRecord | None]:
     """Match a batch response with record fields to its ids.
+
+    Args:
+        text: The batch's response.
+        arxiv_ids: The identifiers asked for, in the request's order.
 
     Raises:
         ParseError: If the response is not a list of that length, or an entry not an object.

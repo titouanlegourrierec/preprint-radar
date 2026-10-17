@@ -152,7 +152,12 @@ def _count(tally: Tally, example: str) -> None:
 
 
 def string_signs(affiliation: str, paper: Paper) -> Iterator[Sign]:
-    """The signs that one affiliation string of ``paper`` is wrong."""
+    """The signs that one affiliation string of ``paper`` is wrong.
+
+    Args:
+        affiliation: One of the paper's affiliation strings.
+        paper: The paper, whose authors and other strings some signs compare it with.
+    """
     if affiliation in names_only(paper):
         yield Sign.NAMES
     if clean_affiliations(affiliation) != (affiliation,):
@@ -326,7 +331,12 @@ def format_quality(title: str, quality: AffiliationQuality, *, examples: bool = 
 
 
 def quality_table(title: str, quality: AffiliationQuality) -> Table:
-    """:func:`format_quality` as a rich table, for a terminal."""
+    """:func:`format_quality` as a rich table, for a terminal.
+
+    Args:
+        title: The table's title.
+        quality: The counts and examples to show.
+    """
     table = Table(
         title=title,
         title_justify="left",
