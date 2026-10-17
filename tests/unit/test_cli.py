@@ -1,3 +1,4 @@
+import gzip
 import json
 import logging
 import os
@@ -5,12 +6,13 @@ import runpy
 import signal
 import time
 from collections.abc import Callable, Mapping
-from datetime import UTC, date, datetime
+from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 
 import httpx
 import pytest
 from rich.console import Console
+from tests.conftest import FIXTURES_DIR
 
 from preprint_radar.archive.catalog import Catalog
 from preprint_radar.archive.update import ArchiveClients, ArchiveReport
@@ -31,7 +33,7 @@ from preprint_radar.exceptions import FetchError, NotFoundError
 from preprint_radar.http import DEFAULT_USER_AGENT, HttpClient
 from preprint_radar.models import Listing, Paper
 from preprint_radar.sources.arxiv_html import EXTRACTOR_VERSION, PageCache
-from preprint_radar.sources.arxiv_oai import OAI_URL
+from preprint_radar.sources.arxiv_oai import OAI_URL, CatalogEntry
 from preprint_radar.sources.openalex import OPENALEX_WORKS_URL
 from preprint_radar.sources.semantic_scholar import S2_BATCH_URL
 from preprint_radar.store.paper_store import PaperStore
@@ -735,6 +737,114 @@ def test_archive_sends_the_contact_to_arxiv_only(tmp_path: Path, monkeypatch: py
         "api.semanticscholar.org": DEFAULT_USER_AGENT,
         "api.openalex.org": DEFAULT_USER_AGENT,
     }
+
+
+# OAI-PMH with nothing new since the last harvest, Semantic Scholar with these counts, and
+# OpenAlex with the works of its fixture: the archive's services, for real runs (TEST-11).
+NOTHING_NEW = '<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/"><error code="noRecordsMatch"/></OAI-PMH>'
+WORKS = (FIXTURES_DIR / "openalex" / "works.json").read_text(encoding="utf-8")
+
+
+def _serve_archive(monkeypatch: pytest.MonkeyPatch, counts: Mapping[str, int]) -> list[str]:
+    """Answer the archive's services offline, without their delays; the hosts asked, in order."""
+    hosts: list[str] = []
+
+    def handle_request(_: httpx.HTTPTransport, request: httpx.Request) -> httpx.Response:
+        hosts.append(request.url.host)
+        if request.url.host == "oaipmh.arxiv.org":
+            return httpx.Response(200, text=NOTHING_NEW)
+        if request.url.host == "api.semanticscholar.org":
+            ids = [paper_id.removeprefix("ARXIV:") for paper_id in json.loads(request.content)["ids"]]
+            return httpx.Response(200, json=[{"citationCount": counts.get(arxiv_id)} for arxiv_id in ids])
+        return httpx.Response(200, text=WORKS)
+
+    monkeypatch.setattr(httpx.HTTPTransport, "handle_request", handle_request)
+    for delay in (
+        "OAI_DELAY_SECONDS",
+        "OPENALEX_DELAY_SECONDS",
+        "S2_DELAY_SECONDS",
+        "S2_ANONYMOUS_DELAY_SECONDS",
+    ):
+        monkeypatch.setattr(f"preprint_radar.cli.{delay}", 0)
+    return hosts
+
+
+def test_archive_runs_over_a_catalog(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    # The papers of a catalog harvested a week ago: two older than 12 months, one recent.
+    today = datetime.now(tz=UTC).date()
+    recent = today - timedelta(days=20)
+    recent_id = f"{recent:%y%m}.00001"
+    entries = [
+        ("1512.03385", date(2015, 12, 10), ("cs.CV",)),
+        ("2010.11929", date(2020, 10, 22), ("cs.LG", "cs.CV")),
+        ("2209.00001", date(2022, 9, 1), ("cs.CV",)),
+        (recent_id, recent, ("cs.CV",)),
+    ]
+    catalog = tmp_path / "catalog"
+    catalog.mkdir()
+    with gzip.open(catalog / "cs.CV.jsonl.gz", "wt", encoding="utf-8") as out:
+        for arxiv_id, created, categories in entries:
+            entry = CatalogEntry(
+                arxiv_id=arxiv_id,
+                created=created,
+                categories=categories,
+                title=f"Paper {arxiv_id}",
+                authors=("A One", "B Two"),
+                abstract="An abstract.",
+                comments="Accepted to CVPR 2016",
+            )
+            out.write(json.dumps(entry.to_record()) + "\n")
+    harvested = {"harvested": (today - timedelta(days=7)).isoformat(), "token": None}
+    (catalog / "cs.CV.state.json").write_text(json.dumps(harvested), encoding="utf-8")
+    counts = {"1512.03385": 240_000, "2010.11929": 70_000, "2209.00001": 1, recent_id: 3}
+    hosts = _serve_archive(monkeypatch, counts)
+    data_dir = tmp_path / "data"
+
+    assert main(["archive", "--data-dir", str(data_dir), "--catalog-dir", str(catalog), "--budget", "2"]) == 0
+
+    # The catalog refreshed, every candidate counted, the entering papers asked of OpenAlex.
+    assert hosts[:2] == ["oaipmh.arxiv.org", "api.semanticscholar.org"]
+    assert "api.openalex.org" in hosts
+    store = PaperStore(data_dir)
+    archived = {paper.arxiv_id: paper for paper in store.iter_archive("cs.CV")}
+    assert set(archived) == {"1512.03385", "2010.11929"}
+    assert archived["1512.03385"].affiliations == ("Microsoft",)
+    assert archived["1512.03385"].venue == "CVPR 2016"
+    top_recent = store.load_top_recent("cs.CV")
+    assert top_recent is not None
+    assert [paper.arxiv_id for paper in top_recent.papers] == [recent_id]
+    stored = json.loads((data_dir / "cs.CV" / "citations.json").read_text(encoding="utf-8"))
+    # The counts of the stored papers: 2209.00001 is not one, below the budget.
+    assert stored["counts"] == {
+        arxiv_id: counts[arxiv_id] for arxiv_id in ("1512.03385", "2010.11929", recent_id)
+    }
+    index = json.loads((data_dir / "index.json").read_text(encoding="utf-8"))
+    assert [entry["year"] for entry in index["archives"]["cs.CV"]] == [2020, 2015]
+    assert capsys.readouterr().out.startswith("cs.CV: 2 archived papers (2 in, 0 out), threshold ")
+
+
+def test_citations_runs_over_a_store(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    store = PaperStore(tmp_path / "data")
+    store.save(
+        "cs.CV",
+        [
+            Paper(arxiv_id="2609.00001", announced=date(2026, 9, 25), title="T", authors=()),
+            Paper(arxiv_id="2609.00002", announced=date(2026, 9, 25), title="U", authors=()),
+        ],
+    )
+    hosts = _serve_archive(monkeypatch, {"2609.00001": 12})
+
+    assert main(["citations", "--data-dir", str(store.root)]) == 0
+
+    assert hosts == ["api.semanticscholar.org"]
+    stored = json.loads((store.root / "cs.CV" / "citations.json").read_text(encoding="utf-8"))
+    # Semantic Scholar does not know the other one yet: asked for again next time.
+    assert stored["counts"] == {"2609.00001": 12}
+    assert "cs.CV: citation counts for 1 of 2 papers" in capsys.readouterr().out
 
 
 def test_runs_as_a_module(monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]) -> None:
