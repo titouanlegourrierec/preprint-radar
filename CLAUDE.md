@@ -310,8 +310,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   skipped); a day without announcement returns 200 with "Total of 0 entries".
 - **Affiliations:** a fixture under `tests/fixtures/html/` for every new heuristic, and an
   `EXTRACTOR_VERSION` bump for any change to what a page gives (`docs/extraction.md`).
-- **ROR:** only `chosen` matches whose name of at least two words appears in the string; a
-  failing ROR never fails a run.
+- **ROR:** only `chosen` matches whose name of at least two words appears in the string,
+  or a longer candidate holding the chosen name, written whole in it (AFF-30); a failing
+  ROR never fails a run.
 - **Semantic Scholar:** refusals (429) are routine even with a key and are retried; a 401
   or 403 means a bad key and fails the run (`docs/archive.md`).
 - **GitHub:** GraphQL only (100 repositories a query; REST allows 60 anonymous requests an

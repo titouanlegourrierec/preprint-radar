@@ -6,7 +6,10 @@ of Computer Science, Peking University, Beijing" is Peking University), but it c
 wrong organization on a single common word ("ARC Lab, Tencent" matched an association
 called ARC). A match is therefore only kept when one of the organization's names, of at
 least two significant words, appears word for word in the affiliation. Acronyms and most
-companies are not matched; the web app names those with its own rules.
+companies are not matched; the web app names those with its own rules. ROR can also choose
+a shorter name inside the right one ("Texas A&M University" for "Texas A&M
+University-Kingsville", whose hyphen ROR writes as a spaced en dash): a candidate whose
+whole name holds the chosen one's and is written in the affiliation is kept instead.
 """
 
 import json
@@ -36,6 +39,8 @@ _PARENTHESIS_RE = re.compile(r"\([^()]*\)")
 _TRAILING_PARENTHESIS_RE = re.compile(r"\s*\([^()]*\)$")
 _LEADING_THE_RE = re.compile(r"^the\s+", re.IGNORECASE)
 _WORD_RE = re.compile(r"[^\W_]+")
+# Hyphens and dashes, which affiliations and ROR's names write as they please (AFF-30).
+_DASH_RE = re.compile(r"[-\u2010-\u2015\u2212]")
 _ROR_URL_RE = re.compile(r"^https?://ror\.org/([0-9a-z]{9})$")
 
 
@@ -82,6 +87,7 @@ def parse_ror_response(text: str, affiliation: str) -> Institution | None:
         raise ParseError(msg) from exc
     if not isinstance(chosen, dict):
         return None
+    chosen = _longer_match(items, chosen, affiliation)
     names = chosen.get("names")
     if not isinstance(names, list) or not _is_supported(affiliation, names):
         return None
@@ -129,6 +135,47 @@ def match_institutions(
         finally:
             progress(1)
     return matches
+
+
+def _longer_match(
+    items: list[dict[str, object]], chosen: dict[str, object], affiliation: str
+) -> dict[str, object]:
+    """The candidate whose name holds the chosen one's and is written whole in the affiliation (AFF-30).
+
+    "Texas A&M University-Kingsville (TAMUK)" chose Texas A&M University (score 1.0) over
+    Texas A&M University - Kingsville (0.95, an en dash), which it is (2609.22631). Names are compared
+    as runs of words, dashes and case aside; the first such candidate, in ROR's order,
+    wins. Else the chosen organization.
+    """
+    written = f" {' '.join(_word_run(affiliation))} "
+    chosen_names = [run for run in _name_runs(chosen) if f" {run} " in written]
+    for item in items:
+        organization = item.get("organization") if isinstance(item, dict) else None
+        if not isinstance(organization, dict) or organization is chosen:
+            continue
+        for run in _name_runs(organization):
+            if f" {run} " in written and any(
+                f" {name} " in f" {run} " and name != run for name in chosen_names
+            ):
+                return organization
+    return chosen
+
+
+def _name_runs(organization: Mapping[str, object]) -> list[str]:
+    """The organization's names but acronyms, each as its run of folded words."""
+    names = organization.get("names")
+    return [
+        " ".join(_word_run(str(name.get("value", ""))))
+        for name in (names if isinstance(names, list) else [])
+        if isinstance(name, dict) and not set(name.get("types", [])) <= {"acronym"}
+    ]
+
+
+def _word_run(text: str) -> list[str]:
+    """The words of a text in order, folded, dashes splitting them, without parenthesized parts."""
+    decomposed = unicodedata.normalize("NFKD", _PARENTHESIS_RE.sub(" ", _DASH_RE.sub(" ", text)))
+    folded = "".join(char for char in decomposed if not unicodedata.combining(char)).casefold()
+    return _WORD_RE.findall(folded)
 
 
 def _is_supported(affiliation: str, names: list[object]) -> bool:

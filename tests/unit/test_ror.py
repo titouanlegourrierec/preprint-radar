@@ -45,15 +45,31 @@ def _peking_id() -> str | None:
             id="chosen-on-the-street-name",
         ),
         pytest.param("meta", "Meta AI", None, id="nothing-chosen"),
+        pytest.param(
+            "tamuk",
+            "AI-Based Autonomous System Research Lab, Department of Electrical Engineering and Computer "
+            "Science, Texas A&M University-Kingsville (TAMUK), Kingsville, TX, USA",
+            "Texas A&M University \u2013 Kingsville",
+            id="a-longer-name-written-whole",
+        ),
+        pytest.param(
+            "tamuk",
+            "Department of Computer Science, Texas A&M University, College Station, TX, USA",
+            "Texas A&M University",
+            id="the-chosen-name-when-no-longer-one-is-written",
+        ),
     ],
 )
 def test_parse_ror_response(fixture: str, affiliation: str, expected: str | None) -> None:
     match = parse_ror_response(_response(fixture), affiliation)
     assert (match.name if match else None) == expected
-    # With the organization's ROR id.
-    assert match is None or match.ror_id == ror_id(
-        json.loads(_response(fixture))["items"][0]["organization"]["id"]
+    # With the ROR id of the organization of that name, else of the chosen one.
+    organizations = [item["organization"] for item in json.loads(_response(fixture))["items"]]
+    owner = next(
+        (org for org in organizations if expected in [name["value"] for name in org["names"]]),
+        organizations[0],
     )
+    assert match is None or match.ror_id == ror_id(owner["id"])
 
 
 def test_ror_ids_are_the_last_part_of_ror_urls() -> None:

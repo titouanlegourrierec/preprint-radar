@@ -46,6 +46,10 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ### Data
 
+- An affiliation that writes a longer name holding the one ROR chose gets that one:
+  "Texas A&M University-Kingsville" was Texas A&M University, ROR writing Texas A&M
+  University – Kingsville with a spaced en dash. Asked again, the 11 stored strings where a
+  dash followed the chosen name changed 4 papers (AFF-30).
 - Extraction version 10 reads, last, the affiliations a thanks note lists without a
   sentence around them, as IEEE conference classes write them: the whole note
   ("Department of Computer Science, University of Freiburg, Germany."), a numbered one

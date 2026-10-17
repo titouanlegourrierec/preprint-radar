@@ -253,7 +253,16 @@ ambiguous name alignments drop the whole tier, and unresolved authors stay `null
 `api.ror.org/v2/organizations?affiliation=` marks one match `chosen`. Only those are kept,
 and only when one of the organization's names (not an acronym) of at least two words
 appears word for word in the affiliation: `chosen` alone matched "ARC Lab, Tencent" to an
-association called ARC and "180 Queen's Gate" to "The Gate". ROR names about 70% of the
+association called ARC and "180 Queen's Gate" to "The Gate". `chosen` can also be a
+shorter name inside the right one: "Texas A&M University-Kingsville" chose Texas A&M
+University (score 1.0) over Texas A&M University – Kingsville (0.95), which ROR writes with
+a spaced en dash. A candidate one of whose names holds the chosen one's and is written
+whole in the affiliation, as a run of words, hyphens and dashes splitting them, is kept
+instead (`_longer_match`, AFF-30): on 2026-10-17, asked again for the 11 stored strings
+where a dash followed the chosen name, it changed 4 papers' (Kingsville, Texas A&M –
+San Antonio twice, the University of Hong Kong – Shenzhen Hospital), and left "University
+of Michigan–Ann Arbor" or "Helmholtz Munich - German Research Center…" alone, ROR
+holding no longer name for them. ROR names about 70% of the
 strings (universities in full), and gives each its id (`institution_ids`). A failing ROR
 never fails a run: lookups stop and resume next run. A string ROR answered for in an
 earlier run is not asked again (`collect.ror_answers`, AFF-17): its latest answer, read
