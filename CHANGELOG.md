@@ -14,6 +14,9 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   shard or a citation shard it kept from before: the build writes each data file's version
   into the site's index, and the site asks for the file with it, so that a changed file
   has a new address and an unchanged one stays in the cache (PERF-8).
+- A refusal of Semantic Scholar that says how long to wait (`Retry-After`) is waited for as
+  it asks, rather than by the wait doubling from 2 s, and the run's summary counts such
+  refusals, so that the next runs tell whether it sends any (CIT-8).
 
 ### Performance
 

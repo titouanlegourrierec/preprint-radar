@@ -113,6 +113,25 @@ def test_fetch_citation_counts_sends_the_key_and_retries_refusals() -> None:
     assert b'"ARXIV:2609.1"' in requests[-1].content
 
 
+def test_a_refusal_that_says_how_long_to_wait_is_waited_for(caplog: pytest.LogCaptureFixture) -> None:
+    caplog.set_level(logging.INFO)
+    responses = iter(
+        [
+            httpx.Response(429, headers={"Retry-After": "7"}),
+            httpx.Response(429),
+            httpx.Response(200, text='[{"citationCount": 7}]'),
+        ]
+    )
+    sleeps: list[float] = []
+    with HttpClient(transport=httpx.MockTransport(lambda _: next(responses)), max_attempts=1) as client:
+        counts = fetch_citation_counts(client, ["2609.1"], key="secret", sleep=sleeps.append)
+
+    assert counts == {"2609.1": 7}
+    # Its Retry-After (CIT-8), then the doubling wait of a refusal without one.
+    assert sleeps == [7.0, 2 * S2_RETRY_WAIT_SECONDS]
+    assert "1 batches fetched from Semantic Scholar, 2 refused tries, 1 with a Retry-After" in caplog.text
+
+
 @pytest.mark.parametrize(
     ("key", "first_waits"),
     [(None, [20.0, 40.0, 60.0, 60.0]), ("secret", [2.0, 4.0, 8.0, 16.0, 32.0, 60.0])],
