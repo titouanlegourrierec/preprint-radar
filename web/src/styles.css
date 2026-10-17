@@ -158,7 +158,8 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-sans);
-  font-size: 15px;
+  /* 15 px of the default 16: the reader's own font size scales every text (UX-16). */
+  font-size: 0.9375rem;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
 }
@@ -679,6 +680,7 @@ html {
 }
 
 .chip {
+  min-height: 24px;
   padding: 2px 9px;
   border: 1px solid var(--border);
   border-radius: 999px;
@@ -735,7 +737,7 @@ html {
 
 .period-picker__weekday {
   padding-bottom: 2px;
-  font-size: 0.68rem;
+  font-size: 0.6875rem;
   color: var(--text-muted);
   text-align: center;
   text-transform: uppercase;
@@ -758,7 +760,7 @@ html {
 }
 
 .period-picker__day small {
-  font-size: 0.65rem;
+  font-size: 0.6875rem;
   color: var(--text);
 }
 
@@ -811,6 +813,7 @@ html {
 }
 
 .filters summary {
+  min-height: 24px;
   cursor: pointer;
   font-size: 0.9rem;
   color: var(--text-muted);
@@ -879,7 +882,7 @@ html {
   border-radius: 999px;
   background: var(--accent);
   color: var(--surface);
-  font-size: 0.65rem;
+  font-size: 0.6875rem;
   font-weight: 600;
   line-height: 1;
 }
@@ -956,6 +959,7 @@ html {
 }
 
 .segmented__option {
+  min-height: 24px;
   padding: 3px 10px;
   white-space: nowrap;
   border: 0;
@@ -985,6 +989,7 @@ html {
 }
 
 .info__button {
+  position: relative;
   display: grid;
   place-items: center;
   width: 20px;
@@ -999,6 +1004,13 @@ html {
   line-height: 1;
   color: var(--text-muted);
   cursor: pointer;
+}
+
+/* Drawn 20 px wide, it takes a pointer over 24 (UX-16). */
+.info__button::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
 }
 
 .info__button:hover,
@@ -1139,6 +1151,7 @@ html {
   display: flex;
   align-items: baseline;
   gap: 6px;
+  min-height: 24px;
   margin: 24px 4px 0;
   font-size: 0.78rem;
   font-weight: 600;
@@ -2052,7 +2065,7 @@ html {
   /* Clear of the zoom buttons below it. */
   max-height: calc(100% - 170px);
   overflow: hidden;
-  font-size: 12.5px;
+  font-size: 0.7812rem;
 }
 
 /* Folded, the panel is its button alone. */
@@ -2084,12 +2097,13 @@ html {
 }
 
 .graph-settings__reset {
+  min-height: 24px;
   margin-right: 8px;
   padding: 2px 6px;
   border: 0;
   border-radius: 6px;
   background: none;
-  font-size: 11.5px;
+  font-size: 0.7188rem;
   color: var(--text-muted);
   cursor: pointer;
 }
@@ -2118,7 +2132,7 @@ html {
 
 .graph-settings legend {
   padding: 4px 0;
-  font-size: 10.5px;
+  font-size: 0.6875rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--text-muted);
@@ -2137,7 +2151,7 @@ html {
   border-radius: 8px;
   background: var(--surface);
   color: var(--text);
-  font-size: 12.5px;
+  font-size: 0.7812rem;
   appearance: none;
   cursor: pointer;
 }
@@ -2162,7 +2176,7 @@ html {
 .graph-settings .graph-layer__min select {
   width: auto;
   padding: 2px 22px 2px 6px;
-  font-size: 11.5px;
+  font-size: 0.7188rem;
 }
 
 .graph-settings .graph-settings__segmented {
@@ -2170,7 +2184,7 @@ html {
   justify-self: end;
   padding: 2px;
   border: 0;
-  font-size: 11.5px;
+  font-size: 0.7188rem;
 }
 
 .graph-settings__segmented .segmented__option {
@@ -2179,7 +2193,8 @@ html {
 
 /* The forces, folded: few readers need them. */
 .graph-settings__summary {
-  font-size: 10.5px;
+  min-height: 24px;
+  font-size: 0.6875rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--text-muted);
@@ -2198,7 +2213,7 @@ html {
   gap: 6px;
   padding-top: 8px;
   border-top: 1px solid var(--border);
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--text-muted);
 }
 
@@ -2208,7 +2223,7 @@ html {
 
 .graph-settings__note {
   margin: 0;
-  font-size: 11px;
+  font-size: 0.6875rem;
   color: var(--text-muted);
 }
 
@@ -2217,13 +2232,18 @@ html {
   grid-template-columns: 1fr auto;
   align-items: center;
   gap: 2px 6px;
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--text-muted);
 }
 
 .ctl output {
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-variant-numeric: tabular-nums;
+}
+
+/* Its thumb takes a pointer over the whole 24 px high (UX-16). */
+input[type="range"] {
+  min-height: 24px;
 }
 
 .ctl input[type="range"] {
@@ -2251,7 +2271,7 @@ html {
   grid-template-columns: 1fr 1.6fr;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--text-muted);
 }
 
@@ -2264,7 +2284,7 @@ html {
   border: 1px solid var(--border);
   border-radius: 7px;
   background: var(--surface-muted);
-  font-size: 12px;
+  font-size: 0.75rem;
   cursor: pointer;
 }
 
@@ -2335,7 +2355,7 @@ html {
   border: 1px solid var(--border-strong);
   border-radius: 4px;
   font-family: inherit;
-  font-size: 11px;
+  font-size: 0.6875rem;
   color: var(--text-muted);
   pointer-events: none;
 }
@@ -2345,7 +2365,7 @@ html {
   padding: 3px 8px;
   border-radius: 6px;
   background: var(--surface);
-  font-size: 11.5px;
+  font-size: 0.7188rem;
   color: var(--text-muted);
 }
 
@@ -2380,7 +2400,7 @@ html {
   border-radius: 50%;
   background: var(--accent-soft);
   color: var(--text);
-  font-size: 11px;
+  font-size: 0.6875rem;
   cursor: pointer;
 }
 
@@ -2390,7 +2410,7 @@ html {
 
 .graph-timeline__day {
   min-width: 6.5em;
-  font-size: 11.5px;
+  font-size: 0.7188rem;
   font-variant-numeric: tabular-nums;
   color: var(--text-muted);
   text-align: right;
@@ -2490,12 +2510,12 @@ html {
   height: 30px;
   background: color-mix(in srgb, var(--surface) 82%, transparent);
   backdrop-filter: blur(6px);
-  font-size: 13px;
+  font-size: 0.8125rem;
 }
 
 .graph-info .info__panel {
   width: min(320px, calc(100vw - 24px));
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 .graph__legend {
@@ -2507,7 +2527,7 @@ html {
   border-radius: 9px;
   background: color-mix(in srgb, var(--surface) 82%, transparent);
   backdrop-filter: blur(6px);
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--text-muted);
   pointer-events: none;
 }
@@ -2555,7 +2575,7 @@ html {
   border: 1px solid var(--border-strong);
   border-radius: 8px;
   background: color-mix(in srgb, var(--surface) 88%, transparent);
-  font-size: 18px;
+  font-size: 1.125rem;
   line-height: 1;
   color: var(--text);
   cursor: pointer;
@@ -2598,7 +2618,7 @@ html {
   border: 0;
   background: none;
   color: var(--accent);
-  font-size: 12px;
+  font-size: 0.75rem;
   text-align: left;
   cursor: pointer;
 }
@@ -2629,7 +2649,7 @@ html {
   right: 12px;
   bottom: 12px;
   margin: 0;
-  font-size: 11px;
+  font-size: 0.6875rem;
   color: var(--text-muted);
   pointer-events: none;
 }
@@ -2826,6 +2846,7 @@ html {
 /* A column's header ranks the table by it (UX-42): its arrow shows on the column ranked
    by, and faintly under the pointer on the others. */
 .rankings__sort {
+  min-height: 24px;
   display: inline-flex;
   gap: 3px;
   align-items: center;
@@ -3470,6 +3491,11 @@ html {
 
 .export-menu__toggle::-webkit-details-marker {
   display: none;
+}
+
+.export-menu__items .link-button {
+  min-width: 24px;
+  min-height: 24px;
 }
 
 .export-menu__items {

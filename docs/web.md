@@ -180,6 +180,13 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   title and an abstract shown printed whole, without the top bar, search, sidebar,
   controls, help notes and graph; a folded card keeps its "+N" authors and affiliations,
   which say how many are left out. Only the cards the list has loaded (40 at a time) print.
+- Text sizes are in `rem` (UX-16): the body's 15 px is 0.9375rem, so that the reader's own
+  font size scales the whole page, and no text is under 11 px of the default 16 (the
+  graph's settings and calendar's small print were 10.5); `tests/styles.test.ts` checks
+  both. Controls that stand alone take a pointer over 24 px at least (WCAG 2.5.8): chips,
+  summaries, segmented options, sortable headers, the export menu's items, range inputs,
+  and ⓘ, drawn 20 px wide, by a pseudo-element around it. Names and affiliations in a
+  card's lines are text, which the rule leaves out, and checkboxes have their label.
 - Every date and number is written in British English (`LOCALE`, `locale.ts`, UX-17),
   whatever the reader's locale, as the rest of the interface is English: "25 Sept 2026",
   "10,000". Counts go through `countOf` ("1 paper", "10,000 papers", UX-25).

@@ -35,6 +35,9 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ### Interface
 
+- Text follows the reader's own font size, and none is smaller than 11 px; the controls
+  that stand alone (chips, the ⓘ, sortable headers, the graph settings' sliders and
+  sections) take a pointer over 24 px at least (UX-16).
 - Dates and numbers are written in British English whatever the reader's locale, as the
   rest of the interface is English: "25 Sept 2026" and "10,000", not "25 sept. 2026" and
   "10 000" for a French reader (UX-17).

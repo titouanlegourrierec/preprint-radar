@@ -37,6 +37,19 @@ describe("palettes", () => {
   });
 });
 
+describe("sizes (UX-16)", () => {
+  const sizes = [...css.matchAll(/font-size:\s*([^;]+);/g)].map((match) => match[1] ?? "");
+
+  it("write text in rem, from the reader's font size", () => {
+    expect(sizes.filter((size) => size.endsWith("px"))).toEqual([]);
+  });
+
+  it("write no text under 11 px of the default 16", () => {
+    const small = sizes.filter((size) => size.endsWith("rem") && Number.parseFloat(size) < 11 / 16);
+    expect(small).toEqual([]);
+  });
+});
+
 describe("the browser's bar (UX-18)", () => {
   const backgrounds = {
     light: variables(":root").get("--bg"),
