@@ -7,7 +7,6 @@ import os
 import re
 import signal
 import time
-from collections import Counter
 from collections.abc import Callable, Generator, Iterable, Sequence
 from contextlib import contextmanager
 from datetime import UTC, date, datetime, timedelta
@@ -49,7 +48,6 @@ from preprint_radar.config import (
     DEFAULT_CATALOG_DIR,
     DEFAULT_CATEGORY,
     DEFAULT_DATA_DIR,
-    DEFAULT_EXPORT_DIR,
     DEFAULT_MAX_HTML,
     DEFAULT_MAX_ROR_LOOKUPS,
     DEFAULT_PAGE_CACHE_DIR,
@@ -70,15 +68,13 @@ from preprint_radar.http import (
 )
 from preprint_radar.models import Paper
 from preprint_radar.sources.arxiv_html import EXTRACTOR_VERSION, PageCache
-from preprint_radar.sources.arxiv_listing import MAX_LISTING_ENTRIES, fetch_listing, validate_category
+from preprint_radar.sources.arxiv_listing import validate_category
 from preprint_radar.sources.arxiv_oai import OAI_DELAY_SECONDS, OAI_TIMEOUT_SECONDS
 from preprint_radar.sources.github import GITHUB_DELAY_SECONDS
 from preprint_radar.sources.huggingface import HUGGINGFACE_DELAY_SECONDS
 from preprint_radar.sources.openalex import OPENALEX_DELAY_SECONDS
 from preprint_radar.sources.ror import ROR_DELAY_SECONDS
 from preprint_radar.sources.semantic_scholar import S2_ANONYMOUS_DELAY_SECONDS, S2_DELAY_SECONDS, api_key
-from preprint_radar.store import filters
-from preprint_radar.store.export import ExportFormat, export_papers
 from preprint_radar.store.naming import name_institutions_again
 from preprint_radar.store.paper_store import PaperStore
 from preprint_radar.store.quality import (
@@ -155,15 +151,6 @@ def _regex(text: str) -> re.Pattern[str]:
         raise argparse.ArgumentTypeError(msg) from None
 
 
-def _listing_size(text: str) -> int:
-    """Entries of a listing to request: arXiv's listing pages show 1 to MAX_LISTING_ENTRIES."""
-    value = _count(text)
-    if not 1 <= value <= MAX_LISTING_ENTRIES:
-        msg = f"must be between 1 and {MAX_LISTING_ENTRIES}, got {value}"
-        raise argparse.ArgumentTypeError(msg)
-    return value
-
-
 def build_parser() -> argparse.ArgumentParser:
     """Build the top-level argument parser."""
     parser = argparse.ArgumentParser(
@@ -193,7 +180,6 @@ def build_parser() -> argparse.ArgumentParser:
         help=f"e-mail or URL sent in the User-Agent so arXiv can reach you (env: {CONTACT_ENV_VAR})",
     )
     subparsers = parser.add_subparsers(dest="command", required=True, metavar="COMMAND")
-    _add_fetch_parser(subparsers)
     _add_update_parser(subparsers)
     _add_backfill_parser(subparsers)
     _add_stats_parser(subparsers)
@@ -266,46 +252,6 @@ def log_level(args: argparse.Namespace) -> int:
     if args.command in PROGRESS_COMMANDS:
         verbosity = max(verbosity, 1)
     return {0: logging.WARNING, 1: logging.INFO}.get(verbosity, logging.DEBUG)
-
-
-def _add_fetch_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
-    fetch = subparsers.add_parser(
-        "fetch",
-        help="export the recent listing of a category to JSON or CSV",
-        description="Export the papers announced over the last few days in an arXiv category.",
-    )
-    fetch.add_argument(
-        "-c",
-        "--category",
-        type=_category,
-        default=DEFAULT_CATEGORY,
-        help=f"arXiv category (default: {DEFAULT_CATEGORY})",
-    )
-    fetch.add_argument(
-        "-o",
-        "--output",
-        type=Path,
-        help=f"output file (default: {DEFAULT_EXPORT_DIR}/<category>_<latest date>.<format>)",
-    )
-    fetch.add_argument(
-        "-f",
-        "--format",
-        type=ExportFormat,
-        choices=list(ExportFormat),
-        help="output format (default: inferred from --output, else json)",
-    )
-    fetch.add_argument("--latest-only", action="store_true", help="keep only the most recent day")
-    fetch.add_argument(
-        "--exclude-cross-lists",
-        action="store_true",
-        help="drop papers cross-listed from other categories",
-    )
-    fetch.add_argument(
-        "--max-entries",
-        type=_listing_size,
-        default=MAX_LISTING_ENTRIES,
-        help=f"maximum number of entries to request (default: {MAX_LISTING_ENTRIES})",
-    )
 
 
 def _add_update_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
@@ -891,32 +837,6 @@ def main(argv: Sequence[str] | None = None) -> int:
         # On the run's page, which otherwise only says that the step exited with 1.
         github_annotation("error", f"preprint-radar {args.command} failed", str(exc))
         return 1
-
-
-def _run_fetch(args: argparse.Namespace) -> int:
-    with HttpClient(user_agent=build_user_agent(args.contact)) as client:
-        listing = fetch_listing(client, args.category, max_entries=args.max_entries)
-
-    papers = list(listing.papers)
-    if args.latest_only:
-        papers = filters.latest_day(papers)
-    if args.exclude_cross_lists:
-        papers = filters.exclude_cross_lists(papers)
-    if not papers:
-        logger.warning("No papers left to export.")
-        return 0
-
-    fmt: ExportFormat = (
-        args.format or (args.output and ExportFormat.from_path(args.output)) or ExportFormat.JSON
-    )
-    latest = max(paper.announced for paper in papers)
-    output: Path = args.output or DEFAULT_EXPORT_DIR / f"{args.category}_{latest.isoformat()}.{fmt}"
-    export_papers(papers, output, fmt)
-
-    for day, count in sorted(Counter(paper.announced for paper in papers).items(), reverse=True):
-        console.print(f"{day.isoformat()}: {count} papers")
-    console.print(f"Total: {len(papers)} papers written to {output}")
-    return 0
 
 
 def _run_update(args: argparse.Namespace) -> int:
@@ -1513,7 +1433,6 @@ def _configure_logging(level: int) -> None:
 
 
 _COMMANDS: dict[str, Callable[[argparse.Namespace], int]] = {
-    "fetch": _run_fetch,
     "update": _run_update,
     "backfill": _run_backfill,
     "stats": _run_stats,

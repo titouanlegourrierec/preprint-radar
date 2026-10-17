@@ -137,7 +137,7 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     code a paper links, as the site's card finds it.
   - `archive/`: the weekly citation archive (`update.py`, `catalog.py`, `selection.py`).
   - `store/`: `paper_store.py` (the `data/` layout), `validate.py`, `stats.py`,
-    `quality.py`, `reclean.py`, `venues.py`, `export.py`, `filters.py`.
+    `quality.py`, `reclean.py`, `venues.py`, `naming.py`, `provenance.py`.
   - `config.py`: tunable defaults (category, directories, environment variable names,
     archive budget and policy, HTML pages and ROR lookups per run). Limits a service
     imposes (crawl delays, batch sizes, URLs, timeouts, retries) are not settings: they
@@ -197,7 +197,7 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   with the `network` marker, deselected by default. Data made up for a test is synthetic:
   no real author ids or e-mails (the fixtures' real pages have theirs replaced).
 - `tests/conftest.py` runs every test in its own temporary directory, since default paths
-  are relative (`data/`, `.cache/`, `exports/`): a CLI test once wrote fake pages into the
+  are relative (`data/`, `.cache/`): a CLI test once wrote fake pages into the
   real page cache. It also hides `PREPRINT_RADAR_CONTACT`, `SEMANTIC_SCHOLAR_API_KEY`,
   `GITHUB_TOKEN` (the Makefile exports the contact of `.env` to every target, its key to
   `archive`, `citations` and `scholar` only, its token to `code` only; the shell may hold

@@ -20,7 +20,6 @@ DEFAULT_CATALOG_DIR = Path(".cache/catalog")
 """The OAI catalog and the citation counts cache of the archive (git-ignored)."""
 DEFAULT_PAGE_CACHE_DIR = Path(".cache/front-matter")
 """The front matter of every HTML page read, for `reextract` (git-ignored)."""
-DEFAULT_EXPORT_DIR = Path("exports")
 
 # Environment variables.
 CONTACT_ENV_VAR = "PREPRINT_RADAR_CONTACT"

@@ -208,5 +208,5 @@ preview: build ## Build the site and serve the production build locally
 
 .PHONY: clean
 clean: ## Remove caches and build outputs (keeps data/ and dependencies)
-	rm -rf .pytest_cache .ruff_cache .coverage coverage.xml htmlcov exports $(WEB)/dist
+	rm -rf .pytest_cache .ruff_cache .coverage coverage.xml htmlcov $(WEB)/dist
 	find . \( -path ./.venv -o -path ./$(WEB)/node_modules \) -prune -o -name __pycache__ -type d -exec rm -rf {} +

@@ -19,7 +19,7 @@ os.environ.pop("FORCE_COLOR", None)
 @pytest.fixture(autouse=True)
 def _working_directory(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     """Run every test in its own directory: default paths are relative (``data/``,
-    ``.cache/front-matter/``, ``exports/``), and a test must never write into the repository.
+    ``.cache/front-matter/``), and a test must never write into the repository.
     """
     monkeypatch.chdir(tmp_path)
 

@@ -179,16 +179,17 @@ def test_a_rejected_semantic_scholar_key_is_a_red_run_that_keeps_the_counts(
 
 
 def test_errors_are_annotated_only_in_github_actions(
-    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
 ) -> None:
     def fail(*_: object, **__: object) -> str:
         msg = "arxiv.org is down"
         raise FetchError(msg)
 
     monkeypatch.setattr(HttpClient, "get_text", fail)
+    update = ["update", "--data-dir", str(tmp_path / "data"), "--crawl-delay", "0"]
 
-    assert main(["fetch"]) == 1
+    assert main(update) == 1
     assert "::error" not in capsys.readouterr().out
     monkeypatch.setenv("GITHUB_ACTIONS", "true")
-    assert main(["fetch"]) == 1
-    assert "::error title=preprint-radar fetch failed::arxiv.org is down" in capsys.readouterr().out
+    assert main(update) == 1
+    assert "::error title=preprint-radar update failed::arxiv.org is down" in capsys.readouterr().out

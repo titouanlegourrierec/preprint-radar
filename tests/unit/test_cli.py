@@ -70,38 +70,6 @@ def offline(
 
 
 @pytest.mark.usefixtures("offline")
-def test_fetch_writes_json(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
-    output = tmp_path / "papers.json"
-
-    assert main(["fetch", "--output", str(output)]) == 0
-
-    assert len(json.loads(output.read_text(encoding="utf-8"))) == 7
-    stdout = capsys.readouterr().out
-    assert "2026-09-25: 5 papers" in stdout
-    assert "2026-09-24: 2 papers" in stdout
-
-
-@pytest.mark.usefixtures("offline")
-def test_fetch_defaults_to_dated_file_in_exports_dir(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.chdir(tmp_path)
-
-    assert main(["fetch", "--format", "csv"]) == 0
-
-    assert (tmp_path / "exports" / "cs.CV_2026-09-25.csv").is_file()
-
-
-@pytest.mark.usefixtures("offline")
-def test_fetch_applies_filters(tmp_path: Path) -> None:
-    output = tmp_path / "papers.json"
-
-    assert main(["fetch", "-o", str(output), "--latest-only", "--exclude-cross-lists"]) == 0
-
-    records = json.loads(output.read_text(encoding="utf-8"))
-    assert len(records) == 3
-    assert {record["announced"] for record in records} == {"2026-09-25"}
-
-
-@pytest.mark.usefixtures("offline")
 def test_update_populates_store(
     tmp_path: Path, capsys: pytest.CaptureFixture[str], caplog: pytest.LogCaptureFixture
 ) -> None:
@@ -329,18 +297,6 @@ def test_a_contact_silences_the_warning(
     assert "No contact given" not in caplog.text
 
 
-def test_fetch_without_papers_writes_nothing(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, caplog: pytest.LogCaptureFixture
-) -> None:
-    monkeypatch.setattr("preprint_radar.cli.fetch_listing", lambda *_, **__: Listing(papers=()))
-    output = tmp_path / "papers.json"
-
-    assert main(["fetch", "--output", str(output)]) == 0
-
-    assert not output.exists()
-    assert "No papers left to export" in caplog.text
-
-
 def test_backfill_rejects_reversed_dates(capsys: pytest.CaptureFixture[str]) -> None:
     with pytest.raises(SystemExit) as exc_info:
         main(["backfill", "--since", "2026-09-02", "--until", "2026-09-01"])
@@ -352,7 +308,6 @@ def test_backfill_rejects_reversed_dates(capsys: pytest.CaptureFixture[str]) -> 
 @pytest.mark.parametrize(
     ("argv", "message"),
     [
-        (["fetch", "--max-entries", "0"], "must be between 1 and 2000, got 0"),
         (["update", "--max-html", "-1"], "must be 0 or more, got -1"),
         (["update", "--max-ror", "many"], "not a whole number: 'many'"),
         (["citations", "--max-minutes", "-5"], "must be a number, 0 or more, got -5"),
@@ -364,7 +319,7 @@ def test_backfill_rejects_reversed_dates(capsys: pytest.CaptureFixture[str]) -> 
         (["stats", "--affiliations", "--changes"], "--changes needs --page-cache-dir"),
         (["stats", "--page-cache-dir", "cache"], "--page-cache-dir goes with --affiliations"),
     ],
-    ids=["entries", "html", "ror", "minutes", "nan", "delay", "inf", "long", "regex", "changes", "cache"],
+    ids=["html", "ror", "minutes", "nan", "delay", "inf", "long", "regex", "changes", "cache"],
 )
 def test_arguments_out_of_range_are_refused_with_a_usage_line(
     argv: list[str], message: str, capsys: pytest.CaptureFixture[str]
@@ -398,7 +353,6 @@ def test_verbosity_goes_before_or_after_the_command(argv: list[str], level: int)
 def test_numbers_in_range_are_taken() -> None:
     parser = build_parser()
 
-    assert parser.parse_args(["fetch", "--max-entries", "10"]).max_entries == 10
     assert parser.parse_args(["update", "--max-html", "0", "--crawl-delay", "0"]).max_html == 0
 
 
@@ -613,19 +567,21 @@ def test_stats_on_an_empty_store(tmp_path: Path, caplog: pytest.LogCaptureFixtur
     assert "is empty" in caplog.text
 
 
-def test_errors_are_reported(monkeypatch: pytest.MonkeyPatch, caplog: pytest.LogCaptureFixture) -> None:
+def test_errors_are_reported(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, caplog: pytest.LogCaptureFixture
+) -> None:
     def fail(*_: object, **__: object) -> str:
         raise FetchError("arxiv.org is down")
 
     monkeypatch.setattr(HttpClient, "get_text", fail)
 
-    assert main(["fetch"]) == 1
+    assert main(["update", "--data-dir", str(tmp_path / "data"), "--crawl-delay", "0"]) == 1
     assert "arxiv.org is down" in caplog.text
 
 
 def test_rejects_invalid_category(capsys: pytest.CaptureFixture[str]) -> None:
     with pytest.raises(SystemExit) as exc_info:
-        main(["fetch", "--category", "not a category"])
+        main(["update", "--category", "not a category"])
 
     assert exc_info.value.code == 2
     assert "Invalid arXiv category" in capsys.readouterr().err

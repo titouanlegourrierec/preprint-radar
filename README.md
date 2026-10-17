@@ -66,7 +66,6 @@ uv sync
 uv run preprint-radar update                       # cs.CV into data/ (slow: up to 600 HTML pages)
 uv run preprint-radar update -c cs.CV -c cs.LG --max-html 50
 uv run preprint-radar backfill --since 2026-09-01  # past days, from arXiv's catchup pages
-uv run preprint-radar fetch --latest-only -f csv   # quick one-off export of the listing
 uv run preprint-radar -q update                    # warnings only (long commands log progress)
 
 cd web
@@ -225,7 +224,7 @@ src/preprint_radar/
 │   ├── openalex.py         # institutions of archived papers
 │   └── ror.py              # institution named by an affiliation string
 ├── archive/            # weekly citation archive: catalog, selection, update
-└── store/              # data/ layout, validate, stats, quality, reclean, venues, export, filters
+└── store/              # data/ layout, validate, stats, quality, reclean, venues, naming
 web/
 ├── src/            # Preact app: search.ts (MiniSearch), graph.ts + graph-renderer.ts, hooks/, components/, …
 ├── tooling/        # build plugins: citation shards, published versions, third-party guard
