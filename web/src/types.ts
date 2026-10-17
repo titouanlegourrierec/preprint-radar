@@ -160,6 +160,11 @@ export interface StoreIndex {
   archives?: Record<string, ArchiveSummary[]>;
   /** The most cited papers of the last 12 months; absent before the first archive to write them. */
   top_recent?: Record<string, TopRecentSummary>;
+  /**
+   * The site's index only: the version of each data file the site loads, by its path under
+   * `data/`, which the build writes (`tooling/data-versions.ts`, PERF-8).
+   */
+  versions?: Record<string, string>;
 }
 
 export interface ArchiveFile {

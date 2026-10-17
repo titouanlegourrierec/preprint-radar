@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import {
   cpSync,
   createReadStream,
@@ -16,6 +17,7 @@ import { defineConfig } from "vitest/config";
 import type { CodeFile, ScholarFile, StoreIndex } from "./src/types";
 import { citationShardFiles } from "./tooling/citation-shards";
 import { contentSecurityPolicy as policy } from "./tooling/content-security-policy";
+import { fileVersions, withVersions } from "./tooling/data-versions";
 import { feedFiles } from "./tooling/feeds";
 import { LANDING_BUDGET, landingAssets, landingReport } from "./tooling/landing";
 import { paperFiles, withSiteFields } from "./tooling/scholar";
@@ -116,7 +118,8 @@ const PAPER_FILE_RE = /^\/([^/]+)\/(?:\d{4}-\d{2}-\d{2}|archive\/\d{4}|top-recen
  * build output, so the Python pipeline and the web app share a single source of truth. What
  * only the site uses is derived from it here, not stored: the citation shards, the search
  * shards, the records with what `scholar.json` and `code.json` know (`tooling/scholar.ts`,
- * `tooling/code.ts`), and the Atom feeds, at `/feeds`.
+ * `tooling/code.ts`), the Atom feeds, at `/feeds`, and the version of each file in the
+ * index (`tooling/data-versions.ts`, the build only).
  */
 function paperData(dataDir: string): Plugin {
   const shards = shardsOf(dataDir);
@@ -188,6 +191,27 @@ function paperData(dataDir: string): Plugin {
           if ((scholar !== null || code !== null) && existsSync(target)) {
             writeFileSync(target, withSiteFields(readFileSync(target, "utf8"), scholar, code));
           }
+        }
+        // Last, the version of each file the site loads, as written (PERF-8).
+        const loadable = [
+          ...(index ? paperFiles(index).map(({ path }) => path) : []),
+          ...(index
+            ? Object.keys(index.categories).map((category) => `${category}/countries.json`)
+            : []),
+          ...shards().keys(),
+          ...searchShards().keys(),
+        ];
+        const versions = fileVersions(
+          loadable,
+          (path) => {
+            const target = resolve(output, path);
+            return existsSync(target) ? readFileSync(target) : null;
+          },
+          (content) => createHash("sha256").update(content).digest("hex"),
+        );
+        const indexFile = resolve(output, "index.json");
+        if (existsSync(indexFile)) {
+          writeFileSync(indexFile, withVersions(readFileSync(indexFile, "utf8"), versions));
         }
       }
     },

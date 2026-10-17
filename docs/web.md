@@ -267,6 +267,17 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   the script; `loadIndex` takes that response, since it asks for the same URL with
   `fetch`'s default mode and credentials, which `crossorigin` gives the preload (the smoke
   test checks the single request): keep the two in step (PERF-14).
+- Every other data file is asked for with its version (PERF-8): the build writes the
+  first ten hex digits of the SHA-256 of each file the site loads (day and archive files,
+  `top-recent.json`, `countries.json`, the citation and search shards), as written, into
+  the site's `index.json` (`versions`, `tooling/data-versions.ts`), and `dataUrl` asks for
+  `<path>?v=<version>`. GitHub Pages lets a browser keep a file ten minutes: without it, a
+  deploy could leave a browser with the fresh index and a day file, search shard or
+  citation shard of before. A file the deploy changed gets a new address, one it did not
+  keeps its own and its cache. The paths stay the store's, which feeds, links and saved
+  papers (`light`) name; the index itself is never versioned, being what names the
+  versions, and the development server's has none. The smoke test routes data files by
+  patterns that allow the version, and checks one is asked for with it.
 - `usePapers` cancels the requests of a period left; `data.ts` keeps the files loaded for
   the next periods (as many papers as a period loads), least recently used out first. It
   loads again only for another period (`periodKey`): Back from a filter or a paper to the

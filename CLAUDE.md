@@ -329,7 +329,8 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
 
 - The Makefile must run on macOS's GNU Make 3.81: no `--eval`, `.ONESHELL`, or `$(file ...)`.
 - `web/vite.config.ts` derives files that only the site has (citation shards, search
-  shards, the merged DOIs and venues, the Atom feeds): they never exist in `data/`
+  shards, the merged DOIs and venues, the Atom feeds, the version of each data file in the
+  site's `index.json`, which `data.ts` asks for as `?v=`, PERF-8): they never exist in `data/`
   (`docs/web.md`). The build fails if the site would load anything from another origin
   (but Cloudflare Web Analytics' script, given `PREPRINT_RADAR_ANALYTICS_TOKEN`, UX-47),
   and adds a Content-Security-Policy that refuses inline scripts and `style` attributes

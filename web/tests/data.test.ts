@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   citationShard,
+  dataUrl,
   forgetLoaded,
   loadArchive,
   loadArchiveYears,
@@ -58,6 +59,36 @@ describe("data", () => {
     serve({}, { "cs.CV/countries.json": 503 });
     await expect(loadCountries("cs.CV")).rejects.toThrow(
       "Could not load cs.CV/countries.json (HTTP 503)",
+    );
+  });
+
+  it("asks for each file with the version the site's index gives it (PERF-8)", async () => {
+    const urls: string[] = [];
+    vi.stubGlobal("fetch", async (url: string) => {
+      urls.push(url.slice(url.indexOf("data/")));
+      const body = url.includes("index.json")
+        ? {
+            schema_version: 1,
+            generated_at: "x",
+            categories: {},
+            versions: { "cs.CV/2026-09-25.json": "0123456789" },
+          }
+        : dayFile("2026-09-25");
+      return new Response(JSON.stringify(body));
+    });
+
+    await loadIndex();
+    await loadDays("cs.CV", [{ date: "2026-09-25", count: 1 }]);
+    await loadDays("cs.CV", [{ date: "2026-09-24", count: 1 }]);
+
+    expect(urls).toEqual([
+      "data/index.json",
+      "data/cs.CV/2026-09-25.json?v=0123456789",
+      // A file the index has no version of, as in development, is asked for as it is.
+      "data/cs.CV/2026-09-24.json",
+    ]);
+    expect(dataUrl("cs.CV/countries.json", { "cs.CV/countries.json": "abc" })).toMatch(
+      /data\/cs\.CV\/countries\.json\?v=abc$/,
     );
   });
 

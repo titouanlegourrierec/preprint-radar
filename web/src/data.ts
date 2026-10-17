@@ -19,6 +19,20 @@ const DATA_URL = `${import.meta.env.BASE_URL}data/`;
 const MAX_PARALLEL_REQUESTS = 6;
 
 /**
+ * The version of each data file, from the site's index (PERF-8): a file the last deploy
+ * changed has a new address, so that a browser never mixes the fresh index with a file it
+ * kept from before; one that did not change is still taken from its cache. The development
+ * server's index has none.
+ */
+let versions: Readonly<Record<string, string>> = {};
+
+/** The address of a data file, with its version when the index gives one. */
+export function dataUrl(path: string, known: Readonly<Record<string, string>> = versions): string {
+  const version = known[path];
+  return version === undefined ? `${DATA_URL}${path}` : `${DATA_URL}${path}?v=${version}`;
+}
+
+/**
  * Day and archive files loaded (and the most cited papers of the last 12 months), kept for
  * the next periods (back to the last week after the last month, a year of the archive after
  * another): as many papers as a period loads,
@@ -50,6 +64,7 @@ function remember(path: string, papers: Paper[]): void {
 
 /** Forget the files loaded (tests serve other files under the same paths). */
 export function forgetLoaded(): void {
+  versions = {};
   loaded.clear();
   shards.clear();
   searchShards.clear();
@@ -82,7 +97,7 @@ export function citationShard(category: string, shard: string): Promise<Citation
 }
 
 async function fetchJson<T>(path: string, signal?: AbortSignal): Promise<T> {
-  const response = await fetch(`${DATA_URL}${path}`, signal ? { signal } : {});
+  const response = await fetch(dataUrl(path), signal ? { signal } : {});
   if (!response.ok) {
     throw new Error(`Could not load ${path} (HTTP ${response.status})`);
   }
@@ -108,6 +123,7 @@ function checkSchema(version: number, what: string): void {
 export async function loadIndex(): Promise<StoreIndex> {
   const index = await fetchJson<StoreIndex>("index.json");
   checkSchema(index.schema_version, "index");
+  versions = index.versions ?? {};
   return index;
 }
 
@@ -346,7 +362,7 @@ export async function loadWholePaper(paper: Paper): Promise<Paper> {
  */
 export async function loadCountries(category: string): Promise<CountriesFile | null> {
   const path = `${category}/countries.json`;
-  const response = await fetch(`${DATA_URL}${path}`);
+  const response = await fetch(dataUrl(path));
   if (response.status === 404) return null;
   if (!response.ok) throw new Error(`Could not load ${path} (HTTP ${response.status})`);
   const file = (await response.json()) as CountriesFile;
@@ -362,7 +378,7 @@ export async function loadCitationShard(
   category: string,
   shard: string,
 ): Promise<CitationsFile | null> {
-  const response = await fetch(`${DATA_URL}${citationShardPath(category, shard)}`);
+  const response = await fetch(dataUrl(citationShardPath(category, shard)));
   if (response.status === 404) return null;
   if (!response.ok) {
     throw new Error(`Could not load citation counts (HTTP ${response.status})`);

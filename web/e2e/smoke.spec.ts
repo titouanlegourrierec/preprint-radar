@@ -6,6 +6,9 @@ import { readFileSync } from "node:fs";
 import { expect, type Page, test } from "@playwright/test";
 import { CONTENT_SECURITY_POLICY } from "../tooling/content-security-policy";
 
+/** The latest day file of the smoke test's store, asked for with or without its version (PERF-8). */
+const DAY_FILE = /\/data\/cs\.CV\/2026-09-25\.json(?:\?|$)/;
+
 /** Fail the test on any error the page logs or throws. */
 function watchErrors(page: Page): string[] {
   const errors: string[] = [];
@@ -18,7 +21,10 @@ function watchErrors(page: Page): string[] {
 
 test("the list shows the stored papers", async ({ page }) => {
   const errors = watchErrors(page);
+  // Each data file with the version the build gave it in the site's index (PERF-8).
+  const dayFile = page.waitForRequest(/\/data\/cs\.CV\/2026-09-25\.json\?v=[0-9a-f]{10}$/);
   await page.goto("./");
+  await dayFile;
   await expect(page.getByText("4 of 4 cs.CV papers")).toBeVisible();
   await expect(
     page.getByRole("heading", { name: "Gaussian Splatting for Analytical Engines" }),
@@ -167,14 +173,14 @@ test("a day that fails to load is asked for again, then left out with a notice",
   const errors = watchErrors(page);
   // The latest day's first request is dropped, and answered the second time (SRCH-10).
   let dropped = false;
-  await page.route("**/data/cs.CV/2026-09-25.json", async (route) => {
+  await page.route(DAY_FILE, async (route) => {
     if (dropped) return route.fallback();
     dropped = true;
     return route.abort("connectionreset");
   });
   // The older day's month fails until Retry.
   let shardDown = true;
-  await page.route("**/data/cs.CV/search/2026-09.json", (route) =>
+  await page.route(/\/data\/cs\.CV\/search\/2026-09\.json(?:\?|$)/, (route) =>
     shardDown ? route.fulfill({ status: 503, body: "" }) : route.fallback(),
   );
   await page.goto("./");
@@ -410,7 +416,7 @@ test("folding a seen paper a link opened hands the focus on", async ({ page }) =
 
 test("a card's +N shows the rest, and its first name takes the focus", async ({ page }) => {
   const errors = watchErrors(page);
-  await page.route("**/data/cs.CV/2026-09-25.json", async (route) => {
+  await page.route(DAY_FILE, async (route) => {
     const response = await route.fetch();
     const day = await response.json();
     day.papers[0].authors = Array.from({ length: 8 }, (_, index) => `Author ${index + 1}`);
@@ -668,7 +674,7 @@ test("a folder's link shows its papers, which the reading list then keeps (UX-46
 test("a paper the page cannot draw shows a message, not a blank page", async ({ page }) => {
   const errors = watchErrors(page);
   // A day whose first paper has no author list, which no card can draw.
-  await page.route("**/data/cs.CV/2026-09-25.json", async (route) => {
+  await page.route(DAY_FILE, async (route) => {
     const response = await route.fetch();
     const day = await response.json();
     day.papers[0].authors = null;
@@ -684,7 +690,7 @@ test("a paper the page cannot draw shows a message, not a blank page", async ({ 
 });
 
 test("a view that failed draws again for another period, or Back", async ({ page }) => {
-  await page.route("**/data/cs.CV/2026-09-25.json", async (route) => {
+  await page.route(DAY_FILE, async (route) => {
     const response = await route.fetch();
     const day = await response.json();
     day.papers[0].authors = null;
