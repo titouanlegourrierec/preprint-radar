@@ -2,27 +2,50 @@
 
 Follow and search the cs.CV papers announced on arXiv every weekday, with their affiliations, citations and the most cited older papers.
 
-A Python pipeline collects the papers announced every day in one or more arXiv
-categories — with abstracts and author affiliations — and a static web app hosted on
-GitHub Pages lets anyone search them by keyword, author or affiliation, and keep a
-reading list in folders, exported as BibTeX, RIS, CSV or Markdown, or shared by a link.
+**The site:** <https://titouanlegourrierec.github.io/preprint-radar/>
+
+A Python pipeline, run by GitHub Actions, collects the papers announced every weekday in
+one or more arXiv categories, with their abstracts, affiliations and citation counts, and
+keeps the most cited older papers. It commits them to `data/`, which a static web app on
+GitHub Pages searches: there is no server.
 
 ```
                   GitHub Actions                              GitHub Pages
 ┌────────────────────────────────────────────────┐   ┌────────────────────────────┐
 │ update (weekdays)                              │   │ web/ (Preact + MiniSearch) │
 │   listing       arxiv.org/list/<cat>/recent    │   │  - full-text search        │
-│   abstracts     rss.arxiv.org, catchup, API    │   │  - author / affiliation    │
-│   affiliations  arxiv.org/html/<id>            │   │    and venue filters       │
-│   institutions  ror.org                        │──▶│  - highly cited, rankings  │
-│   citations     Semantic Scholar               │   │  - graph, Atom feeds       │
-│ archive (Sundays)                              │   │  - reading list, BibTeX    │
-│   older papers  OAI-PMH, Semantic Scholar      │   │                            │
+│   abstracts     rss.arxiv.org, catchup, API    │   │  - author, institution,    │
+│   affiliations  arxiv.org/html/<id>, OpenAlex  │   │    venue and code filters  │
+│   institutions  ror.org                        │──▶│  - highly cited papers     │
+│   citations     Semantic Scholar               │   │  - rankings, world map     │
+│ archive (Sundays)                              │   │  - graph, Atom feeds       │
+│   older papers  OAI-PMH, Semantic Scholar      │   │  - reading list, folders   │
 │   affiliations  OpenAlex                       │   │                            │
+│   stars         GitHub, Hugging Face           │   │                            │
 │ → data/<cat>/<date>.json, archive/<year>.json, │   │                            │
 │   citations.json, scholar.json, index.json     │   │                            │
 └────────────────────────────────────────────────┘   └────────────────────────────┘
 ```
+
+## What the site does
+
+- **Papers**: the latest announcement day, the last week or month, or any period of the
+  calendar, searched as you type (word prefixes, a typo, `"phrases"`, `-exclusions`) over
+  titles, abstracts, authors, affiliations, venues and comments, and filtered by author,
+  institution, venue, subject or code. A search is a link to share.
+- **Highly cited**: the most cited papers of each year since 2010, and of the last 12
+  months, ranked by citations or by those gained this week.
+- **Rankings**: the institutions, authors or countries of the papers shown, by papers or
+  citations, with a world map of the countries, flat or on a globe.
+- **Graph**: the papers, their institutions and authors, or who works with whom, replayed
+  day by day; saved as PNG or GraphML.
+- **Reading list**: the papers you star, in folders, exported as BibTeX, RIS, CSV or
+  Markdown; a folder is shared by a link. It stays in your browser.
+- **Feeds**: an Atom feed of every institution of the recent papers, and of each major
+  venue.
+
+Each view explains itself (its ⓘ notes, the About page); [`docs/web.md`](docs/web.md) says
+how it works.
 
 ## Where the data comes from
 
@@ -36,16 +59,11 @@ reading list in folders, exported as BibTeX, RIS, CSV or Markdown, or shared by 
 | Venue                         | Detected in the comments and journal reference ("Accepted to ECCV 2026", "BMVC2026", …); submissions and papers under review are ignored. Else where Semantic Scholar says it was published, with its DOI |
 | Code and its stars            | The first GitHub or GitLab repository the abstract or comments link, else its models, data or demo on Hugging Face; the repository's [GitHub](https://github.com) stars (the page's Hugging Face likes), weekly (new papers the next weekday), with those gained in the week. A repository other stored papers link too, or a folder of a larger one, is marked shared |
 
-Affiliations are **best effort**: arXiv metadata rarely includes them, and the HTML
-front matter depends on each paper's LaTeX class. They are read from the affiliation and
-address fields of the author block, the address and institute notes of Elsevier-, IEEE- or
-Springer-like classes, numbered footnotes next to the author list, numbered lines after the
-names, and IEEE-style notes ("A and B are with the University of X"). They are extracted with
-contact details removed, and, when the page says who is where (one block per author,
-superscript markers, "A is with B" notes), each author is also mapped to their own
-affiliations — the graph then links an author only to their institutions. Some papers
-still have none: the LaTeX class may put affiliations where LaTeXML drops them, and papers
-without an HTML rendering (~6%) cannot be read.
+Affiliations are **best effort**: arXiv's metadata rarely has them, so they are read from
+the front matter of each paper's HTML rendering, whose layout depends on its LaTeX class
+([`docs/extraction.md`](docs/extraction.md) lists the layouts read, each from a real page).
+Where the page says who is where, each author is mapped to their own affiliations. About
+one paper in five still has none.
 
 The pipeline is deliberately polite: one request every 15 s to arxiv.org (its
 `robots.txt` crawl delay), a few seconds between API calls, and each paper is enriched
@@ -54,104 +72,46 @@ pages, API and OAI-PMH, never the other services) in the User-Agent so they can 
 whoever runs the crawler: put it in a local `.env` file (see `.env.example`, read by the
 Makefile) and in a repository variable on GitHub.
 
-## Requirements
+## Why `data/` is in git
 
-- [uv](https://docs.astral.sh/uv/) for the Python pipeline
-- Node.js 24+ for the web app
+The data is files the site serves as they are: GitHub Pages hosts them beside the app, with
+no server or database to run or pay for, and the workflows publish a day's papers by
+committing them. Git then keeps every version of every record: a change of the extraction
+or a bad run shows as a diff of `data/` and is undone by a commit, and `validate` checks
+the whole store before every data commit and on every other push. The cost is a repository
+that grows by about 110 MB of day files a year of cs.CV, mostly history, which a partial
+clone skips ([Development](#development)); pruning keeps a rolling year of day files, and
+[`docs/operations.md`](docs/operations.md#the-site-or-the-repository-grows-too-large) says
+when and how the store would leave `main`. This choice and the others are logged in the
+roadmap's [Decisions](docs/roadmap.md#decisions) table.
 
 ## Usage
+
+Requirements: [uv](https://docs.astral.sh/uv/) for the pipeline, Node.js 24+ for the site.
 
 ```bash
 uv sync
 uv run preprint-radar update                       # cs.CV into data/ (slow: up to 600 HTML pages)
 uv run preprint-radar update -c cs.CV -c cs.LG --max-html 50
 uv run preprint-radar backfill --since 2026-09-01  # past days, from arXiv's catchup pages
-uv run preprint-radar -q update                    # warnings only (long commands log progress)
+uv run preprint-radar archive                      # the most cited older papers (weekly in CI)
+uv run preprint-radar --help                       # every command; -q for warnings only
 
 cd web
 npm install
 npm run dev                                      # http://localhost:5173, serves ../data
 ```
 
-In the web app, the search box supports prefix and typo-tolerant matching,
-`"exact phrases"` and `-exclusions`, over titles, abstracts, authors, affiliations and
-comments. The *Period* calendar picks the latest days, one day or a range of days (it shows
-how many papers each day has). The *Author* and *Affiliation* fields filter by name (partial,
-case- and accent-insensitive, with suggestions); clicking a name on a paper fills them.
-The *Venue* filter keeps the papers accepted at one venue, every edition of one ("CVPR, any
-year"), or any venue (major venues first, then alphabetically); *With code* keeps the papers
-that link a repository (GitHub, GitLab) or models and data on Hugging Face. With search
-words, results are sorted by relevance: MiniSearch's BM25 score, where rarer words weigh
-more and matches count most in the title (×3), then authors (×2), affiliations (×1.5),
-abstract (×1) and comments (×0.5). Without search words (or sorted by newest), the papers
-of each announcement day fold under a heading. Searches are encoded in the URL, so they
-can be shared;
-*Share* on a paper copies a link that opens that paper alone, expanded, on its announcement
-day, and *Graph* opens the graph centered on it, with its details. A card links its *Code*
-when it has some. The ◐ button next to
-the tabs switches between the automatic, light and dark themes.
+`update` and `backfill` read at most 600 HTML pages a run, one every 15 s: about 2.5 hours
+(`--max-html` changes it). Stopping one loses nothing, and running it again resumes. A
+month of past cs.CV days is about 2,900 papers: minutes for the days, then about 11 hours
+of pages.
 
-The *Highly cited* tab shows the archive by year of first version, one year, a range of
-years or all of them, ranked by citation count, or the 1,000 most cited papers of the last
-12 months, by citations per month of age; search words and filters narrow it down.
-Past 10,000 papers (all years hold about 22,000), it keeps the best ranked by citations per
-year of age and says how many it leaves out. Papers show their citation count wherever it
-is known (0 for most new papers), and, once two weekly counts exist, what they gained in
-the last week ("+12 this week"); the lists can be sorted by either (*Most cited*,
-*Rising*).
-
-The *Rankings* tab lists the institutions or the authors of the papers shown — the recent
-days or archive years, narrowed by the search and filters — by number of papers or by
-citations, with each one's most cited paper; a name opens its papers. "Who works on
-gaussian splatting this month?" or "which labs wrote the most cited papers of 2017?". Its
-world map shows the countries the papers come from, by papers, citations, papers per
-million people or citations per paper, flat or on a globe.
-
-The *Graph* tab is a full-screen map of the loaded papers (the recent days, or the highly
-cited papers of some years, chosen with the chips at its top), their institutions and
-(optionally) their authors. By default it shows papers (squares) linked to their
-institutions; with authors on, a paper links to its authors, and an institution to the
-authors the paper places there. Without papers, it becomes a collaboration map: institutions
-and authors linked when they appear on the same paper. Variants of an institution's name are
-merged approximately ("Google, Switzerland" and "Google", "CMU" and "Carnegie Mellon
-University", "Microsoft Research Asia" and "Microsoft"); a department or an address on its
-own makes no node. Drag, scroll to zoom, click a
-node to see its details (each of its connections lists the papers they share), double-click
-it to list its papers (or open the paper); *Focus on this* shows the graph of a node's
-papers alone, with whom an institution or an author publishes. Chips over
-the graph name the papers shown and choose them: the period (presets and a calendar), the
-highly cited years, the venue, and the words the papers must match. *Find a
-node* highlights nodes by name or title (`/`) and can filter the papers to the words
-instead. The *Graph settings* panel chooses what it draws: papers, institutions, authors
-and isolated nodes, a minimum number of papers per institution or author or a maximum
-number of them (all by default), node sizes, labels and forces; it saves the graph as PNG
-or GraphML (for Gephi). The player under the graph replays how it grew day by day, and an
-ⓘ beside the legend holds the notes on the data. An institution's or author's area grows
-with its number of papers. Settings are remembered in the browser.
-
-Every institution of the recent papers, and each major venue, has an Atom feed of its
-papers of the last 60 days (`feeds/<category>/…`, built with the site): a list filtered on
-one links it, for a feed reader.
-
-`backfill` collects past days (weekends are skipped quickly) and saves each day with its
-abstracts before reading the HTML pages for affiliations, most recent day first; stopping
-it loses nothing, and running it again resumes where it stopped. A day whose catchup page
-fails, or comes back incomplete, is not saved: the others are read, the report names it and
-the command exits with 1, and the next run fetches it again. A month of cs.CV is about
-2,900 papers: a few minutes for the days, then about 11 hours of HTML pages. Like `update`,
-it reads at most 600 HTML pages per category a run, 2.5 hours at one page every 15 s, which
-fits the daily workflow's time limit (`DEFAULT_MAX_HTML` in `config.py`): run it again for
-the rest, or raise the limit (`--max-html 3000`, `MAX_HTML=3000` with `make`).
-
-`archive` (weekly in CI) keeps the papers that matter beyond the last 12 months. It ranks
-every cs.CV paper since 2010 by citations per year of age — fair to old and recent papers
-alike — and keeps a budget of them (22,000 by default, about 20 citations a year today) in
-`data/<category>/archive/<year>.json`. The threshold rises by itself as the field grows; a
-paper leaves only once it ranks beyond 1.15 times the budget, and a paper that takes off
-later comes back. Deleting the day files older than 12 months, for a rolling year of them, is off until you
-turn it on (`--prune`, or the `PREPRINT_RADAR_ARCHIVE_PRUNE` repository variable). Citation counts are
-much faster with a free Semantic Scholar API key, set as the `SEMANTIC_SCHOLAR_API_KEY`
-repository secret; a run that fails or is cancelled resumes from the counts it fetched.
+`archive` keeps the papers that matter beyond the last 12 months: each week it ranks every
+paper of the category since 2010 by citations per year of age and keeps a budget of them
+(22,000 by default, about 20 citations a year), so that a paper that takes off later comes
+in ([`docs/archive.md`](docs/archive.md) has the calibration behind it). A free Semantic
+Scholar API key (`SEMANTIC_SCHOLAR_API_KEY`) makes it much faster.
 
 ## Deployment on GitHub Pages
 
@@ -222,6 +182,8 @@ src/preprint_radar/
 │   ├── arxiv_oai.py        # bulk metadata harvest (OAI-PMH)
 │   ├── semantic_scholar.py # citation counts, DOIs, published venues, author ids
 │   ├── openalex.py         # institutions of archived papers
+│   ├── github.py           # stars of the code papers link
+│   ├── huggingface.py      # likes of their Hugging Face pages
 │   └── ror.py              # institution named by an affiliation string
 ├── archive/            # weekly citation archive: catalog, selection, update
 └── store/              # data/ layout, validate, stats, quality, reclean, venues, naming
@@ -261,23 +223,7 @@ make archive-affiliations   # affiliations of highly cited papers from their pub
 make code        # GitHub stars of the code papers link (GITHUB_TOKEN in .env; weekly in CI, NEW=1 daily)
 ```
 
-The underlying commands:
-
-```bash
-# Python
-uv run ruff format . && uv run ruff check --fix .
-uv run ty check
-uv run pytest --cov
-uv run pytest -m network      # smoke test against the live arXiv (slow, polite)
-
-# Web
-cd web
-npm run lint && npm run typecheck && npm test
-npm run build                 # type-check + production build into web/dist (with data)
-
-# Everything, as on commit
-uv run prek run --all-files   # git hooks, with prek (a faster pre-commit)
-```
+`make test-network` runs the parsers against the live arXiv (slow, polite).
 
 If arXiv changes its page layout, the network test fails first (the weekly *arXiv canary*
 workflow runs it): refresh the fixtures in `tests/fixtures/` from live pages and update the

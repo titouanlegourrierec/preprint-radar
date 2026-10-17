@@ -15,6 +15,14 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   arXiv every weekday, with their affiliations, citations and the most cited older papers."
   (PROD-15).
 
+### Documentation
+
+- The README is shorter: what the site does in six lines, where the data comes from, how
+  to run and deploy it, the live site's address, and why `data/` is in git, which the
+  roadmap's Decisions table logs with the other choices, there being no other record of
+  decisions (DOC-2, DOC-3). `docs/archive.md` keeps the calibration of September 2026 that
+  chose the archive's rule and budget, its scripts staying local (DOC-4).
+
 ### Command line
 
 - `fetch` is gone, with its modules `store/export.py` and `store/filters.py`: it exported

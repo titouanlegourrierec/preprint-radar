@@ -7,7 +7,8 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
 ## Search (`search.ts`, `highlight.ts`)
 
 - MiniSearch over title, authors, affiliations and their institutions, venue, abstract and
-  comments. Only the last word typed matches as a prefix, from 4 letters, so that acronyms
+  comments, each weighing as `FIELD_BOOSTS` says: the title 3, authors 2, affiliations
+  and venue 1.5, the abstract 1, comments 0.5. Only the last word typed matches as a prefix, from 4 letters, so that acronyms
   stay words ("gan" is not "Gandhi", "mit" not "mitigate"); one typo is allowed from 7
   letters. Highlights follow the same rules (`wholeWord`). The names filtered on are
   marked each in its own line only (`nameHighlights`, SRCH-8): a clicked name as a whole,

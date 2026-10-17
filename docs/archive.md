@@ -57,6 +57,48 @@ GitHub and the Hugging Face Hub are like to work with. Read this before changing
   archived records keep their names and subjects until a one-off rewrite, and day files
   keep the names the listing gives (a starred one in 2610.05756).
 
+## Why citations per year of age (the calibration of September 2026)
+
+The archive's rule and its default budget come from a study of every cs.CV paper since 2010
+made on 2026-09-29: arXiv's OAI-PMH set `cs:cs:CV` (206,740 papers, cross-lists included)
+and Semantic Scholar's counts (99.6% found). Its scripts and their 22 MB of data stay
+local, in the git-ignored `experiments/2026-09-citations/` (DOC-4); its findings are these.
+
+A fixed threshold favors old papers: 500 citations keep 486 papers of 2018 but 64 of 2025.
+
+| Citations at least | Papers | Primary cs.CV | Cross-lists |
+| ---: | ---: | ---: | ---: |
+| 500 | 3,559 | 2,942 | 617 |
+| 1,000 | 1,484 | 1,223 | 261 |
+| 5,000 | 192 | 159 | 33 |
+| 10,000 | 81 | 67 | 14 |
+| 100,000 | 3 | 3 | 0 |
+
+Citations per year of age compare old and recent papers fairly. Over the 160,466 papers
+older than a year:
+
+| Citations a year at least | Papers | Older than 5 years |
+| ---: | ---: | ---: |
+| 10 | 41,537 | 15,980 |
+| 20 | 22,619 | 9,385 |
+| 50 | 8,252 | 3,710 |
+| 100 | 3,440 | 1,634 |
+
+Hence the budget of 22,000, about 20 citations a year, which rises with the field instead
+of a threshold to move by hand. A paper of 12 months has few (6,141 papers of
+2025-08-15 to 2025-10-15: median 2, 90th percentile 18, 99th 109; 20 or more keeps 9%),
+so the archive takes papers older than 12 months, and the last 12 months rank by
+citations per month of age (PROD-11, below). At about 2.5 KB a paper in JSON, the budget
+weighs about 55 MB.
+
+OpenAlex was rejected for both questions. Its subfield "Computer Vision and Pattern
+Recognition" is not cs.CV: it held 48% of the papers stored in September 2026 (51% of
+primary cs.CV papers, 35% of cross-lists), and 59% of the arXiv works it put there
+(2026-09-01 to 18) were in cs.CV. It counts a preprint apart from its published version:
+Semantic Scholar's counts were 1.7 times higher in median over 18 papers, up to 6 times
+(DDPM) and 13 times (YOLOv7). The catalog comes from arXiv, the counts from Semantic
+Scholar.
+
 ## The most cited papers of the last 12 months (`top-recent.json`, PROD-11)
 
 The archive starts at 12 months, and the day files began in September 2026 (decision 1): the
