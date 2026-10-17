@@ -480,6 +480,7 @@ export function GraphView(props: Props) {
               papersById={papersById}
               options={graphOptions}
               citations={citations}
+              oldestDay={props.storeDays.at(-1)?.date}
               focus={focus}
               detailsRef={detailsRef}
               onClose={() => setSelectedId(null)}

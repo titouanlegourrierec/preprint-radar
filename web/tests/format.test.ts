@@ -3,7 +3,9 @@ import {
   affiliationCoverage,
   citationsNote,
   countOf,
+  datedByMonth,
   firstVersionYear,
+  formatAnnounced,
   formatDay,
   formatShortDay,
   gainLabel,
@@ -153,6 +155,30 @@ describe("day and subject formats", () => {
     expect(formatShortDay("2026-09-25")).toMatch(/25/);
     expect(subjectCode("Robotics (cs.RO)")).toBe("cs.RO");
     expect(subjectCode("Robotics")).toBe("Robotics");
+  });
+});
+
+describe("formatAnnounced", () => {
+  const oldestDay = "2026-09-01";
+  const month = (iso: string) =>
+    new Date(`${iso}T00:00:00`).toLocaleDateString(undefined, { month: "short", year: "numeric" });
+
+  it("dates a paper of the day files by its day", () => {
+    expect(datedByMonth("2026-09-01", oldestDay)).toBe(false);
+    expect(formatAnnounced("2026-09-25", oldestDay)).toBe(formatDay("2026-09-25"));
+  });
+
+  it("dates a paper of arXiv's catalog, older than the day files, by its month (META-5)", () => {
+    expect(datedByMonth("2021-03-01", oldestDay)).toBe(true);
+    expect(datedByMonth("2026-08-31", oldestDay)).toBe(true);
+    expect(formatAnnounced("2021-03-01", oldestDay)).toBe(month("2021-03-01"));
+    expect(formatAnnounced("2021-03-17", oldestDay)).toBe(month("2021-03-01"));
+    expect(formatAnnounced("2021-03-17", oldestDay)).not.toBe(formatDay("2021-03-17"));
+  });
+
+  it("dates every paper by its day before the index says which days are stored", () => {
+    expect(datedByMonth("2021-03-01", undefined)).toBe(false);
+    expect(formatAnnounced("2021-03-17", undefined)).toBe(formatDay("2021-03-17"));
   });
 });
 

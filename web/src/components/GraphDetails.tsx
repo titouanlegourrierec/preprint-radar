@@ -1,6 +1,6 @@
 import type { Ref } from "preact";
 import { useState } from "preact/hooks";
-import { countOf, formatDay } from "../format";
+import { countOf, DATED_BY_MONTH, datedByMonth, formatAnnounced } from "../format";
 import {
   type Connection,
   type EntityKind,
@@ -33,6 +33,8 @@ interface Props {
   /** The graph's options, which say which papers a connection counts (`linkPapers`). */
   options: GraphOptions;
   citations: ReadonlyMap<string, number>;
+  /** The oldest day file: older papers are dated by their month (META-5). */
+  oldestDay: string | undefined;
   focus: string | null;
   detailsRef: Ref<HTMLElement>;
   onClose: () => void;
@@ -56,6 +58,7 @@ export function GraphDetails(props: Props) {
           paper={paper}
           absent={props.absent}
           citations={citations.get(paper.arxiv_id)}
+          oldestDay={props.oldestDay}
           onOpen={() => props.onOpenPaper(paper)}
         />
       ) : (
@@ -107,7 +110,7 @@ function EntityDetails(props: Props & { entity: EntityNode }) {
                   {paper.title}
                 </a>{" "}
                 <span class="muted">
-                  · {formatDay(paper.announced)}
+                  · {formatAnnounced(paper.announced, props.oldestDay)}
                   {count !== undefined && ` · ${countOf(count, "citation")}`}
                 </span>
               </li>
@@ -184,6 +187,7 @@ function PaperDetails({
   paper,
   absent,
   citations,
+  oldestDay,
   onOpen,
 }: {
   paper: Paper;
@@ -191,6 +195,7 @@ function PaperDetails({
   absent: string | null;
   /** Its citation count, when known. */
   citations: number | undefined;
+  oldestDay: string | undefined;
   onOpen: () => void;
 }) {
   const authors = paper.authors.slice(0, DETAILS_AUTHORS).join(", ");
@@ -203,7 +208,9 @@ function PaperDetails({
         </a>
       </h2>
       <p class="muted">
-        {formatDay(paper.announced)}
+        <span title={datedByMonth(paper.announced, oldestDay) ? DATED_BY_MONTH : undefined}>
+          {formatAnnounced(paper.announced, oldestDay)}
+        </span>
         {paper.venue && ` · ${paper.venue}`}
         {citations !== undefined && ` · ${countOf(citations, "citation")}`}
       </p>

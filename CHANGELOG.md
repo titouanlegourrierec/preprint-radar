@@ -14,6 +14,10 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   screen's, the README and the package's: "Follow and search the cs.CV papers announced on
   arXiv every weekday, with their affiliations, citations and the most cited older papers."
   (PROD-15).
+- A highly cited paper older than the day files shows its month, "Mar 2021", instead of a
+  day: arXiv's catalog, where it comes from, dates it by its first version or the 1st of
+  its identifier's month, not by the day it was announced. A tooltip says so, on its card
+  and in the graph's details (META-5).
 
 ### Documentation
 

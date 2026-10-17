@@ -3,7 +3,15 @@ import { toBibtex } from "../bibtex";
 import { codeBadge, codeHost, codeUrl } from "../code";
 import { download } from "../download";
 import { PAPER_DRAG_TYPE } from "../folders";
-import { countOf, daysSince, firstVersionYear, formatDay, subjectCode } from "../format";
+import {
+  countOf,
+  DATED_BY_MONTH,
+  datedByMonth,
+  daysSince,
+  firstVersionYear,
+  formatAnnounced,
+  subjectCode,
+} from "../format";
 import { highlight } from "../highlight";
 import { useWholePaper } from "../hooks/use-whole-paper";
 import { institutionsOf } from "../institutions";
@@ -128,6 +136,8 @@ interface Props {
   citations?: number | undefined;
   /** Where and when the count comes from, for its tooltip. */
   citationsNote?: string | undefined;
+  /** The oldest day file: a paper announced before it is dated by its month (META-5). */
+  oldestDay?: string | undefined;
   /** The citations it gained in the last week of counts, when it gained any. */
   gain?: { text: string; title: string } | undefined;
   onToggleSaved: (paper: Paper) => void;
@@ -176,6 +186,7 @@ export function PaperCard({
   onShowInGraph,
   citations,
   citationsNote,
+  oldestDay,
   gain,
   onToggleSaved,
   onToggleSeen,
@@ -249,6 +260,8 @@ export function PaperCard({
   const badge = code ? codeBadge(paper.code) : null;
   // An old paper announced lately, as a cross-list: the year it first went to arXiv (PROD-14).
   const firstVersion = firstVersionYear(paper.arxiv_id, paper.announced);
+  const byMonth = datedByMonth(paper.announced, oldestDay);
+  const announced = formatAnnounced(paper.announced, oldestDay);
   // A recent paper has no citations yet: "0 citations" on nearly every card says nothing.
   const shownCitations =
     citations !== undefined && (citations > 0 || daysSince(paper.announced) >= YOUNG_DAYS)
@@ -498,11 +511,11 @@ export function PaperCard({
                 <Highlighted text={paper.venue} terms={highlights} />
               </span>
             )}
-            <span>{formatDay(paper.announced)}</span>
+            <span title={byMonth ? DATED_BY_MONTH : undefined}>{announced}</span>
             {firstVersion !== null && (
               <span
                 class="badge badge--muted"
-                title={`First submitted to arXiv in ${firstVersion}, announced here on ${formatDay(paper.announced)}`}
+                title={`First submitted to arXiv in ${firstVersion}, announced here ${byMonth ? "in" : "on"} ${announced}`}
               >
                 first version {firstVersion}
               </span>

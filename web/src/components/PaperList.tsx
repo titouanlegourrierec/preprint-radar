@@ -28,6 +28,8 @@ interface Props {
   onShowInGraph?: ((paper: Paper) => void) | undefined;
   citations: ReadonlyMap<string, number>;
   citationsNote?: string | undefined;
+  /** The oldest day file: older papers are dated by their month (META-5). */
+  oldestDay?: string | undefined;
   /** What a paper gained in the last week of counts, as its card says it (CIT-9). */
   gainOf?: ((arxivId: string) => { text: string; title: string } | undefined) | undefined;
   showAbstracts: boolean;
@@ -67,6 +69,7 @@ export function PaperList({
   onShowInGraph,
   citations,
   citationsNote,
+  oldestDay,
   gainOf,
   showAbstracts,
   savedIds,
@@ -250,6 +253,7 @@ export function PaperList({
       onShowInGraph={onShowInGraph}
       citations={citations.get(paper.arxiv_id)}
       citationsNote={citationsNote}
+      oldestDay={oldestDay}
       gain={gainOf?.(paper.arxiv_id)}
       onToggleSaved={toggleSaved}
       onAuthor={onAuthor}

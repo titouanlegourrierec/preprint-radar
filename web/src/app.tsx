@@ -956,6 +956,7 @@ export function App() {
                     onShowInGraph={showInGraph}
                     citations={citations.counts}
                     citationsNote={citationsNote}
+                    oldestDay={oldestDay}
                     gainOf={gainOf}
                     showAbstracts={showAbstracts || state.view === "reading-list"}
                     savedIds={readingList.savedIds}

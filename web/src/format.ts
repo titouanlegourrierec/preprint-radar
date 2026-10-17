@@ -7,6 +7,29 @@ export function formatDay(iso: string): string {
 }
 
 /**
+ * Whether a paper is dated by its month (META-5): one announced before the oldest day file
+ * comes from arXiv's catalog (the archive, and the most cited papers of the last 12 months
+ * that no day file holds), which dates it by its first version, or the 1st of its
+ * identifier's month, rather than by the day arXiv announced it.
+ */
+export function datedByMonth(announced: string, oldestDay: string | undefined): boolean {
+  return oldestDay !== undefined && announced < oldestDay;
+}
+
+/** When a paper was announced: its day ("25 Sept 2026"), or its month ("Mar 2021") alone. */
+export function formatAnnounced(announced: string, oldestDay: string | undefined): string {
+  if (!datedByMonth(announced, oldestDay)) return formatDay(announced);
+  return new Date(`${announced}T00:00:00`).toLocaleDateString(undefined, {
+    month: "short",
+    year: "numeric",
+  });
+}
+
+/** What a date shown by its month alone means, for its tooltip. */
+export const DATED_BY_MONTH =
+  "Dated by month: arXiv's catalog, where this paper comes from, does not say on which day it was announced";
+
+/**
  * A count and its noun, singular for one: "1 paper", "10,000 papers" (with the reader's
  * thousands separator), "2 people" with `plural`.
  */

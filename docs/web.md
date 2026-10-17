@@ -490,7 +490,7 @@ derives what only the site uses. The pipeline and `validate` never see these.
   give each scheme its `--bg`, and a forced theme gives both its own (`theme-color.ts`, and
   `public/theme.js` before first paint), which `tests/styles.test.ts` checks (UX-18).
 
-## Withdrawn papers, and old ones announced lately
+## Withdrawn papers, old ones announced lately, and dates by month
 
 A paper whose comments say its authors (or arXiv) withdrew it carries `withdrawn`: its
 card shows a Withdrawn badge, the reason being in its comments, and the pipeline keeps it
@@ -499,6 +499,15 @@ out of Highly cited (decision 18). Reading lists keep the flag.
 A paper announced 12 months or more after the month of its identifier, an old paper
 cross-listed lately, says "first version 2019" beside its day (`firstVersionYear` in
 `format.ts`, PROD-14); an old-style identifier ("cs/0601001") is not read.
+
+A paper announced before the oldest day file shows its month alone, "Mar 2021", in its
+card and the graph's details, with a tooltip saying why (`formatAnnounced`, META-5): it
+comes from arXiv's catalog (the archive, the most cited of the last 12 months no day file
+holds), which dates it by its first version or the 1st of its identifier's month, not by
+its announcement, and arXivRaw, which would give the day, is not harvested. The oldest day
+file is the index's, as for the citation shards; once pruning deletes day files (from
+September 2027), the archived papers that came from them are dated by month too, losing a
+day that was right. The order by newest and the exports keep the stored date.
 
 ## Exports and corrections
 

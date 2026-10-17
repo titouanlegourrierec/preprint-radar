@@ -67,6 +67,8 @@ test("a paper link opens the paper", async ({ page }) => {
   await page.goto("./?view=cited&year=2017&paper=1706.00001");
   const archived = page.locator("article.paper--target");
   await expect(archived).toContainText("Attention for Looms");
+  // Dated by its month, arXiv's catalog giving no day (META-5).
+  await expect(archived.getByTitle(/^Dated by month/)).toHaveText("Jun 2017");
   // With what scholar.json knows, merged by the build: its published venue and DOI (META-1).
   await expect(archived).toContainText("NeurIPS 2017");
   await expect(archived.getByRole("link", { name: "DOI" })).toHaveAttribute(
