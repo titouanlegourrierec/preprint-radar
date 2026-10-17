@@ -41,7 +41,7 @@ for the answer.
 | 6 | Filter semantics | Exact for clicked names, word prefix for typed text | SRCH-1 | Exact for clicked names, word prefix for typed text (2026-10-03) |
 | 7 | Validation strictness | Fail on structural rules, warn on heuristic ones | DATA-3 | Fail on structural rules, warn on heuristic ones (2026-10-01) |
 | 8 | License and data terms | MIT for the code; read the Semantic Scholar terms before going public | REL-3 | MIT for the code (2026-10-01); Semantic Scholar's terms checked, its data can be published (2026-10-06) |
-| 9 | Visibility, contact and Actions bill | Confirm the private repository with a public site; choose the correction contact | SEC-9 | Correction contact: titouanlegourrierec@kaist.ac.kr (2026-10-01); the visibility waits, as CI-13 |
+| 9 | Visibility, contact and Actions bill | Confirm the private repository with a public site; choose the correction contact | SEC-9 | Correction contact: titouanlegourrierec@kaist.ac.kr (2026-10-01); the visibility waits, as CI-13, until the maintainer chooses (2026-10-17) |
 | 10 | Primary persona | The daily cs.CV follower | Phase 2 order | Both, the daily follower and the literature search: Phase 2 goes by priority and dependencies, search first (2026-10-03) |
 | 11 | Multi-category | Stay single-category until Phase 3 is done | ARCH-4 | Single-category for now (2026-10-07) |
 | 12 | Institution canonicalization | Move the web rules into the pipeline, with ROR ids | AFF-13 | Move the web rules into the pipeline, with ROR ids (2026-10-07) |
@@ -270,7 +270,7 @@ exist.
 | REL-8 | `Retry-After` HTTP-dates honoured: a delay from now within [0, 300 s], the backoff for a past or unreadable one (non-ASCII digits included) (from the backlog) | P3 | done |
 | DOC-12 | Reading HTML pages logs the time to expect at the client's interval ("about 50 minutes"), and each checkpoint the time left. Not done: `stats --json`, whose before/after diffs `extraction-diff` and `quality-affiliations --page-cache-dir` give (from the backlog) | P3 | done |
 | REL-4 | `backfill` goes on past a day whose catchup page fails or comes back incomplete: not saved, named in the report (`days not read:`), exit code 1, fetched again next run; after three such days in a row it asks for no more days, and past the deadline the days left wait for the next run, out of time rather than red. A missing total on the recent listing still only warns, as the triage advised (from the backlog) | P2 | done |
-| UX-18 (theme-color, print) | `theme-color` metas give the browser's bar the page's `--bg` in each scheme, the forced scheme's when the toggle forces a theme, from first paint and on every toggle (`theme-color.ts`), checked against the palettes; a print stylesheet prints a list's cards black on white whatever the theme, none cut by a page break, each with its arXiv address under the title, without the top bar, search, sidebar, controls, help notes and graph. The manifest and favicon wait for the maintainer (below) (from the backlog) | P3 | done |
+| UX-18 (theme-color, print) | `theme-color` metas give the browser's bar the page's `--bg` in each scheme, the forced scheme's when the toggle forces a theme, from first paint and on every toggle (`theme-color.ts`), checked against the palettes; a print stylesheet prints a list's cards black on white whatever the theme, none cut by a page break, each with its arXiv address under the title, without the top bar, search, sidebar, controls, help notes and graph. The manifest and favicon came with the logo (UX-48) (from the backlog) | P3 | done |
 | PERF-4 | Typed author and affiliation filters wait for the search box's 150 ms pause before they search and go into the URL, the field showing each key at once; a clicked name, a cleared filter, the checkboxes, venue and subject apply at once, and so do Back and Forward (an entry's filters are no typing). The audit's other two fixes were in already (SRCH-2, AFF-13) (from the backlog) | P2 | done |
 | SRCH-10 (citation shards) | A citation shard that fails to load is reported in the console (its path and the error) instead of being swallowed, and asked for again the next time a view needs it; a missing one (404) stays silent (from the backlog) | P2 | done |
 | SRCH-10 (failed days) | One failed day file failed the whole period (`Promise.all` in `loadDays`): each is asked for once more, then left out, reported in the console, and the period loads with a notice naming the days missing, those of a month whose search shard failed too ("24 Sept 2026", "12 days in 1 – 30 Sept 2026"), and Retry; a period whose every day file fails is still an error, the network or the site being down, and so is a day file of another schema version, a deploy gone wrong, asked for once (from the backlog; 2026-10-15) | P2 | done |
@@ -325,6 +325,13 @@ exist.
 | UX-47 | Visits counted, simply and for free: Cloudflare Web Analytics, no cookie and nothing stored in the browser, its script the site's only load from another origin and only when the build gets its site token (`PREPRINT_RADAR_ANALYTICS_TOKEN`, a repository variable); the policy then allows that script and its report address alone, the build guard that tag alone, and About says what is counted. Its script reports page addresses without query or fragment (the search, a shared folder), checked on its code and reports (asked on 2026-10-16, not in the audit) | P3 | done |
 | UX-48 | The site's logo, from its designer: the lockup inline in the top bar, 32 px high, in the text's color with the dot of the i in the accent, in either theme, a link home named once; favicons (SVG following the browser's theme, ICO), an iOS icon and a web manifest's two icons in place of the emoji favicon, so that the policy's `img-src` drops `data:`; the README's heading the lockup in each theme's colors. Paths kept as drawn, which a test checks (asked on 2026-10-16, not in the audit) | P3 | done |
 | UX-49 | Sharing: a card for shared links, the Open Graph tags of `index.html` and an image of the logo (`share.png`, 1200 by 630, its absolute address added by the build that knows the site's), the same for every link, the site being one page and the apps reading it without its script; and on a phone, a card's and a folder's Share open the system's share sheet (Web Share API), the link copied elsewhere. A card of its own per paper (a page each, about 28,500 and 35 MB) left aside (asked on 2026-10-16, not in the audit) | P3 | done |
+| AFF-11 | BMVC and IROS pages give no affiliations (92% and 39% empty on 2026-10-11): two fixtures of each, then a rule and an extraction version bump (answered on 2026-10-17) | P2 | todo |
+| SRCH-6 | A query language: uppercase `OR` only, no field prefixes yet (`nerf OR gaussian` means both today, "or" being a stop word) (answered on 2026-10-17) | P2 | todo |
+| META-5 | Archive dates are approximate (the 1st of the month for about half the papers): show archived papers by month ("Mar 2021"), without arXivRaw (answered on 2026-10-17) | P2 | todo |
+| DOC-2, DOC-3, DOC-4 | A shorter README walkthrough; no ADR folder (the Decisions table is the log), a paragraph on why `data/` is in git; the calibration's key tables in `docs/archive.md`, `experiments/` kept local (answered on 2026-10-17) | P2 | todo |
+| DEBT-6 | Delete the `fetch` command and its export modules: the site's exports and `data/` cover them (answered on 2026-10-17) | P3 | todo |
+| PROD-15 | One tagline everywhere: "Follow and search the cs.CV papers announced on arXiv every weekday, with their affiliations, citations and the most cited older papers." (answered on 2026-10-17) | P3 | todo |
+| SEC-8 | A short `SECURITY.md`, pointing to the correction contact; issue templates once public (answered on 2026-10-17) | P3 | todo |
 
 *Result of v0.7.0 (2026-10-09; `make stats` and `make validate` on 2026-10-11).* Day files:
 5,225 papers, abstracts 100%, affiliations 77% of those tried (authors mapped 90%,
@@ -369,21 +376,14 @@ backlog, but for the ones waiting for an answer, listed with the recommended opt
 | CIT-5 | dropped | PROD-11 chooses the most cited of the last 12 months from the counts it would stop fetching; refreshing low-rate papers less often would break the weekly gains (CIT-9), as CI-15 |
 | AFF-4 | dropped | Decision 15 keeps the rule: an author the paper does not place is linked to every institution of the paper (2026-10-11) |
 | CIT-7 | dropped | Unknown to Semantic Scholar and not asked yet look the same, and one date covers counts of several ages: the audit kept it unless a tiered refresh landed, which CI-15 and CIT-5 drop (2026-10-11) |
-| UX-18 (manifest) | dropped | As recommended: no manifest, an emoji favicon in a data URI; `theme-color` and print are done (UX-18 above) (2026-10-11) |
+| UX-18 (manifest) | done | Dropped on 2026-10-11 as recommended (no manifest, an emoji favicon in a data URI), then done by UX-48 with the logo: favicons, an iOS icon and a web manifest (2026-10-16) |
+| UX-22 | dropped | Graph settings in shared links: nothing for now, at the maintainer's choice (2026-10-17) |
 
 Waiting for the maintainer (the recommendation first):
 
 | ID | Question | Recommendation |
 |---|---|---|
-| CI-13 | How to pay for Actions, and the visibility half of decision 9 | Make the repository public (the site and `data/` already are, the code is MIT), after a scan of the history for secrets |
-| AFF-11 | BMVC and IROS pages give no affiliations (92% and 39% empty on 2026-10-11) | Two fixtures of each, after AFF-12, whose re-read puts their pages in the CI page cache; then a rule and a version bump |
-| UX-22 | Graph settings in shared links | Only the layers and thresholds, applied for the visit, never saved |
-| META-5 | Archive dates are approximate | Show archived papers by month ("Mar 2021"), skip arXivRaw |
-| SRCH-6 | A query language | Uppercase OR only; no field prefixes yet |
-| DEBT-6 | The `fetch` command and its export modules | Delete them: the site's exports and `data/` cover it |
-| PROD-15 | One tagline | "Follow and search the cs.CV papers announced on arXiv every weekday, with their affiliations, citations and the most cited older papers." |
-| SEC-8 | `SECURITY.md` | A short one now, pointing to the correction contact; issue templates once public |
-| DOC-3, DOC-4, DOC-2 | ADRs, the calibration scripts, the README's purpose | No ADR folder (the Decisions table is the log), a paragraph on why `data/` is in git; the calibration's key tables in `docs/archive.md`, `experiments/` kept local; a shorter README walkthrough (298 lines, 214 at the audit) |
+| CI-13 | How to pay for Actions, and the visibility half of decision 9 | Make the repository public (the site and `data/` already are, the code is MIT), after a scan of the history for secrets. Later, at the maintainer's choice: their GitHub plan covers the private repository's Actions for now (2026-10-17) |
 | AFF-16, ARCH-5, ARCH-8, DOC-10, PERF-10, REL-11, UX-19 | Parent organizations, a weekend run, shorter field names, a data-format page, precomputed layouts, a removal channel, the edge color | Defer AFF-16, DOC-10 (to 1.0.0) and REL-11 (until a request); fold ARCH-5 into ARCH-4; drop ARCH-8, PERF-10 and UX-19 |
 
 ## Audit backlog still open (2026-10-11)
