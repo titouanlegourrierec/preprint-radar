@@ -359,6 +359,15 @@ code (98%). A country for 24,272 of the 28,485 papers (85%), in 107 countries. `
 no error, one warning (five `scholar.json` author lists new versions changed, which
 Sunday's run refreshes).
 
+*Result of v0.10.0 (2026-10-18; `make stats` and `make validate` that day, after the
+archive and before the daily re-extraction with version 11).* Day files: 6,165 papers,
+abstracts 100%, affiliations 82% of those tried (authors mapped 87%, institutions named
+100%), venues 21%, citation counts 100% (those of 2026-10-18). Archive: 22,432 papers,
+affiliations 91%, authors mapped 99%, venues 89%, counts 100%. The stars of 8,056 of the
+8,192 papers linking code (98%), and the first stars gained in a week, by 1,875 of the
+stored papers. A country for 24,341 of the 28,596 papers (85%), in 107 countries.
+`validate`: no error, no warning.
+
 ## Backlog triage (2026-10-07)
 
 The audit items no row above named on 2026-10-07, checked against the code of that day (`b3bfefc`).

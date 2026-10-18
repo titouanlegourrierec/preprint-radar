@@ -8,6 +8,14 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ## Unreleased
 
+## 0.10.0 (2026-10-18): Rising stars, OR in the search, and more affiliations read
+
+The fifth set of features of Phase 4: Rising stars ranks the papers by the stars their
+code gained in the week; the search takes an uppercase `OR`; the first page loads less,
+and a deploy no longer leaves a browser mixing old and new data files; and two extraction
+versions read the affiliations a thanks note lists, as IEEE conference papers write them,
+and no longer take a sentence about the work for one.
+
 ### Code
 
 - Rising stars (`?sort=rising-stars`) ranks the papers by the GitHub stars their code
