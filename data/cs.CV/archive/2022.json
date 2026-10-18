@@ -2466,6 +2466,45 @@
    "pdf_url": "https://arxiv.org/pdf/2212.06135"
   },
   {
+   "arxiv_id": "2212.05709",
+   "announced": "2022-12-12",
+   "title": "HOTCOLD Block: Fooling Thermal Infrared Detectors with a Novel Wearable Design",
+   "authors": [
+    "Hui Wei",
+    "Zhixiang Wang",
+    "Xuemei Jia",
+    "Yinqiang Zheng",
+    "Hao Tang",
+    "Shin'ichi Satoh",
+    "Zheng Wang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted to AAAI 2023",
+   "journal_ref": null,
+   "venue": "AAAI 2023",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Adversarial attacks on thermal infrared imaging expose the risk of related applications. Estimating the security of these systems is essential for safely deploying them in the real world. In many cases, realizing the attacks in the physical space requires elaborate special perturbations. These solutions are often impractical and attention-grabbing. To address the need for a physically practical and stealthy adversarial attack, we introduce HotCold Block, a novel physical attack for infrared detectors that hide persons utilizing the wearable Warming Paste and Cooling Paste. By attaching these readily available temperature-controlled materials to the body, HotCold Block evades human eyes efficiently. Moreover, unlike existing methods that build adversarial patches with complex texture and structure features, HotCold Block utilizes an SSP-oriented adversarial optimization algorithm that enables attacks with pure color blocks and explores the influence of size, shape, and position on attack performance. Extensive experimental results in both digital and physical environments demonstrate the performance of our proposed HotCold Block. Code is available: https://github.com/weihui1308/HOTCOLDBlock.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2212.05709",
+   "pdf_url": "https://arxiv.org/pdf/2212.05709"
+  },
+  {
    "arxiv_id": "2212.03860",
    "announced": "2022-12-12",
    "title": "Diffusion Art or Digital Forgery? Investigating Data Replication in Diffusion Models",
@@ -3061,7 +3100,6 @@
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)",
-    "cs.SY",
     "Systems and Control (eess.SY)"
    ],
    "comments": "Accepted at CoRL 2022. Website at https://video-dex.github.io",
@@ -15841,6 +15879,75 @@
    "pdf_url": "https://arxiv.org/pdf/2211.13594"
   },
   {
+   "arxiv_id": "2211.13557",
+   "announced": "2022-11-24",
+   "title": "Fingerprint Image-Quality Estimation and its Application to Multialgorithm Verification",
+   "authors": [
+    "Hartwig Fronthaler",
+    "Klaus Kollreider",
+    "Josef Bigun",
+    "Julian Fierrez",
+    "Fernando Alonso-Fernandez",
+    "Javier Ortega-Garcia",
+    "Joaquin Gonzalez-Rodriguez"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Published at IEEE Transactions on Information Forensics and Security",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Signal-quality awareness has been found to increase recognition rates and to support decisions in multisensor environments significantly. Nevertheless, automatic quality assessment is still an open issue. Here, we study the orientation tensor of fingerprint images to quantify signal impairments, such as noise, lack of structure, blur, with the help of symmetry descriptors. A strongly reduced reference is especially favorable in biometrics, but less information is not sufficient for the approach. This is also supported by numerous experiments involving a simpler quality estimator, a trained method (NFIQ), as well as the human perception of fingerprint quality on several public databases. Furthermore, quality measurements are extensively reused to adapt fusion parameters in a monomodal multialgorithm fingerprint recognition environment. In this study, several trained and nontrained score-level fusion schemes are investigated. A Bayes-based strategy for incorporating experts past performances and current quality conditions, a novel cascaded scheme for computational efficiency, besides simple fusion rules, is presented. The quantitative results favor quality awareness under all aspects, boosting recognition rates and fusing differently skilled experts efficiently as well as effectively (by training).",
+   "affiliations": [
+    "Halmstad University",
+    "Universidad Autónoma de Madrid"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    null,
+    [
+     1
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Halmstad University",
+    "Universidad Autónoma de Madrid"
+   ],
+   "institution_ids": [
+    "03h0qfp10",
+    "01cby8j38"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2211.13557",
+   "pdf_url": "https://arxiv.org/pdf/2211.13557"
+  },
+  {
    "arxiv_id": "2211.13445",
    "announced": "2022-11-24",
    "title": "Delving into Out-of-Distribution Detection with Vision-Language Representations",
@@ -18570,7 +18677,6 @@
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)",
-    "cs.SY",
     "Systems and Control (eess.SY)"
    ],
    "comments": "Oral presentation at CoRL 2022. Website at https://vision-locomotion.github.io",
@@ -20464,8 +20570,7 @@
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)",
-    "Information Theory (cs.IT)",
-    "math.IT"
+    "Information Theory (cs.IT)"
    ],
    "comments": null,
    "journal_ref": null,
@@ -21771,6 +21876,62 @@
    },
    "abs_url": "https://arxiv.org/abs/2211.15601",
    "pdf_url": "https://arxiv.org/pdf/2211.15601"
+  },
+  {
+   "arxiv_id": "2211.15595",
+   "announced": "2022-11-01",
+   "title": "FsaNet: Frequency Self-attention for Semantic Segmentation",
+   "authors": [
+    "Fengyu Zhang",
+    "Ashkan Panahi",
+    "Guangjun Gao"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Considering the spectral properties of images, we propose a new self-attention mechanism with highly reduced computational complexity, up to a linear rate. To better preserve edges while promoting similarity within objects, we propose individualized processes over different frequency bands. In particular, we study a case where the process is merely over low-frequency components. By ablation study, we show that low frequency self-attention can achieve very close or better performance relative to full frequency even without retraining the network. Accordingly, we design and embed novel plug-and-play modules to the head of a CNN network that we refer to as FsaNet. The frequency self-attention 1) requires only a few low frequency coefficients as input, 2) can be mathematically equivalent to spatial domain self-attention with linear structures, 3) simplifies token mapping (1×1 convolution) stage and token mixing stage simultaneously. We show that frequency self-attention requires 87.29% ~90.04% less memory, 96.13% ~98.07% less FLOPs, and 97.56% ~98.18% in run time than the regular self-attention. Compared to other ResNet101-based self-attention networks, \\ourM achieves a new \\sArt result (83.0% mIoU) on Cityscape test dataset and competitive results on ADE20k and VOCaug. \\ourM can also enhance MASK R-CNN for instance segmentation on COCO. In addition, utilizing the proposed module, Segformer can be boosted on a series of models with different scales, and Segformer-B5 can be improved even without retraining. Code is accessible at \\url{https://github.com/zfy-csu/FsaNet",
+   "affiliations": [
+    "Central South University",
+    "Chalmers University of Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Central South University",
+    "Chalmers University of Technology"
+   ],
+   "institution_ids": [
+    "00f1zfq44",
+    "040wg7k59"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2211.15595",
+   "pdf_url": "https://arxiv.org/pdf/2211.15595"
   },
   {
    "arxiv_id": "2211.15444",
@@ -24518,7 +24679,6 @@
     "Machine Learning (cs.LG)",
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Information Theory (cs.IT)",
-    "math.IT",
     "Machine Learning (stat.ML)"
    ],
    "comments": "Accepted to ACML2024. Code available at https://github.com/mengxiangming/dmps",
@@ -24879,7 +25039,6 @@
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)",
-    "cs.SY",
     "Systems and Control (eess.SY)"
    ],
    "comments": "Published in Science Robotics: https://www.science.org/doi/10.1126/scirobotics.adc9244",
@@ -28267,7 +28426,6 @@
     "Machine Learning (cs.LG)",
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)",
-    "cs.NA",
     "Numerical Analysis (math.NA)"
    ],
    "comments": null,
@@ -33420,7 +33578,6 @@
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)",
-    "cs.SY",
     "Systems and Control (eess.SY)"
    ],
    "comments": "CoRL 2022 (Oral). Project website at https://maniploco.github.io",
@@ -48086,7 +48243,7 @@
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)",
-    "cs.GL"
+    "General Literature (cs.GL)"
    ],
    "comments": "8 pages",
    "journal_ref": null,
@@ -55285,7 +55442,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-11"
+     "at": "2026-10-18"
     },
     "institutions": {
      "source": "openalex"
@@ -62150,7 +62307,7 @@
    "title": "ScaleFormer: Revisiting the Transformer-based Backbones from a Scale-wise Perspective for Medical Image Segmentation",
    "authors": [
     "Huimin Huang",
-    "Shiao Xie1",
+    "Shiao Xie",
     "Lanfen Lin",
     "Yutaro Iwamoto",
     "Xianhua Han",
@@ -62436,7 +62593,6 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Information Theory (cs.IT)",
     "Machine Learning (cs.LG)",
-    "math.IT",
     "Optimization and Control (math.OC)"
    ],
    "comments": "24 pages, 11 figures. This updated version makes changes in languages and adds a few additional references. This is the final version to be published",
@@ -66035,7 +66191,6 @@
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)",
-    "cs.SY",
     "Systems and Control (eess.SY)"
    ],
    "comments": "Published at RSS 2022. Demos at https://human2robot.github.io",
@@ -76924,7 +77079,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-11"
+     "at": "2026-10-18"
     },
     "institutions": {
      "source": "openalex"
@@ -92290,7 +92445,7 @@
     "Ziwei Luo",
     "Lei Yu",
     "Zhihong Wen",
-    "Qi Wu1",
+    "Qi Wu",
     "Youwei Li",
     "Haoqiang Fan",
     "Jian Sun",
@@ -95071,7 +95226,6 @@
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)",
-    "cs.SY",
     "Systems and Control (eess.SY)"
    ],
    "comments": "First two authors contributed equally. Website at https://ashish-kmr.github.io/a-rma/",
@@ -97188,8 +97342,7 @@
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)",
-    "Information Theory (cs.IT)",
-    "math.IT"
+    "Information Theory (cs.IT)"
    ],
    "comments": "published in IEEE JSAC",
    "journal_ref": null,
@@ -97587,7 +97740,7 @@
     "Machine Learning (cs.LG)",
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)",
-    "math.SP",
+    "Spectral Theory (math.SP)",
     "Machine Learning (stat.ML)"
    ],
    "comments": null,
@@ -134432,7 +134585,6 @@
     "Robotics (cs.RO)",
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)",
-    "cs.SY",
     "Systems and Control (eess.SY)"
    ],
    "comments": null,
@@ -148989,7 +149141,6 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)",
-    "cs.NA",
     "Numerical Analysis (math.NA)",
     "Machine Learning (stat.ML)"
    ],
@@ -151488,7 +151639,6 @@
    "subjects": [
     "Machine Learning (cs.LG)",
     "Computer Vision and Pattern Recognition (cs.CV)",
-    "cs.NA",
     "Numerical Analysis (math.NA)"
    ],
    "comments": "Published at ICLR 2022 (Spotlight paper), Github: https://github.com/brandstetter-johannes/MP-Neural-PDE-Solvers",
@@ -153517,7 +153667,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-11"
+     "at": "2026-10-18"
     },
     "institutions": {
      "source": "openalex"
@@ -154013,7 +154163,7 @@
     "Zhi Liu",
     "Zhen Bai",
     "Weisi Lin",
-    "and Haibin Ling"
+    "Haibin Ling"
    ],
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
    "subjects": [
@@ -156611,7 +156761,6 @@
     "Robotics (cs.RO)",
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)",
-    "cs.SY",
     "Systems and Control (eess.SY)"
    ],
    "comments": null,
@@ -161131,7 +161280,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-11"
+     "at": "2026-10-18"
     },
     "institutions": {
      "source": "openalex"

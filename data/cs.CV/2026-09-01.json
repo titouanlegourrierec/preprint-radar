@@ -7790,9 +7790,9 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "Project Page: https://mx-liu6.github.io/OptiGeo-web/",
+   "comments": "Accepted at CoRL 2026. Project page: https://mx-liu6.github.io/OptiGeo-web/",
    "journal_ref": null,
-   "venue": null,
+   "venue": "CoRL 2026",
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2608.29881v1",
    "abstract": "Monocular depth estimation has achieved strong open-domain generalization, yet reliable robotic deployment remains difficult in transparent, reflective, and specular environments, where depth sensors often produce missing or biased depth. Existing methods often handle such optical failures with scene-specific preprocessing, auxiliary modules, or post-hoc fine-tuning. While effective in constrained settings, these designs increase architectural redundancy and can over-specialize general geometry models to narrow optical scenarios. We revisit this problem as a localized failure mode within base-model training and identify sensor-induced supervision bias as a key bottleneck: models inherit sensor failure patterns from biased real-depth supervision in optically challenging regions. We then introduce OptiGeo, a bias-aware training framework that rehabilitates biased real supervision using a clean-geometry teacher and residual-trimmed alignment. We redefine transparency-targeted rendering as a compact source of clean optical geometry, rather than a large domain-specific fine-tuning set. With only a small targeted rendering set, OptiGeo learns the geometric structure of transparent objects and regions, correcting local geometry distortions that real sensors cannot reliably supervise. Despite only 30M parameters, OptiGeo outperforms substantially larger 300M-scale monocular models and billion-scale multi-view baselines on transparent-scene benchmarks, while remaining competitive on general zero-shot depth and boundary sharpness. Real-world navigation cases further validate its practicality as an efficient perception module in optically challenging scenes.",
@@ -14457,7 +14457,7 @@
     "Image and Video Processing (eess.IV)"
    ],
    "comments": "5 pages, 2 figures, 3 tables. Presented at the 9th IEEE International Conference on Multimedia Information Processing and Retrieval (MIPR 2026); accepted for publication in IEEE Xplore",
-   "journal_ref": null,
+   "journal_ref": "2026 IEEE 9th International Conference on Multimedia Information Processing and Retrieval (MIPR), 2026",
    "venue": "MIPR 2026",
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2608.31074v1",

@@ -1915,6 +1915,41 @@
    "pdf_url": "https://arxiv.org/pdf/2412.16117"
   },
   {
+   "arxiv_id": "2412.16112",
+   "announced": "2024-12-20",
+   "title": "CLEAR: Conv-Like Linearization Revs Pre-Trained Diffusion Transformers Up",
+   "authors": [
+    "Songhua Liu",
+    "Zhenxiong Tan",
+    "Xinchao Wang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Diffusion Transformers (DiT) have become a leading architecture in image generation. However, the quadratic complexity of attention mechanisms, which are responsible for modeling token-wise relationships, results in significant latency when generating high-resolution images. To address this issue, we aim at a linear attention mechanism in this paper that reduces the complexity of pre-trained DiTs to linear. We begin our exploration with a comprehensive summary of existing efficient attention mechanisms and identify four key factors crucial for successful linearization of pre-trained DiTs: locality, formulation consistency, high-rank attention maps, and feature integrity. Based on these insights, we introduce a convolution-like local attention strategy termed CLEAR, which limits feature interactions to a local window around each query token, and thus achieves linear complexity. Our experiments indicate that, by fine-tuning the attention layer on merely 10K self-generated samples for 10K iterations, we can effectively transfer knowledge from a pre-trained DiT to a student model with linear complexity, yielding results comparable to the teacher model. Simultaneously, it reduces attention computations by 99.5% and accelerates generation by 6.3 times for generating 8K-resolution images. Furthermore, we investigate favorable properties in the distilled attention layers, such as zero-shot generalization cross various models and plugins, and improved support for multi-GPU parallel inference. Models and codes are available here: https://github.com/Huage001/CLEAR.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2412.16112",
+   "pdf_url": "https://arxiv.org/pdf/2412.16112"
+  },
+  {
    "arxiv_id": "2412.15691",
    "announced": "2024-12-20",
    "title": "Exploiting Multimodal Spatial-temporal Patterns for Video Object Tracking",
@@ -13882,6 +13917,72 @@
    },
    "abs_url": "https://arxiv.org/abs/2412.14446",
    "pdf_url": "https://arxiv.org/pdf/2412.14446"
+  },
+  {
+   "arxiv_id": "2412.14295",
+   "announced": "2024-12-01",
+   "title": "Temporally Consistent Object-Centric Learning by Contrasting Slots",
+   "authors": [
+    "Anna Manasyan",
+    "Maximilian Seitzer",
+    "Filip Radovic",
+    "Georg Martius",
+    "Andrii Zadaianchuk"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)",
+    "Machine Learning (cs.LG)",
+    "Robotics (cs.RO)"
+   ],
+   "comments": "Published at CVPR 2025",
+   "journal_ref": null,
+   "venue": "CVPR 2025",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Unsupervised object-centric learning from videos is a promising approach to extract structured representations from large, unlabeled collections of videos. To support downstream tasks like autonomous control, these representations must be both compositional and temporally consistent. Existing approaches based on recurrent processing often lack long-term stability across frames because their training objective does not enforce temporal consistency. In this work, we introduce a novel object-level temporal contrastive loss for video object-centric models that explicitly promotes temporal consistency. Our method significantly improves the temporal consistency of the learned object-centric representations, yielding more reliable video decompositions that facilitate challenging downstream tasks such as unsupervised object dynamics prediction. Furthermore, the inductive bias added by our loss strongly improves object discovery, leading to state-of-the-art results on both synthetic and real-world datasets, outperforming even weakly-supervised methods that leverage motion masks as additional cues.",
+   "affiliations": [
+    "University of Tübingen",
+    "University of Amsterdam"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Tübingen",
+    "University of Amsterdam"
+   ],
+   "institution_ids": [
+    "03a1kwz48",
+    "04dkp9463"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2412.14295",
+   "pdf_url": "https://arxiv.org/pdf/2412.14295"
   },
   {
    "arxiv_id": "2412.14171",
@@ -27256,6 +27357,56 @@
    "pdf_url": "https://arxiv.org/pdf/2411.17209"
   },
   {
+   "arxiv_id": "2411.17030",
+   "announced": "2024-11-26",
+   "title": "g3D-LF: Generalizable 3D-Language Feature Fields for Embodied Tasks",
+   "authors": [
+    "Zihan Wang",
+    "Gim Hee Lee"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)",
+    "Robotics (cs.RO)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We introduce Generalizable 3D-Language Feature Fields (g3D-LF), a 3D representation model pre-trained on large-scale 3D-language dataset for embodied tasks. Our g3D-LF processes posed RGB-D images from agents to encode feature fields for: 1) Novel view representation predictions from any position in the 3D scene; 2) Generations of BEV maps centered on the agent; 3) Querying targets using multi-granularity language within the above-mentioned representations. Our representation can be generalized to unseen environments, enabling real-time construction and dynamic updates. By volume rendering latent features along sampled rays and integrating semantic and spatial relationships through multiscale encoders, our g3D-LF produces representations at different scales and perspectives, aligned with multi-granularity language, via multi-level contrastive learning. Furthermore, we prepare a large-scale 3D-language dataset to align the representations of the feature fields with language. Extensive experiments on Vision-and-Language Navigation under both Panorama and Monocular settings, Zero-shot Object Navigation, and Situated Question Answering tasks highlight the significant advantages and effectiveness of our g3D-LF for embodied tasks.",
+   "affiliations": [
+    "National University of Singapore"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "National University of Singapore"
+   ],
+   "institution_ids": [
+    "01tgyzw49"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2411.17030",
+   "pdf_url": "https://arxiv.org/pdf/2411.17030"
+  },
+  {
    "arxiv_id": "2411.16061",
    "announced": "2024-11-25",
    "title": "Scaling Spike-driven Transformer with Efficient Spike Firing Approximation Training",
@@ -29562,7 +29713,7 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Image and Video Processing (eess.IV)",
-    "math.FA"
+    "Functional Analysis (math.FA)"
    ],
    "comments": "arXiv admin note: text overlap with arXiv:2411.05265",
    "journal_ref": "Journal of Mathematical Imaging and Vision (JMIV), Vol.28, No.3, 285-295, 2007",
@@ -29751,6 +29902,41 @@
    },
    "abs_url": "https://arxiv.org/abs/2411.07578",
    "pdf_url": "https://arxiv.org/pdf/2411.07578"
+  },
+  {
+   "arxiv_id": "2411.07555",
+   "announced": "2024-11-12",
+   "title": "GaussianCut: Interactive segmentation via graph cut for 3D Gaussian Splatting",
+   "authors": [
+    "Umangi Jain",
+    "Ashkan Mirzaei",
+    "Igor Gilitschenski"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We introduce GaussianCut, a new method for interactive multiview segmentation of scenes represented as 3D Gaussians. Our approach allows for selecting the objects to be segmented by interacting with a single view. It accepts intuitive user input, such as point clicks, coarse scribbles, or text. Using 3D Gaussian Splatting (3DGS) as the underlying scene representation simplifies the extraction of objects of interest which are considered to be a subset of the scene's Gaussians. Our key idea is to represent the scene as a graph and use the graph-cut algorithm to minimize an energy function to effectively partition the Gaussians into foreground and background. To achieve this, we construct a graph based on scene Gaussians and devise a segmentation-aligned energy function on the graph to combine user inputs with scene properties. To obtain an initial coarse segmentation, we leverage 2D image/video segmentation models and further refine these coarse estimates using our graph construction. Our empirical evaluations show the adaptability of GaussianCut across a diverse set of scenes. GaussianCut achieves competitive performance with state-of-the-art approaches for 3D segmentation without requiring any additional segmentation-aware training.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2411.07555",
+   "pdf_url": "https://arxiv.org/pdf/2411.07555"
   },
   {
    "arxiv_id": "2411.07445",
@@ -31020,9 +31206,9 @@
     "Jerome Gilles",
     "Yves Meyer"
    ],
-   "primary_subject": "math.FA",
+   "primary_subject": "Functional Analysis (math.FA)",
    "subjects": [
-    "math.FA",
+    "Functional Analysis (math.FA)",
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
    "comments": null,
@@ -34082,7 +34268,6 @@
     "Robotics (cs.RO)",
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)",
-    "cs.SY",
     "Systems and Control (eess.SY)"
    ],
    "comments": "Webpage: https://tianxingchen.github.io/G3Flow/, accepted to CVPR 2025",
@@ -35724,7 +35909,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-11"
+     "at": "2026-10-18"
     },
     "institutions": {
      "source": "openalex"
@@ -36722,7 +36907,7 @@
     "Artificial Intelligence (cs.AI)",
     "Computation and Language (cs.CL)",
     "Computer Vision and Pattern Recognition (cs.CV)",
-    "cs.DM"
+    "Discrete Mathematics (cs.DM)"
    ],
    "comments": null,
    "journal_ref": null,
@@ -44159,9 +44344,9 @@
     "Giang Tran",
     "Stanley Osher"
    ],
-   "primary_subject": "math.FA",
+   "primary_subject": "Functional Analysis (math.FA)",
    "subjects": [
-    "math.FA",
+    "Functional Analysis (math.FA)",
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Image and Video Processing (eess.IV)"
    ],
@@ -47439,6 +47624,67 @@
    "pdf_url": "https://arxiv.org/pdf/2410.15629"
   },
   {
+   "arxiv_id": "2410.19008",
+   "announced": "2024-10-21",
+   "title": "Teach Multimodal LLMs to Comprehend Electrocardiographic Images",
+   "authors": [
+    "Ruoqi Liu",
+    "Yuelin Bai",
+    "Xiang Yue",
+    "Ping Zhang"
+   ],
+   "primary_subject": "Image and Video Processing (eess.IV)",
+   "subjects": [
+    "Image and Video Processing (eess.IV)",
+    "Artificial Intelligence (cs.AI)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "eess.IV",
+   "html_url": null,
+   "abstract": "The electrocardiogram (ECG) is an essential non-invasive diagnostic tool for assessing cardiac conditions. Existing automatic interpretation methods suffer from limited generalizability, focusing on a narrow range of cardiac conditions, and typically depend on raw physiological signals, which may not be readily available in resource-limited settings where only printed or digital ECG images are accessible. Recent advancements in multimodal large language models (MLLMs) present promising opportunities for addressing these challenges. However, the application of MLLMs to ECG image interpretation remains challenging due to the lack of instruction tuning datasets and well-established ECG image benchmarks for quantitative evaluation. To address these challenges, we introduce ECGInstruct, a comprehensive ECG image instruction tuning dataset of over one million samples, covering a wide range of ECG-related tasks from diverse data sources. Using ECGInstruct, we develop PULSE, an MLLM tailored for ECG image comprehension. In addition, we curate ECGBench, a new evaluation benchmark covering four key ECG image interpretation tasks across nine different datasets. Our experiments show that PULSE sets a new state-of-the-art, outperforming general MLLMs with an average accuracy improvement of 15% to 30%. This work highlights the potential of PULSE to enhance ECG interpretation in clinical practice.",
+   "affiliations": [
+    "Ohio State University",
+    "Carnegie Mellon University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Ohio State University",
+    "Carnegie Mellon University"
+   ],
+   "institution_ids": [
+    "00rs6vg23",
+    "05x2bcf33"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2410.19008",
+   "pdf_url": "https://arxiv.org/pdf/2410.19008"
+  },
+  {
    "arxiv_id": "2410.16266",
    "announced": "2024-10-21",
    "title": "3DGS-Enhancer: Enhancing Unbounded 3D Gaussian Splatting with View-consistent 2D Diffusion Priors",
@@ -47760,6 +48006,43 @@
    },
    "abs_url": "https://arxiv.org/abs/2410.15549",
    "pdf_url": "https://arxiv.org/pdf/2410.15549"
+  },
+  {
+   "arxiv_id": "2410.06558",
+   "announced": "2024-10-21",
+   "title": "Deep Correlated Prompting for Visual Recognition with Missing Modalities",
+   "authors": [
+    "Lianyu Hu",
+    "Tongkai Shi",
+    "Wei Feng",
+    "Fanhua Shang",
+    "Liang Wan"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "NeurIPS 2024, add some results",
+   "journal_ref": null,
+   "venue": "NeurIPS 2024",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Large-scale multimodal models have shown excellent performance over a series of tasks powered by the large corpus of paired multimodal training data. Generally, they are always assumed to receive modality-complete inputs. However, this simple assumption may not always hold in the real world due to privacy constraints or collection difficulty, where models pretrained on modality-complete data easily demonstrate degraded performance on missing-modality cases. To handle this issue, we refer to prompt learning to adapt large pretrained multimodal models to handle missing-modality scenarios by regarding different missing cases as different types of input. Instead of only prepending independent prompts to the intermediate layers, we present to leverage the correlations between prompts and input features and excavate the relationships between different layers of prompts to carefully design the instructions. We also incorporate the complementary semantics of different modalities to guide the prompting design for each modality. Extensive experiments on three commonly-used datasets consistently demonstrate the superiority of our method compared to the previous approaches upon different missing scenarios. Plentiful ablations are further given to show the generalizability and reliability of our method upon different modality-missing ratios and types.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2410.06558",
+   "pdf_url": "https://arxiv.org/pdf/2410.06558"
   },
   {
    "arxiv_id": "2410.15458",
@@ -49831,7 +50114,6 @@
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)",
-    "cs.SY",
     "Systems and Control (eess.SY)"
    ],
    "comments": null,
@@ -52338,6 +52620,73 @@
    },
    "abs_url": "https://arxiv.org/abs/2410.02221",
    "pdf_url": "https://arxiv.org/pdf/2410.02221"
+  },
+  {
+   "arxiv_id": "2410.01806",
+   "announced": "2024-10-02",
+   "title": "Samba: Synchronized Set-of-Sequences Modeling for Multiple Object Tracking",
+   "authors": [
+    "Mattia Segu",
+    "Luigi Piccinelli",
+    "Siyuan Li",
+    "Yung-Hsu Yang",
+    "Bernt Schiele",
+    "Luc Van Gool"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Multiple object tracking in complex scenarios - such as coordinated dance performances, team sports, or dynamic animal groups - presents unique challenges. In these settings, objects frequently move in coordinated patterns, occlude each other, and exhibit long-term dependencies in their trajectories. However, it remains a key open research question on how to model long-range dependencies within tracklets, interdependencies among tracklets, and the associated temporal occlusions. To this end, we introduce Samba, a novel linear-time set-of-sequences model designed to jointly process multiple tracklets by synchronizing the multiple selective state-spaces used to model each tracklet. Samba autoregressively predicts the future track query for each sequence while maintaining synchronized long-term memory representations across tracklets. By integrating Samba into a tracking-by-propagation framework, we propose SambaMOTR, the first tracker effectively addressing the aforementioned issues, including long-range dependencies, tracklet interdependencies, and temporal occlusions. Additionally, we introduce an effective technique for dealing with uncertain observations (MaskObs) and an efficient training recipe to scale SambaMOTR to longer sequences. By modeling long-range dependencies and interactions among tracked objects, SambaMOTR implicitly learns to track objects accurately through occlusions without any hand-crafted heuristics. Our approach significantly surpasses prior state-of-the-art on the DanceTrack, BFT, and SportsMOT datasets.",
+   "affiliations": [
+    "ETH Zurich",
+    "Max Planck Institute for Informatics"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    null
+   ],
+   "institutions": [
+    "ETH Zurich",
+    "Max Planck Institute for Informatics"
+   ],
+   "institution_ids": [
+    "05a28rw58",
+    "01w19ak89"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2410.01806",
+   "pdf_url": "https://arxiv.org/pdf/2410.01806"
   },
   {
    "arxiv_id": "2410.01407",
@@ -61719,6 +62068,46 @@
    "pdf_url": "https://arxiv.org/pdf/2410.07864"
   },
   {
+   "arxiv_id": "2410.07577",
+   "announced": "2024-10-01",
+   "title": "3D Vision-Language Gaussian Splatting",
+   "authors": [
+    "Qucheng Peng",
+    "Benjamin Planche",
+    "Zhongpai Gao",
+    "Meng Zheng",
+    "Anwesa Choudhuri",
+    "Terrence Chen",
+    "Chen Chen",
+    "Ziyan Wu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted at ICLR 2025. Main paper + supplementary material",
+   "journal_ref": null,
+   "venue": "ICLR 2025",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Recent advancements in 3D reconstruction methods and vision-language models have propelled the development of multi-modal 3D scene understanding, which has vital applications in robotics, autonomous driving, and virtual/augmented reality. However, current multi-modal scene understanding approaches have naively embedded semantic representations into 3D reconstruction methods without striking a balance between visual and language modalities, which leads to unsatisfying semantic rasterization of translucent or reflective objects, as well as over-fitting on color modality. To alleviate these limitations, we propose a solution that adequately handles the distinct visual and semantic modalities, i.e., a 3D vision-language Gaussian splatting model for scene understanding, to put emphasis on the representation learning of language modality. We propose a novel cross-modal rasterizer, using modality fusion along with a smoothed semantic indicator for enhancing semantic rasterization. We also employ a camera-view blending technique to improve semantic consistency between existing and synthesized views, thereby effectively mitigating over-fitting. Extensive experiments demonstrate that our method achieves state-of-the-art performance in open-vocabulary semantic segmentation, surpassing existing methods by a significant margin.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2410.07577",
+   "pdf_url": "https://arxiv.org/pdf/2410.07577"
+  },
+  {
    "arxiv_id": "2410.07269",
    "announced": "2024-10-01",
    "title": "Deep Learning for Surgical Instrument Recognition and Segmentation in Robotic-Assisted Surgeries: A Systematic Review",
@@ -67733,6 +68122,44 @@
    "pdf_url": "https://arxiv.org/pdf/2409.15875"
   },
   {
+   "arxiv_id": "2409.15739",
+   "announced": "2024-09-24",
+   "title": "Teaching Tailored to Talent: Adverse Weather Restoration via Prompt Pool and Depth-Anything Constraint",
+   "authors": [
+    "Sixiang Chen",
+    "Tian Ye",
+    "Kai Zhang",
+    "Zhaohu Xing",
+    "Yunlong Lin",
+    "Lei Zhu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted by ECCV'2024",
+   "journal_ref": null,
+   "venue": "ECCV 2024",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Recent advancements in adverse weather restoration have shown potential, yet the unpredictable and varied combinations of weather degradations in the real world pose significant challenges. Previous methods typically struggle with dynamically handling intricate degradation combinations and carrying on background reconstruction precisely, leading to performance and generalization limitations. Drawing inspiration from prompt learning and the \"Teaching Tailored to Talent\" concept, we introduce a novel pipeline, T3-DiffWeather. Specifically, we employ a prompt pool that allows the network to autonomously combine sub-prompts to construct weather-prompts, harnessing the necessary attributes to adaptively tackle unforeseen weather input. Moreover, from a scene modeling perspective, we incorporate general prompts constrained by Depth-Anything feature to provide the scene-specific condition for the diffusion process. Furthermore, by incorporating contrastive prompt loss, we ensures distinctive representations for both types of prompts by a mutual pushing strategy. Experimental results demonstrate that our method achieves state-of-the-art performance across various synthetic and real-world datasets, markedly outperforming existing diffusion techniques in terms of computational efficiency.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2409.15739",
+   "pdf_url": "https://arxiv.org/pdf/2409.15739"
+  },
+  {
    "arxiv_id": "2409.14778",
    "announced": "2024-09-23",
    "title": "Human Hair Reconstruction with Strand-Aligned 3D Gaussians",
@@ -69019,6 +69446,91 @@
    },
    "abs_url": "https://arxiv.org/abs/2409.10594",
    "pdf_url": "https://arxiv.org/pdf/2409.10594"
+  },
+  {
+   "arxiv_id": "2409.10389",
+   "announced": "2024-09-16",
+   "title": "Prompt-and-Transfer: Dynamic Class-aware Enhancement for Few-shot Segmentation",
+   "authors": [
+    "Hanbo Bi",
+    "Yingchao Feng",
+    "Wenhui Diao",
+    "Peijin Wang",
+    "Yongqiang Mao",
+    "Kun Fu",
+    "Hongqi Wang",
+    "Xian Sun"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "For more efficient generalization to unseen domains (classes), most Few-shot Segmentation (FSS) would directly exploit pre-trained encoders and only fine-tune the decoder, especially in the current era of large models. However, such fixed feature encoders tend to be class-agnostic, inevitably activating objects that are irrelevant to the target class. In contrast, humans can effortlessly focus on specific objects in the line of sight. This paper mimics the visual perception pattern of human beings and proposes a novel and powerful prompt-driven scheme, called ``Prompt and Transfer\" (PAT), which constructs a dynamic class-aware prompting paradigm to tune the encoder for focusing on the interested object (target class) in the current task. Three key points are elaborated to enhance the prompting: 1) Cross-modal linguistic information is introduced to initialize prompts for each task. 2) Semantic Prompt Transfer (SPT) that precisely transfers the class-specific semantics within the images to prompts. 3) Part Mask Generator (PMG) that works in conjunction with SPT to adaptively generate different but complementary part prompts for different individuals. Surprisingly, PAT achieves competitive performance on 4 different tasks including standard FSS, Cross-domain FSS (e.g., CV, medical, and remote sensing domains), Weak-label FSS, and Zero-shot Segmentation, setting new state-of-the-arts on 11 benchmarks.",
+   "affiliations": [
+    "Chinese Academy of Sciences",
+    "Aerospace Information Research Institute",
+    "Tsinghua University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Chinese Academy of Sciences",
+    "Aerospace Information Research Institute",
+    "Tsinghua University"
+   ],
+   "institution_ids": [
+    "034t30j35",
+    "0419fj215",
+    "03cve4549"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2409.10389",
+   "pdf_url": "https://arxiv.org/pdf/2409.10389"
   },
   {
    "arxiv_id": "2409.09788",
@@ -93542,6 +94054,40 @@
    "pdf_url": "https://arxiv.org/pdf/2407.14032"
   },
   {
+   "arxiv_id": "2407.13987",
+   "announced": "2024-07-19",
+   "title": "RealViformer: Investigating Attention for Real-World Video Super-Resolution",
+   "authors": [
+    "Yuehan Zhang",
+    "Angela Yao"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "ECCV 2024",
+   "journal_ref": null,
+   "venue": "ECCV 2024",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "In real-world video super-resolution (VSR), videos suffer from in-the-wild degradations and artifacts. VSR methods, especially recurrent ones, tend to propagate artifacts over time in the real-world setting and are more vulnerable than image super-resolution. This paper investigates the influence of artifacts on commonly used covariance-based attention mechanisms in VSR. Comparing the widely-used spatial attention, which computes covariance over space, versus the channel attention, we observe that the latter is less sensitive to artifacts. However, channel attention leads to feature redundancy, as evidenced by the higher covariance among output channels. As such, we explore simple techniques such as the squeeze-excite mechanism and covariance-based rescaling to counter the effects of high channel covariance. Based on our findings, we propose RealViformer. This channel-attention-based real-world VSR framework surpasses state-of-the-art on two real-world VSR datasets with fewer parameters and faster runtimes. The source code is available at https://github.com/Yuehan717/RealViformer.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2407.13987",
+   "pdf_url": "https://arxiv.org/pdf/2407.13987"
+  },
+  {
    "arxiv_id": "2407.13761",
    "announced": "2024-07-18",
    "title": "SegPoint: Segment Any Point Cloud via Large Language Model",
@@ -94963,6 +95509,41 @@
    },
    "abs_url": "https://arxiv.org/abs/2407.11588",
    "pdf_url": "https://arxiv.org/pdf/2407.11588"
+  },
+  {
+   "arxiv_id": "2407.11351",
+   "announced": "2024-07-16",
+   "title": "Learning Modality-agnostic Representation for Semantic Segmentation from Any Modalities",
+   "authors": [
+    "Xu Zheng",
+    "Yuanhuiyi Lyu",
+    "Lin Wang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted to ECCV 2024",
+   "journal_ref": null,
+   "venue": "ECCV 2024",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Image modality is not perfect as it often fails in certain conditions, e.g., night and fast motion. This significantly limits the robustness and versatility of existing multi-modal (i.e., Image+X) semantic segmentation methods when confronting modality absence or failure, as often occurred in real-world applications. Inspired by the open-world learning capability of multi-modal vision-language models (MVLMs), we explore a new direction in learning the modality-agnostic representation via knowledge distillation (KD) from MVLMs. Intuitively, we propose Any2Seg, a novel framework that can achieve robust segmentation from any combination of modalities in any visual conditions. Specifically, we first introduce a novel language-guided semantic correlation distillation (LSCD) module to transfer both inter-modal and intra-modal semantic knowledge in the embedding space from MVLMs, e.g., LanguageBind. This enables us to minimize the modality gap and alleviate semantic ambiguity to combine any modalities in any visual conditions. Then, we introduce a modality-agnostic feature fusion (MFF) module that reweights the multi-modal features based on the inter-modal correlation and selects the fine-grained feature. This way, our Any2Seg finally yields an optimal modality-agnostic representation. Extensive experiments on two benchmarks with four modalities demonstrate that Any2Seg achieves the state-of-the-art under the multi-modal setting (+3.54 mIoU) and excels in the challenging modality-incomplete setting(+19.79 mIoU).",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2407.11351",
+   "pdf_url": "https://arxiv.org/pdf/2407.11351"
   },
   {
    "arxiv_id": "2407.11325",
@@ -96880,9 +97461,8 @@
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)",
-    "cs.SY",
-    "Signal Processing (eess.SP)",
-    "Systems and Control (eess.SY)"
+    "Systems and Control (eess.SY)",
+    "Signal Processing (eess.SP)"
    ],
    "comments": "Published in IEEE Transactions on Intelligent Transportation Systems",
    "journal_ref": null,
@@ -104469,12 +105049,11 @@
    "authors": [
     "Melissa Dell"
    ],
-   "primary_subject": "econ.GN",
+   "primary_subject": "General Economics (econ.GN)",
    "subjects": [
-    "econ.GN",
+    "General Economics (econ.GN)",
     "Computation and Language (cs.CL)",
-    "Computer Vision and Pattern Recognition (cs.CV)",
-    "q-fin.EC"
+    "Computer Vision and Pattern Recognition (cs.CV)"
    ],
    "comments": null,
    "journal_ref": null,
@@ -106122,7 +106701,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-11"
+     "at": "2026-10-18"
     },
     "institutions": {
      "source": "openalex"
@@ -110832,7 +111411,7 @@
     "Computation and Language (cs.CL)",
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)",
-    "cs.SC"
+    "Symbolic Computation (cs.SC)"
    ],
    "comments": "Work in progress",
    "journal_ref": null,
@@ -111208,6 +111787,47 @@
    },
    "abs_url": "https://arxiv.org/abs/2407.01067",
    "pdf_url": "https://arxiv.org/pdf/2407.01067"
+  },
+  {
+   "arxiv_id": "2407.01032",
+   "announced": "2024-07-01",
+   "title": "Overcoming Common Flaws in the Evaluation of Selective Classification Systems",
+   "authors": [
+    "Jeremias Traub",
+    "Till J. Bungert",
+    "Carsten T. Lüth",
+    "Michael Baumgartner",
+    "Klaus H. Maier-Hein",
+    "Lena Maier-Hein",
+    "Paul F Jaeger"
+   ],
+   "primary_subject": "Machine Learning (cs.LG)",
+   "subjects": [
+    "Machine Learning (cs.LG)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Methodology (stat.ME)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.LG",
+   "html_url": null,
+   "abstract": "Selective Classification, wherein models can reject low-confidence predictions, promises reliable translation of machine-learning based classification systems to real-world scenarios such as clinical diagnostics. While current evaluation of these systems typically assumes fixed working points based on pre-defined rejection thresholds, methodological progress requires benchmarking the general performance of systems akin to the AUROC in standard classification. In this work, we define 5 requirements for multi-threshold metrics in selective classification regarding task alignment, interpretability, and flexibility, and show how current approaches fail to meet them. We propose the Area under the Generalized Risk Coverage curve (AUGRC), which meets all requirements and can be directly interpreted as the average risk of undetected failures. We empirically demonstrate the relevance of AUGRC on a comprehensive benchmark spanning 6 data sets and 13 confidence scoring functions. We find that the proposed metric substantially changes metric rankings on 5 out of the 6 data sets.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2407.01032",
+   "pdf_url": "https://arxiv.org/pdf/2407.01032"
   },
   {
    "arxiv_id": "2407.00983",
@@ -113844,6 +114464,46 @@
    "pdf_url": "https://arxiv.org/pdf/2406.14544"
   },
   {
+   "arxiv_id": "2406.06393",
+   "announced": "2024-06-20",
+   "title": "STimage-1K4M: A histopathology image-gene expression dataset for spatial transcriptomics",
+   "authors": [
+    "Jiawen Chen",
+    "Muqing Zhou",
+    "Wenrong Wu",
+    "Jinwei Zhang",
+    "Yun Li",
+    "Didong Li"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Computation and Language (cs.CL)",
+    "Genomics (q-bio.GN)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Recent advances in multi-modal algorithms have driven and been driven by the increasing availability of large image-text datasets, leading to significant strides in various fields, including computational pathology. However, in most existing medical image-text datasets, the text typically provides high-level summaries that may not sufficiently describe sub-tile regions within a large pathology image. For example, an image might cover an extensive tissue area containing cancerous and healthy regions, but the accompanying text might only specify that this image is a cancer slide, lacking the nuanced details needed for in-depth analysis. In this study, we introduce STimage-1K4M, a novel dataset designed to bridge this gap by providing genomic features for sub-tile images. STimage-1K4M contains 1,149 images derived from spatial transcriptomics data, which captures gene expression information at the level of individual spatial spots within a pathology image. Specifically, each image in the dataset is broken down into smaller sub-image tiles, with each tile paired with 15,000-30,000 dimensional gene expressions. With 4,293,195 pairs of sub-tile images and gene expressions, STimage-1K4M offers unprecedented granularity, paving the way for a wide range of advanced research in multi-modal data analysis an innovative applications in computational pathology, and beyond.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2406.06393",
+   "pdf_url": "https://arxiv.org/pdf/2406.06393"
+  },
+  {
    "arxiv_id": "2406.13565",
    "announced": "2024-06-19",
    "title": "Exploring Multi-view Pixel Contrast for General and Robust Image Forgery Localization",
@@ -114592,6 +115252,40 @@
    "pdf_url": "https://arxiv.org/pdf/2406.11815"
   },
   {
+   "arxiv_id": "2406.11711",
+   "announced": "2024-06-17",
+   "title": "OGNI-DC: Robust Depth Completion with Optimization-Guided Neural Iterations",
+   "authors": [
+    "Yiming Zuo",
+    "Jia Deng"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Depth completion is the task of generating a dense depth map given an image and a sparse depth map as inputs. It has important applications in various downstream tasks. In this paper, we present OGNI-DC, a novel framework for depth completion. The key to our method is \"Optimization-Guided Neural Iterations\" (OGNI). It consists of a recurrent unit that refines a depth gradient field and a differentiable depth integrator that integrates the depth gradients into a depth map. OGNI-DC exhibits strong generalization, outperforming baselines by a large margin on unseen datasets and across various sparsity levels. Moreover, OGNI-DC has high accuracy, achieving state-of-the-art performance on the NYUv2 and the KITTI benchmarks. Code is available at https://github.com/princeton-vl/OGNI-DC.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2406.11711",
+   "pdf_url": "https://arxiv.org/pdf/2406.11711"
+  },
+  {
    "arxiv_id": "2406.11507",
    "announced": "2024-06-17",
    "title": "Prior Normality Prompt Transformer for Multi-class Industrial Image Anomaly Detection",
@@ -115124,7 +115818,6 @@
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)",
-    "cs.SY",
     "Systems and Control (eess.SY)"
    ],
    "comments": "project website: https://humanoid-ai.github.io/",
@@ -115657,6 +116350,62 @@
    "pdf_url": "https://arxiv.org/pdf/2406.10050"
   },
   {
+   "arxiv_id": "2406.09936",
+   "announced": "2024-06-14",
+   "title": "ALGM: Adaptive Local-then-Global Token Merging for Efficient Semantic Segmentation with Plain Vision Transformers",
+   "authors": [
+    "Narges Norouzi",
+    "Svetlana Orlova",
+    "Daan de Geus",
+    "Gijs Dubbelman"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "CVPR 2024. Project page and code: https://tue-mps.github.io/ALGM",
+   "journal_ref": null,
+   "venue": "CVPR 2024",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "This work presents Adaptive Local-then-Global Merging (ALGM), a token reduction method for semantic segmentation networks that use plain Vision Transformers. ALGM merges tokens in two stages: (1) In the first network layer, it merges similar tokens within a small local window and (2) halfway through the network, it merges similar tokens across the entire image. This is motivated by an analysis in which we found that, in those situations, tokens with a high cosine similarity can likely be merged without a drop in segmentation quality. With extensive experiments across multiple datasets and network configurations, we show that ALGM not only significantly improves the throughput by up to 100%, but can also enhance the mean IoU by up to +1.1, thereby achieving a better trade-off between segmentation quality and efficiency than existing methods. Moreover, our approach is adaptive during inference, meaning that the same model can be used for optimal efficiency or accuracy, depending on the application. Code is available at https://tue-mps.github.io/ALGM.",
+   "affiliations": [
+    "Eindhoven University of Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Eindhoven University of Technology"
+   ],
+   "institution_ids": [
+    "02c2kyt77"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2406.09936",
+   "pdf_url": "https://arxiv.org/pdf/2406.09936"
+  },
+  {
    "arxiv_id": "2406.09829",
    "announced": "2024-06-14",
    "title": "Open-Vocabulary Semantic Segmentation with Image Embedding Balancing",
@@ -115737,8 +116486,7 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)",
     "Image and Video Processing (eess.IV)",
-    "Signal Processing (eess.SP)",
-    "math.IT"
+    "Signal Processing (eess.SP)"
    ],
    "comments": "15 pages, 11 figures",
    "journal_ref": "IEEE Transactions on Wireless Communications, vol. 24, no. 2, pp. 1415-1429, Feb. 2025",
@@ -116610,7 +117358,6 @@
     "Robotics (cs.RO)",
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)",
-    "cs.SY",
     "Systems and Control (eess.SY)"
    ],
    "comments": "Project page: https://omni.human2humanoid.com/",
@@ -117354,8 +118101,7 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Information Theory (cs.IT)",
     "Machine Learning (cs.LG)",
-    "Image and Video Processing (eess.IV)",
-    "math.IT"
+    "Image and Video Processing (eess.IV)"
    ],
    "comments": "Tech report",
    "journal_ref": null,
@@ -120187,7 +120933,7 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Artificial Intelligence (cs.AI)",
-    "physics.data-an"
+    "Data Analysis, Statistics and Probability (physics.data-an)"
    ],
    "comments": null,
    "journal_ref": null,
@@ -122219,7 +122965,6 @@
     "Machine Learning (cs.LG)",
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)",
-    "cs.NA",
     "Numerical Analysis (math.NA)"
    ],
    "comments": "NeurIPS 2024. Project page: https://jhhuangchloe.github.io/Diffusion-PDE/",
@@ -132413,6 +133158,62 @@
    "pdf_url": "https://arxiv.org/pdf/2406.05835"
   },
   {
+   "arxiv_id": "2406.05785",
+   "announced": "2024-06-01",
+   "title": "A Survey on Text-guided 3D Visual Grounding: Elements, Recent Advances, and Future Directions",
+   "authors": [
+    "Daizong Liu",
+    "Yang Liu",
+    "Wencan Huang",
+    "Wei Hu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Text-guided 3D visual grounding (T-3DVG), which aims to locate a specific object that semantically corresponds to a language query from a complicated 3D scene, has drawn increasing attention in the 3D research community over the past few years. Compared to 2D visual grounding, this task presents great potential and challenges due to its closer proximity to the real world and the complexity of data collection and 3D point cloud source processing. In this survey, we attempt to provide a comprehensive overview of the T-3DVG progress, including its fundamental elements, recent research advances, and future research directions. To the best of our knowledge, this is the first systematic survey on the T-3DVG task. Specifically, we first provide a general structure of the T-3DVG pipeline with detailed components in a tutorial style, presenting a complete background overview. Then, we summarize the existing T-3DVG approaches into different categories and analyze their strengths and weaknesses. We also present the benchmark datasets and evaluation metrics to assess their performances. Finally, we discuss the potential limitations of existing T-3DVG and share some insights on several promising research directions. The latest papers are continually collected at https://github.com/liudaizong/Awesome-3D-Visual-Grounding.",
+   "affiliations": [
+    "Peking University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Peking University"
+   ],
+   "institution_ids": [
+    "02v51f717"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2406.05785",
+   "pdf_url": "https://arxiv.org/pdf/2406.05785"
+  },
+  {
    "arxiv_id": "2406.05774",
    "announced": "2024-06-01",
    "title": "VCR-GauS: View Consistent Depth-Normal Regularizer for Gaussian Surface Reconstruction",
@@ -138267,8 +139068,7 @@
    "subjects": [
     "Image and Video Processing (eess.IV)",
     "Computer Vision and Pattern Recognition (cs.CV)",
-    "Information Theory (cs.IT)",
-    "math.IT"
+    "Information Theory (cs.IT)"
    ],
    "comments": "17pages,15 figures",
    "journal_ref": null,
@@ -140965,7 +141765,6 @@
     "Artificial Intelligence (cs.AI)",
     "Hardware Architecture (cs.AR)",
     "Human-Computer Interaction (cs.HC)",
-    "cs.SY",
     "Systems and Control (eess.SY)"
    ],
    "comments": "31 pages, accepted to publish by the International Journal of Information Management Data Insights (IJIMDS) in 2024",
@@ -144392,8 +145191,7 @@
    "subjects": [
     "Information Theory (cs.IT)",
     "Computer Vision and Pattern Recognition (cs.CV)",
-    "Multiagent Systems (cs.MA)",
-    "math.IT"
+    "Multiagent Systems (cs.MA)"
    ],
    "comments": "10 pages, Accepted by CVPR 2024",
    "journal_ref": null,
@@ -149132,6 +149930,113 @@
    },
    "abs_url": "https://arxiv.org/abs/2405.17820",
    "pdf_url": "https://arxiv.org/pdf/2405.17820"
+  },
+  {
+   "arxiv_id": "2405.17698",
+   "announced": "2024-05-01",
+   "title": "BaboonLand Dataset: Tracking Primates in the Wild and Automating Behaviour Recognition from Drone Videos",
+   "authors": [
+    "Isla Duporge",
+    "Maksim Kholiavchenko",
+    "Roi Harel",
+    "Scott Wolf",
+    "Dan Rubenstein",
+    "Meg Crofoot",
+    "Tanya Berger-Wolf",
+    "Stephen Lee",
+    "Julie Barreau",
+    "Jenna Kline",
+    "Michelle Ramirez",
+    "Charles Stewart"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Dataset will be published shortly",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Using drones to track multiple individuals simultaneously in their natural environment is a powerful approach for better understanding group primate behavior. Previous studies have demonstrated that it is possible to automate the classification of primate behavior from video data, but these studies have been carried out in captivity or from ground-based cameras. To understand group behavior and the self-organization of a collective, the whole troop needs to be seen at a scale where behavior can be seen in relation to the natural environment in which ecological decisions are made. This study presents a novel dataset from drone videos for baboon detection, tracking, and behavior recognition. The baboon detection dataset was created by manually annotating all baboons in drone videos with bounding boxes. A tiling method was subsequently applied to create a pyramid of images at various scales from the original 5.3K resolution images, resulting in approximately 30K images used for baboon detection. The tracking dataset is derived from the detection dataset, where all bounding boxes are assigned the same ID throughout the video. This process resulted in half an hour of very dense tracking data. The behavior recognition dataset was generated by converting tracks into mini-scenes, a video subregion centered on each animal; each mini-scene was manually annotated with 12 distinct behavior types, resulting in over 20 hours of data. Benchmark results show mean average precision (mAP) of 92.62% for the YOLOv8-X detection model, multiple object tracking precision (MOTA) of 63.81% for the BotSort tracking algorithm, and micro top-1 accuracy of 63.97% for the X3D behavior recognition model. Using deep learning to classify wildlife behavior from drone footage facilitates non-invasive insight into the collective behavior of an entire group.",
+   "affiliations": [
+    "Princeton University",
+    "Rensselaer Polytechnic Institute",
+    "Max Planck Institute of Animal Behavior",
+    "University of Konstanz",
+    "Ohio State University",
+    "United States Army Research Office",
+    "Université de Rennes"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     4
+    ],
+    [
+     5
+    ],
+    [
+     6
+    ],
+    [
+     4
+    ],
+    [
+     4
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Princeton University",
+    "Rensselaer Polytechnic Institute",
+    "Max Planck Institute of Animal Behavior",
+    "University of Konstanz",
+    "Ohio State University",
+    "United States Army Research Office",
+    "Université de Rennes"
+   ],
+   "institution_ids": [
+    "00hx57361",
+    "01rtyzb94",
+    "026stee22",
+    "0546hnb39",
+    "00rs6vg23",
+    "05epdh915",
+    "015m7wh34"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2405.17698",
+   "pdf_url": "https://arxiv.org/pdf/2405.17698"
   },
   {
    "arxiv_id": "2405.17596",
@@ -158769,6 +159674,70 @@
    },
    "abs_url": "https://arxiv.org/abs/2404.19753",
    "pdf_url": "https://arxiv.org/pdf/2404.19753"
+  },
+  {
+   "arxiv_id": "2404.19752",
+   "announced": "2024-04-30",
+   "title": "Visual Fact Checker: Enabling High-Fidelity Detailed Caption Generation",
+   "authors": [
+    "Yunhao Ge",
+    "Xiaohui Zeng",
+    "Jacob Samuel Huffman",
+    "Tsung-Yi Lin",
+    "Ming-Yu Liu",
+    "Yin Cui"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "CVPR 2024",
+   "journal_ref": null,
+   "venue": "CVPR 2024",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Existing automatic captioning methods for visual content face challenges such as lack of detail, content hallucination, and poor instruction following. In this work, we propose VisualFactChecker (VFC), a flexible training-free pipeline that generates high-fidelity and detailed captions for both 2D images and 3D objects. VFC consists of three steps: 1) proposal, where image-to-text captioning models propose multiple initial captions; 2) verification, where a large language model (LLM) utilizes tools such as object detection and VQA models to fact-check proposed captions; 3) captioning, where an LLM generates the final caption by summarizing caption proposals and the fact check verification results. In this step, VFC can flexibly generate captions in various styles following complex instructions. We conduct comprehensive captioning evaluations using four metrics: 1) CLIP-Score for image-text similarity; 2) CLIP-Image-Score for measuring the image-image similarity between the original and the reconstructed image generated by a text-to-image model using the caption. 3) human study on Amazon Mechanical Turk; 4) GPT-4V for fine-grained evaluation. Evaluation results show that VFC outperforms state-of-the-art open-sourced captioning methods for 2D images on the COCO dataset and 3D assets on the Objaverse dataset. Our study demonstrates that by combining open-source models into a pipeline, we can attain captioning capability comparable to proprietary models such as GPT-4V, despite being over 10x smaller in model size.",
+   "affiliations": [
+    "Nvidia"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "NVIDIA"
+   ],
+   "institution_ids": [
+    "02kr42612"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2404.19752",
+   "pdf_url": "https://arxiv.org/pdf/2404.19752"
   },
   {
    "arxiv_id": "2404.19702",
@@ -198435,8 +199404,7 @@
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)",
-    "Information Theory (cs.IT)",
-    "math.IT"
+    "Information Theory (cs.IT)"
    ],
    "comments": "AAAI2024",
    "journal_ref": null,
@@ -201898,8 +202866,7 @@
     "Information Theory (cs.IT)",
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Multimedia (cs.MM)",
-    "Signal Processing (eess.SP)",
-    "math.IT"
+    "Signal Processing (eess.SP)"
    ],
    "comments": "Accepted for publication in IEEE Wireless Communication Letters",
    "journal_ref": null,
@@ -203491,9 +204458,8 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)",
-    "cs.SY",
-    "Image and Video Processing (eess.IV)",
-    "Systems and Control (eess.SY)"
+    "Systems and Control (eess.SY)",
+    "Image and Video Processing (eess.IV)"
    ],
    "comments": null,
    "journal_ref": null,
@@ -211496,6 +212462,66 @@
    "pdf_url": "https://arxiv.org/pdf/2403.05049"
   },
   {
+   "arxiv_id": "2403.04444",
+   "announced": "2024-03-01",
+   "title": "Disentangled Diffusion-Based 3D Human Pose Estimation with Hierarchical Spatial and Temporal Denoiser",
+   "authors": [
+    "Qingyuan Cai",
+    "Xuecai Hu",
+    "Saihui Hou",
+    "Li Yao",
+    "Yongzhen Huang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted by AAAI24",
+   "journal_ref": null,
+   "venue": "AAAI 2024",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Recently, diffusion-based methods for monocular 3D human pose estimation have achieved state-of-the-art (SOTA) performance by directly regressing the 3D joint coordinates from the 2D pose sequence. Although some methods decompose the task into bone length and bone direction prediction based on the human anatomical skeleton to explicitly incorporate more human body prior constraints, the performance of these methods is significantly lower than that of the SOTA diffusion-based methods. This can be attributed to the tree structure of the human skeleton. Direct application of the disentangled method could amplify the accumulation of hierarchical errors, propagating through each hierarchy. Meanwhile, the hierarchical information has not been fully explored by the previous methods. To address these problems, a Disentangled Diffusion-based 3D Human Pose Estimation method with Hierarchical Spatial and Temporal Denoiser is proposed, termed DDHPose. In our approach: (1) We disentangle the 3D pose and diffuse the bone length and bone direction during the forward process of the diffusion model to effectively model the human pose prior. A disentanglement loss is proposed to supervise diffusion model learning. (2) For the reverse process, we propose Hierarchical Spatial and Temporal Denoiser (HSTDenoiser) to improve the hierarchical modeling of each joint. Our HSTDenoiser comprises two components: the Hierarchical-Related Spatial Transformer (HRST) and the Hierarchical-Related Temporal Transformer (HRTT). HRST exploits joint spatial information and the influence of the parent joint on each joint for spatial modeling, while HRTT utilizes information from both the joint and its hierarchical adjacent joints to explore the hierarchical temporal correlations among joints. Code and models are available at https://github.com/Andyen512/DDHPose",
+   "affiliations": [
+    "Beijing Normal University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Beijing Normal University"
+   ],
+   "institution_ids": [
+    "022k4wk35"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2403.04444",
+   "pdf_url": "https://arxiv.org/pdf/2403.04444"
+  },
+  {
    "arxiv_id": "2403.04306",
    "announced": "2024-03-01",
    "title": "Effectiveness Assessment of Recent Large Vision-Language Models",
@@ -215854,7 +216880,7 @@
     "Artificial Intelligence (cs.AI)",
     "Computation and Language (cs.CL)",
     "Machine Learning (cs.LG)",
-    "math.HO"
+    "History and Overview (math.HO)"
    ],
    "comments": null,
    "journal_ref": null,
@@ -222129,7 +223155,7 @@
    "primary_subject": "Machine Learning (stat.ML)",
    "subjects": [
     "Machine Learning (stat.ML)",
-    "cond-mat.dis-nn",
+    "Disordered Systems and Neural Networks (cond-mat.dis-nn)",
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)"
    ],
@@ -223941,7 +224967,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-11"
+     "at": "2026-10-18"
     },
     "institutions": {
      "source": "openalex"
@@ -232305,7 +233331,6 @@
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)",
-    "cs.SY",
     "Systems and Control (eess.SY)"
    ],
    "comments": "Website at https://open-world-mobilemanip.github.io/",
@@ -233018,6 +234043,73 @@
    "pdf_url": "https://arxiv.org/pdf/2401.12915"
   },
   {
+   "arxiv_id": "2401.03179",
+   "announced": "2024-01-23",
+   "title": "Multimodal Informative ViT: Information Aggregation and Distribution for Hyperspectral and LiDAR Classification",
+   "authors": [
+    "Jiaqing Zhang",
+    "Jie Lei",
+    "Weiying Xie",
+    "Geng Yang",
+    "Daixun Li",
+    "Yunsong Li"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "In multimodal land cover classification (MLCC), a common challenge is the redundancy in data distribution, where irrelevant information from multiple modalities can hinder the effective integration of their unique features. To tackle this, we introduce the Multimodal Informative Vit (MIVit), a system with an innovative information aggregate-distributing mechanism. This approach redefines redundancy levels and integrates performance-aware elements into the fused representation, facilitating the learning of semantics in both forward and backward directions. MIVit stands out by significantly reducing redundancy in the empirical distribution of each modality's separate and fused features. It employs oriented attention fusion (OAF) for extracting shallow local features across modalities in horizontal and vertical dimensions, and a Transformer feature extractor for extracting deep global features through long-range attention. We also propose an information aggregation constraint (IAC) based on mutual information, designed to remove redundant information and preserve complementary information within embedded features. Additionally, the information distribution flow (IDF) in MIVit enhances performance-awareness by distributing global classification information across different modalities' feature maps. This architecture also addresses missing modality challenges with lightweight independent modality classifiers, reducing the computational load typically associated with Transformers. Our results show that MIVit's bidirectional aggregate-distributing mechanism between modalities is highly effective, achieving an average overall accuracy of 95.56% across three multimodal datasets. This performance surpasses current state-of-the-art methods in MLCC. The code for MIVit is accessible at https://github.com/icey-zhang/MIViT.",
+   "affiliations": [
+    "Xidian University",
+    "University of Technology Sydney"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Xidian University",
+    "University of Technology Sydney"
+   ],
+   "institution_ids": [
+    "05s92vm98",
+    "03f0f6041"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2401.03179",
+   "pdf_url": "https://arxiv.org/pdf/2401.03179"
+  },
+  {
    "arxiv_id": "2401.00496",
    "announced": "2024-01-23",
    "title": "SAR-RARP50: Segmentation of surgical instrumentation and Action Recognition on Robot-Assisted Radical Prostatectomy Challenge",
@@ -233487,7 +234579,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-11"
+     "at": "2026-10-18"
     },
     "institutions": {
      "source": "openalex"
@@ -237522,7 +238614,6 @@
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)",
-    "cs.SY",
     "Systems and Control (eess.SY)"
    ],
    "comments": "Project website: https://mobile-aloha.github.io (Zipeng Fu and Tony Z. Zhao are project co-leads, Chelsea Finn is the advisor)",
@@ -238706,7 +239797,6 @@
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)",
-    "cs.SY",
     "Systems and Control (eess.SY)"
    ],
    "comments": "Published at RSS 2024, Project website: https://agile-but-safe.github.io/",

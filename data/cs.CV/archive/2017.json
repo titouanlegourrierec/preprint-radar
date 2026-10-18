@@ -4046,7 +4046,7 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Cryptography and Security (cs.CR)",
-    "cs.GT",
+    "Computer Science and Game Theory (cs.GT)",
     "Machine Learning (cs.LG)"
    ],
    "comments": "Accepted for publication on Pattern Recognition, 2018",
@@ -10881,7 +10881,6 @@
    "subjects": [
     "Information Theory (cs.IT)",
     "Computer Vision and Pattern Recognition (cs.CV)",
-    "math.IT",
     "Methodology (stat.ME)",
     "Machine Learning (stat.ML)"
    ],
@@ -17960,7 +17959,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-11"
+     "at": "2026-10-18"
     },
     "institutions": {
      "source": "openalex"
@@ -18122,7 +18121,7 @@
     "Machine Learning (cs.LG)",
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)",
-    "physics.data-an",
+    "Data Analysis, Statistics and Probability (physics.data-an)",
     "Machine Learning (stat.ML)"
    ],
    "comments": null,
@@ -29957,7 +29956,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-11"
+     "at": "2026-10-18"
     },
     "institutions": {
      "source": "openalex"
@@ -35323,7 +35322,7 @@
     "Optimization and Control (math.OC)",
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Neural and Evolutionary Computing (cs.NE)",
-    "math.FA"
+    "Functional Analysis (math.FA)"
    ],
    "comments": "11 pages, 5 figures",
    "journal_ref": "IEEE Transactions on Medical Imaging (2018)",
@@ -36485,7 +36484,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-11"
+     "at": "2026-10-18"
     },
     "institutions": {
      "source": "openalex"
@@ -40008,7 +40007,6 @@
    "subjects": [
     "Optimization and Control (math.OC)",
     "Computer Vision and Pattern Recognition (cs.CV)",
-    "cs.NA",
     "Numerical Analysis (math.NA)"
    ],
    "comments": "25 pages, 8 figures, submitted",
@@ -41507,9 +41505,9 @@
     "Anand Asundi",
     "Qian Chen"
    ],
-   "primary_subject": "physics.ins-det",
+   "primary_subject": "Instrumentation and Detectors (physics.ins-det)",
    "subjects": [
-    "physics.ins-det",
+    "Instrumentation and Detectors (physics.ins-det)",
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Optics (physics.optics)"
    ],
@@ -43075,7 +43073,7 @@
    "primary_subject": "Machine Learning (stat.ML)",
    "subjects": [
     "Machine Learning (stat.ML)",
-    "cond-mat.dis-nn",
+    "Disordered Systems and Neural Networks (cond-mat.dis-nn)",
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)"
@@ -45494,7 +45492,6 @@
     "Robotics (cs.RO)",
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)",
-    "cs.SY",
     "Systems and Control (eess.SY)"
    ],
    "comments": "Accepted for Field and Service Robotics conference 2017 (FSR 2017)",
@@ -47528,7 +47525,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-11"
+     "at": "2026-10-18"
     },
     "institutions": {
      "source": "openalex"
@@ -51523,7 +51520,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-11"
+     "at": "2026-10-18"
     },
     "institutions": {
      "source": "openalex"
@@ -53267,7 +53264,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-11"
+     "at": "2026-10-18"
     },
     "institutions": {
      "source": "openalex"
@@ -56824,7 +56821,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-11"
+     "at": "2026-10-18"
     },
     "institutions": {
      "source": "openalex"
@@ -57240,7 +57237,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-11"
+     "at": "2026-10-18"
     },
     "institutions": {
      "source": "openalex"
@@ -57433,6 +57430,81 @@
    "pdf_url": "https://arxiv.org/pdf/1703.10553"
   },
   {
+   "arxiv_id": "1703.10476",
+   "announced": "2017-03-01",
+   "title": "Speaking the Same Language: Matching Machine to Human Captions by Adversarial Training",
+   "authors": [
+    "Rakshith Shetty",
+    "Marcus Rohrbach",
+    "Lisa Anne Hendricks",
+    "Mario Fritz",
+    "Bernt Schiele"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)",
+    "Computation and Language (cs.CL)"
+   ],
+   "comments": "16 pages, Published in ICCV 2017",
+   "journal_ref": null,
+   "venue": "ICCV 2017",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "While strong progress has been made in image captioning over the last years, machine and human captions are still quite distinct. A closer look reveals that this is due to the deficiencies in the generated word distribution, vocabulary size, and strong bias in the generators towards frequent captions. Furthermore, humans -- rightfully so -- generate multiple, diverse captions, due to the inherent ambiguity in the captioning task which is not considered in today's systems. To address these challenges, we change the training objective of the caption generator from reproducing groundtruth captions to generating a set of captions that is indistinguishable from human generated captions. Instead of handcrafting such a learning target, we employ adversarial training in combination with an approximate Gumbel sampler to implicitly match the generated distribution to the human one. While our method achieves comparable performance to the state-of-the-art in terms of the correctness of the captions, we generate a set of diverse captions, that are significantly less biased and match the word statistics better in several aspects.",
+   "affiliations": [
+    "Max Planck Society",
+    "Max Planck Institute for Informatics",
+    "Meta",
+    "University of California, Berkeley"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Max Planck Society",
+    "Max Planck Institute for Informatics",
+    "Meta",
+    "University of California, Berkeley"
+   ],
+   "institution_ids": [
+    "01hhn8329",
+    "01w19ak89",
+    "01zbnvs85",
+    "01an7q238"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1703.10476",
+   "pdf_url": "https://arxiv.org/pdf/1703.10476"
+  },
+  {
    "arxiv_id": "1703.10155",
    "announced": "2017-03-01",
    "title": "CVAE-GAN: Fine-Grained Image Generation through Asymmetric Training",
@@ -57532,7 +57604,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-11"
+     "at": "2026-10-18"
     },
     "institutions": {
      "source": "openalex"
@@ -64435,7 +64507,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-11"
+     "at": "2026-10-18"
     },
     "institutions": {
      "source": "openalex"

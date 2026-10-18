@@ -14885,7 +14885,7 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)"
    ],
-   "comments": "23 pages, 11 figures",
+   "comments": "31 pages, 13 figures, 6 tables",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "eess.IV",
@@ -15520,9 +15520,9 @@
     "Machine Learning (cs.LG)",
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "11 pages, 2 figures, 5 tables",
+   "comments": "NeurIPS 2026: Tackling Climate Change with Machine Learning Workshop. 12 pages, 2 figures, 5 tables",
    "journal_ref": null,
-   "venue": null,
+   "venue": "NeurIPS 2026 Workshop",
    "cross_list_from": "cs.LG",
    "html_url": "https://arxiv.org/html/2609.22191v1",
    "abstract": "Machine learning is being increasingly used to predict where active wildfires will burn the following day, helping inform evacuation boundaries and containment lines. Most models are evaluated using Average Precision (AP), which summarizes performance across all decision thresholds, although acting on a forecast requires choosing one. We benchmarked five discriminative architectures and one generative model on WildfireSpreadTS using a shared evaluation pipeline and two input configurations. We found that model rankings varied depending on whether performance was measured by AP or by threshold-dependent metrics like F1 and IoU. The highest-AP model flagged 4 to 5 times the area that burned and ranked fifth of six on F1 and IoU, and the most recall-heavy model flagged 16 to 23 times. Models with more usable predictions had AP scores 24 to 37 lower. Across architectures, we identified three distinct prediction profiles: over-predicting, balanced, and under-predicting, which AP alone could not distinguish. Expanding the input from 7 to 23 channels changed AP by 0.03 on average, against a 0.21 to 0.24 spread across architectures. These results show AP alone can favor models whose predictions are poorly suited for operational wildfire forecasting.",

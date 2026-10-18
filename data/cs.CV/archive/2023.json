@@ -7322,7 +7322,6 @@
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)",
-    "cs.SY",
     "Systems and Control (eess.SY)"
    ],
    "comments": "In CoRL 2023. Website at https://play-fusion.github.io",
@@ -8763,7 +8762,6 @@
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)",
-    "cs.SY",
     "Systems and Control (eess.SY)"
    ],
    "comments": "In CoRL 2023. Website at https://dexfunc.github.io/",
@@ -9685,6 +9683,69 @@
    },
    "abs_url": "https://arxiv.org/abs/2312.00360",
    "pdf_url": "https://arxiv.org/pdf/2312.00360"
+  },
+  {
+   "arxiv_id": "2312.02719",
+   "announced": "2023-12-03",
+   "title": "A Conditional Denoising Diffusion Probabilistic Model for Point Cloud Upsampling",
+   "authors": [
+    "Wentao Qu",
+    "Yuantian Shao",
+    "Lingwu Meng",
+    "Xiaoshui Huang",
+    "Liang Xiao"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Point cloud upsampling (PCU) enriches the representation of raw point clouds, significantly improving the performance in downstream tasks such as classification and reconstruction. Most of the existing point cloud upsampling methods focus on sparse point cloud feature extraction and upsampling module design. In a different way, we dive deeper into directly modelling the gradient of data distribution from dense point clouds. In this paper, we proposed a conditional denoising diffusion probability model (DDPM) for point cloud upsampling, called PUDM. Specifically, PUDM treats the sparse point cloud as a condition, and iteratively learns the transformation relationship between the dense point cloud and the noise. Simultaneously, PUDM aligns with a dual mapping paradigm to further improve the discernment of point features. In this context, PUDM enables learning complex geometry details in the ground truth through the dominant features, while avoiding an additional upsampling module design. Furthermore, to generate high-quality arbitrary-scale point clouds during inference, PUDM exploits the prior knowledge of the scale between sparse point clouds and dense point clouds during training by parameterizing a rate factor. Moreover, PUDM exhibits strong noise robustness in experimental results. In the quantitative and qualitative evaluations on PU1K and PUGAN, PUDM significantly outperformed existing methods in terms of Chamfer Distance (CD) and Hausdorff Distance (HD), achieving state of the art (SOTA) performance.",
+   "affiliations": [
+    "Nanjing University of Science and Technology",
+    "Shanghai Artificial Intelligence Laboratory"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Nanjing University of Science and Technology",
+    "Shanghai Artificial Intelligence Laboratory"
+   ],
+   "institution_ids": [
+    "00xp9wg62",
+    "03wkvpx79"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2312.02719",
+   "pdf_url": "https://arxiv.org/pdf/2312.02719"
   },
   {
    "arxiv_id": "2312.01381",
@@ -15282,7 +15343,6 @@
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)",
-    "cs.SY",
     "Systems and Control (eess.SY)"
    ],
    "comments": "Use 1 hour to train a quadruped robot capable of traversing any terrain under any disturbances in the open world, Project Page: https://github.com/OpenRobotLab/HIMLoco",
@@ -16857,6 +16917,84 @@
    },
    "abs_url": "https://arxiv.org/abs/2312.09245",
    "pdf_url": "https://arxiv.org/pdf/2312.09245"
+  },
+  {
+   "arxiv_id": "2312.09243",
+   "announced": "2023-12-01",
+   "title": "OccNeRF: Advancing 3D Occupancy Prediction in LiDAR-Free Environments",
+   "authors": [
+    "Chubin Zhang",
+    "Juncheng Yan",
+    "Yi Wei",
+    "Jiaxin Li",
+    "Li Liu",
+    "Yansong Tang",
+    "Yueqi Duan",
+    "Jiwen Lu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Code: https://github.com/LinShan-Bin/OccNeRF",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Occupancy prediction reconstructs 3D structures of surrounding environments. It provides detailed information for autonomous driving planning and navigation. However, most existing methods heavily rely on the LiDAR point clouds to generate occupancy ground truth, which is not available in the vision-based system. In this paper, we propose an OccNeRF method for training occupancy networks without 3D supervision. Different from previous works which consider a bounded scene, we parameterize the reconstructed occupancy fields and reorganize the sampling strategy to align with the cameras' infinite perceptive range. The neural rendering is adopted to convert occupancy fields to multi-camera depth maps, supervised by multi-frame photometric consistency. Moreover, for semantic occupancy prediction, we design several strategies to polish the prompts and filter the outputs of a pretrained open-vocabulary 2D segmentation model. Extensive experiments for both self-supervised depth estimation and 3D occupancy prediction tasks on nuScenes and SemanticKITTI datasets demonstrate the effectiveness of our method.",
+   "affiliations": [
+    "Tsinghua Shenzhen International Graduate School",
+    "Tsinghua University",
+    "Xiaomi"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    null,
+    [
+     2
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Tsinghua Shenzhen International Graduate School",
+    "Tsinghua University",
+    "Xiaomi"
+   ],
+   "institution_ids": [
+    "01vceef04",
+    "03cve4549",
+    "029f7bn57"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2312.09243",
+   "pdf_url": "https://arxiv.org/pdf/2312.09243"
   },
   {
    "arxiv_id": "2312.09238",
@@ -29960,8 +30098,7 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Artificial Intelligence (cs.AI)",
     "Information Theory (cs.IT)",
-    "Machine Learning (cs.LG)",
-    "math.IT"
+    "Machine Learning (cs.LG)"
    ],
    "comments": "NeurIPS 2023",
    "journal_ref": null,
@@ -43437,6 +43574,69 @@
    },
    "abs_url": "https://arxiv.org/abs/2311.13614",
    "pdf_url": "https://arxiv.org/pdf/2311.13614"
+  },
+  {
+   "arxiv_id": "2311.13602",
+   "announced": "2023-11-01",
+   "title": "Retrieval-Augmented Layout Transformer for Content-Aware Layout Generation",
+   "authors": [
+    "Daichi Horita",
+    "Naoto Inoue",
+    "Kotaro Kikuchi",
+    "Kota Yamaguchi",
+    "Kiyoharu Aizawa"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted to CVPR 2024 (Oral), Project website: https://udonda.github.io/RALF/ , GitHub: https://github.com/CyberAgentAILab/RALF",
+   "journal_ref": null,
+   "venue": "CVPR 2024",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Content-aware graphic layout generation aims to automatically arrange visual elements along with a given content, such as an e-commerce product image. In this paper, we argue that the current layout generation approaches suffer from the limited training data for the high-dimensional layout structure. We show that a simple retrieval augmentation can significantly improve the generation quality. Our model, which is named Retrieval-Augmented Layout Transformer (RALF), retrieves nearest neighbor layout examples based on an input image and feeds these results into an autoregressive generator. Our model can apply retrieval augmentation to various controllable generation tasks and yield high-quality layouts within a unified architecture. Our extensive experiments show that RALF successfully generates content-aware layouts in both constrained and unconstrained settings and significantly outperforms the baselines.",
+   "affiliations": [
+    "University of Tokyo",
+    "CyberAgent"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Tokyo",
+    "CyberAgent"
+   ],
+   "institution_ids": [
+    "057zh3y96",
+    "0060jg679"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2311.13602",
+   "pdf_url": "https://arxiv.org/pdf/2311.13602"
   },
   {
    "arxiv_id": "2311.13600",
@@ -61666,6 +61866,67 @@
    "pdf_url": "https://arxiv.org/pdf/2310.07602"
   },
   {
+   "arxiv_id": "2310.07166",
+   "announced": "2023-10-01",
+   "title": "Anchor-based Multi-view Subspace Clustering with Hierarchical Feature Descent",
+   "authors": [
+    "Qiyuan Ou",
+    "Siwei Wang",
+    "Pei Zhang",
+    "Sihang Zhou",
+    "En Zhu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Multi-view clustering has attracted growing attention owing to its capabilities of aggregating information from various sources and its promising horizons in public affairs. Up till now, many advanced approaches have been proposed in recent literature. However, there are several ongoing difficulties to be tackled. One common dilemma occurs while attempting to align the features of different views. Moreover, due to the fact that many existing multi-view clustering algorithms stem from spectral clustering, this results to cubic time complexity w.r.t. the number of dataset. However, we propose Anchor-based Multi-view Subspace Clustering with Hierarchical Feature Descent(MVSC-HFD) to tackle the discrepancy among views through hierarchical feature descent and project to a common subspace( STAGE 1), which reveals dependency of different views. We further reduce the computational complexity to linear time cost through a unified sampling strategy in the common subspace( STAGE 2), followed by anchor-based subspace clustering to learn the bipartite graph collectively( STAGE 3). Extensive experimental results on public benchmark datasets demonstrate that our proposed model consistently outperforms the state-of-the-art techniques.",
+   "affiliations": [
+    "National University of Defense Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "National University of Defense Technology"
+   ],
+   "institution_ids": [
+    "05d2yfz11"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2310.07166",
+   "pdf_url": "https://arxiv.org/pdf/2310.07166"
+  },
+  {
    "arxiv_id": "2310.06430",
    "announced": "2023-10-01",
    "title": "Conformal Prediction for Deep Classifier via Label Ranking",
@@ -61681,8 +61942,7 @@
    "subjects": [
     "Machine Learning (cs.LG)",
     "Computer Vision and Pattern Recognition (cs.CV)",
-    "math.ST",
-    "stat.TH"
+    "Statistics Theory (math.ST)"
    ],
    "comments": "Accepted by ICML 2024",
    "journal_ref": null,
@@ -67023,7 +67283,6 @@
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)",
-    "cs.SY",
     "Systems and Control (eess.SY)"
    ],
    "comments": "Website and videos at https://extreme-parkour.github.io/",
@@ -69452,7 +69711,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-11"
+     "at": "2026-10-18"
     },
     "institutions": {
      "source": "openalex"
@@ -69547,7 +69806,6 @@
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)",
-    "cs.SY",
     "Systems and Control (eess.SY)"
    ],
    "comments": "Website at https://leap-hand.github.io/",
@@ -78249,7 +78507,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-11"
+     "at": "2026-10-18"
     },
     "institutions": {
      "source": "openalex"
@@ -83974,7 +84232,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-11"
+     "at": "2026-10-18"
     },
     "institutions": {
      "source": "openalex"
@@ -94144,7 +94402,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-11"
+     "at": "2026-10-18"
     },
     "institutions": {
      "source": "openalex"
@@ -102469,7 +102727,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-11"
+     "at": "2026-10-18"
     },
     "institutions": {
      "source": "openalex"
@@ -102718,8 +102976,7 @@
    "subjects": [
     "Machine Learning (cs.LG)",
     "Computer Vision and Pattern Recognition (cs.CV)",
-    "Information Theory (cs.IT)",
-    "math.IT"
+    "Information Theory (cs.IT)"
    ],
    "comments": "ICML 2023 Neural Compression Workshop",
    "journal_ref": null,
@@ -109573,7 +109830,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-11"
+     "at": "2026-10-18"
     },
     "institutions": {
      "source": "openalex"
@@ -111929,6 +112186,90 @@
    },
    "abs_url": "https://arxiv.org/abs/2306.15278",
    "pdf_url": "https://arxiv.org/pdf/2306.15278"
+  },
+  {
+   "arxiv_id": "2306.12010",
+   "announced": "2023-06-27",
+   "title": "Spiking Neural Network for Ultra-low-latency and High-accurate Object Detection",
+   "authors": [
+    "Jinye Qu",
+    "Zeyu Gao",
+    "Tielin Zhang",
+    "Yanfeng Lu",
+    "Huajin Tang",
+    "Hong Qiao"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Neural and Evolutionary Computing (cs.NE)"
+   ],
+   "comments": "14 pages, 10 figures",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Spiking Neural Networks (SNNs) have garnered widespread interest for their energy efficiency and brain-inspired event-driven properties. While recent methods like Spiking-YOLO have expanded the SNNs to more challenging object detection tasks, they often suffer from high latency and low detection accuracy, making them difficult to deploy on latency sensitive mobile platforms. Furthermore, the conversion method from Artificial Neural Networks (ANNs) to SNNs is hard to maintain the complete structure of the ANNs, resulting in poor feature representation and high conversion errors. To address these challenges, we propose two methods: timesteps compression and spike-time-dependent integrated (STDI) coding. The former reduces the timesteps required in ANN-SNN conversion by compressing information, while the latter sets a time-varying threshold to expand the information holding capacity. We also present a SNN-based ultra-low latency and high accurate object detection model (SUHD) that achieves state-of-the-art performance on nontrivial datasets like PASCAL VOC and MS COCO, with about remarkable 750x fewer timesteps and 30% mean average precision (mAP) improvement, compared to the Spiking-YOLO on MS COCO datasets. To the best of our knowledge, SUHD is the deepest spike-based object detection model to date that achieves ultra low timesteps to complete the lossless conversion.",
+   "affiliations": [
+    "Chinese Academy of Sciences",
+    "Institute of Automation",
+    "University of Chinese Academy of Sciences",
+    "Zhejiang University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     3
+    ],
+    [
+     0,
+     1,
+     2
+    ]
+   ],
+   "institutions": [
+    "Chinese Academy of Sciences",
+    "Institute of Automation",
+    "University of Chinese Academy of Sciences",
+    "Zhejiang University"
+   ],
+   "institution_ids": [
+    "034t30j35",
+    "022c3hy66",
+    "05qbk4x57",
+    "00a2xv884"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2306.12010",
+   "pdf_url": "https://arxiv.org/pdf/2306.12010"
   },
   {
    "arxiv_id": "2306.14896",
@@ -127348,8 +127689,7 @@
     "Machine Learning (cs.LG)",
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)",
-    "Information Theory (cs.IT)",
-    "math.IT"
+    "Information Theory (cs.IT)"
    ],
    "comments": "24 pages, 11 figures",
    "journal_ref": null,
@@ -127574,8 +127914,7 @@
     "Artificial Intelligence (cs.AI)",
     "Computation and Language (cs.CL)",
     "Computer Vision and Pattern Recognition (cs.CV)",
-    "Information Theory (cs.IT)",
-    "math.IT"
+    "Information Theory (cs.IT)"
    ],
    "comments": "Accepted at ICML 2023. Code is available at https://github.com/xu-ji/information-bottleneck",
    "journal_ref": null,
@@ -140055,7 +140394,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-11"
+     "at": "2026-10-18"
     },
     "institutions": {
      "source": "openalex"
@@ -145350,7 +145689,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-11"
+     "at": "2026-10-18"
     },
     "institutions": {
      "source": "openalex"
@@ -146883,7 +147222,6 @@
    "subjects": [
     "Machine Learning (cs.LG)",
     "Computer Vision and Pattern Recognition (cs.CV)",
-    "cs.NA",
     "Numerical Analysis (math.NA)",
     "Machine Learning (stat.ML)"
    ],
@@ -177003,7 +177341,7 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Artificial Intelligence (cs.AI)",
-    "math.PR"
+    "Probability (math.PR)"
    ],
    "comments": "CVPR 2023",
    "journal_ref": null,
@@ -178292,7 +178630,6 @@
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)",
-    "cs.SY",
     "Systems and Control (eess.SY)"
    ],
    "comments": "Accepted at ICRA 2023. Videos at https://robot-skills.github.io",
@@ -189898,7 +190235,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-11"
+     "at": "2026-10-18"
     },
     "institutions": {
      "source": "openalex"
@@ -202642,8 +202979,7 @@
     "Machine Learning (cs.LG)",
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)",
-    "Information Theory (cs.IT)",
-    "math.IT"
+    "Information Theory (cs.IT)"
    ],
    "comments": "29 pages, 8 figures",
    "journal_ref": null,
@@ -206480,8 +206816,7 @@
     "Artificial Intelligence (cs.AI)",
     "Computation and Language (cs.CL)",
     "Computer Vision and Pattern Recognition (cs.CV)",
-    "Information Theory (cs.IT)",
-    "math.IT"
+    "Information Theory (cs.IT)"
    ],
    "comments": "NeurIPS 2023. Code available at: https://github.com/pliang279/PID",
    "journal_ref": null,
@@ -208128,7 +208463,7 @@
    "primary_subject": "Machine Learning (cs.LG)",
    "subjects": [
     "Machine Learning (cs.LG)",
-    "cond-mat.dis-nn",
+    "Disordered Systems and Neural Networks (cond-mat.dis-nn)",
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Neurons and Cognition (q-bio.NC)",
     "Machine Learning (stat.ML)"
@@ -216162,8 +216497,7 @@
     "Image and Video Processing (eess.IV)",
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)",
-    "Information Theory (cs.IT)",
-    "math.IT"
+    "Information Theory (cs.IT)"
    ],
    "comments": "Upload camera-ready to arXiv. Official version available at https://proceedings.mlr.press/v202/muckley23a.html",
    "journal_ref": "Proceedings of the 40th International Conference on Machine Learning (2023) 25426-25443",
@@ -216823,6 +217157,64 @@
    },
    "abs_url": "https://arxiv.org/abs/2301.09121",
    "pdf_url": "https://arxiv.org/pdf/2301.09121"
+  },
+  {
+   "arxiv_id": "2301.08915",
+   "announced": "2023-01-01",
+   "title": "Improving Deep Regression with Ordinal Entropy",
+   "authors": [
+    "Shihao Zhang",
+    "Linlin Yang",
+    "Michael Bi Mi",
+    "Xiaoxu Zheng",
+    "Angela Yao"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "Accepted to ICLR 2023. Project page: https://github.com/needylove/OrdinalEntropy",
+   "journal_ref": null,
+   "venue": "ICLR 2023",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "In computer vision, it is often observed that formulating regression problems as a classification task often yields better performance. We investigate this curious phenomenon and provide a derivation to show that classification, with the cross-entropy loss, outperforms regression with a mean squared error loss in its ability to learn high-entropy feature representations. Based on the analysis, we propose an ordinal entropy loss to encourage higher-entropy feature spaces while maintaining ordinal relationships to improve the performance of regression tasks. Experiments on synthetic and real-world regression tasks demonstrate the importance and benefits of increasing entropy for regression.",
+   "affiliations": [
+    "National University of Singapore"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    null,
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "National University of Singapore"
+   ],
+   "institution_ids": [
+    "01tgyzw49"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2301.08915",
+   "pdf_url": "https://arxiv.org/pdf/2301.08915"
   },
   {
    "arxiv_id": "2301.08739",
@@ -219609,8 +220001,7 @@
    "subjects": [
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)",
-    "Information Theory (cs.IT)",
-    "math.IT"
+    "Information Theory (cs.IT)"
    ],
    "comments": "29 pages, 10 figures",
    "journal_ref": null,

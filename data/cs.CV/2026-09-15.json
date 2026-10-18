@@ -11247,7 +11247,7 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": null,
+   "comments": "Code: https://github.com/VisionXLab/V-ICAL Dataset: https://huggingface.co/datasets/VisionXLab/V-ICAL Homepage: https://visionxlab.github.io/V-ICAL-Homepage",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
@@ -12104,7 +12104,7 @@
     "Image and Video Processing (eess.IV)",
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "16 pages, 7 figures, 2 tables. Preprint",
+   "comments": "15 pages, 10 figures, 2 tables. Preprint",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "eess.IV",
@@ -13221,8 +13221,8 @@
     "Machine Learning (cs.LG)"
    ],
    "comments": null,
-   "journal_ref": null,
-   "venue": null,
+   "journal_ref": "CLEF 2026 Working Notes, CEUR Workshop Proceedings, Vol. 4283, pp. 2329-2344 (2026), PDF: https://ceur-ws.org/Vol-4283/paper169.pdf",
+   "venue": "CLEF 2026 Workshop",
    "cross_list_from": "cs.CL",
    "html_url": "https://arxiv.org/html/2609.15608v1",
    "abstract": "Detecting sexism on the internet is a fundamentally subjective task; our team, VANGUARD, addresses this challenge in the EXIST 2026 Task 2 by proposing a human-centered multimodal framework that analyses and incorporates the psychological and demographic characteristics of human annotators into the detection pipeline. We fuse five input modalities through a cross-attention architecture with Feature-wise Linear Modulation conditioning. Meme text is extracted and visually described with Gemma 4, then augmented by automatic translation between English and Spanish with NLLB-200. Text and image representations are produced by LoRAadapted XLM-RoBERTa and CLIP encoders and fused with sensor features encoded by a pretrained autoencoder. To model annotator subjectivity, we frame Subtask 2.1 as a label distribution learning problem, optimizing a Kullback-Leibler divergence loss over the full annotator label distribution. At inference time, predictions are produced by soft-voting between the deep multimodal network and a complementary SVM trained on stylometric and physiological features. Our best submission ranks 29th out of 114 on Subtask 2.2 (source intention) under soft evaluation, and the normalized ICM scores remain above the baseline on Subtasks 2.1 and 2.2, indicating that annotator-centered conditioning contributes a usable signal. We release our full pipeline and analysis to support reproducible human-centered modeling.",

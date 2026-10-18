@@ -1668,7 +1668,7 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)",
-    "cs.MS",
+    "Mathematical Software (cs.MS)",
     "Neural and Evolutionary Computing (cs.NE)"
    ],
    "comments": "Updated for release v1.0-beta20",
@@ -3105,7 +3105,7 @@
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)",
-    "physics.data-an",
+    "Data Analysis, Statistics and Probability (physics.data-an)",
     "Machine Learning (stat.ML)"
    ],
    "comments": "IEEE Trans. Geosci. Remote Sens., to be published",
@@ -7618,7 +7618,6 @@
     "Numerical Analysis (math.NA)",
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)",
-    "cs.NA",
     "Optimization and Control (math.OC)"
    ],
    "comments": null,
@@ -9253,6 +9252,75 @@
    "pdf_url": "https://arxiv.org/pdf/1403.7876"
   },
   {
+   "arxiv_id": "1403.4682",
+   "announced": "2014-03-19",
+   "title": "Structured Sparse Method for Hyperspectral Unmixing",
+   "authors": [
+    "Feiyun Zhu",
+    "Ying Wang",
+    "Shiming Xiang",
+    "Bin Fan",
+    "Chunhong Pan"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Hyperspectral Unmixing (HU) has received increasing attention in the past decades due to its ability of unveiling information latent in hyperspectral data. Unfortunately, most existing methods fail to take advantage of the spatial information in data. To overcome this limitation, we propose a Structured Sparse regularized Nonnegative Matrix Factorization (SS-NMF) method from the following two aspects. First, we incorporate a graph Laplacian to encode the manifold structures embedded in the hyperspectral data space. In this way, the highly similar neighboring pixels can be grouped together. Second, the lasso penalty is employed in SS-NMF for the fact that pixels in the same manifold structure are sparsely mixed by a common set of relevant bases. These two factors act as a new structured sparse constraint. With this constraint, our method can learn a compact space, where highly similar pixels are grouped to share correlated sparse representations. Experiments on real hyperspectral data sets with different noise levels demonstrate that our method outperforms the state-of-the-art methods significantly.",
+   "affiliations": [
+    "Chinese Academy of Sciences",
+    "Institute of Automation"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Chinese Academy of Sciences",
+    "Institute of Automation"
+   ],
+   "institution_ids": [
+    "034t30j35",
+    "022c3hy66"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1403.4682",
+   "pdf_url": "https://arxiv.org/pdf/1403.4682"
+  },
+  {
    "arxiv_id": "1403.1687",
    "announced": "2014-03-07",
    "title": "Rigid-Motion Scattering for Texture Classification",
@@ -9349,7 +9417,6 @@
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)",
-    "cs.NA",
     "Numerical Analysis (math.NA)",
     "Optimization and Control (math.OC)"
    ],

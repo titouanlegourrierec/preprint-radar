@@ -181,7 +181,6 @@
     "Robotics (cs.RO)",
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Machine Learning (cs.LG)",
-    "cs.SY",
     "Systems and Control (eess.SY)"
    ],
    "comments": "8 pages, 10 figures",
@@ -446,6 +445,66 @@
    },
    "abs_url": "https://arxiv.org/abs/1209.1960",
    "pdf_url": "https://arxiv.org/pdf/1209.1960"
+  },
+  {
+   "arxiv_id": "1208.3665",
+   "announced": "2012-08-01",
+   "title": "An Evaluation of Popular Copy-Move Forgery Detection Approaches",
+   "authors": [
+    "Vincent Christlein",
+    "Christian Riess",
+    "Johannes Jordan",
+    "Corinna Riess",
+    "Elli Angelopoulou"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Main paper: 14 pages, supplemental material: 12 pages, main paper appeared in IEEE Transaction on Information Forensics and Security",
+   "journal_ref": "IEEE Transactions on Information Forensics and Security, volume 7, number 6, 2012, pp. 1841-1854",
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "A copy-move forgery is created by copying and pasting content within the same image, and potentially post-processing it. In recent years, the detection of copy-move forgeries has become one of the most actively researched topics in blind image forensics. A considerable number of different algorithms have been proposed focusing on different types of postprocessed copies. In this paper, we aim to answer which copy-move forgery detection algorithms and processing steps (e.g., matching, filtering, outlier detection, affine transformation estimation) perform best in various postprocessing scenarios. The focus of our analysis is to evaluate the performance of previously proposed feature sets. We achieve this by casting existing algorithms in a common pipeline. In this paper, we examined the 15 most prominent feature sets. We analyzed the detection performance on a per-image basis and on a per-pixel basis. We created a challenging real-world copy-move dataset, and a software framework for systematic image manipulation. Experiments show, that the keypoint-based features SIFT and SURF, as well as the block-based DCT, DWT, KPCA, PCA and Zernike features perform very well. These feature sets exhibit the best robustness against various noise sources and downsampling, while reliably identifying the copied regions.",
+   "affiliations": [
+    "Friedrich-Alexander-Universität Erlangen-Nürnberg"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Friedrich-Alexander-Universität Erlangen-Nürnberg"
+   ],
+   "institution_ids": [
+    "00f7hpc57"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-18"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1208.3665",
+   "pdf_url": "https://arxiv.org/pdf/1208.3665"
   },
   {
    "arxiv_id": "1207.0580",
@@ -848,8 +907,7 @@
    "primary_subject": "Systems and Control (eess.SY)",
    "subjects": [
     "Systems and Control (eess.SY)",
-    "Computer Vision and Pattern Recognition (cs.CV)",
-    "cs.SY"
+    "Computer Vision and Pattern Recognition (cs.CV)"
    ],
    "comments": "Journal version at http://ieeexplore.ieee.org/document/7272821. Matlab code of simple implementation included with ancillary files",
    "journal_ref": "IEEE Transactions on Aerospace and Electronic Systems, vol 51, no 3, pp 1664-1687, July 2015",
@@ -902,7 +960,6 @@
     "Information Retrieval (cs.IR)",
     "Information Theory (cs.IT)",
     "Machine Learning (cs.LG)",
-    "math.IT",
     "Optimization and Control (math.OC)",
     "Machine Learning (stat.ML)"
    ],

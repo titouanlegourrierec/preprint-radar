@@ -4476,9 +4476,9 @@
     "Machine Learning (cs.LG)",
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "10 pages, 3 figures, 5 tables",
+   "comments": "10 pages, 3 figures, 5 tables. Accepted at EUSIPCO 2026. v2: Added funding acknowledgment, copyright notice, and corrected affiliation for first author",
    "journal_ref": null,
-   "venue": null,
+   "venue": "EUSIPCO 2026",
    "cross_list_from": "cs.LG",
    "html_url": "https://arxiv.org/html/2609.12225v1",
    "abstract": "Out-of-Distribution (OOD) data poses a significant threat to machine learning models, often leading to model failure during deployment. All existing OOD detection methods are post-hoc, relying on evaluation metrics such as accuracy and AUC-ROC during inference to indirectly assess the model's response to OOD data by measuring deviations. In contrast to existing approaches, the proposed work shifts the paradigm from OOD detection to OOD prediction by proposing a pre-hoc anticipatory framework called PLSP for OOD prediction. We make several key contributions: (a) a dataset-independent metric called the CREDibility Score (CREDS) is proposed for OOD prediction; (b) credibility curves are introduced to study the maximum credibility a model can attain; and (c) credibility heat maps (and volume under surface) are introduced to characterize pre-hoc model behavior across different datasets. This work provides a novel perspective on signal processing under distributional shifts. Experiments across multiple datasets demonstrate that the proposed metric serves as a valuable measure for improving the robustness of machine learning models toward OOD prediction.",
