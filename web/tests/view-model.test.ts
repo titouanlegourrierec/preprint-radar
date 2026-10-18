@@ -91,6 +91,53 @@ describe("viewModel", () => {
     expect(viewModel(state({ view: "rankings", sort: "stars" }), stars).starred).toBe(false);
   });
 
+  it("ranks by the stars gained in the week once they are known (PROD-18)", () => {
+    const gains = {
+      hasSearchWords: true,
+      gainsKnown: true,
+      starsKnown: true,
+      starGainsKnown: true,
+    };
+    const rising = viewModel(state({ sort: "rising-stars" }), gains);
+    expect(rising.sorts).toEqual([
+      "relevance",
+      "newest",
+      "citations",
+      "rising",
+      "stars",
+      "rising-stars",
+    ]);
+    expect(rising).toMatchObject({
+      sorted: "rising-stars",
+      risingStars: true,
+      starred: false,
+      byCount: false,
+      groupByDay: false,
+    });
+    // The reading list offers its own order too: seven in all.
+    expect(viewModel(state({ view: "reading-list" }), gains).sorts).toHaveLength(7);
+    // Before the gains, the URL's Rising stars is Most starred, as Rising is Most cited.
+    const stars = { hasSearchWords: false, gainsKnown: false, starsKnown: true };
+    const starred = viewModel(state({ sort: "rising-stars" }), stars);
+    expect(starred.sorts).toEqual(["newest", "citations", "stars"]);
+    expect(starred).toMatchObject({ sorted: "stars", starred: true, risingStars: false });
+    // Without stars at all, the view's own order.
+    expect(viewModel(state({ sort: "rising-stars" }), none)).toMatchObject({
+      sorted: "newest",
+      starred: false,
+      risingStars: false,
+      groupByDay: true,
+    });
+    // The highly cited view offers it, ranked by gains instead of citations.
+    const cited = viewModel(state({ view: "cited", sort: "rising-stars" }), gains);
+    expect(cited.sorts).toEqual(["citations", "rising", "stars", "rising-stars"]);
+    expect(cited).toMatchObject({ sorted: "rising-stars", byCount: false });
+    // Not in Rankings.
+    expect(viewModel(state({ view: "rankings", sort: "rising-stars" }), gains).risingStars).toBe(
+      false,
+    );
+  });
+
   it("offers no list controls in Rankings, the graph or About", () => {
     for (const view of ["rankings", "graph", "about"] as const) {
       expect(viewModel(state({ view }), words)).toMatchObject({

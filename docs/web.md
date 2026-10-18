@@ -99,8 +99,13 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   The sort control offers Most starred (`?sort=stars`, PROD-18) once the papers loaded have
   the stars of their code: `byStars` ranks them by their GitHub stars, a repository other
   papers link too, or a folder of a larger one (`shared`), with the papers without stars;
-  before any `code.json`, `sort=stars` is the view's own order. Five orders take two rows
-  on a phone (`.segmented` wraps, its labels whole). A card shows the stars after its Code
+  before any `code.json`, `sort=stars` is the view's own order. Rising stars
+  (`?sort=rising-stars`) follows once some of them gained stars between the last two weekly
+  refreshes (`code.gained`): `byStarGains` ranks them by those gains, then as `byStars`
+  does, a shared repository with the papers that gained none; before, `sort=rising-stars`
+  is Most starred, as `sort=rising` is Most cited. Six orders, seven in the reading list,
+  take two rows on a phone (`.segmented` wraps, its labels whole); at 1,024 px, the six
+  take 525 px of the header's 704, below the count. A card shows the stars after its Code
   link (`codeBadge`: a star and "1,234", "+12 this week", "shared"; a heart and "23" for the
   Hub's likes, both drawn icons since UX-36),
   with what they are in its tooltip and for screen readers.
@@ -224,7 +229,7 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   | `from`, `to` | A period of days (`from` alone: one day) | `range` | the Papers view, the graph and Rankings without `year` |
   | `since` | The days since a day, to the latest, which a bookmark keeps following (PROD-13) | `range` | the same |
   | `range` | A preset: `day`, `week`, `month` (`1`, `5`, `20`, `40` and `all`, from old links, open the one that holds as many days) | `week` | the same |
-  | `sort` | `relevance`, `newest`, `citations`, `rising`, `stars`, `custom` (the reading list's own order, UX-39) | `relevance` (the reading list's own order there, without search words) | the lists |
+  | `sort` | `relevance`, `newest`, `citations`, `rising`, `stars`, `rising-stars`, `custom` (the reading list's own order, UX-39) | `relevance` (the reading list's own order there, without search words) | the lists |
   | `view` | `papers`, `cited`, `graph`, `rankings`, `reading-list`, `about` | `papers` | every view |
   | `paper` | An arXiv id: the paper opened (a list) or selected (the graph) | none | the lists, the graph |
   | `year` | Archive years: `2017`, `2019-2021`, `all`; or `last-12-months` (the latest year until the archive keeps them). Years the archive does not hold show others, which the URL then names in place (`correct`, SRCH-20) | the latest year in Highly cited, the recent days elsewhere | Highly cited, the graph, Rankings |

@@ -44,9 +44,10 @@ export function About() {
         <li>
           Code: the repository, or the models, data or demo on Hugging Face, that a paper links in
           its abstract or comments, with its stars on <a href="https://github.com">GitHub</a> (likes
-          on <a href="https://huggingface.co">Hugging Face</a>), refreshed every week. A repository
-          other papers link too, or a folder of a larger one, is marked shared: its stars are not
-          the paper's alone, and Most starred ranks it last.
+          on <a href="https://huggingface.co">Hugging Face</a>), refreshed every week, and those it
+          gained in the week. A repository other papers link too, or a folder of a larger one, is
+          marked shared: its stars are not the paper's alone, and Most starred and Rising stars (the
+          most stars gained in the week) rank it last.
         </li>
         <li>
           Countries, on the world map of Rankings: those of the institutions, as{" "}

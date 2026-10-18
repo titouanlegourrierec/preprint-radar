@@ -26,6 +26,7 @@ const SORTS: readonly SortOrder[] = [
   "citations",
   "rising",
   "stars",
+  "rising-stars",
   "custom",
 ];
 const METRICS: readonly CountryMetric[] = ["papers", "citations", "per-million", "impact"];

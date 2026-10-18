@@ -8,6 +8,13 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ## Unreleased
 
+### Code
+
+- Rising stars (`?sort=rising-stars`) ranks the papers by the GitHub stars their code
+  gained in the week, then by its stars, in the Papers, Highly cited and reading list
+  views, once a second weekly refresh gave gains (the first, on 2026-10-18, gave 1,875). A
+  shared repository ranks with the papers that gained none, as in Most starred (PROD-18).
+
 ### Fixes
 
 - After a deploy, a browser no longer mixes the fresh index with a day file, a search

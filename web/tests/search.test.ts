@@ -6,6 +6,7 @@ import {
   alphabetical,
   byCitations,
   byGains,
+  byStarGains,
   byStars,
   exactly,
   hasSearchWords,
@@ -766,6 +767,41 @@ describe("Most starred (PROD-18)", () => {
       "2609.00033",
       "2609.00034",
       "2609.00035",
+    ]);
+  });
+});
+
+describe("Rising stars (PROD-18)", () => {
+  const index = new PaperIndex([
+    makePaper({ arxiv_id: "2609.00041", announced: "2026-09-25", code: { stars: 12 } }),
+    makePaper({
+      arxiv_id: "2609.00042",
+      announced: "2026-09-24",
+      code: { stars: 900, gained: 3 },
+    }),
+    makePaper({ arxiv_id: "2609.00043", announced: "2026-09-23", code: { stars: 40, gained: 25 } }),
+    // Shared: a monorepo's gains, not the paper's.
+    makePaper({
+      arxiv_id: "2609.00044",
+      announced: "2026-09-22",
+      code: { stars: 30_000, gained: 500, shared: true },
+    }),
+    makePaper({ arxiv_id: "2609.00045", announced: "2026-09-21", code: { likes: 4 } }),
+    makePaper({ arxiv_id: "2609.00046", announced: "2026-09-20", code: { stars: 80, gained: 3 } }),
+  ]);
+
+  it("ranks the most stars gained first, then the most starred, the shared with no gains", () => {
+    const ranked = byStarGains(index.search("", NO_FILTERS, "rising-stars")).map(
+      ({ paper }) => paper.arxiv_id,
+    );
+    expect(ranked).toEqual([
+      "2609.00043",
+      // Equal gains: the most starred first.
+      "2609.00042",
+      "2609.00046",
+      "2609.00041",
+      "2609.00044",
+      "2609.00045",
     ]);
   });
 });

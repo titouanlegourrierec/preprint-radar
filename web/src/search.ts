@@ -10,13 +10,21 @@ import { ANY_VENUE, matchesVenue } from "./venues";
 export { ANY_VENUE };
 
 /**
- * Order of results. The index has no citation counts nor stars: `citations`, `rising` and
- * `stars` order them like `relevance` (best match first with search words, else newest
- * first), and the caller ranks them with {@link byCitations}, {@link byGains} or
- * {@link byStars}, which keep that order among equal counts (CIT-6).
+ * Order of results. The index has no citation counts nor stars: `citations`, `rising`,
+ * `stars` and `rising-stars` order them like `relevance` (best match first with search
+ * words, else newest first), and the caller ranks them with {@link byCitations},
+ * {@link byGains}, {@link byStars} or {@link byStarGains}, which keep that order among
+ * equal counts (CIT-6).
  */
 /** `custom`: the reading list's own order (UX-39), which the index leaves to its caller. */
-export type SortOrder = "relevance" | "newest" | "citations" | "rising" | "stars" | "custom";
+export type SortOrder =
+  | "relevance"
+  | "newest"
+  | "citations"
+  | "rising"
+  | "stars"
+  | "rising-stars"
+  | "custom";
 
 /**
  * An author or affiliation filter: a name clicked on a card, a Rankings row or a graph
@@ -759,6 +767,17 @@ export function byStars(results: readonly SearchResult[]): SearchResult[] {
   const stars = ({ paper: { code } }: SearchResult) =>
     code?.stars !== undefined && !code.shared ? code.stars : -1;
   return [...results].sort((a, b) => stars(b) - stars(a));
+}
+
+/**
+ * Results by the GitHub stars their code gained in the last week (PROD-18), the most first,
+ * then by stars, as {@link byGains} is to {@link byCitations}: a shared repository's gains
+ * are not the paper's either, so it ranks with the papers that gained none.
+ */
+export function byStarGains(results: readonly SearchResult[]): SearchResult[] {
+  const gained = ({ paper: { code } }: SearchResult) =>
+    code?.gained !== undefined && !code.shared ? code.gained : 0;
+  return byStars(results).sort((a, b) => gained(b) - gained(a));
 }
 
 /**

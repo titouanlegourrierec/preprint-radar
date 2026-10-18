@@ -52,13 +52,18 @@ const SORT_LABELS: Record<SortChoice, string> = {
   citations: "Most cited",
   rising: "Rising",
   stars: "Most starred",
+  "rising-stars": "Rising stars",
   custom: "My order",
 };
 
-const STARS_TITLE =
-  "By the GitHub stars of the code they link. A repository other papers link too, or a " +
-  "folder of a larger one, ranks with the papers without stars: its stars are not the " +
-  "paper's alone.";
+/** Why a shared repository ranks last in both orders of stars. */
+const SHARED_LAST =
+  "A repository other papers link too, or a folder of a larger one, ranks with the papers " +
+  "without stars: its stars are not the paper's alone.";
+
+const STARS_TITLE = `By the GitHub stars of the code they link. ${SHARED_LAST}`;
+
+const RISING_STARS_TITLE = `By the GitHub stars gained in the week, then by stars. ${SHARED_LAST}`;
 
 interface Props {
   model: ViewModel;
@@ -113,6 +118,7 @@ export function ResultsHeader(props: Props) {
     relevance: RELEVANCE_HELP,
     citations: props.citationsNote,
     stars: STARS_TITLE,
+    "rising-stars": RISING_STARS_TITLE,
     ...(props.gainsSpan && {
       rising: `By the citations gained between ${formatDay(props.gainsSpan.since)} and ${formatDay(props.gainsSpan.to)}`,
     }),

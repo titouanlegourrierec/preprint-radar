@@ -119,6 +119,9 @@ describe("url state", () => {
     const stars = { ...DEFAULT_STATE, sort: "stars" as const };
     expect(writeState(stars)).toBe("?sort=stars");
     expect(readState(writeState(stars))).toEqual(stars);
+    const risingStars = { ...DEFAULT_STATE, sort: "rising-stars" as const };
+    expect(writeState(risingStars)).toBe("?sort=rising-stars");
+    expect(readState(writeState(risingStars))).toEqual(risingStars);
   });
 
   it("round-trips what Rankings ranks, and by what (SRCH-13)", () => {

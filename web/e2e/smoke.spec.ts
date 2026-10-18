@@ -195,7 +195,9 @@ test("a day that fails to load is asked for again, then left out with a notice",
   expect(errors.filter((error) => !error.includes("Failed to load resource"))).toEqual([]);
 });
 
-test("a card shows the stars of its code, and Most starred ranks by them", async ({ page }) => {
+test("a card shows the stars of its code, and Most starred and Rising stars rank by them", async ({
+  page,
+}) => {
   const errors = watchErrors(page);
   await page.goto("./?paper=2609.00001");
   // Merged by the build from code.json (PROD-18).
@@ -209,6 +211,12 @@ test("a card shows the stars of its code, and Most starred ranks by them", async
   await page.goto("./");
   await page.getByRole("button", { name: "Most starred" }).click();
   await expect(page).toHaveURL(/sort=stars/);
+  await expect(page.locator("article.paper").first()).toContainText(
+    "Gaussian Splatting for Analytical Engines",
+  );
+  // Its stars gained in the week (code.json's `gained`) rank it first in Rising stars too.
+  await page.getByRole("button", { name: "Rising stars" }).click();
+  await expect(page).toHaveURL(/sort=rising-stars/);
   await expect(page.locator("article.paper").first()).toContainText(
     "Gaussian Splatting for Analytical Engines",
   );

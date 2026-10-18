@@ -58,6 +58,7 @@ import {
   arxivIdOf,
   byCitations,
   byGains,
+  byStarGains,
   byStars,
   exactly,
   hasSearchWords,
@@ -280,13 +281,19 @@ export function App() {
     () => activeIndex?.all().some(({ code }) => code?.stars !== undefined) ?? false,
     [activeIndex],
   );
+  // And those they gained in the week, once two weekly refreshes gave stars.
+  const starGainsKnown = useMemo(
+    () => activeIndex?.all().some(({ code }) => code?.gained !== undefined) ?? false,
+    [activeIndex],
+  );
   // What this view shows and offers (`view-model.ts`, DEBT-2).
   const model = viewModel(state, {
     hasSearchWords: searchWords,
     gainsKnown: gainsSpan !== null,
     starsKnown,
+    starGainsKnown,
   });
-  const { triaged, byCount, rising, starred, groupByDay } = model;
+  const { triaged, byCount, rising, starred, risingStars, groupByDay } = model;
   const hiding = triaged && triage.hideSeen && triage.seen.size > 0;
   // In three steps, each redone only when what it reads changes (UX-23): marking a paper
   // seen does not search again, nor do late counts when the order ignores them. The index
@@ -331,10 +338,11 @@ export function App() {
       const at = (result: SearchResult) => savedOrder.get(result.paper.arxiv_id) ?? 0;
       return [...shown].sort((a, b) => at(a) - at(b));
     }
+    if (risingStars) return byStarGains(shown);
     if (starred) return byStars(shown);
     if (rankingGains && rankingCounts) return byGains(shown, rankingGains, rankingCounts);
     return rankingCounts ? byCitations(shown, rankingCounts) : shown;
-  }, [shown, rankingCounts, rankingGains, starred, custom, savedOrder]);
+  }, [shown, rankingCounts, rankingGains, starred, risingStars, custom, savedOrder]);
   // The graph has its own settings panel: it ignores the list filters, not the search words.
   const graphPapers = useMemo(
     () =>
