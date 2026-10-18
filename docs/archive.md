@@ -19,6 +19,8 @@ GitHub and the Hugging Face Hub are like to work with. Read this before changing
   OpenAlex's institutions, which are registry entries, so they are also the papers'
   `institutions`, with their ROR ids, and both have the provenance `openalex` and the day
   of the lookup (the day a paper OpenAlex knew nothing of can be asked again, AFF-3).
+  The catalog's own format (OAI's `arXiv`) has an `<affiliation>` per author, which arXiv
+  leaves out: none of the 3,156 authors of 503 records of October 2026 had one (AFF-19).
 - Day-file papers compete too, once first seen 12 months ago (the earlier of their day
   file and the catalog's date, which can be weeks later: 2609.00036 was announced on
   2026-09-02, the catalog says 2026-09-14). They enter with their own enrichment, filed
