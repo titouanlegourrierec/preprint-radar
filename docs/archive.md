@@ -10,6 +10,13 @@ GitHub and the Hugging Face Hub are like to work with. Read this before changing
 
 - `archive/catalog.py` keeps the category's OAI-PMH set, harvested by
   `sources/arxiv_oai.py`, in `.cache/catalog/` (git-ignored; the Actions cache in CI).
+  Each week it asks for the records modified since its last harvest, and drops those OAI
+  says were deleted; a record that leaves the set (a cross-list removed) is not among
+  them, so every 90 days (`FULL_HARVEST_DAYS`) the whole set is harvested again and
+  replaces the catalog, about 45 minutes. A whole set that lists fewer than 99% of the
+  catalog's records is merged instead, with a warning: an archived paper that leaves the
+  catalog leaves the archive (META-6). The set is the category's as OAI's `ListSets`
+  names it: `cs:cs:CV`, and for physics archives `physics:astro-ph:CO` or `physics:hep-th`.
 - `sources/semantic_scholar.py` gets a citation count for every candidate (about 207,000,
   in 415 requests).
 - `archive/selection.py` ranks the papers older than 12 months by citations per year of

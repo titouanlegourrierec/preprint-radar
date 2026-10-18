@@ -304,7 +304,9 @@ Sunday's fallback tries again, then Saturday's catch-up.
 ## Catalog cache evicted
 
 **Signal.** The *Archive* log says `Harvesting` the set `(everything)` instead of
-since a date, and the run takes about 45 minutes more.
+since a date, and the run takes about 45 minutes more, sooner than 90 days after the last
+whole harvest (that run's log says the records that left the set `since its last whole
+harvest`), which is due then (META-6).
 
 GitHub evicts Actions cache entries unused for 7 days, and the archive runs weekly: when
 it started late, on 2026-10-11 (the fallback, which GitHub started at 15:57), the entry of
@@ -312,6 +314,19 @@ the Sunday before was gone. *Update data* now restores it on weekdays only to ke
 the cache (CI-10), so this means that step failed all week, or the entry was deleted. The
 catalog is rebuilt from scratch (OAI-PMH is meant for it; 5 s between pages). Nothing
 else is lost: the cached citation counts only serve a run that resumes within 7 days.
+
+## A whole harvest kept the catalog
+
+**Signal.** The *Archive* log says `The whole set of` the category lists so many of the
+catalog's records: `kept them all`.
+
+Every 90 days the archive harvests the whole OAI set again, which replaces the catalog so
+that the records that left it (cross-lists removed) leave it too. This one listed fewer
+than 99% of the catalog's records, which a quarter's removals never are: an OAI outage
+that ended the list early, or a set renamed. The catalog was merged with it instead, as a
+weekly harvest is, and the next whole harvest is in 90 days. If arXiv renamed its sets
+(`ListSets`), fix `Catalog.set_spec`; to harvest the whole set again sooner, delete
+`full` from `.cache/catalog/<category>.state.json` (in CI, the cached catalog's).
 
 ## Re-extract after a heuristic fix
 
@@ -382,7 +397,7 @@ git pull --rebase && git push
    3 hours, of which a run reads at most 600 (`DEFAULT_MAX_HTML`), within the deadline
    the categories share; the next runs read the rest. Use *since* for older days.
 3. The archive harvests the category's OAI set (derived from the category: `cs.LG` is
-   `cs:cs:LG`) and gives it its own archive, of the same budget (22,000 by default,
+   `cs:cs:LG`, `astro-ph.CO` `physics:astro-ph:CO`) and gives it its own archive, of the same budget (22,000 by default,
    `PREPRINT_RADAR_ARCHIVE_BUDGET`): the first run takes about 45 minutes more, and asks
    Semantic Scholar for the new category's counts too.
 4. The site lists the categories of `index.json` and opens the first in alphabetical
@@ -423,5 +438,5 @@ At a warning (the migration trigger, decided with ARCH-1):
 | `archive-affiliations` (OpenAlex, published versions) | seconds; 2 minutes the first time (7,076 DOIs) |
 | `archive-affiliations MAX_HTML=3000` (HTML pages of highly cited papers) | 15 s a page: about 8 hours for the archive's 2,000, 3 more for the last 12 months |
 | `institutions` | a few minutes (one request per distinct string, every 0.5 s) |
-| First catalog harvest | about 45 minutes |
+| First catalog harvest, and the whole set again every 90 days | about 45 minutes |
 | Weekly archive of cs.CV | 207,000 counts in 415 requests: about 40 minutes with a key and a warm catalog; hours without a key |

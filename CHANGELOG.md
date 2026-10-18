@@ -8,6 +8,13 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ## Unreleased
 
+### Data
+
+- The archive's catalog drops the papers arXiv deleted, and every 90 days harvests the
+  whole category again, so that a paper no longer listed in it (a cross-list removed)
+  leaves the catalog and the archive. The OAI set of a physics category is named as arXiv
+  names it (`physics:astro-ph:CO`), for a category added later (META-6).
+
 ### Graph
 
 - The graph no longer lays itself out again a moment after it settled, when the citation

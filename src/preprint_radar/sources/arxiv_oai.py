@@ -41,6 +41,8 @@ _ET_AL = "others"
 
 _OAI = "{http://www.openarchives.org/OAI/2.0/}"
 _ARXIV = "{http://arxiv.org/OAI/arXiv/}"
+# A record's identifier in the OAI headers: oai:arXiv.org:0904.2037.
+_OAI_ID_PREFIX = "oai:arXiv.org:"
 
 
 class ExpiredTokenError(ParseError):
@@ -122,13 +124,15 @@ class OaiPage:
     entries: tuple[CatalogEntry, ...]
     #: Token of the next page, ``None`` on the last one.
     resumption_token: str | None
+    #: arXiv identifiers of the records deleted, which a catalog drops (META-6).
+    deleted: tuple[str, ...] = ()
 
 
 def parse_list_records(xml: str) -> OaiPage:
     """Parse a ``ListRecords`` page in the ``arXiv`` metadata format.
 
-    Deleted records are skipped; ``noRecordsMatch`` (nothing modified since the requested
-    date) is an empty last page.
+    Deleted records have no entry, but their identifiers; ``noRecordsMatch`` (nothing
+    modified since the requested date) is an empty last page.
 
     Raises:
         ParseError: If the page is not valid OAI-PMH, or reports another error.
@@ -151,9 +155,14 @@ def parse_list_records(xml: str) -> OaiPage:
         msg = "OAI-PMH response without ListRecords"
         raise ParseError(msg)
     entries = [entry for record in records.findall(f"{_OAI}record") if (entry := _entry(record)) is not None]
+    deleted = [
+        identifier.removeprefix(_OAI_ID_PREFIX)
+        for header in records.findall(f"{_OAI}record/{_OAI}header")
+        if header.get("status") == "deleted" and (identifier := _text(header, "identifier", _OAI))
+    ]
     token = records.find(f"{_OAI}resumptionToken")
     text = (token.text or "").strip() if token is not None else ""
-    return OaiPage(tuple(entries), text or None)
+    return OaiPage(tuple(entries), text or None, tuple(deleted))
 
 
 def author_names(names: Iterable[str]) -> tuple[str, ...]:
@@ -226,8 +235,8 @@ def _entry(record: Element) -> CatalogEntry | None:
     )
 
 
-def _text(element: Element, name: str) -> str | None:
-    child = element.find(f"{_ARXIV}{name}")
+def _text(element: Element, name: str, namespace: str = _ARXIV) -> str | None:
+    child = element.find(f"{namespace}{name}")
     if child is None or child.text is None:
         return None
     return " ".join(child.text.split()) or None

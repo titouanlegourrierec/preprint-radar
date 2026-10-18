@@ -18,7 +18,8 @@ def test_parse_list_records() -> None:
     page = parse_list_records(PAGE)
 
     assert page.resumption_token == NEXT_PAGE
-    first, second = page.entries  # the deleted record is skipped
+    first, second = page.entries  # the deleted record has no entry, but its identifier
+    assert page.deleted == ("0000.00000",)
     assert first.arxiv_id == "0904.2037"
     assert first.categories == ("cs.LG", "cs.CV")
     assert first.title == "Boosting through Optimization of Margin Distributions"
