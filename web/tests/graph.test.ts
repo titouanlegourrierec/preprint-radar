@@ -14,7 +14,9 @@ import {
   nodeMatches,
   papersOfNode,
   replaySteps,
+  sameLayout,
   sharedPapers,
+  withCitations,
 } from "../src/graph";
 import { searchKey } from "../src/text";
 import { makePaper } from "./fixtures";
@@ -378,6 +380,31 @@ describe("buildGraph with citations", () => {
   it("counts nothing without citation counts", () => {
     const { citations: _, ...uncounted } = options;
     expect(buildGraph(cited, uncounted).nodes.every((node) => node.citations === 0)).toBe(true);
+  });
+
+  it("adds counts that arrive later to the same layout (PERF-7)", () => {
+    const { citations, ...uncounted } = options;
+    const built = buildGraph(cited, uncounted);
+    const counted = withCitations(built, citations ?? new Map());
+    expect(citationsOf(counted)).toEqual(citationsOf(buildGraph(cited, options)));
+    // Its links are the graph's own: the renderer sizes the nodes again, without a layout.
+    expect(counted.links).toBe(built.links);
+    expect(sameLayout(built, counted)).toBe(true);
+    expect(built.nodes.every((node) => node.citations === 0)).toBe(true);
+  });
+});
+
+describe("sameLayout", () => {
+  const graph = buildGraph(papers, INSTITUTIONS);
+
+  it("tells apart other nodes, another order and other links", () => {
+    expect(sameLayout(graph, buildGraph(papers, INSTITUTIONS))).toBe(true);
+    expect(sameLayout(graph, buildGraph(papers.slice(1), INSTITUTIONS))).toBe(false);
+    expect(sameLayout(graph, { ...graph, nodes: [...graph.nodes].reverse() })).toBe(false);
+    expect(graph.links.length).toBeGreaterThan(0);
+    const heavier = graph.links.map((link, index) => (index === 0 ? { ...link, weight: 9 } : link));
+    expect(sameLayout(graph, { ...graph, links: heavier })).toBe(false);
+    expect(sameLayout(graph, { ...graph, links: graph.links.slice(1) })).toBe(false);
   });
 });
 

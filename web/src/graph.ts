@@ -130,7 +130,6 @@ export function buildGraph(papers: Paper[], options: GraphOptions): Graph {
   // Per author node, its Semantic Scholar profiles, and where and with whom they publish.
   const profiles = new Map<string, Map<string, Profile>>();
   const perPaper: PaperEntities[] = [];
-  const citationsOf = (paperId: string) => options.citations?.get(paperId) ?? 0;
 
   const register = (kind: EntityKind, label: string, paperId: string, seen: Set<string>) => {
     const id = nodeKey(kind, label);
@@ -139,7 +138,6 @@ export function buildGraph(papers: Paper[], options: GraphOptions): Graph {
     seen.add(id);
     const node = nodes.get(id) ?? { id, kind, label, key: "", paperIds: [], citations: 0 };
     node.paperIds.push(paperId);
-    node.citations += citationsOf(paperId);
     nodes.set(id, node);
     // Remember spellings to display the most frequent one.
     const counts = labelCounts.get(id) ?? new Map<string, number>();
@@ -216,9 +214,7 @@ export function buildGraph(papers: Paper[], options: GraphOptions): Graph {
     const key = a < b ? `${a}\u0000${b}` : `${b}\u0000${a}`;
     weights.set(key, (weights.get(key) ?? 0) + 1);
   };
-  const paperNodes = options.papers
-    ? linkThroughPapers(perPaper, keptIds, addLink, citationsOf)
-    : [];
+  const paperNodes = options.papers ? linkThroughPapers(perPaper, keptIds, addLink) : [];
   const consortia = options.papers ? 0 : linkByCoOccurrence(perPaper, keptIds, addLink);
 
   const linked = new Set<string>();
@@ -229,13 +225,51 @@ export function buildGraph(papers: Paper[], options: GraphOptions): Graph {
   });
 
   const shown = [...kept, ...paperNodes];
-  return {
+  const graph = {
     nodes: options.isolated ? shown : shown.filter((node) => linked.has(node.id)),
     links,
     truncated: eligible.length > kept.length,
     eligible: eligible.length,
     consortia,
   };
+  return options.citations ? withCitations(graph, options.citations) : graph;
+}
+
+/**
+ * The graph with the citations of each node's papers, summed (a paper without a known
+ * count adds nothing): new nodes, the same links. The graph view builds its graph without
+ * counts and adds them apart, so that counts arriving once it is laid out size its nodes
+ * again rather than build and lay it out anew (PERF-7).
+ */
+export function withCitations(graph: Graph, citations: ReadonlyMap<string, number>): Graph {
+  return {
+    ...graph,
+    nodes: graph.nodes.map((node) => ({
+      ...node,
+      citations: node.paperIds.reduce((sum, id) => sum + (citations.get(id) ?? 0), 0),
+    })),
+  };
+}
+
+/**
+ * Whether two graphs lay out alike: the same nodes in the same order, and the same links
+ * with the same weights. What the nodes say (their citations) may differ.
+ */
+export function sameLayout(a: Graph, b: Graph): boolean {
+  return (
+    a.nodes.length === b.nodes.length &&
+    a.links.length === b.links.length &&
+    a.nodes.every((node, index) => node.id === b.nodes[index]?.id) &&
+    a.links.every((link, index) => {
+      const other = b.links[index];
+      return (
+        other !== undefined &&
+        link.source === other.source &&
+        link.target === other.target &&
+        link.weight === other.weight
+      );
+    })
+  );
 }
 
 /** What the site says of a name that seems to be several people. */
@@ -308,7 +342,6 @@ function linkThroughPapers(
   perPaper: PaperEntities[],
   keptIds: ReadonlySet<string>,
   addLink: AddLink,
-  citationsOf: (paperId: string) => number,
 ): GraphNode[] {
   return perPaper.map(({ paper, keyOfAffiliation, authors }) => {
     const id = `paper:${paper.arxiv_id}`;
@@ -334,7 +367,7 @@ function linkThroughPapers(
       label: paper.title,
       key: searchKey(paper.title),
       paperIds: [paper.arxiv_id],
-      citations: citationsOf(paper.arxiv_id),
+      citations: 0,
     };
   });
 }

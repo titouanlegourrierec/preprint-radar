@@ -620,6 +620,13 @@ day that was right. The order by newest and the exports keep the stored date.
   follows the pointer at once and is pinned in the worker. Under reduced motion the worker
   runs the layout to rest at once, for a new graph, new forces or Reheat. The canvas says
   `data-layout="moving"` or `"settled"`, which the smoke test waits for.
+- Citation counts arrive after the papers, once their shards load: `GraphView` builds the
+  graph without them and adds them apart (`withCitations`, PERF-7), and the renderer takes
+  a graph that lays out as the one shown (`sameLayout`: the same nodes in the same order,
+  the same links and weights) as new counts, not a new graph: the nodes say them, and
+  when citations size them, they grow as a new node size does (new radii, alpha 0.3);
+  sized by papers, nothing moves. Before, the graph was built and laid out again (alpha
+  0.4) a moment after it settled; the smoke test holds the counts until it has.
 - The layout reaches its equilibrium without Reheat (UX-30): a new graph (or one mostly
   new, the renderer's alpha 1) cools without collisions and with little friction
   (`velocityDecay` 0.1), in 530 ticks up to 2,500 nodes and fewer above, in proportion

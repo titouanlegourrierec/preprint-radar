@@ -366,6 +366,42 @@ test("the graph of an archive year lists its papers in Highly cited", async ({ p
   expect(errors).toEqual([]);
 });
 
+test("counts that arrive once the graph is laid out leave it in place (PERF-7)", async ({
+  page,
+}) => {
+  const errors = watchErrors(page);
+  // The year's counts wait until its graph has settled.
+  let release = () => {};
+  const held = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  await page.route(/\/data\/cs\.CV\/citations\/2017\.json(?:\?|$)/, async (route) => {
+    await held;
+    await route.fallback();
+  });
+  await page.goto("./?view=graph&year=2017");
+  await expect(page.locator('canvas.graph__canvas[data-layout="settled"]')).toBeVisible();
+  // From now on, whether the layout runs again.
+  await page.evaluate(`(() => {
+    const canvas = document.querySelector("canvas.graph__canvas");
+    window.moved = false;
+    new MutationObserver(() => {
+      if (canvas.dataset.layout === "moving") window.moved = true;
+    }).observe(canvas, { attributeFilter: ["data-layout"] });
+  })()`);
+  await page.getByRole("button", { name: "Got it" }).click();
+  await page.getByRole("button", { name: "About the data" }).click();
+  await expect(page.getByText(/Citations on Semantic Scholar/)).toHaveCount(0);
+  release();
+  // The data notes say where the counts come from once they are there.
+  await expect(page.getByText(/Citations on Semantic Scholar/)).toBeVisible();
+  await page.evaluate(
+    "new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))",
+  );
+  expect(await page.evaluate("window.moved")).toBe(false);
+  expect(errors).toEqual([]);
+});
+
 test("marking a paper seen while seen papers are hidden moves the focus to the next one", async ({
   page,
 }) => {

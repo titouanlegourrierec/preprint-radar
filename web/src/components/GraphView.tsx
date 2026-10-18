@@ -14,6 +14,7 @@ import {
   nodeMatches,
   papersOfNode,
   replaySteps,
+  withCitations,
 } from "../graph";
 import { exportName, toGraphML } from "../graph-export";
 import { GraphRenderer } from "../graph-renderer";
@@ -162,10 +163,8 @@ export function GraphView(props: Props) {
       isolated: settings.isolated,
       minPapers: { institution: settings.minInstitutionPapers, author: settings.minAuthorPapers },
       maxNodes: settings.maxNodes > 0 ? settings.maxNodes : Number.POSITIVE_INFINITY,
-      citations,
     }),
     [
-      citations,
       settings.papers,
       settings.institutions,
       settings.authors,
@@ -175,7 +174,13 @@ export function GraphView(props: Props) {
       settings.maxNodes,
     ],
   );
-  const graph = useMemo(() => buildGraph(shownPapers, graphOptions), [shownPapers, graphOptions]);
+  // Built without the counts, which size its nodes once they arrive without building and
+  // laying it out anew (PERF-7).
+  const uncounted = useMemo(
+    () => buildGraph(shownPapers, graphOptions),
+    [shownPapers, graphOptions],
+  );
+  const graph = useMemo(() => withCitations(uncounted, citations), [uncounted, citations]);
   const nodesById = useMemo(() => new Map(graph.nodes.map((node) => [node.id, node])), [graph]);
   const papersById = useMemo(
     () => new Map(shownPapers.map((paper) => [paper.arxiv_id, paper])),

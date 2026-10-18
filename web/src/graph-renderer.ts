@@ -1,4 +1,4 @@
-import type { Graph, GraphNode } from "./graph";
+import { type Graph, type GraphNode, sameLayout } from "./graph";
 import { initialPositions, inLargestComponent } from "./graph-layout";
 import type { ForceSettings, FromLayout, LayoutGraph, ToLayout } from "./graph-simulation";
 
@@ -215,6 +215,8 @@ export class GraphRenderer {
   });
   /** The graph whose positions the layout sends; older ones are ignored. */
   private generation = 0;
+  /** The graph shown, as last set. */
+  private graph: Graph | null = null;
   private nodes: SimNode[] = [];
   private links: SimLink[] = [];
   private byId = new Map<string, SimNode>();
@@ -297,8 +299,26 @@ export class GraphRenderer {
     this.resize();
   }
 
-  /** Show a new graph, keeping the position of the nodes that were already there. */
+  /**
+   * Show a new graph, keeping the position of the nodes that were already there. One that
+   * lays out as the graph shown (`sameLayout`: its citation counts arrived, PERF-7) only
+   * updates what the nodes say, and their size when citations size them, as a new size does.
+   */
   setGraph(graph: Graph): void {
+    const shown = this.graph;
+    this.graph = graph;
+    if (shown && sameLayout(shown, graph)) {
+      for (const [index, node] of graph.nodes.entries()) {
+        const simNode = this.nodes[index];
+        if (simNode) simNode.node = node;
+      }
+      if (this.settings.sizeBy === "citations") {
+        this.applySizing();
+        this.sendForces(true);
+      }
+      this.requestDraw();
+      return;
+    }
     this.savePositions();
     const degree = new Map<string, number>();
     for (const link of graph.links) {
@@ -391,16 +411,20 @@ export class GraphRenderer {
       settings.linkForce !== previous.linkForce ||
       settings.linkDistance !== previous.linkDistance ||
       resized;
-    if (forcesChanged && this.nodes.length > 0) {
-      this.send({
-        type: "forces",
-        settings: this.forces(),
-        ...(resized ? { radii: Float32Array.from(this.nodes, (node) => node.radius) } : {}),
-        alpha: 0.3,
-        settle: this.reducedMotion,
-      });
-    }
+    if (forcesChanged) this.sendForces(resized);
     this.requestDraw();
+  }
+
+  /** The forces to the layout, which settles into them, with the nodes' radii if `resized`. */
+  private sendForces(resized: boolean): void {
+    if (this.nodes.length === 0) return;
+    this.send({
+      type: "forces",
+      settings: this.forces(),
+      ...(resized ? { radii: Float32Array.from(this.nodes, (node) => node.radius) } : {}),
+      alpha: 0.3,
+      settle: this.reducedMotion,
+    });
   }
 
   /**

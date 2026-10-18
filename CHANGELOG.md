@@ -8,6 +8,12 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ## Unreleased
 
+### Graph
+
+- The graph no longer lays itself out again a moment after it settled, when the citation
+  counts arrive: they only change what its nodes say, and their size when citations size
+  them (PERF-7).
+
 ## 0.10.0 (2026-10-18): Rising stars, OR in the search, and more affiliations read
 
 The fifth set of features of Phase 4: Rising stars ranks the papers by the stars their
