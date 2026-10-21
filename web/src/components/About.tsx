@@ -50,6 +50,13 @@ export function About() {
           most stars gained in the week) rank it last.
         </li>
         <li>
+          Trends: the phrases of the titles of every cs.CV paper since 2010, from arXiv's catalog,
+          counted every week. A topic rises when its share of the papers grows against the same days
+          a year before; titles alone are counted, not abstracts. A topic's impact and most cited
+          papers come from the citation counts of{" "}
+          <a href="https://www.semanticscholar.org">Semantic Scholar</a>.
+        </li>
+        <li>
           Countries, on the world map of Rankings: those of the institutions, as{" "}
           <a href="https://openalex.org">OpenAlex</a> places them, refreshed every weekday; a paper
           of several countries counts a share for each. The map and populations are{" "}

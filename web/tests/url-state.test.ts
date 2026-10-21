@@ -150,6 +150,19 @@ describe("url state", () => {
     expect(writeState({ ...state, view: "papers" })).toBe("");
   });
 
+  it("round-trips the Trends view's window and topic, in its own links only (PROD-20)", () => {
+    const state = {
+      ...DEFAULT_STATE,
+      view: "trends" as const,
+      window: "year" as const,
+      topic: "world model",
+    };
+    expect(writeState(state)).toBe("?view=trends&window=year&topic=world+model");
+    expect(readState(writeState(state))).toEqual(state);
+    expect(writeState({ ...state, view: "papers" })).toBe("");
+    expect(readState("?view=trends&window=decade").window).toBe("quarter");
+  });
+
   it("reads the about view", () => {
     expect(readState("?view=about").view).toBe("about");
     expect(writeState({ ...DEFAULT_STATE, view: "about" })).toBe("?view=about");
@@ -234,6 +247,10 @@ describe("isNavigation", () => {
     expect(
       isNavigation(DEFAULT_STATE, { ...DEFAULT_STATE, rank: "author", metric: "papers" }),
     ).toBe(false);
+    // The periods Trends compares are its order; a topic opened is a step (PROD-20).
+    const trends = { ...DEFAULT_STATE, view: "trends" as const };
+    expect(isNavigation(trends, { ...trends, window: "year" })).toBe(false);
+    expect(isNavigation(trends, { ...trends, topic: "world model" })).toBe(true);
   });
 });
 

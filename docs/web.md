@@ -216,10 +216,12 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   on the page's background, as they did above the lists. The name stands alone, without
   the category (the lists' count names it). The bar keeps to one line down to about
   950 px, the day of the update going under 1,120 (a phone, the tabs on a line of their
-  own, keeps it). The tabs: Papers, Graph, Highly cited, Rankings, Reading list, About.
+  own, keeps it). The tabs: Papers, Graph, Highly cited, Trends, Rankings, Reading list,
+  About.
 - Each tab has an icon (`icons.tsx`, UX-31): pages for Papers, the graph's nodes, a
-  rising line for Highly cited (the graph's highly cited chip has it too), a podium for
-  Rankings, the cards' star for the Reading list, a circled i for About. Under 640 px the
+  rising line for Highly cited (the graph's highly cited chip has it too), a flame for
+  Trends, a podium for Rankings, the cards' star for the Reading list, a circled i for
+  About. Under 640 px the
   other tabs are their icons alone, so that all fit without scrolling; their labels stay
   for screen readers, and the current tab shows its own.
 - The tabs are links, including `?paper=`: a paper permalink in the list, the focused
@@ -239,7 +241,7 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   | `since` | The days since a day, to the latest, which a bookmark keeps following (PROD-13) | `range` | the same |
   | `range` | A preset: `day`, `week`, `month` (`1`, `5`, `20`, `40` and `all`, from old links, open the one that holds as many days) | `week` | the same |
   | `sort` | `relevance`, `newest`, `citations`, `rising`, `stars`, `rising-stars`, `custom` (the reading list's own order, UX-39) | `relevance` (the reading list's own order there, without search words) | the lists |
-  | `view` | `papers`, `cited`, `graph`, `rankings`, `reading-list`, `about` | `papers` | every view |
+  | `view` | `papers`, `cited`, `graph`, `trends`, `rankings`, `reading-list`, `about` | `papers` | every view |
   | `paper` | An arXiv id: the paper opened (a list) or selected (the graph) | none | the lists, the graph |
   | `year` | Archive years: `2017`, `2019-2021`, `all`; or `last-12-months` (the latest year until the archive keeps them). Years the archive does not hold show others, which the URL then names in place (`correct`, SRCH-20) | the latest year in Highly cited, the recent days elsewhere | Highly cited, the graph, Rankings |
   | `focus` | A graph node id, `institution:mit`: its papers alone | none | the graph (other views drop it) |
@@ -247,6 +249,8 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   | `metric` | `papers` or `citations`: what Rankings ranks by; for countries `per-million` (papers per million people) or `impact` (highly cited papers only) too | citations for highly cited papers, else papers | Rankings |
   | `folder` | A folder of the reading list (`To read`; UX-38), written in its links only: folders are this browser's, and a name it does not have shows every saved paper | every saved paper | the reading list |
   | `#folder=…&papers=…` | The fragment of a folder's link (UX-46): its name and its papers' arXiv ids, kept while the reading list shows it | none | the reading list |
+  | `window` | `year`: the Trends view compares the last 12 months with the 12 before, not the last 90 days with the same days a year before (PROD-20); written in its links only, and a change of it replaces the history entry, as a sort does | `quarter` | Trends |
+  | `topic` | A topic of the Trends view, by its key (`world model`, `vla`): the one opened; in its links only, a step of history | none | Trends |
   | `by`, `at` | An author or an institution, as clicked: that name only | none | the lists, Rankings |
   | `author`, `aff` | Typed author or affiliation text: word starts (old links' `by` and `at`) | none | the same |
   | `venue` | A venue (`ECCV 2026`), a family (`ECCV*`) or any (`*`) | none | the lists, Rankings, the graph |
@@ -570,6 +574,36 @@ day that was right. The order by newest and the exports keep the stored date.
 - `components/About.tsx` (`?view=about`): the data sources, the correction contact and the
   privacy note; keep it true when the pipeline or the app changes. Its link and each
   card's "Report an error" open a mail with a short template to fill in (`report.ts`).
+
+## Trends (`components/Trends.tsx`, `trends.ts`, `LineChart.tsx`, `chart.ts`)
+
+- The topics of the category's titles that rise, cool and are new (PROD-20), from
+  `trends.json`, which the weekly archive writes (`docs/trends.md`): `loadTrends`, versioned
+  as the other files the build lists (PERF-8), `null` before the first is written, which the
+  view says. A lazy chunk (`lazyView`, 6 kB gzipped), as Rankings' tables are.
+- Two windows, a segmented control (`?window=year`, a change replacing the history entry as
+  a sort does): the last 90 days against the same days a year before (`quarter`, the
+  default), or the last 12 months against the 12 before. Three lists side by side from 981
+  px, one under the other below: Rising and Cooling in the pipeline's order, each row with
+  its lift (`lift`: the two shares with the window's `added` share added to each, "×4.7",
+  "−64%", which follows the order; the bare ratio would not), its papers then and now, and a
+  sparkline of its share of the papers over the last three years, the window's months in
+  its list's tone; New by its papers, with its first month. Ten rows, then Show all.
+- A row is a link (`?topic=world+model`, a step of history) that opens the topic above the
+  lists, brought into view and focused when opened from them, not from a link: its papers
+  and its share in both periods, its impact (among the most cited tenth of their month, 10%
+  for any topic), a chart of its share over the 3 months to each month, the periods shaded,
+  its most cited papers of the last 12 months (arXiv links), and two links: its papers since
+  the window's first day in the Papers view, and its most cited of the last 12 months in
+  Highly cited. Both search `"world model" OR "world models"` (`topicQuery`): a quoted
+  phrase matches whole words, hyphens as spaces, so the plural needs its own.
+- Colors (`--trend-rising`, `--trend-cooling`, the map's validated red and blue, checked with
+  the dataviz skill's validator on both surfaces): a list's mark and a line's tone, never its
+  text. `LineChart` draws thin lines over hairline gridlines (`niceTicks`), a crosshair and a
+  tooltip at the point nearest the pointer or the arrow keys (`xScale`), placed from the
+  script as the world map's (the CSP allows styles set from code), and a table of the same
+  values behind "Show as a table", the chart's equivalent for screen readers. Several lines
+  have a legend, and their names at their ends where they fit apart.
 
 ## The graph
 

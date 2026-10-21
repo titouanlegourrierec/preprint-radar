@@ -307,7 +307,53 @@ test("the Content-Security-Policy refuses nothing the site does", async ({ page 
   await page.getByRole("button", { name: "Zoom in" }).click();
   await page.getByRole("button", { name: "Globe" }).click();
   await expect(page.locator(".world-map__sea")).toBeVisible();
+  // A topic's chart, its tooltip placed from the script (PROD-20).
+  await page.goto("./?view=trends&topic=world+model");
+  await page.locator(".chart__svg").hover();
+  await expect(page.locator(".chart__tip")).toBeVisible();
   expect(await page.evaluate("window.refused")).toEqual([]);
+  expect(errors).toEqual([]);
+});
+
+test("Trends lists the topics that rise, and opens one with its papers (PROD-20)", async ({
+  page,
+}) => {
+  const errors = watchErrors(page);
+  await page.goto("./");
+  await page.getByRole("link", { name: "Trends", exact: true }).click();
+  await expect(page).toHaveURL(/\?view=trends$/);
+  const rising = page.getByRole("region", { name: "Rising" });
+  await expect(rising.getByRole("listitem")).toHaveCount(2);
+  await expect(page.getByRole("region", { name: "Cooling" })).toContainText(
+    "Semi-supervised segmentation",
+  );
+  await rising.getByRole("link", { name: /^World model ×/ }).click();
+  await expect(page).toHaveURL(/\?view=trends&topic=world\+model$/);
+  const topic = page.getByRole("region", { name: "World model" });
+  await expect(topic).toContainText(
+    "32 papers in the last 90 days, 2 in the same days a year before",
+  );
+  // Its most cited papers of the last 12 months, the most cited first.
+  await expect(topic.getByRole("link", { name: "World Models of Cities" }).first()).toHaveAttribute(
+    "href",
+    "https://arxiv.org/abs/2601.10000",
+  );
+  // The chart's values, as a table.
+  await topic.getByRole("button", { name: "Show as a table" }).click();
+  await expect(topic.getByRole("row", { name: /^Oct 2026, to 20 Oct 2026/ })).toBeVisible();
+  // The 12 months replace the entry; the topic stays open.
+  await page.getByRole("button", { name: "12 months", exact: true }).click();
+  await expect(page).toHaveURL(/\?view=trends&window=year&topic=world\+model$/);
+  await expect(topic).toContainText("in the last 12 months");
+  // Its papers, searched in the Papers view; Back comes to the topic.
+  await topic.getByRole("link", { name: /^Its papers since/ }).click();
+  await expect(page.getByRole("searchbox", { name: "Search papers" })).toHaveValue(
+    '"world model" OR "world models"',
+  );
+  await expect(page).toHaveURL(/\?q=%22world\+model%22\+OR\+%22world\+models%22&since=2025-10-21$/);
+  await page.goBack();
+  await expect(page).toHaveURL(/\?view=trends&window=year&topic=world\+model$/);
+  await expect(page.getByRole("region", { name: "World model" })).toBeVisible();
   expect(errors).toEqual([]);
 });
 

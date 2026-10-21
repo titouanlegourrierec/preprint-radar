@@ -211,7 +211,11 @@ function paperData(dataDir: string): Plugin {
         const loadable = [
           ...(index ? paperFiles(index).map(({ path }) => path) : []),
           ...(index
-            ? Object.keys(index.categories).map((category) => `${category}/countries.json`)
+            ? Object.keys(index.categories).flatMap((category) =>
+                ["countries.json", "trends.json", "topics.json"].map(
+                  (name) => `${category}/${name}`,
+                ),
+              )
             : []),
           ...shards().keys(),
           ...searchShards().keys(),

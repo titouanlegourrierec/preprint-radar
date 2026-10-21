@@ -11,7 +11,9 @@ import {
   loadIndex,
   loadLightDays,
   loadPapersById,
+  loadTopics,
   loadTopRecent,
+  loadTrends,
   loadWholePaper,
 } from "../src/data";
 import { PAPER_BUDGET } from "../src/period";
@@ -60,6 +62,19 @@ describe("data", () => {
     await expect(loadCountries("cs.CV")).rejects.toThrow(
       "Could not load cs.CV/countries.json (HTTP 503)",
     );
+  });
+
+  it("loads the topics of the titles, none before the archive writes them (PROD-20)", async () => {
+    const trends = { schema_version: 1, through: "2026-10-20", topics: {} };
+    const topics = { schema_version: 1, through: "2026-10-20", topics: {} };
+    const requested = serve({ "cs.CV/trends.json": trends, "cs.CV/topics.json": topics });
+    await expect(loadTrends("cs.CV")).resolves.toEqual(trends);
+    expect(requested).toEqual(["cs.CV/trends.json"]);
+    await expect(loadTopics("cs.CV")).resolves.toEqual(topics);
+    serve({});
+    await expect(loadTrends("cs.CV")).resolves.toBeNull();
+    serve({ "cs.CV/topics.json": { ...topics, schema_version: 2 } });
+    await expect(loadTopics("cs.CV")).rejects.toThrow("Unsupported topics schema version 2");
   });
 
   it("asks for each file with the version the site's index gives it (PERF-8)", async () => {

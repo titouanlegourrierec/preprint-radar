@@ -3,6 +3,7 @@ import { citationShardPath } from "./citations";
 import { PAPER_BUDGET } from "./period";
 import { monthsOf, type SearchShardFile, searchShardPath } from "./search-shards";
 import { candidateMonths, candidateYears } from "./share";
+import type { TopicsFile, TrendsFile } from "./trends";
 import {
   type ArchiveFile,
   type CitationsFile,
@@ -356,18 +357,41 @@ export async function loadWholePaper(paper: Paper): Promise<Paper> {
   return papers.find(({ arxiv_id }) => arxiv_id === paper.arxiv_id) ?? paper;
 }
 
+/** A file the pipeline writes for the site, `null` before it first does (HTTP 404). */
+async function loadWritten<T extends { schema_version: number }>(
+  path: string,
+  what: string,
+): Promise<T | null> {
+  const response = await fetch(dataUrl(path));
+  if (response.status === 404) return null;
+  if (!response.ok) throw new Error(`Could not load ${path} (HTTP ${response.status})`);
+  const file = (await response.json()) as T;
+  checkSchema(file.schema_version, what);
+  return file;
+}
+
 /**
  * The country of each institution of a category's papers (`countries.json`, UX-40), for
  * Rankings' world map; `null` before the pipeline first writes it.
  */
-export async function loadCountries(category: string): Promise<CountriesFile | null> {
-  const path = `${category}/countries.json`;
-  const response = await fetch(dataUrl(path));
-  if (response.status === 404) return null;
-  if (!response.ok) throw new Error(`Could not load ${path} (HTTP ${response.status})`);
-  const file = (await response.json()) as CountriesFile;
-  checkSchema(file.schema_version, "countries");
-  return file;
+export function loadCountries(category: string): Promise<CountriesFile | null> {
+  return loadWritten(`${category}/countries.json`, "countries");
+}
+
+/**
+ * The topics of a category's titles, rising, cooling and new (`trends.json`, PROD-20), for
+ * the Trends view; `null` before the weekly archive first writes it.
+ */
+export function loadTrends(category: string): Promise<TrendsFile | null> {
+  return loadWritten(`${category}/trends.json`, "trends");
+}
+
+/**
+ * Every topic of a category's titles, its papers a month since 2010 (`topics.json`), for the
+ * Trends view's explorer, which alone loads it (400 kB); `null` before it is written.
+ */
+export function loadTopics(category: string): Promise<TopicsFile | null> {
+  return loadWritten(`${category}/topics.json`, "topics");
 }
 
 /**

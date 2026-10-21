@@ -138,8 +138,8 @@ describe("viewModel", () => {
     );
   });
 
-  it("offers no list controls in Rankings, the graph or About", () => {
-    for (const view of ["rankings", "graph", "about"] as const) {
+  it("offers no list controls in Rankings, the graph, Trends or About", () => {
+    for (const view of ["rankings", "graph", "trends", "about"] as const) {
       expect(viewModel(state({ view }), words)).toMatchObject({
         sorts: [],
         relevanceHelp: false,

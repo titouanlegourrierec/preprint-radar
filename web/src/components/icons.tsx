@@ -156,6 +156,52 @@ export function CitedIcon() {
   );
 }
 
+/** A flame: the topics that rise, cool and are new (PROD-20). */
+export function TrendsIcon() {
+  return (
+    <Outline name="trends">
+      <path d="M8 14.5a4.25 4.25 0 0 1-4.25-4.25c0-2.5 1.75-3.6 2.4-6.25 1.35.85 2.15 2.1 2.3 3.35.55-.55.9-1.35.95-2.3 1.7 1.3 2.85 3.15 2.85 5.2A4.25 4.25 0 0 1 8 14.5Z" />
+      <path d="M8 14.5c-1.1 0-1.9-.85-1.9-1.9 0-1.15.95-1.8 1.4-2.85.95.6 2.4 1.6 2.4 2.85 0 1.05-.8 1.9-1.9 1.9Z" />
+    </Outline>
+  );
+}
+
+/** A line going up: a topic whose share of the papers grows. */
+export function RisingIcon() {
+  return (
+    <Outline name="rising">
+      <path d="M2 12 6.5 7.5l2.5 2.5L14 5M10.5 5H14v3.5" />
+    </Outline>
+  );
+}
+
+/** A line going down: a topic whose share falls. */
+export function CoolingIcon() {
+  return (
+    <Outline name="cooling">
+      <path d="M2 4 6.5 8.5 9 6l5 5M10.5 11H14V7.5" />
+    </Outline>
+  );
+}
+
+/** A spark: a topic first seen within the year. */
+export function NewIcon() {
+  return (
+    <Outline name="new">
+      <path d="M8 1.75v3M8 11.25v3M1.75 8h3M11.25 8h3M3.6 3.6l2.1 2.1M10.3 10.3l2.1 2.1M3.6 12.4l2.1-2.1M10.3 5.7l2.1-2.1" />
+    </Outline>
+  );
+}
+
+/** A cross: what closes a panel. */
+export function CloseIcon() {
+  return (
+    <Outline name="close">
+      <path d="M4 4l8 8M12 4l-8 8" />
+    </Outline>
+  );
+}
+
 /** A podium: the rankings. */
 export function RankingsIcon() {
   return (

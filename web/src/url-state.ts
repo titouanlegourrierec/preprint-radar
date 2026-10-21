@@ -15,11 +15,20 @@ import {
   type SortOrder,
   typed,
 } from "./search";
+import { WINDOW_NAMES, type WindowName } from "./trends";
 import type { CountryMetric } from "./world";
 
-export type View = "papers" | "cited" | "graph" | "rankings" | "reading-list" | "about";
+export type View = "papers" | "cited" | "graph" | "trends" | "rankings" | "reading-list" | "about";
 
-const VIEWS: readonly View[] = ["papers", "cited", "graph", "rankings", "reading-list", "about"];
+const VIEWS: readonly View[] = [
+  "papers",
+  "cited",
+  "graph",
+  "trends",
+  "rankings",
+  "reading-list",
+  "about",
+];
 const SORTS: readonly SortOrder[] = [
   "relevance",
   "newest",
@@ -71,6 +80,13 @@ export interface ViewState {
    * paper; written in the reading list's links only, its folders being this browser's.
    */
   folder: string | null;
+  /**
+   * The periods the Trends view compares (`?window=year`, PROD-20): the last 90 days, or
+   * the last 12 months, against the same before; written in its links only.
+   */
+  window: WindowName;
+  /** The topic the Trends view opens (`?topic=world+model`), by its key; in its links only. */
+  topic: string | null;
 }
 
 export const DEFAULT_STATE: ViewState = {
@@ -86,6 +102,8 @@ export const DEFAULT_STATE: ViewState = {
   rank: "institution",
   metric: null,
   folder: null,
+  window: "quarter",
+  topic: null,
 };
 
 /**
@@ -130,6 +148,8 @@ export function readState(search: string): ViewState {
     rank: RANKS.find((rank) => rank === params.get("rank")) ?? DEFAULT_STATE.rank,
     metric: METRICS.find((metric) => metric === params.get("metric")) ?? null,
     folder: params.get("folder"),
+    window: WINDOW_NAMES.find((window) => window === params.get("window")) ?? DEFAULT_STATE.window,
+    topic: params.get("topic"),
     filters: {
       excludeCrossLists: params.get("xl") === "0",
       withCode: params.get("code") === "1",
@@ -166,6 +186,9 @@ export function writeState(state: ViewState): string {
   set("rank", state.rank, DEFAULT_STATE.rank);
   set("metric", state.metric);
   set("folder", state.view === "reading-list" ? state.folder : null);
+  const trends = state.view === "trends";
+  set("window", trends ? state.window : null, DEFAULT_STATE.window);
+  set("topic", trends ? state.topic : null);
   set("xl", state.filters.excludeCrossLists ? "0" : null);
   set("code", state.filters.withCode ? "1" : null);
   const { author, affiliation } = state.filters;
@@ -179,8 +202,8 @@ export function writeState(state: ViewState): string {
 
 /**
  * The state as far as the Back button is concerned: typing (the query, typed filters), the
- * sort and what Rankings ranks are left out, so that they replace the current history entry
- * instead of adding one per keystroke or choice.
+ * sort, what Rankings ranks and the periods Trends compares are left out, so that they
+ * replace the current history entry instead of adding one per keystroke or choice.
  */
 function navigationKey(state: ViewState): string {
   const { author, affiliation } = state.filters;
@@ -190,6 +213,7 @@ function navigationKey(state: ViewState): string {
     sort: DEFAULT_STATE.sort,
     rank: DEFAULT_STATE.rank,
     metric: null,
+    window: DEFAULT_STATE.window,
     filters: {
       ...state.filters,
       author: author?.exact ? author : null,

@@ -10,6 +10,10 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ### Interface
 
+- A Trends view: the topics of cs.CV's titles whose share of the papers rises, cools or is
+  new, over the last 90 days against the same days a year before, or the last 12 months
+  against the 12 before, each with its months drawn. A topic opens with its share month by
+  month, its impact, its most cited papers of the year, and links to its papers (PROD-20).
 - A card says where its citations put a paper among those of its year: "Top 1% of 2017",
   5% or 10%, against every cs.CV paper first submitted that year, from the archive of
   2026-10-25 on (PROD-19).

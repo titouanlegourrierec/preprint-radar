@@ -19,6 +19,7 @@ import type { SharedNotice as SharedFolderNotice } from "./components/SharedNoti
 import { Sidebar, SidebarToggle, WIDE_QUERY } from "./components/Sidebar";
 import { SiteFooter } from "./components/SiteFooter";
 import { Topbar } from "./components/Topbar";
+import type { Trends as TrendsView } from "./components/Trends";
 import type { StoreHolding } from "./data";
 import { download } from "./download";
 import { feedOf } from "./feeds";
@@ -89,6 +90,7 @@ const VIEW_TITLES: Record<ViewState["view"], string> = {
   papers: "",
   cited: "Highly cited",
   graph: "Graph",
+  trends: "Trends",
   rankings: "Rankings",
   "reading-list": "Reading list",
   about: "About",
@@ -96,10 +98,13 @@ const VIEW_TITLES: Record<ViewState["view"], string> = {
 const SUGGESTION_SIZE = 300;
 
 // What the papers' list never shows, downloaded when first shown (PERF-15): About, the
-// tables of Rankings with the graph's model they rank, the reading list's folders and the
-// notice of a shared one.
+// tables of Rankings with the graph's model they rank, the Trends view, the reading list's
+// folders and the notice of a shared one.
 const About = lazyView<object>("page", () =>
   import("./components/About").then(({ About }) => About),
+);
+const Trends = lazyView<ComponentProps<typeof TrendsView>>("trends", () =>
+  import("./components/Trends").then(({ Trends }) => Trends),
 );
 const Rankings = lazyView<ComponentProps<typeof RankingsTables>>("rankings", () =>
   import("./components/Rankings").then(({ Rankings }) => Rankings),
@@ -535,6 +540,28 @@ export function App() {
           {/* A view that fails to draw leaves the tabs usable (TEST-10). */}
           <ErrorBoundary what="this view">
             <About />
+          </ErrorBoundary>
+          {footer}
+        </div>
+      </>
+    );
+  }
+
+  if (state.view === "trends") {
+    return (
+      <>
+        {skipLink}
+        {topbar}
+        <div class="layout">
+          <ErrorBoundary what="this view" resetKeys={[state.window, state.topic]}>
+            <Trends
+              category={category ?? null}
+              window={state.window}
+              topic={state.topic}
+              onWindow={(window) => update({ window })}
+              onTopic={(topic) => update({ topic })}
+              link={tab}
+            />
           </ErrorBoundary>
           {footer}
         </div>

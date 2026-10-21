@@ -40,6 +40,16 @@
   --map-sea: #f2f6fb;
   --map-sea-deep: #d9e4f1;
   --map-graticule: #d5dfeb;
+  /* The Trends view's charts (PROD-20), from the validated palette of the map: red for a
+     topic whose share rises, blue for one whose share falls, gray for the months before
+     and for chart furniture (hairline grid, its baseline, a period's band). */
+  --trend-rising: #e34948;
+  --trend-cooling: #2a78d6;
+  --trend-neutral: #6b6b66;
+  --trend-past: #b5b4ad;
+  --chart-grid: #e1e0d9;
+  --chart-axis: #c3c2b7;
+  --chart-band: #f3f2ee;
   /* The fields, buttons and cards of every view, as the graph's chips (UX-33). */
   --radius: 12px;
   /* A paper's card, rounder (UX-34). */
@@ -95,6 +105,13 @@
     --map-sea: #1f2731;
     --map-sea-deep: #12171d;
     --map-graticule: #2c3745;
+    --trend-rising: #e66767;
+    --trend-cooling: #3987e5;
+    --trend-neutral: #9c9c96;
+    --trend-past: #5c5c58;
+    --chart-grid: #2c2c2a;
+    --chart-axis: #383835;
+    --chart-band: #232322;
     --shadow: none;
     --shadow-raised: none;
 
@@ -139,6 +156,13 @@
   --map-sea: #1f2731;
   --map-sea-deep: #12171d;
   --map-graticule: #2c3745;
+  --trend-rising: #e66767;
+  --trend-cooling: #3987e5;
+  --trend-neutral: #9c9c96;
+  --trend-past: #5c5c58;
+  --chart-grid: #2c2c2a;
+  --chart-axis: #383835;
+  --chart-band: #232322;
   --shadow: none;
   --shadow-raised: none;
 
@@ -346,9 +370,21 @@ mark {
   color: var(--text-muted);
 }
 
+/* Narrower tabs on a phone, so that the seven fit beside the theme switch from 350 px, the
+   current one with its name (Trends, PROD-20); a longer name scrolls them. */
 @media (max-width: 480px) {
+  .tabs {
+    gap: 2px;
+  }
+
   .tab {
-    padding: 6px 10px;
+    padding: 6px 8px;
+  }
+}
+
+@media (max-width: 400px) {
+  .tab {
+    padding: 6px;
   }
 }
 
@@ -3537,6 +3573,516 @@ input[type="range"] {
 
 /* A list on paper (UX-18): its cards in black on white, each kept whole and followed by its
    address, without the controls, the graph and the notes that only act on the screen. */
+
+/* The Trends view (PROD-20): the topics of the titles that rise, cool and are new, three
+   lists side by side on a wide screen, and a topic opened above them. */
+.trends {
+  margin-top: 16px;
+}
+
+.trends__head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.trends__title {
+  flex: 1 1 28rem;
+}
+
+.trends__title h2 {
+  margin: 0 0 6px;
+  font-size: 1.4rem;
+}
+
+.trends__title p {
+  margin: 0;
+  max-width: 46rem;
+}
+
+.trends__controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.trends__source {
+  margin: 20px 0 0;
+  font-size: 0.85rem;
+}
+
+.trend-lists {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+@media (max-width: 980px) {
+  .trend-lists {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.trend-list {
+  padding: 14px 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--card-radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.trend-list__title {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 0 8px;
+  font-size: 1.05rem;
+}
+
+.trend-list__note,
+.trend-list__empty {
+  margin: 2px 8px 8px;
+  font-size: 0.85rem;
+}
+
+.trend-list__rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.trend-list__more {
+  margin: 6px 8px 0;
+  font-size: 0.85rem;
+}
+
+/* A mark of where a list's topics go, beside its name: the list's tone, never its text's. */
+.trend-mark {
+  display: inline-flex;
+}
+
+.trend-mark--rising {
+  color: var(--trend-rising);
+}
+
+.trend-mark--cooling {
+  color: var(--trend-cooling);
+}
+
+/* A topic of a list: its rank, name and change on a line, its months drawn and its papers
+   then and now under them. */
+.trend-row {
+  display: grid;
+  grid-template-columns: 1.6rem minmax(0, 1fr) auto;
+  gap: 2px 8px;
+  align-items: center;
+  padding: 7px 8px;
+  border-radius: 10px;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.trend-row:hover {
+  background: var(--surface-muted);
+}
+
+.trend-row--open {
+  background: var(--accent-soft);
+}
+
+.trend-row__rank {
+  grid-row: span 2;
+  align-self: start;
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+  text-align: right;
+}
+
+.trend-row__name {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.trend-row__change {
+  justify-self: end;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.trend-row__counts {
+  grid-column: 3;
+  justify-self: end;
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.sparkline {
+  grid-column: 2;
+  display: block;
+  overflow: visible;
+}
+
+.sparkline path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sparkline__past {
+  stroke: var(--trend-past);
+  stroke-width: 1.5;
+}
+
+.sparkline__recent {
+  stroke-width: 2;
+}
+
+.sparkline__recent--rising {
+  stroke: var(--trend-rising);
+}
+
+.sparkline__recent--cooling {
+  stroke: var(--trend-cooling);
+}
+
+.sparkline__recent--neutral {
+  stroke: var(--trend-neutral);
+}
+
+/* A topic opened: a card above the lists. */
+.topic {
+  margin-top: 20px;
+  padding: 18px 20px 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--card-radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  scroll-margin-top: 16px;
+}
+
+/* Focused when opened, for the keyboard: a ring only when the keyboard opened it. */
+.topic:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.topic__head {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.topic__head h3 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.topic__status {
+  padding: 1px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.topic__status::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: var(--trend-neutral);
+}
+
+.topic__status--rising::before {
+  background: var(--trend-rising);
+}
+
+.topic__status--cooling::before {
+  background: var(--trend-cooling);
+}
+
+.topic__close {
+  margin-left: auto;
+}
+
+.topic__summary {
+  margin: 8px 0 0;
+  max-width: 52rem;
+}
+
+.topic__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: 12px;
+  margin: 16px 0 0;
+}
+
+.stat {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.stat dt {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.stat dd {
+  display: grid;
+  gap: 2px;
+  margin: 2px 0 0;
+}
+
+.stat__value {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.stat__delta {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.topic__chart-title,
+.topic__papers h4 {
+  margin: 20px 0 6px;
+  font-size: 0.95rem;
+}
+
+.topic__papers ol {
+  margin: 0;
+  padding-left: 1.4rem;
+}
+
+.topic__papers li + li {
+  margin-top: 4px;
+}
+
+.topic__papers a {
+  color: var(--text);
+}
+
+.topic__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.topic__actions .button {
+  color: var(--text);
+  text-decoration: none;
+}
+
+/* The Trends view's line charts (`LineChart`): thin lines over hairline gridlines, a
+   crosshair and a tooltip at the point under the pointer, and the same values as a table. */
+.chart {
+  margin: 0;
+}
+
+.chart__bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+  font-size: 0.85rem;
+}
+
+.chart__toggle {
+  margin-left: auto;
+}
+
+.chart__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chart__legend-item {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.chart__key {
+  width: 16px;
+  height: 4px;
+  overflow: visible;
+}
+
+.chart__plot {
+  position: relative;
+  border-radius: 8px;
+}
+
+.chart__plot:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.chart__svg {
+  display: block;
+  overflow: visible;
+  touch-action: pan-y;
+}
+
+.chart__grid,
+.chart__axis {
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+
+.chart__grid {
+  stroke: var(--chart-grid);
+}
+
+.chart__axis {
+  stroke: var(--chart-axis);
+}
+
+.chart__band {
+  fill: var(--chart-band);
+}
+
+.chart__band-label,
+.chart__tick,
+.chart__end {
+  font-size: 0.75rem;
+  fill: var(--text-muted);
+}
+
+.chart__tick {
+  font-variant-numeric: tabular-nums;
+}
+
+.chart__end {
+  fill: var(--text);
+}
+
+.chart__line {
+  fill: none;
+  stroke: var(--trend-neutral);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.chart__line--rising {
+  stroke: var(--trend-rising);
+}
+
+.chart__line--cooling {
+  stroke: var(--trend-cooling);
+}
+
+.chart__area {
+  fill: var(--trend-neutral);
+  opacity: 0.1;
+}
+
+.chart__area--rising {
+  fill: var(--trend-rising);
+}
+
+.chart__area--cooling {
+  fill: var(--trend-cooling);
+}
+
+.chart__crosshair {
+  stroke: var(--chart-axis);
+  stroke-width: 1;
+}
+
+/* A point of a line at the crosshair, ringed in the surface's color. */
+.chart__dot {
+  fill: var(--trend-neutral);
+  stroke: var(--surface);
+  stroke-width: 2;
+}
+
+.chart__dot--rising {
+  fill: var(--trend-rising);
+}
+
+.chart__dot--cooling {
+  fill: var(--trend-cooling);
+}
+
+.chart__tip {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  gap: 2px;
+  min-width: 140px;
+  max-width: 260px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  box-shadow: 0 4px 16px rgb(0 0 0 / 0.12);
+  font-size: 0.8rem;
+  transform: translateX(14px);
+  pointer-events: none;
+}
+
+.chart__tip--left {
+  transform: translateX(calc(-100% - 14px));
+}
+
+.chart__tip-label {
+  font-weight: 600;
+}
+
+.chart__tip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 6px;
+  align-items: center;
+}
+
+.chart__tip-row strong {
+  font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.chart__table {
+  max-height: 22rem;
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.chart__table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.chart__cell {
+  padding: 4px 10px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
+.chart__table thead .chart__cell {
+  position: sticky;
+  top: 0;
+  background: var(--surface);
+}
+
 @media print {
   /* Whatever the theme: as specific as both dark blocks, it wins by coming after them
      (styles.test.ts checks it). Only the colors of text, its backgrounds and borders, not a

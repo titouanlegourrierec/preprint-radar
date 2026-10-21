@@ -12,6 +12,7 @@ import {
   RankingsIcon,
   StarIcon,
   SunIcon,
+  TrendsIcon,
 } from "./icons";
 import { Lockup } from "./Logo";
 
@@ -89,6 +90,14 @@ export function Topbar(props: Props) {
           >
             <CitedIcon />
             <span class="tab__label">Highly cited</span>
+          </a>
+          <a
+            class={`tab${view === "trends" ? " tab--active" : ""}`}
+            title="The topics of the titles that rise, cool and are new"
+            {...tab(view === "trends", { view: "trends" })}
+          >
+            <TrendsIcon />
+            <span class="tab__label">Trends</span>
           </a>
           <a
             class={`tab${view === "rankings" ? " tab--active" : ""}`}
