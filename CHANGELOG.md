@@ -13,6 +13,8 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 - A list of mailbox names in capitals ("{Jane.Doe, A.Roe,") is a contact detail too, and
   no longer an affiliation: on 2026-10-20, one paper's made the data fail validation, and
   neither run of the day stored its 346 papers (AFF-32).
+- The daily re-extraction has 17 minutes for its 50 pages (12.5 at arXiv's pace) instead
+  of 12, which ended every run one page short with an `Out of time` warning (CI-16).
 
 ### Data
 

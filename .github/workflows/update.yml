@@ -116,10 +116,11 @@ jobs:
       - name: Extract stored papers again
         # Papers read by an older version of the extraction: from the page cache, then up
         # to 50 pages downloaded a day, so that fixes reach the stored data by themselves.
+        # 50 pages at 15 s are 12.5 minutes: the deadline leaves room for the cache (CI-16).
         if: ${{ !cancelled() }}
-        timeout-minutes: 15
+        timeout-minutes: 20
         run: |
-          args=(--max-html 50 --deadline-minutes 12)
+          args=(--max-html 50 --deadline-minutes 17)
           for category in $CATEGORIES; do args+=(--category "$category"); done
           uv run --no-dev preprint-radar -v reextract "${args[@]}"
 

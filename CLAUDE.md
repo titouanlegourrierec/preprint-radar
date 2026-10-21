@@ -368,7 +368,7 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     are fallbacks four hours later, whose `guard` job (`.github/scripts/skip-if-done.sh`)
     stops them once a run of the day succeeded; a dispatched or manual run always goes on.
   - `update.yml` (dispatched 06:17 UTC on weekdays): the update, then `reextract`
-    (50 downloads, 12 minutes), `affiliations` (OpenAlex, seconds), `citations` (10
+    (50 downloads, 13 minutes, within 17), `affiliations` (OpenAlex, seconds), `citations` (10
     minutes), `code --new` (the new papers' stars, seconds), `countries` (the new
     institutions', seconds), commit; 240 minutes in all. It
     restores the page cache from the Actions cache (`front-matter-<run id>`, saved even
