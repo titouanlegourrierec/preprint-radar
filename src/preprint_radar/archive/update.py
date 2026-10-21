@@ -537,7 +537,7 @@ def _citation_counts(
 ) -> dict[str, int | None]:
     """Citation counts, resuming from those a recent run saved in a cache file."""
     cache = catalog.directory / f"{catalog.category}.citations.jsonl"
-    started, counts = _read_citations_cache(cache, today)
+    started, counts = read_citations_cache(cache, today)
     # Rewritten in one piece: a run killed while appending a batch leaves a cut last line.
     cache.parent.mkdir(parents=True, exist_ok=True)
     lines = [json.dumps({"date": started.isoformat()}), *([json.dumps(counts)] if counts else [])]
@@ -558,8 +558,13 @@ def _citation_counts(
     return counts
 
 
-def _read_citations_cache(cache: Path, today: date) -> tuple[date, dict[str, int | None]]:
-    """The day a recent run started its cache, and the counts it saved; else today and none."""
+def read_citations_cache(cache: Path, today: date) -> tuple[date, dict[str, int | None]]:
+    """The day a recent run started its cache, and the counts it saved; else today and none.
+
+    Args:
+        cache: The counts cache of a catalog (``<category>.citations.jsonl``).
+        today: The day of the run: a cache started ``CITATIONS_CACHE_DAYS`` before is stale.
+    """
     lines = cache.read_text(encoding="utf-8").splitlines() if cache.is_file() else []
     try:
         started = date.fromisoformat(json.loads(lines[0])["date"])

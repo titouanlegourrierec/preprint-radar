@@ -31,6 +31,11 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ### Data
 
+- The weekly archive counts the topics of cs.CV's titles since 2010, month by month, and
+  writes which rise, cool or are new over the last 90 days and the last 12 months, each
+  with its months, its impact (the share of its papers among the most cited of their
+  month) and its most cited papers of the year (`trends.json`), and every topic's months
+  (`topics.json`), for the site's coming Trends view (`make trends`, PROD-20).
 - Highly cited keeps each year's most cited tenth, on top of its rule of citations per year
   of age, which kept 8 papers of 2010 and fewer every year: the years 2010 to 2013 get 138
   papers more, each cited 86 times or more. The weekly archive also writes how each

@@ -825,6 +825,77 @@ def test_archive_runs_over_a_catalog(
     assert capsys.readouterr().out.startswith("cs.CV: 2 archived papers (2 in, 0 out), threshold ")
 
 
+def test_trends_counts_the_titles_of_the_catalog(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    catalog = tmp_path / "catalog"
+    catalog.mkdir()
+    with gzip.open(catalog / "cs.CV.jsonl.gz", "wt", encoding="utf-8") as out:
+        for index in range(10):
+            entry = CatalogEntry(
+                arxiv_id=f"2609.{index:05d}",
+                created=date(2026, 9, 10 + index),
+                categories=("cs.CV",),
+                title="World Models for Robots",
+                authors=("A One",),
+            )
+            out.write(json.dumps(entry.to_record()) + "\n")
+    summary = tmp_path / "summary.md"
+    monkeypatch.setenv("GITHUB_STEP_SUMMARY", str(summary))
+    store = PaperStore(tmp_path / "data")
+    args = ["trends", "--data-dir", str(store.root), "--catalog-dir", str(catalog)]
+
+    # Without the week's citation counts: titles only.
+    assert main(args) == 0
+
+    assert "No citation counts of the week in" in caplog.text
+    trends = store.load_trends("cs.CV")
+    assert trends is not None
+    assert trends.source == "arXiv"
+    assert trends.windows["quarter"].rising == ("world models for robot",)
+    assert trends.topics["world models for robot"].papers == ()
+    topics = store.load_topics("cs.CV")
+    assert topics is not None
+    assert set(topics.topics) == {
+        "world",
+        "robot",
+        "world model",
+        "world models for robot",
+        "models for robot",
+    }
+    line = "cs.CV: 5 topics of 10 papers to 2026-09-19; last 90 days: 1 rising (world models for robot…)"
+    assert line in capsys.readouterr().out
+    assert f"**Trends.** {line}" in summary.read_text(encoding="utf-8")
+
+    # With the counts the archive cached this week.
+    today = datetime.now(tz=UTC).date()
+    counts = {"2609.00003": 7, "2609.00001": 2}
+    (catalog / "cs.CV.citations.jsonl").write_text(
+        f"{json.dumps({'date': today.isoformat()})}\n{json.dumps(counts)}\n", encoding="utf-8"
+    )
+    assert main(args) == 0
+
+    trends = store.load_trends("cs.CV")
+    assert trends is not None
+    assert trends.source == "arXiv, Semantic Scholar"
+    assert [paper.arxiv_id for paper in trends.topics["world models for robot"].papers] == [
+        "2609.00003",
+        "2609.00001",
+    ]
+
+
+def test_trends_needs_the_catalog(tmp_path: Path, caplog: pytest.LogCaptureFixture) -> None:
+    args = ["trends", "-c", "cs.RO", "--data-dir", str(tmp_path / "data"), "--catalog-dir", str(tmp_path)]
+
+    assert main(args) == 1
+
+    assert f"The catalog of cs.RO in {tmp_path} holds no paper since 2010: archive harvests it" in caplog.text
+    assert not (tmp_path / "data").exists()
+
+
 def test_citations_runs_over_a_store(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
 ) -> None:

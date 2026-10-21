@@ -11,6 +11,7 @@ them. It is deployed on GitHub Pages; there is no server.
   Every rule there came from a real page; never "simplify" one away.
 - `archive/`, `sources/semantic_scholar.py`, `sources/openalex.py`, `sources/arxiv_oai.py`:
   `docs/archive.md`.
+- `trends.py`, `trends.json` or `topics.json`: `docs/trends.md`.
 - `web/`: `docs/web.md`, for the part you touch.
 - A workflow, a failure or a log line: `docs/operations.md`, the runbook by symptom. Its
   signals are quoted from the code, and `tests/unit/test_operations_doc.py` fails when one
@@ -78,6 +79,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   - `make countries`: the country of the institutions of every stored paper, by their ROR
     ids, into `countries.json` (UX-40, the site's map): OpenAlex, 50 a request, seconds;
     only those without one yet (`ALL=1`: all again). Both data workflows run it.
+  - `make trends`, offline, under a minute: the topics of the catalog's titles, rising,
+    cooling and new, into `trends.json` and `topics.json` (PROD-20), with their impact and
+    key papers when the archive cached the week's counts. `archive.yml` runs it.
   - `make reextract [MAX_HTML=N]`: read again the pages of stored papers extracted by an
     older `EXTRACTOR_VERSION`, from the page cache when it holds them (offline), else at
     15 s a page within `MAX_HTML`; `--ids` or `--match REGEX` pick papers instead. A page
@@ -134,7 +138,8 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     `update_archive_affiliations`), and the stars of the code (`update_code_records`).
     `venue.py`: venues from comments, and Semantic Scholar's named the same way.
     `names.py`: whether another service's name for an author is arXiv's. `code.py`: the
-    code a paper links, as the site's card finds it.
+    code a paper links, as the site's card finds it. `trends.py`: the topics of the
+    catalog's titles, month by month (`docs/trends.md`).
   - `archive/`: the weekly citation archive (`update.py`, `catalog.py`, `selection.py`).
   - `store/`: `paper_store.py` (the `data/` layout), `validate.py`, `stats.py`,
     `quality.py`, `reclean.py`, `venues.py`, `naming.py`, `provenance.py`.
@@ -167,7 +172,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     each institution of the stored papers, by ROR id (`null`: OpenAlex places it nowhere);
     `<category>/cohorts.json`, each complete year's papers as their citations rank them:
     how many, and the citations of the last of the top 1%, 5% and 10% (the site's "Top 1%
-    of 2017", decision 22), which the weekly archive writes.
+    of 2017", decision 22), which the weekly archive writes; `<category>/trends.json`, the
+    topics rising, cooling and new, and `<category>/topics.json`, every topic's papers a
+    month since 2010, for the site's Trends view (PROD-20).
 - `web/`: `src/` (the app; `docs/web.md`), `tooling/` (build plugins: what the site derives
   from `data/`, the third-party guard), `tests/` (Vitest), `e2e/` (Playwright and its store).
 - `.cache/` (git-ignored; the Actions cache in CI): `front-matter/<yymm>/<id>v<n>.html.gz`,
@@ -380,8 +387,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     Its manual *since* input runs `backfill` instead.
   - `archive.yml` (dispatched Sundays 05:41 UTC; on Saturdays a catch-up when no run
     succeeded since Sunday, CI-8): the archive, then `scholar` (20 minutes),
-    then `archive-affiliations` (OpenAlex only, seconds), `countries` (seconds) and `code`
-    (about 5 minutes, with the workflow's `GITHUB_TOKEN`).
+    then `archive-affiliations` (OpenAlex only, seconds), `countries` (seconds), `trends`
+    (offline, under a minute) and `code` (about 5 minutes, with the workflow's
+    `GITHUB_TOKEN`).
   - `canary.yml` (Wednesdays): the network tests against the live arXiv (a red canary is a
     layout change to look at before it reaches the data), and the repository size.
   - Sizes (ARCH-1): `deploy.yml` fails a site above 800 MB (Pages refuses 1 GB) and warns
@@ -395,8 +403,8 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
 - Commit freely, in small commits that name the roadmap item they change (`fix(collect): …
   (DATA-2)`), with its status updated in `docs/roadmap.md` in the same commit. The scope
   is the part changed, one of: `web`, `extract` (`sources/arxiv_html.py` and its rules),
-  `collect`, `cli`, `archive`, `citations`, `openalex`, `ror`, `store`, `stats`, `data`
-  (`data/` alone), `roadmap`, `release`; none for docs or CI across parts (`docs:`, `ci:`). Never push,
+  `collect`, `cli`, `archive`, `citations`, `openalex`, `ror`, `store`, `stats`, `trends`,
+  `data` (`data/` alone), `roadmap`, `release`; none for docs or CI across parts (`docs:`, `ci:`). Never push,
   create the GitHub repo, or start `make update`, `make backfill` or `make archive`
   unless asked.
 - Do not push changes under `data/` while *Update data* or *Archive* runs (`gh run list`):

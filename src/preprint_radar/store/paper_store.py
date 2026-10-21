@@ -12,6 +12,8 @@ Layout::
         ├── code.json              # the stars (or likes) of the code they link
         ├── countries.json         # the country of their institutions
         ├── cohorts.json           # each year's papers, as their citations rank them
+        ├── trends.json            # topics rising, cooling and new, and their months
+        ├── topics.json            # every topic's papers a month since 2010
         ├── top-recent.json        # the most cited papers of the last 12 months
         └── archive/
             └── <YYYY>.json        # highly cited older papers, by year of first version
@@ -39,7 +41,16 @@ from typing import Any
 
 from preprint_radar.config import GAINS_MIN_DAYS
 from preprint_radar.exceptions import SchemaVersionError, StoreError
-from preprint_radar.models import CodeRecord, Cohort, Paper, ScholarRecord
+from preprint_radar.models import (
+    CodeRecord,
+    Cohort,
+    Paper,
+    ScholarRecord,
+    TopicSeries,
+    Trends,
+    TrendTopic,
+    TrendWindow,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -51,11 +62,14 @@ SCHOLAR_FILENAME = "scholar.json"
 CODE_FILENAME = "code.json"
 COUNTRIES_FILENAME = "countries.json"
 COHORTS_FILENAME = "cohorts.json"
+TRENDS_FILENAME = "trends.json"
+TOPICS_FILENAME = "topics.json"
 TOP_RECENT_FILENAME = "top-recent.json"
 ARCHIVE_DIRNAME = "archive"
 _DAY_STEM_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 _YEAR_STEM_RE = re.compile(r"^\d{4}$")
 _COUNTRY_RE = re.compile(r"^[A-Z]{2}$")
+_MONTH_RE = re.compile(r"^\d{4}-(?:0[1-9]|1[0-2])$")
 
 
 @dataclass(frozen=True, slots=True)
@@ -111,6 +125,50 @@ class CountriesFile:
     """
 
     institutions: dict[str, str | None]
+    source: str
+    generated_at: datetime
+
+
+@dataclass(frozen=True, slots=True)
+class TrendsFile:
+    """The topics of a category's papers, rising, cooling and new, as last written (PROD-20).
+
+    Attributes:
+        through: The last day counted.
+        start: The first month of ``totals`` and of each topic's counts ("2023-10").
+        totals: The category's papers in each month.
+        windows: The periods compared and the topics they rank, by name.
+        topics: The topics the windows list, by key.
+        source: Where the titles and counts come from.
+        generated_at: Date of this count.
+    """
+
+    through: date
+    start: str
+    totals: tuple[int, ...]
+    windows: dict[str, TrendWindow]
+    topics: dict[str, TrendTopic]
+    source: str
+    generated_at: datetime
+
+
+@dataclass(frozen=True, slots=True)
+class TopicsFile:
+    """Every topic of a category's titles with enough papers, month by month (PROD-20).
+
+    Attributes:
+        through: The last day counted.
+        start: The first month of ``totals`` ("2010-01").
+        totals: The category's papers in each month.
+        topics: Each topic's papers a month from its first, by key.
+        source: Where the titles come from.
+        generated_at: Date of this count.
+    """
+
+    through: date
+    start: str
+    totals: tuple[int, ...]
+    topics: dict[str, TopicSeries]
     source: str
     generated_at: datetime
 
@@ -761,6 +819,109 @@ class PaperStore:
         }
         _write_json(self.root / category / COHORTS_FILENAME, payload)
 
+    def write_trends(
+        self, category: str, trends: Trends, *, source: str, now: datetime | None = None
+    ) -> None:
+        """Write the topics of ``category``'s papers: ``trends.json`` and ``topics.json``, dated now.
+
+        ``trends.json`` holds the windows' lists, and their topics' counts of the last
+        ``trends.months`` months; ``topics.json`` every topic's counts since ``trends.start``.
+
+        Args:
+            category: arXiv category.
+            trends: What :func:`trends.count_trends` counted.
+            source: Where the titles and counts come from ("arXiv, Semantic Scholar").
+            now: The time they are dated with (``None``: now).
+        """
+        generated = (now or datetime.now(tz=UTC)).isoformat(timespec="seconds")
+        head = {"schema_version": SCHEMA_VERSION, "category": category, "generated_at": generated}
+        first = len(trends.totals) - trends.months
+        _write_json_by_line(
+            self.root / category / TRENDS_FILENAME,
+            {
+                **head,
+                "source": source,
+                "through": trends.through.isoformat(),
+                "start": _month_after(trends.start, max(first, 0)),
+                "totals": list(trends.totals[-trends.months :]),
+                "windows": {name: window.to_record() for name, window in trends.windows.items()},
+                "topics": {key: topic.to_record() for key, topic in sorted(trends.topics.items())},
+            },
+            "topics",
+        )
+        _write_json_by_line(
+            self.root / category / TOPICS_FILENAME,
+            {
+                **head,
+                "source": source,
+                "through": trends.through.isoformat(),
+                "start": trends.start,
+                "totals": list(trends.totals),
+                "topics": {key: series.to_record() for key, series in sorted(trends.series.items())},
+            },
+            "topics",
+        )
+
+    def load_trends(self, category: str) -> TrendsFile | None:
+        """The topics of ``category``'s papers, rising, cooling and new, if ever written.
+
+        Raises:
+            StoreError: If the file is not a valid ``trends.json`` (a topic's counts not one a
+                month, a list naming a topic it lacks), or of another ``schema_version``.
+        """
+        path = self.root / category / TRENDS_FILENAME
+        if not path.is_file():
+            return None
+        try:
+            payload: Any = json.loads(path.read_text(encoding="utf-8"))
+            _check_version(payload, path, "trends")
+            totals = tuple(int(papers) for papers in payload["totals"])
+            topics = {str(key): TrendTopic.from_record(topic) for key, topic in payload["topics"].items()}
+            windows = {
+                str(name): TrendWindow.from_record(window) for name, window in payload["windows"].items()
+            }
+            _check_trends(totals, topics, windows)
+            return TrendsFile(
+                through=date.fromisoformat(payload["through"]),
+                start=_month_name(payload["start"]),
+                totals=totals,
+                windows=windows,
+                topics=topics,
+                source=str(payload["source"]),
+                generated_at=datetime.fromisoformat(payload["generated_at"]),
+            )
+        except (json.JSONDecodeError, AttributeError, KeyError, TypeError, ValueError) as exc:
+            msg = f"Invalid trends file {path}: {exc}"
+            raise StoreError(msg) from exc
+
+    def load_topics(self, category: str) -> TopicsFile | None:
+        """Every topic of ``category``'s titles, month by month, if ever written.
+
+        Raises:
+            StoreError: If the file is not a valid ``topics.json`` (a topic's counts past the
+                last month), or of another ``schema_version``.
+        """
+        path = self.root / category / TOPICS_FILENAME
+        if not path.is_file():
+            return None
+        try:
+            payload: Any = json.loads(path.read_text(encoding="utf-8"))
+            _check_version(payload, path, "topics")
+            totals = tuple(int(papers) for papers in payload["totals"])
+            topics = {str(key): TopicSeries.from_record(series) for key, series in payload["topics"].items()}
+            _check_topics(totals, topics)
+            return TopicsFile(
+                through=date.fromisoformat(payload["through"]),
+                start=_month_name(payload["start"]),
+                totals=totals,
+                topics=topics,
+                source=str(payload["source"]),
+                generated_at=datetime.fromisoformat(payload["generated_at"]),
+            )
+        except (json.JSONDecodeError, AttributeError, KeyError, TypeError, ValueError) as exc:
+            msg = f"Invalid topics file {path}: {exc}"
+            raise StoreError(msg) from exc
+
     def summaries(self, category: str) -> list[DaySummary]:
         """Return the number of papers per day for ``category``, most recent first."""
         return [DaySummary(day, len(self.load_day(category, day))) for day in self.days(category)]
@@ -810,6 +971,52 @@ class PaperStore:
         _write_json(path, payload)
 
 
+def _month_name(value: object) -> str:
+    """A month of a trends file, "2023-10".
+
+    Raises:
+        ValueError: If it is not one.
+    """
+    if isinstance(value, str) and _MONTH_RE.match(value):
+        return value
+    msg = f"{value!r} is not a month"
+    raise ValueError(msg)
+
+
+def _month_after(month: str, months: int) -> str:
+    """The month ``months`` after ``month`` ("2010-01", 165: "2023-10")."""
+    year, index = divmod(int(month[:4]) * 12 + int(month[5:7]) - 1 + months, 12)
+    return f"{year}-{index + 1:02d}"
+
+
+def _check_topics(totals: tuple[int, ...], topics: Mapping[str, TopicSeries]) -> None:
+    """Refuse a topics file whose topics' counts go past its last month.
+
+    Raises:
+        ValueError: If one does.
+    """
+    if past := [key for key, series in topics.items() if series.start + len(series.counts) > len(totals)]:
+        msg = f"counts past the last month for {', '.join(past[:3])}"
+        raise ValueError(msg)
+
+
+def _check_trends(
+    totals: tuple[int, ...], topics: Mapping[str, TrendTopic], windows: Mapping[str, TrendWindow]
+) -> None:
+    """Refuse a trends file whose topics' counts are not one a month, or whose lists name a topic it lacks.
+
+    Raises:
+        ValueError: If one is so.
+    """
+    if uneven := [key for key, topic in topics.items() if len(topic.counts) != len(totals)]:
+        msg = f"counts not one a month for {', '.join(uneven[:3])}"
+        raise ValueError(msg)
+    named = {key for window in windows.values() for key in (*window.rising, *window.cooling, *window.new)}
+    if missing := sorted(named - topics.keys()):
+        msg = f"lists name topics it lacks: {', '.join(missing[:3])}"
+        raise ValueError(msg)
+
+
 def _country_code(value: object) -> str | None:
     """A country of ``countries.json``: an ISO 3166-1 alpha-2 code, or ``None``.
 
@@ -842,7 +1049,31 @@ def _write_json(path: Path, payload: object) -> None:
     A file that would not change is left as it is: the weekly archive rewrote its 16 year
     files, 56 MB, most of them the same (CI-12).
     """
-    text = json.dumps(payload, ensure_ascii=False, indent=1) + "\n"
+    _write_text(path, json.dumps(payload, ensure_ascii=False, indent=1) + "\n")
+
+
+def _write_json_by_line(path: Path, payload: Mapping[str, object], entries: str) -> None:
+    """Write JSON as :func:`_write_json` does, but each field, and each of ``entries``, on one line.
+
+    The topics' monthly counts, one number a line, made ``topics.json`` 3.6 MB; compact, a
+    topic a line, it is a third of that, and a week's diff still reads topic by topic.
+    """
+
+    def compact(value: object) -> str:
+        return json.dumps(value, ensure_ascii=False, separators=(",", ":"))
+
+    fields = []
+    for name, value in payload.items():
+        if name == entries and isinstance(value, Mapping):
+            inner = ",\n".join(f"  {compact(key)}:{compact(item)}" for key, item in value.items())
+            fields.append(f" {compact(name)}:{{\n{inner}\n }}")
+        else:
+            fields.append(f" {compact(name)}:{compact(value)}")
+    _write_text(path, "{\n" + ",\n".join(fields) + "\n}\n")
+
+
+def _write_text(path: Path, text: str) -> None:
+    """Write a file atomically, unless it would not change."""
     if path.is_file() and path.read_text(encoding="utf-8") == text:
         return
     path.parent.mkdir(parents=True, exist_ok=True)

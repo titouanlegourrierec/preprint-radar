@@ -16,7 +16,12 @@ from rich.table import Table
 
 from preprint_radar import __version__, collect
 from preprint_radar.archive.catalog import Catalog
-from preprint_radar.archive.update import ArchiveClients, format_archive_report, update_archive
+from preprint_radar.archive.update import (
+    ArchiveClients,
+    format_archive_report,
+    read_citations_cache,
+    update_archive,
+)
 from preprint_radar.collect import (
     HtmlReading,
     Ror,
@@ -58,7 +63,7 @@ from preprint_radar.config import (
     STALE_DATA_WEEKDAYS,
 )
 from preprint_radar.console import configure_logging, console, github_annotation, github_summary
-from preprint_radar.exceptions import ConfigurationError, PreprintRadarError
+from preprint_radar.exceptions import ConfigurationError, PreprintRadarError, StoreError
 from preprint_radar.http import (
     ARXIV_API_DELAY_SECONDS,
     ARXIV_CRAWL_DELAY_SECONDS,
@@ -98,6 +103,7 @@ from preprint_radar.store.stats import (
 )
 from preprint_radar.store.validate import validate_store
 from preprint_radar.store.venues import detect_venues_again
+from preprint_radar.trends import TITLES_SOURCE, TRENDS_SOURCE, count_trends, format_trends_report
 
 logger = logging.getLogger(__name__)
 
@@ -193,6 +199,7 @@ def build_parser() -> argparse.ArgumentParser:
     _add_scholar_parser(subparsers)
     _add_code_parser(subparsers)
     _add_countries_parser(subparsers)
+    _add_trends_parser(subparsers)
     _add_venues_parser(subparsers)
     _add_validate_parser(subparsers)
     _add_summary_parser(subparsers)
@@ -462,6 +469,27 @@ def _add_scholar_parser(subparsers: "argparse._SubParsersAction[argparse.Argumen
         type=_duration,
         default=None,
         help="stop asking a refusing Semantic Scholar after this long (default: no limit)",
+    )
+
+
+def _add_trends_parser(subparsers: "argparse._SubParsersAction[argparse.ArgumentParser]") -> None:
+    trends = subparsers.add_parser(
+        "trends",
+        help="count the topics of the papers' titles: rising, cooling and new (offline)",
+        description=(
+            "Count, month by month since 2010, the phrases of the titles of the category's "
+            "catalog, which archive harvests, and write the topics rising, cooling and new into "
+            "trends.json, and every topic's months into topics.json (PROD-20): the site's Trends "
+            "view. Offline, under a minute. Each topic's impact and key papers need the citation "
+            "counts archive cached within the week: without them, they are left out."
+        ),
+    )
+    _add_store_location(trends, every_category=False)
+    trends.add_argument(
+        "--catalog-dir",
+        type=Path,
+        default=DEFAULT_CATALOG_DIR,
+        help=f"where the harvested catalog is kept (default: {DEFAULT_CATALOG_DIR})",
     )
 
 
@@ -1107,6 +1135,33 @@ def _run_countries(args: argparse.Namespace) -> int:
     return 0
 
 
+def _run_trends(args: argparse.Namespace) -> int:
+    categories: list[str] = args.categories or [DEFAULT_CATEGORY]
+    store = PaperStore(args.data_dir)
+    today = datetime.now(tz=UTC).date()
+    for category in categories:
+        catalog = Catalog(args.catalog_dir, category)
+        _, citations = read_citations_cache(catalog.directory / f"{category}.citations.jsonl", today)
+        try:
+            trends = count_trends(catalog.entries().values(), citations)
+        except ValueError as exc:  # no catalog yet, or one without a paper since 2010
+            msg = (
+                f"The catalog of {category} in {args.catalog_dir} holds no paper since 2010: "
+                "archive harvests it"
+            )
+            raise StoreError(msg) from exc
+        if not citations:
+            logger.warning(
+                "No citation counts of the week in %s: the topics' impact and key papers are left out",
+                args.catalog_dir,
+            )
+        store.write_trends(category, trends, source=TRENDS_SOURCE if citations else TITLES_SOURCE)
+        line = format_trends_report(category, trends)
+        console.print(line)
+        github_summary(f"**Trends.** {line}")
+    return 0
+
+
 def _semantic_scholar() -> tuple[HttpClient, str | None]:
     """A client for Semantic Scholar, and the API key it is used with (if any)."""
     key = api_key()
@@ -1321,6 +1376,7 @@ _COMMANDS: dict[str, Callable[[argparse.Namespace], int]] = {
     "scholar": _run_scholar,
     "code": _run_code,
     "countries": _run_countries,
+    "trends": _run_trends,
     "validate": _run_validate,
     "summary": _run_summary,
     "reextract": _run_reextract,

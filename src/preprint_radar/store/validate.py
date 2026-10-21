@@ -32,6 +32,8 @@ from preprint_radar.store.paper_store import (
     SCHEMA_VERSION,
     SCHOLAR_FILENAME,
     TOP_RECENT_FILENAME,
+    TOPICS_FILENAME,
+    TRENDS_FILENAME,
     PaperStore,
 )
 from preprint_radar.store.quality import last_holds_all, names_only
@@ -174,6 +176,7 @@ def _validate_category(store: PaperStore, category: str, report: ValidationRepor
     _validate_code(store, category, stored, report)
     _validate_countries(store, category, report)
     _validate_cohorts(store, category, report)
+    _validate_trends(store, category, report)
     return {"days": days, "years": years, "top_recent": top_recent}
 
 
@@ -385,6 +388,19 @@ def _validate_cohorts(store: PaperStore, category: str, report: ValidationReport
         store.load_cohorts(category)
     except StoreError as exc:
         report.findings.append(Finding(Level.ERROR, _where(path, store), str(exc)))
+
+
+def _validate_trends(store: PaperStore, category: str, report: ValidationReport) -> None:
+    """``trends.json`` and ``topics.json`` must load (PROD-20): the site's Trends view reads them."""
+    for name, load in ((TRENDS_FILENAME, store.load_trends), (TOPICS_FILENAME, store.load_topics)):
+        path = store.root / category / name
+        if not path.is_file():
+            continue
+        report.files += 1
+        try:
+            load(category)
+        except StoreError as exc:
+            report.findings.append(Finding(Level.ERROR, _where(path, store), str(exc)))
 
 
 def _validate_scholar(

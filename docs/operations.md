@@ -328,6 +328,22 @@ weekly harvest is, and the next whole harvest is in 90 days. If arXiv renamed it
 (`ListSets`), fix `Catalog.set_spec`; to harvest the whole set again sooner, delete
 `full` from `.cache/catalog/<category>.state.json` (in CI, the cached catalog's).
 
+## The trends kept last week's
+
+**Signal.** Error annotation *preprint-radar trends failed* in the *Archive* run: the
+catalog `holds no paper since 2010`, `archive harvests it`; or the warning
+`No citation counts of the week in` the catalog's directory: `the topics' impact and key
+papers are left out`.
+
+The trends step counts the titles of the catalog that the archive step harvested in the
+same run (`.cache/catalog/`), offline (PROD-20, [trends.md](trends.md)). Without a
+catalog, the archive step failed before its harvest with the Actions cache evicted:
+`trends.json` and `topics.json` keep last week's, and the site its Trends view as it was;
+run *Archive* again. Without the counts (Semantic Scholar refused the week's, or they were
+cached more than 7 days ago) the topics are counted all the same, without their impact
+and key papers, and the files' `source` says `arXiv` alone; the next archive brings them
+back. Locally, `make trends` reads the catalog of your last `make archive`.
+
 ## Re-extract after a heuristic fix
 
 - **A change to the cleaning only** (`clean_affiliation`, `names_only_authors`): run
@@ -439,4 +455,5 @@ At a warning (the migration trigger, decided with ARCH-1):
 | `archive-affiliations MAX_HTML=3000` (HTML pages of highly cited papers) | 15 s a page: about 8 hours for the archive's 2,000, 3 more for the last 12 months |
 | `institutions` | a few minutes (one request per distinct string, every 0.5 s) |
 | First catalog harvest, and the whole set again every 90 days | about 45 minutes |
+| `trends` (the topics of the catalog's 210,000 titles) | under a minute, offline |
 | Weekly archive of cs.CV | 207,000 counts in 415 requests: about 40 minutes with a key and a warm catalog; hours without a key |

@@ -174,6 +174,10 @@ code: ## Fetch the GitHub stars (Hugging Face likes) of the code stored papers l
 countries: ## Place the institutions of stored papers in their country, from OpenAlex (seconds; ALL=1: every institution again)
 	uv run preprint-radar -v countries $(CATEGORY_ARGS) $(if $(ALL),--all)
 
+.PHONY: trends
+trends: ## Count the topics of the catalog's titles, rising, cooling and new (offline, under a minute; after an archive)
+	uv run preprint-radar -v trends $(CATEGORY_ARGS)
+
 .PHONY: validate
 validate: ## Check data/ against its contract (errors fail, heuristic warnings do not)
 	@uv run preprint-radar validate

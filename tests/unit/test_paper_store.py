@@ -9,8 +9,26 @@ from pathlib import Path
 import pytest
 
 from preprint_radar.exceptions import SchemaVersionError, StoreError
-from preprint_radar.models import CodeRecord, Cohort, Listing, Paper, ScholarRecord
-from preprint_radar.store.paper_store import SCHEMA_VERSION, CohortsFile, CountriesFile, PaperStore
+from preprint_radar.models import (
+    CodeRecord,
+    Cohort,
+    KeyPaper,
+    Listing,
+    Paper,
+    ScholarRecord,
+    TopicSeries,
+    Trends,
+    TrendTopic,
+    TrendWindow,
+)
+from preprint_radar.store.paper_store import (
+    SCHEMA_VERSION,
+    CohortsFile,
+    CountriesFile,
+    PaperStore,
+    TopicsFile,
+    TrendsFile,
+)
 
 
 @pytest.fixture
@@ -593,3 +611,159 @@ def test_a_countries_file_of_another_schema_version_is_refused(store: PaperStore
 
     with pytest.raises(SchemaVersionError):
         store.load_countries("cs.CV")
+
+
+# Four months counted, July to October 2026; the lists' topics keep the last three.
+TRENDS = Trends(
+    through=date(2026, 10, 20),
+    start="2026-07",
+    totals=(4, 5, 6, 7),
+    windows={
+        "quarter": TrendWindow(
+            days=90,
+            earlier=(date(2025, 7, 23), date(2025, 10, 20)),
+            recent=(date(2026, 7, 23), date(2026, 10, 20)),
+            papers=(8, 18),
+            rising=("world model",),
+            cooling=("diffusion model",),
+            new=(),
+            added=0.16666667,
+        )
+    },
+    topics={
+        "world model": TrendTopic(
+            name="world model",
+            counts=(1, 2, 3),
+            windows={"quarter": (0, 6)},
+            first="2026-09",
+            impact=0.5,
+            papers=(KeyPaper("2609.00001", "World Models", 12),),
+        ),
+        "diffusion model": TrendTopic(
+            name="diffusion model",
+            counts=(2, 1, 0),
+            windows={"quarter": (4, 1)},
+            first=None,
+            impact=None,
+            papers=(),
+        ),
+    },
+    months=3,
+    series={
+        "world model": TopicSeries("world model", 1, (1, 2, 3)),
+        "diffusion model": TopicSeries("diffusion model", 0, (3, 2, 1, 0)),
+    },
+)
+
+
+def test_trends_are_written_a_topic_a_line_and_read_back(store: PaperStore) -> None:
+    now = datetime(2026, 10, 25, 6, tzinfo=UTC)
+    store.write_trends("cs.CV", TRENDS, source="arXiv, Semantic Scholar", now=now)
+
+    lines = (store.root / "cs.CV" / "trends.json").read_text(encoding="utf-8").splitlines()
+    assert ' "start":"2026-08",' in lines
+    assert ' "totals":[5,6,7],' in lines
+    assert '  "diffusion model":{"name":"diffusion model","counts":[2,1,0],' in "\n".join(lines)
+    assert store.load_trends("cs.CV") == TrendsFile(
+        through=date(2026, 10, 20),
+        start="2026-08",
+        totals=(5, 6, 7),
+        windows=dict(TRENDS.windows),
+        topics=dict(TRENDS.topics),
+        source="arXiv, Semantic Scholar",
+        generated_at=now,
+    )
+    assert store.load_topics("cs.CV") == TopicsFile(
+        through=date(2026, 10, 20),
+        start="2026-07",
+        totals=(4, 5, 6, 7),
+        topics=dict(TRENDS.series),
+        source="arXiv, Semantic Scholar",
+        generated_at=now,
+    )
+    assert store.load_trends("cs.RO") is None
+    assert store.load_topics("cs.RO") is None
+
+
+@pytest.mark.parametrize(
+    ("keys", "value", "message"),
+    [
+        (("start",), "2026-13", "'2026-13' is not a month"),
+        (("through",), "soon", "Invalid isoformat"),
+        (("topics", "world model", "counts"), [1, 2], "counts not one a month for world model"),
+        (
+            ("windows", "quarter", "rising"),
+            ["state space model"],
+            "lists name topics it lacks: state space model",
+        ),
+        (("topics", "world model", "impact"), 1.5, "Invalid impact of topic 'world model'"),
+        (
+            ("topics", "world model", "windows", "quarter"),
+            [1, 2, 3],
+            "Invalid windows of topic 'world model'",
+        ),
+        (("topics", "world model", "windows"), [], "Invalid topic 'world model'"),
+        (("topics", "world model", "counts", 1), -2, "-2 is not a whole number"),
+        (("topics", "world model", "counts", 1), True, "True is not a whole number"),
+        (("topics", "world model", "counts"), "123", "'123' is not a list"),
+        (("topics", "world model", "first"), "", "'' is not a text"),
+        (("topics", "world model", "papers", 0, "title"), "", "'' is not a text"),
+        (("windows", "quarter", "papers"), [1, 2, 3], "Invalid window papers"),
+        (("windows", "quarter", "earlier"), ["2025-07-23"], "is not a period"),
+        (("windows", "quarter", "recent", 1), "2026-02-30", "day 30 must be in range"),
+        (("windows", "quarter", "new"), "world model", "is not a list"),
+        (("windows", "quarter", "added"), 1, "Invalid window share added 1"),
+        (("windows", "quarter", "added"), True, "Invalid window share added True"),
+    ],
+)
+def test_invalid_trends_file_raises(
+    store: PaperStore, keys: tuple[str | int, ...], value: object, message: str
+) -> None:
+    store.write_trends("cs.CV", TRENDS, source="arXiv")
+    path = store.root / "cs.CV" / "trends.json"
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    target = payload
+    for key in keys[:-1]:
+        target = target[key]
+    target[keys[-1]] = value
+    path.write_text(json.dumps(payload), encoding="utf-8")
+
+    with pytest.raises(StoreError, match=f"Invalid trends file .*{message}"):
+        store.load_trends("cs.CV")
+
+
+@pytest.mark.parametrize(
+    ("keys", "value", "message"),
+    [
+        (("start",), "July", "'July' is not a month"),
+        (("topics", "world model", "start"), 2, "counts past the last month for world model"),
+        (("topics", "world model", "start"), "1", "'1' is not a whole number"),
+        (("topics", "world model", "name"), None, "None is not a text"),
+    ],
+)
+def test_invalid_topics_file_raises(
+    store: PaperStore, keys: tuple[str, ...], value: object, message: str
+) -> None:
+    store.write_trends("cs.CV", TRENDS, source="arXiv")
+    path = store.root / "cs.CV" / "topics.json"
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    target = payload
+    for key in keys[:-1]:
+        target = target[key]
+    target[keys[-1]] = value
+    path.write_text(json.dumps(payload), encoding="utf-8")
+
+    with pytest.raises(StoreError, match=f"Invalid topics file .*{message}"):
+        store.load_topics("cs.CV")
+
+
+def test_unreadable_trends_files_raise(store: PaperStore) -> None:
+    for name in ("trends.json", "topics.json"):
+        path = store.root / "cs.CV" / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("{not json", encoding="utf-8")
+
+    with pytest.raises(StoreError, match="Invalid trends file"):
+        store.load_trends("cs.CV")
+    with pytest.raises(StoreError, match="Invalid topics file"):
+        store.load_topics("cs.CV")

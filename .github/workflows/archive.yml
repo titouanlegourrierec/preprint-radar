@@ -134,6 +134,17 @@ jobs:
           for category in $CATEGORIES; do args+=(--category "$category"); done
           uv run --no-dev preprint-radar -v countries "${args[@]}"
 
+      # The topics of the titles, rising, cooling and new, in trends.json and topics.json
+      # (PROD-20): offline, from the catalog the archive harvested and the counts it cached,
+      # under a minute.
+      - name: Count the topics' trends
+        if: ${{ !cancelled() }}
+        timeout-minutes: 10
+        run: |
+          args=()
+          for category in $CATEGORIES; do args+=(--category "$category"); done
+          uv run --no-dev preprint-radar -v trends "${args[@]}"
+
       # The GitHub stars (Hugging Face likes) of the code the stored papers link, in
       # code.json (PROD-18): about 5 minutes, a query every 3 s, more when GitHub's limits
       # ask to wait. The workflow's own token reads public data.

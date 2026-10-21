@@ -8,8 +8,10 @@ from typing import Any
 import pytest
 
 from preprint_radar.models import Cohort, Paper, Provenance
+from preprint_radar.sources.arxiv_oai import CatalogEntry
 from preprint_radar.store.paper_store import PaperStore
 from preprint_radar.store.validate import Finding, Level, validate_store
+from preprint_radar.trends import count_trends
 
 DAY = date(2026, 9, 25)
 
@@ -275,9 +277,40 @@ def test_cohorts(store: PaperStore) -> None:
     assert _messages(store)[0].startswith("data/cs.CV/cohorts.json: Invalid cohorts file")
 
 
+def test_trends(store: PaperStore) -> None:
+    catalog = [
+        CatalogEntry(
+            arxiv_id=f"2609.{index:05d}",
+            created=date(2026, 9, 10 + index),
+            categories=("cs.CV",),
+            title="World Models",
+            authors=("A. Author",),
+        )
+        for index in range(10)
+    ]
+    store.write_trends("cs.CV", count_trends(catalog, {}), source="arXiv")
+    assert validate_store(store).findings == []
+
+    (store.root / "cs.CV" / "topics.json").write_text("{}", encoding="utf-8")
+    [message] = _messages(store)
+    assert message.startswith("data/cs.CV/topics.json: Invalid topics file")
+    assert message.endswith("schema_version is None, expected 1")
+    (store.root / "cs.CV" / "trends.json").write_text("[]", encoding="utf-8")
+    assert _messages(store)[0].startswith("data/cs.CV/trends.json: Invalid trends file")
+
+
 @pytest.mark.parametrize(
     "name",
-    ["citations.json", "citation-gains.json", "scholar.json", "code.json", "countries.json", "cohorts.json"],
+    [
+        "citations.json",
+        "citation-gains.json",
+        "scholar.json",
+        "code.json",
+        "countries.json",
+        "cohorts.json",
+        "trends.json",
+        "topics.json",
+    ],
 )
 def test_a_file_of_another_schema_version(store: PaperStore, name: str) -> None:
     path = store.root / "cs.CV" / name

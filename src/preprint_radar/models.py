@@ -153,6 +153,271 @@ class Cohort:
         return cls(papers=papers, top_1=top_1, top_5=top_5, top_10=top_10)
 
 
+def _whole(value: object) -> int:
+    """A whole number of a record, zero or more.
+
+    Raises:
+        TypeError: If it is not one.
+    """
+    if isinstance(value, int) and not isinstance(value, bool) and value >= 0:
+        return value
+    msg = f"{value!r} is not a whole number"
+    raise TypeError(msg)
+
+
+def _wholes(value: object) -> tuple[int, ...]:
+    """A list of whole numbers of a record.
+
+    Raises:
+        TypeError: If it is not one.
+    """
+    if not isinstance(value, list):
+        msg = f"{value!r} is not a list"
+        raise TypeError(msg)
+    return tuple(_whole(item) for item in value)
+
+
+def _text(value: object) -> str:
+    """A text of a record, not empty.
+
+    Raises:
+        TypeError: If it is not one.
+    """
+    if isinstance(value, str) and value:
+        return value
+    msg = f"{value!r} is not a text"
+    raise TypeError(msg)
+
+
+@dataclass(frozen=True, slots=True)
+class KeyPaper:
+    """One of a topic's most cited papers of the last 12 months (``trends.json``, PROD-20)."""
+
+    arxiv_id: str
+    title: str
+    citations: int
+
+    def to_record(self) -> dict[str, object]:
+        """The record of ``trends.json``."""
+        return {"id": self.arxiv_id, "title": self.title, "citations": self.citations}
+
+    @classmethod
+    def from_record(cls, record: Mapping[str, object]) -> Self:
+        """Rebuild a paper from :meth:`to_record` output.
+
+        Raises:
+            TypeError: If a field is not of its type.
+        """
+        return cls(_text(record["id"]), _text(record["title"]), _whole(record["citations"]))
+
+
+@dataclass(frozen=True, slots=True)
+class TrendTopic:
+    """A topic ``trends.json`` lists: the papers whose titles say it, month by month (PROD-20).
+
+    Attributes:
+        name: The phrase as titles most often write it ("vision-language-action model", "VLA").
+        counts: Its papers in each month of the file.
+        windows: Its papers in each window's two periods, the earlier first, by window name.
+        first: The first month three of its papers appeared in ("2026-03").
+        impact: Of its papers of 3 to 15 months before the last, the share among the most cited
+            tenth of their month; ``None`` with too few of them, or without citation counts.
+        papers: Its most cited papers of the last 12 months, the most cited first.
+    """
+
+    name: str
+    counts: tuple[int, ...]
+    windows: Mapping[str, tuple[int, int]]
+    first: str | None
+    impact: float | None
+    papers: tuple[KeyPaper, ...]
+
+    def to_record(self) -> dict[str, object]:
+        """The record of ``trends.json``."""
+        return {
+            "name": self.name,
+            "counts": list(self.counts),
+            "windows": {name: list(pair) for name, pair in sorted(self.windows.items())},
+            "first": self.first,
+            "impact": self.impact,
+            "papers": [paper.to_record() for paper in self.papers],
+        }
+
+    @classmethod
+    def from_record(cls, record: Mapping[str, object]) -> Self:
+        """Rebuild a topic from :meth:`to_record` output.
+
+        Raises:
+            TypeError: If a field is not of its type.
+        """
+        windows = record["windows"]
+        papers = record["papers"]
+        impact = record["impact"]
+        first = record["first"]
+        if not isinstance(windows, dict) or not isinstance(papers, list):
+            msg = f"Invalid topic {record.get('name')!r}"
+            raise TypeError(msg)
+        pairs = {str(name): _wholes(pair) for name, pair in windows.items()}
+        if any(len(pair) != 2 for pair in pairs.values()):  # noqa: PLR2004 - then and now
+            msg = f"Invalid windows of topic {record.get('name')!r}"
+            raise TypeError(msg)
+        if impact is not None and not (isinstance(impact, float | int) and 0 <= impact <= 1):
+            msg = f"Invalid impact of topic {record.get('name')!r}"
+            raise TypeError(msg)
+        return cls(
+            name=_text(record["name"]),
+            counts=_wholes(record["counts"]),
+            windows={name: (pair[0], pair[1]) for name, pair in pairs.items()},
+            first=None if first is None else _text(first),
+            impact=None if impact is None else float(impact),
+            papers=tuple(KeyPaper.from_record(paper) for paper in papers),
+        )
+
+
+@dataclass(frozen=True, slots=True)
+class TrendWindow:
+    """Two periods of the same days a year apart, and the topics their papers rank (PROD-20).
+
+    Attributes:
+        days: The days of each period.
+        earlier: The first and last day of the earlier period.
+        recent: Those of the recent one, to the last day counted.
+        papers: The papers of each period, the earlier first.
+        rising: The topics whose share of the papers grew the most, the most first.
+        cooling: Those whose share fell the most.
+        new: Those that first appeared within the last 12 months, the most frequent first.
+        added: The share added to both of a topic's shares in its lift, which ranks the
+            lists: ``(now share + added) / (then share + added)``.
+    """
+
+    days: int
+    earlier: tuple[date, date]
+    recent: tuple[date, date]
+    papers: tuple[int, int]
+    rising: tuple[str, ...]
+    cooling: tuple[str, ...]
+    new: tuple[str, ...]
+    added: float
+
+    def to_record(self) -> dict[str, object]:
+        """The record of ``trends.json``."""
+        return {
+            "days": self.days,
+            "earlier": [day.isoformat() for day in self.earlier],
+            "recent": [day.isoformat() for day in self.recent],
+            "papers": list(self.papers),
+            "rising": list(self.rising),
+            "cooling": list(self.cooling),
+            "new": list(self.new),
+            "added": self.added,
+        }
+
+    @classmethod
+    def from_record(cls, record: Mapping[str, object]) -> Self:
+        """Rebuild a window from :meth:`to_record` output.
+
+        Raises:
+            TypeError: If a field is not of its type.
+            ValueError: If a day is not one.
+        """
+        papers = _wholes(record["papers"])
+        earlier, recent = (_days(record[name]) for name in ("earlier", "recent"))
+        if len(papers) != 2:  # noqa: PLR2004 - the earlier period and the recent one
+            msg = f"Invalid window papers {papers!r}"
+            raise TypeError(msg)
+        added = record["added"]
+        if not (isinstance(added, float | int) and not isinstance(added, bool) and 0 <= added < 1):
+            msg = f"Invalid window share added {added!r}"
+            raise TypeError(msg)
+        return cls(
+            days=_whole(record["days"]),
+            earlier=earlier,
+            recent=recent,
+            papers=(papers[0], papers[1]),
+            rising=_texts(record["rising"]),
+            cooling=_texts(record["cooling"]),
+            new=_texts(record["new"]),
+            added=float(added),
+        )
+
+
+def _days(value: object) -> tuple[date, date]:
+    """The first and last day of a period of a record.
+
+    Raises:
+        TypeError: If it is not two texts.
+        ValueError: If one is not a day.
+    """
+    if not isinstance(value, list) or len(value) != 2:  # noqa: PLR2004 - first and last
+        msg = f"{value!r} is not a period"
+        raise TypeError(msg)
+    first, last = (date.fromisoformat(_text(day)) for day in value)
+    return first, last
+
+
+def _texts(value: object) -> tuple[str, ...]:
+    """A list of texts of a record.
+
+    Raises:
+        TypeError: If it is not one.
+    """
+    if not isinstance(value, list):
+        msg = f"{value!r} is not a list"
+        raise TypeError(msg)
+    return tuple(_text(item) for item in value)
+
+
+@dataclass(frozen=True, slots=True)
+class TopicSeries:
+    """A topic of ``topics.json``, for the site's explorer: its papers a month (PROD-20).
+
+    Attributes:
+        name: The phrase as titles most often write it.
+        start: The index of its first month with a paper among the file's months.
+        counts: Its papers in each month from that one.
+    """
+
+    name: str
+    start: int
+    counts: tuple[int, ...]
+
+    def to_record(self) -> dict[str, object]:
+        """The record of ``topics.json``."""
+        return {"name": self.name, "start": self.start, "counts": list(self.counts)}
+
+    @classmethod
+    def from_record(cls, record: Mapping[str, object]) -> Self:
+        """Rebuild a series from :meth:`to_record` output.
+
+        Raises:
+            TypeError: If a field is not of its type.
+        """
+        return cls(_text(record["name"]), _whole(record["start"]), _wholes(record["counts"]))
+
+
+@dataclass(frozen=True, slots=True)
+class Trends:
+    """What the titles of a category's papers say, month by month (:mod:`preprint_radar.trends`).
+
+    Attributes:
+        through: The last day counted: the catalog's newest paper.
+        start: The first month of ``totals`` and of the explorer's series ("2010-01").
+        totals: The category's papers in each month since ``start``.
+        windows: The periods compared and the topics they rank, by name ("quarter", "year").
+        topics: The topics those lists name, by key, their counts over the last ``months``.
+        months: The months of the listed topics' counts, the last ones of ``totals``.
+        series: Every topic with enough papers, by key, for the explorer.
+    """
+
+    through: date
+    start: str
+    totals: tuple[int, ...]
+    windows: Mapping[str, TrendWindow]
+    topics: Mapping[str, TrendTopic]
+    months: int
+    series: Mapping[str, TopicSeries]
+
+
 @dataclass(frozen=True, slots=True)
 class CodeRecord:
     """How popular a paper's code is (``code.json``, PROD-18).
