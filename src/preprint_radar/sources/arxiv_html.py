@@ -107,9 +107,12 @@ _OBFUSCATED_EMAIL_RE = re.compile(
 _EMPTY_BRACKETS_RE = re.compile(r"\(\s*\)|\[\s*\]")
 # Mailbox names whose "@domain" is printed elsewhere: "{jane.doe, john.roe}", sometimes
 # unclosed, the list going on in another node, whose affiliation the line join glues on:
-# "{pau.rodriguez,ablaas,michal_klein,napostoloff, Apple" (2410.23054).
+# "{pau.rodriguez,ablaas,michal_klein,napostoloff, Apple" (2410.23054). A name is in lower
+# case, or capitalized when dots or underscores join its parts ("{Jane.Doe, A.Roe",
+# 2610.25235), which the words of an affiliation, after which an unclosed list ends, never are.
+_MAILBOX = r"(?:[A-Za-z0-9+-]+(?:[._][A-Za-z0-9+-]+)+|[a-z0-9_.+-]+)"
 _MAILBOX_LIST_RE = re.compile(
-    r"\{\s*[a-z0-9_.+-]+(?:\s*[,;|]\s*[a-z0-9_.+-]+|\s+[a-z0-9_.+-]+)+"
+    rf"\{{\s*{_MAILBOX}(?:\s*[,;|]\s*{_MAILBOX}|\s+{_MAILBOX})+"
     r"\s*(?:[,;]?\s*(?:\}|$)|[,;]\s*(?=[A-Z]))"
 )
 # The people an IEEE-style affiliation starts with: "The authors are with Delft University",

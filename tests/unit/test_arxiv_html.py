@@ -1194,6 +1194,16 @@ def test_clean_affiliation_drops_what_names_nothing(raw: str) -> None:
         pytest.param(
             "{jane.doe,j_roe,jsmith, Apple", "Apple", id="unclosed-mailbox-names-before-an-affiliation"
         ),
+        # Capitalized mailbox names, which dots or underscores join (2610.25235).
+        pytest.param("KAUST {Jane.Doe, A_Roe}", "KAUST", id="capitalized-mailbox-names"),
+        pytest.param(
+            "{Jane.Doe, John.Roe, A.Smith, Mary.Major,", None, id="unclosed-capitalized-mailbox-names"
+        ),
+        pytest.param(
+            "{Jane.Doe, John.Roe, Apple",
+            "Apple",
+            id="unclosed-capitalized-mailbox-names-before-an-affiliation",
+        ),
         pytest.param("{Department of Physics}, MIT", "{Department of Physics}, MIT", id="braces-of-latex"),
         pytest.param(
             "University of Zurich, Switzerland ()", "University of Zurich, Switzerland", id="empty-brackets"

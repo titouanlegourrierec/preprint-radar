@@ -2599,5 +2599,57 @@
       ]
     ],
     "abstract": "Camera-based 3D object detection and online vectorized HD mapping provide compact scene representations for autonomous driving, but both depend on accurate metric geometry and remain limited by depth ambiguity. Over long-term deployment, observations from repeated traversals can be accumulated into persistent point cloud priors that provide geometric context beyond the current observations. Existing explicit point cloud prior approaches, however, rely on LiDAR-based map construction and therefore require expensive 3D ranging sensors. We propose a framework that constructs a static point cloud prior map from previous camera traversals using Pi3X and augments each point with DINOv3 features. At runtime, a local prior patch is retrieved using global localization, encoded with a sparse voxel backbone, and fused in bird’s-eye view (BEV) with lifted multi-view camera features. Task-specific sparse transformer heads then predict 3D objects and vectorized map elements from the fused representation. On Argoverse 2, the vision-based prior improves a strong baseline from 0.287 to 0.299 CDS and from 0.669 to 0.750 vectorized mapping mAP. Ablations show that semantic DINOv3 features are particularly important for vectorized mapping. These results demonstrate that vision-built geometric-semantic priors provide an effective form of long-term scene memory for camera-based perception, improving both tasks without LiDAR for prior-map construction or online inference."
+  },
+  "2610.25235": {
+    "authors": [
+      "Jumana Alsubhi",
+      "Ahmed Alhusayni",
+      "Abdulrahman Gharawi",
+      "Israa Hamdine",
+      "Khadija Alansari",
+      "Alshaymaa Allahim",
+      "Lamees Alhumaid",
+      "Ahmad Shabana"
+    ],
+    "affiliations": [
+      "Naseej Innovation Lab, Naseej Technical Company, Riyadh, Saudi Arabia"
+    ],
+    "placed": [
+      [
+        "Jumana Alsubhi",
+        null
+      ],
+      [
+        "Ahmed Alhusayni",
+        [
+          "Naseej Innovation Lab, Naseej Technical Company, Riyadh, Saudi Arabia"
+        ]
+      ],
+      [
+        "Abdulrahman Gharawi",
+        null
+      ],
+      [
+        "Israa Hamdine",
+        null
+      ],
+      [
+        "Khadija Alansari",
+        null
+      ],
+      [
+        "Alshaymaa Allahim",
+        null
+      ],
+      [
+        "Lamees Alhumaid",
+        null
+      ],
+      [
+        "Ahmad Shabana",
+        null
+      ]
+    ],
+    "abstract": "Choosing an OCR system for a multilingual archive requires balancing accuracy against deployment constraints. This study compares cloud and self-hosted systems on three tasks: bounding box detection on 48 Arabic, English, and French pages, text recognition on 315 pages across nine document types, and mathematical expression recognition on 83 English and Arabic samples. Detection was assessed by page-level visual grades, text by character error rate (CER) against a Gemini-generated reference transcription, and mathematics by scores against known answers. Main estimates are accompanied by 95% intervals and paired comparisons. Google Document AI and Surya produced Good line boxes on 47 of 48 (98%) and 46 of 48 (96%) pages. Datalab, Azure Document Intelligence, and Document AI had mean CERs of 0.145–0.152, with no difference detected in unadjusted paired comparisons. Surya had the lowest mean CER among self-hosted systems (0.199). No mathematical test had a statistically clear leader. Strict checks showed that near-perfect page scores could conceal a replaced Arabic variable or Eastern Arabic digits rewritten in Western form. Reliable evaluation therefore requires uncertainty estimates, structural checks, and notation-specific tests in addition to aggregate recognition scores."
   }
 }

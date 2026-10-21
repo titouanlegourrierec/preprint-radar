@@ -127,7 +127,10 @@ Artificial".
   first ending with a comma, which the line join glues to the next affiliation:
   "{pau.rodriguez,...,napostoloff," then "Apple" gave "{pau.rodriguez,...,napostoloff,
   Apple" (2410.23054, which `validate` refused); an unclosed list ends before a capital,
-  and mailboxes may hold underscores ("michal_klein").
+  and mailboxes may hold underscores ("michal_klein"). A mailbox name may be capitalized
+  when dots or underscores join its parts ("{Jane.Doe, A.Roe,", 2610.25235,
+  which `validate` refused, so that two runs pushed nothing): the words of an
+  affiliation never are.
   `_JUNK_RE` rejects what still passes: lone words ("the", "dot"), link and contribution
   leftovers ("Code", "Core Contributors"), units cut off by a line break ("School of"),
   lone countries, and the author of IEEE's template, "IEEE Publication Technology

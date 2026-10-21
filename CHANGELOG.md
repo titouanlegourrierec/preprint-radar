@@ -8,6 +8,12 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ## Unreleased
 
+### Fixes
+
+- A list of mailbox names in capitals ("{Jane.Doe, A.Roe,") is a contact detail too, and
+  no longer an affiliation: on 2026-10-20, one paper's made the data fail validation, and
+  neither run of the day stored its 346 papers (AFF-32).
+
 ### Data
 
 - The archive's catalog drops the papers arXiv deleted, and every 90 days harvests the
