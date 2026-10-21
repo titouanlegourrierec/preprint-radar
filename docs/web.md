@@ -123,6 +123,13 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   filters keep and whether by citations, gains or stars, the first three in gold, silver
   and bronze (`--medal-gold`, `--medal-silver`, `--medal-bronze`, with `--medal-text` on
   them in either theme), the others a neutral pill; "Rank 1" for screen readers.
+  A card says where the paper's citations put it among the papers of its year, "Top 1% of
+  2017", 5% or 10% (`cohortBadge`, an outlined badge after its counts, decision 22): the
+  weekly archive writes each complete year's cohort (`cohorts.json`: its papers, and the
+  citations of the last of its top 1%, 5% and 10%, over every paper of the year, not only
+  the archived ones), which the build adds to the site's `index.json` (`withCohorts`, a
+  kilobyte, rather than another request; the development server too). No badge below the
+  top 10%, without a count, or for the current year.
   A paper saved from its card, by the star or the `s` key (a change of `saved`, not a
   card drawn saved), bursts (UX-37): the star pops, a ring and eight sparks spread from it
   (`.save-burst`, angles by `nth-child`), and `flyToReadingList` flies a copy of the star

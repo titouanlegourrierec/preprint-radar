@@ -81,6 +81,10 @@ test("a paper link opens the paper", async ({ page }) => {
     "href",
     "https://doi.org/10.0000/looms.2017",
   );
+  // Its place among its year's papers, from cohorts.json in the site's index (decision 22).
+  await expect(
+    archived.getByTitle(/^Among the 1% most cited of the 5,701 cs.CV papers/),
+  ).toHaveText("Top 1% of 2017");
 });
 
 test("older days past the budget are searched, and a card loads its abstract", async ({ page }) => {

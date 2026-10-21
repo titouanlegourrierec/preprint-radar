@@ -14,8 +14,9 @@ import { gzipSync } from "node:zlib";
 import preact from "@preact/preset-vite";
 import type { Plugin } from "vite";
 import { defineConfig } from "vitest/config";
-import type { CodeFile, ScholarFile, StoreIndex } from "./src/types";
+import type { CodeFile, Cohort, CohortsFile, ScholarFile, StoreIndex } from "./src/types";
 import { citationShardFiles } from "./tooling/citation-shards";
+import { withCohorts } from "./tooling/cohorts";
 import { contentSecurityPolicy as policy } from "./tooling/content-security-policy";
 import { fileVersions, withVersions } from "./tooling/data-versions";
 import { feedFiles } from "./tooling/feeds";
@@ -128,6 +129,15 @@ function paperData(dataDir: string): Plugin {
   const read = jsonReader(dataDir);
   const scholarOf = (category: string) => read(`${category}/scholar.json`) as ScholarFile | null;
   const codeOf = (category: string) => read(`${category}/code.json`) as CodeFile | null;
+  // Each category's cohorts, for the site's index: the badges' "Top 1% of 2017".
+  const cohortsOf = (index: StoreIndex | null) => {
+    const cohorts: Record<string, Record<string, Cohort>> = {};
+    for (const category of Object.keys(index?.categories ?? {})) {
+      const file = read(`${category}/cohorts.json`) as CohortsFile | null;
+      if (file !== null) cohorts[category] = file.years;
+    }
+    return cohorts;
+  };
   return {
     name: "preprint-radar:data",
     configureServer(server) {
@@ -155,6 +165,11 @@ function paperData(dataDir: string): Plugin {
           return;
         }
         res.setHeader("Content-Type", "application/json; charset=utf-8");
+        if (path === "/index.json") {
+          const text = readFileSync(file, "utf8");
+          res.end(withCohorts(text, cohortsOf(JSON.parse(text) as StoreIndex)));
+          return;
+        }
         const category = PAPER_FILE_RE.exec(path)?.[1];
         if (category !== undefined) {
           const text = readFileSync(file, "utf8");
@@ -211,7 +226,8 @@ function paperData(dataDir: string): Plugin {
         );
         const indexFile = resolve(output, "index.json");
         if (existsSync(indexFile)) {
-          writeFileSync(indexFile, withVersions(readFileSync(indexFile, "utf8"), versions));
+          const text = withVersions(readFileSync(indexFile, "utf8"), versions);
+          writeFileSync(indexFile, withCohorts(text, cohortsOf(index)));
         }
       }
     },

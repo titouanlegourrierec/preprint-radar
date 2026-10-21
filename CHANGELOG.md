@@ -8,6 +8,12 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ## Unreleased
 
+### Interface
+
+- A card says where its citations put a paper among those of its year: "Top 1% of 2017",
+  5% or 10%, against every cs.CV paper first submitted that year, from the archive of
+  2026-10-25 on (PROD-19).
+
 ### Fixes
 
 - A list of mailbox names in capitals ("{Jane.Doe, A.Roe,") is a contact detail too, and

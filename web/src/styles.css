@@ -1234,6 +1234,13 @@ html {
   color: var(--text-muted);
 }
 
+/* Its place among its year's papers, "Top 1% of 2017" (decision 22): outlined, apart from
+   the venue's filled badge. */
+.badge--cohort {
+  border: 1px solid currentColor;
+  background: none;
+}
+
 /* Withdrawn by its authors (decision 18): the reason is in the comments. */
 .badge--withdrawn {
   border: 1px solid currentColor;

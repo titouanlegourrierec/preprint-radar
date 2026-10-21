@@ -1,5 +1,6 @@
 import type { ComponentChildren } from "preact";
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
+import type { CohortBadge } from "../cohorts";
 import { dayGroups } from "../day-groups";
 import { countOf, formatShortDay } from "../format";
 import { hasModifier, isTyping } from "../keyboard";
@@ -32,6 +33,8 @@ interface Props {
   oldestDay?: string | undefined;
   /** What a paper gained in the last week of counts, as its card says it (CIT-9). */
   gainOf?: ((arxivId: string) => { text: string; title: string } | undefined) | undefined;
+  /** A paper's place among its year's papers, as its card says it (decision 22). */
+  cohortOf?: ((paper: Paper) => CohortBadge | null) | undefined;
   showAbstracts: boolean;
   savedIds: ReadonlySet<string>;
   onToggleSaved: (paper: Paper) => void;
@@ -71,6 +74,7 @@ export function PaperList({
   citationsNote,
   oldestDay,
   gainOf,
+  cohortOf,
   showAbstracts,
   savedIds,
   onToggleSaved,
@@ -255,6 +259,7 @@ export function PaperList({
       citationsNote={citationsNote}
       oldestDay={oldestDay}
       gain={gainOf?.(paper.arxiv_id)}
+      cohort={cohortOf?.(paper) ?? undefined}
       onToggleSaved={toggleSaved}
       onAuthor={onAuthor}
       onAffiliation={onAffiliation}

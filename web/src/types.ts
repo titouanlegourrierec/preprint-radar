@@ -165,6 +165,31 @@ export interface StoreIndex {
    * `data/`, which the build writes (`tooling/data-versions.ts`, PERF-8).
    */
   versions?: Record<string, string>;
+  /**
+   * The site's index only: each category's papers of each complete year, as their citations
+   * rank them (`cohorts.json`, by year), which the build adds (`tooling/cohorts.ts`).
+   */
+  cohorts?: Record<string, Record<string, Cohort>>;
+}
+
+/**
+ * The papers of one year of first version, as their citations rank them (decision 22): how
+ * many there are, and the citations of the last of the most cited 1%, 5% and 10%.
+ */
+export interface Cohort {
+  papers: number;
+  top_1: number;
+  top_5: number;
+  top_10: number;
+}
+
+/** `<category>/cohorts.json`, which the weekly archive writes. */
+export interface CohortsFile {
+  schema_version: number;
+  category: string;
+  generated_at: string;
+  source: string;
+  years: Record<string, Cohort>;
 }
 
 export interface ArchiveFile {

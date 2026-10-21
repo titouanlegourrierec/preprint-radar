@@ -1,6 +1,7 @@
 import type { ComponentProps } from "preact";
 import { useCallback, useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { ALL_YEARS, formatYears, LAST_12_MONTHS, publishedIn } from "./archive-years";
+import { cohortBadge } from "./cohorts";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import type { Folders as FolderList } from "./components/Folders";
 import { InfoButton } from "./components/InfoButton";
@@ -135,6 +136,7 @@ export function App() {
     categories,
     category,
     storeDays,
+    cohorts,
     archiveYears,
     topRecent,
     archiveRange,
@@ -390,6 +392,17 @@ export function App() {
     const gain = citations.gains.get(arxivId);
     return gain && gainsSpan ? gainLabel(gain, gainsSpan, citations.source) : undefined;
   };
+  // Its place among its year's papers: "Top 1% of 2017" (decision 22).
+  const cohortOf = (paper: Paper) =>
+    category
+      ? cohortBadge(
+          paper.announced,
+          citations.counts.get(paper.arxiv_id),
+          cohorts,
+          category,
+          citations.source ?? undefined,
+        )
+      : null;
   // A share link opens the paper on its own day, free of the sharer's search context.
   const pastedId = arxivIdOf(query);
   // "No paper matches" offers the longest preset when it holds more days than the period.
@@ -995,6 +1008,7 @@ export function App() {
                     citationsNote={citationsNote}
                     oldestDay={oldestDay}
                     gainOf={gainOf}
+                    cohortOf={cohortOf}
                     showAbstracts={showAbstracts || state.view === "reading-list"}
                     savedIds={readingList.savedIds}
                     onToggleSaved={toggleSaved}

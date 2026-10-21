@@ -156,6 +156,8 @@ export function usePapers(
     category,
     storeDays,
     archiveYears,
+    /** The category's papers of each complete year, as their citations rank them (decision 22). */
+    cohorts: (category && storeIndex?.cohorts?.[category]) || undefined,
     /** The most cited papers of the last 12 months, once the archive keeps them. */
     topRecent,
     /**

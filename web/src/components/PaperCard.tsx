@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "preact/hooks";
 import { toBibtex } from "../bibtex";
 import { codeBadge, codeHost, codeUrl } from "../code";
+import type { CohortBadge } from "../cohorts";
 import { download } from "../download";
 import { PAPER_DRAG_TYPE } from "../folders";
 import {
@@ -141,6 +142,8 @@ interface Props {
   oldestDay?: string | undefined;
   /** The citations it gained in the last week of counts, when it gained any. */
   gain?: { text: string; title: string } | undefined;
+  /** Its place among its year's papers, when in their top 10% (decision 22). */
+  cohort?: CohortBadge | undefined;
   onToggleSaved: (paper: Paper) => void;
   /** Absent where papers cannot be marked seen (the reading list). */
   onToggleSeen?: ((arxivId: string) => void) | undefined;
@@ -189,6 +192,7 @@ export function PaperCard({
   citationsNote,
   oldestDay,
   gain,
+  cohort,
   onToggleSaved,
   onToggleSeen,
   onAuthor,
@@ -532,6 +536,11 @@ export function PaperCard({
             {gain && (
               <span class="citations citations--gain" title={gain.title}>
                 {gain.text}
+              </span>
+            )}
+            {cohort && (
+              <span class="badge badge--cohort" title={cohort.title}>
+                {cohort.text}
               </span>
             )}
             {subject && <span title={paper.primary_subject ?? undefined}>{subject}</span>}
