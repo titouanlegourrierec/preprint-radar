@@ -11,7 +11,7 @@ import time
 from collections import Counter
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from contextlib import ExitStack
-from dataclasses import dataclass, replace
+from dataclasses import dataclass, field, replace
 from datetime import UTC, date, datetime, timedelta
 from enum import StrEnum
 
@@ -50,6 +50,7 @@ from preprint_radar.sources.huggingface import fetch_likes
 from preprint_radar.sources.openalex import fetch_countries
 from preprint_radar.sources.ror import match_institutions
 from preprint_radar.sources.semantic_scholar import S2_SOURCE, fetch_citation_counts, fetch_scholar_records
+from preprint_radar.steps import StepCount, enrich
 from preprint_radar.store.paper_store import PaperStore
 from preprint_radar.store.stats import weekdays_since
 
@@ -125,6 +126,7 @@ class UpdateReport:
             not saved, they are fetched again next run.
         caught_up: The day the recent listing lacked, and the papers of it taken from its
             catchup page (:func:`_missing_day`): arXiv served a listing out of date.
+        steps: What each enrichment step of the run did (:func:`steps.enrich`).
     """
 
     category: str
@@ -139,6 +141,7 @@ class UpdateReport:
     stopped: Stop | None = None
     failed_days: tuple[date, ...] = ()
     caught_up: tuple[date, int] | None = None
+    steps: tuple[StepCount, ...] = ()
 
     @property
     def html_failed(self) -> bool:
@@ -188,28 +191,28 @@ def update_category(
     new = sum(paper.arxiv_id not in known for paper in papers)
     logger.info("%s: %d papers listed, %d new", category, len(papers), new)
 
-    papers, abstracts_fetched = _add_abstracts(
-        papers, category, site_client=site_client, api_client=api_client
-    )
-    store.save(category, papers)
-    # Let the web app show the new days while affiliations are being read, even if the run
-    # is stopped before its end.
-    store.write_index()
+    def saved_and_shown(current: list[Paper]) -> None:
+        store.save(category, current)
+        # Let the web app show the new days while affiliations are being read, even if the
+        # run is stopped before its end.
+        store.write_index()
 
-    read = _add_html_front_matter(
-        papers,
-        site_client,
-        reading=html or HtmlReading(),
-        checkpoint=lambda current: store.save(category, current),
+    papers, counts = enrich(
+        papers, [Abstracts(category, site_client, api_client)], checkpoint=saved_and_shown
     )
+    pages = Pages(
+        site_client, html or HtmlReading(), checkpoint=lambda current: store.save(category, current)
+    )
+    papers, read = enrich(papers, [pages])
     report = _name_and_report(
         category,
-        read.papers,
-        read,
+        papers,
+        pages.read,
         Ror(ror_client, max_ror_lookups),
         store=store,
         new=new,
-        abstracts=abstracts_fetched,
+        abstracts=counts[0].done,
+        counts=(*counts, *read),
     )
     return replace(report, caught_up=(day, len(caught_up))) if caught_up else report
 
@@ -369,20 +372,17 @@ def backfill_category(
     )
     logger.info("%s: %d papers listed, %d new", category, len(papers), new)
 
-    read = _add_html_front_matter(
-        papers,
-        site_client,
-        reading=reading,
-        checkpoint=lambda current: store.save(category, current),
-    )
+    pages = Pages(site_client, reading, checkpoint=lambda current: store.save(category, current))
+    papers, read = enrich(papers, [pages])
     report = _name_and_report(
         category,
-        read.papers,
-        read,
+        papers,
+        pages.read,
         Ror(ror_client, max_ror_lookups),
         store=store,
         new=new,
         abstracts=abstracts_fetched,
+        counts=read,
     )
     # Days left at the deadline wait for the next run, as its pages do: out of time, not red.
     stopped = report.stopped or (Stop.DEADLINE if left else None)
@@ -446,18 +446,18 @@ def reextract_category(
     logger.info("%s: %s papers to extract again", category, f"{len(stored):,}")
     unread = [paper.without_affiliations() for paper in stored]
     reading = html or HtmlReading()
-    read = _add_html_front_matter(
-        unread,
+    pages = Pages(
         site_client,
-        reading=reading,
+        reading,
         checkpoint=lambda current: store.save(category, _kept(current, stored, reading.cache)),
     )
+    read_papers, read = enrich(unread, [pages])
     emptied = [
         old.html_url
-        for new, old in zip(read.papers, stored, strict=True)
+        for new, old in zip(read_papers, stored, strict=True)
         if old.html_url and _emptied(new, old, reading.cache)
     ]
-    papers = _kept(read.papers, stored, reading.cache)
+    papers = _kept(read_papers, stored, reading.cache)
     if emptied and reading.cache is not None:
         logger.warning(
             "%d cached pages gave no affiliation to papers that have some: kept as they were, "
@@ -467,7 +467,14 @@ def reextract_category(
         for url in emptied:
             reading.cache.discard(url)
     return _name_and_report(
-        category, papers, read, Ror(ror_client, max_ror_lookups), store=store, new=0, abstracts=0
+        category,
+        papers,
+        pages.read,
+        Ror(ror_client, max_ror_lookups),
+        store=store,
+        new=0,
+        abstracts=0,
+        counts=read,
     )
 
 
@@ -480,6 +487,104 @@ class Ror:
     max_lookups: int | None
 
 
+# The enrichment steps of the day files' papers (:mod:`preprint_radar.steps`), each over the
+# function that does it: a paper needs what it lacks and a run can still give it.
+
+
+@dataclass(frozen=True, slots=True)
+class Abstracts:
+    """The abstracts the listing lacks: RSS, then catchup pages, then the API (:func:`_add_abstracts`)."""
+
+    category: str
+    site_client: HttpClient
+    api_client: HttpClient
+    name = "Abstracts"
+
+    def needs(self, paper: Paper) -> bool:
+        """Whether the paper has no abstract yet."""
+        return paper.abstract is None
+
+    def run(self, papers: list[Paper]) -> list[Paper]:
+        """The papers, with the abstracts the services gave."""
+        return _add_abstracts(
+            papers, self.category, site_client=self.site_client, api_client=self.api_client
+        )[0]
+
+
+@dataclass(slots=True)
+class Pages:
+    """The affiliations of the HTML pages, within the reading's budget (:func:`_add_html_front_matter`).
+
+    Attributes:
+        client: Client for arxiv.org.
+        reading: How the pages are read: limit, saves, deadline, cache.
+        checkpoint: Saves the papers every ``reading.save_every`` pages, and on Ctrl-C.
+        read: How the last run of the step went: pages read, empty, unreadable, why it stopped.
+    """
+
+    client: HttpClient
+    reading: HtmlReading
+    checkpoint: Callable[[list[Paper]], object]
+    read: "_HtmlRead" = field(default_factory=lambda: _HtmlRead([], 0, 0, 0, 0, None))
+    name = "HTML pages"
+
+    def needs(self, paper: Paper) -> bool:
+        """Whether the paper has a page and no affiliations from it yet."""
+        return paper.affiliations is None and paper.html_url is not None
+
+    def run(self, papers: list[Paper]) -> list[Paper]:
+        """The papers, with what their pages gave, until the budget, deadline or a stop."""
+        self.read = _add_html_front_matter(
+            papers, self.client, reading=self.reading, checkpoint=self.checkpoint
+        )
+        return self.read.papers
+
+
+@dataclass(frozen=True, slots=True)
+class Institutions:
+    """The institutions of the affiliations: ROR, then the rules (:func:`add_institutions`)."""
+
+    client: HttpClient
+    limit: int | None
+    #: ROR's answers of earlier runs, not asked again (:func:`ror_answers`).
+    known: Mapping[str, Institution | None]
+    name = "ROR institutions"
+
+    def needs(self, paper: Paper) -> bool:
+        """Whether the paper has affiliations whose institutions are not named yet."""
+        return _needs_institutions(paper)
+
+    def run(self, papers: list[Paper]) -> list[Paper]:
+        """The papers, with the institutions of those whose strings were all looked up."""
+        return add_institutions(papers, self.client, limit=self.limit, known=self.known)
+
+
+@dataclass(frozen=True, slots=True)
+class OpenAlexAffiliations:
+    """OpenAlex's affiliations for the papers no page gave any (:func:`update_openalex_affiliations`)."""
+
+    client: HttpClient
+    today: date
+    name = "OpenAlex affiliations"
+
+    def needs(self, paper: Paper) -> bool:
+        """Whether no page gave the paper affiliations, and OpenAlex is due to be asked (AFF-27, AFF-31)."""
+        return (
+            paper.affiliations == () or (paper.html_url is None and paper.affiliations is None)
+        ) and needs_openalex(paper, self.today)
+
+    def run(self, papers: list[Paper]) -> list[Paper]:
+        """The papers, with what OpenAlex knows of those that need it."""
+        wanted = [index for index, paper in enumerate(papers) if self.needs(paper)]
+        looked_up = with_openalex_affiliations(
+            [papers[index] for index in wanted], self.client, self.today, pages_kept=True
+        )
+        current = list(papers)
+        for index, paper in zip(wanted, looked_up, strict=True):
+            current[index] = paper
+        return current
+
+
 def _name_and_report(
     category: str,
     papers: list[Paper],
@@ -489,6 +594,7 @@ def _name_and_report(
     store: PaperStore,
     new: int,
     abstracts: int,
+    counts: tuple[StepCount, ...] = (),
 ) -> UpdateReport:
     """The end of every run (update, backfill, reextract): name the institutions, save, report.
 
@@ -500,13 +606,15 @@ def _name_and_report(
         store: The data store.
         new: Papers new to the store.
         abstracts: Abstracts fetched before the pages, which add theirs.
+        counts: What the run's steps before this one did.
 
     Returns:
         The run's report.
     """
+    named: tuple[StepCount, ...] = ()
     if ror.client is not None:
-        known = ror_answers(store.iter_papers(category))
-        papers = add_institutions(papers, ror.client, limit=ror.max_lookups, known=known)
+        institutions = Institutions(ror.client, ror.max_lookups, ror_answers(store.iter_papers(category)))
+        papers, named = enrich(papers, [institutions])
     store.save(category, papers)
     return UpdateReport(
         category=category,
@@ -519,6 +627,7 @@ def _name_and_report(
         empty=read.empty,
         unreadable=read.unreadable,
         stopped=read.stopped,
+        steps=(*counts, *named),
     )
 
 
@@ -1171,13 +1280,9 @@ def update_openalex_affiliations(
     Returns:
         How many papers were asked for, and how many have affiliations now.
     """
-    wanted = [
-        paper
-        for paper in store.iter_papers(category)
-        if (paper.affiliations == () or (paper.html_url is None and paper.affiliations is None))
-        and needs_openalex(paper, today)
-    ]
-    looked_up = with_openalex_affiliations(wanted, client, today, pages_kept=True)
+    step = OpenAlexAffiliations(client, today)
+    wanted = [paper for paper in store.iter_papers(category) if step.needs(paper)]
+    looked_up, _ = enrich(wanted, [step])
     store.save(category, [new for old, new in zip(wanted, looked_up, strict=True) if new is not old])
     return OpenAlexReport(
         category=category, asked=len(wanted), found=sum(bool(paper.affiliations) for paper in looked_up)
@@ -1285,21 +1390,20 @@ def update_archive_affiliations(
     if site_client is not None and reading.limit != 0:
         todo = _archive_pages(looked_up, reading.cache, store.load_citations(category))
         unread = [replace(paper.without_affiliations(), html_url=url) for paper, url in todo]
-        read = _add_html_front_matter(
-            unread,
-            site_client,
-            reading=reading,
-            checkpoint=lambda current: save(changed | _with_affiliations(current)),
+        pages = Pages(
+            site_client, reading, checkpoint=lambda current: save(changed | _with_affiliations(current))
         )
-        from_pages = _with_affiliations(read.papers)
+        read_papers, _ = enrich(unread, [pages])
+        read = pages.read
+        from_pages = _with_affiliations(read_papers)
         if from_pages:
             changed |= from_pages
             save(changed)
 
     if ror is not None and ror.client is not None:
         unnamed = [paper for paper in (changed.get(p.arxiv_id, p) for p in own) if _needs_institutions(paper)]
-        known = ror_answers(store.iter_papers(category))
-        named = add_institutions(unnamed, ror.client, limit=ror.max_lookups, known=known)
+        institutions = Institutions(ror.client, ror.max_lookups, ror_answers(store.iter_papers(category)))
+        named, _ = enrich(unnamed, [institutions])
         renamed = {new.arxiv_id: new for old, new in zip(unnamed, named, strict=True) if new is not old}
         if renamed:
             save(changed | renamed)

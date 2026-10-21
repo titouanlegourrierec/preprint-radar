@@ -36,6 +36,7 @@ from preprint_radar.sources.arxiv_html import EXTRACTOR_VERSION, PageCache
 from preprint_radar.sources.arxiv_oai import OAI_URL, CatalogEntry
 from preprint_radar.sources.openalex import OPENALEX_WORKS_URL
 from preprint_radar.sources.semantic_scholar import S2_BATCH_URL
+from preprint_radar.steps import StepCount
 from preprint_radar.store.paper_store import PaperStore
 
 
@@ -1244,6 +1245,7 @@ def test_update_reports_why_reading_html_pages_stopped(
             affiliations_fetched=0,
             pending=1,
             stopped=stopped,
+            steps=(StepCount("Abstracts", 0, 0, 0), StepCount("HTML pages", 3, 2, 1)),
         )
 
     monkeypatch.setattr("preprint_radar.cli.update_category", update_category)
@@ -1258,6 +1260,8 @@ def test_update_reports_why_reading_html_pages_stopped(
     assert deadline > time.monotonic() + 4 * 60
     assert annotation in capsys.readouterr().out
     assert summary.read_text(encoding="utf-8").startswith("**Papers.** cs.CV: 1 listed, 0 new")
+    # What each step did, those nothing needed left out (ARCH-2).
+    assert "**Steps.** HTML pages: 2 of 3, 1 left\n" in summary.read_text(encoding="utf-8")
     assert ("Reading HTML pages failed for cs.CV" in caplog.text) == bool(code)
 
 

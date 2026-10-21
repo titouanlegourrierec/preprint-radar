@@ -80,6 +80,7 @@ from preprint_radar.sources.huggingface import HUGGINGFACE_DELAY_SECONDS
 from preprint_radar.sources.openalex import OPENALEX_DELAY_SECONDS
 from preprint_radar.sources.ror import ROR_DELAY_SECONDS
 from preprint_radar.sources.semantic_scholar import S2_ANONYMOUS_DELAY_SECONDS, S2_DELAY_SECONDS, api_key
+from preprint_radar.steps import format_counts
 from preprint_radar.store.naming import name_institutions_again
 from preprint_radar.store.paper_store import PaperStore
 from preprint_radar.store.quality import (
@@ -851,6 +852,8 @@ def _publish_update(report: UpdateReport) -> None:
     line = format_report(report)
     console.print(line)
     github_summary(f"**Papers.** {line}")
+    if steps := format_counts(report.steps):
+        github_summary(f"**Steps.** {steps}")
     if report.failed_days:
         github_annotation("error", "Catchup pages failed", line)
     if report.caught_up:

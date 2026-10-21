@@ -50,6 +50,7 @@ from preprint_radar.http import HttpClient, RateLimiter
 from preprint_radar.models import CodeRecord, Institution, Listing, Paper, Provenance, ScholarRecord
 from preprint_radar.sources.arxiv_html import EXTRACTOR_VERSION, PageCache, parse_front_matter
 from preprint_radar.sources.arxiv_listing import parse_catchup
+from preprint_radar.steps import StepCount
 from preprint_radar.store.paper_store import PaperStore
 
 # The day the tests read pages and look up ROR: fixed, so that a run across midnight UTC
@@ -778,7 +779,13 @@ def test_add_institutions_leaves_the_rest_for_next_run(fake: FakeArxiv) -> None:
 
 def test_update_names_institutions_and_keeps_them(fake: FakeArxiv, store: PaperStore) -> None:
     with fake.client() as site, fake.client() as api, fake.client() as ror:
-        update_category("cs.CV", store=store, site_client=site, api_client=api, ror_client=ror)
+        report = update_category("cs.CV", store=store, site_client=site, api_client=api, ror_client=ror)
+    # What each step did (ARCH-2): one abstract waits for its page, one page for the next run.
+    assert report.steps == (
+        StepCount("Abstracts", 7, 6, 1),
+        StepCount("HTML pages", 6, 5, 1),
+        StepCount("ROR institutions", 3, 3, 0),
+    )
     fake.ror_requests.clear()
     with fake.client() as site, fake.client() as api, fake.client() as ror:
         update_category("cs.CV", store=store, site_client=site, api_client=api, ror_client=ror)

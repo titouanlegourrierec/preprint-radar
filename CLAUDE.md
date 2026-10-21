@@ -136,6 +136,11 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     how pages are read), the Semantic Scholar steps (`update_citation_counts`,
     `update_scholar_records`) and the OpenAlex ones (`update_openalex_affiliations`,
     `update_archive_affiliations`), and the stars of the code (`update_code_records`).
+    The enrichments of papers are steps (`steps.py`, ARCH-2): each says which papers need
+    it (`needs`) and gives it within its budget (`run`); `enrich` runs them in turn, saving
+    after each, and counts what each did (`StepCount`, the job summary's **Steps.** line).
+    `collect.py`'s are `Abstracts`, `Pages`, `Institutions` and `OpenAlexAffiliations`,
+    over the functions above; a new enrichment of the day files' papers is one more.
     `venue.py`: venues from comments, and Semantic Scholar's named the same way.
     `names.py`: whether another service's name for an author is arXiv's. `code.py`: the
     code a paper links, as the site's card finds it. `trends.py`: the topics of the

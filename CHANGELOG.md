@@ -23,6 +23,13 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 - A card's More sits against the right edge of its row of actions, in the same place on
   every card whatever badges come before it (UX-50).
 
+### Pipeline
+
+- The enrichments of papers (abstracts, HTML pages, ROR institutions, OpenAlex) are steps
+  that say which papers need them and count what they did, run in turn by one driver; the
+  run's page on GitHub gives those counts ("HTML pages: 330 of 346, 16 left"). Nothing
+  else changes for the data or the site (ARCH-2, DEBT-1).
+
 ### Fixes
 
 - A batch of papers Semantic Scholar knows none of yet, as the newest ones can be alone in
