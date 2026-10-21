@@ -20,6 +20,9 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ### Data
 
+- A day file's paper the archive's catalog does not list (a cross-list first seen before
+  2010) competes for the archive on its day, rather than being deleted unranked when
+  pruning reaches that day, from September 2027 (CIT-14).
 - Extraction version 12: a run of markers before a thanks note's text marks it for each
   of them, as in "*†‡ Y. Yang and J. Bos are with the Department of ...": version 11
   placed only the last of the two authors there, where version 9 placed both (AFF-33).

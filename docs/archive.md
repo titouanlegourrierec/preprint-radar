@@ -32,6 +32,9 @@ GitHub and the Hugging Face Hub are like to work with. Read this before changing
   file and the catalog's date, which can be weeks later: 2609.00036 was announced on
   2026-09-02, the catalog says 2026-09-14). They enter with their own enrichment, filed
   under that first appearance: an old paper cross-listed lately goes to its own year.
+  One the catalog does not list (a cross-list first seen before 2010, one the set no longer
+  holds) competes on its day file's date: pruning that day would otherwise delete it
+  without ranking it (CIT-14).
 - Every stored paper, day files and archive alike, takes the comments and journal
   reference of its latest version from the catalog, and the venue they give (META-2,
   `refreshed`): a record otherwise keeps what the listing said when it was announced

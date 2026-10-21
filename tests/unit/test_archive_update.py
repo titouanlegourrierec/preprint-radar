@@ -221,6 +221,32 @@ def test_a_paper_the_catalog_dates_later_than_its_day_file_is_not_pruned_away(
     assert date(2025, 10, 8) not in store.days("cs.CV")
 
 
+def test_a_day_file_paper_the_catalog_does_not_list_competes_before_its_day_is_pruned(
+    store: PaperStore, catalog: Catalog
+) -> None:
+    # Cross-lists of papers first seen before 2010, which the catalog leaves out (CIT-14).
+    unlisted = Paper(
+        arxiv_id="0904.2037",
+        announced=STALE_DAY,
+        title="An old paper, cross-listed into cs.CV",
+        authors=("A One",),
+        affiliations=("Read from its HTML page",),
+    )
+    withdrawn = Paper(
+        arxiv_id="0904.2038", announced=STALE_DAY, title="Withdrawn", authors=("A One",), withdrawn=True
+    )
+    store.save("cs.CV", [unlisted, withdrawn])
+
+    _update(store, catalog, FakeServices({**CITATIONS, "0904.2037": 90_000, "0904.2038": 90_000}), budget=4)
+
+    archived = {paper.arxiv_id: paper for paper in store.iter_archive("cs.CV")}
+    # Ranked on its day, and kept with its record when that day is pruned.
+    assert archived["0904.2037"].announced == STALE_DAY
+    assert archived["0904.2037"].affiliations == ("Read from its HTML page",)
+    assert "0904.2038" not in archived
+    assert STALE_DAY not in store.days("cs.CV")
+
+
 def test_an_archived_paper_missing_a_count_keeps_last_weeks(store: PaperStore, catalog: Catalog) -> None:
     _update(store, catalog, FakeServices(CITATIONS))
     (catalog.directory / "cs.CV.citations.jsonl").unlink()

@@ -152,14 +152,7 @@ def update_archive(
         store, category, entries
     )
     previous_recent = {paper.arxiv_id: paper for paper in (previous_top.papers if previous_top else ())}
-    # A stored paper was first seen on the earlier of its day file and the catalog's date,
-    # which can be weeks later (2609.00036: announced 2026-09-02, catalog 2026-09-14).
-    first_seen = {
-        arxiv_id: min(entry.first_seen, paper.announced)
-        if (paper := in_days.get(arxiv_id))
-        else entry.first_seen
-        for arxiv_id, entry in entries.items()
-    }
+    first_seen, candidates = _candidates(category, entries, in_days)
 
     wanted = [*entries, *in_days, *archived, *previous_recent]
     counts = _citation_counts(catalog, clients, wanted, today)
@@ -191,8 +184,8 @@ def update_archive(
         # Withdrawn papers are not Highly cited, however cited (decision 18); archived ones leave.
         withdrawn = {
             arxiv_id
-            for arxiv_id, entry in entries.items()
-            if is_withdrawn(entry.comments)
+            for arxiv_id in candidates
+            if ((entry := entries.get(arxiv_id)) is not None and is_withdrawn(entry.comments))
             or ((paper := in_days.get(arxiv_id) or archived.get(arxiv_id)) is not None and paper.withdrawn)
         }
         if withdrawn:
@@ -200,7 +193,7 @@ def update_archive(
         selection = select_archive(
             (
                 Candidate(arxiv_id, first_seen[arxiv_id], counts.get(arxiv_id))
-                for arxiv_id in entries
+                for arxiv_id in candidates
                 if arxiv_id not in withdrawn
             ),
             set(archived),
@@ -210,7 +203,7 @@ def update_archive(
         top_recent = select_top_recent(
             (
                 Candidate(arxiv_id, first_seen[arxiv_id], counts.get(arxiv_id))
-                for arxiv_id in entries
+                for arxiv_id in candidates
                 if arxiv_id not in withdrawn and is_recent(first_seen[arxiv_id], today)
             ),
             today=today,
@@ -391,6 +384,32 @@ def refreshed(paper: Paper, entry: CatalogEntry | None) -> Paper:
         venue=extract_venue(comments, journal_ref),
         withdrawn=is_withdrawn(comments),
     )
+
+
+def _candidates(
+    category: str, entries: Mapping[str, CatalogEntry], in_days: Mapping[str, Paper]
+) -> tuple[dict[str, date], list[str]]:
+    """The archive's candidates, and the day each was first seen.
+
+    A stored paper was first seen on the earlier of its day file and the catalog's date,
+    which can be weeks later (2609.00036: announced 2026-09-02, catalog 2026-09-14). A day
+    file's paper the catalog does not list (a cross-list first seen before 2010, one the set
+    no longer holds) competes on its day: pruning that day would otherwise delete it
+    without ranking it (CIT-14).
+    """
+    first_seen = {
+        arxiv_id: min(entry.first_seen, paper.announced)
+        if (paper := in_days.get(arxiv_id))
+        else entry.first_seen
+        for arxiv_id, entry in entries.items()
+    }
+    unlisted = [arxiv_id for arxiv_id in in_days if arxiv_id not in entries]
+    if unlisted:
+        logger.info(
+            "%s: %d stored papers the catalog does not list compete on their day", category, len(unlisted)
+        )
+    first_seen.update((arxiv_id, in_days[arxiv_id].announced) for arxiv_id in unlisted)
+    return first_seen, [*entries, *unlisted]
 
 
 def cleaned(paper: Paper, subjects: Mapping[str, str]) -> Paper:
