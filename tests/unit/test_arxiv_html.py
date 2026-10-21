@@ -1205,6 +1205,10 @@ def test_clean_affiliation_drops_what_names_nothing(raw: str) -> None:
             id="unclosed-capitalized-mailbox-names-before-an-affiliation",
         ),
         pytest.param("{Department of Physics}, MIT", "{Department of Physics}, MIT", id="braces-of-latex"),
+        # A contact detail the rules leave is the whole string's end: `validate` would
+        # refuse the store, and the run push nothing (AFF-32).
+        pytest.param("Visual Lab, Tokyo {Jane, John}", None, id="mailbox-names-the-rules-leave"),
+        pytest.param("Lab of X, jane (at) uni", None, id="obfuscated-address-the-rules-leave"),
         pytest.param(
             "University of Zurich, Switzerland ()", "University of Zurich, Switzerland", id="empty-brackets"
         ),

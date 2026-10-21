@@ -130,7 +130,9 @@ Artificial".
   and mailboxes may hold underscores ("michal_klein"). A mailbox name may be capitalized
   when dots or underscores join its parts ("{Jane.Doe, A.Roe,", 2610.25235,
   which `validate` refused, so that two runs pushed nothing): the words of an
-  affiliation never are.
+  affiliation never are. And a string that still holds a contact detail once cleaned is
+  dropped whole: the cleaning and `validate` ask the same `has_contact`, so that a page
+  the rules do not foresee loses one string rather than a day of papers.
   `_JUNK_RE` rejects what still passes: lone words ("the", "dot"), link and contribution
   leftovers ("Code", "Core Contributors"), units cut off by a line break ("School of"),
   lone countries, and the author of IEEE's template, "IEEE Publication Technology

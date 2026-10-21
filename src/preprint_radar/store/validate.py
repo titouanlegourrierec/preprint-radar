@@ -9,7 +9,6 @@ the registry names its institution. Nothing is fetched or written.
 """
 
 import json
-import re
 from collections import defaultdict
 from collections.abc import Iterator, Mapping
 from dataclasses import dataclass, field
@@ -21,6 +20,7 @@ from typing import Any
 from preprint_radar.exceptions import StoreError
 from preprint_radar.institutions import ACRONYMS
 from preprint_radar.models import Paper
+from preprint_radar.sources.arxiv_html import has_contact
 from preprint_radar.store.paper_store import (
     ARCHIVE_DIRNAME,
     CITATIONS_FILENAME,
@@ -35,13 +35,6 @@ from preprint_radar.store.paper_store import (
 )
 from preprint_radar.store.quality import last_holds_all, names_only
 from preprint_radar.store.reclean import reclean_paper
-
-# Contact details the contract keeps out of affiliations. "@" alone is not one: OpenAlex
-# names institutions like "IIT@MIT".
-_CONTACT_RE = re.compile(
-    r"[\w.+-]+@[\w-]+\.[\w.-]+|https?://|www\.|[\[(]\s*at\s*[\])]|\{\s*[a-z0-9._+-]+\s*[,;|]",
-    re.IGNORECASE,
-)
 
 
 class Level(StrEnum):
@@ -253,7 +246,7 @@ def _load(
 
 def _check_contacts(paper: Paper, where: str, report: ValidationReport) -> None:
     for affiliation in paper.affiliations or ():
-        if _CONTACT_RE.search(affiliation):
+        if has_contact(affiliation):
             message = f"{paper.arxiv_id}: contact details in affiliation {affiliation!r}"
             report.findings.append(Finding(Level.ERROR, where, message))
 

@@ -17,7 +17,7 @@ from typing import Any
 
 import pytest
 
-from preprint_radar.sources.arxiv_html import parse_front_matter
+from preprint_radar.sources.arxiv_html import has_contact, parse_front_matter
 
 HTML_DIR = Path(__file__).parents[1] / "fixtures" / "html"
 EXPECTED = HTML_DIR / "expected.json"
@@ -61,3 +61,18 @@ def test_a_fixture_gives_what_it_gave(arxiv_id: str) -> None:
 
 def test_every_expectation_has_its_fixture() -> None:
     assert sorted(_load()) == FIXTURES
+
+
+def test_no_page_gives_what_validate_refuses() -> None:
+    """No fixture gives an affiliation holding a contact detail, which `validate` refuses:
+    a data workflow would push nothing (AFF-32, 2610.25235)."""
+    expected = _load()
+    contacts = [
+        (arxiv_id, affiliation)
+        for arxiv_id in FIXTURES
+        for affiliation in extracted(
+            (HTML_DIR / f"{arxiv_id}.html").read_text(encoding="utf-8"), expected[arxiv_id]["authors"]
+        )["affiliations"]
+        if has_contact(affiliation)
+    ]
+    assert contacts == []

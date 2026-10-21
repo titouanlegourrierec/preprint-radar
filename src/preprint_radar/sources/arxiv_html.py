@@ -106,6 +106,13 @@ _CONTACT_TAIL_RE = re.compile(
 _OBFUSCATED_EMAIL_RE = re.compile(
     r"[\w.+-]*\s*[\[(]\s*at\s*[\])]\s*[\w-]+(?:\s*(?:\.|[\[(]\s*dot\s*[\])])\s*[\w-]+)+", re.IGNORECASE
 )
+# What the data contract keeps out of affiliations, which `validate` refuses: an address,
+# a link, an obfuscated "(at)", a list of mailbox names. "@" alone is not one: OpenAlex names
+# institutions like "IIT@MIT". A cleaned string still holding one is no affiliation (AFF-32).
+_CONTACT_RE = re.compile(
+    r"[\w.+-]+@[\w-]+\.[\w.-]+|https?://|www\.|[\[(]\s*at\s*[\])]|\{\s*[a-z0-9._+-]+\s*[,;|]",
+    re.IGNORECASE,
+)
 # What is left of a contact detail in brackets: "University of Zurich, Switzerland ()".
 _EMPTY_BRACKETS_RE = re.compile(r"\(\s*\)|\[\s*\]")
 # Mailbox names whose "@domain" is printed elsewhere: "{jane.doe, john.roe}", sometimes
@@ -1215,7 +1222,20 @@ def clean_affiliation(text: str) -> str | None:
     text = _CONNECTOR_RE.sub("", text)
     if len(text) < _MIN_LENGTH or not any(char.isalpha() for char in text) or _JUNK_RE.fullmatch(text):
         return None
+    # A contact detail the rules above did not strip: the whole string goes, rather than a
+    # store `validate` refuses, which a data workflow does not push (AFF-32).
+    if has_contact(text):
+        return None
     return text
+
+
+def has_contact(text: str) -> bool:
+    """Whether the text holds a contact detail, which the data contract keeps out of affiliations.
+
+    The cleaning drops a string that still holds one, and ``validate`` refuses a store that
+    does: both ask this.
+    """
+    return _CONTACT_RE.search(text) is not None
 
 
 def _unglued(text: str) -> str:
