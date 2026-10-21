@@ -1,0 +1,1613 @@
+{
+ "schema_version": 1,
+ "category": "cs.CV",
+ "date": "2026-10-21",
+ "papers": [
+  {
+   "arxiv_id": "2610.26898",
+   "announced": "2026-10-21",
+   "title": "EGGHead: Efficient Generalizable Gaussian Heads from a Single Image",
+   "authors": [
+    "Pilseo Park",
+    "Andrew Hou",
+    "Michel Sarkis",
+    "Ning Bi",
+    "Yiying Tong",
+    "Xiaoming Liu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.26898v1",
+   "abstract": "Creating photorealistic human heads typically involves trade-offs between representation power, efficiency, and generalizability. Traditional mesh-based solutions relying on 3DMMs generally sacrifice representation power but are efficient to render. On the other hand, NeRF-based methods improve representation power and fidelity while sacrificing efficiency. Gaussian splatting methods attempt to resolve these trade-offs by offering both high representation power and efficiency with real-time rendering. However, their efficiency nonetheless depends on the number of rasterized Gaussians, and the time needed to optimize and prepare the head (the enrollment time) is often high. In light of this, we propose EGGHead, which introduces a novel Gaussian allocation algorithm that efficiently assigns Gaussians to the head's semantic regions given a fixed Gaussian budget. Our algorithm reduces the number of Gaussians needed while minimizing the impact on representation power. EGGHead operates in a single forward pass and outperforms previous single-image face modeling methods in reconstruction quality, novel view synthesis, and rendering speeds.",
+   "affiliations": [
+    "Michigan State University",
+    "Qualcomm Technologies, Inc"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Michigan State University",
+    "Qualcomm"
+   ],
+   "institution_ids": [
+    "05hs6h993",
+    null
+   ],
+   "extractor": 11,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-21"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-21"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.26898",
+   "pdf_url": "https://arxiv.org/pdf/2610.26898"
+  },
+  {
+   "arxiv_id": "2610.26903",
+   "announced": "2026-10-21",
+   "title": "Beckmann World Models: Direct Terminal-Map Learning for One-Step Action-Conditioned Prediction",
+   "authors": [
+    "Adam Lee",
+    "Shobhit Agarwal",
+    "June Pyo Suh"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.26903v1",
+   "abstract": "Action-conditioned world models support planning and policy evaluation by predicting future states. However, learning an accurate one-step predictor can require substantial training computation. We introduce Beckmann World Models (BWM), which learn a direct map from noise, visual history, and actions to future frames without a pretrained generative teacher. We adapt the terminal-map conservation law of Beckmann Transport Models to action-conditioned video prediction, training directly from noise-data pairs without conditional populations of generated samples required by DriftWorld. However, transport consistency on interpolated inputs does not ensure accurate prediction from the pure noise used at inference. We address this gap with endpoint-aligned training that directly supervises the source prediction, emphasizes motion and spatial structure, and teaches recovery from generated histories. All components train the same map and retain one network call per future chunk. On PushT and Robomimic Can, the final model reduces 64-frame prediction MSE by 68% and 57%, respectively, relative to same-backbone regression baseline. For policy evaluation, BWM achieves the lowest mean IoU error among the evaluated models, 0.0100, at 24.8 ms per four-frame PushT prediction. On Robomimic Can, the BWM stage trained with motion supervision and generated histories achieves 3.3 times higher throughput and 78% lower peak memory than local one-step DriftWorld. In a latent-space extension to RT-1 and Bridge-V2, equal-update controls show that feature supervision under generated histories improves perceptual prediction. These findings show how terminal-map learning can combine efficient training with accurate one-step visual prediction.",
+   "affiliations": [
+    "UC Berkeley",
+    "Stanford University",
+    "Independent Researcher"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "University of California, Berkeley",
+    "Stanford University",
+    null
+   ],
+   "institution_ids": [
+    "01an7q238",
+    "00f54p054",
+    null
+   ],
+   "extractor": 11,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-21"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-21"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.26903",
+   "pdf_url": "https://arxiv.org/pdf/2610.26903"
+  },
+  {
+   "arxiv_id": "2610.26909",
+   "announced": "2026-10-21",
+   "title": "Uncertainty Gates the Gradient: Adaptive Updates for Generalized Few-Shot 3D Segmentation",
+   "authors": [
+    "Yifei Zhao",
+    "Fanyu Zhao",
+    "Shengtang Wu",
+    "Han Zhang",
+    "Ruike Cao",
+    "Yinsheng Li"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.26909v1",
+   "abstract": "In generalized few-shot 3D point cloud segmentation, support annotations are often compromised by sparsity and occlusion. Blindly adapting to such low quality samples risks learning spurious geometric patterns rather than robust novel concepts. Although 3D Vision-Language Models have been introduced to sup plement supervision, the potential of uncertainty to actively govern adaptation dynamics remains underexplored. Existing signal-level methods like loss reweight ing fail to prevent unreliable episodes from steering the optimization trajectory. To address this, we propose Uncertainty-Gated Adaptive (UGA), to the best of our knowledge the first framework that elevates uncertainty to update-level gating for generalized few-shot 3D point cloud segmentation. The core mod ule, Uncertainty-Gated Update (UG-Update), estimates episodic reliability via intra-class dispersion over merged support and pseudo-labeled novel supervision, and selectively gates residual gradient updates. This encourages the model to learn novel semantics from reliable episodes while attenuating updates during unreliable ones. Complementing this, we introduce an Uncertainty-Based Pseudo Label Filter (UB-Filter) to enforce learning from high-confidence dense signals. On ScanNet200 and ScanNet++ (1-/5-shot), UGA sets new state of the art with an average +3.08 HM IoU over the strongest prior baseline.",
+   "affiliations": [
+    "Fudan University",
+    "University of Science and Technology of China"
+   ],
+   "author_affiliations": null,
+   "institutions": [
+    "Fudan University",
+    "University of Science and Technology of China"
+   ],
+   "institution_ids": [
+    "013q1eq08",
+    "04c4dkn09"
+   ],
+   "extractor": 11,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-21"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-21"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.26909",
+   "pdf_url": "https://arxiv.org/pdf/2610.26909"
+  },
+  {
+   "arxiv_id": "2610.26910",
+   "announced": "2026-10-21",
+   "title": "Memory Internalization via Test-Time Training for Long-Video Understanding",
+   "authors": [
+    "Haonan Zhao",
+    "Jiaxuan Chen",
+    "Qingyang Liu",
+    "Shuochen Chang",
+    "Siyu Sun",
+    "Jiangtong Li",
+    "Li Niu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.26910v1",
+   "abstract": "Long-video understanding often requires answering many questions about a single video whose evidence is distributed across extended temporal contexts. Conventional video-language models repeatedly encode frames or retrieve visual evidence for every question. Parameterized video memory offers a write-once alternative, but existing methods rely primarily on synthesized text and fixed adaptation configurations, leaving open where video knowledge should be written and how visual evidence should shape the memory. We introduce Memory Internalization via Test-Time Training (MIT^3), a per-video adaptation framework that writes each long video into compact, video-specific adaptive parameters for video-free, text-only question answering. Under compact multi-scale supervision, causal tracing measures the causal memory utility of each model layer for video-grounded answering and selects video-specific adaptation locations. Visual memory distillation then trains the text-only memory to reproduce the representation change induced by the relevant video clip, preserving the internal effect of visual evidence beyond textual supervision. Across LVBench, LongVideoBench, and Video-MME, MIT^3 achieves data-efficient video-free question answering with substantially fewer synthesized samples than prior parameterized video-memory methods, demonstrating that effective video internalization depends on both where knowledge is written and how visual evidence is distilled into the model.",
+   "affiliations": [
+    "Shanghai Jiao Tong University",
+    "Tongji University"
+   ],
+   "author_affiliations": null,
+   "institutions": [
+    "Shanghai Jiao Tong University",
+    "Tongji University"
+   ],
+   "institution_ids": [
+    "0220qvk04",
+    "03rc6as71"
+   ],
+   "extractor": 11,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-21"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-21"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.26910",
+   "pdf_url": "https://arxiv.org/pdf/2610.26910"
+  },
+  {
+   "arxiv_id": "2610.26915",
+   "announced": "2026-10-21",
+   "title": "CodecMotion-OAD: Efficient Online Action Detection with Compressed-Domain Motion",
+   "authors": [
+    "Zepeng Sun",
+    "Naichuan Zheng",
+    "Hailun Xia",
+    "Junjie Wu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.26915v1",
+   "abstract": "Online action detection (OAD) identifies ongoing actions in streaming videos. Many existing OAD systems combine RGB appearance with optical flow, but dense-flow extraction remains a major computational bottleneck. Codec motion vectors (MVs) are available during decoding, avoiding a separate optical-flow computation. On THUMOS'14, optical flow exceeds MVs by 11.2 mAP points with motion-only inputs, whereas the gap narrows to 3.7 points after RGB fusion, with the largest reduction in action-category discrimination. We propose CodecMotion-OAD, which replaces optical flow with decoder-provided MVs while retaining existing temporal detector architectures. Its two-stage training first aligns MV features with a pretrained flow-feature interface without action labels and then trains RGB+MV detectors using ground-truth labels and soft predictions from a frozen RGB+Flow teacher. To the best of our knowledge, this is the first application of codec MVs to frame-level OAD. On THUMOS'14 with MiniROAD, CodecMotion-OAD achieves 68.3 mAP versus 70.9 mAP for matched-distillation RGB+Flow, while reducing decoder-to-prediction processing time by 11.48-fold on CPU and 2.04-fold on GPU.",
+   "affiliations": [
+    "School of Information and Communication Engineering, Beijing University of Posts and Telecommunications, Beijing, China"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Beijing University of Posts and Telecommunications"
+   ],
+   "institution_ids": [
+    "04w9fbh59"
+   ],
+   "extractor": 11,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-21"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-21"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.26915",
+   "pdf_url": "https://arxiv.org/pdf/2610.26915"
+  },
+  {
+   "arxiv_id": "2610.26918",
+   "announced": "2026-10-21",
+   "title": "GTSM: Gaussian Splatting with Thermal State-Space Dynamics for Spatio-Temporal Thermal Field Reconstruction and Prediction",
+   "authors": [
+    "Yunpeng Zhao",
+    "Haoxiang Zhang",
+    "Chao Liu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Graphics (cs.GR)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.26918v1",
+   "abstract": "Temperature-field reconstruction and prediction are important for condition monitoring, process analysis, and state assessment in industrial and dynamic environments. This work aims to recover a four-dimensional spatio-temporal thermal state field directly from two-dimensional observations, without requiring a predefined 3D model, prescribed thermodynamic equation, or predefined heating/cooling trajectory. To this end, we propose the Gaussian Thermal State-Space Model (GTSM), which represents thermal evolution through a shared scene-level latent process and Gaussian-specific local thermal states. The resulting continuous dynamics are propagated using differentiable RK2 integration, allowing thermal evolution to be inferred from multi-view and multi-temporal observations and continuously extrapolated beyond the observed interval. GTSM is designed as a backbone-agnostic thermal dynamics module for Gaussian representations and can be integrated with both static 3D Gaussian Splatting and dynamic 4D Gaussian Splatting, supporting thermal reconstruction and prediction under both static and time-varying target geometry. The reconstructed representation further enables novel-view thermal rendering and future-time thermal-state prediction. Experiments on real infrared sequences and synthetic dynamic thermal data demonstrate improved reconstruction accuracy and substantially stronger temporal extrapolation than representative baselines, while also validating the applicability of GTSM to deforming targets.",
+   "affiliations": [
+    "Key Laboratory for Information Science of Electromagnetic Waves (MoE), Fudan University, Shanghai 200433, China",
+    "Department of Electronic Engineering, Tsinghua University, Beijing, China"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Fudan University",
+    "Tsinghua University"
+   ],
+   "institution_ids": [
+    "013q1eq08",
+    "03cve4549"
+   ],
+   "extractor": 11,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-21"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-21"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.26918",
+   "pdf_url": "https://arxiv.org/pdf/2610.26918"
+  },
+  {
+   "arxiv_id": "2610.26922",
+   "announced": "2026-10-21",
+   "title": "Controllable Multi-Object Insertion for Detection Data Augmentation",
+   "authors": [
+    "Jiyang Huang",
+    "Tianwei Zhang",
+    "Xiaoqin Zhang",
+    "Ling Shao",
+    "Shijian Lu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.26922v1",
+   "abstract": "Controllable object insertion provides a targeted approach to augmenting object detection datasets that require category--count fidelity, annotation alignment, and source-content preservation beyond visual realism. Several approaches have been proposed to address this grand challenge, but most suffer from different constraints in precise category--count requests and visual consistency, limited coordination across categories and instances, and poor localization of multiple objects of specific category and count. We design SceneP2F, a two-stage trainable framework that connects scene-aware joint planning with layout-aligned generation leveraging explicit instance-level layouts. SceneP2F consists of two novel designs. The first is ScenePlan which allocates one class-labeled query per requested instance, jointly predicts scene-compatible object centers, and separately estimates box sizes conditioned on the planned centers and scene context. The second is SceneAlign-Fill which combines geometry- and appearance-aware conditioning, box--class-guided regional attention, and an annotation-region-weighted flow-matching objective to render the planned objects while limiting unintended changes to source content. Extensive experiments on three challenging benchmarks UAVDT, VisDrone, and BDD100K show that SceneP2F outperforms representative general-purpose editors and object-insertion methods consistently, demonstrating the value of coordinating instance-level planning and generation for category-targeted detection augmentation.",
+   "affiliations": [
+    "Nanyang Technological University",
+    "Zhejiang University of Technology",
+    "University of the Chinese Academy of Sciences"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Nanyang Technological University",
+    "Zhejiang University of Technology",
+    "Chinese Academy of Sciences"
+   ],
+   "institution_ids": [
+    "02e7b5302",
+    "02djqfd08",
+    "034t30j35"
+   ],
+   "extractor": 11,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-21"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-21"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.26922",
+   "pdf_url": "https://arxiv.org/pdf/2610.26922"
+  },
+  {
+   "arxiv_id": "2610.26923",
+   "announced": "2026-10-21",
+   "title": "CaMeWM: A Causal Medical World Model for Generative Tumor Evolution and Treatment Planning",
+   "authors": [
+    "Huanlong Gao",
+    "Xuelei He",
+    "Fengjun Zhao",
+    "Xiaowei He"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "30 pages,8 figures,12 tables,including supplementary material",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.26923v1",
+   "abstract": "Treatment planning is intrinsically counterfactual: clinicians must compare how a patient's tumor and survival would evolve under competing regimens, whereas a retrospective cohort records only the regimen received and one follow-up scan. A treatment-conditioned generator trained on such data can therefore reproduce historical treatment allocation rather than simulate the interventional disease dynamics needed to rank regimens. We introduce CaMeWM, a causal medical world model for supported post-TACE tumor evolution and treatment planning. CaMeWM implements one intervention-to-decision loop rather than three independent prediction tasks: it first admits a queried regimen only for clinically comparable histories with empirical treatment support; it then generates a distribution of lesion-local follow-up worlds through an action-conditioned response descriptor, deterministic anchor, and residual 3D diffusion transition; and it finally maps sampled worlds to restricted mean survival time (RMST) with a response-Cox utility model. Under pre-treatment adjustment and positivity, this loop estimates a prespecified, support-restricted g-formula target; all selection and nuisance estimation are fold-local, and the induced policy is evaluated by cross-fitted, censoring-adjusted doubly robust estimation. Across 79 paired out-of-fold episodes, CaMeWM achieves 0.618 SSIM and 0.528 change-map SSIM for follow-up CT transition, while its generated-world survival pathway attains a 0.615 C-index; factual-only AIPW estimates a 9.60-week RMST gain (95% CI 0.61–18.13) for the frozen policy. CaMeWM provides an inspectable basis for retrospective, support-restricted treatment planning.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
+   "extractor": 11,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-21"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.26923",
+   "pdf_url": "https://arxiv.org/pdf/2610.26923"
+  },
+  {
+   "arxiv_id": "2610.26925",
+   "announced": "2026-10-21",
+   "title": "SuperClip Pyramid for Video Temporal Grounding",
+   "authors": [
+    "Sanghyeok Lee",
+    "Juyeon Ko",
+    "Joonmyung Choi",
+    "Jongha Kim",
+    "Dohwan Ko",
+    "Ji Soo Lee",
+    "Hyunwoo J. Kim"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "preprint",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.26925v1",
+   "abstract": "With the rapid expansion of online video content, video temporal grounding has become essential for localizing moments based on user-specific queries, comprising two subtasks: moment retrieval (MR) and highlight detection (HD). While recent approaches adopt DETR-style decoders or temporal pyramid architectures, they rely on single-scale feature maps or uniformly downsampled representations, limiting their ability to capture semantic boundaries and variable-length events. In this paper, we present SuperClip Video Temporal Grounding (SCVTG) built on a multi-scale temporal hierarchy that better captures distinctive events at various granularities. SCVTG constructs a SuperClip pyramid by grouping adjacent clips into semantically coherent segments, termed SuperClips. Further, to aggregate these SuperClips having variable duration and temporal location, we introduce a temporally adaptive kernel that aggregates SuperClips through temporally conditioned weights, enabling flexible aggregation. On top of this, we design relative saliency losses to guide the model in learning inter-clip importance, enhancing its ability to distinguish relevant events. Extensive experiments show that SCVTG achieves the best performance across five video temporal grounding benchmarks with promising gains.",
+   "affiliations": [
+    "KAIST",
+    "TwelveLabs",
+    "Korea Univertsity"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    null,
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Korea Advanced Institute of Science and Technology",
+    "TwelveLabs",
+    "Korea Univertsity"
+   ],
+   "institution_ids": [
+    null,
+    null,
+    null
+   ],
+   "extractor": 11,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-21"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-21"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.26925",
+   "pdf_url": "https://arxiv.org/pdf/2610.26925"
+  },
+  {
+   "arxiv_id": "2610.26933",
+   "announced": "2026-10-21",
+   "title": "Rate as a Feature, Not a Nuisance: Curriculum FiLM Training for Event-Based Graph Neural Networks",
+   "authors": [
+    "Kavyansh Tyagi",
+    "Andreas Ziegler"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": "ACCV 2026 Workshop on Advances in Event-based Computer Vision (AECV)",
+   "venue": "ACCV 2026 Workshop",
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.26933v1",
+   "abstract": "An event camera emits events at a rate given by the scene motion, object texture, illumination, its own contrast thresholds, and other settings. Across the N-Caltech101 dataset, recorded by a single event camera, the event rate varies by roughly 26x. Standard event-based Graph Neural Network GNN pipelines do not make use of the variable event rate. They either normalize each event's timestamp into a fixed window or train the network to be invariant to the event rate. We argue that both choices lose information that could instead be used to improve the performance of a pipeline. Per-recording normalization is non-invertible, incurring about 6pp (percentage points) of natural-rate accuracy loss in our setting. And invariance training trades accuracy for robustness to shifts in the event rate. We instead take a different path and condition on the event rate directly. We add a per-recording log-rate scalar that modulates every stage of a PointNet++ backbone through Feature-wise Linear Modulation (FiLM), initialized to identity, so that training begins at the unmodified baseline. A two-stage curriculum (natural event rates first, then rate-augmented fine-tuning) reaches 67.2% on N-Caltech101 (+6.3pp) and 82.5% on DVS128 Gesture (+14.0pp) with an additional ~0.2M parameters. A matched-capacity control experiment shows that the gain is not from the increase in model capacity but from the rate conditioning. We will make the implementation publicly available upon acceptance of this work.",
+   "affiliations": [
+    "National Institute of Technology Kurukshetra, Kurukshetra, India",
+    "University of Toronto, Toronto, Canada"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "National Institute of Technology Kurukshetra",
+    "University of Toronto"
+   ],
+   "institution_ids": [
+    "04909p852",
+    "03dbr7087"
+   ],
+   "extractor": 11,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-21"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-21"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.26933",
+   "pdf_url": "https://arxiv.org/pdf/2610.26933"
+  },
+  {
+   "arxiv_id": "2610.26954",
+   "announced": "2026-10-21",
+   "title": "Deep Auxiliary Learning via Bilevel Feature Optimization for Label-Efficient Medical Image Segmentation",
+   "authors": [
+    "Fuping Wu",
+    "Xi Jia",
+    "Le Zhang",
+    "Jiahua Li",
+    "Rima Mustafa",
+    "Thomas E. Nichols",
+    "Bartlomiej W. Papiez"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.26954v1",
+   "abstract": "Auxiliary learning (AL), which can improve the performance of a primary task by leveraging related auxiliary tasks, is commonly regarded as a special case of multi-task learning. Existing AL approaches typically require manually annotated auxiliary labels, increasing annotation costs, particularly in medical imaging where expert labeling is expensive. In this work, we investigate whether segmentation performance can be improved using auxiliary tasks whose labels are automatically derived from existing segmentation annotations, requiring no additional manual labeling. To address this, we propose a novel auxiliary learning framework, formulated as a bilevel optimization problem. Our method enables effective knowledge transfer between tasks via a feature communication module, enhancing the primary segmentation task. We evaluate the method on three medical image segmentation benchmarks under limited-label settings. The results demonstrate consistent improvements over state-of-the-art methods, achieving superior label efficiency. The code is publicly available at https://github.com/FupingWu90/ALBO.",
+   "affiliations": [
+    "Imperial College London",
+    "Nuffield Department of Population Health, University of Oxford",
+    "University of Birmingham",
+    "Big Data Institute, Nuffield Department of Population Health, and Centre for Integrative Neuroimaging, FMRIB, Nuffield Department of Clinical Neurosciences, University of Oxford",
+    "Big Data Institute, Nuffield Department of Population Health, University of Oxford"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     3
+    ],
+    [
+     4
+    ]
+   ],
+   "institutions": [
+    "Imperial College London",
+    "University of Oxford",
+    "University of Birmingham",
+    "University of Oxford",
+    "University of Oxford"
+   ],
+   "institution_ids": [
+    "041kmwe10",
+    "052gg0110",
+    "03angcq70",
+    "052gg0110",
+    "052gg0110"
+   ],
+   "extractor": 11,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-21"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-21"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.26954",
+   "pdf_url": "https://arxiv.org/pdf/2610.26954"
+  },
+  {
+   "arxiv_id": "2610.26988",
+   "announced": "2026-10-21",
+   "title": "REST: Reliability-Guided Spatial Transcriptomics Supervision for Gene Expression Prediction from Histopathological HE-Stained Images",
+   "authors": [
+    "Lanfeng Zhong",
+    "Xiangyu Sun",
+    "Guixuan Xu",
+    "Rongzhao Zhang",
+    "Jie Xu",
+    "Shaoting Zhang",
+    "Guotai Wang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.26988v1",
+   "abstract": "Histopathology is central to cancer diagnosis, but morphology in Hematoxylin and Eosin (HE)-stained images does not directly reveal the molecular states that characterize disease heterogeneity and inform tumor characterization, prognostic assessment, and biomarker discovery. Spatial Transcriptomics (ST) measures spatially resolved gene expression, providing molecular information within tissue architecture, yet differences in assay coverage and spot informativeness make paired HE--ST observations unequally reliable for representation learning. We propose Reliability-Guided Spatial Transcriptomics (REST) supervision with Biological Program Bank (BPB), a program-structured and reliability-guided ST-supervised training framework for predicting molecular information from H&E images. REST constructs BPB from curated signature, pathway, and cell-type gene sets to provide a shared structure for ST encoding, reliability estimation, and molecular reconstruction. Guided by BPB, Spot-Reliability Contrastive Alignment (SRCA) measures the reliability of each spot from assay-level program coverage and spot-level activity dispersion, and reweights HE--ST alignment accordingly. Biology-Informed Program Reconstruction (BIPR) further uses learnable program queries to reconstruct member-gene expression from histological morphology. REST's training corpus comprised 209 samples (407,475 spots across 16 organs); evaluation used 70 disjoint samples (230,056 spots across eight organs) for gene-expression, pathway-activity, and cell-signature prediction. REST achieved the highest Macro correlation among state-of-the-art ST-supervised training methods and outperformed existing pathology foundation models. Code is available at https://github.com/lanfz2000/REST.",
+   "affiliations": [
+    "School of Mechanical and Electrical Engineering, University of Electronic Science and Technology of China, Chengdu 611731, China",
+    "Shanghai Artificial Intelligence Laboratory, Shanghai 200232, China",
+    "Department of Pathology, Sichuan Provincial People’s Hospital, University of Electronic Science and Technology of China, Chengdu 610072, China"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Electronic Science and Technology of China",
+    "Shanghai Artificial Intelligence Laboratory",
+    "University of Electronic Science and Technology of China"
+   ],
+   "institution_ids": [
+    "04qr3zq92",
+    "03wkvpx79",
+    "04qr3zq92"
+   ],
+   "extractor": 11,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-21"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-21"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.26988",
+   "pdf_url": "https://arxiv.org/pdf/2610.26988"
+  },
+  {
+   "arxiv_id": "2610.27018",
+   "announced": "2026-10-21",
+   "title": "Long-wave Infrared Polarimetric Remote Sensing Image Fusion for Vehicle Detection",
+   "authors": [
+    "Wenjuan Zhang",
+    "Xiangrui Peng",
+    "Zhen Li",
+    "Caimeng Yi",
+    "Xuesong Ma",
+    "Jianwei Wang",
+    "Jie Pan"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.27018v1",
+   "abstract": "Blurred vehicle contours and low contrast limit detection performance in infrared remote sensing imagery, while existing fusion methods may introduce polarization noise and fail to integrate complementary information effectively. To address these limitations, we propose a Mamba-based infrared polarimetric remote sensing image fusion model. Infrared polarization information reflects surface material properties and geometry, providing complementary information to infrared intensity. The proposed method first combines long-wave infrared total intensity S0 and the degree of linear polarization (DoLP), using a physics-inspired polarization-response proxy and spatial structural continuity to extract guidance features. It then employs bidirectional state space scanning along horizontal, vertical, and both diagonal orientations to enable cross-modal feature fusion across the entire image. Prior-guided multi-window structural similarity, reconstruction constraints, and a relative lower-bound loss for polarization saliency are jointly introduced to suppress noise while preserving global background structures and target polarization features. In addition, we construct AIR-LWIR-Pol, a dataset of 1,901 accurately registered image pairs acquired using an airborne division-of-aperture long-wave infrared polarimetric imaging system, and evaluate downstream vehicle detection using YOLO11. The experimental results show that the proposed method outperforms the comparison methods on four fusion metrics, including entropy and structural similarity. Vehicle detection mAP50 and mAP50-95 reach 55.0% and 29.4%. These results demonstrate the effectiveness of combining physical priors with state space modeling for long-wave infrared polarization image fusion and support its use for target detection in complex remote sensing scenes.",
+   "affiliations": [
+    "State Key Laboratory of Remote Sensing and Digital Earth, Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing, China",
+    "Aerospace Information Research Institute, Chinese Academy of Sciences, Beijing, China",
+    "University of Chinese Academy of Sciences, Beijing, China"
+   ],
+   "author_affiliations": null,
+   "institutions": [
+    "Aerospace Information Research Institute",
+    "Chinese Academy of Sciences",
+    "University of Chinese Academy of Sciences"
+   ],
+   "institution_ids": [
+    "0419fj215",
+    "034t30j35",
+    "05qbk4x57"
+   ],
+   "extractor": 11,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-21"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-21"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.27018",
+   "pdf_url": "https://arxiv.org/pdf/2610.27018"
+  },
+  {
+   "arxiv_id": "2610.27041",
+   "announced": "2026-10-21",
+   "title": "Robustness of Internal Signals for Hallucination Detection in Vision-Language Models",
+   "authors": [
+    "Allison Chen",
+    "William Yang",
+    "Salma Abdel Magid",
+    "Jonathan Williams",
+    "Olga Russakovsky",
+    "Esin Tureci"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": "NeurIPS 2026 Evaluations and Datasets track",
+   "journal_ref": null,
+   "venue": "NeurIPS 2026",
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.27041v1",
+   "abstract": "When given an image and a text prompt, vision-language models (VLMs) can produce seemingly sophisticated text responses. However, they are also prone to hallucinate objects in their output, which can have detrimental consequences in safety-critical applications. To detect these hallucinations, certain methods interestingly leverage internal signals from the VLM as it generates the text response; potentially, these methods use the same signals that led to a hallucination to detect it. We conduct an in-depth analysis to understand the robustness of these detection methods. First, we show that a naive baseline of a generated word's token position in the VLM text response achieves competitive performance. Further, we reveal how some detection methods rely on token position and use this heuristic as a shortcut. Second, we explore detection methods' sensitivity to language and vision modalities. Our experiments suggest that strong detection performance is often driven by detecting language-based hallucinations, and when methods rely on token position, they tend to be less visually grounded and exhibit reduced robustness when hallucinations occur earlier in a text response. Lastly, we demonstrate that different detection methods can carry complementary signals; when ensembling methods together, adding weaker methods to an ensemble of higher performing ones still offers performance improvements. Altogether, while there may be useful internal VLM signals to detect hallucinations, our investigation reveals important limitations of the current methods that try to leverage them.",
+   "affiliations": [
+    "Princeton University, Princeton, NJ 08544"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Princeton University"
+   ],
+   "institution_ids": [
+    "00hx57361"
+   ],
+   "extractor": 11,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-21"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-21"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.27041",
+   "pdf_url": "https://arxiv.org/pdf/2610.27041"
+  },
+  {
+   "arxiv_id": "2610.27049",
+   "announced": "2026-10-21",
+   "title": "VitronEdit: Universal Visual Editing across Images, Videos, and 3D Scenes",
+   "authors": [
+    "Jing Wang",
+    "Yanlin Li",
+    "Mong-Li Lee",
+    "Wynne Hsu",
+    "Shengqiong Wu",
+    "Hao Fei"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "27 pages,9 tables,9 figures",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.27049v1",
+   "abstract": "Recent advances in unified visual editing have begun to consolidate image and video editing within a single model, while 3D scene editing remains largely separate and constrained by scarce paired training data. Given the rich image and video editing supervision now available and the common editing semantics shared across modalities, a natural question is whether this knowledge can be transferred to data-scarce 3D editing. We present VitronEdit, a universal framework for image, video, and 3D scene editing. VitronEdit adopts a shared sequence representation and progressive multimodal training to transfer editing knowledge across modalities. We further introduce geometry-aware post-training, which leverages a pretrained geometry reconstruction model to provide depth and camera-pose supervision. Surprisingly, applying geometric supervision only to 3D samples yields the best overall performance, while image and video editing also improve despite receiving no direct geometric supervision, suggesting that geometric regularization transfers through the shared backbone. Our analysis further shows that image and video training mainly transfers editing semantics to 3D, whereas 3D supervision primarily improves multi-view consistency. The project page: https://vitron-llm.github.io/VitronEdit/.",
+   "affiliations": [
+    "National University of Singapore",
+    "University of Oxford"
+   ],
+   "author_affiliations": null,
+   "institutions": [
+    "National University of Singapore",
+    "University of Oxford"
+   ],
+   "institution_ids": [
+    "01tgyzw49",
+    "052gg0110"
+   ],
+   "extractor": 11,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-21"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-21"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.27049",
+   "pdf_url": "https://arxiv.org/pdf/2610.27049"
+  },
+  {
+   "arxiv_id": "2610.27066",
+   "announced": "2026-10-21",
+   "title": "BUMP: Body-driven Unified Multi-object Physics for HOI Synthesis",
+   "authors": [
+    "Wonjung Woo",
+    "Hyeonwoo Kim",
+    "Hanbyul Joo"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Project page: https://wonjungwoo.github.io/BUMP/",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.27066v1",
+   "abstract": "Generating human-object interactions (HOIs) with multiple objects is challenging because the resulting motions arise from different underlying causes. Human motion reflects semantic intent, intentionally manipulated objects must remain coordinated with the human, while surrounding objects move primarily as physical consequences of contact and collision. We present BUMP, a text-driven framework for multi-object HOI generation based on a simple principle: learn intentional motion and simulate physical consequences. Our method first generates full-body human motion from text and scene context, then predicts trajectories for a small number of intentionally manipulated driver objects conditioned on the human motion. We then obtain responder object motions through physics simulation, allowing the framework to handle varying numbers and configurations of surrounding objects without expanding the learned trajectory output space. To address the scarcity of paired full-body multi-object HOI data, we combine heterogeneous supervision from human-only motion, full-body HOI, and hand-centric manipulation data augmented with plausible body motion. We further introduce outcome-conditioned interaction editing, which infers a local modification of the causal driver object trajectory from a desired responder object behavior without requiring an explicit target driver object trajectory. Experiments demonstrate strong performance on both single-object and multi-object HOI benchmarks. Qualitative results showcase diverse scenarios involving inter-object relationships and edits, highlighting the advantage of our unified model formulation.",
+   "affiliations": [
+    "Seoul National University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Seoul National University"
+   ],
+   "institution_ids": [
+    "04h9pn542"
+   ],
+   "extractor": 11,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-21"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-21"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.27066",
+   "pdf_url": "https://arxiv.org/pdf/2610.27066"
+  },
+  {
+   "arxiv_id": "2610.27087",
+   "announced": "2026-10-21",
+   "title": "SciFigBench: A Benchmark for Scientific Method Figure Understanding",
+   "authors": [
+    "Lijia Wu",
+    "Zheng Li",
+    "Yuxuan Liu",
+    "Jingwen Zhang",
+    "Penghai Zhao",
+    "Xiang Li"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Computation and Language (cs.CL)"
+   ],
+   "comments": "Accepted by EMNLP 2026 Main Conference. Code and benchmark resources: https://github.com/LeNcyer/SciFigBench",
+   "journal_ref": null,
+   "venue": "EMNLP 2026",
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.27087v1",
+   "abstract": "Scientific method figures often provide researchers with a clear visual entry point into a paper's methodology and core contributions, yet their dense layouts and complex information flows are difficult for Vision Language Models (VLMs) to interpret. Existing benchmarks predominantly focus on coarse-grained tasks, such as context-based retrieval or holistic comprehension, overlooking the fine-grained content and inter-module relations within complex methodological diagrams. To address these overlooked aspects, we introduce Scientific Figure Benchmark (SciFigBench), a benchmark for evaluating core capabilities required for scientific method figure understanding. Specifically, it targets three capabilities: dense content perception, visual relation comprehension, and information-flow tracing. For this purpose, we curate 4,352 scientific method figures from real-world research papers and construct 40,670 QA pairs to operationalize these capabilities as measurable question-answering tasks. All annotations are generated by dedicated pipelines and then manually verified. We further propose SciFigCue, a training-free visual prompting module that externalizes arrow-induced dependencies as visual relational evidence for method-figure reasoning. Experiments across open-source and proprietary VLMs show that even strong models remain substantially limited in visual relation comprehension, while SciFigCue improves performance across several tasks without parameter updates. The code and related resources are available at https://github.com/LeNcyer/SciFigBench.",
+   "affiliations": [
+    "VCIP, CS & AAIS, Nankai University",
+    "NKIARI, Shenzhen Futian",
+    "Li Auto"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Nankai University",
+    "NKIARI",
+    "Li Auto"
+   ],
+   "institution_ids": [
+    "01y1kjr75",
+    null,
+    null
+   ],
+   "extractor": 11,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-21"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-21"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.27087",
+   "pdf_url": "https://arxiv.org/pdf/2610.27087"
+  },
+  {
+   "arxiv_id": "2610.27104",
+   "announced": "2026-10-21",
+   "title": "LVMem: Image-Augmented Memory for Long-Horizon Question Answering",
+   "authors": [
+    "Victoria Khoruzhaya",
+    "Maksim Kalmykov",
+    "Tuong Do Minh",
+    "Tatiana Zemskova",
+    "Yixin Zhu",
+    "Dmitry Yudin"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "8 pages, 3 figures",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.27104v1",
+   "abstract": "Reliable language-guided perception is essential for embodied agents, where questions about objects, events, and their locations must be answered from long observation histories. Unlike conventional visual question answering, realistic robotic settings require reasoning over extended temporal horizons and persistent scene memory. We build upon the view-based memory paradigm and propose an efficient framework for long-horizon spatio-temporal question answering. While existing view-based systems typically store either text captions or visual embeddings, we extend the ReMEmbR-style memory with image paths that link each stored description to its original visual content. To make the stored annotations more informative, we replace uniform sampling during memory construction with an optical-flow-based frame selection strategy (PSFR) and store an object-centric descriptive scene representation instead of plain captions. We further equip a VLM-based agent with an adaptive retrieval tool that returns the image associated with the most relevant caption, allowing the agent to decide when visual inspection is needed. On the OC-NaVQA benchmark, LVMem outperforms ReMEmbR on binary and positional metrics with both backbones and matches or exceeds a 4D scene graph DAAAM baseline on binary accuracy, while operating on a lightweight view-based memory that requires no explicit graph construction.",
+   "affiliations": [
+    "Moscow Independent Research Institute of Artificial Intelligence, Moscow, Russia",
+    "Cognitive AI Systems Lab, Moscow, Russia",
+    "Peking University, Beijing, China"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Moscow Independent Research Institute of Artificial Intelligence",
+    "Cognitive AI Systems Lab",
+    "Peking University"
+   ],
+   "institution_ids": [
+    null,
+    null,
+    "02v51f717"
+   ],
+   "extractor": 11,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-21"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-21"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.27104",
+   "pdf_url": "https://arxiv.org/pdf/2610.27104"
+  },
+  {
+   "arxiv_id": "2610.27108",
+   "announced": "2026-10-21",
+   "title": "Counting Contributions, Not Views: Occlusion-Aware Densification for 3D Gaussian Splatting",
+   "authors": [
+    "Marcel Rogge",
+    "René Schuster",
+    "Didier Stricker"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Graphics (cs.GR)"
+   ],
+   "comments": "Accepted at ACCV 2026 (Oral). Includes the supplementary material as appendix. Code: https://github.com/MarcelRogge/occlusion-aware-3dgs",
+   "journal_ref": null,
+   "venue": "ACCV 2026",
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.27108v1",
+   "abstract": "3D Gaussian Splatting grows a dense scene from a sparse initialization through adaptive density control (ADC), driven by per-Gaussian statistics gathered during rendering. These statistics pass a frustum-based visibility filter blind to occlusion: fully occluded Gaussians still count as observed, diluting the averaged gradient signal and suppressing densification precisely where geometry is occluded. We correct this with an occlusion-aware filter that restricts densification statistics to views in which a Gaussian actually contributes, and replace the criterion's raw view-count normalizer with an average-contribution one. Integrated into a StopThePop-based framework, the two together improve every image-quality metric over the occlusion-blind baseline on occlusion-heavy scenes (up to 6% lower LPIPS), at less than half the Gaussians a view-count normalizer requires. Under the longer schedules these large scenes require, the count stays bounded where most criteria diverge, and on smaller benchmarks our method stays competitive at a fraction of the competitors' count.",
+   "affiliations": [
+    "University Kaiserslautern-Landau – RPTU",
+    "German Research Center for Artificial Intelligence – DFKI"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "University Kaiserslautern-Landau – RPTU",
+    "German Research Center for Artificial Intelligence – DFKI"
+   ],
+   "institution_ids": [
+    null,
+    null
+   ],
+   "extractor": 11,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-21"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-21"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.27108",
+   "pdf_url": "https://arxiv.org/pdf/2610.27108"
+  },
+  {
+   "arxiv_id": "2610.27110",
+   "announced": "2026-10-21",
+   "title": "MatchCityLoc: Aerial Localization in LoD City Models via Surface Normal Matching",
+   "authors": [
+    "Oussema Dhaouadi",
+    "Zuria Bauer",
+    "Johannes Michael Meier",
+    "Marc Pollefeys",
+    "Daniel Cremers",
+    "Olaf Wysocki"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "WACV 2027 - Project page: https://tum-vision.github.io/MatchCityLoc/",
+   "journal_ref": null,
+   "venue": "WACV 2027",
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.27110v1",
+   "abstract": "Autonomous Unmanned Aerial Vehicle (UAV) navigation in urban environments requires precise pose estimation. Because Global Navigation Satellite System (GNSS) signals are often unreliable in cities, visual localization serves as a crucial complement. Within this domain, textureless Level-of-Detail (LoD) city models provide a lightweight and privacy-preserving substitute for heavy 3D textured meshes. However, localizing against abstract geometry is challenging. Existing pipelines typically score 2D silhouette overlaps, which can suffer from severe geometric ambiguities. We present MatchCityLoc, a framework that shifts this paradigm to direct feature matching from a noisy 6-DoF pose prior. By extracting surface normals from the query image using a zero-shot foundation model and matching them against rendered LoD normals, we establish explicit 3D-to-2D correspondences. This enables a Perspective-n-Point (PnP) pose solve, which we iteratively refine through a render-and-match loop. Experiments demonstrate strong pose recall and accurate translation and rotation among the evaluated off-the-shelf LoD-based methods with very few renderings. By bridging the modality gap between aerial imagery and texture-free geometry, MatchCityLoc enables accurate localization using lightweight, privacy-preserving city models.",
+   "affiliations": [
+    "University of Cambridge",
+    "Technical University of Munich",
+    "ETH Zürich",
+    "Munich Center for Machine Learning",
+    "Microsoft"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    null,
+    [
+     0,
+     1,
+     2,
+     3,
+     4
+    ],
+    null,
+    null
+   ],
+   "institutions": [
+    "University of Cambridge",
+    "Technical University of Munich",
+    "ETH Zurich",
+    "Munich Center for Machine Learning",
+    "Microsoft"
+   ],
+   "institution_ids": [
+    "013meh722",
+    "02kkvpp62",
+    "05a28rw58",
+    "02nfy3535",
+    null
+   ],
+   "extractor": 11,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-21"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-21"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.27110",
+   "pdf_url": "https://arxiv.org/pdf/2610.27110"
+  },
+  {
+   "arxiv_id": "2610.27146",
+   "announced": "2026-10-21",
+   "title": "PRIMFLOW: Learning Trajectory Primitives for Few-Step Distillation",
+   "authors": [
+    "Hongyi Fang",
+    "Benjia Zhou"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.27146v1",
+   "abstract": "Few-step trajectory distillation aims to learn accurate global updates from dense local supervision along a teacher's sampling trajectory. Existing approaches construct within-step dynamics using specific trajectory parameterizations or discrete interval predictions, tying the learned update to a prescribed temporal structure. We propose \\method, which directly learns a continuous trajectory primitive representing cumulative displacement along the teacher trajectory. By supervising finite differences of the primitive with local teacher velocities, \\method learns the accumulated motion directly, while obtaining global updates through endpoint differences. This formulation avoids prescribing a temporal basis or fixed query grid and instead learns the temporal evolution of cumulative displacement from local supervision. We further establish a local-to-global error bound to characterize how local regression errors affect full-interval displacement accuracy, and introduce endpoint absorption to eliminate the auxiliary primitive branch while preserving one-network-evaluation inference. Experiments on large-scale text-to-image generation show that \\method achieves a T-FID of 20.92 and an HPSv2 score of 28.35 at one NFE, improving both metrics over a trajectory-distillation baseline. After endpoint absorption, it retains comparable performance, achieving a T-FID of 20.86 and an HPSv2 score of 28.33.",
+   "affiliations": [
+    "Beijing Institute of Technology, Zhuhai, China"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Beijing Institute of Technology"
+   ],
+   "institution_ids": [
+    "01skt4w74"
+   ],
+   "extractor": 11,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-21"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-21"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.27146",
+   "pdf_url": "https://arxiv.org/pdf/2610.27146"
+  },
+  {
+   "arxiv_id": "2610.27192",
+   "announced": "2026-10-21",
+   "title": "CARLAR Influence: A Structured Hallucination Risk in Multimodal Cheque Extraction and an Exploratory Compressed-Image Countermeasure",
+   "authors": [
+    "Joong Ho",
+    "Choi",
+    "Aditya Paul",
+    "Nidhi Singh"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": "12 pages",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.27192v1",
+   "abstract": "Multimodal large language models (LLMs) are increasingly used for structured extraction from financial documents, but their behavior under visual ambiguity is poorly understood. We study CARLAR (Courtesy Amount Recognition and Legal Amount Recognition) influence: a model returns the same amount for both cheque fields even though their annotations differ, including cases with a blank annotation encoded as zero. Across ten visual prompting conditions, we evaluate GPT-4.1 and Claude 4.5 Sonnet on 243 primary cheques (124 with two observed unequal amounts) and 598 strict mismatches from two additional datasets. Under courtesy redaction, GPT-4.1 CARLAR reaches 73.7 percent (95 percent bootstrap interval: 68.3 to 79.0; p below 0.001 versus baseline). Model-reported confidence can remain high when predictions agree; expected calibration error reaches 0.93 among CARLAR cases. We also test a compressed-image few-shot intervention that presents examples as one visual table without model fine-tuning. On the 243-case cohort, Claude's Control condition increases paired joint extraction accuracy by 11.5 percentage points (95 percent interval: 6.2 to 16.9; adjusted p = 0.00054), but its strict-124 gain is smaller and not significant after correction. The intervention's effect on predicted-field agreement is model-dependent: it decreases for Claude and increases for GPT-4.1. These results motivate validation methods that account for visual context and dependencies between extracted fields.",
+   "affiliations": [
+    "BNY, Pittsburgh, PA, USA"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "BNY"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 11,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-21"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-21"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.27192",
+   "pdf_url": "https://arxiv.org/pdf/2610.27192"
+  },
+  {
+   "arxiv_id": "2610.26920",
+   "announced": "2026-10-21",
+   "title": "Codec-Compatible Learned Compression for 3D Gaussian Splatting",
+   "authors": [
+    "Feiyang Yu",
+    "Qi Yang",
+    "Wenjie Huang",
+    "Yunfeng Guan",
+    "Yiling Xu",
+    "Zhu Li"
+   ],
+   "primary_subject": "Image and Video Processing (eess.IV)",
+   "subjects": [
+    "Image and Video Processing (eess.IV)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted at the IEEE International Conference on Visual Communications and Image Processing (VCIP 2026). 5 pages, 3 figures, and 1 table",
+   "journal_ref": null,
+   "venue": "VCIP 2026",
+   "cross_list_from": "eess.IV",
+   "html_url": "https://arxiv.org/html/2610.26920v1",
+   "abstract": "Video-based 3D Gaussian Splatting (3DGS) compression methods provide a practical route by representing Gaussian attributes as 2D maps and coding them with standard video codecs. Among these maps, high-dimensional non-DC spherical harmonics (SH-AC) maps contain the largest number of channels and account for a dominant portion of the bitstream. However, their statistics differ substantially from those of natural images, and the nonlinear dependencies among SH-AC coefficients remain insufficiently exploited. To address these issues, we propose CCT-GS, a Codec-Compatible learned Transform framework for 3DGS compression. CCT-GS first learns a generalized SH-AC transform that captures cross-scene regularities and converts SH-AC maps into compact codec-friendly bottleneck maps. It further introduces LoRA-based scene adaptation to recover scene-specific appearance details with lightweight side information. Experiments on MPEG GSC sequences demonstrate that CCT-GS consistently outperforms representative video-based baselines, achieving an average BD-rate reduction of 51.30% over the video-based anchor.",
+   "affiliations": [
+    "Shanghai Jiao Tong University, Shanghai, China, University of Missouri-Kansas City, Kansas City, USA"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Missouri–Kansas City"
+   ],
+   "institution_ids": [
+    "01w0d5g70"
+   ],
+   "extractor": 11,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-21"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-21"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.26920",
+   "pdf_url": "https://arxiv.org/pdf/2610.26920"
+  },
+  {
+   "arxiv_id": "2610.26972",
+   "announced": "2026-10-21",
+   "title": "SZED at ArGuard Shared Tasks: Multi-Task Label-Attention and Cross-Modal Fusion for Arabic Hateful Meme Detection",
+   "authors": [
+    "Selma Khelili",
+    "Zohra Abdeli"
+   ],
+   "primary_subject": "Computation and Language (cs.CL)",
+   "subjects": [
+    "Computation and Language (cs.CL)",
+    "Artificial Intelligence (cs.AI)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.CL",
+   "html_url": "https://arxiv.org/html/2610.26972v1",
+   "abstract": "We present SZED's submission to ArGuard 2026 Track A: Arabic hateful meme detection. The task has two parts: binary classification (A1) and fine-grained multi-label tagging (A2). For A1, we fuse MARBERTv2 and CLIP ViT-L/14 embeddings, comparing concatenation, self-attention, and ensemble heads. For A2, we use a multi-task label-attention architecture with per-class query vectors and an auxiliary head for cascade calibration. We reach macro-F1 = 0.7597 on A1 and 0.3142 on A2 (averaged over 10 active classes). We report reproducibility across runs, per-class error patterns, and the effect of cascade calibration on the long-tailed A2 label space.",
+   "affiliations": [
+    "ENSIA, Algeria"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "ENSIA"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 11,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-21"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-21"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.26972",
+   "pdf_url": "https://arxiv.org/pdf/2610.26972"
+  },
+  {
+   "arxiv_id": "2610.27037",
+   "announced": "2026-10-21",
+   "title": "Channel-Level Mask Guidance for Slimmable Image Compression",
+   "authors": [
+    "Chen Chen",
+    "Chenggang Wu",
+    "Yongbiao Chen",
+    "Weidong Qiu",
+    "Zhengwei Qi",
+    "Haibing Guan"
+   ],
+   "primary_subject": "Image and Video Processing (eess.IV)",
+   "subjects": [
+    "Image and Video Processing (eess.IV)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "14 pages, 12 figures. Submitted to IEEE Transactions on Circuits and Systems for Video Technology (TCSVT)",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "eess.IV",
+   "html_url": "https://arxiv.org/html/2610.27037v1",
+   "abstract": "Learned image compression (LIC) has achieved promising rate-distortion performance, but most methods lack scalability for diverse platforms with varying computational and storage constraints. Existing slimmable LIC methods achieve flexible complexity via consecutive-channel activation but suffer from two limitations: forced consecutive-channel selection degrades narrow-model performance at low bitrates, and the lack of stable variable-rate control limits adaptability to varying bandwidth. We propose a channel-level mask-guided slimmable image compression method. A learnable channel-wise mask with sparsity-promoting regularization enables non-contiguous top-w channel selection, letting narrow models use the most informative channels. After training, mask merging and channel reordering convert the model into a standard slimmable network via Mask-to-Slimmable (M2S) conversion, enabling efficient inference without architectural changes. For variable-rate control, we combine lambda- and width-conditioned modulation with quantization-step scaling and a progressive training pipeline stabilized by a freeze-then-fine-tune strategy. Experiments on Kodak across E2E, Hyperprior, and Checkerboard backbones show superior rate-distortion performance across widths and bitrates, with large gains for narrow models at low bitrates. At w=48, it achieves up to 19.22%, 24.11%, and 22.76% BD-rate savings over the same-width Slimmable baseline on E2E, Hyperprior, and CKBD, respectively. A single VBR model replaces 40 independent models, reducing storage by 14.8x to 15.9x. Code: https://github.com/sjtu-tcloud/MGSIC.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
+   "extractor": 11,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-21"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.27037",
+   "pdf_url": "https://arxiv.org/pdf/2610.27037"
+  },
+  {
+   "arxiv_id": "2610.27103",
+   "announced": "2026-10-21",
+   "title": "Omni-Woodpecker: Hallucination Correction via Evidence-Prior Rebalancing for Omni LLMs",
+   "authors": [
+    "Zijian Liu",
+    "Chaoyou Fu",
+    "Yan Yang",
+    "Caifeng Shan",
+    "Ran He"
+   ],
+   "primary_subject": "Artificial Intelligence (cs.AI)",
+   "subjects": [
+    "Artificial Intelligence (cs.AI)",
+    "Computation and Language (cs.CL)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Multimedia (cs.MM)"
+   ],
+   "comments": "10 pages, 4 figures, 6 tables. Code: https://github.com/ZiiJianLiu/Omni-Woodpecker",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.AI",
+   "html_url": "https://arxiv.org/html/2610.27103v1",
+   "abstract": "Recent Omni LLMs (OLLMs) have demonstrated remarkable capabilities in joint audio-visual reasoning, yet cross-modal hallucinations remain a major challenge. Existing mitigation methods mainly operate at the output level, overlooking the entanglement of grounding evidence and learned priors within fused representations. To address this issue, we propose Omni-Woodpecker (OWP), a training-free framework that shifts hallucination mitigation from output-level manipulation to conflict-conditioned representation rebalancing. Specifically, OWP first identifies cross-modal conflicts from complementary modality-specific views. It then employs orthogonal decomposition to separate grounding evidence from competing priors within the hidden states. Finally, OWP adaptively rebalances fused representations by suppressing misleading priors and restoring ignored evidence before decoding. Extensive experiments demonstrate the effectiveness and strong cross-architecture generalization of OWP. Using Qwen2.5-Omni-7B as the backbone, OWP improves performance by 12.9 and 8.6 points on CMM and AVHBench, respectively, while consistently achieving gains of 0.67-2.25 points across four general OLLM reasoning benchmarks. Furthermore, OWP generalizes effectively to VideoLLaMA2-AV, improving performance by 4.6 and 3.9 points on the same benchmarks. Code is publicly available at https://github.com/ZiiJianLiu/Omni-Woodpecker",
+   "affiliations": [
+    "School of Intelligence Science and Technology, Nanjing University, Suzhou 215163, China",
+    "University of Chinese Academy of Sciences, Beijing 100049, China"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Nanjing University",
+    "University of Chinese Academy of Sciences"
+   ],
+   "institution_ids": [
+    null,
+    "05qbk4x57"
+   ],
+   "extractor": 11,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-21"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-21"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.27103",
+   "pdf_url": "https://arxiv.org/pdf/2610.27103"
+  },
+  {
+   "arxiv_id": "2610.27199",
+   "announced": "2026-10-21",
+   "title": "Which Depth Estimator for Jetson AGX Orin? A 2026 Benchmark of Monocular and Stereo Methods",
+   "authors": [
+    "Leaf Jiang"
+   ],
+   "primary_subject": "Robotics (cs.RO)",
+   "subjects": [
+    "Robotics (cs.RO)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "18 pages, 5 figures, 8 tables. Code and per-scene results: https://github.com/nodarhub/orin-depth-benchmark",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.RO",
+   "html_url": "https://arxiv.org/html/2610.27199v1",
+   "abstract": "The Jetson AGX Orin is a common computer for robots and vehicles, yet measured accuracy, speed and energy of current depth estimators on it are hard to find. We benchmark nine model families as of October 2026: the monocular Depth Anything V2 and 3, Depth Pro, MoGe-2, Metric3D v2 and UniDepth V2, and the stereo methods libSGM, NVIDIA ESS and Fast-FoundationStereo. Every method runs on the Orin as a TensorRT FP16 engine or native CUDA code at up to three input sizes, up to the full 5.7 MP, and is scored for metric accuracy against Middlebury 2014 ground truth (non-occluded pixels of the 10 scenes whose disparity stays below 256 px), GPU time, energy and licence. Stereo is far more accurate. At 30 fps, NVIDIA's ESS reaches 0.70% AbsRel in 8.6 ms and libSGM 0.73% in 25 ms; with more compute, Fast-FoundationStereo reaches 0.33%. The best monocular models reach 12% with the true focal length (Depth Anything 3 Metric-L in 33 ms, Depth Pro in 803 ms), and 3.8-4.0% only with an oracle per-image scale (MoGe-2-L, UniDepth V2-B, Metric3D v2-L). Stereo error falls as the input resolution grows; no monocular model improves, and the metric scale of most drifts away from the truth outside their training resolution. At depth discontinuities, which AbsRel barely registers, the monocular models scatter 17-46% of the edge points between foreground and background, learned stereo 2-9% and libSGM at full resolution 1%. We give recommendations per frame-rate budget and release all code, per-scene results and engine build scripts.",
+   "affiliations": [
+    "NODAR Inc"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "NODAR Inc"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 11,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-21"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-21"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.27199",
+   "pdf_url": "https://arxiv.org/pdf/2610.27199"
+  }
+ ]
+}

@@ -2314,8 +2314,8 @@
    "announced": "2026-10-19",
    "title": "ShadowCast: On-the-Fly Context-Aware Shadow Augmentation for Remote Sensing Image Segmentation",
    "authors": [
-    "Yechan Kim",
     "Dongho Yoon",
+    "Yechan Kim",
     "Jongmin Joo",
     "JongHyun Park",
     "Moongu Jeon"
@@ -2328,7 +2328,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.23440v1",
+   "html_url": "https://arxiv.org/html/2610.23440v2",
    "abstract": "Shadows cast by elevated objects alter the spectral appearance and obscure the boundaries of objects in remote sensing images, thereby degrading semantic segmentation performance. Most existing approaches handle shadows as degradations to be detected and removed, requiring additional costs from dedicated networks and shadow-specific annotations. We propose ShadowCast, which takes the opposite approach: it synthesizes shadows and injects them during training for remote sensing segmentation. It extracts masks of elevated objects, such as buildings and trees, directly from the segmentation labels and estimates an image-specific cast-shadow direction cue by probing the brightness around them. It then projects synthetic shadows along the inferred cast-shadow direction, requiring no learned network and no acquisition metadata. Experiments on three widely used remote sensing benchmarks, Vaihingen, Potsdam, and LoveDA, show that ShadowCast consistently outperforms the baseline across diverse state-of-the-art segmentation architectures. Moreover, it brings additional performance gains when combined with standard augmentation and regularization techniques, indicating that stochastic shadow injection serves as a simple and complementary augmentation strategy for remote sensing segmentation.",
    "affiliations": [],
    "author_affiliations": null,
@@ -2337,7 +2337,7 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-19"
+     "at": "2026-10-21"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.23440",
@@ -2996,6 +2996,7 @@
     "Xiuwen Xi",
     "Ruoceng Zhang",
     "Shaojie Zhang",
+    "Tingwei Huang",
     "Chao Jiang",
     "Hang Li",
     "Bingrui Liu",
@@ -3013,7 +3014,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.23279v1",
+   "html_url": "https://arxiv.org/html/2610.23279v2",
    "abstract": "Multimodal large language models (MLLMs) answer questions about whole images well, yet they still struggle with fine-grained region understanding. A key reason is that text-only supervision never specifies which regions support an answer. To close this gap, we present Xiaomi-Lens-0, a 4B MLLM built on Qwen3.5 that predicts masks from its own visual representations. Specifically, a lightweight decoder combines vision-encoder patch features with visual latents, the language model's mask-token states, so mask supervision reaches the shared backbone without an additional segmentation encoder. Because each latent decodes to a mask, the model can interleave reasoning with region-specific latents and thus think with visual latents, while grounded reasoning traces supervise the regions it visits during chain-of-thought. As a result, across all eight RefCOCO, RefCOCO+, and RefCOCOg splits, Xiaomi-Lens-0 gains 5.6 points on average over Qwen3.5 in referring comprehension and achieves the highest segmentation cIoU among compared models. Moreover, it surpasses Qwen3.5 across all perception benchmarks. Homepage: this https URL (https://seerray-lab.github.io/Xiaomi-Lens-0)",
    "affiliations": [],
    "author_affiliations": null,
@@ -3022,7 +3023,7 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-19"
+     "at": "2026-10-21"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.23279",
@@ -3138,7 +3139,7 @@
    "journal_ref": null,
    "venue": "NeurIPS 2026",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.23263v1",
+   "html_url": "https://arxiv.org/html/2610.23263v2",
    "abstract": "Classifier-free guidance (CFG) is essential for improving sample quality in visual generation, but it incurs substantial sampling overhead. Existing guidance-free approaches halve this cost by approximating the CFG with a single model inference, but their performance is bounded by the CFG and inherits its limitations. In this paper, we propose self-contrastive guidance (SCG), which contrasts the model's prediction on real and self-generated samples to obtain a direct, model-based signal that pushes generation toward the true data manifold. Integrating SCG into the standard likelihood objective via reparameterization yields Self-Contrastive Alignment for Likelihood Estimation (SCALE), a guidance-free training framework that produces SCG-enhanced predictions in a single forward pass. Across class-conditional and text-to-image generation on diffusion and autoregressive models, SCALE consistently outperforms CFG-mimicking guidance-free baselines and improves further when combined with DPO, demonstrating that the self-contrastive signal yields gains complementary to both CFG and preference-based fine-tuning.",
    "affiliations": [],
    "author_affiliations": null,
@@ -3635,11 +3636,11 @@
     "Cryptography and Security (cs.CR)",
     "Human-Computer Interaction (cs.HC)"
    ],
-   "comments": null,
+   "comments": "Accepted by IEEE S&P 2027",
    "journal_ref": null,
-   "venue": null,
+   "venue": "S&P 2027",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.23144v1",
+   "html_url": "https://arxiv.org/html/2610.23144v2",
    "abstract": "Generative models for deepfakes have rapidly evolved from GAN-based architectures to diffusion models and multimodal large language models (MLLMs). However, empirical research on human performance in detecting deepfake face images has not kept pace. It remains unclear if (and how) detection performance varies across generative models and whether model-specific training improves detection more effectively than general-purpose training. In this paper, we propose the Deepfake Face Artifact Taxonomy (DFAT), a cross-model taxonomy of human-recognizable visual artifacts in deepfake face images, based on which we build both general-purpose and model-specific training materials. Through an online experiment (n = 524), we examined human performance in detecting deepfake face images and evaluated training efficacy across five representative generative models: three GAN-based, one diffusion-based, and one MLLM (GPT-5). Our results show that participants' detection accuracy was strongly model-dependent and that images generated by more recent and advanced models were not necessarily harder to detect. After training, participants achieved significant performance gains across most conditions, and their improvement varied by model. Notably, model-specific training generally yielded greater numerical gains than general-purpose training. In a five-month follow-up test (n = 342), we observed no significant decline in detection accuracy and no significant increase in perceived stress. Overall, our findings provide actionable insights for designing effective, sustainable, and targeted training programs to counter the growing threat posed by deepfakes.",
    "affiliations": [
     "Xinjiang University, China",
@@ -3846,7 +3847,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.23050v1",
+   "html_url": "https://arxiv.org/html/2610.23050v2",
    "abstract": "Recent progress in 3D generation has motivated growing interest in compact generative representations of complex 3D scenes. For native 3D Gaussian scenes, however, learning such representations remains challenging due to widely varying primitive counts, nonuniform spatial density, and differences in geometry and appearance even among spatially neighboring primitives. In this work, we introduce TriFold, a native 3D Gaussian VAE that encodes Gaussian scenes into a fixed-layout triplane latent and jointly reconstructs their geometry and appearance. The key insight is to impose structural regularity on the latent space while preserving the spatial adaptivity of the underlying Gaussians. During encoding, we use cell-wise learned queries to aggregate projected Gaussians into multiple slots per cell, reducing the information loss caused by single-feature pooling. During decoding, occupancy prediction identifies active regions, where query-based set prediction and candidate selection reconstruct local Gaussian sets with spatially varying primitive counts. Building on this representation, we train a latent flow-matching model for conditional scene-level 3DGS generation, enabling point-cloud-conditioned synthesis and single-image-conditioned amodal generation. Experiments demonstrate that TriFold achieves high-fidelity reconstruction and generation from a single image that provides only a partial observation of the scene, validating its effectiveness for native 3D Gaussian representation learning. https://fantasy-amap.github.io/TriFold",
    "affiliations": [],
    "author_affiliations": null,
@@ -7052,7 +7053,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "q-bio.NC",
-   "html_url": "https://arxiv.org/html/2610.22569v1",
+   "html_url": "https://arxiv.org/html/2610.22569v2",
    "abstract": "Encoding models that predict brain activation responses to images have traditionally been trained to maximize accuracy when predicting observed brain data. However, their internal representations may not reflect individual human perception. In this work, we investigate whether we can fine-tune brain encoding models to better align their representations with individuals' similarity judgments. Using similarity judgments of 100 images from 8 participants in the Natural Scenes Dataset (NSD), we adapt a generic human similarity judgment model (DreamSim) separately for each participant to obtain personalized perceptual similarity models. These models are then used to obtain subject-specific similarity structure across images in their encoding model training sets. We fine-tune each participant's baseline encoder in two conditions, aligning its representations with either generic or personalized similarity judgments, with the same initialization and objective. We find that baseline brain encoders reflect within-subject perceptual similarity more strongly than measured fMRI responses and preserve intersubject correlations present in measured fMRI, but fail to reflect those of human perceptual similarity judgments. Fine-tuning with generic, population-level perceptual similarity information results in better alignment with human judgments than baseline encoders, but these models still fail to capture intersubject correlations of human judgments. However, fine-tuning with personalized perceptual similarity information results in models that are the most aligned with human perceptual similarity judgments and also reflect intersubject correlations of human judgments. Our framework provides an approach for bootstrapping human similarity judgment data into more individualized, human-aligned brain encoding models of vision.",
    "affiliations": [
     "Cornell University",
@@ -7323,11 +7324,11 @@
     "Machine Learning (cs.LG)",
     "Multimedia (cs.MM)"
    ],
-   "comments": "Homepage: https://sensenova.ai/has-gpt-6-astra-achieved-embodied-intelligence",
+   "comments": "Homepage: https://sensenova.ai/has-gpt-6-astra-achieved-embodied-intelligence. Authors are ordered alphabetically by their surnames",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2610.22471v1",
+   "html_url": "https://arxiv.org/html/2610.22471v2",
    "abstract": "GPT-6-Astra demonstrates a level of competence in robotic manipulation and navigation that challenges the conventional paradigm of building specialized models for individual tasks and embodiments. In this report, we ask not only how capable GPT-6-Astra is, but what its capabilities imply for the field. First, we probe the limits of standalone GPT-6-Astra. We conduct a large-scale evaluation across 12 representative benchmarks spanning tabletop manipulation, humanoids, mobile platforms, and dexterous hands. Under a unified protocol that allows in-context learning (ICL) from training-set demonstrations and substantially increases the number of execution steps, GPT-6-Astra achieves unprecedented performance (Fig. 1). Future research may focus on improving 1) the generality of ICL 2) cost and execution time, 3) physical-state verification, 4) recovery from irreversible failures, and 5) long-horizon preservation of progress. Second, we study the agentic harness for embodied control. We identify that close-loop coordination between a high-level \"System 2\" reasoner (i.e., GPT-6-Astra) and a low-level \"System 1\" controller (e.g., π0.5) is costly but effective. Third, we examine GPT-6-Astra on real-world deployment. Our experiments on 8 robot configurations reveal substantial gaps: 1) robot demonstrations required for ICL are expensive to collect, and 2) it is implausible to trade longer execution for higher success rates with physical constraints. Fourth, we envision the next generation of embodied benchmarks. We develop a prototype that 1) derives tasks from real-world needs, 2) provides no in-domain demonstrations, and 3) judges agents on a world clock that keeps running while they deliberate. Taken together, our results suggest that GPT-6-Astra has largely crossed the threshold of embodied competence, but not yet that of practical embodied intelligence.",
    "affiliations": [],
    "author_affiliations": null,

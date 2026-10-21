@@ -3391,11 +3391,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": null,
+   "comments": "Project page: https://williamium3000.github.io/act3d/",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.21783v1",
+   "html_url": "https://arxiv.org/html/2610.21783v2",
    "abstract": "We study how vision-language models (VLMs) can learn to think and actively explore in 3D space. Instead of providing multi-view images, videos, or 3D representations to the model, we preserve the native visual encoding of VLMs, i.e., a single image, one at a time, just like humans, and treat the 3D representation only as an environment with which the model can interact through actions (e.g., move left) and observations (rendered images). Each rollout begins from an initial first-person view and a visual question. The model can then iteratively reason, navigate, and reorient its viewpoint before committing to a final answer. Following an initial trajectory-supervised finetuning, we apply reinforcement learning (RL) with rewards driven primarily by final-answer correctness. Crucially, RL provides no direct supervision over which viewpoints the model should visit or which exploration actions it should take. Instead, the model must learn an effective exploration policy solely from the extent to which its interactions improve performance. Across six 3D benchmarks, our model ACT3D achieves an average accuracy of 53.2% that improves its base Qwen model by 22.0% and surpasses proprietary Gemini 3.6 Flash. ACT3D also outperforms existing open-source 3D methods while using 50-70% fewer input frames, and generalizes to unseen domains with an average improvement of 5.9% over its supervised initialization. Further analysis reveals adaptive, question-conditioned exploration. Performance gains over the base model increase from 0.6% on questions answerable from the initial view to 16.3% on those requiring extensive exploration. ACT3D searches for occluded targets, avoids unnecessary exploration, and acquires complementary viewpoints for spatial comparisons. These findings demonstrate that outcome-based RL enables VLMs not only to reason over visual evidence, but also to learn when and how to acquire it.",
    "affiliations": [
     "University of California San Diego",
@@ -6753,11 +6753,11 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Graphics (cs.GR)"
    ],
-   "comments": "Project page: https://theialab.github.io/robocloth/ ; Code: https://github.com/theialab/robocloth ; Dataset: https://huggingface.co/datasets/theialab/RoboCloth . 16 pages including supplementary material",
+   "comments": "16 pages. Project page: https://theialab.github.io/robocloth/",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.21090v1",
+   "html_url": "https://arxiv.org/html/2610.21090v2",
    "abstract": "We present RoboCloth, a dataset of 500 real cloth materials captured under flexible, calibrated camera and lighting configurations, where both are robotically controlled during acquisition. Each material is imaged in approximately 580 high-dynamic range frames spanning a wide view-light hemisphere; camera poses are refined via structure-from-motion and aligned to the robot frame, yielding per-material sparse surface geometry and structured per-point reflectance observations ready for neural material training. We demonstrate the value of this data through a two-stage neural reconstruction pipeline: Stage 1 trains a shared MLP decoder on our corpus to learn cloth material priors; Stage 2 then freezes the decoder and fits a dense 2048x2048 latent texture to each target material. Evaluating on held-out materials from our own dataset and on the independent UBO2014 benchmark, we show that a decoder trained on our captures outperforms decoders trained on existing measured reflectance datasets and analytic PBR fitting, transferring to unseen acquisition systems without modification. The dataset, calibration files, observation tensors, and train/test splits are released under CC BY 4.0 on the Hugging Face Hub.",
    "affiliations": [
     "Simon Fraser University",
@@ -7222,7 +7222,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.20964v1",
+   "html_url": "https://arxiv.org/html/2610.20964v2",
    "abstract": "Existing long-document QA benchmarks rarely combine large-scale human-authored questions with detailed visual evidence annotations, limiting diagnosis of evidence localization and interpretation failures. We present VELD-QA, a large-scale benchmark for Visual Evidence grounding and question answering in Long Documents. It contains 15,000 fully human-authored question-answer pairs across 5,859 real-world PDFs totaling 372,445 pages, balancing chart, table, and complex-layout tasks. Human annotations identify supporting pages and evidence elements and describe cited visual content, enabling separate retrieval and interpretation evaluation. We evaluate nine vision-language models under four evidence settings and seven retrieval-augmented and agentic systems. Our analysis identifies bottlenecks in evidence localization and interpretation. Retrieval-based methods substantially underperform the oracle setting with ground-truth supporting pages; full-document access does not close the gap. Localization alone is insufficient: oracle accuracy peaks at 81.7%, highlighting persistent visual interpretation and reasoning challenges. Enriching inputs with our visual-element annotations narrows the performance gap by 17-24%, demonstrating value beyond evaluation and motivating data enrichment for multimodal document QA. Our code is available at https://github.com/oracle-samples/veld-qa.",
    "affiliations": [
     "University of Southern California",
@@ -8225,7 +8225,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.20693v1",
+   "html_url": "https://arxiv.org/html/2610.20693v2",
    "abstract": "Video generators serve as interactive worlds for exploration and simulation, yet realistic and visually appealing frames do not necessarily depict a consistent 3D world. Existing benchmarks assess selected geometric properties or use vision-language models to judge memory and consistency, leaving systematic 3D evaluation underexplored. We introduce Orbia, the first benchmark dedicated to a systematic and comprehensive evaluation of 3D consistency in interactive world models. Through controlled exploration and revisit, we organize the evaluation into three dimensions: input preservation, generated-content persistence, and 3D self-consistency. For input preservation, registered RGB-D references and annotated anchors support appearance, geometry, and spatial stability measurements. For generated-content persistence, we compare revisits to regions absent from the input image with their first generated observations to test whether models preserve what they create. For 3D self-consistency, cross-view depth and feature correspondence, regional scale agreement, and held-out Gaussian rendering test whether generated views describe the same 3D scene. Minute-long exploration and revisits further test long-term consistency. Our construction and annotation pipeline brings together public datasets, self-captured scenes, and simulation, yielding 720 instances across indoor and outdoor environments and six exploration-and-revisit protocols. Evaluation spans 27 text-, action-, and camera-conditioned models through native-interface adapters. Our Orbia benchmark provides a systematic basis for diagnosing 3D inconsistency and developing more persistent video world models.",
    "affiliations": [],
    "author_affiliations": null,
