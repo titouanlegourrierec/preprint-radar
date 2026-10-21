@@ -710,7 +710,8 @@ def test_trends_are_written_a_topic_a_line_and_read_back(store: PaperStore) -> N
         (("topics", "world model", "papers", 0, "title"), "", "'' is not a text"),
         (("windows", "quarter", "papers"), [1, 2, 3], "Invalid window papers"),
         (("windows", "quarter", "earlier"), ["2025-07-23"], "is not a period"),
-        (("windows", "quarter", "recent", 1), "2026-02-30", "day 30 must be in range"),
+        # Python 3.13 says "day is out of range for month", 3.14 "day 30 must be in range".
+        (("windows", "quarter", "recent", 1), "2026-02-30", "day .*range"),
         (("windows", "quarter", "new"), "world model", "is not a list"),
         (("windows", "quarter", "added"), 1, "Invalid window share added 1"),
         (("windows", "quarter", "added"), True, "Invalid window share added True"),
