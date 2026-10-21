@@ -18,6 +18,9 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ### Data
 
+- Extraction version 12: a run of markers before a thanks note's text marks it for each
+  of them, as in "*†‡ Y. Yang and J. Bos are with the Department of ...": version 11
+  placed only the last of the two authors there, where version 9 placed both (AFF-33).
 - The archive's catalog drops the papers arXiv deleted, and every 90 days harvests the
   whole category again, so that a paper no longer listed in it (a cross-list removed)
   leaves the catalog and the archive. The OAI set of a physics category is named as arXiv

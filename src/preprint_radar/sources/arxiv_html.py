@@ -22,7 +22,7 @@ from preprint_radar.latex import plain_text
 
 logger = logging.getLogger(__name__)
 
-EXTRACTOR_VERSION = 11
+EXTRACTOR_VERSION = 12
 """Version of the extraction heuristics of this module, stored with the affiliations they give.
 
 Bump it with any change that alters what a page gives (affiliations, author mapping), so
@@ -69,6 +69,9 @@ that ``reextract`` reads those papers again, from the page cache when it holds t
   affiliation such sentences give is no longer everyone's, the sentences placing whom they
   name; and the numbered markers of thanks notes anchor authors' markers (2609.03677)
   (AFF-9).
+- 12: a run of markers with nothing between them marks the text after them all: version
+  11 placed only the last author of "*†‡ Y. Yang and J. Bos are with ..." (2610.13891,
+  2610.13872), where version 9 placed both (AFF-33).
 """
 
 # LaTeXML renders line breaks and \quad between affiliations as newlines, em spaces
@@ -271,7 +274,9 @@ _MARKED_RE = re.compile(r"⟨([^⟨⟩]*)⟩")
 # the name: "Bob Smith⟨2⟩ ⟨1⟩Stanford University" places Bob at 2 only.
 _MARKER_RUN_RE = r"((?:\s*⟨[^⟨⟩]*⟩(?![^\W\d_]))+)"
 _MARKER_SPLIT_RE = re.compile(r"[,;\s]+")
-_ANCHOR_RE = re.compile(r"⟨([^⟨⟩]+)⟩\s*([^⟨]+)")
+# A run of markers with nothing between them marks the text that follows them all: "*†‡ Y.
+# Yang and J. Bos are with the Department of ..." (2610.13891) places * and ‡ there.
+_ANCHOR_RE = re.compile(r"((?:⟨[^⟨⟩]+⟩\s*)+)([^⟨]+)")
 _TRAILING_ANCHOR_RE = re.compile(r"([^⟨⟩]+?)\s*⟨([^⟨⟩]+)⟩")
 _NUMBERED_ANCHOR_RE = re.compile(r"^\s*(?P<marker>\d{1,2})" + _NUMBER_NAME, re.MULTILINE)
 # Separators of several names in one creator: "A, B and C", "A & B".
@@ -1478,8 +1483,9 @@ def _anchors(soup: BeautifulSoup, block: Tag, index_of: Mapping[str, int]) -> di
         # affiliation: keep the orientation that explains more of the node.
         leading = [
             (marker, candidate)
-            for marker, candidate in _ANCHOR_RE.findall(marked)
+            for run, candidate in _ANCHOR_RE.findall(marked)
             if _known(candidate, index_of)
+            for marker in _MARKED_RE.findall(run)
         ]
         trailing = [
             (marker, candidate)

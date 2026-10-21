@@ -2651,5 +2651,29 @@
       ]
     ],
     "abstract": "Choosing an OCR system for a multilingual archive requires balancing accuracy against deployment constraints. This study compares cloud and self-hosted systems on three tasks: bounding box detection on 48 Arabic, English, and French pages, text recognition on 315 pages across nine document types, and mathematical expression recognition on 83 English and Arabic samples. Detection was assessed by page-level visual grades, text by character error rate (CER) against a Gemini-generated reference transcription, and mathematics by scores against known answers. Main estimates are accompanied by 95% intervals and paired comparisons. Google Document AI and Surya produced Good line boxes on 47 of 48 (98%) and 46 of 48 (96%) pages. Datalab, Azure Document Intelligence, and Document AI had mean CERs of 0.145–0.152, with no difference detected in unadjusted paired comparisons. Surya had the lowest mean CER among self-hosted systems (0.199). No mathematical test had a statistically clear leader. Strict checks showed that near-perfect page scores could conceal a replaced Arabic variable or Eastern Arabic digits rewritten in Western form. Reliable evaluation therefore requires uncertainty estimates, structural checks, and notation-specific tests in addition to aggregate recognition scores."
+  },
+  "2610.13891": {
+    "authors": [
+      "Yiming Yang",
+      "Jeremy P. Bos"
+    ],
+    "affiliations": [
+      "Department of Electrical and Computer Engineering, Michigan Technological University, Houghton, MI, USA"
+    ],
+    "placed": [
+      [
+        "Yiming Yang",
+        [
+          "Department of Electrical and Computer Engineering, Michigan Technological University, Houghton, MI, USA"
+        ]
+      ],
+      [
+        "Jeremy P. Bos",
+        [
+          "Department of Electrical and Computer Engineering, Michigan Technological University, Houghton, MI, USA"
+        ]
+      ]
+    ],
+    "abstract": "Light Detection and Ranging (LiDAR) is critical for autonomous perception, yet its performance is known to degrade in adverse weather. While existing literature models snow as atmospheric noise that degrades performance, our granular evaluation on the WADS-3D and CADC datasets reveals a counter-intuitive phenomenon: detection accuracy consistently improves as snow intensity increases. Through ablation study and meta-information analysis, we reconcile this by confirming that while falling snow acts as noise, its negative impact is outweighed by a dominant, concurrent factor: significantly increased object point count. We hypothesize that this object point count boost acts as a geometric enhancement, driven by snow accumulation increasing vehicle surface area and a shift from specular to diffuse reflectance. Our findings demonstrate that evaluating perception systems using broad weather-severity bins without accounting for correlated object-level data can lead to misleading conclusions about detector robustness. We conclude that accurate evaluation requires decoupling atmospheric noise from surface accumulation effects and outline future research to validate these physical models. The WADS-3D dataset is available at: https://digitalcommons.mtu.edu/wads-3d/."
   }
 }

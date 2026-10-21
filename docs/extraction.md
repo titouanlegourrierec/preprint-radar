@@ -242,6 +242,12 @@ ambiguous name alignments drop the whole tier, and unresolved authors stay `null
 - Symbols come off a marker's number: "⟨2,6*‡⟩" is 2 and 6, and "∗" (LaTeX's `\ast`) is
   a note like "*" (2609.35052). A run of known markers without separators ("12", "⋆†")
   is read one by one.
+- An anchor's markers in a row, nothing between them, all mark the text that follows: a
+  thanks note "⟨*⟩⟨†⟩⟨‡⟩ Y. Yang and J. Bos are with the Department of ..." anchors both
+  authors' markers, * and ‡. Version 11, which first read thanks notes as anchors, gave
+  the text to ‡ alone, and its marker tier, tried before the sentences, placed only the
+  last author (2610.13891, 2610.13872, which `validate` warned of), where version 9 had
+  placed both; version 12 places both again (AFF-33).
 - Anchors match affiliations without regard to commas: a marked line read as one text
   ("Department of Computer Science University of Central Florida") is the affiliation its
   lines were joined into (2610.02000).
