@@ -20,8 +20,9 @@ GitHub Pages searches: there is no server.
 │   citations     Semantic Scholar               │   │  - rankings, world map     │
 │ archive (Sundays)                              │   │  - graph, Atom feeds       │
 │   older papers  OAI-PMH, Semantic Scholar      │   │  - reading list, folders   │
-│   affiliations  OpenAlex                       │   │                            │
+│   affiliations  OpenAlex                       │   │  - trends of the topics    │
 │   stars         GitHub, Hugging Face           │   │                            │
+│   trends        the catalog's titles           │   │                            │
 │ → data/<cat>/<date>.json, archive/<year>.json, │   │                            │
 │   citations.json, scholar.json, index.json     │   │                            │
 └────────────────────────────────────────────────┘   └────────────────────────────┘
@@ -35,6 +36,9 @@ GitHub Pages searches: there is no server.
   institution, venue, subject or code. A search is a link to share.
 - **Highly cited**: the most cited papers of each year since 2010, and of the last 12
   months, ranked by citations or by those gained this week.
+- **Trends**: the topics of the titles whose share of the papers rises, cools or is new,
+  over the last 90 days or 12 months against the same before, each with its months, its
+  impact and its most cited papers of the year; an explorer draws any topic since 2010.
 - **Rankings**: the institutions, authors or countries of the papers shown, by papers or
   citations, with a world map of the countries, flat or on a globe.
 - **Graph**: the papers, their institutions and authors, or who works with whom, replayed
@@ -145,10 +149,10 @@ hand or dispatched (step 6) go on. For daily runs on schedule, push a copy inste
    missed while the workflow was not running, fill its *since* field (YYYY-MM-DD): it then
    runs `backfill`, limited like any run to 600 HTML pages (run it again to go on).
 5. Run the *Archive* workflow once by hand too (*Actions → Archive → Run workflow*), or
-   *Highly cited* stays empty until the first Sunday. Its first run harvests arXiv's
-   catalog (about 45 minutes) before asking for the citation counts (about 40 minutes with
-   the key, hours without); it waits for a running *Update data*, since the two never
-   commit at the same time.
+   *Highly cited* and *Trends* stay empty until the first Sunday. Its first run harvests
+   arXiv's catalog (about 45 minutes) before asking for the citation counts (about 40
+   minutes with the key, hours without); it waits for a running *Update data*, since the
+   two never commit at the same time.
 6. For runs on time, have an outside scheduler dispatch both workflows: GitHub starts
    scheduled runs hours late, so their own schedules are only fallbacks, four hours after
    the dispatch times. [`docs/operations.md`](docs/operations.md#the-outside-scheduler)

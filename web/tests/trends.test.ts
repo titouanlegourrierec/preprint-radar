@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import singularCases from "../../tests/fixtures/singular-cases.json?raw";
 import {
   assignSlots,
   displayName,
@@ -15,8 +16,11 @@ import {
   quarterly,
   shareOf,
   shares,
+  singular,
   type TopicsFile,
   type TrendsFile,
+  topicNote,
+  topicOfQuery,
   topicQuery,
   trendRows,
 } from "../src/trends";
@@ -121,6 +125,33 @@ describe("names", () => {
     expect(displayName("VLA")).toBe("VLA");
     expect(displayName("3D gaussian splatting")).toBe("3D gaussian splatting");
     expect(formatPercent(0.542)).toBe("54%");
+  });
+});
+
+describe("a search's topic", () => {
+  it("is keyed as the pipeline keys it, its last word singular", () => {
+    const cases = JSON.parse(singularCases) as { word: string; singular: string }[];
+    expect(cases.length).toBeGreaterThan(10);
+    for (const { word, singular: expected } of cases) expect(singular(word)).toBe(expected);
+    expect(topicOfQuery("World Models")).toBe("world model");
+    expect(topicOfQuery('"world model" OR "world models"')).toBe("world model");
+    expect(topicOfQuery("Semi-Supervised")).toBe("semi supervised");
+    expect(topicOfQuery("  ")).toBeNull();
+  });
+
+  it("says where the lists put it, the 90 days first", () => {
+    expect(topicNote(TRENDS, "world model")).toEqual({
+      key: "world model",
+      name: "world model",
+      list: "rising",
+      window: "quarter",
+      figure: "×3.7",
+    });
+    expect(topicNote(TRENDS, "diffusion model")?.figure).toBe("−75%");
+    expect(topicNote(TRENDS, "gone")).toBeNull();
+    // In no list of a window the file has.
+    const unlisted = { ...TRENDS, windows: {} };
+    expect(topicNote(unlisted, "world model")).toBeNull();
   });
 });
 

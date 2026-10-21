@@ -357,6 +357,23 @@ test("Trends lists the topics that rise, and opens one with its papers (PROD-20)
   expect(errors).toEqual([]);
 });
 
+test("a search that names a rising topic says so, and links to its trend (PROD-20)", async ({
+  page,
+}) => {
+  const errors = watchErrors(page);
+  await page.goto("./?q=World+Models");
+  const note = page.getByText("“World model” is a rising topic of the titles");
+  await expect(note).toContainText("over the last 90 days against the same days a year before");
+  await page.getByRole("link", { name: "See its trend" }).click();
+  await expect(page).toHaveURL(/view=trends&topic=world\+model$/);
+  await expect(page.getByRole("region", { name: "World model" })).toBeVisible();
+  // No note for words that name no listed topic.
+  await page.goto("./?q=punched+cards");
+  await expect(page.getByText("1 of 4 cs.CV papers")).toBeVisible();
+  await expect(page.getByText("topic of the titles")).toHaveCount(0);
+  expect(errors).toEqual([]);
+});
+
 test("the explorer loads every topic only when asked, and draws them by quarter (PROD-20)", async ({
   page,
 }) => {

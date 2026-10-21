@@ -15,7 +15,8 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   against the 12 before, each with its months drawn. A topic opens with its share month by
   month, its impact, its most cited papers of the year, and links to its papers. Its
   explorer draws any topic of the titles since 2010, by quarter, up to five side by side:
-  Mamba, Transformer, NeRF, Gaussian splatting… (PROD-20).
+  Mamba, Transformer, NeRF, Gaussian splatting…; and a search that names a rising, cooling
+  or new topic says so above its papers (PROD-20).
 - A card says where its citations put a paper among those of its year: "Top 1% of 2017",
   5% or 10%, against every cs.CV paper first submitted that year, from the archive of
   2026-10-25 on (PROD-19).

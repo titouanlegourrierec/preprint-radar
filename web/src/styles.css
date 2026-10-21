@@ -1138,6 +1138,14 @@ html {
   color: var(--text-muted);
 }
 
+/* The topic a search names, as the Trends view's lists put it (PROD-20). */
+.topic-note {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  color: var(--text);
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;

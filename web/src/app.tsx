@@ -40,6 +40,7 @@ import { useReadingList } from "./hooks/use-reading-list";
 import { useSavedSearches } from "./hooks/use-saved-searches";
 import { useSharedFolder } from "./hooks/use-shared-folder";
 import { useTheme } from "./hooks/use-theme";
+import { useTopicNote } from "./hooks/use-topic-note";
 import { useTriage } from "./hooks/use-triage";
 import { useUrlState } from "./hooks/use-url-state";
 import { namedInstitutions } from "./institutions";
@@ -281,6 +282,8 @@ export function App() {
   }, [focusedTitle, query, state.view]);
 
   const searchWords = hasSearchWords(parseQuery(query));
+  // Where the Trends view's lists put the topic searched (PROD-20).
+  const topicNote = useTopicNote(category, query, state.view === "papers" || cited);
   // Rising papers, once two weekly refreshes of the counts are known (CIT-9).
   const gainsSpan = citations.gainsSpan;
   // The stars of the code the papers link, once the weekly refresh gave some (PROD-18).
@@ -929,6 +932,18 @@ export function App() {
                 filters={rankings ? null : state.filters}
                 onFilters={setFilters}
                 feed={feed}
+                topic={
+                  topicNote
+                    ? {
+                        note: topicNote,
+                        link: tab(false, {
+                          view: "trends",
+                          topic: topicNote.key,
+                          window: topicNote.window,
+                        }),
+                      }
+                    : null
+                }
               />
 
               {load.status === "error" && state.view !== "reading-list" ? (

@@ -4,10 +4,13 @@ import { affiliationCoverage, countOf } from "../format";
 import { LOCALE } from "../locale";
 import { formatMissingDays, PAPER_BUDGET } from "../period";
 import type { SearchFilters } from "../search";
+import { displayName, type TopicNote } from "../trends";
 import type { Paper } from "../types";
 import type { ViewState } from "../url-state";
 import { ActiveFilters } from "./ActiveFilters";
 import { InfoButton } from "./InfoButton";
+import { CoolingIcon, NewIcon, RisingIcon } from "./icons";
+import type { TabLink } from "./Topbar";
 
 // What each view shows, in its ⓘ: the tabs' tooltips are out of reach on touch.
 const VIEW_NOTES: Partial<Record<ViewState["view"], string>> = {
@@ -83,6 +86,35 @@ interface Props {
   filters: SearchFilters | null;
   onFilters: (filters: SearchFilters) => void;
   feed: FeedLink | null;
+  /** The topic the search names, where the Trends view's lists put it (PROD-20). */
+  topic: { note: TopicNote; link: ReturnType<TabLink> } | null;
+}
+
+const WINDOW_WORDS = {
+  quarter: "over the last 90 days against the same days a year before",
+  year: "over the last 12 months against the 12 before",
+};
+
+/** Where the lists put the topic searched: rising, cooling or new, with a link to its trend. */
+function TopicTrend({ note, link }: { note: TopicNote; link: ReturnType<TabLink> }) {
+  const Icon =
+    note.list === "rising" ? RisingIcon : note.list === "cooling" ? CoolingIcon : NewIcon;
+  return (
+    <p class="help-note topic-note">
+      <span class={`trend-mark trend-mark--${note.list === "cooling" ? "cooling" : "rising"}`}>
+        <Icon />
+      </span>
+      <span>
+        “{displayName(note.name)}”{" "}
+        {note.list === "new"
+          ? "is a new topic of the titles, first seen within the last 12 months."
+          : `is a ${note.list} topic of the titles: its share of the papers ${note.figure} ${WINDOW_WORDS[note.window]}.`}{" "}
+        <a href={link.href} onClick={link.onClick}>
+          See its trend
+        </a>
+      </span>
+    </p>
+  );
 }
 
 /** What a list says above its papers: news, warnings and the filters set. */
@@ -136,6 +168,7 @@ export function ListNotices(props: Props) {
           among them, the order is by relevance or date.
         </p>
       )}
+      {props.topic && <TopicTrend note={props.topic.note} link={props.topic.link} />}
       {props.filters && <ActiveFilters filters={props.filters} onFilters={props.onFilters} />}
       {props.feed && (
         <p class="feed-link muted">

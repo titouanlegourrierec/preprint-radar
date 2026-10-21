@@ -1,10 +1,22 @@
+import json
 from datetime import date, timedelta
 
 import pytest
+from tests.conftest import FIXTURES_DIR
 
 from preprint_radar.models import KeyPaper
 from preprint_radar.sources.arxiv_oai import CatalogEntry
-from preprint_radar.trends import MONTHS, _distinct, count_trends, format_trends_report, title_phrases
+from preprint_radar.trends import (
+    MONTHS,
+    _distinct,
+    _singular,
+    count_trends,
+    format_trends_report,
+    title_phrases,
+)
+
+# The singulars of a topic's last word, which the site's search gives too (`trends.ts`).
+SINGULAR_CASES = json.loads((FIXTURES_DIR / "singular-cases.json").read_text(encoding="utf-8"))
 
 THROUGH = date(2026, 10, 20)
 
@@ -75,6 +87,11 @@ def test_a_phrase_is_keyed_by_its_words_the_last_singular() -> None:
     }
     # Generic words and modifiers alone, plurals included, say nothing.
     assert title_phrases("Deep Neural Networks for Large-Scale Datasets") == {}
+
+
+@pytest.mark.parametrize("case", SINGULAR_CASES, ids=lambda case: case["word"])
+def test_the_last_word_is_singular(case: dict[str, str]) -> None:
+    assert _singular(case["word"]) == case["singular"]
 
 
 def test_a_phrase_has_four_words_and_six_parts_at_most() -> None:

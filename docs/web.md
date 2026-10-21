@@ -609,6 +609,13 @@ day that was right. The order by newest and the exports keep the stored date.
   (`assignSlots`); the topics drawn, each with its line's key and a remove button, are the
   chart's legend. A topic opened adds itself (Compare in the explorer); with none drawn,
   the window's first rising and cooling are offered to try.
+- A search that names a listed topic says where the lists put it, above the papers of the
+  Papers and Highly cited views: "“World model” is a rising topic of the titles: its share
+  of the papers ×4.7 over the last 90 days…", with a link to its trend (`useTopicNote`). The
+  topic is the search's first quoted phrase, else its words, folded and the last singular
+  (`topicOfQuery`, `singular`, the pipeline's rule: `tests/fixtures/singular-cases.json`,
+  which pytest and Vitest both read); `trends.json` is asked for once a search is typed,
+  once for the page (`trendsOf`, 16 kB gzipped), and a failure only said in the console.
 - Colors (`--trend-rising`, `--trend-cooling`, the map's validated red and blue, checked with
   the dataviz skill's validator on both surfaces): a list's mark and a line's tone, never its
   text. `LineChart` draws thin lines over hairline gridlines (`niceTicks`), a crosshair and a

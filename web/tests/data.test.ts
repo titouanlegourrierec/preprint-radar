@@ -15,6 +15,7 @@ import {
   loadTopRecent,
   loadTrends,
   loadWholePaper,
+  trendsOf,
 } from "../src/data";
 import { PAPER_BUDGET } from "../src/period";
 import { makePaper } from "./fixtures";
@@ -75,6 +76,18 @@ describe("data", () => {
     await expect(loadTrends("cs.CV")).resolves.toBeNull();
     serve({ "cs.CV/topics.json": { ...topics, schema_version: 2 } });
     await expect(loadTopics("cs.CV")).rejects.toThrow("Unsupported topics schema version 2");
+  });
+
+  it("asks for a category's trends once for the page, again after a failure (PROD-20)", async () => {
+    const trends = { schema_version: 1, through: "2026-10-20", topics: {} };
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    serve({}, { "cs.CV/trends.json": 503 });
+    await expect(trendsOf("cs.CV")).resolves.toBeNull();
+    expect(warn).toHaveBeenCalledOnce();
+    const requested = serve({ "cs.CV/trends.json": trends });
+    await expect(trendsOf("cs.CV")).resolves.toEqual(trends);
+    await expect(trendsOf("cs.CV")).resolves.toEqual(trends);
+    expect(requested).toEqual(["cs.CV/trends.json"]);
   });
 
   it("asks for each file with the version the site's index gives it (PERF-8)", async () => {

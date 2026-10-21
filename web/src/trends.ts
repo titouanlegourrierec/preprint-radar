@@ -182,6 +182,80 @@ export function formatPercent(share: number): string {
   return `${Math.round(share * 100)}%`;
 }
 
+/** Words ending as plurals that are none, as the pipeline keeps them (`trends._singular`). */
+const NOT_PLURAL = new Set([
+  "series",
+  "species",
+  "news",
+  "lens",
+  "bias",
+  "atlas",
+  "canvas",
+  "alias",
+  "chaos",
+]);
+const NOT_PLURAL_ENDINGS = ["ss", "us", "is", "ics", "ous"];
+
+/**
+ * A plural, singular, as the pipeline keys a topic's last word: "models" is "model",
+ * "patches" "patch", "policies" "policy"; "series" stays (`tests/fixtures/singular-cases.json`).
+ */
+export function singular(word: string): string {
+  if (NOT_PLURAL.has(word) || NOT_PLURAL_ENDINGS.some((ending) => word.endsWith(ending))) {
+    return word;
+  }
+  if (word.length >= 5 && word.endsWith("ies")) return `${word.slice(0, -3)}y`;
+  if (["sses", "ches", "shes", "xes"].some((ending) => word.endsWith(ending))) {
+    return word.slice(0, -2);
+  }
+  if (word.length >= 4 && word.endsWith("s")) return word.slice(0, -1);
+  return word;
+}
+
+/**
+ * The topic a search names, if any: its first quoted phrase, else its words, folded and the
+ * last one singular (`world models`, `"world model" OR "world models"`: "world model").
+ */
+export function topicOfQuery(query: string): string | null {
+  const quoted = /"([^"]+)"/.exec(query)?.[1];
+  const words = searchKey(quoted ?? query)
+    .split(" ")
+    .filter(Boolean);
+  const last = words.pop();
+  return last === undefined ? null : [...words, singular(last)].join(" ");
+}
+
+/** What the lists say of a topic, for a search that names it. */
+export interface TopicNote {
+  key: string;
+  name: string;
+  list: ListName;
+  window: WindowName;
+  /** Its lift in the window ("×4.7", "−64%"), none for a new topic. */
+  figure: string | null;
+}
+
+/**
+ * Where a topic stands in the lists: rising, cooling or new over the last 90 days, else
+ * over the last 12 months; `null` when no list names it.
+ */
+export function topicNote(file: TrendsFile, key: string): TopicNote | null {
+  const topic = file.topics[key];
+  if (topic === undefined) return null;
+  for (const window of WINDOW_NAMES) {
+    const compared = file.windows[window];
+    const pair = topic.windows[window];
+    if (compared === undefined || pair === undefined) continue;
+    for (const list of ["rising", "cooling", "new"] as const) {
+      if (!compared[list].includes(key)) continue;
+      const figure =
+        list === "new" ? null : formatChange(lift(pair, compared.papers, compared.added));
+      return { key, name: topic.name, list, window, figure };
+    }
+  }
+  return null;
+}
+
 /** A phrase's plural, as a title writes it: "world models", "robot policies", "patches". */
 function plural(phrase: string): string {
   if (/[^aeiou]y$/.test(phrase)) return `${phrase.slice(0, -1)}ies`;

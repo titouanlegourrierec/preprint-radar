@@ -69,6 +69,7 @@ export function forgetLoaded(): void {
   loaded.clear();
   shards.clear();
   searchShards.clear();
+  trendsFiles.clear();
 }
 
 /** The citation shards asked for, by path, for the page's lifetime. */
@@ -384,6 +385,27 @@ export function loadCountries(category: string): Promise<CountriesFile | null> {
  */
 export function loadTrends(category: string): Promise<TrendsFile | null> {
   return loadWritten(`${category}/trends.json`, "trends");
+}
+
+/** Each category's `trends.json`, asked for once for the page (`trendsOf`). */
+const trendsFiles = new Map<string, Promise<TrendsFile | null>>();
+
+/**
+ * A category's `trends.json`, asked for once for the page: the note on a topic a search names
+ * (PROD-20). `null` when it is not there or fails, which is asked for again next time: the
+ * note is a bonus, a failure only said in the console.
+ */
+export function trendsOf(category: string): Promise<TrendsFile | null> {
+  let file = trendsFiles.get(category);
+  if (file === undefined) {
+    file = loadTrends(category).catch((error: unknown) => {
+      console.warn(`Could not load the trends of ${category}`, error);
+      trendsFiles.delete(category);
+      return null;
+    });
+    trendsFiles.set(category, file);
+  }
+  return file;
 }
 
 /**
