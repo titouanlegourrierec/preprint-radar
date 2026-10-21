@@ -55,6 +55,7 @@ for the answer.
 | 20 | Shipping the audit | Commit it as a frozen baseline | — | Done: `docs/audit/2026-09-30.md` |
 | 21 | Versioning | Stay on 0.x; tag a minor release at the end of each phase, with a changelog; 1.0.0 once the public data format is documented and stable | — | Adopted: `v0.1.0` tags the audit commit as the baseline; Phase 4 has no end, so each set of its features is a minor release (2026-10-07) |
 | 22 | The archive's old years | 8 papers of 2010, 41 of 2013, fewer every year: the 1,000 most cited of each year, a floor of 100, or each year's most cited tenth on top of the budget's rule | CIT-16 | Each year at least three years old keeps its most cited tenth, on top of the budget's rule; cards say a paper's place in its year, "Top 1% of 2017" (2026-10-21) |
+| CIT-17 | A batch none of whose papers Semantic Scholar knows is answered `400 No valid paper ids given`, rather than a null for each, which was taken for a refusal: a local archive of 2026-10-21 asked its last batch, the day's 10 newest papers, 30 times over 25 minutes before leaving it. Those papers are unknown, as nulls say, and not asked again; another 400 is still a refusal (2026-10-21) | P2 | done |
 
 ## Phase 0: stop publishing wrong data (1–2 days)
 

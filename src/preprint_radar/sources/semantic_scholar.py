@@ -54,6 +54,11 @@ S2_ANONYMOUS_RETRY_WAIT_SECONDS = 20.0
 S2_MAX_RETRY_WAIT_SECONDS = 60.0
 # An invalid or revoked key gets these on every request: trying again only wastes the run.
 S2_KEY_REJECTED = frozenset({401, 403})
+# A batch none of whose papers it knows is answered 400, with this error, rather than a null
+# for each: the newest papers, alone in a run's last batch (2026-10-21: 10 of the day, refused
+# 30 times over 25 minutes). It knows none of them yet, which asking again does not change.
+_NONE_KNOWN = "No valid paper ids given"
+_BAD_REQUEST = 400
 # An answer that does not match its batch is tried that many times before the batch is
 # halved; past that many such batches in a run (one bad paper in 500 takes about 10), the
 # run stops, as for refusals.
@@ -392,6 +397,10 @@ def _fetch_batch[T](
                 rejected = "the API key" if headers else "the request"
                 msg = f"Semantic Scholar rejected {rejected} (HTTP {exc.status}): {exc}"
                 raise FetchError(msg, status=exc.status) from exc
+            if isinstance(exc, FetchError) and exc.status == _BAD_REQUEST and _NONE_KNOWN in str(exc):
+                logger.debug("Semantic Scholar knows none of a batch of %d papers yet", len(batch))
+                none_known: dict[str, T | None] = dict.fromkeys(batch)
+                return none_known, attempt - 1, told
             if isinstance(exc, ParseError):
                 mismatches += 1
                 if mismatches == S2_MISMATCH_TRIES:

@@ -18,6 +18,9 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ### Fixes
 
+- A batch of papers Semantic Scholar knows none of yet, as the newest ones can be alone in
+  the archive's last batch, is no longer asked again 30 times over 25 minutes: its answer,
+  "No valid paper ids given", says they are unknown (CIT-17).
 - A list of mailbox names in capitals ("{Jane.Doe, A.Roe,") is a contact detail too, and
   no longer an affiliation: on 2026-10-20, one paper's made the data fail validation, and
   neither run of the day stored its 346 papers. The cleaning now drops any string that

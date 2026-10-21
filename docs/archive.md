@@ -235,9 +235,11 @@ year of cs.CV is 46,000.
   about half of the batches were refused (429) in CI. A refused batch is tried again after
   2 s, doubled up to 60 s (20 s at first without a key, whose shared pool is busier), 30
   times; a refusal with a `Retry-After` is waited for as it asks instead, within five
-  minutes (`FetchError.retry_after`, CIT-8). Whether Semantic Scholar sends one is not
-  known yet: the run's last line counts them ("…, 12 refused tries, 0 with a
-  Retry-After"). The retries live in `_fetch_batch` and `_fetch_all`, shared by
+  minutes (`FetchError.retry_after`, CIT-8). It sends none: the run's last line counts
+  them ("…, 387 refused tries, 0 with a Retry-After" on 2026-10-18). A batch none of
+  whose papers it knows is answered `400 No valid paper ids given`, rather than a null for
+  each: those papers are unknown, not refused, and not asked again (CIT-17; the newest
+  papers, alone in a run's last batch, cost 25 minutes of tries before). The retries live in `_fetch_batch` and `_fetch_all`, shared by
   `fetch_citation_counts` and `fetch_scholar_records`: their `HttpClient` makes a single
   attempt. Refusals are logged at debug level; only streaks of 5 reach the INFO log, and
   progress every 5,000 papers.

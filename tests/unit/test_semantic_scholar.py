@@ -156,6 +156,35 @@ def test_fetch_citation_counts_waits_longer_and_longer_then_gives_up(
     assert "refused a batch 30 times, the last: HTTP 503" in caplog.text
 
 
+def test_a_batch_of_papers_it_knows_none_of_is_not_asked_again() -> None:
+    # The newest papers, alone in the last batch: 400 rather than a null for each (CIT-17).
+    asked: list[object] = []
+
+    def handle(request: httpx.Request) -> httpx.Response:
+        asked.append(json.loads(request.content)["ids"])
+        return httpx.Response(400, json={"error": "No valid paper ids given"})
+
+    sleeps: list[float] = []
+    with HttpClient(transport=httpx.MockTransport(handle), max_attempts=1) as client:
+        counts = fetch_citation_counts(
+            client, ["2610.28594", "2610.28598"], key="secret", sleep=sleeps.append
+        )
+
+    assert counts == {"2610.28594": None, "2610.28598": None}
+    assert len(asked) == 1
+    assert sleeps == []
+
+
+def test_another_bad_request_is_a_refusal() -> None:
+    sleeps: list[float] = []
+    answer = httpx.Response(400, json={"error": "Something else"})
+    with HttpClient(transport=httpx.MockTransport(lambda _: answer), max_attempts=1) as client:
+        counts = fetch_citation_counts(client, ["2609.1"], key="secret", sleep=sleeps.append)
+
+    assert counts == {}
+    assert len(sleeps) == S2_BATCH_TRIES - 1
+
+
 def test_fetch_citation_counts_without_progress_callback(caplog: pytest.LogCaptureFixture) -> None:
     caplog.set_level(logging.INFO)
     answer = httpx.Response(200, text='[{"citationCount": 3}]')
