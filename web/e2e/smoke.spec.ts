@@ -357,6 +357,38 @@ test("Trends lists the topics that rise, and opens one with its papers (PROD-20)
   expect(errors).toEqual([]);
 });
 
+test("the explorer loads every topic only when asked, and draws them by quarter (PROD-20)", async ({
+  page,
+}) => {
+  const errors = watchErrors(page);
+  const asked: string[] = [];
+  page.on("request", (request) => asked.push(new URL(request.url()).pathname));
+  await page.goto("./?view=trends&topic=world+model");
+  const explorer = page.getByRole("region", { name: "Explore a topic" });
+  await expect(explorer.getByRole("button", { name: "World model", exact: true })).toBeVisible();
+  // Its 400 kB wait for the field or a topic to draw.
+  expect(asked.filter((path) => path.endsWith("/topics.json"))).toEqual([]);
+  const field = explorer.getByRole("combobox", { name: "Find a topic to draw" });
+  await field.fill("mamb");
+  // The topic typed first, then the longer ones holding it.
+  await expect(explorer.getByRole("option").first()).toHaveText(/^Mamba\s*30 papers$/);
+  await expect(explorer.getByRole("option").nth(1)).toContainText("Mamba for");
+  await field.press("Enter");
+  await expect(page).toHaveURL(/\?view=trends&topic=world\+model&compare=mamba$/);
+  // The topic opened adds itself, as the second line.
+  await page.getByRole("button", { name: "Compare in the explorer" }).click();
+  await expect(page).toHaveURL(/&compare=mamba%2Cworld\+model$/);
+  await expect(explorer.getByRole("list", { name: "Topics drawn" })).toContainText(
+    "MambaWorld model",
+  );
+  await explorer.getByRole("button", { name: "Show as a table" }).click();
+  await expect(explorer.getByRole("row", { name: /^2024 Q1/ })).toBeVisible();
+  await explorer.getByRole("button", { name: "Remove Mamba" }).click();
+  await expect(page).toHaveURL(/&compare=world\+model$/);
+  expect(asked.filter((path) => path.endsWith("/topics.json"))).toHaveLength(1);
+  expect(errors).toEqual([]);
+});
+
 test("a year the archive does not hold names the year shown in the link, in place", async ({
   page,
 }) => {

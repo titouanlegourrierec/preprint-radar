@@ -15,7 +15,7 @@ import {
   type SortOrder,
   typed,
 } from "./search";
-import { WINDOW_NAMES, type WindowName } from "./trends";
+import { COMPARED, WINDOW_NAMES, type WindowName } from "./trends";
 import type { CountryMetric } from "./world";
 
 export type View = "papers" | "cited" | "graph" | "trends" | "rankings" | "reading-list" | "about";
@@ -87,6 +87,11 @@ export interface ViewState {
   window: WindowName;
   /** The topic the Trends view opens (`?topic=world+model`), by its key; in its links only. */
   topic: string | null;
+  /**
+   * The topics the Trends view's explorer draws (`?compare=mamba,transformer`), by key,
+   * five at most; in its links only.
+   */
+  compare: string[];
 }
 
 export const DEFAULT_STATE: ViewState = {
@@ -104,6 +109,7 @@ export const DEFAULT_STATE: ViewState = {
   folder: null,
   window: "quarter",
   topic: null,
+  compare: [],
 };
 
 /**
@@ -150,6 +156,14 @@ export function readState(search: string): ViewState {
     folder: params.get("folder"),
     window: WINDOW_NAMES.find((window) => window === params.get("window")) ?? DEFAULT_STATE.window,
     topic: params.get("topic"),
+    compare: [
+      ...new Set(
+        (params.get("compare") ?? "")
+          .split(",")
+          .map((key) => key.trim())
+          .filter(Boolean),
+      ),
+    ].slice(0, COMPARED),
     filters: {
       excludeCrossLists: params.get("xl") === "0",
       withCode: params.get("code") === "1",
@@ -189,6 +203,7 @@ export function writeState(state: ViewState): string {
   const trends = state.view === "trends";
   set("window", trends ? state.window : null, DEFAULT_STATE.window);
   set("topic", trends ? state.topic : null);
+  set("compare", trends ? state.compare.join(",") : null);
   set("xl", state.filters.excludeCrossLists ? "0" : null);
   set("code", state.filters.withCode ? "1" : null);
   const { author, affiliation } = state.filters;
@@ -214,6 +229,7 @@ function navigationKey(state: ViewState): string {
     rank: DEFAULT_STATE.rank,
     metric: null,
     window: DEFAULT_STATE.window,
+    compare: DEFAULT_STATE.compare,
     filters: {
       ...state.filters,
       author: author?.exact ? author : null,

@@ -251,6 +251,7 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   | `#folder=…&papers=…` | The fragment of a folder's link (UX-46): its name and its papers' arXiv ids, kept while the reading list shows it | none | the reading list |
   | `window` | `year`: the Trends view compares the last 12 months with the 12 before, not the last 90 days with the same days a year before (PROD-20); written in its links only, and a change of it replaces the history entry, as a sort does | `quarter` | Trends |
   | `topic` | A topic of the Trends view, by its key (`world model`, `vla`): the one opened; in its links only, a step of history | none | Trends |
+  | `compare` | The topics the Trends view's explorer draws, by key, comma-separated (`mamba,transformer`), five at most; in its links only, a change replacing the history entry | none | Trends |
   | `by`, `at` | An author or an institution, as clicked: that name only | none | the lists, Rankings |
   | `author`, `aff` | Typed author or affiliation text: word starts (old links' `by` and `at`) | none | the same |
   | `venue` | A venue (`ECCV 2026`), a family (`ECCV*`) or any (`*`) | none | the lists, Rankings, the graph |
@@ -580,7 +581,7 @@ day that was right. The order by newest and the exports keep the stored date.
 - The topics of the category's titles that rise, cool and are new (PROD-20), from
   `trends.json`, which the weekly archive writes (`docs/trends.md`): `loadTrends`, versioned
   as the other files the build lists (PERF-8), `null` before the first is written, which the
-  view says. A lazy chunk (`lazyView`, 6 kB gzipped), as Rankings' tables are.
+  view says. A lazy chunk (`lazyView`, 7 kB gzipped with the explorer), as Rankings' tables are.
 - Two windows, a segmented control (`?window=year`, a change replacing the history entry as
   a sort does): the last 90 days against the same days a year before (`quarter`, the
   default), or the last 12 months against the 12 before. Three lists side by side from 981
@@ -597,6 +598,17 @@ day that was right. The order by newest and the exports keep the stored date.
   the window's first day in the Papers view, and its most cited of the last 12 months in
   Highly cited. Both search `"world model" OR "world models"` (`topicQuery`): a quoted
   phrase matches whole words, hyphens as spaces, so the plural needs its own.
+- The explorer, under the lists: any topic of `topics.json` (`loadTopics`, 400 kB gzipped,
+  asked only when its field is first focused or the link names topics: the smoke test
+  checks the view never loads it before), words alone too ("mamba", "transformer"), found
+  by the start of its words (`findTopics`, the one typed whole first, then the shorter),
+  its share of the papers by quarter from the first quarter of any drawn (`quarterly`), up
+  to five on one chart (`?compare=mamba,transformer`, replacing the history entry). Its
+  lines take the validated categorical palette's first five slots in order
+  (`--series-1` to `--series-5`), and keep their color while others come and go
+  (`assignSlots`); the topics drawn, each with its line's key and a remove button, are the
+  chart's legend. A topic opened adds itself (Compare in the explorer); with none drawn,
+  the window's first rising and cooling are offered to try.
 - Colors (`--trend-rising`, `--trend-cooling`, the map's validated red and blue, checked with
   the dataviz skill's validator on both surfaces): a list's mark and a line's tone, never its
   text. `LineChart` draws thin lines over hairline gridlines (`niceTicks`), a crosshair and a

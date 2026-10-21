@@ -558,8 +558,10 @@ export function App() {
               category={category ?? null}
               window={state.window}
               topic={state.topic}
+              compare={state.compare}
               onWindow={(window) => update({ window })}
               onTopic={(topic) => update({ topic })}
+              onCompare={(compare) => update({ compare })}
               link={tab}
             />
           </ErrorBoundary>

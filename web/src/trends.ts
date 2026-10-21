@@ -284,3 +284,83 @@ export function findTopics(file: TopicsFile, text: string, limit = 8): FoundTopi
     )
     .slice(0, limit);
 }
+
+/** The topics the explorer draws at most: its validated palette's lines. */
+export const COMPARED = 5;
+
+/**
+ * The palette slot of each topic compared, those it had keeping it (UX's rule: a color
+ * follows its topic, removing one repaints none of the others), the new ones taking the
+ * first free.
+ */
+export function assignSlots(
+  previous: ReadonlyMap<string, number>,
+  keys: readonly string[],
+): Map<string, number> {
+  const slots = new Map<string, number>();
+  const taken = new Set<number>();
+  for (const key of keys) {
+    const slot = previous.get(key);
+    if (slot !== undefined && !taken.has(slot)) {
+      slots.set(key, slot);
+      taken.add(slot);
+    }
+  }
+  for (const key of keys) {
+    if (slots.has(key)) continue;
+    let slot = 0;
+    while (taken.has(slot)) slot++;
+    slots.set(key, slot);
+    taken.add(slot);
+  }
+  return slots;
+}
+
+/** Topics by quarter, as the explorer draws them. */
+export interface Quarterly {
+  /** Each quarter's name, "2024 Q3", the last to the file's last day. */
+  labels: string[];
+  /** The first month of each quarter, as an index of the file's months (the first may be before 0). */
+  starts: number[];
+  /** Each topic's papers in each quarter, in the order asked. */
+  papers: number[][];
+  /** Its share of the quarter's papers. */
+  shares: number[][];
+}
+
+/**
+ * The topics' papers and share of the papers in each quarter, from the one their first
+ * paper fell in to the file's last: a month alone holds too few papers of most topics.
+ */
+export function quarterly(file: TopicsFile, keys: readonly string[]): Quarterly {
+  const series = keys.flatMap((key) => {
+    const topic = file.topics[key];
+    return topic === undefined ? [] : [topic];
+  });
+  const first = Math.min(...series.map(({ start }) => start), file.totals.length - 1);
+  // The quarter's first month: January, April, July or October.
+  const offset = (Number(monthAfter(file.start, first).slice(5, 7)) - 1) % 3;
+  const result: Quarterly = {
+    labels: [],
+    starts: [],
+    papers: series.map(() => []),
+    shares: series.map(() => []),
+  };
+  for (let start = first - offset; start < file.totals.length; start += 3) {
+    const months = [start, start + 1, start + 2].filter(
+      (month) => month >= 0 && month < file.totals.length,
+    );
+    const total = months.reduce((sum, month) => sum + (file.totals[month] ?? 0), 0);
+    const month = monthAfter(file.start, start);
+    result.labels.push(
+      `${month.slice(0, 4)} Q${Math.floor((Number(month.slice(5, 7)) - 1) / 3) + 1}`,
+    );
+    result.starts.push(start);
+    series.forEach((topic, index) => {
+      const papers = months.reduce((sum, at) => sum + (topic.counts[at - topic.start] ?? 0), 0);
+      result.papers[index]?.push(papers);
+      result.shares[index]?.push(shareOf(papers, total));
+    });
+  }
+  return result;
+}

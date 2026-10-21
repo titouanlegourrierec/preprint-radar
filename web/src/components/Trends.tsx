@@ -7,6 +7,7 @@ import { countOf, formatDay } from "../format";
 import { LOCALE } from "../locale";
 import { NO_FILTERS } from "../search";
 import {
+  COMPARED,
   displayName,
   formatChange,
   formatPercent,
@@ -25,6 +26,7 @@ import {
   trendRows,
   type WindowName,
 } from "../trends";
+import { Explorer } from "./Explorer";
 import { InfoButton } from "./InfoButton";
 import { CloseIcon, CoolingIcon, NewIcon, RisingIcon } from "./icons";
 import { type ChartBand, LineChart } from "./LineChart";
@@ -36,8 +38,11 @@ interface Props {
   window: WindowName;
   /** The topic opened, by its key. */
   topic: string | null;
+  /** The topics the explorer draws, by key. */
+  compare: string[];
   onWindow: (window: WindowName) => void;
   onTopic: (topic: string | null) => void;
+  onCompare: (keys: string[]) => void;
   /** A link to another state of the site: a topic opened, its papers in another view. */
   link: TabLink;
 }
@@ -177,6 +182,8 @@ export function Trends(props: Props) {
                 topic={opened}
                 link={props.link}
                 focus={props.topic !== linked.current}
+                compare={props.compare}
+                onCompare={props.onCompare}
                 onClose={() => props.onTopic(null)}
               />
             ) : (
@@ -203,6 +210,14 @@ export function Trends(props: Props) {
               />
             ))}
           </div>
+          {category && (
+            <Explorer
+              category={category}
+              compare={props.compare}
+              onCompare={props.onCompare}
+              suggestions={suggestionsOf(loaded.file, props.window)}
+            />
+          )}
           <p class="trends__source muted">
             Counted to {formatDay(loaded.file.through)}, from {loaded.file.source}, every week.
           </p>
@@ -210,6 +225,16 @@ export function Trends(props: Props) {
       )}
     </main>
   );
+}
+
+/** Topics the explorer offers to try: the window's first two rising and cooling. */
+function suggestionsOf(file: TrendsFile, window: WindowName): { key: string; name: string }[] {
+  const compared = file.windows[window];
+  const keys = [...(compared?.rising.slice(0, 2) ?? []), ...(compared?.cooling.slice(0, 2) ?? [])];
+  return keys.flatMap((key) => {
+    const topic = file.topics[key];
+    return topic ? [{ key, name: topic.name }] : [];
+  });
 }
 
 /** How the topics are counted, behind the view's ⓘ. */
@@ -370,6 +395,8 @@ interface PanelProps {
   link: TabLink;
   /** Opened from the lists: brought into view and focused. */
   focus: boolean;
+  compare: string[];
+  onCompare: (keys: string[]) => void;
   onClose: () => void;
 }
 
@@ -525,6 +552,20 @@ function TopicPanel(props: PanelProps) {
         >
           Its most cited of the last 12 months
         </a>
+        <button
+          type="button"
+          class="button"
+          disabled={props.compare.includes(topicKey) || props.compare.length >= COMPARED}
+          onClick={() => {
+            props.onCompare([...props.compare, topicKey]);
+            const still = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+            document
+              .getElementById("explorer")
+              ?.scrollIntoView({ block: "start", behavior: still ? "auto" : "smooth" });
+          }}
+        >
+          {props.compare.includes(topicKey) ? "In the explorer" : "Compare in the explorer"}
+        </button>
       </div>
     </section>
   );

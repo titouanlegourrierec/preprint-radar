@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  assignSlots,
   displayName,
   findTopics,
   formatChange,
@@ -11,6 +12,7 @@ import {
   monthLabel,
   monthsBetween,
   periodMonths,
+  quarterly,
   shareOf,
   shares,
   type TopicsFile,
@@ -185,5 +187,62 @@ describe("findTopics", () => {
     expect(findTopics(TOPICS, "wor", 1)).toEqual([{ key: "world", name: "world", papers: 15 }]);
     expect(findTopics(TOPICS, " ")).toEqual([]);
     expect(findTopics(TOPICS, "transformer")).toEqual([]);
+  });
+});
+
+describe("the explorer", () => {
+  it("keeps each topic's color, the new ones taking the first free", () => {
+    const first = assignSlots(new Map(), ["mamba", "transformer", "nerf"]);
+    expect([...first]).toEqual([
+      ["mamba", 0],
+      ["transformer", 1],
+      ["nerf", 2],
+    ]);
+    // Mamba removed: the others keep theirs; GAN takes the slot left.
+    expect([...assignSlots(first, ["transformer", "nerf", "gan"])]).toEqual([
+      ["transformer", 1],
+      ["nerf", 2],
+      ["gan", 0],
+    ]);
+    // A slot asked twice goes to the first.
+    expect([
+      ...assignSlots(
+        new Map([
+          ["a", 0],
+          ["b", 0],
+        ]),
+        ["a", "b"],
+      ),
+    ]).toEqual([
+      ["a", 0],
+      ["b", 1],
+    ]);
+  });
+
+  it("counts the topics by quarter, from the one their first paper fell in", () => {
+    const file: TopicsFile = {
+      schema_version: 1,
+      category: "cs.CV",
+      generated_at: "2026-10-25T06:00:00+00:00",
+      source: "arXiv",
+      through: "2026-10-20",
+      start: "2025-11",
+      // November 2025 to October 2026.
+      totals: [10, 10, 10, 20, 20, 20, 30, 30, 30, 40, 40, 5],
+      topics: {
+        mamba: { name: "mamba", start: 1, counts: [1, 1, 2, 2, 2, 0, 0, 0, 0, 0, 1] },
+        vla: { name: "VLA", start: 6, counts: [3, 3, 3, 4, 4, 1] },
+      },
+    };
+    const drawn = quarterly(file, ["vla", "mamba", "gone"]);
+    // From the quarter of December 2025, Mamba's first month, to October 2026's.
+    expect(drawn.labels).toEqual(["2025 Q4", "2026 Q1", "2026 Q2", "2026 Q3", "2026 Q4"]);
+    expect(drawn.starts).toEqual([-1, 2, 5, 8, 11]);
+    expect(drawn.papers).toEqual([
+      [0, 0, 6, 11, 1],
+      [1, 5, 2, 0, 1],
+    ]);
+    expect(drawn.shares[0]).toEqual([0, 0, 6 / 80, 11 / 110, 1 / 5]);
+    expect(quarterly(file, []).labels).toEqual(["2026 Q4"]);
   });
 });

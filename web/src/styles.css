@@ -50,6 +50,14 @@
   --chart-grid: #e1e0d9;
   --chart-axis: #c3c2b7;
   --chart-band: #f3f2ee;
+  /* The explorer's lines, the validated categorical palette's first five slots in their
+     order (adjacent pairs clear the colorblind and normal-vision floors in both themes;
+     the third to fifth fall under 3:1 on white, so the legend and a table name them). */
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --series-4: #eda100;
+  --series-5: #e87ba4;
   /* The fields, buttons and cards of every view, as the graph's chips (UX-33). */
   --radius: 12px;
   /* A paper's card, rounder (UX-34). */
@@ -112,6 +120,11 @@
     --chart-grid: #2c2c2a;
     --chart-axis: #383835;
     --chart-band: #232322;
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --series-3: #199e70;
+    --series-4: #c98500;
+    --series-5: #d55181;
     --shadow: none;
     --shadow-raised: none;
 
@@ -163,6 +176,11 @@
   --chart-grid: #2c2c2a;
   --chart-axis: #383835;
   --chart-band: #232322;
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --series-3: #199e70;
+  --series-4: #c98500;
+  --series-5: #d55181;
   --shadow: none;
   --shadow-raised: none;
 
@@ -4081,6 +4099,192 @@ input[type="range"] {
   position: sticky;
   top: 0;
   background: var(--surface);
+}
+
+/* The explorer (PROD-20): any topic's share of the papers by quarter, up to five. */
+.explorer {
+  margin-top: 20px;
+  padding: 18px 20px 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--card-radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  scroll-margin-top: 16px;
+}
+
+.explorer h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.explorer__lede {
+  margin: 4px 0 12px;
+  font-size: 0.9rem;
+}
+
+.explorer__bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  align-items: center;
+}
+
+.explorer__chosen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.explorer__topic {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  padding: 3px 4px 3px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+
+.explorer__remove {
+  display: inline-flex;
+  padding: 3px;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.explorer__remove:hover {
+  background: var(--surface-muted);
+  color: var(--text);
+}
+
+.explorer__try {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin: 10px 0 0;
+  font-size: 0.85rem;
+}
+
+.explorer .chart {
+  margin-top: 14px;
+}
+
+/* The field that finds a topic, as the graph's Find field, with its matches under it. */
+.topic-find {
+  position: relative;
+  flex: 0 1 20rem;
+  min-width: 14rem;
+}
+
+.topic-find__icon {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  display: inline-flex;
+  color: var(--text-muted);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.topic-find input {
+  width: 100%;
+  padding: 7px 10px 7px 34px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.9rem;
+}
+
+.topic-find input:focus {
+  border-color: var(--accent);
+}
+
+.topic-find__drop {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  left: 0;
+  z-index: 6;
+  overflow: hidden;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: var(--shadow-raised);
+}
+
+.topic-find__matches {
+  max-height: 280px;
+  overflow-y: auto;
+  padding: 4px 0;
+}
+
+.topic-find__matches [role="option"] {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  padding: 6px 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.topic-find__matches [role="option"]:hover,
+.topic-find__matches .is-active {
+  background: var(--accent-soft);
+}
+
+.topic-find__none {
+  margin: 0;
+  padding: 8px 10px;
+  font-size: 0.85rem;
+}
+
+.chart__line--series-1 {
+  stroke: var(--series-1);
+}
+
+.chart__line--series-2 {
+  stroke: var(--series-2);
+}
+
+.chart__line--series-3 {
+  stroke: var(--series-3);
+}
+
+.chart__line--series-4 {
+  stroke: var(--series-4);
+}
+
+.chart__line--series-5 {
+  stroke: var(--series-5);
+}
+
+.chart__dot--series-1 {
+  fill: var(--series-1);
+}
+
+.chart__dot--series-2 {
+  fill: var(--series-2);
+}
+
+.chart__dot--series-3 {
+  fill: var(--series-3);
+}
+
+.chart__dot--series-4 {
+  fill: var(--series-4);
+}
+
+.chart__dot--series-5 {
+  fill: var(--series-5);
 }
 
 @media print {

@@ -163,6 +163,20 @@ describe("url state", () => {
     expect(readState("?view=trends&window=decade").window).toBe("quarter");
   });
 
+  it("round-trips the topics the explorer compares, five at most (PROD-20)", () => {
+    const state = { ...DEFAULT_STATE, view: "trends" as const, compare: ["mamba", "world model"] };
+    expect(writeState(state)).toBe("?view=trends&compare=mamba%2Cworld+model");
+    expect(readState(writeState(state))).toEqual(state);
+    expect(writeState({ ...state, view: "papers" })).toBe("");
+    expect(readState("?view=trends&compare=a,b,,a,c,d,e,f").compare).toEqual([
+      "a",
+      "b",
+      "c",
+      "d",
+      "e",
+    ]);
+  });
+
   it("reads the about view", () => {
     expect(readState("?view=about").view).toBe("about");
     expect(writeState({ ...DEFAULT_STATE, view: "about" })).toBe("?view=about");
@@ -250,6 +264,7 @@ describe("isNavigation", () => {
     // The periods Trends compares are its order; a topic opened is a step (PROD-20).
     const trends = { ...DEFAULT_STATE, view: "trends" as const };
     expect(isNavigation(trends, { ...trends, window: "year" })).toBe(false);
+    expect(isNavigation(trends, { ...trends, compare: ["mamba"] })).toBe(false);
     expect(isNavigation(trends, { ...trends, topic: "world model" })).toBe(true);
   });
 });

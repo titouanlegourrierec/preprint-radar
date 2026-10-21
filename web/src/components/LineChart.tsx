@@ -35,6 +35,8 @@ interface Props {
   detail?: (series: ChartSeries, index: number) => string;
   /** The area under a single line. */
   area?: boolean;
+  /** A legend for several lines; `false` where the page names them beside a key already. */
+  legend?: boolean;
   height?: number;
 }
 
@@ -127,7 +129,7 @@ export function LineChart(props: Props) {
   return (
     <figure class="chart">
       <div class="chart__bar">
-        {several && (
+        {several && props.legend !== false && (
           <ul class="chart__legend">
             {series.map((line) => (
               <li class="chart__legend-item" key={line.key}>
