@@ -20,7 +20,7 @@ from preprint_radar.archive.update import (
     update_archive,
 )
 from preprint_radar.http import HttpClient
-from preprint_radar.models import Paper, Provenance
+from preprint_radar.models import Cohort, Paper, Provenance
 from preprint_radar.openalex_affiliations import needs_openalex, with_openalex_affiliations
 from preprint_radar.sources.arxiv_oai import CatalogEntry
 from preprint_radar.store.paper_store import PaperStore
@@ -168,6 +168,15 @@ def test_update_archive_keeps_the_most_cited_and_prunes_old_days(store: PaperSto
     }
     index = json.loads((store.root / "index.json").read_text(encoding="utf-8"))
     assert [entry["year"] for entry in index["archives"]["cs.CV"]] == [2025, 2020, 2015]
+    # Each complete year's papers, as their counts rank them, for the site's badges.
+    cohorts = store.load_cohorts("cs.CV")
+    assert cohorts is not None
+    assert cohorts.years == {
+        2015: Cohort(1, 240_000, 240_000, 240_000),
+        2020: Cohort(1, 70_000, 70_000, 70_000),
+        2022: Cohort(1, 1, 1, 1),
+        2025: Cohort(1, 500, 500, 500),
+    }
 
 
 def test_without_pruning_old_day_file_papers_compete_and_their_days_stay(
@@ -245,6 +254,23 @@ def test_a_day_file_paper_the_catalog_does_not_list_competes_before_its_day_is_p
     assert archived["0904.2037"].affiliations == ("Read from its HTML page",)
     assert "0904.2038" not in archived
     assert STALE_DAY not in store.days("cs.CV")
+
+
+def test_an_old_year_keeps_its_most_cited_tenth_beyond_the_budget(
+    store: PaperStore, catalog: Catalog, caplog: pytest.LogCaptureFixture
+) -> None:
+    # Ten papers of 2016, at 40 citations or less: none within the budget's rate.
+    year = [_entry(f"1606.{index:05d}", date(2016, 6, 1)) for index in range(10)]
+    _add_entries(catalog, *year)
+    counts = {**CITATIONS, **{entry.arxiv_id: 40 - index for index, entry in enumerate(year)}}
+    caplog.set_level("INFO")
+
+    _update(store, catalog, FakeServices(counts))
+
+    archived = {paper.arxiv_id for paper in store.iter_archive("cs.CV")}
+    # The budget's three, and 2016's most cited, its year's tenth (decision 22).
+    assert archived == {"1512.03385", "2010.11929", "2508.00001", "1606.00000"}
+    assert "cs.CV: 1 papers kept only as their year's most cited tenth" in caplog.text
 
 
 def test_an_archived_paper_missing_a_count_keeps_last_weeks(store: PaperStore, catalog: Catalog) -> None:
@@ -463,10 +489,14 @@ def test_the_archive_stays_as_it_is_without_citation_counts(
 
     counts_before = store.load_citation_counts("cs.CV")
 
+    cohorts_before = store.load_cohorts("cs.CV")
+
     report = _update(store, catalog, FakeServices(CITATIONS, citations_down=True), budget=1)
 
     assert {paper.arxiv_id for paper in store.iter_archive("cs.CV")} == before
     assert report.left == 0
+    # Nor are the cohorts ranked again without the counts.
+    assert store.load_cohorts("cs.CV") == cohorts_before
     # The published counts stay, with the date of their last refresh.
     assert store.load_citation_counts("cs.CV") == counts_before
 

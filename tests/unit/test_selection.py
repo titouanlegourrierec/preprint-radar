@@ -10,7 +10,10 @@ from preprint_radar.archive.selection import (
     recent_since,
     select_archive,
     select_top_recent,
+    year_cohorts,
+    year_floor,
 )
+from preprint_radar.models import Cohort
 
 TODAY = date(2026, 9, 30)
 
@@ -114,3 +117,43 @@ def test_the_most_cited_papers_of_the_last_12_months_by_citations_per_month() ->
         "2609.00001",
         "2609.00002",
     }
+
+
+def _year(year: int, counts: list[int | None]) -> list[Candidate]:
+    """A year's papers, first seen on 1 June, ``y<year>-<i>`` for the i-th count."""
+    return [Candidate(f"y{year}-{index:02d}", date(year, 6, 1), count) for index, count in enumerate(counts)]
+
+
+def test_each_old_year_keeps_its_most_cited_tenth_whatever_the_budget() -> None:
+    # 2016: 20 papers, the two most cited kept; 2024 is too young for the floor.
+    candidates = [*_year(2016, [40, 30, 20, *[1] * 17]), *_year(2024, [500, *[0] * 19])]
+
+    selection = select_archive(candidates, set(), budget=1, today=TODAY)
+
+    # The budget keeps 2024's 500-citation paper (250 a year), the floor 2016's best two.
+    assert selection.keep == {"y2024-00", "y2016-00", "y2016-01"}
+    assert selection.floor == {"y2016-00", "y2016-01"}
+
+
+def test_the_floor_rounds_its_share_and_never_keeps_an_uncited_paper() -> None:
+    assert year_floor(_year(2012, [5, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), TODAY) == {
+        "y2012-00",
+        "y2012-01",
+    }
+    assert year_floor(_year(2012, [0] * 20), TODAY) == frozenset()
+    assert year_floor(_year(2012, [9, 8, 7, 6]), TODAY) == frozenset()  # a tenth of 4 is none
+    # The year three years before today's is old enough; two years before is not.
+    assert year_floor(_year(2023, [9, *[0] * 9]), TODAY) == {"y2023-00"}
+    assert year_floor(_year(2024, [9, *[0] * 9]), TODAY) == frozenset()
+
+
+def test_cohorts_give_the_citations_of_each_years_top_shares() -> None:
+    counts: list[int | None] = list(range(200, 0, -1))  # 200 papers cited 200 to 1 times
+    candidates = [*_year(2017, counts), *_year(2009, [1_000]), *_year(2026, [50])]
+
+    cohorts = year_cohorts(candidates, TODAY)
+
+    # Only complete years since 2010: 2009 is before the archive, 2026 not over.
+    assert cohorts == {2017: Cohort(papers=200, top_1=199, top_5=191, top_10=181)}
+    # A year of a few papers still has a top 1%: its most cited.
+    assert year_cohorts(_year(2011, [7, None, 3]), TODAY) == {2011: Cohort(3, 7, 7, 7)}

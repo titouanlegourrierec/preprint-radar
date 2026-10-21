@@ -11,6 +11,7 @@ Layout::
         ├── scholar.json           # their DOI, published venue and author ids
         ├── code.json              # the stars (or likes) of the code they link
         ├── countries.json         # the country of their institutions
+        ├── cohorts.json           # each year's papers, as their citations rank them
         ├── top-recent.json        # the most cited papers of the last 12 months
         └── archive/
             └── <YYYY>.json        # highly cited older papers, by year of first version
@@ -38,7 +39,7 @@ from typing import Any
 
 from preprint_radar.config import GAINS_MIN_DAYS
 from preprint_radar.exceptions import SchemaVersionError, StoreError
-from preprint_radar.models import CodeRecord, Paper, ScholarRecord
+from preprint_radar.models import CodeRecord, Cohort, Paper, ScholarRecord
 
 logger = logging.getLogger(__name__)
 
@@ -49,6 +50,7 @@ GAINS_FILENAME = "citation-gains.json"
 SCHOLAR_FILENAME = "scholar.json"
 CODE_FILENAME = "code.json"
 COUNTRIES_FILENAME = "countries.json"
+COHORTS_FILENAME = "cohorts.json"
 TOP_RECENT_FILENAME = "top-recent.json"
 ARCHIVE_DIRNAME = "archive"
 _DAY_STEM_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
@@ -109,6 +111,21 @@ class CountriesFile:
     """
 
     institutions: dict[str, str | None]
+    source: str
+    generated_at: datetime
+
+
+@dataclass(frozen=True, slots=True)
+class CohortsFile:
+    """Each year's papers of a category, as their citations rank them (decision 22).
+
+    Attributes:
+        years: The cohort of each complete year since 2010, by year.
+        source: Where the counts come from.
+        generated_at: Date of the counts.
+    """
+
+    years: dict[int, Cohort]
     source: str
     generated_at: datetime
 
@@ -701,6 +718,48 @@ class PaperStore:
             "institutions": dict(sorted(institutions.items())),
         }
         _write_json(self.root / category / COUNTRIES_FILENAME, payload)
+
+    def load_cohorts(self, category: str) -> CohortsFile | None:
+        """Each year's papers of ``category`` as their citations rank them, if ever written.
+
+        Raises:
+            StoreError: If the file is not a valid ``cohorts.json``, or of another
+                ``schema_version``.
+        """
+        path = self.root / category / COHORTS_FILENAME
+        if not path.is_file():
+            return None
+        try:
+            payload: Any = json.loads(path.read_text(encoding="utf-8"))
+            _check_version(payload, path, "cohorts")
+            return CohortsFile(
+                years={int(year): Cohort.from_record(record) for year, record in payload["years"].items()},
+                source=str(payload["source"]),
+                generated_at=datetime.fromisoformat(payload["generated_at"]),
+            )
+        except (json.JSONDecodeError, AttributeError, KeyError, TypeError, ValueError) as exc:
+            msg = f"Invalid cohorts file {path}: {exc}"
+            raise StoreError(msg) from exc
+
+    def write_cohorts(
+        self, category: str, years: Mapping[int, Cohort], *, source: str, now: datetime | None = None
+    ) -> None:
+        """Write each year's papers of ``category`` as their citations rank them, dated now.
+
+        Args:
+            category: arXiv category.
+            years: The cohort of each year, by year.
+            source: Where the counts come from ("Semantic Scholar").
+            now: The time they are dated with (``None``: now).
+        """
+        payload = {
+            "schema_version": SCHEMA_VERSION,
+            "category": category,
+            "generated_at": (now or datetime.now(tz=UTC)).isoformat(timespec="seconds"),
+            "source": source,
+            "years": {str(year): cohort.to_record() for year, cohort in sorted(years.items())},
+        }
+        _write_json(self.root / category / COHORTS_FILENAME, payload)
 
     def summaries(self, category: str) -> list[DaySummary]:
         """Return the number of papers per day for ``category``, most recent first."""

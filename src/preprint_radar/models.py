@@ -115,6 +115,45 @@ class ScholarRecord:
 
 
 @dataclass(frozen=True, slots=True)
+class Cohort:
+    """The papers of one year of first version, as their citations rank them (``cohorts.json``).
+
+    Attributes:
+        papers: The year's papers in the category.
+        top_1: The citations of the last of its most cited 1%: a paper cited this often or
+            more is in its year's top 1%.
+        top_5: The same for its top 5%.
+        top_10: The same for its top 10%.
+    """
+
+    papers: int
+    top_1: int
+    top_5: int
+    top_10: int
+
+    def to_record(self) -> dict[str, int]:
+        """The record of ``cohorts.json``."""
+        return {"papers": self.papers, "top_1": self.top_1, "top_5": self.top_5, "top_10": self.top_10}
+
+    @classmethod
+    def from_record(cls, record: Mapping[str, object]) -> Self:
+        """Rebuild a cohort from :meth:`to_record` output.
+
+        Raises:
+            TypeError: If a field is not a whole number.
+        """
+        values = (record["papers"], record["top_1"], record["top_5"], record["top_10"])
+        numbers = [
+            value for value in values if isinstance(value, int) and not isinstance(value, bool) and value >= 0
+        ]
+        if len(numbers) != len(values):
+            msg = f"Invalid cohort {dict(record)!r}"
+            raise TypeError(msg)
+        papers, top_1, top_5, top_10 = numbers
+        return cls(papers=papers, top_1=top_1, top_5=top_5, top_10=top_10)
+
+
+@dataclass(frozen=True, slots=True)
 class CodeRecord:
     """How popular a paper's code is (``code.json``, PROD-18).
 

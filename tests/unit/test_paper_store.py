@@ -9,8 +9,8 @@ from pathlib import Path
 import pytest
 
 from preprint_radar.exceptions import SchemaVersionError, StoreError
-from preprint_radar.models import CodeRecord, Listing, Paper, ScholarRecord
-from preprint_radar.store.paper_store import SCHEMA_VERSION, CountriesFile, PaperStore
+from preprint_radar.models import CodeRecord, Cohort, Listing, Paper, ScholarRecord
+from preprint_radar.store.paper_store import SCHEMA_VERSION, CohortsFile, CountriesFile, PaperStore
 
 
 @pytest.fixture
@@ -551,6 +551,39 @@ def test_invalid_countries_file_raises(store: PaperStore, payload: str) -> None:
 
     with pytest.raises(StoreError, match="Invalid countries file"):
         store.load_countries("cs.CV")
+
+
+def test_cohorts_are_written_by_year_and_read_back(store: PaperStore) -> None:
+    now = datetime(2026, 10, 25, 5, tzinfo=UTC)
+    cohorts = {2017: Cohort(5_701, 2_020, 650, 408), 2010: Cohort(291, 900, 180, 97)}
+    store.write_cohorts("cs.CV", cohorts, source="Semantic Scholar", now=now)
+
+    payload = json.loads((store.root / "cs.CV" / "cohorts.json").read_text(encoding="utf-8"))
+    assert list(payload["years"]) == ["2010", "2017"]
+    assert payload["years"]["2010"] == {"papers": 291, "top_1": 900, "top_5": 180, "top_10": 97}
+    assert store.load_cohorts("cs.CV") == CohortsFile(cohorts, "Semantic Scholar", now)
+    assert store.load_cohorts("cs.RO") is None
+
+
+@pytest.mark.parametrize(
+    "years",
+    [
+        '{"2010": {"papers": 291}}',
+        '{"2010": {"papers": 291, "top_1": 900, "top_5": 180, "top_10": "97"}}',
+        '{"2010": {"papers": 291, "top_1": 900, "top_5": true, "top_10": 97}}',
+        '{"twenty": {"papers": 291, "top_1": 900, "top_5": 180, "top_10": 97}}',
+    ],
+)
+def test_invalid_cohorts_file_raises(store: PaperStore, years: str) -> None:
+    path = store.root / "cs.CV" / "cohorts.json"
+    path.parent.mkdir(parents=True)
+    path.write_text(
+        f'{{"schema_version": 1, "source": "S", "generated_at": "2026-10-25", "years": {years}}}',
+        encoding="utf-8",
+    )
+
+    with pytest.raises(StoreError, match="Invalid cohorts file"):
+        store.load_cohorts("cs.CV")
 
 
 def test_a_countries_file_of_another_schema_version_is_refused(store: PaperStore) -> None:

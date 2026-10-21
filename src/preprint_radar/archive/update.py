@@ -32,6 +32,7 @@ import json
 import logging
 import re
 from collections.abc import Iterable, Mapping
+from collections.abc import Set as AbstractSet
 from dataclasses import dataclass, replace
 from datetime import date
 from pathlib import Path
@@ -45,6 +46,7 @@ from preprint_radar.archive.selection import (
     recent_since,
     select_archive,
     select_top_recent,
+    year_cohorts,
 )
 from preprint_radar.archive.subjects import SUBJECT_ALIASES, subject_name, subject_names
 from preprint_radar.config import (
@@ -56,7 +58,7 @@ from preprint_radar.config import (
 from preprint_radar.console import progress
 from preprint_radar.http import HttpClient
 from preprint_radar.latex import plain_text
-from preprint_radar.models import Paper
+from preprint_radar.models import Cohort, Paper
 from preprint_radar.openalex_affiliations import with_openalex_affiliations
 from preprint_radar.sources.arxiv_oai import CatalogEntry, author_names
 from preprint_radar.sources.semantic_scholar import S2_SOURCE, fetch_citation_counts
@@ -169,45 +171,18 @@ def update_archive(
         stale_days = []
         selection = Selection(keep=frozenset(archived), entered=frozenset(), left=frozenset(), threshold=0.0)
         top_recent = frozenset(previous_recent)
+        cohorts = None
     else:
         stale_days = [day for day in stored_days if (today - day).days >= RECENT_DAYS] if prune else []
-        # An archived paper, or one of last week's most cited of the last 12 months, that
-        # Semantic Scholar misses this week (a refused last batch, a flapping null) is ranked
-        # on last week's count rather than leave.
-        previous = store.load_citations(category)
-        carried = {
-            arxiv_id: previous[arxiv_id]
-            for arxiv_id in (*archived, *previous_recent)
-            if counts.get(arxiv_id) is None and arxiv_id in previous
-        }
+        carried = _carried(store, category, counts, [*archived, *previous_recent])
         counts = {**counts, **carried}
-        # Withdrawn papers are not Highly cited, however cited (decision 18); archived ones leave.
-        withdrawn = {
-            arxiv_id
+        withdrawn = _withdrawn(category, candidates, entries, [in_days, archived])
+        ranked = [
+            Candidate(arxiv_id, first_seen[arxiv_id], counts.get(arxiv_id))
             for arxiv_id in candidates
-            if ((entry := entries.get(arxiv_id)) is not None and is_withdrawn(entry.comments))
-            or ((paper := in_days.get(arxiv_id) or archived.get(arxiv_id)) is not None and paper.withdrawn)
-        }
-        if withdrawn:
-            logger.info("%s: %d withdrawn papers are left out", category, len(withdrawn))
-        selection = select_archive(
-            (
-                Candidate(arxiv_id, first_seen[arxiv_id], counts.get(arxiv_id))
-                for arxiv_id in candidates
-                if arxiv_id not in withdrawn
-            ),
-            set(archived),
-            budget=budget,
-            today=today,
-        )
-        top_recent = select_top_recent(
-            (
-                Candidate(arxiv_id, first_seen[arxiv_id], counts.get(arxiv_id))
-                for arxiv_id in candidates
-                if arxiv_id not in withdrawn and is_recent(first_seen[arxiv_id], today)
-            ),
-            today=today,
-        )
+            if arxiv_id not in withdrawn
+        ]
+        selection, top_recent, cohorts = _ranked(category, ranked, set(archived), budget=budget, today=today)
     subjects = _subject_names(in_days.values())
     # A paper that leaves the last 12 months for the archive keeps the record it had there,
     # with the affiliations its published version or its page gave (AFF-20, AFF-28).
@@ -296,6 +271,8 @@ def update_archive(
         store.merge_citations(category, stored_counts, source=S2_SOURCE)
     else:
         store.write_citations(category, stored_counts, source=S2_SOURCE)
+    if cohorts is not None:
+        store.write_cohorts(category, cohorts, source=S2_SOURCE)
     store.write_index()
     return report
 
@@ -384,6 +361,60 @@ def refreshed(paper: Paper, entry: CatalogEntry | None) -> Paper:
         venue=extract_venue(comments, journal_ref),
         withdrawn=is_withdrawn(comments),
     )
+
+
+def _carried(
+    store: PaperStore, category: str, counts: Mapping[str, int | None], kept: Iterable[str]
+) -> dict[str, int]:
+    """Last week's counts of the kept papers Semantic Scholar misses this week.
+
+    An archived paper, or one of last week's most cited of the last 12 months, that it
+    misses (a refused last batch, a flapping null) is ranked on last week's count rather
+    than leave.
+    """
+    previous = store.load_citations(category)
+    return {
+        arxiv_id: previous[arxiv_id]
+        for arxiv_id in kept
+        if counts.get(arxiv_id) is None and arxiv_id in previous
+    }
+
+
+def _withdrawn(
+    category: str,
+    candidates: Iterable[str],
+    entries: Mapping[str, CatalogEntry],
+    stored: Iterable[Mapping[str, Paper]],
+) -> set[str]:
+    """The candidates withdrawn, by the catalog's comments or their stored record's.
+
+    Withdrawn papers are not Highly cited, however cited (decision 18); archived ones leave.
+    """
+    records = [*stored]
+    withdrawn = {
+        arxiv_id
+        for arxiv_id in candidates
+        if ((entry := entries.get(arxiv_id)) is not None and is_withdrawn(entry.comments))
+        or any((paper := papers.get(arxiv_id)) is not None and paper.withdrawn for papers in records)
+    }
+    if withdrawn:
+        logger.info("%s: %d withdrawn papers are left out", category, len(withdrawn))
+    return withdrawn
+
+
+def _ranked(
+    category: str, ranked: list[Candidate], archived: AbstractSet[str], *, budget: int, today: date
+) -> tuple[Selection, frozenset[str], dict[int, Cohort]]:
+    """The archive's selection, the most cited of the last 12 months, and each year's cohort."""
+    selection = select_archive(ranked, archived, budget=budget, today=today)
+    if selection.floor:
+        logger.info(
+            "%s: %d papers kept only as their year's most cited tenth", category, len(selection.floor)
+        )
+    top_recent = select_top_recent(
+        (candidate for candidate in ranked if is_recent(candidate.first_seen, today)), today=today
+    )
+    return selection, top_recent, year_cohorts(ranked, today)
 
 
 def _candidates(

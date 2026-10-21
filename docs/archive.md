@@ -21,7 +21,14 @@ GitHub and the Hugging Face Hub are like to work with. Read this before changing
   in 415 requests).
 - `archive/selection.py` ranks the papers older than 12 months by citations per year of
   age (`max(age, 1)`) and keeps a budget of them: 22,000 by default, about 20 citations a
-  year. An archived paper leaves only beyond 1.15 times the budget.
+  year. An archived paper leaves only beyond 1.15 times the budget. And whatever the
+  budget, each year at least three years old keeps its most cited tenth (`year_floor`,
+  `YEAR_FLOOR_SHARE`, decision 22), never-cited papers left out: the run logs how many
+  papers only that keeps.
+- The archive also writes `cohorts.json`: each complete year's papers since 2010 (every
+  candidate, withdrawn ones left out), how many, and the citations of the last of their
+  top 1%, 5% and 10% (`year_cohorts`), from which the site says "Top 1% of 2017". Not
+  without the counts (a run below the coverage keeps last week's).
 - `sources/openalex.py` gives the affiliations of papers that enter from the catalog:
   OpenAlex's institutions, which are registry entries, so they are also the papers'
   `institutions`, with their ROR ids, and both have the provenance `openalex` and the day
@@ -105,6 +112,23 @@ of a threshold to move by hand. A paper of 12 months has few (6,141 papers of
 so the archive takes papers older than 12 months, and the last 12 months rank by
 citations per month of age (PROD-11, below). At about 2.5 KB a paper in JSON, the budget
 weighs about 55 MB.
+
+### Each year's most cited tenth (decision 22, 2026-10-21)
+
+Citations per year of age kept 8 papers of 2010, 7 of 2011, 21 of 2012 and 41 of 2013, and
+fewer every year: the threshold rises with the field while a classic's citations slow down.
+cs.CV was small on arXiv then (291 papers in 2010, 850 in 2013, 1,347 in 2014), so the
+1,000 most cited of each year, considered instead, would have taken every paper of those
+years, uncited ones too, and dropped 12,180 papers of 2017 to 2025 cited 20 to 250 times
+for 16,000 in all; the top eighth of each year, the budget's share, 3,168 papers of 2015 to
+2021 cited 140 to 400 times for papers of 2024 and 2025 cited 18 to 40 times. A floor keeps
+both: the budget's rule, and each year's most cited tenth, as bibliometrics' "highly cited
+papers" compare a paper with those of its year (Web of Science's are the top 1% of their
+field and year). On the counts of 2026-09-30, it adds 138 papers, all but four of 2010 to
+2013: 2010 keeps 29 (97 citations at least), 2011 38 (86), 2012 58 (134), 2013 85 (123).
+Years younger than three get none: their counts still move, and 2025's tenth would add 700
+papers cited 21 times. A fixed floor of 100 a year would have taken 2010's papers down to
+23 citations.
 
 OpenAlex was rejected for both questions. Its subfield "Computer Vision and Pattern
 Recognition" is not cs.CV: it held 48% of the papers stored in September 2026 (51% of

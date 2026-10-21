@@ -25,6 +25,7 @@ from preprint_radar.store.paper_store import (
     ARCHIVE_DIRNAME,
     CITATIONS_FILENAME,
     CODE_FILENAME,
+    COHORTS_FILENAME,
     COUNTRIES_FILENAME,
     GAINS_FILENAME,
     INDEX_FILENAME,
@@ -172,6 +173,7 @@ def _validate_category(store: PaperStore, category: str, report: ValidationRepor
     _validate_scholar(store, category, authors, report)
     _validate_code(store, category, stored, report)
     _validate_countries(store, category, report)
+    _validate_cohorts(store, category, report)
     return {"days": days, "years": years, "top_recent": top_recent}
 
 
@@ -369,6 +371,18 @@ def _validate_countries(store: PaperStore, category: str, report: ValidationRepo
     report.files += 1
     try:
         store.load_countries(category)
+    except StoreError as exc:
+        report.findings.append(Finding(Level.ERROR, _where(path, store), str(exc)))
+
+
+def _validate_cohorts(store: PaperStore, category: str, report: ValidationReport) -> None:
+    """``cohorts.json`` must load (decision 22): the site's badges read it as it is."""
+    path = store.root / category / COHORTS_FILENAME
+    if not path.is_file():
+        return
+    report.files += 1
+    try:
+        store.load_cohorts(category)
     except StoreError as exc:
         report.findings.append(Finding(Level.ERROR, _where(path, store), str(exc)))
 

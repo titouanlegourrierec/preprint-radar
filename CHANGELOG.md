@@ -20,6 +20,10 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ### Data
 
+- Highly cited keeps each year's most cited tenth, on top of its rule of citations per year
+  of age, which kept 8 papers of 2010 and fewer every year: the years 2010 to 2013 get 138
+  papers more, each cited 86 times or more. The weekly archive also writes how each
+  complete year's papers rank (`cohorts.json`), for the site (CIT-16, decision 22).
 - A day file's paper the archive's catalog does not list (a cross-list first seen before
   2010) competes for the archive on its day, rather than being deleted unranked when
   pruning reaches that day, from September 2027 (CIT-14).

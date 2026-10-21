@@ -7,7 +7,7 @@ from typing import Any
 
 import pytest
 
-from preprint_radar.models import Paper, Provenance
+from preprint_radar.models import Cohort, Paper, Provenance
 from preprint_radar.store.paper_store import PaperStore
 from preprint_radar.store.validate import Finding, Level, validate_store
 
@@ -267,8 +267,17 @@ def test_countries(store: PaperStore) -> None:
     assert _messages(store)[0].startswith("data/cs.CV/countries.json: Invalid countries file")
 
 
+def test_cohorts(store: PaperStore) -> None:
+    store.write_cohorts("cs.CV", {2017: Cohort(5_701, 2_020, 650, 408)}, source="Semantic Scholar")
+    assert validate_store(store).findings == []
+
+    (store.root / "cs.CV" / "cohorts.json").write_text("{}", encoding="utf-8")
+    assert _messages(store)[0].startswith("data/cs.CV/cohorts.json: Invalid cohorts file")
+
+
 @pytest.mark.parametrize(
-    "name", ["citations.json", "citation-gains.json", "scholar.json", "code.json", "countries.json"]
+    "name",
+    ["citations.json", "citation-gains.json", "scholar.json", "code.json", "countries.json", "cohorts.json"],
 )
 def test_a_file_of_another_schema_version(store: PaperStore, name: str) -> None:
     path = store.root / "cs.CV" / name

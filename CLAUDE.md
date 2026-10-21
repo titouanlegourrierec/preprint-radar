@@ -164,7 +164,10 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     rewritten weekly; `<category>/citation-gains.json`, what each gained between the last
     two weekly refreshes (`docs/archive.md`); `<category>/code.json`, the stars of the code
     each links, and those gained in the week; `<category>/countries.json`, the country of
-    each institution of the stored papers, by ROR id (`null`: OpenAlex places it nowhere).
+    each institution of the stored papers, by ROR id (`null`: OpenAlex places it nowhere);
+    `<category>/cohorts.json`, each complete year's papers as their citations rank them:
+    how many, and the citations of the last of the top 1%, 5% and 10% (the site's "Top 1%
+    of 2017", decision 22), which the weekly archive writes.
 - `web/`: `src/` (the app; `docs/web.md`), `tooling/` (build plugins: what the site derives
   from `data/`, the third-party guard), `tests/` (Vitest), `e2e/` (Playwright and its store).
 - `.cache/` (git-ignored; the Actions cache in CI): `front-matter/<yymm>/<id>v<n>.html.gz`,
