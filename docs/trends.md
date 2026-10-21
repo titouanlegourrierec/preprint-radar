@@ -17,7 +17,16 @@ their source is `arXiv` alone.
 ## Topics (`title_phrases`)
 
 - Titles only: a title says what a paper is about, where an abstract also names its tools,
-  datasets and baselines.
+  datasets and baselines. Measured on 2026-10-21, the titles' topics counted where either
+  the title or the abstract says them: a paper of the last 90 days has 9.4 topics instead
+  of 2.1, and tools grow the most, CLIP from 33 to 511 papers, NeRF from 3 to 43, segment
+  anything model from 2 to 40, against world model from 213 to 359. CLIP then rises
+  (×1.24) where its titles cool (−31%): papers use it more, fewer are about it. The lists
+  keep 9 of their 25 rising topics, 1 of their 25 cooling (which become the abstracts'
+  style: "loss function", "network architecture", "simple yet effective"), and 4 new
+  topics of 7, a phrase being written in abstracts before titles. A vocabulary of the
+  abstracts' own phrases leads with "state of the art", "extensive experiments" and "code
+  is available". The abstracts' pass took 41 s on 8 cores.
 - A topic is a phrase of a title, one to four words and six parts at most once hyphens
   split them ("vision-language-action model" is two words, four parts). A phrase starts and
   ends with a whole word, so "Semi-Supervised Medical Image Segmentation" never says
