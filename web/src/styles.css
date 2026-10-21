@@ -1659,6 +1659,12 @@ html {
   color: var(--text-muted);
 }
 
+/* More, which every card has, against the right edge: in the same place on every card,
+   whatever badges come before it, on its line or the next. */
+.paper__more {
+  margin-left: auto;
+}
+
 /* Code and its stars, one badge in two parts: the link, then the count, which is not one. */
 .action-group {
   display: inline-flex;

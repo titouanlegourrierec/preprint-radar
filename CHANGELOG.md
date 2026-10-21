@@ -13,6 +13,8 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 - A card says where its citations put a paper among those of its year: "Top 1% of 2017",
   5% or 10%, against every cs.CV paper first submitted that year, from the archive of
   2026-10-25 on (PROD-19).
+- A card's More sits against the right edge of its row of actions, in the same place on
+  every card whatever badges come before it (UX-50).
 
 ### Fixes
 

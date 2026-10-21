@@ -117,7 +117,9 @@ it; the tests pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   the only sign in the dark theme; no motion with `prefers-reduced-motion`), and a click
   on it opens it as More does (`openOnClick`), but on its links and controls or after a
   drag that selected text; an open card ignores clicks, so that its text can be selected,
-  and Less, `o` or Enter fold it.
+  and Less, `o` or Enter fold it. More, which every card has, is last in its row of
+  actions and against its right edge (`.paper__more`, `margin-left: auto`), on its line or
+  the next: in the same place on every card, whatever badges come before it (UX-50).
   In Highly cited (`viewModel().ranked`), a card says its rank in the order shown before
   its title (`.paper__rank`): its position among the results, whatever the search and
   filters keep and whether by citations, gains or stars, the first three in gold, silver
