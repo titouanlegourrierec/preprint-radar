@@ -171,11 +171,11 @@
     "002pd6e78",
     null
    ],
-   "extractor": 9,
+   "extractor": 12,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-22"
     },
     "institutions": {
      "source": "ror",
@@ -539,11 +539,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 12,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-22"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.26623",
@@ -943,11 +943,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 12,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-22"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.26561",
@@ -1701,11 +1701,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 12,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-22"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.26375",
@@ -1781,14 +1781,35 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.26325v1",
    "abstract": "Camera-based 3D object detection and online vectorized HD mapping provide compact scene representations for autonomous driving, but both depend on accurate metric geometry and remain limited by depth ambiguity. Over long-term deployment, observations from repeated traversals can be accumulated into persistent point cloud priors that provide geometric context beyond the current observations. Existing explicit point cloud prior approaches, however, rely on LiDAR-based map construction and therefore require expensive 3D ranging sensors. We propose a framework that constructs a static point cloud prior map from previous camera traversals using Pi3X and augments each point with DINOv3 features. At runtime, a local prior patch is retrieved using global localization, encoded with a sparse voxel backbone, and fused in bird's-eye view (BEV) with lifted multi-view camera features. Task-specific sparse transformer heads then predict 3D objects and vectorized map elements from the fused representation. On Argoverse 2, the vision-based prior improves a strong baseline from 0.287 to 0.299 CDS and from 0.669 to 0.750 vectorized mapping mAP. Ablations show that semantic DINOv3 features are particularly important for vectorized mapping. These results demonstrate that vision-built geometric-semantic priors provide an effective form of long-term scene memory for camera-based perception, improving both tasks without LiDAR for prior-map construction or online inference.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": null,
-   "extractor": 9,
+   "affiliations": [
+    "Department of Computer Science, University of Freiburg, Germany"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Freiburg"
+   ],
+   "institution_ids": [
+    "0245cg223"
+   ],
+   "extractor": 12,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-22"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-22"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.26325",
@@ -1826,11 +1847,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 12,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-22"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.26299",
@@ -1862,11 +1883,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 12,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-22"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.26274",
@@ -2024,11 +2045,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 12,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-22"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.26205",
@@ -2059,11 +2080,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 12,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-22"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.26189",
@@ -2091,11 +2112,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 12,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-22"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.26188",
