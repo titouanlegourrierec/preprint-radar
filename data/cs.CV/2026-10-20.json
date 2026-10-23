@@ -1419,7 +1419,7 @@
     "Zhaoxi Zhang",
     "Hao Liang",
     "Linxuan Wu",
-    "Yiming Wu",
+    "Yiming Xu",
     "Yifu Yuan",
     "Kun Liang",
     "Chenming Tang",
@@ -1436,7 +1436,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.26659v2",
+   "html_url": "https://arxiv.org/html/2610.26659v3",
    "abstract": "Spatial intelligence requires agents to actively acquire visual evidence and integrate observations into a coherent representation of the three-dimensional world. Yet spatial question answering offers limited evidence of whether models can construct accurate metric maps through autonomous exploration. We introduce SpatialScout, a benchmark for evaluating vision-language model (VLM) agents on active object-level 3D mapping. SpatialScout comprises 80 diverse indoor scenes containing 3,140 target objects. Given an object inventory, RGB observations, camera calibration, and camera poses, agents control a camera to explore each scene and estimate object centers in a shared coordinate frame. The task requires coordinating viewpoint selection, cross-view association, geometric estimation, and map revision under bounded interaction budgets. Evaluation jointly measures localization accuracy and target coverage through object-scale overlap scores that penalize missing predictions. Experiments with frontier VLMs reveal substantial limitations: the strongest evaluated model, Claude Opus 5.5, achieves a mean overlap score of 41.71%, with 47.23% of targets exceeding an intersection-over-union (IoU) threshold of 0.5 and only 3.25% exceeding 0.9. These results reveal a substantial gap between recovering coarse object layouts and constructing complete, precise metric maps. SpatialScout provides a quantitative testbed for developing agents that build reliable 3D spatial representations through active perception. Code is available at https://github.com/JesseZZZZZ/SpatialScout.",
    "affiliations": [
     "Peking University",
@@ -1478,11 +1478,11 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-23"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-21"
+     "at": "2026-10-23"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.26659",

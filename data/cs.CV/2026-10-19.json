@@ -4101,6 +4101,7 @@
     "Yiyang Lin",
     "Chenhui Wang",
     "Tianliang Yao",
+    "Pengli Zhu",
     "Shuaibo Li",
     "Zijun Sun",
     "Yiming Deng",
@@ -4114,7 +4115,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.22982v1",
+   "html_url": "https://arxiv.org/html/2610.22982v2",
    "abstract": "MRI field-strength enhancement seeks to combine the accessibility of low-field scanners with the image quality of high-field scanners. Yet, existing methods remain prone to anatomical hallucinations, as uniform processing leaves difficult brain regions insufficiently examined and scarce paired data limit their learning of how tissue contrast and anatomical visibility change across field strengths. To address these challenges, we propose UniField++, a two-agent framework that unifies enhancement tasks across multiple field-strength transitions, including 64mT-to-3T and 3T-to-7T. Unified learning allows both the VLM-based planner and the flow-matching-based enhancer to draw on field-dependent image characteristics observed across tasks, rather than relying on a single transition. Trained with radiologists' annotations of hallucination-prone regions and corresponding correction plans, the planner predicts regional risk and formulates targeted restoration strategies. Guided by these plans, the enhancer performs loop reasoning along the flow-matching trajectory, repeatedly processing high-risk regions for additional refinement. Together, cross-transition learning and risk-guided refinement support anatomically faithful enhancement across field strengths. Across the evaluated tasks, UniField++ improves PSNR by an average of 2.74 dB and SSIM by 14.05 percentage points over comparison methods, with corresponding gains of 3.97 dB and 13.92 percentage points over the ablation baseline. It also maintains enhancement quality on an external cohort with an unseen field strength and improves downstream whole-brain segmentation Macro Dice by an average of 0.1457 over the original low-field images. Code is available at https://github.com/CUHK-AIM-Group/UniField_plusplus.",
    "affiliations": [
     "Department of Electronic Engineering, The Chinese University of Hong Kong, Hong Kong SAR, China",
@@ -4129,6 +4130,9 @@
     ],
     [
      1
+    ],
+    [
+     0
     ],
     [
      0
@@ -4165,11 +4169,11 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-23"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-19"
+     "at": "2026-10-23"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.22982",
