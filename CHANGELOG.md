@@ -8,6 +8,14 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ## Unreleased
 
+## 0.11.0 (2026-10-25): Trends, a paper's place in its year, and fuller early years
+
+The sixth set of features of Phase 4: a Trends view says which topics of the titles rise,
+cool or are new, and its explorer draws any topic since 2010; a card says where a paper
+stands among its year's papers ("Top 1% of 2017"), and Highly cited keeps each year's most
+cited tenth; extraction version 12 places the authors a run of markers names, and the
+cleaning drops whatever `validate` would refuse, so that no day of papers is lost to it.
+
 ### Interface
 
 - A Trends view: the topics of cs.CV's titles whose share of the papers rises, cools or is
@@ -49,11 +57,12 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   writes which rise, cool or are new over the last 90 days and the last 12 months, each
   with its months, its impact (the share of its papers among the most cited of their
   month) and its most cited papers of the year (`trends.json`), and every topic's months
-  (`topics.json`), for the site's coming Trends view (`make trends`, PROD-20).
+  (`topics.json`), which the Trends view shows (`make trends`, PROD-20).
 - Highly cited keeps each year's most cited tenth, on top of its rule of citations per year
-  of age, which kept 8 papers of 2010 and fewer every year: the years 2010 to 2013 get 138
-  papers more, each cited 86 times or more. The weekly archive also writes how each
-  complete year's papers rank (`cohorts.json`), for the site (CIT-16, decision 22).
+  of age, which kept 8 papers of 2010 and 41 of 2013, fewer every year: the archive of
+  2026-10-25 keeps 29 and 84, and 130 papers in all for this alone. The weekly archive also
+  writes how each complete year's papers rank (`cohorts.json`), for the site (CIT-16,
+  decision 22).
 - A day file's paper the archive's catalog does not list (a cross-list first seen before
   2010) competes for the archive on its day, rather than being deleted unranked when
   pruning reaches that day, from September 2027 (CIT-14).

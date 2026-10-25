@@ -380,6 +380,18 @@ affiliations 91%, authors mapped 99%, venues 89%, counts 100%. The stars of 8,05
 stored papers. A country for 24,341 of the 28,596 papers (85%), in 107 countries.
 `validate`: no error, no warning.
 
+*Result of v0.11.0 (2026-10-25; `make stats` and `make validate` that day, after the
+archive).* Day files: 7,072 papers, abstracts 100%, affiliations 82% of those tried
+(authors mapped 87%, institutions named 100%), venues 22%, citation counts 99%. Archive:
+22,637 papers, affiliations 91%, authors mapped 99%, venues 89%, counts 100%; 2010 holds
+29 papers and 2013 84, 130 papers in all kept as their year's most cited tenth (CIT-16),
+and the cohorts of the 16 complete years rank the cards ("Top 1% of 2017" from 3,025
+citations). The stars of 8,415 of the 8,636 papers linking code (97%), 1,837 of which
+gained some in the week. A country for 25,176 of the 29,709 papers (85%), in 109
+countries. Trends: 6,645 topics of 210,263 titles to 2026-10-22; world action model,
+world model and video world model rise most over 90 days, feature fusion,
+semi-supervised and diffusion model cool most. `validate`: no error, no warning.
+
 ## Backlog triage (2026-10-07)
 
 The audit items no row above named on 2026-10-07, checked against the code of that day (`b3bfefc`).
