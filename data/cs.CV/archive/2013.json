@@ -4,6 +4,250 @@
  "year": 2013,
  "papers": [
   {
+   "arxiv_id": "1312.7570",
+   "announced": "2013-12-29",
+   "title": "Actions in the Eye: Dynamic Gaze Datasets and Learnt Saliency Models for Visual Recognition",
+   "authors": [
+    "Stefan Mathe",
+    "Cristian Sminchisescu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Systems based on bag-of-words models from image features collected at maxima of sparse interest point operators have been used successfully for both computer visual object and action recognition tasks. While the sparse, interest-point based approach to recognition is not inconsistent with visual processing in biological systems that operate in `saccade and fixate' regimes, the methodology and emphasis in the human and the computer vision communities remains sharply distinct. Here, we make three contributions aiming to bridge this gap. First, we complement existing state-of-the art large scale dynamic computer vision annotated datasets like Hollywood-2 and UCF Sports with human eye movements collected under the ecological constraints of the visual action recognition task. To our knowledge these are the first large human eye tracking datasets to be collected and made publicly available for video, vision.imar.ro/eyetracking (497,107 frames, each viewed by 16 subjects), unique in terms of their (a) large scale and computer vision relevance, (b) dynamic, video stimuli, (c) task control, as opposed to free-viewing. Second, we introduce novel sequential consistency and alignment measures, which underline the remarkable stability of patterns of visual search among subjects. Third, we leverage the significant amount of collected data in order to pursue studies and build automatic, end-to-end trainable computer vision systems based on human eye movements. Our studies not only shed light on the differences between computer vision spatio-temporal interest point image sampling strategies and the human fixations, as well as their impact for visual recognition performance, but also demonstrate that human fixations can be accurately predicted, and when used in an end-to-end automatic system, leveraging some of the advanced computer vision practice, can lead to state of the art results.",
+   "affiliations": [
+    "University of Toronto",
+    "IMAR - Institutul de Matematică „Simion Stoilow” al Academiei Române",
+    "Lund University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     2,
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Toronto",
+    "IMAR - Institutul de Matematică „Simion Stoilow” al Academiei Române",
+    "Lund University"
+   ],
+   "institution_ids": [
+    "03dbr7087",
+    "0122mh736",
+    "012a77v79"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1312.7570",
+   "pdf_url": "https://arxiv.org/pdf/1312.7570"
+  },
+  {
+   "arxiv_id": "1312.7345",
+   "announced": "2013-12-26",
+   "title": "Lesion Border Detection in Dermoscopy Images Using Ensembles of Thresholding Methods",
+   "authors": [
+    "M. Emre Celebi",
+    "Quan Wen",
+    "Sae Hwang",
+    "Hitoshi Iyatomi",
+    "Gerald Schaefer"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "8 pages, 3 figures, 2 tables. arXiv admin note: substantial text overlap with arXiv:1009.1362",
+   "journal_ref": "Skin Research and Technology 19 (2013) e252--e258",
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Dermoscopy is one of the major imaging modalities used in the diagnosis of melanoma and other pigmented skin lesions. Due to the difficulty and subjectivity of human interpretation, automated analysis of dermoscopy images has become an important research area. Border detection is often the first step in this analysis. In many cases, the lesion can be roughly separated from the background skin using a thresholding method applied to the blue channel. However, no single thresholding method appears to be robust enough to successfully handle the wide variety of dermoscopy images encountered in clinical practice. In this paper, we present an automated method for detecting lesion borders in dermoscopy images using ensembles of thresholding methods. Experiments on a difficult set of 90 images demonstrate that the proposed method is robust, fast, and accurate when compared to nine state-of-the-art methods.",
+   "affiliations": [
+    "Louisiana State University",
+    "Louisiana State University in Shreveport",
+    "University of Electronic Science and Technology of China",
+    "University of Illinois at Springfield",
+    "Hosei University",
+    "Loughborough University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     4
+    ],
+    [
+     5
+    ]
+   ],
+   "institutions": [
+    "Louisiana State University",
+    "Louisiana State University in Shreveport",
+    "University of Electronic Science and Technology of China",
+    "University of Illinois at Springfield",
+    "Hosei University",
+    "Loughborough University"
+   ],
+   "institution_ids": [
+    "05ect4e57",
+    "02c4cbt39",
+    "04qr3zq92",
+    "0126qma51",
+    "00bx6dj65",
+    "04vg4w365"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1312.7345",
+   "pdf_url": "https://arxiv.org/pdf/1312.7345"
+  },
+  {
+   "arxiv_id": "1312.6965",
+   "announced": "2013-12-25",
+   "title": "An Unsupervised Approach for Automatic Activity Recognition based on Hidden Markov Model Regression",
+   "authors": [
+    "Dorra Trabelsi",
+    "Samer Mohammed",
+    "Faicel Chamroukhi",
+    "Latifa Oukhellou",
+    "Yacine Amirat"
+   ],
+   "primary_subject": "Machine Learning (stat.ML)",
+   "subjects": [
+    "Machine Learning (stat.ML)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": null,
+   "journal_ref": "IEEE Transactions on Automation Science and Engineering, Volume: 10, Issue: 3, July 2013, Pages: 829-835",
+   "venue": null,
+   "cross_list_from": "stat.ML",
+   "html_url": null,
+   "abstract": "Using supervised machine learning approaches to recognize human activities from on-body wearable accelerometers generally requires a large amount of labelled data. When ground truth information is not available, too expensive, time consuming or difficult to collect, one has to rely on unsupervised approaches. This paper presents a new unsupervised approach for human activity recognition from raw acceleration data measured using inertial wearable sensors. The proposed method is based upon joint segmentation of multidimensional time series using a Hidden Markov Model (HMM) in a multiple regression context. The model is learned in an unsupervised framework using the Expectation-Maximization (EM) algorithm where no activity labels are needed. The proposed method takes into account the sequential appearance of the data. It is therefore adapted for the temporal acceleration data to accurately detect the activities. It allows both segmentation and classification of the human activities. Experimental results are provided to demonstrate the efficiency of the proposed approach with respect to standard supervised and unsupervised classification approaches",
+   "affiliations": [
+    "Université Paris-Est Créteil",
+    "Laboratoire Images, signaux et systèmes intelligents",
+    "Université de Toulon",
+    "Laboratoire d’Informatique et Systèmes",
+    "Paris-Est Sup"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     4
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Université Paris-Est Créteil",
+    "Laboratoire Images, signaux et systèmes intelligents",
+    "Université de Toulon",
+    "Laboratoire d’Informatique et Systèmes",
+    "Paris-Est Sup"
+   ],
+   "institution_ids": [
+    "05ggc9x40",
+    "00w0hef10",
+    "02m9kbe37",
+    "0257sgk90",
+    "0268ecp52"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1312.6965",
+   "pdf_url": "https://arxiv.org/pdf/1312.6965"
+  },
+  {
+   "arxiv_id": "1312.6410",
+   "announced": "2013-12-22",
+   "title": "A Survey on Eye-Gaze Tracking Techniques",
+   "authors": [
+    "H. R. Chennamma",
+    "Xiaohui Yuan"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "6 pages, Journal",
+   "journal_ref": "Indian Journal of Computer Science and Engineering, ISSN : 0976-5166, Vol. 4, No. 5, Oct-Nov 2013, pp. 388-393",
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Study of eye-movement is being employed in Human Computer Interaction (HCI) research. Eye - gaze tracking is one of the most challenging problems in the area of computer vision. The goal of this paper is to present a review of latest research in this continued growth of remote eye-gaze tracking. This overview includes the basic definitions and terminologies, recent advances in the field and finally the need of future development in the field.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1312.6410",
+   "pdf_url": "https://arxiv.org/pdf/1312.6410"
+  },
+  {
    "arxiv_id": "1312.5402",
    "announced": "2013-12-19",
    "title": "Some Improvements on Deep Convolutional Neural Network Based Image Classification",
@@ -88,6 +332,69 @@
    },
    "abs_url": "https://arxiv.org/abs/1312.2249",
    "pdf_url": "https://arxiv.org/pdf/1312.2249"
+  },
+  {
+   "arxiv_id": "1312.7302",
+   "announced": "2013-12-01",
+   "title": "Learning Human Pose Estimation Features with Convolutional Networks",
+   "authors": [
+    "Arjun Jain",
+    "Jonathan Tompson",
+    "Mykhaylo Andriluka",
+    "Graham W. Taylor",
+    "Christoph Bregler"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)",
+    "Neural and Evolutionary Computing (cs.NE)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "This paper introduces a new architecture for human pose estimation using a multi- layer convolutional network architecture and a modified learning technique that learns low-level features and higher-level weak spatial models. Unconstrained human pose estimation is one of the hardest problems in computer vision, and our new architecture and learning schema shows significant improvement over the current state-of-the-art results. The main contribution of this paper is showing, for the first time, that a specific variation of deep learning is able to outperform all existing traditional architectures on this task. The paper also discusses several lessons learned while researching alternatives, most notably, that it is possible to learn strong low-level feature detectors on features that might even just cover a few pixels in the image. Higher-level spatial models improve somewhat the overall result, but to a much lesser extent then expected. Many researchers previously argued that the kinematic structure and top-down information is crucial for this domain, but with our purely bottom up, and weak spatial model, we could improve other more complicated architectures that currently produce the best results. This mirrors what many other researchers, like those in the speech recognition, object recognition, and other domains have experienced.",
+   "affiliations": [
+    "New York University",
+    "University of Guelph"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "New York University",
+    "University of Guelph"
+   ],
+   "institution_ids": [
+    "0190ak572",
+    "01r7awg59"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1312.7302",
+   "pdf_url": "https://arxiv.org/pdf/1312.7302"
   },
   {
    "arxiv_id": "1312.6229",
@@ -740,6 +1047,58 @@
    "pdf_url": "https://arxiv.org/pdf/1311.2901"
   },
   {
+   "arxiv_id": "1311.4033",
+   "announced": "2013-11-16",
+   "title": "A Comparative Study of Histogram Equalization Based Image Enhancement Techniques for Brightness Preservation and Contrast Enhancement",
+   "authors": [
+    "Omprakash Patel",
+    "Yogendra P. S. Maravi",
+    "Sanjeev Sharma"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "15 pages, 5 figures, 4 tables, Signal & Image Processing : An International Journal (SIPIJ)",
+   "journal_ref": "Signal & Image Processing : An International Journal (SIPIJ) Vol.4, No.5, October 2013",
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Histogram Equalization is a contrast enhancement technique in the image processing which uses the histogram of image. However histogram equalization is not the best method for contrast enhancement because the mean brightness of the output image is significantly different from the input image. There are several extensions of histogram equalization has been proposed to overcome the brightness preservation challenge. Contrast enhancement using brightness preserving bi-histogram equalization (BBHE) and Dualistic sub image histogram equalization (DSIHE) which divides the image histogram into two parts based on the input mean and median respectively then equalizes each sub histogram independently. This paper provides review of different popular histogram equalization techniques and experimental study based on the absolute mean brightness error (AMBE), peak signal to noise ratio (PSNR), Structure similarity index (SSI) and Entropy.",
+   "affiliations": [
+    "Rajiv Gandhi Technical University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Rajiv Gandhi Technical University"
+   ],
+   "institution_ids": [
+    "03xmje391"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1311.4033",
+   "pdf_url": "https://arxiv.org/pdf/1311.4033"
+  },
+  {
    "arxiv_id": "1311.3618",
    "announced": "2013-11-15",
    "title": "Describing Textures in the Wild",
@@ -813,6 +1172,42 @@
    },
    "abs_url": "https://arxiv.org/abs/1311.3618",
    "pdf_url": "https://arxiv.org/pdf/1311.3618"
+  },
+  {
+   "arxiv_id": "1311.1939",
+   "announced": "2013-11-08",
+   "title": "Fast Tracking via Spatio-Temporal Context Learning",
+   "authors": [
+    "Kaihua Zhang",
+    "Lei Zhang",
+    "Ming-Hsuan Yang",
+    "David Zhang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "In this paper, we present a simple yet fast and robust algorithm which exploits the spatio-temporal context for visual tracking. Our approach formulates the spatio-temporal relationships between the object of interest and its local context based on a Bayesian framework, which models the statistical correlation between the low-level features (i.e., image intensity and position) from the target and its surrounding regions. The tracking problem is posed by computing a confidence map, and obtaining the best target location by maximizing an object location likelihood function. The Fast Fourier Transform is adopted for fast learning and detection in this work. Implemented in MATLAB without code optimization, the proposed tracker runs at 350 frames per second on an i7 machine. Extensive experimental results show that the proposed algorithm performs favorably against state-of-the-art methods in terms of efficiency, accuracy and robustness.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1311.1939",
+   "pdf_url": "https://arxiv.org/pdf/1311.1939"
   },
   {
    "arxiv_id": "1311.5591",
@@ -970,6 +1365,73 @@
    "pdf_url": "https://arxiv.org/pdf/1311.2524"
   },
   {
+   "arxiv_id": "1310.3447",
+   "announced": "2013-10-19",
+   "title": "Image Restoration using Total Variation with Overlapping Group Sparsity",
+   "authors": [
+    "Jun Liu",
+    "Ting-Zhu Huang",
+    "Ivan W. Selesnick",
+    "Xiao-Guang Lv",
+    "Po-Yu Chen"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Numerical Analysis (math.NA)"
+   ],
+   "comments": "11 pages, 37 figures",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Image restoration is one of the most fundamental issues in imaging science. Total variation (TV) regularization is widely used in image restoration problems for its capability to preserve edges. In the literature, however, it is also well known for producing staircase-like artifacts. Usually, the high-order total variation (HTV) regularizer is an good option except its over-smoothing property. In this work, we study a minimization problem where the objective includes an usual $l_2$ data-fidelity term and an overlapping group sparsity total variation regularizer which can avoid staircase effect and allow edges preserving in the restored image. We also proposed a fast algorithm for solving the corresponding minimization problem and compare our method with the state-of-the-art TV based methods and HTV based method. The numerical experiments illustrate the efficiency and effectiveness of the proposed method in terms of PSNR, relative error and computing time.",
+   "affiliations": [
+    "University of Electronic Science and Technology of China",
+    "New York University",
+    "Jiangsu Ocean University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Electronic Science and Technology of China",
+    "New York University",
+    "Jiangsu Ocean University"
+   ],
+   "institution_ids": [
+    "04qr3zq92",
+    "0190ak572",
+    "031zps173"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1310.3447",
+   "pdf_url": "https://arxiv.org/pdf/1310.3447"
+  },
+  {
    "arxiv_id": "1310.5107",
    "announced": "2013-10-18",
    "title": "Advances in Hyperspectral Image Classification: Earth monitoring with statistical learning methods",
@@ -1028,6 +1490,72 @@
    },
    "abs_url": "https://arxiv.org/abs/1310.5107",
    "pdf_url": "https://arxiv.org/pdf/1310.5107"
+  },
+  {
+   "arxiv_id": "1310.4891",
+   "announced": "2013-10-18",
+   "title": "Dictionary Learning and Sparse Coding on Grassmann Manifolds: An Extrinsic Solution",
+   "authors": [
+    "Mehrtash Harandi",
+    "Conrad Sanderson",
+    "Chunhua Shen",
+    "Brian C. Lovell"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "9 pages. Appearing in Int. Conf. Computer Vision, 2013, Australia",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Recent advances in computer vision and machine learning suggest that a wide range of problems can be addressed more appropriately by considering non-Euclidean geometry. In this paper we explore sparse dictionary learning over the space of linear subspaces, which form Riemannian structures known as Grassmann manifolds. To this end, we propose to embed Grassmann manifolds into the space of symmetric matrices by an isometric mapping, which enables us to devise a closed-form solution for updating a Grassmann dictionary, atom by atom. Furthermore, to handle non-linearity in data, we propose a kernelised version of the dictionary learning algorithm. Experiments on several classification tasks (face recognition, action recognition, dynamic texture classification) show that the proposed approach achieves considerable improvements in discrimination accuracy, in comparison to state-of-the-art methods such as kernelised Affine Hull Method and graph-embedding Grassmann discriminant analysis.",
+   "affiliations": [
+    "Australian National University",
+    "Data61",
+    "University of Adelaide",
+    "University of Queensland"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ]
+   ],
+   "institutions": [
+    "Australian National University",
+    "Data61",
+    "University of Adelaide",
+    "University of Queensland"
+   ],
+   "institution_ids": [
+    "019wvm592",
+    "03q397159",
+    "00892tw58",
+    "00rqy9422"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1310.4891",
+   "pdf_url": "https://arxiv.org/pdf/1310.4891"
   },
   {
    "arxiv_id": "1310.1531",
@@ -1186,6 +1714,66 @@
    "pdf_url": "https://arxiv.org/pdf/1310.4249"
   },
   {
+   "arxiv_id": "1309.4385",
+   "announced": "2013-09-17",
+   "title": "Photon counting compressive depth mapping",
+   "authors": [
+    "Gregory A. Howland",
+    "Daniel J. Lum",
+    "Matthew R. Ware",
+    "John C. Howell"
+   ],
+   "primary_subject": "Optics (physics.optics)",
+   "subjects": [
+    "Optics (physics.optics)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "16 pages, 8 figures",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "physics.optics",
+   "html_url": null,
+   "abstract": "We demonstrate a compressed sensing, photon counting lidar system based on the single-pixel camera. Our technique recovers both depth and intensity maps from a single under-sampled set of incoherent, linear projections of a scene of interest at ultra-low light levels around 0.5 picowatts. Only two-dimensional reconstructions are required to image a three-dimensional scene. We demonstrate intensity imaging and depth mapping at 256 x 256 pixel transverse resolution with acquisition times as short as 3 seconds. We also show novelty filtering, reconstructing only the difference between two instances of a scene. Finally, we acquire 32 x 32 pixel real-time video for three-dimensional object tracking at 14 frames-per-second.",
+   "affiliations": [
+    "University of Rochester",
+    "Illinois State University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Rochester",
+    "Illinois State University"
+   ],
+   "institution_ids": [
+    "022kthw22",
+    "050kcr883"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1309.4385",
+   "pdf_url": "https://arxiv.org/pdf/1309.4385"
+  },
+  {
    "arxiv_id": "1309.3848",
    "announced": "2013-09-16",
    "title": "SEEDS: Superpixels Extracted via Energy-Driven Sampling",
@@ -1236,6 +1824,461 @@
    },
    "abs_url": "https://arxiv.org/abs/1309.3848",
    "pdf_url": "https://arxiv.org/pdf/1309.3848"
+  },
+  {
+   "arxiv_id": "1309.1853",
+   "announced": "2013-09-07",
+   "title": "A General Two-Step Approach to Learning-Based Hashing",
+   "authors": [
+    "Guosheng Lin",
+    "Chunhua Shen",
+    "David Suter",
+    "Anton van den Hengel"
+   ],
+   "primary_subject": "Machine Learning (cs.LG)",
+   "subjects": [
+    "Machine Learning (cs.LG)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "13 pages. Appearing in Int. Conf. Computer Vision (ICCV) 2013",
+   "journal_ref": null,
+   "venue": "ICCV 2013",
+   "cross_list_from": "cs.LG",
+   "html_url": null,
+   "abstract": "Most existing approaches to hashing apply a single form of hash function, and an optimization process which is typically deeply coupled to this specific form. This tight coupling restricts the flexibility of the method to respond to the data, and can result in complex optimization problems that are difficult to solve. Here we propose a flexible yet simple framework that is able to accommodate different types of loss functions and hash functions. This framework allows a number of existing approaches to hashing to be placed in context, and simplifies the development of new problem-specific hashing methods. Our framework decomposes hashing learning problem into two steps: hash bit learning and hash function learning based on the learned bits. The first step can typically be formulated as binary quadratic problems, and the second step can be accomplished by training standard binary classifiers. Both problems have been extensively studied in the literature. Our extensive experiments demonstrate that the proposed framework is effective, flexible and outperforms the state-of-the-art.",
+   "affiliations": [
+    "University of Adelaide"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Adelaide"
+   ],
+   "institution_ids": [
+    "00892tw58"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1309.1853",
+   "pdf_url": "https://arxiv.org/pdf/1309.1853"
+  },
+  {
+   "arxiv_id": "1309.7643",
+   "announced": "2013-09-01",
+   "title": "Rotationally Invariant Image Representation for Viewing Direction Classification in Cryo-EM",
+   "authors": [
+    "Zhizhen Zhao",
+    "Amit Singer"
+   ],
+   "primary_subject": "Biomolecules (q-bio.BM)",
+   "subjects": [
+    "Biomolecules (q-bio.BM)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "q-bio.BM",
+   "html_url": null,
+   "abstract": "We introduce a new rotationally invariant viewing angle classification method for identifying, among a large number of Cryo-EM projection images, similar views without prior knowledge of the molecule. Our rotationally invariant features are based on the bispectrum. Each image is denoised and compressed using steerable principal component analysis (PCA) such that rotating an image is equivalent to phase shifting the expansion coefficients. Thus we are able to extend the theory of bispectrum of 1D periodic signals to 2D images. The randomized PCA algorithm is then used to efficiently reduce the dimensionality of the bispectrum coefficients, enabling fast computation of the similarity between any pair of images. The nearest neighbors provide an initial classification of similar viewing angles. In this way, rotational alignment is only performed for images with their nearest neighbors. The initial nearest neighbor classification and alignment are further improved by a new classification method called vector diffusion maps. Our pipeline for viewing angle classification and alignment is experimentally shown to be faster and more accurate than reference-free alignment with rotationally invariant K-means clustering, MSA/MRA 2D classification, and their modern approximations.",
+   "affiliations": [
+    "Courant Institute of Mathematical Sciences",
+    "New York University",
+    "Princeton University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "Courant Institute of Mathematical Sciences",
+    "New York University",
+    "Princeton University"
+   ],
+   "institution_ids": [
+    "037tm7f56",
+    "0190ak572",
+    "00hx57361"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1309.7643",
+   "pdf_url": "https://arxiv.org/pdf/1309.7643"
+  },
+  {
+   "arxiv_id": "1309.6487",
+   "announced": "2013-09-01",
+   "title": "A Unified Framework for Representation-based Subspace Clustering of Out-of-sample and Large-scale Data",
+   "authors": [
+    "Xi Peng",
+    "Huajin Tang",
+    "Lei Zhang",
+    "Zhang Yi",
+    "Shijie Xiao"
+   ],
+   "primary_subject": "Machine Learning (cs.LG)",
+   "subjects": [
+    "Machine Learning (cs.LG)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (stat.ML)"
+   ],
+   "comments": "in IEEE Trans. on Neural Networks and Learning Systems, 2015",
+   "journal_ref": "IEEE Trans. on Neural Networks and Learning Systems, vol. 27, no. 12, pp. 2499-2512, Dec. 2016",
+   "venue": null,
+   "cross_list_from": "cs.LG",
+   "html_url": null,
+   "abstract": "Under the framework of spectral clustering, the key of subspace clustering is building a similarity graph which describes the neighborhood relations among data points. Some recent works build the graph using sparse, low-rank, and $ℓ_2$-norm-based representation, and have achieved state-of-the-art performance. However, these methods have suffered from the following two limitations. First, the time complexities of these methods are at least proportional to the cube of the data size, which make those methods inefficient for solving large-scale problems. Second, they cannot cope with out-of-sample data that are not used to construct the similarity graph. To cluster each out-of-sample datum, the methods have to recalculate the similarity graph and the cluster membership of the whole data set. In this paper, we propose a unified framework which makes representation-based subspace clustering algorithms feasible to cluster both out-of-sample and large-scale data. Under our framework, the large-scale problem is tackled by converting it as out-of-sample problem in the manner of \"sampling, clustering, coding, and classifying\". Furthermore, we give an estimation for the error bounds by treating each subspace as a point in a hyperspace. Extensive experimental results on various benchmark data sets show that our methods outperform several recently-proposed scalable methods in clustering large-scale data set.",
+   "affiliations": [
+    "Agency for Science, Technology and Research",
+    "Institute for Infocomm Research",
+    "Sichuan University",
+    "Nanyang Technological University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ]
+   ],
+   "institutions": [
+    "Agency for Science, Technology and Research",
+    "Institute for Infocomm Research",
+    "Sichuan University",
+    "Nanyang Technological University"
+   ],
+   "institution_ids": [
+    "036wvzt09",
+    "053rfa017",
+    "011ashp19",
+    "02e7b5302"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1309.6487",
+   "pdf_url": "https://arxiv.org/pdf/1309.6487"
+  },
+  {
+   "arxiv_id": "1309.0261",
+   "announced": "2013-09-01",
+   "title": "Multi-Column Deep Neural Networks for Offline Handwritten Chinese Character Classification",
+   "authors": [
+    "Dan Cireşan",
+    "Jürgen Schmidhuber"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "5 pages, 1 figure, IDSIA tech report",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Our Multi-Column Deep Neural Networks achieve best known recognition rates on Chinese characters from the ICDAR 2011 and 2013 offline handwriting competitions, approaching human performance.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1309.0261",
+   "pdf_url": "https://arxiv.org/pdf/1309.0261"
+  },
+  {
+   "arxiv_id": "1309.0213",
+   "announced": "2013-09-01",
+   "title": "Learning to Rank for Blind Image Quality Assessment",
+   "authors": [
+    "Fei Gao",
+    "Dacheng Tao",
+    "Xinbo Gao",
+    "Xuelong Li"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": "IEEE TRANSACTIONS ON NEURAL NETWORKS AND LEARNING SYSTEMS, VOL. 26, NO. 10, OCTOBER 2015, PP. 2275-2290",
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Blind image quality assessment (BIQA) aims to predict perceptual image quality scores without access to reference images. State-of-the-art BIQA methods typically require subjects to score a large number of images to train a robust model. However, subjective quality scores are imprecise, biased, and inconsistent, and it is challenging to obtain a large scale database, or to extend existing databases, because of the inconvenience of collecting images, training the subjects, conducting subjective experiments, and realigning human quality evaluations. To combat these limitations, this paper explores and exploits preference image pairs (PIPs) such as \"the quality of image $I_a$ is better than that of image $I_b$\" for training a robust BIQA model. The preference label, representing the relative quality of two images, is generally precise and consistent, and is not sensitive to image content, distortion type, or subject identity; such PIPs can be generated at very low cost. The proposed BIQA method is one of learning to rank. We first formulate the problem of learning the mapping from the image features to the preference label as one of classification. In particular, we investigate the utilization of a multiple kernel learning algorithm based on group lasso (MKLGL) to provide a solution. A simple but effective strategy to estimate perceptual image quality scores is then presented. Experiments show that the proposed BIQA method is highly effective and achieves comparable performance to state-of-the-art BIQA algorithms. Moreover, the proposed method can be easily extended to new distortion categories.",
+   "affiliations": [
+    "Xidian University",
+    "University of Technology Sydney",
+    "Chinese Academy of Sciences",
+    "Xi'an Institute of Optics and Precision Mechanics",
+    "State Key Laboratory of Transient Optics and Photonics"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     2,
+     3,
+     4
+    ]
+   ],
+   "institutions": [
+    "Xidian University",
+    "University of Technology Sydney",
+    "Chinese Academy of Sciences",
+    "Xi'an Institute of Optics and Precision Mechanics",
+    "State Key Laboratory of Transient Optics and Photonics"
+   ],
+   "institution_ids": [
+    "05s92vm98",
+    "03f0f6041",
+    "034t30j35",
+    "0444j5556",
+    "025hkeg57"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1309.0213",
+   "pdf_url": "https://arxiv.org/pdf/1309.0213"
+  },
+  {
+   "arxiv_id": "1308.6687",
+   "announced": "2013-08-30",
+   "title": "Image Set based Collaborative Representation for Face Recognition",
+   "authors": [
+    "Pengfei Zhu",
+    "Wangmeng Zuo",
+    "Lei Zhang",
+    "Simon C. K. Shiu",
+    "David Zhang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": "IEEE Transactions on Information Forensics and Security, Volume 9, Issue 7, May 2014, Pages 1120-1132",
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "With the rapid development of digital imaging and communication technologies, image set based face recognition (ISFR) is becoming increasingly important. One key issue of ISFR is how to effectively and efficiently represent the query face image set by using the gallery face image sets. The set-to-set distance based methods ignore the relationship between gallery sets, while representing the query set images individually over the gallery sets ignores the correlation between query set images. In this paper, we propose a novel image set based collaborative representation and classification method for ISFR. By modeling the query set as a convex or regularized hull, we represent this hull collaboratively over all the gallery sets. With the resolved representation coefficients, the distance between the query set and each gallery set can then be calculated for classification. The proposed model naturally and effectively extends the image based collaborative representation to an image set based one, and our extensive experiments on benchmark ISFR databases show the superiority of the proposed method to state-of-the-art ISFR methods under different set sizes in terms of both recognition rate and efficiency.",
+   "affiliations": [
+    "Hong Kong Polytechnic University",
+    "Harbin Institute of Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Hong Kong Polytechnic University",
+    "Harbin Institute of Technology"
+   ],
+   "institution_ids": [
+    "0030zas98",
+    "01yqg2h08"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1308.6687",
+   "pdf_url": "https://arxiv.org/pdf/1308.6687"
+  },
+  {
+   "arxiv_id": "1308.1187",
+   "announced": "2013-08-06",
+   "title": "Spatial-Aware Dictionary Learning for Hyperspectral Image Classification",
+   "authors": [
+    "Ali Soltani-Farani",
+    "Hamid R. Rabiee",
+    "Seyyed Abbas Hosseini"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "16 pages, 9 figures",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "This paper presents a structured dictionary-based model for hyperspectral data that incorporates both spectral and contextual characteristics of a spectral sample, with the goal of hyperspectral image classification. The idea is to partition the pixels of a hyperspectral image into a number of spatial neighborhoods called contextual groups and to model each pixel with a linear combination of a few dictionary elements learned from the data. Since pixels inside a contextual group are often made up of the same materials, their linear combinations are constrained to use common elements from the dictionary. To this end, dictionary learning is carried out with a joint sparse regularizer to induce a common sparsity pattern in the sparse coefficients of each contextual group. The sparse coefficients are then used for classification using a linear SVM. Experimental results on a number of real hyperspectral images confirm the effectiveness of the proposed representation for hyperspectral image classification. Moreover, experiments with simulated multispectral data show that the proposed model is capable of finding representations that may effectively be used for classification of multispectral-resolution samples.",
+   "affiliations": [
+    "Sharif University of Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Sharif University of Technology"
+   ],
+   "institution_ids": [
+    "024c2fq17"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1308.1187",
+   "pdf_url": "https://arxiv.org/pdf/1308.1187"
+  },
+  {
+   "arxiv_id": "1308.5038",
+   "announced": "2013-08-01",
+   "title": "Group-Sparse Signal Denoising: Non-Convex Regularization, Convex Optimization",
+   "authors": [
+    "Po-Yu Chen",
+    "Ivan W. Selesnick"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)",
+    "Machine Learning (stat.ML)"
+   ],
+   "comments": "14 pages, 11 figures",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Convex optimization with sparsity-promoting convex regularization is a standard approach for estimating sparse signals in noise. In order to promote sparsity more strongly than convex regularization, it is also standard practice to employ non-convex optimization. In this paper, we take a third approach. We utilize a non-convex regularization term chosen such that the total cost function (consisting of data consistency and regularization terms) is convex. Therefore, sparsity is more strongly promoted than in the standard convex formulation, but without sacrificing the attractive aspects of convex optimization (unique minimum, robust algorithms, etc.). We use this idea to improve the recently developed 'overlapping group shrinkage' (OGS) algorithm for the denoising of group-sparse signals. The algorithm is applied to the problem of speech enhancement with favorable results in terms of both SNR and perceptual quality.",
+   "affiliations": [
+    "New York University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "New York University"
+   ],
+   "institution_ids": [
+    "0190ak572"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1308.5038",
+   "pdf_url": "https://arxiv.org/pdf/1308.5038"
   },
   {
    "arxiv_id": "1308.3052",
@@ -1356,6 +2399,207 @@
    "pdf_url": "https://arxiv.org/pdf/1307.5348"
   },
   {
+   "arxiv_id": "1307.3811",
+   "announced": "2013-07-15",
+   "title": "Multiview Hessian Discriminative Sparse Coding for Image Annotation",
+   "authors": [
+    "Weifeng Liu",
+    "Dacheng Tao",
+    "Jun Cheng",
+    "Yuanyan Tang"
+   ],
+   "primary_subject": "Multimedia (cs.MM)",
+   "subjects": [
+    "Multimedia (cs.MM)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Information Theory (cs.IT)"
+   ],
+   "comments": "35 pages",
+   "journal_ref": "Computer vision and image understanding,118(2014) 50-60",
+   "venue": null,
+   "cross_list_from": "cs.MM",
+   "html_url": null,
+   "abstract": "Sparse coding represents a signal sparsely by using an overcomplete dictionary, and obtains promising performance in practical computer vision applications, especially for signal restoration tasks such as image denoising and image inpainting. In recent years, many discriminative sparse coding algorithms have been developed for classification problems, but they cannot naturally handle visual data represented by multiview features. In addition, existing sparse coding algorithms use graph Laplacian to model the local geometry of the data distribution. It has been identified that Laplacian regularization biases the solution towards a constant function which possibly leads to poor extrapolating power. In this paper, we present multiview Hessian discriminative sparse coding (mHDSC) which seamlessly integrates Hessian regularization with discriminative sparse coding for multiview learning problems. In particular, mHDSC exploits Hessian regularization to steer the solution which varies smoothly along geodesics in the manifold, and treats the label information as an additional view of feature for incorporating the discriminative power for image annotation. We conduct extensive experiments on PASCAL VOC'07 dataset and demonstrate the effectiveness of mHDSC for image annotation.",
+   "affiliations": [
+    "China University of Petroleum, East China",
+    "University of Technology Sydney",
+    "Chinese University of Hong Kong",
+    "Chinese Academy of Sciences",
+    "Shenzhen Institutes of Advanced Technology",
+    "University of Macau"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2,
+     3,
+     4
+    ],
+    [
+     5
+    ]
+   ],
+   "institutions": [
+    "China University of Petroleum, East China",
+    "University of Technology Sydney",
+    "Chinese University of Hong Kong",
+    "Chinese Academy of Sciences",
+    "Shenzhen Institutes of Advanced Technology",
+    "University of Macau"
+   ],
+   "institution_ids": [
+    "05gbn2817",
+    "03f0f6041",
+    "00t33hh48",
+    "034t30j35",
+    "04gh4er46",
+    "01r4q9n85"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1307.3811",
+   "pdf_url": "https://arxiv.org/pdf/1307.3811"
+  },
+  {
+   "arxiv_id": "1307.5996",
+   "announced": "2013-07-01",
+   "title": "Bayesian Fusion of Multi-Band Images",
+   "authors": [
+    "Qi Wei",
+    "Nicolas Dobigeon",
+    "Jean-Yves Tourneret"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Data Analysis, Statistics and Probability (physics.data-an)",
+    "Methodology (stat.ME)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "In this paper, a Bayesian fusion technique for remotely sensed multi-band images is presented. The observed images are related to the high spectral and high spatial resolution image to be recovered through physical degradations, e.g., spatial and spectral blurring and/or subsampling defined by the sensor characteristics. The fusion problem is formulated within a Bayesian estimation framework. An appropriate prior distribution exploiting geometrical consideration is introduced. To compute the Bayesian estimator of the scene of interest from its posterior distribution, a Markov chain Monte Carlo algorithm is designed to generate samples asymptotically distributed according to the target distribution. To efficiently sample from this high-dimension distribution, a Hamiltonian Monte Carlo step is introduced in the Gibbs sampling strategy. The efficiency of the proposed fusion method is evaluated with respect to several state-of-the-art fusion techniques. In particular, low spatial resolution hyperspectral and multispectral images are fused to produce a high spatial resolution hyperspectral image.",
+   "affiliations": [
+    "Institut de Recherche en Informatique de Toulouse",
+    "École Nationale Supérieure d'Électrotechnique, d'Électronique, d'Informatique, d'Hydraulique et des Télécommunications",
+    "Université de Toulouse",
+    "Institut National Polytechnique de Toulouse"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     3,
+     0,
+     1,
+     2
+    ],
+    [
+     3,
+     0,
+     1,
+     2
+    ]
+   ],
+   "institutions": [
+    "Institut de Recherche en Informatique de Toulouse",
+    "École Nationale Supérieure d'Électrotechnique, d'Électronique, d'Informatique, d'Hydraulique et des Télécommunications",
+    "Université de Toulouse",
+    "Institut National Polytechnique de Toulouse"
+   ],
+   "institution_ids": [
+    "01rx4qw44",
+    "05wfw4946",
+    "01ahyrz84",
+    "033p9g875"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1307.5996",
+   "pdf_url": "https://arxiv.org/pdf/1307.5996"
+  },
+  {
+   "arxiv_id": "1307.2982",
+   "announced": "2013-07-01",
+   "title": "Fast Exact Search in Hamming Space with Multi-Index Hashing",
+   "authors": [
+    "Mohammad Norouzi",
+    "Ali Punjani",
+    "David J. Fleet"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)",
+    "Data Structures and Algorithms (cs.DS)",
+    "Information Retrieval (cs.IR)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "There is growing interest in representing image data and feature descriptors using compact binary codes for fast near neighbor search. Although binary codes are motivated by their use as direct indices (addresses) into a hash table, codes longer than 32 bits are not being used as such, as it was thought to be ineffective. We introduce a rigorous way to build multiple hash tables on binary code substrings that enables exact k-nearest neighbor search in Hamming space. The approach is storage efficient and straightforward to implement. Theoretical analysis shows that the algorithm exhibits sub-linear run-time behavior for uniformly distributed codes. Empirical results show dramatic speedups over a linear scan baseline for datasets of up to one billion codes of 64, 128, or 256 bits.",
+   "affiliations": [
+    "University of Toronto"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Toronto"
+   ],
+   "institution_ids": [
+    "03dbr7087"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1307.2982",
+   "pdf_url": "https://arxiv.org/pdf/1307.2982"
+  },
+  {
    "arxiv_id": "1306.5151",
    "announced": "2013-06-21",
    "title": "Fine-Grained Visual Classification of Aircraft",
@@ -1409,6 +2653,54 @@
    },
    "abs_url": "https://arxiv.org/abs/1306.5151",
    "pdf_url": "https://arxiv.org/pdf/1306.5151"
+  },
+  {
+   "arxiv_id": "1306.2795",
+   "announced": "2013-06-12",
+   "title": "Recurrent Convolutional Neural Networks for Scene Parsing",
+   "authors": [
+    "Pedro H. O. Pinheiro",
+    "Ronan Collobert"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Scene parsing is a technique that consist on giving a label to all pixels in an image according to the class they belong to. To ensure a good visual coherence and a high class accuracy, it is essential for a scene parser to capture image long range dependencies. In a feed-forward architecture, this can be simply achieved by considering a sufficiently large input context patch, around each pixel to be labeled. We propose an approach consisting of a recurrent convolutional neural network which allows us to consider a large input context, while limiting the capacity of the model. Contrary to most standard approaches, our method does not rely on any segmentation methods, nor any task-specific features. The system is trained in an end-to-end manner over raw pixels, and models complex spatial dependencies with low inference cost. As the context size increases with the built-in recurrence, the system identifies and corrects its own errors. Our approach yields state-of-the-art performance on both the Stanford Background Dataset and the SIFT Flow Dataset, while remaining very fast at test time.",
+   "affiliations": [
+    "Idiap Research Institute"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Idiap Research Institute"
+   ],
+   "institution_ids": [
+    "05932h694"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1306.2795",
+   "pdf_url": "https://arxiv.org/pdf/1306.2795"
   },
   {
    "arxiv_id": "1306.1392",
@@ -1519,6 +2811,205 @@
    "pdf_url": "https://arxiv.org/pdf/1306.1023"
   },
   {
+   "arxiv_id": "1305.7181",
+   "announced": "2013-05-30",
+   "title": "Lensless Imaging by Compressive Sensing",
+   "authors": [
+    "Gang Huang",
+    "Hong Jiang",
+    "Kim Matthews",
+    "Paul Wilford"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted ICIP 2013. 5 Pages, 7 Figures. arXiv admin note: substantial text overlap with arXiv:1302.1789",
+   "journal_ref": "IEEE International Conference on Image Processing, ICIP 2013, Paper #2393",
+   "venue": "ICIP 2013",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "In this paper, we propose a lensless compressive imaging architecture. The architecture consists of two components, an aperture assembly and a sensor. No lens is used. The aperture assembly consists of a two dimensional array of aperture elements. The transmittance of each aperture element is independently controllable. The sensor is a single detection element. A compressive sensing matrix is implemented by adjusting the transmittance of the individual aperture elements according to the values of the sensing matrix. The proposed architecture is simple and reliable because no lens is used. The architecture can be used for capturing images of visible and other spectra such as infrared, or millimeter waves, in surveillance applications for detecting anomalies or extracting features such as speed of moving objects. Multiple sensors may be used with a single aperture assembly to capture multi-view images simultaneously. A prototype was built by using a LCD panel and a photoelectric sensor for capturing images of visible spectrum.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1305.7181",
+   "pdf_url": "https://arxiv.org/pdf/1305.7181"
+  },
+  {
+   "arxiv_id": "1305.5663",
+   "announced": "2013-05-24",
+   "title": "Applications of Clifford's Geometric Algebra",
+   "authors": [
+    "Eckhard Hitzer",
+    "Tohru Nitta",
+    "Yasuaki Kuroe"
+   ],
+   "primary_subject": "Rings and Algebras (math.RA)",
+   "subjects": [
+    "Rings and Algebras (math.RA)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "26 pages, 91 references",
+   "journal_ref": "Advances in Applied Clifford Algebras: Volume 23, Issue 2 (2013), Page 377-404",
+   "venue": null,
+   "cross_list_from": "math.RA",
+   "html_url": null,
+   "abstract": "We survey the development of Clifford's geometric algebra and some of its engineering applications during the last 15 years. Several recently developed applications and their merits are discussed in some detail. We thus hope to clearly demonstrate the benefit of developing problem solutions in a unified framework for algebra and geometry with the widest possible scope: from quantum computing and electromagnetism to satellite navigation, from neural computing to camera geometry, image processing, robotics and beyond.",
+   "affiliations": [
+    "International Christian University",
+    "National Institute of Advanced Industrial Science and Technology",
+    "Kyoto Institute of Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "International Christian University",
+    "National Institute of Advanced Industrial Science and Technology",
+    "Kyoto Institute of Technology"
+   ],
+   "institution_ids": [
+    "01cg0k189",
+    "01703db54",
+    "00965ax52"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1305.5663",
+   "pdf_url": "https://arxiv.org/pdf/1305.5663"
+  },
+  {
+   "arxiv_id": "1305.2362",
+   "announced": "2013-05-10",
+   "title": "Revisiting Bayesian Blind Deconvolution",
+   "authors": [
+    "David Wipf",
+    "Haichao Zhang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)",
+    "Machine Learning (stat.ML)"
+   ],
+   "comments": "This paper has been submitted to JMLR. A conference version will appear at EMMCVPR 2013",
+   "journal_ref": null,
+   "venue": "EMMCVPR 2013",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Blind deconvolution involves the estimation of a sharp signal or image given only a blurry observation. Because this problem is fundamentally ill-posed, strong priors on both the sharp image and blur kernel are required to regularize the solution space. While this naturally leads to a standard MAP estimation framework, performance is compromised by unknown trade-off parameter settings, optimization heuristics, and convergence issues stemming from non-convexity and/or poor prior selections. To mitigate some of these problems, a number of authors have recently proposed substituting a variational Bayesian (VB) strategy that marginalizes over the high-dimensional image space leading to better estimates of the blur kernel. However, the underlying cost function now involves both integrals with no closed-form solution and complex, function-valued arguments, thus losing the transparency of MAP. Beyond standard Bayesian-inspired intuitions, it thus remains unclear by exactly what mechanism these methods are able to operate, rendering understanding, improvements and extensions more difficult. To elucidate these issues, we demonstrate that the VB methodology can be recast as an unconventional MAP problem with a very particular penalty/prior that couples the image, blur kernel, and noise level in a principled way. This unique penalty has a number of useful characteristics pertaining to relative concavity, local minima avoidance, and scale-invariance that allow us to rigorously explain the success of VB including its existing implementational heuristics and approximations. It also provides strict criteria for choosing the optimal image prior that, perhaps counter-intuitively, need not reflect the statistics of natural scenes. In so doing we challenge the prevailing notion of why VB is successful for blind deconvolution while providing a transparent platform for introducing enhancements.",
+   "affiliations": [
+    "Microsoft",
+    "Northwestern Polytechnical University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Microsoft",
+    "Northwestern Polytechnical University"
+   ],
+   "institution_ids": [
+    "00d0nc645",
+    "01y0j0j86"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1305.2362",
+   "pdf_url": "https://arxiv.org/pdf/1305.2362"
+  },
+  {
+   "arxiv_id": "1305.2269",
+   "announced": "2013-05-10",
+   "title": "Beyond Physical Connections: Tree Models in Human Pose Estimation",
+   "authors": [
+    "Fang Wang",
+    "Yi Li"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "CVPR 2013",
+   "journal_ref": null,
+   "venue": "CVPR 2013",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Simple tree models for articulated objects prevails in the last decade. However, it is also believed that these simple tree models are not capable of capturing large variations in many scenarios, such as human pose estimation. This paper attempts to address three questions: 1) are simple tree models sufficient? more specifically, 2) how to use tree models effectively in human pose estimation? and 3) how shall we use combined parts together with single parts efficiently? Assuming we have a set of single parts and combined parts, and the goal is to estimate a joint distribution of their locations. We surprisingly find that no latent variables are introduced in the Leeds Sport Dataset (LSP) during learning latent trees for deformable model, which aims at approximating the joint distributions of body part locations using minimal tree structure. This suggests one can straightforwardly use a mixed representation of single and combined parts to approximate their joint distribution in a simple tree model. As such, one only needs to build Visual Categories of the combined parts, and then perform inference on the learned latent tree. Our method outperformed the state of the art on the LSP, both in the scenarios when the training images are from the same dataset and from the PARSE dataset. Experiments on animal images from the VOC challenge further support our findings.",
+   "affiliations": [
+    "Nanjing University of Science and Technology",
+    "Data61"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Nanjing University of Science and Technology",
+    "Data61"
+   ],
+   "institution_ids": [
+    "00xp9wg62",
+    "03q397159"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1305.2269",
+   "pdf_url": "https://arxiv.org/pdf/1305.2269"
+  },
+  {
    "arxiv_id": "1305.1912",
    "announced": "2013-05-01",
    "title": "Automated polyp detection in colon capsule endoscopy",
@@ -1586,6 +3077,235 @@
    "pdf_url": "https://arxiv.org/pdf/1305.1912"
   },
   {
+   "arxiv_id": "1304.6108",
+   "announced": "2013-04-22",
+   "title": "The varifold representation of non-oriented shapes for diffeomorphic registration",
+   "authors": [
+    "Nicolas Charon",
+    "Alain Trouvé"
+   ],
+   "primary_subject": "Computational Geometry (cs.CG)",
+   "subjects": [
+    "Computational Geometry (cs.CG)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Differential Geometry (math.DG)"
+   ],
+   "comments": "33 pages, 10 figures",
+   "journal_ref": "SIAM Journal on Imaging Sciences, 2013, Vol. 6, No. 4 : pp. 2547-2580",
+   "venue": null,
+   "cross_list_from": "cs.CG",
+   "html_url": null,
+   "abstract": "In this paper, we address the problem of orientation that naturally arises when representing shapes like curves or surfaces as currents. In the field of computational anatomy, the framework of currents has indeed proved very efficient to model a wide variety of shapes. However, in such approaches, orientation of shapes is a fundamental issue that can lead to several drawbacks in treating certain kind of datasets. More specifically, problems occur with structures like acute pikes because of canceling effects of currents or with data that consists in many disconnected pieces like fiber bundles for which currents require a consistent orientation of all pieces. As a promising alternative to currents, varifolds, introduced in the context of geometric measure theory by F. Almgren, allow the representation of any non-oriented manifold (more generally any non-oriented rectifiable set). In particular, we explain how varifolds can encode numerically non-oriented objects both from the discrete and continuous point of view. We show various ways to build a Hilbert space structure on the set of varifolds based on the theory of reproducing kernels. We show that, unlike the currents' setting, these metrics are consistent with shape volume (theorem 4.1) and we derive a formula for the variation of metric with respect to the shape (theorem 4.2). Finally, we propose a generalization to non-oriented shapes of registration algorithms in the context of Large Deformations Metric Mapping (LDDMM), which we detail with a few examples in the last part of the paper.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1304.6108",
+   "pdf_url": "https://arxiv.org/pdf/1304.6108"
+  },
+  {
+   "arxiv_id": "1304.4662",
+   "announced": "2013-04-17",
+   "title": "Tracking of Fingertips and Centres of Palm using KINECT",
+   "authors": [
+    "J. L. Raheja",
+    "A. Chaudhary",
+    "K Singal"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "4 page",
+   "journal_ref": "In proceedings of the 3rd IEEE International Conference on Computational Intelligence, Modelling and Simulation, Malaysia, 20-22 Sep, 2011, pp. 248-252",
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Hand Gesture is a popular way to interact or control machines and it has been implemented in many applications. The geometry of hand is such that it is hard to construct in virtual environment and control the joints but the functionality and DOF encourage researchers to make a hand like instrument. This paper presents a novel method for fingertips detection and centres of palms detection distinctly for both hands using MS KINECT in 3D from the input image. KINECT facilitates us by providing the depth information of foreground objects. The hands were segmented using the depth vector and centres of palms were detected using distance transformation on inverse image. This result would be used to feed the inputs to the robotic hands to emulate human hands operation.",
+   "affiliations": [
+    "Central Electronics Engineering Research Institute",
+    "Council of Scientific and Industrial Research",
+    "Birla Institute of Technology and Science, Pilani",
+    "Punjab Engineering College"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ]
+   ],
+   "institutions": [
+    "Central Electronics Engineering Research Institute",
+    "Council of Scientific and Industrial Research",
+    "Birla Institute of Technology and Science, Pilani",
+    "Punjab Engineering College"
+   ],
+   "institution_ids": [
+    "01hh45364",
+    "021wm7p51",
+    "001p3jz28",
+    "00bsj2955"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1304.4662",
+   "pdf_url": "https://arxiv.org/pdf/1304.4662"
+  },
+  {
+   "arxiv_id": "1304.4634",
+   "announced": "2013-04-16",
+   "title": "Speckle Reduction in Polarimetric SAR Imagery with Stochastic Distances and Nonlocal Means",
+   "authors": [
+    "Leonardo Torres",
+    "Sidnei J. S. Sant'Anna",
+    "Corina C. Freitas",
+    "Alejandro C. Frery"
+   ],
+   "primary_subject": "Information Theory (cs.IT)",
+   "subjects": [
+    "Information Theory (cs.IT)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Graphics (cs.GR)",
+    "Applications (stat.AP)",
+    "Machine Learning (stat.ML)"
+   ],
+   "comments": "Accepted for publication in Pattern Recognition",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.IT",
+   "html_url": null,
+   "abstract": "This paper presents a technique for reducing speckle in Polarimetric Synthetic Aperture Radar (PolSAR) imagery using Nonlocal Means and a statistical test based on stochastic divergences. The main objective is to select homogeneous pixels in the filtering area through statistical tests between distributions. This proposal uses the complex Wishart model to describe PolSAR data, but the technique can be extended to other models. The weights of the location-variant linear filter are function of the p-values of tests which verify the hypothesis that two samples come from the same distribution and, therefore, can be used to compute a local mean. The test stems from the family of (h-phi) divergences which originated in Information Theory. This novel technique was compared with the Boxcar, Refined Lee and IDAN filters. Image quality assessment methods on simulated and real data are employed to validate the performance of this approach. We show that the proposed filter also enhances the polarimetric entropy and preserves the scattering information of the targets.",
+   "affiliations": [
+    "Instituto Nacional de Pesquisas Espaciais",
+    "Universidade Federal de Alagoas"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Instituto Nacional de Pesquisas Espaciais",
+    "Universidade Federal de Alagoas"
+   ],
+   "institution_ids": [
+    "04xbn6x09",
+    "00dna7t83"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1304.4634",
+   "pdf_url": "https://arxiv.org/pdf/1304.4634"
+  },
+  {
+   "arxiv_id": "1304.4344",
+   "announced": "2013-04-16",
+   "title": "Sparse Coding and Dictionary Learning for Symmetric Positive Definite Matrices: A Kernel Approach",
+   "authors": [
+    "Mehrtash T. Harandi",
+    "Conrad Sanderson",
+    "Richard Hartley",
+    "Brian C. Lovell"
+   ],
+   "primary_subject": "Machine Learning (cs.LG)",
+   "subjects": [
+    "Machine Learning (cs.LG)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (stat.ML)"
+   ],
+   "comments": null,
+   "journal_ref": "European Conference on Computer Vision, Lecture Notes in Computer Science (LNCS), Vol. 7573, pp. 216-229, 2012",
+   "venue": "ECCV",
+   "cross_list_from": "cs.LG",
+   "html_url": null,
+   "abstract": "Recent advances suggest that a wide range of computer vision problems can be addressed more appropriately by considering non-Euclidean geometry. This paper tackles the problem of sparse coding and dictionary learning in the space of symmetric positive definite matrices, which form a Riemannian manifold. With the aid of the recently introduced Stein kernel (related to a symmetric version of Bregman matrix divergence), we propose to perform sparse coding by embedding Riemannian manifolds into reproducing kernel Hilbert spaces. This leads to a convex and kernel version of the Lasso problem, which can be solved efficiently. We furthermore propose an algorithm for learning a Riemannian dictionary (used for sparse coding), closely tied to the Stein kernel. Experiments on several classification tasks (face recognition, texture classification, person re-identification) show that the proposed sparse coding approach achieves notable improvements in discrimination accuracy, in comparison to state-of-the-art methods such as tensor sparse coding, Riemannian locality preserving projection, and symmetry-driven accumulation of local features.",
+   "affiliations": [
+    "University of Queensland",
+    "Data61",
+    "Australian National University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Queensland",
+    "Data61",
+    "Australian National University"
+   ],
+   "institution_ids": [
+    "00rqy9422",
+    "03q397159",
+    "019wvm592"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1304.4344",
+   "pdf_url": "https://arxiv.org/pdf/1304.4344"
+  },
+  {
    "arxiv_id": "1304.3192",
    "announced": "2013-04-11",
    "title": "Rotational Projection Statistics for 3D Local Surface Description and Object Recognition",
@@ -1648,6 +3368,41 @@
    },
    "abs_url": "https://arxiv.org/abs/1304.3192",
    "pdf_url": "https://arxiv.org/pdf/1304.3192"
+  },
+  {
+   "arxiv_id": "1304.1408",
+   "announced": "2013-04-04",
+   "title": "Restoration of Images Corrupted by Impulse Noise and Mixed Gaussian Impulse Noise using Blind Inpainting",
+   "authors": [
+    "Ming Yan"
+   ],
+   "primary_subject": "Optimization and Control (math.OC)",
+   "subjects": [
+    "Optimization and Control (math.OC)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Numerical Analysis (math.NA)"
+   ],
+   "comments": "18 pages, 4 figures",
+   "journal_ref": "SIAM J. Imaging Sci., 6(2013), 1227-1245",
+   "venue": null,
+   "cross_list_from": "math.OC",
+   "html_url": null,
+   "abstract": "This article studies the problem of image restoration of observed images corrupted by impulse noise and mixed Gaussian impulse noise. Since the pixels damaged by impulse noise contain no information about the true image, how to find this set correctly is a very important problem. We propose two methods based on blind inpainting and $ℓ_0$ minimization that can simultaneously find the damaged pixels and restore the image. By iteratively restoring the image and updating the set of damaged pixels, these methods have better performance than other methods, as shown in the experiments. In addition, we provide convergence analysis for these methods, these algorithms will converge to coordinatewise minimum points. In addition, they will converge to local minimum points (or with probability one) with some modifications in the algorithms.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1304.1408",
+   "pdf_url": "https://arxiv.org/pdf/1304.1408"
   },
   {
    "arxiv_id": "1304.1233",
@@ -1769,6 +3524,64 @@
    "pdf_url": "https://arxiv.org/pdf/1304.1209"
   },
   {
+   "arxiv_id": "1304.0886",
+   "announced": "2013-04-03",
+   "title": "Improved Anomaly Detection in Crowded Scenes via Cell-based Analysis of Foreground Speed, Size and Texture",
+   "authors": [
+    "Vikas Reddy",
+    "Conrad Sanderson",
+    "Brian C. Lovell"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": "IEEE Conference on Computer Vision and Pattern Recognition Workshops (CVPRW), pp. 55-61, 2011",
+   "venue": "CVPR Workshop",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "A robust and efficient anomaly detection technique is proposed, capable of dealing with crowded scenes where traditional tracking based approaches tend to fail. Initial foreground segmentation of the input frames confines the analysis to foreground objects and effectively ignores irrelevant background dynamics. Input frames are split into non-overlapping cells, followed by extracting features based on motion, size and texture from each cell. Each feature type is independently analysed for the presence of an anomaly. Unlike most methods, a refined estimate of object motion is achieved by computing the optical flow of only the foreground pixels. The motion and size features are modelled by an approximated version of kernel density estimation, which is computationally efficient even for large training datasets. Texture features are modelled by an adaptively grown codebook, with the number of entries in the codebook selected in an online fashion. Experiments on the recently published UCSD Anomaly Detection dataset show that the proposed method obtains considerably better results than three recent approaches: MPPCA, social force, and mixture of dynamic textures (MDT). The proposed method is also several orders of magnitude faster than MDT, the next best performing method.",
+   "affiliations": [
+    "University of Queensland",
+    "Data61"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Queensland",
+    "Data61"
+   ],
+   "institution_ids": [
+    "00rqy9422",
+    "03q397159"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1304.0886",
+   "pdf_url": "https://arxiv.org/pdf/1304.0886"
+  },
+  {
    "arxiv_id": "1304.0869",
    "announced": "2013-04-01",
    "title": "Patch-based Probabilistic Image Quality Assessment for Face Selection and Improved Video-based Face Recognition",
@@ -1836,6 +3649,198 @@
    },
    "abs_url": "https://arxiv.org/abs/1304.0869",
    "pdf_url": "https://arxiv.org/pdf/1304.0869"
+  },
+  {
+   "arxiv_id": "1304.0243",
+   "announced": "2013-04-01",
+   "title": "Compressive adaptive computational ghost imaging",
+   "authors": [
+    "Marc Aßmann",
+    "Manfred Bayer"
+   ],
+   "primary_subject": "Optics (physics.optics)",
+   "subjects": [
+    "Optics (physics.optics)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": "Scientific Reports 3, 1545 (2013)",
+   "venue": null,
+   "cross_list_from": "physics.optics",
+   "html_url": null,
+   "abstract": "Compressive sensing is considered a huge breakthrough in signal acquisition. It allows recording an image consisting of $N^2$ pixels using much fewer than $N^2$ measurements if it can be transformed to a basis where most pixels take on negligibly small values. Standard compressive sensing techniques suffer from the computational overhead needed to reconstruct an image with typical computation times between hours and days and are thus not optimal for applications in physics and spectroscopy. We demonstrate an adaptive compressive sampling technique that performs measurements directly in a sparse basis. It needs much fewer than $N^2$ measurements without any computational overhead, so the result is available instantly.",
+   "affiliations": [
+    "TU Dortmund University"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "TU Dortmund University"
+   ],
+   "institution_ids": [
+    "01k97gp34"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1304.0243",
+   "pdf_url": "https://arxiv.org/pdf/1304.0243"
+  },
+  {
+   "arxiv_id": "1303.7186",
+   "announced": "2013-03-28",
+   "title": "Large-Scale Automatic Reconstruction of Neuronal Processes from Electron Microscopy Images",
+   "authors": [
+    "Verena Kaynig",
+    "Amelio Vazquez-Reina",
+    "Seymour Knowles-Barley",
+    "Mike Roberts",
+    "Thouis R. Jones",
+    "Narayanan Kasthuri",
+    "Eric Miller",
+    "Jeff Lichtman",
+    "Hanspeter Pfister"
+   ],
+   "primary_subject": "Neurons and Cognition (q-bio.NC)",
+   "subjects": [
+    "Neurons and Cognition (q-bio.NC)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "q-bio.NC",
+   "html_url": null,
+   "abstract": "Automated sample preparation and electron microscopy enables acquisition of very large image data sets. These technical advances are of special importance to the field of neuroanatomy, as 3D reconstructions of neuronal processes at the nm scale can provide new insight into the fine grained structure of the brain. Segmentation of large-scale electron microscopy data is the main bottleneck in the analysis of these data sets. In this paper we present a pipeline that provides state-of-the art reconstruction performance while scaling to data sets in the GB-TB range. First, we train a random forest classifier on interactive sparse user annotations. The classifier output is combined with an anisotropic smoothing prior in a Conditional Random Field framework to generate multiple segmentation hypotheses per image. These segmentations are then combined into geometrically consistent 3D objects by segmentation fusion. We provide qualitative and quantitative evaluation of the automatic segmentation and demonstrate large-scale 3D reconstructions of neuronal processes from a 27,000 $μm^3$ volume of brain tissue over a cube of 30 μm in each dimension corresponding to 1000 consecutive image sections. We also introduce Mojo, a proofreading tool including semi-automated correction of merge errors based on sparse user scribbles.",
+   "affiliations": [
+    "Harvard University",
+    "Tufts University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Harvard University",
+    "Tufts University"
+   ],
+   "institution_ids": [
+    "03vek6s52",
+    "05wvpxv85"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1303.7186",
+   "pdf_url": "https://arxiv.org/pdf/1303.7186"
+  },
+  {
+   "arxiv_id": "1303.6021",
+   "announced": "2013-03-25",
+   "title": "Spatio-Temporal Covariance Descriptors for Action and Gesture Recognition",
+   "authors": [
+    "Andres Sanin",
+    "Conrad Sanderson",
+    "Mehrtash T. Harandi",
+    "Brian C. Lovell"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Human-Computer Interaction (cs.HC)"
+   ],
+   "comments": null,
+   "journal_ref": "IEEE Workshop on Applications of Computer Vision, pp. 103-110, 2013",
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We propose a new action and gesture recognition method based on spatio-temporal covariance descriptors and a weighted Riemannian locality preserving projection approach that takes into account the curved space formed by the descriptors. The weighted projection is then exploited during boosting to create a final multiclass classification algorithm that employs the most useful spatio-temporal regions. We also show how the descriptors can be computed quickly through the use of integral video representations. Experiments on the UCF sport, CK+ facial expression and Cambridge hand gesture datasets indicate superior performance of the proposed method compared to several recent state-of-the-art techniques. The proposed method is robust and does not require additional processing of the videos, such as foreground detection, interest-point detection or tracking.",
+   "affiliations": [
+    "University of Queensland",
+    "Data61"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Queensland",
+    "Data61"
+   ],
+   "institution_ids": [
+    "00rqy9422",
+    "03q397159"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1303.6021",
+   "pdf_url": "https://arxiv.org/pdf/1303.6021"
   },
   {
    "arxiv_id": "1303.4803",
@@ -1910,6 +3915,301 @@
    },
    "abs_url": "https://arxiv.org/abs/1303.4803",
    "pdf_url": "https://arxiv.org/pdf/1303.4803"
+  },
+  {
+   "arxiv_id": "1303.2292",
+   "announced": "2013-03-10",
+   "title": "Intelligent Approaches to interact with Machines using Hand Gesture Recognition in Natural way: A Survey",
+   "authors": [
+    "Ankit Chaudhary",
+    "J. L. Raheja",
+    "Karen Das",
+    "Sonia Raheja"
+   ],
+   "primary_subject": "Human-Computer Interaction (cs.HC)",
+   "subjects": [
+    "Human-Computer Interaction (cs.HC)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": "IJCSES, 2011",
+   "venue": null,
+   "cross_list_from": "cs.HC",
+   "html_url": null,
+   "abstract": "Hand gestures recognition (HGR) is one of the main areas of research for the engineers, scientists and bioinformatics. HGR is the natural way of Human Machine interaction and today many researchers in the academia and industry are working on different application to make interactions more easy, natural and convenient without wearing any extra device. HGR can be applied from games control to vision enabled robot control, from virtual reality to smart home systems. In this paper we are discussing work done in the area of hand gesture recognition where focus is on the intelligent approaches including soft computing based methods like artificial neural network, fuzzy logic, genetic algorithms etc. The methods in the preprocessing of image for segmentation and hand image construction also taken into study. Most researchers used fingertips for hand detection in appearance based modeling. Finally the comparison of results given by different researchers is also presented.",
+   "affiliations": [
+    "Birla Institute of Technology and Science, Pilani",
+    "Central Electronics Engineering Research Institute",
+    "Tezpur University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    null
+   ],
+   "institutions": [
+    "Birla Institute of Technology and Science, Pilani",
+    "Central Electronics Engineering Research Institute",
+    "Tezpur University"
+   ],
+   "institution_ids": [
+    "001p3jz28",
+    "01hh45364",
+    "005x56091"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1303.2292",
+   "pdf_url": "https://arxiv.org/pdf/1303.2292"
+  },
+  {
+   "arxiv_id": "1303.2221",
+   "announced": "2013-03-09",
+   "title": "Clustering on Multi-Layer Graphs via Subspace Analysis on Grassmann Manifolds",
+   "authors": [
+    "Xiaowen Dong",
+    "Pascal Frossard",
+    "Pierre Vandergheynst",
+    "Nikolai Nefedov"
+   ],
+   "primary_subject": "Machine Learning (cs.LG)",
+   "subjects": [
+    "Machine Learning (cs.LG)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Social and Information Networks (cs.SI)",
+    "Machine Learning (stat.ML)"
+   ],
+   "comments": null,
+   "journal_ref": "IEEE Transactions on Signal Processing, vol. 62, no. 4, pp. 905-918, February 2014",
+   "venue": null,
+   "cross_list_from": "cs.LG",
+   "html_url": null,
+   "abstract": "Relationships between entities in datasets are often of multiple nature, like geographical distance, social relationships, or common interests among people in a social network, for example. This information can naturally be modeled by a set of weighted and undirected graphs that form a global multilayer graph, where the common vertex set represents the entities and the edges on different layers capture the similarities of the entities in term of the different modalities. In this paper, we address the problem of analyzing multi-layer graphs and propose methods for clustering the vertices by efficiently merging the information provided by the multiple modalities. To this end, we propose to combine the characteristics of individual graph layers using tools from subspace analysis on a Grassmann manifold. The resulting combination can then be viewed as a low dimensional representation of the original data which preserves the most important information from diverse relationships between entities. We use this information in new clustering methods and test our algorithm on several synthetic and real world datasets where we demonstrate superior or competitive performances compared to baseline and state-of-the-art techniques. Our generic framework further extends to numerous analysis and learning problems that involve different types of information on graphs.",
+   "affiliations": [
+    "École Polytechnique Fédérale de Lausanne",
+    "ETH Zurich",
+    "Signal and Information Processing Laboratory"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ]
+   ],
+   "institutions": [
+    "École Polytechnique Fédérale de Lausanne",
+    "ETH Zurich",
+    "Signal and Information Processing Laboratory"
+   ],
+   "institution_ids": [
+    "02s376052",
+    "05a28rw58",
+    "00bbkr059"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1303.2221",
+   "pdf_url": "https://arxiv.org/pdf/1303.2221"
+  },
+  {
+   "arxiv_id": "1303.0964",
+   "announced": "2013-03-05",
+   "title": "GBM Volumetry using the 3D Slicer Medical Image Computing Platform",
+   "authors": [
+    "Jan Egger",
+    "Tina Kapur",
+    "Andriy Fedorov",
+    "Steve Pieper",
+    "James V. Miller",
+    "Harini Veeraraghavan",
+    "Bernd Freisleben",
+    "Alexandra Golby",
+    "Christopher Nimsky",
+    "Ron Kikinis"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "7 pages, 6 figures, 2 tables, 1 equation, 43 references",
+   "journal_ref": "Sci. Rep. 3, 1364, 2013",
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Volumetric change in glioblastoma multiforme (GBM) over time is a critical factor in treatment decisions. Typically, the tumor volume is computed on a slice-by-slice basis using MRI scans obtained at regular intervals. (3D)Slicer - a free platform for biomedical research - provides an alternative to this manual slice-by-slice segmentation process, which is significantly faster and requires less user interaction. In this study, 4 physicians segmented GBMs in 10 patients, once using the competitive region-growing based GrowCut segmentation module of Slicer, and once purely by drawing boundaries completely manually on a slice-by-slice basis. Furthermore, we provide a variability analysis for three physicians for 12 GBMs. The time required for GrowCut segmentation was on an average 61% of the time required for a pure manual segmentation. A comparison of Slicer-based segmentation with manual slice-by-slice segmentation resulted in a Dice Similarity Coefficient of 88.43 +/- 5.23% and a Hausdorff Distance of 2.32 +/- 5.23 mm.",
+   "affiliations": [
+    "Brigham and Women's Hospital",
+    "Harvard University",
+    "GE Global Research",
+    "Philipps University of Marburg",
+    "Universitätsklinikum Gießen und Marburg"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     4
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Brigham and Women's Hospital",
+    "Harvard University",
+    "GE Global Research",
+    "Philipps University of Marburg",
+    "Universitätsklinikum Gießen und Marburg"
+   ],
+   "institution_ids": [
+    "04b6nzv94",
+    "03vek6s52",
+    "03e06qt98",
+    "01rdrb571",
+    "032nzv584"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1303.0964",
+   "pdf_url": "https://arxiv.org/pdf/1303.0964"
+  },
+  {
+   "arxiv_id": "1303.6163",
+   "announced": "2013-03-01",
+   "title": "Machine learning of hierarchical clustering to segment 2D and 3D images",
+   "authors": [
+    "Juan Nunez-Iglesias",
+    "Ryan Kennedy",
+    "Toufiq Parag",
+    "Jianbo Shi",
+    "Dmitri B. Chklovskii"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "15 pages, 8 figures",
+   "journal_ref": "PLoS ONE, 2013, 8(8): e71715",
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We aim to improve segmentation through the use of machine learning tools during region agglomeration. We propose an active learning approach for performing hierarchical agglomerative segmentation from superpixels. Our method combines multiple features at all scales of the agglomerative process, works for data with an arbitrary number of dimensions, and scales to very large datasets. We advocate the use of variation of information to measure segmentation accuracy, particularly in 3D electron microscopy (EM) images of neural tissue, and using this metric demonstrate an improvement over competing algorithms in EM and natural images.",
+   "affiliations": [
+    "Howard Hughes Medical Institute",
+    "Janelia Research Campus",
+    "University of Pennsylvania"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Howard Hughes Medical Institute",
+    "Janelia Research Campus",
+    "University of Pennsylvania"
+   ],
+   "institution_ids": [
+    "006w34k90",
+    "013sk6x84",
+    "00b30xv10"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1303.6163",
+   "pdf_url": "https://arxiv.org/pdf/1303.6163"
   },
   {
    "arxiv_id": "1302.1700",
@@ -2107,6 +4407,78 @@
    "pdf_url": "https://arxiv.org/pdf/1302.2575"
   },
   {
+   "arxiv_id": "1302.2712",
+   "announced": "2013-02-01",
+   "title": "Bayesian Nonparametric Dictionary Learning for Compressed Sensing MRI",
+   "authors": [
+    "Yue Huang",
+    "John Paisley",
+    "Qin Lin",
+    "Xinghao Ding",
+    "Xueyang Fu",
+    "Xiao-ping Zhang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Medical Physics (physics.med-ph)",
+    "Applications (stat.AP)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We develop a Bayesian nonparametric model for reconstructing magnetic resonance images (MRI) from highly undersampled k-space data. We perform dictionary learning as part of the image reconstruction process. To this end, we use the beta process as a nonparametric dictionary learning prior for representing an image patch as a sparse combination of dictionary elements. The size of the dictionary and the patch-specific sparsity pattern are inferred from the data, in addition to other dictionary learning variables. Dictionary learning is performed directly on the compressed image, and so is tailored to the MRI being considered. In addition, we investigate a total variation penalty term in combination with the dictionary learning model, and show how the denoising property of dictionary learning removes dependence on regularization parameters in the noisy setting. We derive a stochastic optimization algorithm based on Markov Chain Monte Carlo (MCMC) for the Bayesian model, and use the alternating direction method of multipliers (ADMM) for efficiently performing total variation minimization. We present empirical results on several MRI, which show that the proposed regularization framework can improve reconstruction accuracy over other methods.",
+   "affiliations": [
+    "Xiamen University",
+    "Columbia University",
+    "Toronto Metropolitan University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "Xiamen University",
+    "Columbia University",
+    "Toronto Metropolitan University"
+   ],
+   "institution_ids": [
+    "00mcjh785",
+    "00hj8s172",
+    "05g13zd79"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1302.2712",
+   "pdf_url": "https://arxiv.org/pdf/1302.2712"
+  },
+  {
    "arxiv_id": "1301.4862",
    "announced": "2013-01-21",
    "title": "Active Learning of Inverse Models with Intrinsically Motivated Goal Exploration in Robots",
@@ -2166,6 +4538,106 @@
    },
    "abs_url": "https://arxiv.org/abs/1301.4862",
    "pdf_url": "https://arxiv.org/pdf/1301.4862"
+  },
+  {
+   "arxiv_id": "1301.3193",
+   "announced": "2013-01-15",
+   "title": "Learning Graphical Model Parameters with Approximate Marginal Inference",
+   "authors": [
+    "Justin Domke"
+   ],
+   "primary_subject": "Machine Learning (cs.LG)",
+   "subjects": [
+    "Machine Learning (cs.LG)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "To Appear, IEEE Transactions on Pattern Analysis and Machine Intelligence",
+   "journal_ref": null,
+   "venue": "TPAMI",
+   "cross_list_from": "cs.LG",
+   "html_url": null,
+   "abstract": "Likelihood based-learning of graphical models faces challenges of computational-complexity and robustness to model mis-specification. This paper studies methods that fit parameters directly to maximize a measure of the accuracy of predicted marginals, taking into account both model and inference approximations at training time. Experiments on imaging problems suggest marginalization-based learning performs better than likelihood-based approximations on difficult problems where the model being fit is approximate in nature.",
+   "affiliations": [
+    "Australian National University",
+    "Data61"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Australian National University",
+    "Data61"
+   ],
+   "institution_ids": [
+    "019wvm592",
+    "03q397159"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1301.3193",
+   "pdf_url": "https://arxiv.org/pdf/1301.3193"
+  },
+  {
+   "arxiv_id": "1301.4083",
+   "announced": "2013-01-01",
+   "title": "Knowledge Matters: Importance of Prior Information for Optimization",
+   "authors": [
+    "Çağlar Gülçehre",
+    "Yoshua Bengio"
+   ],
+   "primary_subject": "Machine Learning (cs.LG)",
+   "subjects": [
+    "Machine Learning (cs.LG)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Neural and Evolutionary Computing (cs.NE)",
+    "Machine Learning (stat.ML)"
+   ],
+   "comments": "37 Pages, 5 figures, 5 tables JMLR Special Topics on Representation Learning Submission",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.LG",
+   "html_url": null,
+   "abstract": "We explore the effect of introducing prior information into the intermediate level of neural networks for a learning task on which all the state-of-the-art machine learning algorithms tested failed to learn. We motivate our work from the hypothesis that humans learn such intermediate concepts from other individuals via a form of supervision or guidance using a curriculum. The experiments we have conducted provide positive evidence in favor of this hypothesis. In our experiments, a two-tiered MLP architecture is trained on a dataset with 64x64 binary inputs images, each image with three sprites. The final task is to decide whether all the sprites are the same or one of them is different. Sprites are pentomino tetris shapes and they are placed in an image with different locations using scaling and rotation transformations. The first part of the two-tiered MLP is pre-trained with intermediate-level targets being the presence of sprites at each location, while the second part takes the output of the first part as input and predicts the final task's target binary event. The two-tiered MLP architecture, with a few tens of thousand examples, was able to learn the task perfectly, whereas all other algorithms (include unsupervised pre-training, but also traditional algorithms like SVMs, decision trees and boosting) all perform no better than chance. We hypothesize that the optimization difficulty involved when the intermediate pre-training is not performed is due to the composition of two highly non-linear tasks. Our findings are also consistent with hypotheses on cultural learning inspired by the observations of optimization problems with deep learning, presumably because of effective local minima.",
+   "affiliations": [
+    "Université de Montréal"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Université de Montréal"
+   ],
+   "institution_ids": [
+    "0161xgx34"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1301.4083",
+   "pdf_url": "https://arxiv.org/pdf/1301.4083"
   },
   {
    "arxiv_id": "1301.3666",
@@ -2353,6 +4825,41 @@
    },
    "abs_url": "https://arxiv.org/abs/1301.3572",
    "pdf_url": "https://arxiv.org/pdf/1301.3572"
+  },
+  {
+   "arxiv_id": "1301.3342",
+   "announced": "2013-01-01",
+   "title": "Barnes-Hut-SNE",
+   "authors": [
+    "Laurens van der Maaten"
+   ],
+   "primary_subject": "Machine Learning (cs.LG)",
+   "subjects": [
+    "Machine Learning (cs.LG)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (stat.ML)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.LG",
+   "html_url": null,
+   "abstract": "The paper presents an O(N log N)-implementation of t-SNE -- an embedding technique that is commonly used for the visualization of high-dimensional data in scatter plots and that normally runs in O(N^2). The new implementation uses vantage-point trees to compute sparse pairwise similarities between the input data objects, and it uses a variant of the Barnes-Hut algorithm - an algorithm used by astronomers to perform N-body simulations - to approximate the forces between the corresponding points in the embedding. Our experiments show that the new algorithm, called Barnes-Hut-SNE, leads to substantial computational advantages over standard t-SNE, and that it makes it possible to learn embeddings of data sets with millions of objects.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1301.3342",
+   "pdf_url": "https://arxiv.org/pdf/1301.3342"
   }
  ]
 }

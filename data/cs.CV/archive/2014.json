@@ -5663,37 +5663,6 @@
    "pdf_url": "https://arxiv.org/pdf/1409.4326"
   },
   {
-   "arxiv_id": "1409.2413",
-   "announced": "2014-09-01",
-   "title": "Image processing",
-   "authors": [
-    "Franco Rino"
-   ],
-   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
-   "subjects": [
-    "Computer Vision and Pattern Recognition (cs.CV)"
-   ],
-   "comments": null,
-   "journal_ref": null,
-   "venue": null,
-   "cross_list_from": null,
-   "html_url": null,
-   "abstract": "Gabor filters can extract multi-orientation and multiscale features from face images. Researchers have designed different ways to use the magnitude of the filtered results for face recognition: Gabor Fisher classifier exploited only the magnitude information of Gabor magnitude pictures (GMPs); Local Gabor Binary Pattern uses only the gradient information. In this paper, we regard GMPs as smooth surfaces. By completely describing the shape of GMPs, we get a face representation method called Gabor Surface Feature (GSF). First, we compute the magnitude, 1st and 2nd derivatives of GMPs, then binarize them and transform them into decimal values. Finally we construct joint histograms and use subspace methods for classification. Experiments on FERET, ORL and FRGC 1.0.4 database show the effectiveness of GSF.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
-   "provenance": {
-    "affiliations": {
-     "source": "openalex"
-    },
-    "institutions": {
-     "source": "openalex"
-    }
-   },
-   "abs_url": "https://arxiv.org/abs/1409.2413",
-   "pdf_url": "https://arxiv.org/pdf/1409.2413"
-  },
-  {
    "arxiv_id": "1409.1556",
    "announced": "2014-09-01",
    "title": "Very Deep Convolutional Networks for Large-Scale Image Recognition",
@@ -8881,6 +8850,62 @@
    },
    "abs_url": "https://arxiv.org/abs/1404.1869",
    "pdf_url": "https://arxiv.org/pdf/1404.1869"
+  },
+  {
+   "arxiv_id": "1404.7584",
+   "announced": "2014-04-01",
+   "title": "High-Speed Tracking with Kernelized Correlation Filters",
+   "authors": [
+    "João F. Henriques",
+    "Rui Caseiro",
+    "Pedro Martins",
+    "Jorge Batista"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "The core component of most modern trackers is a discriminative classifier, tasked with distinguishing between the target and the surrounding environment. To cope with natural image changes, this classifier is typically trained with translated and scaled sample patches. Such sets of samples are riddled with redundancies -- any overlapping pixels are constrained to be the same. Based on this simple observation, we propose an analytic model for datasets of thousands of translated patches. By showing that the resulting data matrix is circulant, we can diagonalize it with the Discrete Fourier Transform, reducing both storage and computation by several orders of magnitude. Interestingly, for linear regression our formulation is equivalent to a correlation filter, used by some of the fastest competitive trackers. For kernel regression, however, we derive a new Kernelized Correlation Filter (KCF), that unlike other kernel algorithms has the exact same complexity as its linear counterpart. Building on it, we also propose a fast multi-channel extension of linear correlation filters, via a linear kernel, which we call Dual Correlation Filter (DCF). Both KCF and DCF outperform top-ranking trackers such as Struck or TLD on a 50 videos benchmark, despite running at hundreds of frames-per-second, and being implemented in a few lines of code (Algorithm 1). To encourage further developments, our tracking framework was made open-source.",
+   "affiliations": [
+    "University of Coimbra"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Coimbra"
+   ],
+   "institution_ids": [
+    "04z8k9a98"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1404.7584",
+   "pdf_url": "https://arxiv.org/pdf/1404.7584"
   },
   {
    "arxiv_id": "1404.3840",

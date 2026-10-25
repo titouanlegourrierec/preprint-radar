@@ -43997,6 +43997,78 @@
    "pdf_url": "https://arxiv.org/pdf/2311.13231"
   },
   {
+   "arxiv_id": "2311.13127",
+   "announced": "2023-11-01",
+   "title": "MetaCloak: Preventing Unauthorized Subject-driven Text-to-image Diffusion-based Synthesis via Meta-learning",
+   "authors": [
+    "Yixin Liu",
+    "Chenrui Fan",
+    "Yutong Dai",
+    "Xun Chen",
+    "Pan Zhou",
+    "Lichao Sun"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)",
+    "Cryptography and Security (cs.CR)"
+   ],
+   "comments": "Accepted to CVPR 2024 (Oral)",
+   "journal_ref": null,
+   "venue": "CVPR 2024",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Text-to-image diffusion models allow seamless generation of personalized images from scant reference photos. Yet, these tools, in the wrong hands, can fabricate misleading or harmful content, endangering individuals. To address this problem, existing poisoning-based approaches perturb user images in an imperceptible way to render them \"unlearnable\" from malicious uses. We identify two limitations of these defending approaches: i) sub-optimal due to the hand-crafted heuristics for solving the intractable bilevel optimization and ii) lack of robustness against simple data transformations like Gaussian filtering. To solve these challenges, we propose MetaCloak, which solves the bi-level poisoning problem with a meta-learning framework with an additional transformation sampling process to craft transferable and robust perturbation. Specifically, we employ a pool of surrogate diffusion models to craft transferable and model-agnostic perturbation. Furthermore, by incorporating an additional transformation process, we design a simple denoising-error maximization loss that is sufficient for causing transformation-robust semantic distortion and degradation in a personalized generation. Extensive experiments on the VGGFace2 and CelebA-HQ datasets show that MetaCloak outperforms existing approaches. Notably, MetaCloak can successfully fool online training services like Replicate, in a black-box manner, demonstrating the effectiveness of MetaCloak in real-world scenarios. Our code is available at https://github.com/liuyixin-louis/MetaCloak.",
+   "affiliations": [
+    "Lehigh University",
+    "Huazhong University of Science and Technology",
+    "Samsung"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Lehigh University",
+    "Huazhong University of Science and Technology",
+    "Samsung"
+   ],
+   "institution_ids": [
+    "012afjb06",
+    "00p991c53",
+    "01bfbvm65"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2311.13127",
+   "pdf_url": "https://arxiv.org/pdf/2311.13127"
+  },
+  {
    "arxiv_id": "2311.13120",
    "announced": "2023-11-01",
    "title": "Multi-modal In-Context Learning Makes an Ego-evolving Scene Text Recognizer",
@@ -49143,6 +49215,42 @@
    },
    "abs_url": "https://arxiv.org/abs/2311.00213",
    "pdf_url": "https://arxiv.org/pdf/2311.00213"
+  },
+  {
+   "arxiv_id": "2311.00206",
+   "announced": "2023-11-01",
+   "title": "ChatGPT-Powered Hierarchical Comparisons for Image Classification",
+   "authors": [
+    "Zhiyuan Ren",
+    "Yiyang Su",
+    "Xiaoming Liu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": "Neurips 2023 Poster",
+   "journal_ref": null,
+   "venue": "NeurIPS 2023",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "The zero-shot open-vocabulary challenge in image classification is tackled by pretrained vision-language models like CLIP, which benefit from incorporating class-specific knowledge from large language models (LLMs) like ChatGPT. However, biases in CLIP lead to similar descriptions for distinct but related classes, prompting our novel image classification framework via hierarchical comparisons: using LLMs to recursively group classes into hierarchies and classifying images by comparing image-text embeddings at each hierarchy level, resulting in an intuitive, effective, and explainable approach.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2311.00206",
+   "pdf_url": "https://arxiv.org/pdf/2311.00206"
   },
   {
    "arxiv_id": "2311.00059",
@@ -69711,7 +69819,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -78507,7 +78615,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -84232,7 +84340,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -94402,7 +94510,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -102727,7 +102835,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -109830,7 +109938,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -140394,7 +140502,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -145689,7 +145797,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -149001,6 +149109,68 @@
    },
    "abs_url": "https://arxiv.org/abs/2305.00562",
    "pdf_url": "https://arxiv.org/pdf/2305.00562"
+  },
+  {
+   "arxiv_id": "2305.00355",
+   "announced": "2023-05-01",
+   "title": "MH-DETR: Video Moment and Highlight Detection with Cross-modal Transformer",
+   "authors": [
+    "Yifang Xu",
+    "Yunzhuo Sun",
+    "Yang Li",
+    "Yilei Shi",
+    "Xiaoxiang Zhu",
+    "Sidan Du"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "With the increasing demand for video understanding, video moment and highlight detection (MHD) has emerged as a critical research topic. MHD aims to localize all moments and predict clip-wise saliency scores simultaneously. Despite progress made by existing DETR-based methods, we observe that these methods coarsely fuse features from different modalities, which weakens the temporal intra-modal context and results in insufficient cross-modal interaction. To address this issue, we propose MH-DETR (Moment and Highlight Detection Transformer) tailored for MHD. Specifically, we introduce a simple yet efficient pooling operator within the uni-modal encoder to capture global intra-modal context. Moreover, to obtain temporally aligned cross-modal features, we design a plug-and-play cross-modal interaction module between the encoder and decoder, seamlessly integrating visual and textual features. Comprehensive experiments on QVHighlights, Charades-STA, Activity-Net, and TVSum datasets show that MH-DETR outperforms existing state-of-the-art methods, demonstrating its effectiveness and superiority. Our code is available at https://github.com/YoucanBaby/MH-DETR.",
+   "affiliations": [
+    "Nanjing University",
+    "Hubei Normal University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    null,
+    null,
+    null,
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Nanjing University",
+    "Hubei Normal University"
+   ],
+   "institution_ids": [
+    "01rxvg760",
+    "056y3dw16"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2305.00355",
+   "pdf_url": "https://arxiv.org/pdf/2305.00355"
   },
   {
    "arxiv_id": "2305.00293",
@@ -154273,6 +154443,63 @@
    },
    "abs_url": "https://arxiv.org/abs/2304.06334",
    "pdf_url": "https://arxiv.org/pdf/2304.06334"
+  },
+  {
+   "arxiv_id": "2304.06275",
+   "announced": "2023-04-13",
+   "title": "Noisy Correspondence Learning with Meta Similarity Correction",
+   "authors": [
+    "Haochen Han",
+    "Kaiyao Miao",
+    "Qinghua Zheng",
+    "Minnan Luo"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Multimedia (cs.MM)"
+   ],
+   "comments": "Accepted at CVPR 2023",
+   "journal_ref": null,
+   "venue": "CVPR 2023",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Despite the success of multimodal learning in cross-modal retrieval task, the remarkable progress relies on the correct correspondence among multimedia data. However, collecting such ideal data is expensive and time-consuming. In practice, most widely used datasets are harvested from the Internet and inevitably contain mismatched pairs. Training on such noisy correspondence datasets causes performance degradation because the cross-modal retrieval methods can wrongly enforce the mismatched data to be similar. To tackle this problem, we propose a Meta Similarity Correction Network (MSCN) to provide reliable similarity scores. We view a binary classification task as the meta-process that encourages the MSCN to learn discrimination from positive and negative meta-data. To further alleviate the influence of noise, we design an effective data purification strategy using meta-data as prior knowledge to remove the noisy samples. Extensive experiments are conducted to demonstrate the strengths of our method in both synthetic and real-world noises, including Flickr30K, MS-COCO, and Conceptual Captions.",
+   "affiliations": [
+    "Xi'an Jiaotong University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Xi'an Jiaotong University"
+   ],
+   "institution_ids": [
+    "017zhmm22"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2304.06275",
+   "pdf_url": "https://arxiv.org/pdf/2304.06275"
   },
   {
    "arxiv_id": "2304.06274",
@@ -167940,6 +168167,88 @@
    },
    "abs_url": "https://arxiv.org/abs/2304.01814",
    "pdf_url": "https://arxiv.org/pdf/2304.01814"
+  },
+  {
+   "arxiv_id": "2304.01715",
+   "announced": "2023-04-01",
+   "title": "Towards Open-Vocabulary Video Instance Segmentation",
+   "authors": [
+    "Haochen Wang",
+    "Cilin Yan",
+    "Shuai Wang",
+    "Xiaolong Jiang",
+    "XU Tang",
+    "Yao Hu",
+    "Weidi Xie",
+    "Efstratios Gavves"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Video Instance Segmentation (VIS) aims at segmenting and categorizing objects in videos from a closed set of training categories, lacking the generalization ability to handle novel categories in real-world videos. To address this limitation, we make the following three contributions. First, we introduce the novel task of Open-Vocabulary Video Instance Segmentation, which aims to simultaneously segment, track, and classify objects in videos from open-set categories, including novel categories unseen during training. Second, to benchmark Open-Vocabulary VIS, we collect a Large-Vocabulary Video Instance Segmentation dataset (LV-VIS), that contains well-annotated objects from 1,196 diverse categories, significantly surpassing the category size of existing datasets by more than one order of magnitude. Third, we propose an efficient Memory-Induced Transformer architecture, OV2Seg, to first achieve Open-Vocabulary VIS in an end-to-end manner with near real-time inference speed. Extensive experiments on LV-VIS and four existing VIS datasets demonstrate the strong zero-shot generalization ability of OV2Seg on novel categories. The dataset and code are released here https://github.com/haochenheheda/LVVIS.",
+   "affiliations": [
+    "University of Amsterdam",
+    "Xiaohongshu (Little Red Book)",
+    "Shanghai Jiao Tong University",
+    "Beihang University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     3
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Amsterdam",
+    "Xiaohongshu (Little Red Book)",
+    "Shanghai Jiao Tong University",
+    "Beihang University"
+   ],
+   "institution_ids": [
+    "04dkp9463",
+    "02apw2076",
+    "0220qvk04",
+    "00wk2mp56"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2304.01715",
+   "pdf_url": "https://arxiv.org/pdf/2304.01715"
   },
   {
    "arxiv_id": "2304.01669",
@@ -190235,7 +190544,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -219543,6 +219852,81 @@
    },
    "abs_url": "https://arxiv.org/abs/2301.02228",
    "pdf_url": "https://arxiv.org/pdf/2301.02228"
+  },
+  {
+   "arxiv_id": "2301.01970",
+   "announced": "2023-01-01",
+   "title": "CAT: LoCalization and IdentificAtion Cascade Detection Transformer for Open-World Object Detection",
+   "authors": [
+    "Shuailei Ma",
+    "Yuefeng Wang",
+    "Jiaqi Fan",
+    "Ying Wei",
+    "Thomas H. Li",
+    "Hongli Liu",
+    "Fanbing Lv"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "CVPR 2023 camera-ready version",
+   "journal_ref": null,
+   "venue": "CVPR 2023",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Open-world object detection (OWOD), as a more general and challenging goal, requires the model trained from data on known objects to detect both known and unknown objects and incrementally learn to identify these unknown objects. The existing works which employ standard detection framework and fixed pseudo-labelling mechanism (PLM) have the following problems: (i) The inclusion of detecting unknown objects substantially reduces the model's ability to detect known ones. (ii) The PLM does not adequately utilize the priori knowledge of inputs. (iii) The fixed selection manner of PLM cannot guarantee that the model is trained in the right direction. We observe that humans subconsciously prefer to focus on all foreground objects and then identify each one in detail, rather than localize and identify a single object simultaneously, for alleviating the confusion. This motivates us to propose a novel solution called CAT: LoCalization and IdentificAtion Cascade Detection Transformer which decouples the detection process via the shared decoder in the cascade decoding way. In the meanwhile, we propose the self-adaptive pseudo-labelling mechanism which combines the model-driven with input-driven PLM and self-adaptively generates robust pseudo-labels for unknown objects, significantly improving the ability of CAT to retrieve unknown objects. Comprehensive experiments on two benchmark datasets, i.e., MS-COCO and PASCAL VOC, show that our model outperforms the state-of-the-art in terms of all metrics in the task of OWOD, incremental object detection (IOD) and open-set detection.",
+   "affiliations": [
+    "Northeastern University",
+    "Peking University",
+    "Hisense"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "Northeastern University",
+    "Peking University",
+    "Hisense"
+   ],
+   "institution_ids": [
+    "03awzbc87",
+    "02v51f717",
+    "0276vcd78"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2301.01970",
+   "pdf_url": "https://arxiv.org/pdf/2301.01970"
   },
   {
    "arxiv_id": "2301.01767",

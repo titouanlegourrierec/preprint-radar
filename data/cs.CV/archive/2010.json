@@ -67,6 +67,59 @@
    "pdf_url": "https://arxiv.org/pdf/1012.3216"
   },
   {
+   "arxiv_id": "1012.1193",
+   "announced": "2010-12-06",
+   "title": "Automatic Image Segmentation by Dynamic Region Merging",
+   "authors": [
+    "Bo Peng",
+    "Lei Zhang",
+    "David Zhang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Robotics (cs.RO)"
+   ],
+   "comments": "28 pages. This paper is under review in IEEE TIP",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "This paper addresses the automatic image segmentation problem in a region merging style. With an initially over-segmented image, in which the many regions (or super-pixels) with homogeneous color are detected, image segmentation is performed by iteratively merging the regions according to a statistical test. There are two essential issues in a region merging algorithm: order of merging and the stopping criterion. In the proposed algorithm, these two issues are solved by a novel predicate, which is defined by the sequential probability ratio test (SPRT) and the maximum likelihood criterion. Starting from an over-segmented image, neighboring regions are progressively merged if there is an evidence for merging according to this predicate. We show that the merging order follows the principle of dynamic programming. This formulates image segmentation as an inference problem, where the final segmentation is established based on the observed image. We also prove that the produced segmentation satisfies certain global properties. In addition, a faster algorithm is developed to accelerate the region merging process, which maintains a nearest neighbor graph in each iteration. Experiments on real natural images are conducted to demonstrate the performance of the proposed dynamic region merging algorithm.",
+   "affiliations": [
+    "Hong Kong Polytechnic University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Hong Kong Polytechnic University"
+   ],
+   "institution_ids": [
+    "0030zas98"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1012.1193",
+   "pdf_url": "https://arxiv.org/pdf/1012.1193"
+  },
+  {
    "arxiv_id": "1012.1184",
    "announced": "2010-12-06",
    "title": "Image Deblurring and Super-resolution by Adaptive Sparse Domain Selection and Adaptive Regularization",
@@ -130,6 +183,106 @@
    "pdf_url": "https://arxiv.org/pdf/1012.1184"
   },
   {
+   "arxiv_id": "1011.4615",
+   "announced": "2010-11-01",
+   "title": "Generalized Tree-Based Wavelet Transform",
+   "authors": [
+    "Idan Ram",
+    "Michael Elad",
+    "Israel Cohen"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "10 pages, 4 algorithms, 8 figures, 3 tables, submitted to IEEE Transactions on Signal Processing",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "In this paper we propose a new wavelet transform applicable to functions defined on graphs, high dimensional data and networks. The proposed method generalizes the Haar-like transform proposed in [1], and it is defined via a hierarchical tree, which is assumed to capture the geometry and structure of the input data. It is applied to the data using a modified version of the common one-dimensional (1D) wavelet filtering and decimation scheme, which can employ different wavelet filters. In each level of this wavelet decomposition scheme, a permutation derived from the tree is applied to the approximation coefficients, before they are filtered. We propose a tree construction method that results in an efficient representation of the input function in the transform domain. We show that the proposed transform is more efficient than both the 1D and two-dimensional (2D) separable wavelet transforms in representing images. We also explore the application of the proposed transform to image denoising, and show that combined with a subimage averaging scheme, it achieves denoising results which are similar to those obtained with the K-SVD algorithm.",
+   "affiliations": [
+    "Technion – Israel Institute of Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Technion – Israel Institute of Technology"
+   ],
+   "institution_ids": [
+    "03qryx823"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1011.4615",
+   "pdf_url": "https://arxiv.org/pdf/1011.4615"
+  },
+  {
+   "arxiv_id": "1011.3023",
+   "announced": "2010-11-01",
+   "title": "Classification with Scattering Operators",
+   "authors": [
+    "Joan Bruna",
+    "Stéphane Mallat"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "6 pages. CVPR 2011",
+   "journal_ref": null,
+   "venue": "CVPR 2011",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "A scattering vector is a local descriptor including multiscale and multi-direction co-occurrence information. It is computed with a cascade of wavelet decompositions and complex modulus. This scattering representation is locally translation invariant and linearizes deformations. A supervised classification algorithm is computed with a PCA model selection on scattering vectors. State of the art results are obtained for handwritten digit recognition and texture classification.",
+   "affiliations": [
+    "École Polytechnique"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "École Polytechnique"
+   ],
+   "institution_ids": [
+    "05hy3tk52"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1011.3023",
+   "pdf_url": "https://arxiv.org/pdf/1011.3023"
+  },
+  {
    "arxiv_id": "1011.0640",
    "announced": "2010-11-01",
    "title": "Lesion Border Detection in Dermoscopy Images",
@@ -188,6 +341,127 @@
    },
    "abs_url": "https://arxiv.org/abs/1011.0640",
    "pdf_url": "https://arxiv.org/pdf/1011.0640"
+  },
+  {
+   "arxiv_id": "1010.3467",
+   "announced": "2010-10-18",
+   "title": "Fast Inference in Sparse Coding Algorithms with Applications to Object Recognition",
+   "authors": [
+    "Koray Kavukcuoglu",
+    "Marc'Aurelio Ranzato",
+    "Yann LeCun"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Adaptive sparse coding methods learn a possibly overcomplete set of basis functions, such that natural image patches can be reconstructed by linearly combining a small subset of these bases. The applicability of these methods to visual object recognition tasks has been limited because of the prohibitive cost of the optimization algorithms required to compute the sparse representation. In this work we propose a simple and efficient algorithm to learn basis functions. After training, this model also provides a fast and smooth approximator to the optimal representation, achieving even better accuracy than exact sparse coding algorithms on visual object recognition tasks.",
+   "affiliations": [
+    "New York University",
+    "Courant Institute of Mathematical Sciences"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "institutions": [
+    "New York University",
+    "Courant Institute of Mathematical Sciences"
+   ],
+   "institution_ids": [
+    "0190ak572",
+    "037tm7f56"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1010.3467",
+   "pdf_url": "https://arxiv.org/pdf/1010.3467"
+  },
+  {
+   "arxiv_id": "1010.3460",
+   "announced": "2010-10-01",
+   "title": "Hybrid Linear Modeling via Local Best-fit Flats",
+   "authors": [
+    "Teng Zhang",
+    "Arthur Szlam",
+    "Yi Wang",
+    "Gilad Lerman"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (stat.ML)"
+   ],
+   "comments": "This version adds some clarifications and numerical experiments as well as strengthens the previous theorem. For face experiments, we use here the Extended Yale Face Database B (cropped faces unlike previous version). This database points to a failure mode of our algorithms, but we suggest and successfully test a workaround",
+   "journal_ref": "International Journal of Computer Vision Volume 100, Issue 3 (2012), Page 217-240",
+   "venue": "IJCV 2012",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We present a simple and fast geometric method for modeling data by a union of affine subspaces. The method begins by forming a collection of local best-fit affine subspaces, i.e., subspaces approximating the data in local neighborhoods. The correct sizes of the local neighborhoods are determined automatically by the Jones' $β_2$ numbers (we prove under certain geometric conditions that our method finds the optimal local neighborhoods). The collection of subspaces is further processed by a greedy selection procedure or a spectral method to generate the final model. We discuss applications to tracking-based motion segmentation and clustering of faces under different illuminating conditions. We give extensive experimental evidence demonstrating the state of the art accuracy and speed of the suggested algorithms on these problems and also on synthetic hybrid linear data as well as the MNIST handwritten digits data; and we demonstrate how to use our algorithms for fast determination of the number of affine subspaces.",
+   "affiliations": [
+    "University of Minnesota",
+    "Courant Institute of Mathematical Sciences",
+    "New York University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Minnesota",
+    "Courant Institute of Mathematical Sciences",
+    "New York University"
+   ],
+   "institution_ids": [
+    "017zqws13",
+    "037tm7f56",
+    "0190ak572"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1010.3460",
+   "pdf_url": "https://arxiv.org/pdf/1010.3460"
   },
   {
    "arxiv_id": "1010.2955",
@@ -274,6 +548,181 @@
    "pdf_url": "https://arxiv.org/pdf/1010.2955"
   },
   {
+   "arxiv_id": "1009.1013",
+   "announced": "2010-09-06",
+   "title": "Automatic Detection of Blue-White Veil and Related Structures in Dermoscopy Images",
+   "authors": [
+    "M. Emre Celebi",
+    "Hitoshi Iyatomi",
+    "William V. Stoecker",
+    "Randy H. Moss",
+    "Harold S. Rabinovitz",
+    "Giuseppe Argenziano",
+    "H. Peter Soyer"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": "Computerized Medical Imaging and Graphics 32 (2008) 670-677",
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Dermoscopy is a non-invasive skin imaging technique, which permits visualization of features of pigmented melanocytic neoplasms that are not discernable by examination with the naked eye. One of the most important features for the diagnosis of melanoma in dermoscopy images is the blue-white veil (irregular, structureless areas of confluent blue pigmentation with an overlying white \"ground-glass\" film). In this article, we present a machine learning approach to the detection of blue-white veil and related structures in dermoscopy images. The method involves contextual pixel classification using a decision tree classifier. The percentage of blue-white areas detected in a lesion combined with a simple shape descriptor yielded a sensitivity of 69.35% and a specificity of 89.97% on a set of 545 dermoscopy images. The sensitivity rises to 78.20% for detection of blue veil in those cases where it is a primary feature for melanoma recognition.",
+   "affiliations": [
+    "Louisiana State University in Shreveport",
+    "Hosei University",
+    "Missouri University of Science and Technology",
+    "University of Miami",
+    "University of Campania \"Luigi Vanvitelli\"",
+    "University of Queensland",
+    "Queensland Institute of Dermatology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    null,
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     4
+    ],
+    [
+     5,
+     6
+    ]
+   ],
+   "institutions": [
+    "Louisiana State University in Shreveport",
+    "Hosei University",
+    "Missouri University of Science and Technology",
+    "University of Miami",
+    "University of Campania \"Luigi Vanvitelli\"",
+    "University of Queensland",
+    "Queensland Institute of Dermatology"
+   ],
+   "institution_ids": [
+    "02c4cbt39",
+    "00bx6dj65",
+    "00scwqd12",
+    "02dgjyy92",
+    "02kqnpp86",
+    "00rqy9422",
+    "04wf83978"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1009.1013",
+   "pdf_url": "https://arxiv.org/pdf/1009.1013"
+  },
+  {
+   "arxiv_id": "1009.0962",
+   "announced": "2010-09-06",
+   "title": "Nonlinear Vector Filtering for Impulsive Noise Removal from Color Images",
+   "authors": [
+    "M. Emre Celebi",
+    "Hassan A. Kingravi",
+    "Y. Alp Aslandogan"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": "Journal of Electronic Imaging 16 (2007) 033008",
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "In this paper, a comprehensive survey of 48 filters for impulsive noise removal from color images is presented. The filters are formulated using a uniform notation and categorized into 8 families. The performance of these filters is compared on a large set of images that cover a variety of domains using three effectiveness and one efficiency criteria. In order to ensure a fair efficiency comparison, a fast and accurate approximation for the inverse cosine function is introduced. In addition, commonly used distance measures (Minkowski, angular, and directional-distance) are analyzed and evaluated. Finally, suggestions are provided on how to choose a filter given certain requirements.",
+   "affiliations": [
+    "University of Texas at Arlington"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Texas at Arlington"
+   ],
+   "institution_ids": [
+    "019kgqr73"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1009.0962",
+   "pdf_url": "https://arxiv.org/pdf/1009.0962"
+  },
+  {
+   "arxiv_id": "1007.3753",
+   "announced": "2010-07-01",
+   "title": "Fast L1-Minimization Algorithms For Robust Face Recognition",
+   "authors": [
+    "Allen Y. Yang",
+    "Zihan Zhou",
+    "Arvind Ganesh",
+    "S. Shankar Sastry",
+    "Yi Ma"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Numerical Analysis (math.NA)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "L1-minimization refers to finding the minimum L1-norm solution to an underdetermined linear system b=Ax. Under certain conditions as described in compressive sensing theory, the minimum L1-norm solution is also the sparsest solution. In this paper, our study addresses the speed and scalability of its algorithms. In particular, we focus on the numerical implementation of a sparsity-based classification framework in robust face recognition, where sparse representation is sought to recover human identities from very high-dimensional facial images that may be corrupted by illumination, facial disguise, and pose variation. Although the underlying numerical problem is a linear program, traditional algorithms are known to suffer poor scalability for large-scale applications. We investigate a new solution based on a classical convex optimization framework, known as Augmented Lagrangian Methods (ALM). The new convex solvers provide a viable solution to real-world, time-critical applications such as face recognition. We conduct extensive experiments to validate and compare the performance of the ALM algorithms against several popular L1-minimization solvers, including interior-point method, Homotopy, FISTA, SESOP-PCD, approximate message passing (AMP) and TFOCS. To aid peer evaluation, the code for all the algorithms has been made publicly available.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1007.3753",
+   "pdf_url": "https://arxiv.org/pdf/1007.3753"
+  },
+  {
    "arxiv_id": "1007.0085",
    "announced": "2010-07-01",
    "title": "Survey of Nearest Neighbor Techniques",
@@ -316,6 +765,44 @@
    },
    "abs_url": "https://arxiv.org/abs/1007.0085",
    "pdf_url": "https://arxiv.org/pdf/1007.0085"
+  },
+  {
+   "arxiv_id": "1006.5902",
+   "announced": "2010-06-30",
+   "title": "Performance Comparison of SVM and ANN for Handwritten Devnagari Character Recognition",
+   "authors": [
+    "Sandhya Arora",
+    "Debotosh Bhattacharjee",
+    "Mita Nasipuri",
+    "L. Malik",
+    "M. Kundu",
+    "D. K. Basu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": "IJCSI 2010",
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Classification methods based on learning from examples have been widely applied to character recognition from the 1990s and have brought forth significant improvements of recognition accuracies. This class of methods includes statistical methods, artificial neural networks, support vector machines (SVM), multiple classifier combination, etc. In this paper, we discuss the characteristics of the some classification methods that have been successfully applied to handwritten Devnagari character recognition and results of SVM and ANNs classification method, applied on Handwritten Devnagari characters. After preprocessing the character image, we extracted shadow features, chain code histogram features, view based features and longest run features. These features are then fed to Neural classifier and in support vector machine for classification. In neural classifier, we explored three ways of combining decisions of four MLP's designed for four different features.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1006.5902",
+   "pdf_url": "https://arxiv.org/pdf/1006.5902"
   },
   {
    "arxiv_id": "1006.3056",
@@ -375,6 +862,134 @@
    "pdf_url": "https://arxiv.org/pdf/1006.3056"
   },
   {
+   "arxiv_id": "1006.1346",
+   "announced": "2010-06-01",
+   "title": "C-HiLasso: A Collaborative Hierarchical Sparse Modeling Framework",
+   "authors": [
+    "Pablo Sprechmann",
+    "Ignacio Ramírez",
+    "Guillermo Sapiro",
+    "Yonina Eldar"
+   ],
+   "primary_subject": "Machine Learning (stat.ML)",
+   "subjects": [
+    "Machine Learning (stat.ML)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "stat.ML",
+   "html_url": null,
+   "abstract": "Sparse modeling is a powerful framework for data analysis and processing. Traditionally, encoding in this framework is performed by solving an L1-regularized linear regression problem, commonly referred to as Lasso or Basis Pursuit. In this work we combine the sparsity-inducing property of the Lasso model at the individual feature level, with the block-sparsity property of the Group Lasso model, where sparse groups of features are jointly encoded, obtaining a sparsity pattern hierarchically structured. This results in the Hierarchical Lasso (HiLasso), which shows important practical modeling advantages. We then extend this approach to the collaborative case, where a set of simultaneously coded signals share the same sparsity pattern at the higher (group) level, but not necessarily at the lower (inside the group) level, obtaining the collaborative HiLasso model (C-HiLasso). Such signals then share the same active groups, or classes, but not necessarily the same active set. This model is very well suited for applications such as source identification and separation. An efficient optimization procedure, which guarantees convergence to the global optimum, is developed for these new models. The underlying presentation of the new framework and optimization approach is complemented with experimental examples and theoretical results regarding recovery guarantees for the proposed models.",
+   "affiliations": [
+    "University of Minnesota",
+    "Technion – Israel Institute of Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Minnesota",
+    "Technion – Israel Institute of Technology"
+   ],
+   "institution_ids": [
+    "017zqws13",
+    "03qryx823"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1006.1346",
+   "pdf_url": "https://arxiv.org/pdf/1006.1346"
+  },
+  {
+   "arxiv_id": "1005.4032",
+   "announced": "2010-05-21",
+   "title": "Combining Multiple Feature Extraction Techniques for Handwritten Devnagari Character Recognition",
+   "authors": [
+    "Sandhya Arora",
+    "Debotosh Bhattacharjee",
+    "Mita Nasipuri",
+    "Dipak Kumar Basu",
+    "Mahantapas Kundu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": "6 pages, 8-10 December 2008",
+   "journal_ref": "ICIIS 2008",
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "In this paper we present an OCR for Handwritten Devnagari Characters. Basic symbols are recognized by neural classifier. We have used four feature extraction techniques namely, intersection, shadow feature, chain code histogram and straight line fitting features. Shadow features are computed globally for character image while intersection features, chain code histogram features and line fitting features are computed by dividing the character image into different segments. Weighted majority voting technique is used for combining the classification decision obtained from four Multi Layer Perceptron(MLP) based classifier. On experimentation with a dataset of 4900 samples the overall recognition rate observed is 92.80% as we considered top five choices results. This method is compared with other recent methods for Handwritten Devnagari Character Recognition and it has been observed that this approach has better success rate than other methods.",
+   "affiliations": [
+    "Meghnad Saha Institute of Technology",
+    "Jadavpur University",
+    "All India Council for Technical Education"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     2,
+     1
+    ]
+   ],
+   "institutions": [
+    "Meghnad Saha Institute of Technology",
+    "Jadavpur University",
+    "All India Council for Technical Education"
+   ],
+   "institution_ids": [
+    "0054s5w72",
+    "02af4h012",
+    "00xcd7y72"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1005.4032",
+   "pdf_url": "https://arxiv.org/pdf/1005.4032"
+  },
+  {
    "arxiv_id": "1005.4020",
    "announced": "2010-05-21",
    "title": "Image Segmentation by Using Threshold Techniques",
@@ -408,6 +1023,145 @@
    "pdf_url": "https://arxiv.org/pdf/1005.4020"
   },
   {
+   "arxiv_id": "1005.0069",
+   "announced": "2010-05-01",
+   "title": "Perturbation Resilience and Superiorization of Iterative Algorithms",
+   "authors": [
+    "Y. Censor",
+    "R. Davidi",
+    "G. T. Herman"
+   ],
+   "primary_subject": "Optimization and Control (math.OC)",
+   "subjects": [
+    "Optimization and Control (math.OC)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Medical Physics (physics.med-ph)"
+   ],
+   "comments": "Accepted for publication in Inverse Problems, 2010",
+   "journal_ref": "Inverse Problems, 26 (2010) 065008 (12pp)",
+   "venue": null,
+   "cross_list_from": "math.OC",
+   "html_url": null,
+   "abstract": "Iterative algorithms aimed at solving some problems are discussed. For certain problems, such as finding a common point in the intersection of a finite number of convex sets, there often exist iterative algorithms that impose very little demand on computer resources. For other problems, such as finding that point in the intersection at which the value of a given function is optimal, algorithms tend to need more computer memory and longer execution time. A methodology is presented whose aim is to produce automatically for an iterative algorithm of the first kind a \"superiorized version\" of it that retains its computational efficiency but nevertheless goes a long way towards solving an optimization problem. This is possible to do if the original algorithm is \"perturbation resilient,\" which is shown to be the case for various projection algorithms for solving the consistent convex feasibility problem. The superiorized versions of such algorithms use perturbations that drive the process in the direction of the optimizer of the given function. After presenting these intuitive ideas in a precise mathematical form, they are illustrated in image reconstruction from projections for two different projection algorithms superiorized for the function whose value is the total variation of the image.",
+   "affiliations": [
+    "University of Haifa",
+    "Graduate Center, CUNY",
+    "City University of New York"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     2
+    ]
+   ],
+   "institutions": [
+    "University of Haifa",
+    "Graduate Center, CUNY",
+    "City University of New York"
+   ],
+   "institution_ids": [
+    "02f009v59",
+    "00awd9g61",
+    "00453a208"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1005.0069",
+   "pdf_url": "https://arxiv.org/pdf/1005.0069"
+  },
+  {
+   "arxiv_id": "1004.5305",
+   "announced": "2010-04-29",
+   "title": "Compressed Sensing with off-axis frequency-shifting holography",
+   "authors": [
+    "Marcio Marim",
+    "Michael Atlan",
+    "Elsa Angelini",
+    "Jean-Christophe Olivo-Marin"
+   ],
+   "primary_subject": "Optics (physics.optics)",
+   "subjects": [
+    "Optics (physics.optics)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Medical Physics (physics.med-ph)"
+   ],
+   "comments": "vol 35, pp 871-873",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "physics.optics",
+   "html_url": null,
+   "abstract": "This work reveals an experimental microscopy acquisition scheme successfully combining Compressed Sensing (CS) and digital holography in off-axis and frequency-shifting conditions. CS is a recent data acquisition theory involving signal reconstruction from randomly undersampled measurements, exploiting the fact that most images present some compact structure and redundancy. We propose a genuine CS-based imaging scheme for sparse gradient images, acquiring a diffraction map of the optical field with holographic microscopy and recovering the signal from as little as 7% of random measurements. We report experimental results demonstrating how CS can lead to an elegant and effective way to reconstruct images, opening the door for new microscopy applications.",
+   "affiliations": [
+    "Centre National de la Recherche Scientifique",
+    "Institut Pasteur",
+    "Inserm",
+    "ParisTech",
+    "Institut Langevin",
+    "Laboratoire Traitement et Communication de l’Information"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2,
+     3,
+     4
+    ],
+    [
+     0,
+     3,
+     5
+    ],
+    null
+   ],
+   "institutions": [
+    "Centre National de la Recherche Scientifique",
+    "Institut Pasteur",
+    "Inserm",
+    "ParisTech",
+    "Institut Langevin",
+    "Laboratoire Traitement et Communication de l’Information"
+   ],
+   "institution_ids": [
+    "02feahw73",
+    "0495fxg12",
+    "02vjkv261",
+    "05c2qg481",
+    "00kr24y60",
+    "057er4c39"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1004.5305",
+   "pdf_url": "https://arxiv.org/pdf/1004.5305"
+  },
+  {
    "arxiv_id": "1003.4053",
    "announced": "2010-03-22",
    "title": "A Comprehensive Review of Image Enhancement Techniques",
@@ -438,6 +1192,400 @@
    },
    "abs_url": "https://arxiv.org/abs/1003.4053",
    "pdf_url": "https://arxiv.org/pdf/1003.4053"
+  },
+  {
+   "arxiv_id": "1002.4040",
+   "announced": "2010-02-23",
+   "title": "Handwritten Bangla Basic and Compound character recognition using MLP and SVM classifier",
+   "authors": [
+    "Nibaran Das",
+    "Bindaban Das",
+    "Ram Sarkar",
+    "Subhadip Basu",
+    "Mahantapas Kundu",
+    "Mita Nasipuri"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": null,
+   "journal_ref": "Journal of Computing, Volume 2, Issue 2, February 2010, https://sites.google.com/site/journalofcomputing/",
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "A novel approach for recognition of handwritten compound Bangla characters, along with the Basic characters of Bangla alphabet, is presented here. Compared to English like Roman script, one of the major stumbling blocks in Optical Character Recognition (OCR) of handwritten Bangla script is the large number of complex shaped character classes of Bangla alphabet. In addition to 50 basic character classes, there are nearly 160 complex shaped compound character classes in Bangla alphabet. Dealing with such a large varieties of handwritten characters with a suitably designed feature set is a challenging problem. Uncertainty and imprecision are inherent in handwritten script. Moreover, such a large varieties of complex shaped characters, some of which have close resemblance, makes the problem of OCR of handwritten Bangla characters more difficult. Considering the complexity of the problem, the present approach makes an attempt to identify compound character classes from most frequently to less frequently occurred ones, i.e., in order of importance. This is to develop a frame work for incrementally increasing the number of learned classes of compound characters from more frequently occurred ones to less frequently occurred ones along with Basic characters. On experimentation, the technique is observed produce an average recognition rate of 79.25 after three fold cross validation of data with future scope of improvement and extension.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1002.4040",
+   "pdf_url": "https://arxiv.org/pdf/1002.4040"
+  },
+  {
+   "arxiv_id": "1002.4046",
+   "announced": "2010-02-22",
+   "title": "Supervised Classification Performance of Multispectral Images",
+   "authors": [
+    "K. Perumal",
+    "R. Bhaskaran"
+   ],
+   "primary_subject": "Machine Learning (cs.LG)",
+   "subjects": [
+    "Machine Learning (cs.LG)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": "Journal of Computing, Volume 2, Issue 2, February 2010, https://sites.google.com/site/journalofcomputing/",
+   "venue": null,
+   "cross_list_from": "cs.LG",
+   "html_url": null,
+   "abstract": "Nowadays government and private agencies use remote sensing imagery for a wide range of applications from military applications to farm development. The images may be a panchromatic, multispectral, hyperspectral or even ultraspectral of terra bytes. Remote sensing image classification is one amongst the most significant application worlds for remote sensing. A few number of image classification algorithms have proved good precision in classifying remote sensing data. But, of late, due to the increasing spatiotemporal dimensions of the remote sensing data, traditional classification algorithms have exposed weaknesses necessitating further research in the field of remote sensing image classification. So an efficient classifier is needed to classify the remote sensing images to extract information. We are experimenting with both supervised and unsupervised classification. Here we compare the different classification methods and their performances. It is found that Mahalanobis classifier performed the best in our classification.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1002.4046",
+   "pdf_url": "https://arxiv.org/pdf/1002.4046"
+  },
+  {
+   "arxiv_id": "1002.2523",
+   "announced": "2010-02-12",
+   "title": "Feature Level Fusion of Face and Fingerprint Biometrics",
+   "authors": [
+    "Ajita Rattani",
+    "Dakshina Ranjan Kisku",
+    "Manuele Bicego",
+    "Massimo Tistarelli"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": "6 pages, 7 figures, conference",
+   "journal_ref": "BTAS 2007",
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "The aim of this paper is to study the fusion at feature extraction level for face and fingerprint biometrics. The proposed approach is based on the fusion of the two traits by extracting independent feature pointsets from the two modalities, and making the two pointsets compatible for concatenation. Moreover, to handle the problem of curse of dimensionality, the feature pointsets are properly reduced in dimension. Different feature reduction techniques are implemented, prior and after the feature pointsets fusion, and the results are duly recorded. The fused feature pointset for the database and the query face and fingerprint images are matched using techniques based on either the point pattern matching, or the Delaunay triangulation. Comparative experiments are conducted on chimeric and real databases, to assess the actual advantage of the fusion performed at the feature extraction level, in comparison to the matching score level.",
+   "affiliations": [
+    "University of Cagliari",
+    "Indian Institute of Technology Kanpur",
+    "University of Sassari"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "University of Cagliari",
+    "Indian Institute of Technology Kanpur",
+    "University of Sassari"
+   ],
+   "institution_ids": [
+    "003109y17",
+    "05pjsgx75",
+    "01bnjbv91"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1002.2523",
+   "pdf_url": "https://arxiv.org/pdf/1002.2523"
+  },
+  {
+   "arxiv_id": "1002.1148",
+   "announced": "2010-02-05",
+   "title": "A Comparative Study of Removal Noise from Remote Sensing Image",
+   "authors": [
+    "Salem Saleh Al-amri",
+    "N. V. Kalyankar",
+    "S. D. Khamitkar"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "International Journal of Computer Science Issues, IJCSI, Vol. 7, Issue 1, No. 1, January 2010, http://ijcsi.org/articles/A-Comparative-Study-of-Removal-Noise-from-Remote-Sensing-Image.php",
+   "journal_ref": "International Journal of Computer Science Issues, IJCSI, Vol. 7, Issue 1, No. 1, January 2010, http://ijcsi.org/articles/A-Comparative-Study-of-Removal-Noise-from-Remote-Sensing-Image.php",
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "This paper attempts to undertake the study of three types of noise such as Salt and Pepper (SPN), Random variation Impulse Noise (RVIN), Speckle (SPKN). Different noise densities have been removed between 10% to 60% by using five types of filters as Mean Filter (MF), Adaptive Wiener Filter (AWF), Gaussian Filter (GF), Standard Median Filter (SMF) and Adaptive Median Filter (AMF). The same is applied to the Saturn remote sensing image and they are compared with one another. The comparative study is conducted with the help of Mean Square Errors (MSE) and Peak-Signal to Noise Ratio (PSNR). So as to choose the base method for removal of noise from remote sensing image.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1002.1148",
+   "pdf_url": "https://arxiv.org/pdf/1002.1148"
+  },
+  {
+   "arxiv_id": "1002.0411",
+   "announced": "2010-02-02",
+   "title": "Face Identification by SIFT-based Complete Graph Topology",
+   "authors": [
+    "Dakshina Ranjan Kisku",
+    "Ajita Rattani",
+    "Enrico Grosso",
+    "Massimo Tistarelli"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": "6 pages, 7 figures, AutoId 2007",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "This paper presents a new face identification system based on Graph Matching Technique on SIFT features extracted from face images. Although SIFT features have been successfully used for general object detection and recognition, only recently they were applied to face recognition. This paper further investigates the performance of identification techniques based on Graph matching topology drawn on SIFT features which are invariant to rotation, scaling and translation. Face projections on images, represented by a graph, can be matched onto new images by maximizing a similarity function taking into account spatial distortions and the similarities of the local features. Two graph based matching techniques have been investigated to deal with false pair assignment and reducing the number of features to find the optimal feature set between database and query face SIFT features. The experimental results, performed on the BANCA database, demonstrate the effectiveness of the proposed system for automatic face identification.",
+   "affiliations": [
+    "Indian Institute of Technology Kanpur",
+    "University of Sassari"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Indian Institute of Technology Kanpur",
+    "University of Sassari"
+   ],
+   "institution_ids": [
+    "05pjsgx75",
+    "01bnjbv91"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1002.0411",
+   "pdf_url": "https://arxiv.org/pdf/1002.0411"
+  },
+  {
+   "arxiv_id": "1001.4297",
+   "announced": "2010-01-25",
+   "title": "Multi-camera Realtime 3D Tracking of Multiple Flying Animals",
+   "authors": [
+    "Andrew D. Straw",
+    "Kristin Branson",
+    "Titus R. Neumann",
+    "Michael H. Dickinson"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "pdfTeX using libpoppler 3.141592-1.40.3-2.2 (Web2C 7.5.6), 18 pages with 9 figures",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Automated tracking of animal movement allows analyses that would not otherwise be possible by providing great quantities of data. The additional capability of tracking in realtime - with minimal latency - opens up the experimental possibility of manipulating sensory feedback, thus allowing detailed explorations of the neural basis for control of behavior. Here we describe a new system capable of tracking the position and body orientation of animals such as flies and birds. The system operates with less than 40 msec latency and can track multiple animals simultaneously. To achieve these results, a multi target tracking algorithm was developed based on the Extended Kalman Filter and the Nearest Neighbor Standard Filter data association algorithm. In one implementation, an eleven camera system is capable of tracking three flies simultaneously at 60 frames per second using a gigabit network of nine standard Intel Pentium 4 and Core 2 Duo computers. This manuscript presents the rationale and details of the algorithms employed and shows three implementations of the system. An experiment was performed using the tracking system to measure the effect of visual contrast on the flight speed of Drosophila melanogaster. At low contrasts, speed is more variable and faster on average than at high contrasts. Thus, the system is already a useful tool to study the neurobiology and behavior of freely flying animals. If combined with other techniques, such as `virtual reality'-type computer graphics or genetic manipulation, the tracking system would offer a powerful new way to investigate the biology of flying animals.",
+   "affiliations": [
+    "California Institute of Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "California Institute of Technology"
+   ],
+   "institution_ids": [
+    "05dxps055"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1001.4297",
+   "pdf_url": "https://arxiv.org/pdf/1001.4297"
+  },
+  {
+   "arxiv_id": "1001.3503",
+   "announced": "2010-01-20",
+   "title": "Hybrid Medical Image Classification Using Association Rule Mining with Decision Tree Algorithm",
+   "authors": [
+    "P. Rajendran",
+    "M. Madheswaran"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": "Journal of Computing, Vol. 2, Issue 1, January 2010",
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "The main focus of image mining in the proposed method is concerned with the classification of brain tumor in the CT scan brain images. The major steps involved in the system are: pre-processing, feature extraction, association rule mining and hybrid classifier. The pre-processing step has been done using the median filtering process and edge features have been extracted using canny edge detection technique. The two image mining approaches with a hybrid manner have been proposed in this paper. The frequent patterns from the CT scan images are generated by frequent pattern tree (FP-Tree) algorithm that mines the association rules. The decision tree method has been used to classify the medical images for diagnosis. This system enhances the classification process to be more accurate. The hybrid method improves the efficiency of the proposed method than the traditional image mining methods. The experimental result on prediagnosed database of brain images showed 97% sensitivity and 95% accuracy respectively. The physicians can make use of this accurate decision tree classification phase for classifying the brain images into normal, benign and malignant for effective medical diagnosis.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1001.3503",
+   "pdf_url": "https://arxiv.org/pdf/1001.3503"
+  },
+  {
+   "arxiv_id": "1001.2605",
+   "announced": "2010-01-15",
+   "title": "An Explicit Nonlinear Mapping for Manifold Learning",
+   "authors": [
+    "Hong Qiao",
+    "Peng Zhang",
+    "Di Wang",
+    "Bo Zhang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Manifold learning is a hot research topic in the field of computer science and has many applications in the real world. A main drawback of manifold learning methods is, however, that there is no explicit mappings from the input data manifold to the output embedding. This prohibits the application of manifold learning methods in many practical problems such as classification and target detection. Previously, in order to provide explicit mappings for manifold learning methods, many methods have been proposed to get an approximate explicit representation mapping with the assumption that there exists a linear projection between the high-dimensional data samples and their low-dimensional embedding. However, this linearity assumption may be too restrictive. In this paper, an explicit nonlinear mapping is proposed for manifold learning, based on the assumption that there exists a polynomial mapping between the high-dimensional data samples and their low-dimensional representations. As far as we know, this is the first time that an explicit nonlinear mapping for manifold learning is given. In particular, we apply this to the method of Locally Linear Embedding (LLE) and derive an explicit nonlinear manifold learning algorithm, named Neighborhood Preserving Polynomial Embedding (NPPE). Experimental results on both synthetic and real-world data show that the proposed mapping is much more effective in preserving the local neighborhood information and the nonlinear geometry of the high-dimensional data samples than previous work.",
+   "affiliations": [
+    "Chinese Academy of Sciences",
+    "Institute of Automation",
+    "China National Commission for Disaster Reduction",
+    "Academy of Mathematics and Systems Science",
+    "State Key Laboratory of Scientific and Engineering Computing"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     0,
+     4
+    ]
+   ],
+   "institutions": [
+    "Chinese Academy of Sciences",
+    "Institute of Automation",
+    "China National Commission for Disaster Reduction",
+    "Academy of Mathematics and Systems Science",
+    "State Key Laboratory of Scientific and Engineering Computing"
+   ],
+   "institution_ids": [
+    "034t30j35",
+    "022c3hy66",
+    "029j8j127",
+    "02jkmyk67",
+    "02fp7dp35"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/1001.2605",
+   "pdf_url": "https://arxiv.org/pdf/1001.2605"
   }
  ]
 }

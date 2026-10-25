@@ -4119,6 +4119,72 @@
    "pdf_url": "https://arxiv.org/pdf/2212.02082"
   },
   {
+   "arxiv_id": "2212.01747",
+   "announced": "2022-12-04",
+   "title": "Fast Point Cloud Generation with Straight Flows",
+   "authors": [
+    "Lemeng Wu",
+    "Dilin Wang",
+    "Chengyue Gong",
+    "Xingchao Liu",
+    "Yunyang Xiong",
+    "Rakesh Ranjan",
+    "Raghuraman Krishnamoorthi",
+    "Vikas Chandra",
+    "Qiang Liu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Diffusion models have emerged as a powerful tool for point cloud generation. A key component that drives the impressive performance for generating high-quality samples from noise is iteratively denoise for thousands of steps. While beneficial, the complexity of learning steps has limited its applications to many 3D real-world. To address this limitation, we propose Point Straight Flow (PSF), a model that exhibits impressive performance using one step. Our idea is based on the reformulation of the standard diffusion model, which optimizes the curvy learning trajectory into a straight path. Further, we develop a distillation strategy to shorten the straight path into one step without a performance loss, enabling applications to 3D real-world with latency constraints. We perform evaluations on multiple 3D tasks and find that our PSF performs comparably to the standard diffusion model, outperforming other efficient 3D point cloud generation methods. On real-world applications such as point cloud completion and training-free text-guided generation in a low-latency setup, PSF performs favorably.",
+   "affiliations": [
+    "University of Texas at Austin"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    null,
+    null,
+    null,
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Texas at Austin"
+   ],
+   "institution_ids": [
+    "00hj54h04"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2212.01747",
+   "pdf_url": "https://arxiv.org/pdf/2212.01747"
+  },
+  {
    "arxiv_id": "2212.01424",
    "announced": "2022-12-02",
    "title": "PROB: Probabilistic Objectness for Open World Object Detection",
@@ -25929,6 +25995,88 @@
    },
    "abs_url": "https://arxiv.org/abs/2211.11317",
    "pdf_url": "https://arxiv.org/pdf/2211.11317"
+  },
+  {
+   "arxiv_id": "2211.11296",
+   "announced": "2022-11-01",
+   "title": "SeeABLE: Soft Discrepancies and Bounded Contrastive Learning for Exposing Deepfakes",
+   "authors": [
+    "Nicolas Larue",
+    "Ngoc-Son Vu",
+    "Vitomir Struc",
+    "Peter Peer",
+    "Vassilis Christophides"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted at ICCV 2023",
+   "journal_ref": "2023, Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV), 21011-21021",
+   "venue": "ICCV 2023",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Modern deepfake detectors have achieved encouraging results, when training and test images are drawn from the same data collection. However, when these detectors are applied to images produced with unknown deepfake-generation techniques, considerable performance degradations are commonly observed. In this paper, we propose a novel deepfake detector, called SeeABLE, that formalizes the detection problem as a (one-class) out-of-distribution detection task and generalizes better to unseen deepfakes. Specifically, SeeABLE first generates local image perturbations (referred to as soft-discrepancies) and then pushes the perturbed faces towards predefined prototypes using a novel regression-based bounded contrastive loss. To strengthen the generalization performance of SeeABLE to unknown deepfake types, we generate a rich set of soft discrepancies and train the detector: (i) to localize, which part of the face was modified, and (ii) to identify the alteration type. To demonstrate the capabilities of SeeABLE, we perform rigorous experiments on several widely-used deepfake datasets and show that our model convincingly outperforms competing state-of-the-art detectors, while exhibiting highly encouraging generalization capabilities.",
+   "affiliations": [
+    "Centre National de la Recherche Scientifique",
+    "University of Ljubljana",
+    "CY Cergy Paris Université",
+    "Equipes Traitement de l'Information et Systèmes",
+    "École Nationale Supérieure de l'Électronique et de ses Applications"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2,
+     3,
+     4
+    ],
+    [
+     0,
+     2,
+     3,
+     4
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0,
+     2,
+     3,
+     4
+    ]
+   ],
+   "institutions": [
+    "Centre National de la Recherche Scientifique",
+    "University of Ljubljana",
+    "CY Cergy Paris Université",
+    "Equipes Traitement de l'Information et Systèmes",
+    "École Nationale Supérieure de l'Électronique et de ses Applications"
+   ],
+   "institution_ids": [
+    "02feahw73",
+    "05njb9z20",
+    "043htjv09",
+    "0592ata02",
+    "03qeacd72"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2211.11296",
+   "pdf_url": "https://arxiv.org/pdf/2211.11296"
   },
   {
    "arxiv_id": "2211.11236",
@@ -55442,7 +55590,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -77079,7 +77227,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -78505,6 +78653,42 @@
    },
    "abs_url": "https://arxiv.org/abs/2206.05712",
    "pdf_url": "https://arxiv.org/pdf/2206.05712"
+  },
+  {
+   "arxiv_id": "2206.05394",
+   "announced": "2022-06-11",
+   "title": "Applications of Deep Learning in Fish Habitat Monitoring: A Tutorial and Survey",
+   "authors": [
+    "Alzayat Saleh",
+    "Marcus Sheaves",
+    "Dean Jerry",
+    "Mostafa Rahimi Azghadi"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "26 pages, 7 figures. Submitted to the journal, Expert Systems With Applications",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Marine ecosystems and their fish habitats are becoming increasingly important due to their integral role in providing a valuable food source and conservation outcomes. Due to their remote and difficult to access nature, marine environments and fish habitats are often monitored using underwater cameras. These cameras generate a massive volume of digital data, which cannot be efficiently analysed by current manual processing methods, which involve a human observer. DL is a cutting-edge AI technology that has demonstrated unprecedented performance in analysing visual data. Despite its application to a myriad of domains, its use in underwater fish habitat monitoring remains under explored. In this paper, we provide a tutorial that covers the key concepts of DL, which help the reader grasp a high-level understanding of how DL works. The tutorial also explains a step-by-step procedure on how DL algorithms should be developed for challenging applications such as underwater fish monitoring. In addition, we provide a comprehensive survey of key deep learning techniques for fish habitat monitoring including classification, counting, localization, and segmentation. Furthermore, we survey publicly available underwater fish datasets, and compare various DL techniques in the underwater fish monitoring domains. We also discuss some challenges and opportunities in the emerging field of deep learning for fish habitat processing. This paper is written to serve as a tutorial for marine scientists who would like to grasp a high-level understanding of DL, develop it for their applications by following our step-by-step tutorial, and see how it is evolving to facilitate their research efforts. At the same time, it is suitable for computer scientists who would like to survey state-of-the-art DL-based methodologies for fish habitat monitoring.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2206.05394",
+   "pdf_url": "https://arxiv.org/pdf/2206.05394"
   },
   {
    "arxiv_id": "2206.05099",
@@ -153667,7 +153851,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -161280,7 +161464,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"

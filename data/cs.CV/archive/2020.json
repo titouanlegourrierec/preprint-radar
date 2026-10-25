@@ -3760,7 +3760,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -6517,7 +6517,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -6862,7 +6862,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -12216,7 +12216,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -23685,7 +23685,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -31372,7 +31372,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -33488,6 +33488,82 @@
    },
    "abs_url": "https://arxiv.org/abs/2009.07736",
    "pdf_url": "https://arxiv.org/pdf/2009.07736"
+  },
+  {
+   "arxiv_id": "2009.13318",
+   "announced": "2020-09-28",
+   "title": "High-throughput molecular imaging via deep learning enabled Raman spectroscopy",
+   "authors": [
+    "Conor C. Horgan",
+    "Magnus Jensen",
+    "Anika Nagelkerke",
+    "Jean-Phillipe St-Pierre",
+    "Tom Vercauteren",
+    "Molly M. Stevens",
+    "Mads S. Bergholt"
+   ],
+   "primary_subject": "Image and Video Processing (eess.IV)",
+   "subjects": [
+    "Image and Video Processing (eess.IV)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Medical Physics (physics.med-ph)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "eess.IV",
+   "html_url": null,
+   "abstract": "Raman spectroscopy enables non-destructive, label-free imaging with unprecedented molecular contrast but is limited by slow data acquisition, largely preventing high-throughput imaging applications. Here, we present a comprehensive framework for higher-throughput molecular imaging via deep learning enabled Raman spectroscopy, termed DeepeR, trained on a large dataset of hyperspectral Raman images, with over 1.5 million spectra (400 hours of acquisition) in total. We firstly perform denoising and reconstruction of low signal-to-noise ratio Raman molecular signatures via deep learning, with a 9x improvement in mean squared error over state-of-the-art Raman filtering methods. Next, we develop a neural network for robust 2-4x super-resolution of hyperspectral Raman images that preserves molecular cellular information. Combining these approaches, we achieve Raman imaging speed-ups of up to 160x, enabling high resolution, high signal-to-noise ratio cellular imaging in under one minute. Finally, transfer learning is applied to extend DeepeR from cell to tissue-scale imaging. DeepeR provides a foundation that will enable a host of higher-throughput Raman spectroscopy and molecular imaging applications across biomedicine.",
+   "affiliations": [
+    "King's College London",
+    "Imperial College London",
+    "University of Groningen"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    null,
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "King's College London",
+    "Imperial College London",
+    "University of Groningen"
+   ],
+   "institution_ids": [
+    "0220mzb33",
+    "041kmwe10",
+    "012p63287"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2009.13318",
+   "pdf_url": "https://arxiv.org/pdf/2009.13318"
   },
   {
    "arxiv_id": "2009.12836",
@@ -38944,7 +39020,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -51327,7 +51403,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -52644,7 +52720,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -53745,15 +53821,37 @@
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Tracking the 6D pose of objects in video sequences is important for robot manipulation. This task, however, introduces multiple challenges: (i) robot manipulation involves significant occlusions; (ii) data and annotations are troublesome and difficult to collect for 6D poses, which complicates machine learning solutions, and (iii) incremental error drift often accumulates in long term tracking to necessitate re-initialization of the object's pose. This work proposes a data-driven optimization approach for long-term, 6D pose tracking. It aims to identify the optimal relative pose given the current RGB-D observation and a synthetic image conditioned on the previous best estimate and the object's model. The key contribution in this context is a novel neural network architecture, which appropriately disentangles the feature encoding to help reduce domain shift, and an effective 3D orientation representation via Lie Algebra. Consequently, even when the network is trained only with synthetic data can work effectively over real images. Comprehensive experiments over benchmarks - existing ones as well as a new dataset with significant occlusions related to object manipulation - show that the proposed approach achieves consistently robust estimates and outperforms alternatives, even though they have been trained with real images. The approach is also the most computationally efficient among the alternatives and achieves a tracking frequency of 90.9Hz.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Rutgers, The State University of New Jersey"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Rutgers, The State University of New Jersey"
+   ],
+   "institution_ids": [
+    "05vt9qd57"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-25"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-25"
     }
    },
    "abs_url": "https://arxiv.org/abs/2007.13866",
@@ -61191,6 +61289,76 @@
    },
    "abs_url": "https://arxiv.org/abs/2007.03951",
    "pdf_url": "https://arxiv.org/pdf/2007.03951"
+  },
+  {
+   "arxiv_id": "2007.03868",
+   "announced": "2020-07-08",
+   "title": "Marginal loss and exclusion loss for partially supervised multi-organ segmentation",
+   "authors": [
+    "Gonglei Shi",
+    "Li Xiao",
+    "Yang Chen",
+    "S. Kevin Zhou"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Annotating multiple organs in medical images is both costly and time-consuming; therefore, existing multi-organ datasets with labels are often low in sample size and mostly partially labeled, that is, a dataset has a few organs labeled but not all organs. In this paper, we investigate how to learn a single multi-organ segmentation network from a union of such datasets. To this end, we propose two types of novel loss function, particularly designed for this scenario: (i) marginal loss and (ii) exclusion loss. Because the background label for a partially labeled image is, in fact, a `merged' label of all unlabelled organs and `true' background (in the sense of full labels), the probability of this `merged' background label is a marginal probability, summing the relevant probabilities before merging. This marginal probability can be plugged into any existing loss function (such as cross entropy loss, Dice loss, etc.) to form a marginal loss. Leveraging the fact that the organs are non-overlapping, we propose the exclusion loss to gauge the dissimilarity between labeled organs and the estimated segmentation of unlabelled organs. Experiments on a union of five benchmark datasets in multi-organ segmentation of liver, spleen, left and right kidneys, and pancreas demonstrate that using our newly proposed loss functions brings a conspicuous performance improvement for state-of-the-art methods without introducing any extra computation.",
+   "affiliations": [
+    "Chinese Academy of Sciences",
+    "Institute of Computing Technology",
+    "Southeast University",
+    "Suzhou University of Science and Technology"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0,
+     3,
+     1
+    ]
+   ],
+   "institutions": [
+    "Chinese Academy of Sciences",
+    "Institute of Computing Technology",
+    "Southeast University",
+    "Suzhou University of Science and Technology"
+   ],
+   "institution_ids": [
+    "034t30j35",
+    "0090r4d87",
+    "04ct4d772",
+    "04en8wb91"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2007.03868",
+   "pdf_url": "https://arxiv.org/pdf/2007.03868"
   },
   {
    "arxiv_id": "2007.03578",
@@ -86716,7 +86884,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -92203,7 +92371,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -93671,6 +93839,60 @@
    },
    "abs_url": "https://arxiv.org/abs/2004.07485",
    "pdf_url": "https://arxiv.org/pdf/2004.07485"
+  },
+  {
+   "arxiv_id": "2004.04788",
+   "announced": "2020-04-16",
+   "title": "D-SRGAN: DEM Super-Resolution with Generative Adversarial Networks",
+   "authors": [
+    "Bekir Z Demiray",
+    "Muhammed Sit",
+    "Ibrahim Demir"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)",
+    "Image and Video Processing (eess.IV)"
+   ],
+   "comments": "8 pages, 8 figures, 2 tables",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "LIDAR (light detection and ranging) is an optical remote-sensing technique that measures the distance between sensor and object, and the reflected energy from the object. Over the years, LIDAR data has been used as the primary source of Digital Elevation Models (DEMs). DEMs have been used in a variety of applications like road extraction, hydrological modeling, flood mapping, and surface analysis. A number of studies in flooding suggest the usage of high-resolution DEMs as inputs in the applications improve the overall reliability and accuracy. Despite the importance of high-resolution DEM, many areas in the United States and the world do not have access to high-resolution DEM due to technological limitations or the cost of the data collection. With recent development in Graphical Processing Units (GPU) and novel algorithms, deep learning techniques have become attractive to researchers for their performance in learning features from high-resolution datasets. Numerous new methods have been proposed such as Generative Adversarial Networks (GANs) to create intelligent models that correct and augment large-scale datasets. In this paper, a GAN based model is developed and evaluated, inspired by single image super-resolution methods, to increase the spatial resolution of a given DEM dataset up to 4 times without additional information related to data.",
+   "affiliations": [
+    "University of Iowa"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Iowa"
+   ],
+   "institution_ids": [
+    "036jqmy94"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2004.04788",
+   "pdf_url": "https://arxiv.org/pdf/2004.04788"
   },
   {
    "arxiv_id": "2004.02696",
@@ -98699,7 +98921,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -102056,7 +102278,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -108761,7 +108983,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -114048,7 +114270,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -115331,7 +115553,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -123107,7 +123329,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -126342,7 +126564,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -128540,7 +128762,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -131271,7 +131493,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -135211,7 +135433,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -138183,7 +138405,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -138472,7 +138694,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -138772,7 +138994,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"

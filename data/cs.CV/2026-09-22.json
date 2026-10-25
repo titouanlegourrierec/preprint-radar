@@ -9987,9 +9987,9 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Multimedia (cs.MM)"
    ],
-   "comments": "Under Review",
+   "comments": "Accepted at SOICT2026 (Oral)",
    "journal_ref": null,
-   "venue": null,
+   "venue": "SOICT 2026",
    "cross_list_from": null,
    "html_url": null,
    "abstract": "Iterative text-to-motion generation delivers high-quality and semantically aligned motions but requires multiple network evaluations, resulting in substantial inference latency. We present MixiMotion, a strict one-step text-to-motion generation framework based on offline set distillation. Instead of distilling a single teacher trajectory for each text prompt, MixiMotion constructs an offline bank of multiple teacher motions and aligns teacher and student sample sets through asymmetric bidirectional matching. The teacher-to-student direction promotes coverage of diverse teacher-supported motions, while the student-to-teacher direction suppresses unsupported generations. We further introduce differentiable decoded-space kinematic supervision to complement normalized representation matching with constraints in the decoded motion space. At inference, MixiMotion generates a complete motion sequence with a single network evaluation, without teacher queries, iterative sampling, or candidate ranking. On ViMoGen, MixiMotion achieves a semantic alignment score of 0.835, outperforming the evaluated one-step baselines and approaching the 0.858 score of its 50-step HY-Motion-1.0-Lite teacher. In blinded human evaluation, MixiMotion obtains an overall rating of 4.33, compared with 4.50 for the teacher, while outperforming the evaluated one-/few-step baselines. Meanwhile, generation latency is reduced from 829.58 ms to 9.30 ms, corresponding to an 89.2× speedup. These results demonstrate an effective quality--efficiency trade-off for strict one-step text-to-motion generation.",
@@ -14995,7 +14995,7 @@
     "Artificial Intelligence (cs.AI)",
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": null,
+   "comments": "20 pages, 4 figures, including supplementary material. Updated references and formatting. Project page: https://skywalker-yqz.github.io/AffordanceWAM/ Code: https://github.com/Skywalker-yqz/AffordanceWAM",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",

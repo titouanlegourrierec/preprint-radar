@@ -926,7 +926,7 @@
     "Machine Learning (cs.LG)",
     "Robotics (cs.RO)"
    ],
-   "comments": "The code and checkpoints are available at $\\href{https://github.com/ModelTC/LightX2V/tree/main/examples/realtimewam}{\\text{this https URL}}$",
+   "comments": "The code and checkpoints are available at https://github.com/ModelTC/LightX2V/tree/main/scripts/realtimewam",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
@@ -13885,9 +13885,9 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "8 pages, 3 figures. Submitted to WACV 2027",
+   "comments": "8 pages, 3 figures. Accepted to WACV 2027",
    "journal_ref": null,
-   "venue": null,
+   "venue": "WACV 2027",
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2610.03792v1",
    "abstract": "Reinforcement learning from verifiable rewards (RLVR) has produced large reasoning gains in language models, and verifiable video benchmarks make it applicable to causal-temporal video question answering. We study what RLVR teaches video-language models about time. We fine-tune four open models (Qwen3-VL-8B/4B, Qwen2.5-VL-7B, Gemma-3-12B) with group relative policy optimization under three data recipes: verified (synthetic CLEVRER questions with exact answer and event-order rewards), unverified (self-supervised pretext tasks over 43,751 real web videos), and a 1:1 mixture, plus a verified+real arm that adds 4,000 verifiable questions on real video. Each cell is evaluated in-domain and on out-of-domain real video (a NExT-QA temporal stress set and an MVBench subset), with frames in order, shuffled, and absent. (1) Verified training yields large in-domain gains that shrink as base competence grows (+14 to +19 points on weaker models; +6 on the strongest). (2) Much of the gain is non-visual: accuracy with no frames rises nearly as much as with frames. (3) Verified-only training can severely degrade out-of-domain accuracy with no sign during training: Qwen3-VL-8B loses 26.7 and 25.2 points on the two real-video sets, while the mixture never significantly degrades a model trained on it. Adding real verified questions removes that loss (-2.3 points, within noise of base) and keeps a +9.3 in-domain gain, so the cause is narrow synthetic-only data, not verification. (4) No recipe induces temporal-order grounding: across 41 evaluations the ordered-versus-shuffled gap is indistinguishable from zero in 39 and marginal in two, despite an event-order reward. Verifiable rewards improve benchmark accuracy without temporal understanding. Report no-frame controls, and mix in real video to guard against out-of-domain degradation.",

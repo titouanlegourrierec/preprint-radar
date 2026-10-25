@@ -4101,6 +4101,42 @@
    "pdf_url": "https://arxiv.org/pdf/2412.11840"
   },
   {
+   "arxiv_id": "2412.11819",
+   "announced": "2024-12-16",
+   "title": "HiGDA: Hierarchical Graph of Nodes to Learn Local-to-Global Topology for Semi-Supervised Domain Adaptation",
+   "authors": [
+    "Ba Hung Ngo",
+    "Doanh C. Bui",
+    "Nhat-Tuong Do-Tran",
+    "Tae Jong Choi"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted for presentation at AAAI2025",
+   "journal_ref": null,
+   "venue": "AAAI 2025",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "The enhanced representational power and broad applicability of deep learning models have attracted significant interest from the research community in recent years. However, these models often struggle to perform effectively under domain shift conditions, where the training data (the source domain) is related to but exhibits different distributions from the testing data (the target domain). To address this challenge, previous studies have attempted to reduce the domain gap between source and target data by incorporating a few labeled target samples during training - a technique known as semi-supervised domain adaptation (SSDA). While this strategy has demonstrated notable improvements in classification performance, the network architectures used in these approaches primarily focus on exploiting the features of individual images, leaving room for improvement in capturing rich representations. In this study, we introduce a Hierarchical Graph of Nodes designed to simultaneously present representations at both feature and category levels. At the feature level, we introduce a local graph to identify the most relevant patches within an image, facilitating adaptability to defined main object representations. At the category level, we employ a global graph to aggregate the features from samples within the same category, thereby enriching overall representations. Extensive experiments on widely used SSDA benchmark datasets, including Office-Home, DomainNet, and VisDA2017, demonstrate that both quantitative and qualitative results substantiate the effectiveness of HiGDA, establishing it as a new state-of-the-art method.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2412.11819",
+   "pdf_url": "https://arxiv.org/pdf/2412.11819"
+  },
+  {
    "arxiv_id": "2412.11802",
    "announced": "2024-12-16",
    "title": "AMI-Net: Adaptive Mask Inpainting Network for Industrial Anomaly Detection and Localization",
@@ -26527,6 +26563,69 @@
    "pdf_url": "https://arxiv.org/pdf/2411.18824"
   },
   {
+   "arxiv_id": "2411.18664",
+   "announced": "2024-11-27",
+   "title": "Spatiotemporal Skip Guidance for Enhanced Video Diffusion Sampling",
+   "authors": [
+    "Junha Hyung",
+    "Kinam Kim",
+    "Susung Hong",
+    "Min-Jung Kim",
+    "Jaegul Choo"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "project page: https://junhahyung.github.io/STGuidance",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Diffusion models have emerged as a powerful tool for generating high-quality images, videos, and 3D content. While sampling guidance techniques like CFG improve quality, they reduce diversity and motion. Autoguidance mitigates these issues but demands extra weak model training, limiting its practicality for large-scale models. In this work, we introduce Spatiotemporal Skip Guidance (STG), a simple training-free sampling guidance method for enhancing transformer-based video diffusion models. STG employs an implicit weak model via self-perturbation, avoiding the need for external models or additional training. By selectively skipping spatiotemporal layers, STG produces an aligned, degraded version of the original model to boost sample quality without compromising diversity or dynamic degree. Our contributions include: (1) introducing STG as an efficient, high-performing guidance technique for video diffusion models, (2) eliminating the need for auxiliary models by simulating a weak model through layer skipping, and (3) ensuring quality-enhanced guidance without compromising sample diversity or dynamics unlike CFG. For additional results, visit https://junhahyung.github.io/STGuidance.",
+   "affiliations": [
+    "Korea Advanced Institute of Science and Technology",
+    "University of Washington"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Korea Advanced Institute of Science and Technology",
+    "University of Washington"
+   ],
+   "institution_ids": [
+    "05apxxy63",
+    "00cvxb145"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2411.18664",
+   "pdf_url": "https://arxiv.org/pdf/2411.18664"
+  },
+  {
    "arxiv_id": "2411.18616",
    "announced": "2024-11-27",
    "title": "Diffusion Self-Distillation for Zero-Shot Customized Image Generation",
@@ -35909,7 +36008,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -39106,6 +39205,58 @@
    },
    "abs_url": "https://arxiv.org/abs/2411.13807",
    "pdf_url": "https://arxiv.org/pdf/2411.13807"
+  },
+  {
+   "arxiv_id": "2411.13550",
+   "announced": "2024-11-01",
+   "title": "Find Any Part in 3D",
+   "authors": [
+    "Ziqi Ma",
+    "Yisong Yue",
+    "Georgia Gkioxari"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Project website: https://ziqi-ma.github.io/find3dsite/",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Why don't we have foundation models in 3D yet? A key limitation is data scarcity. For 3D object part segmentation, existing datasets are small in size and lack diversity. We show that it is possible to break this data barrier by building a data engine powered by 2D foundation models. Our data engine automatically annotates any number of object parts: 1755x more unique part types than existing datasets combined. By training on our annotated data with a simple contrastive objective, we obtain an open-world model that generalizes to any part in any object based on any text query. Even when evaluated zero-shot, we outperform existing methods on the datasets they train on. We achieve 260% improvement in mIoU and boost speed by 6x to 300x. Our scaling analysis confirms that this generalization stems from the data scale, which underscores the impact of our data engine. Finally, to advance general-category open-world 3D part segmentation, we release a benchmark covering a wide range of objects and parts. Project website: https://ziqi-ma.github.io/find3dsite/",
+   "affiliations": [
+    "California Institute of Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "California Institute of Technology"
+   ],
+   "institution_ids": [
+    "05dxps055"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2411.13550",
+   "pdf_url": "https://arxiv.org/pdf/2411.13550"
   },
   {
    "arxiv_id": "2411.13383",
@@ -42560,6 +42711,47 @@
    },
    "abs_url": "https://arxiv.org/abs/2411.02385",
    "pdf_url": "https://arxiv.org/pdf/2411.02385"
+  },
+  {
+   "arxiv_id": "2411.02372",
+   "announced": "2024-11-01",
+   "title": "Learning General-Purpose Biomedical Volume Representations using Randomized Synthesis",
+   "authors": [
+    "Neel Dey",
+    "Benjamin Billot",
+    "Hallee E. Wong",
+    "Clinton J. Wang",
+    "Mengwei Ren",
+    "P. Ellen Grant",
+    "Adrian V. Dalca",
+    "Polina Golland"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "ICLR 2025: International Conference on Learning Representations. Code and model weights available at https://github.com/neel-dey/anatomix. Keywords: synthetic data, representation learning, medical image analysis, image registration, image segmentation",
+   "journal_ref": null,
+   "venue": "ICLR 2025",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Current volumetric biomedical foundation models struggle to generalize as public 3D datasets are small and do not cover the broad diversity of medical procedures, conditions, anatomical regions, and imaging protocols. We address this by creating a representation learning method that instead anticipates strong domain shifts at training time itself. We first propose a data engine that synthesizes highly variable training samples that would enable generalization to new biomedical contexts. To then train a single 3D network for any voxel-level task, we develop a contrastive learning method that pretrains the network to be stable against nuisance imaging variation simulated by the data engine, a key inductive bias for generalization. This network's features can be used as robust representations of input images for downstream tasks and its weights provide a strong, dataset-agnostic initialization for finetuning on new datasets. As a result, we set new standards across both multimodality registration and few-shot segmentation, a first for any 3D biomedical vision model, all without (pre-)training on any existing dataset of real images.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2411.02372",
+   "pdf_url": "https://arxiv.org/pdf/2411.02372"
   },
   {
    "arxiv_id": "2411.02293",
@@ -46508,6 +46700,44 @@
    "pdf_url": "https://arxiv.org/pdf/2410.19538"
   },
   {
+   "arxiv_id": "2410.19294",
+   "announced": "2024-10-25",
+   "title": "Enhancing Zero-Shot Vision Models by Label-Free Prompt Distribution Learning and Bias Correcting",
+   "authors": [
+    "Xingyu Zhu",
+    "Beier Zhu",
+    "Yi Tan",
+    "Shuo Wang",
+    "Yanbin Hao",
+    "Hanwang Zhang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "NeurIPS 2024 Spotlight",
+   "journal_ref": null,
+   "venue": "NeurIPS 2024",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Vision-language models, such as CLIP, have shown impressive generalization capacities when using appropriate text descriptions. While optimizing prompts on downstream labeled data has proven effective in improving performance, these methods entail labor costs for annotations and are limited by their quality. Additionally, since CLIP is pre-trained on highly imbalanced Web-scale data, it suffers from inherent label bias that leads to suboptimal performance. To tackle the above challenges, we propose a label-Free prompt distribution learning and bias correction framework, dubbed as **Frolic**, which boosts zero-shot performance without the need for labeled data. Specifically, our Frolic learns distributions over prompt prototypes to capture diverse visual representations and adaptively fuses these with the original CLIP through confidence matching. This fused model is further enhanced by correcting label bias via a label-free logit adjustment. Notably, our method is not only training-free but also circumvents the necessity for hyper-parameter tuning. Extensive experimental results across 16 datasets demonstrate the efficacy of our approach, particularly outperforming the state-of-the-art by an average of 2.6% on 10 datasets with CLIP ViT-B/16 and achieving an average margin of 1.5% on ImageNet and its five distribution shifts with CLIP ViT-B/16. Codes are available in https://github.com/zhuhsingyuu/Frolic.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2410.19294",
+   "pdf_url": "https://arxiv.org/pdf/2410.19294"
+  },
+  {
    "arxiv_id": "2410.08021",
    "announced": "2024-10-25",
    "title": "OneRef: Unified One-tower Expression Grounding and Segmentation with Mask Referring Modeling",
@@ -49366,6 +49596,91 @@
    },
    "abs_url": "https://arxiv.org/abs/2410.11792",
    "pdf_url": "https://arxiv.org/pdf/2410.11792"
+  },
+  {
+   "arxiv_id": "2410.11623",
+   "announced": "2024-10-15",
+   "title": "VidEgoThink: Assessing Egocentric Video Understanding Capabilities for Embodied AI",
+   "authors": [
+    "Sijie Cheng",
+    "Kechen Fang",
+    "Yangyang Yu",
+    "Sicheng Zhou",
+    "Bohao Li",
+    "Ye Tian",
+    "Tingguang Li",
+    "Lei Han",
+    "Yang Liu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)",
+    "Computation and Language (cs.CL)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Recent advancements in Multi-modal Large Language Models (MLLMs) have opened new avenues for applications in Embodied AI. Building on previous work, EgoThink, we introduce VidEgoThink, a comprehensive benchmark for evaluating egocentric video understanding capabilities. To bridge the gap between MLLMs and low-level control in Embodied AI, we design four key interrelated tasks: video question-answering, hierarchy planning, visual grounding and reward modeling. To minimize manual annotation costs, we develop an automatic data generation pipeline based on the Ego4D dataset, leveraging the prior knowledge and multimodal capabilities of GPT-4o. Three human annotators then filter the generated data to ensure diversity and quality, resulting in the VidEgoThink benchmark. We conduct extensive experiments with three types of models: API-based MLLMs, open-source image-based MLLMs, and open-source video-based MLLMs. Experimental results indicate that all MLLMs, including GPT-4o, perform poorly across all tasks related to egocentric video understanding. These findings suggest that foundation models still require significant advancements to be effectively applied to first-person scenarios in Embodied AI. In conclusion, VidEgoThink reflects a research trend towards employing MLLMs for egocentric vision, akin to human capabilities, enabling active observation and interaction in the complex real-world environments.",
+   "affiliations": [
+    "Tsinghua University",
+    "University of Toronto",
+    "Chinese University of Hong Kong",
+    "Tencent"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ],
+    null,
+    [
+     1,
+     0
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3
+    ],
+    [
+     3
+    ],
+    [
+     3
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Tsinghua University",
+    "University of Toronto",
+    "Chinese University of Hong Kong",
+    "Tencent"
+   ],
+   "institution_ids": [
+    "03cve4549",
+    "03dbr7087",
+    "00t33hh48",
+    "00hhjss72"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2410.11623",
+   "pdf_url": "https://arxiv.org/pdf/2410.11623"
   },
   {
    "arxiv_id": "2410.11582",
@@ -53765,6 +54080,79 @@
    },
    "abs_url": "https://arxiv.org/abs/2410.22489",
    "pdf_url": "https://arxiv.org/pdf/2410.22489"
+  },
+  {
+   "arxiv_id": "2410.22332",
+   "announced": "2024-10-01",
+   "title": "Local Policies Enable Zero-shot Long-horizon Manipulation",
+   "authors": [
+    "Murtaza Dalal",
+    "Min Liu",
+    "Walter Talbott",
+    "Chen Chen",
+    "Deepak Pathak",
+    "Jian Zhang",
+    "Ruslan Salakhutdinov"
+   ],
+   "primary_subject": "Robotics (cs.RO)",
+   "subjects": [
+    "Robotics (cs.RO)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "ICRA 2025 accepted paper. Main Paper 7 pages, 3 tables, 3 figures. Appendix 6 pages, 2 figures, 6 tables",
+   "journal_ref": null,
+   "venue": "ICRA 2025",
+   "cross_list_from": "cs.RO",
+   "html_url": null,
+   "abstract": "Sim2real for robotic manipulation is difficult due to the challenges of simulating complex contacts and generating realistic task distributions. To tackle the latter problem, we introduce ManipGen, which leverages a new class of policies for sim2real transfer: local policies. Locality enables a variety of appealing properties including invariances to absolute robot and object pose, skill ordering, and global scene configuration. We combine these policies with foundation models for vision, language and motion planning and demonstrate SOTA zero-shot performance of our method to Robosuite benchmark tasks in simulation (97%). We transfer our local policies from simulation to reality and observe they can solve unseen long-horizon manipulation tasks with up to 8 stages with significant pose, object and scene configuration variation. ManipGen outperforms SOTA approaches such as SayCan, OpenVLA, LLMTrajGen and VoxPoser across 50 real-world manipulation tasks by 36%, 76%, 62% and 60% respectively. Video results at https://mihdalal.github.io/manipgen/",
+   "affiliations": [
+    "Carnegie Mellon University",
+    "Apple"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Carnegie Mellon University",
+    "Apple"
+   ],
+   "institution_ids": [
+    "05x2bcf33",
+    "059hsda18"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2410.22332",
+   "pdf_url": "https://arxiv.org/pdf/2410.22332"
   },
   {
    "arxiv_id": "2410.22128",
@@ -70726,6 +71114,67 @@
    "pdf_url": "https://arxiv.org/pdf/2409.06202"
   },
   {
+   "arxiv_id": "2409.05985",
+   "announced": "2024-09-09",
+   "title": "Advance and Refinement: The Evolution of UAV Detection and Classification Technologies",
+   "authors": [
+    "Vladislav Semenyuk",
+    "Ildar Kurmashev",
+    "Alberto Lupidi",
+    "Dmitriy Alyoshin",
+    "Liliya Kurmasheva",
+    "Alessandro Cantelli-Forti"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Signal Processing (eess.SP)"
+   ],
+   "comments": "19 pages, 5 figures",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "This review provides a detailed analysis of the advancements in unmanned aerial vehicle (UAV) detection and classification systems from 2020 to today. It covers various detection methodologies such as radar, radio frequency, optical, and acoustic sensors, and emphasizes their integration via sophisticated sensor fusion techniques. The fundamental technologies driving UAV detection and classification are thoroughly examined, with a focus on their accuracy and range. Additionally, the paper discusses the latest innovations in artificial intelligence and machine learning, illustrating their impact on improving the accuracy and efficiency of these systems. The review concludes by predicting further technological developments in UAV detection, which are expected to enhance both performance and reliability.",
+   "affiliations": [
+    "Manash Kozybayev North Kazakhstan University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null
+   ],
+   "institutions": [
+    "Manash Kozybayev North Kazakhstan University"
+   ],
+   "institution_ids": [
+    "0352wb750"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2409.05985",
+   "pdf_url": "https://arxiv.org/pdf/2409.05985"
+  },
+  {
    "arxiv_id": "2409.05540",
    "announced": "2024-09-09",
    "title": "Exploring Rich Subjective Quality Information for Image Quality Assessment in the Wild",
@@ -70939,6 +71388,43 @@
    },
    "abs_url": "https://arxiv.org/abs/2409.03420",
    "pdf_url": "https://arxiv.org/pdf/2409.03420"
+  },
+  {
+   "arxiv_id": "2409.04234",
+   "announced": "2024-09-06",
+   "title": "UniDet3D: Multi-dataset Indoor 3D Object Detection",
+   "authors": [
+    "Maksim Kolodiazhnyi",
+    "Anna Vorontsova",
+    "Matvey Skripkin",
+    "Danila Rukhovich",
+    "Anton Konushin"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Growing customer demand for smart solutions in robotics and augmented reality has attracted considerable attention to 3D object detection from point clouds. Yet, existing indoor datasets taken individually are too small and insufficiently diverse to train a powerful and general 3D object detection model. In the meantime, more general approaches utilizing foundation models are still inferior in quality to those based on supervised training for a specific task. In this work, we propose \\ours{}, a simple yet effective 3D object detection model, which is trained on a mixture of indoor datasets and is capable of working in various indoor environments. By unifying different label spaces, \\ours{} enables learning a strong representation across multiple datasets through a supervised joint training scheme. The proposed network architecture is built upon a vanilla transformer encoder, making it easy to run, customize and extend the prediction pipeline for practical use. Extensive experiments demonstrate that \\ours{} obtains significant gains over existing 3D object detection methods in 6 indoor benchmarks: ScanNet (+1.1 mAP50), ARKitScenes (+19.4 mAP25), S3DIS (+9.1 mAP50), MultiScan (+9.3 mAP50), 3RScan (+3.2 mAP50), and ScanNet++ (+2.7 mAP50). Code is available at https://github.com/filapro/unidet3d .",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2409.04234",
+   "pdf_url": "https://arxiv.org/pdf/2409.04234"
   },
   {
    "arxiv_id": "2409.15310",
@@ -71247,6 +71733,58 @@
    },
    "abs_url": "https://arxiv.org/abs/2409.02866",
    "pdf_url": "https://arxiv.org/pdf/2409.02866"
+  },
+  {
+   "arxiv_id": "2409.02546",
+   "announced": "2024-09-04",
+   "title": "Real-Time Dynamic Scale-Aware Fusion Detection Network: Take Road Damage Detection as an example",
+   "authors": [
+    "Weichao Pan",
+    "Xu Wang",
+    "Wenqing Huan"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Unmanned Aerial Vehicle (UAV)-based Road Damage Detection (RDD) is important for daily maintenance and safety in cities, especially in terms of significantly reducing labor costs. However, current UAV-based RDD research is still faces many challenges. For example, the damage with irregular size and direction, the masking of damage by the background, and the difficulty of distinguishing damage from the background significantly affect the ability of UAV to detect road damage in daily inspection. To solve these problems and improve the performance of UAV in real-time road damage detection, we design and propose three corresponding modules: a feature extraction module that flexibly adapts to shape and background; a module that fuses multiscale perception and adapts to shape and background ; an efficient downsampling module. Based on these modules, we designed a multi-scale, adaptive road damage detection model with the ability to automatically remove background interference, called Dynamic Scale-Aware Fusion Detection Model (RT-DSAFDet). Experimental results on the UAV-PDD2023 public dataset show that our model RT-DSAFDet achieves a mAP50 of 54.2%, which is 11.1% higher than that of YOLOv10-m, an efficient variant of the latest real-time object detection model YOLOv10, while the amount of parameters is reduced to 1.8M and FLOPs to 4.6G, with a decreased by 88% and 93%, respectively. Furthermore, on the large generalized object detection public dataset MS COCO2017 also shows the superiority of our model with mAP50-95 is the same as YOLOv9-t, but with 0.5% higher mAP50, 10% less parameters volume, and 40% less FLOPs.",
+   "affiliations": [
+    "Shandong Jianzhu University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Shandong Jianzhu University"
+   ],
+   "institution_ids": [
+    "01gbfax37"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2409.02546",
+   "pdf_url": "https://arxiv.org/pdf/2409.02546"
   },
   {
    "arxiv_id": "2409.01128",
@@ -73873,6 +74411,95 @@
    },
    "abs_url": "https://arxiv.org/abs/2409.16149",
    "pdf_url": "https://arxiv.org/pdf/2409.16149"
+  },
+  {
+   "arxiv_id": "2409.15590",
+   "announced": "2024-09-01",
+   "title": "MapEx: Indoor Structure Exploration with Probabilistic Information Gain from Global Map Predictions",
+   "authors": [
+    "Cherie Ho",
+    "Seungchan Kim",
+    "Brady Moon",
+    "Aditya Parandekar",
+    "Narek Harutyunyan",
+    "Chen Wang",
+    "Katia Sycara",
+    "Graeme Best",
+    "Sebastian Scherer"
+   ],
+   "primary_subject": "Robotics (cs.RO)",
+   "subjects": [
+    "Robotics (cs.RO)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "7 pages",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.RO",
+   "html_url": null,
+   "abstract": "Exploration is a critical challenge in robotics, centered on understanding unknown environments. In this work, we focus on robots exploring structured indoor environments which are often predictable and composed of repeating patterns. Most existing approaches, such as conventional frontier approaches, have difficulty leveraging the predictability and explore with simple heuristics such as `closest first'. Recent works use deep learning techniques to predict unknown regions of the map, using these predictions for information gain calculation. However, these approaches are often sensitive to the predicted map quality or do not reason over sensor coverage. To overcome these issues, our key insight is to jointly reason over what the robot can observe and its uncertainty to calculate probabilistic information gain. We introduce MapEx, a new exploration framework that uses predicted maps to form probabilistic sensor model for information gain estimation. MapEx generates multiple predicted maps based on observed information, and takes into consideration both the computed variances of predicted maps and estimated visible area to estimate the information gain of a given viewpoint. Experiments on the real-world KTH dataset showed on average 12.4% improvement than representative map-prediction based exploration and 25.4% improvement than nearest frontier approach. Website: mapex-explorer.github.io",
+   "affiliations": [
+    "Carnegie Mellon University",
+    "Birla Institute of Technology and Science, Pilani",
+    "Brown University",
+    "University at Buffalo, State University of New York",
+    "University of Technology Sydney"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     0
+    ],
+    [
+     4
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Carnegie Mellon University",
+    "Birla Institute of Technology and Science, Pilani",
+    "Brown University",
+    "University at Buffalo, State University of New York",
+    "University of Technology Sydney"
+   ],
+   "institution_ids": [
+    "05x2bcf33",
+    "001p3jz28",
+    "05gq02987",
+    "01y64my43",
+    "03f0f6041"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2409.15590",
+   "pdf_url": "https://arxiv.org/pdf/2409.15590"
   },
   {
    "arxiv_id": "2409.15272",
@@ -84364,6 +84991,109 @@
    "pdf_url": "https://arxiv.org/pdf/2408.15823"
   },
   {
+   "arxiv_id": "2408.15270",
+   "announced": "2024-08-01",
+   "title": "SkillMimic: Learning Basketball Interaction Skills from Demonstrations",
+   "authors": [
+    "Yinhuai Wang",
+    "Qihan Zhao",
+    "Runyi Yu",
+    "Hok Wai Tsui",
+    "Ailing Zeng",
+    "Jing Lin",
+    "Zhengyi Luo",
+    "Jiwen Yu",
+    "Xiu Li",
+    "Qifeng Chen",
+    "Jian Zhang",
+    "Lei Zhang",
+    "Ping Tan"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Graphics (cs.GR)",
+    "Machine Learning (cs.LG)",
+    "Robotics (cs.RO)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Traditional reinforcement learning methods for human-object interaction (HOI) rely on labor-intensive, manually designed skill rewards that do not generalize well across different interactions. We introduce SkillMimic, a unified data-driven framework that fundamentally changes how agents learn interaction skills by eliminating the need for skill-specific rewards. Our key insight is that a unified HOI imitation reward can effectively capture the essence of diverse interaction patterns from HOI datasets. This enables SkillMimic to learn a single policy that not only masters multiple interaction skills but also facilitates skill transitions, with both diversity and generalization improving as the HOI dataset grows. For evaluation, we collect and introduce two basketball datasets containing approximately 35 minutes of diverse basketball skills. Extensive experiments show that SkillMimic successfully masters a wide range of basketball skills including stylistic variations in dribbling, layup, and shooting. Moreover, these learned skills can be effectively composed by a high-level controller to accomplish complex and long-horizon tasks such as consecutive scoring, opening new possibilities for scalable and generalizable interaction skill learning. Project page: https://ingrid789.github.io/SkillMimic/",
+   "affiliations": [
+    "Hong Kong University of Science and Technology",
+    "Tencent",
+    "Carnegie Mellon University",
+    "Peking University",
+    "Tsinghua University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    null,
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     4
+    ],
+    [
+     0
+    ],
+    [
+     3
+    ],
+    null,
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Hong Kong University of Science and Technology",
+    "Tencent",
+    "Carnegie Mellon University",
+    "Peking University",
+    "Tsinghua University"
+   ],
+   "institution_ids": [
+    "00q4vv597",
+    "00hhjss72",
+    "05x2bcf33",
+    "02v51f717",
+    "03cve4549"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2408.15270",
+   "pdf_url": "https://arxiv.org/pdf/2408.15270"
+  },
+  {
    "arxiv_id": "2408.15239",
    "announced": "2024-08-01",
    "title": "Generative Inbetweening: Adapting Image-to-Video Models for Keyframe Interpolation",
@@ -88755,6 +89485,42 @@
    },
    "abs_url": "https://arxiv.org/abs/2408.03677",
    "pdf_url": "https://arxiv.org/pdf/2408.03677"
+  },
+  {
+   "arxiv_id": "2408.03540",
+   "announced": "2024-08-01",
+   "title": "PoseMamba: Monocular 3D Human Pose Estimation with Bidirectional Global-Local Spatio-Temporal State Space Model",
+   "authors": [
+    "Yunlong Huang",
+    "Junshuo Liu",
+    "Ke Xian",
+    "Robert Caiming Qiu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accpeted by the 39th Annual AAAI Conference on Artificial Intelligence (AAAI 2025)",
+   "journal_ref": null,
+   "venue": "AAAI 2025",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Transformers have significantly advanced the field of 3D human pose estimation (HPE). However, existing transformer-based methods primarily use self-attention mechanisms for spatio-temporal modeling, leading to a quadratic complexity, unidirectional modeling of spatio-temporal relationships, and insufficient learning of spatial-temporal correlations. Recently, the Mamba architecture, utilizing the state space model (SSM), has exhibited superior long-range modeling capabilities in a variety of vision tasks with linear complexity. In this paper, we propose PoseMamba, a novel purely SSM-based approach with linear complexity for 3D human pose estimation in monocular video. Specifically, we propose a bidirectional global-local spatio-temporal SSM block that comprehensively models human joint relations within individual frames as well as temporal correlations across frames. Within this bidirectional global-local spatio-temporal SSM block, we introduce a reordering strategy to enhance the local modeling capability of the SSM. This strategy provides a more logical geometric scanning order and integrates it with the global SSM, resulting in a combined global-local spatial scan. We have quantitatively and qualitatively evaluated our approach using two benchmark datasets: Human3.6M and MPI-INF-3DHP. Extensive experiments demonstrate that PoseMamba achieves state-of-the-art performance on both datasets while maintaining a smaller model size and reducing computational costs. The code and models will be released.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2408.03540",
+   "pdf_url": "https://arxiv.org/pdf/2408.03540"
   },
   {
    "arxiv_id": "2408.03464",
@@ -94270,6 +95036,43 @@
    "pdf_url": "https://arxiv.org/pdf/2407.12702"
   },
   {
+   "arxiv_id": "2407.12951",
+   "announced": "2024-07-17",
+   "title": "AdaLog: Post-Training Quantization for Vision Transformers with Adaptive Logarithm Quantizer",
+   "authors": [
+    "Zhuguanyu Wu",
+    "Jiaxin Chen",
+    "Hanwen Zhong",
+    "Di Huang",
+    "Yunhong Wang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted to ECCV 2024",
+   "journal_ref": null,
+   "venue": "ECCV 2024",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Vision Transformer (ViT) has become one of the most prevailing fundamental backbone networks in the computer vision community. Despite the high accuracy, deploying it in real applications raises critical challenges including the high computational cost and inference latency. Recently, the post-training quantization (PTQ) technique has emerged as a promising way to enhance ViT's efficiency. Nevertheless, existing PTQ approaches for ViT suffer from the inflexible quantization on the post-Softmax and post-GELU activations that obey the power-law-like distributions. To address these issues, we propose a novel non-uniform quantizer, dubbed the Adaptive Logarithm AdaLog (AdaLog) quantizer. It optimizes the logarithmic base to accommodate the power-law-like distribution of activations, while simultaneously allowing for hardware-friendly quantization and de-quantization. By employing the bias reparameterization, the AdaLog quantizer is applicable to both the post-Softmax and post-GELU activations. Moreover, we develop an efficient Fast Progressive Combining Search (FPCS) strategy to determine the optimal logarithm base for AdaLog, as well as the scaling factors and zero points for the uniform quantizers. Extensive experimental results on public benchmarks demonstrate the effectiveness of our approach for various ViT-based architectures and vision tasks including classification, object detection, and instance segmentation. Code is available at https://github.com/GoatWu/AdaLog.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2407.12951",
+   "pdf_url": "https://arxiv.org/pdf/2407.12951"
+  },
+  {
    "arxiv_id": "2407.12783",
    "announced": "2024-07-17",
    "title": "SMooDi: Stylized Motion Diffusion Model",
@@ -95618,6 +96421,45 @@
    },
    "abs_url": "https://arxiv.org/abs/2407.11325",
    "pdf_url": "https://arxiv.org/pdf/2407.11325"
+  },
+  {
+   "arxiv_id": "2407.10957",
+   "announced": "2024-07-15",
+   "title": "Ref-AVS: Refer and Segment Objects in Audio-Visual Scenes",
+   "authors": [
+    "Yaoting Wang",
+    "Peiwen Sun",
+    "Dongzhan Zhou",
+    "Guangyao Li",
+    "Honggang Zhang",
+    "Di Hu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": "Accepted by ECCV2024",
+   "journal_ref": null,
+   "venue": "ECCV 2024",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Traditional reference segmentation tasks have predominantly focused on silent visual scenes, neglecting the integral role of multimodal perception and interaction in human experiences. In this work, we introduce a novel task called Reference Audio-Visual Segmentation (Ref-AVS), which seeks to segment objects within the visual domain based on expressions containing multimodal cues. Such expressions are articulated in natural language forms but are enriched with multimodal cues, including audio and visual descriptions. To facilitate this research, we construct the first Ref-AVS benchmark, which provides pixel-level annotations for objects described in corresponding multimodal-cue expressions. To tackle the Ref-AVS task, we propose a new method that adequately utilizes multimodal cues to offer precise segmentation guidance. Finally, we conduct quantitative and qualitative experiments on three test subsets to compare our approach with existing methods from related tasks. The results demonstrate the effectiveness of our method, highlighting its capability to precisely segment objects using multimodal-cue expressions. Dataset is available at https://gewu-lab.github.io/Ref-AVS.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2407.10957",
+   "pdf_url": "https://arxiv.org/pdf/2407.10957"
   },
   {
    "arxiv_id": "2407.10943",
@@ -106279,6 +107121,50 @@
    "pdf_url": "https://arxiv.org/pdf/2407.12383"
   },
   {
+   "arxiv_id": "2407.12371",
+   "announced": "2024-07-01",
+   "title": "HIMO: A New Benchmark for Full-Body Human Interacting with Multiple Objects",
+   "authors": [
+    "Xintao Lv",
+    "Liang Xu",
+    "Yichao Yan",
+    "Xin Jin",
+    "Congsheng Xu",
+    "Shuwen Wu",
+    "Yifan Liu",
+    "Lincheng Li",
+    "Mengxiao Bi",
+    "Wenjun Zeng",
+    "Xiaokang Yang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": "Project page: https://lvxintao.github.io/himo, accepted by ECCV 2024",
+   "journal_ref": null,
+   "venue": "ECCV 2024",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Generating human-object interactions (HOIs) is critical with the tremendous advances of digital avatars. Existing datasets are typically limited to humans interacting with a single object while neglecting the ubiquitous manipulation of multiple objects. Thus, we propose HIMO, a large-scale MoCap dataset of full-body human interacting with multiple objects, containing 3.3K 4D HOI sequences and 4.08M 3D HOI frames. We also annotate HIMO with detailed textual descriptions and temporal segments, benchmarking two novel tasks of HOI synthesis conditioned on either the whole text prompt or the segmented text prompts as fine-grained timeline control. To address these novel tasks, we propose a dual-branch conditional diffusion model with a mutual interaction module for HOI synthesis. Besides, an auto-regressive generation pipeline is also designed to obtain smooth transitions between HOI segments. Experimental results demonstrate the generalization ability to unseen object geometries and temporal compositions.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2407.12371",
+   "pdf_url": "https://arxiv.org/pdf/2407.12371"
+  },
+  {
    "arxiv_id": "2407.12366",
    "announced": "2024-07-01",
    "title": "NavGPT-2: Unleashing Navigational Reasoning Capability for Large Vision-Language Models",
@@ -106701,7 +107587,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -135855,6 +136741,83 @@
    "pdf_url": "https://arxiv.org/pdf/2406.02058"
   },
   {
+   "arxiv_id": "2406.02037",
+   "announced": "2024-06-01",
+   "title": "Multi-Scale Direction-Aware Network for Infrared Small Target Detection",
+   "authors": [
+    "Jinmiao Zhao",
+    "Zelin Shi",
+    "Chuang Yu",
+    "Yunpeng Liu",
+    "Xinyi Ying",
+    "Yimian Dai"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted by TGRS 2025",
+   "journal_ref": null,
+   "venue": "TGRS 2025",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Infrared small target detection faces the problem that it is difficult to effectively separate the background and the target. Existing deep learning-based methods focus on edge and shape features, but ignore the richer structural differences and detailed information embedded in high-frequency components from different directions, thereby failing to fully exploit the value of high-frequency directional features in target perception. To address this limitation, we propose a multi-scale direction-aware network (MSDA-Net), which is the first attempt to integrate the high-frequency directional features of infrared small targets as domain prior knowledge into neural networks. Specifically, to fully mine the high-frequency directional features, on the one hand, a high-frequency direction injection (HFDI) module without trainable parameters is constructed to inject the high-frequency directional information of the original image into the network. On the other hand, a multi-scale direction-aware (MSDA) module is constructed, which promotes the full extraction of local relations at different scales and the full perception of key features in different directions. In addition, considering the characteristics of infrared small targets, we construct a feature aggregation (FA) structure to address target disappearance in high-level feature maps, and a feature calibration fusion (FCF) module to alleviate feature bias during cross-layer feature fusion. Extensive experimental results show that our MSDA-Net achieves state-of-the-art (SOTA) results on multiple public datasets. The code can be available at https://github.com/YuChuang1205/MSDA-Net",
+   "affiliations": [
+    "Shenyang Institute of Automation",
+    "Chinese Academy of Sciences",
+    "National University of Defense Technology",
+    "Nankai University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ]
+   ],
+   "institutions": [
+    "Shenyang Institute of Automation",
+    "Chinese Academy of Sciences",
+    "National University of Defense Technology",
+    "Nankai University"
+   ],
+   "institution_ids": [
+    "00ft6nj33",
+    "034t30j35",
+    "05d2yfz11",
+    "01y1kjr75"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2406.02037",
+   "pdf_url": "https://arxiv.org/pdf/2406.02037"
+  },
+  {
    "arxiv_id": "2406.01733",
    "announced": "2024-06-01",
    "title": "Learning-to-Cache: Accelerating Diffusion Transformer via Layer Caching",
@@ -152077,6 +153040,46 @@
    "pdf_url": "https://arxiv.org/pdf/2405.15223"
   },
   {
+   "arxiv_id": "2405.15125",
+   "announced": "2024-05-01",
+   "title": "HDR-GS: Efficient High Dynamic Range Novel View Synthesis at 1000x Speed via Gaussian Splatting",
+   "authors": [
+    "Yuanhao Cai",
+    "Zihao Xiao",
+    "Yixun Liang",
+    "Minghan Qin",
+    "Yulun Zhang",
+    "Xiaokang Yang",
+    "Yaoyao Liu",
+    "Alan Yuille"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "NeurIPS 2024; The first 3D Gaussian Splatting-based method for HDR imaging",
+   "journal_ref": null,
+   "venue": "NeurIPS 2024",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "High dynamic range (HDR) novel view synthesis (NVS) aims to create photorealistic images from novel viewpoints using HDR imaging techniques. The rendered HDR images capture a wider range of brightness levels containing more details of the scene than normal low dynamic range (LDR) images. Existing HDR NVS methods are mainly based on NeRF. They suffer from long training time and slow inference speed. In this paper, we propose a new framework, High Dynamic Range Gaussian Splatting (HDR-GS), which can efficiently render novel HDR views and reconstruct LDR images with a user input exposure time. Specifically, we design a Dual Dynamic Range (DDR) Gaussian point cloud model that uses spherical harmonics to fit HDR color and employs an MLP-based tone-mapper to render LDR color. The HDR and LDR colors are then fed into two Parallel Differentiable Rasterization (PDR) processes to reconstruct HDR and LDR views. To establish the data foundation for the research of 3D Gaussian splatting-based methods in HDR NVS, we recalibrate the camera parameters and compute the initial positions for Gaussian point clouds. Experiments demonstrate that our HDR-GS surpasses the state-of-the-art NeRF-based method by 3.84 and 1.91 dB on LDR and HDR NVS while enjoying 1000x inference speed and only requiring 6.3% training time. Code and recalibrated data will be publicly available at https://github.com/caiyuanhao1998/HDR-GS . A brief video introduction of our work is available at https://youtu.be/wtU7Kcwe7ck",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2405.15125",
+   "pdf_url": "https://arxiv.org/pdf/2405.15125"
+  },
+  {
    "arxiv_id": "2405.14979",
    "announced": "2024-05-01",
    "title": "CraftsMan3D: High-fidelity Mesh Generation with 3D Native Generation and Interactive Geometry Refiner",
@@ -164841,15 +165844,84 @@
    "cross_list_from": "cs.LG",
    "html_url": null,
    "abstract": "In the post-deep learning era, the Transformer architecture has demonstrated its powerful performance across pre-trained big models and various downstream tasks. However, the enormous computational demands of this architecture have deterred many researchers. To further reduce the complexity of attention models, numerous efforts have been made to design more efficient methods. Among them, the State Space Model (SSM), as a possible replacement for the self-attention based Transformer model, has drawn more and more attention in recent years. In this paper, we give the first comprehensive review of these works and also provide experimental comparisons and analysis to better demonstrate the features and advantages of SSM. Specifically, we first give a detailed description of principles to help the readers quickly capture the key ideas of SSM. After that, we dive into the reviews of existing SSMs and their various applications, including natural language processing, computer vision, graph, multi-modal and multi-media, point cloud/event stream, time series data, and other domains. In addition, we give statistical comparisons and analysis of these models and hope it helps the readers to understand the effectiveness of different structures on various tasks. Then, we propose possible research points in this direction to better promote the development of the theoretical model and application of SSM. More related works will be continuously updated on the following GitHub: https://github.com/Event-AHU/Mamba_State_Space_Model_Paper_List.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Anhui University",
+    "Harbin Institute of Technology",
+    "Peng Cheng Laboratory",
+    "Peking University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Anhui University",
+    "Harbin Institute of Technology",
+    "Peng Cheng Laboratory",
+    "Peking University"
+   ],
+   "institution_ids": [
+    "05th6yx34",
+    "01yqg2h08",
+    "03qdqbt06",
+    "02v51f717"
+   ],
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-25"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "openalex",
+     "at": "2026-10-25"
     }
    },
    "abs_url": "https://arxiv.org/abs/2404.09516",
@@ -224967,7 +226039,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -227360,6 +228432,45 @@
    },
    "abs_url": "https://arxiv.org/abs/2402.09181",
    "pdf_url": "https://arxiv.org/pdf/2402.09181"
+  },
+  {
+   "arxiv_id": "2402.08680",
+   "announced": "2024-02-01",
+   "title": "Mitigating Object Hallucination in Large Vision-Language Models via Image-Grounded Guidance",
+   "authors": [
+    "Linxi Zhao",
+    "Yihe Deng",
+    "Weitong Zhang",
+    "Quanquan Gu"
+   ],
+   "primary_subject": "Machine Learning (cs.LG)",
+   "subjects": [
+    "Machine Learning (cs.LG)",
+    "Artificial Intelligence (cs.AI)",
+    "Computation and Language (cs.CL)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "25 pages, 13 figures, 25 tables",
+   "journal_ref": "In Proceedings of the 42nd International Conference on Machine Learning, Vancouver, Canada. PMLR 267, 2025",
+   "venue": "ICML",
+   "cross_list_from": "cs.LG",
+   "html_url": null,
+   "abstract": "The advancement of Large Vision-Language Models (LVLMs) has increasingly highlighted the critical issue of their tendency to hallucinate non-existing objects in the images. To address this issue, previous works focused on using specially curated datasets or powerful LLMs to rectify the outputs of LVLMs. However, these approaches require either costly training or fine-tuning, or API access to proprietary LLMs for post-generation correction. In response to these limitations, we propose Mitigating hallucinAtion via image-gRounded guIdaNcE (MARINE), a framework that is both training-free and API-free. MARINE effectively and efficiently reduces object hallucinations during inference by introducing image-grounded guidance to LVLMs. This is achieved by leveraging open-source vision models to extract object-level information, thereby enhancing the precision of LVLM-generated content. Our framework's flexibility further allows for the integration of multiple vision models, enabling more reliable and robust object-level guidance. Through comprehensive evaluations across 5 popular LVLMs with diverse evaluation metrics and benchmarks, we demonstrate the effectiveness of MARINE, which even outperforms existing fine-tuning-based methods. Remarkably, it reduces hallucinations consistently in GPT-4V-assisted evaluation while maintaining the detailedness of LVLMs' generations. We release our code at https://github.com/Linxi-ZHAO/MARINE.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2402.08680",
+   "pdf_url": "https://arxiv.org/pdf/2402.08680"
   },
   {
    "arxiv_id": "2402.08567",
@@ -234579,7 +235690,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -237456,6 +238567,58 @@
    },
    "abs_url": "https://arxiv.org/abs/2401.04722",
    "pdf_url": "https://arxiv.org/pdf/2401.04722"
+  },
+  {
+   "arxiv_id": "2401.04608",
+   "announced": "2024-01-09",
+   "title": "EmoGen: Emotional Image Content Generation with Text-to-Image Diffusion Models",
+   "authors": [
+    "Jingyuan Yang",
+    "Jiawei Feng",
+    "Hui Huang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Recent years have witnessed remarkable progress in image generation task, where users can create visually astonishing images with high-quality. However, existing text-to-image diffusion models are proficient in generating concrete concepts (dogs) but encounter challenges with more abstract ones (emotions). Several efforts have been made to modify image emotions with color and style adjustments, facing limitations in effectively conveying emotions with fixed image contents. In this work, we introduce Emotional Image Content Generation (EICG), a new task to generate semantic-clear and emotion-faithful images given emotion categories. Specifically, we propose an emotion space and construct a mapping network to align it with the powerful Contrastive Language-Image Pre-training (CLIP) space, providing a concrete interpretation of abstract emotions. Attribute loss and emotion confidence are further proposed to ensure the semantic diversity and emotion fidelity of the generated images. Our method outperforms the state-of-the-art text-to-image approaches both quantitatively and qualitatively, where we derive three custom metrics, i.e., emotion accuracy, semantic clarity and semantic diversity. In addition to generation, our method can help emotion understanding and inspire emotional art design.",
+   "affiliations": [
+    "Shenzhen University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Shenzhen University"
+   ],
+   "institution_ids": [
+    "01vy4gh70"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2401.04608",
+   "pdf_url": "https://arxiv.org/pdf/2401.04608"
   },
   {
    "arxiv_id": "2401.04468",
@@ -246342,6 +247505,83 @@
    },
    "abs_url": "https://arxiv.org/abs/2401.05577",
    "pdf_url": "https://arxiv.org/pdf/2401.05577"
+  },
+  {
+   "arxiv_id": "2401.05224",
+   "announced": "2024-01-01",
+   "title": "Do Vision and Language Encoders Represent the World Similarly?",
+   "authors": [
+    "Mayug Maniparambil",
+    "Raiymbek Akshulakov",
+    "Yasser Abdelaziz Dahou Djilali",
+    "Sanath Narayan",
+    "Mohamed El Amine Seddik",
+    "Karttikeya Mangalam",
+    "Noel E. O'Connor"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)",
+    "Computation and Language (cs.CL)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "Accepted CVPR 2024",
+   "journal_ref": null,
+   "venue": "CVPR 2024",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Aligned text-image encoders such as CLIP have become the de facto model for vision-language tasks. Furthermore, modality-specific encoders achieve impressive performances in their respective domains. This raises a central question: does an alignment exist between uni-modal vision and language encoders since they fundamentally represent the same physical world? Analyzing the latent spaces structure of vision and language models on image-caption benchmarks using the Centered Kernel Alignment (CKA), we find that the representation spaces of unaligned and aligned encoders are semantically similar. In the absence of statistical similarity in aligned encoders like CLIP, we show that a possible matching of unaligned encoders exists without any training. We frame this as a seeded graph-matching problem exploiting the semantic similarity between graphs and propose two methods - a Fast Quadratic Assignment Problem optimization, and a novel localized CKA metric-based matching/retrieval. We demonstrate the effectiveness of this on several downstream tasks including cross-lingual, cross-domain caption matching and image classification. Code available at github.com/mayug/0-shot-llm-vision.",
+   "affiliations": [
+    "Dublin City University",
+    "University of California, Berkeley",
+    "Technology Innovation Institute"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Dublin City University",
+    "University of California, Berkeley",
+    "Technology Innovation Institute"
+   ],
+   "institution_ids": [
+    "04a1a1e81",
+    "01an7q238",
+    "001kv2y39"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2401.05224",
+   "pdf_url": "https://arxiv.org/pdf/2401.05224"
   },
   {
    "arxiv_id": "2401.04747",

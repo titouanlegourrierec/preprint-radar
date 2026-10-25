@@ -4,6 +4,1522 @@
  "year": 2025,
  "papers": [
   {
+   "arxiv_id": "2510.21571",
+   "announced": "2025-10-24",
+   "title": "Scalable Vision-Language-Action Model Pretraining for Robotic Manipulation with Real-Life Human Activity Videos",
+   "authors": [
+    "Qixiu Li",
+    "Yu Deng",
+    "Yaobo Liang",
+    "Lin Luo",
+    "Lei Zhou",
+    "Chengtang Yao",
+    "Lingqi Zeng",
+    "Zhiyuan Feng",
+    "Huizhi Liang",
+    "Sicheng Xu",
+    "Yizhong Zhang",
+    "Xi Chen",
+    "Hao Chen",
+    "Lily Sun",
+    "Dong Chen",
+    "Jiaolong Yang",
+    "Baining Guo"
+   ],
+   "primary_subject": "Robotics (cs.RO)",
+   "subjects": [
+    "Robotics (cs.RO)",
+    "Artificial Intelligence (cs.AI)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "Project page: https://microsoft.github.io/VITRA/",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.RO",
+   "html_url": null,
+   "abstract": "This paper presents a novel approach for pretraining robotic manipulation Vision-Language-Action (VLA) models using a large corpus of unscripted real-life video recordings of human hand activities. Treating human hand as dexterous robot end-effector, we show that \"in-the-wild\" egocentric human videos without any annotations can be transformed into data formats fully aligned with existing robotic V-L-A training data in terms of task granularity and labels. This is achieved by the development of a fully-automated holistic human activity analysis approach for arbitrary human hand videos. This approach can generate atomic-level hand activity segments and their language descriptions, each accompanied with framewise 3D hand motion and camera motion. We process a large volume of egocentric videos and create a hand-VLA training dataset containing 1M episodes and 26M frames. This training data covers a wide range of objects and concepts, dexterous manipulation tasks, and environment variations in real life, vastly exceeding the coverage of existing robot data. We design a dexterous hand VLA model architecture and pretrain the model on this dataset. The model exhibits strong zero-shot capabilities on completely unseen real-world observations. Additionally, fine-tuning it on a small amount of real robot action data significantly improves task success rates and generalization to novel objects in real robotic experiments. We also demonstrate the appealing scaling behavior of the model's task performance with respect to pretraining data scale. We believe this work lays a solid foundation for scalable VLA pretraining, advancing robots toward truly generalizable embodied intelligence.",
+   "affiliations": [
+    "Tsinghua University",
+    "Microsoft Research Asia"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Tsinghua University",
+    "Microsoft"
+   ],
+   "institution_ids": [
+    "03cve4549",
+    "0300m5276"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2510.21571",
+   "pdf_url": "https://arxiv.org/pdf/2510.21571"
+  },
+  {
+   "arxiv_id": "2510.12712",
+   "announced": "2025-10-24",
+   "title": "Beyond Seeing: Evaluating Multimodal LLMs on Tool-Enabled Image Perception, Transformation, and Reasoning",
+   "authors": [
+    "Xingang Guo",
+    "Utkarsh Tyagi",
+    "Advait Gosai",
+    "Paula Vergara",
+    "Jayeon Park",
+    "Ernesto Gabriel Hernández Montoya",
+    "Chen Bo Calvin Zhang",
+    "Bin Hu",
+    "Yunzhong He",
+    "Bing Liu",
+    "Rakshith Sharma Srinivasa"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2510.12712v1",
+   "abstract": "Multimodal Large Language Models (MLLMs) are increasingly applied in real-world scenarios where user-provided images are often imperfect, requiring active image manipulations such as cropping, editing, or enhancement to uncover salient visual cues. Beyond static visual perception, MLLMs must also think with images: dynamically transforming visual content and integrating it with other tools to solve complex tasks. However, this shift from treating vision as passive context to a manipulable cognitive workspace remains underexplored. Most existing benchmarks still follow a think about images paradigm, where images are regarded as static inputs. To address this gap, we introduce VisualToolBench, a visual tool-use reasoning benchmark that rigorously evaluates MLLMs' ability to perceive, transform, and reason across complex visual-textual tasks under the think-with-images paradigm. VisualToolBench comprises 1,204 challenging, open-ended vision tasks (603 single-turn, 601 multi-turn) spanning across five diverse domains, each paired with detailed rubrics to enable systematic evaluation. Our evaluation shows that current MLLMs struggle with tasks requiring effective integration of vision and general-purpose tools. Even the strongest model (GPT-5-think) reaches only 18.68% pass rate. We further observe divergent tool-use behaviors, with OpenAI models benefiting from diverse image manipulations while Gemini-2.5-pro shows no improvement. By introducing the first benchmark centered on think with images, VisualToolBench offers critical insights for advancing visual intelligence in MLLMs.",
+   "affiliations": [
+    "ScaleAI",
+    "University of Illinois at Urbana-ChampaignLeaderboard page"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "ScaleAI",
+    "University of Illinois Urbana-Champaign"
+   ],
+   "institution_ids": [
+    null,
+    "047426m28"
+   ],
+   "extractor": 7,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-12"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-12"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2510.12712",
+   "pdf_url": "https://arxiv.org/pdf/2510.12712"
+  },
+  {
+   "arxiv_id": "2510.21887",
+   "announced": "2025-10-23",
+   "title": "Generative AI in Depth: A Survey of Recent Advances, Model Variants, and Real-World Applications",
+   "authors": [
+    "Shamim Yazdani",
+    "Akansha Singh",
+    "Nripsuta Saxena",
+    "Zichong Wang",
+    "Avash Palikhe",
+    "Deng Pan",
+    "Umapada Pal",
+    "Jie Yang",
+    "Wenbin Zhang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "Accepted by the Journal of Big Data",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "In recent years, deep learning based generative models, particularly Generative Adversarial Networks (GANs), Variational Autoencoders (VAEs), and Diffusion Models (DMs), have been instrumental in in generating diverse, high-quality content across various domains, such as image and video synthesis. This capability has led to widespread adoption of these models and has captured strong public interest. As they continue to advance at a rapid pace, the growing volume of research, expanding application areas, and unresolved technical challenges make it increasingly difficult to stay current. To address this need, this survey introduces a comprehensive taxonomy that organizes the literature and provides a cohesive framework for understanding the development of GANs, VAEs, and DMs, including their many variants and combined approaches. We highlight key innovations that have improved the quality, diversity, and controllability of generated outputs, reflecting the expanding potential of generative artificial intelligence. In addition to summarizing technical progress, we examine rising ethical concerns, including the risks of misuse and the broader societal impact of synthetic media. Finally, we outline persistent challenges and propose future research directions, offering a structured and forward looking perspective for researchers in this fast evolving field.",
+   "affiliations": [
+    "Florida International University",
+    "Manipal Academy of Higher Education",
+    "University of Southern California",
+    "Indian Statistical Institute",
+    "University of Wollongong"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     3
+    ],
+    [
+     4
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Florida International University",
+    "Manipal Academy of Higher Education",
+    "University of Southern California",
+    "Indian Statistical Institute",
+    "University of Wollongong"
+   ],
+   "institution_ids": [
+    "02gz6gg07",
+    "02xzytt36",
+    "03taz7m60",
+    "00q2w1j53",
+    "00jtmb277"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2510.21887",
+   "pdf_url": "https://arxiv.org/pdf/2510.21887"
+  },
+  {
+   "arxiv_id": "2510.20822",
+   "announced": "2025-10-23",
+   "title": "HoloCine: Holistic Generation of Cinematic Multi-Shot Long Video Narratives",
+   "authors": [
+    "Yihao Meng",
+    "Hao Ouyang",
+    "Yue Yu",
+    "Qiuyu Wang",
+    "Wen Wang",
+    "Ka Leong Cheng",
+    "Hanlin Wang",
+    "Yixuan Li",
+    "Cheng Chen",
+    "Yanhong Zeng",
+    "Yujun Shen",
+    "Huamin Qu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Project page and code: https://holo-cine.github.io/",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2510.20822v1",
+   "abstract": "State-of-the-art text-to-video models excel at generating isolated clips but fall short of creating the coherent, multi-shot narratives, which are the essence of storytelling. We bridge this \"narrative gap\" with HoloCine, a model that generates entire scenes holistically to ensure global consistency from the first shot to the last. Our architecture achieves precise directorial control through a Window Cross-Attention mechanism that localizes text prompts to specific shots, while a Sparse Inter-Shot Self-Attention pattern (dense within shots but sparse between them) ensures the efficiency required for minute-scale generation. Beyond setting a new state-of-the-art in narrative coherence, HoloCine develops remarkable emergent abilities: a persistent memory for characters and scenes, and an intuitive grasp of cinematic techniques. Our work marks a pivotal shift from clip synthesis towards automated filmmaking, making end-to-end cinematic creation a tangible future. Our code is available at: https://holo-cine.github.io/.",
+   "affiliations": [
+    "HKUST",
+    "Ant Group",
+    "ZJU",
+    "CUHK",
+    "NTU"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     1,
+     4
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Hong Kong University of Science and Technology",
+    "Ant Group",
+    "Zhejiang University",
+    "Chinese University of Hong Kong",
+    "NTU"
+   ],
+   "institution_ids": [
+    null,
+    "00g5w7n47",
+    null,
+    null,
+    null
+   ],
+   "extractor": 7,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-12"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-12"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2510.20822",
+   "pdf_url": "https://arxiv.org/pdf/2510.20822"
+  },
+  {
+   "arxiv_id": "2510.20813",
+   "announced": "2025-10-23",
+   "title": "GSWorld: Closed-Loop Photo-Realistic Simulation Suite for Robotic Manipulation",
+   "authors": [
+    "Guangqi Jiang",
+    "Haoran Chang",
+    "Ri-Zhao Qiu",
+    "Yutong Liang",
+    "Mazeyu Ji",
+    "Jiyue Zhu",
+    "Zhao Dong",
+    "Xueyan Zou",
+    "Xiaolong Wang"
+   ],
+   "primary_subject": "Robotics (cs.RO)",
+   "subjects": [
+    "Robotics (cs.RO)",
+    "Artificial Intelligence (cs.AI)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.RO",
+   "html_url": null,
+   "abstract": "This paper presents GSWorld, a robust, photo-realistic simulator for robotics manipulation that combines 3D Gaussian Splatting with physics engines. Our framework advocates \"closing the loop\" of developing manipulation policies with reproducible evaluation of policies learned from real-robot data and sim2real policy training without using real robots. To enable photo-realistic rendering of diverse scenes, we propose a new asset format, which we term GSDF (Gaussian Scene Description File), that infuses Gaussian-on-Mesh representation with robot URDF and other objects. With a streamlined reconstruction pipeline, we curate a database of GSDF that contains 3 robot embodiments for single-arm and bimanual manipulation, as well as more than 40 objects. Combining GSDF with physics engines, we demonstrate several immediate interesting applications: (1) learning zero-shot sim2real pixel-to-action manipulation policy with photo-realistic rendering, (2) automated high-quality DAgger data collection for adapting policies to deployment environments, (3) reproducible benchmarking of real-robot manipulation policies in simulation, (4) simulation data collection by virtual teleoperation, and (5) zero-shot sim2real visual reinforcement learning. Website: https://3dgsworld.github.io/.",
+   "affiliations": [
+    "University of California San Diego"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of California San Diego"
+   ],
+   "institution_ids": [
+    "0168r3w48"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-12"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-12"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2510.20813",
+   "pdf_url": "https://arxiv.org/pdf/2510.20813"
+  },
+  {
+   "arxiv_id": "2510.20771",
+   "announced": "2025-10-23",
+   "title": "AlphaFlow: Understanding and Improving MeanFlow Models",
+   "authors": [
+    "Huijie Zhang",
+    "Aliaksandr Siarohin",
+    "Willi Menapace",
+    "Michael Vasilkovsky",
+    "Sergey Tulyakov",
+    "Qing Qu",
+    "Ivan Skorokhodov"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2510.20771v1",
+   "abstract": "MeanFlow has recently emerged as a powerful framework for few-step generative modeling trained from scratch, but its success is not yet fully understood. In this work, we show that the MeanFlow objective naturally decomposes into two parts: trajectory flow matching and trajectory consistency. Through gradient analysis, we find that these terms are strongly negatively correlated, causing optimization conflict and slow convergence. Motivated by these insights, we introduce α-Flow, a broad family of objectives that unifies trajectory flow matching, Shortcut Model, and MeanFlow under one formulation. By adopting a curriculum strategy that smoothly anneals from trajectory flow matching to MeanFlow, α-Flow disentangles the conflicting objectives, and achieves better convergence. When trained from scratch on class-conditional ImageNet-1K 256x256 with vanilla DiT backbones, α-Flow consistently outperforms MeanFlow across scales and settings. Our largest α-Flow-XL/2+ model achieves new state-of-the-art results using vanilla DiT backbones, with FID scores of 2.58 (1-NFE) and 2.15 (2-NFE).",
+   "affiliations": [
+    "Snap Inc",
+    "Department of EECS, University of Michigan"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null,
+    null,
+    null,
+    null
+   ],
+   "institutions": [
+    "Snap Inc",
+    "University of Michigan"
+   ],
+   "institution_ids": [
+    null,
+    "00jmfr291"
+   ],
+   "extractor": 7,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-12"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-12"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2510.20771",
+   "pdf_url": "https://arxiv.org/pdf/2510.20771"
+  },
+  {
+   "arxiv_id": "2510.20661",
+   "announced": "2025-10-23",
+   "title": "UltraHR-100K: Enhancing UHR Image Synthesis with A Large-Scale High-Quality Dataset",
+   "authors": [
+    "Chen Zhao",
+    "En Ci",
+    "Yunzhe Xu",
+    "Tiehan Fan",
+    "Shanyan Guan",
+    "Yanhao Ge",
+    "Jian Yang",
+    "Ying Tai"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted by NeurIPS 2025",
+   "journal_ref": null,
+   "venue": "NeurIPS 2025",
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2510.20661v1",
+   "abstract": "Ultra-high-resolution (UHR) text-to-image (T2I) generation has seen notable progress. However, two key challenges remain : 1) the absence of a large-scale high-quality UHR T2I dataset, and (2) the neglect of tailored training strategies for fine-grained detail synthesis in UHR scenarios. To tackle the first challenge, we introduce UltraHR-100K, a high-quality dataset of 100K UHR images with rich captions, offering diverse content and strong visual fidelity. Each image exceeds 3K resolution and is rigorously curated based on detail richness, content complexity, and aesthetic quality. To tackle the second challenge, we propose a frequency-aware post-training method that enhances fine-detail generation in T2I diffusion models. Specifically, we design (i) Detail-Oriented Timestep Sampling (DOTS) to focus learning on detail-critical denoising steps, and (ii) Soft-Weighting Frequency Regularization (SWFR), which leverages Discrete Fourier Transform (DFT) to softly constrain frequency components, encouraging high-frequency detail preservation. Extensive experiments on our proposed UltraHR-eval4K benchmarks demonstrate that our approach significantly improves the fine-grained detail quality and overall fidelity of UHR image generation. The code is available at here (https://github.com/NJU-PCALab/UltraHR-100k).",
+   "affiliations": [
+    "State Key Laboratory of Novel Software Technology, Nanjing University, China"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Nanjing University"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 7,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-12"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-12"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2510.20661",
+   "pdf_url": "https://arxiv.org/pdf/2510.20661"
+  },
+  {
+   "arxiv_id": "2510.20639",
+   "announced": "2025-10-23",
+   "title": "Better Tokens for Better 3D: Advancing Vision-Language Modeling in 3D Medical Imaging",
+   "authors": [
+    "Ibrahim Ethem Hamamci",
+    "Sezgin Er",
+    "Suprosanna Shit",
+    "Hadrien Reynaud",
+    "Dong Yang",
+    "Pengfei Guo",
+    "Marc Edgar",
+    "Daguang Xu",
+    "Bernhard Kainz",
+    "Bjoern Menze"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "NeurIPS 2025",
+   "journal_ref": null,
+   "venue": "NeurIPS 2025",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Recent progress in vision-language modeling for 3D medical imaging has been fueled by large-scale computed tomography (CT) corpora with paired free-text reports, stronger architectures, and powerful pretrained models. This has enabled applications such as automated report generation and text-conditioned 3D image synthesis. Yet, current approaches struggle with high-resolution, long-sequence volumes: contrastive pretraining often yields vision encoders that are misaligned with clinical language, and slice-wise tokenization blurs fine anatomy, reducing diagnostic performance on downstream tasks. We introduce BTB3D (Better Tokens for Better 3D), a causal convolutional encoder-decoder that unifies 2D and 3D training and inference while producing compact, frequency-aware volumetric tokens. A three-stage training curriculum enables (i) local reconstruction, (ii) overlapping-window tiling, and (iii) long-context decoder refinement, during which the model learns from short slice excerpts yet generalizes to scans exceeding 300 slices without additional memory overhead. BTB3D sets a new state-of-the-art on two key tasks: it improves BLEU scores and increases clinical F1 by 40% over CT2Rep, CT-CHAT, and Merlin for report generation; and it reduces FID by 75% and halves FVD compared to GenerateCT and MedSyn for text-to-CT synthesis, producing anatomically consistent 512*512*241 volumes. These results confirm that precise three-dimensional tokenization, rather than larger language backbones alone, is essential for scalable vision-language modeling in 3D medical imaging. The codebase is available at: https://github.com/ibrahimethemhamamci/BTB3D",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2510.20639",
+   "pdf_url": "https://arxiv.org/pdf/2510.20639"
+  },
+  {
+   "arxiv_id": "2510.20385",
+   "announced": "2025-10-23",
+   "title": "Positional Encoding Field",
+   "authors": [
+    "Yunpeng Bai",
+    "Haoxiang Li",
+    "Qixing Huang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "8 pages, 9 figures",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Diffusion Transformers (DiTs) have emerged as the dominant architecture for visual generation, powering state-of-the-art image and video models. By representing images as patch tokens with positional encodings (PEs), DiTs combine Transformer scalability with spatial and temporal inductive biases. In this work, we revisit how DiTs organize visual content and discover that patch tokens exhibit a surprising degree of independence: even when PEs are perturbed, DiTs still produce globally coherent outputs, indicating that spatial coherence is primarily governed by PEs. Motivated by this finding, we introduce the Positional Encoding Field (PE-Field), which extends positional encodings from the 2D plane to a structured 3D field. PE-Field incorporates depth-aware encodings for volumetric reasoning and hierarchical encodings for fine-grained sub-patch control, enabling DiTs to model geometry directly in 3D space. Our PE-Field-augmented DiT achieves state-of-the-art performance on single-image novel view synthesis and generalizes to controllable spatial image editing.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2510.20385",
+   "pdf_url": "https://arxiv.org/pdf/2510.20385"
+  },
+  {
+   "arxiv_id": "2510.20286",
+   "announced": "2025-10-23",
+   "title": "UI-Ins: Enhancing GUI Grounding with Multi-Perspective Instruction-as-Reasoning",
+   "authors": [
+    "Liangyu Chen",
+    "Hanzhang Zhou",
+    "Chenglin Cai",
+    "Jianan Zhang",
+    "Panrong Tong",
+    "Quyu Kong",
+    "Xu Zhang",
+    "Chen Liu",
+    "Yuqi Liu",
+    "Wenxuan Wang",
+    "Yue Wang",
+    "Qin Jin",
+    "Steven Hoi"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "GUI grounding, which maps natural-language instructions to actionable UI elements, is a core capability of GUI agents. Prior works largely treats instructions as a static proxy for user intent, overlooking the impact of instruction diversity and quality on grounding performance. Through a careful investigation of existing grounding datasets, we find a 23.3% flaw rate in their instructions and show that inference-time exploitation of instruction diversity yields up to a substantial 76% relative performance improvement. In this paper, we introduce the Instruction-as-Reasoning paradigm, treating instructions as dynamic analytical pathways that offer distinct perspectives and enabling the model to select the most effective pathway during reasoning. To achieve this, we propose a two-stage training framework: supervised fine-tuning (SFT) on synthesized, diverse instructions to instill multi-perspective reasoning, followed by reinforcement learning (RL) to optimize pathway selection and composition. Our resulting models, UI-Ins-7B and UI-Ins-32B, achieve state-of-the-art results on five challenging grounding benchmarks and exhibit emergent reasoning, selectively composing and synthesizing novel instruction pathways at inference. In particular, UI-Ins-32B attains the best grounding accuracy, scoring 87.3% on UI-I2E-Bench, 57.0% on ScreenSpot-Pro, and 84.9% on MMBench-GUI L2. Furthermore, our model demonstrates strong agentic potential, achieving a 74.1% success rate on AndroidWorld using UI-Ins-7B as the executor. Our in-depth analysis reveals additional insights such as how reasoning can be formulated to enhance rather than hinder grounding performance, and how our method mitigates policy collapse in the SFT+RL framework. All code and model checkpoints will be publicly released in https://github.com/alibaba/UI-Ins.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2510.20286",
+   "pdf_url": "https://arxiv.org/pdf/2510.20286"
+  },
+  {
+   "arxiv_id": "2510.20165",
+   "announced": "2025-10-23",
+   "title": "IB-GAN: Disentangled Representation Learning with Information Bottleneck Generative Adversarial Networks",
+   "authors": [
+    "Insu Jeon",
+    "Wonkwang Lee",
+    "Myeongjang Pyeon",
+    "Gunhee Kim"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": "Published in the Proceedings of the Thirty Fifth AAAI Conference on Artificial Intelligence (AAAI 2021), paper number 7926",
+   "journal_ref": null,
+   "venue": "AAAI 2021",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We propose a new GAN-based unsupervised model for disentangled representation learning. The new model is discovered in an attempt to utilize the Information Bottleneck (IB) framework to the optimization of GAN, thereby named IB-GAN. The architecture of IB-GAN is partially similar to that of InfoGAN but has a critical difference; an intermediate layer of the generator is leveraged to constrain the mutual information between the input and the generated output. The intermediate stochastic layer can serve as a learnable latent distribution that is trained with the generator jointly in an end-to-end fashion. As a result, the generator of IB-GAN can harness the latent space in a disentangled and interpretable manner. With the experiments on dSprites and Color-dSprites dataset, we demonstrate that IB-GAN achieves competitive disentanglement scores to those of state-of-the-art \\b{eta}-VAEs and outperforms InfoGAN. Moreover, the visual quality and the diversity of samples generated by IB-GAN are often better than those by \\b{eta}-VAEs and Info-GAN in terms of FID score on CelebA and 3D Chairs dataset.",
+   "affiliations": [
+    "Seoul National University",
+    "Korea Advanced Institute of Science and Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Seoul National University",
+    "Korea Advanced Institute of Science and Technology"
+   ],
+   "institution_ids": [
+    "04h9pn542",
+    "05apxxy63"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2510.20165",
+   "pdf_url": "https://arxiv.org/pdf/2510.20165"
+  },
+  {
+   "arxiv_id": "2510.19944",
+   "announced": "2025-10-22",
+   "title": "Seed3D 1.0: From Images to High-Fidelity Simulation-Ready 3D Assets",
+   "authors": [
+    "Jiashi Feng",
+    "Xiu Li",
+    "Jing Lin",
+    "Jiahang Liu",
+    "Gaohong Liu",
+    "Weiqiang Lou",
+    "Su Ma",
+    "Guang Shi",
+    "Qinlong Wang",
+    "Jun Wang",
+    "Zhongcong Xu",
+    "Xuanyu Yi",
+    "Zihao Yu",
+    "Jianfeng Zhang",
+    "Yifan Zhu",
+    "Rui Chen",
+    "Jinxin Chi",
+    "Zixian Du",
+    "Li Han",
+    "Lixin Huang",
+    "Kaihua Jiang",
+    "Yuhan Li",
+    "Guan Luo",
+    "Shuguang Wang",
+    "Qianyi Wu",
+    "Fan Yang",
+    "Junyang Zhang",
+    "Xuanmeng Zhang"
+   ],
+   "primary_subject": "Image and Video Processing (eess.IV)",
+   "subjects": [
+    "Image and Video Processing (eess.IV)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Seed3D 1.0 Technical Report; Official Page on https://seed.bytedance.com/seed3d",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "eess.IV",
+   "html_url": null,
+   "abstract": "Developing embodied AI agents requires scalable training environments that balance content diversity with physics accuracy. World simulators provide such environments but face distinct limitations: video-based methods generate diverse content but lack real-time physics feedback for interactive learning, while physics-based engines provide accurate dynamics but face scalability limitations from costly manual asset creation. We present Seed3D 1.0, a foundation model that generates simulation-ready 3D assets from single images, addressing the scalability challenge while maintaining physics rigor. Unlike existing 3D generation models, our system produces assets with accurate geometry, well-aligned textures, and realistic physically-based materials. These assets can be directly integrated into physics engines with minimal configuration, enabling deployment in robotic manipulation and simulation training. Beyond individual objects, the system scales to complete scene generation through assembling objects into coherent environments. By enabling scalable simulation-ready content creation, Seed3D 1.0 provides a foundation for advancing physics-based world simulators. Seed3D 1.0 is now available on https://console.volcengine.com/ark/region:ark+cn-beijing/experience/vision?modelId=doubao-seed3d-1-0-250928&tab=Gen3D",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2510.19944",
+   "pdf_url": "https://arxiv.org/pdf/2510.19944"
+  },
+  {
+   "arxiv_id": "2510.19817",
+   "announced": "2025-10-22",
+   "title": "olmOCR 2: Unit Test Rewards for Document OCR",
+   "authors": [
+    "Jake Poznanski",
+    "Luca Soldaini",
+    "Kyle Lo"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Computation and Language (cs.CL)"
+   ],
+   "comments": "https://olmocr.allen.ai/",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We present olmOCR 2, the latest in our family of powerful OCR systems for converting digitized print documents, like PDFs, into clean, naturally ordered plain text. olmOCR 2 is powered by olmOCR-2-7B-1025, a specialized, 7B vision language model (VLM) trained using reinforcement learning with verifiable rewards (RLVR), where our rewards are a diverse set of binary unit tests. To scale unit test creation, we develop a pipeline for generating synthetic documents with diverse and challenging layouts, known ground-truth HTML source code, and extracted test cases. We show that RL training on these test cases results in state-of-the-art performance on olmOCR-Bench, our English-language OCR benchmark, with the largest improvements in math formula conversion, table parsing, and multi-column layouts compared to previous versions. We release our model, data and code under permissive open licenses.",
+   "affiliations": [
+    "Allen Institute for Artificial Intelligence"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Allen Institute for Artificial Intelligence"
+   ],
+   "institution_ids": [
+    "05w520734"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2510.19817",
+   "pdf_url": "https://arxiv.org/pdf/2510.19817"
+  },
+  {
+   "arxiv_id": "2510.19808",
+   "announced": "2025-10-22",
+   "title": "Pico-Banana-400K: A Large-Scale Dataset for Text-Guided Image Editing",
+   "authors": [
+    "Yusu Qian",
+    "Eli Bocek-Rivele",
+    "Liangchen Song",
+    "Jialing Tong",
+    "Yinfei Yang",
+    "Jiasen Lu",
+    "Wenze Hu",
+    "Zhe Gan"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Computation and Language (cs.CL)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2510.19808v1",
+   "abstract": "Recent advances in multimodal models have demonstrated remarkable text-guided image editing capabilities, with systems like GPT-4o and Nano-Banana setting new benchmarks. However, the research community's progress remains constrained by the absence of large-scale, high-quality, and openly accessible datasets built from real images. We introduce Pico-Banana-400K, a comprehensive 400K-image dataset for instruction-based image editing. Our dataset is constructed by leveraging Nano-Banana to generate diverse edit pairs from real photographs in the OpenImages collection. What distinguishes Pico-Banana-400K from previous synthetic datasets is our systematic approach to quality and diversity. We employ a fine-grained image editing taxonomy to ensure comprehensive coverage of edit types while maintaining precise content preservation and instruction faithfulness through MLLM-based quality scoring and careful curation. Beyond single turn editing, Pico-Banana-400K enables research into complex editing scenarios. The dataset includes three specialized subsets: (1) a 72K-example multi-turn collection for studying sequential editing, reasoning, and planning across consecutive modifications; (2) a 56K-example preference subset for alignment research and reward model training; and (3) paired long-short editing instructions for developing instruction rewriting and summarization capabilities. By providing this large-scale, high-quality, and task-rich resource, Pico-Banana-400K establishes a robust foundation for training and benchmarking the next generation of text-guided image editing models.",
+   "affiliations": [
+    "Apple"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Apple"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 7,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-12"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-12"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2510.19808",
+   "pdf_url": "https://arxiv.org/pdf/2510.19808"
+  },
+  {
+   "arxiv_id": "2510.18873",
+   "announced": "2025-10-21",
+   "title": "DSI-Bench: A Benchmark for Dynamic Spatial Intelligence",
+   "authors": [
+    "Ziang Zhang",
+    "Zehan Wang",
+    "Guanghao Zhang",
+    "Weilong Dai",
+    "Yan Xia",
+    "Ziang Yan",
+    "Minjie Hong",
+    "Zhou Zhao"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Reasoning about dynamic spatial relationships is essential, as both observers and objects often move simultaneously. Although vision-language models (VLMs) and visual expertise models excel in 2D tasks and static scenarios, their ability to fully understand dynamic 3D scenarios remains limited. We introduce Dynamic Spatial Intelligence and propose DSI-Bench, a benchmark with nearly 1,000 dynamic videos and over 1,700 manually annotated questions covering nine decoupled motion patterns of observers and objects. Spatially and temporally symmetric designs reduce biases and enable systematic evaluation of models' reasoning about self-motion and object motion. Our evaluation of 14 VLMs and expert models reveals key limitations: models often conflate observer and object motion, exhibit semantic biases, and fail to accurately infer relative relationships in dynamic scenarios. Our DSI-Bench provides valuable findings and insights about the future development of general and expertise models with dynamic spatial intelligence.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2510.18873",
+   "pdf_url": "https://arxiv.org/pdf/2510.18873"
+  },
+  {
+   "arxiv_id": "2510.18775",
+   "announced": "2025-10-21",
+   "title": "UltraGen: High-Resolution Video Generation with Hierarchical Attention",
+   "authors": [
+    "Teng Hu",
+    "Jiangning Zhang",
+    "Zihan Su",
+    "Ran Yi"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Recent advances in video generation have made it possible to produce visually compelling videos, with wide-ranging applications in content creation, entertainment, and virtual reality. However, most existing diffusion transformer based video generation models are limited to low-resolution outputs (<=720P) due to the quadratic computational complexity of the attention mechanism with respect to the output width and height. This computational bottleneck makes native high-resolution video generation (1080P/2K/4K) impractical for both training and inference. To address this challenge, we present UltraGen, a novel video generation framework that enables i) efficient and ii) end-to-end native high-resolution video synthesis. Specifically, UltraGen features a hierarchical dual-branch attention architecture based on global-local attention decomposition, which decouples full attention into a local attention branch for high-fidelity regional content and a global attention branch for overall semantic consistency. We further propose a spatially compressed global modeling strategy to efficiently learn global dependencies, and a hierarchical cross-window local attention mechanism to reduce computational costs while enhancing information flow across different local windows. Extensive experiments demonstrate that UltraGen can effectively scale pre-trained low-resolution video models to 1080P and even 4K resolution for the first time, outperforming existing state-of-the-art methods and super-resolution based two-stage pipelines in both qualitative and quantitative evaluations.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2510.18775",
+   "pdf_url": "https://arxiv.org/pdf/2510.18775"
+  },
+  {
+   "arxiv_id": "2510.18234",
+   "announced": "2025-10-21",
+   "title": "DeepSeek-OCR: Contexts Optical Compression",
+   "authors": [
+    "Haoran Wei",
+    "Yaofeng Sun",
+    "Yukun Li"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2510.18234v1",
+   "abstract": "We present DeepSeek-OCR as an initial investigation into the feasibility of compressing long contexts via optical 2D mapping. DeepSeek-OCR consists of two components: DeepEncoder and DeepSeek3B-MoE-A570M as the decoder. Specifically, DeepEncoder serves as the core engine, designed to maintain low activations under high-resolution input while achieving high compression ratios to ensure an optimal and manageable number of vision tokens. Experiments show that when the number of text tokens is within 10 times that of vision tokens (i.e., a compression ratio < 10x), the model can achieve decoding (OCR) precision of 97%. Even at a compression ratio of 20x, the OCR accuracy still remains at about 60%. This shows considerable promise for research areas such as historical long-context compression and memory forgetting mechanisms in LLMs. Beyond this, DeepSeek-OCR also demonstrates high practical value. On OmniDocBench, it surpasses GOT-OCR2.0 (256 tokens/page) using only 100 vision tokens, and outperforms MinerU2.0 (6000+ tokens per page on average) while utilizing fewer than 800 vision tokens. In production, DeepSeek-OCR can generate training data for LLMs/VLMs at a scale of 200k+ pages per day (a single A100-40G). Codes and model weights are publicly accessible at http://github.com/deepseek-ai/DeepSeek-OCR.",
+   "affiliations": [
+    "DeepSeek-AI"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "DeepSeek"
+   ],
+   "institution_ids": [
+    "05wa54d95"
+   ],
+   "extractor": 7,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-12"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-12"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2510.18234",
+   "pdf_url": "https://arxiv.org/pdf/2510.18234"
+  },
+  {
+   "arxiv_id": "2510.17800",
+   "announced": "2025-10-21",
+   "title": "Glyph: Scaling Context Windows via Visual-Text Compression",
+   "authors": [
+    "Jiale Cheng",
+    "Yusen Liu",
+    "Xinyu Zhang",
+    "Yulin Fei",
+    "Wenyi Hong",
+    "Ruiliang Lyu",
+    "Weihan Wang",
+    "Zhe Su",
+    "Xiaotao Gu",
+    "Xiao Liu",
+    "Yushi Bai",
+    "Jie Tang",
+    "Hongning Wang",
+    "Minlie Huang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Computation and Language (cs.CL)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2510.17800v1",
+   "abstract": "Large language models (LLMs) increasingly rely on long-context modeling for tasks such as document understanding, code analysis, and multi-step reasoning. However, scaling context windows to the million-token level brings prohibitive computational and memory costs, limiting the practicality of long-context LLMs. In this work, we take a different perspective-visual context scaling-to tackle this challenge. Instead of extending token-based sequences, we propose Glyph, a framework that renders long texts into images and processes them with vision-language models (VLMs). This approach substantially compresses textual input while preserving semantic information, and we further design an LLM-driven genetic search to identify optimal visual rendering configurations for balancing accuracy and compression. Through extensive experiments, we demonstrate that our method achieves 3-4x token compression while maintaining accuracy comparable to leading LLMs such as Qwen3-8B on various long-context benchmarks. This compression also leads to around 4x faster prefilling and decoding, and approximately 2x faster SFT training. Furthermore, under extreme compression, a 128K-context VLM could scale to handle 1M-token-level text tasks. In addition, the rendered text data benefits real-world multimodal tasks, such as document understanding. Our code and model are released at https://github.com/thu-coai/Glyph.",
+   "affiliations": [
+    "The Conversational Artificial Intelligence (CoAI) Group, Tsinghua University",
+    "Zhipu AI",
+    "The Knowledge Engineering Group (KEG), Tsinghua University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    null,
+    null,
+    null,
+    [
+     1,
+     2
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     2
+    ],
+    null,
+    null,
+    null
+   ],
+   "institutions": [
+    "Tsinghua University",
+    "Zhipu AI",
+    "Tsinghua University"
+   ],
+   "institution_ids": [
+    "03cve4549",
+    "005dzvw93",
+    "03cve4549"
+   ],
+   "extractor": 7,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-12"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-12"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2510.17800",
+   "pdf_url": "https://arxiv.org/pdf/2510.17800"
+  },
+  {
+   "arxiv_id": "2510.17771",
+   "announced": "2025-10-20",
+   "title": "Seeing but Not Believing: Probing the Disconnect Between Visual Attention and Answer Correctness in VLMs",
+   "authors": [
+    "Zhining Liu",
+    "Ziyi Chen",
+    "Hui Liu",
+    "Chen Luo",
+    "Xianfeng Tang",
+    "Suhang Wang",
+    "Joy Zeng",
+    "Zhenwei Dai",
+    "Zhan Shi",
+    "Tianxin Wei",
+    "Benoit Dumoulin",
+    "Hanghang Tong"
+   ],
+   "primary_subject": "Artificial Intelligence (cs.AI)",
+   "subjects": [
+    "Artificial Intelligence (cs.AI)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "21 pages, 10 figures, 6 tables",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.AI",
+   "html_url": "https://arxiv.org/html/2510.17771v1",
+   "abstract": "Vision-Language Models (VLMs) achieve strong results on multimodal tasks such as visual question answering, yet they can still fail even when the correct visual evidence is present. In this work, we systematically investigate whether these failures arise from not perceiving the evidence or from not leveraging it effectively. By examining layer-wise attention dynamics, we find that shallow layers focus primarily on text, while deeper layers sparsely but reliably attend to localized evidence regions. Surprisingly, VLMs often perceive the visual evidence when outputting incorrect answers, a phenomenon we term ``seeing but not believing'' that widely exists in major VLM families. Building on this, we introduce an inference-time intervention that highlights deep-layer evidence regions through selective attention-based masking. It requires no training and consistently improves accuracy across multiple families, including LLaVA, Qwen, Gemma, and InternVL. These results show that VLMs encode reliable evidence internally but under-utilize it, making such signals explicit can bridge the gap between perception and reasoning, advancing the diagnostic understanding and reliability of VLMs.",
+   "affiliations": [
+    "University of Illinois Urbana-Champaign",
+    "Amazon",
+    "Penn State University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Illinois Urbana-Champaign",
+    "Amazon",
+    "Pennsylvania State University"
+   ],
+   "institution_ids": [
+    "047426m28",
+    null,
+    "04p491231"
+   ],
+   "extractor": 7,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-12"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-12"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2510.17771",
+   "pdf_url": "https://arxiv.org/pdf/2510.17771"
+  },
+  {
+   "arxiv_id": "2510.14605",
+   "announced": "2025-10-20",
+   "title": "Knowledge-based Visual Question Answer with Multimodal Processing, Retrieval and Filtering",
+   "authors": [
+    "Yuyang Hong",
+    "Jiaqi Gu",
+    "Qi Yang",
+    "Lubin Fan",
+    "Yue Wu",
+    "Ying Wang",
+    "Kun Ding",
+    "Shiming Xiang",
+    "Jieping Ye"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": "Accepted by NeurIPS 2025",
+   "journal_ref": null,
+   "venue": "NeurIPS 2025",
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2510.14605v1",
+   "abstract": "Knowledge-based visual question answering (KB-VQA) requires visual language models (VLMs) to integrate visual understanding with external knowledge retrieval. Although retrieval-augmented generation (RAG) achieves significant advances in this task by combining knowledge-base querying, it still struggles with the quality of multimodal queries and the relevance of retrieved results. To overcome these challenges, we propose a novel three-stage method, termed Wiki-PRF, including Processing, Retrieval and Filtering stages. The processing stage dynamically invokes visual tools to extract precise multimodal information for retrieval. The retrieval stage integrates visual and text features to achieve multimodal knowledge retrieval. The filtering stage performs relevance filtering and concentration on retrieval results. To this end, we introduce a visual language model trained with answer accuracy and format consistency as reward signals via a reinforcement learning manner. This enhances the model's reasoning, tool invocation for accurate queries, and filtering of irrelevant content. Experiments on benchmark datasets (E-VQA and InfoSeek) show significant improvements~(36.0 and 42.8) in answer quality, achieving state-of-the-art performance. Code is available at https://github.com/cqu-student/Wiki-PRF",
+   "affiliations": [
+    "School of Artificial Intelligence, University of Chinese Academy of Sciences",
+    "MAIS, Institute of Automation, Chinese Academy of Sciences",
+    "Alibaba Cloud Computing"
+   ],
+   "author_affiliations": [
+    null,
+    null,
+    [
+     0,
+     1
+    ],
+    null,
+    [
+     2
+    ],
+    [
+     1
+    ],
+    null,
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "University of Chinese Academy of Sciences",
+    "Chinese Academy of Sciences",
+    "Alibaba Group"
+   ],
+   "institution_ids": [
+    "05qbk4x57",
+    "034t30j35",
+    null
+   ],
+   "extractor": 7,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-12"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-12"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2510.14605",
+   "pdf_url": "https://arxiv.org/pdf/2510.14605"
+  },
+  {
+   "arxiv_id": "2510.09224",
+   "announced": "2025-10-20",
+   "title": "Tag-Enriched Multi-Attention with Large Language Models for Cross-Domain Sequential Recommendation",
+   "authors": [
+    "Wangyu Wu",
+    "Xuhang Chen",
+    "Zhenhong Chen",
+    "Jing-En Jiang",
+    "Kim-Fung Tsang",
+    "Xiaowei Huang",
+    "Fei Ma",
+    "Jimin Xiao"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted in IEEE Transactions on Consumer Electronics 2025",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Cross-Domain Sequential Recommendation (CDSR) plays a crucial role in modern consumer electronics and e-commerce platforms, where users interact with diverse services such as books, movies, and online retail products. These systems must accurately capture both domain-specific and cross-domain behavioral patterns to provide personalized and seamless consumer experiences. To address this challenge, we propose TEMA-LLM (Tag-Enriched Multi-Attention with Large Language Models), a practical and effective framework that integrates Large Language Models (LLMs) for semantic tag generation and enrichment. Specifically, TEMA-LLM employs LLMs to assign domain-aware prompts and generate descriptive tags from item titles and descriptions. The resulting tag embeddings are fused with item identifiers as well as textual and visual features to construct enhanced item representations. A Tag-Enriched Multi-Attention mechanism is then introduced to jointly model user preferences within and across domains, enabling the system to capture complex and evolving consumer interests. Extensive experiments on four large-scale e-commerce datasets demonstrate that TEMA-LLM consistently outperforms state-of-the-art baselines, underscoring the benefits of LLM-based semantic tagging and multi-attention integration for consumer-facing recommendation systems. The proposed approach highlights the potential of LLMs to advance intelligent, user-centric services in the field of consumer electronics.",
+   "affiliations": [
+    "Xi’an Jiaotong-Liverpool University",
+    "Huizhou University",
+    "Microsoft",
+    "Shandong University",
+    "Chinese Academy of Sciences",
+    "Shenzhen Institutes of Advanced Technology",
+    "University of Liverpool"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     4,
+     5
+    ],
+    [
+     6
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Xi’an Jiaotong-Liverpool University",
+    "Huizhou University",
+    "Microsoft",
+    "Shandong University",
+    "Chinese Academy of Sciences",
+    "Shenzhen Institutes of Advanced Technology",
+    "University of Liverpool"
+   ],
+   "institution_ids": [
+    "03zmrmn05",
+    "03q3s7962",
+    "00d0nc645",
+    "0207yh398",
+    "034t30j35",
+    "04gh4er46",
+    "04xs57h96"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2510.09224",
+   "pdf_url": "https://arxiv.org/pdf/2510.09224"
+  },
+  {
+   "arxiv_id": "2510.11387",
+   "announced": "2025-10-19",
+   "title": "MaterialRefGS: Reflective Gaussian Splatting with Multi-view Consistent Material Inference",
+   "authors": [
+    "Wenyuan Zhang",
+    "Jimin Tang",
+    "Weiqi Zhang",
+    "Yi Fang",
+    "Yu-Shen Liu",
+    "Zhizhong Han"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted by NeurIPS 2025. Project Page: https://wen-yuan-zhang.github.io/MaterialRefGS",
+   "journal_ref": null,
+   "venue": "NeurIPS 2025",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Modeling reflections from 2D images is essential for photorealistic rendering and novel view synthesis. Recent approaches enhance Gaussian primitives with reflection-related material attributes to enable physically based rendering (PBR) with Gaussian Splatting. However, the material inference often lacks sufficient constraints, especially under limited environment modeling, resulting in illumination aliasing and reduced generalization. In this work, we revisit the problem from a multi-view perspective and show that multi-view consistent material inference with more physically-based environment modeling is key to learning accurate reflections with Gaussian Splatting. To this end, we enforce 2D Gaussians to produce multi-view consistent material maps during deferred shading. We also track photometric variations across views to identify highly reflective regions, which serve as strong priors for reflection strength terms. To handle indirect illumination caused by inter-object occlusions, we further introduce an environment modeling strategy through ray tracing with 2DGS, enabling photorealistic rendering of indirect radiance. Experiments on widely used benchmarks show that our method faithfully recovers both illumination and geometry, achieving state-of-the-art rendering quality in novel views synthesis.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-11"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2510.11387",
+   "pdf_url": "https://arxiv.org/pdf/2510.11387"
+  },
+  {
    "arxiv_id": "2510.15857",
    "announced": "2025-10-17",
    "title": "BLIP3o-NEXT: Next Frontier of Native Image Generation",
@@ -1577,6 +3093,77 @@
    },
    "abs_url": "https://arxiv.org/abs/2510.12798",
    "pdf_url": "https://arxiv.org/pdf/2510.12798"
+  },
+  {
+   "arxiv_id": "2510.12785",
+   "announced": "2025-10-14",
+   "title": "MVP4D: Multi-View Portrait Video Diffusion for Animatable 4D Avatars",
+   "authors": [
+    "Felix Taubner",
+    "Ruihang Zhang",
+    "Mathieu Tuli",
+    "Sherwin Bahmani",
+    "David B. Lindell"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)",
+    "Graphics (cs.GR)"
+   ],
+   "comments": "18 pages, 12 figures",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Digital human avatars aim to simulate the dynamic appearance of humans in virtual environments, enabling immersive experiences across gaming, film, virtual reality, and more. However, the conventional process for creating and animating photorealistic human avatars is expensive and time-consuming, requiring large camera capture rigs and significant manual effort from professional 3D artists. With the advent of capable image and video generation models, recent methods enable automatic rendering of realistic animated avatars from a single casually captured reference image of a target subject. While these techniques significantly lower barriers to avatar creation and offer compelling realism, they lack constraints provided by multi-view information or an explicit 3D representation. So, image quality and realism degrade when rendered from viewpoints that deviate strongly from the reference image. Here, we build a video model that generates animatable multi-view videos of digital humans based on a single reference image and target expressions. Our model, MVP4D, is based on a state-of-the-art pre-trained video diffusion model and generates hundreds of frames simultaneously from viewpoints varying by up to 360 degrees around a target subject. We show how to distill the outputs of this model into a 4D avatar that can be rendered in real-time. Our approach significantly improves the realism, temporal consistency, and 3D consistency of generated avatars compared to previous methods.",
+   "affiliations": [
+    "University of Toronto",
+    "Vector Institute",
+    "LG"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Toronto",
+    "Vector Institute",
+    "LG"
+   ],
+   "institution_ids": [
+    "03dbr7087",
+    "03kqdja62",
+    "02b948n83"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2510.12785",
+   "pdf_url": "https://arxiv.org/pdf/2510.12785"
   },
   {
    "arxiv_id": "2510.12747",
@@ -9984,6 +11571,82 @@
    "pdf_url": "https://arxiv.org/pdf/2510.11512"
   },
   {
+   "arxiv_id": "2510.11369",
+   "announced": "2025-10-01",
+   "title": "Reasoning as Representation: Rethinking Visual Reinforcement Learning in Image Quality Assessment",
+   "authors": [
+    "Shijie Zhao",
+    "Xuanyu Zhang",
+    "Weiqi Li",
+    "Junlin Li",
+    "Li Zhang",
+    "Tianfan Xue",
+    "Jian Zhang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "ICLR 2026 Oral",
+   "journal_ref": null,
+   "venue": "ICLR 2026",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Reasoning-based image quality assessment (IQA) models trained through reinforcement learning (RL) exhibit exceptional generalization, yet the underlying mechanisms and critical factors driving this capability remain underexplored in current research. Moreover, despite their superior performance, these models incur inference energy usage and latency orders of magnitude higher than their earlier counterparts, restricting their deployment in specific scenarios. Through extensive experiments, this paper verifies and elaborates that through RL training, MLLMs leverage their reasoning capability to convert redundant visual representations into compact, cross-domain aligned text representations. This conversion is precisely the source of the generalization exhibited by these reasoning-based IQA models. Building on this fundamental insight, we propose a novel algorithm, RALI, which employs contrastive learning to directly align images with these generalizable text representations learned by RL. This approach eliminates the reliance on reasoning processes and even obviates the need to load an LLM. For the quality scoring task, this framework achieves generalization performance comparable to reasoning-based models while requiring less than 5% of their model parameters and inference time.",
+   "affiliations": [
+    "ByteDance",
+    "Peking University",
+    "Chinese University of Hong Kong"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "ByteDance",
+    "Peking University",
+    "Chinese University of Hong Kong"
+   ],
+   "institution_ids": [
+    "04m8av638",
+    "02v51f717",
+    "00t33hh48"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2510.11369",
+   "pdf_url": "https://arxiv.org/pdf/2510.11369"
+  },
+  {
    "arxiv_id": "2510.11027",
    "announced": "2025-10-01",
    "title": "Vlaser: Vision-Language-Action Model with Synergistic Embodied Reasoning",
@@ -13500,6 +15163,41 @@
    },
    "abs_url": "https://arxiv.org/abs/2509.24871",
    "pdf_url": "https://arxiv.org/pdf/2509.24871"
+  },
+  {
+   "arxiv_id": "2509.24791",
+   "announced": "2025-09-29",
+   "title": "Vision Function Layer in Multimodal LLMs",
+   "authors": [
+    "Cheng Shi",
+    "Yizhou Yu",
+    "Sibei Yang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted at NeurIPS 2025 (preview; camera-ready in preparation)",
+   "journal_ref": null,
+   "venue": "NeurIPS 2025",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "This study identifies that visual-related functional decoding is distributed across different decoder layers in Multimodal Large Language Models (MLLMs). Typically, each function, such as counting, grounding, or OCR recognition, narrows down to two or three layers, which we define as Vision Function Layers (VFL). Additionally, the depth and its order of different VFLs exhibits a consistent pattern across different MLLMs, which is well-aligned with human behaviors (e.g., recognition occurs first, followed by counting, and then grounding). These findings are derived from Visual Token Swapping, our novel analytical framework that modifies targeted KV cache entries to precisely elucidate layer-specific functions during decoding. Furthermore, these insights offer substantial utility in tailoring MLLMs for real-world downstream applications. For instance, when LoRA training is selectively applied to VFLs whose functions align with the training data, VFL-LoRA not only outperform full-LoRA but also prevent out-of-domain function forgetting. Moreover, by analyzing the performance differential on training data when particular VFLs are ablated, VFL-select automatically classifies data by function, enabling highly efficient data selection to directly bolster corresponding capabilities. Consequently, VFL-select surpasses human experts in data selection, and achieves 98% of full-data performance with only 20% of the original dataset. This study delivers deeper comprehension of MLLM visual processing, fostering the creation of more efficient, interpretable, and robust models.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2509.24791",
+   "pdf_url": "https://arxiv.org/pdf/2509.24791"
   },
   {
    "arxiv_id": "2509.24786",
@@ -21345,6 +23043,50 @@
    "pdf_url": "https://arxiv.org/pdf/2509.23652"
   },
   {
+   "arxiv_id": "2509.23589",
+   "announced": "2025-09-01",
+   "title": "BridgeDrive: Diffusion Bridge Policy for Closed-Loop Trajectory Planning in Autonomous Driving",
+   "authors": [
+    "Shu Liu",
+    "Wenlin Chen",
+    "Weihao Li",
+    "Zheng Wang",
+    "Lijin Yang",
+    "Jianing Huang",
+    "Yipin Zhang",
+    "Zhongzhan Huang",
+    "Ze Cheng",
+    "Hao Yang"
+   ],
+   "primary_subject": "Artificial Intelligence (cs.AI)",
+   "subjects": [
+    "Artificial Intelligence (cs.AI)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "Accepted for publication at ICLR 2026",
+   "journal_ref": null,
+   "venue": "ICLR 2026",
+   "cross_list_from": "cs.AI",
+   "html_url": null,
+   "abstract": "Diffusion-based planners have shown strong potential for autonomous driving by capturing multi-modal driving behaviors. A key challenge is how to effectively guide these models for safe and reactive planning in closed-loop settings, where the ego vehicle's actions influence future states. Recent work leverages typical expert driving behaviors (i.e., anchors) to guide diffusion planners but relies on a truncated diffusion schedule that introduces an asymmetry between the forward and denoising processes, diverging from the core principles of diffusion models. To address this, we introduce BridgeDrive, a novel anchor-guided diffusion bridge policy for closed-loop trajectory planning. Our approach formulates planning as a diffusion bridge that directly transforms coarse anchor trajectories into refined, context-aware plans, ensuring theoretical consistency between the forward and reverse processes. BridgeDrive is compatible with efficient ODE solvers, enabling real-time deployment. We achieve state-of-the-art performance on the Bench2Drive closed-loop evaluation benchmark, improving the success rate by 7.72% and 2.45% over prior arts with PDM-Lite and LEAD datasets, respectively. Project page: https://github.com/shuliu-ethz/BridgeDrive.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2509.23589",
+   "pdf_url": "https://arxiv.org/pdf/2509.23589"
+  },
+  {
    "arxiv_id": "2509.23141",
    "announced": "2025-09-01",
    "title": "Earth-Agent: Unlocking the Full Landscape of Earth Observation with Agents",
@@ -22697,6 +24439,66 @@
    },
    "abs_url": "https://arxiv.org/abs/2509.19297",
    "pdf_url": "https://arxiv.org/pdf/2509.19297"
+  },
+  {
+   "arxiv_id": "2509.18428",
+   "announced": "2025-09-01",
+   "title": "Latent Action Pretraining Through World Modeling",
+   "authors": [
+    "Bahey Tharwat",
+    "Yara Nasser",
+    "Ali Abouzeid",
+    "Ian Reid"
+   ],
+   "primary_subject": "Robotics (cs.RO)",
+   "subjects": [
+    "Robotics (cs.RO)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.RO",
+   "html_url": null,
+   "abstract": "Vision-Language-Action (VLA) models have gained popularity for learning robotic manipulation tasks that follow language instructions. State-of-the-art VLAs, such as OpenVLA and $π_{0}$, were trained on large-scale, manually labeled action datasets collected through teleoperation. More recent approaches, including LAPA and villa-X, introduce latent action representations that enable unsupervised pretraining on unlabeled datasets by modeling abstract visual changes between frames. Although these methods have shown strong results, their large model sizes make deployment in real-world settings challenging. In this work, we propose LAWM, a model-agnostic framework to pretrain imitation learning models in a self-supervised way, by learning latent action representations from unlabeled video data through world modeling. These videos can be sourced from robot recordings or videos of humans performing actions with everyday objects. Our framework is able to transfer learned knowledge across tasks, environments, and embodiments. It outperforms models pretrained with ground-truth robot actions and other similar pretraining methods on the LIBERO benchmark and real-world setup, while being efficient and practical for real-world settings.",
+   "affiliations": [
+    "Mohamed bin Zayed University of Artificial Intelligence",
+    "Alexandria University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Mohamed bin Zayed University of Artificial Intelligence",
+    "Alexandria University"
+   ],
+   "institution_ids": [
+    "0258gkt32",
+    "00mzz1w90"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2509.18428",
+   "pdf_url": "https://arxiv.org/pdf/2509.18428"
   },
   {
    "arxiv_id": "2509.18095",
@@ -32371,6 +34173,69 @@
    "pdf_url": "https://arxiv.org/pdf/2508.17009"
   },
   {
+   "arxiv_id": "2508.15772",
+   "announced": "2025-08-01",
+   "title": "Visual Autoregressive Modeling for Instruction-Guided Image Editing",
+   "authors": [
+    "Qingyang Mao",
+    "Qi Cai",
+    "Yehao Li",
+    "Yingwei Pan",
+    "Mingyue Cheng",
+    "Ting Yao",
+    "Qi Liu",
+    "Tao Mei"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Multimedia (cs.MM)"
+   ],
+   "comments": "ICLR 2026; Source codes and models are available at https://github.com/HiDream-ai/VAREdit",
+   "journal_ref": null,
+   "venue": "ICLR 2026",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Recent advances in diffusion models have brought remarkable visual fidelity to instruction-guided image editing. However, their global denoising process inherently entangles the edited region with the entire image context, leading to unintended spurious modifications and compromised adherence to editing instructions. In contrast, autoregressive models offer a distinct paradigm by formulating image synthesis as a sequential process over discrete visual tokens. Their causal and compositional mechanism naturally circumvents the adherence challenges of diffusion-based methods. In this paper, we present VAREdit, a visual autoregressive (VAR) framework that reframes image editing as a next-scale prediction problem. Conditioned on source image features and text instructions, VAREdit generates multi-scale target features to achieve precise edits. A core challenge in this paradigm is how to effectively condition the source image tokens. We observe that finest-scale source features cannot effectively guide the prediction of coarser target features. To bridge this gap, we introduce a Scale-Aligned Reference (SAR) module, which injects scale-matched conditioning information into the first self-attention layer. VAREdit demonstrates significant advancements in both editing adherence and efficiency. On EMU-Edit and PIE-Bench benchmarks, VAREdit outperforms leading diffusion-based methods by a substantial margin in terms of both CLIP and GPT scores. Moreover, VAREdit completes a 512×512 editing in 1.2 seconds, making it 2.2× faster than the similarly sized UltraEdit. Code is available at: https://github.com/HiDream-ai/VAREdit.",
+   "affiliations": [
+    "University of Science and Technology of China"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    null,
+    null,
+    null,
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ],
+    null
+   ],
+   "institutions": [
+    "University of Science and Technology of China"
+   ],
+   "institution_ids": [
+    "04c4dkn09"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2508.15772",
+   "pdf_url": "https://arxiv.org/pdf/2508.15772"
+  },
+  {
    "arxiv_id": "2508.15769",
    "announced": "2025-08-01",
    "title": "SceneGen: Single-Image 3D Scene Generation in One Feedforward Pass",
@@ -33338,6 +35203,45 @@
    },
    "abs_url": "https://arxiv.org/abs/2508.09123",
    "pdf_url": "https://arxiv.org/pdf/2508.09123"
+  },
+  {
+   "arxiv_id": "2508.08487",
+   "announced": "2025-08-01",
+   "title": "MAViS: A Multi-Agent Framework for Long-Sequence Video Storytelling",
+   "authors": [
+    "Qian Wang",
+    "Ziqi Huang",
+    "Ruoxi Jia",
+    "Paul Debevec",
+    "Ning Yu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)",
+    "Multiagent Systems (cs.MA)"
+   ],
+   "comments": "Video Generation Agent",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Despite recent advances, long-sequence video generation frameworks still suffer from significant limitations: poor assistive capability, suboptimal visual quality, and limited expressiveness. To mitigate these limitations, we propose MAViS, a multi-agent collaborative framework designed to assist in long-sequence video storytelling by efficiently translating ideas into visual narratives. MAViS orchestrates specialized agents across multiple stages, including script writing, shot designing, character modeling, keyframe generation, video animation, and audio generation. In each stage, agents operate under the 3E Principle -- Explore, Examine, and Enhance -- to ensure the completeness of intermediate outputs. Considering the capability limitations of current generative models, we propose the Script Writing Guidelines to optimize compatibility between scripts and generative tools. Experimental results demonstrate that MAViS achieves state-of-the-art performance in assistive capability, visual quality, and video expressiveness. Its modular framework further enables scalability with diverse generative models and tools. With just a brief idea description, MAViS enables users to rapidly explore diverse visual storytelling and creative directions for sequential video generation by efficiently producing high-quality, complete long-sequence videos. To the best of our knowledge, MAViS is the only framework that provides multimodal design output -- videos with narratives and background music.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2508.08487",
+   "pdf_url": "https://arxiv.org/pdf/2508.08487"
   },
   {
    "arxiv_id": "2508.08134",
@@ -40020,6 +41924,44 @@
    "pdf_url": "https://arxiv.org/pdf/2507.09524"
   },
   {
+   "arxiv_id": "2507.09081",
+   "announced": "2025-07-11",
+   "title": "From Physics to Foundation Models: A Review of AI-Driven Quantitative Remote Sensing Inversion",
+   "authors": [
+    "Zhenyu Yu",
+    "Mohd Yamani Idna Idris",
+    "Hua Wang",
+    "Pei Wang",
+    "Junyi Chen",
+    "Kun Wang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Quantitative remote sensing inversion aims to estimate continuous surface variables-such as biomass, vegetation indices, and evapotranspiration-from satellite observations, supporting applications in ecosystem monitoring, carbon accounting, and land management. With the evolution of remote sensing systems and artificial intelligence, traditional physics-based paradigms are giving way to data-driven and foundation model (FM)-based approaches. This paper systematically reviews the methodological evolution of inversion techniques, from physical models (e.g., PROSPECT, SCOPE, DART) to machine learning methods (e.g., deep learning, multimodal fusion), and further to foundation models (e.g., SatMAE, GFM, mmEarth). We compare the modeling assumptions, application scenarios, and limitations of each paradigm, with emphasis on recent FM advances in self-supervised pretraining, multi-modal integration, and cross-task adaptation. We also highlight persistent challenges in physical interpretability, domain generalization, limited supervision, and uncertainty quantification. Finally, we envision the development of next-generation foundation models for remote sensing inversion, emphasizing unified modeling capacity, cross-domain generalization, and physical interpretability.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2507.09081",
+   "pdf_url": "https://arxiv.org/pdf/2507.09081"
+  },
+  {
    "arxiv_id": "2507.07990",
    "announced": "2025-07-10",
    "title": "Multi-Granular Spatio-Temporal Token Merging for Training-Free Acceleration of Video LLMs",
@@ -41864,6 +43806,57 @@
    },
    "abs_url": "https://arxiv.org/abs/2507.01790",
    "pdf_url": "https://arxiv.org/pdf/2507.01790"
+  },
+  {
+   "arxiv_id": "2507.01291",
+   "announced": "2025-07-02",
+   "title": "PanTS: The Pancreatic Tumor Segmentation Dataset",
+   "authors": [
+    "Wenxuan Li",
+    "Xinze Zhou",
+    "Qi Chen",
+    "Tianyu Lin",
+    "Pedro R. A. S. Bassi",
+    "Szymon Plotka",
+    "Jaroslaw B. Cwikla",
+    "Xiaoxi Chen",
+    "Chen Ye",
+    "Zheren Zhu",
+    "Kai Ding",
+    "Heng Li",
+    "Kang Wang",
+    "Yang Yang",
+    "Yucheng Tang",
+    "Daguang Xu",
+    "Alan L. Yuille",
+    "Zongwei Zhou"
+   ],
+   "primary_subject": "Image and Video Processing (eess.IV)",
+   "subjects": [
+    "Image and Video Processing (eess.IV)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "eess.IV",
+   "html_url": null,
+   "abstract": "PanTS is a large-scale, multi-institutional dataset curated to advance research in pancreatic CT analysis. It contains 36,390 CT scans from 145 medical centers, with expert-validated, voxel-wise annotations of over 993,000 anatomical structures, covering pancreatic tumors, pancreas head, body, and tail, and 24 surrounding anatomical structures such as vascular/skeletal structures and abdominal/thoracic organs. Each scan includes metadata such as patient age, sex, diagnosis, contrast phase, in-plane spacing, slice thickness, etc. AI models trained on PanTS achieve significantly better performance in pancreatic tumor detection, localization, and segmentation compared to those trained on existing public datasets. Our analysis indicates that these gains are directly attributable to the 16x larger-scale tumor annotations and indirectly supported by the 24 additional surrounding anatomical structures. As the largest and most comprehensive resource of its kind, PanTS offers a new benchmark for developing and evaluating AI models in pancreatic CT analysis.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2507.01291",
+   "pdf_url": "https://arxiv.org/pdf/2507.01291"
   },
   {
    "arxiv_id": "2507.01275",
@@ -48934,6 +50927,78 @@
    "pdf_url": "https://arxiv.org/pdf/2506.21976"
   },
   {
+   "arxiv_id": "2506.21885",
+   "announced": "2025-06-27",
+   "title": "Integrating Multi-Modal Sensors: A Review of Fusion Techniques for Intelligent Vehicles",
+   "authors": [
+    "Chuheng Wei",
+    "Ziye Qin",
+    "Ziyan Zhang",
+    "Guoyuan Wu",
+    "Matthew J. Barth"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Multimedia (cs.MM)",
+    "Robotics (cs.RO)"
+   ],
+   "comments": "Accepted by IEEE IV 2025",
+   "journal_ref": "Proceedings of the 2025 IEEE Intelligent Vehicles Symposium (IV), pp. 1817-1824, 2025",
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Multi-sensor fusion plays a critical role in enhancing perception for autonomous driving, overcoming individual sensor limitations, and enabling comprehensive environmental understanding. This paper first formalizes multi-sensor fusion strategies into data-level, feature-level, and decision-level categories and then provides a systematic review of deep learning-based methods corresponding to each strategy. We present key multi-modal datasets and discuss their applicability in addressing real-world challenges, particularly in adverse weather conditions and complex urban environments. Additionally, we explore emerging trends, including the integration of Vision-Language Models (VLMs), Large Language Models (LLMs), and the role of sensor fusion in end-to-end autonomous driving, highlighting its potential to enhance system adaptability and robustness. Our work offers valuable insights into current methods and future directions for multi-sensor fusion in autonomous driving.",
+   "affiliations": [
+    "University of California, Riverside",
+    "Center for Environmental Research and Technology",
+    "Southwest Jiaotong University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "University of California, Riverside",
+    "Center for Environmental Research and Technology",
+    "Southwest Jiaotong University"
+   ],
+   "institution_ids": [
+    "03nawhv43",
+    "045q9he82",
+    "00hn7w693"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2506.21885",
+   "pdf_url": "https://arxiv.org/pdf/2506.21885"
+  },
+  {
    "arxiv_id": "2506.21876",
    "announced": "2025-06-27",
    "title": "Do Vision-Language Models Have Internal World Models? Towards an Atomic Evaluation",
@@ -50928,6 +52993,51 @@
    },
    "abs_url": "https://arxiv.org/abs/2506.16960",
    "pdf_url": "https://arxiv.org/pdf/2506.16960"
+  },
+  {
+   "arxiv_id": "2506.07497",
+   "announced": "2025-06-20",
+   "title": "Genesis: Multimodal Driving Scene Generation with Spatio-Temporal and Cross-Modal Consistency",
+   "authors": [
+    "Xiangyu Guo",
+    "Zhanqian Wu",
+    "Kaixin Xiong",
+    "Ziyang Xu",
+    "Lijun Zhou",
+    "Gangwei Xu",
+    "Shaoqing Xu",
+    "Haiyang Sun",
+    "Bing Wang",
+    "Guang Chen",
+    "Hangjun Ye",
+    "Wenyu Liu",
+    "Xinggang Wang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "We present Genesis, a unified framework for joint generation of multi-view driving videos and LiDAR sequences with spatio-temporal and cross-modal consistency. Genesis employs a two-stage architecture that integrates a DiT-based video diffusion model with 3D-VAE encoding, and a BEV-aware LiDAR generator with NeRF-based rendering and adaptive sampling. Both modalities are directly coupled through a shared latent space, enabling coherent evolution across visual and geometric domains. To guide the generation with structured semantics, we introduce DataCrafter, a captioning module built on vision-language models that provides scene-level and instance-level supervision. Extensive experiments on the nuScenes benchmark demonstrate that Genesis achieves state-of-the-art performance across video and LiDAR metrics (FVD 16.95, FID 4.24, Chamfer 0.611), and benefits downstream tasks including segmentation and 3D detection, validating the semantic fidelity and practical utility of the generated data.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2506.07497",
+   "pdf_url": "https://arxiv.org/pdf/2506.07497"
   },
   {
    "arxiv_id": "2506.16504",
@@ -53371,6 +55481,43 @@
    },
    "abs_url": "https://arxiv.org/abs/2506.09943",
    "pdf_url": "https://arxiv.org/pdf/2506.09943"
+  },
+  {
+   "arxiv_id": "2506.09930",
+   "announced": "2025-06-11",
+   "title": "From Intention to Execution: Probing the Generalization Boundaries of Vision-Language-Action Models",
+   "authors": [
+    "Irving Fang",
+    "Juexiao Zhang",
+    "Shengbang Tong",
+    "Chen Feng"
+   ],
+   "primary_subject": "Robotics (cs.RO)",
+   "subjects": [
+    "Robotics (cs.RO)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Under review",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.RO",
+   "html_url": null,
+   "abstract": "One promise that Vision-Language-Action (VLA) models hold over traditional imitation learning for robotics is to leverage the broad generalization capabilities of large Vision-Language Models (VLMs) to produce versatile, \"generalist\" robot policies. However, current evaluations of VLAs remain insufficient. Traditional imitation learning benchmarks are unsuitable due to the lack of language instructions. Emerging benchmarks for VLAs that incorporate language often come with limited evaluation tasks and do not intend to investigate how much VLM pretraining truly contributes to the generalization capabilities of the downstream robotic policy. Meanwhile, much research relies on real-world robot setups designed in isolation by different institutions, which creates a barrier for reproducibility and accessibility. To address this gap, we introduce a unified probing suite of 50 simulation-based tasks across 10 subcategories spanning language instruction, vision, and objects. We systematically evaluate several state-of-the-art VLA architectures on this suite to understand their generalization capability. Our results show that while VLM backbones endow VLAs with robust perceptual understanding and high level planning, which we refer to as good intentions, this does not reliably translate into precise motor execution: when faced with out-of-distribution observations, policies often exhibit coherent intentions, but falter in action execution. Moreover, finetuning on action data can erode the original VLM's generalist reasoning abilities. We release our task suite and evaluation code to serve as a standardized benchmark for future VLAs and to drive research on closing the perception-to-action gap. More information, including the source code, can be found at https://ai4ce.github.io/INT-ACT/",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2506.09930",
+   "pdf_url": "https://arxiv.org/pdf/2506.09930"
   },
   {
    "arxiv_id": "2506.09849",
@@ -58799,6 +60946,44 @@
    },
    "abs_url": "https://arxiv.org/abs/2506.17733",
    "pdf_url": "https://arxiv.org/pdf/2506.17733"
+  },
+  {
+   "arxiv_id": "2506.16802",
+   "announced": "2025-06-01",
+   "title": "Seeing What Matters: Generalizable AI-generated Video Detection with Forensic-Oriented Augmentation",
+   "authors": [
+    "Riccardo Corvi",
+    "Davide Cozzolino",
+    "Ekta Prashnani",
+    "Shalini De Mello",
+    "Koki Nagano",
+    "Luisa Verdoliva"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Synthetic video generation is progressing very rapidly. The latest models can produce very realistic high-resolution videos that are virtually indistinguishable from real ones. Although several video forensic detectors have been recently proposed, they often exhibit poor generalization, which limits their applicability in a real-world scenario. Our key insight to overcome this issue is to guide the detector towards *seeing what really matters*. In fact, a well-designed forensic classifier should focus on identifying intrinsic low-level artifacts introduced by a generative architecture rather than relying on high-level semantic flaws that characterize a specific model. In this work, first, we study different generative architectures, searching and identifying discriminative features that are unbiased, robust to impairments, and shared across models. Then, we introduce a novel forensic-oriented data augmentation strategy based on the wavelet decomposition and replace specific frequency-related bands to drive the model to exploit more relevant forensic cues. Our novel training paradigm improves the generalizability of AI-generated video detectors, without the need for complex algorithms and large datasets that include multiple synthetic generators. To evaluate our approach, we train the detector using data from a single generative model and test it against videos produced by a wide range of other models. Despite its simplicity, our method achieves a significant accuracy improvement over state-of-the-art detectors and obtains excellent results even on very recent generative models, such as NOVA and FLUX.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2506.16802",
+   "pdf_url": "https://arxiv.org/pdf/2506.16802"
   },
   {
    "arxiv_id": "2506.16402",
@@ -66050,7 +68235,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
@@ -67350,6 +69535,69 @@
    },
    "abs_url": "https://arxiv.org/abs/2505.15725",
    "pdf_url": "https://arxiv.org/pdf/2505.15725"
+  },
+  {
+   "arxiv_id": "2505.19239",
+   "announced": "2025-05-25",
+   "title": "DriveX: Omni Scene Modeling for Learning Generalizable World Knowledge in Autonomous Driving",
+   "authors": [
+    "Chen Shi",
+    "Shaoshuai Shi",
+    "Kehua Sheng",
+    "Bo Zhang",
+    "Li Jiang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Data-driven learning has advanced autonomous driving, yet task-specific models struggle with out-of-distribution scenarios due to their narrow optimization objectives and reliance on costly annotated data. We present DriveX, a self-supervised world model that learns generalizable scene dynamics and holistic representations (geometric, semantic, and motion) from large-scale driving videos. DriveX introduces Omni Scene Modeling (OSM), a module that unifies multimodal supervision-3D point cloud forecasting, 2D semantic representation, and image generation-to capture comprehensive scene evolution. To simplify learning complex dynamics, we propose a decoupled latent world modeling strategy that separates world representation learning from future state decoding, augmented by dynamic-aware ray sampling to enhance motion modeling. For downstream adaptation, we design Future Spatial Attention (FSA), a unified paradigm that dynamically aggregates spatiotemporal features from DriveX's predictions to enhance task-specific inference. Extensive experiments demonstrate DriveX's effectiveness: it achieves significant improvements in 3D future point cloud prediction over prior work, while attaining state-of-the-art results on diverse tasks including occupancy prediction, flow estimation, and end-to-end driving. These results validate DriveX's capability as a general-purpose world model, paving the way for robust and unified autonomous driving frameworks.",
+   "affiliations": [
+    "Chinese University of Hong Kong, Shenzhen",
+    "Didi Chuxing"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Chinese University of Hong Kong, Shenzhen",
+    "Didi Chuxing"
+   ],
+   "institution_ids": [
+    "02d5ks197",
+    "02ksqcf75"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2505.19239",
+   "pdf_url": "https://arxiv.org/pdf/2505.19239"
   },
   {
    "arxiv_id": "2505.19190",
@@ -72328,6 +74576,76 @@
    },
    "abs_url": "https://arxiv.org/abs/2505.04410",
    "pdf_url": "https://arxiv.org/pdf/2505.04410"
+  },
+  {
+   "arxiv_id": "2505.04109",
+   "announced": "2025-05-07",
+   "title": "One2Any: One-Reference 6D Pose Estimation for Any Object",
+   "authors": [
+    "Mengya Liu",
+    "Siyuan Li",
+    "Ajad Chhatkuli",
+    "Prune Truong",
+    "Luc Van Gool",
+    "Federico Tombari"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "accepted by CVPR 2025",
+   "journal_ref": "CVPR 2025",
+   "venue": "CVPR 2025",
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "6D object pose estimation remains challenging for many applications due to dependencies on complete 3D models, multi-view images, or training limited to specific object categories. These requirements make generalization to novel objects difficult for which neither 3D models nor multi-view images may be available. To address this, we propose a novel method One2Any that estimates the relative 6-degrees of freedom (DOF) object pose using only a single reference-single query RGB-D image, without prior knowledge of its 3D model, multi-view data, or category constraints. We treat object pose estimation as an encoding-decoding process, first, we obtain a comprehensive Reference Object Pose Embedding (ROPE) that encodes an object shape, orientation, and texture from a single reference view. Using this embedding, a U-Net-based pose decoding module produces Reference Object Coordinate (ROC) for new views, enabling fast and accurate pose estimation. This simple encoding-decoding framework allows our model to be trained on any pair-wise pose data, enabling large-scale training and demonstrating great scalability. Experiments on multiple benchmark datasets demonstrate that our model generalizes well to novel objects, achieving state-of-the-art accuracy and robustness even rivaling methods that require multi-view or CAD inputs, at a fraction of compute.",
+   "affiliations": [
+    "ETH Zurich",
+    "Sofia University \"St. Kliment Ohridski\"",
+    "Google"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "ETH Zurich",
+    "Sofia University \"St. Kliment Ohridski\"",
+    "Google"
+   ],
+   "institution_ids": [
+    "05a28rw58",
+    "02jv3k292",
+    "00njsd438"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2505.04109",
+   "pdf_url": "https://arxiv.org/pdf/2505.04109"
   },
   {
    "arxiv_id": "2505.04653",
@@ -80166,6 +82484,97 @@
    },
    "abs_url": "https://arxiv.org/abs/2505.16239",
    "pdf_url": "https://arxiv.org/pdf/2505.16239"
+  },
+  {
+   "arxiv_id": "2505.16091",
+   "announced": "2025-05-01",
+   "title": "OSCAR: One-Step Diffusion Codec Across Multiple Bit-rates",
+   "authors": [
+    "Jinpei Guo",
+    "Yifei Ji",
+    "Zheng Chen",
+    "Kai Liu",
+    "Min Liu",
+    "Wang Rao",
+    "Wenbo Li",
+    "Yong Guo",
+    "Yulun Zhang"
+   ],
+   "primary_subject": "Image and Video Processing (eess.IV)",
+   "subjects": [
+    "Image and Video Processing (eess.IV)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "eess.IV",
+   "html_url": null,
+   "abstract": "Pretrained latent diffusion models have shown strong potential for lossy image compression, owing to their powerful generative priors. Most existing diffusion-based methods reconstruct images by iteratively denoising from random noise, guided by compressed latent representations. While these approaches have achieved high reconstruction quality, their multi-step sampling process incurs substantial computational overhead. Moreover, they typically require training separate models for different compression bit-rates, leading to significant training and storage costs. To address these challenges, we propose a one-step diffusion codec across multiple bit-rates. termed OSCAR. Specifically, our method views compressed latents as noisy variants of the original latents, where the level of distortion depends on the bit-rate. This perspective allows them to be modeled as intermediate states along a diffusion trajectory. By establishing a mapping from the compression bit-rate to a pseudo diffusion timestep, we condition a single generative model to support reconstructions at multiple bit-rates. Meanwhile, we argue that the compressed latents retain rich structural information, thereby making one-step denoising feasible. Thus, OSCAR replaces iterative sampling with a single denoising pass, significantly improving inference efficiency. Extensive experiments demonstrate that OSCAR achieves superior performance in both quantitative and visual quality metrics. The code and models are available at https://github.com/jp-guo/OSCAR.",
+   "affiliations": [
+    "Shanghai Jiao Tong University",
+    "Institute of Scientific and Industrial Research, The University of Osaka",
+    "University of Osaka",
+    "Carnegie Mellon University",
+    "Future Academy",
+    "Max Planck Institute for Informatics"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     0
+    ],
+    null,
+    [
+     3
+    ],
+    [
+     4
+    ],
+    [
+     5
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Shanghai Jiao Tong University",
+    "Institute of Scientific and Industrial Research, The University of Osaka",
+    "University of Osaka",
+    "Carnegie Mellon University",
+    "Future Academy",
+    "Max Planck Institute for Informatics"
+   ],
+   "institution_ids": [
+    "0220qvk04",
+    "053t3hh85",
+    "035t8zc32",
+    "05x2bcf33",
+    "0570trv98",
+    "01w19ak89"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2505.16091",
+   "pdf_url": "https://arxiv.org/pdf/2505.16091"
   },
   {
    "arxiv_id": "2505.15966",
@@ -105920,6 +108329,76 @@
    },
    "abs_url": "https://arxiv.org/abs/2503.20215",
    "pdf_url": "https://arxiv.org/pdf/2503.20215"
+  },
+  {
+   "arxiv_id": "2503.20211",
+   "announced": "2025-03-26",
+   "title": "Synthetic-to-Real Self-supervised Robust Depth Estimation via Learning with Motion and Structure Priors",
+   "authors": [
+    "Weilong Yan",
+    "Ming Li",
+    "Haipeng Li",
+    "Shuwei Shao",
+    "Robby T. Tan"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Robotics (cs.RO)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Self-supervised depth estimation from monocular cameras in diverse outdoor conditions, such as daytime, rain, and nighttime, is challenging due to the difficulty of learning universal representations and the severe lack of labeled real-world adverse data. Previous methods either rely on synthetic inputs and pseudo-depth labels or directly apply daytime strategies to adverse conditions, resulting in suboptimal results. In this paper, we present the first synthetic-to-real robust depth estimation framework, incorporating motion and structure priors to capture real-world knowledge effectively. In the synthetic adaptation, we transfer motion-structure knowledge inside cost volumes for better robust representation, using a frozen daytime model to train a depth estimator in synthetic adverse conditions. In the innovative real adaptation, which targets to fix synthetic-real gaps, models trained earlier identify the weather-insensitive regions with a designed consistency-reweighting strategy to emphasize valid pseudo-labels. We introduce a new regularization by gathering explicit depth distributions to constrain the model when facing real-world data. Experiments show that our method outperforms the state-of-the-art across diverse conditions in multi-frame and single-frame evaluations. We achieve improvements of 7.5% and 4.3% in AbsRel and RMSE on average for nuScenes and Robotcar datasets (daytime, nighttime, rain). In zero-shot evaluation of DrivingStereo (rain, fog), our method generalizes better than the previous ones.",
+   "affiliations": [
+    "National University of Singapore",
+    "Guangdong Laboratory of Artificial Intelligence and Digital Economy (Shenzhen)",
+    "University of Electronic Science and Technology of China",
+    "Shandong University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "National University of Singapore",
+    "Guangdong Laboratory of Artificial Intelligence and Digital Economy (Shenzhen)",
+    "University of Electronic Science and Technology of China",
+    "Shandong University"
+   ],
+   "institution_ids": [
+    "01tgyzw49",
+    "040g1y854",
+    "04qr3zq92",
+    "0207yh398"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2503.20211",
+   "pdf_url": "https://arxiv.org/pdf/2503.20211"
   },
   {
    "arxiv_id": "2503.20188",
@@ -146804,6 +149283,71 @@
    "pdf_url": "https://arxiv.org/pdf/2502.00791"
   },
   {
+   "arxiv_id": "2502.00622",
+   "announced": "2025-02-01",
+   "title": "Inference-Time Enhancement of Generative Robot Policies via Predictive World Modeling",
+   "authors": [
+    "Han Qi",
+    "Haocheng Yin",
+    "Aris Zhu",
+    "Yilun Du",
+    "Heng Yang"
+   ],
+   "primary_subject": "Robotics (cs.RO)",
+   "subjects": [
+    "Robotics (cs.RO)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "Acceptance to IEEE Robotics and Automation Letters. Website: https://computationalrobotics.seas.harvard.edu/GPC",
+   "journal_ref": null,
+   "venue": "RA-L",
+   "cross_list_from": "cs.RO",
+   "html_url": null,
+   "abstract": "We present Generative Predictive Control (GPC), an inference-time method for improving pretrained behavior-cloning policies without retraining. GPC augments a frozen diffusion policy at deployment with an action-conditioned world model trained on expert demonstrations and random exploration rollouts. The world model predicts the consequences of action proposals generated by the diffusion policy and enables lightweight online planning that ranks and refines these proposals through model-based look-ahead. By combining a generative prior with predictive foresight, GPC enables test-time adaptation while keeping the original policy fixed. Across diverse robotic manipulation tasks, including state- and vision-based settings in both simulation and real-world experiments, GPC consistently outperforms standard behavior cloning and compares favorably with other inference-time adaptation baselines.",
+   "affiliations": [
+    "Harvard University",
+    "Georgia Institute of Technology"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Harvard University",
+    "Georgia Institute of Technology"
+   ],
+   "institution_ids": [
+    "03vek6s52",
+    "01zkghx44"
+   ],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2502.00622",
+   "pdf_url": "https://arxiv.org/pdf/2502.00622"
+  },
+  {
    "arxiv_id": "2502.00425",
    "announced": "2025-02-01",
    "title": "MQuant: Unleashing the Inference Potential of Multimodal Large Language Models via Full Static Quantization",
@@ -148327,6 +150871,48 @@
    },
    "abs_url": "https://arxiv.org/abs/2501.16469",
    "pdf_url": "https://arxiv.org/pdf/2501.16469"
+  },
+  {
+   "arxiv_id": "2501.16330",
+   "announced": "2025-01-27",
+   "title": "RelightVid: Temporal-Consistent Diffusion Model for Video Relighting",
+   "authors": [
+    "Ye Fang",
+    "Zeyi Sun",
+    "Shangzhan Zhang",
+    "Tong Wu",
+    "Yinghao Xu",
+    "Pan Zhang",
+    "Jiaqi Wang",
+    "Gordon Wetzstein",
+    "Dahua Lin"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Diffusion models have demonstrated remarkable success in image generation and editing, with recent advancements enabling albedo-preserving image relighting. However, applying these models to video relighting remains challenging due to the lack of paired video relighting datasets and the high demands for output fidelity and temporal consistency, further complicated by the inherent randomness of diffusion models. To address these challenges, we introduce RelightVid, a flexible framework for video relighting that can accept background video, text prompts, or environment maps as relighting conditions. Trained on in-the-wild videos with carefully designed illumination augmentations and rendered videos under extreme dynamic lighting, RelightVid achieves arbitrary video relighting with high temporal consistency without intrinsic decomposition while preserving the illumination priors of its image backbone.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-25"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2501.16330",
+   "pdf_url": "https://arxiv.org/pdf/2501.16330"
   },
   {
    "arxiv_id": "2501.15852",
@@ -154047,7 +156633,7 @@
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-25"
     },
     "institutions": {
      "source": "openalex"
