@@ -4771,11 +4771,11 @@
     "Computer Vision and Pattern Recognition (cs.CV)",
     "Computation and Language (cs.CL)"
    ],
-   "comments": "NeurIPS 2026 VLM4RWD Workshop. 21 pages, 10 figures. Code: https://github.com/Kesav2k04/ugaa-research",
+   "comments": "NeurIPS 2026 VLM4RWD. 21 pages, 10 figures. Code: https://github.com/Kesav2k04/ugaa-research",
    "journal_ref": null,
-   "venue": "NeurIPS 2026 Workshop",
+   "venue": "NeurIPS 2026",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.25964v2",
+   "html_url": "https://arxiv.org/html/2610.25964v3",
    "abstract": "We set out to reproduce a recent hallucination-mitigation result on the POPE benchmark. The LLaVA-1.5-7B baseline we measured, 82.21 F1 on the adversarial split, sat 1.21 to 8.67 points above the adversarial baselines we planned to compare against (81.00, 79.30, and 73.54). We looked at the evaluation code and found a readout choice that moves F1 on its own. A two-token logit readout decides yes versus no by comparing two vocabulary IDs, 3582 (\"yes\") and 1217 (\"no\"). Across 9,000 greedy-decode questions spanning all three splits, neither ID is generated even once. The model emits \" Yes\" (token 3869) and \" No\" (token 1939), because SentencePiece prepends a space byte after the prompt suffix \"ASSISTANT:\". Read with an eight-token lookup that covers the space-prefixed surface forms, LLaVA-1.5-7B scores F1 0.8221, 0.8498, and 0.8713 on the adversarial, popular, and random splits. That 6.13-point adversarial shift exceeds the adversarial gain reported by five of the six papers we surveyed. None of them states its readout, and our reference ran under 4-bit NF4 quantization, so we cannot say how much of any reported gain a matched evaluation would keep. That comparison stays unresolved until readout and precision are matched. On the fixed baseline we run nine inference-time corrections of our own (none beat it) and dissect why the adversarial split resists logit-level intervention. In a 3,000-question probe, wrong predictions draw more image attention than correct ones (Cohen's d=-0.46, $p=1.4×10^{-24}$), the opposite of what grounding-based corrections assume. A four-readout audit across four further VLMs from three tokenizer families confirms the confound is protocol-level, not model-specific: porting the LLaVA-1.5 IDs verbatim drops F1 to 0.00 on the two disjoint-vocabulary models, whereas a tokenizer-derived readout holds between 0.80 and 0.92.",
    "affiliations": [
     "Department of Information Technology, Sri Krishna College of Technology, Coimbatore 641042, India",
@@ -5748,18 +5748,18 @@
    "authors": [
     "Xiao Ma",
     "Zhonghao Zhan",
-    "Hamed Haddadi",
+    "Yi Tang",
     "Qi Chen"
    ],
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "24 pages, including supplementary material. Revised supplementary examples and exposition; added corresponding-author information and updated the project link. Main quantitative results unchanged",
+   "comments": "24 pages, including supplementary material. Updated author list and affiliations. Main text and quantitative results unchanged",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.25716v2",
+   "html_url": "https://arxiv.org/html/2610.25716v3",
    "abstract": "Modern generative models can produce visually plausible images while violating exact identity constraints. Evaluating such failures requires distinguishing violations of the requested identity from permissible variation in appearance. We introduce Low-Entropy Visual Identity (LEVI), which characterizes visual identities determined by compact facts and explicit rules. The low-entropy requirement concerns identity uncertainty, while appearance may remain diverse. We formulate identity fidelity in terms of the probability that a conditional image distribution assigns to the identities permitted by the prompt. Visual Identity Spaces (VIS) formalize this distinction by specifying admissible identity values and which different realizations express the same identity. Building on this formulation, we develop Verifiable Visual Grammar (VVG), a declarative language whose typed primitives and compositional constraints describe identity-bearing structures. Using this grammar, we build a benchmark for image generation. It assesses each output against the task's identity requirements, drawing evidence from the final pixels. The curated benchmark contains 1,375 tasks spanning 120 base identity spaces across six domains. Among ten evaluated model configurations, the highest whole-task pass rate is 58.69%. These results reveal a persistent gap between visually plausible images and faithful realization of their specified identities. Project page (forthcoming): https://maxiao0234.github.io/LEVI/.",
    "affiliations": [
     "ZODA",
@@ -5771,10 +5771,7 @@
      0,
      1
     ],
-    [
-     0,
-     1
-    ],
+    null,
     null
    ],
    "institutions": [
@@ -5789,11 +5786,11 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-26"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-21"
+     "at": "2026-10-26"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.25716",
@@ -7381,17 +7378,17 @@
    "authors": [
     "Wenyi Lian",
     "Zheng Zhao",
-    "Thomas B. Sch{ö}n"
+    "Thomas B. Schön"
    ],
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": null,
+   "comments": "Accepted to TMLR",
    "journal_ref": null,
-   "venue": null,
+   "venue": "TMLR",
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.25479v1",
+   "html_url": "https://arxiv.org/html/2610.25479v2",
    "abstract": "Test-time scaling of diffusion models with sequential Monte Carlo (SMC) has become a promising strategy for sampling under user-specified rewards, such as human preference scores. However, the standard SMC framework typically relies on stochastic proposals and therefore does not directly transfer to flow matching models, in which inference is governed by deterministic ODEs. In this work, we introduce noise-rejuvenated SMC, an inference-time scaling method tailored for text-to-image flow matching models. Our key idea is to perturb each resampled particle by changing its source noise and constructing a new intermediate state using its current endpoint estimate. This moves the particle to another state that remains representable under the flow-matching interpolation form, enabling particle exploration without converting the sampler to an SDE. We further introduce a look-ahead mechanism to refine resampled particles before weighting. Experiments on Stable Diffusion 3, FLUX.1-dev, and Z-Image demonstrate consistent improvements in reward-guided generation, while ablation studies validate the contributions of noise rejuvenation and look-ahead refinement. Code is available at https://github.com/shermanlian/NR-SMC.",
    "affiliations": [
     "Department of Information Technology, Uppsala University, Sweden",
@@ -7420,11 +7417,11 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-26"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-21"
+     "at": "2026-10-26"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.25479",
@@ -8178,7 +8175,7 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": "18 pages including references, 3 figures in the paper and 1 in the supplement. The supplement is included as an ancillary file and published with the preprint record, DOI 10.5281/zenodo.23404530",
+   "comments": "18 pages including references, 3 figures in the paper and 1 in the supplement. The supplement is included as an ancillary file and published with the preprint record, DOI https://doi.org/10.5281/zenodo.23404530",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
@@ -18925,8 +18922,9 @@
    "announced": "2026-10-20",
    "title": "Localization and Neural Splatting on the Edge: An FPGA Scene Memory for Robots",
    "authors": [
-    "Que Haohua",
+    "Haohua Que",
     "Mingkai Liu",
+    "Tianle Zhu",
     "Handong Yao"
    ],
    "primary_subject": "Robotics (cs.RO)",
@@ -18938,12 +18936,15 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": "https://arxiv.org/html/2610.25068v1",
+   "html_url": "https://arxiv.org/html/2610.25068v2",
    "abstract": "Resource-constrained robots and autonomous vehicles need scene memories that localize a camera and render nearby views without a desktop GPU. Scene-coordinate regression (SCR) and 3D Gaussian splatting (3DGS) fit because they avoid an SfM stage, but ACEsplat-style pipelines are GPU-centered, and moving them to an edge FPGA is hard because SCR is pose-sensitive and 3DGS rendering is irregular and capacity-sensitive. We present LENS, an edge scene-memory acceleration system on the AMD KR260 that brings an ACEsplat-style workload to a low-power FPGA/ARM platform. Rather than proposing a new scene model, LENS co-designs the two dominant kernels with the board data path: an INT16 SCR accelerator that preserves pose accuracy, and a bit-exact fixed-point ordered 3DGS renderer that rewrites alpha transmittance as a log-sum-exp recurrence and removes provably useless streamed Gaussians. All LENS latency, power, and quality results are board-measured. The SCR engine preserves DSAC* localization accuracy at 25.42 ms, the on-board renderer reaches 34.11 dB on Cambridge against ACEsplat's 33.20, novel-view synthesis on RealEstate10K reaches 27.84 dB against 26.11, and all ten Wayspots scenes reach the ACEsplat rendering target. LENS wins performance per watt over a Jetson Orin NX on every deployment task, by 1.9x to 5.7x at about a quarter of the power, and is faster in absolute latency on localization and Wayspots rendering. On-device training reaches ACEsplat-level quality but not the GPU's time or energy, marking the remaining boundary for a future training accelerator.",
    "affiliations": [
     "School of Environmental, Civil, Agricultural and Mechanical Engineering, College of Engineering, University of Georgia, Athens, GA 30602, USA"
    ],
    "author_affiliations": [
+    [
+     0
+    ],
     [
      0
     ],
@@ -18964,11 +18965,11 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-26"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-21"
+     "at": "2026-10-26"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.25068",
