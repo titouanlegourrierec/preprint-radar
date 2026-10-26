@@ -37,7 +37,7 @@ delay, 600 pages take 150 minutes, inside the 175-minute deadline of the daily w
 fetch step (update.yml), and the pages left wait for the next run. `reextract` has no
 default limit (the workflow gives it 50)."""
 DEFAULT_SAVE_EVERY = 20
-"""Papers enriched from their HTML page between two saves of the store."""
+"""HTML pages downloaded between two saves of the store (those of the page cache do not count)."""
 DEFAULT_MAX_ROR_LOOKUPS = 1000
 """ROR lookups per run; a day of cs.CV brings about 400 distinct affiliation strings."""
 

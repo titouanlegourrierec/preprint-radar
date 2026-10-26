@@ -389,7 +389,7 @@ git commit -m "chore(data): affiliations of highly cited papers from their HTML 
 git pull --rebase && git push
 ```
 
-- The most cited are read first; progress is saved every 20 pages and on Ctrl-C, and
+- The most cited are read first; progress is saved every 20 pages downloaded and on Ctrl-C, and
   running it again resumes: pages already read come from `.cache/front-matter/`, offline,
   and those that answered 404 are not asked for again, nor read again those that gave no
   affiliation (`cached HTML renderings gave no affiliation: not read again`). To end it cleanly before a time

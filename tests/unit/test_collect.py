@@ -1606,11 +1606,10 @@ def test_html_reading_logs_the_time_it_takes(
         )
 
     lines = [record.getMessage() for record in caplog.records if "HTML renderings" in record.getMessage()]
-    # The cached pages come first, and cost no time.
+    # The cached pages come first, cost no time, and are not saved for: every 5 downloads are.
     assert lines == [
         "Reading 5 HTML renderings from the page cache",
         "Reading 20 HTML renderings at one every 15 s: about 5 minutes (this is slow on purpose)",
-        "5/25 HTML renderings read, progress saved; time left: about 5 minutes",
         "10/25 HTML renderings read, progress saved; time left: about 4 minutes",
         "15/25 HTML renderings read, progress saved; time left: about 3 minutes",
         "20/25 HTML renderings read, progress saved; time left: about 2 minutes",

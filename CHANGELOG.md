@@ -8,6 +8,13 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ## Unreleased
 
+### Pipeline
+
+- Runs read less of the store: the index and the citation counts' list of papers read each
+  file's ids, not its papers (0.8 s to 0.45 s each), and the HTML pages' progress is saved
+  every 20 pages downloaded, not read, so that a re-extraction from the page cache saves
+  twice or three times instead of 187 (DEBT-4).
+
 ## 0.11.0 (2026-10-25): Trends, a paper's place in its year, and fuller early years
 
 The sixth set of features of Phase 4: a Trends view says which topics of the titles rise,

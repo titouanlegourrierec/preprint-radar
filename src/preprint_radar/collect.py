@@ -92,7 +92,8 @@ class HtmlReading:
     Attributes:
         limit: Pages to download at most (``None``: no limit, ``0``: none). Pages the
             cache holds are read from it, and do not count.
-        save_every: Save progress after this many pages.
+        save_every: Save progress after this many pages downloaded: one the cache holds
+            is read again in no time, if a run is killed (DEBT-4).
         deadline: ``time.monotonic()`` value after which no page is started (nor, in a
             backfill, a catchup page), so that the run ends cleanly before it is killed
             (``None``: no deadline).
@@ -829,6 +830,16 @@ def _with_front_matter(paper: Paper, front: FrontMatter) -> Paper:
     )
 
 
+def _say_saved(done: int, todo: int, seconds_left: float) -> None:
+    """Log the pages read when progress is saved, and the time the downloads left take."""
+    logger.info(
+        "%s/%s HTML renderings read, progress saved%s",
+        f"{done:,}",
+        f"{todo:,}",
+        f"; time left: {_about(seconds_left)}" if seconds_left else "",
+    )
+
+
 def _past(deadline: float | None) -> bool:
     return deadline is not None and time.monotonic() >= deadline
 
@@ -880,7 +891,7 @@ def _add_html_front_matter(
             _about(downloads * interval),
         )
     current = list(papers)
-    pages = abstracts = failures = unreadable = 0
+    pages = abstracts = failures = unreadable = downloaded = 0
     empty: list[int] = []
     stopped: Stop | None = None
     # A bar in a terminal, closed however the reading ends.
@@ -893,6 +904,7 @@ def _add_html_front_matter(
                 stopped = Stop.DEADLINE
                 break
             paper = current[index]
+            cached = reading.cache is not None and url in reading.cache
             front = _front_matter(client, paper, url, reading.cache)
             advance(1)
             if front is None:
@@ -920,16 +932,12 @@ def _add_html_front_matter(
                     _set_back(current, papers, empty, reading.cache)
                     stopped = Stop.LAYOUT
                     break
-            if done % reading.save_every == 0:
+            # Saved every few pages downloaded: a re-extraction from the cache saved every 20
+            # pages, 187 times for 3,742 papers, each reading and writing a month of papers.
+            if not cached and (downloaded := downloaded + 1) % reading.save_every == 0:
                 checkpoint(current)
                 # The cached pages come first: those left are downloads, but at most all of them.
-                left = min(downloads, len(todo) - done)
-                logger.info(
-                    "%s/%s HTML renderings read, progress saved%s",
-                    f"{done:,}",
-                    f"{len(todo):,}",
-                    f"; time left: {_about(left * interval)}" if left else "",
-                )
+                _say_saved(done, len(todo), min(downloads, len(todo) - done) * interval)
     except KeyboardInterrupt:
         logger.warning("Interrupted: saving the %d HTML renderings read", pages)
         checkpoint(current)
@@ -1099,7 +1107,7 @@ def update_citation_counts(
     Raises:
         FetchError: If Semantic Scholar rejects the API key.
     """
-    stored = [paper.arxiv_id for paper in _every_stored_paper(store, category)]
+    stored = store.stored_ids(category)
     known = {} if refresh else store.load_citations(category)
     wanted = [arxiv_id for arxiv_id in dict.fromkeys(stored) if arxiv_id not in known]
     with progress("Citation counts", len(wanted)) as advance:

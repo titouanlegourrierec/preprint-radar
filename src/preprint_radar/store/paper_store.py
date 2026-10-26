@@ -258,16 +258,57 @@ class PaperStore:
         return self._load_papers(self._day_path(category, day))
 
     def _load_papers(self, path: Path) -> list[Paper]:
+        payload = self._papers_payload(path)
+        return [] if payload is None else [Paper.from_record(record) for record in payload["papers"]]
+
+    def _papers_payload(self, path: Path, kind: str = "papers") -> dict[str, Any] | None:
+        """A file of papers as JSON, its version and its list of papers checked; ``None`` if missing.
+
+        Raises:
+            StoreError: If the file is not valid JSON with a list of papers, or of another
+                ``schema_version``.
+        """
         if not path.is_file():
-            return []
+            return None
         try:
             payload: Any = json.loads(path.read_text(encoding="utf-8"))
-            _check_version(payload, path, "papers")
-            records = payload["papers"]
+            _check_version(payload, path, kind)
+            if not isinstance(payload["papers"], list):
+                msg = "'papers' is not a list"
+                raise TypeError(msg)  # noqa: TRY301 - the same message as a missing list's
         except (json.JSONDecodeError, KeyError, TypeError) as exc:
-            msg = f"Invalid papers file {path}: {exc}"
+            msg = f"Invalid {kind} file {path}: {exc}"
             raise StoreError(msg) from exc
-        return [Paper.from_record(record) for record in records]
+        return payload
+
+    def _ids(self, path: Path, kind: str = "papers") -> list[str]:
+        """The arXiv ids of a file of papers, read without building the papers (DEBT-4).
+
+        Raises:
+            StoreError: If the file is not valid, or of another ``schema_version``.
+        """
+        payload = self._papers_payload(path, kind)
+        if payload is None:
+            return []
+        try:
+            return [str(record["arxiv_id"]) for record in payload["papers"]]
+        except (KeyError, TypeError) as exc:
+            msg = f"Invalid {kind} file {path}: {exc}"
+            raise StoreError(msg) from exc
+
+    def stored_ids(self, category: str) -> list[str]:
+        """The ids of every stored paper of ``category``, read without building the papers (DEBT-4).
+
+        Those of its day files, the most recent first, of its archive years, and of its most
+        cited papers of the last 12 months: a paper can be in two of them.
+
+        Raises:
+            StoreError: If a file is not valid, or of another ``schema_version``.
+        """
+        paths = [self._day_path(category, day) for day in self.days(category)]
+        paths += [self._archive_path(category, year) for year in self.archive_years(category)]
+        ids = [arxiv_id for path in paths for arxiv_id in self._ids(path)]
+        return ids + self._ids(self.root / category / TOP_RECENT_FILENAME, "top-recent")
 
     def iter_papers(self, category: str | None = None) -> Iterator[Paper]:
         """Iterate over stored papers, optionally restricted to one category."""
@@ -322,15 +363,7 @@ class PaperStore:
         """The days each stored paper of ``category`` is on (one, unless stored twice)."""
         days: defaultdict[str, list[date]] = defaultdict(list)
         for day in self.days(category):
-            path = self._day_path(category, day)
-            try:
-                payload: Any = json.loads(path.read_text(encoding="utf-8"))
-                _check_version(payload, path, "papers")
-                ids = [str(record["arxiv_id"]) for record in payload["papers"]]
-            except (json.JSONDecodeError, KeyError, TypeError) as exc:
-                msg = f"Invalid papers file {path}: {exc}"
-                raise StoreError(msg) from exc
-            for arxiv_id in ids:
+            for arxiv_id in self._ids(self._day_path(category, day)):
                 days[arxiv_id].append(day)
         return days
 
@@ -411,6 +444,19 @@ class PaperStore:
             msg = f"Invalid top-recent file {path}: {exc}"
             raise StoreError(msg) from exc
         return TopRecent([Paper.from_record(record) for record in records], since)
+
+    def _top_recent_summary(self, category: str) -> dict[str, object] | None:
+        """``index.json``'s entry of the most cited papers of the last 12 months: first day, count."""
+        path = self.root / category / TOP_RECENT_FILENAME
+        payload = self._papers_payload(path, "top-recent")
+        if payload is None:
+            return None
+        try:
+            since = date.fromisoformat(payload["since"])
+        except (KeyError, TypeError, ValueError) as exc:
+            msg = f"Invalid top-recent file {path}: {exc}"
+            raise StoreError(msg) from exc
+        return {"since": since.isoformat(), "count": len(payload["papers"])}
 
     def iter_top_recent(self, category: str) -> Iterator[Paper]:
         """Iterate over the most cited papers of the last 12 months of ``category``."""
@@ -923,11 +969,14 @@ class PaperStore:
             raise StoreError(msg) from exc
 
     def summaries(self, category: str) -> list[DaySummary]:
-        """Return the number of papers per day for ``category``, most recent first."""
-        return [DaySummary(day, len(self.load_day(category, day))) for day in self.days(category)]
+        """Return the number of papers per day for ``category``, most recent first (counted, not built)."""
+        return [DaySummary(day, len(self._ids(self._day_path(category, day)))) for day in self.days(category)]
 
     def write_index(self) -> Path:
-        """Write ``index.json``, which the web app reads to discover available data."""
+        """Write ``index.json``, which the web app reads to discover available data.
+
+        Its counts come from the files' lists of papers, which are not built (DEBT-4).
+        """
         index = {
             "schema_version": SCHEMA_VERSION,
             "generated_at": datetime.now(tz=UTC).isoformat(timespec="seconds"),
@@ -939,14 +988,17 @@ class PaperStore:
                 for category in self.categories()
             },
             "archives": {
-                category: [{"year": year, "count": len(self.load_archive(category, year))} for year in years]
+                category: [
+                    {"year": year, "count": len(self._ids(self._archive_path(category, year)))}
+                    for year in years
+                ]
                 for category in self.categories()
                 if (years := self.archive_years(category))
             },
             "top_recent": {
-                category: {"since": top_recent.since.isoformat(), "count": len(top_recent.papers)}
+                category: top_recent
                 for category in self.categories()
-                if (top_recent := self.load_top_recent(category))
+                if (top_recent := self._top_recent_summary(category))
             },
         }
         path = self.root / INDEX_FILENAME

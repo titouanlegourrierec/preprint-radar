@@ -466,6 +466,41 @@ def test_invalid_top_recent_file_raises(store: PaperStore, payload: str) -> None
         store.load_top_recent("cs.CV")
 
 
+def test_the_stored_ids_are_read_without_building_the_papers(store: PaperStore, listing: Listing) -> None:
+    store.save("cs.CV", listing.papers)
+    store.write_archive("cs.CV", [_archived(listing, 2015), _archived(listing, 2017)])
+    store.write_top_recent("cs.CV", [listing.papers[0]], since=date(2025, 10, 1))
+
+    ids = store.stored_ids("cs.CV")
+
+    # The days, the newest first, the archive's years, the most recent first, then the last
+    # 12 months' most cited, which a day file can hold too (DEBT-4).
+    days = [paper.arxiv_id for day in store.days("cs.CV") for paper in store.load_day("cs.CV", day)]
+    assert ids == [*days, "1701.00000", "1501.00000", listing.papers[0].arxiv_id]
+    assert store.stored_ids("cs.RO") == []
+
+
+@pytest.mark.parametrize(
+    ("name", "payload", "message"),
+    [
+        ("2026-09-25.json", '{"schema_version": 1, "papers": {}}', "'papers' is not a list"),
+        ("2026-09-25.json", '{"schema_version": 1, "papers": [{"title": "T"}]}', "'arxiv_id'"),
+        (
+            "top-recent.json",
+            '{"schema_version": 1, "since": "soon", "papers": []}',
+            "Invalid top-recent file",
+        ),
+    ],
+)
+def test_the_index_counts_only_valid_files(store: PaperStore, name: str, payload: str, message: str) -> None:
+    path = store.root / "cs.CV" / name
+    path.parent.mkdir(parents=True)
+    path.write_text(payload, encoding="utf-8")
+
+    with pytest.raises(StoreError, match=message):
+        store.write_index()
+
+
 def test_remove_days(store: PaperStore, listing: Listing) -> None:
     store.save("cs.CV", listing.papers)
 
