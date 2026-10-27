@@ -351,6 +351,7 @@ export default defineConfig({
         "src/graph-renderer.ts",
         "src/graph-worker.ts",
         "src/download.ts",
+        "src/card-exit.ts",
         "src/keyboard.ts",
         "src/main.tsx",
       ],

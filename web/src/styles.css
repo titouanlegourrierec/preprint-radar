@@ -1645,10 +1645,12 @@ html {
   border-radius: var(--card-radius);
   background: var(--surface);
   box-shadow: var(--shadow);
+  /* Its opacity too: a card marked seen, still shown, dims rather than blinks (UX-63). */
   transition:
     transform 180ms ease,
     box-shadow 180ms ease,
-    border-color 180ms ease;
+    border-color 180ms ease,
+    opacity 200ms ease;
 }
 
 /* A folded card opens on a click (UX-34): under the pointer it rises a little, its border

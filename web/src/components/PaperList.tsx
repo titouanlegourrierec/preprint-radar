@@ -1,5 +1,6 @@
 import type { ComponentChildren } from "preact";
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
+import { cardExit } from "../card-exit";
 import type { CohortBadge } from "../cohorts";
 import { dayGroups } from "../day-groups";
 import { countOf, formatShortDay } from "../format";
@@ -169,11 +170,15 @@ export function PaperList({
       } else if (event.key === "o" || (event.key === "Enter" && onCard)) {
         current?.querySelector<HTMLButtonElement>(".paper__more")?.click();
       } else if (event.key === "s" && paper) {
+        const exit = cardExit(current, list.current?.parentElement);
         actions.current.onToggleSaved(paper);
         refocusAfter(index);
+        requestAnimationFrame(exit);
       } else if (event.key === "x" && paper && actions.current.onToggleSeen) {
+        const exit = cardExit(current, list.current?.parentElement);
         actions.current.onToggleSeen(paper.arxiv_id);
         refocusAfter(index);
+        requestAnimationFrame(exit);
       } else {
         return;
       }
@@ -220,23 +225,21 @@ export function PaperList({
     });
   };
 
-  // A card's own Seen and ☆ buttons hand the focus on too, when the card leaves.
+  // A card's own Seen and ☆ buttons hand the focus on too, when the card leaves, which
+  // slides out (UX-63).
+  const cards = () => [...(list.current?.querySelectorAll<HTMLElement>("article.paper") ?? [])];
   const cardIndex = (arxivId: string) =>
-    [...(list.current?.querySelectorAll<HTMLElement>("article.paper") ?? [])].findIndex(
-      (card) => card.dataset.arxivId === arxivId,
-    );
-  const toggleSeen =
-    onToggleSeen &&
-    ((arxivId: string) => {
-      const index = cardIndex(arxivId);
-      onToggleSeen(arxivId);
-      refocusAfter(index);
-    });
-  const toggleSaved = (paper: Paper) => {
-    const index = cardIndex(paper.arxiv_id);
-    onToggleSaved(paper);
+    cards().findIndex((card) => card.dataset.arxivId === arxivId);
+  const triaged = (arxivId: string, act: () => void) => {
+    const index = cardIndex(arxivId);
+    const exit = cardExit(cards()[index], list.current?.parentElement);
+    act();
     refocusAfter(index);
+    requestAnimationFrame(exit);
   };
+  const toggleSeen =
+    onToggleSeen && ((arxivId: string) => triaged(arxivId, () => onToggleSeen(arxivId)));
+  const toggleSaved = (paper: Paper) => triaged(paper.arxiv_id, () => onToggleSaved(paper));
   // So does folding the paper a link opened: seen while seen papers are hidden, it stays
   // only as long as it is open.
   const closePaper = () => {

@@ -357,7 +357,9 @@ pipeline and `validate` never see these. `base: "./"` keeps the site working und
   end comes into view and starts over only for a new list (`listKey`). A card that leaves
   (seen while seen papers are hidden, unsaved from the reading list) does not collapse the
   list: the next card takes the focus; the paper a link opened (`?paper=`) stays until
-  folded. A "+N" opens its card and focuses the first name it shows. Late counts re-rank the
+  folded. It leaves at once, but a copy slides out to the right as it fades and what
+  followed in sight glides up once it has (`card-exit.ts`, UX-63: x, s, Seen and the star);
+  one that stays, seen but shown, dims in 0.2 s; nothing moves under reduced motion. A "+N" opens its card and focuses the first name it shows. Late counts re-rank the
   list only when its order uses them (UX-23).
 - **Triage** (`triage.ts`, `hooks/use-triage.ts`), never in the URL: seen papers per
   category, pruned to the last `SEEN_MONTHS` (3) of identifiers, for "Hide seen" (counted in
