@@ -444,7 +444,11 @@ pipeline and `validate` never see these. `base: "./"` keeps the site working und
   `GraphSettingsPanel` (DEBT-3), `GraphFind`, `GraphInfo` and `GraphTimeline`.
   `graph-layout.ts` gives start positions (each component together, on a spiral);
   `graph-renderer.ts` draws on a canvas and handles the pointer. The view is full screen,
-  and a chunk of its own (`components/LazyGraphView.tsx`, PERF-13).
+  and a chunk of its own (`components/LazyGraphView.tsx`, PERF-13). A row of the details
+  hovered or focused, a connection or a paper, points at its node (UX-61, `setPeek`): a
+  ring, its label first, and in bold its link to the node selected or the paths through
+  the nodes both link to (`peekLinks`: the papers two institutions share). A connection's
+  name and count sit side by side over a bar of its share of the strongest's.
 - The controls float on the canvas (UX-29), which papers (the URL's) apart from how to draw
   them (this browser's). Top left, chips choose the papers (period, highly cited years,
   venue, words); the Find field (`/`) and the selected node's details below (a bottom sheet

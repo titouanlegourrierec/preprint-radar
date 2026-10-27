@@ -311,7 +311,11 @@ export function GraphView(props: Props) {
     }
   }, [focusPaper, selectedId, onFocusPaperLeft]);
   useEffect(() => rendererRef.current?.setHighlight(highlighted), [highlighted]);
-  useEffect(() => rendererRef.current?.setSelected(selected?.id ?? null), [selected]);
+  useEffect(() => {
+    rendererRef.current?.setSelected(selected?.id ?? null);
+    // A row of the last details pointed at stays pointed at no longer (UX-61).
+    rendererRef.current?.setPeek(null);
+  }, [selected]);
   useEffect(() => {
     const wide = window.matchMedia(WIDE_SCREEN).matches;
     rendererRef.current?.setOverlays({
@@ -493,6 +497,7 @@ export function GraphView(props: Props) {
               onSelect={selectNode}
               onShowPapers={onShowPapers}
               onFocus={onFocus}
+              onPeek={(id) => rendererRef.current?.setPeek(id)}
               onOpenPaper={onOpenPaper}
             />
           )}

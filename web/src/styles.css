@@ -2937,6 +2937,28 @@ input[type="range"] {
   margin-bottom: 4px;
 }
 
+/* A connection (UX-61): its name and its count side by side, a long name wrapping in its
+   column, over a bar of its shared papers' share of the strongest's (`--weight`, from code). */
+.graph__connections .graph__connection {
+  --bar: color-mix(in srgb, var(--accent) 40%, transparent);
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 8px;
+  align-items: baseline;
+  padding-bottom: 4px;
+  background:
+    linear-gradient(var(--bar), var(--bar)) no-repeat left bottom / calc(var(--weight) * 100%) 2px;
+}
+
+.graph__connection > .link-button {
+  text-align: left;
+}
+
+.graph__connection > .graph__shared {
+  grid-column: 1 / -1;
+}
+
 .graph__close {
   position: absolute;
   top: 6px;

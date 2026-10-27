@@ -42,6 +42,21 @@ interface Props {
   onShowPapers: (kind: EntityKind, label: string) => void;
   onFocus: (id: string) => void;
   onOpenPaper: (paper: Paper) => void;
+  /**
+   * Point at a node of the canvas from a row hovered or focused (UX-61), its id, or `null`
+   * once left.
+   */
+  onPeek: (id: string | null) => void;
+}
+
+/** A row's handlers that point at its node on the canvas while hovered or focused (UX-61). */
+function peeking(id: string, onPeek: (id: string | null) => void) {
+  return {
+    onPointerEnter: () => onPeek(id),
+    onPointerLeave: () => onPeek(null),
+    onFocusIn: () => onPeek(id),
+    onFocusOut: () => onPeek(null),
+  };
 }
 
 /** The details of the node selected: a paper, or an institution or author and its papers. */
@@ -75,6 +90,7 @@ function EntityDetails(props: Props & { entity: EntityNode }) {
   const { entity, citations, papersById } = props;
   // The connection whose shared papers are listed.
   const [open, setOpen] = useState<string | null>(null);
+  const strongest = Math.max(1, ...props.connections.map(({ weight }) => weight));
   return (
     <>
       <h2>{entity.label}</h2>
@@ -105,7 +121,7 @@ function EntityDetails(props: Props & { entity: EntityNode }) {
             const paper = papersById.get(id);
             const count = citations.get(id);
             return paper ? (
-              <li key={id}>
+              <li key={id} {...peeking(`paper:${id}`, props.onPeek)}>
                 <a href={paper.abs_url} target="_blank" rel="noopener noreferrer">
                   {paper.title}
                 </a>{" "}
@@ -122,7 +138,13 @@ function EntityDetails(props: Props & { entity: EntityNode }) {
           <p class="graph__kind">Most connected</p>
           <ul class="graph__connections">
             {props.connections.map(({ node, weight }) => (
-              <li key={node.id}>
+              // Its name and count side by side, over a bar of its share of the strongest's.
+              <li
+                key={node.id}
+                class="graph__connection"
+                style={`--weight: ${(weight / strongest).toFixed(3)}`}
+                {...peeking(node.id, props.onPeek)}
+              >
                 <button type="button" class="link-button" onClick={() => props.onSelect(node.id)}>
                   {node.label}
                 </button>{" "}

@@ -3,6 +3,7 @@ import {
   citationRadius,
   fitTransform,
   nodeRadius,
+  peekLinks,
   pinchView,
   zoomAbout,
 } from "../src/graph-renderer";
@@ -107,5 +108,30 @@ describe("pinchView", () => {
     );
 
     expect(view).toEqual({ k: 1, x: 30, y: 40 });
+  });
+});
+
+describe("peekLinks", () => {
+  const link = (a: string, b: string) => ({ source: { id: a }, target: { id: b } });
+  const links = [
+    link("A", "p1"),
+    link("B", "p1"),
+    link("A", "p2"),
+    link("B", "p2"),
+    link("A", "p3"),
+    link("A", "B"),
+  ];
+  const linksOf = new Map<string, ReturnType<typeof link>[]>();
+  for (const each of links) {
+    for (const end of [each.source.id, each.target.id])
+      linksOf.set(end, [...(linksOf.get(end) ?? []), each]);
+  }
+
+  it("gives two nodes' own link and their paths through the nodes both link to (UX-61)", () => {
+    const path = peekLinks("A", "B", linksOf);
+    expect(new Set(path)).toEqual(new Set([links[0], links[1], links[2], links[3], links[5]]));
+    // A paper of one alone is not on the way.
+    expect(path).not.toContain(links[4]);
+    expect(peekLinks("A", "unknown", linksOf)).toEqual([]);
   });
 });

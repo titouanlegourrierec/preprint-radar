@@ -38,6 +38,8 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
   search; the saved search shown is marked in the list (UX-59).
 - Rankings show their podium in medals, and under each figure ranked by, a bar of its share
   of the first (UX-60).
+- In the graph, hovering a name of the details shows it on the canvas, with the papers that
+  link it to the node selected (UX-61).
 - When nothing matches in Highly cited, it offers its other years, its last 12 months and a
   search of every stored paper, as Papers does (UX-55).
 

@@ -128,6 +128,27 @@ const MAX_LABEL_LENGTH = 40;
  * Radius of a node with `papers` papers. The area grows with the paper count, on the same
  * scale whatever the graph, so that a node with one paper stays small.
  */
+/**
+ * The links between two nodes (UX-61): their own, and those through the nodes both link to
+ * (the papers two institutions share), from each node's links.
+ */
+export function peekLinks<L extends { source: { id: string }; target: { id: string } }>(
+  from: string,
+  to: string,
+  linksOf: ReadonlyMap<string, readonly L[]>,
+): L[] {
+  const other = (link: L, end: string) =>
+    link.source.id === end ? link.target.id : link.source.id;
+  const fromLinks = linksOf.get(from) ?? [];
+  const toLinks = linksOf.get(to) ?? [];
+  const toNear = new Set(toLinks.map((link) => other(link, to)));
+  const shared = new Set(fromLinks.map((link) => other(link, from)).filter((id) => toNear.has(id)));
+  return [
+    ...fromLinks.filter((link) => other(link, from) === to || shared.has(other(link, from))),
+    ...toLinks.filter((link) => shared.has(other(link, to))),
+  ];
+}
+
 export function nodeRadius(papers: number): number {
   return Math.min(MAX_RADIUS, 2.5 + 3.5 * Math.sqrt(Math.max(0, papers - 1)));
 }
@@ -261,6 +282,7 @@ export class GraphRenderer {
   private hovered: string | null = null;
   private selected: string | null = null;
   private highlighted: ReadonlySet<string> | null = null;
+  private peeked: string | null = null;
   private colors = readColors();
   private gesture: Gesture | null = null;
   /** Pointers down on the canvas, by id, at their latest screen position. */
@@ -491,6 +513,16 @@ export class GraphRenderer {
     this.requestDraw();
   }
 
+  /**
+   * Point at a node from the details (UX-61), as their rows are hovered or focused: a ring,
+   * its label first, and its links to the focus in bold; `null` clears.
+   */
+  setPeek(id: string | null): void {
+    if (this.peeked === id) return;
+    this.peeked = id;
+    this.requestDraw();
+  }
+
   /** Declare the overlays, so that fitting and revealing nodes avoid them. */
   /** Re-read the palette from the CSS variables and redraw, after a theme change. */
   refreshTheme(): void {
@@ -671,10 +703,12 @@ export class GraphRenderer {
     const focus = this.hovered ?? this.selected;
     const near = focus === null ? undefined : this.neighbors.get(focus);
     const highlighted = this.highlighted;
+    const peek = this.peeked !== null && this.byId.has(this.peeked) ? this.peeked : null;
     const isLit = (id: string): boolean =>
-      focus !== null
+      id === peek ||
+      (focus !== null
         ? id === focus || near?.has(id) === true
-        : highlighted === null || highlighted.has(id);
+        : highlighted === null || highlighted.has(id));
     const dimmed = focus !== null || highlighted !== null;
 
     context.setTransform(ratio * view.k, 0, 0, ratio * view.k, ratio * view.x, ratio * view.y);
@@ -707,6 +741,16 @@ export class GraphRenderer {
       context.strokeStyle = colors.accent;
       context.lineWidth = 1.4 / view.k;
       context.stroke(focused);
+      // The paths to the node pointed at from the details, bolder: its link to the focus,
+      // or through the nodes both link to (the papers two institutions share).
+      const peeked = new Path2D();
+      for (const { source, target } of peek === null ? [] : peekLinks(focus, peek, this.linksOf)) {
+        peeked.moveTo(source.x, source.y);
+        peeked.lineTo(target.x, target.y);
+      }
+      context.globalAlpha = 1;
+      context.lineWidth = 2.4 / view.k;
+      context.stroke(peeked);
     }
 
     // Nodes, batched by color: faint under a focus or a highlight, the lit ones over them.
@@ -721,7 +765,8 @@ export class GraphRenderer {
         institution: new Path2D(),
         author: new Path2D(),
       };
-      for (const id of focus === null ? (highlighted ?? []) : [focus, ...(near ?? [])]) {
+      const shown = focus === null ? [...(highlighted ?? [])] : [focus, ...(near ?? [])];
+      for (const id of peek === null ? shown : [...shown, peek]) {
         const node = this.byId.get(id);
         if (node) addShape(lit[node.node.kind], node, minRadius);
       }
@@ -736,6 +781,7 @@ export class GraphRenderer {
     const ringGap = 2 / view.k;
     const ringed = new Set([
       ...(this.selected === null ? [] : [this.selected]),
+      ...(peek === null ? [] : [peek]),
       ...(focus === null ? (highlighted ?? []) : []),
     ]);
     for (const id of ringed) {
@@ -749,7 +795,7 @@ export class GraphRenderer {
     context.lineWidth = 2 / view.k;
     context.stroke(rings);
 
-    this.drawLabels({ left, top, right, bottom, focus, isLit });
+    this.drawLabels({ left, top, right, bottom, focus, peek, isLit });
   }
 
   /**
@@ -808,14 +854,18 @@ export class GraphRenderer {
     right: number;
     bottom: number;
     focus: string | null;
+    peek: string | null;
     isLit: (id: string) => boolean;
   }): void {
     const { context, view, colors } = this;
     const { focus, isLit } = scene;
     const ratio = window.devicePixelRatio || 1;
     const threshold = LABEL_RADIUS_PX * this.settings.labelThreshold;
-    const focusNode = focus === null ? undefined : this.byId.get(focus);
-    const candidates = focusNode ? [focusNode, ...this.nodes] : this.nodes;
+    // The focus's label first, then the node pointed at, then by rank.
+    const first = [focus, scene.peek].flatMap((id) =>
+      id === null ? [] : (this.byId.get(id) ?? []),
+    );
+    const candidates = [...first, ...this.nodes];
     const placed: Box[] = [];
 
     context.setTransform(ratio, 0, 0, ratio, 0, 0);
@@ -831,7 +881,7 @@ export class GraphRenderer {
       const y = node.y;
       if (x < scene.left || x > scene.right || y < scene.top || y > scene.bottom) continue;
       const wanted =
-        focus !== null || this.highlighted !== null
+        focus !== null || this.highlighted !== null || node.id === scene.peek
           ? isLit(node.id)
           : // Paper titles would bury the names: they show on hover and focus only.
             node.node.kind !== "paper" &&
