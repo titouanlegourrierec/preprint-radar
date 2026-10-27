@@ -355,8 +355,12 @@ pipeline and `validate` never see these. `base: "./"` keeps the site working und
 - **Triage** (`triage.ts`, `hooks/use-triage.ts`), never in the URL: seen papers per
   category, pruned to the last `SEEN_MONTHS` (3) of identifiers, for "Hide seen" (counted in
   the header, and an empty list's reason, UX-26); the previous visit's newest day, fixed for
-  the session, for the "new papers since your last visit" banner. The keys j/k/o/s/x and `/`
-  pass `keyboard.ts`'s typing guard, so the search box has no autofocus; Escape leaves it.
+  the session, for the "new papers since your last visit" banner, and in Papers' days for a
+  "New" by the headings of the days after it and a rule where they end, "Already here at
+  your last visit" (UX-54), only where both kinds of day are shown. Every list says its
+  end ("End of the list · 31 papers") once its last page is drawn, folded days aside. The
+  keys j/k/o/s/x and `/` pass `keyboard.ts`'s typing guard, so the search box has no
+  autofocus; Escape leaves it.
 - **Preferences** (`preferences.ts`) live in `localStorage`. The theme
   (`hooks/use-theme.ts`) also colors the browser's bar (the `theme-color` metas,
   `theme-color.ts`, `public/theme.js` before first paint), which `tests/styles.test.ts`

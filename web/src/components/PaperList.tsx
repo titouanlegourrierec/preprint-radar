@@ -18,6 +18,11 @@ interface Props {
   nameHighlights: NameHighlights;
   /** Insert a heading before each day; needs results in announcement order. */
   groupByDay: boolean;
+  /**
+   * The newest day stored at the previous visit (UX-54): the days after it say "New" by
+   * their heading, and a rule where they end; only where both kinds of day are shown.
+   */
+  newSince?: string | null | undefined;
   /** Each card says its rank in the order shown (UX-36); never with day headings. */
   ranked: boolean;
   /** Paper of a shared `?paper=` link: its card is expanded and scrolled into view. */
@@ -64,6 +69,7 @@ export function PaperList({
   resetKey,
   nameHighlights,
   groupByDay,
+  newSince,
   ranked,
   openId,
   linkTo,
@@ -289,14 +295,37 @@ export function PaperList({
   );
 
   let content: ComponentChildren;
+  // Whether papers of the list are left for the next pages: else its end is said.
+  let cut: boolean;
   if (withDays) {
     // Each day folds under its heading, open by default. Only the papers of open days
     // count against the paging budget: folding a day pulls the following days up.
     const rendered = [];
     let budget = visible;
+    cut = false;
+    // The days since the last visit, where days already there are shown too (UX-54).
+    const since =
+      newSince &&
+      groups.some(({ day }) => day > newSince) &&
+      groups.some(({ day }) => day <= newSince)
+        ? newSince
+        : null;
+    let ruled = false;
     for (const { day, entries } of groups) {
-      if (budget <= 0) break;
+      if (budget <= 0) {
+        cut = true;
+        break;
+      }
       const isFolded = folded.has(day);
+      const isNew = since !== null && day > since;
+      if (since !== null && !isNew && !ruled) {
+        ruled = true;
+        rendered.push(
+          <p key="caught-up" class="list-rule">
+            Already here at your last visit
+          </p>,
+        );
+      }
       rendered.push(
         <details key={day} class="day-group" open={!isFolded}>
           {/* biome-ignore lint/a11y/noStaticElementInteractions: <summary> is natively
@@ -309,14 +338,19 @@ export function PaperList({
             </span>
             {formatShortDay(day)}
             <span class="day-heading__count">· {countOf(entries.length, "paper")}</span>
+            {isNew && <span class="day-heading__new">New</span>}
           </summary>
           {isFolded ? null : entries.slice(0, budget).map((entry) => card(entry))}
         </details>,
       );
-      if (!isFolded) budget -= entries.length;
+      if (!isFolded) {
+        if (entries.length > budget) cut = true;
+        budget -= entries.length;
+      }
     }
     content = rendered;
   } else {
+    cut = visible < results.length;
     content = results
       .slice(0, visible)
       .map((result, index) => card(result, ranked ? index + 1 : undefined));
@@ -358,6 +392,10 @@ export function PaperList({
       >
         {content}
       </div>
+      {/* The end of a list said, rather than left to the footer (UX-54). */}
+      {!cut && results.length > 0 && (
+        <p class="list-rule list-rule--end">End of the list · {countOf(results.length, "paper")}</p>
+      )}
       <div ref={sentinel} aria-hidden="true" />
     </>
   );

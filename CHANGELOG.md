@@ -27,6 +27,8 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
   down instead of jumping; it still folds at once (UX-52).
 - Copying a card's BibTeX or link no longer shifts its other buttons: a check and a tip
   confirm it, the BibTeX one with the key to cite (UX-53).
+- Back after a few days, the days announced since are marked "New", a rule says where they
+  end, and every list says its end (UX-54).
 - When nothing matches in Highly cited, it offers its other years, its last 12 months and a
   search of every stored paper, as Papers does (UX-55).
 

@@ -1471,6 +1471,40 @@ html {
   text-transform: none;
 }
 
+/* The days announced since the last visit (UX-54): "New" by their heading, as a folder's
+   tag; then a rule where they end, and one where a list ends, between two hairlines. */
+.day-heading__new {
+  align-self: center;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.7rem;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.list-rule {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin: 22px 4px 0;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+}
+
+.list-rule::before,
+.list-rule::after {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+  content: "";
+}
+
+.list-rule--end {
+  margin: 28px 4px 8px;
+}
+
 .badge {
   padding: 1px 8px;
   border-radius: 999px;

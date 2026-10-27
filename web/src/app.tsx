@@ -1156,6 +1156,11 @@ export function App() {
                     resetKey={listKey({ ...state, filters }, query)}
                     nameHighlights={nameTerms}
                     groupByDay={groupByDay}
+                    newSince={
+                      state.view === "papers" && triaged && !everywhere
+                        ? triage.previousVisit
+                        : null
+                    }
                     ranked={model.ranked}
                     openId={state.paper}
                     linkTo={linkTo}

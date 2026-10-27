@@ -52,6 +52,21 @@ test("a copied BibTeX keeps its badge and says the key to cite (UX-53)", async (
   expect(errors).toEqual([]);
 });
 
+test("the days since the last visit say so, and where they end (UX-54)", async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.addInitScript(() =>
+    localStorage.setItem("preprint-radar:last-visit:cs.CV", "2026-09-24"),
+  );
+  await page.goto("./");
+  await expect(page.getByText("4 of 4 cs.CV papers")).toBeVisible();
+  const headings = page.locator("summary.day-heading");
+  await expect(headings.nth(0)).toContainText("New");
+  await expect(headings.nth(1)).not.toContainText("New");
+  await expect(page.getByText("Already here at your last visit")).toBeVisible();
+  await expect(page.getByText("End of the list · 4 papers")).toBeVisible();
+  expect(errors).toEqual([]);
+});
+
 test("the index loads once, preloaded with the page", async ({ page }) => {
   const requests: string[] = [];
   const warnings: string[] = [];
