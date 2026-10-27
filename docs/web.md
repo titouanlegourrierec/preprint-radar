@@ -269,8 +269,8 @@ pipeline and `validate` never see these. `base: "./"` keeps the site working und
 - `noThirdPartyLoads` (`tooling/third-party.ts`) fails the build if the site would load
   anything from another origin (links are fine), as About promises; the one exception is
   Cloudflare Web Analytics, given its token.
-- `landingBudget` (`tooling/landing.ts`) fails the build past `LANDING_BUDGET` (75 kB
-  gzipped, PERF-15). What the list never shows loads through `lazyView`
+- `landingBudget` (`tooling/landing.ts`) fails the build past `LANDING_BUDGET` (100 kB
+  gzipped, PERF-15; 75 until PERF-18). What the list never shows loads through `lazyView`
   (`components/lazy-view.tsx`: one request, a notice meanwhile, Reload on failure): the
   graph (PERF-13), the world map, Trends, About, Rankings' tables with their graph model
   (`rankings.ts`, `graph.ts`; `RankingsControls.tsx` stays eager), the folders and the

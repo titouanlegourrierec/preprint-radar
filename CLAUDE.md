@@ -357,7 +357,7 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   (but Cloudflare Web Analytics' script, given `PREPRINT_RADAR_ANALYTICS_TOKEN`, UX-47),
   and adds a Content-Security-Policy that refuses inline scripts and `style` attributes
   written as HTML: keep scripts in files (`public/theme.js`) and set styles from code. It
-  fails past 75 kB gzipped for the landing page (`tooling/landing.ts`): the graph loads on
+  fails past 100 kB gzipped for the landing page (`tooling/landing.ts`): the graph loads on
   demand (`LazyGraphView`), and so should anything else the list does not need.
 - GitHub Actions:
   - Pushes made with `GITHUB_TOKEN` trigger no other workflow, so `update.yml` and

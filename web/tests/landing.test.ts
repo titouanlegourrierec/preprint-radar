@@ -32,7 +32,7 @@ describe("the landing page's budget", () => {
     expect(bytes).toBe(1 + 1000);
     expect(bytes).toBeLessThan(LANDING_BUDGET);
     expect(line).toBe(
-      "Landing page: 1.0 kB gzipped of 75.0 kB (index.html 0.0 kB, assets/index-a1.js 1.0 kB)",
+      "Landing page: 1.0 kB gzipped of 100.0 kB (index.html 0.0 kB, assets/index-a1.js 1.0 kB)",
     );
   });
 });
