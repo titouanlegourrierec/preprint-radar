@@ -107,7 +107,7 @@ async function fetchJson<T>(path: string, signal?: AbortSignal): Promise<T> {
 }
 
 /** A file of another schema version: the site and its data do not match, asking again cannot help. */
-class SchemaVersionError extends Error {}
+export class SchemaVersionError extends Error {}
 
 function checkSchema(version: number, what: string): void {
   if (version !== SCHEMA_VERSION) {
@@ -346,6 +346,19 @@ export async function loadPapersById(
     papers: ids.flatMap((id) => found.get(id) ?? []),
     missing: left(),
   };
+}
+
+/**
+ * The papers of a stored file (a day, the most cited of the last 12 months, a year of the
+ * archive), from the files loaded if there, but not kept among them: a search of every
+ * stored paper (PROD-21) reads them all, and keeps only those it finds.
+ */
+export async function readStoreFile(path: string, signal?: AbortSignal): Promise<Paper[]> {
+  const known = recall(path);
+  if (known !== undefined) return known;
+  const file = await fetchJson<DayFile | ArchiveFile | TopRecentFile>(path, signal);
+  checkSchema(file.schema_version, "data file");
+  return file.papers;
 }
 
 /**

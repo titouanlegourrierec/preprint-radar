@@ -3,6 +3,7 @@ import {
   between,
   daysOverBudget,
   formatDays,
+  formatMissing,
   formatMissingDays,
   formatMonth,
   isIsoDay,
@@ -167,6 +168,21 @@ describe("formatMonth", () => {
         new Date(2026, 8, 1),
       ),
     );
+  });
+});
+
+describe("formatMissing", () => {
+  it("names the days, the archive's years and the last 12 months a list could not load", () => {
+    const day = formatDays("2026-09-25", "2026-09-25");
+    expect(formatMissing({ days: ["2026-09-25"] })).toBe(`the papers of ${day}`);
+    expect(formatMissing({ days: [], years: [2019] })).toBe("the highly cited papers of 2019");
+    expect(formatMissing({ days: [], recent: true })).toBe(
+      "the most cited papers of the last 12 months",
+    );
+    expect(formatMissing({ days: ["2026-09-25"], years: [2020, 2017, 2019], recent: true })).toBe(
+      `the papers of ${day}, the highly cited papers of 2017, 2019 and 2020 and the most cited papers of the last 12 months`,
+    );
+    expect(formatMissing({ days: [] })).toBe("");
   });
 });
 

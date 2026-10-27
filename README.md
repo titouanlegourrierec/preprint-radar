@@ -32,7 +32,8 @@ server, and what you save stays on your device.
 
 - **Search as you type** over titles, abstracts, authors, affiliations and venues, with
   prefixes, typos, `"phrases"` and `-exclusions`; filter by author, institution, venue,
-  subject or code. Every search is a link to share.
+  subject or code; over a period, or every stored paper since 2010. Every search is a link
+  to share.
 - **Highly cited**: the most cited papers of each year since 2010 and of the last 12
   months, by citations or by those gained this week.
 - **Trends**: the topics of the titles that rise, cool or are new, with their impact and

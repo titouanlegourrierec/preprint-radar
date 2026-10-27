@@ -127,7 +127,7 @@ const tokenize: (text: string) => string[] = MiniSearch.getDefault("tokenize");
 function isPrefix(term: string, index: number, terms: readonly string[]): boolean {
   return index === terms.length - 1 && term.length >= MIN_PREFIX_LENGTH;
 }
-const MIN_FUZZY_LENGTH = 7;
+export const MIN_FUZZY_LENGTH = 7;
 
 /**
  * How much more a paper scores for holding a query's words side by side (SRCH-18): three
@@ -209,7 +209,7 @@ export function hasSearchWords(query: ParsedQuery): boolean {
 }
 
 /** The words of a text the index holds: folded, without stop words. */
-function termsOf(text: string): string[] {
+export function termsOf(text: string): string[] {
   return tokenize(text)
     .map(processTerm)
     .filter((term): term is string => Boolean(term));
@@ -288,12 +288,25 @@ function fieldValue(paper: Paper, field: string): string {
   }
 }
 
+/** Every searched field of the paper, {@link fold}ed: what side by side is read in. */
+export function foldedText(paper: Paper): string {
+  return fold(SEARCHED_FIELDS.map((field) => fieldValue(paper, field)).join(" "));
+}
+
 /**
  * Every searched field of the paper, as one {@link searchKey} with a space at both ends,
  * so that phrases and exclusions match whole words: `" gan "` is not in `" organ "`.
  */
 function constraintText(paper: Paper): string {
   return ` ${searchKey(SEARCHED_FIELDS.map((field) => fieldValue(paper, field)).join(" "))} `;
+}
+
+/**
+ * The words of each searched field of a paper as its index has them: folded, without stop
+ * words (PROD-21, a typo's check).
+ */
+export function paperTerms(paper: Paper): string[] {
+  return SEARCHED_FIELDS.flatMap((field) => termsOf(fieldValue(paper, field)));
 }
 
 function newestFirst(a: SearchResult, b: SearchResult): number {
@@ -452,7 +465,7 @@ export class PaperIndex {
   private foldedOf(paper: Paper): string {
     let text = this.folded.get(paper.arxiv_id);
     if (text === undefined) {
-      text = fold(SEARCHED_FIELDS.map((field) => fieldValue(paper, field)).join(" "));
+      text = foldedText(paper);
       this.folded.set(paper.arxiv_id, text);
     }
     return text;

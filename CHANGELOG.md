@@ -10,6 +10,14 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
 
 ## Unreleased
 
+### Search
+
+- Search every stored paper, not only a period: "All stored papers" beside the period's
+  presets, or "Search all stored papers" when nothing matches, reads each day kept, the
+  most cited papers of the last 12 months and the highly cited ones since 2010, in your
+  browser. The first search downloads about 21 MB, then a search takes a few seconds; past
+  10,000 papers found, the newest are shown and the others counted (PROD-21).
+
 ## 1.0.0 (2026-10-27): a documented data format, and a repository ready to be public
 
 The first stable release: every file of `data/` and every field of its records is

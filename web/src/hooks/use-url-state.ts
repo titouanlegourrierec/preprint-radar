@@ -66,12 +66,17 @@ export function useUrlState() {
   }, []);
 
   // Any change drops the shared-paper anchor, like navigating away, unless the patch sets it;
-  // another view drops the graph's focus, which is the graph's alone.
+  // another view drops the graph's focus, which is the graph's alone, and a search of every
+  // paper, the Papers view's, which a period chosen leaves too (PROD-21).
   const update = useCallback(
     (patch: Partial<ViewState>) =>
       setState((current) => {
         const next = { ...current, paper: null, ...patch };
-        return next.view === "graph" ? next : { ...next, focus: null };
+        const scope =
+          next.view === "papers" && !("period" in patch && patch.scope === undefined)
+            ? next.scope
+            : null;
+        return { ...next, scope, focus: next.view === "graph" ? next.focus : null };
       }),
     [],
   );

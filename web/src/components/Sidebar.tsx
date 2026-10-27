@@ -59,6 +59,13 @@ interface Props {
   children?: ComponentChildren;
   /** The reading list's folders, in place of the period it does not use (UX-38). */
   folders?: ComponentChildren;
+  /**
+   * The search of every stored paper (PROD-21), a choice of the period picker beside its
+   * presets, in the Papers view; `since`, the archive's first year.
+   */
+  store?:
+    | { active: boolean; onChange: (active: boolean) => void; since: number | undefined }
+    | undefined;
 }
 
 function FilterInput({
@@ -138,7 +145,7 @@ export function SidebarToggle(props: { folded: boolean; active: number; onToggle
 }
 
 export function Sidebar(props: Props) {
-  const { filters, onFilters, archive } = props;
+  const { filters, onFilters, archive, store } = props;
   const wide = useMediaQuery(WIDE_QUERY);
   const active = activeFilterCount(filters);
   // On phones the section starts open when a filter is set; then the reader decides. A
@@ -176,6 +183,7 @@ export function Sidebar(props: Props) {
             source={
               archive && { active: archive.range === null, onActivate: () => archive.onRange(null) }
             }
+            store={archive ? undefined : store}
           />
         )}
         {archive && (archive.years.length > 0 || props.recent) && (

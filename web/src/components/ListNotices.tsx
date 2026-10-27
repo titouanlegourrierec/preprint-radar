@@ -2,7 +2,7 @@ import { useMemo } from "preact/hooks";
 import type { FeedLink } from "../feeds";
 import { affiliationCoverage, countOf } from "../format";
 import { LOCALE } from "../locale";
-import { formatMissingDays, PAPER_BUDGET } from "../period";
+import { formatMissing, PAPER_BUDGET } from "../period";
 import type { SearchFilters } from "../search";
 import { displayName, type TopicNote } from "../trends";
 import type { Paper } from "../types";
@@ -36,6 +36,8 @@ interface NotesProps {
   archived: boolean;
   /** The highly cited view shows the most cited papers of the last 12 months. */
   lastMonths: boolean;
+  /** What a search of every stored paper reads (PROD-21), in place of the view's note. */
+  storeNote?: string | undefined;
 }
 
 /**
@@ -43,8 +45,15 @@ interface NotesProps {
  * does: what the view shows and how its papers are chosen, how many have known
  * affiliations, and the citation counts' date. No ⓘ while it would say nothing.
  */
-export function ViewNotes({ view, papers, citationsNote, archived, lastMonths }: NotesProps) {
-  const note = view === "cited" && lastMonths ? RECENT_NOTE : VIEW_NOTES[view];
+export function ViewNotes({
+  view,
+  papers,
+  citationsNote,
+  archived,
+  lastMonths,
+  storeNote,
+}: NotesProps) {
+  const note = storeNote ?? (view === "cited" && lastMonths ? RECENT_NOTE : VIEW_NOTES[view]);
   const affiliated = useMemo(
     () => papers.filter((paper) => (paper.affiliations ?? []).length > 0).length,
     [papers],
@@ -74,8 +83,13 @@ interface Props {
   readingListMessage: { text: string; onDismiss: () => void } | null;
   /** New papers since the last visit, out of the period shown. */
   sinceLastVisit: { papers: number; onShow: () => void } | null;
-  /** Days of the period whose day file or search shard did not load, not shown. */
-  missingDays: { days: string[]; onRetry: () => void } | null;
+  /**
+   * Days of the period whose day file or search shard did not load, not shown; in a search
+   * of every stored paper, the archive's years and last 12 months too (PROD-21).
+   */
+  missing: { days: string[]; years?: number[]; recent?: boolean; onRetry: () => void } | null;
+  /** A search of every stored paper that found more than a list holds: those left out. */
+  storeLeftOut: number;
   /** Archive years past the budget: the papers shown and left out, the years unranked. */
   archiveBudget: { shown: number; leftOut: number; unranked: number } | null;
   /** The citation counts' note, when they are old enough to say so above the papers. */
@@ -117,6 +131,11 @@ function TopicTrend({ note, link }: { note: TopicNote; link: ReturnType<TabLink>
   );
 }
 
+/** "The papers of …" at the start of a sentence. */
+function capitalized(text: string): string {
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
 /** What a list says above its papers: news, warnings and the filters set. */
 export function ListNotices(props: Props) {
   const { archiveBudget } = props;
@@ -142,13 +161,19 @@ export function ListNotices(props: Props) {
         </p>
       )}
 
-      {props.missingDays && (
+      {props.missing && (
         <p class="notice notice--error" role="alert">
-          The papers of {formatMissingDays(props.missingDays.days)} could not be loaded: they are
-          not shown.{" "}
-          <button type="button" class="link-button" onClick={props.missingDays.onRetry}>
+          {capitalized(formatMissing(props.missing))} could not be loaded: they are not shown.{" "}
+          <button type="button" class="link-button" onClick={props.missing.onRetry}>
             Retry
           </button>
+        </p>
+      )}
+      {props.storeLeftOut > 0 && (
+        <p class="help-note">
+          {countOf(props.storeLeftOut, "older paper")} may match too: only the{" "}
+          {PAPER_BUDGET.toLocaleString(LOCALE)} most recent found are shown, as many as a period
+          loads. Add words or a filter to search them all.
         </p>
       )}
       {archiveBudget && (

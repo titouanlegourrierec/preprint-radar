@@ -92,7 +92,7 @@ test("older days past the budget are searched, and a card loads its abstract", a
   // Built with a budget of 3 papers: 2026-09-24 comes from its month's search shard (PERF-1).
   await page.goto("./");
   await expect(page.getByText("4 cs.CV papers")).toBeVisible();
-  await page.locator(".period-picker__trigger").click();
+  await page.getByRole("button", { name: /^Period: / }).click();
   await expect(page.locator(".period-picker__note")).toContainText(
     "titles, authors, affiliations and venues over 1 older day too",
   );
@@ -103,6 +103,36 @@ test("older days past the budget are searched, and a card loads its abstract", a
   await expect(card).not.toContainText("On diffusion, with an application.");
   await card.getByRole("button", { name: "More" }).click();
   await expect(card).toContainText("On diffusion, with an application.");
+  expect(errors).toEqual([]);
+});
+
+test("a search of every stored paper finds what the period does not hold (PROD-21)", async ({
+  page,
+}) => {
+  const errors = watchErrors(page);
+  await page.goto("./?q=looms");
+  await expect(page.getByText("No paper matches in this period.")).toBeVisible();
+  await page.getByRole("button", { name: "Search all stored papers" }).click();
+  await expect(page).toHaveURL(/\?q=looms&scope=all$/);
+  // The day files, the most cited of the last 12 months and the archive, each paper once.
+  await expect(page.getByText("1 of 6 stored cs.CV papers")).toBeVisible();
+  const card = page.locator("article.paper").filter({ hasText: "Attention for Looms" });
+  await expect(card.getByTitle(/^Dated by month/)).toHaveText("Jun 2017");
+  // The period's button names it, chosen beside the presets; a preset leaves it.
+  const period = page.getByRole("button", { name: /^Period: All stored papers/ });
+  await period.click();
+  const store = page.getByRole("button", { name: "All papers", exact: true });
+  await expect(store).toHaveAttribute("aria-pressed", "true");
+  await page.getByRole("button", { name: "Last week" }).click();
+  await expect(page).toHaveURL(/\?q=looms$/);
+  await expect(page.getByText("No paper matches in this period.")).toBeVisible();
+  // Chosen there, it shimmers once (PROD-21).
+  await page.getByRole("button", { name: /^Period: / }).click();
+  await page.getByRole("button", { name: "All papers", exact: true }).click();
+  await expect(page).toHaveURL(/\?q=looms&scope=all$/);
+  await expect(page.locator(".period-picker__trigger--launch")).toBeVisible();
+  await expect(page.locator(".period-picker__trigger--launch")).toHaveCount(0);
+  await expect(page.getByText("1 of 6 stored cs.CV papers")).toBeVisible();
   expect(errors).toEqual([]);
 });
 
@@ -163,11 +193,11 @@ test("the calendar picks a day from the keyboard", async ({ page }) => {
 test("a range to the latest day keeps adding new days, as a since link", async ({ page }) => {
   await page.goto("./?from=2026-09-24&to=2026-09-25");
   await expect(page.getByText("4 of 4 cs.CV papers")).toBeVisible();
-  await page.locator(".period-picker__trigger").click();
+  await page.getByRole("button", { name: /^Period: / }).click();
   await page.getByRole("button", { name: "Keep adding new days" }).click();
   // The link no longer ends on 25 September: tomorrow's papers will join it (PROD-13).
   await expect(page).toHaveURL(/\?since=2026-09-24$/);
-  await expect(page.locator(".period-picker__trigger")).toContainText("Since");
+  await expect(page.getByRole("button", { name: /^Period: / })).toContainText("Since");
   await expect(page.getByText("4 of 4 cs.CV papers")).toBeVisible();
 });
 
@@ -850,7 +880,7 @@ test("a view that failed draws again for another period, or Back", async ({ page
   });
   await page.goto("./?from=2026-09-24");
   await expect(page.getByText("1 of 1 cs.CV paper")).toBeVisible();
-  await page.locator(".period-picker__trigger").click();
+  await page.getByRole("button", { name: /^Period: / }).click();
   await page.getByRole("button", { name: "Last week" }).click();
   await expect(page.getByRole("alert")).toContainText("this view could not be displayed");
   await page.goBack();

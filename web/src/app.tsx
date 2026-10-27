@@ -31,6 +31,7 @@ import {
   gainLabel,
   seenHidden,
   staleCitations,
+  storeNote,
 } from "./format";
 import { useCitations } from "./hooks/use-citations";
 import { useFolders } from "./hooks/use-folders";
@@ -138,6 +139,8 @@ export function App() {
   const cited = state.view === "cited";
   const rankings = state.view === "rankings";
   const archived = showsArchive(state);
+  // A search of every stored paper, the period aside (PROD-21): the Papers view's.
+  const everywhere = state.view === "papers" && state.scope === "all";
   const {
     categories,
     category,
@@ -149,12 +152,18 @@ export function App() {
     archiveLeftOut,
     archiveUnranked,
     missingDays,
+    storeSearch,
     load,
     loadingLine,
     searchable,
     retry,
     generatedAt,
-  } = usePapers(state.category, state.period, archived ? { years: state.year } : null);
+  } = usePapers(
+    state.category,
+    state.period,
+    archived ? { years: state.year } : null,
+    everywhere ? { query, filters } : null,
+  );
   // Years the archive does not hold (`?year=2005`) show others, which the URL then names,
   // in place, so that a shared link opens what was seen (SRCH-20).
   const shownYearsKey = archiveRange === null ? null : formatYears(archiveRange);
@@ -413,10 +422,15 @@ export function App() {
       : null;
   // A share link opens the paper on its own day, free of the sharer's search context.
   const pastedId = arxivIdOf(query);
-  // "No paper matches" offers the longest preset when it holds more days than the period.
+  // "No paper matches" offers the longest preset when it holds more days than the period,
+  // and the search of every stored paper (PROD-21).
   const longestPeriod = { kind: "recent", range: LONGEST_RANGE } as const;
   const longestDays = selectDays(storeDays, longestPeriod).length;
-  const widerPeriod = longestDays > selectDays(storeDays, state.period).length;
+  const widerPeriod = !everywhere && longestDays > selectDays(storeDays, state.period).length;
+  const searchStore =
+    state.view === "papers" && !everywhere ? () => update({ scope: "all" }) : null;
+  // A search of every stored paper without a word nor a filter, which would find them all.
+  const storeAsks = everywhere && load.status === "ready" && storeSearch === null;
   const sinceLastVisit = triage.sinceLastVisit && {
     ...triage.sinceLastVisit,
     period: between(triage.sinceLastVisit.from, triage.sinceLastVisit.to),
@@ -461,20 +475,28 @@ export function App() {
               noun: `highly cited ${category ?? ""} paper`,
               tail: ` first published ${publishedIn(archiveRange, archiveYears, archiveAsOf, topRecent)}`,
             }
-          : load.status === "ready"
-            ? {
+          : load.status === "ready" && everywhere
+            ? storeSearch && {
                 shown: results.length,
-                total: load.index.size,
-                noun: `${category ?? ""} paper`,
+                total: storeSearch.searched,
+                noun: `stored ${category ?? ""} paper`,
                 ...(hiddenCount > 0 && { tail: ` · ${seenHidden(hiddenCount).count}` }),
               }
-            : load.status === "loading"
-              ? { loading: loadingLine }
-              : null;
+            : load.status === "ready"
+              ? {
+                  shown: results.length,
+                  total: load.index.size,
+                  noun: `${category ?? ""} paper`,
+                  ...(hiddenCount > 0 && { tail: ` · ${seenHidden(hiddenCount).count}` }),
+                }
+              : load.status === "loading"
+                ? { loading: loadingLine }
+                : null;
   // The graph shows the loaded papers; a saved paper from elsewhere brings its day, or
   // its archive year (or the last 12 months) when it is older than the days kept.
   const showInGraph = (paper: Paper) => {
-    const loaded = load.status === "ready" && load.index.has(paper.arxiv_id);
+    // Not those of a search of every stored paper, which the graph does not show.
+    const loaded = !everywhere && load.status === "ready" && load.index.has(paper.arxiv_id);
     const year = archiveRangeOf(paper.announced, storedBefore);
     if (loaded) {
       update({ view: "graph", paper: paper.arxiv_id, year: archived ? archiveRange : null });
@@ -781,6 +803,15 @@ export function App() {
               onCategory={(value) => update({ category: value })}
               onPeriod={(period) => update({ period })}
               onFilters={setFilters}
+              store={
+                state.view === "papers"
+                  ? {
+                      active: everywhere,
+                      onChange: (active) => update({ scope: active ? "all" : null }),
+                      since: archiveYears.at(-1)?.year,
+                    }
+                  : undefined
+              }
               archive={
                 cited || rankings
                   ? {
@@ -795,8 +826,9 @@ export function App() {
               {triaged && (
                 <SavedSearches
                   searches={savedSearches.searches}
-                  // Counted once the index is built, so that the list never waits for it.
-                  index={searchable}
+                  // Counted once the index is built, so that the list never waits for it;
+                  // never over a search of every stored paper, which holds its own words'.
+                  index={everywhere ? null : searchable}
                   since={triage.previousVisit}
                   current={{ query, filters }}
                   onSave={() => savedSearches.save({ query, filters })}
@@ -839,6 +871,19 @@ export function App() {
                     citationsNote={citationsNote}
                     archived={archived}
                     lastMonths={archived && archiveRange === LAST_12_MONTHS}
+                    storeNote={
+                      everywhere
+                        ? storeNote({
+                            oldestDay,
+                            since: archiveYears.at(-1)?.year,
+                            recent: topRecent !== undefined,
+                            papers:
+                              storeDays.reduce((sum, { count }) => sum + count, 0) +
+                              (topRecent?.count ?? 0) +
+                              archiveYears.reduce((sum, { count }) => sum + count, 0),
+                          })
+                        : undefined
+                    }
                   />
                 }
                 controls={
@@ -904,18 +949,25 @@ export function App() {
                     : null
                 }
                 sinceLastVisit={
-                  triaged && sinceLastVisit && !samePeriod(state.period, sinceLastVisit.period)
+                  triaged &&
+                  !everywhere &&
+                  sinceLastVisit &&
+                  !samePeriod(state.period, sinceLastVisit.period)
                     ? {
                         papers: sinceLastVisit.papers,
                         onShow: () => update({ period: sinceLastVisit.period }),
                       }
                     : null
                 }
-                missingDays={
-                  missingDays.length > 0 && load.status === "ready"
-                    ? { days: missingDays, onRetry: retry }
+                missing={
+                  load.status === "ready" &&
+                  (missingDays.length > 0 ||
+                    (storeSearch !== null &&
+                      (storeSearch.missing.years.length > 0 || storeSearch.missing.recent)))
+                    ? { ...storeSearch?.missing, days: missingDays, onRetry: retry }
                     : null
                 }
+                storeLeftOut={storeSearch?.leftOut ?? 0}
                 archiveBudget={
                   archiveLeftOut > 0 && load.status === "ready"
                     ? { shown: load.index.size, leftOut: archiveLeftOut, unranked: archiveUnranked }
@@ -993,6 +1045,12 @@ export function App() {
                 </p>
               ) : (
                 <>
+                  {storeAsks && (
+                    <p class="notice">
+                      Type words in the search box, or choose a filter: every stored paper is
+                      searched for them.
+                    </p>
+                  )}
                   <NoResults
                     missingPaper={
                       (state.view === "papers" || cited) &&
@@ -1011,6 +1069,8 @@ export function App() {
                         ? pastedId
                         : null
                     }
+                    store={everywhere}
+                    onSearchStore={searchStore}
                     allSeen={results.length === 0 ? hiddenCount : 0}
                     onShowSeen={triage.toggleHideSeen}
                     noMatch={
@@ -1019,7 +1079,7 @@ export function App() {
                       hiddenCount === 0 &&
                       (load.status === "ready" || state.view === "reading-list") &&
                       activeIndex !== null &&
-                      activeIndex.size > 0
+                      (activeIndex.size > 0 || (everywhere && !storeAsks))
                         ? {
                             inPeriod: state.view === "papers",
                             onClearFilters:

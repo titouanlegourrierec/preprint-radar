@@ -20,7 +20,7 @@ import {
   stepDay,
 } from "../period";
 import type { DaySummary } from "../types";
-import { CalendarIcon, ChevronIcon } from "./icons";
+import { CalendarIcon, ChevronIcon, StoreIcon } from "./icons";
 
 // Monday first: 5 January 2026 was a Monday.
 const WEEKDAYS = Array.from({ length: 7 }, (_, index) =>
@@ -49,12 +49,27 @@ interface Source {
   onActivate: () => void;
 }
 
+/**
+ * The search of every stored paper (PROD-21), a choice beside the presets, which the
+ * trigger then names; picking a day or a preset leaves it.
+ */
+interface Store {
+  active: boolean;
+  onChange: (active: boolean) => void;
+  /** The archive's first year. */
+  since: number | undefined;
+}
+
+/** How long the trigger shimmers once the store is chosen: its animation, and a little more. */
+const LAUNCH_MS = 1600;
+
 interface Props {
   /** Days with papers, most recent first, with their paper counts (as in the store index). */
   days: DaySummary[];
   period: Period;
   onChange: (period: Period) => void;
   source?: Source | undefined;
+  store?: Store | undefined;
   /** The graph's one-line chip (UX-29), whose budget note is in the panel; else two lines. */
   compact?: boolean | undefined;
 }
@@ -64,7 +79,7 @@ interface Props {
  * shows how many papers each day has. The first click picks a day, the second extends it
  * into a range.
  */
-export function PeriodPicker({ days, period, onChange, source, compact }: Props) {
+export function PeriodPicker({ days, period, onChange, source, store, compact }: Props) {
   const [open, setOpen] = useState(false);
   const [month, setMonth] = useState<string | null>(null);
   const [anchor, setAnchor] = useState<string | null>(null);
@@ -77,6 +92,14 @@ export function PeriodPicker({ days, period, onChange, source, compact }: Props)
   const rootRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const panelId = useId();
+  // The store chosen: the trigger shimmers once (PROD-21), as a saved star bursts (UX-37).
+  const [launch, setLaunch] = useState(0);
+  useEffect(() => {
+    if (launch === 0) return;
+    const timer = setTimeout(() => setLaunch(0), LAUNCH_MS);
+    return () => clearTimeout(timer);
+  }, [launch]);
+  const everywhere = store?.active === true;
   const counts = useMemo(() => new Map(days.map((day) => [day.date, day.count])), [days]);
   const maxCount = useMemo(() => Math.max(1, ...days.map((day) => day.count)), [days]);
 
@@ -92,14 +115,16 @@ export function PeriodPicker({ days, period, onChange, source, compact }: Props)
   const papers = selected.reduce((sum, day) => sum + day.count, 0);
   const leftOut = daysOverBudget(days, period);
 
-  // Days shown as selected: the range being picked, else the current period.
+  // Days shown as selected: the range being picked, else the current period, if shown.
   const range = anchor
     ? between(anchor, hovered ?? anchor)
-    : period.kind === "dates"
-      ? period
-      : first && last
-        ? between(first, last)
-        : null;
+    : everywhere
+      ? null
+      : period.kind === "dates"
+        ? period
+        : first && last
+          ? between(first, last)
+          : null;
   const shown = month ?? monthOf(range?.to ?? latest);
   // One day of the month shown takes Tab, the arrows the others: the day the focus was on,
   // else the period's last day, else the month's last day with papers.
@@ -141,6 +166,15 @@ export function PeriodPicker({ days, period, onChange, source, compact }: Props)
   // A day or a preset picked while another source shows goes back to the recent days.
   const activate = () => {
     if (source && !source.active) source.onActivate();
+    if (store?.active) store.onChange(false);
+    setLaunch(0);
+  };
+  const chooseStore = () => {
+    if (store && !store.active) {
+      store.onChange(true);
+      setLaunch((count) => count + 1);
+    }
+    close(true);
   };
   const pick = (day: string) => {
     activate();
@@ -181,6 +215,8 @@ export function PeriodPicker({ days, period, onChange, source, compact }: Props)
         type="button"
         class={`period-picker__trigger${compact ? " period-picker__trigger--chip" : ""}${
           source && !source.active ? " period-picker__trigger--muted" : ""
+        }${everywhere ? " period-picker__trigger--store" : ""}${
+          launch > 0 ? " period-picker__trigger--launch" : ""
         }`}
         ref={triggerRef}
         aria-expanded={open}
@@ -191,9 +227,16 @@ export function PeriodPicker({ days, period, onChange, source, compact }: Props)
           else setOpen(true);
         }}
       >
-        <CalendarIcon />
+        {everywhere ? <StoreIcon /> : <CalendarIcon />}
         <span class="visually-hidden">{compact ? "Papers: " : "Period: "}</span>
-        {compact ? (
+        {everywhere ? (
+          <span class="period-picker__label">
+            <span class="period-picker__name">All stored papers</span>
+            <span class="period-picker__detail">
+              {store?.since === undefined ? "Every one" : `Every one since ${store.since}`}
+            </span>
+          </span>
+        ) : compact ? (
           <span class="period-picker__label period-picker__label--chip">
             {source?.active !== false && papers > 0
               ? `${recentName} · ${countOf(papers, "paper")}`
@@ -210,24 +253,41 @@ export function PeriodPicker({ days, period, onChange, source, compact }: Props)
         )}
         <ChevronIcon up={open} />
       </button>
-      {!compact && note}
+      {!compact && !everywhere && note}
 
       {open && (
         <div class="period-picker__panel" id={panelId}>
-          <div class="period-picker__presets">
+          <div class={`period-picker__presets${store ? " period-picker__presets--store" : ""}`}>
             {Object.entries(RANGES).map(([key, { label }]) => (
               <button
                 key={key}
                 type="button"
                 class="chip"
                 aria-pressed={
-                  source?.active !== false && period.kind === "recent" && period.range === key
+                  !everywhere &&
+                  source?.active !== false &&
+                  period.kind === "recent" &&
+                  period.range === key
                 }
                 onClick={() => choose(key as RangeKey)}
               >
                 {label}
               </button>
             ))}
+            {store && (
+              <button
+                type="button"
+                class="chip chip--store"
+                aria-pressed={store.active}
+                title={`Every paper the site stores${
+                  store.since === undefined ? "" : ` since ${store.since}`
+                }, whatever the period: a few seconds a search`}
+                onClick={chooseStore}
+              >
+                <StoreIcon />
+                All papers
+              </button>
+            )}
           </div>
 
           <div class="period-picker__month">

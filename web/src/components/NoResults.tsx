@@ -8,6 +8,10 @@ interface Props {
   missingFromCited?: boolean;
   /** A pasted arXiv id that matches no paper here. */
   missingPastedId: string | null;
+  /** The papers are those of a search of every stored paper (PROD-21), not of a period. */
+  store?: boolean;
+  /** The search of every stored paper, offered from the Papers view's period. */
+  onSearchStore?: (() => void) | null;
   /** Papers that Hide seen leaves out of an empty list: the reason it is empty. */
   allSeen: number;
   onShowSeen: () => void;
@@ -49,7 +53,15 @@ export function NoResults(props: Props) {
       )}
       {missingPastedId && (
         <p class="notice">
-          {missingPastedId} is not among the stored papers of this period.{" "}
+          {missingPastedId} is not among the stored papers{props.store ? "" : " of this period"}.{" "}
+          {props.onSearchStore && (
+            <>
+              <button type="button" class="link-button" onClick={props.onSearchStore}>
+                Search all stored papers
+              </button>
+              {" · "}
+            </>
+          )}
           <a
             href={`https://arxiv.org/abs/${missingPastedId}`}
             target="_blank"
@@ -70,20 +82,37 @@ export function NoResults(props: Props) {
       )}
       {noMatch && (
         <p class="notice">
-          No paper matches{noMatch.inPeriod ? " in this period" : ""}.{" "}
-          {noMatch.onClearFilters && (
-            <button type="button" class="link-button" onClick={noMatch.onClearFilters}>
-              Clear the filters
-            </button>
-          )}
-          {noMatch.wider && (
-            <>
-              {noMatch.onClearFilters && " · "}
-              <button type="button" class="link-button" onClick={noMatch.wider.onSearch}>
+          {props.store ? "No stored paper matches" : "No paper matches"}
+          {noMatch.inPeriod ? " in this period" : ""}.{" "}
+          {[
+            noMatch.onClearFilters && (
+              <button
+                key="filters"
+                type="button"
+                class="link-button"
+                onClick={noMatch.onClearFilters}
+              >
+                Clear the filters
+              </button>
+            ),
+            noMatch.wider && (
+              <button
+                key="wider"
+                type="button"
+                class="link-button"
+                onClick={noMatch.wider.onSearch}
+              >
                 Search the last {noMatch.wider.days} days
               </button>
-            </>
-          )}
+            ),
+            props.onSearchStore && (
+              <button key="store" type="button" class="link-button" onClick={props.onSearchStore}>
+                Search all stored papers
+              </button>
+            ),
+          ]
+            .filter(Boolean)
+            .flatMap((remedy, at) => (at === 0 ? [remedy] : [" · ", remedy]))}
         </p>
       )}
     </>

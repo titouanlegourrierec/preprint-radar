@@ -73,6 +73,44 @@ export function loadingLine(loading: Loading): string {
 }
 
 /**
+ * What a stored paper weighs in its file as the site serves it, compressed (PROD-21): cs.CV's
+ * 30,842 took 21 MB on 2026-10-27, day files, top-recent and archive together.
+ */
+const STORED_MB_PER_PAPER = 0.00068;
+
+/**
+ * What a search of every stored paper reads (PROD-21), in its ⓘ: the days kept, the most
+ * cited papers of the last 12 months, the archive's years, and what its first search
+ * downloads; the browser keeps the files, asking only whether they changed after ten
+ * minutes, as Pages lets it.
+ */
+export function storeNote(store: {
+  /** The oldest day file. */
+  oldestDay: string | undefined;
+  /** The archive's first year. */
+  since: number | undefined;
+  /** Whether the most cited papers of the last 12 months are kept apart. */
+  recent: boolean;
+  /** The papers of the store's files, as the index counts them. */
+  papers: number;
+}): string {
+  const parts = [
+    ...(store.oldestDay ? [`each day since ${formatDay(store.oldestDay)}`] : []),
+    ...(store.recent ? ["the most cited papers of the last 12 months"] : []),
+    ...(store.since === undefined
+      ? []
+      : [`the older papers the archive keeps for their citations, since ${store.since}`]),
+  ];
+  const listed =
+    parts.length > 1 ? `${parts.slice(0, -1).join(", ")} and ${parts.at(-1)}` : parts.join("");
+  const size = Math.max(1, Math.round(store.papers * STORED_MB_PER_PAPER));
+  return (
+    `Every paper the site stores${listed ? `: ${listed}` : ""}. Each search reads them all ` +
+    `in your browser: about ${size} MB to download the first time, little after.`
+  );
+}
+
+/**
  * What "Hide seen" leaves out of the list, for its count ("· 12 seen papers hidden") and for
  * an empty list, where it is the reason: "All 12 papers here are marked seen."
  */

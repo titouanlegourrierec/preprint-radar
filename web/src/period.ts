@@ -238,6 +238,32 @@ export function formatMissingDays(days: readonly string[]): string {
 }
 
 /**
+ * What a list could not load, as its notice names it (SRCH-10): "the papers of 25 Sept
+ * 2026", and in a search of every stored paper (PROD-21) "the highly cited papers of 2019
+ * and 2020" or "the most cited papers of the last 12 months".
+ */
+export function formatMissing(missing: {
+  days: readonly string[];
+  years?: readonly number[];
+  recent?: boolean;
+}): string {
+  const years = [...(missing.years ?? [])].sort((a, b) => a - b).map(String);
+  const parts = [
+    ...(missing.days.length > 0 ? [`the papers of ${formatMissingDays(missing.days)}`] : []),
+    ...(years.length > 0 ? [`the highly cited papers of ${andList(years)}`] : []),
+    ...(missing.recent ? ["the most cited papers of the last 12 months"] : []),
+  ];
+  return andList(parts);
+}
+
+/** "a", "a and b", "a, b and c". */
+function andList(items: readonly string[]): string {
+  return items.length > 1
+    ? `${items.slice(0, -1).join(", ")} and ${items.at(-1)}`
+    : (items[0] ?? "");
+}
+
+/**
  * The day an arrow key moves the calendar's focus to (UX-14): `step` days away (±1 a day,
  * ±7 a week), past the days that cannot be picked (no announcement); `null` beyond the
  * days stored.

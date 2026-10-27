@@ -240,6 +240,16 @@ export function CalendarIcon() {
   );
 }
 
+/** A stack of disks: every paper the site stores (PROD-21). */
+export function StoreIcon() {
+  return (
+    <Outline name="store">
+      <ellipse cx="8" cy="3.8" rx="5.5" ry="2" />
+      <path d="M2.5 3.8v8.4c0 1.1 2.5 2 5.5 2s5.5-.9 5.5-2V3.8M2.5 8c0 1.1 2.5 2 5.5 2s5.5-.9 5.5-2" />
+    </Outline>
+  );
+}
+
 /** An award ribbon: the venue a paper was accepted at. */
 export function VenueIcon() {
   return (

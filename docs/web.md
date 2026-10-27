@@ -138,6 +138,7 @@ pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   | `from`, `to` | A period of days (`from` alone: one day) | `range` | Papers, the graph and Rankings without `year` |
   | `since` | The days since a day, to the latest (PROD-13) | `range` | the same |
   | `range` | `day`, `week`, `month` (old links' `1`, `5`, `20`, `40`, `all` open the one holding as many days) | `week` | the same |
+  | `scope` | `all`: every stored paper, the period aside (PROD-21); a period chosen or another view leaves it | the period | Papers |
   | `sort` | `relevance`, `newest`, `citations`, `rising`, `stars`, `rising-stars`, `custom` (UX-39) | `relevance` (`custom` in the reading list without search words) | the lists |
   | `view` | `papers`, `cited`, `graph`, `trends`, `rankings`, `reading-list`, `about` | `papers` | every view |
   | `paper` | An arXiv id: the paper opened (a list) or selected (the graph) | none | the lists, the graph |
@@ -179,6 +180,28 @@ pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   card opens or on "Load the abstract" (`hooks/use-whole-paper.ts`, `loadWholePaper`); the
   reading list keeps its `light` and `code_url`, checked as the build writes them (SEC-2).
   The smoke test builds with `VITE_PAPER_BUDGET=3` so that a day comes from a shard.
+- All stored papers (`?scope=all`, PROD-21, `store-search.ts`): "All papers", a choice of
+  the Papers view's period picker, the four alike two a row; its button then names it, and a
+  preset or a day leaves it; also a remedy when nothing matches. Its icon and an iridescent
+  border set it apart (`--shimmer-1` to `4`, a conic gradient turned by `@property`), as
+  Claude's ultracode button: chosen, the border turns, and every six seconds a light crosses
+  the button while its name shines, eased; it glows once when chosen; nothing moves under
+  `prefers-reduced-motion`. Every day file, `top-recent.json`, then each archive year,
+  newest first, four read ahead (`searchStore`), each file's papers kept only while
+  `candidateTest` reads them: memory holds what passes, not the store. The test lets through
+  every paper the index would find (a test checks it): the filters, and each word in the
+  folded text, or, for a word a typo may match (7 letters or more), a half of it and then a
+  word of the paper one edit from it. 5 µs a paper against 175 µs to index it. What passes,
+  `PAPER_BUDGET` at most (newest first; the others counted, said above the list), is indexed
+  and searched as a period; the count is of the distinct papers read. A word or a filter is
+  needed: without, a notice asks for one. Its code loads with the first such search (1 kB;
+  the button and notices put the landing page at 74.6 kB). On 2026-10-27 (30,842 papers,
+  21.6 MB compressed the first time, then the browser's cache, which asks after ten minutes
+  whether each file changed), the built site served locally, in Chromium: 1.2 to 1.7 s for a
+  narrow search ("nerf", "kaiming he"), 2.8 s for "detection" (5,171 found), 3.2 s for
+  "image" (past the budget); 3.5 to 12 s with the processor four times slower. Pages adds
+  the reader's bandwidth and a round trip a file (55 files, about 270 in a year). In a
+  background tab, the browser's timers slow it to a crawl.
 - `index.html` preloads `data/index.json` (`<link rel="preload" as="fetch" crossorigin>`);
   `loadIndex` reuses that response only because it fetches it in the same mode and
   credentials: keep the two in step (PERF-14; the smoke test checks the single request).

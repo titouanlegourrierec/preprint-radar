@@ -163,6 +163,16 @@ describe("url state", () => {
     expect(readState("?view=trends&window=decade").window).toBe("quarter");
   });
 
+  it("round-trips a search of every stored paper, in the Papers view's links only (PROD-21)", () => {
+    const state = { ...DEFAULT_STATE, query: "gaussian", scope: "all" as const };
+    expect(writeState(state)).toBe("?q=gaussian&scope=all");
+    expect(readState(writeState(state))).toEqual(state);
+    expect(writeState({ ...state, view: "graph" })).toBe("?q=gaussian&view=graph");
+    expect(readState("?scope=everything").scope).toBeNull();
+    // Another view or source of papers, unlike typing.
+    expect(isNavigation(DEFAULT_STATE, { ...DEFAULT_STATE, scope: "all" })).toBe(true);
+  });
+
   it("round-trips the topics the explorer compares, five at most (PROD-20)", () => {
     const state = { ...DEFAULT_STATE, view: "trends" as const, compare: ["mamba", "world model"] };
     expect(writeState(state)).toBe("?view=trends&compare=mamba%2Cworld+model");

@@ -8,7 +8,7 @@ import {
   yearsIn,
 } from "../archive-years";
 import { loadArchiveYears, loadDays, loadIndex, loadLightDays, loadTopRecent } from "../data";
-import { loadingLine } from "../format";
+import { countOf, loadingLine } from "../format";
 import {
   lightDays,
   PAPER_BUDGET,
@@ -17,7 +17,8 @@ import {
   periodOfKey,
   selectDays,
 } from "../period";
-import { PaperIndex } from "../search";
+import { PaperIndex, type SearchFilters } from "../search";
+import type { StoreSearch } from "../store-search";
 import type { ArchiveSummary, DaySummary, Paper, StoreIndex, TopRecentSummary } from "../types";
 
 /**
@@ -51,11 +52,17 @@ export type LoadState =
  * papers (all years hold 22,000), the best ranked by citations per year of age, the
  * archive's own score, from the citation shards of those years. Or the most cited papers
  * of the last 12 months, once the archive keeps them (PROD-11).
+ *
+ * With `everywhere` set, the papers are those of the whole store that its words and filters
+ * find (PROD-21): every day file, the most cited papers of the last 12 months and the
+ * archive's years, read one after the other (`searchStore`), the period aside. None
+ * without a word or a filter, which would find them all.
  */
 export function usePapers(
   requestedCategory: string | null,
   period: Period,
   archive: { years: ArchiveRange | null } | null = null,
+  everywhere: { query: string; filters: SearchFilters } | null = null,
 ) {
   const [storeIndex, setStoreIndex] = useState<StoreIndex | null>(null);
   const [load, setLoad] = useState<LoadState>({ status: "loading" });
@@ -67,6 +74,12 @@ export function usePapers(
   const [missingDays, setMissingDays] = useState<string[]>([]);
   // Each Retry loads again what failed: the index, or the papers.
   const [attempt, setAttempt] = useState(0);
+  // A search of every stored paper: the papers read so far, then those it found, ranked.
+  const [scan, setScan] = useState<{ read: number } | { ranking: number }>({ read: 0 });
+  // What it found, once done; `null` without a word nor a filter to search for.
+  const [storeSearch, setStoreSearch] = useState<Omit<StoreSearch, "papers"> | null>(null);
+  // The words and filters whose papers the index holds, which others must not search.
+  const [searchedFor, setSearchedFor] = useState<string | null>(null);
 
   useEffect(() => {
     if (attempt > 0 && storeIndex) return;
@@ -89,8 +102,9 @@ export function usePapers(
   const archived = archive !== null;
   // Keys for the effect, equal for equal periods and ranges: another object for the same
   // period (Back, a preset chosen again) loads nothing again, nor does a period behind the
-  // archive's years.
-  const loadedPeriod = archived ? null : periodKey(period);
+  // archive's years or a search of every paper, whose words and filters are its own key.
+  const searchedKey = everywhere && !archived ? JSON.stringify(everywhere) : null;
+  const loadedPeriod = archived || searchedKey !== null ? null : periodKey(period);
 
   useEffect(() => {
     if (!storeIndex) return;
@@ -104,6 +118,15 @@ export function usePapers(
     setLoad({ status: "loading" });
     // The former index and its full-text index can go: two would hold 20,000 papers.
     setWarmed(null);
+    setSearchedFor(null);
+    if (searchedKey !== null) {
+      const { query, filters } = JSON.parse(searchedKey) as {
+        query: string;
+        filters: SearchFilters;
+      };
+      searchEverything(category, storeIndex, query, filters, signal, searchedKey);
+      return () => stop.abort();
+    }
     let loaded: Promise<{ papers: Paper[]; total: number; unranked: number; missing?: string[] }>;
     const range = parseYears(archiveKey);
     if (loadedPeriod !== null) {
@@ -149,7 +172,72 @@ export function usePapers(
           !signal.aborted && setLoad({ status: "error", message: loadErrorMessage(error) }),
       );
     return () => stop.abort();
-  }, [storeIndex, category, loadedPeriod, archiveKey, attempt]);
+  }, [storeIndex, category, loadedPeriod, archiveKey, searchedKey, attempt]);
+
+  /**
+   * Every stored paper through the words and filters' test, then the index of those that
+   * pass, built while the page stays responsive, which the list searches as a period's.
+   */
+  function searchEverything(
+    category: string,
+    storeIndex: StoreIndex,
+    query: string,
+    filters: SearchFilters,
+    signal: AbortSignal,
+    key: string,
+  ): void {
+    setScan({ read: 0 });
+    setStoreSearch(null);
+    setMissingDays([]);
+    const holding = {
+      days: storeIndex.categories[category] ?? [],
+      archiveYears: (storeIndex.archives?.[category] ?? []).map(({ year }) => year),
+      topRecent: storeIndex.top_recent?.[category] !== undefined,
+    };
+    // The search's code too comes with its first use (PERF-15).
+    import("../store-search")
+      .then(async ({ candidateTest, searchStore }) => {
+        const test = candidateTest(query, filters);
+        if (signal.aborted) return;
+        if (test === null) {
+          const index = new PaperIndex([]);
+          setLoad({ status: "ready", index });
+          setWarmed(index);
+          setSearchedFor(key);
+          return;
+        }
+        const onRead = (read: number) => !signal.aborted && setScan({ read });
+        const { papers, ...found } = await searchStore(category, holding, test, onRead, signal);
+        if (signal.aborted) return;
+        setScan({ ranking: papers.length });
+        // The few the test let through that the index does not match, it leaves out.
+        const index = new PaperIndex(papers);
+        await index.warm(signal);
+        if (signal.aborted) return;
+        setStoreSearch(found);
+        setMissingDays(found.missing.days);
+        setLoad({ status: "ready", index });
+        setWarmed(index);
+        setSearchedFor(key);
+      })
+      .catch(
+        (error: unknown) =>
+          !signal.aborted && setLoad({ status: "error", message: loadErrorMessage(error) }),
+      );
+  }
+
+  // The papers a search of every stored paper reads, for its progress.
+  const storedPapers =
+    storeDays.reduce((sum, { count }) => sum + count, 0) +
+    (topRecent?.count ?? 0) +
+    archiveYears.reduce((sum, { count }) => sum + count, 0);
+
+  // Other words or filters: the papers of the last ones until the search starts, which
+  // they must not be searched with, even for a frame.
+  const shown: LoadState =
+    searchedKey !== null && searchedFor !== searchedKey && load.status === "ready"
+      ? { status: "loading" }
+      : load;
 
   return {
     categories,
@@ -171,26 +259,37 @@ export function usePapers(
     archiveUnranked: archived ? leftOut.unranked : 0,
     /** Days of the period whose papers did not load ("2026-09-25"), not shown. */
     missingDays: archived ? [] : missingDays,
-    load,
+    /**
+     * A search of every stored paper, once done (PROD-21): the papers it read, those it
+     * left out past the budget, the archive's files it could not load; `null` while it
+     * runs, outside one, or without a word nor a filter to search for.
+     */
+    storeSearch: searchedKey !== null && shown.status === "ready" ? storeSearch : null,
+    load: shown,
     /**
      * What a load in progress says ("Loading 3,646 papers of 5 days…"), counted in the
      * index: the days `selectDays` keeps, or the archive's years, as the effect loads them
      * (UX-6).
      */
-    loadingLine: loadingLine(
-      archived
-        ? archiveRange === LAST_12_MONTHS && topRecent
-          ? { recent: topRecent }
-          : {
-              years:
-                archiveRange === null || archiveRange === LAST_12_MONTHS
-                  ? []
-                  : yearsIn(archiveRange, archiveYears),
-            }
-        : { days: [...selectDays(storeDays, period), ...lightDays(storeDays, period)] },
-    ),
+    loadingLine:
+      searchedKey !== null
+        ? "ranking" in scan
+          ? `Ranking ${countOf(scan.ranking, "paper")}…`
+          : `Searching ${countOf(storedPapers, "stored paper")}… ${Math.floor((100 * scan.read) / Math.max(1, storedPapers))}%`
+        : loadingLine(
+            archived
+              ? archiveRange === LAST_12_MONTHS && topRecent
+                ? { recent: topRecent }
+                : {
+                    years:
+                      archiveRange === null || archiveRange === LAST_12_MONTHS
+                        ? []
+                        : yearsIn(archiveRange, archiveYears),
+                  }
+              : { days: [...selectDays(storeDays, period), ...lightDays(storeDays, period)] },
+          ),
     /** The papers loaded, once a search over them costs no indexing; else `null`. */
-    searchable: load.status === "ready" && warmed === load.index ? load.index : null,
+    searchable: shown.status === "ready" && warmed === shown.index ? shown.index : null,
     retry: () => setAttempt((count) => count + 1),
     generatedAt: storeIndex?.generated_at ?? null,
   };

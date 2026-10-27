@@ -11,6 +11,7 @@ import {
   gainLabel,
   loadingLine,
   seenHidden,
+  storeNote,
   subjectCode,
 } from "../src/format";
 
@@ -206,5 +207,21 @@ describe("firstVersionYear", () => {
     expect(firstVersionYear("1913.01234", "2026-09-16")).toBeNull();
     expect(firstVersionYear("1900.01234", "2026-09-16")).toBeNull();
     expect(firstVersionYear("1906.01234", "September 2026")).toBeNull();
+  });
+});
+
+describe("storeNote", () => {
+  it("says what a search of every stored paper reads, and what it downloads (PROD-21)", () => {
+    expect(storeNote({ oldestDay: "2026-09-01", since: 2010, recent: true, papers: 30_842 })).toBe(
+      `Every paper the site stores: each day since ${formatDay("2026-09-01")}, the most cited papers of the last 12 months and the older papers the archive keeps for their citations, since 2010. Each search reads them all in your browser: about 21 MB to download the first time, little after.`,
+    );
+    expect(
+      storeNote({ oldestDay: "2026-09-01", since: undefined, recent: false, papers: 40 }),
+    ).toBe(
+      `Every paper the site stores: each day since ${formatDay("2026-09-01")}. Each search reads them all in your browser: about 1 MB to download the first time, little after.`,
+    );
+    expect(storeNote({ oldestDay: undefined, since: undefined, recent: false, papers: 0 })).toBe(
+      "Every paper the site stores. Each search reads them all in your browser: about 1 MB to download the first time, little after.",
+    );
   });
 });

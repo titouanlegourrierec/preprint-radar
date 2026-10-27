@@ -92,6 +92,11 @@ export interface ViewState {
    * five at most; in its links only.
    */
   compare: string[];
+  /**
+   * Where the Papers view searches (`?scope=all`, PROD-21): every stored paper, the period
+   * aside; `null` for the period. In its links only.
+   */
+  scope: "all" | null;
 }
 
 export const DEFAULT_STATE: ViewState = {
@@ -110,6 +115,7 @@ export const DEFAULT_STATE: ViewState = {
   window: "quarter",
   topic: null,
   compare: [],
+  scope: null,
 };
 
 /**
@@ -164,6 +170,7 @@ export function readState(search: string): ViewState {
           .filter(Boolean),
       ),
     ].slice(0, COMPARED),
+    scope: params.get("scope") === "all" ? "all" : null,
     filters: {
       excludeCrossLists: params.get("xl") === "0",
       withCode: params.get("code") === "1",
@@ -204,6 +211,7 @@ export function writeState(state: ViewState): string {
   set("window", trends ? state.window : null, DEFAULT_STATE.window);
   set("topic", trends ? state.topic : null);
   set("compare", trends ? state.compare.join(",") : null);
+  set("scope", state.view === "papers" ? state.scope : null);
   set("xl", state.filters.excludeCrossLists ? "0" : null);
   set("code", state.filters.withCode ? "1" : null);
   const { author, affiliation } = state.filters;
