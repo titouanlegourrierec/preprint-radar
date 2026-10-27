@@ -730,8 +730,14 @@ day that was right. The order by newest and the exports keep the stored date.
   links (10,000 with authors of two papers or more); the projection with authors about
   19,000 nodes and 100,000 links (every co-author pair, up to 50 authors); papers and institutions (the
   default) about 5,700 nodes and 6,700 links. The renderer batches drawing into a few
-  `Path2D` per frame; graphs over 2,000 nodes use `theta` 1.2, no collisions and a shorter
-  cooling (UX-30; about 100 ms a tick for 26,000 nodes, in the worker).
+  `Path2D` per frame, its scene (the links and nodes in sight, by style) kept while
+  neither the view nor a node moves (`sceneFor`, keyed by a `geometry` counter that every
+  move and sizing bumps): a hover or a highlight draws it dimmed as it is and builds only
+  what it lights, the focus's links and the lit nodes over the faint ones (PERF-5; a hover
+  frame of a month's graph, 6,085 nodes and 8,671 links, builds 8 path commands instead
+  of 25,918, 0.4 ms instead of 1.4 in Chromium); graphs over 2,000 nodes use `theta` 1.2,
+  no collisions and a shorter cooling (UX-30; about 100 ms a tick for 26,000 nodes, in the
+  worker).
 - Node sizes ("Size by"): papers (institutions and authors by their number of papers, area
   proportional, `nodeRadius`; papers all alike) or citations (every node by the citations
   of its papers, summed, `GraphNode.citations`, from the citation shards; unknown counts

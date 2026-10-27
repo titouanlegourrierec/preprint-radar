@@ -1,4 +1,4 @@
-import { type Graph, type GraphNode, sameLayout } from "./graph";
+import { type Graph, type GraphNode, type NodeKind, sameLayout } from "./graph";
 import { initialPositions, inLargestComponent } from "./graph-layout";
 import type { ForceSettings, FromLayout, LayoutGraph, ToLayout } from "./graph-simulation";
 
@@ -67,6 +67,30 @@ interface SimLink {
   source: SimNode;
   target: SimNode;
   weight: number;
+}
+
+/**
+ * The links and nodes of a view, batched by style, for one geometry: a hover or a highlight
+ * draws them dimmed as they are, and builds only the few links and nodes it lights (PERF-5).
+ */
+interface Scene {
+  key: string;
+  links: { thin: Path2D; medium: Path2D; thick: Path2D };
+  nodes: Record<NodeKind, Path2D>;
+}
+
+const KINDS: readonly NodeKind[] = ["paper", "institution", "author"];
+
+/** A node's shape, in graph coordinates, at least `minRadius` big. */
+function addShape(path: Path2D, node: SimNode, minRadius: number): void {
+  const r = Math.max(node.radius, minRadius);
+  if (node.node.kind === "paper") {
+    // Papers are squares, so that they read apart from the people and places.
+    path.rect(node.x - r, node.y - r, 2 * r, 2 * r);
+  } else {
+    path.moveTo(node.x + r, node.y);
+    path.arc(node.x, node.y, r, 0, 2 * Math.PI);
+  }
 }
 
 type Gesture =
@@ -221,6 +245,11 @@ export class GraphRenderer {
   private links: SimLink[] = [];
   private byId = new Map<string, SimNode>();
   private neighbors = new Map<string, Set<string>>();
+  /** Each node's links, which its focus draws in the accent. */
+  private linksOf = new Map<string, SimLink[]>();
+  /** Bumped whenever a node moves or is sized again: the scene is then built again (PERF-5). */
+  private geometry = 0;
+  private scene: Scene | null = null;
   /** Last known position of every node seen so far, reused when the graph changes. */
   private readonly positions = new Map<string, { x: number; y: number }>();
   private view: View = { x: 0, y: 0, k: 1 };
@@ -339,14 +368,18 @@ export class GraphRenderer {
     this.applySizing();
     this.byId = new Map(this.nodes.map((node) => [node.id, node]));
     this.neighbors = new Map(this.nodes.map((node) => [node.id, new Set<string>()]));
+    this.linksOf = new Map(this.nodes.map((node) => [node.id, []]));
     this.links = [];
     for (const link of graph.links) {
       const source = this.byId.get(link.source);
       const target = this.byId.get(link.target);
       if (!source || !target) continue;
-      this.links.push({ source, target, weight: link.weight });
+      const simLink = { source, target, weight: link.weight };
+      this.links.push(simLink);
       this.neighbors.get(source.id)?.add(target.id);
       this.neighbors.get(target.id)?.add(source.id);
+      this.linksOf.get(source.id)?.push(simLink);
+      this.linksOf.get(target.id)?.push(simLink);
     }
 
     // Nodes seen before keep their position; new ones start next to their neighbors, or
@@ -368,6 +401,7 @@ export class GraphRenderer {
       node.x = start[index]?.x ?? 0;
       node.y = start[index]?.y ?? 0;
     }
+    this.geometry++;
 
     // A mostly new graph (other papers, authors turned on) is framed again from scratch,
     // once the layout has opened it.
@@ -443,6 +477,7 @@ export class GraphRenderer {
     const ranked = [...this.nodes].sort((a, b) => measure(b) - measure(a));
     const ranks = { paper: 0, institution: 0, author: 0 };
     for (const node of ranked) node.rank = ranks[node.node.kind]++;
+    this.geometry++;
   }
 
   /** Emphasize some nodes (e.g. search matches), dimming the others; `null` clears. */
@@ -535,6 +570,7 @@ export class GraphRenderer {
       node.x = positions[2 * index] ?? node.x;
       node.y = positions[2 * index + 1] ?? node.y;
     }
+    this.geometry++;
     const followed = this.followed === null ? undefined : this.byId.get(this.followed);
     if (followed) this.centerOn(followed, this.view.k);
     else if (this.autoFit) this.fitNow();
@@ -643,35 +679,9 @@ export class GraphRenderer {
 
     context.setTransform(ratio * view.k, 0, 0, ratio * view.k, ratio * view.x, ratio * view.y);
 
-    // Links, batched by style: a handful of strokes per frame.
-    const thin = new Path2D();
-    const medium = new Path2D();
-    const thick = new Path2D();
-    const focused = new Path2D();
-    for (const { source, target, weight } of this.links) {
-      const sx = source.x;
-      const sy = source.y;
-      const tx = target.x;
-      const ty = target.y;
-      if (
-        (sx < left && tx < left) ||
-        (sx > right && tx > right) ||
-        (sy < top && ty < top) ||
-        (sy > bottom && ty > bottom)
-      ) {
-        continue;
-      }
-      const path =
-        focus !== null && (source.id === focus || target.id === focus)
-          ? focused
-          : weight >= 3
-            ? thick
-            : weight === 2
-              ? medium
-              : thin;
-      path.moveTo(sx, sy);
-      path.lineTo(tx, ty);
-    }
+    const minRadius = MIN_SCREEN_RADIUS_PX / view.k;
+    const scene = this.sceneFor({ left, top, right, bottom }, minRadius);
+    const { thin, medium, thick } = scene.links;
     context.lineCap = "round";
     context.strokeStyle = colors.edge;
     // Fainter links when there are many, so that they do not turn into a gray fog.
@@ -687,51 +697,104 @@ export class GraphRenderer {
       context.stroke(path);
     }
     if (focus !== null) {
+      // The focus's links over the dimmed ones, in the accent: a few, built each frame.
+      const focused = new Path2D();
+      for (const { source, target } of this.linksOf.get(focus) ?? []) {
+        focused.moveTo(source.x, source.y);
+        focused.lineTo(target.x, target.y);
+      }
       context.globalAlpha = 0.9;
       context.strokeStyle = colors.accent;
       context.lineWidth = 1.4 / view.k;
       context.stroke(focused);
     }
 
-    // Nodes, batched by color and emphasis.
-    const shapes = {
-      paper: { lit: new Path2D(), dim: new Path2D() },
-      institution: { lit: new Path2D(), dim: new Path2D() },
-      author: { lit: new Path2D(), dim: new Path2D() },
-    };
-    const rings = new Path2D();
-    const ringGap = 2 / view.k;
-    const minRadius = MIN_SCREEN_RADIUS_PX / view.k;
-    for (const node of this.nodes) {
-      const x = node.x;
-      const y = node.y;
-      const r = Math.max(node.radius, minRadius);
-      if (x + r < left || x - r > right || y + r < top || y - r > bottom) continue;
-      const path = shapes[node.node.kind][isLit(node.id) ? "lit" : "dim"];
-      if (node.node.kind === "paper") {
-        // Papers are squares, so that they read apart from the people and places.
-        path.rect(x - r, y - r, 2 * r, 2 * r);
-      } else {
-        path.moveTo(x + r, y);
-        path.arc(x, y, r, 0, 2 * Math.PI);
+    // Nodes, batched by color: faint under a focus or a highlight, the lit ones over them.
+    for (const kind of KINDS) {
+      context.fillStyle = colors[kind];
+      context.globalAlpha = dimmed ? 0.15 : 1;
+      context.fill(scene.nodes[kind]);
+    }
+    if (dimmed) {
+      const lit: Record<NodeKind, Path2D> = {
+        paper: new Path2D(),
+        institution: new Path2D(),
+        author: new Path2D(),
+      };
+      for (const id of focus === null ? (highlighted ?? []) : [focus, ...(near ?? [])]) {
+        const node = this.byId.get(id);
+        if (node) addShape(lit[node.node.kind], node, minRadius);
       }
-      if (node.id === this.selected || (focus === null && highlighted?.has(node.id) === true)) {
-        rings.moveTo(x + r + ringGap, y);
-        rings.arc(x, y, r + ringGap, 0, 2 * Math.PI);
+      context.globalAlpha = 1;
+      for (const kind of KINDS) {
+        context.fillStyle = colors[kind];
+        context.fill(lit[kind]);
       }
     }
-    for (const kind of ["paper", "institution", "author"] as const) {
-      context.fillStyle = colors[kind];
-      context.globalAlpha = 0.15;
-      context.fill(shapes[kind].dim);
-      context.globalAlpha = 1;
-      context.fill(shapes[kind].lit);
+    // Rings: the node selected, and without a focus the highlighted ones.
+    const rings = new Path2D();
+    const ringGap = 2 / view.k;
+    const ringed = new Set([
+      ...(this.selected === null ? [] : [this.selected]),
+      ...(focus === null ? (highlighted ?? []) : []),
+    ]);
+    for (const id of ringed) {
+      const node = this.byId.get(id);
+      if (!node) continue;
+      const r = Math.max(node.radius, minRadius) + ringGap;
+      rings.moveTo(node.x + r, node.y);
+      rings.arc(node.x, node.y, r, 0, 2 * Math.PI);
     }
     context.strokeStyle = colors.accent;
     context.lineWidth = 2 / view.k;
     context.stroke(rings);
 
     this.drawLabels({ left, top, right, bottom, focus, isLit });
+  }
+
+  /**
+   * The links and nodes in sight, batched by style: kept while neither the view nor a node
+   * moves, so that hovering a settled graph builds only what it lights (PERF-5).
+   */
+  private sceneFor(
+    bounds: { left: number; top: number; right: number; bottom: number },
+    minRadius: number,
+  ): Scene {
+    const { left, top, right, bottom } = bounds;
+    const key = `${this.geometry} ${left} ${top} ${right} ${bottom} ${minRadius}`;
+    if (this.scene?.key === key) return this.scene;
+    const links = { thin: new Path2D(), medium: new Path2D(), thick: new Path2D() };
+    for (const { source, target, weight } of this.links) {
+      const sx = source.x;
+      const sy = source.y;
+      const tx = target.x;
+      const ty = target.y;
+      if (
+        (sx < left && tx < left) ||
+        (sx > right && tx > right) ||
+        (sy < top && ty < top) ||
+        (sy > bottom && ty > bottom)
+      ) {
+        continue;
+      }
+      const path = weight >= 3 ? links.thick : weight === 2 ? links.medium : links.thin;
+      path.moveTo(sx, sy);
+      path.lineTo(tx, ty);
+    }
+    const nodes: Record<NodeKind, Path2D> = {
+      paper: new Path2D(),
+      institution: new Path2D(),
+      author: new Path2D(),
+    };
+    for (const node of this.nodes) {
+      const r = Math.max(node.radius, minRadius);
+      if (node.x + r < left || node.x - r > right || node.y + r < top || node.y - r > bottom) {
+        continue;
+      }
+      addShape(nodes[node.node.kind], node, minRadius);
+    }
+    this.scene = { key, links, nodes };
+    return this.scene;
   }
 
   /**
@@ -879,6 +942,7 @@ export class GraphRenderer {
       // The dragged node follows the pointer at once; the layout moves the others around it.
       gesture.node.x = point.gx;
       gesture.node.y = point.gy;
+      this.geometry++;
       this.send({
         type: "pin",
         index: this.nodes.indexOf(gesture.node),

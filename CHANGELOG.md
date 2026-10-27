@@ -8,6 +8,12 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ## Unreleased
 
+### Graph
+
+- Hovering a settled graph no longer builds every link and node again: it draws the scene
+  kept since the view last moved, dimmed, and builds only what the focus lights, 0.4 ms a
+  frame instead of 1.4 for a month's graph (PERF-5).
+
 ### Pipeline
 
 - Runs read less of the store: the index and the citation counts' list of papers read each
