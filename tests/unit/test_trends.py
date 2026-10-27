@@ -10,7 +10,8 @@ from preprint_radar.sources.arxiv_oai import CatalogEntry
 from preprint_radar.trends import (
     MONTHS,
     _distinct,
-    _singular,
+    _parts,
+    _singular_key,
     acronym_definitions,
     count_trends,
     format_trends_report,
@@ -94,7 +95,8 @@ def test_a_phrase_is_keyed_by_its_words_the_last_singular() -> None:
 
 @pytest.mark.parametrize("case", SINGULAR_CASES, ids=lambda case: case["word"])
 def test_the_last_word_is_singular(case: dict[str, str]) -> None:
-    assert _singular(case["word"]) == case["singular"]
+    # An acronym loses a plural's lower-case "s" alone: "3DGS" is no plural of "3DG".
+    assert _singular_key(_parts(case["word"])[0]) == case["singular"]
 
 
 def test_a_phrase_has_four_words_and_six_parts_at_most() -> None:
@@ -296,18 +298,18 @@ def test_abstracts_define_acronyms() -> None:
         "Large language models (LLMs) guide vision-language-action models (VLAs).",
         # The acronym itself, a word in parentheses, then another meaning.
         "A VLA (VLA) is odd. We use (see) a figure; a virtual layered avatar (VLA) here.",
-        # Digits, keyed as titles key them: "3dg", the last letter taken for a plural's.
+        # Digits, and a capital S that is no plural's.
         "3D Gaussian Splatting (3DGS) renders.",
         # Letters the words before lack; five words, longer than a title's topic; unlooked for.
         "Something (VLA) else. Very Large Language Label Learning (VLL). Neural Radiance Fields (NeRF).",
     ]
 
-    assert acronym_definitions(abstracts, {"vla", "llm", "3dg", "vll"}) == {
+    assert acronym_definitions(abstracts, {"vla", "llm", "3dgs", "vll"}) == {
         "vla": Counter(
             {"vision language action": 1, "vision language action model": 1, "virtual layered avatar": 1}
         ),
         "llm": Counter({"large language model": 1}),
-        "3dg": Counter({"3d gaussian splatting": 1}),
+        "3dgs": Counter({"3d gaussian splatting": 1}),
     }
 
 

@@ -8,6 +8,7 @@ import {
   formatPercent,
   formatShare,
   impactMonths,
+  lastWordKey,
   lift,
   monthAfter,
   monthLabel,
@@ -16,13 +17,12 @@ import {
   quarterly,
   shareOf,
   shares,
-  singular,
   type TopicsFile,
   type TrendsFile,
   topicEntry,
   topicNote,
-  topicOfQuery,
   topicQuery,
+  topicsOfQuery,
   trendRows,
 } from "../src/trends";
 
@@ -134,11 +134,20 @@ describe("a search's topic", () => {
   it("is keyed as the pipeline keys it, its last word singular", () => {
     const cases = JSON.parse(singularCases) as { word: string; singular: string }[];
     expect(cases.length).toBeGreaterThan(10);
-    for (const { word, singular: expected } of cases) expect(singular(word)).toBe(expected);
-    expect(topicOfQuery("World Models")).toBe("world model");
-    expect(topicOfQuery('"world model" OR "world models"')).toBe("world model");
-    expect(topicOfQuery("Semi-Supervised")).toBe("semi supervised");
-    expect(topicOfQuery("  ")).toBeNull();
+    for (const { word, singular: expected } of cases) expect(lastWordKey(word)).toBe(expected);
+    expect(topicsOfQuery("World Models")).toEqual(["world model", "world models"]);
+    expect(topicsOfQuery('"world model" OR "world models"')).toEqual(["world model"]);
+    expect(topicsOfQuery("Semi-Supervised")).toEqual(["semi supervised"]);
+    expect(topicsOfQuery("  ")).toEqual([]);
+  });
+
+  it("keys an acronym as written, and as typed in lower case", () => {
+    expect(topicsOfQuery("Efficient VLMs")).toEqual(["efficient vlm", "efficient vlms"]);
+    expect(topicsOfQuery("3DGS")).toEqual(["3dgs"]);
+    expect(topicsOfQuery("3dgs")).toEqual(["3dg", "3dgs"]);
+    expect(topicsOfQuery("MOTS.")).toEqual(["mots"]);
+    // A word in capitals is no acronym.
+    expect(topicsOfQuery("BENCHMARKS")).toEqual(["benchmark", "benchmarks"]);
   });
 
   it("says where the lists put it, the 90 days first", () => {

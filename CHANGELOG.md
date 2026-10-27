@@ -16,7 +16,9 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   model (LLM)"), so that a spelling no longer rises or cools. A phrase holding nearly all its
   papers within another is the same topic in the lists. Searching a synonym ("VLA") finds
   its topic's trend, and a topic's papers are searched with all its phrases (PROD-20).
-- A search for "constructor" no longer breaks the topic note (PROD-20).
+- A search for "constructor" no longer breaks the topic note, and an acronym ending with a
+  capital S is no longer taken for a plural: "3DGS" was the topic "3dg", "MOTS" counted
+  for "MOT" (PROD-20).
 
 ### Documentation
 

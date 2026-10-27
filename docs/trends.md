@@ -41,8 +41,11 @@ their source is `arXiv` alone.
   Datasets" says nothing. Each word is taken as written and singular.
 - It is keyed by its lower-case words, the last one singular (`_singular`, which leaves
   alone what only looks plural: "series", "robotics", "bias", "lens"), and named as titles
-  most often write it: an acronym keeps its capitals and loses its plural ("VLMs" is
-  "VLM"), a short word in capitals stays so ("3D"), the rest is lower case.
+  most often write it: an acronym keeps its capitals and loses a plural's lower-case "s"
+  alone ("VLMs" is "VLM", "3DGS" and "MOTS" stay), a short word in capitals stays so
+  ("3D"), the rest is lower case. The site keys a search the same way
+  (`tests/fixtures/singular-cases.json`), trying an acronym typed in lower case as typed
+  ("3dgs").
 - An acronym has two capitals or more and ten characters at most ("NeRF", "VLA", "3DGS"); a
   word of a title in capitals ("BENCHMARK") is none.
 - A word alone is a topic of the lists only as an acronym: titles write too many words
@@ -171,9 +174,6 @@ item for what they changed).
 
 - Synonyms the rules miss stay topics of their own: an acronym two meanings share ("AR"),
   one too few abstracts define, a word and its "-ing" ("detector", "detection").
-- An acronym ending with a capital S is keyed as a plural, as any last word: "3DGS" is
-  "3dg", and "SDS" (score distillation sampling) is "SD" (stable diffusion), whose
-  definitions then share no 60% and join neither.
 - A title's possessive is two words: "bird's-eye view" is "bird s eye view" (`_WORD_RE`).
 - A word alone that is no acronym never rises in the lists, however new ("Mamba" in 2024):
   the explorer shows it.

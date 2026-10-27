@@ -210,7 +210,7 @@ const NOT_PLURAL_ENDINGS = ["ss", "us", "is", "ics", "ous"];
  * A plural, singular, as the pipeline keys a topic's last word: "models" is "model",
  * "patches" "patch", "policies" "policy"; "series" stays (`tests/fixtures/singular-cases.json`).
  */
-export function singular(word: string): string {
+function singular(word: string): string {
   if (NOT_PLURAL.has(word) || NOT_PLURAL_ENDINGS.some((ending) => word.endsWith(ending))) {
     return word;
   }
@@ -223,16 +223,45 @@ export function singular(word: string): string {
 }
 
 /**
- * The topic a search names, if any: its first quoted phrase, else its words, folded and the
- * last one singular (`world models`, `"world model" OR "world models"`: "world model").
+ * Whether a word is an acronym as the pipeline reads titles: two capitals or more, ten
+ * characters at most, and not a word in capitals ("BENCHMARK").
  */
-export function topicOfQuery(query: string): string | null {
-  const quoted = /"([^"]+)"/.exec(query)?.[1];
-  const words = searchKey(quoted ?? query)
-    .split(" ")
-    .filter(Boolean);
+function isAcronym(word: string): boolean {
+  const capitals = [...word].filter((char) => char !== char.toLowerCase()).length;
+  const shouted = word === word.toUpperCase() && word.length > 6;
+  return capitals >= 2 && word.length <= 10 && !shouted;
+}
+
+/**
+ * The key of a phrase's last word as written: an acronym loses a plural's lower-case "s"
+ * alone ("VLMs" is "vlm", "3DGS" stays "3dgs"), any other word is `singular`
+ * (`tests/fixtures/singular-cases.json`).
+ */
+export function lastWordKey(written: string): string {
+  if (!isAcronym(written)) return singular(written.toLowerCase());
+  const plural =
+    written.endsWith("s") && !NOT_PLURAL_ENDINGS.some((ending) => written.endsWith(ending));
+  return (plural ? written.slice(0, -1) : written).toLowerCase();
+}
+
+/**
+ * The topics a search may name, the likeliest first: its first quoted phrase, else its
+ * words, folded, the last one keyed as written (`world models`, `"world model" OR "world
+ * models"`: "world model"; "VLMs": "vlm"), then as typed, for an acronym typed in lower
+ * case ("3dgs").
+ */
+export function topicsOfQuery(query: string): string[] {
+  const text = /"([^"]+)"/.exec(query)?.[1] ?? query;
+  const words = searchKey(text).split(" ").filter(Boolean);
   const last = words.pop();
-  return last === undefined ? null : [...words, singular(last)].join(" ");
+  if (last === undefined) return [];
+  const written =
+    text
+      .split(/[^\p{L}\p{N}]+/u)
+      .filter(Boolean)
+      .at(-1) ?? last;
+  const key = searchKey(written) === last ? lastWordKey(written) : singular(last);
+  return [...new Set([[...words, key].join(" "), [...words, last].join(" ")])];
 }
 
 /**

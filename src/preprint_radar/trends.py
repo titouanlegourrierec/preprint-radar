@@ -173,10 +173,20 @@ def _singular(word: str) -> str:
 
 
 def _singular_text(part: _Part) -> str:
-    """A part as named, singular: an acronym's plural "s" goes ("VLMs" is "VLM")."""
+    """A part as named, singular: an acronym loses a plural's lower-case "s" alone.
+
+    "VLMs" is "VLM" and "ConvNets" "ConvNet", but "3DGS" and "MOTS" are acronyms of their own,
+    not plurals of "3DG" and "MOT".
+    """
     if part.acronym:
-        return part.text[:-1] if part.text.endswith("s") and part.text[-2:-1].isupper() else part.text
+        plural = part.text.endswith("s") and not part.text.endswith(_NOT_PLURAL_ENDINGS)
+        return part.text[:-1] if plural else part.text
     return _singular(part.text)
+
+
+def _singular_key(part: _Part) -> str:
+    """A phrase's last part as keyed: singular as :func:`_singular_text` names an acronym."""
+    return _singular_text(part).lower() if part.acronym else _singular(part.key)
 
 
 def _a_topic(words: list[list[_Part]]) -> bool:
@@ -186,7 +196,7 @@ def _a_topic(words: list[list[_Part]]) -> bool:
     """
     parts = [part for word in words for part in word]
     keys = [part.key for part in parts]
-    if keys[0] in _FUNCTION or {keys[-1], _singular(keys[-1])} & _NO_END:
+    if keys[0] in _FUNCTION or {keys[-1], _singular_key(parts[-1])} & _NO_END:
         return False
     if any(_YEAR_RE.match(key) for key in keys):
         return False
@@ -220,7 +230,7 @@ def title_phrases(title: str) -> dict[str, str]:
                     break
                 if not _a_topic(span):
                     continue
-                key = " ".join([*(part.key for part in parts[:-1]), _singular(parts[-1].key)])
+                key = " ".join([*(part.key for part in parts[:-1]), _singular_key(parts[-1])])
                 named = [[part.text for part in word] for word in span]
                 named[-1][-1] = _singular_text(span[-1][-1])
                 phrases.setdefault(key, " ".join("-".join(word) for word in named))
@@ -233,7 +243,7 @@ def _phrase_key(text: str) -> str | None:
     parts = [part for word in words for part in word]
     if len(words) > MAX_WORDS or len(parts) > MAX_PARTS:
         return None
-    return " ".join([*(part.key for part in parts[:-1]), _singular(parts[-1].key)])
+    return " ".join([*(part.key for part in parts[:-1]), _singular_key(parts[-1])])
 
 
 def _long_form(short: str, text: str) -> str | None:
@@ -269,8 +279,7 @@ def acronym_definitions(abstracts: Iterable[str], acronyms: Collection[str]) -> 
         defined: set[str] = set()
         for match in _DEFINITION_RE.finditer(abstract):
             short = match.group(1)
-            # Keyed as titles key it: "3DGS" is "3dg", its last letter taken for a plural's.
-            key = _singular(short.lower())
+            key = short.lower()
             if key not in acronyms or key in defined or not _is_acronym(short):
                 continue
             words = _SENTENCE_RE.split(abstract[: match.start()])[-1].split()
