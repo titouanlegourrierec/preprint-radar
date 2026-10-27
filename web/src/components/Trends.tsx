@@ -246,7 +246,7 @@ function Method({ source }: { source: string | undefined }) {
     <>
       <p>
         A topic is a phrase of the titles, one to four words ("world model", "vision-language-action
-        model"), or an acronym ("NeRF"): a title says what a paper is about. It holds its other
+        model"), or an acronym ("SLAM"): a title says what a paper is about. It holds its other
         spellings ("multi-modal" and "multimodal") and the acronym the abstracts define it as
         ("vision-language-action (VLA)"). Its share of the papers is compared between two periods of
         the same days a year apart, which the conferences' seasons do not bias.
