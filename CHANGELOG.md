@@ -34,6 +34,8 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
   showing in another order first (UX-58).
 - A word found in a card is highlighted with a short stroke, once, only the new words of a
   search drawing theirs (UX-56).
+- Saving a search says "✓ Saved" and keeps the focus; pressed again, it forgets the
+  search; the saved search shown is marked in the list (UX-59).
 - When nothing matches in Highly cited, it offers its other years, its last 12 months and a
   search of every stored paper, as Papers does (UX-55).
 

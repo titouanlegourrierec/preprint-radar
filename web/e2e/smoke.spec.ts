@@ -67,6 +67,25 @@ test("the days since the last visit say so, and where they end (UX-54)", async (
   expect(errors).toEqual([]);
 });
 
+test("a saved search says so and keeps the focus; pressed again, it is forgotten (UX-59)", async ({
+  page,
+}) => {
+  const errors = watchErrors(page);
+  await page.goto("./?q=compiler");
+  await expect(page.getByText("1 of 4 cs.CV papers")).toBeVisible();
+  await page.getByRole("button", { name: "Save this search" }).click();
+  const saved = page.getByRole("button", { name: "Saved", exact: true });
+  await expect(saved).toHaveAttribute("aria-pressed", "true");
+  await expect(saved).toBeFocused();
+  // The search shown, pressed in the list.
+  const list = page.locator(".saved-searches__list");
+  await expect(list.getByRole("button", { pressed: true })).toHaveCount(1);
+  await saved.click();
+  await expect(page.getByRole("button", { name: "Save this search" })).toBeFocused();
+  await expect(list).toHaveCount(0);
+  expect(errors).toEqual([]);
+});
+
 test("the index loads once, preloaded with the page", async ({ page }) => {
   const requests: string[] = [];
   const warnings: string[] = [];

@@ -3890,8 +3890,53 @@ input[type="range"] {
 }
 
 .saved-searches__new {
+  display: inline-block;
   color: var(--accent);
   font-weight: 600;
+  animation: saved-bump 360ms cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+/* A search saved says so quietly and keeps the focus (UX-59); the saved one shown is
+   pressed, as the reading list's folder shown; the row just saved arrives with a bump,
+   and a count of new papers pops as it arrives. */
+.link-button.saved-searches__saved {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.saved-searches__list .link-button[aria-pressed="true"] {
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.saved-searches__added {
+  transform-origin: left center;
+  animation: saved-bump 420ms cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+@keyframes saved-bump {
+  0% {
+    transform: scale(0.7);
+  }
+
+  60% {
+    transform: scale(1.12);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .saved-searches__added,
+  .saved-searches__new {
+    animation: none;
+  }
 }
 
 .saved-searches__remove {

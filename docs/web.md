@@ -348,7 +348,11 @@ pipeline and `validate` never see these. `base: "./"` keeps the site working und
   shown. Dropped on a folder (`PAPER_DRAG_TYPE`), a paper joins it; on All saved, it leaves
   the folder shown.
 - **Saved searches** (`saved-searches.ts`): the query string of their words and filters, so
-  that they run on any period, with their papers new since the last visit counted.
+  that they run on any period, with their papers new since the last visit counted. Save is a
+  toggle (UX-59): saved, it reads "✓ Saved", muted and pressed, and keeps the focus; pressed
+  again, it forgets the search. The saved search shown is pressed in the list, as the
+  reading list's folder shown; the row just saved arrives with a bump (not those there when
+  the list first draws), and each count of new papers pops as it arrives.
 - **The list** (`components/PaperList.tsx`, `paging.ts`) adds `PAGE_SIZE` (40) cards as its
   end comes into view and starts over only for a new list (`listKey`). A card that leaves
   (seen while seen papers are hidden, unsaved from the reading list) does not collapse the
