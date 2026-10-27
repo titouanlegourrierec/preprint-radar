@@ -126,7 +126,7 @@ test("a search of every stored paper finds what the period does not hold (PROD-2
   await page.getByRole("button", { name: "Last week" }).click();
   await expect(page).toHaveURL(/\?q=looms$/);
   await expect(page.getByText("No paper matches in this period.")).toBeVisible();
-  // Chosen there, it shimmers once (PROD-21).
+  // Chosen there, it glows once, then shimmers while chosen (PROD-21).
   await page.getByRole("button", { name: /^Period: / }).click();
   await page.getByRole("button", { name: "All papers", exact: true }).click();
   await expect(page).toHaveURL(/\?q=looms&scope=all$/);

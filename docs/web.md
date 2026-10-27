@@ -185,22 +185,23 @@ pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   preset or a day leaves it; also a remedy when nothing matches. Its icon and an iridescent
   border set it apart (`--shimmer-1` to `4`, a conic gradient turned by `@property`), as
   Claude's ultracode button: chosen, the border turns, and every six seconds a light crosses
-  the button while its name shines, eased; it glows once when chosen; nothing moves under
-  `prefers-reduced-motion`. Every day file, `top-recent.json`, then each archive year,
-  newest first, four read ahead (`searchStore`), each file's papers kept only while
-  `candidateTest` reads them: memory holds what passes, not the store. The test lets through
-  every paper the index would find (a test checks it): the filters, and each word in the
-  folded text, or, for a word a typo may match (7 letters or more), a half of it and then a
-  word of the paper one edit from it. 5 µs a paper against 175 µs to index it. What passes,
-  `PAPER_BUDGET` at most (newest first; the others counted, said above the list), is indexed
-  and searched as a period; the count is of the distinct papers read. A word or a filter is
-  needed: without, a notice asks for one. Its code loads with the first such search (1 kB;
-  the button and notices, 2.3 kB on the landing page, PERF-17 made room for). On 2026-10-27 (30,842 papers,
-  21.6 MB compressed the first time, then the browser's cache, which asks after ten minutes
-  whether each file changed), the built site served locally, in Chromium: 1.2 to 1.7 s for a
-  narrow search ("nerf", "kaiming he"), 2.8 s for "detection" (5,171 found), 3.2 s for
-  "image" (past the budget); 3.5 to 12 s with the processor four times slower. Pages adds
-  the reader's bandwidth and a round trip a file (55 files, about 270 in a year). In a
+  the button under its text while its name shines, eased; it glows once when chosen; out of
+  sight it rests (`IntersectionObserver`); nothing moves under `prefers-reduced-motion`.
+  Every day file, `top-recent.json`, then each archive year, newest first, four read ahead
+  (`searchStore`), each file's papers kept only while `candidateTest` reads them: memory
+  holds what passes, not the store. The test lets through every paper the index would find
+  (a test checks it): the filters, and each word in the folded text, or, for a word a typo
+  may match (7 letters or more), a half of it and then a word of the paper one edit from it.
+  5 µs a paper against 175 µs to index it. What passes, `PAPER_BUDGET` at most (newest
+  first; the others counted, said above the list), is indexed and searched as a period; the
+  count is of the distinct papers read. A word or a filter is needed: without, a notice asks
+  for one. Its code loads with the first such search (1 kB; the button and notices, 2.3 kB
+  on the landing page, which PERF-17 made room for). On 2026-10-27 (30,842 papers, 21.6 MB
+  compressed the first time, then the browser's cache, which asks after ten minutes whether
+  each file changed), the built site served locally, in Chromium: 1.2 to 1.7 s for a narrow
+  search ("nerf", "kaiming he"), 2.8 s for "detection" (5,171 found), 3.2 s for "image"
+  (past the budget); 3.5 to 12 s with the processor four times slower. Pages adds the
+  reader's bandwidth and a round trip a file (55 files, about 270 in a year). In a
   background tab, the browser's timers slow it to a crawl.
 - `index.html` preloads `data/index.json` (`<link rel="preload" as="fetch" crossorigin>`);
   `loadIndex` reuses that response only because it fetches it in the same mode and

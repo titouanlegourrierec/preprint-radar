@@ -60,7 +60,7 @@ interface Store {
   since: number | undefined;
 }
 
-/** How long the trigger shimmers once the store is chosen: its animation, and a little more. */
+/** How long the trigger glows once the store is chosen: its animation, and a little more. */
 const LAUNCH_MS = 1600;
 
 interface Props {
@@ -92,7 +92,8 @@ export function PeriodPicker({ days, period, onChange, source, store, compact }:
   const rootRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const panelId = useId();
-  // The store chosen: the trigger shimmers once (PROD-21), as a saved star bursts (UX-37).
+  // The store chosen: the trigger glows and its icon pops once (PROD-21), as a saved star
+  // bursts (UX-37); its shimmer then goes on while it is chosen.
   const [launch, setLaunch] = useState(0);
   useEffect(() => {
     if (launch === 0) return;
@@ -100,6 +101,18 @@ export function PeriodPicker({ days, period, onChange, source, store, compact }:
     return () => clearTimeout(timer);
   }, [launch]);
   const everywhere = store?.active === true;
+  // Out of sight, scrolled off or in the folded sidebar, the shimmer rests: its turning
+  // border repaints every frame.
+  const [inSight, setInSight] = useState(true);
+  useEffect(() => {
+    const trigger = triggerRef.current;
+    if (!(everywhere && trigger && "IntersectionObserver" in window)) return;
+    const observer = new IntersectionObserver(([entry]) =>
+      setInSight(entry?.isIntersecting ?? true),
+    );
+    observer.observe(trigger);
+    return () => observer.disconnect();
+  }, [everywhere]);
   const counts = useMemo(() => new Map(days.map((day) => [day.date, day.count])), [days]);
   const maxCount = useMemo(() => Math.max(1, ...days.map((day) => day.count)), [days]);
 
@@ -216,8 +229,8 @@ export function PeriodPicker({ days, period, onChange, source, store, compact }:
         class={`period-picker__trigger${compact ? " period-picker__trigger--chip" : ""}${
           source && !source.active ? " period-picker__trigger--muted" : ""
         }${everywhere ? " period-picker__trigger--store" : ""}${
-          launch > 0 ? " period-picker__trigger--launch" : ""
-        }`}
+          everywhere && launch > 0 ? " period-picker__trigger--launch" : ""
+        }${everywhere && !inSight ? " period-picker__trigger--still" : ""}`}
         ref={triggerRef}
         aria-expanded={open}
         aria-controls={open ? panelId : undefined}
@@ -357,10 +370,10 @@ export function PeriodPicker({ days, period, onChange, source, store, compact }:
           <p class="period-picker__summary">
             {anchor
               ? "Now click the last day of the range."
-              : period.kind === "since"
+              : !everywhere && period.kind === "since"
                 ? "New days join this period as they are announced. Click a day, then another one to select a range."
                 : "Click a day, then another one to select a range (or use the arrows and Enter)."}
-            {!anchor && period.kind === "dates" && period.to === latest && (
+            {!anchor && !everywhere && period.kind === "dates" && period.to === latest && (
               <>
                 {" "}
                 <button
