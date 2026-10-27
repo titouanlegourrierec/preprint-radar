@@ -8,7 +8,7 @@ import {
   yearsIn,
 } from "../archive-years";
 import { loadArchiveYears, loadDays, loadIndex, loadLightDays, loadTopRecent } from "../data";
-import { countOf, loadingLine } from "../format";
+import { loadingLine, storeSearchLine } from "../format";
 import {
   lightDays,
   PAPER_BUDGET,
@@ -18,7 +18,7 @@ import {
   selectDays,
 } from "../period";
 import { PaperIndex, type SearchFilters } from "../search";
-import type { StoreSearch } from "../store-search";
+import type { StoreProgress, StoreSearch } from "../store-search";
 import type { ArchiveSummary, DaySummary, Paper, StoreIndex, TopRecentSummary } from "../types";
 
 /**
@@ -35,6 +35,12 @@ function whenIdle(task: () => void): void {
   if ("requestIdleCallback" in window) window.requestIdleCallback(task);
   else setTimeout(task, 50);
 }
+
+/**
+ * Least time a search of every stored paper's line stays (UX-51): files come twenty a
+ * second, faster than a line is read.
+ */
+const STORE_LINE_MS = 500;
 
 export type LoadState =
   | { status: "loading" }
@@ -74,8 +80,10 @@ export function usePapers(
   const [missingDays, setMissingDays] = useState<string[]>([]);
   // Each Retry loads again what failed: the index, or the papers.
   const [attempt, setAttempt] = useState(0);
-  // A search of every stored paper: the papers read so far, then those it found, ranked.
-  const [scan, setScan] = useState<{ read: number } | { ranking: number }>({ read: 0 });
+  // A search of every stored paper: how far it went, then the papers it found, ranked.
+  const [scan, setScan] = useState<StoreProgress | { ranking: number }>({ read: 0, found: 0 });
+  // The words and filters it is of: the last search's, until another's effect starts it.
+  const [scanned, setScanned] = useState<string | null>(null);
   // What it found, once done; `null` without a word nor a filter to search for.
   const [storeSearch, setStoreSearch] = useState<Omit<StoreSearch, "papers"> | null>(null);
   // The words and filters whose papers the index holds, which others must not search.
@@ -186,7 +194,8 @@ export function usePapers(
     signal: AbortSignal,
     key: string,
   ): void {
-    setScan({ read: 0 });
+    setScan({ read: 0, found: 0 });
+    setScanned(key);
     setStoreSearch(null);
     setMissingDays([]);
     const holding = {
@@ -206,7 +215,12 @@ export function usePapers(
           setSearchedFor(key);
           return;
         }
-        const onRead = (read: number) => !signal.aborted && setScan({ read });
+        let toldAt = performance.now();
+        const onRead = (progress: StoreProgress) => {
+          if (signal.aborted || performance.now() - toldAt < STORE_LINE_MS) return;
+          toldAt = performance.now();
+          setScan(progress);
+        };
         const { papers, ...found } = await searchStore(category, holding, test, onRead, signal);
         if (signal.aborted) return;
         setScan({ ranking: papers.length });
@@ -273,9 +287,7 @@ export function usePapers(
      */
     loadingLine:
       searchedKey !== null
-        ? "ranking" in scan
-          ? `Ranking ${countOf(scan.ranking, "paper")}…`
-          : `Searching ${countOf(storedPapers, "stored paper")}… ${Math.floor((100 * scan.read) / Math.max(1, storedPapers))}%`
+        ? storeSearchLine(scanned === searchedKey ? scan : { read: 0, found: 0 }, storedPapers)
         : loadingLine(
             archived
               ? archiveRange === LAST_12_MONTHS && topRecent

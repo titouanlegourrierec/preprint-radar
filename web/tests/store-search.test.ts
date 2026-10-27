@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { forgetLoaded, loadDays } from "../src/data";
 import { PAPER_BUDGET } from "../src/period";
 import { ANY_VENUE, exactly, NO_FILTERS, PaperIndex, typed } from "../src/search";
-import { candidateTest, searchStore } from "../src/store-search";
+import { candidateTest, type StoreProgress, searchStore } from "../src/store-search";
 import { makePaper } from "./fixtures";
 
 /** Serve `files` (path under data/ -> JSON body); anything else is a 404. */
@@ -154,7 +154,7 @@ describe("searchStore (PROD-21)", () => {
 
   it("reads every file newest first, a paper once, its day file's record", async () => {
     const requested = serve(store);
-    const reads: number[] = [];
+    const reads: StoreProgress[] = [];
     const found = await searchStore("cs.CV", holding, gaussian, (read) => reads.push(read));
     expect(requested).toEqual([
       "cs.CV/2026-09-11.json",
@@ -174,7 +174,14 @@ describe("searchStore (PROD-21)", () => {
       leftOut: 0,
       missing: { days: [], years: [], recent: false },
     });
-    expect(reads).toEqual([2, 3, 5, 7, 8]);
+    // How far it went (UX-51): a paper of two files read twice, passed once.
+    expect(reads).toEqual([
+      { read: 2, found: 1 },
+      { read: 3, found: 2 },
+      { read: 5, found: 3 },
+      { read: 7, found: 4 },
+      { read: 8, found: 4 },
+    ]);
   });
 
   it("reads the files a period loaded from memory", async () => {

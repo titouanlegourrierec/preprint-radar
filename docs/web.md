@@ -195,13 +195,16 @@ pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   5 µs a paper against 175 µs to index it. What passes, `PAPER_BUDGET` at most (newest
   first; the others counted, said above the list), is indexed and searched as a period; the
   count is of the distinct papers read. A word or a filter is needed: without, a notice asks
-  for one. Its code loads with the first such search (1 kB; the button and notices, 2.3 kB
-  on the landing page, which PERF-17 made room for). On 2026-10-27 (30,842 papers, 21.6 MB
-  compressed the first time, then the browser's cache, which asks after ten minutes whether
-  each file changed), the built site served locally, in Chromium: 1.2 to 1.7 s for a narrow
-  search ("nerf", "kaiming he"), 2.8 s for "detection" (5,171 found), 3.2 s for "image"
-  (past the budget); 3.5 to 12 s with the processor four times slower. Pages adds the
-  reader's bandwidth and a round trip a file (55 files, about 270 in a year). In a
+  for one. While it reads, the count line says how far, and how many papers passed the test
+  ("Searching… 42% · 1,204 papers may match", a phone's line), twice a second at most, files
+  coming twenty a second; screen readers hear "Searching every stored paper…" once, not each
+  step (UX-51). Its code loads with the first such search (1 kB; the button and notices,
+  2.4 kB on the landing page, which PERF-17 made room for). On 2026-10-27 (30,842 papers,
+  21.6 MB compressed the first time, then the browser's cache, which asks after ten minutes
+  whether each file changed), the built site served locally, in Chromium: 1.2 to 1.7 s for a
+  narrow search ("nerf", "kaiming he"), 2.8 s for "detection" (5,171 found), 3.2 s for
+  "image" (past the budget); 3.5 to 12 s with the processor four times slower. Pages adds
+  the reader's bandwidth and a round trip a file (55 files, about 270 in a year). In a
   background tab, the browser's timers slow it to a crawl.
 - `index.html` preloads `data/index.json` (`<link rel="preload" as="fetch" crossorigin>`);
   `loadIndex` reuses that response only because it fetches it in the same mode and

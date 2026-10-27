@@ -12,6 +12,7 @@ import {
   loadingLine,
   seenHidden,
   storeNote,
+  storeSearchLine,
   subjectCode,
 } from "../src/format";
 
@@ -223,5 +224,23 @@ describe("storeNote", () => {
     expect(storeNote({ oldestDay: undefined, since: undefined, recent: false, papers: 0 })).toBe(
       "Every paper the site stores. Each search reads them all in your browser: about 1 MB to download the first time, little after.",
     );
+  });
+});
+
+describe("storeSearchLine", () => {
+  it("says how far a search of every stored paper went, and how many may match (UX-51)", () => {
+    expect(storeSearchLine({ read: 0, found: 0 }, 0)).toBe("Searching… 0%");
+    expect(storeSearchLine({ read: 412, found: 0 }, 31_072)).toBe("Searching… 1%");
+    expect(storeSearchLine({ read: 13_100, found: 1204 }, 31_072)).toBe(
+      "Searching… 42% · 1,204 papers may match",
+    );
+    expect(storeSearchLine({ read: 31_100, found: 1 }, 31_072)).toBe(
+      "Searching… 100% · 1 paper may match",
+    );
+  });
+
+  it("counts the papers it ranks once it has read them all", () => {
+    expect(storeSearchLine({ ranking: 5183 }, 31_072)).toBe("Ranking 5,183 papers…");
+    expect(storeSearchLine({ ranking: 1 }, 31_072)).toBe("Ranking 1 paper…");
   });
 });

@@ -18,6 +18,8 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
   cited ones since 2010, in your browser. The first search downloads about 21 MB, then a
   search takes a few seconds; past 10,000 papers found, the newest are shown and the others
   counted (PROD-21).
+- While it runs, the line above the list says how far it is and how many papers may match;
+  screen readers hear it start and end, not each step (UX-51).
 
 ## 1.0.0 (2026-10-27): a documented data format, and a repository ready to be public
 

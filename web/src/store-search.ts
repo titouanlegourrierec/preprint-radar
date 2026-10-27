@@ -88,6 +88,14 @@ export function candidateTest(
 /** Files a search of every paper reads ahead of the one it tests: their papers wait in memory. */
 const READ_AHEAD = 4;
 
+/** How far a search of every stored paper went (UX-51), told after each file it read. */
+export interface StoreProgress {
+  /** The papers read, as the files hold them: a paper in two files counts twice. */
+  read: number;
+  /** Those that passed the test, which the index ranks next. */
+  found: number;
+}
+
 /** What a search of every stored paper found (PROD-21). */
 export interface StoreSearch {
   /** The papers that passed the test, newest file first, within {@link PAPER_BUDGET}. */
@@ -108,13 +116,13 @@ export interface StoreSearch {
  * first file: the day file's record. Past {@link PAPER_BUDGET} papers kept, the others
  * that pass are only counted. Files are asked for {@link READ_AHEAD} ahead, the browser
  * keeping them for the next search; one that fails twice is left out and named, unless
- * every one does. `onRead` hears how many papers were read, at each file.
+ * every one does. `onRead` hears how far it went, at each file.
  */
 export async function searchStore(
   category: string,
   holding: StoreHolding,
   test: (paper: Paper) => boolean,
-  onRead: (papers: number) => void,
+  onRead: (progress: StoreProgress) => void,
   signal?: AbortSignal,
 ): Promise<StoreSearch> {
   // The most cited of the last 12 months have neither a day nor a year.
@@ -133,7 +141,7 @@ export async function searchStore(
   };
   const seen = new Set<string>();
   let failure: unknown;
-  let read = 0;
+  const progress: StoreProgress = { read: 0, found: 0 };
   const load = (path: string) => readStoreFile(path, signal);
   // Asked for once more when it fails, as a period's day files are; never when the search
   // was left, nor for a file of another schema version, which fail the search.
@@ -177,8 +185,9 @@ export async function searchStore(
       if (result.papers.length < PAPER_BUDGET) result.papers.push(paper);
       else result.leftOut++;
     }
-    read += papers.length;
-    onRead(read);
+    progress.read += papers.length;
+    progress.found = result.papers.length + result.leftOut;
+    onRead({ ...progress });
     // Files the page or the browser kept come at once: the page draws the progress between.
     if (performance.now() - rested > 50) {
       await new Promise((resolve) => setTimeout(resolve, 0));

@@ -74,10 +74,11 @@ const RISING_STARS_TITLE = `By the GitHub stars gained in the week, then by star
 interface Props {
   model: ViewModel;
   /**
-   * What the header counts, or what is loading ("Loading 3,646 papers of 5 days…");
+   * What the header counts, or what is loading ("Loading 3,646 papers of 5 days…") and, for
+   * a load whose line changes as it goes, what screen readers hear once instead (UX-51);
    * `null` while there is nothing to count.
    */
-  count: CountLine | { loading: string } | null;
+  count: CountLine | { loading: string; said?: string } | null;
   onSort: (sort: SortChoice) => void;
   /** Where the counts come from, for Most cited's tooltip. */
   citationsNote: string | undefined;
@@ -134,7 +135,19 @@ export function ResultsHeader(props: Props) {
       <div class="results__count">
         {props.sidebarToggle}
         <p class="muted" aria-live="polite">
-          {count && ("loading" in count ? count.loading : countText(count))}
+          {count &&
+            ("loading" in count ? (
+              count.said ? (
+                <>
+                  <span aria-hidden="true">{count.loading}</span>
+                  <span class="visually-hidden">{count.said}</span>
+                </>
+              ) : (
+                count.loading
+              )
+            ) : (
+              countText(count)
+            ))}
         </p>
         {props.notes}
       </div>

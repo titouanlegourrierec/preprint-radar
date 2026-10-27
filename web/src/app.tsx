@@ -29,6 +29,7 @@ import {
   citationsNote as formatCitationsNote,
   formatDay,
   gainLabel,
+  SEARCHING_STORE,
   seenHidden,
   staleCitations,
   storeNote,
@@ -453,7 +454,7 @@ export function App() {
   const lastUpdate = generatedAt ? formatDay(generatedAt) : null;
   const archiveAsOf = generatedAt ? new Date(generatedAt) : undefined;
   // What the header counts: the saved papers, an archive's years, or the period's papers.
-  const count: CountLine | { loading: string } | null =
+  const count: CountLine | { loading: string; said?: string } | null =
     sharing && shared.folder
       ? {
           shown: results.length,
@@ -490,7 +491,7 @@ export function App() {
                   ...(hiddenCount > 0 && { tail: ` · ${seenHidden(hiddenCount).count}` }),
                 }
               : load.status === "loading"
-                ? { loading: loadingLine }
+                ? { loading: loadingLine, ...(everywhere && { said: SEARCHING_STORE }) }
                 : null;
   // The graph shows the loaded papers; a saved paper from elsewhere brings its day, or
   // its archive year (or the last 12 months) when it is older than the days kept.

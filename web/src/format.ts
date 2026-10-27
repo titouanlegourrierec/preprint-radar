@@ -110,6 +110,25 @@ export function storeNote(store: {
   );
 }
 
+/** What screen readers hear of a search of every stored paper until it ends (UX-51). */
+export const SEARCHING_STORE = "Searching every stored paper…";
+
+/**
+ * What a search of every stored paper says while it runs (UX-51): the share of the stored
+ * papers it read, and how many passed the test, which the index ranks next, some not
+ * matching ("Searching… 42% · 1,204 papers may match", a phone's line); then "Ranking 1,204
+ * papers…".
+ */
+export function storeSearchLine(
+  scan: { read: number; found: number } | { ranking: number },
+  stored: number,
+): string {
+  if ("ranking" in scan) return `Ranking ${countOf(scan.ranking, "paper")}…`;
+  const percent = Math.floor((100 * Math.min(scan.read, stored)) / Math.max(1, stored));
+  const found = scan.found > 0 ? ` · ${countOf(scan.found, "paper")} may match` : "";
+  return `Searching… ${percent}%${found}`;
+}
+
 /**
  * What "Hide seen" leaves out of the list, for its count ("· 12 seen papers hidden") and for
  * an empty list, where it is the reason: "All 12 papers here are marked seen."
