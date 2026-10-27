@@ -7,6 +7,7 @@ import type { Paper } from "../types";
 import type { RankKind } from "../url-state";
 import type { CountryMetric } from "../world";
 import { LazyWorldMap } from "./LazyWorldMap";
+import { RankCell, shareOf } from "./RankCell";
 import { countryMetricOf, KIND_NAMES, metricOf } from "./RankingsControls";
 import { SortHeader } from "./SortHeader";
 
@@ -54,6 +55,8 @@ function EntityRankings(props: Props & { kind: EntityKind }) {
     () => rankEntities(papers, kind, metric, citations),
     [papers, kind, metric, citations],
   );
+  // The first row's value of the metric ranked by, for each row's share of it (UX-60).
+  const first = ranked[0]?.[metric] ?? null;
   const affiliated = useMemo(
     () => papers.filter((paper) => (paper.affiliations ?? []).length > 0).length,
     [papers],
@@ -94,7 +97,7 @@ function EntityRankings(props: Props & { kind: EntityKind }) {
           <tbody>
             {ranked.slice(0, SHOWN).map((entity, index) => (
               <tr key={entity.id}>
-                <td class="rankings__rank">{index + 1}</td>
+                <RankCell rank={index + 1} />
                 <th scope="row">
                   <button
                     type="button"
@@ -111,8 +114,15 @@ function EntityRankings(props: Props & { kind: EntityKind }) {
                     </span>
                   )}
                 </th>
-                <td class="rankings__number">{entity.papers.toLocaleString(LOCALE)}</td>
-                <td class="rankings__number">{entity.citations.toLocaleString(LOCALE)}</td>
+                {(["papers", "citations"] as const).map((column) => (
+                  <td
+                    key={column}
+                    class={`rankings__number${column === metric ? " rankings__number--ranked" : ""}`}
+                    style={column === metric ? shareOf(entity[column], first) : undefined}
+                  >
+                    {entity[column].toLocaleString(LOCALE)}
+                  </td>
+                ))}
                 <td class="rankings__top">
                   <a href={entity.top.abs_url} target="_blank" rel="noopener noreferrer">
                     {entity.top.title}

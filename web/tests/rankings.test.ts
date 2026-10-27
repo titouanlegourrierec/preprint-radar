@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { shareOf } from "../src/components/RankCell";
 import { rankEntities } from "../src/rankings";
 import { exactly, matchesFilters, NO_FILTERS } from "../src/search";
 import { makePaper } from "./fixtures";
@@ -100,5 +101,16 @@ describe("a row of Rankings and the papers it shows", () => {
       const shown = tricky.filter((paper) => matchesFilters(paper, filters));
       expect([row.name, shown.length]).toEqual([row.name, row.papers]);
     }
+  });
+});
+
+describe("shareOf", () => {
+  it("gives a row's share of the first row's value, for its bar (UX-60)", () => {
+    expect(shareOf(136, 177)).toBe("--share: 0.768");
+    expect(shareOf(177, 177)).toBe("--share: 1.000");
+    // Nothing said, or nothing to compare with: no bar.
+    expect(shareOf(null, 3.59)).toBe("--share: 0.000");
+    expect(shareOf(4, 0)).toBe("--share: 0.000");
+    expect(shareOf(4, null)).toBe("--share: 0.000");
   });
 });

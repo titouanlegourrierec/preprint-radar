@@ -19,6 +19,7 @@ import {
 } from "../world";
 import { InfoButton } from "./InfoButton";
 import { MapFrame, nameOf, WORLD } from "./MapFrame";
+import { RankCell, shareOf } from "./RankCell";
 import { Segmented } from "./Segmented";
 import { SortHeader } from "./SortHeader";
 
@@ -39,6 +40,9 @@ const METRIC_TITLES: Record<CountryMetric, string> = {
   "per-million": "Papers per million people",
   impact: "Impact: citations per paper over the world's",
 };
+
+/** The table's columns of figures, in order; impact for highly cited papers only. */
+const COLUMNS: readonly CountryMetric[] = ["papers", "citations", "per-million", "impact"];
 
 /** A value of a metric as the map says it. */
 function formatValue(value: number | null, metric: CountryMetric): string {
@@ -171,6 +175,8 @@ export function WorldMap({ category, papers, citations, metric, archived, onMetr
 
   const ordered = byMetric(stats.countries, metric);
   const listed = all ? ordered : ordered.slice(0, LISTED);
+  // The first country's value of the metric ranked by, for each row's share of it (UX-60).
+  const first = ordered[0] ? metricValue(ordered[0], metric) : null;
   const labels = classLabels(thresholds, metric);
   const pinnedCountry = pinned ? byCode.get(pinned) : undefined;
   return (
@@ -314,7 +320,7 @@ export function WorldMap({ category, papers, citations, metric, archived, onMetr
               key={country.code}
               class={pinnedCountry === country ? "world-map__row--pinned" : undefined}
             >
-              <td class="rankings__rank">{index + 1}</td>
+              <RankCell rank={index + 1} />
               <th scope="row">
                 <button
                   type="button"
@@ -326,12 +332,17 @@ export function WorldMap({ category, papers, citations, metric, archived, onMetr
                   {nameOf(country.code)}
                 </button>
               </th>
-              <td class="rankings__number">{formatShare(country.papers)}</td>
-              <td class="rankings__number">{formatShare(country.citations)}</td>
-              <td class="rankings__number">{formatValue(country.perMillion, "per-million")}</td>
-              {archived && (
-                <td class="rankings__number">{formatValue(country.impact, "impact")}</td>
-              )}
+              {COLUMNS.filter((column) => column !== "impact" || archived).map((column) => (
+                <td
+                  key={column}
+                  class={`rankings__number${column === metric ? " rankings__number--ranked" : ""}`}
+                  style={
+                    column === metric ? shareOf(metricValue(country, column), first) : undefined
+                  }
+                >
+                  {formatValue(metricValue(country, column), column)}
+                </td>
+              ))}
               <td class="rankings__top">
                 {country.institutions.map(({ name }) => name).join(" · ")}
               </td>

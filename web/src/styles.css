@@ -3301,6 +3301,26 @@ input[type="range"] {
   white-space: nowrap;
 }
 
+/* Rankings' podium and shares (UX-60): the first three ranks in Highly cited's medals,
+   smaller, and right under the number ranked by, a bar of its share of the first row's
+   (`--share`, from code). */
+.paper__rank.rankings__medal {
+  display: inline-grid;
+  min-width: 24px;
+  height: 24px;
+  margin: -3px 0;
+  padding: 0 6px;
+  font-size: 0.75rem;
+}
+
+.rankings__table .rankings__number--ranked {
+  --bar: color-mix(in srgb, var(--accent) 60%, transparent);
+
+  background:
+    linear-gradient(var(--bar), var(--bar)) no-repeat right 10px top calc(7px + 1lh + 3px) /
+    calc(var(--share) * (100% - 20px)) 4px;
+}
+
 .rankings__top {
   font-size: 0.82rem;
 }

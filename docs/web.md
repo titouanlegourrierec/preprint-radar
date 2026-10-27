@@ -494,7 +494,10 @@ pipeline and `validate` never see these. `base: "./"` keeps the site working und
   papers shown, by papers or citations, named through `buildGraph` to match the graph.
   Institutions rank on the papers with known affiliations: the ⓘ gives their share
   (`format.affiliationCoverage`), and below half the table says the others count for none
-  (PROD-16). A column header sorts by it (`SortHeader`, UX-42), with `aria-sort`.
+  (PROD-16). A column header sorts by it (`SortHeader`, UX-42), with `aria-sort`. Both
+  tables, institutions or authors and countries, show the first three ranks in Highly
+  cited's medals and, under the number ranked by, a bar of its share of the first row's
+  (`RankCell`, `shareOf`, UX-60); still, the value written.
 - **The world map** (UX-41, `world.ts`, `components/WorldMap.tsx`, `?rank=country`), loaded
   when chosen (`LazyWorldMap`, 49 kB gzipped). A paper counts fractionally in the countries
   of its institutions with a ROR id (`countries.json`, UX-40), its citations shared alike,

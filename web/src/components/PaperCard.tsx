@@ -112,7 +112,7 @@ function matches(text: string, terms: readonly string[]): boolean {
 }
 
 /** The first three ranks, in medal colors (UX-36). */
-const MEDALS = ["gold", "silver", "bronze"] as const;
+export const MEDALS = ["gold", "silver", "bronze"] as const;
 
 interface Props {
   paper: Paper;
