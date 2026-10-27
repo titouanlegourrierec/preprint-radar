@@ -13,6 +13,9 @@ them. It is deployed on GitHub Pages; there is no server.
   `docs/archive.md`.
 - `trends.py`, `trends.json` or `topics.json`: `docs/trends.md`.
 - `web/`: `docs/web.md`, for the part you touch.
+- A file of `data/`, a field of a record, `SCHEMA_VERSION`: `docs/data-format.md`, the
+  public format; `tests/unit/test_data_format_doc.py` fails when a field the store writes
+  is not in it.
 - A workflow, a failure or a log line: `docs/operations.md`, the runbook by symptom. Its
   signals are quoted from the code, and `tests/unit/test_operations_doc.py` fails when one
   no longer exists.

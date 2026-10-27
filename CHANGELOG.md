@@ -18,6 +18,13 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   its topic's trend, and a topic's papers are searched with all its phrases (PROD-20).
 - A search for "constructor" no longer breaks the topic note (PROD-20).
 
+### Documentation
+
+- `docs/data-format.md`, the public format of `data/`: every file and every field of its
+  records, what the site adds, the meaning of `null` and of an empty list, and how the
+  format's versions change; a test fails when the store writes a field it does not name
+  (DOC-10).
+
 ### Graph
 
 - Hovering a settled graph no longer builds every link and node again: it draws the scene
