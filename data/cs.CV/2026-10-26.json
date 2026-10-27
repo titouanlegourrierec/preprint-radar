@@ -1431,7 +1431,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.32730v1",
+   "html_url": "https://arxiv.org/html/2610.32730v2",
    "abstract": "Coronary artery disease remains a leading cause of mortality, with stenosis detection from invasive X-ray Coronary Angiography (XCA) critical for diagnosis. Manual interpretation is time-consuming, subjective, and variable, especially under low contrast and vessel overlap. Existing deep learning methods often rely solely on detection or segmentation, limiting performance.We propose a hybrid framework, Fusion-YOLOv11-L, combining a YOLOv11-L detector with a pretrained UNet++ via a channel attention gating module. This enables fusion of semantic and vessel-aware structural features, improving localisation of stenotic regions. The UNet++ is pretrained on ARCADE vessel segmentation dataset to provide anatomically informed representations. Experiments on the relabeled ARCADE (ARCADE*) dataset show improved performance over YOLOv11-L, achieving AP@50 of 0.585 and F1-score of 0.596. Cross-domain evaluation on a dataset from the Oxford Acute Myocardial Infarction (OxAMI) Study reveals performance degradation due to domain shift, mitigated using test-time adaptation and augmentation. Test-time augmentation improves AP@50 from 0.434 to 0.480, indicating better generalisability. These results show that cross-architecture feature fusion and lightweight adaptation improve robustness and generalisability of automated stenosis detection in XCA.",
    "affiliations": [
     "Institute of Biomedical Engineering, Department of Engineering Science, University of Oxford, Oxford, United Kingdom",
@@ -3180,11 +3180,11 @@
    "subjects": [
     "Computer Vision and Pattern Recognition (cs.CV)"
    ],
-   "comments": null,
+   "comments": "Project page: https://zephipage.github.io/UniWorld",
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.32381v1",
+   "html_url": "https://arxiv.org/html/2610.32381v2",
    "abstract": "Continuous visual world simulation requires coupling evolving scene geometry with temporally persistent appearance. We present UniWorld, a unified framework that integrates depth trajectories and reference appearance within a shared video generation model. The central design maintains visual and geometric histories on a common timeline. Noise-aligned overlapping continuation places generated history at the prescribed sampling noise level and commits only newly generated latents. Rolling depth latent state preserves the corresponding geometric controls, incrementally reads newly available geometry, and keeps the conditioning fixed within each sampling window. Together, these mechanisms ensure exact preservation of latent history while bounding the active depth state by the window size. We evaluate continuous generation, paired history interventions, and long-horizon behavior across diverse scene categories. The same generator supports estimated, native, and on-demand simulator depth, while cached and incremental execution paths produce bitwise-identical outputs. Appearance changes and geometric control branches operate through the same interface without modifying committed history. The measured steady-state DiT execution path achieves real-time generation throughput, demonstrating the efficiency of UniWorld for continuous visual world simulation.",
    "affiliations": [],
    "author_affiliations": null,

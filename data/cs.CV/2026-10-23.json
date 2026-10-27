@@ -1295,7 +1295,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.31466v1",
+   "html_url": "https://arxiv.org/html/2610.31466v2",
    "abstract": "AI coding agents can now build small playable games in minutes, but the results usually look like programmer art: gray blockouts, colored geometric primitives, and flat semantic blobs. We present AnyGameRenderer, a video-to-video generative renderer that turns such footage into high-quality visuals with characters, motion detail, and effects. Throughout, it keeps the layout, camera, and every entity's position and timing intact. Our AnyGameRenderer generalizes across a wide range of genres that agents build, such as tower defense, auto-battlers, top-down survivors, turn-based battles, kart racing, and crowd runners. AnyGameRenderer takes plain video as its game-state input, with no complex representations such as engine G-buffers, per-object class labels, or low-poly proxies. Gray blockouts, colored primitives, semantic maps, and wireframes all work as input. It also preserves entity correspondence: group counts stay correct, and entities appear and disappear on the right frame. We implement AnyGameRenderer by LoRA fine-tuning MiniMax-H3 ref2va, a 33B reference-video-conditioned video generation model. Training uses ~10k paired clips from three sources: (i) multi-stream rendering data from 38 agent-made games exported from GEAR, an AI game-creation tool; (ii) two-stream rendering data from Unreal Engine, with programmatically controlled crowds, count changes, and entity scales; and (iii) real gameplay recordings, with pairs reconstructed via 3D-box detection. To evaluate the entity correspondence, we propose an entity-level benchmark of 59 held-out cases with 753 entities, scored against ground-truth boxes. Compared with the base model, AnyGameRenderer better preserves entity correspondence: temporal match rises from 50.9% to 62.9%, missed count changes fall from 34.7% to 21.3%, and fewer entities are hallucinated or left unrendered.",
    "affiliations": [],
    "author_affiliations": null,
@@ -1471,7 +1471,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.31329v1",
+   "html_url": "https://arxiv.org/html/2610.31329v2",
    "abstract": "Existing vision-language models (VLMs) remain unreliable for fine-grained visual perception. In this report, we present WeVisOne-VL (WeChat Vision All-in-One), a powerful VLM that unifies object-level and pixel-level perception through structured next-token prediction. It supports multiple visual tasks including object detection, referring localization, counting, OCR, segmentation, and matting, enabling localization at any user-specific granularity, from points and boxes to masks and alpha mattes. Architecturally, we integrate a lightweight pixel decoder into the VLM via a special <OBJ> token to generate instance-level pixel outputs. We train the model with a three-stage curriculum SFT followed by mixed-task RL. Across over 30 benchmarks, WeVisOne-VL demonstrates leading performance on both object-level and pixel-level tasks, while maintaining robust rejection for object-absent queries. By releasing WeVisOne-VL to the open-source community, we hope to advance VLMs from broad visual understanding toward truly reliable perception systems for real-world deployment.",
    "affiliations": [
     "WeChat Vision, Tencent Inc"
@@ -3840,13 +3840,15 @@
   {
    "arxiv_id": "2610.30861",
    "announced": "2026-10-23",
-   "title": "Direct Forcing: A Single-Stage Training Recipe for Few-Step Autoregressive Text-to-Video Generation",
+   "title": "Direct Forcing: Single-Stage Training with Representation-Space Supervision for Few-Step Autoregressive Video Generation",
    "authors": [
     "Haojun Xu",
     "Jie Huang",
+    "Chuyang Zhao",
     "Xin Lu",
     "Mingchen Zhong",
     "Zihao Fan",
+    "Haoyang Huang",
     "Linjiang Huang",
     "Si Liu"
    ],
@@ -3859,7 +3861,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.30861v1",
+   "html_url": "https://arxiv.org/html/2610.30861v2",
    "abstract": "Few-step autoregressive video generation enables low-latency streaming, yet prevailing training pipelines separate causal adaptation from distribution matching. Recent representation-based text-to-video methods retain this separation by starting from ODE-initialized checkpoints, even when the target distribution is defined directly by reference videos. We introduce Direct Forcing, a single-stage framework that uses reference videos both as paired examples of how a history continues and as a target population for self-generated rollouts. Causal Continuation Alignment learns paired spatiotemporal correspondence under reference histories, while Rollout Distribution Matching uses maximum mean discrepancy to align the representation distributions of self-generated and reference videos. Together, these complementary signals allow a pretrained video model to learn causal continuation and the target video distribution in a single training stage. Dynamic Gradient Balancing adapts the relative gradient contributions of continuation alignment and distribution matching during training. Starting from bidirectional Wan2.1-1.3B, Direct Forcing learns a four-step autoregressive generator in 250 updates without a separate initialization stage or online diffusion-score supervision, achieving 84.63 VBench Total and 86.01 Quality. Ablation studies further demonstrate the benefits of dynamic gradient balancing and reveal distinct representation preferences: deeper features benefit continuation alignment, whereas intermediate features yield better performance for rollout distribution matching.",
    "affiliations": [
     "Beihang University",
@@ -3878,11 +3880,11 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-23"
+     "at": "2026-10-27"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-23"
+     "at": "2026-10-27"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.30861",
@@ -5964,7 +5966,9 @@
    "title": "MoRE: Motion-Regularized Encoding for Articulated 3D Generation",
    "authors": [
     "Guantian Zheng",
-    "Shan Jin"
+    "Shan Jin",
+    "Tim Tso",
+    "Hongfei Cai"
    ],
    "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
    "subjects": [
@@ -5974,7 +5978,7 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": "https://arxiv.org/html/2610.30337v1",
+   "html_url": "https://arxiv.org/html/2610.30337v2",
    "abstract": "Generating an articulated object from a single image requires recovering both its appearance and the mechanism governing its parts. A compact encoding of joint attributes does not by itself ensure that reconstruction preserves the resulting motion. We present MoRE, Motion-Regularized Encoding for articulated 3D generation. MoRE represents coordinate-aligned joint lines with axis classification and two axis-orthogonal Plücker moment coefficients, removing the arbitrary choice of an origin along the axis. During representation learning, decoded joint hypotheses are used to move corresponding three-dimensional anchors, and their motions are compared with those of annotated joints. A differentiable expectation over joint types and axis directions couples attribute reconstruction to the motion it induces. An image-conditioned flow learns the resulting functional latents, while a multi-state-adapted Gaussian model supplies appearance. At inference, recovered part assignments and joints articulate a single set of rest-pose Gaussians without regenerating the object for each state. Experiments on PartNet-Mobility and ACD show stronger part-box agreement, articulated-state geometry and visual similarity than the compared baselines, while joint prediction reduces axis, origin and range errors relative to ArtiLatent. Controlled ablations support the joint-line encoding and show that motion supervision reduces anchor-motion error. Code and pretrained checkpoints will be released in the future.",
    "affiliations": [
     "School of Mechanical and Aerospace Engineering, Nanyang Technological University",
@@ -5984,6 +5988,14 @@
    "author_affiliations": [
     [
      0
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     2
     ],
     [
      1,
@@ -6004,11 +6016,11 @@
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-23"
+     "at": "2026-10-27"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-23"
+     "at": "2026-10-27"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.30337",
