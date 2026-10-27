@@ -1,12 +1,21 @@
 # Changelog
 
-One minor release per phase of [`docs/roadmap.md`](docs/roadmap.md), and one per set of
-features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`DATA-2`,
+Versions follow semantic versioning from 1.0.0, the data format
+([`docs/data-format.md`](docs/data-format.md)) being the public interface: a major release
+for a change that breaks its readers, a minor one for a set of features, a patch for a fix.
+Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadmap.md). Item IDs (`DATA-2`,
 `CIT-11`…) refer to the audit of 2026-09-30
 ([`docs/audit/2026-09-30.md`](docs/audit/2026-09-30.md)), or, for items found since
 (`PROD-17`, `UX-24`…), to [`docs/roadmap.md`](docs/roadmap.md).
 
 ## Unreleased
+
+## 1.0.0 (2026-10-27): a documented data format, and a repository ready to be public
+
+The first stable release: every file of `data/` and every field of its records is
+documented, with the promise that a change breaking their readers raises `schema_version`
+and the major version. The Trends view counts a topic's synonyms with it; the README is a
+landing page, the documentation lives in `docs/`, concise, and issues have their forms.
 
 ### Trends
 

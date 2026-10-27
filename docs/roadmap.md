@@ -53,7 +53,7 @@ for the answer.
 | 18 | Withdrawn papers | Exclude from Highly cited, badge in the day views | META-2 | Exclude from Highly cited, badge in the day views (2026-10-06) |
 | 19 | Abstracts by default | On for "Latest day" | Phase 2 | Always collapsed, as now (2026-10-03) |
 | 20 | Shipping the audit | Commit it as a frozen baseline | — | Done: `docs/audit/2026-09-30.md` |
-| 21 | Versioning | Stay on 0.x; tag a minor release at the end of each phase, with a changelog; 1.0.0 once the public data format is documented and stable | — | Adopted: `v0.1.0` tags the audit commit as the baseline; Phase 4 has no end, so each set of its features is a minor release (2026-10-07) |
+| 21 | Versioning | Stay on 0.x; tag a minor release at the end of each phase, with a changelog; 1.0.0 once the public data format is documented and stable | — | Adopted: `v0.1.0` tags the audit commit as the baseline; Phase 4 has no end, so each set of its features is a minor release (2026-10-07). 1.0.0 on 2026-10-27, once DOC-10 documented the format; semantic versioning since, the format being the public interface |
 | 22 | The archive's old years | 8 papers of 2010, 41 of 2013, fewer every year: the 1,000 most cited of each year, a floor of 100, or each year's most cited tenth on top of the budget's rule | CIT-16 | Each year at least three years old keeps its most cited tenth, on top of the budget's rule; cards say a paper's place in its year, "Top 1% of 2017" (2026-10-21) |
 
 ## Phase 0: stop publishing wrong data (1–2 days)
@@ -391,6 +391,13 @@ gained some in the week. A country for 25,176 of the 29,709 papers (85%), in 109
 countries. Trends: 6,645 topics of 210,263 titles to 2026-10-22; world action model,
 world model and video world model rise most over 90 days, feature fusion,
 semi-supervised and diffusion model cool most. `validate`: no error, no warning.
+
+*Result of v1.0.0 (2026-10-27; `make stats` and `make validate` that day).* Day files: 7,205
+papers, abstracts 100%, affiliations 82% of those tried (authors mapped 87%, institutions
+named 100%), venues 22%, citation counts 98%. Archive: 22,637 papers, affiliations 91%,
+authors mapped 99%, venues 89%, counts 100%. `validate`: no error, 3 warnings (a paper
+`reclean` would change, two author-id lists of `scholar.json` that do not fit their
+authors). The synonyms reach `trends.json` with the archive of 2026-11-01.
 
 ## Backlog triage (2026-10-07)
 
