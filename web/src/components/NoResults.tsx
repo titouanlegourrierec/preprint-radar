@@ -1,5 +1,6 @@
 import { seenHidden } from "../format";
 import { arxivIdOf } from "../search";
+import { StoreIcon } from "./icons";
 
 interface Props {
   /** A shared `?paper=` this period, or the highly cited papers shown, do not hold. */
@@ -10,7 +11,10 @@ interface Props {
   missingPastedId: string | null;
   /** The papers are those of a search of every stored paper (PROD-21), not of a period. */
   store?: boolean;
-  /** The search of every stored paper, offered from the Papers view's period. */
+  /**
+   * The search of every stored paper, offered from the Papers view's period and from Highly
+   * cited, as the iridescent chip of the period picker (UX-55).
+   */
   onSearchStore?: (() => void) | null;
   /** Papers that Hide seen leaves out of an empty list: the reason it is empty. */
   allSeen: number;
@@ -19,9 +23,17 @@ interface Props {
   noMatch: {
     /** Said of the Papers view's period. */
     inPeriod: boolean;
+    /**
+     * Said of Highly cited (UX-55): the years it shows ("2017", "the last 12 months"), `null`
+     * for all of them.
+     */
+    cited?: string | null;
     onClearFilters: (() => void) | null;
-    /** The longest preset, when it holds more days than the period. */
-    wider: { days: number; onSearch: () => void } | null;
+    /**
+     * More papers to search: the longest preset, when it holds more days than the period;
+     * all the archive's years and its last 12 months, when Highly cited shows fewer.
+     */
+    wider: readonly { label: string; title?: string; onSearch: () => void }[];
   } | null;
 }
 
@@ -56,9 +68,7 @@ export function NoResults(props: Props) {
           {missingPastedId} is not among the stored papers{props.store ? "" : " of this period"}.{" "}
           {props.onSearchStore && (
             <>
-              <button type="button" class="link-button" onClick={props.onSearchStore}>
-                Search all stored papers
-              </button>
+              <StoreChip onClick={props.onSearchStore} />
               {" · "}
             </>
           )}
@@ -82,7 +92,11 @@ export function NoResults(props: Props) {
       )}
       {noMatch && (
         <p class="notice">
-          {props.store ? "No stored paper matches" : "No paper matches"}
+          {props.store
+            ? "No stored paper matches"
+            : noMatch.cited !== undefined
+              ? `No highly cited paper${noMatch.cited ? ` of ${noMatch.cited}` : ""} matches`
+              : "No paper matches"}
           {noMatch.inPeriod ? " in this period" : ""}.{" "}
           {[
             noMatch.onClearFilters && (
@@ -95,26 +109,33 @@ export function NoResults(props: Props) {
                 Clear the filters
               </button>
             ),
-            noMatch.wider && (
+            ...noMatch.wider.map(({ label, title, onSearch }) => (
               <button
-                key="wider"
+                key={label}
                 type="button"
                 class="link-button"
-                onClick={noMatch.wider.onSearch}
+                title={title}
+                onClick={onSearch}
               >
-                Search the last {noMatch.wider.days} days
+                {label}
               </button>
-            ),
-            props.onSearchStore && (
-              <button key="store" type="button" class="link-button" onClick={props.onSearchStore}>
-                Search all stored papers
-              </button>
-            ),
+            )),
+            props.onSearchStore && <StoreChip key="store" onClick={props.onSearchStore} />,
           ]
             .filter(Boolean)
             .flatMap((remedy, at) => (at === 0 ? [remedy] : [" · ", remedy]))}
         </p>
       )}
     </>
+  );
+}
+
+/** The search of every stored paper as a remedy: the period picker's iridescent chip. */
+function StoreChip(props: { onClick: () => void }) {
+  return (
+    <button type="button" class="chip chip--store" onClick={props.onClick}>
+      <StoreIcon />
+      Search all stored papers
+    </button>
   );
 }

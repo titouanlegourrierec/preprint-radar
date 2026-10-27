@@ -156,6 +156,26 @@ test("a search of every stored paper finds what the period does not hold (PROD-2
   expect(errors).toEqual([]);
 });
 
+test("Highly cited without a match offers other years and every stored paper (UX-55)", async ({
+  page,
+}) => {
+  const errors = watchErrors(page);
+  await page.goto("./?view=cited&year=2017&q=analytical");
+  await expect(page.getByText("No highly cited paper of 2017 matches.")).toBeVisible();
+  await page.getByRole("button", { name: "Search the last 12 months" }).click();
+  await expect(page).toHaveURL(/year=last-12-months/);
+  await expect(
+    page.getByRole("heading", { name: "Gaussian Splatting for Analytical Engines" }),
+  ).toBeVisible();
+  // Every stored paper, with the same words, in Papers.
+  await page.goto("./?view=cited&year=2017&q=computable");
+  await expect(page.getByText("No highly cited paper of 2017 matches.")).toBeVisible();
+  await page.getByRole("button", { name: "Search all stored papers" }).click();
+  await expect(page).toHaveURL(/\?q=computable&scope=all$/);
+  await expect(page.getByText("1 of 6 stored cs.CV papers")).toBeVisible();
+  expect(errors).toEqual([]);
+});
+
 test("a click on a folded card opens it, not one on its controls", async ({ page }) => {
   const errors = watchErrors(page);
   await page.goto("./");

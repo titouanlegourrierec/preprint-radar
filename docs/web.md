@@ -93,7 +93,10 @@ pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   vanish in one theme. Every icon is `aria-hidden`: a control's name stays its text.
 - Components: `Topbar`, `ResultsHeader`, `ListNotices` (news since the last visit, warnings,
   filters, feed), `NoResults` (why empty, remedies), `SiteFooter` (sources, `Attribution`,
-  also in the graph's ⓘ: REL-10).
+  also in the graph's ⓘ: REL-10). When nothing matches, `NoResults` offers more papers: in
+  Papers the longest preset, in Highly cited all its years and its last 12 months when it
+  shows fewer ("No highly cited paper of 2017 matches", UX-55); then, from either, the
+  search of every stored paper with the same words, as the period picker's iridescent chip.
 - The lists look as the graph (UX-33). The sidebar stacks its chips: the papers' source
   (`PeriodPicker`, `ArchivePicker`), then the filters, each named by its placeholder, its
   `title` and for screen readers, selects with `SelectChevron`, fields bordered with

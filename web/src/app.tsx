@@ -1,6 +1,13 @@
 import type { ComponentProps } from "preact";
 import { useCallback, useEffect, useMemo, useRef, useState } from "preact/hooks";
-import { ALL_YEARS, formatYears, LAST_12_MONTHS, publishedIn } from "./archive-years";
+import {
+  ALL_YEARS,
+  formatYears,
+  LAST_12_MONTHS,
+  publishedIn,
+  yearsIn,
+  yearsLabel,
+} from "./archive-years";
 import { cohortBadge } from "./cohorts";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import type { Folders as FolderList } from "./components/Folders";
@@ -423,13 +430,56 @@ export function App() {
       : null;
   // A share link opens the paper on its own day, free of the sharer's search context.
   const pastedId = arxivIdOf(query);
-  // "No paper matches" offers the longest preset when it holds more days than the period,
-  // and the search of every stored paper (PROD-21).
+  // "No paper matches" offers more papers: in Papers the longest preset, when it holds more
+  // days than the period; in Highly cited all the archive's years and its last 12 months,
+  // when it shows fewer (UX-55); then the search of every stored paper (PROD-21), from
+  // either, with the same words and filters.
   const longestPeriod = { kind: "recent", range: LONGEST_RANGE } as const;
   const longestDays = selectDays(storeDays, longestPeriod).length;
   const widerPeriod = !everywhere && longestDays > selectDays(storeDays, state.period).length;
+  const allYearsShown =
+    archiveRange !== null &&
+    archiveRange !== LAST_12_MONTHS &&
+    yearsIn(archiveRange, archiveYears).length === archiveYears.length;
+  const archivedPapers = archiveYears.reduce((sum, { count }) => sum + count, 0);
+  const wider =
+    state.view === "papers"
+      ? widerPeriod
+        ? [
+            {
+              label: `Search the last ${longestDays} days`,
+              onSearch: () => update({ period: longestPeriod }),
+            },
+          ]
+        : []
+      : cited && archiveRange !== null
+        ? [
+            ...(allYearsShown || archiveYears.length === 0
+              ? []
+              : [
+                  {
+                    label: "Search all years",
+                    title: `${countOf(archivedPapers, "highly cited paper")} since ${archiveYears.at(-1)?.year}: a few seconds to load`,
+                    onSearch: () => update({ year: ALL_YEARS }),
+                  },
+                ]),
+            ...(topRecent && archiveRange !== LAST_12_MONTHS
+              ? [
+                  {
+                    label: "Search the last 12 months",
+                    title: `The ${countOf(topRecent.count, "most cited paper")} of the last 12 months`,
+                    onSearch: () => update({ year: LAST_12_MONTHS }),
+                  },
+                ]
+              : []),
+          ]
+        : [];
   const searchStore =
-    state.view === "papers" && !everywhere ? () => update({ scope: "all" }) : null;
+    state.view === "papers" && !everywhere
+      ? () => update({ scope: "all" })
+      : cited
+        ? () => update({ view: "papers", scope: "all", year: null })
+        : null;
   // A search of every stored paper without a word nor a filter, which would find them all.
   const storeAsks = everywhere && load.status === "ready" && storeSearch === null;
   const sinceLastVisit = triage.sinceLastVisit && {
@@ -1082,18 +1132,21 @@ export function App() {
                       activeIndex !== null &&
                       (activeIndex.size > 0 || (everywhere && !storeAsks))
                         ? {
-                            inPeriod: state.view === "papers",
+                            inPeriod: state.view === "papers" && !everywhere,
+                            ...(cited &&
+                              archiveRange !== null && {
+                                // The years chosen, none said for all of them.
+                                cited:
+                                  archiveRange !== LAST_12_MONTHS &&
+                                  (archiveRange.from === null || archiveRange.to === null)
+                                    ? null
+                                    : yearsLabel(archiveRange, archiveYears),
+                              }),
                             onClearFilters:
                               activeFilterCount(state.filters) > 0
                                 ? () => setFilters(NO_FILTERS)
                                 : null,
-                            wider:
-                              state.view === "papers" && widerPeriod
-                                ? {
-                                    days: longestDays,
-                                    onSearch: () => update({ period: longestPeriod }),
-                                  }
-                                : null,
+                            wider,
                           }
                         : null
                     }
