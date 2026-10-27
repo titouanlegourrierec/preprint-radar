@@ -70,7 +70,12 @@ pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   sign in the dark theme) and a click opens it (`openOnClick`, UX-34), except on its links
   and controls or after selecting text; an open card ignores clicks so its text can be
   selected (Less, `o` or Enter fold it). More is last in every row of actions
-  (`.paper__more`, UX-50), in the same place on every card.
+  (`.paper__more`, UX-50), in the same place on every card. Where the browser animates to
+  `auto` (`interpolate-size`, Chromium; others open it at once), a card opens smoothly
+  (UX-52): its abstract unfolds in 0.24 s from its three lines (`calc-size`), or from
+  nothing with the abstracts hidden (`@starting-style`), the error link and the comments
+  fade in, and the cards below slide. It folds at once; a shared link's paper is open from
+  the start, centered as it stays; nothing moves under `prefers-reduced-motion`.
 - In Highly cited a card shows its rank (`viewModel().ranked`, `.paper__rank`), the first
   three in `--medal-gold`, `--medal-silver`, `--medal-bronze`; "Rank 1" for screen readers.
   A card in its year's top 1%, 5% or 10% by citations says so ("Top 1% of 2017",
