@@ -30,7 +30,8 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
 - Back after a few days, the days announced since are marked "New", a rule says where they
   end, and every list says its end (UX-54).
 - A view no longer shows the previous one's papers for a frame as it starts loading
-  (UX-57).
+  (UX-57), and a list ordered by citations, as Highly cited, waits for them rather than
+  showing in another order first (UX-58).
 - A word found in a card is highlighted with a short stroke, once, only the new words of a
   search drawing theirs (UX-56).
 - When nothing matches in Highly cited, it offers its other years, its last 12 months and a

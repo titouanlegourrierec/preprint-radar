@@ -44,7 +44,7 @@ import {
 import { useCitations } from "./hooks/use-citations";
 import { useFolders } from "./hooks/use-folders";
 import { useMediaQuery } from "./hooks/use-media-query";
-import { usePapers } from "./hooks/use-papers";
+import { type LoadState, usePapers } from "./hooks/use-papers";
 import { useReadingList } from "./hooks/use-reading-list";
 import { useSavedSearches } from "./hooks/use-saved-searches";
 import { useSharedFolder } from "./hooks/use-shared-folder";
@@ -347,6 +347,13 @@ export function App() {
   const hiddenCount = found.length - shown.length;
   const rankingCounts = byCount ? citations.counts : null;
   const rankingGains = state.sort === "rising" ? citations.gains : null;
+  // A list in the order of its counts waits for them (UX-58), still loading: before, those
+  // of the last period or year stay, the papers' own missing, and it showed in the order of
+  // their identifiers, then jumped.
+  const listed: LoadState =
+    rankingCounts !== null && !citations.current && load.status === "ready"
+      ? { status: "loading" }
+      : load;
   // The reading list's own order (UX-39): where each saved paper stands in it.
   const custom = model.custom;
   // A shared folder's, its link's order.
@@ -519,28 +526,28 @@ export function App() {
             noun: "saved paper",
             ...(activeFolder && { tail: ` in “${activeFolder.name}”` }),
           }
-        : load.status === "ready" && archived && archiveRange !== null
+        : listed.status === "ready" && archived && archiveRange !== null
           ? {
               shown: results.length,
-              total: load.index.size,
+              total: listed.index.size,
               noun: `highly cited ${category ?? ""} paper`,
               tail: ` first published ${publishedIn(archiveRange, archiveYears, archiveAsOf, topRecent)}`,
             }
-          : load.status === "ready" && everywhere
+          : listed.status === "ready" && everywhere
             ? storeSearch && {
                 shown: results.length,
                 total: storeSearch.searched,
                 noun: `stored ${category ?? ""} paper`,
                 ...(hiddenCount > 0 && { tail: ` · ${seenHidden(hiddenCount).count}` }),
               }
-            : load.status === "ready"
+            : listed.status === "ready"
               ? {
                   shown: results.length,
-                  total: load.index.size,
+                  total: listed.index.size,
                   noun: `${category ?? ""} paper`,
                   ...(hiddenCount > 0 && { tail: ` · ${seenHidden(hiddenCount).count}` }),
                 }
-              : load.status === "loading"
+              : listed.status === "loading"
                 ? { loading: loadingLine, ...(everywhere && { said: SEARCHING_STORE }) }
                 : null;
   // The graph shows the loaded papers; a saved paper from elsewhere brings its day, or
@@ -1106,8 +1113,8 @@ export function App() {
                     missingPaper={
                       (state.view === "papers" || cited) &&
                       state.paper &&
-                      load.status === "ready" &&
-                      !load.index.has(state.paper)
+                      listed.status === "ready" &&
+                      !listed.index.has(state.paper)
                         ? state.paper
                         : null
                     }
@@ -1116,7 +1123,7 @@ export function App() {
                       pastedId &&
                       results.length === 0 &&
                       hiddenCount === 0 &&
-                      load.status === "ready"
+                      listed.status === "ready"
                         ? pastedId
                         : null
                     }
@@ -1128,7 +1135,7 @@ export function App() {
                       !pastedId &&
                       results.length === 0 &&
                       hiddenCount === 0 &&
-                      (load.status === "ready" || state.view === "reading-list") &&
+                      (listed.status === "ready" || state.view === "reading-list") &&
                       activeIndex !== null &&
                       (activeIndex.size > 0 || (everywhere && !storeAsks))
                         ? {
@@ -1152,7 +1159,9 @@ export function App() {
                     }
                   />
                   <PaperList
-                    results={results}
+                    results={
+                      listed.status === "ready" || state.view === "reading-list" ? results : []
+                    }
                     resetKey={listKey({ ...state, filters }, query)}
                     nameHighlights={nameTerms}
                     groupByDay={groupByDay}

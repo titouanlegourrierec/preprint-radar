@@ -12,6 +12,11 @@ export interface Citations {
   gains: ReadonlyMap<string, number>;
   /** The days the gains span; `null` before a second weekly refresh. */
   gainsSpan: { since: string; to: string } | null;
+  /**
+   * Whether the counts are those of the papers shown: false while another period's or
+   * year's stay, as the papers' own load, which an order by them waits for.
+   */
+  current: boolean;
 }
 
 const NONE: Citations = {
@@ -20,6 +25,7 @@ const NONE: Citations = {
   asOf: null,
   gains: new Map(),
   gainsSpan: null,
+  current: true,
 };
 
 /**
@@ -32,6 +38,8 @@ export function useCitations(
   oldestDay: string | undefined,
 ): Citations {
   const [citations, setCitations] = useState<Citations>(NONE);
+  // The shards whose counts `citations` holds.
+  const [loaded, setLoaded] = useState("");
   const needed = useMemo(() => shardsOf(papers, oldestDay).join(" "), [papers, oldestDay]);
   useEffect(() => {
     // While a period loads, the counts shown stay.
@@ -57,11 +65,14 @@ export function useCitations(
         asOf: dated?.generated_at ?? null,
         gains,
         gainsSpan: span ? { since: span.since, to: span.to } : null,
+        current: true,
       });
+      setLoaded(needed);
     });
     return () => {
       cancelled = true;
     };
   }, [category, needed]);
-  return citations;
+  const current = needed === "" || loaded === needed;
+  return useMemo(() => ({ ...citations, current }), [citations, current]);
 }
