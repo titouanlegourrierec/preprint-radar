@@ -3,14 +3,27 @@ name: CI
 on:
   push:
     branches: [main]
+    # A push of documents alone tests nothing: no job reads them but the tests of the four
+    # re-included last, which quote them (later patterns win).
+    paths:
+      - "**"
+      - "!*.md"
+      - "!LICENSE"
+      - "!docs/**"
+      - "!.github/ISSUE_TEMPLATE/**"
+      - "!.github/pull_request_template.md"
+      - "docs/operations.md" # tests/unit/test_operations_doc.py
+      - "docs/data-format.md" # tests/unit/test_data_format_doc.py
+      - "docs/web.md" # web/tests/url-state.test.ts
+      - "CHANGELOG.md" # tests/unit/test_release_notes.py
   pull_request:
 
 permissions:
   contents: read
 
-# A burst of pushes is tested once, on its last commit, which holds the others. No path
-# filter: the data job below validates the maintainer's data pushes, and the web job builds
-# the site from data/.
+# A burst of pushes is tested once, on its last commit, which holds the others. data/ is
+# never filtered out: the data job below validates the maintainer's data pushes, and the
+# web job builds the site from it.
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
