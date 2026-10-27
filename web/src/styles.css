@@ -264,6 +264,46 @@ mark {
   padding: 0 1px;
 }
 
+/* A word found in a card draws its mark (UX-56), a highlighter's stroke from left to right,
+   once, as the mark appears (`Highlighted` keeps those shown): the title's first, then the
+   names and the venue, then the abstract. */
+.paper mark {
+  background: linear-gradient(var(--mark), var(--mark)) 0 0 / 100% 100% no-repeat;
+  animation: mark-sweep 320ms cubic-bezier(0.3, 0, 0.2, 1) both;
+}
+
+.paper__authors mark,
+.paper__affiliations mark,
+.paper__meta mark {
+  animation-delay: 90ms;
+}
+
+.paper__abstract mark,
+.paper__comments mark {
+  animation-delay: 160ms;
+}
+
+@keyframes mark-sweep {
+  from {
+    background-size: 0 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .paper mark {
+    animation: none;
+  }
+}
+
+/* High-contrast modes drop the stroke, an image: the system's own mark instead. */
+@media (forced-colors: active) {
+  mark,
+  .paper mark {
+    background: Mark;
+    color: MarkText;
+  }
+}
+
 .muted {
   color: var(--text-muted);
 }

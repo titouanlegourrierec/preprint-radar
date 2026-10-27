@@ -31,6 +31,8 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
   end, and every list says its end (UX-54).
 - A view no longer shows the previous one's papers for a frame as it starts loading
   (UX-57).
+- A word found in a card is highlighted with a short stroke, once, only the new words of a
+  search drawing theirs (UX-56).
 - When nothing matches in Highly cited, it offers its other years, its last 12 months and a
   search of every stored paper, as Papers does (UX-55).
 

@@ -10,7 +10,10 @@ pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   abstract 1, comments 0.5). Only the last word typed is a prefix, from 4 letters, so that
   acronyms stay words ("gan" is not "Gandhi"); one typo is allowed from 7 letters.
   Highlights follow the same rules (`wholeWord`); a filtered name is marked in its own line
-  only (`nameHighlights`, `wordStarts`, `affiliationNeedles`, SRCH-8).
+  only (`nameHighlights`, `wordStarts`, `affiliationNeedles`, SRCH-8). In a card a mark
+  draws itself once, a highlighter's stroke of 320 ms, the title's first (UX-56):
+  `Highlighted` keys each by where it starts, so that a word found later strokes alone,
+  and nothing moves under reduced motion; high-contrast modes get the system's `Mark`.
 - Text is compared folded (`text.ts`): `fold` drops accents and case and spells ß, ł, ø, ı,
   đ, æ plainly, so "Nießner" and "Niessner" are one author (AFF-24); `searchKey`, the key of
   names, graph nodes and feeds, also collapses punctuation. Python's

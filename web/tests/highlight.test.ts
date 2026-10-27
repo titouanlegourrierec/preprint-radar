@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { Highlighted } from "../src/components/Highlighted";
 import { highlight, wholeWord, wordStarts } from "../src/highlight";
 
 const marked = (text: string, terms: string[]) =>
@@ -57,5 +58,26 @@ describe("highlight", () => {
 
   it("returns the text unchanged without terms", () => {
     expect(highlight("Some text", [])).toEqual([{ text: "Some text", match: false }]);
+  });
+});
+
+describe("Highlighted", () => {
+  // Its marks, each with its key, from the fragment it returns.
+  const marks = (text: string, terms: string[]) => {
+    const fragment = Highlighted({ text, terms }) as unknown as { props: { children: unknown[] } };
+    return fragment.props.children
+      .filter((child) => typeof child === "object" && child !== null)
+      .map((child) => {
+        const mark = child as { key: unknown; props: { children: unknown } };
+        return [mark.key, mark.props.children];
+      });
+  };
+
+  it("keys a mark by where it starts: one shown stays when a word is found before it (UX-56)", () => {
+    expect(marks("Fast Gaussian Splatting", ["gaussian"])).toEqual([[5, "Gaussian"]]);
+    expect(marks("Fast Gaussian Splatting", ["fast", "gaussian"])).toEqual([
+      [0, "Fast"],
+      [5, "Gaussian"],
+    ]);
   });
 });
