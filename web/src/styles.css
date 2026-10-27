@@ -3328,6 +3328,12 @@ input[type="range"] {
 /* Rankings' podium and shares (UX-60): the first three ranks in Highly cited's medals,
    smaller, and right under the number ranked by, a bar of its share of the first row's
    (`--share`, from code). */
+/* Rows gliding to their new place (UX-62) wear the card's background, so that those that
+   cross cover one another rather than mixing their texts. */
+[data-gliding] > [data-key] {
+  background: var(--surface);
+}
+
 /* How far the last metric or window chosen moved a row (UX-62), under its rank. */
 .rank-move {
   display: block;

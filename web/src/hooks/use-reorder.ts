@@ -12,6 +12,9 @@ export function useListId(papers: readonly unknown[], kind: string): string {
 /** How long a row glides to its new place (UX-62). */
 const GLIDE_MS = 420;
 
+// The container's glide under way, whose rows wear the card's background meanwhile.
+const glides = new WeakMap<HTMLElement, number>();
+
 interface Drawn {
   keys: readonly string[];
   order: string;
@@ -24,7 +27,9 @@ interface Drawn {
  * Rows that glide from their former place to their new one when the reader ranks them
  * otherwise (UX-62, FLIP): the rows (`[data-key]` in `container`) note their offsets after
  * each layout; when `order` changes but not `list`, those in sight that moved animate from
- * their former offset, newcomers fade in. Another list (a period, a search) only redraws.
+ * their former offset, newcomers fade in, all of them on the card's background meanwhile
+ * (`data-gliding`), so that rows crossing cover one another rather than mixing their texts.
+ * Another list (a period, a search) only redraws.
  * Returns each row's move of the last reordering, kept until another list.
  */
 export function useReorder(
@@ -54,6 +59,12 @@ export function useReorder(
     if (!previous || previous.order === order || previous.list !== list) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const top = root.getBoundingClientRect().top;
+    root.dataset.gliding = "";
+    window.clearTimeout(glides.get(root));
+    glides.set(
+      root,
+      window.setTimeout(() => delete root.dataset.gliding, GLIDE_MS),
+    );
     for (const row of rows) {
       const now = offsets.get(row.dataset.key ?? "") ?? 0;
       // Those in sight, a screen either way.
