@@ -1,0 +1,36 @@
+name: Wrong data
+description: A paper's affiliation, institution, venue, code link or count is wrong.
+labels: [data]
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Data about you (your name, your affiliation, a paper of yours to remove) is better
+        written to the contact on the site's About page than in a public issue.
+  - type: input
+    id: paper
+    attributes:
+      label: arXiv identifier
+      placeholder: "2610.12345"
+    validations:
+      required: true
+  - type: dropdown
+    id: field
+    attributes:
+      label: What is wrong
+      options:
+        - Affiliations, or who is where
+        - Institution or country
+        - Venue or published version
+        - Code link or stars
+        - Citation count
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: What it says, and what it should say
+      description: The paper's own page (its PDF or HTML front matter) is the reference.
+    validations:
+      required: true

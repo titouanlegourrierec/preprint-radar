@@ -20,4 +20,5 @@ The site is always the latest `main`; fixes go there, and into the next release.
 ## Wrong data
 
 A wrong affiliation or author, or a paper of yours you would like removed, is not a security
-issue: write to the same address with its arXiv identifier, as About says.
+issue: write to the same address with its arXiv identifier, as About says, or, for data
+that is not about you, open a *Wrong data* issue.

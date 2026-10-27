@@ -1,0 +1,22 @@
+name: Bug
+description: Something on the site or in the pipeline does not work as it should.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you did, what you saw, and what you expected instead.
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: Link
+      description: The site's address where it happens (a search, a view and a period are all in the link), or the failed workflow run.
+      placeholder: https://titouanlegourrierec.github.io/preprint-radar/?q=world+model
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and device
+      placeholder: Firefox 140 on macOS, Safari on an iPhone…

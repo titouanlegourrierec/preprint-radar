@@ -1,0 +1,11 @@
+name: Idea
+description: A feature or a change you would like.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: What you would like to do
+      description: The need first; a way to meet it if you have one.
+    validations:
+      required: true
