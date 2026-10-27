@@ -86,8 +86,9 @@ export function usePapers(
   const [scanned, setScanned] = useState<string | null>(null);
   // What it found, once done; `null` without a word nor a filter to search for.
   const [storeSearch, setStoreSearch] = useState<Omit<StoreSearch, "papers"> | null>(null);
-  // The words and filters whose papers the index holds, which others must not search.
-  const [searchedFor, setSearchedFor] = useState<string | null>(null);
+  // What the index holds the papers of (`wanted` then): their category, period, years or
+  // search, which another must not show nor search, even for a frame.
+  const [loadedFor, setLoadedFor] = useState<string | null>(null);
 
   useEffect(() => {
     if (attempt > 0 && storeIndex) return;
@@ -113,6 +114,7 @@ export function usePapers(
   // archive's years or a search of every paper, whose words and filters are its own key.
   const searchedKey = everywhere && !archived ? JSON.stringify(everywhere) : null;
   const loadedPeriod = archived || searchedKey !== null ? null : periodKey(period);
+  const wanted = JSON.stringify([category ?? null, loadedPeriod, archiveKey, searchedKey]);
 
   useEffect(() => {
     if (!storeIndex) return;
@@ -126,13 +128,13 @@ export function usePapers(
     setLoad({ status: "loading" });
     // The former index and its full-text index can go: two would hold 20,000 papers.
     setWarmed(null);
-    setSearchedFor(null);
+    setLoadedFor(null);
     if (searchedKey !== null) {
       const { query, filters } = JSON.parse(searchedKey) as {
         query: string;
         filters: SearchFilters;
       };
-      searchEverything(category, storeIndex, query, filters, signal, searchedKey);
+      searchEverything(category, storeIndex, query, filters, signal, searchedKey, wanted);
       return () => stop.abort();
     }
     let loaded: Promise<{ papers: Paper[]; total: number; unranked: number; missing?: string[] }>;
@@ -170,6 +172,7 @@ export function usePapers(
         setMissingDays(missing);
         const index = new PaperIndex(papers);
         setLoad({ status: "ready", index });
+        setLoadedFor(wanted);
         // The list shows first; the search index is built after, while the page is idle.
         whenIdle(() => {
           index.warm(signal).then(() => !signal.aborted && setWarmed(index));
@@ -193,6 +196,7 @@ export function usePapers(
     filters: SearchFilters,
     signal: AbortSignal,
     key: string,
+    loaded: string,
   ): void {
     setScan({ read: 0, found: 0 });
     setScanned(key);
@@ -212,7 +216,7 @@ export function usePapers(
           const index = new PaperIndex([]);
           setLoad({ status: "ready", index });
           setWarmed(index);
-          setSearchedFor(key);
+          setLoadedFor(loaded);
           return;
         }
         let toldAt = performance.now();
@@ -232,7 +236,7 @@ export function usePapers(
         setMissingDays(found.missing.days);
         setLoad({ status: "ready", index });
         setWarmed(index);
-        setSearchedFor(key);
+        setLoadedFor(loaded);
       })
       .catch(
         (error: unknown) =>
@@ -246,12 +250,11 @@ export function usePapers(
     (topRecent?.count ?? 0) +
     archiveYears.reduce((sum, { count }) => sum + count, 0);
 
-  // Other words or filters: the papers of the last ones until the search starts, which
-  // they must not be searched with, even for a frame.
+  // Another category, period, years, words or filters: the papers of the last ones until
+  // its effect starts loading (a view's first render), which must not show, even ranked
+  // in another view for a frame, nor be searched with other words.
   const shown: LoadState =
-    searchedKey !== null && searchedFor !== searchedKey && load.status === "ready"
-      ? { status: "loading" }
-      : load;
+    load.status === "ready" && loadedFor !== wanted ? { status: "loading" } : load;
 
   return {
     categories,

@@ -29,6 +29,8 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
   confirm it, the BibTeX one with the key to cite (UX-53).
 - Back after a few days, the days announced since are marked "New", a rule says where they
   end, and every list says its end (UX-54).
+- A view no longer shows the previous one's papers for a frame as it starts loading
+  (UX-57).
 - When nothing matches in Highly cited, it offers its other years, its last 12 months and a
   search of every stored paper, as Papers does (UX-55).
 
