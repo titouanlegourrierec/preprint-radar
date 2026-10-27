@@ -223,6 +223,8 @@ class TrendTopic:
         impact: Of its papers of 3 to 15 months before the last, the share among the most cited
             tenth of their month; ``None`` with too few of them, or without citation counts.
         papers: Its most cited papers of the last 12 months, the most cited first.
+        also: The keys of the phrases it holds besides its own: its other spellings, its
+            acronym ("vla" for "vision language action"); written only when it has some.
     """
 
     name: str
@@ -231,6 +233,7 @@ class TrendTopic:
     first: str | None
     impact: float | None
     papers: tuple[KeyPaper, ...]
+    also: tuple[str, ...] = ()
 
     def to_record(self) -> dict[str, object]:
         """The record of ``trends.json``."""
@@ -241,6 +244,7 @@ class TrendTopic:
             "first": self.first,
             "impact": self.impact,
             "papers": [paper.to_record() for paper in self.papers],
+            **({"also": list(self.also)} if self.also else {}),
         }
 
     @classmethod
@@ -271,6 +275,7 @@ class TrendTopic:
             first=None if first is None else _text(first),
             impact=None if impact is None else float(impact),
             papers=tuple(KeyPaper.from_record(paper) for paper in papers),
+            also=_texts(record.get("also", [])),
         )
 
 
@@ -375,15 +380,20 @@ class TopicSeries:
         name: The phrase as titles most often write it.
         start: The index of its first month with a paper among the file's months.
         counts: Its papers in each month from that one.
+        also: The keys of the phrases it holds besides its own, as :class:`TrendTopic`'s.
     """
 
     name: str
     start: int
     counts: tuple[int, ...]
+    also: tuple[str, ...] = ()
 
     def to_record(self) -> dict[str, object]:
         """The record of ``topics.json``."""
-        return {"name": self.name, "start": self.start, "counts": list(self.counts)}
+        record: dict[str, object] = {"name": self.name, "start": self.start, "counts": list(self.counts)}
+        if self.also:
+            record["also"] = list(self.also)
+        return record
 
     @classmethod
     def from_record(cls, record: Mapping[str, object]) -> Self:
@@ -392,7 +402,12 @@ class TopicSeries:
         Raises:
             TypeError: If a field is not of its type.
         """
-        return cls(_text(record["name"]), _whole(record["start"]), _wholes(record["counts"]))
+        return cls(
+            _text(record["name"]),
+            _whole(record["start"]),
+            _wholes(record["counts"]),
+            _texts(record.get("also", [])),
+        )
 
 
 @dataclass(frozen=True, slots=True)

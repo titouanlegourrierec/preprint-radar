@@ -673,6 +673,7 @@ TRENDS = Trends(
             first="2026-09",
             impact=0.5,
             papers=(KeyPaper("2609.00001", "World Models", 12),),
+            also=("world modeling",),
         ),
         "diffusion model": TrendTopic(
             name="diffusion model",
@@ -685,7 +686,7 @@ TRENDS = Trends(
     },
     months=3,
     series={
-        "world model": TopicSeries("world model", 1, (1, 2, 3)),
+        "world model": TopicSeries("world model", 1, (1, 2, 3), ("world modeling",)),
         "diffusion model": TopicSeries("diffusion model", 0, (3, 2, 1, 0)),
     },
 )
@@ -699,6 +700,10 @@ def test_trends_are_written_a_topic_a_line_and_read_back(store: PaperStore) -> N
     assert ' "start":"2026-08",' in lines
     assert ' "totals":[5,6,7],' in lines
     assert '  "diffusion model":{"name":"diffusion model","counts":[2,1,0],' in "\n".join(lines)
+    # A topic's other phrases, only where it has some.
+    world = next(line for line in lines if line.startswith('  "world model"'))
+    assert world.endswith('"citations":12}],"also":["world modeling"]}')
+    assert "also" not in next(line for line in lines if line.startswith('  "diffusion model"'))
     assert store.load_trends("cs.CV") == TrendsFile(
         through=date(2026, 10, 20),
         start="2026-08",
@@ -750,6 +755,7 @@ def test_trends_are_written_a_topic_a_line_and_read_back(store: PaperStore) -> N
         (("windows", "quarter", "new"), "world model", "is not a list"),
         (("windows", "quarter", "added"), 1, "Invalid window share added 1"),
         (("windows", "quarter", "added"), True, "Invalid window share added True"),
+        (("topics", "world model", "also"), "world modeling", "'world modeling' is not a list"),
     ],
 )
 def test_invalid_trends_file_raises(
@@ -775,10 +781,11 @@ def test_invalid_trends_file_raises(
         (("topics", "world model", "start"), 2, "counts past the last month for world model"),
         (("topics", "world model", "start"), "1", "'1' is not a whole number"),
         (("topics", "world model", "name"), None, "None is not a text"),
+        (("topics", "world model", "also", 0), 3, "3 is not a text"),
     ],
 )
 def test_invalid_topics_file_raises(
-    store: PaperStore, keys: tuple[str, ...], value: object, message: str
+    store: PaperStore, keys: tuple[str | int, ...], value: object, message: str
 ) -> None:
     store.write_trends("cs.CV", TRENDS, source="arXiv")
     path = store.root / "cs.CV" / "topics.json"

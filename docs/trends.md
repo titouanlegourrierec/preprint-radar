@@ -49,7 +49,41 @@ their source is `arXiv` alone.
   alone that name none ("evidence", "frozen", "advancing"), which filled half of each list
   when tried. The explorer has every word that is not generic ("mamba", "transformer").
 - The vocabulary is the topics at least 0.015% of the papers say (`VOCABULARY_SHARE`), 5 at
-  least: 32 papers for cs.CV's 210,010 since 2010, 6,635 topics, 3,024 of them words alone.
+  least: 32 papers for cs.CV's 210,010 since 2010, 6,635 phrases, 3,024 of them words alone.
+
+## Synonyms (`topic_groups`)
+
+A topic holds the phrases of the vocabulary that say the same, and a paper whose title says
+any of them counts once for it. Without them a style was a trend: "VLM" rose in the 90 days
+(77 → 162) while "vision-language model" held, and "multi-modal" cooled (115 → 62) as
+"multimodal" took its place. Three rules, measured on the catalog of 2026-10-21, make 103
+topics of two phrases or more, 47 of them with their acronym (6,528 topics in all):
+
+- Spellings, the phrases the same once their spaces go: "multi-modal" and "multimodal",
+  "real-time" and "realtime", "pre-training" and "pretraining", "U-Net" and "UNet", "6-DoF"
+  and "6DoF".
+- A phrase ending with "modeling" or "modelling" and the same with "model": "world
+  modeling" is "world model", the field naming the models it builds. No other "-ing" is its
+  base: "medical imaging" is not "medical image", nor "tracking" "track", nor "matching"
+  "match", which a general rule merged when tried.
+- An acronym and the phrase its abstracts define it as (`acronym_definitions`): in each
+  abstract, the words before an acronym in parentheses, its plural "s" apart ("large language
+  models (LLMs)"), within the same sentence, ending with the shortest run of them whose
+  characters hold the acronym's in order, the first starting a word (Schwartz and Hearst,
+  2003): "Vision-Language-Action (VLA)" is "vision-language-action". An abstract counts once
+  an acronym. The acronym joins the phrase when at least 10 abstracts define it
+  (`DEFINITIONS_MIN`), 60% of those that do (`DEFINITION_SHARE`), and the phrase is a topic
+  of the titles: MRI, CNN, GAN, LLM, VLM, MLLM, NeRF, ViT, LoRA, VLA, BEV, RAG, 3DGS join
+  theirs; "AR" (augmented reality 272 times, autoregressive 238), "CAD", "QA" and "ROI" join
+  none.
+
+A topic is keyed and named by its phrase that most titles say, an acronym alone only when it
+has no other, with the acronym it holds the most said: "vision-language-action (VLA)",
+"large language model (LLM)", while "U-Net" holds "UNet" without naming it. Its `also` lists
+the keys of its other phrases, for the site: its search (`"vision language action" OR …
+OR "vla" OR "vlas"`), its note, its explorer, and the links of older weeks. A topic is
+ranked when one of its phrases is: "multimodal", a word alone, is because "multi-modal" is a
+phrase.
 
 ## Rising, cooling and new (`trends.json`)
 
@@ -70,8 +104,12 @@ their source is `arXiv` alone.
 - New: a topic whose first month with 3 of its papers (`FIRST_PAPERS`) is within the last
   12, with half the minimum in the recent period; the most papers first, 15 at most.
 - One phrase a topic (`_distinct`): two phrases sharing half their papers, of those either
-  has, are one topic, which the more specific names in the place of the first, even when
-  ranked past the list's end: "visual token pruning" over "visual token".
+  has, are one topic, and so are two one of which holds 80% of its papers in the other,
+  being 40% of it (`NESTED`, `NESTED_SHARE`: "visual token pruning", 63 papers of the year,
+  within "token pruning"'s 140). The more specific names it in the place of the first, even
+  when ranked past the list's end: "visual token pruning" over "visual token" and "token
+  pruning". A topic holding an acronym is the most specific: "vision-language-action (VLA)"
+  over "vision-language-action model", which it holds.
 - Each listed topic keeps its counts of the last 37 months (`MONTHS`, the file's `start`
   and `totals`), its papers in each window's two periods, its first month, its impact and
   its key papers:
@@ -92,7 +130,8 @@ grown from about 25 papers a month in 2010 to 3,300 in 2026. One topic a line, c
 
 ## Calibration on cs.CV (2026-10-21)
 
-The catalog to 2026-10-20, the counts of the archive run that day.
+The catalog to 2026-10-20, the counts of the archive run that day, before synonyms (the last
+item for what they changed).
 
 - The quarter, 2026-07-23 to 2026-10-20 (10,476 papers) against 2025-07-23 to 2025-10-20
   (8,841):
@@ -119,14 +158,22 @@ The catalog to 2026-10-20, the counts of the archive run that day.
   128 in the last 12 months against 186 the 12 before; NeRF peaked in March 2023 (18), 15
   against 40; GAN in March 2021 (29); "world model" has 522 against 129.
 - 40 seconds for the 210,010 titles.
+- With synonyms (2026-10-27, the same catalog), 38 seconds, the abstracts' definitions
+  included. World model, its "modeling" with it, is 40 → 258 in the quarter; VLA, with
+  "vision-language-action", 48 → 138 (impact 61%), 106 → 403 in the year. The quarter's
+  rising list loses VLM, which a style made rise, its cooling list "multi-modal", which a
+  spelling made cool; "unmanned aerial vehicle (UAV)" and "computed tomography (CT)" rise,
+  "large language model (LLM)" (244 → 165) and "multimodal large language model (MLLM)"
+  cool, and "segment anything model (SAM)", "neural radiance field (NeRF)" and "generative
+  adversarial network (GAN)" in the year.
 
 ## What it does not do
 
-- Synonyms are topics of their own: "VLA" and "vision-language-action model", "VLM" and
-  "vision-language model", "world model" and "world modeling" (a follow-up in the
-  roadmap).
-- A phrase sharing less than half the papers of another, though within it, is a topic of
-  its own: "visual token", "token pruning" and "visual token pruning" all rise in the year
-  (a follow-up: overlap over the smaller one's papers).
+- Synonyms the rules miss stay topics of their own: an acronym two meanings share ("AR"),
+  one too few abstracts define, a word and its "-ing" ("detector", "detection").
+- An acronym ending with a capital S is keyed as a plural, as any last word: "3DGS" is
+  "3dg", and "SDS" (score distillation sampling) is "SD" (stable diffusion), whose
+  definitions then share no 60% and join neither.
+- A title's possessive is two words: "bird's-eye view" is "bird s eye view" (`_WORD_RE`).
 - A word alone that is no acronym never rises in the lists, however new ("Mamba" in 2024):
   the explorer shows it.

@@ -16,7 +16,10 @@ export interface KeyPaper {
 
 /** A topic the lists name. */
 export interface TrendTopic {
-  /** The phrase as titles most often write it: "vision-language-action model", "VLA". */
+  /**
+   * The phrase as titles most often write it, with the acronym it holds: "world model",
+   * "vision-language-action (VLA)".
+   */
   name: string;
   /** Its papers in each month of the file. */
   counts: number[];
@@ -31,6 +34,11 @@ export interface TrendTopic {
   impact: number | null;
   /** Its most cited papers of the last 12 months, the most cited first. */
   papers: KeyPaper[];
+  /**
+   * The keys of the phrases it holds besides its own: its other spellings ("multi modal"),
+   * its acronym ("vla"); absent without any, and in files written before synonyms were.
+   */
+  also?: string[];
 }
 
 /** Two periods of the same days a year apart, and the topics their papers rank. */
@@ -71,6 +79,8 @@ export interface TopicSeries {
   /** The index of its first month with a paper among the file's months. */
   start: number;
   counts: number[];
+  /** The keys of the phrases it holds besides its own, as `TrendTopic`'s. */
+  also?: string[];
 }
 
 /** `<category>/topics.json`: every topic with enough papers since 2010, for the explorer. */
@@ -225,6 +235,20 @@ export function topicOfQuery(query: string): string | null {
   return last === undefined ? null : [...words, singular(last)].join(" ");
 }
 
+/**
+ * The topic a phrase is, with its key: its own, or the one holding it ("vla" is "vision
+ * language action"); `null` for a phrase no topic holds, and for a key every object has
+ * ("constructor"), which a search or a link may name.
+ */
+export function topicEntry<T extends { also?: string[] }>(
+  topics: Record<string, T>,
+  phrase: string,
+): [string, T] | null {
+  const topic = Object.hasOwn(topics, phrase) ? topics[phrase] : undefined;
+  if (topic !== undefined) return [phrase, topic];
+  return Object.entries(topics).find(([, other]) => other.also?.includes(phrase)) ?? null;
+}
+
 /** What the lists say of a topic, for a search that names it. */
 export interface TopicNote {
   key: string;
@@ -239,9 +263,10 @@ export interface TopicNote {
  * Where a topic stands in the lists: rising, cooling or new over the last 90 days, else
  * over the last 12 months; `null` when no list names it.
  */
-export function topicNote(file: TrendsFile, key: string): TopicNote | null {
-  const topic = file.topics[key];
-  if (topic === undefined) return null;
+export function topicNote(file: TrendsFile, phrase: string): TopicNote | null {
+  const entry = topicEntry(file.topics, phrase);
+  if (entry === null) return null;
+  const [key, topic] = entry;
   for (const window of WINDOW_NAMES) {
     const compared = file.windows[window];
     const pair = topic.windows[window];
@@ -264,12 +289,12 @@ function plural(phrase: string): string {
 }
 
 /**
- * The site's search for a topic: its phrase, singular or plural, as titles write either
- * (`"world model" OR "world models"`). A quoted phrase matches whole words of the folded
- * text, hyphens as spaces ("semi supervised" finds "Semi-Supervised").
+ * The site's search for a topic: its phrases, singular or plural, as titles write either
+ * (`"world model" OR "world models"`), its synonyms with them. A quoted phrase matches whole
+ * words of the folded text, hyphens as spaces ("semi supervised" finds "Semi-Supervised").
  */
-export function topicQuery(key: string): string {
-  return `"${key}" OR "${plural(key)}"`;
+export function topicQuery(key: string, also: readonly string[] = []): string {
+  return [key, ...also].map((phrase) => `"${phrase}" OR "${plural(phrase)}"`).join(" OR ");
 }
 
 /** A topic of a window's list, and how its share changed. */
@@ -333,21 +358,26 @@ export interface FoundTopic {
 }
 
 /**
- * The topics whose words start with those typed, in any order ("wor mod" finds "world
- * model"): the one typed whole first, then the shorter, then those of more papers.
+ * The topics whose words, or a synonym's, start with those typed, in any order ("wor mod"
+ * finds "world model", "vla" "vision-language-action (VLA)"): the one typed whole first,
+ * then the shorter, then those of more papers.
  */
 export function findTopics(file: TopicsFile, text: string, limit = 8): FoundTopic[] {
   const typed = searchKey(text);
   const words = typed.split(" ").filter(Boolean);
   if (words.length === 0) return [];
   const found: FoundTopic[] = [];
+  const whole = new Set<string>();
   for (const [key, series] of Object.entries(file.topics)) {
-    const own = key.split(" ");
-    if (words.every((word) => own.some((part) => part.startsWith(word)))) {
+    const phrases = [key, ...(series.also ?? [])];
+    const matches = (phrase: string) =>
+      words.every((word) => phrase.split(" ").some((part) => part.startsWith(word)));
+    if (phrases.some(matches)) {
       found.push({ key, name: series.name, papers: series.counts.reduce((a, b) => a + b, 0) });
+      if (phrases.includes(typed)) whole.add(key);
     }
   }
-  const rank = (topic: FoundTopic) => (topic.key === typed ? 0 : 1);
+  const rank = (topic: FoundTopic) => (whole.has(topic.key) ? 0 : 1);
   return found
     .sort(
       (a, b) =>
@@ -408,8 +438,8 @@ export interface Quarterly {
  */
 export function quarterly(file: TopicsFile, keys: readonly string[]): Quarterly {
   const series = keys.flatMap((key) => {
-    const topic = file.topics[key];
-    return topic === undefined ? [] : [topic];
+    const entry = topicEntry(file.topics, key);
+    return entry === null ? [] : [entry[1]];
   });
   const first = Math.min(...series.map(({ start }) => start), file.totals.length - 1);
   // The quarter's first month: January, April, July or October.

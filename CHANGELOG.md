@@ -8,6 +8,16 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
 
 ## Unreleased
 
+### Trends
+
+- A topic holds its synonyms, a paper counting once for it: its other spellings
+  ("multi-modal" and "multimodal"), its "-modeling" ("world modeling" is "world model"), and
+  the acronym its abstracts define it as ("vision-language-action (VLA)", "large language
+  model (LLM)"), so that a spelling no longer rises or cools. A phrase holding nearly all its
+  papers within another is the same topic in the lists. Searching a synonym ("VLA") finds
+  its topic's trend, and a topic's papers are searched with all its phrases (PROD-20).
+- A search for "constructor" no longer breaks the topic note (PROD-20).
+
 ### Graph
 
 - Hovering a settled graph no longer builds every link and node again: it draws the scene

@@ -10,6 +10,7 @@ import {
   formatShare,
   quarterly,
   type TopicsFile,
+  topicEntry,
 } from "../trends";
 import { CloseIcon, SearchIcon } from "./icons";
 import { type ChartSeries, LineChart } from "./LineChart";
@@ -70,15 +71,16 @@ export function Explorer(props: Props) {
   }, [wanted, category, attempt]);
 
   const file = loaded.status === "ready" ? loaded.file : null;
-  const known = file ? compare.filter((key) => file.topics[key] !== undefined) : [];
-  const unknown = file ? compare.filter((key) => file.topics[key] === undefined) : [];
+  const known = file ? compare.filter((key) => topicEntry(file.topics, key) !== null) : [];
+  const unknown = file ? compare.filter((key) => topicEntry(file.topics, key) === null) : [];
   slots.current = assignSlots(slots.current, compare);
   const add = (key: string) => {
     if (!compare.includes(key) && compare.length < COMPARED) onCompare([...compare, key]);
     setText("");
   };
   const remove = (key: string) => onCompare(compare.filter((other) => other !== key));
-  const nameOf = (key: string) => displayName(file?.topics[key]?.name ?? key);
+  const nameOf = (key: string) =>
+    displayName((file && topicEntry(file.topics, key)?.[1].name) ?? key);
 
   return (
     <section class="explorer" id="explorer" aria-labelledby="explorer-title">
@@ -189,7 +191,7 @@ function Comparison({
   );
   const series: ChartSeries[] = keys.map((key, index) => ({
     key,
-    name: displayName(file.topics[key]?.name ?? key),
+    name: displayName(topicEntry(file.topics, key)?.[1].name ?? key),
     values: drawn.shares[index] ?? [],
     tone: `series-${(slots.get(key) ?? 0) + 1}`,
   }));

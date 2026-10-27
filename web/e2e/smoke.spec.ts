@@ -347,10 +347,13 @@ test("Trends lists the topics that rise, and opens one with its papers (PROD-20)
   await expect(topic).toContainText("in the last 12 months");
   // Its papers, searched in the Papers view; Back comes to the topic.
   await topic.getByRole("link", { name: /^Its papers since/ }).click();
+  // Its synonyms with it.
   await expect(page.getByRole("searchbox", { name: "Search papers" })).toHaveValue(
-    '"world model" OR "world models"',
+    '"world model" OR "world models" OR "world modeling" OR "world modelings"',
   );
-  await expect(page).toHaveURL(/\?q=%22world\+model%22\+OR\+%22world\+models%22&since=2025-10-21$/);
+  await expect(page).toHaveURL(
+    /\?q=%22world\+model%22\+OR\+%22world\+models%22\+OR\+%22world\+modeling%22\+OR\+%22world\+modelings%22&since=2025-10-21$/,
+  );
   await page.goBack();
   await expect(page).toHaveURL(/\?view=trends&window=year&topic=world\+model$/);
   await expect(page.getByRole("region", { name: "World model" })).toBeVisible();
@@ -367,9 +370,15 @@ test("a search that names a rising topic says so, and links to its trend (PROD-2
   await page.getByRole("link", { name: "See its trend" }).click();
   await expect(page).toHaveURL(/view=trends&topic=world\+model$/);
   await expect(page.getByRole("region", { name: "World model" })).toBeVisible();
-  // No note for words that name no listed topic.
+  // A synonym names its topic.
+  await page.goto("./?q=world+modeling");
+  await expect(page.getByText("“World model” is a rising topic of the titles")).toBeVisible();
+  // No note for words that name no listed topic, nor for a key every object has.
   await page.goto("./?q=punched+cards");
   await expect(page.getByText("1 of 4 cs.CV papers")).toBeVisible();
+  await expect(page.getByText("topic of the titles")).toHaveCount(0);
+  await page.goto("./?q=constructor");
+  await expect(page.getByRole("searchbox", { name: "Search papers" })).toHaveValue("constructor");
   await expect(page.getByText("topic of the titles")).toHaveCount(0);
   expect(errors).toEqual([]);
 });

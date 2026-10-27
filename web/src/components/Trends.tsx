@@ -22,6 +22,7 @@ import {
   type TrendRow,
   type TrendsFile,
   type TrendTopic,
+  topicEntry,
   topicQuery,
   trendRows,
   type WindowName,
@@ -125,7 +126,9 @@ export function Trends(props: Props) {
 
   const file = loaded.status === "ready" ? loaded.file : null;
   const compared = file?.windows[props.window];
-  const opened = props.topic === null ? undefined : file?.topics[props.topic];
+  // A link may name a topic by a phrase it holds ("vla"), or one a later week merged.
+  const opened =
+    props.topic === null || file === null ? null : topicEntry(file.topics, props.topic);
 
   return (
     <main class="trends" id="main">
@@ -175,11 +178,11 @@ export function Trends(props: Props) {
           {props.topic !== null &&
             (opened && compared ? (
               <TopicPanel
-                key={props.topic}
+                key={opened[0]}
                 file={loaded.file}
                 windowName={props.window}
-                topicKey={props.topic}
-                topic={opened}
+                topicKey={opened[0]}
+                topic={opened[1]}
                 link={props.link}
                 focus={props.topic !== linked.current}
                 compare={props.compare}
@@ -205,7 +208,7 @@ export function Trends(props: Props) {
                 rows={trendRows(loaded.file, props.window, list)}
                 file={loaded.file}
                 windowName={props.window}
-                opened={props.topic}
+                opened={opened?.[0] ?? props.topic}
                 link={props.link}
               />
             ))}
@@ -243,16 +246,17 @@ function Method({ source }: { source: string | undefined }) {
     <>
       <p>
         A topic is a phrase of the titles, one to four words ("world model", "vision-language-action
-        model"), or an acronym ("VLA"): a title says what a paper is about. Its share of the papers
-        is compared between two periods of the same days a year apart, which the conferences'
-        seasons do not bias.
+        model"), or an acronym ("NeRF"): a title says what a paper is about. It holds its other
+        spellings ("multi-modal" and "multimodal") and the acronym the abstracts define it as
+        ("vision-language-action (VLA)"). Its share of the papers is compared between two periods of
+        the same days a year apart, which the conferences' seasons do not bias.
       </p>
       <p>
         A topic rises when its share grows, and cools when it falls, ranked by how much: ×4.7 is a
         share 4.7 times what it was, −64% one that lost almost two thirds, the share of a few papers
         added to both periods so that one paper becoming six does not lead. Two phrases sharing half
-        their papers are one topic, which the more specific names. A new topic had its first month
-        with three papers within the last 12 months.
+        their papers, or one holding nearly all of the other's, are one topic, which the more
+        specific names. A new topic had its first month with three papers within the last 12 months.
       </p>
       <p>
         A topic's impact is the share of its papers among the most cited tenth of their month: 10%
@@ -441,7 +445,7 @@ function TopicPanel(props: PanelProps) {
   const [impactFrom, impactTo] = impactMonths(file);
   const recent = windowName === "quarter" ? "the last 90 days" : "the last 12 months";
   const earlier = windowName === "quarter" ? "the same days a year before" : "the 12 months before";
-  const query = topicQuery(topicKey);
+  const query = topicQuery(topicKey, topic.also);
   const name = displayName(topic.name);
   const status = compared.rising.includes(topicKey)
     ? "Rising"

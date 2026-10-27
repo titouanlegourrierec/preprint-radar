@@ -14,8 +14,13 @@ days a year before, which the conferences' seasons do not bias, and the last 12 
 against the 12 before. A topic rises when its share grows, ranked by its lift, the ratio of
 its two shares with the share of a few papers added to each, so that one paper becoming six
 does not lead; it cools when its share falls. Two phrases sharing half their papers are one
-topic, and the more specific stays ("visual token pruning" over "visual token"). Topics that
+topic, and the more specific stays ("visual token pruning" over "visual token"), and so are two
+one of which holds nearly all the other's papers and a good share of its own. Topics that
 first appeared within the last 12 months are listed apart.
+
+A topic holds its synonyms: its other spellings ("multi-modal" is "multimodal"), its
+"-modeling" ("world modeling" is "world model"), and the acronym its abstracts define it as
+("vision-language-action (VLA)"), whose titles count for it.
 
 Each listed topic keeps its counts of the last three years, the share of its papers among the
 most cited tenth of their month (its impact), and its most cited papers of the last year. Every
@@ -26,7 +31,7 @@ scale with the category's size: cs.CV's are calibrated on its 210,000 papers (do
 import math
 import re
 from collections import Counter, defaultdict
-from collections.abc import Iterable, Mapping
+from collections.abc import Collection, Iterable, Iterator, Mapping
 from dataclasses import dataclass, replace
 from datetime import date, timedelta
 
@@ -49,8 +54,16 @@ RANK_MIN = 10
 LIST_SIZE = 25
 NEW_SIZE = 15
 # Two phrases whose papers overlap this much (those they share, of those either has) are one
-# topic.
+# topic; and so are two one of which holds this share of the other's papers, holding this share
+# of its own ("visual token pruning", 63 papers in the year, all in "token pruning", of 140).
 SAME_TOPIC = 0.5
+NESTED = 0.8
+NESTED_SHARE = 0.4
+# An acronym is the topic its abstracts define it as ("large language models (LLMs)") when at
+# least this many abstracts do, this share of those that define it (not "AR": augmented reality
+# 272 times, autoregressive 238).
+DEFINITIONS_MIN = 10
+DEFINITION_SHARE = 0.6
 # A new topic: its first month with this many papers is within the last 12 months.
 FIRST_PAPERS = 3
 NEW_MONTHS = 12
@@ -100,6 +113,12 @@ _WORD_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9+]*(?:-[A-Za-z0-9+]+)*")
 # Where a title's phrases end: "Name: What It Does", lists, brackets, a dash between spaces.
 _BREAK_RE = re.compile(r"[:;,.!?()\[\]{}\"\u201c\u201d]|\s[-\u2013\u2014]+\s")
 _YEAR_RE = re.compile(r"^(?:19|20)\d\d$")
+# An acronym in parentheses, its plural "s" apart, and the sentence before it.
+_DEFINITION_RE = re.compile(r"\(\s*([A-Za-z0-9]{2,12}?)s?\s*\)")
+_SENTENCE_RE = re.compile(r"[.;:!?()\[\]]")
+# "World modeling" is "world model": the field models it builds. No other "-ing" is its base:
+# "medical imaging" is not "medical image", nor "tracking" "track".
+_MODELING = frozenset({"modeling", "modelling"})
 _ACRONYM_CAPITALS = 2
 _MAX_ACRONYM = 10
 _MAX_ALL_CAPS = 6
@@ -208,6 +227,144 @@ def title_phrases(title: str) -> dict[str, str]:
     return phrases
 
 
+def _phrase_key(text: str) -> str | None:
+    """The key of a phrase written in some text, if a title could say it."""
+    words = [_parts(word) for word in _WORD_RE.findall(text)]
+    parts = [part for word in words for part in word]
+    if len(words) > MAX_WORDS or len(parts) > MAX_PARTS:
+        return None
+    return " ".join([*(part.key for part in parts[:-1]), _singular(parts[-1].key)])
+
+
+def _long_form(short: str, text: str) -> str | None:
+    """The end of ``text`` that the acronym ``short`` abbreviates (Schwartz and Hearst, 2003).
+
+    Each letter and digit of the acronym, from its last, is a character of the text, in the
+    same order; its first is the start of a word, which the long form starts with:
+    "Vision-Language-Action models" for "VLA".
+    """
+    at = len(text) - 1
+    for letter in range(len(short) - 1, -1, -1):
+        char = short[letter].lower()
+        while at >= 0 and (text[at].lower() != char or (letter == 0 and at > 0 and text[at - 1].isalnum())):
+            at -= 1
+        if at < 0:
+            return None
+        at -= 1
+    return text[text.rfind(" ", 0, at + 1) + 1 :]
+
+
+def acronym_definitions(abstracts: Iterable[str], acronyms: Collection[str]) -> dict[str, Counter[str]]:
+    """The phrases abstracts define each acronym as, by its key: "large language models (LLMs)".
+
+    Args:
+        abstracts: The papers' abstracts.
+        acronyms: The keys of the acronyms to look for ("llm").
+
+    Returns:
+        For each acronym defined, the abstracts that define it as each phrase, by its key.
+    """
+    found: defaultdict[str, Counter[str]] = defaultdict(Counter)
+    for abstract in abstracts:
+        defined: set[str] = set()
+        for match in _DEFINITION_RE.finditer(abstract):
+            short = match.group(1)
+            # Keyed as titles key it: "3DGS" is "3dg", its last letter taken for a plural's.
+            key = _singular(short.lower())
+            if key not in acronyms or key in defined or not _is_acronym(short):
+                continue
+            words = _SENTENCE_RE.split(abstract[: match.start()])[-1].split()
+            long = _long_form(short, " ".join(words[-min(len(short) + 5, 2 * len(short)) :]))
+            phrase = None if long is None else _phrase_key(long)
+            if phrase is not None and phrase != key:
+                defined.add(key)
+                found[key][phrase] += 1
+    return found
+
+
+def topic_groups(
+    vocabulary: Collection[str],
+    said: Mapping[str, int],
+    named: Mapping[str, str],
+    definitions: Mapping[str, Counter[str]],
+) -> dict[str, str]:
+    """The topic each phrase of the vocabulary is: itself, or the phrase its synonyms go by.
+
+    Phrases the same once their spaces go ("multi-modal", "multimodal"), a "-modeling" and its
+    "model", and an acronym and the phrase its abstracts mostly define it as are one topic,
+    which goes by its phrase that most titles say, an acronym alone only without another.
+
+    Args:
+        vocabulary: The keys of the phrases.
+        said: The titles that say each.
+        named: The name of each.
+        definitions: What :func:`acronym_definitions` found.
+
+    Returns:
+        The key of the topic each phrase is, by the phrase's key.
+    """
+    parent = {key: key for key in vocabulary}
+
+    def root(key: str) -> str:
+        while parent[key] != key:
+            parent[key] = parent[parent[key]]
+            key = parent[key]
+        return key
+
+    for one, other in _synonyms(vocabulary, definitions):
+        parent[root(one)] = root(other)
+    members: defaultdict[str, list[str]] = defaultdict(list)
+    for key in vocabulary:
+        members[root(key)].append(key)
+    groups: dict[str, str] = {}
+    for keys in members.values():
+        head = min(keys, key=lambda key: (_alone(key, named), -said[key], key))
+        groups.update(dict.fromkeys(keys, head))
+    return groups
+
+
+def _synonyms(
+    vocabulary: Collection[str], definitions: Mapping[str, Counter[str]]
+) -> Iterator[tuple[str, str]]:
+    """The pairs of phrases of the vocabulary that are one topic (:func:`topic_groups`)."""
+    squeezed: defaultdict[str, list[str]] = defaultdict(list)
+    for key in sorted(vocabulary):
+        squeezed[key.replace(" ", "")].append(key)
+    for keys in squeezed.values():
+        yield from ((key, keys[0]) for key in keys[1:])
+    for key in vocabulary:
+        *words, last = key.split(" ")
+        if last in _MODELING and (base := " ".join([*words, "model"])) in vocabulary:
+            yield key, base
+    for acronym, phrases in definitions.items():
+        phrase, defining = phrases.most_common(1)[0]
+        if (
+            acronym in vocabulary
+            and phrase in vocabulary
+            and defining >= DEFINITIONS_MIN
+            and defining >= DEFINITION_SHARE * phrases.total()
+        ):
+            yield acronym, phrase
+
+
+def _alone(key: str, named: Mapping[str, str]) -> bool:
+    """Whether a phrase is an acronym alone ("VLA")."""
+    return " " not in key and _is_acronym(named[key])
+
+
+def _abbreviates(key: str, head: str, named: Mapping[str, str]) -> bool:
+    """Whether a phrase of a topic is its acronym: "VLA", not "RGBD" for "RGB-D"."""
+    return _alone(key, named) and not _alone(head, named) and key != head.replace(" ", "")
+
+
+def _group_name(head: str, keys: Iterable[str], said: Mapping[str, int], named: Mapping[str, str]) -> str:
+    """A topic's name, with the acronym it holds, the most said: "large language model (LLM)"."""
+    acronyms = [key for key in keys if _abbreviates(key, head, named)]
+    if not acronyms:
+        return named[head]
+    return f"{named[head]} ({named[min(acronyms, key=lambda key: (-said[key], key))]})"
+
+
 def _month(day: date) -> int:
     """The index of a day's month among those since ``ARCHIVE_SINCE``."""
     return (day.year - ARCHIVE_SINCE.year) * 12 + day.month - ARCHIVE_SINCE.month
@@ -261,26 +418,45 @@ def count_trends(entries: Iterable[CatalogEntry], citations: Mapping[str, int | 
     minimum = max(VOCABULARY_MIN, round(len(titled) * VOCABULARY_SHARE))
     vocabulary = {key for key, papers in said.items() if papers >= minimum}
 
-    through = max(entry.first_seen for entry in titled)
-    months = _month(through) + 1
-    totals = [0] * months
-    counts: defaultdict[str, list[int]] = defaultdict(lambda: [0] * months)
     names: defaultdict[str, Counter[str]] = defaultdict(Counter)
-    papers: list[_Paper] = []
+    said_by: list[frozenset[str]] = []
     for entry in titled:
         phrases = {key: name for key, name in title_phrases(entry.title).items() if key in vocabulary}
-        month = _month(entry.first_seen)
-        totals[month] += 1
         for key, name in phrases.items():
-            counts[key][month] += 1
             names[key][name] += 1
-        papers.append(_Paper(entry.arxiv_id, entry.first_seen, entry.title, frozenset(phrases)))
+        said_by.append(frozenset(phrases))
     # The name titles write most often; the first in order among those as frequent.
     named = {
         key: min(spelled.items(), key=lambda item: (-item[1], item[0]))[0] for key, spelled in names.items()
     }
-    # The lists rank phrases and acronyms; the explorer has every topic.
-    ranked = {key for key in vocabulary if " " in key or _is_acronym(named[key])}
+    acronyms = {key for key in vocabulary if _alone(key, named)}
+    groups = topic_groups(
+        vocabulary, said, named, acronym_definitions((entry.abstract or "" for entry in titled), acronyms)
+    )
+    members: defaultdict[str, list[str]] = defaultdict(list)
+    for key in sorted(vocabulary):
+        members[groups[key]].append(key)
+    names_of = {head: _group_name(head, keys, said, named) for head, keys in members.items()}
+    abbreviated = {
+        head for head, keys in members.items() if any(_abbreviates(key, head, named) for key in keys)
+    }
+    also = {head: tuple(key for key in keys if key != head) for head, keys in members.items()}
+
+    through = max(entry.first_seen for entry in titled)
+    months = _month(through) + 1
+    totals = [0] * months
+    counts: defaultdict[str, list[int]] = defaultdict(lambda: [0] * months)
+    papers: list[_Paper] = []
+    for entry, keys in zip(titled, said_by, strict=True):
+        topics = frozenset(groups[key] for key in keys)
+        month = _month(entry.first_seen)
+        totals[month] += 1
+        for key in topics:
+            counts[key][month] += 1
+        papers.append(_Paper(entry.arxiv_id, entry.first_seen, entry.title, topics))
+    # The lists rank phrases and acronyms, and the words alone spelled as one ("multi-modal"
+    # is "multimodal"); the explorer has every topic.
+    ranked = {head for head, keys in members.items() if any(" " in key or _alone(key, named) for key in keys)}
     papers = [replace(paper, topics=paper.topics & ranked) for paper in papers]
 
     windows: dict[str, TrendWindow] = {}
@@ -288,14 +464,14 @@ def count_trends(entries: Iterable[CatalogEntry], citations: Mapping[str, int | 
     for name, (days, share) in WINDOWS.items():
         period = _period(papers, through, days)
         periods[name] = period
-        windows[name] = _ranked(period, counts, days, share, months)
+        windows[name] = _ranked(period, counts, days, share, months, abbreviated)
     listed = sorted(
         {key for window in windows.values() for key in (*window.rising, *window.cooling, *window.new)}
     )
     impact = _ImpactCounter(papers, citations, months)
     topics = {
         key: TrendTopic(
-            name=named[key],
+            name=names_of[key],
             counts=tuple(counts[key][-MONTHS:]),
             windows={
                 name: (len(period.before.get(key, ())), len(period.after.get(key, ())))
@@ -304,10 +480,11 @@ def count_trends(entries: Iterable[CatalogEntry], citations: Mapping[str, int | 
             first=_first_month(counts[key]),
             impact=impact.share(key),
             papers=_key_papers(papers, key, through, citations),
+            also=also[key],
         )
         for key in listed
     }
-    series = {key: _series(named[key], counts[key]) for key in sorted(vocabulary)}
+    series = {key: _series(names_of[key], counts[key], also[key]) for key in sorted(members)}
     return Trends(
         through=through,
         start=_month_name(0),
@@ -342,9 +519,14 @@ def _period(papers: Iterable[_Paper], through: date, days: int) -> _Period:
 
 
 def _ranked(
-    period: _Period, counts: Mapping[str, list[int]], days: int, share: float, months: int
+    period: _Period,
+    counts: Mapping[str, list[int]],
+    days: int,
+    share: float,
+    months: int,
+    abbreviated: Collection[str],
 ) -> TrendWindow:
-    """A window's rising, cooling and new topics."""
+    """A window's rising, cooling and new topics; ``abbreviated``, those holding an acronym."""
     then_papers, now_papers = period.papers
     minimum = max(RANK_MIN, round(share * now_papers))
     # The share added to both sides of the lift: a few papers of the recent period, for the
@@ -382,43 +564,54 @@ def _ranked(
         earlier=period.then,
         recent=period.now,
         papers=period.papers,
-        rising=_distinct(rising, period.after, LIST_SIZE),
-        cooling=_distinct(cooling, period.before, LIST_SIZE),
-        new=_distinct(new, period.after, NEW_SIZE),
+        rising=_distinct(rising, period.after, LIST_SIZE, abbreviated),
+        cooling=_distinct(cooling, period.before, LIST_SIZE, abbreviated),
+        new=_distinct(new, period.after, NEW_SIZE, abbreviated),
         added=round(added, 8),
     )
 
 
-def _distinct(ranked: list[str], papers: Mapping[str, frozenset[str]], size: int) -> tuple[str, ...]:
+def _same(one: frozenset[str], other: frozenset[str]) -> bool:
+    """Whether two phrases' papers are one topic's: half of those either has, or nested."""
+    shared = len(one & other)
+    smaller, larger = sorted((len(one), len(other)))
+    return shared >= SAME_TOPIC * len(one | other) or (
+        shared >= NESTED * smaller and smaller >= NESTED_SHARE * larger
+    )
+
+
+def _distinct(
+    ranked: list[str], papers: Mapping[str, frozenset[str]], size: int, abbreviated: Collection[str]
+) -> tuple[str, ...]:
     """The first ``size`` topics of a ranking, one phrase for each.
 
-    A phrase sharing half its papers with one ranked before it (of those either has) is the
-    same topic, which the more specific of the two names, in the place of the first: "visual
-    token pruning" over "visual token", even ranked past the list's end.
+    A phrase sharing half its papers with one ranked before it (of those either has), or
+    nearly all its papers with one holding enough of its own, is the same topic, which the
+    more specific of the two names, in the place of the first: "visual token pruning" over
+    "visual token", even ranked past the list's end. A topic holding an acronym is the most
+    specific: "vision-language-action (VLA)" over "vision-language-action model", which it
+    holds.
     """
+
+    def specific(key: str) -> tuple[bool, int]:
+        return key in abbreviated, len(key.split())
+
     kept: list[str] = []
     for key in ranked:
         mine = papers[key]
-        same = next(
-            (
-                index
-                for index, other in enumerate(kept)
-                if len(mine & papers[other]) >= SAME_TOPIC * len(mine | papers[other])
-            ),
-            None,
-        )
+        same = next((index for index, other in enumerate(kept) if _same(mine, papers[other])), None)
         if same is None:
             if len(kept) < size:
                 kept.append(key)
-        elif len(key.split()) > len(kept[same].split()):
+        elif specific(key) > specific(kept[same]):
             kept[same] = key
     return tuple(kept)
 
 
-def _series(name: str, counts: list[int]) -> TopicSeries:
+def _series(name: str, counts: list[int], also: tuple[str, ...]) -> TopicSeries:
     """A topic's counts from the month of its first paper."""
     start = next(month for month, papers in enumerate(counts) if papers)
-    return TopicSeries(name, start, tuple(counts[start:]))
+    return TopicSeries(name, start, tuple(counts[start:]), also)
 
 
 def _first_index(counts: list[int]) -> int | None:

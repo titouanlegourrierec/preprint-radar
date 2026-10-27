@@ -19,6 +19,7 @@ import {
   singular,
   type TopicsFile,
   type TrendsFile,
+  topicEntry,
   topicNote,
   topicOfQuery,
   topicQuery,
@@ -54,6 +55,7 @@ const TRENDS: TrendsFile = {
       first: "2023-03",
       impact: 0.54,
       papers: [{ id: "2512.13030", title: "Motus", citations: 335 }],
+      also: ["world modeling"],
     },
     vla: {
       name: "VLA",
@@ -149,9 +151,22 @@ describe("a search's topic", () => {
     });
     expect(topicNote(TRENDS, "diffusion model")?.figure).toBe("−75%");
     expect(topicNote(TRENDS, "gone")).toBeNull();
+    // A synonym is its topic; a key every object has is none.
+    expect(topicNote(TRENDS, "world modeling")?.key).toBe("world model");
+    expect(topicNote(TRENDS, "constructor")).toBeNull();
     // In no list of a window the file has.
     const unlisted = { ...TRENDS, windows: {} };
     expect(topicNote(unlisted, "world model")).toBeNull();
+  });
+});
+
+describe("topicEntry", () => {
+  it("finds a topic by its key or a phrase it holds", () => {
+    expect(topicEntry(TRENDS.topics, "vla")?.[1].name).toBe("VLA");
+    expect(topicEntry(TRENDS.topics, "world modeling")?.[0]).toBe("world model");
+    for (const phrase of ["model", "constructor", "toString", "__proto__"]) {
+      expect(topicEntry(TRENDS.topics, phrase)).toBeNull();
+    }
   });
 });
 
@@ -161,6 +176,12 @@ describe("topicQuery", () => {
     expect(topicQuery("robot policy")).toBe('"robot policy" OR "robot policies"');
     expect(topicQuery("visual token patch")).toBe('"visual token patch" OR "visual token patches"');
     expect(topicQuery("vla")).toBe('"vla" OR "vlas"');
+  });
+
+  it("searches its synonyms with it", () => {
+    expect(topicQuery("vision language action", ["vla"])).toBe(
+      '"vision language action" OR "vision language actions" OR "vla" OR "vlas"',
+    );
   });
 });
 
@@ -201,6 +222,12 @@ describe("findTopics", () => {
       "video world model": { name: "video world model", start: 2, counts: [1] },
       "open world": { name: "open world", start: 0, counts: [9, 9, 9] },
       mamba: { name: "mamba", start: 2, counts: [4] },
+      "vision language action": {
+        name: "vision-language-action (VLA)",
+        start: 2,
+        counts: [6],
+        also: ["vla"],
+      },
     },
   };
 
@@ -218,6 +245,15 @@ describe("findTopics", () => {
     expect(findTopics(TOPICS, "wor", 1)).toEqual([{ key: "world", name: "world", papers: 15 }]);
     expect(findTopics(TOPICS, " ")).toEqual([]);
     expect(findTopics(TOPICS, "transformer")).toEqual([]);
+  });
+
+  it("finds a topic by its synonyms, one typed whole first", () => {
+    expect(findTopics(TOPICS, "VLA")).toEqual([
+      { key: "vision language action", name: "vision-language-action (VLA)", papers: 6 },
+    ]);
+    expect(findTopics(TOPICS, "vision action").map(({ key }) => key)).toEqual([
+      "vision language action",
+    ]);
   });
 });
 
@@ -261,7 +297,12 @@ describe("the explorer", () => {
       // November 2025 to October 2026.
       totals: [10, 10, 10, 20, 20, 20, 30, 30, 30, 40, 40, 5],
       topics: {
-        mamba: { name: "mamba", start: 1, counts: [1, 1, 2, 2, 2, 0, 0, 0, 0, 0, 1] },
+        mamba: {
+          name: "mamba",
+          start: 1,
+          counts: [1, 1, 2, 2, 2, 0, 0, 0, 0, 0, 1],
+          also: ["mamba model"],
+        },
         vla: { name: "VLA", start: 6, counts: [3, 3, 3, 4, 4, 1] },
       },
     };
@@ -275,5 +316,7 @@ describe("the explorer", () => {
     ]);
     expect(drawn.shares[0]).toEqual([0, 0, 6 / 80, 11 / 110, 1 / 5]);
     expect(quarterly(file, []).labels).toEqual(["2026 Q4"]);
+    // A synonym draws its topic.
+    expect(quarterly(file, ["mamba model"]).papers).toEqual(quarterly(file, ["mamba"]).papers);
   });
 });

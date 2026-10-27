@@ -1,4 +1,5 @@
 import json
+from collections import Counter
 from datetime import date, timedelta
 
 import pytest
@@ -10,9 +11,11 @@ from preprint_radar.trends import (
     MONTHS,
     _distinct,
     _singular,
+    acronym_definitions,
     count_trends,
     format_trends_report,
     title_phrases,
+    topic_groups,
 )
 
 # The singulars of a topic's last word, which the site's search gives too (`trends.ts`).
@@ -103,7 +106,9 @@ def test_a_phrase_has_four_words_and_six_parts_at_most() -> None:
     }
 
 
-def _papers(series: int, titles: str | tuple[str, ...], days: list[date]) -> list[CatalogEntry]:
+def _papers(
+    series: int, titles: str | tuple[str, ...], days: list[date], abstract: str | None = None
+) -> list[CatalogEntry]:
     """Papers announced on ``days``, numbered in their month by ``series`` (1 to 9), the titles in turn."""
     cycle = (titles,) if isinstance(titles, str) else titles
     return [
@@ -113,6 +118,7 @@ def _papers(series: int, titles: str | tuple[str, ...], days: list[date]) -> lis
             categories=("cs.CV",),
             title=cycle[index % len(cycle)],
             authors=("A. Author",),
+            abstract=abstract,
         )
         for index, day in enumerate(days)
     ]
@@ -254,6 +260,139 @@ def test_the_most_specific_phrase_names_a_topic() -> None:
     }
 
     # "video world model" shares a third of the papers of "world model": a topic of its own.
-    assert _distinct(list(papers), papers, 10) == ("visual token pruning", "world model", "video world model")
+    assert _distinct(list(papers), papers, 10, ()) == (
+        "visual token pruning",
+        "world model",
+        "video world model",
+    )
     # A more specific phrase names a topic even ranked past the list's end.
-    assert _distinct(list(papers), papers, 1) == ("visual token pruning",)
+    assert _distinct(list(papers), papers, 1, ()) == ("visual token pruning",)
+
+
+def test_a_phrase_within_another_holding_enough_of_it_is_the_same_topic() -> None:
+    papers = {
+        "token pruning": frozenset("123456789"),
+        # A third of its papers: a topic of its own.
+        "video token pruning": frozenset("567"),
+        # Fewer than half of those either has, but within it and nearly half of it.
+        "visual token pruning": frozenset("1234"),
+    }
+
+    assert _distinct(list(papers), papers, 10, ()) == ("visual token pruning", "video token pruning")
+
+
+def test_a_topic_holding_an_acronym_is_the_most_specific() -> None:
+    papers = {"vision language action": frozenset("1234"), "vision language action model": frozenset("12")}
+
+    for ranked in (list(papers), list(papers)[::-1]):
+        assert _distinct(ranked, papers, 10, {"vision language action"}) == ("vision language action",)
+
+
+def test_abstracts_define_acronyms() -> None:
+    abstracts = [
+        # Once an abstract: the second definition is not counted.
+        "We study Vision-Language-Action (VLA) models. Vision-Language-Action (VLA) policies act.",
+        # A plural, and a definition after another in the same sentence.
+        "Large language models (LLMs) guide vision-language-action models (VLAs).",
+        # The acronym itself, a word in parentheses, then another meaning.
+        "A VLA (VLA) is odd. We use (see) a figure; a virtual layered avatar (VLA) here.",
+        # Digits, keyed as titles key them: "3dg", the last letter taken for a plural's.
+        "3D Gaussian Splatting (3DGS) renders.",
+        # Letters the words before lack; five words, longer than a title's topic; unlooked for.
+        "Something (VLA) else. Very Large Language Label Learning (VLL). Neural Radiance Fields (NeRF).",
+    ]
+
+    assert acronym_definitions(abstracts, {"vla", "llm", "3dg", "vll"}) == {
+        "vla": Counter(
+            {"vision language action": 1, "vision language action model": 1, "virtual layered avatar": 1}
+        ),
+        "llm": Counter({"large language model": 1}),
+        "3dg": Counter({"3d gaussian splatting": 1}),
+    }
+
+
+def test_spellings_modelings_and_defined_acronyms_are_one_topic() -> None:
+    said = Counter(
+        {
+            "multimodal": 30,
+            "multi modal": 20,
+            "world model": 40,
+            "world modeling": 10,
+            "modeling": 8,
+            "vision language action": 50,
+            "vla": 120,
+            "llm": 90,
+            "large language model": 60,
+            "ar": 40,
+            "augmented reality": 30,
+            "autoregressive": 30,
+            "sam": 20,
+            "gan": 30,
+        }
+    )
+    named = {key: key.upper() if " " not in key and len(key) <= 3 else key for key in said}
+    definitions = {
+        "vla": Counter({"vision language action": 12, "vision language action model": 3}),
+        # Too few abstracts define it.
+        "llm": Counter({"large language model": 9}),
+        # Two meanings, neither defining it in 60% of the abstracts.
+        "ar": Counter({"augmented reality": 12, "autoregressive": 10}),
+        # A phrase too rare in titles to be a topic.
+        "sam": Counter({"segment anything": 20}),
+        # An acronym too rare in titles.
+        "nerf": Counter({"neural radiance field": 20}),
+    }
+
+    groups = topic_groups(set(said), said, named, definitions)
+
+    assert groups["multi modal"] == groups["multimodal"] == "multimodal"
+    assert groups["world modeling"] == "world model"
+    assert groups["modeling"] == "modeling"
+    # Named by its phrase, however more often titles say its acronym.
+    assert groups["vla"] == "vision language action"
+    assert {key: groups[key] for key in ("llm", "ar", "sam", "gan")} == {
+        "llm": "llm",
+        "ar": "ar",
+        "sam": "sam",
+        "gan": "gan",
+    }
+
+
+def test_a_topic_holds_its_synonyms() -> None:
+    defined = "Vision-Language-Action (VLA) models act."
+    # The same share of the papers in both periods of the 90 days (1 in 7), spelled anew.
+    catalog = [
+        *_papers(1, tuple(f"VLA for {thing}" for thing in THINGS), _every(date(2026, 8, 3), 12, 4), defined),
+        *_papers(
+            2,
+            tuple(f"Vision-Language-Action Models for {thing}" for thing in THINGS),
+            _every(date(2026, 8, 3), 12, 4),
+            defined,
+        ),
+        *_papers(3, "Multi-Modal Fusion", _every(date(2025, 7, 25), 15, 5)),
+        *_papers(4, "Multimodal Fusion", _every(date(2026, 7, 25), 19, 4)),
+        *_papers(5, ("World Models", "World Modeling"), _every(date(2024, 3, 1), 12)),
+        *_papers(9, "Rethinking Deep Learning", _every(date(2025, 1, 1), 658)),
+    ]
+
+    trends = count_trends(catalog, {})
+
+    quarter = trends.windows["quarter"]
+    # Before "vision-language-action model", which it holds; a spelling is no trend.
+    assert quarter.rising == ("vision language action",)
+    assert quarter.cooling == ()
+    vla = trends.topics["vision language action"]
+    assert vla.name == "vision-language-action (VLA)"
+    assert vla.also == ("vla",)
+    assert vla.windows["quarter"] == (0, 24)
+    assert trends.series["vision language action"].also == ("vla",)
+    assert "vla" not in trends.series
+    fusion = trends.series["multimodal fusion"]
+    assert (fusion.name, fusion.also, sum(fusion.counts)) == (
+        "multimodal fusion",
+        ("multi modal fusion",),
+        34,
+    )
+    assert "multi modal fusion" not in trends.series
+    assert trends.series["world model"].also == ("world modeling",)
+    assert trends.series["world model"].name == "world model"
