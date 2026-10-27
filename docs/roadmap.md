@@ -426,7 +426,7 @@ Waiting for the maintainer (the recommendation first):
 
 | ID | Question | Recommendation |
 |---|---|---|
-| CI-13 | How to pay for Actions, and the visibility half of decision 9 | Make the repository public (the site and `data/` already are, the code is MIT), after a scan of the history for secrets. Later, at the maintainer's choice: their GitHub plan covers the private repository's Actions for now (2026-10-17) |
+| CI-13 | How to pay for Actions, and the visibility half of decision 9 | Make the repository public (the site and `data/` already are, the code is MIT), after a scan of the history for secrets. Later, at the maintainer's choice: their GitHub plan covers the private repository's Actions for now (2026-10-17). History scanned on 2026-10-27 (467 commits, `data/` aside): no token, key or `.env` ever committed, the workflows' one secret the Semantic Scholar key; three authors' addresses from arXiv pages quoted in `arxiv_html.py`'s comments and `docs/extraction.md` |
 | AFF-16, ARCH-5, ARCH-8, DOC-10, PERF-10, REL-11, UX-19 | Parent organizations, a weekend run, shorter field names, a data-format page, precomputed layouts, a removal channel, the edge color | Defer AFF-16, DOC-10 (to 1.0.0) and REL-11 (until a request); fold ARCH-5 into ARCH-4; drop ARCH-8, PERF-10 and UX-19 |
 
 ## Audit backlog still open (2026-10-11)
