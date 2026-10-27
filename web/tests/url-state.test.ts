@@ -163,11 +163,12 @@ describe("url state", () => {
     expect(readState("?view=trends&window=decade").window).toBe("quarter");
   });
 
-  it("round-trips a search of every stored paper, in the Papers view's links only (PROD-21)", () => {
+  it("round-trips every stored paper, in Papers' and Rankings' links only (PROD-21)", () => {
     const state = { ...DEFAULT_STATE, query: "gaussian", scope: "all" as const };
     expect(writeState(state)).toBe("?q=gaussian&scope=all");
     expect(readState(writeState(state))).toEqual(state);
     expect(writeState({ ...state, view: "graph" })).toBe("?q=gaussian&view=graph");
+    expect(writeState({ ...state, view: "rankings" })).toBe("?q=gaussian&view=rankings&scope=all");
     expect(readState("?scope=everything").scope).toBeNull();
     // Another view or source of papers, unlike typing.
     expect(isNavigation(DEFAULT_STATE, { ...DEFAULT_STATE, scope: "all" })).toBe(true);

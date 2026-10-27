@@ -149,7 +149,7 @@ pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   | `from`, `to` | A period of days (`from` alone: one day) | `range` | Papers, the graph and Rankings without `year` |
   | `since` | The days since a day, to the latest (PROD-13) | `range` | the same |
   | `range` | `day`, `week`, `month` (old links' `1`, `5`, `20`, `40`, `all` open the one holding as many days) | `week` | the same |
-  | `scope` | `all`: every stored paper, the period aside (PROD-21); a period chosen or another view leaves it | the period | Papers |
+  | `scope` | `all`: every stored paper, the period aside (PROD-21); a period, archive years or another view leave it | the period | Papers, Rankings |
   | `sort` | `relevance`, `newest`, `citations`, `rising`, `stars`, `rising-stars`, `custom` (UX-39) | `relevance` (`custom` in the reading list without search words) | the lists |
   | `view` | `papers`, `cited`, `graph`, `trends`, `rankings`, `reading-list`, `about` | `papers` | every view |
   | `paper` | An arXiv id: the paper opened (a list) or selected (the graph) | none | the lists, the graph |
@@ -216,7 +216,14 @@ pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   narrow search ("nerf", "kaiming he"), 2.8 s for "detection" (5,171 found), 3.2 s for
   "image" (past the budget); 3.5 to 12 s with the processor four times slower. Pages adds
   the reader's bandwidth and a round trip a file (55 files, about 270 in a year). In a
-  background tab, the browser's timers slow it to a crawl.
+  background tab, the browser's timers slow it to a crawl. Rankings rank them too, chosen
+  from their period picker as in Papers (`every`): without a word nor a filter, every stored
+  paper, without its abstract and comments (`keep`), beyond the budget, and without a
+  full-text index, which only words need; "Reading every stored paper… 42%". On 2026-10-27,
+  31,072 papers ranked 1.4 s after the click (4 s with the processor four times slower), the
+  page from 31 to 181 MB; their citations re-ranked them in 0.6 s. A rolling year of day
+  files would make 50,000 and more, and a citation shard request a day file: the numbers to
+  watch.
 - `index.html` preloads `data/index.json` (`<link rel="preload" as="fetch" crossorigin>`);
   `loadIndex` reuses that response only because it fetches it in the same mode and
   credentials: keep the two in step (PERF-14; the smoke test checks the single request).

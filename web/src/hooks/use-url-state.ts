@@ -1,7 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from "preact/hooks";
 import type { SearchFilters } from "../search";
 import { readShare } from "../share";
-import { isNavigation, isTypedChange, readState, type ViewState, writeState } from "../url-state";
+import {
+  isNavigation,
+  isTypedChange,
+  readState,
+  STORE_VIEWS,
+  type ViewState,
+  writeState,
+} from "../url-state";
 import { useDebounced } from "./use-debounced";
 
 const SEARCH_DEBOUNCE_MS = 150;
@@ -66,16 +73,15 @@ export function useUrlState() {
   }, []);
 
   // Any change drops the shared-paper anchor, like navigating away, unless the patch sets it;
-  // another view drops the graph's focus, which is the graph's alone, and a search of every
-  // paper, the Papers view's, which a period chosen leaves too (PROD-21).
+  // another view drops the graph's focus, which is the graph's alone, and every stored
+  // paper, Papers' and Rankings', which a period or archive years chosen leave too (PROD-21).
   const update = useCallback(
     (patch: Partial<ViewState>) =>
       setState((current) => {
         const next = { ...current, paper: null, ...patch };
+        const chosen = "period" in patch || ("year" in patch && patch.year !== null);
         const scope =
-          next.view === "papers" && !("period" in patch && patch.scope === undefined)
-            ? next.scope
-            : null;
+          STORE_VIEWS.has(next.view) && !(chosen && patch.scope === undefined) ? next.scope : null;
         return { ...next, scope, focus: next.view === "graph" ? next.focus : null };
       }),
     [],

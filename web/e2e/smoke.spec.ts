@@ -190,6 +190,24 @@ test("a search of every stored paper finds what the period does not hold (PROD-2
   expect(errors).toEqual([]);
 });
 
+test("Rankings rank every stored paper, chosen as Papers search them (PROD-21)", async ({
+  page,
+}) => {
+  const errors = watchErrors(page);
+  await page.goto("./?view=rankings");
+  await page.getByRole("button", { name: /^Period: / }).click();
+  await page.getByRole("button", { name: "All papers", exact: true }).click();
+  await expect(page).toHaveURL(/\?view=rankings&scope=all$/);
+  await expect(page.getByText("6 of 6 stored cs.CV papers")).toBeVisible();
+  await expect(page.locator("table.rankings__table tbody tr").first()).toBeVisible();
+  // The archive's years leave it.
+  await page.getByRole("button", { name: /^Highly cited/ }).click();
+  await page.getByRole("button", { name: /^2017, 1 paper/ }).click();
+  await expect(page).toHaveURL(/year=2017/);
+  await expect(page).not.toHaveURL(/scope=all/);
+  expect(errors).toEqual([]);
+});
+
 test("Highly cited without a match offers other years and every stored paper (UX-55)", async ({
   page,
 }) => {

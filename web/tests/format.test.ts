@@ -239,6 +239,12 @@ describe("storeSearchLine", () => {
     );
   });
 
+  it("says it reads them all where it keeps them all, as Rankings without words", () => {
+    expect(storeSearchLine({ read: 13_100, found: 13_100 }, 31_072, true)).toBe(
+      "Reading every stored paper… 42%",
+    );
+  });
+
   it("counts the papers it ranks once it has read them all", () => {
     expect(storeSearchLine({ ranking: 5183 }, 31_072)).toBe("Ranking 5,183 papers…");
     expect(storeSearchLine({ ranking: 1 }, 31_072)).toBe("Ranking 1 paper…");

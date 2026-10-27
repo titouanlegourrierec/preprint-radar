@@ -96,6 +96,14 @@ export interface StoreProgress {
   found: number;
 }
 
+/** How a search of every stored paper keeps what passes its test. */
+export interface StoreKeeping {
+  /** Papers kept at most, newest first; the others that pass are counted. */
+  budget?: number;
+  /** What is kept of a paper: Rankings' scan of them all drops their abstracts. */
+  keep?: (paper: Paper) => Paper;
+}
+
 /** What a search of every stored paper found (PROD-21). */
 export interface StoreSearch {
   /** The papers that passed the test, newest file first, within {@link PAPER_BUDGET}. */
@@ -113,8 +121,9 @@ export interface StoreSearch {
  * papers of the last 12 months, then each year of the archive, newest first, each file's
  * papers kept only while it is tested, so that memory holds those that pass, not the
  * store (a year of day files would take 480 MB indexed). A paper is read once, from its
- * first file: the day file's record. Past {@link PAPER_BUDGET} papers kept, the others
- * that pass are only counted. Files are asked for {@link READ_AHEAD} ahead, the browser
+ * first file: the day file's record. Past the budget ({@link PAPER_BUDGET} papers kept
+ * unless `keeping` says otherwise), the others that pass are only counted; `keeping.keep`
+ * says what is kept of each. Files are asked for {@link READ_AHEAD} ahead, the browser
  * keeping them for the next search; one that fails twice is left out and named, unless
  * every one does. `onRead` hears how far it went, at each file.
  */
@@ -124,7 +133,9 @@ export async function searchStore(
   test: (paper: Paper) => boolean,
   onRead: (progress: StoreProgress) => void,
   signal?: AbortSignal,
+  keeping: StoreKeeping = {},
 ): Promise<StoreSearch> {
+  const { budget = PAPER_BUDGET, keep = (paper: Paper) => paper } = keeping;
   // The most cited of the last 12 months have neither a day nor a year.
   const files: { path: string; day?: string; year?: number }[] = [
     ...holding.days.map(({ date }) => ({ path: `${category}/${date}.json`, day: date })),
@@ -182,7 +193,7 @@ export async function searchStore(
       if (seen.has(paper.arxiv_id)) continue;
       seen.add(paper.arxiv_id);
       if (!test(paper)) continue;
-      if (result.papers.length < PAPER_BUDGET) result.papers.push(paper);
+      if (result.papers.length < budget) result.papers.push(keep(paper));
       else result.leftOut++;
     }
     progress.read += papers.length;

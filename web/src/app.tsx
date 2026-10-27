@@ -147,8 +147,8 @@ export function App() {
   const cited = state.view === "cited";
   const rankings = state.view === "rankings";
   const archived = showsArchive(state);
-  // A search of every stored paper, the period aside (PROD-21): the Papers view's.
-  const everywhere = state.view === "papers" && state.scope === "all";
+  // Every stored paper, the period aside (PROD-21): Papers searches them, Rankings rank them.
+  const everywhere = (state.view === "papers" || rankings) && state.scope === "all" && !archived;
   const {
     categories,
     category,
@@ -170,7 +170,7 @@ export function App() {
     state.category,
     state.period,
     archived ? { years: state.year } : null,
-    everywhere ? { query, filters } : null,
+    everywhere ? { query, filters, ...(rankings && { every: true }) } : null,
   );
   // Years the archive does not hold (`?year=2005`) show others, which the URL then names,
   // in place, so that a shared link opens what was seen (SRCH-20).
@@ -862,10 +862,12 @@ export function App() {
               onPeriod={(period) => update({ period })}
               onFilters={setFilters}
               store={
-                state.view === "papers"
+                state.view === "papers" || rankings
                   ? {
                       active: everywhere,
-                      onChange: (active) => update({ scope: active ? "all" : null }),
+                      // In Rankings, every stored paper rather than the archive's years.
+                      onChange: (active) =>
+                        update({ scope: active ? "all" : null, ...(active && { year: null }) }),
                       since: archiveYears.at(-1)?.year,
                     }
                   : undefined
@@ -875,7 +877,8 @@ export function App() {
                   ? {
                       years: archiveYears,
                       range: cited ? (archiveRange ?? ALL_YEARS) : archived ? archiveRange : null,
-                      onRange: (year) => update({ year }),
+                      // The recent days again leave every stored paper too (PROD-21).
+                      onRange: (year) => update({ year, ...(year === null && { scope: null }) }),
                       only: cited,
                     }
                   : undefined

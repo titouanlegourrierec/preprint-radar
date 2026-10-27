@@ -44,6 +44,9 @@ const METRICS: readonly CountryMetric[] = ["papers", "citations", "per-million",
 export type RankKind = EntityKind | "country";
 const RANKS: readonly RankKind[] = ["institution", "author", "country"];
 
+/** The views that search or rank every stored paper when asked (`?scope=all`, PROD-21). */
+export const STORE_VIEWS: ReadonlySet<View> = new Set(["papers", "rankings"]);
+
 export interface ViewState {
   query: string;
   category: string | null;
@@ -93,8 +96,8 @@ export interface ViewState {
    */
   compare: string[];
   /**
-   * Where the Papers view searches (`?scope=all`, PROD-21): every stored paper, the period
-   * aside; `null` for the period. In its links only.
+   * Where the Papers view searches and Rankings rank (`?scope=all`, PROD-21): every stored
+   * paper, the period aside; `null` for the period. In their links only.
    */
   scope: "all" | null;
 }
@@ -211,7 +214,7 @@ export function writeState(state: ViewState): string {
   set("window", trends ? state.window : null, DEFAULT_STATE.window);
   set("topic", trends ? state.topic : null);
   set("compare", trends ? state.compare.join(",") : null);
-  set("scope", state.view === "papers" ? state.scope : null);
+  set("scope", STORE_VIEWS.has(state.view) ? state.scope : null);
   set("xl", state.filters.excludeCrossLists ? "0" : null);
   set("code", state.filters.withCode ? "1" : null);
   const { author, affiliation } = state.filters;

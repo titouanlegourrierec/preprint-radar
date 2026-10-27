@@ -248,6 +248,18 @@ describe("searchStore (PROD-21)", () => {
     ).rejects.toThrow();
   });
 
+  it("keeps what it is told of each paper, within the budget it is given", async () => {
+    serve(store);
+    const every = () => true;
+    const found = await searchStore("cs.CV", holding, every, () => undefined, undefined, {
+      budget: 4,
+      keep: (paper) => ({ ...paper, abstract: null }),
+    });
+    expect(found.papers.map(({ arxiv_id }) => arxiv_id)).toEqual(["a", "b", "c", "d"]);
+    expect(found.papers.every(({ abstract }) => abstract === null)).toBe(true);
+    expect(found.leftOut).toBe(2);
+  });
+
   it("lets the page draw between files that come at once", async () => {
     serve(store);
     let now = 0;

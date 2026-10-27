@@ -17,7 +17,7 @@ import {
   periodOfKey,
   selectDays,
 } from "../period";
-import { PaperIndex, type SearchFilters } from "../search";
+import { activeFilterCount, PaperIndex, type SearchFilters } from "../search";
 import type { StoreProgress, StoreSearch } from "../store-search";
 import type { ArchiveSummary, DaySummary, Paper, StoreIndex, TopRecentSummary } from "../types";
 
@@ -28,6 +28,16 @@ import type { ArchiveSummary, DaySummary, Paper, StoreIndex, TopRecentSummary } 
 export function loadErrorMessage(error: unknown): string {
   if (error instanceof TypeError) return "the network or the site did not answer";
   return error instanceof Error ? error.message : String(error);
+}
+
+/** A paper as Rankings keep it, every stored one at once: its abstract and comments left. */
+function withoutText(paper: Paper): Paper {
+  return { ...paper, abstract: null, comments: null };
+}
+
+/** Whether a search of every stored paper keeps them all: Rankings', without a word nor a filter. */
+function keepsEvery(everywhere: { query: string; filters: SearchFilters }): boolean {
+  return everywhere.query.trim() === "" && activeFilterCount(everywhere.filters) === 0;
 }
 
 /** Run `task` once the browser is idle (Safari has no `requestIdleCallback`). */
@@ -62,13 +72,14 @@ export type LoadState =
  * With `everywhere` set, the papers are those of the whole store that its words and filters
  * find (PROD-21): every day file, the most cited papers of the last 12 months and the
  * archive's years, read one after the other (`searchStore`), the period aside. None
- * without a word or a filter, which would find them all.
+ * without a word or a filter, which would find them all; but with `every` (Rankings), all
+ * of them, without their abstracts, beyond the budget.
  */
 export function usePapers(
   requestedCategory: string | null,
   period: Period,
   archive: { years: ArchiveRange | null } | null = null,
-  everywhere: { query: string; filters: SearchFilters } | null = null,
+  everywhere: { query: string; filters: SearchFilters; every?: boolean } | null = null,
 ) {
   const [storeIndex, setStoreIndex] = useState<StoreIndex | null>(null);
   const [load, setLoad] = useState<LoadState>({ status: "loading" });
@@ -130,11 +141,12 @@ export function usePapers(
     setWarmed(null);
     setLoadedFor(null);
     if (searchedKey !== null) {
-      const { query, filters } = JSON.parse(searchedKey) as {
+      const searched = JSON.parse(searchedKey) as {
         query: string;
         filters: SearchFilters;
+        every?: boolean;
       };
-      searchEverything(category, storeIndex, query, filters, signal, searchedKey, wanted);
+      searchEverything(category, storeIndex, searched, signal, searchedKey, wanted);
       return () => stop.abort();
     }
     let loaded: Promise<{ papers: Paper[]; total: number; unranked: number; missing?: string[] }>;
@@ -187,13 +199,14 @@ export function usePapers(
 
   /**
    * Every stored paper through the words and filters' test, then the index of those that
-   * pass, built while the page stays responsive, which the list searches as a period's.
+   * pass, built while the page stays responsive, which the list searches as a period's; its
+   * full-text index only for words, which 31,000 papers kept by Rankings would take
+   * seconds to build.
    */
   function searchEverything(
     category: string,
     storeIndex: StoreIndex,
-    query: string,
-    filters: SearchFilters,
+    { query, filters, every = false }: { query: string; filters: SearchFilters; every?: boolean },
     signal: AbortSignal,
     key: string,
     loaded: string,
@@ -210,7 +223,7 @@ export function usePapers(
     // The search's code too comes with its first use (PERF-15).
     import("../store-search")
       .then(async ({ candidateTest, searchStore }) => {
-        const test = candidateTest(query, filters);
+        const test = candidateTest(query, filters) ?? (every ? () => true : null);
         if (signal.aborted) return;
         if (test === null) {
           const index = new PaperIndex([]);
@@ -225,12 +238,20 @@ export function usePapers(
           toldAt = performance.now();
           setScan(progress);
         };
-        const { papers, ...found } = await searchStore(category, holding, test, onRead, signal);
+        const { papers, ...found } = await searchStore(
+          category,
+          holding,
+          test,
+          onRead,
+          signal,
+          // Rankings keep them all, which they count, and nothing of the text they do not read.
+          every ? { budget: Number.POSITIVE_INFINITY, keep: withoutText } : {},
+        );
         if (signal.aborted) return;
         setScan({ ranking: papers.length });
         // The few the test let through that the index does not match, it leaves out.
         const index = new PaperIndex(papers);
-        await index.warm(signal);
+        if (query.trim() !== "") await index.warm(signal);
         if (signal.aborted) return;
         setStoreSearch(found);
         setMissingDays(found.missing.days);
@@ -290,7 +311,11 @@ export function usePapers(
      */
     loadingLine:
       searchedKey !== null
-        ? storeSearchLine(scanned === searchedKey ? scan : { read: 0, found: 0 }, storedPapers)
+        ? storeSearchLine(
+            scanned === searchedKey ? scan : { read: 0, found: 0 },
+            storedPapers,
+            everywhere?.every === true && keepsEvery(everywhere),
+          )
         : loadingLine(
             archived
               ? archiveRange === LAST_12_MONTHS && topRecent

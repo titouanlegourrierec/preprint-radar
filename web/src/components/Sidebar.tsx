@@ -69,8 +69,8 @@ interface Props {
   /** The reading list's folders, in place of the period it does not use (UX-38). */
   folders?: ComponentChildren;
   /**
-   * The search of every stored paper (PROD-21), a choice of the period picker beside its
-   * presets, in the Papers view; `since`, the archive's first year.
+   * Every stored paper (PROD-21), a choice of the period picker beside its presets, which
+   * Papers search and Rankings rank; `since`, the archive's first year.
    */
   store?:
     | { active: boolean; onChange: (active: boolean) => void; since: number | undefined }
@@ -192,7 +192,7 @@ export function Sidebar(props: Props) {
             source={
               archive && { active: archive.range === null, onActivate: () => archive.onRange(null) }
             }
-            store={archive ? undefined : store}
+            store={archive?.only ? undefined : store}
           />
         )}
         {archive && (archive.years.length > 0 || props.recent) && (

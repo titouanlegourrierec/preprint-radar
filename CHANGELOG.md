@@ -20,6 +20,8 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
   counted (PROD-21).
 - While it runs, the line above the list says how far it is and how many papers may match;
   screen readers hear it start and end, not each step (UX-51).
+- Rankings rank every stored paper too, all time: "All papers" in their period picker, as in
+  Papers (PROD-21).
 
 ### Interface
 
