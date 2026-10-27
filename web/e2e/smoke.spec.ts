@@ -32,6 +32,26 @@ test("the list shows the stored papers", async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
+test("a copied BibTeX keeps its badge and says the key to cite (UX-53)", async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.context().grantPermissions(["clipboard-read", "clipboard-write"]);
+  await page.goto("./");
+  const card = page.locator("article.paper", {
+    has: page.getByRole("heading", { name: "Gaussian Splatting for Analytical Engines" }),
+  });
+  const bibtex = card.getByRole("button", { name: "BibTeX", exact: true });
+  const width = (await bibtex.boundingBox())?.width ?? 0;
+  await bibtex.click();
+  const entry = String(await page.evaluate("navigator.clipboard.readText()"));
+  const key = /^@\w+\{([^,]+),/.exec(entry)?.[1] ?? "";
+  expect(key).not.toBe("");
+  await expect(card.getByRole("status")).toHaveText(`BibTeX copied: cite it as ${key}`);
+  await expect(card.locator(".action__tip")).toHaveText(`\\cite{${key}}`);
+  // The badge keeps its name and its width: its neighbours do not move.
+  expect((await bibtex.boundingBox())?.width).toBeCloseTo(width, 1);
+  expect(errors).toEqual([]);
+});
+
 test("the index loads once, preloaded with the page", async ({ page }) => {
   const requests: string[] = [];
   const warnings: string[] = [];

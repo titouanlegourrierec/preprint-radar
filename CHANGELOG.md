@@ -25,6 +25,8 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
 
 - A card opens smoothly in Chrome and Edge: its abstract unfolds and the cards below slide
   down instead of jumping; it still folds at once (UX-52).
+- Copying a card's BibTeX or link no longer shifts its other buttons: a check and a tip
+  confirm it, the BibTeX one with the key to cite (UX-53).
 
 ## 1.0.0 (2026-10-27): a documented data format, and a repository ready to be public
 

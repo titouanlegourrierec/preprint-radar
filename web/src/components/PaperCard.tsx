@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "preact/hooks";
-import { toBibtex } from "../bibtex";
+import { citationKey, toBibtex } from "../bibtex";
 import { codeBadge, codeHost, codeUrl } from "../code";
 import type { CohortBadge } from "../cohorts";
 import { download } from "../download";
@@ -609,19 +609,36 @@ export function PaperCard({
                 )}
               </span>
             )}
-            <button type="button" aria-describedby={titleId} class="action" onClick={copyBibtex}>
-              <CiteIcon />
-              {bibtex === "copied" ? "Copied!" : bibtex === "downloaded" ? "Downloaded" : "BibTeX"}
+            {/* A copy keeps the badge's name and width (UX-53): its icon turns to a check and
+                a tip says what was copied, the key to cite for BibTeX. */}
+            <button
+              type="button"
+              aria-describedby={titleId}
+              class={`action${bibtex === "copied" ? " action--copied" : ""}`}
+              onClick={copyBibtex}
+            >
+              {bibtex === "copied" ? <CheckIcon /> : <CiteIcon />}
+              {bibtex === "downloaded" ? "Downloaded" : "BibTeX"}
+              {bibtex === "copied" && (
+                <span class="action__tip action__tip--code" aria-hidden="true">
+                  {`\\cite{${citationKey(paper)}}`}
+                </span>
+              )}
             </button>
             <a
-              class="action"
+              class={`action${linkCopied ? " action--copied" : ""}`}
               aria-describedby={titleId}
               href={permalink}
               title="Copy a link to this paper"
               onClick={copyLink}
             >
-              <LinkIcon />
-              {linkCopied ? "Copied!" : "Share"}
+              {linkCopied ? <CheckIcon /> : <LinkIcon />}
+              Share
+              {linkCopied && (
+                <span class="action__tip" aria-hidden="true">
+                  Link copied
+                </span>
+              )}
             </a>
             {onShowInGraph && (
               <button
@@ -667,10 +684,10 @@ export function PaperCard({
               {expanded ? "Less" : "More"}
               <ChevronIcon up={expanded} />
             </button>
-            {/* What a copy did, said to screen readers: the buttons' text changes silently. */}
+            {/* What a copy did, said to screen readers: the tips are for the eye. */}
             <span class="visually-hidden" role="status">
               {bibtex === "copied"
-                ? "BibTeX copied"
+                ? `BibTeX copied: cite it as ${citationKey(paper)}`
                 : bibtex === "downloaded"
                   ? "BibTeX downloaded: the clipboard was refused"
                   : linkCopied

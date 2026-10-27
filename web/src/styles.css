@@ -1914,6 +1914,60 @@ html {
   color: var(--text);
 }
 
+/* A copy said where it happened (UX-53): the badge keeps its name and width, its icon turns
+   to a check, and a tip in the text's colors, inverted, rises above it for a moment. */
+.action--copied {
+  position: relative;
+}
+
+.action.action--copied > .icon {
+  color: var(--accent);
+}
+
+.action__tip {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  z-index: 3;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: var(--text);
+  color: var(--surface);
+  font-size: 0.75rem;
+  white-space: nowrap;
+  pointer-events: none;
+  transform: translateX(-50%);
+  animation: tip-rise 1.5s ease both;
+}
+
+.action__tip--code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@keyframes tip-rise {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 4px);
+  }
+
+  12%,
+  80% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .action__tip {
+    animation: none;
+  }
+}
+
 /* A card's folder in the reading list (UX-38): a select drawn as the badges, with the
    chevron of the others. */
 /* A card's folders (UX-45): the badge names them, its box checks one or several, over the

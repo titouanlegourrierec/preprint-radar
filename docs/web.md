@@ -377,6 +377,11 @@ pipeline and `validate` never see these. `base: "./"` keeps the site working und
   on colliding keys, LaTeX escaping, case-protected words), citing the published DOI when
   known, else arXiv's. The reading list's Import library and Export library carry the whole
   list, its folders and saved searches to another browser (a JSON file).
+- A card's BibTeX copies its entry, Share its link (a phone's share sheet, UX-49). A copy
+  keeps the badge's name and width, so that its neighbours stay (UX-53): its icon turns to a
+  check and a tip rises above it for 1.5 s, the key to cite (`\cite{chen2026r4dgs}`,
+  `citationKey`) or "Link copied", which screen readers hear from the card's status line.
+  A refused clipboard downloads the entry and says "Downloaded".
 - `components/About.tsx` (`?view=about`): the data sources, the correction contact and the
   privacy note; keep it true when the pipeline or the app changes. Its link and each card's
   "Report an error" open a mail with a template (`report.ts`).
