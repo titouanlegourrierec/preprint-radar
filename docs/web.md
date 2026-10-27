@@ -195,7 +195,7 @@ pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   `PAPER_BUDGET` at most (newest first; the others counted, said above the list), is indexed
   and searched as a period; the count is of the distinct papers read. A word or a filter is
   needed: without, a notice asks for one. Its code loads with the first such search (1 kB;
-  the button and notices put the landing page at 74.6 kB). On 2026-10-27 (30,842 papers,
+  the button and notices, 2.3 kB on the landing page, PERF-17 made room for). On 2026-10-27 (30,842 papers,
   21.6 MB compressed the first time, then the browser's cache, which asks after ten minutes
   whether each file changed), the built site served locally, in Chromium: 1.2 to 1.7 s for a
   narrow search ("nerf", "kaiming he"), 2.8 s for "detection" (5,171 found), 3.2 s for
@@ -270,7 +270,11 @@ pipeline and `validate` never see these. `base: "./"` keeps the site working und
   (`components/lazy-view.tsx`: one request, a notice meanwhile, Reload on failure): the
   graph (PERF-13), the world map, Trends, About, Rankings' tables with their graph model
   (`rankings.ts`, `graph.ts`; `RankingsControls.tsx` stays eager), the folders and the
-  shared-folder notice.
+  shared-folder notice, Highly cited's years (`ArchivePicker`, PERF-17); the CSV, RIS and
+  Markdown exports come with the first (`export.ts`), the search of every stored paper with
+  its first (`store-search.ts`). The deploy measures a little more than a local build (its
+  analytics tag, absolute links): build with `PREPRINT_RADAR_SITE_URL` and
+  `PREPRINT_RADAR_ANALYTICS_TOKEN` set to know its figure.
 - `contentSecurityPolicy` (`tooling/content-security-policy.ts`, SEC-1) adds a CSP meta
   (Pages sends no headers): the site's own scripts, styles, data, images and worker only, so
   third-party text can never run a script. No inline script (`public/theme.js` sets the

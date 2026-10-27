@@ -1,4 +1,4 @@
-import type { ComponentChildren, JSX } from "preact";
+import type { ComponentChildren, ComponentProps, JSX } from "preact";
 import { useState } from "preact/hooks";
 import type { ArchiveRange } from "../archive-years";
 import { subjectCode } from "../format";
@@ -13,7 +13,7 @@ import {
   typed,
 } from "../search";
 import type { ArchiveSummary, DaySummary, TopRecentSummary } from "../types";
-import { ArchivePicker } from "./ArchiveYears";
+import type { ArchivePicker as ArchiveYearsPicker } from "./ArchiveYears";
 import {
   AuthorsIcon,
   CategoryIcon,
@@ -22,8 +22,17 @@ import {
   SidebarIcon,
   VenueIcon,
 } from "./icons";
+import { lazyView } from "./lazy-view";
 import { PeriodPicker } from "./PeriodPicker";
 import { VenueSelect } from "./VenueSelect";
+
+// The archive's years, which the Papers list never shows, come with Highly cited or
+// Rankings (PERF-15).
+const ArchivePicker = lazyView<ComponentProps<typeof ArchiveYearsPicker>>(
+  "highly cited years",
+  () => import("./ArchiveYears").then(({ ArchivePicker }) => ArchivePicker),
+  { quiet: true },
+);
 
 interface Props {
   categories: string[];

@@ -2,7 +2,6 @@ import type { ComponentChildren } from "preact";
 import { useRef } from "preact/hooks";
 import { toBibtexFile } from "../bibtex";
 import { download } from "../download";
-import { toCsv, toMarkdown, toRis } from "../export";
 import { countOf, formatDay } from "../format";
 import { LOCALE } from "../locale";
 import type { Paper } from "../types";
@@ -12,12 +11,14 @@ import { DownloadIcon, UploadIcon } from "./icons";
 import { Segmented } from "./Segmented";
 
 // The exports of the results shown, as files named after the list ("papers.bib",
-// "reading-list.bib").
+// "reading-list.bib"). CSV, RIS and Markdown come with the first of them (PERF-15): the
+// landing page does without them, BibTeX being a card's too.
+const formats = () => import("../export");
 const EXPORTS: {
   label: string;
   extension: string;
   type: string;
-  render: (papers: Paper[], citations: ReadonlyMap<string, number>) => string;
+  render: (papers: Paper[], citations: ReadonlyMap<string, number>) => string | Promise<string>;
 }[] = [
   {
     label: "BibTeX",
@@ -25,18 +26,23 @@ const EXPORTS: {
     type: "application/x-bibtex",
     render: (papers) => toBibtexFile(papers),
   },
-  { label: "CSV", extension: "csv", type: "text/csv", render: toCsv },
+  {
+    label: "CSV",
+    extension: "csv",
+    type: "text/csv",
+    render: async (papers, citations) => (await formats()).toCsv(papers, citations),
+  },
   {
     label: "RIS",
     extension: "ris",
     type: "application/x-research-info-systems",
-    render: (papers) => toRis(papers),
+    render: async (papers) => (await formats()).toRis(papers),
   },
   {
     label: "Markdown",
     extension: "md",
     type: "text/markdown",
-    render: (papers) => toMarkdown(papers),
+    render: async (papers) => (await formats()).toMarkdown(papers),
   },
 ];
 
@@ -180,13 +186,11 @@ export function ResultsHeader(props: Props) {
                 key={label}
                 type="button"
                 class="link-button"
-                onClick={() =>
-                  download(
-                    `${exportName}.${extension}`,
-                    render(props.papers, props.citations),
-                    type,
-                  )
-                }
+                onClick={() => {
+                  Promise.resolve(render(props.papers, props.citations))
+                    .then((text) => download(`${exportName}.${extension}`, text, type))
+                    .catch((error: unknown) => console.warn(`Could not export ${label}`, error));
+                }}
               >
                 {label}
               </button>
