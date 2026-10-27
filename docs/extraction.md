@@ -1,383 +1,292 @@
 # Affiliations, venues and abstracts: how they are extracted
 
-The rules behind `sources/arxiv_html.py` (affiliations and who is where), `venue.py` (the
-venue of a paper), `latex.py` (abstracts as plain text) and their offline re-runs. Every rule here was added for a real page;
-the arXiv identifiers are the evidence. Read this before changing the extraction, and do
-not "simplify" a rule away without the page that made it.
+The rules behind `sources/arxiv_html.py` (affiliations and who is where), `venue.py`,
+`latex.py` (abstracts as plain text) and their offline re-runs. Each came from a real page,
+whose arXiv id is the evidence: never "simplify" one away without it.
 
 ## Ground rules
 
-- Affiliations come from the submitter-declared ones of the API when present, otherwise
-  from heuristics on LaTeXML's HTML front matter. Raw LaTeX sources are **not** an
-  alternative: `robots.txt` disallows `/e-print` and `/src` (export.arxiv.org disallows
-  everything), and LaTeXML's HTML is already parsed LaTeX.
-- Every new heuristic gets a fixture under `tests/fixtures/html/`, with its authors in
+- Affiliations come from the API's submitter-declared ones, else from heuristics on
+  LaTeXML's HTML front matter. Raw LaTeX is no option: `robots.txt` disallows `/e-print`
+  and `/src` (export.arxiv.org disallows everything), and LaTeXML's HTML is parsed LaTeX.
+- A fixture under `tests/fixtures/html/` for every new heuristic, its authors in
   `expected.json` first. After a deliberate change, `UPDATE_GOLDEN=1 uv run pytest
-  tests/unit/test_golden_fixtures.py` writes `expected.json` again: its diff is the review.
+  tests/unit/test_golden_fixtures.py` rewrites `expected.json`: its diff is the review.
 - Bump `EXTRACTOR_VERSION` with any change to what a page gives (affiliations, mapping):
-  nothing else tells `reextract` that stored papers are out of date. A change to the
-  cleaning alone (`clean_affiliation`) reaches stored strings through `make reclean`, then
-  `make institutions`. Changes that need the page (mapping tiers, new sources) only reach
-  papers read again.
-- Measure before and after: `make quality-affiliations` (with `--page-cache-dir`, the
-  cached pages as stored and as extracted today, nothing written) and `make stats`. Before
-  bumping `EXTRACTOR_VERSION`, `make extraction-diff` lists every cached paper the change
-  touches, those that would lose words first: read each one. A lost word is an author's
-  name or noise, or a regression (2610.02974 lost "Alicante" to the "at" of an address).
+  nothing else tells `reextract`, and only papers read again get it. A change to the
+  cleaning alone (`clean_affiliation`) reaches stored strings through `make reclean`,
+  then `make institutions`.
+- Measure before and after with `make quality-affiliations` (`--page-cache-dir`: cached
+  pages as stored and as extracted today) and `make stats`. Before a bump, read each paper
+  `make extraction-diff` shows losing words: an author's name, noise, or a regression
+  (2610.02974 lost "Alicante" to the "at" of an address).
 
 ## Sources, in order
 
-- `ltx_role_affiliation`/`ltx_role_address` contacts in `div.ltx_authors`. Beside them,
-  the numbered lines LaTeXML set as authors ("¹Sun Yat-sen University" is a contact of the
-  last author, "²Alibaba Group" and the others creators of their own, 2610.12978), and
-  wherever they are, the affiliations glued to their author's name: "Xiaoya
-  TangScientific Computing and Imaging InstituteUniversity of Utah" (2610.17412), a listed
-  name followed by a capital without a space, and never by another author's name: LaTeXML
-  glues names to each other too ("Huy V. VoMaximilian SeitzerFederico Baldassarre...",
-  2508.10104, which version 8 stored as an affiliation).
-- `ltx_note` of roles `address`, `institutetext` and `affiliation` anywhere (Taylor &
-  Francis' class lists its lettered affiliations in one after the abstract, 2610.15403;
-  BMVC's one note an institution, without saying whose, 2608.29904), and `footnotetext`
-  notes that are direct children of the article and start with a marker.
+- Contacts (`ltx_role_affiliation`, `ltx_role_address`) in `div.ltx_authors`, and beside
+  them the numbered lines set as authors ("²Alibaba Group", 2610.12978). Anywhere, an
+  affiliation glued to its author's name, a capital right after a listed name ("Xiaoya
+  TangScientific Computing and Imaging InstituteUniversity of Utah", 2610.17412), but never
+  another author's name ("Huy V. VoMaximilian SeitzerFederico Baldassarre...", 2508.10104).
+- `ltx_note`s of roles `address`, `institutetext` and `affiliation`, anywhere (Taylor &
+  Francis' lettered list after the abstract, 2610.15403; BMVC's one institution, without
+  saying whose, 2608.29904), and the article's own `footnotetext` notes led by a marker.
 - Numbered lines after the names.
-- Lines led by symbols ("*Oregon State University †The Ohio State University", 2610.17605),
-  when each one that is not noise names an institution: symbols mark notes too ("*Equal
-  contribution", "†Now at Google"). Not when a line ends with a symbol: the markers then
-  follow their affiliations, and "Independent§University of Waterloo¶" is no "University
-  of Waterloo" marked "§" (2505.11293, which placed its ten authors there). One symbol's
-  affiliation is never everyone's.
-- "A is with B" sentences in `thanks` notes. What follows "is at" or "is with" is cut at
-  its semicolons, each piece kept only when it is a name: capitalized ("MIT", "ETH
-  Zurich"), or naming an institution, ending with a country or holding a comma, not "the
-  intersection of vision and language" of "This work is at the intersection of…" (AFF-9,
-  version 11).
-- Last, in a block without contacts nor marked lines, the lines that name an institution
-  or end with a country, never one holding an author's name: 2610.18323 writes its names
-  in the rows of a table, then "Xi'an Jiaotong University" alone. Its one affiliation is
-  everyone's only when nothing but names and noise was left out: "Southeast University"
-  beside "Tencent HY" (2610.14852) is not. "Foundation Model" is no institution
-  (2609.21449, a team of Li Auto). Some classes have LaTeXML cut the whole author field at
-  its commas and "and"s, each piece a creator: "University of Science" and "Technology of
-  China", "School of Software", "Tsinghua University", "Beijing", "China" (2411.15633,
-  2510.11387). A creator naming no author that holds a piece of at most two words naming
-  no institution nor country ("College Park", "Computer Engineering",
-  "Telecommunications"; not a qualifier in brackets, "(Guangzhou)") tells it, and the
-  block gives nothing rather than pieces.
-- Last of all, the affiliations a thanks note lists without a sentence around them
-  (AFF-11, version 10). IEEE conference classes, which IROS papers use, make the whole
-  note an affiliation ("Department of Computer Science, University of Freiburg,
-  Germany.", 2609.26325) or a numbered one each ("¹FZI Research Center for Information
-  Technology, 76131 Karlsruhe, Germany.", 2609.03677), or list numbered ones after other
-  sentences, their markers math LaTeXML printed as text ("$ˆ1$University of Southern
-  California, $ˆ2$Stanford University", a modifier circumflex, 2609.16443). A note
-  qualifies when none of its pieces reads as a sentence ("is", "was", "work", "done",
-  "now", "funded"…) or is a web domain ("jzlab.org", 2610.00751), and at least half of
-  them name an institution or end with a country: "UC San Diego" names none. Notes
-  LaTeXML types as funding or correspondence never do, "German Research Foundation"
-  notwithstanding. Last, so that it only fills a page that gave nothing: of the 166 thanks
-  notes of 401 cached pages (2026-10-17), it read those of these three papers, and the
-  domain. Their markers place nobody: thanks notes anchor no marker of the mapping, and
-  2609.03677's names carry 1 and 2.
+- Lines led by symbols ("*Oregon State University †The Ohio State University", 2610.17605)
+  when each one that is not noise names an institution, symbols marking notes too ("†Now
+  at Google"); not when a line ends with one, the markers then trailing
+  ("Independent§University of Waterloo¶", 2505.11293). One symbol's affiliation is never
+  everyone's.
+- "A is with B" sentences of thanks notes. What follows "is at" or "is with" is cut at its
+  semicolons, a piece kept when it is a name: capitalized ("ETH Zurich"), naming an
+  institution, ending with a country or holding a comma; not "the intersection of vision
+  and language" of "This work is at the intersection of…" (AFF-9).
+- In a block without contacts nor marked lines, the lines that name an institution or end
+  with a country and hold no author's name (2610.18323: names in a table, then "Xi'an
+  Jiaotong University"), the one affiliation everyone's only when nothing but names and
+  noise was left out (not "Southeast University" beside "Tencent HY", 2610.14852).
+  "Foundation Model" is no institution (2609.21449). Where LaTeXML cut the author field at
+  its commas and "and"s into creators ("University of Science", "Technology of China",
+  2411.15633, 2510.11387), one naming no author with a piece of at most two words naming
+  no institution nor country ("College Park", "Telecommunications"; not "(Guangzhou)")
+  tells it: the block gives nothing rather than pieces.
+- Last, the affiliations a thanks note lists without a sentence (AFF-11), as IEEE
+  conference classes (IROS) do: the whole note ("Department of Computer Science,
+  University of Freiburg, Germany.", 2609.26325), a numbered note each ("¹FZI Research
+  Center for Information Technology, …", 2609.03677), or numbered ones after other
+  sentences, math markers printed as text with a modifier circumflex ("$ˆ1$University of
+  Southern California, $ˆ2$Stanford University", 2609.16443). A note qualifies when no
+  piece reads as a sentence ("is", "was", "work", "now", "funded"…) or is a web domain
+  ("jzlab.org", 2610.00751), and at least half name an institution or end with a country
+  ("UC San Diego" names none); never a funding or correspondence note ("German Research
+  Foundation"). Last, so that it only fills a page that gave nothing.
 
-A source that only names authors leaves its turn to the next one: IEEE classes put the
-names in the affiliation macro and the affiliations in thanks notes.
+A source that only names authors passes its turn: IEEE classes put the names in the
+affiliation macro, the affiliations in thanks notes. The TeX source LaTeXML keeps beside
+math (an `annotation`) is dropped first, else `$\dagger$` reads "†\dagger", which nothing
+anchors (2610.12978, 2609.34299).
 
-LaTeXML keeps the TeX source of math beside its rendering (an `annotation`): it is dropped
-before anything is read, or a marker written `$\dagger$` reads "†\dagger", which no
-affiliation anchors, and the markers placed nobody (2610.12978, 2609.34299).
-
-Thanks notes keep the line breaks of their LaTeX source, which wrap sentences anywhere
-("are with the School of" / "Intelligent Engineering and Automation", 2609.33097): a line
-continues the previous one unless that one ends with `.;:!?`, or the line starts a
-sentence of the usual notes ("Manuscript", "Corresponding"…), a marker ("* Equal
-Contribution") or a new "B is with" statement, though a statement whose list of people
-wrapped joins its start ("Bo Zheng, …, Weinan Guan," / "Zhiheng Li, … are with",
-2609.15562). Read line by line, 2608.30657 gave "School of Mechanical and" and "School of
-Artificial".
+Thanks notes keep their source's line breaks ("are with the School of" / "Intelligent
+Engineering and Automation", 2609.33097; 2608.30657 gave "School of Mechanical and"): a
+line continues the previous one unless that one ends with `.;:!?` or it starts a usual
+note ("Manuscript", "Corresponding"…), a marker ("* Equal Contribution") or a new "B is
+with", though a wrapped list of people joins ("Bo Zheng, …, Weinan Guan," / "Zhiheng Li,
+… are with", 2609.15562).
 
 ## Cleaning
 
-- Several "is with" sentences on one line: each affiliation ends at the last full stop
-  before the next sentence, skipping initials ("..., Spain. L. Zhinin is with"), so that
-  abbreviations inside it survive ("Dept. of CS, MIT, USA").
-- "A and B are with X" gives X wherever it is written, affiliation macros included (unless
-  what precedes the verb names an institution). So does a role in an affiliation macro:
-  "Manoj Karnekar is Robotics Lead at FloMobility Pvt. Ltd." (2610.05505); not in thanks
-  notes, where "is available at" would read as one. IEEE's "X, China, and also with Y" is
-  split: `clean_affiliations` returns every affiliation of one string, and the author gets
-  them all (2609.00814).
-- Author names printed as affiliations ("Nicolás Ugrinovic", "Yiqun Zhang, and Yiu-Ming
-  Cheung", "Benoît Macq Fellow, IEEE") are dropped by `names_only_authors`, which compares
-  each name of the list by `name_key`. Strings with an institution word stay, and so do
-  collectives that sign as authors ("Alzheimer's Disease Neuroimaging Initiative"). Once
-  names were dropped, a single affiliation left is not everyone's: 2609.38180 would
-  otherwise put Takaaki Shiratori at CMU.
-- An e-mail label glued to the country before it by a lost line break ends the
-  affiliation: "..., MI, USAEmail: {...}@wayne.edu" (2608.29996).
-- Obfuscated addresses ("jane (at) example.org", "lab [at] example.org") and lists of
-  mailbox names ("{jane.doe, john.roe}") are stripped, keeping the affiliation they follow;
-  so is an address in brackets, with what follows it: thanks notes, once unwrapped, end
-  their sentence with one ("..., Hong Kong SAR, China (author@...)", 2609.10082), which
-  made the whole sentence a contact detail. So is an address that ends a line ("...,
-  Vienna, Austria author@...", 2610.02974): its four authors lost their university;
-  mailboxes before their domain too ("..., Germany. {pm.wolf, cremers}@tum.de",
-  2610.03283), and one before the full stop of its sentence ("..., Italy.
-  {name.surname}@unitn.it.", 2609.28184: two of its three affiliations were noise, and
-  the one left placed all six authors). A list can be cut across two contact nodes, the
-  first ending with a comma, which the line join glues to the next affiliation:
-  "{pau.rodriguez,...,napostoloff," then "Apple" gave "{pau.rodriguez,...,napostoloff,
-  Apple" (2410.23054, which `validate` refused); an unclosed list ends before a capital,
-  and mailboxes may hold underscores ("michal_klein"). A mailbox name may be capitalized
-  when dots or underscores join its parts ("{Jane.Doe, A.Roe,", 2610.25235,
-  which `validate` refused, so that two runs pushed nothing): the words of an
-  affiliation never are. And a string that still holds a contact detail once cleaned is
-  dropped whole: the cleaning and `validate` ask the same `has_contact`, so that a page
-  the rules do not foresee loses one string rather than a day of papers.
-  `_JUNK_RE` rejects what still passes: lone words ("the", "dot"), link and contribution
-  leftovers ("Code", "Core Contributors"), units cut off by a line break ("School of"),
-  lone countries, and the author of IEEE's template, "IEEE Publication Technology
-  Department", which some papers keep (2312.17663). For records extracted before, `institutions.institution_name` names no
-  institution for most of them: its own narrower `_JUNK_RE` rejects lone words and link
-  and contribution labels, and `_COUNTRY_RE` the countries
-  (`src/preprint_radar/institutions.py`), and a department, school or faculty is no
-  institution; a cut-off "Institute of" or "Center for" would still name itself, though
-  none is stored and `make reclean` drops them from day files. The site
-  names none itself (AFF-13).
-- Superscript markers split affiliations, except one between two lowercase letters
-  ("Hyper<sup>2</sup>labs" is a name). Every `<br>` is a line break, also when LaTeXML
-  writes no newline after it.
-- IEEE classes lose some line breaks altogether ("Dept. of Computer ScienceUniversity of
-  Alabama", 2609.00446): `clean_affiliation` puts a comma where a lowercase letter meets a
+- Several "is with" sentences on a line: each affiliation ends at the last full stop before
+  the next sentence, initials skipped ("..., Spain. L. Zhinin is with"), so that its
+  abbreviations survive ("Dept. of CS, MIT, USA"). "A and B are with X" gives X anywhere,
+  affiliation macros included, unless what precedes the verb names an institution; so does
+  a role in an affiliation macro ("Manoj Karnekar is Robotics Lead at FloMobility Pvt.
+  Ltd.", 2610.05505), not in thanks notes ("is available at"). IEEE's "X, China, and also
+  with Y" gives the author both (`clean_affiliations` returns every affiliation of a
+  string, 2609.00814).
+- Author names printed as affiliations ("Benoît Macq Fellow, IEEE") are dropped
+  (`names_only_authors`, by `name_key`), not strings with an institution word nor
+  collectives ("Alzheimer's Disease Neuroimaging Initiative"); the one affiliation left
+  then is not everyone's (2609.38180).
+- Contact details go, the affiliation before them stays: an "Email:" label glued to the
+  country ("..., MI, USAEmail: {...}@wayne.edu", 2608.29996); obfuscated addresses ("jane
+  (at) example.org", "lab [at] example.org"); mailbox lists ("{jane.doe, john.roe}"), also
+  before their domain ("..., Germany. {jane.doe, jroe}@tum.de", 2610.03283) or a full
+  stop ("..., Italy. {name.surname}@unitn.it.", 2609.28184); an address in brackets and
+  what follows, ending an unwrapped thanks note's sentence ("..., Hong Kong SAR, China
+  (author@...)", 2609.10082), or ending a line ("..., Vienna, Austria author@...",
+  2610.02974). A list cut across two contact nodes, glued to the next affiliation
+  ("{jane.doe,...,jdoe," then "Apple", 2410.23054), ends before a capital;
+  mailboxes may hold underscores ("john_roe"), and capitals when dots or underscores
+  join their parts ("{Jane.Doe, A.Roe,", 2610.25235), never an affiliation's words. A
+  string still holding a contact detail is dropped whole (`has_contact`, as in
+  `validate`): a page the rules miss loses one string, not a day of papers.
+- `_JUNK_RE` rejects the rest: lone words ("the", "dot"), link and contribution leftovers
+  ("Code", "Core Contributors"), cut-off units ("School of"), lone countries, and IEEE's
+  template author, "IEEE Publication Technology Department" (2312.17663).
+- Superscript markers split affiliations, but not between two lowercase letters
+  ("Hyper<sup>2</sup>labs"). Every `<br>` is a line break, newline or not, and so is the
+  spacing of one printed as text (`[5pt]`, `[0.2em]`, from `\\[5pt]`).
+- IEEE classes lose some line breaks ("Dept. of Computer ScienceUniversity of Alabama",
+  2609.00446): `clean_affiliation` puts a comma where a lowercase letter meets a
   capitalized word, or a closing bracket a word, after a unit word of the same part; never
-  inside brackets ("(ShenZhen)") nor after a hyphenated word, so that names stay
-  ("AnimSchool", "ByteDance", "McGill"). A brand written after a unit in the same part ("AI
-  Lab of ByteDance") would be split, which no stored string does. Being cleaning, it
-  reaches stored strings through `reclean`.
-- A line ending with "," or "and" continues on the next one, and a line that only names a
-  place joins the previous line when that one has no country.
-- A line starting with "and" goes on with the unit that ends the previous line: "Faculty of
-  Medicine" then "and Health Sciences" (2610.03290). Not after an institution ("Stanford
-  University" then "and Mila"), nor when "&" starts it ("& Canada-CIFAR AI Chair").
-- A line that only names authors is never joined to the next: "Terrence Chen, Ziyan Wu"
-  then "United Imaging Intelligence, Boston MA, USA" (2610.02382) are names, dropped, and
-  an affiliation, not one string with the names inside.
-- A unit without its institution ("Department of Computer Science": a unit word, no
-  institution word, no comma; `is_bare_unit`, which the quality sign uses too) takes the
-  next line: "Department of Computer Science, Dartmouth College, Hanover, NH, USA"
-  (2609.38705, AFF-10). Not when a marker starts that line (two affiliations), when it is
-  another unit ("Department of ECE" / "Department of CS" / "University of Central
-  Florida" gives the institution to the second only, 2610.02000), nor when it is a note
-  ("Corresponding author"), which would make the whole string noise.
-- IEEE conference classes write each line of an author's address as its own contact node:
-  an author's nodes are read as the lines of one text, by the extraction and the
-  per-creator tier alike.
-- Numbered markers written as text inside a string ("Cornell University 2University of
-  California, Berkeley", AFF-23; after wide spaces too, "1Roblox  2Carnegie Mellon
-  University", 2402.13251) split it: one or two digits glued to a capitalized word
-  ("2Duke", "3HKUST", "4eBay") after a space, when the word before holds no digit or is
-  itself marked ("2CASIA 3HKUST"), so that postcodes stay whole ("London WC1E 6AE", "QC
-  H2S 3H1") and so do "3D" or "4K". This is cleaning, so `reclean` splits stored strings.
-- Leading digits are markers unless they start a name: "54th Research Institute", "2nd
-  Department", "3M Company", "3D Vision Lab" and "4K" keep them, in cleaned strings and in
-  numbered lines ("2 3D Vision Lab").
-- LaTeXML prints the spacing of a line break (`\\[5pt]`) as text: `[5pt]`, `[0.2em]` are
-  line breaks, never affiliations.
+  inside brackets ("(ShenZhen)") nor after a hyphenated word ("AnimSchool", "ByteDance",
+  "McGill" stay). It would split "AI Lab of ByteDance", which no stored string holds.
+- A line ending with "," or "and" continues on the next; one naming only a place joins a
+  previous one without a country; one starting with "and" continues the unit ending the
+  previous one ("Faculty of Medicine" / "and Health Sciences", 2610.03290), not an
+  institution ("Stanford University" / "and Mila"), nor when "&" starts it ("&
+  Canada-CIFAR AI Chair"). A line naming only authors never joins the next ("Terrence
+  Chen, Ziyan Wu" / "United Imaging Intelligence, Boston MA, USA", 2610.02382).
+- A line ending with a lowercase preposition after a space continues on the next, unless a
+  marker starts it ("Key Laboratory ... of Ministry of" / "Education, Jilin University",
+  2609.11477); not "TU Wien, AT" (a country code) nor the domain of
+  "author@technikum-wien.at" (2610.02974).
+- A unit without its institution (a unit word, no institution word, no comma:
+  `is_bare_unit`, also a quality sign) takes the next line ("Department of Computer
+  Science, Dartmouth College, Hanover, NH, USA", 2609.38705, AFF-10), unless that line
+  starts with a marker, is another unit ("Department of ECE" / "Department of CS" /
+  "University of Central Florida": the second gets it, 2610.02000) or a note
+  ("Corresponding author", which would make the whole string noise).
+- An author's contact nodes are read as one text's lines, by the extraction and the
+  per-creator tier alike (IEEE conference classes make each address line a node); those of
+  different authors never join ("Department of Computer Science, University of Alabama at
+  Birmingham" / "Birmingham, AL, USA", spread over a table, 2609.13271).
+- Numbered markers written as text split a string ("Cornell University 2University of
+  California, Berkeley", AFF-23; after wide spaces, "1Roblox  2Carnegie Mellon
+  University", 2402.13251): one or two digits glued to a capitalized word ("3HKUST",
+  "4eBay") after a space, the word before holding no digit or itself marked ("2CASIA
+  3HKUST"), so that postcodes ("London WC1E 6AE", "QC H2S 3H1"), "3D" and "4K" stay
+  whole. `reclean` splits stored strings too.
+- Leading digits are markers unless they start a name ("54th Research Institute", "3M
+  Company", "3D Vision Lab", "4K"), in strings and numbered lines ("2 3D Vision Lab").
 - Link labels ("Project page", "Project Website") are stripped, not dropped: once the URL
-  is removed as a contact detail, the label is often glued to the affiliation before it
-  ("MITProject page"). Anything mentioning correspondence is noise.
-- elsarticle's `organization=…, city=…, country=…` text (printed verbatim by LaTeXML)
-  ignores line breaks: a repeated key starts the next affiliation, and `clean_affiliation`
-  turns the rest into plain values, organization first. Keep that conversion in
-  `clean_affiliation` only, since the author mapping looks affiliations up through it.
-- Contact nodes are joined within one author's only: an address spread over the creators
-  of a table ("Department of Computer Science, University of Alabama at Birmingham" under
-  one author, "Birmingham, AL, USA" under the next, 2609.13271) stays apart. A place
-  without a country ("Pittsburgh, PA 15213") is not recognized as one: US states are not
-  in the list, since their codes are words ("IN", "OR", "ME").
-- The countries are those affiliations write (AFF-18), but for those that are also names
-  of people (Jordan, Chad, Georgia), which a line of names would end with, and Wales, which
-  ends "New South Wales". A name that ends with a country without a comma ("National
-  Research Council Canada") takes a place in the same country ("London, ON, Canada",
-  2609.12374), not one in another ("University of Luxembourg" then "Trier, Germany", the
-  next column of a table, 2609.06629). The institution rules' `_COUNTRY_RE` is built from
-  the same `COUNTRIES`, so there is one list; the site keeps only the acronyms of its
-  search, which `test_the_site_knows_the_same_acronyms` keeps equal to Python's.
-- A line ending with a preposition ("Key Laboratory ... of Ministry of" then "Education,
-  Jilin University", 2609.11477) continues on the next one, unless a marker starts it.
-  Lowercase only, after a space: "TU Wien, AT" ends with a country code, and
-  "author@technikum-wien.at" with the domain of an address (2610.02974), which then
-  made both lines one contact detail.
-- A list cut after its connector loses it ("The University of Hong Kong, and"), and so does
-  a trailing dash; a name cut short keeps its "and" ("Nanjing University of Posts and"),
-  which the quality signs show. Phone numbers ("Tel.: +49 ...") and placeholders ("TODO:
-  ...") are noise, and a LaTeX command printed as text is dropped ("\\addrDepartment of
-  ...", 2610.04051).
+  goes, the label is often glued to the affiliation ("MITProject page"). Correspondence,
+  phone numbers ("Tel.: +49 ...") and placeholders ("TODO: ...") are noise; a LaTeX
+  command printed as text goes ("\\addrDepartment of ...", 2610.04051).
+- elsarticle's `organization=…, city=…, country=…`, printed verbatim, ignores line breaks:
+  a repeated key starts the next affiliation, and `clean_affiliation`, only (the mapping
+  looks affiliations up through it), makes the rest plain values, organization first.
+- The countries are those affiliations write (AFF-18) but people's names (Jordan, Chad,
+  Georgia), which end lines of names, and Wales ("New South Wales"); US states are none,
+  their codes being words ("IN", "OR", "ME"), so "Pittsburgh, PA 15213" is no place. A
+  name ending with a country without a comma ("National Research Council Canada") takes a
+  place in that country ("London, ON, Canada", 2609.12374), not another ("University of
+  Luxembourg" / "Trier, Germany", 2609.06629). The institution rules' `_COUNTRY_RE` is
+  built from the same `COUNTRIES`.
+- A list cut after its connector loses it ("The University of Hong Kong, and"), as does a
+  trailing dash; a name cut short keeps its "and" ("Nanjing University of Posts and").
 
 ## Who is where: the author mapping
 
 The mapping reuses the same nodes, in tiers: per-creator contacts, superscript markers
-matched with marker-led (or marker-trailed) lines, "A is with B" sentences (in thanks notes
-and affiliation contacts: 2609.06721 writes them in the last author's block), plus the
-trivial single-affiliation and single-author cases. A wrong pair is worse than none:
-ambiguous name alignments drop the whole tier, and unresolved authors stay `null`.
+matched with the lines they lead (or trail), "A is with B" sentences (thanks notes and
+affiliation contacts: 2609.06721 writes them in the last author's block), and the single
+affiliation or author. A wrong pair is worse than none: an ambiguous name alignment drops
+the whole tier, and unresolved authors stay `null`.
 
-- One affiliation is everyone's but when its source left lines out, or when it came from
-  "A is with B" sentences (AFF-9, version 11): they place whom they name, "The authors"
-  everyone, and "A. Doe is with MIT" no longer places Doe's co-authors there too.
-- The numbered markers of thanks notes anchor the authors' ("¹FZI Research Center…",
-  "²Karlsruhe Institute of Technology", 2609.03677), by their markers only: a thanks
-  note's own mark, the same "†" for every note, anchors nothing. Notes on funding and
-  correspondence are no anchors.
-
-- Links set as authors ("Project Page", a repository) are not creators: 2609.37107
-  followed its last author with two, and its shared block went unnoticed. Nor are
-  addresses set as authors, or lines led by a marker that name no author ("²Alibaba
-  Group", "✉Corresponding author", 2610.12978): its last person alone holds a contact,
-  "¹Sun Yat-sen University", so the markers place everyone.
-- A creator whose name an affiliation is glued to is that author, the affiliation its
-  contact (2610.17412).
-- After a name, a marker glued to the next word introduces an affiliation line, not the
-  name's: "Bob Smith⟨2⟩ ⟨1⟩Stanford University" places Bob at 2 only. In free-form blocks
-  such a marker also starts a numbered line, for the affiliations and their anchors
-  alike: "University of California, Berkeley ⟨2⟩Duke University ⟨3⟩Carnegie Mellon
-  University" was one affiliation, and nobody was placed (2609.38079).
-- Symbols come off a marker's number: "⟨2,6*‡⟩" is 2 and 6, and "∗" (LaTeX's `\ast`) is
-  a note like "*" (2609.35052). A run of known markers without separators ("12", "⋆†")
-  is read one by one.
-- An anchor's markers in a row, nothing between them, all mark the text that follows: a
-  thanks note "⟨*⟩⟨†⟩⟨‡⟩ Y. Yang and J. Bos are with the Department of ..." anchors both
-  authors' markers, * and ‡. Version 11, which first read thanks notes as anchors, gave
-  the text to ‡ alone, and its marker tier, tried before the sentences, placed only the
-  last author (2610.13891, 2610.13872, which `validate` warned of), where version 9 had
-  placed both; version 12 places both again (AFF-33).
-- Anchors match affiliations without regard to commas: a marked line read as one text
-  ("Department of Computer Science University of Central Florida") is the affiliation its
-  lines were joined into (2610.02000).
-- Per-creator contacts place nobody when only the last creator carries them: LaTeXML
-  attaches a block shared by every author to the last one (2609.37098 gave its 7
-  affiliations to its 9th author, 2609.00866 its 25 to its 55th).
-- A creator naming several people ("A, B and C", "A & B") is left out of the per-creator
-  tier: 2609.05583's single creator for six authors is then placed by its markers. So is a
-  creator holding several authors' names without any separator: 2610.01434 writes its
-  eight authors apart by wide spaces, and the creator went to the last author, with every
-  affiliation.
-- A pair ("Zhiyuan Yang & Jiahao Cheng", no comma, no marker on the names) beside other
-  creators shares the block under it: both are placed (2609.36407). Alone, or with markers,
-  it says no more than a list; nor does a block that only names a place, the end of an
-  address the creators before began ("Orlando, FL 32816, USA", 2609.34021).
-- A marker's text runs to the next marker, read as one line: it may hold the lines an
-  affiliation was joined from, then another affiliation of the same marker
-  ("⟨2⟩Laboratory … Response / Technologies (LiGHT) / Swiss Federal Institute of Technology
-  (EPFL), …", 2610.03290). When it cleans to no affiliation, it is cut into the paper's
-  affiliations, one after another; a text not wholly made of them anchors nothing.
+- One affiliation is everyone's unless its source left lines out or it came from "A is
+  with B" sentences, which place whom they name ("A. Doe is with MIT"), "The authors"
+  everyone (AFF-9).
+- Thanks notes' numbered markers anchor the authors' ("¹FZI Research Center…",
+  2609.03677); their own mark, the same "†" for every note, anchors nothing, nor do
+  funding and correspondence notes.
+- Not creators: links set as authors ("Project Page", a repository, 2609.37107),
+  addresses, and lines led by a marker naming no author ("²Alibaba Group", "✉Corresponding
+  author", 2610.12978, whose last person alone holds "¹Sun Yat-sen University": the
+  markers place everyone). A creator an affiliation is glued to is that author, the
+  affiliation its contact (2610.17412).
+- A marker glued to the word after a name introduces an affiliation line: "Bob Smith⟨2⟩
+  ⟨1⟩Stanford University" places Bob at 2 only. In free-form blocks it also starts a
+  numbered line, for affiliations and anchors ("University of California, Berkeley
+  ⟨2⟩Duke University ⟨3⟩Carnegie Mellon University", 2609.38079).
+- Symbols come off a marker's number ("⟨2,6*‡⟩" is 2 and 6), "∗" (`\ast`) is a note like
+  "*" (2609.35052), and known markers without separators ("12", "⋆†") are read one by one;
+  in an anchor, all mark the text after them ("⟨*⟩⟨†⟩⟨‡⟩ Y. Yang and J. Bos are with the
+  Department of ..." anchors * and ‡, 2610.13891, 2610.13872, AFF-33).
+- Anchors match affiliations regardless of commas ("Department of Computer Science
+  University of Central Florida", 2610.02000). A marker's text runs to the next marker:
+  an affiliation's joined lines, then another of the same marker ("⟨2⟩Laboratory … Response
+  / Technologies (LiGHT) / Swiss Federal Institute of Technology (EPFL), …", 2610.03290).
+  Cleaning to no affiliation, it is cut into the paper's affiliations, one after another;
+  a text not wholly made of them anchors nothing.
+- Per-creator contacts place nobody when only the last creator has any: LaTeXML gives it a
+  block shared by all (2609.37098, 2609.00866: its 25 affiliations to its 55th author).
+- Out of the per-creator tier: a creator naming several people ("A, B and C", "A & B";
+  2609.05583, then placed by its markers) or holding several authors' names without
+  separator (2610.01434, apart by wide spaces). But a pair without comma nor markers
+  ("Zhiyuan Yang & Jiahao Cheng") beside other creators shares its block (2609.36407),
+  unless that block only names a place, the end of an address the creators before began
+  ("Orlando, FL 32816, USA", 2609.34021).
 
 ## Institutions (ROR, then `institutions.py`)
 
-`api.ror.org/v2/organizations?affiliation=` marks one match `chosen`. Only those are kept,
-and only when one of the organization's names (not an acronym) of at least two words
-appears word for word in the affiliation: `chosen` alone matched "ARC Lab, Tencent" to an
-association called ARC and "180 Queen's Gate" to "The Gate". `chosen` can also be a
-shorter name inside the right one: "Texas A&M University-Kingsville" chose Texas A&M
-University (score 1.0) over Texas A&M University – Kingsville (0.95), which ROR writes with
-a spaced en dash. A candidate one of whose names holds the chosen one's and is written
-whole in the affiliation, as a run of words, hyphens and dashes splitting them, is kept
-instead (`_longer_match`, AFF-30): on 2026-10-17, asked again for the 11 stored strings
-where a dash followed the chosen name, it changed 4 papers' (Kingsville, Texas A&M –
-San Antonio twice, the University of Hong Kong – Shenzhen Hospital), and left "University
-of Michigan–Ann Arbor" or "Helmholtz Munich - German Research Center…" alone, ROR
-holding no longer name for them. ROR names about 70% of the
-strings (universities in full), and gives each its id (`institution_ids`). A failing ROR
-never fails a run: lookups stop and resume next run. A string ROR answered for in an
-earlier run is not asked again (`collect.ror_answers`, AFF-17): its latest answer, read
-from the day files' papers ROR named with their ids, an institution with an id being its
-match and one without what the rules gave; on 2026-10-15, 7,343 strings, and all but 4 of
-4,237 papers came out the same (strings ROR had answered differently on other days).
+`api.ror.org/v2/organizations?affiliation=` marks one match `chosen`, kept only when one of
+its names (not an acronym) of at least two words appears word for word in the affiliation:
+`chosen` alone matched "ARC Lab, Tencent" to an association called ARC and "180 Queen's
+Gate" to "The Gate". A candidate with a name holding the chosen one's, written whole in the
+affiliation (hyphens and dashes splitting words), wins (`_longer_match`, AFF-30): "Texas A&M
+University-Kingsville" chose Texas A&M University (score 1.0) over Texas A&M University –
+Kingsville (0.95). ROR names about 70% of the strings, with their ids (`institution_ids`).
+A failing ROR never fails a run: lookups stop and resume next run. A string ROR answered
+before is not asked again (`collect.ror_answers`, AFF-17), its latest answer read from the
+day files: an institution with an id is ROR's match, one without the rules'.
 
-The rest are named by `institutions.name_institutions` (AFF-13, decision 12), which the
-site applied itself until 2026-10-07, in TypeScript; the port gave the same name for all
-37,789 stored affiliations. An affiliation is split at commas and its most
-institution-like part kept (a university over an organization over anything else; a unit
-or an address alone names nothing): "School of Computer Science, Peking University" is
-Peking University. A known acronym written alone is its institution as ROR names it
-("CMU", `ACRONYMS`, which the site keeps for its search, a test keeping both equal;
-`validate` warns of a name no institution with an id has, as "University of California,
-San Diego" was, ROR writing it without the comma); a
-company mentioned anywhere is the company ("ARC Lab, Tencent IEG" is Tencent), but a
-hospital named after it is not; a campus of the University of California keeps its city.
-ROR's and OpenAlex's names go through `canonical` too, so that a company's subsidiaries
-("Google (Switzerland)", "Tencent (China)") are one institution. One of the paper's own
-authors is never an institution.
+`institutions.name_institutions` names the rest (AFF-13, decision 12; the site names none),
+keeping the most institution-like part between commas, a university over an organization
+over anything else, a unit or an address alone naming nothing ("School of Computer
+Science, Peking University" is Peking University). A known acronym alone is its
+institution as ROR names it ("CMU", `ACRONYMS`, the same in the site's search by
+`test_the_site_knows_the_same_acronyms`); `validate` warns of one whose name no
+institution with an id has ("University of California, San Diego": ROR has no comma). A
+company mentioned anywhere is the company ("ARC Lab, Tencent IEG" is Tencent), not a
+hospital named after it; a University of California campus keeps its city. ROR's and
+OpenAlex's names go through `canonical` too, a company's subsidiaries ("Google
+(Switzerland)") being the company. One of the paper's own authors is never an
+institution. What `_JUNK_RE` now rejects, in records extracted before it, mostly names
+none: `institution_name` has its own narrower `_JUNK_RE` and `_COUNTRY_RE`, and a
+department, school or faculty is no institution; a cut-off "Institute of" would name
+itself, but none is stored (`make reclean` drops them from day files).
 
-An institution with a ROR id came from ROR (or OpenAlex, in the archive, whose names are
-registry names with or without an id); one without, from the rules. `make
-institutions-again` names the stored institutions again after a change to the rules:
-registry names are only made canonical again, the others named again from their
-affiliation (8 names ROR gave before ids were kept were named again by the rules so, on
-2026-10-07). It took the affiliations without an institution from 2,785 to 122.
+An institution with a ROR id came from ROR (or OpenAlex, in the archive, whose registry
+names may have none); one without, from the rules. `make institutions-again` names stored
+institutions again after a change to the rules: registry names are only made canonical
+again, the others named again from their affiliation.
 
 ## Venues (`venue.py`)
 
-The venue is detected once, when a paper is stored, from its comments and journal
-reference; `make venues` applies a change to the stored papers, the archive's included.
+Detected once, when a paper is stored, from its comments and journal reference; `make
+venues` applies a change to stored papers, the archive's included.
 
-- The venues of the table, `VENUES` (canonical name, kind, acronyms, full names), count
-  unless the clause says the paper is not there (submitted, under review, prepared for,
-  an extended version), or the venue's comma-separated part only mentions it (compared,
-  ranked, rejected, an extension of, a benchmark): "CVPR 2018, Rank 1 in the ... Challenge"
-  is a CVPR paper, "ranked 1st at the CVPR 2021 Challenge" is not.
-- Requiring an acceptance cue instead, as the audit proposed, loses a venue in twenty:
-  "40th Conference on Neural Information Processing Systems (NeurIPS 2026)", "Findings of
-  EMNLP 2026".
+- The venues of `VENUES` (canonical name, kind, acronyms, full names) count unless the
+  clause says the paper is not there (submitted, under review, prepared for, an extended
+  version) or the venue's comma-separated part only mentions it (compared, ranked,
+  rejected, an extension of, a benchmark): "CVPR 2018, Rank 1 in the ... Challenge" is a
+  CVPR paper, "ranked 1st at the CVPR 2021 Challenge" is not. Requiring an acceptance cue
+  instead loses a venue in twenty ("Findings of EMNLP 2026").
 - A full name is never the start of a longer one: VISAPP's "International Conference on
   Computer Vision Theory and Applications" and CVIP's "... and Image Processing" are not
-  ICCV, IPTA and IPAS are not ICIP, and "Advances in Computer Vision and Pattern
-  Recognition" (a book series) is not CVPR.
-- Years of page ranges are not years ("TPAMI 2028" from pp. 2028-2040). Short years count
-  ("CVPR16", "ECCV-18", "(MICCAI'22)"), and the major acronyms are read in any case once
-  links are removed ("cvpr2019", "Neurips 2020"; never in "github.com/x/cvpr2018-code").
-- Failing the table, an acronym followed by a year in a sentence of acceptance ("Presented
-  at IEEE BIBM 2017").
+  ICCV, IPTA and IPAS are not ICIP, "Advances in Computer Vision and Pattern Recognition"
+  (a book series) is not CVPR.
+- Page ranges are not years ("TPAMI 2028" from pp. 2028-2040). Short years count
+  ("CVPR16", "ECCV-18", "(MICCAI'22)"), and major acronyms are read in any case once links
+  are removed ("cvpr2019", "Neurips 2020"; never "github.com/x/cvpr2018-code").
+- Failing the table, an acronym and a year in a sentence of acceptance ("Presented at IEEE
+  BIBM 2017").
 
 ### Published venues (Semantic Scholar)
 
-`venue.published_venue` names the venue Semantic Scholar gives (`scholar.json`, see
-[archive.md](archive.md)) as the table does: by one of its full names in the venue's name or venue
-string, by its acronym in them ("ECCV Workshops"), or by an alternate name only for a venue
-the table knows by acronym only, since another venue can share the acronym (the
-International Conference on Information Photonics is "ICIP" too). Other venues keep
-Semantic Scholar's name ("Information Fusion 2024"), never a bare venue string, which can
-be an abbreviation ("Medical Image Anal."). Preprint servers are not venues.
-
-The year comes from the proceedings' or journal's name ("2022 IEEE/CVF Conference on
-..."), the venue string, the volume when it is a bare year, or an IEEE DOI
-(10.1109/CVPR52688.2022.01234). Never from `publicationDate` or `year`, which are the arXiv
-version's for a paper in four (66 of 235 in the spike), nor from a preprint's journal
-("ArXiv", volume "abs/2006.05929"): a conference known only through its preprint has no
-year ("NeurIPS").
-
-On the site, the comments' venue wins where both exist: Semantic Scholar takes papers of
-ICIP for the Information Photonics conference.
+`venue.published_venue` names Semantic Scholar's venue (`scholar.json`,
+[archive.md](archive.md)) as the table does: by a full name in the venue's name or string,
+by its acronym there ("ECCV Workshops"), or by an alternate name only for a venue known by
+acronym only, since venues share acronyms (Information Photonics' conference is "ICIP"
+too). Others keep Semantic Scholar's name ("Information Fusion 2024"), never a bare venue
+string, which can be an abbreviation ("Medical Image Anal."). Preprint servers are not
+venues. The year comes from the proceedings' or journal's name ("2022 IEEE/CVF Conference on
+..."), the venue string, a volume that is a bare year, or an IEEE DOI
+(10.1109/CVPR52688.2022.01234); never from `publicationDate` or `year`, the arXiv
+version's for a paper in four, nor a preprint's journal ("ArXiv", volume
+"abs/2006.05929"): a conference known only through its preprint has no year ("NeurIPS").
+On the site, the comments' venue wins: Semantic Scholar takes ICIP papers for Information
+Photonics.
 
 ## Abstracts (`latex.py`)
 
-arXiv abstracts are LaTeX, and every source gives them so (RSS, catchup pages, the API, the
-HTML page's MathML as inline LaTeX, the catalog): `latex.plain_text` makes them plain text
-where they are read, and `make venues` on the stored papers. Before it, 2,493 of 27,001
-abstracts held a macro, and the search matched "textbf" for "text" (SRCH-19, decision 17).
+Every source gives abstracts as LaTeX (RSS, catchup pages, the API, the HTML page's MathML
+as inline LaTeX, the catalog): `latex.plain_text` makes them plain text where they are
+read, and `make venues` on stored papers. Before it, 2,493 of 27,001 held a macro, and the
+search matched "textbf" for "text" (SRCH-19, decision 17).
 
-- Text macros give their argument (`\textbf`, `\emph`, `{\em ...}`, `\underline`), `\url` its
-  address, `\href` what it shows and, when that is not an address, where it leads; citations
-  and labels go, with the space before them; a footnote goes in brackets.
-- Math symbols give their character (`\times`, `\pm`, `\le`, Greek letters, `^\circ`), accents
-  their letter (`B$\acute{\rm e}$zier`, `Schr\"odinger`), and `18--20` an en dash. A formula
-  left with text only loses its dollars (`$\sim$18%` is "~18%"); one that still holds markup
-  keeps them (`$S^2\times S^1$`). Math is not rendered. A formula of text only loses them
-  before the groups go, or a group around it keeps its braces (`{8$\times$}` gave "{8×}",
-  2609.23733; four stored abstracts).
-- `make venues` reads stored abstracts, plain already, again: a second reading leaves them
-  as they are (`test_latex.py` checks it for every case). An escaped dollar is a price, and
-  plain text keeps it bare, so two dollars are no formula when what lies between holds a
-  space and the second is followed by a digit (`$300,000 ($26,000 vs. $320,000)`,
-  2310.00426, lost its prices to it); a symbol still is one (`$\sim$18`).
-- A paper's own macros (`\method`, `\ours`) stay as written: nothing says what they stand for.
-  About 240 abstracts keep a backslash so, or in a formula.
+- Text macros give their argument (`\textbf`, `\emph`, `{\em ...}`, `\underline`), `\url`
+  its address, `\href` what it shows and, when that is not an address, where it leads;
+  citations and labels go, with the space before them; a footnote goes in brackets.
+- Math symbols give their character (`\times`, `\pm`, `\le`, Greek letters, `^\circ`),
+  accents their letter (`B$\acute{\rm e}$zier`, `Schr\"odinger`), `18--20` an en dash;
+  math is not rendered. A formula left with text only loses its dollars (`$\sim$18%` is
+  "~18%"), before the groups go, else a group around it keeps its braces (`{8$\times$}`
+  gave "{8×}", 2609.23733); one still holding markup keeps them (`$S^2\times S^1$`).
+- Reading plain text again changes nothing (`make venues` reads stored abstracts again;
+  `test_latex.py` checks every case). An escaped dollar is a price, kept bare, so two
+  dollars are no formula when what lies between holds a space and a digit follows the
+  second (`$300,000 ($26,000 vs. $320,000)`, 2310.00426); a symbol still is one
+  (`$\sim$18`).
+- A paper's own macros (`\method`, `\ours`) stay as written: nothing says what they mean.

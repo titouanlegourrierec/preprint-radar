@@ -1,73 +1,61 @@
 # Operations
 
-What to do when the pipeline misbehaves, by symptom. The pipeline runs unattended:
-*Update data* every weekday, *Archive* every Sunday, the *arXiv canary* every Wednesday.
-Each section starts with the **signal**: what the run's page, its log or its job summary
-says, quoted as the code prints it (`tests/unit/test_operations_doc.py` checks that every
-quoted signal still exists in the code, so that this page cannot drift silently).
+What to do when the pipeline misbehaves, by symptom: *Update data* runs every weekday,
+*Archive* on Sundays, the *arXiv canary* on Wednesdays. Each section starts with the
+**signal** as the code prints it (`tests/unit/test_operations_doc.py` checks it still does).
 
-Before touching `data/` by hand, check that no data workflow is running
-(`gh run list --workflow update.yml`, `--workflow archive.yml`): a conflict on a day file
-stops the bot's commit. After any change, run `make validate`.
+Before touching `data/` by hand, check that no data workflow runs (`gh run list`), and never
+push `data/` while one does: a conflict on a day file stops the bot's commit. After any
+change, run `make validate`.
 
 ## Where to look
 
-- **The run's page** (*Actions → the run*): annotations (yellow warnings, red errors) and
-  the job summary: each command's report line, *Data validation*, then *Data*: the newest
-  day, the age of the citation counts, and folded tables (coverage, signs of wrong
-  affiliations).
-- **The step log**: one line per event, `HH:MM:SS LEVEL name: message`, greppable.
-- **Locally**: `make stats` (coverage), `make quality-affiliations` (signs of wrong
-  affiliations), `make validate` (the contract), `preprint-radar summary` (freshness).
+The run's page (*Actions → the run*): annotations, then the job summary (each command's
+report line, *Data validation*, the newest day, the counts' age, coverage). The step log:
+one greppable line per event, `HH:MM:SS LEVEL name: message`. Locally: `make stats`,
+`make quality-affiliations`, `make validate`, `preprint-radar summary`.
 
 ## The outside scheduler
 
-GitHub's scheduler starts scheduled runs hours late (06:17 runs started between 09:52 and
-13:29 in the week of 2026-09-28; 2026-10-05's had not started at 12:20). So
-[cron-job.org](https://cron-job.org) dispatches the data workflows on time, and their own
-schedules are fallbacks, four hours later (set each cron-job.org job's time zone to UTC):
+GitHub starts scheduled runs hours late, so [cron-job.org](https://cron-job.org)
+dispatches the data workflows on time (set each job's time zone to UTC); the workflows' own
+schedules are fallbacks.
 
 | Workflow | Dispatched (UTC) | Fallback schedule (UTC) |
 |---|---|---|
 | *Update data* | Monday to Friday, 06:17 | 10:17 |
 | *Archive* | Sunday, 05:41 | 09:41, and Saturday 05:41 when no run succeeded since Sunday |
 
-Each cron-job.org job sends `POST
+Each job sends `POST
 https://api.github.com/repos/titouanlegourrierec/preprint-radar/actions/workflows/<file>/dispatches`
 with the body `{"ref":"main"}` and the headers `Authorization: Bearer <token>`,
 `Accept: application/vnd.github+json` and `X-GitHub-Api-Version: 2022-11-28`; GitHub
 answers `204`. The token is a fine-grained personal access token for this repository only,
-with the single permission *Actions: Read and write*: it can start, cancel and delete runs,
-logs and caches, never read or push code. It expires: renew it before, and paste the new
-one into both jobs.
+with the single permission *Actions: Read and write* (it can start, cancel and delete runs
+and caches, never read or push code). It expires: renew it before, in both jobs.
 
 A dispatched run always goes on. A scheduled one first runs the `guard` job
-(`.github/scripts/skip-if-done.sh`), which stops it once a run of the same workflow has
-succeeded that day (UTC), so a normal day has one run, and a failed or missing dispatch
-is retried by the fallback. *Archive* has a third chance, Saturday's catch-up (CI-8),
-whose guard looks back to Sunday: when both Sunday runs failed, it runs while the counts
-they fetched are still cached (7 days), rather than the next Sunday asking for all of them
-again. In a fork, the guard stops every scheduled run (a notice
-`Fork`), so a fork that turns Actions on collects data only when its owner runs or
-dispatches a workflow; the *arXiv canary* skips its jobs on schedule when the event says
-the repository is a fork.
+(`.github/scripts/skip-if-done.sh`), which stops it once a run of the same workflow
+succeeded that day (UTC). *Archive*'s Saturday catch-up (CI-8) looks back to Sunday, and
+runs while the counts of failed Sunday runs are still cached (7 days). In a fork, every
+scheduled run stops (notice `Fork`) and the *arXiv canary* skips its scheduled jobs.
 
 ### A scheduled run stopped at once
 
 **Signal.** A notice `Already done today` on a scheduled run, whose `update` or `archive`
 job is skipped, or `Already done this week` on a Saturday's *Archive*.
 
-The normal case: the dispatched run of the day succeeded, or Sunday's did. Nothing to do.
+Normal: the day's dispatched run (or Sunday's) succeeded.
 
 ### A scheduled run did the work
 
 **Signal.** No run with the event `workflow_dispatch` for the day, and a scheduled run
 after 10:17 UTC (09:41 on Sundays) that did the work.
 
-The dispatch did not happen or failed. Look at the job's history on cron-job.org: a `401`
-means the token expired or was revoked (create a new one, as above), a `403` or `404`
-that it lacks this repository or its permission, a `422` a wrong `ref` or body. A warning
-`Run history unavailable` means the guard could not ask GitHub and let the run go on.
+The dispatch failed; see the job's history on cron-job.org. `401`: the token expired or was
+revoked (make a new one). `403` or `404`: it lacks this repository or its permission.
+`422`: a wrong `ref` or body. A warning `Run history unavailable` means the guard could not
+ask GitHub and let the run go on.
 
 ## Update data did not run, or started hours late
 
@@ -75,55 +63,42 @@ that it lacks this repository or its permission, a `422` a wrong `ref` or body. 
 after 10:17 UTC; later, the summary's `Stale data` warning (`no new day for` more than
 3 weekdays).
 
-Both the dispatch and the fallback schedule failed (see above). Nothing is lost while
-arXiv's listing still covers the days missed (it shows the last five announcement days):
+Nothing is lost while arXiv's listing still covers the missed days (its last five):
 
-1. Run it by hand: *Actions → Update data → Run workflow* (or
-   `gh workflow run update.yml`). Runs share a concurrency group, so a scheduled run
-   queued meanwhile waits for the manual one, then stops at its guard if it succeeded.
-2. Days older than the listing are caught up by themselves (CI-7): when the newest stored
-   day is more than 4 weekdays old (`CATCH_UP_WEEKDAYS`), or a day the listing dropped
-   still has papers pending (pages past a run's budget), `update` reads every day since
-   from the catchup pages, as `backfill` does, within the last 30 days (`CATCH_UP_DAYS`),
-   with a warning annotation `Catching up` (`reading every day since`). The next runs
-   read the pages left, until `make stats` shows no pending papers for those days; papers
-   without an HTML rendering count as *no page*, which no run reads (about 5%). A
-   `Catching up` every day comes from one paper whose page never reads (a 503 for good):
-   each run then reads the catchup pages since its day, about 7 minutes, and skips the
-   listing's checks (a day it lacks, changed author lists), until the day is 30 days old.
-   `make stats` names the day; `reextract --ids` that paper to try its page by hand.
-3. For days older than 30 days, fill *since* (`YYYY-MM-DD`): the run then calls
-   `backfill` over the catchup pages from that day on, limited to 600 pages
-   (`DEFAULT_MAX_HTML`) unless *max-html* says otherwise.
+1. Run it by hand: *Actions → Update data → Run workflow*, or
+   `gh workflow run update.yml`.
+2. Older days catch up by themselves (CI-7): when the newest stored day is more than 4
+   weekdays old (`CATCH_UP_WEEKDAYS`), or a day the listing dropped has papers pending,
+   `update` reads every day since from the catchup pages, within 30 days (`CATCH_UP_DAYS`),
+   with a warning `Catching up`. Papers without an HTML rendering (*no page* in
+   `make stats`, about 5%) are never read.
+3. A `Catching up` every day is one paper whose page never reads (a lasting 503): each run
+   spends 7 minutes on catchup pages until that day is 30 days old. `make stats` names the
+   day; `preprint-radar reextract --ids <id>` tries the page by hand.
+4. Older than 30 days: fill *since* (`YYYY-MM-DD`); the run calls `backfill`, within 600
+   pages (`DEFAULT_MAX_HTML`) unless *max-html* says otherwise.
 
 ## Update data is red
-
-Open the run's annotations; the first error names the cause.
 
 ### arXiv is down
 
 **Signal.** `HTML renderings in a row: stopping` (error annotation
 `Reading HTML pages failed`).
 
-Five pages failed in a row: arxiv.org was down or refusing. What was read is saved and
-pushed; the other papers stay pending (`null`) and are read by the next run. Nothing to do
-unless it repeats; then check <https://status.arxiv.org>.
+Five pages failed in a row. What was read is pushed; the other papers stay pending (`null`)
+for the next run. Nothing to do unless it repeats (<https://status.arxiv.org>).
 
 ### arXiv changed its page layout
 
 **Signal.** `gave no affiliation: has arXiv's layout changed?` (error annotation
 `Reading HTML pages failed`), often after a red *arXiv canary*.
 
-90% of at least 40 pages gave no affiliation. The papers of this run are set back to
-pending, since `[]` would be final, and their pages leave the page cache: if arXiv only
-served an error page for a while, the next run downloads them again and heals by itself.
-To fix a real change:
-
-1. `make test-network` (or the canary's log) shows what no longer parses.
-2. Save one or two live pages as fixtures in `tests/fixtures/html/` (replace e-mails with
-   `author@example.org`), add their authors to `expected.json`, adapt
-   `sources/arxiv_html.py`, and bump `EXTRACTOR_VERSION`.
-3. Once pushed, the next runs read the pending papers again by themselves.
+90% of at least 40 pages gave no affiliation. The run's papers go back to pending (`[]`
+would be final) and their pages leave the cache, so a passing error page heals by itself.
+For a real change, `make test-network` shows what no longer parses: save one or two live
+pages as fixtures in `tests/fixtures/html/` (e-mails replaced by `author@example.org`),
+add them to `expected.json`, adapt `sources/arxiv_html.py` and bump `EXTRACTOR_VERSION`
+(`docs/extraction.md`). Once pushed, the next runs read the pending papers again.
 
 ### The listing's entries lost their authors or links
 
@@ -131,80 +106,58 @@ To fix a real change:
 the catchup page): `the arXiv layout may have changed`, in the error annotation
 *preprint-radar update failed*.
 
-More than 10% of at least 20 entries had no author, or more than half no HTML link where
-arXiv renders them (REL-7): the listing's markup changed, and the run stored nothing
-rather than papers without authors. Of the 6,000 papers stored on 2026-10-15, none lacked
-authors and 4.6% a link. Fix the parser in `sources/arxiv_listing.py` against a saved
-copy of the page, as for a layout change above.
+More than 10% of at least 20 entries had no author, or more than half no HTML link (REL-7),
+so the run stored nothing. Fix `sources/arxiv_listing.py` against a saved copy of the page.
 
 ### A backfill left days unread
 
 **Signal.** `the day is left for the next run` (error annotation `Catchup pages failed`),
 and the report line ends with `days not read:` and the days.
 
-A run with *since* (or `make backfill`) could not read the catchup page of those days: it
-failed (arxiv.org down, or a page that no longer parses), or listed fewer entries than it
-announces. They are not saved, since a day saved with its abstracts is never fetched again;
-the other days are, with their pages, then the run goes red (REL-4). After three days in a
-row it could not read, it asks for no more (`catchup pages in a row could not be read`):
-arxiv.org is down, and each day would cost a minute of retries. Run it again over the
-same days: the days already stored are reused, so only the missing ones are fetched. If a
-day keeps failing with `lists` fewer entries, or the page no longer parses, the catchup
-layout changed. The canary does not read catchup pages, only the recent listing, whose
-entries they share: open the day's catchup page and check its dated title and its
-"showing N of M entries" headings, which `parse_catchup` (`sources/arxiv_listing.py`) reads.
+A run with *since* (or `make backfill`) could not read those days' catchup pages (arxiv.org
+down, a page that no longer parses, fewer entries than it announces). They are not saved,
+since a saved day is never fetched again; after three in a row it stops asking
+(`catchup pages in a row could not be read`: arxiv.org is down). Run it again over the same
+days: only the missing ones are fetched. If a day keeps failing, the catchup layout
+changed, which the canary does not test: check the page's dated title and "showing N of M
+entries" headings against `parse_catchup` (`sources/arxiv_listing.py`).
 
 ### Validation failed: nothing was pushed
 
 **Signal.** `Data validation` in the job summary lists `ERROR` lines; the *Commit data*
 step is skipped and *Keep the data that failed validation* ran.
 
-A structural rule is broken (a record that does not load, a paper stored twice, an index
-out of step…). The run's data is kept, unpushed, in the `data-commit` artifact (7 days):
+The data is kept, unpushed, in the run's `data-commit` artifact (7 days):
 
 ```bash
 gh run download <run id> -n data-commit
-```
-
-```bash
 git fetch data-commit.bundle HEAD:recovered-data
 ```
 
-Then check out `recovered-data`, fix what `make validate` reports (usually a bug to fix in
-the code first, with a test), and push. If the data is not worth saving, do nothing: the
-next run collects the same papers again.
-
-On `top-recent.json` (the most cited papers of the last 12 months, PROD-11), "archived too",
-an `announced` before its `since`, or "the papers of the last 12 months differ from
-top-recent.json" in the index mean the archive wrote one file and not the other; the next
-archive rewrites both, so dispatching *Archive* again settles it (not on a Thursday or
-Friday if you want the week's gains: they need counts six days old).
+Check out `recovered-data`, fix what `make validate` reports (usually a code bug first,
+with a test), and push; or do nothing, and the next run collects the same papers again.
+Errors on `top-recent.json` ("archived too", "the papers of the last 12 months differ from
+top-recent.json") mean the archive wrote one file and not the other: dispatch *Archive*
+again (not on a Thursday or Friday: the week's gains need counts six days old).
 
 ### The data commit could not be pushed
 
 **Signal.** `changed both in this run and on main; nothing was pushed.` or
 `The data commit could not be pushed; nothing was pushed.`
 
-`main` moved during the run on a file other than `index.json`, `citations.json` and
-`citation-gains.json` (which `commit-data.sh` settles itself), usually a day file pushed by hand meanwhile, or three
-pushes were refused. Recover the `data-commit` artifact as above, then rebase it on `main`,
-settle the conflict (keep both sides' papers; `preprint-radar index` rewrites the index),
-validate and push. Prevention: never push `data/` while a data workflow runs.
+`main` moved during the run on a file that `commit-data.sh` does not settle (any but
+`index.json`, `citations.json`, `citation-gains.json`), or three pushes were refused.
+Recover the `data-commit` artifact as above, rebase it on `main`, settle the conflict (keep
+both sides' papers; `preprint-radar index` rewrites the index), validate and push.
 
 ### Semantic Scholar rejected the API key
 
 **Signal.** Error annotation *preprint-radar citations failed* (or *archive*):
 `Semantic Scholar rejected` the API key (HTTP 403 or 401).
 
-Every request of a valid key gets through or gets a 429; a 401 or 403 means the key is
-invalid or revoked. Get a new key from Semantic Scholar, then:
-
-```bash
-gh secret set SEMANTIC_SCHOLAR_API_KEY
-```
-
-Locally, update `SEMANTIC_SCHOLAR_API_KEY` in `.env`. Without a key, requests still work,
-much more slowly.
+The key is invalid or revoked (a valid one only ever gets 429s). Get a new one, run
+`gh secret set SEMANTIC_SCHOLAR_API_KEY`, and update `.env` locally. Without a key,
+requests still work, much more slowly.
 
 ### GitHub rejected the token
 
@@ -212,33 +165,26 @@ much more slowly.
 in *Update data* (`code --new`, the new papers' stars):
 `GitHub rejected the token` (HTTP 401), or locally `No GitHub token: set` (`GITHUB_TOKEN`).
 
-In CI the step passes the workflow's own token (`GITHUB_TOKEN: ${{ github.token }}`); a
-401 there means GitHub refused it for a while: the run after next tries again, and the
-stars of last week stay on the site meanwhile. Locally, put any GitHub token in `.env`
-(`GITHUB_TOKEN=`, one without permissions is enough), or run `GITHUB_TOKEN=$(gh auth
-token) make code`.
+In CI it is the workflow's own token, refused for a while: a later run tries again, and the
+stars stay as they were. Locally, put any token in `.env` (`GITHUB_TOKEN=`, no permission
+needed), or run `GITHUB_TOKEN=$(gh auth token) make code`.
 
 **Signal.** `GitHub refused the query` (a warning): a rate limit, or a query it would not
 run. Those papers keep last week's stars; nothing to do unless it comes back every week.
 
 **Signal.** `GitHub limits the queries` (info), then perhaps `GitHub kept limiting the
 queries` (a warning): its secondary limits refused a query three times despite the waits
-(`Retry-After`, else one minute, then two), and the repositories left keep last week's
-stars. One a week is harmless; if it comes back, raise `GITHUB_DELAY_SECONDS` in the
-GitHub source (3 s since 2026-10-12, when 1 s was refused after 30 queries).
+(`Retry-After`, else one minute, then two); the repositories left keep last week's stars.
+If it comes back every week, raise `GITHUB_DELAY_SECONDS` (3 s) in the GitHub source.
 
 ### OpenAlex placed no institution
 
 **Signal.** "OpenAlex lookup of 50 `institutions failed`" (a warning) in *Update data* or
-*Archive* (`countries`, UX-40): OpenAlex refused or broke a request.
+*Archive* (`countries`, UX-40): OpenAlex refused or broke a request. The next run asks
+again; meanwhile the map counts those papers in no country.
 
-Those institutions are asked for again by the next run; meanwhile the map counts their
-papers in no country.
-
-**Signal.** `The former countries.json does not load` (a warning): the file was broken.
-
-Every institution is then asked for again, about 90 requests; `make validate` names what
-was wrong.
+**Signal.** `The former countries.json does not load` (a warning): the file was broken,
+so every institution is asked for again (about 90 requests).
 
 ## Update data is green, but something is off
 
@@ -247,59 +193,46 @@ was wrong.
 **Signal.** Warning annotation `Out of time` (`HTML renderings left for the next run`, or
 for a backfill `days left for the next run`).
 
-The 175 minutes of *Fetch papers* ran out before every page was read (or, for a backfill
-over several categories, before the later ones' catchup pages were asked for): a big day,
-or a slow arxiv.org. Normal after a long gap; the next runs read the rest. If it shows every
-day, reading cannot keep up (more than 600 papers a day at 15 s a page): lower the
-categories or accept a backlog.
+The 175 minutes of *Fetch papers* ran out: the next runs read the rest. If it shows every
+day, reading cannot keep up (more than 600 papers a day at 15 s a page): drop categories.
 
 ### The listing lacked today's announcement
 
 **Signal.** Warning annotation `Listing out of date` (`the listing lacks` a day, whose
 `papers come from its catchup page`), or `whose catchup page could not be read`.
 
-arXiv's cache served the recent listing hours old: on 2026-10-15, after an announcement
-late that night, the runs of 06:17 and 06:43 UTC got a copy without the day (`age: 16802`,
-`x-cache: HIT`). The listing request carries a parameter new at each run (`fresh`), and on
-a weekday the listing still lacks, the run reads that day's catchup page, abstracts
-included; a holiday's is empty, and says nothing. Nothing to do: the next day's listing
-holds the day too. If the catchup page could not be read, the next run's listing has the
-day, or dispatch *Update data* with the day as *since*.
+arXiv's cache served the listing hours old, without a day announced late at night: the run
+read that day's catchup page instead. Nothing to do; if that page could not be read, the
+next run's listing has the day, or dispatch *Update data* with the day as *since*.
 
 ### Semantic Scholar keeps refusing
 
-**Signal.** `Semantic Scholar keeps refusing; stopping after` in the citations step, or in the weekly
-*Fetch the published versions* step.
+**Signal.** `Semantic Scholar keeps refusing; stopping after` in the citations step, or in
+the weekly *Fetch the published versions* step.
 
-Semantic Scholar answered 429 for 10 minutes (20 for the published versions): the new papers
-get their counts on a later day, and the papers not asked for keep last week's DOI and venue.
-Harmless, and the step stays green. If counts stop arriving altogether, the
-summary's `Stale citation counts` warning shows it after 14 days.
+It answered 429 until the step's budget ran out (10 minutes, 20 for the published
+versions): the papers left get their counts, DOI and venue on a later run. Harmless and
+green; if counts stop arriving, the summary warns `Stale citation counts` after 14 days.
 
 **Signal.** `cannot answer for` (a warning, with what Semantic Scholar answered), or
-`Semantic Scholar keeps answering batches that do not match; stopping after`. A batch got
-an answer that is not one entry per paper; asked for in halves, the paper it cannot answer
-for is left out of the week's counts. A few in a run are harmless. If the log shows the
-same paper every week, its arXiv id is one Semantic Scholar refuses: look it up by hand.
+`Semantic Scholar keeps answering batches that do not match; stopping after`. Such papers
+are left out of the week's counts. A few are harmless; the same paper every week is an
+arXiv id Semantic Scholar refuses: look it up by hand.
 
 ### A traceback that ends in KeyboardInterrupt
 
-**Signal.** A traceback ending in `KeyboardInterrupt`, after
-`Interrupted: saving the`.
+**Signal.** A traceback ending in `KeyboardInterrupt`, after `Interrupted: saving the`.
 
-A cancelled run, a step timeout or Ctrl-C: the command saved what it had read, then
-stopped. It is the clean stop, not a crash; the next run resumes.
+A cancelled run, a step timeout or Ctrl-C: the clean stop, after saving what was read.
 
 ## Archive did not change
 
 **Signal.** Error annotation `Archive not updated` (`Too few citation counts`), and in
 the log `of citation counts: the archive and day files stay as they are`.
 
-Fewer than 95% of the candidates got a count, mostly because Semantic Scholar refused too
-many batches. The counts fetched are merged into `citations.json` (its date stays), the
-archive is left as it was, and the run is red. Run *Archive* again by hand: counts are
-cached for 7 days in `.cache/catalog/`, so it resumes where it stopped. Without you,
-Sunday's fallback tries again, then Saturday's catch-up.
+Fewer than 95% of the candidates got a count: those fetched go into `citations.json`, the
+archive stays as it was, and the run is red. Run *Archive* again by hand: the counts are
+cached for 7 days in `.cache/catalog/`, so it resumes. Otherwise the fallback retries.
 
 ## Catalog cache evicted
 
@@ -308,25 +241,20 @@ since a date, and the run takes about 45 minutes more, sooner than 90 days after
 whole harvest (that run's log says the records that left the set `since its last whole
 harvest`), which is due then (META-6).
 
-GitHub evicts Actions cache entries unused for 7 days, and the archive runs weekly: when
-it started late, on 2026-10-11 (the fallback, which GitHub started at 15:57), the entry of
-the Sunday before was gone. *Update data* now restores it on weekdays only to keep it in
-the cache (CI-10), so this means that step failed all week, or the entry was deleted. The
-catalog is rebuilt from scratch (OAI-PMH is meant for it; 5 s between pages). Nothing
-else is lost: the cached citation counts only serve a run that resumes within 7 days.
+GitHub evicts cache entries unused for 7 days, and *Update data* restores the catalog on
+weekdays to keep it (CI-10): that step failed all week, or the entry was deleted. The
+catalog is rebuilt from scratch; nothing else is lost.
 
 ## A whole harvest kept the catalog
 
 **Signal.** The *Archive* log says `The whole set of` the category lists so many of the
 catalog's records: `kept them all`.
 
-Every 90 days the archive harvests the whole OAI set again, which replaces the catalog so
-that the records that left it (cross-lists removed) leave it too. This one listed fewer
-than 99% of the catalog's records, which a quarter's removals never are: an OAI outage
-that ended the list early, or a set renamed. The catalog was merged with it instead, as a
-weekly harvest is, and the next whole harvest is in 90 days. If arXiv renamed its sets
-(`ListSets`), fix `Catalog.set_spec`; to harvest the whole set again sooner, delete
-`full` from `.cache/catalog/<category>.state.json` (in CI, the cached catalog's).
+The whole harvest, every 90 days, replaces the catalog so that removed records leave it;
+this one listed under 99% of it (an OAI outage, or a renamed set), so it was merged
+instead. If arXiv renamed its sets (`ListSets`), fix `Catalog.set_spec`; to harvest the
+whole set sooner, delete `full` from `.cache/catalog/<category>.state.json` (in CI, the
+cached catalog's).
 
 ## The trends kept last week's
 
@@ -335,50 +263,41 @@ catalog `holds no paper since 2010`, `archive harvests it`; or the warning
 `No citation counts of the week in` the catalog's directory: `the topics' impact and key
 papers are left out`.
 
-The trends step counts the titles of the catalog that the archive step harvested in the
-same run (`.cache/catalog/`), offline (PROD-20, [trends.md](trends.md)). Without a
-catalog, the archive step failed before its harvest with the Actions cache evicted:
-`trends.json` and `topics.json` keep last week's, and the site its Trends view as it was;
-run *Archive* again. Without the counts (Semantic Scholar refused the week's, or they were
-cached more than 7 days ago) the topics are counted all the same, without their impact
-and key papers, and the files' `source` says `arXiv` alone; the next archive brings them
-back. Locally, `make trends` reads the catalog of your last `make archive`.
+`trends` reads the catalog the archive step harvested in the same run
+([trends.md](trends.md)). Without it, `trends.json` and `topics.json` keep last week's:
+run *Archive* again. Without the week's counts, the topics lack their impact and key
+papers until the next archive. Locally, `make trends` reads your last `make archive`'s.
 
 ## Re-extract after a heuristic fix
 
-- **A change to the cleaning only** (`clean_affiliation`, `names_only_authors`): run
-  `make reclean`, then `make institutions` (the changed strings lost their names), then
-  `make validate`. Offline but for ROR; seconds.
-- **A change to what a page gives** (affiliations, mapping): bump `EXTRACTOR_VERSION`.
-  The daily *Extract stored papers again* step reads papers of older versions again, from
-  the page cache (free) and up to 50 downloads a day. To repair older papers at once, name
-  them: `preprint-radar reextract --ids <ids>` or `--match <regex>` (15 s a page not in
-  the cache).
-- Measure before and after with `make quality-affiliations`: with the page cache, it
-  compares what is stored with what the extraction gives today, without writing. `make
-  extraction-diff` lists the papers it changes, those that would lose words first.
-- **Signal** `cached pages gave no affiliation to papers that have some`: pages kept before
-  2026-10-06 lost the tables of their author block, where some classes write names and
-  affiliations (2609.06629), and pages kept before 2026-10-15 that set a list of acronyms
-  before their title kept nothing (2610.09677). Those papers keep what they had and their
-  pages leave the cache: the next run downloads them, within its budget. Nothing to do.
+- **Cleaning only** (`clean_affiliation`, `names_only_authors`): `make reclean`, then
+  `make institutions` (changed strings lost their names), then `make validate`.
+- **What a page gives** (affiliations, mapping): bump `EXTRACTOR_VERSION`; the daily
+  *Extract stored papers again* step re-reads older versions, from the page cache and up to
+  50 downloads a day. To repair papers at once: `preprint-radar reextract --ids <ids>` or
+  `--match <regex>`.
+- Before and after, run `make quality-affiliations` and `make extraction-diff` (with the
+  page cache: what today's extraction changes, nothing written).
+- **Signal** `cached pages gave no affiliation to papers that have some`: stale cached
+  pages (`PageCache.stale`). Those papers keep what they had; the next run downloads their
+  pages again. Nothing to do.
 
 ## Affiliations of the highly cited papers
 
-The weekly *Archive* run ends with `archive-affiliations`: OpenAlex's record of the
-published version of each highly cited paper without affiliations (`docs/archive.md`).
-Its line is in the job summary, under **Affiliations of the highly cited papers**.
+The weekly *Archive* run calls `archive-affiliations`: OpenAlex's record of the published
+version of each highly cited paper without affiliations (`docs/archive.md`).
 
-**Signal.** `published versions: %s place the authors, %s name others` in the log: the
-versions that name others are papers Semantic Scholar linked to a wrong DOI (24 of 7,027
-in October 2026); they keep what they had. Nothing to do, unless that count grows.
+**Signal.** `published versions: %s place the authors, %s name others` in the log: those
+naming others are papers Semantic Scholar linked to a wrong DOI (24 of 7,027 in October
+2026), which keep what they had. Nothing to do unless that count grows.
 
 ### Read their HTML pages (a night, on a machine of yours)
 
-The papers no published version places, about 2,000 of 2024 and 2025 and those of the
-last 12 months, have HTML pages on arXiv: 15 s each, a night, which no workflow runs (its
-minutes are billed). On a machine with `git`, `make` and `uv`, a clone of the repository
-and a `.env` holding `PREPRINT_RADAR_CONTACT`, in `tmux` or under `nohup`:
+The papers no published version places (about 2,000 of 2024 and 2025, plus those of the
+last 12 months) have HTML pages: 11 hours at 15 s a page, too long for a workflow. On a
+machine with `git`, `make`, `uv`, a clone and a `.env` holding `PREPRINT_RADAR_CONTACT`,
+in `tmux` or under `nohup`, after Sunday's *Archive* has pushed (it rewrites the same
+files: the archive and `top-recent.json`) and before the next:
 
 ```bash
 git pull
@@ -389,53 +308,40 @@ git commit -m "chore(data): affiliations of highly cited papers from their HTML 
 git pull --rebase && git push
 ```
 
-- The most cited are read first; progress is saved every 20 pages downloaded and on Ctrl-C, and
-  running it again resumes: pages already read come from `.cache/front-matter/`, offline,
-  and those that answered 404 are not asked for again, nor read again those that gave no
-  affiliation (`cached HTML renderings gave no affiliation: not read again`). To end it cleanly before a time
-  limit: `uv run preprint-radar -v --contact <e-mail> archive-affiliations --max-html
-  3000 --deadline-minutes 480` (only the Makefile reads `.env`).
-- It writes only the archive and `top-recent.json`, which the weekly *Archive* run
-  rewrites on Sundays (05:41 UTC): start once that run has pushed (the list of the last 12
-  months is then this week's, and exists from 2026-10-11 on), and push before the next,
-  never while *Update data* or *Archive* runs (`gh run list`). If `git pull --rebase`
-  stops on a conflict all the same, `git rebase --abort`, `git reset --hard origin/main`
-  (only the data commit is lost), then run it again: minutes, from the cache.
-- It stops as the daily update does: red after 5 failed pages in a row (`HTML renderings
-  in a row: stopping`) or nearly every page empty (`gave no affiliation: has arXiv's layout
-  changed?`); what it read is saved, so look at the cause, then run it again.
+Running it again resumes: progress is saved every 20 pages and on Ctrl-C, and pages read
+or answering 404 are never asked again. To stop before a time limit:
+`uv run preprint-radar -v --contact <e-mail> archive-affiliations --max-html 3000
+--deadline-minutes 480` (only the Makefile reads `.env`). If `git pull --rebase` conflicts:
+`git rebase --abort`, `git reset --hard origin/main` (only the data commit is lost), and
+run it again (minutes, from the cache). It stops red like the daily update
+([arXiv is down](#arxiv-is-down), [layout changed](#arxiv-changed-its-page-layout)).
 
 ## Add a category
 
 1. Set the repository variable `PREPRINT_RADAR_CATEGORIES` (space-separated, e.g.
-   `cs.CV cs.LG`). Both data workflows read it.
-2. The first *Update data* run reads the five days of the new listing: about 750 pages,
-   3 hours, of which a run reads at most 600 (`DEFAULT_MAX_HTML`), within the deadline
-   the categories share; the next runs read the rest. Use *since* for older days.
-3. The archive harvests the category's OAI set (derived from the category: `cs.LG` is
-   `cs:cs:LG`, `astro-ph.CO` `physics:astro-ph:CO`) and gives it its own archive, of the same budget (22,000 by default,
-   `PREPRINT_RADAR_ARCHIVE_BUDGET`): the first run takes about 45 minutes more, and asks
-   Semantic Scholar for the new category's counts too.
-4. The site lists the categories of `index.json` and opens the first in alphabetical
-   order. The About page names cs.CV: update it.
+   `cs.CV cs.LG`); both data workflows read it.
+2. *Update data* reads the new listing's five days (about 750 pages) over two runs, 600
+   pages a run at most (`DEFAULT_MAX_HTML`). Use *since* for older days.
+3. The archive harvests the category's OAI set (`cs.LG` is `cs:cs:LG`, `astro-ph.CO`
+   `physics:astro-ph:CO`) into its own archive, of the same budget (22,000 by default,
+   `PREPRINT_RADAR_ARCHIVE_BUDGET`): its first run takes about 45 minutes more.
+4. The About page names cs.CV: update it.
 
 ## The site or the repository grows too large
 
 **Signal.** `Site too large` (the deploy fails) or `Site growing` in *Deploy site*;
 `Repository growing` in the weekly *arXiv canary*.
 
-Both sizes are on the runs' pages every time (`Site size`, `Repository size`). GitHub Pages
-refuses a site over 1 GB: the deploy fails at 800 MB and warns at 600 MB. Day files grow
-by about 110 MB a year of cs.CV, and pruning keeps one year of them (the archive stays near
-50 MB), so the warnings come with several categories.
+Both sizes are on every run's page (`Site size`, `Repository size`). Pages refuses a site
+over 1 GB: the deploy fails at 800 MB and warns at 600 MB. A year of cs.CV day files is
+about 110 MB and pruning keeps one year (the archive stays near 50 MB), so the warnings
+come with several categories. At a warning (the migration trigger, ARCH-1):
 
-At a warning (the migration trigger, decided with ARCH-1):
-
-1. Check that pruning is on (decision 2: day files older than 12 months leave the site and
-   the working tree, but stay in git history; the archive keeps their cited papers): the
-   repository variable `PREPRINT_RADAR_ARCHIVE_PRUNE` is `true` since 2026-10-06.
+1. Check that pruning is on: the repository variable `PREPRINT_RADAR_ARCHIVE_PRUNE` is
+   `true` (decision 2: older day files leave the site and the working tree, not the git
+   history; the archive keeps their cited papers).
 2. If the repository still grows past 500 MB, publish `data/` only through the Pages
-   artifact and keep the store on an orphan `data` branch squashed every month (or in
+   artifact and keep the store on an orphan `data` branch squashed monthly (or in
    releases, or a bucket); the workflows then commit there instead of `main`.
 
 ## How long things take
@@ -444,16 +350,8 @@ At a warning (the migration trigger, decided with ARCH-1):
 |---|---|
 | One HTML page | 15 s (arxiv.org's crawl delay) |
 | Daily update | 40 minutes to 2 hours (200 to 400 papers) |
-| First update of a category | about 3 hours (750 pages), over two runs |
-| Backfill of a month of cs.CV | about 11 hours (2,900 pages), over five runs of 600 pages, or one with `MAX_HTML=3000` |
-| Re-extraction from the page cache | seconds |
-| `reclean`, `validate`, `stats` | seconds |
-| `affiliations` (OpenAlex, papers without an HTML page or whose page gave none) | seconds; 20 s the first time (225 papers) |
-| `code` (GitHub stars, Hugging Face likes) | about 5 minutes (76 GraphQL queries at one every 3 s, 63 Hub pages); `--new`, daily, seconds (a query or two) |
-| `countries` (OpenAlex, the institutions' countries) | seconds; about 90 requests the first time (4,300 institutions) |
-| `archive-affiliations` (OpenAlex, published versions) | seconds; 2 minutes the first time (7,076 DOIs) |
-| `archive-affiliations MAX_HTML=3000` (HTML pages of highly cited papers) | 15 s a page: about 8 hours for the archive's 2,000, 3 more for the last 12 months |
-| `institutions` | a few minutes (one request per distinct string, every 0.5 s) |
-| First catalog harvest, and the whole set again every 90 days | about 45 minutes |
-| `trends` (the topics of the catalog's 210,000 titles) | under a minute, offline |
-| Weekly archive of cs.CV | 207,000 counts in 415 requests: about 40 minutes with a key and a warm catalog; hours without a key |
+| Backfill of a month of cs.CV | about 11 hours (2,900 pages): five runs, or one with `MAX_HTML=3000` |
+| Weekly archive of cs.CV | about 40 minutes with a key and a warm catalog; hours without |
+| Catalog harvest, the first time and every 90 days | about 45 minutes |
+| `institutions` (ROR), `code` (GitHub, the Hub) | minutes |
+| `reextract` from the cache, `reclean`, `validate`, `stats`, `trends`, OpenAlex steps | seconds to a minute |

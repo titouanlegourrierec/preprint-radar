@@ -1,373 +1,224 @@
 # The citation archive and the scholarly sources
 
-How the weekly archive (`archive/`), the citation counts, the published versions and the
-stars of the papers' code work, and what Semantic Scholar, OpenAlex, arXiv's OAI-PMH,
-GitHub and the Hugging Face Hub are like to work with. Read this before changing
-`archive/`, `sources/semantic_scholar.py`, `sources/openalex.py`, `sources/arxiv_oai.py`,
-`sources/github.py` or `sources/huggingface.py`. The failures and what to do about them are in [operations.md](operations.md).
+The weekly archive (`archive/`), the citation counts, the published versions and the stars
+of the papers' code, and what Semantic Scholar, OpenAlex, arXiv's OAI-PMH, GitHub and the
+Hugging Face Hub are like to work with. Files and fields: [data-format.md](data-format.md);
+failures and what to do: [operations.md](operations.md).
 
 ## The weekly archive (`archive/update.py`, `archive.yml`, Sundays)
 
-- `archive/catalog.py` keeps the category's OAI-PMH set, harvested by
-  `sources/arxiv_oai.py`, in `.cache/catalog/` (git-ignored; the Actions cache in CI).
-  Each week it asks for the records modified since its last harvest, and drops those OAI
-  says were deleted; a record that leaves the set (a cross-list removed) is not among
-  them, so every 90 days (`FULL_HARVEST_DAYS`) the whole set is harvested again and
-  replaces the catalog, about 45 minutes. A whole set that lists fewer than 99% of the
-  catalog's records is merged instead, with a warning: an archived paper that leaves the
-  catalog leaves the archive (META-6). The set is the category's as OAI's `ListSets`
-  names it: `cs:cs:CV`, and for physics archives `physics:astro-ph:CO` or `physics:hep-th`.
-- `sources/semantic_scholar.py` gets a citation count for every candidate (about 207,000,
-  in 415 requests).
-- `archive/selection.py` ranks the papers older than 12 months by citations per year of
-  age (`max(age, 1)`) and keeps a budget of them: 22,000 by default, about 20 citations a
-  year. An archived paper leaves only beyond 1.15 times the budget. And whatever the
-  budget, each year at least three years old keeps its most cited tenth (`year_floor`,
-  `YEAR_FLOOR_SHARE`, decision 22), never-cited papers left out: the run logs how many
-  papers only that keeps.
-- The archive also writes `cohorts.json`: each complete year's papers since 2010 (every
-  candidate, withdrawn ones left out), how many, and the citations of the last of their
-  top 1%, 5% and 10% (`year_cohorts`), from which the site says "Top 1% of 2017". Not
-  without the counts (a run below the coverage keeps last week's).
-- `sources/openalex.py` gives the affiliations of papers that enter from the catalog:
-  OpenAlex's institutions, which are registry entries, so they are also the papers'
-  `institutions`, with their ROR ids, and both have the provenance `openalex` and the day
-  of the lookup (the day a paper OpenAlex knew nothing of can be asked again, AFF-3).
-  The catalog's own format (OAI's `arXiv`) has an `<affiliation>` per author, which arXiv
-  leaves out: none of the 3,156 authors of 503 records of October 2026 had one (AFF-19).
-- Day-file papers compete too, once first seen 12 months ago (the earlier of their day
-  file and the catalog's date, which can be weeks later: 2609.00036 was announced on
-  2026-09-02, the catalog says 2026-09-14). They enter with their own enrichment, filed
-  under that first appearance: an old paper cross-listed lately goes to its own year.
-  One the catalog does not list (a cross-list first seen before 2010, one the set no longer
-  holds) competes on its day file's date: pruning that day would otherwise delete it
-  without ranking it (CIT-14).
-- Every stored paper, day files and archive alike, takes the comments and journal
-  reference of its latest version from the catalog, and the venue they give (META-2,
-  `refreshed`): a record otherwise keeps what the listing said when it was announced
-  ("Under review" long after its acceptance). The catalog never empties a field. This
-  needs a catalog just harvested, so it only runs within the weekly update, even when
-  the citation counts fall short.
-- A withdrawn paper (`withdrawn`, from the comments of its latest version) is never a
-  candidate, and an archived one leaves (decision 18). `withdrawal.is_withdrawn` reads 467
-  of the catalog's 473 comments that mention a withdrawal as one; the 6 others are
-  withdrawals from a workshop or the proceedings, of an earlier version or of another
-  submission.
-- Deleting day files older than 12 months (`--prune`) keeps a rolling year of day files
-  (decision 2): `archive.yml` prunes since 2026-10-06 (the `PREPRINT_RADAR_ARCHIVE_PRUNE`
-  repository variable), which deletes nothing before September 2027. It decides nothing
-  else: an archived paper can also be in a day file.
-- With less than 95% of citation counts, the archive and day files stay as they are (their
-  comments are refreshed all the same), the
-  counts fetched are merged into `citations.json`, whose date stays, and the command fails
-  once it has written them (`archive.yml` validates and commits even then). Above it, an
-  archived paper whose count is missing this week is ranked on last week's.
-- Archived records: `announced` is the first appearance (from the identifier's month when
-  OAI's `created` disagrees), `html_url` is `null` for a paper built from the catalog; one
-  that enters from a day file keeps that record, its HTML link and affiliations with it.
-- A paper built from the catalog names its subjects as the listings do: as the day files
-  name the code, else from arXiv's taxonomy (`archive/subjects.py`, META-8), where an
-  alias is its canonical subject, listed once (OAI gives `eess.SY cs.SY`, the listings
-  "Systems and Control (eess.SY)"); a code neither knows stays bare. Its authors are
-  arXiv's metadata without what the author list added (`arxiv_oai.author_names`,
-  AFF-21): trailing footnote digits, `*` and `†` ("Jie Qin1"), a leading "and ", and the
-  author "others" ("et al."). The catalog is cleaned as it is read, so the cache
-  harvested before needs no new harvest. Both apply to the papers entering the archive,
-  and each week to those of the archive and of the last 12 months that no day file holds
-  (`cleaned`, AFF-21, META-8): on 2026-10-17, 158 stored papers had names or subjects
-  written before, 7 of them names ("Jie Qin1", "others", "and Haibin Ling") and 161 bare
-  subjects; a dropped author leaves the mapping with its place. Day files keep the names
-  the listing gives (a starred one in 2610.05756).
+- **Catalog** (`archive/catalog.py`): the category's OAI-PMH set as `ListSets` names it
+  (`cs:cs:CV`, `physics:hep-th`), kept in `.cache/catalog/` (the Actions cache in CI). It
+  asks weekly for the records modified since the last harvest and drops those OAI says were
+  deleted. A cross-list removed from the set is not among them, so every 90 days
+  (`FULL_HARVEST_DAYS`) the whole set (about 45 minutes) replaces the catalog, unless it
+  lists fewer than 99% of its records: then it is merged, with a warning (META-6).
+- **Candidates**: every catalog paper since 2010 (about 207,000, counted in 415 Semantic
+  Scholar requests) and every day-file paper, first seen on the earlier of its day and the
+  catalog's date (which can be weeks later). A day-file paper the catalog does not list
+  competes on its day, which pruning would otherwise delete unranked (CIT-14). An archived
+  paper that neither holds leaves.
+- **Selection** (`archive/selection.py`): papers first seen over 12 months ago, ranked by
+  citations per year of age (`max(age, 1)`). The best 22,000 enter (`DEFAULT_BUDGET`,
+  about 20 citations a year); an archived one leaves only beyond 1.15 times the budget
+  (`DEFAULT_MARGIN`), so that papers near the limit do not come and go. Each year at least
+  three years old also keeps its most cited tenth (`year_floor`, decision 22); the run
+  logs how many only that floor keeps. Never-cited papers are never kept, nor withdrawn
+  ones (`withdrawn`, from the latest comments): an archived one leaves (decision 18).
+- **Records**: a paper from a day file or last week's top-recent keeps its record, filed
+  under its first appearance (an old paper cross-listed lately goes to its own year). One
+  built from the catalog: `announced` its first appearance (the identifier's month when
+  OAI's `created` disagrees), `html_url` `null`, OpenAlex's affiliations, subjects as the
+  listings name them (`archive/subjects.py`, META-8: an alias as its canonical subject,
+  listed once; an unknown code bare), authors without the author list's footnote marks,
+  leading "and " or "others" (`arxiv_oai.author_names`, AFF-21). Each week
+  the same cleaning reaches the papers no day file holds (`cleaned`), a dropped author
+  keeping its place in the mapping. Day files keep the listing's names.
+- **Comments** (`refreshed`, META-2): every stored paper takes the comments, journal
+  reference and venue of its latest version from the catalog, which never empties a field.
+  It needs a fresh harvest, so it runs only here, even below the coverage gate.
+- **Cohorts** (`cohorts.json`, `year_cohorts`): each complete year since 2010, withdrawn
+  papers left out: its size and the citations of the last of its top 1%, 5% and 10%.
+- **Coverage gate**: below 95% of candidates counted (`MIN_COVERAGE`), the archive,
+  top-recent, cohorts and day files stay; the counts fetched are merged into
+  `citations.json`, keeping its date, and the command fails after writing them (CI still
+  commits). Above it, an archived or top-recent paper missing a count keeps last week's.
+- **Pruning** (`--prune`; `PREPRINT_RADAR_ARCHIVE_PRUNE` in CI) deletes the day files older
+  than 12 months (decision 2). It decides nothing else: an archived paper can be in one.
 
 ## Why citations per year of age (the calibration of September 2026)
 
-The archive's rule and its default budget come from a study of every cs.CV paper since 2010
-made on 2026-09-29: arXiv's OAI-PMH set `cs:cs:CV` (206,740 papers, cross-lists included)
-and Semantic Scholar's counts (99.6% found). Its scripts and their 22 MB of data stay
-local, in the git-ignored `experiments/2026-09-citations/` (DOC-4); its findings are these.
-
-A fixed threshold favors old papers: 500 citations keep 486 papers of 2018 but 64 of 2025.
-
-| Citations at least | Papers | Primary cs.CV | Cross-lists |
-| ---: | ---: | ---: | ---: |
-| 500 | 3,559 | 2,942 | 617 |
-| 1,000 | 1,484 | 1,223 | 261 |
-| 5,000 | 192 | 159 | 33 |
-| 10,000 | 81 | 67 | 14 |
-| 100,000 | 3 | 3 | 0 |
-
-Citations per year of age compare old and recent papers fairly. Over the 160,466 papers
-older than a year:
-
-| Citations a year at least | Papers | Older than 5 years |
-| ---: | ---: | ---: |
-| 10 | 41,537 | 15,980 |
-| 20 | 22,619 | 9,385 |
-| 50 | 8,252 | 3,710 |
-| 100 | 3,440 | 1,634 |
-
-Hence the budget of 22,000, about 20 citations a year, which rises with the field instead
-of a threshold to move by hand. A paper of 12 months has few (6,141 papers of
-2025-08-15 to 2025-10-15: median 2, 90th percentile 18, 99th 109; 20 or more keeps 9%),
-so the archive takes papers older than 12 months, and the last 12 months rank by
-citations per month of age (PROD-11, below). At about 2.5 KB a paper in JSON, the budget
-weighs about 55 MB.
+From a study of every cs.CV paper since 2010 (206,740 with cross-lists; Semantic Scholar
+found 99.6%), whose scripts stay in the git-ignored `experiments/2026-09-citations/`
+(DOC-4). A fixed threshold favors old papers: 500 citations keep 486 papers of 2018 but
+64 of 2025. Per year of age, of the 160,466 papers older than a year, 10 citations a year
+keep 41,537, 20 keep 22,619 (9,385 older than 5 years), 50 keep 8,252, 100 keep 3,440.
+Hence 22,000, about 20 a year: a budget that rises with the field, not a threshold moved
+by hand; about 55 MB at 2.5 KB a paper. A paper of 12 months has few citations (median 2,
+90th percentile 18), so the archive starts there.
 
 ### Each year's most cited tenth (decision 22, 2026-10-21)
 
-Citations per year of age kept 8 papers of 2010, 7 of 2011, 21 of 2012 and 41 of 2013, and
-fewer every year: the threshold rises with the field while a classic's citations slow down.
-cs.CV was small on arXiv then (291 papers in 2010, 850 in 2013, 1,347 in 2014), so the
-1,000 most cited of each year, considered instead, would have taken every paper of those
-years, uncited ones too, and dropped 12,180 papers of 2017 to 2025 cited 20 to 250 times
-for 16,000 in all; the top eighth of each year, the budget's share, 3,168 papers of 2015 to
-2021 cited 140 to 400 times for papers of 2024 and 2025 cited 18 to 40 times. A floor keeps
-both: the budget's rule, and each year's most cited tenth, as bibliometrics' "highly cited
-papers" compare a paper with those of its year (Web of Science's are the top 1% of their
-field and year). On the counts of 2026-09-30, it adds 138 papers, all but four of 2010 to
-2013: 2010 keeps 29 (97 citations at least), 2011 38 (86), 2012 58 (134), 2013 85 (123).
-Years younger than three get none: their counts still move, and 2025's tenth would add 700
-papers cited 21 times. A fixed floor of 100 a year would have taken 2010's papers down to
-23 citations.
+The budget's threshold rises while a classic's citations slow down: it kept 8 papers of
+2010. A fixed number a year would take every paper of those small years (291 in 2010), and
+the budget's share of each year would drop papers of 2015 to 2021 cited 140 to 400 times
+for recent ones cited 18 to 40 times. Hence both: the budget, and each year's top tenth,
+as bibliometrics compare a paper with its year (Web of Science's highly cited papers are
+the top 1% of their field and year). The floor adds about 140 papers, nearly all of 2010
+to 2013. Years younger than three get none: their counts still move.
 
-OpenAlex was rejected for both questions. Its subfield "Computer Vision and Pattern
-Recognition" is not cs.CV: it held 48% of the papers stored in September 2026 (51% of
-primary cs.CV papers, 35% of cross-lists), and 59% of the arXiv works it put there
-(2026-09-01 to 18) were in cs.CV. It counts a preprint apart from its published version:
-Semantic Scholar's counts were 1.7 times higher in median over 18 papers, up to 6 times
-(DDPM) and 13 times (YOLOv7). The catalog comes from arXiv, the counts from Semantic
-Scholar.
+OpenAlex was rejected for the catalog and the counts: its "Computer Vision and Pattern
+Recognition" subfield held 48% of the stored cs.CV papers, and it counts a preprint apart
+from its published version (Semantic Scholar's counts are 1.7 times higher in median).
 
 ## The most cited papers of the last 12 months (`top-recent.json`, PROD-11)
 
-The archive starts at 12 months, and the day files began in September 2026 (decision 1): the
-papers first seen from October 2025 to August 2026 were in no file. The weekly archive has
-their counts anyway (it asks for every paper of the catalog), and keeps the most cited of
-them apart, in `<category>/top-recent.json`, which the site offers as Highly cited's "Last
-12 months". Once the day files hold a year, the list stays: a view loads 10,000 papers, a
-year of cs.CV is 46,000.
+The archive starts at 12 months and the day files began in September 2026 (decision 1).
+The weekly run counts every catalog paper anyway and keeps the 1,000 most cited of the
+last 12 months apart, for Highly cited's "Last 12 months" (a year of cs.CV is 46,000).
 
-- `archive/selection.py`, `select_top_recent`: the papers first seen within the last 12
-  months (`is_recent`, the window the archive leaves out), withdrawn and never-cited ones
-  excepted, ranked by citations per month of age, counting at least two months
-  (`config.TOP_RECENT_MIN_MONTHS`); the best 1,000 (`TOP_RECENT_BUDGET`). The archive's
-  score, per year of age counting at least one, would rank them by their raw counts: of the
-  623 papers at its threshold in September 2026, 6 were from July and none from August. Per
-  month of age from 80 to 180 papers a month enter, but 50, 29 and 25 for the last three
-  (the newest have had no time; the day files hold them), and the least cited have 4.
-  Counted over one month, two citations in a paper's first weeks (often its authors' next
-  paper) would rank it with the best of the year.
-- Records: a paper of the day files is its record there as the run reads it, on its day
-  (the catalog's date, its first version's, is often a day or two earlier, and the site
-  links it to its day); one kept from last week keeps its record (its OpenAlex
-  affiliations), with the comments of its latest version; the others are built from the
-  catalog, with affiliations from OpenAlex, as archived papers are (`_with_affiliations`,
-  which asks again for those it knew nothing of every 30 days). OpenAlex knows the
-  affiliations of few recent preprints, about one in six in 2025, more by their published
-  version, and their pages give the others' (`archive-affiliations`, below). A paper
-  Semantic Scholar misses this week keeps last week's count, as an archived one.
-- The file has the first day of the window (`since`, 364 days before the run) and is
-  rewritten whole; the index lists it (`top_recent`: `since` and `count`). It holds no
-  archived paper: both use the same window and first appearance. Below the coverage gate,
-  last week's papers stay, with their comments refreshed. Every OpenAlex lookup comes
-  before the first write, and the list is written before the archive (last week's may hold
-  papers entering it, this week's none it held): a run stopped between two writes leaves
-  no paper in both, which `validate` would refuse.
-- Every step on "every stored paper" includes them: the counts (`citations`, `ALL=1`), the
-  published versions (`scholar`), `make venues` and `make institutions-again`. `validate`
-  fails a file that does not load, a paper listed twice, announced before `since` or
-  archived too, and an index that disagrees with it.
-- A paper that ages out leaves at the next run; it enters the archive only if it ranks
-  there, with the record it had (its day file's, or this list's, with what its published
-  version or its page gave), never built again from the catalog.
+- **Selection** (`select_top_recent`): papers first seen within 12 months (`is_recent`),
+  withdrawn and never-cited ones excepted, by citations per month of age counting at least
+  two (`TOP_RECENT_MIN_MONTHS`); the best 1,000 (`TOP_RECENT_BUDGET`). Per year of age
+  would rank them by raw counts (none of August among 623 in September); over one month,
+  two early citations (often the authors' next paper) would rank a paper with the best.
+- **Records**: a day-file paper is its record there, on its day; one kept from last week
+  keeps its record, comments refreshed; the others are built from the catalog as archived
+  papers are. A paper without a count this week keeps last week's.
+- **Writing**: `since` is 364 days before the run; the file is rewritten whole and listed
+  in the index. It holds no archived paper (same window, same first appearance). Every
+  OpenAlex lookup comes before the first write, and the list is written before the
+  archive, so a run stopped between writes leaves no paper in both. `validate` fails a
+  file that does not load, a paper listed twice, announced before `since` or archived,
+  and an index that disagrees.
+- Steps on every stored paper include them (`citations ALL=1`, `scholar`, `venues`,
+  `institutions-again`, `code`, `countries`). A paper that ages out enters the archive
+  only if it ranks there, with the record it had, never rebuilt from the catalog.
 
 ## Citation counts (`citations.json`)
 
-- Semantic Scholar (`paper/batch`, 500 arXiv ids a request) counts all versions of a
-  paper. OpenAlex undercounts published papers (×1.7 in median), so it is not used for
-  counts.
-- `citations.json` holds the counts of every stored paper, day files, archive and the most
-  cited of the last 12 months alike, out of the paper records so that the weekly refresh
-  rewrites one file, not every day file. The weekly archive rewrites it (`write_citations`,
-  dated); the daily `citations` step adds the counts of new papers (`merge_citations`,
-  which keeps the date of the last refresh). Papers Semantic Scholar does not know yet (a
-  few days) get no count and are asked for again the next day.
-- Counts are cached in `.cache/catalog/<category>.citations.jsonl` (restored with the
-  catalog in CI) and reused for 7 days, so a failed or cancelled run resumes where it
-  stopped: `citations.json`'s `generated_at` can postdate some counts by up to 6 days.
-- Counts older than 14 days are reported as stale, in `stats` and on the site.
-- Each full refresh (`write_citations`) also writes `citation-gains.json` (CIT-9): what
-  each paper gained since the counts it replaces, for the site's rising papers. Only from
-  counts at least 6 days old (`config.GAINS_MIN_DAYS`), so that a refresh run again within the
-  week keeps the week's gains; a count that went down is no gain, and a paper counted
-  since only by the daily step gains from that count. The first gains are those of the
-  archive of 2026-10-11: the run of 2026-10-04 reused the cached counts of 2026-09-30.
-  `validate` fails a gains file that does not load, and warns of gains of papers no
-  longer stored; `commit-data.sh` keeps the run's gains on a conflict, as its counts.
-- The site loads them in shards built from `citations.json` ([web.md](web.md)).
+- Semantic Scholar's (`paper/batch`, 500 ids a request, all versions counted), out of the
+  records so that a refresh rewrites one file. The archive rewrites it, dated
+  (`write_citations`); the daily `citations` step adds the new papers' counts, keeping the
+  date (`merge_citations`). A paper not known yet gets none and is asked the next day.
+- Counts are cached 7 days (`CITATIONS_CACHE_DAYS`) in
+  `.cache/catalog/<category>.citations.jsonl`, so a stopped run resumes: `generated_at` can
+  postdate some by up to 6 days. Older than 14 days, they are reported stale.
+- **Gains** (`citation-gains.json`, CIT-9): a full refresh writes what each paper gained
+  over the counts it replaces when those are at least 6 days old (`GAINS_MIN_DAYS`), else
+  keeps the week's. A drop is no gain; a paper counted only by the daily step gains from
+  that count. `validate` fails a file that does not load and warns of papers no longer
+  stored; `commit-data.sh` keeps the run's counts and gains on a conflict.
 
 ## Published versions (`scholar.json`)
 
-- The weekly `scholar` step (after the archive in `archive.yml`; `make scholar`) asks
-  Semantic Scholar for every stored paper (about 26,000 in 52 requests, minutes with a
-  key): the DOI of the published version (not arXiv's `10.48550/...`), its venue, named by
-  `venue.published_venue` (see [extraction.md](extraction.md)), and the authors' ids, kept only when
-  Semantic Scholar lists as many authors as the paper, and each only where the name it
-  gives is the arXiv author's at that place (`collect.checked_author_ids`, AFF-H): Semantic
-  Scholar merges versions and papers, and lists some in another order (2303.17912, two
-  authors swapped; 2505.11594, shifted by one). A name is the author's when one spelling
-  holds the other's words ("Mahdi S. Hosseini"), hyphenated given names joined
-  ("Jin-Chao Zhang") and letters folded ("Kalaycıoğlu"), or with the same surname and first
-  initial ("D. Gopinath"). The names are never stored.
-- `collect.update_scholar_records` rewrites the file: a paper Semantic Scholar was not
-  asked for (it kept refusing) keeps last week's record, and papers no longer stored are
-  dropped. `validate` fails a file that does not load, and only warns on stale records.
-  `stats` counts its venues with the detected ones.
-- The store keeps it apart from the records, since it changes every week; the build
-  merges the DOI, the venue and the authors' ids into the records the site serves
-  ([web.md](web.md)).
-- Semantic Scholar has a venue for about 90% of the archive (52% from comments), and for
-  5% of recent papers (19% from comments), so the comments stay first for those.
+- The weekly `scholar` step (after the archive) asks Semantic Scholar for every stored
+  paper (about 26,000 in 52 requests): the published version's DOI (never arXiv's
+  `10.48550/...`), its venue (`venue.published_venue`, [extraction.md](extraction.md)) and
+  the authors' ids.
+- Ids are kept only when it lists as many authors as the paper, each only where its name
+  is the arXiv author's at that place (`collect.checked_author_ids`, AFF-H): it merges
+  versions and lists some authors swapped or shifted. A name matches when one spelling
+  holds the other's words (accents folded, hyphens joined) or by surname and first
+  initial. The names are never stored.
+- The file is rewritten whole (`collect.update_scholar_records`); a paper it kept refusing
+  keeps last week's record. `validate` fails a file that does not load, warns on stale ones.
+- The build merges DOI, venue and ids into the site's records ([web.md](web.md)). It has
+  a venue for 90% of the archive but 5% of recent papers, so the comments' comes first.
 
 ## Semantic Scholar's moods
 
-- Even with `SEMANTIC_SCHOLAR_API_KEY` (a repository secret, one request per second),
-  about half of the batches were refused (429) in CI. A refused batch is tried again after
-  2 s, doubled up to 60 s (20 s at first without a key, whose shared pool is busier), 30
-  times; a refusal with a `Retry-After` is waited for as it asks instead, within five
-  minutes (`FetchError.retry_after`, CIT-8). It sends none: the run's last line counts
-  them ("…, 387 refused tries, 0 with a Retry-After" on 2026-10-18). A batch none of
-  whose papers it knows is answered `400 No valid paper ids given`, rather than a null for
-  each: those papers are unknown, not refused, and not asked again (CIT-17; the newest
-  papers, alone in a run's last batch, cost 25 minutes of tries before). The retries live in `_fetch_batch` and `_fetch_all`, shared by
-  `fetch_citation_counts` and `fetch_scholar_records`: their `HttpClient` makes a single
-  attempt. Refusals are logged at debug level; only streaks of 5 reach the INFO log, and
-  progress every 5,000 papers.
-- The 429 message suggests applying for a key even to keyed requests: it says nothing
-  about the key. An invalid key gets `403 Forbidden` on every request, so a run that makes
-  progress has a valid one: the first 401 or 403 stops the fetch with "Semantic Scholar
-  rejected the API key", which fails the run (`FetchError.status`).
-- The daily `citations` step gives a refusing Semantic Scholar 10 minutes
-  (`--max-minutes`), the weekly `scholar` step 20, then leaves the papers for later.
-- An answer that is not one entry per paper asked for (a JSON object, a shorter list) is no
-  refusal: on 2026-10-11 one batch got it 30 times over 25 minutes, and the 1,415 papers
-  from it on got no count that week. It is tried twice (`S2_MISMATCH_TRIES`), then asked
-  for in halves (`_fetch_all`), down to the paper Semantic Scholar cannot answer for, left
-  out with what it answered in the log (`cannot answer for`); about 10 requests for one
-  such paper among 500. Past 50 such batches in a run, it stops as for refusals.
+- One request every 1.1 s with `SEMANTIC_SCHOLAR_API_KEY` (a repository secret), 2 s
+  without. Even with a key, about half the batches are refused in CI.
+- A refused batch (429, a 5xx, any failure but those below) is tried again after 2 s (20 s
+  without a key), doubled up to 60 s, 30 times (about 25 minutes), or after its
+  `Retry-After`, within five minutes (CIT-8). After 30 refusals the fetch stops, the rest
+  left for the next run. The last log line counts the refused tries and the Retry-Afters.
+- `400 No valid paper ids given` means it knows none of the batch: those papers are
+  unknown, not refused, and not tried again in the run (CIT-17).
+- A 401 or 403 is a bad key (the 429 message's advice to get one says nothing of it): the
+  first stops the fetch with "Semantic Scholar rejected the API key" and fails the run.
+- An answer that is not one entry per paper asked for is tried twice
+  (`S2_MISMATCH_TRIES`), then asked in halves down to the paper it cannot answer for, left
+  out (`cannot answer for`; about 10 requests for one in 500). Past 50 such batches
+  (`S2_MAX_MISMATCHED_BATCHES`), the fetch stops.
+- Time limits (`--max-minutes`): 10 for the daily `citations`, 20 for the weekly `scholar`.
+- Retries live in `_fetch_batch` and `_fetch_all` (counts and records alike), whose
+  `HttpClient` makes one attempt; refusals log at debug level, streaks of 5 at INFO.
 
 ## OpenAlex
 
-- `works?filter=doi:10.48550/arxiv.<id>|...`, 50 a request; the DOI filter misses some
-  works that the DOI lookup finds, so those are asked for one by one.
-- Its institutions per author are used; its raw affiliation strings are too rough.
-- It learns the institutions of recent papers over months: of the archive's papers first
-  seen in 2025, 16% had affiliations, in 2024 48%, against about 60% for older years. An
-  archived paper it knew nothing of is asked again every 30 days
+- `works?filter=doi:10.48550/arxiv.<id>|...`, 50 a request, one every 0.25 s; the works the
+  filter misses are asked one by one by DOI. A failed batch waits for the next run.
+- Its institutions per author are registry entries: they are the paper's affiliations and
+  `institutions`, with ROR ids, provenance `openalex` and the lookup's day. Its raw strings
+  are too rough, and OAI's `<affiliation>` is never filled (AFF-19).
+- It learns recent papers over months (affiliations for 16% of the archive's 2025 papers,
+  48% of 2024's, 60% before): one it knew nothing of is asked again every 30 days
   (`OPENALEX_RETRY_EVERY_DAYS`) while under two years old (`OPENALEX_RETRY_AGE_DAYS`),
-  counted from the day of its last lookup (`provenance`), or at once when that day is
-  unknown; the log says how many of them have affiliations now (AFF-3, decision 5).
-- The papers of the day files that arXiv has no HTML rendering of (231 of 4,832 in
-  October 2026: it could not convert their LaTeX, and the abstract page lists names only)
-  are asked for too, daily (`collect.update_openalex_affiliations`, `make affiliations`,
-  AFF-27): two in five a month old have affiliations, 94 of 225 the first day; the others
-  are asked again every 30 days, as archived papers (`openalex_affiliations.py`, shared with
-  the archive). Their affiliations are OpenAlex's registry names, so `reclean`, `validate`'s
-  heuristics and `quality-affiliations` leave them alone, as the archive's.
-- Its institutions carry ROR ids. Archived papers whose affiliations came from OpenAlex
-  before ids were kept (their institutions are their affiliations) are asked for again,
-  once, by the weekly archive; those it now gives nothing for keep their affiliations
-  without ids and are asked for again every week (a few requests).
+  from its last lookup, or at once when that day is unknown (AFF-3, decision 5).
+- Day-file papers without an HTML page (about 5%), or whose page gave none, a month after
+  (AFF-31), are asked daily (`make affiliations`, AFF-27), then every 30 days. Registry
+  names, their affiliations are left alone by `reclean`, `validate`'s heuristics and
+  `quality-affiliations`.
+- Papers whose OpenAlex affiliations predate the ids are asked again by the archive; those
+  it now gives nothing keep theirs, without ids, and are asked each week.
+- **Countries** (`make countries`, UX-40): `/institutions` by ROR id, 50 a request, only
+  for the ids `countries.json` lacks (`ALL=1`: all). `null` (placed nowhere) is kept and
+  not asked again; a failed batch is asked next time; ids of no stored paper leave.
 
 ## Affiliations of the highly cited papers (`archive-affiliations`)
 
-By their arXiv DOI, OpenAlex left 10,520 of the archive's 22,169 papers without
-affiliations in October 2026, 84% of those first seen in 2025, the year Highly cited
-shows first. `collect.update_archive_affiliations` (`make archive-affiliations`) fills
-those of the archive and of the last 12 months (but the day files' papers there, whose
-records are their day records) two ways:
+By arXiv DOI, OpenAlex left about half the archive without affiliations, and 84% of 2025's
+papers. `collect.update_archive_affiliations` fills those of the archive and of top-recent
+(not the day files') two ways:
 
-- **The published version** (AFF-20): OpenAlex knows the authors and institutions of
-  nearly every published version, by the DOI Semantic Scholar gives (`scholar.json`, not
-  arXiv's own `10.48550/...`): `sources/openalex.fetch_published_authors`, 50 DOIs a
-  request, 142 requests and two minutes for the 7,076 papers with one. Its authors can be
-  others or in another order, so each arXiv author takes the institutions of the published
-  author of the same name (`names.same_person`: one spelling holding the other's words, or
-  the surname and first initial), and fewer than half of them found means another paper
-  (a wrong DOI, 24 of 7,027): nothing is taken. A spike on 49 such papers gave 46; the
-  first run 6,799, every author placed for 84% of them (the others: OpenAlex places only
-  some authors of that version). The archive went from 53% to 83% with affiliations, 2025
-  from 16% to 51%, 2024 from 48% to 73%. `archive.yml` runs it after `scholar`, whose DOIs
-  it reads, every week: a paper it gives nothing yet is asked for again then (a few
-  requests), and a DOI Semantic Scholar learns later is asked for the next week. The
-  affiliations have the provenance `openalex`, as the arXiv DOI's.
-- **The HTML page** (AFF-28), with `--max-html N` (`MAX_HTML=N`): the papers still
-  without any that arXiv renders (submitted since December 2023,
-  `arxiv_html.first_version_url`, the first version, which a day file links to), the most
-  cited first, read as the daily update reads pages (`_add_html_front_matter`: 15 s a
-  page, the same stops), from the page cache when it holds them. A page that answers 404
-  leaves `<id>v1.html.missing` in the cache and is never asked for again; one that gives
-  nothing leaves the paper as it was, its page cached, and is not read again while
-  today's extraction finds nothing in it: read first, since cached, 349 such pages stopped
-  the second run as a layout change (2026-10-12). A stale page (`PageCache.stale`) is
-  read again all the same. A paper its page gives
-  affiliations takes them with the page's link (`html_url`), the extractor's version and
-  the provenance `html`; their institutions are named through ROR, with those an
-  interrupted run left unnamed. About 2,000 papers of 2024 and 2025 are left after the
-  published versions, a night of downloads: the maintainer runs it
-  (`docs/operations.md`), not a workflow, whose minutes are billed. A spike on 4 such
-  pages gave 3. Neither `reextract` nor `reclean` reads the archive: a later extraction
-  fix reaches these papers only through this command, for those without affiliations.
+- **The published version** (AFF-20; weekly, after `scholar`): OpenAlex's record of the
+  DOI in `scholar.json`, 50 a request, two minutes the first time. Each arXiv author takes
+  the institutions of the published author of the same name (`names.same_person`); fewer
+  than half found means a wrong DOI, and nothing is taken. A paper it gives nothing is
+  asked again each week, as is a DOI learned later.
+- **The HTML page** (AFF-28, `MAX_HTML=N`): the papers still without any that arXiv
+  renders (since December 2023, the first version), the most cited first, read as the
+  daily update reads pages (15 s each, the same stops), from the cache when it holds them.
+  A 404 leaves `<id>v1.html.missing`, never asked again. A page that gives nothing stays
+  cached and is not read again while today's extraction finds nothing in it (read first,
+  such pages would stop the run as a layout change), unless `PageCache.stale`. Its
+  affiliations come with its `html_url`, the extractor's version and provenance `html`;
+  ROR names their institutions, and those an interrupted run left unnamed. The maintainer
+  runs it (a night for about 2,000 papers), not a workflow, whose minutes are billed.
+  `reextract` and `reclean` never read the archive: later extraction fixes reach it only
+  this way.
 
 ## Stars of the papers' code (`code.json`, PROD-18)
 
-- The link is the one the card shows (`code.py`, a port of `web/src/code.ts` and
-  `linkify.ts`; `tests/fixtures/code-cases.json` holds the cases both test suites read):
-  the first repository on GitHub or GitLab in the abstract or comments, else a model,
-  dataset or demo on the Hugging Face Hub. In October 2026, 7,834 stored papers of 27,000
-  link GitHub (7,541 repositories), 65 the Hub, 6 GitLab (not asked for).
-- `sources/github.py`: GitHub's GraphQL API, 100 repositories a query (aliases of
-  `repository { stargazerCount }`), one point of the hourly quota each: 76 queries, one
-  every 3 s, about 5 minutes with the Hub's 63 pages at 0.5 s. It needs a token, any, even
-  one without permission (`GITHUB_TOKEN`: the
-  workflow's own in CI, which allows 1,000 points an hour; the Makefile gives `.env`'s to
-  `make code` only). The REST API's 60 anonymous requests an hour would take days. A
-  repository deleted, made private or never published comes back as its alias's
-  `NOT_FOUND` error (3 of 100 sampled): the paper loses its record. Any other error fails
-  the query, whose papers keep last week's records; a 401 is a bad token and fails the run.
-- GitHub's secondary limits cap the CPU time of GraphQL queries, 60 s a minute, and one of
-  100 repositories takes about 2 s: at one a second, the first run in CI (2026-10-11) was
-  refused (403, "You have exceeded a secondary rate limit") after 30 queries, and 4,698
-  papers kept the stars of 2026-10-09. Queries go one every 3 s (`GITHUB_DELAY_SECONDS`,
-  from the start of one to the next), and one refused for a limit (403 or 429) waits for
-  its `Retry-After` (`FetchError.retry_after`), else a minute, then two, as GitHub advises;
-  refused a third time, the run stops asking and the rest keep last week's records.
-- `sources/huggingface.py`: the Hub's `/api/models/<id>` (or `datasets`, `spaces`), one
-  request each, without a key: its `likes`, kept apart from the stars. A 401 or 404 means
-  the page is gone (the Hub answers 401 for one that never existed).
-- `shared`: a repository more than one stored paper links (`google-research/
-  google-research` 19 papers, `big_vision` 9, `mmdetection` 8), or a link into a folder of
-  one (`/tree/<branch>/<folder>`, or a file below the root: 116 links);
-  `/tree/<branch>` alone, or a file at the root, is the repository. In October 2026, 478
-  papers share their repository with another stored paper (a lab's toolbox, a paper and its
-  extension). Their stars show, said shared, and Most starred ranks them with the papers
-  without stars.
-- Gains: `PaperStore.write_code` counts each paper's stars gained from the file it
-  replaces, as the citations' (`GAINS_MIN_DAYS`), and keeps them through a second run in
-  the week; a paper whose link changed gained nothing yet. The first gains come a week
-  after the first file.
-- `archive.yml` runs `code` every week after `scholar` (`GITHUB_TOKEN: ${{ github.token }}`):
-  every stored paper is asked for, the day files, the archive and the most cited of the
-  last 12 months, each once.
-- `update.yml` runs `code --new` every weekday after `citations` (`NEW=1` locally): only
-  the papers without a record of their link, those announced since Sunday (34 on
-  2026-10-09, which waited up to a week before) and those whose repository GitHub did not
-  know (117 of 7,939 papers linking code, a 404 for each of 12 sampled: code announced
-  before it is public, or a typo of the abstract), a query or two. The others keep their
-  record and gains, and the file the date of Sunday's refresh (`PaperStore.add_code`):
-  written dated that day, it would leave Sunday a file less than `GAINS_MIN_DAYS` old,
-  whose gains it keeps instead of counting them. Only `shared` is worked out again, since
-  a new paper may link a repository already stored.
+- **The link** is the card's (`code.py`, a port of `web/src/code.ts` and `linkify.ts`,
+  both tested on `tests/fixtures/code-cases.json`): the first GitHub or GitLab repository
+  in the abstract or comments, else a Hugging Face model, dataset or demo. About 29% of
+  the papers link GitHub, one in 400 the Hub; GitLab is not asked.
+- **GitHub** (`sources/github.py`): GraphQL, 100 repositories a query (aliases), one point
+  of the hourly quota each, with any token (`GITHUB_TOKEN`: the workflow's in CI, 1,000
+  points an hour; `.env`'s for `make code` only); REST's 60 anonymous requests an hour
+  would take days. A `NOT_FOUND` alias (deleted, private, never published) drops the
+  paper's record; any other error fails the query, whose papers keep last week's; a 401
+  fails the run.
+- **Limits**: secondary limits cap GraphQL's CPU time at 60 s a minute, about 2 s a query
+  (one a second was refused after 30), so one every 3 s (`GITHUB_DELAY_SECONDS`), about 5
+  minutes a run. A 403 or 429 waits for its `Retry-After`, else a minute, then two; refused
+  a third time (`GITHUB_LIMIT_TRIES`), the run stops asking, the rest keep last week's.
+- **The Hub** (`sources/huggingface.py`): `/api/models/<id>` (or `datasets`, `spaces`),
+  one request every 0.5 s, no key: its `likes`, apart from stars. A 401 or 404 means the
+  page is gone (401 also for one that never existed).
+- **`shared`**: a repository several stored papers link, or a link into a folder of one
+  (`/tree/<branch>/<folder>`, a file below the root; `/tree/<branch>` alone or a root file
+  is the repository). Shown as shared; Most starred ranks them with the unstarred papers.
+- **Gains** (`PaperStore.write_code`): from the file it replaces, as the citations'
+  (`GAINS_MIN_DAYS`), kept through a second run in the week; none for a changed link.
+- **Weekly**, `archive.yml` runs `code` after `scholar`: every stored paper, once.
+  **Daily**, `update.yml` runs `code --new` (`NEW=1`): only the papers without a record
+  (new since Sunday, or a repository GitHub did not know), a query or two. The others keep
+  their record and gains, the file Sunday's date (`PaperStore.add_code`: a later one would
+  make Sunday's refresh keep gains instead of counting them); `shared` is worked out again.
 
 ## OAI-PMH
 

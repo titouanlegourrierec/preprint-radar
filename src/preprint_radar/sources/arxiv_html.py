@@ -94,7 +94,7 @@ _LINK_LABEL_RE = re.compile(r"project\s+(?:page|website|homepage|repository|site
 # an address in brackets, which unwrapped thanks notes glue to the sentence: "..., Hong
 # Kong SAR, China (author@connect.ust.hk)" (2609.10082), or one that ends the line: "...,
 # Vienna, Austria author@technikum-wien.at" (2610.02974), mailboxes included: "...,
-# Germany. {pm.wolf, cremers}@tum.de" (2610.03283), the sentence's full stop after it: "...,
+# Germany. {jane.doe, jroe}@tum.de" (2610.03283), the sentence's full stop after it: "...,
 # Italy. {name.surname}@unitn.it." (2609.28184). Its label may be glued to the country
 # before it: "..., MI, USAEmail:" (2608.29996).
 _CONTACT_TAIL_RE = re.compile(
@@ -117,7 +117,7 @@ _CONTACT_RE = re.compile(
 _EMPTY_BRACKETS_RE = re.compile(r"\(\s*\)|\[\s*\]")
 # Mailbox names whose "@domain" is printed elsewhere: "{jane.doe, john.roe}", sometimes
 # unclosed, the list going on in another node, whose affiliation the line join glues on:
-# "{pau.rodriguez,ablaas,michal_klein,napostoloff, Apple" (2410.23054). A name is in lower
+# "{jane.doe,jroe,john_roe,jdoe, Apple" (2410.23054). A name is in lower
 # case, or capitalized when dots or underscores join its parts ("{Jane.Doe, A.Roe",
 # 2610.25235), which the words of an affiliation, after which an unclosed list ends, never are.
 _MAILBOX = r"(?:[A-Za-z0-9+-]+(?:[._][A-Za-z0-9+-]+)+|[a-z0-9_.+-]+)"

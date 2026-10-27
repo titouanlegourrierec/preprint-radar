@@ -1,255 +1,105 @@
-# <picture><source media="(prefers-color-scheme: dark)" srcset="web/public/preprint-radar-lockup-dark.svg"><img src="web/public/preprint-radar-lockup-light.svg" alt="Preprint Radar" height="40"></picture>
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="web/public/preprint-radar-lockup-dark.svg">
+    <img src="web/public/preprint-radar-lockup-light.svg" alt="Preprint Radar" height="56">
+  </picture>
+</p>
 
-Follow and search the cs.CV papers announced on arXiv every weekday, with their affiliations, citations and the most cited older papers.
+<p align="center">
+  <b>Follow and search the computer vision papers announced on arXiv every weekday,</b><br>
+  with their authors' affiliations, their citations, their code and the topics on the rise.
+</p>
 
-**The site:** <https://titouanlegourrierec.github.io/preprint-radar/>
+<p align="center">
+  <a href="https://titouanlegourrierec.github.io/preprint-radar/"><b>Open Preprint Radar →</b></a>
+</p>
 
-A Python pipeline, run by GitHub Actions, collects the papers announced every weekday in
-one or more arXiv categories, with their abstracts, affiliations and citation counts, and
-keeps the most cited older papers. It commits them to `data/`, which a static web app on
-GitHub Pages searches: there is no server.
+<p align="center">
+  <a href="https://github.com/titouanlegourrierec/preprint-radar/actions/workflows/update.yml"><img alt="Update data" src="https://github.com/titouanlegourrierec/preprint-radar/actions/workflows/update.yml/badge.svg"></a>
+  <a href="https://github.com/titouanlegourrierec/preprint-radar/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/titouanlegourrierec/preprint-radar/actions/workflows/ci.yml/badge.svg"></a>
+  <a href="https://github.com/titouanlegourrierec/preprint-radar/releases"><img alt="Release" src="https://img.shields.io/github/v/release/titouanlegourrierec/preprint-radar"></a>
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue"></a>
+</p>
 
-```
-                  GitHub Actions                              GitHub Pages
-┌────────────────────────────────────────────────┐   ┌────────────────────────────┐
-│ update (weekdays)                              │   │ web/ (Preact + MiniSearch) │
-│   listing       arxiv.org/list/<cat>/recent    │   │  - full-text search        │
-│   abstracts     rss.arxiv.org, catchup, API    │   │  - author, institution,    │
-│   affiliations  arxiv.org/html/<id>, OpenAlex  │   │    venue and code filters  │
-│   institutions  ror.org                        │──▶│  - highly cited papers     │
-│   citations     Semantic Scholar               │   │  - rankings, world map     │
-│ archive (Sundays)                              │   │  - graph, Atom feeds       │
-│   older papers  OAI-PMH, Semantic Scholar      │   │  - reading list, folders   │
-│   affiliations  OpenAlex                       │   │  - trends of the topics    │
-│   stars         GitHub, Hugging Face           │   │                            │
-│   trends        the catalog's titles           │   │                            │
-│ → data/<cat>/<date>.json, archive/<year>.json, │   │                            │
-│   citations.json, scholar.json, index.json     │   │                            │
-└────────────────────────────────────────────────┘   └────────────────────────────┘
-```
+![The week's papers about world models, with the note that the topic is rising](docs/assets/papers.png)
 
-## What the site does
+Preprint Radar collects the papers of arXiv's cs.CV category the day they are announced,
+reads who wrote them where, follows their citations, and keeps the most cited papers since
+2010. A static site searches all of it in your browser: no account, no cookie, no
+server, and what you save stays on your device.
 
-- **Papers**: the latest announcement day, the last week or month, or any period of the
-  calendar, searched as you type (word prefixes, a typo, `"phrases"`, `-exclusions`) over
-  titles, abstracts, authors, affiliations, venues and comments, and filtered by author,
-  institution, venue, subject or code. A search is a link to share.
-- **Highly cited**: the most cited papers of each year since 2010, and of the last 12
-  months, ranked by citations or by those gained this week.
-- **Trends**: the topics of the titles whose share of the papers rises, cools or is new,
-  over the last 90 days or 12 months against the same before, each with its months, its
-  impact and its most cited papers of the year; an explorer draws any topic since 2010.
-- **Rankings**: the institutions, authors or countries of the papers shown, by papers or
-  citations, with a world map of the countries, flat or on a globe.
-- **Graph**: the papers, their institutions and authors, or who works with whom, replayed
-  day by day; saved as PNG or GraphML.
-- **Reading list**: the papers you star, in folders, exported as BibTeX, RIS, CSV or
-  Markdown; a folder is shared by a link. It stays in your browser.
-- **Feeds**: an Atom feed of every institution of the recent papers, and of each major
-  venue.
+## Features
 
-Each view explains itself (its ⓘ notes, the About page); [`docs/web.md`](docs/web.md) says
-how it works.
+- **Search as you type** over titles, abstracts, authors, affiliations and venues, with
+  prefixes, typos, `"phrases"` and `-exclusions`; filter by author, institution, venue,
+  subject or code. Every search is a link to share.
+- **Highly cited**: the most cited papers of each year since 2010 and of the last 12
+  months, by citations or by those gained this week.
+- **Trends**: the topics of the titles that rise, cool or are new, with their impact and
+  key papers, and an explorer that draws any topic since 2010.
+- **Rankings**: the institutions, authors and countries of the papers shown, on a world map
+  or a globe.
+- **Graph**: papers, institutions and authors, or who works with whom, replayed day by day.
+- **Reading list**: papers you star, in folders, exported to BibTeX, RIS, CSV or Markdown;
+  it stays in your browser.
+- **Feeds**: an Atom feed for every institution and major venue.
 
-## Where the data comes from
+<table>
+  <tr>
+    <td width="33%"><img src="docs/assets/trends.png" alt="Trends: the topics rising, cooling and new over the last 90 days"></td>
+    <td width="33%"><img src="docs/assets/graph.png" alt="The graph of a week's papers and their institutions"></td>
+    <td width="33%"><img src="docs/assets/rankings.png" alt="Rankings: a week's papers by country, on a world map"></td>
+  </tr>
+  <tr>
+    <td align="center">Trends</td>
+    <td align="center">Graph</td>
+    <td align="center">Rankings</td>
+  </tr>
+</table>
 
-| Field                         | Source                                                                 |
-| ----------------------------- | ---------------------------------------------------------------------- |
-| Title, authors, subjects, comments, links | `https://arxiv.org/list/<category>/recent` (last 5 announcement days); `https://arxiv.org/catchup/<category>/<date>` for older days |
-| Abstract                      | The category RSS feed (latest day, one request), then the catchup page of each older day (one request per day); the arXiv API and the paper's HTML rendering as last resorts |
-| Affiliations                  | Submitter-declared affiliations from the API when present; otherwise the front matter of the paper's HTML rendering; for the 5% arXiv has no HTML rendering of, [OpenAlex](https://openalex.org) |
-| Institution of each affiliation | The [Research Organization Registry](https://ror.org) (ROR) affiliation matching, when confident; otherwise the pipeline's own rules (acronyms, companies, the main part of an address) |
-| Citation counts (every stored paper) | [Semantic Scholar](https://www.semanticscholar.org), weekly (new papers the day they are added); the archive's papers, older than 12 months, and the most cited of the last 12 months that no day file holds, from arXiv's OAI-PMH, with affiliations from [OpenAlex](https://openalex.org): its record of the preprint, else of the published version, else the paper's HTML rendering |
-| Venue                         | Detected in the comments and journal reference ("Accepted to ECCV 2026", "BMVC2026", …); submissions and papers under review are ignored. Else where Semantic Scholar says it was published, with its DOI |
-| Code and its stars            | The first GitHub or GitLab repository the abstract or comments link, else its models, data or demo on Hugging Face; the repository's [GitHub](https://github.com) stars (the page's Hugging Face likes), weekly (new papers the next weekday), with those gained in the week. A repository other stored papers link too, or a folder of a larger one, is marked shared |
+## How it works
 
-Affiliations are **best effort**: arXiv's metadata rarely has them, so they are read from
-the front matter of each paper's HTML rendering, whose layout depends on its LaTeX class
-([`docs/extraction.md`](docs/extraction.md) lists the layouts read, each from a real page).
-Where the page says who is where, each author is mapped to their own affiliations. About
-one paper in five still has none.
+A Python pipeline, run by GitHub Actions every weekday, reads arXiv's listing, each paper's
+abstract and the front matter of its HTML rendering for the affiliations, and asks the
+[Research Organization Registry](https://ror.org), [OpenAlex](https://openalex.org) and
+[Semantic Scholar](https://www.semanticscholar.org) for institutions and citations. Every
+Sunday it ranks the whole category since 2010 by citations and counts the topics of the
+titles. It commits the results to [`data/`](data), which GitHub Pages serves with the
+Preact app. [How it works](docs/architecture.md) has the details.
 
-The pipeline is deliberately polite: one request every 15 s to arxiv.org (its
-`robots.txt` crawl delay), a few seconds between API calls, and each paper is enriched
-only once. `PREPRINT_RADAR_CONTACT` (an e-mail address or URL) is sent to arXiv (its
-pages, API and OAI-PMH, never the other services) in the User-Agent so they can reach
-whoever runs the crawler: put it in a local `.env` file (see `.env.example`, read by the
-Makefile) and in a repository variable on GitHub.
+The data is open: every file is served next to the site
+([`data/index.json`](https://titouanlegourrierec.github.io/preprint-radar/data/index.json))
+and [documented](docs/data-format.md), field by field.
 
-## Why `data/` is in git
-
-The data is files the site serves as they are: GitHub Pages hosts them beside the app, with
-no server or database to run or pay for, and the workflows publish a day's papers by
-committing them. Git then keeps every version of every record: a change of the extraction
-or a bad run shows as a diff of `data/` and is undone by a commit, and `validate` checks
-the whole store before every data commit and on every other push. The cost is a repository
-that grows by about 110 MB of day files a year of cs.CV, mostly history, which a partial
-clone skips ([Development](#development)); pruning keeps a rolling year of day files, and
-[`docs/operations.md`](docs/operations.md#the-site-or-the-repository-grows-too-large) says
-when and how the store would leave `main`. This choice and the others are logged in the
-roadmap's [Decisions](docs/roadmap.md#decisions) table.
-
-[`docs/data-format.md`](docs/data-format.md) documents every file of `data/` and every
-field of its records, for anyone who reads them, from the repository or from the site
-(`…/preprint-radar/data/index.json`), and how the format's versions change.
-
-## Usage
-
-Requirements: [uv](https://docs.astral.sh/uv/) for the pipeline, Node.js 24+ for the site.
+## Run it yourself
 
 ```bash
-uv sync
-uv run preprint-radar update                       # cs.CV into data/ (slow: up to 600 HTML pages)
-uv run preprint-radar update -c cs.CV -c cs.LG --max-html 50
-uv run preprint-radar backfill --since 2026-09-01  # past days, from arXiv's catchup pages
-uv run preprint-radar archive                      # the most cited older papers (weekly in CI)
-uv run preprint-radar --help                       # every command; -q for warnings only
-
-cd web
-npm install
-npm run dev                                      # http://localhost:5173, serves ../data
+git clone --filter=blob:none https://github.com/titouanlegourrierec/preprint-radar.git
+cd preprint-radar
+make install   # needs uv and Node.js 24+
+make dev       # the site on http://localhost:5173
 ```
 
-`update` and `backfill` read at most 600 HTML pages a run, one every 15 s: about 2.5 hours
-(`--max-html` changes it). Stopping one loses nothing, and running it again resumes. A
-month of past cs.CV days is about 2,900 papers: minutes for the days, then about 11 hours
-of pages.
+[Development](docs/development.md) covers the pipeline's commands and the tests, and
+[Deploying your own copy](docs/deployment.md) sets up the workflows for other categories.
 
-`archive` keeps the papers that matter beyond the last 12 months: each week it ranks every
-paper of the category since 2010 by citations per year of age and keeps a budget of them
-(22,000 by default, about 20 citations a year), so that a paper that takes off later comes
-in ([`docs/archive.md`](docs/archive.md) has the calibration behind it). A free Semantic
-Scholar API key (`SEMANTIC_SCHOLAR_API_KEY`) makes it much faster.
+## Documentation
 
-## Deployment on GitHub Pages
+All of it is in [`docs/`](docs/README.md): how the data is collected and stored, how the
+site works, the runbook and the roadmap.
 
-The site is public, and so is all of `data/`, which it serves: GitHub Pages publishes a
-site to anyone even from a private repository (only GitHub Enterprise Cloud can restrict
-it to members). A fork that deploys it republishes the data, authors and affiliations
-included, under its own address. A GitHub fork never runs the data workflows on
-schedule, so that turning its Actions on does not crawl arXiv daily: only runs started by
-hand or dispatched (step 6) go on. For daily runs on schedule, push a copy instead
-(step 1).
+## Contributing
 
-1. Push the repository to GitHub.
-2. In *Settings → Pages*, set *Source* to **GitHub Actions**.
-3. In *Settings → Secrets and variables → Actions → Variables*, optionally set:
-   - `PREPRINT_RADAR_CATEGORIES`: space-separated categories (default: `cs.CV`);
-   - `PREPRINT_RADAR_CONTACT`: your e-mail address, sent to arXiv in the User-Agent
-     (default: the repository URL);
-   - `PREPRINT_RADAR_ARCHIVE_BUDGET`: how many papers older than 12 months the archive
-     keeps per category (default: 22000);
-   - `PREPRINT_RADAR_ARCHIVE_PRUNE`: `true` to delete the day files older than 12 months,
-     for a rolling year of them (default: `false`; this repository sets it).
+Bug reports, data corrections and ideas are welcome as
+[issues](https://github.com/titouanlegourrierec/preprint-radar/issues/new/choose);
+[contributing.md](docs/contributing.md) explains how to propose a change. Report a
+vulnerability privately ([SECURITY.md](SECURITY.md)).
 
-   Under *Secrets*, optionally set `SEMANTIC_SCHOLAR_API_KEY`, a free
-   [Semantic Scholar API key](https://www.semanticscholar.org/product/api): without it,
-   citation counts are asked for anonymously, and the weekly archive takes hours instead of
-   about 40 minutes.
-4. Run the *Update data* workflow once by hand (*Actions → Update data → Run workflow*).
-   A first run over the five days of the listing (about 750 papers) reads at most 600 HTML
-   pages, the pipeline's default (*max-html* changes it), in about 2.5 hours; the next runs
-   read the rest, and daily runs then take ~40 minutes. To collect older days, or days
-   missed while the workflow was not running, fill its *since* field (YYYY-MM-DD): it then
-   runs `backfill`, limited like any run to 600 HTML pages (run it again to go on).
-5. Run the *Archive* workflow once by hand too (*Actions → Archive → Run workflow*), or
-   *Highly cited* and *Trends* stay empty until the first Sunday. Its first run harvests
-   arXiv's catalog (about 45 minutes) before asking for the citation counts (about 40
-   minutes with the key, hours without); it waits for a running *Update data*, since the
-   two never commit at the same time.
-6. For runs on time, have an outside scheduler dispatch both workflows: GitHub starts
-   scheduled runs hours late, so their own schedules are only fallbacks, four hours after
-   the dispatch times. [`docs/operations.md`](docs/operations.md#the-outside-scheduler)
-   sets it up with cron-job.org; without it, the fallbacks still run, late.
+## License
 
-The *Update data* workflow then runs every weekday and *Archive* every Sunday; each commits
-the new data and redeploys the site. The *Deploy site* workflow also runs on every push
-touching `web/` or `data/`, after the web tests.
-
-When a run is red, late or missing, or the archive did not change, see
-[`docs/operations.md`](docs/operations.md): one section per symptom, starting from what
-the run's page says, and how long each task takes.
-
-## Project layout
-
-```
-src/preprint_radar/
-├── cli.py              # `preprint-radar` command (update, backfill, archive, citations, scholar, validate, stats…)
-├── collect.py          # update, backfill, reextract → enrichment → store; citation and scholar steps
-├── config.py           # tunable defaults: category, directories, HTML pages per run, archive budget and policy
-├── venue.py            # venue table: venues detected from comments, and Semantic Scholar's named alike
-├── models.py           # Paper, Listing, ScholarRecord, Institution
-├── http.py             # rate-limited HTTP client with retries
-├── console.py          # terminal output: rich in a terminal, plain text in CI and pipes
-├── exceptions.py
-├── sources/            # one module per external service
-│   ├── arxiv_listing.py    # /list/<category>/recent and /catchup/<category>/<date> pages
-│   ├── arxiv_rss.py        # abstracts from the RSS feed
-│   ├── arxiv_api.py        # abstracts and declared affiliations from the Atom API
-│   ├── arxiv_html.py       # affiliations and abstract from HTML renderings
-│   ├── arxiv_oai.py        # bulk metadata harvest (OAI-PMH)
-│   ├── semantic_scholar.py # citation counts, DOIs, published venues, author ids
-│   ├── openalex.py         # institutions of archived papers
-│   ├── github.py           # stars of the code papers link
-│   ├── huggingface.py      # likes of their Hugging Face pages
-│   └── ror.py              # institution named by an affiliation string
-├── archive/            # weekly citation archive: catalog, selection, update
-└── store/              # data/ layout, validate, stats, quality, reclean, venues, naming
-web/
-├── src/            # Preact app: search.ts (MiniSearch), graph.ts + graph-renderer.ts, hooks/, components/, …
-├── tooling/        # build plugins: citation shards, published versions, third-party guard
-├── tests/          # Vitest unit tests
-└── e2e/            # Playwright smoke test of the built site, over its own small store
-data/               # generated by the pipeline, committed and published
-tests/              # pytest: unit (offline, fixtures) and integration (network)
-docs/               # data format, operations (runbook), extraction, archive, trends, web, roadmap, audit
-```
-
-## Development
-
-Most of the history is past versions of `data/`: a partial clone,
-`git clone --filter=blob:none <url>`, downloads the files of the commit checked out, and
-past versions only when a command such as `git log -p` needs them.
-
-The `Makefile` wraps the usual commands (`make` lists them):
-
-```bash
-make install     # Python + web dependencies, git hooks
-cp .env.example .env   # then set PREPRINT_RADAR_CONTACT
-make format      # auto-format and fix Python and web code
-make quality     # every quality check: formatting, lint, types (Python, web, workflows)
-make check       # quality checks and all tests, as CI does
-make dev         # web app with hot reload on http://localhost:5173
-make preview     # production build of the site, served locally
-make update      # refresh data/ (CATEGORIES="cs.CV cs.LG" MAX_HTML=50)
-make backfill SINCE=2026-09-01   # add past days to data/ (UNTIL defaults to today)
-make stats       # how much of data/ is enriched, per day and per archive year
-make institutions # name the institutions of stored affiliations through ROR
-make citations   # citation counts of the papers added since the weekly archive (ALL=1: every paper)
-make archive     # keep the most cited older papers (weekly in CI; first run about 2 h)
-make archive-affiliations   # affiliations of highly cited papers from their published version (MAX_HTML=N: their HTML pages too)
-make code        # GitHub stars of the code papers link (GITHUB_TOKEN in .env; weekly in CI, NEW=1 daily)
-```
-
-`make test-network` runs the parsers against the live arXiv (slow, polite).
-
-If arXiv changes its page layout, the network test fails first (the weekly *arXiv canary*
-workflow runs it): refresh the fixtures in `tests/fixtures/` from live pages and update the
-parsers. A daily run that finds nearly every page without affiliations stops and goes red,
-leaving those papers pending ([`docs/operations.md`](docs/operations.md) has the steps).
-
-## Licenses
-
-The code is under the [MIT license](LICENSE). The data in `data/` is not: it is collected
-from services that set their own terms.
-
-- Paper metadata (titles, authors, abstracts, comments) comes from arXiv, whose metadata is
-  under [CC0](https://info.arxiv.org/help/api/tou.html). Each paper itself keeps the license
-  its authors chose on arXiv.
-- Institution names come from [ROR](https://ror.org) and [OpenAlex](https://openalex.org),
-  both under CC0.
-- Citation counts come from the [Semantic Scholar API](https://www.semanticscholar.org/product/api),
-  under its license agreement.
+The code is under the [MIT license](LICENSE). The data keeps the terms of its sources:
+arXiv's metadata, ROR's and OpenAlex's records are CC0; citation counts come from the
+Semantic Scholar API under its license agreement ([details](docs/data-format.md#licenses)).
 
 Thank you to arXiv for use of its open access interoperability. This project is not
 affiliated with arXiv.

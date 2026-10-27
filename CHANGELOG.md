@@ -26,6 +26,11 @@ features in Phase 4, which has no end; a patch for a fix in between. Item IDs (`
   records, what the site adds, the meaning of `null` and of an empty list, and how the
   format's versions change; a test fails when the store writes a field it does not name
   (DOC-10).
+- A README for the public repository, its features and screenshots, and every
+  documentation page in `docs/`, indexed by `docs/README.md` and made concise: how it
+  works, development, deployment and contributing apart from the README, the runbook and
+  the pages of the extraction, the archive, the trends and the site without their history.
+- Issue forms for a bug, wrong data and an idea, and a pull request template (SEC-8).
 
 ### Graph
 
@@ -509,7 +514,7 @@ their published versions and pages, and cards whose links are badges.
   $300,000" lost its dollar), and a group around a formula loses its braces when the
   abstract is read: "an 8× speedup", not "an {8×} speedup" (SRCH-19).
 - A list of mailbox names cut across two nodes of a page, or holding an underscore
-  ("{pau.rodriguez,...,michal_klein,", then "Apple"), no longer ends up in an affiliation:
+  ("{jane.doe,...,john_roe,", then "Apple"), no longer ends up in an affiliation:
   the first run over the highly cited papers' pages stored one, which `validate` refused
   (AFF-28).
 - Back from a filter or a paper to the same period, or its preset chosen again, no longer

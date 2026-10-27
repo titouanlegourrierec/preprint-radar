@@ -233,9 +233,11 @@ raises the project's major version.
 
 ## Licenses
 
-The code is MIT; the data keeps its sources' terms (the README's
-[Licenses](../README.md#licenses)): arXiv's metadata (titles, authors, abstracts,
-comments) is CC0, each paper keeping the license its authors chose; ROR's and OpenAlex's
-institutions and countries are CC0; citation counts, published versions and author ids
-come from the Semantic Scholar API under its license agreement; stars and likes from
-GitHub and the Hugging Face Hub.
+The code is under the MIT license. The data keeps its sources' terms:
+
+- arXiv's metadata (titles, authors, abstracts, comments): CC0; each paper keeps the
+  license its authors chose.
+- ROR's and OpenAlex's institutions and countries: CC0.
+- Citation counts, published versions and author ids: the Semantic Scholar API's license
+  agreement.
+- Stars and likes: GitHub and the Hugging Face Hub.

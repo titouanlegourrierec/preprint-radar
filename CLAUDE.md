@@ -408,6 +408,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
 ## Working agreements
 
 - The maintainer writes in French: answer in French; everything in the repo stays English.
+- Documentation lives in `docs/`, indexed by `docs/README.md`, and stays concise: the rules
+  and their reasons, not the history (the roadmap and git keep it). The README is the
+  public landing page (features, screenshots in `docs/assets/`, links), never a manual.
 - Commit freely, in small commits that name the roadmap item they change (`fix(collect): …
   (DATA-2)`), with its status updated in `docs/roadmap.md` in the same commit. The scope
   is the part changed, one of: `web`, `extract` (`sources/arxiv_html.py` and its rules),
