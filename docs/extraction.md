@@ -117,9 +117,9 @@ Artificial".
 - Obfuscated addresses ("jane (at) example.org", "lab [at] example.org") and lists of
   mailbox names ("{jane.doe, john.roe}") are stripped, keeping the affiliation they follow;
   so is an address in brackets, with what follows it: thanks notes, once unwrapped, end
-  their sentence with one ("..., Hong Kong SAR, China (xhubd@...)", 2609.10082), which
+  their sentence with one ("..., Hong Kong SAR, China (author@...)", 2609.10082), which
   made the whole sentence a contact detail. So is an address that ends a line ("...,
-  Vienna, Austria schwaige@...", 2610.02974): its four authors lost their university;
+  Vienna, Austria author@...", 2610.02974): its four authors lost their university;
   mailboxes before their domain too ("..., Germany. {pm.wolf, cremers}@tum.de",
   2610.03283), and one before the full stop of its sentence ("..., Italy.
   {name.surname}@unitn.it.", 2609.28184: two of its three affiliations were noise, and
@@ -205,7 +205,7 @@ Artificial".
 - A line ending with a preposition ("Key Laboratory ... of Ministry of" then "Education,
   Jilin University", 2609.11477) continues on the next one, unless a marker starts it.
   Lowercase only, after a space: "TU Wien, AT" ends with a country code, and
-  "schwaige@technikum-wien.at" with the domain of an address (2610.02974), which then
+  "author@technikum-wien.at" with the domain of an address (2610.02974), which then
   made both lines one contact detail.
 - A list cut after its connector loses it ("The University of Hong Kong, and"), and so does
   a trailing dash; a name cut short keeps its "and" ("Nanjing University of Posts and"),

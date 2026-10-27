@@ -117,7 +117,7 @@ def test_a_paper_stored_on_two_days(store: PaperStore) -> None:
 
 @pytest.mark.parametrize(
     "affiliation",
-    ["MIT, jane.doe@mit.edu", "https://mit.edu", "MIT, lab (at) mit.edu", "MIT{jane.doe, john.roe}"],
+    ["MIT, author@example.org", "https://mit.edu", "MIT, lab (at) mit.edu", "MIT{jane.doe, john.roe}"],
 )
 def test_contact_details_in_affiliations(store: PaperStore, affiliation: str) -> None:
     store.save("cs.CV", [_paper("2609.00001", affiliations=(affiliation, "Stanford University"))])

@@ -92,8 +92,8 @@ _LATEX_SPACE_RE = re.compile(r"\[\s*-?\d*\.?\d+\s*(?:pt|em|ex|mm|cm|in|bp|pc|mu)
 _LINK_LABEL_RE = re.compile(r"project\s+(?:page|website|homepage|repository|site)\b\s*:?", re.IGNORECASE)
 # Contact details after an affiliation: "..., USA. email: {a, b}@nyu.edu", "(e-mail: ...)",
 # an address in brackets, which unwrapped thanks notes glue to the sentence: "..., Hong
-# Kong SAR, China (xhubd@connect.ust.hk)" (2609.10082), or one that ends the line: "...,
-# Vienna, Austria schwaige@technikum-wien.at" (2610.02974), mailboxes included: "...,
+# Kong SAR, China (author@connect.ust.hk)" (2609.10082), or one that ends the line: "...,
+# Vienna, Austria author@technikum-wien.at" (2610.02974), mailboxes included: "...,
 # Germany. {pm.wolf, cremers}@tum.de" (2610.03283), the sentence's full stop after it: "...,
 # Italy. {name.surname}@unitn.it." (2609.28184). Its label may be glued to the country
 # before it: "..., MI, USAEmail:" (2608.29996).
@@ -1402,7 +1402,7 @@ def _names_a_person(name: Tag, authors: Sequence[str]) -> bool:
     """Whether a creator's name is a person's.
 
     Not a link set as an author ("Project Page", a repository: 2609.37107), nor what else
-    LaTeXML makes creators of (2610.12978): an address ("cmt271286@taobao.com"), or a line
+    LaTeXML makes creators of (2610.12978): an address ("author@taobao.com"), or a line
     led by a marker ("²Alibaba Group", "✉Corresponding author") that names no author. Left
     in, the last of them would hide that only the last person carries the shared block.
     """
