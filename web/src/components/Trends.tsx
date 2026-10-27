@@ -4,7 +4,9 @@ import { LAST_12_MONTHS } from "../archive-years";
 import { linePath, xScale } from "../chart";
 import { loadTrends } from "../data";
 import { countOf, formatDay } from "../format";
+import { useReorder } from "../hooks/use-reorder";
 import { LOCALE } from "../locale";
+import { moveMark, moveText } from "../moves";
 import { NO_FILTERS } from "../search";
 import {
   COMPARED,
@@ -287,6 +289,15 @@ function TrendList(props: ListProps) {
   const [all, setAll] = useState(false);
   const shown = all ? rows : rows.slice(0, FIRST_ROWS);
   const months = file.windows[props.windowName]?.days === 365 ? 12 : 3;
+  // Rows glide to their place in the other window, which says how far they moved (UX-62).
+  const rowsRef = useRef<HTMLOListElement>(null);
+  const moves = useReorder(
+    rowsRef,
+    shown.map(({ key }) => key),
+    props.windowName,
+    list,
+  );
+  const from = props.windowName === "quarter" ? "the 12 months" : "the 90 days";
   return (
     <section class={`trend-list trend-list--${list}`} aria-labelledby={`trend-list-${list}`}>
       <h3 class="trend-list__title" id={`trend-list-${list}`}>
@@ -299,17 +310,23 @@ function TrendList(props: ListProps) {
       {rows.length === 0 ? (
         <p class="trend-list__empty muted">None this time.</p>
       ) : (
-        <ol class="trend-list__rows">
+        <ol class="trend-list__rows" ref={rowsRef}>
           {shown.map((row, index) => (
-            <li key={row.key}>
+            <li key={row.key} data-key={row.key}>
               <a
                 class={`trend-row${row.key === props.opened ? " trend-row--open" : ""}`}
                 {...props.link(row.key === props.opened, { topic: row.key })}
               >
                 <span class="trend-row__rank" aria-hidden="true">
                   {index + 1}
+                  {moveMark(moves?.get(row.key)) && (
+                    <span class="rank-move">{moveMark(moves?.get(row.key))}</span>
+                  )}
                 </span>
-                <span class="trend-row__name">{displayName(row.topic.name)}</span>
+                <span class="trend-row__name">
+                  {displayName(row.topic.name)}
+                  <span class="visually-hidden">{moveText(moves?.get(row.key), from)}</span>
+                </span>
                 {list === "new" ? (
                   <>
                     <span class="trend-row__change">{countOf(row.recent, "paper")}</span>

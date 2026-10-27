@@ -3326,6 +3326,17 @@ input[type="range"] {
 /* Rankings' podium and shares (UX-60): the first three ranks in Highly cited's medals,
    smaller, and right under the number ranked by, a bar of its share of the first row's
    (`--share`, from code). */
+/* How far the last metric or window chosen moved a row (UX-62), under its rank. */
+.rank-move {
+  display: block;
+  margin-top: 3px;
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
 .paper__rank.rankings__medal {
   display: inline-grid;
   min-width: 24px;
@@ -3648,13 +3659,24 @@ input[type="range"] {
   height: auto;
 }
 
-/* The countries parted by a thin line of the card, as fills are by a gap. */
+/* The countries parted by a thin line of the card, as fills are by a gap; another metric
+   shifts their tints rather than jumping (UX-62). */
 .world-map__shape,
 .world-map__point {
   stroke: var(--surface);
   stroke-width: 0.6;
   vector-effect: non-scaling-stroke;
   cursor: pointer;
+}
+
+.world-map__shape {
+  transition: fill 400ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .world-map__shape {
+    transition: none;
+  }
 }
 
 .world-map__point {

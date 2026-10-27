@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useMemo, useState } from "preact/hooks";
+import { useCallback, useEffect, useMemo, useRef, useState } from "preact/hooks";
 import { loadCountries } from "../data";
 import { countOf } from "../format";
+import { useListId, useReorder } from "../hooks/use-reorder";
 import { LOCALE } from "../locale";
 import { loadMapGlobe, saveMapGlobe } from "../preferences";
 import type { Paper } from "../types";
@@ -150,6 +151,17 @@ export function WorldMap({ category, papers, citations, metric, archived, onMetr
     saveMapGlobe(view === "globe");
   };
 
+  const ordered = stats ? byMetric(stats.countries, metric) : [];
+  const listed = all ? ordered : ordered.slice(0, LISTED);
+  // Rows glide to their new place when another metric ranks them (UX-62).
+  const rows = useRef<HTMLTableSectionElement>(null);
+  const moves = useReorder(
+    rows,
+    listed.map(({ code }) => code),
+    metric,
+    useListId(papers, "country"),
+  );
+
   if (failed) {
     return (
       <p class="notice notice--error" role="alert">
@@ -173,8 +185,6 @@ export function WorldMap({ category, papers, citations, metric, archived, onMetr
     );
   }
 
-  const ordered = byMetric(stats.countries, metric);
-  const listed = all ? ordered : ordered.slice(0, LISTED);
   // The first country's value of the metric ranked by, for each row's share of it (UX-60).
   const first = ordered[0] ? metricValue(ordered[0], metric) : null;
   const labels = classLabels(thresholds, metric);
@@ -314,13 +324,14 @@ export function WorldMap({ category, papers, citations, metric, archived, onMetr
             <th scope="col">Institutions with most papers</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody ref={rows}>
           {listed.map((country: CountryStats, index) => (
             <tr
               key={country.code}
+              data-key={country.code}
               class={pinnedCountry === country ? "world-map__row--pinned" : undefined}
             >
-              <RankCell rank={index + 1} />
+              <RankCell rank={index + 1} move={moves?.get(country.code)} />
               <th scope="row">
                 <button
                   type="button"

@@ -1,6 +1,7 @@
-import { useMemo } from "preact/hooks";
+import { useMemo, useRef } from "preact/hooks";
 import { affiliationCoverage, countOf } from "../format";
 import { type EntityKind, severalPeople } from "../graph";
+import { useListId, useReorder } from "../hooks/use-reorder";
 import { LOCALE } from "../locale";
 import { rankEntities } from "../rankings";
 import type { Paper } from "../types";
@@ -57,6 +58,15 @@ function EntityRankings(props: Props & { kind: EntityKind }) {
   );
   // The first row's value of the metric ranked by, for each row's share of it (UX-60).
   const first = ranked[0]?.[metric] ?? null;
+  // Rows glide to their new place when another metric ranks them (UX-62).
+  const rows = useRef<HTMLTableSectionElement>(null);
+  const shown = ranked.slice(0, SHOWN);
+  const moves = useReorder(
+    rows,
+    shown.map(({ id }) => id),
+    metric,
+    useListId(papers, kind),
+  );
   const affiliated = useMemo(
     () => papers.filter((paper) => (paper.affiliations ?? []).length > 0).length,
     [papers],
@@ -94,10 +104,10 @@ function EntityRankings(props: Props & { kind: EntityKind }) {
               <th scope="col">Most cited paper</th>
             </tr>
           </thead>
-          <tbody>
-            {ranked.slice(0, SHOWN).map((entity, index) => (
-              <tr key={entity.id}>
-                <RankCell rank={index + 1} />
+          <tbody ref={rows}>
+            {shown.map((entity, index) => (
+              <tr key={entity.id} data-key={entity.id}>
+                <RankCell rank={index + 1} move={moves?.get(entity.id)} />
                 <th scope="row">
                   <button
                     type="button"

@@ -40,6 +40,8 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
   of the first (UX-60).
 - In the graph, hovering a name of the details shows it on the canvas, with the papers that
   link it to the node selected (UX-61).
+- Ranking by another metric in Rankings, or switching Trends' window, glides each row to
+  its new place and marks how far it moved (▲12, ▼3, new) (UX-62).
 - When nothing matches in Highly cited, it offers its other years, its last 12 months and a
   search of every stored paper, as Papers does (UX-55).
 

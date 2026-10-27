@@ -408,7 +408,8 @@ pipeline and `validate` never see these. `base: "./"` keeps the site working und
   (`quarter`), or the last 12 months against the 12 before. Rising and Cooling follow the
   pipeline's order, each row with its lift (`lift`: both shares smoothed by the window's
   `added` share, so the figure follows the order), its papers then and now and a sparkline;
-  New by papers. Ten rows, then Show all; side by side from 981 px.
+  New by papers. Ten rows, then Show all; side by side from 981 px. The other window moves
+  the rows as Rankings' metrics do theirs (UX-62).
 - A row opens its topic (`?topic=`, a history step) above the lists, focused when opened
   from them: its papers and share, its impact (the share of its papers among the most cited
   tenth of their month: 10% for an average topic), its share chart, its most cited papers,
@@ -501,7 +502,13 @@ pipeline and `validate` never see these. `base: "./"` keeps the site working und
   (PROD-16). A column header sorts by it (`SortHeader`, UX-42), with `aria-sort`. Both
   tables, institutions or authors and countries, show the first three ranks in Highly
   cited's medals and, under the number ranked by, a bar of its share of the first row's
-  (`RankCell`, `shareOf`, UX-60); still, the value written.
+  (`RankCell`, `shareOf`, UX-60); still, the value written. Another metric, chosen by the
+  reader, glides each row in sight from its former place to its new one (UX-62,
+  `hooks/use-reorder.ts`: FLIP in WAAPI, 420 ms, newcomers fading in; another period or
+  search only redraws) and marks by its rank how far it moved, "▲12", "▼3" or "new"
+  (`moves.ts`), until another list; Trends says it to screen readers too ("up 5 places from
+  the 90 days"). The map's tints shift in 0.4 s. Nothing moves under reduced motion, the
+  marks staying.
 - **The world map** (UX-41, `world.ts`, `components/WorldMap.tsx`, `?rank=country`), loaded
   when chosen (`LazyWorldMap`, 49 kB gzipped). A paper counts fractionally in the countries
   of its institutions with a ROR id (`countries.json`, UX-40), its citations shared alike,
