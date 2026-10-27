@@ -41,7 +41,7 @@ for the answer.
 | 6 | Filter semantics | Exact for clicked names, word prefix for typed text | SRCH-1 | Exact for clicked names, word prefix for typed text (2026-10-03) |
 | 7 | Validation strictness | Fail on structural rules, warn on heuristic ones | DATA-3 | Fail on structural rules, warn on heuristic ones (2026-10-01) |
 | 8 | License and data terms | MIT for the code; read the Semantic Scholar terms before going public | REL-3 | MIT for the code (2026-10-01); Semantic Scholar's terms checked, its data can be published (2026-10-06) |
-| 9 | Visibility, contact and Actions bill | Confirm the private repository with a public site; choose the correction contact | SEC-9 | Correction contact: titouanlegourrierec@kaist.ac.kr (2026-10-01); the visibility waits, as CI-13, until the maintainer chooses (2026-10-17) |
+| 9 | Visibility, contact and Actions bill | Confirm the private repository with a public site; choose the correction contact | SEC-9 | Correction contact: titouanlegourrierec@kaist.ac.kr (2026-10-01); the visibility waits, as CI-13, until the maintainer chooses (2026-10-17). The repository is public since 2026-10-27 (CI-13) |
 | 10 | Primary persona | The daily cs.CV follower | Phase 2 order | Both, the daily follower and the literature search: Phase 2 goes by priority and dependencies, search first (2026-10-03) |
 | 11 | Multi-category | Stay single-category until Phase 3 is done | ARCH-4 | Single-category for now (2026-10-07) |
 | 12 | Institution canonicalization | Move the web rules into the pipeline, with ROR ids | AFF-13 | Move the web rules into the pipeline, with ROR ids (2026-10-07) |
@@ -433,7 +433,7 @@ Waiting for the maintainer (the recommendation first):
 
 | ID | Question | Recommendation |
 |---|---|---|
-| CI-13 | How to pay for Actions, and the visibility half of decision 9 | Make the repository public (the site and `data/` already are, the code is MIT), after a scan of the history for secrets. Later, at the maintainer's choice: their GitHub plan covers the private repository's Actions for now (2026-10-17). History scanned on 2026-10-27 (467 commits, `data/` aside): no token, key or `.env` ever committed, the workflows' one secret the Semantic Scholar key; three authors' addresses from arXiv pages quoted in `arxiv_html.py`'s comments and `docs/extraction.md`, their mailbox replaced by `author` since (the history keeps them, public on arXiv) |
+| CI-13 | How to pay for Actions, and the visibility half of decision 9 | Make the repository public (the site and `data/` already are, the code is MIT), after a scan of the history for secrets. Later, at the maintainer's choice: their GitHub plan covers the private repository's Actions for now (2026-10-17). History scanned on 2026-10-27 (467 commits, `data/` aside): no token, key or `.env` ever committed, the workflows' one secret the Semantic Scholar key; three authors' addresses from arXiv pages quoted in `arxiv_html.py`'s comments and `docs/extraction.md`, their mailbox replaced by `author` since (the history keeps them, public on arXiv). Done: the repository is public since 2026-10-27, after v1.0.0; the Actions of a public repository are free |
 | AFF-16, ARCH-5, ARCH-8, DOC-10, PERF-10, REL-11, UX-19 | Parent organizations, a weekend run, shorter field names, a data-format page, precomputed layouts, a removal channel, the edge color | Defer AFF-16, DOC-10 (to 1.0.0) and REL-11 (until a request); fold ARCH-5 into ARCH-4; drop ARCH-8, PERF-10 and UX-19 |
 
 ## Audit backlog still open (2026-10-11)

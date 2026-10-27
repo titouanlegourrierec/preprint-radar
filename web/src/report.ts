@@ -1,4 +1,4 @@
-/** Correction and removal requests go to the maintainer (the repository is private). */
+/** Correction and removal requests go to the maintainer, privately, not in a public issue. */
 export const CONTACT_EMAIL = "titouanlegourrierec@kaist.ac.kr";
 
 /** The paper a report is about. */
