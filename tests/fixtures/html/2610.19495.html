@@ -1,0 +1,51 @@
+<html><body><article class="ltx_document" data-front-matter="2">
+<h1 class="ltx_title ltx_title_document">Robota-Embed: Unified VLA Embeddings for Robot
+<br class="ltx_break"/>In-Context Learning and Evolution</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname"><span class="ltx_text ltx_align_left ltx_inline-block" id="id1" style="width:345.0pt;"><span class="ltx_inline-logical-block ltx_minipage ltx_align_top" id="id1.1" style="width:369.0pt;">
+<span class="ltx_para" id="p2">
+<span class="ltx_p ltx_align_left" id="p2.1"><span class="ltx_text ltx_font_bold ltx_align_left ltx_inline-block" id="p2.1.1" style="width:369.0pt;"><span class="ltx_text" id="p2.1.1.1">Yunze Liu<span class="ltx_text ltx_font_medium" id="p2.1.1.1.1" style="font-size:70%;position:relative; bottom:2.4pt;">1,*</span></span>,  <span class="ltx_text" id="p2.1.1.2">Jing Wang<span class="ltx_text ltx_font_medium" id="p2.1.1.2.1" style="font-size:70%;position:relative; bottom:2.4pt;">1,*</span></span>,  <span class="ltx_text" id="p2.1.1.3">Shenrui Wu<span class="ltx_text ltx_font_medium" id="p2.1.1.3.1" style="font-size:70%;position:relative; bottom:2.4pt;">3</span></span>,  <span class="ltx_text" id="p2.1.1.4">Wenkun He<span class="ltx_text ltx_font_medium" id="p2.1.1.4.1" style="font-size:70%;position:relative; bottom:2.4pt;">2</span></span>,  <span class="ltx_text" id="p2.1.1.5">Guanqi Zhan<span class="ltx_text ltx_font_medium" id="p2.1.1.5.1" style="font-size:70%;position:relative; bottom:2.4pt;">1</span></span>,</span></span>
+<span class="ltx_p ltx_align_left" id="p2.2"><span class="ltx_text ltx_font_bold ltx_align_left ltx_inline-block" id="p2.2.1" style="width:369.0pt;"><span class="ltx_text" id="p2.2.1.1">Xianzheng Ma<span class="ltx_text ltx_font_medium" id="p2.2.1.1.1" style="font-size:70%;position:relative; bottom:2.4pt;">4</span></span>,  <span class="ltx_text" id="p2.2.1.2">Junyu Chen<span class="ltx_text ltx_font_medium" id="p2.2.1.2.1" style="font-size:70%;position:relative; bottom:2.4pt;">1</span></span>,  <span class="ltx_text" id="p2.2.1.3">Wenhang Ge<span class="ltx_text ltx_font_medium" id="p2.2.1.3.1" style="font-size:70%;position:relative; bottom:2.4pt;">1</span></span>,  <span class="ltx_text" id="p2.2.1.4">Haozhan Tang<span class="ltx_text ltx_font_medium" id="p2.2.1.4.1" style="font-size:70%;position:relative; bottom:2.4pt;">5</span></span>,  <span class="ltx_text" id="p2.2.1.5">Yuchao Gu<span class="ltx_text ltx_font_medium" id="p2.2.1.5.1" style="font-size:70%;position:relative; bottom:2.4pt;">1</span></span>,</span></span>
+<span class="ltx_p ltx_align_left" id="p2.3"><span class="ltx_text ltx_font_bold ltx_align_left ltx_inline-block" id="p2.3.1" style="width:369.0pt;"><span class="ltx_text" id="p2.3.1.1">Zhuoyang Zhang<span class="ltx_text ltx_font_medium" id="p2.3.1.1.1" style="font-size:70%;position:relative; bottom:2.4pt;">2</span></span>,  <span class="ltx_text" id="p2.3.1.2">Zekai Wang<span class="ltx_text ltx_font_medium" id="p2.3.1.2.1" style="font-size:70%;position:relative; bottom:2.4pt;">3</span></span>,  <span class="ltx_text" id="p2.3.1.3">Dantong Niu<span class="ltx_text ltx_font_medium" id="p2.3.1.3.1" style="font-size:70%;position:relative; bottom:2.4pt;">3</span></span>,  <span class="ltx_text" id="p2.3.1.4">Zhen Dong<span class="ltx_text ltx_font_medium" id="p2.3.1.4.1" style="font-size:70%;position:relative; bottom:2.4pt;">1</span></span>,  <span class="ltx_text" id="p2.3.1.5">Yuke Zhu<span class="ltx_text ltx_font_medium" id="p2.3.1.5.1" style="font-size:70%;position:relative; bottom:2.4pt;">1</span></span>,</span></span>
+<span class="ltx_p ltx_align_left" id="p2.4"><span class="ltx_text ltx_font_bold ltx_align_left ltx_inline-block" id="p2.4.1" style="width:369.0pt;"><span class="ltx_text" id="p2.4.1.1">Trevor Darrell<span class="ltx_text ltx_font_medium" id="p2.4.1.1.1" style="font-size:70%;position:relative; bottom:2.4pt;">3</span></span>,  <span class="ltx_text" id="p2.4.1.2">Linxi “Jim” Fan<span class="ltx_text ltx_font_medium" id="p2.4.1.2.1" style="font-size:70%;position:relative; bottom:2.4pt;">1</span></span>,  <span class="ltx_text" id="p2.4.1.3">Song Han<span class="ltx_text ltx_font_medium" id="p2.4.1.3.1" style="font-size:70%;position:relative; bottom:2.4pt;">2</span></span>,  <span class="ltx_text" id="p2.4.1.4">Han Cai<span class="ltx_text ltx_font_medium" id="p2.4.1.4.1" style="font-size:70%;position:relative; bottom:2.4pt;">1,<math alttext="\dagger" class="ltx_Math" display="inline" id="m1" intent=":literal"><semantics><mo>†</mo><annotation encoding="application/x-tex">\dagger</annotation></semantics></math></span></span></span></span>
+<span class="ltx_p ltx_align_left" id="p2.5"><span class="ltx_text" id="p2.5.1" style="font-size:70%;position:relative; bottom:2.4pt;--ltx-fg-color:#404040;">1</span><span class="ltx_text" id="p2.5.2" style="--ltx-fg-color:#404040;"> NVIDIA <span class="ltx_text" id="p2.5.2.1" style="font-size:70%;position:relative; bottom:2.4pt;">2</span> MIT <span class="ltx_text" id="p2.5.2.2" style="font-size:70%;position:relative; bottom:2.4pt;">3</span> UCB <span class="ltx_text" id="p2.5.2.3" style="font-size:70%;position:relative; bottom:2.4pt;">4</span> Oxford <span class="ltx_text" id="p2.5.2.4" style="font-size:70%;position:relative; bottom:2.4pt;">5</span> CMU
+<br class="ltx_break"/><span class="ltx_text" id="p2.5.2.5" style="font-size:70%;position:relative; bottom:2.4pt;">*</span> Equal contribution. <span class="ltx_text" id="p2.5.2.6" style="position:relative; bottom:2.4pt;"><math alttext="\dagger" class="ltx_Math" display="inline" id="m2" intent=":literal"><semantics><mo mathcolor="#404040" mathsize="0.700em" style="--ltx-fg-color:#404040;">†</mo><annotation encoding="application/x-tex">\dagger</annotation></semantics></math></span> Corresponding author.</span></span>
+</span>
+<span class="ltx_para ltx_align_left ltx_noindent" id="p1">
+<span class="ltx_p" id="p1.1"><a class="ltx_ref ltx_href ltx_font_bold" href="https://robota-ai.github.io/robota-embed/" title="">Project Page</a><span class="ltx_text" id="p1.1.1"></span></span>
+</span></span>
+</span>
+</span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Retrieving useful context for a robot requires matching not only its task,
+but also its current stage of execution and the continuation that should
+follow. We introduce Robota-Embed, to our knowledge the first
+vision–language–action (VLA) embedding model to jointly encode all three
+modalities in both current-state queries and recorded future continuations.
+Predictive retrieval training aligns these endpoints for physical-experience
+retrieval, and the resulting representation retrieves historical
+continuations as context at inference time. We construct a multi-source corpus
+of 1,695,684 cleaned training anchors and introduce Robota-Embed-Bench, which
+evaluates 4,000 queries against a shared 8,000-entry gallery. Our model achieves
+47.33% clip-level and 81.77% episode-level R@1, surpassing action-free Gemini
+Embedding 2 by 22.09 and 33.47 percentage points. Across controlled retrieval
+studies, removing native action degrades retrieval more than removing vision,
+indicating that execution information is a central part of the retrieval key.
+We then study how this shared retrieval space transfers beyond retrieval
+metrics through two complementary applications. <em class="ltx_emph ltx_font_italic" id="abstract1.1.1">Embed2ICL</em> uses
+retrieved experience for training-free and training-based policy conditioning,
+increasing success from 47.0% to 56.3% in DROID-Sim and from 86.4% to 92.8%
+on the LIBERO difficult subset. Both interfaces also improve task progress in
+real-robot evaluations. <em class="ltx_emph ltx_font_italic" id="abstract1.1.2">Embed2Evolve</em> uses execution feedback to grow
+task-local memory and refine how retrieved context is used around a frozen
+GPT-6 Astra policy. Across five ManiSkill tasks, it achieves 68% success,
+compared with 24% for GPT-6 Astra Direct and 33% for a harness independently
+evolved with Omni-Embed-Nemotron-3B under the same protocol. Relative to the
+latter, it uses approximately 79.5% fewer policy tokens per test rollout.
+Together, these results show that a unified, action-aware retrieval space can
+support both robot in-context learning and task-local context evolution.</p>
+</div>
+
+<div class="ltx_pagination ltx_role_newpage"></div>
+</article></body></html>

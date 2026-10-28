@@ -36,7 +36,9 @@ whose arXiv id is the evidence: never "simplify" one away without it.
   list (below): ICML's notice, "¹University of Tübingen. ²KAIST AI. Correspondence to: …",
   where "KAIST AI" names none and the correspondence ends the last piece (2610.35857,
   2610.35706, AFF-34). Its markers anchor the same pieces.
-- Numbered lines after the names.
+- Numbered lines after the names. A marker raised by a span's style is a superscript, and
+  one set apart in spaces before a capital starts a line as one glued to the word does
+  ("¹ NVIDIA ² MIT ³ UCB", one affiliation, its authors all at it, 2610.19495; AFF-37).
 - Lines led by symbols ("*Oregon State University †The Ohio State University", 2610.17605)
   when each one that is not noise names an institution, symbols marking notes too ("†Now
   at Google"); not when a line ends with one, the markers then trailing
@@ -49,12 +51,17 @@ whose arXiv id is the evidence: never "simplify" one away without it.
 - In a block without contacts nor marked lines, the lines that name an institution or end
   with a country and hold no author's name (2610.18323: names in a table, then "Xi'an
   Jiaotong University"), the one affiliation everyone's only when nothing but names and
-  noise was left out (not "Southeast University" beside "Tencent HY", 2610.14852).
+  noise was left out. Lines led by markers that hold only notes and names do not count
+  as marked ("*corresponding authors: …" and names glued after a "*", 2508.10104). A row
+  set apart in wide spaces is kept whole when one piece names an institution and none an
+  author ("Meta AI Research    WRI    Inria", 2508.10104; "Southeast University    Tencent
+  HY    UC Merced    Tsinghua University", 2610.14852, which gave two; AFF-37).
   "Foundation Model" is no institution (2609.21449). Where LaTeXML cut the author field at
   its commas and "and"s into creators ("University of Science", "Technology of China",
   2411.15633, 2510.11387), one naming no author with a piece of at most two words naming
   no institution nor country ("College Park", "Telecommunications"; not "(Guangzhou)")
-  tells it: the block gives nothing rather than pieces.
+  tells it: the block gives nothing rather than pieces. A piece is a creator's whole line,
+  never part of a row set apart in wide spaces ("WRI", 2508.10104).
 - Last, the affiliations a thanks note lists without a sentence (AFF-11), as IEEE
   conference classes (IROS) do: the whole note ("Department of Computer Science,
   University of Freiburg, Germany.", 2609.26325), a numbered note each ("¹FZI Research

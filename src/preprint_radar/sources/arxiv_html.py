@@ -22,7 +22,7 @@ from preprint_radar.latex import plain_text
 
 logger = logging.getLogger(__name__)
 
-EXTRACTOR_VERSION = 13
+EXTRACTOR_VERSION = 14
 """Version of the extraction heuristics of this module, stored with the affiliations they give.
 
 Bump it with any change that alters what a page gives (affiliations, author mapping), so
@@ -76,6 +76,13 @@ that ``reextract`` reads those papers again, from the page cache when it holds t
   correspondence sentence when they qualify as a thanks note's list, and its markers anchor
   them: ICML's notice, "¹University of Tübingen. ²KAIST AI. Correspondence to: …", gave
   nothing (2610.35857, 2610.35706) (AFF-34).
+- 14: markers raised by a span's style are superscripts, and one set apart in spaces before
+  a capital starts a numbered line ("¹ NVIDIA ² MIT ³ UCB", one affiliation, 2610.19495);
+  lines led by markers that are only notes and names leave the block to its unmarked
+  lines, and a row set apart in wide spaces is kept whole when one piece names an
+  institution ("Meta AI Research    WRI    Inria", nothing, 2508.10104; "Tencent HY" and
+  "UC Merced" beside "Southeast University", 2610.14852); curly double quotes fold in
+  names ('Linxi "Jim" Fan') (AFF-37).
 """
 
 # LaTeXML renders line breaks and \quad between affiliations as newlines, em spaces
@@ -178,6 +185,11 @@ _LINE_BREAK_RE = re.compile(r"<br\b[^>]*>", re.IGNORECASE)
 _ANNOTATION_RE = re.compile(
     r"<annotation(?:-xml)?\b[^>]*>.*?</annotation(?:-xml)?>", re.IGNORECASE | re.DOTALL
 )
+# A superscript set by hand, as a span raised by its style, holding a marker only: "Yunze
+# Liu<span style="font-size:70%;position:relative; bottom:2.4pt;">1,*</span>" and "1 NVIDIA
+# 2 MIT 3 UCB" of 2610.19495, read as one affiliation without them.
+_RAISED_RE = re.compile(r"position:\s*relative;\s*bottom:\s*\d", re.IGNORECASE)
+_RAISED_MARKER_RE = re.compile(r"[\d,\s*†‡§¶⋆\u2217♠♣♢♡]{1,12}")
 # Conjunctions left over when a line break splits "A University and B Institute".
 _CONNECTOR_RE = re.compile(r"^(?:and|&)(?:\s+|$)", re.IGNORECASE)
 # A line that ends like this continues on the next one ("School of Medicine, and").
@@ -574,7 +586,7 @@ def parse_front_matter(html: str, *, authors: Sequence[str] = ()) -> FrontMatter
     Returns:
         The front matter.
     """
-    html = _ANNOTATION_RE.sub("", _LINE_BREAK_RE.sub("\n", html))
+    html = _raised_markers_as_superscripts(_ANNOTATION_RE.sub("", _LINE_BREAK_RE.sub("\n", html)))
     soup = BeautifulSoup(html, "html.parser")
     affiliations, partial = _affiliations(soup, authors)
     return FrontMatter(
@@ -582,6 +594,23 @@ def parse_front_matter(html: str, *, authors: Sequence[str] = ()) -> FrontMatter
         abstract=_abstract(soup),
         author_affiliations=_author_affiliations(html, tuple(authors), affiliations, partial=partial),
     )
+
+
+def _raised_markers_as_superscripts(html: str) -> str:
+    """The page with each marker raised by a span's style written as a superscript (``_RAISED_RE``)."""
+    if "bottom:" not in html:
+        return html
+    soup = BeautifulSoup(html, "html.parser")
+    raised = [
+        span
+        for span in soup.select('span[style*="bottom:"]')
+        if _RAISED_RE.search(str(span.get("style", "")))
+        and _RAISED_MARKER_RE.fullmatch(span.get_text().strip())
+    ]
+    for span in raised:
+        span.name = "sup"
+        span.attrs = {"class": "ltx_sup"}
+    return str(soup) if raised else html
 
 
 def _abstract(soup: BeautifulSoup) -> str | None:
@@ -775,21 +804,24 @@ def _unmarked_affiliations(block: Tag, authors: Sequence[str]) -> tuple[list[str
     author's name (a name LaTeXML glued to its affiliation). A block with lines led by
     markers is read by them alone, and so is a block :func:`_split_at_commas`.
 
+    Lines led by markers that are notes only ("*corresponding authors: ...") leave the block
+    to this source. A line set apart in wide spaces is a row of affiliations, every piece
+    kept when one names an institution and none an author: "Meta AI Research    WRI
+    Inria" (2508.10104), where "WRI" and "Inria" hold no institution word.
+
     Returns:
         The affiliations, and whether lines that may be others were left out ("Tencent
         HY", "HKUST(GZ)"): the one affiliation of such a block is everyone's only when
         nothing but names and noise is left.
     """
-    marked = _numbered_text(block)
-    if _NUMBERED_LINE_RE.search(marked) or _SYMBOL_LINE_RE.search(marked) or _split_at_commas(block, authors):
+    names = [_fold(author) for author in authors]
+    if _has_marked_affiliations(block, authors, names) or _split_at_commas(block, authors):
         return [], False
     copy = _pruned(block)
     for sup in copy.select("sup"):
         sup.decompose()
-    text = _LATEX_SPACE_RE.sub("\n", copy.get_text().replace("\xa0", " "))
+    kept, text = _affiliation_rows(_LATEX_SPACE_RE.sub("\n", copy.get_text().replace("\xa0", " ")), names)
     lines = [_Line(line.strip()) for line in _SEPARATOR_RE.split(text) if line.strip()]
-    names = [_fold(author) for author in authors]
-    kept: list[str] = []
     left_out = False
     for line in _joined(lines, authors):
         # Without the authors' names, whose words may hold an institution's ("Labussière").
@@ -807,6 +839,50 @@ def _unmarked_affiliations(block: Tag, authors: Sequence[str]) -> tuple[list[str
     return kept, left_out
 
 
+def _has_marked_affiliations(block: Tag, authors: Sequence[str], names: Sequence[str]) -> bool:
+    """Whether lines led by markers hold affiliations, not only notes and names.
+
+    2508.10104 marks its first authors' names ("Oriane Siméoni*Huy V. Vo*", the rest glued)
+    and a note, "*corresponding authors: ...", its affiliations without a marker.
+    """
+    marked = _numbered_text(block)
+    lines = [
+        match["name"] for regex in (_NUMBERED_LINE_RE, _SYMBOL_LINE_RE) for match in regex.finditer(marked)
+    ]
+    return any(
+        clean_affiliations(line) and not names_only_authors(line, authors) and not _names_only(line, names)
+        for line in lines
+    )
+
+
+def _names_only(text: str, names: Sequence[str]) -> bool:
+    """Whether the text holds nothing but these folded names, however glued: "Cijo JoseVasil Khalidov"."""
+    rest = _fold(text)
+    for name in names:
+        rest = rest.replace(name, " ")
+    return not any(char.isalpha() for char in rest)
+
+
+def _affiliation_rows(text: str, names: Sequence[str]) -> tuple[list[str], str]:
+    """The rows of affiliations set apart in wide spaces, and the text without them.
+
+    A row's pieces are kept when one names an institution and none an author: "Meta AI
+    Research    WRI    Inria" (2508.10104), where "WRI" and "Inria" hold no institution word.
+    """
+    kept: list[str] = []
+    for raw in text.split("\n"):
+        pieces = [piece.strip() for piece in _SEPARATOR_RE.split(raw) if piece.strip()]
+        folded = _fold(raw)
+        if (
+            len(pieces) > 1
+            and not any(name in folded for name in names)
+            and any(_INSTITUTION_WORD_RE.search(piece) for piece in pieces)
+        ):
+            kept += [piece for piece in pieces if clean_affiliations(piece)]
+            text = text.replace(raw, "")
+    return kept, text
+
+
 def _split_at_commas(block: Tag, authors: Sequence[str]) -> bool:
     """Whether LaTeXML cut the author field at each comma and "and", affiliations included.
 
@@ -821,8 +897,10 @@ def _split_at_commas(block: Tag, authors: Sequence[str]) -> bool:
         text = _plain_text(_pruned(name))
         if any(author in _fold(text) for author in names):
             continue
-        for line in _SEPARATOR_RE.split(name.get_text().replace("\xa0", " ")):
-            piece = line.strip(_EDGE_PUNCTUATION)
+        # Line by line: a piece is a creator's whole line, never part of a row set apart in
+        # wide spaces ("Meta AI Research    WRI    Inria", 2508.10104).
+        for line in name.get_text().replace("\xa0", " ").split("\n"):
+            piece = line.strip().strip(_EDGE_PUNCTUATION)
             # A qualifier in brackets is no piece: "(Guangzhou)" under its university (2609.33258).
             if (
                 piece
@@ -1174,13 +1252,18 @@ def _numbered_text(block: Tag) -> str:
     Free-form blocks write several numbered affiliations on one line: "University of
     California, Berkeley ²Duke University ³Carnegie Mellon University" (2609.38079). A
     marker glued to the word after it introduces an affiliation; one after a name is
-    followed by a space.
+    followed by a space. So does one set apart from both words around it, before a
+    capital: "¹ NVIDIA ² MIT ³ UCB" (2610.19495), where a name's is glued to it ("Yunze Liu¹,").
     """
     copy = BeautifulSoup(str(block), "html.parser")
     for sup in copy.select("sup"):
-        after = sup.next_sibling
+        after, before = sup.next_sibling, sup.previous_sibling
         text = after.get_text() if isinstance(after, Tag) else str(after or "")
-        if text[:1].isalpha() and not _inside_word(sup):
+        lead = before.get_text() if isinstance(before, Tag) else str(before or "")
+        apart = lead[-1:].isspace() or not lead
+        if (text[:1].isalpha() and not _inside_word(sup)) or (
+            apart and text[:1].isspace() and text.lstrip()[:1].isupper()
+        ):
             sup.insert_before("\n")
     return copy.get_text().replace("\xa0", " ")
 
@@ -1802,8 +1885,11 @@ def _plain_text(node: Tag) -> str:
     return " ".join(copy.get_text().split())
 
 
-# Curly quotes and long dashes fold to their ASCII forms: "Shin\u2019ichi" == "Shin'ichi".
-_PUNCTUATION_VARIANTS = str.maketrans("\u2018\u2019\u02bc\u2013\u2014\u2212", "'" * 3 + "-" * 3)
+# Curly quotes and long dashes fold to their ASCII forms: "Shin\u2019ichi" == "Shin'ichi",
+# and "Linxi \u201cJim\u201d Fan" is the listing's 'Linxi "Jim" Fan' (2610.19495).
+_PUNCTUATION_VARIANTS = str.maketrans(
+    "\u2018\u2019\u02bc\u201c\u201d\u2013\u2014\u2212", "'" * 3 + '"' * 2 + "-" * 3
+)
 
 
 def _fold(text: str) -> str:

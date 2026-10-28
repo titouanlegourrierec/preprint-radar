@@ -2795,5 +2795,189 @@
       ]
     ],
     "abstract": "Deep generative networks have recently achieved unprecedented performance in precise image and video editing using sophisticated textual prompts. However, the effectiveness of such models heavily depends on access to very large supervised and annotated image datasets, which can be very difficult to obtain. This is particularly true for satellite instruments, which very rarely overlap with labelled data, and suffer from domain shifts in the rare occasions they do. In this paper, we investigate the potential of flow matching models for unsupervised domain adaptation of satellite radiometer images. Our main contribution is a novel unsupervised method that achieves precise domain alignment by leveraging parts of the deterministic ordinary differential equations in flow matching models, conditioned on different satellite instruments. A key strength of our approach is its ability to preserve essential information while adapting across any domains since the perturbations are in theory bijective. Extensive experiments conducted on the GPM-Core constellation show the benefit of our conditional domain adaptation, particularly in improving rain precipitation estimation from radiometer imagery."
+  },
+  "2610.19495": {
+    "authors": [
+      "Yunze Liu",
+      "Jing Wang",
+      "Shenrui Wu",
+      "Wenkun He",
+      "Guanqi Zhan",
+      "Xianzheng Ma",
+      "Junyu Chen",
+      "Wenhang Ge",
+      "Haozhan Tang",
+      "Yuchao Gu",
+      "Zhuoyang Zhang",
+      "Zekai Wang",
+      "Dantong Niu",
+      "Zhen Dong",
+      "Yuke Zhu",
+      "Trevor Darrell",
+      "Linxi \"Jim\" Fan",
+      "Song Han",
+      "Han Cai"
+    ],
+    "affiliations": [
+      "NVIDIA",
+      "MIT",
+      "UCB",
+      "Oxford",
+      "CMU"
+    ],
+    "placed": [
+      [
+        "Yunze Liu",
+        [
+          "NVIDIA"
+        ]
+      ],
+      [
+        "Jing Wang",
+        [
+          "NVIDIA"
+        ]
+      ],
+      [
+        "Shenrui Wu",
+        [
+          "UCB"
+        ]
+      ],
+      [
+        "Wenkun He",
+        [
+          "MIT"
+        ]
+      ],
+      [
+        "Guanqi Zhan",
+        [
+          "NVIDIA"
+        ]
+      ],
+      [
+        "Xianzheng Ma",
+        [
+          "Oxford"
+        ]
+      ],
+      [
+        "Junyu Chen",
+        [
+          "NVIDIA"
+        ]
+      ],
+      [
+        "Wenhang Ge",
+        [
+          "NVIDIA"
+        ]
+      ],
+      [
+        "Haozhan Tang",
+        [
+          "CMU"
+        ]
+      ],
+      [
+        "Yuchao Gu",
+        [
+          "NVIDIA"
+        ]
+      ],
+      [
+        "Zhuoyang Zhang",
+        [
+          "MIT"
+        ]
+      ],
+      [
+        "Zekai Wang",
+        [
+          "UCB"
+        ]
+      ],
+      [
+        "Dantong Niu",
+        [
+          "UCB"
+        ]
+      ],
+      [
+        "Zhen Dong",
+        [
+          "NVIDIA"
+        ]
+      ],
+      [
+        "Yuke Zhu",
+        [
+          "NVIDIA"
+        ]
+      ],
+      [
+        "Trevor Darrell",
+        [
+          "UCB"
+        ]
+      ],
+      [
+        "Linxi \"Jim\" Fan",
+        [
+          "NVIDIA"
+        ]
+      ],
+      [
+        "Song Han",
+        [
+          "MIT"
+        ]
+      ],
+      [
+        "Han Cai",
+        [
+          "NVIDIA"
+        ]
+      ]
+    ],
+    "abstract": "Retrieving useful context for a robot requires matching not only its task, but also its current stage of execution and the continuation that should follow. We introduce Robota-Embed, to our knowledge the first vision–language–action (VLA) embedding model to jointly encode all three modalities in both current-state queries and recorded future continuations. Predictive retrieval training aligns these endpoints for physical-experience retrieval, and the resulting representation retrieves historical continuations as context at inference time. We construct a multi-source corpus of 1,695,684 cleaned training anchors and introduce Robota-Embed-Bench, which evaluates 4,000 queries against a shared 8,000-entry gallery. Our model achieves 47.33% clip-level and 81.77% episode-level R@1, surpassing action-free Gemini Embedding 2 by 22.09 and 33.47 percentage points. Across controlled retrieval studies, removing native action degrades retrieval more than removing vision, indicating that execution information is a central part of the retrieval key. We then study how this shared retrieval space transfers beyond retrieval metrics through two complementary applications. Embed2ICL uses retrieved experience for training-free and training-based policy conditioning, increasing success from 47.0% to 56.3% in DROID-Sim and from 86.4% to 92.8% on the LIBERO difficult subset. Both interfaces also improve task progress in real-robot evaluations. Embed2Evolve uses execution feedback to grow task-local memory and refine how retrieved context is used around a frozen GPT-6 Astra policy. Across five ManiSkill tasks, it achieves 68% success, compared with 24% for GPT-6 Astra Direct and 33% for a harness independently evolved with Omni-Embed-Nemotron-3B under the same protocol. Relative to the latter, it uses approximately 79.5% fewer policy tokens per test rollout. Together, these results show that a unified, action-aware retrieval space can support both robot in-context learning and task-local context evolution."
+  },
+  "2508.10104": {
+    "authors": [
+      "Oriane Siméoni",
+      "Huy V. Vo",
+      "Maximilian Seitzer",
+      "Federico Baldassarre",
+      "Maxime Oquab",
+      "Cijo Jose",
+      "Vasil Khalidov",
+      "Marc Szafraniec",
+      "Seungeun Yi",
+      "Michaël Ramamonjisoa",
+      "Francisco Massa",
+      "Daniel Haziza",
+      "Luca Wehrstedt",
+      "Jianyuan Wang",
+      "Timothée Darcet",
+      "Théo Moutakanni",
+      "Leonel Sentana",
+      "Claire Roberts",
+      "Andrea Vedaldi",
+      "Jamie Tolan",
+      "John Brandt",
+      "Camille Couprie",
+      "Julien Mairal",
+      "Hervé Jégou",
+      "Patrick Labatut",
+      "Piotr Bojanowski"
+    ],
+    "affiliations": [
+      "Meta AI Research",
+      "WRI",
+      "Inria"
+    ],
+    "placed": null,
+    "abstract": "Self-supervised learning holds the promise of eliminating the need for manual data annotation, enabling models to scale effortlessly to massive datasets and larger architectures. By not being tailored to specific tasks or domains, this training paradigm has the potential to learn visual representations from diverse sources, ranging from natural to aerial images—using a single algorithm. This technical report introduces DINOv3, a major milestone toward realizing this vision by leveraging simple yet effective strategies. First, we leverage the benefit of scaling both dataset and model size by careful data preparation, design, and optimization. Second, we introduce a new method called Gram anchoring, which effectively addresses the known yet unsolved issue of dense feature maps degrading during long training schedules. Finally, we apply post-hoc strategies that further enhance our models’ flexibility with respect to resolution, model size, and alignment with text. As a result, we present a versatile vision foundation model that outperforms the specialized state of the art across a broad range of settings, without fine-tuning. DINOv3 produces high-quality dense features that achieve outstanding performance on various vision tasks, significantly surpassing previous self- and weakly-supervised foundation models. We also share the DINOv3 suite of vision models, designed to advance the state of the art on a wide spectrum of tasks and data by providing scalable solutions for diverse resource constraints and deployment scenarios."
   }
 }
