@@ -22,7 +22,8 @@ function loadDrawer(): Promise<DrawFormula> {
  * and for good if it cannot load: the formulas stay written between their dollars.
  */
 export function useFormulaDrawer(wanted: boolean): DrawFormula | null {
-  const [draw, setDraw] = useState<DrawFormula | null>(drawer);
+  // A function given to useState is called as its initializer: wrapped, the drawer is kept.
+  const [draw, setDraw] = useState<DrawFormula | null>(() => drawer);
   useEffect(() => {
     if (!wanted || draw !== null) return;
     let live = true;

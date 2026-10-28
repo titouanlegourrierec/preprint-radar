@@ -464,6 +464,10 @@ test("the Content-Security-Policy refuses nothing the site does", async ({ page 
   const compiler = page.locator("article.paper").filter({ hasText: "A Compiler for Neural" });
   await compiler.getByRole("button", { name: "More" }).click();
   await expect(compiler.locator(".paper__abstract math")).toHaveCount(1);
+  // Shown again once Temml has loaded, it is drawn at once (the view once broke there).
+  await compiler.getByRole("button", { name: "Less" }).click();
+  await compiler.getByRole("button", { name: "More" }).click();
+  await expect(compiler.locator(".paper__abstract math")).toHaveCount(1);
   // A saved paper's star bursts and flies to its tab, placed from the script (UX-37).
   await page.getByRole("button", { name: "Save to reading list" }).first().click();
   await expect(page.locator(".save-burst")).toHaveCount(1);
