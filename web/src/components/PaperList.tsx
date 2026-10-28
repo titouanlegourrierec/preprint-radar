@@ -48,6 +48,7 @@ interface Props {
   seenIds?: ReadonlySet<string> | undefined;
   onToggleSeen?: ((arxivId: string) => void) | undefined;
   onAuthor: (author: string) => void;
+  onVenue?: ((venue: string) => void) | undefined;
   onAffiliation: (filter: NameFilter) => void;
   /**
    * Move a paper before or after another, in the reading list's own order (UX-39): by
@@ -88,6 +89,7 @@ export function PaperList({
   seenIds,
   onToggleSeen,
   onAuthor,
+  onVenue,
   onAffiliation,
   onMove,
   folders,
@@ -271,6 +273,7 @@ export function PaperList({
       cohort={cohortOf?.(paper) ?? undefined}
       onToggleSaved={toggleSaved}
       onAuthor={onAuthor}
+      onVenue={onVenue}
       onAffiliation={onAffiliation}
       drag={
         folders

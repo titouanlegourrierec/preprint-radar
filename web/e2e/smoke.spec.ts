@@ -86,6 +86,18 @@ test("a saved search says so and keeps the focus; pressed again, it is forgotten
   expect(errors).toEqual([]);
 });
 
+test("a venue's badge shows that venue's papers alone (UX-64)", async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.goto("./?view=cited&year=2017");
+  const card = page.locator("article.paper").filter({ hasText: "Attention for Looms" });
+  await card.getByRole("button", { name: "NeurIPS 2017" }).click();
+  await expect(page).toHaveURL(/venue=NeurIPS\+2017/);
+  // The card stays folded: its badge is a control, not the card's text.
+  await expect(card.locator(".paper__more")).toHaveAttribute("aria-expanded", "false");
+  await expect(page.getByText("1 of 1 highly cited cs.CV paper")).toBeVisible();
+  expect(errors).toEqual([]);
+});
+
 test("the index loads once, preloaded with the page", async ({ page }) => {
   const requests: string[] = [];
   const warnings: string[] = [];

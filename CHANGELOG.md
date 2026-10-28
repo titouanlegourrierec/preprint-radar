@@ -46,6 +46,7 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
   its new place and marks how far it moved (▲12, ▼3, new) (UX-62).
 - A card marked seen while seen papers are hidden, or unsaved from the reading list, slides
   out and the cards below close up, rather than the list jumping (UX-63).
+- A card's venue badge, "NeurIPS 2026", shows that venue's papers alone (UX-64).
 - When nothing matches in Highly cited, it offers its other years, its last 12 months and a
   search of every stored paper, as Papers does (UX-55).
 

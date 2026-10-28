@@ -148,6 +148,8 @@ interface Props {
   /** Absent where papers cannot be marked seen (the reading list). */
   onToggleSeen?: ((arxivId: string) => void) | undefined;
   onAuthor: (author: string) => void;
+  /** Filter on the paper's venue, its badge pressed ("NeurIPS 2026"). */
+  onVenue?: ((venue: string) => void) | undefined;
   /** The affiliation's institution, exactly, or the string itself when it names none. */
   onAffiliation: (filter: NameFilter) => void;
   /**
@@ -196,6 +198,7 @@ export function PaperCard({
   onToggleSaved,
   onToggleSeen,
   onAuthor,
+  onVenue,
   onAffiliation,
   folder,
   drag,
@@ -509,12 +512,19 @@ export function PaperCard({
               </span>
             )}
             {paper.venue && (
-              <span
-                class={`badge${paper.venue.endsWith("Workshop") ? " badge--muted" : ""}`}
-                title={paper.comments ?? paper.journal_ref ?? undefined}
+              // Pressed, the list shows that venue's papers alone, as a name does its author's.
+              <button
+                type="button"
+                class={`badge badge--action${paper.venue.endsWith("Workshop") ? " badge--muted" : ""}`}
+                aria-describedby={titleId}
+                title={[`Only ${paper.venue}'s papers`, paper.comments ?? paper.journal_ref]
+                  .filter(Boolean)
+                  .join("\n")}
+                disabled={!onVenue}
+                onClick={() => paper.venue && onVenue?.(paper.venue)}
               >
                 <Highlighted text={paper.venue} terms={highlights} />
-              </span>
+              </button>
             )}
             <span title={byMonth ? DATED_BY_MONTH : undefined}>{announced}</span>
             {firstVersion !== null && (

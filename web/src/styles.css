@@ -1554,6 +1554,30 @@ html {
   font-weight: 600;
 }
 
+/* A venue's badge is a button: pressed, the list keeps that venue's papers alone. Under the
+   pointer it takes a ring of its text's color, its contrast kept. */
+.badge.badge--action {
+  border: 0;
+  font-family: inherit;
+  line-height: inherit;
+  cursor: pointer;
+  transition: box-shadow 120ms ease;
+}
+
+.badge.badge--action:hover {
+  box-shadow: inset 0 0 0 1px currentColor;
+}
+
+.badge.badge--action:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.badge.badge--action:disabled {
+  cursor: default;
+  box-shadow: none;
+}
+
 .citations {
   font-variant-numeric: tabular-nums;
 }

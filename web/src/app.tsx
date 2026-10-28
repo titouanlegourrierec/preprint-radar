@@ -1190,6 +1190,7 @@ export function App() {
                     seenIds={triaged ? triage.seen : undefined}
                     onToggleSeen={triaged ? triage.toggleSeen : undefined}
                     onAuthor={(author) => setFilters({ ...state.filters, author: exactly(author) })}
+                    onVenue={(venue) => setFilters({ ...state.filters, venue })}
                     onAffiliation={(affiliation) => setFilters({ ...state.filters, affiliation })}
                     onMove={custom && !sharing ? readingList.move : undefined}
                     folders={
