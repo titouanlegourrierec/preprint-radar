@@ -434,6 +434,26 @@ pipeline and `validate` never see these. `base: "./"` keeps the site working und
   version or its identifier's month, not its announcement. Once pruning deletes day files,
   their archived papers are dated by month too. Sorting and exports keep the stored date.
 
+## Formulas (`math.ts`, `components/MathText.tsx`, `hooks/use-math.ts`)
+
+- arXiv writes the formulas of titles and abstracts between dollars; the pipeline makes the
+  rest of the LaTeX plain and keeps a formula still holding markup as written
+  (`latex.plain_text`, decision 17). `MathText` draws each as MathML with Temml, in cards'
+  titles and abstracts, the graph's details, Rankings and Trends (UX-69): of 1,602 formulas
+  in 834 stored papers, all but 24 that use their authors' own macros (`\Spix`), which
+  stay between their dollars, as all do while Temml loads or if it cannot.
+- A formula is what Pandoc reads as one (`textPieces`): single dollars around text that
+  neither starts nor ends with a space, the closing one before no digit, so that `$20,000
+  and $30,000` stay words; or double dollars; never an escaped `\$`.
+- Temml is a chunk of its own (60 kB gzipped), loaded once a text shown holds a formula: the
+  landing page never waits for it. MathML is the browser's, with no font to load, and no
+  inline style once `withoutStyles` drops the few Temml sets (accents, colors, negative
+  spaces), which the Content-Security-Policy would refuse. Its output is inserted as HTML:
+  Temml escapes the text, and `trust` stays off, refusing `\href` and `\html…`. A bare `%`
+  is escaped first (`drawableTex`), which TeX would read as a comment.
+- Search, highlighting and exports read the stored text, dollars included; the words of a
+  formula are not highlighted.
+
 ## Exports and corrections
 
 - `export.ts` writes the results shown as CSV, RIS or Markdown, `bibtex.ts` as BibTeX (a/b/c

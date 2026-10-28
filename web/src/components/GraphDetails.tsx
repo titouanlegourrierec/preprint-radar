@@ -11,6 +11,7 @@ import {
 } from "../graph";
 import type { Paper } from "../types";
 import { InstitutionLogo } from "./InstitutionLogo";
+import { MathText } from "./MathText";
 
 const DETAILS_PAPERS = 8;
 const DETAILS_AUTHORS = 8;
@@ -129,7 +130,7 @@ function EntityDetails(props: Props & { entity: EntityNode }) {
             return paper ? (
               <li key={id} {...peeking(`paper:${id}`, props.onPeek)}>
                 <a href={paper.abs_url} target="_blank" rel="noopener noreferrer">
-                  {paper.title}
+                  <MathText text={paper.title} terms={[]} />
                 </a>{" "}
                 <span class="muted">
                   · {formatAnnounced(paper.announced, props.oldestDay)}
@@ -173,7 +174,7 @@ function EntityDetails(props: Props & { entity: EntityNode }) {
                       return paper ? (
                         <li key={id}>
                           <a href={paper.abs_url} target="_blank" rel="noopener noreferrer">
-                            {paper.title}
+                            <MathText text={paper.title} terms={[]} />
                           </a>
                         </li>
                       ) : null;
@@ -232,7 +233,7 @@ function PaperDetails({
     <>
       <h2>
         <a href={paper.abs_url} target="_blank" rel="noopener noreferrer">
-          {paper.title}
+          <MathText text={paper.title} terms={[]} />
         </a>
       </h2>
       <p class="muted">

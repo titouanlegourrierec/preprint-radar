@@ -63,6 +63,9 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
   together (UX-66).
 - When nothing matches in Highly cited, it offers its other years, its last 12 months and a
   search of every stored paper, as Papers does (UX-55).
+- The formulas of titles and abstracts are drawn rather than written in LaTeX: "ResNet²"
+  instead of `ResNet$^2$`, fractions, indices and symbols in the browser's own math
+  rendering (UX-69).
 
 ### Pipeline
 

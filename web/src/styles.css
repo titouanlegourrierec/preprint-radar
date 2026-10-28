@@ -1940,6 +1940,11 @@ html {
   color: var(--text-muted);
 }
 
+/* A formula of a title or an abstract (UX-69): MathML, in the system's math font. */
+.math > math {
+  font-family: "STIX Two Math", "Cambria Math", "Latin Modern Math", math;
+}
+
 .paper__abstract {
   margin: 8px 0 0;
   font-size: 0.9rem;

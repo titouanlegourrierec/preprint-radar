@@ -46,6 +46,7 @@ import {
   PdfIcon,
   StarIcon,
 } from "./icons";
+import { MathText } from "./MathText";
 import { RichText } from "./RichText";
 
 const MAX_AUTHORS_COLLAPSED = 6;
@@ -405,7 +406,7 @@ export function PaperCard({
       <div class="paper__main">
         <h2 class="paper__title" id={titleId}>
           <a href={paper.abs_url} target="_blank" rel="noopener noreferrer">
-            <Highlighted text={paper.title} terms={highlights} />
+            <MathText text={paper.title} terms={highlights} />
           </a>
         </h2>
 

@@ -1,12 +1,12 @@
 import { linkify } from "../linkify";
-import { Highlighted } from "./Highlighted";
+import { MathText } from "./MathText";
 
 interface Props {
   text: string;
   terms: readonly string[];
 }
 
-/** Text with clickable URLs and highlighted search terms. */
+/** Text with clickable URLs, highlighted search terms and drawn formulas (UX-69). */
 export function RichText({ text, terms }: Props) {
   return (
     <>
@@ -16,7 +16,7 @@ export function RichText({ text, terms }: Props) {
             {part.text}
           </a>
         ) : (
-          <Highlighted key={index} text={part.text} terms={terms} />
+          <MathText key={index} text={part.text} terms={terms} />
         ),
       )}
     </>

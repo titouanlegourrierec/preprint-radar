@@ -33,6 +33,7 @@ import { Explorer } from "./Explorer";
 import { InfoButton } from "./InfoButton";
 import { CloseIcon, CoolingIcon, NewIcon, RisingIcon } from "./icons";
 import { type ChartBand, LineChart } from "./LineChart";
+import { MathText } from "./MathText";
 import { Segmented } from "./Segmented";
 import type { TabLink } from "./Topbar";
 
@@ -541,7 +542,9 @@ function TopicPanel(props: PanelProps) {
           <ol>
             {topic.papers.map((paper) => (
               <li key={paper.id}>
-                <a href={`https://arxiv.org/abs/${paper.id}`}>{paper.title}</a>{" "}
+                <a href={`https://arxiv.org/abs/${paper.id}`}>
+                  <MathText text={paper.title} terms={[]} />
+                </a>{" "}
                 <span class="muted">{countOf(paper.citations, "citation")}</span>
               </li>
             ))}

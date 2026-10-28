@@ -9,6 +9,7 @@ import type { RankKind } from "../url-state";
 import type { CountryMetric } from "../world";
 import { InstitutionLogo } from "./InstitutionLogo";
 import { LazyWorldMap } from "./LazyWorldMap";
+import { MathText } from "./MathText";
 import { RankCell, shareOf } from "./RankCell";
 import { countryMetricOf, KIND_NAMES, metricOf } from "./RankingsControls";
 import { SortHeader } from "./SortHeader";
@@ -144,7 +145,7 @@ function EntityRankings(props: Props & { kind: EntityKind }) {
                 ))}
                 <td class="rankings__top">
                   <a href={entity.top.abs_url} target="_blank" rel="noopener noreferrer">
-                    {entity.top.title}
+                    <MathText text={entity.top.title} terms={[]} />
                   </a>
                   {entity.topCitations !== undefined && (
                     <span class="muted"> · {entity.topCitations.toLocaleString(LOCALE)}</span>

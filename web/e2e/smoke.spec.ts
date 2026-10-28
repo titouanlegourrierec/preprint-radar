@@ -460,6 +460,10 @@ test("the Content-Security-Policy refuses nothing the site does", async ({ page 
     "./favicon.svg",
   );
   await expect(page.getByText("4 of 4 cs.CV papers")).toBeVisible();
+  // A formula drawn as MathML, without the style its accent gets from Temml (UX-69).
+  const compiler = page.locator("article.paper").filter({ hasText: "A Compiler for Neural" });
+  await compiler.getByRole("button", { name: "More" }).click();
+  await expect(compiler.locator(".paper__abstract math")).toHaveCount(1);
   // A saved paper's star bursts and flies to its tab, placed from the script (UX-37).
   await page.getByRole("button", { name: "Save to reading list" }).first().click();
   await expect(page.locator(".save-burst")).toHaveCount(1);
