@@ -3353,5 +3353,71 @@
       ]
     ],
     "abstract": "Efficient transfer learning (ETL) is receiving increasing attention to adapt large pre-trained language-vision models on downstream tasks with a few labeled samples. While significant progress has been made, we reveal that state-of-the-art ETL approaches exhibit strong performance only in narrowly-defined experimental setups, and with a careful adjustment of hyperparameters based on a large corpus of labeled samples. In particular, we make two interesting, and surprising empirical observations. First, to outperform a simple Linear Probing baseline, these methods require to optimize their hyper-parameters on each target task. And second, they typically underperform –sometimes dramatically– standard zero-shot predictions in the presence of distributional drifts. Motivated by the unrealistic assumptions made in the existing literature, i.e., access to a large validation set and case-specific grid-search for optimal hyperparameters, we propose a novel approach that meets the requirements of real-world scenarios. More concretely, we introduce a CLass-Adaptive linear Probe (CLAP) objective, whose balancing term is optimized via an adaptation of the general Augmented Lagrangian method tailored to this context. We comprehensively evaluate CLAP on a broad span of datasets and scenarios, demonstrating that it consistently outperforms SoTA approaches, while yet being a much more efficient alternative. Code available at https://github.com/jusiro/CLAP."
+  },
+  "2502.13923": {
+    "authors": [
+      "Shuai Bai",
+      "Keqin Chen",
+      "Xuejing Liu",
+      "Jialin Wang",
+      "Wenbin Ge",
+      "Sibo Song",
+      "Kai Dang",
+      "Peng Wang",
+      "Shijie Wang",
+      "Jun Tang",
+      "Humen Zhong",
+      "Yuanzhi Zhu",
+      "Mingkun Yang",
+      "Zhaohai Li",
+      "Jianqiang Wan",
+      "Pengfei Wang",
+      "Wei Ding",
+      "Zheren Fu",
+      "Yiheng Xu",
+      "Jiabo Ye",
+      "Xi Zhang",
+      "Tianbao Xie",
+      "Zesen Cheng",
+      "Hang Zhang",
+      "Zhibo Yang",
+      "Haiyang Xu",
+      "Junyang Lin"
+    ],
+    "affiliations": [
+      "Qwen Team",
+      "Alibaba Group"
+    ],
+    "placed": null,
+    "abstract": "We introduce Qwen2.5-VL, the latest flagship model of Qwen vision-language series, which demonstrates significant advancements in both foundational capabilities and innovative functionalities. Qwen2.5-VL achieves a major leap forward in understanding and interacting with the world through enhanced visual recognition, precise object localization, robust document parsing, and long-video comprehension. A standout feature of Qwen2.5-VL is its ability to localize objects using bounding boxes or points accurately. It provides robust structured data extraction from invoices, forms, and tables, as well as detailed analysis of charts, diagrams, and layouts. To handle complex inputs, Qwen2.5-VL introduces dynamic resolution processing and absolute time encoding, enabling it to process images of varying sizes and videos of extended durations (up to hours) with second-level event localization. This allows the model to natively perceive spatial scales and temporal dynamics without relying on traditional normalization techniques. By training a native dynamic-resolution Vision Transformer (ViT) from scratch and incorporating Window Attention, we have significantly reduced computational overhead while maintaining native resolution. As a result, Qwen2.5-VL excels not only in static image and document understanding but also as an interactive visual agent capable of reasoning, tool usage, and task execution in real-world scenarios such as operating computers and mobile devices. The model achieves strong generalization across domains without requiring task-specific fine-tuning. Qwen2.5-VL is available in three sizes, addressing diverse use cases from edge AI to high-performance computing. The flagship Qwen2.5-VL-72B model matches state-of-the-art models like GPT-4o and Claude 3.5 Sonnet, particularly excelling in document and diagram understanding. The smaller Qwen2.5-VL-7B and Qwen2.5-VL-3B models outperform comparable competitors, offering strong capabilities even in resource-constrained environments. Additionally, Qwen2.5-VL maintains robust linguistic performance, preserving the core language competencies of the Qwen2.5 LLM."
+  },
+  "2409.12191": {
+    "authors": [
+      "Peng Wang",
+      "Shuai Bai",
+      "Sinan Tan",
+      "Shijie Wang",
+      "Zhihao Fan",
+      "Jinze Bai",
+      "Keqin Chen",
+      "Xuejing Liu",
+      "Jialin Wang",
+      "Wenbin Ge",
+      "Yang Fan",
+      "Kai Dang",
+      "Mengfei Du",
+      "Xuancheng Ren",
+      "Rui Men",
+      "Dayiheng Liu",
+      "Chang Zhou",
+      "Jingren Zhou",
+      "Junyang Lin"
+    ],
+    "affiliations": [
+      "Qwen Team",
+      "Alibaba Group"
+    ],
+    "placed": null,
+    "abstract": "We present the Qwen2-VL Series, an advanced upgrade of the previous Qwen-VL models that redefines the conventional predetermined-resolution approach in visual processing. Qwen2-VL introduces the Naive Dynamic Resolution mechanism, which enables the model to dynamically process images of varying resolutions into different numbers of visual tokens. This approach allows the model to generate more efficient and accurate visual representations, closely aligning with human perceptual processes. The model also integrates Multimodal Rotary Position Embedding (M-RoPE), facilitating the effective fusion of positional information across text, images, and videos. We employ a unified paradigm for processing both images and videos, enhancing the model’s visual perception capabilities. To explore the potential of large multimodal models, Qwen2-VL investigates the scaling laws for large vision-language models (LVLMs). By scaling both the model size-with versions at 2B, 8B, and 72B parameters-and the amount of training data, the Qwen2-VL Series achieves highly competitive performance. Notably, the Qwen2-VL-72B model achieves results comparable to leading models such as GPT-4o and Claude3.5-Sonnet across various multimodal benchmarks, outperforming other generalist models. Code is available at https://github.com/QwenLM/Qwen2-VL."
   }
 }

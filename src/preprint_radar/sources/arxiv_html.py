@@ -22,7 +22,7 @@ from preprint_radar.latex import plain_text
 
 logger = logging.getLogger(__name__)
 
-EXTRACTOR_VERSION = 17
+EXTRACTOR_VERSION = 18
 """Version of the extraction heuristics of this module, stored with the affiliations they give.
 
 Bump it with any change that alters what a page gives (affiliations, author mapping), so
@@ -710,6 +710,7 @@ def _affiliations(soup: BeautifulSoup, authors: Sequence[str]) -> tuple[tuple[st
     symbols: list[str] = []
     unmarked: list[str] = []
     unmarked_partial = False
+    signing: list[str] = []
     block = soup.select_one("div.ltx_authors")
     if block is not None:
         for noise in block.select(".ltx_role_email, .ltx_contact_name, .ltx_note, a"):
@@ -721,6 +722,7 @@ def _affiliations(soup: BeautifulSoup, authors: Sequence[str]) -> tuple[tuple[st
             numbered = _numbered_affiliations(block)
             symbols = _symbol_affiliations(block)
             unmarked, unmarked_partial = _unmarked_affiliations(block, authors)
+            signing = _signing_organizations(block, authors)
         tagged += _glued_affiliations(block, authors)
     sources = (
         (tagged + from_notes, False),
@@ -730,6 +732,7 @@ def _affiliations(soup: BeautifulSoup, authors: Sequence[str]) -> tuple[tuple[st
         # The people a sentence names are where it says, not everyone (AFF-9).
         (_stated_affiliations(thanks), True),
         (unmarked, unmarked_partial),
+        (signing, True),
         (_listed_affiliations(listing), False),
     )
     names_dropped = False
@@ -855,6 +858,27 @@ def _glued_name(name: str, authors: Sequence[str]) -> tuple[str, str] | None:
     return None
 
 
+def _signing_organizations(block: Tag, authors: Sequence[str]) -> list[str]:
+    """The organizations a page is signed by, in place of its authors: "Qwen Team", "Alibaba Group".
+
+    2502.13923 (Qwen2.5-VL) sets two creators, neither of its 27 listed authors. They count
+    when no creator names a listed author and each names an institution or a collective:
+    a creator naming none may be a person the page spells otherwise (AFF-38).
+    """
+    names = [
+        _plain_text(_pruned(name))
+        for name in block.select("span.ltx_creator.ltx_role_author .ltx_personname")
+    ]
+    kept = [name for name in names if name and not _NOISE_RE.search(name)]
+    if not kept or any(
+        any(_fold(author) in _fold(name) for author in authors)
+        or not (_INSTITUTION_WORD_RE.search(name) or _COLLECTIVE_RE.search(name))
+        for name in kept
+    ):
+        return []
+    return kept
+
+
 def _symbol_affiliations(block: Tag) -> list[str]:
     """Affiliation lines led by symbol markers in a free-form block: "*Oregon State University".
 
@@ -949,8 +973,9 @@ def _names_only(text: str, names: Sequence[str]) -> bool:
 def _affiliation_rows(text: str, names: Sequence[str]) -> tuple[list[str], str]:
     """The rows of affiliations set apart in wide spaces, and the text without them.
 
-    A row's pieces are kept when one names an institution and none an author: "Meta AI
-    Research    WRI    Inria" (2508.10104), where "WRI" and "Inria" hold no institution word.
+    A row's pieces are kept when one names an institution or a collective and none an
+    author: "Meta AI Research    WRI    Inria" (2508.10104), where "WRI" and "Inria" hold no
+    institution word, and "Qwen Team  Alibaba Group" (2409.12191, AFF-38).
     """
     kept: list[str] = []
     for raw in text.split("\n"):
@@ -959,7 +984,7 @@ def _affiliation_rows(text: str, names: Sequence[str]) -> tuple[list[str], str]:
         if (
             len(pieces) > 1
             and not any(name in folded for name in names)
-            and any(_INSTITUTION_WORD_RE.search(piece) for piece in pieces)
+            and any(_INSTITUTION_WORD_RE.search(piece) or _COLLECTIVE_RE.search(piece) for piece in pieces)
         ):
             kept += [piece for piece in pieces if clean_affiliations(piece)]
             text = text.replace(raw, "")

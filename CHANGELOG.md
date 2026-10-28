@@ -81,6 +81,8 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
   University", DeiT), behind a contribution note glued to them ("Equal senior
   contributionsDeepMind", Flamingo) or glued to the last of several names ("Jian
   SunMegvii Technology", YOLOX) (AFF-37).
+- A page signed by organizations instead of its authors gives them as affiliations:
+  Qwen2.5-VL's "Qwen Team" and "Alibaba Group" (AFF-38).
 - An institution's unit written with its acronym ("KAIST AI", "CUHK MMLab", "ETH AI
   Center") is the institution, one node of the graph and one row of Rankings (AFF-36).
 - Affiliations no longer hold LaTeX commands ("\\affilnum1", "\\authormark2", "Φ\\Phi") nor

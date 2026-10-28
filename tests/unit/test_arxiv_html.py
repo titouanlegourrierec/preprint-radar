@@ -2098,6 +2098,34 @@ def test_an_affiliation_glued_to_its_author(name: str, expected: tuple[str, ...]
     assert parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith")).affiliations == expected
 
 
+def test_a_page_signed_by_organizations_gives_them() -> None:
+    # Qwen2.5-VL signs "Qwen Team" and "Alibaba Group", none of its listed authors (AFF-38).
+    html = _author_block(("Qwen Team", ()), ("Alibaba Group", ()))
+
+    front = parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith"))
+
+    assert front.affiliations == ("Qwen Team", "Alibaba Group")
+    assert front.author_affiliations is None
+
+
+@pytest.mark.parametrize(
+    "creators",
+    [
+        # A creator may be a person the page spells otherwise, or a place.
+        pytest.param(("Qwen Team", "A. Lovelace"), id="a-person-spelled-otherwise"),
+        pytest.param(("Qwen Team", "Beijing"), id="a-place"),
+        # A listed author signs too: the page's names are read as usual.
+        pytest.param(("Ada Lovelace, Stanford University", "Qwen Team"), id="a-listed-author"),
+    ],
+)
+def test_a_page_signed_by_organizations_only(creators: tuple[str, ...]) -> None:
+    html = _author_block(*((creator, ()) for creator in creators))
+
+    affiliations = parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith")).affiliations
+
+    assert "Qwen Team" not in affiliations
+
+
 def test_an_affiliation_glued_to_the_last_of_names_glued_to_each_other() -> None:
     # "Julio Silva-RodriguezSina Hajimiri...Jose DolzÉTS Montreal" (2312.12730).
     html = _author_block(("Ada LovelaceBob SmithMIT Media Lab", ()))

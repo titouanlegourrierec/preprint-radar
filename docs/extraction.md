@@ -57,15 +57,21 @@ whose arXiv id is the evidence: never "simplify" one away without it.
   Jiaotong University"), the one affiliation everyone's only when nothing but names and
   noise was left out. Lines led by markers that hold only notes and names do not count
   as marked ("*corresponding authors: …" and names glued after a "*", 2508.10104). A row
-  set apart in wide spaces is kept whole when one piece names an institution and none an
-  author ("Meta AI Research    WRI    Inria", 2508.10104; "Southeast University    Tencent
-  HY    UC Merced    Tsinghua University", 2610.14852, which gave two; AFF-37).
+  set apart in wide spaces is kept whole when one piece names an institution or a
+  collective and none an author ("Meta AI Research    WRI    Inria", 2508.10104;
+  "Southeast University    Tencent HY    UC Merced    Tsinghua University", 2610.14852,
+  which gave two; AFF-37; "Qwen Team  Alibaba Group", 2409.12191, AFF-38).
   "Foundation Model" is no institution (2609.21449). Where LaTeXML cut the author field at
   its commas and "and"s into creators ("University of Science", "Technology of China",
   2411.15633, 2510.11387), one naming no author with a piece of at most two words naming
   no institution nor country ("College Park", "Telecommunications"; not "(Guangzhou)")
   tells it: the block gives nothing rather than pieces. A piece is a creator's whole line,
   never part of a row set apart in wide spaces ("WRI", 2508.10104).
+- A page signed by organizations rather than its authors: when no creator names a listed
+  author and each names an institution or a collective, they are the paper's affiliations,
+  nobody placed ("Qwen Team", "Alibaba Group", 2502.13923; "BeingBeyond Team",
+  2610.11283; AFF-38). Not when one may be a person the page spells otherwise ("A.
+  Lovelace") or a place.
 - Last, the affiliations a thanks note lists without a sentence (AFF-11), as IEEE
   conference classes (IROS) do: the whole note ("Department of Computer Science,
   University of Freiburg, Germany.", 2609.26325), a numbered note each ("¹FZI Research
