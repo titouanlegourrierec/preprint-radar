@@ -86,7 +86,11 @@ _NOISE_RE = re.compile(
     r"@|https?://|www\.|equal(ly)? contribut|contributed equally|correspond|work done|project lead"
     r"|senior author|first author|co-first|joint first|equal advising|internship"
     # Phone numbers and an author's placeholder: "Tel.: +49 ...", "TODO: X's affiliation".
-    r"|\btel\.?\s*:|\bfax\s*:|\btodo\b",
+    r"|\btel\.?\s*:|\bfax\s*:|\btodo\b"
+    # The example authors of ICLR's and NeurIPS's templates, left in by some: "Department of
+    # Computer Science, Cranberry-Lemon University" (2610.27759, 2502.10841), "University of
+    # the Witwatersrand, Joburg" (2610.27759), not the real one's "Johannesburg" (2405.01828).
+    r"|cranberry-lemon|witwatersrand,?\s+joburg",
     re.IGNORECASE,
 )
 # The vertical space of a LaTeX line break (\\[5pt]), which LaTeXML prints as text.
@@ -248,10 +252,11 @@ _JUNK_RE = re.compile(
     r"|(?:core\s+|main\s+)?contributors?|(?:co-?)?(?:first|second|last|senior)\s+authors?"
     r"|(?:graduate\s+school|graduate|school|department|faculty|institute|college|laboratory|lab|cent(?:er|re))"
     r"(?:\s+(?:of|for))?"
-    # The author of IEEE's template, left in by some (2312.17663), and templates' placeholder
-    # for the affiliations: "Author Affiliation(s)" (2610.01890), "Affiliation" (2610.27759).
+    # The author of IEEE's template, left in by some (2312.17663), and templates' placeholders
+    # for the affiliations: "Author Affiliation(s)" (2610.01890), "Affiliation", "Address"
+    # (2610.27759).
     r"|ieee\s+publication\s+technology\s+department"
-    r"|(?:authors?'?\s+)?affiliations?(?:\s*\(s\)?)?"
+    r"|(?:authors?'?\s+)?affiliations?(?:\s*\(s\)?)?|address(?:es)?"
     rf"|(?:{COUNTRIES})\.?",
     re.IGNORECASE,
 )

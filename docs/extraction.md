@@ -152,9 +152,11 @@ with", though a wrapped list of people joins ("Bo Zheng, …, Weinan Guan," / "Z
   "\\authormark2…", 2505.14715), as does the TeX source a string read before
   `_ANNOTATION_RE` holds after its symbol ("Φ\\Phi-lab", 2609.06187), not a name's own
   backslash ("Institute of Creative\\Media/Technologies", 2608.29287). Templates'
-  placeholders are junk ("Author Affiliation(s)", 2610.01890; "Affiliation", 2610.27759),
-  and a note on the affiliations glued to the last one goes ("…(DKFZ), Full affiliations
-  are given in Appendix", 2411.03670) (AFF-35).
+  placeholders are junk ("Author Affiliation(s)", 2610.01890; "Affiliation", "Address",
+  2610.27759), their example authors noise ("Cranberry-Lemon University", "University of
+  the Witwatersrand, Joburg"; not the real one's "Johannesburg", 2405.01828), and a note on
+  the affiliations glued to the last one goes ("…(DKFZ), Full affiliations are given in
+  Appendix", 2411.03670) (AFF-35).
 - elsarticle's `organization=…, city=…, country=…`, printed verbatim, ignores line breaks:
   a repeated key starts the next affiliation, and `clean_affiliation`, only (the mapping
   looks affiliations up through it), makes the rest plain values, organization first.

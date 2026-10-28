@@ -1277,6 +1277,23 @@ def test_clean_affiliation_drops_what_names_nothing(raw: str) -> None:
         # Templates' placeholders (2610.01890, 2610.27759), not a name that holds the word.
         pytest.param("Author Affiliation(s)", None, id="affiliations-placeholder"),
         pytest.param("Affiliation", None, id="affiliation-placeholder"),
+        pytest.param("Address", None, id="address-placeholder"),
+        # The example authors of ICLR's and NeurIPS's templates, not the real Wits.
+        pytest.param(
+            "Department of Computer Science, Cranberry-Lemon University, Pittsburgh, PA 15213, USA",
+            None,
+            id="template-example-university",
+        ),
+        pytest.param(
+            "Department of Computational Neuroscience, University of the Witwatersrand, Joburg, South Africa",
+            None,
+            id="template-example-coauthor",
+        ),
+        pytest.param(
+            "School of Electrical and Information Engineering, University of the Witwatersrand, Johannesburg",
+            "School of Electrical and Information Engineering, University of the Witwatersrand, Johannesburg",
+            id="the-real-witwatersrand",
+        ),
         pytest.param(
             "Affiliated Hospital of Qingdao University",
             "Affiliated Hospital of Qingdao University",
