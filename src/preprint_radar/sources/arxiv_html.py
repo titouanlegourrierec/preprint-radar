@@ -186,8 +186,20 @@ _DANGLING_RE = re.compile(r"(?<=\s)(?:of|for|the|at|in|on|de|du|des|der|für|und
 # a comma, which ends a name cut short ("Nanjing University of Posts and").
 _LIST_END_RE = re.compile(r"\s*,\s*(?:and|&)$", re.IGNORECASE)
 # A LaTeX command LaTeXML printed as text, glued to what follows: "\addrDepartment of ...".
-# Its name is lowercase there: the capital starts the affiliation.
-_MACRO_RE = re.compile(r"\\(?:[a-z]+(?=[A-Z])|[A-Za-z]+\*?(?:\s+|$))")
+# Its name is lowercase there: the capital starts the affiliation, or the number of the
+# affiliation's marker, which then goes as a leading marker: "\affilnum1Department of ..."
+# (SAGE's template, 2610.18363, 2509.06285), "\authormark2Department of ..." (2505.14715).
+_MACRO_RE = re.compile(r"\\(?:[a-z]+(?=[A-Z\d])|[A-Za-z]+\*?(?:\s+|$))")
+# The TeX source of a symbol LaTeXML printed after it, in strings read before the source was
+# dropped (`_ANNOTATION_RE`): "Φ\Phi-lab, ESRIN" (2609.06187), a gamma before "\gamma-Robotics"
+# (2609.37250).
+# Not a backslash a name holds: "Institute of Creative\Media/Technologies" (2608.29287).
+_TEX_SOURCE_RE = re.compile(r"(?<=[^\x00-\x7f])\\[A-Za-z]+")
+# A note on the affiliations glued to the last one: "German Cancer Research Center (DKFZ),
+# Full affiliations are given in Appendix .Code, Models & Data" (2411.03670).
+_AFFILIATIONS_NOTE_RE = re.compile(
+    r",?\s*\b(?:(?:full|complete|all|other)\s+)?affiliations?\s+(?:are|is)\b.*$", re.IGNORECASE | re.DOTALL
+)
 # A numbered marker written as text inside a string, glued to the next word: " 2Duke".
 _INLINE_MARKER_RE = re.compile(r"(?<=\S\s)\d{1,2}(?=[^\W\d_]{2})")
 # A word that starts with such a marker: "2CASIA", "2HKUST(GZ)".
@@ -236,8 +248,10 @@ _JUNK_RE = re.compile(
     r"|(?:core\s+|main\s+)?contributors?|(?:co-?)?(?:first|second|last|senior)\s+authors?"
     r"|(?:graduate\s+school|graduate|school|department|faculty|institute|college|laboratory|lab|cent(?:er|re))"
     r"(?:\s+(?:of|for))?"
-    # The author of IEEE's template, left in by some (2312.17663).
+    # The author of IEEE's template, left in by some (2312.17663), and templates' placeholder
+    # for the affiliations: "Author Affiliation(s)" (2610.01890), "Affiliation" (2610.27759).
     r"|ieee\s+publication\s+technology\s+department"
+    r"|(?:authors?'?\s+)?affiliations?(?:\s*\(s\)?)?"
     rf"|(?:{COUNTRIES})\.?",
     re.IGNORECASE,
 )
@@ -1231,7 +1245,8 @@ def clean_affiliation(text: str) -> str | None:
     and so are the people an IEEE sentence starts with: "A and B are with X" gives X. A
     string holding several affiliations is split first, by :func:`clean_affiliations`.
     """
-    text = _CONTACT_TAIL_RE.sub("", _MACRO_RE.sub("", text.replace("\xa0", " ")))
+    text = _TEX_SOURCE_RE.sub("", _MACRO_RE.sub("", text.replace("\xa0", " ")))
+    text = _CONTACT_TAIL_RE.sub("", _AFFILIATIONS_NOTE_RE.sub("", text))
     text = _MAILBOX_LIST_RE.sub(" ", _OBFUSCATED_EMAIL_RE.sub(" ", text))
     text = _EMPTY_BRACKETS_RE.sub(" ", _LINK_LABEL_RE.sub(" ", _LATEX_SPACE_RE.sub(" ", text)))
     if _NOISE_RE.search(text):

@@ -1252,6 +1252,42 @@ def test_clean_affiliation_drops_what_names_nothing(raw: str) -> None:
             "HafenCity University, Hamburg, Germany -", "HafenCity University, Hamburg, Germany", id="dash"
         ),
         pytest.param("\\addrDepartment of Physics, MIT", "Department of Physics, MIT", id="latex-command"),
+        # Glued to the number of the affiliation's marker: SAGE's "\affilnum1" (2610.18363).
+        pytest.param(
+            "\\affilnum1INRIA Rhône-Alpes, Montbonnot, France",
+            "INRIA Rhône-Alpes, Montbonnot, France",
+            id="latex-command-before-a-marker",
+        ),
+        pytest.param(
+            "\\authormark2Department of Software Engineering, Al-Ahliyya Amman University",
+            "Department of Software Engineering, Al-Ahliyya Amman University",
+            id="another-latex-command-before-a-marker",
+        ),
+        # The TeX source of a symbol, after it, in strings read before it was dropped.
+        pytest.param(
+            "Φ\\Phi-lab, ESRIN, European Space Agency, Italy",
+            "Φ-lab, ESRIN, European Space Agency, Italy",
+            id="tex-source-after-its-symbol",
+        ),
+        pytest.param(
+            "Institute of Creative\\Media/Technologies",
+            "Institute of Creative\\Media/Technologies",
+            id="a-backslash-a-name-holds",
+        ),
+        # Templates' placeholders (2610.01890, 2610.27759), not a name that holds the word.
+        pytest.param("Author Affiliation(s)", None, id="affiliations-placeholder"),
+        pytest.param("Affiliation", None, id="affiliation-placeholder"),
+        pytest.param(
+            "Affiliated Hospital of Qingdao University",
+            "Affiliated Hospital of Qingdao University",
+            id="affiliated-in-a-name",
+        ),
+        # A note on the affiliations glued to the last one (2411.03670).
+        pytest.param(
+            "German Cancer Research Center (DKFZ), Full affiliations are given in Appendix .Code",
+            "German Cancer Research Center (DKFZ)",
+            id="note-on-the-affiliations",
+        ),
         pytest.param("Tel.: +49 (0) 662 1541 4841", None, id="phone"),
         pytest.param(
             "A. Doe and B. Roe are with TUM, Munich, Germany. {jane.doe, john.roe}@example.org",

@@ -65,6 +65,9 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
 
 ### Pipeline
 
+- Affiliations no longer hold LaTeX commands ("\\affilnum1", "\\authormark2", "Φ\\Phi") nor
+  templates' placeholders ("Author Affiliation(s)"), in the archive's papers read from a
+  page too (AFF-35).
 - Affiliations listed in ICML's footnote ("¹University of Tübingen. ²KAIST AI.
   Correspondence to: …") are read, and their authors placed; the daily run reads the pages
   again from its cache (AFF-34).

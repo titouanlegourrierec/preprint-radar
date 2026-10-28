@@ -2745,5 +2745,55 @@
       ]
     ],
     "abstract": "Attention over tens of thousands of visual tokens dominates the inference of video diffusion transformers (DiTs). Existing methods reduce this cost through sparsity, low precision, or both, but use a single precision for all kept tiles. We observe that the output error introduced by approximation varies widely across tiles. Many tiles can be skipped with little error, others must be computed but gain little beyond low precision, and a few retain substantial error even at low precision. We present Triage, a training-free attention method that assigns each tile one of three approximation tiers: skipping it by replacing it with its block means, skimming it in NVFP4, or refining it with NVFP4 residual correction. A lightweight router predicts each tile’s error under each tier from block statistics and moves a tile to a more accurate tier only when the predicted error reduction justifies the extra compute, with a single price setting this trade-off. A fused kernel executes all three tiers in a single pass on the FP4 tensor cores of RTX Blackwell GPUs. Across Wan2.2, HunyuanVideo, and LTX-2.5, Triage accelerates end-to-end generation by up to 2.32× over dense FlashAttention, and in each of five settings it runs faster than every baseline while reaching 0.3–3.0 dB higher PSNR than the highest-PSNR baseline."
+  },
+  "2610.01890": {
+    "authors": [
+      "Victor Enescu",
+      "Assaad Zeghina",
+      "Matthieu Meignin",
+      "Nicolas Viltard",
+      "Cécile Mallet"
+    ],
+    "affiliations": [
+      "LATMOS/IPSL, UVSQ Université Paris-Saclay, Sorbonne Université, CNRS, Guyancourt, France",
+      "ARCHES Team, Inria, Paris, France"
+    ],
+    "placed": [
+      [
+        "Victor Enescu",
+        [
+          "LATMOS/IPSL, UVSQ Université Paris-Saclay, Sorbonne Université, CNRS, Guyancourt, France",
+          "ARCHES Team, Inria, Paris, France"
+        ]
+      ],
+      [
+        "Assaad Zeghina",
+        [
+          "LATMOS/IPSL, UVSQ Université Paris-Saclay, Sorbonne Université, CNRS, Guyancourt, France",
+          "ARCHES Team, Inria, Paris, France"
+        ]
+      ],
+      [
+        "Matthieu Meignin",
+        [
+          "LATMOS/IPSL, UVSQ Université Paris-Saclay, Sorbonne Université, CNRS, Guyancourt, France",
+          "ARCHES Team, Inria, Paris, France"
+        ]
+      ],
+      [
+        "Nicolas Viltard",
+        [
+          "LATMOS/IPSL, UVSQ Université Paris-Saclay, Sorbonne Université, CNRS, Guyancourt, France"
+        ]
+      ],
+      [
+        "Cécile Mallet",
+        [
+          "LATMOS/IPSL, UVSQ Université Paris-Saclay, Sorbonne Université, CNRS, Guyancourt, France",
+          "ARCHES Team, Inria, Paris, France"
+        ]
+      ]
+    ],
+    "abstract": "Deep generative networks have recently achieved unprecedented performance in precise image and video editing using sophisticated textual prompts. However, the effectiveness of such models heavily depends on access to very large supervised and annotated image datasets, which can be very difficult to obtain. This is particularly true for satellite instruments, which very rarely overlap with labelled data, and suffer from domain shifts in the rare occasions they do. In this paper, we investigate the potential of flow matching models for unsupervised domain adaptation of satellite radiometer images. Our main contribution is a novel unsupervised method that achieves precise domain alignment by leveraging parts of the deterministic ordinary differential equations in flow matching models, conditioned on different satellite instruments. A key strength of our approach is its ability to preserve essential information while adapting across any domains since the perturbations are in theory bijective. Extensive experiments conducted on the GPM-Core constellation show the benefit of our conditional domain adaptation, particularly in improving rain precipitation estimation from radiometer imagery."
   }
 }
