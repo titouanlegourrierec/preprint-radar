@@ -230,7 +230,12 @@ keeping the most institution-like part between commas, a university over an orga
 over anything else, a unit or an address alone naming nothing ("School of Computer
 Science, Peking University" is Peking University). A known acronym alone is its
 institution as ROR names it ("CMU", `ACRONYMS`, the same in the site's search by
-`test_the_site_knows_the_same_acronyms`); `validate` warns of one whose name no
+`test_the_site_knows_the_same_acronyms`), and so is one before one of its units ("KAIST
+AI", "KAIST College of AI", "CUHK MMLab", "ETH AI Center", 92 institutions named apart
+until AFF-36), written in capitals when of four letters or fewer ("Hit Robot Group" is
+none); not before a joint entity ("MIT-IBM Watson AI Lab", "KAIST & AITRICS"), another
+campus ("HKUST (GZ)", an acronym of its own), a hospital ("TUM Klinikum") nor another
+university ("CUHK The University of Adelaide HKUST"); `validate` warns of one whose name no
 institution with an id has ("University of California, San Diego": ROR has no comma). A
 company mentioned anywhere is the company ("ARC Lab, Tencent IEG" is Tencent), not a
 hospital named after it; a University of California campus keeps its city. ROR's and

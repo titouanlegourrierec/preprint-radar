@@ -20,6 +20,8 @@ const ACRONYMS: Readonly<Record<string, string>> = {
   "cuhk sz": "Chinese University of Hong Kong, Shenzhen",
   "cuhk shenzhen": "Chinese University of Hong Kong, Shenzhen",
   hkust: "Hong Kong University of Science and Technology",
+  "hkust gz": "Hong Kong University of Science and Technology (Guangzhou)",
+  "hkust guangzhou": "Hong Kong University of Science and Technology (Guangzhou)",
   hku: "University of Hong Kong",
   nus: "National University of Singapore",
   ucla: "University of California, Los Angeles",

@@ -59,6 +59,23 @@ from preprint_radar.institutions import (
         # Acronyms and campuses.
         ("MIT, Boston, USA", "Massachusetts Institute of Technology"),
         ("CASIA", "Chinese Academy of Sciences"),
+        # An acronym, then one of its units, is the institution (AFF-36).
+        ("KAIST AI", "Korea Advanced Institute of Science and Technology"),
+        ("KAIST College of AI, Seoul", "Korea Advanced Institute of Science and Technology"),
+        (
+            "KAIST (Korea Advanced Institute of Science and Technology)",
+            "Korea Advanced Institute of Science and Technology",
+        ),
+        ("CUHK MMLab", "Chinese University of Hong Kong"),
+        ("ETH Zürich", "ETH Zurich"),
+        ("UC Berkeley EECS", "University of California, Berkeley"),
+        ("HKUST (GZ)", "Hong Kong University of Science and Technology (Guangzhou)"),
+        # Not a joint entity, a hospital, a list, nor a word written like an acronym.
+        ("MIT-IBM Watson AI Lab", "MIT-IBM Watson AI Lab"),
+        ("KAIST & AITRICS", "KAIST & AITRICS"),
+        ("TUM Klinikum", "TUM Klinikum"),
+        ("CUHK The University of Adelaide HKUST", "CUHK The University of Adelaide HKUST"),
+        ("Hit Robot Group", "Hit Robot Group"),
         ("University of California, Berkeley", "University of California, Berkeley"),
         ("EECS, University of California, Los Angeles, CA", "University of California, Los Angeles"),
         ("Luca Gandolfi and Chiara Plizzari are with Bocconi University", "Bocconi University"),

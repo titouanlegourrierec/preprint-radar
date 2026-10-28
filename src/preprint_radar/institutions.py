@@ -114,6 +114,8 @@ ACRONYMS: dict[str, str] = {
     "cuhk sz": "Chinese University of Hong Kong, Shenzhen",
     "cuhk shenzhen": "Chinese University of Hong Kong, Shenzhen",
     "hkust": "Hong Kong University of Science and Technology",
+    "hkust gz": "Hong Kong University of Science and Technology (Guangzhou)",
+    "hkust guangzhou": "Hong Kong University of Science and Technology (Guangzhou)",
     "hku": "University of Hong Kong",
     "nus": "National University of Singapore",
     "ucla": "University of California, Los Angeles",
@@ -138,6 +140,22 @@ ACRONYMS: dict[str, str] = {
     "caltech": "California Institute of Technology",
     "casia": "Chinese Academy of Sciences",
 }
+# A part led by a known acronym, then one of its units: "KAIST AI", "KAIST College of AI",
+# "CUHK MMLab", "TUM School of Computation" are the institution (AFF-36), as "KAIST" alone.
+_ACRONYM_LED_RE = re.compile(
+    r"^(?P<acronym>"
+    + "|".join(r"\s+".join(map(re.escape, key.split())) for key in sorted(ACRONYMS, key=len, reverse=True))
+    + r")\s+(?P<rest>\S.*)$",
+    re.IGNORECASE,
+)
+# What follows the acronym in a part that is not its unit: a joint entity ("KAIST & AITRICS";
+# "MIT-IBM Watson AI Lab" has no space), another campus ("HKUST (GZ)", an acronym of its
+# own), a hospital ("TUM Klinikum"), or a list naming another university ("CUHK The
+# University of Adelaide HKUST").
+_NOT_ITS_UNIT_RE = re.compile(r"&|^\(|universit|hospital|klinik|clinic|health|medical", re.IGNORECASE)
+# Acronyms this short must be written in capitals: "Hit Robot Group" is no Harbin Institute
+# of Technology. Longer ones are names ("Caltech", "SUSTech").
+_SHORT_ACRONYM = 4
 # Campuses of the University of California, written as a part of their own.
 _UC_CAMPUS_RE = re.compile(
     r"^(?:berkeley|los angeles|san diego|davis|irvine|santa barbara|santa cruz|riverside|merced"
@@ -209,7 +227,7 @@ def institution_name(affiliation: str) -> str | None:
     ]
     best, best_index, best_score = "", -1, -1.0
     for index, part in enumerate(parts):
-        if alias := ACRONYMS.get(search_key(part)):
+        if alias := ACRONYMS.get(search_key(part)) or _led_by_acronym(part):
             return alias
         if (score := _score(part)) > best_score:
             best, best_index, best_score = part, index, score
@@ -223,6 +241,21 @@ def institution_name(affiliation: str) -> str | None:
     if _UNIVERSITY_OF_CALIFORNIA_RE.match(best) and campus is not None and _UC_CAMPUS_RE.match(campus):
         return f"{best}, {campus}"
     return best
+
+
+def _led_by_acronym(part: str) -> str | None:
+    """The institution a part led by its acronym names, then one of its units ("KAIST AI")."""
+    match = _ACRONYM_LED_RE.match(part)
+    if match is None:
+        return None
+    key = search_key(match["acronym"])
+    institution = ACRONYMS[key]
+    if " " not in key and len(key) <= _SHORT_ACRONYM and not match["acronym"].isupper():
+        return None
+    # The acronym spelled out after it: "KAIST (Korea Advanced Institute of Science and Technology)".
+    if search_key(match["rest"]) == search_key(institution):
+        return institution
+    return None if _NOT_ITS_UNIT_RE.search(match["rest"]) else institution
 
 
 def _score(part: str) -> float:

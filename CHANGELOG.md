@@ -54,6 +54,7 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
   each, countries their flag, and the dark theme a night's blue (UX-65).
 - The logos of major institutions, from Google and Stanford to KAIST, before their name on
   cards and in Rankings, and in their node of the graph as you zoom in (PROD-23).
+- The graph's Find finds an institution by its acronym: "KAIST", "CMU", "MIT" (UX-68).
 - The site's source code is a click away: a GitHub icon in the top bar, a link in the
   footer and a section in About (UX-67).
 - The graph's nodes grow in proportion to their papers or citations, as Rankings' bars, its
@@ -65,6 +66,8 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
 
 ### Pipeline
 
+- An institution's unit written with its acronym ("KAIST AI", "CUHK MMLab", "ETH AI
+  Center") is the institution, one node of the graph and one row of Rankings (AFF-36).
 - Affiliations no longer hold LaTeX commands ("\\affilnum1", "\\authormark2", "Φ\\Phi") nor
   templates' placeholders ("Author Affiliation(s)"), in the archive's papers read from a
   page too (AFF-35).
