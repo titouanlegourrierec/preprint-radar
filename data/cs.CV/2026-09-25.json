@@ -339,11 +339,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.30221",
@@ -615,11 +615,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.30096",
@@ -666,11 +666,11 @@
     "05x2bcf33",
     "008s83205"
    ],
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-28"
     },
     "institutions": {
      "source": "ror",
@@ -1102,11 +1102,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.29940",
@@ -1138,49 +1138,36 @@
    "html_url": "https://arxiv.org/html/2609.29934v1",
    "abstract": "Does progress on spatial reasoning benchmarks translate into better navigation? Existing benchmarks test isolated inferences from images or videos, with little connection to downstream navigation. Our analysis reveals a gap between benchmark-oriented spatial specialization and navigation performance, and shows how aligning spatial supervision with navigation goals, phases, and decision learning improves navigation. Guided by these findings, we build Spatial-Nav-100K and fine-tune in two stages, i.e. first learning a shared spatial-navigation foundation, and then specializing each phase with the abilities it relies on. We further introduce Spatial-NPD, where a teacher conditioned on spatial priors produces grounded action preferences and distills them into a student policy, so no explicit spatial reasoning is needed at inference. With 45 A100 GPU-hours of policy training, our 8B model reaches SR/SPL of 77.4/35.4 on HM3D-v0.2, 60.2/30.5 on HM3D-v0.1, and 47.9/20.6 on train-unseen MP3D. It outperforms several systems that rely on closed-source models or thousands of GPU-hours of training, at 148 ms per action step. All code and datasets will be publicly available at https://github.com/ylwhxht/Spatial-Nav.",
    "affiliations": [
-    "Xiamen University, Zhongguancun Academy, Beihang University, Beijing Institute of Technology, University of Chinese Academy of Sciences"
+    "Xiamen University",
+    "Zhongguancun Academy",
+    "Beihang University",
+    "Beijing Institute of Technology",
+    "University of Chinese Academy of Sciences"
    ],
-   "author_affiliations": [
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
+    "Xiamen University",
+    "Zhongguancun Academy",
+    "Beihang University",
+    "Beijing Institute of Technology",
     "University of Chinese Academy of Sciences"
    ],
    "institution_ids": [
+    "00mcjh785",
+    null,
+    "00wk2mp56",
+    "01skt4w74",
     "05qbk4x57"
    ],
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-28"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-15"
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.29934",
@@ -1544,14 +1531,37 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.29816v3",
    "abstract": "Recent years have witnessed major progress in joint audio-video generation. Existing models still suffer from limited per-modality fidelity, insufficient text-modality alignment and weak cross-modal synchronization. While reinforcement-learning post-training offers a promising remedy, directly adapting it to joint audio-video generation is challenging. Heterogeneous multimodal rewards entangle learning signals and complicate credit assignment. Joint optimization of two modality towers is computationally expensive given their divergent dynamics. Moreover, synchronization evaluation difficulty depends on paired samples, preventing fair reward comparisons. We propose AV-GRPO, a modality-anchored online diffusion RL framework, and 5DAV, a decoupled, difficulty-controllable training dataset. AV-GRPO includes three key modules: (1) modality-anchored rollouts to disentangle learning signals and stabilize difficulty; (2) trajectory-locked frozen-tower optimization to reduce cost and reassign credit; (3) adaptive objectives and perturbation strengths tailored to modality-specific dynamics. This converts coupled multimodal preference learning into unimodal subproblems for precise reward attribution and better synchronization. Our 5DAV dataset decouples samples across five dimensions for systematic training. Experiments on JavisBench and VABench demonstrate AV-GRPO outperforms LTX-2.3 in generation quality, semantic alignment and cross-modal synchronization under LoRA and full fine-tuning. Ablations confirm our designs. Code and data: https://github.com/zhiyuxu03/AV-GRPO",
-   "affiliations": [],
+   "affiliations": [
+    "Shanghai AI Laboratory",
+    "The Hong Kong Polytechnic University",
+    "National University of Singapore",
+    "Nanyang Technological University",
+    "Zhejiang University"
+   ],
    "author_affiliations": null,
-   "institutions": null,
-   "extractor": 12,
+   "institutions": [
+    "Shanghai Artificial Intelligence Laboratory",
+    "Hong Kong Polytechnic University",
+    "National University of Singapore",
+    "Nanyang Technological University",
+    "Zhejiang University"
+   ],
+   "institution_ids": [
+    "03wkvpx79",
+    "0030zas98",
+    "01tgyzw49",
+    "02e7b5302",
+    "00a2xv884"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-28"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.29816",
@@ -1731,11 +1741,11 @@
    "institution_ids": [
     null
    ],
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-28"
     },
     "institutions": {
      "source": "ror",
@@ -2087,11 +2097,11 @@
    "institution_ids": [
     "01a77tt86"
    ],
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-28"
     },
     "institutions": {
      "source": "ror",
@@ -2593,11 +2603,11 @@
     null,
     null
    ],
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-28"
     },
     "institutions": {
      "source": "ror",
@@ -2687,11 +2697,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.29581",
@@ -2733,11 +2743,11 @@
     "037s24f05",
     "03c4mmv16"
    ],
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-28"
     },
     "institutions": {
      "source": "ror",
@@ -3035,11 +3045,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.29517",
@@ -3255,11 +3265,11 @@
     null,
     "0403hq463"
    ],
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-28"
     },
     "institutions": {
      "source": "ror",
@@ -4019,11 +4029,11 @@
     "057zh3y96",
     null
    ],
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-28"
     },
     "institutions": {
      "source": "ror",
@@ -4242,11 +4252,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.29256",
@@ -4287,11 +4297,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.29252",
@@ -5261,11 +5271,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.29028",
@@ -5631,14 +5641,25 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.28931v1",
    "abstract": "Driving world models provide a promising route toward scalable counterfactual data generation and interactive simulation beyond recorded driving logs. Realizing this potential requires a system that can generalize across diverse scenes, respond faithfully to prescribed controls, generate coherent multi-sensor observations, and operate efficiently under repeated inference. We present HelloWorld, a 2B driving world model system designed around these requirements. HelloWorld progressively specializes broad visual and motion priors from heterogeneous video data into controllable driving generation using ego pose, HD maps, and 3D boxes. A block-causal generation interface, together with adaptation to self-generated context, aligns the model with sequential simulation. The system further supports synchronized seven-camera RGB generation and conditional LiDAR synthesis, and is distilled toward few-step inference for efficient deployment. Experiments evaluate visual quality, control fidelity, cross-view consistency, robustness under repeated generation, inference efficiency, and LiDAR synthesis. Together, HelloWorld provides a unified framework for scalable driving data generation and interactive simulation.",
-   "affiliations": [],
+   "affiliations": [
+    "HelloWorld Team"
+   ],
    "author_affiliations": null,
-   "institutions": null,
-   "extractor": 12,
+   "institutions": [
+    "HelloWorld Team"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-28"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.28931",
@@ -5736,11 +5757,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.28923",
@@ -5800,11 +5821,11 @@
     "035b05819",
     "00f54p054"
    ],
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-28"
     },
     "institutions": {
      "source": "ror",
@@ -6005,11 +6026,11 @@
     null,
     null
    ],
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-28"
     },
     "institutions": {
      "source": "ror",
@@ -6147,11 +6168,11 @@
     "01f5ytq51",
     null
    ],
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-28"
     },
     "institutions": {
      "source": "ror",
@@ -6541,11 +6562,11 @@
    "institution_ids": [
     "05apxxy63"
    ],
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-28"
     },
     "institutions": {
      "source": "ror",
@@ -7017,11 +7038,11 @@
    "institution_ids": [
     "01nrxwf90"
    ],
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-28"
     },
     "institutions": {
      "source": "ror",
@@ -7254,11 +7275,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.29932",
@@ -7510,11 +7531,11 @@
    "institution_ids": [
     null
    ],
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-28"
     },
     "institutions": {
      "source": "ror",
@@ -7766,11 +7787,11 @@
    "institution_ids": [
     "00hswnk62"
    ],
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-28"
     },
     "institutions": {
      "source": "ror",
@@ -7940,11 +7961,11 @@
    "institution_ids": [
     "01703db54"
    ],
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-28"
     },
     "institutions": {
      "source": "ror",
@@ -8085,11 +8106,11 @@
    "institution_ids": [
     "053nycv62"
    ],
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-28"
     },
     "institutions": {
      "source": "ror",
@@ -8557,11 +8578,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.28554",
@@ -8590,11 +8611,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.28541",

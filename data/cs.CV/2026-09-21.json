@@ -554,11 +554,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-26"
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.21872",
@@ -676,11 +676,11 @@
     "00613ak93",
     null
    ],
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-26"
+     "at": "2026-10-28"
     },
     "institutions": {
      "source": "ror",
@@ -1073,11 +1073,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-26"
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.21743",
@@ -1122,14 +1122,25 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.21712v2",
    "abstract": "Generative world models offer controllable and repeatable closed-loop simulation for end-to-end and vision-language-action driving policies, but production deployment exposes three unresolved requirements: faithfully reproducing a mixed fisheye-pinhole rig at native resolutions; reconciling causal, per-timestep interaction with long-horizon stability and low latency; and preserving scene identity when a location is revisited. We present ZYT-World, a single architecture that natively generates four fisheye views with field of view > 180° and three pinhole views. Projection-specific Plucker adapters encode camera geometry, ego-motion adaptive layer normalization provides global motion control, and a lightweight pixel-aligned layout conditions traffic participants and signals through instance-level boxes, headings and colors. Heterogeneous training combines full-rig geometric coverage with high-resolution detail. Teacher forcing, causal consistency distillation, self-rollout distribution matching distillation, and RigCritic transform a 40-step bidirectional teacher into a one-step, per-latent streaming generator, with RigCritic evaluating the seven-view rig jointly. A 19M-parameter variational autoencoder decoder (TinyVAE), W8A8 quantization, and our inference engine reduce decoding, backbone, and incremental-execution costs, respectively. Finally, cross-trajectory pairs derived from real captures train a plug-in implicit-memory module that preserves place-specific evidence. On the internal multi-view test set, the one-step model retains more than 90% of the teacher's PSNR and SSIM, while FID, FVD, and LPIPS stay within 11% of the teacher. Under the generator-only timing in Figure 2, it is 107.7 times faster than the 40-step bidirectional teacher. TinyVAE decodes 59.8 times faster than Wan. 30s rollouts and cross-trajectory revisits show the intended long-horizon and memory behavior.",
-   "affiliations": [],
+   "affiliations": [
+    "ZYT AI Team"
+   ],
    "author_affiliations": null,
-   "institutions": null,
-   "extractor": 12,
+   "institutions": [
+    "ZYT AI Team"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-26"
+     "at": "2026-10-28"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.21712",
@@ -1404,11 +1415,11 @@
    "institution_ids": [
     null
    ],
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-26"
+     "at": "2026-10-28"
     },
     "institutions": {
      "source": "ror",
@@ -1658,11 +1669,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-26"
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.21593",
@@ -1695,11 +1706,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-27"
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.21576",
@@ -1822,11 +1833,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-27"
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.21522",
@@ -1977,11 +1988,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-27"
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.21502",
@@ -2206,11 +2217,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-27"
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.21468",
@@ -2365,11 +2376,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-27"
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.21449",
@@ -2404,11 +2415,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-27"
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.21437",
@@ -2620,11 +2631,11 @@
     null,
     "00p991c53"
    ],
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-27"
+     "at": "2026-10-28"
     },
     "institutions": {
      "source": "ror"
@@ -3079,11 +3090,11 @@
     null,
     "00rqy9422"
    ],
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-27"
+     "at": "2026-10-28"
     },
     "institutions": {
      "source": "ror",
@@ -3284,14 +3295,28 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2609.21322v1",
    "abstract": "Heavy rainfall severely degrades outdoor videos by corrupting high-frequency details and introducing motion blur, critically undermining the reliability of visual tasks. Recently, State Space Models (SSMs), particularly Mamba, have emerged as efficient alternatives for vision tasks with their linear complexity and ability to model long-range dependencies. However, when confronted with the poor visual representations in rainy videos, Mamba still faces difficulties in preserving the integrity of 2D spatial semantics and modeling 3D spatio-temporal correlations. To break these limitations, we introduce S3VD, a Semantic-Guidance Spatio-Temporal Scanning framework for video deraining, featuring two key innovations: Multi-Scale Semantic Fusion (MSSF) Module and Spatio-Temporal Scanning Fusion (STSF) Module. The former integrates temporal semantic priors from DINOv2 to guide precise feature representation and counteract the loss of local semantic context inherent to Mamba's 1D flatten operation, enhancing robustness against extreme degradation. The latter introduces a spatio-temporal scanning mechanism and devises a Decoupled-Gating Mamba (DG-Mamba) layer, which employs two independent gates to adaptively control preceding and subsequent contextual information within the input clip, optimizing intra-frame and inter-frame correlation modeling. Experiments on video deraining benchmarks demonstrate the superiority of S3VD, achieving state-of-the-art performance with an average 0.84 dB PSNR improvement over Mamba-based baselines.",
-   "affiliations": [],
+   "affiliations": [
+    "School of Computer Science and Technology, Harbin Institute of Technology, Harbin 150001, China",
+    "Zhengzhou Advanced Research Institute, Harbin Institute of Technology, Zhengzhou 450001, China"
+   ],
    "author_affiliations": null,
-   "institutions": null,
-   "extractor": 12,
+   "institutions": [
+    "Harbin Institute of Technology",
+    "Harbin Institute of Technology"
+   ],
+   "institution_ids": [
+    "01yqg2h08",
+    "01yqg2h08"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-27"
+     "at": "2026-10-28"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.21322",
@@ -3558,11 +3583,11 @@
    "institution_ids": [
     "0220qvk04"
    ],
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-27"
+     "at": "2026-10-28"
     },
     "institutions": {
      "source": "ror",
@@ -3730,11 +3755,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-27"
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.21225",
@@ -3763,11 +3788,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-27"
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.21219",
@@ -4005,11 +4030,11 @@
     null,
     "047426m28"
    ],
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-27"
+     "at": "2026-10-28"
     },
     "institutions": {
      "source": "ror",
@@ -4892,11 +4917,11 @@
     "01y1kjr75",
     "00za53h95"
    ],
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-27"
+     "at": "2026-10-28"
     },
     "institutions": {
      "source": "ror",
@@ -5046,11 +5071,11 @@
     null,
     "028g18b61"
    ],
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-27"
+     "at": "2026-10-28"
     },
     "institutions": {
      "source": "ror"
@@ -5156,11 +5181,11 @@
     "04t3en479",
     null
    ],
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-27"
+     "at": "2026-10-28"
     },
     "institutions": {
      "source": "ror",
@@ -5218,11 +5243,11 @@
    "institution_ids": [
     null
    ],
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-27"
+     "at": "2026-10-28"
     },
     "institutions": {
      "source": "ror",
@@ -5308,11 +5333,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-27"
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.21000",
@@ -5575,11 +5600,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 12,
+   "extractor": 18,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-27"
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.20826",
