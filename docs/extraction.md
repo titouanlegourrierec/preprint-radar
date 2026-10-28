@@ -27,8 +27,9 @@ whose arXiv id is the evidence: never "simplify" one away without it.
   them the numbered lines set as authors ("²Alibaba Group", 2610.12978). Anywhere, an
   affiliation glued to its author's name, a capital right after a listed name ("Xiaoya
   TangScientific Computing and Imaging InstituteUniversity of Utah", 2610.17412), the last
-  of several names in one creator too ("Zheng Ge    Songtao Liu ... Jian SunMegvii
-  Technology", ar5iv's 2107.08430), but never another author's name ("Huy V. VoMaximilian
+  of several names in one creator too, spaced or glued to each other ("Zheng Ge    Songtao
+  Liu ... Jian SunMegvii Technology", ar5iv's 2107.08430; "...Ismail Ben AyedJose DolzÉTS
+  Montreal", 2312.12730), but never another author's name ("Huy V. VoMaximilian
   SeitzerFederico Baldassarre...", 2508.10104).
 - `ltx_note`s of roles `address`, `institutetext` and `affiliation`, anywhere (Taylor &
   Francis' lettered list after the abstract, 2610.15403; BMVC's one institution, without

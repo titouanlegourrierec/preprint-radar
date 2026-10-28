@@ -3315,5 +3315,43 @@
       ]
     ],
     "abstract": "In this report, we present some experienced improvements to YOLO series, forming a new high-performance detector — YOLOX. We switch the YOLO detector to an anchor-free manner and conduct other advanced detection techniques, i.e., a decoupled head and the leading label assignment strategy SimOTA to achieve state-of-the-art results across a large scale range of models: For YOLO-Nano with only 0.91M parameters and 1.08G FLOPs, we get 25.3% AP on COCO, surpassing NanoDet by 1.8% AP; for YOLOv3, one of the most widely used detectors in industry, we boost it to 47.3% AP on COCO, outperforming the current best practice by 3.0% AP; for YOLOX-L with roughly the same amount of parameters as YOLOv4-CSP, YOLOv5-L, we achieve 50.0% AP on COCO at a speed of 68.9 FPS on Tesla V100, exceeding YOLOv5-L by 1.8% AP. Further, we won the 1st Place on Streaming Perception Challenge (Workshop on Autonomous Driving at CVPR 2021) using a single YOLOX-L model. We hope this report can provide useful experience for developers and researchers in practical scenes, and we also provide deploy versions with ONNX, TensorRT, NCNN, and Openvino supported. Source code is at https://github.com/Megvii-BaseDetection/YOLOX."
+  },
+  "2312.12730": {
+    "authors": [
+      "Julio Silva-Rodríguez",
+      "Sina Hajimiri",
+      "Ismail Ben Ayed",
+      "Jose Dolz"
+    ],
+    "affiliations": [
+      "ÉTS Montreal"
+    ],
+    "placed": [
+      [
+        "Julio Silva-Rodríguez",
+        [
+          "ÉTS Montreal"
+        ]
+      ],
+      [
+        "Sina Hajimiri",
+        [
+          "ÉTS Montreal"
+        ]
+      ],
+      [
+        "Ismail Ben Ayed",
+        [
+          "ÉTS Montreal"
+        ]
+      ],
+      [
+        "Jose Dolz",
+        [
+          "ÉTS Montreal"
+        ]
+      ]
+    ],
+    "abstract": "Efficient transfer learning (ETL) is receiving increasing attention to adapt large pre-trained language-vision models on downstream tasks with a few labeled samples. While significant progress has been made, we reveal that state-of-the-art ETL approaches exhibit strong performance only in narrowly-defined experimental setups, and with a careful adjustment of hyperparameters based on a large corpus of labeled samples. In particular, we make two interesting, and surprising empirical observations. First, to outperform a simple Linear Probing baseline, these methods require to optimize their hyper-parameters on each target task. And second, they typically underperform –sometimes dramatically– standard zero-shot predictions in the presence of distributional drifts. Motivated by the unrealistic assumptions made in the existing literature, i.e., access to a large validation set and case-specific grid-search for optimal hyperparameters, we propose a novel approach that meets the requirements of real-world scenarios. More concretely, we introduce a CLass-Adaptive linear Probe (CLAP) objective, whose balancing term is optimized via an adaptation of the general Augmented Lagrangian method tailored to this context. We comprehensively evaluate CLAP on a broad span of datasets and scenarios, demonstrating that it consistently outperforms SoTA approaches, while yet being a much more efficient alternative. Code available at https://github.com/jusiro/CLAP."
   }
 }

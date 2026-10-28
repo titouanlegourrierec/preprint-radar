@@ -22,7 +22,7 @@ from preprint_radar.latex import plain_text
 
 logger = logging.getLogger(__name__)
 
-EXTRACTOR_VERSION = 16
+EXTRACTOR_VERSION = 17
 """Version of the extraction heuristics of this module, stored with the affiliations they give.
 
 Bump it with any change that alters what a page gives (affiliations, author mapping), so
@@ -807,12 +807,31 @@ def _glued_affiliations(block: Tag, authors: Sequence[str]) -> list[str]:
 
 
 def _after_names(text: str, authors: Sequence[str]) -> str:
-    """The text after the authors' names it starts with, each followed by a space."""
+    """The text from the last of the authors' names it starts with, spaced or glued to each other.
+
+    "Julio Silva-RodriguezSina HajimiriIsmail Ben AyedJose DolzÉTS Montreal" gives "Jose
+    DolzÉTS Montreal" (2312.12730).
+    """
     while author := next(
-        (author for author in authors if _fold(text[: len(author) + 1]) == f"{_fold(author)} "), None
+        (
+            author
+            for author in authors
+            if _starts_with(text, author) and _starts_with_any(text[len(author) :].lstrip(), authors)
+        ),
+        None,
     ):
-        text = text[len(author) + 1 :]
+        text = text[len(author) :].lstrip()
     return text
+
+
+def _starts_with(text: str, author: str) -> bool:
+    """Whether the text starts with the author's name, folded."""
+    return _fold(text[: len(author)]) == _fold(author)
+
+
+def _starts_with_any(text: str, authors: Sequence[str]) -> bool:
+    """Whether the text starts with one of the authors' names, folded."""
+    return any(_starts_with(text, author) for author in authors)
 
 
 def _glued_name(name: str, authors: Sequence[str]) -> tuple[str, str] | None:

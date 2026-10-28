@@ -2098,6 +2098,16 @@ def test_an_affiliation_glued_to_its_author(name: str, expected: tuple[str, ...]
     assert parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith")).affiliations == expected
 
 
+def test_an_affiliation_glued_to_the_last_of_names_glued_to_each_other() -> None:
+    # "Julio Silva-RodriguezSina Hajimiri...Jose DolzÉTS Montreal" (2312.12730).
+    html = _author_block(("Ada LovelaceBob SmithMIT Media Lab", ()))
+
+    front = parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith"))
+
+    assert front.affiliations == ("MIT Media Lab",)
+    assert front.author_affiliations == ((0,), (0,))
+
+
 def test_an_affiliation_glued_to_the_last_of_several_names() -> None:
     # "Zheng Ge    Songtao Liu ... Jian SunMegvii Technology" (ar5iv's 2107.08430).
     html = _author_block(("Ada Lovelace\u2003Bob SmithMIT Media Lab", ()))
