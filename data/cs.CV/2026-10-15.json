@@ -7702,7 +7702,11 @@
    "html_url": "https://arxiv.org/html/2610.19495v1",
    "abstract": "Retrieving useful context for a robot requires matching its task, execution stage, and the continuation that should follow. We introduce Robota-Embed, to our knowledge the first vision-language-action (VLA) embedding model to jointly encode all three modalities in both current-state queries and recorded future continuations. Predictive retrieval training aligns these endpoints, enabling historical continuations to serve as context at inference time. We construct a multi-source corpus of 1,695,684 cleaned training anchors and introduce Robota-Embed-Bench, with 4,000 queries and a shared 8,000-entry gallery. Robota-Embed achieves 47.33% clip-level and 81.77% episode-level R@1, exceeding action-free Gemini Embedding 2 by 22.09 and 33.47 percentage points. Controlled retrieval studies show that removing native action degrades retrieval more than removing vision. We study two complementary applications. Embed2ICL uses retrieved experience for training-free and training-based policy conditioning, increasing success from 47.0% to 56.3% in DROID-Sim and from 86.4% to 92.8% on the LIBERO difficult subset, while improving task progress on real robots. Embed2Evolve uses execution feedback to grow task-local memory and refine context use around a frozen GPT-6 Astra policy. Across five ManiSkill tasks, it achieves 68% success, compared with 24% for GPT-6 Astra Direct and 33% for a harness independently evolved with Omni-Embed-Nemotron-3B under the same protocol. Relative to the latter, it uses approximately 79.5% fewer policy tokens per test rollout, counting both successes and failures. These results show that a unified, action-aware retrieval space can support robot in-context learning and task-local context evolution.",
    "affiliations": [
-    "NVIDIA 2 MIT 3 UCB 4 Oxford 5 CMU"
+    "NVIDIA",
+    "MIT",
+    "UCB",
+    "Oxford",
+    "CMU"
    ],
    "author_affiliations": [
     [
@@ -7712,7 +7716,16 @@
      0
     ],
     [
+     2
+    ],
+    [
+     1
+    ],
+    [
      0
+    ],
+    [
+     3
     ],
     [
      0
@@ -7721,7 +7734,19 @@
      0
     ],
     [
+     4
+    ],
+    [
      0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     2
     ],
     [
      0
@@ -7730,54 +7755,41 @@
      0
     ],
     [
-     0
+     2
     ],
     [
      0
     ],
     [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
+     1
     ],
     [
      0
     ]
    ],
    "institutions": [
-    "NVIDIA 2 MIT 3 UCB 4 Oxford 5 CMU"
+    "NVIDIA",
+    "Massachusetts Institute of Technology",
+    "University of California, Berkeley",
+    "University of Oxford",
+    "Carnegie Mellon University"
    ],
    "institution_ids": [
+    null,
+    null,
+    null,
+    null,
     null
    ],
-   "extractor": 12,
+   "extractor": 14,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-22"
+     "at": "2026-10-28"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-15"
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.19495",
