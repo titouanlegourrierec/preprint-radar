@@ -70,8 +70,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     without any (archive and last 12 months): OpenAlex's record of their published version,
     by the DOI of `scholar.json` (AFF-20; 96% of those with one, 2 minutes the first time);
     `archive.yml` runs it weekly. With `MAX_HTML=N`, also the HTML pages of those arXiv
-    renders (since December 2023), the most cited first, at 15 s a page (AFF-28): a night
-    for the 2,000 left, **never without asking**; resumable, its 404s remembered in the
+    renders (since December 2023, AFF-28) and of the older ones ar5iv renders (arXiv Labs,
+    the same LaTeXML, AFF-37), the most cited first, at 15 s a page: a night for the 2,400
+    left, **never without asking**; resumable, its 404s remembered in the
     page cache (`docs/operations.md`).
   - `make citations`: Semantic Scholar counts of the stored papers without one; `ALL=1` asks
     for every paper again. The daily workflow runs it.

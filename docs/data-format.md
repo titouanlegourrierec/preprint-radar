@@ -103,7 +103,7 @@ rewritten each week. Those of the day files are their records there.
 | `journal_ref` | string or `null` | The journal reference its authors gave. |
 | `venue` | string or `null` | The venue its comments say it was accepted at ("CVPR 2026"), workshops named as such. |
 | `cross_list_from` | string or `null` | The category it is cross-listed from, when it is a cross-list. |
-| `html_url` | string or `null` | Its HTML rendering on arXiv, when there is one: where its affiliations were read. |
+| `html_url` | string or `null` | Its HTML rendering on arXiv, when there is one, or ar5iv's (arXiv Labs) for a highly cited paper before December 2023: where its affiliations were read. |
 | `abstract` | string or `null` | Its abstract as plain text, arXiv's LaTeX made readable: a formula still holding markup keeps its dollars. |
 | `affiliations` | strings or `null` | Its authors' affiliations, deduplicated, as written: never an e-mail nor a URL. |
 | `author_affiliations` | lists or `null` | For each author, the indices of their own affiliations in `affiliations`; `null` for an author the page does not place, and altogether when it places none. |

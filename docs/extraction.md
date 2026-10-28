@@ -103,7 +103,8 @@ with", though a wrapped list of people joins ("Bo Zheng, …, Weinan Guan," / "Z
   country ("..., MI, USAEmail: {...}@wayne.edu", 2608.29996); obfuscated addresses ("jane
   (at) example.org", "lab [at] example.org"); mailbox lists ("{jane.doe, john.roe}"), also
   before their domain ("..., Germany. {jane.doe, jroe}@tum.de", 2610.03283) or a full
-  stop ("..., Italy. {name.surname}@unitn.it.", 2609.28184); an address in brackets and
+  stop ("..., Italy. {name.surname}@unitn.it.", 2609.28184), or glued to the country
+  ("..., Singapore{jane,john}@nus.edu.sg", 1312.4400); an address in brackets and
   what follows, ending an unwrapped thanks note's sentence ("..., Hong Kong SAR, China
   (author@...)", 2609.10082), or ending a line ("..., Vienna, Austria author@...",
   2610.02974). A list cut across two contact nodes, glued to the next affiliation
@@ -124,7 +125,9 @@ with", though a wrapped list of people joins ("Bo Zheng, …, Weinan Guan," / "Z
   inside brackets ("(ShenZhen)") nor after a hyphenated word ("AnimSchool", "ByteDance",
   "McGill" stay). It would split "AI Lab of ByteDance", which no stored string holds.
 - A line ending with "," or "and" continues on the next; one naming only a place joins a
-  previous one without a country; one starting with "and" continues the unit ending the
+  previous one without a country, and so does an address without its country, a number of
+  its own on it ("Zalando Research" / "Mühlenstraße 25, 10243 Berlin", 1708.07747, as
+  older pages lay contacts out; not "42dot by Hyundai", 2610.11060; AFF-37); one starting with "and" continues the unit ending the
   previous one ("Faculty of Medicine" / "and Health Sciences", 2610.03290), not an
   institution ("Stanford University" / "and Mila"), nor when "&" starts it ("&
   Canada-CIFAR AI Chair"). A line naming only authors never joins the next ("Terrence
@@ -133,8 +136,8 @@ with", though a wrapped list of people joins ("Bo Zheng, …, Weinan Guan," / "Z
   marker starts it ("Key Laboratory ... of Ministry of" / "Education, Jilin University",
   2609.11477); not "TU Wien, AT" (a country code) nor the domain of
   "author@technikum-wien.at" (2610.02974).
-- A unit without its institution (a unit word, no institution word, no comma:
-  `is_bare_unit`, also a quality sign) takes the next line ("Department of Computer
+- A unit without its institution (a unit word, in French too, "Département d'…", 1411.1784;
+  no institution word, no comma: `is_bare_unit`, also a quality sign) takes the next line ("Department of Computer
   Science, Dartmouth College, Hanover, NH, USA", 2609.38705, AFF-10), unless that line
   starts with a marker, is another unit ("Department of ECE" / "Department of CS" /
   "University of Central Florida": the second gets it, 2610.02000) or a note

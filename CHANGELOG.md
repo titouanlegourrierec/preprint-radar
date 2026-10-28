@@ -66,6 +66,9 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
 
 ### Pipeline
 
+- The highly cited papers before December 2023, which arXiv never rendered in HTML, get
+  their affiliations from ar5iv's renderings: Mask R-CNN, Segment Anything, SegFormer…
+  (AFF-37).
 - Affiliations are read from pages that raise their markers by style ("¹ NVIDIA ² MIT"), or
   set them in a row apart in wide spaces beside a note ("Meta AI Research  WRI  Inria",
   DINOv3) (AFF-37).

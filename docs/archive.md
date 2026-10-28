@@ -179,7 +179,10 @@ papers. `collect.update_archive_affiliations` fills those of the archive and of 
   than half found means a wrong DOI, and nothing is taken. A paper it gives nothing is
   asked again each week, as is a DOI learned later.
 - **The HTML page** (AFF-28, `MAX_HTML=N`): the papers still without any that arXiv
-  renders (since December 2023, the first version), the most cited first, read as the
+  renders (since December 2023, the first version) or, before, ar5iv (AFF-37, arXiv
+  Labs: the same LaTeXML, the latest version, `archive_page_url`; its `robots.txt` only
+  disallows `/log/`; 1,735 of the 2,362 highly cited papers without affiliations on
+  2026-10-28, Mask R-CNN's "Facebook AI Research (FAIR)" among them), the most cited first, read as the
   daily update reads pages (15 s each, the same stops), from the cache when it holds them.
   A 404 leaves `<id>v1.html.missing`, never asked again. A page that gives nothing stays
   cached and is not read again while today's extraction finds nothing in it (read first,

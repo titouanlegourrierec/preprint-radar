@@ -9,6 +9,7 @@ from preprint_radar.http import HttpClient
 from preprint_radar.sources.arxiv_html import (
     FrontMatter,
     PageCache,
+    archive_page_url,
     clean_affiliation,
     clean_affiliations,
     fetch_front_matter,
@@ -1790,6 +1791,29 @@ def test_the_page_cache_remembers_only_pages_that_name_a_version(tmp_path: Path)
 )
 def test_first_version_url(arxiv_id: str, url: str | None) -> None:
     assert first_version_url(arxiv_id) == url
+
+
+@pytest.mark.parametrize(
+    ("arxiv_id", "url"),
+    [
+        ("2501.00001", "https://arxiv.org/html/2501.00001v1"),
+        # Before arXiv rendered any: ar5iv's rendering, of the latest version (AFF-37).
+        ("1703.06870", "https://ar5iv.labs.arxiv.org/html/1703.06870"),
+        ("cs/0112017", None),
+    ],
+)
+def test_archive_page_url(arxiv_id: str, url: str | None) -> None:
+    assert archive_page_url(arxiv_id) == url
+
+
+def test_the_page_cache_keeps_ar5iv_pages_by_paper(tmp_path: Path) -> None:
+    cache = PageCache(tmp_path)
+    cache.put("https://ar5iv.labs.arxiv.org/html/1703.06870", FULL_PAGE)
+
+    assert [path.relative_to(tmp_path) for path in tmp_path.rglob("*.gz")] == [
+        Path("1703/1703.06870.html.gz")
+    ]
+    assert "https://arxiv.org/html/1703.06870v1" not in cache
 
 
 # What the heuristics must not produce (TEST-4): each case names the wrong string a past

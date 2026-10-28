@@ -22,7 +22,7 @@ from preprint_radar.latex import plain_text
 
 logger = logging.getLogger(__name__)
 
-EXTRACTOR_VERSION = 14
+EXTRACTOR_VERSION = 15
 """Version of the extraction heuristics of this module, stored with the affiliations they give.
 
 Bump it with any change that alters what a page gives (affiliations, author mapping), so
@@ -83,6 +83,13 @@ that ``reextract`` reads those papers again, from the page cache when it holds t
   institution ("Meta AI Research    WRI    Inria", nothing, 2508.10104; "Tencent HY" and
   "UC Merced" beside "Southeast University", 2610.14852); curly double quotes fold in
   names ('Linxi "Jim" Fan') (AFF-37).
+- 15: older pages, which ar5iv renders: an address without its country on a line of its own
+  completes the affiliation before it ("Zalando Research" / "Mühlenstraße 25, 10243
+  Berlin", 1708.07747), a French unit waits for its institution ("Département
+  d'informatique …" / "Université de Montréal", 1411.1784), a mailbox list glued to the
+  country goes ("Singapore{…}@nus.edu.sg", 1312.4400), and a line break's spacing printed
+  as text tells no author field cut at its commas ("[0.25cm]", 2105.15203, which gave
+  nothing) (AFF-37).
 """
 
 # LaTeXML renders line breaks and \quad between affiliations as newlines, em spaces
@@ -111,10 +118,11 @@ _LINK_LABEL_RE = re.compile(r"project\s+(?:page|website|homepage|repository|site
 # Vienna, Austria author@technikum-wien.at" (2610.02974), mailboxes included: "...,
 # Germany. {jane.doe, jroe}@tum.de" (2610.03283), the sentence's full stop after it: "...,
 # Italy. {name.surname}@unitn.it." (2609.28184). Its label may be glued to the country
-# before it: "..., MI, USAEmail:" (2608.29996).
+# before it: "..., MI, USAEmail:" (2608.29996). A list in braces ends it even glued to the
+# country: "..., Singapore{jane,john}@nus.edu.sg" (ar5iv's 1312.4400).
 _CONTACT_TAIL_RE = re.compile(
     r"\(?\s*\be-?mails?\b.*$|(?<=[a-z])e-?mails?\s*:.*$|[(\[]\s*[\w.+-]+@.*$"
-    r"|\s(?:\{[^{}]*\}|[\w.+-]+)@[\w-]+(?:\.[\w-]+)+\.?\s*$",
+    r"|(?:\s|(?=\{))(?:\{[^{}]*\}|[\w.+-]+)@[\w-]+(?:\.[\w-]+)+\.?\s*$",
     re.IGNORECASE | re.DOTALL,
 )
 # E-mail addresses written to escape harvesters: "jane (at) example.org", "lab [at] example.org".
@@ -273,12 +281,19 @@ _JUNK_RE = re.compile(
     re.IGNORECASE,
 )
 _MAX_PLACE_LENGTH = 60
+# An address without its country, on a line of its own after its affiliation: a postcode
+# ("Montréal, QC H3C 3J7", "San Francisco, CA 94103") or a street number ("Mühlenstraße 25,
+# 10243 Berlin"), as older pages, which ar5iv renders, lay authors' contacts out (AFF-37). A
+# number of its own: "42dot by Hyundai" is a company (2610.11060).
+_ADDRESS_LINE_RE = re.compile(r"\b\d+\b|\b[A-Z]\d[A-Z]\b")
 # The longest piece of an author field cut at its commas that tells the cut: "College Park".
 _MAX_PIECE_WORDS = 2
 # A unit whose institution is missing: "Department of Computer Science and Engineering".
 _BARE_UNIT_RE = re.compile(
     r"(?:the\s+)?(?:department|dept\.?|school|faculty|division|laboratory|lab|cent(?:er|re)|institute)"
-    r"\s+(?:of|for)\b",
+    r"\s+(?:of|for)\b"
+    # And in French: "Département d'informatique et de recherche opérationnelle" (1411.1784).
+    r"|(?:département|laboratoire|faculté)\s+(?:de|des|du|d['\u2019])",
     re.IGNORECASE,
 )
 _HOST_RE = re.compile(
@@ -398,8 +413,9 @@ class FrontMatter:
 class PageCache:
     """The front matter of every HTML page read, so that extracting again reads no page.
 
-    One gzipped file per paper version (``<directory>/2609/2609.30249v1.html.gz``), holding
-    :func:`front_matter_html` of the page: 1 or 2 KB instead of hundreds. A new version of
+    One gzipped file per paper version (``<directory>/2609/2609.30249v1.html.gz``), and per
+    paper for ar5iv's renderings, of a paper's latest version (``1703/1703.06870.html.gz``),
+    holding :func:`front_matter_html` of the page: 1 or 2 KB instead of hundreds. A new version of
     a paper is a new page, read again. A page that does not exist (404) leaves an empty
     ``.missing`` file instead, which the archive's pages skip (:meth:`missing`).
     """
@@ -471,16 +487,23 @@ class PageCache:
             path.unlink(missing_ok=True)
 
     def _path(self, html_url: str) -> Path | None:
-        """``<directory>/<yymm>/<id>v<version>.html.gz``; ``None`` for a URL that names no paper version."""
-        match = _CACHE_KEY_RE.search(html_url)
-        return None if match is None else self.directory / match["month"] / f"{match[0]}.html.gz"
+        """``<directory>/<yymm>/<id>v<version>.html.gz``, ar5iv's ``<id>.html.gz``; else ``None``."""
+        match = _CACHE_KEY_RE.search(html_url) or _AR5IV_KEY_RE.search(html_url)
+        return (
+            None
+            if match is None
+            else self.directory / match["month"] / f"{html_url.rsplit('/', 1)[-1]}.html.gz"
+        )
 
 
 ARXIV_HTML_URL = "https://arxiv.org/html"
+AR5IV_HTML_URL = "https://ar5iv.labs.arxiv.org/html"
 _NEW_STYLE_ID_RE = re.compile(r"\d{4}\.\d{4,5}")
 # The month of the first papers arXiv rendered in HTML.
 _FIRST_RENDERED_MONTH = "2312"
 _CACHE_KEY_RE = re.compile(r"(?P<month>\d{4})\.\d{4,5}v\d+$")
+# ar5iv renders a paper's latest version, under its identifier alone.
+_AR5IV_KEY_RE = re.compile(rf"^{re.escape(AR5IV_HTML_URL)}/(?P<month>\d{{4}})\.\d{{4,5}}$")
 # What follows the front matter in a LaTeXML document: the body, references and appendices.
 _BODY_CLASSES = frozenset({"ltx_section", "ltx_bibliography", "ltx_appendix"})
 # Sections a document may set before its title: a list of acronyms or a glossary
@@ -538,6 +561,20 @@ def first_version_url(arxiv_id: str) -> str | None:
     if not _NEW_STYLE_ID_RE.fullmatch(arxiv_id) or arxiv_id < _FIRST_RENDERED_MONTH:
         return None
     return f"{ARXIV_HTML_URL}/{arxiv_id}v1"
+
+
+def archive_page_url(arxiv_id: str) -> str | None:
+    """The page a highly cited paper's affiliations are read from, ``None`` without one.
+
+    Its first version's rendering on arXiv (:func:`first_version_url`), else ar5iv's (arXiv
+    Labs), which renders the papers before December 2023 with the same LaTeXML, their
+    latest version: the same extraction reads it ("Facebook AI Research (FAIR)" for Mask
+    R-CNN, 1703.06870, which OpenAlex left without any; AFF-37). ar5iv's ``robots.txt``
+    disallows ``/log/`` alone. Old-style identifiers ("cs/0112017") have neither.
+    """
+    if (url := first_version_url(arxiv_id)) is not None:
+        return url
+    return f"{AR5IV_HTML_URL}/{arxiv_id}" if _NEW_STYLE_ID_RE.fullmatch(arxiv_id) else None
 
 
 def fetch_front_matter(
@@ -898,8 +935,9 @@ def _split_at_commas(block: Tag, authors: Sequence[str]) -> bool:
         if any(author in _fold(text) for author in names):
             continue
         # Line by line: a piece is a creator's whole line, never part of a row set apart in
-        # wide spaces ("Meta AI Research    WRI    Inria", 2508.10104).
-        for line in name.get_text().replace("\xa0", " ").split("\n"):
+        # wide spaces ("Meta AI Research    WRI    Inria", 2508.10104), nor the spacing of a
+        # line break printed as text ("[0.25cm]", ar5iv's 2105.15203).
+        for line in _LATEX_SPACE_RE.sub("\n", name.get_text().replace("\xa0", " ")).split("\n"):
             piece = line.strip().strip(_EDGE_PUNCTUATION)
             # A qualifier in brackets is no piece: "(Guangzhou)" under its university (2609.33258).
             if (
@@ -1148,7 +1186,7 @@ def _completes(previous: str, line: _Line) -> bool:
     that line or it is not an affiliation: "Department of Computer Science", then
     "Dartmouth College" (AFF-10, 2609.38705).
     """
-    if is_place(line.text):
+    if is_place(line.text) or (not line.marked and _is_address(line.text)):
         previous = previous.rstrip(_EDGE_PUNCTUATION)
         if _ADDRESS_END_RE.search(previous):
             return False
@@ -1160,6 +1198,17 @@ def _completes(previous: str, line: _Line) -> bool:
         and not is_bare_unit(line.text)
         and not _NOISE_RE.search(line.text)
         and clean_affiliation(line.text) is not None
+    )
+
+
+def _is_address(line: str) -> bool:
+    """Whether a line is an address without its country (``_ADDRESS_LINE_RE``): "10243 Berlin"."""
+    address = line.strip(_EDGE_PUNCTUATION)
+    return (
+        len(address) <= _MAX_PLACE_LENGTH
+        and _ADDRESS_LINE_RE.search(address) is not None
+        and not _INSTITUTION_WORD_RE.search(address)
+        and not _NOISE_RE.search(address)
     )
 
 

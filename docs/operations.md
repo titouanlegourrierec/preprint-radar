@@ -295,18 +295,19 @@ naming others are papers Semantic Scholar linked to a wrong DOI (24 of 7,027 in 
 
 ### Read their HTML pages (a night, on a machine of yours)
 
-The papers no published version places (about 2,000 of 2024 and 2025, plus those of the
-last 12 months) have HTML pages: 11 hours at 15 s a page, too long for a workflow. On a
+The papers no published version places have HTML pages: arXiv's since December 2023,
+ar5iv's before (AFF-37): 2,362 on 2026-10-28, 10 hours at 15 s a page, too long for a
+workflow. On a
 machine with `git`, `make`, `uv`, a clone and a `.env` holding `PREPRINT_RADAR_CONTACT`,
 in `tmux` or under `nohup`, after Sunday's *Archive* has pushed (it rewrites the same
 files: the archive and `top-recent.json`) and before the next:
 
 ```bash
 git pull
-make archive-affiliations MAX_HTML=3000
+make archive-affiliations MAX_HTML=2500
 make validate
 git add data
-git commit -m "chore(data): affiliations of highly cited papers from their HTML pages (AFF-28)"
+git commit -m "chore(data): affiliations of highly cited papers from their HTML pages (AFF-28, AFF-37)"
 git pull --rebase && git push
 ```
 

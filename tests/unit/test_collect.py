@@ -1126,7 +1126,7 @@ def test_archive_affiliations_from_the_html_pages(
         [
             _archived("2501.00001", authors=authors),
             _archived("2501.00002"),  # no rendering
-            _archived("2205.00003"),  # before arXiv rendered any
+            _archived("2205.00003"),  # before arXiv rendered any: ar5iv's (AFF-37)
             _archived("2501.00004"),  # arxiv.org fails
         ],
     )
@@ -1141,6 +1141,8 @@ def test_archive_affiliations_from_the_html_pages(
             return httpx.Response(200, text=paper_html("2609.30249"))
         if request.url.path == "/html/2501.00004v1":
             return httpx.Response(503)
+        if request.url.host == "ar5iv.labs.arxiv.org" and request.url.path == "/html/2205.00003":
+            return httpx.Response(200, text=paper_html("1703.06870"))
         return httpx.Response(404)
 
     reading = HtmlReading(limit=10, save_every=1, cache=PageCache(tmp_path / "pages"))
@@ -1160,17 +1162,18 @@ def test_archive_affiliations_from_the_html_pages(
     report = run()
 
     # The most cited first; nothing asked of OpenAlex without a published version.
-    assert [path for path in requests if path.startswith("arxiv.org")] == [
+    assert [path for path in requests if "arxiv.org" in path] == [
         "arxiv.org/html/2501.00002v1",
         "arxiv.org/html/2501.00001v1",
+        "ar5iv.labs.arxiv.org/html/2205.00003",
         "arxiv.org/html/2501.00004v1",
     ]
     assert report == ArchiveAffiliationsReport(
-        category="cs.CV", without=4, from_published=0, pages=2, from_pages=1, unreadable=1
+        category="cs.CV", without=4, from_published=0, pages=3, from_pages=2, unreadable=1
     )
     assert format_archive_affiliations_report(report) == (
-        "cs.CV: 1 of 4 highly cited papers without affiliations got some, "
-        "0 from OpenAlex's published versions, 1 from 2 HTML pages (1 unreadable)"
+        "cs.CV: 2 of 4 highly cited papers without affiliations got some, "
+        "0 from OpenAlex's published versions, 2 from 3 HTML pages (1 unreadable)"
     )
     archived = {paper.arxiv_id: paper for paper in store.iter_archive("cs.CV")}
     read = archived["2501.00001"]
@@ -1181,12 +1184,15 @@ def test_archive_affiliations_from_the_html_pages(
     assert read.affiliations_provenance == Provenance("html", READ_ON)
     assert read.institutions is not None
     assert read.institutions_provenance == Provenance("ror", READ_ON)
-    for unchanged in ("2501.00002", "2205.00003", "2501.00004"):
+    older = archived["2205.00003"]
+    assert older.affiliations == ("Facebook AI Research (FAIR)",)
+    assert older.html_url == "https://ar5iv.labs.arxiv.org/html/2205.00003"
+    for unchanged in ("2501.00002", "2501.00004"):
         assert archived[unchanged] == _archived(unchanged)
 
-    # Again: the page that does not exist is not asked for, the one read has affiliations.
+    # Again: the page that does not exist is not asked for, those read have affiliations.
     requests.clear()
-    assert run().without == 3
+    assert run().without == 2
     assert requests == ["arxiv.org/html/2501.00004v1"]
 
 

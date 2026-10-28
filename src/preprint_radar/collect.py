@@ -38,8 +38,8 @@ from preprint_radar.sources.arxiv_html import (
     EXTRACTOR_VERSION,
     FrontMatter,
     PageCache,
+    archive_page_url,
     fetch_front_matter,
-    first_version_url,
     name_key,
     parse_front_matter,
 )
@@ -1348,10 +1348,11 @@ def update_archive_affiliations(
     The papers of the archive and the most cited of the last 12 months, but those of the
     day files, whose records there are their day records, which the daily update enriches.
     First OpenAlex's record of their published version (:func:`with_published_affiliations`,
-    seconds). Then, with a ``site_client``, the HTML rendering of the first version of
-    those still without that arXiv renders (:func:`first_version_url`), the most cited
-    first: the pages the cache holds, offline, then downloads within ``html.limit``, at
-    arxiv.org's crawl delay, a page that does not exist remembered in the cache. A paper
+    seconds). Then, with a ``site_client``, the HTML rendering of those still without: the
+    first version's on arXiv since December 2023, ar5iv's before (AFF-37,
+    :func:`archive_page_url`), the most cited first: the pages the cache holds, offline,
+    then downloads within ``html.limit``, at arxiv.org's crawl delay, a page that does not
+    exist remembered in the cache. A paper
     whose page gives affiliations takes them, with the page's link; the others keep what
     they had. Progress is saved every ``html.save_every`` pages and on Ctrl-C; the reading
     stops early as the update's does (:class:`Stop`). Last, the institutions of the
@@ -1431,7 +1432,7 @@ def _archive_pages(
 ) -> list[tuple[Paper, str]]:
     """The papers without affiliations whose page to read, with its URL, the most cited first.
 
-    Those arXiv renders, but for the pages it answered do not exist and those a run before
+    Those arXiv or ar5iv renders, but for the pages they answered do not exist and those a run before
     read that give no affiliation today: their papers keep what they had, so each run would
     read them again, first since cached, and their share of empty pages would stop it as a
     layout change.
@@ -1440,7 +1441,7 @@ def _archive_pages(
         (paper, url)
         for paper in papers
         if not paper.affiliations
-        and (url := first_version_url(paper.arxiv_id)) is not None
+        and (url := archive_page_url(paper.arxiv_id)) is not None
         and not (cache is not None and cache.missing(url))
     ]
     if cache is not None:
