@@ -123,6 +123,13 @@ ACRONYMS: dict[str, str] = {
     "ucl": "University College London",
     "uc san diego": "University of California San Diego",
     "uc berkeley": "University of California, Berkeley",
+    "ucb": "University of California, Berkeley",
+    # Names written alone, as acronyms are ("¹ NVIDIA ² MIT ³ UCB ⁴ Oxford", 2610.19495); of
+    # places too (`_PLACE_NAMES`).
+    "oxford": "University of Oxford",
+    "stanford": "Stanford University",
+    "harvard": "Harvard University",
+    "princeton": "Princeton University",
     "uiuc": "University of Illinois Urbana-Champaign",
     "epfl": "École Polytechnique Fédérale de Lausanne",
     "tum": "Technical University of Munich",
@@ -153,9 +160,12 @@ _ACRONYM_LED_RE = re.compile(
 # own), a hospital ("TUM Klinikum"), or a list naming another university ("CUHK The
 # University of Adelaide HKUST").
 _NOT_ITS_UNIT_RE = re.compile(r"&|^\(|universit|hospital|klinik|clinic|health|medical", re.IGNORECASE)
-# Acronyms this short must be written in capitals: "Hit Robot Group" is no Harbin Institute
-# of Technology. Longer ones are names ("Caltech", "SUSTech").
-_SHORT_ACRONYM = 4
+# Names of places as well as of their universities: their university only when no other part
+# names an institution ("Stanford, CA"), not in "Ultromics Ltd, Oxford, UK".
+_PLACE_NAMES = frozenset({"oxford", "stanford", "princeton"})
+# The acronym written as one, with two capitals at least: "Hit Robot Group" is no Harbin
+# Institute of Technology, "Oxford Instruments" no University of Oxford ("Oxford" alone is).
+_ACRONYM_CAPITALS = 2
 # Campuses of the University of California, written as a part of their own.
 _UC_CAMPUS_RE = re.compile(
     r"^(?:berkeley|los angeles|san diego|davis|irvine|santa barbara|santa cruz|riverside|merced"
@@ -227,10 +237,13 @@ def institution_name(affiliation: str) -> str | None:
     ]
     best, best_index, best_score = "", -1, -1.0
     for index, part in enumerate(parts):
-        if alias := ACRONYMS.get(search_key(part)) or _led_by_acronym(part):
+        key = search_key(part)
+        if key not in _PLACE_NAMES and (alias := ACRONYMS.get(key) or _led_by_acronym(part)):
             return alias
         if (score := _score(part)) > best_score:
             best, best_index, best_score = part, index, score
+    if search_key(best) in _PLACE_NAMES:
+        return ACRONYMS[search_key(best)]
     if best_score < 3:  # noqa: PLR2004 - a university-like part outranks a company mentioned
         for pattern, brand in _BRANDS:
             if any(pattern.search(part) and not _NOT_A_BRAND_RE.search(part) for part in parts):
@@ -248,9 +261,8 @@ def _led_by_acronym(part: str) -> str | None:
     match = _ACRONYM_LED_RE.match(part)
     if match is None:
         return None
-    key = search_key(match["acronym"])
-    institution = ACRONYMS[key]
-    if " " not in key and len(key) <= _SHORT_ACRONYM and not match["acronym"].isupper():
+    institution = ACRONYMS[search_key(match["acronym"])]
+    if sum(char.isupper() for char in match["acronym"]) < _ACRONYM_CAPITALS:
         return None
     # The acronym spelled out after it: "KAIST (Korea Advanced Institute of Science and Technology)".
     if search_key(match["rest"]) == search_key(institution):
