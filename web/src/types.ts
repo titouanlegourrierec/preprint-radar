@@ -37,6 +37,13 @@ export interface Paper {
    */
   code?: CodeStats;
   /**
+   * The ISO codes of the countries of its institutions ("FR"), for the country filter
+   * (PROD-22): not in the store's records, the build merges them from `countries.json`
+   * (`tooling/countries.ts`), by the institutions' ROR ids, as the map counts them. Absent
+   * when none is known, and in reading lists saved before.
+   */
+  countries?: string[];
+  /**
    * Only in a search shard's record (`search-shards.ts`), which has no abstract nor
    * comments: the code they link (`codeUrl`), `null` for none.
    */

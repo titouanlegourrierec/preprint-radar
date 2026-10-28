@@ -3957,6 +3957,12 @@ input[type="range"] {
   background: var(--accent-soft);
 }
 
+/* The pinned country's papers, offered under the map (PROD-22). */
+.world-map__pinned {
+  margin: 8px 0 0;
+  font-size: 0.85rem;
+}
+
 .world-map__more {
   justify-self: start;
 }

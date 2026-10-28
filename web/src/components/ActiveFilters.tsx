@@ -1,3 +1,4 @@
+import { countryName } from "../country-names";
 import { isActive, NO_FILTERS, type SearchFilters } from "../search";
 import { venueLabel } from "../venues";
 
@@ -20,6 +21,9 @@ export function ActiveFilters({ filters, onFilters }: Props) {
   }
   if (filters.venue !== null) {
     chips.push([venueLabel(filters.venue), { ...filters, venue: null }]);
+  }
+  if (filters.country !== null) {
+    chips.push([`in ${countryName(filters.country)}`, { ...filters, country: null }]);
   }
   if (filters.subject !== null) chips.push([filters.subject, { ...filters, subject: null }]);
   if (filters.excludeCrossLists)

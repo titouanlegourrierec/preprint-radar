@@ -83,6 +83,12 @@ describe("searchShardFiles", () => {
     },
     "cs.CV/scholar.json": scholar,
     "cs.CV/code.json": code,
+    "cs.CV/countries.json": {
+      schema_version: 1,
+      generated_at: "2026-10-04T06:00:00+00:00",
+      source: "OpenAlex",
+      institutions: { "0abcde001": "FR" },
+    },
     "cs.CV/2026-10-01.json": {
       schema_version: 1,
       papers: [
@@ -95,7 +101,16 @@ describe("searchShardFiles", () => {
     },
     "cs.CV/2026-09-30.json": {
       schema_version: 1,
-      papers: [makePaper({ arxiv_id: "2609.00001", announced: "2026-09-30", abstract: "A." })],
+      papers: [
+        makePaper({
+          arxiv_id: "2609.00001",
+          announced: "2026-09-30",
+          abstract: "A.",
+          affiliations: ["Inria"],
+          institutions: ["Inria"],
+          institution_ids: ["0abcde001"],
+        }),
+      ],
     },
     // A day the index lists whose file is missing gives nothing.
   };
@@ -115,6 +130,8 @@ describe("searchShardFiles", () => {
         arxiv_id: "2609.00001",
         doi: "10.1000/example",
         venue: "ICCV 2025",
+        // The older days of a period filter on countries too (PROD-22).
+        countries: ["FR"],
         abstract: null,
         light: "cs.CV/2026-09-30.json",
       }),

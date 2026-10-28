@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { highlight, wholeWord } from "../src/highlight";
 import {
   ANY_VENUE,
+  activeFilterCount,
   affiliationNeedles,
   alphabetical,
   byCitations,
@@ -455,6 +456,20 @@ describe("PaperIndex", () => {
     expect(marked("Jean-Luc", "Jean-Luc Starck")).toEqual(["Jean-Luc"]);
     // The pieces of a typed word start words, as the filter reads them.
     expect(marked("Univ-of-Tokyo", "University of Tokyo")).toEqual(["University of Tokyo"]);
+  });
+
+  it("keeps the papers with an institution in the country filtered on (PROD-22)", () => {
+    const french = makePaper({ arxiv_id: "1", countries: ["FR", "US"] });
+    const american = makePaper({ arxiv_id: "2", countries: ["US"] });
+    // None known: its institutions have no id, or it was saved before the field.
+    const unknown = makePaper({ arxiv_id: "3" });
+    // An affiliation the rules named, without an id, that ends with the country's name.
+    const written = makePaper({ arxiv_id: "4", affiliations: ["LIGM, CNRS, France."] });
+    const filters = { ...NO_FILTERS, country: "FR" };
+    expect(
+      [french, american, unknown, written].filter((paper) => matchesFilters(paper, filters)),
+    ).toEqual([french, written]);
+    expect(activeFilterCount(filters)).toBe(1);
   });
 
   it("marks a typed name whose pieces start words, as the filter keeps it", () => {

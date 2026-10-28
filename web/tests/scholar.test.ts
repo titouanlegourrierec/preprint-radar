@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { CodeFile, ScholarFile } from "../src/types";
+import type { CountriesFile } from "../src/world";
 import { paperFiles, withSiteFields } from "../tooling/scholar";
 
 const scholar: ScholarFile = {
@@ -67,6 +68,29 @@ describe("withSiteFields", () => {
       { stars: 120, gained: 4 },
       undefined,
       { likes: 2 },
+      undefined,
+    ]);
+  });
+
+  it("adds the countries of the institutions with an id that OpenAlex places (PROD-22)", () => {
+    const countries: CountriesFile = {
+      schema_version: 1,
+      generated_at: "2026-10-27T07:41:23+00:00",
+      source: "OpenAlex",
+      institutions: { "0abcde001": "FR", "0abcde002": "FR", "0abcde003": "US", "0abcde004": null },
+    };
+    const day = {
+      papers: [
+        { arxiv_id: "2609.00001", institution_ids: ["0abcde001", null, "0abcde002", "0abcde003"] },
+        // Placed nowhere, or named by the rules without an id: no country.
+        { arxiv_id: "2609.00002", institution_ids: ["0abcde004", null] },
+        { arxiv_id: "2609.00003" },
+      ],
+    };
+    const merged = JSON.parse(withSiteFields(JSON.stringify(day), null, null, countries));
+    expect(merged.papers.map((paper: { countries?: string[] }) => paper.countries)).toEqual([
+      ["FR", "US"],
+      undefined,
       undefined,
     ]);
   });

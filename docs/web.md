@@ -167,6 +167,7 @@ pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
   | `by`, `at` | An author or an institution, as clicked: that name only | none | the lists, Rankings |
   | `author`, `aff` | Typed author or affiliation text: word starts | none | the same |
   | `venue` | A venue (`ECCV 2026`), a family (`ECCV*`) or any (`*`) | none | the lists, Rankings, the graph |
+  | `country` | A country of the papers' institutions, its ISO code (`FR`, PROD-22) | none | the lists, Rankings |
   | `subject` | A subject, primary or cross-listed (`Machine Learning (cs.LG)`) | none | the lists, Rankings |
   | `xl` | `0`: cross-lists hidden; no control sets it, old links and saved searches do (its chip clears it) | shown | the lists, Rankings |
   | `code` | `1`: papers that link their code | all | the lists, Rankings |
@@ -525,7 +526,18 @@ pipeline and `validate` never see these. `base: "./"` keeps the site working und
   of its institutions with a ROR id (`countries.json`, UX-40), its citations shared alike,
   so a collaboration counts once. Metrics: papers, citations, papers per million people
   (from `MIN_POPULATION`, a million), and impact, citations per paper over every placed
-  paper's (from `MIN_IMPACT_PAPERS`, 10; highly cited papers only).
+  paper's (from `MIN_IMPACT_PAPERS`, 10; highly cited papers only). A country pinned, on
+  the map or in the table, offers its papers below the map: Papers, or Highly cited over
+  archive years, filtered on it (`?country=FR`, PROD-22).
+- **The country filter** (PROD-22): `Paper.countries`, the ISO codes of its institutions'
+  countries, which the build merges from `countries.json` by their ROR ids, as the map
+  counts them (`tooling/countries.ts`, in the day and archive files and the search shards
+  alike), or an affiliation that ends with the country's name (`inCountry`: those the rules
+  named without an id, 29 French papers more than the ids' 728 on 2026-10-28). A chip
+  says it ("in France", `countryName`, the browser's `Intl.DisplayNames`). A search that
+  names a country among the papers' ("France", "USA": `countryNamed`) offers it, "Show the
+  312 papers with an institution in France", rather than changing what the words find:
+  "Paris, France" in an affiliation still matches the word.
 - The shapes are Natural Earth's 1:110m countries in the Equal Earth projection, which keeps
   areas (`src/geo/world.json`, written by `tooling/world-map.ts`); countries too small are
   dots at their 1:50m label points. Classes (`--map-s0`…`--map-s5`; `--map-d0`…`--map-d4`

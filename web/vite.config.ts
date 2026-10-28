@@ -15,6 +15,7 @@ import preact from "@preact/preset-vite";
 import type { Plugin } from "vite";
 import { defineConfig } from "vitest/config";
 import type { CodeFile, Cohort, CohortsFile, ScholarFile, StoreIndex } from "./src/types";
+import type { CountriesFile } from "./src/world";
 import { citationShardFiles } from "./tooling/citation-shards";
 import { withCohorts } from "./tooling/cohorts";
 import { contentSecurityPolicy as policy } from "./tooling/content-security-policy";
@@ -129,6 +130,8 @@ function paperData(dataDir: string): Plugin {
   const read = jsonReader(dataDir);
   const scholarOf = (category: string) => read(`${category}/scholar.json`) as ScholarFile | null;
   const codeOf = (category: string) => read(`${category}/code.json`) as CodeFile | null;
+  const countriesOf = (category: string) =>
+    read(`${category}/countries.json`) as CountriesFile | null;
   // Each category's cohorts, for the site's index: the badges' "Top 1% of 2017".
   const cohortsOf = (index: StoreIndex | null) => {
     const cohorts: Record<string, Record<string, Cohort>> = {};
@@ -173,7 +176,9 @@ function paperData(dataDir: string): Plugin {
         const category = PAPER_FILE_RE.exec(path)?.[1];
         if (category !== undefined) {
           const text = readFileSync(file, "utf8");
-          res.end(withSiteFields(text, scholarOf(category), codeOf(category)));
+          res.end(
+            withSiteFields(text, scholarOf(category), codeOf(category), countriesOf(category)),
+          );
           return;
         }
         createReadStream(file).pipe(res);
@@ -198,13 +203,21 @@ function paperData(dataDir: string): Plugin {
           writeFileSync(target, text);
         }
         const index = read("index.json") as StoreIndex | null;
-        const merged = new Map<string, [ScholarFile | null, CodeFile | null]>();
+        const merged = new Map<
+          string,
+          [ScholarFile | null, CodeFile | null, CountriesFile | null]
+        >();
         for (const { category, path } of index ? paperFiles(index) : []) {
-          if (!merged.has(category)) merged.set(category, [scholarOf(category), codeOf(category)]);
-          const [scholar, code] = merged.get(category) ?? [null, null];
+          if (!merged.has(category)) {
+            merged.set(category, [scholarOf(category), codeOf(category), countriesOf(category)]);
+          }
+          const [scholar, code, countries] = merged.get(category) ?? [null, null, null];
           const target = resolve(output, path);
-          if ((scholar !== null || code !== null) && existsSync(target)) {
-            writeFileSync(target, withSiteFields(readFileSync(target, "utf8"), scholar, code));
+          if ((scholar !== null || code !== null || countries !== null) && existsSync(target)) {
+            writeFileSync(
+              target,
+              withSiteFields(readFileSync(target, "utf8"), scholar, code, countries),
+            );
           }
         }
         // Last, the version of each file the site loads, as written (PERF-8).

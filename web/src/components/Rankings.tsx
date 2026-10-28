@@ -30,6 +30,8 @@ interface Props {
   onMetric: (metric: CountryMetric) => void;
   /** Show the papers of an institution or author. */
   onEntity: (kind: EntityKind, name: string) => void;
+  /** Show the papers of a country, by its code (PROD-22). */
+  onCountry?: ((code: string) => void) | undefined;
 }
 
 /** Institutions, authors or countries of the papers shown, by papers or citations. */
@@ -42,6 +44,7 @@ export function Rankings(props: Props) {
       metric={countryMetricOf(props.metric, props.archived)}
       archived={props.archived}
       onMetric={props.onMetric}
+      onCountry={props.onCountry}
     />
   ) : (
     <EntityRankings {...props} kind={props.kind} />

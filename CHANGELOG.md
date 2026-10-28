@@ -22,6 +22,9 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
   screen readers hear it start and end, not each step (UX-51).
 - Rankings rank every stored paper too, all time: "All papers" in their period picker, as in
   Papers (PROD-21).
+- Papers by country: a filter on the countries of their institutions (`?country=FR`),
+  offered by a country pinned in Rankings, or by a search that names one ("France")
+  (PROD-22).
 
 ### Interface
 

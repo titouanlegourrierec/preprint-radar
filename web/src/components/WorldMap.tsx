@@ -74,6 +74,8 @@ interface Props {
   archived: boolean;
   /** Rank by another metric: a column's header pressed (UX-42). */
   onMetric: (metric: CountryMetric) => void;
+  /** Show the papers of a country, the one pinned (PROD-22). */
+  onCountry?: ((code: string) => void) | undefined;
 }
 
 /**
@@ -84,7 +86,15 @@ interface Props {
  * those who do not see it, ranked by a column's header. Loaded with its chunk, only when
  * Rankings shows countries.
  */
-export function WorldMap({ category, papers, citations, metric, archived, onMetric }: Props) {
+export function WorldMap({
+  category,
+  papers,
+  citations,
+  metric,
+  archived,
+  onMetric,
+  onCountry,
+}: Props) {
   const [file, setFile] = useState<CountriesFile | null | undefined>(undefined);
   const [failed, setFailed] = useState(false);
   useEffect(() => {
@@ -299,6 +309,14 @@ export function WorldMap({ category, papers, citations, metric, archived, onMetr
           </li>
         </ul>
       </div>
+      {/* A country pinned, on the map or in the table, offers its papers (PROD-22). */}
+      {pinnedCountry && onCountry && (
+        <p class="world-map__pinned">
+          <button type="button" class="link-button" onClick={() => onCountry(pinnedCountry.code)}>
+            Show the papers of {nameOf(pinnedCountry.code)}
+          </button>
+        </p>
+      )}
 
       <table class="rankings__table world-map__table">
         <caption class="visually-hidden">

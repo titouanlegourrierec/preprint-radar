@@ -98,6 +98,32 @@ test("a venue's badge shows that venue's papers alone (UX-64)", async ({ page })
   expect(errors).toEqual([]);
 });
 
+test("papers by the country of their institutions, from a search or Rankings (PROD-22)", async ({
+  page,
+}) => {
+  const errors = watchErrors(page);
+  // Its institutions' ROR ids, as countries.json places them, merged by the build.
+  await page.goto("./?country=US");
+  await expect(page.getByText("2 of 4 cs.CV papers")).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "Remove the filter in United States" }),
+  ).toBeVisible();
+  // A search naming a country offers it.
+  await page.goto("./?q=united+kingdom");
+  await page
+    .getByRole("button", { name: /^Show the 2 papers with an institution in United Kingdom$/ })
+    .click();
+  await expect(page).toHaveURL(/\?country=GB$/);
+  await expect(page.getByText("2 of 4 cs.CV papers")).toBeVisible();
+  // So does a country pinned in Rankings.
+  await page.goto("./?view=rankings&rank=country");
+  await page.getByRole("button", { name: "United States" }).click();
+  await page.getByRole("button", { name: "Show the papers of United States" }).click();
+  await expect(page).toHaveURL(/[?&]country=US$/);
+  await expect(page).not.toHaveURL(/view=/);
+  expect(errors).toEqual([]);
+});
+
 test("the index loads once, preloaded with the page", async ({ page }) => {
   const requests: string[] = [];
   const warnings: string[] = [];

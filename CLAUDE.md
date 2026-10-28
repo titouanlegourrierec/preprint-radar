@@ -303,8 +303,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   read the archive.
 - The site's records are not quite the store's: the build adds `doi`, the authors'
   `author_ids` and, where the comments name no venue, the published `venue` from
-  `scholar.json`, and `code` (stars, gains, likes, `shared`) from `code.json` where its
-  link is still the card's; a search shard's record has no abstract nor comments, but
+  `scholar.json`, `code` (stars, gains, likes, `shared`) from `code.json` where its
+  link is still the card's, and `countries` (its institutions', by their ROR ids) from
+  `countries.json`; a search shard's record has no abstract nor comments, but
   `code_url` and `light` (its day file, PERF-1). The pipeline never writes them into a
   record; it keeps an author's id only where Semantic Scholar's name for it is the paper's
   author at that place.

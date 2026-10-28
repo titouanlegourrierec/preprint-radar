@@ -34,10 +34,17 @@ describe("url state", () => {
         affiliation: exactly("MIT"),
         subject: null,
         venue: "ECCV 2026",
+        country: "FR",
       },
       paper: "2609.30234",
     };
     expect(readState(writeState(state))).toEqual(state);
+  });
+
+  it("reads a country as its ISO code only (PROD-22)", () => {
+    expect(readState("?country=FR").filters.country).toBe("FR");
+    expect(readState("?country=France").filters.country).toBeNull();
+    expect(readState("?country=fr").filters.country).toBeNull();
   });
 
   it("keeps clicked names apart from typed text", () => {

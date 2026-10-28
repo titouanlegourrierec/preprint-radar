@@ -1,5 +1,7 @@
 import type { CodeFile, CodeStats, ScholarFile } from "../src/types";
+import type { CountriesFile } from "../src/world";
 import { mergeCode } from "./code";
+import { mergeCountries } from "./countries";
 
 /** A paper as a day or archive file holds it, for what the merge reads and writes. */
 export interface StoredPaper {
@@ -11,22 +13,27 @@ export interface StoredPaper {
   abstract?: string | null;
   comments?: string | null;
   code?: CodeStats;
+  institution_ids?: (string | null)[] | null;
+  countries?: string[];
 }
 
 /**
  * A day or archive file (JSON text) with what only the site's records hold, which the store
  * keeps apart since it is rewritten every week: what `scholar.json` knows of its papers
- * ({@link mergeScholar}), and how popular their code is (`code.json`, `mergeCode`).
+ * ({@link mergeScholar}), how popular their code is (`code.json`, `mergeCode`), and the
+ * countries of their institutions (`countries.json`, `mergeCountries`, PROD-22).
  */
 export function withSiteFields(
   text: string,
   scholar: ScholarFile | null,
   code: CodeFile | null = null,
+  countries: CountriesFile | null = null,
 ): string {
-  if (scholar === null && code === null) return text;
+  if (scholar === null && code === null && countries === null) return text;
   const file = JSON.parse(text) as { papers: StoredPaper[] };
   if (scholar !== null) mergeScholar(file.papers, scholar);
   if (code !== null) mergeCode(file.papers, code);
+  if (countries !== null) mergeCountries(file.papers, countries);
   return JSON.stringify(file);
 }
 

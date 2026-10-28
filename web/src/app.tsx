@@ -27,6 +27,7 @@ import { Sidebar, SidebarToggle, WIDE_QUERY } from "./components/Sidebar";
 import { SiteFooter } from "./components/SiteFooter";
 import { Topbar } from "./components/Topbar";
 import type { Trends as TrendsView } from "./components/Trends";
+import { countryName, countryNamed } from "./country-names";
 import type { StoreHolding } from "./data";
 import { download } from "./download";
 import { feedOf } from "./feeds";
@@ -74,6 +75,7 @@ import {
   byStars,
   exactly,
   hasSearchWords,
+  inCountry,
   mostlyTied,
   NO_FILTERS,
   nameHighlights,
@@ -489,6 +491,21 @@ export function App() {
         : null;
   // A search of every stored paper without a word nor a filter, which would find them all.
   const storeAsks = everywhere && load.status === "ready" && storeSearch === null;
+  // A search that names a country offers its papers by their institutions (PROD-22), the
+  // country filter, rather than those whose text holds the word: "France".
+  const countries = useMemo(
+    () => new Set((activeIndex?.all() ?? []).flatMap((paper) => paper.countries ?? [])),
+    [activeIndex],
+  );
+  const namedCountry = useMemo(() => {
+    if (!(state.view === "papers" || cited) || state.filters.country !== null) return null;
+    const code = countryNamed(query, countries);
+    if (code === null) return null;
+    // Not counted over every stored paper, whose index holds those that write the word.
+    if (everywhere) return { code, papers: null };
+    const papers = (activeIndex?.all() ?? []).filter((paper) => inCountry(paper, code));
+    return { code, papers: papers.length };
+  }, [state.view, cited, state.filters.country, query, countries, activeIndex, everywhere]);
   const sinceLastVisit = triage.sinceLastVisit && {
     ...triage.sinceLastVisit,
     period: between(triage.sinceLastVisit.from, triage.sinceLastVisit.to),
@@ -1085,6 +1102,12 @@ export function App() {
                       },
                     })
                   }
+                  onCountry={(country) =>
+                    update({
+                      view: archived ? "cited" : "papers",
+                      filters: { ...state.filters, country },
+                    })
+                  }
                 />
               ) : cited && archiveYears.length === 0 && !topRecent ? (
                 <p class="notice">
@@ -1106,6 +1129,27 @@ export function App() {
                 </p>
               ) : (
                 <>
+                  {namedCountry && (
+                    <p class="notice">
+                      Looking for {countryName(namedCountry.code)}?{" "}
+                      <button
+                        type="button"
+                        class="link-button"
+                        onClick={() =>
+                          update({
+                            query: "",
+                            filters: { ...state.filters, country: namedCountry.code },
+                          })
+                        }
+                      >
+                        Show the{" "}
+                        {namedCountry.papers === null
+                          ? "papers"
+                          : countOf(namedCountry.papers, "paper")}{" "}
+                        with an institution in {countryName(namedCountry.code)}
+                      </button>
+                    </p>
+                  )}
                   {storeAsks && (
                     <p class="notice">
                       Type words in the search box, or choose a filter: every stored paper is

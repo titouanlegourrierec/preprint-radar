@@ -44,6 +44,9 @@ const METRICS: readonly CountryMetric[] = ["papers", "citations", "per-million",
 export type RankKind = EntityKind | "country";
 const RANKS: readonly RankKind[] = ["institution", "author", "country"];
 
+/** A country's ISO code, as the country filter takes it (`?country=FR`, PROD-22). */
+const COUNTRY_RE = /^[A-Z]{2}$/;
+
 /** The views that search or rank every stored paper when asked (`?scope=all`, PROD-21). */
 export const STORE_VIEWS: ReadonlySet<View> = new Set(["papers", "rankings"]);
 
@@ -181,6 +184,8 @@ export function readState(search: string): ViewState {
       affiliation: readName(params, "at", "aff"),
       subject: params.get("subject"),
       venue: params.get("venue"),
+      // An ISO code, as the build writes them ("FR"); anything else filters nothing.
+      country: COUNTRY_RE.test(params.get("country") ?? "") ? params.get("country") : null,
     },
   };
 }
@@ -222,6 +227,7 @@ export function writeState(state: ViewState): string {
   set(affiliation?.exact ? "at" : "aff", affiliation?.text ?? null);
   set("subject", state.filters.subject);
   set("venue", state.filters.venue);
+  set("country", state.filters.country);
   const query = params.toString();
   return query ? `?${query}` : "";
 }

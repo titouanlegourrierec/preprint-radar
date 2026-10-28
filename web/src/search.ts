@@ -1,5 +1,6 @@
 import MiniSearch, { type Options, type Query } from "minisearch";
 import { codeUrl } from "./code";
+import { countryNamed } from "./country-names";
 import { subjectCode } from "./format";
 import { wholeWord, wordStarts } from "./highlight";
 import { acronymOf, institutionsOf, namedInstitutions } from "./institutions";
@@ -47,6 +48,11 @@ export interface SearchFilters {
    * `venues.ts`), or {@link ANY_VENUE}.
    */
   venue: string | null;
+  /**
+   * A country of the papers' institutions, its ISO code ("FR", PROD-22), as the build
+   * merges them from their ROR ids (`Paper.countries`).
+   */
+  country: string | null;
 }
 
 /** A filter on text typed by the user. */
@@ -66,6 +72,7 @@ export const NO_FILTERS: SearchFilters = {
   affiliation: null,
   subject: null,
   venue: null,
+  country: null,
 };
 
 /** One side of an `OR` (SRCH-6): a word, as typed, or a `"phrase"`, as its {@link searchKey}. */
@@ -524,6 +531,7 @@ export function activeFilterCount(filters: SearchFilters): number {
     isActive(filters.author),
     isActive(filters.affiliation),
     filters.venue !== null,
+    filters.country !== null,
     filters.subject !== null,
     filters.excludeCrossLists,
     filters.withCode,
@@ -624,7 +632,24 @@ export function matchesFilters(paper: Paper, filters: SearchFilters): boolean {
     // Institutions are only named when an affiliation filter needs them.
     (!isActive(filters.affiliation) || matchesAffiliation(paper, filters.affiliation)) &&
     (filters.subject === null || listedUnder(paper, filters.subject)) &&
-    (filters.venue === null || matchesVenue(paper.venue, filters.venue))
+    (filters.venue === null || matchesVenue(paper.venue, filters.venue)) &&
+    (filters.country === null || inCountry(paper, filters.country))
+  );
+}
+
+/**
+ * Whether a paper has an institution in a country (PROD-22): by their ROR ids, as the build
+ * merges them (`Paper.countries`), or an affiliation that ends with its name, as those the
+ * rules named without an id write it ("LIGM, Ecole des Ponts, CNRS, France": 29 more French
+ * papers than the ids' 728, on 2026-10-28).
+ */
+export function inCountry(paper: Paper, code: string): boolean {
+  return (
+    (paper.countries ?? []).includes(code) ||
+    (paper.affiliations ?? []).some(
+      (affiliation) =>
+        countryNamed((affiliation.split(",").at(-1) ?? "").replace(/[\s.]+$/, ""), [code]) === code,
+    )
   );
 }
 
