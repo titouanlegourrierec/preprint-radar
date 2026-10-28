@@ -11,7 +11,7 @@ import {
   isEntity,
   nodeConnections,
   nodeLabel,
-  nodeMatches,
+  nodeMatcher,
   papersOfNode,
   replaySteps,
   withCitations,
@@ -212,7 +212,7 @@ export function GraphView(props: Props) {
   const highlighted = useMemo(
     () =>
       highlightKey
-        ? new Set(graph.nodes.filter((node) => nodeMatches(node, highlightKey)).map((n) => n.id))
+        ? new Set(graph.nodes.filter(nodeMatcher(highlightKey)).map((node) => node.id))
         : null,
     [graph, highlightKey],
   );

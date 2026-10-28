@@ -1,4 +1,4 @@
-import { institutionsOf } from "./institutions";
+import { acronymOf, institutionsOf } from "./institutions";
 import { LOCALE } from "./locale";
 import { searchKey } from "./text";
 import type { Paper } from "./types";
@@ -85,9 +85,18 @@ function placedAtEither(a: number[] | null | undefined, b: number[] | null): num
   return [...new Set([...a, ...b])];
 }
 
-/** Whether the node's name contains `key` (as returned by {@link searchKey}). */
-export function nodeMatches(node: GraphNode, key: string): boolean {
-  return key !== "" && node.key.includes(key);
+/**
+ * What a search of the graph finds: the nodes whose name contains `key` (as returned by
+ * {@link searchKey}), and the institution a known acronym stands for, however its node is
+ * named ("KAIST" finds Korea Advanced Institute of Science and Technology), as the
+ * affiliation filter does. Built once a search, for every node.
+ */
+export function nodeMatcher(key: string): (node: GraphNode) => boolean {
+  const institution = acronymOf(key);
+  const institutionKey = institution === null ? null : searchKey(institution);
+  return (node) =>
+    key !== "" &&
+    (node.key.includes(key) || (node.kind === "institution" && node.key === institutionKey));
 }
 
 interface PaperAuthor {

@@ -11,7 +11,7 @@ import {
   matchStatus,
   nodeConnections,
   nodeLabel,
-  nodeMatches,
+  nodeMatcher,
   papersOfNode,
   replaySteps,
   sameLayout,
@@ -328,21 +328,37 @@ describe("buildGraph with papers", () => {
   it("finds papers by their title", () => {
     const [node] = buildGraph([mapped], { ...PAPERS, institutions: false }).nodes;
 
-    expect(node && nodeMatches(node, searchKey("splatting"))).toBe(true);
+    expect(node && nodeMatcher(searchKey("splatting"))(node)).toBe(true);
   });
 });
 
-describe("nodeMatches", () => {
+describe("nodeMatcher", () => {
   const [google] = buildGraph(papers, INSTITUTIONS).nodes;
 
   it("matches part of a name, ignoring case, accents and punctuation", () => {
-    expect(google && nodeMatches(google, searchKey("GOOG"))).toBe(true);
+    expect(google && nodeMatcher(searchKey("GOOG"))(google)).toBe(true);
     expect(searchKey("Xi’an  Jiaotong-Univ.")).toBe("xi an jiaotong univ");
   });
 
   it("does not match the kind prefix or an empty search", () => {
-    expect(google && nodeMatches(google, searchKey("institution"))).toBe(false);
-    expect(google && nodeMatches(google, "")).toBe(false);
+    expect(google && nodeMatcher(searchKey("institution"))(google)).toBe(false);
+    expect(google && nodeMatcher("")(google)).toBe(false);
+  });
+
+  it("finds the institution a known acronym stands for, however its node is named", () => {
+    const kaist = makePaper({
+      arxiv_id: "4",
+      authors: ["Dee"],
+      affiliations: ["KAIST AI"],
+      institutions: ["Korea Advanced Institute of Science and Technology"],
+    });
+    const nodes = buildGraph([kaist], INSTITUTIONS).nodes;
+    const found = (text: string) =>
+      nodes.filter(nodeMatcher(searchKey(text))).map((node) => node.label);
+    expect(found("KAIST")).toEqual(["Korea Advanced Institute of Science and Technology"]);
+    expect(found("kaist")).toEqual(found("KAIST"));
+    // Not a part of another word: "MIT" is no acronym of KAIST's.
+    expect(found("MIT")).toEqual([]);
   });
 });
 

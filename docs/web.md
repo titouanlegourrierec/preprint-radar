@@ -508,7 +508,9 @@ pipeline and `validate` never see these. `base: "./"` keeps the site working und
 - The controls float on the canvas (UX-29), which papers (the URL's) apart from how to draw
   them (this browser's). Top left, chips choose the papers (period, highly cited years,
   venue, words); the Find field (`/`) and the selected node's details below (a bottom sheet
-  on a phone); Find's last row filters the papers instead of highlighting. Top right,
+  on a phone); Find's last row filters the papers instead of highlighting. Find matches a
+  part of a node's name, and a known acronym its institution ("KAIST", `nodeMatcher`, by
+  the affiliation filter's `acronymOf`, UX-68). Top right,
   `GraphSettingsPanel`: Nodes (layers, thresholds, isolated nodes, Limit), Appearance (Size
   by, node size, Labels, `labelThreshold` reversed), Layout (forces, Reheat), Reset, and the
   exports: PNG (`GraphRenderer.toPng`) and GraphML for Gephi, Cytoscape or NetworkX
