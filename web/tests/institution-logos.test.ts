@@ -16,7 +16,8 @@ import {
 } from "../tooling/logos";
 
 const SQUARE =
-  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path d="M0 0h2v2H0z"/></svg>';
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2" width="2" height="2">' +
+  '<path d="M0 0h2v2H0z"/></svg>';
 // A stand-in for SHA-256, which the build passes: the content's length, in hexadecimal, first.
 const sha256 = (bytes: Uint8Array) => bytes.length.toString(16).padEnd(64, "0");
 const encode = (text: string) => new TextEncoder().encode(text);
@@ -36,7 +37,8 @@ describe("svgProblems (PROD-23)", () => {
     expect(svgProblems(SQUARE)).toEqual([]);
     expect(
       svgProblems(
-        '<?xml version="1.0"?>\n<svg viewBox="0 0 2 2" xmlns:xlink="http://www.w3.org/1999/xlink">' +
+        '<?xml version="1.0"?>\n<svg viewBox="0 0 2 2" width="2" height="2" ' +
+          'xmlns:xlink="http://www.w3.org/1999/xlink">' +
           '<defs><linearGradient id="g"/></defs><path fill="url(#g)" d="M0 0h2v2z"/>' +
           '<use xlink:href="#g"/></svg>\n',
       ),
@@ -44,7 +46,8 @@ describe("svgProblems (PROD-23)", () => {
   });
 
   it("refuses what could run, load or link, served from the site's origin", () => {
-    const holding = (inner: string) => svgProblems(`<svg viewBox="0 0 2 2">${inner}</svg>`);
+    const holding = (inner: string) =>
+      svgProblems(`<svg viewBox="0 0 2 2" width="2" height="2">${inner}</svg>`);
     expect(holding("<script>alert(1)</script>")).toEqual(["holds a script"]);
     expect(holding('<path onload="alert(1)"/>')).toEqual(["holds an event handler"]);
     expect(holding("<foreignObject/>")).toEqual(["holds a foreignObject"]);
@@ -58,15 +61,27 @@ describe("svgProblems (PROD-23)", () => {
       "refers outside itself (https://example.org/a)",
     ]);
     expect(holding('<use href="javascript:alert(1)"/>')).toContain("holds a javascript: URL");
-    expect(svgProblems('<!DOCTYPE svg [<!ENTITY a "b">]><svg viewBox="0 0 1 1"></svg>')).toEqual([
-      "holds a DOCTYPE or an entity",
-    ]);
+    expect(
+      svgProblems(
+        '<!DOCTYPE svg [<!ENTITY a "b">]><svg viewBox="0 0 1 1" width="1" height="1"></svg>',
+      ),
+    ).toEqual(["holds a DOCTYPE or an entity"]);
   });
 
-  it("wants an SVG that scales", () => {
+  it("wants an SVG that scales, and has a size of its own", () => {
     expect(svgProblems('<svg width="2" height="2"><path d="M0 0h2v2z"/></svg>')).toEqual([
       "no viewBox on its root, so it cannot scale",
     ]);
+    // Firefox draws an SVG on no canvas without it: the graph's nodes.
+    for (const root of [
+      '<svg viewBox="0 0 2 2">',
+      '<svg viewBox="0 0 2 2" width="100%" height="100%">',
+    ]) {
+      expect(svgProblems(`${root}</svg>`)).toEqual([
+        "no width and height in pixels on its root, which Firefox's canvas needs",
+      ]);
+    }
+    expect(svgProblems('<svg viewBox="0 0 2 2" width="2pt" height="2px"></svg>')).toEqual([]);
     expect(svgProblems("<html><body>Not found</body></html>")).toEqual(["not an SVG"]);
   });
 });
@@ -81,7 +96,9 @@ describe("contentProblems", () => {
   });
 
   it("refuses a file larger than a logo", () => {
-    const large = encode(`<svg viewBox="0 0 1 1"><!--${"x".repeat(100_000)}--></svg>`);
+    const large = encode(
+      `<svg viewBox="0 0 1 1" width="1" height="1"><!--${"x".repeat(100_000)}--></svg>`,
+    );
     expect(contentProblems("svg", large)).toEqual([
       `${large.length} bytes, past the 100000 of a logo`,
     ]);
@@ -150,7 +167,9 @@ describe("tidySvg", () => {
     const saved =
       '<?xml version="1.0"?>\n<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" ' +
       '"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">\n<svg viewBox="0 0 2 2"></svg>';
-    expect(tidySvg(saved)).toBe('<?xml version="1.0"?>\n<svg viewBox="0 0 2 2"></svg>');
+    expect(tidySvg(saved)).toBe(
+      '<?xml version="1.0"?>\n<svg viewBox="0 0 2 2" width="256" height="256"></svg>',
+    );
     expect(svgProblems(tidySvg(saved))).toEqual([]);
   });
 
@@ -158,32 +177,42 @@ describe("tidySvg", () => {
     const declaring =
       '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "svg11.dtd" [<!ENTITY ns "x">]>' +
       '<svg viewBox="0 0 2 2"></svg>';
-    expect(tidySvg(declaring)).toBe(declaring);
+    expect(tidySvg(declaring)).toContain('[<!ENTITY ns "x">]>');
     expect(svgProblems(tidySvg(declaring))).toEqual(["holds a DOCTYPE or an entity"]);
   });
 
   it("gives a root sized without a viewBox one, in CSS pixels", () => {
     expect(tidySvg('<svg width="321" height="166px"><path/></svg>')).toBe(
-      '<svg viewBox="0 0 321 166" width="321" height="166px"><path/></svg>',
+      '<svg viewBox="0 0 321 166" width="256" height="132.39"><path/></svg>',
     );
     expect(tidySvg('<svg height="248.02pt" width="162pt"></svg>')).toBe(
-      '<svg viewBox="0 0 216 330.693" height="248.02pt" width="162pt"></svg>',
+      '<svg viewBox="0 0 216 330.693" width="167.21" height="256"></svg>',
     );
     // Sized in a unit with no pixels, or not at all: left for the check to refuse.
     expect(tidySvg('<svg width="100%" height="100%"></svg>')).toBe(
       '<svg width="100%" height="100%"></svg>',
     );
-    expect(tidySvg(SQUARE)).toBe(SQUARE);
+  });
+
+  it("sizes every root by its viewBox, the larger side 256 pixels", () => {
+    expect(tidySvg(SQUARE)).toBe(
+      '<svg viewBox="0 0 2 2" width="256" height="256" xmlns="http://www.w3.org/2000/svg">' +
+        '<path d="M0 0h2v2H0z"/></svg>',
+    );
+    expect(tidySvg('<svg viewBox="0,0,36,51.95" stroke-width="2"></svg>')).toBe(
+      '<svg viewBox="0 0 36 51.95" width="177.4" height="256" stroke-width="2"></svg>',
+    );
+    expect(svgProblems(tidySvg('<svg viewBox="0 0 23 23"></svg>'))).toEqual([]);
   });
 });
 
 describe("cropSvg", () => {
-  it("sets the root's viewBox and drops its fixed size", () => {
+  it("sets the root's viewBox, and its size by the crop", () => {
     expect(
       cropSvg('<svg width="54pt" height="14pt" viewBox="0 0 54 14"><path/></svg>', "0 0 16.2 14"),
-    ).toBe('<svg viewBox="0 0 16.2 14"><path/></svg>');
+    ).toBe('<svg viewBox="0 0 16.2 14" width="256" height="221.23"><path/></svg>');
     expect(cropSvg("<svg><path/></svg>", "1,1,21,21")).toBe(
-      '<svg viewBox="1 1 21 21"><path/></svg>',
+      '<svg viewBox="1 1 21 21" width="256" height="256"><path/></svg>',
     );
   });
 

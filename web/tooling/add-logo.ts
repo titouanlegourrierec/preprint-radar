@@ -21,8 +21,8 @@ import {
   type LogosManifest,
   logoFileName,
   pngSize,
-  svgProblems,
   tidySvg,
+  unsafeSvg,
   type WikiFile,
   wikiFile,
   wikiFileQueries,
@@ -166,7 +166,7 @@ async function main(): Promise<void> {
     bytes = new TextEncoder().encode(svg);
     extension = "svg";
     if (height !== undefined) {
-      const unsafe = svgProblems(svg).filter((problem) => !problem.startsWith("no viewBox"));
+      const unsafe = unsafeSvg(svg);
       if (unsafe.length > 0) throw new Error(`${file}: ${unsafe.join("; ")}`);
       bytes = toPng(bytes, "svg", height);
       extension = "png";

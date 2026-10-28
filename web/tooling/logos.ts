@@ -45,13 +45,34 @@ const HREF_RE = /\s(?:xlink:)?href\s*=\s*(["'])(.*?)\1/gi;
 const CSS_URL_RE = /url\(\s*(["']?)(.*?)\1\s*\)/gi;
 const ROOT_RE = /<svg\b[^>]*>/i;
 const VIEW_BOX_RE = /\sviewBox\s*=\s*(["'])(.*?)\1/i;
+const SIZE_RE = /\s(?:width|height)\s*=\s*(["']).*?\1/gi;
+// The larger side of an SVG's own size: Firefox draws an SVG without one on no canvas (the
+// graph's nodes), and an image never grows past it.
+const SVG_SIZE = 256;
+
+/** The `width` or `height` of an SVG's root in CSS pixels, from pixels or points; else NaN. */
+function rootLength(root: string, name: "width" | "height"): number {
+  const match = new RegExp(`\\s${name}\\s*=\\s*["']\\s*([\\d.]+)\\s*(px|pt)?\\s*["']`, "i").exec(
+    root,
+  );
+  return Number(match?.[1]) * (match?.[2]?.toLowerCase() === "pt" ? 4 / 3 : 1);
+}
 
 /** Why an SVG cannot be served as a logo; empty when it can. */
 export function svgProblems(text: string): string[] {
-  const problems: string[] = [];
   const root = ROOT_RE.exec(text)?.[0];
   if (root === undefined || !text.trimEnd().endsWith("</svg>")) return ["not an SVG"];
+  const problems: string[] = [];
   if (!VIEW_BOX_RE.test(root)) problems.push("no viewBox on its root, so it cannot scale");
+  if (!(rootLength(root, "width") > 0 && rootLength(root, "height") > 0)) {
+    problems.push("no width and height in pixels on its root, which Firefox's canvas needs");
+  }
+  return [...problems, ...unsafeSvg(text)];
+}
+
+/** What in an SVG could run code, load or link: a reason each; empty when nothing. */
+export function unsafeSvg(text: string): string[] {
+  const problems: string[] = [];
   for (const [pattern, what] of SVG_REFUSED) {
     if (pattern.test(text)) problems.push(`holds ${what}`);
   }
@@ -134,48 +155,65 @@ export function logoFileName(name: string, extension: string, hash: string): str
 const BARE_DOCTYPE_RE = /<!DOCTYPE\s+svg\s+PUBLIC\s+"[^"[\]]*"\s+"[^"[\]]*"\s*>\s*/i;
 
 /**
- * An SVG as an editor saved it, made fit to check: the DOCTYPE Illustrator and Inkscape
- * write by default goes, and a root sized in pixels or points without a viewBox gets one
- * from its size, in CSS pixels, its drawing's units, so that it scales. A DOCTYPE that
- * declares anything stays, for `svgProblems` to refuse.
+ * An SVG as an editor saved it, made fit to serve: the DOCTYPE Illustrator and Inkscape write
+ * by default goes; a root sized in pixels or points without a viewBox gets one from its
+ * size, in CSS pixels, its drawing's units, so that it scales; and the root's size follows
+ * its viewBox, the larger side `SVG_SIZE` pixels. A DOCTYPE that declares anything stays,
+ * for `svgProblems` to refuse, and so does a root it cannot size.
  */
 export function tidySvg(text: string): string {
   const tidy = text.replace(BARE_DOCTYPE_RE, "");
   const root = ROOT_RE.exec(tidy)?.[0];
-  if (root === undefined || VIEW_BOX_RE.test(root)) return tidy;
-  const size = (name: string) => {
-    const match = new RegExp(`\\s${name}\\s*=\\s*["']\\s*([\\d.]+)\\s*(px|pt)?\\s*["']`, "i").exec(
-      root,
-    );
-    const pixels = match?.[2]?.toLowerCase() === "pt" ? 4 / 3 : 1;
-    return Number(match?.[1]) * pixels;
-  };
-  const [width, height] = [size("width"), size("height")];
-  if (!(width > 0 && height > 0)) return tidy;
-  const viewBox = `0 0 ${Number(width.toFixed(3))} ${Number(height.toFixed(3))}`;
-  return tidy.replace(root, root.replace(/^<svg\b/i, `<svg viewBox="${viewBox}"`));
+  if (root === undefined) return tidy;
+  let viewBox = VIEW_BOX_RE.exec(root)?.[2];
+  if (viewBox === undefined) {
+    const [width, height] = [rootLength(root, "width"), rootLength(root, "height")];
+    if (!(width > 0 && height > 0)) return tidy;
+    viewBox = `0 0 ${Number(width.toFixed(3))} ${Number(height.toFixed(3))}`;
+  }
+  return tidy.replace(root, sizedRoot(root, viewBox));
 }
 
 /**
  * An SVG cropped to `viewBox` ("x y width height"), as the Adobe mark is cut out of its
- * wordmark; its root's width and height go, which would keep the uncropped proportions.
+ * wordmark, its size following the crop.
  */
 export function cropSvg(text: string, viewBox: string): string {
+  const numbers = viewBoxNumbers(viewBox);
+  if (numbers === null) {
+    throw new Error(`"${viewBox}" is not a viewBox: x y width height, the last two above 0`);
+  }
+  const root = ROOT_RE.exec(text)?.[0];
+  if (root === undefined) throw new Error("not an SVG");
+  return text.replace(root, sizedRoot(root, numbers.join(" ")));
+}
+
+/** A viewBox's four numbers, `null` unless its width and height are above 0. */
+function viewBoxNumbers(viewBox: string): number[] | null {
   const numbers = viewBox
     .trim()
     .split(/[\s,]+/)
     .map(Number);
   const [, , width = 0, height = 0] = numbers;
-  if (numbers.length !== 4 || numbers.some(Number.isNaN) || width <= 0 || height <= 0) {
-    throw new Error(`"${viewBox}" is not a viewBox: x y width height, the last two above 0`);
-  }
-  const root = ROOT_RE.exec(text)?.[0];
-  if (root === undefined) throw new Error("not an SVG");
-  const bare = root
+  return numbers.length !== 4 || numbers.some(Number.isNaN) || width <= 0 || height <= 0
+    ? null
+    : numbers;
+}
+
+/** An SVG's root with `viewBox`, and a size of its proportions, the larger side `SVG_SIZE`. */
+function sizedRoot(root: string, viewBox: string): string {
+  const numbers = viewBoxNumbers(viewBox);
+  if (numbers === null) return root;
+  const [, , width = 1, height = 1] = numbers;
+  const scale = SVG_SIZE / Math.max(width, height);
+  const pixels = (length: number) => Number((length * scale).toFixed(2));
+  return root
     .replace(VIEW_BOX_RE, "")
-    .replace(/\s(?:width|height)\s*=\s*(["']).*?\1/gi, "")
-    .replace(/^<svg\b/i, `<svg viewBox="${numbers.join(" ")}"`);
-  return text.replace(root, bare);
+    .replace(SIZE_RE, "")
+    .replace(
+      /^<svg\b/i,
+      `<svg viewBox="${numbers.join(" ")}" width="${pixels(width)}" height="${pixels(height)}"`,
+    );
 }
 
 // A file's page on Commons or on a Wikipedia, in any language ("Datei:", "Dosiye:"), or an
