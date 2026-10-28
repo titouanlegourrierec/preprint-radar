@@ -214,27 +214,16 @@
    "html_url": "https://arxiv.org/html/2610.18363v1",
    "abstract": "In this work, we present a fundamentally new approach to visual servoing using lines. It is based on a theoretical and geometrical study of the main line representations which allowed us to define a new representation, the so-called binormalized Plucker coordinates. They are particularly well suited to visual servoing. Indeed, they allow the definition of a proper image line alignment concept. The control law which realizes such an alignment has moreover several properties: partial decoupling between rotation and translation, analytical inversion of the motion equations and global asymptotic stability conditions. This control law was validated both in simulation and experimentally in the specific case of an orthogonal trihedron.",
    "affiliations": [
-    "\\affilnum1Institut Français de Mécanique Avancée, BP 265, 63175 Aubière Cedex, France",
-    "\\affilnum2INRIA Rhône-Alpes and GRAVIR-IMAG, 655, av. de l’Europe, 38330 Montbonnot Saint Martin, France"
+    "Institut Français de Mécanique Avancée, BP 265, 63175 Aubière Cedex, France",
+    "INRIA Rhône-Alpes and GRAVIR-IMAG, 655, av. de l’Europe, 38330 Montbonnot Saint Martin, France"
    ],
    "author_affiliations": null,
-   "institutions": [
-    null,
-    "av. de l’Europe"
-   ],
-   "institution_ids": [
-    null,
-    null
-   ],
+   "institutions": null,
    "extractor": 12,
    "provenance": {
     "affiliations": {
      "source": "html",
      "at": "2026-10-22"
-    },
-    "institutions": {
-     "source": "ror",
-     "at": "2026-10-15"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.18363",
@@ -26138,54 +26127,78 @@
    "html_url": "https://arxiv.org/html/2605.09681v1",
    "abstract": "Autoregressive (AR) video diffusion models adopt a streaming generation framework, enabling long-horizon video generation with real-time responsiveness, as exemplified by the Self Forcing training paradigm. However, existing AR video diffusion models still suffer from significant attention complexity and severe memory overhead due to the redundant key-value (KV) caches across historical frames, which limits scalability. In this paper, we tackle this challenge by introducing KV cache compression into autoregressive video diffusion. We observe that attention heads in mainstream AR diffusion models exhibit markedly distinct attention patterns and functional roles that remain stable across samples and denoising steps. Building on our empirical study of head-wise functional specialization, we divide the attention heads into two categories: static heads, which focus on transitions across autoregressive chunks and intra-frame fidelity, and dynamic heads, which govern inter-frame motion and consistency. We then propose Forcing-KV, a hybrid KV cache compression strategy that performs structured static pruning for static heads and dynamic pruning based on segment-wise similarity for dynamic heads. While maintaining output quality, our method achieves a generation speed of over 29 frames per second on a single NVIDIA H200 GPU along with 30% cache memory reduction, delivering up to 1.35x and 1.50x speedups on LongLive and Self Forcing at 480P resolution, and further scaling to 2.82x speedup at 1080P resolution. Code and demo videos are provided at https://zju-jiyicheng.github.io/Forcing-KV-Page.",
    "affiliations": [
-    "ZJU 2Video Rebirth 3HKUST 4BJTU"
+    "ZJU",
+    "Video Rebirth",
+    "HKUST",
+    "BJTU"
    ],
    "author_affiliations": [
     [
-     0
+     0,
+     1,
+     2,
+     3
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3
     ],
     [
-     0
+     0,
+     1,
+     2,
+     3
     ]
    ],
-   "institutions": [
-    null
-   ],
-   "institution_ids": [
-    null
-   ],
+   "institutions": null,
    "extractor": 7,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-12"
-    },
-    "institutions": {
-     "source": "ror",
      "at": "2026-10-12"
     }
    },
@@ -60639,17 +60652,7 @@
    "affiliations": [
     "Adobe Research"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    [
-     0
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "Adobe"
    ],
@@ -68545,18 +68548,7 @@
    "affiliations": [
     "UC San Diego"
    ],
-   "author_affiliations": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    [
-     0
-    ]
-   ],
+   "author_affiliations": null,
    "institutions": [
     "University of California San Diego"
    ],

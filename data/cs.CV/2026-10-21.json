@@ -7095,52 +7095,14 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2610.27759v1",
    "abstract": "Latent diffusion models have recently achieved remarkable progress in Real-world Image Super-Resolution (Real-SR). However, existing methods consistently exhibit a persistent seesaw effect: enhancing perceptual realism compromises structural fidelity. This effect, we argue, is not intrinsic to diffusion models, but largely stems from the architectural constraints of prevailing two-stage frameworks. To address this challenge, we propose PixelSR, a novel single-stage Pixel Diffusion Transformer for Real-SR that operates directly in pixel space. Specifically, PixelSR consists of two core designs: Pixel-space Conditional Diffusion and Orthogonal Flow Decoupling. The former establishes an effective pixel-space restoration framework by integrating spatially aligned LR conditioning, visual semantic guidance, and lightweight texture refinement, thereby bypassing VAE compression and enabling end-to-end optimization directly in RGB space. Complementarily, the latter decomposes the asymmetric flow target into a low-rank semantic component and a noise-free orthogonal texture component. By routing these components to specialized branches, it achieves decoupled optimization with reduced mutual interference. Benefiting from these designs, our PixelSR restores perceptually realistic details while faithfully preserving structural content. Extensive experiments across multiple benchmarks demonstrate that PixelSR not only achieves competitive performance, but also effectively mitigates the fidelity--realism seesaw effect.",
-   "affiliations": [
-    "Department of Computer Science, Cranberry-Lemon University, Pittsburgh, PA 15213, USA",
-    "Department of Computational Neuroscience, University of the Witwatersrand, Joburg, South Africa",
-    "Affiliation",
-    "Address"
-   ],
-   "author_affiliations": [
-    null,
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     1
-    ],
-    [
-     1
-    ],
-    [
-     2,
-     3
-    ]
-   ],
-   "institutions": [
-    "Cranberry-Lemon University",
-    "University of the Witwatersrand",
-    "Affiliation",
-    "Address"
-   ],
-   "institution_ids": [
-    null,
-    "03rp50x72",
-    null,
-    null
-   ],
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
    "extractor": 12,
    "provenance": {
     "affiliations": {
      "source": "html",
      "at": "2026-10-22"
-    },
-    "institutions": {
-     "source": "ror",
-     "at": "2026-10-21"
     }
    },
    "abs_url": "https://arxiv.org/abs/2610.27759",

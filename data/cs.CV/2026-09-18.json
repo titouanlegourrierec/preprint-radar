@@ -5977,7 +5977,7 @@
    "html_url": "https://arxiv.org/html/2609.19525v1",
    "abstract": "Clinical B-mode images are widely available as potential data sources for quantitative ultrasound (QUS) analysis for tissue characterization. However, standard clinical ultrasound devices apply unknown log-compression to RF envelope data before display and storage. Previous work has demonstrated estimation of the underlying RF envelope statistics in the presence of an unknown compression law. Using Fisher information analysis, we show that finite-offset log compression causes severe information loss when estimating the Rayleigh scale σ, which controls diffuse speckle. For a single image window, unknown compression raises the minimum achievable variance for unbiased estimation of σ by a compression-independent factor of approximately $\\FisherMinInflation$. When M equal-sized windows share the same unknown compression settings, the excess variance decays as 1/M; even in the most favorable regime, reducing the variance inflation factor below 1.1 requires $\\FisherBestCaseWindows$ windows. Our analysis treats the contrast parameter a as unknown and the boundary offset b as known; estimating b experimentally shows even larger variance. We validate this theory using synthetic estimation experiments and demonstrate RF-scale recovery on real RF-envelope windows from the OASBUD dataset. Together, these results clarify the limitations of using routine B-mode images for QUS.",
    "affiliations": [
-    "\\affilnum1 Clemson University"
+    "Clemson University"
    ],
    "author_affiliations": [
     [
@@ -6001,7 +6001,7 @@
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-15"
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.19525",

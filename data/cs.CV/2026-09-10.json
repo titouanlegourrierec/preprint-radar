@@ -4625,10 +4625,10 @@
    "html_url": "https://arxiv.org/html/2509.06285v3",
    "abstract": "LiDAR point cloud registration is fundamental to robotic perception and navigation. In geometrically degenerate environments (e.g., corridors), registration becomes ill-conditioned: certain motion directions are weakly constrained, causing unstable solutions and degraded accuracy. Existing detect-then-mitigate methods fail to reliably detect, physically interpret, and stabilize this ill-conditioning without corrupting the optimization. We introduce DCReg (Decoupled Characterization for Ill-conditioned Registration), establishing a detect-characterize-mitigate paradigm that systematically addresses ill-conditioned registration via three innovations. First, DCReg achieves reliable ill-conditioning detection by employing Schur complement decomposition on the Hessian matrix. This decouples the 6-DoF registration into 3-DoF clean rotational and translational subspaces, eliminating coupling effects that mask degeneracy in full-Hessian analyses. Second, within these subspaces, we develop interpretable characterization techniques resolving eigen-basis ambiguities via basis alignment. This establishes stable mappings between eigenspaces and physical motion directions, providing actionable insights on which motions lack constraints and to what extent. Third, leveraging this spectral information, we design a targeted mitigation via a structured preconditioner. Guided by MAP regularization, we implement eigenvalue clamping exclusively within the preconditioner rather than modifying the original problem. This preserves the least-squares objective and minimizer, enabling efficient optimization via Preconditioned Conjugate Gradient with a single interpretable parameter. Experiments demonstrate DCReg achieves 20-50% higher long-duration localization accuracy and 5-30x speedups (up to 116x) over degeneracy-aware baselines across diverse environments. Code: https://github.com/JokerJohn/DCReg",
    "affiliations": [
-    "\\affilnum1Department of Electronic and Computer Engineering, Hong Kong University of Science and Technology, Hong Kong, China",
-    "\\affilnum2Department of Mechanical Engineering at National University of Defense Technology, Changsha, Hunan",
-    "\\affilnum3School of Intelligent Science and Technology, University of Science and Technology Beijing, Beijing, China",
-    "\\affilnum4University of Toronto Institute for Aerospace Studies and the University of Toronto Robotics Institute, Toronto, Canada"
+    "Department of Electronic and Computer Engineering, Hong Kong University of Science and Technology, Hong Kong, China",
+    "Department of Mechanical Engineering at National University of Defense Technology, Changsha, Hunan",
+    "School of Intelligent Science and Technology, University of Science and Technology Beijing, Beijing, China",
+    "University of Toronto Institute for Aerospace Studies and the University of Toronto Robotics Institute, Toronto, Canada"
    ],
    "author_affiliations": null,
    "institutions": [
@@ -4651,7 +4651,7 @@
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-15"
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2509.06285",
