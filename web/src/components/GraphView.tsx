@@ -285,6 +285,8 @@ export function GraphView(props: Props) {
     });
   }, [centerForce, repelForce, linkForce, linkDistance, nodeSize, sizeBy, labelThreshold]);
   useEffect(() => rendererRef.current?.refreshTheme(), [theme]);
+  const { logoOf } = props;
+  useEffect(() => rendererRef.current?.setLogos(logoOf), [logoOf]);
   useEffect(() => rendererRef.current?.setGraph(graph), [graph]);
   // Select the focused paper once its papers are loaded, after the renderer has its node;
   // selecting something else afterwards lets the focus go.

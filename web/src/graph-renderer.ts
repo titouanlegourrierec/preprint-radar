@@ -123,6 +123,36 @@ const MIN_SCREEN_RADIUS_PX = 1.5;
 const MAX_RADIUS = 28;
 const LABEL_FONT_PX = 12;
 const MAX_LABEL_LENGTH = 40;
+/** On-screen radius from which an institution shows its logo (PROD-23), as labels grow. */
+const LOGO_RADIUS_PX = 10;
+/**
+ * The ring of its node's color around a logo's white disc: a share of the node's radius on a
+ * small node, at most a few pixels on screen on a big one.
+ */
+const LOGO_RING = 0.2;
+const LOGO_RING_PX = 3;
+/** The logo inside its disc, a little away from the edge. */
+const LOGO_MARGIN = 0.92;
+/** White in both themes, as the logos' tiles in the lists: dark marks stay readable. */
+const LOGO_BACKGROUND = "#fff";
+
+/**
+ * Where a logo of `width` by `height` goes in a disc of radius `r` centered on (`x`, `y`):
+ * the largest box of its proportions the disc holds, its corners on a circle a little inside
+ * (`LOGO_MARGIN`), so that a wide mark gets the disc's width and a square one its square.
+ */
+export function logoBox(
+  x: number,
+  y: number,
+  r: number,
+  width: number,
+  height: number,
+): { x: number; y: number; w: number; h: number } {
+  const ratio = width / height;
+  const h = (2 * r * LOGO_MARGIN) / Math.sqrt(1 + ratio * ratio);
+  const w = h * ratio;
+  return { x: x - w / 2, y: y - h / 2, w, h };
+}
 
 /**
  * Radius of a node with `papers` papers. The area grows with the paper count, on the same
@@ -284,6 +314,12 @@ export class GraphRenderer {
   private highlighted: ReadonlySet<string> | null = null;
   private peeked: string | null = null;
   private colors = readColors();
+  /** Each major institution's logo, by its name (PROD-23). */
+  private logoOf: ((institution: string) => string | undefined) | undefined;
+  /** The institution nodes that have a logo, so that a frame looks at these only. */
+  private logoNodes: { node: SimNode; url: string }[] = [];
+  /** The logos' images, each asked for once, when a node first shows it. */
+  private readonly logoImages = new Map<string, HTMLImageElement>();
   private gesture: Gesture | null = null;
   /** Pointers down on the canvas, by id, at their latest screen position. */
   private readonly pointers = new Map<number, Point>();
@@ -367,6 +403,7 @@ export class GraphRenderer {
         this.applySizing();
         this.sendForces(true);
       }
+      this.findLogoNodes();
       this.requestDraw();
       return;
     }
@@ -388,6 +425,7 @@ export class GraphRenderer {
       y: 0,
     }));
     this.applySizing();
+    this.findLogoNodes();
     this.byId = new Map(this.nodes.map((node) => [node.id, node]));
     this.neighbors = new Map(this.nodes.map((node) => [node.id, new Set<string>()]));
     this.linksOf = new Map(this.nodes.map((node) => [node.id, []]));
@@ -454,6 +492,13 @@ export class GraphRenderer {
       },
       Object.values(layout).map((array: ArrayBufferView) => array.buffer as ArrayBuffer),
     );
+  }
+
+  /** The logos institution nodes show once big enough on screen (PROD-23). */
+  setLogos(logoOf: ((institution: string) => string | undefined) | undefined): void {
+    this.logoOf = logoOf;
+    this.findLogoNodes();
+    this.requestDraw();
   }
 
   setSettings(settings: RendererSettings): void {
@@ -753,12 +798,15 @@ export class GraphRenderer {
       context.stroke(peeked);
     }
 
-    // Nodes, batched by color: faint under a focus or a highlight, the lit ones over them.
+    // Nodes, batched by color: faint under a focus or a highlight, the lit ones over them,
+    // each with its logo as faint as itself.
+    const inSight = { left, top, right, bottom };
     for (const kind of KINDS) {
       context.fillStyle = colors[kind];
       context.globalAlpha = dimmed ? 0.15 : 1;
       context.fill(scene.nodes[kind]);
     }
+    this.drawLogos(inSight, dimmed ? (id) => !isLit(id) : () => true, dimmed ? 0.15 : 1);
     if (dimmed) {
       const lit: Record<NodeKind, Path2D> = {
         paper: new Path2D(),
@@ -775,6 +823,7 @@ export class GraphRenderer {
         context.fillStyle = colors[kind];
         context.fill(lit[kind]);
       }
+      this.drawLogos(inSight, isLit, 1);
     }
     // Rings: the node selected, and without a focus the highlighted ones.
     const rings = new Path2D();
@@ -796,6 +845,61 @@ export class GraphRenderer {
     context.stroke(rings);
 
     this.drawLabels({ left, top, right, bottom, focus, peek, isLit });
+  }
+
+  private findLogoNodes(): void {
+    const logoOf = this.logoOf;
+    this.logoNodes =
+      logoOf === undefined
+        ? []
+        : this.nodes.flatMap((node) => {
+            const url = node.node.kind === "institution" ? logoOf(node.node.label) : undefined;
+            return url === undefined ? [] : [{ node, url }];
+          });
+  }
+
+  /**
+   * The logos of the institution nodes in sight and big enough on screen that `which`
+   * picks, each on a white disc inside a ring of its node's color; an image is asked for
+   * when its node first shows it, and drawn once it has come.
+   */
+  private drawLogos(
+    bounds: { left: number; top: number; right: number; bottom: number },
+    which: (id: string) => boolean,
+    alpha: number,
+  ): void {
+    const { context, view } = this;
+    const smallest = LOGO_RADIUS_PX / view.k;
+    context.globalAlpha = alpha;
+    for (const { node, url } of this.logoNodes) {
+      const { x, y, radius } = node;
+      if (radius < smallest || !which(node.id)) continue;
+      if (
+        x + radius < bounds.left ||
+        x - radius > bounds.right ||
+        y + radius < bounds.top ||
+        y - radius > bounds.bottom
+      ) {
+        continue;
+      }
+      let image = this.logoImages.get(url);
+      if (image === undefined) {
+        image = new Image();
+        image.decoding = "async";
+        image.addEventListener("load", () => this.requestDraw());
+        image.src = url;
+        this.logoImages.set(url, image);
+      }
+      // Not come yet, failed, or an SVG this browser cannot size.
+      if (!image.complete || image.naturalWidth === 0 || image.naturalHeight === 0) continue;
+      const disc = radius - Math.min(radius * LOGO_RING, LOGO_RING_PX / view.k);
+      context.fillStyle = LOGO_BACKGROUND;
+      context.beginPath();
+      context.arc(x, y, disc, 0, 2 * Math.PI);
+      context.fill();
+      const box = logoBox(x, y, disc, image.naturalWidth, image.naturalHeight);
+      context.drawImage(image, box.x, box.y, box.w, box.h);
+    }
   }
 
   /**

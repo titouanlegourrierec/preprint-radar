@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   citationRadius,
   fitTransform,
+  logoBox,
   nodeRadius,
   peekLinks,
   pinchView,
@@ -133,5 +134,28 @@ describe("peekLinks", () => {
     // A paper of one alone is not on the way.
     expect(path).not.toContain(links[4]);
     expect(peekLinks("A", "unknown", linksOf)).toEqual([]);
+  });
+});
+
+describe("logoBox (PROD-23)", () => {
+  const corner = ({ x, y, w, h }: { x: number; y: number; w: number; h: number }) =>
+    Math.hypot(x + w - 5, y + h - 7);
+
+  it("centers a logo of its own proportions on the node", () => {
+    const square = logoBox(5, 7, 10, 24, 24);
+    expect(square.w).toBeCloseTo(square.h);
+    expect(square.x + square.w / 2).toBeCloseTo(5);
+    expect(square.y + square.h / 2).toBeCloseTo(7);
+    const wide = logoBox(5, 7, 10, 318, 100);
+    expect(wide.w / wide.h).toBeCloseTo(3.18);
+  });
+
+  it("gives a wide mark the disc's width, its corners just inside the disc", () => {
+    const square = logoBox(5, 7, 10, 1, 1);
+    const wide = logoBox(5, 7, 10, 318, 100);
+    expect(corner(square)).toBeCloseTo(corner(wide));
+    expect(corner(wide)).toBeLessThan(10);
+    expect(corner(wide)).toBeGreaterThan(8.5);
+    expect(wide.w).toBeGreaterThan(square.w);
   });
 });

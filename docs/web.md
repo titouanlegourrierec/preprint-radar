@@ -493,6 +493,12 @@ pipeline and `validate` never see these. `base: "./"` keeps the site working und
   ring, its label first, and in bold its link to the node selected or the paths through
   the nodes both link to (`peekLinks`: the papers two institutions share). A connection's
   name and count sit side by side over a bar of its share of the strongest's.
+- An institution with a logo (PROD-23) shows it in its node once the node is 10 px across
+  on screen (`LOGO_RADIUS_PX`), as labels appear with zoom: on a white disc inside a ring of
+  the institution's color, at most 3 px wide, so that the legend still reads, the mark as
+  large as the disc holds at its own proportions (`logoBox`), faint with its node under a
+  focus. An image is asked for when its node first shows it; `toPng` keeps them (same
+  origin). Fewer than 10 px, a logo is a speck: the overview keeps its dots.
 - The controls float on the canvas (UX-29), which papers (the URL's) apart from how to draw
   them (this browser's). Top left, chips choose the papers (period, highly cited years,
   venue, words); the Find field (`/`) and the selected node's details below (a bottom sheet
