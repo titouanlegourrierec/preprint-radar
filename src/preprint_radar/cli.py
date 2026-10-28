@@ -384,9 +384,9 @@ def _add_archive_affiliations_parser(
         description=(
             "Find affiliations for the papers of the archive and the most cited of the last "
             "12 months that have none: first OpenAlex's record of their published version "
-            "(the DOI of scholar.json), a few requests; then, with --max-html, the HTML "
-            "rendering of those arXiv renders (submitted since December 2023), the most cited "
-            "first, at arxiv.org's crawl delay: hours for thousands of pages. Pages the cache "
+            "(the DOI of scholar.json), a few requests; then, with --max-html, their HTML "
+            "rendering, arXiv's since December 2023 and ar5iv's before, the most cited first, "
+            "at arxiv.org's crawl delay: hours for thousands of pages. Pages the cache "
             "holds are read from it, offline, and a page that does not exist is not asked for "
             "again. Ctrl-C saves what was read; running it again resumes. The institutions "
             "of the affiliations read are named through ROR."
