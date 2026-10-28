@@ -409,6 +409,8 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     `GITHUB_TOKEN`).
   - `canary.yml` (Wednesdays): the network tests against the live arXiv (a red canary is a
     layout change to look at before it reaches the data), and the repository size.
+  - `extraction-diff.yml` (by hand, on a branch): what its extraction changes against
+    `main`'s over the daily runs' page cache, before a heuristic is merged.
   - Sizes (ARCH-1): `deploy.yml` fails a site above 800 MB (Pages refuses 1 GB) and warns
     above 600 MB; `canary.yml` warns above 500 MB of repository. Either triggers moving
     `data/` off `main` (`docs/operations.md`); pruning, a rolling year of day files

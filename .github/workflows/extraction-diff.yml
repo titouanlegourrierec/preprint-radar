@@ -1,0 +1,61 @@
+name: Extraction diff
+
+# What a change to the extraction does to every page the daily runs cached (thousands, where
+# a local cache holds a few hundred): the stored papers extracted again by the code of the
+# ref dispatched and by that of `base`, over the same data and pages, and the difference.
+# Manual and read-only: run it on a branch before merging a heuristic (docs/operations.md).
+on:
+  workflow_dispatch:
+    inputs:
+      base:
+        description: The ref whose extraction to compare with
+        default: main
+
+permissions:
+  contents: read
+
+jobs:
+  diff:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.base }}
+          path: base
+      - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+        with:
+          enable-cache: true
+
+      # The daily runs' latest pages; a branch reads the caches of main.
+      - name: Restore the page cache
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .cache/front-matter
+          key: front-matter-${{ github.run_id }}
+          restore-keys: front-matter-
+
+      - name: Compare the extractions
+        env:
+          BASE: ${{ inputs.base }}
+        run: |
+          pages="$PWD/.cache/front-matter"
+          data="$PWD/data"
+          uv run --locked --no-dev preprint-radar stats --affiliations --changes \
+            --page-cache-dir "$pages" --data-dir "$data" > head.txt
+          (cd base && uv run --locked --no-dev preprint-radar stats --affiliations --changes \
+            --page-cache-dir "$pages" --data-dir "$data") > base.txt
+          diff base.txt head.txt > changes.txt || true
+          cat changes.txt
+          {
+            echo "## $GITHUB_REF_NAME against $BASE"
+            echo
+            echo "Base: $(head -n 1 base.txt)"
+            echo
+            echo "Head: $(head -n 1 head.txt)"
+            echo
+            echo '```diff'
+            head -n 2000 changes.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"

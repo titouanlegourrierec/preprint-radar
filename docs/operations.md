@@ -289,7 +289,11 @@ papers until the next archive. Locally, `make trends` reads your last `make arch
   50 downloads a day. To repair papers at once: `preprint-radar reextract --ids <ids>` or
   `--match <regex>`.
 - Before and after, run `make quality-affiliations` and `make extraction-diff` (with the
-  page cache: what today's extraction changes, nothing written).
+  page cache: what today's extraction changes, nothing written). A local cache holds a few
+  hundred pages; the daily runs' holds thousands: push the change to a branch and dispatch
+  *Extraction diff* on it (`gh workflow run extraction-diff.yml --ref <branch>`), which
+  extracts the stored papers with the branch's code and with `main`'s over that cache, and
+  writes the papers that differ in its summary.
 - **Signal** `cached pages gave no affiliation to papers that have some`: stale cached
   pages (`PageCache.stale`). Those papers keep what they had; the next run downloads their
   pages again. Nothing to do.
