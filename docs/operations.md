@@ -219,6 +219,16 @@ green; if counts stop arriving, the summary warns `Stale citation counts` after 
 are left out of the week's counts. A few are harmless; the same paper every week is an
 arXiv id Semantic Scholar refuses: look it up by hand.
 
+### A paper's count is another paper's
+
+A paper ranks far above what its age and field allow (2203.00667, a survey of 2022, second
+of Highly cited with 30,000 citations): Semantic Scholar merged it with another work. Look
+it up (`https://api.semanticscholar.org/graph/v1/paper/arXiv:<id>?fields=title,year,
+citationCount,authors,externalIds`): a `CorpusId` far older than the paper, or another
+title, year or authors, confirms it. Add its id to `MISATTRIBUTED` in
+`sources/semantic_scholar.py`; the next weekly archive drops it, its count and its
+published version.
+
 ### A traceback that ends in KeyboardInterrupt
 
 **Signal.** A traceback ending in `KeyboardInterrupt`, after `Interrupted: saving the`.

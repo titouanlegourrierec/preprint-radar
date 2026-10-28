@@ -69,6 +69,12 @@ _REPORTED_STREAK = 5
 # Progress is reported every that many batches (5,000 papers).
 _PROGRESS_EVERY = 10
 S2_COUNT_FIELDS = "citationCount"
+# Papers whose entry is another paper's, kept by hand: Semantic Scholar merged 2203.00667, a
+# survey of 2022 ("Generative Adversarial Networks", Cohen and Giryes), with Goodfellow et
+# al.'s paper of 2014 (CorpusId 1033682), whose 30,000 citations made it the site's second
+# most cited paper (2026-10-28). Their entries are read as unknown, no count nor published
+# version, and the archive never ranks them, whatever count it held before (CIT-18).
+MISATTRIBUTED = frozenset({"2203.00667"})
 # About 1 KB a paper, 500 KB a batch: answered in a few seconds, like a batch of counts.
 S2_RECORD_FIELDS = "externalIds,venue,publicationVenue,journal,authors"
 # arXiv's own DOIs (10.48550/arXiv.<id>) say nothing of a published version.
@@ -277,7 +283,7 @@ def parse_batch_response(text: str, arxiv_ids: tuple[str, ...]) -> dict[str, int
 
 
 def _batch_items(text: str, arxiv_ids: tuple[str, ...]) -> list[dict[str, Any] | None]:
-    """The entries of a batch response, one per requested id (``None``: unknown).
+    """The entries of a batch response, one per requested id (``None``: unknown, or another paper's).
 
     Raises:
         ParseError: If the response is not a list of that length.
@@ -291,7 +297,10 @@ def _batch_items(text: str, arxiv_ids: tuple[str, ...]) -> list[dict[str, Any] |
         answer = f"{len(items)} entries" if isinstance(items, list) else " ".join(text.split())[:200]
         msg = f"Semantic Scholar response does not match the requested papers ({len(arxiv_ids)}): {answer}"
         raise ParseError(msg)
-    return [item if isinstance(item, dict) else None for item in items]
+    return [
+        item if isinstance(item, dict) and arxiv_id not in MISATTRIBUTED else None
+        for arxiv_id, item in zip(arxiv_ids, items, strict=True)
+    ]
 
 
 def parse_records_response(text: str, arxiv_ids: tuple[str, ...]) -> dict[str, ScholarRecord | None]:

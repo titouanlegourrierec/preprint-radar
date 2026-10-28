@@ -14,6 +14,7 @@ from preprint_radar.sources.semantic_scholar import (
     api_key,
     fetch_citation_counts,
     parse_batch_response,
+    parse_records_response,
 )
 
 
@@ -28,6 +29,14 @@ def test_parse_batch_response() -> None:
     # What it answered instead, for the log.
     with pytest.raises(ParseError, match=r'does not match the requested papers \(1\): \{"error": "Bad id"\}'):
         parse_batch_response('{"error": "Bad id"}', ("1",))
+
+
+def test_a_paper_whose_entry_is_another_papers_is_unknown() -> None:
+    # 2203.00667's entry is Goodfellow et al.'s GAN of 2014, its 30,000 citations (CIT-18).
+    text = '[{"citationCount": 30265, "externalIds": {"DOI": "10.1109/X.2023.1"}}, {"citationCount": 3}]'
+
+    assert parse_batch_response(text, ("2203.00667", "2203.00001")) == {"2203.00667": None, "2203.00001": 3}
+    assert parse_records_response(text, ("2203.00667", "2203.00001"))["2203.00667"] is None
 
 
 def _answering_all_but(bad: str, asked: list[tuple[str, ...]]) -> httpx.MockTransport:

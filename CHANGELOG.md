@@ -69,6 +69,9 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
 
 ### Pipeline
 
+- A paper whose Semantic Scholar entry is another paper's leaves Highly cited: 2203.00667,
+  a survey of 2022 merged with Goodfellow et al.'s GAN of 2014, ranked second with its
+  30,000 citations (CIT-18).
 - The highly cited papers before December 2023, which arXiv never rendered in HTML, get
   their affiliations from ar5iv's renderings: Mask R-CNN, Segment Anything, SegFormer…
   (AFF-37).

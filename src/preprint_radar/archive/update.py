@@ -61,7 +61,7 @@ from preprint_radar.latex import plain_text
 from preprint_radar.models import Cohort, Paper
 from preprint_radar.openalex_affiliations import with_openalex_affiliations
 from preprint_radar.sources.arxiv_oai import CatalogEntry, author_names
-from preprint_radar.sources.semantic_scholar import S2_SOURCE, fetch_citation_counts
+from preprint_radar.sources.semantic_scholar import MISATTRIBUTED, S2_SOURCE, fetch_citation_counts
 from preprint_radar.store.paper_store import PaperStore, TopRecent
 from preprint_radar.venue import extract_venue
 from preprint_radar.withdrawal import is_withdrawn
@@ -180,7 +180,8 @@ def update_archive(
         ranked = [
             Candidate(arxiv_id, first_seen[arxiv_id], counts.get(arxiv_id))
             for arxiv_id in candidates
-            if arxiv_id not in withdrawn
+            # Nor a paper whose count is another's, which last week's count would keep (CIT-18).
+            if arxiv_id not in withdrawn and arxiv_id not in MISATTRIBUTED
         ]
         selection, top_recent, cohorts = _ranked(category, ranked, set(archived), budget=budget, today=today)
     subjects = _subject_names(in_days.values())

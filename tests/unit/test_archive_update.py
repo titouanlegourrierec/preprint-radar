@@ -8,6 +8,7 @@ import httpx
 import pytest
 from tests.conftest import FIXTURES_DIR
 
+from preprint_radar.archive import update as archive_update
 from preprint_radar.archive.catalog import Catalog
 from preprint_radar.archive.subjects import ARXIV_SUBJECTS, SUBJECT_ALIASES, subject_name, subject_names
 from preprint_radar.archive.update import (
@@ -22,6 +23,7 @@ from preprint_radar.archive.update import (
 from preprint_radar.http import HttpClient
 from preprint_radar.models import Cohort, Paper, Provenance
 from preprint_radar.openalex_affiliations import needs_openalex, with_openalex_affiliations
+from preprint_radar.sources import semantic_scholar
 from preprint_radar.sources.arxiv_oai import CatalogEntry
 from preprint_radar.store.paper_store import PaperStore
 
@@ -561,6 +563,22 @@ def test_withdrawn_papers_leave_the_archive_and_never_enter_it(store: PaperStore
     archived = {paper.arxiv_id for paper in store.iter_archive("cs.CV")}
     assert "1512.03385" not in archived  # left, however cited
     assert "2209.00001" not in archived  # never entered, though within the budget
+
+
+def test_papers_whose_count_is_another_papers_leave_the_archive(
+    store: PaperStore, catalog: Catalog, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _update(store, catalog, FakeServices(CITATIONS))
+    assert "1512.03385" in {paper.arxiv_id for paper in store.iter_archive("cs.CV")}
+    assert "1512.03385" in store.load_citations("cs.CV")
+    # Semantic Scholar's entry is now read as unknown, and last week's count would keep it.
+    monkeypatch.setattr(semantic_scholar, "MISATTRIBUTED", frozenset({"1512.03385"}))
+    monkeypatch.setattr(archive_update, "MISATTRIBUTED", frozenset({"1512.03385"}))
+
+    _update(store, catalog, FakeServices(CITATIONS))
+
+    assert "1512.03385" not in {paper.arxiv_id for paper in store.iter_archive("cs.CV")}
+    assert "1512.03385" not in store.load_citations("cs.CV")
 
 
 def _add_entries(catalog: Catalog, *entries: CatalogEntry) -> None:

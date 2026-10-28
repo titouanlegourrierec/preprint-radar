@@ -24,7 +24,9 @@ failures and what to do: [operations.md](operations.md).
   (`DEFAULT_MARGIN`), so that papers near the limit do not come and go. Each year at least
   three years old also keeps its most cited tenth (`year_floor`, decision 22); the run
   logs how many only that floor keeps. Never-cited papers are never kept, nor withdrawn
-  ones (`withdrawn`, from the latest comments): an archived one leaves (decision 18).
+  ones (`withdrawn`, from the latest comments): an archived one leaves (decision 18). Nor
+  those whose Semantic Scholar entry is another paper's (`MISATTRIBUTED`, kept by hand),
+  which last week's count would otherwise keep (CIT-18).
 - **Records**: a paper from a day file or last week's top-recent keeps its record, filed
   under its first appearance (an old paper cross-listed lately goes to its own year). One
   built from the catalog: `announced` its first appearance (the identifier's month when
@@ -101,6 +103,10 @@ last 12 months apart, for Highly cited's "Last 12 months" (a year of cs.CV is 46
   records so that a refresh rewrites one file. The archive rewrites it, dated
   (`write_citations`); the daily `citations` step adds the new papers' counts, keeping the
   date (`merge_citations`). A paper not known yet gets none and is asked the next day.
+- Semantic Scholar sometimes merges an arXiv paper with another work: 2203.00667, a survey
+  of 2022, has Goodfellow et al.'s GAN of 2014 as its entry, 30,000 citations. Such papers
+  are listed by hand in `semantic_scholar.MISATTRIBUTED`: their entries are read as unknown
+  (no count, no published version), and the archive never ranks them (CIT-18).
 - Counts are cached 7 days (`CITATIONS_CACHE_DAYS`) in
   `.cache/catalog/<category>.citations.jsonl`, so a stopped run resumes: `generated_at` can
   postdate some by up to 6 days. Older than 14 days, they are reported stale.
