@@ -509,8 +509,9 @@ pipeline and `validate` never see these. `base: "./"` keeps the site working und
   them (this browser's). Top left, chips choose the papers (period, highly cited years,
   venue, words); the Find field (`/`) and the selected node's details below (a bottom sheet
   on a phone); Find's last row filters the papers instead of highlighting. Find matches a
-  part of a node's name, and a known acronym its institution ("KAIST", `nodeMatcher`, by
-  the affiliation filter's `acronymOf`, UX-68). Top right,
+  part of a node's name, and a known acronym its institution and the names holding it as a
+  word ("KAIST"; "MIT" is no part of "RMIT"; `nodeMatcher`, by the affiliation filter's
+  `acronymOf`, UX-68). Top right,
   `GraphSettingsPanel`: Nodes (layers, thresholds, isolated nodes, Limit), Appearance (Size
   by, node size, Labels, `labelThreshold` reversed), Layout (forces, Reheat), Reset, and the
   exports: PNG (`GraphRenderer.toPng`) and GraphML for Gephi, Cytoscape or NetworkX

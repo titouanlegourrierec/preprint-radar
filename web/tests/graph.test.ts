@@ -357,8 +357,20 @@ describe("nodeMatcher", () => {
       nodes.filter(nodeMatcher(searchKey(text))).map((node) => node.label);
     expect(found("KAIST")).toEqual(["Korea Advanced Institute of Science and Technology"]);
     expect(found("kaist")).toEqual(found("KAIST"));
-    // Not a part of another word: "MIT" is no acronym of KAIST's.
-    expect(found("MIT")).toEqual([]);
+    // An acronym is a word, not a part of one: "MIT" is not in "RMIT University".
+    const others = buildGraph(
+      [
+        makePaper({ arxiv_id: "5", authors: ["Eve"], affiliations: ["RMIT University"] }),
+        makePaper({ arxiv_id: "6", authors: ["Fay"], affiliations: ["MIT CSAIL"] }),
+      ],
+      INSTITUTIONS,
+    ).nodes;
+    expect(others.filter(nodeMatcher(searchKey("MIT"))).map((node) => node.label)).toEqual([
+      "MIT CSAIL",
+    ]);
+    expect(others.filter(nodeMatcher(searchKey("rmit"))).map((node) => node.label)).toEqual([
+      "RMIT University",
+    ]);
   });
 });
 

@@ -87,16 +87,19 @@ function placedAtEither(a: number[] | null | undefined, b: number[] | null): num
 
 /**
  * What a search of the graph finds: the nodes whose name contains `key` (as returned by
- * {@link searchKey}), and the institution a known acronym stands for, however its node is
- * named ("KAIST" finds Korea Advanced Institute of Science and Technology), as the
- * affiliation filter does. Built once a search, for every node.
+ * {@link searchKey}). A known acronym, as the affiliation filter reads it, finds its
+ * institution however its node is named ("KAIST" finds Korea Advanced Institute of Science
+ * and Technology) and the names holding it as a word: "MIT" is no part of "RMIT" nor
+ * "Limited", "ETH" of "Goethe". Built once a search, for every node.
  */
 export function nodeMatcher(key: string): (node: GraphNode) => boolean {
+  if (key === "") return () => false;
   const institution = acronymOf(key);
-  const institutionKey = institution === null ? null : searchKey(institution);
+  if (institution === null) return (node) => node.key.includes(key);
+  const institutionKey = searchKey(institution);
   return (node) =>
-    key !== "" &&
-    (node.key.includes(key) || (node.kind === "institution" && node.key === institutionKey));
+    (node.kind === "institution" && node.key === institutionKey) ||
+    ` ${node.key} `.includes(` ${key} `);
 }
 
 interface PaperAuthor {
