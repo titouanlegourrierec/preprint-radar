@@ -54,6 +54,8 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
   each, countries their flag, and the dark theme a night's blue (UX-65).
 - The logos of major institutions, from Google and Stanford to KAIST, before their name on
   cards and in Rankings, and in their node of the graph as you zoom in (PROD-23).
+- The site's source code is a click away: a GitHub icon in the top bar, a link in the
+  footer and a section in About (UX-67).
 - The graph's nodes grow in proportion to their papers or citations, as Rankings' bars, its
   biggest node much larger than before, where dozens of highly cited institutions and
   papers had the same size; a Contrast setting exaggerates the differences, or draws them

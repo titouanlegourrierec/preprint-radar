@@ -136,6 +136,10 @@ pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
 - The top bar (UX-32) spans the window, the tabs outside the views' column so they stay put;
   it keeps one line down to about 950 px. Under 640 px the tabs other than the current one
   show their icon alone (UX-31), labelled for screen readers.
+- The repository (`REPOSITORY_URL`, UX-67) is a GitHub icon beside the theme button, on
+  every view ("GitHub repository" for screen readers), a link of the footer, and About's
+  Source code, which sends a bug or an idea to its issues and a paper's correction to the
+  e-mail.
 - Tabs are links, `?paper=` included. `paperLink` sends an archived paper (no day file) to
   its Highly cited year, and a last-12-months paper older than the oldest day file to that
   range (`archiveRangeOf`). Share copies the link and changes nothing else.

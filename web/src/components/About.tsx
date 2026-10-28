@@ -1,4 +1,4 @@
-import { CONTACT_EMAIL, reportLink } from "../report";
+import { CONTACT_EMAIL, REPOSITORY_URL, reportLink } from "../report";
 
 const CORRECTION_LINK = reportLink();
 
@@ -83,6 +83,14 @@ export function About() {
         If a paper of yours shows a wrong affiliation or author, or you would like it removed from
         the site, write to <a href={CORRECTION_LINK}>{CONTACT_EMAIL}</a> with its arXiv identifier.
         The correction is made in the stored data, so it stays.
+      </p>
+
+      <h3>Source code</h3>
+      <p>
+        Preprint Radar is open source, under the MIT license: the pipeline that collects the papers
+        every weekday and this site are on <a href={REPOSITORY_URL}>GitHub</a>, with how they work.
+        Report a bug of the site or suggest an idea in its issues; a wrong affiliation or author of
+        a paper is best sent by e-mail, as above.
       </p>
 
       <h3>Privacy</h3>

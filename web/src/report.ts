@@ -1,6 +1,9 @@
 /** Correction and removal requests go to the maintainer, privately, not in a public issue. */
 export const CONTACT_EMAIL = "titouanlegourrierec@kaist.ac.kr";
 
+/** The project's repository: its code (the pipeline and this site), and its issues. */
+export const REPOSITORY_URL = "https://github.com/titouanlegourrierec/preprint-radar";
+
 /** The paper a report is about. */
 export interface Reported {
   arxiv_id: string;

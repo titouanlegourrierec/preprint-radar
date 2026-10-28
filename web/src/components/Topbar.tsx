@@ -1,9 +1,11 @@
 import type { JSX } from "preact";
 import { LOCALE } from "../locale";
 import type { ThemePreference } from "../preferences";
+import { REPOSITORY_URL } from "../report";
 import { DEFAULT_STATE, type ViewState } from "../url-state";
 import {
   AutoThemeIcon,
+  BrandIcon,
   CitedIcon,
   GraphIcon,
   InfoIcon,
@@ -48,7 +50,7 @@ interface Props {
   onTheme: () => void;
 }
 
-/** The site's name, its views as tabs, and the theme switch. */
+/** The site's name, its views as tabs, the way to its code, and the theme switch. */
 export function Topbar(props: Props) {
   const { view, tab } = props;
   const cited = view === "cited";
@@ -130,6 +132,16 @@ export function Topbar(props: Props) {
             <span class="tab__label">About</span>
           </a>
         </nav>
+        <a
+          class="icon-button"
+          href={REPOSITORY_URL}
+          title="Source code on GitHub"
+          aria-label="GitHub repository"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <BrandIcon brand="github" />
+        </a>
         <button
           type="button"
           class="icon-button"

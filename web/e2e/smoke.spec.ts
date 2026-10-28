@@ -29,6 +29,16 @@ test("the list shows the stored papers", async ({ page }) => {
   await expect(
     page.getByRole("heading", { name: "Gaussian Splatting for Analytical Engines" }),
   ).toBeVisible();
+  // The way to the code, from every view's top bar and the footer.
+  for (const link of [
+    page.getByRole("link", { name: "GitHub repository" }),
+    page.getByRole("link", { name: "Source code on GitHub" }),
+  ]) {
+    await expect(link).toHaveAttribute(
+      "href",
+      "https://github.com/titouanlegourrierec/preprint-radar",
+    );
+  }
   expect(errors).toEqual([]);
 });
 

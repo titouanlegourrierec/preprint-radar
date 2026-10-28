@@ -2286,6 +2286,13 @@ html {
   position: relative;
 }
 
+/* The top bar's link to the code and theme button, their icons centered alike: a button's
+   icon, inline, sat 1.5 px high. */
+.topbar__tools > .icon-button {
+  display: inline-grid;
+  place-items: center;
+}
+
 .icon-button--burst > svg {
   animation: star-pop 480ms cubic-bezier(0.3, 1.6, 0.5, 1);
 }
