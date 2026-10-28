@@ -543,9 +543,21 @@ pipeline and `validate` never see these. `base: "./"` keeps the site working und
   legend says how many it leaves out (`Graph.eligible`, UX-20). Turning authors on hides the
   authors of a single paper (`authorLayer`), most of the nodes. The time-lapse steps by day,
   or by week or month past 60 steps (`replaySteps`).
-- Size by papers (area proportional, `nodeRadius`) or by citations summed over a node's
-  papers (`GraphNode.citations`), on a log scale (`citationRadius`), as counts span 0 to
-  10⁵; the always-labelled biggest nodes follow it.
+- Size by papers (`nodeRadius`) or by citations summed over a node's papers
+  (`GraphNode.citations`, `citationRadius`), out of the graph's biggest node (`sizeScale`),
+  which gets the largest size: 64, 25 times the smallest, and more past 2,000 nodes with the
+  square root of their number (`largestRadius`), as the graph's extent grows, so that the
+  biggest node keeps its size on screen in an overview. A fixed scale capped at 28 (54
+  papers, 361 citations) made 505 of 2017's 699 institutions and 649 of its papers alike,
+  and a month's biggest institution a dot of 5 px (UX-66). Below 21 papers, or 100
+  citations, a graph is sized as if its biggest node had these, so that 3 citations make no
+  hub. A time-lapse sizes each day by the whole period (`GraphView`). Contrast
+  (`sizeContrast`, -1 to 1, `scaledRadius`) raises a node's share of the biggest to the
+  power 4^contrast: in proportion at 0, as Rankings' bars, since the eye compares diameters;
+  areas in proportion at -0.5, where Google's lead over Carnegie Mellon looked twice, not
+  four times; drawn together further left (as a logarithm would: 1, 5 and 30 citations
+  apart on recent papers); exaggerated to the right. A paper's square has its circle's area,
+  so that equal counts look alike. The always-labelled biggest nodes follow the sizing.
 - Rankings (`rankings.ts`, `components/Rankings.tsx`): the institutions or authors of the
   papers shown, by papers or citations, named through `buildGraph` to match the graph.
   Institutions rank on the papers with known affiliations: the ⓘ gives their share

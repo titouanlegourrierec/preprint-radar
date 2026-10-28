@@ -17,7 +17,7 @@ import {
   withCitations,
 } from "../graph";
 import { exportName, toGraphML } from "../graph-export";
-import { GraphRenderer } from "../graph-renderer";
+import { GraphRenderer, sizeScale } from "../graph-renderer";
 import { useMediaQuery } from "../hooks/use-media-query";
 import { isTyping } from "../keyboard";
 import { LOCALE } from "../locale";
@@ -177,12 +177,22 @@ export function GraphView(props: Props) {
     ],
   );
   // Built without the counts, which size its nodes once they arrive without building and
-  // laying it out anew (PERF-7).
-  const uncounted = useMemo(
-    () => buildGraph(shownPapers, graphOptions),
-    [shownPapers, graphOptions],
+  // laying it out anew (PERF-7). A time-lapse's day shows part of the whole period's graph,
+  // whose scale sizes it, so that its nodes keep their size as bigger ones come.
+  const wholeGraph = useMemo(
+    () => buildGraph(focusedPapers, graphOptions),
+    [focusedPapers, graphOptions],
   );
-  const graph = useMemo(() => withCitations(uncounted, citations), [uncounted, citations]);
+  const uncounted = useMemo(
+    () => (lastDay === undefined ? wholeGraph : buildGraph(shownPapers, graphOptions)),
+    [wholeGraph, lastDay, shownPapers, graphOptions],
+  );
+  const whole = useMemo(() => withCitations(wholeGraph, citations), [wholeGraph, citations]);
+  const graph = useMemo(
+    () => (uncounted === wholeGraph ? whole : withCitations(uncounted, citations)),
+    [uncounted, wholeGraph, whole, citations],
+  );
+  const scale = useMemo(() => sizeScale(whole), [whole]);
   const nodesById = useMemo(() => new Map(graph.nodes.map((node) => [node.id, node])), [graph]);
   const papersById = useMemo(
     () => new Map(shownPapers.map((paper) => [paper.arxiv_id, paper])),
@@ -271,8 +281,16 @@ export function GraphView(props: Props) {
     };
   }, []);
 
-  const { centerForce, repelForce, linkForce, linkDistance, nodeSize, sizeBy, labelThreshold } =
-    settings;
+  const {
+    centerForce,
+    repelForce,
+    linkForce,
+    linkDistance,
+    nodeSize,
+    sizeBy,
+    sizeContrast,
+    labelThreshold,
+  } = settings;
   useEffect(() => {
     rendererRef.current?.setSettings({
       centerForce,
@@ -281,13 +299,23 @@ export function GraphView(props: Props) {
       linkDistance,
       nodeSize,
       sizeBy,
+      sizeContrast,
       labelThreshold,
     });
-  }, [centerForce, repelForce, linkForce, linkDistance, nodeSize, sizeBy, labelThreshold]);
+  }, [
+    centerForce,
+    repelForce,
+    linkForce,
+    linkDistance,
+    nodeSize,
+    sizeBy,
+    sizeContrast,
+    labelThreshold,
+  ]);
   useEffect(() => rendererRef.current?.refreshTheme(), [theme]);
   const { logoOf } = props;
   useEffect(() => rendererRef.current?.setLogos(logoOf), [logoOf]);
-  useEffect(() => rendererRef.current?.setGraph(graph), [graph]);
+  useEffect(() => rendererRef.current?.setGraph(graph, scale), [graph, scale]);
   // Select the focused paper once its papers are loaded, after the renderer has its node;
   // selecting something else afterwards lets the focus go.
   const { focusPaper, onFocusPaperLeft } = props;

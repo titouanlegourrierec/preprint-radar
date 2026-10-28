@@ -42,6 +42,21 @@ describe("graph settings", () => {
     localStorage.setItem("preprint-radar:graph-settings:v2", JSON.stringify({ sizeBy: "degree" }));
     expect(loadGraphSettings().sizeBy).toBe("papers");
   });
+
+  it("keeps the contrast of sizes between -1 and 1, true areas by default", () => {
+    expect(loadGraphSettings().sizeContrast).toBe(0);
+    for (const [stored, loaded] of [
+      [0.6, 0.6],
+      [4, 1],
+      [-3, -1],
+    ] as const) {
+      localStorage.setItem(
+        "preprint-radar:graph-settings:v2",
+        JSON.stringify({ sizeContrast: stored }),
+      );
+      expect(loadGraphSettings().sizeContrast).toBe(loaded);
+    }
+  });
 });
 
 describe("display preferences", () => {

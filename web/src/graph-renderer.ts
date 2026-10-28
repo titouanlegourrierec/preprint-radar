@@ -16,6 +16,11 @@ export interface RendererSettings {
   nodeSize: number;
   /** What node areas show: the number of papers (papers all alike), or citations. */
   sizeBy: NodeSizing;
+  /**
+   * How far sizes stand apart, from -1 to 1: in proportion at 0, as Rankings' bars, drawn
+   * together below, their differences exaggerated above (`scaledRadius`).
+   */
+  sizeContrast: number;
   /** On-screen size from which nodes get a label, as a multiple of the default. */
   labelThreshold: number;
 }
@@ -86,7 +91,8 @@ function addShape(path: Path2D, node: SimNode, minRadius: number): void {
   const r = Math.max(node.radius, minRadius);
   if (node.node.kind === "paper") {
     // Papers are squares, so that they read apart from the people and places.
-    path.rect(node.x - r, node.y - r, 2 * r, 2 * r);
+    const half = r * SQUARE_HALF_SIDE;
+    path.rect(node.x - half, node.y - half, 2 * half, 2 * half);
   } else {
     path.moveTo(node.x + r, node.y);
     path.arc(node.x, node.y, r, 0, 2 * Math.PI);
@@ -120,7 +126,27 @@ const MAX_LABELS = 250;
 const LABEL_RADIUS_PX = 9;
 /** Nodes never get smaller than this on screen, so that zooming out keeps them visible. */
 const MIN_SCREEN_RADIUS_PX = 1.5;
-const MAX_RADIUS = 28;
+const MIN_RADIUS = 2.5;
+/**
+ * The biggest node's radius in a graph of up to `NODES_AT_MAX_RADIUS` nodes, 25 times the
+ * smallest, and more in a larger one, as its extent grows with the square root of its node
+ * count: the biggest node keeps about the same size on screen in an overview, where at 28 a
+ * month's biggest institution was a dot of 5 px, its lead over the others lost.
+ */
+const MAX_RADIUS = 64;
+const NODES_AT_MAX_RADIUS = 2000;
+/**
+ * The papers past the first, and the citations, that a graph's biggest node counts at
+ * least: a graph of fewer is sized as if it had these, so that a few papers or citations
+ * never make a hub.
+ */
+const PAPERS_SPAN = 20;
+const CITATIONS_SPAN = 100;
+/**
+ * A paper's square has its circle's area, so that a paper and an institution of the same
+ * count look alike: drawn to its radius, the square was a quarter larger.
+ */
+const SQUARE_HALF_SIDE = Math.sqrt(Math.PI) / 2;
 const LABEL_FONT_PX = 12;
 const MAX_LABEL_LENGTH = 40;
 /** On-screen radius from which an institution shows its logo (PROD-23), as labels grow. */
@@ -155,10 +181,6 @@ export function logoBox(
 }
 
 /**
- * Radius of a node with `papers` papers. The area grows with the paper count, on the same
- * scale whatever the graph, so that a node with one paper stays small.
- */
-/**
  * The links between two nodes (UX-61): their own, and those through the nodes both link to
  * (the papers two institutions share), from each node's links.
  */
@@ -179,22 +201,75 @@ export function peekLinks<L extends { source: { id: string }; target: { id: stri
   ];
 }
 
-export function nodeRadius(papers: number): number {
-  return Math.min(MAX_RADIUS, 2.5 + 3.5 * Math.sqrt(Math.max(0, papers - 1)));
+/** The most papers and the most citations of a graph's nodes, which its sizes span. */
+export interface SizeScale {
+  papers: number;
+  citations: number;
+  /** How many nodes it has, which sets the biggest's radius (`largestRadius`). */
+  nodes: number;
+}
+
+/** A graph's scale: its nodes' most papers and most citations, and their number. */
+export function sizeScale(graph: Graph): SizeScale {
+  let papers = 0;
+  let citations = 0;
+  for (const node of graph.nodes) {
+    papers = Math.max(papers, node.paperIds.length);
+    citations = Math.max(citations, node.citations);
+  }
+  return { papers, citations, nodes: graph.nodes.length };
+}
+
+/** The radius of the biggest node of a graph of `nodes` nodes. */
+export function largestRadius(nodes: number): number {
+  return MAX_RADIUS * Math.max(1, Math.sqrt(nodes / NODES_AT_MAX_RADIUS));
 }
 
 /**
- * Radius of a node with `citations` citations. Counts span five orders of magnitude, and
- * on recent papers the telling differences are 1, 5 or 30: the radius grows with their
- * logarithm, on the same scale whatever the graph, up to the same cap (reached at about 360).
+ * A node's radius for its share of the graph's biggest (0 to 1), as `contrast` (-1 to 1)
+ * sets, growing with the share to the power 4^contrast. At 0, in proportion to it, as the
+ * bars of Rankings are: the eye compares diameters, and with areas in proportion (-0.5) the
+ * biggest institution looked barely twice the tenth, four times smaller. Further left,
+ * sizes are drawn together (as a logarithm would: 1, 5 and 30 citations apart); to the
+ * right, the biggest nodes' lead is exaggerated.
  */
-export function citationRadius(citations: number): number {
-  return Math.min(MAX_RADIUS, 2.5 + 3 * Math.log2(1 + Math.max(0, citations)));
+function scaledRadius(share: number, contrast: number, largest: number): number {
+  const power = 4 ** contrast;
+  return Math.min(largest, MIN_RADIUS + (largest - MIN_RADIUS) * Math.max(0, share) ** power);
 }
 
-/** Radius of a node under a sizing, before the node size setting. */
-function sizedRadius(node: GraphNode, sizeBy: NodeSizing): number {
-  return sizeBy === "citations" ? citationRadius(node.citations) : nodeRadius(node.paperIds.length);
+/**
+ * Radius of a node with `papers` papers, out of the graph's most (`most`), so that a node
+ * with one paper stays small (`scaledRadius`).
+ */
+export function nodeRadius(papers: number, most = 0, contrast = 0, largest = MAX_RADIUS): number {
+  const share = Math.max(0, papers - 1) / Math.max(most - 1, PAPERS_SPAN);
+  return scaledRadius(share, contrast, largest);
+}
+
+/**
+ * Radius of a node with `citations` citations, out of the graph's most (`most`): an
+ * institution, which sums its papers' citations, outgrows each of them (`scaledRadius`).
+ */
+export function citationRadius(
+  citations: number,
+  most = 0,
+  contrast = 0,
+  largest = MAX_RADIUS,
+): number {
+  return scaledRadius(Math.max(0, citations) / Math.max(most, CITATIONS_SPAN), contrast, largest);
+}
+
+/** Radius of a node under the settings and a graph's scale, before the node size setting. */
+function sizedRadius(
+  node: GraphNode,
+  { sizeBy, sizeContrast }: RendererSettings,
+  scale: SizeScale,
+): number {
+  const largest = largestRadius(scale.nodes);
+  return sizeBy === "citations"
+    ? citationRadius(node.citations, scale.citations, sizeContrast, largest)
+    : nodeRadius(node.paperIds.length, scale.papers, sizeContrast, largest);
 }
 
 /** View transform that fits `bounds` in the part of the canvas not covered by overlays. */
@@ -314,6 +389,8 @@ export class GraphRenderer {
   private highlighted: ReadonlySet<string> | null = null;
   private peeked: string | null = null;
   private colors = readColors();
+  /** What the nodes' sizes span: the graph's, or the whole period's in a time-lapse. */
+  private scale: SizeScale = { papers: 0, citations: 0, nodes: 0 };
   /** Each major institution's logo, by its name (PROD-23). */
   private logoOf: ((institution: string) => string | undefined) | undefined;
   /** The institution nodes that have a logo, so that a frame looks at these only. */
@@ -387,19 +464,26 @@ export class GraphRenderer {
   }
 
   /**
-   * Show a new graph, keeping the position of the nodes that were already there. One that
-   * lays out as the graph shown (`sameLayout`: its citation counts arrived, PERF-7) only
-   * updates what the nodes say, and their size when citations size them, as a new size does.
+   * Show a new graph, keeping the position of the nodes that were already there, its sizes
+   * spanning `scale` (a time-lapse passes the whole period's, so that nodes keep their size
+   * as bigger ones come). One that lays out as the graph shown (`sameLayout`: its citation
+   * counts arrived, PERF-7) only updates what the nodes say, and their size when citations
+   * size them or the scale moved, as a new size does.
    */
-  setGraph(graph: Graph): void {
+  setGraph(graph: Graph, scale: SizeScale = sizeScale(graph)): void {
     const shown = this.graph;
+    const rescaled =
+      scale.papers !== this.scale.papers ||
+      scale.citations !== this.scale.citations ||
+      scale.nodes !== this.scale.nodes;
     this.graph = graph;
+    this.scale = scale;
     if (shown && sameLayout(shown, graph)) {
       for (const [index, node] of graph.nodes.entries()) {
         const simNode = this.nodes[index];
         if (simNode) simNode.node = node;
       }
-      if (this.settings.sizeBy === "citations") {
+      if (this.settings.sizeBy === "citations" || rescaled) {
         this.applySizing();
         this.sendForces(true);
       }
@@ -504,7 +588,10 @@ export class GraphRenderer {
   setSettings(settings: RendererSettings): void {
     const previous = this.settings;
     this.settings = settings;
-    const resized = settings.nodeSize !== previous.nodeSize || settings.sizeBy !== previous.sizeBy;
+    const resized =
+      settings.nodeSize !== previous.nodeSize ||
+      settings.sizeBy !== previous.sizeBy ||
+      settings.sizeContrast !== previous.sizeContrast;
     if (resized) this.applySizing();
     const forcesChanged =
       settings.centerForce !== previous.centerForce ||
@@ -535,7 +622,7 @@ export class GraphRenderer {
   private applySizing(): void {
     const { sizeBy, nodeSize } = this.settings;
     for (const node of this.nodes) {
-      node.baseRadius = sizedRadius(node.node, sizeBy);
+      node.baseRadius = sizedRadius(node.node, this.settings, this.scale);
       node.radius = node.baseRadius * nodeSize;
     }
     const measure = (node: SimNode) =>

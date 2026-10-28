@@ -135,6 +135,8 @@ export interface GraphSettings {
   nodeSize: number;
   /** What node areas show: papers (institutions and authors) or citations (every node). */
   sizeBy: NodeSizing;
+  /** How far sizes stand apart, from -1 to 1: in proportion at 0, as Rankings' bars. */
+  sizeContrast: number;
   labelThreshold: number;
 }
 
@@ -169,6 +171,7 @@ export const DEFAULT_GRAPH_SETTINGS: Readonly<GraphSettings> = {
   linkDistance: 40,
   nodeSize: 1,
   sizeBy: "papers",
+  sizeContrast: 0,
   labelThreshold: 1,
 };
 
@@ -189,6 +192,7 @@ export function loadGraphSettings(): GraphSettings {
   }
   // A string, but maybe not one of the choices (an older or edited value).
   if (!NODE_SIZINGS.includes(settings.sizeBy)) settings.sizeBy = DEFAULT_GRAPH_SETTINGS.sizeBy;
+  settings.sizeContrast = Math.min(1, Math.max(-1, settings.sizeContrast)) || 0;
   return settings;
 }
 

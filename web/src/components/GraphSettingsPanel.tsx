@@ -35,6 +35,15 @@ function labelsValue(threshold: number): number {
   return Math.round((LABELS.min + LABELS.max - threshold) * 100) / 100;
 }
 
+/**
+ * What the Contrast slider does to sizes: in proportion to what they count in the middle,
+ * as Rankings' bars, closer to the left, their differences exaggerated to the right.
+ */
+function contrastLabel(contrast: number): string {
+  if (Math.abs(contrast) < 0.05) return "As Rankings";
+  return contrast < 0 ? "Softer" : "Stronger";
+}
+
 interface Props {
   open: boolean;
   onToggle: () => void;
@@ -242,6 +251,15 @@ export function GraphSettingsPanel(props: Props) {
               step={0.05}
               output={`${settings.nodeSize.toFixed(2)}×`}
               onChange={(nodeSize) => onSettings({ nodeSize })}
+            />
+            <Slider
+              label="Contrast"
+              value={settings.sizeContrast}
+              min={-1}
+              max={1}
+              step={0.1}
+              output={contrastLabel(settings.sizeContrast)}
+              onChange={(sizeContrast) => onSettings({ sizeContrast })}
             />
             <Slider
               label="Labels"

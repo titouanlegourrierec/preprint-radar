@@ -2,10 +2,12 @@ import { describe, expect, it } from "vitest";
 import {
   citationRadius,
   fitTransform,
+  largestRadius,
   logoBox,
   nodeRadius,
   peekLinks,
   pinchView,
+  sizeScale,
   zoomAbout,
 } from "../src/graph-renderer";
 
@@ -34,28 +36,78 @@ describe("fitTransform", () => {
 });
 
 describe("nodeRadius", () => {
-  it("keeps single-paper nodes small and grows with the paper count", () => {
-    expect(nodeRadius(1)).toBe(2.5);
-    expect(nodeRadius(2)).toBe(6);
-    expect(nodeRadius(5)).toBe(9.5);
-    expect(nodeRadius(10)).toBe(13);
+  it("keeps single-paper nodes small and grows in proportion to the papers past the first", () => {
+    expect(nodeRadius(1, 177)).toBe(2.5);
+    // A month of cs.CV: Tsinghua's 177 papers get the largest size, 89 half of the growth.
+    expect(nodeRadius(177, 177)).toBeCloseTo(64);
+    expect(nodeRadius(89, 177)).toBeCloseTo(2.5 + 61.5 / 2);
   });
 
-  it("is capped for very prolific nodes", () => {
-    expect(nodeRadius(1000)).toBe(28);
+  it("sizes a graph of few papers as if its biggest node had 21, and is capped", () => {
+    expect(nodeRadius(11, 5)).toBeCloseTo(2.5 + 61.5 / 2);
+    expect(nodeRadius(11, 5)).toBe(nodeRadius(11));
+    expect(nodeRadius(1000)).toBe(64);
   });
 });
 
 describe("citationRadius", () => {
-  it("tells apart the small counts of recent papers", () => {
-    expect(citationRadius(0)).toBe(2.5);
-    expect(citationRadius(1)).toBe(5.5);
-    expect(citationRadius(3)).toBe(8.5);
-    expect(citationRadius(31)).toBe(17.5);
+  const growth = (radius: number) => (radius - 2.5) / 61.5;
+
+  it("grows in proportion to citations, as Rankings' bars, out of the graph's most cited", () => {
+    // All time: Google's 892,816 citations and Carnegie Mellon's 206,031.
+    expect(citationRadius(892_816, 892_816)).toBeCloseTo(64);
+    expect(growth(citationRadius(206_031, 892_816))).toBeCloseTo(206_031 / 892_816);
+    expect(citationRadius(0, 892_816)).toBe(2.5);
   });
 
-  it("is capped for highly cited nodes", () => {
-    expect(citationRadius(250_000)).toBe(28);
+  it("never makes a hub of a few citations in a graph of few, and is capped", () => {
+    expect(citationRadius(3, 3)).toBeLessThan(5);
+    expect(citationRadius(250_000)).toBe(64);
+  });
+});
+
+describe("the contrast of sizes", () => {
+  const growth = (radius: number) => (radius - 2.5) / 61.5;
+
+  it("draws areas in proportion halfway to the left", () => {
+    expect(growth(citationRadius(206_031, 892_816, -0.5)) ** 2).toBeCloseTo(206_031 / 892_816);
+  });
+
+  it("draws sizes together further left, as a logarithm would, and apart to the right", () => {
+    const sizes = (contrast: number) =>
+      [1, 5, 30].map((citations) => citationRadius(citations, 162, contrast));
+    const [soft, even, strong] = [sizes(-1), sizes(0), sizes(1)];
+    const ratio = (radii: number[]) => (radii[2] ?? 0) / (radii[0] ?? 1);
+    // Softer: 30 citations closer to 1, which stands well out of the smallest size.
+    expect(ratio(soft)).toBeLessThan(ratio(even));
+    expect((soft[0] ?? 0) - 2.5).toBeGreaterThan(5);
+    expect(strong[2]).toBeLessThan(even[2] ?? 0);
+    expect(citationRadius(162, 162, 1)).toBeCloseTo(64);
+    expect(nodeRadius(60, 177, 1)).toBeLessThan(nodeRadius(60, 177));
+  });
+});
+
+describe("largestRadius", () => {
+  it("grows with the square root of a large graph's node count, as its extent does", () => {
+    expect(largestRadius(1_850)).toBe(64);
+    expect(largestRadius(8_000)).toBeCloseTo(128);
+  });
+});
+
+describe("sizeScale", () => {
+  it("is the most papers and the most citations of the graph's nodes", () => {
+    const node = (paperIds: string[], citations: number) =>
+      ({
+        id: paperIds.join(),
+        kind: "institution",
+        label: "",
+        key: "",
+        paperIds,
+        citations,
+      }) as const;
+    expect(
+      sizeScale({ nodes: [node(["a", "b", "c"], 4), node(["d"], 90)], links: [] } as never),
+    ).toEqual({ papers: 3, citations: 90, nodes: 2 });
   });
 });
 
