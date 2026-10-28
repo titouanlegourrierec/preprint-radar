@@ -187,8 +187,9 @@ papers. `collect.update_archive_affiliations` fills those of the archive and of 
   affiliations come with its `html_url`, the extractor's version and provenance `html`;
   ROR names their institutions, and those an interrupted run left unnamed. The maintainer
   runs it (a night for about 2,000 papers), not a workflow, whose minutes are billed.
-  `reextract` and `reclean` never read the archive: later extraction fixes reach it only
-  this way.
+  `reextract` never reads the archive: later extraction fixes reach it only this way;
+  `reclean` cleans its papers read from a page again (provenance `html`, never OpenAlex's
+  names), whose institutions this step names again.
 
 ## Stars of the papers' code (`code.json`, PROD-18)
 

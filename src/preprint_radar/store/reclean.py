@@ -6,8 +6,9 @@ the rules that need no page to the stored strings: :func:`clean_affiliations` (c
 details, junk, "A is with X" sentences, "also with" lists) and :func:`names_only_authors`.
 The author mapping follows the strings, and the mapping rules that need no page run again.
 
-Day files only: the archive's affiliations are OpenAlex institution names, which the
-cleaner would damage ("IIT@MIT").
+Day files, and the papers of the archive and the most cited of the last 12 months whose
+affiliations a page gave (their provenance, ``html``): the others' there are OpenAlex
+institution names, which the cleaner would damage ("IIT@MIT").
 """
 
 from collections.abc import Sequence
@@ -33,18 +34,24 @@ class RecleanReport:
         papers: Papers with affiliations, all looked at.
         changed: Papers whose affiliations, mapping or institutions changed.
         days: Day files written again.
+        archive: Whether the archive, or the most cited papers of the last 12 months, was
+            written again.
     """
 
     category: str
     papers: int
     changed: int
     days: int
+    archive: bool = False
 
 
 def reclean_store(store: PaperStore, category: str) -> RecleanReport:
-    """Clean the affiliations of every stored day of a category again.
+    """Clean the affiliations of every stored day of a category again, and the archive's read from a page.
 
-    Only the day files holding a changed paper are written.
+    Only the day files holding a changed paper are written, and the archive, or the most
+    cited papers of the last 12 months, when one of theirs changed. There, only the papers
+    whose affiliations a page gave are cleaned (2505.14715's LaTeX command before each
+    affiliation, read before the rule): the others' are OpenAlex's names.
 
     Args:
         store: The data store.
@@ -63,7 +70,36 @@ def reclean_store(store: PaperStore, category: str) -> RecleanReport:
             store.save(category, updated)
             changed += len(updated)
             days += 1
-    return RecleanReport(category, papers, changed, days)
+    archive = list(store.iter_archive(category))
+    top_recent = store.load_top_recent(category)
+    recent = top_recent.papers if top_recent else []
+    new_archive = [_recleaned_if_read(paper) for paper in archive]
+    new_recent = [_recleaned_if_read(paper) for paper in recent]
+    if new_archive != archive:
+        store.write_archive(category, new_archive)
+    if top_recent and new_recent != recent:
+        store.write_top_recent(category, new_recent, since=top_recent.since)
+    # The most cited papers of the last 12 months are counted with the archive.
+    kept, recleaned = [*archive, *recent], [*new_archive, *new_recent]
+    archive_changed = sum(new != old for old, new in zip(kept, recleaned, strict=True))
+    return RecleanReport(
+        category,
+        papers=papers + sum(1 for paper in kept if _read_from_page(paper)),
+        changed=changed + archive_changed,
+        days=days,
+        archive=archive_changed > 0,
+    )
+
+
+def _read_from_page(paper: Paper) -> bool:
+    """Whether the paper's affiliations are strings a page gave, which the cleaning knows."""
+    provenance = paper.affiliations_provenance
+    return bool(paper.affiliations) and provenance is not None and provenance.source == "html"
+
+
+def _recleaned_if_read(paper: Paper) -> Paper:
+    """An archived paper cleaned again when a page gave its affiliations, else as it is."""
+    return reclean_paper(paper) if _read_from_page(paper) else paper
 
 
 def reclean_paper(paper: Paper) -> Paper:

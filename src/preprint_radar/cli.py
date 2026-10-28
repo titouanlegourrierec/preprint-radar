@@ -553,8 +553,10 @@ def _add_reclean_parser(subparsers: "argparse._SubParsersAction[argparse.Argumen
             "Apply the current affiliation cleaning to the stored day files, after a change "
             "to the heuristics: contact details, junk and author names are dropped, strings "
             "holding several affiliations are split, and the author mapping follows them. "
-            "Changed affiliations lose their institutions, which `institutions` names again. "
-            "Nothing is fetched, and the citation archive is left as it is."
+            "Changed affiliations lose their institutions, which `institutions` names again "
+            "(`archive-affiliations` in the archive). Nothing is fetched. In the citation "
+            "archive, only the papers whose affiliations a page gave are cleaned: the others' "
+            "are OpenAlex's names."
         ),
     )
     _add_store_location(reclean, every_category=True)
@@ -1275,9 +1277,9 @@ def _run_reclean(args: argparse.Namespace) -> int:
     store = PaperStore(args.data_dir)
     for category in args.categories or store.categories():
         report = reclean_store(store, category)
+        written = f"{report.days} day files" + (" and the archive" if report.archive else "")
         console.print(
-            f"{category}: {report.changed} of {report.papers} affiliated papers changed, "
-            f"in {report.days} day files"
+            f"{category}: {report.changed} of {report.papers} affiliated papers changed, in {written}"
         )
     return 0
 

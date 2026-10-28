@@ -180,6 +180,34 @@ def test_reclean_store_rewrites_only_the_days_that_change(tmp_path: Path) -> Non
     assert stored["2609.00003"].affiliations is None
 
 
+def test_reclean_store_cleans_the_archives_papers_read_from_a_page(tmp_path: Path) -> None:
+    store = PaperStore(tmp_path)
+    read = replace(
+        _paper(("\\authormark1Department of Physics, MIT",), ((0,), (0,), (0,)), arxiv_id="2505.00001"),
+        announced=date(2025, 5, 2),
+        affiliations_provenance=Provenance("html", date(2025, 5, 3)),
+    )
+    # OpenAlex's names, which the cleaner would damage, are left as they are.
+    registry = replace(
+        _paper(("IIT@MIT",), ((0,), (0,), (0,)), arxiv_id="2505.00002"),
+        announced=date(2025, 5, 2),
+        affiliations_provenance=Provenance("openalex", date(2025, 5, 3)),
+    )
+    store.write_archive("cs.CV", [read, registry])
+    store.write_top_recent("cs.CV", [read], since=date(2025, 10, 28))
+
+    report = reclean_store(store, "cs.CV")
+
+    assert report == RecleanReport("cs.CV", papers=2, changed=2, days=0, archive=True)
+    archived = {paper.arxiv_id: paper for paper in store.iter_archive("cs.CV")}
+    assert archived["2505.00001"].affiliations == ("Department of Physics, MIT",)
+    assert archived["2505.00002"].affiliations == ("IIT@MIT",)
+    assert [paper.affiliations for paper in store.iter_top_recent("cs.CV")] == [
+        ("Department of Physics, MIT",)
+    ]
+    assert reclean_store(store, "cs.CV") == RecleanReport("cs.CV", papers=2, changed=0, days=0)
+
+
 def test_a_paper_without_mapping_gets_the_one_its_sentences_give() -> None:
     paper = _paper(
         ("Ada Lovelace and Carl Jones are with MIT", "Bob Smith is with NVIDIA, and also with NVIDIA")

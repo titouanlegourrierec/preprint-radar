@@ -271,7 +271,9 @@ papers until the next archive. Locally, `make trends` reads your last `make arch
 ## Re-extract after a heuristic fix
 
 - **Cleaning only** (`clean_affiliation`, `names_only_authors`): `make reclean`, then
-  `make institutions` (changed strings lost their names), then `make validate`.
+  `make institutions` (changed strings lost their names; the archive's papers read from a
+  page, which `reclean` cleans too, get theirs from `make archive-affiliations` or the
+  next *Archive*), then `make validate`.
 - **What a page gives** (affiliations, mapping): bump `EXTRACTOR_VERSION`; the daily
   *Extract stored papers again* step re-reads older versions, from the page cache and up to
   50 downloads a day. To repair papers at once: `preprint-radar reextract --ids <ids>` or

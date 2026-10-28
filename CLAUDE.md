@@ -98,8 +98,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
 - Offline, seconds, after a change to the rules (then commit the data):
   - `make reclean`: today's affiliation cleaning on the stored day files (strings cleaned
     and split, author names dropped, the mapping follows, changed papers lose their
-    institutions: run `make institutions` after). Never the archive, nor a day file's
-    OpenAlex affiliations (registry names, not strings of a page).
+    institutions: run `make institutions` after), and on the papers of the archive and
+    top-recent read from a page (`archive-affiliations` names theirs again). Never
+    OpenAlex's affiliations (registry names, not strings of a page).
   - `make venues`: today's venue and withdrawal detection, and the abstracts' LaTeX made
     plain text (`latex.plain_text`), on every stored paper, archive included.
 - Reports:
