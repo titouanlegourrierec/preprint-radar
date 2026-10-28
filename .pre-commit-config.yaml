@@ -1,8 +1,9 @@
 # Git hooks, run by prek (a faster pre-commit, pinned in uv.lock like the tools below, so
 # local runs, hooks and CI agree). Install with: uv run prek install
 
-# Fixtures are verbatim copies of arXiv pages and data/ is generated: keep them untouched.
-exclude: ^(tests/fixtures|data)/
+# Fixtures are verbatim copies of arXiv pages, data/ is generated, and the logos are named
+# after their content's hash, which the build checks: keep them untouched.
+exclude: ^(tests/fixtures|data|web/public/logos)/
 
 repos:
   # prek's own Rust versions of the pre-commit-hooks checks: offline, nothing to update.

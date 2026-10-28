@@ -62,6 +62,12 @@ export function About() {
           of several countries counts a share for each. The map and populations are{" "}
           <a href="https://www.naturalearthdata.com">Natural Earth</a>'s (public domain).
         </li>
+        <li>
+          Logos: those of a few major institutions, chosen one by one from{" "}
+          <a href="https://commons.wikimedia.org">Wikimedia Commons</a>, beside their name. They are
+          their owners' trademarks, shown only to recognize an institution; to have one removed or
+          changed, write as below.
+        </li>
       </ul>
 
       <h3>Following a lab or a venue</h3>

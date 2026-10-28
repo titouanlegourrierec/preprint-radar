@@ -177,6 +177,12 @@ export interface StoreIndex {
    * rank them (`cohorts.json`, by year), which the build adds (`tooling/cohorts.ts`).
    */
   cohorts?: Record<string, Record<string, Cohort>>;
+  /**
+   * Each major institution's logo, by the name the site gives it: its path on the site
+   * ("logos/stanford-university-1a2b3c4d.svg", PROD-23), which the build adds from the
+   * hand-kept `logos.json`, the file named after its content, so never cached stale.
+   */
+  logos?: Record<string, string>;
 }
 
 /**

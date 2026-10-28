@@ -41,6 +41,10 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   DOI), the graph, no page error. CI runs it after the build; keep `e2e/data` valid when
   the format changes. `make test-network`: the parsers against the live arXiv (slow).
 - `make format`: auto-fix formatting and lint. `make dev` / `make preview`: the site locally.
+- `make logo NAME="…" URL=<file page> [VIEW_BOX="x y w h"] [PNG=128]`: add or replace an
+  institution's logo, chosen by hand on Commons or a Wikipedia (PROD-23, `docs/web.md`);
+  `make logos-review` draws them all as the site does, light and dark: look before keeping
+  one.
 - Long runs, **never without asking**; interrupting loses nothing, re-running resumes:
   - `make update` (reads at most 600 HTML pages per category, `DEFAULT_MAX_HTML`, at one
     every 15 s: up to 2.5 hours; `MAX_HTML=N` changes it). `make update-quick` skips the
@@ -184,7 +188,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     topics rising, cooling and new, and `<category>/topics.json`, every topic's papers a
     month since 2010, for the site's Trends view (PROD-20).
 - `web/`: `src/` (the app; `docs/web.md`), `tooling/` (build plugins: what the site derives
-  from `data/`, the third-party guard), `tests/` (Vitest), `e2e/` (Playwright and its store).
+  from `data/`, the third-party guard; the logo tools), `tests/` (Vitest), `e2e/`
+  (Playwright and its store), `logos.json` and `public/logos/` (the institutions' logos,
+  each file named after its content's hash, which the build checks).
 - `.cache/` (git-ignored; the Actions cache in CI): `front-matter/<yymm>/<id>v<n>.html.gz`,
   the front matter of every HTML page read (1 or 2 KB, extracts exactly as the whole page,
   which a network test checks; pages kept before 2026-10-06 lost the tables of their
@@ -197,7 +203,7 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   `author@example.org`. `fold-cases.json`: names and the key both languages give them
   (`searchKey`, `institutions.search_key`), read by pytest and Vitest, and so is
   `code-cases.json` (the code link both find, `code.py` and `code.ts`). Git hooks never
-  rewrite `tests/fixtures/` or `data/`.
+  rewrite `tests/fixtures/`, `data/` or `web/public/logos/`.
 
 ## Conventions
 

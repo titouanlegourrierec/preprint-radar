@@ -29,6 +29,7 @@ import {
 import type { Paper } from "../types";
 import { FolderMenu } from "./FolderMenu";
 import { Highlighted } from "./Highlighted";
+import { InstitutionLogo } from "./InstitutionLogo";
 import {
   AuthorsIcon,
   BrandIcon,
@@ -60,6 +61,18 @@ const YOUNG_DAYS = 60;
 export function affiliationFilter(paper: Paper, affiliation: string): NameFilter {
   const institution = institutionsOf(paper)[paper.affiliations?.indexOf(affiliation) ?? -1];
   return institution ? exactly(institution) : typed(affiliation);
+}
+
+/** The logo of an affiliation's institution, where the site has one (PROD-23). */
+function AffiliationLogo(props: {
+  paper: Paper;
+  affiliation: string;
+  logoOf: ((institution: string) => string | undefined) | undefined;
+}) {
+  const { paper, affiliation, logoOf } = props;
+  const institution = institutionsOf(paper)[paper.affiliations?.indexOf(affiliation) ?? -1];
+  const src = institution ? logoOf?.(institution) : undefined;
+  return src ? <InstitutionLogo src={src} /> : null;
 }
 
 const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
@@ -148,6 +161,8 @@ interface Props {
   /** Absent where papers cannot be marked seen (the reading list). */
   onToggleSeen?: ((arxivId: string) => void) | undefined;
   onAuthor: (author: string) => void;
+  /** A major institution's logo, by the name the site gives it (PROD-23). */
+  logoOf?: ((institution: string) => string | undefined) | undefined;
   /** Filter on the paper's venue, its badge pressed ("NeurIPS 2026"). */
   onVenue?: ((venue: string) => void) | undefined;
   /** The affiliation's institution, exactly, or the string itself when it names none. */
@@ -198,6 +213,7 @@ export function PaperCard({
   onToggleSaved,
   onToggleSeen,
   onAuthor,
+  logoOf,
   onVenue,
   onAffiliation,
   folder,
@@ -447,6 +463,7 @@ export function PaperCard({
                     title="Show papers from this affiliation"
                     onClick={() => onAffiliation(affiliationFilter(paper, affiliation))}
                   >
+                    <AffiliationLogo paper={paper} affiliation={affiliation} logoOf={logoOf} />
                     <Highlighted text={affiliation} terms={affiliationTerms(affiliation)} />
                   </button>
                 </span>

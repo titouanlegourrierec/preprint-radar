@@ -317,6 +317,30 @@ pipeline and `validate` never see these. `base: "./"` keeps the site working und
   themes, named once by its `aria-label`. Its paths are never redrawn or optimized:
   `tests/logo.test.ts` compares them with the files, which Biome skips (`!public/*.svg`).
   Never under 24 px high; below, the mark alone.
+- **Institutions' logos** (PROD-23, `tooling/logos.ts`, `components/InstitutionLogo.tsx`):
+  chosen one by one by hand, never fetched by a rule (the institutions' own icons were 48 px
+  at best, or blocked). `make logo NAME="…" URL=<file page>` (`tooling/add-logo.ts`) takes
+  a file's page on Commons or on a Wikipedia in any language ("Datei:…"), or an article's
+  media viewer ("#/media/File:…"): it asks Commons first, which holds nearly all of them
+  and answers when the Wikipedias' API refuses a burst, then the page's wiki, and refuses a
+  file the wiki shows under fair use, which covers its articles only. It downloads the
+  file, lists it in `web/logos.json` with its own page and license, and writes it to
+  `public/logos/<name>-<hash>.svg`, named after its content so that no cache serves an old
+  one (the git hooks leave these files alone). It tidies an SVG (an editor's default
+  DOCTYPE goes; a root sized without a `viewBox` gets one), crops it to `VIEW_BOX` (Adobe's
+  mark out of its wordmark, NVIDIA's eye), draws one too detailed to serve as an SVG as a
+  PNG `PNG=128` pixels high (`rsvg-convert`; Tsinghua's seal, 423 kB of paths, 26 kB so),
+  makes a JPEG a PNG (ImageMagick; the site serves SVG and PNG only), and counts the stored
+  papers that name the institution, the name being the site's (`institutions`).
+  `make logos-review` (`tooling/review-logos.ts`) draws every logo as the site does, light
+  and dark: look before keeping one. The build (`institutionLogos`) fails on a file missing, misnamed or not
+  listed, or an SVG holding anything that runs, loads or links (a script, a handler, a
+  `foreignObject`, an outside reference, an entity), since opened from the site's origin it
+  would run there; SVG preferred, else a PNG of 64 px a side or more. The site's
+  `index.json` gets `logos` (name → path). Cards, Rankings' rows and the graph's details
+  show it on a white tile, which keeps dark marks readable in the dark theme, hidden from
+  screen readers since the name follows. About says they are trademarks, removed on
+  request.
 - **A shared link's card** (UX-49, `tooling/share-card.ts`): Open Graph tags and
   `public/share.png` (1200 by 630, from the designer's file with `rsvg-convert` and
   ImageMagick), absolute when the build knows `PREPRINT_RADAR_SITE_URL`. Previews run no

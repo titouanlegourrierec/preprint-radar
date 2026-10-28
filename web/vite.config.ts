@@ -22,6 +22,7 @@ import { contentSecurityPolicy as policy } from "./tooling/content-security-poli
 import { fileVersions, withVersions } from "./tooling/data-versions";
 import { feedFiles } from "./tooling/feeds";
 import { LANDING_BUDGET, landingAssets, landingReport } from "./tooling/landing";
+import { type LogosManifest, logoPaths, logoProblems, withLogos } from "./tooling/logos";
 import { paperFiles, withSiteFields } from "./tooling/scholar";
 import { searchShardFiles } from "./tooling/search-shards";
 import { shareImageTags } from "./tooling/share-card";
@@ -33,6 +34,17 @@ const DATA_DIR = resolve(
   import.meta.dirname,
   process.env.PREPRINT_RADAR_DATA_DIR ?? resolve(import.meta.dirname, "..", "data"),
 );
+
+// The institutions' logos, kept by hand (PROD-23, `make logo`): the list and the files.
+const LOGOS_MANIFEST = resolve(import.meta.dirname, "logos.json");
+const LOGOS_DIR = resolve(import.meta.dirname, "public", "logos");
+
+/** `logos.json`, read again each time, so that the development server sees a new logo. */
+function logoManifest(): LogosManifest {
+  return existsSync(LOGOS_MANIFEST)
+    ? (JSON.parse(readFileSync(LOGOS_MANIFEST, "utf8")) as LogosManifest)
+    : { logos: {} };
+}
 
 /** Reads a JSON file of the store by its path under `data/`; `null` when there is none. */
 function jsonReader(dataDir: string): (path: string) => unknown {
@@ -170,7 +182,12 @@ function paperData(dataDir: string): Plugin {
         res.setHeader("Content-Type", "application/json; charset=utf-8");
         if (path === "/index.json") {
           const text = readFileSync(file, "utf8");
-          res.end(withCohorts(text, cohortsOf(JSON.parse(text) as StoreIndex)));
+          res.end(
+            withLogos(
+              withCohorts(text, cohortsOf(JSON.parse(text) as StoreIndex)),
+              logoPaths(logoManifest()),
+            ),
+          );
           return;
         }
         const category = PAPER_FILE_RE.exec(path)?.[1];
@@ -244,7 +261,10 @@ function paperData(dataDir: string): Plugin {
         const indexFile = resolve(output, "index.json");
         if (existsSync(indexFile)) {
           const text = withVersions(readFileSync(indexFile, "utf8"), versions);
-          writeFileSync(indexFile, withCohorts(text, cohortsOf(index)));
+          writeFileSync(
+            indexFile,
+            withLogos(withCohorts(text, cohortsOf(index)), logoPaths(logoManifest())),
+          );
         }
       }
     },
@@ -269,6 +289,30 @@ function contentSecurityPolicy(): Plugin {
       if (ANALYTICS_TOKEN === null) return page;
       if (!page.includes("</body>")) throw new Error("index.html has no </body> to end");
       return page.replace("</body>", `  ${beaconTag(ANALYTICS_TOKEN)}\n  </body>`);
+    },
+  };
+}
+
+/**
+ * Fail the build, or the development server's start, on a logo of `logos.json` missing,
+ * unsafe or not named after its content, or a file of `public/logos/` it does not list
+ * (PROD-23): served from the site's origin, a script in an SVG would run there.
+ */
+function institutionLogos(): Plugin {
+  return {
+    name: "preprint-radar:institution-logos",
+    buildStart() {
+      const files = existsSync(LOGOS_DIR) ? readdirSync(LOGOS_DIR) : [];
+      const problems = logoProblems(
+        logoManifest(),
+        files.filter((file) => !file.startsWith(".")),
+        (file) => {
+          const path = resolve(LOGOS_DIR, file);
+          return existsSync(path) ? readFileSync(path) : null;
+        },
+        (content) => createHash("sha256").update(content).digest("hex"),
+      );
+      if (problems.length > 0) this.error(`logos.json: ${problems.join("; ")}`);
     },
   };
 }
@@ -342,6 +386,7 @@ export default defineConfig({
   plugins: [
     preact(),
     paperData(DATA_DIR),
+    institutionLogos(),
     contentSecurityPolicy(),
     shareCard(),
     noThirdPartyLoads(),

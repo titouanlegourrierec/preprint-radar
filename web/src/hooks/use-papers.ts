@@ -332,5 +332,7 @@ export function usePapers(
     searchable: shown.status === "ready" && warmed === shown.index ? shown.index : null,
     retry: () => setAttempt((count) => count + 1),
     generatedAt: storeIndex?.generated_at ?? null,
+    /** Each major institution's logo, its image under `data/` (PROD-23). */
+    logos: storeIndex?.logos,
   };
 }

@@ -7,6 +7,7 @@ import { rankEntities } from "../rankings";
 import type { Paper } from "../types";
 import type { RankKind } from "../url-state";
 import type { CountryMetric } from "../world";
+import { InstitutionLogo } from "./InstitutionLogo";
 import { LazyWorldMap } from "./LazyWorldMap";
 import { RankCell, shareOf } from "./RankCell";
 import { countryMetricOf, KIND_NAMES, metricOf } from "./RankingsControls";
@@ -32,6 +33,8 @@ interface Props {
   onEntity: (kind: EntityKind, name: string) => void;
   /** Show the papers of a country, by its code (PROD-22). */
   onCountry?: ((code: string) => void) | undefined;
+  /** A major institution's logo, by its name (PROD-23). */
+  logoOf?: ((institution: string) => string | undefined) | undefined;
 }
 
 /** Institutions, authors or countries of the papers shown, by papers or citations. */
@@ -118,6 +121,9 @@ function EntityRankings(props: Props & { kind: EntityKind }) {
                     title="Show their papers"
                     onClick={() => onEntity(entity.kind, entity.name)}
                   >
+                    {entity.kind === "institution" && (
+                      <EntityLogo src={props.logoOf?.(entity.name)} />
+                    )}
                     {entity.name}
                   </button>
                   {entity.people && (
@@ -157,4 +163,8 @@ function EntityRankings(props: Props & { kind: EntityKind }) {
       )}
     </section>
   );
+}
+
+function EntityLogo({ src }: { src: string | undefined }) {
+  return src ? <InstitutionLogo src={src} /> : null;
 }

@@ -2,7 +2,9 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "lib": ["ES2023"],
-    "types": ["node"]
+    "types": ["node"],
+    // The logo tools run with node itself, which imports TypeScript by its extension.
+    "allowImportingTsExtensions": true
   },
   "include": ["vite.config.ts", "playwright.config.ts", "tooling", "e2e"]
 }

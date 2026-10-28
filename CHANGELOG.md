@@ -52,6 +52,8 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
 - A card's venue badge, "NeurIPS 2026", shows that venue's papers alone (UX-64).
 - More color: the view shown has its colored icon, the actions' icons a discreet color
   each, countries their flag, and the dark theme a night's blue (UX-65).
+- The logos of major institutions, from Google and Stanford to KAIST, before their name on
+  cards, in Rankings and in the graph (PROD-23).
 - When nothing matches in Highly cited, it offers its other years, its last 12 months and a
   search of every stored paper, as Papers does (UX-55).
 

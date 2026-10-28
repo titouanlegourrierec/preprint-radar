@@ -82,6 +82,8 @@ interface Props {
   onShowPapers: (kind: EntityKind, label: string) => void;
   /** Show one paper in the list, expanded (its permalink). */
   onOpenPaper: (paper: Paper) => void;
+  /** A major institution's logo, by its name (PROD-23). */
+  logoOf?: ((institution: string) => string | undefined) | undefined;
   /** Paper to select and center on (from the list or a shared link), by arXiv id. */
   focusPaper: string | null;
   /** The focused paper is no longer selected. */
@@ -498,6 +500,7 @@ export function GraphView(props: Props) {
               onShowPapers={onShowPapers}
               onFocus={onFocus}
               onPeek={(id) => rendererRef.current?.setPeek(id)}
+              logoOf={props.logoOf}
               onOpenPaper={onOpenPaper}
             />
           )}

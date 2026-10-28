@@ -48,6 +48,7 @@ help: ## Show this help
 	printf "  %s%-14s%s %s\n" "$$cyan" "BUDGET" "$$reset" "archive: number of older papers it holds (default: the command's)"; \
 	printf "  %s%-14s%s %s\n" "$$cyan" "DRY_RUN=1" "$$reset" "archive: report what would change, write nothing"; \
 	printf "  %s%-14s%s %s\n" "$$cyan" "PRUNE=1" "$$reset" "archive: delete the day files older than 12 months"; \
+	printf "  %s%-14s%s %s\n" "$$cyan" "NAME, URL" "$$reset" "logo: the institution, as the site names it, and its file's page (VIEW_BOX crops an SVG, PNG=128 draws a too detailed one as a PNG, LICENSE for a file outside Commons)"; \
 	printf "\nExamples: make update CATEGORIES=\"cs.CV cs.LG\" MAX_HTML=50\n"; \
 	printf "          make backfill SINCE=2026-09-01\n"; \
 	printf "          make archive DRY_RUN=1 BUDGET=5000\n"; \
@@ -207,6 +208,16 @@ build: $(WEB)/node_modules ## Build the site into web/dist, as deployed on GitHu
 .PHONY: preview
 preview: build ## Build the site and serve the production build locally
 	cd $(WEB) && npx vite preview --open
+
+.PHONY: logo
+logo: $(WEB)/node_modules ## Add or replace an institution's logo, by hand: NAME="as the site names it" URL=<file page on Commons or a Wikipedia>
+	@if [ -z "$(NAME)" ] || [ -z "$(URL)" ]; then echo 'Usage: make logo NAME="Stanford University" URL=https://commons.wikimedia.org/wiki/File:... [VIEW_BOX="x y w h"] [PNG=128] [LICENSE=...]' >&2; exit 2; fi
+	cd $(WEB) && node tooling/add-logo.ts --name "$(NAME)" --url "$(URL)" $(if $(VIEW_BOX),--view-box "$(VIEW_BOX)") $(if $(PNG),--png $(PNG)) $(if $(LICENSE),--license "$(LICENSE)")
+
+.PHONY: logos-review
+logos-review: $(WEB)/node_modules ## Draw every logo as the site does, light and dark, on one sheet (opened in the browser on macOS)
+	cd $(WEB) && node tooling/review-logos.ts ../.cache/logos-review.html
+	@if [ "$$(uname)" = Darwin ]; then open .cache/logos-review.html; else echo "Sheet: .cache/logos-review.html"; fi
 
 ##@ Housekeeping
 

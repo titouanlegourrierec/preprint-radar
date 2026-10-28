@@ -10,6 +10,7 @@ import {
   severalPeople,
 } from "../graph";
 import type { Paper } from "../types";
+import { InstitutionLogo } from "./InstitutionLogo";
 
 const DETAILS_PAPERS = 8;
 const DETAILS_AUTHORS = 8;
@@ -47,6 +48,8 @@ interface Props {
    * once left.
    */
   onPeek: (id: string | null) => void;
+  /** A major institution's logo, by its name (PROD-23). */
+  logoOf?: ((institution: string) => string | undefined) | undefined;
 }
 
 /** A row's handlers that point at its node on the canvas while hovered or focused (UX-61). */
@@ -93,7 +96,10 @@ function EntityDetails(props: Props & { entity: EntityNode }) {
   const strongest = Math.max(1, ...props.connections.map(({ weight }) => weight));
   return (
     <>
-      <h2>{entity.label}</h2>
+      <h2>
+        {entity.kind === "institution" && <DetailsLogo src={props.logoOf?.(entity.label)} />}
+        {entity.label}
+      </h2>
       <p
         class="muted graph__counts"
         title="Over the papers shown: the period or year, and the search"
@@ -253,4 +259,8 @@ function PaperDetails({
       </button>
     </>
   );
+}
+
+function DetailsLogo({ src }: { src: string | undefined }) {
+  return src ? <InstitutionLogo src={src} /> : null;
 }

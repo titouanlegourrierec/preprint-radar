@@ -169,6 +169,7 @@ export function App() {
     searchable,
     retry,
     generatedAt,
+    logos,
   } = usePapers(
     state.category,
     state.period,
@@ -526,6 +527,14 @@ export function App() {
     [activeIndex, state.filters.subject],
   );
 
+  // A major institution's logo, by the name the site gives it (PROD-23).
+  const logoOf = useCallback(
+    (institution: string) => {
+      const path = logos?.[institution];
+      return path === undefined ? undefined : `${import.meta.env.BASE_URL}${path}`;
+    },
+    [logos],
+  );
   const lastUpdate = generatedAt ? formatDay(generatedAt) : null;
   const archiveAsOf = generatedAt ? new Date(generatedAt) : undefined;
   // What the header counts: the saved papers, an archive's years, or the period's papers.
@@ -679,6 +688,7 @@ export function App() {
         {topbar}
         <ErrorBoundary what="the graph" resetKeys={[state, load]}>
           <LazyGraphView
+            logoOf={logoOf}
             papers={graphPapers}
             citations={citations.counts}
             citationsNote={citationsNote}
@@ -1087,6 +1097,7 @@ export function App() {
               ) : rankings && load.status === "ready" ? (
                 <Rankings
                   category={category ?? ""}
+                  logoOf={logoOf}
                   papers={resultPapers}
                   citations={citations.counts}
                   citationsNote={citationsNote}
@@ -1237,6 +1248,7 @@ export function App() {
                     onToggleSeen={triaged ? triage.toggleSeen : undefined}
                     onAuthor={(author) => setFilters({ ...state.filters, author: exactly(author) })}
                     onVenue={(venue) => setFilters({ ...state.filters, venue })}
+                    logoOf={logoOf}
                     onAffiliation={(affiliation) => setFilters({ ...state.filters, affiliation })}
                     onMove={custom && !sharing ? readingList.move : undefined}
                     folders={

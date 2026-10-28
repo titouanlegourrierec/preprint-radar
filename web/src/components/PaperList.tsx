@@ -49,6 +49,8 @@ interface Props {
   onToggleSeen?: ((arxivId: string) => void) | undefined;
   onAuthor: (author: string) => void;
   onVenue?: ((venue: string) => void) | undefined;
+  /** A major institution's logo, by the name the site gives it (PROD-23). */
+  logoOf?: ((institution: string) => string | undefined) | undefined;
   onAffiliation: (filter: NameFilter) => void;
   /**
    * Move a paper before or after another, in the reading list's own order (UX-39): by
@@ -90,6 +92,7 @@ export function PaperList({
   onToggleSeen,
   onAuthor,
   onVenue,
+  logoOf,
   onAffiliation,
   onMove,
   folders,
@@ -274,6 +277,7 @@ export function PaperList({
       onToggleSaved={toggleSaved}
       onAuthor={onAuthor}
       onVenue={onVenue}
+      logoOf={logoOf}
       onAffiliation={onAffiliation}
       drag={
         folders
