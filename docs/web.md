@@ -94,8 +94,8 @@ pin most of it (`web/tests/`, the smoke test in `web/e2e/`).
 - A card's footer (UX-28): facts (venue, day, citations, subject), then actions as neutral
   badges, so that the facts keep the accent, each with an icon (`components/icons.tsx`). A
   link that names a site has its logo (DOI; Code by `codeHost`, pinned for both languages by
-  `code-cases.json`): Simple Icons' (CC0) in `currentColor`, since a brand color would
-  vanish in one theme. Every icon is `aria-hidden`: a control's name stays its text.
+  `code-cases.json`): Simple Icons' (CC0) in `currentColor`, a theme's color where UX-65
+  gives one (DOI's amber), since a brand's own would vanish in one theme. Every icon is `aria-hidden`: a control's name stays its text.
 - Components: `Topbar`, `ResultsHeader`, `ListNotices` (news since the last visit, warnings,
   filters, feed), `NoResults` (why empty, remedies), `SiteFooter` (sources, `Attribution`,
   also in the graph's ⓘ: REL-10). When nothing matches, `NoResults` offers more papers: in
@@ -383,7 +383,14 @@ pipeline and `validate` never see these. `base: "./"` keeps the site working und
 - **Preferences** (`preferences.ts`) live in `localStorage`. The theme
   (`hooks/use-theme.ts`) also colors the browser's bar (the `theme-color` metas,
   `theme-color.ts`, `public/theme.js` before first paint), which `tests/styles.test.ts`
-  checks (UX-18).
+  checks (UX-18). The dark palette is a night's, blue-tinted (`--bg` #0f1219, UX-65), the
+  favicon's and the browser's bar with it.
+- **Color** (UX-65): each view has its own (`--view-papers` … `--view-reading`), which
+  its tab's icon wears while it is shown; the actions' icons have theirs, discreetly (PDF
+  red, HTML orange, DOI amber, BibTeX green, Share as the links, Graph as its view, Code in
+  the text's color); countries wear their flag before their name (`countryFlag`, an emoji
+  Windows draws as letters, hidden from screen readers). Marks only, at 3:1 at least: the
+  text keeps its colors.
 
 ## Withdrawn papers, old ones announced lately, and dates by month
 

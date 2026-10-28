@@ -557,7 +557,7 @@ export function PaperCard({
           </div>
           <div class="paper__actions">
             <a
-              class="action"
+              class="action action--pdf"
               aria-describedby={titleId}
               href={paper.pdf_url}
               target="_blank"
@@ -568,7 +568,7 @@ export function PaperCard({
             </a>
             {paper.html_url && (
               <a
-                class="action"
+                class="action action--html"
                 aria-describedby={titleId}
                 href={paper.html_url}
                 target="_blank"
@@ -580,7 +580,7 @@ export function PaperCard({
             )}
             {paper.doi && (
               <a
-                class="action"
+                class="action action--doi"
                 aria-describedby={titleId}
                 href={`https://doi.org/${paper.doi}`}
                 title="The published version"
@@ -595,7 +595,7 @@ export function PaperCard({
               // The stars of the code joined to its link, one badge (PROD-18).
               <span class="action-group">
                 <a
-                  class="action"
+                  class="action action--code"
                   aria-describedby={titleId}
                   href={code}
                   title={code}
@@ -624,7 +624,7 @@ export function PaperCard({
             <button
               type="button"
               aria-describedby={titleId}
-              class={`action${bibtex === "copied" ? " action--copied" : ""}`}
+              class={`action action--bibtex${bibtex === "copied" ? " action--copied" : ""}`}
               onClick={copyBibtex}
             >
               {bibtex === "copied" ? <CheckIcon /> : <CiteIcon />}
@@ -636,7 +636,7 @@ export function PaperCard({
               )}
             </button>
             <a
-              class={`action${linkCopied ? " action--copied" : ""}`}
+              class={`action action--share${linkCopied ? " action--copied" : ""}`}
               aria-describedby={titleId}
               href={permalink}
               title="Copy a link to this paper"
@@ -654,7 +654,7 @@ export function PaperCard({
               <button
                 type="button"
                 aria-describedby={titleId}
-                class="action"
+                class="action action--graph"
                 title="Show this paper in the graph, with its institutions"
                 onClick={() => onShowInGraph(paper)}
               >

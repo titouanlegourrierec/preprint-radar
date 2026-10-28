@@ -1,7 +1,7 @@
 import type { ThemePreference } from "./preferences";
 
 /** The page's background, `--bg` of each palette of styles.css (tests/styles.test.ts). */
-export const BACKGROUNDS = { light: "#f7f7f5", dark: "#121212" } as const;
+export const BACKGROUNDS = { light: "#f7f7f5", dark: "#0f1219" } as const;
 
 /** A `<meta name="theme-color">` of index.html: one per scheme, named by its `media`. */
 interface ThemeColorMeta {

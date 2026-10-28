@@ -66,14 +66,14 @@ export function Topbar(props: Props) {
       <div class="topbar__tools">
         <nav class="tabs" aria-label="Views">
           <a
-            class={`tab${view === "papers" ? " tab--active" : ""}`}
+            class={`tab tab--papers${view === "papers" ? " tab--active" : ""}`}
             {...tab(view === "papers", { view: "papers", year: null })}
           >
             <PapersIcon />
             <span class="tab__label">Papers</span>
           </a>
           <a
-            class={`tab${view === "graph" ? " tab--active" : ""}`}
+            class={`tab tab--graph${view === "graph" ? " tab--active" : ""}`}
             // From the highly cited papers, the graph shows them.
             {...tab(view === "graph", {
               view: "graph",
@@ -84,7 +84,7 @@ export function Topbar(props: Props) {
             <span class="tab__label">Graph</span>
           </a>
           <a
-            class={`tab${cited ? " tab--active" : ""}`}
+            class={`tab tab--cited${cited ? " tab--active" : ""}`}
             title="The most cited papers of each year of first version, and of the last 12 months"
             {...tab(cited, { view: "cited" })}
           >
@@ -92,7 +92,7 @@ export function Topbar(props: Props) {
             <span class="tab__label">Highly cited</span>
           </a>
           <a
-            class={`tab${view === "trends" ? " tab--active" : ""}`}
+            class={`tab tab--trends${view === "trends" ? " tab--active" : ""}`}
             title="The topics of the titles that rise, cool and are new"
             {...tab(view === "trends", { view: "trends" })}
           >
@@ -100,7 +100,7 @@ export function Topbar(props: Props) {
             <span class="tab__label">Trends</span>
           </a>
           <a
-            class={`tab${view === "rankings" ? " tab--active" : ""}`}
+            class={`tab tab--rankings${view === "rankings" ? " tab--active" : ""}`}
             title="Institutions, authors and countries of the papers shown, by papers or citations"
             {...tab(view === "rankings", {
               view: "rankings",
@@ -111,7 +111,7 @@ export function Topbar(props: Props) {
             <span class="tab__label">Rankings</span>
           </a>
           <a
-            class={`tab${view === "reading-list" ? " tab--active" : ""}`}
+            class={`tab tab--reading${view === "reading-list" ? " tab--active" : ""}`}
             // Where a saved paper's star flies to (UX-37).
             data-tab="reading-list"
             {...tab(view === "reading-list", { view: "reading-list" })}

@@ -10,6 +10,7 @@ import {
 } from "./archive-years";
 import { cohortBadge } from "./cohorts";
 import { ErrorBoundary } from "./components/ErrorBoundary";
+import { Flag } from "./components/Flag";
 import type { Folders as FolderList } from "./components/Folders";
 import { InfoButton } from "./components/InfoButton";
 import { SearchIcon, StarIcon } from "./components/icons";
@@ -1131,7 +1132,8 @@ export function App() {
                 <>
                   {namedCountry && (
                     <p class="notice">
-                      Looking for {countryName(namedCountry.code)}?{" "}
+                      Looking for <Flag code={namedCountry.code} />
+                      {countryName(namedCountry.code)}?{" "}
                       <button
                         type="button"
                         class="link-button"

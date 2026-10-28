@@ -1,6 +1,8 @@
+import type { ComponentChildren } from "preact";
 import { countryName } from "../country-names";
 import { isActive, NO_FILTERS, type SearchFilters } from "../search";
 import { venueLabel } from "../venues";
+import { Flag } from "./Flag";
 
 interface Props {
   filters: SearchFilters;
@@ -12,7 +14,8 @@ interface Props {
  * a name tapped on a card would otherwise filter the list without a trace.
  */
 export function ActiveFilters({ filters, onFilters }: Props) {
-  const chips: [string, SearchFilters][] = [];
+  // Each chip's name, the filter without it, and what precedes its name for the eye.
+  const chips: [string, SearchFilters, ComponentChildren?][] = [];
   if (isActive(filters.author)) {
     chips.push([`by ${filters.author.text}`, { ...filters, author: null }]);
   }
@@ -23,7 +26,11 @@ export function ActiveFilters({ filters, onFilters }: Props) {
     chips.push([venueLabel(filters.venue), { ...filters, venue: null }]);
   }
   if (filters.country !== null) {
-    chips.push([`in ${countryName(filters.country)}`, { ...filters, country: null }]);
+    chips.push([
+      `in ${countryName(filters.country)}`,
+      { ...filters, country: null },
+      <Flag code={filters.country} />,
+    ]);
   }
   if (filters.subject !== null) chips.push([filters.subject, { ...filters, subject: null }]);
   if (filters.excludeCrossLists)
@@ -33,7 +40,7 @@ export function ActiveFilters({ filters, onFilters }: Props) {
 
   return (
     <ul class="active-filters" aria-label="Filters set">
-      {chips.map(([label, without]) => (
+      {chips.map(([label, without, before]) => (
         <li key={label}>
           <button
             type="button"
@@ -41,6 +48,7 @@ export function ActiveFilters({ filters, onFilters }: Props) {
             aria-label={`Remove the filter ${label}`}
             onClick={() => onFilters(without)}
           >
+            {before}
             {label} <span aria-hidden="true">×</span>
           </button>
         </li>

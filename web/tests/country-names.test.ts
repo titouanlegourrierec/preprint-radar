@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { countryName, countryNamed } from "../src/country-names";
+import { countryFlag, countryName, countryNamed } from "../src/country-names";
 
 describe("countryName", () => {
   it("names a country by its code, in English, the code itself for an unknown one", () => {
@@ -7,6 +7,15 @@ describe("countryName", () => {
     expect(countryName("KR")).toBe("South Korea");
     expect(countryName("XX")).toBe("XX");
     expect(countryName("not a code")).toBe("not a code");
+  });
+});
+
+describe("countryFlag (UX-65)", () => {
+  it("draws a country's flag from its code, nothing for what is no code", () => {
+    expect(countryFlag("FR")).toBe("🇫🇷");
+    expect(countryFlag("US")).toBe("🇺🇸");
+    expect(countryFlag("fr")).toBe("");
+    expect(countryFlag("")).toBe("");
   });
 });
 

@@ -18,6 +18,7 @@ import {
   metricValue,
   worldStats,
 } from "../world";
+import { Flag } from "./Flag";
 import { InfoButton } from "./InfoButton";
 import { MapFrame, nameOf, WORLD } from "./MapFrame";
 import { RankCell, shareOf } from "./RankCell";
@@ -273,7 +274,10 @@ export function WorldMap({
                   {tip ? formatValue(metricValue(tip, metric), metric) : "—"}
                   <span> {tip ? METRIC_NAMES[metric] : "no paper placed"}</span>
                 </strong>
-                <span class="world-map__tip-name">{nameOf(code)}</span>
+                <span class="world-map__tip-name">
+                  <Flag code={code} />
+                  {nameOf(code)}
+                </span>
                 {tip && (
                   <dl>
                     {(["papers", "citations", "per-million", "impact"] as const)
@@ -313,7 +317,8 @@ export function WorldMap({
       {pinnedCountry && onCountry && (
         <p class="world-map__pinned">
           <button type="button" class="link-button" onClick={() => onCountry(pinnedCountry.code)}>
-            Show the papers of {nameOf(pinnedCountry.code)}
+            Show the papers of <Flag code={pinnedCountry.code} />
+            {nameOf(pinnedCountry.code)}
           </button>
         </p>
       )}
@@ -358,6 +363,7 @@ export function WorldMap({
                   title="Show it on the map"
                   onClick={() => setPinned(pinned === country.code ? null : country.code)}
                 >
+                  <Flag code={country.code} />
                   {nameOf(country.code)}
                 </button>
               </th>

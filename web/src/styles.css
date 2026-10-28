@@ -65,6 +65,18 @@
   --shimmer-3: #e64980;
   --shimmer-4: #f08c00;
   --shimmer-glint: rgb(255 255 255 / 55%);
+  /* Each view's color, its tab's icon while it is shown; the actions' icons, discreetly
+     (UX-65): marks beside their names, at 3:1 at least on the cards. */
+  --view-papers: #3b5bdb;
+  --view-graph: #7048e8;
+  --view-cited: #0c8599;
+  --view-trends: #e8590c;
+  --view-rankings: #2b8a3e;
+  --view-reading: #b27b00;
+  --icon-pdf: #e03131;
+  --icon-html: #e8590c;
+  --icon-bibtex: #2b8a3e;
+  --icon-doi: #c77700;
   /* The fields, buttons and cards of every view, as the graph's chips (UX-33). */
   --radius: 12px;
   /* A paper's card, rounder (UX-34). */
@@ -84,15 +96,15 @@
    graph canvas reads these variables with getComputedStyle). */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #121212;
-    --surface: #1b1b1b;
-    --surface-muted: #242424;
-    --border: #2e2e2e;
-    --border-strong: #6a6a66;
-    --text: #ececea;
-    --text-muted: #9c9c96;
+    --bg: #0f1219;
+    --surface: #171b24;
+    --surface-muted: #1f2431;
+    --border: #2b3142;
+    --border-strong: #6b7488;
+    --text: #e9ecf1;
+    --text-muted: #9ba4b4;
     --accent: #91a7ff;
-    --accent-soft: #23294a;
+    --accent-soft: #232a4b;
     --mark: #5c4d00;
     --star: #e8a400;
     --danger: #ff8787;
@@ -112,21 +124,21 @@
     --map-s5: #cde2fb;
     --map-d0: #e66767;
     --map-d1: #7d3a3a;
-    --map-d2: #4a4a46;
+    --map-d2: #454c5a;
     --map-d3: #1c4f8f;
     --map-d4: #5598e7;
-    --map-none: #222221;
-    --map-none-line: #3a3a37;
+    --map-none: #1c212b;
+    --map-none-line: #333a49;
     --map-sea: #1f2731;
     --map-sea-deep: #12171d;
     --map-graticule: #2c3745;
     --trend-rising: #e66767;
     --trend-cooling: #3987e5;
-    --trend-neutral: #9c9c96;
-    --trend-past: #5c5c58;
-    --chart-grid: #2c2c2a;
-    --chart-axis: #383835;
-    --chart-band: #232322;
+    --trend-neutral: #9ba4b4;
+    --trend-past: #566073;
+    --chart-grid: #262c39;
+    --chart-axis: #343b4b;
+    --chart-band: #1d2230;
     --series-1: #3987e5;
     --series-2: #d95926;
     --series-3: #199e70;
@@ -137,6 +149,16 @@
     --shimmer-3: #f783ac;
     --shimmer-4: #ffc078;
     --shimmer-glint: rgb(255 255 255 / 12%);
+    --view-papers: #91a7ff;
+    --view-graph: #b197fc;
+    --view-cited: #3bc9db;
+    --view-trends: #ff8c42;
+    --view-rankings: #69db7c;
+    --view-reading: #fcc419;
+    --icon-pdf: #ff8787;
+    --icon-html: #ffa94d;
+    --icon-bibtex: #8ce99a;
+    --icon-doi: #ffc145;
     --shadow: none;
     --shadow-raised: none;
 
@@ -145,15 +167,15 @@
 }
 
 :root[data-theme="dark"] {
-  --bg: #121212;
-  --surface: #1b1b1b;
-  --surface-muted: #242424;
-  --border: #2e2e2e;
-  --border-strong: #6a6a66;
-  --text: #ececea;
-  --text-muted: #9c9c96;
+  --bg: #0f1219;
+  --surface: #171b24;
+  --surface-muted: #1f2431;
+  --border: #2b3142;
+  --border-strong: #6b7488;
+  --text: #e9ecf1;
+  --text-muted: #9ba4b4;
   --accent: #91a7ff;
-  --accent-soft: #23294a;
+  --accent-soft: #232a4b;
   --mark: #5c4d00;
   --star: #e8a400;
   --danger: #ff8787;
@@ -173,21 +195,21 @@
   --map-s5: #cde2fb;
   --map-d0: #e66767;
   --map-d1: #7d3a3a;
-  --map-d2: #4a4a46;
+  --map-d2: #454c5a;
   --map-d3: #1c4f8f;
   --map-d4: #5598e7;
-  --map-none: #222221;
-  --map-none-line: #3a3a37;
+  --map-none: #1c212b;
+  --map-none-line: #333a49;
   --map-sea: #1f2731;
   --map-sea-deep: #12171d;
   --map-graticule: #2c3745;
   --trend-rising: #e66767;
   --trend-cooling: #3987e5;
-  --trend-neutral: #9c9c96;
-  --trend-past: #5c5c58;
-  --chart-grid: #2c2c2a;
-  --chart-axis: #383835;
-  --chart-band: #232322;
+  --trend-neutral: #9ba4b4;
+  --trend-past: #566073;
+  --chart-grid: #262c39;
+  --chart-axis: #343b4b;
+  --chart-band: #1d2230;
   --series-1: #3987e5;
   --series-2: #d95926;
   --series-3: #199e70;
@@ -198,6 +220,16 @@
   --shimmer-3: #f783ac;
   --shimmer-4: #ffc078;
   --shimmer-glint: rgb(255 255 255 / 12%);
+  --view-papers: #91a7ff;
+  --view-graph: #b197fc;
+  --view-cited: #3bc9db;
+  --view-trends: #ff8c42;
+  --view-rankings: #69db7c;
+  --view-reading: #fcc419;
+  --icon-pdf: #ff8787;
+  --icon-html: #ffa94d;
+  --icon-bibtex: #8ce99a;
+  --icon-doi: #ffc145;
   --shadow: none;
   --shadow-raised: none;
 
@@ -494,6 +526,36 @@ mark {
   flex-shrink: 0;
   width: 1.15em;
   height: 1.15em;
+}
+
+/* The view shown has its color, its tab's icon only (UX-65); the others stay muted, and
+   About in the text's color. */
+.tab--papers {
+  --view: var(--view-papers);
+}
+
+.tab--graph {
+  --view: var(--view-graph);
+}
+
+.tab--cited {
+  --view: var(--view-cited);
+}
+
+.tab--trends {
+  --view: var(--view-trends);
+}
+
+.tab--rankings {
+  --view: var(--view-rankings);
+}
+
+.tab--reading {
+  --view: var(--view-reading);
+}
+
+.tab--active > .icon {
+  color: var(--view, currentColor);
 }
 
 /* Height of the sticky search bar: what scrolling to a focused element must clear. */
@@ -2012,6 +2074,37 @@ html {
 
 .action[aria-pressed="true"] > .icon {
   color: var(--text);
+}
+
+/* The actions' icons in a discreet color each (UX-65), under the pointer too: the paper as
+   a PDF in red, as HTML in orange, its DOI in amber, its code in the text's color (GitHub's
+   mark), BibTeX in green, Share as the links, Graph as its view. */
+.action.action--pdf > .icon {
+  color: var(--icon-pdf);
+}
+
+.action.action--html > .icon {
+  color: var(--icon-html);
+}
+
+.action.action--doi > .icon {
+  color: var(--icon-doi);
+}
+
+.action.action--code > .icon {
+  color: var(--text);
+}
+
+.action.action--bibtex > .icon {
+  color: var(--icon-bibtex);
+}
+
+.action.action--share > .icon {
+  color: var(--accent);
+}
+
+.action.action--graph > .icon {
+  color: var(--view-graph);
 }
 
 /* A copy said where it happened (UX-53): the badge keeps its name and width, its icon turns
@@ -3955,6 +4048,12 @@ input[type="range"] {
 
 .world-map__row--pinned {
   background: var(--accent-soft);
+}
+
+/* A country's flag before its name (UX-65), an emoji at the text's size. */
+.flag {
+  margin-right: 0.3em;
+  font-style: normal;
 }
 
 /* The pinned country's papers, offered under the map (PROD-22). */

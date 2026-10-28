@@ -29,6 +29,19 @@ const ALIASES: Readonly<Record<string, string>> = {
   "p.r. china": "CN",
 };
 
+/**
+ * A country's flag (UX-65), as its emoji: two regional indicator letters, which Windows draws
+ * as the letters ("FR") rather than a flag; nothing for what is no code. For the eye only:
+ * the name beside it says the country.
+ */
+export function countryFlag(code: string): string {
+  if (!/^[A-Z]{2}$/.test(code)) return "";
+  return String.fromCodePoint(...[...code].map((letter) => REGIONAL_A + letter.charCodeAt(0) - 65));
+}
+
+/** The regional indicator symbol of the letter A, the first of 26. */
+const REGIONAL_A = 0x1f1e6;
+
 /** A country's name: "France" for FR; the code itself where the browser knows none. */
 export function countryName(code: string): string {
   try {
