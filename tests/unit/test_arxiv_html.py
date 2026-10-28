@@ -1359,6 +1359,10 @@ def test_clean_affiliation_drops_what_names_nothing(raw: str) -> None:
             "The lab is at the University of Bremen",
             id="institution-before-the-verb",
         ),
+        # A contribution note glued to the affiliation after it (ar5iv's 2204.14198).
+        pytest.param("Equal senior contributionsDeepMind", "DeepMind", id="glued-contribution-note"),
+        pytest.param("Equal senior contributions", None, id="senior-contribution-note"),
+        pytest.param("Equal contribution, Stanford University", None, id="contribution-note-not-glued"),
     ],
 )
 def test_clean_affiliation_strips_contact_details_and_people(raw: str, expected: str | None) -> None:
@@ -1964,6 +1968,30 @@ def test_lines_led_by_symbols_count_only_when_each_names_an_institution() -> Non
     assert parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith")).affiliations == ()
 
 
+def test_lines_led_by_symbols_count_when_half_name_an_institution() -> None:
+    # "⋆Facebook AI †Sorbonne University" (ar5iv's 2012.12877).
+    html = _author_block(
+        ("Ada Lovelace<sup>*</sup>", ()),
+        ("Bob Smith<sup>\u2020</sup>", ()),
+        ("<br><sup>*</sup>Facebook AI <sup>\u2020</sup>Sorbonne University", ()),
+    )
+
+    front = parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith"))
+
+    assert front.affiliations == ("Facebook AI", "Sorbonne University")
+    assert front.author_affiliations == ((0,), (1,))
+
+
+def test_lines_led_by_symbols_count_none_when_one_is_a_role() -> None:
+    html = _author_block(
+        ("Ada Lovelace<sup>*</sup>", ()),
+        ("Bob Smith<sup>\u2020</sup>", ()),
+        ("<br><sup>*</sup>Stanford University <sup>\u2020</sup>Intern", ()),
+    )
+
+    assert parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith")).affiliations == ()
+
+
 def test_one_line_led_by_a_symbol_is_only_its_authors() -> None:
     html = _author_block(
         ("Ada Lovelace<sup>*</sup>\n", ()), ("Bob Smith\n", ()), ("<sup>*</sup>Stanford University", ())
@@ -2068,6 +2096,16 @@ def test_an_affiliation_glued_to_its_author(name: str, expected: tuple[str, ...]
     html = _author_block((name, ()), ("Bob Smith", ("Equal contribution",)))
 
     assert parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith")).affiliations == expected
+
+
+def test_an_affiliation_glued_to_the_last_of_several_names() -> None:
+    # "Zheng Ge    Songtao Liu ... Jian SunMegvii Technology" (ar5iv's 2107.08430).
+    html = _author_block(("Ada Lovelace\u2003Bob SmithMIT Media Lab", ()))
+
+    front = parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith"))
+
+    assert front.affiliations == ("MIT Media Lab",)
+    assert front.author_affiliations == ((0,), (0,))
 
 
 def test_numbered_lines_set_as_authors_are_affiliations(paper_html: PaperHtml) -> None:

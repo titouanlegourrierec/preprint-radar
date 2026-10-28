@@ -26,8 +26,10 @@ whose arXiv id is the evidence: never "simplify" one away without it.
 - Contacts (`ltx_role_affiliation`, `ltx_role_address`) in `div.ltx_authors`, and beside
   them the numbered lines set as authors ("²Alibaba Group", 2610.12978). Anywhere, an
   affiliation glued to its author's name, a capital right after a listed name ("Xiaoya
-  TangScientific Computing and Imaging InstituteUniversity of Utah", 2610.17412), but never
-  another author's name ("Huy V. VoMaximilian SeitzerFederico Baldassarre...", 2508.10104).
+  TangScientific Computing and Imaging InstituteUniversity of Utah", 2610.17412), the last
+  of several names in one creator too ("Zheng Ge    Songtao Liu ... Jian SunMegvii
+  Technology", ar5iv's 2107.08430), but never another author's name ("Huy V. VoMaximilian
+  SeitzerFederico Baldassarre...", 2508.10104).
 - `ltx_note`s of roles `address`, `institutetext` and `affiliation`, anywhere (Taylor &
   Francis' lettered list after the abstract, 2610.15403; BMVC's one institution, without
   saying whose, 2608.29904), and the article's own `footnotetext` notes led by a marker:
@@ -40,10 +42,11 @@ whose arXiv id is the evidence: never "simplify" one away without it.
   one set apart in spaces before a capital starts a line as one glued to the word does
   ("¹ NVIDIA ² MIT ³ UCB", one affiliation, its authors all at it, 2610.19495; AFF-37).
 - Lines led by symbols ("*Oregon State University †The Ohio State University", 2610.17605)
-  when each one that is not noise names an institution, symbols marking notes too ("†Now
-  at Google"); not when a line ends with one, the markers then trailing
-  ("Independent§University of Waterloo¶", 2505.11293). One symbol's affiliation is never
-  everyone's.
+  when at least half of those that are not noise name an institution and the others are no
+  sentence nor role ("⋆Facebook AI †Sorbonne University", ar5iv's 2012.12877; symbols mark
+  notes too: "†Now at Google", "‡Intern"); not when a line ends with one, the markers then
+  trailing ("Independent§University of Waterloo¶", 2505.11293). One symbol's affiliation is
+  never everyone's.
 - "A is with B" sentences of thanks notes. What follows "is at" or "is with" is cut at its
   semicolons, a piece kept when it is a name: capitalized ("ETH Zurich"), naming an
   institution, ending with a country or holding a comma; not "the intersection of vision
@@ -166,7 +169,8 @@ with", though a wrapped list of people joins ("Bo Zheng, …, Weinan Guan," / "Z
   2610.27759), their example authors noise ("Cranberry-Lemon University", "University of
   the Witwatersrand, Joburg"; not the real one's "Johannesburg", 2405.01828), and a note on
   the affiliations glued to the last one goes ("…(DKFZ), Full affiliations are given in
-  Appendix", 2411.03670) (AFF-35).
+  Appendix", 2411.03670) (AFF-35). A contribution note glued to the affiliation after it
+  goes, the affiliation stays ("Equal senior contributionsDeepMind", ar5iv's 2204.14198).
 - elsarticle's `organization=…, city=…, country=…`, printed verbatim, ignores line breaks:
   a repeated key starts the next affiliation, and `clean_affiliation`, only (the mapping
   looks affiliations up through it), makes the rest plain values, organization first.

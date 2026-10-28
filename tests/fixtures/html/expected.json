@@ -3017,5 +3017,303 @@
       ]
     ],
     "abstract": "We present a conceptually simple, flexible, and general framework for object instance segmentation. Our approach efficiently detects objects in an image while simultaneously generating a high-quality segmentation mask for each instance. The method, called Mask R-CNN, extends Faster R-CNN by adding a branch for predicting an object mask in parallel with the existing branch for bounding box recognition. Mask R-CNN is simple to train and adds only a small overhead to Faster R-CNN, running at 5 fps. Moreover, Mask R-CNN is easy to generalize to other tasks, e.g., allowing us to estimate human poses in the same framework. We show top results in all three tracks of the COCO suite of challenges, including instance segmentation, bounding-box object detection, and person keypoint detection. Without bells and whistles, Mask R-CNN outperforms all existing, single-model entries on every task, including the COCO 2016 challenge winners. We hope our simple and effective approach will serve as a solid baseline and help ease future research in instance-level recognition. Code has been made available at: https://github.com/facebookresearch/Detectron."
+  },
+  "2012.12877": {
+    "authors": [
+      "Hugo Touvron",
+      "Matthieu Cord",
+      "Matthijs Douze",
+      "Francisco Massa",
+      "Alexandre Sablayrolles",
+      "Hervé Jégou"
+    ],
+    "affiliations": [
+      "Facebook AI",
+      "Sorbonne University"
+    ],
+    "placed": [
+      [
+        "Hugo Touvron",
+        [
+          "Facebook AI",
+          "Sorbonne University"
+        ]
+      ],
+      [
+        "Matthieu Cord",
+        [
+          "Sorbonne University"
+        ]
+      ],
+      [
+        "Matthijs Douze",
+        [
+          "Facebook AI"
+        ]
+      ],
+      [
+        "Francisco Massa",
+        [
+          "Facebook AI"
+        ]
+      ],
+      [
+        "Alexandre Sablayrolles",
+        [
+          "Facebook AI"
+        ]
+      ],
+      [
+        "Hervé Jégou",
+        [
+          "Facebook AI"
+        ]
+      ]
+    ],
+    "abstract": "Recently, neural networks purely based on attention were shown to address image understanding tasks such as image classification. These high-performing vision transformers are pre-trained with hundreds of millions of images using a large infrastructure, thereby limiting their adoption. In this work, we produce competitive convolution-free transformers by training on Imagenet only. We train them on a single computer in less than 3 days. Our reference vision transformer (86M parameters) achieves top-1 accuracy of 83.1% (single-crop) on ImageNet with no external data. More importantly, we introduce a teacher-student strategy specific to transformers. It relies on a distillation token ensuring that the student learns from the teacher through attention. We show the interest of this token-based distillation, especially when using a convnet as a teacher. This leads us to report results competitive with convnets for both Imagenet (where we obtain up to 85.2% accuracy) and when transferring to other tasks. We share our code and models."
+  },
+  "2204.14198": {
+    "authors": [
+      "Jean-Baptiste Alayrac",
+      "Jeff Donahue",
+      "Pauline Luc",
+      "Antoine Miech",
+      "Iain Barr",
+      "Yana Hasson",
+      "Karel Lenc",
+      "Arthur Mensch",
+      "Katie Millican",
+      "Malcolm Reynolds",
+      "Roman Ring",
+      "Eliza Rutherford",
+      "Serkan Cabi",
+      "Tengda Han",
+      "Zhitao Gong",
+      "Sina Samangooei",
+      "Marianne Monteiro",
+      "Jacob Menick",
+      "Sebastian Borgeaud",
+      "Andrew Brock",
+      "Aida Nematzadeh",
+      "Sahand Sharifzadeh",
+      "Mikolaj Binkowski",
+      "Ricardo Barreira",
+      "Oriol Vinyals",
+      "Andrew Zisserman",
+      "Karen Simonyan"
+    ],
+    "affiliations": [
+      "DeepMind"
+    ],
+    "placed": [
+      [
+        "Jean-Baptiste Alayrac",
+        [
+          "DeepMind"
+        ]
+      ],
+      [
+        "Jeff Donahue",
+        [
+          "DeepMind"
+        ]
+      ],
+      [
+        "Pauline Luc",
+        [
+          "DeepMind"
+        ]
+      ],
+      [
+        "Antoine Miech",
+        [
+          "DeepMind"
+        ]
+      ],
+      [
+        "Iain Barr",
+        [
+          "DeepMind"
+        ]
+      ],
+      [
+        "Yana Hasson",
+        [
+          "DeepMind"
+        ]
+      ],
+      [
+        "Karel Lenc",
+        [
+          "DeepMind"
+        ]
+      ],
+      [
+        "Arthur Mensch",
+        [
+          "DeepMind"
+        ]
+      ],
+      [
+        "Katie Millican",
+        [
+          "DeepMind"
+        ]
+      ],
+      [
+        "Malcolm Reynolds",
+        [
+          "DeepMind"
+        ]
+      ],
+      [
+        "Roman Ring",
+        [
+          "DeepMind"
+        ]
+      ],
+      [
+        "Eliza Rutherford",
+        [
+          "DeepMind"
+        ]
+      ],
+      [
+        "Serkan Cabi",
+        [
+          "DeepMind"
+        ]
+      ],
+      [
+        "Tengda Han",
+        [
+          "DeepMind"
+        ]
+      ],
+      [
+        "Zhitao Gong",
+        [
+          "DeepMind"
+        ]
+      ],
+      [
+        "Sina Samangooei",
+        [
+          "DeepMind"
+        ]
+      ],
+      [
+        "Marianne Monteiro",
+        [
+          "DeepMind"
+        ]
+      ],
+      [
+        "Jacob Menick",
+        [
+          "DeepMind"
+        ]
+      ],
+      [
+        "Sebastian Borgeaud",
+        [
+          "DeepMind"
+        ]
+      ],
+      [
+        "Andrew Brock",
+        [
+          "DeepMind"
+        ]
+      ],
+      [
+        "Aida Nematzadeh",
+        [
+          "DeepMind"
+        ]
+      ],
+      [
+        "Sahand Sharifzadeh",
+        [
+          "DeepMind"
+        ]
+      ],
+      [
+        "Mikolaj Binkowski",
+        [
+          "DeepMind"
+        ]
+      ],
+      [
+        "Ricardo Barreira",
+        [
+          "DeepMind"
+        ]
+      ],
+      [
+        "Oriol Vinyals",
+        [
+          "DeepMind"
+        ]
+      ],
+      [
+        "Andrew Zisserman",
+        [
+          "DeepMind"
+        ]
+      ],
+      [
+        "Karen Simonyan",
+        [
+          "DeepMind"
+        ]
+      ]
+    ],
+    "abstract": "Building models that can be rapidly adapted to novel tasks using only a handful of annotated examples is an open challenge for multimodal machine learning research. We introduce Flamingo, a family of Visual Language Models (VLM) with this ability. We propose key architectural innovations to: (i) bridge powerful pretrained vision-only and language-only models, (ii) handle sequences of arbitrarily interleaved visual and textual data, and (iii) seamlessly ingest images or videos as inputs. Thanks to their flexibility, Flamingo models can be trained on large-scale multimodal web corpora containing arbitrarily interleaved text and images, which is key to endow them with in-context few-shot learning capabilities. We perform a thorough evaluation of our models, exploring and measuring their ability to rapidly adapt to a variety of image and video tasks. These include open-ended tasks such as visual question-answering, where the model is prompted with a question which it has to answer; captioning tasks, which evaluate the ability to describe a scene or an event; and close-ended tasks such as multiple-choice visual question-answering. For tasks lying anywhere on this spectrum, a single Flamingo model can achieve a new state of the art with few-shot learning, simply by prompting the model with task-specific examples. On numerous benchmarks, Flamingo outperforms models fine-tuned on thousands of times more task-specific data."
+  },
+  "2107.08430": {
+    "authors": [
+      "Zheng Ge",
+      "Songtao Liu",
+      "Feng Wang",
+      "Zeming Li",
+      "Jian Sun"
+    ],
+    "affiliations": [
+      "Megvii Technology"
+    ],
+    "placed": [
+      [
+        "Zheng Ge",
+        [
+          "Megvii Technology"
+        ]
+      ],
+      [
+        "Songtao Liu",
+        [
+          "Megvii Technology"
+        ]
+      ],
+      [
+        "Feng Wang",
+        [
+          "Megvii Technology"
+        ]
+      ],
+      [
+        "Zeming Li",
+        [
+          "Megvii Technology"
+        ]
+      ],
+      [
+        "Jian Sun",
+        [
+          "Megvii Technology"
+        ]
+      ]
+    ],
+    "abstract": "In this report, we present some experienced improvements to YOLO series, forming a new high-performance detector — YOLOX. We switch the YOLO detector to an anchor-free manner and conduct other advanced detection techniques, i.e., a decoupled head and the leading label assignment strategy SimOTA to achieve state-of-the-art results across a large scale range of models: For YOLO-Nano with only 0.91M parameters and 1.08G FLOPs, we get 25.3% AP on COCO, surpassing NanoDet by 1.8% AP; for YOLOv3, one of the most widely used detectors in industry, we boost it to 47.3% AP on COCO, outperforming the current best practice by 3.0% AP; for YOLOX-L with roughly the same amount of parameters as YOLOv4-CSP, YOLOv5-L, we achieve 50.0% AP on COCO at a speed of 68.9 FPS on Tesla V100, exceeding YOLOv5-L by 1.8% AP. Further, we won the 1st Place on Streaming Perception Challenge (Workshop on Autonomous Driving at CVPR 2021) using a single YOLOX-L model. We hope this report can provide useful experience for developers and researchers in practical scenes, and we also provide deploy versions with ONNX, TensorRT, NCNN, and Openvino supported. Source code is at https://github.com/Megvii-BaseDetection/YOLOX."
   }
 }

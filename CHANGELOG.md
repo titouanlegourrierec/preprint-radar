@@ -71,7 +71,10 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
   (AFF-37).
 - Affiliations are read from pages that raise their markers by style ("¹ NVIDIA ² MIT"), or
   set them in a row apart in wide spaces beside a note ("Meta AI Research  WRI  Inria",
-  DINOv3) (AFF-37).
+  DINOv3), behind symbols without an institution's word ("⋆Facebook AI †Sorbonne
+  University", DeiT), behind a contribution note glued to them ("Equal senior
+  contributionsDeepMind", Flamingo) or glued to the last of several names ("Jian
+  SunMegvii Technology", YOLOX) (AFF-37).
 - An institution's unit written with its acronym ("KAIST AI", "CUHK MMLab", "ETH AI
   Center") is the institution, one node of the graph and one row of Rankings (AFF-36).
 - Affiliations no longer hold LaTeX commands ("\\affilnum1", "\\authormark2", "Φ\\Phi") nor

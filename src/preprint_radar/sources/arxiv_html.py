@@ -22,7 +22,7 @@ from preprint_radar.latex import plain_text
 
 logger = logging.getLogger(__name__)
 
-EXTRACTOR_VERSION = 15
+EXTRACTOR_VERSION = 16
 """Version of the extraction heuristics of this module, stored with the affiliations they give.
 
 Bump it with any change that alters what a page gives (affiliations, author mapping), so
@@ -97,8 +97,8 @@ that ``reextract`` reads those papers again, from the page cache when it holds t
 _SEPARATOR_RE = re.compile(r"\n|\u2003|\s{2,}")
 # Contact details and footnotes that are not affiliations.
 _NOISE_RE = re.compile(
-    r"@|https?://|www\.|equal(ly)? contribut|contributed equally|correspond|work done|project lead"
-    r"|senior author|first author|co-first|joint first|equal advising|internship"
+    r"@|https?://|www\.|equal(ly)?(?: senior)? contribut|contributed equally|correspond|work done"
+    r"|project lead|senior author|first author|co-first|joint first|equal advising|internship"
     # Phone numbers and an author's placeholder: "Tel.: +49 ...", "TODO: X's affiliation".
     r"|\btel\.?\s*:|\bfax\s*:|\btodo\b"
     # The example authors of ICLR's and NeurIPS's templates, left in by some: "Department of
@@ -106,6 +106,11 @@ _NOISE_RE = re.compile(
     # the Witwatersrand, Joburg" (2610.27759), not the real one's "Johannesburg" (2405.01828).
     r"|cranberry-lemon|witwatersrand,?\s+joburg",
     re.IGNORECASE,
+)
+# A contribution note LaTeXML glued to the affiliation after it, which the note's noise
+# would drop whole: "Equal senior contributionsDeepMind" (ar5iv's 2204.14198).
+_GLUED_NOTE_RE = re.compile(
+    r"^\W*equal(?:ly)?\s+(?:senior\s+)?contribut(?:ions?|ors?)(?-i:(?=[A-Z]))", re.IGNORECASE
 )
 # The vertical space of a LaTeX line break (\\[5pt]), which LaTeXML prints as text.
 _LATEX_SPACE_RE = re.compile(r"\[\s*-?\d*\.?\d+\s*(?:pt|em|ex|mm|cm|in|bp|pc|mu)\s*\]")
@@ -378,6 +383,10 @@ _SENTENCE_WORD_RE = re.compile(
     r"|grants?|projects?|contribut\w*|correspond\w*|equal\w*|e-?mail|thanks?|acknowledg\w*"
     r"|submitted|accepted|published|copyright|now)\b",
     re.IGNORECASE,
+)
+# What a symbol's note says of its people, and an affiliation does not: "‡Intern", "§Team lead".
+_ROLE_RE = re.compile(
+    r"\b(?:interns?|lead(?:er)?s?|advis\w*|supervis\w*|students?|authors?|mentors?)\b", re.IGNORECASE
 )
 # A web domain alone, whose "lab" is no laboratory: "jzlab.org" (2610.00751).
 _DOMAIN_RE = re.compile(r"[\w-]+(?:\.[\w-]+)+")
@@ -785,12 +794,25 @@ def _leading_marker(name: Tag) -> Tag | None:
 
 
 def _glued_affiliations(block: Tag, authors: Sequence[str]) -> list[str]:
-    """The affiliations LaTeXML glued to their author's name (:func:`_glued_name`)."""
+    """The affiliations LaTeXML glued to their author's name (:func:`_glued_name`).
+
+    The last name of a creator holding several counts too: "Zheng Ge    Songtao Liu    Feng
+    Wang    Zeming Li    Jian SunMegvii Technology" (ar5iv's 2107.08430).
+    """
     return [
         glued[1]
         for name in block.select("span.ltx_creator.ltx_role_author .ltx_personname")
-        if (glued := _glued_name(_plain_text(name), authors)) is not None
+        if (glued := _glued_name(_after_names(_plain_text(name), authors), authors)) is not None
     ]
+
+
+def _after_names(text: str, authors: Sequence[str]) -> str:
+    """The text after the authors' names it starts with, each followed by a space."""
+    while author := next(
+        (author for author in authors if _fold(text[: len(author) + 1]) == f"{_fold(author)} "), None
+    ):
+        text = text[len(author) + 1 :]
+    return text
 
 
 def _glued_name(name: str, authors: Sequence[str]) -> tuple[str, str] | None:
@@ -818,9 +840,11 @@ def _symbol_affiliations(block: Tag) -> list[str]:
     """Affiliation lines led by symbol markers in a free-form block: "*Oregon State University".
 
     2610.17605 marks its four affiliations "*", "†", "‡" and "§". Symbols mark notes too
-    ("*Equal contribution", "†Now at Google"): the lines count only when each one that is
-    not noise names an institution, as numbered footnotes must (:func:`_footnote_affiliations`).
-    Nor when one ends with a symbol: the block's markers follow their affiliations, and
+    ("*Equal contribution", "†Now at Google"): the lines that are not noise count only when
+    at least half name an institution, as numbered footnotes must
+    (:func:`_footnote_affiliations`), and the others are no sentence nor role ("†Now at
+    Google", "‡Intern"): "⋆Facebook AI †Sorbonne University" (ar5iv's 2012.12877). Nor when
+    one ends with a symbol: the block's markers follow their affiliations, and
     "Independent§University of Waterloo¶" is not "University of Waterloo" marked "§"
     (2505.11293).
     """
@@ -828,7 +852,10 @@ def _symbol_affiliations(block: Tag) -> list[str]:
     kept = [line for line in lines if not _NOISE_RE.search(line)]
     if any(line.endswith(tuple(_SYMBOL_MARKERS)) for line in lines):
         return []
-    return kept if all(_INSTITUTION_WORD_RE.search(line) for line in kept) else []
+    named = [line for line in kept if _INSTITUTION_WORD_RE.search(line)]
+    if any(_SENTENCE_WORD_RE.search(line) or _ROLE_RE.search(line) for line in kept if line not in named):
+        return []
+    return kept if 2 * len(named) >= len(kept) else []
 
 
 def _unmarked_affiliations(block: Tag, authors: Sequence[str]) -> tuple[list[str], bool]:
@@ -1383,7 +1410,7 @@ def clean_affiliation(text: str) -> str | None:
     string holding several affiliations is split first, by :func:`clean_affiliations`.
     """
     text = _TEX_SOURCE_RE.sub("", _MACRO_RE.sub("", text.replace("\xa0", " ")))
-    text = _CONTACT_TAIL_RE.sub("", _AFFILIATIONS_NOTE_RE.sub("", text))
+    text = _CONTACT_TAIL_RE.sub("", _AFFILIATIONS_NOTE_RE.sub("", _GLUED_NOTE_RE.sub("", text)))
     text = _MAILBOX_LIST_RE.sub(" ", _OBFUSCATED_EMAIL_RE.sub(" ", text))
     text = _EMPTY_BRACKETS_RE.sub(" ", _LINK_LABEL_RE.sub(" ", _LATEX_SPACE_RE.sub(" ", text)))
     if _NOISE_RE.search(text):

@@ -1,0 +1,27 @@
+<html><body><article class="ltx_document" data-front-matter="2">
+<h1 class="ltx_title ltx_title_document">Training data-efficient image transformers 
+<br class="ltx_break"/>&amp; distillation through attention</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">
+<span class="ltx_inline-block ltx_minipage ltx_align_middle" id="id1" style="width:345.0pt;">
+<span class="ltx_p ltx_align_center" id="id1.1"><span class="ltx_text" id="id1.1.1" style="font-size:120%;">Hugo Touvron<sup class="ltx_sup" id="id1.1.1.1"><span class="ltx_text ltx_font_italic" id="id1.1.1.1.1">⋆,†</span></sup>   Matthieu Cord<sup class="ltx_sup" id="id1.1.1.2"><span class="ltx_text ltx_font_italic" id="id1.1.1.2.1">†</span></sup>   Matthijs Douze<sup class="ltx_sup" id="id1.1.1.3"><span class="ltx_text ltx_font_italic" id="id1.1.1.3.1">⋆</span></sup>
+<br class="ltx_break"/>
+Francisco Massa<sup class="ltx_sup" id="id1.1.1.4"><span class="ltx_text ltx_font_italic" id="id1.1.1.4.1">⋆</span></sup>  
+Alexandre Sablayrolles<sup class="ltx_sup" id="id1.1.1.5"><span class="ltx_text ltx_font_italic" id="id1.1.1.5.1">⋆</span></sup>   Hervé Jégou<sup class="ltx_sup" id="id1.1.1.6"><span class="ltx_text ltx_font_italic" id="id1.1.1.6.1">⋆</span></sup>
+<br class="ltx_break"/>
+<span class="ltx_inline-block ltx_transformed_outer" id="id1.1.1.7" style="width:200.0pt;height:12.5pt;vertical-align:-2.3pt;"><span class="ltx_transformed_inner" style="transform:translate(0.0pt,0.0pt) scale(1.0,1.0) ;">
+<span class="ltx_p" id="id1.1.1.7.1"><sup class="ltx_sup" id="id1.1.1.7.1.1">⋆</sup>Facebook AI   <sup class="ltx_sup" id="id1.1.1.7.1.2">†</sup>Sorbonne University</span>
+</span></span>
+<br class="ltx_break"/></span></span>
+</span>
+</span></span></div>
+<div class="ltx_dates"> </div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Recently, neural networks purely based on attention were shown to address image understanding tasks such as image classification. These high-performing vision transformers are pre-trained with hundreds of millions of images using a large infrastructure, thereby limiting their adoption.</p>
+<p class="ltx_p" id="abstract1.2">In this work, we produce competitive convolution-free transformers by training on Imagenet only. We train them on a single computer in less than 3 days.
+Our reference vision transformer (86M parameters) achieves top-1 accuracy of 83.1% (single-crop) on ImageNet with no external data.</p>
+<p class="ltx_p" id="abstract1.3">More importantly, we introduce a teacher-student strategy specific to transformers. It relies on a distillation token ensuring that the student learns from the teacher
+through attention. We show the interest of this token-based distillation, especially when using a convnet as a teacher. This leads us to report results competitive with convnets for both Imagenet (where we obtain up to 85.2% accuracy) and when transferring to other tasks. We share our code and models.</p>
+</div>
+</article></body></html>
