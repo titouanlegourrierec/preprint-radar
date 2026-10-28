@@ -5277,17 +5277,69 @@
    "cross_list_from": "cs.RO",
    "html_url": null,
    "abstract": "Embodied Visual Tracking (EVT) is a fundamental ability that underpins practical applications, such as companion robots, guidance robots and service assistants, where continuously following moving targets is essential. Recent advances have enabled language-guided tracking in complex and unstructured scenes. However, existing approaches lack explicit spatial reasoning and effective temporal memory, causing failures under severe occlusions or in the presence of similar-looking distractors. To address these challenges, we present TrackVLA++, a novel Vision-Language-Action (VLA) model that enhances embodied visual tracking with two key modules, a spatial reasoning mechanism and a Target Identification Memory (TIM). The reasoning module introduces a Chain-of-Thought paradigm, termed Polar-CoT, which infers the target's relative position and encodes it as a compact polar-coordinate token for action prediction. Guided by these spatial priors, the TIM employs a gated update strategy to preserve long-horizon target memory, ensuring spatiotemporal consistency and mitigating target loss during extended occlusions. Extensive experiments show that TrackVLA++ achieves state-of-the-art performance on public benchmarks across both egocentric and multi-camera settings. On the challenging EVT-Bench DT split, TrackVLA++ surpasses the previous leading approach by 5.1 and 12, respectively. Furthermore, TrackVLA++ exhibits strong zero-shot generalization, enabling robust real-world tracking in dynamic and occluded scenarios.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Peking University",
+    "University of Science and Technology of China",
+    "Beihang University",
+    "Southern University of Science and Technology",
+    "Beijing Normal University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     3
+    ],
+    [
+     1
+    ],
+    [
+     4
+    ],
+    null,
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Peking University",
+    "University of Science and Technology of China",
+    "Beihang University",
+    "Southern University of Science and Technology",
+    "Beijing Normal University"
+   ],
+   "institution_ids": [
+    "02v51f717",
+    "04c4dkn09",
+    "00wk2mp56",
+    "049tv2d57",
+    "022k4wk35"
+   ],
    "provenance": {
     "affiliations": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-28"
     },
     "institutions": {
      "source": "openalex",
-     "at": "2026-10-18"
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2510.07134",
@@ -71983,12 +72035,29 @@
     "Department of Mechanical and Nuclear Engineering, Khalifa University, Abu Dhabi, 127788, United Arab Emirates"
    ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "King Fahd University of Petroleum and Minerals",
+    "Al-Ahliyya Amman University",
+    "King Fahd University of Petroleum and Minerals",
+    "Ollscoil na Gaillimhe – University of Galway",
+    "Khalifa University of Science and Technology"
+   ],
+   "institution_ids": [
+    "03yez3163",
+    "00xddhq60",
+    "03yez3163",
+    "03bea9k73",
+    "05hffr360"
+   ],
    "extractor": 7,
    "provenance": {
     "affiliations": {
      "source": "html",
      "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2505.14715",
@@ -101437,12 +101506,31 @@
      3
     ]
    ],
-   "institutions": null,
+   "institutions": [
+    "IBM",
+    "ETH Zurich",
+    "Forschungszentrum Jülich",
+    "European Space Agency",
+    "NASA IMPACT",
+    "University of Iceland"
+   ],
+   "institution_ids": [
+    null,
+    "05a28rw58",
+    "02nv7yv05",
+    "03wd9za21",
+    null,
+    "01db6h964"
+   ],
    "extractor": 7,
    "provenance": {
     "affiliations": {
      "source": "html",
      "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2504.11171",
@@ -137305,12 +137393,21 @@
      0
     ]
    ],
-   "institutions": null,
+   "institutions": [
+    "Pittsburgh"
+   ],
+   "institution_ids": [
+    null
+   ],
    "extractor": 7,
    "provenance": {
     "affiliations": {
      "source": "html",
      "at": "2026-10-08"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2502.10841",
@@ -141639,18 +141736,37 @@
    "journal_ref": null,
    "venue": "RSS 2025",
    "cross_list_from": "cs.RO",
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2502.19645v1",
    "abstract": "Recent vision-language-action models (VLAs) build upon pretrained vision-language models and leverage diverse robot datasets to demonstrate strong task execution, language following ability, and semantic generalization. Despite these successes, VLAs struggle with novel robot setups and require fine-tuning to achieve good performance, yet how to most effectively fine-tune them is unclear given many possible strategies. In this work, we study key VLA adaptation design choices such as different action decoding schemes, action representations, and learning objectives for fine-tuning, using OpenVLA as our representative base model. Our empirical analysis informs an Optimized Fine-Tuning (OFT) recipe that integrates parallel decoding, action chunking, a continuous action representation, and a simple L1 regression-based learning objective to altogether improve inference efficiency, policy performance, and flexibility in the model's input-output specifications. We propose OpenVLA-OFT, an instantiation of this recipe, which sets a new state of the art on the LIBERO simulation benchmark, significantly boosting OpenVLA's average success rate across four task suites from 76.5% to 97.1% while increasing action generation throughput by 26×. In real-world evaluations, our fine-tuning recipe enables OpenVLA to successfully execute dexterous, high-frequency control tasks on a bimanual ALOHA robot and outperform other VLAs ($π_0$ and RDT-1B) fine-tuned using their default recipes, as well as strong imitation learning policies trained from scratch (Diffusion Policy and ACT) by up to 15% (absolute) in average success rate. We release code for OFT and pretrained model checkpoints at https://openvla-oft.github.io/.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Stanford University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Stanford University"
+   ],
+   "institution_ids": [
+    "00f54p054"
+   ],
+   "extractor": 15,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2502.19645",
