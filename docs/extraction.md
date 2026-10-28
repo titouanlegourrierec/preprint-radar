@@ -30,7 +30,12 @@ whose arXiv id is the evidence: never "simplify" one away without it.
   another author's name ("Huy V. VoMaximilian SeitzerFederico Baldassarre...", 2508.10104).
 - `ltx_note`s of roles `address`, `institutetext` and `affiliation`, anywhere (Taylor &
   Francis' lettered list after the abstract, 2610.15403; BMVC's one institution, without
-  saying whose, 2608.29904), and the article's own `footnotetext` notes led by a marker.
+  saying whose, 2608.29904), and the article's own `footnotetext` notes led by a marker:
+  those that name an institution in every piece, or whose pieces up to their
+  correspondence sentence, those that clean to nothing aside, qualify as a thanks note's
+  list (below): ICML's notice, "¹University of Tübingen. ²KAIST AI. Correspondence to: …",
+  where "KAIST AI" names none and the correspondence ends the last piece (2610.35857,
+  2610.35706, AFF-34). Its markers anchor the same pieces.
 - Numbered lines after the names.
 - Lines led by symbols ("*Oregon State University †The Ohio State University", 2610.17605)
   when each one that is not noise names an institution, symbols marking notes too ("†Now

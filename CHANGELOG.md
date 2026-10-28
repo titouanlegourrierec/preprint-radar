@@ -49,6 +49,12 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
 - When nothing matches in Highly cited, it offers its other years, its last 12 months and a
   search of every stored paper, as Papers does (UX-55).
 
+### Pipeline
+
+- Affiliations listed in ICML's footnote ("¹University of Tübingen. ²KAIST AI.
+  Correspondence to: …") are read, and their authors placed; the daily run reads the pages
+  again from its cache (AFF-34).
+
 ## 1.0.0 (2026-10-27): a documented data format, and a repository ready to be public
 
 The first stable release: every file of `data/` and every field of its records is

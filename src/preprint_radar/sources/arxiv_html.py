@@ -22,7 +22,7 @@ from preprint_radar.latex import plain_text
 
 logger = logging.getLogger(__name__)
 
-EXTRACTOR_VERSION = 12
+EXTRACTOR_VERSION = 13
 """Version of the extraction heuristics of this module, stored with the affiliations they give.
 
 Bump it with any change that alters what a page gives (affiliations, author mapping), so
@@ -72,6 +72,10 @@ that ``reextract`` reads those papers again, from the page cache when it holds t
 - 12: a run of markers with nothing between them marks the text after them all: version
   11 placed only the last author of "*†‡ Y. Yang and J. Bos are with ..." (2610.13891,
   2610.13872), where version 9 placed both (AFF-33).
+- 13: a numbered footnote whose pieces do not all name an institution gives them up to its
+  correspondence sentence when they qualify as a thanks note's list, and its markers anchor
+  them: ICML's notice, "¹University of Tübingen. ²KAIST AI. Correspondence to: …", gave
+  nothing (2610.35857, 2610.35706) (AFF-34).
 """
 
 # LaTeXML renders line breaks and \quad between affiliations as newlines, em spaces
@@ -331,6 +335,13 @@ _SENTENCE_WORD_RE = re.compile(
 )
 # A web domain alone, whose "lab" is no laboratory: "jzlab.org" (2610.00751).
 _DOMAIN_RE = re.compile(r"[\w-]+(?:\.[\w-]+)+")
+# Where a footnote's affiliations end: its correspondence sentence, after which it lists
+# people and addresses ("¹University of Tübingen. ²KAIST AI. Correspondence to Ankit
+# Sonthalia <...>.", ICML's notice, 2610.35857), its mark perhaps before ("🖂 Corresponding
+# Authors.", 2609.23796).
+_CORRESPONDENCE_RE = re.compile(
+    r"(?:^|(?<=[.;:]))\s*\W?\s*Correspond(?:ence|ing)\b.*", re.IGNORECASE | re.DOTALL
+)
 
 type AuthorAffiliations = tuple[tuple[int, ...] | None, ...]
 """Per author, the indices of their affiliations; ``None`` when unknown for that author."""
@@ -819,8 +830,13 @@ def _note_segments(note: Tag) -> list[str]:
 def _footnote_affiliations(note: Tag) -> list[str]:
     """Numbered affiliations in a footnote next to the author list, e.g. "¹School of AI, Wuhan University".
 
-    Only footnotes that start with a marker and consist of institutions qualify, as other
-    footnotes of the front matter say anything ("This work has been submitted to...").
+    Only footnotes that start with a marker qualify, as other footnotes of the front matter
+    say anything ("This work has been submitted to..."): those that consist of
+    institutions, or whose pieces up to their correspondence sentence, those that clean to
+    nothing aside ("Equal contribution", a project page), qualify as a thanks note's list
+    does (:func:`_listed_affiliations`): ICML's notice, "¹University of Tübingen. ²KAIST
+    AI. Correspondence to: …" (2610.35857, 2610.35706), where "KAIST AI" names no
+    institution and the correspondence ends the last piece.
     """
     content = note.select_one(".ltx_note_content")
     if content is None:
@@ -831,7 +847,19 @@ def _footnote_affiliations(note: Tag) -> list[str]:
     if not isinstance(first, Tag) or first.name != "sup":
         return []
     segments = _segments(content)
-    return segments if all(_INSTITUTION_WORD_RE.search(segment) for segment in segments) else []
+    if all(_INSTITUTION_WORD_RE.search(segment) for segment in segments):
+        return segments
+    pieces: list[str] = []
+    for segment in segments:
+        kept = _CORRESPONDENCE_RE.sub("", segment)
+        if clean_affiliations(kept):
+            pieces.append(kept.strip(" ,;."))
+        if kept != segment:
+            break
+    if not pieces or any(_SENTENCE_WORD_RE.search(piece) or _DOMAIN_RE.fullmatch(piece) for piece in pieces):
+        return []
+    named = [piece for piece in pieces if _INSTITUTION_WORD_RE.search(piece) or _ADDRESS_END_RE.search(piece)]
+    return pieces if 2 * len(named) >= len(pieces) else []
 
 
 def _note_text(note: Tag) -> str:
@@ -1496,9 +1524,13 @@ def _anchors(soup: BeautifulSoup, block: Tag, index_of: Mapping[str, int]) -> di
         if indices := _anchored(candidate, index_of):
             anchors.setdefault(marker.strip(), indices)
 
+    footnotes = set(article.find_all("span", class_="ltx_role_footnotetext", recursive=False))
     for node in [*nodes, *thanks]:
         label = node.select_one(".ltx_note_mark") if node not in thanks else None
         marked = _marked_text(_pruned(node))
+        if node in footnotes:
+            # Its last affiliation ends where its correspondence starts (2610.35857).
+            marked = _CORRESPONDENCE_RE.sub("", marked)
         # Markers may lead ("¹ETH Zurich") or trail ("Tampere University¹") their
         # affiliation: keep the orientation that explains more of the node.
         leading = [

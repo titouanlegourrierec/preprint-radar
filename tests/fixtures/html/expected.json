@@ -2675,5 +2675,75 @@
       ]
     ],
     "abstract": "Light Detection and Ranging (LiDAR) is critical for autonomous perception, yet its performance is known to degrade in adverse weather. While existing literature models snow as atmospheric noise that degrades performance, our granular evaluation on the WADS-3D and CADC datasets reveals a counter-intuitive phenomenon: detection accuracy consistently improves as snow intensity increases. Through ablation study and meta-information analysis, we reconcile this by confirming that while falling snow acts as noise, its negative impact is outweighed by a dominant, concurrent factor: significantly increased object point count. We hypothesize that this object point count boost acts as a geometric enhancement, driven by snow accumulation increasing vehicle surface area and a shift from specular to diffuse reflectance. Our findings demonstrate that evaluating perception systems using broad weather-severity bins without accounting for correlated object-level data can lead to misleading conclusions about detector robustness. We conclude that accurate evaluation requires decoupling atmospheric noise from surface accumulation effects and outline future research to validate these physical models. The WADS-3D dataset is available at: https://digitalcommons.mtu.edu/wads-3d/."
+  },
+  "2610.35857": {
+    "authors": [
+      "Ankit Sonthalia",
+      "Arnas Uselis",
+      "Seong Joon Oh"
+    ],
+    "affiliations": [
+      "University of Tübingen",
+      "KAIST AI"
+    ],
+    "placed": [
+      [
+        "Ankit Sonthalia",
+        [
+          "University of Tübingen"
+        ]
+      ],
+      [
+        "Arnas Uselis",
+        [
+          "University of Tübingen"
+        ]
+      ],
+      [
+        "Seong Joon Oh",
+        [
+          "KAIST AI"
+        ]
+      ]
+    ],
+    "abstract": "Do vision models encode the transition $2{→}3$ the same way whether it appears in handwritten digits or in hand gestures, and do they “understand” that clean${→}$dirty is the same transformation regardless of whether it is applied to a kitchen or a carpet? The linear representation hypothesis (LRH) answers this for language models: concept changes correspond to directions in (language) embedding space. In vision, the same concept can manifest in visually unrelated regimes that rarely co-occur: images of digits and hands do not share much in common in pixel space. To understand whether vision models still encode the underlying abstract concepts, we study 46 vision encoders across architectures, training objectives, and scales, on 10 concept families including numerosity, age, object identity, and MIT-States attributes. Within each regime, we find statistically significant concept directions near-universally across our tested models. However, two distinct regimes do not always share the same concept direction. Several models learn multiple linear structures for the same concept transition, split across regimes. We call this phenomenon fragmented linearity: strong local linearity coexisting with near-absent global linearity. Fragmentation is, however, not fixed: models with stronger local linearity progressively escape it (local-global linearity correlated with τ∈[0.38,0.89] across all concepts), and where global linearity does emerge, concept directions can transfer as linear probes across regimes."
+  },
+  "2610.35706": {
+    "authors": [
+      "Yeonjae Kim",
+      "Omin Kwon",
+      "Seong Hoon Seo",
+      "Jae W. Lee"
+    ],
+    "affiliations": [
+      "Department of Computer Science and Engineering, Seoul National University, Seoul, Republic of Korea"
+    ],
+    "placed": [
+      [
+        "Yeonjae Kim",
+        [
+          "Department of Computer Science and Engineering, Seoul National University, Seoul, Republic of Korea"
+        ]
+      ],
+      [
+        "Omin Kwon",
+        [
+          "Department of Computer Science and Engineering, Seoul National University, Seoul, Republic of Korea"
+        ]
+      ],
+      [
+        "Seong Hoon Seo",
+        [
+          "Department of Computer Science and Engineering, Seoul National University, Seoul, Republic of Korea"
+        ]
+      ],
+      [
+        "Jae W. Lee",
+        [
+          "Department of Computer Science and Engineering, Seoul National University, Seoul, Republic of Korea"
+        ]
+      ]
+    ],
+    "abstract": "Attention over tens of thousands of visual tokens dominates the inference of video diffusion transformers (DiTs). Existing methods reduce this cost through sparsity, low precision, or both, but use a single precision for all kept tiles. We observe that the output error introduced by approximation varies widely across tiles. Many tiles can be skipped with little error, others must be computed but gain little beyond low precision, and a few retain substantial error even at low precision. We present Triage, a training-free attention method that assigns each tile one of three approximation tiers: skipping it by replacing it with its block means, skimming it in NVFP4, or refining it with NVFP4 residual correction. A lightweight router predicts each tile’s error under each tier from block statistics and moves a tile to a more accurate tier only when the predicted error reduction justifies the extra compute, with a single price setting this trade-off. A fused kernel executes all three tiers in a single pass on the FP4 tensor cores of RTX Blackwell GPUs. Across Wan2.2, HunyuanVideo, and LTX-2.5, Triage accelerates end-to-end generation by up to 2.32× over dense FlashAttention, and in each of five settings it runs faster than every baseline while reaching 0.3–3.0 dB higher PSNR than the highest-PSNR baseline."
   }
 }

@@ -1,0 +1,41 @@
+<html><body><article class="ltx_document" data-front-matter="2">
+<div class="ltx_para ltx_noindent" id="p1">
+<p class="ltx_p" id="p1.1">marginparsep has been altered.
+<br class="ltx_break"/>topmargin has been altered.
+<br class="ltx_break"/>marginparwidth has been altered.
+<br class="ltx_break"/>marginparpush has been altered.
+<br class="ltx_break"/></p>
+</div>
+<div class="ltx_para ltx_noindent" id="p2">
+<p class="ltx_p" id="p2.1"><span class="ltx_text ltx_font_bold ltx_font_italic" id="p2.1.1">The page layout violates the ICML style.</span></p>
+</div>
+<div class="ltx_para ltx_noindent" id="p3">
+<p class="ltx_p" id="p3.1">Please do not change the page layout, or include packages like geometry,
+savetrees, or fullpage, which change it for you.</p>
+</div>
+<div class="ltx_para ltx_noindent" id="p4">
+<p class="ltx_p" id="p4.1">We’re not able to reliably undo arbitrary changes to the style. Please remove
+the offending package(s), or layout-changing commands and try again.</p>
+</div><span class="ltx_rule ltx_align_center" style="width:100%;height:2.0pt;--ltx-bg-color:black;display:inline-block;"> </span>
+<div class="ltx_para ltx_noindent ltx_align_center" id="p5">
+<p class="ltx_p" id="p5.1"><span class="ltx_text ltx_font_smallcaps" id="p5.1.1">Triage: Skip, Skim, or Refine Attention Tiles
+<br class="ltx_break"/>in Video Diffusion Transformers</span></p>
+</div><span class="ltx_rule ltx_align_center" style="width:100%;height:1.0pt;--ltx-bg-color:black;display:inline-block;"> </span>
+<div class="ltx_para" id="p6">
+<p class="ltx_p ltx_align_center" id="p6.1"><span class="ltx_text ltx_font_bold" id="p6.1.1">Yeonjae Kim</span> <sup class="ltx_sup" id="p6.1.2">1 </sup>
+<span class="ltx_text ltx_font_bold" id="p6.1.3">Omin Kwon</span> <sup class="ltx_sup" id="p6.1.4">1 </sup>
+<span class="ltx_text ltx_font_bold" id="p6.1.5">Seong Hoon Seo</span> <sup class="ltx_sup" id="p6.1.6">1 </sup>
+<span class="ltx_text ltx_font_bold" id="p6.1.7">Jae W. Lee</span> <sup class="ltx_sup" id="p6.1.8">1 </sup></p>
+</div><span class="ltx_note ltx_role_footnotetext" id="footnotex1"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup><span class="ltx_note_type">footnotetext: </span><sup class="ltx_sup" id="footnotex1.1">1</sup>Department of Computer Science and Engineering, Seoul National University, Seoul, Republic of Korea.
+Correspondence to: Jae W. Lee &lt;author@example.org&gt;.</span></span></span>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Attention over tens of thousands of visual tokens dominates the inference of video diffusion transformers (DiTs).
+Existing methods reduce this cost through sparsity, low precision, or both, but use a single precision for all kept tiles.
+We observe that the output error introduced by approximation varies widely across tiles.
+Many tiles can be skipped with little error, others must be computed but gain little beyond low precision, and a few retain substantial error even at low precision.
+We present <span class="ltx_text ltx_font_smallcaps" id="abstract1.1.1">Triage</span>, a training-free attention method that assigns each tile one of three approximation tiers: <em class="ltx_emph ltx_font_italic" id="abstract1.1.2">skipping</em> it by replacing it with its block means, <em class="ltx_emph ltx_font_italic" id="abstract1.1.3">skimming</em> it in NVFP4, or <em class="ltx_emph ltx_font_italic" id="abstract1.1.4">refining</em> it with NVFP4 residual correction.
+A lightweight router predicts each tile’s error under each tier from block statistics and moves a tile to a more accurate tier only when the predicted error reduction justifies the extra compute, with a single price setting this trade-off.
+A fused kernel executes all three tiers in a single pass on the FP4 tensor cores of RTX Blackwell GPUs.
+Across Wan2.2, HunyuanVideo, and LTX-2.5, <span class="ltx_text ltx_font_smallcaps" id="abstract1.1.5">Triage</span> accelerates end-to-end generation by up to 2.32<math alttext="\times" class="ltx_Math" display="inline" id="abstract1.m1" intent=":literal"><semantics><mo>×</mo><annotation encoding="application/x-tex">\times</annotation></semantics></math> over dense FlashAttention, and in each of five settings it runs faster than every baseline while reaching 0.3–3.0 dB higher PSNR than the highest-PSNR baseline.</p>
+</div>
+</article></body></html>

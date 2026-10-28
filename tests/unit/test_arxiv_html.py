@@ -724,6 +724,36 @@ def test_mapping_needs_the_author_list(paper_html: PaperHtml) -> None:
     assert parse_front_matter(paper_html("2609.30234")).author_affiliations is None
 
 
+def test_reads_numbered_footnotes_up_to_their_correspondence(paper_html: PaperHtml) -> None:
+    # ICML's notice: "¹University of Tübingen. ²KAIST AI. Correspondence to ...", where
+    # "KAIST AI" names no institution and the correspondence ends its piece.
+    authors = ("Ankit Sonthalia", "Arnas Uselis", "Seong Joon Oh")
+    front = parse_front_matter(paper_html("2610.35857"), authors=authors)
+
+    assert front.affiliations == ("University of Tübingen", "KAIST AI")
+    assert front.author_affiliations == ((0,), (0,), (1,))
+
+
+@pytest.mark.parametrize(
+    "note",
+    [
+        # Notes on the authors, then whom to write to: no affiliation.
+        "<sup>*</sup>Equal contribution. <sup>†</sup>Corresponding author.",
+        # A sentence, however institutional: not a list of affiliations.
+        "<sup>1</sup>Work done during an internship at NVIDIA. Correspondence to: Jane Doe.",
+    ],
+)
+def test_numbered_footnotes_without_affiliations_give_none(note: str) -> None:
+    html = (
+        '<article class="ltx_document">'
+        '<span class="ltx_note ltx_role_footnotetext"><span class="ltx_note_outer">'
+        f'<span class="ltx_note_content">{note}</span></span></span>'
+        "</article>"
+    )
+
+    assert parse_front_matter(html).affiliations == ()
+
+
 def test_ignores_authorship_footnotes(paper_html: PaperHtml) -> None:
     affiliations = parse_front_matter(paper_html("2609.21811")).affiliations
     assert not any("authorship" in affiliation for affiliation in affiliations)
