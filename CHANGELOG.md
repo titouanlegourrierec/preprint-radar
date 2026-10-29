@@ -85,6 +85,8 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
   Qwen2.5-VL's "Qwen Team" and "Alibaba Group" (AFF-38).
 - An affiliation followed by its authors' address without a space keeps its last word:
   "University of Oxford", not "University of" (AFF-37).
+- `archive-affiliations` reads again, from the page cache, the highly cited papers an older
+  extraction read, so that extraction fixes reach the archive too (AFF-39).
 - An institution's unit written with its acronym ("KAIST AI", "CUHK MMLab", "ETH AI
   Center") is the institution, one node of the graph and one row of Rankings (AFF-36).
 - Affiliations no longer hold LaTeX commands ("\\affilnum1", "\\authormark2", "Φ\\Phi") nor

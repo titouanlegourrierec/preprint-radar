@@ -71,9 +71,11 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
     by the DOI of `scholar.json` (AFF-20; 96% of those with one, 2 minutes the first time);
     `archive.yml` runs it weekly. With `MAX_HTML=N`, also the HTML pages of those arXiv
     renders (since December 2023, AFF-28) and of the older ones ar5iv renders (arXiv Labs,
-    the same LaTeXML, AFF-37), the most cited first, at 15 s a page: a night for the 2,400
-    left, **never without asking**; resumable, its 404s remembered in the
-    page cache (`docs/operations.md`).
+    the same LaTeXML, AFF-37), the most cited first, at 15 s a page, **never without
+    asking** (a night for the 2,335 read on 2026-10-28); resumable, its 404s remembered in
+    the page cache (`docs/operations.md`). Every run reads again, from the page cache only,
+    the papers an older extraction read (AFF-39): after an extraction fix, run it where
+    the pages are cached (the maintainer's machine).
   - `make citations`: Semantic Scholar counts of the stored papers without one; `ALL=1` asks
     for every paper again. The daily workflow runs it.
   - `make scholar`: the DOI, published venue and author ids (checked against the names)
@@ -307,8 +309,9 @@ Use the Makefile; `make help` lists every target (`install`, `build`, `clean`, `
   record (its HTML link and affiliations), which OpenAlex fills only when it has none, and
   so does one that leaves the last 12 months. `archive-affiliations` with pages gives a
   catalog-built paper still without any its page's affiliations, with that page as
-  `html_url` (`v1`) and the `html` provenance (AFF-28); `reclean` and `reextract` never
-  read the archive.
+  `html_url` (`v1`) and the `html` provenance (AFF-28). `reextract` never reads the
+  archive: `archive-affiliations` reads again, from the page cache only, its papers an
+  older extraction read (AFF-39).
 - The site's records are not quite the store's: the build adds `doi`, the authors'
   `author_ids` and, where the comments name no venue, the published `venue` from
   `scholar.json`, `code` (stars, gains, likes, `shared`) from `code.json` where its

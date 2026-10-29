@@ -287,7 +287,9 @@ papers until the next archive. Locally, `make trends` reads your last `make arch
 - **What a page gives** (affiliations, mapping): bump `EXTRACTOR_VERSION`; the daily
   *Extract stored papers again* step re-reads older versions, from the page cache and up to
   50 downloads a day. To repair papers at once: `preprint-radar reextract --ids <ids>` or
-  `--match <regex>`.
+  `--match <regex>`. The highly cited papers read from a page (archive and
+  `top-recent.json`) are read again by `archive-affiliations` from the page cache, on the
+  machine that read them ([below](#read-their-html-pages-a-night-on-a-machine-of-yours)).
 - Before and after, run `make quality-affiliations` and `make extraction-diff` (with the
   page cache: what today's extraction changes, nothing written). A local cache holds a few
   hundred pages; the daily runs' holds thousands: push the change to a branch and dispatch
@@ -310,8 +312,8 @@ naming others are papers Semantic Scholar linked to a wrong DOI (24 of 7,027 in 
 ### Read their HTML pages (a night, on a machine of yours)
 
 The papers no published version places have HTML pages: arXiv's since December 2023,
-ar5iv's before (AFF-37): 2,362 on 2026-10-28, 10 hours at 15 s a page, too long for a
-workflow. On a
+ar5iv's before (AFF-37): 2,335 read on 2026-10-28, a night at 15 s a page, too long for a
+workflow; the papers entering the list since are a few a week. On a
 machine with `git`, `make`, `uv`, a clone and a `.env` holding `PREPRINT_RADAR_CONTACT`,
 in `tmux` or under `nohup`, after Sunday's *Archive* has pushed (it rewrites the same
 files: the archive and `top-recent.json`) and before the next:
@@ -332,6 +334,11 @@ or answering 404 are never asked again. To stop before a time limit:
 `git rebase --abort`, `git reset --hard origin/main` (only the data commit is lost), and
 run it again (minutes, from the cache). It stops red like the daily update
 ([arXiv is down](#arxiv-is-down), [layout changed](#arxiv-changed-its-page-layout)).
+
+After an `EXTRACTOR_VERSION` bump, the same commands without `MAX_HTML` (seconds) read
+again, from that machine's cache, the papers an older extraction read (AFF-39); its report
+ends `read again from cached pages`. A page that failed (ar5iv times out often) was not
+cached: `MAX_HTML=N` reads it next time.
 
 ## Add a category
 

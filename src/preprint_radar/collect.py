@@ -1317,6 +1317,8 @@ class ArchiveAffiliationsReport:
         from_pages: Papers that got affiliations from their page.
         unreadable: Pages that could not be fetched, read next time.
         stopped: Why the reading of pages stopped early, if it did.
+        read_again: Papers an older extraction read, read again from the page cache.
+        changed_again: Of those, papers whose affiliations or mapping changed.
     """
 
     category: str
@@ -1326,6 +1328,8 @@ class ArchiveAffiliationsReport:
     from_pages: int = 0
     unreadable: int = 0
     stopped: Stop | None = None
+    read_again: int = 0
+    changed_again: int = 0
 
     @property
     def failed(self) -> bool:
@@ -1347,8 +1351,11 @@ def update_archive_affiliations(
 
     The papers of the archive and the most cited of the last 12 months, but those of the
     day files, whose records there are their day records, which the daily update enriches.
-    First OpenAlex's record of their published version (:func:`with_published_affiliations`,
-    seconds). Then, with a ``site_client``, the HTML rendering of those still without: the
+    First, those a page gave affiliations by an older extraction are read again from the
+    page cache, offline, as ``reextract`` reads the day files' (:func:`_read_again`,
+    AFF-39). Then OpenAlex's record of their published version
+    (:func:`with_published_affiliations`, seconds). Then, with a ``site_client``, the HTML
+    rendering of those still without: the
     first version's on arXiv since December 2023, ar5iv's before (AFF-37,
     :func:`archive_page_url`), the most cited first: the pages the cache holds, offline,
     then downloads within ``html.limit``, at arxiv.org's crawl delay, a page that does not
@@ -1374,7 +1381,6 @@ def update_archive_affiliations(
     top = store.load_top_recent(category)
     in_days = {paper.arxiv_id for paper in store.iter_papers(category)}
     own = [*archive, *(paper for paper in (top.papers if top else ()) if paper.arxiv_id not in in_days)]
-    changed: dict[str, Paper] = {}
 
     def save(updated: Mapping[str, Paper]) -> None:
         store.write_archive(category, [updated.get(paper.arxiv_id, paper) for paper in archive])
@@ -1382,18 +1388,24 @@ def update_archive_affiliations(
             papers = [updated.get(paper.arxiv_id, paper) for paper in top.papers]
             store.write_top_recent(category, papers, since=top.since)
 
+    reading = html or HtmlReading(limit=0)
+    again = _read_again(own, reading.cache)
+    changed = {new.arxiv_id: new for _, new in again}
+    if changed:
+        save(changed)
+        own = [changed.get(paper.arxiv_id, paper) for paper in own]
+
     without = [paper for paper in own if not paper.affiliations]
     scholar = store.load_scholar(category)
     dois = {
         arxiv_id: record.doi for arxiv_id, record in (scholar.papers if scholar else {}).items() if record.doi
     }
     looked_up = with_published_affiliations(without, openalex_client, today, dois)
-    changed |= {new.arxiv_id: new for old, new in zip(without, looked_up, strict=True) if new is not old}
-    from_published = len(changed)
-    if changed:  # saved before the pages, which can take a night
+    published = {new.arxiv_id: new for old, new in zip(without, looked_up, strict=True) if new is not old}
+    changed |= published
+    if published:  # saved before the pages, which can take a night
         save(changed)
 
-    reading = html or HtmlReading(limit=0)
     read: _HtmlRead | None = None
     from_pages: dict[str, Paper] = {}
     if site_client is not None and reading.limit != 0:
@@ -1419,12 +1431,54 @@ def update_archive_affiliations(
     return ArchiveAffiliationsReport(
         category=category,
         without=len(without),
-        from_published=from_published,
+        from_published=len(published),
         pages=read.pages if read else 0,
         from_pages=len(from_pages),
         unreadable=read.unreadable if read else 0,
         stopped=read.stopped if read else None,
+        read_again=len(again),
+        changed_again=sum(
+            (new.affiliations, new.author_affiliations) != (old.affiliations, old.author_affiliations)
+            for old, new in again
+        ),
     )
+
+
+def _read_again(papers: Iterable[Paper], cache: PageCache | None) -> list[tuple[Paper, Paper]]:
+    """The papers a page gave affiliations by an older extraction, each with its page read again.
+
+    From the cache only: a paper whose page it does not hold keeps what it has, since
+    ``archive-affiliations`` downloads no page of a paper with affiliations. Read again as
+    ``reextract`` reads the day files' (:func:`_kept`): affiliations that come back the
+    same keep their institutions, a stale page that gives none leaves its paper as it was.
+    Otherwise every extraction fix would leave the archive's papers read before it as they
+    were, their pages in the cache of the maintainer's machine (AFF-39).
+
+    Returns:
+        Each paper read again, as it was and as it is now, but those left as they were.
+    """
+    stored = [
+        (paper, page)
+        for paper in papers
+        if paper.extractor is not None
+        and paper.extractor < EXTRACTOR_VERSION
+        and paper.html_url is not None
+        and cache is not None
+        and (page := cache.get(paper.html_url)) is not None
+    ]
+    if not stored:
+        return []
+    logger.info("Reading %s HTML renderings again from the page cache", f"{len(stored):,}")
+    read = [
+        _with_front_matter(paper.without_affiliations(), parse_front_matter(page, authors=paper.authors))
+        for paper, page in stored
+    ]
+    old = [paper for paper, _ in stored]
+    return [
+        (before, after)
+        for before, after in zip(old, _kept(read, old, cache), strict=True)
+        if after is not before
+    ]
 
 
 def _archive_pages(
@@ -1482,6 +1536,11 @@ def format_archive_affiliations_report(report: ArchiveAffiliationsReport) -> str
         line += f", {report.from_pages:,} from {_count(report.pages, 'HTML page')}"
     if report.unreadable:
         line += f" ({report.unreadable:,} unreadable)"
+    if report.read_again:
+        line += (
+            f"; {report.changed_again:,} of {_count(report.read_again, 'paper')} an older extraction "
+            "read changed, read again from cached pages"
+        )
     if report.stopped:
         line += f"; stopped: {_STOPS[report.stopped]}"
     return line

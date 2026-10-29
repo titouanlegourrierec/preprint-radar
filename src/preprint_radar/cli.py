@@ -383,7 +383,8 @@ def _add_archive_affiliations_parser(
         help="find affiliations for the highly cited papers without any",
         description=(
             "Find affiliations for the papers of the archive and the most cited of the last "
-            "12 months that have none: first OpenAlex's record of their published version "
+            "12 months that have none, after reading again, from the page cache only, those "
+            "an older extraction read: first OpenAlex's record of their published version "
             "(the DOI of scholar.json), a few requests; then, with --max-html, their HTML "
             "rendering, arXiv's since December 2023 and ar5iv's before, the most cited first, "
             "at arxiv.org's crawl delay: hours for thousands of pages. Pages the cache "

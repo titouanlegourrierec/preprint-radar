@@ -48,7 +48,7 @@ from preprint_radar.collect import (
 from preprint_radar.exceptions import SchemaVersionError
 from preprint_radar.http import HttpClient, RateLimiter
 from preprint_radar.models import CodeRecord, Institution, Listing, Paper, Provenance, ScholarRecord
-from preprint_radar.sources.arxiv_html import EXTRACTOR_VERSION, PageCache, parse_front_matter
+from preprint_radar.sources.arxiv_html import AR5IV_HTML_URL, EXTRACTOR_VERSION, PageCache, parse_front_matter
 from preprint_radar.sources.arxiv_listing import parse_catchup
 from preprint_radar.steps import StepCount
 from preprint_radar.store.paper_store import PaperStore
@@ -1236,6 +1236,73 @@ def test_archive_affiliations_read_no_cached_page_again_that_gave_none(
     assert archived["2502.00001"].affiliations
     assert archived["2501.99999"] == stale
     assert all(f"https://arxiv.org/html/{paper.arxiv_id}v1" in cache for paper in read)
+
+
+def _read_by(version: int, arxiv_id: str, affiliations: tuple[str, ...], authors: tuple[str, ...]) -> Paper:
+    """An archived paper whose ar5iv page extraction ``version`` read, all at its first affiliation."""
+    paper = replace(_archived(arxiv_id, authors=authors), html_url=f"{AR5IV_HTML_URL}/{arxiv_id}")
+    read = paper.with_affiliations(
+        affiliations,
+        ((0,),) * len(authors),
+        provenance=Provenance("html", date(2026, 10, 28)),
+        extractor=version,
+    )
+    return replace(
+        read, institutions=("Meta",) * len(affiliations), institutions_provenance=Provenance("ror", None)
+    )
+
+
+def test_archive_affiliations_read_again_what_an_older_extraction_read(
+    store: PaperStore, tmp_path: Path, paper_html: Callable[[str], str]
+) -> None:
+    oxford = ("Yuki M. Asano", "Mandela Patrick", "Christian Rupprecht", "Andrea Vedaldi")
+    mask = ("Kaiming He", "Georgia Gkioxari", "Piotr Dollár", "Ross Girshick")
+    older = EXTRACTOR_VERSION - 1
+    # "University of Oxford" lost "Oxford" to the address glued to it (version 18, AFF-37).
+    cut = _read_by(older, "2006.13662", ("Visual Geometry Group, University of", "Facebook AI"), oxford)
+    same = _read_by(older, "1703.06870", ("Facebook AI Research (FAIR)",), mask)
+    uncached = _read_by(older, "1703.00003", ("MIT",), LOVELACE_TURING)
+    current = replace(_read_by(EXTRACTOR_VERSION, "1703.00004", ("MIT",), mask), html_url=same.html_url)
+    store.write_archive("cs.CV", [cut, same, uncached, current, _archived("1703.00005", ("ETH Zurich",))])
+    cache = PageCache(tmp_path / "pages")
+    for paper in (cut, same):
+        assert paper.html_url is not None
+        cache.put(paper.html_url, paper_html(paper.arxiv_id))
+
+    def handle(request: httpx.Request) -> httpx.Response:
+        raise AssertionError(request.url)
+
+    with HttpClient(transport=httpx.MockTransport(handle), max_attempts=1) as client:
+        # As `make archive-affiliations`, without MAX_HTML: no page downloaded.
+        report = update_archive_affiliations(
+            store, "cs.CV", openalex_client=client, today=TODAY, html=HtmlReading(limit=0, cache=cache)
+        )
+
+    assert report == ArchiveAffiliationsReport(
+        category="cs.CV", without=0, from_published=0, read_again=2, changed_again=1
+    )
+    assert format_archive_affiliations_report(report) == (
+        "cs.CV: 0 of 0 highly cited papers without affiliations got some, 0 from OpenAlex's "
+        "published versions; 1 of 2 papers an older extraction read changed, read again from "
+        "cached pages"
+    )
+    archived = {paper.arxiv_id: paper for paper in store.iter_archive("cs.CV")}
+    fixed = archived["2006.13662"]
+    assert fixed.affiliations == ("Visual Geometry Group, University of Oxford", "Facebook AI Research")
+    assert (fixed.extractor, fixed.institutions) == (EXTRACTOR_VERSION, None)
+    assert fixed.affiliations_provenance == Provenance("html", READ_ON)
+    kept = archived["1703.06870"]
+    assert (kept.affiliations, kept.institutions) == (same.affiliations, same.institutions)
+    assert kept.extractor == EXTRACTOR_VERSION
+    for unchanged in (uncached, current):
+        assert archived[unchanged.arxiv_id] == unchanged
+
+    # Again: read by today's extraction, nothing to read.
+    with HttpClient(transport=httpx.MockTransport(handle), max_attempts=1) as client:
+        again = update_archive_affiliations(
+            store, "cs.CV", openalex_client=client, today=TODAY, html=HtmlReading(limit=0, cache=cache)
+        )
+    assert again == ArchiveAffiliationsReport(category="cs.CV", without=0, from_published=0)
 
 
 def test_archive_affiliations_without_an_archive(store: PaperStore) -> None:

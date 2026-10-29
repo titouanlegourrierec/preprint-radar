@@ -195,10 +195,18 @@ papers. `collect.update_archive_affiliations` fills those of the archive and of 
   such pages would stop the run as a layout change), unless `PageCache.stale`. Its
   affiliations come with its `html_url`, the extractor's version and provenance `html`;
   ROR names their institutions, and those an interrupted run left unnamed. The maintainer
-  runs it (a night for about 2,000 papers), not a workflow, whose minutes are billed.
-  `reextract` never reads the archive: later extraction fixes reach it only this way;
-  `reclean` cleans its papers read from a page again (provenance `html`, never OpenAlex's
-  names), whose institutions this step names again.
+  runs it (a night for about 2,000 papers; done on 2026-10-28, 1,513 of 2,335 given
+  theirs), not a workflow, whose minutes are billed.
+- **The page again** (AFF-39, every run, `MAX_HTML` or not): the papers an older
+  extraction read (`extractor` below `EXTRACTOR_VERSION`) are read again from the page
+  cache, offline, as `reextract` reads the day files', which never reads the archive:
+  affiliations that come back the same keep their institutions, a stale page that gives
+  none leaves its paper as it was, and a page the cache does not hold is not downloaded.
+  The pages are in the cache of the machine that read them, so an extraction fix reaches
+  the archive when the maintainer runs `make archive-affiliations` there (seconds);
+  `archive.yml`, without that cache, reads none. `reclean` cleans its papers read from a
+  page again (provenance `html`, never OpenAlex's names), whose institutions this step
+  names again.
 
 ## Stars of the papers' code (`code.json`, PROD-18)
 
