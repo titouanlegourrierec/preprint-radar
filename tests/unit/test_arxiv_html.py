@@ -2146,6 +2146,28 @@ def test_an_affiliation_glued_to_the_last_of_several_names() -> None:
     assert front.author_affiliations == ((0,), (0,))
 
 
+def test_an_address_glued_to_its_affiliation_leaves_it_whole() -> None:
+    # "University of Oxford<tt>yuki@robots.ox.ac.uk</tt>" read "Oxfordyuki@...", which went
+    # whole with the address (ar5iv's 2006.13662).
+    address = '<span id="id1" class="ltx_text ltx_font_typewriter">ada@example.org</span>'
+    html = _author_block(("Ada Lovelace", (f"University of Oxford{address}",)))
+
+    front = parse_front_matter(html, authors=("Ada Lovelace",))
+
+    assert front.affiliations == ("University of Oxford",)
+
+
+def test_an_address_whose_at_sign_is_set_apart_stays_whole() -> None:
+    # "linyida<tt>@</tt>myvuw.ac.nz" (2609.13233): a space before the "@" would leave half an
+    # address in the affiliation.
+    at = '<span class="ltx_text ltx_font_typewriter">@</span>'
+    html = _author_block(("Ada Lovelace", (f"University of Oxford, ada{at}example.org",)))
+
+    front = parse_front_matter(html, authors=("Ada Lovelace",))
+
+    assert front.affiliations == ("University of Oxford",)
+
+
 def test_numbered_lines_set_as_authors_are_affiliations(paper_html: PaperHtml) -> None:
     front = parse_front_matter(paper_html("2610.12978"), authors=AUTHORS["2610.12978"])
 

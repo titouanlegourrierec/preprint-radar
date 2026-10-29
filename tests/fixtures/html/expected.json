@@ -3419,5 +3419,46 @@
     ],
     "placed": null,
     "abstract": "We present the Qwen2-VL Series, an advanced upgrade of the previous Qwen-VL models that redefines the conventional predetermined-resolution approach in visual processing. Qwen2-VL introduces the Naive Dynamic Resolution mechanism, which enables the model to dynamically process images of varying resolutions into different numbers of visual tokens. This approach allows the model to generate more efficient and accurate visual representations, closely aligning with human perceptual processes. The model also integrates Multimodal Rotary Position Embedding (M-RoPE), facilitating the effective fusion of positional information across text, images, and videos. We employ a unified paradigm for processing both images and videos, enhancing the model’s visual perception capabilities. To explore the potential of large multimodal models, Qwen2-VL investigates the scaling laws for large vision-language models (LVLMs). By scaling both the model size-with versions at 2B, 8B, and 72B parameters-and the amount of training data, the Qwen2-VL Series achieves highly competitive performance. Notably, the Qwen2-VL-72B model achieves results comparable to leading models such as GPT-4o and Claude3.5-Sonnet across various multimodal benchmarks, outperforming other generalist models. Code is available at https://github.com/QwenLM/Qwen2-VL."
+  },
+  "2006.13662": {
+    "authors": [
+      "Yuki M. Asano",
+      "Mandela Patrick",
+      "Christian Rupprecht",
+      "Andrea Vedaldi"
+    ],
+    "affiliations": [
+      "Visual Geometry Group, University of Oxford",
+      "Facebook AI Research"
+    ],
+    "placed": [
+      [
+        "Yuki M. Asano",
+        [
+          "Visual Geometry Group, University of Oxford"
+        ]
+      ],
+      [
+        "Mandela Patrick",
+        [
+          "Visual Geometry Group, University of Oxford",
+          "Facebook AI Research"
+        ]
+      ],
+      [
+        "Christian Rupprecht",
+        [
+          "Visual Geometry Group, University of Oxford"
+        ]
+      ],
+      [
+        "Andrea Vedaldi",
+        [
+          "Visual Geometry Group, University of Oxford",
+          "Facebook AI Research"
+        ]
+      ]
+    ],
+    "abstract": "A large part of the current success of deep learning lies in the effectiveness of data -- more precisely: labelled data. Yet, labelling a dataset with human annotation continues to carry high costs, especially for videos. While in the image domain, recent methods have allowed to generate meaningful (pseudo-) labels for unlabelled datasets without supervision, this development is missing for the video domain where learning feature representations is the current focus. In this work, we a) show that unsupervised labelling of a video dataset does not come for free from strong feature encoders and b) propose a novel clustering method that allows pseudo-labelling of a video dataset without any human annotations, by leveraging the natural correspondence between the audio and visual modalities. An extensive analysis shows that the resulting clusters have high semantic overlap to ground truth human labels. We further introduce the first benchmarking results on unsupervised labelling of common video datasets Kinetics, Kinetics-Sound, VGG-Sound and AVE11 1 Code will be made available at https://github.com/facebookresearch/selavi."
   }
 }

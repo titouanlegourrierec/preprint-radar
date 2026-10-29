@@ -22,7 +22,7 @@ from preprint_radar.latex import plain_text
 
 logger = logging.getLogger(__name__)
 
-EXTRACTOR_VERSION = 18
+EXTRACTOR_VERSION = 19
 """Version of the extraction heuristics of this module, stored with the affiliations they give.
 
 Bump it with any change that alters what a page gives (affiliations, author mapping), so
@@ -90,6 +90,19 @@ that ``reextract`` reads those papers again, from the page cache when it holds t
   country goes ("Singapore{…}@nus.edu.sg", 1312.4400), and a line break's spacing printed
   as text tells no author field cut at its commas ("[0.25cm]", 2105.15203, which gave
   nothing) (AFF-37).
+- 16: lines led by symbols count when half name an institution and the others are no
+  sentence nor role ("⋆Facebook AI †Sorbonne University", 2012.12877), a contribution note
+  glued to the affiliation after it goes ("Equal senior contributionsDeepMind",
+  2204.14198), and an affiliation glued to the last of several names in one creator counts
+  ("Jian SunMegvii Technology", 2107.08430) (AFF-37).
+- 17: names glued to each other before the glued affiliation are skipped ("Ismail Ben
+  AyedJose DolzÉTS Montreal", 2312.12730) (AFF-37).
+- 18: a page signed by organizations instead of its listed authors gives them ("Qwen
+  Team", "Alibaba Group", 2502.13923), and a row set apart in wide spaces counts with a
+  collective ("Qwen Team  Alibaba Group", 2409.12191) (AFF-38).
+- 19: an address in typewriter type glued to the word before it is set apart, which the
+  contact cleanup took away with it: "University of Oxford" gave "University of"
+  (2006.13662), "Adobe Research & HKU" gave "Adobe Research &" (2311.09217) (AFF-37).
 """
 
 # LaTeXML renders line breaks and \quad between affiliations as newlines, em spaces
@@ -197,6 +210,14 @@ _LINE_BREAK_RE = re.compile(r"<br\b[^>]*>", re.IGNORECASE)
 # "†\dagger", which no affiliation anchors, and the markers placed nobody (2610.12978).
 _ANNOTATION_RE = re.compile(
     r"<annotation(?:-xml)?\b[^>]*>.*?</annotation(?:-xml)?>", re.IGNORECASE | re.DOTALL
+)
+# An address in typewriter type right after the word before it: "University of
+# Oxford<tt>yuki@robots.ox.ac.uk</tt>" reads "Oxfordyuki@robots.ox.ac.uk", which the
+# contact cleanup takes away whole, leaving "University of" (ar5iv's 2006.13662). A space
+# sets it apart; an "@" set in its own span, or after a brace, stays where it is
+# ("linyida<tt>@</tt>myvuw.ac.nz", 2609.13233).
+_GLUED_ADDRESS_RE = re.compile(
+    r'(?<=[^\W_])(?=<span\b[^>]*\bclass="[^"]*\bltx_font_typewriter\b[^>]*>[\w{][^<@]*@)'
 )
 # A superscript set by hand, as a span raised by its style, holding a marker only: "Yunze
 # Liu<span style="font-size:70%;position:relative; bottom:2.4pt;">1,*</span>" and "1 NVIDIA
@@ -632,7 +653,8 @@ def parse_front_matter(html: str, *, authors: Sequence[str] = ()) -> FrontMatter
     Returns:
         The front matter.
     """
-    html = _raised_markers_as_superscripts(_ANNOTATION_RE.sub("", _LINE_BREAK_RE.sub("\n", html)))
+    html = _GLUED_ADDRESS_RE.sub(" ", _ANNOTATION_RE.sub("", _LINE_BREAK_RE.sub("\n", html)))
+    html = _raised_markers_as_superscripts(html)
     soup = BeautifulSoup(html, "html.parser")
     affiliations, partial = _affiliations(soup, authors)
     return FrontMatter(

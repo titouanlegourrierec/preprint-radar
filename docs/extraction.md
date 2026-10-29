@@ -117,11 +117,13 @@ with", though a wrapped list of people joins ("Bo Zheng, …, Weinan Guan," / "Z
   ("..., Singapore{jane,john}@nus.edu.sg", 1312.4400); an address in brackets and
   what follows, ending an unwrapped thanks note's sentence ("..., Hong Kong SAR, China
   (author@...)", 2609.10082), or ending a line ("..., Vienna, Austria author@...",
-  2610.02974). A list cut across two contact nodes, glued to the next affiliation
-  ("{jane.doe,...,jdoe," then "Apple", 2410.23054), ends before a capital;
-  mailboxes may hold underscores ("john_roe"), and capitals when dots or underscores
-  join their parts ("{Jane.Doe, A.Roe,", 2610.25235), never an affiliation's words. A
-  string still holding a contact detail is dropped whole (`has_contact`, as in
+  2610.02974), or in typewriter type glued to the word before it, set apart first
+  (`University of Oxford<tt>yuki@...</tt>` lost "Oxford", ar5iv's 2006.13662; an "@" in a
+  span of its own stays glued, 2609.13233). A list cut across two contact nodes, glued to
+  the next affiliation ("{jane.doe,...,jdoe," then "Apple", 2410.23054), ends before a
+  capital; mailboxes may hold underscores ("john_roe"), and capitals when dots or
+  underscores join their parts ("{Jane.Doe, A.Roe,", 2610.25235), never an affiliation's
+  words. A string still holding a contact detail is dropped whole (`has_contact`, as in
   `validate`): a page the rules miss loses one string, not a day of papers.
 - `_JUNK_RE` rejects the rest: lone words ("the", "dot"), link and contribution leftovers
   ("Code", "Core Contributors"), cut-off units ("School of"), lone countries, and IEEE's
