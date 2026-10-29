@@ -1931,19 +1931,37 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2412.16112v1",
    "abstract": "Diffusion Transformers (DiT) have become a leading architecture in image generation. However, the quadratic complexity of attention mechanisms, which are responsible for modeling token-wise relationships, results in significant latency when generating high-resolution images. To address this issue, we aim at a linear attention mechanism in this paper that reduces the complexity of pre-trained DiTs to linear. We begin our exploration with a comprehensive summary of existing efficient attention mechanisms and identify four key factors crucial for successful linearization of pre-trained DiTs: locality, formulation consistency, high-rank attention maps, and feature integrity. Based on these insights, we introduce a convolution-like local attention strategy termed CLEAR, which limits feature interactions to a local window around each query token, and thus achieves linear complexity. Our experiments indicate that, by fine-tuning the attention layer on merely 10K self-generated samples for 10K iterations, we can effectively transfer knowledge from a pre-trained DiT to a student model with linear complexity, yielding results comparable to the teacher model. Simultaneously, it reduces attention computations by 99.5% and accelerates generation by 6.3 times for generating 8K-resolution images. Furthermore, we investigate favorable properties in the distilled attention layers, such as zero-shot generalization cross various models and plugins, and improved support for multi-GPU parallel inference. Models and codes are available here: https://github.com/Huage001/CLEAR.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "National University of Singapore"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "National University of Singapore"
+   ],
+   "institution_ids": [
+    "01tgyzw49"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-18"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-18"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2412.16112",
@@ -25589,18 +25607,27 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2412.00131v1",
    "abstract": "We introduce Open-Sora Plan, an open-source project that aims to contribute a large generation model for generating desired high-resolution videos with long durations based on various user inputs. Our project comprises multiple components for the entire video generation process, including a Wavelet-Flow Variational Autoencoder, a Joint Image-Video Skiparse Denoiser, and various condition controllers. Moreover, many assistant strategies for efficient training and inference are designed, and a multi-dimensional data curation pipeline is proposed for obtaining desired high-quality data. Benefiting from efficient thoughts, our Open-Sora Plan achieves impressive video generation results in both qualitative and quantitative evaluations. We hope our careful design and practical experience can inspire the video generation research community. All our codes and model weights are publicly available at https://github.com/PKU-YuanGroup/Open-Sora-Plan.",
-   "affiliations": [],
+   "affiliations": [
+    "Open-Sora Plan Team"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Open-Sora Plan Team"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2412.00131",
@@ -30019,19 +30046,37 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2411.07555v1",
    "abstract": "We introduce GaussianCut, a new method for interactive multiview segmentation of scenes represented as 3D Gaussians. Our approach allows for selecting the objects to be segmented by interacting with a single view. It accepts intuitive user input, such as point clicks, coarse scribbles, or text. Using 3D Gaussian Splatting (3DGS) as the underlying scene representation simplifies the extraction of objects of interest which are considered to be a subset of the scene's Gaussians. Our key idea is to represent the scene as a graph and use the graph-cut algorithm to minimize an energy function to effectively partition the Gaussians into foreground and background. To achieve this, we construct a graph based on scene Gaussians and devise a segmentation-aligned energy function on the graph to combine user inputs with scene properties. To obtain an initial coarse segmentation, we leverage 2D image/video segmentation models and further refine these coarse estimates using our graph construction. Our empirical evaluations show the adaptability of GaussianCut across a diverse set of scenes. GaussianCut achieves competitive performance with state-of-the-art approaches for 3D segmentation without requiring any additional segmentation-aware training.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Toronto"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Toronto"
+   ],
+   "institution_ids": [
+    "03dbr7087"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-18"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-18"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2411.07555",
@@ -41548,18 +41593,30 @@
    "journal_ref": null,
    "venue": "NeurIPS 2024",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2411.05679v1",
    "abstract": "The content of visual and audio scenes is multi-faceted such that a video can be paired with various audio and vice-versa. Thereby, in video-to-audio generation task, it is imperative to introduce steering approaches for controlling the generated audio. While Video-to-Audio generation is a well-established generative task, existing methods lack such controllability. In this work, we propose VATT, a multi-modal generative framework that takes a video and an optional text prompt as input, and generates audio and optional textual description of the audio. Such a framework has two advantages: i) Video-to-Audio generation process can be refined and controlled via text which complements the context of visual information, and ii) The model can suggest what audio to generate for the video by generating audio captions. VATT consists of two key modules: VATT Converter, a LLM that is fine-tuned for instructions and includes a projection layer that maps video features to the LLM vector space; and VATT Audio, a transformer that generates audio tokens from visual frames and from optional text prompt using iterative parallel decoding. The audio tokens are converted to a waveform by pretrained neural codec. Experiments show that when VATT is compared to existing video-to-audio generation methods in objective metrics, it achieves competitive performance when the audio caption is not provided. When the audio caption is provided as a prompt, VATT achieves even more refined performance (lowest KLD score of 1.41). Furthermore, subjective studies show that VATT Audio has been chosen as preferred generated audio than audio generated by existing methods. VATT enables controllable video-to-audio generation through text as well as suggesting text prompts for videos through audio captions, unlocking novel applications such as text-guided video-to-audio generation and video-to-audio captioning.",
-   "affiliations": [],
+   "affiliations": [
+    "Department of Electrical & Computer Engineering, University of Washington, Seattle, USA",
+    "Department of Applied Mathematics, University of Washington, Seattle, USA"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "University of Washington",
+    "University of Washington"
+   ],
+   "institution_ids": [
+    "00cvxb145",
+    "00cvxb145"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2411.05679",
@@ -42735,19 +42792,59 @@
    "journal_ref": null,
    "venue": "ICLR 2025",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2411.02372v1",
    "abstract": "Current volumetric biomedical foundation models struggle to generalize as public 3D datasets are small and do not cover the broad diversity of medical procedures, conditions, anatomical regions, and imaging protocols. We address this by creating a representation learning method that instead anticipates strong domain shifts at training time itself. We first propose a data engine that synthesizes highly variable training samples that would enable generalization to new biomedical contexts. To then train a single 3D network for any voxel-level task, we develop a contrastive learning method that pretrains the network to be stable against nuisance imaging variation simulated by the data engine, a key inductive bias for generalization. This network's features can be used as robust representations of input images for downstream tasks and its weights provide a strong, dataset-agnostic initialization for finetuning on new datasets. As a result, we set new standards across both multimodality registration and few-shot segmentation, a first for any 3D biomedical vision model, all without (pre-)training on any existing dataset of real images.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "MIT CSAIL",
+    "New York University",
+    "Harvard Medical School"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "MIT Computer Science and Artificial Intelligence Laboratory",
+    "New York University",
+    "Harvard Medical School"
+   ],
+   "institution_ids": [
+    "01e85r662",
+    null,
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-25"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-25"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2411.02372",
@@ -46719,19 +46816,43 @@
    "journal_ref": null,
    "venue": "NeurIPS 2024",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2410.19294v1",
    "abstract": "Vision-language models, such as CLIP, have shown impressive generalization capacities when using appropriate text descriptions. While optimizing prompts on downstream labeled data has proven effective in improving performance, these methods entail labor costs for annotations and are limited by their quality. Additionally, since CLIP is pre-trained on highly imbalanced Web-scale data, it suffers from inherent label bias that leads to suboptimal performance. To tackle the above challenges, we propose a label-Free prompt distribution learning and bias correction framework, dubbed as **Frolic**, which boosts zero-shot performance without the need for labeled data. Specifically, our Frolic learns distributions over prompt prototypes to capture diverse visual representations and adaptively fuses these with the original CLIP through confidence matching. This fused model is further enhanced by correcting label bias via a label-free logit adjustment. Notably, our method is not only training-free but also circumvents the necessity for hyper-parameter tuning. Extensive experimental results across 16 datasets demonstrate the efficacy of our approach, particularly outperforming the state-of-the-art by an average of 2.6% on 10 datasets with CLIP ViT-B/16 and achieving an average margin of 1.5% on ImageNet and its five distribution shifts with CLIP ViT-B/16. Codes are available in https://github.com/zhuhsingyuu/Frolic.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Science and Technology of China",
+    "Nanyang Technological University"
+   ],
+   "author_affiliations": [
+    null,
+    null,
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Science and Technology of China",
+    "Nanyang Technological University"
+   ],
+   "institution_ids": [
+    "04c4dkn09",
+    "02e7b5302"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-25"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-25"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2410.19294",
@@ -48256,19 +48377,43 @@
    "journal_ref": null,
    "venue": "NeurIPS 2024",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2410.06558v1",
    "abstract": "Large-scale multimodal models have shown excellent performance over a series of tasks powered by the large corpus of paired multimodal training data. Generally, they are always assumed to receive modality-complete inputs. However, this simple assumption may not always hold in the real world due to privacy constraints or collection difficulty, where models pretrained on modality-complete data easily demonstrate degraded performance on missing-modality cases. To handle this issue, we refer to prompt learning to adapt large pretrained multimodal models to handle missing-modality scenarios by regarding different missing cases as different types of input. Instead of only prepending independent prompts to the intermediate layers, we present to leverage the correlations between prompts and input features and excavate the relationships between different layers of prompts to carefully design the instructions. We also incorporate the complementary semantics of different modalities to guide the prompting design for each modality. Extensive experiments on three commonly-used datasets consistently demonstrate the superiority of our method compared to the previous approaches upon different missing scenarios. Plentiful ablations are further given to show the generalizability and reliability of our method upon different modality-missing ratios and types.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "College of Intelligence and Computing, Tianjin University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Tianjin University"
+   ],
+   "institution_ids": [
+    "012tb2g32"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-18"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-18"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2410.06558",
@@ -49580,18 +49725,30 @@
    "journal_ref": null,
    "venue": "CoRL",
    "cross_list_from": "cs.RO",
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2410.11792v1",
    "abstract": "We study the problem of teaching humanoid robots manipulation skills by imitating from single video demonstrations. We introduce OKAMI, a method that generates a manipulation plan from a single RGB-D video and derives a policy for execution. At the heart of our approach is object-aware retargeting, which enables the humanoid robot to mimic the human motions in an RGB-D video while adjusting to different object locations during deployment. OKAMI uses open-world vision models to identify task-relevant objects and retarget the body motions and hand poses separately. Our experiments show that OKAMI achieves strong generalizations across varying visual and spatial conditions, outperforming the state-of-the-art baseline on open-world imitation from observation. Furthermore, OKAMI rollout trajectories are leveraged to train closed-loop visuomotor policies, which achieve an average success rate of 79.2% without the need for labor-intensive teleoperation. More videos can be found on our website https://ut-austin-rpl.github.io/OKAMI/.",
-   "affiliations": [],
+   "affiliations": [
+    "UT Austin",
+    "NVIDIA Research"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "University of Texas at Austin",
+    "NVIDIA"
+   ],
+   "institution_ids": [
+    "00hj54h04",
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-11"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2410.11792",
@@ -62477,19 +62634,49 @@
    "journal_ref": null,
    "venue": "ICLR 2025",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2410.07577v1",
    "abstract": "Recent advancements in 3D reconstruction methods and vision-language models have propelled the development of multi-modal 3D scene understanding, which has vital applications in robotics, autonomous driving, and virtual/augmented reality. However, current multi-modal scene understanding approaches have naively embedded semantic representations into 3D reconstruction methods without striking a balance between visual and language modalities, which leads to unsatisfying semantic rasterization of translucent or reflective objects, as well as over-fitting on color modality. To alleviate these limitations, we propose a solution that adequately handles the distinct visual and semantic modalities, i.e., a 3D vision-language Gaussian splatting model for scene understanding, to put emphasis on the representation learning of language modality. We propose a novel cross-modal rasterizer, using modality fusion along with a smoothed semantic indicator for enhancing semantic rasterization. We also employ a camera-view blending technique to improve semantic consistency between existing and synthesized views, thereby effectively mitigating over-fitting. Extensive experiments demonstrate that our method achieves state-of-the-art performance in open-vocabulary semantic segmentation, surpassing existing methods by a significant margin.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Center for Research in Computer Vision, University of Central Florida",
+    "United Imaging Intelligence, Boston MA, USA"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    null,
+    null,
+    null
+   ],
+   "institutions": [
+    "University of Central Florida",
+    "United Imaging Intelligence"
+   ],
+   "institution_ids": [
+    "036nfer12",
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-18"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-18"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2410.07577",
@@ -66580,17 +66767,30 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2410.00086v1",
    "abstract": "Diffusion models have emerged as a powerful generative technology and have been found to be applicable in various scenarios. Most existing foundational diffusion models are primarily designed for text-guided visual generation and do not support multi-modal conditions, which are essential for many visual editing tasks. This limitation prevents these foundational diffusion models from serving as a unified model in the field of visual generation, like GPT-4 in the natural language processing field. In this work, we propose ACE, an All-round Creator and Editor, which achieves comparable performance compared to those expert models in a wide range of visual generation tasks. To achieve this goal, we first introduce a unified condition format termed Long-context Condition Unit (LCU), and propose a novel Transformer-based diffusion model that uses LCU as input, aiming for joint training across various generation and editing tasks. Furthermore, we propose an efficient data collection approach to address the issue of the absence of available training data. It involves acquiring pairwise images with synthesis-based or clustering-based pipelines and supplying these pairs with accurate textual instructions by leveraging a fine-tuned multi-modal large language model. To comprehensively evaluate the performance of our model, we establish a benchmark of manually annotated pairs data across a variety of visual generation tasks. The extensive experimental results demonstrate the superiority of our model in visual generation fields. Thanks to the all-in-one capabilities of our model, we can easily build a multi-modal chat system that responds to any interactive request for image creation using a single model to serve as the backend, avoiding the cumbersome pipeline typically employed in visual agents. Code and models will be available on the project page: https://ali-vilab.github.io/ace-page/.",
-   "affiliations": [],
+   "affiliations": [
+    "Wanx Team",
+    "Alibaba Group"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Wanx Team",
+    "Alibaba Group"
+   ],
+   "institution_ids": [
+    null,
+    "00k642b80"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2410.00086",
@@ -68529,19 +68729,46 @@
    "journal_ref": null,
    "venue": "ECCV 2024",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2409.15739v1",
    "abstract": "Recent advancements in adverse weather restoration have shown potential, yet the unpredictable and varied combinations of weather degradations in the real world pose significant challenges. Previous methods typically struggle with dynamically handling intricate degradation combinations and carrying on background reconstruction precisely, leading to performance and generalization limitations. Drawing inspiration from prompt learning and the \"Teaching Tailored to Talent\" concept, we introduce a novel pipeline, T3-DiffWeather. Specifically, we employ a prompt pool that allows the network to autonomously combine sub-prompts to construct weather-prompts, harnessing the necessary attributes to adaptively tackle unforeseen weather input. Moreover, from a scene modeling perspective, we incorporate general prompts constrained by Depth-Anything feature to provide the scene-specific condition for the diffusion process. Furthermore, by incorporating contrastive prompt loss, we ensures distinctive representations for both types of prompts by a mutual pushing strategy. Experimental results demonstrate that our method achieves state-of-the-art performance across various synthetic and real-world datasets, markedly outperforming existing diffusion techniques in terms of computational efficiency.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Xiamen University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Xiamen University"
+   ],
+   "institution_ids": [
+    "00mcjh785"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-18"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-18"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2409.15739",
@@ -94848,19 +95075,34 @@
    "journal_ref": null,
    "venue": "ECCV 2024",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2407.13987v1",
    "abstract": "In real-world video super-resolution (VSR), videos suffer from in-the-wild degradations and artifacts. VSR methods, especially recurrent ones, tend to propagate artifacts over time in the real-world setting and are more vulnerable than image super-resolution. This paper investigates the influence of artifacts on commonly used covariance-based attention mechanisms in VSR. Comparing the widely-used spatial attention, which computes covariance over space, versus the channel attention, we observe that the latter is less sensitive to artifacts. However, channel attention leads to feature redundancy, as evidenced by the higher covariance among output channels. As such, we explore simple techniques such as the squeeze-excite mechanism and covariance-based rescaling to counter the effects of high channel covariance. Based on our findings, we propose RealViformer. This channel-attention-based real-world VSR framework surpasses state-of-the-art on two real-world VSR datasets with fewer parameters and faster runtimes. The source code is available at https://github.com/Yuehan717/RealViformer.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "National University of Singapore"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "National University of Singapore"
+   ],
+   "institution_ids": [
+    "01tgyzw49"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-18"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-18"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2407.13987",
@@ -95067,19 +95309,50 @@
    "journal_ref": null,
    "venue": "ECCV 2024",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2407.12951v1",
    "abstract": "Vision Transformer (ViT) has become one of the most prevailing fundamental backbone networks in the computer vision community. Despite the high accuracy, deploying it in real applications raises critical challenges including the high computational cost and inference latency. Recently, the post-training quantization (PTQ) technique has emerged as a promising way to enhance ViT's efficiency. Nevertheless, existing PTQ approaches for ViT suffer from the inflexible quantization on the post-Softmax and post-GELU activations that obey the power-law-like distributions. To address these issues, we propose a novel non-uniform quantizer, dubbed the Adaptive Logarithm AdaLog (AdaLog) quantizer. It optimizes the logarithmic base to accommodate the power-law-like distribution of activations, while simultaneously allowing for hardware-friendly quantization and de-quantization. By employing the bias reparameterization, the AdaLog quantizer is applicable to both the post-Softmax and post-GELU activations. Moreover, we develop an efficient Fast Progressive Combining Search (FPCS) strategy to determine the optimal logarithm base for AdaLog, as well as the scaling factors and zero points for the uniform quantizers. Extensive experimental results on public benchmarks demonstrate the effectiveness of our approach for various ViT-based architectures and vision tasks including classification, object detection, and instance segmentation. Code is available at https://github.com/GoatWu/AdaLog.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "State Key Laboratory of Virtual Reality Technology and Systems, Beihang University, Beijing, China",
+    "School of Computer Science and Engineering, Beihang University, Beijing, China"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Beihang University",
+    "Beihang University"
+   ],
+   "institution_ids": [
+    "00wk2mp56",
+    "00wk2mp56"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-25"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-25"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2407.12951",
@@ -96343,19 +96616,41 @@
    "journal_ref": null,
    "venue": "ECCV 2024",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2407.11351v1",
    "abstract": "Image modality is not perfect as it often fails in certain conditions, e.g., night and fast motion. This significantly limits the robustness and versatility of existing multi-modal (i.e., Image+X) semantic segmentation methods when confronting modality absence or failure, as often occurred in real-world applications. Inspired by the open-world learning capability of multi-modal vision-language models (MVLMs), we explore a new direction in learning the modality-agnostic representation via knowledge distillation (KD) from MVLMs. Intuitively, we propose Any2Seg, a novel framework that can achieve robust segmentation from any combination of modalities in any visual conditions. Specifically, we first introduce a novel language-guided semantic correlation distillation (LSCD) module to transfer both inter-modal and intra-modal semantic knowledge in the embedding space from MVLMs, e.g., LanguageBind. This enables us to minimize the modality gap and alleviate semantic ambiguity to combine any modalities in any visual conditions. Then, we introduce a modality-agnostic feature fusion (MFF) module that reweights the multi-modal features based on the inter-modal correlation and selects the fine-grained feature. This way, our Any2Seg finally yields an optimal modality-agnostic representation. Extensive experiments on two benchmarks with four modalities demonstrate that Any2Seg achieves the state-of-the-art under the multi-modal setting (+3.54 mIoU) and excels in the challenging modality-incomplete setting(+19.79 mIoU).",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Hong Kong University of Science and Technology, Guangzhou, China",
+    "Hong Kong University of Science and Technology, Hong Kong, China"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Hong Kong University of Science and Technology",
+    "Hong Kong University of Science and Technology"
+   ],
+   "institution_ids": [
+    "00q4vv597",
+    "00q4vv597"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-18"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-18"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2407.11351",
@@ -96456,19 +96751,56 @@
    "journal_ref": null,
    "venue": "ECCV 2024",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2407.10957v1",
    "abstract": "Traditional reference segmentation tasks have predominantly focused on silent visual scenes, neglecting the integral role of multimodal perception and interaction in human experiences. In this work, we introduce a novel task called Reference Audio-Visual Segmentation (Ref-AVS), which seeks to segment objects within the visual domain based on expressions containing multimodal cues. Such expressions are articulated in natural language forms but are enriched with multimodal cues, including audio and visual descriptions. To facilitate this research, we construct the first Ref-AVS benchmark, which provides pixel-level annotations for objects described in corresponding multimodal-cue expressions. To tackle the Ref-AVS task, we propose a new method that adequately utilizes multimodal cues to offer precise segmentation guidance. Finally, we conduct quantitative and qualitative experiments on three test subsets to compare our approach with existing methods from related tasks. The results demonstrate the effectiveness of our method, highlighting its capability to precisely segment objects using multimodal-cue expressions. Dataset is available at https://gewu-lab.github.io/Ref-AVS.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Gaoling School of Artificial Intelligence, Renmin University of China, China",
+    "Beijing University of Posts and Telecommunications, Beijing, China",
+    "Shanghai Artificial Intelligence Laboratory, Shanghai, China",
+    "Engineering Research Center of Next-Generation Search and Recommendation"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0,
+     3
+    ]
+   ],
+   "institutions": [
+    "Renmin University of China",
+    "Beijing University of Posts and Telecommunications",
+    "Shanghai Artificial Intelligence Laboratory",
+    "Engineering Research Center of Next-Generation Search and Recommendation"
+   ],
+   "institution_ids": [
+    "041pakw92",
+    "04w9fbh59",
+    "03wkvpx79",
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-25"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-25"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2407.10957",
@@ -107159,19 +107491,63 @@
    "journal_ref": null,
    "venue": "ECCV 2024",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2407.12371v1",
    "abstract": "Generating human-object interactions (HOIs) is critical with the tremendous advances of digital avatars. Existing datasets are typically limited to humans interacting with a single object while neglecting the ubiquitous manipulation of multiple objects. Thus, we propose HIMO, a large-scale MoCap dataset of full-body human interacting with multiple objects, containing 3.3K 4D HOI sequences and 4.08M 3D HOI frames. We also annotate HIMO with detailed textual descriptions and temporal segments, benchmarking two novel tasks of HOI synthesis conditioned on either the whole text prompt or the segmented text prompts as fine-grained timeline control. To address these novel tasks, we propose a dual-branch conditional diffusion model with a mutual interaction module for HOI synthesis. Besides, an auto-regressive generation pipeline is also designed to obtain smooth transitions between HOI segments. Experimental results demonstrate the generalization ability to unseen object geometries and temporal compositions.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "MoE Key Lab of Artificial Intelligence, AI Institute, Shanghai Jiao Tong University, Shanghai, China",
+    "Ningbo Institute of Digital Twin, Eastern Institute of Technology, Ningbo, China",
+    "NetEase Fuxi AI Lab"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0
+    ],
+    null,
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Shanghai Jiao Tong University",
+    "Eastern Institute of Technology, Ningbo",
+    "NetEase Fuxi AI Lab"
+   ],
+   "institution_ids": [
+    "0220qvk04",
+    "036mbz113",
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-25"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-25"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2407.12371",
@@ -112710,19 +113086,45 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.LG",
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2407.01032v1",
    "abstract": "Selective Classification, wherein models can reject low-confidence predictions, promises reliable translation of machine-learning based classification systems to real-world scenarios such as clinical diagnostics. While current evaluation of these systems typically assumes fixed working points based on pre-defined rejection thresholds, methodological progress requires benchmarking the general performance of systems akin to the AUROC in standard classification. In this work, we define 5 requirements for multi-threshold metrics in selective classification regarding task alignment, interpretability, and flexibility, and show how current approaches fail to meet them. We propose the Area under the Generalized Risk Coverage curve (AUGRC), which meets all requirements and can be directly interpreted as the average risk of undetected failures. We empirically demonstrate the relevance of AUGRC on a comprehensive benchmark spanning 6 data sets and 13 confidence scoring functions. We find that the proposed metric substantially changes metric rankings on 5 out of the 6 data sets.",
-   "affiliations": [],
+   "affiliations": [
+    "German Cancer Research Center (DKFZ) Heidelberg, Interactive Machine Learning Group, Germany",
+    "Helmholtz Imaging, DKFZ Heidelberg, Germany",
+    "DKFZ Heidelberg, Division of Medical Image Computing (MIC), Germany",
+    "Faculty of Mathematics and Computer Science, University of Heidelberg, Germany",
+    "DKFZ Heidelberg, Division of Intelligent Medical Systems (IMSY), Germany",
+    "Pattern Analysis and Learning Group, Department of Radiation Oncology, Heidelberg University Hospital, 69120 Heidelberg, Germany",
+    "National Center for Tumor Diseases (NCT) Heidelberg"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "German Cancer Research Center",
+    "Helmholtz Imaging",
+    "DKFZ Heidelberg",
+    "Heidelberg University",
+    "DKFZ Heidelberg",
+    "University Hospital Heidelberg",
+    "National Center for Tumor Diseases"
+   ],
+   "institution_ids": [
+    "04cdgtt98",
+    null,
+    null,
+    "038t36y30",
+    null,
+    "013czdx64",
+    "01txwsw02"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-18"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-18"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2407.01032",
@@ -115384,19 +115786,46 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2406.06393v1",
    "abstract": "Recent advances in multi-modal algorithms have driven and been driven by the increasing availability of large image-text datasets, leading to significant strides in various fields, including computational pathology. However, in most existing medical image-text datasets, the text typically provides high-level summaries that may not sufficiently describe sub-tile regions within a large pathology image. For example, an image might cover an extensive tissue area containing cancerous and healthy regions, but the accompanying text might only specify that this image is a cancer slide, lacking the nuanced details needed for in-depth analysis. In this study, we introduce STimage-1K4M, a novel dataset designed to bridge this gap by providing genomic features for sub-tile images. STimage-1K4M contains 1,149 images derived from spatial transcriptomics data, which captures gene expression information at the level of individual spatial spots within a pathology image. Specifically, each image in the dataset is broken down into smaller sub-image tiles, with each tile paired with 15,000-30,000 dimensional gene expressions. With 4,293,195 pairs of sub-tile images and gene expressions, STimage-1K4M offers unprecedented granularity, paving the way for a wide range of advanced research in multi-modal data analysis an innovative applications in computational pathology, and beyond.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of North Carolina at Chapel Hill"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of North Carolina at Chapel Hill"
+   ],
+   "institution_ids": [
+    "0130frc33"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-18"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-18"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2406.06393",
@@ -116166,19 +116595,34 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2406.11711v1",
    "abstract": "Depth completion is the task of generating a dense depth map given an image and a sparse depth map as inputs. It has important applications in various downstream tasks. In this paper, we present OGNI-DC, a novel framework for depth completion. The key to our method is \"Optimization-Guided Neural Iterations\" (OGNI). It consists of a recurrent unit that refines a depth gradient field and a differentiable depth integrator that integrates the depth gradients into a depth map. OGNI-DC exhibits strong generalization, outperforming baselines by a large margin on unseen datasets and across various sparsity levels. Moreover, OGNI-DC has high accuracy, achieving state-of-the-art performance on the NYUv2 and the KITTI benchmarks. Code is available at https://github.com/princeton-vl/OGNI-DC.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Department of Computer Science, Princeton University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Princeton University"
+   ],
+   "institution_ids": [
+    "00hx57361"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-18"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-18"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2406.11711",
@@ -121253,17 +121697,40 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2406.01920v1",
    "abstract": "Large Multi-modal Models (LMMs) have recently demonstrated remarkable abilities in visual context understanding and coherent response generation. However, alongside these advancements, the issue of hallucinations has emerged as a significant challenge, producing erroneous responses that are unrelated to the visual contents. In this paper, we introduce a novel contrastive-based decoding method, COuntering DEscription Contrastive Decoding (CODE), which leverages self-generated descriptions as contrasting references during the decoding phase of LMMs to address hallucination issues. CODE utilizes the comprehensive descriptions from model itself as visual counterpart to correct and improve response alignment with actual visual content. By dynamically adjusting the information flow and distribution of next-token predictions in the LMM's vocabulary, CODE enhances the coherence and informativeness of generated responses. Extensive experiments demonstrate that our method significantly reduces hallucinations and improves cross-modal consistency across various benchmarks and cutting-edge LMMs. Our method provides a simple yet effective decoding strategy that can be integrated to existing LMM frameworks without additional training.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Integrated Vision and Language Lab, KAIST"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Korea Advanced Institute of Science and Technology"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2406.01920",
@@ -153074,19 +153541,61 @@
    "journal_ref": null,
    "venue": "NeurIPS 2024",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2405.15125v1",
    "abstract": "High dynamic range (HDR) novel view synthesis (NVS) aims to create photorealistic images from novel viewpoints using HDR imaging techniques. The rendered HDR images capture a wider range of brightness levels containing more details of the scene than normal low dynamic range (LDR) images. Existing HDR NVS methods are mainly based on NeRF. They suffer from long training time and slow inference speed. In this paper, we propose a new framework, High Dynamic Range Gaussian Splatting (HDR-GS), which can efficiently render novel HDR views and reconstruct LDR images with a user input exposure time. Specifically, we design a Dual Dynamic Range (DDR) Gaussian point cloud model that uses spherical harmonics to fit HDR color and employs an MLP-based tone-mapper to render LDR color. The HDR and LDR colors are then fed into two Parallel Differentiable Rasterization (PDR) processes to reconstruct HDR and LDR views. To establish the data foundation for the research of 3D Gaussian splatting-based methods in HDR NVS, we recalibrate the camera parameters and compute the initial positions for Gaussian point clouds. Experiments demonstrate that our HDR-GS surpasses the state-of-the-art NeRF-based method by 3.84 and 1.91 dB on LDR and HDR NVS while enjoying 1000x inference speed and only requiring 6.3% training time. Code and recalibrated data will be publicly available at https://github.com/caiyuanhao1998/HDR-GS . A brief video introduction of our work is available at https://youtu.be/wtU7Kcwe7ck",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Johns Hopkins University",
+    "HKUST (GZ)",
+    "Tsinghua University",
+    "Shanghai Jiao Tong University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     3
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Johns Hopkins University",
+    "Hong Kong University of Science and Technology (Guangzhou)",
+    "Tsinghua University",
+    "Shanghai Jiao Tong University"
+   ],
+   "institution_ids": [
+    "00za53h95",
+    null,
+    "03cve4549",
+    "0220qvk04"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-25"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-25"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2405.15125",
@@ -218130,17 +218639,42 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2402.14650v1",
    "abstract": "The advent of 3D Gaussian Splatting (3DGS) has recently brought about a revolution in the field of neural rendering, facilitating high-quality renderings at real-time speed. However, 3DGS heavily depends on the initialized point cloud produced by Structure-from-Motion (SfM) techniques. When tackling with large-scale scenes that unavoidably contain texture-less surfaces, the SfM techniques always fail to produce enough points in these surfaces and cannot provide good initialization for 3DGS. As a result, 3DGS suffers from difficult optimization and low-quality renderings. In this paper, inspired by classical multi-view stereo (MVS) techniques, we propose GaussianPro, a novel method that applies a progressive propagation strategy to guide the densification of the 3D Gaussians. Compared to the simple split and clone strategies used in 3DGS, our method leverages the priors of the existing reconstructed geometries of the scene and patch matching techniques to produce new Gaussians with accurate positions and orientations. Experiments on both large-scale and small-scale scenes validate the effectiveness of our method, where our method significantly surpasses 3DGS on the Waymo dataset, exhibiting an improvement of 1.15dB in terms of PSNR.",
-   "affiliations": [],
+   "affiliations": [
+    "University of Science and Technology of China",
+    "The University of Hong Kong",
+    "Nanjing University",
+    "The University of Adelaide",
+    "ShanghaiTech University",
+    "Texas A&M University"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "University of Science and Technology of China",
+    "University of Hong Kong",
+    "Nanjing University",
+    "University of Adelaide",
+    "ShanghaiTech University",
+    "Texas A&M University"
+   ],
+   "institution_ids": [
+    "04c4dkn09",
+    null,
+    "01rxvg760",
+    null,
+    "030bhh786",
+    "01f5ytq51"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2402.14650",
@@ -222124,17 +222658,39 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.LG",
-   "html_url": null,
+   "html_url": "https://arxiv.org/html/2402.01444v1",
    "abstract": "Satellite data has the potential to inspire a seismic shift for machine learning -- one in which we rethink existing practices designed for traditional data modalities. As machine learning for satellite data (SatML) gains traction for its real-world impact, our field is at a crossroads. We can either continue applying ill-suited approaches, or we can initiate a new research agenda that centers around the unique characteristics and challenges of satellite data. This position paper argues that satellite data constitutes a distinct modality for machine learning research and that we must recognize it as such to advance the quality and impact of SatML research across theory, methods, and deployment. We outline critical discussion questions and actionable suggestions to transform SatML from merely an intriguing application area to a dedicated research discipline that helps move the needle on big challenges for machine learning and society.",
-   "affiliations": [],
+   "affiliations": [
+    "Harvard Data Science Initiative and Center for Research on Computation and Society, Harvard University",
+    "University of Colorado, Boulder",
+    "Microsoft Research",
+    "Microsoft AI for Good Research Lab",
+    "School of Computing and Augmented Intelligence, Arizona State University"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Harvard University",
+    "University of Colorado",
+    "Microsoft",
+    "Microsoft",
+    "Arizona State University"
+   ],
+   "institution_ids": [
+    "03vek6s52",
+    null,
+    null,
+    null,
+    "03efmqc40"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/2402.01444",

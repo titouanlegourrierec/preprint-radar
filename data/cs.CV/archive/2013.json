@@ -416,17 +416,27 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1312.6229",
    "abstract": "We present an integrated framework for using Convolutional Networks for classification, localization and detection. We show how a multiscale and sliding window approach can be efficiently implemented within a ConvNet. We also introduce a novel deep learning approach to localization by learning to predict object boundaries. Bounding boxes are then accumulated rather than suppressed in order to increase detection confidence. We show that different tasks can be learned simultaneously using a single shared network. This integrated framework is the winner of the localization task of the ImageNet Large Scale Visual Recognition Challenge 2013 (ILSVRC2013) and obtained very competitive results for the detection and classifications tasks. In post-competition work, we establish a new state of the art for the detection task. Finally, we release a feature extractor from our best model called OverFeat.",
-   "affiliations": [],
+   "affiliations": [
+    "Courant Institute of Mathematical Sciences, New York University, 719 Broadway, 12th Floor, New York, NY 10003"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "New York University"
+   ],
+   "institution_ids": [
+    "0190ak572"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1312.6229",
@@ -1316,17 +1326,30 @@
    "journal_ref": "Proc. British Machine Vision Conference (BMVC) 2014",
    "venue": "BMVC 2014",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1311.3715",
    "abstract": "The style of an image plays a significant role in how it is viewed, but style has received little attention in computer vision research. We describe an approach to predicting style of images, and perform a thorough evaluation of different image features for these tasks. We find that features learned in a multi-layer network generally perform best -- even when trained with object class (not style) labels. Our large-scale learning methods results in the best published performance on an existing dataset of aesthetic ratings and photographic style annotations. We present two novel datasets: 80K Flickr photographs annotated with 20 curated style labels, and 85K paintings annotated with 25 style/genre labels. Our approach shows excellent classification performance on both datasets. We use the learned classifiers to extend traditional tag-based image search to consider stylistic constraints, and demonstrate cross-dataset understanding of style.",
-   "affiliations": [],
+   "affiliations": [
+    "University of California, Berkeley",
+    "Adobe"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "University of California, Berkeley",
+    "Adobe"
+   ],
+   "institution_ids": [
+    "01an7q238",
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1311.3715",
@@ -3410,19 +3433,31 @@
    "journal_ref": "SIAM J. Imaging Sci., 6(2013), 1227-1245",
    "venue": null,
    "cross_list_from": "math.OC",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1304.1408",
    "abstract": "This article studies the problem of image restoration of observed images corrupted by impulse noise and mixed Gaussian impulse noise. Since the pixels damaged by impulse noise contain no information about the true image, how to find this set correctly is a very important problem. We propose two methods based on blind inpainting and $ℓ_0$ minimization that can simultaneously find the damaged pixels and restore the image. By iteratively restoring the image and updating the set of damaged pixels, these methods have better performance than other methods, as shown in the experiments. In addition, we provide convergence analysis for these methods, these algorithms will converge to coordinatewise minimum points. In addition, they will converge to local minimum points (or with probability one) with some modifications in the algorithms.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Department of Mathematics, University of California, Los Angeles, CA, 90095 USA"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of California, Los Angeles"
+   ],
+   "institution_ids": [
+    "046rm7j60"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-25"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-25"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1304.1408",
@@ -4867,19 +4902,31 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.LG",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1301.3342",
    "abstract": "The paper presents an O(N log N)-implementation of t-SNE -- an embedding technique that is commonly used for the visualization of high-dimensional data in scatter plots and that normally runs in O(N^2). The new implementation uses vantage-point trees to compute sparse pairwise similarities between the input data objects, and it uses a variant of the Barnes-Hut algorithm - an algorithm used by astronomers to perform N-body simulations - to approximate the forces between the corresponding points in the embedding. Our experiments show that the new algorithm, called Barnes-Hut-SNE, leads to substantial computational advantages over standard t-SNE, and that it makes it possible to learn embeddings of data sets with millions of objects.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Pattern Recognition and Bioinformatics Group, Delft University of Technology, Mekelweg 4, 2628 CD Delft, The Netherlands"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Delft University of Technology"
+   ],
+   "institution_ids": [
+    "02e2c7k09"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-25"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-25"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1301.3342",

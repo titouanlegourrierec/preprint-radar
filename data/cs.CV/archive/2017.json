@@ -843,17 +843,40 @@
    "journal_ref": null,
    "venue": "NeurIPS 2017 Workshop",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1712.02950",
    "abstract": "CycleGAN (Zhu et al. 2017) is one recent successful approach to learn a transformation between two image distributions. In a series of experiments, we demonstrate an intriguing property of the model: CycleGAN learns to \"hide\" information about a source image into the images it generates in a nearly imperceptible, high-frequency signal. This trick ensures that the generator can recover the original sample and thus satisfy the cyclic consistency requirement, while the generated image remains realistic. We connect this phenomenon with adversarial attacks by viewing CycleGAN's training procedure as training a generator of adversarial examples and demonstrate that the cyclic consistency loss causes CycleGAN to be especially vulnerable to adversarial attacks.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Stanford University",
+    "Google Inc"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Stanford University",
+    "Google"
+   ],
+   "institution_ids": [
+    "00f54p054",
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1712.02950",
@@ -1004,17 +1027,34 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1712.04621",
    "abstract": "In this paper, we explore and compare multiple solutions to the problem of data augmentation in image classification. Previous work has demonstrated the effectiveness of data augmentation through simple techniques, such as cropping, rotating, and flipping input images. We artificially constrain our access to data to a small subset of the ImageNet dataset, and compare each data augmentation technique in turn. One of the more successful data augmentations strategies is the traditional transformations mentioned above. We also experiment with GANs to generate images of different styles. Finally, we propose a method to allow a neural net to learn augmentations that best improve the classifier, which we call neural augmentation. We discuss the successes and shortcomings of this method on various datasets.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Stanford University, 450 Serra Mall"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Stanford University"
+   ],
+   "institution_ids": [
+    "00f54p054"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1712.04621",
@@ -1995,17 +2035,49 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.LG",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1712.09913",
    "abstract": "Neural network training relies on our ability to find \"good\" minimizers of highly non-convex loss functions. It is well-known that certain network architecture designs (e.g., skip connections) produce loss functions that train easier, and well-chosen training parameters (batch size, learning rate, optimizer) produce minimizers that generalize better. However, the reasons for these differences, and their effects on the underlying loss landscape, are not well understood. In this paper, we explore the structure of neural loss functions, and the effect of loss landscapes on generalization, using a range of visualization methods. First, we introduce a simple \"filter normalization\" method that helps us visualize loss function curvature and make meaningful side-by-side comparisons between loss functions. Then, using a variety of visualizations, we explore how network architecture affects the loss landscape, and how training parameters affect the shape of minimizers.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Maryland, College Park",
+    "United States Naval Academy",
+    "Cornell University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Maryland, College Park",
+    "United States Naval Academy",
+    "Cornell University"
+   ],
+   "institution_ids": [
+    "047s2c258",
+    "00znex860",
+    "05bnh6r87"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1712.09913",
@@ -3247,17 +3319,47 @@
    "journal_ref": "published at ICML 2018",
    "venue": "ICML 2018",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1712.05055",
    "abstract": "Recent deep networks are capable of memorizing the entire data even when the labels are completely random. To overcome the overfitting on corrupted labels, we propose a novel technique of learning another neural network, called MentorNet, to supervise the training of the base deep networks, namely, StudentNet. During training, MentorNet provides a curriculum (sample weighting scheme) for StudentNet to focus on the sample the label of which is probably correct. Unlike the existing curriculum that is usually predefined by human experts, MentorNet learns a data-driven curriculum dynamically with StudentNet. Experimental results demonstrate that our approach can significantly improve the generalization performance of deep networks trained on corrupted training data. Notably, to the best of our knowledge, we achieve the best-published result on WebVision, a large benchmark containing 2.2 million images of real-world noisy labels. The code are at https://github.com/google/mentornet",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Google Inc., Mountain View, United States",
+    "Stanford University, Stanford, United States"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Google",
+    "Stanford University"
+   ],
+   "institution_ids": [
+    null,
+    "00f54p054"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1712.05055",
@@ -4295,17 +4397,43 @@
    "journal_ref": null,
    "venue": "ICML 2019",
    "cross_list_from": "cs.LG",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1712.02779",
    "abstract": "The study of adversarial robustness has so far largely focused on perturbations bound in p-norms. However, state-of-the-art models turn out to be also vulnerable to other, more natural classes of perturbations such as translations and rotations. In this work, we thoroughly investigate the vulnerability of neural network--based classifiers to rotations and translations. While data augmentation offers relatively small robustness, we use ideas from robust optimization and test-time input aggregation to significantly improve robustness. Finally we find that, in contrast to the p-norm case, first-order methods cannot reliably find worst-case perturbations. This highlights spatial robustness as a fundamentally different setting requiring additional study. Code available at https://github.com/MadryLab/adversarial_spatial and https://github.com/MadryLab/spatial-pytorch.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "MIT"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Massachusetts Institute of Technology"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1712.02779",
@@ -4450,17 +4578,37 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1712.02616",
    "abstract": "In this work we present In-Place Activated Batch Normalization (InPlace-ABN) - a novel approach to drastically reduce the training memory footprint of modern deep neural networks in a computationally efficient way. Our solution substitutes the conventionally used succession of BatchNorm + Activation layers with a single plugin layer, hence avoiding invasive framework surgery while providing straightforward applicability for existing deep learning frameworks. We obtain memory savings of up to 50% by dropping intermediate results and by recovering required information during the backward pass through the inversion of stored forward results, with only minor increase (0.8-2%) in computation time. Also, we demonstrate how frequently used checkpointing approaches can be made computationally as efficient as InPlace-ABN. In our experiments on image classification, we demonstrate on-par results on ImageNet-1k with state-of-the-art approaches. On the memory-demanding task of semantic segmentation, we report results for COCO-Stuff, Cityscapes and Mapillary Vistas, obtaining new state-of-the-art results on the latter without additional training data but in a single-scale and -model scenario. Code can be found at https://github.com/mapillary/inplace_abn .",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Mapillary Research"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Mapillary Research"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1712.02616",
@@ -5432,17 +5580,30 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1712.00960",
    "abstract": "SSD (Single Shot Multibox Detector) is one of the best object detection algorithms with both high accuracy and fast speed. However, SSD's feature pyramid detection method makes it hard to fuse the features from different scales. In this paper, we proposed FSSD (Feature Fusion Single Shot Multibox Detector), an enhanced SSD with a novel and lightweight feature fusion module which can improve the performance significantly over SSD with just a little speed drop. In the feature fusion module, features from different layers with different scales are concatenated together, followed by some down-sampling blocks to generate new feature pyramid, which will be fed to multibox detectors to predict the final detection results. On the Pascal VOC 2007 test, our network can achieve 82.7 mAP (mean average precision) at the speed of 65.8 FPS (frame per second) with the input size 300×300 using a single Nvidia 1080Ti GPU. In addition, our result on COCO is also better than the conventional SSD with a large margin. Our FSSD outperforms a lot of state-of-the-art object detection algorithms in both aspects of accuracy and speed. Code is available at https://github.com/lzx1413/CAFFE_SSD/tree/fssd.",
-   "affiliations": [],
+   "affiliations": [
+    "Key Laboratory of Precision Opto-mechatronics Technology, Ministry of Education,Beihang University, Beijing 100191, China",
+    "Beijing University of Posts and Telecommunications"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Beihang University",
+    "Beijing University of Posts and Telecommunications"
+   ],
+   "institution_ids": [
+    "00wk2mp56",
+    "04w9fbh59"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1712.00960",
@@ -7600,17 +7761,34 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1711.08506",
    "abstract": "While significant attention has been recently focused on designing supervised deep semantic segmentation algorithms for vision tasks, there are many domains in which sufficient supervised pixel-level labels are difficult to obtain. In this paper, we revisit the problem of purely unsupervised image segmentation and propose a novel deep architecture for this problem. We borrow recent ideas from supervised semantic segmentation methods, in particular by concatenating two fully convolutional networks together into an autoencoder--one for encoding and one for decoding. The encoding layer produces a k-way pixelwise prediction, and both the reconstruction error of the autoencoder as well as the normalized cut produced by the encoder are jointly minimized during training. When combined with suitable postprocessing involving conditional random field smoothing and hierarchical segmentation, our resulting algorithm achieves impressive results on the benchmark Berkeley Segmentation Data Set, outperforming a number of competing methods.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Boston University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Boston University"
+   ],
+   "institution_ids": [
+    "05qwgg493"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1711.08506",
@@ -7953,17 +8131,64 @@
    "journal_ref": "2019 IEEE International Conference on Multimedia and Expo (ICME)",
    "venue": "ICME 2019",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1711.06475",
    "abstract": "Significant progress has been achieved in Computer Vision by leveraging large-scale image datasets. However, large-scale datasets for complex Computer Vision tasks beyond classification are still limited. This paper proposed a large-scale dataset named AIC (AI Challenger) with three sub-datasets, human keypoint detection (HKD), large-scale attribute dataset (LAD) and image Chinese captioning (ICC). In this dataset, we annotate class labels (LAD), keypoint coordinate (HKD), bounding box (HKD and LAD), attribute (LAD) and caption (ICC). These rich annotations bridge the semantic gap between low-level images and high-level concepts. The proposed dataset is an effective benchmark to evaluate and improve different computational methods. In addition, for related tasks, others can also use our dataset as a new resource to pre-train their models.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Sinovation Ventures, University of Chinese Academy of Sciences"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Chinese Academy of Sciences"
+   ],
+   "institution_ids": [
+    "05qbk4x57"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1711.06475",
@@ -8365,17 +8590,37 @@
    "journal_ref": null,
    "venue": "NeurIPS 2017",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1711.02638",
    "abstract": "In recent years, great progress has been made in a variety of application domains thanks to the development of increasingly deeper neural networks. Unfortunately, the huge number of units of these networks makes them expensive both computationally and memory-wise. To overcome this, exploiting the fact that deep networks are over-parametrized, several compression strategies have been proposed. These methods, however, typically start from a network that has been trained in a standard manner, without considering such a future compression. In this paper, we propose to explicitly account for compression in the training process. To this end, we introduce a regularizer that encourages the parameter matrix of each layer to have low rank during training. We show that accounting for compression during training allows us to learn much more compact, yet at least as effective, models than state-of-the-art compression techniques.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Toyota Research Institute, Los Altos, CA 94022",
+    "EPFL - CVLab, Lausanne, Switzerland"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Toyota Research Institute",
+    "École Polytechnique Fédérale de Lausanne"
+   ],
+   "institution_ids": [
+    "04fpkc108",
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1711.02638",
@@ -8400,17 +8645,37 @@
    "journal_ref": null,
    "venue": "NeurIPS 2017 Workshop",
    "cross_list_from": "cs.DC",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1711.04325",
    "abstract": "We demonstrate that training ResNet-50 on ImageNet for 90 epochs can be achieved in 15 minutes with 1024 Tesla P100 GPUs. This was made possible by using a large minibatch size of 32k. To maintain accuracy with this large minibatch size, we employed several techniques such as RMSprop warm-up, batch normalization without moving averages, and a slow-start learning rate schedule. This paper also describes the details of the hardware and software of the system used to achieve the above performance.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Preferred Networks, Inc"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Preferred Networks"
+   ],
+   "institution_ids": [
+    "05xeefy56"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1711.04325",
@@ -8641,17 +8906,55 @@
    "journal_ref": null,
    "venue": "NeurIPS 2017",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1711.03129",
    "abstract": "3D object reconstruction from a single image is a highly under-determined problem, requiring strong prior knowledge of plausible 3D shapes. This introduces challenges for learning-based approaches, as 3D object annotations are scarce in real images. Previous work chose to train on synthetic data with ground truth 3D information, but suffered from domain adaptation when tested on real data. In this work, we propose MarrNet, an end-to-end trainable model that sequentially estimates 2.5D sketches and 3D object shape. Our disentangled, two-step formulation has three advantages. First, compared to full 3D shape, 2.5D sketches are much easier to be recovered from a 2D image; models that recover 2.5D sketches are also more likely to transfer from synthetic to real data. Second, for 3D reconstruction from 2.5D sketches, systems can learn purely from synthetic data. This is because we can easily render realistic 2.5D sketches without modeling object appearance variations in real images, including lighting, texture, etc. This further relieves the domain adaptation problem. Third, we derive differentiable projective functions from 3D shape to 2.5D sketches; the framework is therefore end-to-end trainable on real images, requiring no human annotations. Our model achieves state-of-the-art performance on 3D shape reconstruction.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "MIT CSAIL",
+    "ShanghaiTech University",
+    "Shanghai Jiao Tong University",
+    "MIT CSAIL, Google Research"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "MIT Computer Science and Artificial Intelligence Laboratory",
+    "ShanghaiTech University",
+    "Shanghai Jiao Tong University",
+    "Google"
+   ],
+   "institution_ids": [
+    "01e85r662",
+    "030bhh786",
+    "0220qvk04",
+    "00njsd438"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1711.03129",
@@ -8851,17 +9154,30 @@
    "journal_ref": null,
    "venue": "NeurIPS 2017",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1711.02536",
    "abstract": "This work provides a framework for addressing the problem of supervised domain adaptation with deep models. The main idea is to exploit adversarial learning to learn an embedded subspace that simultaneously maximizes the confusion between two domains while semantically aligning their embedding. The supervised setting becomes attractive especially when there are only a few target data samples that need to be labeled. In this few-shot learning scenario, alignment and separation of semantic probability distributions is difficult because of the lack of data. We found that by carefully designing a training scheme whereby the typical binary adversarial discriminator is augmented to distinguish between four different classes, it is possible to effectively address the supervised adaptation problem. In addition, the approach has a high speed of adaptation, i.e. it requires an extremely low number of labeled target training samples, even one per category can be effective. We then extensively compare this approach to the state of the art in domain adaptation in two experiments: one using datasets for handwritten digit recognition, and one using datasets for visual object recognition.",
-   "affiliations": [],
+   "affiliations": [
+    "Lane Department of Computer Science and Electrical Engineering",
+    "West Virginia University"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Lane Department of Computer Science and Electrical Engineering",
+    "West Virginia University"
+   ],
+   "institution_ids": [
+    null,
+    "011vxgd24"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1711.02536",
@@ -8971,17 +9287,40 @@
    "journal_ref": null,
    "venue": "ICML 2017 Workshop",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1711.01458",
    "abstract": "Event cameras, such as dynamic vision sensors (DVS), and dynamic and active-pixel vision sensors (DAVIS) can supplement other autonomous driving sensors by providing a concurrent stream of standard active pixel sensor (APS) images and DVS temporal contrast events. The APS stream is a sequence of standard grayscale global-shutter image sensor frames. The DVS events represent brightness changes occurring at a particular moment, with a jitter of about a millisecond under most lighting conditions. They have a dynamic range of >120 dB and effective frame rates >1 kHz at data rates comparable to 30 fps (frames/second) image sensors. To overcome some of the limitations of current image acquisition technology, we investigate in this work the use of the combined DVS and APS streams in end-to-end driving applications. The dataset DDD17 accompanying this paper is the first open dataset of annotated DAVIS driving recordings. DDD17 has over 12 h of a 346x260 pixel DAVIS sensor recording highway and city driving in daytime, evening, night, dry and wet weather conditions, along with vehicle speed, GPS position, driver steering, throttle, and brake captured from the car's on-board diagnostics interface. As an example application, we performed a preliminary end-to-end learning study of using a convolutional neural network that is trained to predict the instantaneous steering angle from DVS and APS visual data.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Institute of Neuroinformatics, University of Zurich and ETH Zurich, Switzerland"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Zurich"
+   ],
+   "institution_ids": [
+    "02crff812"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1711.01458",
@@ -9919,17 +10258,30 @@
    "journal_ref": null,
    "venue": "ICLR 2018",
    "cross_list_from": "cs.LG",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1711.10563",
    "abstract": "Incremental class learning involves sequentially learning classes in bursts of examples from the same class. This violates the assumptions that underlie methods for training standard deep neural networks, and will cause them to suffer from catastrophic forgetting. Arguably, the best method for incremental class learning is iCaRL, but it requires storing training examples for each class, making it challenging to scale. Here, we propose FearNet for incremental class learning. FearNet is a generative model that does not store previous examples, making it memory efficient. FearNet uses a brain-inspired dual-memory system in which new memories are consolidated from a network for recent memories inspired by the mammalian hippocampal complex to a network for long-term storage inspired by medial prefrontal cortex. Memory consolidation is inspired by mechanisms that occur during sleep. FearNet also uses a module inspired by the basolateral amygdala for determining which memory system to use for recall. FearNet achieves state-of-the-art performance at incremental class learning on image (CIFAR-100, CUB-200) and audio classification (AudioSet) benchmarks.",
-   "affiliations": [],
+   "affiliations": [
+    "Carlson Center for Imaging Science",
+    "Rochester Institute of Technology, Rochester, NY 14623, USA"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Carlson Center for Imaging Science",
+    "Rochester Institute of Technology"
+   ],
+   "institution_ids": [
+    null,
+    "00v4yb702"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1711.10563",
@@ -15109,17 +15461,43 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "stat.ML",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1711.04340",
    "abstract": "Effective training of neural networks requires much data. In the low-data regime, parameters are underdetermined, and learnt networks generalise poorly. Data Augmentation alleviates this by using existing data more effectively. However standard data augmentation produces only limited plausible alternative data. Given there is potential to generate a much broader set of augmentations, we design and train a generative model to do data augmentation. The model, based on image conditional Generative Adversarial Networks, takes data from a source domain and learns to take any data item and generalise it to generate other within-class data items. As this generative process does not depend on the classes themselves, it can be applied to novel unseen classes of data. We show that a Data Augmentation Generative Adversarial Network (DAGAN) augments standard vanilla classifiers well. We also show a DAGAN can enhance few-shot learning systems such as Matching Networks. We demonstrate these approaches on Omniglot, on EMNIST having learnt the DAGAN on Omniglot, and VGG-Face data. In our experiments we can see over 13% increase in accuracy in the low-data regime experiments in Omniglot (from 69% to 82%), EMNIST (73.9% to 76%) and VGG-Face (4.5% to 12%); in Matching Networks for Omniglot we observe an increase of 0.5% (from 96.9% to 97.4%) and an increase of 1.8% in EMNIST (from 59.5% to 61.3%).",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Institute for Adaptive and Neural Computation, The University of Edinburgh",
+    "Edinburgh, EH8 9AB"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Edinburgh",
+    "Edinburgh"
+   ],
+   "institution_ids": [
+    "01nrxwf90",
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1711.04340",
@@ -15193,17 +15571,50 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1711.03213",
    "abstract": "Domain adaptation is critical for success in new, unseen environments. Adversarial adaptation models applied in feature spaces discover domain invariant representations, but are difficult to visualize and sometimes fail to capture pixel-level and low-level domain shifts. Recent work has shown that generative adversarial networks combined with cycle-consistency constraints are surprisingly effective at mapping images between domains, even without the use of aligned image pairs. We propose a novel discriminatively-trained Cycle-Consistent Adversarial Domain Adaptation model. CyCADA adapts representations at both the pixel-level and feature-level, enforces cycle-consistency while leveraging a task loss, and does not require aligned pairs. Our model can be applied in a variety of visual recognition and prediction settings. We show new state-of-the-art results across multiple adaptation tasks, including digit classification and semantic segmentation of road scenes demonstrating transfer from synthetic to real world domains.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "BAIR, UC Berkeley",
+    "OpenAI",
+    "CS, Boston University"
+   ],
+   "author_affiliations": [
+    null,
+    null,
+    null,
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    null,
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of California, Berkeley",
+    "OpenAI",
+    "Boston University"
+   ],
+   "institution_ids": [
+    "01an7q238",
+    null,
+    "05qwgg493"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1711.03213",
@@ -15394,17 +15805,40 @@
    "journal_ref": "Proceedings of the 35th International Conference on Machine Learning (2018), 793-802",
    "venue": "ICML 2018",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1711.02257",
    "abstract": "Deep multitask networks, in which one neural network produces multiple predictive outputs, can offer better speed and performance than their single-task counterparts but are challenging to train properly. We present a gradient normalization (GradNorm) algorithm that automatically balances training in deep multitask models by dynamically tuning gradient magnitudes. We show that for various network architectures, for both regression and classification tasks, and on both synthetic and real datasets, GradNorm improves accuracy and reduces overfitting across multiple tasks when compared to single-task networks, static baselines, and other adaptive multitask loss balancing techniques. GradNorm also matches or surpasses the performance of exhaustive grid search methods, despite only involving a single asymmetry hyperparameter α. Thus, what was once a tedious search process that incurred exponentially more compute for each task added can now be accomplished within a few training runs, irrespective of the number of tasks. Ultimately, we will demonstrate that gradient manipulation affords us great control over the training dynamics of multitask networks and may be one of the keys to unlocking the potential of multitask learning.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Magic Leap, Inc"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Magic Leap Inc"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1711.02257",
@@ -15605,17 +16039,34 @@
    "journal_ref": null,
    "venue": "NeurIPS 2017",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1711.01467",
    "abstract": "We introduce a simple yet surprisingly powerful model to incorporate attention in action recognition and human object interaction tasks. Our proposed attention module can be trained with or without extra supervision, and gives a sizable boost in accuracy while keeping the network size and computational cost nearly the same. It leads to significant improvements over state of the art base architecture on three standard action recognition benchmarks across still images and videos, and establishes new state of the art on MPII dataset with 12.5% relative improvement. We also perform an extensive analysis of our attention module both empirically and analytically. In terms of the latter, we introduce a novel derivation of bottom-up and top-down attention as low-rank approximations of bilinear pooling methods (typically used for fine-grained classification). From this perspective, our attention formulation suggests a novel characterization of action recognition as a fine-grained recognition problem.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "The Robotics Institute, Carnegie Mellon University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Carnegie Mellon University"
+   ],
+   "institution_ids": [
+    "05x2bcf33"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1711.01467",
@@ -15824,17 +16275,40 @@
    "journal_ref": null,
    "venue": "ICLR 2018",
    "cross_list_from": "cs.LG",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1711.00489",
    "abstract": "It is common practice to decay the learning rate. Here we show one can usually obtain the same learning curve on both training and test sets by instead increasing the batch size during training. This procedure is successful for stochastic gradient descent (SGD), SGD with momentum, Nesterov momentum, and Adam. It reaches equivalent test accuracies after the same number of training epochs, but with fewer parameter updates, leading to greater parallelism and shorter training times. We can further reduce the number of parameter updates by increasing the learning rate ε and scaling the batch size B ∝ε. Finally, one can increase the momentum coefficient m and scale B ∝1/(1-m), although this tends to slightly reduce the test accuracy. Crucially, our techniques allow us to repurpose existing training schedules for large batch training with no hyper-parameter tuning. We train ResNet-50 on ImageNet to 76.1% validation accuracy in under 30 minutes.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Google Brain"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Google"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1711.00489",
@@ -16185,17 +16659,30 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.LG",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1710.10686",
    "abstract": "Regularization is one of the crucial ingredients of deep learning, yet the term regularization has various definitions, and regularization methods are often studied separately from each other. In our work we present a systematic, unifying taxonomy to categorize existing methods. We distinguish methods that affect data, network architectures, error terms, regularization terms, and optimization procedures. We do not provide all details about the listed methods; instead, we present an overview of how the methods can be sorted into meaningful categories and sub-categories. This helps revealing links and fundamental similarities between them. Finally, we include practical recommendations both for users and for developers of new regularization methods.",
-   "affiliations": [],
+   "affiliations": [
+    "Computer Vision Group",
+    "Department of Informatics, Technical University of Munich"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Computer Vision Group",
+    "Technical University of Munich"
+   ],
+   "institution_ids": [
+    null,
+    "02kkvpp62"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1710.10686",
@@ -17898,17 +18385,34 @@
    "journal_ref": null,
    "venue": "NeurIPS 2017",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1710.02534",
    "abstract": "Image captioning, a popular topic in computer vision, has achieved substantial progress in recent years. However, the distinctiveness of natural descriptions is often overlooked in previous work. It is closely related to the quality of captions, as distinctive captions are more likely to describe images with their unique aspects. In this work, we propose a new learning method, Contrastive Learning (CL), for image captioning. Specifically, via two constraints formulated on top of a reference model, the proposed method can encourage distinctiveness, while maintaining the overall quality of the generated captions. We tested our method on two challenging datasets, where it improves the baseline model by significant margins. We also showed in our studies that the proposed method is generic and can be used for models with various structures.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Department of Information Engineering, The Chinese University of Hong Kong"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Chinese University of Hong Kong"
+   ],
+   "institution_ids": [
+    "00t33hh48"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1710.02534",
@@ -18624,17 +19128,46 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1710.10501",
    "abstract": "The field of medical diagnostics contains a wealth of challenges which closely resemble classical machine learning problems; practical constraints, however, complicate the translation of these endpoints naively into classical architectures. Many tasks in radiology, for example, are largely problems of multi-label classification wherein medical images are interpreted to indicate multiple present or suspected pathologies. Clinical settings drive the necessity for high accuracy simultaneously across a multitude of pathological outcomes and greatly limit the utility of tools which consider only a subset. This issue is exacerbated by a general scarcity of training data and maximizes the need to extract clinically relevant features from available samples -- ideally without the use of pre-trained models which may carry forward undesirable biases from tangentially related tasks. We present and evaluate a partial solution to these constraints in using LSTMs to leverage interdependencies among target labels in predicting 14 pathologic patterns from chest x-rays and establish state of the art results on the largest publicly available chest x-ray dataset from the NIH without pre-training. Furthermore, we propose and discuss alternative evaluation metrics and their relevance in clinical practice.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Enlitic Inc, San Francisco, CA 94111, USA"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Enlitic Inc"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1710.10501",
@@ -19238,17 +19771,50 @@
    "journal_ref": null,
    "venue": "ICLR 2018 Workshop",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1710.07300",
    "abstract": "We introduce FigureQA, a visual reasoning corpus of over one million question-answer pairs grounded in over 100,000 images. The images are synthetic, scientific-style figures from five classes: line plots, dot-line plots, vertical and horizontal bar graphs, and pie charts. We formulate our reasoning task by generating questions from 15 templates; questions concern various relationships between plot elements and examine characteristics like the maximum, the minimum, area-under-the-curve, smoothness, and intersection. To resolve, such questions often require reference to multiple plot elements and synthesis of information distributed spatially throughout a figure. To facilitate the training of machine learning systems, the corpus also includes side data that can be used to formulate auxiliary objectives. In particular, we provide the numerical data used to generate each figure as well as bounding-box annotations for all plot elements. We study the proposed visual reasoning task by training several models, including the recently proposed Relation Network as a strong baseline. Preliminary results indicate that the task poses a significant machine learning challenge. We envision FigureQA as a first step towards developing models that can intuitively recognize patterns from visual representations of data.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Microsoft Research Montréal",
+    "Université de Montréal, MILA",
+    "Tilburg University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    null,
+    [
+     0
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "Microsoft",
+    "Université de Montréal",
+    "Tilburg University"
+   ],
+   "institution_ids": [
+    "05xdft911",
+    "0161xgx34",
+    "04b8v1s79"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1710.07300",
@@ -19458,17 +20024,52 @@
    "journal_ref": null,
    "venue": "CoRL",
    "cross_list_from": "cs.RO",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1710.05512",
    "abstract": "A successful grasp requires careful balancing of the contact forces. Deducing whether a particular grasp will be successful from indirect measurements, such as vision, is therefore quite challenging, and direct sensing of contacts through touch sensing provides an appealing avenue toward more successful and consistent robotic grasping. However, in order to fully evaluate the value of touch sensing for grasp outcome prediction, we must understand how touch sensing can influence outcome prediction accuracy when combined with other modalities. Doing so using conventional model-based techniques is exceptionally difficult. In this work, we investigate the question of whether touch sensing aids in predicting grasp outcomes within a multimodal sensing framework that combines vision and touch. To that end, we collected more than 9,000 grasping trials using a two-finger gripper equipped with GelSight high-resolution tactile sensors on each finger, and evaluated visuo-tactile deep neural network models to directly predict grasp outcomes from either modality individually, and from both modalities together. Our experimental results indicate that incorporating tactile readings substantially improve grasping performance.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "U.C. Berkeley",
+    "MIT"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "U.C. Berkeley",
+    "Massachusetts Institute of Technology"
+   ],
+   "institution_ids": [
+    null,
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1710.05512",
@@ -19670,17 +20271,27 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.MM",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1710.05106",
    "abstract": "It is known that the inconsistent distribution and representation of different modalities, such as image and text, cause the heterogeneity gap that makes it challenging to correlate such heterogeneous data. Generative adversarial networks (GANs) have shown its strong ability of modeling data distribution and learning discriminative representation, existing GANs-based works mainly focus on generative problem to generate new data. We have different goal, aim to correlate heterogeneous data, by utilizing the power of GANs to model cross-modal joint distribution. Thus, we propose Cross-modal GANs to learn discriminative common representation for bridging heterogeneity gap. The main contributions are: (1) Cross-modal GANs architecture is proposed to model joint distribution over data of different modalities. The inter-modality and intra-modality correlation can be explored simultaneously in generative and discriminative models. Both of them beat each other to promote cross-modal correlation learning. (2) Cross-modal convolutional autoencoders with weight-sharing constraint are proposed to form generative model. They can not only exploit cross-modal correlation for learning common representation, but also preserve reconstruction information for capturing semantic consistency within each modality. (3) Cross-modal adversarial mechanism is proposed, which utilizes two kinds of discriminative models to simultaneously conduct intra-modality and inter-modality discrimination. They can mutually boost to make common representation more discriminative by adversarial training process. To the best of our knowledge, our proposed CM-GANs approach is the first to utilize GANs to perform cross-modal common representation learning. Experiments are conducted to verify the performance of our proposed approach on cross-modal retrieval paradigm, compared with 10 methods on 3 cross-modal datasets.",
-   "affiliations": [],
+   "affiliations": [
+    "This work was supported by National Natural Science Foundation of China under Grants 61771025 and 61532005"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "National Natural Science Foundation of China"
+   ],
+   "institution_ids": [
+    "01h0zpd94"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1710.05106",
@@ -19921,17 +20532,45 @@
    "journal_ref": null,
    "venue": "TIP",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1710.04026",
    "abstract": "Due to the fast inference and good performance, discriminative learning methods have been widely studied in image denoising. However, these methods mostly learn a specific model for each noise level, and require multiple models for denoising images with different noise levels. They also lack flexibility to deal with spatially variant noise, limiting their applications in practical denoising. To address these issues, we present a fast and flexible denoising convolutional neural network, namely FFDNet, with a tunable noise level map as the input. The proposed FFDNet works on downsampled sub-images, achieving a good trade-off between inference speed and denoising performance. In contrast to the existing discriminative denoisers, FFDNet enjoys several desirable properties, including (i) the ability to handle a wide range of noise levels (i.e., [0, 75]) effectively with a single network, (ii) the ability to remove spatially variant noise by specifying a non-uniform noise level map, and (iii) faster speed than benchmark BM3D even on CPU without sacrificing denoising performance. Extensive experiments on synthetic and real noisy images are conducted to evaluate FFDNet in comparison with state-of-the-art denoisers. The results show that FFDNet is effective and efficient, making it highly attractive for practical denoising applications.",
-   "affiliations": [],
+   "affiliations": [
+    "This project is partially supported by the National Natural Scientific Foundation of China (NSFC) under Grant No. 61671182 and 61471146, and the HK RGC GRF grant (under no. PolyU 152124/15E)",
+    "School of Computer Science and Technology, Harbin",
+    "Institute of Technology, Harbin 150001, China",
+    "of Computing, The Hong Kong Polytechnic University, Hong Kong",
+    "School of Computer Science and Technology, Harbin Institute of Technology, Harbin 150001, China",
+    "Department of Computing, The Hong Kong",
+    "Polytechnic University, Hong Kong"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    null,
+    "Harbin",
+    "Institute of Technology",
+    "Hong Kong Polytechnic University",
+    "Harbin Institute of Technology",
+    null,
+    "Polytechnic University"
+   ],
+   "institution_ids": [
+    null,
+    null,
+    null,
+    "0030zas98",
+    "01yqg2h08",
+    null,
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1710.04026",
@@ -21891,17 +22530,58 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.CR",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1709.04647",
    "abstract": "Security experts have demonstrated numerous risks imposed by Internet of Things (IoT) devices on organizations. Due to the widespread adoption of such devices, their diversity, standardization obstacles, and inherent mobility, organizations require an intelligent mechanism capable of automatically detecting suspicious IoT devices connected to their networks. In particular, devices not included in a white list of trustworthy IoT device types (allowed to be used within the organizational premises) should be detected. In this research, Random Forest, a supervised machine learning algorithm, was applied to features extracted from network traffic data with the aim of accurately identifying IoT device types from the white list. To train and evaluate multi-class classifiers, we collected and manually labeled network traffic data from 17 distinct IoT devices, representing nine types of IoT devices. Based on the classification of 20 consecutive sessions and the use of majority rule, IoT device types that are not on the white list were correctly detected as unknown in 96% of test cases (on average), and white listed device types were correctly classified by their actual types in 99% of cases. Some IoT device types were identified quicker than others (e.g., sockets and thermostats were successfully detected within five TCP sessions of connecting to the network). Perfect detection of unauthorized IoT device types was achieved upon analyzing 110 consecutive sessions; perfect classification of white listed types required 346 consecutive sessions, 110 of which resulted in 99.49% accuracy. Further experiments demonstrated the successful applicability of classifiers trained in one location and tested on another. In addition, a discussion is provided regarding the resilience of our machine learning-based IoT white listing method to adversarial attacks.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Ben-Gurion University of the Negev",
+    "Beer-Sheva, Israel",
+    "Singapore University of Technology and Design"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "Ben-Gurion University of the Negev",
+    "Beer-Sheva",
+    "Singapore University of Technology and Design"
+   ],
+   "institution_ids": [
+    null,
+    null,
+    "05j6fvn87"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1709.04647",
@@ -22182,17 +22862,42 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "quant-ph",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1709.02779",
    "abstract": "Quantum information technologies, and intelligent learning systems, are both emergent technologies that will likely have a transforming impact on our society. The respective underlying fields of research -- quantum information (QI) versus machine learning (ML) and artificial intelligence (AI) -- have their own specific challenges, which have hitherto been investigated largely independently. However, in a growing body of recent work, researchers have been probing the question to what extent these fields can learn and benefit from each other. QML explores the interaction between quantum computing and ML, investigating how results and techniques from one field can be used to solve the problems of the other. Recently, we have witnessed breakthroughs in both directions of influence. For instance, quantum computing is finding a vital application in providing speed-ups in ML, critical in our \"big data\" world. Conversely, ML already permeates cutting-edge technologies, and may become instrumental in advanced quantum technologies. Aside from quantum speed-up in data analysis, or classical ML optimization used in quantum experiments, quantum enhancements have also been demonstrated for interactive learning, highlighting the potential of quantum-enhanced learning agents. Finally, works exploring the use of AI for the very design of quantum experiments, and for performing parts of genuine research autonomously, have reported their first successes. Beyond the topics of mutual enhancement, researchers have also broached the fundamental issue of quantum generalizations of ML/AI concepts. This deals with questions of the very meaning of learning and intelligence in a world that is described by quantum mechanics. In this review, we describe the main ideas, recent developments, and progress in a broad spectrum of research investigating machine learning and artificial intelligence in the quantum domain.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Institute for Theoretical Physics, University of Innsbruck, Innsbruck 6020, Austria",
+    "Max Planck Institute of Quantum Optics, Garching 85748, Germany",
+    "Department of Philosophy, University of Konstanz, Konstanz 78457, Germany"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ]
+   ],
+   "institutions": [
+    "Universität Innsbruck",
+    "Max Planck Institute of Quantum Optics",
+    "University of Konstanz"
+   ],
+   "institution_ids": [
+    "054pv6659",
+    "01vekys64",
+    "0546hnb39"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1709.02779",
@@ -22552,17 +23257,34 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1709.01450",
    "abstract": "The world is long-tailed. What does this mean for computer vision and visual recognition? The main two implications are (1) the number of categories we need to consider in applications can be very large, and (2) the number of training examples for most categories can be very small. Current visual recognition algorithms have achieved excellent classification accuracy. However, they require many training examples to reach peak performance, which suggests that long-tailed distributions will not be dealt with well. We analyze this question in the context of eBird, a large fine-grained classification dataset, and a state-of-the-art deep network classification algorithm. We find that (a) peak classification performance on well-represented categories is excellent, (b) given enough data, classification performance suffers only minimally from an increase in the number of classes, (c) classification performance decays precipitously as the number of training examples decreases, (d) surprisingly, transfer learning is virtually absent in current methods. Our findings suggest that our community should come to grips with the question of long tails.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Caltech"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "California Institute of Technology"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1709.01450",
@@ -22588,17 +23310,40 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1709.01134",
    "abstract": "For computer vision applications, prior works have shown the efficacy of reducing numeric precision of model parameters (network weights) in deep neural networks. Activation maps, however, occupy a large memory footprint during both the training and inference step when using mini-batches of inputs. One way to reduce this large memory footprint is to reduce the precision of activations. However, past works have shown that reducing the precision of activations hurts model accuracy. We study schemes to train networks from scratch using reduced-precision activations without hurting accuracy. We reduce the precision of activation maps (along with model parameters) and increase the number of filter maps in a layer, and find that this scheme matches or surpasses the accuracy of the baseline full-precision network. As a result, one can significantly improve the execution efficiency (e.g. reduce dynamic memory footprint, memory bandwidth and computational energy) and speed up the training and inference process with appropriate hardware support. We call our scheme WRPN - wide reduced-precision networks. We report results and show that WRPN scheme is better than previously reported accuracies on ILSVRC-12 dataset while being computationally less expensive compared to previously reported reduced-precision networks.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Accelerator Architecture Lab, Intel"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Intel"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1709.01134",
@@ -24317,17 +25062,37 @@
    "journal_ref": null,
    "venue": "NeurIPS 2017 Workshop",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1709.01872",
    "abstract": "Currently there is strong interest in data-driven approaches to medical image classification. However, medical imaging data is scarce, expensive, and fraught with legal concerns regarding patient privacy. Typical consent forms only allow for patient data to be used in medical journals or education, meaning the majority of medical data is inaccessible for general public research. We propose a novel, two-stage pipeline for generating synthetic medical images from a pair of generative adversarial networks, tested in practice on retinal fundi images. We develop a hierarchical generation process to divide the complex image generation task into two parts: geometry and photorealism. We hope researchers will use our pipeline to bring private medical data into the public domain, sparking growth in imaging tasks that have previously relied on the hand-tuning of models. We have begun this initiative through the development of SynthMed, an online repository for synthetic medical images.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "StudentHenry M. Gunn High School, Palo Alto, CA"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "StudentHenry M. Gunn High School"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1709.01872",
@@ -26263,17 +27028,61 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1708.05509",
    "abstract": "Automatic generation of facial images has been well studied after the Generative Adversarial Network (GAN) came out. There exists some attempts applying the GAN model to the problem of generating facial images of anime characters, but none of the existing work gives a promising result. In this work, we explore the training of GAN models specialized on an anime facial image dataset. We address the issue from both the data and the model aspect, by collecting a more clean, well-suited dataset and leverage proper, empirical application of DRAGAN. With quantitative analysis and case studies we demonstrate that our efforts lead to a stable and high-quality model. Moreover, to assist people with anime character design, we build a website (http://make.girls.moe) with our pre-trained model available online, which makes the model easily accessible to general public.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "School of Computer Science, Fudan University",
+    "School of Computer Science, Carnegie Mellon University",
+    "School of Computer Science, Fudan Univerisity",
+    "Department of Computer Science, Stony Brook University",
+    "School of Mathematics, Fudan Univerisity",
+    "Department of Architecture, Tongji Univerisity"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     4
+    ],
+    [
+     5
+    ]
+   ],
+   "institutions": [
+    "Fudan University",
+    "Carnegie Mellon University",
+    "Fudan Univerisity",
+    "Stony Brook University",
+    "Fudan Univerisity",
+    "Tongji Univerisity"
+   ],
+   "institution_ids": [
+    "013q1eq08",
+    "05x2bcf33",
+    null,
+    "05qghxh33",
+    null,
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1708.05509",
@@ -26346,17 +27155,37 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1708.05375",
    "abstract": "We present a learnt system for multi-view stereopsis. In contrast to recent learning based methods for 3D reconstruction, we leverage the underlying 3D geometry of the problem through feature projection and unprojection along viewing rays. By formulating these operations in a differentiable manner, we are able to learn the system end-to-end for the task of metric 3D reconstruction. End-to-end learning allows us to jointly reason about shape priors while conforming geometric constraints, enabling reconstruction from much fewer images (even a single image) than required by classical approaches as well as completion of unseen surfaces. We thoroughly evaluate our approach on the ShapeNet dataset and demonstrate the benefits over classical approaches as well as recent learning based methods.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "UC Berkeley"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of California, Berkeley"
+   ],
+   "institution_ids": [
+    "01an7q238"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1708.05375",
@@ -27589,17 +28418,37 @@
    "journal_ref": null,
    "venue": "CVPR 2017 Workshop",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1708.02551",
    "abstract": "Semantic instance segmentation remains a challenging task. In this work we propose to tackle the problem with a discriminative loss function, operating at the pixel level, that encourages a convolutional network to produce a representation of the image that can easily be clustered into instances with a simple post-processing step. The loss function encourages the network to map each pixel to a point in feature space so that pixels belonging to the same instance lie close together while different instances are separated by a wide margin. Our approach of combining an off-the-shelf network with a principled loss function inspired by a metric learning objective is conceptually simple and distinct from recent efforts in instance segmentation. In contrast to previous works, our method does not rely on object proposals or recurrent mechanisms. A key contribution of our work is to demonstrate that such a simple setup without bells and whistles is effective and can perform on par with more complex methods. Moreover, we show that it does not suffer from some of the limitations of the popular detect-and-segment approaches. We achieve competitive performance on the Cityscapes and CVPPP leaf segmentation benchmarks.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "ESAT-PSI, KU"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "ESAT-PSI"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1708.02551",
@@ -30528,17 +31377,38 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1708.04552",
    "abstract": "Convolutional neural networks are capable of learning powerful representational spaces, which are necessary for tackling complex learning tasks. However, due to the model capacity required to capture such representations, they are often susceptible to overfitting and therefore require proper regularization in order to generalize well. In this paper, we show that the simple regularization technique of randomly masking out square regions of input during training, which we call cutout, can be used to improve the robustness and overall performance of convolutional neural networks. Not only is this method extremely easy to implement, but we also demonstrate that it can be used in conjunction with existing forms of data augmentation and other regularizers to further improve model performance. We evaluate this method by applying it to current state-of-the-art architectures on the CIFAR-10, CIFAR-100, and SVHN datasets, yielding new state-of-the-art results of 2.56%, 15.20%, and 1.30% test error respectively. Code is available at https://github.com/uoguelph-mlrg/Cutout",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Guelph",
+    "Canadian Institute for Advanced Research and Vector Institute"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "University of Guelph",
+    "Canadian Institute for Advanced Research"
+   ],
+   "institution_ids": [
+    "01r7awg59",
+    "01sdtdd95"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1708.04552",
@@ -30743,17 +31613,51 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1708.03888",
    "abstract": "A common way to speed up training of large convolutional networks is to add computational units. Training is then performed using data-parallel synchronous Stochastic Gradient Descent (SGD) with mini-batch divided between computational units. With an increase in the number of nodes, the batch size grows. But training with large batch size often results in the lower model accuracy. We argue that the current recipe for large batch training (linear learning rate scaling with warm-up) is not general enough and training may diverge. To overcome this optimization difficulties we propose a new training algorithm based on Layer-wise Adaptive Rate Scaling (LARS). Using LARS, we scaled Alexnet up to a batch size of 8K, and Resnet-50 to a batch size of 32K without loss in accuracy.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Computer Science Division",
+    "University of California at Berkeley",
+    "Computer Science Department",
+    "Carnegie Mellon University",
+    "NVIDIA"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     4
+    ]
+   ],
+   "institutions": [
+    "Computer Science Division",
+    "University of California, Berkeley",
+    "Computer Science Department",
+    "Carnegie Mellon University",
+    "NVIDIA"
+   ],
+   "institution_ids": [
+    null,
+    "01an7q238",
+    null,
+    "05x2bcf33",
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1708.03888",
@@ -32789,17 +33693,40 @@
    "journal_ref": null,
    "venue": "MICCAI 2017 Workshop",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1707.06183",
    "abstract": "Preparing and scanning histopathology slides consists of several steps, each with a multitude of parameters. The parameters can vary between pathology labs and within the same lab over time, resulting in significant variability of the tissue appearance that hampers the generalization of automatic image analysis methods. Typically, this is addressed with ad-hoc approaches such as staining normalization that aim to reduce the appearance variability. In this paper, we propose a systematic solution based on domain-adversarial neural networks. We hypothesize that removing the domain information from the model representation leads to better generalization. We tested our hypothesis for the problem of mitosis detection in breast cancer histopathology images and made a comparative analysis with two other approaches. We show that combining color augmentation with domain-adversarial training is a better alternative than standard approaches to improve the generalization of deep learning methods.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Medical Image Analysis Group, Department of Biomedical Engineering",
+    "Eindhoven University of Technology, The Netherlands"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    null,
+    null,
+    null
+   ],
+   "institutions": [
+    "Medical Image Analysis Group",
+    "Eindhoven University of Technology"
+   ],
+   "institution_ids": [
+    null,
+    "02c2kyt77"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1707.06183",
@@ -33039,17 +33966,37 @@
    "journal_ref": null,
    "venue": "BMVC 2017",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1707.05572",
    "abstract": "State-of-the-art object recognition Convolutional Neural Networks (CNNs) are shown to be fooled by image agnostic perturbations, called universal adversarial perturbations. It is also observed that these perturbations generalize across multiple networks trained on the same target data. However, these algorithms require training data on which the CNNs were trained and compute adversarial perturbations via complex optimization. The fooling performance of these approaches is directly proportional to the amount of available training data. This makes them unsuitable for practical attacks since its unreasonable for an attacker to have access to the training data. In this paper, for the first time, we propose a novel data independent approach to generate image agnostic perturbations for a range of CNNs trained for object recognition. We further show that these perturbations are transferable across multiple network architectures trained either on same or different data. In the absence of data, our method generates universal adversarial perturbations efficiently via fooling the features learned at multiple layers thereby causing CNNs to misclassify. Experiments demonstrate impressive fooling rates and surprising transferability for the proposed universal perturbations generated without any training data.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Video Analytics Lab, Department of Computational and Data Sciences, Indian Institute of Science, Bangalore, India"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Indian Institute of Science Bangalore"
+   ],
+   "institution_ids": [
+    "04dese585"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1707.05572",
@@ -33185,17 +34132,30 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1707.04585",
    "abstract": "Deep residual networks (ResNets) have significantly pushed forward the state-of-the-art on image classification, increasing in performance as networks grow both deeper and wider. However, memory consumption becomes a bottleneck, as one needs to store the activations in order to calculate gradients using backpropagation. We present the Reversible Residual Network (RevNet), a variant of ResNets where each layer's activations can be reconstructed exactly from the next layer's. Therefore, the activations for most layers need not be stored in memory during backpropagation. We demonstrate the effectiveness of RevNets on CIFAR-10, CIFAR-100, and ImageNet, establishing nearly identical classification accuracy to equally-sized ResNets, even though the activation storage requirements are independent of depth.",
-   "affiliations": [],
+   "affiliations": [
+    "University of Toronto",
+    "Uber Advanced Technologies Group"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "University of Toronto",
+    "Uber Advanced Technologies Group"
+   ],
+   "institution_ids": [
+    "03dbr7087",
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1707.04585",
@@ -33624,17 +34584,37 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.LG",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1707.02812",
    "abstract": "Adversarial samples are strategically modified samples, which are crafted with the purpose of fooling a classifier at hand. An attacker introduces specially crafted adversarial samples to a deployed classifier, which are being mis-classified by the classifier. However, the samples are perceived to be drawn from entirely different classes and thus it becomes hard to detect the adversarial samples. Most of the prior works have been focused on synthesizing adversarial samples in the image domain. In this paper, we propose a new method of crafting adversarial text samples by modification of the original samples. Modifications of the original text samples are done by deleting or replacing the important or salient words in the text or by introducing new words in the text sample. Our algorithm works best for the datasets which have sub-categories within each of the classes of examples. While crafting adversarial samples, one of the key constraint is to generate meaningful sentences which can at pass off as legitimate from language (English) viewpoint. Experimental results on IMDB movie review dataset for sentiment analysis and Twitter dataset for gender detection show the efficiency of our proposed method.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "IBM India Research Lab (IRL), Bangalore, India",
+    "IBM India Research Lab (IRL), New Delhi, India"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "IBM",
+    "IBM"
+   ],
+   "institution_ids": [
+    null,
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1707.02812",
@@ -34924,17 +35904,37 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1707.08819",
    "abstract": "The original ImageNet dataset is a popular large-scale benchmark for training Deep Neural Networks. Since the cost of performing experiments (e.g, algorithm design, architecture search, and hyperparameter tuning) on the original dataset might be prohibitive, we propose to consider a downsampled version of ImageNet. In contrast to the CIFAR datasets and earlier downsampled versions of ImageNet, our proposed ImageNet32×32 (and its variants ImageNet64×64 and ImageNet16×16) contains exactly the same number of classes and images as ImageNet, with the only difference that the images are downsampled to 32×32 pixels per image (64×64 and 16×16 pixels for the variants, respectively). Experiments on these downsampled variants are dramatically faster than on the original ImageNet and the characteristics of the downsampled datasets with respect to optimal hyperparameters appear to remain similar. The proposed datasets and scripts to reproduce our results are available at http://image-net.org/download-images and https://github.com/PatrykChrabaszcz/Imagenet32_Scripts",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Freiburg, Freiburg, Germany"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Freiburg"
+   ],
+   "institution_ids": [
+    "0245cg223"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1707.08819",
@@ -35677,17 +36677,33 @@
    "journal_ref": null,
    "venue": "BMVC 2018",
    "cross_list_from": "cs.LG",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1707.05612",
    "abstract": "We present a new technique for learning visual-semantic embeddings for cross-modal retrieval. Inspired by hard negative mining, the use of hard negatives in structured prediction, and ranking loss functions, we introduce a simple change to common loss functions used for multi-modal embeddings. That, combined with fine-tuning and use of augmented data, yields significant gains in retrieval performance. We showcase our approach, VSE++, on MS-COCO and Flickr30K datasets, using ablation studies and comparisons with existing methods. On MS-COCO our approach outperforms state-of-the-art methods by 8.8% in caption retrieval and 11.3% in image retrieval (at R@1).",
-   "affiliations": [],
+   "affiliations": [
+    "Department of Computer Science, University of Toronto",
+    "Vector Institute",
+    "Google Brain Toronto"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "University of Toronto",
+    "Vector Institute",
+    "Google"
+   ],
+   "institution_ids": [
+    "03dbr7087",
+    null,
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1707.05612",
@@ -35985,17 +37001,55 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.LG",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1707.04131",
    "abstract": "Even todays most advanced machine learning models are easily fooled by almost imperceptible perturbations of their inputs. Foolbox is a new Python package to generate such adversarial perturbations and to quantify and compare the robustness of machine learning models. It is build around the idea that the most comparable robustness measure is the minimum perturbation needed to craft an adversarial example. To this end, Foolbox provides reference implementations of most published adversarial attack methods alongside some new ones, all of which perform internal hyperparameter tuning to find the minimum adversarial perturbation. Additionally, Foolbox interfaces with most popular deep learning frameworks such as PyTorch, Keras, TensorFlow, Theano and MXNet and allows different adversarial criteria such as targeted misclassification and top-k misclassification as well as different distance measures. The code is licensed under the MIT license and is openly available at https://github.com/bethgelab/foolbox . The most up-to-date documentation can be found at http://foolbox.readthedocs.io .",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Centre for Integrative Neuroscience, University of Tübingen, Germany",
+    "Bernstein Center for Computational Neuroscience, Tübingen, Germany",
+    "International Max Planck Research School for Intelligent Systems, Tübingen, Germany",
+    "Max Planck Institute for Biological Cybernetics, Tübingen, Germany",
+    "Institute for Theoretical Physics, University of Tübingen, Germany"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     3,
+     1,
+     4
+    ]
+   ],
+   "institutions": [
+    "University of Tübingen",
+    "Bernstein Center for Computational Neuroscience Tübingen",
+    "International Max Planck Research School for Intelligent Systems",
+    "Max Planck Institute for Biological Cybernetics",
+    "University of Tübingen"
+   ],
+   "institution_ids": [
+    "03a1kwz48",
+    "03kfnwp54",
+    null,
+    "026nmvv73",
+    "03a1kwz48"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1707.04131",
@@ -36729,17 +37783,49 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1707.02131",
    "abstract": "Offline signature verification is one of the most challenging tasks in biometrics and document forensics. Unlike other verification problems, it needs to model minute but critical details between genuine and forged signatures, because a skilled falsification might often resembles the real signature with small deformation. This verification task is even harder in writer independent scenarios which is undeniably fiscal for realistic cases. In this paper, we model an offline writer independent signature verification task with a convolutional Siamese network. Siamese networks are twin networks with shared weights, which can be trained to learn a feature space where similar observations are placed in proximity. This is achieved by exposing the network to a pair of similar and dissimilar observations and minimizing the Euclidean distance between similar pairs while simultaneously maximizing it between dissimilar pairs. Experiments conducted on cross-domain datasets emphasize the capability of our network to model forgery in different languages (scripts) and handwriting styles. Moreover, our designed Siamese network, named SigNet, exceeds the state-of-the-art results on most of the benchmark signature datasets, which paves the way for further research in this direction.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Computer Vision Center, Computer Science Dept., Universitat Autònoma de Barcelona, Edifici O, Campus UAB, 08193 Bellaterra, Spain",
+    "Computer Vision and Pattern Recognition Unit, Indian Statistical Institute, 203, B. T. Road, Kolkata-700108, India"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Universitat Autònoma de Barcelona",
+    "Indian Statistical Institute"
+   ],
+   "institution_ids": [
+    "052g8jq94",
+    "00q2w1j53"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1707.02131",
@@ -36765,17 +37851,58 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1707.01629",
    "abstract": "In this work, we present a simple, highly efficient and modularized Dual Path Network (DPN) for image classification which presents a new topology of connection paths internally. By revealing the equivalence of the state-of-the-art Residual Network (ResNet) and Densely Convolutional Network (DenseNet) within the HORNN framework, we find that ResNet enables feature re-usage while DenseNet enables new features exploration which are both important for learning good representations. To enjoy the benefits from both path topologies, our proposed Dual Path Network shares common features while maintaining the flexibility to explore new features through dual path architectures. Extensive experiments on three benchmark datasets, ImagNet-1k, Places365 and PASCAL VOC, clearly demonstrate superior performance of the proposed DPN over state-of-the-arts. In particular, on the ImagNet-1k dataset, a shallow DPN surpasses the best ResNeXt-101(64x4d) with 26% smaller model size, 25% less computational cost and 8% lower memory consumption, and a deeper DPN (DPN-131) further pushes the state-of-the-art single model performance with about 2 times faster training speed. Experiments on the Places365 large-scale scene dataset, PASCAL VOC detection dataset, and PASCAL VOC segmentation dataset also demonstrate its consistently better performance than DenseNet, ResNet and the latest ResNeXt model over various applications.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "National University of Singapore",
+    "Beijing Institute of Technology",
+    "National University of Defense Technology",
+    "Qihoo 360 AI Institute"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "National University of Singapore",
+    "Beijing Institute of Technology",
+    "National University of Defense Technology",
+    null
+   ],
+   "institution_ids": [
+    "01tgyzw49",
+    "01skt4w74",
+    "05d2yfz11",
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1707.01629",
@@ -36922,17 +38049,34 @@
    "journal_ref": null,
    "venue": "ECCV",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1707.01213",
    "abstract": "Deep convolutional neural networks have liberated its extraordinary power on various tasks. However, it is still very challenging to deploy state-of-the-art models into real-world applications due to their high computational complexity. How can we design a compact and effective network without massive experiments and expert knowledge? In this paper, we propose a simple and effective framework to learn and prune deep models in an end-to-end manner. In our framework, a new type of parameter -- scaling factor is first introduced to scale the outputs of specific structures, such as neurons, groups or residual blocks. Then we add sparsity regularizations on these factors, and solve this optimization problem by a modified stochastic Accelerated Proximal Gradient (APG) method. By forcing some of the factors to zero, we can safely remove the corresponding structures, thus prune the unimportant parts of a CNN. Comparing with other structure selection methods that may need thousands of trials or iterative fine-tuning, our method is trained fully end-to-end in one training pass without bells and whistles. We evaluate our method, Sparse Structure Selection with several state-of-the-art CNNs, and demonstrate very promising results with adaptive depth and width selection.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "TuSimple"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "TuSimple"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1707.01213",
@@ -37987,17 +39131,30 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1706.05791",
    "abstract": "This paper aims to simultaneously accelerate and compress off-the-shelf CNN models via filter pruning strategy. The importance of each filter is evaluated by the proposed entropy-based method first. Then several unimportant filters are discarded to get a smaller CNN model. Finally, fine-tuning is adopted to recover its generalization ability which is damaged during filter pruning. Our method can reduce the size of intermediate activations, which would dominate most memory footprint during model training stage but is less concerned in previous compression methods. Experiments on the ILSVRC-12 benchmark demonstrate the effectiveness of our method. Compared with previous filter importance evaluation criteria, our entropy-based method obtains better performance. We achieve 3.3x speed-up and 16.64x compression on VGG-16, 1.54x acceleration and 1.47x compression on ResNet-50, both with about 1% top-5 accuracy decrease.",
-   "affiliations": [],
+   "affiliations": [
+    "National Key Laboratory for Novel Software Technology",
+    "Nanjing University, China"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "National Key Laboratory for Novel Software Technology",
+    "Nanjing University"
+   ],
+   "institution_ids": [
+    null,
+    "01rxvg760"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1706.05791",
@@ -38607,17 +39764,43 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.LG",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1706.03825",
    "abstract": "Explaining the output of a deep network remains a challenge. In the case of an image classifier, one type of explanation is to identify pixels that strongly influence the final decision. A starting point for this strategy is the gradient of the class score function with respect to the input image. This gradient can be interpreted as a sensitivity map, and there are several techniques that elaborate on this basic idea. This paper makes two contributions: it introduces SmoothGrad, a simple method that can help visually sharpen gradient-based sensitivity maps, and it discusses lessons in the visualization of these maps. We publish the code for our experiments and a website with our results.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Google Inc"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Google"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1706.03825",
@@ -39008,17 +40191,46 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1706.01433",
    "abstract": "From just a glance, humans can make rich predictions about the future state of a wide range of physical systems. On the other hand, modern approaches from engineering, robotics, and graphics are often restricted to narrow domains and require direct measurements of the underlying states. We introduce the Visual Interaction Network, a general-purpose model for learning the dynamics of a physical system from raw visual observations. Our model consists of a perceptual front-end based on convolutional neural networks and a dynamics predictor based on interaction networks. Through joint training, the perceptual front-end learns to parse a dynamic visual scene into a set of factored latent object representations. The dynamics predictor learns to roll these states forward in time by computing their interactions and dynamics, producing a predicted physical trajectory of arbitrary length. We found that from just six input video frames the Visual Interaction Network can generate accurate future trajectories of hundreds of time steps on a wide range of physical systems. Our model can also be applied to scenes with invisible objects, inferring their future states from their effects on the visible objects, and can implicitly infer the unknown mass of objects. Our results demonstrate that the perceptual module and the object-based dynamics predictor module can induce factored latent representations that support accurate dynamical predictions. This work opens new opportunities for model-based decision-making and planning from raw sensory observations in complex physical environments.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "DeepMind, London, United Kingdom"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Google DeepMind"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1706.01433",
@@ -39041,17 +40253,34 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.NE",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1706.01307",
    "abstract": "Convolutional network are the de-facto standard for analysing spatio-temporal data such as images, videos, 3D shapes, etc. Whilst some of this data is naturally dense (for instance, photos), many other data sources are inherently sparse. Examples include pen-strokes forming on a piece of paper, or (colored) 3D point clouds that were obtained using a LiDAR scanner or RGB-D camera. Standard \"dense\" implementations of convolutional networks are very inefficient when applied on such sparse data. We introduce a sparse convolutional operation tailored to processing sparse data that differs from prior work on sparse convolutional networks in that it operates strictly on submanifolds, rather than \"dilating\" the observation with every layer in the network. Our empirical analysis of the resulting submanifold sparse convolutional networks shows that they perform on par with state-of-the-art methods whilst requiring substantially less computation.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Facebook AI Research"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Meta"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1706.01307",
@@ -39531,17 +40760,52 @@
    "journal_ref": null,
    "venue": "ICLR 2017",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1706.08033",
    "abstract": "We propose a deep neural network for the prediction of future frames in natural video sequences. To effectively handle complex evolution of pixels in videos, we propose to decompose the motion and content, two key components generating dynamics in videos. Our model is built upon the Encoder-Decoder Convolutional Neural Network and Convolutional LSTM for pixel-level prediction, which independently capture the spatial layout of an image and the corresponding temporal dynamics. By independently modeling motion and content, predicting the next frame reduces to converting the extracted content features into the next frame content by the identified motion features, which simplifies the task of prediction. Our model is end-to-end trainable over multiple time steps, and naturally learns to decompose motion and content without separate training. We evaluate the proposed network architecture on human activity videos using KTH, Weizmann action, and UCF-101 datasets. We show state-of-the-art performance in comparison to recent approaches. To the best of our knowledge, this is the first end-to-end trainable network architecture with motion and content separation to model the spatiotemporal dynamics for pixel-level future prediction in natural videos.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Michigan, Ann Arbor, USA",
+    "Adobe Research, San Jose, CA 95110",
+    "POSTECH, Pohang, Korea",
+    "Beihang University, Beijing, China"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     3
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Michigan",
+    "Adobe",
+    "POSTECH",
+    "Beihang University"
+   ],
+   "institution_ids": [
+    "00jmfr291",
+    null,
+    null,
+    "00wk2mp56"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1706.08033",
@@ -39787,17 +41051,77 @@
    "journal_ref": null,
    "venue": "NeurIPS 2018",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1706.06969",
    "abstract": "Human visual object recognition is typically rapid and seemingly effortless, as well as largely independent of viewpoint and object orientation. Until very recently, animate visual systems were the only ones capable of this remarkable computational feat. This has changed with the rise of a class of computer vision algorithms called deep neural networks (DNNs) that achieve human-level classification performance on object recognition tasks. Furthermore, a growing number of studies report similarities in the way DNNs and the human visual system process objects, suggesting that current DNNs may be good models of human visual object recognition. Yet there clearly exist important architectural and processing differences between state-of-the-art DNNs and the primate visual system. The potential behavioural consequences of these differences are not well understood. We aim to address this issue by comparing human and DNN generalisation abilities towards image degradations. We find the human visual system to be more robust to image manipulations like contrast reduction, additive noise or novel eidolon-distortions. In addition, we find progressively diverging classification error-patterns between humans and DNNs when the signal gets weaker, indicating that there may still be marked differences in the way humans and current DNNs perform visual object recognition. We envision that our findings as well as our carefully measured and freely available behavioural datasets provide a new useful benchmark for the computer vision community to improve the robustness of DNNs and a motivation for neuroscientists to search for mechanisms in the brain that could facilitate this robustness.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Neural Information Processing Group, University of Tübingen, Germany",
+    "Centre for Integrative Neuroscience, University of Tübingen, Germany",
+    "Graduate School of Neural Information Processing, University of Tübingen, Germany",
+    "Graduate School of Neural and Behavioural Sciences, University of Tübingen, Germany",
+    "Department of Psychology, University of Potsdam, Germany",
+    "Bernstein Center for Computational Neuroscience, Tübingen, Germany",
+    "Max Planck Institute for Biological Cybernetics, Tübingen, Germany",
+    "Max Planck Institute for Intelligent Systems, Tübingen, Germany"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     0,
+     3,
+     4
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     5,
+     6
+    ],
+    [
+     0,
+     1,
+     5,
+     7
+    ]
+   ],
+   "institutions": [
+    "University of Tübingen",
+    "University of Tübingen",
+    "University of Tübingen",
+    "University of Tübingen",
+    "University of Potsdam",
+    "Bernstein Center for Computational Neuroscience Tübingen",
+    "Max Planck Institute for Biological Cybernetics",
+    "Max Planck Institute for Intelligent Systems"
+   ],
+   "institution_ids": [
+    "03a1kwz48",
+    "03a1kwz48",
+    "03a1kwz48",
+    "03a1kwz48",
+    "03bnmw459",
+    "03kfnwp54",
+    "026nmvv73",
+    "04fq9j139"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1706.06969",
@@ -40585,17 +41909,55 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1706.02677",
    "abstract": "Deep learning thrives with large neural networks and large datasets. However, larger networks and larger datasets result in longer training times that impede research and development progress. Distributed synchronous SGD offers a potential solution to this problem by dividing SGD minibatches over a pool of parallel workers. Yet to make this scheme efficient, the per-worker workload must be large, which implies nontrivial growth in the SGD minibatch size. In this paper, we empirically show that on the ImageNet dataset large minibatches cause optimization difficulties, but when these are addressed the trained networks exhibit good generalization. Specifically, we show no loss of accuracy when training with large minibatch sizes up to 8192 images. To achieve this result, we adopt a hyper-parameter-free linear scaling rule for adjusting learning rates as a function of minibatch size and develop a new warmup scheme that overcomes optimization challenges early in training. With these simple techniques, our Caffe2-based system trains ResNet-50 with a minibatch size of 8192 on 256 GPUs in one hour, while matching small minibatch accuracy. Using commodity hardware, our implementation achieves ~90% scaling efficiency when moving from 8 to 256 GPUs. Our findings enable training visual recognition models on internet-scale data with high efficiency.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Facebook"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Meta"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1706.02677",
@@ -41520,17 +42882,49 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1706.00120",
    "abstract": "For the past decade, convolutional networks have been used for 3D reconstruction of neurons from electron microscopic (EM) brain images. Recent years have seen great improvements in accuracy, as evidenced by submissions to the SNEMI3D benchmark challenge. Here we report the first submission to surpass the estimate of human accuracy provided by the SNEMI3D leaderboard. A variant of 3D U-Net is trained on a primary task of predicting affinities between nearest neighbor voxels, and an auxiliary task of predicting long-range affinities. The training data is augmented by simulated image defects. The nearest neighbor affinities are used to create an oversegmentation, and then supervoxels are greedily agglomerated based on mean affinity. The resulting SNEMI3D score exceeds the estimate of human accuracy by a large margin. While one should be cautious about extrapolating from the SNEMI3D benchmark to real-world accuracy of large-scale neural circuit reconstruction, our result inspires optimism that the goal of full automation may be realizable in the future.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "MIT",
+    "Princeton University",
+    "Google"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     2
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Massachusetts Institute of Technology",
+    "Princeton University",
+    "Google"
+   ],
+   "institution_ids": [
+    null,
+    null,
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1706.00120",
@@ -41631,17 +43025,34 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.LG",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1705.10915",
    "abstract": "We present a new model DrNET that learns disentangled image representations from video. Our approach leverages the temporal coherence of video and a novel adversarial loss to learn a representation that factorizes each frame into a stationary part and a temporally varying component. The disentangled representation can be used for a range of tasks. For example, applying a standard LSTM to the time-vary components enables prediction of future frames. We evaluate our approach on a range of synthetic and real videos, demonstrating the ability to coherently generate hundreds of steps into the future.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Department of Computer Science, New York University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "New York University"
+   ],
+   "institution_ids": [
+    "0190ak572"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1705.10915",
@@ -41719,17 +43130,40 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.RO",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1705.09785",
    "abstract": "With the advent of autonomous vehicles, LiDAR and cameras have become an indispensable combination of sensors. They both provide rich and complementary data which can be used by various algorithms and machine learning to sense and make vital inferences about the surroundings. We propose a novel pipeline and experimental setup to find accurate rigid-body transformation for extrinsically calibrating a LiDAR and a camera. The pipeling uses 3D-3D point correspondences in LiDAR and camera frame and gives a closed form solution. We further show the accuracy of the estimate by fusing point clouds from two stereo cameras which align perfectly with the rotation and translation estimated by our method, confirming the accuracy of our method's estimates both mathematically and visually. Taking our idea of extrinsic LiDAR-camera calibration forward, we demonstrate how two cameras with no overlapping field-of-view can also be calibrated extrinsically using 3D point correspondences. The code has been made available as open-source software in the form of a ROS package, more information about which can be sought here: https://github.com/ankitdhall/lidar_camera_calibration .",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Vellore Institute of Technology, Chennai"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Vellore Institute of Technology"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1705.09785",
@@ -41815,17 +43249,37 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1705.09587",
    "abstract": "We propose an object detection method that improves the accuracy of the conventional SSD (Single Shot Multibox Detector), which is one of the top object detection algorithms in both aspects of accuracy and speed. The performance of a deep network is known to be improved as the number of feature maps increases. However, it is difficult to improve the performance by simply raising the number of feature maps. In this paper, we propose and analyze how to use feature maps effectively to improve the performance of the conventional SSD. The enhanced performance was obtained by changing the structure close to the classifier network, rather than growing layers close to the input data, e.g., by replacing VGGNet with ResNet. The proposed network is suitable for sharing the weights in the classifier networks, by which property, the training can be faster with better generalization power. For the Pascal VOC 2007 test set trained with VOC 2007 and VOC 2012 training sets, the proposed network with the input size of 300 x 300 achieved 78.5% mAP (mean average precision) at the speed of 35.0 FPS (frame per second), while the network with a 512 x 512 sized input achieved 80.8% mAP at 16.6 FPS using Nvidia Titan X GPU. The proposed network shows state-of-the-art mAP, which is better than those of the conventional SSD, YOLO, Faster-RCNN and RFCN. Also, it is faster than Faster-RCNN and RFCN.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Department of Transdisciplinary Studies, Seoul National University, Korea"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Seoul National University"
+   ],
+   "institution_ids": [
+    "04h9pn542"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1705.09587",
@@ -42324,17 +43778,34 @@
    "journal_ref": null,
    "venue": "ICML 2017",
    "cross_list_from": "stat.ML",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1705.05823",
    "abstract": "We present a machine learning-based approach to lossy image compression which outperforms all existing codecs, while running in real-time. Our algorithm typically produces files 2.5 times smaller than JPEG and JPEG 2000, 2 times smaller than WebP, and 1.7 times smaller than BPG on datasets of generic images across all quality levels. At the same time, our codec is designed to be lightweight and deployable: for example, it can encode or decode the Kodak dataset in around 10ms per image on GPU. Our architecture is an autoencoder featuring pyramidal analysis, an adaptive coding module, and regularization of the expected codelength. We also supplement our approach with adversarial training specialized towards use in a compression setting: this enables us to produce visually pleasing reconstructions for very low bitrates.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "WaveOne Inc., Mountain View, CA, USA"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "WaveOne Inc."
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1705.05823",
@@ -43125,17 +44596,41 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "stat.ML",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1705.02894",
    "abstract": "Generative Adversarial Nets (GANs) represent an important milestone for effective generative models, which has inspired numerous variants seemingly different from each other. One of the main contributions of this paper is to reveal a unified geometric structure in GAN and its variants. Specifically, we show that the adversarial generative model training can be decomposed into three geometric steps: separating hyperplane search, discriminator parameter update away from the separating hyperplane, and the generator update along the normal vector direction of the separating hyperplane. This geometric intuition reveals the limitations of the existing approaches and leads us to propose a new formulation called geometric GAN using SVM separating hyperplane that maximizes the margin. Our theoretical analysis shows that the geometric GAN converges to a Nash equilibrium between the discriminator and generator. In addition, extensive numerical results show that the superior performance of geometric GAN.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "ETRI, South",
+    "Dept. of Bio and Brain engineering, KAIST, South Korea",
+    "Dept. of Mathematical Sciences, KAIST, South"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ]
+   ],
+   "institutions": [
+    "ETRI",
+    "Korea Advanced Institute of Science and Technology",
+    "Korea Advanced Institute of Science and Technology"
+   ],
+   "institution_ids": [
+    null,
+    null,
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1705.02894",
@@ -43307,17 +44802,52 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1705.02900",
    "abstract": "Deep neural networks (DNNs) have achieved great success in solving a variety of machine learning (ML) problems, especially in the domain of image recognition. However, recent research showed that DNNs can be highly vulnerable to adversarially generated instances, which look seemingly normal to human observers, but completely confuse DNNs. These adversarial samples are crafted by adding small perturbations to normal, benign images. Such perturbations, while imperceptible to the human eye, are picked up by DNNs and cause them to misclassify the manipulated instances with high confidence. In this work, we explore and demonstrate how systematic JPEG compression can work as an effective pre-processing step in the classification pipeline to counter adversarial attacks and dramatically reduce their effects (e.g., Fast Gradient Sign Method, DeepFool). An important component of JPEG compression is its ability to remove high frequency signal components, inside square blocks of an image. Such an operation is equivalent to selective blurring of the image, helping remove additive perturbations. Further, we propose an ensemble-based technique that can be constructed quickly from a given well-performing DNN, and empirically show how such an ensemble that leverages JPEG compression can protect a model from multiple types of adversarial attacks, without requiring knowledge about the model.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Georgia Institute of Technology",
+    "Intel Corporation"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Georgia Institute of Technology",
+    "Intel"
+   ],
+   "institution_ids": [
+    "01zkghx44",
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1705.02900",
@@ -44060,17 +45590,33 @@
    "journal_ref": null,
    "venue": "NeurIPS 2017",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1705.10999",
    "abstract": "With the rapid growth of image and video data on the web, hashing has been extensively studied for image or video search in recent years. Benefit from recent advances in deep learning, deep hashing methods have achieved promising results for image retrieval. However, there are some limitations of previous deep hashing methods (e.g., the semantic information is not fully exploited). In this paper, we develop a deep supervised discrete hashing algorithm based on the assumption that the learned binary codes should be ideal for classification. Both the pairwise label information and the classification information are used to learn the hash codes within one stream framework. We constrain the outputs of the last layer to be binary codes directly, which is rarely investigated in deep hashing algorithm. Because of the discrete nature of hash codes, an alternating minimization method is used to optimize the objective function. Experimental results have shown that our method outperforms current state-of-the-art methods on benchmark datasets.",
-   "affiliations": [],
+   "affiliations": [
+    "Center for Research on Intelligent Perception and Computing, National Laboratory of Pattern Recognition",
+    "CAS Center for Excellence in Brain Science and Intelligence Technology",
+    "Institute of Automation, Chinese Academy of Sciences"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Center for Research on Intelligent Perception and Computing",
+    "Center for Excellence in Brain Science and Intelligence Technology",
+    "Chinese Academy of Sciences"
+   ],
+   "institution_ids": [
+    null,
+    "00vpwhm04",
+    "034t30j35"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1705.10999",
@@ -44094,17 +45640,43 @@
    "journal_ref": null,
    "venue": "NeurIPS 2017",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1705.10872",
    "abstract": "We introduce a novel loss for learning local feature descriptors which is inspired by the Lowe's matching criterion for SIFT. We show that the proposed loss that maximizes the distance between the closest positive and closest negative patch in the batch is better than complex regularization methods; it works well for both shallow and deep convolution network architectures. Applying the novel loss to the L2Net CNN architecture results in a compact descriptor -- it has the same dimensionality as SIFT (128) that shows state-of-art performance in wide baseline stereo, patch verification and instance retrieval benchmarks. It is fast, computing a descriptor takes about 1 millisecond on a low-end GPU.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Szkocka Research Group",
+    "Visual Recognition Group, CTU in Prague"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Szkocka Research Group",
+    "Czech Technical University in Prague"
+   ],
+   "institution_ids": [
+    null,
+    "03kqpb082"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1705.10872",
@@ -44328,17 +45900,40 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1705.09850",
    "abstract": "Chest X-Rays (CXRs) are widely used for diagnosing abnormalities in the heart and lung area. Automatically detecting these abnormalities with high accuracy could greatly enhance real world diagnosis processes. Lack of standard publicly available dataset and benchmark studies, however, makes it difficult to compare various detection methods. In order to overcome these difficulties, we have used a publicly available Indiana CXR, JSRT and Shenzhen dataset and studied the performance of known deep convolutional network (DCN) architectures on different abnormalities. We find that the same DCN architecture doesn't perform well across all abnormalities. Shallow features or earlier layers consistently provide higher detection accuracy compared to deep features. We have also found ensemble models to improve classification significantly compared to single model. Combining these insight, we report the highest accuracy on chest X-Ray abnormality detection on these datasets. We find that for cardiomegaly detection, the deep learning method improves the accuracy by a staggering 17 percentage point compared to rule based methods. We applied the techniques to the problem of tuberculosis detection on a different dataset and achieved the highest accuracy. Our localization experiments using these trained classifiers show that for spatially spread out abnormalities like cardiomegaly and pulmonary edema, the network can localize the abnormalities successfully most of the time. One remarkable result of the cardiomegaly localization is that the heart and its surrounding region is most responsible for cardiomegaly detection, in contrast to the rule based models where the ratio of heart and lung area is used as the measure. We believe that through deep learning based classification and localization, we will discover many more interesting features in medical image diagnosis that are not considered traditionally.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Semion, House 167, Road 3, Mohakhali DOHS, Dhaka, Bangladesh"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Semion"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1705.09850",
@@ -44573,17 +46168,36 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1705.08983",
    "abstract": "Regularized inversion methods for image reconstruction are used widely due to their tractability and ability to combine complex physical sensor models with useful regularity criteria. Such methods motivated the recently developed Plug-and-Play prior method, which provides a framework to use advanced denoising algorithms as regularizers in inversion. However, the need to formulate regularized inversion as the solution to an optimization problem limits the possible regularity conditions and physical sensor models. In this paper, we introduce Consensus Equilibrium (CE), which generalizes regularized inversion to include a much wider variety of both forward components and prior components without the need for either to be expressed with a cost function. CE is based on the solution of a set of equilibrium equations that balance data fit and regularity. In this framework, the problem of MAP estimation in regularized inversion is replaced by the problem of solving these equilibrium equations, which can be approached in multiple ways. The key contribution of CE is to provide a novel framework for fusing multiple heterogeneous models of physical sensors or models learned from data. We describe the derivation of the CE equations and prove that the solution of the CE equations generalizes the standard MAP estimate under appropriate circumstances. We also discuss algorithms for solving the CE equations, including ADMM with a novel form of preconditioning and Newton's method. We give examples to illustrate consensus equilibrium and the convergence properties of these algorithms and demonstrate this method on some toy problems and on a denoising example in which we use an array of convolutional neural network denoisers, none of which is tuned to match the noise level in a noisy image but which in consensus can achieve a better result than any of them individually.",
-   "affiliations": [],
+   "affiliations": [
+    "Department of Mathematics, Purdue University, West Lafayette, IN, USA",
+    "School of Electrical and Computer Engineering and Department of Statistics, Purdue University, West Lafayette, IN, USA",
+    "School of Electrical and Computer Engineering, Purdue University, West Lafayette, IN, USA",
+    "School of Electrical and Computer Engineering and Weldon School of Biomedical Engineering, Purdue University, West Lafayette, IN, USA"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Purdue University West Lafayette",
+    "Purdue University West Lafayette",
+    "Purdue University West Lafayette",
+    "Purdue University West Lafayette"
+   ],
+   "institution_ids": [
+    "02dqehb95",
+    "02dqehb95",
+    "02dqehb95",
+    "02dqehb95"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1705.08983",
@@ -44717,17 +46331,34 @@
    "journal_ref": null,
    "venue": "NeurIPS 2017",
    "cross_list_from": "cs.LG",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1705.08475",
    "abstract": "Recent work has shown that state-of-the-art classifiers are quite brittle, in the sense that a small adversarial change of an originally with high confidence correctly classified input leads to a wrong classification again with high confidence. This raises concerns that such classifiers are vulnerable to attacks and calls into question their usage in safety-critical systems. We show in this paper for the first time formal guarantees on the robustness of a classifier by giving instance-specific lower bounds on the norm of the input manipulation required to change the classifier decision. Based on this analysis we propose the Cross-Lipschitz regularization functional. We show that using this form of regularization in kernel methods resp. neural networks improves the robustness of the classifier without any loss in prediction performance.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Department of Mathematics and Computer Science, Saarland University, Saarbrücken Informatics Campus, Germany"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Saarland University"
+   ],
+   "institution_ids": [
+    "01jdpyv68"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1705.08475",
@@ -45193,17 +46824,31 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.LG",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1705.07962",
    "abstract": "Transforming a graphical user interface screenshot created by a designer into computer code is a typical task conducted by a developer in order to build customized software, websites, and mobile applications. In this paper, we show that deep learning methods can be leveraged to train a model end-to-end to automatically generate code from a single input image with over 77% of accuracy for three different platforms (i.e. iOS, Android and web-based technologies).",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "UIzard Technologies, Copenhagen, Denmark"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "UIzard Technologies"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1705.07962",
@@ -45281,17 +46926,37 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.NE",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1705.07565",
    "abstract": "How to develop slim and accurate deep neural networks has become crucial for real- world applications, especially for those employed in embedded systems. Though previous work along this research line has shown some promising results, most existing methods either fail to significantly compress a well-trained deep network or require a heavy retraining process for the pruned deep network to re-boost its prediction performance. In this paper, we propose a new layer-wise pruning method for deep neural networks. In our proposed method, parameters of each individual layer are pruned independently based on second order derivatives of a layer-wise error function with respect to the corresponding parameters. We prove that the final prediction performance drop after pruning is bounded by a linear combination of the reconstructed errors caused at each layer. Therefore, there is a guarantee that one only needs to perform a light retraining process on the pruned network to resume its original prediction performance. We conduct extensive experiments on benchmark datasets to demonstrate the effectiveness of our pruning method compared with several state-of-the-art baseline methods.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Nanyang Technological University, Singapore"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Nanyang Technological University"
+   ],
+   "institution_ids": [
+    "02e7b5302"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1705.07565",
@@ -45961,17 +47626,30 @@
    "journal_ref": null,
    "venue": "BMVC 2017",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1705.02966",
    "abstract": "We present a method for generating a video of a talking face. The method takes as inputs: (i) still images of the target face, and (ii) an audio speech segment; and outputs a video of the target face lip synched with the audio. The method runs in real time and is applicable to faces and audio not seen at training time. To achieve this we propose an encoder-decoder CNN model that uses a joint embedding of the face and audio to generate synthesised talking face video frames. The model is trained on tens of hours of unlabelled videos. We also show results of re-dubbing videos using speech from a different person.",
-   "affiliations": [],
+   "affiliations": [
+    "Visual Geometry Group",
+    "Department of Engineering Science, University of Oxford, Oxford, UK"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Visual Geometry Group",
+    "University of Oxford"
+   ],
+   "institution_ids": [
+    null,
+    "052gg0110"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1705.02966",
@@ -47074,17 +48752,55 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1704.07911",
    "abstract": "As part of a complete software stack for autonomous driving, NVIDIA has created a neural-network-based system, known as PilotNet, which outputs steering angles given images of the road ahead. PilotNet is trained using road images paired with the steering angles generated by a human driving a data-collection car. It derives the necessary domain knowledge by observing human drivers. This eliminates the need for human engineers to anticipate what is important in an image and foresee all the necessary rules for safe driving. Road tests demonstrated that PilotNet can successfully perform lane keeping in a wide variety of driving conditions, regardless of whether lane markings are present or not. The goal of the work described here is to explain what PilotNet learns and how it makes its decisions. To this end we developed a method for determining which elements in the road image most influence PilotNet's steering decision. Results show that PilotNet indeed learns to recognize relevant objects on the road. In addition to learning the obvious features such as lane markings, edges of roads, and other cars, PilotNet learns more subtle features that would be hard to anticipate and program by engineers, for example, bushes lining the edge of the road and atypical vehicle classes.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "NVIDIA Corporation, Holmdel, NJ 07733",
+    "New York University, New York, NY 10012",
+    "Google Research, New York, NY 10011"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "NVIDIA",
+    "New York University",
+    "Google"
+   ],
+   "institution_ids": [
+    "03jdj4y14",
+    "0190ak572",
+    "00njsd438"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1704.07911",
@@ -47165,17 +48881,30 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1704.07804",
    "abstract": "We propose SfM-Net, a geometry-aware neural network for motion estimation in videos that decomposes frame-to-frame pixel motion in terms of scene and object depth, camera motion and 3D object rotations and translations. Given a sequence of frames, SfM-Net predicts depth, segmentation, camera and rigid object motions, converts those into a dense frame-to-frame motion field (optical flow), differentiably warps frames in time to match pixels and back-propagates. The model can be trained with various degrees of supervision: 1) self-supervised by the re-projection photometric error (completely unsupervised), 2) supervised by ego-motion (camera motion), or 3) supervised by depth (e.g., as provided by RGBD sensors). SfM-Net extracts meaningful depth estimates and successfully estimates frame-to-frame camera rotations and translations. It often successfully segments the moving objects in the scene, even though such supervision is never provided.",
-   "affiliations": [],
+   "affiliations": [
+    "Google Research",
+    "Carnegie Mellon University"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Google",
+    "Carnegie Mellon University"
+   ],
+   "institution_ids": [
+    "00njsd438",
+    "05x2bcf33"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1704.07804",
@@ -47667,17 +49396,27 @@
    "journal_ref": null,
    "venue": "MICCAI 2016 Workshop",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1704.06040",
    "abstract": "The ability to automatically learn task specific feature representations has led to a huge success of deep learning methods. When large training data is scarce, such as in medical imaging problems, transfer learning has been very effective. In this paper, we systematically investigate the process of transferring a Convolutional Neural Network, trained on ImageNet images to perform image classification, to kidney detection problem in ultrasound images. We study how the detection performance depends on the extent of transfer. We show that a transferred and tuned CNN can outperform a state-of-the-art feature engineered pipeline and a hybridization of these two techniques achieves 20% higher performance. We also investigate how the evolution of intermediate response images from our network. Finally, we compare these responses to state-of-the-art image processing filters in order to gain greater insight into how transfer learning is able to effectively manage widely varying imaging regimes.",
-   "affiliations": [],
+   "affiliations": [
+    "GE Global Research, Bangalore, India"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "GE Global Research"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1704.06040",
@@ -48866,17 +50605,34 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1704.03162",
    "abstract": "This paper presents a new baseline for visual question answering task. Given an image and a question in natural language, our model produces accurate answers according to the content of the image. Our model, while being architecturally simple and relatively small in terms of trainable parameters, sets a new state of the art on both unbalanced and balanced VQA benchmark. On VQA 1.0 open ended challenge, our model achieves 64.6% accuracy on the test-standard set without using additional data, an improvement of 0.4% over state of the art, and on newly released VQA 2.0, our model scores 59.7% on validation set outperforming best previously reported results by 0.5%. The results presented in this paper are especially interesting because very similar models have been tried before but significantly lower performance were reported. In light of the new results we hope to see more meaningful research on visual question answering in the future.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Google Research, 1600 Amphitheater Parkway"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Google"
+   ],
+   "institution_ids": [
+    "00njsd438"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1704.03162",
@@ -53547,17 +55303,53 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.LG",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1704.00648",
    "abstract": "We present a new approach to learn compressible representations in deep architectures with an end-to-end training strategy. Our method is based on a soft (continuous) relaxation of quantization and entropy, which we anneal to their discrete counterparts throughout training. We showcase this method for two challenging applications: Image compression and neural network compression. While these tasks have typically been approached with different methods, our soft-to-hard quantization approach gives results competitive with the state-of-the-art for both.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "ETH Zurich",
+    "KU Leuven"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "institutions": [
+    "ETH Zurich",
+    "KU Leuven"
+   ],
+   "institution_ids": [
+    "05a28rw58",
+    "05f950310"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1704.00648",
@@ -54146,17 +55938,27 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1703.10277",
    "abstract": "We propose a new method for semantic instance segmentation, by first computing how likely two pixels are to belong to the same object, and then by grouping similar pixels together. Our similarity metric is based on a deep, fully convolutional embedding model. Our grouping method is based on selecting all points that are sufficiently similar to a set of \"seed points\", chosen from a deep, fully convolutional scoring model. We show competitive results on the Pascal VOC instance segmentation benchmark.",
-   "affiliations": [],
+   "affiliations": [
+    "Google Inc., USA"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Google"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1703.10277",
@@ -54367,17 +56169,36 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.NE",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1703.09387",
    "abstract": "Multiple different approaches of generating adversarial examples have been proposed to attack deep neural networks. These approaches involve either directly computing gradients with respect to the image pixels, or directly solving an optimization on the image pixels. In this work, we present a fundamentally new method for generating adversarial examples that is fast to execute and provides exceptional diversity of output. We efficiently train feed-forward neural networks in a self-supervised manner to generate adversarial examples against a target network or set of networks. We call such a network an Adversarial Transformation Network (ATN). ATNs are trained to generate adversarial examples that minimally modify the classifier's outputs given the original input, while constraining the new classification to match an adversarial target class. We present methods to train ATNs and analyze their effectiveness targeting a variety of MNIST classifiers as well as the latest state-of-the-art ImageNet classifier Inception ResNet v2.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Google Research",
+    "Mountain View, CA"
+   ],
+   "author_affiliations": [
+    null,
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Google",
+    "Mountain View"
+   ],
+   "institution_ids": [
+    "00njsd438",
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1703.09387",
@@ -54645,17 +56466,43 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1703.07475",
    "abstract": "Despite the fact that many 3D human activity benchmarks being proposed, most existing action datasets focus on the action recognition tasks for the segmented videos. There is a lack of standard large-scale benchmarks, especially for current popular data-hungry deep learning based methods. In this paper, we introduce a new large scale benchmark (PKU-MMD) for continuous multi-modality 3D human action understanding and cover a wide range of complex human activities with well annotated information. PKU-MMD contains 1076 long video sequences in 51 action categories, performed by 66 subjects in three camera views. It contains almost 20,000 action instances and 5.4 million frames in total. Our dataset also provides multi-modality data sources, including RGB, depth, Infrared Radiation and Skeleton. With different modalities, we conduct extensive experiments on our dataset in terms of two scenarios and evaluate different methods by various metrics, including a new proposed evaluation protocol 2D-AP. We believe this large-scale dataset will benefit future researches on action detection for the community.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Institute of Computer Science and Technology, Peking University"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Peking University"
+   ],
+   "institution_ids": [
+    "02v51f717"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1703.07475",
@@ -56324,17 +58171,49 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1703.03664",
    "abstract": "PixelCNN achieves state-of-the-art results in density estimation for natural images. Although training is fast, inference is costly, requiring one network evaluation per pixel; O(N) for N pixels. This can be sped up by caching activations, but still involves generating each pixel sequentially. In this work, we propose a parallelized PixelCNN that allows more efficient inference by modeling certain pixel groups as conditionally independent. Our new PixelCNN model achieves competitive density estimation and orders of magnitude speedup - O(log N) sampling instead of O(N) - enabling the practical generation of 512x512 images. We evaluate the model on class-conditional image generation, text-to-image synthesis, and action-conditional video generation, showing that our model achieves the best results among non-pixel-autoregressive density models that allow efficient sampling.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "DeepMind"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Google DeepMind"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1703.03664",
@@ -56645,17 +58524,41 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.LG",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1703.02910",
    "abstract": "Even though active learning forms an important pillar of machine learning, deep learning tools are not prevalent within it. Deep learning poses several difficulties when used in an active learning setting. First, active learning (AL) methods generally rely on being able to learn and update models from small amounts of data. Recent advances in deep learning, on the other hand, are notorious for their dependence on large amounts of data. Second, many AL acquisition functions rely on model uncertainty, yet deep learning methods rarely represent such model uncertainty. In this paper we combine recent advances in Bayesian deep learning into the active learning framework in a practical way. We develop an active learning framework for high dimensional data, a task which has been extremely challenging so far, with very sparse existing literature. Taking advantage of specialised models such as Bayesian convolutional neural networks, we demonstrate our active learning techniques with image data, obtaining a significant improvement on existing active learning approaches. We demonstrate this on both the MNIST dataset, as well as for skin cancer diagnosis from lesion images (ISIC2016 task).",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of Cambridge, UK",
+    "The Alan Turing Institute, UK"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Cambridge",
+    "Alan Turing Institute"
+   ],
+   "institution_ids": [
+    "013meh722",
+    "035dkdb55"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1703.02910",
@@ -59125,17 +61028,75 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1703.07047",
    "abstract": "Advances in deep learning for natural images have prompted a surge of interest in applying similar techniques to medical images. The majority of the initial attempts focused on replacing the input of a deep convolutional neural network with a medical image, which does not take into consideration the fundamental differences between these two types of images. Specifically, fine details are necessary for detection in medical images, unlike in natural images where coarse structures matter most. This difference makes it inadequate to use the existing network architectures developed for natural images, because they work on heavily downscaled images to reduce the memory requirements. This hides details necessary to make accurate predictions. Additionally, a single exam in medical imaging often comes with a set of views which must be fused in order to reach a correct conclusion. In our work, we propose to use a multi-view deep convolutional neural network that handles a set of high-resolution medical images. We evaluate it on large-scale mammography-based breast cancer screening (BI-RADS prediction) using 886,000 images. We focus on investigating the impact of the training set size and image size on the prediction accuracy. Our results highlight that performance increases with the size of training set, and that the best performance can only be achieved using the original resolution. In the reader study, performed on a random subset of the test set, we confirmed the efficacy of our model, which achieved performance comparable to a committee of radiologists when presented with the same data.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Center for Data Science, New York University, 60 5th Ave, New York, NY 10011",
+    "Center for Biomedical Imaging, Radiology, NYU School of Medicine, 660 1st Avenue, New York, NY 10016",
+    "Perlmutter Cancer Center, NYU Langone Medical Center, 160 E 34th St, New York, NY 10016",
+    "Courant Institute of Mathematical Sciences, New York University, 251 Mercer St, New York, NY 10012",
+    "CIFAR Azrieli Global Scholar"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     0,
+     3,
+     4
+    ]
+   ],
+   "institutions": [
+    "New York University",
+    "Center for Biomedical Imaging",
+    "NYU Langone Health",
+    "New York University",
+    "CIFAR Azrieli Global Scholar"
+   ],
+   "institution_ids": [
+    "0190ak572",
+    null,
+    "005dvqh91",
+    "0190ak572",
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1703.07047",
@@ -59906,17 +61867,43 @@
    "journal_ref": null,
    "venue": "ICML 2017",
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1703.05192",
    "abstract": "While humans easily recognize relations between data from different domains without any supervision, learning to automatically discover them is in general very challenging and needs many ground-truth pairs that illustrate the relations. To avoid costly pairing, we address the task of discovering cross-domain relations given unpaired data. We propose a method based on generative adversarial networks that learns to discover relations between different domains (DiscoGAN). Using the discovered relations, our proposed network successfully transfers style from one domain to another while preserving key attributes such as orientation and face identity. Source code for official implementation is publicly available https://github.com/SKTBrain/DiscoGAN",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "SK T-Brain, Seoul, South Korea"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "SK T-Brain"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1703.05192",
@@ -60764,17 +62751,40 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.LG",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1703.02291",
    "abstract": "Generative Adversarial Nets (GANs) have shown promise in image generation and semi-supervised learning (SSL). However, existing GANs in SSL have two problems: (1) the generator and the discriminator (i.e. the classifier) may not be optimal at the same time; and (2) the generator cannot control the semantics of the generated samples. The problems essentially arise from the two-player formulation, where a single discriminator shares incompatible roles of identifying fake samples and predicting labels and it only estimates the data without considering the labels. To address the problems, we present triple generative adversarial net (Triple-GAN), which consists of three players—a generator, a discriminator and a classifier. The generator and the classifier characterize the conditional distributions between images and labels, and the discriminator solely focuses on identifying fake image-label pairs. We design compatible utilities to ensure that the distributions characterized by the classifier and the generator both converge to the data distribution. Our results on various datasets demonstrate that Triple-GAN as a unified model can simultaneously (1) achieve the state-of-the-art classification results among deep generative models, and (2) disentangle the classes and styles of the input and transfer smoothly in the data space via interpolation in the latent space class-conditionally.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Dept. of Comp. Sci. & Tech., TNList Lab, State Key Lab of Intell. Tech. & Sys., Center for Bio-Inspired Computing Research, Tsinghua University, Beijing, 100084, China"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Tsinghua University"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1703.02291",
@@ -64600,17 +66610,30 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1702.05373",
    "abstract": "The MNIST dataset has become a standard benchmark for learning, classification and computer vision systems. Contributing to its widespread adoption are the understandable and intuitive nature of the task, its relatively small size and storage requirements and the accessibility and ease-of-use of the database itself. The MNIST database was derived from a larger dataset known as the NIST Special Database 19 which contains digits, uppercase and lowercase handwritten letters. This paper introduces a variant of the full NIST dataset, which we have called Extended MNIST (EMNIST), which follows the same conversion paradigm used to create the MNIST dataset. The result is a set of datasets that constitute a more challenging classification tasks involving letters and digits, and that shares the same image structure and parameters as the original MNIST task, allowing for direct compatibility with all existing classifiers and systems. Benchmark results are presented along with a validation of the conversion process through the comparison of the classification results on converted NIST digits and the MNIST digits.",
-   "affiliations": [],
+   "affiliations": [
+    "The MARCS Institute for Brain, Behaviour and Development",
+    "Western Sydney University, Penrith, Australia 2751"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "MARCS Institute for Brain",
+    "Western Sydney University"
+   ],
+   "institution_ids": [
+    null,
+    "03t52dk35"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1702.05373",
@@ -66313,17 +68336,46 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1701.02829",
    "abstract": "Despite significant progress, image saliency detection still remains a challenging task in complex scenes and environments. Integrating multiple different but complementary cues, like RGB and Thermal (RGB-T), may be an effective way for boosting saliency detection performance. The current research in this direction, however, is limited by the lack of a comprehensive benchmark. This work contributes such a RGB-T image dataset, which includes 821 spatially aligned RGB-T image pairs and their ground truth annotations for saliency detection purpose. The image pairs are with high diversity recorded under different scenes and environmental conditions, and we annotate 11 challenges on these image pairs for performing the challenge-sensitive analysis for different saliency detection algorithms. We also implement 3 kinds of baseline methods with different modality inputs to provide a comprehensive comparison platform. With this benchmark, we propose a novel approach, multi-task manifold ranking with cross-modality consistency, for RGB-T saliency detection. In particular, we introduce a weight for each modality to describe the reliability, and integrate them into the graph-based manifold ranking algorithm to achieve adaptive fusion of different source data. Moreover, we incorporate the cross-modality consistent constraints to integrate different modalities collaboratively. For the optimization, we design an efficient algorithm to iteratively solve several subproblems with closed-form solutions. Extensive experiments against other baseline methods on the newly created benchmark demonstrate the effectiveness of the proposed approach, and we also provide basic insights and potential future research directions for RGB-T saliency detection.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Anhui University, Hefei 230601, China"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Anhui University"
+   ],
+   "institution_ids": [
+    "05th6yx34"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1701.02829",
@@ -66463,17 +68515,41 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.GR",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1701.08893",
    "abstract": "Recently, methods have been proposed that perform texture synthesis and style transfer by using convolutional neural networks (e.g. Gatys et al. [2015,2016]). These methods are exciting because they can in some cases create results with state-of-the-art quality. However, in this paper, we show these methods also have limitations in texture quality, stability, requisite parameter tuning, and lack of user controls. This paper presents a multiscale synthesis pipeline based on convolutional neural networks that ameliorates these issues. We first give a mathematical explanation of the source of instabilities in many previous approaches. We then improve these instabilities by using histogram losses to synthesize textures that better statistically match the exemplar. We also show how to integrate localized style losses in our multiscale framework. These losses can improve the quality of large features, improve the separation of content and style, and offer artistic controls such as paint by numbers. We demonstrate that our approach offers improved quality, convergence in fewer iterations, and more stability over the optimization.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Artomatix",
+    "University of Virginia"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "Artomatix",
+    "University of Virginia"
+   ],
+   "institution_ids": [
+    null,
+    "0153tk833"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1701.08893",

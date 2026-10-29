@@ -704,19 +704,36 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1007.3753",
    "abstract": "L1-minimization refers to finding the minimum L1-norm solution to an underdetermined linear system b=Ax. Under certain conditions as described in compressive sensing theory, the minimum L1-norm solution is also the sparsest solution. In this paper, our study addresses the speed and scalability of its algorithms. In particular, we focus on the numerical implementation of a sparsity-based classification framework in robust face recognition, where sparse representation is sought to recover human identities from very high-dimensional facial images that may be corrupted by illumination, facial disguise, and pose variation. Although the underlying numerical problem is a linear program, traditional algorithms are known to suffer poor scalability for large-scale applications. We investigate a new solution based on a classical convex optimization framework, known as Augmented Lagrangian Methods (ALM). The new convex solvers provide a viable solution to real-world, time-critical applications such as face recognition. We conduct extensive experiments to validate and compare the performance of the ALM algorithms against several popular L1-minimization solvers, including interior-point method, Homotopy, FISTA, SESOP-PCD, approximate message passing (AMP) and TFOCS. To aid peer evaluation, the code for all the algorithms has been made publicly available.",
-   "affiliations": [],
+   "affiliations": [
+    "Department of Electrical Engineering and Computer Sciences, University of California, Berkeley, USA",
+    "Department of Electrical and Computer Engineering, University of Illinois at Urbana-Champaign, Urbana, USA",
+    "IBM Research, Bangalore, India",
+    "Visual Computing Group, Microsoft Research Asia, Beijing, China"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "University of California, Berkeley",
+    "University of Illinois Urbana-Champaign",
+    "IBM",
+    "Microsoft"
+   ],
+   "institution_ids": [
+    "01an7q238",
+    "047426m28",
+    null,
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex",
-     "at": "2026-10-25"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex",
-     "at": "2026-10-25"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1007.3753",

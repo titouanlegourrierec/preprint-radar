@@ -1104,17 +1104,37 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.LG",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1412.6614",
    "abstract": "We present experiments demonstrating that some other form of capacity control, different from network size, plays a central role in learning multilayer feed-forward networks. We argue, partially through analogy to matrix factorization, that this is an inductive bias that can help shed light on deep learning.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Toyota Technological Institute at Chicago, Chicago, IL 60637, USA"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Toyota Technological Institute at Chicago"
+   ],
+   "institution_ids": [
+    "02sn5gb64"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1412.6614",
@@ -1333,17 +1353,55 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1412.6553",
    "abstract": "We propose a simple two-step approach for speeding up convolution layers within large convolutional neural networks based on tensor decomposition and discriminative fine-tuning. Given a layer, we use non-linear least squares to compute a low-rank CP-decomposition of the 4D convolution kernel tensor into a sum of a small number of rank-one tensors. At the second step, this decomposition is used to replace the original convolutional layer with a sequence of four convolutional layers with small kernels. After such replacement, the entire network is fine-tuned on the training data using standard backpropagation process. We evaluate this approach on two CNNs and show that it is competitive with previous approaches, leading to higher obtained CPU speedups at the cost of lower accuracy drops for the smaller of the two networks. Thus, for the 36-class character classification CNN, our approach obtains a 8.5x CPU speedup of the whole network with only minor accuracy drop (1% from 91% to 90%). For the standard ImageNet architecture (AlexNet), the approach speeds up the second convolution layer by a factor of 4x at the cost of 1% increase of the overall top-5 classification error.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Skolkovo Institute of Science and Technology (Skoltech), Moscow, Russia",
+    "Yandex, Moscow, Russia",
+    "Moscow Institute of Physics and Technology, Moscow Region, Russia",
+    "Institute of Numerical Mathematics RAS, Moscow, Russia"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Skolkovo Institute of Science and Technology",
+    "Yandex",
+    "Moscow Institute of Physics and Technology",
+    "Institute of Numerical Mathematics"
+   ],
+   "institution_ids": [
+    "03f9nc143",
+    null,
+    "00v0z9322",
+    "00520ey40"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1412.6553",
@@ -1934,17 +1992,40 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1412.1441",
    "abstract": "Current high-quality object detection approaches use the scheme of salience-based object proposal methods followed by post-classification using deep convolutional features. This spurred recent research in improving object proposal methods. However, domain agnostic proposal generation has the principal drawback that the proposals come unranked or with very weak ranking, making it hard to trade-off quality for running time. This raises the more fundamental question of whether high-quality proposal generation requires careful engineering or can be derived just from data alone. We demonstrate that learning-based proposal methods can effectively match the performance of hand-engineered methods while allowing for very efficient runtime-quality trade-offs. Using the multi-scale convolutional MultiBox (MSC-MultiBox) approach, we substantially advance the state-of-the-art on the ILSVRC 2014 detection challenge data set, with 0.5 mAP for a single model and 0.52 mAP for an ensemble of two models. MSC-Multibox significantly improves the proposal quality over its predecessor MultiBox~method: AP increases from 0.42 to 0.53 for the ILSVRC detection challenge. Finally, we demonstrate improved bounding-box recall compared to Multiscale Combinatorial Grouping with less proposals on the Microsoft-COCO data set.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Google Inc, 1600 Amphitheatre Pkwy, Mountain View, CA",
+    "University of Michigan"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    null,
+    null,
+    null
+   ],
+   "institutions": [
+    "Google",
+    "University of Michigan"
+   ],
+   "institution_ids": [
+    null,
+    "00jmfr291"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1412.1441",
@@ -2419,17 +2500,30 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1411.7923",
    "abstract": "Pushing by big data and deep convolutional neural network (CNN), the performance of face recognition is becoming comparable to human. Using private large scale training datasets, several groups achieve very high performance on LFW, i.e., 97% to 99%. While there are many open source implementations of CNN, none of large scale face dataset is publicly available. The current situation in the field of face recognition is that data is more important than algorithm. To solve this problem, this paper proposes a semi-automatical way to collect face images from Internet and builds a large scale dataset containing about 10,000 subjects and 500,000 images, called CASIAWebFace. Based on the database, we use a 11-layer CNN to learn discriminative representation and obtain state-of-theart accuracy on LFW and YTF. The publication of CASIAWebFace will attract more research groups entering this field and accelerate the development of face recognition in the wild.",
-   "affiliations": [],
+   "affiliations": [
+    "Center for Biometrics and Security Research & National Laboratory of Pattern Recognition, Institute of Automation, Chinese Academy of Sciences (CASIA)",
+    "dong.yi, zlei, scliao"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Chinese Academy of Sciences",
+    null
+   ],
+   "institution_ids": [
+    "034t30j35",
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1411.7923",
@@ -4793,17 +4887,43 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1410.1090",
    "abstract": "In this paper, we present a multimodal Recurrent Neural Network (m-RNN) model for generating novel sentence descriptions to explain the content of images. It directly models the probability distribution of generating a word given previous words and the image. Image descriptions are generated by sampling from this distribution. The model consists of two sub-networks: a deep recurrent neural network for sentences and a deep convolutional network for images. These two sub-networks interact with each other in a multimodal layer to form the whole m-RNN model. The effectiveness of our model is validated on three benchmark datasets (IAPR TC-12, Flickr 8K, and Flickr 30K). Our model outperforms the state-of-the-art generative method. In addition, the m-RNN model can be applied to retrieval tasks for retrieving images or sentences, and achieves significant performance improvement over the state-of-the-art methods which directly optimize the ranking objective function for retrieval.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Baidu Research"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Baidu"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1410.1090",
@@ -5861,17 +5981,33 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": "cs.DS",
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1408.2927",
    "abstract": "Similarity search (nearest neighbor search) is a problem of pursuing the data items whose distances to a query item are the smallest from a large database. Various methods have been developed to address this problem, and recently a lot of efforts have been devoted to approximate search. In this paper, we present a survey on one of the main solutions, hashing, which has been widely studied since the pioneering work locality sensitive hashing. We divide the hashing algorithms two main categories: locality sensitive hashing, which designs hash functions without exploring the data distribution and learning to hash, which learns hash functions according the data distribution, and review them from various aspects, including hash function design and distance measure and search scheme in the hash coding space.",
-   "affiliations": [],
+   "affiliations": [
+    "Microsoft Research, Beijing, P.R. China",
+    "School of Information Technology and Electrical Engineering, The University of Queensland, Australia",
+    "Department of Computer Science and Technology, Tsinghua University, Beijing, P.R. China"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "Microsoft",
+    "University of Queensland",
+    "Tsinghua University"
+   ],
+   "institution_ids": [
+    null,
+    "00rqy9422",
+    "03cve4549"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1408.2927",
@@ -7043,17 +7179,33 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1406.2952",
    "abstract": "We propose an architecture for fine-grained visual categorization that approaches expert human performance in the classification of bird species. Our architecture first computes an estimate of the object's pose; this is used to compute local image features which are, in turn, used for classification. The features are computed by applying deep convolutional nets to image patches that are located and normalized by the pose. We perform an empirical study of a number of pose normalization schemes, including an investigation of higher order geometric warping functions. We propose a novel graph-based clustering algorithm for learning a compact pose normalization space. We perform a detailed investigation of state-of-the-art deep convolutional feature implementations and fine-tuning feature learning for fine-grained classification. We observe that a model that integrates lower-level feature layers with pose-normalized extraction routines and higher-level feature layers with unaligned image features works best. Our experiments advance state-of-the-art performance on bird species recognition, with a large improvement of correct classification rates over previous methods (75% vs. 55-65%).",
-   "affiliations": [],
+   "affiliations": [
+    "California Institute of Technology, Pasadena, CA, USA",
+    "University of California, San Diego, La Jolla, CA, USA",
+    "Cornell Tech, New York, NY, USA"
+   ],
    "author_affiliations": null,
-   "institutions": [],
+   "institutions": [
+    "California Institute of Technology",
+    "University of California San Diego",
+    "Cornell Tech"
+   ],
+   "institution_ids": [
+    "05dxps055",
+    "0168r3w48",
+    "04qscbg47"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1406.2952",
@@ -7399,17 +7551,34 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1406.6558",
    "abstract": "We propose a new architecture for difficult image processing operations, such as natural edge detection or thin object segmentation. The architecture is based on a simple combination of convolutional neural networks with the nearest neighbor search. We focus our attention on the situations when the desired image transformation is too hard for a neural network to learn explicitly. We show that in such situations, the use of the nearest neighbor search on top of the network output allows to improve the results considerably and to account for the underfitting effect during the neural network training. The approach is validated on three challenging benchmarks, where the performance of the proposed architecture matches or exceeds the state-of-the-art.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "Skolkovo Institute of Science and Technology (Skoltech)"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Skolkovo Institute of Science and Technology"
+   ],
+   "institution_ids": [
+    "03f9nc143"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1406.6558",
@@ -8855,17 +9024,46 @@
    "journal_ref": null,
    "venue": null,
    "cross_list_from": null,
-   "html_url": null,
+   "html_url": "https://ar5iv.labs.arxiv.org/html/1404.1869",
    "abstract": "Convolutional Neural Networks (CNNs) can provide accurate object classification. They can be extended to perform object detection by iterating over dense or selected proposed object regions. However, the runtime of such detectors scales as the total number and/or area of regions to examine per image, and training such detectors may be prohibitively slow. However, for some CNN classifier topologies, it is possible to share significant work among overlapping regions to be classified. This paper presents DenseNet, an open source system that computes dense, multiscale features from the convolutional layers of a CNN based object classifier. Future work will involve training efficient object detectors with DenseNet feature descriptors.",
-   "affiliations": [],
-   "author_affiliations": null,
-   "institutions": [],
+   "affiliations": [
+    "University of California, Berkeley"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of California, Berkeley"
+   ],
+   "institution_ids": [
+    "01an7q238"
+   ],
+   "extractor": 18,
    "provenance": {
     "affiliations": {
-     "source": "openalex"
+     "source": "html",
+     "at": "2026-10-28"
     },
     "institutions": {
-     "source": "openalex"
+     "source": "ror",
+     "at": "2026-10-28"
     }
    },
    "abs_url": "https://arxiv.org/abs/1404.1869",
