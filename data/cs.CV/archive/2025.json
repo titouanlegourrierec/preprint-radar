@@ -123556,14 +123556,28 @@
    "cross_list_from": null,
    "html_url": "https://arxiv.org/html/2503.22976v1",
    "abstract": "Recent advances in LVLMs have improved vision-language understanding, but they still struggle with spatial perception, limiting their ability to reason about complex 3D scenes. Unlike previous approaches that incorporate 3D representations into models to improve spatial understanding, we aim to unlock the potential of VLMs by leveraging spatially relevant image data. To this end, we introduce a novel 2D spatial data generation and annotation pipeline built upon scene data with 3D ground-truth. This pipeline enables the creation of a diverse set of spatial tasks, ranging from basic perception tasks to more complex reasoning tasks. Leveraging this pipeline, we construct SPAR-7M, a large-scale dataset generated from thousands of scenes across multiple public datasets. In addition, we introduce SPAR-Bench, a benchmark designed to offer a more comprehensive evaluation of spatial capabilities compared to existing spatial benchmarks, supporting both single-view and multi-view inputs. Training on both SPAR-7M and large-scale 2D datasets enables our models to achieve state-of-the-art performance on 2D spatial benchmarks. Further fine-tuning on 3D task-specific datasets yields competitive results, underscoring the effectiveness of our dataset in enhancing spatial reasoning.",
-   "affiliations": [],
+   "affiliations": [
+    "School of Data Science, Fudan University",
+    "Huawei Noah’s Ark Lab"
+   ],
    "author_affiliations": null,
-   "institutions": null,
+   "institutions": [
+    "Fudan University",
+    "Huawei"
+   ],
+   "institution_ids": [
+    "013q1eq08",
+    null
+   ],
    "extractor": 19,
    "provenance": {
     "affiliations": {
      "source": "html",
      "at": "2026-10-29"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-08"
     }
    },
    "abs_url": "https://arxiv.org/abs/2503.22976",
