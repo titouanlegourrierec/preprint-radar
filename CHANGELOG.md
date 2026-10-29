@@ -87,6 +87,9 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
   "University of Oxford", not "University of" (AFF-37).
 - `archive-affiliations` reads again, from the page cache, the highly cited papers an older
   extraction read, so that extraction fixes reach the archive too (AFF-39).
+- The page cache keeps a figure holding the author block (2503.22976 sets its title and
+  authors in its teaser), and a page cached without one never empties a paper's
+  affiliations (DATA-1).
 - An institution's unit written with its acronym ("KAIST AI", "CUHK MMLab", "ETH AI
   Center") is the institution, one node of the graph and one row of Rankings (AFF-36).
 - Affiliations no longer hold LaTeX commands ("\\affilnum1", "\\authormark2", "Φ\\Phi") nor

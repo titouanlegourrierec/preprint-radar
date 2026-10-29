@@ -1682,6 +1682,56 @@ def test_the_front_matter_keeps_the_tables_of_the_author_block() -> None:
     assert "results table" not in small
 
 
+# 2503.22976 sets its title, authors and abstract in a teaser figure, before any section.
+FIGURE_PAGE = """<html><body><article class="ltx_document">
+<span class="ltx_note ltx_role_footnotetext">Equally contributed.</span>
+<figure class="ltx_figure"><div class="ltx_flex_figure">
+<h1 class="ltx_title ltx_title_figure">A paper</h1>
+<div class="ltx_authors"><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Ada Lovelace</span>
+<span class="ltx_contact ltx_role_affiliation">School of Data Science, Fudan University</span></span></div>
+<div class="ltx_abstract"><p>We do things.</p></div>
+<div class="ltx_flex_cell"><img src="teaser.png"/></div></div>
+<figcaption>A teaser, big.</figcaption></figure>
+<section class="ltx_section"><h2>Introduction</h2><p>Body text.</p></section>
+</article></body></html>"""
+
+
+def test_the_front_matter_keeps_a_figure_holding_the_author_block() -> None:
+    small = front_matter_html(FIGURE_PAGE)
+
+    assert parse_front_matter(small, authors=("Ada Lovelace",)) == parse_front_matter(
+        FIGURE_PAGE, authors=("Ada Lovelace",)
+    )
+    assert parse_front_matter(small).affiliations == ("School of Data Science, Fudan University",)
+    assert "teaser.png" not in small
+    assert "Introduction" not in small
+
+
+def test_a_page_kept_before_figures_without_an_author_block_is_doubtful(tmp_path: Path) -> None:
+    cache = PageCache(tmp_path / "pages")
+    url = "https://arxiv.org/html/2503.22976v1"
+    page = tmp_path / "pages" / "2503" / "2503.22976v1.html.gz"
+
+    cache.put(url, FIGURE_PAGE)
+    assert not cache.doubtful(url)
+    # As kept before: the figure dropped, the footnotes left.
+    page.write_bytes(
+        gzip.compress(
+            b'<html><body><article class="ltx_document" data-front-matter="2"><span class="ltx_note">'
+            b"Equally contributed.</span></article></body></html>"
+        )
+    )
+    assert cache.doubtful(url)
+    assert not cache.stale(url)
+    # Kept by today's front matter, a page without an author block has none.
+    cache.put(url, '<html><body><article class="ltx_document"><p>No authors.</p></article></body></html>')
+    assert not cache.doubtful(url)
+    # A stale page is doubtful.
+    page.write_bytes(gzip.compress(b'<html><body><article class="ltx_document"></article></body></html>'))
+    assert cache.doubtful(url)
+
+
 def test_a_page_kept_before_the_tables_or_empty_is_stale(tmp_path: Path) -> None:
     cache = PageCache(tmp_path / "pages")
     url = "https://arxiv.org/html/2609.30249v2"

@@ -200,8 +200,10 @@ papers. `collect.update_archive_affiliations` fills those of the archive and of 
 - **The page again** (AFF-39, every run, `MAX_HTML` or not): the papers an older
   extraction read (`extractor` below `EXTRACTOR_VERSION`) are read again from the page
   cache, offline, as `reextract` reads the day files', which never reads the archive:
-  affiliations that come back the same keep their institutions, a stale page that gives
-  none leaves its paper as it was, and a page the cache does not hold is not downloaded.
+  affiliations that come back the same keep their institutions, a doubtful page that gives
+  none leaves its paper as it was (`PageCache.doubtful`: 2503.22976's, kept without the
+  figure holding its author block, emptied it once), and a page the cache does not hold is
+  not downloaded.
   The pages are in the cache of the machine that read them, so an extraction fix reaches
   the archive when the maintainer runs `make archive-affiliations` there (seconds);
   `archive.yml`, without that cache, reads none. `reclean` cleans its papers read from a

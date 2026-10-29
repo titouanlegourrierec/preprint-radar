@@ -1263,11 +1263,20 @@ def test_archive_affiliations_read_again_what_an_older_extraction_read(
     same = _read_by(older, "1703.06870", ("Facebook AI Research (FAIR)",), mask)
     uncached = _read_by(older, "1703.00003", ("MIT",), LOVELACE_TURING)
     current = replace(_read_by(EXTRACTOR_VERSION, "1703.00004", ("MIT",), mask), html_url=same.html_url)
-    store.write_archive("cs.CV", [cut, same, uncached, current, _archived("1703.00005", ("ETH Zurich",))])
+    # Its page kept without the figure holding its author block, which gives nothing (2503.22976).
+    lost = _read_by(older, "1703.00006", ("School of Data Science, Fudan University",), mask)
+    papers = [cut, same, uncached, current, _archived("1703.00005", ("ETH Zurich",)), lost]
+    store.write_archive("cs.CV", papers)
     cache = PageCache(tmp_path / "pages")
     for paper in (cut, same):
         assert paper.html_url is not None
         cache.put(paper.html_url, paper_html(paper.arxiv_id))
+    (tmp_path / "pages" / "1703" / "1703.00006.html.gz").write_bytes(
+        gzip.compress(
+            b'<html><body><article class="ltx_document" data-front-matter="2">'
+            b'<span class="ltx_note">Equally contributed.</span></article></body></html>'
+        )
+    )
 
     def handle(request: httpx.Request) -> httpx.Response:
         raise AssertionError(request.url)
@@ -1294,7 +1303,7 @@ def test_archive_affiliations_read_again_what_an_older_extraction_read(
     kept = archived["1703.06870"]
     assert (kept.affiliations, kept.institutions) == (same.affiliations, same.institutions)
     assert kept.extractor == EXTRACTOR_VERSION
-    for unchanged in (uncached, current):
+    for unchanged in (uncached, current, lost):
         assert archived[unchanged.arxiv_id] == unchanged
 
     # Again: read by today's extraction, nothing to read.
@@ -1876,14 +1885,23 @@ def test_reextract_never_empties_a_paper_from_a_page_kept_before_tables(
     stale.parent.mkdir(parents=True)
     stale.write_bytes(gzip.compress(NO_AFFILIATION_PAGE.encode()))
     cache.put("https://arxiv.org/html/2609.00002v1", NO_AFFILIATION_PAGE)
-    store.save("cs.CV", [_stored("2609.00001", "1"), _stored("2609.00002", "1")])
+    # Kept before a figure holding the author block stayed: footnotes alone (2503.22976).
+    (tmp_path / "pages" / "2609" / "2609.00003v1.html.gz").write_bytes(
+        gzip.compress(
+            b'<html><body><article class="ltx_document" data-front-matter="2">'
+            b'<span class="ltx_note">Equally contributed.</span></article></body></html>'
+        )
+    )
+    papers = [_stored("2609.00001", "1"), _stored("2609.00002", "1"), _stored("2609.00003", "1")]
+    store.save("cs.CV", papers)
 
     _reextract(fake, store, HtmlReading(limit=0, cache=cache))
 
     stored = {paper.arxiv_id: paper for paper in store.iter_papers("cs.CV")}
-    assert stored["2609.00001"] == _stored("2609.00001", "1")
-    assert "https://arxiv.org/html/2609.00001v1" not in cache
-    assert "1 cached pages gave no affiliation to papers that have some" in caplog.text
+    for kept in ("2609.00001", "2609.00003"):
+        assert stored[kept] == _stored(kept, "1")
+        assert f"https://arxiv.org/html/{kept}v1" not in cache
+    assert "2 cached pages gave no affiliation to papers that have some" in caplog.text
     # A page kept today that gives nothing is what the page says.
     assert stored["2609.00002"].affiliations == ()
 

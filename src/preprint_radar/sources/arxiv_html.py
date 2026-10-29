@@ -507,7 +507,26 @@ class PageCache:
         return (
             html is not None
             and "ltx_document" in html
-            and (_FRONT_MATTER_MARK not in html or _EMPTY_FRONT_MATTER_RE.search(html) is not None)
+            and (
+                _front_matter_version(html) < _TABLES_KEPT or _EMPTY_FRONT_MATTER_RE.search(html) is not None
+            )
+        )
+
+    def doubtful(self, html_url: str) -> bool:
+        """Whether the page at ``html_url`` may have been kept with less than its front matter.
+
+        :meth:`stale`, or kept before a figure holding the author block stayed, without an
+        author block: 2503.22976 sets its title, authors and abstract in a teaser figure,
+        which the front matter dropped, and read again from the cache, it lost its two
+        affiliations. Many pages have no author block, so this is only a doubt: a paper the
+        page gives no affiliation keeps those it has, and the page is downloaded again.
+        """
+        html = self.get(html_url)
+        return self.stale(html_url) or (
+            html is not None
+            and "ltx_document" in html
+            and _front_matter_version(html) < _FRONT_MATTER_VERSION
+            and "ltx_authors" not in html
         )
 
     def discard(self, html_url: str) -> None:
@@ -543,10 +562,14 @@ _PREAMBLE_CLASSES = frozenset({"ltx_glossary"})
 # but for the tables of the author block.
 _FIGURE_TAGS = ("figure", "img", "svg", "table")
 _FIGURE_CLASSES = frozenset({"ltx_figure", "ltx_table"})
-# What a front matter that kept the tables of its author block says of itself.
-_FRONT_MATTER_MARK = 'data-front-matter="2"'
+# What a front matter says of itself: version 2 kept the tables of its author block
+# (2026-10-06), 3 a figure holding the author block (2026-10-29).
+_TABLES_KEPT = 2
+_FRONT_MATTER_VERSION = 3
+_FRONT_MATTER_MARK = f'data-front-matter="{_FRONT_MATTER_VERSION}"'
+_FRONT_MATTER_MARK_RE = re.compile(r'data-front-matter="(\d+)"')
 # A front matter that kept nothing: every document has a title at least.
-_EMPTY_FRONT_MATTER_RE = re.compile(rf"{_FRONT_MATTER_MARK}>\s*</article>")
+_EMPTY_FRONT_MATTER_RE = re.compile(r'data-front-matter="\d+">\s*</article>')
 
 
 def front_matter_html(html: str) -> str:
@@ -557,7 +580,9 @@ def front_matter_html(html: str) -> str:
     tables of the author block stay: some classes lay names and affiliations out in one
     (2609.06629, whose five affiliations a cached page had lost). A list of acronyms set
     before the title is no first section: the pages of 2610.09677 and 2610.11653 were kept
-    empty, and read again from the cache, lost their affiliations.
+    empty, and read again from the cache, lost their affiliations. A figure holding the
+    author block stays, without its images: 2503.22976 sets its title, authors and abstract
+    in a teaser figure, and lost them all.
     """
     soup = BeautifulSoup(html, "html.parser")
     article = soup.select_one("article.ltx_document")
@@ -571,14 +596,23 @@ def front_matter_html(html: str) -> str:
                 continue
             if child.name == "section" or _BODY_CLASSES & classes:
                 break
-            if child.name in _FIGURE_TAGS or _FIGURE_CLASSES & classes:
+            if (child.name in _FIGURE_TAGS or _FIGURE_CLASSES & classes) and not child.select_one(
+                ".ltx_authors"
+            ):
                 continue
             for noise in child.select(", ".join([*_FIGURE_TAGS, *(f".{name}" for name in _FIGURE_CLASSES)])):
-                if noise.name != "table" or noise.find_parent(class_="ltx_authors") is None:
+                kept_table = noise.name == "table" and noise.find_parent(class_="ltx_authors") is not None
+                if not kept_table and not noise.select_one(".ltx_authors"):
                     noise.decompose()
         kept.append(str(child))
     article_tag = f'<article class="ltx_document" {_FRONT_MATTER_MARK}>'
     return f"<html><body>{article_tag}{''.join(kept)}</article></body></html>"
+
+
+def _front_matter_version(html: str) -> int:
+    """The version of :func:`front_matter_html` a cached page was kept by, 0 before versions (DATA-1)."""
+    match = _FRONT_MATTER_MARK_RE.search(html)
+    return int(match.group(1)) if match else 0
 
 
 def first_version_url(arxiv_id: str) -> str | None:

@@ -656,13 +656,13 @@ def _kept(read: Sequence[Paper], stored: Sequence[Paper], cache: PageCache | Non
 
 
 def _emptied(new: Paper, old: Paper, cache: PageCache | None) -> bool:
-    """Whether a stale cached page (:meth:`PageCache.stale`) gave no affiliation to a paper that has some."""
+    """Whether a doubtful cached page (:meth:`PageCache.doubtful`) gave none to a paper with affiliations."""
     return (
         new.affiliations == ()
         and bool(old.affiliations)
         and cache is not None
         and old.html_url is not None
-        and cache.stale(old.html_url)
+        and cache.doubtful(old.html_url)
     )
 
 
@@ -1450,7 +1450,7 @@ def _read_again(papers: Iterable[Paper], cache: PageCache | None) -> list[tuple[
     From the cache only: a paper whose page it does not hold keeps what it has, since
     ``archive-affiliations`` downloads no page of a paper with affiliations. Read again as
     ``reextract`` reads the day files' (:func:`_kept`): affiliations that come back the
-    same keep their institutions, a stale page that gives none leaves its paper as it was.
+    same keep their institutions, a doubtful page that gives none leaves its paper as it was.
     Otherwise every extraction fix would leave the archive's papers read before it as they
     were, their pages in the cache of the maintainer's machine (AFF-39).
 

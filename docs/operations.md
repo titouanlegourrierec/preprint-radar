@@ -296,9 +296,10 @@ papers until the next archive. Locally, `make trends` reads your last `make arch
   *Extraction diff* on it (`gh workflow run extraction-diff.yml --ref <branch>`), which
   extracts the stored papers with the branch's code and with `main`'s over that cache, and
   writes the papers that differ in its summary.
-- **Signal** `cached pages gave no affiliation to papers that have some`: stale cached
-  pages (`PageCache.stale`). Those papers keep what they had; the next run downloads their
-  pages again. Nothing to do.
+- **Signal** `cached pages gave no affiliation to papers that have some`: cached pages
+  that lost or may have lost their author block (`PageCache.doubtful`: kept before their
+  tables, empty, or without an author block before figures holding one were kept). Those
+  papers keep what they had; the next run downloads their pages again. Nothing to do.
 
 ## Affiliations of the highly cited papers
 
