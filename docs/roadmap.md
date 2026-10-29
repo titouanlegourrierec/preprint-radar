@@ -433,6 +433,15 @@ authors mapped 99%, venues 89%, counts 100%. `validate`: no error, 3 warnings (a
 `reclean` would change, two author-id lists of `scholar.json` that do not fit their
 authors). The synonyms reach `trends.json` with the archive of 2026-11-01.
 
+*Result of v1.1.0 (2026-10-29; `make stats` and `make validate` that day).* Day files: 7,651
+papers, abstracts 100%, affiliations 83% of those tried (authors mapped 86%, institutions
+named 99%), venues 22%, citation counts 99%. Archive: 22,636 papers, affiliations 97%
+(91% in v1.0.0: ar5iv's pages of the highly cited papers, AFF-37), authors mapped 98%,
+venues 89%, counts 100%. A country for 27,375 of the 31,227 papers (88%). `validate`: no
+error, 3 warnings (the last author alone placed at every affiliation of 2610.32200, a
+paper `reclean` would change, four author-id lists of `scholar.json` that do not fit their
+authors).
+
 ## Backlog triage (2026-10-07)
 
 The audit items no row above named on 2026-10-07, checked against the code of that day (`b3bfefc`).

@@ -10,6 +10,14 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
 
 ## Unreleased
 
+## 1.1.0 (2026-10-29): every stored paper searched, papers by country, and the highly cited papers' affiliations
+
+A search and the Rankings reach every stored paper, not only a period, and papers can be
+filtered by the countries of their institutions. The interface moves rather than jumps,
+marks the days announced since your last visit, draws formulas and shows the logos of
+major institutions. The highly cited papers before December 2023 get their affiliations
+from ar5iv's renderings: 97% of the archive has some, against 91% in 1.0.0.
+
 ### Search
 
 - Search every stored paper, not only a period: "All papers" beside the period's presets
