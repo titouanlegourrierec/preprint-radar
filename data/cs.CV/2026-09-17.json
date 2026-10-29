@@ -68,11 +68,11 @@
     "00vs8d940",
     "00v4yb702"
    ],
-   "extractor": 18,
+   "extractor": 19,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-28"
+     "at": "2026-10-29"
     },
     "institutions": {
      "source": "ror",
@@ -113,11 +113,11 @@
     "00vs8d940",
     "00v4yb702"
    ],
-   "extractor": 18,
+   "extractor": 19,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-28"
+     "at": "2026-10-29"
     },
     "institutions": {
      "source": "ror",
@@ -186,11 +186,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 18,
+   "extractor": 19,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-28"
+     "at": "2026-10-29"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.17740",
@@ -350,11 +350,11 @@
    "institution_ids": [
     "02rb21j89"
    ],
-   "extractor": 18,
+   "extractor": 19,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-28"
+     "at": "2026-10-29"
     },
     "institutions": {
      "source": "ror",
@@ -577,11 +577,11 @@
     null,
     "01zkghx44"
    ],
-   "extractor": 7,
+   "extractor": 19,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-10-29"
     },
     "institutions": {
      "source": "ror",
@@ -670,11 +670,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 19,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-29"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.17856",
@@ -842,11 +842,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 19,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-29"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.17909",
@@ -1349,11 +1349,11 @@
     "05h9q1g27",
     "0403qcr87"
    ],
-   "extractor": 7,
+   "extractor": 19,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-10-29"
     },
     "institutions": {
      "source": "ror",
@@ -1449,11 +1449,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 19,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-29"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.18058",
@@ -2038,11 +2038,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 19,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-29"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.18210",
@@ -2193,11 +2193,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 19,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-29"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.18256",
@@ -2509,11 +2509,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 19,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-29"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.18329",
@@ -2972,11 +2972,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 19,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-29"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.18430",
@@ -3149,24 +3149,27 @@
    "html_url": "https://arxiv.org/html/2609.18462v3",
    "abstract": "FastWAM-style world action models enable efficient action-only inference, but generalize poorly under visual distribution shifts. Their reconstruction-oriented representations emphasize appearance-specific details, limiting generalization to unseen scenes and objects. Without observation history, the model also lacks temporal evidence for robustly identifying task-relevant state changes and motion in unfamiliar visual conditions. To address these limitations, we present the Causal Semantic World Action Model (CSWAM), which augments FastWAM with a causal semantic expert built on V-JEPA 2.1. V-JEPA provides temporally grounded representations of semantic state changes and motion with less dependence on appearance-specific details. The expert learns their future evolution from a sparse history of current and past observations and shares the history-derived context with both the video and action streams through causal attention. At inference, CSWAM conditions action denoising on the current video state and observed semantic history, retaining efficient action-only inference. We conduct simulation and real-robot experiments to evaluate generalization under distribution shifts. With embodied pretraining, CSWAM raises Randomized success on RoboTwin 2.0 Clean-to-Randomized transfer from 10.16% to 45.18%, a gain of 35.02 percentage points over FastWAM. Across two real-robot tasks and three OOD difficulty levels, CSWAM improves average success over FastWAM by 42.5 percentage points, from 27.5% to 70.0%.",
    "affiliations": [
+    "AIRC, Midea Group",
     "Tongji University"
    ],
    "author_affiliations": null,
    "institutions": [
+    "AIRC",
     "Tongji University"
    ],
    "institution_ids": [
+    null,
     "03rc6as71"
    ],
-   "extractor": 9,
+   "extractor": 19,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-29"
     },
     "institutions": {
      "source": "ror",
-     "at": "2026-10-15"
+     "at": "2026-10-29"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.18462",
@@ -4076,11 +4079,11 @@
    "institution_ids": [
     null
    ],
-   "extractor": 9,
+   "extractor": 19,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-29"
     },
     "institutions": {
      "source": "ror",
@@ -4455,11 +4458,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 19,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-29"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.18716",
@@ -4809,11 +4812,11 @@
     "00ks66431",
     null
    ],
-   "extractor": 7,
+   "extractor": 19,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-06"
+     "at": "2026-10-29"
     },
     "institutions": {
      "source": "ror",
@@ -4958,11 +4961,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 19,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-29"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.18943",
@@ -5029,11 +5032,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 19,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-29"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.18955",
@@ -5109,11 +5112,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 19,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-29"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.18980",
@@ -5140,11 +5143,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 19,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-29"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.19119",
@@ -5234,11 +5237,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 19,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-29"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.19138",
@@ -5272,11 +5275,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 19,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-29"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.19142",
@@ -5376,11 +5379,11 @@
     null,
     "019kgqr73"
    ],
-   "extractor": 9,
+   "extractor": 19,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-29"
     },
     "institutions": {
      "source": "ror",
@@ -5424,11 +5427,11 @@
    "institution_ids": [
     null
    ],
-   "extractor": 9,
+   "extractor": 19,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-29"
     },
     "institutions": {
      "source": "ror",
@@ -5470,11 +5473,11 @@
    "institution_ids": [
     null
    ],
-   "extractor": 9,
+   "extractor": 19,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-29"
     },
     "institutions": {
      "source": "ror",
@@ -5843,11 +5846,11 @@
     "03w2j5y17",
     null
    ],
-   "extractor": 9,
+   "extractor": 19,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-29"
     },
     "institutions": {
      "source": "ror",
@@ -6140,11 +6143,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 19,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-29"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.18487",
@@ -6232,11 +6235,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 19,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-29"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.18844",
@@ -6327,14 +6330,37 @@
    "cross_list_from": "cs.LG",
    "html_url": "https://arxiv.org/html/2609.19010v1",
    "abstract": "Urban Land Cover (ULC) classification plays a crucial role in urban planning, environmental monitoring, and sustainable development. We study this task using the ULC dataset from the UCI Machine Learning Repository, which includes tabular features derived from high-resolution aerial imagery across nine classes (e.g., roads, trees, grass, water). The dataset presents typical remote sensing challenges, including high dimensionality, heterogeneous features, and class imbalance. In a unified, reproducible pipeline, we benchmark classical machine learning models (e.g., Logistic Regression, SVM, Random Forest, XGBoost, CatBoost) against Tabular Deep Learning (TDL) models (TabNet, FT-Transformer, TabTransformer, TabSeq, and 1D CNNs). To address class imbalance, we employ weighted cross-entropy loss for TDL models and evaluate performance using accuracy, macro-precision, macro-recall, macro-F1, AUC-ROC, and confusion matrices. Our results show that while tree ensembles remain strong general baselines, TDL models can match or exceed their performance when non-linear interactions are significant and imbalance handling is effective, providing complementary advantages for urban land cover mapping. See code: https://github.com/mtesha/tdl-vs-ml-urbanlandcover",
-   "affiliations": [],
+   "affiliations": [
+    "Department of Geology and Geography, West Virginia University, Morgantown, WV 26506, USA",
+    "Department of CSE, Green University of Bangladesh, Narayanganj-1461, Bangladesh",
+    "Department of CSE, Stamford University Bangladesh, Dhaka-1217, Bangladesh",
+    "Lane Department of CSEE",
+    "West Virginia University, Morgantown, WV 26506, USA"
+   ],
    "author_affiliations": null,
-   "institutions": null,
-   "extractor": 9,
+   "institutions": [
+    "West Virginia University",
+    "Green University of Bangladesh",
+    "Stamford University Bangladesh",
+    "Lane Department of CSEE",
+    "West Virginia University"
+   ],
+   "institution_ids": [
+    "011vxgd24",
+    "04f7afq11",
+    "0441jdk54",
+    null,
+    "011vxgd24"
+   ],
+   "extractor": 19,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-29"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-29"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.19010",
@@ -6363,11 +6389,11 @@
    "affiliations": [],
    "author_affiliations": null,
    "institutions": null,
-   "extractor": 9,
+   "extractor": 19,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-15"
+     "at": "2026-10-29"
     }
    },
    "abs_url": "https://arxiv.org/abs/2609.19042",
