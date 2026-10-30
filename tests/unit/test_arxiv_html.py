@@ -2407,6 +2407,12 @@ def test_markers_written_in_math_are_read_without_their_source() -> None:
             "Autonomous System Research Lab, Department of Computer Science, Texas A&M University-Kingsville",
             id="two-cuts",
         ),
+        # A unit before an earlier cut still counts (2610.13681).
+        pytest.param(
+            "School of Computer ScienceNanjing UniversityJiangsu, 210023, China",
+            "School of Computer Science, Nanjing University, Jiangsu, 210023, China",
+            id="unit-before-an-earlier-cut",
+        ),
         # An institution's first word or its country after a name of several words (ar5iv's
         # 2206.07045, 2512.08924), a company's suffix (ar5iv's 2309.02301).
         pytest.param(

@@ -1639,19 +1639,22 @@ def _unglued(text: str) -> str:
     "Department of Computer Science and EngineeringMichigan State University" becomes
     "Department of Computer Science and Engineering, Michigan State University".
     """
-    pieces: list[str] = []
-    start = 0
+    cuts: list[int] = []
     for match in _GLUE_RE.finditer(text):
         at = match.start()
-        # From the last cut: "Research LabDepartment of … ScienceTexas A&M" is cut twice
-        # (2609.22631), "LabDepartment" holding no unit word of its own.
-        part = text[max(start, text.rfind(",", 0, at) + 1) : at]
+        # The part since the last comma, its cuts so far apart: a unit before an earlier
+        # cut still counts ("School of Computer ScienceNanjing UniversityJiangsu",
+        # 2610.13681), and so does one an earlier cut ends ("Research LabDepartment of …
+        # ScienceTexas A&M", 2609.22631).
+        bounds = [text.rfind(",", 0, at) + 1]
+        bounds += [cut for cut in cuts if cut > bounds[0]]
+        part = " ".join(text[begin:end] for begin, end in zip(bounds, [*bounds[1:], at], strict=True))
         word = part.rsplit(maxsplit=1)[-1] if part.split() else ""
         inside_brackets = part.count("(") > part.count(")")
         if text[at - 1] == ")" or ("-" not in word and not inside_brackets and _glued_at(text, at, part)):
-            pieces.append(text[start:at] + ", ")
-            start = at
-    return "".join(pieces) + text[start:]
+            cuts.append(at)
+    ends = [*cuts, len(text)]
+    return ", ".join(text[begin:end] for begin, end in zip([0, *cuts], ends, strict=True))
 
 
 def _glued_at(text: str, at: int, part: str) -> bool:
