@@ -141,11 +141,13 @@ _NOISE_RE = re.compile(
 _LATER_NOTE_RE = re.compile(
     r"\bnow\s+(?:at|with)\b|\binterns?\s+at\b|\bas\s+(?:an?\s+)?intern\b", re.IGNORECASE
 )
-# ORCID identifiers, with their label and what lies between: "(ORCID: 0000-0002-1117-9355)"
-# after an affiliation (2305.17033), "ORCID codes: FT 0009-…; PB 0000-…" (2610.13604), or the
-# label alone (2610.26079).
+# ORCID identifiers, with their label: "(ORCID: 0000-0002-1117-9355)" after an affiliation
+# (2305.17033), the list after one ("ORCID codes: FT 0009-…; PB 0000-…", 2610.13604), never
+# past a bracket, or the label alone (2610.26079).
+_ORCID_ID = r"(?:\d{4}-){3}\d{3}[\dX]?\b"
 _ORCID_RE = re.compile(
-    r"[(\[]?\s*\borcid\b(?:.*(?:\d{4}-){3}\d{3}[\dX]?\b[)\]]?|\s*:?\s*$)", re.IGNORECASE | re.DOTALL
+    rf"[(\[]?\s*\borcid\b[^\d()\[\]]*{_ORCID_ID}[)\]]?(?:[^()\[\]]*?{_ORCID_ID})*|\borcid\b\s*:?\s*$",
+    re.IGNORECASE,
 )
 # A contribution note LaTeXML glued to the affiliation after it, which the note's noise
 # would drop whole: "Equal senior contributionsDeepMind" (ar5iv's 2204.14198).

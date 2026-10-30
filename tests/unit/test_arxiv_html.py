@@ -1376,6 +1376,16 @@ def test_clean_affiliation_drops_what_names_nothing(raw: str) -> None:
             "Sapienza University of Rome, Italy",
             id="orcid-codes-glued",
         ),
+        pytest.param(
+            "Ada Lab (ORCID: 0000-0001-0000-0001), Bob University (ORCID: 0000-0002-0000-000X)",
+            "Ada Lab, Bob University",
+            id="two-orcids",
+        ),
+        pytest.param(
+            "Cincinnati Children's Hospital (ORCID ID: 0000-0001-9003-4578, and Helmholtz AI, Munich",
+            "Cincinnati Children's Hospital, and Helmholtz AI, Munich",
+            id="orcid-bracket-unclosed",
+        ),
         pytest.param("ORCID: 0000-0002-4384-9739", None, id="orcid-alone"),
         pytest.param("ORCID", None, id="orcid-label-alone"),
         pytest.param(
