@@ -6958,11 +6958,11 @@
     null,
     "027m9bs27"
    ],
-   "extractor": 19,
+   "extractor": 20,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-29"
+     "at": "2026-10-30"
     },
     "institutions": {
      "source": "ror"
@@ -12811,7 +12811,8 @@
     "Department of Computer Science and Technology, Institute for AI, BNRist, Tsinghua University, Beijing 100084, China",
     "Tsinghua Laboratory of Brain and Intelligence (THBI), IDG/McGovern Institute for Brain Research, Tsinghua University, Beijing 100084, China",
     "School of Basic Medical Sciences, Tsinghua University, Beijing, 100084, China",
-    "Tsinghua-Peking Center for Life Sciences, Beijing, 100084, China"
+    "Tsinghua-Peking Center for Life Sciences, Beijing, 100084, China",
+    "Chinese Institute for Brain Research (CIBR), Beijing 100010, China"
    ],
    "author_affiliations": [
     [
@@ -12838,29 +12839,33 @@
     ],
     [
      0,
-     1
+     1,
+     4
     ]
    ],
    "institutions": [
     "Tsinghua University",
     "Tsinghua University",
     "Tsinghua University",
-    "Center for Life Sciences"
+    "Center for Life Sciences",
+    "Chinese Institute for Brain Research"
    ],
    "institution_ids": [
     "03cve4549",
     "03cve4549",
     "03cve4549",
-    "05kje8j93"
+    "05kje8j93",
+    "029819q61"
    ],
-   "extractor": 19,
+   "extractor": 20,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-29"
+     "at": "2026-10-30"
     },
     "institutions": {
-     "source": "ror"
+     "source": "ror",
+     "at": "2026-10-30"
     }
    },
    "abs_url": "https://arxiv.org/abs/2608.30768",
@@ -14846,8 +14851,8 @@
    "html_url": "https://arxiv.org/html/2608.28605v1",
    "abstract": "Recent advancements in multimodal learning for medical time series (MedTS) classification highlight the benefits of integrating complementary modalities for clinical decision. However, existing methods typically focus on bi-modal interactions (e.g., time series and text), leaving the tri-modal synergy between time series, vision, and language largely unexplored. Inspired by diagnostic practice synergizing numerical assessment, visual inspection and clinical context, we introduce MedTVL, a text-guided dual-pathway architecture tailored for MedTS classification. Specifically, it synergizes a convolution-based temporal pathway for fine-grained temporal dynamics from raw numerical sequences and a transformer-based visual pathway for holistic morphological structures from time-series-derived images. Such combination of cross-modal and architectural heterogeneity provides a comprehensive diagnostic perspective. To further resolve potential diagnostic ambiguity, both pathways are guided by adaptive medical textual semantics. Finally, a Mixture-of-Experts mechanism dynamically routes each instance to specialized fusion experts, capturing instance-specific reliance on the temporal and visual pathway outputs. In addition, MedTVL supports multimodal contrastive learning to mitigate the clinical label scarcity challenge. Extensive experiments across multiple medical datasets and tasks, spanning supervised, few-shot, and contrastive learning settings, demonstrate the superiority and transferability of MedTVL, highlighting its potential for robust clinical decision support.",
    "affiliations": [
-    "The Hong Kong University of Science and Technology (Guangzhou), Data Science and Analytics Thrust, GuangzhouChina",
-    "The Hong Kong University of Science and TechnologyDepartment of Industrial Engineering & Decision AnalyticsHong Kong SARChina"
+    "The Hong Kong University of Science and Technology (Guangzhou), Data Science and Analytics Thrust, Guangzhou, China",
+    "The Hong Kong University of Science and Technology, Department of Industrial Engineering & Decision Analytics, Hong Kong SARChina"
    ],
    "author_affiliations": [
     [
@@ -14862,20 +14867,21 @@
    ],
    "institutions": [
     "Hong Kong University of Science and Technology (Guangzhou)",
-    "Hong Kong University of Science and TechnologyDepartment of Industrial Engineering & Decision AnalyticsHong Kong SARChina"
+    "Hong Kong University of Science and Technology (Guangzhou)"
    ],
    "institution_ids": [
     "050h0vm43",
-    null
+    "050h0vm43"
    ],
-   "extractor": 19,
+   "extractor": 20,
    "provenance": {
     "affiliations": {
      "source": "html",
-     "at": "2026-10-29"
+     "at": "2026-10-30"
     },
     "institutions": {
-     "source": "ror"
+     "source": "ror",
+     "at": "2026-10-30"
     }
    },
    "abs_url": "https://arxiv.org/abs/2608.28605",

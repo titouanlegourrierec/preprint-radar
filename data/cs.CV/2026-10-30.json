@@ -1,0 +1,1543 @@
+{
+ "schema_version": 1,
+ "category": "cs.CV",
+ "date": "2026-10-30",
+ "papers": [
+  {
+   "arxiv_id": "2610.37784",
+   "announced": "2026-10-30",
+   "title": "Sparse tensor networks for individual tree diameter estimation in mixed forests",
+   "authors": [
+    "Clara Lößl",
+    "Fabian Ewald Fassnacht",
+    "Viacheslav Barkov"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.37784v1",
+   "abstract": "Measurements of tree diameter at breast height (DBH) are fundamental to forest inventories, but manual surveys across entire stands or regions are impractical. UAV-borne laser scanning (ULS) enables scalable automated forest surveys, yet canopy occlusion makes accurate DBH estimation from ULS point clouds non-trivial. Limited stem-level point density of ULS data constrains approaches relying on detailed stem reconstruction, such as Quantitative Structure Models (QSMs) and circle fitting. Empirical machine learning methods based on predefined point cloud metrics are an alternative. New deep learning approaches offer an even more principled solution, allowing models to learn directly from point clouds. Sparse tensor networks have shown particular promise, transforming forestry tasks such as tree species classification. We investigate whether these strengths can be extended to estimate individual tree DBH from ULS data across four mixed-species temperate forest plots in Germany. We further advance existing sparse tensor networks by introducing TreeNext, a lightweight deep learning architecture for direct individual tree parameter estimation from voxelized LiDAR point clouds. We present a fully automated forest inventory pipeline from individual tree instance segmentation to DBH regression, and quantify the impact of segmentation errors by comparing performance on automatically segmented and ground truth instances. TreeNext achieves an $R^2$ of 0.8355 on automatically segmented trees and 0.9380 on ground truth segments, outperforming strong tabular baselines including Random Forest and XGBoost. Segmentation quality emerges as the dominant error source in the automated pipeline. TreeNext proves highly data-efficient, performing well even in small data scenarios. Our findings establish sparse tensor networks as a practical foundation for automated individual tree DBH estimation from ULS.",
+   "affiliations": [
+    "Joint Lab Artificial Intelligence",
+    "Data Science, Osnabrück University, Osnabrück, Germany",
+    "Department of Agromechatronics, Leibniz Institute for Agricultural Engineering and Bioeconomy, (ATB), Potsdam, Germany",
+    "Chair of Agromechatronics, Technische Universität Berlin, Berlin, Germany",
+    "Institute of Geomatics, University of Natural Resources and Life Sciences (BOKU), Vienna, Austria"
+   ],
+   "author_affiliations": null,
+   "institutions": [
+    "Joint Lab Artificial Intelligence",
+    "Osnabrück University",
+    "Leibniz Institute for Agricultural Engineering and Bioeconomy",
+    "Technische Universität Berlin",
+    "University of Natural Resources and Life Sciences (BOKU)"
+   ],
+   "institution_ids": [
+    null,
+    "04qmmjx98",
+    "04d62a771",
+    "03v4gjf40",
+    null
+   ],
+   "extractor": 20,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-30"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-30"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.37784",
+   "pdf_url": "https://arxiv.org/pdf/2610.37784"
+  },
+  {
+   "arxiv_id": "2610.37818",
+   "announced": "2026-10-30",
+   "title": "GOFish: Full Field-of-View Gaussian Splatting and Mesh Extraction",
+   "authors": [
+    "Allen Tu",
+    "Meher Gitika Karumuri",
+    "Shifan Zhu",
+    "Hailing Wang",
+    "Yen-Liang Lin",
+    "David Held",
+    "Matthias Zwicker",
+    "Tom Goldstein"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Graphics (cs.GR)",
+    "Robotics (cs.RO)"
+   ],
+   "comments": "Project Page: https://3dgofish.github.io/",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.37818v1",
+   "abstract": "Robots, autonomous vehicles, and consumer 360° cameras use fisheye lenses for wide fields of view (FoVs). Simulation-ready digital twins require photorealistic rendering across the full FoV and an aligned collision mesh. However, prior fisheye Gaussian Splatting methods only rasterize up to 180° and do not produce meshes, while Gaussian surface reconstruction methods assume pinhole training images. We present GOFish, the first 3D Gaussian Splatting surface reconstruction method to train directly on fisheye images, rasterize FoVs beyond 180°, and extract an aligned mesh from the same scene. Calibrated densification recovers the surface across the entire FoV, while Calibrated Mip Filtering and Wide-Angle Appearance Modeling keep pixel blur and lens falloff out of the scene and mesh. Across the 200° FIORD and 205° FullCircle benchmarks, GOFish improves PSNR over the best prior method by 2.28 and 1.97 dB, respectively. It also outperforms fisheye rendering baselines within their own FoVs and achieves the highest mesh F-score on FIORD and the main ScanNet++ set. Together, the Gaussian scene and mesh form a LiDAR-free, simulation-ready digital twin that renders in real time, ray traces the full FoV, and provides collision geometry.",
+   "affiliations": [
+    "Amazon",
+    "University of Maryland, College Park",
+    "University of Massachusetts Amherst",
+    "Northeastern University",
+    "Carnegie Mellon University"
+   ],
+   "author_affiliations": null,
+   "institutions": [
+    "Amazon",
+    "University of Maryland, College Park",
+    "University of Massachusetts Amherst",
+    "Northeastern University",
+    "Carnegie Mellon University"
+   ],
+   "institution_ids": [
+    null,
+    "047s2c258",
+    "0072zz521",
+    null,
+    "05x2bcf33"
+   ],
+   "extractor": 20,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-30"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-30"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.37818",
+   "pdf_url": "https://arxiv.org/pdf/2610.37818"
+  },
+  {
+   "arxiv_id": "2610.37844",
+   "announced": "2026-10-30",
+   "title": "Convex Potential Learning for Optimal Transport Between Medical Images",
+   "authors": [
+    "Hongyu Kan",
+    "Ivan Medri",
+    "Natasha Ironside",
+    "Kristofor Pas",
+    "Richard Corp",
+    "Shinjini Kundu",
+    "Gustavo Kunde Rohde"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.37844v1",
+   "abstract": "Computing optimal transport maps between medical images plays a fundamental role in morphological analysis. However, existing methods are either difficult to scale to large 3D medical images or rely on regularized formulations that provide only approximate transport maps. To improve the accuracy of downstream medical image analysis, we propose a novel approach for estimating optimal transport maps by parameterizing the convex potential function. By construction, the resulting transport map is guaranteed to be curl-free, consistent with Brenier's theorem. We evaluate the proposed method on both 2D and 3D medical imaging datasets. Experimental results demonstrate that our approach achieves lower transport estimation errors and produces higher-quality image reconstructions than existing methods.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
+   "extractor": 20,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-30"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.37844",
+   "pdf_url": "https://arxiv.org/pdf/2610.37844"
+  },
+  {
+   "arxiv_id": "2610.37860",
+   "announced": "2026-10-30",
+   "title": "Effects of Deep Learning Architecture and Pretraining on Automated Vocal Fold Segmentation in Ex Vivo High-Speed Phonation Images",
+   "authors": [
+    "Varun Vinayak Kalaiarasan",
+    "Charles Farbos de Luzan",
+    "Khalid Malik",
+    "Ephraim Gutmark",
+    "Liran Oren"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Image and Video Processing (eess.IV)",
+    "Fluid Dynamics (physics.flu-dyn)"
+   ],
+   "comments": "37 pages, 8 figures, 7 tables",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": null,
+   "abstract": "Two-dimensional (2D) intraglottal particle image velocimetry (PIV) of ex vivo phonation experiments quantifies vocal fold medial surface dynamics and the intraglottal flow field. However, it relies on manual segmentation because residual glare, low tissue-to-flow contrast, and tracer-particle speckle obscure the vocal fold boundaries. This study assessed how deep learning architecture and ImageNet pretraining affect automated vocal fold segmentation in these high-speed images. Four established architectures from three categories were benchmarked: the convolutional neural network (CNN)-based UNet and UNet++, the hybrid CNN-transformer-based TransUNet, and the pure transformer-based Swin-UNet, the latter two trained from scratch and from ImageNet-pretrained weights. Using 16,344 expert-annotated images from 227 phonation trials of excised canine larynges, the six pipelines were trained with five seeds under a standardized protocol and compared on 50 held-out test trials using trial-level Wilcoxon signed-rank tests with Holm correction. Mean Dice similarity coefficient (DSC) spanned only 0.9734 to 0.9764, so the pipelines differed mainly in boundary fidelity. Pretraining significantly improved the boundary F1 score (BF1) and 95th percentile Hausdorff distance (HD95) of the TransUNet and Swin-UNet, about four times more for the Swin-UNet. Once pretrained, the two performed similarly, although the Swin-UNet has only about a quarter of the trainable parameters. Without pretraining, the TransUNet had a significantly higher BF1 and a lower HD95 than both CNN-based pipelines and about half their share of images with HD95 > 50 pixels. To our knowledge, this is the first study to apply deep learning to vocal fold segmentation in 2D intraglottal PIV, and it offers a reference framework for segmenting experimental flow-visualization images with noisy optical conditions or highly deformable objects.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": [],
+   "provenance": {
+    "affiliations": {
+     "source": "openalex",
+     "at": "2026-10-30"
+    },
+    "institutions": {
+     "source": "openalex",
+     "at": "2026-10-30"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.37860",
+   "pdf_url": "https://arxiv.org/pdf/2610.37860"
+  },
+  {
+   "arxiv_id": "2610.37874",
+   "announced": "2026-10-30",
+   "title": "PairCLIP-SWA: Similarity-Guided Balancing and Stochastic Weight Averaging for Generalized Deepfake Image Detection with OpenCLIP",
+   "authors": [
+    "Md. Nakib",
+    "Sudipto Sarkar",
+    "A. J. A. Jubayer Talukder",
+    "Mohammad Ariful Haque"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": "15 pages, 8 figures, 12 tables. Code and experiment outputs: https://github.com/DarkJ0Y/PairCLIP-SWA",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.37874v1",
+   "abstract": "Deepfake detectors are almost always deployed as the single checkpoint that scored best on a validation split, yet the reliability of that choice is rarely measured. We measure it with PairCLIP-SWA, a single-backbone detector that adapts an OpenCLIP ViT-L/14 visual tower by progressive block unfreezing on a class-balanced corpus built by CLIP-similarity-guided one-to-one subsampling, and averages the fine-tuning trajectory in weight space. Trained in-domain on the IEEE SP Cup 2025 (DF-Wild-Cup) benchmark under the same protocol as the strongest published three-backbone ensemble, the weight-averaged detector reaches 97.04% accuracy, 98.64% AU-ROC and a 4.07% equal error rate, against 94.46%, 97.60% and 5.00%. Its training log shows why averaging matters: over the averaged epochs the non-averaged checkpoint swings across 5.34 points of validation accuracy while its validation loss more than doubles, whereas the average is never worse and is up to 5.99 points better. On an OpenForensics-derived benchmark the same instability becomes a misranking: the checkpoint that validation accuracy selects (98.43%) scores 88.85% on a disjoint 10,905-image test partition, rejecting 21.1% of genuine photographs, while the terminal average, ranked last on validation, scores 94.76%. A study of twenty-two in-house configurations on the identical DF-Wild-Cup split, including preprocessing ablations, shows that CLIP pre-training rather than ensembling drives accuracy, that secondary face cropping costs about 34 points, and that frequency-domain inputs transfer poorly. We recommend per-class selection criteria measured off the early-stopping split.",
+   "affiliations": [
+    "Department of Electrical and Electronic Engineering, BUET, Dhaka 1205, Bangladesh"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "BUET"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 20,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-30"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-30"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.37874",
+   "pdf_url": "https://arxiv.org/pdf/2610.37874"
+  },
+  {
+   "arxiv_id": "2610.37881",
+   "announced": "2026-10-30",
+   "title": "Intersectional Invariant Learning for Fair Deepfake Detection",
+   "authors": [
+    "Uzoamaka Ezeakunne",
+    "Taiwo Olabamipe",
+    "Deevesh Jain",
+    "Xiuwen Liu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "4 pages including appendices, 7 figures, 8 tables",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.37881v1",
+   "abstract": "Deepfake detection models achieve high overall accuracy but exhibit large performance disparities across demographic groups, causing some groups to experience substantially higher false-positive rates than others. Existing fairness-aware methods address this by constraining model outputs to equalize group predictions, but do not tackle the underlying feature-level bias. As a result, models may still rely on demographic characteristics, such as skin texture, as indirect cues for detecting manipulated content. To address this problem, we propose Intersectional Invariant Learning (IIL), a framework that improves feature learning rather than only adjusting model outputs. IIL alternates between identifying the most challenging demographic partitions and learning features that remain consistent across those partitions. The framework also includes a false-positive-rate fairness objective and group-balanced sampling across six gender x skin-tone intersectional groups. We evaluate IIL on a large-scale fairness benchmark containing over one million images, 10 baseline detectors, and 21 fairness and utility metrics. Results show that IIL achieves Pareto-optimal performance, simultaneously attaining an AUC above 99%, a false-positive rate under 2.5%, and the lowest intersectional fairness disparity (FMEO) among all compared methods. IIL outperforms prior fairness-aware methods on the large majority of the 21 evaluation metrics, while reducing both false-positive rates and intersectional fairness disparities by several-fold compared with the strongest competing method.",
+   "affiliations": [
+    "Department of Computer Science, Florida State University",
+    "Department of Computer Science, University of Central Florida"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Florida State University",
+    "University of Central Florida"
+   ],
+   "institution_ids": [
+    "05g3dte14",
+    "036nfer12"
+   ],
+   "extractor": 20,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-30"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-30"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.37881",
+   "pdf_url": "https://arxiv.org/pdf/2610.37881"
+  },
+  {
+   "arxiv_id": "2610.37882",
+   "announced": "2026-10-30",
+   "title": "FYC: FPR-Disparity Weight Perturbation and Youden Calibration for Fair Deepfake Detection",
+   "authors": [
+    "Uzoamaka Ezeakunne",
+    "Taiwo Olabamipe",
+    "Deevesh Jain",
+    "Xiuwen Liu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "9 pages, 4 figures",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.37882v1",
+   "abstract": "Deepfake detectors routinely achieve high aggregate accuracy while exhibiting substantial demographic disparities in their errors: false-positive rates differ by double digits across gender and skin tone. Most existing remedies require either full retraining with a fairness-aware objective or demographic-annotated training data, both impractical when only a pretrained checkpoint is available, while label-free post-hoc calibrators leave the detector's weights unchanged. We introduce FYC (FPR-disparity Weight Perturbation and Youden Calibration), a two-stage post-hoc method that perturbs a detector's weights under an FPR-disparity criterion, then calibrates a separate decision threshold for each demographic group - requiring no architectural changes and no full retraining. Evaluated against every detector benchmarked on AI-Face v2 across six intersectional gender x skin-tone groups, FYC outperforms the field on 18 of 21 reported fairness and utility metrics, including purpose-built fairness architectures, at a fraction of the training cost. We further identify why the choice of fairness criterion is critical: the original Demographic Parity objective used in prior weight-perturbation work is architecture-dependent and unpredictable, improving two of four evaluated architectures, leaving a third largely unchanged, and substantially degrading the fourth (PG-FDD), with no way to anticipate the outcome for a given checkpoint in advance. Conditioning the same objective on real images only - our FPR-disparity criterion - eliminates this unpredictability, improving fairness and accuracy jointly across all four architectures with no exceptions.",
+   "affiliations": [
+    "Department of Computer Science, Florida State University",
+    "Department of Computer Science, University of Central Florida"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Florida State University",
+    "University of Central Florida"
+   ],
+   "institution_ids": [
+    "05g3dte14",
+    "036nfer12"
+   ],
+   "extractor": 20,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-30"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-30"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.37882",
+   "pdf_url": "https://arxiv.org/pdf/2610.37882"
+  },
+  {
+   "arxiv_id": "2610.37918",
+   "announced": "2026-10-30",
+   "title": "Venus-DefakerOne2: A Vision-Forensics Foundation Model with Broader Coverage",
+   "authors": [
+    "Chenfan Qu",
+    "Yachao Liang",
+    "Mingqi Fang",
+    "Jiangwei Xie",
+    "Zhenming Wang",
+    "Baoyue Zhang",
+    "Changjiang Jiang",
+    "Zheng Chang",
+    "Fanli Jin",
+    "Xuekang Zhu",
+    "Kaiwen Feng",
+    "Junchi Li",
+    "Weihong Zhang",
+    "Haoyue Wang",
+    "Chenfeng Zhang",
+    "Yinan Xia",
+    "Fangming Cui",
+    "Dong Fan",
+    "Jingjing Liu",
+    "Tianyi Zhang",
+    "Luobin Chen",
+    "Ji-Zhe Zhou",
+    "Sheng Li",
+    "Wei Wang",
+    "Bin Li",
+    "Ran He",
+    "Xinpeng Zhang",
+    "Linna Zhou",
+    "Jian Liu",
+    "Weiqiang Wang"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Technical Report",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.37918v1",
+   "abstract": "Real-world forgery is inherently heterogeneous: it manifests not only as digital manipulation but also as physical spoofing, and is carried not only by images but also by videos. Despite substantial progress, a unified anti-forgery foundation model covering such a broad threat spectrum remains absent. In this paper, we present Venus-DefakerOne2, which substantially extends the forensic capability boundary along both the forgery-form and media-type dimensions. Trained on tens of millions of open-source and in-house samples, it incorporates two key designs. Tide-Style-Tuning alternates LoRA and full-parameter fine-tuning to balance computational efficiency, generalization, and hard-sample fitting while mitigating catastrophic forgetting. Entropy-based Test Adaptation determines the optimal prediction modality by analyzing prediction entropy. Venus-DefakerOne2 achieves new state-of-the-art performance across a comprehensive suite of benchmarks, including DeepFake faces (96.7%), AI-generated images (93.3%), tampered documents (87.6%), manipulated natural images (89.6%), physical spoofs (93.1%), and AI-generated videos (96.0%). It significantly outperforms both specialized expert models and its predecessor, DefakerOne, establishing itself as a powerful and versatile foundation model for binary-decision forensic tasks.",
+   "affiliations": [
+    "GuangJian Team, Ant Group Technical Committee on Digital Media Forensics and Security, CSIG"
+   ],
+   "author_affiliations": null,
+   "institutions": [
+    "Ant Group"
+   ],
+   "institution_ids": [
+    "00g5w7n47"
+   ],
+   "extractor": 20,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-30"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-30"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.37918",
+   "pdf_url": "https://arxiv.org/pdf/2610.37918"
+  },
+  {
+   "arxiv_id": "2610.37937",
+   "announced": "2026-10-30",
+   "title": "You Don't Need Aligned Representations: Knowledge Distillation via Random Prototype Spaces",
+   "authors": [
+    "Hamza Etcibasi",
+    "Ramazan Gokberk Cinbis"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "To appear at NeurIPS 2026. 10 pages main text plus appendices. Code: https://github.com/HamzaEtcibasi/RPKD",
+   "journal_ref": null,
+   "venue": "NeurIPS 2026",
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.37937v1",
+   "abstract": "A widely held assumption in knowledge distillation is that teacher and student representations must occupy a compatible or explicitly aligned feature space. We propose RPKD (Random Prototype Knowledge Distillation), which discards this assumption by comparing both networks against a shared bank of randomly initialized, frozen prototype vectors. Alignment is therefore carried out in an external reference space rather than in the teacher's native feature coordinates: the teacher side is projected by fixed random maps that carry no trainable parameters, and only the student adapts. Two branches handle the transfer: a logit branch aligning global prototype similarity distributions and a feature branch matching spatially-resolved prototype activation maps. Both operate within the same fixed prototype space, which can be interpreted as a random feature embedding that approximately preserves inter-sample similarity structure, so the prototype bank and the distillation objective stay unchanged across teacher-student pairs while only the input projections are instantiated per architecture. In low-category settings, decoupling the prototype vocabulary from the task label space yields richer supervision than the label space alone, an advantage absent from logit-based methods, whose supervisory signal collapses as class count shrinks. This advantage is especially relevant in real-world scenarios where the label space is typically constrained. Extensive experiments demonstrate the effectiveness of RPKD, achieving a maximum gain of +7.98% over OFA on CIFAR-100, +12.44% on ImageNet-100, and +1.28% on ImageNet-1K. Source code is available at https://github.com/HamzaEtcibasi/RPKD",
+   "affiliations": [
+    "Department of Computer Engineering, Middle East Technical University, Ankara, Türkiye",
+    "ASELSAN Inc., Ankara, Türkiye",
+    "ROMER Robotics and AI Center, Middle East Technical University, Ankara, Türkiye"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ]
+   ],
+   "institutions": [
+    "Middle East Technical University",
+    "ASELSAN Inc.",
+    "Middle East Technical University"
+   ],
+   "institution_ids": [
+    "014weej12",
+    null,
+    "014weej12"
+   ],
+   "extractor": 20,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-30"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-30"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.37937",
+   "pdf_url": "https://arxiv.org/pdf/2610.37937"
+  },
+  {
+   "arxiv_id": "2610.37965",
+   "announced": "2026-10-30",
+   "title": "Meta-Initialization of Implicit Neural Representations to Accelerate Deformable Medical Image Registration",
+   "authors": [
+    "Marat O. Zinovev",
+    "Dmitry V. Sorokin"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "14 pages, 5 figures, 2 tables. English-language author version of a paper presented at GraphiCon 2026, Saint Petersburg, Russia, 22-24 September 2026. Russian-language proceedings forthcoming. Related work updated for this version",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.37965v1",
+   "abstract": "Implicit neural representation (INR) methods for deformable medical image registration require the network parameters to be optimized for each new image pair, making adaptation speed a practical limitation. This work investigates whether early adaptation can be accelerated using an initialization learned from a collection of previously solved registration tasks. We examine two schemes: Reptile meta-initialization and STRAINER transfer of the shared component of a coordinate network. KAN-IDIR is used as the base INR displacement-field model. Experiments are conducted on OASIS-1, with 364 consecutive pairs used for training and 49 pairs for test-time adaptation. Registration quality is evaluated using mean Dice and HD95, together with the fraction of voxels with a negative Jacobian determinant at iteration 1500. In the configurations studied, both schemes yield higher Dice and lower HD95 at early iterations than random initialization. Reptile numerically outperforms STRAINER under a small iteration budget, although their pretraining budgets are not matched. As the number of iterations increases, the differences between the schemes shrink. STRAINER pretraining takes 39-40 minutes, compared with 44.98 hours for Reptile.",
+   "affiliations": [
+    "Faculty of Computational Mathematics and Cybernetics, Lomonosov Moscow State University, Moscow, Russia"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Lomonosov Moscow State University"
+   ],
+   "institution_ids": [
+    "010pmpe69"
+   ],
+   "extractor": 20,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-30"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-30"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.37965",
+   "pdf_url": "https://arxiv.org/pdf/2610.37965"
+  },
+  {
+   "arxiv_id": "2610.37983",
+   "announced": "2026-10-30",
+   "title": "Hierarchical Diffusion for Camera-controlled Autoregressive Video Generation",
+   "authors": [
+    "Kaihua Chen",
+    "Yiming Gong",
+    "Deva Ramanan",
+    "Tarasha Khurana"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Project page: https://kaihua-chen.github.io/wanar_fixar/",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.37983v1",
+   "abstract": "We address the task of long-video, camera-controlled generation from a single image. The dominant autoregressive paradigm suffers from two key limitations: (1) error accumulation over time, as distant frames are conditioned on previously generated outputs rather than ground truth, leading to drift; and (2) ambiguity in how to incorporate camera control. Standard solutions to both--such as self-forcing and conditioning on explicit 6-DOF poses--either incur significant computational overhead or produce drifting scene geometries over time. We propose a simple and lightweight framework that combines autoregressive generation (WanAR) with hierarchical long-context denoising (FixAR). To enforce scene geometry remains consistent with input cameras, we draw from feed-forward novel-view synthesis and reformulate video generation as a warping-and-inpainting problem. To mitigate drift, we introduce a hierarchical denoising strategy in which different stages condition on different temporal histories. Specifically, we first generate frames conditioned on the immediate past, and then refine them using a second denoiser conditioned on a temporally subsampled long-range history to enforce global consistency. This fine-to-coarse scheme enables each generated frame to effectively condition on the full temporal context without incurring a prohibitive cost. Experiments on RealEstate10k and DL3DV demonstrate that WanAR+FixAR outperforms prior methods for camera-controlled long-video generation, producing results that are both temporally stable and consistent with input camera trajectories.",
+   "affiliations": [
+    "Carnegie Mellon University, Pittsburgh, PA, USA",
+    "University of Oxford, Oxford, UK"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    null
+   ],
+   "institutions": [
+    "Carnegie Mellon University",
+    "University of Oxford"
+   ],
+   "institution_ids": [
+    "05x2bcf33",
+    "052gg0110"
+   ],
+   "extractor": 20,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-30"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-30"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.37983",
+   "pdf_url": "https://arxiv.org/pdf/2610.37983"
+  },
+  {
+   "arxiv_id": "2610.38007",
+   "announced": "2026-10-30",
+   "title": "Frequency-Adaptive Gaussian Grids for Efficient Image Representation",
+   "authors": [
+    "Anatolii Evdokimov",
+    "Stavros Diolatzis",
+    "Bingxuan Li",
+    "Akshay Jindal",
+    "Patsorn Sangkloy",
+    "Qi Sun"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Graphics (cs.GR)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.38007v1",
+   "abstract": "Neural representation has emerged as a powerful tool to mitigate the demand for increasingly higher-resolution images. However, a fundamental trade-off remains between structured (e.g., feature grids, which offer spatial consistency) and unstructured (e.g., 2D Gaussians, which adaptively capture local variances) representations. This choice significantly affects how well an algorithm represents an image. Here, we present Gaussian-Grid, a hybrid neural representation that adaptively integrates structured and unstructured primitives. By dynamically partitioning computation between 2D Gaussian distributions and their attached multi-resolution feature grids based on the local frequency content, Gaussian-Grid automatically optimizes its architecture to match the underlying complexity of the target signal. We evaluate our approach using high-resolution natural images and demonstrate its applications as GPU-native dataset storage, showing 1.24-2.14× decoding speed improvement and PCIe data traffic reduction of 23×-176× over JPEG + ZIP data archiving. The results show that Gaussian-Grid maintains small memory footprints while achieving high reconstruction fidelity across a variety of datasets.",
+   "affiliations": [
+    "New York University",
+    "Intel Corporation"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "New York University",
+    "Intel"
+   ],
+   "institution_ids": [
+    null,
+    null
+   ],
+   "extractor": 20,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-30"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-30"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.38007",
+   "pdf_url": "https://arxiv.org/pdf/2610.38007"
+  },
+  {
+   "arxiv_id": "2610.38013",
+   "announced": "2026-10-30",
+   "title": "Where Can We Fool the Model's Mind? Response-Guided Semantic Probing and Adaptive Routing for Transferable Attacks on Black-Box MLLMs",
+   "authors": [
+    "Ahmed Abdelnaby",
+    "Mohamed Elmahallawy"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.38013v1",
+   "abstract": "Multimodal Large Language Models (MLLMs) ground language in visual evidence, yet their semantic reasoning can be exploited through transferable black-box adversarial attacks. Existing attacks typically allocate perturbations using surrogate-model saliency, which may not reflect how an unseen MLLM semantically interprets or relies on different image regions. We introduce VISTA (Vulnerability-Informed Semantic Transfer Attacks), a black-box framework that identifies semantically vulnerable visual regions from an MLLM's responses without access to gradients, logits, parameters, or internal representations. VISTA supports two attack settings: (i) VISTA-Proxy, a pure-transfer setting that probes an open-source MLLM and transfers the resulting adversarial examples to unseen commercial MLLMs without querying them; and (ii) VISTA-Victim, a query-assisted setting that probes the target MLLM to capture model-specific semantic vulnerabilities. VISTA builds an Uncertainty-Based Multimodal Behavior (UBMB) map from response drift, conflict, misleading, and semantic shifts, then uses entropy-adaptive Sinkhorn routing and a surrogate ensemble to focus perturbations on vulnerable regions. Across GPT-5, Gemini-3.5-Flash, and Claude Sonnet 4.6, VISTA achieves up to 97 % attack success rate (ASR) while maintaining a Peak Signal-to-Noise Ratio (PSNR) above 30 dB. Notably, VISTA-Proxy achieves up to 93 % ASR without querying the final victim, demonstrating that response-derived semantic vulnerability can enable effective transfer across heterogeneous MLLMs.",
+   "affiliations": [
+    "School of Engineering and Applied Sciences, Washington State University, WA 99354, USA",
+    "Warning: This paper contains sensitive or harmful examples used solely for research and evaluation"
+   ],
+   "author_affiliations": null,
+   "institutions": [
+    "Washington State University",
+    "Warning: This paper contains sensitive or harmful examples used solely for research and evaluation"
+   ],
+   "institution_ids": [
+    "05dk0ce17",
+    null
+   ],
+   "extractor": 20,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-30"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-30"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.38013",
+   "pdf_url": "https://arxiv.org/pdf/2610.38013"
+  },
+  {
+   "arxiv_id": "2610.38042",
+   "announced": "2026-10-30",
+   "title": "Can Event Detectors Leave the Broadcast Camera? Evidence from Tennis",
+   "authors": [
+    "David Soeiro-Vuong",
+    "Andre-Louis Rochet"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": "16 pages, 4 figures, 5 tables. Benchmark, evaluator and frozen predictions: https://github.com/David-dsv/tennis-bounce-hit-benchmark",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.38042v1",
+   "abstract": "Ball bounces and racket hits are the events from which tennis statistics are derived, and on monocular video the two are easy to confuse. We release a benchmark of 345 bounce and hit annotations at frame level on eight clips that mix broadcast, fixed elevated, phone and court-level viewpoints, with a frozen development and test split, a confusion-aware matcher, clip-level bootstrap intervals and a blind second annotation of three clips. On it we score supervised precise spotters with published broadcast weights, two zero-shot vision-language models, and RallyArb, an arbitration layer over a ball track and player poses that fits no parameter on event labels. The supervised spotters score near-perfectly on broadcast footage and almost nothing on phone and court-level footage, where the pooled bounce F1 of E2E-Spot is 0.130. RallyArb keeps a bounce F1 above 0.8 on the three phone and court-level clips, two of which were used to tune it, and finds 8 of 11 bounces on the held-out one, but it places hits too far from the contact frame to match human timing. The vision-language models detect events on every viewpoint and miss the contact frame by about 0.1 s. Fine-tuned leave-one-clip-out from its broadcast weights, the spotter reaches about 0.8 bounce F1 on two phone and court-level clips and stays at 0.2 on a grazing phone angle. The annotations, the evaluator and the frozen predictions of every scored row are released.",
+   "affiliations": [
+    "Racine.ai, Paris, France"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Racine.ai"
+   ],
+   "institution_ids": [
+    null
+   ],
+   "extractor": 20,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-30"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-30"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.38042",
+   "pdf_url": "https://arxiv.org/pdf/2610.38042"
+  },
+  {
+   "arxiv_id": "2610.38045",
+   "announced": "2026-10-30",
+   "title": "Classifying Urban Locations by Cyclist Facility Usage and Directional Alignment: A Validated Camera-Based Framework from Multi-Site Observations",
+   "authors": [
+    "Ao He",
+    "Mohit Gupta",
+    "Deborah Salon",
+    "Ricardo Eiris",
+    "Vivian W. H. Wong"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "19 pages, 6 figures, 2 tables. Accepted for presentation at the 106th Transportation Research Board (TRB) Annual Meeting, Washington, D.C., January 10-14, 2027",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.38045v1",
+   "abstract": "Objectives: Agencies invest in bicycle facilities but lack tools to assess whether cyclists use them as designed. We examine whether usage patterns follow facility configurations and whether higher bike lane usage is associated with less wrong-way riding. Methods: Motion-triggered cameras covered 19 deployments at 17 locations in Tempe, Arizona, in 2023. Manual review identified 1,963 cycling events; excluding 20 crossings left 1,943 labeled events for analysis. An automated pipeline on the same captures counted 92.9 percent of the full manual total (per-deployment r = 0.99), and every automated wrong-way call was visually verified. Deployments were classified using thresholds on facility usage shares. Findings: Deployments were bike-lane dominant (9), sidewalk dominant (6), or mixed (4). Cyclists in bike lanes rode against the flow in 4.6 percent of events; on sidewalks, riders opposed the near-side traffic flow in 49.6 percent. Across deployments, bike lane share and wrong-way rate were negatively correlated (Spearman rho = -0.87, p < 0.001, n = 16). An independent volunteer count in the same city showed a similar sidewalk-direction pattern (rho = 0.79). Novelty: The study combines multi-site still-camera observations with a fully hand-verified benchmark to characterize facility use and travel direction. Practical Applications: The workflow offers planners a low-cost screen for locations with high sidewalk cycling and travel against the near-side traffic flow, supporting more detailed site investigation.",
+   "affiliations": [],
+   "author_affiliations": null,
+   "institutions": null,
+   "extractor": 20,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-30"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.38045",
+   "pdf_url": "https://arxiv.org/pdf/2610.38045"
+  },
+  {
+   "arxiv_id": "2610.38065",
+   "announced": "2026-10-30",
+   "title": "Vision Tomography: Towards Portable 3D Bidirectional Face-Skull Inference from Visual Data",
+   "authors": [
+    "Zidu Wang",
+    "Meng Xu",
+    "Miao Xu",
+    "Hengyuan Ma",
+    "Jiankuo Zhao",
+    "Xutao Li",
+    "Zhen Lei",
+    "Xiangyu Zhu"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Submitted to TIP, under review",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.38065v1",
+   "abstract": "Traditional computed tomography (CT) can capture paired 3D face and skull geometry, but it remains costly, fixed in location, and exposes patients to radiation. For applications such as remote diagnostics, digital healthcare, forensic identification, missing-person investigation, and archaeological analysis, there is an urgent need for a portable, safe, and accessible solution to capture 3D skull geometry. In this work, we introduce Vision Tomography (VT), a concept and framework capable of reconstructing paired 3D face-skull geometry from various visual modalities, and also enabling joint manipulation of 3D facial and skull geometry. To achieve this, we first construct a dataset of over 200 samples, where each case includes a CT-based skull, a CT-based face, and a high-fidelity textured face scan. Secondly, we propose a novel dense ray matching registration method that ensures topological consistency across face, skull, and their tissue correspondences. Building on this registration, we introduce the 3D Bidirectional Face-Skull Morphable Model (BFSM) as the foundation of Vision Tomography, which enables shape inference between the face and skull through a shared coefficient space, while also modeling tissue thickness variation to support one-to-many facial reconstructions from the same skull, reflecting individual facial changes such as age or body fat. Finally, we demonstrate the effectiveness of Vision Tomography across various forensic and medical applications, including paired 3D face-skull reconstruction from images or sketches and predicting surgical outcomes with joint face-skull editing. Extensive experiments confirm the robustness and accuracy of our method. Vision Tomography is available at https://github.com/wang-zidu/BFSM",
+   "affiliations": [
+    "State Key Laboratory of Multimodal Artificial Intelligence Systems, Institute of Automation, Chinese Academy of Sciences, and the School of Artificial Intelligence, University of Chinese Academy of Sciences, Beijing, China",
+    "Plastic Surgery Hospital, Chinese Academy of Medical Sciences and Peking Union Medical College, Beijing, China",
+    "Centre for Artificial Intelligence and Robotics, Hong Kong Institute of Science & Innovation, Chinese Academy of Sciences, Hong Kong, China"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Chinese Academy of Sciences",
+    "Chinese Academy of Medical Sciences & Peking Union Medical College",
+    "Chinese Academy of Sciences"
+   ],
+   "institution_ids": [
+    "05qbk4x57",
+    "02drdmm93",
+    "034t30j35"
+   ],
+   "extractor": 20,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-30"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-30"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.38065",
+   "pdf_url": "https://arxiv.org/pdf/2610.38065"
+  },
+  {
+   "arxiv_id": "2610.38086",
+   "announced": "2026-10-30",
+   "title": "From Next Day Wildfire to Next Days Wildfire: A New Multi-Continent Dataset of Active-Fire Spread for Sequence-to-Sequence Forecasting",
+   "authors": [
+    "Jose Guillen",
+    "Renzo Zanca",
+    "Valentin Barriere"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted at WACV 2027. 19 pages including supplementary material, 12 figures, 13 tables",
+   "journal_ref": null,
+   "venue": "WACV 2027",
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.38086v1",
+   "abstract": "Benchmarks such as WildfireSpreadTS (WSTS) have enabled data-driven forecasting of wildfire spread from multimodal satellite time series, but they suffer from limitations: size restricts them to large fires that burn for weeks, and they are from similar environments. We introduce AFSeq, a multimodal dataset of 1,194 recent fire events (2023 to 2026) from 8 different countries across three regions, dominated by the short, small fires that existing benchmarks underrepresent. Our dataset is the largest and most diverse to date for time-series-based wildfire spread prediction. We also introduce UTAE-AR, an extension of a classical U-Net with Temporal Auto Encoder, enhanced with recurrent modules before the decoder. This allows the model to not only predict the next day but the whole sequence in an autoregressive way. Moreover, our model can feed its own predicted fire mask back one day at a time, producing the day-by-day forecasts that single-step models cannot. Our results show that UTAE-AR surpasses state-of-the-art on both WSTS, WSTS+ and AFSeq for next-day accuracy while having 21.5% of their parameters, and being able to predict confidently at a longer horizon.",
+   "affiliations": [
+    "CENIA, Macul, Chile",
+    "Universidad de Chile, DCC, Santiago, Chile",
+    "Universidad de Chile, DCC, CENIA, Santiago, Chile"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     2
+    ]
+   ],
+   "institutions": [
+    "CENIA",
+    "University of Chile",
+    "University of Chile"
+   ],
+   "institution_ids": [
+    null,
+    "047gc3g35",
+    "047gc3g35"
+   ],
+   "extractor": 20,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-30"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-30"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.38086",
+   "pdf_url": "https://arxiv.org/pdf/2610.38086"
+  },
+  {
+   "arxiv_id": "2610.38103",
+   "announced": "2026-10-30",
+   "title": "The Prestige: Benchmarking Cognitive Visual Reasoning using Magic Tricks",
+   "authors": [
+    "Shuo Wen",
+    "Beixi Du",
+    "Edwin Meriaux",
+    "Junming Shi",
+    "Chloe Si",
+    "David Meger",
+    "Doina Precup",
+    "Gregory Dudek"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Artificial Intelligence (cs.AI)"
+   ],
+   "comments": "40th Conference on Neural Information Processing Systems (NeurIPS 2026). Track on Evaluations and Datasets",
+   "journal_ref": null,
+   "venue": "NeurIPS 2026",
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.38103v1",
+   "abstract": "We introduce The Prestige, a video understanding benchmark that probes cognitive visual reasoning through professional magic performances, where deliberate misdirection challenges models to track events and explain unexpected outcomes. The benchmark comprises open-ended questions ranging from temporal and causal understanding to robustness against adversarial questions. Evaluation of leading open-source and proprietary VLMs reveals a substantial gap between even the strongest model and human performance. We also find systematic discrepancies between human and automated grading and identify recurring model failure modes. Ablations further show that models can select correct multiple-choice answers even when they fail to generate correct explanations independently, motivating further investigations into question formats. Together, these findings highlight limitations in both VLM reasoning and its evaluation, underscoring the need for more reliable video understanding models and more rigorous benchmarks.",
+   "affiliations": [
+    "McGill University",
+    "Mila – Quebec AI Institute",
+    "Cornell University"
+   ],
+   "author_affiliations": [
+    [
+     0,
+     1
+    ],
+    [
+     2
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "institutions": [
+    "McGill University",
+    "Mila – Quebec AI Institute",
+    "Cornell University"
+   ],
+   "institution_ids": [
+    "01pxwe438",
+    null,
+    "05bnh6r87"
+   ],
+   "extractor": 20,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-30"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-30"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.38103",
+   "pdf_url": "https://arxiv.org/pdf/2610.38103"
+  },
+  {
+   "arxiv_id": "2610.38121",
+   "announced": "2026-10-30",
+   "title": "What Does LOL Measure? Hidden Label Shifts in Low-Light Enhancement Benchmarks",
+   "authors": [
+    "Adityan Thirumani Srinivasan"
+   ],
+   "primary_subject": "Computer Vision and Pattern Recognition (cs.CV)",
+   "subjects": [
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)",
+    "Image and Video Processing (eess.IV)"
+   ],
+   "comments": "11 pages, 5 figures, 8 tables",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": null,
+   "html_url": "https://arxiv.org/html/2610.38121v1",
+   "abstract": "LOL-v1 and LOLv2-Real are the standard benchmarks for supervised low-light image enhancement, and several leading methods ship hand-set test-time adjustments with their evaluation scripts. We audit both benchmarks with 18 public checkpoints of eight methods under one metric implementation that reproduces every published number to within 0.09 dB, and find that their test labels differ from their training labels. (i) The 15 LOL-v1 test labels are rendered differently: the same captures appear in LOLv2 with labels of identical luminance but 1.48x lower saturation, and LOL-v1's own training labels match the LOLv2 rendering; we confirm this on the official release. (ii) The LOLv2-Real test set is the contiguous block of images 690-789, whose labels are 14% darker than the training labels (Cliff's delta = -0.45, p < 1e-12) with no comparable shift in the input statistics we examined; methods trained without any labels score up to 5.5 dB higher on test than on train. (iii) All 15 LOL-v1 test inputs reappear in LOLv2-Real, 12 in its training set. The released test-time settings are consistent with compensating for these shifts. Separating what can be calibrated on training data from what only test-set tuning finds, the test-only residual has median 0.00 dB on LOLv2-Syn, which has no shift, but 0.37 dB on LOL-v1 and 0.92 dB on LOLv2-Real (up to 3.9 dB). Under the shift, test-set checkpoint selection inflates a from-scratch model by 0.9-2.0 dB, and removing the released settings changes which method ranks first. We give concrete reporting recommendations.",
+   "affiliations": [
+    "University of Wisconsin–Madison"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Wisconsin–Madison"
+   ],
+   "institution_ids": [
+    "01y2jtd41"
+   ],
+   "extractor": 20,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-30"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-30"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.38121",
+   "pdf_url": "https://arxiv.org/pdf/2610.38121"
+  },
+  {
+   "arxiv_id": "2610.37709",
+   "announced": "2026-10-30",
+   "title": "Towards Myocardial Infarction Diagnosis: An Investigation into Machine Learning and Deep Learning Algorithms using ECG Data",
+   "authors": [
+    "Rafid Ahnaf",
+    "Husne Mubarak",
+    "Fahim Ahsan",
+    "G. M. Refatul Islam",
+    "Rafeed Rahman",
+    "Nabuat Zaman Nahim"
+   ],
+   "primary_subject": "Image and Video Processing (eess.IV)",
+   "subjects": [
+    "Image and Video Processing (eess.IV)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": "18 pages, 7 figures, 3 tables. Based on the authors' undergraduate thesis at BRAC University (2023)",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "eess.IV",
+   "html_url": "https://arxiv.org/html/2610.37709v1",
+   "abstract": "Myocardial Infarction (MI) is a severe and potentially fatal cardiac condition caused by myocardial injury due to ischemia, and timely detection can substantially reduce its mortality. Electrocardiography (ECG) is the primary diagnostic modality for MI, but manual interpretation is susceptible to human error. In this work, we propose Visionary V2, a multi-step, adaptive filtration method for ECG signal normalization, and use it to study machine learning (ML) and deep learning (DL) approaches to MI detection on the PTB Diagnostic ECG Database using all 15 available leads. On statistical features extracted from the filtered signals, such as the R-R interval, a Bagging ensemble of decision trees reaches 96.6% accuracy, compared with 87.7% when the signals are processed with BioSPPy. We further generate an image dataset from the filtered signals, on which a custom ResNet-50 misclassifies only 1 of 7,000 validation images and a custom CNN reaches an F1 score of about 98.7%. Finally, we apply LIME, Grad-CAM and Integrated Gradients to verify that the image models attend to the ECG waveform rather than the background. These results indicate that careful signal normalization combined with ML and DL models can support fast and accurate automated MI screening.",
+   "affiliations": [
+    "Department of Computer Science and Engineering, BRAC University, Dhaka, Bangladesh"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "BRAC University"
+   ],
+   "institution_ids": [
+    "00sge8677"
+   ],
+   "extractor": 20,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-30"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-30"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.37709",
+   "pdf_url": "https://arxiv.org/pdf/2610.37709"
+  },
+  {
+   "arxiv_id": "2610.37806",
+   "announced": "2026-10-30",
+   "title": "TACOS: Terrain-Aware COntact Supervision for Visual Footstep Planning",
+   "authors": [
+    "Jean-Michel Fortin",
+    "William Larrivée-Hardy",
+    "Gabriel Jeanson",
+    "Olivier Gamache",
+    "Daniele De Martini",
+    "François Pomerleau",
+    "Philippe Giguère"
+   ],
+   "primary_subject": "Robotics (cs.RO)",
+   "subjects": [
+    "Robotics (cs.RO)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "9 pages, 8 figures, Submitted to ICRA 2027",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.RO",
+   "html_url": "https://arxiv.org/html/2610.37806v1",
+   "abstract": "Humans navigate their environment based on their vision system, anticipating how the ground will respond before committing to a step. Self-supervised learning could provide legged robots the same ability, but the supervisory signal is typically chosen on intuition, and its effect on what the model learns is rarely examined. We present Terrain-Aware COntact Supervision (TACOS), which proposes a meaningful and consistent footstep instability score, based on the residual of a factor graph in legged state estimation. It projects the continuous score into preceding images to supervise a dense visual predictor. We propose two variants, a hard score that exploits hindsight and a causal soft score available immediately. Both metrics are compared against state-of-the-art alternatives in two independent evaluations that share no data or labels. On 1716 manually annotated contacts, both variants outperform every evaluated alternative at detecting instability and ranking its severity, improving pooled severity ranking by 28 % over the strongest baseline. On three outdoor test runs, our metric also trains the most accurate visual predictor, improving rank correlation by 58 % over the strongest alternative, and by a further 25 % when supplemented with onboard context. In a real-world experiment over a 50 m forest trajectory, the trained predictor handles non-geometric terrain properties such as mud and vegetation, while stepping around geometric obstacles like fallen branches. Code is available for reproducibility at https://github.com/norlab-ulaval/TACOS.",
+   "affiliations": [
+    "Northern Robotics Laboratory, Université Laval, Canada",
+    "Mobile Robotics Group, University of Oxford, United Kingdom"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Université Laval",
+    "University of Oxford"
+   ],
+   "institution_ids": [
+    "04sjchr03",
+    "052gg0110"
+   ],
+   "extractor": 20,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-30"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-30"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.37806",
+   "pdf_url": "https://arxiv.org/pdf/2610.37806"
+  },
+  {
+   "arxiv_id": "2610.37823",
+   "announced": "2026-10-30",
+   "title": "Learning Without Clocks: Partition-Invariant Neural Network",
+   "authors": [
+    "Han Wang",
+    "Jingyuan Bao",
+    "Juntao Wu",
+    "Saiao Zhou",
+    "Yuman Nie"
+   ],
+   "primary_subject": "Machine Learning (cs.LG)",
+   "subjects": [
+    "Machine Learning (cs.LG)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.LG",
+   "html_url": "https://arxiv.org/html/2610.37823v1",
+   "abstract": "Event cameras, spiking cochleas and similar sensors emit asynchronous events, yet most learning systems first bin them into frames or packets, so the output depends on how the stream was sliced. Networks whose state is updated exactly at every event and evolves in closed form between events are invariant to this slicing. We ask what more makes the output (i) independent of the processing order of simultaneous events and (ii) continuous in the time stamps, even when two events cross in time, while (iii) staying sensitive to temporal order. For arbitrary nonlinear event models we prove that (i) and (ii) are each equivalent to pairwise commutation of the event updates, and that once updates commute, all order dependence comes from their non-commutation with the inter-event dynamics and vanishes linearly in the time lag. This identifies a class of time-mediated non-commutative (TM) models and yields a resolution-robustness bound for any model. We construct the minimal TM layer, a learnable, provably Lipschitz generalization of the Hassenstein-Reichardt correlator; prove that no single additive layer can uniformly represent ordered pair interactions, whereas a three-dimensional TM state can; show that each TM layer adds two levels of temporal nesting versus one for additive layers; and give a single-layer higher-order construction (TM-k) and a stacking rule preserving all three properties. We instantiate these results as the Clock-Free Event (CFE) layer, linear in the number of events, give a topology-free variant for temporal point processes with closed-form likelihoods, and specify a preregistered clock-robustness protocol with a physical-time threat model for spike-retiming attacks. In preliminary development-set experiments, the TM state beats an otherwise identical additive state by 3.5-9.1 points on DVS128 Gesture and by 24.5 and 30.6 points on SHD and Speech Commands.",
+   "affiliations": [
+    "Hefei Institutes of Physical Science, Chinese Academy of Sciences, Hefei 230031, China",
+    "Science Island Branch, Graduate School of University of Science and Technology of China, Hefei 230026, China"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "Chinese Academy of Sciences",
+    "University of Science and Technology of China"
+   ],
+   "institution_ids": [
+    "034t30j35",
+    "04c4dkn09"
+   ],
+   "extractor": 20,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-30"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-30"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.37823",
+   "pdf_url": "https://arxiv.org/pdf/2610.37823"
+  },
+  {
+   "arxiv_id": "2610.37867",
+   "announced": "2026-10-30",
+   "title": "What Constitutes Food Similarity? Visual Representations and Retrieval in Indian Cuisine",
+   "authors": [
+    "Saransh Kumar Gupta",
+    "Akshadha Sharma",
+    "Lipika Dey",
+    "Partha Pratim Das",
+    "Ramesh Jain"
+   ],
+   "primary_subject": "Artificial Intelligence (cs.AI)",
+   "subjects": [
+    "Artificial Intelligence (cs.AI)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Information Retrieval (cs.IR)"
+   ],
+   "comments": "17 pages, 7 figures, 4 tables, 31 references",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.AI",
+   "html_url": "https://arxiv.org/html/2610.37867v1",
+   "abstract": "Food similarity underlies retrieval, recommendation, substitution, and other food computing tasks, yet food representations are typically evaluated by identity preservation. We ask what happens to food similarity beyond identity: how different visual representations organize foods into relational neighborhoods, what culinary relationships these neighborhoods reveal or obscure, and how consistently these structures emerge across representations. Indian cuisine provides a challenging setting in which visually similar foods may have different culinary identities, while foods within a culinary family can vary substantially in appearance. Using an expanded Khana dataset and seven pretrained visual representations spanning convolutional, transformer-based, self-supervised, and image-text aligned models, we evaluate image-to-image retrieval and image-to-dish neighborhoods, examining culinary-family structure, contrast cases, and cross-representation agreement. We also aggregate image representations to compare dish-level visual similarity across models and against recipe-derived similarity for the same dishes. Image-level neighborhoods vary substantially across representations, including similarities across culinary-family boundaries. At the dish level, aggregation reveals common visual structure despite local variation, but this structure corresponds less strongly with recipe-derived similarity. These findings show that recognition performance alone cannot characterize relational structure: food similarity depends on representation, modality, and abstraction level rather than being a fixed property of the food collection. Understanding these structures is therefore a prerequisite to combining multiple food information modalities into a coherent notion of similarity.",
+   "affiliations": [
+    "Ashoka University, India",
+    "Institute for Future Health, UC Irvine, USA"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ]
+   ],
+   "institutions": [
+    "Ashoka University",
+    "University of California, Irvine"
+   ],
+   "institution_ids": [
+    "02j1xr113",
+    "04gyf1771"
+   ],
+   "extractor": 20,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-30"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-30"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.37867",
+   "pdf_url": "https://arxiv.org/pdf/2610.37867"
+  },
+  {
+   "arxiv_id": "2610.37917",
+   "announced": "2026-10-30",
+   "title": "What Actually Matters? A Paired Evaluation of Inference Settings for $π_{0.5}$ on BEHAVIOR-1K",
+   "authors": [
+    "Ruben Hammele",
+    "Samira Huber",
+    "Mohammad Nazeri",
+    "Amirreza Payandeh",
+    "Alexandyr T. Card",
+    "Aaron Nguyen",
+    "Anuj Pokhrel",
+    "Daeun Song",
+    "Xuesu Xiao",
+    "Sören Pirk"
+   ],
+   "primary_subject": "Robotics (cs.RO)",
+   "subjects": [
+    "Robotics (cs.RO)",
+    "Artificial Intelligence (cs.AI)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)"
+   ],
+   "comments": null,
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.RO",
+   "html_url": "https://arxiv.org/html/2610.37917v1",
+   "abstract": "Vision-Language-Action (VLA) models offer a promising paradigm for general-purpose household robotics. However, inference and data-collection strategies that have been deployed in smaller-scale settings do not necessarily generalize to large-scale, diverse task suites. To address this gap, we conduct a systematic, paired evaluation of previously proposed inference and data-collection strategies across all 100 tasks. Our evaluation uses a fine-tuned $π_{0.5}$ model based on the 2025 BEHAVIOR Challenge winner, which achieves a Q-score of 0.39 on the public test set. These results show that proposed strategies do not transfer uniformly to new environments and tasks. Project page, videos, and detailed analysis: https://rubenhammele.github.io/behavior2026",
+   "affiliations": [
+    "VCAI Lab, Kiel University",
+    "RobotiXX Lab, George Mason University",
+    "AIR Lab, Ewha Womans University"
+   ],
+   "author_affiliations": null,
+   "institutions": [
+    "Christian-Albrechts-Universität zu Kiel",
+    "George Mason University",
+    "Ewha Womans University"
+   ],
+   "institution_ids": [
+    "04v76ef78",
+    "02jqj7156",
+    "053fp5c05"
+   ],
+   "extractor": 20,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-30"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-30"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.37917",
+   "pdf_url": "https://arxiv.org/pdf/2610.37917"
+  },
+  {
+   "arxiv_id": "2610.38080",
+   "announced": "2026-10-30",
+   "title": "Efficacy of Monocular Depth Estimation in Lunar Environments",
+   "authors": [
+    "Michael W. Lanighan",
+    "Kenji Brameld",
+    "Seth Gee"
+   ],
+   "primary_subject": "Robotics (cs.RO)",
+   "subjects": [
+    "Robotics (cs.RO)",
+    "Computer Vision and Pattern Recognition (cs.CV)"
+   ],
+   "comments": "Accepted at the International Conference on Space Robotics (iSpaRo) 2026",
+   "journal_ref": null,
+   "venue": null,
+   "cross_list_from": "cs.RO",
+   "html_url": "https://arxiv.org/html/2610.38080v1",
+   "abstract": "Recent advances in monocular depth estimation have demonstrated highly accurate 3D reconstructions within in-distribution terrestrial domains. This study investigates the efficacy of several state-of-the-art approaches to reconstruct out-of-distribution lunar environments using the NASA Ames Polar Optical Lunar Analog Reconstruction (POLAR) stereo dataset and Apollo 17 surface imagery. By leveraging these datasets, we establish a robust analog-to-field validation pipeline that evaluates quantitative performance against ground-truth physical analogs and qualitative performance against historical field data. Our results indicate that select state-of-the-art techniques can successfully generalize to produce high-fidelity relative 3D reconstructions of the unstructured lunar surface.",
+   "affiliations": [
+    "TRACLabs Inc., 1331 Gemini Street",
+    "Houston, TX 77058"
+   ],
+   "author_affiliations": null,
+   "institutions": [
+    "TRACLabs Inc.",
+    "Houston"
+   ],
+   "institution_ids": [
+    null,
+    null
+   ],
+   "extractor": 20,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-30"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-30"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.38080",
+   "pdf_url": "https://arxiv.org/pdf/2610.38080"
+  },
+  {
+   "arxiv_id": "2610.38109",
+   "announced": "2026-10-30",
+   "title": "Who Called? V33DA: A Physically Verified Multimodal Benchmark for Vocal Attribution in Zebra Finch Groups",
+   "authors": [
+    "Maris Basha",
+    "Yuhang Wang",
+    "Xiaoran Chen",
+    "Longbiao Cheng",
+    "Luca Yapura",
+    "Anja T. Zai",
+    "Mathieu Salzmann",
+    "Richard Hahnloser"
+   ],
+   "primary_subject": "Sound (cs.SD)",
+   "subjects": [
+    "Sound (cs.SD)",
+    "Computer Vision and Pattern Recognition (cs.CV)",
+    "Machine Learning (cs.LG)",
+    "Quantitative Methods (q-bio.QM)"
+   ],
+   "comments": "Accepted at NeurIPS 2026 (Evaluations and Datasets Track). 43 pages, 3 figures. Dataset: https://huggingface.co/datasets/songbirdini/v33da ; Code: https://github.com/marisbasha/v33da",
+   "journal_ref": null,
+   "venue": "NeurIPS 2026",
+   "cross_list_from": "cs.SD",
+   "html_url": "https://arxiv.org/html/2610.38109v1",
+   "abstract": "Deciding which member of an animal group produced a vocalization and where that vocalization was produced are central to studying social communication but are rarely evaluated with physically verified ground truth. Existing resources either localize sounds without identifying the caller, or recognize individuals from isolated vocalizations without reliance on the 3D candidate geometry. We close this gap with V33DA, a dataset-centered multimodal benchmark for spatial vocal attribution in social zebra finches: it comprises 33,625 verified events coupling 5-channel audio with three camera views, calibrated 3D pose for every visible candidate, and per-bird radio telemetry across 10 individuals and three experiments. Caller identity is verified from an on-body accelerometer-derived vibration signal; this channel is withheld from benchmark models and used only by an on-body reference ceiling. Given a detected vocalization and the visible candidate birds, the task is to select the caller. We evaluate it under three regimes: session-disjoint testing on familiar birds from held-out recording dates, held-out-experiment transfer to a new cohort, and leave-one-individual-out evaluation on a bird whose vocalizations are held out from training. Reference methods expose a consistent gap between in-domain accuracy and transfer to unseen individuals: methods that can exploit familiar vocal identity perform well on known callers but degrade sharply on unseen ones, whereas candidate-aware methods preserving explicit spatial reasoning transfer substantially better. The on-body reference stays near-perfect across regimes, confirming the internal consistency of the accelerometer-verified labels. We release V33DA with fixed protocols and code for the evaluated methods, and V33DA++, an unevaluated companion set of verified overlapping-call events and +/-2 s context windows.",
+   "affiliations": [
+    "Institute of Neuroinformatics, University of Zurich and ETH Zurich",
+    "Swiss Data Science Center and CVLab, EPFL"
+   ],
+   "author_affiliations": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0
+    ]
+   ],
+   "institutions": [
+    "University of Zurich",
+    "Swiss Data Science Center"
+   ],
+   "institution_ids": [
+    "02crff812",
+    "02hdt9m26"
+   ],
+   "extractor": 20,
+   "provenance": {
+    "affiliations": {
+     "source": "html",
+     "at": "2026-10-30"
+    },
+    "institutions": {
+     "source": "ror",
+     "at": "2026-10-30"
+    }
+   },
+   "abs_url": "https://arxiv.org/abs/2610.38109",
+   "pdf_url": "https://arxiv.org/pdf/2610.38109"
+  }
+ ]
+}
