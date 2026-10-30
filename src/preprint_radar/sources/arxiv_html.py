@@ -22,7 +22,7 @@ from preprint_radar.latex import plain_text
 
 logger = logging.getLogger(__name__)
 
-EXTRACTOR_VERSION = 19
+EXTRACTOR_VERSION = 20
 """Version of the extraction heuristics of this module, stored with the affiliations they give.
 
 Bump it with any change that alters what a page gives (affiliations, author mapping), so
@@ -103,22 +103,49 @@ that ``reextract`` reads those papers again, from the page cache when it holds t
 - 19: an address in typewriter type glued to the word before it is set apart, which the
   contact cleanup took away with it: "University of Oxford" gave "University of"
   (2006.13662), "Adobe Research & HKU" gave "Adobe Research &" (2311.09217) (AFF-37).
+- 20: what the review of the archive's re-read found (AFF-40): a name with its marker read as
+  text is a name ("Saining Xie 1", 2406.18533), a marker ending a span of text starts the
+  line after it (2605.09681), several addresses at the end of a string go together
+  (DreamFusion's "Google Research, UC Berkeley", 2209.14988), a "Project:" label goes
+  (2406.18522), initials glued to the surname name their author ("Z.Dong", 2410.08613), a
+  template's example author gives nothing (2502.10841), a company named after its AI counts
+  in a block without markers ("Stability AI", 2311.15127), the listing's dotless i folds
+  (2505.12089); and the cleaning: parts glued after a name of several words or a company
+  ("Visual Geometry GroupUniversity of OxfordUK", "ByteDance IncShanghai"), ORCID
+  identifiers, "now at" and interns' notes, CVPR's "Institution2" go.
 """
 
 # LaTeXML renders line breaks and \quad between affiliations as newlines, em spaces
 # or runs of (non-breaking) spaces.
 _SEPARATOR_RE = re.compile(r"\n|\u2003|\s{2,}")
+# The example authors of ICLR's and NeurIPS's templates, left in by some: "Department of
+# Computer Science, Cranberry-Lemon University" (2610.27759, 2502.10841), "University of the
+# Witwatersrand, Joburg" (2610.27759), not the real one's "Johannesburg" (2405.01828). Noise,
+# and the rest of their contacts goes with them ("Pittsburgh, PA 15213", 2502.10841).
+_TEMPLATE_EXAMPLE_RE = re.compile(r"cranberry-lemon|witwatersrand,?\s+joburg", re.IGNORECASE)
 # Contact details and footnotes that are not affiliations.
 _NOISE_RE = re.compile(
     r"@|https?://|www\.|equal(ly)?(?: senior)? contribut|contributed equally|correspond|work done"
     r"|project lead|senior author|first author|co-first|joint first|equal advising|internship"
     # Phone numbers and an author's placeholder: "Tel.: +49 ...", "TODO: X's affiliation".
     r"|\btel\.?\s*:|\bfax\s*:|\btodo\b"
-    # The example authors of ICLR's and NeurIPS's templates, left in by some: "Department of
-    # Computer Science, Cranberry-Lemon University" (2610.27759, 2502.10841), "University of
-    # the Witwatersrand, Joburg" (2610.27759), not the real one's "Johannesburg" (2405.01828).
-    r"|cranberry-lemon|witwatersrand,?\s+joburg",
+    # CVPR's placeholders: "Institution2", "First line of institution2 address" (2309.04907).
+    r"|\binstitution\s*\d"
+    rf"|{_TEMPLATE_EXAMPLE_RE.pattern}",
     re.IGNORECASE,
+)
+# Where an author went since, or interned: "now at Microsoft Research" (2202.07643), "Interns
+# at Shanghai AI Laboratory" (2505.23656), "Done as intern at Zhipu AI" (2311.03079). Notes,
+# which the cleaning drops; the tiers still read a line of them as a sentence ("†Now at
+# Google" tells symbols that mark notes).
+_LATER_NOTE_RE = re.compile(
+    r"\bnow\s+(?:at|with)\b|\binterns?\s+at\b|\bas\s+(?:an?\s+)?intern\b", re.IGNORECASE
+)
+# ORCID identifiers, with their label and what lies between: "(ORCID: 0000-0002-1117-9355)"
+# after an affiliation (2305.17033), "ORCID codes: FT 0009-…; PB 0000-…" (2610.13604), or the
+# label alone (2610.26079).
+_ORCID_RE = re.compile(
+    r"[(\[]?\s*\borcid\b(?:.*(?:\d{4}-){3}\d{3}[\dX]?\b[)\]]?|\s*:?\s*$)", re.IGNORECASE | re.DOTALL
 )
 # A contribution note LaTeXML glued to the affiliation after it, which the note's noise
 # would drop whole: "Equal senior contributionsDeepMind" (ar5iv's 2204.14198).
@@ -128,8 +155,11 @@ _GLUED_NOTE_RE = re.compile(
 # The vertical space of a LaTeX line break (\\[5pt]), which LaTeXML prints as text.
 _LATEX_SPACE_RE = re.compile(r"\[\s*-?\d*\.?\d+\s*(?:pt|em|ex|mm|cm|in|bp|pc|mu)\s*\]")
 # The label of a link whose address is removed as a contact detail, sometimes glued to the
-# affiliation before it: "MITProject page".
-_LINK_LABEL_RE = re.compile(r"project\s+(?:page|website|homepage|repository|site)\b\s*:?", re.IGNORECASE)
+# affiliation before it: "MITProject page"; "Project:" with its colon only, glued to the last
+# author's name ("Li YuanProject: https://…", 2406.18522).
+_LINK_LABEL_RE = re.compile(
+    r"project(?:\s+(?:page|website|homepage|repository|site)\b\s*:?|\s*:)", re.IGNORECASE
+)
 # Contact details after an affiliation: "..., USA. email: {a, b}@nyu.edu", "(e-mail: ...)",
 # an address in brackets, which unwrapped thanks notes glue to the sentence: "..., Hong
 # Kong SAR, China (author@connect.ust.hk)" (2609.10082), or one that ends the line: "...,
@@ -137,10 +167,12 @@ _LINK_LABEL_RE = re.compile(r"project\s+(?:page|website|homepage|repository|site
 # Germany. {jane.doe, jroe}@tum.de" (2610.03283), the sentence's full stop after it: "...,
 # Italy. {name.surname}@unitn.it." (2609.28184). Its label may be glued to the country
 # before it: "..., MI, USAEmail:" (2608.29996). A list in braces ends it even glued to the
-# country: "..., Singapore{jane,john}@nus.edu.sg" (ar5iv's 1312.4400).
+# country: "..., Singapore{jane,john}@nus.edu.sg" (ar5iv's 1312.4400). Several addresses
+# go together, which a comma after the first joined across lines: "University of California
+# Santa Cruz{…}@stu.pku.edu.cn," / "shi.yujun@u.nus.edu, rzhu48@ucsc.edu" (2406.18522).
 _CONTACT_TAIL_RE = re.compile(
     r"\(?\s*\be-?mails?\b.*$|(?<=[a-z])e-?mails?\s*:.*$|[(\[]\s*[\w.+-]+@.*$"
-    r"|(?:\s|(?=\{))(?:\{[^{}]*\}|[\w.+-]+)@[\w-]+(?:\.[\w-]+)+\.?\s*$",
+    r"|(?:\s|(?=\{))(?:(?:\{[^{}]*\}|[\w.+-]+)@[\w-]+(?:\.[\w-]+)+[.,;]?\s*)+$",
     re.IGNORECASE | re.DOTALL,
 )
 # E-mail addresses written to escape harvesters: "jane (at) example.org", "lab [at] example.org".
@@ -263,6 +295,11 @@ _INSTITUTION_WORD_RE = re.compile(
     r"|research|department|faculty|foundation(?!\s+models?\b)|technolog|polytechn",
     re.IGNORECASE,
 )
+_INSTITUTION_WORD_START_RE = re.compile(rf"\b(?:{_INSTITUTION_WORD_RE.pattern})", re.IGNORECASE)
+# A company named after its AI, which holds no institution word: "Stability AI", after a
+# table of names (2311.15127), as "Mistral AI" or "Sakana AI". Never a name's end: "Ai" is
+# a given name, the capitals are required.
+_AI_COMPANY_RE = re.compile(r"\b[A-Z][\w.-]*\s+AI$")
 # Countries, by the names affiliations write them in (AFF-18: "Kazakhstan", "Sri Lanka" and
 # "Kenya" were missing). Not those that are also names of people, which a line of names
 # would end with (Jordan, Chad, Georgia), nor Wales, which ends "New South Wales".
@@ -330,9 +367,24 @@ _HOST_RE = re.compile(
 _MARKER_BREAK = "\ue000"
 # Two parts of an affiliation glued where LaTeXML lost a line break (IEEE classes print
 # "Dept. of Computer ScienceUniversity of Alabama"): a lowercase letter then a capitalized
-# word, or a closing bracket then a word. Only after a unit, so that names stay
-# ("AnimSchool", "ByteDance", "McGill"), and never inside brackets ("(ShenZhen)").
-_GLUE_RE = re.compile(r"(?<=[a-z]{2})(?=[A-Z][a-z])|(?<=\))(?=[^\W\d_])")
+# word or two capitals, or a closing bracket then a word. Only where ``_unglued`` says, so
+# that names stay ("AnimSchool", "ByteDance", "McGill"), and never inside brackets
+# ("(ShenZhen)").
+_GLUE_RE = re.compile(r"(?<=[a-z]{2})(?=[A-Z][a-z]|[A-Z]{2})|(?<=\))(?=[^\W\d_])")
+# The first word of an institution's name, glued to a name of several words, as older
+# LaTeXML prints an affiliation's lines: "Visual Geometry GroupUniversity of Oxford",
+# "Google DeepMindUniversity College London" (ar5iv's 2206.07045, 2512.08924).
+_INSTITUTION_START_RE = re.compile(
+    r"(?:University|Institute|School|College|Department|Faculty|Laboratory|Academy|Cent(?:er|re)|Hospital)\b"
+)
+# Words that start such a name rather than end one, a space lost after them: "Shenzhen
+# KeyLaboratory of Media Security" (2509.25502), "NationalUniversity of Singapore".
+_NAME_START_RE = re.compile(r"Key|National|State|Joint|Normal|Medical|Technical|Graduate|Open")
+# A company's suffix, which ends its name: "ByteDance IncShanghai" (ar5iv's 2309.02301).
+_COMPANY_SUFFIX_RE = re.compile(r"(?:Inc|Ltd|Corp)\.?")
+# A country glued to the name of several words before it, ending its part: "University of
+# OxfordUK" (ar5iv's 2206.07045), "NationalUniversity of SingaporeSingapore" (2610.32059).
+_GLUED_COUNTRY_RE = re.compile(rf"(?:{COUNTRIES})\.?(?:,|$)")
 _UNIT_WORD_RE = re.compile(
     r"\b(?:department|dept|school|faculty|division|laborator(?:y|ies)|lab|cent(?:er|re)|institute|college"
     r"|academy|program(?:me)?|thrust|unit)\b",
@@ -372,6 +424,8 @@ _NAME_SUFFIX_RE = re.compile(
     r"|\b(?:jr|sr)\b\.?",
     re.IGNORECASE,
 )
+# Markers left beside a name: "Saining Xie 1", "Kai Wang2", "Jane Doe*†".
+_NAME_MARKER_RE = re.compile(r"[\d*\u2217†‡§¶⋆]+")
 # A collective that signs a paper is its own affiliation: "Alzheimer's Disease Neuroimaging Initiative".
 _COLLECTIVE_RE = re.compile(r"\b(?:initiative|consortium|collaboration|team|group)\b", re.IGNORECASE)
 # "The authors are with X", "All authors are with X": everyone is there.
@@ -690,12 +744,34 @@ def parse_front_matter(html: str, *, authors: Sequence[str] = ()) -> FrontMatter
     html = _GLUED_ADDRESS_RE.sub(" ", _ANNOTATION_RE.sub("", _LINE_BREAK_RE.sub("\n", html)))
     html = _raised_markers_as_superscripts(html)
     soup = BeautifulSoup(html, "html.parser")
+    if _without_template_authors(soup):
+        html = str(soup)
     affiliations, partial = _affiliations(soup, authors)
     return FrontMatter(
         affiliations=affiliations,
         abstract=_abstract(soup),
         author_affiliations=_author_affiliations(html, tuple(authors), affiliations, partial=partial),
     )
+
+
+def _without_template_authors(soup: BeautifulSoup) -> bool:
+    """Drop the creators of a template's example authors (``_TEMPLATE_EXAMPLE_RE``), if any.
+
+    NeurIPS's "David S. Hippocampus" comes with "Department of Computer Science" and
+    "Pittsburgh, PA 15213" beside his Cranberry-Lemon University, which every tier would
+    otherwise read as the paper's (2502.10841, 2610.27759).
+
+    Returns:
+        Whether one was dropped.
+    """
+    examples = [
+        creator
+        for creator in soup.select("span.ltx_creator")
+        if _TEMPLATE_EXAMPLE_RE.search(creator.get_text())
+    ]
+    for creator in examples:
+        creator.decompose()
+    return bool(examples)
 
 
 def _raised_markers_as_superscripts(html: str) -> str:
@@ -992,7 +1068,11 @@ def _unmarked_affiliations(block: Tag, authors: Sequence[str]) -> tuple[list[str
         held = [name for name in names if name in rest]
         for name in held:
             rest = rest.replace(name, " ")
-        named = _INSTITUTION_WORD_RE.search(rest) or _ADDRESS_END_RE.search(rest.rstrip(_EDGE_PUNCTUATION))
+        named = (
+            _INSTITUTION_WORD_RE.search(rest)
+            or _AI_COMPANY_RE.search(line)
+            or _ADDRESS_END_RE.search(rest.rstrip(_EDGE_PUNCTUATION))
+        )
         if held:
             left_out = left_out or bool(named)
         elif named:
@@ -1430,10 +1510,14 @@ def _numbered_text(block: Tag) -> str:
     marker glued to the word after it introduces an affiliation; one after a name is
     followed by a space. So does one set apart from both words around it, before a
     capital: "¹ NVIDIA ² MIT ³ UCB" (2610.19495), where a name's is glued to it ("Yunze Liu¹,").
+    A marker that ends a span of text is followed by the text after it: "ZJU<span>    ²</span>Video
+    Rebirth" (2605.09681), not one that ends a name ("Ada Lovelace¹", then the next author).
     """
     copy = BeautifulSoup(str(block), "html.parser")
     for sup in copy.select("sup"):
         after, before = sup.next_sibling, sup.previous_sibling
+        if after is None and isinstance(sup.parent, Tag) and "ltx_text" in (sup.parent.get("class") or ()):
+            after = sup.parent.next_sibling
         text = after.get_text() if isinstance(after, Tag) else str(after or "")
         lead = before.get_text() if isinstance(before, Tag) else str(before or "")
         apart = lead[-1:].isspace() or not lead
@@ -1510,10 +1594,12 @@ def clean_affiliation(text: str) -> str | None:
     string holding several affiliations is split first, by :func:`clean_affiliations`.
     """
     text = _TEX_SOURCE_RE.sub("", _MACRO_RE.sub("", text.replace("\xa0", " ")))
-    text = _CONTACT_TAIL_RE.sub("", _AFFILIATIONS_NOTE_RE.sub("", _GLUED_NOTE_RE.sub("", text)))
+    text = _CONTACT_TAIL_RE.sub(
+        "", _AFFILIATIONS_NOTE_RE.sub("", _GLUED_NOTE_RE.sub("", _ORCID_RE.sub(" ", text)))
+    )
     text = _MAILBOX_LIST_RE.sub(" ", _OBFUSCATED_EMAIL_RE.sub(" ", text))
     text = _EMPTY_BRACKETS_RE.sub(" ", _LINK_LABEL_RE.sub(" ", _LATEX_SPACE_RE.sub(" ", text)))
-    if _NOISE_RE.search(text):
+    if _NOISE_RE.search(text) or _LATER_NOTE_RE.search(text):
         return None
     text = _SPACE_BEFORE_PUNCTUATION_RE.sub(r"\1", " ".join(_unglued(text).split()))
     text = _REPEATED_COMMA_RE.sub(",", text)
@@ -1555,13 +1641,39 @@ def _unglued(text: str) -> str:
     start = 0
     for match in _GLUE_RE.finditer(text):
         at = match.start()
-        part = text[text.rfind(",", 0, at) + 1 : at]
+        # From the last cut: "Research LabDepartment of … ScienceTexas A&M" is cut twice
+        # (2609.22631), "LabDepartment" holding no unit word of its own.
+        part = text[max(start, text.rfind(",", 0, at) + 1) : at]
         word = part.rsplit(maxsplit=1)[-1] if part.split() else ""
         inside_brackets = part.count("(") > part.count(")")
-        if text[at - 1] == ")" or (_UNIT_WORD_RE.search(part) and "-" not in word and not inside_brackets):
+        if text[at - 1] == ")" or ("-" not in word and not inside_brackets and _glued_at(text, at, part)):
             pieces.append(text[start:at] + ", ")
             start = at
     return "".join(pieces) + text[start:]
+
+
+def _glued_at(text: str, at: int, part: str) -> bool:
+    """Whether the part of an affiliation before ``at`` ends there (see ``_GLUE_RE``).
+
+    It does after a unit ("Dept. of Computer ScienceUniversity of Alabama") or a company's
+    suffix ("ByteDance IncShanghai"), and a name of several words does before an
+    institution's first word or its country ("Visual Geometry GroupUniversity of OxfordUK").
+    Two capitals only start a country: "Department of CSRPI" stays.
+    """
+    words = part.split()
+    several = len(words) > 1
+    if text[at + 1].isupper():
+        return several and _GLUED_COUNTRY_RE.match(text, at) is not None
+    return (
+        _UNIT_WORD_RE.search(part) is not None
+        or (bool(words) and _COMPANY_SUFFIX_RE.fullmatch(words[-1]) is not None)
+        or (several and _GLUED_COUNTRY_RE.match(text, at) is not None)
+        or (
+            several
+            and _INSTITUTION_START_RE.match(text, at) is not None
+            and _NAME_START_RE.fullmatch(words[-1]) is None
+        )
+    )
 
 
 def states_people(text: str) -> bool:
@@ -1580,10 +1692,11 @@ def _people(text: str) -> re.Match[str] | None:
     """The people an "A and B are with X" sentence starts with, verb included.
 
     ``None`` when the text does not start that way, or when what precedes the verb names an
-    institution, as it is then not a list of people.
+    institution, as it is then not a list of people: a word starting as an institution's
+    does, not a name holding one ("Ahmad El-Sallab", 1808.02350).
     """
     match = _SUBJECT_RE.match(text)
-    if match is None or _INSTITUTION_WORD_RE.search(match.group("subject")):
+    if match is None or _INSTITUTION_WORD_START_RE.search(match.group("subject")):
         return None
     return match
 
@@ -1595,7 +1708,9 @@ def names_only_authors(text: str, authors: Sequence[str]) -> bool:
     Yiu-Ming Cheung", "Benoît Macq Fellow, IEEE, and Christophe De Vleeschouwer Member,
     IEEE". Each name of the list is compared by :func:`name_key`, IEEE grades and "Jr."
     left out. A string with an institution word stays, and so does a collective that signs
-    as an author ("Alzheimer's Disease Neuroimaging Initiative").
+    as an author ("Alzheimer's Disease Neuroimaging Initiative"). Names keep no markers: the
+    last name of a line of names, its marker read as text, is "Saining Xie 1" (2406.18533),
+    and a name in a table, "Kai Wang2" (2610.17877).
 
     Args:
         text: A cleaned affiliation.
@@ -1607,9 +1722,8 @@ def names_only_authors(text: str, authors: Sequence[str]) -> bool:
     if _INSTITUTION_WORD_RE.search(text) or _COLLECTIVE_RE.search(text):
         return False
     known = {name_key(_NAME_SUFFIX_RE.sub(" ", author)) for author in authors}
-    names = [
-        key for name in _SEVERAL_PEOPLE_RE.split(_NAME_SUFFIX_RE.sub(" ", text)) if (key := name_key(name))
-    ]
+    unmarked = _NAME_MARKER_RE.sub(" ", _NAME_SUFFIX_RE.sub(" ", text))
+    names = [key for name in _SEVERAL_PEOPLE_RE.split(unmarked) if (key := name_key(name))]
     return bool(names) and all(key in known for key in names)
 
 
@@ -1936,7 +2050,8 @@ def _sentence_map(
 def _named_in(subject: str, author: str, authors: tuple[str, ...]) -> bool:
     """Whether the folded ``subject`` names the author, possibly with initials.
 
-    "E. Milara" names Eva Milara when no other author shares that initial and surname.
+    "E. Milara" names Eva Milara when no other author shares that initial and surname, and
+    so does "E.Milara", the surname right after the initial's full stop (2410.08613).
     """
     folded = _fold(author)
     if folded in subject:
@@ -1955,7 +2070,7 @@ def _named_in(subject: str, author: str, authors: tuple[str, ...]) -> bool:
     )
     if twins != 1:
         return False
-    pattern = rf"\b{re.escape(initial)}[\w'-]*\.?(?:\s+[\w'.-]+)*?\s+{re.escape(surname)}\b"
+    pattern = rf"\b{re.escape(initial)}[\w'-]*\.?(?:\s+[\w'.-]+)*?(?:\s+|(?<=\.)){re.escape(surname)}\b"
     return re.search(pattern, subject) is not None
 
 
@@ -2062,9 +2177,11 @@ def _plain_text(node: Tag) -> str:
 
 
 # Curly quotes and long dashes fold to their ASCII forms: "Shin\u2019ichi" == "Shin'ichi",
-# and "Linxi \u201cJim\u201d Fan" is the listing's 'Linxi "Jim" Fan' (2610.19495).
+# and "Linxi \u201cJim\u201d Fan" is the listing's 'Linxi "Jim" Fan' (2610.19495). So does a
+# dotless "\u0131", which the listing writes for LaTeX's "\'{\i}": "Alvaro Garc\u0131a" is the
+# page's "\u00c1lvaro Garc\u00eda" (2505.12089).
 _PUNCTUATION_VARIANTS = str.maketrans(
-    "\u2018\u2019\u02bc\u201c\u201d\u2013\u2014\u2212", "'" * 3 + '"' * 2 + "-" * 3
+    "\u2018\u2019\u02bc\u201c\u201d\u2013\u2014\u2212\u0131", "'" * 3 + '"' * 2 + "-" * 3 + "i"
 )
 
 

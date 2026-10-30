@@ -3460,5 +3460,461 @@
       ]
     ],
     "abstract": "A large part of the current success of deep learning lies in the effectiveness of data -- more precisely: labelled data. Yet, labelling a dataset with human annotation continues to carry high costs, especially for videos. While in the image domain, recent methods have allowed to generate meaningful (pseudo-) labels for unlabelled datasets without supervision, this development is missing for the video domain where learning feature representations is the current focus. In this work, we a) show that unsupervised labelling of a video dataset does not come for free from strong feature encoders and b) propose a novel clustering method that allows pseudo-labelling of a video dataset without any human annotations, by leveraging the natural correspondence between the audio and visual modalities. An extensive analysis shows that the resulting clusters have high semantic overlap to ground truth human labels. We further introduce the first benchmarking results on unsupervised labelling of common video datasets Kinetics, Kinetics-Sound, VGG-Sound and AVE11 1 Code will be made available at https://github.com/facebookresearch/selavi."
+  },
+  "2406.18522": {
+    "authors": [
+      "Shenghai Yuan",
+      "Jinfa Huang",
+      "Yongqi Xu",
+      "Yaoyang Liu",
+      "Shaofeng Zhang",
+      "Yujun Shi",
+      "Ruijie Zhu",
+      "Xinhua Cheng",
+      "Jiebo Luo",
+      "Li Yuan"
+    ],
+    "affiliations": [
+      "Peking University, Shenzhen Graduate School",
+      "University of Rochester",
+      "Shanghai Jiao Tong University",
+      "National University of Singapore",
+      "University of California Santa Cruz",
+      "Rabbitpre Intelligence"
+    ],
+    "placed": [
+      [
+        "Shenghai Yuan",
+        [
+          "Peking University, Shenzhen Graduate School"
+        ]
+      ],
+      [
+        "Jinfa Huang",
+        [
+          "University of Rochester"
+        ]
+      ],
+      [
+        "Yongqi Xu",
+        [
+          "Peking University, Shenzhen Graduate School"
+        ]
+      ],
+      [
+        "Yaoyang Liu",
+        [
+          "Peking University, Shenzhen Graduate School"
+        ]
+      ],
+      [
+        "Shaofeng Zhang",
+        [
+          "Shanghai Jiao Tong University"
+        ]
+      ],
+      [
+        "Yujun Shi",
+        [
+          "National University of Singapore"
+        ]
+      ],
+      [
+        "Ruijie Zhu",
+        [
+          "University of California Santa Cruz"
+        ]
+      ],
+      [
+        "Xinhua Cheng",
+        [
+          "Peking University, Shenzhen Graduate School",
+          "Rabbitpre Intelligence"
+        ]
+      ],
+      [
+        "Jiebo Luo",
+        [
+          "University of Rochester"
+        ]
+      ],
+      [
+        "Li Yuan",
+        [
+          "Peking University, Shenzhen Graduate School",
+          "Rabbitpre Intelligence"
+        ]
+      ]
+    ],
+    "abstract": "We propose a novel text-to-video (T2V) generation benchmark, ChronoMagic-Bench11 1 ”Chrono” is derived from the Greek word ”chronos”, which means ”time”., to evaluate the temporal and metamorphic capabilities of the T2V models (e.g. Sora [8] and Lumiere [3]) in time-lapse video generation. In contrast to existing benchmarks that focus on visual quality and textual relevance of generated videos, ChronoMagic-Bench focuses on the models’ ability to generate time-lapse videos with significant metamorphic amplitude and temporal coherence. The benchmark probes T2V models for their physics, biology, and chemistry capabilities, in a free-form text query. For these purposes, ChronoMagic-Bench introduces 1,649 prompts and real-world videos as references, categorized into four major types of time-lapse videos: biological, human-created, meteorological, and physical phenomena, which are further divided into 75 subcategories. This categorization ensures a comprehensive evaluation of the models’ capacity to handle diverse and complex transformations. To accurately align human preference with the benchmark, we introduce two new automatic metrics, MTScore and CHScore, to evaluate the videos’ metamorphic attributes and temporal coherence. MTScore measures the metamorphic amplitude, reflecting the degree of change over time, while CHScore assesses the temporal coherence, ensuring the generated videos maintain logical progression and continuity. Based on the ChronoMagic-Bench, we conduct comprehensive manual evaluations of ten representative T2V models, revealing their strengths and weaknesses across different categories of prompts, and providing a thorough evaluation framework that addresses current gaps in video generation research. Moreover, we create a large-scale ChronoMagic-Pro dataset, containing 460k high-quality pairs of 720p time-lapse videos and detailed captions. Each caption ensures high physical pertinence and large metamorphic amplitude, which have a far-reaching impact on the T2V generation community."
+  },
+  "2406.18533": {
+    "authors": [
+      "Hexu Zhao",
+      "Haoyang Weng",
+      "Daohan Lu",
+      "Ang Li",
+      "Jinyang Li",
+      "Aurojit Panda",
+      "Saining Xie"
+    ],
+    "affiliations": [
+      "New York University",
+      "Pacific Northwest National Laboratory"
+    ],
+    "placed": [
+      [
+        "Hexu Zhao",
+        [
+          "New York University"
+        ]
+      ],
+      [
+        "Haoyang Weng",
+        [
+          "New York University"
+        ]
+      ],
+      [
+        "Daohan Lu",
+        [
+          "New York University"
+        ]
+      ],
+      [
+        "Ang Li",
+        [
+          "Pacific Northwest National Laboratory"
+        ]
+      ],
+      [
+        "Jinyang Li",
+        [
+          "New York University"
+        ]
+      ],
+      [
+        "Aurojit Panda",
+        [
+          "New York University"
+        ]
+      ],
+      [
+        "Saining Xie",
+        [
+          "New York University"
+        ]
+      ]
+    ],
+    "abstract": "3D Gaussian Splatting (3DGS) is gaining popularity for 3D reconstruction because of its superior visual quality and rendering speed. However, training is currently done on a single GPU, and thus cannot handle high-resolution and large-scale 3D reconstruction tasks due to the GPU’s memory capacity limit. We build a distributed system, called Grendel, to partition 3DGS’ parameters and parallelize its computation across multiple GPUs. As each Gaussian affects a small and changing subset of rendered pixels, Grendel relies on sparse all-to-all communication to transfer each required Gaussian to a pixel partition and performs dynamic load balancing. Unlike existing 3DGS systems that train using one camera view image at a time, Grendel supports batched training using multiple views. We explore different learning rate scaling strategies and identify the simple sqrt(batch_size) scaling rule to be highly effective. Evaluation using large-scale high-resolution scenes show that Grendel can improve rendering quality by scaling up 3DGS quantity using multiple GPUs. On the “Rubble” dataset, we achieve a test PSNR of 27.28 by distributing 40.4 million Gaussians across 16 GPUs. By comparison, one achieves a PSNR of 26.28 when using 11.2 million Gaussians in order to fit in a single GPU’s memory."
+  },
+  "2605.09681": {
+    "authors": [
+      "Yicheng Ji",
+      "Zhizhou Zhong",
+      "Jun Zhang",
+      "Qin Yang",
+      "XiTai Jin",
+      "Ying Qin",
+      "Wenhan Luo",
+      "Shuiyang Mao",
+      "Wei Liu",
+      "Huan Li"
+    ],
+    "affiliations": [
+      "ZJU",
+      "Video Rebirth",
+      "HKUST",
+      "BJTU"
+    ],
+    "placed": [
+      [
+        "Yicheng Ji",
+        [
+          "ZJU",
+          "Video Rebirth"
+        ]
+      ],
+      [
+        "Zhizhou Zhong",
+        [
+          "Video Rebirth",
+          "HKUST"
+        ]
+      ],
+      [
+        "Jun Zhang",
+        [
+          "ZJU"
+        ]
+      ],
+      [
+        "Qin Yang",
+        [
+          "Video Rebirth"
+        ]
+      ],
+      [
+        "XiTai Jin",
+        [
+          "Video Rebirth"
+        ]
+      ],
+      [
+        "Ying Qin",
+        [
+          "BJTU"
+        ]
+      ],
+      [
+        "Wenhan Luo",
+        [
+          "HKUST"
+        ]
+      ],
+      [
+        "Shuiyang Mao",
+        [
+          "Video Rebirth"
+        ]
+      ],
+      [
+        "Wei Liu",
+        [
+          "Video Rebirth"
+        ]
+      ],
+      [
+        "Huan Li",
+        [
+          "ZJU"
+        ]
+      ]
+    ],
+    "abstract": "Autoregressive (AR) video diffusion models adopt a streaming generation framework, enabling long-horizon video generation with real-time responsiveness, as exemplified by the Self Forcing training paradigm. However, existing AR video diffusion models still suffer from significant attention complexity and severe memory overhead due to the redundant key-value (KV) caches across historical frames, which limits scalability. In this paper, we tackle this challenge by introducing KV cache compression into autoregressive video diffusion. We observe that attention heads in mainstream AR diffusion models exhibit markedly distinct attention patterns and functional roles that remain stable across samples and denoising steps. Building on our empirical study of head-wise functional specialization, we divide the attention heads into two categories: static heads, which focus on transitions across autoregressive chunks and intra-frame fidelity, and dynamic heads, which govern inter-frame motion and consistency. We then propose Forcing-KV, a hybrid KV cache compression strategy that performs structured static pruning for static heads and dynamic pruning based on segment-wise similarity for dynamic heads. While maintaining output quality, our method achieves a generation speed of over 29 frames per second on a single NVIDIA H200 GPU along with 30% cache memory reduction, delivering up to 1.35× and 1.50× speedups on LongLive and Self Forcing at 480P resolution, and further scaling to 2.82× speedup at 1080P resolution."
+  },
+  "2410.08613": {
+    "authors": [
+      "Zhe Dong",
+      "Yuzhe Sun",
+      "Tianzhu Liu",
+      "Wangmeng Zuo",
+      "Yanfeng Gu"
+    ],
+    "affiliations": [
+      "School of Electronics and Information Engineering, Harbin Institute of Technology, Harbin 150001, China"
+    ],
+    "placed": [
+      [
+        "Zhe Dong",
+        [
+          "School of Electronics and Information Engineering, Harbin Institute of Technology, Harbin 150001, China"
+        ]
+      ],
+      [
+        "Yuzhe Sun",
+        [
+          "School of Electronics and Information Engineering, Harbin Institute of Technology, Harbin 150001, China"
+        ]
+      ],
+      [
+        "Tianzhu Liu",
+        [
+          "School of Electronics and Information Engineering, Harbin Institute of Technology, Harbin 150001, China"
+        ]
+      ],
+      [
+        "Wangmeng Zuo",
+        null
+      ],
+      [
+        "Yanfeng Gu",
+        [
+          "School of Electronics and Information Engineering, Harbin Institute of Technology, Harbin 150001, China"
+        ]
+      ]
+    ],
+    "abstract": "Given a natural language expression and a remote sensing image, the goal of referring remote sensing image segmentation (RRSIS) is to generate a pixel-level mask of the target object identified by the referring expression. In contrast to natural scenarios, expressions in RRSIS often involve complex geospatial relationships, with target objects of interest that vary significantly in scale and lack visual saliency, thereby increasing the difficulty of achieving precise segmentation. To address the aforementioned challenges, a novel RRSIS framework is proposed, termed the cross-modal bidirectional interaction model (CroBIM). Specifically, a context-aware prompt modulation (CAPM) module is designed to integrate spatial positional relationships and task-specific knowledge into the linguistic features, thereby enhancing the ability to capture the target object. Additionally, a language-guided feature aggregation (LGFA) module is introduced to integrate linguistic information into multi-scale visual features, incorporating an attention deficit compensation mechanism to enhance feature aggregation. Finally, a mutual-interaction decoder (MID) is designed to enhance cross-modal feature alignment through cascaded bidirectional cross-attention, thereby enabling precise segmentation mask prediction. To further forster the research of RRSIS, we also construct RISBench, a new large-scale benchmark dataset comprising 52,472 image-language-label triplets. Extensive benchmarking on RISBench and two other prevalent datasets demonstrates the superior performance of the proposed CroBIM over existing state-of-the-art (SOTA) methods. The source code for CroBIM and the RISBench dataset will be publicly available at https://github.com/HIT-SIRS/CroBIM ."
+  },
+  "2502.10841": {
+    "authors": [
+      "Di Qiu",
+      "Zhengcong Fei",
+      "Rui Wang",
+      "Jialin Bai",
+      "Changqian Yu",
+      "Mingyuan Fan",
+      "Guibin Chen",
+      "Xiang Wen"
+    ],
+    "affiliations": [],
+    "placed": null,
+    "abstract": "We present SkyReels-A111 1 Core contributers: jane.doe, john.roe@example.org., a simple yet effective framework built upon video diffusion Transformers (DiT) to facilitate portrait image animation. Existing methodologies still encounter issues, including identity distortion, background instability, and unrealistic facial dynamics, particularly in head-only animation scenarios. Besides, extending to accommodate diverse body proportions usually leads to visual inconsistencies or unnatural articulations. To address these challenges, SkyReels-A1 capitalizes on the strong generative capabilities of video DiT, enhancing facial motion transfer precision, identity retention, and temporal coherence. The system incorporates an expression-aware conditioning module that enables seamless video synthesis driven by expression-guided landmark inputs. Integrating the facial image-text alignment module strengthens the fusion of facial attributes with motion trajectories, reinforcing identity preservation. Additionally, SkyReels-A1 incorporates a multi-stage training paradigm to incrementally refine the correlation between expressions and motion while ensuring stable identity reproduction. Extensive empirical evaluations highlight the model’s ability to produce visually coherent and compositionally diverse results, making it highly applicable to domains such as virtual avatars, remote communication, and digital media generation. The code and model weights of SkyReels-A1 are publicly available at https://github.com/SkyworkAI/SkyReels-A1."
+  },
+  "2311.15127": {
+    "authors": [
+      "Andreas Blattmann",
+      "Tim Dockhorn",
+      "Sumith Kulal",
+      "Daniel Mendelevitch",
+      "Maciej Kilian",
+      "Dominik Lorenz",
+      "Yam Levi",
+      "Zion English",
+      "Vikram Voleti",
+      "Adam Letts",
+      "Varun Jampani",
+      "Robin Rombach"
+    ],
+    "affiliations": [
+      "Stability AI"
+    ],
+    "placed": [
+      [
+        "Andreas Blattmann",
+        [
+          "Stability AI"
+        ]
+      ],
+      [
+        "Tim Dockhorn",
+        [
+          "Stability AI"
+        ]
+      ],
+      [
+        "Sumith Kulal",
+        [
+          "Stability AI"
+        ]
+      ],
+      [
+        "Daniel Mendelevitch",
+        [
+          "Stability AI"
+        ]
+      ],
+      [
+        "Maciej Kilian",
+        [
+          "Stability AI"
+        ]
+      ],
+      [
+        "Dominik Lorenz",
+        [
+          "Stability AI"
+        ]
+      ],
+      [
+        "Yam Levi",
+        [
+          "Stability AI"
+        ]
+      ],
+      [
+        "Zion English",
+        [
+          "Stability AI"
+        ]
+      ],
+      [
+        "Vikram Voleti",
+        [
+          "Stability AI"
+        ]
+      ],
+      [
+        "Adam Letts",
+        [
+          "Stability AI"
+        ]
+      ],
+      [
+        "Varun Jampani",
+        [
+          "Stability AI"
+        ]
+      ],
+      [
+        "Robin Rombach",
+        [
+          "Stability AI"
+        ]
+      ]
+    ],
+    "abstract": "We present Stable Video Diffusion — a latent video diffusion model for high-resolution, state-of-the-art text-to-video and image-to-video generation. Recently, latent diffusion models trained for 2D image synthesis have been turned into generative video models by inserting temporal layers and finetuning them on small, high-quality video datasets. However, training methods in the literature vary widely, and the field has yet to agree on a unified strategy for curating video data. In this paper, we identify and evaluate three different stages for successful training of video LDMs: text-to-image pretraining, video pretraining, and high-quality video finetuning. Furthermore, we demonstrate the necessity of a well-curated pretraining dataset for generating high-quality videos and present a systematic curation process to train a strong base model, including captioning and filtering strategies. We then explore the impact of finetuning our base model on high-quality data and train a text-to-video model that is competitive with closed-source video generation. We also show that our base model provides a powerful motion representation for downstream tasks such as image-to-video generation and adaptability to camera motion-specific LoRA modules. Finally, we demonstrate that our model provides a strong multi-view 3D-prior and can serve as a base to finetune a multi-view diffusion model that jointly generates multiple views of objects in a feedforward fashion, outperforming image-based methods at a fraction of their compute budget. We release code and model weights at https://github.com/Stability-AI/generative-models."
+  },
+  "2209.14988": {
+    "authors": [
+      "Ben Poole",
+      "Ajay Jain",
+      "Jonathan T. Barron",
+      "Ben Mildenhall"
+    ],
+    "affiliations": [
+      "Google Research, UC Berkeley"
+    ],
+    "placed": [
+      [
+        "Ben Poole",
+        [
+          "Google Research, UC Berkeley"
+        ]
+      ],
+      [
+        "Ajay Jain",
+        [
+          "Google Research, UC Berkeley"
+        ]
+      ],
+      [
+        "Jonathan T. Barron",
+        [
+          "Google Research, UC Berkeley"
+        ]
+      ],
+      [
+        "Ben Mildenhall",
+        [
+          "Google Research, UC Berkeley"
+        ]
+      ]
+    ],
+    "abstract": "Recent breakthroughs in text-to-image synthesis have been driven by diffusion models trained on billions of image-text pairs. Adapting this approach to 3D synthesis would require large-scale datasets of labeled 3D data and efficient architectures for denoising 3D data, neither of which currently exist. In this work, we circumvent these limitations by using a pretrained 2D text-to-image diffusion model to perform text-to-3D synthesis. We introduce a loss based on probability density distillation that enables the use of a 2D diffusion model as a prior for optimization of a parametric image generator. Using this loss in a DeepDream-like procedure, we optimize a randomly-initialized 3D model (a Neural Radiance Field, or NeRF) via gradient descent such that its 2D renderings from random angles achieve a low loss. The resulting 3D model of the given text can be viewed from any angle, relit by arbitrary illumination, or composited into any 3D environment. Our approach requires no 3D training data and no modifications to the image diffusion model, demonstrating the effectiveness of pretrained image diffusion models as priors. See dreamfusion3d.github.io for a more immersive view into our 3D results."
+  },
+  "2206.07045": {
+    "authors": [
+      "Gyungin Shin",
+      "Weidi Xie",
+      "Samuel Albanie"
+    ],
+    "affiliations": [
+      "Visual Geometry Group, University of Oxford, UK",
+      "Coop. Medianet Innovation Center, Shanghai Jiao Tong University, China",
+      "Department of Engineering, University of Cambridge, UK"
+    ],
+    "placed": [
+      [
+        "Gyungin Shin",
+        [
+          "Visual Geometry Group, University of Oxford, UK"
+        ]
+      ],
+      [
+        "Weidi Xie",
+        [
+          "Visual Geometry Group, University of Oxford, UK",
+          "Coop. Medianet Innovation Center, Shanghai Jiao Tong University, China"
+        ]
+      ],
+      [
+        "Samuel Albanie",
+        [
+          "Department of Engineering, University of Cambridge, UK"
+        ]
+      ]
+    ],
+    "abstract": "Semantic segmentation has a broad range of applications, but its real-world impact has been significantly limited by the prohibitive annotation costs necessary to enable deployment. Segmentation methods that forgo supervision can side-step these costs, but exhibit the inconvenient requirement to provide labelled examples from the target distribution to assign concept names to predictions. An alternative line of work in language-image pre-training has recently demonstrated the potential to produce models that can both assign names across large vocabularies of concepts and enable zero-shot transfer for classification, but do not demonstrate commensurate segmentation abilities. In this work, we strive to achieve a synthesis of these two approaches that combines their strengths. We leverage the retrieval abilities of one such language-image pre-trained model, CLIP, to dynamically curate training sets from unlabelled images for arbitrary collections of concept names, and leverage the robust correspondences offered by modern image representations to co-segment entities among the resulting collections. The synthetic segment collections are then employed to construct a segmentation model (without requiring pixel labels) whose knowledge of concepts is inherited from the scalable pre-training process of CLIP. We demonstrate that our approach, termed Retrieve and Co-segment (ReCo) performs favourably to unsupervised segmentation approaches while inheriting the convenience of nameable predictions and zero-shot transfer. We also demonstrate ReCo’s ability to generate specialist segmenters for extremely rare objects11 1 Project page: https://www.robots.ox.ac.uk/~vgg/research/reco."
   }
 }

@@ -10,6 +10,19 @@ Before, there was one minor release per phase of [`docs/roadmap.md`](docs/roadma
 
 ## Unreleased
 
+### Pipeline
+
+- Fewer wrong affiliations from the pages: a name with its marker ("Saining Xie 1"), a
+  link's label ("Project"), ORCID identifiers, "now at" and interns' notes, and the
+  example author of NeurIPS's template, whose "Department of Computer Science" every author
+  of two papers was placed at, are no longer affiliations; parts older pages glued
+  together are set apart ("Visual Geometry Group, University of Oxford, UK", "ByteDance
+  Inc, Shanghai") (AFF-40).
+- Affiliations a page gives but were lost are read: those followed by several addresses
+  (DreamFusion's "Google Research, UC Berkeley"), a company named after its AI under the
+  names (Stable Video Diffusion's "Stability AI"), and who is where when a marker ends a
+  span of text or a note writes "Z.Dong" (AFF-40).
+
 ## 1.1.0 (2026-10-29): every stored paper searched, papers by country, and the highly cited papers' affiliations
 
 A search and the Rankings reach every stored paper, not only a period, and papers can be

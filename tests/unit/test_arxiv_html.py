@@ -889,6 +889,10 @@ def test_a_source_of_names_only_leaves_its_turn_to_the_next() -> None:
         "Shuai Tao & Wulong Liu",
         "Benoît Macq Fellow, IEEE, and Christophe De Vleeschouwer Member, IEEE",
         "Senior Member, IEEE Ada Lovelace",
+        # Their markers read as text (2406.18533, 2610.17877).
+        "Ada Lovelace 1",
+        "Yiqun Zhang2",
+        "Shuai Tao*†",
     ],
 )
 def test_names_only_authors(text: str) -> None:
@@ -913,6 +917,7 @@ def test_names_only_authors(text: str) -> None:
         pytest.param("Alzheimer\u2019s Disease Neuroimaging Initiative", id="collective"),
         pytest.param("Yiqun Zhang Lab", id="institution-word"),
         pytest.param(", IEEE", id="no-name"),
+        pytest.param("Lyft Level 5", id="a-number-in-a-name"),
     ],
 )
 def test_names_of_others_or_institutions_stay(text: str) -> None:
@@ -1049,6 +1054,16 @@ def test_thanks_sentences_with_two_affiliations() -> None:
     html = _thanks("A. Doe is with the University of Madrid, and is also with the University of Quito.")
 
     assert parse_front_matter(html).affiliations == ("University of Madrid", "University of Quito")
+
+
+def test_thanks_initials_glued_to_the_surname_name_the_author() -> None:
+    # "Z.Dong, Y.Sun, T.Liu, and Y.Gu are with the School of ..." (2410.08613).
+    authors = ("Eva Milara", "Luis Zhinin", "Plato")
+    html = _author_block(*((name, ()) for name in authors)) + _thanks(
+        "E.Milara and L.Zhinin are with the University of Madrid, Spain."
+    )
+
+    assert parse_front_matter(html, authors=authors).author_affiliations == ((0,), (0,), None)
 
 
 def test_thanks_initials_shared_by_two_authors_name_neither() -> None:
@@ -1341,11 +1356,53 @@ def test_clean_affiliation_drops_what_names_nothing(raw: str) -> None:
             "Wayne State University, MI, USA",
             id="label-glued-to-the-country",
         ),
+        # A comma after the first of several addresses, which joined the next line's (2406.18522).
+        pytest.param(
+            "University of California Santa Cruz {jane.doe, john.roe}@example.org, author@example.org, "
+            "author@example.org",
+            "University of California Santa Cruz",
+            id="several-addresses-at-the-end",
+        ),
+        # ORCID identifiers (2305.17033, 2610.13387, 2610.13604, 2610.26079).
+        pytest.param(
+            "Department of Radiology, Nationwide Children's Hospital, OH, (ORCID: 0000-0002-1117-9355), "
+            "and Booz Allen Hamilton, McLean, VA, USA",
+            "Department of Radiology, Nationwide Children's Hospital, OH, and Booz Allen Hamilton, McLean, "
+            "VA, USA",
+            id="orcid-in-brackets",
+        ),
+        pytest.param(
+            "Sapienza University of Rome, Italy.ORCID codes: LT 0009-0002-8992-157X; PB 0000-0003-0458-7868",
+            "Sapienza University of Rome, Italy",
+            id="orcid-codes-glued",
+        ),
+        pytest.param("ORCID: 0000-0002-4384-9739", None, id="orcid-alone"),
+        pytest.param("ORCID", None, id="orcid-label-alone"),
         pytest.param(
             "K. Prentice and J. Martin are with Guide Dogs NSW, Sydney, Australia",
             "Guide Dogs NSW, Sydney, Australia",
             id="are-with",
         ),
+        # A name holding an institution word's letters is still a person's (1808.02350).
+        pytest.param(
+            "Waleed Ali and Ahmad El-Sallab are with Valeo AI Research, Cairo, Egypt",
+            "Valeo AI Research, Cairo, Egypt",
+            id="are-with-a-name-holding-lab",
+        ),
+        # Where an author went since, or interned: notes (2202.07643, 2505.23656, 2311.03079).
+        pytest.param("now at Microsoft Research", None, id="now-at"),
+        pytest.param("Interns at Shanghai AI Laboratory", None, id="interns-at"),
+        pytest.param("Done as intern at Zhipu AI", None, id="as-an-intern"),
+        pytest.param(
+            "Intern-S1 Team, Shanghai AI Laboratory", "Intern-S1 Team, Shanghai AI Laboratory", id="intern-s1"
+        ),
+        # A link's label with its colon, glued to the last author's name, its link removed
+        # (2406.18522).
+        pytest.param("Project:", None, id="project-label"),
+        pytest.param("Project Aria, Meta", "Project Aria, Meta", id="project-in-a-name"),
+        # CVPR's placeholders (2309.04907).
+        pytest.param("Institution2", None, id="institution-placeholder"),
+        pytest.param("First line of institution2 address", None, id="address-placeholder-line"),
         pytest.param(
             "All authors are with Agile Robots SE, Munich", "Agile Robots SE, Munich", id="all-authors"
         ),
@@ -1447,6 +1504,22 @@ def test_superscript_markers_glued_to_affiliations_start_numbered_lines() -> Non
     assert front.affiliations == ("MIT", "Duke University", "NVIDIA")
     # Symbols mark notes: "2,3*‡" is 2 and 3, and the asterisk operator alone is nothing.
     assert front.author_affiliations == ((0,), (1, 2), None)
+
+
+def test_a_marker_that_ends_a_span_starts_the_affiliation_after_it() -> None:
+    # "¹ZJU<span>    ²</span>Video Rebirth" (2605.09681), not a name's marker ending its span.
+    html = (
+        '<div class="ltx_authors"><span class="ltx_creator ltx_role_author"><span class="ltx_personname">'
+        '<span class="ltx_text">Ada Lovelace<sup>1</sup></span>  '
+        '<span class="ltx_text">Bob Smith<sup>2</sup></span><br/>'
+        '<sup>1</sup>MIT<span class="ltx_text">    <sup>2</sup></span>Duke University'
+        "</span></span></div>"
+    )
+
+    front = parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith"))
+
+    assert front.affiliations == ("MIT", "Duke University")
+    assert front.author_affiliations == ((0,), (1,))
 
 
 @pytest.mark.parametrize(
@@ -1604,6 +1677,8 @@ def test_clean_affiliation_drops_layout_and_link_leftovers(raw: str, expected: s
         ("Niccol`o Cavagnero", "Niccolò Cavagnero"),
         ("Eduil Nascimento Jr.", "Eduil Nascimento Jr"),
         ("Yu-Ming Cheung", "Yu Ming Cheung"),
+        # The listing's dotless i for LaTeX's "\'{\i}" (2505.12089).
+        ("Alvaro Garc\u0131a-Lara", "Álvaro García-Lara"),
     ],
 )
 def test_name_key_ignores_spelling(listed: str, respelled: str) -> None:
@@ -2123,6 +2198,37 @@ def test_the_one_unmarked_line_is_everyones() -> None:
     assert front.author_affiliations == ((0,), (0,))
 
 
+def test_a_company_named_after_its_ai_is_an_unmarked_affiliation() -> None:
+    # "Stability AI" under a table of names, without an institution word (2311.15127).
+    html = _author_block(("Ada Lovelace  Bob Smith<br>Stability AI", ()))
+
+    front = parse_front_matter(html, authors=("Ada Lovelace", "Bob Smith"))
+
+    assert front.affiliations == ("Stability AI",)
+    assert front.author_affiliations == ((0,), (0,))
+
+
+def test_a_given_name_is_no_ai_company() -> None:
+    html = _author_block(("Ada Lovelace<br>Bob Ai", ()))
+
+    assert parse_front_matter(html, authors=("Ada Lovelace",)).affiliations == ()
+
+
+def test_a_template_example_author_gives_nothing() -> None:
+    # NeurIPS's example author, left in beside the real ones (2502.10841): his department
+    # and address go with his university.
+    example = (
+        "David S. Hippocampus",
+        ("Department of Computer Science", "Cranberry-Lemon University", "Pittsburgh, PA 15213"),
+    )
+    html = _author_block(example, ("Ada Lovelace", ()))
+
+    front = parse_front_matter(html, authors=("Ada Lovelace",))
+
+    assert front.affiliations == ()
+    assert front.author_affiliations is None
+
+
 def test_unmarked_lines_are_no_source_beside_contacts() -> None:
     html = _author_block(("Ada Lovelace<br>Stanford University", ("Equal contribution",)))
 
@@ -2285,6 +2391,37 @@ def test_markers_written_in_math_are_read_without_their_source() -> None:
             "Research Center of Knowledge-DrivenHuman-Machine Intelligence",
             id="hyphenated-word",
         ),
+        # Cut twice, the second part holding a unit of its own (2609.22631).
+        pytest.param(
+            "Autonomous System Research LabDepartment of Computer ScienceTexas A&M University-Kingsville",
+            "Autonomous System Research Lab, Department of Computer Science, Texas A&M University-Kingsville",
+            id="two-cuts",
+        ),
+        # An institution's first word or its country after a name of several words (ar5iv's
+        # 2206.07045, 2512.08924), a company's suffix (ar5iv's 2309.02301).
+        pytest.param(
+            "Visual Geometry GroupUniversity of OxfordUK",
+            "Visual Geometry Group, University of Oxford, UK",
+            id="institution-and-country",
+        ),
+        pytest.param(
+            "Google DeepMindUniversity College London",
+            "Google DeepMind, University College London",
+            id="brand-then-institution",
+        ),
+        pytest.param("ByteDance IncShanghai", "ByteDance Inc, Shanghai", id="company-suffix"),
+        pytest.param(
+            "Institute of Data Science, NationalUniversity of SingaporeSingapore",
+            "Institute of Data Science, NationalUniversity of Singapore, Singapore",
+            id="one-word-before-the-institution",
+        ),
+        # A space lost before an institution's word, not a line break (2509.25502).
+        pytest.param(
+            "Shenzhen KeyLaboratory of Media Security",
+            "Shenzhen KeyLaboratory of Media Security",
+            id="lost-space",
+        ),
+        pytest.param("Department of CSRPI", "Department of CSRPI", id="capitals-not-a-country"),
     ],
 )
 def test_parts_glued_by_latexml_are_separated(raw: str, expected: str) -> None:

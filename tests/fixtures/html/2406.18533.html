@@ -1,0 +1,25 @@
+<html><body><article class="ltx_document" data-front-matter="3"><span class="ltx_note ltx_role_footnote" id="footnote1"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup>
+<sup class="ltx_sup" id="footnote1.2"><span class="ltx_text ltx_font_italic" id="footnote1.2.1">†</span></sup>Daohan and Haoyang contributed equally to this work.</span></span></span><span class="ltx_note ltx_role_footnote" id="footnote1a"><sup class="ltx_note_mark">†</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">†</sup>
+      
+      
+      
+      
+      
+      
+    Code and Project Page are available <a class="ltx_ref ltx_href" href="https://daohanlu.github.io/scaling-up-3dgs/" title="">here</a>.</span></span></span>
+<h1 class="ltx_title ltx_title_document">On Scaling Up 3D Gaussian Splatting Training</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Hexu Zhao<sup class="ltx_sup" id="id1"><span class="ltx_text ltx_font_italic" id="id1.1">1</span></sup>      Haoyang Weng <sup class="ltx_sup" id="id2"><span class="ltx_text ltx_font_italic" id="id2.1">1</span></sup> <sup class="ltx_sup" id="id3"><span class="ltx_text ltx_font_italic" id="id3.1">†</span></sup>      Daohan Lu <sup class="ltx_sup" id="id4"><span class="ltx_text ltx_font_italic" id="id4.1">1</span></sup> <sup class="ltx_sup" id="id5"><span class="ltx_text ltx_font_italic" id="id5.1">†</span></sup>      Ang Li <sup class="ltx_sup" id="id6"><span class="ltx_text ltx_font_italic" id="id6.1">2</span></sup>      Jinyang Li <sup class="ltx_sup" id="id7"><span class="ltx_text ltx_font_italic" id="id7.1">1</span></sup>      Aurojit Panda <sup class="ltx_sup" id="id8"><span class="ltx_text ltx_font_italic" id="id8.1">1</span></sup>      Saining Xie <sup class="ltx_sup" id="id9"><span class="ltx_text ltx_font_italic" id="id9.1">1</span></sup>
+<br class="ltx_break"/><sup class="ltx_sup" id="id10"><span class="ltx_text ltx_font_italic" id="id10.1">1</span></sup> New York University
+<br class="ltx_break"/><sup class="ltx_sup" id="id11"><span class="ltx_text ltx_font_italic" id="id11.1">2</span></sup> Pacific Northwest National Laboratory
+</span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">3D Gaussian Splatting (3DGS) is gaining popularity for 3D reconstruction because of its superior visual quality and rendering speed. However, training is currently done on a single GPU, and thus cannot handle high-resolution and large-scale 3D reconstruction tasks due to the GPU’s memory capacity limit. We build a distributed system, called Grendel, to partition 3DGS’ parameters and parallelize its computation across multiple GPUs.
+As each Gaussian affects a small and changing subset of rendered pixels, Grendel relies on sparse all-to-all communication to transfer each required Gaussian to a pixel partition and performs dynamic load balancing.
+Unlike existing 3DGS systems that train using one camera view image at a time, Grendel supports batched training using multiple views. We explore different learning rate scaling strategies and identify the simple <span class="ltx_text ltx_font_italic" id="abstract1.1.1">sqrt(batch_size)</span> scaling rule to be highly effective.
+Evaluation using large-scale high-resolution scenes show that Grendel can improve rendering quality by scaling up 3DGS quantity using multiple GPUs. On the “Rubble” dataset, we achieve a test PSNR of 27.28 by distributing 40.4 million Gaussians across 16 GPUs.
+By comparison, one achieves a PSNR of 26.28 when using 11.2 million Gaussians in order to fit in a single GPU’s memory.</p>
+</div>
+
+</article></body></html>

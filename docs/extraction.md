@@ -41,7 +41,10 @@ whose arXiv id is the evidence: never "simplify" one away without it.
   2610.35706, AFF-34). Its markers anchor the same pieces.
 - Numbered lines after the names. A marker raised by a span's style is a superscript, and
   one set apart in spaces before a capital starts a line as one glued to the word does
-  ("¹ NVIDIA ² MIT ³ UCB", one affiliation, its authors all at it, 2610.19495; AFF-37).
+  ("¹ NVIDIA ² MIT ³ UCB", one affiliation, its authors all at it, 2610.19495; AFF-37), and
+  so does one ending a span of text, before the text after the span ("ZJU<span>
+  ²</span>Video Rebirth", 2605.09681, which placed nobody), not one ending a name's span
+  (AFF-40).
 - Lines led by symbols ("*Oregon State University †The Ohio State University", 2610.17605)
   when at least half of those that are not noise name an institution and the others are no
   sentence nor role ("⋆Facebook AI †Sorbonne University", ar5iv's 2012.12877; symbols mark
@@ -61,7 +64,9 @@ whose arXiv id is the evidence: never "simplify" one away without it.
   collective and none an author ("Meta AI Research    WRI    Inria", 2508.10104;
   "Southeast University    Tencent HY    UC Merced    Tsinghua University", 2610.14852,
   which gave two; AFF-37; "Qwen Team  Alibaba Group", 2409.12191, AFF-38).
-  "Foundation Model" is no institution (2609.21449). Where LaTeXML cut the author field at
+  "Foundation Model" is no institution (2609.21449); a company named after its AI is one
+  ("Stability AI" under a table of names, 2311.15127; capitals required, "Ai" being a given
+  name; AFF-40). Where LaTeXML cut the author field at
   its commas and "and"s into creators ("University of Science", "Technology of China",
   2411.15633, 2510.11387), one naming no author with a piece of at most two words naming
   no institution nor country ("College Park", "Telecommunications"; not "(Guangzhou)")
@@ -100,15 +105,23 @@ with", though a wrapped list of people joins ("Bo Zheng, …, Weinan Guan," / "Z
 - Several "is with" sentences on a line: each affiliation ends at the last full stop before
   the next sentence, initials skipped ("..., Spain. L. Zhinin is with"), so that its
   abbreviations survive ("Dept. of CS, MIT, USA"). "A and B are with X" gives X anywhere,
-  affiliation macros included, unless what precedes the verb names an institution; so does
+  affiliation macros included, unless what precedes the verb names an institution (a word
+  starting as one does, not "Ahmad El-Sallab", 1808.02350); so does
   a role in an affiliation macro ("Manoj Karnekar is Robotics Lead at FloMobility Pvt.
   Ltd.", 2610.05505), not in thanks notes ("is available at"). IEEE's "X, China, and also
   with Y" gives the author both (`clean_affiliations` returns every affiliation of a
   string, 2609.00814).
 - Author names printed as affiliations ("Benoît Macq Fellow, IEEE") are dropped
-  (`names_only_authors`, by `name_key`), not strings with an institution word nor
+  (`names_only_authors`, by `name_key`), their markers read as text left out ("Saining Xie
+  1", 2406.18533; "Kai Wang2", 2610.17877), not strings with an institution word nor
   collectives ("Alzheimer's Disease Neuroimaging Initiative"); the one affiliation left
-  then is not everyone's (2609.38180).
+  then is not everyone's (2609.38180). A dotless "ı", which the listing writes for LaTeX's
+  `\'{\i}`, folds as "i": the listing's "Alvaro Garcıa" is the page's "Álvaro García"
+  (2505.12089).
+- Where an author went since or interned is a note ("now at Microsoft Research",
+  2202.07643; "Interns at Shanghai AI Laboratory", 2505.23656; "Done as intern at Zhipu
+  AI", 2311.03079): the cleaning drops it, and the tiers still read such a line as a
+  sentence ("†Now at Google" tells that symbols mark notes).
 - Contact details go, the affiliation before them stays: an "Email:" label glued to the
   country ("..., MI, USAEmail: {...}@wayne.edu", 2608.29996); obfuscated addresses ("jane
   (at) example.org", "lab [at] example.org"); mailbox lists ("{jane.doe, john.roe}"), also
@@ -119,7 +132,12 @@ with", though a wrapped list of people joins ("Bo Zheng, …, Weinan Guan," / "Z
   (author@...)", 2609.10082), or ending a line ("..., Vienna, Austria author@...",
   2610.02974), or in typewriter type glued to the word before it, set apart first
   (`University of Oxford<tt>yuki@...</tt>` lost "Oxford", ar5iv's 2006.13662; an "@" in a
-  span of its own stays glued, 2609.13233). A list cut across two contact nodes, glued to
+  span of its own stays glued, 2609.13233). Several addresses at the end go together, which
+  a comma after the first joined across lines: "University of California Santa
+  Cruz{…}@…," then "a@…, b@…" gave nothing (2406.18522), nor did DreamFusion's "Google
+  Research, UC Berkeley" (2209.14988). ORCID identifiers go with their label ("(ORCID:
+  0000-…)", 2305.17033; "ORCID codes: FT 0009-…; …", 2610.13604; "ORCID" alone,
+  2610.26079). A list cut across two contact nodes, glued to
   the next affiliation ("{jane.doe,...,jdoe," then "Apple", 2410.23054), ends before a
   capital; mailboxes may hold underscores ("john_roe"), and capitals when dots or
   underscores join their parts ("{Jane.Doe, A.Roe,", 2610.25235), never an affiliation's
@@ -133,9 +151,17 @@ with", though a wrapped list of people joins ("Bo Zheng, …, Weinan Guan," / "Z
   spacing of one printed as text (`[5pt]`, `[0.2em]`, from `\\[5pt]`).
 - IEEE classes lose some line breaks ("Dept. of Computer ScienceUniversity of Alabama",
   2609.00446): `clean_affiliation` puts a comma where a lowercase letter meets a
-  capitalized word, or a closing bracket a word, after a unit word of the same part; never
-  inside brackets ("(ShenZhen)") nor after a hyphenated word ("AnimSchool", "ByteDance",
-  "McGill" stay). It would split "AI Lab of ByteDance", which no stored string holds.
+  capitalized word, or a closing bracket a word, after a unit word of the same part, the
+  part counted from the last cut ("Research LabDepartment of … ScienceTexas A&M" is cut
+  twice, 2609.22631); never inside brackets ("(ShenZhen)") nor after a hyphenated word
+  ("AnimSchool", "ByteDance", "McGill" stay). It would split "AI Lab of ByteDance", which no
+  stored string holds. Older LaTeXML, as ar5iv's, loses an affiliation's line breaks too
+  (AFF-40): a cut also follows a company's suffix ("ByteDance IncShanghai", 2309.02301) and,
+  after a name of several words, comes before an institution's first word or a country
+  ending its part ("Visual Geometry GroupUniversity of OxfordUK", 2206.07045; "Google
+  DeepMindUniversity College London", 2512.08924), not after a word starting such names, a
+  space lost after it ("Shenzhen KeyLaboratory of Media Security", 2509.25502;
+  "NationalUniversity"). Two capitals only start a country: "Department of CSRPI" stays.
 - A line ending with "," or "and" continues on the next; one naming only a place joins a
   previous one without a country, and so does an address without its country, a number of
   its own on it ("Zalando Research" / "Mühlenstraße 25, 10243 Berlin", 1708.07747, as
@@ -167,7 +193,8 @@ with", though a wrapped list of people joins ("Bo Zheng, …, Weinan Guan," / "Z
 - Leading digits are markers unless they start a name ("54th Research Institute", "3M
   Company", "3D Vision Lab", "4K"), in strings and numbered lines ("2 3D Vision Lab").
 - Link labels ("Project page", "Project Website") are stripped, not dropped: once the URL
-  goes, the label is often glued to the affiliation ("MITProject page"). Correspondence,
+  goes, the label is often glued to the affiliation ("MITProject page"); "Project:" with its
+  colon too ("Li YuanProject: <url>" gave "Project", 2406.18522). Correspondence,
   phone numbers ("Tel.: +49 ...") and placeholders ("TODO: ...") are noise; a LaTeX
   command printed as text goes ("\\addrDepartment of ...", 2610.04051), glued to the number
   of its marker too ("\\affilnum1Department of ...", SAGE's template, 2610.18363;
@@ -175,8 +202,11 @@ with", though a wrapped list of people joins ("Bo Zheng, …, Weinan Guan," / "Z
   `_ANNOTATION_RE` holds after its symbol ("Φ\\Phi-lab", 2609.06187), not a name's own
   backslash ("Institute of Creative\\Media/Technologies", 2608.29287). Templates'
   placeholders are junk ("Author Affiliation(s)", 2610.01890; "Affiliation", "Address",
-  2610.27759), their example authors noise ("Cranberry-Lemon University", "University of
-  the Witwatersrand, Joburg"; not the real one's "Johannesburg", 2405.01828), and a note on
+  2610.27759; CVPR's "Institution2", 2309.04907), their example authors noise
+  ("Cranberry-Lemon University", "University of the Witwatersrand, Joburg"; not the real
+  one's "Johannesburg", 2405.01828), and their creators go whole, with "Department of
+  Computer Science" and "Pittsburgh, PA 15213" beside the university, which every author
+  of 2502.10841 and 2610.27759 was placed at (AFF-40), and a note on
   the affiliations glued to the last one goes ("…(DKFZ), Full affiliations are given in
   Appendix", 2411.03670) (AFF-35). A contribution note glued to the affiliation after it
   goes, the affiliation stays ("Equal senior contributionsDeepMind", ar5iv's 2204.14198).
@@ -203,7 +233,8 @@ the whole tier, and unresolved authors stay `null`.
 
 - One affiliation is everyone's unless its source left lines out or it came from "A is
   with B" sentences, which place whom they name ("A. Doe is with MIT"), "The authors"
-  everyone (AFF-9).
+  everyone (AFF-9). Initials name the one author they fit, the surname glued to the
+  initial's full stop too ("Z.Dong, Y.Sun, T.Liu, and Y.Gu are with …", 2410.08613).
 - Thanks notes' numbered markers anchor the authors' ("¹FZI Research Center…",
   2609.03677); their own mark, the same "†" for every note, anchors nothing, nor do
   funding and correspondence notes.

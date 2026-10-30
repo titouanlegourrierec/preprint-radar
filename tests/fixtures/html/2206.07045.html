@@ -1,0 +1,44 @@
+<html><body><article class="ltx_document" data-front-matter="3">
+<h1 class="ltx_title ltx_title_document">ReCo: Retrieve and Co-segment
+<br class="ltx_break"/>for Zero-shot Transfer</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Gyungin Shin
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Visual Geometry GroupUniversity of OxfordUK
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Weidi Xie
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Visual Geometry GroupUniversity of OxfordUK
+</span>
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Coop. Medianet Innovation CenterShanghai Jiao Tong UniversityChina
+</span></span></span></span>
+<span class="ltx_author_before">  </span><span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Samuel Albanie
+</span><span class="ltx_author_notes"><span class="ltx_author_notes_content">
+<span class="ltx_contact ltx_role_affiliation"><span class="ltx_contact_name">Affiliation: </span>Department of EngineeringUniversity of CambridgeUK
+</span></span></span></span></div>
+<div class="ltx_abstract" id="abstract1"><h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p" id="abstract1.1">Semantic segmentation has a broad range of applications, but its real-world impact has been significantly limited by the prohibitive annotation costs necessary to enable deployment.
+Segmentation methods that forgo supervision can side-step these costs, but exhibit the inconvenient requirement to provide labelled examples from the target distribution to assign concept names to predictions.
+An alternative line of work in language-image pre-training has recently demonstrated the potential to produce models that can both assign names across large vocabularies of concepts and enable zero-shot transfer for classification, but do not demonstrate commensurate segmentation abilities.</p>
+<p class="ltx_p" id="abstract1.2">In this work, we strive to achieve a synthesis of these two approaches that combines their strengths.
+We leverage the retrieval abilities of one such language-image pre-trained model, CLIP, to dynamically curate training sets from unlabelled images for arbitrary collections of concept names, and leverage the robust correspondences offered by
+modern image representations to co-segment entities among the resulting collections.
+The synthetic segment collections are then employed to construct a
+segmentation model (without requiring pixel labels) whose knowledge of concepts is inherited from the scalable pre-training process of CLIP.
+We demonstrate that our approach, termed <span class="ltx_text ltx_font_bold" id="abstract1.2.1">Re</span>trieve and <span class="ltx_text ltx_font_bold" id="abstract1.2.2">Co</span>-segment (ReCo) performs favourably to unsupervised segmentation approaches while inheriting the convenience of nameable predictions and zero-shot transfer.
+We also demonstrate ReCo’s ability to generate specialist segmenters for extremely rare objects<span class="ltx_note ltx_role_footnote" id="footnote1"><sup class="ltx_note_mark">1</sup><span class="ltx_note_outer"><span class="ltx_note_content"><sup class="ltx_note_mark">1</sup>
+<span class="ltx_tag ltx_tag_note">1</span>
+          
+          
+          
+          
+          
+          
+          
+        Project page:
+<a class="ltx_ref ltx_url ltx_font_typewriter" href="https://www.robots.ox.ac.uk/~vgg/research/reco" target="_blank" title="">https://www.robots.ox.ac.uk/~vgg/research/reco</a></span></span></span>.</p>
+</div>
+</article></body></html>
